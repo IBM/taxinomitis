@@ -1,0 +1,105 @@
+// external dependencies
+import * as request from 'request-promise';
+// local dependencies
+import * as Objects from './auth-types';
+
+// NO LOGIC IN HERE!
+//  PUTTING ONLY XHR REQUESTS IN ONE PLACE MAKES IT EASIER TO STUB OUT AUTH0 FOR TEST PURPOSES
+//  ANYTHING THAT LOOKS LIKE APP LOGIC SHOULDN'T GO IN HERE AS IT WON'T BE TESTED AS MUCH
+
+
+export function getOauthToken() {
+    const options = {
+        method: 'POST',
+        url: 'https://' + process.env.AUTH0_DOMAIN + '/oauth/token',
+        headers: { 'content-type': 'application/json' },
+        json : true,
+        body: {
+            client_id : process.env.AUTH0_API_CLIENTID,
+            client_secret : process.env.AUTH0_API_CLIENTSECRET,
+            audience : 'https://' + process.env.AUTH0_DOMAIN + '/api/v2/',
+            grant_type : 'client_credentials',
+        },
+    };
+
+    return request.post(options);
+}
+
+export async function getUser(token: string, userid: string): Promise<Objects.User> {
+    const getoptions = {
+        method: 'GET',
+        url: 'https://' + process.env.AUTH0_DOMAIN + '/api/v2/users/' + userid,
+        headers: {
+            authorization : 'Bearer ' + token,
+        },
+        qs : {
+            fields : 'user_id,username,app_metadata',
+        },
+        json : true,
+    };
+
+    const user = await request.get(getoptions);
+    return user;
+}
+
+export async function getUsers(token: string, tenant: string): Promise<Objects.User[]> {
+    const getoptions = {
+        method: 'GET',
+        url: 'https://' + process.env.AUTH0_DOMAIN + '/api/v2/users',
+        headers: {
+            authorization : 'Bearer ' + token,
+        },
+        qs : {
+            q : 'role=student AND tenant=' + tenant,
+        },
+        json : true,
+    };
+
+    const users = await request.get(getoptions);
+    return users;
+}
+
+export function createUser(token: string, newuser: Objects.NewUser) {
+    newuser.connection = process.env.AUTH0_CONNECTION;
+    newuser.verify_email = false;
+
+    const createoptions = {
+        method: 'POST',
+        url: 'https://' + process.env.AUTH0_DOMAIN + '/api/v2/users',
+        headers: {
+            authorization : 'Bearer ' + token,
+        },
+        body : newuser,
+        json : true,
+    };
+
+    return request.post(createoptions);
+}
+
+
+export function deleteUser(token: string, userid: string) {
+    const deleteoptions = {
+        method: 'DELETE',
+        url: 'https://' + process.env.AUTH0_DOMAIN + '/api/v2/users/' + userid,
+        headers: {
+            authorization : 'Bearer ' + token,
+        },
+    };
+
+    return request.delete(deleteoptions);
+}
+
+export function modifyUser(token: string, userid: string, modifications) {
+    const modifyoptions = {
+        method: 'PATCH',
+        url: 'https://' + process.env.AUTH0_DOMAIN + '/api/v2/users/' + userid,
+        headers: {
+            authorization : 'Bearer ' + token,
+        },
+        body : modifications,
+        json : true,
+    };
+
+    return request.patch(modifyoptions);
+}
+

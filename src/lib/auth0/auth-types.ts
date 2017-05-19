@@ -1,0 +1,36 @@
+export interface User {
+    user_id: string;
+    email: string;
+    username: string;
+    app_metadata: UserMetadata;
+    last_login?: string;
+}
+
+export interface NewUser {
+    email: string;
+    username: string;
+    password: string;
+    app_metadata: UserMetadata;
+    connection?: string;
+    verify_email?: boolean;
+}
+
+export type UserRole = 'student' | 'supervisor';
+
+interface UserMetadata {
+    role: UserRole;
+    tenant: string;
+}
+
+export interface Student {
+    id: string;
+    username: string;
+    last_login?: string;
+}
+
+export interface UserCreds {
+    id: string;
+    username: string;
+    password: string;
+}
+

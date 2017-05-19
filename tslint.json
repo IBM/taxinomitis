@@ -1,0 +1,19 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended",
+        "tslint-eslint-rules"
+    ],
+    "jsRules": {},
+    "rulesDirectory": [],
+    "rules" : {
+        "ter-indent" : [true, 4],
+        "quotemark" : [true, "single", "avoid-escape"],
+        "no-consecutive-blank-lines": [false],
+        "ordered-imports" : [false],
+        "object-literal-sort-keys" : false,
+        "no-reference": false,
+        "one-line": [false],
+        "interface-name": [false]
+    }
+}

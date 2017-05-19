@@ -1,0 +1,44 @@
+<div ng-if="!isAuthenticated">
+    <h2 class="text-center">Not authenticated</h2>
+    <div class="text-center">
+        <button class="btn btn-primary" ng-click="vm.authService.login()">Log In</button>
+    </div>
+</div>
+<div ng-if="isAuthenticated">
+    <div class="jumbotron">
+        <h2 class="text-center">Project</h2>
+    </div>
+    <div class="text-center">
+        Training data for a single project
+    </div>
+    <div ng-if="projectId && !project">
+        loading
+    </div>
+    <div ng-if="project">
+        <h2>{{ project.name }}</h2>
+        <h3>Recognising {{ project.type }} as {{ project.labels.join(',') }}</h3>
+        <div>
+            <button class="btn" ng-click="vm.addLabel($event, project)">Add new label</button>
+        </div>
+        <table border=1>
+            <tr>
+                <td ng-repeat="label in project.labels"><strong>{{label}}</strong></td>
+            </tr>
+            <tr>
+                <td ng-repeat="label in project.labels">
+                    <div ng-repeat="item in training[label]">
+                        {{ item.textdata }}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td ng-repeat="label in project.labels">
+                    <button class="btn" ng-click="vm.addTrainingData($event, label)">Add</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="text-center" ng-if="!projectId">
+        missing projectid - you should probably go back to <a ui-sref="projects">Projects</a>
+    </div>
+</div>

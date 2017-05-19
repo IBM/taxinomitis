@@ -1,0 +1,34 @@
+<md-dialog aria-label="Create new project">
+    <form ng-cloak name="newProject">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Start a new project</h2>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content" style="min-width: 500px">
+                <md-card-content>
+                    <div layout="row">
+                        <md-input-container style="min-width: 300px">
+                            <label>Project Name</label>
+                            <input ng-required="true" ng-model="projectName"/>
+                        </md-input-container>
+                        <md-input-container style="min-width: 200px">
+                            <label>Recognizing</label>
+                            <md-select ng-required="true" ng-model="projectType">
+                                <md-option value="text">text</md-option>
+                                <md-option value="images">images</md-option>
+                                <md-option value="numbers">numbers</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                </md-card-content>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-disabled="newProject.$invalid" ng-click="confirm({ name : projectName, type : projectType })">Create</md-button>
+            <md-button ng-click="cancel()">Cancel</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

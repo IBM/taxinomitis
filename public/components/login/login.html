@@ -1,0 +1,15 @@
+<div class="jumbotron">
+    <h2 class="text-center">Login</h2>
+</div>
+<div ng-if="!isAuthenticated">
+    <div class="text-center">
+        <button class="btn btn-primary" ng-click="vm.authService.login()">Log In</button>
+    </div>
+    <div style="padding: 1em">
+        <div>Also need to explain:</div>
+        <ul>
+            <li>How to sign up for an account - which will be different if you're a teacher/school/club leader or a student
+            <li>How to reset your password - also different if you're a student or teacher
+        </ul>
+    </div>
+</div>

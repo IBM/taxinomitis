@@ -1,0 +1,8 @@
+trash
+node_modules
+coverage
+logs/*.log
+logs/*.log.*
+dist
+.vscode
+public/bower_components

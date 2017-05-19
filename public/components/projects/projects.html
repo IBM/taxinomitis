@@ -1,0 +1,27 @@
+<div ng-if="!isAuthenticated">
+    <h2 class="text-center">Not authenticated</h2>
+    <div class="text-center">
+        <button class="btn btn-primary" ng-click="vm.authService.login()">Log In</button>
+    </div>
+</div>
+<div ng-if="isAuthenticated">
+    <div class="jumbotron">
+        <h2 class="text-center">Projects</h2>
+    </div>
+    <div class="text-center">
+        <h2>Welcome, {{ vm.profile.nickname }}</h2>
+        <div>a list of your ML projects</div>
+    </div>
+    <div class="text-center">
+        <button class="btn" ng-click="vm.createProject($event)">Add a new project</button>
+    </div>
+    <div class="text-center">
+        <table border=1>
+            <tr ng-repeat="project in vm.projects">
+                <td><a ui-sref="mlproject({ projectId : project.id })">{{ project.name }}</a></td>
+                <td>Recognising {{ project.type }} <span ng-show="{{ project.labels }}">as {{ project.labels }}</a></td>
+                <td> <button class="btn" ng-click="vm.deleteProject($event, project)">Delete</button> </td>
+            </tr>
+        </table>
+    </div>
+</div>

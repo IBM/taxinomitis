@@ -1,0 +1,14 @@
+<div ng-if="!isAuthenticated">
+    <h2 class="text-center">Not authenticated</h2>
+    <div class="text-center">
+        <button class="btn btn-primary" ng-click="vm.authService.login()">Log In</button>
+    </div>
+</div>
+<div ng-if="isAuthenticated">
+    <div class="jumbotron">
+        <h2 class="text-center">Models</h2>
+    </div>
+    <div class="text-center">
+        management of ML models trained for this project
+    </div>
+</div>
