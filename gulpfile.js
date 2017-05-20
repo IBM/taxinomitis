@@ -1,4 +1,5 @@
 const gulp = require('gulp');
+const bower = require('gulp-bower');
 const istanbul = require('gulp-istanbul');
 const mocha = require('gulp-mocha');
 const eslint = require('gulp-eslint');
@@ -30,6 +31,9 @@ gulp.task('clean', () => {
     return del([target]);
 });
 
+gulp.task('bower', function() {
+    return bower({ cwd : './public' });
+});
 
 gulp.task('compile', () => {
     let errors = false;
@@ -85,5 +89,5 @@ gulp.task('test', ['coverage'], () => {
         .pipe(istanbul.enforceThresholds(coverageOptions));
 });
 
-gulp.task('build', ['clean', 'compile']);
-gulp.task('default', ['clean', 'compile', 'lint', 'test']);
+gulp.task('build', ['clean', 'bower', 'compile']);
+gulp.task('default', ['build', 'lint', 'test']);

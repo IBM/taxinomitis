@@ -29,6 +29,7 @@
     "@types/uuid": "^2.0.29",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
+    "gulp-bower": "0.0.13",
     "gulp-eslint": "^3.0.1",
     "gulp-istanbul": "^1.1.1",
     "gulp-mocha": "3.0.1",
