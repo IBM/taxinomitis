@@ -35,10 +35,23 @@
                 });
         }
 
+        function getModels(projectid, userid, tenant) {
+            var url = '/api/classes/' + tenant +
+                        '/students/' + userid +
+                        '/projects/' + projectid +
+                        '/models';
+
+            return $http.get(url).then(function (resp) {
+                return resp.data;
+            });
+        }
+
+
 
         return {
             newTrainingData : newTrainingData,
-            getTraining : getTraining
+            getTraining : getTraining,
+            getModels : getModels
         };
     }
 })();

@@ -45,6 +45,11 @@
                                 $scope.training[label].push(trainingitem);
                             }
                         });
+
+                    trainingService.getModels($scope.projectId, profile.user_id, profile.tenant)
+                        .then(function (models) {
+                            console.log(models);
+                        });
                 });
         });
 

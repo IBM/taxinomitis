@@ -9,6 +9,7 @@ import registerBluemixApis from './bluemix';
 import registerUserApis from './users';
 import registerProjectApis from './projects';
 import registerTrainingApis from './training';
+import registerModelApis from './models';
 import * as errors from './errors';
 import loggerSetup from '../utils/logger';
 
@@ -30,6 +31,7 @@ export default function setup(app: Express.Application): void {
     registerUserApis(app);
     registerProjectApis(app);
     registerTrainingApis(app);
+    registerModelApis(app);
 
     errors.registerErrorHandling(app);
 }

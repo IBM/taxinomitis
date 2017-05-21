@@ -3,6 +3,7 @@ import * as uuid from 'uuid/v1';
 // local dependencies
 import * as projects from './projects';
 import * as Objects from './db-types';
+import * as TrainingObjects from '../training/training-types';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -85,7 +86,6 @@ export function createTextTraining(projectid: string, data: string, label: strin
     return object;
 }
 
-
 export function getTextTrainingFromDbRow(row: Objects.TextTrainingDbRow): Objects.TextTraining {
     const obj: any = {
         id : row.id,
@@ -101,3 +101,57 @@ export function getTextTrainingFromDbRow(row: Objects.TextTrainingDbRow): Object
 }
 
 
+// -----------------------------------------------------------------------------
+//
+// BLUEMIX CREDENTIALS
+//
+// -----------------------------------------------------------------------------
+
+export function getCredentialsFromDbRow(
+    row: TrainingObjects.BluemixCredentialsDbRow,
+): TrainingObjects.BluemixCredentials
+{
+    return {
+        id : row.id,
+        servicetype : row.servicetype as TrainingObjects.BluemixServiceType,
+        url : row.url,
+        username : row.username,
+        password : row.password,
+    };
+}
+
+
+// -----------------------------------------------------------------------------
+//
+// CLASSIFIERS
+//
+// -----------------------------------------------------------------------------
+
+export function createNLCClassifier(
+    classifierInfo: TrainingObjects.NLCClassifier,
+    credentialsInfo: TrainingObjects.BluemixCredentials,
+    userid: string, classid: string, projectid: string,
+): TrainingObjects.ClassifierDbRow
+{
+    return {
+        id : uuid(),
+        credentialsid : credentialsInfo.id,
+        userid, projectid, classid,
+        servicetype : 'nlc',
+        classifierid : classifierInfo.classifierid,
+        url : classifierInfo.url,
+        name : classifierInfo.name,
+        language : classifierInfo.language,
+        created : classifierInfo.created,
+    };
+}
+
+export function getClassifierFromDbRow(row: TrainingObjects.ClassifierDbRow): TrainingObjects.NLCClassifier {
+    return {
+        classifierid : row.classifierid,
+        url : row.url,
+        name : row.name,
+        language : row.language,
+        created : row.created,
+    };
+}

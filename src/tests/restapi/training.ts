@@ -132,7 +132,7 @@ describe('REST API - training', () => {
                     await store.deleteProject(projectid);
                     await store.deleteTextTrainingByProjectId(projectid);
                 });
-        });
+        }).timeout(5000);
     });
 
 
