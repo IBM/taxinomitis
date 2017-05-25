@@ -366,12 +366,14 @@ export async function storeNLCClassifier(
         userid, classid, projectid);
 
     const queryString: string = 'INSERT INTO `bluemixclassifiers` ' +
-                                '(`id`, `credentialsid`, `projectid`, `servicetype`, ' +
+                                '(`id`, `credentialsid`, ' +
+                                '`projectid`, `userid`, `classid`, ' +
+                                '`servicetype`, ' +
                                 '`classifierid`, `url`, `name`, `language`, `created`) ' +
-                                'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+                                'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
-    const values = [obj.id, obj.credentialsid, obj.projectid, obj.servicetype,
-        obj.classifierid, obj.url, obj.name, obj.language, obj.created];
+    const values = [obj.id, obj.credentialsid, obj.projectid, obj.userid, obj.classid,
+        obj.servicetype, obj.classifierid, obj.url, obj.name, obj.language, obj.created];
 
     const [response] = await dbConn.execute(queryString, values);
     if (response.affectedRows === 1) {

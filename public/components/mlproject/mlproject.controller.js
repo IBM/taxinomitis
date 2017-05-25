@@ -48,7 +48,7 @@
 
                     trainingService.getModels($scope.projectId, profile.user_id, profile.tenant)
                         .then(function (models) {
-                            console.log(models);
+                            $scope.models = models;
                         });
                 });
         });
@@ -100,7 +100,14 @@
                 function() {
                     // cancelled. do nothing
                 });
+        };
 
+
+        vm.createModel = function (ev, project) {
+            trainingService.newModel(project.id, vm.profile.user_id, vm.profile.tenant)
+                .then(function (newmodel) {
+                    $scope.models.push(newmodel);
+                });
         };
     }
 

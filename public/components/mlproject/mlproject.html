@@ -38,6 +38,13 @@
             </tr>
         </table>
     </div>
+    <div ng-if="models">
+        <h3>models</h3>
+        <div ng-repeat="model in models">
+            {{ model }}
+        </div>
+        <button class="btn" ng-click="vm.createModel($event, project)">Train</button>
+    </div>
     <div class="text-center" ng-if="!projectId">
         missing projectid - you should probably go back to <a ui-sref="projects">Projects</a>
     </div>

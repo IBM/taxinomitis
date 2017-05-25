@@ -97,21 +97,22 @@ async function submitTrainingToNLC(
     training: TrainingObjects.File,
 ): Promise<TrainingObjects.NLCClassifier>
 {
-    const resp = await request.post(credentials.url + '/v1/classifiers', {
+    const req = {
         auth : {
             user : credentials.username,
             pass : credentials.password,
         },
         formData : {
-            training_metadata : {
+            training_metadata : JSON.stringify({
                 language : 'en',
                 name,
-            },
+            }),
             training_data : fs.createReadStream(training.path),
         },
-    });
+        json : true,
+    };
 
-    const body = resp.body;
+    const body = await request.post(credentials.url + '/v1/classifiers', req);
 
     const classifierid: string = body.classifier_id;
     const language: string = body.language;
@@ -132,24 +133,28 @@ async function submitTrainingToNLC(
 
 
 
-async function getStatus(
+function getStatus(
     credentials: TrainingObjects.BluemixCredentials,
     classifier: TrainingObjects.NLCClassifier,
-): Promise<TrainingObjects.NLCClassifier>
+): PromiseLike<TrainingObjects.NLCClassifier>
 {
-    const resp = await request.get(classifier.url, {
+    return request.get(classifier.url, {
         auth : {
             user : credentials.username,
             pass : credentials.password,
         },
+        json : true,
+    })
+    .then((body) => {
+        classifier.status = body.status;
+        classifier.statusDescription = body.status_description;
+        return classifier;
+    })
+    .catch((err) => {
+        classifier.status = 'Non Existent';
+        classifier.statusDescription = err.error.description;
+        return classifier;
     });
-
-    const body = resp.body;
-
-    classifier.status = body.status;
-    classifier.statusDescription = body.status_description;
-
-    return classifier;
 }
 
 
@@ -174,7 +179,7 @@ function getTemporaryFile(): Promise<TrainingObjects.File> {
 
 function prepareCsvWriter(tmpFile: TrainingObjects.File) {
     const writer = csvWriter(NLC_CSV_FORMAT);
-    writer.pipe(fs.createWriteStream(tmpFile.path));
+    writer.pipe(fs.createWriteStream(tmpFile.path, { flags : 'a' }));
     return writer;
 }
 

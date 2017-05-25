@@ -46,12 +46,24 @@
             });
         }
 
+        function newModel(projectid, userid, tenant) {
+            var url = '/api/classes/' + tenant +
+                        '/students/' + userid +
+                        '/projects/' + projectid +
+                        '/models';
+
+            return $http.post(url).then(function (resp) {
+                return resp.data;
+            });
+        }
+
 
 
         return {
             newTrainingData : newTrainingData,
             getTraining : getTraining,
-            getModels : getModels
+            getModels : getModels,
+            newModel : newModel
         };
     }
 })();
