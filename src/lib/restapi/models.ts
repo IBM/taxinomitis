@@ -5,9 +5,21 @@ import * as httpstatus from 'http-status';
 import * as auth from './auth';
 import * as store from '../db/store';
 import * as Objects from '../db/db-types';
+import * as Types from '../training/training-types';
 import * as nlc from '../training/nlc';
 import * as errors from './errors';
 
+
+
+function returnNLCClassifier(classifier: Types.NLCClassifier) {
+    return {
+        classifierid : classifier.classifierid,
+        created : classifier.created,
+        name : classifier.name,
+        status : classifier.status,
+        statusDescription : classifier.statusDescription,
+    };
+}
 
 
 async function getModels(req: Express.Request, res: Express.Response) {
@@ -28,6 +40,7 @@ async function getModels(req: Express.Request, res: Express.Response) {
     case 'text':
         classifiers = await store.getNLCClassifiers(projectid);
         classifiers = await nlc.getClassifierStatuses(classid, classifiers);
+        classifiers = classifiers.map(returnNLCClassifier);
         break;
     case 'images':
     case 'numbers':
@@ -55,7 +68,7 @@ async function newModel(req: Express.Request, res: Express.Response) {
     if (project.type === 'text') {
         try {
             const model = await nlc.trainClassifier(userid, classid, projectid, project.name);
-            return res.status(httpstatus.CREATED).json(model);
+            return res.status(httpstatus.CREATED).json(returnNLCClassifier(model));
         }
         catch (err) {
             return errors.unknownError(res, err);

@@ -168,7 +168,7 @@ const NLC_CSV_FORMAT = {
 
 function getTemporaryFile(): Promise<TrainingObjects.File> {
     return new Promise((resolve, reject) => {
-        tmp.file((err, path) => {
+        tmp.file({ keep : true }, (err, path) => {
             if (err) {
                 return reject(err);
             }
@@ -179,7 +179,7 @@ function getTemporaryFile(): Promise<TrainingObjects.File> {
 
 function prepareCsvWriter(tmpFile: TrainingObjects.File) {
     const writer = csvWriter(NLC_CSV_FORMAT);
-    writer.pipe(fs.createWriteStream(tmpFile.path, { flags : 'a' }));
+    writer.pipe(fs.createWriteStream(tmpFile.path));
     return writer;
 }
 

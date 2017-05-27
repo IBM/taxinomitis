@@ -384,3 +384,12 @@ export async function storeNLCClassifier(
     throw new Error('Failed to store classifier');
 }
 
+
+export async function deleteNLCClassifiersByProjectId(projectid: string): Promise<void> {
+    const queryString = 'DELETE FROM `bluemixclassifiers` WHERE `projectid` = ?';
+
+    const [response] = await dbConn.execute(queryString, [ projectid ]);
+    if (response.warningStatus !== 0) {
+        throw new Error('Failed to delete classifiers info');
+    }
+}

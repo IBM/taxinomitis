@@ -7,6 +7,7 @@ import * as sinon from 'sinon';
 import * as proxyquire from 'proxyquire';
 import * as request from 'request-promise';
 import * as clone from 'clone';
+import * as csvWriter from 'csv-write-stream';
 
 import * as store from '../../lib/db/store';
 import * as nlc from '../../lib/training/nlc';
@@ -24,6 +25,7 @@ describe('Training - NLC', () => {
     let countStoreStub;
     let getStoreStub;
     let storeStoreSub;
+
 
     before(() => {
         getStub = sinon.stub(request, 'get').callsFake(mockNLC.getClassifier);
@@ -157,15 +159,41 @@ describe('Training - NLC', () => {
         createClassifier : (url, options) => {
             return new Promise((resolve) => {
                 const formData = JSON.parse(options.formData.training_metadata);
-                return resolve({
-                    classifier_id : 'mynewclassifier',
-                    name : formData.name,
-                    language : formData.language,
-                    created : newClassifierDate.toISOString(),
-                    url : 'http://nlc.service/api/classifiers/mynewclassifier',
-                    status : 'Training',
-                    status_description : 'Training is running',
-                });
+
+                let trainingData = '';
+                const trainingFileStream = options.formData.training_data;
+                trainingFileStream
+                    .on('data', (chunk) => {
+                        trainingData += chunk;
+                    })
+                    .on('end', () => {
+                        const trainingDataLines = trainingData.split('\n');
+
+                        let emptyLines = 0;
+                        assert.equal(trainingDataLines.length, 348);
+                        for (const trainingDataLine of trainingDataLines) {
+                            if (trainingDataLine.length === 0) {
+                                emptyLines += 1;
+                            }
+                            else {
+                                const items = trainingDataLine.split(',');
+                                assert.equal(items.length, 2);
+                                assert.equal(items[0].indexOf('sample text'), 0);
+                                assert.equal(items[1].indexOf('sample label'), 0);
+                            }
+                        }
+                        assert.equal(emptyLines, 1);
+
+                        resolve({
+                            classifier_id : 'mynewclassifier',
+                            name : formData.name,
+                            language : formData.language,
+                            created : newClassifierDate.toISOString(),
+                            url : 'http://nlc.service/api/classifiers/mynewclassifier',
+                            status : 'Training',
+                            status_description : 'Training is running',
+                        });
+                    });
             });
         },
     };
