@@ -94,7 +94,7 @@ async function deleteModel(req: Express.Request, res: Express.Response) {
     }
 
     try {
-        if (project.type === 'nlc') {
+        if (project.type === 'text') {
             await nlc.deleteClassifier(userid, classid, projectid, modelid);
             return res.sendStatus(httpstatus.NO_CONTENT);
         }

@@ -5,6 +5,7 @@ import * as request from 'supertest-as-promised';
 import * as httpstatus from 'http-status';
 import * as sinon from 'sinon';
 import * as proxyquire from 'proxyquire';
+import * as randomstring from 'randomstring';
 
 import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
@@ -27,6 +28,8 @@ describe('REST API - models', () => {
 
     let getClassifiersStub;
     let trainClassifierStub;
+    let testClassifierStub;
+    let deleteClassifierStub;
 
     before(async () => {
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
@@ -69,10 +72,24 @@ describe('REST API - models', () => {
                 });
             });
         });
+        testClassifierStub = sinon.stub(nlc, 'testClassifier').callsFake(() => {
+            return new Promise((resolve) => {
+                resolve([
+                    { class_name : 'first', confidence : 0.8 },
+                    { class_name : 'second', confidence : 0.15 },
+                    { class_name : 'third', confidence : 0.05 },
+                ]);
+            });
+        });
+        deleteClassifierStub = sinon.stub(nlc, 'deleteClassifier').callsFake(() => {
+            return new Promise((resolve) => { resolve(); });
+        });
         proxyquire('../../lib/restapi/models', {
             '../training/nlc' : {
                 getClassifierStatuses : getClassifiersStub,
                 trainClassifier : trainClassifierStub,
+                testClassifier : testClassifierStub,
+                deleteClassifier : deleteClassifierStub,
             },
         });
 
@@ -89,6 +106,8 @@ describe('REST API - models', () => {
 
         getClassifiersStub.restore();
         trainClassifierStub.restore();
+        testClassifierStub.restore();
+        deleteClassifierStub.restore();
 
         return store.disconnect();
     });
@@ -316,6 +335,191 @@ describe('REST API - models', () => {
         });
     });
 
+
+    describe('testModel', () => {
+
+        it('should require a model type', () => {
+            return request(testServer)
+                .post('/api/classes/' + 'classid' +
+                        '/students/' + 'userid' +
+                        '/projects/' + 'projectid' +
+                        '/models/' + 'modelid' +
+                        '/label')
+                .send({
+                    text : 'my test text',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((resp) => {
+                    assert.deepEqual(resp.body, { error : 'Missing data' });
+                });
+        });
+
+
+        it('should require text to test with', () => {
+            return request(testServer)
+                .post('/api/classes/' + 'classid' +
+                        '/students/' + 'userid' +
+                        '/projects/' + 'projectid' +
+                        '/models/' + 'modelid' +
+                        '/label')
+                .send({
+                    type : 'text',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((resp) => {
+                    assert.deepEqual(resp.body, { error : 'Missing data' });
+                });
+        });
+
+
+        it('should submit a classify request to NLC', async () => {
+
+            const classid = uuid();
+            const userid = uuid();
+            const projName = uuid();
+            const modelid = randomstring.generate({ length : 10 });
+
+            const project = await store.storeProject(userid, classid, 'text', projName);
+            const projectid = project.id;
+
+            const credentials: Types.BluemixCredentials = {
+                id : uuid(),
+                username : uuid(),
+                password : uuid(),
+                servicetype : 'nlc',
+                url : uuid(),
+            };
+            await store.storeBluemixCredentials(classid, credentials);
+
+            const created = new Date();
+            created.setMilliseconds(0);
+
+            const classifierInfo: Types.NLCClassifier = {
+                classifierid : modelid,
+                created,
+                language : 'en',
+                name : projName,
+                url : uuid(),
+            };
+            await store.storeNLCClassifier(credentials, userid, classid, projectid,
+                classifierInfo);
+
+            return request(testServer)
+                .post('/api/classes/' + classid +
+                        '/students/' + userid +
+                        '/projects/' + projectid +
+                        '/models/' + modelid +
+                        '/label')
+                .send({
+                    text : 'my test text',
+                    type : 'text',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK)
+                .then(async (res) => {
+                    const body = res.body;
+
+                    assert.deepEqual(body, [
+                        { class_name : 'first', confidence : 0.8 },
+                        { class_name : 'second', confidence : 0.15 },
+                        { class_name : 'third', confidence : 0.05 },
+                    ]);
+
+                    await store.deleteProject(projectid);
+                    await store.deleteNLCClassifier(projectid, userid, classid, classifierInfo.classifierid);
+                    await store.deleteBluemixCredentials(credentials.id);
+                });
+        }).timeout(5000);
+
+    });
+
+    describe('deleteModel', () => {
+
+        it('should verify project exists', () => {
+            const classid = uuid();
+            const studentid = uuid();
+            const projectid = uuid();
+            const modelid = uuid();
+            return request(testServer)
+                .delete('/api/classes/' + classid +
+                        '/students/' + studentid +
+                        '/projects/' + projectid +
+                        '/models/' + modelid)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.NOT_FOUND)
+                .then((res) => {
+                    const body = res.body;
+                    assert.equal(body.error, 'Not found');
+                });
+        });
+
+        it('should verify user id', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const modelid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'text', 'demo');
+            const projectid = project.id;
+
+            return request(testServer)
+                .delete('/api/classes/' + classid +
+                        '/students/DIFFERENTUSER/projects/' + projectid +
+                        '/models/' + modelid)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.FORBIDDEN)
+                .then(() => {
+                    return store.deleteProject(projectid);
+                });
+        });
+
+
+        it('should delete classifiers', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = uuid();
+            const modelid = randomstring.generate({ length : 10 });
+
+            const project = await store.storeProject(userid, classid, 'text', projName);
+            const projectid = project.id;
+
+            const credentials: Types.BluemixCredentials = {
+                id : uuid(),
+                username : uuid(),
+                password : uuid(),
+                servicetype : 'nlc',
+                url : uuid(),
+            };
+            await store.storeBluemixCredentials(classid, credentials);
+
+            const created = new Date();
+            created.setMilliseconds(0);
+
+            const classifierInfo: Types.NLCClassifier = {
+                classifierid : modelid,
+                created,
+                language : 'en',
+                name : projName,
+                url : uuid(),
+            };
+            await store.storeNLCClassifier(credentials, userid, classid, projectid,
+                classifierInfo);
+
+            return request(testServer)
+                .delete('/api/classes/' + classid +
+                        '/students/' + userid +
+                        '/projects/' + projectid +
+                        '/models/' + modelid)
+                .expect(httpstatus.NO_CONTENT)
+                .then(async () => {
+                    await store.deleteProject(projectid);
+                    await store.deleteNLCClassifier(projectid, userid, classid, classifierInfo.classifierid);
+                    await store.deleteBluemixCredentials(credentials.id);
+                });
+        });
+
+    });
 
 
 });
