@@ -79,6 +79,66 @@ async function newModel(req: Express.Request, res: Express.Response) {
 }
 
 
+async function deleteModel(req: Express.Request, res: Express.Response) {
+    const classid = req.params.classid;
+    const userid = req.params.studentid;
+    const projectid = req.params.projectid;
+    const modelid = req.params.modelid;
+
+    const project = await store.getProject(projectid);
+    if (!project) {
+        return errors.notFound(res);
+    }
+    if (project.classid !== classid || project.userid !== userid) {
+        return errors.forbidden(res);
+    }
+
+    try {
+        if (project.type === 'nlc') {
+            await nlc.deleteClassifier(userid, classid, projectid, modelid);
+            return res.sendStatus(httpstatus.NO_CONTENT);
+        }
+        else {
+            return errors.notImplementedYet(res);
+        }
+    }
+    catch (err) {
+        return errors.unknownError(res, err);
+    }
+}
+
+
+async function testModel(req: Express.Request, res: Express.Response) {
+    const classid = req.params.classid;
+    const userid = req.params.studentid;
+    const projectid = req.params.projectid;
+    const modelid = req.params.modelid;
+    const type = req.body.type;
+    const text = req.body.text;
+
+    if (!text) {
+        return errors.missingData(res);
+    }
+
+    let servicetype: Types.BluemixServiceType;
+    if (type === 'text') {
+        servicetype = 'nlc';
+    }
+    else {
+        return errors.missingData(res);
+    }
+
+    try {
+        const creds = await store.getServiceCredentials(projectid, classid, userid, servicetype, modelid);
+        const classes = await nlc.testClassifier(creds, modelid, text);
+        return res.json(classes);
+    }
+    catch (err) {
+        return errors.unknownError(res, err);
+    }
+}
+
+
 
 
 export default function registerApis(app: Express.Application) {
@@ -92,5 +152,15 @@ export default function registerApis(app: Express.Application) {
              auth.authenticate,
              auth.checkValidUser,
              newModel);
+
+    app.delete('/api/classes/:classid/students/:studentid/projects/:projectid/models/:modelid',
+               auth.authenticate,
+               auth.checkValidUser,
+               deleteModel);
+
+    app.post('/api/classes/:classid/students/:studentid/projects/:projectid/models/:modelid/label',
+             auth.authenticate,
+             auth.checkValidUser,
+             testModel);
 
 }

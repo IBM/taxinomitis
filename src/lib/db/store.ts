@@ -327,6 +327,26 @@ export async function deleteTextTrainingByProjectId(projectid: string): Promise<
 //
 // -----------------------------------------------------------------------------
 
+export async function storeBluemixCredentials(
+    classid: string, credentials: TrainingObjects.BluemixCredentials,
+): Promise<TrainingObjects.BluemixCredentials>
+{
+    const queryString = 'INSERT INTO `bluemixcredentials` ' +
+                        '(`id`, `classid`, `servicetype`, `url`, `username`, `password`) ' +
+                        'VALUES (?, ?, ?, ?, ?, ?)';
+
+    const values = [ credentials.id, classid,
+        credentials.servicetype, credentials.url, credentials.username, credentials.password ];
+
+    const [response] = await dbConn.query(queryString, values);
+    if (response.affectedRows === 1) {
+        return credentials;
+    }
+    log.error({ response }, 'Failed to store credentials');
+    throw new Error('Failed to store credentials');
+}
+
+
 export async function getBluemixCredentials(
     classid: string, service: TrainingObjects.BluemixServiceType,
 ): Promise<TrainingObjects.BluemixCredentials>
@@ -342,6 +362,54 @@ export async function getBluemixCredentials(
     }
     return dbobjects.getCredentialsFromDbRow(rows[0]);
 }
+
+export async function deleteBluemixCredentials(credentialsid: string): Promise<void> {
+    const queryString = 'DELETE FROM `bluemixcredentials` WHERE `id` = ?';
+
+    const [response] = await dbConn.execute(queryString, [ credentialsid ]);
+    if (response.warningStatus !== 0) {
+        throw new Error('Failed to delete credentials info');
+    }
+}
+
+
+/**
+ * Get the credentials to use for a specific classifier.
+ *
+ * As there may be more than one set of Bluemix credentials for a particular
+ * service and tenant/class, this function is used to ensure we get the ones
+ * that can be used for a particular classifier.
+ */
+export async function getServiceCredentials(
+    projectid: string, classid: string, userid: string,
+    servicetype: TrainingObjects.BluemixServiceType, classifierid: string,
+): Promise<TrainingObjects.BluemixCredentials>
+{
+    const queryString = 'SELECT `credentialsid` FROM `bluemixclassifiers` ' +
+                        'WHERE ' +
+                        '`servicetype` = ? AND `classifierid` = ? AND ' +
+                        '`projectid` = ? AND `classid` = ? AND `userid` = ?';
+    const values = [servicetype, classifierid, projectid, classid, userid];
+    const [response] = await dbConn.execute(queryString, values);
+
+    if (response.length !== 1) {
+        log.error({ response }, 'Failed to retrieve classifier credentials');
+    }
+
+    const credentialsId = response[0].credentialsid;
+
+    const credsQuery = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password` ' +
+                       'FROM `bluemixcredentials` ' +
+                       'WHERE `id` = ?';
+
+    const [rows] = await dbConn.execute(credsQuery, [ credentialsId ]);
+    if (rows.length !== 1) {
+        log.error({ rows }, 'Unexpected response from DB');
+        throw new Error('Unexpected response when retrieving service credentials');
+    }
+    return dbobjects.getCredentialsFromDbRow(rows[0]);
+}
+
 
 export async function getNLCClassifiers(
     projectid: string,
@@ -385,6 +453,23 @@ export async function storeNLCClassifier(
 }
 
 
+export async function deleteNLCClassifier(
+    projectid: string, userid: string, classid: string,
+    classifierid: string,
+): Promise<void>
+{
+    const queryString = 'DELETE FROM `bluemixclassifiers` ' +
+                        'WHERE ' +
+                        '`projectid` = ? AND `userid` = ? AND `classid` = ? AND ' +
+                        '`classifierid` = ?';
+
+    const [response] = await dbConn.execute(queryString, [ projectid, userid, classid, classifierid ]);
+    if (response.warningStatus !== 0) {
+        throw new Error('Failed to delete classifiers info');
+    }
+}
+
+
 export async function deleteNLCClassifiersByProjectId(projectid: string): Promise<void> {
     const queryString = 'DELETE FROM `bluemixclassifiers` WHERE `projectid` = ?';
 
@@ -393,3 +478,4 @@ export async function deleteNLCClassifiersByProjectId(projectid: string): Promis
         throw new Error('Failed to delete classifiers info');
     }
 }
+

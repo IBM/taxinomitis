@@ -41,6 +41,11 @@ export interface ClassifierDbRow {
 
 export type NLCStatus = 'Non Existent' | 'Training' | 'Failed' | 'Available' | 'Unavailable';
 
+export interface NLCClassification {
+    readonly class_name: string;
+    readonly confidence: number;
+}
+
 export interface File {
     readonly path: string;
 }

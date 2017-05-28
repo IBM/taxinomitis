@@ -4,6 +4,7 @@ import * as tmp from 'tmp';
 import * as csvWriter from 'csv-write-stream';
 import * as request from 'request-promise';
 import * as Bluebird from 'bluebird';
+import * as httpStatus from 'http-status';
 // local dependencies
 import * as store from '../db/store';
 import * as TrainingObjects from './training-types';
@@ -58,6 +59,30 @@ export async function getClassifierStatuses(
         classifiers.map((classifier) => getStatus(credentials, classifier)));
 }
 
+
+/**
+ * Deletes an NLC classifier.
+ *  This deletes both the classifier from Bluemix, and the record of it
+ *  stored in the app's database.
+ *
+ * @param userid - ID of the user that has collected the training data
+ * @param classid - the tenant that the user is a member of
+ * @param projectid - the ID for the project with the training data
+ * @param classifierId - the ID of the classifier to delete
+ */
+export async function deleteClassifier(
+    userid: string, classid: string, projectid: string,
+    classifierId: string,
+): Promise<void>
+{
+    const credentials = await store.getServiceCredentials(
+        projectid, classid, userid,
+        'nlc', classifierId,
+    );
+    await deleteClassifierFromBluemix(credentials, classifierId);
+
+    await store.deleteNLCClassifier(projectid, userid, classid, classifierId);
+}
 
 
 
@@ -131,6 +156,62 @@ async function submitTrainingToNLC(
     return classifier;
 }
 
+
+
+/**
+ * Submit a string to an NLC classifier to allow the user to test
+ *  the performance of their trained model.
+ *
+ * @param credentials - credentials to use to auth with the Bluemix API
+ * @param classifierId - ID of the classifier to test
+ * @param text - text to submit to the classifier
+ *
+ * @returns details of the created classifier
+ */
+export async function testClassifier(
+    credentials: TrainingObjects.BluemixCredentials,
+    classifierId: string,
+    text: string,
+): Promise<TrainingObjects.NLCClassification[]>
+{
+    const req = {
+        auth : {
+            user : credentials.username,
+            pass : credentials.password,
+        },
+        body : { text },
+        json : true,
+    };
+
+    const body = await request.post(credentials.url + '/v1/classifiers/' + classifierId + '/classify', req);
+    return body.classes;
+}
+
+
+async function deleteClassifierFromBluemix(
+    credentials: TrainingObjects.BluemixCredentials,
+    classifierId: string,
+): Promise<void>
+{
+    const req = {
+        auth : {
+            user : credentials.username,
+            pass : credentials.password,
+        },
+    };
+
+    try {
+        await request.delete(credentials.url + '/v1/classifiers/' + classifierId,
+                             req);
+    }
+    catch (err) {
+        if (err.statusCode === httpStatus.NOT_FOUND) {
+            log.debug({ classifierId }, 'Attempted to delete non-existent classifier');
+            return;
+        }
+        throw err;
+    }
+}
 
 
 function getStatus(

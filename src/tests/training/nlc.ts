@@ -4,10 +4,10 @@ import * as uuid from 'uuid/v1';
 import * as assert from 'assert';
 import * as httpstatus from 'http-status';
 import * as sinon from 'sinon';
-import * as proxyquire from 'proxyquire';
 import * as request from 'request-promise';
 import * as clone from 'clone';
 import * as csvWriter from 'csv-write-stream';
+import * as randomstring from 'randomstring';
 
 import * as store from '../../lib/db/store';
 import * as nlc from '../../lib/training/nlc';
@@ -21,28 +21,39 @@ describe('Training - NLC', () => {
 
     let getStub;
     let createStub;
+    let deleteStub;
     let authStoreStub;
+    let authByIdStoreStub;
     let countStoreStub;
     let getStoreStub;
-    let storeStoreSub;
+    let storeStoreStub;
+    let deleteStoreStub;
 
 
     before(() => {
         getStub = sinon.stub(request, 'get').callsFake(mockNLC.getClassifier);
-        createStub = sinon.stub(request, 'post').callsFake(mockNLC.createClassifier);
+        createStub = sinon.stub(request, 'post');
+        createStub.withArgs(sinon.match(/.*classifiers/), sinon.match.any).callsFake(mockNLC.createClassifier);
+        createStub.withArgs(sinon.match(/.*classify/), sinon.match.any).callsFake(mockNLC.testClassifier);
+        deleteStub = sinon.stub(request, 'delete').callsFake(mockNLC.deleteClassifier);
 
         authStoreStub = sinon.stub(store, 'getBluemixCredentials').callsFake(mockstore.getBluemixCredentials);
+        authByIdStoreStub = sinon.stub(store, 'getServiceCredentials').callsFake(mockstore.getServiceCredentials);
         countStoreStub = sinon.stub(store, 'countTextTraining').callsFake(mockstore.countTextTraining);
         getStoreStub = sinon.stub(store, 'getTextTraining').callsFake(mockstore.getTextTraining);
-        storeStoreSub = sinon.stub(store, 'storeNLCClassifier').callsFake(mockstore.storeNLCClassifier);
+        storeStoreStub = sinon.stub(store, 'storeNLCClassifier').callsFake(mockstore.storeNLCClassifier);
+        deleteStoreStub = sinon.stub(store, 'deleteNLCClassifier').callsFake(mockstore.deleteNLCClassifier);
     });
     after(() => {
         getStub.restore();
         createStub.restore();
+        deleteStub.restore();
         authStoreStub.restore();
+        authByIdStoreStub.restore();
         countStoreStub.restore();
         getStoreStub.restore();
-        storeStoreSub.restore();
+        storeStoreStub.restore();
+        deleteStoreStub.restore();
     });
 
 
@@ -64,12 +75,94 @@ describe('Training - NLC', () => {
                 userid, projectid, classid,
                 servicetype : 'nlc',
                 classifierid : 'mynewclassifier',
-                url : 'http://nlc.service/api/classifiers/mynewclassifier',
+                url : 'http://nlc.service/v1/classifiers/mynewclassifier',
                 name : projectname,
                 language : 'en',
                 created : newClassifierDate,
             });
         });
+    });
+
+
+    describe('test classifier', () => {
+
+        it('should return classes from NLC', async () => {
+            const creds: TrainingTypes.BluemixCredentials = {
+                id : '123',
+                username : 'user',
+                password : 'pass',
+                servicetype : 'nlc',
+                url : 'http://nlc.service',
+            };
+            const classes = await nlc.testClassifier(creds, 'good', 'Hello');
+            assert.deepEqual(classes, [
+                {
+                    class_name : 'temperature',
+                    confidence : 0.9998201258549781,
+                },
+                {
+                    class_name : 'conditions',
+                    confidence : 0.00017987414502176904,
+                },
+            ]);
+        });
+
+    });
+
+
+    describe('delete classifier', () => {
+
+        it('should delete a classifier', async () => {
+            deleteStub.reset();
+            deleteStoreStub.reset();
+
+            assert.equal(deleteStub.called, false);
+            assert.equal(deleteStoreStub.called, false);
+
+            const classid = randomstring.generate({ length : 10 });
+            const userid = randomstring.generate({ length : 8 });
+            const projectid = uuid();
+
+            await nlc.deleteClassifier(userid, classid, projectid, 'good');
+
+            assert(deleteStub.calledOnce);
+            assert(deleteStoreStub.calledOnce);
+
+            assert(deleteStub.calledWith('http://nlc.service/v1/classifiers/good', {
+                auth : { user : 'user', pass : 'pass' },
+            }));
+            assert(deleteStoreStub.calledWith(projectid, userid, classid, 'good'));
+        });
+
+        it('should cope with deleting a classifier missing from NLC', async () => {
+            deleteStub.reset();
+            deleteStoreStub.reset();
+
+            const missingErr: any = new Error();
+            missingErr.statusCode = 404;
+
+            deleteStub
+                .withArgs('http://nlc.service/v1/classifiers/doesnotactuallyexist', sinon.match.any)
+                .throws(missingErr);
+
+            assert.equal(deleteStub.called, false);
+            assert.equal(deleteStoreStub.called, false);
+
+            const classid = randomstring.generate({ length : 10 });
+            const userid = randomstring.generate({ length : 8 });
+            const projectid = uuid();
+
+            await nlc.deleteClassifier(userid, classid, projectid, 'doesnotactuallyexist');
+
+            assert(deleteStub.calledOnce);
+            assert(deleteStoreStub.calledOnce);
+
+            assert(deleteStub.calledWith('http://nlc.service/v1/classifiers/doesnotactuallyexist', {
+                auth : { user : 'user', pass : 'pass' },
+            }));
+            assert(deleteStoreStub.calledWith(projectid, userid, classid, 'doesnotactuallyexist'));
+        });
+
     });
 
 
@@ -141,17 +234,53 @@ describe('Training - NLC', () => {
         getClassifier : (url) => {
             return new Promise((resolve, reject) => {
                 switch (url) {
-                case 'http://nlc.service/api/classifiers/good':
+                case 'http://nlc.service/v1/classifiers/good':
                     return resolve(goodClassifierStatus);
-                case 'http://nlc.service/api/classifiers/bad':
+                case 'http://nlc.service/v1/classifiers/bad':
                     return resolve(brokenClassifierStatus);
-                case 'http://nlc.service/api/classifiers/stillgoing':
+                case 'http://nlc.service/v1/classifiers/stillgoing':
                     return resolve(trainingClassifierStatus);
                 default:
                     return reject({
                         error : {
                             description : 'Classifier not found',
                         },
+                    });
+                }
+            });
+        },
+        testClassifier : (url, opts) => {
+            return new Promise((resolve) => {
+                resolve({
+                    classifier_id : 'good',
+                    url : 'http://nlc.service/v1/classifiers/good/classify',
+                    text : opts.body.text,
+                    top_class : 'temperature',
+                    classes : [
+                        {
+                            class_name : 'temperature',
+                            confidence : 0.9998201258549781,
+                        },
+                        {
+                            class_name : 'conditions',
+                            confidence : 0.00017987414502176904,
+                        },
+                    ],
+                });
+            });
+        },
+        deleteClassifier : (url) => {
+            return new Promise((resolve, reject) => {
+                switch (url) {
+                case 'http://nlc.service/v1/classifiers/good':
+                    return resolve();
+                case 'http://nlc.service/v1/classifiers/bad':
+                    return resolve();
+                case 'http://nlc.service/v1/classifiers/stillgoing':
+                    return resolve();
+                default:
+                    return reject({
+                        statusCode : 404,
                     });
                 }
             });
@@ -189,7 +318,7 @@ describe('Training - NLC', () => {
                             name : formData.name,
                             language : formData.language,
                             created : newClassifierDate.toISOString(),
-                            url : 'http://nlc.service/api/classifiers/mynewclassifier',
+                            url : 'http://nlc.service/v1/classifiers/mynewclassifier',
                             status : 'Training',
                             status_description : 'Training is running',
                         });
@@ -204,7 +333,7 @@ describe('Training - NLC', () => {
         created : new Date(),
         language : 'en',
         name : 'good classifier',
-        url : 'http://nlc.service/api/classifiers/good',
+        url : 'http://nlc.service/v1/classifiers/good',
     };
     const goodClassifierWithStatus: TrainingTypes.NLCClassifier = Object.assign({}, goodClassifier, {
         status : 'Available',
@@ -225,7 +354,7 @@ describe('Training - NLC', () => {
         created : new Date(),
         language : 'en',
         name : 'bad bad bad',
-        url : 'http://nlc.service/api/classifiers/bad',
+        url : 'http://nlc.service/v1/classifiers/bad',
     };
     const brokenClassifierWithStatus: TrainingTypes.NLCClassifier = Object.assign({}, brokenClassifier, {
         status : 'Failed',
@@ -246,7 +375,7 @@ describe('Training - NLC', () => {
         created : new Date(),
         language : 'en',
         name : 'try again later',
-        url : 'http://nlc.service/api/classifiers/stillgoing',
+        url : 'http://nlc.service/v1/classifiers/stillgoing',
     };
     const trainingClassifierWithStatus: TrainingTypes.NLCClassifier = Object.assign({}, trainingClassifier, {
         status : 'Training',
@@ -267,7 +396,7 @@ describe('Training - NLC', () => {
         created : new Date(),
         language : 'en',
         name : 'not here any more',
-        url : 'http://nlc.service/api/classifiers/deleted',
+        url : 'http://nlc.service/v1/classifiers/deleted',
     };
     const unknownClassifierWithStatus: TrainingTypes.NLCClassifier = Object.assign({}, unknownClassifier, {
         status : 'Non Existent',

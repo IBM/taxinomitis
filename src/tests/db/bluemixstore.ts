@@ -1,6 +1,7 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
 import * as util from 'util';
+import * as randomstring from 'randomstring';
 import * as uuid from 'uuid/v1';
 
 import * as store from '../../lib/db/store';
@@ -15,6 +16,95 @@ describe('DB store', () => {
     });
     after(() => {
         return store.disconnect();
+    });
+
+
+    describe('Bluemix credentials', () => {
+
+        it('should store and retrieve Bluemix credentials', async () => {
+            const creds: Types.BluemixCredentials = {
+                id : uuid(),
+                username : randomstring.generate({ length : 8 }),
+                password : randomstring.generate({ length : 20 }),
+                servicetype : 'nlc',
+                url : 'http://nlc.service/api/classifiers',
+            };
+            const classid = uuid();
+
+            await store.storeBluemixCredentials(classid, creds);
+
+            const retrieved = await store.getBluemixCredentials(classid, 'nlc');
+            assert.deepEqual(retrieved, creds);
+
+            await store.deleteBluemixCredentials(creds.id);
+        });
+
+        it('should throw an error when fetching non-existent credentials', async () => {
+            const creds: Types.BluemixCredentials = {
+                id : uuid(),
+                username : randomstring.generate({ length : 8 }),
+                password : randomstring.generate({ length : 20 }),
+                servicetype : 'nlc',
+                url : 'http://nlc.service/api/classifiers',
+            };
+            const classid = uuid();
+
+            await store.storeBluemixCredentials(classid, creds);
+
+            const retrieved = await store.getBluemixCredentials(classid, 'nlc');
+            assert.deepEqual(retrieved, creds);
+
+            await store.deleteBluemixCredentials(creds.id);
+
+            return store.getBluemixCredentials(classid, 'nlc')
+                .then(() => {
+                    assert.fail(1, 0, 'Should not reach here', '');
+                })
+                .catch((err) => {
+                    assert.equal(err.message, 'Unexpected response when retrieving service credentials');
+                });
+        });
+
+        it('should retrieve credentials for a classifier', async () => {
+            const classid = uuid();
+            const projectid = uuid();
+            const userid = uuid();
+
+            const creds: Types.BluemixCredentials = {
+                id : uuid(),
+                username : randomstring.generate({ length : 8 }),
+                password : randomstring.generate({ length : 20 }),
+                servicetype : 'nlc',
+                url : 'http://nlc.service/api/classifiers',
+            };
+
+            await store.storeBluemixCredentials(classid, creds);
+
+            const created = new Date();
+            created.setMilliseconds(0);
+
+            const classifierInfo: Types.NLCClassifier = {
+                classifierid : randomstring.generate({ length : 8 }),
+                created,
+                language : 'en',
+                name : randomstring.generate({ length : 12 }),
+                url : uuid(),
+            };
+
+            await store.storeNLCClassifier(
+                creds, userid, classid, projectid,
+                classifierInfo,
+            );
+
+            const retrievedCreds = await store.getServiceCredentials(
+                projectid, classid, userid, 'nlc', classifierInfo.classifierid,
+            );
+            assert.deepEqual(retrievedCreds, creds);
+
+            await store.deleteBluemixCredentials(creds.id);
+            await store.deleteNLCClassifiersByProjectId(projectid);
+        });
+
     });
 
 
@@ -40,7 +130,7 @@ describe('DB store', () => {
             created.setMilliseconds(0);
 
             const classifierInfo: Types.NLCClassifier = {
-                classifierid : 'ABCDEFGHI',
+                classifierid : randomstring.generate({ length : 9 }),
                 created,
                 language : 'en',
                 name : 'DUMMY',
@@ -60,7 +150,7 @@ describe('DB store', () => {
 
             assert.deepEqual(retrieved, classifierInfo);
 
-            await store.deleteNLCClassifiersByProjectId(projectid);
+            await store.deleteNLCClassifier(projectid, userid, classid, classifierInfo.classifierid);
 
             const empty = await store.getNLCClassifiers(projectid);
             assert.equal(empty.length, 0);

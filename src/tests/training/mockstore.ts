@@ -7,10 +7,13 @@ export const creds: TrainingTypes.BluemixCredentials = {
     username : 'user',
     password : 'pass',
     servicetype : 'nlc',
-    url : 'http://nlc.service/api/classifiers/',
+    url : 'http://nlc.service',
 };
 
 export function getBluemixCredentials() {
+    return new Promise((resolve) => resolve(creds));
+}
+export function getServiceCredentials() {
     return new Promise((resolve) => resolve(creds));
 }
 
@@ -49,4 +52,9 @@ export function storeNLCClassifier(
         classifier, credentials,
         userid, classid, projectid,
     )));
+}
+
+export function deleteNLCClassifier()
+{
+    return new Promise((resolve) => { resolve(); });
 }

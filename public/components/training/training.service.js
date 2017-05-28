@@ -57,13 +57,36 @@
             });
         }
 
+        function testModel(projectid, projecttype, userid, tenant, modelid, testtext) {
+            var url = '/api/classes/' + tenant +
+                        '/students/' + userid +
+                        '/projects/' + projectid +
+                        '/models/' + modelid +
+                        '/label';
+
+            return $http.post(url, { type : projecttype, text : testtext })
+                .then(function (resp) {
+                    return resp.data;
+                });
+        }
+
+        function deleteModel(projectid, userid, tenant, modelid) {
+            var url = '/api/classes/' + tenant +
+                        '/students/' + userid +
+                        '/projects/' + projectid +
+                        '/models/' + modelid;
+
+            return $http.delete(url);
+        }
 
 
         return {
             newTrainingData : newTrainingData,
             getTraining : getTraining,
             getModels : getModels,
-            newModel : newModel
+            newModel : newModel,
+            testModel : testModel,
+            deleteModel : deleteModel
         };
     }
 })();
