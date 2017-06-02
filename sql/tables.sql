@@ -43,3 +43,16 @@ CREATE TABLE bluemixclassifiers (
     language VARCHAR(5),
     created DATETIME NOT NULL
 );
+
+CREATE TABLE scratchkeys (
+    id VARCHAR(72) NOT NULL PRIMARY KEY,
+    projectname VARCHAR(36) NOT NULL,
+    projecttype VARCHAR(8) NOT NULL,
+    serviceurl VARCHAR(200),
+    serviceusername VARCHAR(36),
+    servicepassword VARCHAR(36),
+    classifierid VARCHAR(20),
+    projectid VARCHAR(36) NOT NULL,
+    userid VARCHAR(36) NOT NULL,
+    classid VARCHAR(36) NOT NULL
+);

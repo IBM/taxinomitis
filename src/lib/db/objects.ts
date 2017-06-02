@@ -1,5 +1,6 @@
 // external dependencies
 import * as uuid from 'uuid/v1';
+import * as uuidv4 from 'uuid/v4';
 // local dependencies
 import * as projects from './projects';
 import * as Objects from './db-types';
@@ -154,4 +155,66 @@ export function getClassifierFromDbRow(row: TrainingObjects.ClassifierDbRow): Tr
         language : row.language,
         created : row.created,
     };
+}
+
+
+// -----------------------------------------------------------------------------
+//
+// SCRATCH KEYS
+//
+// -----------------------------------------------------------------------------
+
+export function createScratchKey(
+    credentials: TrainingObjects.BluemixCredentials,
+    name: string, type: Objects.ProjectTypeLabel,
+    projectid: string,
+    classifierid: string,
+): Objects.ScratchKey
+{
+    return {
+        id : uuid() + uuidv4(),
+        name, type, projectid,
+        credentials, classifierid,
+    };
+}
+
+export function createUntrainedScratchKey(
+    name: string, type: Objects.ProjectTypeLabel, projectid: string,
+): Objects.ScratchKey
+{
+    return {
+        id : uuid() + uuidv4(),
+        name, type, projectid,
+    };
+}
+
+export function getScratchKeyFromDbRow(row: Objects.ScratchKeyDbRow): Objects.ScratchKey {
+    let servicetype: TrainingObjects.BluemixServiceType;
+    if (row.projecttype === 'text') {
+        servicetype = 'nlc';
+    }
+    if (row.classifierid) {
+        return {
+            id : row.id,
+            projectid : row.projectid,
+            name : row.projectname,
+            type : row.projecttype,
+            credentials : {
+                id : '',
+                servicetype,
+                url : row.serviceurl,
+                username : row.serviceusername,
+                password : row.servicepassword,
+            },
+            classifierid : row.classifierid,
+        };
+    }
+    else {
+        return {
+            id : row.id,
+            projectid : row.projectid,
+            name : row.projectname,
+            type : row.projecttype,
+        };
+    }
 }

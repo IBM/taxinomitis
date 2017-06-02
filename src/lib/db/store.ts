@@ -424,6 +424,7 @@ export async function getNLCClassifiers(
     return rows.map(dbobjects.getClassifierFromDbRow);
 }
 
+
 export async function storeNLCClassifier(
     credentials: TrainingObjects.BluemixCredentials,
     userid: string, classid: string, projectid: string,
@@ -444,12 +445,12 @@ export async function storeNLCClassifier(
         obj.servicetype, obj.classifierid, obj.url, obj.name, obj.language, obj.created];
 
     const [response] = await dbConn.execute(queryString, values);
-    if (response.affectedRows === 1) {
-        return classifier;
+    if (response.affectedRows !== 1) {
+        log.error({ response }, 'Failed to store classifier info');
+        throw new Error('Failed to store classifier');
     }
 
-    log.error({ response }, 'Failed to store classifier info');
-    throw new Error('Failed to store classifier');
+    return classifier;
 }
 
 
@@ -479,3 +480,194 @@ export async function deleteNLCClassifiersByProjectId(projectid: string): Promis
     }
 }
 
+
+
+// -----------------------------------------------------------------------------
+//
+// SCRATCH KEYS
+//
+// -----------------------------------------------------------------------------
+
+export async function storeUntrainedScratchKey(
+    projectid: string, projectname: string,
+    projecttype: Objects.ProjectTypeLabel,
+    userid: string, classid: string,
+): Promise<string>
+{
+    const obj = dbobjects.createUntrainedScratchKey(projectname, projecttype, projectid);
+
+    const queryString = 'INSERT INTO `scratchkeys` ' +
+                        '(`id`, ' +
+                        '`projectid`, `projectname`, `projecttype`, ' +
+                        '`userid`, `classid`) ' +
+                        'VALUES (?, ?, ?, ?, ?, ?)';
+
+    const values = [
+        obj.id,
+        projectid, obj.name, obj.type,
+        userid, classid,
+    ];
+
+    const [response] = await dbConn.execute(queryString, values);
+    if (response.affectedRows !== 1) {
+        log.error({ response }, 'Failed to store Scratch key');
+        throw new Error('Failed to store Scratch key');
+    }
+
+    return obj.id;
+}
+
+
+/**
+ * @returns the ScratchKey ID - whether created or updated
+ */
+export async function storeOrUpdateScratchKey(
+    projectid: string, projecttype: Objects.ProjectTypeLabel,
+    userid: string, classid: string,
+    credentials: TrainingObjects.BluemixCredentials,
+    classifierid: string,
+): Promise<string>
+{
+    const existing: Objects.ScratchKey[] = await findScratchKeys(userid, projectid, classid);
+    if (existing.length > 0) {
+        return updateScratchKey(
+            existing[0].id,
+            userid, projectid, classid,
+            credentials,
+            classifierid,
+        );
+    }
+    else {
+        const projectInfo = await getProject(projectid);
+
+        return storeScratchKey(
+            projectid, projectInfo.name, projecttype,
+            userid, classid,
+            credentials, classifierid,
+        );
+    }
+}
+
+
+/**
+ * @returns the created scratchkey ID
+ */
+export async function storeScratchKey(
+    projectid: string, projectname: string,
+    projecttype: Objects.ProjectTypeLabel,
+    userid: string, classid: string,
+    credentials: TrainingObjects.BluemixCredentials,
+    classifierid: string,
+): Promise<string>
+{
+    const obj = dbobjects.createScratchKey(credentials, projectname, projecttype, projectid, classifierid);
+
+    const queryString = 'INSERT INTO `scratchkeys` ' +
+                        '(`id`, `projectname`, `projecttype`, ' +
+                        '`serviceurl`, `serviceusername`, `servicepassword`, ' +
+                        '`classifierid`, ' +
+                        '`projectid`, `userid`, `classid`) ' +
+                        'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    const values = [
+        obj.id, projectname, projecttype,
+        obj.credentials.url, obj.credentials.username, obj.credentials.password,
+        obj.classifierid,
+        obj.projectid, userid, classid,
+    ];
+
+    const [response] = await dbConn.execute(queryString, values);
+    if (response.affectedRows !== 1) {
+        log.error({ response }, 'Failed to store Scratch key');
+        throw new Error('Failed to store Scratch key');
+    }
+
+    return obj.id;
+}
+
+
+/**
+ * @returns scratchKeyId
+ */
+async function updateScratchKey(
+    scratchKeyId: string,
+    userid: string, projectid: string, classid: string,
+    credentials: TrainingObjects.BluemixCredentials, classifierid: string,
+): Promise<string>
+{
+    const queryString = 'UPDATE `scratchkeys` ' +
+                        'SET `classifierid` = ? , ' +
+                            '`serviceurl` = ? , `serviceusername` = ? , `servicepassword` = ? ' +
+                        'WHERE `id` = ? AND ' +
+                            '`userid` = ? AND `projectid` = ? AND `classid` = ?';
+    const values = [
+        classifierid,
+        credentials.url, credentials.username, credentials.password,
+        scratchKeyId,
+        userid, projectid, classid,
+    ];
+
+    const [response] = await dbConn.execute(queryString, values);
+    if (response.affectedRows !== 1) {
+        log.error({ queryString, values, response }, 'Failed to update scratchkey');
+        throw new Error('Scratch key not updated');
+    }
+
+    return scratchKeyId;
+}
+
+
+
+export async function getScratchKey(key: string): Promise<Objects.ScratchKey> {
+    const queryString = 'SELECT ' +
+                            '`id`, `projectname`, `projecttype`, ' +
+                            '`serviceurl`, `serviceusername`, `servicepassword`, ' +
+                            '`classifierid` ' +
+                        'FROM `scratchkeys` ' +
+                        'WHERE `id` = ?';
+
+    const [rows] = await dbConn.execute(queryString, [ key ]);
+    if (rows.length !== 1) {
+        log.error({ rows }, 'Unexpected response from DB');
+        throw new Error('Unexpected response when retrieving service credentials');
+    }
+    return dbobjects.getScratchKeyFromDbRow(rows[0]);
+}
+
+
+
+export async function findScratchKeys(
+    userid: string, projectid: string, classid: string,
+): Promise<Objects.ScratchKey[]>
+{
+    const queryString = 'SELECT ' +
+                            '`id`, `projectname`, `projecttype`, ' +
+                            '`serviceurl`, `serviceusername`, `servicepassword`, ' +
+                            '`classifierid` ' +
+                        'FROM `scratchkeys` ' +
+                        'WHERE `userid` = ? AND `projectid` = ? AND `classid` = ?';
+
+    const values = [ userid, projectid, classid ];
+
+    const [rows] = await dbConn.execute(queryString, values);
+    return rows.map(dbobjects.getScratchKeyFromDbRow);
+}
+
+
+export async function deleteScratchKey(id: string): Promise<void> {
+    const queryString = 'DELETE FROM `scratchkeys` WHERE `id` = ?';
+
+    const [response] = await dbConn.execute(queryString, [ id ]);
+    if (response.warningStatus !== 0) {
+        throw new Error('Failed to delete scratch key info');
+    }
+}
+
+
+export async function deleteScratchKeysByProjectId(projectid: string): Promise<void> {
+    const queryString = 'DELETE FROM `scratchkeys` WHERE `projectid` = ?';
+
+    const [response] = await dbConn.execute(queryString, [ projectid ]);
+    if (response.warningStatus !== 0) {
+        throw new Error('Failed to delete scratch key info');
+    }
+}

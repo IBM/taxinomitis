@@ -34,7 +34,9 @@ export async function trainClassifier(
     const credentials = await store.getBluemixCredentials(classid, 'nlc');
     const classifier = await submitTrainingToNLC(credentials, projectname, trainingFile);
     fs.unlink(trainingFile.path);
-    return store.storeNLCClassifier(credentials, userid, classid, projectid, classifier);
+    const storedClassifier = await store.storeNLCClassifier(credentials, userid, classid, projectid, classifier);
+    await store.storeOrUpdateScratchKey(projectid, 'text', userid, classid, credentials, classifier.classifierid);
+    return storedClassifier;
 }
 
 

@@ -1,8 +1,10 @@
+import * as TrainingObjects from '../training/training-types';
+
 export interface Project {
     readonly id: string;
     readonly userid: string;
     readonly classid: string;
-    readonly type: string;
+    readonly type: ProjectTypeLabel;
     name: string;
     labels: string[];
 }
@@ -15,7 +17,7 @@ export interface ProjectDbRow {
     readonly labels: string;
 }
 
-type ProjectTypeLabel = 'text' | 'numbers' | 'images';
+export type ProjectTypeLabel = 'text' | 'numbers' | 'images';
 
 export const MAX_LABEL_LENGTH = 30;
 
@@ -38,6 +40,28 @@ export interface TextTrainingDbRow {
     readonly label?: string;
     readonly projectid?: string;
 }
+
+
+export interface ScratchKey {
+    readonly id: string;
+    readonly projectid: string;
+    readonly name: string;
+    readonly type: ProjectTypeLabel;
+    readonly credentials?: TrainingObjects.BluemixCredentials;
+    readonly classifierid?: string;
+}
+
+export interface ScratchKeyDbRow {
+    readonly id: string;
+    readonly projectid: string;
+    readonly projectname: string;
+    readonly projecttype: ProjectTypeLabel;
+    readonly serviceurl: string;
+    readonly serviceusername: string;
+    readonly servicepassword: string;
+    readonly classifierid: string;
+}
+
 
 
 export interface PagingOptions {

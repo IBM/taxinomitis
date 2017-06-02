@@ -28,6 +28,7 @@ describe('Training - NLC', () => {
     let getStoreStub;
     let storeStoreStub;
     let deleteStoreStub;
+    let storeScratchKeyStub;
 
 
     before(() => {
@@ -43,6 +44,7 @@ describe('Training - NLC', () => {
         getStoreStub = sinon.stub(store, 'getTextTraining').callsFake(mockstore.getTextTraining);
         storeStoreStub = sinon.stub(store, 'storeNLCClassifier').callsFake(mockstore.storeNLCClassifier);
         deleteStoreStub = sinon.stub(store, 'deleteNLCClassifier').callsFake(mockstore.deleteNLCClassifier);
+        storeScratchKeyStub = sinon.stub(store, 'storeOrUpdateScratchKey').callsFake(mockstore.storeOrUpdateScratchKey);
     });
     after(() => {
         getStub.restore();
@@ -54,6 +56,7 @@ describe('Training - NLC', () => {
         getStoreStub.restore();
         storeStoreStub.restore();
         deleteStoreStub.restore();
+        storeScratchKeyStub.restore();
     });
 
 

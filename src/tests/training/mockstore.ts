@@ -58,3 +58,8 @@ export function deleteNLCClassifier()
 {
     return new Promise((resolve) => { resolve(); });
 }
+
+export function storeOrUpdateScratchKey()
+{
+    return new Promise((resolve) => { resolve(); });
+}
