@@ -186,7 +186,9 @@ export async function testClassifier(
     };
 
     const body = await request.post(credentials.url + '/v1/classifiers/' + classifierId + '/classify', req);
-    return body.classes;
+    return body.classes.map((item) => {
+        return { class_name : item.class_name, confidence : Math.round(item.confidence * 100) };
+    });
 }
 
 

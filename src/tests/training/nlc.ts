@@ -65,6 +65,8 @@ describe('Training - NLC', () => {
     describe('create classifier', () => {
 
         it('should create a classifier', async () => {
+            storeScratchKeyStub.reset();
+
             const classid = 'TESTTENANT';
             const userid = 'bob';
             const projectid = 'projectbob';
@@ -83,6 +85,12 @@ describe('Training - NLC', () => {
                 language : 'en',
                 created : newClassifierDate,
             });
+
+            assert(
+                storeScratchKeyStub.calledWith(
+                    projectid, sinon.match.any, userid, classid,
+                    mockstore.creds,
+                    'mynewclassifier'));
         });
     });
 
@@ -101,11 +109,11 @@ describe('Training - NLC', () => {
             assert.deepEqual(classes, [
                 {
                     class_name : 'temperature',
-                    confidence : 0.9998201258549781,
+                    confidence : 100,
                 },
                 {
                     class_name : 'conditions',
-                    confidence : 0.00017987414502176904,
+                    confidence : 0,
                 },
             ]);
         });

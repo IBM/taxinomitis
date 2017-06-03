@@ -42,6 +42,8 @@ async function createScratchKey(
 }
 
 
+
+
 async function getScratchKeys(req: Express.Request, res: Express.Response) {
     const classid: string = req.params.classid;
     const userid: string = req.params.studentid;
@@ -119,6 +121,6 @@ export default function registerApis(app: Express.Application) {
             auth.checkValidUser,
             getScratchKeys);
 
-    app.get('/api/scratch/:scratchkey/classify', classifyWithScratchKey);
+    app.post('/api/scratch/:scratchkey/classify', classifyWithScratchKey);
 
 }

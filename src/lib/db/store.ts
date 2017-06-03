@@ -619,7 +619,8 @@ async function updateScratchKey(
 
 export async function getScratchKey(key: string): Promise<Objects.ScratchKey> {
     const queryString = 'SELECT ' +
-                            '`id`, `projectname`, `projecttype`, ' +
+                            '`id`, ' +
+                            '`projectid`, `projectname`, `projecttype`, ' +
                             '`serviceurl`, `serviceusername`, `servicepassword`, ' +
                             '`classifierid` ' +
                         'FROM `scratchkeys` ' +
@@ -640,7 +641,7 @@ export async function findScratchKeys(
 ): Promise<Objects.ScratchKey[]>
 {
     const queryString = 'SELECT ' +
-                            '`id`, `projectname`, `projecttype`, ' +
+                            '`id`, `projectid`, `projectname`, `projecttype`, ' +
                             '`serviceurl`, `serviceusername`, `servicepassword`, ' +
                             '`classifierid` ' +
                         'FROM `scratchkeys` ' +
