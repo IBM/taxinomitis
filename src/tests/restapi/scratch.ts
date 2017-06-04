@@ -316,6 +316,50 @@ describe('REST API - scratch keys', () => {
                 });
         }).timeout(6000);
 
+
+        it('should return status for the ScratchX extension', async () => {
+            const projectid = uuid();
+            const userid = uuid();
+            const classid = uuid();
+
+            const keyId = await store.storeUntrainedScratchKey(projectid, 'dummyproject', 'text', userid, classid);
+
+            return request(testServer)
+                .get('/api/scratch/' + keyId + '/status')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK)
+                .then(async (res) => {
+                    assert.equal(res.body, { status : 2, msg : 'Ready' });
+
+                    await store.deleteScratchKey(keyId);
+                });
+        });
+
+
+        it('should build a working Scratchx extension', async () => {
+            const projectid = uuid();
+            const userid = uuid();
+            const classid = uuid();
+
+            const keyId = await store.storeUntrainedScratchKey(projectid, 'dummyproject', 'text', userid, classid);
+
+            return request(testServer)
+                .get('/api/scratch/' + keyId + '/extension')
+                .expect(httpstatus.OK)
+                .then(async (res) => {
+                    const body: string = res.text;
+
+                    assert(body.startsWith('(function(ext) {'));
+                    assert(body.indexOf('/api/scratch/' + keyId + '/status') > 0);
+                    assert(body.indexOf('/api/scratch/' + keyId + '/classify') > 0);
+
+                    await store.deleteScratchKey(keyId);
+                });
+        });
+
     });
+
+
+
 
 });

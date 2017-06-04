@@ -1,7 +1,9 @@
 // external dependencies
+import * as fs from 'fs';
 import * as Express from 'express';
 import * as httpstatus from 'http-status';
 import * as _ from 'lodash';
+import * as Mustache from 'mustache';
 // local dependencies
 import * as store from '../db/store';
 import * as errors from './errors';
@@ -10,6 +12,8 @@ import * as nlc from '../training/nlc';
 import * as Types from '../db/db-types';
 import * as TrainingTypes from '../training/training-types';
 
+
+const ROOT_URL = 'http://' + process.env.HOST + ':' + process.env.PORT;
 
 
 async function createScratchKey(
@@ -112,6 +116,46 @@ async function classifyWithScratchKey(req: Express.Request, res: Express.Respons
 }
 
 
+function readFile(path: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+        fs.readFile(path, 'utf8', (err, contents) => {
+            if (err) {
+                return reject(err);
+            }
+            return resolve(contents);
+        });
+    });
+}
+
+
+async function getScratchxExtension(req: Express.Request, res: Express.Response) {
+    const apikey = req.params.scratchkey;
+
+    try {
+        const scratchKey = await store.getScratchKey(apikey);
+        if (scratchKey.type === 'text') {
+            const template: string = await readFile('./resources/scratchx-text-classify.js');
+            Mustache.parse(template);
+            const rendered = Mustache.render(template, {
+                statusurl : ROOT_URL + '/api/scratch/' + apikey + '/status',
+                classifyurl : ROOT_URL + '/api/scratch/' + apikey + '/classify',
+            });
+            return res.send(rendered);
+        }
+        else {
+            return errors.notImplementedYet(res);
+        }
+    }
+    catch (err) {
+        errors.unknownError(res, err);
+    }
+}
+
+
+function getScratchxStatus(req: Express.Request, res: Express.Response) {
+    res.json({ status : 2, msg : 'Ready' });
+}
+
 
 
 export default function registerApis(app: Express.Application) {
@@ -122,5 +166,6 @@ export default function registerApis(app: Express.Application) {
             getScratchKeys);
 
     app.post('/api/scratch/:scratchkey/classify', classifyWithScratchKey);
-
+    app.get('/api/scratch/:scratchkey/extension', getScratchxExtension);
+    app.get('/api/scratch/:scratchkey/status', getScratchxStatus);
 }
