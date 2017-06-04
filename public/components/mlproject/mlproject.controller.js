@@ -8,12 +8,13 @@
         'authService',
         'projectsService',
         'trainingService',
+        'scratchkeysService',
         '$stateParams',
         '$scope',
         '$mdDialog'
     ];
 
-    function ProjectController(authService, projectsService, trainingService, $stateParams, $scope, $mdDialog) {
+    function ProjectController(authService, projectsService, trainingService, scratchkeysService, $stateParams, $scope, $mdDialog) {
         var vm = this;
         vm.authService = authService;
 
@@ -152,6 +153,20 @@
                 $scope.testoutput = randomClass(project);
                 $scope.testoutput_explanation = "Selected at random";
             }
+        };
+
+        vm.getScratchKey = function (ev, project) {
+            scratchkeysService.getScratchKeys(project.id, vm.profile.user_id, vm.profile.tenant)
+                .then(function (resp) {
+                    var scratchkey = resp[0];
+
+                    scratchkey.url = window.location.origin +
+                                     '/api/scratch/' +
+                                     scratchkey.id +
+                                     '/extension';
+
+                    $scope.scratchkey = scratchkey;
+                });
         };
     }
 

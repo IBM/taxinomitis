@@ -140,7 +140,8 @@ async function getScratchxExtension(req: Express.Request, res: Express.Response)
                 statusurl : ROOT_URL + '/api/scratch/' + apikey + '/status',
                 classifyurl : ROOT_URL + '/api/scratch/' + apikey + '/classify',
             });
-            return res.send(rendered);
+            return res.set('Content-Type', 'application/javascript')
+                      .send(rendered);
         }
         else {
             return errors.notImplementedYet(res);

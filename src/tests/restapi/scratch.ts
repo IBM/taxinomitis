@@ -329,7 +329,7 @@ describe('REST API - scratch keys', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK)
                 .then(async (res) => {
-                    assert.equal(res.body, { status : 2, msg : 'Ready' });
+                    assert.deepEqual(res.body, { status : 2, msg : 'Ready' });
 
                     await store.deleteScratchKey(keyId);
                 });

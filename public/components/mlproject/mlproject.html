@@ -55,6 +55,11 @@
         <div> {{ testoutput }} </div>
         <div> {{ testoutput_explanation }} </div>
     </div>
+    <div ng-if="project">
+        <h3>export to scratch</h3>
+        <div ng-if="scratchkey"><strong>{{ scratchkey.url }}</strong> using {{ scratchkey.model }}</div>
+        <button ng-if="!scratchkey" class="btn" ng-click="vm.getScratchKey($event, project)">Open in Scratch</button>
+    </div>
     <div class="text-center" ng-if="!projectId">
         missing projectid - you should probably go back to <a ui-sref="projects">Projects</a>
     </div>
