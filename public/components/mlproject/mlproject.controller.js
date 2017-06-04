@@ -163,7 +163,7 @@
                     scratchkey.url = window.location.origin +
                                      '/api/scratch/' +
                                      scratchkey.id +
-                                     '/extension';
+                                     '/extension.js';
 
                     $scope.scratchkey = scratchkey;
                 });

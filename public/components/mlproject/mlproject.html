@@ -57,7 +57,9 @@
     </div>
     <div ng-if="project">
         <h3>export to scratch</h3>
-        <div ng-if="scratchkey"><strong>{{ scratchkey.url }}</strong> using {{ scratchkey.model }}</div>
+        <div ng-if="scratchkey">
+            <a href="{{ scratchkey.url }}">{{ scratchkey.url }}</a>
+            using {{ scratchkey.model }}</div>
         <button ng-if="!scratchkey" class="btn" ng-click="vm.getScratchKey($event, project)">Open in Scratch</button>
     </div>
     <div class="text-center" ng-if="!projectId">

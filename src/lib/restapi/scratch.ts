@@ -95,7 +95,7 @@ async function classifyText(key: Types.ScratchKey, text: string): Promise<Traini
 async function classifyWithScratchKey(req: Express.Request, res: Express.Response) {
     const apikey = req.params.scratchkey;
 
-    const text = req.body.text;
+    const text = req.query.text;
     if (!text || text.trim().length === 0) {
         return errors.missingData(res);
     }
@@ -104,7 +104,7 @@ async function classifyWithScratchKey(req: Express.Request, res: Express.Respons
         const scratchKey = await store.getScratchKey(apikey);
         if (scratchKey.type === 'text') {
             const classes = await classifyText(scratchKey, text);
-            return res.json(classes);
+            return res.jsonp(classes);
         }
         else {
             return errors.notImplementedYet(res);
@@ -154,7 +154,7 @@ async function getScratchxExtension(req: Express.Request, res: Express.Response)
 
 
 function getScratchxStatus(req: Express.Request, res: Express.Response) {
-    res.json({ status : 2, msg : 'Ready' });
+    res.jsonp({ status : 2, msg : 'Ready' });
 }
 
 
@@ -166,7 +166,7 @@ export default function registerApis(app: Express.Application) {
             auth.checkValidUser,
             getScratchKeys);
 
-    app.post('/api/scratch/:scratchkey/classify', classifyWithScratchKey);
-    app.get('/api/scratch/:scratchkey/extension', getScratchxExtension);
+    app.get('/api/scratch/:scratchkey/classify', classifyWithScratchKey);
+    app.get('/api/scratch/:scratchkey/extension.js', getScratchxExtension);
     app.get('/api/scratch/:scratchkey/status', getScratchxStatus);
 }

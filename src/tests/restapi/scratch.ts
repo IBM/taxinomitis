@@ -344,7 +344,7 @@ describe('REST API - scratch keys', () => {
             const keyId = await store.storeUntrainedScratchKey(projectid, 'dummyproject', 'text', userid, classid);
 
             return request(testServer)
-                .get('/api/scratch/' + keyId + '/extension')
+                .get('/api/scratch/' + keyId + '/extension.js')
                 .expect(httpstatus.OK)
                 .then(async (res) => {
                     const body: string = res.text;

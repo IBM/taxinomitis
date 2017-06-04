@@ -5,6 +5,8 @@
         msg : 'Getting status',
     };
 
+    ext._shutdown = function() {};
+
     ext.resultscache = {
         // classifiedText : { class_name : topClassName, confidence : topClassConfidence }
     };
@@ -32,7 +34,6 @@
         $.ajax({
             url : '{{{ classifyurl }}}',
             dataType : 'jsonp',
-            method : 'POST',
             data : {
                 text : text
             },
@@ -86,5 +87,5 @@
     };
 
     // Register the extension
-    ScratchExtensions.register('Machine Learning text blocks', descriptor, ext);
+    ScratchExtensions.register('ML text blocks', descriptor, ext);
 })({});
