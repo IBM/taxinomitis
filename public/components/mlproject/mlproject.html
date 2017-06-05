@@ -31,54 +31,6 @@
             <td><button class="btn" ui-sref="mlproject_scratch({ projectId : projectId })">Scratch</button></td>
         </tr>
     </table>
-    <!--<div ng-if="project">
-        <h2>{{ project.name }}</h2>
-        <h3>Recognising {{ project.type }} as {{ project.labels.join(',') }}</h3>
-        <div>
-            <button class="btn" ng-click="vm.addLabel($event, project)">Add new label</button>
-        </div>
-        <table border=1>
-            <tr>
-                <td ng-repeat="label in project.labels"><strong>{{label}}</strong></td>
-            </tr>
-            <tr>
-                <td ng-repeat="label in project.labels">
-                    <div ng-repeat="item in training[label]">
-                        {{ item.textdata }}
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td ng-repeat="label in project.labels">
-                    <button class="btn" ng-click="vm.addTrainingData($event, label)">Add</button>
-                </td>
-            </tr>
-        </table>
-    </div>-->
-    <!--<div ng-if="models">
-        <h3>models</h3>
-        <div ng-repeat="model in models">
-            {{ model }}
-            <button class="btn" ng-click="vm.deleteModel($event, project, model)">delete</button>
-        </div>
-        <button class="btn" ng-click="vm.createModel($event, project)">Train</button>
-    </div>-->
-    <!--<div ng-if="project">
-        <h3>test</h3>
-        <form name="testform" ng-submit="vm.testModel($event, testform, project)">
-            <input type="text" ng-model="testformData.testquestion" ng-required="true" placeholder="enter a test text here">
-            <input type="submit" class="btn" value="Test" ng-disabled="testform.$invalid" >
-        </form>
-        <div> {{ testoutput }} </div>
-        <div> {{ testoutput_explanation }} </div>
-    </div>-->
-    <!--<div ng-if="project">
-        <h3>export to scratch</h3>
-        <div ng-if="scratchkey">
-            <a href="{{ scratchkey.url }}">{{ scratchkey.url }}</a>
-            using {{ scratchkey.model }}</div>
-        <button ng-if="!scratchkey" class="btn" ng-click="vm.getScratchKey($event, project)">Open in Scratch</button>
-    </div>-->
     <div class="text-center" ng-if="!projectId">
         missing projectid - you should probably go back to <a ui-sref="projects">Projects</a>
     </div>
