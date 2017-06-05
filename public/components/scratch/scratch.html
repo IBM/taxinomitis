@@ -6,24 +6,23 @@
 </div>
 <div ng-if="isAuthenticated">
     <div class="jumbotron">
-        <h2 class="text-center">Models</h2>
+        <h2 class="text-center">Scratch</h2>
     </div>
     <div class="text-center">
-        management of ML models trained for this project
+        open in Scratch here
     </div>
-    <div ng-if="projectId && !models">
+    <div ng-if="projectId && !project">
         loading
     </div>
     <div>
         <a ui-sref="mlproject({ projectId : projectId })">&lt; Back to project</a>
     </div>
-    <div ng-if="models">
-        <h3>models</h3>
-        <div ng-repeat="model in models">
-            {{ model }}
-            <button class="btn" ng-click="vm.deleteModel($event, project, model)">delete</button>
-        </div>
-        <button class="btn" ng-click="vm.createModel($event, project)">Train</button>
+    <div ng-if="project">
+        <h3>export to scratch</h3>
+        <div ng-if="scratchkey">
+            <a target="_blank" href="{{ scratchkey.url }}">{{ scratchkey.url }}</a>
+            using {{ scratchkey.model }}</div>
+        <button ng-if="!scratchkey" class="btn" ng-click="vm.getScratchKey($event, project)">Open in Scratch</button>
     </div>
     <div class="text-center" ng-if="!projectId">
         missing projectid - you should probably go back to <a ui-sref="projects">Projects</a>

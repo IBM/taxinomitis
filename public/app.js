@@ -45,12 +45,31 @@
                 templateUrl: 'components/mlproject/mlproject.html',
                 controllerAs: 'vm'
             })
-            .state('models', {
-                url: '/models',
+            .state('mlproject_training', {
+                url: '/mlproject/:projectId/training',
+                controller: 'TrainingController',
+                templateUrl: 'components/training/training.html',
+                controllerAs: 'vm'
+            })
+            .state('mlproject_models', {
+                url: '/mlproject/:projectId/models',
                 controller: 'ModelsController',
                 templateUrl: 'components/models/models.html',
                 controllerAs: 'vm'
+            })
+            .state('mlproject_test', {
+                url: '/mlproject/:projectId/test',
+                controller: 'TestController',
+                templateUrl: 'components/test/test.html',
+                controllerAs: 'vm'
+            })
+            .state('mlproject_scratch', {
+                url: '/mlproject/:projectId/scratch',
+                controller: 'ScratchController',
+                templateUrl: 'components/scratch/scratch.html',
+                controllerAs: 'vm'
             });
+
 
         lockProvider.init({
             clientID: AUTH0_CLIENT_ID,

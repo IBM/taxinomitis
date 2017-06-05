@@ -255,8 +255,7 @@ describe('REST API - models', () => {
                     await store.deleteProject(projectid);
                     await store.deleteNLCClassifiersByProjectId(projectid);
                 });
-
-        });
+        }).timeout(6000);
 
     });
 
