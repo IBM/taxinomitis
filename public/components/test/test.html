@@ -6,10 +6,7 @@
 </div>
 <div ng-if="isAuthenticated">
     <div class="jumbotron">
-        <h2 class="text-center">Test</h2>
-    </div>
-    <div class="text-center">
-        test and feedback
+        <h2 class="text-center">Test your project</h2>
     </div>
     <div>
         <a ui-sref="mlproject({ projectId : projectId })">&lt; Back to project</a>
@@ -17,14 +14,16 @@
     <div ng-if="projectId && !models">
         loading
     </div>
-    <div ng-if="project && models">
-        <h3>test</h3>
+    <div ng-if="project && models" style="margin: 3em;">
+        <div style="margin: 1em;">Try putting in some text to see how it is recognised based on your training.</div>
         <form name="testform" ng-submit="vm.testModel($event, testform, project)">
-            <input type="text" ng-model="testformData.testquestion" ng-required="true" placeholder="enter a test text here">
+            <input style="width: 80%" type="text" ng-model="testformData.testquestion" ng-required="true" placeholder="enter a test text here">
             <input type="submit" class="btn" value="Test" ng-disabled="testform.$invalid" >
         </form>
-        <div> {{ testoutput }} </div>
-        <div> {{ testoutput_explanation }} </div>
+        <div ng-if="testoutput">
+            <div>Recognised as <strong>{{ testoutput }}</strong> </div>
+            <div> {{ testoutput_explanation }} </div>
+        </div>
     </div>
     <div class="text-center" ng-if="!projectId">
         missing projectid - you should probably go back to <a ui-sref="projects">Projects</a>

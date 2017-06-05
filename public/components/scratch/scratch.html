@@ -6,22 +6,18 @@
 </div>
 <div ng-if="isAuthenticated">
     <div class="jumbotron">
-        <h2 class="text-center">Scratch</h2>
-    </div>
-    <div class="text-center">
-        open in Scratch here
-    </div>
-    <div ng-if="projectId && !project">
-        loading
+        <h2 class="text-center">Use your training in a Scratch project</h2>
     </div>
     <div>
         <a ui-sref="mlproject({ projectId : projectId })">&lt; Back to project</a>
     </div>
-    <div ng-if="project">
-        <h3>export to scratch</h3>
+    <div ng-if="projectId && !project">
+        loading
+    </div>
+    <div ng-if="project" style="margin: 4em">
         <div ng-if="scratchkey">
             <a target="_blank" href="{{ scratchkey.url }}">{{ scratchkey.url }}</a>
-            using {{ scratchkey.model }}</div>
+        </div>
         <button ng-if="!scratchkey" class="btn" ng-click="vm.getScratchKey($event, project)">Open in Scratch</button>
     </div>
     <div class="text-center" ng-if="!projectId">

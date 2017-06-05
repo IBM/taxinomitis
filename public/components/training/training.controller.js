@@ -27,28 +27,7 @@
                 .then(function (project) {
                     $scope.project = project;
 
-                    if (project.labels.length > 0) {
-                        var summary = '';
-                        switch (project.labels.length) {
-                            case 1:
-                                summary = project.labels[0];
-                                break;
-                            case 2:
-                                summary = project.labels[0] + ' or ' + project.labels[1];
-                                break;
-                            case 3:
-                                summary = project.labels[0] + ', ' +
-                                            project.labels[1] + ' or ' +
-                                            project.labels[2];
-                                break;
-                            default:
-                                summary = project.labels[0] + ', ' +
-                                            project.labels[1] + ' or ' +
-                                            (project.labels.length - 2) + ' other classes';
-                                break;
-                        }
-                        project.labelsSummary = summary;
-                    }
+                    refreshLabelsSummary();
 
                     for (var label of project.labels) {
                         $scope.training[label] = [];
@@ -70,6 +49,32 @@
                         });
                 });
         });
+
+
+        function refreshLabelsSummary () {
+            if ($scope.project.labels.length > 0) {
+                var summary = '';
+                switch ($scope.project.labels.length) {
+                    case 1:
+                        summary = $scope.project.labels[0];
+                        break;
+                    case 2:
+                        summary = $scope.project.labels[0] + ' or ' + $scope.project.labels[1];
+                        break;
+                    case 3:
+                        summary = $scope.project.labels[0] + ', ' +
+                                    $scope.project.labels[1] + ' or ' +
+                                    $scope.project.labels[2];
+                        break;
+                    default:
+                        summary = $scope.project.labels[0] + ', ' +
+                                    $scope.project.labels[1] + ' or ' +
+                                    ($scope.project.labels.length - 2) + ' other classes';
+                        break;
+                }
+                $scope.project.labelsSummary = summary;
+            }
+        }
 
 
         vm.addTrainingData = function (ev, label) {
@@ -111,6 +116,8 @@
                         .then(function (labels) {
                             $scope.project.labels = labels;
                             $scope.training[newlabel] = [];
+
+                            refreshLabelsSummary();
                         });
                 },
                 function() {

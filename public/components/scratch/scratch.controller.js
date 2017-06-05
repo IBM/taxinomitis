@@ -8,10 +8,10 @@
         'authService',
         'projectsService', 'scratchkeysService',
         '$stateParams',
-        '$scope'
+        '$scope', '$window'
     ];
 
-    function ScratchController(authService, projectsService, scratchkeysService, $stateParams, $scope) {
+    function ScratchController(authService, projectsService, scratchkeysService, $stateParams, $scope, $window) {
 
         var vm = this;
         vm.authService = authService;
@@ -39,6 +39,8 @@
                                      scratchkey.id +
                                      '/extension.js' +
                                      '#scratch';
+
+                    $window.open(scratchkey.url, '_blank');
 
                     $scope.scratchkey = scratchkey;
                 });

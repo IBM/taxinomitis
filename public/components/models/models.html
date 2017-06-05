@@ -6,24 +6,44 @@
 </div>
 <div ng-if="isAuthenticated">
     <div class="jumbotron">
-        <h2 class="text-center">Models</h2>
-    </div>
-    <div class="text-center">
-        management of ML models trained for this project
-    </div>
-    <div ng-if="projectId && !models">
-        loading
+        <h2 class="text-center">Machine learning models</h2>
     </div>
     <div>
         <a ui-sref="mlproject({ projectId : projectId })">&lt; Back to project</a>
     </div>
+    <div ng-if="projectId && !models">
+        loading
+    </div>
     <div ng-if="models">
-        <h3>models</h3>
         <div ng-repeat="model in models">
-            {{ model }}
-            <button class="btn" ng-click="vm.deleteModel($event, project, model)">delete</button>
+            <table style="margin: 2em;">
+                <tr>
+                    <td><strong>Model was trained at:</strong></td>
+                    <td>
+                        {{ model.created | date : 'fullDate' }}
+                        {{ model.created | date : 'shortTime' }}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Current model status:</strong></td>
+                    <td> {{ model.status }} </td>
+                </tr>
+                <tr>
+                    <td><strong>Detail:</strong></td>
+                    <td> {{ model.statusDescription }} </td>
+                </tr>
+                <tr><td colspan=2> &nbsp; </td></tr>
+                <tr>
+                    <td colspan=2>
+                        <button class="btn"
+                                ng-click="vm.deleteModel($event, project, model)">
+                            Delete model
+                        </button>
+                    </td>
+                </tr>
+            </table>
         </div>
-        <button class="btn" ng-click="vm.createModel($event, project)">Train</button>
+        <button style="margin: 4em;" class="btn" ng-click="vm.createModel($event, project)">Train new machine learning model</button>
     </div>
     <div class="text-center" ng-if="!projectId">
         missing projectid - you should probably go back to <a ui-sref="projects">Projects</a>
