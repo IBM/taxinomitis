@@ -27,6 +27,29 @@
                 .then(function (project) {
                     $scope.project = project;
 
+                    if (project.labels.length > 0) {
+                        var summary = '';
+                        switch (project.labels.length) {
+                            case 1:
+                                summary = project.labels[0];
+                                break;
+                            case 2:
+                                summary = project.labels[0] + ' or ' + project.labels[1];
+                                break;
+                            case 3:
+                                summary = project.labels[0] + ', ' +
+                                            project.labels[1] + ' or ' +
+                                            project.labels[2];
+                                break;
+                            default:
+                                summary = project.labels[0] + ', ' +
+                                            project.labels[1] + ' or ' +
+                                            (project.labels.length - 2) + ' other classes';
+                                break;
+                        }
+                        project.labelsSummary = summary;
+                    }
+
                     for (var label of project.labels) {
                         $scope.training[label] = [];
                     }

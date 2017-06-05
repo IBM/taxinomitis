@@ -1,0 +1,73 @@
+.jumbotron > .mlprojectdescription {
+    font-size: 1.9em;
+    text-align: center;
+    padding-top: 0;
+    line-height: 1.7em;
+}
+.jumbotron.training {
+    margin-bottom: 0;
+}
+
+.trainingbuckets {
+
+}
+.trainingbucket {
+
+    float: left;
+    min-width: 330px;
+    width: 30%;
+    border: 0.8em #777777 solid;
+    border-radius: 2em;
+    margin: 1em;
+    min-width: 25em;
+    height: 65vh;
+}
+.trainingbucketheader {
+    margin-left: auto;
+    margin-right: auto;
+}
+.trainingbucketlabel {
+    text-align: center;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: darkgreen;
+    position: relative;
+    top: -1em;
+    background-color: white;
+    width: 90%;
+    margin-left: 37%;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.trainingbucketitems {
+    padding: 0.8em;
+    height: 50vh;
+}
+.trainingbucketitem {
+    background-color: #e0e0e0;
+    margin: 0.5em;
+    padding: 0.5em 0.7em;
+    font-size: 1.2em;
+    float: left;
+}
+
+
+
+.newlabelbutton {
+    float: right;
+    clear: both;
+    margin-right: 5em;
+}
+.newlabelicon {
+    font-size: 3em;
+    font-weight: bold;
+    float: left;
+    margin-top: 0;
+    padding-top: 0;
+    line-height: 30px;
+    margin-right: 10px;
+}
+.newlabellabel {
+    float: right;
+    width: 80px;
+}

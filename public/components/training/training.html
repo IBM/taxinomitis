@@ -5,41 +5,45 @@
     </div>
 </div>
 <div ng-if="isAuthenticated">
-    <div class="jumbotron">
-        <h2 class="text-center">Training</h2>
-    </div>
-    <div class="text-center">
-        Training data for a single project
-    </div>
-    <div ng-if="projectId && !project">
-        loading
+    <div class="jumbotron training">
+        <h2 class="text-center" ng-if="!project">Training</h2>
+        <div class="mlprojectdescription" ng-if="project">
+            Recognising
+            <span class="mlprojecttype">{{ project.type }}</span>
+            <span ng-if="project.labelsSummary">
+                as
+                <span class="mlprojectlabels">{{ project.labelsSummary }}</span>
+            </span>
+        </div>
     </div>
     <div>
         <a ui-sref="mlproject({ projectId : projectId })">&lt; Back to project</a>
     </div>
+    <div ng-if="projectId && !project">
+        loading
+    </div>
     <div ng-if="project">
-        <h2>{{ project.name }}</h2>
-        <h3>Recognising {{ project.type }} as {{ project.labels.join(',') }}</h3>
-        <div>
-            <button class="btn" ng-click="vm.addLabel($event, project)">Add new label</button>
+        <div style="height: 60px;">
+            <div class="newlabelbutton" ng-click="vm.addLabel($event, project)">
+                <div class="newlabelicon">+</div>
+                <div class="newlabellabel">Add new label</div>
+            </div>
         </div>
-        <table border=1>
-            <tr>
-                <td ng-repeat="label in project.labels"><strong>{{label}}</strong></td>
-            </tr>
-            <tr>
-                <td ng-repeat="label in project.labels">
-                    <div ng-repeat="item in training[label]">
+        <div class="trainingbuckets">
+            <div class="trainingbucket" ng-repeat="label in project.labels">
+                <div class="trainingbucketheader">
+                    <span class="trainingbucketlabel">{{label}}</span>
+                </div>
+                <div class="trainingbucketitems">
+                    <div class="trainingbucketitem" ng-repeat="item in training[label]">
                         {{ item.textdata }}
                     </div>
-                </td>
-            </tr>
-            <tr>
-                <td ng-repeat="label in project.labels">
-                    <button class="btn" ng-click="vm.addTrainingData($event, label)">Add</button>
-                </td>
-            </tr>
-        </table>
+                </div>
+                <div style="text-align: center;">
+                    <button class="btn" ng-click="vm.addTrainingData($event, label)"> Add example </button>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="text-center" ng-if="!projectId">
         missing projectid - you should probably go back to <a ui-sref="projects">Projects</a>
