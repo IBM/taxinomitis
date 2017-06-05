@@ -87,5 +87,5 @@
     };
 
     // Register the extension
-    ScratchExtensions.register('ML text blocks', descriptor, ext);
+    ScratchExtensions.register('{{{ projectname }}}', descriptor, ext);
 })({});

@@ -196,13 +196,15 @@ describe('REST API - scratch keys', () => {
     describe('use keys', () => {
 
         it('should require something to classify', () => {
+            const callbackFunctionName = 'mycb';
             return request(testServer)
-                .post('/api/scratch/' + uuid() + '/classify')
-                .expect('Content-Type', /json/)
+                .get('/api/scratch/' + uuid() + '/classify?callback=' + callbackFunctionName)
+                // this is a JSONP API
+                .expect('Content-Type', /javascript/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
-                    const body = res.body;
-                    assert.deepEqual(body, { error : 'Missing data' });
+                    assert.equal(res.error.text,
+                        '/**/ typeof ' + callbackFunctionName + ' === \'function\' && mycb({"error":"Missing data"});');
                 });
         });
 
@@ -221,15 +223,26 @@ describe('REST API - scratch keys', () => {
 
             const keyId = await store.storeUntrainedScratchKey(project.id, name, 'text', userid, classid);
 
+            const callbackFunctionName = 'jsonpCallback';
+
             return request(testServer)
-                .post('/api/scratch/' + keyId + '/classify')
-                .send({ text : 'haddock' })
-                .expect('Content-Type', /json/)
+                .get('/api/scratch/' + keyId + '/classify?callback=' + callbackFunctionName + '&text=haddock')
+                // this is a JSONP API
+                .expect('Content-Type', /javascript/)
                 .expect(httpstatus.OK)
                 .then((res) => {
-                    const body = res.body;
-                    assert.equal(body.length, 3);
-                    body.forEach((item) => {
+                    const text = res.text;
+
+                    const expectedStart = '/**/ typeof ' +
+                                          callbackFunctionName +
+                                          ' === \'function\' && ' +
+                                          callbackFunctionName + '(';
+
+                    assert(text.startsWith(expectedStart));
+                    const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
+
+                    assert.equal(payload.length, 3);
+                    payload.forEach((item) => {
                         assert.equal(item.confidence, 33);
                         assert(['animal', 'vegetable', 'mineral'].indexOf(item.class_name) >= 0);
                     });
@@ -294,15 +307,25 @@ describe('REST API - scratch keys', () => {
 
             const nlcStub = sinon.stub(requestPromise, 'post').callsFake(mockClassifier);
 
+            const callbackFunctionName = 'cb';
+
             return request(testServer)
-                .post('/api/scratch/' + scratchKey + '/classify')
-                .send({ text : 'haddock' })
-                .expect('Content-Type', /json/)
+                .get('/api/scratch/' + scratchKey + '/classify?callback=' + callbackFunctionName + '&text=haddock')
+                // this is a JSONP API
+                .expect('Content-Type', /javascript/)
                 .expect(httpstatus.OK)
                 .then(async (res) => {
-                    const body = res.body;
+                    const text = res.text;
 
-                    assert.deepEqual(body, [
+                    const expectedStart = '/**/ typeof ' +
+                                          callbackFunctionName +
+                                          ' === \'function\' && ' +
+                                          callbackFunctionName + '(';
+
+                    assert(text.startsWith(expectedStart));
+                    const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
+
+                    assert.deepEqual(payload, [
                         { class_name: 'temperature', confidence: 64 },
                         { class_name: 'conditions', confidence: 36 },
                     ]);

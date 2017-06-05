@@ -1,19 +1,17 @@
 // external dependencies
-import * as fs from 'fs';
 import * as Express from 'express';
 import * as httpstatus from 'http-status';
 import * as _ from 'lodash';
-import * as Mustache from 'mustache';
 // local dependencies
 import * as store from '../db/store';
 import * as errors from './errors';
 import * as auth from './auth';
 import * as nlc from '../training/nlc';
+import * as extensions from '../scratchx/extensions';
 import * as Types from '../db/db-types';
 import * as TrainingTypes from '../training/training-types';
 
 
-const ROOT_URL = 'http://' + process.env.HOST + ':' + process.env.PORT;
 
 
 async function createScratchKey(
@@ -97,7 +95,7 @@ async function classifyWithScratchKey(req: Express.Request, res: Express.Respons
 
     const text = req.query.text;
     if (!text || text.trim().length === 0) {
-        return errors.missingData(res);
+        return res.status(httpstatus.BAD_REQUEST).jsonp({ error : 'Missing data' });
     }
 
     try {
@@ -107,25 +105,15 @@ async function classifyWithScratchKey(req: Express.Request, res: Express.Respons
             return res.jsonp(classes);
         }
         else {
-            return errors.notImplementedYet(res);
+            return res.status(httpstatus.NOT_IMPLEMENTED).jsonp({ error : 'Not implemented yet' });
         }
     }
     catch (err) {
-        errors.unknownError(res, err);
+        return res.status(httpstatus.INTERNAL_SERVER_ERROR).jsonp(err);
     }
 }
 
 
-function readFile(path: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-        fs.readFile(path, 'utf8', (err, contents) => {
-            if (err) {
-                return reject(err);
-            }
-            return resolve(contents);
-        });
-    });
-}
 
 
 async function getScratchxExtension(req: Express.Request, res: Express.Response) {
@@ -133,19 +121,9 @@ async function getScratchxExtension(req: Express.Request, res: Express.Response)
 
     try {
         const scratchKey = await store.getScratchKey(apikey);
-        if (scratchKey.type === 'text') {
-            const template: string = await readFile('./resources/scratchx-text-classify.js');
-            Mustache.parse(template);
-            const rendered = Mustache.render(template, {
-                statusurl : ROOT_URL + '/api/scratch/' + apikey + '/status',
-                classifyurl : ROOT_URL + '/api/scratch/' + apikey + '/classify',
-            });
-            return res.set('Content-Type', 'application/javascript')
-                      .send(rendered);
-        }
-        else {
-            return errors.notImplementedYet(res);
-        }
+        const extension = await extensions.getScratchxExtension(scratchKey);
+        return res.set('Content-Type', 'application/javascript')
+                  .send(extension);
     }
     catch (err) {
         errors.unknownError(res, err);
