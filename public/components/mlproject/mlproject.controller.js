@@ -4,9 +4,9 @@
         .module('app')
         .controller('ProjectController', ProjectController);
 
-    ProjectController.$inject = [ 'authService', '$stateParams' ];
+    ProjectController.$inject = [ 'authService', '$stateParams', '$scope' ];
 
-    function ProjectController(authService, $stateParams) {
+    function ProjectController(authService, $stateParams, $scope) {
         var vm = this;
         vm.authService = authService;
 

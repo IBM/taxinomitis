@@ -6,22 +6,31 @@
 </div>
 <div ng-if="isAuthenticated">
     <div class="jumbotron">
-        <h2 class="text-center">Projects</h2>
+        <h2 class="text-center">Your machine learning projects</h2>
+    </div>
+    <div>
+        <div class="newprojectbutton" ng-click="vm.createProject($event)">
+            <div class="newprojecticon">+</div>
+            <div class="newprojectlabel">Add a new project</div>
+        </div>
     </div>
     <div class="text-center">
-        <h2>Welcome, {{ vm.profile.nickname }}</h2>
-        <div>a list of your ML projects</div>
-    </div>
-    <div class="text-center">
-        <button class="btn" ng-click="vm.createProject($event)">Add a new project</button>
-    </div>
-    <div class="text-center">
-        <table border=1>
-            <tr ng-repeat="project in vm.projects">
-                <td><a ui-sref="mlproject({ projectId : project.id })">{{ project.name }}</a></td>
-                <td>Recognising {{ project.type }} <span ng-show="{{ project.labels }}">as {{ project.labels }}</a></td>
-                <td> <button class="btn" ng-click="vm.deleteProject($event, project)">Delete</button> </td>
-            </tr>
-        </table>
+        <div class="mlproject" ng-repeat="project in vm.projects">
+            <div class="mlprojectdetails" ui-sref="mlproject({ projectId : project.id })">
+                <div class="mlprojecttitle">{{ project.name }}</div>
+                <div class="mlprojectdescription">
+                    Recognising
+                    <span class="mlprojecttype">{{ project.type }}</span>
+                    <span ng-if="project.labelsSummary">
+                        as
+                        <span class="mlprojectlabels">{{ project.labelsSummary }}</span>
+                    </span>
+                </div>
+            </div>
+            <img class="mlprojectdelete"
+                 src="images/trash.png"
+                 ng-click="vm.deleteProject($event, project)"
+                 alt="Delete project" />
+        </div>
     </div>
 </div>

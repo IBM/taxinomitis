@@ -1,0 +1,67 @@
+.mlproject {
+    width: 70%;
+    clear: both;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mlprojectdetails {
+    margin-bottom: 1em;
+    padding: 1em 1.5em;
+    background-color: #eeeeee;
+    border-radius: 2em;
+    text-align: left;
+    cursor: pointer;
+    width: 90%;
+    float: left;
+}
+
+.mlprojecttitle {
+    font-weight: bold;
+    font-size: 2.2em;
+}
+
+.mlprojectdescription {
+    padding: 0.5em 2.5em 0;
+    font-size: 1.2em;
+}
+
+.mlprojecttype {
+    color: darkblue;
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+.mlprojectlabels {
+    color: darkgreen;
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-left: 0.5em;
+}
+
+.mlprojectdelete {
+    float: right;
+    margin-top: 2.5em;
+}
+
+.newprojectbutton {
+    float: right;
+    clear: both;
+    margin-right: 5em;
+    margin-bottom: 2em;
+}
+.newprojecticon {
+    font-size: 3em;
+    font-weight: bold;
+    float: left;
+    margin-top: 0;
+    padding-top: 0;
+    line-height: 30px;
+    margin-right: 10px;
+}
+.newprojectlabel {
+    float: right;
+    width: 80px;
+}
