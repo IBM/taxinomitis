@@ -1,0 +1,22 @@
+.menucontainer {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+
+.mlprojectmenu {
+    cursor: pointer;
+    float: left;
+    background-color: #eeeeee;
+    border-radius: 2em;
+    width: 20%;
+    margin: 2.5%;
+    padding: 2em;
+}
+
+.mlprojectmenutitle {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2em;
+}

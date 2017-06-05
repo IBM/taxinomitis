@@ -6,31 +6,26 @@
 </div>
 <div ng-if="isAuthenticated">
     <div class="jumbotron">
-        <h2 class="text-center">Project</h2>
+        <h2 class="text-center">Your machine learning project</h2>
     </div>
-    <div class="text-center">
-        Training data for a single project
+    <div class="menucontainer">
+        <div class="mlprojectmenu" ui-sref="mlproject_training({ projectId : projectId })">
+            <div class="mlprojectmenutitle">Train</div>
+            <div class="mlprojectmenudescription">Collect examples that we can use to train the computer</div>
+        </div>
+        <div class="mlprojectmenu" ui-sref="mlproject_models({ projectId : projectId })">
+            <div class="mlprojectmenutitle">Models</div>
+            <div class="mlprojectmenudescription">Train computer using examples you've collected</div>
+        </div>
+        <div class="mlprojectmenu" ui-sref="mlproject_test({ projectId : projectId })">
+            <div class="mlprojectmenutitle">Test</div>
+            <div class="mlprojectmenudescription">Test the computer to see how your training is going</div>
+        </div>
+        <div class="mlprojectmenu" ui-sref="mlproject_scratch({ projectId : projectId })">
+            <div class="mlprojectmenutitle">Scratch</div>
+            <div class="mlprojectmenudescription">Use your trained model in a Scratch project</div>
+        </div>
     </div>
-    <table width="66%" style="margin-left: auto; margin-right: auto;">
-        <tr>
-            <td width="25%"><h3 ui-sref="mlproject_training({ projectId : projectId })">Train</h3></td>
-            <td width="25%"><h3 ui-sref="mlproject_models({ projectId : projectId })">Models</h3></td>
-            <td width="25%"><h3 ui-sref="mlproject_test({ projectId : projectId })">Test</h3></td>
-            <td width="25%"><h3 ui-sref="mlproject_scratch({ projectId : projectId })">Scratch</h3></td>
-        </tr>
-        <tr>
-            <td>Collect more examples</td>
-            <td>Train computer using examples you've collected</td>
-            <td>Test the computer to see how the training is going</td>
-            <td>Use the training in Scratch</td>
-        </tr>
-        <tr>
-            <td><button class="btn" ui-sref="mlproject_training({ projectId : projectId })">Train</button></td>
-            <td><button class="btn" ui-sref="mlproject_models({ projectId : projectId })">Models</button></td>
-            <td><button class="btn" ui-sref="mlproject_test({ projectId : projectId })">Test</button></td>
-            <td><button class="btn" ui-sref="mlproject_scratch({ projectId : projectId })">Scratch</button></td>
-        </tr>
-    </table>
     <div class="text-center" ng-if="!projectId">
         missing projectid - you should probably go back to <a ui-sref="projects">Projects</a>
     </div>
