@@ -97,10 +97,8 @@ async function deleteProject(req: Express.Request, res: Express.Response) {
         const project: Objects.Project = await store.getProject(projectid);
 
         if (project) {
-            // TODO move this logic to check the user and classid into store
             if (project.classid === classid && project.userid === userid) {
-                await store.deleteProject(projectid);
-                await store.deleteTextTrainingByProjectId(projectid);
+                await store.deleteEntireProject(userid, classid, projectid);
                 return res.sendStatus(httpstatus.NO_CONTENT);
             }
             else {

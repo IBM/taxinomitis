@@ -641,4 +641,48 @@ describe('REST API - training', () => {
 
     });
 
+
+
+
+
+    describe('deleteProject()', () => {
+
+        it('should delete everything', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'text', 'demo');
+            const projectid = project.id;
+
+            await store.addLabelToProject(userid, classid, projectid, 'animal');
+            await store.addLabelToProject(userid, classid, projectid, 'vegetable');
+            await store.addLabelToProject(userid, classid, projectid, 'mineral');
+
+            await store.storeTextTraining(projectid, 'tomato', 'vegetable');
+            await store.storeTextTraining(projectid, 'giraffe', 'animal');
+            await store.storeTextTraining(projectid, 'zebra', 'animal');
+
+            const projecturl = '/api/classes/' + classid +
+                               '/students/' + userid +
+                               '/projects/' + projectid;
+
+            return request(testServer)
+                .delete(projecturl)
+                .expect(httpstatus.NO_CONTENT)
+                .then(async () => {
+                    const count = await store.countTextTraining(projectid);
+                    assert.equal(count, 0);
+
+                    try {
+                        await store.getProject(projectid);
+                        assert.fail(0, 1, 'should not be here', '');
+                    }
+                    catch (err) {
+                        assert(err);
+                    }
+                });
+        }).timeout(10000);
+
+    });
+
 });

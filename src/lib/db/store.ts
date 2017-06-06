@@ -2,6 +2,7 @@
 import * as mysqldb from './mysqldb';
 import * as dbobjects from './objects';
 import * as Objects from './db-types';
+import * as nlc from '../training/nlc';
 import * as TrainingObjects from '../training/training-types';
 import loggerSetup from '../utils/logger';
 
@@ -672,3 +673,46 @@ export async function deleteScratchKeysByProjectId(projectid: string): Promise<v
         throw new Error('Failed to delete scratch key info');
     }
 }
+
+
+
+// -----------------------------------------------------------------------------
+//
+// UBER DELETERS
+//
+// -----------------------------------------------------------------------------
+
+
+export async function deleteEntireProject(userid: string, classid: string, projectid: string): Promise<void> {
+    const classifiers = await getNLCClassifiers(projectid);
+    for (const classifier of classifiers) {
+        await nlc.deleteClassifier(userid, classid, projectid, classifier.classifierid);
+    }
+
+    const deleteQueries = [
+        'DELETE FROM `projects` WHERE `id` = ?',
+        'DELETE FROM `texttraining` WHERE `projectid` = ?',
+        'DELETE FROM `bluemixclassifiers` WHERE `projectid` = ?',
+        'DELETE FROM `scratchkeys` WHERE `projectid` = ?',
+    ];
+    for (const deleteQuery of deleteQueries) {
+        await dbConn.execute(deleteQuery, [ projectid ]);
+    }
+}
+
+export async function deleteEntireUser(userid: string, classid: string): Promise<void> {
+    const projects = await getProjectsByUserId(userid, classid);
+    for (const project of projects) {
+        await deleteEntireProject(userid, classid, project.id);
+    }
+
+    const deleteQueries = [
+        'DELETE FROM `projects` WHERE `userid` = ?',
+        'DELETE FROM `bluemixclassifiers` WHERE `userid` = ?',
+        'DELETE FROM `scratchkeys` WHERE `userid` = ?',
+    ];
+    for (const deleteQuery of deleteQueries) {
+        await dbConn.execute(deleteQuery, [ userid ]);
+    }
+}
+

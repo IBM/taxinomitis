@@ -5,23 +5,27 @@ import * as uuid from 'uuid/v1';
 import * as randomstring from 'randomstring';
 
 import * as store from '../../lib/db/store';
+import * as DbTypes from '../../lib/db/db-types';
 import * as Types from '../../lib/training/training-types';
 
 
 
 describe('ScratchKeys store', () => {
 
-    let project;
+    let project: DbTypes.Project;
+
+    const reusedUserid = uuid();
+    const reusedClassid = uuid();
 
     before(async () => {
         await store.init();
 
         project = await store.storeProject(
-            uuid(), uuid(), 'text', randomstring.generate({ length : 20 }),
+            reusedUserid, reusedClassid, 'text', randomstring.generate({ length : 20 }),
         );
     });
     after(async () => {
-        await store.deleteScratchKeysByProjectId(project.id);
+        await store.deleteEntireProject(reusedUserid, reusedClassid, project.id);
         return store.disconnect();
     });
 

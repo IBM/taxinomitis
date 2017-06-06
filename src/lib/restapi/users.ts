@@ -41,24 +41,26 @@ function createStudent(req: Express.Request, res: Express.Response) {
 }
 
 
-function deleteStudent(req: Express.Request, res: Express.Response) {
+async function deleteStudent(req: Express.Request, res: Express.Response) {
     const tenant = req.params.classid;
     const userid = req.params.studentid;
 
-    return auth0.deleteStudent(tenant, userid)
-        .then(() => {
-            res.sendStatus(httpstatus.NO_CONTENT);
+    try {
+        await auth0.deleteStudent(tenant, userid);
+        res.sendStatus(httpstatus.NO_CONTENT);
+    }
+    catch (err) {
+        res.status(err.statusCode).json(err);
+    }
 
-            store.deleteProjectsByUserId(userid, tenant)
-                .catch((err) => {
-                    log.error({ err }, 'Failed to clean up projects for deleted user');
-                });
-        })
-        .catch((err) => {
-            res.status(err.statusCode)
-                .json(err);
-        });
+    try {
+        await store.deleteEntireUser(userid, tenant);
+    }
+    catch (err) {
+        log.error({ err }, 'Failed to clean up projects for deleted user');
+    }
 }
+
 
 function resetStudentPassword(req: Express.Request, res: Express.Response) {
     const tenant = req.params.classid;
