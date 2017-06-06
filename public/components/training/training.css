@@ -25,6 +25,7 @@
 .trainingbucketheader {
     margin-left: auto;
     margin-right: auto;
+    height: 1em;
 }
 .trainingbucketlabel {
     text-align: center;
@@ -41,7 +42,9 @@
 }
 .trainingbucketitems {
     padding: 0.8em;
-    height: 50vh;
+    height: 54vh;
+    overflow-y: scroll;
+    margin-bottom: 0.4em;
 }
 .trainingbucketitem {
     background-color: #e0e0e0;
@@ -49,6 +52,10 @@
     padding: 0.5em 0.7em;
     font-size: 1.2em;
     float: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 95%;
 }
 
 

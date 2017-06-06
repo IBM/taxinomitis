@@ -6,32 +6,29 @@
 </div>
 <div ng-if="isAuthenticated && vm.profile.role === 'supervisor'">
     <div class="jumbotron">
-        <h2 class="text-center">Your class</h2>
+        <h2 class="text-center">Students in your class</h2>
     </div>
-    <div class="text-center">
-        List of students in the class.
-        Plus some useful functions.
+    <div ng-if="!vm || !vm.students">
+        loading
     </div>
-    <div class="text-center">
-        <h4>students list</h4>
-    </div>
-    <div class="text-center">
-        <table border="1">
-            <tr>
-                <td> </td>
-                <td>Last login</td>
-                <td colspan=2>Controls</td>
-            </tr>
-            <tr ng-repeat="student in vm.students">
-                <td> {{ student.username }} </td>
-                <td> {{ student.last_login ? student.last_login : 'Never' }} </td>
-                <td> <button class="btn" ng-click="vm.resetUserPassword($event, student)">Reset password</button> </td>
-                <td> <button class="btn" ng-click="vm.deleteUser($event, student)">Delete</button> </td>
+    <div ng-if="vm && vm.students">
+        <div style="height: 60px;">
+            <div class="newlabelbutton" ng-click="vm.createUser($event)">
+                <div class="newlabelicon">+</div>
+                <div class="newlabellabel">Add new student</div>
+            </div>
+        </div>
+        <table class="studentslist">
+            <tr ng-repeat="student in vm.students" ng-class-even="'even'" ng-class-odd="'odd'">
+                <td class="studentslistname"> {{ student.username }} </td>
+                <td class="studentslistdetail" ng-if="student.last_login"> Last login: {{ student.last_login | date : 'EEEE, MMMM d, y  h:mm a' }}  </td>
+                <td class="studentslistdetail" ng-if="!student.last_login"> Not logged in yet </td>
+                <td class="studentslistactions">
+                    <button class="btn" ng-click="vm.resetUserPassword($event, student)">Reset password</button>
+                    <button class="btn" ng-click="vm.deleteUser($event, student)">Delete student account</button>
+                </td>
             </tr>
         </table>
-    </div>
-    <div class="text-center">
-        <button class="btn" ng-click="vm.createUser($event)">Create new student account</button>
     </div>
 </div>
 <div ng-if="isAuthenticated && vm.profile.role !== 'supervisor'">
