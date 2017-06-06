@@ -1,0 +1,30 @@
+<md-dialog aria-label="Add new example">
+    <form ng-cloak name="newTrainingData">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Add new example</h2>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content" style="min-width: 500px">
+                <md-card-content>
+                    <div layout="row">
+                        <md-input-container style="min-width: 480px">
+                            <label>Enter an example of '{{ label }}'</label>
+                            <textarea rows="2"
+                                      md-autofocus
+                                      ng-required="true"
+                                      ng-model="example"
+                                      md-maxlength="1000"></textarea>
+                        </md-input-container>
+                    </div>
+                </md-card-content>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-disabled="newTrainingData.$invalid" ng-click="confirm(example)">Add</md-button>
+            <md-button ng-click="cancel()">Cancel</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

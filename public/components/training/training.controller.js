@@ -78,16 +78,17 @@
 
 
         vm.addTrainingData = function (ev, label) {
-            var confirm = $mdDialog.prompt()
-                .title('Add new example')
-                  .textContent('Enter an example of ' + label)
-                  .placeholder('example')
-                  .ariaLabel('example')
-                  .targetEvent(ev)
-                  .ok('Add')
-                  .cancel('Cancel');
-
-            $mdDialog.show(confirm).then(
+            $mdDialog.show({
+                controller : DialogController,
+                templateUrl : 'components/training/trainingdata.tmpl.html',
+                parent : angular.element(document.body),
+                targetEvent : ev,
+                clickOutsideToClose : true,
+                locals : {
+                    label : label
+                }
+            })
+            .then(
                 function(example) {
                     trainingService.newTrainingData($scope.projectId, vm.profile.user_id, vm.profile.tenant, example, label)
                         .then(function (newitem) {
@@ -96,7 +97,8 @@
                 },
                 function() {
                     // cancelled. do nothing
-                });
+                }
+            );
         };
 
 
@@ -124,6 +126,22 @@
                     // cancelled. do nothing
                 });
         };
+
+
+
+        function DialogController($scope, locals) {
+            $scope.label = locals.label;
+
+            $scope.hide = function() {
+                $mdDialog.hide();
+            };
+            $scope.cancel = function() {
+                $mdDialog.cancel();
+            };
+            $scope.confirm = function(resp) {
+                $mdDialog.hide(resp);
+            };
+        }
     }
 
 }());

@@ -167,6 +167,10 @@ async function storeTraining(req: RequestWithProject, res: Express.Response) {
         res.status(httpstatus.CREATED).json(training);
     }
     catch (err) {
+        if (err.message === 'Text exceeds maximum allowed length (1024 characters)') {
+            return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
+        }
+
         errors.unknownError(res, err);
     }
 }

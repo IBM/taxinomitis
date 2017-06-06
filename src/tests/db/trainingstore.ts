@@ -1,6 +1,7 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
 import * as uuid from 'uuid/v1';
+import * as randomstring from 'randomstring';
 
 import * as Objects from '../../lib/db/db-types';
 import * as store from '../../lib/db/store';
@@ -35,6 +36,24 @@ describe('DB store', () => {
             assert.equal(training.label, label);
 
             return store.deleteTextTrainingByProjectId(projectid);
+        });
+
+        it('should limit maximum training data length', async () => {
+            const projectid = uuid();
+            const text = randomstring.generate({ length : 1200 });
+            const label = uuid();
+
+            try {
+                await store.storeTextTraining(projectid, text, label);
+                assert.fail(0, 1, 'should not reach here', '');
+            }
+            catch (err) {
+                assert(err);
+                assert.equal(err.message, 'Text exceeds maximum allowed length (1024 characters)');
+
+                const count = await store.countTextTraining(projectid);
+                assert.equal(count, 0);
+            }
         });
     });
 

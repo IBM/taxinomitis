@@ -5,6 +5,7 @@ import * as request from 'supertest-as-promised';
 import * as httpstatus from 'http-status';
 import * as sinon from 'sinon';
 import * as proxyquire from 'proxyquire';
+import * as randomstring from 'randomstring';
 
 import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
@@ -191,6 +192,36 @@ describe('REST API - training', () => {
                 .then(async (res) => {
                     const body = res.body;
                     assert.deepEqual(body, { error : 'Missing data' });
+
+                    await store.deleteProject(projectid);
+                    await store.deleteTextTrainingByProjectId(projectid);
+                });
+        });
+
+
+        it('should limit maximum length of text training data', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'text', 'demo');
+            const projectid = project.id;
+
+            const trainingurl = '/api/classes/' + classid +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/training';
+
+            return request(testServer)
+                .post(trainingurl)
+                .send({
+                    data : randomstring.generate({ length : 1100 }),
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then(async (res) => {
+                    const body = res.body;
+
+                    assert.deepEqual(body, { error : 'Text exceeds maximum allowed length (1024 characters)' });
 
                     await store.deleteProject(projectid);
                     await store.deleteTextTrainingByProjectId(projectid);

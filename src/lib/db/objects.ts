@@ -74,6 +74,10 @@ export function createTextTraining(projectid: string, data: string, label: strin
         throw new Error('Missing required attributes');
     }
 
+    if (data.length > 1024) {
+        throw new Error('Text exceeds maximum allowed length (1024 characters)');
+    }
+
     const object: any = {
         id : uuid(),
         projectid,
