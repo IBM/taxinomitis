@@ -11,10 +11,13 @@ const TESTCLASS = 'UNIQUECLASSID';
 
 describe('DB store', () => {
 
-    before(async () => {
-        await store.init();
-        return await store.deleteProjectsByClassId(TESTCLASS);
+    before(() => {
+        return store.init();
     });
+    before(() => {
+        return store.deleteProjectsByClassId(TESTCLASS);
+    });
+
     after(async () => {
         await store.deleteProjectsByClassId(TESTCLASS);
         return store.disconnect();
@@ -278,7 +281,7 @@ describe('DB store', () => {
 
             const project = await store.getProject(projectid);
             assert.deepEqual(project.labels, labels);
-        });
+        }).timeout(5000);
 
         it('should remove all labels from a project', async () => {
             const userid = uuid();
@@ -290,7 +293,7 @@ describe('DB store', () => {
 
             newLabels = await store.removeLabelFromProject(userid, TESTCLASS, projectid, 'two');
             assert.deepEqual(newLabels, [ ]);
-        });
+        }).timeout(5000);
 
     });
 

@@ -147,9 +147,9 @@ export async function getProject(id: string): Promise<Objects.Project> {
 export async function getProjectsByUserId(userid: string, classid: string): Promise<Objects.Project[]> {
     const queryString = 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `labels` ' +
                         'FROM `projects` ' +
-                        'WHERE `userid` = ? AND `classid` = ?';
+                        'WHERE `classid` = ? AND `userid` = ?';
 
-    const [rows] = await dbConn.execute(queryString, [ userid, classid ]);
+    const [rows] = await dbConn.execute(queryString, [ classid, userid ]);
     return rows.map(dbobjects.getProjectFromDbRow);
 }
 
@@ -174,9 +174,9 @@ export async function deleteProject(id: string): Promise<void> {
 
 
 export async function deleteProjectsByUserId(userid: string, classid: string): Promise<void> {
-    const queryString = 'DELETE FROM `projects` WHERE `userid` = ? AND `classid` = ?';
+    const queryString = 'DELETE FROM `projects` WHERE `classid` = ? AND `userid` = ?';
 
-    const [response] = await dbConn.execute(queryString, [ userid, classid ]);
+    const [response] = await dbConn.execute(queryString, [ classid, userid ]);
     if (response.warningStatus !== 0) {
         throw new Error('Failed to delete projects');
     }
@@ -645,9 +645,9 @@ export async function findScratchKeys(
                             '`serviceurl`, `serviceusername`, `servicepassword`, ' +
                             '`classifierid` ' +
                         'FROM `scratchkeys` ' +
-                        'WHERE `userid` = ? AND `projectid` = ? AND `classid` = ?';
+                        'WHERE `projectid` = ? AND `userid` = ? AND `classid` = ?';
 
-    const values = [ userid, projectid, classid ];
+    const values = [ projectid, userid, classid ];
 
     const [rows] = await dbConn.execute(queryString, values);
     return rows.map(dbobjects.getScratchKeyFromDbRow);

@@ -237,18 +237,18 @@ describe('REST API - models', () => {
                 .then(async (res) => {
                     assert.deepEqual(res.body, [
                         {
-                            classifierid : 'good',
-                            created : createdA.toISOString(),
-                            name : 'DUMMY ONE',
-                            status : 'Available',
-                            statusDescription : 'Happy fun times',
-                        },
-                        {
                             classifierid : 'busy',
                             created : createdB.toISOString(),
                             name : 'DUMMY TWO',
                             status : 'Training',
                             statusDescription : 'Still going',
+                        },
+                        {
+                            classifierid : 'good',
+                            created : createdA.toISOString(),
+                            name : 'DUMMY ONE',
+                            status : 'Available',
+                            statusDescription : 'Happy fun times',
                         },
                     ]);
 
@@ -516,7 +516,7 @@ describe('REST API - models', () => {
                     await store.deleteNLCClassifier(projectid, userid, classid, classifierInfo.classifierid);
                     await store.deleteBluemixCredentials(credentials.id);
                 });
-        });
+        }).timeout(5000);
 
     });
 
