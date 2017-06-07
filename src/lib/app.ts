@@ -23,3 +23,9 @@ restApiSetup(app);
 app.listen(port, host, () => {
     log.info({ host, port, uilocation }, 'Running');
 });
+
+
+process.on('uncaughtException', (err) => {
+    log.error({ err, stack : err.stack }, 'Crash');
+    process.exit(1);
+});
