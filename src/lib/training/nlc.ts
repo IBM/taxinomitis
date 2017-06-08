@@ -30,12 +30,21 @@ export async function trainClassifier(
     userid: string, classid: string, projectid: string, projectname: string,
 ): Promise<TrainingObjects.NLCClassifier>
 {
-    const trainingFile = await writeTrainingToFile(projectid);
     const credentials = await store.getBluemixCredentials(classid, 'nlc');
+
+    // clear up old classifiers
+    await removeExistingClassifiers(projectid, userid, classid, credentials);
+
+    // create a new classifier
+    const trainingFile = await writeTrainingToFile(projectid);
     const classifier = await submitTrainingToNLC(credentials, projectname, trainingFile);
     fs.unlink(trainingFile.path);
+
+    // write details about the new classifier to the DB
     const storedClassifier = await store.storeNLCClassifier(credentials, userid, classid, projectid, classifier);
     await store.storeOrUpdateScratchKey(projectid, 'text', userid, classid, credentials, classifier.classifierid);
+
+    // done
     return storedClassifier;
 }
 
@@ -190,6 +199,36 @@ export async function testClassifier(
         return { class_name : item.class_name, confidence : Math.round(item.confidence * 100) };
     });
 }
+
+
+
+/**
+ * Removes any existing classifiers from a project before starting to
+ *  create a new one.
+ *
+ *  There isn't a good technical reason to do this (in fact, it means that
+ *  the student won't have a classifier to use while they wait for the new
+ *  classifier to finish training) but because of the costs associated
+ *  with keeping classifiers around, we're going to be a bit aggressive
+ *  about deleting things.
+ */
+async function removeExistingClassifiers(
+    projectid: string, userid: string, classid: string,
+    credentials: TrainingObjects.BluemixCredentials,
+): Promise<void>
+{
+    const classifiers = await store.getNLCClassifiers(projectid);
+    // there should only be one of these, as we always remove previous ones
+    //  before creating, so we'll almost certainly only go round this loop once
+    for (const classifier of classifiers) {
+        await deleteClassifierFromBluemix(credentials, classifier.classifierid);
+        await store.deleteNLCClassifier(projectid, userid, classid, classifier.classifierid);
+    }
+}
+
+
+
+
 
 
 async function deleteClassifierFromBluemix(
