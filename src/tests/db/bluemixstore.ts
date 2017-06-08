@@ -110,11 +110,24 @@ describe('DB store', () => {
 
     describe('NLC classifiers', () => {
 
+
+        it('should return 0 for unknown users', async () => {
+            const unknownClass = uuid();
+            const count = await store.countNLCClassifiers(unknownClass);
+            assert.equal(count, 0);
+        });
+
+
+
         it('should store and retrieve NLC classifiers', async () => {
+            const classid = uuid();
             const projectid = uuid();
 
             const before = await store.getNLCClassifiers(projectid);
             assert.equal(before.length, 0);
+
+            const countBefore = await store.countNLCClassifiers(classid);
+            assert.equal(countBefore, 0);
 
             const credentials: Types.BluemixCredentials = {
                 id : uuid(),
@@ -124,7 +137,6 @@ describe('DB store', () => {
                 url : uuid(),
             };
             const userid = uuid();
-            const classid = uuid();
 
             const created = new Date();
             created.setMilliseconds(0);
@@ -143,8 +155,11 @@ describe('DB store', () => {
             );
 
             const after = await store.getNLCClassifiers(projectid);
-
             assert.equal(after.length, 1);
+
+            const countAfter = await store.countNLCClassifiers(classid);
+            assert.equal(countAfter, 1);
+
 
             const retrieved = after[0];
 
@@ -154,6 +169,9 @@ describe('DB store', () => {
 
             const empty = await store.getNLCClassifiers(projectid);
             assert.equal(empty.length, 0);
+
+            const countEmpty = await store.countNLCClassifiers(classid);
+            assert.equal(countEmpty, 0);
         });
 
     });

@@ -126,7 +126,7 @@ describe('REST API - projects', () => {
 
             return request(testServer)
                 .post(url)
-                .send({ name : uuid(), type : 'images' })
+                .send({ name : uuid(), type : 'text' })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED)
                 .then((res) => {
@@ -186,6 +186,61 @@ describe('REST API - projects', () => {
 
 
     describe('createProject()', () => {
+
+
+        it('should respect tenant policies on project types', () => {
+            const studentId = uuid();
+
+            const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
+
+            return request(testServer)
+                .post(url)
+                .send({ name : uuid(), type : 'images' })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.FORBIDDEN)
+                .then((err) => {
+                    assert.equal(err.body.error, 'Support for images projects is not enabled for your class');
+                });
+        });
+
+
+
+        it('should respect tenant policies on number of projects', () => {
+            const studentId = uuid();
+
+            const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
+
+            return request(testServer)
+                .post(url)
+                .send({ name : uuid(), type : 'text' })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED)
+                .then(() => {
+                    return request(testServer)
+                        .post(url)
+                        .send({ name : uuid(), type : 'text' })
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.CREATED);
+                })
+                .then(() => {
+                    return request(testServer)
+                        .post(url)
+                        .send({ name : uuid(), type : 'text' })
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.CREATED);
+                })
+                .then(() => {
+                    return request(testServer)
+                        .post(url)
+                        .send({ name : uuid(), type : 'text' })
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.CONFLICT);
+                })
+                .then((err) => {
+                    assert.equal(err.body.error, 'User already has maximum number of projects');
+                });
+        });
+
 
         it('should require a project type', () => {
             const projectDetails = { name : uuid() };
@@ -267,7 +322,7 @@ describe('REST API - projects', () => {
 
             return request(testServer)
                 .post(url)
-                .send({ name : uuid(), type : 'images' })
+                .send({ name : uuid(), type : 'text' })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED)
                 .then(() => {
@@ -283,7 +338,7 @@ describe('REST API - projects', () => {
 
                     return request(testServer)
                         .post(url)
-                        .send({ name : uuid(), type : 'numbers' })
+                        .send({ name : uuid(), type : 'text' })
                         .expect('Content-Type', /json/)
                         .expect(httpstatus.CREATED);
                 })
@@ -355,7 +410,7 @@ describe('REST API - projects', () => {
 
                     return request(testServer)
                         .post('/api/classes/' + TESTCLASS + '/students/' + studentB + '/projects')
-                        .send({ name : uuid(), type : 'images' })
+                        .send({ name : uuid(), type : 'text' })
                         .expect('Content-Type', /json/)
                         .expect(httpstatus.CREATED);
                 })

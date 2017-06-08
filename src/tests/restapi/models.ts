@@ -308,6 +308,47 @@ describe('REST API - models', () => {
         });
 
 
+        it('should enforce tenant policies on number of NLC classifiers', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = uuid();
+
+            const project = await store.storeProject(userid, classid, 'text', projName);
+            const projectid = project.id;
+
+            const credentials: Types.BluemixCredentials = {
+                id : uuid(),
+                username : uuid(),
+                password : uuid(),
+                servicetype : 'nlc',
+                url : uuid(),
+            };
+
+            for (let i = 0; i < 10; i++) {
+                await store.storeNLCClassifier(credentials, userid, classid, projectid, {
+                    classifierid : randomstring.generate({ length : 8 }),
+                    created : new Date(),
+                    language : 'en',
+                    name : projName,
+                    url : uuid(),
+                });
+            }
+
+            return request(testServer)
+                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CONFLICT)
+                .then(async (res) => {
+                    const body = res.body;
+
+                    assert.equal(body.error, 'Your class already has created their maximum allowed number of models');
+
+                    await store.deleteProject(projectid);
+                    await store.deleteNLCClassifiersByProjectId(projectid);
+                });
+        });
+
+
         it('should train new NLC classifiers', async () => {
             const classid = uuid();
             const userid = uuid();

@@ -25,6 +25,7 @@ describe('Training - NLC', () => {
     let authStoreStub;
     let authByIdStoreStub;
     let countStoreStub;
+    let getNLCClassifiersStub;
     let getStoreStub;
     let storeStoreStub;
     let deleteStoreStub;
@@ -40,6 +41,7 @@ describe('Training - NLC', () => {
 
         authStoreStub = sinon.stub(store, 'getBluemixCredentials').callsFake(mockstore.getBluemixCredentials);
         authByIdStoreStub = sinon.stub(store, 'getServiceCredentials').callsFake(mockstore.getServiceCredentials);
+        getNLCClassifiersStub = sinon.stub(store, 'getNLCClassifiers').callsFake(mockstore.getNLCClassifiers);
         countStoreStub = sinon.stub(store, 'countTextTraining').callsFake(mockstore.countTextTraining);
         getStoreStub = sinon.stub(store, 'getTextTraining').callsFake(mockstore.getTextTraining);
         storeStoreStub = sinon.stub(store, 'storeNLCClassifier').callsFake(mockstore.storeNLCClassifier);
@@ -52,6 +54,7 @@ describe('Training - NLC', () => {
         deleteStub.restore();
         authStoreStub.restore();
         authByIdStoreStub.restore();
+        getNLCClassifiersStub.restore();
         countStoreStub.restore();
         getStoreStub.restore();
         storeStoreStub.restore();

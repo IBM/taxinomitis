@@ -174,6 +174,64 @@ describe('REST API - users', () => {
                     stubs.createUser.restore();
                 });
         });
+
+
+        it('should require a valid username', () => {
+            const stubs = {
+                getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
+                createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
+            };
+
+            proxyquire('../../lib/auth0/users', {
+                './requests' : stubs,
+            });
+
+            return request(testServer)
+                .post('/api/classes/mytesttenant/students')
+                .send({ username : 'Hello World' })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    const body = res.body;
+                    assert.equal(body.error, 'Invalid username. Use letters, numbers, hyphens and underscores, only.');
+                })
+                .then(function restore() {
+                    stubs.getOauthToken.restore();
+                    stubs.createUser.restore();
+                });
+        });
+
+
+        it('should enforce limits on number of users in a class', () => {
+            const stubs = {
+                getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
+                createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
+                getUserCounts : sinon.stub(auth0, 'getUserCounts').resolves({ total : 8 }),
+            };
+
+            proxyquire('../../lib/auth0/users', {
+                './requests' : stubs,
+            });
+
+            return store.init()
+                .then(() => {
+                    return request(testServer)
+                        .post('/api/classes/mytesttenant/students')
+                        .send({ username : 'HelloWorld' })
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.CONFLICT);
+                })
+                .then((res) => {
+                    const body = res.body;
+                    assert.equal(body.error, 'Class already has maximum allowed number of students');
+
+                    stubs.getOauthToken.restore();
+                    stubs.createUser.restore();
+                    stubs.getUserCounts.restore();
+
+                    return store.disconnect();
+                });
+        });
     });
 
 

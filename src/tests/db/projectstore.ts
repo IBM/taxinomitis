@@ -106,6 +106,20 @@ describe('DB store', () => {
     });
 
 
+    describe('countProjects', () => {
+
+        it('should return 0 for unknown users', async () => {
+            const unknownUser = uuid();
+            const unknownClass = uuid();
+
+            const count = await store.countProjectsByUserId(unknownUser, unknownClass);
+
+            assert.equal(count, 0);
+        });
+
+    });
+
+
     describe('storeProject', () => {
 
         it('should return an empty list for unknown users', async () => {
@@ -293,6 +307,27 @@ describe('DB store', () => {
 
             newLabels = await store.removeLabelFromProject(userid, TESTCLASS, projectid, 'two');
             assert.deepEqual(newLabels, [ ]);
+        });
+
+    });
+
+
+
+    describe('deleteEntireUser()', () => {
+
+        it('should remove user projects', async () => {
+            const userid = uuid();
+
+            await store.storeProject(userid, TESTCLASS, 'text', uuid());
+            await store.storeProject(userid, TESTCLASS, 'text', uuid());
+
+            const count = await store.countProjectsByUserId(userid, TESTCLASS);
+            assert.equal(count, 2);
+
+            await store.deleteEntireUser(userid, TESTCLASS);
+
+            const countAfter = await store.countProjectsByUserId(userid, TESTCLASS);
+            assert.equal(countAfter, 0);
         });
 
     });

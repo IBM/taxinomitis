@@ -26,6 +26,46 @@ describe('DB objects', () => {
     });
 
 
+    describe('getClassFromDbRow()', () => {
+        it('should return tenant policy info', () => {
+            const testRow: Objects.ClassDbRow = {
+                id : uuid(),
+                projecttypes : 'text,numbers',
+                maxusers : 3,
+                maxprojectsperuser : 2,
+                maxnlcclassifiers : 5,
+                nlcexpirydays : 10,
+            };
+            const expectedPolicy: Objects.ClassTenant = {
+                id : testRow.id,
+                supportedProjectTypes : ['text', 'numbers'],
+                maxUsers : 3,
+                maxProjectsPerUser : 2,
+                maxNLCClassifiers : 5,
+                nlcExpiryDays : 10,
+            };
+
+            assert.deepEqual(dbobjects.getClassFromDbRow(testRow), expectedPolicy);
+        });
+    });
+
+
+    describe('getTextTrainingFromDbRow()', () => {
+        it('should return training info', () => {
+            const testRow: Objects.TextTrainingDbRow = {
+                id : uuid(),
+                textdata : uuid(),
+            };
+            const expectedTraining: Objects.TextTraining = {
+                id : testRow.id,
+                textdata : testRow.textdata,
+            };
+
+            assert.deepEqual(dbobjects.getTextTrainingFromDbRow(testRow), expectedTraining);
+        });
+    });
+
+
     describe('getLabelsFromList()', () => {
         it('should handle empty lists', () => {
             assert.deepEqual(dbobjects.getLabelsFromList(''), [ ]);

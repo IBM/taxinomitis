@@ -13,6 +13,7 @@ describe('auth0 users', () => {
 
     const TESTTENANT: string = 'TESTTENANT';
 
+
     describe('getStudents()', () => {
 
         it('should return an empty list', () => {
@@ -73,8 +74,29 @@ describe('auth0 users', () => {
                     });
                 });
         });
-
     });
+
+
+    describe('countStudents', () => {
+
+        it('should fetch a count of students', () => {
+            const stubs = {
+                getUserCountsStub : sinon.stub(auth0, 'getUserCounts').callsFake(mocks.getUserCounts),
+            };
+
+            proxyquire('../../lib/auth0/users', {
+                './requests' : stubs,
+            });
+
+            return users.countStudents(TESTTENANT)
+                .then((count) => {
+                    assert.equal(count, 5);
+
+                    stubs.getUserCountsStub.restore();
+                });
+        });
+    });
+
 
     describe('createStudent()', () => {
 
@@ -95,6 +117,29 @@ describe('auth0 users', () => {
                 assert.equal(err.statusCode, 404);
                 assert.equal(err.errorCode, 'inexistent_user');
             }
+        });
+
+        function pause() {
+            return new Promise((resolve) => {
+                setTimeout(resolve, 1000);
+            });
+        }
+
+        it('should increase the number of students', async () => {
+            const before = await users.countStudents(TESTTENANT);
+
+            const newStudent = await users.createStudent(TESTTENANT, randomstring.generate({ length : 8 }));
+            await pause();
+
+            const after = await users.countStudents(TESTTENANT);
+
+            await users.deleteStudent(TESTTENANT, newStudent.id);
+            await pause();
+
+            const final = await users.countStudents(TESTTENANT);
+
+            assert.equal(after, before + 1);
+            assert.equal(final, before);
         });
 
 

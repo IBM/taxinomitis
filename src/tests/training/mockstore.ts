@@ -54,12 +54,17 @@ export function storeNLCClassifier(
     )));
 }
 
+export function getNLCClassifiers()
+{
+    return new Promise((resolve) => resolve([]));
+}
+
 export function deleteNLCClassifier()
 {
-    return new Promise((resolve) => { resolve(); });
+    return new Promise((resolve) => resolve());
 }
 
 export function storeOrUpdateScratchKey()
 {
-    return new Promise((resolve) => { resolve(); });
+    return new Promise((resolve) => resolve());
 }

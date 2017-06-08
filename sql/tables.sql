@@ -100,4 +100,4 @@ CREATE TABLE tenants (
 );
 
 INSERT INTO tenants (id) VALUES ("apple");
-
+INSERT INTO tenants (id, projecttypes) VALUES ("TESTTENANT", "text,images,numbers");
