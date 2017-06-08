@@ -119,6 +119,7 @@ describe('REST API - users', () => {
             const stubs = {
                 getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
                 createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
+                getUserCounts : sinon.stub(auth0, 'getUserCounts').callsFake(mocks.getUserCounts),
             };
 
             proxyquire('../../lib/auth0/users', {
@@ -127,20 +128,25 @@ describe('REST API - users', () => {
 
             const username = randomstring.generate({ length : 12, readable : true });
 
-            return request(testServer)
-                .post('/api/classes/mytesttenant/students')
-                .send({ username })
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
+            return store.init()
+                .then(() => {
+                    return request(testServer)
+                        .post('/api/classes/mytesttenant/students')
+                        .send({ username })
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.CREATED);
+                })
                 .then((res) => {
                     const body = res.body;
                     assert(body.id);
                     assert(body.password);
                     assert.equal(body.username, username);
-                })
-                .then(function restore() {
+
                     stubs.getOauthToken.restore();
                     stubs.createUser.restore();
+                    stubs.getUserCounts.restore();
+
+                    return store.disconnect();
                 });
         });
 

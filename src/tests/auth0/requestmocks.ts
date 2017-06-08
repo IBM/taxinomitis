@@ -103,6 +103,17 @@ export const getUsers = {
     },
 };
 
+
+export const getUserCounts = (token, tenant) => { // eslint-disable-line no-unused-vars
+    return Promise.resolve({
+        start : 0,
+        limit : 50,
+        length : 5,
+        total : 5,
+        users : [ {}, {}, {}, {}, {} ],
+    });
+};
+
 export const createUser = {
     good : (token, newuser) => {
         return Promise.resolve({

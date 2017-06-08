@@ -193,7 +193,7 @@ describe('DB store', () => {
 
             retrieved = await store.getProject(project.id);
             assert.deepEqual(retrieved.labels, [ label1, label2 ]);
-        }).timeout(5000);
+        });
 
         it('should not store duplicate labels', async () => {
             const userid = uuid();
@@ -214,7 +214,7 @@ describe('DB store', () => {
 
             retrieved = await store.getProject(project.id);
             assert.deepEqual(retrieved.labels, [ label1 ]);
-        }).timeout(5000);
+        });
 
 
         it('should not store empty labels', async () => {
@@ -255,7 +255,7 @@ describe('DB store', () => {
 
             const project = await store.getProject(projectid);
             assert.deepEqual(project.labels, [ 'america', 'canada', 'denmark' ]);
-        }).timeout(5000);
+        });
 
 
         it('should not remove a label not in a project', async () => {
@@ -268,7 +268,7 @@ describe('DB store', () => {
 
             const project = await store.getProject(projectid);
             assert.deepEqual(project.labels, labels);
-        }).timeout(5000);
+        });
 
 
         it('should not remove an empty label', async () => {
@@ -281,7 +281,7 @@ describe('DB store', () => {
 
             const project = await store.getProject(projectid);
             assert.deepEqual(project.labels, labels);
-        }).timeout(5000);
+        });
 
         it('should remove all labels from a project', async () => {
             const userid = uuid();
@@ -293,7 +293,7 @@ describe('DB store', () => {
 
             newLabels = await store.removeLabelFromProject(userid, TESTCLASS, projectid, 'two');
             assert.deepEqual(newLabels, [ ]);
-        }).timeout(5000);
+        });
 
     });
 

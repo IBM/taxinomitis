@@ -95,7 +95,7 @@ describe('auth0 users', () => {
                 assert.equal(err.statusCode, 404);
                 assert.equal(err.errorCode, 'inexistent_user');
             }
-        }).timeout(6000);
+        });
 
 
         it('should reset password', async () => {
@@ -120,7 +120,7 @@ describe('auth0 users', () => {
                 assert.equal(err.statusCode, 404);
                 assert.equal(err.errorCode, 'inexistent_user');
             }
-        }).timeout(6000);
+        });
 
     });
 

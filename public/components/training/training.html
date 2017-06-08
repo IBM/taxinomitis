@@ -30,6 +30,11 @@
             </div>
         </div>
         <div class="trainingbuckets">
+            <div class="trainingbucket" ng-if="project.labels.length === 0">
+                <div class="trainingbucketheader" ng-click="vm.addLabel($event, project)">
+                    <span class="trainingbucketlabel"> &lt;Enter name&gt; </span>
+                </div>
+            </div>
             <div class="trainingbucket" ng-repeat="label in project.labels">
                 <div class="trainingbucketheader">
                     <span class="trainingbucketlabel">{{label}}</span>

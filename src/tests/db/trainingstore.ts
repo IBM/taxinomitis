@@ -266,7 +266,7 @@ describe('DB store', () => {
             }
 
             return store.deleteTextTrainingByProjectId(projectid);
-        }).timeout(5000);
+        });
     });
 
 

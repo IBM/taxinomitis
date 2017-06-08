@@ -69,6 +69,15 @@ export async function getStudents(tenant: string): Promise<Objects.Student[]> {
 }
 
 
+export async function countStudents(tenant: string): Promise<number> {
+    const token = await getBearerToken();
+
+    const studentsInfo: Objects.UsersInfo = await auth0requests.getUserCounts(token, tenant);
+
+    return studentsInfo.total;
+}
+
+
 export async function createStudent(tenant: string, username: string): Promise<Objects.UserCreds> {
     const password = randomstring.generate({ length : 9, readable : true });
 

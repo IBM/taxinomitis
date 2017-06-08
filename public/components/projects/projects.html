@@ -15,6 +15,9 @@
         </div>
     </div>
     <div class="text-center">
+        <div ng-if="vm.projects && vm.projects.length === 0">
+            Click on the 'plus' icon on the right to create your first project.
+        </div>
         <div class="mlproject" ng-repeat="project in vm.projects">
             <div class="mlprojectdetails" ui-sref="mlproject({ projectId : project.id })">
                 <div class="mlprojecttitle">{{ project.name }}</div>

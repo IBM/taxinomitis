@@ -59,6 +59,29 @@ export async function getUsers(token: string, tenant: string): Promise<Objects.U
     return users;
 }
 
+
+export async function getUserCounts(token: string, tenant: string): Promise<Objects.UsersInfo> {
+    const getoptions = {
+        method: 'GET',
+        url: 'https://' + process.env.AUTH0_DOMAIN + '/api/v2/users',
+        headers: {
+            authorization : 'Bearer ' + token,
+        },
+        qs : {
+            q : 'role=student AND tenant=' + tenant,
+            fields : 'id',
+            include_fields : true,
+            include_totals : true,
+        },
+        json : true,
+    };
+
+    const usersInfo = await request.get(getoptions);
+    return usersInfo;
+}
+
+
+
 export function createUser(token: string, newuser: Objects.NewUser) {
     newuser.connection = process.env.AUTH0_CONNECTION;
     newuser.verify_email = false;

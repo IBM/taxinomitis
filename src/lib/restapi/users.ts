@@ -11,6 +11,9 @@ import loggerSetup from '../utils/logger';
 const log = loggerSetup();
 
 
+const VALID_USERNAME = /^[A-Za-z0-9\-_]+$/;
+
+
 function getStudents(req: Express.Request, res: Express.Response) {
     return auth0.getStudents(req.params.classid)
         .then((students) => {
@@ -22,22 +25,34 @@ function getStudents(req: Express.Request, res: Express.Response) {
 }
 
 
-function createStudent(req: Express.Request, res: Express.Response) {
+async function createStudent(req: Express.Request, res: Express.Response) {
     const tenant: string = req.params.classid;
-    if (req.body && req.body.username) {
-        return auth0.createStudent(tenant, req.body.username)
-            .then((newstudent) => {
-                res.status(httpstatus.CREATED)
-                    .json(newstudent);
-            })
-            .catch((err) => {
-                res.status(err.response.body.statusCode)
-                    .json(err.response.body);
-            });
+    if (!req.body || !req.body.username) {
+        return res.status(httpstatus.BAD_REQUEST)
+                   .send({ error : 'Missing required field "username"' });
+    }
+    if (VALID_USERNAME.test(req.body.username) === false) {
+        return res.status(httpstatus.BAD_REQUEST)
+                   .send({ error : 'Invalid username. Use letters, numbers, hyphens and underscores, only.' });
     }
 
-    res.status(httpstatus.BAD_REQUEST)
-        .send({ error : 'Missing required field "username"' });
+    const numUsersInTenant = await auth0.countStudents(tenant);
+    const tenantPolicy = await store.getClassTenant(tenant);
+
+    if (numUsersInTenant >= tenantPolicy.maxUsers) {
+        return res.status(httpstatus.CONFLICT)
+                  .send({ error : 'Class already has maximum allowed number of students' });
+    }
+
+    try {
+        const newstudent = await auth0.createStudent(tenant, req.body.username);
+        return res.status(httpstatus.CREATED)
+                  .json(newstudent);
+    }
+    catch (err) {
+        return res.status(err.response.body.statusCode)
+                  .json(err.response.body);
+    }
 }
 
 

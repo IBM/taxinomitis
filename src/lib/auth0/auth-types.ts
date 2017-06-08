@@ -6,6 +6,14 @@ export interface User {
     last_login?: string;
 }
 
+export interface UsersInfo {
+    start: number;
+    limit: number;
+    length: number;
+    users: any[];
+    total: number;
+}
+
 export interface NewUser {
     email: string;
     username: string;

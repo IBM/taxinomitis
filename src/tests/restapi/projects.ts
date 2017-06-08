@@ -154,7 +154,8 @@ describe('REST API - projects', () => {
                     const body = res.body;
                     assert.equal(body.error, 'Not found');
                 });
-        }).timeout(5000);
+        });
+
 
         it('should verify class id', () => {
             const studentId = uuid();

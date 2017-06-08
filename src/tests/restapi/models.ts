@@ -255,7 +255,7 @@ describe('REST API - models', () => {
                     await store.deleteProject(projectid);
                     await store.deleteNLCClassifiersByProjectId(projectid);
                 });
-        }).timeout(6000);
+        });
 
     });
 
@@ -430,7 +430,7 @@ describe('REST API - models', () => {
                     await store.deleteNLCClassifier(projectid, userid, classid, classifierInfo.classifierid);
                     await store.deleteBluemixCredentials(credentials.id);
                 });
-        }).timeout(5000);
+        });
 
     });
 
@@ -516,7 +516,7 @@ describe('REST API - models', () => {
                     await store.deleteNLCClassifier(projectid, userid, classid, classifierInfo.classifierid);
                     await store.deleteBluemixCredentials(credentials.id);
                 });
-        }).timeout(5000);
+        });
 
     });
 

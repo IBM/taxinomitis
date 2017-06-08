@@ -25,6 +25,7 @@
 .trainingbucketheader {
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
     height: 1em;
 }
 .trainingbucketlabel {
@@ -36,7 +37,6 @@
     top: -1em;
     background-color: white;
     width: 90%;
-    margin-left: 37%;
     padding-left: 5px;
     padding-right: 5px;
 }

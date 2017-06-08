@@ -128,7 +128,7 @@ describe('REST API - scratch keys', () => {
                     await store.deleteNLCClassifier(project.id, userid, classid, nlcClassifier.classifierid);
                 });
 
-        }).timeout(6000);
+        });
 
 
         it('should return an existing scratch key', async () => {
@@ -247,7 +247,7 @@ describe('REST API - scratch keys', () => {
                         assert(['animal', 'vegetable', 'mineral'].indexOf(item.class_name) >= 0);
                     });
                 });
-        }).timeout(4000);
+        });
 
 
         function mockClassifier(url, opts) {
@@ -337,7 +337,7 @@ describe('REST API - scratch keys', () => {
 
                     nlcStub.restore();
                 });
-        }).timeout(6000);
+        });
 
 
         it('should return status for the ScratchX extension', async () => {

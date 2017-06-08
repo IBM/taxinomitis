@@ -6,9 +6,9 @@ use mlforkidsdb;
 -- ------------------------------------------------------------------
 
 CREATE TABLE projects (
-    id VARCHAR(36) NOT NULL PRIMARY KEY,
-    userid VARCHAR(36) NOT NULL,
-    classid VARCHAR(36) NOT NULL,
+    id CHAR(36) NOT NULL PRIMARY KEY,
+    userid CHAR(36) NOT NULL,
+    classid CHAR(36) NOT NULL,
     typeid TINYINT NOT NULL,
     name VARCHAR(36) NOT NULL,
     labels VARCHAR(500) NOT NULL
@@ -21,8 +21,8 @@ CREATE INDEX projects_getProjectsByUserId on projects(classid, userid) using HAS
 -- ------------------------------------------------------------------
 
 CREATE TABLE texttraining (
-    id VARCHAR(36) NOT NULL PRIMARY KEY,
-    projectid VARCHAR(36) NOT NULL,
+    id CHAR(36) NOT NULL PRIMARY KEY,
+    projectid CHAR(36) NOT NULL,
     textdata VARCHAR(1024) NOT NULL,
     label VARCHAR(100)
 );
@@ -35,8 +35,8 @@ CREATE INDEX texttraining_getTrainingLabels on texttraining(projectid) using HAS
 -- ------------------------------------------------------------------
 
 CREATE TABLE bluemixcredentials (
-    id VARCHAR(36) NOT NULL PRIMARY KEY,
-    classid VARCHAR(36) NOT NULL,
+    id CHAR(36) NOT NULL PRIMARY KEY,
+    classid CHAR(36) NOT NULL,
     servicetype VARCHAR(8) NOT NULL,
     url VARCHAR(200) NOT NULL,
     username VARCHAR(36),
@@ -51,11 +51,11 @@ CREATE INDEX bluemixcredentials_getBluemixCredentials on bluemixcredentials(clas
 -- ------------------------------------------------------------------
 
 CREATE TABLE bluemixclassifiers (
-    id VARCHAR(36) NOT NULL PRIMARY KEY,
+    id CHAR(36) NOT NULL PRIMARY KEY,
     credentialsid VARCHAR(36) NOT NULL,
-    userid VARCHAR(36) NOT NULL,
-    projectid VARCHAR(36) NOT NULL,
-    classid VARCHAR(36) NOT NULL,
+    userid CHAR(36) NOT NULL,
+    projectid CHAR(36) NOT NULL,
+    classid CHAR(36) NOT NULL,
     servicetype VARCHAR(8) NOT NULL,
     classifierid VARCHAR(20) NOT NULL,
     url VARCHAR(200) NOT NULL,
@@ -71,18 +71,32 @@ CREATE INDEX bluemixclassifiers_deleteNLCClassifier on bluemixclassifiers(projec
 -- ------------------------------------------------------------------
 
 CREATE TABLE scratchkeys (
-    id VARCHAR(72) NOT NULL PRIMARY KEY,
+    id CHAR(72) NOT NULL PRIMARY KEY,
     projectname VARCHAR(36) NOT NULL,
     projecttype VARCHAR(8) NOT NULL,
     serviceurl VARCHAR(200),
     serviceusername VARCHAR(36),
     servicepassword VARCHAR(36),
     classifierid VARCHAR(20),
-    projectid VARCHAR(36) NOT NULL,
-    userid VARCHAR(36) NOT NULL,
-    classid VARCHAR(36) NOT NULL
+    projectid CHAR(36) NOT NULL,
+    userid CHAR(36) NOT NULL,
+    classid CHAR(36) NOT NULL
 );
 
 CREATE INDEX scratchkeys_updateScratchKey on scratchkeys(id, userid, projectid, classid) using HASH;
 CREATE INDEX scratchkeys_findScratchKeys on scratchkeys(projectid, userid, classid) using HASH;
+
+
+-- ------------------------------------------------------------------
+
+CREATE TABLE tenants (
+    id VARCHAR(36) NOT NULL PRIMARY KEY,
+    projecttypes VARCHAR(25) NOT NULL DEFAULT 'text',
+    maxusers TINYINT UNSIGNED NOT NULL DEFAULT 8,
+    maxprojectsperuser TINYINT UNSIGNED NOT NULL DEFAULT 3,
+    maxnlcclassifiers TINYINT UNSIGNED NOT NULL DEFAULT 10,
+    nlcexpirydays TINYINT UNSIGNED NOT NULL DEFAULT 14
+);
+
+INSERT INTO tenants (id) VALUES ("apple");
 

@@ -222,3 +222,22 @@ export function getScratchKeyFromDbRow(row: Objects.ScratchKeyDbRow): Objects.Sc
         };
     }
 }
+
+
+
+// -----------------------------------------------------------------------------
+//
+// TENANT INFO
+//
+// -----------------------------------------------------------------------------
+
+export function getClassFromDbRow(row: Objects.ClassDbRow): Objects.ClassTenant {
+    return {
+        id : row.id,
+        supportedProjectTypes : row.projecttypes.split(',') as Objects.ProjectTypeLabel[],
+        maxUsers : row.maxusers,
+        maxProjectsPerUser : row.maxprojectsperuser,
+        maxNLCClassifiers : row.maxnlcclassifiers,
+        nlcExpiryDays : row.nlcexpirydays,
+    };
+}

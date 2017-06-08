@@ -42,23 +42,31 @@ function getProjectsByUserId(req: Express.Request, res: Express.Response) {
 }
 
 
-function createProject(req: Express.Request, res: Express.Response) {
+async function createProject(req: Express.Request, res: Express.Response) {
     const classid: string = req.params.classid;
     const userid: string = req.params.studentid;
 
-    if (req.body && req.body.type && req.body.name) {
-        return store.storeProject(userid, classid, req.body.type, req.body.name)
-            .then((project: Objects.Project) => {
-                res.status(httpstatus.CREATED).json(project);
-            })
-            .catch((err) => {
-                log.error({ err }, 'Server error');
-                errors.unknownError(res, err);
-            });
+    if (!req.body || !req.body.type || !req.body.name) {
+        return res.status(httpstatus.BAD_REQUEST)
+                  .send({ error : 'Missing required field' });
     }
 
-    res.status(httpstatus.BAD_REQUEST)
-        .send({ error : 'Missing required field' });
+    const numProjects = await store.countProjectsByUserId(userid, classid);
+    const tenantPolicy = await store.getClassTenant(classid);
+
+    if (numProjects >= tenantPolicy.maxProjectsPerUser) {
+        return res.status(httpstatus.CONFLICT)
+                  .send({ error : 'User already has maximum number of projects' });
+    }
+
+    try {
+        const project = await store.storeProject(userid, classid, req.body.type, req.body.name);
+        return res.status(httpstatus.CREATED).json(project);
+    }
+    catch (err) {
+        log.error({ err }, 'Server error');
+        errors.unknownError(res, err);
+    }
 }
 
 

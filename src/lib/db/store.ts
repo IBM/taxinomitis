@@ -155,6 +155,20 @@ export async function getProjectsByUserId(userid: string, classid: string): Prom
 }
 
 
+export async function countProjectsByUserId(userid: string, classid: string): Promise<number> {
+    const queryString = 'SELECT COUNT(*) AS count ' +
+                        'FROM `projects` ' +
+                        'WHERE `classid` = ? AND `userid` = ?';
+
+    const [rows] = await dbConn.execute(queryString, [ classid, userid ]);
+    if (rows.length !== 1) {
+        return 0;
+    }
+
+    return rows[0].count;
+}
+
+
 export async function getProjectsByClassId(classid: string): Promise<Objects.Project[]> {
     const queryString = 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `labels` ' +
                         'FROM `projects` ' +
@@ -672,6 +686,36 @@ export async function deleteScratchKeysByProjectId(projectid: string): Promise<v
     if (response.warningStatus !== 0) {
         throw new Error('Failed to delete scratch key info');
     }
+}
+
+
+
+// -----------------------------------------------------------------------------
+//
+// TENANT INFO
+//
+// -----------------------------------------------------------------------------
+
+export async function getClassTenant(classid: string): Promise<Objects.ClassTenant> {
+    const queryString = 'SELECT `id`, `projecttypes`, `maxusers`, ' +
+                               '`maxprojectsperuser`, `maxnlcclassifiers`, `nlcexpirydays` ' +
+                        'FROM `tenants` ' +
+                        'WHERE `id` = ?';
+
+    const [rows] = await dbConn.execute(queryString, [ classid ]);
+    if (rows.length !== 1) {
+        log.error({ rows }, 'Unexpected response from DB');
+
+        return {
+            id : classid,
+            supportedProjectTypes : [ 'text' ],
+            maxUsers : 8,
+            maxProjectsPerUser : 3,
+            maxNLCClassifiers : 10,
+            nlcExpiryDays : 14,
+        };
+    }
+    return dbobjects.getClassFromDbRow(rows[0]);
 }
 
 

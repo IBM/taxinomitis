@@ -68,3 +68,26 @@ export interface PagingOptions {
     readonly start: number;
     readonly limit: number;
 }
+
+
+
+export interface ClassTenant {
+    readonly id: string;
+    readonly supportedProjectTypes: ProjectTypeLabel[];
+    //
+    readonly maxUsers: number;
+    readonly maxProjectsPerUser: number;
+
+    // nlc-specific
+    readonly maxNLCClassifiers: number;
+    readonly nlcExpiryDays: number;
+}
+
+export interface ClassDbRow {
+    readonly id: string;
+    readonly projecttypes: string;
+    readonly maxusers: number;
+    readonly maxprojectsperuser: number;
+    readonly maxnlcclassifiers: number;
+    readonly nlcexpirydays: number;
+}

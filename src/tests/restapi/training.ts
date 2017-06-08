@@ -133,7 +133,7 @@ describe('REST API - training', () => {
                     await store.deleteProject(projectid);
                     await store.deleteTextTrainingByProjectId(projectid);
                 });
-        }).timeout(5000);
+        });
     });
 
 
@@ -318,7 +318,7 @@ describe('REST API - training', () => {
                     await store.deleteProject(projectid);
                     await store.deleteTextTrainingByProjectId(projectid);
                 });
-        }).timeout(10000);
+        });
     });
 
 
@@ -370,7 +370,7 @@ describe('REST API - training', () => {
                     await store.deleteProject(projectid);
                     await store.deleteTextTrainingByProjectId(projectid);
                 });
-        }).timeout(10000);
+        });
 
     });
 
@@ -512,7 +512,7 @@ describe('REST API - training', () => {
                     await store.deleteProject(projectid);
                     await store.deleteTextTrainingByProjectId(projectid);
                 });
-        }).timeout(10000);
+        });
     });
 
 
@@ -591,7 +591,7 @@ describe('REST API - training', () => {
                     await store.deleteProject(projectid);
                     await store.deleteTextTrainingByProjectId(projectid);
                 });
-        }).timeout(10000);
+        });
 
 
         it('should delete training', async () => {
@@ -637,7 +637,7 @@ describe('REST API - training', () => {
                     await store.deleteProject(projectid);
                     await store.deleteTextTrainingByProjectId(projectid);
                 });
-        }).timeout(10000);
+        });
 
     });
 
@@ -681,7 +681,7 @@ describe('REST API - training', () => {
                         assert(err);
                     }
                 });
-        }).timeout(10000);
+        });
 
     });
 

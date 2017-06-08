@@ -74,7 +74,9 @@ gulp.task('coverage', ['compile'], () => {
 
 gulp.task('test', ['coverage'], () => {
     const mochaOptions = {
-        reporter : 'spec'
+        reporter : 'spec',
+        timeout : 30000,
+        bail : true
     };
 
     const istanbulOptions = {
