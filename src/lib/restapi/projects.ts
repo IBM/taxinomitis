@@ -58,6 +58,11 @@ async function createProject(req: Express.Request, res: Express.Response) {
         return res.status(httpstatus.CONFLICT)
                   .send({ error : 'User already has maximum number of projects' });
     }
+    if (tenantPolicy.supportedProjectTypes.indexOf(req.body.type) === -1) {
+        return res.status(httpstatus.FORBIDDEN)
+                  .send({ error : 'Support for ' + req.body.type + ' projects is not enabled for your class' });
+    }
+
 
     try {
         const project = await store.storeProject(userid, classid, req.body.type, req.body.name);

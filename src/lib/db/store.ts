@@ -33,7 +33,7 @@ export async function disconnect() {
 // -----------------------------------------------------------------------------
 
 export async function storeProject(
-    userid: string, classid: string, type: string, name: string,
+    userid: string, classid: string, type: Objects.ProjectTypeLabel, name: string,
 ): Promise<Objects.Project>
 {
     const obj: Objects.ProjectDbRow = dbobjects.createProject(userid, classid, type, name);
@@ -437,6 +437,20 @@ export async function getNLCClassifiers(
 
     const [rows] = await dbConn.execute(queryString, [ projectid ]);
     return rows.map(dbobjects.getClassifierFromDbRow);
+}
+
+
+export async function countNLCClassifiers(classid: string): Promise<number> {
+    const queryString = 'SELECT COUNT(*) AS count ' +
+                        'FROM `bluemixclassifiers` ' +
+                        'WHERE `classid` = ?';
+
+    const [rows] = await dbConn.execute(queryString, [ classid ]);
+    if (rows.length !== 1) {
+        return 0;
+    }
+
+    return rows[0].count;
 }
 
 

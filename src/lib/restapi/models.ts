@@ -67,6 +67,13 @@ async function newModel(req: Express.Request, res: Express.Response) {
 
     if (project.type === 'text') {
         try {
+            const existingClassifiers = await store.countNLCClassifiers(classid);
+            const tenantPolicy = await store.getClassTenant(classid);
+            if (existingClassifiers >= tenantPolicy.maxNLCClassifiers) {
+                return res.status(httpstatus.CONFLICT)
+                          .send({ error : 'Your class already has created their maximum allowed number of models' });
+            }
+
             const model = await nlc.trainClassifier(userid, classid, projectid, project.name);
             return res.status(httpstatus.CREATED).json(returnNLCClassifier(model));
         }
