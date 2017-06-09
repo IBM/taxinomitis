@@ -229,6 +229,13 @@ async function removeExistingClassifiers(
 
 
 
+const TABS = new RegExp('\t', 'g');
+export function cleanTrainingData(data: string): string {
+    return data.replace(TABS, '    ');
+}
+
+
+
 
 
 async function deleteClassifierFromBluemix(
