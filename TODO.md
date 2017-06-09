@@ -2,4 +2,4 @@
 * multiple credentials pool per class
 * validation for usernames in create-user dialog
 * clean up tests so they don't leave loads of users behind
-* support for deleting texts and labels in training
+* support for deleting labels in training

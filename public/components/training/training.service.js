@@ -23,6 +23,15 @@
                 });
         }
 
+        function deleteTrainingData(projectid, userid, tenant, trainingdataid) {
+            var url = '/api/classes/' + tenant +
+                        '/students/' + userid +
+                        '/projects/' + projectid +
+                        '/training/' + trainingdataid;
+
+            return $http.delete(url);
+        }
+
         function getTraining(projectid, userid, tenant) {
             var url = '/api/classes/' + tenant +
                         '/students/' + userid +
@@ -83,6 +92,7 @@
         return {
             newTrainingData : newTrainingData,
             getTraining : getTraining,
+            deleteTrainingData : deleteTrainingData,
             getModels : getModels,
             newModel : newModel,
             testModel : testModel,

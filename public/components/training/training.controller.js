@@ -157,6 +157,13 @@
         };
 
 
+        vm.deleteText = function (label, item, idx) {
+            $scope.training[label].splice(idx, 1);
+            trainingService.deleteTrainingData($scope.projectId, vm.profile.user_id, vm.profile.tenant, item.id);
+        };
+
+
+
 
         function DialogController($scope, locals) {
             $scope.label = locals.label;

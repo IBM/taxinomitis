@@ -78,3 +78,18 @@
     float: right;
     width: 80px;
 }
+
+
+.trainingbucketitem .deletetext {
+    display: none;
+}
+.trainingbucketitem:hover .deletetext {
+    display: inline;
+}
+
+.deletetext {
+    color: #808080;
+    font-size: smaller;
+    cursor: pointer;
+}
+
