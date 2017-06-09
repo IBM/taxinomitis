@@ -17,38 +17,60 @@
         var vm = this;
         vm.authService = authService;
 
+
+        var alertId = 1;
+        vm.errors = [];
+        vm.warnings = [];
+        vm.dismissAlert = function (type, errIdx) {
+            vm[type].splice(errIdx, 1);
+        };
+        function displayAlert(type, errObj) {
+            vm[type].push({ alertid : alertId++, message : errObj.message || errObj.error || 'Unknown error' });
+        }
+
+
         $scope.projectId = $stateParams.projectId;
         $scope.training = {};
 
-        authService.getProfileDeferred().then(function (profile) {
-            vm.profile = profile;
+        authService.getProfileDeferred()
+            .then(function (profile) {
+                vm.profile = profile;
 
-            projectsService.getProject($scope.projectId, profile.user_id, profile.tenant)
-                .then(function (project) {
-                    $scope.project = project;
+                projectsService.getProject($scope.projectId, profile.user_id, profile.tenant)
+                    .then(function (project) {
+                        $scope.project = project;
 
-                    refreshLabelsSummary();
+                        refreshLabelsSummary();
 
-                    for (var label of project.labels) {
-                        $scope.training[label] = [];
-                    }
+                        for (var label of project.labels) {
+                            $scope.training[label] = [];
+                        }
 
-                    trainingService.getTraining($scope.projectId, profile.user_id, profile.tenant)
-                        .then(function (training) {
-                            for (var trainingitem of training) {
-                                var label = trainingitem.label;
+                        trainingService.getTraining($scope.projectId, profile.user_id, profile.tenant)
+                            .then(function (training) {
+                                for (var trainingitem of training) {
+                                    var label = trainingitem.label;
 
-                                if (label in $scope.training === false) {
-                                    $scope.training[label] = [];
+                                    if (label in $scope.training === false) {
+                                        $scope.training[label] = [];
 
-                                    // TODO need to update the project with this missing label
+                                        // TODO need to update the project with this missing label
+                                    }
+
+                                    $scope.training[label].push(trainingitem);
                                 }
-
-                                $scope.training[label].push(trainingitem);
-                            }
-                        });
-                });
-        });
+                            })
+                            .catch(function (err) {
+                                displayAlert('errors', err.data);
+                            });
+                    })
+                    .catch(function (err) {
+                        displayAlert('errors', err.data);
+                    });
+            })
+            .catch(function (err) {
+                displayAlert('errors', err.data);
+            });
 
 
         function refreshLabelsSummary () {
@@ -93,6 +115,9 @@
                     trainingService.newTrainingData($scope.projectId, vm.profile.user_id, vm.profile.tenant, example, label)
                         .then(function (newitem) {
                             $scope.training[label].push(newitem);
+                        })
+                        .catch(function (err) {
+                            displayAlert('errors', err.data);
                         });
                 },
                 function() {
@@ -120,7 +145,11 @@
                             $scope.training[newlabel] = [];
 
                             refreshLabelsSummary();
+                        })
+                        .catch(function (err) {
+                            displayAlert('errors', err.data);
                         });
+
                 },
                 function() {
                     // cancelled. do nothing

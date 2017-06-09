@@ -17,6 +17,17 @@
         var vm = this;
         vm.authService = authService;
 
+        var alertId = 1;
+        vm.errors = [];
+        vm.warnings = [];
+        vm.dismissAlert = function (type, errIdx) {
+            vm[type].splice(errIdx, 1);
+        };
+        function displayAlert(type, errObj) {
+            vm[type].push({ alertid : alertId++, message : errObj.message || errObj.error || 'Unknown error' });
+        }
+
+
         function refreshProjectsList(profile) {
             projectsService.getProjects(profile)
                 .then(function (projects) {
@@ -48,15 +59,22 @@
                             project.labelsSummary = summary;
                         }
                     }
+                })
+                .catch(function (err) {
+                    displayAlert('errors', err.data);
                 });
         }
 
 
-        authService.getProfileDeferred().then(function (profile) {
-            vm.profile = profile;
+        authService.getProfileDeferred()
+            .then(function (profile) {
+                vm.profile = profile;
 
-            refreshProjectsList(profile);
-        });
+                refreshProjectsList(profile);
+            })
+            .catch(function (err) {
+                displayAlert('errors', err.data);
+            });
 
 
         vm.createProject = function (ev) {
@@ -72,6 +90,9 @@
                     projectsService.createProject(project, vm.profile.user_id, vm.profile.tenant)
                         .then(function () {
                             refreshProjectsList(vm.profile);
+                        })
+                        .catch(function (err) {
+                            displayAlert('errors', err.data);
                         });
                 },
                 function() {
@@ -95,6 +116,9 @@
                     projectsService.deleteProject(project, vm.profile.user_id, vm.profile.tenant)
                         .then(function () {
                             refreshProjectsList(vm.profile);
+                        })
+                        .catch(function (err) {
+                            displayAlert('errors', err.data);
                         });
                 },
                 function() {

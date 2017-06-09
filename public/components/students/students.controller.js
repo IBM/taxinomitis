@@ -16,10 +16,24 @@
         var vm = this;
         vm.authService = authService;
 
+        var alertId = 1;
+        vm.errors = [];
+        vm.warnings = [];
+        vm.dismissAlert = function (type, errIdx) {
+            vm[type].splice(errIdx, 1);
+        };
+        function displayAlert(type, errObj) {
+            vm[type].push({ alertid : alertId++, message : errObj.message || errObj.error || 'Unknown error' });
+        }
+
+
         function refreshStudentsList(profile) {
             usersService.getStudentList(profile)
                 .then(function (students) {
                     vm.students = students;
+                })
+                .catch(function (err) {
+                    displayAlert('errors', err.data);
                 });
         }
 
@@ -35,13 +49,18 @@
                 );
         }
 
-        authService.getProfileDeferred().then(function (profile) {
-            vm.profile = profile;
+        authService.getProfileDeferred()
+            .then(function (profile) {
+                vm.profile = profile;
 
-            if (profile.role === 'supervisor') {
-                refreshStudentsList(profile);
-            }
-        });
+                if (profile.role === 'supervisor') {
+                    refreshStudentsList(profile);
+                }
+            })
+            .catch(function (err) {
+                displayAlert('errors', err.data);
+            });
+
 
         vm.deleteUser = function (ev, student) {
             var confirm = $mdDialog.confirm()
@@ -57,7 +76,11 @@
                     usersService.deleteStudent(student, vm.profile.tenant)
                         .then(function () {
                             refreshStudentsList(vm.profile);
+                        })
+                        .catch(function (err) {
+                            displayAlert('errors', err.data);
                         });
+
                 },
                 function() {
                     // cancelled. do nothing
@@ -84,6 +107,9 @@
                             $timeout(function () {
                                 refreshStudentsList(vm.profile);
                             }, 500);
+                        })
+                        .catch(function (err) {
+                            displayAlert('errors', err.data);
                         });
                 },
                 function() {
@@ -95,6 +121,9 @@
             usersService.resetStudentPassword(student, vm.profile.tenant)
                 .then(function (updatedUser) {
                     displayPassword(ev, updatedUser);
+                })
+                .catch(function (err) {
+                    displayAlert('errors', err.data);
                 });
         };
 

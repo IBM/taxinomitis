@@ -16,16 +16,34 @@
         var vm = this;
         vm.authService = authService;
 
+        var alertId = 1;
+        vm.errors = [];
+        vm.warnings = [];
+        vm.dismissAlert = function (type, errIdx) {
+            vm[type].splice(errIdx, 1);
+        };
+        function displayAlert(type, errObj) {
+            vm[type].push({ alertid : alertId++, message : errObj.message || errObj.error || 'Unknown error' });
+        }
+
+
         $scope.projectId = $stateParams.projectId;
 
-        authService.getProfileDeferred().then(function (profile) {
-            vm.profile = profile;
+        authService.getProfileDeferred()
+            .then(function (profile) {
+                vm.profile = profile;
 
-            projectsService.getProject($scope.projectId, profile.user_id, profile.tenant)
-                .then(function (project) {
-                    $scope.project = project;
-                });
-        });
+                projectsService.getProject($scope.projectId, profile.user_id, profile.tenant)
+                    .then(function (project) {
+                        $scope.project = project;
+                    })
+                    .catch(function (err) {
+                        displayAlert('errors', err.data);
+                    });
+            })
+            .catch(function (err) {
+                displayAlert('errors', err.data);
+            });
 
 
         vm.getScratchKey = function (ev, project) {
@@ -43,7 +61,11 @@
                     $window.open(scratchkey.url, '_blank');
 
                     $scope.scratchkey = scratchkey;
+                })
+                .catch(function (err) {
+                    displayAlert('errors', err.data);
                 });
+
         };
     }
 

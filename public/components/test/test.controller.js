@@ -16,22 +16,43 @@
         var vm = this;
         vm.authService = authService;
 
+        var alertId = 1;
+        vm.errors = [];
+        vm.warnings = [];
+        vm.dismissAlert = function (type, errIdx) {
+            vm[type].splice(errIdx, 1);
+        };
+        function displayAlert(type, errObj) {
+            vm[type].push({ alertid : alertId++, message : errObj.message || errObj.error || 'Unknown error' });
+        }
+
+
         $scope.projectId = $stateParams.projectId;
         $scope.testformData = {};
 
-        authService.getProfileDeferred().then(function (profile) {
-            vm.profile = profile;
+        authService.getProfileDeferred()
+            .then(function (profile) {
+                vm.profile = profile;
 
-            projectsService.getProject($scope.projectId, profile.user_id, profile.tenant)
-                .then(function (project) {
-                    $scope.project = project;
+                projectsService.getProject($scope.projectId, profile.user_id, profile.tenant)
+                    .then(function (project) {
+                        $scope.project = project;
 
-                    trainingService.getModels($scope.projectId, profile.user_id, profile.tenant)
-                        .then(function (models) {
-                            $scope.models = models;
-                        });
-                });
-        });
+                        trainingService.getModels($scope.projectId, profile.user_id, profile.tenant)
+                            .then(function (models) {
+                                $scope.models = models;
+                            })
+                            .catch(function (err) {
+                                displayAlert('errors', err.data);
+                            });
+                    })
+                    .catch(function (err) {
+                        displayAlert('errors', err.data);
+                    });
+            })
+            .catch(function (err) {
+                displayAlert('errors', err.data);
+            });
 
 
         function getModel() {
@@ -59,6 +80,9 @@
                     .then(function (resp) {
                         $scope.testoutput = resp[0].class_name;
                         $scope.testoutput_explanation = "with " + resp[0].confidence + "% confidence";
+                    })
+                    .catch(function (err) {
+                        displayAlert('errors', err.data);
                     });
             }
             else {
