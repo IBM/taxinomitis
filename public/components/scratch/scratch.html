@@ -21,9 +21,8 @@
         <strong>Warning:</strong> {{ warning.message }}
     </div>
 
-    <div ng-if="projectId && !project">
-        loading
-    </div>
+    <div ng-if="projectId && !project" class="loading"> </div>
+
     <div ng-if="project" style="margin: 4em">
         <div ng-if="scratchkey">
             <a target="_blank" href="{{ scratchkey.url }}">{{ scratchkey.url }}</a>

@@ -21,9 +21,8 @@
         <strong>Warning:</strong> {{ warning.message }}
     </div>
 
-    <div ng-if="projectId && !models">
-        loading
-    </div>
+    <div ng-if="projectId && !models" class="loading"> </div>
+
     <div ng-if="project && models" style="margin: 3em;">
         <div style="margin: 1em;">Try putting in some text to see how it is recognised based on your training.</div>
         <form name="testform" ng-submit="vm.testModel($event, testform, project)">

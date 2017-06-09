@@ -24,6 +24,9 @@
             <div class="newprojectlabel">Add a new project</div>
         </div>
     </div>
+
+    <div ng-if="!vm.projects" class="loading"> </div>
+
     <div class="text-center">
         <div ng-if="vm.projects && vm.projects.length === 0">
             Click on the 'plus' icon on the right to create your first project.
