@@ -7,11 +7,12 @@
     authService.$inject = [
         'lock',
         'authManager',
-        '$q'
+        '$q',
+        '$rootScope'
     ];
 
 
-    function authService(lock, authManager, $q) {
+    function authService(lock, authManager, $q, $rootScope) {
 
         var vm = this;
 
@@ -20,6 +21,8 @@
 
         if (userProfile) {
             deferredProfile.resolve(userProfile);
+
+            $rootScope.isTeacher = (userProfile.role === 'supervisor');
         }
 
         function login() {
@@ -35,6 +38,7 @@
             authManager.unauthenticate();
 
             userProfile = null;
+            $rootScope.isTeacher = false;
         }
 
         function registerAuthenticationListener() {
@@ -47,6 +51,8 @@
                     vm.profile = JSON.stringify(profile);
                     localStorage.setItem('profile', vm.profile);
                     deferredProfile.resolve(profile);
+
+                    $rootScope.isTeacher = (profile.role === 'supervisor');
                 });
             });
 

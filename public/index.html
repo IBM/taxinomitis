@@ -27,7 +27,7 @@
                             <li><a ui-sref="welcome">
                               Welcome
                             </a></li>
-                            <li ng-if="isAuthenticated"><a ui-sref="students">
+                            <li ng-if="isAuthenticated && isTeacher"><a ui-sref="students">
                               Students
                             </a></li>
                             <li ng-if="isAuthenticated"><a ui-sref="projects">
