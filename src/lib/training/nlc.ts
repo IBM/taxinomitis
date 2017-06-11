@@ -1,7 +1,7 @@
 // external dependencies
 import * as fs from 'fs';
 import * as tmp from 'tmp';
-import * as csvWriter from 'csv-write-stream';
+import * as csvStringify from 'csv-stringify';
 import * as request from 'request-promise';
 import * as Bluebird from 'bluebird';
 import * as httpStatus from 'http-status';
@@ -47,7 +47,6 @@ export async function trainClassifier(
     // done
     return storedClassifier;
 }
-
 
 
 /**
@@ -97,6 +96,7 @@ export async function deleteClassifier(
 
 
 
+
 /**
  * Fetches the training data for a project from the DB, and writes it to a
  *  CSV file in the format expected by the Natural Language Classifier service.
@@ -110,9 +110,9 @@ export async function deleteClassifier(
  */
 async function writeTrainingToFile(projectid: string): Promise<TrainingObjects.File> {
     const tmpFile = await getTemporaryFile();
-    const writer = prepareCsvWriter(tmpFile);
+    const writer = fs.createWriteStream(tmpFile.path, { flags : 'a' });
     await fetchAndWriteTrainingInBatches(projectid, writer);
-    writer.end();
+    await waitForFile(writer);
     return tmpFile;
 }
 
@@ -146,25 +146,35 @@ async function submitTrainingToNLC(
             training_data : fs.createReadStream(training.path),
         },
         json : true,
+        gzip : true,
     };
 
-    const body = await request.post(credentials.url + '/v1/classifiers', req);
+    try {
+        const body = await request.post(credentials.url + '/v1/classifiers', req);
 
-    const classifierid: string = body.classifier_id;
-    const language: string = body.language;
-    const created: Date = new Date(body.created);
-    const url: string = body.url;
-    const status: TrainingObjects.NLCStatus = body.status;
-    const statusDescription: string = body.status_description;
+        const classifierid: string = body.classifier_id;
+        const language: string = body.language;
+        const created: Date = new Date(body.created);
+        const url: string = body.url;
+        const status: TrainingObjects.NLCStatus = body.status;
+        const statusDescription: string = body.status_description;
 
-    const classifier: TrainingObjects.NLCClassifier = {
-        classifierid, url, name, language, created,
-        status, statusDescription,
-    };
+        const classifier: TrainingObjects.NLCClassifier = {
+            classifierid, url, name, language, created,
+            status, statusDescription,
+        };
 
-    log.debug({ classifier }, 'Created new classifier');
+        log.debug({ classifier }, 'Created new classifier');
 
-    return classifier;
+        return classifier;
+    }
+    catch (err) {
+        log.error({ req, err }, 'Failed to train classifier');
+
+        const trainingError: any = new Error('Failed to train classifier');
+        trainingError.error = err.description;
+        throw trainingError;
+    }
 }
 
 
@@ -291,15 +301,9 @@ function getStatus(
 
 
 
-const NLC_CSV_FORMAT = {
-    separator : ',',
-    newline : '\n',
-    sendHeaders : false,
-};
-
 function getTemporaryFile(): Promise<TrainingObjects.File> {
     return new Promise((resolve, reject) => {
-        tmp.file({ keep : true }, (err, path) => {
+        tmp.file({ keep : true, postfix : '.csv' }, (err, path) => {
             if (err) {
                 return reject(err);
             }
@@ -308,11 +312,28 @@ function getTemporaryFile(): Promise<TrainingObjects.File> {
     });
 }
 
-function prepareCsvWriter(tmpFile: TrainingObjects.File) {
-    const writer = csvWriter(NLC_CSV_FORMAT);
-    writer.pipe(fs.createWriteStream(tmpFile.path));
-    return writer;
+
+function waitForFile(writer) {
+    return new Promise((resolve, reject) => {
+        writer.on('finish', resolve);
+        writer.on('error', reject);
+        writer.end();
+    });
 }
+
+
+function toCsv(data: any): Promise<string> {
+    return new Promise((resolve, reject) => {
+        csvStringify(data, (err, out) => {
+            if (err) {
+                return reject(err);
+            }
+            return resolve(out);
+        });
+    });
+}
+
+
 
 async function fetchAndWriteTrainingInBatches(projectid: string, writer): Promise<void> {
     const BATCH = 100;
@@ -323,14 +344,13 @@ async function fetchAndWriteTrainingInBatches(projectid: string, writer): Promis
             start: ptr, limit: BATCH,
         });
 
-        for (const training of trainingBatch) {
-            if (training.label && training.textdata) {
-                writer.write({
-                    text : training.textdata,
-                    label : training.label,
-                });
-            }
-        }
+        const csvData = await toCsv(
+            trainingBatch
+                .filter((training) => training.label && training.textdata)
+                .map((training) => ({ text : training.textdata, label : training.label }))
+        );
+
+        writer.write(csvData);
 
         ptr += BATCH;
     }
