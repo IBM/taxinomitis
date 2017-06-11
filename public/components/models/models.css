@@ -1,0 +1,72 @@
+.quizSection {
+    margin-bottom: 2em;
+}
+
+.modelinfo {
+    margin: 2em;
+}
+
+.modelinfo td {
+    padding: 0.1em 0.6em;
+}
+
+.quizintro {
+    font-size: 1.3em;
+    margin: 1em;
+}
+
+.quiz {
+    border: thin grey solid;
+    margin: 0 4em;
+    padding: 1em;
+}
+
+.quizquestion {
+    font-weight: bold;
+    font-size: 1.15em;
+    margin-bottom: 1em;
+}
+
+.quizanswer {
+    margin: 1.5em;
+
+    content: "";
+    clear: both;
+    display: table;
+    width: 90%;
+}
+
+.quizanswer input[type='checkbox'] {
+    width: 30px;
+    height: 30px;
+    background: white;
+    border-radius: 5px;
+    border: 2px solid #555;
+    vertical-align: top;
+    margin-right: 1em;
+    float: left;
+
+    -moz-appearance: none;
+    -ms-progress-appearance: none;
+    -webkit-appearance: none;
+}
+
+
+.quizanswer input[type='checkbox']:checked {
+    background-image: url('./../../images/tick.png');
+}
+
+.quizanswer.answered input[type='checkbox']:checked {
+    background: darkgreen;
+    background-image: url('./../../images/tick-confirm.png');
+}
+
+.answerconfirm {
+    font-weight: bold;
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+.answernotes {
+    margin: 0.5em 2em 1em 2em;
+}

@@ -38,14 +38,16 @@
         var timer = null;
 
         function refreshModels () {
-            timer = $timeout(() => {
-                fetchModels()
-                    .then(() => {
-                        if ($scope.displayQuiz) {
-                            refreshModels();
-                        }
-                    });
-            }, 60000);
+            if (!timer) {
+                timer = $timeout(() => {
+                    fetchModels()
+                        .then(() => {
+                            if ($scope.displayQuiz) {
+                                refreshModels();
+                            }
+                        });
+                }, 60000);
+            }
         }
 
         function allAnswersAreCorrect (answers) {
@@ -131,11 +133,25 @@
                         return md.classifierid !== classifierid;
                     });
                     $scope.displayQuiz = allModelsAreTraining($scope.models);
+
+                    if (!scope.displayQuiz && timer) {
+                        $timeout.cancel(timer);
+                        timer = null;
+                    }
                 })
                 .catch(function (err) {
                     displayAlert('errors', err.data);
                 });
         };
+
+
+
+        $scope.$on("$destroy", function(evt) {
+            if (timer) {
+                $timeout.cancel( timer );
+                timer = null;
+            }
+        });
 
     }
 

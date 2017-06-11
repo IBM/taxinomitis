@@ -25,7 +25,7 @@
 
     <div ng-if="models">
         <div ng-repeat="model in models">
-            <table style="margin: 2em;">
+            <table class="modelinfo">
                 <tr>
                     <td><strong>Model was trained at:</strong></td>
                     <td>
@@ -55,24 +55,26 @@
         <button ng-if="!displayQuiz" style="margin: 4em;" class="btn" ng-click="vm.createModel($event, project)">Train new machine learning model</button>
 
 
-        <div ng-if="displayQuiz">
+        <div ng-if="displayQuiz" class="quizSection">
             <div ng-if="quizQuestion">
-                <div>While you are waiting for the model to finish training, try answering this question to test your ML knowledge. </div>
+                <div class="quizintro">While you are waiting for the model to finish training, try answering this question to test your ML knowledge. </div>
                 <div ng-if="quizQuestion.attempted">You've seen this one before - let's see if you remember what the right answer is this time! </div>
 
-                <div>
-                    {{ quizQuestion.question }}
-                </div>
-                <div ng-repeat="answer in quizQuestion.answers">
-                    <input type="checkbox" ng-model="answer.selected" >
-                    {{ answer.text }}
-                </div>
-                <button class="btn" ng-if="!answered" ng-click="vm.checkQuizAnswers(quizQuestion)">Check your answer</button>
-                <div ng-if="answered">
-                    <div ng-if="answerCorrect">That's right!</div>
-                    <div ng-if="!answerCorrect">No, sorry. The correct answer is shown above.</div>
-                    <div> {{ quizQuestion.notes }} </div>
-                    <button class="btn" ng-click="vm.nextQuizQuestion()">Next question</button>
+                <div class="quiz">
+                    <div class="quizquestion">
+                        {{ quizQuestion.question }}
+                    </div>
+                    <div class="quizanswer" ng-repeat="answer in quizQuestion.answers" ng-class="{ 'answered' : answered }" >
+                        <input type="checkbox" ng-model="answer.selected" ng-disabled="answered">
+                        <div>{{ answer.text }}</div>
+                    </div>
+                    <button class="btn" ng-if="!answered" ng-click="vm.checkQuizAnswers(quizQuestion)">Check your answer</button>
+                    <div ng-if="answered">
+                        <div class="answerconfirm" ng-if="answerCorrect">That's right!</div>
+                        <div class="answerconfirm" ng-if="!answerCorrect">No, sorry. The correct answer is shown above.</div>
+                        <div class="answernotes" ng-repeat="note in quizQuestion.notes"> {{ note }} </div>
+                        <button class="btn" ng-click="vm.nextQuizQuestion()">Next question</button>
+                    </div>
                 </div>
             </div>
             <div ng-if="!quizQuestion">
