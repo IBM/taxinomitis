@@ -242,7 +242,7 @@ async function removeExistingClassifiers(
 
 
 
-const TABS = new RegExp('\t', 'g');
+const TABS = new RegExp('\t', 'g'); // eslint-disable-line no-control-regex
 export function cleanTrainingData(data: string): string {
     return data.replace(TABS, '    ');
 }
@@ -350,7 +350,7 @@ async function fetchAndWriteTrainingInBatches(projectid: string, writer): Promis
         const csvData = await toCsv(
             trainingBatch
                 .filter((training) => training.label && training.textdata)
-                .map((training) => ({ text : training.textdata, label : training.label }))
+                .map((training) => ({ text : training.textdata, label : training.label })),
         );
 
         writer.write(csvData);

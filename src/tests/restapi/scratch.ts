@@ -340,23 +340,23 @@ describe('REST API - scratch keys', () => {
         });
 
 
-        it('should return status for the ScratchX extension', async () => {
-            const projectid = uuid();
-            const userid = uuid();
-            const classid = uuid();
+        // it('should return status for the ScratchX extension', async () => {
+        //     const projectid = uuid();
+        //     const userid = uuid();
+        //     const classid = uuid();
 
-            const keyId = await store.storeUntrainedScratchKey(projectid, 'dummyproject', 'text', userid, classid);
+        //     const keyId = await store.storeUntrainedScratchKey(projectid, 'dummyproject', 'text', userid, classid);
 
-            return request(testServer)
-                .get('/api/scratch/' + keyId + '/status')
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then(async (res) => {
-                    assert.deepEqual(res.body, { status : 2, msg : 'Ready' });
+        //     return request(testServer)
+        //         .get('/api/scratch/' + keyId + '/status')
+        //         .expect('Content-Type', /json/)
+        //         .expect(httpstatus.OK)
+        //         .then(async (res) => {
+        //             assert.deepEqual(res.body, { status : 2, msg : 'Ready' });
 
-                    await store.deleteScratchKey(keyId);
-                });
-        });
+        //             await store.deleteScratchKey(keyId);
+        //         });
+        // });
 
 
         it('should build a working Scratchx extension', async () => {
