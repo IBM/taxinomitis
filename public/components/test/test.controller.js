@@ -34,21 +34,15 @@
             .then(function (profile) {
                 vm.profile = profile;
 
-                projectsService.getProject($scope.projectId, profile.user_id, profile.tenant)
-                    .then(function (project) {
-                        $scope.project = project;
+                return projectsService.getProject($scope.projectId, profile.user_id, profile.tenant);
+            })
+            .then(function (project) {
+                $scope.project = project;
 
-                        trainingService.getModels($scope.projectId, profile.user_id, profile.tenant)
-                            .then(function (models) {
-                                $scope.models = models;
-                            })
-                            .catch(function (err) {
-                                displayAlert('errors', err.data);
-                            });
-                    })
-                    .catch(function (err) {
-                        displayAlert('errors', err.data);
-                    });
+                return trainingService.getModels($scope.projectId, vm.profile.user_id, vm.profile.tenant);
+            })
+            .then(function (models) {
+                $scope.models = models;
             })
             .catch(function (err) {
                 displayAlert('errors', err.data);

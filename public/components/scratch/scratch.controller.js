@@ -33,13 +33,10 @@
             .then(function (profile) {
                 vm.profile = profile;
 
-                projectsService.getProject($scope.projectId, profile.user_id, profile.tenant)
-                    .then(function (project) {
-                        $scope.project = project;
-                    })
-                    .catch(function (err) {
-                        displayAlert('errors', err.data);
-                    });
+                return projectsService.getProject($scope.projectId, profile.user_id, profile.tenant);
+            })
+            .then(function (project) {
+                $scope.project = project;
             })
             .catch(function (err) {
                 displayAlert('errors', err.data);

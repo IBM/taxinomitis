@@ -36,37 +36,31 @@
             .then(function (profile) {
                 vm.profile = profile;
 
-                projectsService.getProject($scope.projectId, profile.user_id, profile.tenant)
-                    .then(function (project) {
-                        $scope.project = project;
+                return projectsService.getProject($scope.projectId, profile.user_id, profile.tenant);
+            })
+            .then(function (project) {
+                $scope.project = project;
 
-                        refreshLabelsSummary();
+                refreshLabelsSummary();
 
-                        for (var label of project.labels) {
-                            $scope.training[label] = [];
-                        }
+                for (var label of project.labels) {
+                    $scope.training[label] = [];
+                }
 
-                        trainingService.getTraining($scope.projectId, profile.user_id, profile.tenant)
-                            .then(function (training) {
-                                for (var trainingitem of training) {
-                                    var label = trainingitem.label;
+                return trainingService.getTraining($scope.projectId, vm.profile.user_id, vm.profile.tenant);
+            })
+            .then(function (training) {
+                for (var trainingitem of training) {
+                    var label = trainingitem.label;
 
-                                    if (label in $scope.training === false) {
-                                        $scope.training[label] = [];
+                    if (label in $scope.training === false) {
+                        $scope.training[label] = [];
 
-                                        // TODO need to update the project with this missing label
-                                    }
+                        // TODO need to update the project with this missing label
+                    }
 
-                                    $scope.training[label].push(trainingitem);
-                                }
-                            })
-                            .catch(function (err) {
-                                displayAlert('errors', err.data);
-                            });
-                    })
-                    .catch(function (err) {
-                        displayAlert('errors', err.data);
-                    });
+                    $scope.training[label].push(trainingitem);
+                }
             })
             .catch(function (err) {
                 displayAlert('errors', err.data);
