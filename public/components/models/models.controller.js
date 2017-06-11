@@ -110,6 +110,7 @@
 
 
         vm.createModel = function (ev, project) {
+            $scope.submittingTrainingRequest = true;
             trainingService.newModel(project.id, vm.profile.user_id, vm.profile.tenant)
                 .then(function (newmodel) {
                     $scope.models = [ newmodel ];
@@ -119,8 +120,12 @@
                     if ($scope.displayQuiz) {
                         refreshModels();
                     }
+
+                    $scope.submittingTrainingRequest = false;
                 })
                 .catch(function (err) {
+                    $scope.submittingTrainingRequest = false;
+
                     displayAlert('errors', err.data);
                 });
         };

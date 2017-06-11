@@ -131,8 +131,51 @@ async function getScratchxExtension(req: Express.Request, res: Express.Response)
 }
 
 
-function getScratchxStatus(req: Express.Request, res: Express.Response) {
-    res.jsonp({ status : 2, msg : 'Ready' });
+async function getScratchxStatus(req: Express.Request, res: Express.Response) {
+    const apikey = req.params.scratchkey;
+
+    try {
+        const scratchStatus = {
+            status : 0,
+            msg : 'Unknown',
+        };
+
+        const scratchKey = await store.getScratchKey(apikey);
+        if (scratchKey.classifierid) {
+            const credentials: TrainingTypes.BluemixCredentials = scratchKey.credentials;
+            const classifier: TrainingTypes.NLCClassifier = {
+                name: scratchKey.name,
+                classifierid: scratchKey.classifierid,
+                created: new Date(),
+                language: 'en',
+                url: scratchKey.credentials.url + '/v1/classifiers/' + scratchKey.classifierid,
+            };
+
+            const classifierWithStatus = await nlc.getStatus(credentials, classifier);
+            if (classifierWithStatus.status === 'Available') {
+                scratchStatus.status = 2;
+                scratchStatus.msg = 'Ready';
+            }
+            else if (classifierWithStatus.status === 'Training') {
+                scratchStatus.status = 1;
+                scratchStatus.msg = 'Model not ready yet';
+            }
+            else {
+                scratchStatus.status = 0;
+                scratchStatus.msg = 'Model ' + classifierWithStatus.status + ' ' +
+                                    classifierWithStatus.statusDescription;
+            }
+        }
+        else {
+            scratchStatus.status = 0;
+            scratchStatus.msg = 'No models trained yet - only random answers can be chosen';
+        }
+
+        return res.jsonp(scratchStatus);
+    }
+    catch (err) {
+        errors.unknownError(res, err);
+    }
 }
 
 

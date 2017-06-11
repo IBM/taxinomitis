@@ -52,12 +52,18 @@
                 </tr>
             </table>
         </div>
-        <button ng-if="!displayQuiz" style="margin: 4em;" class="btn" ng-click="vm.createModel($event, project)">Train new machine learning model</button>
+        <button ng-if="!displayQuiz"
+                style="margin: 4em;"
+                class="btn"
+                ng-click="vm.createModel($event, project)"
+                ng-disabled="submittingTrainingRequest">
+                Train new machine learning model
+        </button>
 
 
         <div ng-if="displayQuiz" class="quizSection">
             <div ng-if="quizQuestion">
-                <div class="quizintro">While you are waiting for the model to finish training, try answering this question to test your ML knowledge. </div>
+                <div class="quizintro">While you are waiting for the model to finish training, try answering this question: </div>
                 <div ng-if="quizQuestion.attempted">You've seen this one before - let's see if you remember what the right answer is this time! </div>
 
                 <div class="quiz">

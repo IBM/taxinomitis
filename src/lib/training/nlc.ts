@@ -277,7 +277,7 @@ async function deleteClassifierFromBluemix(
 }
 
 
-function getStatus(
+export function getStatus(
     credentials: TrainingObjects.BluemixCredentials,
     classifier: TrainingObjects.NLCClassifier,
 ): PromiseLike<TrainingObjects.NLCClassifier>
