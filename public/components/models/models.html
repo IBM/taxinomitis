@@ -46,13 +46,39 @@
                     <td colspan=2>
                         <button class="btn"
                                 ng-click="vm.deleteModel($event, project, model)">
-                            Delete model
+                            {{ model.status === 'Training' ? 'Cancel training' : 'Delete model' }}
                         </button>
                     </td>
                 </tr>
             </table>
         </div>
-        <button style="margin: 4em;" class="btn" ng-click="vm.createModel($event, project)">Train new machine learning model</button>
+        <button ng-if="!displayQuiz" style="margin: 4em;" class="btn" ng-click="vm.createModel($event, project)">Train new machine learning model</button>
+
+
+        <div ng-if="displayQuiz">
+            <div ng-if="quizQuestion">
+                <div>While you are waiting for the model to finish training, try answering this question to test your ML knowledge. </div>
+                <div ng-if="quizQuestion.attempted">You've seen this one before - let's see if you remember what the right answer is this time! </div>
+
+                <div>
+                    {{ quizQuestion.question }}
+                </div>
+                <div ng-repeat="answer in quizQuestion.answers">
+                    <input type="checkbox" ng-model="answer.selected" >
+                    {{ answer.text }}
+                </div>
+                <button class="btn" ng-if="!answered" ng-click="vm.checkQuizAnswers(quizQuestion)">Check your answer</button>
+                <div ng-if="answered">
+                    <div ng-if="answerCorrect">That's right!</div>
+                    <div ng-if="!answerCorrect">No, sorry. The correct answer is shown above.</div>
+                    <div> {{ quizQuestion.notes }} </div>
+                    <button class="btn" ng-click="vm.nextQuizQuestion()">Next question</button>
+                </div>
+            </div>
+            <div ng-if="!quizQuestion">
+                You've answered all the quiz questions already - hopefully the training will be finished soon!</div>
+            </div>
+        </div>
     </div>
     <div class="text-center" ng-if="!projectId">
         missing projectid - you should probably go back to <a ui-sref="projects">Projects</a>
