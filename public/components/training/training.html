@@ -50,8 +50,8 @@
                 </div>
                 <div class="trainingbucketitems">
                     <div class="trainingbucketitem" ng-repeat="item in training[label]">
-                        {{ item.textdata }}
                         <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true" ng-click="vm.deleteText(label, item, $index)"></span>
+                        {{ item.textdata }}
                     </div>
                 </div>
                 <div style="text-align: center;">

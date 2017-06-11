@@ -8,9 +8,6 @@
     margin-bottom: 0;
 }
 
-.trainingbuckets {
-
-}
 .trainingbucket {
 
     float: left;
@@ -88,7 +85,7 @@
 }
 
 .deletetext {
-    color: #808080;
+    color: #CC8080;
     font-size: smaller;
     cursor: pointer;
 }

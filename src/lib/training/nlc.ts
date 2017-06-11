@@ -171,6 +171,9 @@ async function submitTrainingToNLC(
     catch (err) {
         log.error({ req, err }, 'Failed to train classifier');
 
+        // The full error object will include the NLC request with the
+        //  URL and credentials we used for it. So we don't want to return
+        //  that - after logging, we create a new exception to throw.
         const trainingError: any = new Error('Failed to train classifier');
         trainingError.error = err.description;
         throw trainingError;
