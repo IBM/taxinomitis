@@ -1,5 +1,7 @@
 <div ng-if="!isAuthenticated">
-    <h2 class="text-center">Not authenticated</h2>
+    <div class="alert alert-warning pageheadermsg">
+        <strong>Not logged in</strong>
+    </div>
     <div class="text-center">
         <button class="btn btn-primary" ng-click="vm.authService.login()">Log In</button>
     </div>
@@ -16,7 +18,7 @@
             </span>
         </div>
     </div>
-    <div>
+    <div style="margin: 5px;">
         <a ui-sref="mlproject({ projectId : projectId })">&lt; Back to project</a>
     </div>
 
@@ -60,7 +62,8 @@
             </div>
         </div>
     </div>
-    <div class="text-center" ng-if="!projectId">
-        missing projectid - you should probably go back to <a ui-sref="projects">Projects</a>
+
+    <div ng-if="!projectId" class="alert alert-danger pageheadermsg">
+        <strong>Error:</strong> Missing project id. Go back to <a ui-sref="projects">your projects</a>
     </div>
 </div>

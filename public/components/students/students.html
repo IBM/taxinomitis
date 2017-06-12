@@ -1,5 +1,7 @@
 <div ng-if="!isAuthenticated">
-    <h2 class="text-center">Not authenticated</h2>
+    <div class="alert alert-warning pageheadermsg">
+        <strong>Not logged in</strong>
+    </div>
     <div class="text-center">
         <button class="btn btn-primary" ng-click="vm.authService.login()">Log In</button>
     </div>
@@ -40,6 +42,7 @@
         </table>
     </div>
 </div>
-<div ng-if="isAuthenticated && vm.profile.role !== 'supervisor'">
-    Not authorized.
+
+<div ng-if="isAuthenticated && vm.profile.role !== 'supervisor'" class="alert alert-danger pageheadermsg">
+    <strong>Error:</strong> You are not authorized to access the list of students in your class.
 </div>
