@@ -61,6 +61,16 @@
                 </div>
             </div>
         </div>
+
+        <div class="helppanel" ng-if="vm.showHelp && helptext.length > 0">
+            <div ng-repeat="help in helptext">
+                {{ help }}
+            </div>
+        </div>
+
+        <div class="helpicon" ng-if="helptext.length > 0" ng-click="vm.showHelp = !vm.showHelp">
+            ?
+        </div>
     </div>
 
     <div ng-if="!projectId" class="alert alert-danger pageheadermsg">

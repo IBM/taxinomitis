@@ -17,6 +17,9 @@
         var vm = this;
         vm.authService = authService;
 
+        vm.showHelp = false;
+
+        $scope.helptext = [];
 
         var alertId = 1;
         vm.errors = [];
@@ -43,14 +46,17 @@
 
                 refreshLabelsSummary();
 
-                for (var label of project.labels) {
+                for (var labelIdx in project.labels) {
+                    var label = project.labels[labelIdx];
                     $scope.training[label] = [];
                 }
 
                 return trainingService.getTraining($scope.projectId, vm.profile.user_id, vm.profile.tenant);
             })
             .then(function (training) {
-                for (var trainingitem of training) {
+                for (var trainingitemIdx in training) {
+                    var trainingitem = training[trainingitemIdx];
+
                     var label = trainingitem.label;
 
                     if (label in $scope.training === false) {
@@ -61,6 +67,8 @@
 
                     $scope.training[label].push(trainingitem);
                 }
+
+                refreshHelpText();
             })
             .catch(function (err) {
                 displayAlert('errors', err.data);
@@ -92,6 +100,31 @@
             }
         }
 
+        function refreshHelpText () {
+            if ($scope.project.labels.length === 0) {
+                $scope.helptext = HELP_TEXT_NOLABELS;
+            }
+            else if ($scope.project.labels.length === 1) {
+                $scope.helptext = HELP_TEXT_ONELABEL;
+            }
+            else {
+                var allEmpty = true;
+                for (var labelIdx in $scope.project.labels) {
+                    var label = $scope.project.labels[labelIdx];
+                    if ($scope.training[label].length > 0) {
+                        allEmpty = false;
+                        break;
+                    }
+                }
+                if (allEmpty) {
+                    $scope.helptext = HELP_TEXT_NOEXAMPLES;
+                }
+                else {
+                    $scope.helptext = [];
+                }
+            }
+        }
+
 
         vm.addTrainingData = function (ev, label) {
             $mdDialog.show({
@@ -109,6 +142,8 @@
                     trainingService.newTrainingData($scope.projectId, vm.profile.user_id, vm.profile.tenant, example, label)
                         .then(function (newitem) {
                             $scope.training[label].push(newitem);
+
+                            refreshHelpText();
                         })
                         .catch(function (err) {
                             displayAlert('errors', err.data);
@@ -139,6 +174,7 @@
                             $scope.training[newlabel] = [];
 
                             refreshLabelsSummary();
+                            refreshHelpText();
                         })
                         .catch(function (err) {
                             displayAlert('errors', err.data);
@@ -159,6 +195,7 @@
 
 
 
+
         function DialogController($scope, locals) {
             $scope.label = locals.label;
 
@@ -172,6 +209,23 @@
                 $mdDialog.hide(resp);
             };
         }
+
+
+
+        var HELP_TEXT_NOLABELS = [
+            'The first thing you need to do is decide what you want to teach the computer to recognise.',
+            'You need to create a bucket for each of the things you want the computer to be able to recognise.',
+            'Create a new bucket with the "Add a new label" button in the top-right.',
+            'For example, if you want to train the machine to recognise boys and girls names, you\'d need to create two buckets. Click on the "Add a new label" button once and give it the label "boys". And then click on "Add a new label" button again and create the label "girls". That would give you two training buckets for your examples.'
+        ];
+        var HELP_TEXT_ONELABEL = [
+            'You need to train the computer with examples of more than one sort of thing. ',
+            'If you want to train it to recognise different things, then create more labels for the other types.',
+            'If you only want it to be able to recognise one thing, then you will need to create a bucket with examples of things that aren\'t.... oh god this is making no sense and needs writing by someone who speekee English'
+        ];
+        var HELP_TEXT_NOEXAMPLES = [
+            'All the buckets are empty. Explain why you need to start collecting examples'
+        ];
     }
 
 }());

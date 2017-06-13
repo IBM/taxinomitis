@@ -28,3 +28,44 @@
 .backbutton {
     margin-left: 5px;
 }
+
+.helpicon {
+    font-family: Gill Sans Extrabold, sans-serif;
+    font-size: 45px;
+    line-height: 45px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #DDDDF0;
+    color: #778899;
+ 	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    border: thin solid #2F4F4F;
+    z-index: 10;
+}
+.helpicon:focus {
+    outline: 0;
+}
+
+.helppanel {
+    position: absolute;
+    z-index: 8;
+    border: thin solid #2F4F4F;
+    background-color: #DDDDF0;
+ 	border-radius: 10px;
+    bottom: 65px;
+    right: 5px;
+    font-size: 1.6em;
+    padding: 0.8em;
+	min-width: 150px;
+	width: 25%;
+    max-height: 80%;
+    overflow-y: scroll;
+}
+
+.helppanel > div {
+    margin-bottom: 1em;
+}

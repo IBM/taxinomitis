@@ -37,3 +37,8 @@
     z-index: 5;
 }
 
+.mlprojectdescription {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
