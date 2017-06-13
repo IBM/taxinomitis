@@ -1,0 +1,14 @@
+.loginPanel {
+    padding: 1em;
+}
+
+.login-button {
+    padding-left: 4em;
+    padding-right: 4em;
+    margin-top: 1em;
+    margin-left: 1em;
+}
+
+.loginPanel div {
+    padding: 0.5em;
+}

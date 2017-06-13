@@ -8,6 +8,8 @@
 
         <link href="app.css" rel="stylesheet" />
 
+        <link href="./components/welcome/welcome.css" rel="stylesheet" />
+        <link href="./components/login/login.css" rel="stylesheet" />
         <link href="./components/students/students.css" rel="stylesheet" />
         <link href="./components/projects/projects.css" rel="stylesheet" />
         <link href="./components/mlproject/mlproject.css" rel="stylesheet" />
@@ -32,6 +34,9 @@
                             <li ng-if="isAuthenticated"><a ui-sref="projects">
                               Projects
                             </a></li>
+                            <li><a ui-sref="help">
+                              Help
+                            </a></li>
 
                             <li ng-if="!isAuthenticated"><a ui-sref="login">
                               Log In
@@ -45,6 +50,7 @@
             </nav>
             <div ui-view></div>
         </div>
+
 
         <script type="text/javascript" src="auth0-variables.js"></script>
 
@@ -63,12 +69,14 @@
 
         <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="bower_components/bootstrap/js/alert.js"></script>
+        <script type="text/javascript" src="bower_components/bootstrap/js/tab.js"></script>
 
         <script type="text/javascript" src="app.js"></script>
         <script type="text/javascript" src="app.run.js"></script>
 
         <script type="text/javascript" src="components/welcome/welcome.controller.js"></script>
         <script type="text/javascript" src="components/login/login.controller.js"></script>
+        <script type="text/javascript" src="components/help/help.controller.js"></script>
         <script type="text/javascript" src="components/students/students.controller.js"></script>
         <script type="text/javascript" src="components/projects/projects.controller.js"></script>
         <script type="text/javascript" src="components/mlproject/mlproject.controller.js"></script>

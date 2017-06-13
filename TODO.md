@@ -10,7 +10,7 @@ New features
 * Images training
 
 Code / engineering work
-* Fix broken tests
+* Restore broken test
 * Clean up tests so they don't leave loads of users behind
 * Test coverage for DB errors
 * Set up DB and Auth0 for prod vs dev use

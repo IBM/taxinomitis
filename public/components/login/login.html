@@ -1,15 +1,77 @@
 <div class="jumbotron">
-    <h2 class="text-center">Login</h2>
+    <h2 class="text-center">Get started with machine learning</h2>
+</div>
+<div ng-if="isAuthenticated" class="alert alert-info pageheadermsg">
+    <strong>Info: </strong> Already logged in
 </div>
 <div ng-if="!isAuthenticated">
-    <div class="text-center">
-        <button class="btn btn-primary" ng-click="vm.authService.login()">Log In</button>
+
+    <ul class="nav nav-tabs nav-justified">
+        <li ng-class="{ 'active' : vm.selectedTab === 'login' }">
+            <a href="" ng-click="vm.selectedTab = 'login'">Already have a username and password?</a>
+        </li>
+        <li ng-class="{ 'active' : vm.selectedTab === 'reset' }">
+            <a href="" ng-click="vm.selectedTab = 'reset'">Forgotten your username and password?</a>
+        </li>
+        <li ng-class="{ 'active' : vm.selectedTab === 'signup' }">
+            <a href="" ng-click="vm.selectedTab = 'signup'">New user?</a>
+        </li>
+    </ul>
+
+    <div ng-if="vm.selectedTab === 'login'" class="loginPanel">
+        <h4>Welcome back!</h4>
+        <div>
+            <button class="btn btn-primary login-button" ng-click="vm.authService.login()">
+                Log In
+            </button>
+        </div>
     </div>
-    <div style="padding: 1em">
-        <div>Also need to explain:</div>
-        <ul>
-            <li>How to sign up for an account - which will be different if you're a teacher/school/club leader or a student
-            <li>How to reset your password - also different if you're a student or teacher
-        </ul>
+    <div ng-if="vm.selectedTab === 'reset'" class="loginPanel">
+        <div class="loginPanel">
+            <h4>Are you a teacher / group leader?</h4>
+            <div>
+                If you're a teacher or group leader, you can use the button below to reset your password.
+            </div>
+            <div>
+                <button class="btn btn-primary login-button" ng-click="vm.authService.reset()">
+                    Reset your password
+                </button>
+            </div>
+        </div>
+        <div class="loginPanel">
+            <h4>Are you a student?</h4>
+            <div>
+                If you're a student, we don't have your email address to be able to send you a password-reset email.
+            </div>
+            <div>
+                That's no problem, though!
+            </div>
+            <div>
+                Just ask your teacher or group leader who first signed you up. They will be able to reset your password for you.
+            </div>
+        </div>
+    </div>
+    <div ng-if="vm.selectedTab === 'signup'" class="loginPanel">
+        <div>
+            This tool is being developed for use by schools and volunteer-run coding groups for children.
+        </div>
+        <div>
+            The aim is to provide an easy-to-use educational tool to help introduce machine learning alongside existing efforts to teach coding.
+        </div>
+        <div class="loginPanel">
+            <h4>Are you a teacher / group leader?</h4>
+            <div>
+                If you are a teacher or group leader who would like access, please email Dale.Lane@uk.ibm.com for more info.
+            </div>
+        </div>
+        <div class="loginPanel">
+            <h4>Are you a student?</h4>
+            <div>
+                If your class is already using this tool, ask your teacher or group leader to create you an account.
+            </div>
+            <div>
+                If your class isn't using this tool, ask your teacher or group leader to get in touch with us.
+            </div>
+        </div>
     </div>
 </div>

@@ -27,6 +27,12 @@
                 templateUrl: 'components/login/login.html',
                 controllerAs: 'vm'
             })
+            .state('help', {
+                url: '/help',
+                controller: 'HelpController',
+                templateUrl: 'components/help/help.html',
+                controllerAs: 'vm'
+            })
             .state('students', {
                 url: '/students',
                 controller: 'StudentsController',
@@ -98,7 +104,8 @@
 
                 // we'll put this on the welcome screen, as we want to limit this
                 //  to teachers only
-                allowForgotPassword: false
+                allowForgotPassword: false,
+                allowSignUp : false
             }
         });
 

@@ -1,22 +1,39 @@
 .menucontainer {
     margin-left: auto;
     margin-right: auto;
-    width: 80%;
+    width: 90%;
+    display: flex;
 }
 
 .mlprojectmenu {
+    flex: 1;
     cursor: pointer;
     float: left;
     background-color: #eeeeee;
     border-radius: 2em;
     width: 20%;
-    margin: 2.5%;
+    margin: 1%;
     padding: 2em;
+    position: relative;
 }
 
 .mlprojectmenutitle {
-    font-size: 2em;
+    font-size: 2.5em;
     font-weight: bold;
-    text-align: center;
+    text-align: right;
     margin-bottom: 2em;
+    z-index: 10;
 }
+
+.mlprojectmenu .stepnumber {
+    font-size: 5em;
+    font-weight: bold;
+    color: #D0D0D0;
+    margin-right: 0.8em;
+    margin-bottom: 1em;
+    position: absolute;
+    top: -20;
+    left: 10;
+    z-index: 5;
+}
+

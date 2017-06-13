@@ -1,22 +1,35 @@
-<div class="jumbotron">
-    <h2 class="text-center">Welcome</h2>
-</div>
-<div class="text-center">
-    This won't need auth. It'll be where we explain what this is all about.
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h1 class="motto">Teach a computer to play a game</h1>
+
+            <div class="getstartedaction">
+                <button
+                    ng-if="!isAuthenticated"
+                    ui-sref="login"
+                    class="btn btn-primary">Get started</button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="getstartedinfo">
+                <div class="stepnumber">1</div>
+                <h2>Collect examples of things you want to be able to recognise</h2>
+            </div>
+
+            <div class="getstartedinfo">
+                <div class="stepnumber">2</div>
+                <h2>Use the examples to train a computer to be able to recognise them</h2>
+
+            </div>
+
+            <div class="getstartedinfo">
+                <div class="stepnumber">3</div>
+                <h2>Make a game in Scratch that uses the computer's ability to recognise them</h2>
+
+            </div>
+
+        </div>
+    </div>
 </div>
 
-<div ng-repeat="error in vm.errors" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <strong>Error:</strong> {{ error.message }}
-</div>
-<div ng-repeat="warning in vm.warnings" class="alert alert-warning alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('warnings', $index)">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <strong>Warning:</strong> {{ warning.message }}
-</div>
 
-<div class="text-center">
-    <button
-        ng-if="!isAuthenticated"
-        ui-sref="login"
-        class="btn btn-primary">Login</button>
-</div>

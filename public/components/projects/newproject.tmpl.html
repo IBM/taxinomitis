@@ -6,21 +6,39 @@
             </div>
         </md-toolbar>
         <md-dialog-content>
-            <div class="md-dialog-content" style="min-width: 500px">
+            <div class="md-dialog-content" style="min-width: 700px">
                 <md-card-content>
                     <div layout="row">
-                        <md-input-container style="min-width: 300px">
+                        <md-input-container style="min-width: 500px">
                             <label>Project Name</label>
-                            <input md-autofocus ng-required="true" ng-model="projectName"/>
+                            <input md-autofocus ng-required="true" ng-model="projectName" ng-focus="focused = 'name'"/>
+
                         </md-input-container>
                         <md-input-container style="min-width: 200px">
                             <label>Recognizing</label>
-                            <md-select ng-required="true" ng-model="projectType">
+                            <md-select ng-required="true" ng-model="projectType" ng-focus="focused = 'type'">
                                 <md-option value="text">text</md-option>
                                 <md-option value="images">images</md-option>
                                 <md-option value="numbers">numbers</md-option>
                             </md-select>
                         </md-input-container>
+                    </div>
+                    <div class="well" ng-if="focused === 'name'">
+                        Give your project a name to describe what sort of thing you'll try to teach the computer to recognise
+                    </div>
+                    <div class="well" ng-if="focused === 'type'">
+                        <div style="margin-bottom: 1em">
+                        What type of thing do you want to teach the computer to recognise?
+                        </div>
+                        <div>
+                        For words, sentences or paragraphs, choose "text"
+                        </div>
+                        <div>
+                        For photos, diagrams and pictures, choose "images"
+                        </div>
+                        <div>
+                        For sets of numbers, choose "numbers"
+                        </div>
                     </div>
                 </md-card-content>
             </div>

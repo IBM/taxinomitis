@@ -29,6 +29,16 @@
             lock.show();
         }
 
+        function reset() {
+            lock.show({
+                allowForgotPassword : true,
+                allowLogin : false,
+
+                initialScreen : 'forgotPassword'
+            });
+        }
+
+
         function logout() {
             deferredProfile = $q.defer();
 
@@ -68,6 +78,7 @@
 
         return {
             login: login,
+            reset : reset,
             logout: logout,
 
             registerAuthenticationListener: registerAuthenticationListener,

@@ -1,0 +1,27 @@
+.motto {
+    font-size: 6em;
+    font-weight: bold;
+}
+
+.getstartedaction {
+    margin-top: 5em;
+    text-align: center;
+}
+
+.getstartedaction button {
+    width: 40%;
+}
+
+.getstartedinfo {
+    padding: 1em;
+    clear: both;
+}
+
+.getstartedinfo .stepnumber {
+    font-size: 4em;
+    font-weight: bold;
+    color: #606060;
+    margin-right: 1em;
+    margin-bottom: 1em;
+    float: left;
+}

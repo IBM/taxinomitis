@@ -12,18 +12,22 @@
     </div>
     <div class="menucontainer">
         <div class="mlprojectmenu" ui-sref="mlproject_training({ projectId : projectId })">
+            <div class="stepnumber">1</div>
             <div class="mlprojectmenutitle">Train</div>
-            <div class="mlprojectmenudescription">Collect examples we can use to train the computer</div>
+            <div class="mlprojectmenudescription">Collect examples of what you want the computer to recognise</div>
         </div>
         <div class="mlprojectmenu" ui-sref="mlproject_models({ projectId : projectId })">
+            <div class="stepnumber">2</div>
             <div class="mlprojectmenutitle">Models</div>
-            <div class="mlprojectmenudescription">Train computer using examples you've collected</div>
+            <div class="mlprojectmenudescription">Use the examples to teach the computer to recognise them</div>
         </div>
         <div class="mlprojectmenu" ui-sref="mlproject_test({ projectId : projectId })">
+            <div class="stepnumber">3</div>
             <div class="mlprojectmenutitle">Test</div>
-            <div class="mlprojectmenudescription">Test the computer to see how your training is going</div>
+            <div class="mlprojectmenudescription">Try testing the computer to see how the training is going</div>
         </div>
         <div class="mlprojectmenu" ui-sref="mlproject_scratch({ projectId : projectId })">
+            <div class="stepnumber">4</div>
             <div class="mlprojectmenutitle">Scratch</div>
             <div class="mlprojectmenudescription">Use your trained model in a Scratch project</div>
         </div>
