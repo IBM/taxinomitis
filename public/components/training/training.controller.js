@@ -69,8 +69,6 @@
                 }
 
                 refreshTips();
-
-//                $scope.showHelp = true;
             })
             .catch(function (err) {
                 displayAlert('errors', err.data);
@@ -105,25 +103,42 @@
         function refreshTips () {
             if ($scope.project.labels.length === 0) {
                 $scope.tips = HELP_TEXT_NOLABELS;
+
+                bootstro.start('.bootstro', {
+                    finishButtonText : 'Exit',
+                    onExit : function () {
+                        $scope.tourShown = true;
+                    }
+                });
             }
             else if ($scope.project.labels.length === 1) {
                 $scope.tips = HELP_TEXT_ONELABEL;
+
+                $scope.tourShown = true;
             }
             else {
                 var allEmpty = true;
+                var someTiny = false;
                 for (var labelIdx in $scope.project.labels) {
                     var label = $scope.project.labels[labelIdx];
                     if ($scope.training[label].length > 0) {
                         allEmpty = false;
-                        break;
+                    }
+                    if ($scope.training[label].length < 5) {
+                        someTiny = true;
                     }
                 }
                 if (allEmpty) {
                     $scope.tips = HELP_TEXT_NOEXAMPLES;
                 }
+                else if (someTiny) {
+                    $scope.tips = HELP_TEXT_FEWEXAMPLES;
+                }
                 else {
                     $scope.tips = [];
                 }
+
+                $scope.tourShown = true;
             }
         }
 
@@ -176,7 +191,7 @@
                             $scope.training[newlabel] = [];
 
                             refreshLabelsSummary();
-                            refreshHelpText();
+                            refreshTips();
                         })
                         .catch(function (err) {
                             displayAlert('errors', err.data);
@@ -217,8 +232,7 @@
         var HELP_TEXT_NOLABELS = [
             'First - decide what you want to teach the computer to recognise.',
             'Create a bucket for each of the things you want the computer to be able to recognise.',
-            'Create a new bucket with the "Add a new label" button in the top-right.',
-            'For example, to train the machine to recognise boys and girls names, create two buckets. Click on the "Add a new label" button once and give it the label "boys". And then click on "Add a new label" button again and create the label "girls". That would give you two training buckets for your examples.'
+            'Create a new bucket with the "Add a new label" button in the top-right.'
         ];
         var HELP_TEXT_ONELABEL = [
             'You need to train the computer with examples of more than one sort of thing. ',
@@ -226,7 +240,14 @@
             'If you only want it to be able to recognise one thing, then you will need to create a bucket with examples of things that aren\'t.... oh god this is making no sense and needs writing by someone who speekee English'
         ];
         var HELP_TEXT_NOEXAMPLES = [
-            'All the buckets are empty. Explain why you need to start collecting examples'
+            'All the buckets are empty.',
+            'For the computer to be able to recognise things, you need to give it some examples.',
+            'Click on the "Add example" button to get started.'
+        ];
+        var HELP_TEXT_FEWEXAMPLES = [
+            'Keep going!',
+            'You need at least five examples in each bucket to start training the computer.',
+            'Click on the "Add example" button to add another example'
         ];
     }
 

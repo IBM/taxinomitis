@@ -35,15 +35,24 @@
 
     <div ng-if="project">
         <div style="height: 60px;">
-            <div class="newlabelbutton" ng-click="vm.addLabel($event, project)">
+            <div class="newlabelbutton bootstro" ng-click="vm.addLabel($event, project)"
+                data-bootstro-placement="left"
+                data-bootstro-content="Click here to add another bucket. Add a bucket for each type of thing you want to be able to recognise."
+                data-bootstro-step="2">
                 <div class="newlabelicon">+</div>
                 <div class="newlabellabel">Add new label</div>
             </div>
         </div>
 
         <div class="trainingbuckets">
-            <div class="trainingbucket" ng-if="project.labels.length === 0">
-                <div class="trainingbucketheader" ng-click="vm.addLabel($event, project)">
+            <div class="trainingbucket bootstro" ng-if="project.labels.length === 0"
+                 data-bootstro-placement="right"
+                 data-bootstro-content="Fill this bucket with examples of things that you want the computer to learn to recognise"
+                 data-bootstro-step="0">
+                <div class="trainingbucketheader bootstro" ng-click="vm.addLabel($event, project)"
+                    data-bootstro-placement="bottom"
+                    data-bootstro-content="Give the bucket a name to describe the examples in it"
+                    data-bootstro-step="1">
                     <span class="trainingbucketlabel"> &lt;Enter name&gt; </span>
                 </div>
             </div>
@@ -63,13 +72,19 @@
             </div>
         </div>
 
-        <div class="helppanel" ng-if="vm.showTips && tips.length > 0">
+        <div
+            class="helppanel"
+            ng-if="vm.showTips && tips.length > 0"
+            >
             <div ng-repeat="tip in tips">
                 {{ tip }}
             </div>
         </div>
 
-        <div class="helpicon" ng-if="tips.length > 0" ng-click="vm.showTips = !vm.showTips">
+        <div class="helpicon bootstro" ng-if="!tourShown || tips.length > 0" ng-click="vm.showTips = !vm.showTips"
+            data-bootstro-content="Click on the Help button any time you want a tip on what to do next"
+            data-bootstro-placement="left"
+            data-bootstro-step="3">
             ?
         </div>
     </div>
