@@ -55,7 +55,9 @@
                                      '/extension.js' +
                                      '#scratch';
 
-                    $window.open(scratchkey.url, '_blank');
+                    if (scratchkey.model) {
+                        $window.open(scratchkey.url, '_blank');
+                    }
 
                     $scope.scratchkey = scratchkey;
                 })

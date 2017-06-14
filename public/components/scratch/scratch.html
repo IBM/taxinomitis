@@ -32,7 +32,20 @@
 
     <div ng-if="project" style="margin: 4em">
         <div ng-if="scratchkey">
-            <a target="_blank" href="{{ scratchkey.url }}">{{ scratchkey.url }}</a>
+            <div ng-if="!scratchkey.model">
+                <div class="alert alert-info" role="alert">
+                    You haven't trained a machine learning model yet.
+                </div>
+                <div>
+                    You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId })">train one now</a></strong> and then come back to open Scratch.
+                </div>
+                <div>
+                    Or you can go <strong><a target="_blank" href="{{ scratchkey.url }}">straight into Scratch</a></strong> now. It just means that the computer will make random guesses as you haven't trained it to recognise things yet.
+                </div>
+            </div>
+            <div ng-if="scratchkey.model">
+                <a target="_blank" href="{{ scratchkey.url }}">{{ scratchkey.url }}</a>
+            </div>
         </div>
         <button ng-if="!scratchkey" class="btn" ng-click="vm.getScratchKey($event, project)">Open in Scratch</button>
     </div>
