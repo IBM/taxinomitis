@@ -5,6 +5,7 @@
 
         <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link href="bower_components/angular-material/angular-material.min.css" rel="stylesheet" />
+        <link href="bower_components/chardin.js/chardinjs.css" rel="stylesheet" />
 
         <link href="app.css" rel="stylesheet" />
 
@@ -48,11 +49,15 @@
                     </div>
                 </div>
             </nav>
-            <div ui-view></div>
+            <div ui-view help-overlay="showHelp"></div>
         </div>
 
 
         <script type="text/javascript" src="auth0-variables.js"></script>
+
+        <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="bower_components/bootstrap/js/alert.js"></script>
+        <script type="text/javascript" src="bower_components/bootstrap/js/tab.js"></script>
 
         <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
 
@@ -66,10 +71,8 @@
         <script type="text/javascript" src="bower_components/angular-lock/dist/angular-lock.min.js"></script>
         <script type="text/javascript" src="bower_components/auth0.js/build/auth0.min.js"></script>
         <script type="text/javascript" src="bower_components/angular-jwt/dist/angular-jwt.min.js"></script>
-
-        <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-        <script type="text/javascript" src="bower_components/bootstrap/js/alert.js"></script>
-        <script type="text/javascript" src="bower_components/bootstrap/js/tab.js"></script>
+        <script type="text/javascript" src="bower_components/chardin.js/chardinjs.js"></script>
+        <script type="text/javascript" src="bower_components/angular-help-overlay/lib/angular-help-overlay.js"></script>
 
         <script type="text/javascript" src="app.js"></script>
         <script type="text/javascript" src="app.run.js"></script>

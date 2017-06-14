@@ -17,9 +17,9 @@
         var vm = this;
         vm.authService = authService;
 
-        vm.showHelp = false;
+        vm.showTips = false;
 
-        $scope.helptext = [];
+        $scope.tips = [];
 
         var alertId = 1;
         vm.errors = [];
@@ -68,7 +68,9 @@
                     $scope.training[label].push(trainingitem);
                 }
 
-                refreshHelpText();
+                refreshTips();
+
+//                $scope.showHelp = true;
             })
             .catch(function (err) {
                 displayAlert('errors', err.data);
@@ -100,12 +102,12 @@
             }
         }
 
-        function refreshHelpText () {
+        function refreshTips () {
             if ($scope.project.labels.length === 0) {
-                $scope.helptext = HELP_TEXT_NOLABELS;
+                $scope.tips = HELP_TEXT_NOLABELS;
             }
             else if ($scope.project.labels.length === 1) {
-                $scope.helptext = HELP_TEXT_ONELABEL;
+                $scope.tips = HELP_TEXT_ONELABEL;
             }
             else {
                 var allEmpty = true;
@@ -117,10 +119,10 @@
                     }
                 }
                 if (allEmpty) {
-                    $scope.helptext = HELP_TEXT_NOEXAMPLES;
+                    $scope.tips = HELP_TEXT_NOEXAMPLES;
                 }
                 else {
-                    $scope.helptext = [];
+                    $scope.tips = [];
                 }
             }
         }
@@ -143,7 +145,7 @@
                         .then(function (newitem) {
                             $scope.training[label].push(newitem);
 
-                            refreshHelpText();
+                            refreshTips();
                         })
                         .catch(function (err) {
                             displayAlert('errors', err.data);
@@ -213,10 +215,10 @@
 
 
         var HELP_TEXT_NOLABELS = [
-            'The first thing you need to do is decide what you want to teach the computer to recognise.',
-            'You need to create a bucket for each of the things you want the computer to be able to recognise.',
+            'First - decide what you want to teach the computer to recognise.',
+            'Create a bucket for each of the things you want the computer to be able to recognise.',
             'Create a new bucket with the "Add a new label" button in the top-right.',
-            'For example, if you want to train the machine to recognise boys and girls names, you\'d need to create two buckets. Click on the "Add a new label" button once and give it the label "boys". And then click on "Add a new label" button again and create the label "girls". That would give you two training buckets for your examples.'
+            'For example, to train the machine to recognise boys and girls names, create two buckets. Click on the "Add a new label" button once and give it the label "boys". And then click on "Add a new label" button again and create the label "girls". That would give you two training buckets for your examples.'
         ];
         var HELP_TEXT_ONELABEL = [
             'You need to train the computer with examples of more than one sort of thing. ',

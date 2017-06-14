@@ -3,18 +3,20 @@
     margin-right: auto;
     width: 90%;
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .mlprojectmenu {
     flex: 1;
     cursor: pointer;
-    float: left;
     background-color: #eeeeee;
     border-radius: 2em;
     width: 20%;
     margin: 1%;
     padding: 2em;
     position: relative;
+    min-width: 210px;
 }
 
 .mlprojectmenutitle {

@@ -8,15 +8,26 @@
     margin-bottom: 0;
 }
 
+.trainingbuckets {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    height: calc(100% - 230px);
+    min-height: 200px;
+}
+
 .trainingbucket {
-    float: left;
-    width: 30%;
+    flex: 1;
+    flex-grow: 1;
+
     border: 0.8em #777777 solid;
     border-radius: 2em;
     margin: 1em;
     min-width: 25em;
-    height: 65vh;
+    max-width: 50%;
 }
+
 .trainingbucketheader {
     margin-left: auto;
     margin-right: auto;
@@ -37,7 +48,7 @@
 }
 .trainingbucketitems {
     padding: 0.8em;
-    height: 54vh;
+    height: calc(100% - 115px);
     overflow-y: scroll;
     margin-bottom: 0.4em;
 }

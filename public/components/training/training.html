@@ -40,6 +40,7 @@
                 <div class="newlabellabel">Add new label</div>
             </div>
         </div>
+
         <div class="trainingbuckets">
             <div class="trainingbucket" ng-if="project.labels.length === 0">
                 <div class="trainingbucketheader" ng-click="vm.addLabel($event, project)">
@@ -62,13 +63,13 @@
             </div>
         </div>
 
-        <div class="helppanel" ng-if="vm.showHelp && helptext.length > 0">
-            <div ng-repeat="help in helptext">
-                {{ help }}
+        <div class="helppanel" ng-if="vm.showTips && tips.length > 0">
+            <div ng-repeat="tip in tips">
+                {{ tip }}
             </div>
         </div>
 
-        <div class="helpicon" ng-if="helptext.length > 0" ng-click="vm.showHelp = !vm.showHelp">
+        <div class="helpicon" ng-if="tips.length > 0" ng-click="vm.showTips = !vm.showTips">
             ?
         </div>
     </div>
