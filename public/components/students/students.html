@@ -23,12 +23,19 @@
     </div>
 
     <div ng-if="vm && vm.students">
+
+        <div style="margin: 1em; width: 300px;" ng-if="vm.students && vm.students.length === 0">
+            Click on the 'plus' icon on the right to create the first student
+            <span class="glyphicon glyphicon-arrow-right"></span>
+        </div>
+
         <div style="height: 60px;">
             <div class="newlabelbutton" ng-click="vm.createUser($event)">
                 <div class="newlabelicon">+</div>
                 <div class="newlabellabel">Add new student</div>
             </div>
         </div>
+
         <table class="studentslist">
             <tr ng-repeat="student in vm.students" ng-class-even="'even'" ng-class-odd="'odd'">
                 <td class="studentslistname"> {{ student.username }} </td>

@@ -128,7 +128,7 @@
 
         function getQuestion() {
             if (allQuestions.length > 0) {
-                var randomChoiceIdx = random(allQuestions.length);
+                var randomChoiceIdx = random(allQuestions.length - 1);
                 var randomChoice = allQuestions.splice(randomChoiceIdx, 1);
                 var question = randomChoice[0];
                 question.answers.forEach(function (answer) {

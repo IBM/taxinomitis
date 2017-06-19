@@ -79,6 +79,7 @@
             return trainingService.getModels($scope.projectId, vm.profile.user_id, vm.profile.tenant)
                 .then(function (models) {
                     $scope.models = models;
+                    $scope.models.forEach((model) => { model.status = 'Training'; });
                     $scope.displayQuiz = allModelsAreTraining(models);
                 });
         }
