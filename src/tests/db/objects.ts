@@ -66,6 +66,40 @@ describe('DB objects', () => {
     });
 
 
+    describe('getNumberTrainingFromDbRow()', () => {
+        it('should return training data', () => {
+            const testRow: Objects.NumberTrainingDbRow = {
+                id : uuid(),
+                numberdata : '1,3,4.3,-5.1,9.3214,0.1',
+            };
+            const expectedTraining: Objects.NumberTraining = {
+                id : testRow.id,
+                numberdata : [ 1, 3, 4.3, -5.1, 9.3214, 0.1 ],
+            };
+
+            assert.deepEqual(dbobjects.getNumberTrainingFromDbRow(testRow), expectedTraining);
+        });
+
+        it('should return training data with labels', () => {
+            const testRow: Objects.NumberTrainingDbRow = {
+                id : uuid(),
+                numberdata : '1,11,0.9,80',
+                label : 'mylabel',
+                projectid : uuid(),
+            };
+            const expectedTraining: Objects.NumberTraining = {
+                id : testRow.id,
+                numberdata : [ 1, 11, 0.9, 80 ],
+                label : 'mylabel',
+                projectid : testRow.projectid,
+            };
+
+            assert.deepEqual(dbobjects.getNumberTrainingFromDbRow(testRow), expectedTraining);
+        });
+
+    });
+
+
     describe('getLabelsFromList()', () => {
         it('should handle empty lists', () => {
             assert.deepEqual(dbobjects.getLabelsFromList(''), [ ]);
@@ -171,6 +205,73 @@ describe('DB objects', () => {
             assert(training.id);
             assert.equal(training.projectid, 'testproject');
             assert.equal(training.textdata, 'mytext');
+            assert.equal(training.label, 'mylabel');
+        });
+    });
+
+
+    describe('createNumberTraining()', () => {
+        it('should require project id', (done) => {
+            try {
+                dbobjects.createNumberTraining('', '1', 'label');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required attributes');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject training', '');
+        });
+
+        it('should require number data', (done) => {
+            try {
+                dbobjects.createNumberTraining('testproject', undefined, undefined);
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required attributes');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject training', '');
+        });
+
+        it('should require valid number data', (done) => {
+            try {
+                dbobjects.createNumberTraining('testproject', '10,HELLO,234', undefined);
+            }
+            catch (err) {
+                assert.equal(err.message, 'Data contains non-numeric items');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject training', '');
+        });
+
+        it('should allow training data without labels', () => {
+            const training = dbobjects.createNumberTraining('testproject', '123,456', undefined);
+            assert(training.id);
+            assert.equal(training.projectid, 'testproject');
+            assert.deepEqual(training.numberdata, [123, 456]);
+        });
+
+        it('should remove spaces from number data', () => {
+            const training = dbobjects.createNumberTraining('testproject', '10, 1000, 234, -1', 'mylabel');
+            assert(training.id);
+            assert.equal(training.projectid, 'testproject');
+            assert.deepEqual(training.numberdata, [10, 1000, 234, -1]);
+            assert.equal(training.label, 'mylabel');
+        });
+
+        it('should limit the number of training data objects', () => {
+            const training = dbobjects.createNumberTraining('testproject', '1,2,3,4,5,6,7,8,9,10,11,12,13', 'mylabel');
+            assert(training.id);
+            assert.equal(training.projectid, 'testproject');
+            assert.deepEqual(training.numberdata, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+            assert.equal(training.label, 'mylabel');
+        });
+
+        it('should create training data objects', () => {
+            const training = dbobjects.createNumberTraining('testproject', '0.1,200,-999.888', 'mylabel');
+            assert(training.id);
+            assert.equal(training.projectid, 'testproject');
+            assert.deepEqual(training.numberdata, [0.1, 200, -999.888]);
             assert.equal(training.label, 'mylabel');
         });
     });

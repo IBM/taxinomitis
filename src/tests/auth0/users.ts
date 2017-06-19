@@ -101,7 +101,7 @@ describe('auth0 users', () => {
     describe('createStudent()', () => {
 
         it('should create a student', async () => {
-            const newStudent = await users.createStudent(TESTTENANT, randomstring.generate({ length : 8 }));
+            const newStudent = await users.createStudent(TESTTENANT, '104' + randomstring.generate({ length : 6 }));
             assert(newStudent.password);
             const retrieved = await users.getStudent(TESTTENANT, newStudent.id);
             assert.equal(retrieved.username, newStudent.username);
@@ -128,7 +128,7 @@ describe('auth0 users', () => {
         it('should increase the number of students', async () => {
             const before = await users.countStudents(TESTTENANT);
 
-            const newStudent = await users.createStudent(TESTTENANT, randomstring.generate({ length : 8 }));
+            const newStudent = await users.createStudent(TESTTENANT, '131' + randomstring.generate({ length : 6 }));
             await pause();
 
             const after = await users.countStudents(TESTTENANT);
@@ -144,7 +144,7 @@ describe('auth0 users', () => {
 
 
         it('should reset password', async () => {
-            const newStudent = await users.createStudent(TESTTENANT, randomstring.generate({ length : 8 }));
+            const newStudent = await users.createStudent(TESTTENANT, '147' + randomstring.generate({ length : 6 }));
             assert(newStudent.password);
 
             const modified = await users.resetStudentPassword(TESTTENANT, newStudent.id);

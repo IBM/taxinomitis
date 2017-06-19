@@ -106,6 +106,53 @@ export function getTextTrainingFromDbRow(row: Objects.TextTrainingDbRow): Object
 }
 
 
+const VALID_NUMBER_REGEX = /^-?[0-9]+(?:\.[0-9]*)?$/;
+
+export function createNumberTraining(projectid: string, data: string, label: string): Objects.NumberTraining {
+    if (projectid === undefined || projectid === '' ||
+        data === undefined || data === '')
+    {
+        throw new Error('Missing required attributes');
+    }
+
+    const MAX_ITEMS = 10;
+    const numberdata: number[] = data.split(',', MAX_ITEMS)
+                                .map((item) => item.trim())
+                                .map((item) => {
+                                    if (VALID_NUMBER_REGEX.test(item) === false) {
+                                        throw new Error('Data contains non-numeric items');
+                                    }
+                                    return parseFloat(item);
+                                });
+
+    const object: any = {
+        id : uuid(),
+        projectid,
+        numberdata,
+    };
+
+    if (label) {
+        object.label = label;
+    }
+
+    return object;
+}
+
+export function getNumberTrainingFromDbRow(row: Objects.NumberTrainingDbRow): Objects.NumberTraining {
+    const obj: any = {
+        id : row.id,
+        numberdata : row.numberdata.split(','),
+    };
+    if (row.label) {
+        obj.label = row.label;
+    }
+    if (row.projectid) {
+        obj.projectid = row.projectid;
+    }
+    return obj;
+}
+
+
 // -----------------------------------------------------------------------------
 //
 // BLUEMIX CREDENTIALS

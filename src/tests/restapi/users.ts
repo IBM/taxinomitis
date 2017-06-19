@@ -126,7 +126,7 @@ describe('REST API - users', () => {
                 './requests' : stubs,
             });
 
-            const username = randomstring.generate({ length : 12, readable : true });
+            const username = 'R129' + randomstring.generate({ length : 9, readable : true });
 
             return store.init()
                 .then(() => {

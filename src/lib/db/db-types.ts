@@ -42,6 +42,23 @@ export interface TextTrainingDbRow {
 }
 
 
+export interface NumberTraining {
+    readonly id: string;
+    readonly numberdata: number[];
+    label?: string;
+    projectid?: string;
+}
+
+export interface NumberTrainingDbRow {
+    readonly id: string;
+    readonly numberdata: string;
+    readonly label?: string;
+    readonly projectid?: string;
+}
+
+
+
+
 export interface ScratchKey {
     readonly id: string;
     readonly projectid: string;
