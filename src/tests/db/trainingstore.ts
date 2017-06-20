@@ -59,6 +59,41 @@ describe('DB store', () => {
 
 
 
+    describe('storeNumberTraining', () => {
+
+        it('should store training data', async () => {
+            const projectid = uuid();
+            const label = uuid();
+            const data = [1, 2, 3, 4];
+
+            const training = await store.storeNumberTraining(projectid, data, label);
+            assert(training);
+            assert.equal(training.projectid, projectid);
+            assert.deepEqual(training.numberdata, [1, 2, 3, 4]);
+            assert.equal(training.label, label);
+
+            return store.deleteNumberTrainingByProjectId(projectid);
+        });
+
+        it('should limit maximum training data length', async () => {
+            const projectid = uuid();
+            const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+            const label = uuid();
+
+            try {
+                await store.storeNumberTraining(projectid, data, label);
+            }
+            catch (err) {
+                assert.equal(err.message, 'Number of data items exceeded maximum');
+                return;
+            }
+            assert.fail(1, 0, 'Failed to reject training', '');
+        });
+    });
+
+
+
+
     describe('deleteTextTraining', () => {
 
         it('should delete training data', async () => {
@@ -80,6 +115,38 @@ describe('DB store', () => {
             assert.equal(retrieved.length, 0);
         });
     });
+
+
+
+
+    describe('deleteNumberTraining', () => {
+
+        it('should delete training data', async () => {
+            const projectid = uuid();
+            const data = [1, 2, 3];
+            const label = uuid();
+
+            const training = await store.storeNumberTraining(projectid, data, label);
+            assert(training);
+
+            let retrieved = await store.getNumberTraining(projectid, DEFAULT_PAGING);
+            assert(retrieved);
+            assert.equal(retrieved.length, 1);
+
+            const before = await store.countNumberTraining(projectid);
+            assert.equal(before, 1);
+
+            await store.deleteNumberTrainingByProjectId(projectid);
+
+            retrieved = await store.getNumberTraining(projectid, DEFAULT_PAGING);
+            assert(retrieved);
+            assert.equal(retrieved.length, 0);
+
+            const count = await store.countNumberTraining(projectid);
+            assert.equal(count, 0);
+        });
+    });
+
 
 
 
@@ -266,6 +333,95 @@ describe('DB store', () => {
             }
 
             return store.deleteTextTrainingByProjectId(projectid);
+        });
+    });
+
+
+    describe('getNumberTraining', () => {
+
+        it('should retrieve training data', async () => {
+            const projectid = uuid();
+            const data = [1, 3, 5];
+            const label = uuid();
+
+            const training = await store.storeNumberTraining(projectid, data, label);
+            assert(training);
+
+            const retrieved = await store.getNumberTraining(projectid, DEFAULT_PAGING);
+            assert(retrieved);
+            assert.equal(retrieved.length, 1);
+            assert.equal(retrieved[0].id, training.id);
+            assert.deepEqual(retrieved[0].numberdata, [1, 3, 5]);
+            assert.equal(retrieved[0].label, label);
+
+            return store.deleteTextTrainingByProjectId(projectid);
+        });
+
+
+        async function createTestData(projectid, numLabels, numText) {
+            const testdata = [];
+            const labels = [];
+
+            for (let labelIdx = 0; labelIdx < numLabels; labelIdx++) {
+                const label = uuid();
+                labels.push(label);
+
+                for (let text = 0; text < numText; text++) {
+                    const numberdata = [ labelIdx, text ];
+
+                    testdata.push({ numberdata, label });
+                }
+            }
+
+            await store.bulkStoreNumberTraining(projectid, testdata);
+            return labels;
+        }
+
+
+        it('should fetch specific amount of training data', async () => {
+            const projectid = uuid();
+
+            await createTestData(projectid, 6, 9);
+
+            let retrieved = await store.getNumberTraining(projectid, { start : 0, limit : 2 });
+            assert.equal(retrieved.length, 2);
+
+            retrieved = await store.getNumberTraining(projectid, { start : 0, limit : 6 });
+            assert.equal(retrieved.length, 6);
+
+            retrieved = await store.getNumberTraining(projectid, { start : 0, limit : 52 });
+            assert.equal(retrieved.length, 52);
+
+            retrieved = await store.getNumberTraining(projectid, DEFAULT_PAGING);
+            assert.equal(retrieved.length, 50);
+
+            return store.deleteNumberTrainingByProjectId(projectid);
+        });
+
+
+        it('should count training data', async () => {
+            const projectid = uuid();
+            let count = await store.countNumberTraining(projectid);
+            assert.equal(count, 0);
+
+            const data = [];
+
+            for (let labelIdx = 0; labelIdx < 6; labelIdx++) {
+                const label = uuid();
+
+                for (let text = 0; text < 7; text++) {
+                    const numberdata = [labelIdx, text];
+
+                    data.push({ numberdata, label });
+                }
+            }
+
+            await store.bulkStoreNumberTraining(projectid, data);
+
+            count = await store.countNumberTraining(projectid);
+            assert.equal(count, 42);
+
+            return store.deleteNumberTrainingByProjectId(projectid);
         });
     });
 

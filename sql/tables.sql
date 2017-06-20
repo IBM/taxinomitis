@@ -32,6 +32,16 @@ CREATE INDEX texttraining_getTextTraining on texttraining(projectid, label, text
 CREATE INDEX texttraining_getTrainingLabels on texttraining(projectid) using HASH;
 
 
+CREATE TABLE numbertraining (
+    id CHAR(36) NOT NULL PRIMARY KEY,
+    projectid CHAR(36) NOT NULL,
+    numberdata VARCHAR(1024) NOT NULL,
+    label VARCHAR(100)
+);
+
+CREATE INDEX numbertraining_getNumberTraining on numbertraining(projectid, label) using BTREE;
+
+
 -- ------------------------------------------------------------------
 
 CREATE TABLE bluemixcredentials (

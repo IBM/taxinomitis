@@ -213,7 +213,7 @@ describe('DB objects', () => {
     describe('createNumberTraining()', () => {
         it('should require project id', (done) => {
             try {
-                dbobjects.createNumberTraining('', '1', 'label');
+                dbobjects.createNumberTraining('', [1], 'label');
             }
             catch (err) {
                 assert.equal(err.message, 'Missing required attributes');
@@ -233,9 +233,20 @@ describe('DB objects', () => {
             assert.fail(1, 0, 'Failed to reject training', '');
         });
 
+        it('should require at least one number data item', (done) => {
+            try {
+                dbobjects.createNumberTraining('testproject', [], undefined);
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required attributes');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject training', '');
+        });
+
         it('should require valid number data', (done) => {
             try {
-                dbobjects.createNumberTraining('testproject', '10,HELLO,234', undefined);
+                dbobjects.createNumberTraining('testproject', [10, 'HELLO', 34] as any, undefined);
             }
             catch (err) {
                 assert.equal(err.message, 'Data contains non-numeric items');
@@ -245,30 +256,30 @@ describe('DB objects', () => {
         });
 
         it('should allow training data without labels', () => {
-            const training = dbobjects.createNumberTraining('testproject', '123,456', undefined);
+            const training = dbobjects.createNumberTraining('testproject', [123, 456], undefined);
             assert(training.id);
             assert.equal(training.projectid, 'testproject');
             assert.deepEqual(training.numberdata, [123, 456]);
         });
 
-        it('should remove spaces from number data', () => {
-            const training = dbobjects.createNumberTraining('testproject', '10, 1000, 234, -1', 'mylabel');
-            assert(training.id);
-            assert.equal(training.projectid, 'testproject');
-            assert.deepEqual(training.numberdata, [10, 1000, 234, -1]);
-            assert.equal(training.label, 'mylabel');
+        it('should limit the number of training data objects', (done) => {
+            try {
+                dbobjects.createNumberTraining(
+                    'testproject',
+                    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+                    'mylabel');
+                assert.fail(0, 1, 'Should not have allowed this', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Number of data items exceeded maximum');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject training', '');
         });
 
-        it('should limit the number of training data objects', () => {
-            const training = dbobjects.createNumberTraining('testproject', '1,2,3,4,5,6,7,8,9,10,11,12,13', 'mylabel');
-            assert(training.id);
-            assert.equal(training.projectid, 'testproject');
-            assert.deepEqual(training.numberdata, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-            assert.equal(training.label, 'mylabel');
-        });
 
         it('should create training data objects', () => {
-            const training = dbobjects.createNumberTraining('testproject', '0.1,200,-999.888', 'mylabel');
+            const training = dbobjects.createNumberTraining('testproject', [0.1, 200, -999.888], 'mylabel');
             assert(training.id);
             assert.equal(training.projectid, 'testproject');
             assert.deepEqual(training.numberdata, [0.1, 200, -999.888]);

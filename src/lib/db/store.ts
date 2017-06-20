@@ -336,6 +336,90 @@ export async function deleteTextTrainingByProjectId(projectid: string): Promise<
 }
 
 
+
+export async function storeNumberTraining(
+    projectid: string, data: number[], label: string,
+): Promise<Objects.NumberTraining>
+{
+    const obj = dbobjects.createNumberTraining(projectid, data, label);
+
+    const queryString = 'INSERT INTO `numbertraining` ' +
+                        '(`id`, `projectid`, `numberdata`, `label`) ' +
+                        'VALUES (?, ?, ?, ?)';
+
+    const [response] = await dbConn.execute(queryString, [
+        obj.id,
+        obj.projectid,
+        data.join(','),
+        obj.label,
+    ]);
+    if (response.affectedRows === 1) {
+        return obj;
+    }
+    log.error({ response }, 'Failed to store training data');
+    throw new Error('Failed to store training data');
+}
+
+export async function bulkStoreNumberTraining(
+    projectid: string, training: Array<{numberdata: number[], label: string}>,
+): Promise<void>
+{
+    const objects = training.map((item) => {
+        const obj = dbobjects.createNumberTraining(projectid, item.numberdata, item.label);
+        return [obj.id, obj.projectid, obj.numberdata.join(','), obj.label];
+    });
+
+    const queryString = 'INSERT INTO `numbertraining` (`id`, `projectid`, `numberdata`, `label`) VALUES ?';
+    const [response] = await dbConn.query(queryString, [ objects ]);
+    if (response.affectedRows === training.length) {
+        return;
+    }
+    log.error({ response }, 'Failed to store training data');
+    throw new Error('Failed to store training data');
+}
+
+
+
+export async function getNumberTraining(
+    projectid: string, options: Objects.PagingOptions,
+): Promise<Objects.NumberTraining[]>
+{
+    const queryString = 'SELECT `id`, `numberdata`, `label` FROM `numbertraining` ' +
+                        'WHERE `projectid` = ? ' +
+                        'ORDER BY `label` ' +
+                        'LIMIT ? OFFSET ?';
+
+    const [rows] = await dbConn.execute(queryString, [ projectid, options.limit, options.start ]);
+    return rows.map(dbobjects.getNumberTrainingFromDbRow);
+}
+
+
+export async function countNumberTraining(projectid: string): Promise<number> {
+    const queryString = 'SELECT COUNT(*) AS `trainingcount` FROM `numbertraining` WHERE `projectid` = ?';
+    const [response] = await dbConn.execute(queryString, [projectid]);
+    return response[0].trainingcount;
+}
+
+export async function deleteNumberTraining(projectid: string, trainingid: string): Promise<void> {
+    const queryString = 'DELETE FROM `numbertraining` WHERE `id` = ? AND `projectid` = ?';
+
+    const [response] = await dbConn.execute(queryString, [ trainingid, projectid ]);
+    if (response.warningStatus !== 0) {
+        throw new Error('Failed to delete training');
+    }
+}
+
+
+export async function deleteNumberTrainingByProjectId(projectid: string): Promise<void> {
+    const queryString = 'DELETE FROM `numbertraining` WHERE `projectid` = ?';
+
+    const [response] = await dbConn.execute(queryString, [ projectid ]);
+    if (response.warningStatus !== 0) {
+        throw new Error('Failed to delete training');
+    }
+}
+
+
 // -----------------------------------------------------------------------------
 //
 // BLUEMIX CREDENTIALS
@@ -750,6 +834,7 @@ export async function deleteEntireProject(userid: string, classid: string, proje
     const deleteQueries = [
         'DELETE FROM `projects` WHERE `id` = ?',
         'DELETE FROM `texttraining` WHERE `projectid` = ?',
+        'DELETE FROM `numbertraining` WHERE `projectid` = ?',
         'DELETE FROM `bluemixclassifiers` WHERE `projectid` = ?',
         'DELETE FROM `scratchkeys` WHERE `projectid` = ?',
     ];

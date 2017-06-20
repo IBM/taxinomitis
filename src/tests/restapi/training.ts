@@ -170,7 +170,7 @@ describe('REST API - training', () => {
         });
 
 
-        it('should require data in training', async () => {
+        it('should require text data in training', async () => {
             const classid = uuid();
             const userid = uuid();
 
@@ -195,6 +195,65 @@ describe('REST API - training', () => {
 
                     await store.deleteProject(projectid);
                     await store.deleteTextTrainingByProjectId(projectid);
+                });
+        });
+
+
+        it('should require numeric data in training', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo');
+            const projectid = project.id;
+
+            const trainingurl = '/api/classes/' + classid +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/training';
+
+            return request(testServer)
+                .post(trainingurl)
+                .send({
+                    label : 'nothing-to-label',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then(async (res) => {
+                    const body = res.body;
+                    assert.deepEqual(body, { error : 'Missing data' });
+
+                    await store.deleteProject(projectid);
+                    await store.deleteNumberTrainingByProjectId(projectid);
+                });
+        });
+
+
+        it('should require non-empty numeric data in training', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo');
+            const projectid = project.id;
+
+            const trainingurl = '/api/classes/' + classid +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/training';
+
+            return request(testServer)
+                .post(trainingurl)
+                .send({
+                    label : 'nothing-to-label',
+                    data : [],
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then(async (res) => {
+                    const body = res.body;
+                    assert.deepEqual(body, { error : 'Missing required attributes' });
+
+                    await store.deleteProject(projectid);
+                    await store.deleteNumberTrainingByProjectId(projectid);
                 });
         });
 
@@ -229,6 +288,36 @@ describe('REST API - training', () => {
         });
 
 
+        it('should limit maximum number of numeric training data', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo');
+            const projectid = project.id;
+
+            const trainingurl = '/api/classes/' + classid +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/training';
+
+            return request(testServer)
+                .post(trainingurl)
+                .send({
+                    data : [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100],
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then(async (res) => {
+                    const body = res.body;
+
+                    assert.deepEqual(body, { error : 'Number of data items exceeded maximum' });
+
+                    await store.deleteProject(projectid);
+                    await store.deleteNumberTrainingByProjectId(projectid);
+                });
+        });
+
+
         it('should store numeric training', async () => {
             const classid = uuid();
             const userid = uuid();
@@ -244,13 +333,13 @@ describe('REST API - training', () => {
             return request(testServer)
                 .post(trainingurl)
                 .send({
-                    data : 'apple',
+                    data : [1, 2, 3],
                     label : 'fruit',
                 })
-                .expect(httpstatus.NOT_IMPLEMENTED)
+                .expect(httpstatus.CREATED)
                 .then(async () => {
                     await store.deleteProject(projectid);
-                    await store.deleteTextTrainingByProjectId(projectid);
+                    await store.deleteNumberTrainingByProjectId(projectid);
                 });
         });
 
@@ -324,6 +413,57 @@ describe('REST API - training', () => {
 
 
     describe('editLabel()', () => {
+
+        it('should verify request', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo');
+            const projectid = project.id;
+
+            const projecturl = '/api/classes/' + classid +
+                               '/students/' + userid +
+                               '/projects/' + projectid;
+
+            return request(testServer)
+                .post(projecturl + '/training')
+                .send({
+                    data : [0.01, 0.02],
+                    label : 'fruit',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED)
+                .then(() => {
+                    return request(testServer)
+                        .put(projecturl + '/labels')
+                        .send({
+                            after : 'healthy',
+                        })
+                        .expect(httpstatus.BAD_REQUEST);
+                })
+                .then((res) => {
+                    const body = res.body;
+
+                    assert.deepEqual(body, { error : 'Missing data' });
+
+                    return request(testServer)
+                        .get(projecturl + '/training')
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.OK);
+                })
+                .then(async (res) => {
+                    const body = res.body;
+                    assert.equal(body.length, 1);
+                    assert.equal(res.header['content-range'], 'items 0-0/1');
+
+                    assert.deepEqual(body[0].numberdata, [0.01, 0.02]);
+                    assert.equal(body[0].label, 'fruit');
+
+                    await store.deleteProject(projectid);
+                    await store.deleteNumberTrainingByProjectId(projectid);
+                });
+        });
+
 
         it('should edit training label', async () => {
             const classid = uuid();
@@ -513,6 +653,55 @@ describe('REST API - training', () => {
                     await store.deleteTextTrainingByProjectId(projectid);
                 });
         });
+
+
+
+        it('should get a page of numeric training', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo');
+            const projectid = project.id;
+
+            const data = [];
+
+            for (let labelIdx = 0; labelIdx < 4; labelIdx++) {
+                const label = uuid();
+
+                for (let text = 0; text < 5; text++) {
+                    const numberdata = [1, 2, labelIdx, text, labelIdx * text ];
+
+                    data.push({ numberdata, label });
+                }
+            }
+
+            await store.bulkStoreNumberTraining(projectid, data);
+
+            return request(testServer)
+                .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/training')
+                .set('Range', 'items=0-9')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK)
+                .then(async (res) => {
+                    const body = res.body;
+                    assert.equal(body.length, 10);
+
+                    body.forEach((item) => {
+                        assert(item.id);
+                        assert(item.label);
+                        assert(item.numberdata);
+                        assert.equal(item.numberdata.length, 5);
+                        for (const num of item.numberdata) {
+                            assert(!isNaN(num));
+                        }
+                    });
+
+                    assert.equal(res.header['content-range'], 'items 0-9/20');
+
+                    await store.deleteProject(projectid);
+                    await store.deleteNumberTrainingByProjectId(projectid);
+                });
+        });
     });
 
 
@@ -636,6 +825,52 @@ describe('REST API - training', () => {
                 .then(async () => {
                     await store.deleteProject(projectid);
                     await store.deleteTextTrainingByProjectId(projectid);
+                });
+        });
+
+
+        it('should delete numeric training', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo');
+            const projectid = project.id;
+
+            await store.storeNumberTraining(projectid, [100], 'fruit');
+            await store.storeNumberTraining(projectid, [123], 'fruit');
+
+            const trainingurl = '/api/classes/' + classid +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/training';
+
+            return request(testServer)
+                .get(trainingurl)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK)
+                .then((res) => {
+                    const body = res.body;
+                    assert.equal(body.length, 2);
+                    assert.equal(res.header['content-range'], 'items 0-1/2');
+
+                    return request(testServer)
+                        .delete(trainingurl + '/' + body[0].id)
+                        .expect(httpstatus.NO_CONTENT);
+                })
+                .then(() => {
+                    return request(testServer)
+                        .get(trainingurl)
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.OK)
+                        .then((res) => {
+                            const body = res.body;
+                            assert.equal(body.length, 1);
+                            assert.equal(res.header['content-range'], 'items 0-0/1');
+                        });
+                })
+                .then(async () => {
+                    await store.deleteProject(projectid);
+                    await store.deleteNumberTrainingByProjectId(projectid);
                 });
         });
 

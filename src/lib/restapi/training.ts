@@ -85,6 +85,9 @@ async function getTraining(req: RequestWithProject, res: Express.Response) {
             count = await store.countTextTraining(req.project.id);
             break;
         case 'numbers':
+            training = await store.getNumberTraining(req.project.id, options);
+            count = await store.countNumberTraining(req.project.id);
+            break;
         case 'images':
             // TODO not implemented yet
             break;
@@ -135,7 +138,12 @@ async function deleteTraining(req: RequestWithProject, res: Express.Response) {
     const trainingid: string = req.params.trainingid;
 
     try {
-        await store.deleteTextTraining(req.project.id, trainingid);
+        if (req.project.type === 'text') {
+            await store.deleteTextTraining(req.project.id, trainingid);
+        }
+        else if (req.project.type === 'numbers') {
+            await store.deleteNumberTraining(req.project.id, trainingid);
+        }
 
         res.sendStatus(httpstatus.NO_CONTENT);
     }
@@ -165,6 +173,10 @@ async function storeTraining(req: RequestWithProject, res: Express.Response) {
             );
             break;
         case 'numbers':
+            training = await store.storeNumberTraining(
+                req.project.id, data, label,
+            );
+            break;
         case 'images':
             return res.sendStatus(httpstatus.NOT_IMPLEMENTED);
         }
@@ -172,7 +184,11 @@ async function storeTraining(req: RequestWithProject, res: Express.Response) {
         res.status(httpstatus.CREATED).json(training);
     }
     catch (err) {
-        if (err.message === 'Text exceeds maximum allowed length (1024 characters)') {
+        if (err.message === 'Text exceeds maximum allowed length (1024 characters)' ||
+            err.message === 'Number of data items exceeded maximum' ||
+            err.message === 'Data contains non-numeric items' ||
+            err.message === 'Missing required attributes')
+        {
             return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
         }
 

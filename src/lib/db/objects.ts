@@ -106,29 +106,28 @@ export function getTextTrainingFromDbRow(row: Objects.TextTrainingDbRow): Object
 }
 
 
-const VALID_NUMBER_REGEX = /^-?[0-9]+(?:\.[0-9]*)?$/;
 
-export function createNumberTraining(projectid: string, data: string, label: string): Objects.NumberTraining {
+export function createNumberTraining(projectid: string, data: number[], label: string): Objects.NumberTraining {
     if (projectid === undefined || projectid === '' ||
-        data === undefined || data === '')
+        data === undefined || data.length === 0)
     {
         throw new Error('Missing required attributes');
     }
 
-    const MAX_ITEMS = 10;
-    const numberdata: number[] = data.split(',', MAX_ITEMS)
-                                .map((item) => item.trim())
-                                .map((item) => {
-                                    if (VALID_NUMBER_REGEX.test(item) === false) {
-                                        throw new Error('Data contains non-numeric items');
-                                    }
-                                    return parseFloat(item);
-                                });
+    if (data.length > 10) {
+        throw new Error('Number of data items exceeded maximum');
+    }
+
+    for (const num of data) {
+        if (isNaN(num)) {
+            throw new Error('Data contains non-numeric items');
+        }
+    }
 
     const object: any = {
         id : uuid(),
         projectid,
-        numberdata,
+        numberdata : data,
     };
 
     if (label) {
