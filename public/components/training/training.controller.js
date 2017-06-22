@@ -142,21 +142,48 @@
             }
         }
 
+        function getValues(obj) {
+            return Object.keys(obj).map(function (key) {
+                return obj[key];
+            });
+        }
 
         vm.addTrainingData = function (ev, label) {
             $mdDialog.show({
-                controller : DialogController,
-                templateUrl : 'components/training/trainingdata.tmpl.html',
-                parent : angular.element(document.body),
-                targetEvent : ev,
-                clickOutsideToClose : true,
                 locals : {
-                    label : label
-                }
+                    label : label,
+                    project : $scope.project
+                },
+                controller : function ($scope, locals) {
+                    $scope.label = locals.label;
+                    $scope.project = locals.project;
+                    $scope.values = {};
+
+                    $scope.hide = function() {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function() {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function(resp) {
+                        $mdDialog.hide(resp);
+                    };
+                },
+                templateUrl : 'components/training/trainingdata.tmpl.html',
+                targetEvent : ev,
+                clickOutsideToClose : true
             })
             .then(
-                function(example) {
-                    trainingService.newTrainingData($scope.projectId, vm.profile.user_id, vm.profile.tenant, example, label)
+                function(resp) {
+                    var data;
+                    if ($scope.project.type === 'text') {
+                        data = resp;
+                    }
+                    else if ($scope.project.type === 'numbers') {
+                        data = getValues(resp);
+                    }
+
+                    trainingService.newTrainingData($scope.projectId, vm.profile.user_id, vm.profile.tenant, data, label)
                         .then(function (newitem) {
                             $scope.training[label].push(newitem);
 
@@ -211,21 +238,6 @@
 
 
 
-
-
-        function DialogController($scope, locals) {
-            $scope.label = locals.label;
-
-            $scope.hide = function() {
-                $mdDialog.hide();
-            };
-            $scope.cancel = function() {
-                $mdDialog.cancel();
-            };
-            $scope.confirm = function(resp) {
-                $mdDialog.hide(resp);
-            };
-        }
 
 
 

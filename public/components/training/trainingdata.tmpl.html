@@ -1,10 +1,10 @@
 <md-dialog aria-label="Add new example">
-    <form ng-cloak name="newTrainingData">
-        <md-toolbar>
-            <div class="md-toolbar-tools">
-                <h2>Add new example</h2>
-            </div>
-        </md-toolbar>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Add new example</h2>
+        </div>
+    </md-toolbar>
+    <form ng-cloak name="newTextTrainingData" ng-hide="project.type !== 'text'">
         <md-dialog-content>
             <div class="md-dialog-content" style="min-width: 500px">
                 <md-card-content>
@@ -23,7 +23,34 @@
         </md-dialog-content>
         <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button ng-disabled="newTrainingData.$invalid" ng-click="confirm(example)">Add</md-button>
+            <md-button ng-disabled="newTextTrainingData.$invalid" ng-click="confirm(example)">Add</md-button>
+            <md-button ng-click="cancel()">Cancel</md-button>
+        </md-dialog-actions>
+    </form>
+    <form ng-cloak name="newNumbersTrainingData" ng-hide="project.type !== 'numbers'">
+        <md-dialog-content>
+            <div class="md-dialog-content" style="min-width: 500px">
+                <md-card-content>
+                    <label>Enter an example of '{{ label }}'</label>
+                    <div layout="row" ng-repeat="field in project.fields">
+                        <md-input-container>
+                            <div> {{ field }} </div>
+                            <input name="{{field}}"
+                                required
+                                ng-pattern="/^-?[0-9]+(?:\.[0-9]*)?$/"
+                                ng-model="values[field]">
+                            <div class="ng-animate" ng-messages="newNumbersTrainingData[field].$error" >
+                                <div ng-message="required">You have to include values for all fields in an example</div>
+                                <div ng-message="pattern">This doesn't look like a number</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </md-card-content>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-disabled="newNumbersTrainingData.$invalid" ng-click="confirm(values)">Add</md-button>
             <md-button ng-click="cancel()">Cancel</md-button>
         </md-dialog-actions>
     </form>

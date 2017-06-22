@@ -18,7 +18,7 @@ const log = loggerSetup();
 // -----------------------------------------------------------------------------
 
 export function createProject(
-    userid: string, classid: string, type: string, name: string,
+    userid: string, classid: string, type: string, name: string, fields: string[],
 ): Objects.ProjectDbRow
 {
     log.debug({ userid, type, name }, 'Creating a project object');
@@ -34,6 +34,30 @@ export function createProject(
         throw new Error('Missing required attributes');
     }
 
+    let fieldsStr = '';
+
+    if (type === 'numbers') {
+        if (!fields || fields.length === 0) {
+            throw new Error('Missing required attributes');
+        }
+        if (fields.length > 10) {
+            throw new Error('Too many fields specified');
+        }
+        for (const field of fields) {
+            if (!field ||
+                field.trim().length === 0 ||
+                field.trim().length > 10 ||
+                field.indexOf(',') !== -1)
+            {
+                throw new Error('Invalid field value');
+            }
+        }
+        fieldsStr = fields.join(',');
+    }
+    else if (fields && fields.length > 0) {
+        throw new Error('Fields not supported for non-numbers projects');
+    }
+
     return {
         id : uuid(),
         userid,
@@ -41,6 +65,7 @@ export function createProject(
         typeid : projects.typesByLabel[type].id,
         name,
         labels : '',
+        fields : fieldsStr,
     };
 }
 
@@ -52,6 +77,7 @@ export function getProjectFromDbRow(row: Objects.ProjectDbRow): Objects.Project 
         type : projects.typesById[row.typeid].label,
         name : row.name,
         labels : getLabelsFromList(row.labels),
+        fields : row.fields ? getLabelsFromList(row.fields) : [],
     };
 }
 

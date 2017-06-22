@@ -134,7 +134,7 @@ describe('REST API - models', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo');
+            const project = await store.storeProject(userid, classid, 'text', 'demo', []);
             const projectid = project.id;
 
             return request(testServer)
@@ -151,7 +151,7 @@ describe('REST API - models', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo');
+            const project = await store.storeProject(userid, classid, 'text', 'demo', []);
             const projectid = project.id;
 
             return request(testServer)
@@ -172,7 +172,7 @@ describe('REST API - models', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'images', 'demo');
+            const project = await store.storeProject(userid, classid, 'images', 'demo', []);
             const projectid = project.id;
 
             return request(testServer)
@@ -192,7 +192,7 @@ describe('REST API - models', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo');
+            const project = await store.storeProject(userid, classid, 'text', 'demo', []);
             const projectid = project.id;
 
             const credentials: Types.BluemixCredentials = {
@@ -279,7 +279,7 @@ describe('REST API - models', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo');
+            const project = await store.storeProject(userid, classid, 'text', 'demo', []);
             const projectid = project.id;
 
             return request(testServer)
@@ -295,7 +295,7 @@ describe('REST API - models', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'images', 'demo');
+            const project = await store.storeProject(userid, classid, 'images', 'demo', []);
             const projectid = project.id;
 
             return request(testServer)
@@ -313,7 +313,7 @@ describe('REST API - models', () => {
             const userid = uuid();
             const projName = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', projName);
+            const project = await store.storeProject(userid, classid, 'text', projName, []);
             const projectid = project.id;
 
             const credentials: Types.BluemixCredentials = {
@@ -354,7 +354,7 @@ describe('REST API - models', () => {
             const userid = uuid();
             const projName = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', projName);
+            const project = await store.storeProject(userid, classid, 'text', projName, []);
             const projectid = project.id;
 
             return request(testServer)
@@ -421,7 +421,7 @@ describe('REST API - models', () => {
             const projName = uuid();
             const modelid = randomstring.generate({ length : 10 });
 
-            const project = await store.storeProject(userid, classid, 'text', projName);
+            const project = await store.storeProject(userid, classid, 'text', projName, []);
             const projectid = project.id;
 
             const credentials: Types.BluemixCredentials = {
@@ -500,7 +500,7 @@ describe('REST API - models', () => {
             const userid = uuid();
             const modelid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo');
+            const project = await store.storeProject(userid, classid, 'text', 'demo', []);
             const projectid = project.id;
 
             return request(testServer)
@@ -521,7 +521,7 @@ describe('REST API - models', () => {
             const projName = uuid();
             const modelid = randomstring.generate({ length : 10 });
 
-            const project = await store.storeProject(userid, classid, 'text', projName);
+            const project = await store.storeProject(userid, classid, 'text', projName, []);
             const projectid = project.id;
 
             const credentials: Types.BluemixCredentials = {

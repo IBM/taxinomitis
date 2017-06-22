@@ -60,10 +60,21 @@
                 <div class="trainingbucketheader">
                     <span class="trainingbucketlabel">{{label}}</span>
                 </div>
-                <div class="trainingbucketitems">
+                <div class="trainingbucketitems" ng-if="project.type === 'text'">
                     <div class="trainingbucketitem" ng-repeat="item in training[label]">
                         <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true" ng-click="vm.deleteText(label, item, $index)"></span>
                         {{ item.textdata }}
+                    </div>
+                </div>
+                <div class="trainingbucketitems" ng-if="project.type === 'numbers'">
+                    <div class="trainingbucketitem" ng-repeat="item in training[label]">
+                        <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true" ng-click="vm.deleteText(label, item, $index)"></span>
+                        <table>
+                            <tr ng-repeat="field in project.fields">
+                                <td class="numberdatalabel"> {{ field }} </td>
+                                <td class="numberdatavalue"> {{ item.numberdata[$index] }} </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
                 <div style="text-align: center;">

@@ -18,10 +18,12 @@ describe('DB objects', () => {
                 typeid : 2,
                 name : 'testproject',
                 labels : '',
+                fields : 'first,second',
             };
             const testProject: Objects.Project = dbobjects.getProjectFromDbRow(testRow);
 
             assert.equal(testProject.type, 'numbers');
+            assert.deepEqual(testProject.fields, ['first', 'second']);
         });
     });
 
@@ -117,7 +119,7 @@ describe('DB objects', () => {
     describe('createProject()', () => {
         it('should reject invalid project types', (done) => {
             try {
-                dbobjects.createProject('bob', 'bobclass', 'invalidtype', 'projectname');
+                dbobjects.createProject('bob', 'bobclass', 'invalidtype', 'projectname', []);
             }
             catch (err) {
                 assert.equal(err.message, 'Invalid project type invalidtype');
@@ -128,7 +130,7 @@ describe('DB objects', () => {
 
         it('should require user id', (done) => {
             try {
-                dbobjects.createProject('', 'myclass', 'text', 'projectname');
+                dbobjects.createProject('', 'myclass', 'text', 'projectname', []);
             }
             catch (err) {
                 assert.equal(err.message, 'Missing required attributes');
@@ -139,7 +141,7 @@ describe('DB objects', () => {
 
         it('should require class id', (done) => {
             try {
-                dbobjects.createProject('bob', '', 'text', 'projectname');
+                dbobjects.createProject('bob', '', 'text', 'projectname', []);
             }
             catch (err) {
                 assert.equal(err.message, 'Missing required attributes');
@@ -150,7 +152,7 @@ describe('DB objects', () => {
 
         it('should require project name', (done) => {
             try {
-                dbobjects.createProject('bob', 'bobclass', 'text', undefined);
+                dbobjects.createProject('bob', 'bobclass', 'text', undefined, []);
             }
             catch (err) {
                 assert.equal(err.message, 'Missing required attributes');
@@ -160,7 +162,7 @@ describe('DB objects', () => {
         });
 
         it('should create a project object', () => {
-            const project = dbobjects.createProject('testuser', 'testclass', 'text', 'testproject');
+            const project = dbobjects.createProject('testuser', 'testclass', 'text', 'testproject', []);
             assert(project.id);
             assert.equal(project.name, 'testproject');
             assert.equal(project.classid, 'testclass');

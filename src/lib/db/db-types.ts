@@ -7,6 +7,7 @@ export interface Project {
     readonly type: ProjectTypeLabel;
     name: string;
     labels: string[];
+    fields: string[];
 }
 export interface ProjectDbRow {
     readonly id: string;
@@ -15,6 +16,7 @@ export interface ProjectDbRow {
     readonly typeid: number;
     readonly name: string;
     readonly labels: string;
+    readonly fields: string;
 }
 
 export type ProjectTypeLabel = 'text' | 'numbers' | 'images';

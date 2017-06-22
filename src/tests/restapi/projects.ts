@@ -259,6 +259,111 @@ describe('REST API - projects', () => {
                 });
         });
 
+
+        it('should require fields for numbers projects', () => {
+            const projectDetails = {
+                name : uuid(),
+                type : 'numbers',
+            };
+            const studentId = uuid();
+
+            const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
+
+            return request(testServer)
+                .post(url)
+                .send(projectDetails)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepEqual(res.body, { error : 'Missing required attributes' });
+                });
+        });
+
+
+        it('should require non-empty fields for numbers projects', () => {
+            const projectDetails = {
+                name : uuid(),
+                type : 'numbers',
+                fields : [],
+            };
+            const studentId = uuid();
+
+            const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
+
+            return request(testServer)
+                .post(url)
+                .send(projectDetails)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepEqual(res.body, { error : 'Missing required attributes' });
+                });
+        });
+
+
+        it('should require really non-empty fields for numbers projects', () => {
+            const projectDetails = {
+                name : uuid(),
+                type : 'numbers',
+                fields : [ '' ],
+            };
+            const studentId = uuid();
+
+            const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
+
+            return request(testServer)
+                .post(url)
+                .send(projectDetails)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepEqual(res.body, { error : 'Invalid field value' });
+                });
+        });
+
+
+        it('should validate length of fields for numbers projects', () => {
+            const projectDetails = {
+                name : uuid(),
+                type : 'numbers',
+                fields : [ 'abcdefghijklmnopqrstuv' ],
+            };
+            const studentId = uuid();
+
+            const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
+
+            return request(testServer)
+                .post(url)
+                .send(projectDetails)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepEqual(res.body, { error : 'Invalid field value' });
+                });
+        });
+
+
+        it('should prevent commas in field names', () => {
+            const projectDetails = {
+                name : uuid(),
+                type : 'numbers',
+                fields : [ 'one,two' ],
+            };
+            const studentId = uuid();
+
+            const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
+
+            return request(testServer)
+                .post(url)
+                .send(projectDetails)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepEqual(res.body, { error : 'Invalid field value' });
+                });
+        });
+
+
         it('should store project details', () => {
             const projectDetails = {
                 name : uuid(),

@@ -23,6 +23,24 @@
                             </md-select>
                         </md-input-container>
                     </div>
+                    <div layout="row" ng-show="projectType === 'numbers'">
+                        <md-input-container style="min-width: 400px">
+                            <label>Number of numeric fields in each value to be recognised</label>
+                            <md-select ng-model="fieldscount" ng-focus="focused = 'fields'">
+                                <md-option ng-value=1 ng-selected="true">1</md-option>
+                                <md-option ng-value=2>2</md-option><md-option ng-value=3>3</md-option><md-option ng-value=4>4</md-option>
+                                <md-option ng-value=5>5</md-option><md-option ng-value=6>6</md-option><md-option ng-value=7>7</md-option>
+                                <md-option ng-value=8>8</md-option><md-option ng-value=9>9</md-option>
+                            </select>
+                        </md-input-container>
+                    </div>
+                    <div layout="row" style="flex-wrap: wrap" ng-show="projectType === 'numbers'">
+                        <md-input-container style="min-width: 250px; padding-right: 15px; margin-top: 12px; margin-bottom: 12px;"
+                                            ng-repeat="i in range(fieldscount) track by $index">
+                            <label>Field {{$index + 1}} name</label>
+                            <input ng-required="projectType === 'numbers'" ng-model="fields[$index]" ng-minlength="1" ng-maxlength="10" ng-focus="focused = 'fields'"/>
+                        </md-input-container>
+                    </div>
                     <div class="well" ng-if="focused === 'name'">
                         Give your project a name to describe what sort of thing you'll try to teach the computer to recognise
                     </div>
@@ -40,12 +58,20 @@
                         For sets of numbers, choose "numbers"
                         </div>
                     </div>
+                    <div class="well" ng-if="focused === 'fields'">
+                        <div style="margin-bottom: 1em">
+                        Each example for numeric projects can contain multiple numeric fields.
+                        </div>
+                        <div>
+                        For example, if you want to train the computer to recognise the season based on weather data, you could create fields for temperature, rainfall and windspeed.
+                        </div>
+                    </div>
                 </md-card-content>
             </div>
         </md-dialog-content>
         <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button ng-disabled="newProject.$invalid" ng-click="confirm({ name : projectName, type : projectType })">Create</md-button>
+            <md-button ng-disabled="newProject.$invalid" ng-click="confirm({ name : projectName, type : projectType, fields : fields.slice(0, fieldscount) })">Create</md-button>
             <md-button ng-click="cancel()">Cancel</md-button>
         </md-dialog-actions>
     </form>

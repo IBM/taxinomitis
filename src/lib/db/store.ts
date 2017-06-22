@@ -33,16 +33,28 @@ export async function disconnect() {
 // -----------------------------------------------------------------------------
 
 export async function storeProject(
-    userid: string, classid: string, type: Objects.ProjectTypeLabel, name: string,
+    userid: string, classid: string, type: Objects.ProjectTypeLabel, name: string, fields: string[],
 ): Promise<Objects.Project>
 {
-    const obj: Objects.ProjectDbRow = dbobjects.createProject(userid, classid, type, name);
+    let obj: Objects.ProjectDbRow;
+    try {
+        obj = dbobjects.createProject(userid, classid, type, name, fields);
+    }
+    catch (err) {
+        err.statusCode = 400;
+        throw err;
+    }
 
     const queryString: string = 'INSERT INTO `projects` ' +
-                                '(`id`, `userid`, `classid`, `typeid`, `name`, `labels`) ' +
-                                'VALUES (?, ?, ?, ?, ?, ?)';
+                                '(`id`, `userid`, `classid`, `typeid`, `name`, `labels`, `fields`) ' +
+                                'VALUES (?, ?, ?, ?, ?, ?, ?)';
 
-    const [response] = await dbConn.execute(queryString, [obj.id, obj.userid, obj.classid, obj.typeid, obj.name, '']);
+    const [response] = await dbConn.execute(queryString, [
+        obj.id, obj.userid, obj.classid,
+        obj.typeid,
+        obj.name,
+        '', obj.fields,
+    ]);
     if (response.affectedRows === 1) {
         return dbobjects.getProjectFromDbRow(obj);
     }
@@ -132,7 +144,7 @@ export async function replaceLabelsForProject(
 
 
 export async function getProject(id: string): Promise<Objects.Project> {
-    const queryString = 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `labels` ' +
+    const queryString = 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `labels`, `fields` ' +
                         'FROM `projects` ' +
                         'WHERE `id` = ?';
 
@@ -806,7 +818,7 @@ export async function getClassTenant(classid: string): Promise<Objects.ClassTena
 
         return {
             id : classid,
-            supportedProjectTypes : [ 'text' ],
+            supportedProjectTypes : [ 'text', 'numbers' ],
             maxUsers : 8,
             maxProjectsPerUser : 3,
             maxNLCClassifiers : 10,

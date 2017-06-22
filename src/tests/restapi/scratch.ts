@@ -64,7 +64,7 @@ describe('REST API - scratch keys', () => {
             const name = uuid();
             const typelabel = 'text';
 
-            const project = await store.storeProject(userid, classid, typelabel, name);
+            const project = await store.storeProject(userid, classid, typelabel, name, []);
 
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + project.id + '/scratchkeys')
@@ -106,7 +106,7 @@ describe('REST API - scratch keys', () => {
                 created : new Date(),
             };
 
-            const project = await store.storeProject(userid, classid, typelabel, name);
+            const project = await store.storeProject(userid, classid, typelabel, name, []);
             await store.storeBluemixCredentials(classid, credentials);
             await store.storeNLCClassifier(credentials, userid, classid, project.id, nlcClassifier);
 
@@ -215,7 +215,7 @@ describe('REST API - scratch keys', () => {
             const name = uuid();
             const typelabel = 'text';
 
-            const project = await store.storeProject(userid, classid, typelabel, name);
+            const project = await store.storeProject(userid, classid, typelabel, name, []);
 
             await store.addLabelToProject(userid, classid, project.id, 'animal');
             await store.addLabelToProject(userid, classid, project.id, 'vegetable');
@@ -296,7 +296,7 @@ describe('REST API - scratch keys', () => {
                 created : new Date(),
             };
 
-            const project = await store.storeProject(userid, classid, typelabel, name);
+            const project = await store.storeProject(userid, classid, typelabel, name, []);
             await store.storeBluemixCredentials(classid, credentials);
             await store.storeNLCClassifier(credentials, userid, classid, project.id, nlcClassifier);
 

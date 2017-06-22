@@ -8,6 +8,7 @@ New features
 * Multiple credentials pool per class
 * Numbers training
 * Images training
+* Scratch blocks for collecting training data
 
 Code / engineering work
 * Restore broken test

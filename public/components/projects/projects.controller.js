@@ -79,7 +79,24 @@
 
         vm.createProject = function (ev) {
             $mdDialog.show({
-                controller : DialogController,
+                controller : function ($scope, $mdDialog) {
+                    $scope.fieldscount = 1;
+                    $scope.fields = [];
+
+                    $scope.hide = function() {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function() {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function(resp) {
+                        $mdDialog.hide(resp);
+                    };
+
+                    $scope.range = function(n) {
+                        return new Array(n);
+                    };
+                },
                 templateUrl : 'components/projects/newproject.tmpl.html',
                 parent : angular.element(document.body),
                 targetEvent : ev,
@@ -87,6 +104,7 @@
             })
             .then(
                 function(project) {
+                    debugger;
                     projectsService.createProject(project, vm.profile.user_id, vm.profile.tenant)
                         .then(function () {
                             refreshProjectsList(vm.profile);
@@ -126,20 +144,6 @@
                 }
             );
         };
-
-
-
-        function DialogController($scope, $mdDialog) {
-            $scope.hide = function() {
-                $mdDialog.hide();
-            };
-            $scope.cancel = function() {
-                $mdDialog.cancel();
-            };
-            $scope.confirm = function(resp) {
-                $mdDialog.hide(resp);
-            };
-        }
 
     }
 }());

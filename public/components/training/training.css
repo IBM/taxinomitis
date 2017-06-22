@@ -99,3 +99,13 @@
     cursor: pointer;
 }
 
+
+
+.numberdatalabel {
+    text-align: right;
+    font-size: 0.7em;
+}
+.numberdatavalue {
+    padding-left: 10px;
+    font-size: 0.9em;
+}

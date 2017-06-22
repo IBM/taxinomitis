@@ -65,10 +65,13 @@ async function createProject(req: Express.Request, res: Express.Response) {
 
 
     try {
-        const project = await store.storeProject(userid, classid, req.body.type, req.body.name);
+        const project = await store.storeProject(userid, classid, req.body.type, req.body.name, req.body.fields);
         return res.status(httpstatus.CREATED).json(project);
     }
     catch (err) {
+        if (err.statusCode === httpstatus.BAD_REQUEST) {
+            return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
+        }
         log.error({ err }, 'Server error');
         errors.unknownError(res, err);
     }
@@ -84,6 +87,15 @@ function getProject(req: Express.Request, res: Express.Response) {
         .then((project: Objects.Project) => {
             if (project) {
                 if (project.classid === classid && project.userid === userid) {
+                    // if (project.type === 'numbers'){
+                    //     return res.json({
+                    //         id : project.id,
+                    //         type : project.type,
+                    //         name : project.name,
+                    //         labels : project.labels,
+                    //         fields : [ 'temperature', 'rainfall', 'wind' ],
+                    //     });
+                    // }
                     return res.json(project);
                 }
                 else {

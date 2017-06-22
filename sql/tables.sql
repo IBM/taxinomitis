@@ -11,7 +11,8 @@ CREATE TABLE projects (
     classid CHAR(36) NOT NULL,
     typeid TINYINT NOT NULL,
     name VARCHAR(36) NOT NULL,
-    labels VARCHAR(500) NOT NULL
+    labels VARCHAR(500) NOT NULL,
+    fields VARCHAR(128)
 );
 
 CREATE INDEX projects_getCurrentLabels on projects(id, userid, classid) using HASH;
