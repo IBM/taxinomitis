@@ -31,6 +31,7 @@
             vm[type].push({ alertid : alertId++, message : errObj.message || errObj.error || 'Unknown error' });
         }
 
+        $scope.loadingtraining = true;
 
         $scope.projectId = $stateParams.projectId;
         $scope.training = {};
@@ -54,6 +55,9 @@
                 return trainingService.getTraining($scope.projectId, vm.profile.user_id, vm.profile.tenant);
             })
             .then(function (training) {
+
+                $scope.loadingtraining = false;
+
                 for (var trainingitemIdx in training) {
                     var trainingitem = training[trainingitemIdx];
 

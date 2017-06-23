@@ -8,7 +8,6 @@ UI clean-up needed
 * Make all the ADD buttons consistent - labels, projects, examples
 * Empty state isn't clear.... replace it with a call to press the Add Label button
 * put a count of examples somewhere
-* Loading indicator in the buckets while waiting for training data
 * sub-tabs for Train/Models/Test/Scratch to avoid need to go back to project page
 * Remove 'Check Answer' stage in quiz - mark when ticking
 * Merge/combine Models & Test pages
