@@ -75,7 +75,10 @@
                 function() {
                     usersService.deleteStudent(student, vm.profile.tenant)
                         .then(function () {
-                            refreshStudentsList(vm.profile);
+                            vm.students = vm.students.filter(function (itm) {
+                                return itm.username !== student.username;
+                            });
+                            // refreshStudentsList(vm.profile);
                         })
                         .catch(function (err) {
                             displayAlert('errors', err.data);
@@ -105,8 +108,9 @@
 
                             // TODO horrid hack alert
                             $timeout(function () {
-                                refreshStudentsList(vm.profile);
-                            }, 500);
+                                vm.students.push(newUser);
+                                // refreshStudentsList(vm.profile);
+                            }, 50);
                         })
                         .catch(function (err) {
                             displayAlert('errors', err.data);

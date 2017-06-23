@@ -9,9 +9,7 @@ UI clean-up needed
 * Empty state isn't clear.... replace it with a call to press the Add Label button
 * put a count of examples somewhere
 * sub-tabs for Train/Models/Test/Scratch to avoid need to go back to project page
-* Remove 'Check Answer' stage in quiz - mark when ticking
 * Merge/combine Models & Test pages
-* Student lists not refreshing after new students
 
 New features
 * Support for deleting labels in training
