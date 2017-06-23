@@ -104,7 +104,6 @@
             })
             .then(
                 function(project) {
-                    debugger;
                     projectsService.createProject(project, vm.profile.user_id, vm.profile.tenant)
                         .then(function () {
                             refreshProjectsList(vm.profile);
