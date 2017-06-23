@@ -45,6 +45,7 @@
     vertical-align: top;
     margin-right: 1em;
     float: left;
+    cursor: pointer;
 
     -moz-appearance: none;
     -ms-progress-appearance: none;

@@ -76,10 +76,9 @@
                         {{ quizQuestion.question }}
                     </div>
                     <div class="quizanswer" ng-repeat="answer in quizQuestion.answers" ng-class="{ 'answered' : answered }" >
-                        <input type="checkbox" ng-model="answer.selected" ng-disabled="answered">
+                        <input type="checkbox" ng-model="answer.selected" ng-disabled="answered" ng-click="vm.checkQuizAnswers(quizQuestion)">
                         <div>{{ answer.text }}</div>
                     </div>
-                    <button class="btn" ng-if="!answered" ng-click="vm.checkQuizAnswers(quizQuestion)">Check your answer</button>
                     <div ng-if="answered">
                         <div class="answerconfirm" ng-if="answerCorrect">That's right!</div>
                         <div class="answerconfirm" ng-if="!answerCorrect">No, sorry. The correct answer is shown above.</div>
