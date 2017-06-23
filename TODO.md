@@ -19,11 +19,9 @@ New features
 * Numbers training
 * Images training
 * Scratch blocks for collecting training data
-* Get list of labels in Scratch somehow
 * Allow longer field names
 
 Code / engineering work
-* Restore broken test
 * Test coverage for DB errors
 * Set up DB and Auth0 for prod vs dev use
 

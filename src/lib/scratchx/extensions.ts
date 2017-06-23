@@ -20,21 +20,24 @@ function readFile(path: string): Promise<string> {
 }
 
 
-async function getTextExtension(scratchkey: Types.ScratchKey): Promise<string> {
+async function getTextExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string> {
     const template: string = await readFile('./resources/scratchx-text-classify.js');
     Mustache.parse(template);
     const rendered = Mustache.render(template, {
         statusurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/status',
         classifyurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/classify',
         projectname : scratchkey.name,
+        labels : project.labels.map((name, idx) => {
+            return { name, idx };
+        }),
     });
     return rendered;
 }
 
 
-export function getScratchxExtension(scratchkey: Types.ScratchKey): Promise<string> {
+export function getScratchxExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string> {
     if (scratchkey.type === 'text') {
-        return getTextExtension(scratchkey);
+        return getTextExtension(scratchkey, project);
     }
     else {
         throw new Error('Not implemented yet');

@@ -360,11 +360,14 @@ describe('REST API - scratch keys', () => {
 
 
         it('should build a working Scratchx extension', async () => {
-            const projectid = uuid();
             const userid = uuid();
             const classid = uuid();
 
-            const keyId = await store.storeUntrainedScratchKey(projectid, 'dummyproject', 'text', userid, classid);
+            const project = await store.storeProject(userid, classid, 'text', 'dummyproject', []);
+            await store.addLabelToProject(userid, classid, project.id, 'LABEL NUMBER ONE');
+            await store.addLabelToProject(userid, classid, project.id, 'SECOND LABEL');
+
+            const keyId = await store.storeUntrainedScratchKey(project.id, project.name, 'text', userid, classid);
 
             return request(testServer)
                 .get('/api/scratch/' + keyId + '/extension.js')
@@ -375,8 +378,13 @@ describe('REST API - scratch keys', () => {
                     assert(body.startsWith('(function(ext) {'));
                     assert(body.indexOf('/api/scratch/' + keyId + '/status') > 0);
                     assert(body.indexOf('/api/scratch/' + keyId + '/classify') > 0);
+                    assert(body.indexOf('ext.return_label_0 = function () {') > 0);
+                    assert(body.indexOf('ext.return_label_1 = function () {') > 0);
+                    assert(body.indexOf('ext.return_label_2 = function () {') === -1);
+                    assert(body.indexOf('[ \'r\', \'LABEL NUMBER ONE\', \'return_label_0\', \'text\'],') > 0);
+                    assert(body.indexOf('[ \'r\', \'SECOND LABEL\', \'return_label_1\', \'text\'],') > 0);
 
-                    await store.deleteScratchKey(keyId);
+                    await store.deleteEntireProject(userid, classid, project.id);
                 });
         });
 

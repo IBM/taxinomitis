@@ -79,10 +79,19 @@
         }
     };
 
+    {{#labels}}
+    ext.return_label_{{idx}} = function () {
+        return '{{name}}';
+    };
+    {{/labels}}
+
     var descriptor = {
         blocks : [
             [ 'R', 'recognise text %s (label)', 'text_classification_label', 'text' ],
-            [ 'R', 'recognise text %s (confidence)', 'text_classification_confidence', 'text' ]
+            [ 'R', 'recognise text %s (confidence)', 'text_classification_confidence', 'text' ],
+            {{#labels}}
+            [ 'r', '{{name}}', 'return_label_{{idx}}', 'text'],
+            {{/labels}}
         ]
     };
 
