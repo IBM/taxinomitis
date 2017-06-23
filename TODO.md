@@ -29,8 +29,6 @@ Code / engineering work
 * Restore broken test
 * Test coverage for DB errors
 * Set up DB and Auth0 for prod vs dev use
-* MySQL Connection Pooling to better handle load
-* Handle MySQL connection timeouts - https://github.com/mysqljs/mysql/issues/778 https://stackoverflow.com/questions/22900931/mysql-giving-read-econnreset-error-after-idle-time-on-node-js-server
 
 Longer term goals
 * Restore sprites library

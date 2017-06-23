@@ -7,7 +7,7 @@ import * as Objects from '../../lib/db/db-types';
 import * as store from '../../lib/db/store';
 
 
-describe('DB store', () => {
+describe('DB store - training', () => {
 
     before(() => {
         return store.init();

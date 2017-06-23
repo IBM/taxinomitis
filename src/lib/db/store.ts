@@ -8,21 +8,28 @@ import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
 
-let dbConn;
+let dbConnPool;
 
 export async function init() {
-    if (!dbConn) {
-        dbConn = await mysqldb.connect();
+    if (!dbConnPool) {
+        dbConnPool = await mysqldb.connect();
     }
 }
 
 export async function disconnect() {
-    if (dbConn) {
+    if (dbConnPool) {
         await mysqldb.disconnect();
-        dbConn = undefined;
+        dbConnPool = undefined;
     }
 }
 
+
+async function dbExecute(query: string, params: any[]) {
+    const dbConn = await dbConnPool.getConnection();
+    const [response] = await dbConn.execute(query, params);
+    dbConn.release();
+    return response;
+}
 
 
 
@@ -49,12 +56,13 @@ export async function storeProject(
                                 '(`id`, `userid`, `classid`, `typeid`, `name`, `labels`, `fields`) ' +
                                 'VALUES (?, ?, ?, ?, ?, ?, ?)';
 
-    const [response] = await dbConn.execute(queryString, [
+    const response = await dbExecute(queryString, [
         obj.id, obj.userid, obj.classid,
         obj.typeid,
         obj.name,
         '', obj.fields,
     ]);
+
     if (response.affectedRows === 1) {
         return dbobjects.getProjectFromDbRow(obj);
     }
@@ -72,7 +80,7 @@ async function getCurrentLabels(userid: string, classid: string, projectid: stri
         userid,
         classid,
     ];
-    const [rows] = await dbConn.execute(queryString, values);
+    const rows = await dbExecute(queryString, values);
     if (rows.length !== 1) {
         log.error({ projectid }, 'Project not found');
         throw new Error('Project not found');
@@ -90,7 +98,7 @@ async function updateLabels(userid: string, classid: string, projectid: string, 
         userid,
         classid,
     ];
-    const [response] = await dbConn.execute(queryString, values);
+    const response = await dbExecute(queryString, values);
     if (response.affectedRows !== 1) {
         log.error({ projectid }, 'Failed to update project');
         throw new Error('Project not updated');
@@ -148,7 +156,7 @@ export async function getProject(id: string): Promise<Objects.Project> {
                         'FROM `projects` ' +
                         'WHERE `id` = ?';
 
-    const [rows] = await dbConn.execute(queryString, [ id ]);
+    const rows = await dbExecute(queryString, [ id ]);
     if (rows.length !== 1) {
         log.error({ id }, 'Project not found');
         return;
@@ -162,7 +170,7 @@ export async function getProjectsByUserId(userid: string, classid: string): Prom
                         'FROM `projects` ' +
                         'WHERE `classid` = ? AND `userid` = ?';
 
-    const [rows] = await dbConn.execute(queryString, [ classid, userid ]);
+    const rows = await dbExecute(queryString, [ classid, userid ]);
     return rows.map(dbobjects.getProjectFromDbRow);
 }
 
@@ -172,7 +180,7 @@ export async function countProjectsByUserId(userid: string, classid: string): Pr
                         'FROM `projects` ' +
                         'WHERE `classid` = ? AND `userid` = ?';
 
-    const [rows] = await dbConn.execute(queryString, [ classid, userid ]);
+    const rows = await dbExecute(queryString, [ classid, userid ]);
     if (rows.length !== 1) {
         return 0;
     }
@@ -186,14 +194,14 @@ export async function getProjectsByClassId(classid: string): Promise<Objects.Pro
                         'FROM `projects` ' +
                         'WHERE `classid` = ?';
 
-    const [rows] = await dbConn.execute(queryString, [ classid ]);
+    const rows = await dbExecute(queryString, [ classid ]);
     return rows.map(dbobjects.getProjectFromDbRow);
 }
 
 
 export async function deleteProject(id: string): Promise<void> {
     const queryString = 'DELETE FROM `projects` WHERE `id` = ?';
-    const [response] = await dbConn.execute(queryString, [ id ]);
+    const response = await dbExecute(queryString, [ id ]);
     if (response.warningStatus !== 0) {
         throw new Error('Failed to delete project');
     }
@@ -203,7 +211,7 @@ export async function deleteProject(id: string): Promise<void> {
 export async function deleteProjectsByUserId(userid: string, classid: string): Promise<void> {
     const queryString = 'DELETE FROM `projects` WHERE `classid` = ? AND `userid` = ?';
 
-    const [response] = await dbConn.execute(queryString, [ classid, userid ]);
+    const response = await dbExecute(queryString, [ classid, userid ]);
     if (response.warningStatus !== 0) {
         throw new Error('Failed to delete projects');
     }
@@ -213,7 +221,7 @@ export async function deleteProjectsByUserId(userid: string, classid: string): P
 export async function deleteProjectsByClassId(classid: string): Promise<void> {
     const queryString = 'DELETE FROM `projects` WHERE `classid` = ?';
 
-    const [response] = await dbConn.execute(queryString, [ classid ]);
+    const response = await dbExecute(queryString, [ classid ]);
     if (response.warningStatus !== 0) {
         throw new Error('Failed to delete projects');
     }
@@ -234,7 +242,7 @@ export async function storeTextTraining(
 
     const queryString = 'INSERT INTO `texttraining` (`id`, `projectid`, `textdata`, `label`) VALUES (?, ?, ?, ?)';
 
-    const [response] = await dbConn.execute(queryString, [obj.id, obj.projectid, obj.textdata, obj.label]);
+    const response = await dbExecute(queryString, [obj.id, obj.projectid, obj.textdata, obj.label]);
     if (response.affectedRows === 1) {
         return dbobjects.getTextTrainingFromDbRow(obj);
     }
@@ -253,7 +261,11 @@ export async function bulkStoreTextTraining(
     });
 
     const queryString = 'INSERT INTO `texttraining` (`id`, `projectid`, `textdata`, `label`) VALUES ?';
+
+    const dbConn = await dbConnPool.getConnection();
     const [response] = await dbConn.query(queryString, [ objects ]);
+    await dbConn.release();
+
     if (response.affectedRows === training.length) {
         return;
     }
@@ -262,14 +274,16 @@ export async function bulkStoreTextTraining(
 }
 
 
-export function renameTextTrainingLabel(
+export async function renameTextTrainingLabel(
     projectid: string, labelBefore: string, labelAfter: string,
 ): Promise<void>
 {
     const queryString = 'UPDATE `texttraining` ' +
                         'SET `label` = ? ' +
                         'WHERE `projectid` = ? AND `label` = ?';
-    return dbConn.query(queryString, [ labelAfter, projectid, labelBefore ]);
+    const dbConn = await dbConnPool.getConnection();
+    await dbConn.query(queryString, [ labelAfter, projectid, labelBefore ]);
+    dbConn.release();
 }
 
 
@@ -282,7 +296,7 @@ export async function getTextTraining(
                         'ORDER BY `label`, `textdata` ' +
                         'LIMIT ? OFFSET ?';
 
-    const [rows] = await dbConn.execute(queryString, [ projectid, options.limit, options.start ]);
+    const rows = await dbExecute(queryString, [ projectid, options.limit, options.start ]);
     return rows.map(dbobjects.getTextTrainingFromDbRow);
 }
 
@@ -296,21 +310,21 @@ export async function getTextTrainingByLabel(
                         'ORDER BY `textdata` ' +
                         'LIMIT ? OFFSET ?';
 
-    const [rows] = await dbConn.execute(queryString, [ projectid, label, options.limit, options.start ]);
+    const rows = await dbExecute(queryString, [ projectid, label, options.limit, options.start ]);
     return rows.map(dbobjects.getTextTrainingFromDbRow);
 }
 
 
 export async function getTrainingLabels(projectid: string): Promise<string[]> {
     const queryString = 'SELECT DISTINCT `label` FROM `texttraining` WHERE `projectid` = ?';
-    const [rows] = await dbConn.execute(queryString, [ projectid ]);
+    const rows = await dbExecute(queryString, [ projectid ]);
     return rows.map((row) => row.label);
 }
 
 
 export async function countTextTraining(projectid: string): Promise<number> {
     const queryString = 'SELECT COUNT(*) AS `trainingcount` FROM `texttraining` WHERE `projectid` = ?';
-    const [response] = await dbConn.execute(queryString, [projectid]);
+    const response = await dbExecute(queryString, [projectid]);
     return response[0].trainingcount;
 }
 
@@ -319,7 +333,7 @@ export async function countTextTrainingByLabel(projectid: string) {
     const queryString = 'SELECT `label`, COUNT(*) AS `trainingcount` FROM `texttraining` ' +
                         'WHERE `projectid` = ? ' +
                         'GROUP BY `label`';
-    const [response] = await dbConn.execute(queryString, [projectid]);
+    const response = await dbExecute(queryString, [projectid]);
     const counts = {};
     for (const count of response) {
         counts[count.label] = count.trainingcount;
@@ -331,7 +345,7 @@ export async function countTextTrainingByLabel(projectid: string) {
 export async function deleteTextTraining(projectid: string, trainingid: string): Promise<void> {
     const queryString = 'DELETE FROM `texttraining` WHERE `id` = ? AND `projectid` = ?';
 
-    const [response] = await dbConn.execute(queryString, [ trainingid, projectid ]);
+    const response = await dbExecute(queryString, [ trainingid, projectid ]);
     if (response.warningStatus !== 0) {
         throw new Error('Failed to delete training');
     }
@@ -341,7 +355,7 @@ export async function deleteTextTraining(projectid: string, trainingid: string):
 export async function deleteTextTrainingByProjectId(projectid: string): Promise<void> {
     const queryString = 'DELETE FROM `texttraining` WHERE `projectid` = ?';
 
-    const [response] = await dbConn.execute(queryString, [ projectid ]);
+    const response = await dbExecute(queryString, [ projectid ]);
     if (response.warningStatus !== 0) {
         throw new Error('Failed to delete training');
     }
@@ -359,7 +373,7 @@ export async function storeNumberTraining(
                         '(`id`, `projectid`, `numberdata`, `label`) ' +
                         'VALUES (?, ?, ?, ?)';
 
-    const [response] = await dbConn.execute(queryString, [
+    const response = await dbExecute(queryString, [
         obj.id,
         obj.projectid,
         data.join(','),
@@ -382,7 +396,11 @@ export async function bulkStoreNumberTraining(
     });
 
     const queryString = 'INSERT INTO `numbertraining` (`id`, `projectid`, `numberdata`, `label`) VALUES ?';
+
+    const dbConn = await dbConnPool.getConnection();
     const [response] = await dbConn.query(queryString, [ objects ]);
+    dbConn.release();
+
     if (response.affectedRows === training.length) {
         return;
     }
@@ -401,21 +419,21 @@ export async function getNumberTraining(
                         'ORDER BY `label` ' +
                         'LIMIT ? OFFSET ?';
 
-    const [rows] = await dbConn.execute(queryString, [ projectid, options.limit, options.start ]);
+    const rows = await dbExecute(queryString, [ projectid, options.limit, options.start ]);
     return rows.map(dbobjects.getNumberTrainingFromDbRow);
 }
 
 
 export async function countNumberTraining(projectid: string): Promise<number> {
     const queryString = 'SELECT COUNT(*) AS `trainingcount` FROM `numbertraining` WHERE `projectid` = ?';
-    const [response] = await dbConn.execute(queryString, [projectid]);
+    const response = await dbExecute(queryString, [projectid]);
     return response[0].trainingcount;
 }
 
 export async function deleteNumberTraining(projectid: string, trainingid: string): Promise<void> {
     const queryString = 'DELETE FROM `numbertraining` WHERE `id` = ? AND `projectid` = ?';
 
-    const [response] = await dbConn.execute(queryString, [ trainingid, projectid ]);
+    const response = await dbExecute(queryString, [ trainingid, projectid ]);
     if (response.warningStatus !== 0) {
         throw new Error('Failed to delete training');
     }
@@ -425,7 +443,7 @@ export async function deleteNumberTraining(projectid: string, trainingid: string
 export async function deleteNumberTrainingByProjectId(projectid: string): Promise<void> {
     const queryString = 'DELETE FROM `numbertraining` WHERE `projectid` = ?';
 
-    const [response] = await dbConn.execute(queryString, [ projectid ]);
+    const response = await dbExecute(queryString, [ projectid ]);
     if (response.warningStatus !== 0) {
         throw new Error('Failed to delete training');
     }
@@ -449,7 +467,10 @@ export async function storeBluemixCredentials(
     const values = [ credentials.id, classid,
         credentials.servicetype, credentials.url, credentials.username, credentials.password ];
 
+    const dbConn = await dbConnPool.getConnection();
     const [response] = await dbConn.query(queryString, values);
+    dbConn.release();
+
     if (response.affectedRows === 1) {
         return credentials;
     }
@@ -466,7 +487,7 @@ export async function getBluemixCredentials(
                         'FROM `bluemixcredentials` ' +
                         'WHERE `classid` = ? AND `servicetype` = ?';
 
-    const [rows] = await dbConn.execute(queryString, [ classid, service ]);
+    const rows = await dbExecute(queryString, [ classid, service ]);
     if (rows.length !== 1) {
         log.error({ rows }, 'Unexpected response from DB');
         throw new Error('Unexpected response when retrieving service credentials');
@@ -477,7 +498,7 @@ export async function getBluemixCredentials(
 export async function deleteBluemixCredentials(credentialsid: string): Promise<void> {
     const queryString = 'DELETE FROM `bluemixcredentials` WHERE `id` = ?';
 
-    const [response] = await dbConn.execute(queryString, [ credentialsid ]);
+    const response = await dbExecute(queryString, [ credentialsid ]);
     if (response.warningStatus !== 0) {
         throw new Error('Failed to delete credentials info');
     }
@@ -496,6 +517,8 @@ export async function getServiceCredentials(
     servicetype: TrainingObjects.BluemixServiceType, classifierid: string,
 ): Promise<TrainingObjects.BluemixCredentials>
 {
+    const dbConn = await dbConnPool.getConnection();
+
     const queryString = 'SELECT `credentialsid` FROM `bluemixclassifiers` ' +
                         'WHERE ' +
                         '`servicetype` = ? AND `classifierid` = ? AND ' +
@@ -512,8 +535,9 @@ export async function getServiceCredentials(
     const credsQuery = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password` ' +
                        'FROM `bluemixcredentials` ' +
                        'WHERE `id` = ?';
-
     const [rows] = await dbConn.execute(credsQuery, [ credentialsId ]);
+    dbConn.release();
+
     if (rows.length !== 1) {
         log.error({ rows }, 'Unexpected response from DB');
         throw new Error('Unexpected response when retrieving service credentials');
@@ -531,7 +555,7 @@ export async function getNLCClassifiers(
                         'FROM `bluemixclassifiers` ' +
                         'WHERE `projectid` = ?';
 
-    const [rows] = await dbConn.execute(queryString, [ projectid ]);
+    const rows = await dbExecute(queryString, [ projectid ]);
     return rows.map(dbobjects.getClassifierFromDbRow);
 }
 
@@ -541,7 +565,7 @@ export async function countNLCClassifiers(classid: string): Promise<number> {
                         'FROM `bluemixclassifiers` ' +
                         'WHERE `classid` = ?';
 
-    const [rows] = await dbConn.execute(queryString, [ classid ]);
+    const rows = await dbExecute(queryString, [ classid ]);
     if (rows.length !== 1) {
         return 0;
     }
@@ -569,7 +593,7 @@ export async function storeNLCClassifier(
     const values = [obj.id, obj.credentialsid, obj.projectid, obj.userid, obj.classid,
         obj.servicetype, obj.classifierid, obj.url, obj.name, obj.language, obj.created];
 
-    const [response] = await dbConn.execute(queryString, values);
+    const response = await dbExecute(queryString, values);
     if (response.affectedRows !== 1) {
         log.error({ response }, 'Failed to store classifier info');
         throw new Error('Failed to store classifier');
@@ -589,7 +613,7 @@ export async function deleteNLCClassifier(
                         '`projectid` = ? AND `userid` = ? AND `classid` = ? AND ' +
                         '`classifierid` = ?';
 
-    const [response] = await dbConn.execute(queryString, [ projectid, userid, classid, classifierid ]);
+    const response = await dbExecute(queryString, [ projectid, userid, classid, classifierid ]);
     if (response.warningStatus !== 0) {
         throw new Error('Failed to delete classifiers info');
     }
@@ -599,7 +623,7 @@ export async function deleteNLCClassifier(
 export async function deleteNLCClassifiersByProjectId(projectid: string): Promise<void> {
     const queryString = 'DELETE FROM `bluemixclassifiers` WHERE `projectid` = ?';
 
-    const [response] = await dbConn.execute(queryString, [ projectid ]);
+    const response = await dbExecute(queryString, [ projectid ]);
     if (response.warningStatus !== 0) {
         throw new Error('Failed to delete classifiers info');
     }
@@ -633,7 +657,7 @@ export async function storeUntrainedScratchKey(
         userid, classid,
     ];
 
-    const [response] = await dbConn.execute(queryString, values);
+    const response = await dbExecute(queryString, values);
     if (response.affectedRows !== 1) {
         log.error({ response }, 'Failed to store Scratch key');
         throw new Error('Failed to store Scratch key');
@@ -700,7 +724,7 @@ export async function storeScratchKey(
         obj.projectid, userid, classid,
     ];
 
-    const [response] = await dbConn.execute(queryString, values);
+    const response = await dbExecute(queryString, values);
     if (response.affectedRows !== 1) {
         log.error({ response }, 'Failed to store Scratch key');
         throw new Error('Failed to store Scratch key');
@@ -731,7 +755,7 @@ async function updateScratchKey(
         userid, projectid, classid,
     ];
 
-    const [response] = await dbConn.execute(queryString, values);
+    const response = await dbExecute(queryString, values);
     if (response.affectedRows !== 1) {
         log.error({ queryString, values, response }, 'Failed to update scratchkey');
         throw new Error('Scratch key not updated');
@@ -751,7 +775,7 @@ export async function getScratchKey(key: string): Promise<Objects.ScratchKey> {
                         'FROM `scratchkeys` ' +
                         'WHERE `id` = ?';
 
-    const [rows] = await dbConn.execute(queryString, [ key ]);
+    const rows = await dbExecute(queryString, [ key ]);
     if (rows.length !== 1) {
         log.error({ rows }, 'Unexpected response from DB');
         throw new Error('Unexpected response when retrieving service credentials');
@@ -774,7 +798,7 @@ export async function findScratchKeys(
 
     const values = [ projectid, userid, classid ];
 
-    const [rows] = await dbConn.execute(queryString, values);
+    const rows = await dbExecute(queryString, values);
     return rows.map(dbobjects.getScratchKeyFromDbRow);
 }
 
@@ -782,7 +806,7 @@ export async function findScratchKeys(
 export async function deleteScratchKey(id: string): Promise<void> {
     const queryString = 'DELETE FROM `scratchkeys` WHERE `id` = ?';
 
-    const [response] = await dbConn.execute(queryString, [ id ]);
+    const response = await dbExecute(queryString, [ id ]);
     if (response.warningStatus !== 0) {
         throw new Error('Failed to delete scratch key info');
     }
@@ -792,7 +816,7 @@ export async function deleteScratchKey(id: string): Promise<void> {
 export async function deleteScratchKeysByProjectId(projectid: string): Promise<void> {
     const queryString = 'DELETE FROM `scratchkeys` WHERE `projectid` = ?';
 
-    const [response] = await dbConn.execute(queryString, [ projectid ]);
+    const response = await dbExecute(queryString, [ projectid ]);
     if (response.warningStatus !== 0) {
         throw new Error('Failed to delete scratch key info');
     }
@@ -812,7 +836,7 @@ export async function getClassTenant(classid: string): Promise<Objects.ClassTena
                         'FROM `tenants` ' +
                         'WHERE `id` = ?';
 
-    const [rows] = await dbConn.execute(queryString, [ classid ]);
+    const rows = await dbExecute(queryString, [ classid ]);
     if (rows.length !== 1) {
         log.error({ rows }, 'Unexpected response from DB');
 
@@ -850,9 +874,12 @@ export async function deleteEntireProject(userid: string, classid: string, proje
         'DELETE FROM `bluemixclassifiers` WHERE `projectid` = ?',
         'DELETE FROM `scratchkeys` WHERE `projectid` = ?',
     ];
+
+    const dbConn = await dbConnPool.getConnection();
     for (const deleteQuery of deleteQueries) {
         await dbConn.execute(deleteQuery, [ projectid ]);
     }
+    dbConn.release();
 }
 
 export async function deleteEntireUser(userid: string, classid: string): Promise<void> {
@@ -866,8 +893,11 @@ export async function deleteEntireUser(userid: string, classid: string): Promise
         'DELETE FROM `bluemixclassifiers` WHERE `userid` = ?',
         'DELETE FROM `scratchkeys` WHERE `userid` = ?',
     ];
+
+    const dbConn = await dbConnPool.getConnection();
     for (const deleteQuery of deleteQueries) {
         await dbConn.execute(deleteQuery, [ userid ]);
     }
+    dbConn.release();
 }
 

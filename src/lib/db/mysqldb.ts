@@ -2,12 +2,13 @@
 import * as mysql from 'mysql2/promise';
 
 
-let connection;
+let connectionPool;
 
 
 export async function connect() {
-    if (!connection) {
-        connection = await mysql.createConnection({
+    if (!connectionPool) {
+        connectionPool = await mysql.createPool({
+            connectionLimit : 100,
             host : process.env.MYSQLHOST,
             port : process.env.MYSQLPORT,
             user : process.env.MYSQLUSER,
@@ -15,12 +16,12 @@ export async function connect() {
             database : process.env.MYSQLDATABASE,
         });
     }
-    return connection;
+    return connectionPool;
 }
 
 export async function disconnect() {
-    if (connection) {
-        await connection.end();
-        connection = undefined;
+    if (connectionPool) {
+        await connectionPool.end();
+        connectionPool = undefined;
     }
 }
