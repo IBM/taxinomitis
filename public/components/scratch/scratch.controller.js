@@ -52,11 +52,13 @@
                 .then(function (resp) {
                     var scratchkey = resp[0];
 
+                    scratchkey.extensionurl = window.location.origin +
+                                              '/api/scratch/' +
+                                              scratchkey.id +
+                                              '/extension.js'
+
                     scratchkey.url = '/scratchx?url=' +
-                                     window.location.origin +
-                                     '/api/scratch/' +
-                                     scratchkey.id +
-                                     '/extension.js' +
+                                     scratchkey.extensionurl +
                                      '#scratch';
 
                     if (scratchkey.model) {

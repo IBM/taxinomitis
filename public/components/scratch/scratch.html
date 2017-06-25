@@ -36,7 +36,10 @@
                 Your project isn't ready to be used in Scratch yet.
             </div>
             <div class="modelstatusdetail">
-                Go to the <a ui-sref="mlproject_models({ projectId : projectId })">Learn &amp; Test</a>
+                (You can use <a href="/scratchx" target="_blank"><strong>Scratch</strong> by itself</a> if you want.)
+            </div>
+            <div class="modelstatusdetail">
+                Or go to the <a ui-sref="mlproject_models({ projectId : projectId })">Learn &amp; Test</a>
                 page for some tips on what to do next.
             </div>
         </div>
@@ -109,7 +112,14 @@
                 </div>
             </div>
             <div ng-if="scratchkey.model">
-                <a target="_blank" href="{{ scratchkey.url }}">{{ scratchkey.url }}</a>
+                <div style="padding-bottom: 4px">
+                    To launch a new copy of Scratch with your model loaded, click this link:<br/>
+                    <a target="_blank" href="{{ scratchkey.url }}">{{ scratchkey.url }}</a>
+                </div>
+                <div>
+                    Or, to add your model to a Scratch project that is already open, click on "Load Experimental Extension" and use the URL :<br/>
+                    <code>{{ scratchkey.extensionurl }}</code>
+                </div>
             </div>
         </div>
         <button ng-if="!scratchkey"
