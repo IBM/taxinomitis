@@ -8,14 +8,14 @@
         'authService',
         'projectsService', 'trainingService', 'quizService',
         '$stateParams',
-        '$scope',
-        '$timeout'
+        '$scope', '$interval', '$q'
     ];
 
-    function ModelsController(authService, projectsService, trainingService, quizService, $stateParams, $scope, $timeout) {
+    function ModelsController(authService, projectsService, trainingService, quizService, $stateParams, $scope, $interval, $q) {
 
         var vm = this;
         vm.authService = authService;
+
 
         var alertId = 1;
         vm.errors = [];
@@ -27,11 +27,89 @@
             vm[type].push({ alertid : alertId++, message : errObj.message || errObj.error || 'Unknown error' });
         }
 
+        $scope.loading = true;
+        $scope.status = 'unknown';
+        $scope.displayQuiz = false;
+        $scope.projectId = $stateParams.projectId;
+        $scope.testformData = {};
+
+        authService.getProfileDeferred()
+            .then(function (profile) {
+                vm.profile = profile;
+
+                return $q.all({
+                    project : projectsService.getProject($scope.projectId, vm.profile.user_id, vm.profile.tenant),
+                    labels : projectsService.getLabels($scope.projectId, vm.profile.user_id, vm.profile.tenant),
+                    models : trainingService.getModels($scope.projectId, vm.profile.user_id, vm.profile.tenant)
+                });
+            })
+            .then(function (values) {
+                $scope.project = values.project;
+                $scope.models = values.models;
+                $scope.projectSummary = generateProjectSummary();
+
+                reviewTrainingData(values.labels);
+                $scope.status = getStatus();
+                $scope.loading = false;
+            })
+            .catch(function (err) {
+                displayAlert('errors', err.data);
+            });
+
+
+
+        function reviewTrainingData (labels) {
+            var no_data = true;
+            var insufficient_data = false;
+            $scope.trainingcounts = Object.keys(labels).map(function (label) {
+                var count = labels[label];
+                if (count > 0) {
+                    no_data = false;
+                }
+                if (count < 5) {
+                    insufficient_data = true;
+                }
+                return { label : label, count : count };
+            });
+
+            if (no_data) {
+                $scope.trainingdatastatus = 'no_data';
+            }
+            else {
+                if (insufficient_data) {
+                    $scope.trainingdatastatus = 'insufficient_data';
+                }
+                else {
+                    $scope.trainingdatastatus = 'data';
+                }
+            }
+        }
+
+
+
+        function getStatus() {
+            if (allModelsAreTraining($scope.models)) {
+                return 'training';
+            }
+            if (allModelsAreGood($scope.models)) {
+                return 'ready';
+            }
+            if ($scope.models.length === 0) {
+                return 'idle';
+            }
+            return 'error';
+        }
+
 
         function allModelsAreTraining (models) {
             return models &&
                    models.length > 0 &&
                    !(models.some(function (model) { return model.status !== 'Training'; }));
+        }
+        function allModelsAreGood (models) {
+            return models &&
+                   models.length > 0 &&
+                   !(models.some(function (model) { return model.status !== 'Available'; }));
         }
 
 
@@ -39,75 +117,50 @@
 
         function refreshModels () {
             if (!timer) {
-                timer = $timeout(() => {
+                timer = $interval(() => {
                     fetchModels()
                         .then(() => {
-                            if ($scope.displayQuiz) {
-                                refreshModels();
+                            if ($scope.status !== 'training') {
+                                $interval.cancel(timer);
                             }
                         });
                 }, 60000);
             }
         }
 
-        function allAnswersAreCorrect (answers) {
-            return !(answers.some(function (answer) { return answer.selected !== answer.correct; }));
-        }
+        // function allAnswersAreCorrect (answers) {
+        //     return !(answers.some(function (answer) { return answer.selected !== answer.correct; }));
+        // }
 
-        vm.checkQuizAnswers = function (quizQuestion) {
-            $scope.answered = true;
-            $scope.answerCorrect = allAnswersAreCorrect(quizQuestion.answers);
+        // vm.checkQuizAnswers = function (quizQuestion) {
+        //     $scope.answered = true;
+        //     $scope.answerCorrect = allAnswersAreCorrect(quizQuestion.answers);
 
-            if ($scope.answerCorrect === false) {
-                quizQuestion.answers.forEach(function (answer) {
-                    answer.selected = answer.correct;
-                });
-            }
-        };
-        vm.nextQuizQuestion = function () {
-            $scope.answered = false;
-            var lastQuestion = $scope.quizQuestion;
-            $scope.quizQuestion = quizService.getQuestion();
+        //     if ($scope.answerCorrect === false) {
+        //         quizQuestion.answers.forEach(function (answer) {
+        //             answer.selected = answer.correct;
+        //         });
+        //     }
+        // };
+        // vm.nextQuizQuestion = function () {
+        //     $scope.answered = false;
+        //     var lastQuestion = $scope.quizQuestion;
+        //     $scope.quizQuestion = quizService.getQuestion();
 
-            if ($scope.answerCorrect === false) {
-                quizService.restoreQuestion(lastQuestion);
-            }
-        };
+        //     if ($scope.answerCorrect === false) {
+        //         quizService.restoreQuestion(lastQuestion);
+        //     }
+        // };
 
 
         function fetchModels() {
             return trainingService.getModels($scope.projectId, vm.profile.user_id, vm.profile.tenant)
                 .then(function (models) {
                     $scope.models = models;
-                    $scope.models.forEach((model) => { model.status = 'Training'; });
-                    $scope.displayQuiz = allModelsAreTraining(models);
+                    $scope.status = getStatus();
                 });
         }
 
-        $scope.projectId = $stateParams.projectId;
-
-        authService.getProfileDeferred()
-            .then(function (profile) {
-                vm.profile = profile;
-
-                return projectsService.getProject($scope.projectId, profile.user_id, profile.tenant);
-            })
-            .then(function (project) {
-                $scope.project = project;
-
-                return fetchModels();
-            })
-            .then(function () {
-                $scope.answered = false;
-                $scope.quizQuestion = quizService.getQuestion();
-
-                if ($scope.displayQuiz) {
-                    refreshModels();
-                }
-            })
-            .catch(function (err) {
-                displayAlert('errors', err.data);
-            });
 
 
         vm.createModel = function (ev, project) {
@@ -115,14 +168,11 @@
             trainingService.newModel(project.id, vm.profile.user_id, vm.profile.tenant)
                 .then(function (newmodel) {
                     $scope.models = [ newmodel ];
-                    return fetchModels();
-                })
-                .then(function () {
-                    if ($scope.displayQuiz) {
-                        refreshModels();
-                    }
+                    $scope.status = getStatus();
 
                     $scope.submittingTrainingRequest = false;
+
+                    refreshModels();
                 })
                 .catch(function (err) {
                     $scope.submittingTrainingRequest = false;
@@ -131,6 +181,24 @@
                 });
         };
 
+
+        vm.testModel = function (ev, form, project) {
+            var question = $scope.testformData.testquestion;
+
+            $scope.testoutput = "please wait...";
+            $scope.testoutput_explanation = "";
+
+            trainingService.testModel(project.id, project.type, vm.profile.user_id, vm.profile.tenant, $scope.models[0].classifierid, question)
+                .then(function (resp) {
+                    $scope.testoutput = resp[0].class_name;
+                    $scope.testoutput_explanation = "with " + resp[0].confidence + "% confidence";
+                })
+                .catch(function (err) {
+                    displayAlert('errors', err.data);
+                });
+        };
+
+
         vm.deleteModel = function (ev, project, model) {
             var classifierid = model.classifierid;
             trainingService.deleteModel(project.id, vm.profile.user_id, vm.profile.tenant, classifierid)
@@ -138,11 +206,14 @@
                     $scope.models = $scope.models.filter(function (md) {
                         return md.classifierid !== classifierid;
                     });
-                    $scope.displayQuiz = allModelsAreTraining($scope.models);
+                    $scope.status = getStatus();
 
-                    if (!scope.displayQuiz && timer) {
+                    if ($scope.status !== 'training' && timer) {
                         $timeout.cancel(timer);
                         timer = null;
+                    }
+                    else if ($scope.status === 'training' && !timer) {
+                        refreshModels();
                     }
                 })
                 .catch(function (err) {
@@ -154,10 +225,36 @@
 
         $scope.$on("$destroy", function(evt) {
             if (timer) {
-                $timeout.cancel( timer );
+                $interval.cancel( timer );
                 timer = null;
             }
         });
+
+
+        function generateProjectSummary() {
+            if ($scope.project.labels.length > 0) {
+                var summary = '';
+                switch ($scope.project.labels.length) {
+                    case 1:
+                        summary = $scope.project.labels[0];
+                        break;
+                    case 2:
+                        summary = $scope.project.labels[0] + ' or ' + $scope.project.labels[1];
+                        break;
+                    case 3:
+                        summary = $scope.project.labels[0] + ', ' +
+                                    $scope.project.labels[1] + ' or ' +
+                                    $scope.project.labels[2];
+                        break;
+                    default:
+                        summary = $scope.project.labels[0] + ', ' +
+                                    $scope.project.labels[1] + ' or ' +
+                                    ($scope.project.labels.length - 2) + ' other classes';
+                        break;
+                }
+                return summary;
+            }
+        }
 
     }
 

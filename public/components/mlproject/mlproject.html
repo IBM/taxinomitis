@@ -8,28 +8,36 @@
 </div>
 <div ng-if="isAuthenticated && projectId">
     <div class="jumbotron">
-        <h2 class="text-center">Your machine learning project</h2>
+        <h2 class="text-center">"{{ project.name }}"</h2>
     </div>
     <div class="menucontainer">
-        <div class="mlprojectmenu" ui-sref="mlproject_training({ projectId : projectId })">
-            <div class="stepnumber">1</div>
+        <div class="mlprojectmenu">
             <div class="mlprojectmenutitle">Train</div>
-            <div class="mlprojectmenudescription">Collect examples of what you want the computer to recognise</div>
+            <div class="mlprojectmenudescription">Collect examples of what you want the computer to recognise.</div>
+            <div class="mlprojectmenubutton">
+                <button type="button" class="btn btn-primary" ui-sref="mlproject_training({ projectId : projectId })">Train</button>
+            </div>
         </div>
-        <div class="mlprojectmenu" ui-sref="mlproject_models({ projectId : projectId })">
-            <div class="stepnumber">2</div>
-            <div class="mlprojectmenutitle">Models</div>
-            <div class="mlprojectmenudescription">Use the examples to teach the computer to recognise them</div>
+        <div class="mlprojectmenu">
+            <div class="mlprojectmenutitle">Learn &amp; Test</div>
+            <div class="mlprojectmenudescription">Use the examples to train the computer to recognise {{ project.type }}.</div>
+            <div class="mlprojectmenubutton">
+                <button type="button" class="btn btn-primary" ui-sref="mlproject_models({ projectId : projectId })">Learn &amp; Test</button>
+            </div>
         </div>
+        <!--
         <div class="mlprojectmenu" ui-sref="mlproject_test({ projectId : projectId })">
             <div class="stepnumber">3</div>
             <div class="mlprojectmenutitle">Test</div>
             <div class="mlprojectmenudescription">Try testing the computer to see how the training is going</div>
         </div>
-        <div class="mlprojectmenu" ui-sref="mlproject_scratch({ projectId : projectId })">
-            <div class="stepnumber">4</div>
+        -->
+        <div class="mlprojectmenuexpanded">
             <div class="mlprojectmenutitle">Scratch</div>
-            <div class="mlprojectmenudescription">Use your trained model in a Scratch project</div>
+            <div class="mlprojectmenudescription">Use the machine learning model you've trained to make a game in Scratch.</div>
+            <div class="mlprojectmenubutton">
+                <button type="button" class="btn btn-primary" ui-sref="mlproject_scratch({ projectId : projectId })">Scratch</button>
+            </div>
         </div>
     </div>
 </div>

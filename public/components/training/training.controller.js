@@ -17,10 +17,6 @@
         var vm = this;
         vm.authService = authService;
 
-        vm.showTips = false;
-
-        $scope.tips = [];
-
         var alertId = 1;
         vm.errors = [];
         vm.warnings = [];
@@ -71,8 +67,6 @@
 
                     $scope.training[label].push(trainingitem);
                 }
-
-                refreshTips();
             })
             .catch(function (err) {
                 displayAlert('errors', err.data);
@@ -104,47 +98,6 @@
             }
         }
 
-        function refreshTips () {
-            if ($scope.project.labels.length === 0) {
-                $scope.tips = HELP_TEXT_NOLABELS;
-
-                bootstro.start('.bootstro', {
-                    finishButtonText : 'Exit',
-                    onExit : function () {
-                        $scope.tourShown = true;
-                    }
-                });
-            }
-            else if ($scope.project.labels.length === 1) {
-                $scope.tips = HELP_TEXT_ONELABEL;
-
-                $scope.tourShown = true;
-            }
-            else {
-                var allEmpty = true;
-                var someTiny = false;
-                for (var labelIdx in $scope.project.labels) {
-                    var label = $scope.project.labels[labelIdx];
-                    if ($scope.training[label].length > 0) {
-                        allEmpty = false;
-                    }
-                    if ($scope.training[label].length < 5) {
-                        someTiny = true;
-                    }
-                }
-                if (allEmpty) {
-                    $scope.tips = HELP_TEXT_NOEXAMPLES;
-                }
-                else if (someTiny) {
-                    $scope.tips = HELP_TEXT_FEWEXAMPLES;
-                }
-                else {
-                    $scope.tips = [];
-                }
-
-                $scope.tourShown = true;
-            }
-        }
 
         function getValues(obj) {
             return Object.keys(obj).map(function (key) {
@@ -190,8 +143,6 @@
                     trainingService.newTrainingData($scope.projectId, vm.profile.user_id, vm.profile.tenant, data, label)
                         .then(function (newitem) {
                             $scope.training[label].push(newitem);
-
-                            refreshTips();
                         })
                         .catch(function (err) {
                             displayAlert('errors', err.data);
@@ -222,7 +173,6 @@
                             $scope.training[newlabel] = [];
 
                             refreshLabelsSummary();
-                            refreshTips();
                         })
                         .catch(function (err) {
                             displayAlert('errors', err.data);
@@ -239,32 +189,6 @@
             $scope.training[label].splice(idx, 1);
             trainingService.deleteTrainingData($scope.projectId, vm.profile.user_id, vm.profile.tenant, item.id);
         };
-
-
-
-
-
-
-        var HELP_TEXT_NOLABELS = [
-            'First - decide what you want to teach the computer to recognise.',
-            'Create a bucket for each of the things you want the computer to be able to recognise.',
-            'Create a new bucket with the "Add a new label" button in the top-right.'
-        ];
-        var HELP_TEXT_ONELABEL = [
-            'You need to train the computer with examples of more than one sort of thing. ',
-            'If you want to train it to recognise different things, then create more labels for the other types.',
-            'If you only want it to be able to recognise one thing, then you will need to create a bucket with examples of things that aren\'t.... oh god this is making no sense and needs writing by someone who speekee English'
-        ];
-        var HELP_TEXT_NOEXAMPLES = [
-            'All the buckets are empty.',
-            'For the computer to be able to recognise things, you need to give it some examples.',
-            'Click on the "Add example" button to get started.'
-        ];
-        var HELP_TEXT_FEWEXAMPLES = [
-            'Keep going!',
-            'You need at least five examples in each bucket to start training the computer.',
-            'Click on the "Add example" button to add another example'
-        ];
     }
 
 }());

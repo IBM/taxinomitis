@@ -106,7 +106,13 @@ async function getTraining(req: RequestWithProject, res: Express.Response) {
 
 async function getLabels(req: RequestWithProject, res: Express.Response) {
     try {
-        const counts = await store.countTextTrainingByLabel(req.project.id);
+        const project = await store.getProject(req.project.id);
+        let counts = {};
+        switch (project.type) {
+        case 'text':
+            counts = await store.countTextTrainingByLabel(req.project.id);
+            break;
+        }
         res.json(counts);
     }
     catch (err) {

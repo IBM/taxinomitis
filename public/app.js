@@ -63,12 +63,6 @@
                 templateUrl: 'components/models/models.html',
                 controllerAs: 'vm'
             })
-            .state('mlproject_test', {
-                url: '/mlproject/:projectId/test',
-                controller: 'TestController',
-                templateUrl: 'components/test/test.html',
-                controllerAs: 'vm'
-            })
             .state('mlproject_scratch', {
                 url: '/mlproject/:projectId/scratch',
                 controller: 'ScratchController',

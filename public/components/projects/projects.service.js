@@ -24,6 +24,13 @@
                 });
         }
 
+        function getLabels(projectid, userid, tenant) {
+            return $http.get('/api/classes/' + tenant + '/students/' + userid + '/projects/' + projectid + '/labels')
+                .then(function (resp) {
+                    return resp.data;
+                });
+        }
+
         function addLabelToProject(projectid, userid, tenant, newlabel) {
             return $http.patch('/api/classes/' + tenant + '/students/' + userid + '/projects/' + projectid, [
                     {
@@ -54,6 +61,8 @@
             getProjects : getProjects,
             deleteProject : deleteProject,
             createProject : createProject,
+
+            getLabels : getLabels,
 
             addLabelToProject : addLabelToProject
         };

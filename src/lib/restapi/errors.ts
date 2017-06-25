@@ -10,25 +10,25 @@ export function missingData(res: Express.Response) {
     return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing data' });
 }
 export function notFound(res: Express.Response) {
-    return res.status(httpstatus.NOT_FOUND).send({ error : 'Not found' });
+    return res.status(httpstatus.NOT_FOUND).json({ error : 'Not found' });
 }
 export function notAuthorised(res: Express.Response) {
-    return res.status(httpstatus.UNAUTHORIZED).send({ error : 'Not authorised' });
+    return res.status(httpstatus.UNAUTHORIZED).json({ error : 'Not authorised' });
 }
 export function forbidden(res: Express.Response) {
-    return res.status(httpstatus.FORBIDDEN).send({ error : 'Invalid access' });
+    return res.status(httpstatus.FORBIDDEN).json({ error : 'Invalid access' });
 }
 export function supervisorOnly(res: Express.Response) {
-    return res.status(httpstatus.FORBIDDEN).send({ error : 'Only supervisors are allowed to invoke this'});
+    return res.status(httpstatus.FORBIDDEN).json({ error : 'Only supervisors are allowed to invoke this'});
 }
 export function notImplementedYet(res: Express.Response) {
-    return res.status(httpstatus.NOT_IMPLEMENTED).send({ error : 'Not implemented yet' });
+    return res.status(httpstatus.NOT_IMPLEMENTED).json({ error : 'Not implemented yet' });
 }
 export function unknownError(res: Express.Response, err) {
     if (!err || Object.keys(err).length === 0) {
         err = { error : 'Unknown error' };
     }
-    return res.status(httpstatus.INTERNAL_SERVER_ERROR).send(err);
+    return res.status(httpstatus.INTERNAL_SERVER_ERROR).json(err);
 }
 
 

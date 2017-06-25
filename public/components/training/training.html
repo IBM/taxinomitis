@@ -84,15 +84,6 @@
             </div>
         </div>
 
-        <div
-            class="helppanel"
-            ng-if="vm.showTips && tips.length > 0"
-            >
-            <div ng-repeat="tip in tips">
-                {{ tip }}
-            </div>
-        </div>
-
         <div class="helpicon bootstro" ng-if="!tourShown || tips.length > 0" ng-click="vm.showTips = !vm.showTips"
             data-bootstro-content="Click on the Help button any time you want a tip on what to do next"
             data-bootstro-placement="left"

@@ -18,8 +18,7 @@
     "angular-ui-router": "~0.3.1",
     "bootstrap": "~3.3.7",
     "angular-material": "^1.1.4",
-    "jquery": "^3.2.1",
-    "bootstro": "*"
+    "jquery": "^3.2.1"
   },
   "resolutions": {
     "angular": "1.5.8"

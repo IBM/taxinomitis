@@ -17,8 +17,6 @@
         <a ui-sref="mlproject({ projectId : projectId })">&lt; Back to project</a>
     </div>
 
-    <div ng-if="projectId && !models" class="loading"> </div>
-
     <div ng-repeat="error in vm.errors" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <strong>Error:</strong> {{ error.message }}
@@ -28,7 +26,278 @@
         <strong>Warning:</strong> {{ warning.message }}
     </div>
 
-    <div ng-if="models">
+
+    <div ng-if="loading" class="loading"> </div>
+
+
+    <div ng-if="!loading" class="modelguidancecontainer">
+
+        <!-- ======= -->
+        <!--   NOW   -->
+        <!-- ======= -->
+        <div class="modelguidance">
+            <div class="modelstatusheading">What have you done?</div>
+
+            <div ng-switch on="status">
+
+                <!-- ******** -->
+                <!-- TRAINING -->
+                <!-- ******** -->
+                <div ng-switch-when="training">
+                    <div class="modelstatusdetail">
+                        You've started training a machine learning model using the
+                        examples of {{ project.type }} that you collected.
+                    </div>
+                    <div class="modelstatusdetail">
+                        It's been training since
+                        {{ models[0].created | date : 'fullDate' }}
+                        {{ models[0].created | date : 'shortTime' }}.
+                    </div>
+                    <div class="modelstatusdetail">
+                        This normally takes a few minutes, but can take a little
+                        longer if the training server is very busy.
+                    </div>
+                </div>
+
+
+                <!-- ***** -->
+                <!-- READY -->
+                <!-- ***** -->
+                <div ng-switch-when="ready">
+                    <div class="modelstatusdetail">
+                        You've trained a machine learning model to recognise
+                        when {{ project.type }} is {{ projectSummary }}.
+                    </div>
+                    <div class="modelstatusdetail">
+                        You created the model on
+                        {{ models[0].created | date : 'fullDate' }}
+                        {{ models[0].created | date : 'shortTime' }}.
+                    </div>
+                    <div class="modelstatusdetail">
+                        You've collected:
+                        <ul>
+                            <li ng-repeat="training in trainingcounts">
+                                {{ training.count }}
+                                examples of
+                                {{ training.label }}<span ng-if="!$last">, </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <!-- ***** -->
+                <!-- ERROR -->
+                <!-- ***** -->
+                <div ng-switch-when="error">
+                    <div class="modelstatusdetail">
+                        You tried training a machine learning model using the
+                        examples of {{ project.type }} that you collected.
+                    </div>
+                    <div class="modelstatusdetail">
+                        Unfortunately, something went wrong.
+                    </div>
+                </div>
+
+
+                <!-- **** -->
+                <!-- IDLE -->
+                <!-- **** -->
+                <div ng-switch-default>
+                    <div ng-if="project.labels.length === 0">
+                        <div class="modelstatusdetail">
+                            You've said you want to collect examples of {{ project.type }}.
+                        </div>
+                    </div>
+                    <div ng-if="project.labels.length > 0 && trainingdatastatus === 'no_data'">
+                        <div class="modelstatusdetail" >
+                            You've said that you want to collect examples of {{ project.type }}
+                            for a computer to use to recognise
+                            when {{ project.type }} is {{ projectSummary }}.
+                        </div>
+                        <div class="modelstatusdetail" >
+                            So far, you haven't collected any examples yet.
+                        </div>
+                    </div>
+                    <div ng-if="project.labels.length > 0 && trainingdatastatus !== 'no_data'">
+                        <div class="modelstatusdetail" >
+                            You've collected examples of {{ project.type }}
+                            for a computer to use to recognise
+                            when {{ project.type }} is {{ projectSummary }}.
+                        </div>
+                        <div class="modelstatusdetail">
+                            You've collected:
+                            <ul>
+                                <li ng-repeat="training in trainingcounts">
+                                    {{ training.count }}
+                                    example<span ng-if="training.count !== 1">s</span> of
+                                    {{ training.label }}<span ng-if="!$last">, </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- ======== -->
+        <!--   NEXT   -->
+        <!-- ======== -->
+        <div class="modelguidance">
+            <div class="modelstatusheading">What's next?</div>
+
+            <div ng-switch on="status">
+
+                <!-- ******** -->
+                <!-- TRAINING -->
+                <!-- ******** -->
+                <div ng-switch-when="training">
+                    <div class="modelstatusdetail">
+                        You could wait for the machine learning model to finish being trained.
+                    </div>
+                    <div class="modelstatusdetail" ng-if="displayQuiz && quizQuestion">
+                        Or, you could try the machine learning quiz below, to check what you've learned.
+                    </div>
+                    <div class="modelstatusdetail">
+                        Or you could go to <a ui-sref="mlproject_scratch({ projectId : projectId })">Scratch</a>
+                        and work on your project. You don't need to wait for the model to be trained before
+                        you get the rest of your project ready.
+                    </div>
+                </div>
+
+
+                <!-- ***** -->
+                <!-- READY -->
+                <!-- ***** -->
+                <div ng-switch-when="ready">
+                    <div class="modelstatusdetail">
+                        Try testing the machine learning model below. Enter an example of {{ project.type }}
+                        below, that you didn't include in the examples you used to train it. It will tell
+                        you what it recognises it as, and how confident it is in that.
+                    </div>
+                    <div class="modelstatusdetail">
+                        If the computer seems to have learned to recognise things correctly, then you
+                        can go to <a ui-sref="mlproject_scratch({ projectId : projectId })">Scratch</a>
+                        and use what the computer has learned to make a game!
+                    </div>
+                    <div class="modelstatusdetail">
+                        If the computer is getting too many things wrong, you might want to go
+                        back to the <a ui-sref="mlproject_training({ projectId : projectId })">Train</a>
+                        page and collect some more examples. Once you've done that, click on the button
+                        below to train a new machine learning model and see what different the extra examples
+                        will make!
+                    </div>
+                </div>
+
+
+                <!-- ***** -->
+                <!-- ERROR -->
+                <!-- ***** -->
+                <div ng-switch-when="error">
+                    <div class="modelstatusdetail">
+                        The error message from the training server is shown below.
+                        If that makes sense to you, try and fix the problem. Otherwise,
+                        it might be worth trying again in case it was just a random error.
+                    </div>
+                </div>
+
+
+                <!-- **** -->
+                <!-- IDLE -->
+                <!-- **** -->
+                <div ng-switch-default>
+                    <div ng-if="project.labels.length === 0">
+                        <div class="modelstatusdetail">
+                            The next step is to go to the <a ui-sref="mlproject_training({ projectId : projectId })">Train</a>
+                            page. Add some labels for each of the things that you want to teach the computer to
+                            be able to recognise.
+                        </div>
+                    </div>
+                    <div ng-if="project.labels.length === 1">
+                        <div class="modelstatusdetail">
+                            You've only said one thing that you want the computer to be able to recognise:
+                            {{ project.labels[0] }}.
+                        </div>
+                        <div class="modelstatusdetail">
+                            <strong>Is that the only thing you want the computer to be able to recognise?</strong>
+                        </div>
+                        <div class="modelstatusdetail">
+                            <ul>
+                                <li><strong>No?</strong>
+                                    <br/>
+                                    Go back to the <a ui-sref="mlproject_training({ projectId : projectId })">Train</a> page.
+                                    <br/>
+                                    Add more labels for each of the things that you want to teach the computer to be able to recognise.
+                                    <br/><br/>
+                                    </li>
+                                <li><strong>Yes?</strong>
+                                    <br/>
+                                    You need to do a little more work first.
+                                    <br/>
+                                    For the computer to be able to learn how to recognise {{ project.labels[0] }}, you need to give it some examples of things that aren't {{ project.labels[0] }}.
+                                    <br/>
+                                    Go back to the <a ui-sref="mlproject_training({ projectId : projectId })">Train</a> page and create a new label for examples of things that aren't {{ project.labels[0] }}. You could call it "not-{{ project.labels[0] }}".
+                                    </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div ng-if="project.labels.length > 1">
+                        <div ng-if="trainingdatastatus === 'no_data'" class="modelstatusdetail">
+                            The next step is to go to the
+                            <a ui-sref="mlproject_training({ projectId : projectId })">Train</a>
+                            page. Add examples for each of the labels.
+                        </div>
+                        <div ng-if="trainingdatastatus === 'insufficient_data'">
+                            <div class="modelstatusdetail">
+                                Keep going!
+                            </div>
+                            <div class="modelstatusdetail">
+                                Go back to the <a ui-sref="mlproject_training({ projectId : projectId })">Train</a>
+                                page and collect more examples for each of the labels.
+                            </div>
+                            <div class="modelstatusdetail">
+                                The more you can get, the better
+                                it should learn, but you need at least five examples of each as an absolute minimum.
+                            </div>
+                        </div>
+                        <div ng-if="trainingdatastatus === 'data'">
+                            <div class="modelstatusdetail">
+                                Ready to start the computer's training?
+                            </div>
+                            <div class="modelstatusdetail">
+                                Click the button below to start training a machine learning model using the examples you've collected so far.
+                            </div>
+                            <div class="modelstatusdetail">
+                                (Or go back to the Train page if you want to collect some more examples first.)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div ng-if="status === 'ready'" class="trainingserversection">
+        <div style="margin: 1em;">Try putting in some text to see how it is recognised based on your training.</div>
+        <form name="testform" ng-submit="vm.testModel($event, testform, project)">
+            <input style="margin-left: 2em; width: 70%" type="text" ng-model="testformData.testquestion" ng-required="true" placeholder="enter a test text here">
+            <input type="submit" class="btn" value="Test" ng-disabled="testform.$invalid" >
+        </form>
+        <div style="margin: 2em;" ng-if="testoutput">
+            <div>Recognised as <strong>{{ testoutput }}</strong> </div>
+            <div> {{ testoutput_explanation }} </div>
+        </div>
+    </div>
+
+
+
+    <div ng-if="(models && models.length > 0) || trainingdatastatus === 'data'" class="trainingserversection">
+        <div>
+            <strong>Info from training server:</strong>
+        </div>
         <div ng-repeat="model in models">
             <table class="modelinfo">
                 <tr>
@@ -51,13 +320,14 @@
                     <td colspan=2>
                         <button class="btn"
                                 ng-click="vm.deleteModel($event, project, model)">
-                            {{ model.status === 'Training' ? 'Cancel training' : 'Delete model' }}
+                            {{ model.status === 'Training' ? 'Cancel training' : 'Delete this model' }}
                         </button>
                     </td>
                 </tr>
             </table>
         </div>
-        <button ng-if="!displayQuiz"
+
+        <button ng-if="!loading && status !== 'training' && trainingdatastatus === 'data'"
                 style="margin: 4em;"
                 class="btn"
                 ng-click="vm.createModel($event, project)"
@@ -65,7 +335,10 @@
                 Train new machine learning model
         </button>
 
+    </div>
 
+
+    <!--
         <div ng-if="displayQuiz" class="quizSection">
             <div ng-if="quizQuestion">
                 <div class="quizintro">While you are waiting for the model to finish training, try answering this question. </div>
@@ -92,4 +365,5 @@
             </div>
         </div>
     </div>
+-->
 </div>
