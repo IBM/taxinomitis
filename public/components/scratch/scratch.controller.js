@@ -8,10 +8,10 @@
         'authService',
         'projectsService', 'scratchkeysService',
         '$stateParams',
-        '$scope', '$window'
+        '$scope', '$window', '$timeout'
     ];
 
-    function ScratchController(authService, projectsService, scratchkeysService, $stateParams, $scope, $window) {
+    function ScratchController(authService, projectsService, scratchkeysService, $stateParams, $scope, $window, $timeout) {
 
         var vm = this;
         vm.authService = authService;
@@ -37,6 +37,10 @@
             })
             .then(function (project) {
                 $scope.project = project;
+
+                $timeout(function () {
+                    scratchblocks.renderMatching('.scratchblocks');
+                }, 50);
             })
             .catch(function (err) {
                 displayAlert('errors', err.data);

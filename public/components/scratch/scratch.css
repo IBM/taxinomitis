@@ -1,0 +1,18 @@
+.statusicon {
+    height: 14px;
+    width: 14px;
+    margin-right: 10px;
+    border: thin black solid;
+    border-radius: 50%;
+    float: left;
+}
+
+.statusicon.ok {
+    background-color: limegreen;
+}
+.statusicon.notready {
+    background-color: yellow;
+}
+.statusicon.error {
+    background-color: red;
+}
