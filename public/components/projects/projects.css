@@ -51,6 +51,11 @@
     clear: both;
     margin-right: 5em;
     margin-bottom: 2em;
+    border: 1px solid #ddd;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-radius: 5px;
+    padding: 3px;
 }
 .newprojecticon {
     font-size: 3em;

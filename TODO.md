@@ -2,12 +2,10 @@ UI clean-up needed
 * More explanations and guidance
 * Validation for usernames in create-user dialog
 * Create/Cancel buttons shouldn't be equal prominence - flip left/right and make cancel buttons into a link
-* Make all the ADD buttons consistent - labels, projects, examples
 * sub-nav-bar for Train/Models/Test/Scratch to avoid need to go back to project page
 * Restore the Quiz
 
 New features
-* Scratch launch page redesign
 * Support for deleting labels in training
 * Editing examples
 * Expiry for models

@@ -77,11 +77,27 @@
 
 
 
+
+.newexamplebutton {
+    clear: both;
+    border: 1px solid #ddd;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-radius: 5px;
+    padding: 3px;
+}
+
 .newlabelbutton {
     float: right;
     clear: both;
     margin-right: 5em;
+    border: 1px solid #ddd;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-radius: 5px;
+    padding: 3px;
 }
+
 .newlabelicon {
     font-size: 3em;
     font-weight: bold;
@@ -93,7 +109,21 @@
 }
 .newlabellabel {
     float: right;
-    width: 80px;
+    width: 70px;
+}
+.newexampleicon {
+    font-size: 2.6em;
+    font-weight: bold;
+    float: left;
+    margin-top: -5px;
+    padding-top: 0;
+    line-height: 30px;
+    margin-right: 10px;
+}
+.newexamplelabel {
+    float: right;
+    padding-right: 5px;
+    padding-top: 4px;
 }
 
 

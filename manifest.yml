@@ -14,5 +14,3 @@ applications:
     AUTH0_CALLBACK_URL: https://ml-for-kids-website.mybluemix.net
     AUTH0_API_CLIENTID: zngWYbVvsFme0BawjcrUyx2ae6lgxxyV
     AUTH0_API_CLIENTSECRET: xVPKLHrtxIdy_CHgIjNYSjv-x6htF-OM2Y2YUEjO5orr2TZNCReJKtNKmo7H9g8g
-    CLOUDANTURL: https://afc7d8f8-cdbf-49bb-b41b-f20defe5c9dc-bluemix:0f7191eda4a1aba3d9e18c84c1c40255a4ae2afda2d327452914a0381852302e@afc7d8f8-cdbf-49bb-b41b-f20defe5c9dc-bluemix.cloudant.com
-    CLOUDANTDBNAME: mlprojects

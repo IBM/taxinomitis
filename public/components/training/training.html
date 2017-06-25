@@ -68,8 +68,11 @@
                         </table>
                     </div>
                 </div>
-                <div style="text-align: center;">
-                    <button class="btn" ng-click="vm.addTrainingData($event, label)"> Add example </button>
+                <div style="text-align: center; height: 60px;">
+                    <div class="btn newexamplebutton" ng-click="vm.addTrainingData($event, label)">
+                        <div class="newexampleicon">+</div>
+                        <div class="newexamplelabel">Add example</div>
+                    </div>
                 </div>
             </div>
         </div>
