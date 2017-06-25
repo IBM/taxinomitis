@@ -157,7 +157,7 @@
                     <div class="modelstatusdetail">
                         You could wait for the machine learning model to finish being trained.
                     </div>
-                    <div class="modelstatusdetail" ng-if="displayQuiz && quizQuestion">
+                    <div class="modelstatusdetail" ng-if="quizQuestion">
                         Or, you could try the machine learning quiz below, to check what you've learned.
                     </div>
                     <div class="modelstatusdetail">
@@ -334,36 +334,31 @@
                 ng-disabled="submittingTrainingRequest">
                 Train new machine learning model
         </button>
-
     </div>
 
 
-    <!--
-        <div ng-if="displayQuiz" class="quizSection">
-            <div ng-if="quizQuestion">
-                <div class="quizintro">While you are waiting for the model to finish training, try answering this question. </div>
-                <div class="quizintro" ng-if="quizQuestion.attempted">You've seen this one before - let's see if you remember what the right answer is this time! </div>
 
-                <div class="quiz">
-                    <div class="quizquestion">
-                        {{ quizQuestion.question }}
-                    </div>
-                    <div class="quizanswer" ng-repeat="answer in quizQuestion.answers" ng-class="{ 'answered' : answered }" >
-                        <input type="checkbox" ng-model="answer.selected" ng-disabled="answered" ng-click="vm.checkQuizAnswers(quizQuestion)">
-                        <div>{{ answer.text }}</div>
-                    </div>
-                    <div ng-if="answered">
-                        <div class="answerconfirm" ng-if="answerCorrect">That's right!</div>
-                        <div class="answerconfirm" ng-if="!answerCorrect">No, sorry. The correct answer is shown above.</div>
-                        <div class="answernotes" ng-repeat="note in quizQuestion.notes"> {{ note }} </div>
-                        <button class="btn" ng-click="vm.nextQuizQuestion()">Next question</button>
-                    </div>
-                </div>
+    <div class="quizSection" ng-if="(status === 'training') && quizQuestion">
+        <hr>
+        <h3>Quiz time!</h3>
+        <div class="quizintro">While you are waiting for the model to finish training, try answering this question. </div>
+        <div class="quizintro" ng-if="quizQuestion.attempted">You've seen this one before - let's see if you remember what the right answer is this time! </div>
+
+        <div class="quiz">
+            <div class="quizquestion">
+                {{ quizQuestion.question }}
             </div>
-            <div ng-if="!quizQuestion">
-                You've answered all the quiz questions already - hopefully the training will be finished soon!</div>
+            <div class="quizanswer" ng-repeat="answer in quizQuestion.answers" ng-class="{ 'answered' : answered }" >
+                <input type="checkbox" ng-model="answer.selected" ng-disabled="answered" ng-click="vm.checkQuizAnswers(quizQuestion)">
+                <div>{{ answer.text }}</div>
+            </div>
+            <div ng-if="answered">
+                <div class="answerconfirm" ng-if="answerCorrect">That's right!</div>
+                <div class="answerconfirm" ng-if="!answerCorrect">No, sorry. The correct answer is shown above.</div>
+                <div class="answernotes" ng-repeat="note in quizQuestion.notes"> {{ note }} </div>
+                <button class="btn" ng-click="vm.nextQuizQuestion()">Next question</button>
             </div>
         </div>
     </div>
--->
+
 </div>

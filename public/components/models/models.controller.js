@@ -29,9 +29,11 @@
 
         $scope.loading = true;
         $scope.status = 'unknown';
-        $scope.displayQuiz = false;
         $scope.projectId = $stateParams.projectId;
         $scope.testformData = {};
+
+        $scope.quizQuestion = quizService.getQuestion();
+
 
         authService.getProfileDeferred()
             .then(function (profile) {
@@ -128,29 +130,29 @@
             }
         }
 
-        // function allAnswersAreCorrect (answers) {
-        //     return !(answers.some(function (answer) { return answer.selected !== answer.correct; }));
-        // }
+        function allAnswersAreCorrect (answers) {
+            return !(answers.some(function (answer) { return answer.selected !== answer.correct; }));
+        }
 
-        // vm.checkQuizAnswers = function (quizQuestion) {
-        //     $scope.answered = true;
-        //     $scope.answerCorrect = allAnswersAreCorrect(quizQuestion.answers);
+        vm.checkQuizAnswers = function (quizQuestion) {
+            $scope.answered = true;
+            $scope.answerCorrect = allAnswersAreCorrect(quizQuestion.answers);
 
-        //     if ($scope.answerCorrect === false) {
-        //         quizQuestion.answers.forEach(function (answer) {
-        //             answer.selected = answer.correct;
-        //         });
-        //     }
-        // };
-        // vm.nextQuizQuestion = function () {
-        //     $scope.answered = false;
-        //     var lastQuestion = $scope.quizQuestion;
-        //     $scope.quizQuestion = quizService.getQuestion();
+            if ($scope.answerCorrect === false) {
+                quizQuestion.answers.forEach(function (answer) {
+                    answer.selected = answer.correct;
+                });
+            }
+        };
+        vm.nextQuizQuestion = function () {
+            $scope.answered = false;
+            var lastQuestion = $scope.quizQuestion;
+            $scope.quizQuestion = quizService.getQuestion();
 
-        //     if ($scope.answerCorrect === false) {
-        //         quizService.restoreQuestion(lastQuestion);
-        //     }
-        // };
+            if ($scope.answerCorrect === false) {
+                quizService.restoreQuestion(lastQuestion);
+            }
+        };
 
 
         function fetchModels() {
