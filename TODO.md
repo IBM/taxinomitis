@@ -1,15 +1,10 @@
 UI clean-up needed
 * More explanations and guidance
 * Validation for usernames in create-user dialog
-* landing after logging in isn't clear - add a Go To Projects Page button?
 * Create/Cancel buttons shouldn't be equal prominence - flip left/right and make cancel buttons into a link
-* Project stages aren't obviously buttons/clickable
-* Get rid of tutorial and help - they're not helping
 * Make all the ADD buttons consistent - labels, projects, examples
-* Empty state isn't clear.... replace it with a call to press the Add Label button
-* put a count of examples somewhere
 * sub-tabs for Train/Models/Test/Scratch to avoid need to go back to project page
-* Merge/combine Models & Test pages
+* Restore the Quiz
 
 New features
 * Support for deleting labels in training
@@ -20,6 +15,7 @@ New features
 * Images training
 * Scratch blocks for collecting training data
 * Allow longer field names
+* Add Worksheet downloads
 
 Code / engineering work
 * Test coverage for DB errors
@@ -29,7 +25,6 @@ Longer term goals
 * Restore sprites library
 
 Worksheets
-* Add download to UI
 * Refer to "Back to projects" as a link, not a button
 * Journey to School project
 * Make me happy - make the scratch project first, rules-based, to demonstrate the need for ML. Call out to explain the motivation. THEN start training.

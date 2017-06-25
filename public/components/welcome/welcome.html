@@ -8,6 +8,15 @@
                     ng-if="!isAuthenticated"
                     ui-sref="login"
                     class="btn btn-primary">Get started</button>
+                <button
+                    ng-if="isAuthenticated && isTeacher"
+                    ui-sref="projects"
+                    class="btn btn-primary">Go to your <strong>Students</strong></button>
+                <button
+                    ng-if="isAuthenticated"
+                    ui-sref="projects"
+                    class="btn btn-primary">Go to your <strong>Projects</strong></button>
+
             </div>
         </div>
         <div class="col-md-6">
