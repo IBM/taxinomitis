@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "start": "node dist/lib/app.js",
+    "postinstall": "gulp build",
     "test": "gulp"
   },
   "engines": {

@@ -3,14 +3,19 @@ applications:
   memory: 256M
   instances: 1
   domain: mybluemix.net
-  name: ml-for-kids-website
-  host: ml-for-kids-website
+  name: taxinomitis
+  host: taxinomitis
   disk_quota: 512M
   env:
     AUTH0_DOMAIN: dalelane.eu.auth0.com
     AUTH0_CONNECTION: ml-for-kids-users
     AUTH0_CLIENT_ID: yTfclbGyetW57Gm0Mt2FmdhvjEF7i7Tr
     AUTH0_CLIENT_SECRET: YhVJTGKyD4EBtg5WC0FaVEjLLJdeP4x9XMbRL-5m0siX20i7jYkjnw90AnzTkoIL
-    AUTH0_CALLBACK_URL: https://ml-for-kids-website.mybluemix.net
+    AUTH0_CALLBACK_URL: https://taxinomitis.mybluemix.net
     AUTH0_API_CLIENTID: zngWYbVvsFme0BawjcrUyx2ae6lgxxyV
     AUTH0_API_CLIENTSECRET: xVPKLHrtxIdy_CHgIjNYSjv-x6htF-OM2Y2YUEjO5orr2TZNCReJKtNKmo7H9g8g
+    MYSQLHOST: bluemix-sandbox-dal-9-portal.8.dblayer.com
+    MYSQLPORT: 25521
+    MYSQLUSER: admin
+    MYSQLPASSWORD: FEIOHLDSRJHYDHEF
+    MYSQLDATABASE: mlforkidsdb

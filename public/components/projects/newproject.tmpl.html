@@ -71,7 +71,7 @@
         </md-dialog-content>
         <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button ng-disabled="newProject.$invalid" ng-click="confirm({ name : projectName, type : projectType, fields : fields.slice(0, fieldscount) })">Create</md-button>
+            <md-button class="md-raised md-primary" ng-disabled="newProject.$invalid" ng-click="confirm({ name : projectName, type : projectType, fields : fields.slice(0, fieldscount) })">Create</md-button>
             <md-button ng-click="cancel()">Cancel</md-button>
         </md-dialog-actions>
     </form>
