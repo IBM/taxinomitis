@@ -33,6 +33,12 @@
                 templateUrl: 'components/help/help.html',
                 controllerAs: 'vm'
             })
+            .state('worksheets', {
+                url: '/worksheets',
+                controller: 'WorksheetsController',
+                templateUrl: 'components/worksheets/worksheets.html',
+                controllerAs: 'vm'
+            })
             .state('students', {
                 url: '/students',
                 controller: 'StudentsController',

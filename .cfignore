@@ -2,7 +2,5 @@ node_modules
 coverage
 trash
 sql
-dist
 test
-public/bower_components
 logs/ml*

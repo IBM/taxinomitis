@@ -17,11 +17,30 @@ import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
 
+
+function forceHttpsOnBluemix(app: Express.Application): void {
+    if (process.env.BLUEMIX_REGION) {
+        app.enable('trust proxy');
+
+        app.use((req, res, next) => {
+            if (req.secure) {
+                next();
+            }
+            else {
+                res.redirect('https://' + req.headers.host + req.url);
+            }
+        });
+    }
+}
+
+
 /**
  * Sets up all of the REST API endpoints.
  */
 export default function setup(app: Express.Application): void {
     log.info('Setting up REST API');
+
+    forceHttpsOnBluemix(app);
 
     app.use(query());
     app.use(helmet());

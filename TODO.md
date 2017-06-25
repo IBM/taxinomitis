@@ -14,7 +14,6 @@ New features
 * Images training
 * Scratch blocks for collecting training data
 * Allow longer field names
-* Add Worksheet downloads
 
 Code / engineering work
 * Test coverage for DB errors
