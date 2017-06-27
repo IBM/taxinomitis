@@ -46,7 +46,7 @@ export function createProject(
         for (const field of fields) {
             if (!field ||
                 field.trim().length === 0 ||
-                field.trim().length > 10 ||
+                field.trim().length > 11 ||
                 field.indexOf(',') !== -1)
             {
                 throw new Error('Invalid field value');

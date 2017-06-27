@@ -38,7 +38,7 @@
                         <md-input-container style="min-width: 250px; padding-right: 15px; margin-top: 12px; margin-bottom: 12px;"
                                             ng-repeat="i in range(fieldscount) track by $index">
                             <label>Field {{$index + 1}} name</label>
-                            <input ng-required="projectType === 'numbers'" ng-model="fields[$index]" ng-minlength="1" ng-maxlength="10" ng-focus="focused = 'fields'"/>
+                            <input ng-required="projectType === 'numbers'" ng-model="fields[$index]" ng-minlength="1" ng-maxlength="11" ng-focus="focused = 'fields'"/>
                         </md-input-container>
                     </div>
                     <div class="well" ng-if="focused === 'name'">
