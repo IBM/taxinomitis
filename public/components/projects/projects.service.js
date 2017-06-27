@@ -44,6 +44,19 @@
                 });
         }
 
+        function removeLabelFromProject(projectid, userid, tenant, label) {
+            return $http.patch('/api/classes/' + tenant + '/students/' + userid + '/projects/' + projectid, [
+                    {
+                        op : 'remove',
+                        path : '/labels',
+                        value : label
+                    }
+                ])
+                .then(function (resp) {
+                    return resp.data;
+                });
+        }
+
         function deleteProject(project, userid, tenant) {
             return $http.delete('/api/classes/' + tenant + '/students/' + userid + '/projects/' + project.id);
         }
@@ -64,7 +77,8 @@
 
             getLabels : getLabels,
 
-            addLabelToProject : addLabelToProject
+            addLabelToProject : addLabelToProject,
+            removeLabelFromProject : removeLabelFromProject
         };
     }
 })();

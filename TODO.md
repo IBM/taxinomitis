@@ -4,14 +4,12 @@ UI clean-up needed
 * sub-nav-bar for Train/Models/Test/Scratch to avoid need to go back to project page
 
 New features
-* Support for deleting labels in training
 * Editing examples
 * Expiry for models
 * Multiple credentials pool per class
 * Numbers training
 * Images training
 * Scratch blocks for collecting training data
-* Allow longer field names
 
 Code / engineering work
 * Test coverage for DB errors

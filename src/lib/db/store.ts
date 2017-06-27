@@ -128,7 +128,8 @@ export async function removeLabelFromProject(
     labelToRemove: string,
 ): Promise<string[]>
 {
-    const labels: string[] = await getCurrentLabels(userid, classid, projectid);
+    const project = await getProject(projectid);
+    const labels = project.labels;
 
     const index = labels.indexOf(labelToRemove);
     if (index !== -1) {
@@ -136,6 +137,12 @@ export async function removeLabelFromProject(
     }
 
     await updateLabels(userid, classid, projectid, labels);
+    if (project.type === 'text') {
+        await deleteTextTrainingLabel(projectid, labelToRemove);
+    }
+    else if (project.type === 'numbers') {
+        await deleteNumberTrainingLabel(projectid, labelToRemove);
+    }
 
     return labels;
 }
@@ -287,6 +294,7 @@ export async function renameTextTrainingLabel(
 }
 
 
+
 export async function getTextTraining(
     projectid: string, options: Objects.PagingOptions,
 ): Promise<Objects.TextTraining[]>
@@ -348,6 +356,15 @@ export async function deleteTextTraining(projectid: string, trainingid: string):
     const response = await dbExecute(queryString, [ trainingid, projectid ]);
     if (response.warningStatus !== 0) {
         throw new Error('Failed to delete training');
+    }
+}
+
+export async function deleteTextTrainingLabel(projectid: string, label: string): Promise<void>
+{
+    const queryString = 'DELETE FROM `texttraining` WHERE `projectid` = ? AND `label` = ?';
+    const response = await dbExecute(queryString, [ projectid, label ]);
+    if (response.warningStatus !== 0) {
+        throw new Error('Failed to delete label');
     }
 }
 
@@ -436,6 +453,16 @@ export async function deleteNumberTraining(projectid: string, trainingid: string
     const response = await dbExecute(queryString, [ trainingid, projectid ]);
     if (response.warningStatus !== 0) {
         throw new Error('Failed to delete training');
+    }
+}
+
+
+export async function deleteNumberTrainingLabel(projectid: string, label: string): Promise<void>
+{
+    const queryString = 'DELETE FROM `numbertraining` WHERE `projectid` = ? AND `label` = ?';
+    const response = await dbExecute(queryString, [ projectid, label ]);
+    if (response.warningStatus !== 0) {
+        throw new Error('Failed to delete label');
     }
 }
 

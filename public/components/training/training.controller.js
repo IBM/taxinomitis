@@ -189,6 +189,31 @@
             $scope.training[label].splice(idx, 1);
             trainingService.deleteTrainingData($scope.projectId, vm.profile.user_id, vm.profile.tenant, item.id);
         };
+
+        vm.deleteLabel = function (ev, label, idx) {
+            var confirm = $mdDialog.confirm()
+                .title('Are you sure?')
+                .textContent('Do you want to delete "' + label + '"? (This cannot be undone)')
+                .ariaLabel('Confirm')
+                .targetEvent(ev)
+                .ok('Yes')
+                .cancel('No');
+
+            $mdDialog.show(confirm).then(
+                function() {
+                    delete $scope.training[label];
+                    $scope.project.labels.splice(idx, 1);
+
+                    projectsService.removeLabelFromProject($scope.projectId, vm.profile.user_id, vm.profile.tenant, label)
+                        .catch(function (err) {
+                            displayAlert('errors', err.data);
+                        });
+                },
+                function() {
+                    // cancelled. do nothing
+                }
+            );
+        };
     }
 
 }());

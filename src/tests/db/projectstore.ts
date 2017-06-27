@@ -259,16 +259,33 @@ describe('DB store', () => {
             return project.id;
         }
 
-        it('should remove a label from a project', async () => {
+        it('should remove a label from a text project', async () => {
             const userid = uuid();
             const labels = [ 'america', 'belgium', 'canada', 'denmark' ];
             const projectid = await createProjectWithLabels(userid, labels);
+
+            await store.storeTextTraining(projectid, 'aalborg', 'denmark');
+            await store.storeTextTraining(projectid, 'kolding', 'denmark');
+            await store.storeTextTraining(projectid, 'montreal', 'canada');
+            await store.storeTextTraining(projectid, 'mons', 'belgium');
+            await store.storeTextTraining(projectid, 'ostend', 'belgium');
+            await store.storeTextTraining(projectid, 'brussels', 'belgium');
+
+            const countBefore = await store.countTextTrainingByLabel(projectid);
+            assert.deepEqual(countBefore, {
+                belgium : 3, canada : 1, denmark : 2,
+            });
 
             const newLabels = await store.removeLabelFromProject(userid, TESTCLASS, projectid, 'belgium');
             assert.deepEqual(newLabels, [ 'america', 'canada', 'denmark' ]);
 
             const project = await store.getProject(projectid);
             assert.deepEqual(project.labels, [ 'america', 'canada', 'denmark' ]);
+
+            const countAfter = await store.countTextTrainingByLabel(projectid);
+            assert.deepEqual(countAfter, {
+                canada : 1, denmark : 2,
+            });
         });
 
 

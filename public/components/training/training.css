@@ -44,6 +44,7 @@
     margin-right: auto;
     text-align: center;
     height: 1em;
+    position: relative;
 }
 .trainingbucketlabel {
     text-align: center;
@@ -124,6 +125,24 @@
     float: right;
     padding-right: 5px;
     padding-top: 4px;
+}
+
+.trainingbucket .deletelabel {
+    display: none;
+}
+.trainingbucket:hover .deletelabel {
+    display: inline;
+}
+
+.deletelabel {
+    font-size: 2em;
+    background-color: white;
+    border-radius: 1em;
+    color: #CC8080;
+    cursor: pointer;
+    position: absolute;
+    top: -0.8em;
+    right: 0;
 }
 
 
