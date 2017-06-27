@@ -48,7 +48,7 @@
     "supertest-as-promised": "^4.0.2",
     "tslint": "^5.4.3",
     "tslint-eslint-rules": "^4.0.0",
-    "typescript": "^2.3.2",
+    "typescript": "^2.4.1",
     "typescript-require": "^0.2.9-1"
   },
   "dependencies": {

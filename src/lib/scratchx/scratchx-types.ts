@@ -1,7 +1,5 @@
-export type StatusNumber = 0 | 1 | 2;
-
 export interface Status {
-    readonly status: StatusNumber;
+    readonly status: number;
     readonly msg: string;
 }
 

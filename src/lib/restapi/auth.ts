@@ -14,7 +14,7 @@ export const authenticate = jwt({
 });
 
 
-export function checkValidUser(req: Express.Request, res: Express.Response, next: () => {}) {
+export function checkValidUser(req: Express.Request, res: Express.Response, next: Express.NextFunction) {
     if (!req.user || !req.user.app_metadata) {
         return errors.notAuthorised(res);
     }
@@ -25,7 +25,7 @@ export function checkValidUser(req: Express.Request, res: Express.Response, next
     next();
 }
 
-export function requireSupervisor(req: Express.Request, res: Express.Response, next: () => {}) {
+export function requireSupervisor(req: Express.Request, res: Express.Response, next: Express.NextFunction) {
     if (req.user.app_metadata.role !== 'supervisor') {
         return errors.supervisorOnly(res);
     }
