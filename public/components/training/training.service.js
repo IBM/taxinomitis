@@ -66,14 +66,14 @@
             });
         }
 
-        function testModel(projectid, projecttype, userid, tenant, modelid, testtext) {
+        function testModel(projectid, projecttype, userid, tenant, modelid, testdata) {
             var url = '/api/classes/' + tenant +
                         '/students/' + userid +
                         '/projects/' + projectid +
                         '/models/' + modelid +
                         '/label';
 
-            return $http.post(url, { type : projecttype, text : testtext })
+            return $http.post(url, testdata)
                 .then(function (resp) {
                     return resp.data;
                 });

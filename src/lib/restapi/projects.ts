@@ -87,15 +87,6 @@ function getProject(req: Express.Request, res: Express.Response) {
         .then((project: Objects.Project) => {
             if (project) {
                 if (project.classid === classid && project.userid === userid) {
-                    // if (project.type === 'numbers'){
-                    //     return res.json({
-                    //         id : project.id,
-                    //         type : project.type,
-                    //         name : project.name,
-                    //         labels : project.labels,
-                    //         fields : [ 'temperature', 'rainfall', 'wind' ],
-                    //     });
-                    // }
                     return res.json(project);
                 }
                 else {

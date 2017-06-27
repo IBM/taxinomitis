@@ -16,7 +16,7 @@ New features
 Code / engineering work
 * Test coverage for DB errors
 * Set up DB and Auth0 for prod vs dev use
-* Figure out how to easily re-load the extension in the Make Me Happy worksheet
+* Fix the UI for browsers other than Chrome
 
 Longer term goals
 * Restore sprites library

@@ -28,7 +28,7 @@ const paths = {
 gulp.task('clean', () => {
     const tsProject = ts.createProject('tsconfig.json');
     const target = tsProject.config.compilerOptions.outDir;
-    return del([target]);
+    return del([target, './coverage']);
 });
 
 gulp.task('bower', function() {
@@ -83,7 +83,7 @@ gulp.task('test', ['coverage'], () => {
         dir : 'coverage/mocha'
     };
 
-    const coverageOptions = { thresholds : { global : 80 }};
+    const coverageOptions = { thresholds : { global : 85 }};
 
     return gulp.src(paths.jstest)
         .pipe(mocha(mochaOptions))

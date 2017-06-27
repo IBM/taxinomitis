@@ -209,7 +209,7 @@ export async function testClassifier(
     credentials: TrainingObjects.BluemixCredentials,
     classifierId: string,
     text: string,
-): Promise<TrainingObjects.NLCClassification[]>
+): Promise<TrainingObjects.Classification[]>
 {
     const req = {
         auth : {
@@ -250,14 +250,6 @@ async function removeExistingClassifiers(
         await deleteClassifierFromBluemix(credentials, classifier.classifierid);
         await store.deleteNLCClassifier(projectid, userid, classid, classifier.classifierid);
     }
-}
-
-
-
-
-const TABS = new RegExp('\t', 'g'); // eslint-disable-line no-control-regex
-export function cleanTrainingData(data: string): string {
-    return data.replace(TABS, '    ');
 }
 
 
@@ -337,6 +329,15 @@ function waitForFile(writer) {
     });
 }
 
+const TABS = new RegExp('\t', 'g'); // eslint-disable-line no-control-regex
+const NEWLINES = new RegExp('\n', 'g'); // eslint-disable-line no-control-regex
+function cleanTrainingData(data: string): string {
+    data = data.replace(TABS, '\\t');
+    data = data.replace(NEWLINES, '\\n');
+    return data;
+}
+
+
 
 function toCsv(data: any): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -363,7 +364,7 @@ async function fetchAndWriteTrainingInBatches(projectid: string, writer): Promis
         const csvData = await toCsv(
             trainingBatch
                 .filter((training) => training.label && training.textdata)
-                .map((training) => ({ text : training.textdata, label : training.label })),
+                .map((training) => ({ text : cleanTrainingData(training.textdata), label : training.label })),
         );
 
         writer.write(csvData);

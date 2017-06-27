@@ -10,14 +10,25 @@ import testServerSetup from './testserver';
 
 describe('REST API - Bluemix', () => {
 
-    let testServer;
+    describe('security', () => {
+        it('should require https on Bluemix', () => {
+            process.env.BLUEMIX_REGION = 'something';
+            const testServer = testServerSetup();
+            return request(testServer)
+                .get('/')
+                .expect(httpStatus.FOUND)
+                .then((res) => {
+                    assert(res.headers.location.startsWith('https'));
 
-    before(() => {
-        testServer = testServerSetup();
+                    delete process.env.BLUEMIX_REGION;
+                });
+        });
     });
+
 
     describe('ping()', () => {
         it('should return a healthcheck ping', () => {
+            const testServer = testServerSetup();
             return request(testServer)
                 .get('/')
                 .expect('Content-Type', /json/)

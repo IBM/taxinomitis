@@ -281,10 +281,16 @@
 
 
     <div ng-if="status === 'ready'" class="trainingserversection">
-        <div style="margin: 1em;">Try putting in some text to see how it is recognised based on your training.</div>
+        <div style="margin: 1em;">Try putting in some {{ project.type }} to see how it is recognised based on your training.</div>
         <form name="testform" ng-submit="vm.testModel($event, testform, project)">
-            <input style="margin-left: 2em; width: 70%" type="text" ng-model="testformData.testquestion" ng-required="true" placeholder="enter a test text here">
-            <input type="submit" class="btn" value="Test" ng-disabled="testform.$invalid" >
+            <input ng-if="project.type === 'text'" style="margin-left: 2em; width: 70%" type="text" ng-model="testformData.testquestion" ng-required="true" placeholder="enter a test text here">
+            <table ng-if="project.type === 'numbers'" style="margin-left: 2em; margin-bottom: 1em;">
+                <tr ng-repeat="field in project.fields">
+                    <td style="padding-right: 2em;">{{ field }}</td>
+                    <td><input type="text" ng-model="testformData[field]" ng-required="true"></td>
+                </tr>
+            </table>
+            <input type="submit" class="btn" value="Test" ng-disabled="testform.$invalid" style="margin-left: 1em;" >
         </form>
         <div style="margin: 2em;" ng-if="testoutput">
             <div>Recognised as <strong>{{ testoutput }}</strong> </div>

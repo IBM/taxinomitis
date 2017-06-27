@@ -38,7 +38,7 @@
     "gulp-bower": "0.0.13",
     "gulp-eslint": "^4.0.0",
     "gulp-istanbul": "^1.1.2",
-    "gulp-mocha": "4.3.1",
+    "gulp-mocha": "3.0.1",
     "gulp-tslint": "^8.1.1",
     "gulp-typescript": "^3.1.6",
     "mocha": "^3.2.0",

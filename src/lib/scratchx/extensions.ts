@@ -5,7 +5,7 @@ import * as Mustache from 'mustache';
 import * as Types from '../db/db-types';
 
 
-const ROOT_URL = 'http://' + process.env.HOST + ':' + process.env.PORT;
+const ROOT_URL = process.env.AUTH0_CALLBACK_URL;
 
 
 function readFile(path: string): Promise<string> {
@@ -34,10 +34,29 @@ async function getTextExtension(scratchkey: Types.ScratchKey, project: Types.Pro
     return rendered;
 }
 
+async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string> {
+    const template: string = await readFile('./resources/scratchx-numbers-classify.js');
+    Mustache.parse(template);
+    const rendered = Mustache.render(template, {
+        statusurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/status',
+        classifyurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/classify',
+        projectname : scratchkey.name,
+        labels : project.labels.map((name, idx) => {
+            return { name, idx };
+        }),
+        fields : project.fields,
+    });
+    return rendered;
+}
+
+
 
 export function getScratchxExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string> {
     if (scratchkey.type === 'text') {
         return getTextExtension(scratchkey, project);
+    }
+    else if (scratchkey.type === 'numbers') {
+        return getNumbersExtension(scratchkey, project);
     }
     else {
         throw new Error('Not implemented yet');

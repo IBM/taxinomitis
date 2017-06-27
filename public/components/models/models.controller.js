@@ -185,12 +185,21 @@
 
 
         vm.testModel = function (ev, form, project) {
-            var question = $scope.testformData.testquestion;
+            var testdata = { type : project.type };
+
+            if (project.type === 'text') {
+                testdata.text = $scope.testformData.testquestion;
+            }
+            else if (project.type === 'numbers') {
+                testdata.numbers = project.fields.map(function (fieldname) {
+                    return $scope.testformData[fieldname];
+                });
+            }
 
             $scope.testoutput = "please wait...";
             $scope.testoutput_explanation = "";
 
-            trainingService.testModel(project.id, project.type, vm.profile.user_id, vm.profile.tenant, $scope.models[0].classifierid, question)
+            trainingService.testModel(project.id, project.type, vm.profile.user_id, vm.profile.tenant, $scope.models[0].classifierid, testdata)
                 .then(function (resp) {
                     $scope.testoutput = resp[0].class_name;
                     $scope.testoutput_explanation = "with " + resp[0].confidence + "% confidence";

@@ -94,6 +94,24 @@ describe('Training - NLC', () => {
                     mockstore.creds,
                     'mynewclassifier'));
         });
+
+
+        it('should handle failures to create a classifier', async () => {
+            storeScratchKeyStub.reset();
+
+            const classid = 'TESTTENANT';
+            const userid = 'unluckybob';
+            const projectid = 'projectbob';
+            const projectname = 'Bob\'s broken project';
+
+            try {
+                await nlc.trainClassifier(userid, classid, projectid, projectname);
+                assert.fail(0, 1, 'should not have allowed this', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Failed to train classifier : Something bad happened');
+            }
+        });
     });
 
 
@@ -119,6 +137,24 @@ describe('Training - NLC', () => {
                 },
             ]);
         });
+
+        it('should fail to return classes from broken NLC', async () => {
+            const creds: TrainingTypes.BluemixCredentials = {
+                id : '123',
+                username : 'user',
+                password : 'pass',
+                servicetype : 'nlc',
+                url : 'http://nlc.service',
+            };
+            try {
+                await nlc.testClassifier(creds, 'bad', 'Hello');
+                assert.fail(0, 1, 'should not have allowed this', '');
+            }
+            catch (err) {
+                assert.equal(err.error.code, 500);
+            }
+        });
+
 
     });
 
@@ -263,23 +299,41 @@ describe('Training - NLC', () => {
             });
         },
         testClassifier : (url, opts) => {
-            return new Promise((resolve) => {
-                resolve({
-                    classifier_id : 'good',
-                    url : 'http://nlc.service/v1/classifiers/good/classify',
-                    text : opts.body.text,
-                    top_class : 'temperature',
-                    classes : [
-                        {
-                            class_name : 'temperature',
-                            confidence : 0.9998201258549781,
+            return new Promise((resolve, reject) => {
+                switch (url) {
+                case 'http://nlc.service/v1/classifiers/good/classify':
+                    return resolve({
+                        classifier_id : 'good',
+                        url : 'http://nlc.service/v1/classifiers/good/classify',
+                        text : opts.body.text,
+                        top_class : 'temperature',
+                        classes : [
+                            {
+                                class_name : 'temperature',
+                                confidence : 0.9998201258549781,
+                            },
+                            {
+                                class_name : 'conditions',
+                                confidence : 0.00017987414502176904,
+                            },
+                        ],
+                    });
+                case 'http://nlc.service/v1/classifiers/bad/classify':
+                    return reject({
+                        error : {
+                            code : 500,
+                            error : 'Something bad happened',
                         },
-                        {
-                            class_name : 'conditions',
-                            confidence : 0.00017987414502176904,
+                    });
+                case 'http://nlc.service/v1/classifiers/stillgoing/classify':
+                    return reject({
+                        error : {
+                            code : 409,
+                            error : 'Classifier not ready',
+                            description : 'The classifier is not ready. The status of the classifier is \'Training\'.',
                         },
-                    ],
-                });
+                    });
+                }
             });
         },
         deleteClassifier : (url) => {
@@ -299,43 +353,53 @@ describe('Training - NLC', () => {
             });
         },
         createClassifier : (url, options) => {
-            return new Promise((resolve) => {
+            return new Promise((resolve, reject) => {
+
                 const formData = JSON.parse(options.formData.training_metadata);
 
-                let trainingData = '';
-                const trainingFileStream = options.formData.training_data;
-                trainingFileStream
-                    .on('data', (chunk) => {
-                        trainingData += chunk;
-                    })
-                    .on('end', () => {
-                        const trainingDataLines = trainingData.split('\n');
+                if (formData.name === 'Bob\'s text project') {
+                    let trainingData = '';
+                    const trainingFileStream = options.formData.training_data;
+                    trainingFileStream
+                        .on('data', (chunk) => {
+                            trainingData += chunk;
+                        })
+                        .on('end', () => {
+                            const trainingDataLines = trainingData.split('\n');
 
-                        let emptyLines = 0;
-                        assert.equal(trainingDataLines.length, 348);
-                        for (const trainingDataLine of trainingDataLines) {
-                            if (trainingDataLine.length === 0) {
-                                emptyLines += 1;
+                            let emptyLines = 0;
+                            assert.equal(trainingDataLines.length, 348);
+                            for (const trainingDataLine of trainingDataLines) {
+                                if (trainingDataLine.length === 0) {
+                                    emptyLines += 1;
+                                }
+                                else {
+                                    const items = trainingDataLine.split(',');
+                                    assert.equal(items.length, 2);
+                                    assert.equal(items[0].indexOf('sample text'), 0);
+                                    assert.equal(items[1].indexOf('sample label'), 0);
+                                }
                             }
-                            else {
-                                const items = trainingDataLine.split(',');
-                                assert.equal(items.length, 2);
-                                assert.equal(items[0].indexOf('sample text'), 0);
-                                assert.equal(items[1].indexOf('sample label'), 0);
-                            }
-                        }
-                        assert.equal(emptyLines, 1);
+                            assert.equal(emptyLines, 1);
 
-                        resolve({
-                            classifier_id : 'mynewclassifier',
-                            name : formData.name,
-                            language : formData.language,
-                            created : newClassifierDate.toISOString(),
-                            url : 'http://nlc.service/v1/classifiers/mynewclassifier',
-                            status : 'Training',
-                            status_description : 'Training is running',
+                            resolve({
+                                classifier_id : 'mynewclassifier',
+                                name : formData.name,
+                                language : formData.language,
+                                created : newClassifierDate.toISOString(),
+                                url : 'http://nlc.service/v1/classifiers/mynewclassifier',
+                                status : 'Training',
+                                status_description : 'Training is running',
+                            });
                         });
-                    });
+                }
+                else {
+                    reject({ error : {
+                        code : 500,
+                        error : 'Something bad happened',
+                        description : 'It really was very bad',
+                    }});
+                }
             });
         },
     };

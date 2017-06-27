@@ -29,6 +29,13 @@
 
         $scope.projectId = $stateParams.projectId;
 
+        $scope.scratchblocks = {
+            label : '',
+            confidence : '',
+            sample : ''
+        };
+
+
         authService.getProfileDeferred()
             .then(function (profile) {
                 vm.profile = profile;
@@ -37,6 +44,32 @@
             })
             .then(function (project) {
                 $scope.project = project;
+
+                $scope.scratchblocks.label = 'recognise ' + project.type + ' ';
+                if (project.type === 'text') {
+                    $scope.scratchblocks.label += '[text]';
+                }
+                else if (project.type === 'numbers') {
+                    var idx = 1;
+                    for (var fldIndex in project.fields) {
+                        var field = project.fields[fldIndex];
+                        $scope.scratchblocks.label += field + ' (' + (idx++) + ') ';
+                    }
+                }
+                $scope.scratchblocks.confidence = $scope.scratchblocks.label + ' \\(confidence) :: custom reporter';
+                $scope.scratchblocks.label += ' \\(label) :: custom reporter';
+
+                if (project.type === 'text') {
+                    $scope.scratchblocks.sample =
+                        'ask [enter some text here] and wait \n' +
+                        'if &lt;{recognise text (answer) \\(label) :: custom reporter } = (' + project.labels[0] + ' :: custom reporter)&gt; then \n' +
+                        'say [I think that was ' + project.labels[0] + ']';
+                }
+                else if (project.type === 'numbers') {
+                    $scope.scratchblocks.sample =
+                        'if &lt;{' + $scope.scratchblocks.label + '} = (' + project.labels[0] + ' :: custom reporter)&gt; then \n' +
+                        'say [I think that was ' + project.labels[0] + ']';
+                }
 
                 $timeout(function () {
                     scratchblocks.renderMatching('.scratchblocks');

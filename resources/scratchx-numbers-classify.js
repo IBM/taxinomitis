@@ -8,7 +8,7 @@
     ext._shutdown = function() {};
 
     ext.resultscache = {
-        // classifiedText : { class_name : topClassName, confidence : topClassConfidence }
+        // space_separated_numbers : { class_name : topClassName, confidence : topClassConfidence }
     };
 
     ext._getStatus = function() {
@@ -40,7 +40,7 @@
     }
 
     function pollStatus() {
-        // wait 30 seconds
+        // wait 10 seconds
         setTimeout(function () {
             // check the status
             getStatus(function () {
@@ -49,7 +49,7 @@
                     pollStatus();
                 }
             });
-        }, 30000);
+        }, 10000);
     }
 
     getStatus();
@@ -59,12 +59,12 @@
     }
 
 
-    function classifyText(text, callback) {
+    function classifyNumbers(numbers, cacheKey, callback) {
         $.ajax({
             url : '{{{ classifyurl }}}',
             dataType : 'jsonp',
             data : {
-                data : text
+                data : numbers
             },
             success : function (data) {
                 var result;
@@ -78,7 +78,7 @@
                 // if the result was chosen at random (instead of using
                 //  a trained classifier) then we don't cache it
                 if (!result.random) {
-                    ext.resultscache[text] = result;
+                    ext.resultscache[cacheKey] = result;
                 }
 
                 callback(result);
@@ -86,30 +86,44 @@
             error : function (err) {
                 classifierStatus = {
                     status : 0,
-                    msg : 'Failed to submit text to machine learning service'
+                    msg : 'Failed to submit numbers to machine learning service'
                 };
                 callback({ class_name : 'Unknown', confidence : 0 });
             }
         });
     }
 
-    ext.text_classification_label = function (text, callback) {
-        if (ext.resultscache[text]) {
-            callback(ext.resultscache[text].class_name);
+    ext.numbers_classification_label = function () {
+        var argumentsAry = [].slice.call(arguments);
+
+        var args = argumentsAry.slice(0, arguments.length - 1);
+        var callbackfn = arguments[arguments.length - 1];
+
+        var cacheKey = args.join(' ');
+
+        if (ext.resultscache[cacheKey]) {
+            callbackfn(ext.resultscache[cacheKey].class_name);
         }
         else {
-            classifyText(text, function (result) {
-                callback(result.class_name);
+            classifyNumbers(args, cacheKey, function (result) {
+                callbackfn(result.class_name);
             });
         }
     };
-    ext.text_classification_confidence = function (text, callback) {
-        if (ext.resultscache[text]) {
-            callback(ext.resultscache[text].confidence);
+    ext.numbers_classification_confidence = function (space_separated_numbers, callback) {
+        var argumentsAry = [].slice.call(arguments);
+
+        var args = argumentsAry.slice(0, arguments.length - 1);
+        var callbackfn = arguments[arguments.length - 1];
+
+        var cacheKey = args.join(' ');
+
+        if (ext.resultscache[cacheKey]) {
+            callbackfn(ext.resultscache[cacheKey].confidence);
         }
         else {
-            classifyText(text, function (result) {
-                callback(result.confidence);
+            classifyNumbers(space_separated_numbers, cacheKey, function (result) {
+                callbackfn(result.confidence);
             });
         }
     };
@@ -122,8 +136,8 @@
 
     var descriptor = {
         blocks : [
-            [ 'R', 'recognise text %s (label)', 'text_classification_label', 'text' ],
-            [ 'R', 'recognise text %s (confidence)', 'text_classification_confidence', 'text' ],
+            [ 'R', 'recognise numbers {{#fields}}{{.}} %n {{/fields}} (label)', 'numbers_classification_label' ],
+            [ 'R', 'recognise numbers {{#fields}}{{.}} %n {{/fields}} (confidence)', 'numbers_classification_confidence' ],
             {{#labels}}
             [ 'r', '{{name}}', 'return_label_{{idx}}'],
             {{/labels}}

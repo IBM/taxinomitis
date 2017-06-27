@@ -174,7 +174,7 @@ async function storeTraining(req: RequestWithProject, res: Express.Response) {
         case 'text':
             training = await store.storeTextTraining(
                 req.project.id,
-                nlc.cleanTrainingData(data),
+                data,
                 label,
             );
             break;

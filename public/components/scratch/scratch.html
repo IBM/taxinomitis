@@ -49,17 +49,17 @@
         <div class="modelguidance">
             <div class="modelstatusdetail">
                 Your project will add these blocks to the
-                <span style="background-color: purple; color: white; padding-left: 5px; padding-right: 5px;">More Blocks</span>
+                <span style="background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;">More Blocks</span>
                 tab in Scripts.
             </div>
             <div class="scratchblocks">
-                recognise {{project.type}} [{{project.type}}] \(label) :: custom reporter
+                {{ scratchblocks.label }}
             </div>
             <div class="modelstatusdetail">
                 Put {{ project.type }} in the input for this, and it will return the label that your machine learning model recognises it as.
             </div>
             <div class="scratchblocks">
-                recognise {{project.type}} [{{project.type}}] \(confidence) :: custom reporter
+                {{ scratchblocks.confidence }}
             </div>
             <div class="modelstatusdetail">
                 This will return how confident your machine learning model is that it recognises the type of {{ project.type }}. (As a number from 0 - 100).
@@ -74,9 +74,7 @@
                 <strong>This means you can do something like this:</strong>
             </div>
             <div class="scratchblocks">
-                ask [enter some text here] and wait
-                if &lt;{recognise {{project.type}} [{{project.type}}] \(label) :: custom reporter } = ({{project.labels[0]}} :: custom reporter)&gt; then
-                say [I think that was {{project.labels[0]}}]
+                {{ scratchblocks.sample }}
             </div>
         </div>
         <div class="modelguidance">
@@ -108,7 +106,7 @@
                     You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId })">train one now</a></strong> and then come back to open Scratch.
                 </div>
                 <div>
-                    Or you can go <strong><a target="_blank" href="{{ scratchkey.url }}">straight into Scratch</a></strong> now. It just means that the computer will make random guesses as you haven't trained it to recognise things yet.
+                    Or you can go <strong><a target="_blank" href="{{ scratchkey.url }}">straight into Scratch</a></strong> now.
                 </div>
             </div>
             <div ng-if="scratchkey.model">
