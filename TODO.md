@@ -2,6 +2,8 @@ UI clean-up needed
 * Validation for usernames in create-user dialog
 * Create/Cancel buttons shouldn't be equal prominence - flip left/right and make cancel buttons into a link
 * sub-nav-bar for Train/Models/Test/Scratch to avoid need to go back to project page
+* Document differences with regular Scratch
+* Warn about pop-up blocking in Scratch page
 
 New features
 * Editing examples

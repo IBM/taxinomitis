@@ -13,7 +13,7 @@
     flex-direction: row;
     flex-wrap: wrap;
 
-    height: calc(100% - 230px);
+    height: calc(100vh - 230px);
     min-height: 200px;
 }
 
@@ -26,6 +26,8 @@
     margin: 1em;
     min-width: 25em;
     max-width: 40%;
+    display: flex;
+    flex-direction: column;
 }
 
 .loadingtraining {
@@ -60,9 +62,9 @@
 }
 .trainingbucketitems {
     padding: 0.8em;
-    height: calc(100% - 115px);
     overflow-y: scroll;
     margin-bottom: 0.4em;
+    flex: 1;
 }
 .trainingbucketitem {
     background-color: #e0e0e0;
