@@ -11,10 +11,10 @@ const log = loggerSetup();
 // create server
 const app = express();
 const host: string = process.env.HOST || '0.0.0.0';
-const port: number = process.env.PORT || 8000;
+const port: number = parseInt(process.env.PORT, 10) || 8000;
 
 // UI setup
-const uilocation: string = __dirname + '/../../public';
+const uilocation: string = __dirname + '/../../web';
 app.use(express.static(uilocation));
 
 // setup server and run

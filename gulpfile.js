@@ -5,8 +5,17 @@ const mocha = require('gulp-mocha');
 const eslint = require('gulp-eslint');
 const tslint = require('gulp-tslint');
 const ts = require('gulp-typescript');
+const cleanCSS = require('gulp-clean-css');
+const concat = require('gulp-concat');
+const minify = require('gulp-minify');
+const template = require('gulp-template');
+const autoprefixer = require('gulp-autoprefixer');
+const rename = require('gulp-rename');
 const del = require('del');
 
+
+const now = new Date();
+const VERSION = now.getTime();
 
 
 const paths = {
@@ -20,7 +29,14 @@ const paths = {
         // files with type definitions only - not testable
         '!dist/lib/**/*-types.js',
     ],
-    jstest : ['dist/tests/**/*.js']
+    jstest : ['dist/tests/**/*.js'],
+    css : ['public/app.css', 'public/components/**/*.css'],
+    webjs : [
+        'public/auth0-variables.js',
+        'web/app.js',
+        'public/app.run.js',
+        'public/components/**/*.js',
+    ]
 };
 
 
@@ -28,11 +44,19 @@ const paths = {
 gulp.task('clean', () => {
     const tsProject = ts.createProject('tsconfig.json');
     const target = tsProject.config.compilerOptions.outDir;
-    return del([target, './coverage']);
+    return del([target, './coverage', './web']);
 });
 
 gulp.task('bower', function() {
-    return bower({ cwd : './public' });
+    return bower({ cwd : './public', directory : '../web/bower_components' });
+});
+
+gulp.task('crossdomain', function() {
+    return gulp.src('public/crossdomain.xml').pipe(gulp.dest('web'));
+});
+
+gulp.task('scratchxinstall', ['crossdomain'], function() {
+    return gulp.src('public/scratchx/**').pipe(gulp.dest('web/scratchx'));
 });
 
 gulp.task('compile', () => {
@@ -47,6 +71,43 @@ gulp.task('compile', () => {
     return tsResult.js
         .pipe(gulp.dest(target))
         .on('finish', () => { errors && process.exit(1); });
+});
+
+gulp.task('css', ['html'], () => {
+    return gulp.src(paths.css)
+            .pipe(cleanCSS())
+            .pipe(autoprefixer())
+            .pipe(concat('style-' + VERSION + '.min.css'))
+            .pipe(gulp.dest('web'));
+});
+
+gulp.task('jsapp', () => {
+    return gulp.src('public/app.js')
+            .pipe(template({ VERSION }))
+            .pipe(rename('app-' + VERSION + '.js'))
+            .pipe(gulp.dest('web'));
+});
+
+gulp.task('angularcomponents', ['jsapp'], () => {
+    return gulp.src('public/components/**')
+            .pipe(gulp.dest('web/components-' + VERSION));
+});
+
+gulp.task('images', () => {
+    return gulp.src('public/images/*').pipe(gulp.dest('web/images'));
+});
+
+gulp.task('minifyjs', () => {
+    return gulp.src(paths.webjs)
+            .pipe(concat('mlapp.js'))
+            .pipe(minify({ ext : { min : '-' + VERSION + '.min.js' }}))
+            .pipe(gulp.dest('web'));
+});
+
+gulp.task('html', () => {
+    return gulp.src('public/index.html')
+            .pipe(template({ VERSION }))
+            .pipe(gulp.dest('web'));
 });
 
 gulp.task('tslint', () => {
@@ -91,5 +152,7 @@ gulp.task('test', ['coverage'], () => {
         .pipe(istanbul.enforceThresholds(coverageOptions));
 });
 
-gulp.task('build', ['clean', 'bower', 'compile']);
+gulp.task('webdependencies', ['bower', 'scratchxinstall']);
+gulp.task('web', ['css', 'minifyjs', 'images', 'html', 'angularcomponents']);
+gulp.task('build', ['webdependencies', 'web', 'compile']);
 gulp.task('default', ['build', 'lint', 'test']);

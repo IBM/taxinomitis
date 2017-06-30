@@ -18,61 +18,61 @@
             .state('welcome', {
                 url: '/welcome',
                 controller: 'WelcomeController',
-                templateUrl: 'components/welcome/welcome.html',
+                templateUrl: 'components-<%= VERSION %>/welcome/welcome.html',
                 controllerAs: 'vm'
             })
             .state('login', {
                 url: '/login',
                 controller: 'LoginController',
-                templateUrl: 'components/login/login.html',
+                templateUrl: 'components-<%= VERSION %>/login/login.html',
                 controllerAs: 'vm'
             })
             .state('help', {
                 url: '/help',
                 controller: 'HelpController',
-                templateUrl: 'components/help/help.html',
+                templateUrl: 'components-<%= VERSION %>/help/help.html',
                 controllerAs: 'vm'
             })
             .state('worksheets', {
                 url: '/worksheets',
                 controller: 'WorksheetsController',
-                templateUrl: 'components/worksheets/worksheets.html',
+                templateUrl: 'components-<%= VERSION %>/worksheets/worksheets.html',
                 controllerAs: 'vm'
             })
             .state('students', {
                 url: '/students',
                 controller: 'StudentsController',
-                templateUrl: 'components/students/students.html',
+                templateUrl: 'components-<%= VERSION %>/students/students.html',
                 controllerAs: 'vm'
             })
             .state('projects', {
                 url: '/projects',
                 controller: 'ProjectsController',
-                templateUrl: 'components/projects/projects.html',
+                templateUrl: 'components-<%= VERSION %>/projects/projects.html',
                 controllerAs: 'vm'
             })
             .state('mlproject', {
                 url: '/mlproject/:projectId',
                 controller: 'ProjectController',
-                templateUrl: 'components/mlproject/mlproject.html',
+                templateUrl: 'components-<%= VERSION %>/mlproject/mlproject.html',
                 controllerAs: 'vm'
             })
             .state('mlproject_training', {
                 url: '/mlproject/:projectId/training',
                 controller: 'TrainingController',
-                templateUrl: 'components/training/training.html',
+                templateUrl: 'components-<%= VERSION %>/training/training.html',
                 controllerAs: 'vm'
             })
             .state('mlproject_models', {
                 url: '/mlproject/:projectId/models',
                 controller: 'ModelsController',
-                templateUrl: 'components/models/models.html',
+                templateUrl: 'components-<%= VERSION %>/models/models.html',
                 controllerAs: 'vm'
             })
             .state('mlproject_scratch', {
                 url: '/mlproject/:projectId/scratch',
                 controller: 'ScratchController',
-                templateUrl: 'components/scratch/scratch.html',
+                templateUrl: 'components-<%= VERSION %>/scratch/scratch.html',
                 controllerAs: 'vm'
             });
 
