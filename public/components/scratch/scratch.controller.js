@@ -81,6 +81,11 @@
 
 
         vm.getScratchKey = function (ev, project) {
+            // we need to open the window immediately after the user clicks the
+            //  button, otherwise the browser will consider this a pop-up and
+            //  block it
+            var scratchWindow = $window.open('/scratchx/loading.html', '_blank');
+
             scratchkeysService.getScratchKeys(project.id, vm.profile.user_id, vm.profile.tenant)
                 .then(function (resp) {
                     var scratchkey = resp[0];
@@ -95,7 +100,7 @@
                                      '#scratch';
 
                     if (scratchkey.model) {
-                        $window.open(scratchkey.url, '_blank');
+                        scratchWindow.location.href = scratchkey.url;
                     }
 
                     $scope.scratchkey = scratchkey;
