@@ -11,6 +11,7 @@ const minify = require('gulp-minify');
 const template = require('gulp-template');
 const autoprefixer = require('gulp-autoprefixer');
 const rename = require('gulp-rename');
+const ngAnnotate = require('gulp-ng-annotate');
 const del = require('del');
 
 
@@ -99,6 +100,7 @@ gulp.task('images', () => {
 
 gulp.task('minifyjs', () => {
     return gulp.src(paths.webjs)
+            .pipe(ngAnnotate())
             .pipe(concat('mlapp.js'))
             .pipe(minify({ ext : { min : '-' + VERSION + '.min.js' }}))
             .pipe(gulp.dest('web'));

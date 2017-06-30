@@ -49,7 +49,10 @@
                 url: '/projects',
                 controller: 'ProjectsController',
                 templateUrl: 'components-<%= VERSION %>/projects/projects.html',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                params: {
+                    VERSION : <%= VERSION %>
+                }
             })
             .state('mlproject', {
                 url: '/mlproject/:projectId',
@@ -61,7 +64,10 @@
                 url: '/mlproject/:projectId/training',
                 controller: 'TrainingController',
                 templateUrl: 'components-<%= VERSION %>/training/training.html',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                params: {
+                    VERSION : <%= VERSION %>
+                }
             })
             .state('mlproject_models', {
                 url: '/mlproject/:projectId/models',

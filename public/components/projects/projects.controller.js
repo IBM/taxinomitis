@@ -8,11 +8,10 @@
         'authService',
         'projectsService',
         '$mdDialog',
-        '$scope',
-        '$timeout'
+        '$scope', '$timeout', '$stateParams'
     ];
 
-    function ProjectsController(authService, projectsService, $mdDialog, $scope, $timeout) {
+    function ProjectsController(authService, projectsService, $mdDialog, $scope, $timeout, $stateParams) {
 
         var vm = this;
         vm.authService = authService;
@@ -97,7 +96,7 @@
                         return new Array(n);
                     };
                 },
-                templateUrl : 'components/projects/newproject.tmpl.html',
+                templateUrl : 'components-' + $stateParams.VERSION + '/projects/newproject.tmpl.html',
                 parent : angular.element(document.body),
                 targetEvent : ev,
                 clickOutsideToClose : true

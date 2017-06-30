@@ -126,7 +126,7 @@
                         $mdDialog.hide(resp);
                     };
                 },
-                templateUrl : 'components/training/trainingdata.tmpl.html',
+                templateUrl : 'components-' + $stateParams.VERSION + '/training/trainingdata.tmpl.html',
                 targetEvent : ev,
                 clickOutsideToClose : true
             })
