@@ -402,7 +402,7 @@ describe('REST API - scratch keys', () => {
                     assert(body.indexOf('[ \'r\', \'LABEL NUMBER ONE\', \'return_label_0\'],') > 0);
                     assert(body.indexOf('[ \'r\', \'SECOND LABEL\', \'return_label_1\'],') > 0);
 
-                    await store.deleteEntireProject(userid, TESTCLASS, project.id);
+                    await store.deleteEntireProject(userid, TESTCLASS, project);
                 });
         });
 

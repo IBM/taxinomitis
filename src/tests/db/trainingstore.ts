@@ -145,6 +145,46 @@ describe('DB store - training', () => {
             const count = await store.countNumberTraining(projectid);
             assert.equal(count, 0);
         });
+
+
+        it('should delete training by label', async () => {
+            const userid = uuid();
+            const classid = 'UNIQUECLASSID';
+
+            const project = await store.storeProject(
+                userid, classid,
+                'numbers',
+                'project name',
+                ['first', 'second', 'third']);
+
+
+            await store.addLabelToProject(userid, classid, project.id, 'TENS');
+            await store.addLabelToProject(userid, classid, project.id, 'HUNDREDS');
+            await store.addLabelToProject(userid, classid, project.id, 'THOUSANDS');
+
+            store.storeNumberTraining(project.id, [1000, 2000, 3000], 'THOUSANDS');
+            store.storeNumberTraining(project.id, [10, 20, 30], 'TENS');
+            store.storeNumberTraining(project.id, [100, 300, 500], 'HUNDREDS');
+            store.storeNumberTraining(project.id, [50, 60, 70], 'TENS');
+            store.storeNumberTraining(project.id, [200, 300, 400], 'HUNDREDS');
+            store.storeNumberTraining(project.id, [20, 40, 60], 'TENS');
+
+            await store.countNumberTraining(project.id);
+
+            let counts = await store.countNumberTrainingByLabel(project.id);
+            assert.deepEqual(counts, { TENS : 3, HUNDREDS : 2, THOUSANDS : 1 });
+
+            const labels = await store.removeLabelFromProject(userid, classid, project.id, 'HUNDREDS');
+            assert.deepEqual(labels, ['TENS', 'THOUSANDS']);
+
+            const updated = await store.getProject(project.id);
+            assert.deepEqual(updated.labels, ['TENS', 'THOUSANDS']);
+
+            counts = await store.countNumberTrainingByLabel(project.id);
+            assert.deepEqual(counts, { TENS : 3, THOUSANDS : 1 });
+
+            await store.deleteEntireProject(userid, classid, project);
+        });
     });
 
 

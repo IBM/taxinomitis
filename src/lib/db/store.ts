@@ -3,6 +3,7 @@ import * as mysqldb from './mysqldb';
 import * as dbobjects from './objects';
 import * as Objects from './db-types';
 import * as nlc from '../training/nlc';
+import * as numbers from '../training/numbers';
 import * as TrainingObjects from '../training/training-types';
 import loggerSetup from '../utils/logger';
 
@@ -935,10 +936,15 @@ export async function getClassTenant(classid: string): Promise<Objects.ClassTena
 // -----------------------------------------------------------------------------
 
 
-export async function deleteEntireProject(userid: string, classid: string, projectid: string): Promise<void> {
-    const classifiers = await getNLCClassifiers(projectid);
-    for (const classifier of classifiers) {
-        await nlc.deleteClassifier(userid, classid, projectid, classifier.classifierid);
+export async function deleteEntireProject(userid: string, classid: string, project: Objects.Project): Promise<void> {
+    if (project.type === 'text') {
+        const classifiers = await getNLCClassifiers(project.id);
+        for (const classifier of classifiers) {
+            await nlc.deleteClassifier(userid, classid, project.id, classifier.classifierid);
+        }
+    }
+    else if (project.type === 'numbers') {
+        await numbers.deleteClassifier(userid, classid, project.id);
     }
 
     const deleteQueries = [
@@ -952,15 +958,16 @@ export async function deleteEntireProject(userid: string, classid: string, proje
 
     const dbConn = await dbConnPool.getConnection();
     for (const deleteQuery of deleteQueries) {
-        await dbConn.execute(deleteQuery, [ projectid ]);
+        await dbConn.execute(deleteQuery, [ project.id ]);
     }
     dbConn.release();
 }
 
+
 export async function deleteEntireUser(userid: string, classid: string): Promise<void> {
     const projects = await getProjectsByUserId(userid, classid);
     for (const project of projects) {
-        await deleteEntireProject(userid, classid, project.id);
+        await deleteEntireProject(userid, classid, project);
     }
 
     const deleteQueries = [

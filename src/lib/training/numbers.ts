@@ -99,7 +99,6 @@ export async function deleteClassifier(studentid: string, tenantid: string, proj
         },
         qs : { tenantid, studentid, projectid },
         json : true,
-        gzip : true,
     };
 
     const url = process.env.NUMBERS_SERVICE + '/api/models';

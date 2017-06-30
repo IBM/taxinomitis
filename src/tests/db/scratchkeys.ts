@@ -25,7 +25,7 @@ describe('ScratchKeys store', () => {
         );
     });
     after(async () => {
-        await store.deleteEntireProject(reusedUserid, reusedClassid, project.id);
+        await store.deleteEntireProject(reusedUserid, reusedClassid, project);
         return store.disconnect();
     });
 

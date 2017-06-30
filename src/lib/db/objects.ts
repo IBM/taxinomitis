@@ -166,7 +166,7 @@ export function createNumberTraining(projectid: string, data: number[], label: s
 export function getNumberTrainingFromDbRow(row: Objects.NumberTrainingDbRow): Objects.NumberTraining {
     const obj: any = {
         id : row.id,
-        numberdata : row.numberdata.split(','),
+        numberdata : row.numberdata.split(',').map(parseFloat),
     };
     if (row.label) {
         obj.label = row.label;
@@ -293,6 +293,9 @@ export function getScratchKeyFromDbRow(row: Objects.ScratchKeyDbRow): Objects.Sc
     let servicetype: TrainingObjects.BluemixServiceType;
     if (row.projecttype === 'text') {
         servicetype = 'nlc';
+    }
+    else if (row.projecttype === 'numbers') {
+        servicetype = 'num';
     }
     if (row.classifierid) {
         return {
