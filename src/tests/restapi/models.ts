@@ -1,7 +1,7 @@
 /*eslint-env mocha */
 import * as uuid from 'uuid/v1';
 import * as assert from 'assert';
-import * as request from 'supertest-as-promised';
+import * as request from 'supertest';
 import * as httpstatus from 'http-status';
 import * as sinon from 'sinon';
 import * as proxyquire from 'proxyquire';
@@ -10,6 +10,7 @@ import * as randomstring from 'randomstring';
 import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
 import * as nlc from '../../lib/training/nlc';
+import * as numbers from '../../lib/training/numbers';
 import * as Types from '../../lib/training/training-types';
 import testapiserver from './testserver';
 
@@ -26,10 +27,20 @@ describe('REST API - models', () => {
 
     function authNoOp(req, res, next) { next(); }
 
-    let getClassifiersStub;
-    let trainClassifierStub;
-    let testClassifierStub;
-    let deleteClassifierStub;
+    const nlcStub = {
+        getClassifiersStub : undefined,
+        trainClassifierStub : undefined,
+        testClassifierStub : undefined,
+        deleteClassifierStub : undefined,
+    };
+    const numbersStub = {
+        getClassifiersStub : undefined,
+        trainClassifierStub : undefined,
+        testClassifierStub : undefined,
+        deleteClassifierStub : undefined,
+    };
+
+
 
     before(async () => {
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
@@ -43,7 +54,7 @@ describe('REST API - models', () => {
             },
         });
 
-        getClassifiersStub = sinon.stub(nlc, 'getClassifierStatuses').callsFake((classid, classifiers) => {
+        nlcStub.getClassifiersStub = sinon.stub(nlc, 'getClassifierStatuses').callsFake((classid, classifiers) => {
             return new Promise((resolve) => {
                 resolve(classifiers.map((classifier) => {
                     switch (classifier.classifierid) {
@@ -59,37 +70,58 @@ describe('REST API - models', () => {
                 }));
             });
         });
-        trainClassifierStub = sinon.stub(nlc, 'trainClassifier').callsFake((uid, clsid, pjid, name) => {
-            return new Promise((resolve) => {
-                resolve({
-                    classifier_id : 'NEW-CREATED',
-                    name,
-                    language : 'en',
-                    created : new Date(Date.UTC(2017, 4, 4, 12, 0)),
-                    url : 'http://nlc.service/api/classifiers/NEW-CREATED',
-                    status : 'Training',
-                    status_description : 'Training for this classifier is running',
-                });
+        nlcStub.trainClassifierStub = sinon.stub(nlc, 'trainClassifier').callsFake((uid, clsid, pjid, name) => {
+            return Promise.resolve({
+                classifier_id : 'NEW-CREATED',
+                name,
+                language : 'en',
+                created : new Date(Date.UTC(2017, 4, 4, 12, 0)),
+                url : 'http://nlc.service/api/classifiers/NEW-CREATED',
+                status : 'Training',
+                status_description : 'Training for this classifier is running',
             });
         });
-        testClassifierStub = sinon.stub(nlc, 'testClassifier').callsFake(() => {
-            return new Promise((resolve) => {
-                resolve([
-                    { class_name : 'first', confidence : 0.8 },
-                    { class_name : 'second', confidence : 0.15 },
-                    { class_name : 'third', confidence : 0.05 },
-                ]);
-            });
+        nlcStub.testClassifierStub = sinon.stub(nlc, 'testClassifier').callsFake(() => {
+            return Promise.resolve([
+                { class_name : 'first', confidence : 0.8 },
+                { class_name : 'second', confidence : 0.15 },
+                { class_name : 'third', confidence : 0.05 },
+            ]);
         });
-        deleteClassifierStub = sinon.stub(nlc, 'deleteClassifier').callsFake(() => {
+        nlcStub.deleteClassifierStub = sinon.stub(nlc, 'deleteClassifier').callsFake(() => {
             return new Promise((resolve) => { resolve(); });
         });
+
+        numbersStub.trainClassifierStub = sinon.stub(numbers, 'trainClassifier').callsFake((uid, clsid, pjid) => {
+            return Promise.resolve({
+                created : new Date(),
+                status : 'Available',
+                classifierid : pjid,
+            });
+        });
+        numbersStub.testClassifierStub = sinon.stub(numbers, 'testClassifier').callsFake(() => {
+            return Promise.resolve([
+                { class_name : 'first', confidence : 0.8 },
+                { class_name : 'second', confidence : 0.15 },
+                { class_name : 'third', confidence : 0.05 },
+            ]);
+        });
+        numbersStub.deleteClassifierStub = sinon.stub(numbers, 'deleteClassifier').callsFake(() => {
+            return new Promise((resolve) => { resolve(); });
+        });
+
+
         proxyquire('../../lib/restapi/models', {
             '../training/nlc' : {
-                getClassifierStatuses : getClassifiersStub,
-                trainClassifier : trainClassifierStub,
-                testClassifier : testClassifierStub,
-                deleteClassifier : deleteClassifierStub,
+                getClassifierStatuses : nlcStub.getClassifiersStub,
+                trainClassifier : nlcStub.trainClassifierStub,
+                testClassifier : nlcStub.testClassifierStub,
+                deleteClassifier : nlcStub.deleteClassifierStub,
+            },
+            '../training/numbers' : {
+                trainClassifier : numbersStub.trainClassifierStub,
+                testClassifier : numbersStub.testClassifierStub,
+                deleteClassifier : numbersStub.deleteClassifierStub,
             },
         });
 
@@ -104,10 +136,13 @@ describe('REST API - models', () => {
         checkUserStub.restore();
         requireSupervisorStub.restore();
 
-        getClassifiersStub.restore();
-        trainClassifierStub.restore();
-        testClassifierStub.restore();
-        deleteClassifierStub.restore();
+        nlcStub.getClassifiersStub.restore();
+        nlcStub.trainClassifierStub.restore();
+        nlcStub.testClassifierStub.restore();
+        nlcStub.deleteClassifierStub.restore();
+        numbersStub.trainClassifierStub.restore();
+        numbersStub.testClassifierStub.restore();
+        numbersStub.deleteClassifierStub.restore();
 
         return store.disconnect();
     });
@@ -188,7 +223,36 @@ describe('REST API - models', () => {
         });
 
 
-        it('should retrieve classifiers', async () => {
+        it('should retrieve numbers classifiers', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo', ['a', 'b']);
+            const projectid = project.id;
+
+            const classifier = await store.storeNumbersClassifier(userid, classid, projectid, 'Available');
+            const created = classifier.created;
+            created.setMilliseconds(0);
+
+            return request(testServer)
+                .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK)
+                .then(async (res) => {
+                    assert.deepEqual(res.body, [
+                        {
+                            classifierid : projectid,
+                            created : created.toISOString(),
+                            status : 'Available',
+                        },
+                    ]);
+
+                    await store.deleteEntireProject(userid, classid, project);
+                });
+        });
+
+
+        it('should retrieve text classifiers', async () => {
             const classid = uuid();
             const userid = uuid();
 
@@ -373,6 +437,32 @@ describe('REST API - models', () => {
                     return store.deleteProject(projectid);
                 });
         });
+
+
+        it('should train new numbers classifiers', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = uuid();
+
+            const project = await store.storeProject(userid, classid, 'numbers', projName, ['a', 'b']);
+            const projectid = project.id;
+
+            return request(testServer)
+                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED)
+                .then((res) => {
+                    const body = res.body;
+
+                    assert.equal(body.status, 'Available');
+                    assert.equal(body.classifierid, projectid);
+
+                    const created = new Date(body.created);
+                    assert.equal(isNaN(created.getDate()), false);
+
+                    return store.deleteEntireProject(userid, classid, project);
+                });
+        });
     });
 
 
@@ -473,6 +563,47 @@ describe('REST API - models', () => {
                 });
         });
 
+        it('should submit a classify request to numbers service', () => {
+            return request(testServer)
+                .post('/api/classes/testclass/students/testuser/projects/testproject/models/testmodel/label')
+                .send({
+                    numbers : [1, 2, 3],
+                    type : 'numbers',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK)
+                .then(async (res) => {
+                    const body = res.body;
+
+                    assert.deepEqual(body, [
+                        { class_name : 'first', confidence : 0.8 },
+                        { class_name : 'second', confidence : 0.15 },
+                        { class_name : 'third', confidence : 0.05 },
+                    ]);
+                });
+        });
+
+        it('should require data for the numbers service', () => {
+            return request(testServer)
+                .post('/api/classes/testclass/students/testuser/projects/testproject/models/testmodel/label')
+                .send({
+                    type : 'numbers',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
+        });
+
+        it('should require numbers for the numbers service', () => {
+            return request(testServer)
+                .post('/api/classes/testclass/students/testuser/projects/testproject/models/testmodel/label')
+                .send({
+                    numbers : [],
+                    type : 'numbers',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST);
+        });
+
     });
 
     describe('deleteModel', () => {
@@ -515,7 +646,28 @@ describe('REST API - models', () => {
         });
 
 
-        it('should delete classifiers', async () => {
+        it('should delete numbers classifiers', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = uuid();
+            const modelid = randomstring.generate({ length : 10 });
+
+            const project = await store.storeProject(userid, classid, 'numbers', projName, ['A']);
+            const projectid = project.id;
+
+            return request(testServer)
+                .delete('/api/classes/' + classid +
+                        '/students/' + userid +
+                        '/projects/' + projectid +
+                        '/models/' + modelid)
+                .expect(httpstatus.NO_CONTENT)
+                .then(async () => {
+                    await store.deleteProject(projectid);
+                });
+        });
+
+
+        it('should delete text classifiers', async () => {
             const classid = uuid();
             const userid = uuid();
             const projName = uuid();

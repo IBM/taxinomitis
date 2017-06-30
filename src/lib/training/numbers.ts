@@ -45,7 +45,9 @@ export async function trainClassifier(
 
     // write details about the new classifier to the DB
     const storedClassifier = await store.storeNumbersClassifier(userid, classid, projectid, status);
-    await store.storeOrUpdateScratchKey(projectid, 'numbers', userid, classid, credentials, projectid);
+    if (status === 'Available') {
+        await store.storeOrUpdateScratchKey(projectid, 'numbers', userid, classid, credentials, projectid);
+    }
 
     return storedClassifier;
 }

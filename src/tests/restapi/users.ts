@@ -4,7 +4,7 @@ import * as uuid from 'uuid/v1';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as proxyquire from 'proxyquire';
-import * as request from 'supertest-as-promised';
+import * as request from 'supertest';
 import * as httpstatus from 'http-status';
 import * as randomstring from 'randomstring';
 

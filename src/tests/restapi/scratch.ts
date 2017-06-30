@@ -1,7 +1,7 @@
 /*eslint-env mocha */
 import * as uuid from 'uuid/v1';
 import * as assert from 'assert';
-import * as request from 'supertest-as-promised';
+import * as request from 'supertest';
 import * as httpstatus from 'http-status';
 import * as randomstring from 'randomstring';
 import * as sinon from 'sinon';
