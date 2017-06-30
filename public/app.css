@@ -29,3 +29,7 @@
     margin-left: 5px;
 }
 
+/* override for angular material speed which feels too slow */
+md-dialog.md-transition-in,md-dialog.md-transition-out {
+    transition-duration: 0.2s !important;
+}
