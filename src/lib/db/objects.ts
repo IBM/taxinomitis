@@ -234,6 +234,31 @@ export function getClassifierFromDbRow(row: TrainingObjects.ClassifierDbRow): Tr
 }
 
 
+export function createNumbersClassifier(
+    userid: string, classid: string, projectid: string,
+    status: TrainingObjects.NumbersStatus,
+): TrainingObjects.NumbersClassifierDbRow
+{
+    return {
+        userid, projectid, classid,
+        created : new Date(),
+        status : status === 'Available' ? 1 : 0,
+    };
+}
+
+export function getNumbersClassifierFromDbRow(
+    row: TrainingObjects.NumbersClassifierDbRow,
+): TrainingObjects.NumbersClassifier
+{
+    return {
+        created : row.created,
+        status : row.status === 1 ? 'Available' : 'Failed',
+        classifierid : row.projectid,
+    };
+}
+
+
+
 // -----------------------------------------------------------------------------
 //
 // SCRATCH KEYS

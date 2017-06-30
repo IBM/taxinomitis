@@ -190,7 +190,7 @@ describe('Scratchx - classify', () => {
             };
 
             try {
-                await classifier.classify(key, '[]');
+                await classifier.classify(key, []);
                 assert.fail(0, 1, 'Should not reach here', '');
             }
             catch (err) {
@@ -213,7 +213,7 @@ describe('Scratchx - classify', () => {
                 projectid : project.id,
             };
 
-            const classifications = await classifier.classify(key, '[ 123 ]');
+            const classifications = await classifier.classify(key, ['123']);
             assert.equal(classifications.length, 2);
             for (const classification of classifications) {
                 assert(classification.random);

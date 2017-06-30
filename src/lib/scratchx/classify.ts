@@ -4,6 +4,7 @@ import * as httpstatus from 'http-status';
 // local dependencies
 import * as store from '../db/store';
 import * as nlc from '../training/nlc';
+import * as numberService from '../training/numbers';
 import * as Types from '../db/db-types';
 import * as TrainingTypes from '../training/training-types';
 import loggerSetup from '../utils/logger';
@@ -58,7 +59,7 @@ async function classifyText(key: Types.ScratchKey, text: string): Promise<Traini
 
 
 
-async function classifyNumbers(key: Types.ScratchKey, numbers: number[]): Promise<TrainingTypes.Classification[]> {
+async function classifyNumbers(key: Types.ScratchKey, numbers: string[]): Promise<TrainingTypes.Classification[]> {
     if (!numbers || numbers.length === 0) {
         throw new Error('Missing data');
     }
@@ -67,7 +68,18 @@ async function classifyNumbers(key: Types.ScratchKey, numbers: number[]): Promis
         throw new Error('Missing data');
     }
 
-    return chooseLabelsAtRandom(project);
+    if (key.classifierid && key.credentials) {
+        const resp = await numberService.testClassifier(
+            key.credentials.username,
+            key.credentials.password,
+            key.classifierid,
+            numbers.map(parseFloat));
+        return resp;
+    }
+    else {
+        // we don't have an NLC classifier yet, so we resort to random
+        return chooseLabelsAtRandom(project);
+    }
 }
 
 
@@ -75,12 +87,12 @@ async function classifyNumbers(key: Types.ScratchKey, numbers: number[]): Promis
 
 
 
-export function classify(scratchKey: Types.ScratchKey, data: string): Promise<TrainingTypes.Classification[]> {
+export function classify(scratchKey: Types.ScratchKey, data: any): Promise<TrainingTypes.Classification[]> {
     if (scratchKey.type === 'text') {
-        return classifyText(scratchKey, data);
+        return classifyText(scratchKey, data as string);
     }
     else if (scratchKey.type === 'numbers') {
-        return classifyNumbers(scratchKey, JSON.parse(data) as number[]);
+        return classifyNumbers(scratchKey, data as string[]);
     }
     else {
         throw new Error('Not implemented yet');

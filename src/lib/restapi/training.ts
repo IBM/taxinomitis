@@ -112,6 +112,9 @@ async function getLabels(req: RequestWithProject, res: Express.Response) {
         case 'text':
             counts = await store.countTextTrainingByLabel(req.project.id);
             break;
+        case 'numbers':
+            counts = await store.countNumberTrainingByLabel(req.project.id);
+            break;
         }
         res.json(counts);
     }

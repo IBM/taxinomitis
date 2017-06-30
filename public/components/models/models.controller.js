@@ -192,7 +192,7 @@
             }
             else if (project.type === 'numbers') {
                 testdata.numbers = project.fields.map(function (fieldname) {
-                    return $scope.testformData[fieldname];
+                    return parseFloat($scope.testformData[fieldname]);
                 });
             }
 

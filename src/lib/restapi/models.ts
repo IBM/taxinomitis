@@ -7,7 +7,12 @@ import * as store from '../db/store';
 import * as Objects from '../db/db-types';
 import * as Types from '../training/training-types';
 import * as nlc from '../training/nlc';
+import * as numbers from '../training/numbers';
 import * as errors from './errors';
+import loggerSetup from '../utils/logger';
+
+
+const log = loggerSetup();
 
 
 
@@ -20,6 +25,7 @@ function returnNLCClassifier(classifier: Types.NLCClassifier) {
         statusDescription : classifier.statusDescription,
     };
 }
+
 
 
 async function getModels(req: Express.Request, res: Express.Response) {
@@ -43,9 +49,11 @@ async function getModels(req: Express.Request, res: Express.Response) {
         classifiers = classifiers.map(returnNLCClassifier);
         break;
     case 'images':
-    case 'numbers':
         // do nothing
         classifiers = [];
+        break;
+    case 'numbers':
+        classifiers = await store.getNumbersClassifiers(projectid);
         break;
     }
 
@@ -81,6 +89,15 @@ async function newModel(req: Express.Request, res: Express.Response) {
             return errors.unknownError(res, err);
         }
     }
+    else if (project.type === 'numbers') {
+        try {
+            const model = await numbers.trainClassifier(userid, classid, projectid);
+            return res.status(httpstatus.CREATED).json(model);
+        }
+        catch (err) {
+            return errors.unknownError(res, err);
+        }
+    }
 
     return errors.notImplementedYet(res);
 }
@@ -105,6 +122,10 @@ async function deleteModel(req: Express.Request, res: Express.Response) {
             await nlc.deleteClassifier(userid, classid, projectid, modelid);
             return res.sendStatus(httpstatus.NO_CONTENT);
         }
+        else if (project.type === 'numbers') {
+            await numbers.deleteClassifier(userid, classid, projectid);
+            return res.sendStatus(httpstatus.NO_CONTENT);
+        }
         else {
             return errors.notImplementedYet(res);
         }
@@ -121,26 +142,34 @@ async function testModel(req: Express.Request, res: Express.Response) {
     const projectid = req.params.projectid;
     const modelid = req.params.modelid;
     const type = req.body.type;
-    const text = req.body.text;
 
-    if (!text) {
-        return errors.missingData(res);
-    }
-
-    let servicetype: Types.BluemixServiceType;
-    if (type === 'text') {
-        servicetype = 'nlc';
-    }
-    else {
-        return errors.missingData(res);
-    }
 
     try {
-        const creds = await store.getServiceCredentials(projectid, classid, userid, servicetype, modelid);
-        const classes = await nlc.testClassifier(creds, modelid, text);
-        return res.json(classes);
+        if (type === 'text') {
+            const text = req.body.text;
+            if (!text) {
+                return errors.missingData(res);
+            }
+
+            const creds = await store.getServiceCredentials(projectid, classid, userid, 'nlc', modelid);
+            const classes = await nlc.testClassifier(creds, modelid, text);
+            return res.json(classes);
+        }
+        else if (type === 'numbers') {
+            const numberdata = req.body.numbers;
+            if (!numberdata || numberdata.length === 0) {
+                return errors.missingData(res);
+            }
+
+            const classes = await numbers.testClassifier(userid, classid, projectid, numberdata);
+            return res.json(classes);
+        }
+        else {
+            return errors.missingData(res);
+        }
     }
     catch (err) {
+        log.error({ err }, 'Test error');
         return errors.unknownError(res, err);
     }
 }

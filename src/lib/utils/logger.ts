@@ -22,6 +22,7 @@ export default function getLogger(): bunyan {
         else {
             options.src = true;
             options.streams = [{
+                level : 'debug',
                 type : 'rotating-file',
                 path : './logs/ml-for-kids.log',
                 period : '1d',

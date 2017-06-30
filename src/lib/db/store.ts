@@ -447,6 +447,18 @@ export async function countNumberTraining(projectid: string): Promise<number> {
     return response[0].trainingcount;
 }
 
+export async function countNumberTrainingByLabel(projectid: string) {
+    const queryString = 'SELECT `label`, COUNT(*) AS `trainingcount` FROM `numbertraining` ' +
+                        'WHERE `projectid` = ? ' +
+                        'GROUP BY `label`';
+    const response = await dbExecute(queryString, [projectid]);
+    const counts = {};
+    for (const count of response) {
+        counts[count.label] = count.trainingcount;
+    }
+    return counts;
+}
+
 export async function deleteNumberTraining(projectid: string, trainingid: string): Promise<void> {
     const queryString = 'DELETE FROM `numbertraining` WHERE `id` = ? AND `projectid` = ?';
 
@@ -586,6 +598,17 @@ export async function getNLCClassifiers(
     return rows.map(dbobjects.getClassifierFromDbRow);
 }
 
+export async function getNumbersClassifiers(projectid: string): Promise<TrainingObjects.NumbersClassifier[]>
+{
+    const queryString = 'SELECT `projectid`, `userid`, `classid`, ' +
+                        '`created`, `status` ' +
+                        'FROM `taxinoclassifiers` ' +
+                        'WHERE `projectid` = ?';
+
+    const rows = await dbExecute(queryString, [ projectid ]);
+    return rows.map(dbobjects.getNumbersClassifierFromDbRow);
+}
+
 
 export async function countNLCClassifiers(classid: string): Promise<number> {
     const queryString = 'SELECT COUNT(*) AS count ' +
@@ -628,6 +651,30 @@ export async function storeNLCClassifier(
 
     return classifier;
 }
+
+
+export async function storeNumbersClassifier(
+    userid: string, classid: string, projectid: string, status: TrainingObjects.NumbersStatus,
+): Promise<TrainingObjects.NumbersClassifier>
+{
+    const obj = dbobjects.createNumbersClassifier(userid, classid, projectid, status);
+
+    const queryString: string = 'REPLACE INTO `taxinoclassifiers` ' +
+                                '(`projectid`, `userid`, `classid`, ' +
+                                '`created`, `status`) ' +
+                                'VALUES (?, ?, ?, ?, ?)';
+
+    const values = [obj.projectid, obj.userid, obj.classid, obj.created, obj.status];
+
+    const response = await dbExecute(queryString, values);
+    if (response.warningStatus !== 0) {
+        log.error({ response }, 'Failed to store classifier info');
+        throw new Error('Failed to store classifier');
+    }
+
+    return dbobjects.getNumbersClassifierFromDbRow(obj);
+}
+
 
 
 export async function deleteNLCClassifier(
@@ -899,6 +946,7 @@ export async function deleteEntireProject(userid: string, classid: string, proje
         'DELETE FROM `texttraining` WHERE `projectid` = ?',
         'DELETE FROM `numbertraining` WHERE `projectid` = ?',
         'DELETE FROM `bluemixclassifiers` WHERE `projectid` = ?',
+        'DELETE FROM `taxinoclassifiers` WHERE `projectid` = ?',
         'DELETE FROM `scratchkeys` WHERE `projectid` = ?',
     ];
 
@@ -918,6 +966,7 @@ export async function deleteEntireUser(userid: string, classid: string): Promise
     const deleteQueries = [
         'DELETE FROM `projects` WHERE `userid` = ?',
         'DELETE FROM `bluemixclassifiers` WHERE `userid` = ?',
+        'DELETE FROM `taxinoclassifiers` WHERE `userid` = ?',
         'DELETE FROM `scratchkeys` WHERE `userid` = ?',
     ];
 

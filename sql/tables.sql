@@ -82,6 +82,18 @@ CREATE INDEX bluemixclassifiers_countNLCClassifiers on bluemixclassifiers(classi
 
 -- ------------------------------------------------------------------
 
+CREATE TABLE taxinoclassifiers (
+    projectid CHAR(36) NOT NULL PRIMARY KEY,
+    userid CHAR(36) NOT NULL,
+    classid CHAR(36) NOT NULL,
+    created DATETIME NOT NULL,
+    status TINYINT NOT NULL
+);
+
+
+
+-- ------------------------------------------------------------------
+
 CREATE TABLE scratchkeys (
     id CHAR(72) NOT NULL PRIMARY KEY,
     projectname VARCHAR(36) NOT NULL,
@@ -89,7 +101,7 @@ CREATE TABLE scratchkeys (
     serviceurl VARCHAR(200),
     serviceusername VARCHAR(36),
     servicepassword VARCHAR(36),
-    classifierid VARCHAR(21),
+    classifierid VARCHAR(36),
     projectid CHAR(36) NOT NULL,
     userid CHAR(36) NOT NULL,
     classid CHAR(36) NOT NULL

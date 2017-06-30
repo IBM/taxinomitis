@@ -28,6 +28,7 @@
     max-width: 40%;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .loadingtraining {
@@ -46,7 +47,6 @@
     margin-right: auto;
     text-align: center;
     height: 1em;
-    position: relative;
 }
 .trainingbucketlabel {
     text-align: center;

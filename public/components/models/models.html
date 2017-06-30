@@ -317,7 +317,7 @@
                     <td><strong>Current model status:</strong></td>
                     <td> {{ model.status }} </td>
                 </tr>
-                <tr>
+                <tr ng-if="model.statusDescription">
                     <td><strong>Detail:</strong></td>
                     <td> {{ model.statusDescription }} </td>
                 </tr>

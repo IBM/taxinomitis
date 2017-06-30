@@ -250,7 +250,8 @@ describe('REST API - scratch keys', () => {
             const callbackFunctionName = 'jsonpCallback';
 
             return request(testServer)
-                .get('/api/scratch/' + keyId + '/classify?callback=' + callbackFunctionName + '&data=haddock')
+                .get('/api/scratch/' + keyId + '/classify')
+                .query({ callback : callbackFunctionName, data : 'haddock' })
                 // this is a JSONP API
                 .expect('Content-Type', /javascript/)
                 .expect(httpstatus.OK)
@@ -295,7 +296,8 @@ describe('REST API - scratch keys', () => {
             const callbackFunctionName = 'jsonpCallback';
 
             return request(testServer)
-                .get('/api/scratch/' + keyId + '/classify?callback=' + callbackFunctionName + '&data=[1,2,3]')
+                .get('/api/scratch/' + keyId + '/classify')
+                .query({ callback : callbackFunctionName, data : [1, 2, 3 ]})
                 // this is a JSONP API
                 .expect('Content-Type', /javascript/)
                 .expect(httpstatus.OK)
@@ -338,7 +340,8 @@ describe('REST API - scratch keys', () => {
             const callbackFunctionName = 'jsonpCallback';
 
             return request(testServer)
-                .get('/api/scratch/' + keyId + '/classify?callback=' + callbackFunctionName + '&data=[10,20,30,40]')
+                .get('/api/scratch/' + keyId + '/classify')
+                .query({ callback : callbackFunctionName, data : [10, 20, 30, 40]})
                 // this is a JSONP API
                 .expect('Content-Type', /javascript/)
                 .expect(httpstatus.BAD_REQUEST)
@@ -478,7 +481,8 @@ describe('REST API - scratch keys', () => {
             const callbackFunctionName = 'cb';
 
             return request(testServer)
-                .get('/api/scratch/' + scratchKey + '/classify?callback=' + callbackFunctionName + '&data=haddock')
+                .get('/api/scratch/' + scratchKey + '/classify')
+                .query({ callback : callbackFunctionName, data : 'haddock' })
                 // this is a JSONP API
                 .expect('Content-Type', /javascript/)
                 .expect(httpstatus.OK)
@@ -546,7 +550,8 @@ describe('REST API - scratch keys', () => {
             const callbackFunctionName = 'cb';
 
             return request(testServer)
-                .get('/api/scratch/' + scratchKey + '/classify?callback=' + callbackFunctionName + '&data=haddock')
+                .get('/api/scratch/' + scratchKey + '/classify')
+                .query({ callback : callbackFunctionName, data : 'haddock' })
                 // this is a JSONP API
                 .expect('Content-Type', /javascript/)
                 .expect(httpstatus.INTERNAL_SERVER_ERROR)
@@ -581,12 +586,4 @@ describe('REST API - scratch keys', () => {
 
 
     });
-
-
-
-
-
-
-
-
 });

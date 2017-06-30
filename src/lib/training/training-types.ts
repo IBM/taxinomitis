@@ -13,7 +13,7 @@ export interface BluemixCredentialsDbRow {
     readonly password: string;
 }
 
-export type BluemixServiceType = 'nlc' | 'visrec';
+export type BluemixServiceType = 'nlc' | 'visrec' | 'num';
 
 
 export interface NLCClassifier {
@@ -40,6 +40,23 @@ export interface ClassifierDbRow {
 }
 
 export type NLCStatus = 'Non Existent' | 'Training' | 'Failed' | 'Available' | 'Unavailable';
+
+
+export interface NumbersClassifier {
+    readonly created: Date;
+    readonly status: NumbersStatus;
+    readonly classifierid: string;
+}
+export interface NumbersClassifierDbRow {
+    readonly userid: string;
+    readonly projectid: string;
+    readonly classid: string;
+    readonly created: Date;
+    readonly status: number;
+}
+export type NumbersStatus = 'Failed' | 'Available';
+
+
 
 export interface Classification {
     readonly class_name: string;
