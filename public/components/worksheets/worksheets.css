@@ -1,0 +1,43 @@
+td.worksheetname {
+    margin: 1em;
+    font-size: 1.1em;
+    font-weight: bold;
+    background-color: #e0e0ff;
+}
+
+td.worksheetinfo {
+    font-size: 0.9em;
+}
+
+.worksheetsintro {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 3em;
+    width: 95%;
+    font-size: 1.2em;
+    border-radius: 1em;
+    padding: 1.5em 1.5em 1em 1.5em;
+    background-color: #eeeeee;
+}
+
+.worksheetslist {
+    width: 95%;
+}
+
+.worksheetslist td {
+    padding: 1em;
+}
+
+.worksheettype {
+    color: #00008b;
+    font-weight: bold;
+}
+
+.worksheetslist small {
+    font-size: 0.7em;
+}
+
+.worksheetslist a {
+    white-space: nowrap;
+    font-size: 0.9em;
+}
