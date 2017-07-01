@@ -572,7 +572,7 @@ describe('REST API - models', () => {
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK)
-                .then(async (res) => {
+                .then((res) => {
                     const body = res.body;
 
                     assert.deepEqual(body, [

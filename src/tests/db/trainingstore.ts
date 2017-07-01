@@ -147,6 +147,11 @@ describe('DB store - training', () => {
         });
 
 
+        function wait() {
+            return new Promise((resolve) => setTimeout(resolve, 1000));
+        }
+
+
         it('should delete training by label', async () => {
             const userid = uuid();
             const classid = 'UNIQUECLASSID';
@@ -169,7 +174,7 @@ describe('DB store - training', () => {
             store.storeNumberTraining(project.id, [200, 300, 400], 'HUNDREDS');
             store.storeNumberTraining(project.id, [20, 40, 60], 'TENS');
 
-            await store.countNumberTraining(project.id);
+            await wait();
 
             let counts = await store.countNumberTrainingByLabel(project.id);
             assert.deepEqual(counts, { TENS : 3, HUNDREDS : 2, THOUSANDS : 1 });

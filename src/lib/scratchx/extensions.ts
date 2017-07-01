@@ -26,6 +26,8 @@ async function getTextExtension(scratchkey: Types.ScratchKey, project: Types.Pro
     const rendered = Mustache.render(template, {
         statusurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/status',
         classifyurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/classify',
+        storeurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/train',
+
         projectname : scratchkey.name,
         labels : project.labels.map((name, idx) => {
             return { name, idx };
@@ -40,6 +42,8 @@ async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.
     const rendered = Mustache.render(template, {
         statusurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/status',
         classifyurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/classify',
+        storeurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/train',
+
         projectname : scratchkey.name,
         labels : project.labels.map((name, idx) => {
             return { name, idx };

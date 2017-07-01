@@ -93,6 +93,34 @@
         });
     }
 
+
+    function storeText(text, label, callback) {
+        $.ajax({
+            url : '{{{ storeurl }}}',
+            dataType : 'jsonp',
+            data : {
+                data : text,
+                label : label
+            },
+            success : function (data) {
+                console.log('stored');
+                console.log(data);
+                callback();
+            },
+            error : function (err) {
+                classifierStatus = {
+                    status : 0,
+                    msg : 'Failed to submit text to training data store'
+                };
+                pollStatus();
+                callback();
+            }
+        });
+    }
+
+
+
+
     ext.text_classification_label = function (text, callback) {
         if (ext.resultscache[text]) {
             callback(ext.resultscache[text].class_name);
@@ -114,6 +142,13 @@
         }
     };
 
+    ext.text_store = function (text, label, callback) {
+        // TODO verify label
+
+        storeText(text, label, callback);
+    };
+
+
     {{#labels}}
     ext.return_label_{{idx}} = function () {
         return '{{name}}';
@@ -127,6 +162,7 @@
             {{#labels}}
             [ 'r', '{{name}}', 'return_label_{{idx}}'],
             {{/labels}}
+            [ 'w', 'add training data %s %s', 'text_store', 'text', 'label']
         ]
     };
 

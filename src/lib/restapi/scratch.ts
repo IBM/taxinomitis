@@ -9,6 +9,7 @@ import * as extensions from '../scratchx/extensions';
 import * as status from '../scratchx/status';
 import * as keys from '../scratchx/keys';
 import * as classifier from '../scratchx/classify';
+import * as training from '../scratchx/training';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -47,6 +48,7 @@ async function getScratchKeys(req: Express.Request, res: Express.Response) {
 
 
 
+
 async function classifyWithScratchKey(req: Express.Request, res: Express.Response) {
     const apikey = req.params.scratchkey;
 
@@ -73,6 +75,36 @@ async function classifyWithScratchKey(req: Express.Request, res: Express.Respons
     }
 }
 
+
+
+async function storeTrainingData(req: Express.Request, res: Express.Response) {
+    const apikey = req.params.scratchkey;
+
+    try {
+        if (!req.query.data || !req.query.label) {
+            throw new Error('Missing data');
+        }
+
+        const scratchKey = await store.getScratchKey(apikey);
+        const stored = await training.storeTrainingData(scratchKey, req.query.label, req.query.data);
+
+        return res.jsonp(stored);
+    }
+    catch (err) {
+        if (err.message === 'Missing data' ||
+            err.message === 'Invalid data' ||
+            err.message === 'Invalid label')
+        {
+            return res.status(httpstatus.BAD_REQUEST).jsonp({ error : err.message });
+        }
+        if (err.message === 'Not implemented yet') {
+            return res.status(httpstatus.NOT_IMPLEMENTED).jsonp({ error : 'Not implemented yet' });
+        }
+
+        log.error({ err }, 'Classify error');
+        return res.status(httpstatus.INTERNAL_SERVER_ERROR).jsonp(err);
+    }
+}
 
 
 
@@ -119,6 +151,8 @@ export default function registerApis(app: Express.Application) {
             getScratchKeys);
 
     app.get('/api/scratch/:scratchkey/classify', classifyWithScratchKey);
+    app.get('/api/scratch/:scratchkey/train', storeTrainingData);
+
     app.get('/api/scratch/:scratchkey/extension.js', getScratchxExtension);
     app.get('/api/scratch/:scratchkey/status', getScratchxStatus);
 }
