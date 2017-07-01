@@ -25,7 +25,7 @@
                     </div>
                     <div layout="row" ng-show="projectType === 'numbers'">
                         <md-input-container style="min-width: 400px">
-                            <label>Number of numeric fields in each value to be recognised</label>
+                            <label>How many numbers in each example?</label>
                             <md-select ng-model="fieldscount" ng-focus="focused = 'fields'">
                                 <md-option ng-value=1 ng-selected="true">1</md-option>
                                 <md-option ng-value=2>2</md-option><md-option ng-value=3>3</md-option><md-option ng-value=4>4</md-option>
@@ -60,10 +60,10 @@
                     </div>
                     <div class="well" ng-if="focused === 'fields'">
                         <div style="margin-bottom: 1em">
-                        Each example for numeric projects can contain multiple numeric fields.
+                        Each example for numbers projects can contain a set of numbers.
                         </div>
                         <div>
-                        For example, if you want to train the computer to recognise the season based on weather data, you could create fields for temperature, rainfall and windspeed.
+                        For example, if you want to train the computer to recognise the time of year based on weather data, you might want a few numbers - for temperature, amount of rain, and windspeed.
                         </div>
                     </div>
                 </md-card-content>

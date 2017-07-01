@@ -6,11 +6,11 @@ UI clean-up needed
 * Replace Angular material with something that looks better
 
 New features
-* Editing examples
 * Expiry for models
 * Multiple credentials pool per class
 * Images training - built around a WikiMedia library?
 * Scratch blocks for collecting training data
+* Editing examples
 
 Code / engineering work
 * Test coverage for DB errors
@@ -22,4 +22,8 @@ Longer term goals
 * Restore sprites library
 
 Worksheets
-* Journey to School project
+* Control Your Home (text)
+* Harry Potter Sorting Hat (text)
+* Shakespeare or Dahl (text)
+* Top Trumps (numbers)
+* Journey to school (numbers)
