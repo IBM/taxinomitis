@@ -17,6 +17,7 @@ Code / engineering work
 * Fix the UI for browsers other than Chrome
 * Scratch keys should use project id as primary key so REPLACE is more efficient
 * Google Analytics
+* max limit on training items per project
 
 Longer term goals
 * Restore sprites library

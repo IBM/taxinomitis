@@ -27,6 +27,8 @@
                 }
             },
             error : function (err) {
+                console.log(err);
+
                 classifierStatus = {
                     status : 0,
                     msg : 'Unable to communicate with machine learning service'
@@ -84,6 +86,8 @@
                 callback(result);
             },
             error : function (err) {
+                console.log(err);
+
                 classifierStatus = {
                     status : 0,
                     msg : 'Failed to submit text to machine learning service'
@@ -103,11 +107,11 @@
                 label : label
             },
             success : function (data) {
-                console.log('stored');
-                console.log(data);
                 callback();
             },
             error : function (err) {
+                console.log(err);
+
                 classifierStatus = {
                     status : 0,
                     msg : 'Failed to submit text to training data store'

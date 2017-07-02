@@ -59,6 +59,7 @@
                     </div>
                 </div>
                 <div class="trainingbucketitems" ng-if="project.type === 'numbers'">
+                    <div class="loadingtraining" ng-if="loadingtraining"> </div>
                     <div class="trainingbucketitem" ng-repeat="item in training[label]">
                         <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true" ng-click="vm.deleteText(label, item, $index)"></span>
                         <table>

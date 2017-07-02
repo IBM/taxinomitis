@@ -102,6 +102,9 @@
                     if (scratchkey.model) {
                         scratchWindow.location.href = scratchkey.url;
                     }
+                    else {
+                        scratchWindow.close();
+                    }
 
                     $scope.scratchkey = scratchkey;
                 })
