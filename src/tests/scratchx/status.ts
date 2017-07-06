@@ -3,7 +3,7 @@ import * as assert from 'assert';
 import * as uuid from 'uuid/v1';
 import * as sinon from 'sinon';
 import * as proxyquire from 'proxyquire';
-import * as nlc from '../../lib/training/nlc';
+import * as conversation from '../../lib/training/conversation';
 import * as status from '../../lib/scratchx/status';
 import * as Types from '../../lib/db/db-types';
 import * as TrainingTypes from '../../lib/training/training-types';
@@ -13,20 +13,20 @@ describe('Scratchx - status', () => {
 
     describe('text projects', () => {
 
-        const testStatus: TrainingTypes.NLCClassifier = {
-            name : 'TEST NLC PROJECT',
+        const testStatus: TrainingTypes.ConversationWorkspace = {
+            name : 'TEST PROJECT',
             status : 'Available',
-            classifierid : uuid(),
+            workspace_id : uuid(),
             created : new Date(),
             language : 'en',
-            url : 'nlcurl',
+            url : 'conversation.url',
         };
         let getStatusStub;
 
         before(() => {
-            getStatusStub = sinon.stub(nlc, 'getStatus').resolves(testStatus);
+            getStatusStub = sinon.stub(conversation, 'getStatus').resolves(testStatus);
             proxyquire('../../lib/scratchx/status', {
-                '../training/nlc' : {
+                '../training/conversation' : {
                     getStatus : getStatusStub,
                 },
             });
@@ -59,23 +59,22 @@ describe('Scratchx - status', () => {
                 name : 'TEST',
                 type : 'text',
                 projectid : uuid(),
-                classifierid : testStatus.classifierid,
+                classifierid : testStatus.workspace_id,
                 credentials : {
                     url : 'http',
                     id : uuid(),
                     username : 'user',
                     password : 'pass',
-                    servicetype : 'nlc',
+                    servicetype : 'conv',
                 },
             };
 
             testStatus.status = 'Non Existent';
-            testStatus.statusDescription = 'Classifier not found';
 
             const statusObj = await status.getStatus(key);
             assert.deepEqual(statusObj, {
                 status : 0,
-                msg : 'Model Non Existent Classifier not found',
+                msg : 'Model Non Existent',
             });
         });
 
@@ -87,13 +86,13 @@ describe('Scratchx - status', () => {
                 name : 'TEST',
                 type : 'text',
                 projectid : uuid(),
-                classifierid : testStatus.classifierid,
+                classifierid : testStatus.workspace_id,
                 credentials : {
                     url : 'http',
                     id : uuid(),
                     username : 'user',
                     password : 'pass',
-                    servicetype : 'nlc',
+                    servicetype : 'conv',
                 },
             };
 
@@ -113,13 +112,13 @@ describe('Scratchx - status', () => {
                 name : 'TEST',
                 type : 'text',
                 projectid : uuid(),
-                classifierid : testStatus.classifierid,
+                classifierid : testStatus.workspace_id,
                 credentials : {
                     url : 'http',
                     id : uuid(),
                     username : 'user',
                     password : 'pass',
-                    servicetype : 'nlc',
+                    servicetype : 'conv',
                 },
             };
 

@@ -21,8 +21,6 @@ describe('DB store - tenants', () => {
             supportedProjectTypes : ['text', 'images', 'numbers'],
             maxUsers : 8,
             maxProjectsPerUser : 3,
-            maxNLCClassifiers : 10,
-            nlcExpiryDays : 14,
         };
         const policy = await store.getClassTenant('TESTTENANT');
 

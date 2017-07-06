@@ -6,8 +6,8 @@ export const creds: TrainingTypes.BluemixCredentials = {
     id : '123',
     username : 'user',
     password : 'pass',
-    servicetype : 'nlc',
-    url : 'http://nlc.service',
+    servicetype : 'conv',
+    url : 'http://conversation.service',
 };
 
 export function getBluemixCredentials() {
@@ -17,16 +17,19 @@ export function getServiceCredentials() {
     return new Promise((resolve) => resolve(creds));
 }
 
-const NUM_TRAINING = 347;
+const NUM_TRAINING_PER_LABEL = {
+    temperature : 18,
+    conditions : 16,
+};
 
-export function countTextTraining(): Promise<number> {
-    return new Promise((resolve) => resolve(NUM_TRAINING));
+export function countTextTrainingByLabel(): Promise<{}> {
+    return new Promise((resolve) => resolve(NUM_TRAINING_PER_LABEL));
 }
 
-export function getTextTraining(projectid: string, options: DbTypes.PagingOptions) {
+export function getTextTrainingByLabel(projectid: string, label: string, options: DbTypes.PagingOptions) {
     const start = options.start;
     const limit = options.limit;
-    const end = Math.min(start + limit, NUM_TRAINING);
+    const end = Math.min(start + limit, NUM_TRAINING_PER_LABEL[label]);
 
     const training: DbTypes.TextTraining[] = [];
 
@@ -35,31 +38,35 @@ export function getTextTraining(projectid: string, options: DbTypes.PagingOption
             projectid,
             id : 'id' + idx,
             textdata : 'sample text ' + idx,
-            label : 'sample label ' + (idx % 7),
+            label,
         });
     }
 
     return new Promise((resolve) => resolve(training));
 }
 
-export function storeNLCClassifier(
+export function storeConversationWorkspace(
     credentials: TrainingTypes.BluemixCredentials,
     userid: string, classid: string, projectid: string,
-    classifier: TrainingTypes.NLCClassifier,
-): Promise<TrainingTypes.NLCClassifier>
+    classifier: TrainingTypes.ConversationWorkspace,
+): Promise<TrainingTypes.ConversationWorkspace>
 {
-    return new Promise((resolve) => resolve(DbObjects.createNLCClassifier(
-        classifier, credentials,
-        userid, classid, projectid,
-    )));
+    return new Promise((resolve) => resolve(
+        DbObjects.getWorkspaceFromDbRow(
+            DbObjects.createConversationWorkspace(
+                classifier, credentials,
+                userid, classid, projectid,
+            ),
+        ),
+    ));
 }
 
-export function getNLCClassifiers()
+export function getConversationWorkspaces()
 {
     return new Promise((resolve) => resolve([]));
 }
 
-export function deleteNLCClassifier()
+export function deleteConversationWorkspace()
 {
     return new Promise((resolve) => resolve());
 }

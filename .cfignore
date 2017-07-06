@@ -5,3 +5,4 @@ sql
 test
 logs/ml*
 public
+archive

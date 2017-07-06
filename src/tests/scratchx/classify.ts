@@ -5,7 +5,7 @@ import * as sinon from 'sinon';
 import * as proxyquire from 'proxyquire';
 import * as request from 'request-promise';
 import * as store from '../../lib/db/store';
-import * as nlc from '../../lib/training/nlc';
+import * as conversation from '../../lib/training/conversation';
 import * as classifier from '../../lib/scratchx/classify';
 import * as Types from '../../lib/db/db-types';
 import * as TrainingTypes from '../../lib/training/training-types';
@@ -74,71 +74,57 @@ describe('Scratchx - classify', () => {
         });
 
 
-        it('should return random classes for projects with training classifiers', async () => {
-            const requestPostStub = sinon.stub(request, 'post').rejects({
-                error : {
-                    code : 409,
-                    error : 'Classifier not ready',
-                    description : 'The classifier is not ready. The status of the classifier is \'Training\'.',
-                },
-            });
 
-            proxyquire('../../lib/training/nlc', {
-                'request-promise' : {
-                    post : requestPostStub,
-                },
-            });
-
-            const userid = uuid();
-            const project = await store.storeProject(userid, TESTCLASS, 'text', 'test project', []);
-            await store.addLabelToProject(userid, TESTCLASS, project.id, 'ALPHA');
-            await store.addLabelToProject(userid, TESTCLASS, project.id, 'BETA');
-
-            const key: Types.ScratchKey = {
-                id : uuid(),
-                name : 'TEST',
-                type : 'text',
-                projectid : project.id,
-                classifierid : 'good',
-                credentials : {
-                    id : uuid(),
-                    username : 'user',
-                    password : 'pass',
-                    servicetype : 'nlc',
-                    url : 'url',
-                },
-            };
-
-            const classifications = await classifier.classify(key, 'text to be classified');
-            assert.equal(classifications.length, 2);
-            for (const classification of classifications) {
-                assert(classification.random);
-                assert.equal(classification.confidence, 50);
-            }
-
-            requestPostStub.restore();
-        });
-
-
-        it('should return NLC classes for projects with classifiers', async () => {
+        it('should return Conversation classes for projects with classifiers', async () => {
             const requestPostStub = sinon.stub(request, 'post').resolves({
-                classifier_id : 'good',
-                url : 'http://nlc.service/v1/classifiers/good/classify',
-                text : 'question text',
-                top_class : 'BETA',
-                classes : [
+                intents : [
                     {
-                        class_name : 'BETA',
+                        intent : 'BETA',
                         confidence : 0.84,
                     },
                     {
-                        class_name : 'ALPHA',
+                        intent : 'ALPHA',
                         confidence : 0.16,
                     },
                 ],
+                entities : [],
+                input : {
+                    text : 'question text',
+                },
+                output : {
+                    text : [],
+                    nodes_visited : [],
+                    warning : 'No dialog node matched for the input at a root level. ' +
+                                '(and there is 1 more warning in the log)',
+                    log_messages : [
+                        {
+                            level : 'warn',
+                            msg : 'No dialog node matched for the input at a root level.',
+                        },
+                        {
+                            level : 'warn',
+                            msg : 'No dialog node condition matched to true in the last dialog round - ' +
+                                    'context.nodes_visited is empty. Falling back to the root node in the next round.',
+                        },
+                    ],
+                },
+                context : {
+                    conversation_id : uuid(),
+                    system : {
+                        dialog_stack : [
+                            {
+                                dialog_node : 'root',
+                            },
+                        ],
+                        dialog_turn_counter : 1,
+                        dialog_request_counter : 1,
+                    },
+                },
             });
 
-            proxyquire('../../lib/training/nlc', {
+
+
+            proxyquire('../../lib/training/conversation', {
                 'request-promise' : {
                     post : requestPostStub,
                 },
@@ -159,7 +145,7 @@ describe('Scratchx - classify', () => {
                     id : uuid(),
                     username : 'user',
                     password : 'pass',
-                    servicetype : 'nlc',
+                    servicetype : 'conv',
                     url : 'url',
                 },
             };

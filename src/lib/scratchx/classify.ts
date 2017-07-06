@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 import * as httpstatus from 'http-status';
 // local dependencies
 import * as store from '../db/store';
-import * as nlc from '../training/nlc';
+import * as conversation from '../training/conversation';
 import * as numberService from '../training/numbers';
 import * as Types from '../db/db-types';
 import * as TrainingTypes from '../training/training-types';
@@ -32,7 +32,7 @@ async function classifyText(key: Types.ScratchKey, text: string): Promise<Traini
 
     if (key.classifierid && key.credentials) {
         try {
-            const resp = await nlc.testClassifier(key.credentials, key.classifierid, text);
+            const resp = await conversation.testClassifier(key.credentials, key.classifierid, text);
             return resp;
         }
         catch (err) {
@@ -40,18 +40,18 @@ async function classifyText(key: Types.ScratchKey, text: string): Promise<Traini
                 err.error.code === httpstatus.CONFLICT &&
                 err.error.error === 'Classifier not ready')
             {
-                // the NLC classifier is still training, so we fall-back to random
+                // the Conversation classifier is still training, so we fall-back to random
                 const project = await store.getProject(key.projectid);
                 return chooseLabelsAtRandom(project);
             }
             else {
-                log.error({ err }, 'Unexpected NLC error');
+                log.error({ err }, 'Unexpected Conversation error');
                 throw err;
             }
         }
     }
     else {
-        // we don't have an NLC classifier yet, so we resort to random
+        // we don't have a Conversation workspace yet, so we resort to random
         const project = await store.getProject(key.projectid);
         return chooseLabelsAtRandom(project);
     }
@@ -77,7 +77,7 @@ async function classifyNumbers(key: Types.ScratchKey, numbers: string[]): Promis
         return resp;
     }
     else {
-        // we don't have an NLC classifier yet, so we resort to random
+        // we don't have a Conversation workspace yet, so we resort to random
         return chooseLabelsAtRandom(project);
     }
 }

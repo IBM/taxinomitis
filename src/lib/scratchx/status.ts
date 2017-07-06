@@ -1,7 +1,7 @@
 // local dependencies
 import * as Types from '../db/db-types';
 import * as TrainingTypes from '../training/training-types';
-import * as nlc from '../training/nlc';
+import * as conversation from '../training/conversation';
 import * as ScratchTypes from './scratchx-types';
 
 
@@ -32,15 +32,15 @@ export function getStatus(scratchKey: Types.ScratchKey): Promise<ScratchTypes.St
 async function getTextClassifierStatus(scratchKey: Types.ScratchKey): Promise<ScratchTypes.Status> {
 
     const credentials: TrainingTypes.BluemixCredentials = scratchKey.credentials;
-    const classifier: TrainingTypes.NLCClassifier = {
+    const classifier: TrainingTypes.ConversationWorkspace = {
         name: scratchKey.name,
-        classifierid: scratchKey.classifierid,
+        workspace_id: scratchKey.classifierid,
         created: new Date(),
         language: 'en',
-        url: scratchKey.credentials.url + '/v1/classifiers/' + scratchKey.classifierid,
+        url: scratchKey.credentials.url + '/v1/workspaces/' + scratchKey.classifierid,
     };
 
-    const classifierWithStatus = await nlc.getStatus(credentials, classifier);
+    const classifierWithStatus = await conversation.getStatus(credentials, classifier);
     if (classifierWithStatus.status === 'Available') {
         return {
             status : 2,
@@ -56,8 +56,7 @@ async function getTextClassifierStatus(scratchKey: Types.ScratchKey): Promise<Sc
 
     return {
         status : 0,
-        msg : 'Model ' + classifierWithStatus.status + ' ' +
-                         classifierWithStatus.statusDescription,
+        msg : 'Model ' + classifierWithStatus.status,
     };
 }
 

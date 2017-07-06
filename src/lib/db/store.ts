@@ -2,8 +2,8 @@
 import * as mysqldb from './mysqldb';
 import * as dbobjects from './objects';
 import * as Objects from './db-types';
-import * as nlc from '../training/nlc';
 import * as numbers from '../training/numbers';
+import * as conversation from '../training/conversation';
 import * as TrainingObjects from '../training/training-types';
 import loggerSetup from '../utils/logger';
 
@@ -545,6 +545,9 @@ export async function deleteBluemixCredentials(credentialsid: string): Promise<v
 }
 
 
+
+
+
 /**
  * Get the credentials to use for a specific classifier.
  *
@@ -586,19 +589,6 @@ export async function getServiceCredentials(
 }
 
 
-export async function getNLCClassifiers(
-    projectid: string,
-): Promise<TrainingObjects.NLCClassifier[]>
-{
-    const queryString = 'SELECT `id`, `credentialsid`, `projectid`, `servicetype`,' +
-                        ' `classifierid`, `url`, `name`, `language`, `created` ' +
-                        'FROM `bluemixclassifiers` ' +
-                        'WHERE `projectid` = ?';
-
-    const rows = await dbExecute(queryString, [ projectid ]);
-    return rows.map(dbobjects.getClassifierFromDbRow);
-}
-
 export async function getNumbersClassifiers(projectid: string): Promise<TrainingObjects.NumbersClassifier[]>
 {
     const queryString = 'SELECT `projectid`, `userid`, `classid`, ' +
@@ -610,8 +600,21 @@ export async function getNumbersClassifiers(projectid: string): Promise<Training
     return rows.map(dbobjects.getNumbersClassifierFromDbRow);
 }
 
+export async function getConversationWorkspaces(
+    projectid: string,
+): Promise<TrainingObjects.ConversationWorkspace[]>
+{
+    const queryString = 'SELECT `id`, `credentialsid`, `projectid`, `servicetype`,' +
+                        ' `classifierid`, `url`, `name`, `language`, `created` ' +
+                        'FROM `bluemixclassifiers` ' +
+                        'WHERE `projectid` = ?';
 
-export async function countNLCClassifiers(classid: string): Promise<number> {
+    const rows = await dbExecute(queryString, [ projectid ]);
+    return rows.map(dbobjects.getWorkspaceFromDbRow);
+}
+
+
+export async function countConversationWorkspaces(classid: string): Promise<number> {
     const queryString = 'SELECT COUNT(*) AS count ' +
                         'FROM `bluemixclassifiers` ' +
                         'WHERE `classid` = ?';
@@ -625,13 +628,14 @@ export async function countNLCClassifiers(classid: string): Promise<number> {
 }
 
 
-export async function storeNLCClassifier(
+
+export async function storeConversationWorkspace(
     credentials: TrainingObjects.BluemixCredentials,
     userid: string, classid: string, projectid: string,
-    classifier: TrainingObjects.NLCClassifier,
-): Promise<TrainingObjects.NLCClassifier>
+    workspace: TrainingObjects.ConversationWorkspace,
+): Promise<TrainingObjects.ConversationWorkspace>
 {
-    const obj = dbobjects.createNLCClassifier(classifier, credentials,
+    const obj = dbobjects.createConversationWorkspace(workspace, credentials,
         userid, classid, projectid);
 
     const queryString: string = 'INSERT INTO `bluemixclassifiers` ' +
@@ -646,11 +650,11 @@ export async function storeNLCClassifier(
 
     const response = await dbExecute(queryString, values);
     if (response.affectedRows !== 1) {
-        log.error({ response }, 'Failed to store classifier info');
-        throw new Error('Failed to store classifier');
+        log.error({ response }, 'Failed to store workspace info');
+        throw new Error('Failed to store workspace');
     }
 
-    return classifier;
+    return workspace;
 }
 
 
@@ -678,7 +682,7 @@ export async function storeNumbersClassifier(
 
 
 
-export async function deleteNLCClassifier(
+export async function deleteConversationWorkspace(
     projectid: string, userid: string, classid: string,
     classifierid: string,
 ): Promise<void>
@@ -695,7 +699,7 @@ export async function deleteNLCClassifier(
 }
 
 
-export async function deleteNLCClassifiersByProjectId(projectid: string): Promise<void> {
+export async function deleteConversationWorkspacesByProjectId(projectid: string): Promise<void> {
     const queryString = 'DELETE FROM `bluemixclassifiers` WHERE `projectid` = ?';
 
     const response = await dbExecute(queryString, [ projectid ]);
@@ -907,7 +911,7 @@ export async function deleteScratchKeysByProjectId(projectid: string): Promise<v
 
 export async function getClassTenant(classid: string): Promise<Objects.ClassTenant> {
     const queryString = 'SELECT `id`, `projecttypes`, `maxusers`, ' +
-                               '`maxprojectsperuser`, `maxnlcclassifiers`, `nlcexpirydays` ' +
+                               '`maxprojectsperuser` ' +
                         'FROM `tenants` ' +
                         'WHERE `id` = ?';
 
@@ -920,8 +924,6 @@ export async function getClassTenant(classid: string): Promise<Objects.ClassTena
             supportedProjectTypes : [ 'text', 'numbers' ],
             maxUsers : 8,
             maxProjectsPerUser : 3,
-            maxNLCClassifiers : 10,
-            nlcExpiryDays : 14,
         };
     }
     return dbobjects.getClassFromDbRow(rows[0]);
@@ -938,9 +940,9 @@ export async function getClassTenant(classid: string): Promise<Objects.ClassTena
 
 export async function deleteEntireProject(userid: string, classid: string, project: Objects.Project): Promise<void> {
     if (project.type === 'text') {
-        const classifiers = await getNLCClassifiers(project.id);
+        const classifiers = await getConversationWorkspaces(project.id);
         for (const classifier of classifiers) {
-            await nlc.deleteClassifier(userid, classid, project.id, classifier.classifierid);
+            await conversation.deleteClassifier(userid, classid, project.id, classifier.workspace_id);
         }
     }
     else if (project.type === 'numbers') {

@@ -78,7 +78,7 @@ describe('ScratchKeys store', () => {
 
         const credentials = {
             id : uuid(),
-            servicetype : 'nlc' as Types.BluemixServiceType,
+            servicetype : 'conv' as Types.BluemixServiceType,
             username : randomstring.generate({ length : 10 }),
             password : randomstring.generate({ length : 20 }),
             url : uuid(),
@@ -136,7 +136,7 @@ describe('ScratchKeys store', () => {
         const classid = uuid();
         const credentials: Types.BluemixCredentials = {
             id : uuid(),
-            servicetype : 'nlc',
+            servicetype : 'conv',
             username : randomstring.generate({ length : 10 }),
             password : randomstring.generate({ length : 20 }),
             url : uuid(),
@@ -159,7 +159,7 @@ describe('ScratchKeys store', () => {
         const classid = uuid();
         const credentials = {
             id : uuid(),
-            servicetype : 'nlc' as Types.BluemixServiceType,
+            servicetype : 'conv' as Types.BluemixServiceType,
             username : randomstring.generate({ length : 10 }),
             password : randomstring.generate({ length : 20 }),
             url : uuid(),
@@ -189,7 +189,7 @@ describe('ScratchKeys store', () => {
         const classid = uuid();
         const credentials = {
             id : uuid(),
-            servicetype : 'nlc' as Types.BluemixServiceType,
+            servicetype : 'conv' as Types.BluemixServiceType,
             username : randomstring.generate({ length : 10 }),
             password : randomstring.generate({ length : 20 }),
             url : uuid(),
@@ -223,7 +223,7 @@ describe('ScratchKeys store', () => {
         const classid = uuid();
         const credentials = {
             id : uuid(),
-            servicetype : 'nlc' as Types.BluemixServiceType,
+            servicetype : 'conv' as Types.BluemixServiceType,
             username : randomstring.generate({ length : 10 }),
             password : randomstring.generate({ length : 20 }),
             url : uuid(),
@@ -266,7 +266,7 @@ describe('ScratchKeys store', () => {
         const classid = uuid();
         const credentials = {
             id : uuid(),
-            servicetype : 'nlc' as Types.BluemixServiceType,
+            servicetype : 'conv' as Types.BluemixServiceType,
             username : randomstring.generate({ length : 10 }),
             password : randomstring.generate({ length : 20 }),
             url : uuid(),
@@ -307,7 +307,7 @@ describe('ScratchKeys store', () => {
         const classid = uuid();
         const credentials = {
             id : uuid(),
-            servicetype : 'nlc' as Types.BluemixServiceType,
+            servicetype : 'conv' as Types.BluemixServiceType,
             username : randomstring.generate({ length : 10 }),
             password : randomstring.generate({ length : 20 }),
             url : uuid(),
@@ -338,7 +338,7 @@ describe('ScratchKeys store', () => {
         const classid = uuid();
         const credentials = {
             id : uuid(),
-            servicetype : 'nlc' as Types.BluemixServiceType,
+            servicetype : 'conv' as Types.BluemixServiceType,
             username : randomstring.generate({ length : 10 }),
             password : randomstring.generate({ length : 20 }),
             url : uuid(),

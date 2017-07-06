@@ -96,12 +96,12 @@ describe('REST API - scratch keys', () => {
                 id : uuid(),
                 username : randomstring.generate({ length : 12 }),
                 password : randomstring.generate({ length : 20 }),
-                servicetype : 'nlc' as Types.BluemixServiceType,
+                servicetype : 'conv' as Types.BluemixServiceType,
                 url : uuid(),
             };
 
-            const nlcClassifier = {
-                classifierid : randomstring.generate({ length : 12 }),
+            const workspace: Types.ConversationWorkspace = {
+                workspace_id : randomstring.generate({ length : 12 }),
                 url : uuid(),
                 name,
                 language : 'en',
@@ -110,7 +110,7 @@ describe('REST API - scratch keys', () => {
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, []);
             await store.storeBluemixCredentials(TESTCLASS, credentials);
-            await store.storeNLCClassifier(credentials, userid, TESTCLASS, project.id, nlcClassifier);
+            await store.storeConversationWorkspace(credentials, userid, TESTCLASS, project.id, workspace);
 
             return request(testServer)
                 .get('/api/classes/' + TESTCLASS + '/students/' + userid + '/projects/' + project.id + '/scratchkeys')
@@ -122,12 +122,12 @@ describe('REST API - scratch keys', () => {
                     assert.equal(body.length, 1);
                     assert(body[0].id);
                     assert.equal(body[0].id.length, 72);
-                    assert.equal(body[0].model, nlcClassifier.classifierid);
+                    assert.equal(body[0].model, workspace.workspace_id);
 
                     await store.deleteProject(project.id);
                     await store.deleteScratchKey(body[0].id);
                     await store.deleteBluemixCredentials(credentials.id);
-                    await store.deleteNLCClassifier(project.id, userid, TESTCLASS, nlcClassifier.classifierid);
+                    await store.deleteConversationWorkspace(project.id, userid, TESTCLASS, workspace.workspace_id);
                 });
 
         });
@@ -166,7 +166,7 @@ describe('REST API - scratch keys', () => {
                 id : uuid(),
                 username : randomstring.generate({ length : 12 }),
                 password : randomstring.generate({ length : 20 }),
-                servicetype : 'nlc' as Types.BluemixServiceType,
+                servicetype : 'conv' as Types.BluemixServiceType,
                 url : uuid(),
             };
 
@@ -415,20 +415,48 @@ describe('REST API - scratch keys', () => {
         function mockClassifier(url, opts) {
             return new Promise((resolve) => {
                 resolve({
-                    classifier_id : 'good',
-                    url : 'http://nlc.service/v1/classifiers/good/classify',
-                    text : opts.body.text,
-                    top_class : 'temperature',
-                    classes : [
+                    intents : [
                         {
-                            class_name : 'temperature',
+                            intent : 'temperature',
                             confidence : 0.638,
                         },
                         {
-                            class_name : 'conditions',
+                            intent : 'conditions',
                             confidence : 0.362,
                         },
                     ],
+                    entities : [],
+                    input : { text : opts.body.text },
+                    output : {
+                        text : [],
+                        nodes_visited : [],
+                        warning : 'No dialog node matched for the input at a root level. ' +
+                                    '(and there is 1 more warning in the log)',
+                        log_messages : [
+                            {
+                                level : 'warn',
+                                msg : 'No dialog node matched for the input at a root level.',
+                            },
+                            {
+                                level : 'warn',
+                                msg : 'No dialog node condition matched to true in the last dialog round - ' +
+                                        'context.nodes_visited is empty. ' +
+                                        'Falling back to the root node in the next round.',
+                            },
+                        ],
+                    },
+                    context : {
+                        conversation_id : uuid(),
+                        system : {
+                            dialog_stack : [
+                                {
+                                    dialog_node : 'root',
+                                },
+                            ],
+                            dialog_turn_counter : 1,
+                            dialog_request_counter : 1,
+                        },
+                    },
                 });
             });
         }
@@ -453,14 +481,14 @@ describe('REST API - scratch keys', () => {
                 id : uuid(),
                 username : randomstring.generate({ length : 12 }),
                 password : randomstring.generate({ length : 20 }),
-                servicetype : 'nlc' as Types.BluemixServiceType,
+                servicetype : 'conv' as Types.BluemixServiceType,
                 url : uuid(),
             };
 
-            const classifierid = randomstring.generate({ length : 12 });
+            const workspaceId = randomstring.generate({ length : 32 });
 
-            const nlcClassifier = {
-                classifierid,
+            const conversationWorkspace = {
+                workspace_id : workspaceId,
                 url : uuid(),
                 name,
                 language : 'en',
@@ -469,14 +497,14 @@ describe('REST API - scratch keys', () => {
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, []);
             await store.storeBluemixCredentials(TESTCLASS, credentials);
-            await store.storeNLCClassifier(credentials, userid, TESTCLASS, project.id, nlcClassifier);
+            await store.storeConversationWorkspace(credentials, userid, TESTCLASS, project.id, conversationWorkspace);
 
             const scratchKey = await store.storeOrUpdateScratchKey(
                 project.id, 'text',
                 userid, TESTCLASS,
-                credentials, classifierid);
+                credentials, conversationWorkspace.workspace_id);
 
-            const nlcStub = sinon.stub(requestPromise, 'post').callsFake(mockClassifier);
+            const conversationStub = sinon.stub(requestPromise, 'post').callsFake(mockClassifier);
 
             const callbackFunctionName = 'cb';
 
@@ -505,9 +533,9 @@ describe('REST API - scratch keys', () => {
                     await store.deleteProject(project.id);
                     await store.deleteScratchKey(scratchKey);
                     await store.deleteBluemixCredentials(credentials.id);
-                    await store.deleteNLCClassifier(project.id, userid, TESTCLASS, nlcClassifier.classifierid);
+                    await store.deleteConversationWorkspace(project.id, userid, TESTCLASS, workspaceId);
 
-                    nlcStub.restore();
+                    conversationStub.restore();
                 });
         });
 
@@ -522,14 +550,12 @@ describe('REST API - scratch keys', () => {
                 id : uuid(),
                 username : randomstring.generate({ length : 12 }),
                 password : randomstring.generate({ length : 20 }),
-                servicetype : 'nlc' as Types.BluemixServiceType,
+                servicetype : 'conv' as Types.BluemixServiceType,
                 url : uuid(),
             };
 
-            const classifierid = randomstring.generate({ length : 12 });
-
-            const nlcClassifier = {
-                classifierid,
+            const workspace: Types.ConversationWorkspace = {
+                workspace_id : randomstring.generate({ length : 12 }),
                 url : uuid(),
                 name,
                 language : 'en',
@@ -538,14 +564,14 @@ describe('REST API - scratch keys', () => {
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, []);
             await store.storeBluemixCredentials(TESTCLASS, credentials);
-            await store.storeNLCClassifier(credentials, userid, TESTCLASS, project.id, nlcClassifier);
+            await store.storeConversationWorkspace(credentials, userid, TESTCLASS, project.id, workspace);
 
             const scratchKey = await store.storeOrUpdateScratchKey(
                 project.id, 'text',
                 userid, TESTCLASS,
-                credentials, classifierid);
+                credentials, workspace.workspace_id);
 
-            const nlcStub = sinon.stub(requestPromise, 'post').callsFake(brokenClassifier);
+            const conversationStub = sinon.stub(requestPromise, 'post').callsFake(brokenClassifier);
 
             const callbackFunctionName = 'cb';
 
@@ -578,9 +604,9 @@ describe('REST API - scratch keys', () => {
                     await store.deleteProject(project.id);
                     await store.deleteScratchKey(scratchKey);
                     await store.deleteBluemixCredentials(credentials.id);
-                    await store.deleteNLCClassifier(project.id, userid, TESTCLASS, nlcClassifier.classifierid);
+                    await store.deleteConversationWorkspace(project.id, userid, TESTCLASS, workspace.workspace_id);
 
-                    nlcStub.restore();
+                    conversationStub.restore();
                 });
         });
 

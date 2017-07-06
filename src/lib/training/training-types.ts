@@ -13,18 +13,36 @@ export interface BluemixCredentialsDbRow {
     readonly password: string;
 }
 
-export type BluemixServiceType = 'nlc' | 'visrec' | 'num';
+export type BluemixServiceType = 'conv' | 'visrec' | 'num';
 
-
-export interface NLCClassifier {
-    readonly classifierid: string;
+export interface ConversationWorkspace {
+    readonly workspace_id: string;
     readonly url: string;
     readonly name: string;
     readonly language: string;
     readonly created: Date;
-    status?: NLCStatus;
-    statusDescription?: string;
+    status?: ClassifierStatus;
+    updated?: Date;
 }
+
+
+export interface ConversationTrainingData {
+    readonly name: string;
+    readonly language: string;
+    readonly intents: ConversationIntent[];
+    readonly entities: any[];
+    readonly dialog_nodes: any[];
+    readonly counterexamples: any[];
+}
+export interface ConversationIntent {
+    readonly intent: string;
+    readonly examples: ConversationIntentExample[];
+}
+interface ConversationIntentExample {
+    readonly text: string;
+}
+
+
 export interface ClassifierDbRow {
     readonly id: string;
     readonly credentialsid: string;
@@ -39,13 +57,14 @@ export interface ClassifierDbRow {
     readonly created: Date;
 }
 
-export type NLCStatus = 'Non Existent' | 'Training' | 'Failed' | 'Available' | 'Unavailable';
+export type ClassifierStatus = 'Non Existent' | 'Training' | 'Failed' | 'Available' | 'Unavailable';
 
 
 export interface NumbersClassifier {
     readonly created: Date;
     readonly status: NumbersStatus;
     readonly classifierid: string;
+    updated?: Date;
 }
 export interface NumbersClassifierDbRow {
     readonly userid: string;

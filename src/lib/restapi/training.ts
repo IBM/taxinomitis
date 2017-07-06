@@ -6,7 +6,6 @@ import * as rangeParse from 'http-range-parse';
 import * as auth from './auth';
 import * as store from '../db/store';
 import * as Objects from '../db/db-types';
-import * as nlc from '../training/nlc';
 import * as errors from './errors';
 import loggerSetup from '../utils/logger';
 

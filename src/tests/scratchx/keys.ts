@@ -5,7 +5,7 @@ import * as sinon from 'sinon';
 import * as proxyquire from 'proxyquire';
 import * as randomstring from 'randomstring';
 import * as store from '../../lib/db/store';
-import * as nlc from '../../lib/training/nlc';
+import * as conversation from '../../lib/training/conversation';
 import * as status from '../../lib/scratchx/status';
 import * as keys from '../../lib/scratchx/keys';
 import * as Types from '../../lib/db/db-types';
@@ -49,27 +49,26 @@ describe('Scratchx - keys', () => {
                 id : uuid(),
                 username : 'user',
                 password : 'pass',
-                servicetype : 'nlc',
+                servicetype : 'conv',
                 url : 'http://url.com',
             });
-            const nlcclassifier: TrainingTypes.NLCClassifier = {
-                classifierid: randomstring.generate({ length : 20 }),
+            const conversationwkspace: TrainingTypes.ConversationWorkspace = {
+                workspace_id: randomstring.generate({ length : 20 }),
                 created: new Date(),
                 language : 'en',
                 name : project.name,
-                status : 'Available',
                 url : 'url',
             };
-            await store.storeNLCClassifier(creds, userid, TESTCLASS, project.id, nlcclassifier);
+            await store.storeConversationWorkspace(creds, userid, TESTCLASS, project.id, conversationwkspace);
 
             const key = await keys.createKey(project.id);
             assert(key.id);
             assert(key.model);
-            assert.equal(key.model, nlcclassifier.classifierid);
+            assert.equal(key.model, conversationwkspace.workspace_id);
             const scratchkey = await store.getScratchKey(key.id);
             assert.equal(scratchkey.name, project.name);
             await store.deleteScratchKey(key.id);
-            await store.deleteNLCClassifier(project.id, userid, TESTCLASS, nlcclassifier.classifierid);
+            await store.deleteConversationWorkspace(project.id, userid, TESTCLASS, conversationwkspace.workspace_id);
             await store.deleteBluemixCredentials(creds.id);
         });
 

@@ -18,9 +18,11 @@ Code / engineering work
 * Scratch keys should use project id as primary key so REPLACE is more efficient
 * Google Analytics
 * max limit on training items per project
+* Test Conversation as a replacement for NLC
 
 Longer term goals
 * Restore sprites library
+* Support for languages other than English
 
 Worksheets
 * Control Your Home (text)

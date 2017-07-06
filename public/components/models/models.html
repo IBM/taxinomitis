@@ -50,8 +50,8 @@
                     </div>
                     <div class="modelstatusdetail">
                         It's been training since
-                        {{ models[0].created | date : 'fullDate' }}
-                        {{ models[0].created | date : 'shortTime' }}.
+                        {{ models[0].updated | date : 'fullDate' }}
+                        {{ models[0].updated | date : 'shortTime' }}.
                     </div>
                     <div class="modelstatusdetail">
                         This normally takes a few minutes, but can take a little
@@ -70,8 +70,8 @@
                     </div>
                     <div class="modelstatusdetail">
                         You created the model on
-                        {{ models[0].created | date : 'fullDate' }}
-                        {{ models[0].created | date : 'shortTime' }}.
+                        {{ models[0].updated | date : 'fullDate' }}
+                        {{ models[0].updated | date : 'shortTime' }}.
                     </div>
                     <div class="modelstatusdetail">
                         You've collected:
@@ -309,8 +309,8 @@
                 <tr>
                     <td><strong>Model was trained at:</strong></td>
                     <td>
-                        {{ model.created | date : 'fullDate' }}
-                        {{ model.created | date : 'shortTime' }}
+                        {{ model.updated | date : 'fullDate' }}
+                        {{ model.updated | date : 'shortTime' }}
                     </td>
                 </tr>
                 <tr>

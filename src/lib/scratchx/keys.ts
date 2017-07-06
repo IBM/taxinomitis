@@ -9,26 +9,26 @@ import * as TrainingTypes from '../training/training-types';
 
 
 async function createTextKey(project: Types.Project): Promise<ScratchTypes.Key> {
-    const nlcClassifiers = await store.getNLCClassifiers(project.id);
+    const textClassifiers = await store.getConversationWorkspaces(project.id);
 
-    if (nlcClassifiers.length === 0) {
+    if (textClassifiers.length === 0) {
         const id = await store.storeUntrainedScratchKey(
             project.id, project.name, project.type,
             project.userid, project.classid);
         return { id };
     }
     else {
-        const classifier = nlcClassifiers[0];
-        const model = classifier.classifierid;
+        const classifier = textClassifiers[0];
+        const model = classifier.workspace_id;
 
         const credentials = await store.getServiceCredentials(
             project.id, project.classid, project.userid,
-            'nlc', classifier.classifierid);
+            'conv', classifier.workspace_id);
 
         const id = await store.storeOrUpdateScratchKey(
             project.id, project.type,
             project.userid, project.classid,
-            credentials, classifier.classifierid);
+            credentials, classifier.workspace_id);
 
         return { id, model };
     }

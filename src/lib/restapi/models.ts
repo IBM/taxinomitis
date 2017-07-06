@@ -6,7 +6,7 @@ import * as auth from './auth';
 import * as store from '../db/store';
 import * as Objects from '../db/db-types';
 import * as Types from '../training/training-types';
-import * as nlc from '../training/nlc';
+import * as conversation from '../training/conversation';
 import * as numbers from '../training/numbers';
 import * as errors from './errors';
 import loggerSetup from '../utils/logger';
@@ -16,14 +16,17 @@ const log = loggerSetup();
 
 
 
-function returnNLCClassifier(classifier: Types.NLCClassifier) {
+function returnConversationWorkspace(classifier: Types.ConversationWorkspace) {
     return {
-        classifierid : classifier.classifierid,
-        created : classifier.created,
+        classifierid : classifier.workspace_id,
+        updated : classifier.updated,
         name : classifier.name,
         status : classifier.status,
-        statusDescription : classifier.statusDescription,
     };
+}
+function returnNumberClassifier(classifier: Types.NumbersClassifier) {
+    classifier.updated = classifier.created;
+    return classifier;
 }
 
 
@@ -44,9 +47,9 @@ async function getModels(req: Express.Request, res: Express.Response) {
     let classifiers;
     switch (project.type) {
     case 'text':
-        classifiers = await store.getNLCClassifiers(projectid);
-        classifiers = await nlc.getClassifierStatuses(classid, classifiers);
-        classifiers = classifiers.map(returnNLCClassifier);
+        classifiers = await store.getConversationWorkspaces(project.id);
+        classifiers = await conversation.getClassifierStatuses(classid, classifiers);
+        classifiers = classifiers.map(returnConversationWorkspace);
         break;
     case 'images':
         // do nothing
@@ -75,15 +78,8 @@ async function newModel(req: Express.Request, res: Express.Response) {
 
     if (project.type === 'text') {
         try {
-            const existingClassifiers = await store.countNLCClassifiers(classid);
-            const tenantPolicy = await store.getClassTenant(classid);
-            if (existingClassifiers >= tenantPolicy.maxNLCClassifiers) {
-                return res.status(httpstatus.CONFLICT)
-                          .send({ error : 'Your class already has created their maximum allowed number of models' });
-            }
-
-            const model = await nlc.trainClassifier(userid, classid, projectid, project.name);
-            return res.status(httpstatus.CREATED).json(returnNLCClassifier(model));
+            const model = await conversation.trainClassifier(userid, classid, project);
+            return res.status(httpstatus.CREATED).json(returnConversationWorkspace(model));
         }
         catch (err) {
             return errors.unknownError(res, err);
@@ -92,7 +88,7 @@ async function newModel(req: Express.Request, res: Express.Response) {
     else if (project.type === 'numbers') {
         try {
             const model = await numbers.trainClassifier(userid, classid, projectid);
-            return res.status(httpstatus.CREATED).json(model);
+            return res.status(httpstatus.CREATED).json(returnNumberClassifier(model));
         }
         catch (err) {
             return errors.unknownError(res, err);
@@ -119,7 +115,7 @@ async function deleteModel(req: Express.Request, res: Express.Response) {
 
     try {
         if (project.type === 'text') {
-            await nlc.deleteClassifier(userid, classid, projectid, modelid);
+            await conversation.deleteClassifier(userid, classid, projectid, modelid);
             return res.sendStatus(httpstatus.NO_CONTENT);
         }
         else if (project.type === 'numbers') {
@@ -151,8 +147,8 @@ async function testModel(req: Express.Request, res: Express.Response) {
                 return errors.missingData(res);
             }
 
-            const creds = await store.getServiceCredentials(projectid, classid, userid, 'nlc', modelid);
-            const classes = await nlc.testClassifier(creds, modelid, text);
+            const creds = await store.getServiceCredentials(projectid, classid, userid, 'conv', modelid);
+            const classes = await conversation.testClassifier(creds, modelid, text);
             return res.json(classes);
         }
         else if (type === 'numbers') {

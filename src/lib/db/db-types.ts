@@ -96,10 +96,6 @@ export interface ClassTenant {
     //
     readonly maxUsers: number;
     readonly maxProjectsPerUser: number;
-
-    // nlc-specific
-    readonly maxNLCClassifiers: number;
-    readonly nlcExpiryDays: number;
 }
 
 export interface ClassDbRow {
@@ -107,6 +103,4 @@ export interface ClassDbRow {
     readonly projecttypes: string;
     readonly maxusers: number;
     readonly maxprojectsperuser: number;
-    readonly maxnlcclassifiers: number;
-    readonly nlcexpirydays: number;
 }

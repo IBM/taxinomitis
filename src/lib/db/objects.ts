@@ -204,8 +204,8 @@ export function getCredentialsFromDbRow(
 //
 // -----------------------------------------------------------------------------
 
-export function createNLCClassifier(
-    classifierInfo: TrainingObjects.NLCClassifier,
+export function createConversationWorkspace(
+    classifierInfo: TrainingObjects.ConversationWorkspace,
     credentialsInfo: TrainingObjects.BluemixCredentials,
     userid: string, classid: string, projectid: string,
 ): TrainingObjects.ClassifierDbRow
@@ -214,8 +214,8 @@ export function createNLCClassifier(
         id : uuid(),
         credentialsid : credentialsInfo.id,
         userid, projectid, classid,
-        servicetype : 'nlc',
-        classifierid : classifierInfo.classifierid,
+        servicetype : 'conv',
+        classifierid : classifierInfo.workspace_id,
         url : classifierInfo.url,
         name : classifierInfo.name,
         language : classifierInfo.language,
@@ -223,15 +223,17 @@ export function createNLCClassifier(
     };
 }
 
-export function getClassifierFromDbRow(row: TrainingObjects.ClassifierDbRow): TrainingObjects.NLCClassifier {
+export function getWorkspaceFromDbRow(row: TrainingObjects.ClassifierDbRow): TrainingObjects.ConversationWorkspace {
     return {
-        classifierid : row.classifierid,
+        workspace_id : row.classifierid,
         url : row.url,
         name : row.name,
         language : row.language,
         created : row.created,
     };
 }
+
+
 
 
 export function createNumbersClassifier(
@@ -292,7 +294,7 @@ export function createUntrainedScratchKey(
 export function getScratchKeyFromDbRow(row: Objects.ScratchKeyDbRow): Objects.ScratchKey {
     let servicetype: TrainingObjects.BluemixServiceType;
     if (row.projecttype === 'text') {
-        servicetype = 'nlc';
+        servicetype = 'conv';
     }
     else if (row.projecttype === 'numbers') {
         servicetype = 'num';
@@ -337,7 +339,5 @@ export function getClassFromDbRow(row: Objects.ClassDbRow): Objects.ClassTenant 
         supportedProjectTypes : row.projecttypes.split(',') as Objects.ProjectTypeLabel[],
         maxUsers : row.maxusers,
         maxProjectsPerUser : row.maxprojectsperuser,
-        maxNLCClassifiers : row.maxnlcclassifiers,
-        nlcExpiryDays : row.nlcexpirydays,
     };
 }

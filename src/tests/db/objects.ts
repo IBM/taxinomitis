@@ -35,16 +35,12 @@ describe('DB objects', () => {
                 projecttypes : 'text,numbers',
                 maxusers : 3,
                 maxprojectsperuser : 2,
-                maxnlcclassifiers : 5,
-                nlcexpirydays : 10,
             };
             const expectedPolicy: Objects.ClassTenant = {
                 id : testRow.id,
                 supportedProjectTypes : ['text', 'numbers'],
                 maxUsers : 3,
                 maxProjectsPerUser : 2,
-                maxNLCClassifiers : 5,
-                nlcExpiryDays : 10,
             };
 
             assert.deepEqual(dbobjects.getClassFromDbRow(testRow), expectedPolicy);

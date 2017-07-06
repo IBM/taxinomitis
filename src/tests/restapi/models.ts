@@ -9,7 +9,7 @@ import * as randomstring from 'randomstring';
 
 import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
-import * as nlc from '../../lib/training/nlc';
+import * as conversation from '../../lib/training/conversation';
 import * as numbers from '../../lib/training/numbers';
 import * as Types from '../../lib/training/training-types';
 import testapiserver from './testserver';
@@ -27,7 +27,7 @@ describe('REST API - models', () => {
 
     function authNoOp(req, res, next) { next(); }
 
-    const nlcStub = {
+    const conversationStub = {
         getClassifiersStub : undefined,
         trainClassifierStub : undefined,
         testClassifierStub : undefined,
@@ -40,6 +40,8 @@ describe('REST API - models', () => {
         deleteClassifierStub : undefined,
     };
 
+    const updated = new Date();
+    updated.setMilliseconds(0);
 
 
     before(async () => {
@@ -54,41 +56,45 @@ describe('REST API - models', () => {
             },
         });
 
-        nlcStub.getClassifiersStub = sinon.stub(nlc, 'getClassifierStatuses').callsFake((classid, classifiers) => {
+        conversationStub.getClassifiersStub = sinon.stub(conversation, 'getClassifierStatuses');
+        conversationStub.getClassifiersStub.callsFake((classid, classifiers: Types.ConversationWorkspace[]) => {
             return new Promise((resolve) => {
                 resolve(classifiers.map((classifier) => {
-                    switch (classifier.classifierid) {
+                    classifier.updated = updated;
+
+                    switch (classifier.workspace_id) {
                     case 'good':
                         classifier.status = 'Available';
-                        classifier.statusDescription = 'Happy fun times';
                         return classifier;
                     case 'busy':
                         classifier.status = 'Training';
-                        classifier.statusDescription = 'Still going';
                         return classifier;
                     }
                 }));
             });
         });
-        nlcStub.trainClassifierStub = sinon.stub(nlc, 'trainClassifier').callsFake((uid, clsid, pjid, name) => {
-            return Promise.resolve({
-                classifier_id : 'NEW-CREATED',
-                name,
+        conversationStub.trainClassifierStub = sinon.stub(conversation, 'trainClassifier');
+        conversationStub.trainClassifierStub.callsFake((uid, clsid, pj) => {
+            const workspace: Types.ConversationWorkspace = {
+                workspace_id : 'NEW-CREATED',
+                name : pj.name,
                 language : 'en',
                 created : new Date(Date.UTC(2017, 4, 4, 12, 0)),
-                url : 'http://nlc.service/api/classifiers/NEW-CREATED',
+                updated : new Date(Date.UTC(2017, 4, 4, 12, 1)),
+                url : 'http://conversation.service/api/classifiers/NEW-CREATED',
                 status : 'Training',
-                status_description : 'Training for this classifier is running',
-            });
+            };
+            return Promise.resolve(workspace);
         });
-        nlcStub.testClassifierStub = sinon.stub(nlc, 'testClassifier').callsFake(() => {
-            return Promise.resolve([
+        conversationStub.testClassifierStub = sinon.stub(conversation, 'testClassifier').callsFake(() => {
+            const classifications: Types.Classification[] = [
                 { class_name : 'first', confidence : 0.8 },
                 { class_name : 'second', confidence : 0.15 },
                 { class_name : 'third', confidence : 0.05 },
-            ]);
+            ];
+            return Promise.resolve(classifications);
         });
-        nlcStub.deleteClassifierStub = sinon.stub(nlc, 'deleteClassifier').callsFake(() => {
+        conversationStub.deleteClassifierStub = sinon.stub(conversation, 'deleteClassifier').callsFake(() => {
             return new Promise((resolve) => { resolve(); });
         });
 
@@ -100,11 +106,12 @@ describe('REST API - models', () => {
             });
         });
         numbersStub.testClassifierStub = sinon.stub(numbers, 'testClassifier').callsFake(() => {
-            return Promise.resolve([
+            const classifications: Types.Classification[] = [
                 { class_name : 'first', confidence : 0.8 },
                 { class_name : 'second', confidence : 0.15 },
                 { class_name : 'third', confidence : 0.05 },
-            ]);
+            ];
+            return Promise.resolve(classifications);
         });
         numbersStub.deleteClassifierStub = sinon.stub(numbers, 'deleteClassifier').callsFake(() => {
             return new Promise((resolve) => { resolve(); });
@@ -112,11 +119,11 @@ describe('REST API - models', () => {
 
 
         proxyquire('../../lib/restapi/models', {
-            '../training/nlc' : {
-                getClassifierStatuses : nlcStub.getClassifiersStub,
-                trainClassifier : nlcStub.trainClassifierStub,
-                testClassifier : nlcStub.testClassifierStub,
-                deleteClassifier : nlcStub.deleteClassifierStub,
+            '../training/conversation' : {
+                getClassifierStatuses : conversationStub.getClassifiersStub,
+                trainClassifier : conversationStub.trainClassifierStub,
+                testClassifier : conversationStub.testClassifierStub,
+                deleteClassifier : conversationStub.deleteClassifierStub,
             },
             '../training/numbers' : {
                 trainClassifier : numbersStub.trainClassifierStub,
@@ -136,10 +143,10 @@ describe('REST API - models', () => {
         checkUserStub.restore();
         requireSupervisorStub.restore();
 
-        nlcStub.getClassifiersStub.restore();
-        nlcStub.trainClassifierStub.restore();
-        nlcStub.testClassifierStub.restore();
-        nlcStub.deleteClassifierStub.restore();
+        conversationStub.getClassifiersStub.restore();
+        conversationStub.trainClassifierStub.restore();
+        conversationStub.testClassifierStub.restore();
+        conversationStub.deleteClassifierStub.restore();
         numbersStub.trainClassifierStub.restore();
         numbersStub.testClassifierStub.restore();
         numbersStub.deleteClassifierStub.restore();
@@ -263,34 +270,34 @@ describe('REST API - models', () => {
                 id : uuid(),
                 username : uuid(),
                 password : uuid(),
-                servicetype : 'nlc',
+                servicetype : 'conv',
                 url : uuid(),
             };
 
             const createdA = new Date();
             createdA.setMilliseconds(0);
 
-            const classifierAInfo: Types.NLCClassifier = {
-                classifierid : 'good',
+            const classifierAInfo: Types.ConversationWorkspace = {
+                workspace_id : 'good',
                 created : createdA,
                 language : 'en',
                 name : 'DUMMY ONE',
                 url : uuid(),
             };
-            await store.storeNLCClassifier(credentials, userid, classid, projectid,
+            await store.storeConversationWorkspace(credentials, userid, classid, projectid,
                 classifierAInfo);
 
             const createdB = new Date();
             createdB.setMilliseconds(0);
 
-            const classifierBInfo: Types.NLCClassifier = {
-                classifierid : 'busy',
+            const classifierBInfo: Types.ConversationWorkspace = {
+                workspace_id : 'busy',
                 created : createdB,
                 language : 'en',
                 name : 'DUMMY TWO',
                 url : uuid(),
             };
-            await store.storeNLCClassifier(credentials, userid, classid, projectid,
+            await store.storeConversationWorkspace(credentials, userid, classid, projectid,
                 classifierBInfo);
 
 
@@ -299,25 +306,24 @@ describe('REST API - models', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK)
                 .then(async (res) => {
+
                     assert.deepEqual(res.body, [
                         {
                             classifierid : 'busy',
-                            created : createdB.toISOString(),
+                            updated : updated.toISOString(),
                             name : 'DUMMY TWO',
                             status : 'Training',
-                            statusDescription : 'Still going',
                         },
                         {
                             classifierid : 'good',
-                            created : createdA.toISOString(),
+                            updated : updated.toISOString(),
                             name : 'DUMMY ONE',
                             status : 'Available',
-                            statusDescription : 'Happy fun times',
                         },
                     ]);
 
                     await store.deleteProject(projectid);
-                    await store.deleteNLCClassifiersByProjectId(projectid);
+                    await store.deleteConversationWorkspacesByProjectId(projectid);
                 });
         });
 
@@ -372,48 +378,49 @@ describe('REST API - models', () => {
         });
 
 
-        it('should enforce tenant policies on number of NLC classifiers', async () => {
-            const classid = uuid();
-            const userid = uuid();
-            const projName = uuid();
+        // TODO - CHANGE HOW WE MANAGE THIS
+        // it('should enforce tenant policies on number of NLC classifiers', async () => {
+        //     const classid = uuid();
+        //     const userid = uuid();
+        //     const projName = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', projName, []);
-            const projectid = project.id;
+        //     const project = await store.storeProject(userid, classid, 'text', projName, []);
+        //     const projectid = project.id;
 
-            const credentials: Types.BluemixCredentials = {
-                id : uuid(),
-                username : uuid(),
-                password : uuid(),
-                servicetype : 'nlc',
-                url : uuid(),
-            };
+        //     const credentials: Types.BluemixCredentials = {
+        //         id : uuid(),
+        //         username : uuid(),
+        //         password : uuid(),
+        //         servicetype : 'conv',
+        //         url : uuid(),
+        //     };
 
-            for (let i = 0; i < 10; i++) {
-                await store.storeNLCClassifier(credentials, userid, classid, projectid, {
-                    classifierid : randomstring.generate({ length : 8 }),
-                    created : new Date(),
-                    language : 'en',
-                    name : projName,
-                    url : uuid(),
-                });
-            }
+        //     for (let i = 0; i < 10; i++) {
+        //         await store.storeConversationWorkspace(credentials, userid, classid, projectid, {
+        //             workspace_id : randomstring.generate({ length : 8 }),
+        //             created : new Date(),
+        //             language : 'en',
+        //             name : projName,
+        //             url : uuid(),
+        //         });
+        //     }
 
-            return request(testServer)
-                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.CONFLICT)
-                .then(async (res) => {
-                    const body = res.body;
+        //     return request(testServer)
+        //         .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
+        //         .expect('Content-Type', /json/)
+        //         .expect(httpstatus.CONFLICT)
+        //         .then(async (res) => {
+        //             const body = res.body;
 
-                    assert.equal(body.error, 'Your class already has created their maximum allowed number of models');
+        //            assert.equal(body.error, 'Your class already has created their maximum allowed number of models');
 
-                    await store.deleteProject(projectid);
-                    await store.deleteNLCClassifiersByProjectId(projectid);
-                });
-        });
+        //             await store.deleteProject(projectid);
+        //             await store.deleteConversationWorkspacesByProjectId(projectid);
+        //         });
+        // });
 
 
-        it('should train new NLC classifiers', async () => {
+        it('should train new text classifiers', async () => {
             const classid = uuid();
             const userid = uuid();
             const projName = uuid();
@@ -429,9 +436,10 @@ describe('REST API - models', () => {
                     const body = res.body;
 
                     assert.deepEqual(body, {
-                        created : '2017-05-04T12:00:00.000Z',
+                        updated : '2017-05-04T12:01:00.000Z',
                         name : projName,
                         status : 'Training',
+                        classifierid : 'NEW-CREATED',
                     });
 
                     return store.deleteProject(projectid);
@@ -504,7 +512,7 @@ describe('REST API - models', () => {
         });
 
 
-        it('should submit a classify request to NLC', async () => {
+        it('should submit a classify request to Conversation', async () => {
 
             const classid = uuid();
             const userid = uuid();
@@ -518,7 +526,7 @@ describe('REST API - models', () => {
                 id : uuid(),
                 username : uuid(),
                 password : uuid(),
-                servicetype : 'nlc',
+                servicetype : 'conv',
                 url : uuid(),
             };
             await store.storeBluemixCredentials(classid, credentials);
@@ -526,14 +534,14 @@ describe('REST API - models', () => {
             const created = new Date();
             created.setMilliseconds(0);
 
-            const classifierInfo: Types.NLCClassifier = {
-                classifierid : modelid,
+            const classifierInfo: Types.ConversationWorkspace = {
+                workspace_id : modelid,
                 created,
                 language : 'en',
                 name : projName,
                 url : uuid(),
             };
-            await store.storeNLCClassifier(credentials, userid, classid, projectid,
+            await store.storeConversationWorkspace(credentials, userid, classid, projectid,
                 classifierInfo);
 
             return request(testServer)
@@ -558,7 +566,7 @@ describe('REST API - models', () => {
                     ]);
 
                     await store.deleteProject(projectid);
-                    await store.deleteNLCClassifier(projectid, userid, classid, classifierInfo.classifierid);
+                    await store.deleteConversationWorkspace(projectid, userid, classid, classifierInfo.workspace_id);
                     await store.deleteBluemixCredentials(credentials.id);
                 });
         });
@@ -680,7 +688,7 @@ describe('REST API - models', () => {
                 id : uuid(),
                 username : uuid(),
                 password : uuid(),
-                servicetype : 'nlc',
+                servicetype : 'conv',
                 url : uuid(),
             };
             await store.storeBluemixCredentials(classid, credentials);
@@ -688,14 +696,14 @@ describe('REST API - models', () => {
             const created = new Date();
             created.setMilliseconds(0);
 
-            const classifierInfo: Types.NLCClassifier = {
-                classifierid : modelid,
+            const classifierInfo: Types.ConversationWorkspace = {
+                workspace_id : modelid,
                 created,
                 language : 'en',
                 name : projName,
                 url : uuid(),
             };
-            await store.storeNLCClassifier(credentials, userid, classid, projectid,
+            await store.storeConversationWorkspace(credentials, userid, classid, projectid,
                 classifierInfo);
 
             return request(testServer)
@@ -706,7 +714,7 @@ describe('REST API - models', () => {
                 .expect(httpstatus.NO_CONTENT)
                 .then(async () => {
                     await store.deleteProject(projectid);
-                    await store.deleteNLCClassifier(projectid, userid, classid, classifierInfo.classifierid);
+                    await store.deleteConversationWorkspace(projectid, userid, classid, classifierInfo.workspace_id);
                     await store.deleteBluemixCredentials(credentials.id);
                 });
         });

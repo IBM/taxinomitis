@@ -26,14 +26,14 @@ describe('DB store', () => {
                 id : uuid(),
                 username : randomstring.generate({ length : 8 }),
                 password : randomstring.generate({ length : 20 }),
-                servicetype : 'nlc',
-                url : 'http://nlc.service/api/classifiers',
+                servicetype : 'conv',
+                url : 'http://conversation.service/api/classifiers',
             };
             const classid = uuid();
 
             await store.storeBluemixCredentials(classid, creds);
 
-            const retrieved = await store.getBluemixCredentials(classid, 'nlc');
+            const retrieved = await store.getBluemixCredentials(classid, 'conv');
             assert.deepEqual(retrieved, creds);
 
             await store.deleteBluemixCredentials(creds.id);
@@ -44,19 +44,19 @@ describe('DB store', () => {
                 id : uuid(),
                 username : randomstring.generate({ length : 8 }),
                 password : randomstring.generate({ length : 20 }),
-                servicetype : 'nlc',
-                url : 'http://nlc.service/api/classifiers',
+                servicetype : 'conv',
+                url : 'http://conversation.service/api/classifiers',
             };
             const classid = uuid();
 
             await store.storeBluemixCredentials(classid, creds);
 
-            const retrieved = await store.getBluemixCredentials(classid, 'nlc');
+            const retrieved = await store.getBluemixCredentials(classid, 'conv');
             assert.deepEqual(retrieved, creds);
 
             await store.deleteBluemixCredentials(creds.id);
 
-            return store.getBluemixCredentials(classid, 'nlc')
+            return store.getBluemixCredentials(classid, 'conv')
                 .then(() => {
                     assert.fail(1, 0, 'Should not reach here', '');
                 })
@@ -74,8 +74,8 @@ describe('DB store', () => {
                 id : uuid(),
                 username : randomstring.generate({ length : 8 }),
                 password : randomstring.generate({ length : 20 }),
-                servicetype : 'nlc',
-                url : 'http://nlc.service/api/classifiers',
+                servicetype : 'conv',
+                url : 'http://conversation.service/api/workspaces',
             };
 
             await store.storeBluemixCredentials(classid, creds);
@@ -83,57 +83,57 @@ describe('DB store', () => {
             const created = new Date();
             created.setMilliseconds(0);
 
-            const classifierInfo: Types.NLCClassifier = {
-                classifierid : randomstring.generate({ length : 8 }),
+            const classifierInfo: Types.ConversationWorkspace = {
+                workspace_id : randomstring.generate({ length : 32 }),
                 created,
                 language : 'en',
                 name : randomstring.generate({ length : 12 }),
                 url : uuid(),
             };
 
-            await store.storeNLCClassifier(
+            await store.storeConversationWorkspace(
                 creds, userid, classid, projectid,
                 classifierInfo,
             );
 
             const retrievedCreds = await store.getServiceCredentials(
-                projectid, classid, userid, 'nlc', classifierInfo.classifierid,
+                projectid, classid, userid, 'conv', classifierInfo.workspace_id,
             );
             assert.deepEqual(retrievedCreds, creds);
 
             await store.deleteBluemixCredentials(creds.id);
-            await store.deleteNLCClassifiersByProjectId(projectid);
+            await store.deleteConversationWorkspacesByProjectId(projectid);
         });
 
     });
 
 
-    describe('NLC classifiers', () => {
+    describe('Conversation classifiers', () => {
 
 
         it('should return 0 for unknown users', async () => {
             const unknownClass = uuid();
-            const count = await store.countNLCClassifiers(unknownClass);
+            const count = await store.countConversationWorkspaces(unknownClass);
             assert.equal(count, 0);
         });
 
 
 
-        it('should store and retrieve NLC classifiers', async () => {
+        it('should store and retrieve Conversation classifiers', async () => {
             const classid = uuid();
             const projectid = uuid();
 
-            const before = await store.getNLCClassifiers(projectid);
+            const before = await store.getConversationWorkspaces(projectid);
             assert.equal(before.length, 0);
 
-            const countBefore = await store.countNLCClassifiers(classid);
+            const countBefore = await store.countConversationWorkspaces(classid);
             assert.equal(countBefore, 0);
 
             const credentials: Types.BluemixCredentials = {
                 id : uuid(),
                 username : uuid(),
                 password : uuid(),
-                servicetype : 'nlc',
+                servicetype : 'conv',
                 url : uuid(),
             };
             const userid = uuid();
@@ -141,23 +141,23 @@ describe('DB store', () => {
             const created = new Date();
             created.setMilliseconds(0);
 
-            const classifierInfo: Types.NLCClassifier = {
-                classifierid : randomstring.generate({ length : 9 }),
+            const classifierInfo: Types.ConversationWorkspace = {
+                workspace_id : randomstring.generate({ length : 32 }),
                 created,
                 language : 'en',
                 name : 'DUMMY',
                 url : uuid(),
             };
 
-            await store.storeNLCClassifier(
+            await store.storeConversationWorkspace(
                 credentials, userid, classid, projectid,
                 classifierInfo,
             );
 
-            const after = await store.getNLCClassifiers(projectid);
+            const after = await store.getConversationWorkspaces(projectid);
             assert.equal(after.length, 1);
 
-            const countAfter = await store.countNLCClassifiers(classid);
+            const countAfter = await store.countConversationWorkspaces(classid);
             assert.equal(countAfter, 1);
 
 
@@ -165,12 +165,12 @@ describe('DB store', () => {
 
             assert.deepEqual(retrieved, classifierInfo);
 
-            await store.deleteNLCClassifier(projectid, userid, classid, classifierInfo.classifierid);
+            await store.deleteConversationWorkspace(projectid, userid, classid, classifierInfo.workspace_id);
 
-            const empty = await store.getNLCClassifiers(projectid);
+            const empty = await store.getConversationWorkspaces(projectid);
             assert.equal(empty.length, 0);
 
-            const countEmpty = await store.countNLCClassifiers(classid);
+            const countEmpty = await store.countConversationWorkspaces(classid);
             assert.equal(countEmpty, 0);
         });
 
