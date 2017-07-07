@@ -7,7 +7,6 @@ UI clean-up needed
 
 New features
 * Expiry for models
-* Multiple credentials pool per class
 * Images training - built around a WikiMedia library?
 * Editing examples
 

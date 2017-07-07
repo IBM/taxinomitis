@@ -65,7 +65,13 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
             return res.status(httpstatus.CREATED).json(returnConversationWorkspace(model));
         }
         catch (err) {
-            return errors.unknownError(res, err);
+            if (err.message === 'Your class already has created their maximum allowed number of models') {
+                return res.status(httpstatus.CONFLICT)
+                          .send({ error : err.message });
+            }
+            else {
+                return errors.unknownError(res, err);
+            }
         }
     }
     else if (req.project.type === 'numbers') {

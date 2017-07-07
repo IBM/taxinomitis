@@ -18,19 +18,20 @@ export async function trainClassifier(
 {
     let workspace: TrainingObjects.ConversationWorkspace;
 
+    const training = await getTraining(project);
+
     const existingWorkspaces = await store.getConversationWorkspaces(project.id);
     if (existingWorkspaces.length > 0) {
         workspace = existingWorkspaces[0];
 
         const credentials = await store.getBluemixCredentialsById(workspace.credentialsid);
 
-        workspace = await updateWorkspace(project, credentials, workspace);
+        workspace = await updateWorkspace(project, credentials, workspace, training);
     }
     else {
         const credentials = await store.getBluemixCredentials(classid, 'conv');
 
-        // TODO - iterate through multiple
-        workspace = await createWorkspace(project, credentials[0], userid, classid);
+        workspace = await createWorkspace(project, credentials, userid, classid, training);
     }
 
     return workspace;
@@ -42,31 +43,56 @@ export async function trainClassifier(
 
 async function createWorkspace(
     project: DbObjects.Project,
-    credentials: TrainingObjects.BluemixCredentials,
+    credentialsPool: TrainingObjects.BluemixCredentials[],
     userid: string, classid: string,
+    training: TrainingObjects.ConversationTrainingData,
 ): Promise<TrainingObjects.ConversationWorkspace>
 {
-    const url = credentials.url + '/v1/workspaces';
-    const workspace = await submitTrainingToConversation(project, credentials, url);
+    let workspace;
 
-    await store.storeConversationWorkspace(
-        credentials,
-        userid, classid, project.id,
-        workspace);
+    for (const credentials of credentialsPool) {
+        try {
+            const url = credentials.url + '/v1/workspaces';
+            workspace = await submitTrainingToConversation(project, credentials, url, training);
 
-    await store.storeOrUpdateScratchKey(project.id, 'text', userid, classid, credentials, workspace.workspace_id);
+            await store.storeConversationWorkspace(
+                credentials,
+                userid, classid, project.id,
+                workspace);
 
-    return workspace;
+            await store.storeOrUpdateScratchKey(project.id, 'text',
+                userid, classid,
+                credentials, workspace.workspace_id);
+
+            return workspace;
+        }
+        catch (err) {
+            // If we couldn't create a workspace because we've used up the
+            //  number of workspaces allowed with these creds, then swallow
+            //  the error so we can try the next set of creds in the pool
+            // Otherwise - rethrow it so we can bug out.
+            if (err.error.startsWith('Maximum workspaces limit exceeded') === false)
+            {
+                throw err;
+            }
+        }
+    }
+
+    // if we're here, it means we don't have room for any new workspaces
+    //  with the available credentials
+    throw new Error('Your class already has created their maximum allowed number of models');
 }
+
 
 function updateWorkspace(
     project: DbObjects.Project,
     credentials: TrainingObjects.BluemixCredentials,
     workspace: TrainingObjects.ConversationWorkspace,
+    training: TrainingObjects.ConversationTrainingData,
 ): Promise<TrainingObjects.ConversationWorkspace>
 {
     const url = credentials.url + '/v1/workspaces/' + workspace.workspace_id;
-    return submitTrainingToConversation(project, credentials, url);
+    return submitTrainingToConversation(project, credentials, url, training);
 }
 
 
@@ -133,7 +159,7 @@ async function deleteClassifierFromBluemix(
  * @returns the same set of workspaces, with the status and udpated timestamp
  *  properties set using responses from the Bluemix REST API
  */
-export async function getClassifierStatuses(
+export function getClassifierStatuses(
     classid: string,
     workspaces: TrainingObjects.ConversationWorkspace[],
 ): Promise<TrainingObjects.ConversationWorkspace[]>
@@ -213,14 +239,15 @@ async function getTraining(project: DbObjects.Project): Promise<TrainingObjects.
 
 
 
+
+
 async function submitTrainingToConversation(
     project: DbObjects.Project,
     credentials: TrainingObjects.BluemixCredentials,
     url: string,
+    training: TrainingObjects.ConversationTrainingData,
 ): Promise<TrainingObjects.ConversationWorkspace>
 {
-    const training = await getTraining(project);
-
     const req = {
         auth : {
             user : credentials.username,
@@ -257,6 +284,7 @@ async function submitTrainingToConversation(
         //  just the bits that should be safe to share.
         const trainingError: any = new Error('Failed to train workspace');
         trainingError.error = err.error;
+
         throw trainingError;
     }
 }
