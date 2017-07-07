@@ -18,7 +18,7 @@ Code / engineering work
 * Scratch keys should use project id as primary key so REPLACE is more efficient
 * Google Analytics
 * max limit on training items per project
-* Test Conversation as a replacement for NLC
+* handle errors that Conversation returns on duplicate examples
 
 Longer term goals
 * Restore sprites library

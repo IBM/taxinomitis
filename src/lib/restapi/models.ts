@@ -31,23 +31,14 @@ function returnNumberClassifier(classifier: Types.NumbersClassifier) {
 
 
 
-async function getModels(req: Express.Request, res: Express.Response) {
+async function getModels(req: auth.RequestWithProject, res: Express.Response) {
     const classid = req.params.classid;
-    const userid = req.params.studentid;
     const projectid = req.params.projectid;
 
-    const project = await store.getProject(projectid);
-    if (!project) {
-        return errors.notFound(res);
-    }
-    if (project.classid !== classid || project.userid !== userid) {
-        return errors.forbidden(res);
-    }
-
     let classifiers;
-    switch (project.type) {
+    switch (req.project.type) {
     case 'text':
-        classifiers = await store.getConversationWorkspaces(project.id);
+        classifiers = await store.getConversationWorkspaces(projectid);
         classifiers = await conversation.getClassifierStatuses(classid, classifiers);
         classifiers = classifiers.map(returnConversationWorkspace);
         break;
@@ -63,29 +54,21 @@ async function getModels(req: Express.Request, res: Express.Response) {
     return res.json(classifiers);
 }
 
-async function newModel(req: Express.Request, res: Express.Response) {
+async function newModel(req: auth.RequestWithProject, res: Express.Response) {
     const classid = req.params.classid;
     const userid = req.params.studentid;
     const projectid = req.params.projectid;
 
-    const project = await store.getProject(projectid);
-    if (!project) {
-        return errors.notFound(res);
-    }
-    if (project.classid !== classid || project.userid !== userid) {
-        return errors.forbidden(res);
-    }
-
-    if (project.type === 'text') {
+    if (req.project.type === 'text') {
         try {
-            const model = await conversation.trainClassifier(userid, classid, project);
+            const model = await conversation.trainClassifier(userid, classid, req.project);
             return res.status(httpstatus.CREATED).json(returnConversationWorkspace(model));
         }
         catch (err) {
             return errors.unknownError(res, err);
         }
     }
-    else if (project.type === 'numbers') {
+    else if (req.project.type === 'numbers') {
         try {
             const model = await numbers.trainClassifier(userid, classid, projectid);
             return res.status(httpstatus.CREATED).json(returnNumberClassifier(model));
@@ -99,26 +82,18 @@ async function newModel(req: Express.Request, res: Express.Response) {
 }
 
 
-async function deleteModel(req: Express.Request, res: Express.Response) {
+async function deleteModel(req: auth.RequestWithProject, res: Express.Response) {
     const classid = req.params.classid;
     const userid = req.params.studentid;
     const projectid = req.params.projectid;
     const modelid = req.params.modelid;
 
-    const project = await store.getProject(projectid);
-    if (!project) {
-        return errors.notFound(res);
-    }
-    if (project.classid !== classid || project.userid !== userid) {
-        return errors.forbidden(res);
-    }
-
     try {
-        if (project.type === 'text') {
+        if (req.project.type === 'text') {
             await conversation.deleteClassifier(userid, classid, projectid, modelid);
             return res.sendStatus(httpstatus.NO_CONTENT);
         }
-        else if (project.type === 'numbers') {
+        else if (req.project.type === 'numbers') {
             await numbers.deleteClassifier(userid, classid, projectid);
             return res.sendStatus(httpstatus.NO_CONTENT);
         }
@@ -178,16 +153,19 @@ export default function registerApis(app: Express.Application) {
     app.get('/api/classes/:classid/students/:studentid/projects/:projectid/models',
             auth.authenticate,
             auth.checkValidUser,
+            auth.verifyProjectAccess,
             getModels);
 
     app.post('/api/classes/:classid/students/:studentid/projects/:projectid/models',
              auth.authenticate,
              auth.checkValidUser,
+             auth.verifyProjectAccess,
              newModel);
 
     app.delete('/api/classes/:classid/students/:studentid/projects/:projectid/models/:modelid',
                auth.authenticate,
                auth.checkValidUser,
+               auth.verifyProjectAccess,
                deleteModel);
 
     app.post('/api/classes/:classid/students/:studentid/projects/:projectid/models/:modelid/label',

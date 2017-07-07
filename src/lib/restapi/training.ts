@@ -13,11 +13,6 @@ const log = loggerSetup();
 
 
 
-interface RequestWithProject extends Express.Request {
-    project: Objects.Project;
-}
-
-
 function getPagingOptions(req: Express.Request): Objects.PagingOptions {
     let start: number = 0;
     let limit: number = 50;
@@ -46,32 +41,9 @@ function generatePagingResponse(start: number, items: any[], count: number): str
 }
 
 
-async function verifyProjectAccess(req: Express.Request, res: Express.Response, next) {
-    const userid: string = req.params.studentid;
-    const projectid: string = req.params.projectid;
-
-    try {
-        const project = await store.getProject(projectid);
-        if (!project) {
-            return errors.notFound(res);
-        }
-        if (project.userid !== userid) {
-            return errors.forbidden(res);
-        }
-
-        const modifiedRequest: RequestWithProject = req as RequestWithProject;
-        modifiedRequest.project = project;
-
-        next();
-    }
-    catch (err) {
-        return next(err);
-    }
-}
 
 
-
-async function getTraining(req: RequestWithProject, res: Express.Response) {
+async function getTraining(req: auth.RequestWithProject, res: Express.Response) {
     const options: Objects.PagingOptions = getPagingOptions(req);
 
     try {
@@ -103,7 +75,7 @@ async function getTraining(req: RequestWithProject, res: Express.Response) {
 }
 
 
-async function getLabels(req: RequestWithProject, res: Express.Response) {
+async function getLabels(req: auth.RequestWithProject, res: Express.Response) {
     try {
         const project = await store.getProject(req.project.id);
         let counts = {};
@@ -123,7 +95,7 @@ async function getLabels(req: RequestWithProject, res: Express.Response) {
 }
 
 
-async function editLabel(req: RequestWithProject, res: Express.Response) {
+async function editLabel(req: auth.RequestWithProject, res: Express.Response) {
     const before: string = req.body.before;
     const after: string = req.body.after;
 
@@ -142,7 +114,7 @@ async function editLabel(req: RequestWithProject, res: Express.Response) {
 }
 
 
-async function deleteTraining(req: RequestWithProject, res: Express.Response) {
+async function deleteTraining(req: auth.RequestWithProject, res: Express.Response) {
     const trainingid: string = req.params.trainingid;
 
     try {
@@ -161,7 +133,7 @@ async function deleteTraining(req: RequestWithProject, res: Express.Response) {
 }
 
 
-async function storeTraining(req: RequestWithProject, res: Express.Response) {
+async function storeTraining(req: auth.RequestWithProject, res: Express.Response) {
     try {
         const data = req.body.data;
         const label = req.body.label;
@@ -210,30 +182,30 @@ export default function registerApis(app: Express.Application) {
     app.get('/api/classes/:classid/students/:studentid/projects/:projectid/training',
             auth.authenticate,
             auth.checkValidUser,
-            verifyProjectAccess,
+            auth.verifyProjectAccess,
             getTraining);
 
     app.get('/api/classes/:classid/students/:studentid/projects/:projectid/labels',
             auth.authenticate,
             auth.checkValidUser,
-            verifyProjectAccess,
+            auth.verifyProjectAccess,
             getLabels);
 
     app.put('/api/classes/:classid/students/:studentid/projects/:projectid/labels',
             auth.authenticate,
             auth.checkValidUser,
-            verifyProjectAccess,
+            auth.verifyProjectAccess,
             editLabel);
 
     app.delete('/api/classes/:classid/students/:studentid/projects/:projectid/training/:trainingid',
                auth.authenticate,
                auth.checkValidUser,
-               verifyProjectAccess,
+               auth.verifyProjectAccess,
                deleteTraining);
 
     app.post('/api/classes/:classid/students/:studentid/projects/:projectid/training',
              auth.authenticate,
              auth.checkValidUser,
-             verifyProjectAccess,
+             auth.verifyProjectAccess,
              storeTraining);
 }
