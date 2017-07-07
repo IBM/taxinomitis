@@ -11,10 +11,17 @@ export const creds: TrainingTypes.BluemixCredentials = {
 };
 
 export function getBluemixCredentials() {
-    return new Promise((resolve) => resolve(creds));
+    return new Promise((resolve) => resolve([ creds ]));
 }
-export function getServiceCredentials() {
-    return new Promise((resolve) => resolve(creds));
+export function getBluemixCredentialsById(id: string) {
+    return new Promise((resolve, reject) => {
+        if (id === '123') {
+            return resolve(creds);
+        }
+        else {
+            return reject(new Error('Unexpected response when retrieving service credentials'));
+        }
+    });
 }
 
 const NUM_TRAINING_PER_LABEL = {

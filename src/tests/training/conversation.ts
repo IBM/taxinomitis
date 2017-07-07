@@ -42,7 +42,7 @@ describe('Training - Conversation', () => {
         deleteStub = sinon.stub(request, 'delete').callsFake(mockConversation.deleteClassifier);
 
         authStoreStub = sinon.stub(store, 'getBluemixCredentials').callsFake(mockstore.getBluemixCredentials);
-        authByIdStoreStub = sinon.stub(store, 'getServiceCredentials').callsFake(mockstore.getServiceCredentials);
+        authByIdStoreStub = sinon.stub(store, 'getBluemixCredentialsById').callsFake(mockstore.getBluemixCredentialsById);
         getConversationWorkspacesStub = sinon.stub(store, 'getConversationWorkspaces').callsFake(mockstore.getConversationWorkspaces);
         countStoreStub = sinon.stub(store, 'countTextTrainingByLabel').callsFake(mockstore.countTextTrainingByLabel);
         getStoreStub = sinon.stub(store, 'getTextTrainingByLabel').callsFake(mockstore.getTextTrainingByLabel);
@@ -95,6 +95,7 @@ describe('Training - Conversation', () => {
                 created : newClassifierDate,
                 updated : newClassifierDate,
                 workspace_id : '04f2d303-16fd-4f2e-80f4-2c66784cc0fe',
+                credentialsid : '123',
                 status : 'Training',
                 url : 'http://conversation.service/v1/workspaces/04f2d303-16fd-4f2e-80f4-2c66784cc0fe',
             });
@@ -188,7 +189,7 @@ describe('Training - Conversation', () => {
             const userid = randomstring.generate({ length : 8 });
             const projectid = uuid();
 
-            await conversation.deleteClassifier(userid, classid, projectid, 'good');
+            await conversation.deleteClassifier(userid, classid, projectid, goodClassifier);
 
             assert(deleteStub.calledOnce);
             assert(deleteStoreStub.calledOnce);
@@ -219,7 +220,14 @@ describe('Training - Conversation', () => {
             const userid = randomstring.generate({ length : 8 });
             const projectid = uuid();
 
-            await conversation.deleteClassifier(userid, classid, projectid, 'doesnotactuallyexist');
+            await conversation.deleteClassifier(userid, classid, projectid, {
+                workspace_id : 'doesnotactuallyexist',
+                credentialsid : '123',
+                url : 'http://conversation.service/v1/workspaces/doesnotactuallyexist',
+                name : 'This does not exist',
+                language : 'en',
+                created : new Date(),
+            });
 
             assert(deleteStub.calledOnce);
             assert(deleteStoreStub.calledOnce);
@@ -488,6 +496,7 @@ describe('Training - Conversation', () => {
 
 
     const goodClassifier: TrainingTypes.ConversationWorkspace = {
+        credentialsid : '123',
         name : 'good classifier',
         language : 'en',
         created : new Date(),
@@ -513,6 +522,7 @@ describe('Training - Conversation', () => {
 
 
     const trainingClassifier: TrainingTypes.ConversationWorkspace = {
+        credentialsid : '123',
         name : 'try again later',
         language : 'en',
         created : new Date(),
@@ -538,6 +548,7 @@ describe('Training - Conversation', () => {
 
 
     const brokenClassifier: TrainingTypes.ConversationWorkspace = {
+        credentialsid : '123',
         name : 'bad bad bad',
         language : 'en',
         created : new Date(),
@@ -562,6 +573,7 @@ describe('Training - Conversation', () => {
 
 
     const unknownClassifier: TrainingTypes.ConversationWorkspace = {
+        credentialsid : '123',
         name : 'not here any more',
         language : 'en',
         created : new Date(),

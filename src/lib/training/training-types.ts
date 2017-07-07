@@ -17,6 +17,7 @@ export type BluemixServiceType = 'conv' | 'visrec' | 'num';
 
 export interface ConversationWorkspace {
     readonly workspace_id: string;
+    readonly credentialsid: string;
     readonly url: string;
     readonly name: string;
     readonly language: string;

@@ -34,7 +34,7 @@ describe('DB store', () => {
             await store.storeBluemixCredentials(classid, creds);
 
             const retrieved = await store.getBluemixCredentials(classid, 'conv');
-            assert.deepEqual(retrieved, creds);
+            assert.deepEqual(retrieved, [ creds ]);
 
             await store.deleteBluemixCredentials(creds.id);
         });
@@ -52,7 +52,7 @@ describe('DB store', () => {
             await store.storeBluemixCredentials(classid, creds);
 
             const retrieved = await store.getBluemixCredentials(classid, 'conv');
-            assert.deepEqual(retrieved, creds);
+            assert.deepEqual(retrieved, [ creds ]);
 
             await store.deleteBluemixCredentials(creds.id);
 
@@ -85,6 +85,7 @@ describe('DB store', () => {
 
             const classifierInfo: Types.ConversationWorkspace = {
                 workspace_id : randomstring.generate({ length : 32 }),
+                credentialsid : creds.id,
                 created,
                 language : 'en',
                 name : randomstring.generate({ length : 12 }),
@@ -96,9 +97,7 @@ describe('DB store', () => {
                 classifierInfo,
             );
 
-            const retrievedCreds = await store.getServiceCredentials(
-                projectid, classid, userid, 'conv', classifierInfo.workspace_id,
-            );
+            const retrievedCreds = await store.getBluemixCredentialsById(creds.id);
             assert.deepEqual(retrievedCreds, creds);
 
             await store.deleteBluemixCredentials(creds.id);
@@ -143,6 +142,7 @@ describe('DB store', () => {
 
             const classifierInfo: Types.ConversationWorkspace = {
                 workspace_id : randomstring.generate({ length : 32 }),
+                credentialsid : credentials.id,
                 created,
                 language : 'en',
                 name : 'DUMMY',

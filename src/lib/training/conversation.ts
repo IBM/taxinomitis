@@ -22,16 +22,15 @@ export async function trainClassifier(
     if (existingWorkspaces.length > 0) {
         workspace = existingWorkspaces[0];
 
-        const credentials = await store.getServiceCredentials(
-            project.id, classid, userid,
-            'conv', workspace.workspace_id);
+        const credentials = await store.getBluemixCredentialsById(workspace.credentialsid);
 
         workspace = await updateWorkspace(project, credentials, workspace);
     }
     else {
         const credentials = await store.getBluemixCredentials(classid, 'conv');
 
-        workspace = await createWorkspace(project, credentials, userid, classid);
+        // TODO - iterate through multiple
+        workspace = await createWorkspace(project, credentials[0], userid, classid);
     }
 
     return workspace;
@@ -81,20 +80,17 @@ function updateWorkspace(
  * @param userid - ID of the user that has collected the training data
  * @param classid - the tenant that the user is a member of
  * @param projectid - the ID for the project with the training data
- * @param classifierId - the ID of the classifier to delete
  */
 export async function deleteClassifier(
     userid: string, classid: string, projectid: string,
-    classifierId: string,
+    classifier: TrainingObjects.ConversationWorkspace,
 ): Promise<void>
 {
-    const credentials = await store.getServiceCredentials(
-        projectid, classid, userid,
-        'conv', classifierId,
-    );
-    await deleteClassifierFromBluemix(credentials, classifierId);
+    const credentials = await store.getBluemixCredentialsById(classifier.credentialsid);
 
-    await store.deleteConversationWorkspace(projectid, userid, classid, classifierId);
+    await deleteClassifierFromBluemix(credentials, classifier.workspace_id);
+
+    await store.deleteConversationWorkspace(projectid, userid, classid, classifier.workspace_id);
 }
 
 async function deleteClassifierFromBluemix(
@@ -142,9 +138,17 @@ export async function getClassifierStatuses(
     workspaces: TrainingObjects.ConversationWorkspace[],
 ): Promise<TrainingObjects.ConversationWorkspace[]>
 {
-    const credentials = await store.getBluemixCredentials(classid, 'conv');
+    const credentialsCacheById: any = {};
+
     return Promise.all(
-        workspaces.map((workspace) => getStatus(credentials, workspace)));
+        workspaces.map(async (workspace) => {
+            if (workspace.credentialsid in credentialsCacheById === false) {
+                const creds = await store.getBluemixCredentialsById(workspace.credentialsid);
+                credentialsCacheById[workspace.credentialsid] = creds;
+            }
+            return getStatus(credentialsCacheById[workspace.credentialsid], workspace);
+        }),
+    );
 }
 
 
@@ -239,6 +243,7 @@ async function submitTrainingToConversation(
             created : new Date(body.created),
             updated : new Date(body.updated),
             workspace_id : body.workspace_id,
+            credentialsid : credentials.id,
             status : body.status ? body.status : 'Training',
             url : credentials.url + '/v1/workspaces/' + body.workspace_id,
         };
@@ -255,9 +260,6 @@ async function submitTrainingToConversation(
         throw trainingError;
     }
 }
-
-
-
 
 
 export async function testClassifier(

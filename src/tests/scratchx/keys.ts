@@ -54,6 +54,7 @@ describe('Scratchx - keys', () => {
             });
             const conversationwkspace: TrainingTypes.ConversationWorkspace = {
                 workspace_id: randomstring.generate({ length : 20 }),
+                credentialsid : creds.id,
                 created: new Date(),
                 language : 'en',
                 name : project.name,

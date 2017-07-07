@@ -199,7 +199,10 @@
             $scope.testoutput = "please wait...";
             $scope.testoutput_explanation = "";
 
-            trainingService.testModel(project.id, project.type, vm.profile.user_id, vm.profile.tenant, $scope.models[0].classifierid, testdata)
+            trainingService.testModel(project.id, project.type,
+                                      vm.profile.user_id, vm.profile.tenant,
+                                      $scope.models[0].classifierid, $scope.models[0].credentialsid,
+                                      testdata)
                 .then(function (resp) {
                     $scope.testoutput = resp[0].class_name;
                     $scope.testoutput_explanation = "with " + resp[0].confidence + "% confidence";

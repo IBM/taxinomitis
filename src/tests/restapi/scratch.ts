@@ -102,6 +102,7 @@ describe('REST API - scratch keys', () => {
 
             const workspace: Types.ConversationWorkspace = {
                 workspace_id : randomstring.generate({ length : 12 }),
+                credentialsid : credentials.id,
                 url : uuid(),
                 name,
                 language : 'en',
@@ -487,8 +488,9 @@ describe('REST API - scratch keys', () => {
 
             const workspaceId = randomstring.generate({ length : 32 });
 
-            const conversationWorkspace = {
+            const conversationWorkspace: Types.ConversationWorkspace = {
                 workspace_id : workspaceId,
+                credentialsid : credentials.id,
                 url : uuid(),
                 name,
                 language : 'en',
@@ -556,6 +558,7 @@ describe('REST API - scratch keys', () => {
 
             const workspace: Types.ConversationWorkspace = {
                 workspace_id : randomstring.generate({ length : 12 }),
+                credentialsid : credentials.id,
                 url : uuid(),
                 name,
                 language : 'en',

@@ -66,12 +66,13 @@
             });
         }
 
-        function testModel(projectid, projecttype, userid, tenant, modelid, testdata) {
+        function testModel(projectid, projecttype, userid, tenant, modelid, credsid, testdata) {
             var url = '/api/classes/' + tenant +
                         '/students/' + userid +
                         '/projects/' + projectid +
                         '/models/' + modelid +
                         '/label';
+            testdata.credentialsid = credsid;
 
             return $http.post(url, testdata)
                 .then(function (resp) {

@@ -15,10 +15,10 @@ import loggerSetup from '../utils/logger';
 const log = loggerSetup();
 
 
-
 function returnConversationWorkspace(classifier: Types.ConversationWorkspace) {
     return {
         classifierid : classifier.workspace_id,
+        credentialsid : classifier.credentialsid,
         updated : classifier.updated,
         name : classifier.name,
         status : classifier.status,
@@ -90,7 +90,8 @@ async function deleteModel(req: auth.RequestWithProject, res: Express.Response) 
 
     try {
         if (req.project.type === 'text') {
-            await conversation.deleteClassifier(userid, classid, projectid, modelid);
+            const workspace = await store.getConversationWorkspace(projectid, modelid);
+            await conversation.deleteClassifier(userid, classid, projectid, workspace);
             return res.sendStatus(httpstatus.NO_CONTENT);
         }
         else if (req.project.type === 'numbers') {
@@ -113,16 +114,16 @@ async function testModel(req: Express.Request, res: Express.Response) {
     const projectid = req.params.projectid;
     const modelid = req.params.modelid;
     const type = req.body.type;
-
+    const credsid = req.body.credentialsid;
 
     try {
         if (type === 'text') {
             const text = req.body.text;
-            if (!text) {
+            if (!text || !credsid) {
                 return errors.missingData(res);
             }
 
-            const creds = await store.getServiceCredentials(projectid, classid, userid, 'conv', modelid);
+            const creds = await store.getBluemixCredentialsById(credsid);
             const classes = await conversation.testClassifier(creds, modelid, text);
             return res.json(classes);
         }

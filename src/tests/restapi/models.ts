@@ -77,6 +77,7 @@ describe('REST API - models', () => {
         conversationStub.trainClassifierStub.callsFake((uid, clsid, pj) => {
             const workspace: Types.ConversationWorkspace = {
                 workspace_id : 'NEW-CREATED',
+                credentialsid : '123',
                 name : pj.name,
                 language : 'en',
                 created : new Date(Date.UTC(2017, 4, 4, 12, 0)),
@@ -279,6 +280,7 @@ describe('REST API - models', () => {
 
             const classifierAInfo: Types.ConversationWorkspace = {
                 workspace_id : 'good',
+                credentialsid : credentials.id,
                 created : createdA,
                 language : 'en',
                 name : 'DUMMY ONE',
@@ -292,6 +294,7 @@ describe('REST API - models', () => {
 
             const classifierBInfo: Types.ConversationWorkspace = {
                 workspace_id : 'busy',
+                credentialsid : credentials.id,
                 created : createdB,
                 language : 'en',
                 name : 'DUMMY TWO',
@@ -310,12 +313,14 @@ describe('REST API - models', () => {
                     assert.deepEqual(res.body, [
                         {
                             classifierid : 'busy',
+                            credentialsid : credentials.id,
                             updated : updated.toISOString(),
                             name : 'DUMMY TWO',
                             status : 'Training',
                         },
                         {
                             classifierid : 'good',
+                            credentialsid : credentials.id,
                             updated : updated.toISOString(),
                             name : 'DUMMY ONE',
                             status : 'Available',
@@ -440,6 +445,7 @@ describe('REST API - models', () => {
                         name : projName,
                         status : 'Training',
                         classifierid : 'NEW-CREATED',
+                        credentialsid : '123',
                     });
 
                     return store.deleteProject(projectid);
@@ -485,6 +491,7 @@ describe('REST API - models', () => {
                         '/label')
                 .send({
                     text : 'my test text',
+                    credentialsid : 'HELLO',
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
@@ -503,6 +510,25 @@ describe('REST API - models', () => {
                         '/label')
                 .send({
                     type : 'text',
+                    credentialsid : 'HELLO',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((resp) => {
+                    assert.deepEqual(resp.body, { error : 'Missing data' });
+                });
+        });
+
+        it('should require credentials to test with', () => {
+            return request(testServer)
+                .post('/api/classes/' + 'classid' +
+                        '/students/' + 'userid' +
+                        '/projects/' + 'projectid' +
+                        '/models/' + 'modelid' +
+                        '/label')
+                .send({
+                    type : 'text',
+                    text : 'HELLO',
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
@@ -536,6 +562,7 @@ describe('REST API - models', () => {
 
             const classifierInfo: Types.ConversationWorkspace = {
                 workspace_id : modelid,
+                credentialsid : credentials.id,
                 created,
                 language : 'en',
                 name : projName,
@@ -553,6 +580,7 @@ describe('REST API - models', () => {
                 .send({
                     text : 'my test text',
                     type : 'text',
+                    credentialsid : credentials.id,
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK)
@@ -698,6 +726,7 @@ describe('REST API - models', () => {
 
             const classifierInfo: Types.ConversationWorkspace = {
                 workspace_id : modelid,
+                credentialsid : credentials.id,
                 created,
                 language : 'en',
                 name : projName,

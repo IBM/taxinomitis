@@ -226,6 +226,7 @@ export function createConversationWorkspace(
 export function getWorkspaceFromDbRow(row: TrainingObjects.ClassifierDbRow): TrainingObjects.ConversationWorkspace {
     return {
         workspace_id : row.classifierid,
+        credentialsid : row.credentialsid,
         url : row.url,
         name : row.name,
         language : row.language,

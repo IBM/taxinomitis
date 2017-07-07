@@ -521,19 +521,35 @@ export async function storeBluemixCredentials(
 
 export async function getBluemixCredentials(
     classid: string, service: TrainingObjects.BluemixServiceType,
-): Promise<TrainingObjects.BluemixCredentials>
+): Promise<TrainingObjects.BluemixCredentials[]>
 {
     const queryString = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password` ' +
                         'FROM `bluemixcredentials` ' +
                         'WHERE `classid` = ? AND `servicetype` = ?';
 
     const rows = await dbExecute(queryString, [ classid, service ]);
+    if (rows.length === 0) {
+        log.error({ rows }, 'Unexpected response from DB');
+        throw new Error('Unexpected response when retrieving service credentials');
+    }
+    return rows.map(dbobjects.getCredentialsFromDbRow);
+}
+
+
+export async function getBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.BluemixCredentials>
+{
+    const credsQuery = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password` ' +
+                       'FROM `bluemixcredentials` ' +
+                       'WHERE `id` = ?';
+    const rows = await dbExecute(credsQuery, [ credentialsid ]);
+
     if (rows.length !== 1) {
         log.error({ rows }, 'Unexpected response from DB');
         throw new Error('Unexpected response when retrieving service credentials');
     }
     return dbobjects.getCredentialsFromDbRow(rows[0]);
 }
+
 
 export async function deleteBluemixCredentials(credentialsid: string): Promise<void> {
     const queryString = 'DELETE FROM `bluemixcredentials` WHERE `id` = ?';
@@ -542,50 +558,6 @@ export async function deleteBluemixCredentials(credentialsid: string): Promise<v
     if (response.warningStatus !== 0) {
         throw new Error('Failed to delete credentials info');
     }
-}
-
-
-
-
-
-/**
- * Get the credentials to use for a specific classifier.
- *
- * As there may be more than one set of Bluemix credentials for a particular
- * service and tenant/class, this function is used to ensure we get the ones
- * that can be used for a particular classifier.
- */
-export async function getServiceCredentials(
-    projectid: string, classid: string, userid: string,
-    servicetype: TrainingObjects.BluemixServiceType, classifierid: string,
-): Promise<TrainingObjects.BluemixCredentials>
-{
-    const dbConn = await dbConnPool.getConnection();
-
-    const queryString = 'SELECT `credentialsid` FROM `bluemixclassifiers` ' +
-                        'WHERE ' +
-                        '`servicetype` = ? AND `classifierid` = ? AND ' +
-                        '`projectid` = ? AND `classid` = ? AND `userid` = ?';
-    const values = [servicetype, classifierid, projectid, classid, userid];
-    const [response] = await dbConn.execute(queryString, values);
-
-    if (response.length !== 1) {
-        log.error({ response }, 'Failed to retrieve classifier credentials');
-    }
-
-    const credentialsId = response[0].credentialsid;
-
-    const credsQuery = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password` ' +
-                       'FROM `bluemixcredentials` ' +
-                       'WHERE `id` = ?';
-    const [rows] = await dbConn.execute(credsQuery, [ credentialsId ]);
-    dbConn.release();
-
-    if (rows.length !== 1) {
-        log.error({ rows }, 'Unexpected response from DB');
-        throw new Error('Unexpected response when retrieving service credentials');
-    }
-    return dbobjects.getCredentialsFromDbRow(rows[0]);
 }
 
 
@@ -611,6 +583,23 @@ export async function getConversationWorkspaces(
 
     const rows = await dbExecute(queryString, [ projectid ]);
     return rows.map(dbobjects.getWorkspaceFromDbRow);
+}
+
+export async function getConversationWorkspace(
+    projectid: string, classifierid: string,
+): Promise<TrainingObjects.ConversationWorkspace>
+{
+    const queryString = 'SELECT `id`, `credentialsid`, `projectid`, `servicetype`,' +
+                        ' `classifierid`, `url`, `name`, `language`, `created` ' +
+                        'FROM `bluemixclassifiers` ' +
+                        'WHERE `projectid` = ? AND `classifierid` = ?';
+
+    const rows = await dbExecute(queryString, [ projectid, classifierid ]);
+    if (rows.length !== 1) {
+        log.error({ rows }, 'Unexpected response from DB');
+        throw new Error('Unexpected response when retrieving service credentials');
+    }
+    return dbobjects.getWorkspaceFromDbRow(rows[0]);
 }
 
 
@@ -942,7 +931,7 @@ export async function deleteEntireProject(userid: string, classid: string, proje
     if (project.type === 'text') {
         const classifiers = await getConversationWorkspaces(project.id);
         for (const classifier of classifiers) {
-            await conversation.deleteClassifier(userid, classid, project.id, classifier.workspace_id);
+            await conversation.deleteClassifier(userid, classid, project.id, classifier);
         }
     }
     else if (project.type === 'numbers') {

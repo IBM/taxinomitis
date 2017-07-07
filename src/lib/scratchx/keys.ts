@@ -21,9 +21,7 @@ async function createTextKey(project: Types.Project): Promise<ScratchTypes.Key> 
         const classifier = textClassifiers[0];
         const model = classifier.workspace_id;
 
-        const credentials = await store.getServiceCredentials(
-            project.id, project.classid, project.userid,
-            'conv', classifier.workspace_id);
+        const credentials = await store.getBluemixCredentialsById(classifier.credentialsid);
 
         const id = await store.storeOrUpdateScratchKey(
             project.id, project.type,
