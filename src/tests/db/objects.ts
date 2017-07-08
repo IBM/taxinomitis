@@ -27,6 +27,20 @@ describe('DB objects', () => {
         });
     });
 
+    describe('createLabel', () => {
+
+        it('should remove spaces', () => {
+            assert.equal(dbobjects.createLabel('One Two Three'),
+                         'One_Two_Three');
+        });
+
+        it('should remove special characters', () => {
+            assert.equal(dbobjects.createLabel('It\'s over here?'),
+                         'It_s_over_here_');
+        });
+
+    });
+
 
     describe('getClassFromDbRow()', () => {
         it('should return tenant policy info', () => {

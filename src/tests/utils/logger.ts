@@ -5,7 +5,7 @@ import loggerSetup from '../../lib/utils/logger';
 
 
 
-describe('REST API - Bluemix', () => {
+describe('Utils - logger', () => {
 
     it('should create a logger', () => {
         const logger = loggerSetup();
