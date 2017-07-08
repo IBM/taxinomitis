@@ -32,3 +32,15 @@
     padding: 0.4em;
     text-align: right;
 }
+
+.adminpage {
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+.adminrestriction {
+    margin-left: 2em;
+}
+.adminrestriction li {
+    margin-bottom: 0.4em;
+}

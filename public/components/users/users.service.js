@@ -11,6 +11,14 @@
 
     function usersService($q, $http) {
 
+        function getClassPolicy(profile) {
+            return $http.get('/api/classes/' + profile.tenant + '/policy')
+                .then(function (resp) {
+                    return resp.data;
+                });
+        }
+
+
         function getStudentList(profile) {
             return $http.get('/api/classes/' + profile.tenant + '/students')
                 .then(function (resp) {
@@ -42,7 +50,11 @@
 
 
 
+
+
         return {
+            getClassPolicy : getClassPolicy,
+
             getStudentList : getStudentList,
 
             createStudent : createStudent,

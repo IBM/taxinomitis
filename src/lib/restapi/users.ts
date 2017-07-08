@@ -94,9 +94,40 @@ function resetStudentPassword(req: Express.Request, res: Express.Response) {
 
 
 
+async function getPolicy(req: Express.Request, res: Express.Response) {
+    const tenant = req.params.classid;
+
+    try {
+        const policy = await store.getClassTenant(tenant);
+        const availableTextCredentials = await store.getBluemixCredentials(tenant, 'conv');
+
+        return res.json({
+            maxTextModels : availableTextCredentials.length * 5,
+
+            maxUsers : policy.maxUsers,
+            supportedProjectTypes : policy.supportedProjectTypes,
+            maxProjectsPerUser : policy.maxProjectsPerUser,
+            textClassifierExpiry : policy.textClassifierExpiry,
+        });
+    }
+    catch (err){
+        errors.unknownError(res, err);
+    }
+}
+
+
+
+
+
 
 
 export default function registerApis(app: Express.Application) {
+    app.get('/api/classes/:classid/policy',
+        auth.authenticate,
+        auth.checkValidUser,
+        auth.requireSupervisor,
+        getPolicy);
+
     app.get('/api/classes/:classid/students',
         auth.authenticate,
         auth.checkValidUser,

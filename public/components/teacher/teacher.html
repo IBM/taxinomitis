@@ -6,11 +6,10 @@
         <button class="btn btn-primary" ng-click="vm.authService.login()">Log In</button>
     </div>
 </div>
-<div ng-if="isAuthenticated && vm.profile.role === 'supervisor'">
-    <div class="jumbotron">
-        <h2 class="text-center">Students in your class</h2>
-    </div>
-
+<div class="jumbotron">
+    <h2 class="text-center">Administration</h2>
+</div>
+<div ng-if="isAuthenticated && vm.profile.role === 'supervisor'" class="adminpage">
     <div ng-if="!vm || !vm.students" class="loading"> </div>
 
     <div ng-repeat="error in vm.errors" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
@@ -22,10 +21,38 @@
         <strong>Warning:</strong> {{ warning.message }}
     </div>
 
-    <div ng-if="vm && vm.students">
+    <div ng-if="vm && vm.policy">
+        <h3>Restrictions</h3>
 
-        <div style="margin: 1em; width: 300px;" ng-if="vm.students && vm.students.length === 0">
-            Click on the 'plus' icon on the right to create the first student
+        <div class="alert alert-info pageheadermsg">
+            If any of these restrictions cause a problem for your group, please <strong><a style="cursor: pointer;" ui-sref="help">get in touch</a></strong>.
+        </div>
+
+        <div> The following limits are in place for your class: </div>
+
+        <ul class="adminrestriction">
+            <li>You can have up to <span class="mlprojecttype">{{ vm.policy.maxUsers }}</span> students in your group. </li>
+            <li>Your students can create projects to recognise <span class="mlprojecttype">{{ vm.policy.supportedProjectTypes.join(' or ') }}</span>. </li>
+            <li>Each of your students is allowed to have up to <span class="mlprojecttype">{{ vm.policy.maxProjectsPerUser }}</span> projects. </li>
+            <li>Your class is allowed to have up to
+                <span class="mlprojecttype">{{ vm.policy.maxTextModels }}</span>
+                machine learning models in total across all their
+                <span class="mlprojecttype">text</span> projects.</li>
+            <li>Machine learning models created for their
+                <span class="mlprojecttype">text</span>
+                projects will automatically be deleted after
+                <span class="mlprojecttype">{{ vm.policy.textClassifierExpiry }}</span> hours.<br/>
+                <em>(Don't worry! Training data will not be deleted, so they can always train a new machine learning model again if they still need it after this.)</em></li>
+        </ul>
+
+        <hr/>
+    </div>
+
+    <div ng-if="vm && vm.students">
+        <h3>Students in your group</h3>
+
+        <div class="alert alert-info pageheadermsg" ng-if="vm.students && vm.students.length === 0">
+            Click on the 'plus' button on the right to create the first student
             <span class="glyphicon glyphicon-arrow-right"></span>
         </div>
 

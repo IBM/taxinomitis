@@ -30,10 +30,10 @@
     <div ng-if="!vm.projects" class="loading"> </div>
 
     <div class="text-center">
-        <h3 ng-if="vm.projects && vm.projects.length === 0">
-            Click on the 'plus' icon on the right to create your first project.
+        <div class="alert alert-info pageheadermsg" ng-if="vm.projects && vm.projects.length === 0">
+            Click on the 'plus' button on the right to create your first project.
             <span class="glyphicon glyphicon-arrow-right"></span>
-        </h3>
+        </div>
         <div class="mlproject" ng-repeat="project in vm.projects">
             <div class="mlprojectdetails" ui-sref="mlproject({ projectId : project.id })">
                 <div class="mlprojecttitle">{{ project.name }}</div>

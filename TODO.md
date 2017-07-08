@@ -6,10 +6,8 @@ UI clean-up needed
 * Replace Angular material with something that looks better
 
 New features
-* Expiry for models
 * Images training - built around a WikiMedia library?
 * Editing examples
-* Add more teacher-specific info... about the quotas and limits for their tenant
 
 Code / engineering work
 * Get test coverage back under control

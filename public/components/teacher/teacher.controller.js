@@ -37,6 +37,7 @@
                 });
         }
 
+
         function displayPassword(ev, student) {
             $mdDialog.show(
                 $mdDialog.alert()
@@ -55,6 +56,14 @@
 
                 if (profile.role === 'supervisor') {
                     refreshStudentsList(profile);
+
+                    usersService.getClassPolicy(profile)
+                        .then(function (policy) {
+                            vm.policy = policy;
+                        })
+                        .catch(function (err) {
+                            displayAlert('errors', err.data);
+                        });
                 }
             })
             .catch(function (err) {
