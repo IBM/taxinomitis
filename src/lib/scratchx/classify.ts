@@ -24,7 +24,6 @@ function chooseLabelsAtRandom(project: Types.Project): TrainingTypes.Classificat
 }
 
 
-
 async function classifyText(key: Types.ScratchKey, text: string): Promise<TrainingTypes.Classification[]> {
     if (!text || text.trim().length === 0) {
         throw new Error('Missing data');
@@ -32,7 +31,7 @@ async function classifyText(key: Types.ScratchKey, text: string): Promise<Traini
 
     if (key.classifierid && key.credentials) {
         try {
-            const resp = await conversation.testClassifier(key.credentials, key.classifierid, text);
+            const resp = await conversation.testClassifier(key.credentials, key.classifierid, key.projectid, text);
             return resp;
         }
         catch (err) {

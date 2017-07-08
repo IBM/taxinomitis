@@ -41,11 +41,12 @@
             </div>
         </div>
 
+        <div class="alert alert-info pageheadermsg" ng-if="project.labels.length === 0">
+            Click on the 'plus' button on the right to add your first bucket.
+            <span class="glyphicon glyphicon-arrow-right"></span>
+        </div>
+
         <div class="trainingbuckets">
-            <h3 ng-if="project.labels.length === 0">
-                Click on the 'plus' icon on the right to add your first bucket.
-                <span class="glyphicon glyphicon-arrow-right"></span>
-            </h3>
             <div class="trainingbucket" ng-repeat="label in project.labels">
                 <div class="trainingbucketheader">
                     <span class="trainingbucketlabel">{{label}}</span>

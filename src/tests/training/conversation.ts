@@ -24,6 +24,7 @@ describe('Training - Conversation', () => {
     let getStub;
     let createStub;
     let deleteStub;
+    let getProjectStub;
     let authStoreStub;
     let authByIdStoreStub;
     let countStoreStub;
@@ -44,6 +45,7 @@ describe('Training - Conversation', () => {
         createStub.withArgs(sinon.match(/.*message/), sinon.match.any).callsFake(mockConversation.testClassifier);
         deleteStub = sinon.stub(request, 'delete').callsFake(mockConversation.deleteClassifier);
 
+        getProjectStub = sinon.stub(store, 'getProject').callsFake(mockstore.getProject);
         authStoreStub = sinon.stub(store, 'getBluemixCredentials').callsFake(mockstore.getBluemixCredentials);
         authByIdStoreStub = sinon.stub(store, 'getBluemixCredentialsById').callsFake(mockstore.getBluemixCredentialsById);
         getConversationWorkspacesStub = sinon.stub(store, 'getConversationWorkspaces').callsFake(mockstore.getConversationWorkspaces);
@@ -60,6 +62,7 @@ describe('Training - Conversation', () => {
         getStub.restore();
         createStub.restore();
         deleteStub.restore();
+        getProjectStub.restore();
         authStoreStub.restore();
         authByIdStoreStub.restore();
         getConversationWorkspacesStub.restore();
@@ -157,7 +160,7 @@ describe('Training - Conversation', () => {
                 servicetype : 'conv',
                 url : 'http://conversation.service',
             };
-            const classes = await conversation.testClassifier(creds, 'good', 'Hello');
+            const classes = await conversation.testClassifier(creds, 'good', 'projectid', 'Hello');
             assert.deepEqual(classes, [
                 {
                     class_name : 'temperature',
@@ -179,8 +182,10 @@ describe('Training - Conversation', () => {
                 servicetype : 'conv',
                 url : 'http://conversation.service',
             };
-            const classes = await conversation.testClassifier(creds, 'bad', 'Hello');
-            assert.deepEqual(classes, []);
+            const classes = await conversation.testClassifier(creds, 'bad', 'projectid', 'Hello');
+            assert.equal(classes.length, 1);
+            assert.equal(classes[0].confidence, 0);
+            assert.equal(classes[0].random, true);
         });
     });
 

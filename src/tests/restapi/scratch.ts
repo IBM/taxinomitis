@@ -452,8 +452,8 @@ describe('REST API - scratch keys', () => {
                     assert(body.indexOf('ext.return_label_0 = function () {') > 0);
                     assert(body.indexOf('ext.return_label_1 = function () {') > 0);
                     assert(body.indexOf('ext.return_label_2 = function () {') === -1);
-                    assert(body.indexOf('[ \'r\', \'LABEL NUMBER ONE\', \'return_label_0\'],') > 0);
-                    assert(body.indexOf('[ \'r\', \'SECOND LABEL\', \'return_label_1\'],') > 0);
+                    assert(body.indexOf('[ \'r\', \'LABEL_NUMBER_ONE\', \'return_label_0\'],') > 0);
+                    assert(body.indexOf('[ \'r\', \'SECOND_LABEL\', \'return_label_1\'],') > 0);
 
                     await store.deleteEntireProject(userid, TESTCLASS, project);
                 });

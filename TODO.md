@@ -19,13 +19,15 @@ Code / engineering work
 * handle errors that Conversation returns on duplicate examples
 * Figure out logging for prod
 * Set up cfbot for prod monitoring
+* Update training header when labels deleted
+* Stop recommending using Scratch during training in UI and sheets
+* Fix the Scratch -> Training -> Scratch workflow
 
 Longer term goals
 * Restore sprites library
 * Support for languages other than English
 
 Worksheets
-* Control Your Home (text)
 * Shakespeare or Dahl (text)
 * Top Trumps (numbers)
 * Journey to school (numbers)

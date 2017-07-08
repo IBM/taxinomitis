@@ -101,3 +101,16 @@ export function getClassTenant(classid: string)
         textClassifierExpiry : 2,
     }));
 }
+
+export function getProject(projectid: string): Promise<DbTypes.Project>
+{
+    return new Promise((resolve) => resolve({
+        id : projectid,
+        name : 'projectname',
+        userid : 'userid',
+        classid : 'classid',
+        type : 'text',
+        fields : [],
+        labels : ['temperature', 'conditions'],
+    }));
+}

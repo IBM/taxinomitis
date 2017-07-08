@@ -204,6 +204,8 @@
                     delete $scope.training[label];
                     $scope.project.labels.splice(idx, 1);
 
+                    refreshLabelsSummary();
+
                     projectsService.removeLabelFromProject($scope.projectId, vm.profile.user_id, vm.profile.tenant, label)
                         .catch(function (err) {
                             displayAlert('errors', err.data);

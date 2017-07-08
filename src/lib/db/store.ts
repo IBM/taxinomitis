@@ -109,10 +109,12 @@ async function updateLabels(userid: string, classid: string, projectid: string, 
 
 export async function addLabelToProject(
     userid: string, classid: string, projectid: string,
-    newlabel: string,
+    label: string,
 ): Promise<string[]>
 {
     const labels: string[] = await getCurrentLabels(userid, classid, projectid);
+
+    const newlabel = dbobjects.createLabel(label);
 
     if (labels.includes(newlabel) === false) {
         labels.push(newlabel);

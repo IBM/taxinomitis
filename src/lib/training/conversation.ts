@@ -211,6 +211,8 @@ export function getStatus(
 }
 
 
+
+
 async function getTraining(project: DbObjects.Project): Promise<TrainingObjects.ConversationTrainingData> {
     const counts = await store.countTextTrainingByLabel(project.id);
 
@@ -221,7 +223,7 @@ async function getTraining(project: DbObjects.Project): Promise<TrainingObjects.
         });
 
         intents.push({
-            intent : label,
+            intent : label.replace(/\s/g, '_'),
             examples : training.map((item) => {
                 return { text : item.textdata };
             }),
@@ -306,6 +308,7 @@ async function submitTrainingToConversation(
 export async function testClassifier(
     credentials: TrainingObjects.BluemixCredentials,
     classifierId: string,
+    projectid: string,
     text: string,
 ): Promise<TrainingObjects.Classification[]>
 {
@@ -326,10 +329,25 @@ export async function testClassifier(
     };
 
     const body = await request.post(credentials.url + '/v1/workspaces/' + classifierId + '/message', req);
+    if (body.intents.length === 0) {
+        const project = await store.getProject(projectid);
+        return [ chooseLabelAtRandom(project) ];
+    }
+
     return body.intents.map((item) => {
         return { class_name : item.intent, confidence : Math.round(item.confidence * 100) };
     });
 }
+
+
+
+
+function chooseLabelAtRandom(project: DbObjects.Project): TrainingObjects.Classification {
+    const randomIndex = Math.floor(Math.random() * project.labels.length);
+    return { class_name : project.labels[randomIndex], confidence : 0, random : true };
+}
+
+
 
 
 

@@ -88,6 +88,15 @@ export function getLabelsFromList(liststr: string): string[] {
 //
 // -----------------------------------------------------------------------------
 
+const INVALID_LABEL_NAME_CHARS = /[^\w.-]/g;
+const MAX_LABEL_LENGTH = 128;
+
+export function createLabel(proposedlabel: string): string {
+    // these are the rules enforced by Conversation, but we might as well apply them globally
+    return proposedlabel.replace(INVALID_LABEL_NAME_CHARS, '_').substr(0, MAX_LABEL_LENGTH);
+}
+
+
 export function createTextTraining(projectid: string, data: string, label: string): Objects.TextTraining {
     if (projectid === undefined || projectid === '' ||
         data === undefined || data === '')
