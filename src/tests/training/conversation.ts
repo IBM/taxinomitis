@@ -30,8 +30,10 @@ describe('Training - Conversation', () => {
     let getConversationWorkspacesStub;
     let getStoreStub;
     let storeStoreStub;
+    let updateConversationStub;
     let deleteStoreStub;
     let storeScratchKeyStub;
+    let getClassStub;
 
 
     before(() => {
@@ -47,8 +49,10 @@ describe('Training - Conversation', () => {
         countStoreStub = sinon.stub(store, 'countTextTrainingByLabel').callsFake(mockstore.countTextTrainingByLabel);
         getStoreStub = sinon.stub(store, 'getTextTrainingByLabel').callsFake(mockstore.getTextTrainingByLabel);
         storeStoreStub = sinon.stub(store, 'storeConversationWorkspace').callsFake(mockstore.storeConversationWorkspace);
+        updateConversationStub = sinon.stub(store, 'updateConversationWorkspaceExpiry').callsFake(mockstore.updateConversationWorkspaceExpiry);
         deleteStoreStub = sinon.stub(store, 'deleteConversationWorkspace').callsFake(mockstore.deleteConversationWorkspace);
         storeScratchKeyStub = sinon.stub(store, 'storeOrUpdateScratchKey').callsFake(mockstore.storeOrUpdateScratchKey);
+        getClassStub = sinon.stub(store, 'getClassTenant').callsFake(mockstore.getClassTenant);
     });
     after(() => {
         getStub.restore();
@@ -60,8 +64,10 @@ describe('Training - Conversation', () => {
         countStoreStub.restore();
         getStoreStub.restore();
         storeStoreStub.restore();
+        updateConversationStub.restore();
         deleteStoreStub.restore();
         storeScratchKeyStub.restore();
+        getClassStub.restore();
     });
 
 
@@ -88,12 +94,15 @@ describe('Training - Conversation', () => {
             };
 
             const classifier = await conversation.trainClassifier(userid, classid, project);
+            assert(classifier.id);
 
             assert.deepEqual(classifier, {
+                id : classifier.id,
                 name : projectname,
                 language : 'en',
                 created : newClassifierDate,
                 updated : newClassifierDate,
+                expiry : newExpiryDate,
                 workspace_id : '04f2d303-16fd-4f2e-80f4-2c66784cc0fe',
                 credentialsid : '123',
                 status : 'Training',
@@ -198,7 +207,7 @@ describe('Training - Conversation', () => {
                 auth : { user : 'user', pass : 'pass' },
                 qs : { version : '2017-05-26' },
             }));
-            assert(deleteStoreStub.calledWith(projectid, userid, classid, 'good'));
+            assert(deleteStoreStub.calledWith(goodClassifier.id));
         });
 
 
@@ -219,14 +228,17 @@ describe('Training - Conversation', () => {
             const classid = randomstring.generate({ length : 10 });
             const userid = randomstring.generate({ length : 8 });
             const projectid = uuid();
+            const workspaceid = uuid();
 
             await conversation.deleteClassifier(userid, classid, projectid, {
+                id : workspaceid,
                 workspace_id : 'doesnotactuallyexist',
                 credentialsid : '123',
                 url : 'http://conversation.service/v1/workspaces/doesnotactuallyexist',
                 name : 'This does not exist',
                 language : 'en',
                 created : new Date(),
+                expiry : new Date(),
             });
 
             assert(deleteStub.calledOnce);
@@ -236,7 +248,7 @@ describe('Training - Conversation', () => {
                 auth : { user : 'user', pass : 'pass' },
                 qs : { version : '2017-05-26' },
             }));
-            assert(deleteStoreStub.calledWith(projectid, userid, classid, 'doesnotactuallyexist'));
+            assert(deleteStoreStub.calledWith(workspaceid));
         });
     });
 
@@ -303,7 +315,10 @@ describe('Training - Conversation', () => {
 
 
     const newClassifierDate = new Date();
-
+    newClassifierDate.setMilliseconds(0);
+    const newExpiryDate = new Date();
+    newExpiryDate.setMilliseconds(0);
+    newExpiryDate.setHours(newClassifierDate.getHours() + 2);
 
     const mockConversation = {
         getClassifier : (url) => {
@@ -496,10 +511,12 @@ describe('Training - Conversation', () => {
 
 
     const goodClassifier: TrainingTypes.ConversationWorkspace = {
+        id : uuid(),
         credentialsid : '123',
         name : 'good classifier',
         language : 'en',
         created : new Date(),
+        expiry : new Date(),
         url : 'http://conversation.service/v1/workspaces/good',
         workspace_id : 'good',
     };
@@ -522,10 +539,12 @@ describe('Training - Conversation', () => {
 
 
     const trainingClassifier: TrainingTypes.ConversationWorkspace = {
+        id : uuid(),
         credentialsid : '123',
         name : 'try again later',
         language : 'en',
         created : new Date(),
+        expiry : new Date(),
         url : 'http://conversation.service/v1/workspaces/stillgoing',
         workspace_id : 'stillgoing',
     };
@@ -548,10 +567,12 @@ describe('Training - Conversation', () => {
 
 
     const brokenClassifier: TrainingTypes.ConversationWorkspace = {
+        id : uuid(),
         credentialsid : '123',
         name : 'bad bad bad',
         language : 'en',
         created : new Date(),
+        expiry : new Date(),
         url : 'http://conversation.service/v1/workspaces/bad',
         workspace_id : 'bad',
     };
@@ -573,10 +594,12 @@ describe('Training - Conversation', () => {
 
 
     const unknownClassifier: TrainingTypes.ConversationWorkspace = {
+        id : uuid(),
         credentialsid : '123',
         name : 'not here any more',
         language : 'en',
         created : new Date(),
+        expiry : new Date(),
         url : 'http://conversation.service/v1/workspaces/deleted',
         workspace_id : 'deleted',
     };

@@ -33,10 +33,12 @@ async function getTextClassifierStatus(scratchKey: Types.ScratchKey): Promise<Sc
 
     const credentials: TrainingTypes.BluemixCredentials = scratchKey.credentials;
     const classifier: TrainingTypes.ConversationWorkspace = {
+        id : 'workspaceid',
         name: scratchKey.name,
         workspace_id: scratchKey.classifierid,
         credentialsid: credentials.id,
         created: new Date(),
+        expiry: new Date(),
         language: 'en',
         url: scratchKey.credentials.url + '/v1/workspaces/' + scratchKey.classifierid,
     };

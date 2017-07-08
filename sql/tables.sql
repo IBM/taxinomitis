@@ -74,7 +74,8 @@ CREATE TABLE bluemixclassifiers (
     url VARCHAR(200) NOT NULL,
     name VARCHAR(100),
     language VARCHAR(5),
-    created DATETIME NOT NULL
+    created DATETIME NOT NULL,
+    expiry DATETIME NOT NULL
 );
 
 CREATE INDEX bluemixclassifiers_getServiceCredentials on bluemixclassifiers(servicetype, classifierid, projectid, classid, userid) using HASH;
@@ -117,10 +118,10 @@ CREATE INDEX scratchkeys_findScratchKeys on scratchkeys(projectid, userid, class
 
 CREATE TABLE tenants (
     id VARCHAR(36) NOT NULL PRIMARY KEY,
-    projecttypes VARCHAR(25) NOT NULL DEFAULT 'text',
+    projecttypes VARCHAR(25) NOT NULL DEFAULT 'text,numbers',
     maxusers TINYINT UNSIGNED NOT NULL DEFAULT 8,
-    maxprojectsperuser TINYINT UNSIGNED NOT NULL DEFAULT 3
+    maxprojectsperuser TINYINT UNSIGNED NOT NULL DEFAULT 3,
+    textclassifiersexpiry TINYINT UNSIGNED NOT NULL DEFAULT 2
 );
 
-INSERT INTO tenants (id) VALUES ("apple");
 INSERT INTO tenants (id, projecttypes) VALUES ("TESTTENANT", "text,images,numbers");

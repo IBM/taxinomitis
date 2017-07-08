@@ -76,12 +76,14 @@ describe('REST API - models', () => {
         conversationStub.trainClassifierStub = sinon.stub(conversation, 'trainClassifier');
         conversationStub.trainClassifierStub.callsFake((uid, clsid, pj) => {
             const workspace: Types.ConversationWorkspace = {
+                id : uuid(),
                 workspace_id : 'NEW-CREATED',
                 credentialsid : '123',
                 name : pj.name,
                 language : 'en',
                 created : new Date(Date.UTC(2017, 4, 4, 12, 0)),
                 updated : new Date(Date.UTC(2017, 4, 4, 12, 1)),
+                expiry : new Date(Date.UTC(2017, 4, 4, 13, 0)),
                 url : 'http://conversation.service/api/classifiers/NEW-CREATED',
                 status : 'Training',
             };
@@ -279,9 +281,11 @@ describe('REST API - models', () => {
             createdA.setMilliseconds(0);
 
             const classifierAInfo: Types.ConversationWorkspace = {
+                id : uuid(),
                 workspace_id : 'good',
                 credentialsid : credentials.id,
                 created : createdA,
+                expiry : createdA,
                 language : 'en',
                 name : 'DUMMY ONE',
                 url : uuid(),
@@ -293,9 +297,11 @@ describe('REST API - models', () => {
             createdB.setMilliseconds(0);
 
             const classifierBInfo: Types.ConversationWorkspace = {
+                id : uuid(),
                 workspace_id : 'busy',
                 credentialsid : credentials.id,
                 created : createdB,
+                expiry : createdB,
                 language : 'en',
                 name : 'DUMMY TWO',
                 url : uuid(),
@@ -315,6 +321,7 @@ describe('REST API - models', () => {
                             classifierid : 'busy',
                             credentialsid : credentials.id,
                             updated : updated.toISOString(),
+                            expiry : createdB.toISOString(),
                             name : 'DUMMY TWO',
                             status : 'Training',
                         },
@@ -322,6 +329,7 @@ describe('REST API - models', () => {
                             classifierid : 'good',
                             credentialsid : credentials.id,
                             updated : updated.toISOString(),
+                            expiry : createdA.toISOString(),
                             name : 'DUMMY ONE',
                             status : 'Available',
                         },
@@ -442,6 +450,7 @@ describe('REST API - models', () => {
 
                     assert.deepEqual(body, {
                         updated : '2017-05-04T12:01:00.000Z',
+                        expiry : '2017-05-04T13:00:00.000Z',
                         name : projName,
                         status : 'Training',
                         classifierid : 'NEW-CREATED',
@@ -561,9 +570,11 @@ describe('REST API - models', () => {
             created.setMilliseconds(0);
 
             const classifierInfo: Types.ConversationWorkspace = {
+                id : uuid(),
                 workspace_id : modelid,
                 credentialsid : credentials.id,
                 created,
+                expiry : created,
                 language : 'en',
                 name : projName,
                 url : uuid(),
@@ -594,7 +605,7 @@ describe('REST API - models', () => {
                     ]);
 
                     await store.deleteProject(projectid);
-                    await store.deleteConversationWorkspace(projectid, userid, classid, classifierInfo.workspace_id);
+                    await store.deleteConversationWorkspace(classifierInfo.id);
                     await store.deleteBluemixCredentials(credentials.id);
                 });
         });
@@ -725,9 +736,11 @@ describe('REST API - models', () => {
             created.setMilliseconds(0);
 
             const classifierInfo: Types.ConversationWorkspace = {
+                id : uuid(),
                 workspace_id : modelid,
                 credentialsid : credentials.id,
                 created,
+                expiry : created,
                 language : 'en',
                 name : projName,
                 url : uuid(),
@@ -743,7 +756,7 @@ describe('REST API - models', () => {
                 .expect(httpstatus.NO_CONTENT)
                 .then(async () => {
                     await store.deleteProject(projectid);
-                    await store.deleteConversationWorkspace(projectid, userid, classid, classifierInfo.workspace_id);
+                    await store.deleteConversationWorkspace(classifierInfo.id);
                     await store.deleteBluemixCredentials(credentials.id);
                 });
         });

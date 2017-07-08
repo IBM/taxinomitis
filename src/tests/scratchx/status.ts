@@ -14,11 +14,13 @@ describe('Scratchx - status', () => {
     describe('text projects', () => {
 
         const testStatus: TrainingTypes.ConversationWorkspace = {
+            id : uuid(),
             name : 'TEST PROJECT',
             status : 'Available',
             workspace_id : uuid(),
             credentialsid : '123',
             created : new Date(),
+            expiry : new Date(),
             language : 'en',
             url : 'conversation.url',
         };

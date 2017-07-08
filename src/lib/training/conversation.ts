@@ -1,6 +1,7 @@
 // external dependencies
 import * as request from 'request-promise';
 import * as httpStatus from 'http-status';
+import * as uuid from 'uuid/v1';
 // local dependencies
 import * as store from '../db/store';
 import * as DbObjects from '../db/db-types';
@@ -50,10 +51,12 @@ async function createWorkspace(
 {
     let workspace;
 
+    const id: string = uuid();
+
     for (const credentials of credentialsPool) {
         try {
             const url = credentials.url + '/v1/workspaces';
-            workspace = await submitTrainingToConversation(project, credentials, url, training);
+            workspace = await submitTrainingToConversation(project, credentials, url, training, id);
 
             await store.storeConversationWorkspace(
                 credentials,
@@ -71,7 +74,8 @@ async function createWorkspace(
             //  number of workspaces allowed with these creds, then swallow
             //  the error so we can try the next set of creds in the pool
             // Otherwise - rethrow it so we can bug out.
-            if (err.error.startsWith('Maximum workspaces limit exceeded') === false)
+            if (!err.error ||
+                err.error.startsWith('Maximum workspaces limit exceeded') === false)
             {
                 throw err;
             }
@@ -84,7 +88,7 @@ async function createWorkspace(
 }
 
 
-function updateWorkspace(
+async function updateWorkspace(
     project: DbObjects.Project,
     credentials: TrainingObjects.BluemixCredentials,
     workspace: TrainingObjects.ConversationWorkspace,
@@ -92,7 +96,12 @@ function updateWorkspace(
 ): Promise<TrainingObjects.ConversationWorkspace>
 {
     const url = credentials.url + '/v1/workspaces/' + workspace.workspace_id;
-    return submitTrainingToConversation(project, credentials, url, training);
+
+    const modified = await submitTrainingToConversation(project, credentials, url, training, workspace.id);
+
+    await store.updateConversationWorkspaceExpiry(modified);
+
+    return modified;
 }
 
 
@@ -116,7 +125,7 @@ export async function deleteClassifier(
 
     await deleteClassifierFromBluemix(credentials, classifier.workspace_id);
 
-    await store.deleteConversationWorkspace(projectid, userid, classid, classifier.workspace_id);
+    await store.deleteConversationWorkspace(classifier.id);
 }
 
 async function deleteClassifierFromBluemix(
@@ -246,6 +255,7 @@ async function submitTrainingToConversation(
     credentials: TrainingObjects.BluemixCredentials,
     url: string,
     training: TrainingObjects.ConversationTrainingData,
+    id: string,
 ): Promise<TrainingObjects.ConversationWorkspace>
 {
     const req = {
@@ -264,11 +274,19 @@ async function submitTrainingToConversation(
     try {
         const body = await request.post(url, req);
 
+        // determine when the Conversation workspace should be deleted
+        const tenantPolicy = await store.getClassTenant(project.classid);
+        const modelAutoExpiryTime = new Date(body.updated);
+        modelAutoExpiryTime.setHours(modelAutoExpiryTime.getHours() +
+                                     tenantPolicy.textClassifierExpiry);
+
         return {
+            id,
             name : body.name,
             language : body.language,
             created : new Date(body.created),
             updated : new Date(body.updated),
+            expiry : modelAutoExpiryTime,
             workspace_id : body.workspace_id,
             credentialsid : credentials.id,
             status : body.status ? body.status : 'Training',

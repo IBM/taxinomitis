@@ -507,10 +507,7 @@ export async function storeBluemixCredentials(
     const values = [ credentials.id, classid,
         credentials.servicetype, credentials.url, credentials.username, credentials.password ];
 
-    const dbConn = await dbConnPool.getConnection();
-    const [response] = await dbConn.query(queryString, values);
-    dbConn.release();
-
+    const response = await dbExecute(queryString, values);
     if (response.affectedRows === 1) {
         return credentials;
     }
@@ -529,7 +526,7 @@ export async function getBluemixCredentials(
 
     const rows = await dbExecute(queryString, [ classid, service ]);
     if (rows.length === 0) {
-        log.error({ rows }, 'Unexpected response from DB');
+        log.error({ rows, func : 'getBluemixCredentials' }, 'Unexpected response from DB');
         throw new Error('Unexpected response when retrieving service credentials');
     }
     return rows.map(dbobjects.getCredentialsFromDbRow);
@@ -544,7 +541,7 @@ export async function getBluemixCredentialsById(credentialsid: string): Promise<
     const rows = await dbExecute(credsQuery, [ credentialsid ]);
 
     if (rows.length !== 1) {
-        log.error({ rows }, 'Unexpected response from DB');
+        log.error({ rows, func : 'getBluemixCredentialsById' }, 'Unexpected response from DB');
         throw new Error('Unexpected response when retrieving service credentials');
     }
     return dbobjects.getCredentialsFromDbRow(rows[0]);
@@ -577,7 +574,7 @@ export async function getConversationWorkspaces(
 ): Promise<TrainingObjects.ConversationWorkspace[]>
 {
     const queryString = 'SELECT `id`, `credentialsid`, `projectid`, `servicetype`,' +
-                        ' `classifierid`, `url`, `name`, `language`, `created` ' +
+                        ' `classifierid`, `url`, `name`, `language`, `created`, `expiry` ' +
                         'FROM `bluemixclassifiers` ' +
                         'WHERE `projectid` = ?';
 
@@ -590,13 +587,13 @@ export async function getConversationWorkspace(
 ): Promise<TrainingObjects.ConversationWorkspace>
 {
     const queryString = 'SELECT `id`, `credentialsid`, `projectid`, `servicetype`,' +
-                        ' `classifierid`, `url`, `name`, `language`, `created` ' +
+                        ' `classifierid`, `url`, `name`, `language`, `created`, `expiry` ' +
                         'FROM `bluemixclassifiers` ' +
                         'WHERE `projectid` = ? AND `classifierid` = ?';
 
     const rows = await dbExecute(queryString, [ projectid, classifierid ]);
     if (rows.length !== 1) {
-        log.error({ rows }, 'Unexpected response from DB');
+        log.error({ rows, func : 'getConversationWorkspace' }, 'Unexpected response from DB');
         throw new Error('Unexpected response when retrieving service credentials');
     }
     return dbobjects.getWorkspaceFromDbRow(rows[0]);
@@ -631,11 +628,15 @@ export async function storeConversationWorkspace(
                                 '(`id`, `credentialsid`, ' +
                                 '`projectid`, `userid`, `classid`, ' +
                                 '`servicetype`, ' +
-                                '`classifierid`, `url`, `name`, `language`, `created`) ' +
-                                'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+                                '`classifierid`, `url`, `name`, `language`, ' +
+                                '`created`, `expiry`) ' +
+                                'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
-    const values = [obj.id, obj.credentialsid, obj.projectid, obj.userid, obj.classid,
-        obj.servicetype, obj.classifierid, obj.url, obj.name, obj.language, obj.created];
+    const values = [obj.id, obj.credentialsid,
+        obj.projectid, obj.userid, obj.classid,
+        obj.servicetype,
+        obj.classifierid, obj.url, obj.name, obj.language,
+        obj.created, obj.expiry];
 
     const response = await dbExecute(queryString, values);
     if (response.affectedRows !== 1) {
@@ -644,6 +645,23 @@ export async function storeConversationWorkspace(
     }
 
     return workspace;
+}
+
+
+export async function updateConversationWorkspaceExpiry(
+    workspace: TrainingObjects.ConversationWorkspace,
+): Promise<void>
+{
+    const queryString: string = 'UPDATE `bluemixclassifiers` ' +
+                                'SET `expiry` = ? ' +
+                                'WHERE `id` = ?';
+    const values = [ workspace.expiry, workspace.id ];
+
+    const response = await dbExecute(queryString, values);
+    if (response.affectedRows !== 1) {
+        log.error({ queryString, values, response }, 'Failed to update expiry date');
+        throw new Error('Conversation Workspace expiry not updated');
+    }
 }
 
 
@@ -671,17 +689,11 @@ export async function storeNumbersClassifier(
 
 
 
-export async function deleteConversationWorkspace(
-    projectid: string, userid: string, classid: string,
-    classifierid: string,
-): Promise<void>
-{
-    const queryString = 'DELETE FROM `bluemixclassifiers` ' +
-                        'WHERE ' +
-                        '`projectid` = ? AND `userid` = ? AND `classid` = ? AND ' +
-                        '`classifierid` = ?';
+export async function deleteConversationWorkspace(id: string): Promise<void> {
 
-    const response = await dbExecute(queryString, [ projectid, userid, classid, classifierid ]);
+    const queryString = 'DELETE FROM `bluemixclassifiers` WHERE `id` = ?';
+
+    const response = await dbExecute(queryString, [ id ]);
     if (response.warningStatus !== 0) {
         throw new Error('Failed to delete classifiers info');
     }
@@ -845,7 +857,7 @@ export async function getScratchKey(key: string): Promise<Objects.ScratchKey> {
 
     const rows = await dbExecute(queryString, [ key ]);
     if (rows.length !== 1) {
-        log.error({ rows }, 'Unexpected response from DB');
+        log.error({ rows, func : 'getScratchKey' }, 'Unexpected response from DB');
         throw new Error('Unexpected response when retrieving service credentials');
     }
     return dbobjects.getScratchKeyFromDbRow(rows[0]);
@@ -900,19 +912,20 @@ export async function deleteScratchKeysByProjectId(projectid: string): Promise<v
 
 export async function getClassTenant(classid: string): Promise<Objects.ClassTenant> {
     const queryString = 'SELECT `id`, `projecttypes`, `maxusers`, ' +
-                               '`maxprojectsperuser` ' +
+                               '`maxprojectsperuser`, `textclassifiersexpiry` ' +
                         'FROM `tenants` ' +
                         'WHERE `id` = ?';
 
     const rows = await dbExecute(queryString, [ classid ]);
     if (rows.length !== 1) {
-        log.error({ rows }, 'Unexpected response from DB');
+        log.error({ rows, func : 'getClassTenant' }, 'Unexpected response from DB');
 
         return {
             id : classid,
             supportedProjectTypes : [ 'text', 'numbers' ],
             maxUsers : 8,
             maxProjectsPerUser : 3,
+            textClassifierExpiry : 2,
         };
     }
     return dbobjects.getClassFromDbRow(rows[0]);

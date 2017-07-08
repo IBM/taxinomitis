@@ -84,9 +84,11 @@ describe('DB store', () => {
             created.setMilliseconds(0);
 
             const classifierInfo: Types.ConversationWorkspace = {
+                id : uuid(),
                 workspace_id : randomstring.generate({ length : 32 }),
                 credentialsid : creds.id,
                 created,
+                expiry: created,
                 language : 'en',
                 name : randomstring.generate({ length : 12 }),
                 url : uuid(),
@@ -141,9 +143,11 @@ describe('DB store', () => {
             created.setMilliseconds(0);
 
             const classifierInfo: Types.ConversationWorkspace = {
+                id : uuid(),
                 workspace_id : randomstring.generate({ length : 32 }),
                 credentialsid : credentials.id,
                 created,
+                expiry : created,
                 language : 'en',
                 name : 'DUMMY',
                 url : uuid(),
@@ -165,7 +169,7 @@ describe('DB store', () => {
 
             assert.deepEqual(retrieved, classifierInfo);
 
-            await store.deleteConversationWorkspace(projectid, userid, classid, classifierInfo.workspace_id);
+            await store.deleteConversationWorkspace(classifierInfo.id);
 
             const empty = await store.getConversationWorkspaces(projectid);
             assert.equal(empty.length, 0);

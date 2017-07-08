@@ -68,6 +68,11 @@ export function storeConversationWorkspace(
     ));
 }
 
+export function updateConversationWorkspaceExpiry()
+{
+    return new Promise((resolve) => resolve());
+}
+
 export function getConversationWorkspaces()
 {
     return new Promise((resolve) => resolve([]));
@@ -81,4 +86,15 @@ export function deleteConversationWorkspace()
 export function storeOrUpdateScratchKey()
 {
     return new Promise((resolve) => resolve());
+}
+
+export function getClassTenant(classid: string)
+{
+    return new Promise((resolve) => resolve({
+        id : classid,
+        supportedProjectTypes : [ 'text' ],
+        maxUsers : 8,
+        maxProjectsPerUser : 3,
+        textClassifierExpiry : 2,
+    }));
 }

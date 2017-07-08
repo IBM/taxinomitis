@@ -7,6 +7,7 @@ applications:
   host: taxinomitis
   disk_quota: 512M
   env:
+    NODE_ENV: production
     AUTH0_DOMAIN: dalelane.eu.auth0.com
     AUTH0_CONNECTION: ml-for-kids-users
     AUTH0_CLIENT_ID: yTfclbGyetW57Gm0Mt2FmdhvjEF7i7Tr

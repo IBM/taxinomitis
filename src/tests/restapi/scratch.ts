@@ -101,12 +101,14 @@ describe('REST API - scratch keys', () => {
             };
 
             const workspace: Types.ConversationWorkspace = {
+                id : uuid(),
                 workspace_id : randomstring.generate({ length : 12 }),
                 credentialsid : credentials.id,
                 url : uuid(),
                 name,
                 language : 'en',
                 created : new Date(),
+                expiry : new Date(),
             };
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, []);
@@ -128,7 +130,7 @@ describe('REST API - scratch keys', () => {
                     await store.deleteProject(project.id);
                     await store.deleteScratchKey(body[0].id);
                     await store.deleteBluemixCredentials(credentials.id);
-                    await store.deleteConversationWorkspace(project.id, userid, TESTCLASS, workspace.workspace_id);
+                    await store.deleteConversationWorkspace(workspace.id);
                 });
 
         });
@@ -489,12 +491,14 @@ describe('REST API - scratch keys', () => {
             const workspaceId = randomstring.generate({ length : 32 });
 
             const conversationWorkspace: Types.ConversationWorkspace = {
+                id : uuid(),
                 workspace_id : workspaceId,
                 credentialsid : credentials.id,
                 url : uuid(),
                 name,
                 language : 'en',
                 created : new Date(),
+                expiry : new Date(),
             };
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, []);
@@ -535,7 +539,7 @@ describe('REST API - scratch keys', () => {
                     await store.deleteProject(project.id);
                     await store.deleteScratchKey(scratchKey);
                     await store.deleteBluemixCredentials(credentials.id);
-                    await store.deleteConversationWorkspace(project.id, userid, TESTCLASS, workspaceId);
+                    await store.deleteConversationWorkspace(conversationWorkspace.id);
 
                     conversationStub.restore();
                 });
@@ -557,12 +561,14 @@ describe('REST API - scratch keys', () => {
             };
 
             const workspace: Types.ConversationWorkspace = {
+                id : uuid(),
                 workspace_id : randomstring.generate({ length : 12 }),
                 credentialsid : credentials.id,
                 url : uuid(),
                 name,
                 language : 'en',
                 created : new Date(),
+                expiry : new Date(),
             };
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, []);
@@ -607,7 +613,7 @@ describe('REST API - scratch keys', () => {
                     await store.deleteProject(project.id);
                     await store.deleteScratchKey(scratchKey);
                     await store.deleteBluemixCredentials(credentials.id);
-                    await store.deleteConversationWorkspace(project.id, userid, TESTCLASS, workspace.workspace_id);
+                    await store.deleteConversationWorkspace(workspace.id);
 
                     conversationStub.restore();
                 });

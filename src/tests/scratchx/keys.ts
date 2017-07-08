@@ -53,9 +53,11 @@ describe('Scratchx - keys', () => {
                 url : 'http://url.com',
             });
             const conversationwkspace: TrainingTypes.ConversationWorkspace = {
+                id : uuid(),
                 workspace_id: randomstring.generate({ length : 20 }),
                 credentialsid : creds.id,
                 created: new Date(),
+                expiry: new Date(),
                 language : 'en',
                 name : project.name,
                 url : 'url',
@@ -69,7 +71,7 @@ describe('Scratchx - keys', () => {
             const scratchkey = await store.getScratchKey(key.id);
             assert.equal(scratchkey.name, project.name);
             await store.deleteScratchKey(key.id);
-            await store.deleteConversationWorkspace(project.id, userid, TESTCLASS, conversationwkspace.workspace_id);
+            await store.deleteConversationWorkspace(conversationwkspace.id);
             await store.deleteBluemixCredentials(creds.id);
         });
 

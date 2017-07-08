@@ -211,7 +211,7 @@ export function createConversationWorkspace(
 ): TrainingObjects.ClassifierDbRow
 {
     return {
-        id : uuid(),
+        id : classifierInfo.id,
         credentialsid : credentialsInfo.id,
         userid, projectid, classid,
         servicetype : 'conv',
@@ -220,17 +220,20 @@ export function createConversationWorkspace(
         name : classifierInfo.name,
         language : classifierInfo.language,
         created : classifierInfo.created,
+        expiry : classifierInfo.expiry,
     };
 }
 
 export function getWorkspaceFromDbRow(row: TrainingObjects.ClassifierDbRow): TrainingObjects.ConversationWorkspace {
     return {
+        id : row.id,
         workspace_id : row.classifierid,
         credentialsid : row.credentialsid,
         url : row.url,
         name : row.name,
         language : row.language,
         created : row.created,
+        expiry : row.expiry,
     };
 }
 
@@ -340,5 +343,6 @@ export function getClassFromDbRow(row: Objects.ClassDbRow): Objects.ClassTenant 
         supportedProjectTypes : row.projecttypes.split(',') as Objects.ProjectTypeLabel[],
         maxUsers : row.maxusers,
         maxProjectsPerUser : row.maxprojectsperuser,
+        textClassifierExpiry : row.textclassifiersexpiry,
     };
 }

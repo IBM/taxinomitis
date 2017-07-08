@@ -16,12 +16,14 @@ export interface BluemixCredentialsDbRow {
 export type BluemixServiceType = 'conv' | 'visrec' | 'num';
 
 export interface ConversationWorkspace {
+    readonly id: string;
     readonly workspace_id: string;
     readonly credentialsid: string;
     readonly url: string;
     readonly name: string;
     readonly language: string;
     readonly created: Date;
+    readonly expiry: Date;
     status?: ClassifierStatus;
     updated?: Date;
 }
@@ -56,6 +58,7 @@ export interface ClassifierDbRow {
     readonly name: string;
     readonly language: string;
     readonly created: Date;
+    readonly expiry: Date;
 }
 
 export type ClassifierStatus = 'Non Existent' | 'Training' | 'Failed' | 'Available' | 'Unavailable';

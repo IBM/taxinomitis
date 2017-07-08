@@ -20,6 +20,7 @@ function returnConversationWorkspace(classifier: Types.ConversationWorkspace) {
         classifierid : classifier.workspace_id,
         credentialsid : classifier.credentialsid,
         updated : classifier.updated,
+        expiry : classifier.expiry,
         name : classifier.name,
         status : classifier.status,
     };
