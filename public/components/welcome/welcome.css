@@ -10,6 +10,8 @@
 
 .getstartedaction button {
     width: 40%;
+    margin-right: 1em;
+    margin-left: 1em;
 }
 
 .getstartedinfo {

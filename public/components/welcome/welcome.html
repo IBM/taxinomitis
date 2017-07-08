@@ -9,14 +9,17 @@
                     ui-sref="login"
                     class="btn btn-primary">Get started</button>
                 <button
+                    ng-if="!isAuthenticated"
+                    ui-sref="about"
+                    class="btn">Learn more</button>
+                <button
                     ng-if="isAuthenticated && isTeacher"
-                    ui-sref="students"
-                    class="btn btn-primary">Go to your <strong>Students</strong></button>
+                    ui-sref="teacher"
+                    class="btn btn-primary">Go to your <strong>Admin Page</strong></button>
                 <button
                     ng-if="isAuthenticated"
                     ui-sref="projects"
                     class="btn btn-primary">Go to your <strong>Projects</strong></button>
-
             </div>
         </div>
         <div class="col-md-6">

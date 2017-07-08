@@ -2,16 +2,16 @@
 
     angular
         .module('app')
-        .controller('StudentsController', StudentsController);
+        .controller('TeacherController', TeacherController);
 
-    StudentsController.$inject = [
+    TeacherController.$inject = [
         'authService',
         'usersService',
         '$mdDialog',
         '$timeout'
     ];
 
-    function StudentsController(authService, usersService, $mdDialog, $timeout) {
+    function TeacherController(authService, usersService, $mdDialog, $timeout) {
 
         var vm = this;
         vm.authService = authService;

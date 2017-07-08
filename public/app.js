@@ -27,6 +27,12 @@
                 templateUrl: 'components-<%= VERSION %>/login/login.html',
                 controllerAs: 'vm'
             })
+            .state('about', {
+                url: '/about',
+                controller: 'AboutController',
+                templateUrl: 'components-<%= VERSION %>/about/about.html',
+                controllerAs: 'vm'
+            })
             .state('help', {
                 url: '/help',
                 controller: 'HelpController',
@@ -39,10 +45,10 @@
                 templateUrl: 'components-<%= VERSION %>/worksheets/worksheets.html',
                 controllerAs: 'vm'
             })
-            .state('students', {
-                url: '/students',
-                controller: 'StudentsController',
-                templateUrl: 'components-<%= VERSION %>/students/students.html',
+            .state('teacher', {
+                url: '/teacher',
+                controller: 'TeacherController',
+                templateUrl: 'components-<%= VERSION %>/teacher/teacher.html',
                 controllerAs: 'vm'
             })
             .state('projects', {
