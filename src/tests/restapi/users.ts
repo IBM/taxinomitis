@@ -55,6 +55,51 @@ describe('REST API - users', () => {
     });
 
 
+
+    describe('getPolicy()', () => {
+
+        it('should get the restrictions policy', () => {
+            const stubs = {
+                getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
+                createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
+                getUserCounts : sinon.stub(auth0, 'getUserCounts').callsFake(mocks.getUserCounts),
+            };
+
+            proxyquire('../../lib/auth0/users', {
+                './requests' : stubs,
+            });
+
+            return store.init()
+                .then(() => {
+                    return request(testServer)
+                        .get('/api/classes/AN_UNKNOWN_TENANT_ID/policy')
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.OK);
+                })
+                .then((res) => {
+                    const body = res.body;
+
+                    assert.deepEqual(body, {
+                        maxTextModels : 0,
+                        maxUsers: 8,
+                        supportedProjectTypes: [ 'text', 'numbers' ],
+                        maxProjectsPerUser: 3,
+                        textClassifierExpiry: 2,
+                    });
+
+                    stubs.getOauthToken.restore();
+                    stubs.createUser.restore();
+                    stubs.getUserCounts.restore();
+
+                    return store.disconnect();
+                });
+        });
+
+    });
+
+
+
+
     describe('deleteStudent()', () => {
 
         it('should delete a student', () => {

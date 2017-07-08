@@ -92,6 +92,17 @@ function resetStudentPassword(req: Express.Request, res: Express.Response) {
 }
 
 
+async function countTextCredentials(tenant: string): Promise<number> {
+    let numTextCredentials = 0;
+    try {
+        const availableTextCredentials = await store.getBluemixCredentials(tenant, 'conv');
+        numTextCredentials = availableTextCredentials.length;
+    }
+    catch (err) {
+        log.error({ err }, 'Failed to count credentials');
+    }
+    return numTextCredentials;
+}
 
 
 async function getPolicy(req: Express.Request, res: Express.Response) {
@@ -99,10 +110,10 @@ async function getPolicy(req: Express.Request, res: Express.Response) {
 
     try {
         const policy = await store.getClassTenant(tenant);
-        const availableTextCredentials = await store.getBluemixCredentials(tenant, 'conv');
+        const availableTextCredentials = await countTextCredentials(tenant);
 
         return res.json({
-            maxTextModels : availableTextCredentials.length * 5,
+            maxTextModels : availableTextCredentials * 5,
 
             maxUsers : policy.maxUsers,
             supportedProjectTypes : policy.supportedProjectTypes,
@@ -111,6 +122,7 @@ async function getPolicy(req: Express.Request, res: Express.Response) {
         });
     }
     catch (err){
+        log.error({ err }, 'Failed to get policy');
         errors.unknownError(res, err);
     }
 }

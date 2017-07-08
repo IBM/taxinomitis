@@ -156,9 +156,6 @@ function getProjectPatch(req: Express.Request) {
         throw new Error('PATCH requests must include an op');
     }
     const op: string = patchRequest.op;
-    if (['add', 'remove', 'replace'].includes(op) === false) {
-        throw new Error('Invalid PATCH op');
-    }
 
     if (!patchRequest.value) {
         throw new Error('PATCH requests must include a value');
@@ -188,6 +185,9 @@ function getProjectPatch(req: Express.Request) {
                 throw new Error('Label exceeds max length');
             }
         }
+    }
+    else {
+        throw new Error('Invalid PATCH op');
     }
 
     return { op, value };

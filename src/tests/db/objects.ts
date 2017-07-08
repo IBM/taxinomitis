@@ -181,6 +181,29 @@ describe('DB objects', () => {
             assert.equal(project.typeid, 1);
             assert.equal(project.userid, 'testuser');
         });
+
+        it('should limit the number of fields for numbers projects', (done) => {
+            try {
+                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject',
+                    ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n']);
+            }
+            catch (err) {
+                assert.equal(err.message, 'Too many fields specified');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject project', '');
+        });
+
+        it('should restrict fields to numbers projects', (done) => {
+            try {
+                dbobjects.createProject('testuser', 'testclass', 'text', 'testproject', ['a', 'b', 'c']);
+            }
+            catch (err) {
+                assert.equal(err.message, 'Fields not supported for non-numbers projects');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject project', '');
+        });
     });
 
 

@@ -838,7 +838,7 @@ describe('REST API - projects', () => {
 
                     return request(testServer)
                         .patch(url + '/' + projectId)
-                        .send([{ path : '/labels', op : 'INVALID' }])
+                        .send([{ path : '/labels', op : 'INVALID', value : [ 'BAD' ] }])
                         .expect('Content-Type', /json/)
                         .expect(httpstatus.BAD_REQUEST);
                 })

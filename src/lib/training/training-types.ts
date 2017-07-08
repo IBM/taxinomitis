@@ -23,7 +23,7 @@ export interface ConversationWorkspace {
     readonly name: string;
     readonly language: string;
     readonly created: Date;
-    readonly expiry: Date;
+    expiry: Date;
     status?: ClassifierStatus;
     updated?: Date;
 }

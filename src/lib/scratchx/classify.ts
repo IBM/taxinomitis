@@ -7,11 +7,6 @@ import * as conversation from '../training/conversation';
 import * as numberService from '../training/numbers';
 import * as Types from '../db/db-types';
 import * as TrainingTypes from '../training/training-types';
-import loggerSetup from '../utils/logger';
-
-
-const log = loggerSetup();
-
 
 
 
@@ -30,24 +25,8 @@ async function classifyText(key: Types.ScratchKey, text: string): Promise<Traini
     }
 
     if (key.classifierid && key.credentials) {
-        try {
-            const resp = await conversation.testClassifier(key.credentials, key.classifierid, key.projectid, text);
-            return resp;
-        }
-        catch (err) {
-            if (err.error &&
-                err.error.code === httpstatus.CONFLICT &&
-                err.error.error === 'Classifier not ready')
-            {
-                // the Conversation classifier is still training, so we fall-back to random
-                const project = await store.getProject(key.projectid);
-                return chooseLabelsAtRandom(project);
-            }
-            else {
-                log.error({ err }, 'Unexpected Conversation error');
-                throw err;
-            }
-        }
+        const resp = await conversation.testClassifier(key.credentials, key.classifierid, key.projectid, text);
+        return resp;
     }
     else {
         // we don't have a Conversation workspace yet, so we resort to random

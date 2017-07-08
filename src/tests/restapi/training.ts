@@ -106,7 +106,7 @@ describe('REST API - training', () => {
         });
 
 
-        it('should get training labels', async () => {
+        it('should get text training labels', async () => {
             const classid = uuid();
             const userid = uuid();
 
@@ -128,6 +128,34 @@ describe('REST API - training', () => {
                     const body = res.body;
                     assert.deepEqual(body, {
                         fruit : 2, vegetable : 3, meat : 1,
+                    });
+
+                    await store.deleteProject(projectid);
+                    await store.deleteTextTrainingByProjectId(projectid);
+                });
+        });
+
+
+        it('should get numbers training labels', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo', ['a']);
+            const projectid = project.id;
+
+            await store.storeNumberTraining(projectid, [1], 'fruit');
+            await store.storeNumberTraining(projectid, [2], 'vegetable');
+            await store.storeNumberTraining(projectid, [3], 'vegetable');
+            await store.storeNumberTraining(projectid, [4], 'vegetable');
+
+            return request(testServer)
+                .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/labels')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK)
+                .then(async (res) => {
+                    const body = res.body;
+                    assert.deepEqual(body, {
+                        fruit : 1, vegetable : 3,
                     });
 
                     await store.deleteProject(projectid);

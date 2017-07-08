@@ -204,8 +204,20 @@ describe('DB store', () => {
             assert.deepEqual(retrievedAll, [ expired, current ]);
 
             const retrievedExpired = await store.getExpiredConversationWorkspaces();
-            assert.deepEqual(retrievedExpired, alreadyExpired.concat([ expired ]));
+            assert.deepEqual(retrievedExpired.sort(sortWorkspaces),
+                             alreadyExpired.concat([ expired ]).sort(sortWorkspaces));
         });
+
+
+        function sortWorkspaces(a: Types.ConversationWorkspace, b: Types.ConversationWorkspace): number {
+            if (a.id < b.id) {
+                return -1;
+            }
+            else if (a.id > b.id) {
+                return 1;
+            }
+            return 0;
+        }
 
 
         it('should delete expired classifiers', async () => {
@@ -275,6 +287,58 @@ describe('DB store', () => {
             }
 
             await store.deleteBluemixCredentials(credentials.id);
+        });
+
+
+        it('should update Conversation workspace expiry', async () => {
+            const classid = uuid();
+            const projectid = uuid();
+            const userid = uuid();
+
+            const credentials: Types.BluemixCredentials = {
+                id : uuid(),
+                username : uuid(),
+                password : uuid(),
+                servicetype : 'conv',
+                url : uuid(),
+            };
+
+            const created = new Date();
+            created.setMilliseconds(0);
+
+            const classifierInfo: Types.ConversationWorkspace = {
+                id : uuid(),
+                workspace_id : randomstring.generate({ length : 32 }),
+                credentialsid : credentials.id,
+                created,
+                expiry : created,
+                language : 'en',
+                name : 'DUMMY',
+                url : uuid(),
+            };
+
+            const project: DbTypes.Project = {
+                id : projectid,
+                userid,
+                classid,
+                type : 'text',
+                name : classifierInfo.name,
+                labels : ['a'],
+                fields : [],
+            };
+
+            await store.storeConversationWorkspace(credentials, project, classifierInfo);
+
+            const updatedDate = new Date();
+            updatedDate.setMonth(updatedDate.getMonth() + 6);
+            updatedDate.setMilliseconds(0);
+
+            classifierInfo.expiry = updatedDate;
+
+            await store.updateConversationWorkspaceExpiry(classifierInfo);
+
+            const retrieve = await store.getConversationWorkspace(projectid, classifierInfo.workspace_id);
+            assert.deepEqual(retrieve.expiry, updatedDate);
         });
 
 
