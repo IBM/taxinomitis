@@ -4,7 +4,7 @@
 <div ng-if="isAuthenticated" class="alert alert-info pageheadermsg">
     <strong>Info: </strong> Already logged in
 </div>
-<div ng-if="!isAuthenticated">
+<div ng-if="!isAuthenticated" class="loginPage">
 
     <ul class="nav nav-tabs nav-justified">
         <li ng-class="{ 'active' : vm.selectedTab === 'login' }">
@@ -14,13 +14,16 @@
             <a href="" ng-click="vm.selectedTab = 'reset'">Forgotten your username and password?</a>
         </li>
         <li ng-class="{ 'active' : vm.selectedTab === 'signup' }">
-            <a href="" ng-click="vm.selectedTab = 'signup'">New user?</a>
+            <a href="" ng-click="vm.selectedTab = 'signup'">New user?<br/><br/></a>
         </li>
     </ul>
 
     <div ng-if="vm.selectedTab === 'login'" class="loginPanel">
         <h4>Welcome back!</h4>
         <div>
+            <div>
+                Click on the button below to log in.
+            </div>
             <button class="btn btn-primary login-button" ng-click="vm.authService.login()">
                 Log In
             </button>
@@ -52,16 +55,10 @@
         </div>
     </div>
     <div ng-if="vm.selectedTab === 'signup'" class="loginPanel">
-        <div>
-            This tool is being developed for use by schools and volunteer-run coding groups for children.
-        </div>
-        <div>
-            The aim is to provide an easy-to-use educational tool to help introduce machine learning alongside existing efforts to teach coding.
-        </div>
         <div class="loginPanel">
             <h4>Are you a teacher / group leader?</h4>
             <div>
-                If you are a teacher or group leader who would like access, please email Dale.Lane@uk.ibm.com for more info.
+                If you are a teacher or group leader who would like access for your group, please email Dale.Lane@uk.ibm.com for more info.
             </div>
         </div>
         <div class="loginPanel">
@@ -70,7 +67,7 @@
                 If your class is already using this tool, ask your teacher or group leader to create you an account.
             </div>
             <div>
-                If your class isn't using this tool, ask your teacher or group leader to get in touch with us.
+                If your class isn't using this tool, ask your teacher or group leader to get in touch.
             </div>
         </div>
     </div>

@@ -12,3 +12,8 @@
 .loginPanel div {
     padding: 0.5em;
 }
+
+.loginPage {
+    max-width: 600px;
+    background-color: #f5f5f5;
+}
