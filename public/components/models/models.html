@@ -307,7 +307,7 @@
         <div ng-repeat="model in models">
             <table class="modelinfo">
                 <tr>
-                    <td><strong>Model was trained at:</strong></td>
+                    <td><strong>Model started training at:</strong></td>
                     <td>
                         {{ model.updated | date : 'fullDate' }}
                         {{ model.updated | date : 'shortTime' }}
@@ -316,6 +316,13 @@
                 <tr>
                     <td><strong>Current model status:</strong></td>
                     <td> {{ model.status }} </td>
+                </tr>
+                <tr ng-if="model.expiry">
+                    <td><strong>Model will automatically be deleted after:</strong></td>
+                    <td>
+                        {{ model.expiry | date : 'fullDate' }}
+                        {{ model.expiry | date : 'shortTime' }}
+                    </td>
                 </tr>
                 <tr ng-if="model.statusDescription">
                     <td><strong>Detail:</strong></td>
