@@ -16,4 +16,6 @@
 .loginPage {
     max-width: 600px;
     background-color: #f5f5f5;
+    margin-left: auto;
+    margin-right: auto;
 }

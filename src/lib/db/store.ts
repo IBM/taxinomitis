@@ -617,12 +617,11 @@ export async function countConversationWorkspaces(classid: string): Promise<numb
 
 export async function storeConversationWorkspace(
     credentials: TrainingObjects.BluemixCredentials,
-    userid: string, classid: string, projectid: string,
+    project: Objects.Project,
     workspace: TrainingObjects.ConversationWorkspace,
 ): Promise<TrainingObjects.ConversationWorkspace>
 {
-    const obj = dbobjects.createConversationWorkspace(workspace, credentials,
-        userid, classid, projectid);
+    const obj = dbobjects.createConversationWorkspace(workspace, credentials, project);
 
     const queryString: string = 'INSERT INTO `bluemixclassifiers` ' +
                                 '(`id`, `credentialsid`, ' +
@@ -654,7 +653,8 @@ export async function updateConversationWorkspaceExpiry(
 {
     const queryString: string = 'UPDATE `bluemixclassifiers` ' +
                                 'SET `expiry` = ? ' +
-                                'WHERE `id` = ?';
+                                'WHERE `id` = ? ' +
+                                'ORDER BY `expiry`';
     const values = [ workspace.expiry, workspace.id ];
 
     const response = await dbExecute(queryString, values);
@@ -662,6 +662,17 @@ export async function updateConversationWorkspaceExpiry(
         log.error({ queryString, values, response }, 'Failed to update expiry date');
         throw new Error('Conversation Workspace expiry not updated');
     }
+}
+
+export async function getExpiredConversationWorkspaces(): Promise<TrainingObjects.ConversationWorkspace[]>
+{
+    const queryString = 'SELECT `id`, `credentialsid`, `projectid`, `servicetype`,' +
+                        ' `classifierid`, `url`, `name`, `language`, `created`, `expiry` ' +
+                        'FROM `bluemixclassifiers` ' +
+                        'WHERE `expiry` < ?';
+
+    const rows = await dbExecute(queryString, [ new Date() ]);
+    return rows.map(dbobjects.getWorkspaceFromDbRow);
 }
 
 
@@ -717,13 +728,9 @@ export async function deleteConversationWorkspacesByProjectId(projectid: string)
 //
 // -----------------------------------------------------------------------------
 
-export async function storeUntrainedScratchKey(
-    projectid: string, projectname: string,
-    projecttype: Objects.ProjectTypeLabel,
-    userid: string, classid: string,
-): Promise<string>
+export async function storeUntrainedScratchKey(project: Objects.Project): Promise<string>
 {
-    const obj = dbobjects.createUntrainedScratchKey(projectname, projecttype, projectid);
+    const obj = dbobjects.createUntrainedScratchKey(project.name, project.type, project.id);
 
     const queryString = 'INSERT INTO `scratchkeys` ' +
                         '(`id`, ' +
@@ -733,8 +740,8 @@ export async function storeUntrainedScratchKey(
 
     const values = [
         obj.id,
-        projectid, obj.name, obj.type,
-        userid, classid,
+        project.id, obj.name, obj.type,
+        project.userid, project.classid,
     ];
 
     const response = await dbExecute(queryString, values);
@@ -747,49 +754,61 @@ export async function storeUntrainedScratchKey(
 }
 
 
+
+export function resetExpiredScratchKey(id: string, projecttype: Objects.ProjectTypeLabel): Promise<void>
+{
+    const queryString = 'UPDATE `scratchkeys` ' +
+                        'SET `classifierid` = ? , ' +
+                            '`serviceurl` = ? , `serviceusername` = ? , `servicepassword` = ? ' +
+                        'WHERE `classifierid` = ? AND `projecttype` = ?';
+    const values = [
+        null, null, null, null,
+        id, projecttype,
+    ];
+
+    return dbExecute(queryString, values);
+}
+
+
+
 /**
  * @returns the ScratchKey ID - whether created or updated
  */
 export async function storeOrUpdateScratchKey(
-    projectid: string, projecttype: Objects.ProjectTypeLabel,
-    userid: string, classid: string,
+    project: Objects.Project,
     credentials: TrainingObjects.BluemixCredentials,
     classifierid: string,
 ): Promise<string>
 {
-    const existing: Objects.ScratchKey[] = await findScratchKeys(userid, projectid, classid);
+    const existing: Objects.ScratchKey[] = await findScratchKeys(project.userid, project.id, project.classid);
     if (existing.length > 0) {
         return updateScratchKey(
             existing[0].id,
-            userid, projectid, classid,
+            project.userid, project.id, project.classid,
             credentials,
             classifierid,
         );
     }
     else {
-        const projectInfo = await getProject(projectid);
-
-        return storeScratchKey(
-            projectid, projectInfo.name, projecttype,
-            userid, classid,
-            credentials, classifierid,
-        );
+        return storeScratchKey(project, credentials, classifierid);
     }
 }
+
+
+
+
 
 
 /**
  * @returns the created scratchkey ID
  */
 export async function storeScratchKey(
-    projectid: string, projectname: string,
-    projecttype: Objects.ProjectTypeLabel,
-    userid: string, classid: string,
+    project: Objects.Project,
     credentials: TrainingObjects.BluemixCredentials,
     classifierid: string,
 ): Promise<string>
 {
-    const obj = dbobjects.createScratchKey(credentials, projectname, projecttype, projectid, classifierid);
+    const obj = dbobjects.createScratchKey(credentials, project.name, project.type, project.id, classifierid);
 
     const queryString = 'INSERT INTO `scratchkeys` ' +
                         '(`id`, `projectname`, `projecttype`, ' +
@@ -798,10 +817,10 @@ export async function storeScratchKey(
                         '`projectid`, `userid`, `classid`) ' +
                         'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     const values = [
-        obj.id, projectname, projecttype,
+        obj.id, project.name, project.type,
         obj.credentials.url, obj.credentials.username, obj.credentials.password,
         obj.classifierid,
-        obj.projectid, userid, classid,
+        obj.projectid, project.userid, project.classid,
     ];
 
     const response = await dbExecute(queryString, values);
@@ -944,7 +963,7 @@ export async function deleteEntireProject(userid: string, classid: string, proje
     if (project.type === 'text') {
         const classifiers = await getConversationWorkspaces(project.id);
         for (const classifier of classifiers) {
-            await conversation.deleteClassifier(userid, classid, project.id, classifier);
+            await conversation.deleteClassifier(classifier);
         }
     }
     else if (project.type === 'numbers') {

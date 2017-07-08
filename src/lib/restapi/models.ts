@@ -56,13 +56,9 @@ async function getModels(req: auth.RequestWithProject, res: Express.Response) {
 }
 
 async function newModel(req: auth.RequestWithProject, res: Express.Response) {
-    const classid = req.params.classid;
-    const userid = req.params.studentid;
-    const projectid = req.params.projectid;
-
     if (req.project.type === 'text') {
         try {
-            const model = await conversation.trainClassifier(userid, classid, req.project);
+            const model = await conversation.trainClassifier(req.project);
             return res.status(httpstatus.CREATED).json(returnConversationWorkspace(model));
         }
         catch (err) {
@@ -77,7 +73,7 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
     }
     else if (req.project.type === 'numbers') {
         try {
-            const model = await numbers.trainClassifier(userid, classid, projectid);
+            const model = await numbers.trainClassifier(req.project);
             return res.status(httpstatus.CREATED).json(returnNumberClassifier(model));
         }
         catch (err) {
@@ -98,7 +94,7 @@ async function deleteModel(req: auth.RequestWithProject, res: Express.Response) 
     try {
         if (req.project.type === 'text') {
             const workspace = await store.getConversationWorkspace(projectid, modelid);
-            await conversation.deleteClassifier(userid, classid, projectid, workspace);
+            await conversation.deleteClassifier(workspace);
             return res.sendStatus(httpstatus.NO_CONTENT);
         }
         else if (req.project.type === 'numbers') {

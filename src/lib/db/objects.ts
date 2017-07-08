@@ -5,9 +5,6 @@ import * as uuidv4 from 'uuid/v4';
 import * as projects from './projects';
 import * as Objects from './db-types';
 import * as TrainingObjects from '../training/training-types';
-import loggerSetup from '../utils/logger';
-
-const log = loggerSetup();
 
 
 
@@ -21,8 +18,6 @@ export function createProject(
     userid: string, classid: string, type: string, name: string, fields: string[],
 ): Objects.ProjectDbRow
 {
-    log.debug({ userid, type, name }, 'Creating a project object');
-
     if (projects.typeLabels.indexOf(type) === -1) {
         throw new Error('Invalid project type ' + type);
     }
@@ -207,13 +202,15 @@ export function getCredentialsFromDbRow(
 export function createConversationWorkspace(
     classifierInfo: TrainingObjects.ConversationWorkspace,
     credentialsInfo: TrainingObjects.BluemixCredentials,
-    userid: string, classid: string, projectid: string,
+    project: Objects.Project,
 ): TrainingObjects.ClassifierDbRow
 {
     return {
         id : classifierInfo.id,
         credentialsid : credentialsInfo.id,
-        userid, projectid, classid,
+        userid : project.userid,
+        projectid : project.id,
+        classid : project.classid,
         servicetype : 'conv',
         classifierid : classifierInfo.workspace_id,
         url : classifierInfo.url,

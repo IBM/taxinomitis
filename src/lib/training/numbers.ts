@@ -15,15 +15,15 @@ const log = loggerSetup();
 
 
 export async function trainClassifier(
-    userid: string, classid: string, projectid: string,
+    project: Objects.Project,
 ): Promise<TrainingObjects.NumbersClassifier>
 {
     let status: TrainingObjects.NumbersStatus;
 
     try {
         // create a new classifier
-        const data = await fetchTraining(projectid);
-        await submitTraining(classid, userid, projectid, data);
+        const data = await fetchTraining(project.id);
+        await submitTraining(project.classid, project.userid, project.id, data);
 
         status = 'Available';
     }
@@ -36,17 +36,18 @@ export async function trainClassifier(
     const credentials: TrainingObjects.BluemixCredentials = {
         servicetype: 'num',
         id: 'NOTUSED',
-        url: 'tenantid=' + classid + '&' +
-             'studentid=' + userid + '&' +
-             'projectid=' + projectid,
-        username: userid,
-        password: classid,
+        url: 'tenantid=' + project.classid + '&' +
+             'studentid=' + project.userid + '&' +
+             'projectid=' + project.id,
+        username: project.userid,
+        password: project.classid,
     };
 
     // write details about the new classifier to the DB
-    const storedClassifier = await store.storeNumbersClassifier(userid, classid, projectid, status);
+    const storedClassifier = await store.storeNumbersClassifier(project.userid, project.classid, project.id, status);
     if (status === 'Available') {
-        await store.storeOrUpdateScratchKey(projectid, 'numbers', userid, classid, credentials, projectid);
+        const classifierid = project.id;
+        await store.storeOrUpdateScratchKey(project, credentials, classifierid);
     }
 
     return storedClassifier;
@@ -76,7 +77,8 @@ export async function testClassifier(
     }
     catch (err) {
         if (err.statusCode === httpStatus.NOT_FOUND) {
-            await trainClassifier(studentid, tenantid, projectid);
+            const project = await store.getProject(projectid);
+            await trainClassifier(project);
             body = await request.post(url, req);
         }
         else {

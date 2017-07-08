@@ -2,6 +2,8 @@
 import * as express from 'express';
 // local dependencies
 import * as store from './db/store';
+import * as cf from './utils/cf';
+import * as conversation from './training/conversation';
 import restApiSetup from './restapi/api';
 import loggerSetup from './utils/logger';
 
@@ -29,3 +31,14 @@ process.on('uncaughtException', (err) => {
     log.error({ err, stack : err.stack }, 'Crash');
     process.exit(1);
 });
+
+
+// start scheduled cleanup tasks
+const ONE_HOUR = 3600000;
+if (cf.isPrimaryInstance()) {
+    log.info('*** Scheduling clean-up task to run every hour');
+
+    // delete any text classifiers which have expired, to free up
+    //  the available workspaces for other students
+    setInterval(conversation.cleanupExpiredClassifiers, ONE_HOUR);
+}

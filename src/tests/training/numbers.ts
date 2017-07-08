@@ -61,7 +61,7 @@ describe('Training - numbers service', () => {
                 { label : 'hates-animals', numberdata : [0, 0, 0] },
             ]);
 
-            const classifier = await numbers.trainClassifier(USERID, CLASSID, project.id);
+            const classifier = await numbers.trainClassifier(project);
             assert.equal(classifier.classifierid, project.id);
             assert(classifier.created instanceof Date);
             assert.equal(classifier.status, 'Failed');
@@ -103,7 +103,7 @@ describe('Training - numbers service', () => {
                 { label : 'hates-animals', numberdata : [0, 1, 0.1] },
             ]);
 
-            const classifier = await numbers.trainClassifier(USERID, CLASSID, project.id);
+            const classifier = await numbers.trainClassifier(project);
             assert.equal(classifier.status, 'Available');
 
             goodProject = 'CLEARED';
@@ -145,7 +145,7 @@ describe('Training - numbers service', () => {
                 { label : 'hates-animals', numberdata : [0, 0, 0] },
             ]);
 
-            const classifier = await numbers.trainClassifier(USERID, CLASSID, project.id);
+            const classifier = await numbers.trainClassifier(project);
             assert.equal(classifier.classifierid, project.id);
             assert(classifier.created instanceof Date);
             assert.equal(classifier.status, 'Available');

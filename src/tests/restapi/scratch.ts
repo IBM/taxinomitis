@@ -9,6 +9,7 @@ import * as proxyquire from 'proxyquire';
 import * as util from 'util';
 import * as requestPromise from 'request-promise';
 
+import * as DbTypes from '../../lib/db/db-types';
 import * as Types from '../../lib/training/training-types';
 
 import * as store from '../../lib/db/store';
@@ -113,7 +114,7 @@ describe('REST API - scratch keys', () => {
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, []);
             await store.storeBluemixCredentials(TESTCLASS, credentials);
-            await store.storeConversationWorkspace(credentials, userid, TESTCLASS, project.id, workspace);
+            await store.storeConversationWorkspace(credentials, project, workspace);
 
             return request(testServer)
                 .get('/api/classes/' + TESTCLASS + '/students/' + userid + '/projects/' + project.id + '/scratchkeys')
@@ -140,7 +141,17 @@ describe('REST API - scratch keys', () => {
             const projectid = uuid();
             const userid = uuid();
 
-            const keyId = await store.storeUntrainedScratchKey(projectid, 'dummyproject', 'text', userid, TESTCLASS);
+            const project: DbTypes.Project = {
+                id : projectid,
+                name : 'dummyproject',
+                userid,
+                classid : TESTCLASS,
+                type : 'text',
+                labels : [],
+                fields : [],
+            };
+
+            const keyId = await store.storeUntrainedScratchKey(project);
 
             return request(testServer)
                 .get('/api/classes/' + TESTCLASS + '/students/' + userid + '/projects/' + projectid + '/scratchkeys')
@@ -163,6 +174,16 @@ describe('REST API - scratch keys', () => {
             const projectid = uuid();
             const userid = uuid();
 
+            const project: DbTypes.Project = {
+                id : projectid,
+                name : 'A Fake Project',
+                userid,
+                classid : TESTCLASS,
+                type : 'text',
+                labels : [],
+                fields : [],
+            };
+
             const classifierid = randomstring.generate({ length : 12 });
 
             const credentials = {
@@ -173,9 +194,7 @@ describe('REST API - scratch keys', () => {
                 url : uuid(),
             };
 
-            const keyId = await store.storeScratchKey(projectid, 'A Fake Project', 'text',
-                                                      userid, TESTCLASS, credentials,
-                                                      classifierid);
+            const keyId = await store.storeScratchKey(project, credentials, classifierid);
 
             return request(testServer)
                 .get('/api/classes/' + TESTCLASS + '/students/' + userid + '/projects/' + projectid + '/scratchkeys')
@@ -200,7 +219,18 @@ describe('REST API - scratch keys', () => {
 
         it('should require text to classify', async () => {
             const projectid = uuid();
-            const key = await store.storeUntrainedScratchKey(projectid, 'test', 'text', 'userid', TESTCLASS);
+
+            const project: DbTypes.Project = {
+                id : projectid,
+                name : 'Test Project',
+                userid : 'userid',
+                classid : TESTCLASS,
+                type : 'text',
+                labels : [],
+                fields : [],
+            };
+
+            const key = await store.storeUntrainedScratchKey(project);
 
             const callbackFunctionName = 'mycb';
             return request(testServer)
@@ -219,7 +249,18 @@ describe('REST API - scratch keys', () => {
 
         it('should require numbers to classify', async () => {
             const projectid = uuid();
-            const key = await store.storeUntrainedScratchKey(projectid, 'test', 'numbers', 'userid', TESTCLASS);
+
+            const project: DbTypes.Project = {
+                id : projectid,
+                name : 'Test Project',
+                userid : 'userid',
+                classid : TESTCLASS,
+                type : 'numbers',
+                labels : [],
+                fields : [],
+            };
+
+            const key = await store.storeUntrainedScratchKey(project);
 
             const callbackFunctionName = 'mycb';
             return request(testServer)
@@ -248,7 +289,7 @@ describe('REST API - scratch keys', () => {
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'vegetable');
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'mineral');
 
-            const keyId = await store.storeUntrainedScratchKey(project.id, name, typelabel, userid, TESTCLASS);
+            const keyId = await store.storeUntrainedScratchKey(project);
 
             const callbackFunctionName = 'jsonpCallback';
 
@@ -294,7 +335,7 @@ describe('REST API - scratch keys', () => {
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'vegetable');
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'mineral');
 
-            const keyId = await store.storeUntrainedScratchKey(project.id, name, typelabel, userid, TESTCLASS);
+            const keyId = await store.storeUntrainedScratchKey(project);
 
             const callbackFunctionName = 'jsonpCallback';
 
@@ -338,7 +379,7 @@ describe('REST API - scratch keys', () => {
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'fruit');
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'vegetable');
 
-            const keyId = await store.storeUntrainedScratchKey(project.id, name, typelabel, userid, TESTCLASS);
+            const keyId = await store.storeUntrainedScratchKey(project);
 
             const callbackFunctionName = 'jsonpCallback';
 
@@ -363,7 +404,16 @@ describe('REST API - scratch keys', () => {
             const projectid = uuid();
             const userid = uuid();
 
-            const keyId = await store.storeUntrainedScratchKey(projectid, 'dummyproject', 'text', userid, TESTCLASS);
+            const project: DbTypes.Project = {
+                id : projectid,
+                name : 'Another Test Project',
+                userid,
+                classid : TESTCLASS,
+                type : 'text',
+                labels : [],
+                fields : [],
+            };
+            const keyId = await store.storeUntrainedScratchKey(project);
 
             return request(testServer)
                 .get('/api/scratch/' + keyId + '/status')
@@ -388,7 +438,7 @@ describe('REST API - scratch keys', () => {
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'LABEL NUMBER ONE');
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'SECOND LABEL');
 
-            const keyId = await store.storeUntrainedScratchKey(project.id, project.name, 'text', userid, TESTCLASS);
+            const keyId = await store.storeUntrainedScratchKey(project);
 
             return request(testServer)
                 .get('/api/scratch/' + keyId + '/extension.js')
@@ -503,11 +553,10 @@ describe('REST API - scratch keys', () => {
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, []);
             await store.storeBluemixCredentials(TESTCLASS, credentials);
-            await store.storeConversationWorkspace(credentials, userid, TESTCLASS, project.id, conversationWorkspace);
+            await store.storeConversationWorkspace(credentials, project, conversationWorkspace);
 
             const scratchKey = await store.storeOrUpdateScratchKey(
-                project.id, 'text',
-                userid, TESTCLASS,
+                project,
                 credentials, conversationWorkspace.workspace_id);
 
             const conversationStub = sinon.stub(requestPromise, 'post').callsFake(mockClassifier);
@@ -573,11 +622,10 @@ describe('REST API - scratch keys', () => {
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, []);
             await store.storeBluemixCredentials(TESTCLASS, credentials);
-            await store.storeConversationWorkspace(credentials, userid, TESTCLASS, project.id, workspace);
+            await store.storeConversationWorkspace(credentials, project, workspace);
 
             const scratchKey = await store.storeOrUpdateScratchKey(
-                project.id, 'text',
-                userid, TESTCLASS,
+                project,
                 credentials, workspace.workspace_id);
 
             const conversationStub = sinon.stub(requestPromise, 'post').callsFake(brokenClassifier);

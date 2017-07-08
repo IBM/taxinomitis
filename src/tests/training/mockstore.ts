@@ -54,15 +54,14 @@ export function getTextTrainingByLabel(projectid: string, label: string, options
 
 export function storeConversationWorkspace(
     credentials: TrainingTypes.BluemixCredentials,
-    userid: string, classid: string, projectid: string,
+    project: DbTypes.Project,
     classifier: TrainingTypes.ConversationWorkspace,
 ): Promise<TrainingTypes.ConversationWorkspace>
 {
     return new Promise((resolve) => resolve(
         DbObjects.getWorkspaceFromDbRow(
             DbObjects.createConversationWorkspace(
-                classifier, credentials,
-                userid, classid, projectid,
+                classifier, credentials, project,
             ),
         ),
     ));
@@ -84,6 +83,10 @@ export function deleteConversationWorkspace()
 }
 
 export function storeOrUpdateScratchKey()
+{
+    return new Promise((resolve) => resolve());
+}
+export function resetExpiredScratchKey()
 {
     return new Promise((resolve) => resolve());
 }

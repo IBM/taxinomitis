@@ -11,6 +11,7 @@ import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
 import * as conversation from '../../lib/training/conversation';
 import * as numbers from '../../lib/training/numbers';
+import * as DbTypes from '../../lib/db/db-types';
 import * as Types from '../../lib/training/training-types';
 import testapiserver from './testserver';
 
@@ -74,12 +75,12 @@ describe('REST API - models', () => {
             });
         });
         conversationStub.trainClassifierStub = sinon.stub(conversation, 'trainClassifier');
-        conversationStub.trainClassifierStub.callsFake((uid, clsid, pj) => {
+        conversationStub.trainClassifierStub.callsFake((project: DbTypes.Project) => {
             const workspace: Types.ConversationWorkspace = {
                 id : uuid(),
                 workspace_id : 'NEW-CREATED',
                 credentialsid : '123',
-                name : pj.name,
+                name : project.name,
                 language : 'en',
                 created : new Date(Date.UTC(2017, 4, 4, 12, 0)),
                 updated : new Date(Date.UTC(2017, 4, 4, 12, 1)),
@@ -101,11 +102,12 @@ describe('REST API - models', () => {
             return new Promise((resolve) => { resolve(); });
         });
 
-        numbersStub.trainClassifierStub = sinon.stub(numbers, 'trainClassifier').callsFake((uid, clsid, pjid) => {
+        numbersStub.trainClassifierStub = sinon.stub(numbers, 'trainClassifier');
+        numbersStub.trainClassifierStub.callsFake((project: DbTypes.Project) => {
             return Promise.resolve({
                 created : new Date(),
                 status : 'Available',
-                classifierid : pjid,
+                classifierid : project.id,
             });
         });
         numbersStub.testClassifierStub = sinon.stub(numbers, 'testClassifier').callsFake(() => {
@@ -290,8 +292,7 @@ describe('REST API - models', () => {
                 name : 'DUMMY ONE',
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(credentials, userid, classid, projectid,
-                classifierAInfo);
+            await store.storeConversationWorkspace(credentials, project, classifierAInfo);
 
             const createdB = new Date();
             createdB.setMilliseconds(0);
@@ -306,8 +307,7 @@ describe('REST API - models', () => {
                 name : 'DUMMY TWO',
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(credentials, userid, classid, projectid,
-                classifierBInfo);
+            await store.storeConversationWorkspace(credentials, project, classifierBInfo);
 
 
             return request(testServer)
@@ -579,8 +579,7 @@ describe('REST API - models', () => {
                 name : projName,
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(credentials, userid, classid, projectid,
-                classifierInfo);
+            await store.storeConversationWorkspace(credentials, project, classifierInfo);
 
             return request(testServer)
                 .post('/api/classes/' + classid +
@@ -745,8 +744,7 @@ describe('REST API - models', () => {
                 name : projName,
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(credentials, userid, classid, projectid,
-                classifierInfo);
+            await store.storeConversationWorkspace(credentials, project, classifierInfo);
 
             return request(testServer)
                 .delete('/api/classes/' + classid +

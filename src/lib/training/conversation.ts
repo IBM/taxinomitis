@@ -14,7 +14,7 @@ const log = loggerSetup();
 
 
 export async function trainClassifier(
-    userid: string, classid: string, project: DbObjects.Project,
+    project: DbObjects.Project,
 ): Promise<TrainingObjects.ConversationWorkspace>
 {
     let workspace: TrainingObjects.ConversationWorkspace;
@@ -30,9 +30,9 @@ export async function trainClassifier(
         workspace = await updateWorkspace(project, credentials, workspace, training);
     }
     else {
-        const credentials = await store.getBluemixCredentials(classid, 'conv');
+        const credentials = await store.getBluemixCredentials(project.classid, 'conv');
 
-        workspace = await createWorkspace(project, credentials, userid, classid, training);
+        workspace = await createWorkspace(project, credentials, training);
     }
 
     return workspace;
@@ -45,7 +45,6 @@ export async function trainClassifier(
 async function createWorkspace(
     project: DbObjects.Project,
     credentialsPool: TrainingObjects.BluemixCredentials[],
-    userid: string, classid: string,
     training: TrainingObjects.ConversationTrainingData,
 ): Promise<TrainingObjects.ConversationWorkspace>
 {
@@ -58,13 +57,9 @@ async function createWorkspace(
             const url = credentials.url + '/v1/workspaces';
             workspace = await submitTrainingToConversation(project, credentials, url, training, id);
 
-            await store.storeConversationWorkspace(
-                credentials,
-                userid, classid, project.id,
-                workspace);
+            await store.storeConversationWorkspace(credentials, project, workspace);
 
-            await store.storeOrUpdateScratchKey(project.id, 'text',
-                userid, classid,
+            await store.storeOrUpdateScratchKey(project,
                 credentials, workspace.workspace_id);
 
             return workspace;
@@ -112,20 +107,20 @@ async function updateWorkspace(
  *  This deletes both the classifier from Bluemix, and the record of it
  *  stored in the app's database.
  *
- * @param userid - ID of the user that has collected the training data
- * @param classid - the tenant that the user is a member of
  * @param projectid - the ID for the project with the training data
  */
-export async function deleteClassifier(
-    userid: string, classid: string, projectid: string,
-    classifier: TrainingObjects.ConversationWorkspace,
-): Promise<void>
+export async function deleteClassifier(classifier: TrainingObjects.ConversationWorkspace): Promise<void>
 {
-    const credentials = await store.getBluemixCredentialsById(classifier.credentialsid);
-
-    await deleteClassifierFromBluemix(credentials, classifier.workspace_id);
+    try {
+        const credentials = await store.getBluemixCredentialsById(classifier.credentialsid);
+        await deleteClassifierFromBluemix(credentials, classifier.workspace_id);
+    }
+    catch (err) {
+        log.error({ err, classifier }, 'Unable to delete Conversation workspace');
+    }
 
     await store.deleteConversationWorkspace(classifier.id);
+    await store.resetExpiredScratchKey(classifier.workspace_id, 'text');
 }
 
 async function deleteClassifierFromBluemix(
@@ -334,4 +329,18 @@ export async function testClassifier(
     return body.intents.map((item) => {
         return { class_name : item.intent, confidence : Math.round(item.confidence * 100) };
     });
+}
+
+
+
+
+
+
+
+export async function cleanupExpiredClassifiers(): Promise<void[]>
+{
+    log.info('Cleaning up expired Conversation workspaces');
+
+    const expired: TrainingObjects.ConversationWorkspace[] = await store.getExpiredConversationWorkspaces();
+    return Promise.all(expired.map(deleteClassifier));
 }

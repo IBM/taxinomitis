@@ -12,9 +12,7 @@ async function createTextKey(project: Types.Project): Promise<ScratchTypes.Key> 
     const textClassifiers = await store.getConversationWorkspaces(project.id);
 
     if (textClassifiers.length === 0) {
-        const id = await store.storeUntrainedScratchKey(
-            project.id, project.name, project.type,
-            project.userid, project.classid);
+        const id = await store.storeUntrainedScratchKey(project);
         return { id };
     }
     else {
@@ -23,9 +21,7 @@ async function createTextKey(project: Types.Project): Promise<ScratchTypes.Key> 
 
         const credentials = await store.getBluemixCredentialsById(classifier.credentialsid);
 
-        const id = await store.storeOrUpdateScratchKey(
-            project.id, project.type,
-            project.userid, project.classid,
+        const id = await store.storeOrUpdateScratchKey(project,
             credentials, classifier.workspace_id);
 
         return { id, model };
@@ -36,9 +32,7 @@ async function createNumbersKey(project: Types.Project): Promise<ScratchTypes.Ke
     const numClassifiers = await store.getNumbersClassifiers(project.id);
 
     if (numClassifiers.length === 0) {
-        const id = await store.storeUntrainedScratchKey(
-            project.id, project.name, project.type,
-            project.userid, project.classid);
+        const id = await store.storeUntrainedScratchKey(project);
         return { id };
     }
     else {
@@ -53,8 +47,7 @@ async function createNumbersKey(project: Types.Project): Promise<ScratchTypes.Ke
         };
 
         const id = await store.storeOrUpdateScratchKey(
-            project.id, 'numbers',
-            project.userid, project.classid,
+            project,
             credentials,
             project.id);
 

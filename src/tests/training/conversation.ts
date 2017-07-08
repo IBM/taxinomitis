@@ -33,6 +33,7 @@ describe('Training - Conversation', () => {
     let updateConversationStub;
     let deleteStoreStub;
     let storeScratchKeyStub;
+    let resetExpiredScratchKeyStub;
     let getClassStub;
 
 
@@ -52,6 +53,7 @@ describe('Training - Conversation', () => {
         updateConversationStub = sinon.stub(store, 'updateConversationWorkspaceExpiry').callsFake(mockstore.updateConversationWorkspaceExpiry);
         deleteStoreStub = sinon.stub(store, 'deleteConversationWorkspace').callsFake(mockstore.deleteConversationWorkspace);
         storeScratchKeyStub = sinon.stub(store, 'storeOrUpdateScratchKey').callsFake(mockstore.storeOrUpdateScratchKey);
+        resetExpiredScratchKeyStub = sinon.stub(store, 'resetExpiredScratchKey').callsFake(mockstore.resetExpiredScratchKey);
         getClassStub = sinon.stub(store, 'getClassTenant').callsFake(mockstore.getClassTenant);
     });
     after(() => {
@@ -67,6 +69,7 @@ describe('Training - Conversation', () => {
         updateConversationStub.restore();
         deleteStoreStub.restore();
         storeScratchKeyStub.restore();
+        resetExpiredScratchKeyStub.restore();
         getClassStub.restore();
     });
 
@@ -93,7 +96,7 @@ describe('Training - Conversation', () => {
                 labels : ['temperature', 'conditions'],
             };
 
-            const classifier = await conversation.trainClassifier(userid, classid, project);
+            const classifier = await conversation.trainClassifier(project);
             assert(classifier.id);
 
             assert.deepEqual(classifier, {
@@ -110,9 +113,7 @@ describe('Training - Conversation', () => {
             });
 
             assert(
-                storeScratchKeyStub.calledWith(
-                    projectid, sinon.match.any, userid, classid,
-                    mockstore.creds,
+                storeScratchKeyStub.calledWith(project, mockstore.creds,
                     '04f2d303-16fd-4f2e-80f4-2c66784cc0fe'));
         });
 
@@ -135,7 +136,7 @@ describe('Training - Conversation', () => {
             };
 
             try {
-                await conversation.trainClassifier(userid, classid, project);
+                await conversation.trainClassifier(project);
                 assert.fail(0, 1, 'should not have allowed this', '');
             }
             catch (err) {
@@ -190,15 +191,12 @@ describe('Training - Conversation', () => {
         it('should delete a classifier', async () => {
             deleteStub.reset();
             deleteStoreStub.reset();
+            resetExpiredScratchKeyStub.reset();
 
             assert.equal(deleteStub.called, false);
             assert.equal(deleteStoreStub.called, false);
 
-            const classid = randomstring.generate({ length : 10 });
-            const userid = randomstring.generate({ length : 8 });
-            const projectid = uuid();
-
-            await conversation.deleteClassifier(userid, classid, projectid, goodClassifier);
+            await conversation.deleteClassifier(goodClassifier);
 
             assert(deleteStub.calledOnce);
             assert(deleteStoreStub.calledOnce);
@@ -208,12 +206,14 @@ describe('Training - Conversation', () => {
                 qs : { version : '2017-05-26' },
             }));
             assert(deleteStoreStub.calledWith(goodClassifier.id));
+            assert(resetExpiredScratchKeyStub.called);
         });
 
 
         it('should cope with deleting a classifier missing from Bluemix', async () => {
             deleteStub.reset();
             deleteStoreStub.reset();
+            resetExpiredScratchKeyStub.reset();
 
             const missingErr: any = new Error();
             missingErr.statusCode = 404;
@@ -225,12 +225,9 @@ describe('Training - Conversation', () => {
             assert.equal(deleteStub.called, false);
             assert.equal(deleteStoreStub.called, false);
 
-            const classid = randomstring.generate({ length : 10 });
-            const userid = randomstring.generate({ length : 8 });
-            const projectid = uuid();
             const workspaceid = uuid();
 
-            await conversation.deleteClassifier(userid, classid, projectid, {
+            await conversation.deleteClassifier({
                 id : workspaceid,
                 workspace_id : 'doesnotactuallyexist',
                 credentialsid : '123',
@@ -249,6 +246,7 @@ describe('Training - Conversation', () => {
                 qs : { version : '2017-05-26' },
             }));
             assert(deleteStoreStub.calledWith(workspaceid));
+            assert(resetExpiredScratchKeyStub.called);
         });
     });
 

@@ -62,7 +62,7 @@ describe('Scratchx - keys', () => {
                 name : project.name,
                 url : 'url',
             };
-            await store.storeConversationWorkspace(creds, userid, TESTCLASS, project.id, conversationwkspace);
+            await store.storeConversationWorkspace(creds, project, conversationwkspace);
 
             const key = await keys.createKey(project.id);
             assert(key.id);

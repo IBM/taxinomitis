@@ -2,11 +2,15 @@
 import * as assert from 'assert';
 import * as util from 'util';
 import * as randomstring from 'randomstring';
+import * as sinon from 'sinon';
 import * as uuid from 'uuid/v1';
 
 import * as store from '../../lib/db/store';
+import * as conversation from '../../lib/training/conversation';
 import * as Types from '../../lib/training/training-types';
+import * as DbTypes from '../../lib/db/db-types';
 
+import * as request from 'request-promise';
 
 
 describe('DB store', () => {
@@ -94,10 +98,17 @@ describe('DB store', () => {
                 url : uuid(),
             };
 
-            await store.storeConversationWorkspace(
-                creds, userid, classid, projectid,
-                classifierInfo,
-            );
+            const project: DbTypes.Project = {
+                id : projectid,
+                userid,
+                classid,
+                type : 'text',
+                name : classifierInfo.name,
+                labels : ['a'],
+                fields : [],
+            };
+
+            await store.storeConversationWorkspace(creds, project, classifierInfo);
 
             const retrievedCreds = await store.getBluemixCredentialsById(creds.id);
             assert.deepEqual(retrievedCreds, creds);
@@ -112,12 +123,159 @@ describe('DB store', () => {
     describe('Conversation classifiers', () => {
 
 
+
+
         it('should return 0 for unknown users', async () => {
             const unknownClass = uuid();
             const count = await store.countConversationWorkspaces(unknownClass);
             assert.equal(count, 0);
         });
 
+
+        it('should retrieve expired classifiers', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projectid = uuid();
+
+            const now = new Date();
+            now.setMilliseconds(0);
+
+            const future = new Date();
+            future.setDate(future.getDate() + 1);
+            future.setMilliseconds(0);
+
+            const past = new Date();
+            past.setDate(past.getDate() - 1);
+            past.setMilliseconds(0);
+
+            const credentials: Types.BluemixCredentials = {
+                id : uuid(),
+                username : uuid(),
+                password : uuid(),
+                servicetype : 'conv',
+                url : uuid(),
+            };
+            const expired: Types.ConversationWorkspace = {
+                id : uuid(),
+                name : 'ONE',
+                workspace_id : uuid(),
+                credentialsid : credentials.id,
+                url : uuid(),
+                language : 'en',
+                created : now,
+                expiry : past,
+            };
+            const current: Types.ConversationWorkspace = {
+                id : uuid(),
+                name : 'TWO',
+                workspace_id : uuid(),
+                credentialsid : credentials.id,
+                url : uuid(),
+                language : 'en',
+                created : now,
+                expiry : future,
+            };
+
+            const alreadyExpired = await store.getExpiredConversationWorkspaces();
+
+            const projectExpired: DbTypes.Project = {
+                id : projectid,
+                userid,
+                classid,
+                type : 'text',
+                name : expired.name,
+                labels : ['a'],
+                fields : [],
+            };
+            const projectCurrent: DbTypes.Project = {
+                id : projectid,
+                userid,
+                classid,
+                type : 'text',
+                name : current.name,
+                labels : ['a'],
+                fields : [],
+            };
+
+            await store.storeConversationWorkspace(credentials, projectExpired, expired);
+            await store.storeConversationWorkspace(credentials, projectCurrent, current);
+
+            const retrievedAll = await store.getConversationWorkspaces(projectid);
+            assert.deepEqual(retrievedAll, [ expired, current ]);
+
+            const retrievedExpired = await store.getExpiredConversationWorkspaces();
+            assert.deepEqual(retrievedExpired, alreadyExpired.concat([ expired ]));
+        });
+
+
+        it('should delete expired classifiers', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projectid = uuid();
+
+            const now = new Date();
+            now.setMilliseconds(0);
+
+            const past = new Date();
+            past.setDate(past.getDate() - 1);
+            past.setMilliseconds(0);
+
+            const credentials: Types.BluemixCredentials = {
+                id : uuid(),
+                username : uuid(),
+                password : uuid(),
+                servicetype : 'conv',
+                url : uuid(),
+            };
+            await store.storeBluemixCredentials(classid, credentials);
+
+            const expired: Types.ConversationWorkspace = {
+                id : uuid(),
+                name : 'ONE',
+                workspace_id : uuid(),
+                credentialsid : credentials.id,
+                url : uuid(),
+                language : 'en',
+                created : now,
+                expiry : past,
+            };
+
+            const projectExpired: DbTypes.Project = {
+                id : projectid,
+                userid,
+                classid,
+                type : 'text',
+                name : expired.name,
+                labels : ['a'],
+                fields : [],
+            };
+
+            await store.storeConversationWorkspace(credentials, projectExpired, expired);
+
+            const verifyBefore = await store.getConversationWorkspace(projectid, expired.workspace_id);
+            assert.deepEqual(verifyBefore, expired);
+
+            const countBefore = await store.getExpiredConversationWorkspaces();
+            assert(countBefore.length >= 0);
+
+            const deleteStub = sinon.stub(request, 'delete').resolves();
+            await conversation.cleanupExpiredClassifiers();
+            assert(deleteStub.called);
+            deleteStub.restore();
+
+            const countAfter = await store.getExpiredConversationWorkspaces();
+            assert.equal(countAfter.length, 0);
+
+            try {
+                await store.getConversationWorkspace(projectid, expired.workspace_id);
+                assert.fail(0, 1, 'should not reach here', '');
+            }
+            catch (err) {
+                assert(err);
+            }
+
+            await store.deleteBluemixCredentials(credentials.id);
+        });
 
 
         it('should store and retrieve Conversation classifiers', async () => {
@@ -153,10 +311,17 @@ describe('DB store', () => {
                 url : uuid(),
             };
 
-            await store.storeConversationWorkspace(
-                credentials, userid, classid, projectid,
-                classifierInfo,
-            );
+            const project: DbTypes.Project = {
+                id : projectid,
+                userid,
+                classid,
+                type : 'text',
+                name : classifierInfo.name,
+                labels : ['a'],
+                fields : [],
+            };
+
+            await store.storeConversationWorkspace(credentials, project, classifierInfo);
 
             const after = await store.getConversationWorkspaces(projectid);
             assert.equal(after.length, 1);

@@ -3,11 +3,14 @@ import * as assert from 'assert';
 import * as util from 'util';
 import * as uuid from 'uuid/v1';
 import * as randomstring from 'randomstring';
+import * as sinon from 'sinon';
 
 import * as store from '../../lib/db/store';
 import * as DbTypes from '../../lib/db/db-types';
 import * as Types from '../../lib/training/training-types';
+import * as conversation from '../../lib/training/conversation';
 
+import * as request from 'request-promise';
 
 
 describe('ScratchKeys store', () => {
@@ -17,43 +20,35 @@ describe('ScratchKeys store', () => {
     const reusedUserid = uuid();
     const reusedClassid = uuid();
 
-    before(async () => {
-        await store.init();
-
+    before(() => {
+        return store.init();
+    });
+    beforeEach(async () => {
         project = await store.storeProject(
             reusedUserid, reusedClassid, 'text', randomstring.generate({ length : 20 }), [],
         );
     });
-    after(async () => {
-        await store.deleteEntireProject(reusedUserid, reusedClassid, project);
+    after(() => {
         return store.disconnect();
+    });
+    afterEach(() => {
+        return store.deleteEntireProject(reusedUserid, reusedClassid, project);
     });
 
 
     it('should create an empty scratch key', async () => {
-        const projectid = uuid();
-        const projectname = randomstring.generate({ length : 20 });
-        const userid = uuid();
-        const classid = uuid();
-        const keyid = await store.storeUntrainedScratchKey(
-            projectid, projectname, 'text',
-            userid, classid);
+        const keyid = await store.storeUntrainedScratchKey(project);
+        assert(keyid);
 
         return store.deleteScratchKey(keyid);
     });
 
 
     it('should retrieve an empty scratch key', async () => {
-        const projectid = uuid();
-        const projectname = randomstring.generate({ length : 20 });
-        const userid = uuid();
-        const classid = uuid();
-        const keyid = await store.storeUntrainedScratchKey(
-            projectid, projectname, 'text',
-            userid, classid);
+        const keyid = await store.storeUntrainedScratchKey(project);
 
         const retrieved = await store.getScratchKey(keyid);
-        assert.equal(retrieved.name, projectname);
+        assert.equal(retrieved.name, project.name);
         assert(!retrieved.classifierid);
         assert(!retrieved.credentials);
 
@@ -62,17 +57,10 @@ describe('ScratchKeys store', () => {
 
 
     it('should update an empty scratch key', async () => {
-        const userid = uuid();
-        const classid = uuid();
-        const projectid = uuid();
-        const projectname = randomstring.generate({ length : 20 });
-
-        const keyid = await store.storeUntrainedScratchKey(
-            projectid, projectname, 'text',
-            userid, classid);
+        const keyid = await store.storeUntrainedScratchKey(project);
 
         const retrievedEmpty: any = await store.getScratchKey(keyid);
-        assert.equal(retrievedEmpty.name, projectname);
+        assert.equal(retrievedEmpty.name, project.name);
         assert(!retrievedEmpty.classifierid);
         assert(!retrievedEmpty.credentials);
 
@@ -85,33 +73,22 @@ describe('ScratchKeys store', () => {
         };
         const classifierid = randomstring.generate({ length : 12 });
 
-        await store.storeOrUpdateScratchKey(
-            projectid, 'text', userid, classid,
-            credentials, classifierid);
+        await store.storeOrUpdateScratchKey(project, credentials, classifierid);
 
         const retrievedAfter: any = await store.getScratchKey(keyid);
         delete credentials.id;
         delete retrievedAfter.credentials.id;
 
         assert.equal(retrievedAfter.id, keyid);
-        assert.equal(retrievedAfter.name, projectname);
+        assert.equal(retrievedAfter.name, project.name);
         assert.equal(retrievedAfter.type, 'text');
         assert.deepEqual(retrievedAfter.credentials, credentials);
         assert.equal(retrievedAfter.classifierid, classifierid);
-
-        return store.deleteScratchKey(keyid);
     });
 
 
     it('should delete an empty scratch key', async () => {
-        const projectid = uuid();
-        const projectname = randomstring.generate({ length : 20 });
-        const userid = uuid();
-        const classid = uuid();
-
-        const keyid = await store.storeUntrainedScratchKey(
-            projectid, projectname, 'text',
-            userid, classid);
+        const keyid = await store.storeUntrainedScratchKey(project);
 
         const retrieved: any = await store.getScratchKey(keyid);
         assert(retrieved);
@@ -132,8 +109,6 @@ describe('ScratchKeys store', () => {
 
 
     it('should create a scratch key', async () => {
-        const userid = uuid();
-        const classid = uuid();
         const credentials: Types.BluemixCredentials = {
             id : uuid(),
             servicetype : 'conv',
@@ -144,8 +119,7 @@ describe('ScratchKeys store', () => {
         const classifierid = randomstring.generate({ length : 12 });
 
         const keyid = await store.storeOrUpdateScratchKey(
-            project.id, project.type,
-            userid, classid,
+            project,
             credentials, classifierid,
         );
 
@@ -155,8 +129,6 @@ describe('ScratchKeys store', () => {
 
 
     it('should retrieve a scratch key', async () => {
-        const userid = uuid();
-        const classid = uuid();
         const credentials = {
             id : uuid(),
             servicetype : 'conv' as Types.BluemixServiceType,
@@ -167,8 +139,7 @@ describe('ScratchKeys store', () => {
         const classifierid = randomstring.generate({ length : 12 });
 
         const keyid = await store.storeOrUpdateScratchKey(
-            project.id, project.type,
-            userid, classid,
+            project,
             credentials, classifierid,
         );
 
@@ -185,8 +156,6 @@ describe('ScratchKeys store', () => {
 
 
     it('should find a scratch key for a project', async () => {
-        const userid = uuid();
-        const classid = uuid();
         const credentials = {
             id : uuid(),
             servicetype : 'conv' as Types.BluemixServiceType,
@@ -197,12 +166,11 @@ describe('ScratchKeys store', () => {
         const classifierid = randomstring.generate({ length : 12 });
 
         const keyid = await store.storeOrUpdateScratchKey(
-            project.id, project.type,
-            userid, classid,
+            project,
             credentials, classifierid,
         );
 
-        const response: any[] = await store.findScratchKeys(userid, project.id, classid);
+        const response: any[] = await store.findScratchKeys(project.userid, project.id, project.classid);
         assert.equal(response.length, 1);
         const retrieved = response[0];
 
@@ -219,8 +187,6 @@ describe('ScratchKeys store', () => {
     });
 
     it('should find scratch keys for a project', async () => {
-        const userid = uuid();
-        const classid = uuid();
         const credentials = {
             id : uuid(),
             servicetype : 'conv' as Types.BluemixServiceType,
@@ -236,14 +202,10 @@ describe('ScratchKeys store', () => {
         const classifierIDs = [ classifieridA, classifieridB, classifieridC, classifieridD ];
 
         for (const classifierid of classifierIDs) {
-            await store.storeScratchKey(
-                project.id, project.name, project.type,
-                userid, classid,
-                credentials, classifierid,
-            );
+            await store.storeScratchKey(project, credentials, classifierid);
         }
 
-        const response: any[] = await store.findScratchKeys(userid, project.id, classid);
+        const response: any[] = await store.findScratchKeys(project.userid, project.id, project.classid);
         assert.equal(response.length, classifierIDs.length);
 
         delete credentials.id;
@@ -262,8 +224,6 @@ describe('ScratchKeys store', () => {
 
 
     it('should update a scratch key', async () => {
-        const userid = uuid();
-        const classid = uuid();
         const credentials = {
             id : uuid(),
             servicetype : 'conv' as Types.BluemixServiceType,
@@ -274,16 +234,14 @@ describe('ScratchKeys store', () => {
         const classifierid = randomstring.generate({ length : 12 });
 
         const keyid = await store.storeOrUpdateScratchKey(
-            project.id, project.type,
-            userid, classid,
+            project,
             credentials, classifierid,
         );
 
         const newClassifierId = randomstring.generate({ length : 11 });
 
         const updatedKeyId = await store.storeOrUpdateScratchKey(
-            project.id, project.type,
-            userid, classid,
+            project,
             credentials, newClassifierId,
         );
 
@@ -303,8 +261,6 @@ describe('ScratchKeys store', () => {
 
 
     it('should delete a scratch key', async () => {
-        const userid = uuid();
-        const classid = uuid();
         const credentials = {
             id : uuid(),
             servicetype : 'conv' as Types.BluemixServiceType,
@@ -315,8 +271,7 @@ describe('ScratchKeys store', () => {
         const classifierid = randomstring.generate({ length : 12 });
 
         const keyid = await store.storeOrUpdateScratchKey(
-            project.id, project.type,
-            userid, classid,
+            project,
             credentials, classifierid,
         );
 
@@ -334,8 +289,6 @@ describe('ScratchKeys store', () => {
 
 
     it('should delete keys by projectid', async () => {
-        const userid = uuid();
-        const classid = uuid();
         const credentials = {
             id : uuid(),
             servicetype : 'conv' as Types.BluemixServiceType,
@@ -346,8 +299,7 @@ describe('ScratchKeys store', () => {
         const classifierid = randomstring.generate({ length : 12 });
 
         const keyid = await store.storeOrUpdateScratchKey(
-            project.id, project.type,
-            userid, classid,
+            project,
             credentials, classifierid,
         );
 
@@ -361,6 +313,60 @@ describe('ScratchKeys store', () => {
         catch (err) {
             assert.equal(err.message, 'Unexpected response when retrieving service credentials');
         }
+    });
+
+
+    it('should reset expired scratch keys', async () => {
+        const now = new Date();
+        now.setMilliseconds(0);
+
+        const past = new Date();
+        past.setDate(past.getDate() - 1);
+        past.setMilliseconds(0);
+
+        const credentials: Types.BluemixCredentials = {
+            id : uuid(),
+            username : uuid(),
+            password : uuid(),
+            servicetype : 'conv',
+            url : uuid(),
+        };
+        await store.storeBluemixCredentials(project.classid, credentials);
+
+        const expired: Types.ConversationWorkspace = {
+            id : uuid(),
+            name : 'ONE',
+            workspace_id : uuid(),
+            credentialsid : credentials.id,
+            url : uuid(),
+            language : 'en',
+            created : now,
+            expiry : past,
+        };
+
+        await store.storeConversationWorkspace(credentials, project, expired);
+
+        const scratchKey: string = await store.storeOrUpdateScratchKey(
+            project,
+            credentials, expired.workspace_id,
+        );
+
+        const verifyBefore = await store.getScratchKey(scratchKey);
+        assert.equal(verifyBefore.classifierid, expired.workspace_id);
+        assert.equal(verifyBefore.credentials.username, credentials.username);
+        assert.equal(verifyBefore.credentials.password, credentials.password);
+
+        const deleteStub = sinon.stub(request, 'delete').resolves();
+        await conversation.cleanupExpiredClassifiers();
+        assert(deleteStub.called);
+        deleteStub.restore();
+
+        const verifyAfter = await store.getScratchKey(scratchKey);
+        assert(!verifyAfter.classifierid);
+        assert(!verifyAfter.credentials);
+
+        await store.deleteBluemixCredentials(credentials.id);
+        await store.deleteScratchKey(scratchKey);
     });
 
 });
