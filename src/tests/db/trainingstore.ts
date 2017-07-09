@@ -59,6 +59,25 @@ describe('DB store - training', () => {
 
 
 
+    describe('getUniqueTrainingTextsByLabel', () => {
+        it('should fetch training without duplicates', async () => {
+            const projectid = uuid();
+            const label = uuid();
+
+            await store.storeTextTraining(projectid, 'FIRST', label);
+            await store.storeTextTraining(projectid, 'SECOND', label);
+            await store.storeTextTraining(projectid, 'THIRD', label);
+            await store.storeTextTraining(projectid, 'FIRST', label);
+            await store.storeTextTraining(projectid, 'FOURTH', label);
+
+            const retrieved = await store.getUniqueTrainingTextsByLabel(projectid, label, { start: 0, limit : 10 });
+            assert.deepEqual(retrieved.sort(), ['FIRST', 'SECOND', 'THIRD', 'FOURTH'].sort());
+
+            return store.deleteTextTrainingByProjectId(projectid);
+        });
+    });
+
+
     describe('storeNumberTraining', () => {
 
         it('should store training data', async () => {

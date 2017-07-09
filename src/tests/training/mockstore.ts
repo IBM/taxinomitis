@@ -33,20 +33,15 @@ export function countTextTrainingByLabel(): Promise<{}> {
     return new Promise((resolve) => resolve(NUM_TRAINING_PER_LABEL));
 }
 
-export function getTextTrainingByLabel(projectid: string, label: string, options: DbTypes.PagingOptions) {
+export function getUniqueTrainingTextsByLabel(projectid: string, label: string, options: DbTypes.PagingOptions) {
     const start = options.start;
     const limit = options.limit;
     const end = Math.min(start + limit, NUM_TRAINING_PER_LABEL[label]);
 
-    const training: DbTypes.TextTraining[] = [];
+    const training: string[] = [];
 
     for (let idx = start; idx < end; idx++) {
-        training.push({
-            projectid,
-            id : 'id' + idx,
-            textdata : 'sample text ' + idx,
-            label,
-        });
+        training.push('sample text ' + idx);
     }
 
     return new Promise((resolve) => resolve(training));

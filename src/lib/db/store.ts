@@ -325,6 +325,19 @@ export async function getTextTrainingByLabel(
     return rows.map(dbobjects.getTextTrainingFromDbRow);
 }
 
+export async function getUniqueTrainingTextsByLabel(
+    projectid: string, label: string, options: Objects.PagingOptions,
+): Promise<string[]>
+{
+    // Conversation chokes on duplicate texts, so we're using SELECT DISTINCT to avoid that
+    const queryString = 'SELECT DISTINCT `textdata` FROM `texttraining` ' +
+                        'WHERE `projectid` = ? AND `label` = ? ' +
+                        'LIMIT ? OFFSET ?';
+
+    const rows = await dbExecute(queryString, [ projectid, label, options.limit, options.start ]);
+    return rows.map((row) => row.textdata);
+}
+
 
 export async function getTrainingLabels(projectid: string): Promise<string[]> {
     const queryString = 'SELECT DISTINCT `label` FROM `texttraining` WHERE `projectid` = ?';

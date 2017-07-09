@@ -1,5 +1,4 @@
 URGENT & HIGH PRIORITY
-* handle errors that Conversation returns on duplicate examples - select distinct when fetching them?
 * max limit on training items per project
 
 UI clean-up needed
@@ -22,6 +21,7 @@ Code / engineering work
 * Figure out logging for prod
 * UI updates for creating labels
 * Set up cfbot for prod monitoring
+* Delete entire project is actually calling taxinomitis-numbers during tests
 
 Longer term goals
 * Restore sprites library

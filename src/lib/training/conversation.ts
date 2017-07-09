@@ -218,14 +218,14 @@ async function getTraining(project: DbObjects.Project): Promise<TrainingObjects.
 
     const intents: TrainingObjects.ConversationIntent[] = [];
     for (const label of project.labels) {
-        const training = await store.getTextTrainingByLabel(project.id, label, {
+        const training = await store.getUniqueTrainingTextsByLabel(project.id, label, {
             start : 0, limit : counts[label],
         });
 
         intents.push({
             intent : label.replace(/\s/g, '_'),
             examples : training.map((item) => {
-                return { text : item.textdata };
+                return { text : item };
             }),
         });
     }
