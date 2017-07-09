@@ -230,6 +230,18 @@ describe('DB objects', () => {
             assert.fail(1, 0, 'Failed to reject training', '');
         });
 
+        it('should remove tabs from text data', () => {
+            const training = dbobjects.createTextTraining('testproject',
+                'This should	include a tab. Do not remove	it.', 'mylabel');
+            assert.equal(training.textdata, 'This should include a tab. Do not remove it.');
+        });
+
+        it('should remove new lines from text data', () => {
+            const training = dbobjects.createTextTraining('testproject',
+                'This should include a new line.\nDo not remove it.', 'mylabel');
+            assert.equal(training.textdata, 'This should include a new line. Do not remove it.');
+        });
+
         it('should allow training data without labels', () => {
             const training = dbobjects.createTextTraining('testproject', 'mytext', undefined);
             assert(training.id);

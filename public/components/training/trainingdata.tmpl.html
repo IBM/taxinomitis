@@ -4,18 +4,22 @@
             <h2>Add new example</h2>
         </div>
     </md-toolbar>
-    <form ng-cloak name="newTextTrainingData" ng-hide="project.type !== 'text'">
+    <form ng-cloak name="newTextTrainingData" ng-hide="project.type !== 'text'" ng-submit="confirm(example)">
         <md-dialog-content>
             <div class="md-dialog-content" style="min-width: 500px">
                 <md-card-content>
                     <div layout="row">
                         <md-input-container style="min-width: 480px">
                             <label>Enter an example of '{{ label }}'</label>
-                            <textarea rows="2"
-                                      md-autofocus
-                                      ng-required="true"
-                                      ng-model="example"
-                                      md-maxlength="1000"></textarea>
+                            <input type="text" name="text"
+                                   md-autofocus
+                                   ng-required="true"
+                                   ng-pattern="/^[^\n\t\r]+$/"
+                                   ng-model="example"
+                                   md-maxlength="1000"></input>
+                            <div class="ng-animate" ng-messages="newTextTrainingData[text].$error" >
+                                <div ng-message="pattern">You're not allowed to use tabs or newlines.</div>
+                            </div>
                         </md-input-container>
                     </div>
                 </md-card-content>
@@ -23,11 +27,11 @@
         </md-dialog-content>
         <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button class="md-raised md-primary" ng-disabled="newTextTrainingData.$invalid" ng-click="confirm(example)">Add</md-button>
+            <md-button class="md-raised md-primary" ng-disabled="newTextTrainingData.$invalid">Add</md-button>
             <md-button ng-click="cancel()">Cancel</md-button>
         </md-dialog-actions>
     </form>
-    <form ng-cloak name="newNumbersTrainingData" ng-hide="project.type !== 'numbers'">
+    <form ng-cloak name="newNumbersTrainingData" ng-hide="project.type !== 'numbers'" ng-submit="confirm(values)">
         <md-dialog-content>
             <div class="md-dialog-content" style="min-width: 500px">
                 <md-card-content>
@@ -50,7 +54,7 @@
         </md-dialog-content>
         <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button class="md-raised md-primary" ng-disabled="newNumbersTrainingData.$invalid" ng-click="confirm(values)">Add</md-button>
+            <md-button class="md-raised md-primary" ng-disabled="newNumbersTrainingData.$invalid">Add</md-button>
             <md-button ng-click="cancel()">Cancel</md-button>
         </md-dialog-actions>
     </form>

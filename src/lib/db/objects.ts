@@ -90,6 +90,8 @@ export function getLabelsFromList(liststr: string): string[] {
 
 const INVALID_LABEL_NAME_CHARS = /[^\w.-]/g;
 const MAX_LABEL_LENGTH = 128;
+const INVALID_TEXT_CHARS = /[\t\n]/g;
+const MAX_CONTENTS_LENGTH = 1024;
 
 export function createLabel(proposedlabel: string): string {
     // these are the rules enforced by Conversation, but we might as well apply them globally
@@ -104,14 +106,14 @@ export function createTextTraining(projectid: string, data: string, label: strin
         throw new Error('Missing required attributes');
     }
 
-    if (data.length > 1024) {
+    if (data.length > MAX_CONTENTS_LENGTH) {
         throw new Error('Text exceeds maximum allowed length (1024 characters)');
     }
 
     const object: any = {
         id : uuid(),
         projectid,
-        textdata : data,
+        textdata : data.replace(INVALID_TEXT_CHARS, ' '),
     };
 
     if (label) {

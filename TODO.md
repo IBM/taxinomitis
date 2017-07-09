@@ -1,7 +1,6 @@
 URGENT & HIGH PRIORITY
 * handle errors that Conversation returns on duplicate examples - select distinct when fetching them?
 * max limit on training items per project
-* Stop recommending using Scratch during training in UI and sheets
 
 UI clean-up needed
 * Validation for usernames in create-user dialog
