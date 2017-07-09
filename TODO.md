@@ -1,3 +1,8 @@
+URGENT & HIGH PRIORITY
+* handle errors that Conversation returns on duplicate examples - select distinct when fetching them?
+* max limit on training items per project
+* Stop recommending using Scratch during training in UI and sheets
+
 UI clean-up needed
 * Validation for usernames in create-user dialog
 * Create/Cancel buttons shouldn't be equal prominence - flip left/right and make cancel buttons into a link
@@ -12,15 +17,12 @@ New features
 Code / engineering work
 * Get test coverage back under control
 * Set up DB and Auth0 for prod vs dev use
-* Fix the UI for browsers other than Chrome
+* Fix the UI for browsers other than Chrome. In particular, IE looks borked
 * Scratch keys should use project id as primary key so REPLACE is more efficient
 * Google Analytics
-* max limit on training items per project
-* handle errors that Conversation returns on duplicate examples
 * Figure out logging for prod
+* UI updates for creating labels
 * Set up cfbot for prod monitoring
-* Stop recommending using Scratch during training in UI and sheets
-* Fix the Scratch -> Training -> Scratch workflow
 
 Longer term goals
 * Restore sprites library
@@ -29,4 +31,3 @@ Longer term goals
 Worksheets
 * Shakespeare or Dahl (text)
 * Top Trumps (numbers)
-* Journey to school (numbers)

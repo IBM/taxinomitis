@@ -6,6 +6,7 @@ import * as proxyquire from 'proxyquire';
 import * as request from 'request-promise';
 import * as store from '../../lib/db/store';
 import * as conversation from '../../lib/training/conversation';
+import * as numbers from '../../lib/training/numbers';
 import * as classifier from '../../lib/scratchx/classify';
 import * as Types from '../../lib/db/db-types';
 import * as TrainingTypes from '../../lib/training/training-types';
@@ -207,6 +208,48 @@ describe('Scratchx - classify', () => {
             }
         });
 
+
+
+        it('should return classes for projects with classifiers', async () => {
+            const requestPostStub = sinon.stub(request, 'post').resolves({
+                label_name_1 : 86,
+                label_name_2 : 90,
+            });
+
+            proxyquire('../../lib/training/numbers', {
+                'request-promise' : {
+                    post : requestPostStub,
+                },
+            });
+
+            const userid = uuid();
+            const project = await store.storeProject(userid, TESTCLASS, 'numbers', 'test project', ['a']);
+            await store.addLabelToProject(userid, TESTCLASS, project.id, 'label_name_1');
+            await store.addLabelToProject(userid, TESTCLASS, project.id, 'label_name_1');
+
+            const key: Types.ScratchKey = {
+                id : uuid(),
+                name : 'TEST',
+                type : 'numbers',
+                projectid : project.id,
+                classifierid : 'good',
+                credentials : {
+                    id : uuid(),
+                    username : 'user',
+                    password : 'pass',
+                    servicetype : 'conv',
+                    url : 'url',
+                },
+            };
+
+            const classifications = await classifier.classify(key, ['123']);
+            assert.deepEqual(classifications, [
+                { class_name: 'label_name_2', confidence: 90 },
+                { class_name: 'label_name_1', confidence: 86 },
+            ]);
+
+            requestPostStub.restore();
+        });
 
     });
 

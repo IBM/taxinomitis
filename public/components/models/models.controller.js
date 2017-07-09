@@ -205,7 +205,7 @@
                                       testdata)
                 .then(function (resp) {
                     $scope.testoutput = resp[0].class_name;
-                    $scope.testoutput_explanation = "with " + resp[0].confidence + "% confidence";
+                    $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
                 })
                 .catch(function (err) {
                     displayAlert('errors', err.data);

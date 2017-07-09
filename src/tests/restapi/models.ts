@@ -76,19 +76,25 @@ describe('REST API - models', () => {
         });
         conversationStub.trainClassifierStub = sinon.stub(conversation, 'trainClassifier');
         conversationStub.trainClassifierStub.callsFake((project: DbTypes.Project) => {
-            const workspace: Types.ConversationWorkspace = {
-                id : uuid(),
-                workspace_id : 'NEW-CREATED',
-                credentialsid : '123',
-                name : project.name,
-                language : 'en',
-                created : new Date(Date.UTC(2017, 4, 4, 12, 0)),
-                updated : new Date(Date.UTC(2017, 4, 4, 12, 1)),
-                expiry : new Date(Date.UTC(2017, 4, 4, 13, 0)),
-                url : 'http://conversation.service/api/classifiers/NEW-CREATED',
-                status : 'Training',
-            };
-            return Promise.resolve(workspace);
+            if (project.name === 'no more room') {
+                const err = new Error('Your class already has created their maximum allowed number of models');
+                return Promise.reject(err);
+            }
+            else {
+                const workspace: Types.ConversationWorkspace = {
+                    id : uuid(),
+                    workspace_id : 'NEW-CREATED',
+                    credentialsid : '123',
+                    name : project.name,
+                    language : 'en',
+                    created : new Date(Date.UTC(2017, 4, 4, 12, 0)),
+                    updated : new Date(Date.UTC(2017, 4, 4, 12, 1)),
+                    expiry : new Date(Date.UTC(2017, 4, 4, 13, 0)),
+                    url : 'http://conversation.service/api/classifiers/NEW-CREATED',
+                    status : 'Training',
+                };
+                return Promise.resolve(workspace);
+            }
         });
         conversationStub.testClassifierStub = sinon.stub(conversation, 'testClassifier').callsFake(() => {
             const classifications: Types.Classification[] = [
@@ -391,46 +397,26 @@ describe('REST API - models', () => {
         });
 
 
-        // TODO - CHANGE HOW WE MANAGE THIS
-        // it('should enforce tenant policies on number of NLC classifiers', async () => {
-        //     const classid = uuid();
-        //     const userid = uuid();
-        //     const projName = uuid();
+        it('should enforce tenant policies on number of NLC classifiers', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = 'no more room';
 
-        //     const project = await store.storeProject(userid, classid, 'text', projName, []);
-        //     const projectid = project.id;
+            const project = await store.storeProject(userid, classid, 'text', projName, []);
+            const projectid = project.id;
 
-        //     const credentials: Types.BluemixCredentials = {
-        //         id : uuid(),
-        //         username : uuid(),
-        //         password : uuid(),
-        //         servicetype : 'conv',
-        //         url : uuid(),
-        //     };
+            return request(testServer)
+                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CONFLICT)
+                .then(async (res) => {
+                    const body = res.body;
 
-        //     for (let i = 0; i < 10; i++) {
-        //         await store.storeConversationWorkspace(credentials, userid, classid, projectid, {
-        //             workspace_id : randomstring.generate({ length : 8 }),
-        //             created : new Date(),
-        //             language : 'en',
-        //             name : projName,
-        //             url : uuid(),
-        //         });
-        //     }
+                    assert.equal(body.error, 'Your class already has created their maximum allowed number of models');
 
-        //     return request(testServer)
-        //         .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
-        //         .expect('Content-Type', /json/)
-        //         .expect(httpstatus.CONFLICT)
-        //         .then(async (res) => {
-        //             const body = res.body;
-
-        //            assert.equal(body.error, 'Your class already has created their maximum allowed number of models');
-
-        //             await store.deleteProject(projectid);
-        //             await store.deleteConversationWorkspacesByProjectId(projectid);
-        //         });
-        // });
+                    await store.deleteProject(projectid);
+                });
+        });
 
 
         it('should train new text classifiers', async () => {
