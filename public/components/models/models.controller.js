@@ -121,7 +121,7 @@
             if (!timer) {
                 timer = $interval(function () {
                     fetchModels()
-                        .then(() => {
+                        .then(function () {
                             if ($scope.status !== 'training') {
                                 $interval.cancel(timer);
                             }
