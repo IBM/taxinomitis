@@ -31,7 +31,7 @@
             <md-button ng-click="cancel()">Cancel</md-button>
         </md-dialog-actions>
     </form>
-    <form ng-cloak name="newNumbersTrainingData" ng-hide="project.type !== 'numbers'" ng-submit="confirm(values)">
+    <form ng-cloak name="newNumbersTrainingData" ng-hide="project.type !== 'numbers'">
         <md-dialog-content>
             <div class="md-dialog-content" style="min-width: 500px">
                 <md-card-content>
@@ -40,7 +40,7 @@
                         <md-input-container>
                             <div> {{ field }} </div>
                             <input name="{{field}}"
-                                required
+                                ng-required="true"
                                 ng-pattern="/^-?[0-9]+(?:\.[0-9]*)?$/"
                                 ng-model="values[field]">
                             <div class="ng-animate" ng-messages="newNumbersTrainingData[field].$error" >
@@ -54,7 +54,7 @@
         </md-dialog-content>
         <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button class="md-raised md-primary" ng-disabled="newNumbersTrainingData.$invalid">Add</md-button>
+            <md-button class="md-raised md-primary" ng-disabled="newNumbersTrainingData.$invalid" ng-click="confirm(values)">Add</md-button>
             <md-button ng-click="cancel()">Cancel</md-button>
         </md-dialog-actions>
     </form>

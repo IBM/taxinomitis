@@ -119,7 +119,7 @@
 
         function refreshModels () {
             if (!timer) {
-                timer = $interval(() => {
+                timer = $interval(function () {
                     fetchModels()
                         .then(() => {
                             if ($scope.status !== 'training') {

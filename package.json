@@ -38,7 +38,7 @@
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.0.0",
     "gulp-bower": "0.0.13",
-    "gulp-clean-css": "^3.5.0",
+    "gulp-clean-css": "^3.6.0",
     "gulp-concat": "^2.6.1",
     "gulp-eslint": "^4.0.0",
     "gulp-istanbul": "^1.1.2",
