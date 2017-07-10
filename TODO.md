@@ -15,9 +15,7 @@ New features
 Code / engineering work
 * Get test coverage back under control
 * Set up DB and Auth0 for prod vs dev use
-* Fix the UI for browsers other than Chrome. In particular, IE looks borked
 * Scratch keys should use project id as primary key so REPLACE is more efficient
-* Google Analytics
 * Figure out logging for prod
 * UI updates for creating labels
 * Set up cfbot for prod monitoring

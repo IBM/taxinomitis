@@ -9,17 +9,6 @@ td.worksheetinfo {
     font-size: 0.9em;
 }
 
-.worksheetsintro {
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 3em;
-    width: 95%;
-    font-size: 1.2em;
-    border-radius: 1em;
-    padding: 1.5em 1.5em 1em 1.5em;
-    background-color: #eeeeee;
-}
-
 .worksheetslist {
     width: 95%;
 }
