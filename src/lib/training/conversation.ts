@@ -69,8 +69,8 @@ async function createWorkspace(
             //  number of workspaces allowed with these creds, then swallow
             //  the error so we can try the next set of creds in the pool
             // Otherwise - rethrow it so we can bug out.
-            if (!err.error ||
-                err.error.startsWith('Maximum workspaces limit exceeded') === false)
+            if (!err.error || !err.error.error ||
+                err.error.error.startsWith('Maximum workspaces limit exceeded') === false)
             {
                 throw err;
             }
