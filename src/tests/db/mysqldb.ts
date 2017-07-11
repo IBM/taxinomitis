@@ -16,4 +16,10 @@ describe('DB - connections', () => {
         return store.disconnect();
     });
 
+    it('should handle multiple connects', async () => {
+        await dbpool.connect();
+        await dbpool.connect();
+        await dbpool.disconnect();
+    });
+
 });

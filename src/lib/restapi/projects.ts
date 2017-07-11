@@ -9,8 +9,8 @@ import * as Objects from '../db/db-types';
 import * as errors from './errors';
 import loggerSetup from '../utils/logger';
 
-
 const log = loggerSetup();
+
 
 
 function getProjectsByClassId(req: Express.Request, res: Express.Response) {
@@ -237,6 +237,7 @@ async function modifyProject(req: Express.Request, res: Express.Response) {
 
 
 export default function registerApis(app: Express.Application) {
+
     app.get('/api/classes/:classid/projects',
             auth.authenticate,
             auth.checkValidUser,

@@ -25,9 +25,24 @@ export function notImplementedYet(res: Express.Response) {
     return res.status(httpstatus.NOT_IMPLEMENTED).json({ error : 'Not implemented yet' });
 }
 export function unknownError(res: Express.Response, err) {
-    if (!err || Object.keys(err).length === 0) {
+    if (err && err.sqlState) {
+        err = {
+            error : 'Error accessing the database used to store data',
+            detail : {
+                code : err.code,
+                errno : err.errno,
+                sqlState : err.sqlState,
+                message : err.message,
+            },
+        };
+    }
+    else if (err && err.message) {
+        err = { error : err.message };
+    }
+    else if (!err || Object.keys(err).length === 0) {
         err = { error : 'Unknown error' };
     }
+
     return res.status(httpstatus.INTERNAL_SERVER_ERROR).json(err);
 }
 

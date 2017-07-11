@@ -20,6 +20,7 @@ Code / engineering work
 * UI updates for creating labels
 * Set up cfbot for prod monitoring
 * Delete entire project is actually calling taxinomitis-numbers during tests
+* Catch DB errors so we can describe more generic read/write failure in UI and hide the MySQL error in a <detail>
 
 Longer term goals
 * Restore sprites library

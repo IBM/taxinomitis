@@ -24,6 +24,10 @@ export async function disconnect() {
     }
 }
 
+export function replaceDbConnPoolForTest(testDbConnPool) {
+    dbConnPool = testDbConnPool;
+}
+
 
 async function dbExecute(query: string, params: any[]) {
     const dbConn = await dbConnPool.getConnection();
