@@ -146,7 +146,7 @@ gulp.task('test', ['coverage'], () => {
         dir : 'coverage/mocha'
     };
 
-    const coverageOptions = { thresholds : { global : 85 }};
+    const coverageOptions = { thresholds : { global : 90 }};
 
     return gulp.src(paths.jstest)
         .pipe(mocha(mochaOptions))

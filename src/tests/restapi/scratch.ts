@@ -460,6 +460,101 @@ describe('REST API - scratch keys', () => {
         });
 
 
+        it('should store text training data using a Scratch key', async () => {
+            const userid = uuid();
+            const name = uuid();
+            const typelabel = 'text';
+
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, []);
+
+            await store.addLabelToProject(userid, TESTCLASS, project.id, 'animal');
+
+            const keyId = await store.storeUntrainedScratchKey(project);
+
+            const callbackFunctionName = 'jsonpCallback';
+
+            return request(testServer)
+                .get('/api/scratch/' + keyId + '/train')
+                .query({ callback : callbackFunctionName, data : 'inserted', label : 'animal' })
+                // this is a JSONP API
+                .expect('Content-Type', /javascript/)
+                .expect(httpstatus.OK)
+                .then(async (res) => {
+
+                    const count = await store.countTextTraining(project.id);
+                    assert.equal(count, 1);
+
+                    const retrieved = await store.getTextTraining(project.id, { start : 0, limit : 10 });
+                    assert.equal(retrieved[0].textdata, 'inserted');
+                    assert.equal(retrieved[0].label, 'animal');
+
+                    await store.deleteEntireProject(userid, TESTCLASS, project);
+
+                    const text = res.text;
+
+                    const expectedStart = '/**/ typeof ' +
+                                          callbackFunctionName +
+                                          ' === \'function\' && ' +
+                                          callbackFunctionName + '(';
+
+                    assert(text.startsWith(expectedStart));
+                    const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
+
+                    assert(payload.id);
+                    assert.equal(payload.textdata, 'inserted');
+                    assert.equal(payload.label, 'animal');
+                    assert.equal(payload.projectid, project.id);
+                });
+        });
+
+
+
+        it('should store numeric training data using a Scratch key', async () => {
+            const userid = uuid();
+            const name = uuid();
+            const typelabel = 'numbers';
+
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, ['left', 'right']);
+
+            await store.addLabelToProject(userid, TESTCLASS, project.id, 'TOP');
+
+            const keyId = await store.storeUntrainedScratchKey(project);
+
+            const callbackFunctionName = 'jsonpCallback';
+
+            return request(testServer)
+                .get('/api/scratch/' + keyId + '/train')
+                .query({ callback : callbackFunctionName, data : ['1', '2.2'], label : 'TOP' })
+                // this is a JSONP API
+                .expect('Content-Type', /javascript/)
+                .expect(httpstatus.OK)
+                .then(async (res) => {
+
+                    const count = await store.countNumberTraining(project.id);
+                    assert.equal(count, 1);
+
+                    const retrieved = await store.getNumberTraining(project.id, { start : 0, limit : 10 });
+                    assert.deepEqual(retrieved[0].numberdata, [1, 2.2]);
+                    assert.equal(retrieved[0].label, 'TOP');
+
+                    await store.deleteEntireProject(userid, TESTCLASS, project);
+
+                    const text = res.text;
+
+                    const expectedStart = '/**/ typeof ' +
+                                          callbackFunctionName +
+                                          ' === \'function\' && ' +
+                                          callbackFunctionName + '(';
+
+                    assert(text.startsWith(expectedStart));
+                    const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
+
+                    assert(payload.id);
+                    assert.deepEqual(payload.numberdata, [1, 2.2]);
+                    assert.equal(payload.label, 'TOP');
+                    assert.equal(payload.projectid, project.id);
+                });
+        });
 
 
 
