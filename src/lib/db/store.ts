@@ -213,16 +213,6 @@ export async function getProjectsByClassId(classid: string): Promise<Objects.Pro
 }
 
 
-export async function deleteProjectsByUserId(userid: string, classid: string): Promise<void> {
-    const queryString = 'DELETE FROM `projects` WHERE `classid` = ? AND `userid` = ?';
-
-    const response = await dbExecute(queryString, [ classid, userid ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete projects');
-    }
-}
-
-
 export async function deleteProjectsByClassId(classid: string): Promise<void> {
     const queryString = 'DELETE FROM `projects` WHERE `classid` = ?';
 

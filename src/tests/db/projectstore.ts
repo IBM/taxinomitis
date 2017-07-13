@@ -51,7 +51,7 @@ describe('DB store', () => {
             assert(util.isArray(projects));
             assert.equal(projects.length, 2);
 
-            await store.deleteProjectsByUserId(user, TESTCLASS);
+            await store.deleteEntireUser(user, TESTCLASS);
 
             projects = await store.getProjectsByUserId(user, TESTCLASS);
             assert(util.isArray(projects));

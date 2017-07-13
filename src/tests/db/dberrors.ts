@@ -39,4 +39,5 @@ describe('DB store - error handling', () => {
             }
         });
     });
+
 });

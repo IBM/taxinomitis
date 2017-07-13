@@ -191,7 +191,7 @@ describe('REST API - training', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.FORBIDDEN)
                 .then(() => {
-                    return store.deleteProjectsByUserId(userid, classid);
+                    return store.deleteEntireUser(userid, classid);
                 });
         });
 
@@ -361,7 +361,7 @@ describe('REST API - training', () => {
                 })
                 .expect(httpstatus.CREATED)
                 .then(() => {
-                    return store.deleteProjectsByUserId(userid, classid);
+                    return store.deleteEntireUser(userid, classid);
                 });
         });
 
@@ -526,7 +526,7 @@ describe('REST API - training', () => {
                     assert.equal(body[0].textdata, 'apple');
                     assert.equal(body[0].label, 'healthy');
 
-                    return store.deleteProjectsByUserId(userid, classid);
+                    return store.deleteEntireUser(userid, classid);
                 });
         });
 
@@ -793,7 +793,7 @@ describe('REST API - training', () => {
                         });
                 })
                 .then(() => {
-                    return store.deleteProjectsByUserId(userid, classid);
+                    return store.deleteEntireUser(userid, classid);
                 });
         });
 

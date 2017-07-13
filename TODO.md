@@ -19,6 +19,7 @@ Code / engineering work
 * UI updates for creating labels
 * Set up cfbot for prod monitoring
 * Delete entire project is actually calling taxinomitis-numbers during tests
+* Some sort of admin controls for me so I'm not SQL'ing in a prod DB
 
 Longer term goals
 * Restore sprites library

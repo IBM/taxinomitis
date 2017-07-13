@@ -159,6 +159,24 @@ describe('REST API - Auth', () => {
                 done();
             });
         });
+
+
+        it('verifyProjectAccess - default to reject if no DB', (done) => {
+            const req = {
+                params : {
+                    studentid : 'bob',
+                    classid : 'test',
+                    projectid : 'tutorial',
+                },
+            } as Express.Request;
+            const res = {
+            } as Express.Response;
+
+            auth.verifyProjectAccess(req, res, (err) => {
+                assert(err);
+                done();
+            });
+        });
     });
 
     describe('getStudents()', () => {

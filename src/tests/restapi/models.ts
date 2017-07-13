@@ -195,7 +195,7 @@ describe('REST API - models', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.FORBIDDEN)
                 .then(() => {
-                    return store.deleteProjectsByUserId(userid, classid);
+                    return store.deleteEntireUser(userid, classid);
                 });
         });
 
@@ -215,7 +215,7 @@ describe('REST API - models', () => {
                     const body = res.body;
                     assert.deepEqual(body, []);
 
-                    return store.deleteProjectsByUserId(userid, classid);
+                    return store.deleteEntireUser(userid, classid);
                 });
         });
 
@@ -236,7 +236,7 @@ describe('REST API - models', () => {
                     const body = res.body;
                     assert.deepEqual(body, []);
 
-                    return store.deleteProjectsByUserId(userid, classid);
+                    return store.deleteEntireUser(userid, classid);
                 });
         });
 
@@ -341,7 +341,7 @@ describe('REST API - models', () => {
                         },
                     ]);
 
-                    await store.deleteProjectsByUserId(userid, classid);
+                    await store.deleteEntireUser(userid, classid);
                 });
         });
 
@@ -375,7 +375,7 @@ describe('REST API - models', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.FORBIDDEN)
                 .then(() => {
-                    return store.deleteProjectsByUserId(userid, classid);
+                    return store.deleteEntireUser(userid, classid);
                 });
         });
 
@@ -391,7 +391,7 @@ describe('REST API - models', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.NOT_IMPLEMENTED)
                 .then(() => {
-                    return store.deleteProjectsByUserId(userid, classid);
+                    return store.deleteEntireUser(userid, classid);
                 });
         });
 
@@ -413,7 +413,7 @@ describe('REST API - models', () => {
 
                     assert.equal(body.error, 'Your class already has created their maximum allowed number of models');
 
-                    await store.deleteProjectsByUserId(userid, classid);
+                    await store.deleteEntireUser(userid, classid);
                 });
         });
 
@@ -442,7 +442,7 @@ describe('REST API - models', () => {
                         credentialsid : '123',
                     });
 
-                    return store.deleteProjectsByUserId(userid, classid);
+                    return store.deleteEntireUser(userid, classid);
                 });
         });
 
@@ -588,7 +588,7 @@ describe('REST API - models', () => {
                         { class_name : 'third', confidence : 0.05 },
                     ]);
 
-                    await store.deleteProjectsByUserId(userid, classid);
+                    await store.deleteEntireUser(userid, classid);
                     await store.deleteBluemixCredentials(credentials.id);
                 });
         });
@@ -671,7 +671,7 @@ describe('REST API - models', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.FORBIDDEN)
                 .then(() => {
-                    return store.deleteProjectsByUserId(userid, classid);
+                    return store.deleteEntireUser(userid, classid);
                 });
         });
 
@@ -692,7 +692,7 @@ describe('REST API - models', () => {
                         '/models/' + modelid)
                 .expect(httpstatus.NO_CONTENT)
                 .then(async () => {
-                    await store.deleteProjectsByUserId(userid, classid);
+                    await store.deleteEntireUser(userid, classid);
                 });
         });
 
@@ -737,7 +737,7 @@ describe('REST API - models', () => {
                         '/models/' + modelid)
                 .expect(httpstatus.NO_CONTENT)
                 .then(async () => {
-                    await store.deleteProjectsByUserId(userid, classid);
+                    await store.deleteEntireUser(userid, classid);
                     await store.deleteBluemixCredentials(credentials.id);
                 });
         });

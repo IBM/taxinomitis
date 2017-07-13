@@ -82,7 +82,7 @@ describe('REST API - scratch keys', () => {
                     assert.equal(body[0].id.length, 72);
                     assert(!body[0].model);
 
-                    await store.deleteProjectsByUserId(userid, TESTCLASS);
+                    await store.deleteEntireUser(userid, TESTCLASS);
                 });
         });
 
