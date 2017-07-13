@@ -63,7 +63,11 @@ export function storeTrainingData(scratchKey: Types.ScratchKey, label: string, d
         return storeText(scratchKey, label, data);
     }
     else if (scratchKey.type === 'numbers') {
-        return storeNumbers(scratchKey, label, data as string[]);
+        let dataAsArray: string[] = data;
+        if (data && Array.isArray(dataAsArray) === false) {
+            dataAsArray = [ data ];
+        }
+        return storeNumbers(scratchKey, label, dataAsArray);
     }
     else {
         throw new Error('Not implemented yet');

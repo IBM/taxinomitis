@@ -84,7 +84,7 @@ describe('REST API - training', () => {
                     const body = res.body;
                     assert.deepEqual(body, []);
 
-                    return store.deleteProject(projectid);
+                    return store.deleteEntireProject(userid, classid, project);
                 });
         });
 
@@ -101,7 +101,7 @@ describe('REST API - training', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.FORBIDDEN)
                 .then(() => {
-                    return store.deleteProject(projectid);
+                    return store.deleteEntireProject(userid, classid, project);
                 });
         });
 
@@ -124,14 +124,13 @@ describe('REST API - training', () => {
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/labels')
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK)
-                .then(async (res) => {
+                .then((res) => {
                     const body = res.body;
                     assert.deepEqual(body, {
                         fruit : 2, vegetable : 3, meat : 1,
                     });
 
-                    await store.deleteProject(projectid);
-                    await store.deleteTextTrainingByProjectId(projectid);
+                    return store.deleteEntireProject(userid, classid, project);
                 });
         });
 
@@ -152,14 +151,13 @@ describe('REST API - training', () => {
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/labels')
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK)
-                .then(async (res) => {
+                .then((res) => {
                     const body = res.body;
                     assert.deepEqual(body, {
                         fruit : 1, vegetable : 3,
                     });
 
-                    await store.deleteProject(projectid);
-                    await store.deleteTextTrainingByProjectId(projectid);
+                    return store.deleteEntireProject(userid, classid, project);
                 });
         });
     });
@@ -193,7 +191,7 @@ describe('REST API - training', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.FORBIDDEN)
                 .then(() => {
-                    return store.deleteProject(projectid);
+                    return store.deleteProjectsByUserId(userid, classid);
                 });
         });
 
@@ -217,12 +215,11 @@ describe('REST API - training', () => {
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
-                .then(async (res) => {
+                .then((res) => {
                     const body = res.body;
                     assert.deepEqual(body, { error : 'Missing data' });
 
-                    await store.deleteProject(projectid);
-                    await store.deleteTextTrainingByProjectId(projectid);
+                    return store.deleteEntireProject(userid, classid, project);
                 });
         });
 
@@ -246,12 +243,11 @@ describe('REST API - training', () => {
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
-                .then(async (res) => {
+                .then((res) => {
                     const body = res.body;
                     assert.deepEqual(body, { error : 'Missing data' });
 
-                    await store.deleteProject(projectid);
-                    await store.deleteNumberTrainingByProjectId(projectid);
+                    return store.deleteEntireProject(userid, classid, project);
                 });
         });
 
@@ -276,12 +272,11 @@ describe('REST API - training', () => {
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
-                .then(async (res) => {
+                .then((res) => {
                     const body = res.body;
                     assert.deepEqual(body, { error : 'Missing required attributes' });
 
-                    await store.deleteProject(projectid);
-                    await store.deleteNumberTrainingByProjectId(projectid);
+                    return store.deleteEntireProject(userid, classid, project);
                 });
         });
 
@@ -305,13 +300,12 @@ describe('REST API - training', () => {
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
-                .then(async (res) => {
+                .then((res) => {
                     const body = res.body;
 
                     assert.deepEqual(body, { error : 'Text exceeds maximum allowed length (1024 characters)' });
 
-                    await store.deleteProject(projectid);
-                    await store.deleteTextTrainingByProjectId(projectid);
+                    return store.deleteEntireProject(userid, classid, project);
                 });
         });
 
@@ -337,13 +331,12 @@ describe('REST API - training', () => {
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
-                .then(async (res) => {
+                .then((res) => {
                     const body = res.body;
 
                     assert.deepEqual(body, { error : 'Number of data items exceeded maximum' });
 
-                    await store.deleteProject(projectid);
-                    await store.deleteNumberTrainingByProjectId(projectid);
+                    return store.deleteEntireProject(userid, classid, project);
                 });
         });
 
@@ -367,9 +360,8 @@ describe('REST API - training', () => {
                     label : 'fruit',
                 })
                 .expect(httpstatus.CREATED)
-                .then(async () => {
-                    await store.deleteProject(projectid);
-                    await store.deleteNumberTrainingByProjectId(projectid);
+                .then(() => {
+                    return store.deleteProjectsByUserId(userid, classid);
                 });
         });
 
@@ -393,9 +385,8 @@ describe('REST API - training', () => {
                     label : 'fruit',
                 })
                 .expect(httpstatus.NOT_IMPLEMENTED)
-                .then(async () => {
-                    await store.deleteProject(projectid);
-                    await store.deleteTextTrainingByProjectId(projectid);
+                .then(() => {
+                    return store.deleteEntireProject(userid, classid, project);
                 });
         });
 
@@ -426,7 +417,7 @@ describe('REST API - training', () => {
                         .expect('Content-Type', /json/)
                         .expect(httpstatus.OK);
                 })
-                .then(async (res) => {
+                .then((res) => {
                     const body = res.body;
                     assert.equal(body.length, 1);
                     assert.equal(res.header['content-range'], 'items 0-0/1');
@@ -434,8 +425,7 @@ describe('REST API - training', () => {
                     assert.equal(body[0].textdata, 'apple');
                     assert.equal(body[0].label, 'fruit');
 
-                    await store.deleteProject(projectid);
-                    await store.deleteTextTrainingByProjectId(projectid);
+                    return store.deleteEntireProject(userid, classid, project);
                 });
         });
     });
@@ -481,7 +471,7 @@ describe('REST API - training', () => {
                         .expect('Content-Type', /json/)
                         .expect(httpstatus.OK);
                 })
-                .then(async (res) => {
+                .then((res) => {
                     const body = res.body;
                     assert.equal(body.length, 1);
                     assert.equal(res.header['content-range'], 'items 0-0/1');
@@ -489,8 +479,7 @@ describe('REST API - training', () => {
                     assert.deepEqual(body[0].numberdata, [0.01, 0.02]);
                     assert.equal(body[0].label, 'fruit');
 
-                    await store.deleteProject(projectid);
-                    await store.deleteNumberTrainingByProjectId(projectid);
+                    return store.deleteEntireProject(userid, classid, project);
                 });
         });
 
@@ -529,7 +518,7 @@ describe('REST API - training', () => {
                         .expect('Content-Type', /json/)
                         .expect(httpstatus.OK);
                 })
-                .then(async (res) => {
+                .then((res) => {
                     const body = res.body;
                     assert.equal(body.length, 1);
                     assert.equal(res.header['content-range'], 'items 0-0/1');
@@ -537,8 +526,7 @@ describe('REST API - training', () => {
                     assert.equal(body[0].textdata, 'apple');
                     assert.equal(body[0].label, 'healthy');
 
-                    await store.deleteProject(projectid);
-                    await store.deleteTextTrainingByProjectId(projectid);
+                    return store.deleteProjectsByUserId(userid, classid);
                 });
         });
 
@@ -578,7 +566,7 @@ describe('REST API - training', () => {
                     const body = res.body;
                     assert.deepEqual(body, []);
 
-                    return store.deleteProject(projectid);
+                    return store.deleteEntireProject(userid, classid, project);
                 });
         });
 
@@ -595,7 +583,7 @@ describe('REST API - training', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.FORBIDDEN)
                 .then(() => {
-                    return store.deleteProject(projectid);
+                    return store.deleteEntireProject(userid, classid, project);
                 });
         });
 
@@ -625,7 +613,7 @@ describe('REST API - training', () => {
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/training')
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK)
-                .then(async (res) => {
+                .then((res) => {
                     const body = res.body;
                     assert.equal(body.length, 6);
 
@@ -635,8 +623,7 @@ describe('REST API - training', () => {
                         assert(item.textdata);
                     });
 
-                    await store.deleteProject(projectid);
-                    await store.deleteTextTrainingByProjectId(projectid);
+                    return store.deleteEntireProject(userid, classid, project);
                 });
         });
 
@@ -667,7 +654,7 @@ describe('REST API - training', () => {
                 .set('Range', 'items=0-9')
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK)
-                .then(async (res) => {
+                .then((res) => {
                     const body = res.body;
                     assert.equal(body.length, 10);
 
@@ -679,8 +666,7 @@ describe('REST API - training', () => {
 
                     assert.equal(res.header['content-range'], 'items 0-9/20');
 
-                    await store.deleteProject(projectid);
-                    await store.deleteTextTrainingByProjectId(projectid);
+                    return store.deleteEntireProject(userid, classid, project);
                 });
         });
 
@@ -713,7 +699,7 @@ describe('REST API - training', () => {
                 .set('Range', 'items=0-9')
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK)
-                .then(async (res) => {
+                .then((res) => {
                     const body = res.body;
                     assert.equal(body.length, 10);
 
@@ -729,8 +715,7 @@ describe('REST API - training', () => {
 
                     assert.equal(res.header['content-range'], 'items 0-9/20');
 
-                    await store.deleteProject(projectid);
-                    await store.deleteNumberTrainingByProjectId(projectid);
+                    return store.deleteEntireProject(userid, classid, project);
                 });
         });
     });
@@ -807,9 +792,8 @@ describe('REST API - training', () => {
                             assert.equal(res.header['content-range'], 'items 0-0/1');
                         });
                 })
-                .then(async () => {
-                    await store.deleteProject(projectid);
-                    await store.deleteTextTrainingByProjectId(projectid);
+                .then(() => {
+                    return store.deleteProjectsByUserId(userid, classid);
                 });
         });
 
@@ -853,9 +837,8 @@ describe('REST API - training', () => {
                             assert.equal(res.header['content-range'], 'items 0-0/1');
                         });
                 })
-                .then(async () => {
-                    await store.deleteProject(projectid);
-                    await store.deleteTextTrainingByProjectId(projectid);
+                .then(() => {
+                    return store.deleteEntireProject(userid, classid, project);
                 });
         });
 
@@ -899,9 +882,8 @@ describe('REST API - training', () => {
                             assert.equal(res.header['content-range'], 'items 0-0/1');
                         });
                 })
-                .then(async () => {
-                    await store.deleteProject(projectid);
-                    await store.deleteNumberTrainingByProjectId(projectid);
+                .then(() => {
+                    return store.deleteEntireProject(userid, classid, project);
                 });
         });
 

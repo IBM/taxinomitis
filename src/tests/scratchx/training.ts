@@ -23,6 +23,23 @@ describe('Scratchx - keys', () => {
     });
 
 
+    describe('image projects', () => {
+        it('not implemented yet', async () => {
+            const testProject = await store.storeProject(TESTUSER, TESTCLASS, 'images', 'name', []);
+
+            const scratchKeyId = await store.storeUntrainedScratchKey(testProject);
+            const scratchKey = await store.getScratchKey(scratchKeyId);
+
+            try {
+                await training.storeTrainingData(scratchKey, 'LABEL', 'DATA');
+                assert.fail(0, 1, 'should not reach here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Not implemented yet');
+            }
+        });
+    });
+
 
     describe('text projects', () => {
 
@@ -46,6 +63,35 @@ describe('Scratchx - keys', () => {
             assert.equal(retrieved[0].textdata, 'Inserted from Scratch');
             assert.equal(retrieved[0].label, 'MYLAB');
         });
+
+        it('should require data to store text training', async () => {
+            const testProject = await store.storeProject(TESTUSER, TESTCLASS, 'text', 'name', []);
+            assert.equal(testProject.name, 'name');
+            assert.equal(testProject.classid, TESTCLASS);
+            assert.equal(testProject.userid, TESTUSER);
+
+            await store.addLabelToProject(TESTUSER, TESTCLASS, testProject.id, 'MYLAB');
+
+            const scratchKeyId = await store.storeUntrainedScratchKey(testProject);
+            const scratchKey = await store.getScratchKey(scratchKeyId);
+
+            try {
+                await training.storeTrainingData(scratchKey, 'MYLAB', ' ');
+                assert.fail(0, 1, 'should not reach here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing data');
+            }
+
+            try {
+                await training.storeTrainingData(scratchKey, 'MYLAB', '');
+                assert.fail(0, 1, 'should not reach here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing data');
+            }
+
+        });
     });
 
 
@@ -67,6 +113,32 @@ describe('Scratchx - keys', () => {
             const retrieved = await store.getNumberTraining(testProject.id, { start : 0, limit : 10 });
             assert.deepEqual(retrieved[0].numberdata, [4, 5, 6]);
             assert.equal(retrieved[0].label, 'NUMLAB');
+        });
+
+
+        it('should require data to store number training', async () => {
+            const testProject = await store.storeProject(TESTUSER, TESTCLASS, 'numbers', 'name', ['a', 'b', 'c']);
+
+            await store.addLabelToProject(TESTUSER, TESTCLASS, testProject.id, 'NUMLAB');
+
+            const scratchKeyId = await store.storeUntrainedScratchKey(testProject);
+            const scratchKey = await store.getScratchKey(scratchKeyId);
+
+            try {
+                await training.storeTrainingData(scratchKey, 'NUMLAB', []);
+                assert.fail(0, 1, 'should not reach here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing data');
+            }
+
+            try {
+                await training.storeTrainingData(scratchKey, 'NUMLAB', null);
+                assert.fail(0, 1, 'should not reach here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing data');
+            }
         });
     });
 });

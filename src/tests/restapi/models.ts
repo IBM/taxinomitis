@@ -195,7 +195,7 @@ describe('REST API - models', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.FORBIDDEN)
                 .then(() => {
-                    return store.deleteProject(projectid);
+                    return store.deleteProjectsByUserId(userid, classid);
                 });
         });
 
@@ -215,7 +215,7 @@ describe('REST API - models', () => {
                     const body = res.body;
                     assert.deepEqual(body, []);
 
-                    return store.deleteProject(projectid);
+                    return store.deleteProjectsByUserId(userid, classid);
                 });
         });
 
@@ -236,7 +236,7 @@ describe('REST API - models', () => {
                     const body = res.body;
                     assert.deepEqual(body, []);
 
-                    return store.deleteProject(projectid);
+                    return store.deleteProjectsByUserId(userid, classid);
                 });
         });
 
@@ -341,8 +341,7 @@ describe('REST API - models', () => {
                         },
                     ]);
 
-                    await store.deleteProject(projectid);
-                    await store.deleteConversationWorkspacesByProjectId(projectid);
+                    await store.deleteProjectsByUserId(userid, classid);
                 });
         });
 
@@ -376,7 +375,7 @@ describe('REST API - models', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.FORBIDDEN)
                 .then(() => {
-                    return store.deleteProject(projectid);
+                    return store.deleteProjectsByUserId(userid, classid);
                 });
         });
 
@@ -392,7 +391,7 @@ describe('REST API - models', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.NOT_IMPLEMENTED)
                 .then(() => {
-                    return store.deleteProject(projectid);
+                    return store.deleteProjectsByUserId(userid, classid);
                 });
         });
 
@@ -414,7 +413,7 @@ describe('REST API - models', () => {
 
                     assert.equal(body.error, 'Your class already has created their maximum allowed number of models');
 
-                    await store.deleteProject(projectid);
+                    await store.deleteProjectsByUserId(userid, classid);
                 });
         });
 
@@ -443,7 +442,7 @@ describe('REST API - models', () => {
                         credentialsid : '123',
                     });
 
-                    return store.deleteProject(projectid);
+                    return store.deleteProjectsByUserId(userid, classid);
                 });
         });
 
@@ -589,8 +588,7 @@ describe('REST API - models', () => {
                         { class_name : 'third', confidence : 0.05 },
                     ]);
 
-                    await store.deleteProject(projectid);
-                    await store.deleteConversationWorkspace(classifierInfo.id);
+                    await store.deleteProjectsByUserId(userid, classid);
                     await store.deleteBluemixCredentials(credentials.id);
                 });
         });
@@ -673,7 +671,7 @@ describe('REST API - models', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.FORBIDDEN)
                 .then(() => {
-                    return store.deleteProject(projectid);
+                    return store.deleteProjectsByUserId(userid, classid);
                 });
         });
 
@@ -694,7 +692,7 @@ describe('REST API - models', () => {
                         '/models/' + modelid)
                 .expect(httpstatus.NO_CONTENT)
                 .then(async () => {
-                    await store.deleteProject(projectid);
+                    await store.deleteProjectsByUserId(userid, classid);
                 });
         });
 
@@ -739,8 +737,7 @@ describe('REST API - models', () => {
                         '/models/' + modelid)
                 .expect(httpstatus.NO_CONTENT)
                 .then(async () => {
-                    await store.deleteProject(projectid);
-                    await store.deleteConversationWorkspace(classifierInfo.id);
+                    await store.deleteProjectsByUserId(userid, classid);
                     await store.deleteBluemixCredentials(credentials.id);
                 });
         });

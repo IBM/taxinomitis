@@ -26,22 +26,6 @@ describe('DB store', () => {
 
     describe('deleteProjects', () => {
 
-        it('should delete a project', async () => {
-            const userid = uuid();
-            const name = uuid();
-            const typelabel = 'images';
-
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, []);
-
-            let retrieved = await store.getProject(project.id);
-            assert(retrieved);
-
-            await store.deleteProject(project.id);
-
-            retrieved = await store.getProject(project.id);
-            assert(!retrieved);
-        });
-
         it('should delete projects by userid', async () => {
             const user = uuid();
 
@@ -98,7 +82,7 @@ describe('DB store', () => {
             assert.equal(retrieved.type, typelabel);
             assert.equal(retrieved.userid, userid);
 
-            await store.deleteProject(project.id);
+            await store.deleteEntireProject(userid, classid, project);
 
             retrieved = await store.getProject(project.id);
             assert(!retrieved);

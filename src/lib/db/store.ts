@@ -213,15 +213,6 @@ export async function getProjectsByClassId(classid: string): Promise<Objects.Pro
 }
 
 
-export async function deleteProject(id: string): Promise<void> {
-    const queryString = 'DELETE FROM `projects` WHERE `id` = ?';
-    const response = await dbExecute(queryString, [ id ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete project');
-    }
-}
-
-
 export async function deleteProjectsByUserId(userid: string, classid: string): Promise<void> {
     const queryString = 'DELETE FROM `projects` WHERE `classid` = ? AND `userid` = ?';
 
@@ -283,7 +274,6 @@ export async function bulkStoreTextTraining(
     if (response.affectedRows === training.length) {
         return;
     }
-    log.error({ response }, 'Failed to store training data');
     throw new Error('Failed to store training data');
 }
 
@@ -441,7 +431,6 @@ export async function bulkStoreNumberTraining(
     if (response.affectedRows === training.length) {
         return;
     }
-    log.error({ response }, 'Failed to store training data');
     throw new Error('Failed to store training data');
 }
 
@@ -530,7 +519,6 @@ export async function storeBluemixCredentials(
     if (response.affectedRows === 1) {
         return credentials;
     }
-    log.error({ response }, 'Failed to store credentials');
     throw new Error('Failed to store credentials');
 }
 
