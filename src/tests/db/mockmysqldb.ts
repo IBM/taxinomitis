@@ -61,10 +61,36 @@ function mockExecute(query, params) {
     case 'SELECT `id`, `credentialsid`, `projectid`, `servicetype`, `classifierid`, `url`, `name`, `language`, `created`, `expiry` FROM `bluemixclassifiers` WHERE `projectid` = ?':
         return Promise.resolve([[]]);
 
+    case 'DELETE FROM `texttraining` WHERE `id` = ? AND `projectid` = ?':
+    case 'DELETE FROM `numbertraining` WHERE `id` = ? AND `projectid` = ?':
+        ERROR = new Error('Some technical sounding SQL error from deleting training data rows');
+        ERROR.code = 'ER_NO_SUCH_DELETE_ERROR';
+        ERROR.errno = 6677;
+        ERROR.sqlState = '#12S34';
+        return Promise.reject(ERROR);
+
     case 'DELETE FROM `texttraining` WHERE `projectid` = ?':
-        return Promise.resolve();
+        if (params[0] === 'FAIL') {
+            ERROR = new Error('Some technical sounding SQL error from deleting all the training data rows');
+            ERROR.code = 'ER_NO_SUCH_DELETE_ERROR';
+            ERROR.errno = 6677;
+            ERROR.sqlState = '#12S34';
+            return Promise.reject(ERROR);
+        }
+        else {
+            return Promise.resolve();
+        }
     case 'DELETE FROM `numbertraining` WHERE `projectid` = ?':
-        return Promise.resolve();
+        if (params[0] === 'FAIL') {
+            ERROR = new Error('Some technical sounding SQL error from deleting all the training data rows');
+            ERROR.code = 'ER_NO_SUCH_DELETE_ERROR';
+            ERROR.errno = 6677;
+            ERROR.sqlState = '#12S34';
+            return Promise.reject(ERROR);
+        }
+        else {
+            return Promise.resolve();
+        }
     case 'DELETE FROM `bluemixclassifiers` WHERE `projectid` = ?':
         return Promise.resolve();
     case 'DELETE FROM `taxinoclassifiers` WHERE `projectid` = ?':

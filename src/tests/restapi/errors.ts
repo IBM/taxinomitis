@@ -6,11 +6,6 @@ import * as Express from 'express';
 
 import * as errors from '../../lib/restapi/errors';
 
-import testserverapi from './testserver';
-
-const testServer = testserverapi();
-
-
 
 describe('REST API - Error Handling', () => {
 

@@ -40,4 +40,62 @@ describe('DB store - error handling', () => {
         });
     });
 
+
+    describe('deleteTextTraining', () => {
+
+        it('should handle weird errors', async () => {
+            try {
+                await stubbedStore.deleteTextTraining('projectid', 'trainingid');
+                assert.fail(0, 1, 'should not have reached here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Some technical sounding SQL error from deleting training data rows');
+            }
+        });
+    });
+
+
+
+
+    describe('deleteNumberTraining', () => {
+
+        it('should handle weird errors', async () => {
+            try {
+                await stubbedStore.deleteNumberTraining('projectid', 'trainingid');
+                assert.fail(0, 1, 'should not have reached here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Some technical sounding SQL error from deleting training data rows');
+            }
+        });
+    });
+
+
+    describe('deleteTextTrainingByProjectId', () => {
+
+        it('should handle weird errors', async () => {
+            try {
+                await stubbedStore.deleteTextTrainingByProjectId('FAIL');
+                assert.fail(0, 1, 'should not have reached here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Some technical sounding SQL error from deleting all the training data rows');
+            }
+        });
+    });
+
+
+    describe('deleteNumberTrainingByProjectId', () => {
+
+        it('should handle weird errors', async () => {
+            try {
+                await stubbedStore.deleteNumberTrainingByProjectId('FAIL');
+                assert.fail(0, 1, 'should not have reached here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Some technical sounding SQL error from deleting all the training data rows');
+            }
+        });
+    });
+
 });
