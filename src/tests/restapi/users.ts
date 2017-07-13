@@ -85,6 +85,8 @@ describe('REST API - users', () => {
                         supportedProjectTypes: [ 'text', 'numbers' ],
                         maxProjectsPerUser: 3,
                         textClassifierExpiry: 2,
+                        textTrainingItemsPerProject : 500,
+                        numberTrainingItemsPerProject : 1000,
                     });
 
                     stubs.getOauthToken.restore();

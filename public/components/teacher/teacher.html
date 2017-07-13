@@ -44,6 +44,10 @@
                 projects will automatically be deleted after
                 <span class="mlprojecttype">{{ vm.policy.textClassifierExpiry }}</span> hours.<br/>
                 <em>(Don't worry! Training data will not be deleted, so they can always train a new machine learning model again if they still need it after this.)</em></li>
+            <li ng-if="vm.policy.supportedProjectTypes.indexOf('text') >= 0">
+                Each text project can have up to <span class="mlprojecttype">{{ vm.policy.textTrainingItemsPerProject }}</span> training data examples. </li>
+            <li ng-if="vm.policy.supportedProjectTypes.indexOf('numbers') >= 0">
+                Each numbers project can have up to <span class="mlprojecttype">{{ vm.policy.numberTrainingItemsPerProject }}</span> training data examples. </li>
         </ul>
 
         <hr/>

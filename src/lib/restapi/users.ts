@@ -5,6 +5,7 @@ import * as Express from 'express';
 import * as auth0 from '../auth0/users';
 import * as auth from './auth';
 import * as store from '../db/store';
+import * as dblimits from '../db/limits';
 import * as errors from './errors';
 import loggerSetup from '../utils/logger';
 
@@ -110,6 +111,7 @@ async function getPolicy(req: Express.Request, res: Express.Response) {
 
     try {
         const policy = await store.getClassTenant(tenant);
+        const storelimits = await dblimits.getStoreLimits();
         const availableTextCredentials = await countTextCredentials(tenant);
 
         return res.json({
@@ -119,6 +121,9 @@ async function getPolicy(req: Express.Request, res: Express.Response) {
             supportedProjectTypes : policy.supportedProjectTypes,
             maxProjectsPerUser : policy.maxProjectsPerUser,
             textClassifierExpiry : policy.textClassifierExpiry,
+
+            textTrainingItemsPerProject : storelimits.textTrainingItemsPerProject,
+            numberTrainingItemsPerProject : storelimits.numberTrainingItemsPerProject,
         });
     }
     catch (err){

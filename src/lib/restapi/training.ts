@@ -171,6 +171,9 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
         {
             return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
         }
+        else if (err.message === 'Project already has maximum allowed amount of training data') {
+            return res.status(httpstatus.CONFLICT).json({ error : err.message });
+        }
 
         errors.unknownError(res, err);
     }

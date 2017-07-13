@@ -97,6 +97,9 @@ async function storeTrainingData(req: Express.Request, res: Express.Response) {
         {
             return res.status(httpstatus.BAD_REQUEST).jsonp({ error : err.message });
         }
+        if (err.message === 'Project already has maximum allowed amount of training data') {
+            return res.status(httpstatus.CONFLICT).jsonp({ error : err.message });
+        }
         if (err.message === 'Not implemented yet') {
             return res.status(httpstatus.NOT_IMPLEMENTED).jsonp({ error : 'Not implemented yet' });
         }

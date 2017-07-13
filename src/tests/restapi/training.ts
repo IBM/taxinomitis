@@ -8,6 +8,7 @@ import * as proxyquire from 'proxyquire';
 import * as randomstring from 'randomstring';
 
 import * as store from '../../lib/db/store';
+import * as limits from '../../lib/db/limits';
 import * as auth from '../../lib/restapi/auth';
 import testapiserver from './testserver';
 
@@ -424,6 +425,53 @@ describe('REST API - training', () => {
 
                     assert.equal(body[0].textdata, 'apple');
                     assert.equal(body[0].label, 'fruit');
+
+                    return store.deleteEntireProject(userid, classid, project);
+                });
+        });
+
+
+        it('should enforce limits', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'text', 'demo', []);
+            const projectid = project.id;
+
+            await store.storeTextTraining(projectid, uuid(), 'label');
+            await store.storeTextTraining(projectid, uuid(), 'label');
+
+            const limitsStub = sinon.stub(limits, 'getStoreLimits');
+            limitsStub.returns({
+                textTrainingItemsPerProject : 2,
+                numberTrainingItemsPerProject : 2,
+            });
+
+            proxyquire('../../lib/db/store', {
+                './limits' : limitsStub,
+            });
+
+            const trainingurl = '/api/classes/' + classid +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/training';
+
+            return request(testServer)
+                .post(trainingurl)
+                .send({
+                    data : 'apple',
+                    label : 'fruit',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CONFLICT)
+                .then((res) => {
+                    const body = res.body;
+
+                    assert.deepEqual(body, {
+                        error: 'Project already has maximum allowed amount of training data',
+                    });
+
+                    limitsStub.restore();
 
                     return store.deleteEntireProject(userid, classid, project);
                 });

@@ -14,7 +14,6 @@ export default function getLogger(): bunyan {
             serializers : bunyan.stdSerializers,
         };
 
-        /* istanbul ignore if */
         if (process.env.NODE_ENV === 'production') {
             // TODO stream logs to ELK / Logmet
 

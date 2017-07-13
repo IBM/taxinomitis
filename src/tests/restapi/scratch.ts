@@ -13,6 +13,7 @@ import * as DbTypes from '../../lib/db/db-types';
 import * as Types from '../../lib/training/training-types';
 
 import * as store from '../../lib/db/store';
+import * as limits from '../../lib/db/limits';
 import * as auth from '../../lib/restapi/auth';
 import testapiserver from './testserver';
 
@@ -592,6 +593,62 @@ describe('REST API - scratch keys', () => {
                     const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
 
                     assert.deepEqual(payload, { error : 'Invalid label' });
+                });
+        });
+
+
+        it('should enforce limits when storing training data using a Scratch key', async () => {
+            const userid = uuid();
+            const name = uuid();
+            const typelabel = 'text';
+
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, []);
+
+            await store.addLabelToProject(userid, TESTCLASS, project.id, 'animal');
+
+            await store.storeTextTraining(project.id, uuid(), 'label');
+            await store.storeTextTraining(project.id, uuid(), 'label');
+
+            const limitsStub = sinon.stub(limits, 'getStoreLimits');
+            limitsStub.returns({
+                textTrainingItemsPerProject : 2,
+                numberTrainingItemsPerProject : 2,
+            });
+
+            proxyquire('../../lib/db/store', {
+                './limits' : limitsStub,
+            });
+
+
+            const keyId = await store.storeUntrainedScratchKey(project);
+
+            const callbackFunctionName = 'jsonpCallback';
+
+            return request(testServer)
+                .get('/api/scratch/' + keyId + '/train')
+                .query({ callback : callbackFunctionName, data : 'inserted', label : 'animal' })
+                // this is a JSONP API
+                .expect('Content-Type', /javascript/)
+                .expect(httpstatus.CONFLICT)
+                .then(async (res) => {
+
+                    await store.deleteEntireProject(userid, TESTCLASS, project);
+
+                    const text = res.text;
+
+                    const expectedStart = '/**/ typeof ' +
+                                          callbackFunctionName +
+                                          ' === \'function\' && ' +
+                                          callbackFunctionName + '(';
+
+                    assert(text.startsWith(expectedStart));
+                    const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
+
+                    assert.deepEqual(payload, {
+                        error: 'Project already has maximum allowed amount of training data',
+                    });
+
+                    limitsStub.restore();
                 });
         });
 

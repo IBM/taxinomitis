@@ -37,6 +37,10 @@ function mockExecute(query, params) {
     case 'SELECT COUNT(*) AS count FROM `projects` WHERE `classid` = ? AND `userid` = ?':
         return Promise.resolve([ { count : 1 } ]);
 
+    case 'SELECT COUNT(*) AS `trainingcount` FROM `texttraining` WHERE `projectid` = ?':
+    case 'SELECT COUNT(*) AS `trainingcount` FROM `numbertraining` WHERE `projectid` = ?':
+        return Promise.resolve([[ { trainingcount : 10 } ]]);
+
     case 'SELECT `id`, `projecttypes`, `maxusers`, `maxprojectsperuser`, `textclassifiersexpiry` FROM `tenants` WHERE `id` = ?':
         return Promise.resolve([[]]);
 

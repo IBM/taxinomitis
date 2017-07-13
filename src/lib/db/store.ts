@@ -5,6 +5,7 @@ import * as Objects from './db-types';
 import * as numbers from '../training/numbers';
 import * as conversation from '../training/conversation';
 import * as TrainingObjects from '../training/training-types';
+import * as limits from './limits';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -31,9 +32,13 @@ export function replaceDbConnPoolForTest(testDbConnPool) {
 
 async function dbExecute(query: string, params: any[]) {
     const dbConn = await dbConnPool.getConnection();
-    const [response] = await dbConn.execute(query, params);
-    dbConn.release();
-    return response;
+    try {
+        const [response] = await dbConn.execute(query, params);
+        return response;
+    }
+    finally {
+        dbConn.release();
+    }
 }
 
 
@@ -233,17 +238,75 @@ export async function storeTextTraining(
     projectid: string, data: string, label: string,
 ): Promise<Objects.TextTraining>
 {
+    let outcome: InsertTrainingOutcome;
+
+    // prepare the data that we want to store
     const obj = dbobjects.createTextTraining(projectid, data, label);
 
-    const queryString = 'INSERT INTO `texttraining` (`id`, `projectid`, `textdata`, `label`) VALUES (?, ?, ?, ?)';
 
-    const response = await dbExecute(queryString, [obj.id, obj.projectid, obj.textdata, obj.label]);
-    if (response.affectedRows === 1) {
-        return dbobjects.getTextTrainingFromDbRow(obj);
+    //
+    // prepare the queries so we have everything ready before we
+    //  get a DB connection from the pool
+    //
+
+    const countQry = 'SELECT COUNT(*) AS `trainingcount` FROM `texttraining` WHERE `projectid` = ?';
+    const countValues = [ projectid ];
+
+    const insertQry = 'INSERT INTO `texttraining` (`id`, `projectid`, `textdata`, `label`) VALUES (?, ?, ?, ?)';
+    const insertValues = [ obj.id, obj.projectid, obj.textdata, obj.label ];
+
+
+    //
+    // connect to the DB
+    //
+
+    const dbConn = await dbConnPool.getConnection();
+
+    try {
+        // count how much training data they already have
+        const [countResponse] = await dbConn.execute(countQry, countValues);
+        const count = countResponse[0].trainingcount;
+
+        if (count >= limits.getStoreLimits().textTrainingItemsPerProject) {
+            // they already have too much data - nothing else to do
+            outcome = InsertTrainingOutcome.NotStored_MetLimit;
+        }
+        else {
+            // they haven't hit their limit - okay to do the INSERT now
+            const [insertResponse] = await dbConn.execute(insertQry, insertValues);
+            if (insertResponse.affectedRows === 1) {
+                outcome = InsertTrainingOutcome.StoredOk;
+            }
+            else {
+                // insert failed for no clear reason
+                outcome = InsertTrainingOutcome.NotStored_UnknownFailure;
+            }
+        }
     }
-    log.error({ response }, 'Failed to store training data');
-    throw new Error('Failed to store training data');
+    catch (err) {
+        // log the error before rethrowing
+        log.error({ err }, 'DB error in storing number training');
+        throw err;
+    }
+    finally {
+        dbConn.release();
+    }
+
+
+    //
+    // prepare the response for the client
+    //
+
+    switch (outcome) {
+    case InsertTrainingOutcome.StoredOk:
+        return dbobjects.getTextTrainingFromDbRow(obj);
+    case InsertTrainingOutcome.NotStored_MetLimit:
+        throw new Error('Project already has maximum allowed amount of training data');
+    case InsertTrainingOutcome.NotStored_UnknownFailure:
+        throw new Error('Failed to store training data');
+    }
 }
+
 
 
 export async function bulkStoreTextTraining(
@@ -378,29 +441,85 @@ export async function deleteTextTrainingByProjectId(projectid: string): Promise<
     }
 }
 
+enum InsertTrainingOutcome {
+    StoredOk,
+    NotStored_MetLimit,
+    NotStored_UnknownFailure,
+}
 
 
 export async function storeNumberTraining(
     projectid: string, data: number[], label: string,
 ): Promise<Objects.NumberTraining>
 {
+    let outcome: InsertTrainingOutcome;
+
+    // prepare the data that we want to store
     const obj = dbobjects.createNumberTraining(projectid, data, label);
 
-    const queryString = 'INSERT INTO `numbertraining` ' +
-                        '(`id`, `projectid`, `numberdata`, `label`) ' +
-                        'VALUES (?, ?, ?, ?)';
 
-    const response = await dbExecute(queryString, [
-        obj.id,
-        obj.projectid,
-        data.join(','),
-        obj.label,
-    ]);
-    if (response.affectedRows === 1) {
-        return obj;
+    //
+    // prepare the queries so we have everything ready before we
+    //  get a DB connection from the pool
+    //
+
+    const countQry = 'SELECT COUNT(*) AS `trainingcount` FROM `numbertraining` WHERE `projectid` = ?';
+    const countValues = [ projectid ];
+
+    const insertQry = 'INSERT INTO `numbertraining` ' +
+                      '(`id`, `projectid`, `numberdata`, `label`) VALUES (?, ?, ?, ?)';
+    const insertValues = [ obj.id, obj.projectid, data.join(','), obj.label ];
+
+
+    //
+    // connect to the DB
+    //
+
+    const dbConn = await dbConnPool.getConnection();
+
+    try {
+        // count how much training data they already have
+        const [countResponse] = await dbConn.execute(countQry, countValues);
+        const count = countResponse[0].trainingcount;
+
+        if (count >= limits.getStoreLimits().numberTrainingItemsPerProject) {
+            // they already have too much data - nothing else to do
+            outcome = InsertTrainingOutcome.NotStored_MetLimit;
+        }
+        else {
+            // they haven't hit their limit - okay to do the INSERT now
+            const [insertResponse] = await dbConn.execute(insertQry, insertValues);
+            if (insertResponse.affectedRows === 1) {
+                outcome = InsertTrainingOutcome.StoredOk;
+            }
+            else {
+                // insert failed for no clear reason
+                outcome = InsertTrainingOutcome.NotStored_UnknownFailure;
+            }
+        }
     }
-    log.error({ response }, 'Failed to store training data');
-    throw new Error('Failed to store training data');
+    catch (err) {
+        // log the error before rethrowing
+        log.error({ err }, 'DB error in storing number training');
+        throw err;
+    }
+    finally {
+        dbConn.release();
+    }
+
+
+    //
+    // prepare the response for the client
+    //
+
+    switch (outcome) {
+    case InsertTrainingOutcome.StoredOk:
+        return obj;
+    case InsertTrainingOutcome.NotStored_MetLimit:
+        throw new Error('Project already has maximum allowed amount of training data');
+    case InsertTrainingOutcome.NotStored_UnknownFailure:
+        throw new Error('Failed to store training data');
+    }
 }
 
 export async function bulkStoreNumberTraining(

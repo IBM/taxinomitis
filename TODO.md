@@ -1,6 +1,3 @@
-URGENT & HIGH PRIORITY
-* max limit on training items per project
-
 UI clean-up needed
 * Validation for usernames in create-user dialog
 * Create/Cancel buttons shouldn't be equal prominence - flip left/right and make cancel buttons into a link
