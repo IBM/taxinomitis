@@ -12,9 +12,12 @@ const template = require('gulp-template');
 const autoprefixer = require('gulp-autoprefixer');
 const rename = require('gulp-rename');
 const ngAnnotate = require('gulp-ng-annotate');
+const sequence = require('gulp-sequence');
 const del = require('del');
 
 
+// something unique to protect against problems from browsers
+//  caching old versions of JS
 const now = new Date();
 const VERSION = now.getTime();
 
@@ -33,7 +36,6 @@ const paths = {
     jstest : ['dist/tests/**/*.js'],
     css : ['public/app.css', 'public/components/**/*.css'],
     webjs : [
-        'public/auth0-variables.js',
         'web/app.js',
         'public/app.run.js',
         'public/components/**/*.js',
@@ -98,13 +100,23 @@ gulp.task('images', () => {
     return gulp.src('public/images/*').pipe(gulp.dest('web/images'));
 });
 
-gulp.task('minifyjs', () => {
-    return gulp.src(paths.webjs)
+function concatAndMinifiyWebJs (isForProd) {
+    const webJsWithAuth = (isForProd ? [ 'public/auth0-prod-variables.js' ] : [ 'public/auth0-variables.js']).concat(paths.webjs);
+
+    return gulp.src(webJsWithAuth)
             .pipe(ngAnnotate())
             .pipe(concat('mlapp.js'))
             .pipe(minify({ ext : { min : '-' + VERSION + '.min.js' }}))
             .pipe(gulp.dest('web'));
+}
+
+gulp.task('minifyjs', () => {
+    return concatAndMinifiyWebJs(false);
 });
+gulp.task('minifyprodjs', () => {
+    return concatAndMinifiyWebJs(true);
+});
+
 
 gulp.task('html', () => {
     return gulp.src('public/index.html')
@@ -154,7 +166,15 @@ gulp.task('test', ['coverage'], () => {
         .pipe(istanbul.enforceThresholds(coverageOptions));
 });
 
-gulp.task('webdependencies', ['bower', 'scratchxinstall']);
-gulp.task('web', ['css', 'minifyjs', 'images', 'html', 'angularcomponents']);
-gulp.task('build', ['webdependencies', 'web', 'compile']);
-gulp.task('default', ['build', 'lint', 'test']);
+gulp.task('web', ['css', 'minifyjs', 'images', 'html', 'angularcomponents', 'scratchxinstall']);
+gulp.task('build', ['web', 'compile']);
+
+gulp.task('default', sequence('build', 'lint', 'test'));
+
+
+gulp.task('buildprod', sequence(
+    'clean',
+    'bower',
+    ['css', 'minifyprodjs', 'images', 'html', 'angularcomponents', 'scratchxinstall'],
+    'compile',
+    'lint'));

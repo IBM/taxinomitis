@@ -17,6 +17,7 @@ Code / engineering work
 * Set up cfbot for prod monitoring
 * Delete entire project is actually calling taxinomitis-numbers during tests
 * Some sort of admin controls for me so I'm not SQL'ing in a prod DB
+* Check if mysql2 has been fixed so I can retire my own fork
 
 Longer term goals
 * Restore sprites library

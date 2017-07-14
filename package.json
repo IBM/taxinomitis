@@ -47,6 +47,7 @@
     "gulp-ng-annotate": "^2.0.0",
     "gulp-postcss": "^7.0.0",
     "gulp-rename": "^1.2.2",
+    "gulp-sequence": "^0.4.6",
     "gulp-template": "^4.0.0",
     "gulp-tslint": "^8.1.1",
     "gulp-typescript": "^3.2.0",
