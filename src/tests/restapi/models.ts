@@ -262,6 +262,7 @@ describe('REST API - models', () => {
                             classifierid : projectid,
                             created : created.toISOString(),
                             status : 'Available',
+                            updated : created.toISOString(),
                         },
                     ]);
 
