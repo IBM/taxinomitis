@@ -23,8 +23,12 @@
         vm.dismissAlert = function (type, errIdx) {
             vm[type].splice(errIdx, 1);
         };
-        function displayAlert(type, errObj) {
-            vm[type].push({ alertid : alertId++, message : errObj.message || errObj.error || 'Unknown error' });
+        function displayAlert(type, status, errObj) {
+            vm[type].push({
+                alertid : alertId++,
+                message : errObj.message || errObj.error || 'Unknown error',
+                status : status
+            });
         }
 
         $scope.loadingtraining = true;
@@ -69,7 +73,7 @@
                 }
             })
             .catch(function (err) {
-                displayAlert('errors', err.data);
+                displayAlert('errors', err.status, err.data);
             });
 
 
@@ -145,7 +149,7 @@
                             $scope.training[label].push(newitem);
                         })
                         .catch(function (err) {
-                            displayAlert('errors', err.data);
+                            displayAlert('errors', err.status, err.data);
                         });
                 },
                 function() {
@@ -156,17 +160,24 @@
 
 
         vm.addLabel = function (ev, project) {
-            var confirm = $mdDialog.prompt()
-                .title('Add new label')
-                  .textContent('Enter new label to recognise')
-                  .placeholder('label')
-                  .ariaLabel('label')
-                  .targetEvent(ev)
-                  .ok('Add')
-                  .cancel('Cancel');
-
-            $mdDialog.show(confirm).then(
-                function(newlabel) {
+            $mdDialog.show({
+                controller : function ($scope, $mdDialog) {
+                    $scope.hide = function () {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function () {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function (resp) {
+                        $mdDialog.hide(resp);
+                    };
+                },
+                templateUrl : 'components-' + $stateParams.VERSION + '/training/newlabel.tmpl.html',
+                targetEvent : ev,
+                clickOutsideToClose : true
+            })
+            .then(
+                function (newlabel) {
                     projectsService.addLabelToProject($scope.projectId, vm.profile.user_id, vm.profile.tenant, newlabel)
                         .then(function (labels) {
                             $scope.project.labels = labels;
@@ -175,13 +186,13 @@
                             refreshLabelsSummary();
                         })
                         .catch(function (err) {
-                            displayAlert('errors', err.data);
+                            displayAlert('errors', err.status, err.data);
                         });
-
                 },
                 function() {
                     // cancelled. do nothing
-                });
+                }
+            );
         };
 
 
@@ -208,7 +219,7 @@
 
                     projectsService.removeLabelFromProject($scope.projectId, vm.profile.user_id, vm.profile.tenant, label)
                         .catch(function (err) {
-                            displayAlert('errors', err.data);
+                            displayAlert('errors', err.status, err.data);
                         });
                 },
                 function() {

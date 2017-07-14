@@ -103,7 +103,7 @@ async function updateLabels(userid: string, classid: string, projectid: string, 
                         'SET `labels` = ? ' +
                         'WHERE `id` = ? AND `userid` = ? AND `classid` = ?';
     const values = [
-        labels.join(','),
+        dbobjects.getLabelListFromArray(labels),
         projectid,
         userid,
         classid,

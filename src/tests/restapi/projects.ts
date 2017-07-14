@@ -780,8 +780,7 @@ describe('REST API - projects', () => {
                 .then((res) => {
                     const body = res.body;
                     assert.deepEqual(body, {
-                        error: 'Invalid patch request',
-                        detail: 'PATCH body should be an array',
+                        error: 'PATCH body should be an array',
                     });
 
                     return request(testServer)
@@ -793,8 +792,7 @@ describe('REST API - projects', () => {
                 .then((res) => {
                     const body = res.body;
                     assert.deepEqual(body, {
-                        error: 'Invalid patch request',
-                        detail: 'PATCH body should be an array',
+                        error: 'PATCH body should be an array',
                     });
 
                     return request(testServer)
@@ -806,8 +804,7 @@ describe('REST API - projects', () => {
                 .then((res) => {
                     const body = res.body;
                     assert.deepEqual(body, {
-                        error: 'Invalid patch request',
-                        detail: 'Only individual PATCH requests are supported',
+                        error: 'Only individual PATCH requests are supported',
                     });
 
                     return request(testServer)
@@ -819,8 +816,7 @@ describe('REST API - projects', () => {
                 .then((res) => {
                     const body = res.body;
                     assert.deepEqual(body, {
-                        error: 'Invalid patch request',
-                        detail: 'Only modifications to project labels are supported',
+                        error: 'Only modifications to project labels are supported',
                     });
 
                     return request(testServer)
@@ -832,8 +828,7 @@ describe('REST API - projects', () => {
                 .then((res) => {
                     const body = res.body;
                     assert.deepEqual(body, {
-                        error: 'Invalid patch request',
-                        detail: 'PATCH requests must include an op',
+                        error: 'PATCH requests must include an op',
                     });
 
                     return request(testServer)
@@ -845,8 +840,7 @@ describe('REST API - projects', () => {
                 .then((res) => {
                     const body = res.body;
                     assert.deepEqual(body, {
-                        error: 'Invalid patch request',
-                        detail: 'Invalid PATCH op',
+                        error: 'Invalid PATCH op',
                     });
 
                     return request(testServer)
@@ -858,8 +852,7 @@ describe('REST API - projects', () => {
                 .then((res) => {
                     const body = res.body;
                     assert.deepEqual(body, {
-                        error: 'Invalid patch request',
-                        detail: 'PATCH requests must include a value',
+                        error: 'PATCH requests must include a value',
                     });
 
                     return request(testServer)
@@ -871,8 +864,7 @@ describe('REST API - projects', () => {
                 .then((res) => {
                     const body = res.body;
                     assert.deepEqual(body, {
-                        error: 'Invalid patch request',
-                        detail: 'PATCH requests to add or remove a label should specify a string',
+                        error: 'PATCH requests to add or remove a label should specify a string',
                     });
 
                     return request(testServer)
@@ -884,8 +876,7 @@ describe('REST API - projects', () => {
                 .then((res) => {
                     const body = res.body;
                     assert.deepEqual(body, {
-                        error: 'Invalid patch request',
-                        detail: 'Cannot add an empty label',
+                        error: 'Cannot add an empty label',
                     });
 
                     return request(testServer)
@@ -900,8 +891,7 @@ describe('REST API - projects', () => {
                 .then((res) => {
                     const body = res.body;
                     assert.deepEqual(body, {
-                        error: 'Invalid patch request',
-                        detail: 'Label exceeds max length',
+                        error: 'Label exceeds max length',
                     });
 
                     return request(testServer)
@@ -916,8 +906,7 @@ describe('REST API - projects', () => {
                 .then((res) => {
                     const body = res.body;
                     assert.deepEqual(body, {
-                        error: 'Invalid patch request',
-                        detail: 'PATCH requests to replace labels should specify an array',
+                        error: 'PATCH requests to replace labels should specify an array',
                     });
 
                     return request(testServer)
@@ -932,8 +921,7 @@ describe('REST API - projects', () => {
                 .then((res) => {
                     const body = res.body;
                     assert.deepEqual(body, {
-                        error: 'Invalid patch request',
-                        detail: 'Label exceeds max length',
+                        error: 'Label exceeds max length',
                     });
 
                     return request(testServer)

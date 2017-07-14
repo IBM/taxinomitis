@@ -205,9 +205,8 @@ async function modifyProject(req: Express.Request, res: Express.Response) {
     }
     catch (err) {
         return res.status(httpstatus.BAD_REQUEST)
-                  .send({
-                      error : 'Invalid patch request',
-                      detail : err.message,
+                  .json({
+                      error : err.message,
                   });
     }
 
@@ -229,6 +228,9 @@ async function modifyProject(req: Express.Request, res: Express.Response) {
         res.json(response);
     }
     catch (err) {
+        if (err.message === 'No room for the label') {
+            return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
+        }
         log.error({ err }, 'Server error');
         return errors.unknownError(res, err);
     }

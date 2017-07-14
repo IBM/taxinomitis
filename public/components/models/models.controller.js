@@ -23,8 +23,12 @@
         vm.dismissAlert = function (type, errIdx) {
             vm[type].splice(errIdx, 1);
         };
-        function displayAlert(type, errObj) {
-            vm[type].push({ alertid : alertId++, message : errObj.message || errObj.error || 'Unknown error' });
+        function displayAlert(type, status, errObj) {
+            vm[type].push({
+                alertid : alertId++,
+                message : errObj.message || errObj.error || 'Unknown error',
+                status : status
+            });
         }
 
         $scope.loading = true;
@@ -55,7 +59,7 @@
                 $scope.loading = false;
             })
             .catch(function (err) {
-                displayAlert('errors', err.data);
+                displayAlert('errors', err.status, err.data);
             });
 
 
@@ -179,7 +183,7 @@
                 .catch(function (err) {
                     $scope.submittingTrainingRequest = false;
 
-                    displayAlert('errors', err.data);
+                    displayAlert('errors', err.status, err.data);
                 });
         };
 
@@ -208,7 +212,7 @@
                     $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
                 })
                 .catch(function (err) {
-                    displayAlert('errors', err.data);
+                    displayAlert('errors', err.status, err.data);
                 });
         };
 
@@ -231,7 +235,7 @@
                     }
                 })
                 .catch(function (err) {
-                    displayAlert('errors', err.data);
+                    displayAlert('errors', err.status, err.data);
                 });
         };
 

@@ -22,10 +22,11 @@
         vm.dismissAlert = function (type, errIdx) {
             vm[type].splice(errIdx, 1);
         };
-        function displayAlert(type, errObj) {
+        function displayAlert(type, status, errObj) {
             vm[type].push({
                 alertid : alertId++,
-                message : errObj.message || errObj.error || 'Unknown error'
+                message : errObj.message || errObj.error || 'Unknown error',
+                status : status
             });
         }
 
@@ -63,7 +64,7 @@
                     }
                 })
                 .catch(function (err) {
-                    displayAlert('errors', err.data);
+                    displayAlert('errors', err.status, err.data);
                 });
         }
 
@@ -75,7 +76,7 @@
                 refreshProjectsList(profile);
             })
             .catch(function (err) {
-                displayAlert('errors', err.data);
+                displayAlert('errors', err.status, err.data);
             });
 
 
@@ -100,7 +101,6 @@
                     };
                 },
                 templateUrl : 'components-' + $stateParams.VERSION + '/projects/newproject.tmpl.html',
-                parent : angular.element(document.body),
                 targetEvent : ev,
                 clickOutsideToClose : true
             })
@@ -111,7 +111,7 @@
                             refreshProjectsList(vm.profile);
                         })
                         .catch(function (err) {
-                            displayAlert('errors', err.data);
+                            displayAlert('errors', err.status, err.data);
                         });
                 },
                 function() {
@@ -137,7 +137,7 @@
                             refreshProjectsList(vm.profile);
                         })
                         .catch(function (err) {
-                            displayAlert('errors', err.data);
+                            displayAlert('errors', err.status, err.data);
                         });
                 },
                 function() {

@@ -82,20 +82,29 @@ export function getLabelsFromList(liststr: string): string[] {
                   .filter((item) => item.length > 0);
 }
 
+
+export function getLabelListFromArray(list: string[]): string {
+    const str = list.join(',');
+    if (str.length >= 490) {
+        throw new Error('No room for the label');
+    }
+    return str;
+}
+
+
 // -----------------------------------------------------------------------------
 //
 // TRAINING DATA
 //
 // -----------------------------------------------------------------------------
 
+// these are the rules enforced by Conversation, but we might as well apply them globally
 const INVALID_LABEL_NAME_CHARS = /[^\w.-]/g;
-const MAX_LABEL_LENGTH = 128;
 const INVALID_TEXT_CHARS = /[\t\n]/g;
 const MAX_CONTENTS_LENGTH = 1024;
 
 export function createLabel(proposedlabel: string): string {
-    // these are the rules enforced by Conversation, but we might as well apply them globally
-    return proposedlabel.replace(INVALID_LABEL_NAME_CHARS, '_').substr(0, MAX_LABEL_LENGTH);
+    return proposedlabel.replace(INVALID_LABEL_NAME_CHARS, '_').substr(0, Objects.MAX_LABEL_LENGTH);
 }
 
 

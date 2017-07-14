@@ -2,6 +2,7 @@
 import * as assert from 'assert';
 import * as util from 'util';
 import * as uuid from 'uuid/v1';
+import * as randomstring from 'randomstring';
 
 import * as store from '../../lib/db/store';
 
@@ -178,14 +179,14 @@ describe('DB store', () => {
             let retrieved = await store.getProject(project.id);
             assert.deepEqual(retrieved.labels, []);
 
-            const label1 = uuid();
+            const label1 = randomstring.generate({ length : 16 });
             let newlabels = await store.addLabelToProject(userid, TESTCLASS, project.id, label1);
             assert.deepEqual(newlabels, [ label1 ]);
 
             retrieved = await store.getProject(project.id);
             assert.deepEqual(retrieved.labels, [ label1 ]);
 
-            const label2 = uuid();
+            const label2 = randomstring.generate({ length : 16 });
             newlabels = await store.addLabelToProject(userid, TESTCLASS, project.id, label2);
             assert.deepEqual(newlabels, [ label1, label2 ]);
 
@@ -200,7 +201,7 @@ describe('DB store', () => {
             let retrieved = await store.getProject(project.id);
             assert.deepEqual(retrieved.labels, []);
 
-            const label1 = uuid();
+            const label1 = randomstring.generate({ length : 16 });
             let newlabels = await store.addLabelToProject(userid, TESTCLASS, project.id, label1);
             assert.deepEqual(newlabels, [ label1 ]);
 

@@ -22,8 +22,12 @@
         vm.dismissAlert = function (type, errIdx) {
             vm[type].splice(errIdx, 1);
         };
-        function displayAlert(type, errObj) {
-            vm[type].push({ alertid : alertId++, message : errObj.message || errObj.error || 'Unknown error' });
+        function displayAlert(type, status, errObj) {
+            vm[type].push({
+                alertid : alertId++,
+                message : errObj.message || errObj.error || 'Unknown error',
+                status : status
+            });
         }
 
 
@@ -33,7 +37,7 @@
                     vm.students = students;
                 })
                 .catch(function (err) {
-                    displayAlert('errors', err.data);
+                    displayAlert('errors', err.status, err.data);
                 });
         }
 
@@ -62,12 +66,12 @@
                             vm.policy = policy;
                         })
                         .catch(function (err) {
-                            displayAlert('errors', err.data);
+                            displayAlert('errors', err.status, err.data);
                         });
                 }
             })
             .catch(function (err) {
-                displayAlert('errors', err.data);
+                displayAlert('errors', err.status, err.data);
             });
 
 
@@ -90,7 +94,7 @@
                             // refreshStudentsList(vm.profile);
                         })
                         .catch(function (err) {
-                            displayAlert('errors', err.data);
+                            displayAlert('errors', err.status, err.data);
                         });
 
                 },
@@ -122,7 +126,7 @@
                             }, 50);
                         })
                         .catch(function (err) {
-                            displayAlert('errors', err.data);
+                            displayAlert('errors', err.status, err.data);
                         });
                 },
                 function() {
@@ -136,7 +140,7 @@
                     displayPassword(ev, updatedUser);
                 })
                 .catch(function (err) {
-                    displayAlert('errors', err.data);
+                    displayAlert('errors', err.status, err.data);
                 });
         };
 

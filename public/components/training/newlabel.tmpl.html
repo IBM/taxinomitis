@@ -1,0 +1,35 @@
+<md-dialog aria-label="Add new label">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Add new label</h2>
+        </div>
+    </md-toolbar>
+    <form ng-cloak name="newLabel" ng-submit="confirm(newlabel)">
+        <md-dialog-content>
+            <div class="md-dialog-content" style="min-width: 300px">
+                <md-card-content>
+                    <div layout="row">
+                        <md-input-container style="min-width: 280px">
+                            <label>Enter new label to recognise</label>
+                            <input type="text" name="text"
+                                   md-autofocus
+                                   ng-required="true"
+                                   ng-pattern="/^[ \w.-]+$/"
+                                   ng-model="newlabel"
+                                   placeholder="label"
+                                   md-maxlength="30"></input>
+                            <div class="ng-animate"  ng-messages="newLabel.text.$error" ng-show="newLabel.text.$touched">
+                                <div ng-message="pattern">Only use letters and numbers in labels</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </md-card-content>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button type="submit" class="md-raised md-primary" ng-disabled="newLabel.$invalid">Add</md-button>
+            <md-button ng-click="cancel()">Cancel</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
