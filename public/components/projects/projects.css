@@ -57,6 +57,7 @@
     border-radius: 5px;
     padding: 3px;
     background-color: white;
+    outline: none;
 }
 .newprojecticon {
     font-size: 3em;

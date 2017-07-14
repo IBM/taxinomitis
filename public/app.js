@@ -49,7 +49,10 @@
                 url: '/teacher',
                 controller: 'TeacherController',
                 templateUrl: 'components-<%= VERSION %>/teacher/teacher.html',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                params: {
+                    VERSION : <%= VERSION %>
+                }
             })
             .state('projects', {
                 url: '/projects',

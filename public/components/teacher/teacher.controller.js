@@ -7,11 +7,10 @@
     TeacherController.$inject = [
         'authService',
         'usersService',
-        '$mdDialog',
-        '$timeout'
+        '$stateParams', '$mdDialog', '$timeout'
     ];
 
-    function TeacherController(authService, usersService, $mdDialog, $timeout) {
+    function TeacherController(authService, usersService, $stateParams, $mdDialog, $timeout) {
 
         var vm = this;
         vm.authService = authService;
@@ -104,16 +103,23 @@
         };
 
         vm.createUser = function (ev) {
-            var confirm = $mdDialog.prompt()
-                .title('Create new student')
-                  .textContent('Please choose a unique username for the new student')
-                  .placeholder('Username')
-                  .ariaLabel('Username')
-                  .targetEvent(ev)
-                  .ok('Create')
-                  .cancel('Cancel');
-
-            $mdDialog.show(confirm).then(
+            $mdDialog.show({
+                controller : function ($scope, $mdDialog) {
+                    $scope.hide = function () {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function () {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function (resp) {
+                        $mdDialog.hide(resp);
+                    };
+                },
+                templateUrl : 'components-' + $stateParams.VERSION + '/teacher/newstudent.tmpl.html',
+                targetEvent : ev,
+                clickOutsideToClose : true
+            })
+            .then(
                 function(username) {
                     usersService.createStudent(username, vm.profile.tenant)
                         .then(function (newUser) {
@@ -131,7 +137,8 @@
                 },
                 function() {
                     // cancelled. do nothing
-                });
+                }
+            );
         };
 
         vm.resetUserPassword = function (ev, student) {

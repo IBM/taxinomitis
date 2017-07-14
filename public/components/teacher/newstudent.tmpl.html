@@ -1,0 +1,35 @@
+<md-dialog aria-label="Create new student">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Create new student</h2>
+        </div>
+    </md-toolbar>
+    <form ng-cloak name="newStudent" ng-submit="confirm(newstudent)">
+        <md-dialog-content>
+            <div class="md-dialog-content" style="min-width: 300px">
+                <md-card-content>
+                    <div layout="row">
+                        <md-input-container style="min-width: 280px">
+                            <label>Choose a unique username</label>
+                            <input type="text" name="text"
+                                   md-autofocus
+                                   ng-required="true"
+                                   ng-pattern="/^[\w.\-_]+$/"
+                                   ng-model="newstudent"
+                                   placeholder="username"
+                                   md-maxlength="15"></input>
+                            <div class="ng-animate" ng-messages="newStudent.text.$error" ng-show="newStudent.text.$touched">
+                                <div ng-message="pattern">Only use letters and numbers</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </md-card-content>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button type="submit" class="md-raised md-primary" ng-disabled="newStudent.$invalid">Add</md-button>
+            <md-button ng-click="cancel()">Cancel</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
