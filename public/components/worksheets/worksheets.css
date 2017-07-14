@@ -30,3 +30,7 @@ td.worksheetinfo {
     white-space: nowrap;
     font-size: 0.9em;
 }
+
+.worksheetdownloads {
+    text-align: center;
+}

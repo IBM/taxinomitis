@@ -49,6 +49,7 @@ async function getModels(req: auth.RequestWithProject, res: Express.Response) {
         break;
     case 'numbers':
         classifiers = await store.getNumbersClassifiers(projectid);
+        classifiers = classifiers.map(returnNumberClassifier);
         break;
     }
 

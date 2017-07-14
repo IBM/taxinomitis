@@ -24,4 +24,3 @@ Longer term goals
 
 Worksheets
 * Shakespeare or Dahl (text)
-* Top Trumps (numbers)
