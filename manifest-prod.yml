@@ -1,7 +1,7 @@
 applications:
 - path: .
   memory: 256M
-  instances: 1
+  instances: 2
   domain: mybluemix.net
   name: machinelearningforkids
 
@@ -16,9 +16,9 @@ applications:
     AUTH0_API_CLIENTID: zngWYbVvsFme0BawjcrUyx2ae6lgxxyV
     AUTH0_API_CLIENTSECRET: xVPKLHrtxIdy_CHgIjNYSjv-x6htF-OM2Y2YUEjO5orr2TZNCReJKtNKmo7H9g8g
     MYSQLHOST: bluemix-sandbox-dal-9-portal.8.dblayer.com
-    MYSQLPORT: 25521
+    MYSQLPORT: 28820
     MYSQLUSER: admin
-    MYSQLPASSWORD: FEIOHLDSRJHYDHEF
+    MYSQLPASSWORD: ZLLIDCRHUXXAISWD
     MYSQLDATABASE: mlforkidsdb
     NUMBERS_SERVICE: https://taxinomitis-numbers.mybluemix.net
     NUMBERS_SERVICE_USER: 6d6f8d02-5c5d-11e7-907b-a6006ad3dba0

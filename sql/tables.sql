@@ -1,4 +1,10 @@
+-- dev
 -- \connect mysql://admin:FEIOHLDSRJHYDHEF@bluemix-sandbox-dal-9-portal.8.dblayer.com:25521/compose
+
+-- prod
+-- \connect mysql://admin:ZLLIDCRHUXXAISWD@bluemix-sandbox-dal-9-portal.8.dblayer.com:28820/compose
+
+
 -- \sql
 
 use mlforkidsdb;

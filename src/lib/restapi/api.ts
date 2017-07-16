@@ -24,8 +24,6 @@ const log = loggerSetup();
 export default function setup(app: Express.Application): void {
     log.info('Setting up REST API');
 
-    // forceHttpsOnBluemix(app);
-
     app.use(query());
     app.use(helmet());
     app.use(cors());

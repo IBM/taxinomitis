@@ -130,7 +130,7 @@
                         $mdDialog.hide(resp);
                     };
                 },
-                templateUrl : 'components-' + $stateParams.VERSION + '/training/trainingdata.tmpl.html',
+                templateUrl : 'static/components-' + $stateParams.VERSION + '/training/trainingdata.tmpl.html',
                 targetEvent : ev,
                 clickOutsideToClose : true
             })
@@ -172,7 +172,7 @@
                         $mdDialog.hide(resp);
                     };
                 },
-                templateUrl : 'components-' + $stateParams.VERSION + '/training/newlabel.tmpl.html',
+                templateUrl : 'static/components-' + $stateParams.VERSION + '/training/newlabel.tmpl.html',
                 targetEvent : ev,
                 clickOutsideToClose : true
             })

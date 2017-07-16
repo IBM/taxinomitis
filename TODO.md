@@ -8,14 +8,15 @@ New features
 * Editing examples
 
 Code / engineering work
-* Set up DB and Auth0 for prod vs dev use
+* Set up Auth0 for prod vs dev use
 * Scratch keys should use project id as primary key so REPLACE is more efficient
 * Figure out logging for prod
 * Set up cfbot for prod monitoring
 * Delete entire project is actually calling taxinomitis-numbers during tests
 * Some sort of admin controls for me so I'm not SQL'ing in a prod DB
 * fix the flicking when delete button are shown on examples
-* aggressive caching of API responses on IE fucks things up
+* Compose dashboard supports MySQL backups - need to set a reminder to do this
+* Fix the trailing /html> in prod builds
 
 Longer term goals
 * Restore sprites library

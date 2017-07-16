@@ -10,6 +10,7 @@ import * as status from '../scratchx/status';
 import * as keys from '../scratchx/keys';
 import * as classifier from '../scratchx/classify';
 import * as training from '../scratchx/training';
+import * as headers from './headers';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -29,10 +30,10 @@ async function getScratchKeys(req: Express.Request, res: Express.Response) {
 
         if (scratchKeys.length === 0) {
             const newKeyInfo = await keys.createKey(projectid);
-            return res.json([ newKeyInfo ]);
+            return res.set(headers.NO_CACHE).json([ newKeyInfo ]);
         }
 
-        return res.json(scratchKeys.map((key) => {
+        return res.set(headers.NO_CACHE).json(scratchKeys.map((key) => {
             return {
                 id : key.id,
                 model : key.classifierid,
@@ -60,7 +61,7 @@ async function classifyWithScratchKey(req: Express.Request, res: Express.Respons
         const scratchKey = await store.getScratchKey(apikey);
         const classes = await classifier.classify(scratchKey, req.query.data);
 
-        return res.jsonp(classes);
+        return res.set(headers.NO_CACHE).jsonp(classes);
     }
     catch (err) {
         if (err.message === 'Missing data') {
@@ -88,7 +89,7 @@ async function storeTrainingData(req: Express.Request, res: Express.Response) {
         const scratchKey = await store.getScratchKey(apikey);
         const stored = await training.storeTrainingData(scratchKey, req.query.label, req.query.data);
 
-        return res.jsonp(stored);
+        return res.set(headers.NO_CACHE).jsonp(stored);
     }
     catch (err) {
         if (err.message === 'Missing data' ||
@@ -137,7 +138,7 @@ async function getScratchxStatus(req: Express.Request, res: Express.Response) {
         const scratchKey = await store.getScratchKey(apikey);
         const scratchStatus = await status.getStatus(scratchKey);
 
-        return res.jsonp(scratchStatus);
+        return res.set(headers.NO_CACHE).jsonp(scratchStatus);
     }
     catch (err) {
         errors.unknownError(res, err);

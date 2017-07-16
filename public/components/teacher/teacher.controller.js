@@ -115,7 +115,7 @@
                         $mdDialog.hide(resp);
                     };
                 },
-                templateUrl : 'components-' + $stateParams.VERSION + '/teacher/newstudent.tmpl.html',
+                templateUrl : 'static/components-' + $stateParams.VERSION + '/teacher/newstudent.tmpl.html',
                 targetEvent : ev,
                 clickOutsideToClose : true
             })

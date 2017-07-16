@@ -36,7 +36,6 @@ const paths = {
     jstest : ['dist/tests/**/*.js'],
     css : ['public/app.css', 'public/components/**/*.css'],
     webjs : [
-        'web/app.js',
         'public/app.run.js',
         'public/components/**/*.js',
     ]
@@ -51,11 +50,11 @@ gulp.task('clean', () => {
 });
 
 gulp.task('bower', function() {
-    return bower({ cwd : './public', directory : '../web/bower_components' });
+    return bower({ cwd : './public', directory : '../web/static/bower_components' });
 });
 
 gulp.task('crossdomain', function() {
-    return gulp.src('public/crossdomain.xml').pipe(gulp.dest('web'));
+    return gulp.src('public/crossdomain.xml').pipe(gulp.dest('web/dynamic'));
 });
 
 gulp.task('scratchxinstall', ['crossdomain'], function() {
@@ -81,23 +80,23 @@ gulp.task('css', ['html'], () => {
             .pipe(cleanCSS())
             .pipe(autoprefixer())
             .pipe(concat('style-' + VERSION + '.min.css'))
-            .pipe(gulp.dest('web'));
+            .pipe(gulp.dest('web/static'));
 });
 
 gulp.task('jsapp', () => {
     return gulp.src('public/app.js')
             .pipe(template({ VERSION }))
             .pipe(rename('app-' + VERSION + '.js'))
-            .pipe(gulp.dest('web'));
+            .pipe(gulp.dest('web/static'));
 });
 
 gulp.task('angularcomponents', ['jsapp'], () => {
     return gulp.src('public/components/**')
-            .pipe(gulp.dest('web/components-' + VERSION));
+            .pipe(gulp.dest('web/static/components-' + VERSION));
 });
 
 gulp.task('images', () => {
-    return gulp.src('public/images/*').pipe(gulp.dest('web/images'));
+    return gulp.src('public/images/*').pipe(gulp.dest('web/static/images'));
 });
 
 function concatAndMinifiyWebJs (isForProd) {
@@ -107,7 +106,7 @@ function concatAndMinifiyWebJs (isForProd) {
             .pipe(ngAnnotate())
             .pipe(concat('mlapp.js'))
             .pipe(minify({ ext : { min : '-' + VERSION + '.min.js' }}))
-            .pipe(gulp.dest('web'));
+            .pipe(gulp.dest('web/static'));
 }
 
 gulp.task('minifyjs', () => {
@@ -130,7 +129,7 @@ function prepareHtml (isForProd) {
 
     return gulp.src('public/index.html')
             .pipe(template(options))
-            .pipe(gulp.dest('web'));
+            .pipe(gulp.dest('web/dynamic'));
 }
 
 gulp.task('html', () => {

@@ -7,6 +7,7 @@ import * as auth from './auth';
 import * as store from '../db/store';
 import * as Objects from '../db/db-types';
 import * as errors from './errors';
+import * as headers from './headers';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -18,7 +19,7 @@ function getProjectsByClassId(req: Express.Request, res: Express.Response) {
 
     store.getProjectsByClassId(classid)
         .then((projects: Objects.Project[]) => {
-            res.json(projects);
+            res.set(headers.NO_CACHE).json(projects);
         })
         .catch((err) => {
             log.error({ err }, 'Server error');
@@ -33,7 +34,7 @@ function getProjectsByUserId(req: Express.Request, res: Express.Response) {
 
     store.getProjectsByUserId(userid, classid)
         .then((projects: Objects.Project[]) => {
-            res.json(projects);
+            res.set(headers.NO_CACHE).json(projects);
         })
         .catch((err) => {
             log.error({ err }, 'Server error');
@@ -87,7 +88,7 @@ function getProject(req: Express.Request, res: Express.Response) {
         .then((project: Objects.Project) => {
             if (project) {
                 if (project.classid === classid && project.userid === userid) {
-                    return res.json(project);
+                    return res.set(headers.NO_CACHE).json(project);
                 }
                 else {
                     return errors.forbidden(res);

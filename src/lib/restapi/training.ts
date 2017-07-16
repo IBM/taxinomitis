@@ -7,6 +7,7 @@ import * as auth from './auth';
 import * as store from '../db/store';
 import * as Objects from '../db/db-types';
 import * as errors from './errors';
+import * as headers from './headers';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -67,6 +68,8 @@ async function getTraining(req: auth.RequestWithProject, res: Express.Response) 
         res.set('Content-Range',
             generatePagingResponse(options.start, training, count));
 
+        res.set(headers.NO_CACHE);
+
         res.json(training);
     }
     catch (err) {
@@ -87,7 +90,7 @@ async function getLabels(req: auth.RequestWithProject, res: Express.Response) {
             counts = await store.countNumberTrainingByLabel(req.project.id);
             break;
         }
-        res.json(counts);
+        res.set(headers.NO_CACHE).json(counts);
     }
     catch (err) {
         errors.unknownError(res, err);

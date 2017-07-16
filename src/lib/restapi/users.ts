@@ -7,6 +7,7 @@ import * as auth from './auth';
 import * as store from '../db/store';
 import * as dblimits from '../db/limits';
 import * as errors from './errors';
+import * as headers from './headers';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -18,7 +19,7 @@ const VALID_USERNAME = /^[A-Za-z0-9\-_]+$/;
 function getStudents(req: Express.Request, res: Express.Response) {
     return auth0.getStudents(req.params.classid)
         .then((students) => {
-            res.json(students);
+            res.set(headers.NO_CACHE).json(students);
         })
         .catch((err) => {
             errors.unknownError(res, err);

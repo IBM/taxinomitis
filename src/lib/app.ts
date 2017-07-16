@@ -1,6 +1,7 @@
 // external dependencies
 import * as express from 'express';
 import * as httpstatus from 'http-status';
+import * as path from 'path';
 // local dependencies
 import * as store from './db/store';
 import * as cf from './utils/cf';
@@ -9,6 +10,10 @@ import restApiSetup from './restapi/api';
 import loggerSetup from './utils/logger';
 
 const log = loggerSetup();
+
+const ONE_YEAR = 31536000000;
+const ONE_WEEK = 604800000;
+const ONE_HOUR = 3600000;
 
 
 // create server
@@ -27,7 +32,8 @@ if (process.env.BLUEMIX_REGION) {
             next();
         }
         else {
-            res.redirect('https://' + req.headers.host + req.url);
+            res.redirect(httpstatus.MOVED_PERMANENTLY,
+                         'https://' + req.headers.host + req.url);
         }
     });
 
@@ -44,9 +50,17 @@ if (process.env.BLUEMIX_REGION) {
     });
 }
 
+
+
 // UI setup
-const uilocation: string = __dirname + '/../../web';
-app.use(express.static(uilocation));
+const uilocation: string = path.join(__dirname, '/../../web/static');
+app.use('/static', express.static(uilocation, { maxAge : ONE_YEAR }));
+
+const scratchxlocation: string = path.join(__dirname, '/../../web/scratchx');
+app.use('/scratchx', express.static(scratchxlocation, { maxAge : ONE_WEEK }));
+
+const indexHtml: string = path.join(__dirname, '/../../web/dynamic');
+app.use('/', express.static(indexHtml, { maxAge : ONE_HOUR }));
 
 // setup server and run
 store.init();
@@ -63,7 +77,6 @@ process.on('uncaughtException', (err) => {
 
 
 // start scheduled cleanup tasks
-const ONE_HOUR = 3600000;
 if (cf.isPrimaryInstance()) {
     log.info('*** Scheduling clean-up task to run every hour');
 

@@ -100,7 +100,7 @@
                         return new Array(n);
                     };
                 },
-                templateUrl : 'components-' + $stateParams.VERSION + '/projects/newproject.tmpl.html',
+                templateUrl : 'static/components-' + $stateParams.VERSION + '/projects/newproject.tmpl.html',
                 targetEvent : ev,
                 clickOutsideToClose : true
             })

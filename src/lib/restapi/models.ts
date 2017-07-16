@@ -9,6 +9,7 @@ import * as Types from '../training/training-types';
 import * as conversation from '../training/conversation';
 import * as numbers from '../training/numbers';
 import * as errors from './errors';
+import * as headers from './headers';
 import loggerSetup from '../utils/logger';
 
 
@@ -53,7 +54,7 @@ async function getModels(req: auth.RequestWithProject, res: Express.Response) {
         break;
     }
 
-    return res.json(classifiers);
+    return res.set(headers.NO_CACHE).json(classifiers);
 }
 
 async function newModel(req: auth.RequestWithProject, res: Express.Response) {
