@@ -119,8 +119,8 @@ gulp.task('minifyprodjs', () => {
 function prepareHtml (isForProd) {
     const options = { VERSION };
     if (isForProd) {
-        options.BEFORE_ANALYTICS = '';
-        options.AFTER_ANALYTICS = '';
+        options.BEFORE_ANALYTICS = '         ';
+        options.AFTER_ANALYTICS = '          ';
     }
     else {
         options.BEFORE_ANALYTICS = '<!--';

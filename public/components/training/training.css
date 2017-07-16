@@ -151,16 +151,19 @@
 
 
 .trainingbucketitem .deletetext {
-    display: none;
+    visibility: hidden;
 }
+
 .trainingbucketitem:hover .deletetext {
-    display: inline;
+    visibility: visible;
 }
 
 .deletetext {
     color: #CC8080;
     font-size: smaller;
     cursor: pointer;
+    float: right;
+    padding: 0.35em 0 0 0.35em;
 }
 
 

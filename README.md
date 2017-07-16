@@ -4,7 +4,8 @@
 To deploy:
     (using plugin from https://github.com/bluemixgaragelondon/cf-blue-green-deploy)
 
-cf blue-green-deploy taxinomitis -f manifest.yml
+cf blue-green-deploy machinelearningforkids -f manifest-prod.yml
+
 
 # Environment variables
 
