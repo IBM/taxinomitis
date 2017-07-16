@@ -12,7 +12,7 @@
     background-color: #eeeeee;
     border-radius: 2em;
     width: 40%;
-    margin: 1%;
+    margin: 12px;
     padding: 2em;
     position: relative;
     min-width: 300px;
@@ -23,7 +23,7 @@
     background-color: #eeeeee;
     border-radius: 2em;
     width: 80%;
-    margin: 1%;
+    margin: 12px;
     padding: 2em;
     position: relative;
     min-width: 350px;
