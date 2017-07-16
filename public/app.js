@@ -17,9 +17,7 @@
         $stateProvider
             .state('welcome', {
                 url: '/welcome',
-                controller: 'WelcomeController',
-                templateUrl: 'components-<%= VERSION %>/welcome/welcome.html',
-                controllerAs: 'vm'
+                templateUrl: 'components-<%= VERSION %>/welcome/welcome.html'
             })
             .state('login', {
                 url: '/login',
@@ -29,21 +27,19 @@
             })
             .state('about', {
                 url: '/about',
-                controller: 'AboutController',
-                templateUrl: 'components-<%= VERSION %>/about/about.html',
-                controllerAs: 'vm'
+                templateUrl: 'components-<%= VERSION %>/about/about.html'
+            })
+            .state('news', {
+                url: '/news',
+                templateUrl: 'components-<%= VERSION %>/news/news.html'
             })
             .state('help', {
                 url: '/help',
-                controller: 'HelpController',
-                templateUrl: 'components-<%= VERSION %>/help/help.html',
-                controllerAs: 'vm'
+                templateUrl: 'components-<%= VERSION %>/help/help.html'
             })
             .state('worksheets', {
                 url: '/worksheets',
-                controller: 'WorksheetsController',
-                templateUrl: 'components-<%= VERSION %>/worksheets/worksheets.html',
-                controllerAs: 'vm'
+                templateUrl: 'components-<%= VERSION %>/worksheets/worksheets.html'
             })
             .state('teacher', {
                 url: '/teacher',

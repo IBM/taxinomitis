@@ -1,5 +1,6 @@
 // external dependencies
 import * as express from 'express';
+import * as httpstatus from 'http-status';
 // local dependencies
 import * as store from './db/store';
 import * as cf from './utils/cf';
@@ -14,6 +15,34 @@ const log = loggerSetup();
 const app = express();
 const host: string = process.env.HOST || '0.0.0.0';
 const port: number = parseInt(process.env.PORT, 10) || 8000;
+
+if (process.env.BLUEMIX_REGION) {
+    // when running on Bluemix, need to look at use of HTTPS
+    //  between browser and Bluemix (not between Bluemix proxy
+    //  and the express app)
+    app.enable('trust proxy');
+
+    app.use((req, res, next) => {
+        if (req.secure) {
+            next();
+        }
+        else {
+            res.redirect('https://' + req.headers.host + req.url);
+        }
+    });
+
+    // when running on Bluemix, need to force non-www URLs as
+    //  the auth-callbacks won't support use of www
+    app.get('/*', (req, res, next) => {
+        if (req.hostname.startsWith('www.')){
+            res.redirect(httpstatus.MOVED_PERMANENTLY,
+                         'https://' + req.headers.host.substr(4) + req.url);
+        }
+        else {
+            next();
+        }
+    });
+}
 
 // UI setup
 const uilocation: string = __dirname + '/../../web';
