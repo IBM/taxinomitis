@@ -4,7 +4,7 @@ applications:
   instances: 1
   domain: mybluemix.net
   name: taxinomitis
-  host: taxinomitis
+  host: taxinomitis-dev
   disk_quota: 512M
   env:
     NODE_ENV: dev

@@ -117,12 +117,29 @@ gulp.task('minifyprodjs', () => {
     return concatAndMinifiyWebJs(true);
 });
 
+function prepareHtml (isForProd) {
+    const options = { VERSION };
+    if (isForProd) {
+        options.BEFORE_ANALYTICS = '';
+        options.AFTER_ANALYTICS = '';
+    }
+    else {
+        options.BEFORE_ANALYTICS = '<!--';
+        options.AFTER_ANALYTICS = '-->';
+    }
+
+    return gulp.src('public/index.html')
+            .pipe(template(options))
+            .pipe(gulp.dest('web'));
+}
 
 gulp.task('html', () => {
-    return gulp.src('public/index.html')
-            .pipe(template({ VERSION }))
-            .pipe(gulp.dest('web'));
+    return prepareHtml(false);
 });
+gulp.task('prodhtml', () => {
+    return prepareHtml(true);
+});
+
 
 gulp.task('tslint', () => {
     const tslintOptions = { formatter : 'verbose' };
@@ -175,6 +192,6 @@ gulp.task('default', sequence('build', 'lint', 'test'));
 gulp.task('buildprod', sequence(
     'clean',
     'bower',
-    ['css', 'minifyprodjs', 'images', 'html', 'angularcomponents', 'scratchxinstall'],
+    ['css', 'minifyprodjs', 'images', 'prodhtml', 'angularcomponents', 'scratchxinstall'],
     'compile',
     'lint'));
