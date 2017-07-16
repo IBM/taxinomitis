@@ -58,6 +58,11 @@
                 authManager.authenticate();
 
                 lock.getProfile(authResult.idToken, function (error, profile) {
+                    if (error) {
+                        console.log('lock auth failure');
+                        console.log(error);
+                        return logout();
+                    }
                     vm.profile = JSON.stringify(profile);
                     localStorage.setItem('profile', vm.profile);
                     deferredProfile.resolve(profile);
@@ -67,7 +72,9 @@
             });
 
             lock.on('authorization_error', function (err) {
-                // display error
+                console.log('lock authorization_error');
+                console.log(err);
+                return logout();
             });
         }
 

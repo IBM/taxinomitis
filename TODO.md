@@ -16,7 +16,6 @@ Code / engineering work
 * Some sort of admin controls for me so I'm not SQL'ing in a prod DB
 * fix the flicking when delete button are shown on examples
 * aggressive caching of API responses on IE fucks things up
-* lock.getProfile - need to handle error callback
 
 Longer term goals
 * Restore sprites library
