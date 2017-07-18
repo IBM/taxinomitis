@@ -12,7 +12,7 @@ applications:
     AUTH0_CONNECTION: ml-for-kids-users
     AUTH0_CLIENT_ID: yTfclbGyetW57Gm0Mt2FmdhvjEF7i7Tr
     AUTH0_CLIENT_SECRET: YhVJTGKyD4EBtg5WC0FaVEjLLJdeP4x9XMbRL-5m0siX20i7jYkjnw90AnzTkoIL
-    AUTH0_CALLBACK_URL: http://machinelearningforkids.mybluemix.net
+    AUTH0_CALLBACK_URL: https://machinelearningforkids.co.uk
     AUTH0_API_CLIENTID: zngWYbVvsFme0BawjcrUyx2ae6lgxxyV
     AUTH0_API_CLIENTSECRET: xVPKLHrtxIdy_CHgIjNYSjv-x6htF-OM2Y2YUEjO5orr2TZNCReJKtNKmo7H9g8g
     MYSQLHOST: bluemix-sandbox-dal-9-portal.8.dblayer.com
