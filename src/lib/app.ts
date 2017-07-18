@@ -1,73 +1,35 @@
 // external dependencies
 import * as express from 'express';
 import * as httpstatus from 'http-status';
-import * as path from 'path';
 // local dependencies
 import * as store from './db/store';
 import * as cf from './utils/cf';
 import * as conversation from './training/conversation';
-import restApiSetup from './restapi/api';
+import setupAPI from './restapi/api';
+import * as server from './restapi/server';
+import * as constants from './utils/constants';
 import loggerSetup from './utils/logger';
 
 const log = loggerSetup();
-
-const ONE_YEAR = 31536000000;
-const ONE_WEEK = 604800000;
-const ONE_HOUR = 3600000;
-
 
 // create server
 const app = express();
 const host: string = process.env.HOST || '0.0.0.0';
 const port: number = parseInt(process.env.PORT, 10) || 8000;
 
-if (process.env.BLUEMIX_REGION) {
-    // when running on Bluemix, need to look at use of HTTPS
-    //  between browser and Bluemix (not between Bluemix proxy
-    //  and the express app)
-    app.enable('trust proxy');
-
-    app.use((req, res, next) => {
-        if (req.secure) {
-            next();
-        }
-        else {
-            res.redirect(httpstatus.MOVED_PERMANENTLY,
-                         'https://' + req.headers.host + req.url);
-        }
-    });
-
-    // when running on Bluemix, need to force non-www URLs as
-    //  the auth-callbacks won't support use of www
-    app.get('/*', (req, res, next) => {
-        if (req.hostname.startsWith('www.')){
-            res.redirect(httpstatus.MOVED_PERMANENTLY,
-                         'https://' + req.headers.host.substr(4) + req.url);
-        }
-        else {
-            next();
-        }
-    });
-}
-
-
+// force HTTPS when running on Bluemix
+server.setupForBluemix(app);
 
 // UI setup
-const uilocation: string = path.join(__dirname, '/../../web/static');
-app.use('/static', express.static(uilocation, { maxAge : ONE_YEAR }));
-
-const scratchxlocation: string = path.join(__dirname, '/../../web/scratchx');
-app.use('/scratchx', express.static(scratchxlocation, { maxAge : ONE_WEEK }));
-
-const indexHtml: string = path.join(__dirname, '/../../web/dynamic');
-app.use('/', express.static(indexHtml, { maxAge : ONE_HOUR }));
+server.setupUI(app);
 
 // setup server and run
 store.init();
-restApiSetup(app);
+setupAPI(app);
 app.listen(port, host, () => {
-    log.info({ host, port, uilocation }, 'Running');
+    log.info({ host, port }, 'Running');
 });
+
 
 // log any uncaught errors before crashing
 process.on('uncaughtException', (err) => {
@@ -82,5 +44,5 @@ if (cf.isPrimaryInstance()) {
 
     // delete any text classifiers which have expired, to free up
     //  the available workspaces for other students
-    setInterval(conversation.cleanupExpiredClassifiers, ONE_HOUR);
+    setInterval(conversation.cleanupExpiredClassifiers, constants.ONE_HOUR);
 }

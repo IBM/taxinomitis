@@ -16,7 +16,7 @@ describe('REST API - Bluemix', () => {
             const testServer = testServerSetup();
             return request(testServer)
                 .get('/')
-                .expect(httpStatus.FOUND)
+                .expect(httpStatus.MOVED_PERMANENTLY)
                 .then((res) => {
                     assert(res.headers.location.startsWith('https'));
 
