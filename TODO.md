@@ -7,6 +7,8 @@ New features
 * Images training - built around a WikiMedia library?
 
 Code / engineering work
+* Setup prod clone of auth0 for dev
+* What happens if the access token expires while you're using it. Can we refresh/replace it?
 * Figure out logging for prod
 * Set up cfbot for prod monitoring
 * Delete entire project is actually calling taxinomitis-numbers during tests
