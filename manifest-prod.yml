@@ -8,13 +8,14 @@ applications:
   disk_quota: 512M
   env:
     NODE_ENV: production
-    AUTH0_DOMAIN: dalelane.eu.auth0.com
+    AUTH0_DOMAIN: ml-for-kids.auth0.com
     AUTH0_CONNECTION: ml-for-kids-users
-    AUTH0_CLIENT_ID: yTfclbGyetW57Gm0Mt2FmdhvjEF7i7Tr
-    AUTH0_CLIENT_SECRET: YhVJTGKyD4EBtg5WC0FaVEjLLJdeP4x9XMbRL-5m0siX20i7jYkjnw90AnzTkoIL
+    AUTH0_CLIENT_ID: UCFQIBMNFoUk5e19SDujYKTYC463r7rI
+    AUTH0_CLIENT_SECRET: RIdyn0AS6aMEc9hBlarqwbRT1D3n9L3CTFqf4pBYGVoPZB5f47ToLqdEmDIfKAvF
     AUTH0_CALLBACK_URL: https://machinelearningforkids.co.uk
-    AUTH0_API_CLIENTID: zngWYbVvsFme0BawjcrUyx2ae6lgxxyV
-    AUTH0_API_CLIENTSECRET: xVPKLHrtxIdy_CHgIjNYSjv-x6htF-OM2Y2YUEjO5orr2TZNCReJKtNKmo7H9g8g
+    AUTH0_API_CLIENTID: 43AbA3hC2rK6NQ5QN3u3Py5uXae5v967
+    AUTH0_API_CLIENTSECRET: 9o0iJsVGO4zYsJMQ82yN2EJcrM-dHZe2Wa0ICBYBpMMsrUGj7wHsAr_YP8-Xc4p9
+    AUTH0_AUDIENCE: https://machinelearningforkids.co.uk/users
     MYSQLHOST: bluemix-sandbox-dal-9-portal.8.dblayer.com
     MYSQLPORT: 28820
     MYSQLUSER: admin

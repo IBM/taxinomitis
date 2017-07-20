@@ -12,15 +12,12 @@
     "tests"
   ],
   "dependencies": {
-    "auth0-lock": "~10.18.0",
+    "angular": "1.6.5",
+    "angular-auth0": "^2.0.0",
     "angular-jwt": ">=0.1.9",
-    "angular-lock": "~2.0.2",
     "angular-ui-router": "~1.0.5",
     "bootstrap": "~3.3.7",
     "angular-material": "^1.1.4",
     "jquery": "^3.2.1"
-  },
-  "resolutions": {
-    "angular": "1.5.8"
   }
 }

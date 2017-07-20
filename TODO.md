@@ -1,6 +1,3 @@
-URGENT / HIGH PRIORITY
-* Auth0 support using new APIs
-
 UI clean-up needed
 * Logo
 * Add a sub-nav-bar for Train/Learn/Scratch to avoid need to go back to project page
@@ -10,7 +7,6 @@ New features
 * Images training - built around a WikiMedia library?
 
 Code / engineering work
-* Set up Auth0 for prod vs dev use
 * Figure out logging for prod
 * Set up cfbot for prod monitoring
 * Delete entire project is actually calling taxinomitis-numbers during tests

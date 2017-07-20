@@ -1,18 +1,19 @@
 (function () {
 
     angular
-        .module('app', ['ngMaterial', 'ngAnimate', 'ngMessages', 'auth0.lock', 'angular-jwt', 'ui.router'])
+        .module('app', ['ngMaterial', 'ngAnimate', 'ngMessages', 'auth0.auth0', 'angular-jwt', 'ui.router'])
         .config(config);
 
     config.$inject = [
         '$stateProvider',
-        'lockProvider',
+        '$locationProvider',
+        'angularAuth0Provider',
         '$urlRouterProvider',
         'jwtOptionsProvider',
         '$httpProvider',
     ];
 
-    function config($stateProvider, lockProvider, $urlRouterProvider, jwtOptionsProvider, $httpProvider) {
+    function config($stateProvider, $locationProvider, angularAuth0Provider, $urlRouterProvider, jwtOptionsProvider, $httpProvider) {
 
         $stateProvider
             .state('welcome', {
@@ -23,7 +24,10 @@
                 url: '/login',
                 controller: 'LoginController',
                 templateUrl: 'static/components-<%= VERSION %>/login/login.html',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                params: {
+                    VERSION : <%= VERSION %>
+                }
             })
             .state('about', {
                 url: '/about',
@@ -48,7 +52,8 @@
                 controllerAs: 'vm',
                 params: {
                     VERSION : <%= VERSION %>
-                }
+                },
+                onEnter: checkAuthentication
             })
             .state('projects', {
                 url: '/projects',
@@ -57,13 +62,15 @@
                 controllerAs: 'vm',
                 params: {
                     VERSION : <%= VERSION %>
-                }
+                },
+                onEnter: checkAuthentication
             })
             .state('mlproject', {
                 url: '/mlproject/:projectId',
                 controller: 'ProjectController',
                 templateUrl: 'static/components-<%= VERSION %>/mlproject/mlproject.html',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                onEnter: checkAuthentication
             })
             .state('mlproject_training', {
                 url: '/mlproject/:projectId/training',
@@ -72,54 +79,35 @@
                 controllerAs: 'vm',
                 params: {
                     VERSION : <%= VERSION %>
-                }
+                },
+                onEnter: checkAuthentication
             })
             .state('mlproject_models', {
                 url: '/mlproject/:projectId/models',
                 controller: 'ModelsController',
                 templateUrl: 'static/components-<%= VERSION %>/models/models.html',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                onEnter: checkAuthentication
             })
             .state('mlproject_scratch', {
                 url: '/mlproject/:projectId/scratch',
                 controller: 'ScratchController',
                 templateUrl: 'static/components-<%= VERSION %>/scratch/scratch.html',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                onEnter: checkAuthentication
             });
 
 
-        lockProvider.init({
+        angularAuth0Provider.init({
             clientID: AUTH0_CLIENT_ID,
             domain: AUTH0_DOMAIN,
-            options: {
-                _idTokenVerification: false,
-
-                // assuming school computers are shared so doing this is bad
-                rememberLastLogin: false,
-
-                languageDictionary: {
-                    title: 'Log in to ML for kids',
-                },
-
-                // this is needed so the API can get profile info from the token
-                auth: {
-                    params: {
-                        scope: 'openid email app_metadata'
-                    }
-                },
-
-                // don't ask for email address as identifier, as we're assuming
-                //  kids won't have email addresses so we don't want to confuse
-                //  matters by asking for it now
-                usernameStyle: 'username',
-
-                // we'll put this on the welcome screen, as we want to limit this
-                //  to teachers only
-                allowForgotPassword: false,
-                allowSignUp : false
-            }
+            responseType: 'token id_token',
+            audience: AUTH0_AUDIENCE,
+            redirectUri: AUTH0_CALLBACK_URL,
+            scope: REQUESTED_SCOPES
         });
 
+        $locationProvider.hashPrefix('');
 
         $urlRouterProvider.otherwise('/welcome');
 
@@ -128,13 +116,22 @@
                 if (options && options.url.substr(options.url.length - 5) == '.html') {
                     return null;
                 }
-                return localStorage.getItem('id_token');
+                return localStorage.getItem('access_token');
             }],
             whiteListedDomains: ['localhost'],
             unauthenticatedRedirectPath: '/login'
         });
 
         $httpProvider.interceptors.push('jwtInterceptor');
-    }
 
+
+
+        function checkAuthentication($transition$) {
+            var $state = $transition$.router.stateService;
+            var auth = $transition$.injector().get('authService');
+            if (!auth.isAuthenticated()) {
+                return $state.target('welcome');
+            }
+        }
+    }
 })();

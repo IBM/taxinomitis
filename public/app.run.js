@@ -6,30 +6,20 @@
 
     run.$inject = [
         '$rootScope',
-        'authService',
-        'authManager',
-        'lock'
+        'authService'
     ];
 
-    function run($rootScope, authService, authManager, lock) {
+    function run($rootScope, authService) {
         // Put the authService on $rootScope so its methods
         // can be accessed from the nav bar
         $rootScope.authService = authService;
 
-        // Register the authentication listener that is
-        // set up in auth.service.js
-        authService.registerAuthenticationListener();
+        // check if we already have an access token in local storage
+        var alreadyAuth = authService.isAuthenticated();
+        $rootScope.isAuthenticated = alreadyAuth;
 
-        // Use the authManager from angular-jwt to check for
-        // the user's authentication state when the page is
-        // refreshed and maintain authentication
-        authManager.checkAuthOnRefresh();
-
-        // Use redirectWhenUnauthenticated to redirect to unauthenticatedRedirectPath, if server returns 401.
-        // set up in app.js
-        authManager.redirectWhenUnauthenticated();
-
-        // Register synchronous hash parser
-        lock.interceptHash();
+        // look for a new access token in the URL
+        //  used when we get the callback from auth0 hosted login page
+        authService.setupAuth();
     }
 })();

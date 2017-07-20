@@ -5,14 +5,15 @@
         .service('authService', authService);
 
     authService.$inject = [
-        'lock',
-        'authManager',
+        'angularAuth0',
         '$q',
-        '$rootScope'
+        '$rootScope',
+        '$state',
+        '$timeout'
     ];
 
 
-    function authService(lock, authManager, $q, $rootScope) {
+    function authService(angularAuth0, $q, $rootScope, $state, $timeout) {
 
         var vm = this;
 
@@ -26,60 +27,98 @@
         }
 
         function login() {
-            lock.show();
+            angularAuth0.authorize();
         }
 
-        function reset() {
-            lock.show({
-                allowForgotPassword : true,
-                allowLogin : false,
-
-                initialScreen : 'forgotPassword'
-            });
+        function reset(emailAddress, callback) {
+            angularAuth0.changePassword({
+                connection : 'ml-for-kids-users',
+                email : emailAddress
+            }, callback);
         }
 
 
         function logout() {
             deferredProfile = $q.defer();
 
+            localStorage.removeItem('access_token');
             localStorage.removeItem('id_token');
-            localStorage.removeItem('profile');
+            localStorage.removeItem('expires_at');
+            localStorage.removeItem('scopes');
 
-            authManager.unauthenticate();
+            // authManager.unauthenticate();
 
             userProfile = null;
             $rootScope.isTeacher = false;
+            $rootScope.isAuthenticated = false;
         }
 
-        function registerAuthenticationListener() {
-            lock.on('authenticated', function (authResult) {
+        function setupAuth() {
+            angularAuth0.parseHash(function(err, authResult) {
+                if (err) {
+                    console.log(err);
+                    return logout();
+                }
 
-                localStorage.setItem('id_token', authResult.idToken);
-                authManager.authenticate();
+                if (authResult && authResult.idToken) {
+                    // Set the time that the access token will expire at
+                    let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
 
-                lock.getProfile(authResult.idToken, function (error, profile) {
-                    if (error) {
-                        console.log('lock auth failure');
-                        console.log(error);
-                        return logout();
-                    }
-                    vm.profile = JSON.stringify(profile);
-                    localStorage.setItem('profile', vm.profile);
-                    deferredProfile.resolve(profile);
+                    // If there is a value on the `scope` param from the authResult,
+                    // use it to set scopes in the session for the user. Otherwise
+                    // use the scopes as requested. If no scopes were requested,
+                    // set it to nothing
+                    var scopes = authResult.scope || REQUESTED_SCOPES || '';
 
-                    $rootScope.isTeacher = (profile.role === 'supervisor');
-                });
-            });
+                    localStorage.setItem('access_token', authResult.accessToken);
+                    localStorage.setItem('id_token', authResult.idToken);
+                    localStorage.setItem('expires_at', expiresAt);
+                    localStorage.setItem('scopes', JSON.stringify(scopes));
 
-            lock.on('authorization_error', function (err) {
-                console.log('lock authorization_error');
-                console.log(err);
-                return logout();
+                    angularAuth0.client.userInfo(authResult.accessToken, function(error, profile) {
+                        if (error) {
+                            console.log('lock auth failure');
+                            console.log(error);
+                            return logout();
+                        }
+
+                        const tenant = profile['https://machinelearningforkids.co.uk/api/tenant'];
+                        const role = profile['https://machinelearningforkids.co.uk/api/role'];
+                        const user_id = profile.sub;
+                        profile.tenant = tenant;
+                        profile.role = role;
+                        profile.user_id = user_id;
+                        delete profile['https://machinelearningforkids.co.uk/api/tenant'];
+                        delete profile['https://machinelearningforkids.co.uk/api/role'];
+                        delete profile.sub;
+                        delete profile.picture;
+
+                        vm.profile = profile;
+
+                        localStorage.setItem('profile', JSON.stringify(vm.profile));
+                        deferredProfile.resolve(profile);
+
+                        $rootScope.isTeacher = (profile.role === 'supervisor');
+                        $rootScope.isAuthenticated = true;
+
+
+                        $timeout(function() {
+                            $state.go('welcome');
+                        });
+                    });
+                }
             });
         }
 
         function getProfileDeferred() {
             return deferredProfile.promise;
+        }
+
+        function isAuthenticated() {
+            // Check whether the current time is past the
+            // access token's expiry time
+            let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+            return new Date().getTime() < expiresAt;
         }
 
 
@@ -88,8 +127,9 @@
             reset : reset,
             logout: logout,
 
-            registerAuthenticationListener: registerAuthenticationListener,
+            setupAuth: setupAuth,
             getProfileDeferred: getProfileDeferred,
+            isAuthenticated : isAuthenticated
         };
     }
 })();

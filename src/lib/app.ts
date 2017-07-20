@@ -40,7 +40,7 @@ process.on('uncaughtException', (err) => {
 
 // start scheduled cleanup tasks
 if (cf.isPrimaryInstance()) {
-    log.info('*** Scheduling clean-up task to run every hour');
+    log.info('Scheduling clean-up task to run every hour');
 
     // delete any text classifiers which have expired, to free up
     //  the available workspaces for other students
