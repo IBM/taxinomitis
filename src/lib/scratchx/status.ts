@@ -68,5 +68,5 @@ async function getTextClassifierStatus(scratchKey: Types.ScratchKey): Promise<Sc
 
 
 function getNumbersClassifierStatus(scratchKey: Types.ScratchKey): Promise<ScratchTypes.Status> {
-    return Promise.resolve({ status : 2, msg : 'PLACEHOLDER for ' + scratchKey.name });
+    return Promise.resolve({ status : 2, msg : 'Status for ' + scratchKey.name });
 }

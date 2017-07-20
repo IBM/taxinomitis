@@ -29,12 +29,37 @@ export function replaceDbConnPoolForTest(testDbConnPool) {
     dbConnPool = testDbConnPool;
 }
 
+async function restartConnection() {
+    log.info('Restarting DB connection pool');
+    try {
+        await disconnect();
+        await init();
+    }
+    catch (err) {
+        log.error({ err }, 'Probably-irrecoverable-failure while trying to restart the DB connection');
+    }
+}
+
+
+async function handleDbException(err) {
+    log.error({ err }, 'DB error');
+    if (err.code === 'ER_OPTION_PREVENTS_STATEMENT' &&  err.errno === 1290)
+    {
+        // for this error, it is worth trying to reconnect to the DB
+        await restartConnection();
+    }
+    throw err;
+}
+
 
 async function dbExecute(query: string, params: any[]) {
     const dbConn = await dbConnPool.getConnection();
     try {
         const [response] = await dbConn.execute(query, params);
         return response;
+    }
+    catch (err) {
+        handleDbException(err);
     }
     finally {
         dbConn.release();
@@ -284,9 +309,7 @@ export async function storeTextTraining(
         }
     }
     catch (err) {
-        // log the error before rethrowing
-        log.error({ err }, 'DB error in storing number training');
-        throw err;
+        handleDbException(err);
     }
     finally {
         dbConn.release();
@@ -499,9 +522,7 @@ export async function storeNumberTraining(
         }
     }
     catch (err) {
-        // log the error before rethrowing
-        log.error({ err }, 'DB error in storing number training');
-        throw err;
+        handleDbException(err);
     }
     finally {
         dbConn.release();
@@ -1053,7 +1074,7 @@ export async function getClassTenant(classid: string): Promise<Objects.ClassTena
 
     const rows = await dbExecute(queryString, [ classid ]);
     if (rows.length !== 1) {
-        log.error({ rows, func : 'getClassTenant' }, 'Unexpected response from DB');
+        log.debug({ rows, func : 'getClassTenant' }, 'Unexpected response from DB');
 
         return {
             id : classid,

@@ -67,7 +67,9 @@
                 <div ng-switch-when="ready">
                     <div class="modelstatusdetail">
                         You've trained a machine learning model to recognise
-                        when {{ project.type }} is {{ projectSummary }}.
+                        when {{ project.type }}
+                        {{ project.type === 'text' ? 'is' : 'are' }}
+                        {{ projectSummary }}.
                     </div>
                     <div class="modelstatusdetail">
                         You created the model on

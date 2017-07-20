@@ -11,7 +11,6 @@ Code / engineering work
    https://github.com/auth0/auth0.js#api look at renewAuth
    According to https://github.com/auth0/angular-lock/issues/26 it's okay to use this as well as lock
    NOTE: Tokens expire after 24 hours. Unlikely to be a problem in schools!
-* Auto-focus for the numbers-add-example would be helpful
 * Figure out logging for prod
 * Set up cfbot for prod monitoring
 * Delete entire project is actually calling taxinomitis-numbers during tests
