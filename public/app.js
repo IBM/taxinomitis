@@ -1,19 +1,19 @@
 (function () {
 
     angular
-        .module('app', ['ngMaterial', 'ngAnimate', 'ngMessages', 'auth0.auth0', 'angular-jwt', 'ui.router'])
+        .module('app', ['ngMaterial', 'ngAnimate', 'ngMessages', 'auth0.lock', 'angular-jwt', 'ui.router'])
         .config(config);
 
     config.$inject = [
         '$stateProvider',
         '$locationProvider',
-        'angularAuth0Provider',
+        'lockProvider',
         '$urlRouterProvider',
         'jwtOptionsProvider',
         '$httpProvider',
     ];
 
-    function config($stateProvider, $locationProvider, angularAuth0Provider, $urlRouterProvider, jwtOptionsProvider, $httpProvider) {
+    function config($stateProvider, $locationProvider, lockProvider, $urlRouterProvider, jwtOptionsProvider, $httpProvider) {
 
         $stateProvider
             .state('welcome', {
@@ -52,8 +52,9 @@
                 controllerAs: 'vm',
                 params: {
                     VERSION : <%= VERSION %>
-                },
-                onEnter: checkAuthentication
+                }
+                // },
+                // onEnter: checkAuthentication
             })
             .state('projects', {
                 url: '/projects',
@@ -62,15 +63,17 @@
                 controllerAs: 'vm',
                 params: {
                     VERSION : <%= VERSION %>
-                },
-                onEnter: checkAuthentication
+                }
+                // ,
+                // onEnter: checkAuthentication
             })
             .state('mlproject', {
                 url: '/mlproject/:projectId',
                 controller: 'ProjectController',
                 templateUrl: 'static/components-<%= VERSION %>/mlproject/mlproject.html',
-                controllerAs: 'vm',
-                onEnter: checkAuthentication
+                controllerAs: 'vm'
+                // ,
+                // onEnter: checkAuthentication
             })
             .state('mlproject_training', {
                 url: '/mlproject/:projectId/training',
@@ -79,35 +82,72 @@
                 controllerAs: 'vm',
                 params: {
                     VERSION : <%= VERSION %>
-                },
-                onEnter: checkAuthentication
+                }
+                // ,
+                // onEnter: checkAuthentication
             })
             .state('mlproject_models', {
                 url: '/mlproject/:projectId/models',
                 controller: 'ModelsController',
                 templateUrl: 'static/components-<%= VERSION %>/models/models.html',
-                controllerAs: 'vm',
-                onEnter: checkAuthentication
+                controllerAs: 'vm'
+                // ,
+                // onEnter: checkAuthentication
             })
             .state('mlproject_scratch', {
                 url: '/mlproject/:projectId/scratch',
                 controller: 'ScratchController',
                 templateUrl: 'static/components-<%= VERSION %>/scratch/scratch.html',
-                controllerAs: 'vm',
-                onEnter: checkAuthentication
+                controllerAs: 'vm'
+                // ,
+                // onEnter: checkAuthentication
             });
 
 
-        angularAuth0Provider.init({
-            clientID: AUTH0_CLIENT_ID,
-            domain: AUTH0_DOMAIN,
-            responseType: 'token id_token',
-            audience: AUTH0_AUDIENCE,
-            redirectUri: AUTH0_CALLBACK_URL,
-            scope: REQUESTED_SCOPES
+        // angularAuth0Provider.init({
+        //     clientID: AUTH0_CLIENT_ID,
+        //     domain: AUTH0_DOMAIN,
+        //     responseType: 'token id_token',
+        //     audience: AUTH0_AUDIENCE,
+        //     redirectUri: AUTH0_CALLBACK_URL,
+        //     scope: REQUESTED_SCOPES
+        // });
+
+        // $locationProvider.hashPrefix('');
+
+        lockProvider.init({
+            clientID : AUTH0_CLIENT_ID,
+            domain : AUTH0_DOMAIN,
+            options : {
+                oidcConformant : true,
+                autoclose : true,
+                auth : {
+                    responseType: 'token id_token',
+                    audience: AUTH0_AUDIENCE, // 'https://' + AUTH0_DOMAIN + '/userinfo',
+                    redirectUrl: AUTH0_CALLBACK_URL,
+                    params: {
+                        scope: 'openid email app_metadata'
+                    }
+                },
+
+                // assuming school computers are shared so doing this would be bad
+                rememberLastLogin: false,
+
+                // don't ask for email address as identifier, as we're assuming
+                //  kids won't have email addresses so we don't want to confuse
+                //  matters by asking for it now
+                usernameStyle: 'username',
+
+                // password-reset is for teachers only, so we'll have a separate
+                //  way to get to this, and disable it on the default login popup
+                allowForgotPassword : false,
+
+                // we don't want people creating their own accounts
+                allowSignUp : false
+            }
         });
 
-        $locationProvider.hashPrefix('');
+
 
         $urlRouterProvider.otherwise('/welcome');
 
@@ -116,22 +156,12 @@
                 if (options && options.url.substr(options.url.length - 5) == '.html') {
                     return null;
                 }
-                return localStorage.getItem('access_token');
+                return localStorage.getItem('id_token');
             }],
             whiteListedDomains: ['localhost'],
             unauthenticatedRedirectPath: '/login'
         });
 
         $httpProvider.interceptors.push('jwtInterceptor');
-
-
-
-        function checkAuthentication($transition$) {
-            var $state = $transition$.router.stateService;
-            var auth = $transition$.injector().get('authService');
-            if (!auth.isAuthenticated()) {
-                return $state.target('welcome');
-            }
-        }
     }
 })();

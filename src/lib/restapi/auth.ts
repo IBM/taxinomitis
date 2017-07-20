@@ -20,7 +20,11 @@ export const authenticate = jwt({
         jwksRequestsPerMinute : 5,
         jwksUri : `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`,
     }),
-    audience : process.env.AUTH0_AUDIENCE,
+
+    // cf. https://github.com/auth0/express-jwt/issues/171#issuecomment-305876709
+    // audience : process.env.AUTH0_AUDIENCE,
+    aud : process.env.AUTH0_AUDIENCE,
+
     issuer : `https://${process.env.AUTH0_DOMAIN}/`,
     algorithms : ['RS256'],
 });

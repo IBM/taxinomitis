@@ -7,13 +7,18 @@ New features
 * Images training - built around a WikiMedia library?
 
 Code / engineering work
-* Setup prod clone of auth0 for dev
 * What happens if the access token expires while you're using it. Can we refresh/replace it?
+   https://github.com/auth0/auth0.js#api look at renewAuth
+   According to https://github.com/auth0/angular-lock/issues/26 it's okay to use this as well as lock
+   NOTE: Tokens expire after 24 hours. Unlikely to be a problem in schools!
+* Auto-focus for the numbers-add-example would be helpful
 * Figure out logging for prod
 * Set up cfbot for prod monitoring
 * Delete entire project is actually calling taxinomitis-numbers during tests
 * Some sort of admin controls for me so I'm not SQL'ing in a prod DB
 * Compose dashboard supports MySQL backups - need to set a reminder to do this
+* Test to see if localStorage is available (auth broken without it - such as on Safari Private Mode)
+   https://stackoverflow.com/questions/21159301/quotaexceedederror-dom-exception-22-an-attempt-was-made-to-add-something-to-st
 
 Longer term goals
 * Restore sprites library to scratch-flash

@@ -6,20 +6,22 @@
 
     run.$inject = [
         '$rootScope',
-        'authService'
+        'authService', 'authManager'
     ];
 
-    function run($rootScope, authService) {
+    function run($rootScope, authService, authManager) {
         // Put the authService on $rootScope so its methods
         // can be accessed from the nav bar
         $rootScope.authService = authService;
 
-        // check if we already have an access token in local storage
-        var alreadyAuth = authService.isAuthenticated();
-        $rootScope.isAuthenticated = alreadyAuth;
-
-        // look for a new access token in the URL
-        //  used when we get the callback from auth0 hosted login page
+        // register auth listener
         authService.setupAuth();
+
+        // check auth when they load the page
+        authManager.checkAuthOnRefresh();
+
+        // send them back to the login screen if they get an HTTP 401
+        //  from an API call
+        authManager.redirectWhenUnauthenticated();
     }
 })();

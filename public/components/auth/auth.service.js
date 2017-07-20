@@ -5,7 +5,7 @@
         .service('authService', authService);
 
     authService.$inject = [
-        'angularAuth0',
+        'lock', 'authManager',
         '$q',
         '$rootScope',
         '$state',
@@ -13,7 +13,7 @@
     ];
 
 
-    function authService(angularAuth0, $q, $rootScope, $state, $timeout) {
+    function authService(lock, authManager, $q, $rootScope, $state, $timeout) {
 
         var vm = this;
 
@@ -38,14 +38,24 @@
 
 
         function login() {
-            angularAuth0.authorize();
+            lock.show({
+                languageDictionary : {
+                    title: 'Log in to ML for kids'
+                }
+            });
         }
 
-        function reset(emailAddress, callback) {
-            angularAuth0.changePassword({
-                connection : 'ml-for-kids-users',
-                email : emailAddress
-            }, callback);
+        function reset() {
+            lock.show({
+                languageDictionary : {
+                    title: 'Forgot your password?'
+                },
+
+                allowForgotPassword : true,
+                allowLogin : false,
+
+                initialScreen : 'forgotPassword'
+            });
         }
 
 
@@ -56,6 +66,8 @@
             localStorage.removeItem('id_token');
             localStorage.removeItem('expires_at');
             localStorage.removeItem('scopes');
+
+            authManager.unauthenticate();
 
             userProfile = null;
             $rootScope.isTeacher = false;
@@ -72,6 +84,8 @@
             localStorage.setItem('id_token', authResult.idToken);
             localStorage.setItem('expires_at', expiresAt);
             localStorage.setItem('scopes', JSON.stringify(scopes));
+
+            authManager.authenticate();
         }
 
         function storeProfile(profile) {
@@ -99,33 +113,35 @@
 
 
         function setupAuth() {
-            angularAuth0.parseHash(function(err, authResult) {
-                if (err) {
-                    console.log(err);
-                    return logout();
-                }
-
-                if (authResult && authResult.idToken) {
+            lock.on('authenticated', function (authResult) {
+                if (authResult && authResult.accessToken && authResult.idToken) {
                     storeToken(authResult);
 
-                    angularAuth0.client.userInfo(authResult.accessToken, function(error, profile) {
-                        if (error) {
+                    lock.getUserInfo(authResult.accessToken, function (err, profile) {
+                        if (err) {
                             console.log('lock auth failure');
-                            console.log(error);
+                            console.log(err);
                             return logout();
                         }
-
                         vm.profile = extractAppMetadata(profile);
-
                         storeProfile(vm.profile);
 
-                        $timeout(function() {
+                        $timeout(function () {
                             $state.go('welcome');
                         });
                     });
                 }
             });
+
+            lock.on('authorization_error', function (err) {
+                console.log('lock authorization error');
+                console.log(err);
+                return logout();
+            });
         }
+
+
+
 
         function getProfileDeferred() {
             return deferredProfile.promise;

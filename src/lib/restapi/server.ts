@@ -47,5 +47,5 @@ export function setupUI(app: express.Application): void {
     app.use('/scratchx', express.static(scratchxlocation, { maxAge : constants.ONE_WEEK }));
 
     const indexHtml: string = path.join(__dirname, '/../../../web/dynamic');
-    app.use('/', express.static(indexHtml, { maxAge : constants.FIVE_MINUTES }));
+    app.use('/', express.static(indexHtml, { maxAge : 0 }));
 }
