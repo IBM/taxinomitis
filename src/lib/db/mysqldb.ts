@@ -8,7 +8,7 @@ let connectionPool;
 export async function connect() {
     if (!connectionPool) {
         connectionPool = await mysql.createPool({
-            connectionLimit : 100,
+            connectionLimit : 30,
             host : process.env.MYSQLHOST,
             port : process.env.MYSQLPORT,
             user : process.env.MYSQLUSER,
