@@ -1,6 +1,9 @@
 -- dev
 -- \connect mysql://admin:FEIOHLDSRJHYDHEF@bluemix-sandbox-dal-9-portal.8.dblayer.com:25521/compose
 
+-- replacement-dev
+-- \connect mysql://admin:AHTQFXRUIQKHYNLJ@bluemix-sandbox-dal-9-portal.6.dblayer.com:28940/compose
+
 -- prod
 -- \connect mysql://admin:ZLLIDCRHUXXAISWD@bluemix-sandbox-dal-9-portal.8.dblayer.com:28820/compose
 
@@ -63,6 +66,12 @@ INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, passwor
     VALUES ('7f22d1eb-4802-4579-bb05-2d2272130caf', 'apple', 'conv', 'https://gateway.watsonplatform.net/conversation/api', 'e39cac0a-c475-413e-b59c-b257bf143990', 'yPtMkysDr0nU');
 INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, password)
     VALUES ('22629408-6333-11e7-907b-a6006ad3dba0', 'apple', 'conv', 'https://gateway.watsonplatform.net/conversation/api', '8b85ef88-a91c-4da3-bf68-66d6b6597b35', 'JBSO3rsBlTiZ');
+
+INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, password)
+    VALUES ('72a73ed6-6da2-11e7-907b-a6006ad3dba0', 'demo', 'conv', 'https://gateway.watsonplatform.net/conversation/api', '8a2f768a-665e-48ee-8dbf-48dce24148aa', 'JWJ4kSwrWyHr');
+INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, password)
+    VALUES ('21da1a33-8f22-4897-b3f1-0285ed65572e', 'demo', 'conv', 'https://gateway.watsonplatform.net/conversation/api', 'f271d2b7-a222-418d-a0af-be11af5fb105', 'JhfYyBBEDm5r');
+
 
 CREATE INDEX bluemixcredentials_getBluemixCredentials on bluemixcredentials(classid, servicetype) using HASH;
 

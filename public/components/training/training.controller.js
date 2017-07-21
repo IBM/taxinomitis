@@ -17,6 +17,10 @@
         var vm = this;
         vm.authService = authService;
 
+
+        var placeholderId = 1;
+
+
         var alertId = 1;
         vm.errors = [];
         vm.warnings = [];
@@ -136,20 +140,47 @@
             })
             .then(
                 function(resp) {
+
                     var data;
+                    var placeholder;
+
                     if ($scope.project.type === 'text') {
                         data = resp;
+
+                        placeholder = {
+                            id : placeholderId++,
+                            label : label,
+                            projectid : $scope.projectId,
+                            textdata : data,
+                            isPlaceholder : true
+                        };
                     }
                     else if ($scope.project.type === 'numbers') {
                         data = getValues(resp);
+
+                        placeholder = {
+                            id : placeholderId++,
+                            label : label,
+                            projectid : $scope.projectId,
+                            numberdata : data,
+                            isPlaceholder : true
+                        };
                     }
+
+                    $scope.training[label].push(placeholder);
 
                     trainingService.newTrainingData($scope.projectId, vm.profile.user_id, vm.profile.tenant, data, label)
                         .then(function (newitem) {
-                            $scope.training[label].push(newitem);
+                            placeholder.isPlaceholder = false;
+                            placeholder.id = newitem.id;
                         })
                         .catch(function (err) {
                             displayAlert('errors', err.status, err.data);
+
+                            var idxToRemove = findTrainingIndex(label, placeholder.id);
+                            if (idxToRemove !== -1) {
+                                $scope.training[label].splice(idxToRemove, 1);
+                            }
                         });
                 },
                 function() {
@@ -227,6 +258,19 @@
                 }
             );
         };
+
+
+
+
+        function findTrainingIndex(label, id) {
+            var len = $scope.training[label].length;
+            for (var i = 0; i < len; i++) {
+                if ($scope.training[label][i].id === id) {
+                    return i;
+                }
+            }
+            return -1;
+        }
     }
 
 }());

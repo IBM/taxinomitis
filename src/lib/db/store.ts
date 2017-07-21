@@ -53,6 +53,8 @@ async function handleDbException(err) {
 
 
 async function dbExecute(query: string, params: any[]) {
+    // const [response] = await dbConnPool.execute(query, params);
+    // return response;
     const dbConn = await dbConnPool.getConnection();
     try {
         const [response] = await dbConn.execute(query, params);

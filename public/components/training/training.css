@@ -150,6 +150,13 @@
 }
 
 
+.trainingbucketitem.placeholder,
+.trainingbucketitem.placeholder .numberdatalabel,
+.trainingbucketitem.placeholder .numberdatavalue {
+    color: #808080;
+    background-color: #f1f1fb;
+}
+
 .trainingbucketitem .deletetext {
     visibility: hidden;
 }
