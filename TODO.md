@@ -4,7 +4,7 @@ UI clean-up needed
 * Document differences with regular Scratch
 
 New features
-* Images training - built around a WikiMedia library?
+* Images training
 
 Code / engineering work
 * What happens if the access token expires while you're using it. Can we refresh/replace it?
@@ -18,6 +18,7 @@ Code / engineering work
 * Compose dashboard supports MySQL backups - need to set a reminder to do this
 * Test to see if localStorage is available (auth broken without it - such as on Safari Private Mode)
    https://stackoverflow.com/questions/21159301/quotaexceedederror-dom-exception-22-an-attempt-was-made-to-add-something-to-st
+* Refactoring store.ts to remove duplicate code across text/images/numbers
 
 Longer term goals
 * Restore sprites library to scratch-flash

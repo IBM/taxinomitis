@@ -193,6 +193,48 @@ export function getNumberTrainingFromDbRow(row: Objects.NumberTrainingDbRow): Ob
 }
 
 
+
+export function createImageTraining(projectid: string, imageurl: string, label: string): Objects.ImageTraining {
+    if (projectid === undefined || projectid === '' ||
+        imageurl === undefined || imageurl === '')
+    {
+        throw new Error('Missing required attributes');
+    }
+
+    if (imageurl.length > MAX_CONTENTS_LENGTH) {
+        throw new Error('Image URL exceeds maximum allowed length (1024 characters)');
+    }
+
+    const object: any = {
+        id : uuid(),
+        projectid,
+        imageurl,
+    };
+
+    if (label) {
+        object.label = label;
+    }
+
+    return object;
+}
+
+export function getImageTrainingFromDbRow(row: Objects.ImageTrainingDbRow): Objects.ImageTraining {
+    const obj: any = {
+        id : row.id,
+        imageurl : row.imageurl,
+    };
+    if (row.label) {
+        obj.label = row.label;
+    }
+    if (row.projectid) {
+        obj.projectid = row.projectid;
+    }
+    return obj;
+}
+
+
+
+
 // -----------------------------------------------------------------------------
 //
 // BLUEMIX CREDENTIALS

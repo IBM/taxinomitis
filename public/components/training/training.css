@@ -165,6 +165,12 @@
     visibility: visible;
 }
 
+
+.trainingImageThumbnail {
+    max-width: 100px;
+}
+
+
 .deletetext {
     color: #CC8080;
     font-size: smaller;

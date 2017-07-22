@@ -59,6 +59,20 @@ export interface NumberTrainingDbRow {
 }
 
 
+export interface ImageTraining {
+    readonly id: string;
+    readonly imageurl: string;
+    label?: string;
+    projectid?: string;
+}
+
+export interface ImageTrainingDbRow {
+    readonly id: string;
+    readonly imageurl: string;
+    readonly label?: string;
+    readonly projectid?: string;
+}
+
 
 
 export interface ScratchKey {

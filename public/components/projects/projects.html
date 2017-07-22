@@ -36,7 +36,10 @@
             <span class="glyphicon glyphicon-arrow-right"></span>
         </div>
         <div class="mlproject" ng-repeat="project in vm.projects">
-            <div class="mlprojectdetails" ui-sref="mlproject({ projectId : project.id })">
+            <div class="mlprojectdetails placeholder" ng-if="project.isPlaceholder">
+                <div class="mlprojecttitle">{{ project.name }}</div>
+            </div>
+            <div class="mlprojectdetails" ng-if="!project.isPlaceholder" ui-sref="mlproject({ projectId : project.id })">
                 <div class="mlprojecttitle">{{ project.name }}</div>
                 <div class="mlprojectdescription">
                     Recognising
@@ -49,6 +52,7 @@
             </div>
             <img class="mlprojectdelete"
                  src="static/images/trash.png"
+                 ng-if="!project.isPlaceholder"
                  ng-click="vm.deleteProject($event, project)"
                  alt="Delete project" />
         </div>

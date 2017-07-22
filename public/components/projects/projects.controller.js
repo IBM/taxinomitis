@@ -16,6 +16,8 @@
         var vm = this;
         vm.authService = authService;
 
+        var placeholderId = 1;
+
         var alertId = 1;
         vm.errors = [];
         vm.warnings = [];
@@ -106,12 +108,29 @@
             })
             .then(
                 function(project) {
+
+                    var placeholder = {
+                        id : placeholderId++,
+                        name : project.name,
+                        type : project.type,
+                        fields : project.fields,
+                        isPlaceholder : true
+                    };
+                    vm.projects.push(placeholder);
+
                     projectsService.createProject(project, vm.profile.user_id, vm.profile.tenant)
-                        .then(function () {
-                            refreshProjectsList(vm.profile);
+                        .then(function (newproject) {
+                            placeholder.id = newproject.id;
+                            placeholder.labels = newproject.labels;
+                            placeholder.isPlaceholder = false;
                         })
                         .catch(function (err) {
                             displayAlert('errors', err.status, err.data);
+
+                            var idxToRemove = findProjectIndex(placeholder.id);
+                            if (idxToRemove !== -1) {
+                                vm.projects.splice(idxToRemove, 1);
+                            }
                         });
                 },
                 function() {
@@ -132,9 +151,16 @@
 
             $mdDialog.show(confirm).then(
                 function() {
+                    project.isPlaceholder = true;
                     projectsService.deleteProject(project, vm.profile.user_id, vm.profile.tenant)
                         .then(function () {
-                            refreshProjectsList(vm.profile);
+                            var idx = findProjectIndex(project.id);
+                            if (idx !== -1) {
+                                vm.projects.splice(idx, 1);
+                            }
+                            else {
+                                refreshProjectsList(vm.profile);
+                            }
                         })
                         .catch(function (err) {
                             displayAlert('errors', err.status, err.data);
@@ -145,6 +171,18 @@
                 }
             );
         };
+
+
+
+        function findProjectIndex(id) {
+            var len = vm.projects.length;
+            for (var i = 0; i < len; i++) {
+                if (vm.projects[i].id === id) {
+                    return i;
+                }
+            }
+            return -1;
+        }
 
     }
 }());

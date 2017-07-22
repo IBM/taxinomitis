@@ -59,4 +59,30 @@
             <md-button ng-click="cancel()">Cancel</md-button>
         </md-dialog-actions>
     </form>
+    <form ng-cloak name="newImagesTrainingData" ng-hide="project.type !== 'images'" ng-submit="confirm(example)">
+        <md-dialog-content>
+            <div class="md-dialog-content" style="min-width: 600px">
+                <md-card-content>
+                    <div layout="row">
+                        <md-input-container style="min-width: 580px">
+                            <label>Enter the URL of a picture that is an example of '{{ label }}'</label>
+                            <input type="url" name="url"
+                                   md-autofocus
+                                   ng-required="true"
+                                   ng-model="example"
+                                   md-maxlength="1000"></input>
+                            <div class="ng-animate" ng-messages="newImagesTrainingData[url].$error" >
+                                <div ng-message="pattern">This needs to be the web address of a picture</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </md-card-content>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button type="submit" class="md-raised md-primary" ng-disabled="newImagesTrainingData.$invalid" ng-click="confirm(example)">Add</md-button>
+            <md-button ng-click="cancel()">Cancel</md-button>
+        </md-dialog-actions>
+    </form>
 </md-dialog>

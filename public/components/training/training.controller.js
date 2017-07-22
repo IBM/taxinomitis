@@ -166,6 +166,17 @@
                             isPlaceholder : true
                         };
                     }
+                    else if ($scope.project.type === 'images') {
+                        data = resp;
+
+                        placeholder = {
+                            id : placeholderId++,
+                            label : label,
+                            projectid : $scope.projectId,
+                            imageurl : data,
+                            isPlaceholder : true
+                        };
+                    }
 
                     $scope.training[label].push(placeholder);
 

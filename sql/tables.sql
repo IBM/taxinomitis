@@ -52,6 +52,16 @@ CREATE TABLE numbertraining (
 CREATE INDEX numbertraining_getNumberTraining on numbertraining(projectid, label) using BTREE;
 
 
+CREATE TABLE imagetraining (
+    id CHAR(36) NOT NULL PRIMARY KEY,
+    projectid CHAR(36) NOT NULL,
+    imageurl VARCHAR(1024) NOT NULL,
+    label VARCHAR(100)
+);
+
+CREATE INDEX imagetraining_getImageTraining on imagetraining(projectid, label, imageurl) using BTREE;
+CREATE INDEX imagetraining_getTrainingLabels on imagetraining(projectid) using HASH;
+
 -- ------------------------------------------------------------------
 
 CREATE TABLE bluemixcredentials (

@@ -35,28 +35,28 @@ describe('REST API - Auth', () => {
             });
         });
 
-        it('checkValidUser - need user metadata', (done) => {
-            const req = {
-                user : {
-                    name : 'unauthorized bob',
-                },
-            } as Express.Request;
-            const res = {
-                status : (code) => {
-                    assert.equal(code, 401);
-                    return {
-                        json : (obj) => {
-                            assert.deepEqual(obj, { error : 'Not authorised' });
-                            done();
-                        },
-                    };
-                },
-            } as Express.Response;
+        // it('checkValidUser - need user metadata', (done) => {
+        //     const req = {
+        //         user : {
+        //             name : 'unauthorized bob',
+        //         },
+        //     } as Express.Request;
+        //     const res = {
+        //         status : (code) => {
+        //             assert.equal(code, 401);
+        //             return {
+        //                 json : (obj) => {
+        //                     assert.deepEqual(obj, { error : 'Not authorised' });
+        //                     done();
+        //                 },
+        //             };
+        //         },
+        //     } as Express.Response;
 
-            auth.checkValidUser(req, res, () => {
-                // not used
-            });
-        });
+        //     auth.checkValidUser(req, res, () => {
+        //         // not used
+        //     });
+        // });
 
         it('checkValidUser - need the right tenant', (done) => {
             const req = {

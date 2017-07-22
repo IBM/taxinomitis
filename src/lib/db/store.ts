@@ -48,7 +48,6 @@ async function handleDbException(err) {
         // for this error, it is worth trying to reconnect to the DB
         await restartConnection();
     }
-    throw err;
 }
 
 
@@ -62,6 +61,7 @@ async function dbExecute(query: string, params: any[]) {
     }
     catch (err) {
         handleDbException(err);
+        throw err;
     }
     finally {
         dbConn.release();
@@ -181,6 +181,9 @@ export async function removeLabelFromProject(
     }
     else if (project.type === 'numbers') {
         await deleteNumberTrainingLabel(projectid, labelToRemove);
+    }
+    else if (project.type === 'images') {
+        await deleteImageTrainingLabel(projectid, labelToRemove);
     }
 
     return labels;
@@ -312,6 +315,7 @@ export async function storeTextTraining(
     }
     catch (err) {
         handleDbException(err);
+        throw err;
     }
     finally {
         dbConn.release();
@@ -466,6 +470,163 @@ export async function deleteTextTrainingByProjectId(projectid: string): Promise<
     }
 }
 
+
+
+
+export async function storeImageTraining(
+    projectid: string, imageurl: string, label: string,
+): Promise<Objects.ImageTraining>
+{
+    let outcome: InsertTrainingOutcome;
+
+    // prepare the data that we want to store
+    const obj = dbobjects.createImageTraining(projectid, imageurl, label);
+
+
+    //
+    // prepare the queries so we have everything ready before we
+    //  get a DB connection from the pool
+    //
+
+    const countQry = 'SELECT COUNT(*) AS `trainingcount` FROM `imagetraining` WHERE `projectid` = ?';
+    const countValues = [ projectid ];
+
+    const insertQry = 'INSERT INTO `imagetraining` (`id`, `projectid`, `imageurl`, `label`) VALUES (?, ?, ?, ?)';
+    const insertValues = [ obj.id, obj.projectid, obj.imageurl, obj.label ];
+
+
+    //
+    // connect to the DB
+    //
+
+    const dbConn = await dbConnPool.getConnection();
+
+    try {
+        // count how much training data they already have
+        const [countResponse] = await dbConn.execute(countQry, countValues);
+        const count = countResponse[0].trainingcount;
+
+        if (count >= limits.getStoreLimits().imageTrainingItemsPerProject) {
+            // they already have too much data - nothing else to do
+            outcome = InsertTrainingOutcome.NotStored_MetLimit;
+        }
+        else {
+            // they haven't hit their limit - okay to do the INSERT now
+            const [insertResponse] = await dbConn.execute(insertQry, insertValues);
+            if (insertResponse.affectedRows === 1) {
+                outcome = InsertTrainingOutcome.StoredOk;
+            }
+            else {
+                // insert failed for no clear reason
+                outcome = InsertTrainingOutcome.NotStored_UnknownFailure;
+            }
+        }
+    }
+    catch (err) {
+        handleDbException(err);
+        throw err;
+    }
+    finally {
+        dbConn.release();
+    }
+
+
+    //
+    // prepare the response for the client
+    //
+
+    switch (outcome) {
+    case InsertTrainingOutcome.StoredOk:
+        return dbobjects.getImageTrainingFromDbRow(obj);
+    case InsertTrainingOutcome.NotStored_MetLimit:
+        throw new Error('Project already has maximum allowed amount of training data');
+    case InsertTrainingOutcome.NotStored_UnknownFailure:
+        throw new Error('Failed to store training data');
+    }
+}
+
+
+
+export async function renameImageTrainingLabel(
+    projectid: string, labelBefore: string, labelAfter: string,
+): Promise<void>
+{
+    const queryString = 'UPDATE `imagetraining` ' +
+                        'SET `label` = ? ' +
+                        'WHERE `projectid` = ? AND `label` = ?';
+    const dbConn = await dbConnPool.getConnection();
+    await dbConn.query(queryString, [ labelAfter, projectid, labelBefore ]);
+    dbConn.release();
+}
+
+
+export async function getImageTraining(
+    projectid: string, options: Objects.PagingOptions,
+): Promise<Objects.ImageTraining[]>
+{
+    const queryString = 'SELECT `id`, `imageurl`, `label` FROM `imagetraining` ' +
+                        'WHERE `projectid` = ? ' +
+                        'ORDER BY `label`, `imageurl` ' +
+                        'LIMIT ? OFFSET ?';
+
+    const rows = await dbExecute(queryString, [ projectid, options.limit, options.start ]);
+    return rows.map(dbobjects.getImageTrainingFromDbRow);
+}
+
+
+export async function countImageTraining(projectid: string): Promise<number> {
+    const queryString = 'SELECT COUNT(*) AS `trainingcount` FROM `imagetraining` WHERE `projectid` = ?';
+    const response = await dbExecute(queryString, [projectid]);
+    return response[0].trainingcount;
+}
+
+
+export async function countImageTrainingByLabel(projectid: string) {
+    const queryString = 'SELECT `label`, COUNT(*) AS `trainingcount` FROM `imagetraining` ' +
+                        'WHERE `projectid` = ? ' +
+                        'GROUP BY `label`';
+    const response = await dbExecute(queryString, [projectid]);
+    const counts = {};
+    for (const count of response) {
+        counts[count.label] = count.trainingcount;
+    }
+    return counts;
+}
+
+
+export async function deleteImageTraining(projectid: string, trainingid: string): Promise<void> {
+    const queryString = 'DELETE FROM `imagetraining` WHERE `id` = ? AND `projectid` = ?';
+
+    const response = await dbExecute(queryString, [ trainingid, projectid ]);
+    if (response.warningStatus !== 0) {
+        throw new Error('Failed to delete training');
+    }
+}
+
+export async function deleteImageTrainingLabel(projectid: string, label: string): Promise<void>
+{
+    const queryString = 'DELETE FROM `imagetraining` WHERE `projectid` = ? AND `label` = ?';
+    const response = await dbExecute(queryString, [ projectid, label ]);
+    if (response.warningStatus !== 0) {
+        throw new Error('Failed to delete label');
+    }
+}
+
+
+export async function deleteImageTrainingByProjectId(projectid: string): Promise<void> {
+    const queryString = 'DELETE FROM `imagetraining` WHERE `projectid` = ?';
+
+    const response = await dbExecute(queryString, [ projectid ]);
+    if (response.warningStatus !== 0) {
+        throw new Error('Failed to delete training');
+    }
+}
+
+
+
+
+
+
 enum InsertTrainingOutcome {
     StoredOk,
     NotStored_MetLimit,
@@ -525,6 +686,7 @@ export async function storeNumberTraining(
     }
     catch (err) {
         handleDbException(err);
+        throw err;
     }
     finally {
         dbConn.release();
@@ -566,6 +728,18 @@ export async function bulkStoreNumberTraining(
     throw new Error('Failed to store training data');
 }
 
+
+export async function renameNumberTrainingLabel(
+    projectid: string, labelBefore: string, labelAfter: string,
+): Promise<void>
+{
+    const queryString = 'UPDATE `numbertraining` ' +
+                        'SET `label` = ? ' +
+                        'WHERE `projectid` = ? AND `label` = ?';
+    const dbConn = await dbConnPool.getConnection();
+    await dbConn.query(queryString, [ labelAfter, projectid, labelBefore ]);
+    dbConn.release();
+}
 
 
 export async function getNumberTraining(

@@ -76,6 +76,14 @@
                         </table>
                     </div>
                 </div>
+                <div class="trainingbucketitems" ng-if="project.type === 'images'">
+                    <div class="loadingtraining" ng-if="loadingtraining"> </div>
+                    <div class="trainingbucketitem" ng-repeat="item in training[label]">
+                        <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true"
+                              ng-click="vm.deleteText(label, item, $index)"></span>
+                        <img src="{{ item.imageurl }}" class="trainingImageThumbnail" alt="{{ item.imageurl}}">
+                    </div>
+                </div>
                 <div style="text-align: center; height: 45px;">
                     <div class="btn newexamplebutton" ng-click="vm.addTrainingData($event, label)">
                         <div class="newexampleicon">+</div>

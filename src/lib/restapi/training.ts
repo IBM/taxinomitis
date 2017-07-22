@@ -61,7 +61,8 @@ async function getTraining(req: auth.RequestWithProject, res: Express.Response) 
             count = await store.countNumberTraining(req.project.id);
             break;
         case 'images':
-            // TODO not implemented yet
+            training = await store.getImageTraining(req.project.id, options);
+            count = await store.countImageTraining(req.project.id);
             break;
         }
 
@@ -89,6 +90,9 @@ async function getLabels(req: auth.RequestWithProject, res: Express.Response) {
         case 'numbers':
             counts = await store.countNumberTrainingByLabel(req.project.id);
             break;
+        case 'images':
+            counts = await store.countImageTrainingByLabel(req.project.id);
+            break;
         }
         res.set(headers.NO_CACHE).json(counts);
     }
@@ -107,7 +111,15 @@ async function editLabel(req: auth.RequestWithProject, res: Express.Response) {
     }
 
     try {
-        await store.renameTextTrainingLabel(req.project.id, before, after);
+        if (req.project.type === 'text') {
+            await store.renameTextTrainingLabel(req.project.id, before, after);
+        }
+        else if (req.project.type === 'numbers') {
+            await store.renameNumberTrainingLabel(req.project.id, before, after);
+        }
+        else if (req.project.type === 'images') {
+            await store.renameImageTrainingLabel(req.project.id, before, after);
+        }
 
         res.sendStatus(httpstatus.OK);
     }
@@ -126,6 +138,9 @@ async function deleteTraining(req: auth.RequestWithProject, res: Express.Respons
         }
         else if (req.project.type === 'numbers') {
             await store.deleteNumberTraining(req.project.id, trainingid);
+        }
+        else if (req.project.type === 'images') {
+            await store.deleteImageTraining(req.project.id, trainingid);
         }
 
         res.sendStatus(httpstatus.NO_CONTENT);
@@ -149,19 +164,14 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
 
         switch (req.project.type) {
         case 'text':
-            training = await store.storeTextTraining(
-                req.project.id,
-                data,
-                label,
-            );
+            training = await store.storeTextTraining(req.project.id, data, label);
             break;
         case 'numbers':
-            training = await store.storeNumberTraining(
-                req.project.id, data, label,
-            );
+            training = await store.storeNumberTraining(req.project.id, data, label);
             break;
         case 'images':
-            return res.sendStatus(httpstatus.NOT_IMPLEMENTED);
+            training = await store.storeImageTraining(req.project.id, data, label);
+            break;
         }
 
         res.status(httpstatus.CREATED).json(training);
