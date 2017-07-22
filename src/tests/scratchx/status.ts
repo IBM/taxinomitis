@@ -166,7 +166,7 @@ describe('Scratchx - status', () => {
             const statusObj = await status.getStatus(key);
             assert.deepEqual(statusObj, {
                 status : 2,
-                msg : 'PLACEHOLDER for TEST',
+                msg : 'Status for TEST',
             });
         });
 
