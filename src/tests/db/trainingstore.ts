@@ -567,4 +567,42 @@ describe('DB store - training', () => {
 
     });
 
+
+    describe('storeImageTraining', () => {
+
+        it('should store image data', async () => {
+            const projectid = uuid();
+            const url = uuid();
+            const label = uuid();
+
+            const training = await store.storeImageTraining(projectid, url, label);
+            assert(training);
+            assert.equal(training.projectid, projectid);
+            assert.equal(training.imageurl, url);
+            assert.equal(training.label, label);
+
+            return store.deleteImageTrainingByProjectId(projectid);
+        });
+
+        it('should limit maximum training data length', async () => {
+            const projectid = uuid();
+            const url = randomstring.generate({ length : 1500 });
+            const label = uuid();
+
+            try {
+                await store.storeImageTraining(projectid, url, label);
+                assert.fail(0, 1, 'should not reach here', '');
+            }
+            catch (err) {
+                assert(err);
+                assert.equal(err.message, 'Image URL exceeds maximum allowed length (1024 characters)');
+
+                const count = await store.countTextTraining(projectid);
+                assert.equal(count, 0);
+            }
+        });
+    });
+
+
+
 });

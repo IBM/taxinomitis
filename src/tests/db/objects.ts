@@ -1,6 +1,7 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
 import * as uuid from 'uuid/v1';
+import * as randomstring from 'randomstring';
 
 import * as dbobjects from '../../lib/db/objects';
 import * as Objects from '../../lib/db/db-types';
@@ -109,6 +110,43 @@ describe('DB objects', () => {
             };
 
             assert.deepEqual(dbobjects.getNumberTrainingFromDbRow(testRow), expectedTraining);
+        });
+    });
+
+
+    describe('getImageTrainingFromDbRow()', () => {
+        it('should return training data', () => {
+            const testRow: Objects.ImageTrainingDbRow = {
+                id : uuid(),
+                imageurl : 'http://images.com/example/image1.jpg',
+                projectid : 'testproject',
+            };
+            const expectedTraining: Objects.ImageTraining = {
+                id : testRow.id,
+                imageurl : testRow.imageurl,
+                projectid : 'testproject',
+            };
+
+            assert.deepEqual(dbobjects.getImageTrainingFromDbRow(testRow), expectedTraining);
+        });
+    });
+
+
+
+    describe('getLabelListFromArray()', () => {
+
+        it('should protect against long lists', () => {
+            const labelsList = [];
+            for (let i = 0; i < 50; i++) {
+                labelsList.push(randomstring.generate({ length : 12 }));
+            }
+            try {
+                dbobjects.getLabelListFromArray(labelsList);
+                assert.fail(0, 1, 'Should not have reached here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'No room for the label');
+            }
         });
 
     });
@@ -333,6 +371,42 @@ describe('DB objects', () => {
             assert.equal(training.projectid, 'testproject');
             assert.deepEqual(training.numberdata, [0.1, 200, -999.888]);
             assert.equal(training.label, 'mylabel');
+        });
+    });
+
+
+    describe('createImageTraining()', () => {
+        it('should require project id', (done) => {
+            try {
+                dbobjects.createImageTraining('', 'myimageurl', 'label');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required attributes');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject training', '');
+        });
+
+        it('should require an image url', (done) => {
+            try {
+                dbobjects.createImageTraining('projectid', undefined, undefined);
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required attributes');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject training', '');
+        });
+
+        it('should require a storable image url', (done) => {
+            try {
+                dbobjects.createImageTraining('projectid', randomstring.generate({ length : 1500 }), 'label');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Image URL exceeds maximum allowed length (1024 characters)');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject training', '');
         });
     });
 });

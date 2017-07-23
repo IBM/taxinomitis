@@ -60,7 +60,7 @@ async function dbExecute(query: string, params: any[]) {
         return response;
     }
     catch (err) {
-        handleDbException(err);
+        await handleDbException(err);
         throw err;
     }
     finally {

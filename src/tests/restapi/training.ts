@@ -367,29 +367,29 @@ describe('REST API - training', () => {
         });
 
 
-        it('should store non-text training', async () => {
-            const classid = uuid();
-            const userid = uuid();
+        // it('should store non-text training', async () => {
+        //     const classid = uuid();
+        //     const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'images', 'demo', []);
-            const projectid = project.id;
+        //     const project = await store.storeProject(userid, classid, 'images', 'demo', []);
+        //     const projectid = project.id;
 
-            const trainingurl = '/api/classes/' + classid +
-                                '/students/' + userid +
-                                '/projects/' + projectid +
-                                '/training';
+        //     const trainingurl = '/api/classes/' + classid +
+        //                         '/students/' + userid +
+        //                         '/projects/' + projectid +
+        //                         '/training';
 
-            return request(testServer)
-                .post(trainingurl)
-                .send({
-                    data : 'apple',
-                    label : 'fruit',
-                })
-                .expect(httpstatus.NOT_IMPLEMENTED)
-                .then(() => {
-                    return store.deleteEntireProject(userid, classid, project);
-                });
-        });
+        //     return request(testServer)
+        //         .post(trainingurl)
+        //         .send({
+        //             data : 'apple',
+        //             label : 'fruit',
+        //         })
+        //         .expect(httpstatus.NOT_IMPLEMENTED)
+        //         .then(() => {
+        //             return store.deleteEntireProject(userid, classid, project);
+        //         });
+        // });
 
 
         it('should store training', async () => {

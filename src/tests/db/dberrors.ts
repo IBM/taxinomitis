@@ -27,6 +27,28 @@ describe('DB store - error handling', () => {
     });
 
 
+    describe('restartConnection', () => {
+
+        it('should restart the DB connection after READ_ONLY errors', async () => {
+            const connBefore = mockMysqldb.connectsCount;
+            const discBefore = mockMysqldb.disconnectsCount;
+
+            try {
+                await stubbedStore.countProjectsByUserId('UNCOUNTABLE', 'classid');
+                assert.fail(0, 1, 'should not have reached here', '');
+            }
+            catch (err) {
+                assert.equal(mockMysqldb.connectsCount, connBefore + 1);
+                assert.equal(mockMysqldb.disconnectsCount, discBefore + 1);
+                assert.equal(err.message,
+                    'The MySQL server is running with the --read-only option so it cannot execute this statement');
+            }
+        });
+
+    });
+
+
+
     describe('getProjectsByUserId', () => {
 
         it('should handle weird errors', async () => {

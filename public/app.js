@@ -53,8 +53,6 @@
                 params: {
                     VERSION : <%= VERSION %>
                 }
-                // },
-                // onEnter: checkAuthentication
             })
             .state('projects', {
                 url: '/projects',
@@ -64,16 +62,12 @@
                 params: {
                     VERSION : <%= VERSION %>
                 }
-                // ,
-                // onEnter: checkAuthentication
             })
             .state('mlproject', {
                 url: '/mlproject/:projectId',
                 controller: 'ProjectController',
                 templateUrl: 'static/components-<%= VERSION %>/mlproject/mlproject.html',
                 controllerAs: 'vm'
-                // ,
-                // onEnter: checkAuthentication
             })
             .state('mlproject_training', {
                 url: '/mlproject/:projectId/training',
@@ -83,37 +77,20 @@
                 params: {
                     VERSION : <%= VERSION %>
                 }
-                // ,
-                // onEnter: checkAuthentication
             })
             .state('mlproject_models', {
                 url: '/mlproject/:projectId/models',
                 controller: 'ModelsController',
                 templateUrl: 'static/components-<%= VERSION %>/models/models.html',
                 controllerAs: 'vm'
-                // ,
-                // onEnter: checkAuthentication
             })
             .state('mlproject_scratch', {
                 url: '/mlproject/:projectId/scratch',
                 controller: 'ScratchController',
                 templateUrl: 'static/components-<%= VERSION %>/scratch/scratch.html',
                 controllerAs: 'vm'
-                // ,
-                // onEnter: checkAuthentication
             });
 
-
-        // angularAuth0Provider.init({
-        //     clientID: AUTH0_CLIENT_ID,
-        //     domain: AUTH0_DOMAIN,
-        //     responseType: 'token id_token',
-        //     audience: AUTH0_AUDIENCE,
-        //     redirectUri: AUTH0_CALLBACK_URL,
-        //     scope: REQUESTED_SCOPES
-        // });
-
-        // $locationProvider.hashPrefix('');
 
         lockProvider.init({
             clientID : AUTH0_CLIENT_ID,

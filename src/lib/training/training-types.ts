@@ -46,6 +46,17 @@ interface ConversationIntentExample {
 }
 
 
+export interface VisualClassifier {
+    readonly id: string;
+    readonly classifierid: string;
+    readonly created: Date;
+    expiry: Date;
+    status?: VisualClassifierStatus;
+}
+
+export type VisualClassifierStatus = 'training' | 'ready' | 'ERROR';
+
+
 export interface ClassifierDbRow {
     readonly id: string;
     readonly credentialsid: string;

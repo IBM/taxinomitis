@@ -15,11 +15,17 @@ export const MOCK_POOL = {
 };
 
 
+export let connectsCount: number = 0;
+export let disconnectsCount: number = 0;
+
+
 export function connect() {
+    connectsCount += 1;
     return Promise.resolve(MOCK_POOL);
 }
 
 export function disconnect() {
+    disconnectsCount += 1;
     return Promise.resolve();
 }
 
@@ -35,7 +41,15 @@ function mockExecute(query, params) {
     switch (query) {
 
     case 'SELECT COUNT(*) AS count FROM `projects` WHERE `classid` = ? AND `userid` = ?':
-        return Promise.resolve([ { count : 1 } ]);
+        if (params[1] === 'UNCOUNTABLE') {
+            ERROR = new Error('The MySQL server is running with the --read-only option so it cannot execute this statement');
+            ERROR.code = 'ER_OPTION_PREVENTS_STATEMENT';
+            ERROR.errno = 1290;
+            return Promise.reject(ERROR);
+        }
+        else {
+            return Promise.resolve([ { count : 1 } ]);
+        }
 
     case 'SELECT COUNT(*) AS `trainingcount` FROM `texttraining` WHERE `projectid` = ?':
     case 'SELECT COUNT(*) AS `trainingcount` FROM `numbertraining` WHERE `projectid` = ?':

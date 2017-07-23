@@ -21,7 +21,7 @@
     "@types/express-jwt": "0.0.35",
     "@types/helmet": "0.0.35",
     "@types/http-status": "^0.2.29",
-    "@types/lodash": "^4.14.70",
+    "@types/lodash": "^4.14.71",
     "@types/mocha": "^2.2.41",
     "@types/mustache": "^0.8.29",
     "@types/node": "^6.0.0",
