@@ -13,11 +13,11 @@
   ],
   "dependencies": {
     "angular": "1.6.5",
-    "angular-jwt": ">=0.1.9",
+    "angular-jwt": "^0.1.9",
     "angular-lock": "^2.0.3",
-    "angular-ui-router": "~1.0.5",
+    "angular-ui-router": "^1.0.5",
     "auth0-lock" : "^10.19.0",
-    "bootstrap": "~3.3.7",
+    "bootstrap": "^3.3.7",
     "angular-material": "^1.1.4",
     "jquery": "^3.2.1"
   }

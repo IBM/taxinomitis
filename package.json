@@ -61,6 +61,7 @@
     "typescript-require": "^0.2.9-1"
   },
   "dependencies": {
+    "angular-drag-drop": "^3.1.0",
     "body-parser": "^1.17.1",
     "bunyan": "^1.8.10",
     "cfenv": "^1.0.4",

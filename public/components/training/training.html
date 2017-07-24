@@ -76,7 +76,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="trainingbucketitems" ng-if="project.type === 'images'">
+                <div class="trainingbucketitems" ng-if="project.type === 'images'" ml-image-loader>
                     <div class="loadingtraining" ng-if="loadingtraining"> </div>
                     <div class="trainingbucketitem" ng-repeat="item in training[label]">
                         <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true"
