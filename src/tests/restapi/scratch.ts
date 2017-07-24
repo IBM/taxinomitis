@@ -674,7 +674,7 @@ describe('REST API - scratch keys', () => {
                 .expect(httpstatus.OK)
                 .then(async (res) => {
 
-                    const count = await store.countTextTraining(project.id);
+                    const count = await store.countTraining('text', project.id);
                     assert.equal(count, 1);
 
                     const retrieved = await store.getTextTraining(project.id, { start : 0, limit : 10 });
@@ -723,7 +723,7 @@ describe('REST API - scratch keys', () => {
                 .expect(httpstatus.OK)
                 .then(async (res) => {
 
-                    const count = await store.countNumberTraining(project.id);
+                    const count = await store.countTraining('numbers', project.id);
                     assert.equal(count, 1);
 
                     const retrieved = await store.getNumberTraining(project.id, { start : 0, limit : 10 });

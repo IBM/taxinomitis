@@ -56,7 +56,7 @@ describe('Scratchx - keys', () => {
 
             await training.storeTrainingData(scratchKey, 'MYLAB', 'Inserted from Scratch');
 
-            const count = await store.countTextTraining(testProject.id);
+            const count = await store.countTraining('text', testProject.id);
             assert.equal(count, 1);
 
             const retrieved = await store.getTextTraining(testProject.id, { start : 0, limit : 10 });
@@ -107,7 +107,7 @@ describe('Scratchx - keys', () => {
 
             await training.storeTrainingData(scratchKey, 'NUMLAB', ['4', '5', '6']);
 
-            const count = await store.countNumberTraining(testProject.id);
+            const count = await store.countTraining('numbers', testProject.id);
             assert.equal(count, 1);
 
             const retrieved = await store.getNumberTraining(testProject.id, { start : 0, limit : 10 });

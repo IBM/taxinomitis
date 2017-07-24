@@ -966,7 +966,7 @@ describe('REST API - training', () => {
                 .delete(projecturl)
                 .expect(httpstatus.NO_CONTENT)
                 .then(async () => {
-                    const count = await store.countTextTraining(projectid);
+                    const count = await store.countTraining('text', projectid);
                     assert.equal(count, 0);
 
                     try {

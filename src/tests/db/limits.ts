@@ -55,7 +55,7 @@ describe('DB store - limits', () => {
                          'Project already has maximum allowed amount of training data');
         }
 
-        return store.deleteTextTrainingByProjectId(projectid);
+        return store.deleteTrainingByProjectId('text', projectid);
     });
 
 
@@ -81,6 +81,6 @@ describe('DB store - limits', () => {
                          'Project already has maximum allowed amount of training data');
         }
 
-        return store.deleteNumberTrainingByProjectId(projectid);
+        return store.deleteTrainingByProjectId('numbers', projectid);
     });
 });

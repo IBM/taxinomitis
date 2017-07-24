@@ -35,7 +35,7 @@ describe('DB store - training', () => {
             assert.equal(training.textdata, text);
             assert.equal(training.label, label);
 
-            return store.deleteTextTrainingByProjectId(projectid);
+            return store.deleteTrainingByProjectId('text', projectid);
         });
 
         it('should limit maximum training data length', async () => {
@@ -51,7 +51,7 @@ describe('DB store - training', () => {
                 assert(err);
                 assert.equal(err.message, 'Text exceeds maximum allowed length (1024 characters)');
 
-                const count = await store.countTextTraining(projectid);
+                const count = await store.countTraining('text', projectid);
                 assert.equal(count, 0);
             }
         });
@@ -73,7 +73,7 @@ describe('DB store - training', () => {
             const retrieved = await store.getUniqueTrainingTextsByLabel(projectid, label, { start: 0, limit : 10 });
             assert.deepEqual(retrieved.sort(), ['FIRST', 'SECOND', 'THIRD', 'FOURTH'].sort());
 
-            return store.deleteTextTrainingByProjectId(projectid);
+            return store.deleteTrainingByProjectId('text', projectid);
         });
     });
 
@@ -91,7 +91,7 @@ describe('DB store - training', () => {
             assert.deepEqual(training.numberdata, [1, 2, 3, 4]);
             assert.equal(training.label, label);
 
-            return store.deleteNumberTrainingByProjectId(projectid);
+            return store.deleteTrainingByProjectId('numbers', projectid);
         });
 
         it('should limit maximum training data length', async () => {
@@ -127,7 +127,7 @@ describe('DB store - training', () => {
             assert(retrieved);
             assert.equal(retrieved.length, 1);
 
-            await store.deleteTextTrainingByProjectId(projectid);
+            await store.deleteTrainingByProjectId('text', projectid);
 
             retrieved = await store.getTextTraining(projectid, DEFAULT_PAGING);
             assert(retrieved);
@@ -152,16 +152,16 @@ describe('DB store - training', () => {
             assert(retrieved);
             assert.equal(retrieved.length, 1);
 
-            const before = await store.countNumberTraining(projectid);
+            const before = await store.countTraining('numbers', projectid);
             assert.equal(before, 1);
 
-            await store.deleteNumberTrainingByProjectId(projectid);
+            await store.deleteTrainingByProjectId('numbers', projectid);
 
             retrieved = await store.getNumberTraining(projectid, DEFAULT_PAGING);
             assert(retrieved);
             assert.equal(retrieved.length, 0);
 
-            const count = await store.countNumberTraining(projectid);
+            const count = await store.countTraining('numbers', projectid);
             assert.equal(count, 0);
         });
 
@@ -195,7 +195,7 @@ describe('DB store - training', () => {
 
             await wait();
 
-            let counts = await store.countNumberTrainingByLabel(project.id);
+            let counts = await store.countTrainingByLabel('numbers', project.id);
             assert.deepEqual(counts, { TENS : 3, HUNDREDS : 2, THOUSANDS : 1 });
 
             const labels = await store.removeLabelFromProject(userid, classid, project.id, 'HUNDREDS');
@@ -204,7 +204,7 @@ describe('DB store - training', () => {
             const updated = await store.getProject(project.id);
             assert.deepEqual(updated.labels, ['TENS', 'THOUSANDS']);
 
-            counts = await store.countNumberTrainingByLabel(project.id);
+            counts = await store.countTrainingByLabel('numbers', project.id);
             assert.deepEqual(counts, { TENS : 3, THOUSANDS : 1 });
 
             await store.deleteEntireProject(userid, classid, project);
@@ -238,12 +238,12 @@ describe('DB store - training', () => {
             retrieved = await store.getTextTraining(projectid, DEFAULT_PAGING);
             assert.equal(retrieved.length, 25);
 
-            return store.deleteTextTrainingByProjectId(projectid);
+            return store.deleteTrainingByProjectId('text', projectid);
         });
 
         it('should count training data', async () => {
             const projectid = uuid();
-            let count = await store.countTextTraining(projectid);
+            let count = await store.countTraining('text', projectid);
             assert.equal(count, 0);
 
             const data = [];
@@ -260,15 +260,15 @@ describe('DB store - training', () => {
 
             await store.bulkStoreTextTraining(projectid, data);
 
-            count = await store.countTextTraining(projectid);
+            count = await store.countTraining('text', projectid);
             assert.equal(count, 42);
 
-            return store.deleteTextTrainingByProjectId(projectid);
+            return store.deleteTrainingByProjectId('text', projectid);
         });
 
         it('should count training data by label', async () => {
             const projectid = uuid();
-            let counts = await store.countTextTrainingByLabel(projectid);
+            let counts = await store.countTrainingByLabel('text', projectid);
             assert.deepEqual(counts, {});
 
             const data = [];
@@ -290,10 +290,10 @@ describe('DB store - training', () => {
 
             await store.bulkStoreTextTraining(projectid, data);
 
-            counts = await store.countTextTrainingByLabel(projectid);
+            counts = await store.countTrainingByLabel('text', projectid);
             assert.deepEqual(counts, expected);
 
-            return store.deleteTextTrainingByProjectId(projectid);
+            return store.deleteTrainingByProjectId('text', projectid);
         });
     });
 
@@ -315,7 +315,7 @@ describe('DB store - training', () => {
             assert.equal(retrieved[0].textdata, text);
             assert.equal(retrieved[0].label, label);
 
-            return store.deleteTextTrainingByProjectId(projectid);
+            return store.deleteTrainingByProjectId('text', projectid);
         });
 
         async function createTestData(projectid, numLabels, numText) {
@@ -355,24 +355,7 @@ describe('DB store - training', () => {
             retrieved = await store.getTextTraining(projectid, DEFAULT_PAGING);
             assert.equal(retrieved.length, 50);
 
-            return store.deleteTextTrainingByProjectId(projectid);
-        });
-
-
-        it('should fetch labels from training data', async () => {
-            const projectid = uuid();
-
-            let labels = await createTestData(projectid, 6, 9);
-            assert.equal(labels.length, 6);
-            let retrieved = await store.getTrainingLabels(projectid);
-            assert.deepEqual(retrieved.sort(), labels.sort());
-
-            labels = await createTestData(projectid, 8, 5);
-            assert.equal(labels.length, 8);
-            retrieved = await store.getTrainingLabels(projectid);
-            assert.equal(retrieved.length, 8 + 6);
-
-            return store.deleteTextTrainingByProjectId(projectid);
+            return store.deleteTrainingByProjectId('text', projectid);
         });
 
 
@@ -396,7 +379,7 @@ describe('DB store - training', () => {
                 }
             }
 
-            return store.deleteTextTrainingByProjectId(projectid);
+            return store.deleteTrainingByProjectId('text', projectid);
         });
     });
 
@@ -418,7 +401,7 @@ describe('DB store - training', () => {
             assert.deepEqual(retrieved[0].numberdata, [1, 3, 5]);
             assert.equal(retrieved[0].label, label);
 
-            return store.deleteTextTrainingByProjectId(projectid);
+            return store.deleteTrainingByProjectId('text', projectid);
         });
 
 
@@ -459,13 +442,13 @@ describe('DB store - training', () => {
             retrieved = await store.getNumberTraining(projectid, DEFAULT_PAGING);
             assert.equal(retrieved.length, 50);
 
-            return store.deleteNumberTrainingByProjectId(projectid);
+            return store.deleteTrainingByProjectId('numbers', projectid);
         });
 
 
         it('should count training data', async () => {
             const projectid = uuid();
-            let count = await store.countNumberTraining(projectid);
+            let count = await store.countTraining('numbers', projectid);
             assert.equal(count, 0);
 
             const data = [];
@@ -482,10 +465,10 @@ describe('DB store - training', () => {
 
             await store.bulkStoreNumberTraining(projectid, data);
 
-            count = await store.countNumberTraining(projectid);
+            count = await store.countTraining('numbers', projectid);
             assert.equal(count, 42);
 
-            return store.deleteNumberTrainingByProjectId(projectid);
+            return store.deleteTrainingByProjectId('numbers', projectid);
         });
     });
 
@@ -522,7 +505,7 @@ describe('DB store - training', () => {
             assert.deepEqual(retrieved.map((item) => item.textdata),
                              [ data[5].textdata ]);
 
-            return store.deleteTextTrainingByProjectId(projectid);
+            return store.deleteTrainingByProjectId('text', projectid);
         });
     });
 
@@ -555,12 +538,12 @@ describe('DB store - training', () => {
                 return item;
             });
 
-            await store.renameTextTrainingLabel(projectid, BEFORE, AFTER);
+            await store.renameTrainingLabel('text', projectid, BEFORE, AFTER);
 
             const retrieved = await store.getTextTraining(projectid, DEFAULT_PAGING);
             assert.deepEqual(retrieved, expected);
 
-            const counts = await store.countTextTrainingByLabel(projectid);
+            const counts = await store.countTrainingByLabel('text', projectid);
             assert.equal(counts[AFTER], 3);
             assert.equal(BEFORE in counts, false);
         });
@@ -581,7 +564,7 @@ describe('DB store - training', () => {
             assert.equal(training.imageurl, url);
             assert.equal(training.label, label);
 
-            return store.deleteImageTrainingByProjectId(projectid);
+            return store.deleteTrainingByProjectId('images', projectid);
         });
 
         it('should limit maximum training data length', async () => {
@@ -597,7 +580,7 @@ describe('DB store - training', () => {
                 assert(err);
                 assert.equal(err.message, 'Image URL exceeds maximum allowed length (1024 characters)');
 
-                const count = await store.countTextTraining(projectid);
+                const count = await store.countTraining('text', projectid);
                 assert.equal(count, 0);
             }
         });

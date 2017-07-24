@@ -49,20 +49,17 @@ async function getTraining(req: auth.RequestWithProject, res: Express.Response) 
 
     try {
         let training = [];
-        let count = 0;
+        const count = await store.countTraining(req.project.type, req.project.id);
 
         switch (req.project.type) {
         case 'text':
             training = await store.getTextTraining(req.project.id, options);
-            count = await store.countTextTraining(req.project.id);
             break;
         case 'numbers':
             training = await store.getNumberTraining(req.project.id, options);
-            count = await store.countNumberTraining(req.project.id);
             break;
         case 'images':
             training = await store.getImageTraining(req.project.id, options);
-            count = await store.countImageTraining(req.project.id);
             break;
         }
 
@@ -81,19 +78,8 @@ async function getTraining(req: auth.RequestWithProject, res: Express.Response) 
 
 async function getLabels(req: auth.RequestWithProject, res: Express.Response) {
     try {
-        const project = await store.getProject(req.project.id);
-        let counts = {};
-        switch (project.type) {
-        case 'text':
-            counts = await store.countTextTrainingByLabel(req.project.id);
-            break;
-        case 'numbers':
-            counts = await store.countNumberTrainingByLabel(req.project.id);
-            break;
-        case 'images':
-            counts = await store.countImageTrainingByLabel(req.project.id);
-            break;
-        }
+        const counts = await store.countTrainingByLabel(req.project.type, req.project.id);
+
         res.set(headers.NO_CACHE).json(counts);
     }
     catch (err) {
@@ -102,7 +88,7 @@ async function getLabels(req: auth.RequestWithProject, res: Express.Response) {
 }
 
 
-async function editLabel(req: auth.RequestWithProject, res: Express.Response) {
+function editLabel(req: auth.RequestWithProject, res: Express.Response) {
     const before: string = req.body.before;
     const after: string = req.body.after;
 
@@ -110,44 +96,26 @@ async function editLabel(req: auth.RequestWithProject, res: Express.Response) {
         return errors.missingData(res);
     }
 
-    try {
-        if (req.project.type === 'text') {
-            await store.renameTextTrainingLabel(req.project.id, before, after);
-        }
-        else if (req.project.type === 'numbers') {
-            await store.renameNumberTrainingLabel(req.project.id, before, after);
-        }
-        else if (req.project.type === 'images') {
-            await store.renameImageTrainingLabel(req.project.id, before, after);
-        }
-
-        res.sendStatus(httpstatus.OK);
-    }
-    catch (err) {
-        errors.unknownError(res, err);
-    }
+    return store.renameTrainingLabel(req.project.type, req.project.id, before, after)
+        .then(() => {
+            res.sendStatus(httpstatus.OK);
+        })
+        .catch((err) => {
+            errors.unknownError(res, err);
+        });
 }
 
 
-async function deleteTraining(req: auth.RequestWithProject, res: Express.Response) {
+function deleteTraining(req: auth.RequestWithProject, res: Express.Response) {
     const trainingid: string = req.params.trainingid;
 
-    try {
-        if (req.project.type === 'text') {
-            await store.deleteTextTraining(req.project.id, trainingid);
-        }
-        else if (req.project.type === 'numbers') {
-            await store.deleteNumberTraining(req.project.id, trainingid);
-        }
-        else if (req.project.type === 'images') {
-            await store.deleteImageTraining(req.project.id, trainingid);
-        }
-
-        res.sendStatus(httpstatus.NO_CONTENT);
-    }
-    catch (err) {
-        errors.unknownError(res, err);
-    }
+    return store.deleteTraining(req.project.type, req.project.id, trainingid)
+        .then(() => {
+            res.sendStatus(httpstatus.NO_CONTENT);
+        })
+        .catch((err) => {
+            errors.unknownError(res, err);
+        });
 }
 
 

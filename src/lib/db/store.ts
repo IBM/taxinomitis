@@ -176,15 +176,7 @@ export async function removeLabelFromProject(
     }
 
     await updateLabels(userid, classid, projectid, labels);
-    if (project.type === 'text') {
-        await deleteTextTrainingLabel(projectid, labelToRemove);
-    }
-    else if (project.type === 'numbers') {
-        await deleteNumberTrainingLabel(projectid, labelToRemove);
-    }
-    else if (project.type === 'images') {
-        await deleteImageTrainingLabel(projectid, labelToRemove);
-    }
+    await deleteTrainingLabel(project.type, projectid, labelToRemove);
 
     return labels;
 }
@@ -263,6 +255,103 @@ export async function deleteProjectsByClassId(classid: string): Promise<void> {
 // TRAINING DATA
 //
 // -----------------------------------------------------------------------------
+
+function getDbTable(type: Objects.ProjectTypeLabel): string {
+    switch (type) {
+    case 'text':
+        return 'texttraining';
+    case 'numbers':
+        return 'numbertraining';
+    case 'images':
+        return 'imagetraining';
+    }
+}
+
+
+export async function countTraining(type: Objects.ProjectTypeLabel, projectid: string): Promise<number> {
+    const dbTable = getDbTable(type);
+    const queryString = 'SELECT COUNT(*) AS `trainingcount` FROM `' + dbTable + '` WHERE `projectid` = ?';
+    const response = await dbExecute(queryString, [projectid]);
+    return response[0].trainingcount;
+}
+
+
+export async function countTrainingByLabel(type: Objects.ProjectTypeLabel, projectid: string) {
+    const dbTable = getDbTable(type);
+
+    const queryString = 'SELECT `label`, COUNT(*) AS `trainingcount` FROM `' + dbTable + '` ' +
+                        'WHERE `projectid` = ? ' +
+                        'GROUP BY `label`';
+    const response = await dbExecute(queryString, [projectid]);
+    const counts = {};
+    for (const count of response) {
+        counts[count.label] = count.trainingcount;
+    }
+    return counts;
+}
+
+
+export async function renameTrainingLabel(
+    type: Objects.ProjectTypeLabel,
+    projectid: string, labelBefore: string, labelAfter: string,
+): Promise<void>
+{
+    const dbTable = getDbTable(type);
+    const queryString = 'UPDATE `' + dbTable + '` ' +
+                        'SET `label` = ? ' +
+                        'WHERE `projectid` = ? AND `label` = ?';
+    const dbConn = await dbConnPool.getConnection();
+    await dbConn.query(queryString, [ labelAfter, projectid, labelBefore ]);
+    dbConn.release();
+}
+
+
+export async function deleteTraining(
+    type: Objects.ProjectTypeLabel,
+    projectid: string, trainingid: string,
+): Promise<void>
+{
+    const dbTable = getDbTable(type);
+    const queryString = 'DELETE FROM `' + dbTable + '` WHERE `id` = ? AND `projectid` = ?';
+
+    const response = await dbExecute(queryString, [ trainingid, projectid ]);
+    if (response.warningStatus !== 0) {
+        throw new Error('Failed to delete training');
+    }
+}
+
+
+async function deleteTrainingLabel(
+    type: Objects.ProjectTypeLabel,
+    projectid: string, label: string,
+): Promise<void>
+{
+    const dbTable = getDbTable(type);
+    const queryString = 'DELETE FROM `' + dbTable + '` WHERE `projectid` = ? AND `label` = ?';
+
+    const response = await dbExecute(queryString, [ projectid, label ]);
+    if (response.warningStatus !== 0) {
+        throw new Error('Failed to delete label');
+    }
+}
+
+
+export async function deleteTrainingByProjectId(type: Objects.ProjectTypeLabel, projectid: string): Promise<void> {
+    const dbTable = getDbTable(type);
+    const queryString = 'DELETE FROM `' + dbTable + '` WHERE `projectid` = ?';
+
+    const response = await dbExecute(queryString, [ projectid ]);
+    if (response.warningStatus !== 0) {
+        throw new Error('Failed to delete training');
+    }
+}
+
+
+
+
+
+
+
 
 export async function storeTextTraining(
     projectid: string, data: string, label: string,
@@ -360,19 +449,6 @@ export async function bulkStoreTextTraining(
 }
 
 
-export async function renameTextTrainingLabel(
-    projectid: string, labelBefore: string, labelAfter: string,
-): Promise<void>
-{
-    const queryString = 'UPDATE `texttraining` ' +
-                        'SET `label` = ? ' +
-                        'WHERE `projectid` = ? AND `label` = ?';
-    const dbConn = await dbConnPool.getConnection();
-    await dbConn.query(queryString, [ labelAfter, projectid, labelBefore ]);
-    dbConn.release();
-}
-
-
 
 export async function getTextTraining(
     projectid: string, options: Objects.PagingOptions,
@@ -413,64 +489,6 @@ export async function getUniqueTrainingTextsByLabel(
     const rows = await dbExecute(queryString, [ projectid, label, options.limit, options.start ]);
     return rows.map((row) => row.textdata);
 }
-
-
-export async function getTrainingLabels(projectid: string): Promise<string[]> {
-    const queryString = 'SELECT DISTINCT `label` FROM `texttraining` WHERE `projectid` = ?';
-    const rows = await dbExecute(queryString, [ projectid ]);
-    return rows.map((row) => row.label);
-}
-
-
-export async function countTextTraining(projectid: string): Promise<number> {
-    const queryString = 'SELECT COUNT(*) AS `trainingcount` FROM `texttraining` WHERE `projectid` = ?';
-    const response = await dbExecute(queryString, [projectid]);
-    return response[0].trainingcount;
-}
-
-
-export async function countTextTrainingByLabel(projectid: string) {
-    const queryString = 'SELECT `label`, COUNT(*) AS `trainingcount` FROM `texttraining` ' +
-                        'WHERE `projectid` = ? ' +
-                        'GROUP BY `label`';
-    const response = await dbExecute(queryString, [projectid]);
-    const counts = {};
-    for (const count of response) {
-        counts[count.label] = count.trainingcount;
-    }
-    return counts;
-}
-
-
-export async function deleteTextTraining(projectid: string, trainingid: string): Promise<void> {
-    const queryString = 'DELETE FROM `texttraining` WHERE `id` = ? AND `projectid` = ?';
-
-    const response = await dbExecute(queryString, [ trainingid, projectid ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete training');
-    }
-}
-
-export async function deleteTextTrainingLabel(projectid: string, label: string): Promise<void>
-{
-    const queryString = 'DELETE FROM `texttraining` WHERE `projectid` = ? AND `label` = ?';
-    const response = await dbExecute(queryString, [ projectid, label ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete label');
-    }
-}
-
-
-export async function deleteTextTrainingByProjectId(projectid: string): Promise<void> {
-    const queryString = 'DELETE FROM `texttraining` WHERE `projectid` = ?';
-
-    const response = await dbExecute(queryString, [ projectid ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete training');
-    }
-}
-
-
 
 
 export async function storeImageTraining(
@@ -546,20 +564,6 @@ export async function storeImageTraining(
 }
 
 
-
-export async function renameImageTrainingLabel(
-    projectid: string, labelBefore: string, labelAfter: string,
-): Promise<void>
-{
-    const queryString = 'UPDATE `imagetraining` ' +
-                        'SET `label` = ? ' +
-                        'WHERE `projectid` = ? AND `label` = ?';
-    const dbConn = await dbConnPool.getConnection();
-    await dbConn.query(queryString, [ labelAfter, projectid, labelBefore ]);
-    dbConn.release();
-}
-
-
 export async function getImageTraining(
     projectid: string, options: Objects.PagingOptions,
 ): Promise<Objects.ImageTraining[]>
@@ -572,56 +576,6 @@ export async function getImageTraining(
     const rows = await dbExecute(queryString, [ projectid, options.limit, options.start ]);
     return rows.map(dbobjects.getImageTrainingFromDbRow);
 }
-
-
-export async function countImageTraining(projectid: string): Promise<number> {
-    const queryString = 'SELECT COUNT(*) AS `trainingcount` FROM `imagetraining` WHERE `projectid` = ?';
-    const response = await dbExecute(queryString, [projectid]);
-    return response[0].trainingcount;
-}
-
-
-export async function countImageTrainingByLabel(projectid: string) {
-    const queryString = 'SELECT `label`, COUNT(*) AS `trainingcount` FROM `imagetraining` ' +
-                        'WHERE `projectid` = ? ' +
-                        'GROUP BY `label`';
-    const response = await dbExecute(queryString, [projectid]);
-    const counts = {};
-    for (const count of response) {
-        counts[count.label] = count.trainingcount;
-    }
-    return counts;
-}
-
-
-export async function deleteImageTraining(projectid: string, trainingid: string): Promise<void> {
-    const queryString = 'DELETE FROM `imagetraining` WHERE `id` = ? AND `projectid` = ?';
-
-    const response = await dbExecute(queryString, [ trainingid, projectid ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete training');
-    }
-}
-
-export async function deleteImageTrainingLabel(projectid: string, label: string): Promise<void>
-{
-    const queryString = 'DELETE FROM `imagetraining` WHERE `projectid` = ? AND `label` = ?';
-    const response = await dbExecute(queryString, [ projectid, label ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete label');
-    }
-}
-
-
-export async function deleteImageTrainingByProjectId(projectid: string): Promise<void> {
-    const queryString = 'DELETE FROM `imagetraining` WHERE `projectid` = ?';
-
-    const response = await dbExecute(queryString, [ projectid ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete training');
-    }
-}
-
 
 
 
@@ -729,19 +683,6 @@ export async function bulkStoreNumberTraining(
 }
 
 
-export async function renameNumberTrainingLabel(
-    projectid: string, labelBefore: string, labelAfter: string,
-): Promise<void>
-{
-    const queryString = 'UPDATE `numbertraining` ' +
-                        'SET `label` = ? ' +
-                        'WHERE `projectid` = ? AND `label` = ?';
-    const dbConn = await dbConnPool.getConnection();
-    await dbConn.query(queryString, [ labelAfter, projectid, labelBefore ]);
-    dbConn.release();
-}
-
-
 export async function getNumberTraining(
     projectid: string, options: Objects.PagingOptions,
 ): Promise<Objects.NumberTraining[]>
@@ -753,54 +694,6 @@ export async function getNumberTraining(
 
     const rows = await dbExecute(queryString, [ projectid, options.limit, options.start ]);
     return rows.map(dbobjects.getNumberTrainingFromDbRow);
-}
-
-
-export async function countNumberTraining(projectid: string): Promise<number> {
-    const queryString = 'SELECT COUNT(*) AS `trainingcount` FROM `numbertraining` WHERE `projectid` = ?';
-    const response = await dbExecute(queryString, [projectid]);
-    return response[0].trainingcount;
-}
-
-export async function countNumberTrainingByLabel(projectid: string) {
-    const queryString = 'SELECT `label`, COUNT(*) AS `trainingcount` FROM `numbertraining` ' +
-                        'WHERE `projectid` = ? ' +
-                        'GROUP BY `label`';
-    const response = await dbExecute(queryString, [projectid]);
-    const counts = {};
-    for (const count of response) {
-        counts[count.label] = count.trainingcount;
-    }
-    return counts;
-}
-
-export async function deleteNumberTraining(projectid: string, trainingid: string): Promise<void> {
-    const queryString = 'DELETE FROM `numbertraining` WHERE `id` = ? AND `projectid` = ?';
-
-    const response = await dbExecute(queryString, [ trainingid, projectid ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete training');
-    }
-}
-
-
-export async function deleteNumberTrainingLabel(projectid: string, label: string): Promise<void>
-{
-    const queryString = 'DELETE FROM `numbertraining` WHERE `projectid` = ? AND `label` = ?';
-    const response = await dbExecute(queryString, [ projectid, label ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete label');
-    }
-}
-
-
-export async function deleteNumberTrainingByProjectId(projectid: string): Promise<void> {
-    const queryString = 'DELETE FROM `numbertraining` WHERE `projectid` = ?';
-
-    const response = await dbExecute(queryString, [ projectid ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete training');
-    }
 }
 
 

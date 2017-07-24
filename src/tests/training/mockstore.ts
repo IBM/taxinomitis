@@ -29,7 +29,7 @@ const NUM_TRAINING_PER_LABEL = {
     conditions : 16,
 };
 
-export function countTextTrainingByLabel(): Promise<{}> {
+export function countTrainingByLabel(): Promise<{}> {
     return new Promise((resolve) => resolve(NUM_TRAINING_PER_LABEL));
 }
 

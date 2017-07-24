@@ -154,7 +154,7 @@ async function submitTraining(
 
 
 async function fetchTraining(projectid: string): Promise<any[][]> {
-    const count = await store.countNumberTraining(projectid);
+    const count = await store.countTraining('numbers', projectid);
     const training = await store.getNumberTraining(projectid, {
         start: 0, limit: count,
     });

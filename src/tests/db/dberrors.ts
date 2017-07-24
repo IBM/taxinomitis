@@ -67,7 +67,7 @@ describe('DB store - error handling', () => {
 
         it('should handle weird errors', async () => {
             try {
-                await stubbedStore.deleteTextTraining('projectid', 'trainingid');
+                await stubbedStore.deleteTraining('text', 'projectid', 'trainingid');
                 assert.fail(0, 1, 'should not have reached here', '');
             }
             catch (err) {
@@ -83,7 +83,7 @@ describe('DB store - error handling', () => {
 
         it('should handle weird errors', async () => {
             try {
-                await stubbedStore.deleteNumberTraining('projectid', 'trainingid');
+                await stubbedStore.deleteTraining('numbers', 'projectid', 'trainingid');
                 assert.fail(0, 1, 'should not have reached here', '');
             }
             catch (err) {
@@ -97,7 +97,7 @@ describe('DB store - error handling', () => {
 
         it('should handle weird errors', async () => {
             try {
-                await stubbedStore.deleteTextTrainingByProjectId('FAIL');
+                await stubbedStore.deleteTrainingByProjectId('text', 'FAIL');
                 assert.fail(0, 1, 'should not have reached here', '');
             }
             catch (err) {
@@ -111,7 +111,7 @@ describe('DB store - error handling', () => {
 
         it('should handle weird errors', async () => {
             try {
-                await stubbedStore.deleteNumberTrainingByProjectId('FAIL');
+                await stubbedStore.deleteTrainingByProjectId('numbers', 'FAIL');
                 assert.fail(0, 1, 'should not have reached here', '');
             }
             catch (err) {

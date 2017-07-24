@@ -256,7 +256,7 @@ describe('DB store', () => {
             await store.storeTextTraining(projectid, 'ostend', 'belgium');
             await store.storeTextTraining(projectid, 'brussels', 'belgium');
 
-            const countBefore = await store.countTextTrainingByLabel(projectid);
+            const countBefore = await store.countTrainingByLabel('text', projectid);
             assert.deepEqual(countBefore, {
                 belgium : 3, canada : 1, denmark : 2,
             });
@@ -267,7 +267,7 @@ describe('DB store', () => {
             const project = await store.getProject(projectid);
             assert.deepEqual(project.labels, [ 'america', 'canada', 'denmark' ]);
 
-            const countAfter = await store.countTextTrainingByLabel(projectid);
+            const countAfter = await store.countTrainingByLabel('text', projectid);
             assert.deepEqual(countAfter, {
                 canada : 1, denmark : 2,
             });
