@@ -8,6 +8,10 @@ import * as request from 'request';
 import * as archiver from 'archiver';
 import * as fileType from 'file-type';
 import * as readChunk from 'read-chunk';
+import loggerSetup from '../utils/logger';
+
+const log = loggerSetup();
+
 
 
 type IFileTypeCallback = (err: Error, filetype?: string) => void;
@@ -48,6 +52,7 @@ function renameFileFromContents(filepath: string, sourceurl: string, callback: I
             if (filetype === 'jpg' || filetype === 'png') {
                 return next(null, filetype);
             }
+            fs.unlink(filepath);
             next(new Error('Training data (' + sourceurl + ') has supported file type (' + filetype + ')'));
         },
         (filetype, next) => {
@@ -220,6 +225,7 @@ export function run(urls: string[]): Promise<string> {
     return new Promise((resolve, reject) => {
         downloadAllIntoZip(urls, (err, zippath) => {
             if (err) {
+                log.error({ err }, 'Failed to create training zip');
                 return reject(err);
             }
             return resolve(zippath);

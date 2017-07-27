@@ -56,7 +56,7 @@
                     </div>
                     <div class="modelstatusdetail">
                         This normally takes a few minutes, but can take a little
-                        longer if the training server is very busy.
+                        longer if the training computer is very busy.
                     </div>
                 </div>
 
@@ -195,7 +195,7 @@
                 <!-- ***** -->
                 <div ng-switch-when="error">
                     <div class="modelstatusdetail">
-                        The error message from the training server is shown below.
+                        The error message from the training computer is shown below.
                         If that makes sense to you, try and fix the problem. Otherwise,
                         it might be worth trying again in case it was just a random error.
                     </div>
@@ -288,6 +288,12 @@
                    ng-model="testformData.testquestion"
                    ng-required="true"
                    placeholder="enter a test text here">
+            <input ng-if="project.type === 'images'"
+                   style="margin-left: 2em; width: 70%"
+                   type="text"
+                   ng-model="testformData.testimageurl"
+                   ng-required="true"
+                   placeholder="URL for an image">
             <table ng-if="project.type === 'numbers'" style="margin-left: 2em; margin-bottom: 1em;">
                 <tr ng-repeat="field in project.fields">
                     <td style="padding-right: 2em;">{{ field }}</td>
@@ -311,7 +317,7 @@
 
     <div ng-if="(models && models.length > 0) || trainingdatastatus === 'data'" class="trainingserversection">
         <div>
-            <strong>Info from training server:</strong>
+            <strong>Info from training computer:</strong>
         </div>
         <div ng-repeat="model in models">
             <table class="modelinfo">
@@ -356,6 +362,8 @@
                 ng-disabled="submittingTrainingRequest">
                 Train new machine learning model
         </button>
+
+        <md-progress-circular style="display: inline" ng-if="submittingTrainingRequest" md-mode="indeterminate"></md-progress-circular>
     </div>
 
 

@@ -51,6 +51,7 @@ describe('DB objects', () => {
                 maxusers : 3,
                 maxprojectsperuser : 2,
                 textclassifiersexpiry : 9,
+                imageclassifiersexpiry : 1,
             };
             const expectedPolicy: Objects.ClassTenant = {
                 id : testRow.id,
@@ -58,6 +59,7 @@ describe('DB objects', () => {
                 maxUsers : 3,
                 maxProjectsPerUser : 2,
                 textClassifierExpiry : 9,
+                imageClassifierExpiry : 1,
             };
 
             assert.deepEqual(dbobjects.getClassFromDbRow(testRow), expectedPolicy);

@@ -323,6 +323,42 @@ export function getNumbersClassifierFromDbRow(
 }
 
 
+export function createVisualClassifier(
+    classifierInfo: TrainingObjects.VisualClassifier,
+    credentialsInfo: TrainingObjects.BluemixCredentials,
+    project: Objects.Project,
+): TrainingObjects.ClassifierDbRow
+{
+    return {
+        id : classifierInfo.id,
+        credentialsid : credentialsInfo.id,
+        userid : project.userid,
+        projectid : project.id,
+        classid : project.classid,
+        servicetype : 'visrec',
+        classifierid : classifierInfo.classifierid,
+        url : classifierInfo.url,
+        name : classifierInfo.name,
+        created : classifierInfo.created,
+        expiry : classifierInfo.expiry,
+        language : null,
+    };
+}
+
+
+export function getVisualClassifierFromDbRow(row: TrainingObjects.ClassifierDbRow): TrainingObjects.VisualClassifier {
+    return {
+        id : row.id,
+        classifierid : row.classifierid,
+        credentialsid : row.credentialsid,
+        url : row.url,
+        name : row.name,
+        created : row.created,
+        expiry : row.expiry,
+    };
+}
+
+
 
 // -----------------------------------------------------------------------------
 //
@@ -403,5 +439,6 @@ export function getClassFromDbRow(row: Objects.ClassDbRow): Objects.ClassTenant 
         maxUsers : row.maxusers,
         maxProjectsPerUser : row.maxprojectsperuser,
         textClassifierExpiry : row.textclassifiersexpiry,
+        imageClassifierExpiry : row.imageclassifiersexpiry,
     };
 }

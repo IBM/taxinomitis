@@ -150,7 +150,8 @@ CREATE TABLE tenants (
     projecttypes VARCHAR(25) NOT NULL DEFAULT 'text,numbers',
     maxusers TINYINT UNSIGNED NOT NULL DEFAULT 8,
     maxprojectsperuser TINYINT UNSIGNED NOT NULL DEFAULT 3,
-    textclassifiersexpiry TINYINT UNSIGNED NOT NULL DEFAULT 2
+    textclassifiersexpiry TINYINT UNSIGNED NOT NULL DEFAULT 2,
+    imageclassifiersexpiry TINYINT UNSIGNED NOT NULL DEFAULT 1
 );
 
 INSERT INTO tenants (id, projecttypes) VALUES ("TESTTENANT", "text,images,numbers");

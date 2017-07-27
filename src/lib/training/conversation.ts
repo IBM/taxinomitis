@@ -106,8 +106,6 @@ async function updateWorkspace(
  * Deletes a conversation workspace.
  *  This deletes both the classifier from Bluemix, and the record of it
  *  stored in the app's database.
- *
- * @param projectid - the ID for the project with the training data
  */
 export async function deleteClassifier(classifier: TrainingObjects.ConversationWorkspace): Promise<void>
 {
@@ -160,7 +158,7 @@ async function deleteClassifierFromBluemix(
  * @param classid - the tenant that the user is a member of
  * @param workspaces - set of workspaces to get status info for
  *
- * @returns the same set of workspaces, with the status and udpated timestamp
+ * @returns the same set of workspaces, with the status and updated timestamp
  *  properties set using responses from the Bluemix REST API
  */
 export function getClassifierStatuses(

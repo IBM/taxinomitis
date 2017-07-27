@@ -22,6 +22,7 @@ describe('DB store - tenants', () => {
             maxUsers : 8,
             maxProjectsPerUser : 3,
             textClassifierExpiry : 2,
+            imageClassifierExpiry : 1,
         };
         const policy = await store.getClassTenant('TESTTENANT');
 

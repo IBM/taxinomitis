@@ -4,6 +4,7 @@ import * as dbobjects from './objects';
 import * as Objects from './db-types';
 import * as numbers from '../training/numbers';
 import * as conversation from '../training/conversation';
+import * as visualrec from '../training/visualrecognition';
 import * as TrainingObjects from '../training/training-types';
 import * as limits from './limits';
 import loggerSetup from '../utils/logger';
@@ -578,6 +579,18 @@ export async function getImageTraining(
 }
 
 
+export async function getImageTrainingByLabel(
+    projectid: string, label: string, options: Objects.PagingOptions,
+): Promise<Objects.ImageTraining[]>
+{
+    const queryString = 'SELECT `id`, `imageurl`, `label` FROM `imagetraining` ' +
+                        'WHERE `projectid` = ? AND `label` = ? ' +
+                        'LIMIT ? OFFSET ?';
+
+    const rows = await dbExecute(queryString, [ projectid, label, options.limit, options.start ]);
+    return rows.map(dbobjects.getImageTrainingFromDbRow);
+}
+
 
 
 
@@ -800,7 +813,7 @@ export async function getConversationWorkspace(
     const rows = await dbExecute(queryString, [ projectid, classifierid ]);
     if (rows.length !== 1) {
         log.error({ rows, func : 'getConversationWorkspace' }, 'Unexpected response from DB');
-        throw new Error('Unexpected response when retrieving service credentials');
+        throw new Error('Unexpected response when retrieving service details');
     }
     return dbobjects.getWorkspaceFromDbRow(rows[0]);
 }
@@ -875,9 +888,9 @@ export async function getExpiredConversationWorkspaces(): Promise<TrainingObject
     const queryString = 'SELECT `id`, `credentialsid`, `projectid`, `servicetype`,' +
                         ' `classifierid`, `url`, `name`, `language`, `created`, `expiry` ' +
                         'FROM `bluemixclassifiers` ' +
-                        'WHERE `expiry` < ?';
+                        'WHERE `expiry` < ? AND `servicetype` = ?';
 
-    const rows = await dbExecute(queryString, [ new Date() ]);
+    const rows = await dbExecute(queryString, [ new Date(), 'conv' ]);
     return rows.map(dbobjects.getWorkspaceFromDbRow);
 }
 
@@ -908,9 +921,9 @@ export async function storeNumbersClassifier(
 
 export async function deleteConversationWorkspace(id: string): Promise<void> {
 
-    const queryString = 'DELETE FROM `bluemixclassifiers` WHERE `id` = ?';
+    const queryString = 'DELETE FROM `bluemixclassifiers` WHERE `id` = ? AND `servicetype` = ?';
 
-    const response = await dbExecute(queryString, [ id ]);
+    const response = await dbExecute(queryString, [ id, 'conv' ]);
     if (response.warningStatus !== 0) {
         throw new Error('Failed to delete classifiers info');
     }
@@ -926,6 +939,91 @@ export async function deleteConversationWorkspacesByProjectId(projectid: string)
     }
 }
 
+
+
+export async function storeImageClassifier(
+    credentials: TrainingObjects.BluemixCredentials,
+    project: Objects.Project,
+    classifier: TrainingObjects.VisualClassifier,
+): Promise<TrainingObjects.VisualClassifier>
+{
+    const obj = dbobjects.createVisualClassifier(classifier, credentials, project);
+
+    const queryString: string = 'INSERT INTO `bluemixclassifiers` ' +
+                                '(`id`, `credentialsid`, ' +
+                                '`projectid`, `userid`, `classid`, ' +
+                                '`servicetype`, ' +
+                                '`classifierid`, `url`, `name`, `language`, ' +
+                                '`created`, `expiry`) ' +
+                                'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+
+    const values = [obj.id, obj.credentialsid,
+        obj.projectid, obj.userid, obj.classid,
+        obj.servicetype,
+        obj.classifierid, obj.url, obj.name, obj.language,
+        obj.created, obj.expiry];
+
+    const response = await dbExecute(queryString, values);
+    if (response.affectedRows !== 1) {
+        log.error({ response }, 'Failed to store classifier info');
+        throw new Error('Failed to store classifier');
+    }
+
+    return classifier;
+}
+
+
+export async function getImageClassifiers(
+    projectid: string,
+): Promise<TrainingObjects.VisualClassifier[]>
+{
+    const queryString = 'SELECT `id`, `credentialsid`, `projectid`, `servicetype`,' +
+                        ' `classifierid`, `url`, `name`, `created`, `expiry` ' +
+                        'FROM `bluemixclassifiers` ' +
+                        'WHERE `projectid` = ?';
+
+    const rows = await dbExecute(queryString, [ projectid ]);
+    return rows.map(dbobjects.getVisualClassifierFromDbRow);
+}
+
+export async function getImageClassifier(
+    projectid: string, classifierid: string,
+): Promise<TrainingObjects.VisualClassifier>
+{
+    const queryString = 'SELECT `id`, `credentialsid`, `projectid`, `servicetype`,' +
+                        ' `classifierid`, `url`, `name`, `created`, `expiry` ' +
+                        'FROM `bluemixclassifiers` ' +
+                        'WHERE `projectid` = ? AND `classifierid` = ?';
+
+    const rows = await dbExecute(queryString, [ projectid, classifierid ]);
+    if (rows.length !== 1) {
+        log.error({ rows, func : 'getImageClassifier' }, 'Unexpected response from DB');
+        throw new Error('Unexpected response when retrieving service details');
+    }
+    return dbobjects.getVisualClassifierFromDbRow(rows[0]);
+}
+
+
+export async function deleteImageClassifier(id: string): Promise<void> {
+
+    const queryString = 'DELETE FROM `bluemixclassifiers` WHERE `id` = ? AND `servicetype` = ?';
+
+    const response = await dbExecute(queryString, [ id, 'visrec' ]);
+    if (response.warningStatus !== 0) {
+        throw new Error('Failed to delete classifiers info');
+    }
+}
+
+export async function getExpiredImageClassifiers(): Promise<TrainingObjects.VisualClassifier[]>
+{
+    const queryString = 'SELECT `id`, `credentialsid`, `projectid`, `servicetype`,' +
+                        ' `classifierid`, `url`, `name`, `language`, `created`, `expiry` ' +
+                        'FROM `bluemixclassifiers` ' +
+                        'WHERE `expiry` < ? AND `servicetype` = ?';
+
+    const rows = await dbExecute(queryString, [ new Date(), 'visrec' ]);
+    return rows.map(dbobjects.getVisualClassifierFromDbRow);
+}
 
 
 // -----------------------------------------------------------------------------
@@ -1137,7 +1235,8 @@ export async function deleteScratchKeysByProjectId(projectid: string): Promise<v
 
 export async function getClassTenant(classid: string): Promise<Objects.ClassTenant> {
     const queryString = 'SELECT `id`, `projecttypes`, `maxusers`, ' +
-                               '`maxprojectsperuser`, `textclassifiersexpiry` ' +
+                               '`maxprojectsperuser`, ' +
+                               '`textclassifiersexpiry`, `imageclassifiersexpiry` ' +
                         'FROM `tenants` ' +
                         'WHERE `id` = ?';
 
@@ -1151,6 +1250,7 @@ export async function getClassTenant(classid: string): Promise<Objects.ClassTena
             maxUsers : 8,
             maxProjectsPerUser : 3,
             textClassifierExpiry : 2,
+            imageClassifierExpiry : 1,
         };
     }
     return dbobjects.getClassFromDbRow(rows[0]);
@@ -1170,6 +1270,12 @@ export async function deleteEntireProject(userid: string, classid: string, proje
         const classifiers = await getConversationWorkspaces(project.id);
         for (const classifier of classifiers) {
             await conversation.deleteClassifier(classifier);
+        }
+    }
+    else if (project.type === 'images') {
+        const classifiers = await getImageClassifiers(project.id);
+        for (const classifier of classifiers) {
+            await visualrec.deleteClassifier(classifier);
         }
     }
     else if (project.type === 'numbers') {

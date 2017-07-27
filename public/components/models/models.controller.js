@@ -194,6 +194,9 @@
             if (project.type === 'text') {
                 testdata.text = $scope.testformData.testquestion;
             }
+            else if (project.type === 'images') {
+                testdata.image = $scope.testformData.testimageurl;
+            }
             else if (project.type === 'numbers') {
                 testdata.numbers = project.fields.map(function (fieldname) {
                     return parseFloat($scope.testformData[fieldname]);
@@ -215,6 +218,8 @@
                     displayAlert('errors', err.status, err.data);
                 });
         };
+
+
 
 
         vm.deleteModel = function (ev, project, model) {

@@ -5,6 +5,7 @@ import * as httpstatus from 'http-status';
 import * as store from './db/store';
 import * as cf from './utils/cf';
 import * as conversation from './training/conversation';
+import * as visualrec from './training/visualrecognition';
 import setupAPI from './restapi/api';
 import * as server from './restapi/server';
 import * as constants from './utils/constants';
@@ -42,7 +43,12 @@ process.on('uncaughtException', (err) => {
 if (cf.isPrimaryInstance()) {
     log.info('Scheduling clean-up task to run every hour');
 
-    // delete any text classifiers which have expired, to free up
-    //  the available workspaces for other students
-    setInterval(conversation.cleanupExpiredClassifiers, constants.ONE_HOUR);
+    // delete any classifiers which have expired, to free up
+    //  the available credentials for other students
+    setInterval(() => {
+        conversation.cleanupExpiredClassifiers()
+            .then(() => {
+                visualrec.cleanupExpiredClassifiers();
+            });
+    }, constants.ONE_HOUR);
 }

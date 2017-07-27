@@ -3,9 +3,6 @@ UI clean-up needed
 * Add a sub-nav-bar for Train/Learn/Scratch to avoid need to go back to project page
 * Document differences with regular Scratch
 
-New features
-* Images training
-
 Code / engineering work
 * What happens if the access token expires while you're using it. Can we refresh/replace it?
    https://github.com/auth0/auth0.js#api look at renewAuth
@@ -19,6 +16,7 @@ Code / engineering work
 * Test to see if localStorage is available (auth broken without it - such as on Safari Private Mode)
    https://stackoverflow.com/questions/21159301/quotaexceedederror-dom-exception-22-an-attempt-was-made-to-add-something-to-st
 * Refactoring store.ts to remove duplicate code across text/images/numbers
+* Delete training zip files after creating image classifiers
 
 Longer term goals
 * Restore sprites library to scratch-flash

@@ -7,6 +7,7 @@ import * as store from '../db/store';
 import * as Objects from '../db/db-types';
 import * as Types from '../training/training-types';
 import * as conversation from '../training/conversation';
+import * as visualrec from '../training/visualrecognition';
 import * as numbers from '../training/numbers';
 import * as errors from './errors';
 import * as headers from './headers';
@@ -24,6 +25,26 @@ function returnConversationWorkspace(classifier: Types.ConversationWorkspace) {
         expiry : classifier.expiry,
         name : classifier.name,
         status : classifier.status,
+    };
+}
+function transformStatus(visualClassifierStatus: string): string {
+    switch (visualClassifierStatus) {
+    case 'training':
+        return 'Training';
+    case 'ready':
+        return 'Available';
+    default:
+        return visualClassifierStatus;
+    }
+}
+function returnVisualRecognition(classifier: Types.VisualClassifier) {
+    return {
+        classifierid : classifier.classifierid,
+        credentialsid : classifier.credentialsid,
+        updated : classifier.created,
+        expiry : classifier.expiry,
+        name : classifier.name,
+        status : transformStatus(classifier.status),
     };
 }
 function returnNumberClassifier(classifier: Types.NumbersClassifier) {
@@ -45,8 +66,9 @@ async function getModels(req: auth.RequestWithProject, res: Express.Response) {
         classifiers = classifiers.map(returnConversationWorkspace);
         break;
     case 'images':
-        // do nothing
-        classifiers = [];
+        classifiers = await store.getImageClassifiers(projectid);
+        classifiers = await visualrec.getClassifierStatuses(classid, classifiers);
+        classifiers = classifiers.map(returnVisualRecognition);
         break;
     case 'numbers':
         classifiers = await store.getNumbersClassifiers(projectid);
@@ -62,6 +84,21 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
         try {
             const model = await conversation.trainClassifier(req.project);
             return res.status(httpstatus.CREATED).json(returnConversationWorkspace(model));
+        }
+        catch (err) {
+            if (err.message === 'Your class already has created their maximum allowed number of models') {
+                return res.status(httpstatus.CONFLICT)
+                          .send({ error : err.message });
+            }
+            else {
+                return errors.unknownError(res, err);
+            }
+        }
+    }
+    else if (req.project.type === 'images') {
+        try {
+            const model = await visualrec.trainClassifier(req.project);
+            return res.status(httpstatus.CREATED).json(returnVisualRecognition(model));
         }
         catch (err) {
             if (err.message === 'Your class already has created their maximum allowed number of models') {
@@ -99,6 +136,11 @@ async function deleteModel(req: auth.RequestWithProject, res: Express.Response) 
             await conversation.deleteClassifier(workspace);
             return res.sendStatus(httpstatus.NO_CONTENT);
         }
+        else if (req.project.type === 'images') {
+            const classifier = await store.getImageClassifier(projectid, modelid);
+            await visualrec.deleteClassifier(classifier);
+            return res.sendStatus(httpstatus.NO_CONTENT);
+        }
         else if (req.project.type === 'numbers') {
             await numbers.deleteClassifier(userid, classid, projectid);
             return res.sendStatus(httpstatus.NO_CONTENT);
@@ -130,6 +172,16 @@ async function testModel(req: Express.Request, res: Express.Response) {
 
             const creds = await store.getBluemixCredentialsById(credsid);
             const classes = await conversation.testClassifier(creds, modelid, projectid, text);
+            return res.json(classes);
+        }
+        else if (type === 'images') {
+            const imageurl = req.body.image;
+            if (!imageurl || !credsid) {
+                return errors.missingData(res);
+            }
+
+            const creds = await store.getBluemixCredentialsById(credsid);
+            const classes = await visualrec.testClassifier(creds, modelid, projectid, imageurl);
             return res.json(classes);
         }
         else if (type === 'numbers') {
