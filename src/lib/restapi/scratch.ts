@@ -76,6 +76,32 @@ async function classifyWithScratchKey(req: Express.Request, res: Express.Respons
     }
 }
 
+async function postClassifyWithScratchKey(req: Express.Request, res: Express.Response) {
+    const apikey = req.params.scratchkey;
+
+    try {
+        if (!req.body.data) {
+            throw new Error('Missing data');
+        }
+
+        const scratchKey = await store.getScratchKey(apikey);
+        const classes = await classifier.classify(scratchKey, req.body.data);
+
+        return res.set(headers.NO_CACHE).json(classes);
+    }
+    catch (err) {
+        if (err.message === 'Missing data') {
+            return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing data' });
+        }
+        if (err.message === 'Not implemented yet') {
+            return res.status(httpstatus.NOT_IMPLEMENTED).json({ error : 'Not implemented yet' });
+        }
+
+        log.error({ err }, 'Classify error');
+        return res.status(httpstatus.INTERNAL_SERVER_ERROR).json(err);
+    }
+}
+
 
 
 async function storeTrainingData(req: Express.Request, res: Express.Response) {
@@ -155,6 +181,8 @@ export default function registerApis(app: Express.Application) {
             getScratchKeys);
 
     app.get('/api/scratch/:scratchkey/classify', classifyWithScratchKey);
+    app.post('/api/scratch/:scratchkey/classify', postClassifyWithScratchKey);
+
     app.get('/api/scratch/:scratchkey/train', storeTrainingData);
 
     app.get('/api/scratch/:scratchkey/extension.js', getScratchxExtension);

@@ -27,7 +27,9 @@ export default function setup(app: Express.Application): void {
     app.use(query());
     app.use(helmet());
     app.use(cors());
-    app.use(bodyParser.json());
+
+    app.use('/api/scratch/:scratchkey/classify', bodyParser.json({ limit : '3mb' }));
+    app.use('/', bodyParser.json());
 
     registerBluemixApis(app);
     registerUserApis(app);

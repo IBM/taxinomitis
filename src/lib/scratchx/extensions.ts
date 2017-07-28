@@ -36,6 +36,21 @@ async function getTextExtension(scratchkey: Types.ScratchKey, project: Types.Pro
     return rendered;
 }
 
+async function getImagesExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string> {
+    const template: string = await readFile('./resources/scratchx-images-classify.js');
+    Mustache.parse(template);
+    const rendered = Mustache.render(template, {
+        statusurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/status',
+        classifyurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/classify',
+
+        projectname : scratchkey.name,
+        labels : project.labels.map((name, idx) => {
+            return { name, idx };
+        }),
+    });
+    return rendered;
+}
+
 async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string> {
     const template: string = await readFile('./resources/scratchx-numbers-classify.js');
     Mustache.parse(template);
@@ -58,6 +73,9 @@ async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.
 export function getScratchxExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string> {
     if (scratchkey.type === 'text') {
         return getTextExtension(scratchkey, project);
+    }
+    else if (scratchkey.type === 'images') {
+        return getImagesExtension(scratchkey, project);
     }
     else if (scratchkey.type === 'numbers') {
         return getNumbersExtension(scratchkey, project);

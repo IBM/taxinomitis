@@ -4,9 +4,11 @@ import * as httpstatus from 'http-status';
 // local dependencies
 import * as store from '../db/store';
 import * as conversation from '../training/conversation';
+import * as visualrecog from '../training/visualrecognition';
 import * as numberService from '../training/numbers';
 import * as Types from '../db/db-types';
 import * as TrainingTypes from '../training/training-types';
+import * as base64decode from '../utils/base64decode';
 
 
 
@@ -26,6 +28,25 @@ async function classifyText(key: Types.ScratchKey, text: string): Promise<Traini
 
     if (key.classifierid && key.credentials) {
         const resp = await conversation.testClassifier(key.credentials, key.classifierid, key.projectid, text);
+        return resp;
+    }
+    else {
+        // we don't have a Conversation workspace yet, so we resort to random
+        const project = await store.getProject(key.projectid);
+        return chooseLabelsAtRandom(project);
+    }
+}
+
+
+
+async function classifyImage(key: Types.ScratchKey, base64imagedata: string): Promise<TrainingTypes.Classification[]> {
+    if (!base64imagedata || base64imagedata.trim().length === 0) {
+        throw new Error('Missing data');
+    }
+
+    if (key.classifierid && key.credentials) {
+        const imagefile = await base64decode.run(base64imagedata);
+        const resp = await visualrecog.testClassifierFile(key.credentials, key.classifierid, key.projectid, imagefile);
         return resp;
     }
     else {
@@ -68,6 +89,9 @@ async function classifyNumbers(key: Types.ScratchKey, numbers: string[]): Promis
 export function classify(scratchKey: Types.ScratchKey, data: any): Promise<TrainingTypes.Classification[]> {
     if (scratchKey.type === 'text') {
         return classifyText(scratchKey, data as string);
+    }
+    else if (scratchKey.type === 'images') {
+        return classifyImage(scratchKey, data as string);
     }
     else if (scratchKey.type === 'numbers') {
         return classifyNumbers(scratchKey, data as string[]);

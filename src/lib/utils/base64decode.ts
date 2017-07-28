@@ -1,0 +1,41 @@
+// core dependencies
+import * as fs from 'fs';
+// external dependencies
+import * as tmp from 'tmp';
+import loggerSetup from './logger';
+
+const log = loggerSetup();
+
+
+
+type IDecodeCallback = (err: Error, decodedFilePath?: string) => void;
+
+
+function decodeJpg(base64data: string, callback: IDecodeCallback): void {
+    tmp.file({
+        keep : true,
+        postfix : '.jpg',
+    }, (err, filepath) =>
+    {
+        if (err) {
+            return callback(err);
+        }
+        return fs.writeFile(filepath, base64data, 'base64', ((writeerr) => {
+            callback(writeerr, filepath);
+        }));
+    });
+}
+
+
+
+export function run(base64data: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+        decodeJpg(base64data, (err, filepath) => {
+            if (err) {
+                log.error({ err }, 'Failed to decode data');
+                return reject(err);
+            }
+            return resolve(filepath);
+        });
+    });
+}

@@ -8,7 +8,7 @@ import * as request from 'request';
 import * as archiver from 'archiver';
 import * as fileType from 'file-type';
 import * as readChunk from 'read-chunk';
-import loggerSetup from '../utils/logger';
+import loggerSetup from './logger';
 
 const log = loggerSetup();
 

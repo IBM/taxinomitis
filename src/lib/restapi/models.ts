@@ -181,7 +181,7 @@ async function testModel(req: Express.Request, res: Express.Response) {
             }
 
             const creds = await store.getBluemixCredentialsById(credsid);
-            const classes = await visualrec.testClassifier(creds, modelid, projectid, imageurl);
+            const classes = await visualrec.testClassifierURL(creds, modelid, projectid, imageurl);
             return res.json(classes);
         }
         else if (type === 'numbers') {

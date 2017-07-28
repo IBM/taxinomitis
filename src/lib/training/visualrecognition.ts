@@ -204,7 +204,44 @@ async function deleteClassifierFromBluemix(
 
 
 
-export async function testClassifier(
+
+
+
+export async function testClassifierFile(
+    credentials: TrainingObjects.BluemixCredentials,
+    classifierid: string,
+    projectid: string,
+    imagefilepath: string,
+): Promise<TrainingObjects.Classification[]>
+{
+    const req = {
+        qs : {
+            version : '2016-05-20',
+            api_key : credentials.username + credentials.password,
+        },
+        formData : {
+            images_file : fs.createReadStream(imagefilepath),
+            parameters : {
+                value : JSON.stringify({
+                    owners : 'me',
+                    classifier_ids : classifierid,
+                    threshold : 0.0,
+                }),
+                options : {
+                    contentType : 'application/json',
+                },
+            },
+        },
+        json : true,
+    };
+
+    const body = await request.post(credentials.url + '/v3/classify', req);
+    return body.images[0].classifiers[0].classes.map((item) => {
+        return { class_name : item.class, confidence : Math.round(item.score * 100) };
+    }).sort(sortByConfidence);
+}
+
+export async function testClassifierURL(
     credentials: TrainingObjects.BluemixCredentials,
     classifierid: string,
     projectid: string,
@@ -228,6 +265,7 @@ export async function testClassifier(
         return { class_name : item.class, confidence : Math.round(item.score * 100) };
     }).sort(sortByConfidence);
 }
+
 
 
 function sortByConfidence(item1: TrainingObjects.Classification, item2: TrainingObjects.Classification): number {

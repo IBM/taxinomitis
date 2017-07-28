@@ -25,3 +25,4 @@ Longer term goals
 Worksheets
 * Shakespeare or Dahl (text)
 * School Prospectus (text)
+* Restructure worksheets to demonstrate small ground truth makes crap classifiers

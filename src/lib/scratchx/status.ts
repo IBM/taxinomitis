@@ -2,6 +2,7 @@
 import * as Types from '../db/db-types';
 import * as TrainingTypes from '../training/training-types';
 import * as conversation from '../training/conversation';
+import * as visualrecog from '../training/visualrecognition';
 import * as ScratchTypes from './scratchx-types';
 
 
@@ -17,6 +18,9 @@ export function getStatus(scratchKey: Types.ScratchKey): Promise<ScratchTypes.St
 
     if (scratchKey.type === 'text') {
         return getTextClassifierStatus(scratchKey);
+    }
+    else if (scratchKey.type === 'images') {
+        return getImageClassifierStatus(scratchKey);
     }
     else if (scratchKey.type === 'numbers') {
         return getNumbersClassifierStatus(scratchKey);
@@ -64,6 +68,39 @@ async function getTextClassifierStatus(scratchKey: Types.ScratchKey): Promise<Sc
 }
 
 
+
+async function getImageClassifierStatus(scratchKey: Types.ScratchKey): Promise<ScratchTypes.Status> {
+
+    const credentials: TrainingTypes.BluemixCredentials = scratchKey.credentials;
+    const classifier: TrainingTypes.VisualClassifier = {
+        id : 'classifierid',
+        name : scratchKey.name,
+        classifierid : scratchKey.classifierid,
+        credentialsid : credentials.id,
+        created: new Date(),
+        expiry: new Date(),
+        url: scratchKey.credentials.url + '/v3/classifiers/' + scratchKey.classifierid,
+    };
+
+    const classifierWithStatus = await visualrecog.getStatus(credentials, classifier);
+    if (classifierWithStatus.status === 'ready') {
+        return {
+            status : 2,
+            msg : 'Ready',
+        };
+    }
+    else if (classifierWithStatus.status === 'training') {
+        return {
+            status : 1,
+            msg : 'Model not ready yet',
+        };
+    }
+
+    return {
+        status : 0,
+        msg : 'Model ' + classifierWithStatus.status,
+    };
+}
 
 
 
