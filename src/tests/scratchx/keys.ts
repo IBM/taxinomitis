@@ -112,21 +112,4 @@ describe('Scratchx - keys', () => {
 
     });
 
-
-    describe('images projects', () => {
-
-        it('should return an error status', async () => {
-            const project = await store.storeProject(uuid(), TESTCLASS, 'images', 'test project', []);
-
-            try {
-                await keys.createKey(project.id);
-                assert.fail(0, 1, 'Should not reach here', '');
-            }
-            catch (err) {
-                assert.equal(err.message, 'Not implemented yet');
-            }
-        });
-    });
-
-
 });

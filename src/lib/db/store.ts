@@ -761,7 +761,7 @@ export async function getBluemixCredentialsById(credentialsid: string): Promise<
 
     if (rows.length !== 1) {
         log.error({ rows, func : 'getBluemixCredentialsById' }, 'Unexpected response from DB');
-        throw new Error('Unexpected response when retrieving service credentials');
+        throw new Error('Unexpected response when retrieving the service credentials');
     }
     return dbobjects.getCredentialsFromDbRow(rows[0]);
 }
@@ -1181,7 +1181,7 @@ export async function getScratchKey(key: string): Promise<Objects.ScratchKey> {
     const rows = await dbExecute(queryString, [ key ]);
     if (rows.length !== 1) {
         log.error({ rows, func : 'getScratchKey' }, 'Unexpected response from DB');
-        throw new Error('Unexpected response when retrieving service credentials');
+        throw new Error('Unexpected response when retrieving credentials for Scratch');
     }
     return dbobjects.getScratchKeyFromDbRow(rows[0]);
 }

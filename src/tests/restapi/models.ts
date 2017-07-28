@@ -380,22 +380,6 @@ describe('REST API - models', () => {
                 });
         });
 
-        it('should reject training for non-text projects', async () => {
-            const classid = uuid();
-            const userid = uuid();
-
-            const project = await store.storeProject(userid, classid, 'images', 'demo', []);
-            const projectid = project.id;
-
-            return request(testServer)
-                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_IMPLEMENTED)
-                .then(() => {
-                    return store.deleteEntireUser(userid, classid);
-                });
-        });
-
 
         it('should enforce tenant policies on number of NLC classifiers', async () => {
             const classid = uuid();

@@ -102,7 +102,7 @@ describe('ScratchKeys store', () => {
             assert.fail(1, 0, 'Should not have been able to retrieve a key', '');
         }
         catch (err) {
-            assert.equal(err.message, 'Unexpected response when retrieving service credentials');
+            assert.equal(err.message, 'Unexpected response when retrieving credentials for Scratch');
         }
     });
 
@@ -283,7 +283,7 @@ describe('ScratchKeys store', () => {
             assert.fail(1, 0, 'Should not have been able to retrieve a key', '');
         }
         catch (err) {
-            assert.equal(err.message, 'Unexpected response when retrieving service credentials');
+            assert.equal(err.message, 'Unexpected response when retrieving credentials for Scratch');
         }
     });
 
@@ -311,7 +311,7 @@ describe('ScratchKeys store', () => {
             assert.fail(1, 0, 'Should not have been able to retrieve a key', '');
         }
         catch (err) {
-            assert.equal(err.message, 'Unexpected response when retrieving service credentials');
+            assert.equal(err.message, 'Unexpected response when retrieving credentials for Scratch');
         }
     });
 

@@ -23,24 +23,6 @@ describe('Scratchx - keys', () => {
     });
 
 
-    describe('image projects', () => {
-        it('not implemented yet', async () => {
-            const testProject = await store.storeProject(TESTUSER, TESTCLASS, 'images', 'name', []);
-
-            const scratchKeyId = await store.storeUntrainedScratchKey(testProject);
-            const scratchKey = await store.getScratchKey(scratchKeyId);
-
-            try {
-                await training.storeTrainingData(scratchKey, 'LABEL', 'DATA');
-                assert.fail(0, 1, 'should not reach here', '');
-            }
-            catch (err) {
-                assert.equal(err.message, 'Not implemented yet');
-            }
-        });
-    });
-
-
     describe('text projects', () => {
 
         it('should store text training', async () => {

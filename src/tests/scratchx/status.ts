@@ -191,22 +191,6 @@ describe('Scratchx - status', () => {
             });
         });
 
-
-        it('should return an error status', async () => {
-            const key: Types.ScratchKey = {
-                id : uuid(),
-                name : 'TEST',
-                type : 'images',
-                projectid : uuid(),
-                classifierid : uuid(),
-            };
-
-            const statusObj = await status.getStatus(key);
-            assert.deepEqual(statusObj, {
-                status : 0,
-                msg : 'Not implemented yet',
-            });
-        });
     });
 
 

@@ -88,37 +88,4 @@ describe('Scratchx - status', () => {
     });
 
 
-
-
-    describe('images projects', () => {
-
-        it('should return an error status', async () => {
-            const key: Types.ScratchKey = {
-                id : uuid(),
-                name : 'TEST',
-                type : 'images',
-                projectid : uuid(),
-                classifierid : uuid(),
-            };
-            const proj: Types.Project = {
-                id : uuid(),
-                type : 'images',
-                name : 'TEST',
-                userid : uuid(),
-                classid : uuid(),
-                labels : [],
-                fields : [],
-            };
-
-            try {
-                await extensions.getScratchxExtension(key, proj);
-                assert.fail(0, 1, 'Should not reach here', '');
-            }
-            catch (err) {
-                assert.equal(err.message, 'Not implemented yet');
-            }
-        });
-    });
-
-
 });
