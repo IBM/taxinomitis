@@ -71,16 +71,12 @@ async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.
 
 
 export function getScratchxExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string> {
-    if (scratchkey.type === 'text') {
+    switch (scratchkey.type) {
+    case 'text':
         return getTextExtension(scratchkey, project);
-    }
-    else if (scratchkey.type === 'images') {
+    case 'images':
         return getImagesExtension(scratchkey, project);
-    }
-    else if (scratchkey.type === 'numbers') {
+    case 'numbers':
         return getNumbersExtension(scratchkey, project);
-    }
-    else {
-        throw new Error('Not implemented yet');
     }
 }

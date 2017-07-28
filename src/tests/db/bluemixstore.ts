@@ -7,6 +7,7 @@ import * as uuid from 'uuid/v1';
 
 import * as store from '../../lib/db/store';
 import * as conversation from '../../lib/training/conversation';
+import * as visualrecog from '../../lib/training/visualrecognition';
 import * as Types from '../../lib/training/training-types';
 import * as DbTypes from '../../lib/db/db-types';
 
@@ -121,9 +122,6 @@ describe('DB store', () => {
 
 
     describe('Conversation classifiers', () => {
-
-
-
 
         it('should return 0 for unknown users', async () => {
             const unknownClass = uuid();
@@ -408,5 +406,223 @@ describe('DB store', () => {
         });
 
     });
+
+
+
+    describe('Image classifiers', () => {
+
+
+        function sortClassifiers(a: Types.VisualClassifier, b: Types.VisualClassifier): number {
+            if (a.id < b.id) {
+                return -1;
+            }
+            else if (a.id > b.id) {
+                return 1;
+            }
+            return 0;
+        }
+
+        it('should retrieve expired classifiers', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projectid = uuid();
+
+            const now = new Date();
+            now.setMilliseconds(0);
+
+            const future = new Date();
+            future.setDate(future.getDate() + 1);
+            future.setMilliseconds(0);
+
+            const past = new Date();
+            past.setDate(past.getDate() - 1);
+            past.setMilliseconds(0);
+
+            const credentials: Types.BluemixCredentials = {
+                id : uuid(),
+                username : uuid(),
+                password : uuid(),
+                servicetype : 'visrec',
+                url : uuid(),
+            };
+            const expired: Types.VisualClassifier = {
+                id : uuid(),
+                name : 'ONE',
+                classifierid : uuid(),
+                credentialsid : credentials.id,
+                url : uuid(),
+                created : now,
+                expiry : past,
+            };
+            const current: Types.VisualClassifier = {
+                id : uuid(),
+                name : 'TWO',
+                classifierid : uuid(),
+                credentialsid : credentials.id,
+                url : uuid(),
+                created : now,
+                expiry : future,
+            };
+
+            const alreadyExpired = await store.getExpiredImageClassifiers();
+
+            const projectExpired: DbTypes.Project = {
+                id : projectid,
+                userid,
+                classid,
+                type : 'images',
+                name : expired.name,
+                labels : ['a'],
+                fields : [],
+            };
+            const projectCurrent: DbTypes.Project = {
+                id : projectid,
+                userid,
+                classid,
+                type : 'images',
+                name : current.name,
+                labels : ['a'],
+                fields : [],
+            };
+
+            await store.storeImageClassifier(credentials, projectExpired, expired);
+            await store.storeImageClassifier(credentials, projectCurrent, current);
+
+            const retrievedAll = await store.getImageClassifiers(projectid);
+            assert.deepEqual(retrievedAll, [ expired, current ]);
+
+            const retrievedExpired = await store.getExpiredImageClassifiers();
+            assert.deepEqual(retrievedExpired.sort(sortClassifiers),
+                             alreadyExpired.concat([ expired ]).sort(sortClassifiers));
+        });
+
+
+
+        it('should delete expired classifiers', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projectid = uuid();
+
+            const now = new Date();
+            now.setMilliseconds(0);
+
+            const past = new Date();
+            past.setDate(past.getDate() - 1);
+            past.setMilliseconds(0);
+
+            const credentials: Types.BluemixCredentials = {
+                id : uuid(),
+                username : uuid(),
+                password : uuid(),
+                servicetype : 'visrec',
+                url : uuid(),
+            };
+            await store.storeBluemixCredentials(classid, credentials);
+
+            const expired: Types.VisualClassifier = {
+                id : uuid(),
+                name : 'ONE',
+                classifierid : uuid(),
+                credentialsid : credentials.id,
+                url : uuid(),
+                created : now,
+                expiry : past,
+            };
+
+            const projectExpired: DbTypes.Project = {
+                id : projectid,
+                userid,
+                classid,
+                type : 'images',
+                name : expired.name,
+                labels : ['a'],
+                fields : [],
+            };
+
+            await store.storeImageClassifier(credentials, projectExpired, expired);
+
+            const verifyBefore = await store.getImageClassifier(projectid, expired.classifierid);
+            assert.deepEqual(verifyBefore, expired);
+
+            const countBefore = await store.getExpiredImageClassifiers();
+            assert(countBefore.length >= 0);
+
+            const deleteStub = sinon.stub(request, 'delete').resolves();
+            await visualrecog.cleanupExpiredClassifiers();
+            assert(deleteStub.called);
+            deleteStub.restore();
+
+            const countAfter = await store.getExpiredImageClassifiers();
+            assert.equal(countAfter.length, 0);
+
+            try {
+                await store.getImageClassifier(projectid, expired.classifierid);
+                assert.fail(0, 1, 'should not reach here', '');
+            }
+            catch (err) {
+                assert(err);
+            }
+
+            await store.deleteBluemixCredentials(credentials.id);
+        });
+
+
+        it('should store and retrieve classifiers', async () => {
+            const classid = uuid();
+            const projectid = uuid();
+
+            const before = await store.getImageClassifiers(projectid);
+            assert.equal(before.length, 0);
+
+            const credentials: Types.BluemixCredentials = {
+                id : uuid(),
+                username : uuid(),
+                password : uuid(),
+                servicetype : 'visrec',
+                url : uuid(),
+            };
+            const userid = uuid();
+
+            const created = new Date();
+            created.setMilliseconds(0);
+
+            const classifierInfo: Types.VisualClassifier = {
+                id : uuid(),
+                classifierid : randomstring.generate({ length : 32 }),
+                credentialsid : credentials.id,
+                created,
+                expiry : created,
+                name : 'DUMMY',
+                url : uuid(),
+            };
+
+            const project: DbTypes.Project = {
+                id : projectid,
+                userid,
+                classid,
+                type : 'images',
+                name : classifierInfo.name,
+                labels : ['a'],
+                fields : [],
+            };
+
+            await store.storeImageClassifier(credentials, project, classifierInfo);
+
+            const after = await store.getImageClassifiers(projectid);
+            assert.equal(after.length, 1);
+
+
+            const retrieved = after[0];
+
+            assert.deepEqual(retrieved, classifierInfo);
+
+            await store.deleteImageClassifier(classifierInfo.id);
+
+            const empty = await store.getImageClassifiers(projectid);
+            assert.equal(empty.length, 0);
+        });
+
+    });
+
 
 });

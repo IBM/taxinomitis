@@ -4,6 +4,7 @@ import * as uuid from 'uuid/v1';
 import * as sinon from 'sinon';
 import * as proxyquire from 'proxyquire';
 import * as conversation from '../../lib/training/conversation';
+import * as visualrecog from '../../lib/training/visualrecognition';
 import * as status from '../../lib/scratchx/status';
 import * as Types from '../../lib/db/db-types';
 import * as TrainingTypes from '../../lib/training/training-types';
@@ -176,6 +177,126 @@ describe('Scratchx - status', () => {
 
     describe('images projects', () => {
 
+        const testStatus: TrainingTypes.VisualClassifier = {
+            id : uuid(),
+            name : 'TEST PROJECT',
+            status : 'ready',
+            classifierid : uuid(),
+            credentialsid : '123',
+            created : new Date(),
+            expiry : new Date(),
+            url : 'conversation.url',
+        };
+        let getStatusStub;
+
+        before(() => {
+            getStatusStub = sinon.stub(visualrecog, 'getStatus').resolves(testStatus);
+            proxyquire('../../lib/scratchx/status', {
+                '../training/visualrecognition' : {
+                    getStatus : getStatusStub,
+                },
+            });
+        });
+        after(() => {
+            getStatusStub.restore();
+        });
+
+
+        it('should return status 0 for untrained projects', async () => {
+            const key: Types.ScratchKey = {
+                id : uuid(),
+                name : 'TEST',
+                type : 'images',
+                projectid : uuid(),
+            };
+
+            const statusObj = await status.getStatus(key);
+            assert.deepEqual(statusObj, {
+                status : 0,
+                msg : 'No models trained yet - only random answers can be chosen',
+            });
+        });
+
+
+
+        it('should return status 0 for classifiers that have been deleted', async () => {
+            const key: Types.ScratchKey = {
+                id : uuid(),
+                name : 'TEST',
+                type : 'images',
+                projectid : uuid(),
+                classifierid : testStatus.classifierid,
+                credentials : {
+                    url : 'http',
+                    id : uuid(),
+                    username : 'user',
+                    password : 'pass',
+                    servicetype : 'conv',
+                },
+            };
+
+            testStatus.status = 'Non Existent';
+
+            const statusObj = await status.getStatus(key);
+            assert.deepEqual(statusObj, {
+                status : 0,
+                msg : 'Model Non Existent',
+            });
+        });
+
+
+
+        it('should return status 1 for projects that are still training', async () => {
+            const key: Types.ScratchKey = {
+                id : uuid(),
+                name : 'TEST',
+                type : 'images',
+                projectid : uuid(),
+                classifierid : testStatus.classifierid,
+                credentials : {
+                    url : 'http',
+                    id : uuid(),
+                    username : 'user',
+                    password : 'pass',
+                    servicetype : 'conv',
+                },
+            };
+
+            testStatus.status = 'training';
+
+            const statusObj = await status.getStatus(key);
+            assert.deepEqual(statusObj, {
+                status : 1,
+                msg : 'Model not ready yet',
+            });
+        });
+
+
+        it('should return status 2 for trained projects', async () => {
+            const key: Types.ScratchKey = {
+                id : uuid(),
+                name : 'TEST',
+                type : 'images',
+                projectid : uuid(),
+                classifierid : testStatus.classifierid,
+                credentials : {
+                    url : 'http',
+                    id : uuid(),
+                    username : 'user',
+                    password : 'pass',
+                    servicetype : 'conv',
+                },
+            };
+
+            testStatus.status = 'ready';
+
+            const statusObj = await status.getStatus(key);
+            assert.deepEqual(statusObj, {
+                status : 2,
+                msg : 'Ready',
+            });
+        });
+
         it('should return status 0 for untrained projects', async () => {
             const key: Types.ScratchKey = {
                 id : uuid(),
@@ -192,6 +313,4 @@ describe('Scratchx - status', () => {
         });
 
     });
-
-
 });

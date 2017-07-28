@@ -392,12 +392,18 @@ export function createUntrainedScratchKey(
 
 export function getScratchKeyFromDbRow(row: Objects.ScratchKeyDbRow): Objects.ScratchKey {
     let servicetype: TrainingObjects.BluemixServiceType;
-    if (row.projecttype === 'text') {
+    switch (row.projecttype) {
+    case 'text':
         servicetype = 'conv';
-    }
-    else if (row.projecttype === 'numbers') {
+        break;
+    case 'images':
+        servicetype = 'visrec';
+        break;
+    case 'numbers':
         servicetype = 'num';
+        break;
     }
+
     if (row.classifierid) {
         return {
             id : row.id,

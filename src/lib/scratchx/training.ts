@@ -59,17 +59,17 @@ async function storeNumbers(key: Types.ScratchKey, label: string, numbersStr: st
 
 export function storeTrainingData(scratchKey: Types.ScratchKey, label: string, data: any): Promise<any>
 {
-    if (scratchKey.type === 'text') {
+    switch (scratchKey.type) {
+    case 'text':
         return storeText(scratchKey, label, data);
-    }
-    else if (scratchKey.type === 'numbers') {
+    case 'numbers': {
         let dataAsArray: string[] = data;
         if (data && Array.isArray(dataAsArray) === false) {
             dataAsArray = [ data ];
         }
         return storeNumbers(scratchKey, label, dataAsArray);
     }
-    else {
+    case 'images':
         throw new Error('Not implemented yet');
     }
 }

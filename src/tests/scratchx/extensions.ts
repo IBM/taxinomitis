@@ -20,7 +20,7 @@ describe('Scratchx - status', () => {
             };
             const proj: Types.Project = {
                 id : uuid(),
-                type : 'images',
+                type : 'text',
                 name : 'TEST',
                 userid : uuid(),
                 classid : uuid(),
@@ -88,4 +88,41 @@ describe('Scratchx - status', () => {
     });
 
 
+
+
+    describe('images projects', () => {
+
+        it('should create a images classify extension', async () => {
+            const key: Types.ScratchKey = {
+                id : uuid(),
+                name : 'TEST',
+                type : 'images',
+                projectid : uuid(),
+                classifierid : uuid(),
+            };
+            const proj: Types.Project = {
+                id : uuid(),
+                type : 'images',
+                name : 'TEST',
+                userid : uuid(),
+                classid : uuid(),
+                labels : [ 'LABEL NUMBER ONE', 'SECOND LABEL', 'THIRD LABEL' ],
+                fields : [],
+            };
+
+            const extension = await extensions.getScratchxExtension(key, proj);
+
+            assert(extension.indexOf('/api/scratch/' + key.id + '/status') > 0);
+            assert(extension.indexOf('/api/scratch/' + key.id + '/classify') > 0);
+            assert(extension.indexOf('ext.return_label_0 = function () {') > 0);
+            assert(extension.indexOf('ext.return_label_1 = function () {') > 0);
+            assert(extension.indexOf('ext.return_label_2 = function () {') > 0);
+            assert(extension.indexOf('ext.return_label_3 = function () {') === -1);
+            assert(extension.indexOf('[ \'r\', \'LABEL NUMBER ONE\', \'return_label_0\'],') > 0);
+            assert(extension.indexOf('[ \'r\', \'SECOND LABEL\', \'return_label_1\'],') > 0);
+            assert(extension.indexOf('[ \'r\', \'THIRD LABEL\', \'return_label_2\'],') > 0);
+            assert(extension.indexOf(
+                '[ \'R\', \'recognise image %s (label)\', \'image_classification_label\', \'costume image\' ]') > 0);
+        });
+    });
 });

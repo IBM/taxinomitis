@@ -15,10 +15,11 @@ describe('Utils - base64decode', () => {
 
     it('should reject non jpg/png files', (done) => {
         downloadZip.run(INVALIDURLS)
-            .then((path) => {
+            .then(() => {
                 done(new Error('Should not reach here'));
             })
             .catch((err) => {
+                assert(err);
                 done();
             });
     });

@@ -28,6 +28,28 @@ async function createTextKey(project: Types.Project): Promise<ScratchTypes.Key> 
     }
 }
 
+
+async function createImagesKey(project: Types.Project): Promise<ScratchTypes.Key> {
+    const imageClassifiers = await store.getImageClassifiers(project.id);
+
+    if (imageClassifiers.length === 0) {
+        const id = await store.storeUntrainedScratchKey(project);
+        return { id };
+    }
+    else {
+        const classifier = imageClassifiers[0];
+        const model = classifier.classifierid;
+
+        const credentials = await store.getBluemixCredentialsById(classifier.credentialsid);
+
+        const id = await store.storeOrUpdateScratchKey(project,
+            credentials, classifier.classifierid);
+
+        return { id, model };
+    }
+}
+
+
 async function createNumbersKey(project: Types.Project): Promise<ScratchTypes.Key> {
     const numClassifiers = await store.getNumbersClassifiers(project.id);
 
@@ -61,13 +83,12 @@ export async function createKey(projectid: string): Promise<ScratchTypes.Key>
 {
     const project = await store.getProject(projectid);
 
-    if (project.type === 'text') {
+    switch (project.type) {
+    case 'text':
         return createTextKey(project);
-    }
-    else if (project.type === 'numbers') {
+    case 'images':
+        return createImagesKey(project);
+    case 'numbers':
         return createNumbersKey(project);
-    }
-    else {
-        throw new Error('Not implemented yet');
     }
 }

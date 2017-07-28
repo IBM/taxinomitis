@@ -80,7 +80,8 @@ async function getModels(req: auth.RequestWithProject, res: Express.Response) {
 }
 
 async function newModel(req: auth.RequestWithProject, res: Express.Response) {
-    if (req.project.type === 'text') {
+    switch (req.project.type) {
+    case 'text': {
         try {
             const model = await conversation.trainClassifier(req.project);
             return res.status(httpstatus.CREATED).json(returnConversationWorkspace(model));
@@ -88,14 +89,14 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
         catch (err) {
             if (err.message === 'Your class already has created their maximum allowed number of models') {
                 return res.status(httpstatus.CONFLICT)
-                          .send({ error : err.message });
+                        .send({ error : err.message });
             }
             else {
                 return errors.unknownError(res, err);
             }
         }
     }
-    else if (req.project.type === 'images') {
+    case 'images': {
         try {
             const model = await visualrec.trainClassifier(req.project);
             return res.status(httpstatus.CREATED).json(returnVisualRecognition(model));
@@ -103,14 +104,14 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
         catch (err) {
             if (err.message === 'Your class already has created their maximum allowed number of models') {
                 return res.status(httpstatus.CONFLICT)
-                          .send({ error : err.message });
+                        .send({ error : err.message });
             }
             else {
                 return errors.unknownError(res, err);
             }
         }
     }
-    else if (req.project.type === 'numbers') {
+    case 'numbers': {
         try {
             const model = await numbers.trainClassifier(req.project);
             return res.status(httpstatus.CREATED).json(returnNumberClassifier(model));
@@ -119,8 +120,7 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
             return errors.unknownError(res, err);
         }
     }
-
-    return errors.notImplementedYet(res);
+    }
 }
 
 
@@ -131,22 +131,21 @@ async function deleteModel(req: auth.RequestWithProject, res: Express.Response) 
     const modelid = req.params.modelid;
 
     try {
-        if (req.project.type === 'text') {
+        switch (req.project.type) {
+        case 'text': {
             const workspace = await store.getConversationWorkspace(projectid, modelid);
             await conversation.deleteClassifier(workspace);
             return res.sendStatus(httpstatus.NO_CONTENT);
         }
-        else if (req.project.type === 'images') {
+        case 'images': {
             const classifier = await store.getImageClassifier(projectid, modelid);
             await visualrec.deleteClassifier(classifier);
             return res.sendStatus(httpstatus.NO_CONTENT);
         }
-        else if (req.project.type === 'numbers') {
+        case 'numbers': {
             await numbers.deleteClassifier(userid, classid, projectid);
             return res.sendStatus(httpstatus.NO_CONTENT);
         }
-        else {
-            return errors.notImplementedYet(res);
         }
     }
     catch (err) {

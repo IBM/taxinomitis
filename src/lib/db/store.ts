@@ -919,8 +919,8 @@ export async function storeNumbersClassifier(
 
 
 
-export async function deleteConversationWorkspace(id: string): Promise<void> {
-
+export async function deleteConversationWorkspace(id: string): Promise<void>
+{
     const queryString = 'DELETE FROM `bluemixclassifiers` WHERE `id` = ? AND `servicetype` = ?';
 
     const response = await dbExecute(queryString, [ id, 'conv' ]);
@@ -1266,20 +1266,24 @@ export async function getClassTenant(classid: string): Promise<Objects.ClassTena
 
 
 export async function deleteEntireProject(userid: string, classid: string, project: Objects.Project): Promise<void> {
-    if (project.type === 'text') {
+    switch (project.type) {
+    case 'text': {
         const classifiers = await getConversationWorkspaces(project.id);
         for (const classifier of classifiers) {
             await conversation.deleteClassifier(classifier);
         }
+        break;
     }
-    else if (project.type === 'images') {
+    case 'images': {
         const classifiers = await getImageClassifiers(project.id);
         for (const classifier of classifiers) {
             await visualrec.deleteClassifier(classifier);
         }
+        break;
     }
-    else if (project.type === 'numbers') {
+    case 'numbers':
         await numbers.deleteClassifier(userid, classid, project.id);
+        break;
     }
 
     const deleteQueries = [

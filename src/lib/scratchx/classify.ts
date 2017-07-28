@@ -87,16 +87,12 @@ async function classifyNumbers(key: Types.ScratchKey, numbers: string[]): Promis
 
 
 export function classify(scratchKey: Types.ScratchKey, data: any): Promise<TrainingTypes.Classification[]> {
-    if (scratchKey.type === 'text') {
+    switch (scratchKey.type) {
+    case 'text':
         return classifyText(scratchKey, data as string);
-    }
-    else if (scratchKey.type === 'images') {
+    case 'images':
         return classifyImage(scratchKey, data as string);
-    }
-    else if (scratchKey.type === 'numbers') {
+    case 'numbers':
         return classifyNumbers(scratchKey, data as string[]);
-    }
-    else {
-        throw new Error('Not implemented yet');
     }
 }

@@ -567,6 +567,7 @@ describe('DB store - training', () => {
             return store.deleteTrainingByProjectId('images', projectid);
         });
 
+
         it('should limit maximum training data length', async () => {
             const projectid = uuid();
             const url = randomstring.generate({ length : 1500 });

@@ -16,17 +16,13 @@ export function getStatus(scratchKey: Types.ScratchKey): Promise<ScratchTypes.St
         });
     }
 
-    if (scratchKey.type === 'text') {
+    switch (scratchKey.type) {
+    case 'text':
         return getTextClassifierStatus(scratchKey);
-    }
-    else if (scratchKey.type === 'images') {
+    case 'images':
         return getImageClassifierStatus(scratchKey);
-    }
-    else if (scratchKey.type === 'numbers') {
+    case 'numbers':
         return getNumbersClassifierStatus(scratchKey);
-    }
-    else {
-        return Promise.resolve({ status : 0, msg : 'Not implemented yet' });
     }
 }
 

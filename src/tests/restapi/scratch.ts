@@ -276,6 +276,38 @@ describe('REST API - scratch keys', () => {
         });
 
 
+        it('should treat image projects as not implemented yet for training', async () => {
+            const projectid = uuid();
+
+            const project: DbTypes.Project = {
+                id : projectid,
+                name : 'Test Project',
+                userid : 'userid',
+                classid : TESTCLASS,
+                type : 'images',
+                labels : [],
+                fields : [],
+            };
+
+            const key = await store.storeUntrainedScratchKey(project);
+
+            const callbackFunctionName = 'mycb';
+            return request(testServer)
+                .get('/api/scratch/' + key + '/train')
+                .query({ callback : callbackFunctionName, data : 'inserted', label : 'animal' })
+                // this is a JSONP API
+                .expect('Content-Type', /javascript/)
+                .expect(httpstatus.NOT_IMPLEMENTED)
+                .then(async (res) => {
+                    await store.deleteScratchKey(key);
+
+                    assert.equal(res.error.text,
+                        '/**/ typeof ' + callbackFunctionName +
+                        ' === \'function\' && mycb({"error":"Not implemented yet"});');
+                });
+        });
+
+
         it('should return random labels for text without a classifier', async () => {
             const userid = uuid();
             const name = uuid();
