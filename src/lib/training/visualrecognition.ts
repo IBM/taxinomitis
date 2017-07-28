@@ -135,6 +135,20 @@ export function getStatus(
 
 
 
+/**
+ * Confirms that the provided URLs should be usable by the Vision Recognition service.
+ */
+function validateRequest(urls: string[]): void {
+    if (urls.length < 10) {
+        throw new Error('Not enough images to train the classifier');
+    }
+    if (urls.length > 10000) {
+        throw new Error('Number of images exceeds maximum (10000)');
+    }
+}
+
+
+
 async function getTraining(project: DbObjects.Project): Promise<object> {
     const counts = await store.countTrainingByLabel('images', project.id);
 
@@ -148,6 +162,8 @@ async function getTraining(project: DbObjects.Project): Promise<object> {
         });
 
         const trainingUrls = training.map((trainingitem) => trainingitem.imageurl);
+        validateRequest(trainingUrls);
+
         const trainingZip = await downloadAndZip.run(trainingUrls);
         examples[label + '_positive_examples'] = fs.createReadStream(trainingZip);
     }

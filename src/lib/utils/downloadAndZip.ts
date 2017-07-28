@@ -159,20 +159,6 @@ function createZip(filepaths: string[], callback: IZipCallback): void {
 
 
 
-/**
- * Confirms that the provided URLs should be usable by the Vision Recognition service.
- */
-function validateRequest(urls: string[], callback: IErrCallback): void {
-    if (urls.length < 10) {
-        return callback(new Error('Not enough images to train the classifier'));
-    }
-    if (urls.length > 10000) {
-        return callback(new Error('Number of images exceeds maximum (10000)'));
-    }
-
-    return callback(null);
-}
-
 
 /**
  * Confirms that the created zip file should be usable by the Vision Recognition service.
@@ -193,9 +179,6 @@ function validateZip(filesize: number, callback: IErrCallback): void {
  */
 function downloadAllIntoZip(urls: string[], callback: ICreateZipCallback): void {
     async.waterfall([
-        (next) => {
-            validateRequest(urls, next);
-        },
         (next) => {
             downloadAll(urls, next);
         },
