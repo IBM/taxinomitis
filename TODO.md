@@ -17,6 +17,8 @@ Code / engineering work
    https://stackoverflow.com/questions/21159301/quotaexceedederror-dom-exception-22-an-attempt-was-made-to-add-something-to-st
 * Refactoring store.ts to remove duplicate code across text/images/numbers
 * Delete training zip files after creating image classifiers
+* Scroll to the bottom when dragging images in
+* Remove dupes from image training?
 
 Longer term goals
 * Restore sprites library to scratch-flash
@@ -26,3 +28,6 @@ Worksheets
 * Shakespeare or Dahl (text)
 * School Prospectus (text)
 * Restructure worksheets to demonstrate small ground truth makes crap classifiers
+* Newspaper headlines - classify by paper
+* Movie titles (text) - classify by genre
+* Song lyrics - genre (text)

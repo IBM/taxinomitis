@@ -21,6 +21,6 @@ applications:
     MYSQLUSER: admin
     MYSQLPASSWORD: ZLLIDCRHUXXAISWD
     MYSQLDATABASE: mlforkidsdb
-    NUMBERS_SERVICE: https://taxinomitis-numbers.mybluemix.net
+    NUMBERS_SERVICE: https://taxinomitis-numbers-service.mybluemix.net
     NUMBERS_SERVICE_USER: 6d6f8d02-5c5d-11e7-907b-a6006ad3dba0
     NUMBERS_SERVICE_PASS: d78546d2-5c5d-11e7-907b-a6006ad3dba0
