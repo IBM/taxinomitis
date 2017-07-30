@@ -10,6 +10,7 @@ import * as randomstring from 'randomstring';
 import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
 import * as conversation from '../../lib/training/conversation';
+import * as visualrecog from '../../lib/training/visualrecognition';
 import * as numbers from '../../lib/training/numbers';
 import * as DbTypes from '../../lib/db/db-types';
 import * as Types from '../../lib/training/training-types';
@@ -39,6 +40,10 @@ describe('REST API - models', () => {
         trainClassifierStub : undefined,
         testClassifierStub : undefined,
         deleteClassifierStub : undefined,
+    };
+    const imagesStub = {
+        getClassifiersStub : undefined,
+        trainClassifierStub : undefined,
     };
 
     const updated = new Date();
@@ -128,6 +133,42 @@ describe('REST API - models', () => {
             return new Promise((resolve) => { resolve(); });
         });
 
+        imagesStub.getClassifiersStub = sinon.stub(visualrecog, 'getClassifierStatuses');
+        imagesStub.getClassifiersStub.callsFake((classid, classifiers: Types.VisualClassifier[]) => {
+            return new Promise((resolve) => {
+                resolve(classifiers.map((classifier) => {
+                    switch (classifier.classifierid) {
+                    case 'good':
+                        classifier.status = 'ready';
+                        return classifier;
+                    case 'busy':
+                        classifier.status = 'training';
+                        return classifier;
+                    }
+                }));
+            });
+        });
+        imagesStub.trainClassifierStub = sinon.stub(visualrecog, 'trainClassifier');
+        imagesStub.trainClassifierStub.callsFake((project: DbTypes.Project) => {
+            if (project.name === 'no more room') {
+                const err = new Error('Your class already has created their maximum allowed number of models');
+                return Promise.reject(err);
+            }
+            else {
+                const workspace: Types.VisualClassifier = {
+                    id : uuid(),
+                    classifierid : 'NEW-CREATED',
+                    credentialsid : '123',
+                    name : project.name,
+                    created : new Date(Date.UTC(2017, 4, 4, 12, 0)),
+                    expiry : new Date(Date.UTC(2017, 4, 4, 13, 0)),
+                    url : 'http://visualrecog.service/api/classifiers/NEW-CREATED',
+                    status : 'training',
+                };
+                return Promise.resolve(workspace);
+            }
+        });
+
 
         proxyquire('../../lib/restapi/models', {
             '../training/conversation' : {
@@ -140,6 +181,10 @@ describe('REST API - models', () => {
                 trainClassifier : numbersStub.trainClassifierStub,
                 testClassifier : numbersStub.testClassifierStub,
                 deleteClassifier : numbersStub.deleteClassifierStub,
+            },
+            '../training/visualrecognition' : {
+                getClassifierStatuses : imagesStub.getClassifiersStub,
+                trainClassifier : imagesStub.trainClassifierStub,
             },
         });
 
@@ -161,6 +206,8 @@ describe('REST API - models', () => {
         numbersStub.trainClassifierStub.restore();
         numbersStub.testClassifierStub.restore();
         numbersStub.deleteClassifierStub.restore();
+        imagesStub.getClassifiersStub.restore();
+        imagesStub.trainClassifierStub.restore();
 
         return store.disconnect();
     });
@@ -237,6 +284,80 @@ describe('REST API - models', () => {
                     assert.deepEqual(body, []);
 
                     return store.deleteEntireUser(userid, classid);
+                });
+        });
+
+
+        it('should retrieve images classifiers', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'images', 'demo', []);
+            const projectid = project.id;
+
+            const credentials: Types.BluemixCredentials = {
+                id : uuid(),
+                username : uuid(),
+                password : uuid(),
+                servicetype : 'conv',
+                url : uuid(),
+            };
+
+            const createdA = new Date();
+            createdA.setMilliseconds(0);
+
+            const classifierAInfo: Types.VisualClassifier = {
+                id : uuid(),
+                classifierid : 'good',
+                credentialsid : credentials.id,
+                created : createdA,
+                expiry : createdA,
+                name : 'DUMMY ONE',
+                url : uuid(),
+            };
+            await store.storeImageClassifier(credentials, project, classifierAInfo);
+
+            const createdB = new Date();
+            createdB.setMilliseconds(0);
+
+            const classifierBInfo: Types.VisualClassifier = {
+                id : uuid(),
+                classifierid : 'busy',
+                credentialsid : credentials.id,
+                created : createdB,
+                expiry : createdB,
+                name : 'DUMMY TWO',
+                url : uuid(),
+            };
+            await store.storeImageClassifier(credentials, project, classifierBInfo);
+
+
+            return request(testServer)
+                .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK)
+                .then(async (res) => {
+
+                    assert.deepEqual(res.body, [
+                        {
+                            classifierid : 'busy',
+                            credentialsid : credentials.id,
+                            updated : createdB.toISOString(),
+                            expiry : createdB.toISOString(),
+                            name : 'DUMMY TWO',
+                            status : 'Training',
+                        },
+                        {
+                            classifierid : 'good',
+                            credentialsid : credentials.id,
+                            updated : createdA.toISOString(),
+                            expiry : createdA.toISOString(),
+                            name : 'DUMMY ONE',
+                            status : 'Available',
+                        },
+                    ]);
+
+                    await store.deleteEntireUser(userid, classid);
                 });
         });
 
@@ -420,6 +541,57 @@ describe('REST API - models', () => {
 
                     assert.deepEqual(body, {
                         updated : '2017-05-04T12:01:00.000Z',
+                        expiry : '2017-05-04T13:00:00.000Z',
+                        name : projName,
+                        status : 'Training',
+                        classifierid : 'NEW-CREATED',
+                        credentialsid : '123',
+                    });
+
+                    return store.deleteEntireUser(userid, classid);
+                });
+        });
+
+
+        it('should enforce tenant policies on number of image classifiers', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = 'no more room';
+
+            const project = await store.storeProject(userid, classid, 'images', projName, []);
+            const projectid = project.id;
+
+            return request(testServer)
+                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CONFLICT)
+                .then(async (res) => {
+                    const body = res.body;
+
+                    assert.equal(body.error, 'Your class already has created their maximum allowed number of models');
+
+                    await store.deleteEntireUser(userid, classid);
+                });
+        });
+
+
+        it('should train new image classifiers', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = uuid();
+
+            const project = await store.storeProject(userid, classid, 'images', projName, []);
+            const projectid = project.id;
+
+            return request(testServer)
+                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED)
+                .then((res) => {
+                    const body = res.body;
+
+                    assert.deepEqual(body, {
+                        updated : '2017-05-04T12:00:00.000Z',
                         expiry : '2017-05-04T13:00:00.000Z',
                         name : projName,
                         status : 'Training',

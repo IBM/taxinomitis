@@ -46,7 +46,7 @@ const paths = {
 gulp.task('clean', () => {
     const tsProject = ts.createProject('tsconfig.json');
     const target = tsProject.config.compilerOptions.outDir;
-    return del([target, './coverage', './web']);
+    return del([target, './web']);
 });
 
 gulp.task('bower', function() {
