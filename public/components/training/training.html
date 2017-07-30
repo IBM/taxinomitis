@@ -55,7 +55,7 @@
                 <span class="glyphicon glyphicon-remove-circle deletelabel" aria-hidden="true" ng-click="vm.deleteLabel($event, label, $index)"></span>
                 <div class="trainingbucketitems" ng-if="project.type === 'text'">
                     <div class="loadingtraining" ng-if="loadingtraining"> </div>
-                    <div class="trainingbucketitem" ng-repeat="item in training[label]" ng-class="{ placeholder : item.isPlaceholder }">
+                    <div class="trainingbucketitem" ng-repeat="item in training[label]" ng-class="{ placeholder : item.isPlaceholder }" id="{{item.id}}">
                         <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true"
                               ng-click="vm.deleteText(label, item, $index)"
                               ng-if="!item.isPlaceholder"></span>
@@ -64,7 +64,7 @@
                 </div>
                 <div class="trainingbucketitems" ng-if="project.type === 'numbers'">
                     <div class="loadingtraining" ng-if="loadingtraining"> </div>
-                    <div class="trainingbucketitem" ng-repeat="item in training[label]" ng-class="{ placeholder : item.isPlaceholder }">
+                    <div class="trainingbucketitem" ng-repeat="item in training[label]" ng-class="{ placeholder : item.isPlaceholder }"  id="{{item.id}}">
                         <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true"
                               ng-click="vm.deleteText(label, item, $index)"
                               ng-if="!item.isPlaceholder"></span>
@@ -78,7 +78,7 @@
                 </div>
                 <div class="trainingbucketitems" ng-if="project.type === 'images'" ml-image-loader>
                     <div class="loadingtraining" ng-if="loadingtraining"> </div>
-                    <div class="trainingbucketitem" ng-repeat="item in training[label]">
+                    <div class="trainingbucketitem" ng-repeat="item in training[label]" id="{{item.id}}">
                         <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true"
                               ng-click="vm.deleteText(label, item, $index)"></span>
                         <img src="{{ item.imageurl }}" class="trainingImageThumbnail" alt="{{ item.imageurl}}">

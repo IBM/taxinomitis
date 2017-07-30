@@ -9,10 +9,12 @@
         'projectsService', 'trainingService',
         '$stateParams',
         '$scope',
-        '$mdDialog'
+        '$mdDialog',
+        '$document',
+        '$timeout'
     ];
 
-    function TrainingController(authService, projectsService, trainingService, $stateParams, $scope, $mdDialog) {
+    function TrainingController(authService, projectsService, trainingService, $stateParams, $scope, $mdDialog, $document, $timeout) {
 
         var vm = this;
         vm.authService = authService;
@@ -195,6 +197,8 @@
                 .then(function (newitem) {
                     placeholder.isPlaceholder = false;
                     placeholder.id = newitem.id;
+
+                    scrollToNewItem(newitem.id);
                 })
                 .catch(function (err) {
                     displayAlert('errors', err.status, err.data);
@@ -276,6 +280,16 @@
             );
         };
 
+
+
+
+        function scrollToNewItem(itemId) {
+            $timeout(function () {
+                var newItem = document.getElementById(itemId);
+                var itemContainer = newItem.parentElement;
+                angular.element(itemContainer).duScrollToElementAnimated(angular.element(newItem));
+            }, 0);
+        }
 
 
 

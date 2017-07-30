@@ -9,7 +9,6 @@ Code / engineering work
    According to https://github.com/auth0/angular-lock/issues/26 it's okay to use this as well as lock
    NOTE: Tokens expire after 24 hours. Unlikely to be a problem in schools!
 * Figure out logging for prod
-* Set up cfbot for prod monitoring
 * Delete entire project is actually calling taxinomitis-numbers during tests
 * Some sort of admin controls for me so I'm not SQL'ing in a prod DB
 * Compose dashboard supports MySQL backups - need to set a reminder to do this
@@ -17,7 +16,6 @@ Code / engineering work
    https://stackoverflow.com/questions/21159301/quotaexceedederror-dom-exception-22-an-attempt-was-made-to-add-something-to-st
 * Refactoring store.ts to remove duplicate code across text/images/numbers
 * Delete training zip files after creating image classifiers
-* Scroll to the bottom when dragging images in
 * Remove dupes from image training?
 
 Longer term goals

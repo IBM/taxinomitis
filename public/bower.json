@@ -16,6 +16,7 @@
     "angular-jwt": "^0.1.9",
     "angular-lock": "^2.0.3",
     "angular-material": "^1.1.4",
+    "angular-scroll": "1.0.2",
     "angular-ui-router": "^1.0.5",
     "auth0-lock" : "^10.19.0",
     "bootstrap": "^3.3.7",
