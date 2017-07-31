@@ -87,7 +87,7 @@
     "lodash": "^4.17.4",
     "multer": "^1.3.0",
     "mustache": "^2.3.0",
-    "mysql2": "dalelane/node-mysql2",
+    "mysql2": "sidorares/node-mysql2",
     "randomstring": "^1.1.5",
     "read-chunk": "^2.0.0",
     "request": "^2.81.0",

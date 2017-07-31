@@ -67,9 +67,6 @@ async function classifyWithScratchKey(req: Express.Request, res: Express.Respons
         if (err.message === 'Missing data') {
             return res.status(httpstatus.BAD_REQUEST).jsonp({ error : 'Missing data' });
         }
-        if (err.message === 'Not implemented yet') {
-            return res.status(httpstatus.NOT_IMPLEMENTED).jsonp({ error : 'Not implemented yet' });
-        }
 
         log.error({ err }, 'Classify error');
         return res.status(httpstatus.INTERNAL_SERVER_ERROR).jsonp(err);
@@ -92,9 +89,6 @@ async function postClassifyWithScratchKey(req: Express.Request, res: Express.Res
     catch (err) {
         if (err.message === 'Missing data') {
             return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing data' });
-        }
-        if (err.message === 'Not implemented yet') {
-            return res.status(httpstatus.NOT_IMPLEMENTED).json({ error : 'Not implemented yet' });
         }
 
         log.error({ err }, 'Classify error');

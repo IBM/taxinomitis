@@ -1048,6 +1048,63 @@ describe('REST API - scratch keys', () => {
 
 
 
+        it('should support POST for returning classes from a classifier', async () => {
+            const userid = uuid();
+            const name = uuid();
+            const typelabel = 'text';
+
+            const credentials = {
+                id : uuid(),
+                username : randomstring.generate({ length : 12 }),
+                password : randomstring.generate({ length : 20 }),
+                servicetype : 'conv' as Types.BluemixServiceType,
+                url : uuid(),
+            };
+
+            const workspaceId = randomstring.generate({ length : 32 });
+
+            const conversationWorkspace: Types.ConversationWorkspace = {
+                id : uuid(),
+                workspace_id : workspaceId,
+                credentialsid : credentials.id,
+                url : uuid(),
+                name,
+                language : 'en',
+                created : new Date(),
+                expiry : new Date(),
+            };
+
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, []);
+            await store.storeBluemixCredentials(TESTCLASS, credentials);
+            await store.storeConversationWorkspace(credentials, project, conversationWorkspace);
+
+            const scratchKey = await store.storeOrUpdateScratchKey(
+                project,
+                credentials, conversationWorkspace.workspace_id);
+
+            const conversationStub = sinon.stub(requestPromise, 'post').callsFake(mockClassifier);
+
+            return request(testServer)
+                .post('/api/scratch/' + scratchKey + '/classify')
+                .send({ data : 'haddock' })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK)
+                .then(async (res) => {
+                    const payload = res.body;
+
+                    assert.deepEqual(payload, [
+                        { class_name: 'temperature', confidence: 64 },
+                        { class_name: 'conditions', confidence: 36 },
+                    ]);
+
+                    await store.deleteEntireProject(userid, TESTCLASS, project);
+                    await store.deleteBluemixCredentials(credentials.id);
+
+                    conversationStub.restore();
+                });
+        });
+
+
         it('should return errors from a classifier', async () => {
             const userid = uuid();
             const name = uuid();

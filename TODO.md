@@ -17,6 +17,7 @@ Code / engineering work
 * Refactoring store.ts to remove duplicate code across text/images/numbers
 * Delete training zip files after creating image classifiers
 * Remove dupes from image training?
+* Plan for renewing the Let's Encrypt cert
 
 Longer term goals
 * Restore sprites library to scratch-flash

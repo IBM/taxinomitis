@@ -44,6 +44,7 @@ describe('REST API - models', () => {
     const imagesStub = {
         getClassifiersStub : undefined,
         trainClassifierStub : undefined,
+        deleteClassifierStub : undefined,
     };
 
     const updated = new Date();
@@ -168,6 +169,9 @@ describe('REST API - models', () => {
                 return Promise.resolve(workspace);
             }
         });
+        imagesStub.deleteClassifierStub = sinon.stub(visualrecog, 'deleteClassifier').callsFake(() => {
+            return new Promise((resolve) => { resolve(); });
+        });
 
 
         proxyquire('../../lib/restapi/models', {
@@ -185,6 +189,7 @@ describe('REST API - models', () => {
             '../training/visualrecognition' : {
                 getClassifierStatuses : imagesStub.getClassifiersStub,
                 trainClassifier : imagesStub.trainClassifierStub,
+                deleteClassifier : imagesStub.deleteClassifierStub,
             },
         });
 
@@ -208,6 +213,7 @@ describe('REST API - models', () => {
         numbersStub.deleteClassifierStub.restore();
         imagesStub.getClassifiersStub.restore();
         imagesStub.trainClassifierStub.restore();
+        imagesStub.deleteClassifierStub.restore();
 
         return store.disconnect();
     });
@@ -886,6 +892,51 @@ describe('REST API - models', () => {
                 url : uuid(),
             };
             await store.storeConversationWorkspace(credentials, project, classifierInfo);
+
+            return request(testServer)
+                .delete('/api/classes/' + classid +
+                        '/students/' + userid +
+                        '/projects/' + projectid +
+                        '/models/' + modelid)
+                .expect(httpstatus.NO_CONTENT)
+                .then(async () => {
+                    await store.deleteEntireUser(userid, classid);
+                    await store.deleteBluemixCredentials(credentials.id);
+                });
+        });
+
+
+        it('should delete image classifiers', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = uuid();
+            const modelid = randomstring.generate({ length : 10 });
+
+            const project = await store.storeProject(userid, classid, 'images', projName, []);
+            const projectid = project.id;
+
+            const credentials: Types.BluemixCredentials = {
+                id : uuid(),
+                username : uuid(),
+                password : uuid(),
+                servicetype : 'conv',
+                url : uuid(),
+            };
+            await store.storeBluemixCredentials(classid, credentials);
+
+            const created = new Date();
+            created.setMilliseconds(0);
+
+            const classifierInfo: Types.VisualClassifier = {
+                id : uuid(),
+                classifierid : modelid,
+                credentialsid : credentials.id,
+                created,
+                expiry : created,
+                name : projName,
+                url : uuid(),
+            };
+            await store.storeImageClassifier(credentials, project, classifierInfo);
 
             return request(testServer)
                 .delete('/api/classes/' + classid +
