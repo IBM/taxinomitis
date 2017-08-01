@@ -12,7 +12,7 @@
                         <md-input-container style="min-width: 480px">
                             <label>Enter an example of '{{ label }}'</label>
                             <input type="text" name="text"
-                                   md-autofocus
+                                   md-autofocus="project.type === 'text'"
                                    ng-required="true"
                                    ng-pattern="/^[^\n\t\r]+$/"
                                    ng-model="example"
@@ -40,7 +40,7 @@
                         <md-input-container>
                             <div> {{ field }} </div>
                             <input name="{{field}}"
-                                md-autofocus="$index == 0"
+                                md-autofocus="project.type === 'numbers' && $index == 0"
                                 ng-required="true"
                                 ng-pattern="/^-?[0-9]+(?:\.[0-9]*)?$/"
                                 ng-model="values[field]">
@@ -67,7 +67,7 @@
                         <md-input-container style="min-width: 580px">
                             <label>Enter the URL of a picture that is an example of '{{ label }}'</label>
                             <input type="url" name="url"
-                                   md-autofocus
+                                   md-autofocus="project.type === 'images'"
                                    ng-required="true"
                                    ng-model="example"
                                    md-maxlength="1000"></input>
