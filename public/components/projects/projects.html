@@ -35,7 +35,7 @@
             Click on the 'plus' button on the right to create your first project.
             <span class="glyphicon glyphicon-arrow-right"></span>
         </div>
-        <div class="mlproject" ng-repeat="project in vm.projects">
+        <div class="mlproject" ng-repeat="project in vm.projects" id="{{project.id}}">
             <div class="mlprojectdetails placeholder" ng-if="project.isPlaceholder">
                 <div class="mlprojecttitle">{{ project.name }}</div>
             </div>

@@ -8,10 +8,11 @@
         'authService',
         'projectsService',
         '$mdDialog',
-        '$scope', '$timeout', '$stateParams'
+        '$scope', '$timeout', '$stateParams',
+        '$document'
     ];
 
-    function ProjectsController(authService, projectsService, $mdDialog, $scope, $timeout, $stateParams) {
+    function ProjectsController(authService, projectsService, $mdDialog, $scope, $timeout, $stateParams, $document) {
 
         var vm = this;
         vm.authService = authService;
@@ -123,6 +124,8 @@
                             placeholder.id = newproject.id;
                             placeholder.labels = newproject.labels;
                             placeholder.isPlaceholder = false;
+
+                            scrollToNewItem(newproject.id);
                         })
                         .catch(function (err) {
                             displayAlert('errors', err.status, err.data);
@@ -171,6 +174,14 @@
                 }
             );
         };
+
+
+        function scrollToNewItem(itemId) {
+            $timeout(function () {
+                var newItem = document.getElementById(itemId);
+                $document.duScrollToElementAnimated(angular.element(newItem));
+            }, 0);
+        }
 
 
 
