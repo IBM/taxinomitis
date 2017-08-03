@@ -116,7 +116,9 @@
                         <div class="modelstatusdetail" >
                             You've said that you want to collect examples of {{ project.type }}
                             for a computer to use to recognise
-                            when {{ project.type }} is {{ projectSummary }}.
+                            when {{ project.type }}
+                            {{ project.type === 'text' ? 'is' : 'are' }}
+                            {{ projectSummary }}.
                         </div>
                         <div class="modelstatusdetail" >
                             So far, you haven't collected any examples yet.
@@ -126,7 +128,9 @@
                         <div class="modelstatusdetail" >
                             You've collected examples of {{ project.type }}
                             for a computer to use to recognise
-                            when {{ project.type }} is {{ projectSummary }}.
+                            when {{ project.type }}
+                            {{ project.type === 'text' ? 'is' : 'are' }}
+                            {{ projectSummary }}.
                         </div>
                         <div class="modelstatusdetail">
                             You've collected:
