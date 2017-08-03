@@ -18,7 +18,6 @@ Code / engineering work
 * Delete training zip files after creating image classifiers
 * Remove dupes from image training?
 * Plan for renewing the Let's Encrypt cert
-* check Scratch page has the right blocks documented
 
 Longer term goals
 * Restore sprites library to scratch-flash

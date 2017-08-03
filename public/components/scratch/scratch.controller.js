@@ -49,6 +49,9 @@
                 if (project.type === 'text') {
                     $scope.scratchblocks.label += '[text]';
                 }
+                else if (project.type === 'images') {
+                    $scope.scratchblocks.label += '[costume image]';
+                }
                 else if (project.type === 'numbers') {
                     var idx = 1;
                     for (var fldIndex in project.fields) {
@@ -64,6 +67,12 @@
                         'ask [enter some text here] and wait \n' +
                         'if &lt;{recognise text (answer) \\(label) :: custom reporter } = (' + project.labels[0] + ' :: custom reporter)&gt; then \n' +
                         'say [I think that was ' + project.labels[0] + ']';
+                }
+                else if (project.type === 'images') {
+                    $scope.scratchblocks.sample =
+                        'if &lt;{recognise images (costume image :: looks) :: custom reporter } = (' + project.labels[0] + ' :: custom reporter)&gt; then \n' +
+                        'say [I think that is a picture of ' + project.labels[0] + ']';
+                    console.log($scope.scratchblocks.sample);
                 }
                 else if (project.type === 'numbers') {
                     $scope.scratchblocks.sample =
