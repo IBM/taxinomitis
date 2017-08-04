@@ -20,8 +20,13 @@
         $rootScope.isTeacher = false;
         $rootScope.isAuthenticated = false;
 
+        confirmLocalStorage();
 
-        var userProfile = JSON.parse(localStorage.getItem('profile')) || null;
+        var userProfileStr = localStorage.getItem('profile');
+        var userProfile = null;
+        if (userProfileStr) {
+            userProfile = JSON.parse(userProfileStr);
+        }
         var deferredProfile = $q.defer();
 
         if (userProfile) {
@@ -157,6 +162,36 @@
             }
             return isAuth;
         }
+
+
+
+        function confirmLocalStorage() {
+            console.log('checking local storage');
+            // Safari, in Private Browsing Mode, looks like it supports localStorage but all calls to setItem
+            // throw QuotaExceededError. If it looks like localStorage isn't working, we use a local object
+            if (typeof localStorage === 'object') {
+                try {
+                    localStorage.setItem('confirmLocalStorage', 1);
+                    localStorage.removeItem('confirmLocalStorage');
+                    console.log('looks okay');
+                }
+                catch (e) {
+                    console.log(e);
+                    console.log('Replacing local storage');
+
+                    window._tempLocalStorage = {};
+                    localStorage.setItem = function (key, val) {
+                        window._tempLocalStorage[key] = val;
+                    };
+                    localStorage.getItem = function (key) {
+                        return window._tempLocalStorage[key];
+                    };
+                }
+            }
+        }
+
+
+
 
 
         return {
