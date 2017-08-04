@@ -15,8 +15,18 @@ export default function getLogger(): bunyan {
         };
 
         if (process.env.NODE_ENV === 'production') {
-            // TODO stream logs to ELK / Logmet
-
+            // writing the logs to stdout/stderr so that
+            //  they can be picked up by Bluemix Log Service
+            options.streams = [
+                {
+                    level : bunyan.ERROR,
+                    stream : process.stderr,
+                },
+                {
+                    level : bunyan.INFO,
+                    stream : process.stdout,
+                },
+            ];
         }
         else {
             options.src = true;

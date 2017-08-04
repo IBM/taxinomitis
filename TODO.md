@@ -8,7 +8,6 @@ Code / engineering work
    https://github.com/auth0/auth0.js#api look at renewAuth
    According to https://github.com/auth0/angular-lock/issues/26 it's okay to use this as well as lock
    NOTE: Tokens expire after 24 hours. Unlikely to be a problem in schools!
-* Figure out logging for prod
 * Delete entire project is actually calling taxinomitis-numbers during tests
 * Some sort of admin controls for me so I'm not SQL'ing in a prod DB
 * Compose dashboard supports MySQL backups - need to set a reminder to do this
