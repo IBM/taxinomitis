@@ -12,9 +12,10 @@ Code / engineering work
 * Some sort of admin controls for me so I'm not SQL'ing in a prod DB
 * Compose dashboard supports MySQL backups - need to set a reminder to do this
 * Refactoring store.ts to remove duplicate code across text/images/numbers
-* Delete training zip files after creating image classifiers
 * Remove dupes from image training?
 * Plan for renewing the Let's Encrypt cert
+* Improve feedback if non-jpg/png images are dragged on
+* Handle intranet-hosted pictures in image training data
 
 Longer term goals
 * Restore sprites library to scratch-flash

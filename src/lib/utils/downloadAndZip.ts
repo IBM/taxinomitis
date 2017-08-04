@@ -53,7 +53,7 @@ function renameFileFromContents(filepath: string, sourceurl: string, callback: I
                 return next(null, filetype);
             }
             fs.unlink(filepath);
-            next(new Error('Training data (' + sourceurl + ') has supported file type (' + filetype + ')'));
+            next(new Error('Training data (' + sourceurl + ') has unsupported file type (' + filetype + ')'));
         },
         (filetype, next) => {
             const newFilePath = filepath + '.' + filetype;

@@ -166,14 +166,12 @@
 
 
         function confirmLocalStorage() {
-            console.log('checking local storage');
             // Safari, in Private Browsing Mode, looks like it supports localStorage but all calls to setItem
             // throw QuotaExceededError. If it looks like localStorage isn't working, we use a local object
             if (typeof localStorage === 'object') {
                 try {
                     localStorage.setItem('confirmLocalStorage', 1);
                     localStorage.removeItem('confirmLocalStorage');
-                    console.log('looks okay');
                 }
                 catch (e) {
                     console.log(e);

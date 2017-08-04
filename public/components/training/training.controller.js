@@ -211,6 +211,19 @@
         };
 
 
+        vm.onImageLoad = function (image) {
+            console.log(image);
+            console.log('on image load');
+        };
+
+        vm.onImageError = function (image) {
+            image.loadingFailed = true;
+            displayAlert('errors', 400, {
+                error : 'Image (' + image.imageurl + ') in the ' + image.label + ' bucket could not be loaded, and has been highlighted in red. You should delete it.'
+            });
+        };
+
+
         vm.addLabel = function (ev, project) {
             $mdDialog.show({
                 controller : function ($scope, $mdDialog) {

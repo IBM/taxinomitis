@@ -21,15 +21,20 @@ export async function trainClassifier(
 {
     const training = await getTraining(project);
 
-    const existingClassifiers = await store.getImageClassifiers(project.id);
-    for (const existingClassifier of existingClassifiers) {
-        await deleteClassifier(existingClassifier);
+    try {
+        const existingClassifiers = await store.getImageClassifiers(project.id);
+        for (const existingClassifier of existingClassifiers) {
+            await deleteClassifier(existingClassifier);
+        }
+
+        const credentials = await store.getBluemixCredentials(project.classid, 'visrec');
+        const classifier = await createClassifier(project, credentials, training);
+
+        return classifier;
     }
-
-    const credentials = await store.getBluemixCredentials(project.classid, 'visrec');
-    const classifier = await createClassifier(project, credentials, training);
-
-    return classifier;
+    finally {
+        deleteTrainingFiles(training);
+    }
 }
 
 
@@ -170,6 +175,24 @@ async function getTraining(project: DbObjects.Project): Promise<object> {
 
     return examples;
 }
+
+
+
+function deleteTrainingFiles(training) {
+    const trainingKeys = Object.keys(training);
+    for (const trainingKey of trainingKeys) {
+        if (trainingKey !== 'name') {
+            fs.unlink(training[trainingKey].path, (err) => {
+                if (err) {
+                    log.error({ err }, 'Failed to delete training file');
+                }
+            });
+        }
+    }
+}
+
+
+
 
 
 /**

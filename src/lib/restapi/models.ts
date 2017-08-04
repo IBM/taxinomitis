@@ -103,8 +103,13 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
         }
         catch (err) {
             if (err.message === 'Your class already has created their maximum allowed number of models') {
-                return res.status(httpstatus.CONFLICT)
-                        .send({ error : err.message });
+                return res.status(httpstatus.CONFLICT).send({ error : err.message });
+            }
+            else if (err.message === 'Not enough images to train the classifier' ||
+                     err.message === 'Number of images exceeds maximum (10000)' ||
+                     err.message.indexOf(') has unsupported file type ('))
+            {
+                return res.status(httpstatus.BAD_REQUEST).send({ error : err.message });
             }
             else {
                 return errors.unknownError(res, err);

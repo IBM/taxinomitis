@@ -170,6 +170,10 @@
     max-width: 100px;
 }
 
+.trainingbucketitem.error {
+    background-color: #d9534f;
+}
+
 
 .deletetext {
     color: #CC8080;
@@ -179,6 +183,12 @@
     padding: 0.35em 0 0 0.35em;
 }
 
+.trainingbucketitem.error > .deletetext {
+    color: white;
+    font-weight: bold;
+    visibility: visible;
+    font-size: large;
+}
 
 
 .numberdatalabel {
