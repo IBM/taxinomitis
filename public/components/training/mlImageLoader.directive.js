@@ -104,7 +104,9 @@
             }
             else {
                 scope.getController().displayAlert('warnings', 400, {
-                    message : 'Drag a picture from another web page into one of the training buckets'
+                    message : isSafari() ?
+                        'Dragging pictures does not work in Safari. Use a different browser, or use the "Add example" button instead.' :
+                        'Drag a picture from another web page into one of the training buckets'
                 });
                 scope.$apply();
             }
@@ -121,6 +123,10 @@
             jqlElement.addEventListener('drop', function (evt) {
                 handleDrop(evt, label, scope);
             });
+        }
+
+        function isSafari() {
+            return navigator.userAgent.indexOf('Safari') >= 0;
         }
 
         return {

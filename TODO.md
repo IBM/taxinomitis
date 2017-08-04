@@ -12,8 +12,6 @@ Code / engineering work
 * Delete entire project is actually calling taxinomitis-numbers during tests
 * Some sort of admin controls for me so I'm not SQL'ing in a prod DB
 * Compose dashboard supports MySQL backups - need to set a reminder to do this
-* Test to see if localStorage is available (auth broken without it - such as on Safari Private Mode)
-   https://stackoverflow.com/questions/21159301/quotaexceedederror-dom-exception-22-an-attempt-was-made-to-add-something-to-st
 * Refactoring store.ts to remove duplicate code across text/images/numbers
 * Delete training zip files after creating image classifiers
 * Remove dupes from image training?
