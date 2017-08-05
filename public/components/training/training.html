@@ -78,6 +78,7 @@
                 </div>
                 <div class="trainingbucketitems" ng-if="project.type === 'images'" ml-image-loader>
                     <div class="loadingtraining" ng-if="loadingtraining"> </div>
+                    <div class="dragprompt" ng-hide="loadingtraining || training[label].length > 0">Drag pictures from other browser windows and drop them here</div>
                     <div class="trainingbucketitem" ng-repeat="item in training[label]" id="{{item.id}}" ng-class="{ error : item.loadingFailed }">
                         <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true"
                               ng-click="vm.deleteText(label, item, $index)"></span>

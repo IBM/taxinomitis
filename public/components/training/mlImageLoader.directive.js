@@ -118,10 +118,31 @@
         function link (scope, jqlElements, attrs) {
             var jqlElement = jqlElements[0];
             var label = scope.$parent.label;
+
             jqlElement.addEventListener('dragover', cancel);
-            jqlElement.addEventListener('dragenter', cancel);
+
+            var counter = 0;
+
+            jqlElement.addEventListener('dragleave', function (evt) {
+                counter -= 1;
+                if (counter === 0) {
+                    angular.element(evt.target).removeClass('hover');
+                }
+                return cancel(evt);
+            });
+            jqlElement.addEventListener('dragenter', function (evt) {
+                counter += 1;
+                angular.element(evt.target).addClass('hover');
+                return cancel(evt);
+            });
             jqlElement.addEventListener('drop', function (evt) {
-                handleDrop(evt, label, scope);
+                counter = 0;
+                angular.element(evt.target).removeClass('hover');
+                jqlElements.removeClass('hover');
+
+                angular.element(document.querySelector('.trainingbucketitems.hover')).removeClass('hover');
+
+                return handleDrop(evt, label, scope);
             });
         }
 

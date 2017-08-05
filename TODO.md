@@ -16,6 +16,7 @@ Code / engineering work
 * Plan for renewing the Let's Encrypt cert
 * Improve feedback if non-jpg/png images are dragged on
 * Handle intranet-hosted pictures in image training data
+* Highlight draggable target in image buckets
 
 Longer term goals
 * Restore sprites library to scratch-flash

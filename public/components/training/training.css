@@ -66,6 +66,9 @@
     margin-bottom: 0.4em;
     flex: 1;
 }
+.trainingbucketitems.hover {
+    border: thick dashed #00008b;
+}
 .trainingbucketitem {
     background-color: #e0e0e0;
     margin: 0.5em;
@@ -79,6 +82,14 @@
 }
 
 
+.dragprompt {
+    color: #808080;
+    font-size: 1.6em;
+    text-align: center;
+}
+.hover > .dragprompt {
+    display: none;
+}
 
 
 .newexamplebutton {
