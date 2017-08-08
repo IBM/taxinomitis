@@ -8,6 +8,7 @@ import * as store from '../db/store';
 import * as Objects from '../db/db-types';
 import * as errors from './errors';
 import * as headers from './headers';
+import * as imageCheck from '../utils/imageCheck';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -138,6 +139,7 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
             training = await store.storeNumberTraining(req.project.id, data, label);
             break;
         case 'images':
+            await imageCheck.verifyImage(data);
             training = await store.storeImageTraining(req.project.id, data, label);
             break;
         }
@@ -148,7 +150,9 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
         if (err.message === 'Text exceeds maximum allowed length (1024 characters)' ||
             err.message === 'Number of data items exceeded maximum' ||
             err.message === 'Data contains non-numeric items' ||
-            err.message === 'Missing required attributes')
+            err.message === 'Missing required attributes' ||
+            err.message.startsWith('Unsupported file type') ||
+            err.message.startsWith('Unable to download image from '))
         {
             return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
         }

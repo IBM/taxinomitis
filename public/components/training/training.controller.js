@@ -218,9 +218,9 @@
 
         vm.onImageError = function (image) {
             image.loadingFailed = true;
-            displayAlert('errors', 400, {
-                error : 'Image (' + image.imageurl + ') in the ' + image.label + ' bucket could not be loaded, and has been highlighted in red. You should delete it.'
-            });
+            // displayAlert('errors', 400, {
+            //     error : 'Image (' + image.imageurl + ') in the ' + image.label + ' bucket could not be loaded, and has been highlighted in red. You should delete it.'
+            // });
         };
 
 

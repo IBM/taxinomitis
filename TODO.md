@@ -14,9 +14,9 @@ Code / engineering work
 * Refactoring store.ts to remove duplicate code across text/images/numbers
 * Remove dupes from image training?
 * Plan for renewing the Let's Encrypt cert
-* Handle intranet-hosted pictures in image training data
-* Improve feedback if non-jpg/png images are dragged on
 * drag/drop on IE is more broken than Safari. Damn you IE.
+* Tests broken by new image validation code
+* Need tests for image classifier code
 
 Longer term goals
 * Restore sprites library to scratch-flash

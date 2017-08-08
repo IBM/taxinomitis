@@ -66,14 +66,14 @@
 
         function reviewTrainingData (labels) {
             var no_data = true;
-            var insufficient_data = false;
+            var insufficient_data = 0;
             $scope.trainingcounts = Object.keys(labels).map(function (label) {
                 var count = labels[label];
                 if (count > 0) {
                     no_data = false;
                 }
                 if (count < 5) {
-                    insufficient_data = true;
+                    insufficient_data += 1;
                 }
                 return { label : label, count : count };
             });
@@ -82,7 +82,7 @@
                 $scope.trainingdatastatus = 'no_data';
             }
             else {
-                if (insufficient_data) {
+                if (insufficient_data > 1 || insufficient_data === Object.keys(labels).length) {
                     $scope.trainingdatastatus = 'insufficient_data';
                 }
                 else {
