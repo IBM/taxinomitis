@@ -17,6 +17,8 @@ Code / engineering work
 * drag/drop on IE is more broken than Safari. Damn you IE.
 * Tests broken by new image validation code
 * Need tests for image classifier code
+* Check for tenant access to text/images/numbers when training model in case tenant access changes after project creation
+* BYO credentials
 
 Longer term goals
 * Restore sprites library to scratch-flash

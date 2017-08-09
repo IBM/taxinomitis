@@ -76,15 +76,23 @@ INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, passwor
     VALUES ('7f22d1eb-4802-4579-bb05-2d2272130caf', 'apple', 'conv', 'https://gateway.watsonplatform.net/conversation/api', 'e39cac0a-c475-413e-b59c-b257bf143990', 'yPtMkysDr0nU');
 INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, password)
     VALUES ('22629408-6333-11e7-907b-a6006ad3dba0', 'apple', 'conv', 'https://gateway.watsonplatform.net/conversation/api', '8b85ef88-a91c-4da3-bf68-66d6b6597b35', 'JBSO3rsBlTiZ');
-INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, password)
-    VALUES ('0ee0778f-aa88-44b0-9b9b-7610a83e078c', 'apple', 'visrec', 'https://gateway-a.watsonplatform.net/visual-recognition/api', '1d6947bd5a5390f71374', '898de44983d621dc331f');
-
 
 
 INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, password)
     VALUES ('72a73ed6-6da2-11e7-907b-a6006ad3dba0', 'demo', 'conv', 'https://gateway.watsonplatform.net/conversation/api', '8a2f768a-665e-48ee-8dbf-48dce24148aa', 'JWJ4kSwrWyHr');
 INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, password)
     VALUES ('21da1a33-8f22-4897-b3f1-0285ed65572e', 'demo', 'conv', 'https://gateway.watsonplatform.net/conversation/api', 'f271d2b7-a222-418d-a0af-be11af5fb105', 'JhfYyBBEDm5r');
+INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, password)
+    VALUES ('0ee0778f-aa88-44b0-9b9b-7610a83e078c', 'demo', 'visrec', 'https://gateway-a.watsonplatform.net/visual-recognition/api', '1d6947bd5a5390f71374', '898de44983d621dc331f');
+INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, password)
+    VALUES ('0a6d0d84-7cfa-11e7-bb31-be2e44b06b34', 'demo', 'visrec', 'https://gateway-a.watsonplatform.net/visual-recognition/api', 'f94181fa0607c47282ec', '544ecdb38c693ce0f127');
+INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, password)
+    VALUES ('79b25d90-619b-47fd-8d0f-93a460439f92', 'demo', 'visrec', 'https://gateway-a.watsonplatform.net/visual-recognition/api', '66e4464a9d30426ff685', 'c7e6e645fe4398b37212');
+INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, password)
+    VALUES ('f3b5fbaf-a1b0-46e0-93fb-3e9a7b6d7be6', 'demo', 'visrec', 'https://gateway-a.watsonplatform.net/visual-recognition/api', '0ed2a91a88d7940b14d7', 'a27e5a49703b7dae9ef6');
+INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, password)
+    VALUES ('6f00d0d0-72a6-428f-a4cd-e6f08d7f925f', 'demo', 'visrec', 'https://gateway-a.watsonplatform.net/visual-recognition/api', '60055e307e2760555188', '113a84c0693ecc535e5d');
+
 
 
 CREATE INDEX bluemixcredentials_getBluemixCredentials on bluemixcredentials(classid, servicetype) using HASH;
