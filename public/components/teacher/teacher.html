@@ -39,15 +39,26 @@
                 <span class="mlprojecttype">{{ vm.policy.maxTextModels }}</span>
                 machine learning models in total across all their
                 <span class="mlprojecttype">text</span> projects.</li>
-            <li>Machine learning models created for their
+            <li>Your class is allowed to have up to
+                <span class="mlprojecttype">{{ vm.policy.maxImageModels }}</span>
+                machine learning models in total across all their
+                <span class="mlprojecttype">images</span> projects.</li>
+            <li>Machine learning models created for
                 <span class="mlprojecttype">text</span>
                 projects will automatically be deleted after
                 <span class="mlprojecttype">{{ vm.policy.textClassifierExpiry }}</span> hours.<br/>
                 <em>(Don't worry! Training data will not be deleted, so they can always train a new machine learning model again if they still need it after this.)</em></li>
+            <li>Machine learning models created for
+                <span class="mlprojecttype">images</span>
+                projects will automatically be deleted after
+                <span class="mlprojecttype">{{ vm.policy.imageClassifierExpiry }}</span> hours.<br/>
+                <em>(Don't worry! Training data will not be deleted, so they can always train a new machine learning model again if they still need it after this.)</em></li>
             <li ng-if="vm.policy.supportedProjectTypes.indexOf('text') >= 0">
-                Each text project can have up to <span class="mlprojecttype">{{ vm.policy.textTrainingItemsPerProject }}</span> training data examples. </li>
+                Each <span class="mlprojecttype">text</span> project can have up to <span class="mlprojecttype">{{ vm.policy.textTrainingItemsPerProject }}</span> training data examples. </li>
             <li ng-if="vm.policy.supportedProjectTypes.indexOf('numbers') >= 0">
-                Each numbers project can have up to <span class="mlprojecttype">{{ vm.policy.numberTrainingItemsPerProject }}</span> training data examples. </li>
+                Each <span class="mlprojecttype">numbers</span> project can have up to <span class="mlprojecttype">{{ vm.policy.numberTrainingItemsPerProject }}</span> training data examples. </li>
+            <li ng-if="vm.policy.supportedProjectTypes.indexOf('images') >= 0">
+                Each <span class="mlprojecttype">images</span> project can have up to <span class="mlprojecttype">{{ vm.policy.imageTrainingItemsPerProject }}</span> training data examples. </li>
         </ul>
 
         <hr/>

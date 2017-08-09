@@ -767,6 +767,25 @@ export async function getBluemixCredentialsById(credentialsid: string): Promise<
 }
 
 
+
+export async function countBluemixCredentialsByType(classid: string): Promise<{ conv: number, visrec: number }>
+{
+    const credsQuery = 'SELECT `servicetype`, count(*) as count ' +
+                       'FROM `bluemixcredentials` ' +
+                       'WHERE `classid` = ? ' +
+                       'GROUP BY `servicetype`';
+    const rows = await dbExecute(credsQuery, [ classid ]);
+
+    const counts = { conv : 0, visrec : 0 };
+    for (const row of rows) {
+        counts[row.servicetype] = row.count;
+    }
+
+    return counts;
+}
+
+
+
 export async function deleteBluemixCredentials(credentialsid: string): Promise<void> {
     const queryString = 'DELETE FROM `bluemixcredentials` WHERE `id` = ?';
 

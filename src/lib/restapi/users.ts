@@ -94,17 +94,6 @@ function resetStudentPassword(req: Express.Request, res: Express.Response) {
 }
 
 
-async function countTextCredentials(tenant: string): Promise<number> {
-    let numTextCredentials = 0;
-    try {
-        const availableTextCredentials = await store.getBluemixCredentials(tenant, 'conv');
-        numTextCredentials = availableTextCredentials.length;
-    }
-    catch (err) {
-        log.error({ err }, 'Failed to count credentials');
-    }
-    return numTextCredentials;
-}
 
 
 async function getPolicy(req: Express.Request, res: Express.Response) {
@@ -113,18 +102,23 @@ async function getPolicy(req: Express.Request, res: Express.Response) {
     try {
         const policy = await store.getClassTenant(tenant);
         const storelimits = await dblimits.getStoreLimits();
-        const availableTextCredentials = await countTextCredentials(tenant);
+        const availableCredentials = await store.countBluemixCredentialsByType(tenant);
+        const availableTextCredentials = availableCredentials.conv;
+        const availableImageCredentials = availableCredentials.visrec;
 
         return res.json({
             maxTextModels : availableTextCredentials * 5,
+            maxImageModels : availableImageCredentials * 1,
 
             maxUsers : policy.maxUsers,
             supportedProjectTypes : policy.supportedProjectTypes,
             maxProjectsPerUser : policy.maxProjectsPerUser,
             textClassifierExpiry : policy.textClassifierExpiry,
+            imageClassifierExpiry : policy.imageClassifierExpiry,
 
             textTrainingItemsPerProject : storelimits.textTrainingItemsPerProject,
             numberTrainingItemsPerProject : storelimits.numberTrainingItemsPerProject,
+            imageTrainingItemsPerProject : storelimits.imageTrainingItemsPerProject,
         });
     }
     catch (err){
