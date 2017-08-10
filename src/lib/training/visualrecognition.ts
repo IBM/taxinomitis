@@ -121,6 +121,9 @@ export function getStatus(
             version : '2016-05-20',
             api_key : credentials.username + credentials.password,
         },
+        headers : {
+            'user-agent' : 'machinelearningforkids',
+        },
         json : true,
         gzip : true,
     };
@@ -158,7 +161,6 @@ async function getTraining(project: DbObjects.Project): Promise<object> {
     const counts = await store.countTrainingByLabel('images', project.id);
 
     const examples = {
-        name : project.name,
     };
 
     for (const label of project.labels) {
@@ -170,7 +172,7 @@ async function getTraining(project: DbObjects.Project): Promise<object> {
         validateRequest(trainingUrls);
 
         const trainingZip = await downloadAndZip.run(trainingUrls);
-        examples[label + '_positive_examples'] = fs.createReadStream(trainingZip);
+        examples[label] = trainingZip;
     }
 
     return examples;
@@ -182,7 +184,7 @@ function deleteTrainingFiles(training) {
     const trainingKeys = Object.keys(training);
     for (const trainingKey of trainingKeys) {
         if (trainingKey !== 'name') {
-            fs.unlink(training[trainingKey].path, (err) => {
+            fs.unlink(training[trainingKey], (err) => {
                 if (err) {
                     log.error({ err }, 'Failed to delete training file');
                 }
@@ -226,6 +228,10 @@ async function deleteClassifierFromBluemix(
             version : '2016-05-20',
             api_key : credentials.username + credentials.password,
         },
+        headers : {
+            'user-agent' : 'machinelearningforkids',
+        },
+        timeout : 120000,
     };
 
     try {
@@ -257,6 +263,9 @@ export async function testClassifierFile(
         qs : {
             version : '2016-05-20',
             api_key : credentials.username + credentials.password,
+        },
+        headers : {
+            'user-agent' : 'machinelearningforkids',
         },
         formData : {
             images_file : fs.createReadStream(imagefilepath),
@@ -296,6 +305,9 @@ export async function testClassifierURL(
             classifier_ids : classifierid,
             threshold : 0.0,
         },
+        headers : {
+            'user-agent' : 'machinelearningforkids',
+        },
         json : true,
     };
 
@@ -320,13 +332,24 @@ async function submitTrainingToVisualRecognition(
     training: object,
 ): Promise<TrainingObjects.VisualClassifier>
 {
+    const trainingData = {
+        name : project.name,
+    };
+    for (const label of project.labels) {
+        trainingData[label + '_positive_examples'] = fs.createReadStream(training[label]);
+    }
+
     const req = {
         qs : {
             version : '2016-05-20',
             api_key : credentials.username + credentials.password,
         },
-        formData : training,
+        headers : {
+            'user-agent' : 'machinelearningforkids',
+        },
+        formData : trainingData,
         json : true,
+        timeout : 180000,
     };
 
     try {
