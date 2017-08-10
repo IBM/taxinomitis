@@ -83,14 +83,14 @@ describe('Utils - base64decode', () => {
                                 nextFile();
                             });
                             break;
-                        case 2726:
+                        case 1915:
                             filecompare('./src/tests/utils/resources/ibm.png', unzippedFileInfo.location, (isEq) => {
                                 assert(isEq);
                                 nextFile();
                             });
                             break;
                         default:
-                            assert.fail(0, 1, 'Unexpected file size');
+                            assert.fail(0, 1, 'Unexpected file size ' + unzippedFileInfo.size);
                             break;
                         }
                     },

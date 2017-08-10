@@ -81,12 +81,15 @@ describe('REST API - users', () => {
 
                     assert.deepEqual(body, {
                         maxTextModels : 0,
+                        maxImageModels : 0,
                         maxUsers: 8,
                         supportedProjectTypes: [ 'text', 'numbers' ],
                         maxProjectsPerUser: 3,
                         textClassifierExpiry: 2,
+                        imageClassifierExpiry : 1,
                         textTrainingItemsPerProject : 500,
                         numberTrainingItemsPerProject : 1000,
+                        imageTrainingItemsPerProject : 200,
                     });
 
                     stubs.getOauthToken.restore();

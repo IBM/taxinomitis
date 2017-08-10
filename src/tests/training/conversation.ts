@@ -209,6 +209,7 @@ describe('Training - Conversation', () => {
             assert(deleteStub.calledWith('http://conversation.service/v1/workspaces/good', {
                 auth : { user : 'user', pass : 'pass' },
                 qs : { version : '2017-05-26' },
+                headers : { 'user-agent' : 'machinelearningforkids' },
             }));
             assert(deleteStoreStub.calledWith(goodClassifier.id));
             assert(resetExpiredScratchKeyStub.called);
@@ -249,6 +250,7 @@ describe('Training - Conversation', () => {
             assert(deleteStub.calledWith('http://conversation.service/v1/workspaces/doesnotactuallyexist', {
                 auth : { user : 'user', pass : 'pass' },
                 qs : { version : '2017-05-26' },
+                headers : { 'user-agent' : 'machinelearningforkids' },
             }));
             assert(deleteStoreStub.calledWith(workspaceid));
             assert(resetExpiredScratchKeyStub.called);
