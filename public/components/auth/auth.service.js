@@ -103,9 +103,9 @@
 
 
         function extractAppMetadata(profile) {
-            const tenant = profile['https://machinelearningforkids.co.uk/api/tenant'];
-            const role = profile['https://machinelearningforkids.co.uk/api/role'];
-            const user_id = profile.sub;
+            var tenant = profile['https://machinelearningforkids.co.uk/api/tenant'];
+            var role = profile['https://machinelearningforkids.co.uk/api/role'];
+            var user_id = profile.sub;
             profile.tenant = tenant;
             profile.role = role;
             profile.user_id = user_id;

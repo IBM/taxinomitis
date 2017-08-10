@@ -7,12 +7,13 @@ const tslint = require('gulp-tslint');
 const ts = require('gulp-typescript');
 const cleanCSS = require('gulp-clean-css');
 const concat = require('gulp-concat');
-const minify = require('gulp-minify');
+const minify = require('gulp-uglify');
 const template = require('gulp-template');
 const autoprefixer = require('gulp-autoprefixer');
 const rename = require('gulp-rename');
 const ngAnnotate = require('gulp-ng-annotate');
 const sequence = require('gulp-sequence');
+const sourcemaps = require('gulp-sourcemaps');
 const del = require('del');
 
 
@@ -103,9 +104,12 @@ function concatAndMinifiyWebJs (isForProd) {
     const webJsWithAuth = (isForProd ? [ 'public/auth0-prod-variables.js' ] : [ 'public/auth0-variables.js']).concat(paths.webjs);
 
     return gulp.src(webJsWithAuth)
-            .pipe(ngAnnotate())
-            .pipe(concat('mlapp.js'))
-            .pipe(minify({ ext : { min : '-' + VERSION + '.min.js' }}))
+            .pipe(sourcemaps.init())
+                .pipe(ngAnnotate())
+                .pipe(concat('mlapp.js'))
+                .pipe(minify())
+                .pipe(rename({ extname : '-' + VERSION + '.min.js' }))
+            .pipe(sourcemaps.write('.'))
             .pipe(gulp.dest('web/static'));
 }
 
