@@ -131,6 +131,9 @@ async function deleteClassifierFromBluemix(
             user : credentials.username,
             pass : credentials.password,
         },
+        headers : {
+            'user-agent' : 'machinelearningforkids',
+        },
         qs : {
             version : '2017-05-26',
         },
@@ -190,6 +193,9 @@ export function getStatus(
         auth : {
             user : credentials.username,
             pass : credentials.password,
+        },
+        headers : {
+            'user-agent' : 'machinelearningforkids',
         },
         qs : {
             version : '2017-05-26',
@@ -258,6 +264,9 @@ async function submitTrainingToConversation(
             user : credentials.username,
             pass : credentials.password,
         },
+        headers : {
+            'user-agent' : 'machinelearningforkids',
+        },
         qs : {
             version : '2017-05-26',
         },
@@ -314,6 +323,9 @@ export async function testClassifier(
         auth : {
             user : credentials.username,
             pass : credentials.password,
+        },
+        headers : {
+            'user-agent' : 'machinelearningforkids',
         },
         qs : {
             version : '2017-05-26',
