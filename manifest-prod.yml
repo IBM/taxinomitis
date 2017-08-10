@@ -1,7 +1,7 @@
 applications:
 - path: .
   memory: 256M
-  instances: 2
+  instances: 3
   domain: mybluemix.net
   name: machinelearningforkids
 

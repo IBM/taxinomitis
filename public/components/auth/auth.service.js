@@ -38,6 +38,17 @@
 
                 $rootScope.isTeacher = (userProfile.role === 'supervisor');
                 $rootScope.isAuthenticated = true;
+
+                if (Raven) {
+                    Raven.setUserContext({
+                        email : userProfile.email,
+                        username : userProfile.user_id
+                    });
+                    Raven.setExtraContext({
+                        role : userProfile.role,
+                        tenant : userProfile.tenant
+                    });
+                }
             }
         }
 

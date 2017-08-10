@@ -123,12 +123,12 @@ gulp.task('minifyprodjs', () => {
 function prepareHtml (isForProd) {
     const options = { VERSION };
     if (isForProd) {
-        options.BEFORE_ANALYTICS = '         ';
-        options.AFTER_ANALYTICS = '          ';
+        options.USE_IN_PROD_ONLY = '         ';
+        options.AFTER_USE_IN_PROD_ONLY = '          ';
     }
     else {
-        options.BEFORE_ANALYTICS = '<!--';
-        options.AFTER_ANALYTICS = '-->';
+        options.USE_IN_PROD_ONLY = '<!--';
+        options.AFTER_USE_IN_PROD_ONLY = '-->';
     }
 
     return gulp.src('public/index.html')

@@ -10,7 +10,7 @@
 
         <link href="static/style-<%= VERSION %>.min.css" rel="stylesheet" />
 
-        <%= BEFORE_ANALYTICS %>
+        <%= USE_IN_PROD_ONLY %>
         <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -20,7 +20,7 @@
         ga('create', 'UA-293441-6', 'auto');
         ga('send', 'pageview');
         </script>
-        <%= AFTER_ANALYTICS %>
+        <%= AFTER_USE_IN_PROD_ONLY %>
 
     </head>
     <body>
@@ -94,6 +94,14 @@
         <script type="text/javascript" src="static/bower_components/angular-lock/dist/angular-lock.min.js"></script>
         <script type="text/javascript" src="static/bower_components/auth0.js/build/auth0.min.js"></script>
         <script type="text/javascript" src="static/bower_components/angular-jwt/dist/angular-jwt.min.js"></script>
+
+
+        <%= USE_IN_PROD_ONLY %>
+        <script src="https://cdn.ravenjs.com/3.17.0/raven.min.js" crossorigin="anonymous"></script>
+        <script>Raven.config('https://b4bbe1a8fbce473cb9eb089652848a1e@sentry.io/202347', {
+                release: '<%= VERSION %>'
+            }).install();</script>
+        <%= AFTER_USE_IN_PROD_ONLY %>
 
         <script type="text/javascript" src="static/app-<%= VERSION %>.js"></script>
         <script type="text/javascript" src="static/mlapp-<%= VERSION %>.min.js"></script>
