@@ -246,7 +246,11 @@
                     projectsService.addLabelToProject($scope.projectId, vm.profile.user_id, vm.profile.tenant, newlabel)
                         .then(function (labels) {
                             $scope.project.labels = labels;
-                            $scope.training[newlabel] = [];
+                            for (var i = 0; i < labels.length; i++) {
+                                if (!$scope.training[labels[i]]){
+                                    $scope.training[labels[i]] = [];
+                                }
+                            }
 
                             refreshLabelsSummary();
                         })
