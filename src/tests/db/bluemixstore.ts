@@ -27,14 +27,16 @@ describe('DB store', () => {
     describe('Bluemix credentials', () => {
 
         it('should store and retrieve Bluemix credentials', async () => {
+            const classid = uuid();
+
             const creds: Types.BluemixCredentials = {
                 id : uuid(),
                 username : randomstring.generate({ length : 8 }),
                 password : randomstring.generate({ length : 20 }),
                 servicetype : 'conv',
                 url : 'http://conversation.service/api/classifiers',
+                classid,
             };
-            const classid = uuid();
 
             await store.storeBluemixCredentials(classid, creds);
 
@@ -45,14 +47,16 @@ describe('DB store', () => {
         });
 
         it('should throw an error when fetching non-existent credentials', async () => {
+            const classid = uuid();
+
             const creds: Types.BluemixCredentials = {
                 id : uuid(),
                 username : randomstring.generate({ length : 8 }),
                 password : randomstring.generate({ length : 20 }),
                 servicetype : 'conv',
                 url : 'http://conversation.service/api/classifiers',
+                classid,
             };
-            const classid = uuid();
 
             await store.storeBluemixCredentials(classid, creds);
 
@@ -81,6 +85,7 @@ describe('DB store', () => {
                 password : randomstring.generate({ length : 20 }),
                 servicetype : 'conv',
                 url : 'http://conversation.service/api/workspaces',
+                classid,
             };
 
             await store.storeBluemixCredentials(classid, creds);
@@ -152,6 +157,7 @@ describe('DB store', () => {
                 password : uuid(),
                 servicetype : 'conv',
                 url : uuid(),
+                classid,
             };
             const expired: Types.ConversationWorkspace = {
                 id : uuid(),
@@ -236,6 +242,7 @@ describe('DB store', () => {
                 password : uuid(),
                 servicetype : 'conv',
                 url : uuid(),
+                classid,
             };
             await store.storeBluemixCredentials(classid, credentials);
 
@@ -299,6 +306,7 @@ describe('DB store', () => {
                 password : uuid(),
                 servicetype : 'conv',
                 url : uuid(),
+                classid,
             };
 
             const created = new Date();
@@ -356,6 +364,7 @@ describe('DB store', () => {
                 password : uuid(),
                 servicetype : 'conv',
                 url : uuid(),
+                classid,
             };
             const userid = uuid();
 
@@ -444,6 +453,7 @@ describe('DB store', () => {
                 password : uuid(),
                 servicetype : 'visrec',
                 url : uuid(),
+                classid,
             };
             const expired: Types.VisualClassifier = {
                 id : uuid(),
@@ -516,6 +526,7 @@ describe('DB store', () => {
                 password : uuid(),
                 servicetype : 'visrec',
                 url : uuid(),
+                classid,
             };
             await store.storeBluemixCredentials(classid, credentials);
 
@@ -580,6 +591,7 @@ describe('DB store', () => {
                 password : uuid(),
                 servicetype : 'visrec',
                 url : uuid(),
+                classid,
             };
             const userid = uuid();
 

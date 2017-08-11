@@ -1,7 +1,4 @@
 -- dev
--- \connect mysql://admin:FEIOHLDSRJHYDHEF@bluemix-sandbox-dal-9-portal.8.dblayer.com:25521/compose
-
--- replacement-dev
 -- \connect mysql://admin:AHTQFXRUIQKHYNLJ@bluemix-sandbox-dal-9-portal.6.dblayer.com:28940/compose
 
 -- prod
@@ -77,7 +74,6 @@ INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, passwor
 INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, password)
     VALUES ('22629408-6333-11e7-907b-a6006ad3dba0', 'apple', 'conv', 'https://gateway.watsonplatform.net/conversation/api', '8b85ef88-a91c-4da3-bf68-66d6b6597b35', 'JBSO3rsBlTiZ');
 
-
 INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, password)
     VALUES ('72a73ed6-6da2-11e7-907b-a6006ad3dba0', 'demo', 'conv', 'https://gateway.watsonplatform.net/conversation/api', '8a2f768a-665e-48ee-8dbf-48dce24148aa', 'JWJ4kSwrWyHr');
 INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, password)
@@ -94,7 +90,16 @@ INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, passwor
     VALUES ('6f00d0d0-72a6-428f-a4cd-e6f08d7f925f', 'demo', 'visrec', 'https://gateway-a.watsonplatform.net/visual-recognition/api', '60055e307e2760555188', '113a84c0693ecc535e5d');
 INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, password)
     VALUES ('bd3e8cc7-5e59-47af-a706-91298be9c8ad', 'demo', 'visrec', 'https://gateway-a.watsonplatform.net/visual-recognition/api', '16977f335748b73b7e41', 'd5c976dbbe6094884889');
-
+INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, password)
+    VALUES ('41f14dbe-fd50-4891-b65b-e33d979a0091', 'demo', 'visrec', 'https://gateway-a.watsonplatform.net/visual-recognition/api', '96f709a720f477cde355', 'a97498932d8cae5a410c');
+INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, password)
+    VALUES ('b02ec247-1cd8-4d75-8b62-6ffad4fcfd32', 'demo', 'visrec', 'https://gateway-a.watsonplatform.net/visual-recognition/api', '018553eb0ab9f51974d6', '0fab7a7e3614d0042532');
+INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, password)
+    VALUES ('1441579c-4d35-4072-994f-d0feecc8b54c', 'demo', 'visrec', 'https://gateway-a.watsonplatform.net/visual-recognition/api', 'f61b9fdb368d637798a7', '9cd84991fcedd8d4fc65');
+INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, password)
+    VALUES ('e722c78a-2991-40cf-b578-8d3efe1a874b', 'demo', 'visrec', 'https://gateway-a.watsonplatform.net/visual-recognition/api', '469e2ff825c25eee8f9e', 'd96dd9a507ed223c37f7');
+INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, password)
+    VALUES ('41427781-99ab-4a49-8174-a70b4ecb4572', 'demo', 'visrec', 'https://gateway-a.watsonplatform.net/visual-recognition/api', '4b9dd10867fa7de770c5', 'c75dcb19271e8334d528');
 
 
 CREATE INDEX bluemixcredentials_getBluemixCredentials on bluemixcredentials(classid, servicetype) using HASH;
@@ -161,7 +166,8 @@ CREATE TABLE tenants (
     maxusers TINYINT UNSIGNED NOT NULL DEFAULT 8,
     maxprojectsperuser TINYINT UNSIGNED NOT NULL DEFAULT 3,
     textclassifiersexpiry TINYINT UNSIGNED NOT NULL DEFAULT 2,
-    imageclassifiersexpiry TINYINT UNSIGNED NOT NULL DEFAULT 1
+    imageclassifiersexpiry TINYINT UNSIGNED NOT NULL DEFAULT 1,
+    ismanaged BOOLEAN DEFAULT true
 );
 
 INSERT INTO tenants (id, projecttypes) VALUES ("TESTTENANT", "text,images,numbers");

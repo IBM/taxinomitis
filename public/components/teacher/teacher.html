@@ -90,6 +90,57 @@
                 </td>
             </tr>
         </table>
+
+        <hr/>
+    </div>
+
+
+    <div ng-if="vm && vm.credentials" class="credentialsinfo">
+        <h3>Watson API keys available to your group</h3>
+        <div ng-if="vm.credentials.loading.visrec || vm.credentials.loading.conv" class="loading"> </div>
+        <div ng-if="vm.credentials.loading.conv === false">
+            <h4 class="credsservicetype">Watson Conversation</h4>
+            <div ng-if="vm.credentials.failed.conv" class="credserror" >Failed to get your Conversation passwords</div>
+            <div style="height: 60px;">
+                <div class="newlabelbutton" ng-click="vm.addCredentials($event, 'conv')">
+                    <div class="newlabelicon">+</div>
+                    <div class="newlabellabel">Add new credentials</div>
+                </div>
+            </div>
+            <table ng-if="vm.credentials.conv && vm.credentials.conv.length > 0" class="studentslist">
+                <tr ng-repeat="creds in vm.credentials.conv" ng-class-even="'even'" ng-class-odd="'odd'">
+                    <td class="studentslistdetail">{{ creds.username }}</td>
+                    <td class="studentslistdetail">{{ creds.password }}</td>
+                    <td class="studentslistactions">
+                        <button class="btn" ng-click="vm.deleteCredentials($event, creds, 'conv')">Remove</button>
+                    </td>
+                </tr>
+            </table>
+            <div class="credserror" ng-if="vm.credentials.conv && vm.credentials.conv.length === 0">
+                You don't have any Conversation credentials. This means that it will not be possible to train models for <strong>text</strong> projects.
+            </div>
+        </div>
+        <div ng-if="vm.credentials.loading.visrec === false">
+            <h4 class="credsservicetype">Watson Visual Recognition</h4>
+            <div ng-if="vm.credentials.failed.visrec" class="credserror" >Failed to get your Visual Recognition API keys</div>
+            <div style="height: 60px;">
+                <div class="newlabelbutton" ng-click="vm.addCredentials($event, 'visrec')">
+                    <div class="newlabelicon">+</div>
+                    <div class="newlabellabel">Add new API key</div>
+                </div>
+            </div>
+            <table ng-if="vm.credentials.conv && vm.credentials.visrec.length > 0" class="studentslist">
+                <tr ng-repeat="creds in vm.credentials.visrec" ng-class-even="'even'" ng-class-odd="'odd'">
+                    <td class="studentslistdetail">{{ creds.apikey }}</td>
+                    <td class="studentslistactions">
+                        <button class="btn" ng-click="vm.deleteCredentials($event, creds, 'visrec')">Remove</button>
+                    </td>
+                </tr>
+            </table>
+            <div class="credserror" ng-if="vm.credentials.visrec && vm.credentials.visrec.length === 0">
+                You don't have any Visual Recognition API keys. This means that it will not be possible to train models for <strong>images</strong> projects.
+            </div>
+        </div>
     </div>
 </div>
 

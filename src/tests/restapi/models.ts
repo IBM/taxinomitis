@@ -307,6 +307,7 @@ describe('REST API - models', () => {
                 password : uuid(),
                 servicetype : 'conv',
                 url : uuid(),
+                classid,
             };
 
             const createdA = new Date();
@@ -411,6 +412,7 @@ describe('REST API - models', () => {
                 password : uuid(),
                 servicetype : 'conv',
                 url : uuid(),
+                classid,
             };
 
             const createdA = new Date();
@@ -711,6 +713,7 @@ describe('REST API - models', () => {
                 password : uuid(),
                 servicetype : 'conv',
                 url : uuid(),
+                classid,
             };
             await store.storeBluemixCredentials(classid, credentials);
 
@@ -875,6 +878,7 @@ describe('REST API - models', () => {
                 password : uuid(),
                 servicetype : 'conv',
                 url : uuid(),
+                classid,
             };
             await store.storeBluemixCredentials(classid, credentials);
 
@@ -921,6 +925,7 @@ describe('REST API - models', () => {
                 password : uuid(),
                 servicetype : 'conv',
                 url : uuid(),
+                classid,
             };
             await store.storeBluemixCredentials(classid, credentials);
 

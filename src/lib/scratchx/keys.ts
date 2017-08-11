@@ -66,6 +66,7 @@ async function createNumbersKey(project: Types.Project): Promise<ScratchTypes.Ke
                 'projectid=' + project.id,
             username: project.userid,
             password: project.classid,
+            classid : project.classid,
         };
 
         const id = await store.storeOrUpdateScratchKey(

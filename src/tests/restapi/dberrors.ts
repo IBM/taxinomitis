@@ -18,7 +18,7 @@ import * as mockMysqldb from '../db/mockmysqldb';
 let testServer;
 
 
-describe('REST API - error handling', () => {
+describe('REST API - DB error handling', () => {
 
     let authStub;
     let checkUserStub;

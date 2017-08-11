@@ -48,6 +48,7 @@ describe('DB objects', () => {
             const testRow: Objects.ClassDbRow = {
                 id : uuid(),
                 projecttypes : 'text,numbers',
+                ismanaged : 0,
                 maxusers : 3,
                 maxprojectsperuser : 2,
                 textclassifiersexpiry : 9,
@@ -56,6 +57,7 @@ describe('DB objects', () => {
             const expectedPolicy: Objects.ClassTenant = {
                 id : testRow.id,
                 supportedProjectTypes : ['text', 'numbers'],
+                isManaged : false,
                 maxUsers : 3,
                 maxProjectsPerUser : 2,
                 textClassifierExpiry : 9,

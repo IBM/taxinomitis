@@ -50,9 +50,28 @@
 
 
 
+        function getCredentials(profile, type) {
+            return $http.get('/api/classes/' + profile.tenant + '/credentials?servicetype=' + type)
+                .then(function (resp) {
+                    return resp.data;
+                });
+        }
+        function deleteCredentials(profile, credentials) {
+            return $http.delete('/api/classes/' + profile.tenant + '/credentials/' + credentials.id);
+        }
+        function addCredentials(credentials, tenant) {
+            return $http.post('/api/classes/' + tenant + '/credentials', credentials)
+                .then(function (resp) {
+                    return resp.data;
+                });
+        }
 
 
         return {
+            addCredentials : addCredentials,
+            getCredentials : getCredentials,
+            deleteCredentials : deleteCredentials,
+
             getClassPolicy : getClassPolicy,
 
             getStudentList : getStudentList,

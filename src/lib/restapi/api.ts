@@ -11,6 +11,7 @@ import registerProjectApis from './projects';
 import registerTrainingApis from './training';
 import registerModelApis from './models';
 import registerScratchApis from './scratch';
+import registerWatsonApis from './watsonapis';
 import * as errors from './errors';
 import loggerSetup from '../utils/logger';
 
@@ -37,6 +38,7 @@ export default function setup(app: Express.Application): void {
     registerTrainingApis(app);
     registerModelApis(app);
     registerScratchApis(app);
+    registerWatsonApis(app);
 
     errors.registerErrorHandling(app);
 }

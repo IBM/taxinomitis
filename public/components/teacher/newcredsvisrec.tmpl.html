@@ -1,0 +1,42 @@
+<md-dialog aria-label="Store new Visual Recognition API key">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Add new Visual Recognition API key</h2>
+        </div>
+    </md-toolbar>
+    <form ng-cloak name="newCredentials" ng-submit="confirm({ apikey : apikey })">
+        <md-dialog-content>
+            <div class="md-dialog-content" style="min-width: 400px">
+                <md-card-content>
+                    <div layout="row">
+                        Provide an API key for Watson Visual Recognition.
+                    </div>
+                    <div layout="row">
+                        This will be used when you (or students in your class) train
+                        models in images projects.
+                    </div>
+                    <div layout="row">
+                        This will not be shown to students in your group.
+                    </div>
+                    <div layout="row" style="margin-top: 1em;">
+                        <md-input-container style="min-width: 320px">
+                            <label>API key</label>
+                            <input type="text" name="text"
+                                md-autofocus
+                                ng-required="true"
+                                ng-pattern="/^[0-9a-f]{40}$/"
+                                ng-model="apikey"
+                                placeholder="API key"
+                                md-maxlength="40"></input>
+                        </md-input-container>
+                    </div>
+                </md-card-content>
+                <md-dialog-actions layout="row">
+                    <span flex></span>
+                    <md-button type="submit" class="md-raised md-primary" ng-disabled="newCredentials.$invalid">Add</md-button>
+                    <md-button ng-click="cancel()">Cancel</md-button>
+                </md-dialog-actions>
+            </div>
+        </md-dialog-content>
+    </form>
+</md-dialog>

@@ -381,6 +381,7 @@ async function submitTrainingToVisualRecognition(
         //  just the bits that should be safe to share.
         const trainingError: any = new Error('Failed to train classifier');
         trainingError.error = err.error;
+        trainingError.statusCode = err.statusCode;
 
         throw trainingError;
     }

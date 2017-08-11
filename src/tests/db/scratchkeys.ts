@@ -70,6 +70,7 @@ describe('ScratchKeys store', () => {
             username : randomstring.generate({ length : 10 }),
             password : randomstring.generate({ length : 20 }),
             url : uuid(),
+            classid : reusedClassid,
         };
         const classifierid = randomstring.generate({ length : 12 });
 
@@ -115,6 +116,7 @@ describe('ScratchKeys store', () => {
             username : randomstring.generate({ length : 10 }),
             password : randomstring.generate({ length : 20 }),
             url : uuid(),
+            classid : reusedClassid,
         };
         const classifierid = randomstring.generate({ length : 12 });
 
@@ -135,6 +137,7 @@ describe('ScratchKeys store', () => {
             username : randomstring.generate({ length : 10 }),
             password : randomstring.generate({ length : 20 }),
             url : uuid(),
+            classid : reusedClassid,
         };
         const classifierid = randomstring.generate({ length : 12 });
 
@@ -162,6 +165,7 @@ describe('ScratchKeys store', () => {
             username : randomstring.generate({ length : 10 }),
             password : randomstring.generate({ length : 20 }),
             url : uuid(),
+            classid : reusedClassid,
         };
         const classifierid = randomstring.generate({ length : 12 });
 
@@ -193,6 +197,7 @@ describe('ScratchKeys store', () => {
             username : randomstring.generate({ length : 10 }),
             password : randomstring.generate({ length : 20 }),
             url : uuid(),
+            classid : reusedClassid,
         };
         const classifieridA = randomstring.generate({ length : 12 });
         const classifieridB = randomstring.generate({ length : 11 });
@@ -230,6 +235,7 @@ describe('ScratchKeys store', () => {
             username : randomstring.generate({ length : 10 }),
             password : randomstring.generate({ length : 20 }),
             url : uuid(),
+            classid : reusedClassid,
         };
         const classifierid = randomstring.generate({ length : 12 });
 
@@ -267,6 +273,7 @@ describe('ScratchKeys store', () => {
             username : randomstring.generate({ length : 10 }),
             password : randomstring.generate({ length : 20 }),
             url : uuid(),
+            classid : reusedClassid,
         };
         const classifierid = randomstring.generate({ length : 12 });
 
@@ -295,6 +302,7 @@ describe('ScratchKeys store', () => {
             username : randomstring.generate({ length : 10 }),
             password : randomstring.generate({ length : 20 }),
             url : uuid(),
+            classid : reusedClassid,
         };
         const classifierid = randomstring.generate({ length : 12 });
 
@@ -330,6 +338,7 @@ describe('ScratchKeys store', () => {
             password : uuid(),
             servicetype : 'conv',
             url : uuid(),
+            classid : reusedClassid,
         };
         await store.storeBluemixCredentials(project.classid, credentials);
 

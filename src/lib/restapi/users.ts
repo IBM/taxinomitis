@@ -107,6 +107,8 @@ async function getPolicy(req: Express.Request, res: Express.Response) {
         const availableImageCredentials = availableCredentials.visrec;
 
         return res.json({
+            isManaged : policy.isManaged,
+
             maxTextModels : availableTextCredentials * 5,
             maxImageModels : availableImageCredentials * 1,
 

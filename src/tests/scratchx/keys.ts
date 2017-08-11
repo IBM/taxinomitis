@@ -51,6 +51,7 @@ describe('Scratchx - keys', () => {
                 password : 'pass',
                 servicetype : 'conv',
                 url : 'http://url.com',
+                classid : TESTCLASS,
             });
             const conversationwkspace: TrainingTypes.ConversationWorkspace = {
                 id : uuid(),
@@ -133,6 +134,7 @@ describe('Scratchx - keys', () => {
                 password : 'pass',
                 servicetype : 'visrec',
                 url : 'http://url.com',
+                classid : TESTCLASS,
             });
             const visualclassifier: TrainingTypes.VisualClassifier = {
                 id : uuid(),

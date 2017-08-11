@@ -19,6 +19,7 @@ describe('DB store - tenants', () => {
         const expected: Types.ClassTenant = {
             id : 'TESTTENANT',
             supportedProjectTypes : ['text', 'images', 'numbers'],
+            isManaged : true,
             maxUsers : 8,
             maxProjectsPerUser : 3,
             textClassifierExpiry : 2,

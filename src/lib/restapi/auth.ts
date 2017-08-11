@@ -2,6 +2,7 @@
 import * as Express from 'express';
 import * as jwt from 'express-jwt';
 import * as jwksRsa from 'jwks-rsa';
+import * as httpstatus from 'http-status';
 // local dependencies
 import * as errors from './errors';
 import * as store from '../db/store';
@@ -60,6 +61,24 @@ export function requireSupervisor(req: Express.Request, res: Express.Response, n
     }
 
     next();
+}
+
+
+export async function ensureUnmanaged(req: Express.Request, res: Express.Response, next) {
+    const tenant = req.params.classid;
+
+    try {
+        const policy = await store.getClassTenant(tenant);
+        if (policy.isManaged) {
+            return res.status(httpstatus.FORBIDDEN)
+                      .json({ error : 'Access to API keys is forbidden for managed tenants' });
+        }
+
+        next();
+    }
+    catch (err) {
+        return next(err);
+    }
 }
 
 

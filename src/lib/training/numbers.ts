@@ -41,6 +41,7 @@ export async function trainClassifier(
              'projectid=' + project.id,
         username: project.userid,
         password: project.classid,
+        classid : project.classid,
     };
 
     // write details about the new classifier to the DB

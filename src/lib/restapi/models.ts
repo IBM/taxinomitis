@@ -91,6 +91,11 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
                 return res.status(httpstatus.CONFLICT)
                         .send({ error : err.message });
             }
+            else if (err.statusCode === httpstatus.UNAUTHORIZED) {
+                return res.status(httpstatus.INTERNAL_SERVER_ERROR)
+                        .send({ error : 'The credentials for the machine learning ' +
+                                        'server used by your class were rejected.' });
+            }
             else {
                 return errors.unknownError(res, err);
             }
@@ -107,9 +112,14 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
             }
             else if (err.message === 'Not enough images to train the classifier' ||
                      err.message === 'Number of images exceeds maximum (10000)' ||
-                     err.message.indexOf(') has unsupported file type ('))
+                     err.message.indexOf(') has unsupported file type (') > 0)
             {
                 return res.status(httpstatus.BAD_REQUEST).send({ error : err.message });
+            }
+            else if (err.statusCode === httpstatus.UNAUTHORIZED || err.statusCode === httpstatus.FORBIDDEN) {
+                return res.status(httpstatus.INTERNAL_SERVER_ERROR)
+                        .send({ error : 'The credentials for the machine learning ' +
+                                        'server used by your class were rejected.' });
             }
             else {
                 return errors.unknownError(res, err);

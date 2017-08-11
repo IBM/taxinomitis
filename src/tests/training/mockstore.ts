@@ -8,6 +8,7 @@ export const creds: TrainingTypes.BluemixCredentials = {
     password : 'pass',
     servicetype : 'conv',
     url : 'http://conversation.service',
+    classid : 'classid',
 };
 
 export function getBluemixCredentials() {

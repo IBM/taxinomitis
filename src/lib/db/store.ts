@@ -1190,7 +1190,7 @@ async function updateScratchKey(
 
 export async function getScratchKey(key: string): Promise<Objects.ScratchKey> {
     const queryString = 'SELECT ' +
-                            '`id`, ' +
+                            '`id`, `classid`, ' +
                             '`projectid`, `projectname`, `projecttype`, ' +
                             '`serviceurl`, `serviceusername`, `servicepassword`, ' +
                             '`classifierid` ' +
@@ -1212,7 +1212,7 @@ export async function findScratchKeys(
 ): Promise<Objects.ScratchKey[]>
 {
     const queryString = 'SELECT ' +
-                            '`id`, `projectid`, `projectname`, `projecttype`, ' +
+                            '`id`, `classid`, `projectid`, `projectname`, `projecttype`, ' +
                             '`serviceurl`, `serviceusername`, `servicepassword`, ' +
                             '`classifierid` ' +
                         'FROM `scratchkeys` ' +
@@ -1255,7 +1255,8 @@ export async function deleteScratchKeysByProjectId(projectid: string): Promise<v
 export async function getClassTenant(classid: string): Promise<Objects.ClassTenant> {
     const queryString = 'SELECT `id`, `projecttypes`, `maxusers`, ' +
                                '`maxprojectsperuser`, ' +
-                               '`textclassifiersexpiry`, `imageclassifiersexpiry` ' +
+                               '`textclassifiersexpiry`, `imageclassifiersexpiry`, ' +
+                               '`ismanaged` ' +
                         'FROM `tenants` ' +
                         'WHERE `id` = ?';
 
@@ -1266,6 +1267,7 @@ export async function getClassTenant(classid: string): Promise<Objects.ClassTena
         return {
             id : classid,
             supportedProjectTypes : [ 'text', 'numbers' ],
+            isManaged : true,
             maxUsers : 8,
             maxProjectsPerUser : 3,
             textClassifierExpiry : 2,

@@ -86,6 +86,7 @@ export interface ScratchKey {
 
 export interface ScratchKeyDbRow {
     readonly id: string;
+    readonly classid: string;
     readonly projectid: string;
     readonly projectname: string;
     readonly projecttype: ProjectTypeLabel;
@@ -107,6 +108,7 @@ export interface PagingOptions {
 export interface ClassTenant {
     readonly id: string;
     readonly supportedProjectTypes: ProjectTypeLabel[];
+    readonly isManaged: boolean;
     //
     readonly maxUsers: number;
     readonly maxProjectsPerUser: number;
@@ -122,4 +124,5 @@ export interface ClassDbRow {
     readonly maxprojectsperuser: number;
     readonly textclassifiersexpiry: number;
     readonly imageclassifiersexpiry: number;
+    readonly ismanaged: number;
 }

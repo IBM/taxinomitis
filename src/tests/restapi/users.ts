@@ -84,6 +84,7 @@ describe('REST API - users', () => {
                         maxImageModels : 0,
                         maxUsers: 8,
                         supportedProjectTypes: [ 'text', 'numbers' ],
+                        isManaged : true,
                         maxProjectsPerUser: 3,
                         textClassifierExpiry: 2,
                         imageClassifierExpiry : 1,

@@ -99,6 +99,7 @@ describe('REST API - scratch keys', () => {
                 password : randomstring.generate({ length : 20 }),
                 servicetype : 'conv' as Types.BluemixServiceType,
                 url : uuid(),
+                classid : TESTCLASS,
             };
 
             const workspace: Types.ConversationWorkspace = {
@@ -190,6 +191,7 @@ describe('REST API - scratch keys', () => {
                 password : randomstring.generate({ length : 20 }),
                 servicetype : 'conv' as Types.BluemixServiceType,
                 url : uuid(),
+                classid : TESTCLASS,
             };
 
             const keyId = await store.storeScratchKey(project, credentials, classifierid);
@@ -990,6 +992,7 @@ describe('REST API - scratch keys', () => {
                 password : randomstring.generate({ length : 20 }),
                 servicetype : 'conv' as Types.BluemixServiceType,
                 url : uuid(),
+                classid : TESTCLASS,
             };
 
             const workspaceId = randomstring.generate({ length : 32 });
@@ -1059,6 +1062,7 @@ describe('REST API - scratch keys', () => {
                 password : randomstring.generate({ length : 20 }),
                 servicetype : 'conv' as Types.BluemixServiceType,
                 url : uuid(),
+                classid : TESTCLASS,
             };
 
             const workspaceId = randomstring.generate({ length : 32 });
@@ -1116,6 +1120,7 @@ describe('REST API - scratch keys', () => {
                 password : randomstring.generate({ length : 20 }),
                 servicetype : 'conv' as Types.BluemixServiceType,
                 url : uuid(),
+                classid : TESTCLASS,
             };
 
             const workspace: Types.ConversationWorkspace = {

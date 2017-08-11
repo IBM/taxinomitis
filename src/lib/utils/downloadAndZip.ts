@@ -72,7 +72,7 @@ function renameFileFromContents(filepath: string, sourceurl: string, callback: I
  * @param targetFilePath  - writes to
  */
 function download(url: string, targetFilePath: string, callback: IErrCallback): void {
-    request.get({ url, timeout : 5000 })
+    request.get({ url, timeout : 10000 })
         .on('error', callback)
         .on('end', callback)
         .pipe(fs.createWriteStream(targetFilePath));
@@ -104,7 +104,12 @@ function downloadAndRename(url: string, callback: IDownloadCallback): void {
             // rename the file to give it the right extension
             renameFileFromContents(tmpFilePath, url, next);
         },
-    ], callback);
+    ], (err: Error, downloadedPath: string) => {
+        if (err) {
+            log.error({ err, url }, 'Failed to download');
+        }
+        callback(err, downloadedPath);
+    });
 }
 
 

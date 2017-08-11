@@ -4,6 +4,7 @@ export interface BluemixCredentials {
     readonly url: string;
     readonly username: string;
     readonly password: string;
+    readonly classid: string;
 }
 export interface BluemixCredentialsDbRow {
     readonly id: string;
@@ -11,6 +12,7 @@ export interface BluemixCredentialsDbRow {
     readonly url: string;
     readonly username: string;
     readonly password: string;
+    readonly classid: string;
 }
 
 export type BluemixServiceType = 'conv' | 'visrec' | 'num';

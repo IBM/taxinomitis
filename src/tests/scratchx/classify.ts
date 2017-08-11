@@ -148,6 +148,7 @@ describe('Scratchx - classify', () => {
                     password : 'pass',
                     servicetype : 'conv',
                     url : 'url',
+                    classid : TESTCLASS,
                 },
             };
 
@@ -239,6 +240,7 @@ describe('Scratchx - classify', () => {
                     password : 'pass',
                     servicetype : 'conv',
                     url : 'url',
+                    classid : TESTCLASS,
                 },
             };
 

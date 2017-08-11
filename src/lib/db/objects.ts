@@ -251,8 +251,64 @@ export function getCredentialsFromDbRow(
         url : row.url,
         username : row.username,
         password : row.password,
+        classid : row.classid,
     };
 }
+
+export function createBluemixCredentials(
+    servicetype: string, classid: string,
+    apikey: string,
+    username: string, password: string,
+): TrainingObjects.BluemixCredentials
+{
+    if (servicetype === undefined)
+    {
+        throw new Error('Missing required attributes');
+    }
+
+    if (servicetype === 'visrec') {
+        if (apikey) {
+            if (apikey.length === 40) {
+                return {
+                    id : uuid(),
+                    username : apikey.substr(0, 20),
+                    password : apikey.substr(20),
+                    classid,
+                    servicetype : 'visrec',
+                    url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
+                };
+            }
+            else {
+                throw new Error('Invalid API key');
+            }
+        }
+        else {
+            throw new Error('Missing required attributes');
+        }
+    }
+    else if (servicetype === 'conv') {
+        if (username && password) {
+            if (username.length === 36 && password.length === 12) {
+                return {
+                    id : uuid(),
+                    username, password, classid,
+                    servicetype : 'conv',
+                    url : 'https://gateway.watsonplatform.net/conversation/api',
+                };
+            }
+            else {
+                throw new Error('Invalid credentials');
+            }
+        }
+        else {
+            throw new Error('Missing required attributes');
+        }
+    }
+    else {
+        throw new Error('Invalid service type');
+    }
+}
+
 
 
 // -----------------------------------------------------------------------------
@@ -416,6 +472,7 @@ export function getScratchKeyFromDbRow(row: Objects.ScratchKeyDbRow): Objects.Sc
                 url : row.serviceurl,
                 username : row.serviceusername,
                 password : row.servicepassword,
+                classid : row.classid,
             },
             classifierid : row.classifierid,
         };
@@ -442,6 +499,7 @@ export function getClassFromDbRow(row: Objects.ClassDbRow): Objects.ClassTenant 
     return {
         id : row.id,
         supportedProjectTypes : row.projecttypes.split(',') as Objects.ProjectTypeLabel[],
+        isManaged : row.ismanaged === 1,
         maxUsers : row.maxusers,
         maxProjectsPerUser : row.maxprojectsperuser,
         textClassifierExpiry : row.textclassifiersexpiry,

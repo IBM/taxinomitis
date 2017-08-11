@@ -159,6 +159,7 @@ describe('Training - Conversation', () => {
                 password : 'pass',
                 servicetype : 'conv',
                 url : 'http://conversation.service',
+                classid : 'classid',
             };
             const classes = await conversation.testClassifier(creds, 'good', 'projectid', 'Hello');
             assert.deepEqual(classes, [
@@ -181,6 +182,7 @@ describe('Training - Conversation', () => {
                 password : 'pass',
                 servicetype : 'conv',
                 url : 'http://conversation.service',
+                classid : 'classid',
             };
             const classes = await conversation.testClassifier(creds, 'bad', 'projectid', 'Hello');
             assert.equal(classes.length, 1);

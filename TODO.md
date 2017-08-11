@@ -15,10 +15,7 @@ Code / engineering work
 * Remove dupes from image training?
 * Plan for renewing the Let's Encrypt cert
 * drag/drop on IE is more broken than Safari. Damn you IE.
-* Tests broken by new image validation code
 * Need tests for image classifier code
-* Check for tenant access to text/images/numbers when training model in case tenant access changes after project creation
-* BYO credentials
 
 Longer term goals
 * Restore sprites library to scratch-flash

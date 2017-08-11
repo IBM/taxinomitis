@@ -70,6 +70,7 @@ describe('Scratchx - status', () => {
                     username : 'user',
                     password : 'pass',
                     servicetype : 'conv',
+                    classid : '',
                 },
             };
 
@@ -97,6 +98,7 @@ describe('Scratchx - status', () => {
                     username : 'user',
                     password : 'pass',
                     servicetype : 'conv',
+                    classid : '',
                 },
             };
 
@@ -123,6 +125,7 @@ describe('Scratchx - status', () => {
                     username : 'user',
                     password : 'pass',
                     servicetype : 'conv',
+                    classid : '',
                 },
             };
 
@@ -232,6 +235,7 @@ describe('Scratchx - status', () => {
                     username : 'user',
                     password : 'pass',
                     servicetype : 'conv',
+                    classid : '',
                 },
             };
 
@@ -259,6 +263,7 @@ describe('Scratchx - status', () => {
                     username : 'user',
                     password : 'pass',
                     servicetype : 'conv',
+                    classid : '',
                 },
             };
 
@@ -285,6 +290,7 @@ describe('Scratchx - status', () => {
                     username : 'user',
                     password : 'pass',
                     servicetype : 'conv',
+                    classid : '',
                 },
             };
 

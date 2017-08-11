@@ -2,6 +2,7 @@
     margin-left: auto;
     margin-right: auto;
     min-width: 80%;
+    margin-bottom: 4em;
 }
 
 .studentslist .odd {
@@ -44,4 +45,14 @@
 }
 .adminrestriction li {
     margin-bottom: 0.4em;
+}
+
+.credentialsinfo {
+    margin-bottom: 4em;
+}
+.credsservicetype {
+    margin-left: 4em;
+}
+.credserror {
+    text-align: center;
 }

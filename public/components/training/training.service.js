@@ -61,7 +61,7 @@
                         '/projects/' + projectid +
                         '/models';
 
-            return $http.post(url, {}, { timeout : 120000 }).then(function (resp) {
+            return $http.post(url, {}, { timeout : 180000 }).then(function (resp) {
                 return resp.data;
             });
         }

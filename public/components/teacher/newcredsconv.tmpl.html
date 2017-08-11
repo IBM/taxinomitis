@@ -1,0 +1,53 @@
+<md-dialog aria-label="Store new Conversation API key">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Add new Conversation credentials</h2>
+        </div>
+    </md-toolbar>
+    <form ng-cloak name="newCredentials" ng-submit="confirm({ username : username, password : password })">
+        <md-dialog-content>
+            <div class="md-dialog-content" style="min-width: 400px">
+                <md-card-content>
+                    <div layout="row">
+                        Provide a username and password for Watson Conversation.
+                    </div>
+                    <div layout="row">
+                        These will be used when you (or students in your class) train
+                        models in text projects.
+                    </div>
+                    <div layout="row">
+                        This will not be shown to students in your group.
+                    </div>
+                    <div layout="row" style="margin-top: 1em;">
+                        <md-input-container style="min-width: 320px">
+                            <label>Username</label>
+                            <input type="text" name="text"
+                                md-autofocus
+                                ng-required="true"
+                                ng-pattern="/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[34][0-9a-fA-F]{3}-[89ab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/"
+                                ng-model="username"
+                                placeholder="username"
+                                md-maxlength="36"></input>
+                        </md-input-container>
+                    </div>
+                    <div layout="row">
+                        <md-input-container style="min-width: 280px">
+                            <label>Password</label>
+                            <input type="text" name="text"
+                                ng-required="true"
+                                ng-pattern="/^[0-9A-Za-z]{12}$/"
+                                ng-model="password"
+                                placeholder="password"
+                                md-maxlength="12"></input>
+                        </md-input-container>
+                    </div>
+                </md-card-content>
+                <md-dialog-actions layout="row">
+                    <span flex></span>
+                    <md-button type="submit" class="md-raised md-primary" ng-disabled="newCredentials.$invalid">Add</md-button>
+                    <md-button ng-click="cancel()">Cancel</md-button>
+                </md-dialog-actions>
+            </div>
+        </md-dialog-content>
+    </form>
+</md-dialog>
