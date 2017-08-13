@@ -413,4 +413,117 @@ describe('DB objects', () => {
             assert.fail(1, 0, 'Failed to reject training', '');
         });
     });
+
+
+    describe('createBluemixCredentials', () => {
+
+        it('should require a service type', (done) => {
+            try {
+                dbobjects.createBluemixCredentials(undefined, 'class', 'apikey', undefined, undefined);
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required attributes');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should require a valid service type', (done) => {
+            try {
+                dbobjects.createBluemixCredentials('blah', 'class', 'apikey', undefined, undefined);
+            }
+            catch (err) {
+                assert.equal(err.message, 'Invalid service type');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should require an API key for visual recognition credentials', (done) => {
+            try {
+                dbobjects.createBluemixCredentials('visrec', 'class', undefined, 'username', 'password');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required attributes');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should require a valid API key for visual recognition credentials', (done) => {
+            try {
+                dbobjects.createBluemixCredentials('visrec', 'class', 'too short', undefined, undefined);
+            }
+            catch (err) {
+                assert.equal(err.message, 'Invalid API key');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should create visual recognition credentials', () => {
+            const creds = dbobjects.createBluemixCredentials('visrec', 'class',
+                'JykrybuxnMtGI8qQncMHKGugNunl5Z7jWXxoRDSa', undefined, undefined);
+            assert(creds.id);
+            assert(creds.url);
+            assert.equal(creds.servicetype, 'visrec');
+            assert.equal(creds.username, 'JykrybuxnMtGI8qQncMH');
+            assert.equal(creds.password, 'KGugNunl5Z7jWXxoRDSa');
+        });
+
+        it('should require a username for conversation credentials', (done) => {
+            try {
+                dbobjects.createBluemixCredentials('conv', 'class', undefined, undefined, 'password');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required attributes');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should require a password for conversation credentials', (done) => {
+            try {
+                dbobjects.createBluemixCredentials('conv', 'class', undefined, 'username', undefined);
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required attributes');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should require a valid username for conversation credentials', (done) => {
+            try {
+                dbobjects.createBluemixCredentials('conv', 'class', undefined, 'username', 'password');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Invalid credentials');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should require a valid password for conversation credentials', (done) => {
+            try {
+                dbobjects.createBluemixCredentials('conv', 'class', undefined,
+                    'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL', 'password');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Invalid credentials');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should create conversation credentials', () => {
+            const creds = dbobjects.createBluemixCredentials('conv', 'class',
+                undefined, 'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL', 'THTBtUnNl5jT');
+            assert(creds.id);
+            assert(creds.url);
+            assert.equal(creds.servicetype, 'conv');
+            assert.equal(creds.username, 'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL');
+            assert.equal(creds.password, 'THTBtUnNl5jT');
+        });
+    });
 });

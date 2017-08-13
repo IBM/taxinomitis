@@ -120,4 +120,28 @@ describe('DB store - error handling', () => {
         });
     });
 
+    describe('updateLabels', () => {
+
+        it('should handle weird errors', async () => {
+            try {
+                await stubbedStore.addLabelToProject('userid', 'classid', 'projectid', 'labeltoadd');
+                assert.fail(0, 1, 'should not have reached here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'We could not update the labels list in the project');
+            }
+        });
+
+        it('should handle failures', async () => {
+            try {
+                await stubbedStore.addLabelToProject('userid', 'classid', 'projectid', 'BANG');
+                assert.fail(0, 1, 'should not have reached here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Project not updated');
+            }
+        });
+
+    });
+
 });

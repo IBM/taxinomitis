@@ -4,10 +4,11 @@ import * as sinon from 'sinon';
 
 export const MOCK_POOL = {
     getConnection : () => {
-        return Promise.resolve({
+        const mockConnection = {
             execute : mockExecute,
             release : sinon.stub(),
-        });
+        };
+        return Promise.resolve(mockConnection);
     },
     end : () => {
         return Promise.resolve();
@@ -39,6 +40,10 @@ function mockExecute(query, params) {
     let ERROR: any;
 
     switch (query) {
+
+    case 'SELECT `id`, `labels` FROM `projects` WHERE `id` = ? AND `userid` = ? AND `classid` = ?':
+        // if (params[0] === 'projectid' && params[1] === 'userid' && params[2] === 'classid') {
+        return Promise.resolve([[{ id : params[0], labels : 'one,two,three' }]]);
 
     case 'SELECT COUNT(*) AS count FROM `projects` WHERE `classid` = ? AND `userid` = ?':
         if (params[1] === 'UNCOUNTABLE') {
@@ -138,6 +143,21 @@ function mockExecute(query, params) {
         }
         else {
             return Promise.resolve([[ { affectedRows : 0 } ]]);
+        }
+
+    case 'UPDATE `projects` SET `labels` = ? WHERE `id` = ? AND `userid` = ? AND `classid` = ?':
+        if (params[0] === 'one,two,three,labeltoadd') {
+            ERROR = new Error('We could not update the labels list in the project');
+            ERROR.code = 'ER_SOME_UPDATE_ERROR';
+            ERROR.errno = 2029;
+            ERROR.sqlState = '#98123';
+            return Promise.reject(ERROR);
+        }
+        else if (params[0] === 'one,two,three,BANG') {
+            return Promise.resolve([[ { affectedRows : 0 } ]]);
+        }
+        else {
+            return Promise.resolve([[ { affectedRows : 1 } ]]);
         }
 
     case 'DELETE FROM `projects` WHERE `id` = ?':

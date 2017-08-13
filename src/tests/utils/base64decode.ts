@@ -1,5 +1,6 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
+import * as fs from 'fs';
 import * as filecompare from 'filecompare';
 
 import * as decoder from '../../lib/utils/base64decode';
@@ -14,7 +15,7 @@ describe('Utils - base64decode', () => {
             .then((path) => {
                 filecompare('./src/tests/utils/resources/test.jpg', path, (isEqual) => {
                     assert(isEqual);
-                    done();
+                    fs.unlink(path, done);
                 });
             });
     });
