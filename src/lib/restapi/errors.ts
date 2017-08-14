@@ -21,9 +21,6 @@ export function forbidden(res: Express.Response) {
 export function supervisorOnly(res: Express.Response) {
     return res.status(httpstatus.FORBIDDEN).json({ error : 'Only supervisors are allowed to invoke this'});
 }
-export function notImplementedYet(res: Express.Response) {
-    return res.status(httpstatus.NOT_IMPLEMENTED).json({ error : 'Not implemented yet' });
-}
 export function unknownError(res: Express.Response, err) {
     if (err && err.sqlState) {
         err = {
