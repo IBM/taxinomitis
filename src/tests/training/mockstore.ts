@@ -11,13 +11,31 @@ export const creds: TrainingTypes.BluemixCredentials = {
     classid : 'classid',
 };
 
-export function getBluemixCredentials() {
-    return new Promise((resolve) => resolve([ creds ]));
+export const credsForVisRec: TrainingTypes.BluemixCredentials = {
+    id : '456',
+    username : 'user',
+    password : 'pass',
+    servicetype : 'visrec',
+    url : 'http://visual.recognition.service',
+    classid : 'classid',
+};
+
+export function getBluemixCredentials(classid: string, service: TrainingTypes.BluemixServiceType) {
+    if (service === 'conv'){
+        return new Promise((resolve) => resolve([ creds ]));
+    }
+    else if (service === 'visrec') {
+        return new Promise((resolve) => resolve([ credsForVisRec ]));
+    }
+    return new Promise((resolve) => resolve([ ]));
 }
 export function getBluemixCredentialsById(id: string) {
     return new Promise((resolve, reject) => {
         if (id === '123') {
             return resolve(creds);
+        }
+        else if (id === '456') {
+            return resolve(credsForVisRec);
         }
         else {
             return reject(new Error('Unexpected response when retrieving service credentials'));
@@ -29,9 +47,21 @@ const NUM_TRAINING_PER_LABEL = {
     temperature : 18,
     conditions : 16,
 };
+const NUM_IMAGES_TRAINING_PER_LABEL = {
+    rock : 12,
+    paper : 11,
+};
 
-export function countTrainingByLabel(): Promise<{}> {
-    return new Promise((resolve) => resolve(NUM_TRAINING_PER_LABEL));
+export function countTrainingByLabel(type: DbTypes.ProjectTypeLabel, projectid: string): Promise<{}> {
+    if (projectid === 'projectbob') {
+        return new Promise((resolve) => resolve(NUM_TRAINING_PER_LABEL));
+    }
+    else if (projectid === 'projectbobvis') {
+        return new Promise((resolve) => resolve(NUM_IMAGES_TRAINING_PER_LABEL));
+    }
+    else {
+        return new Promise((resolve) => resolve({}));
+    }
 }
 
 export function getUniqueTrainingTextsByLabel(projectid: string, label: string, options: DbTypes.PagingOptions) {
@@ -43,6 +73,20 @@ export function getUniqueTrainingTextsByLabel(projectid: string, label: string, 
 
     for (let idx = start; idx < end; idx++) {
         training.push('sample text ' + idx);
+    }
+
+    return new Promise((resolve) => resolve(training));
+}
+
+export function getImageTrainingByLabel(projectid: string, label: string, options: DbTypes.PagingOptions) {
+    const start = options.start;
+    const limit = options.limit;
+    const end = Math.min(start + limit, NUM_IMAGES_TRAINING_PER_LABEL[label]);
+
+    const training: string[] = [];
+
+    for (let idx = start; idx < end; idx++) {
+        training.push('http://website.com/image-' + idx + '.jpg');
     }
 
     return new Promise((resolve) => resolve(training));
@@ -63,6 +107,20 @@ export function storeConversationWorkspace(
     ));
 }
 
+export function storeImageClassifier(
+    credentials: TrainingTypes.BluemixCredentials,
+    project: DbTypes.Project,
+    classifier: TrainingTypes.VisualClassifier,
+): Promise<TrainingTypes.VisualClassifier>
+{
+    return new Promise((resolve) => resolve(
+        DbObjects.createVisualClassifier(
+            classifier, credentials, project,
+        ),
+    ));
+}
+
+
 export function updateConversationWorkspaceExpiry()
 {
     return new Promise((resolve) => resolve());
@@ -72,8 +130,16 @@ export function getConversationWorkspaces()
 {
     return new Promise((resolve) => resolve([]));
 }
+export function getImageClassifiers()
+{
+    return new Promise((resolve) => resolve([]));
+}
 
 export function deleteConversationWorkspace()
+{
+    return new Promise((resolve) => resolve());
+}
+export function deleteImageClassifier()
 {
     return new Promise((resolve) => resolve());
 }
@@ -91,22 +157,36 @@ export function getClassTenant(classid: string)
 {
     return new Promise((resolve) => resolve({
         id : classid,
-        supportedProjectTypes : [ 'text' ],
+        supportedProjectTypes : [ 'text', 'images' ],
         maxUsers : 8,
         maxProjectsPerUser : 3,
         textClassifierExpiry : 2,
+        imageClassifierExpiry : 3,
     }));
 }
 
 export function getProject(projectid: string): Promise<DbTypes.Project>
 {
-    return new Promise((resolve) => resolve({
-        id : projectid,
-        name : 'projectname',
-        userid : 'userid',
-        classid : 'classid',
-        type : 'text',
-        fields : [],
-        labels : ['temperature', 'conditions'],
-    }));
+    if (projectid === 'projectbob') {
+        return new Promise((resolve) => resolve({
+            id : projectid,
+            name : 'projectname',
+            userid : 'userid',
+            classid : 'classid',
+            type : 'text',
+            fields : [],
+            labels : ['temperature', 'conditions'],
+        }));
+    }
+    else if (projectid === 'projectbobvis') {
+        return new Promise((resolve) => resolve({
+            id : projectid,
+            name : 'projectname',
+            userid : 'userid',
+            classid : 'classid',
+            type : 'text',
+            fields : [],
+            labels : ['rock', 'paper'],
+        }));
+    }
 }
