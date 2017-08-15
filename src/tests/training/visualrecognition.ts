@@ -88,6 +88,7 @@ describe('Training - Visual Recognition', () => {
     describe('create classifier', () => {
 
         it('should create a classifier', async () => {
+            storeScratchKeyStub.reset();
 
             const classid = 'TESTTENANT';
             const userid = 'bob';
@@ -116,7 +117,50 @@ describe('Training - Visual Recognition', () => {
                 created : newClassifierDate,
                 expiry : newExpiryDate,
             });
+
+            assert(
+                storeScratchKeyStub.calledWith(project, mockstore.credsForVisRec,
+                    'good'));
         });
+    });
+
+
+    describe('delete classifier', () => {
+
+        it('should delete a classifier', async () => {
+            deleteStub.reset();
+            deleteStoreStub.reset();
+            resetExpiredScratchKeyStub.reset();
+
+            assert.equal(deleteStub.called, false);
+            assert.equal(deleteStoreStub.called, false);
+
+            await visrec.deleteClassifier(goodClassifier);
+
+            assert(deleteStub.calledOnce);
+            assert(deleteStoreStub.calledOnce);
+
+            assert(deleteStub.calledWith('http://visual.recognition.service/v3/classifiers/good', {
+                qs : { version : '2016-05-20', api_key : 'userpass' },
+                headers : { 'user-agent' : 'machinelearningforkids' },
+                timeout : 120000,
+            }));
+            assert(deleteStoreStub.calledWith(goodClassifier.id));
+            assert(resetExpiredScratchKeyStub.called);
+        });
+
+    });
+
+
+    describe('get classifier info', () => {
+
+        it('should get info for a ready classifier', async () => {
+            const reqClone = clone([ goodClassifier ]);
+            const one = await visrec.getClassifierStatuses('CLASSID', reqClone);
+
+            assert.deepEqual(one, [ goodClassifierWithStatus ]);
+        });
+
 
     });
 
@@ -160,7 +204,13 @@ describe('Training - Visual Recognition', () => {
             });
         },
         createClassifier : (url, options) => {
-            // TODO : verify options
+            assert.equal(options.qs.version, '2016-05-20');
+            assert.equal(options.qs.api_key, 'userpass');
+            assert.equal(options.json, true);
+            assert.equal(options.formData.name, 'Bob\'s images proj');
+            assert.equal(typeof options.formData.rock_positive_examples.path, 'string');
+            assert.equal(typeof options.formData.paper_positive_examples.path, 'string');
+
             return new Promise((resolve, reject) => {
                 resolve({
                     classifier_id : 'good',
@@ -190,7 +240,6 @@ describe('Training - Visual Recognition', () => {
     };
     const goodClassifierWithStatus = Object.assign({}, goodClassifier, {
         status : 'ready',
-        updated : goodClassifier.created,
     });
 
     const goodClassifierStatus = {
@@ -210,7 +259,10 @@ describe('Training - Visual Recognition', () => {
 
     const mockDownloadAndZip = {
         run : (urls: string[]) => {
-            // TODO : verify urls
+            for (const url of urls) {
+                assert.equal(typeof url, 'string');
+                assert(url.startsWith('http'));
+            }
             return Promise.resolve('/tmp/training.zip');
         },
     };

@@ -83,10 +83,10 @@ export function getImageTrainingByLabel(projectid: string, label: string, option
     const limit = options.limit;
     const end = Math.min(start + limit, NUM_IMAGES_TRAINING_PER_LABEL[label]);
 
-    const training: string[] = [];
+    const training = [];
 
     for (let idx = start; idx < end; idx++) {
-        training.push('http://website.com/image-' + idx + '.jpg');
+        training.push({ imageurl : 'http://some-website.com/' + label + '-' + idx + '.jpg' });
     }
 
     return new Promise((resolve) => resolve(training));
