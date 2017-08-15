@@ -152,7 +152,7 @@ describe('Training - Conversation', () => {
 
     describe('test classifier', () => {
 
-        it('should return classes from NLC', async () => {
+        it('should return classes from Conversation service', async () => {
             const creds: TrainingTypes.BluemixCredentials = {
                 id : '123',
                 username : 'user',
@@ -161,7 +161,7 @@ describe('Training - Conversation', () => {
                 url : 'http://conversation.service',
                 classid : 'classid',
             };
-            const classes = await conversation.testClassifier(creds, 'good', 'projectid', 'Hello');
+            const classes = await conversation.testClassifier(creds, 'good', 'projectbob', 'Hello');
             assert.deepEqual(classes, [
                 {
                     class_name : 'temperature',
@@ -175,7 +175,7 @@ describe('Training - Conversation', () => {
         });
 
 
-        it('should fail to return classes from broken NLC', async () => {
+        it('should fail to return classes from broken Conversation workspace', async () => {
             const creds: TrainingTypes.BluemixCredentials = {
                 id : '123',
                 username : 'user',
@@ -184,7 +184,7 @@ describe('Training - Conversation', () => {
                 url : 'http://conversation.service',
                 classid : 'classid',
             };
-            const classes = await conversation.testClassifier(creds, 'bad', 'projectid', 'Hello');
+            const classes = await conversation.testClassifier(creds, 'bad', 'projectbob', 'Hello');
             assert.equal(classes.length, 1);
             assert.equal(classes[0].confidence, 0);
             assert.equal(classes[0].random, true);
