@@ -217,6 +217,19 @@ describe('Training - Visual Recognition', () => {
             assert.deepEqual(one, [ goodClassifierWithStatus ]);
         });
 
+        it('should get info for unknown classifiers', async () => {
+            const reqClone = clone([
+                unknownClassifier,
+                goodClassifier,
+            ]);
+            const three = await visrec.getClassifierStatuses('CLASSID', reqClone);
+
+            assert.deepEqual(three, [
+                unknownClassifierWithStatus,
+                goodClassifierWithStatus,
+            ]);
+        });
+
 
     });
 
@@ -310,6 +323,20 @@ describe('Training - Visual Recognition', () => {
         ],
     };
 
+
+
+    const unknownClassifier: TrainingTypes.VisualClassifier = {
+        id : uuid(),
+        credentialsid : '456',
+        name : 'unknown classifier',
+        created : new Date(),
+        expiry : new Date(),
+        url : 'http://visual.recognition.service/v3/classifiers/unknown',
+        classifierid : 'unknown',
+    };
+    const unknownClassifierWithStatus = Object.assign({}, unknownClassifier, {
+        status : 'Non Existent',
+    });
 
 
 
