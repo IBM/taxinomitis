@@ -28,3 +28,4 @@ Worksheets
 * Newspaper headlines - classify by paper
 * Movie titles (text) - classify by genre
 * Song lyrics - genre (text)
+* Noughts and crosses (numbers)

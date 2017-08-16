@@ -48,8 +48,13 @@ const NUM_TRAINING_PER_LABEL = {
     conditions : 16,
 };
 const NUM_IMAGES_TRAINING_PER_LABEL = {
-    rock : 12,
-    paper : 11,
+    rock : 12, paper : 11,
+};
+const NUM_IMAGES_TRAINING_TINY = {
+    rock : 2, paper : 3,
+};
+const NUM_IMAGES_TRAINING_MASSIVE = {
+    rock : 20000, paper : 25000,
 };
 
 export function countTrainingByLabel(type: DbTypes.ProjectTypeLabel, projectid: string): Promise<{}> {
@@ -58,6 +63,12 @@ export function countTrainingByLabel(type: DbTypes.ProjectTypeLabel, projectid: 
     }
     else if (projectid === 'projectbobvis') {
         return new Promise((resolve) => resolve(NUM_IMAGES_TRAINING_PER_LABEL));
+    }
+    else if (projectid === 'tinyvis') {
+        return new Promise((resolve) => resolve(NUM_IMAGES_TRAINING_TINY));
+    }
+    else if (projectid === 'massivevis') {
+        return new Promise((resolve) => resolve(NUM_IMAGES_TRAINING_MASSIVE));
     }
     else {
         return new Promise((resolve) => resolve({}));
@@ -81,7 +92,16 @@ export function getUniqueTrainingTextsByLabel(projectid: string, label: string, 
 export function getImageTrainingByLabel(projectid: string, label: string, options: DbTypes.PagingOptions) {
     const start = options.start;
     const limit = options.limit;
-    const end = Math.min(start + limit, NUM_IMAGES_TRAINING_PER_LABEL[label]);
+    let end: number;
+    if (projectid === 'projectbobvis') {
+        end = Math.min(start + limit, NUM_IMAGES_TRAINING_PER_LABEL[label]);
+    }
+    else if (projectid === 'tinyvis') {
+        end = Math.min(start + limit, NUM_IMAGES_TRAINING_TINY[label]);
+    }
+    else if (projectid === 'massivevis') {
+        end = Math.min(start + limit, NUM_IMAGES_TRAINING_MASSIVE[label]);
+    }
 
     const training = [];
 
@@ -178,13 +198,16 @@ export function getProject(projectid: string): Promise<DbTypes.Project>
             labels : ['temperature', 'conditions'],
         }));
     }
-    else if (projectid === 'projectbobvis') {
+    else if (projectid === 'projectbobvis' ||
+             projectid === 'tinyvis' ||
+             projectid === 'massivevis')
+    {
         return new Promise((resolve) => resolve({
             id : projectid,
             name : 'projectname',
             userid : 'userid',
             classid : 'classid',
-            type : 'text',
+            type : 'images',
             fields : [],
             labels : ['rock', 'paper'],
         }));

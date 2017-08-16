@@ -122,6 +122,62 @@ describe('Training - Visual Recognition', () => {
                 storeScratchKeyStub.calledWith(project, mockstore.credsForVisRec,
                     'good'));
         });
+
+        it('should not try to create a classifier without enough training data', async () => {
+            storeScratchKeyStub.reset();
+
+            const classid = 'TESTTENANT';
+            const userid = 'bob';
+            const projectid = 'tinyvis';
+            const projectname = 'Bob\'s small images proj';
+
+            const project: DbTypes.Project = {
+                id : projectid,
+                name : projectname,
+                userid, classid,
+                type : 'images',
+                fields : [],
+                labels : ['rock', 'paper'],
+            };
+
+            try {
+                await visrec.trainClassifier(project);
+                assert.fail(0, 1, 'should not have reached here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Not enough images to train the classifier');
+            }
+
+            assert.equal(storeScratchKeyStub.called, false);
+        });
+
+        it('should not try to create a classifier with too much training data', async () => {
+            storeScratchKeyStub.reset();
+
+            const classid = 'TESTTENANT';
+            const userid = 'bob';
+            const projectid = 'massivevis';
+            const projectname = 'Bob\'s huge images proj';
+
+            const project: DbTypes.Project = {
+                id : projectid,
+                name : projectname,
+                userid, classid,
+                type : 'images',
+                fields : [],
+                labels : ['rock', 'paper'],
+            };
+
+            try {
+                await visrec.trainClassifier(project);
+                assert.fail(0, 1, 'should not have reached here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Number of images exceeds maximum (10000)');
+            }
+
+            assert.equal(storeScratchKeyStub.called, false);
+        });
     });
 
 
