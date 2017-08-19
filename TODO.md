@@ -22,9 +22,9 @@ Longer term goals
 * Support for training text in languages other than English
 
 Worksheets
+* Restructure worksheets to demonstrate small ground truth makes crap classifiers
 * Shakespeare or Dahl (text)
 * School Prospectus (text)
-* Restructure worksheets to demonstrate small ground truth makes crap classifiers
 * Newspaper headlines - classify by paper
 * Movie titles (text) - classify by genre
 * Song lyrics - genre (text)
