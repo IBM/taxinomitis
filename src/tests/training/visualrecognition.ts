@@ -43,10 +43,12 @@ describe('Training - Visual Recognition', () => {
 
 
     before(() => {
-        getStub = sinon.stub(request, 'get').callsFake(mockVisRec.getClassifier);
+        getStub = sinon.stub(request, 'get');
+        getStub.withArgs(sinon.match(/.*classifiers.*/), sinon.match.any).callsFake(mockVisRec.getClassifier);
+        getStub.withArgs(sinon.match(/.*classify/), sinon.match.any).callsFake(mockVisRec.testClassify);
         createStub = sinon.stub(request, 'post');
         createStub.withArgs(sinon.match(/.*classifiers/), sinon.match.any).callsFake(mockVisRec.createClassifier);
-        // createStub.withArgs(sinon.match(/.*message/), sinon.match.any).callsFake(mockVisRec.testClassifier);
+        createStub.withArgs(sinon.match(/.*classify/), sinon.match.any).callsFake(mockVisRec.testClassify);
         deleteStub = sinon.stub(request, 'delete').callsFake(mockVisRec.deleteClassifier);
 
         getProjectStub = sinon.stub(store, 'getProject').callsFake(mockstore.getProject);
@@ -178,7 +180,60 @@ describe('Training - Visual Recognition', () => {
 
             assert.equal(storeScratchKeyStub.called, false);
         });
+
+        it('should handle hitting limits on API keys', async () => {
+            storeScratchKeyStub.reset();
+
+            const classid = 'TESTTENANT';
+            const userid = 'bob';
+            const projectid = 'projectbobvislim';
+            const projectname = 'Bob\'s other images proj';
+
+            const project: DbTypes.Project = {
+                id : projectid,
+                name : projectname,
+                userid, classid,
+                type : 'images',
+                fields : [],
+                labels : ['rock', 'paper'],
+            };
+
+            try {
+                await visrec.trainClassifier(project);
+                assert.fail(0, 1, 'should not have reached here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Your class already has created their maximum allowed number of models');
+            }
+
+            assert.equal(storeScratchKeyStub.called, false);
+        });
     });
+
+
+
+    describe('test classifier', () => {
+
+        it('should classify images by URL', async () => {
+            const creds = mockstore.credsForVisRec;
+            const classes = await visrec.testClassifierURL(creds, 'good', 'projectbobvis', 'http://test.com/image.jpg');
+            assert.deepEqual(classes, [
+                { class_name : 'rock', confidence : 65 },
+                { class_name : 'paper', confidence : 13 },
+            ]);
+        });
+
+        it('should classify images by file', async () => {
+            const creds = mockstore.credsForVisRec;
+            const classes = await visrec.testClassifierFile(creds, 'good', 'projectbobvis', '/tmp/image.jpg');
+            assert.deepEqual(classes, [
+                { class_name : 'rock', confidence : 75 },
+                { class_name : 'paper', confidence : 3 },
+            ]);
+        });
+
+    });
+
 
 
     describe('delete classifier', () => {
@@ -272,27 +327,101 @@ describe('Training - Visual Recognition', () => {
                 }
             });
         },
-        createClassifier : (url, options) => {
-            assert.equal(options.qs.version, '2016-05-20');
-            assert.equal(options.qs.api_key, 'userpass');
-            assert.equal(options.json, true);
-            assert.equal(options.formData.name, 'Bob\'s images proj');
-            assert.equal(typeof options.formData.rock_positive_examples.path, 'string');
-            assert.equal(typeof options.formData.paper_positive_examples.path, 'string');
+        testClassify : (url, opts) => {
+            assert.equal(url, 'http://visual.recognition.service/v3/classify');
+            assert.equal(opts.qs.version, '2016-05-20');
+            assert.equal(opts.qs.api_key, 'userpass');
+            assert.equal(opts.headers['user-agent'], 'machinelearningforkids');
 
-            return new Promise((resolve, reject) => {
-                resolve({
-                    classifier_id : 'good',
-                    name : 'Bob\'s images proj',
-                    owner : 'bob',
-                    status : 'training',
-                    created : newClassifierDate.toISOString(),
-                    classes : [
-                        { class : 'rock' },
-                        { class : 'paper' },
-                    ],
+            if (opts.qs.classifier_ids === 'good' && opts.qs.url) {
+                assert.equal(opts.qs.owners, 'me');
+                assert.equal(opts.qs.threshold, 0.0);
+                assert(opts.qs.url.startsWith('http'));
+
+                return new Promise((resolve) => {
+                    return resolve({
+                        images : [
+                            {
+                                classifiers : [
+                                    {
+                                        classes : [
+                                            { class : 'rock', score : 0.645656 },
+                                            { class : 'paper', score : 0.132234 },
+                                        ],
+                                        classifier_id : 'good',
+                                        name : 'Bob\'s images proj',
+                                    },
+                                ],
+                                resolved_url : 'https://some-server.com/your-image.jpg',
+                                source_url : opts.qs.url,
+                            },
+                        ],
+                        images_processed : 1,
+                    });
                 });
-            });
+            }
+            else if (opts.formData.parameters.value === JSON.stringify({
+                owners : 'me', classifier_ids : 'good', threshold : 0.0,
+            })) {
+                assert(opts.formData.images_file);
+
+                return new Promise((resolve) => {
+                    return resolve({
+                        images : [
+                            {
+                                classifiers : [
+                                    {
+                                        classes : [
+                                            { class : 'rock', score : 0.745656 },
+                                            { class : 'paper', score : 0.032234 },
+                                        ],
+                                        classifier_id : 'good',
+                                        name : 'Bob\'s images proj',
+                                    },
+                                ],
+                                image : 'your-image.jpg',
+                            },
+                        ],
+                        images_processed : 1,
+                    });
+                });
+            }
+        },
+        createClassifier : (url, options) => {
+            if (options.formData.name === 'Bob\'s images proj') {
+                assert.equal(options.qs.version, '2016-05-20');
+                assert.equal(options.qs.api_key, 'userpass');
+                assert.equal(options.json, true);
+                assert.equal(options.formData.name, 'Bob\'s images proj');
+                assert.equal(typeof options.formData.rock_positive_examples.path, 'string');
+                assert.equal(typeof options.formData.paper_positive_examples.path, 'string');
+
+                return new Promise((resolve, reject) => {
+                    resolve({
+                        classifier_id : 'good',
+                        name : 'Bob\'s images proj',
+                        owner : 'bob',
+                        status : 'training',
+                        created : newClassifierDate.toISOString(),
+                        classes : [
+                            { class : 'rock' },
+                            { class : 'paper' },
+                        ],
+                    });
+                });
+            }
+            else {
+                return new Promise((resolve, reject) => {
+                    const err = {
+                        error : {
+                            error : 'Cannot execute learning task. : this plan instance can have only 1 custom classifier(s), and 1 already exist.',
+                        },
+                        statusCode : 400,
+                        status : 400,
+                    };
+                    reject(err);
+                });
+            }
         },
     };
 

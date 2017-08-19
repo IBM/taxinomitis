@@ -61,7 +61,7 @@ export function countTrainingByLabel(type: DbTypes.ProjectTypeLabel, projectid: 
     if (projectid === 'projectbob') {
         return new Promise((resolve) => resolve(NUM_TRAINING_PER_LABEL));
     }
-    else if (projectid === 'projectbobvis') {
+    else if (projectid === 'projectbobvis' || projectid === 'projectbobvislim') {
         return new Promise((resolve) => resolve(NUM_IMAGES_TRAINING_PER_LABEL));
     }
     else if (projectid === 'tinyvis') {
@@ -93,7 +93,7 @@ export function getImageTrainingByLabel(projectid: string, label: string, option
     const start = options.start;
     const limit = options.limit;
     let end: number;
-    if (projectid === 'projectbobvis') {
+    if (projectid === 'projectbobvis' || projectid === 'projectbobvislim') {
         end = Math.min(start + limit, NUM_IMAGES_TRAINING_PER_LABEL[label]);
     }
     else if (projectid === 'tinyvis') {
@@ -199,6 +199,7 @@ export function getProject(projectid: string): Promise<DbTypes.Project>
         }));
     }
     else if (projectid === 'projectbobvis' ||
+             projectid === 'projectbobvislim' ||
              projectid === 'tinyvis' ||
              projectid === 'massivevis')
     {
