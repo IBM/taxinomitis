@@ -1,3 +1,6 @@
+<div class="jumbotron">
+    <h2 class="text-center">Administration</h2>
+</div>
 <div ng-if="!isAuthenticated">
     <div class="alert alert-warning pageheadermsg">
         <strong>Not logged in</strong>
@@ -5,9 +8,6 @@
     <div class="text-center">
         <button class="btn btn-primary" ng-click="vm.authService.login()">Log In</button>
     </div>
-</div>
-<div class="jumbotron">
-    <h2 class="text-center">Administration</h2>
 </div>
 <div ng-if="isAuthenticated && vm.profile.role === 'supervisor'" class="adminpage">
     <div ng-if="!vm || !vm.students" class="loading"> </div>

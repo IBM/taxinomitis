@@ -46,6 +46,13 @@ export function setupUI(app: express.Application): void {
     const scratchxlocation: string = path.join(__dirname, '/../../../web/scratchx');
     app.use('/scratchx', express.static(scratchxlocation, { maxAge : constants.ONE_WEEK }));
 
+    app.get('/about', (req, res) => { res.redirect('/#!/about'); });
+    app.get('/projects', (req, res) => { res.redirect('/#!/projects'); });
+    app.get('/news', (req, res) => { res.redirect('/#!/news'); });
+    app.get('/teacher', (req, res) => { res.redirect('/#!/teacher'); });
+    app.get('/worksheets', (req, res) => { res.redirect('/#!/worksheets'); });
+    app.get('/help', (req, res) => { res.redirect('/#!/help'); });
+
     const indexHtml: string = path.join(__dirname, '/../../../web/dynamic');
     app.use('/', express.static(indexHtml, { maxAge : 0 }));
 }
