@@ -17,8 +17,8 @@
     "angular-lock": "^2.0.3",
     "angular-material": "^1.1.4",
     "angular-scroll": "1.0.2",
-    "angular-ui-router": "^1.0.5",
-    "auth0-lock" : "^10.20g.0",
+    "angular-ui-router": "^1.0.6",
+    "auth0-lock" : "^10.20.0",
     "bootstrap": "^3.3.7",
     "jquery": "^3.2.1"
   }

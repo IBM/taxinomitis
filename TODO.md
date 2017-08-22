@@ -16,6 +16,7 @@ Code / engineering work
 * Plan for renewing the Let's Encrypt cert
 * drag/drop on IE is more broken than Safari. Damn you IE.
 * Need tests for image classifier code
+* Handle funky characters in training data
 
 Longer term goals
 * Restore sprites library to scratch-flash
@@ -25,7 +26,6 @@ Worksheets
 * Restructure worksheets to demonstrate small ground truth makes crap classifiers
 * Shakespeare or Dahl (text)
 * School Prospectus (text)
-* Newspaper headlines - classify by paper
 * Movie titles (text) - classify by genre
 * Song lyrics - genre (text)
 * Noughts and crosses (numbers)
