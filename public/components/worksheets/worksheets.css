@@ -10,7 +10,8 @@ td.worksheetinfo {
 }
 
 .worksheetslist {
-    width: 95%;
+    width: 100%;
+    margin: auto;
 }
 
 .worksheetslist td {
