@@ -15,7 +15,7 @@ Code / engineering work
 * Remove dupes from image training?
 * Plan for renewing the Let's Encrypt cert
 * drag/drop on IE is more broken than Safari. Damn you IE.
-* Handle funky characters in training data
+* Handle Turkish characters (İ Ğ ģ ğ) in training data
 * Add Training Data is missing from Scratch page
 
 Longer term goals
