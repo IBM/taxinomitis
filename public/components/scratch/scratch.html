@@ -71,6 +71,12 @@
             <div class="modelstatusdetail" style="clear: both;">
                 These blocks represent the labels you've created in your project, so you can use their names in your scripts.
             </div>
+            <div class="scratchblocks" ng-if="project.type === 'images'">
+                costume image :: looks reporter
+            </div>
+            <div class="modelstatusdetail" ng-if="project.type === 'images'">
+                This block is in the Looks palette for Sprites and will return the image of the currently selected costume.
+            </div>
             <div class="modelstatusdetail">
                 <strong>This means you can do something like this:</strong>
             </div>

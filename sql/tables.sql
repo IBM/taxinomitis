@@ -1,3 +1,6 @@
+-- local
+-- \connect mysql://root:lO7BforYiu9x@localhost:3306
+
 -- dev
 -- \connect mysql://admin:AHTQFXRUIQKHYNLJ@bluemix-sandbox-dal-9-portal.6.dblayer.com:28940/compose
 
