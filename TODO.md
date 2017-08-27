@@ -15,7 +15,6 @@ Code / engineering work
 * Remove dupes from image training?
 * Plan for renewing the Let's Encrypt cert
 * drag/drop on IE is more broken than Safari. Damn you IE.
-* Need tests for image classifier code
 * Handle funky characters in training data
 * Add Training Data is missing from Scratch page
 
@@ -29,4 +28,4 @@ Worksheets
 * School Prospectus (text)
 * Movie titles (text) - classify by genre
 * Song lyrics - genre (text)
-* Try Top Trumps using the Noughts and Crosses approach
+* Pac Man (https://www.youtube.com/watch?v=ENP236BVzq0)
