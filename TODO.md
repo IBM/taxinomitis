@@ -29,3 +29,4 @@ Worksheets
 * Movie titles (text) - classify by genre
 * Song lyrics - genre (text)
 * Pac Man (https://www.youtube.com/watch?v=ENP236BVzq0)
+* Drawing with pen - image recognition or maybe OCR

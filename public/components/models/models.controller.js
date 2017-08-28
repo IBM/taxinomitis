@@ -34,6 +34,7 @@
         $scope.loading = true;
         $scope.status = 'unknown';
         $scope.projectId = $stateParams.projectId;
+        $scope.minimumExamples = 'five';
         $scope.testformData = {};
 
         $scope.quizQuestion = quizService.getQuestion();
@@ -51,6 +52,9 @@
             })
             .then(function (values) {
                 $scope.project = values.project;
+                if (values.project.type === 'images') {
+                    $scope.minimumExamples = 'ten';
+                }
                 $scope.models = values.models;
                 $scope.projectSummary = generateProjectSummary();
 
@@ -67,12 +71,13 @@
         function reviewTrainingData (labels) {
             var no_data = true;
             var insufficient_data = 0;
+            var MIN = $scope.project.type === 'images' ? 10 : 5;
             $scope.trainingcounts = Object.keys(labels).map(function (label) {
                 var count = labels[label];
                 if (count > 0) {
                     no_data = false;
                 }
-                if (count < 5) {
+                if (count < MIN) {
                     insufficient_data += 1;
                 }
                 return { label : label, count : count };
