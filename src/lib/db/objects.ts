@@ -99,7 +99,7 @@ export function getLabelListFromArray(list: string[]): string {
 // -----------------------------------------------------------------------------
 
 // these are the rules enforced by Conversation, but we might as well apply them globally
-const INVALID_LABEL_NAME_CHARS = /[^\w.-]/g;
+const INVALID_LABEL_NAME_CHARS = /[^\w.]/g;
 const INVALID_TEXT_CHARS = /[\t\n]/g;
 const MAX_CONTENTS_LENGTH = 1024;
 

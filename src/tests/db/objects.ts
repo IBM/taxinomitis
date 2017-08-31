@@ -40,6 +40,32 @@ describe('DB objects', () => {
                          'It_s_over_here_');
         });
 
+        it('should remove hyphens', () => {
+            assert.equal(dbobjects.createLabel('Science-Fiction'),
+                         'Science_Fiction');
+        });
+
+        it('should remove slashes', () => {
+            assert.equal(dbobjects.createLabel('Forward/Backward\\Pipe|'),
+                         'Forward_Backward_Pipe_');
+        });
+
+        it('should remove quotes', () => {
+            assert.equal(dbobjects.createLabel('Single\'s "doubles" and `ticks`'),
+                         'Single_s__doubles__and__ticks_');
+        });
+
+        it('should remove brackets', () => {
+            assert.equal(dbobjects.createLabel('This (and) [the] other'),
+                         'This__and___the__other');
+        });
+
+        it('should remove wildcard characters', () => {
+            assert.equal(dbobjects.createLabel('$2 * $3'),
+                         '_2____3');
+        });
+
+
     });
 
 
