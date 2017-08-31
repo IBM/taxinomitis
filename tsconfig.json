@@ -8,6 +8,7 @@
     "outDir": "dist",
     "alwaysStrict": true
   },
+  "compileOnSave": false,
   "include": [
     "src/**/*.ts"
   ],
