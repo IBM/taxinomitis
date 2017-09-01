@@ -50,7 +50,7 @@ async function classifyImage(key: Types.ScratchKey, base64imagedata: string): Pr
         return resp;
     }
     else {
-        // we don't have a Conversation workspace yet, so we resort to random
+        // we don't have an image classifier yet, so we resort to random
         const project = await store.getProject(key.projectid);
         return chooseLabelsAtRandom(project);
     }

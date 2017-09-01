@@ -29,6 +29,48 @@ describe('Scratchx - classify', () => {
 
 
 
+    describe('images projects', () => {
+
+        it('should require image data', async () => {
+            const key: Types.ScratchKey = {
+                id : uuid(),
+                name : 'TEST',
+                type : 'images',
+                projectid : uuid(),
+            };
+
+            try {
+                await classifier.classify(key, '  ');
+                assert.fail(0, 1, 'Should not reach here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing data');
+            }
+        });
+
+        it('should return random classes for projects without classifiers', async () => {
+            const userid = uuid();
+            const project = await store.storeProject(userid, TESTCLASS, 'images', 'test project', []);
+            await store.addLabelToProject(userid, TESTCLASS, project.id, 'left');
+            await store.addLabelToProject(userid, TESTCLASS, project.id, 'right');
+
+            const key: Types.ScratchKey = {
+                id : uuid(),
+                name : 'IMGTEST',
+                type : 'images',
+                projectid : project.id,
+            };
+
+            const classifications = await classifier.classify(key, 'image data to be classified');
+            assert.equal(classifications.length, 2);
+            for (const classification of classifications) {
+                assert(classification.random);
+                assert.equal(classification.confidence, 50);
+            }
+        });
+
+    });
+
 
     describe('text projects', () => {
 
