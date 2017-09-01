@@ -10,5 +10,5 @@ function ping(req: Express.Request, res: Express.Response) {
  * Sets up APIs required to run in Bluemix.
  */
 export default function registerApis(app: Express.Application) {
-    app.get('/', ping);
+    app.get('/api', ping);
 }

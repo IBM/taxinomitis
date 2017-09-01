@@ -73,12 +73,17 @@ function getFileTypeFromContents(filepath: string, callback: IFileTypeCallback):
  * @param targetFilePath  - writes to
  */
 function download(url: string, targetFilePath: string, callback: IErrCallback): void {
-    request.get({ url, timeout : 5000 })
-        .on('error', () => {
-            callback(new Error('Unable to download image from ' + url));
-        })
-        .on('end', callback)
-        .pipe(fs.createWriteStream(targetFilePath));
+    try {
+        request.get({ url, timeout : 5000 })
+            .on('error', () => {
+                callback(new Error('Unable to download image from ' + url));
+            })
+            .on('end', callback)
+            .pipe(fs.createWriteStream(targetFilePath));
+    }
+    catch (err) {
+        callback(new Error('Unable to download image from ' + url));
+    }
 }
 
 

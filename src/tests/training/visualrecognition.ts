@@ -260,6 +260,29 @@ describe('Training - Visual Recognition', () => {
             assert(resetExpiredScratchKeyStub.called);
         });
 
+
+        it('should handle deleting unknown classifiers', async () => {
+            deleteStub.reset();
+            deleteStoreStub.reset();
+            resetExpiredScratchKeyStub.reset();
+
+            assert.equal(deleteStub.called, false);
+            assert.equal(deleteStoreStub.called, false);
+
+            await visrec.deleteClassifier(unknownClassifier);
+
+            assert(deleteStub.calledOnce);
+            assert(deleteStoreStub.calledOnce);
+
+            assert(deleteStub.calledWith('http://visual.recognition.service/v3/classifiers/unknown', {
+                qs : { version : '2016-05-20', api_key : 'userpass' },
+                headers : { 'user-agent' : 'machinelearningforkids' },
+                timeout : 120000,
+            }));
+            assert(deleteStoreStub.calledWith(unknownClassifier.id));
+            assert(resetExpiredScratchKeyStub.called);
+        });
+
     });
 
 

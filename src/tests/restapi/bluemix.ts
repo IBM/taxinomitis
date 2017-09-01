@@ -30,7 +30,7 @@ describe('REST API - Bluemix', () => {
         it('should return a healthcheck ping', () => {
             const testServer = testServerSetup();
             return request(testServer)
-                .get('/')
+                .get('/api')
                 .expect('Content-Type', /json/)
                 .expect(httpStatus.OK)
                 .then((res) => {

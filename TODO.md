@@ -17,6 +17,7 @@ Code / engineering work
 * drag/drop on IE is more broken than Safari. Damn you IE.
 * Handle Turkish characters (İ Ğ ģ ğ) in training data
 * Add Training Data is missing from Scratch page
+* Replace imgur with something that scales
 
 Longer term goals
 * Restore sprites library to scratch-flash

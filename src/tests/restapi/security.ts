@@ -19,7 +19,7 @@ describe('REST API - Security', () => {
     describe('headers', () => {
         it('should set required headers on responses',  () => {
             return request(testServer)
-                .get('/')
+                .get('/api')
                 .expect('Content-Type', /json/)
                 .expect(httpStatus.OK)
                 .then((res) => {

@@ -367,6 +367,102 @@ describe('REST API - training', () => {
         });
 
 
+        it('should reject image training that is not a URL', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'images', 'demo', []);
+            const projectid = project.id;
+
+            const trainingurl = '/api/classes/' + classid +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/training';
+
+            return request(testServer)
+                .post(trainingurl)
+                .send({
+                    data : 'not a valid url',
+                    label : 'fruit',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepEqual(res.body, { error: 'Unable to download image from not a valid url' });
+
+                    return store.deleteEntireProject(userid, classid, project);
+                });
+        });
+
+
+        it('should reject image training that is not an image', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'images', 'demo', []);
+            const projectid = project.id;
+
+            const trainingurl = '/api/classes/' + classid +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/training';
+
+            return request(testServer)
+                .post(trainingurl)
+                .send({
+                    data : 'http://info.cern.ch/hypertext/WWW/TheProject.html',
+                    label : 'fruit',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepEqual(res.body, {
+                        error: 'Unsupported file type (unknown). Only jpg and png images are supported.',
+                    });
+
+                    return store.deleteEntireProject(userid, classid, project);
+                });
+        });
+
+
+        it('should store image training', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'images', 'demo', []);
+            const projectid = project.id;
+
+            const trainingurl = '/api/classes/' + classid +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/training';
+
+            return request(testServer)
+                .post(trainingurl)
+                .send({
+                    data : 'https://www.w3.org/html/logo/downloads/HTML5_Logo_128.png',
+                    label : 'test',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED)
+                .then(() => {
+                    return request(testServer)
+                        .get(trainingurl)
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.OK);
+                })
+                .then((res) => {
+                    const body = res.body;
+
+                    assert.equal(body.length, 1);
+                    assert.equal(body[0].label, 'test');
+                    assert.equal(body[0].imageurl, 'https://www.w3.org/html/logo/downloads/HTML5_Logo_128.png');
+
+                    return store.deleteEntireProject(userid, classid, project);
+                });
+        });
+
+
         it('should store training', async () => {
             const classid = uuid();
             const userid = uuid();
