@@ -21,7 +21,8 @@ describe('REST API - Bluemix credentials', () => {
     let authStub;
     let checkUserStub;
     let requireSupervisorStub;
-    let ensureUnmanagedStub;
+    // let ensureUnmanagedStub;
+    let getClassStub;
 
     function authNoOp(req, res, next) { next(); }
 
@@ -30,15 +31,23 @@ describe('REST API - Bluemix credentials', () => {
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
         checkUserStub = sinon.stub(auth, 'checkValidUser').callsFake(authNoOp);
         requireSupervisorStub = sinon.stub(auth, 'requireSupervisor').callsFake(authNoOp);
-        ensureUnmanagedStub = sinon.stub(auth, 'ensureUnmanaged').callsFake(authNoOp);
         proxyquire('../../lib/restapi/users', {
             './auth' : {
                 authenticate : authStub,
                 checkValidUser : checkUserStub,
                 requireSupervisor : requireSupervisorStub,
-                ensureUnmanaged : ensureUnmanagedStub,
             },
         });
+
+        getClassStub = sinon.stub(store, 'getClassTenant').callsFake((id) => {
+            if (id === 'TESTTENANT' || id === 'DIFFERENT') {
+                return Promise.resolve({ isManaged : false });
+            }
+            else {
+                return Promise.resolve({ isManaged : true });
+            }
+        });
+        proxyquire('../../lib/restapi/auth', { '../db/store' : { getClassTenant : getClassStub } });
 
         await store.init();
 
@@ -49,7 +58,7 @@ describe('REST API - Bluemix credentials', () => {
         authStub.restore();
         checkUserStub.restore();
         requireSupervisorStub.restore();
-        ensureUnmanagedStub.restore();
+        getClassStub.restore();
 
         return store.disconnect();
     });
@@ -57,6 +66,18 @@ describe('REST API - Bluemix credentials', () => {
 
 
     describe('getCredentials', () => {
+
+        it('should not allow this for managed classes', () => {
+            const classid = 'MANAGED';
+            return request(testServer)
+                .get('/api/classes/' + classid + '/credentials?servicetype=conv')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.FORBIDDEN)
+                .then((res) => {
+                    const body = res.body;
+                    assert.equal(body.error, 'Access to API keys is forbidden for managed tenants');
+                });
+        });
 
         it('should require a service type', () => {
             const classid = 'TESTTENANT';
@@ -145,6 +166,25 @@ describe('REST API - Bluemix credentials', () => {
 
 
     describe('createCredentials', () => {
+
+        it('should prevent creating credentials for managed classes', () => {
+            const classid = 'MANAGED';
+            const username = randomstring.generate({ length : 36 });
+            const password = randomstring.generate({ length : 12 });
+
+            return request(testServer)
+                .post('/api/classes/' + classid + '/credentials')
+                .send({
+                    servicetype : 'conv',
+                    username, password,
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.FORBIDDEN)
+                .then((res) => {
+                    const body = res.body;
+                    assert.deepEqual(body, { error: 'Access to API keys is forbidden for managed tenants' });
+                });
+        });
 
         it('should validate new credentials', () => {
             const classid = 'TESTTENANT';
