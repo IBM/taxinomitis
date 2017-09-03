@@ -1050,6 +1050,20 @@ describe('REST API - scratch keys', () => {
         });
 
 
+        it('should require data from POST for returning classes from a classifier', () => {
+            const scratchKey = randomstring.generate({ length : 60 });
+
+            return request(testServer)
+                .post('/api/scratch/' + scratchKey + '/classify')
+                .send()
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    const payload = res.body;
+                    assert.deepEqual(payload, { error : 'Missing data' });
+                });
+        });
+
 
         it('should support POST for returning classes from a classifier', async () => {
             const userid = uuid();

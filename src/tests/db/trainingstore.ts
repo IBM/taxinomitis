@@ -510,6 +510,42 @@ describe('DB store - training', () => {
     });
 
 
+    describe('getImageTrainingByLabel', () => {
+
+        it('should retrieve data by label', async () => {
+            const projectid = uuid();
+            const targetlabel = uuid();
+            const data = [
+                { imageurl : uuid(), label : uuid() },
+                { imageurl : uuid(), label : targetlabel },
+                { imageurl : uuid(), label : uuid() },
+                { imageurl : uuid(), label : uuid() },
+                { imageurl : uuid(), label : targetlabel },
+                { imageurl : uuid(), label : uuid() },
+                { imageurl : uuid(), label : targetlabel },
+            ];
+
+            let retrieved = await store.getImageTrainingByLabel(projectid, targetlabel, DEFAULT_PAGING);
+            assert.equal(retrieved.length, 0);
+
+            for (const item of data) {
+                await store.storeImageTraining(projectid, item.imageurl, item.label);
+            }
+
+            retrieved = await store.getImageTrainingByLabel(projectid, targetlabel, DEFAULT_PAGING);
+            assert.equal(retrieved.length, 3);
+            assert.deepEqual(retrieved.map((item) => item.imageurl),
+                                [ data[1].imageurl, data[4].imageurl, data[6].imageurl ]);
+
+            retrieved = await store.getImageTrainingByLabel(projectid, targetlabel, { start : 1, limit : 1 });
+            assert.equal(retrieved.length, 1);
+            assert.deepEqual(retrieved.map((item) => item.imageurl),
+                                [ data[4].imageurl ]);
+
+            return store.deleteTrainingByProjectId('images', projectid);
+        });
+    });
+
     describe('renameTextTrainingLabel', () => {
 
         it('should rename a label', async () => {

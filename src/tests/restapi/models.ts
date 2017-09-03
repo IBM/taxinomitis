@@ -164,9 +164,14 @@ describe('REST API - models', () => {
                 const err = new Error('Not enough images to train the classifier');
                 return Promise.reject(err);
             }
-            else if (project.name === 'bad creds') {
+            else if (project.name === 'unknown creds') {
                 const err: any = new Error('Unauthorized');
                 err.statusCode = httpstatus.UNAUTHORIZED;
+                return Promise.reject(err);
+            }
+            else if (project.name === 'bad creds') {
+                const err: any = new Error('Unauthorized');
+                err.statusCode = httpstatus.FORBIDDEN;
                 return Promise.reject(err);
             }
             else {
@@ -622,6 +627,28 @@ describe('REST API - models', () => {
         it('should handle bad images credentials in unmanaged classes', async () => {
             const classid = uuid();
             const userid = uuid();
+            const projName = 'unknown creds';
+
+            const project = await store.storeProject(userid, classid, 'images', projName, []);
+            const projectid = project.id;
+
+            return request(testServer)
+                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.INTERNAL_SERVER_ERROR)
+                .then(async (res) => {
+                    const body = res.body;
+
+                    assert.equal(body.error,
+                        'The credentials for the machine learning server used by your class were rejected.');
+
+                    await store.deleteEntireUser(userid, classid);
+                });
+        });
+
+        it('should handle bad images credentials in unmanaged classes', async () => {
+            const classid = uuid();
+            const userid = uuid();
             const projName = 'bad creds';
 
             const project = await store.storeProject(userid, classid, 'images', projName, []);
@@ -1036,6 +1063,4 @@ describe('REST API - models', () => {
         });
 
     });
-
-
 });
