@@ -20,7 +20,7 @@ function getPagingOptions(req: Express.Request): Objects.PagingOptions {
     let limit: number = 50;
 
     try {
-        const rangeStr: string = req.header('range');
+        const rangeStr = req.header('range');
         if (rangeStr) {
             const range = rangeParse(rangeStr);
             if (range && range.unit === 'items'){
