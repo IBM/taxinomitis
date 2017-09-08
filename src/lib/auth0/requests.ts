@@ -50,7 +50,7 @@ export async function getUsers(token: string, tenant: string): Promise<Objects.U
             authorization : 'Bearer ' + token,
         },
         qs : {
-            q : 'role=student AND tenant=' + tenant,
+            q : 'app_metadata.role:"student" AND app_metadata.tenant:"' + tenant + '"',
         },
         json : true,
     };
@@ -68,7 +68,7 @@ export async function getUserCounts(token: string, tenant: string): Promise<Obje
             authorization : 'Bearer ' + token,
         },
         qs : {
-            q : 'role=student AND tenant=' + tenant,
+            q : 'app_metadata.role:"student" AND app_metadata.tenant:"' + tenant + '"',
             fields : 'id',
             include_fields : true,
             include_totals : true,
