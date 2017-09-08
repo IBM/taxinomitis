@@ -1,6 +1,7 @@
 // external dependencies
 import * as _ from 'lodash';
 import * as httpstatus from 'http-status';
+import * as fs from 'fs';
 // local dependencies
 import * as store from '../db/store';
 import * as conversation from '../training/conversation';
@@ -47,6 +48,7 @@ async function classifyImage(key: Types.ScratchKey, base64imagedata: string): Pr
     if (key.classifierid && key.credentials) {
         const imagefile = await base64decode.run(base64imagedata);
         const resp = await visualrecog.testClassifierFile(key.credentials, key.classifierid, key.projectid, imagefile);
+        fs.unlink(imagefile);
         return resp;
     }
     else {

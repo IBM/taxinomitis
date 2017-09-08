@@ -18,8 +18,6 @@ Code / engineering work
 * Handle Turkish characters (İ Ğ ģ ğ) in training data
 * Add Training Data is missing from Scratch page
 * Replace imgur with something that scales
-* Classified images aren't deleted (when classifying from Scratch key)
-* Uploaded images treated as jpg instead of png
 * Scratch is capturing images as 8 bits of color per pixel which visrec chokes on - use 24bpp
 
 Longer term goals
