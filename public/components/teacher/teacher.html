@@ -81,10 +81,12 @@
 
         <table class="studentslist">
             <tr ng-repeat="student in vm.students" ng-class-even="'even'" ng-class-odd="'odd'">
-                <td class="studentslistname"> {{ student.username }} </td>
-                <td class="studentslistdetail" ng-if="student.last_login"> Last login: {{ student.last_login | date : 'EEEE, MMMM d, y  h:mm a' }}  </td>
-                <td class="studentslistdetail" ng-if="!student.last_login"> Not logged in yet </td>
-                <td class="studentslistactions">
+                <td class="studentslistname placeholder" ng-if="student.isPlaceholder" colspan=4> {{ student.username }} </td>
+
+                <td class="studentslistname" ng-if="!student.isPlaceholder"> {{ student.username }} </td>
+                <td class="studentslistdetail" ng-if="!student.isPlaceholder && student.last_login"> Last login: {{ student.last_login | date : 'EEEE, MMMM d, y  h:mm a' }}  </td>
+                <td class="studentslistdetail" ng-if="!student.isPlaceholder && !student.last_login"> Not logged in yet </td>
+                <td class="studentslistactions" ng-if="!student.isPlaceholder">
                     <button class="btn" ng-click="vm.resetUserPassword($event, student)">Reset password</button>
                     <button class="btn" ng-click="vm.deleteUser($event, student)">Delete student account</button>
                 </td>

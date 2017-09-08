@@ -15,6 +15,8 @@
         var vm = this;
         vm.authService = authService;
 
+        var placeholderId = 1;
+
         var alertId = 1;
         vm.errors = [];
         vm.warnings = [];
@@ -148,14 +150,16 @@
 
             $mdDialog.show(confirm).then(
                 function() {
+                    student.isPlaceholder = true;
+
                     usersService.deleteStudent(student, vm.profile.tenant)
                         .then(function () {
                             vm.students = vm.students.filter(function (itm) {
                                 return itm.username !== student.username;
                             });
-                            // refreshStudentsList(vm.profile);
                         })
                         .catch(function (err) {
+                            student.isPlaceholder = false;
                             displayAlert('errors', err.status, err.data);
                         });
 
@@ -219,18 +223,26 @@
             })
             .then(
                 function(username) {
+                    var newUserObj = {
+                        id : placeholderId++,
+                        username : username,
+                        isPlaceholder : true
+                    };
+                    vm.students.push(newUserObj);
+
                     usersService.createStudent(username, vm.profile.tenant)
                         .then(function (newUser) {
-                            displayPassword(ev, newUser);
+                            newUserObj.id = newUser.id;
+                            newUserObj.isPlaceholder = false;
 
-                            // TODO horrid hack alert
-                            $timeout(function () {
-                                vm.students.push(newUser);
-                                // refreshStudentsList(vm.profile);
-                            }, 50);
+                            displayPassword(ev, newUser);
                         })
                         .catch(function (err) {
                             displayAlert('errors', err.status, err.data);
+
+                            vm.students = vm.students.filter(function (student) {
+                                return student.id !== newUserObj.id;
+                            });
                         });
                 },
                 function() {
@@ -240,14 +252,17 @@
         };
 
         vm.resetUserPassword = function (ev, student) {
+            student.isPlaceholder = true;
+
             usersService.resetStudentPassword(student, vm.profile.tenant)
                 .then(function (updatedUser) {
+                    student.isPlaceholder = false;
                     displayPassword(ev, updatedUser);
                 })
                 .catch(function (err) {
+                    student.isPlaceholder = false;
                     displayAlert('errors', err.status, err.data);
                 });
         };
-
     }
 }());

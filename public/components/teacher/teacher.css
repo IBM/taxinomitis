@@ -23,6 +23,13 @@
     padding-right: 1em;
 }
 
+.studentslistname.placeholder {
+    font-style: italic;
+    color: #888888;
+    padding-top: 0.9em;
+    padding-bottom: 0.9em;
+}
+
 .studentslistdetail {
     padding-left: 0.5em;
     padding-right: 0.5em;
