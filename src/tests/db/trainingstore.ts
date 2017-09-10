@@ -179,7 +179,10 @@ describe('DB store - training', () => {
                 userid, classid,
                 'numbers',
                 'project name',
-                ['first', 'second', 'third']);
+                [
+                    { name : 'first', type : 'number' }, { name : 'second', type : 'number' },
+                    { name : 'third', type : 'number' },
+                ]);
 
 
             await store.addLabelToProject(userid, classid, project.id, 'TENS');

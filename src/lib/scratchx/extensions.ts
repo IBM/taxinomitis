@@ -63,7 +63,7 @@ async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.
         labels : project.labels.map((name, idx) => {
             return { name, idx };
         }),
-        fields : project.fields,
+        fields : project.fields.map((field) => field.name),
     });
     return rendered;
 }

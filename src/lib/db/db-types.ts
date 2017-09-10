@@ -7,7 +7,8 @@ export interface Project {
     readonly type: ProjectTypeLabel;
     name: string;
     labels: string[];
-    fields: string[];
+    readonly numfields: number;
+    fields?: NumbersProjectFieldSummary[];
 }
 export interface ProjectDbRow {
     readonly id: string;
@@ -16,7 +17,8 @@ export interface ProjectDbRow {
     readonly typeid: number;
     readonly name: string;
     readonly labels: string;
-    readonly fields: string;
+    readonly numfields: number;
+    readonly fields: NumbersProjectFieldDbRow[];
 }
 
 export type ProjectTypeLabel = 'text' | 'numbers' | 'images';
@@ -27,6 +29,35 @@ export interface ProjectType {
     readonly id: number;
     readonly label: ProjectTypeLabel;
 }
+
+export interface NumbersProjectFieldSummary {
+    readonly name: string;
+    readonly type: NumbersProjectFieldTypeLabel;
+    readonly choices?: string[];
+}
+
+
+export interface NumbersProjectField {
+    readonly id: string;
+    readonly userid: string;
+    readonly classid: string;
+    readonly projectid: string;
+    readonly name: string;
+    readonly type: NumbersProjectFieldTypeLabel;
+    readonly choices: string[];
+}
+export interface NumbersProjectFieldDbRow {
+    readonly id: string;
+    readonly userid: string;
+    readonly classid: string;
+    readonly projectid: string;
+    readonly name: string;
+    readonly fieldtype: number;
+    readonly choices: string;
+}
+
+export type NumbersProjectFieldTypeLabel = 'number' | 'multichoice';
+
 
 
 export interface TextTraining {

@@ -45,39 +45,46 @@
             .then(function (project) {
                 $scope.project = project;
 
-                $scope.scratchblocks.label = 'recognise ' + project.type + ' ';
-                if (project.type === 'text') {
+                if (project.type === 'numbers') {
+                    return projectsService.getFields($scope.projectId, vm.profile.user_id, vm.profile.tenant);
+                }
+                else {
+                    return;
+                }
+            })
+            .then(function (fields) {
+                $scope.scratchblocks.label = 'recognise ' + $scope.project.type + ' ';
+                if ($scope.project.type === 'text') {
                     $scope.scratchblocks.label += '[text]';
                 }
-                else if (project.type === 'images') {
+                else if ($scope.project.type === 'images') {
                     $scope.scratchblocks.label += '[costume image]';
                 }
-                else if (project.type === 'numbers') {
+                else if ($scope.project.type === 'numbers') {
                     var idx = 1;
-                    for (var fldIndex in project.fields) {
-                        var field = project.fields[fldIndex];
+                    for (var fldIndex in fields) {
+                        var field = fields[fldIndex].name;
                         $scope.scratchblocks.label += field + ' (' + (idx++) + ') ';
                     }
                 }
                 $scope.scratchblocks.confidence = $scope.scratchblocks.label + ' \\(confidence) :: custom reporter';
                 $scope.scratchblocks.label += ' \\(label) :: custom reporter';
 
-                if (project.type === 'text') {
+                if ($scope.project.type === 'text') {
                     $scope.scratchblocks.sample =
                         'ask [enter some text here] and wait \n' +
-                        'if &lt;{recognise text (answer) \\(label) :: custom reporter } = (' + project.labels[0] + ' :: custom reporter)&gt; then \n' +
-                        'say [I think that was ' + project.labels[0] + ']';
+                        'if &lt;{recognise text (answer) \\(label) :: custom reporter } = (' + $scope.project.labels[0] + ' :: custom reporter)&gt; then \n' +
+                        'say [I think that was ' + $scope.project.labels[0] + ']';
                 }
-                else if (project.type === 'images') {
+                else if ($scope.project.type === 'images') {
                     $scope.scratchblocks.sample =
-                        'if &lt;{recognise images (costume image :: looks) :: custom reporter } = (' + project.labels[0] + ' :: custom reporter)&gt; then \n' +
-                        'say [I think that is a picture of ' + project.labels[0] + ']';
-                    console.log($scope.scratchblocks.sample);
+                        'if &lt;{recognise images (costume image :: looks) :: custom reporter } = (' + $scope.project.labels[0] + ' :: custom reporter)&gt; then \n' +
+                        'say [I think that is a picture of ' + $scope.project.labels[0] + ']';
                 }
-                else if (project.type === 'numbers') {
+                else if ($scope.project.type === 'numbers') {
                     $scope.scratchblocks.sample =
-                        'if &lt;{' + $scope.scratchblocks.label + '} = (' + project.labels[0] + ' :: custom reporter)&gt; then \n' +
-                        'say [I think that was ' + project.labels[0] + ']';
+                        'if &lt;{' + $scope.scratchblocks.label + '} = (' + $scope.project.labels[0] + ' :: custom reporter)&gt; then \n' +
+                        'say [I think that was ' + $scope.project.labels[0] + ']';
                 }
 
                 $timeout(function () {

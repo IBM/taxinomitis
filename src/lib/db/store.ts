@@ -78,7 +78,8 @@ async function dbExecute(query: string, params: any[]) {
 // -----------------------------------------------------------------------------
 
 export async function storeProject(
-    userid: string, classid: string, type: Objects.ProjectTypeLabel, name: string, fields: string[],
+    userid: string, classid: string, type: Objects.ProjectTypeLabel, name: string,
+    fields: Objects.NumbersProjectFieldSummary[],
 ): Promise<Objects.Project>
 {
     let obj: Objects.ProjectDbRow;
@@ -90,22 +91,74 @@ export async function storeProject(
         throw err;
     }
 
-    const queryString: string = 'INSERT INTO `projects` ' +
-                                '(`id`, `userid`, `classid`, `typeid`, `name`, `labels`, `fields`) ' +
-                                'VALUES (?, ?, ?, ?, ?, ?, ?)';
-
-    const response = await dbExecute(queryString, [
+    const insertProjectQry: string = 'INSERT INTO `projects` ' +
+        '(`id`, `userid`, `classid`, `typeid`, `name`, `labels`, `numfields`) ' +
+        'VALUES (?, ?, ?, ?, ?, ?, ?)';
+    const insertProjectValues = [
         obj.id, obj.userid, obj.classid,
-        obj.typeid,
-        obj.name,
-        '', obj.fields,
-    ]);
+        obj.typeid, obj.name, obj.labels, obj.fields.length,
+    ];
 
-    if (response.affectedRows === 1) {
+    const insertFieldsQry: string = 'INSERT INTO `numbersprojectsfields` ' +
+        '(`id`, `userid`, `classid`, `projectid`, `name`, `fieldtype`, `choices`) ' +
+        'VALUES ?';
+    const insertFieldsValues = obj.fields.map((field: Objects.NumbersProjectFieldDbRow) => {
+        return [
+            field.id, field.userid, field.classid, field.projectid, field.name, field.fieldtype, field.choices,
+        ];
+    });
+
+
+    let outcome = InsertTrainingOutcome.StoredOk;
+
+    const dbConn = await dbConnPool.getConnection();
+    try {
+        // store the project info
+        const [insertResponse] = await dbConn.execute(insertProjectQry, insertProjectValues);
+        if (insertResponse.affectedRows !== 1) {
+            log.error({ insertResponse }, 'Failed to store project info');
+            outcome = InsertTrainingOutcome.NotStored_UnknownFailure;
+        }
+
+        // store the fields for the project if we have any
+        if (outcome === InsertTrainingOutcome.StoredOk && insertFieldsValues.length > 0) {
+            const [insertFieldsResponse] = await dbConn.query(insertFieldsQry, [ insertFieldsValues ]);
+            if (insertFieldsResponse.affectedRows !== insertFieldsValues.length) {
+                log.error({ insertFieldsResponse }, 'Failed to store project fields');
+                outcome = InsertTrainingOutcome.NotStored_UnknownFailure;
+            }
+        }
+    }
+    catch (err) {
+        handleDbException(err);
+        throw err;
+    }
+    finally {
+        dbConn.release();
+    }
+
+
+    if (outcome === InsertTrainingOutcome.StoredOk) {
         return dbobjects.getProjectFromDbRow(obj);
     }
-    log.error({ response }, 'Failed to store project');
+
     throw new Error('Failed to store project');
+}
+
+
+
+export async function getNumberProjectFields(
+    userid: string, classid: string, projectid: string,
+): Promise<Objects.NumbersProjectField[]>
+{
+    const queryString = 'SELECT `id`, `userid`, `classid`, `projectid`, `name`, `fieldtype`, `choices` ' +
+                        'FROM `numbersprojectsfields` ' +
+                        'WHERE `userid` = ? AND `classid` = ? AND `projectid` = ? ' +
+                        'ORDER BY `id`';
+
+    const rows = await dbExecute(queryString, [ userid, classid, projectid ]);
+
+    return rows.map(dbobjects.getNumbersProjectFieldFromDbRow);
 }
 
 
@@ -194,7 +247,7 @@ export async function replaceLabelsForProject(
 
 
 export async function getProject(id: string): Promise<Objects.Project> {
-    const queryString = 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `labels`, `fields` ' +
+    const queryString = 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `labels`, `numfields` ' +
                         'FROM `projects` ' +
                         'WHERE `id` = ?';
 
@@ -1309,6 +1362,7 @@ export async function deleteEntireProject(userid: string, classid: string, proje
 
     const deleteQueries = [
         'DELETE FROM `projects` WHERE `id` = ?',
+        'DELETE FROM `numbersprojectsfields` WHERE `projectid` = ?',
         'DELETE FROM `texttraining` WHERE `projectid` = ?',
         'DELETE FROM `numbertraining` WHERE `projectid` = ?',
         'DELETE FROM `bluemixclassifiers` WHERE `projectid` = ?',

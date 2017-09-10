@@ -65,7 +65,7 @@ async function classifyNumbers(key: Types.ScratchKey, numbers: string[]): Promis
         throw new Error('Missing data');
     }
     const project = await store.getProject(key.projectid);
-    if (numbers.length !== project.fields.length) {
+    if (numbers.length !== project.numfields) {
         throw new Error('Missing data');
     }
 

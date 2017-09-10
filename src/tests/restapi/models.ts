@@ -392,7 +392,9 @@ describe('REST API - models', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'numbers', 'demo', ['a', 'b']);
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo', [
+                { name : 'a', type : 'number' }, { name : 'b', type : 'number' },
+            ]);
             const projectid = project.id;
 
             const classifier = await store.storeNumbersClassifier(userid, classid, projectid, 'Available');
@@ -724,7 +726,9 @@ describe('REST API - models', () => {
             const userid = uuid();
             const projName = uuid();
 
-            const project = await store.storeProject(userid, classid, 'numbers', projName, ['a', 'b']);
+            const project = await store.storeProject(userid, classid, 'numbers', projName, [
+                { name : 'a', type : 'number' }, { name : 'b', type : 'number' },
+            ]);
             const projectid = project.id;
 
             return request(testServer)
@@ -955,7 +959,9 @@ describe('REST API - models', () => {
             const projName = uuid();
             const modelid = randomstring.generate({ length : 10 });
 
-            const project = await store.storeProject(userid, classid, 'numbers', projName, ['A']);
+            const project = await store.storeProject(userid, classid, 'numbers', projName, [
+                { name : 'A', type : 'number' },
+            ]);
             const projectid = project.id;
 
             return request(testServer)

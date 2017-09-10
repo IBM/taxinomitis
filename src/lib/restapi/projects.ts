@@ -105,6 +105,28 @@ function getProject(req: Express.Request, res: Express.Response) {
 }
 
 
+function getProjectFields(req: Express.Request, res: Express.Response) {
+    const classid: string = req.params.classid;
+    const userid: string = req.params.studentid;
+    const projectid: string = req.params.projectid;
+
+    return store.getNumberProjectFields(userid, classid, projectid)
+        .then((fields: Objects.NumbersProjectField[]) => {
+            if (fields && fields.length > 0) {
+                return res.set(headers.NO_CACHE).json(fields);
+            }
+            else {
+                return errors.notFound(res);
+            }
+        })
+        .catch((err) => {
+            log.error({ err }, 'Server error');
+            errors.unknownError(res, err);
+        });
+}
+
+
+
 async function deleteProject(req: Express.Request, res: Express.Response) {
     const classid = req.params.classid;
     const userid = req.params.studentid;
@@ -261,6 +283,11 @@ export default function registerApis(app: Express.Application) {
             auth.authenticate,
             auth.checkValidUser,
             getProject);
+
+    app.get('/api/classes/:classid/students/:studentid/projects/:projectid/fields',
+            auth.authenticate,
+            auth.checkValidUser,
+            getProjectFields);
 
     app.delete('/api/classes/:classid/students/:studentid/projects/:projectid',
             auth.authenticate,

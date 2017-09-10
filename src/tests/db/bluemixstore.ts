@@ -111,7 +111,7 @@ describe('DB store', () => {
                 type : 'text',
                 name : classifierInfo.name,
                 labels : ['a'],
-                fields : [],
+                numfields : 0,
             };
 
             await store.storeConversationWorkspace(creds, project, classifierInfo);
@@ -189,7 +189,7 @@ describe('DB store', () => {
                 type : 'text',
                 name : expired.name,
                 labels : ['a'],
-                fields : [],
+                numfields : 0,
             };
             const projectCurrent: DbTypes.Project = {
                 id : projectid,
@@ -198,7 +198,7 @@ describe('DB store', () => {
                 type : 'text',
                 name : current.name,
                 labels : ['a'],
-                fields : [],
+                numfields : 0,
             };
 
             await store.storeConversationWorkspace(credentials, projectExpired, expired);
@@ -264,7 +264,7 @@ describe('DB store', () => {
                 type : 'text',
                 name : expired.name,
                 labels : ['a'],
-                fields : [],
+                numfields : 0,
             };
 
             await store.storeConversationWorkspace(credentials, projectExpired, expired);
@@ -330,7 +330,7 @@ describe('DB store', () => {
                 type : 'text',
                 name : classifierInfo.name,
                 labels : ['a'],
-                fields : [],
+                numfields : 0,
             };
 
             await store.storeConversationWorkspace(credentials, project, classifierInfo);
@@ -389,7 +389,7 @@ describe('DB store', () => {
                 type : 'text',
                 name : classifierInfo.name,
                 labels : ['a'],
-                fields : [],
+                numfields : 0,
             };
 
             await store.storeConversationWorkspace(credentials, project, classifierInfo);
@@ -483,7 +483,7 @@ describe('DB store', () => {
                 type : 'images',
                 name : expired.name,
                 labels : ['a'],
-                fields : [],
+                numfields : 0,
             };
             const projectCurrent: DbTypes.Project = {
                 id : projectid,
@@ -492,7 +492,7 @@ describe('DB store', () => {
                 type : 'images',
                 name : current.name,
                 labels : ['a'],
-                fields : [],
+                numfields : 0,
             };
 
             await store.storeImageClassifier(credentials, projectExpired, expired);
@@ -547,7 +547,7 @@ describe('DB store', () => {
                 type : 'images',
                 name : expired.name,
                 labels : ['a'],
-                fields : [],
+                numfields : 0,
             };
 
             await store.storeImageClassifier(credentials, projectExpired, expired);
@@ -615,7 +615,7 @@ describe('DB store', () => {
                 type : 'images',
                 name : classifierInfo.name,
                 labels : ['a'],
-                fields : [],
+                numfields : 0,
             };
 
             await store.storeImageClassifier(credentials, project, classifierInfo);

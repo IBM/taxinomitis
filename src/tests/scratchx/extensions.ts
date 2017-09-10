@@ -25,7 +25,7 @@ describe('Scratchx - status', () => {
                 userid : uuid(),
                 classid : uuid(),
                 labels : [ 'LABEL NUMBER ONE', 'SECOND LABEL' ],
-                fields : [],
+                numfields : 0,
             };
 
             const extension = await extensions.getScratchxExtension(key, proj);
@@ -62,7 +62,11 @@ describe('Scratchx - status', () => {
                 userid : uuid(),
                 classid : uuid(),
                 labels : [ 'left', 'middle', 'right' ],
-                fields : [ 'alpha', 'beta', 'gamma', 'delta' ],
+                numfields : 4,
+                fields : [
+                    { name : 'alpha', type : 'number' }, { name : 'beta', type : 'number' },
+                    { name : 'gamma', type : 'number' }, { name : 'delta', type : 'number' },
+                ],
             };
 
             const extension = await extensions.getScratchxExtension(key, proj);
@@ -107,7 +111,7 @@ describe('Scratchx - status', () => {
                 userid : uuid(),
                 classid : uuid(),
                 labels : [ 'LABEL NUMBER ONE', 'SECOND LABEL', 'THIRD LABEL' ],
-                fields : [],
+                numfields : 0,
             };
 
             const extension = await extensions.getScratchxExtension(key, proj);

@@ -109,6 +109,11 @@
             })
             .then(
                 function(project) {
+                    if (project.fields) {
+                        project.fields = project.fields.map(function (field) {
+                            return { name : field, type : 'number' };
+                        });
+                    }
 
                     var placeholder = {
                         id : placeholderId++,

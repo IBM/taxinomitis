@@ -22,4 +22,32 @@ Object.keys(TYPES).forEach((label) => {
 const typeLabels: string[] = Object.keys(TYPES);
 const typesByLabel = TYPES;
 
-export { typeLabels, typesById, typesByLabel };
+// ----
+
+const FIELDTYPES = {
+    number : {
+        id : 1,
+        label : 'number',
+    },
+    multichoice : {
+        id : 2,
+        label : 'multichoice',
+    },
+};
+
+const fieldTypesById = {};
+Object.keys(FIELDTYPES).forEach((label) => {
+    const type = FIELDTYPES[label];
+    fieldTypesById[type.id] = type;
+});
+
+const fieldTypeLabels: string[] = Object.keys(FIELDTYPES);
+const fieldTypesByLabel = FIELDTYPES;
+
+// ----
+
+
+export {
+    typeLabels, typesById, typesByLabel,
+    fieldTypeLabels, fieldTypesById, fieldTypesByLabel,
+};

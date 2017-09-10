@@ -10,23 +10,23 @@ import * as Objects from '../../lib/db/db-types';
 
 describe('DB objects', () => {
 
-    describe('getProjectFromDbRow()', () => {
-        it('should return labels for ids from DB', () => {
-            const testRow: Objects.ProjectDbRow = {
-                id : uuid(),
-                userid : 'testuser',
-                classid : 'testclass',
-                typeid : 2,
-                name : 'testproject',
-                labels : '',
-                fields : 'first,second',
-            };
-            const testProject: Objects.Project = dbobjects.getProjectFromDbRow(testRow);
+    // describe('getProjectFromDbRow()', () => {
+    //     it('should return labels for ids from DB', () => {
+    //         const testRow: Objects.ProjectDbRow = {
+    //             id : uuid(),
+    //             userid : 'testuser',
+    //             classid : 'testclass',
+    //             typeid : 2,
+    //             name : 'testproject',
+    //             labels : '',
+    //             fields : 'first,second',
+    //         };
+    //         const testProject: Objects.Project = dbobjects.getProjectFromDbRow(testRow);
 
-            assert.equal(testProject.type, 'numbers');
-            assert.deepEqual(testProject.fields, ['first', 'second']);
-        });
-    });
+    //         assert.equal(testProject.type, 'numbers');
+    //         assert.deepEqual(testProject.fields, ['first', 'second']);
+    //     });
+    // });
 
     describe('createLabel', () => {
 
@@ -250,10 +250,104 @@ describe('DB objects', () => {
             assert.equal(project.userid, 'testuser');
         });
 
+        it('should need options for multichoice fields in numbers projects', (done) => {
+            try {
+                const field: Objects.NumbersProjectFieldSummary = { name : 'a', type : 'multichoice' };
+                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', [ field ]);
+            }
+            catch (err) {
+                assert.equal(err.message, 'Not enough choices provided');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject project', '');
+        });
+
+        it('should need enough options for multichoice fields in numbers projects', (done) => {
+            try {
+                const field: Objects.NumbersProjectFieldSummary = {
+                    name : 'a', type : 'multichoice', choices : [ 'onlyone' ],
+                };
+                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', [ field ]);
+            }
+            catch (err) {
+                assert.equal(err.message, 'Not enough choices provided');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject project', '');
+        });
+
+        it('should prevent too many options for multichoice fields in numbers projects', (done) => {
+            try {
+                const field: Objects.NumbersProjectFieldSummary = {
+                    name : 'a', type : 'multichoice',
+                    choices : [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm' ],
+                };
+                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', [ field ]);
+            }
+            catch (err) {
+                assert.equal(err.message, 'Too many choices specified');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject project', '');
+        });
+
+        it('should prevent empty options for multichoice fields in numbers projects', (done) => {
+            try {
+                const field: Objects.NumbersProjectFieldSummary = {
+                    name : 'a', type : 'multichoice',
+                    choices : [ 'a', '', 'c' ],
+                };
+                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', [ field ]);
+            }
+            catch (err) {
+                assert.equal(err.message, 'Invalid choice value');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject project', '');
+        });
+
+        it('should prevent commas in choices in multichoice fields in numbers projects', (done) => {
+            try {
+                const field: Objects.NumbersProjectFieldSummary = {
+                    name : 'a', type : 'multichoice',
+                    choices : [ 'a', 'This , Should', 'c' ],
+                };
+                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', [ field ]);
+            }
+            catch (err) {
+                assert.equal(err.message, 'Invalid choice value');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject project', '');
+        });
+
+        it('should prevent over long options for multichoice fields in numbers projects', (done) => {
+            try {
+                const field: Objects.NumbersProjectFieldSummary = {
+                    name : 'a', type : 'multichoice',
+                    choices : [ 'a', 'This Is A Stupidly Long Option To Include', 'c' ],
+                };
+                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', [ field ]);
+            }
+            catch (err) {
+                assert.equal(err.message, 'Invalid choice value');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject project', '');
+        });
+
         it('should limit the number of fields for numbers projects', (done) => {
             try {
                 dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject',
-                    ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n']);
+                    [
+                        { name : 'a', type : 'number' }, { name : 'b', type : 'number' },
+                        { name : 'c', type : 'number' }, { name : 'd', type : 'number' },
+                        { name : 'e', type : 'number' }, { name : 'f', type : 'number' },
+                        { name : 'g', type : 'number' }, { name : 'h', type : 'number' },
+                        { name : 'i', type : 'number' }, { name : 'j', type : 'number' },
+                        { name : 'k', type : 'number' }, { name : 'l', type : 'number' },
+                        { name : 'm', type : 'number' }, { name : 'n', type : 'number' },
+                    ]);
             }
             catch (err) {
                 assert.equal(err.message, 'Too many fields specified');
@@ -264,13 +358,45 @@ describe('DB objects', () => {
 
         it('should restrict fields to numbers projects', (done) => {
             try {
-                dbobjects.createProject('testuser', 'testclass', 'text', 'testproject', ['a', 'b', 'c']);
+                dbobjects.createProject('testuser', 'testclass', 'text', 'testproject', [
+                    { name : 'a', type : 'number' }, { name : 'b', type : 'number' },
+                    { name : 'c', type : 'number' },
+                ]);
             }
             catch (err) {
                 assert.equal(err.message, 'Fields not supported for non-numbers projects');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject project', '');
+        });
+
+
+        it('should prepare numbers projects', () => {
+            const project = dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', [
+                { name : 'a', type : 'number' }, { name : 'b', type : 'number' },
+                { name : 'c', type : 'number' },
+                { name : 'd', type : 'multichoice', choices : [ 'left', 'right' ] },
+            ]);
+
+            assert(project.id);
+            assert.equal(project.classid, 'testclass');
+            assert.equal(project.labels, '');
+            assert.equal(project.name, 'testproject');
+            assert.equal(project.numfields, 4);
+            assert.equal(project.fields.length, 4);
+            assert.equal(project.typeid, 2);
+            assert.equal(project.userid, 'testuser');
+            project.fields.forEach((field) => {
+                assert(field.id);
+                assert.equal(field.classid, 'testclass');
+                assert.equal(field.userid, 'testuser');
+                assert.equal(field.projectid, project.id);
+            });
+            assert.equal(project.fields[0].fieldtype, 1);
+            assert.equal(project.fields[1].fieldtype, 1);
+            assert.equal(project.fields[2].fieldtype, 1);
+            assert.equal(project.fields[3].fieldtype, 2);
+            assert.equal(project.fields[3].choices, 'left,right');
         });
     });
 
@@ -415,6 +541,13 @@ describe('DB objects', () => {
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject training', '');
+        });
+
+        it('should not require an image label', () => {
+            const training = dbobjects.createImageTraining('projectid', 'trainingurl', undefined);
+            assert(training.id);
+            assert.equal(training.projectid, 'projectid');
+            assert.equal(training.imageurl, 'trainingurl');
         });
 
         it('should require an image url', (done) => {

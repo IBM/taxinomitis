@@ -15,7 +15,7 @@ import * as TrainingObjects from '../training/training-types';
 // -----------------------------------------------------------------------------
 
 export function createProject(
-    userid: string, classid: string, type: string, name: string, fields: string[],
+    userid: string, classid: string, type: string, name: string, fields: Objects.NumbersProjectFieldSummary[],
 ): Objects.ProjectDbRow
 {
     if (projects.typeLabels.indexOf(type) === -1) {
@@ -29,38 +29,31 @@ export function createProject(
         throw new Error('Missing required attributes');
     }
 
-    let fieldsStr = '';
+    const projectid = uuid();
 
+    let fieldsObjs: Objects.NumbersProjectFieldDbRow[] = [];
     if (type === 'numbers') {
-        if (!fields || fields.length === 0) {
-            throw new Error('Missing required attributes');
+        if (!fields || fields.length < MIN_FIELDS) {
+            throw new Error('Fields required for numbers projects');
         }
-        if (fields.length > 10) {
+        if (fields.length > MAX_FIELDS) {
             throw new Error('Too many fields specified');
         }
-        for (const field of fields) {
-            if (!field ||
-                field.trim().length === 0 ||
-                field.trim().length > 11 ||
-                field.indexOf(',') !== -1)
-            {
-                throw new Error('Invalid field value');
-            }
-        }
-        fieldsStr = fields.join(',');
+        fieldsObjs = fields.map((field) => createNumberProjectField(userid, classid, projectid, field));
     }
     else if (fields && fields.length > 0) {
         throw new Error('Fields not supported for non-numbers projects');
     }
 
     return {
-        id : uuid(),
+        id : projectid,
         userid,
         classid,
         typeid : projects.typesByLabel[type].id,
         name,
         labels : '',
-        fields : fieldsStr,
+        fields : fieldsObjs,
+        numfields : fieldsObjs.length,
     };
 }
 
@@ -72,9 +65,94 @@ export function getProjectFromDbRow(row: Objects.ProjectDbRow): Objects.Project 
         type : projects.typesById[row.typeid].label,
         name : row.name,
         labels : getLabelsFromList(row.labels),
-        fields : row.fields ? getLabelsFromList(row.fields) : [],
+        numfields : row.numfields ? row.numfields : 0,
+        fields : row.fields ? row.fields.map(getNumbersProjectFieldSummaryFromDbRow) : [],
     };
 }
+
+const MIN_FIELDS = 1;
+const MAX_FIELDS = 10;
+const MAX_FIELD_LENGTH = 12;
+
+const MULTICHOICES_MIN_NUM_CHOICES = 2;
+const MULTICHOICES_MAX_NUM_CHOICES = 4;
+const MULTICHOICES_CHOICE_LABEL_MAXLENGTH = 8;
+
+export function createNumberProjectField(
+    userid: string, classid: string, projectid: string,
+    fieldinfo: Objects.NumbersProjectFieldSummary,
+): Objects.NumbersProjectFieldDbRow
+{
+    if (userid === undefined || userid === '' ||
+        classid === undefined || classid === '' ||
+        projectid === undefined || projectid === '' ||
+        fieldinfo === undefined ||
+        fieldinfo.type === undefined ||
+        fieldinfo.name === undefined || fieldinfo.name === '')
+    {
+        throw new Error('Missing required attributes');
+    }
+    if (fieldinfo.name.length > MAX_FIELD_LENGTH) {
+        throw new Error('Invalid field name');
+    }
+
+    if (projects.fieldTypeLabels.indexOf(fieldinfo.type) === -1) {
+        throw new Error('Invalid field type ' + fieldinfo.type);
+    }
+
+
+    let choicesStr = '';
+    if (fieldinfo.type === 'multichoice') {
+        if (!fieldinfo.choices || fieldinfo.choices.length < MULTICHOICES_MIN_NUM_CHOICES) {
+            throw new Error('Not enough choices provided');
+        }
+        if (fieldinfo.choices.length > MULTICHOICES_MAX_NUM_CHOICES) {
+            throw new Error('Too many choices specified');
+        }
+        for (const choice of fieldinfo.choices) {
+            if (!choice ||
+                choice.trim().length === 0 ||
+                choice.trim().length > MULTICHOICES_CHOICE_LABEL_MAXLENGTH ||
+                choice.indexOf(',') !== -1)
+            {
+                throw new Error('Invalid choice value');
+            }
+        }
+        choicesStr = fieldinfo.choices.join(',');
+    }
+
+    return {
+        id : uuid(),
+        userid, classid, projectid,
+        name : fieldinfo.name,
+        fieldtype : projects.fieldTypesByLabel[fieldinfo.type].id,
+        choices : choicesStr,
+    };
+}
+
+
+export function getNumbersProjectFieldFromDbRow(row: Objects.NumbersProjectFieldDbRow): Objects.NumbersProjectField {
+    return {
+        id : row.id,
+        userid : row.userid,
+        classid : row.classid,
+        projectid : row.projectid,
+        name : row.name,
+        type : projects.fieldTypesById[row.fieldtype].label,
+        choices : row.choices ? getLabelsFromList(row.choices) : [],
+    };
+}
+export function getNumbersProjectFieldSummaryFromDbRow(
+    row: Objects.NumbersProjectFieldDbRow,
+): Objects.NumbersProjectFieldSummary
+{
+    return {
+        name : row.name,
+        type : projects.fieldTypesById[row.fieldtype].label,
+        choices : row.choices ? getLabelsFromList(row.choices) : [],
+    };
+}
+
 
 export function getLabelsFromList(liststr: string): string[] {
     return liststr.split(',')

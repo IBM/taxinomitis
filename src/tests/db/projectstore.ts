@@ -5,6 +5,7 @@ import * as uuid from 'uuid/v1';
 import * as randomstring from 'randomstring';
 
 import * as store from '../../lib/db/store';
+import * as Objects from '../../lib/db/db-types';
 
 
 const TESTCLASS = 'UNIQUECLASSID';
@@ -87,6 +88,93 @@ describe('DB store', () => {
 
             retrieved = await store.getProject(project.id);
             assert(!retrieved);
+        });
+    });
+
+
+    describe('getNumberProjectFields', () => {
+        it('should maintain order of project fields', async () => {
+            const userid = uuid();
+            const classid = uuid();
+            const name = uuid();
+            const typelabel = 'numbers';
+            const numberfields: Objects.NumbersProjectFieldSummary[] = [
+                { name : 'first', type : 'number' },
+                { name : 'second', type : 'number' },
+                { name : 'third', type : 'number' },
+                { name : 'fourth', type : 'number' },
+                { name : 'fifth', type : 'number' },
+                { name : 'sixth', type : 'number' },
+                { name : 'seventh', type : 'number' },
+                { name : 'eighth', type : 'number' },
+                { name : 'ninth', type : 'number' },
+            ];
+
+            const project = await store.storeProject(userid, classid, typelabel, name, numberfields);
+
+            const fields = await store.getNumberProjectFields(userid, classid, project.id);
+            assert.equal(fields.length, 9);
+
+            assert.equal(fields[0].name, 'first');
+            assert.equal(fields[1].name, 'second');
+            assert.equal(fields[2].name, 'third');
+            assert.equal(fields[3].name, 'fourth');
+            assert.equal(fields[4].name, 'fifth');
+            assert.equal(fields[5].name, 'sixth');
+            assert.equal(fields[6].name, 'seventh');
+            assert.equal(fields[7].name, 'eighth');
+            assert.equal(fields[8].name, 'ninth');
+
+            await store.deleteEntireProject(userid, classid, project);
+        });
+
+        it('should retrieve project fields', async () => {
+            const userid = uuid();
+            const classid = uuid();
+            const name = uuid();
+            const typelabel = 'numbers';
+            const numField: Objects.NumbersProjectFieldSummary = {
+                name : 'mynumber', type : 'number',
+            };
+            const chcField: Objects.NumbersProjectFieldSummary = {
+                name : 'myoption', type : 'multichoice', choices : [ 'male', 'female' ],
+            };
+
+            const project = await store.storeProject(userid, classid, typelabel, name, [ numField, chcField ]);
+
+            let retrieved = await store.getProject(project.id);
+            assert.equal(retrieved.id, project.id);
+            assert.equal(retrieved.name, name);
+            assert.equal(retrieved.classid, classid);
+            assert.equal(retrieved.type, typelabel);
+            assert.equal(retrieved.userid, userid);
+            assert.equal(retrieved.numfields, 2);
+
+            const fields = await store.getNumberProjectFields(userid, classid, project.id);
+            assert.equal(fields.length, 2);
+            fields.forEach((field) => {
+                assert(field.id);
+                assert.equal(field.userid, userid);
+                assert.equal(field.classid, classid);
+                assert.equal(field.projectid, project.id);
+            });
+
+            assert.equal(fields[0].name, 'mynumber');
+            assert.equal(fields[1].name, 'myoption');
+
+            assert.equal(fields[0].type, 'number');
+            assert.equal(fields[1].type, 'multichoice');
+
+            assert.deepEqual(fields[0].choices, []);
+            assert.deepEqual(fields[1].choices, [ 'male', 'female' ]);
+
+            await store.deleteEntireProject(userid, classid, project);
+
+            retrieved = await store.getProject(project.id);
+            assert(!retrieved);
+
+            const noFields = await store.getNumberProjectFields(userid, classid, project.id);
+            assert.deepEqual(noFields, []);
         });
     });
 

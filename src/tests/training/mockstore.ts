@@ -194,8 +194,8 @@ export function getProject(projectid: string): Promise<DbTypes.Project>
             userid : 'userid',
             classid : 'classid',
             type : 'text',
-            fields : [],
             labels : ['temperature', 'conditions'],
+            numfields : 0,
         }));
     }
     else if (projectid === 'projectbobvis' ||
@@ -209,8 +209,8 @@ export function getProject(projectid: string): Promise<DbTypes.Project>
             userid : 'userid',
             classid : 'classid',
             type : 'images',
-            fields : [],
             labels : ['rock', 'paper'],
+            numfields : 0,
         }));
     }
 }

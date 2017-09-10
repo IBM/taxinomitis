@@ -52,17 +52,23 @@
             .then(function (project) {
                 $scope.project = project;
 
+                if (project.type === 'numbers') {
+                    return projectsService.getFields($scope.projectId, vm.profile.user_id, vm.profile.tenant);
+                }
+            })
+            .then(function (fields) {
+                $scope.project.fields = fields;
+
                 refreshLabelsSummary();
 
-                for (var labelIdx in project.labels) {
-                    var label = project.labels[labelIdx];
+                for (var labelIdx in $scope.project.labels) {
+                    var label = $scope.project.labels[labelIdx];
                     $scope.training[label] = [];
                 }
 
                 return trainingService.getTraining($scope.projectId, vm.profile.user_id, vm.profile.tenant);
             })
             .then(function (training) {
-
                 $scope.loadingtraining = false;
 
                 for (var trainingitemIdx in training) {

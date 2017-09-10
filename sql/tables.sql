@@ -21,12 +21,25 @@ CREATE TABLE projects (
     typeid TINYINT NOT NULL,
     name VARCHAR(36) NOT NULL,
     labels VARCHAR(500) NOT NULL,
-    fields VARCHAR(128)
+    numfields TINYINT NOT NULL
 );
 
 CREATE INDEX projects_getCurrentLabels on projects(id, userid, classid) using HASH;
 CREATE INDEX projects_getProjectsByUserId on projects(classid, userid) using HASH;
 
+
+
+CREATE TABLE numbersprojectsfields (
+    id CHAR(36) NOT NULL PRIMARY KEY,
+    userid CHAR(36) NOT NULL,
+    classid CHAR(36) NOT NULL,
+    projectid CHAR(36) NOT NULL,
+    name VARCHAR(12) NOT NULL,
+    fieldtype TINYINT NOT NULL,
+    choices VARCHAR(40)
+);
+
+CREATE INDEX numbersprojectsfields_getByProjectId on numbersprojectsfields(userid, classid, projectid) using HASH;
 
 -- ------------------------------------------------------------------
 

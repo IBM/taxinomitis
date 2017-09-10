@@ -65,7 +65,7 @@ function mockExecute(query, params) {
         case 'SELECT `id`, `projecttypes`, `maxusers`, `maxprojectsperuser`, `textclassifiersexpiry`, `imageclassifiersexpiry`, `ismanaged` FROM `tenants` WHERE `id` = ?':
             return resolve([[]]);
 
-        case 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `labels`, `fields` FROM `projects` WHERE `id` = ?':
+        case 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `labels`, `numfields` FROM `projects` WHERE `id` = ?':
             return resolve([[ {
                 id : 'PROJECTID',
                 userid : 'EXCEPTION',
@@ -73,7 +73,7 @@ function mockExecute(query, params) {
                 typeid : 1,
                 name : 'name',
                 labels : '',
-                fields : '',
+                numfields : 0,
             } ]]);
 
         case 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `labels` FROM `projects` WHERE `classid` = ? AND `userid` = ?':
@@ -122,6 +122,8 @@ function mockExecute(query, params) {
             else {
                 return resolve();
             }
+        case 'DELETE FROM `numbersprojectsfields` WHERE `projectid` = ?':
+            return resolve();
         case 'DELETE FROM `bluemixclassifiers` WHERE `projectid` = ?':
             return resolve();
         case 'DELETE FROM `taxinoclassifiers` WHERE `projectid` = ?':
@@ -129,7 +131,7 @@ function mockExecute(query, params) {
         case 'DELETE FROM `scratchkeys` WHERE `projectid` = ?':
             return resolve();
 
-        case 'INSERT INTO `projects` (`id`, `userid`, `classid`, `typeid`, `name`, `labels`, `fields`) VALUES (?, ?, ?, ?, ?, ?, ?)':
+        case 'INSERT INTO `projects` (`id`, `userid`, `classid`, `typeid`, `name`, `labels`, `numfields`) VALUES (?, ?, ?, ?, ?, ?, ?)':
             if (params[1] === 'EXCEPTION') {
                 ERROR = new Error('We could not write the project to the DB');
                 ERROR.code = 'ER_SOME_INSERT_ERROR';
@@ -176,8 +178,6 @@ function mockExecute(query, params) {
             return reject(ERROR);
 
         default:
-            // console.log(query);
-            // console.log(params);
             ERROR = new Error('Some technical sounding SQL error');
             ERROR.code = 'ER_NO_SUCH_ERROR';
             ERROR.errno = 1234;

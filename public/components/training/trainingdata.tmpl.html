@@ -38,13 +38,13 @@
                     <label>Enter an example of '{{ label }}'</label>
                     <div layout="row" ng-repeat="field in project.fields">
                         <md-input-container>
-                            <div> {{ field }} </div>
-                            <input name="{{field}}"
+                            <div> {{ field.name }} </div>
+                            <input name="{{field.name}}"
                                 md-autofocus="project.type === 'numbers' && $index == 0"
                                 ng-required="true"
                                 ng-pattern="/^-?[0-9]+(?:\.[0-9]*)?$/"
-                                ng-model="values[field]">
-                            <div class="ng-animate" ng-messages="newNumbersTrainingData[field].$error" >
+                                ng-model="values[field.name]">
+                            <div class="ng-animate" ng-messages="newNumbersTrainingData[field.name].$error" >
                                 <div ng-message="required">You have to include values for all fields in an example</div>
                                 <div ng-message="pattern">This doesn't look like a number</div>
                             </div>

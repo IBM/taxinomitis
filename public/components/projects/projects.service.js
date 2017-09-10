@@ -24,6 +24,13 @@
                 });
         }
 
+        function getFields(projectid, userid, tenant) {
+            return $http.get('/api/classes/' + tenant + '/students/' + userid + '/projects/' + projectid + '/fields')
+                .then(function (resp) {
+                    return resp.data;
+                });
+        }
+
         function getLabels(projectid, userid, tenant) {
             return $http.get('/api/classes/' + tenant + '/students/' + userid + '/projects/' + projectid + '/labels')
                 .then(function (resp) {
@@ -75,6 +82,7 @@
             deleteProject : deleteProject,
             createProject : createProject,
 
+            getFields : getFields,
             getLabels : getLabels,
 
             addLabelToProject : addLabelToProject,

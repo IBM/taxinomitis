@@ -275,7 +275,7 @@ describe('REST API - projects', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
-                    assert.deepEqual(res.body, { error : 'Missing required attributes' });
+                    assert.deepEqual(res.body, { error : 'Fields required for numbers projects' });
                 });
         });
 
@@ -296,7 +296,7 @@ describe('REST API - projects', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
-                    assert.deepEqual(res.body, { error : 'Missing required attributes' });
+                    assert.deepEqual(res.body, { error : 'Fields required for numbers projects' });
                 });
         });
 
@@ -317,7 +317,7 @@ describe('REST API - projects', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
-                    assert.deepEqual(res.body, { error : 'Invalid field value' });
+                    assert.deepEqual(res.body, { error : 'Missing required attributes' });
                 });
         });
 
@@ -326,7 +326,7 @@ describe('REST API - projects', () => {
             const projectDetails = {
                 name : uuid(),
                 type : 'numbers',
-                fields : [ 'abcdefghijklmnopqrstuv' ],
+                fields : [ { type : 'number', name : 'abcdefghijklmnopqrstuv' } ],
             };
             const studentId = uuid();
 
@@ -338,16 +338,16 @@ describe('REST API - projects', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
-                    assert.deepEqual(res.body, { error : 'Invalid field value' });
+                    assert.deepEqual(res.body, { error : 'Invalid field name' });
                 });
         });
 
 
-        it('should prevent commas in field names', () => {
+        it('should verify the type of fields for numbers projects', () => {
             const projectDetails = {
                 name : uuid(),
                 type : 'numbers',
-                fields : [ 'one,two' ],
+                fields : [ { type : 'something', name : 'failing' } ],
             };
             const studentId = uuid();
 
@@ -359,7 +359,7 @@ describe('REST API - projects', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
-                    assert.deepEqual(res.body, { error : 'Invalid field value' });
+                    assert.deepEqual(res.body, { error : 'Invalid field type something' });
                 });
         });
 

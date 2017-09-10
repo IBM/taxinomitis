@@ -81,7 +81,9 @@ describe('Scratchx - keys', () => {
     describe('numbers projects', () => {
 
         it('should create an empty key', async () => {
-            const project = await store.storeProject(uuid(), TESTCLASS, 'numbers', 'test project', ['one', 'two']);
+            const project = await store.storeProject(uuid(), TESTCLASS, 'numbers', 'test project', [
+                { name : 'one', type : 'number' }, { name : 'two', type : 'number' },
+            ]);
             const key = await keys.createKey(project.id);
             assert(key.id);
             assert(!key.model);
@@ -93,7 +95,9 @@ describe('Scratchx - keys', () => {
 
         it('should create a key for projects with a classifier', async () => {
             const userid = uuid();
-            const project = await store.storeProject(userid, TESTCLASS, 'numbers', 'test project', ['a']);
+            const project = await store.storeProject(userid, TESTCLASS, 'numbers', 'test project', [
+                { name : 'a', type : 'number' },
+            ]);
 
             await store.storeNumbersClassifier(userid, TESTCLASS, project.id, 'Available');
 

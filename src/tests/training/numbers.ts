@@ -7,6 +7,7 @@ import * as sinon from 'sinon';
 import * as request from 'request-promise';
 
 import * as store from '../../lib/db/store';
+import * as dbtypes from '../../lib/db/db-types';
 import * as numbers from '../../lib/training/numbers';
 import * as TrainingTypes from '../../lib/training/training-types';
 
@@ -46,7 +47,10 @@ describe('Training - numbers service', () => {
     describe('create classifier', () => {
 
         it('should handle training failures', async () => {
-            const fields = ['cats', 'dogs', 'fraction'];
+            const fields: dbtypes.NumbersProjectFieldSummary[] = [
+                { name : 'cats', type : 'number' }, { name : 'dogs', type : 'number' },
+                { name : 'fraction', type : 'number' },
+            ];
 
             const project = await store.storeProject(USERID, CLASSID, 'numbers', 'good project', fields);
             await store.addLabelToProject(USERID, CLASSID, project.id, 'likes-animals');
@@ -91,7 +95,10 @@ describe('Training - numbers service', () => {
 
 
         it('should handle test failures due to missing training', async () => {
-            const fields = ['cats', 'dogs', 'fraction'];
+            const fields: dbtypes.NumbersProjectFieldSummary[] = [
+                { name : 'cats', type : 'number' }, { name : 'dogs', type : 'number' },
+                { name : 'fraction', type : 'number' },
+            ];
 
             const project = await store.storeProject(USERID, CLASSID, 'numbers', 'good project', fields);
             goodProject = project.id;
@@ -123,7 +130,10 @@ describe('Training - numbers service', () => {
 
 
         it('should manage number classifiers', async () => {
-            const fields = ['cats', 'dogs', 'fraction'];
+            const fields: dbtypes.NumbersProjectFieldSummary[] = [
+                { name : 'cats', type : 'number' }, { name : 'dogs', type : 'number' },
+                { name : 'fraction', type : 'number' },
+            ];
 
             const project = await store.storeProject(USERID, CLASSID, 'numbers', 'good project', fields);
             goodProject = project.id;

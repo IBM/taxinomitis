@@ -41,7 +41,7 @@ async function storeNumbers(key: Types.ScratchKey, label: string, numbersStr: st
 
     const project = await store.getProject(key.projectid);
     // check that we have the right number of numbers to store
-    if (numbers.length !== project.fields.length) {
+    if (numbers.length !== project.numfields) {
         throw new Error('Missing data');
     }
 

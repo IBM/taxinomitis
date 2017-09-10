@@ -232,7 +232,9 @@ describe('Scratchx - classify', () => {
 
         it('should return random classes for projects without classifiers', async () => {
             const userid = uuid();
-            const project = await store.storeProject(userid, TESTCLASS, 'numbers', 'test project', ['size']);
+            const project = await store.storeProject(userid, TESTCLASS, 'numbers', 'test project', [
+                { name : 'size', type : 'number' },
+            ]);
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'fruit');
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'vegetable');
 
@@ -266,7 +268,10 @@ describe('Scratchx - classify', () => {
             });
 
             const userid = uuid();
-            const project = await store.storeProject(userid, TESTCLASS, 'numbers', 'test project', ['a']);
+            const project = await store.storeProject(userid, TESTCLASS, 'numbers', 'test project', [
+                { name : 'a', type : 'number' },
+            ]);
+
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'label_name_1');
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'label_name_1');
 

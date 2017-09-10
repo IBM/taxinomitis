@@ -80,7 +80,10 @@ describe('Scratchx - keys', () => {
     describe('number projects', () => {
 
         it('should store number training', async () => {
-            const testProject = await store.storeProject(TESTUSER, TESTCLASS, 'numbers', 'name', ['a', 'b', 'c']);
+            const testProject = await store.storeProject(TESTUSER, TESTCLASS, 'numbers', 'name', [
+                { name : 'a', type : 'number' }, { name : 'b', type : 'number' },
+                { name : 'c', type : 'number' },
+            ]);
 
             await store.addLabelToProject(TESTUSER, TESTCLASS, testProject.id, 'NUMLAB');
 
@@ -99,7 +102,10 @@ describe('Scratchx - keys', () => {
 
 
         it('should require data to store number training', async () => {
-            const testProject = await store.storeProject(TESTUSER, TESTCLASS, 'numbers', 'name', ['a', 'b', 'c']);
+            const testProject = await store.storeProject(TESTUSER, TESTCLASS, 'numbers', 'name', [
+                { name : 'a', type : 'number' }, { name : 'b', type : 'number' },
+                { name : 'c', type : 'number' },
+            ]);
 
             await store.addLabelToProject(TESTUSER, TESTCLASS, testProject.id, 'NUMLAB');
 

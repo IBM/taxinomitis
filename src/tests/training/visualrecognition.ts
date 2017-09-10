@@ -102,8 +102,8 @@ describe('Training - Visual Recognition', () => {
                 name : projectname,
                 userid, classid,
                 type : 'images',
-                fields : [],
                 labels : ['rock', 'paper'],
+                numfields : 0,
             };
 
             const classifier = await visrec.trainClassifier(project);
@@ -138,8 +138,8 @@ describe('Training - Visual Recognition', () => {
                 name : projectname,
                 userid, classid,
                 type : 'images',
-                fields : [],
                 labels : ['rock', 'paper'],
+                numfields : 0,
             };
 
             try {
@@ -166,8 +166,8 @@ describe('Training - Visual Recognition', () => {
                 name : projectname,
                 userid, classid,
                 type : 'images',
-                fields : [],
                 labels : ['rock', 'paper'],
+                numfields : 0,
             };
 
             try {
@@ -194,8 +194,8 @@ describe('Training - Visual Recognition', () => {
                 name : projectname,
                 userid, classid,
                 type : 'images',
-                fields : [],
                 labels : ['rock', 'paper'],
+                numfields : 0,
             };
 
             try {

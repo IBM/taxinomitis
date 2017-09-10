@@ -95,8 +95,8 @@ describe('Training - Conversation', () => {
                 name : projectname,
                 userid, classid,
                 type : 'text',
-                fields : [],
                 labels : ['temperature', 'conditions'],
+                numfields : 0,
             };
 
             const classifier = await conversation.trainClassifier(project);
@@ -134,8 +134,8 @@ describe('Training - Conversation', () => {
                 name : projectname,
                 userid, classid,
                 type : 'text',
-                fields : [],
                 labels : ['this', 'that'],
+                numfields : 0,
             };
 
             try {
