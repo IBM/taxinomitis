@@ -63,6 +63,7 @@
     padding: 3px;
     background-color: white;
     outline: none;
+    cursor: pointer;
 }
 .newprojecticon {
     font-size: 3em;

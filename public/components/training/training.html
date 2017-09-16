@@ -71,7 +71,8 @@
                         <table>
                             <tr ng-repeat="field in project.fields">
                                 <td class="numberdatalabel"> {{ field.name }} </td>
-                                <td class="numberdatavalue"> {{ item.numberdata[$index] }} </td>
+                                <td class="numberdatavalue" ng-if="project.fields[$index].type === 'number'"> {{ item.numberdata[$index] }} </td>
+                                <td class="numberdatavalue" ng-if="project.fields[$index].type === 'multichoice'"> {{ project.fields[$index].choices[item.numberdata[$index]] }} </td>
                             </tr>
                         </table>
                     </div>

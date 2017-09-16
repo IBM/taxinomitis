@@ -19,6 +19,7 @@ Code / engineering work
 * Add Training Data is missing from Scratch page
 * Replace imgur with something that scales
 * Scratch is capturing images as 8 bits of color per pixel which visrec chokes on - use 24bpp
+* auth errors cant be displayed as they're inside isAuthenticated
 
 Longer term goals
 * Restore sprites library to scratch-flash
@@ -32,3 +33,4 @@ Worksheets
 * Song lyrics - genre (text)
 * Pac Man (https://www.youtube.com/watch?v=ENP236BVzq0)
 * Drawing with pen - image recognition or maybe OCR
+* Fix Tourist Info bot so it uses the button and resets on it

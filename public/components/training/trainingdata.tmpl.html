@@ -40,10 +40,18 @@
                         <md-input-container>
                             <div> {{ field.name }} </div>
                             <input name="{{field.name}}"
+                                ng-if="field.type === 'number'"
                                 md-autofocus="project.type === 'numbers' && $index == 0"
                                 ng-required="true"
                                 ng-pattern="/^-?[0-9]+(?:\.[0-9]*)?$/"
+                                ng-model="values[field.name]"/>
+                            <md-select name="{{field.name}}"
+                                ng-if="field.type === 'multichoice'"
+                                md-autofocus="project.type === 'numbers' && $index == 0"
+                                ng-required="true"
                                 ng-model="values[field.name]">
+                                <md-option ng-repeat="choice in field.choices track by $index" value="{{$index}}">{{ choice }}</md-option>
+                            </md-select>
                             <div class="ng-animate" ng-messages="newNumbersTrainingData[field.name].$error" >
                                 <div ng-message="required">You have to include values for all fields in an example</div>
                                 <div ng-message="pattern">This doesn't look like a number</div>

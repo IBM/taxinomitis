@@ -1,0 +1,93 @@
+.newprojectname {
+    font-size: 2.5em;
+}
+
+md-input-container .md-input.newprojectname {
+    height: 1.5em;
+}
+
+.newprojectrow {
+    display: flex;
+}
+
+.newprojectform {
+    flex: auto;
+}
+
+.newprojecthelp {
+    flex: 1;
+    font-size: 0.8em;
+    color: #666699;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.newprojecttype {
+    font-size: 2em;
+}
+
+
+.newprojectfieldname {
+    font-size: 1.5em;
+}
+
+.newprojectfieldtype {
+    font-size: 1.5em;
+}
+
+.newprojectfields {
+    display: flex;
+
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+
+.newprojectfield {
+    border: thin grey solid;
+    padding: 1em;
+
+    min-width: 400px;
+    max-width: 700px;
+
+    margin: 2px;
+
+    flex: 1;
+    display: flex;
+}
+
+.newprojectfielddelete {
+    font-size: 2em;
+    background-color: white;
+    border-radius: 1em;
+    color: #CC8080;
+    cursor: pointer;
+    border: none;
+}
+
+.newprojectfieldchoiceslabel {
+    margin-top: 1em;
+    font-size: 0.8em;
+}
+
+.newprojectfieldchoice {
+    float: left;
+    padding: 0.5em 0.7em;
+    font-size: 1em;
+    border-radius: 1em;
+    margin: 0 0.9em 0.9em 0;
+    background-color: lightsteelblue;
+}
+
+.newprojectfieldchoicedelete {
+    font-size: 0.8em;
+    background-color: white;
+    border-radius: 1em;
+    color: #CC8080;
+    cursor: pointer;
+    border: none;
+}
+
+.newfieldentry {
+    margin-bottom: 0;
+}

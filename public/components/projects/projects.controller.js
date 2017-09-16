@@ -7,12 +7,10 @@
     ProjectsController.$inject = [
         'authService',
         'projectsService',
-        '$mdDialog',
-        '$scope', '$timeout', '$stateParams',
-        '$document'
+        '$mdDialog'
     ];
 
-    function ProjectsController(authService, projectsService, $mdDialog, $scope, $timeout, $stateParams, $document) {
+    function ProjectsController(authService, projectsService, $mdDialog) {
 
         var vm = this;
         vm.authService = authService;
@@ -83,71 +81,6 @@
             });
 
 
-        vm.createProject = function (ev) {
-            $mdDialog.show({
-                controller : function ($scope, $mdDialog) {
-                    $scope.fieldscount = 1;
-                    $scope.fields = [];
-
-                    $scope.hide = function() {
-                        $mdDialog.hide();
-                    };
-                    $scope.cancel = function() {
-                        $mdDialog.cancel();
-                    };
-                    $scope.confirm = function(resp) {
-                        $mdDialog.hide(resp);
-                    };
-
-                    $scope.range = function(n) {
-                        return new Array(n);
-                    };
-                },
-                templateUrl : 'static/components-' + $stateParams.VERSION + '/projects/newproject.tmpl.html',
-                targetEvent : ev,
-                clickOutsideToClose : true
-            })
-            .then(
-                function(project) {
-                    if (project.fields) {
-                        project.fields = project.fields.map(function (field) {
-                            return { name : field, type : 'number' };
-                        });
-                    }
-
-                    var placeholder = {
-                        id : placeholderId++,
-                        name : project.name,
-                        type : project.type,
-                        fields : project.fields,
-                        isPlaceholder : true
-                    };
-                    vm.projects.push(placeholder);
-
-                    projectsService.createProject(project, vm.profile.user_id, vm.profile.tenant)
-                        .then(function (newproject) {
-                            placeholder.id = newproject.id;
-                            placeholder.labels = newproject.labels;
-                            placeholder.isPlaceholder = false;
-
-                            scrollToNewItem(newproject.id);
-                        })
-                        .catch(function (err) {
-                            displayAlert('errors', err.status, err.data);
-
-                            var idxToRemove = findProjectIndex(placeholder.id);
-                            if (idxToRemove !== -1) {
-                                vm.projects.splice(idxToRemove, 1);
-                            }
-                        });
-                },
-                function() {
-                    // cancelled. do nothing
-                }
-            );
-        };
-
-
         vm.deleteProject = function (ev, project) {
             var confirm = $mdDialog.confirm()
                 .title('Are you sure?')
@@ -179,15 +112,6 @@
                 }
             );
         };
-
-
-        function scrollToNewItem(itemId) {
-            $timeout(function () {
-                var newItem = document.getElementById(itemId);
-                $document.duScrollToElementAnimated(angular.element(newItem));
-            }, 0);
-        }
-
 
 
         function findProjectIndex(id) {

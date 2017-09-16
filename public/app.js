@@ -54,14 +54,20 @@
                     VERSION : <%= VERSION %>
                 }
             })
-            .state('projects', {
-                url: '/projects',
-                controller: 'ProjectsController',
-                templateUrl: 'static/components-<%= VERSION %>/projects/projects.html',
+            .state('newproject', {
+                url: '/newproject',
+                controller: 'NewProjectController',
+                templateUrl: 'static/components-<%= VERSION %>/newproject/newproject.html',
                 controllerAs: 'vm',
                 params: {
                     VERSION : <%= VERSION %>
                 }
+            })
+            .state('projects', {
+                url: '/projects',
+                controller: 'ProjectsController',
+                templateUrl: 'static/components-<%= VERSION %>/projects/projects.html',
+                controllerAs: 'vm'
             })
             .state('mlproject', {
                 url: '/mlproject/:projectId',
