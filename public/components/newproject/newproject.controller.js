@@ -47,11 +47,20 @@
 
         vm.isInvalid = function (type) {
             if (type === 'numbers') {
-                return vm.fields.length < 1 ||
-                       vm.fields.length > 10;
+                if (vm.fields.length < 1 || vm.fields.length > 10) {
+                    return true;
+                }
+                for (var i = 0; i < vm.fields.length; i++) {
+                    if (vm.fields[i].type === 'multichoice' &&
+                        vm.fields[i].choices.length === 0)
+                    {
+                        return true;
+                    }
+                }
             }
             return false;
         };
+
         vm.addFieldChoice = function (choice, field) {
             if (choice) {
                 var newChoice = choice.trim();
@@ -68,6 +77,10 @@
 
         vm.confirm = function (projectSpec) {
             vm.creating = true;
+
+            if (projectSpec.type !== 'numbers') {
+                delete projectSpec.fields;
+            }
 
             projectsService.createProject(projectSpec, vm.profile.user_id, vm.profile.tenant)
                 .then(function (newproject) {
