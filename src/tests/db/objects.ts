@@ -306,6 +306,21 @@ describe('DB objects', () => {
             assert.fail(1, 0, 'Failed to reject project', '');
         });
 
+        it('should prevent choices that start with numbers in numbers projects', (done) => {
+            try {
+                const field: Objects.NumbersProjectFieldSummary = {
+                    name : 'a', type : 'multichoice',
+                    choices : [ 'a', '1Boo' ],
+                };
+                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', [ field ]);
+            }
+            catch (err) {
+                assert.equal(err.message, 'Invalid choice value');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject project', '');
+        });
+
         it('should prevent commas in choices in multichoice fields in numbers projects', (done) => {
             try {
                 const field: Objects.NumbersProjectFieldSummary = {

@@ -22,7 +22,7 @@ export async function trainClassifier(
 
     try {
         // create a new classifier
-        const data = await fetchTraining(project.id);
+        const data = await fetchTraining(project);
         await submitTraining(project.classid, project.userid, project.id, data);
 
         status = 'Available';
@@ -58,15 +58,20 @@ export async function trainClassifier(
 
 export async function testClassifier(
     studentid: string, tenantid: string, projectid: string,
-    data: number[],
+    data: any[],
 ): Promise<TrainingObjects.Classification[]>
 {
+    const fieldsInfo = await store.getNumberProjectFields(studentid, tenantid, projectid);
+
     const req = {
         auth : {
             user : process.env.NUMBERS_SERVICE_USER,
             pass : process.env.NUMBERS_SERVICE_PASS,
         },
-        body : { tenantid, studentid, projectid, data },
+        body : {
+            tenantid, studentid, projectid,
+            data : prepareDataObject(fieldsInfo, data),
+        },
         json : true,
         gzip : true,
     };
@@ -151,19 +156,36 @@ async function submitTraining(
 }
 
 
+function prepareDataObject(
+    fields: Objects.NumbersProjectField[],
+    dataitems: number[],
+)
+{
+    const trainingObj: any = {};
+
+    fields.forEach((field, fieldPos) => {
+        const num = dataitems[fieldPos];
+        trainingObj[field.name] = num;
+    });
+
+    return trainingObj;
+}
 
 
 
-async function fetchTraining(projectid: string): Promise<any[][]> {
-    const count = await store.countTraining('numbers', projectid);
-    const training = await store.getNumberTraining(projectid, {
+
+async function fetchTraining(project: Objects.Project): Promise<any[][]> {
+    const count = await store.countTraining('numbers', project.id);
+    const training = await store.getNumberTraining(project.id, {
         start: 0, limit: count,
     });
+    const fieldsInfo = await store.getNumberProjectFields(project.userid, project.classid, project.id);
 
     return training.filter((item) => item.label)
                    .map((item) => {
-                       const data: any[] = item.numberdata;
-                       data.push(item.label);
-                       return data;
+                       return [
+                           prepareDataObject(fieldsInfo, item.numberdata),
+                           item.label,
+                       ];
                    });
 }

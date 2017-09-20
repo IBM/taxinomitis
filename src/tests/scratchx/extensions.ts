@@ -62,10 +62,12 @@ describe('Scratchx - status', () => {
                 userid : uuid(),
                 classid : uuid(),
                 labels : [ 'left', 'middle', 'right' ],
-                numfields : 4,
+                numfields : 6,
                 fields : [
                     { name : 'alpha', type : 'number' }, { name : 'beta', type : 'number' },
                     { name : 'gamma', type : 'number' }, { name : 'delta', type : 'number' },
+                    { name : 'omega', type : 'multichoice', choices : [ 'AAAA', 'BBBB', 'CCCC' ] },
+                    { name : 'dupey', type : 'multichoice', choices : [ 'new', 'BBBB', 'hiding' ] },
                 ],
             };
 
@@ -73,6 +75,7 @@ describe('Scratchx - status', () => {
 
             assert(extension.indexOf('/api/scratch/' + key.id + '/status') > 0);
             assert(extension.indexOf('/api/scratch/' + key.id + '/classify') > 0);
+
             assert(extension.indexOf('ext.return_label_0 = function () {') > 0);
             assert(extension.indexOf('ext.return_label_1 = function () {') > 0);
             assert(extension.indexOf('ext.return_label_2 = function () {') > 0);
@@ -80,13 +83,26 @@ describe('Scratchx - status', () => {
             assert(extension.indexOf('[ \'r\', \'left\', \'return_label_0\'],') > 0);
             assert(extension.indexOf('[ \'r\', \'middle\', \'return_label_1\'],') > 0);
             assert(extension.indexOf('[ \'r\', \'right\', \'return_label_2\'],') > 0);
+
+            assert(extension.indexOf('ext.return_choice_0 = function () {') > 0);
+            assert(extension.indexOf('ext.return_choice_1 = function () {') > 0);
+            assert(extension.indexOf('ext.return_choice_2 = function () {') > 0);
+            assert(extension.indexOf('ext.return_choice_3 = function () {') > 0);
+            assert(extension.indexOf('ext.return_choice_4 = function () {') > 0);
+            assert(extension.indexOf('ext.return_choice_5 = function () {') === -1);
+            assert(extension.indexOf('[ \'r\', \'AAAA\', \'return_choice_0\'],') > 0);
+            assert(extension.indexOf('[ \'r\', \'BBBB\', \'return_choice_1\'],') > 0);
+            assert(extension.indexOf('[ \'r\', \'CCCC\', \'return_choice_2\'],') > 0);
+            assert(extension.indexOf('[ \'r\', \'new\', \'return_choice_3\'],') > 0);
+            assert(extension.indexOf('[ \'r\', \'hiding\', \'return_choice_4\'],') > 0);
+
             assert(extension.indexOf(
                 '[ \'R\', ' +
-                '\'recognise numbers alpha %n beta %n gamma %n delta %n  (label)\', ' +
+                '\'recognise numbers alpha %n beta %n gamma %n delta %n omega %n dupey %n  (label)\', ' +
                 '\'numbers_classification_label\' ]') > 0);
             assert(extension.indexOf(
                 '[ \'R\', ' +
-                '\'recognise numbers alpha %n beta %n gamma %n delta %n  (confidence)\', ' +
+                '\'recognise numbers alpha %n beta %n gamma %n delta %n omega %n dupey %n  (confidence)\', ' +
                 '\'numbers_classification_confidence\' ]') > 0);
         });
     });

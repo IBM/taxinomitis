@@ -59,6 +59,16 @@ async function classifyImage(key: Types.ScratchKey, base64imagedata: string): Pr
 }
 
 
+/**
+ * Parses the provided string as a number if it can be.
+ *  If that fails (returns NaN), it returns the original string.
+ */
+function safeParseFloat(str: string): any {
+    const val = parseFloat(str);
+    return isNaN(val) ? str : val;
+}
+
+
 
 async function classifyNumbers(key: Types.ScratchKey, numbers: string[]): Promise<TrainingTypes.Classification[]> {
     if (!numbers || numbers.length === 0) {
@@ -74,11 +84,11 @@ async function classifyNumbers(key: Types.ScratchKey, numbers: string[]): Promis
             key.credentials.username,
             key.credentials.password,
             key.classifierid,
-            numbers.map(parseFloat));
+            numbers.map(safeParseFloat));
         return resp;
     }
     else {
-        // we don't have a Conversation workspace yet, so we resort to random
+        // we don't have a trained decision tree yet, so we resort to random
         return chooseLabelsAtRandom(project);
     }
 }

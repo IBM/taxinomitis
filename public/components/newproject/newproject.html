@@ -131,6 +131,7 @@
                             <label>add a choice</label>
                             <input class="newprojectfieldchoiceentry"
                                    ng-model="field.newfieldchoice"
+                                   ng-pattern="/^[^0-9\-\.][^,]*$/"
                                    ng-disabled="field.choices.length >= 4"
                                    ng-maxlength="8"
                                    ng-focus="vm.focused = 'newfieldchoice' + $parent.$index"

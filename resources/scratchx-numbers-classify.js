@@ -60,20 +60,7 @@
     }
 
 
-    function containsNonNumbers(ary) {
-        return ary.some(isNaN);
-    }
-    function asNumbers(ary) {
-        return ary.map(parseFloat);
-    }
-
-
-    function classifyNumbers(numberStrs, cacheKey, callback) {
-        var numbers = asNumbers(numberStrs);
-        if (containsNonNumbers(numbers)) {
-            return callback({ class_name : 'Only numbers can be recognised', confidence : 0 });
-        }
-
+    function classifyNumbers(numbers, cacheKey, callback) {
         $.ajax({
             url : '{{{ classifyurl }}}',
             dataType : 'jsonp',
@@ -110,13 +97,7 @@
     }
 
 
-    function storeNumbers(numberStrs, label, callback) {
-        var numbers = asNumbers(numberStrs);
-        if (containsNonNumbers(numbers)) {
-            console.log('Only numbers can be stored');
-            return callback();
-        }
-
+    function storeNumbers(numbers, label, callback) {
         $.ajax({
             url : '{{{ storeurl }}}',
             dataType : 'jsonp',
@@ -194,13 +175,25 @@
     };
     {{/labels}}
 
+    {{#choices}}
+    ext.return_choice_{{idx}} = function () {
+        return '{{name}}';
+    };
+    {{/choices}}
+
     var descriptor = {
         blocks : [
             [ 'R', 'recognise numbers {{#fields}}{{.}} %n {{/fields}} (label)', 'numbers_classification_label' ],
             [ 'R', 'recognise numbers {{#fields}}{{.}} %n {{/fields}} (confidence)', 'numbers_classification_confidence' ],
+
             {{#labels}}
             [ 'r', '{{name}}', 'return_label_{{idx}}'],
             {{/labels}}
+
+            {{#choices}}
+            [ 'r', '{{name}}', 'return_choice_{{idx}}'],
+            {{/choices}}
+
             [ 'w', 'add training data {{#fields}}{{.}} %n {{/fields}} %s', 'numbers_store', {{#fields}}10, {{/fields}} 'label' ]
         ]
     };

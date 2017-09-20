@@ -44,6 +44,15 @@
                 displayAlert('errors', err.status, err.data);
             });
 
+        var IS_VALID_CHOICE = /^[^0-9\-.,][^,]*$/;
+
+        function containsInvalidChoice(choices) {
+            return choices.some(function (choice) {
+                return (IS_VALID_CHOICE(choice) === false) ||
+                        choice.length > 8 ||
+                        choice.length < 1;
+            });
+        }
 
         vm.isInvalid = function (type) {
             if (type === 'numbers') {
@@ -51,10 +60,15 @@
                     return true;
                 }
                 for (var i = 0; i < vm.fields.length; i++) {
-                    if (vm.fields[i].type === 'multichoice' &&
-                        vm.fields[i].choices.length === 0)
+                    if (vm.fields[i].type === 'multichoice')
                     {
-                        return true;
+                        if (vm.fields[i].choices.length === 0) {
+                            return true;
+                        }
+
+                        if (containsInvalidChoice(vm.fields[i].choices)) {
+                            return true;
+                        }
                     }
                 }
             }

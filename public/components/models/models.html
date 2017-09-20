@@ -300,12 +300,19 @@
                    placeholder="URL for an image">
             <table ng-if="project.type === 'numbers'" style="margin-left: 2em; margin-bottom: 1em;">
                 <tr ng-repeat="field in project.fields">
-                    <td style="padding-right: 2em;">{{ field }}</td>
+                    <td style="padding-right: 2em;">{{ field.name }}</td>
                     <td>
                         <input type="text"
+                               ng-if="field.type === 'number'"
                                ng-pattern="/^-?[0-9]+(?:\.[0-9]*)?$/"
-                               ng-model="testformData[field]"
+                               ng-model="testformData[field.name]"
                                ng-required="true">
+                        <select ng-if="field.type === 'multichoice'"
+                                ng-model="testformData[field.name]"
+                                ng-init="testformData[field.name] = '0'">
+                            <option ng-repeat="choice in field.choices track by $index"
+                                    value="{{choice}}">{{choice}}</option>
+                        </select>
                     </td>
                 </tr>
             </table>

@@ -60,6 +60,14 @@
 
                 reviewTrainingData(values.labels);
                 $scope.status = getStatus();
+
+                if ($scope.project.type === 'numbers') {
+                    return projectsService.getFields($scope.projectId, vm.profile.user_id, vm.profile.tenant);
+                }
+            })
+            .then(function (fields) {
+                $scope.project.fields = fields;
+
                 $scope.loading = false;
             })
             .catch(function (err) {
@@ -203,8 +211,11 @@
                 testdata.image = $scope.testformData.testimageurl;
             }
             else if (project.type === 'numbers') {
-                testdata.numbers = project.fields.map(function (fieldname) {
-                    return parseFloat($scope.testformData[fieldname]);
+                testdata.numbers = project.fields.map(function (field) {
+                    if (field.type === 'number') {
+                        return parseFloat($scope.testformData[field.name]);
+                    }
+                    return $scope.testformData[field.name];
                 });
             }
 

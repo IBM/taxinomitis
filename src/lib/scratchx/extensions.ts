@@ -52,6 +52,17 @@ async function getImagesExtension(scratchkey: Types.ScratchKey, project: Types.P
 }
 
 async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string> {
+    const allChoices = [];
+    for (const field of project.fields) {
+        if (field.type === 'multichoice') {
+            for (const choice of field.choices) {
+                if (allChoices.indexOf(choice) === -1) {
+                    allChoices.push(choice);
+                }
+            }
+        }
+    }
+
     const template: string = await readFile('./resources/scratchx-numbers-classify.js');
     Mustache.parse(template);
     const rendered = Mustache.render(template, {
@@ -60,10 +71,16 @@ async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.
         storeurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/train',
 
         projectname : scratchkey.name,
+
         labels : project.labels.map((name, idx) => {
             return { name, idx };
         }),
+
         fields : project.fields.map((field) => field.name),
+
+        choices : allChoices.map((name, idx) => {
+            return { name, idx };
+        }),
     });
     return rendered;
 }

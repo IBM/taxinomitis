@@ -78,6 +78,9 @@ const MULTICHOICES_MIN_NUM_CHOICES = 2;
 const MULTICHOICES_MAX_NUM_CHOICES = 4;
 const MULTICHOICES_CHOICE_LABEL_MAXLENGTH = 8;
 
+const IS_VALID_CHOICE = /^[^0-9\-.,][^,]*$/;
+
+
 export function createNumberProjectField(
     userid: string, classid: string, projectid: string,
     fieldinfo: Objects.NumbersProjectFieldSummary,
@@ -113,12 +116,12 @@ export function createNumberProjectField(
             if (!choice ||
                 choice.trim().length === 0 ||
                 choice.trim().length > MULTICHOICES_CHOICE_LABEL_MAXLENGTH ||
-                choice.indexOf(',') !== -1)
+                IS_VALID_CHOICE.test(choice) === false)
             {
                 throw new Error('Invalid choice value');
             }
         }
-        choicesStr = fieldinfo.choices.join(',');
+        choicesStr = fieldinfo.choices.map((choice) => choice.trim() ).join(',');
     }
 
     return {

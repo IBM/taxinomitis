@@ -684,6 +684,7 @@ describe('REST API - scratch keys', () => {
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, [
                 { name : 'left', type : 'number' }, { name : 'right', type : 'number' },
+                { name : 'another', type : 'multichoice', choices : [ 'bing', 'bong', 'bang' ] },
             ]);
 
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'TOP');
@@ -694,7 +695,7 @@ describe('REST API - scratch keys', () => {
 
             return request(testServer)
                 .get('/api/scratch/' + keyId + '/train')
-                .query({ callback : callbackFunctionName, data : ['1', '2.2'], label : 'TOP' })
+                .query({ callback : callbackFunctionName, data : ['1', '2.2', 'bong' ], label : 'TOP' })
                 // this is a JSONP API
                 .expect('Content-Type', /javascript/)
                 .expect(httpstatus.OK)
@@ -704,7 +705,7 @@ describe('REST API - scratch keys', () => {
                     assert.equal(count, 1);
 
                     const retrieved = await store.getNumberTraining(project.id, { start : 0, limit : 10 });
-                    assert.deepEqual(retrieved[0].numberdata, [1, 2.2]);
+                    assert.deepEqual(retrieved[0].numberdata, [1, 2.2, 1]);
                     assert.equal(retrieved[0].label, 'TOP');
 
                     await store.deleteEntireProject(userid, TESTCLASS, project);
@@ -720,7 +721,7 @@ describe('REST API - scratch keys', () => {
                     const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
 
                     assert(payload.id);
-                    assert.deepEqual(payload.numberdata, [1, 2.2]);
+                    assert.deepEqual(payload.numberdata, [1, 2.2, 1]);
                     assert.equal(payload.label, 'TOP');
                     assert.equal(payload.projectid, project.id);
                 });
@@ -806,6 +807,47 @@ describe('REST API - scratch keys', () => {
                 });
         });
 
+
+
+        it('should require a valid choice when storing multi-choice fields using a Scratch key', async () => {
+            const userid = uuid();
+            const name = uuid();
+            const typelabel = 'numbers';
+
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, [
+                { name : 'a', type : 'number' },
+                { name : 'b', type : 'multichoice', choices : [ 'valid', 'good', 'okay' ] },
+            ]);
+
+            await store.addLabelToProject(userid, TESTCLASS, project.id, 'animal');
+
+            const keyId = await store.storeUntrainedScratchKey(project);
+
+            const callbackFunctionName = 'jsonpCallback';
+
+            return request(testServer)
+                .get('/api/scratch/' + keyId + '/train')
+                .query({ callback : callbackFunctionName, data : [123, 'invalid'], label : 'animal' })
+                // this is a JSONP API
+                .expect('Content-Type', /javascript/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then(async (res) => {
+
+                    await store.deleteEntireProject(userid, TESTCLASS, project);
+
+                    const text = res.text;
+
+                    const expectedStart = '/**/ typeof ' +
+                                          callbackFunctionName +
+                                          ' === \'function\' && ' +
+                                          callbackFunctionName + '(';
+
+                    assert(text.startsWith(expectedStart));
+                    const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
+
+                    assert.deepEqual(payload, { error : 'Invalid data' });
+                });
+        });
 
 
 
