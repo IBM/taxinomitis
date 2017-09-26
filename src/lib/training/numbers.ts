@@ -165,7 +165,12 @@ function prepareDataObject(
 
     fields.forEach((field, fieldPos) => {
         const num = dataitems[fieldPos];
-        trainingObj[field.name] = num;
+        if (field.type === 'multichoice' && field.choices[num]) {
+            trainingObj[field.name] = field.choices[num];
+        }
+        else {
+            trainingObj[field.name] = num;
+        }
     });
 
     return trainingObj;

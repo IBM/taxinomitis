@@ -36,7 +36,7 @@ CREATE TABLE numbersprojectsfields (
     projectid CHAR(36) NOT NULL,
     name VARCHAR(12) NOT NULL,
     fieldtype TINYINT NOT NULL,
-    choices VARCHAR(40)
+    choices VARCHAR(50)
 );
 
 CREATE INDEX numbersprojectsfields_getByProjectId on numbersprojectsfields(userid, classid, projectid) using HASH;

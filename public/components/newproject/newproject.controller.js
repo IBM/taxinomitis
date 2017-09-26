@@ -35,6 +35,11 @@
             });
         }
 
+        var MIN_CHOICE_LENGTH = 1;
+        var MAX_CHOICE_LENGTH = 9;
+        var MIN_NUM_CHOICES = 2;
+        var MAX_NUM_CHOICES = 5;
+
 
         authService.getProfileDeferred()
             .then(function (profile) {
@@ -48,9 +53,9 @@
 
         function containsInvalidChoice(choices) {
             return choices.some(function (choice) {
-                return (IS_VALID_CHOICE(choice) === false) ||
-                        choice.length > 8 ||
-                        choice.length < 1;
+                return (IS_VALID_CHOICE.test(choice) === false) ||
+                        choice.length > MAX_CHOICE_LENGTH ||
+                        choice.length < MIN_CHOICE_LENGTH;
             });
         }
 
@@ -62,7 +67,9 @@
                 for (var i = 0; i < vm.fields.length; i++) {
                     if (vm.fields[i].type === 'multichoice')
                     {
-                        if (vm.fields[i].choices.length === 0) {
+                        if (vm.fields[i].choices.length < MIN_NUM_CHOICES ||
+                            vm.fields[i].choices.length > MAX_NUM_CHOICES)
+                        {
                             return true;
                         }
 
@@ -79,7 +86,7 @@
             if (choice) {
                 var newChoice = choice.trim();
                 if (newChoice.length > 0 &&
-                    newChoice.length <= 8 &&
+                    newChoice.length <= MAX_CHOICE_LENGTH &&
                     field.choices.indexOf(newChoice) === -1)
                 {
                     field.choices.push(newChoice);

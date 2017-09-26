@@ -127,15 +127,15 @@
                                     aria-hidden="true"></span>
                         </div>
                         <!--  add a new choice -->
-                        <md-input-container class="newfieldentry" ng-if="field.type==='multichoice' && field.choices.length < 4">
+                        <md-input-container class="newfieldentry" ng-if="field.type==='multichoice' && field.choices.length < 5">
                             <label>add a choice</label>
                             <input class="newprojectfieldchoiceentry"
                                    ng-model="field.newfieldchoice"
                                    ng-pattern="/^[^0-9\-\.][^,]*$/"
-                                   ng-disabled="field.choices.length >= 4"
-                                   ng-maxlength="8"
+                                   ng-disabled="field.choices.length >= 5"
+                                   ng-maxlength="9"
                                    ng-focus="vm.focused = 'newfieldchoice' + $parent.$index"
-                                   ng-keyup="$event.keyCode === 13 && field.newfieldchoice.length <= 8 && [ vm.addFieldChoice(field.newfieldchoice, field), field.newfieldchoice = '' ]"></input>
+                                   ng-keyup="$event.keyCode === 13 && field.newfieldchoice.length <= 9 && [ vm.addFieldChoice(field.newfieldchoice, field), field.newfieldchoice = '' ]"></input>
                         </md-input-container>
                     </div>
                 </md-input-container>
@@ -162,7 +162,7 @@
                     Type in a choice to use in your multiple-choice list, then press Enter.
                 </div>
                 <div class="well newprojecthelp"
-                     ng-if="vm.focused === 'newfieldchoice' + $index && field.choices.length > 0 && field.choices.length < 4">
+                     ng-if="vm.focused === 'newfieldchoice' + $index && field.choices.length > 0 && field.choices.length < 5">
                     Type in another choice to use in your multiple-choice list, then press Enter.
                 </div>
 
