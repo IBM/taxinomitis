@@ -10,14 +10,12 @@ Code / engineering work
    NOTE: Tokens expire after 24 hours. Unlikely to be a problem in schools!
 * Delete entire project is actually calling taxinomitis-numbers during tests
 * Some sort of admin controls for me so I'm not SQL'ing in a prod DB
-* Compose dashboard supports MySQL backups - need to set a reminder to do this
 * Refactoring store.ts to remove duplicate code across text/images/numbers
 * Remove dupes from image training?
 * Plan for renewing the Let's Encrypt cert
 * drag/drop on IE is more broken than Safari. Damn you IE.
 * Handle Turkish characters (İ Ğ ģ ğ) in training data
 * Add Training Data is missing from Scratch page
-* Replace imgur with something that scales
 * Scratch is capturing images as 8 bits of color per pixel which visrec chokes on - use 24bpp
 * auth errors cant be displayed as they're inside isAuthenticated
 
