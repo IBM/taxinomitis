@@ -35,20 +35,20 @@
             <li>You can have up to <span class="mlprojecttype">{{ vm.policy.maxUsers }}</span> students in your group. </li>
             <li>Your students can create projects to recognise <span class="mlprojecttype">{{ vm.policy.supportedProjectTypes.join(' or ') }}</span>. </li>
             <li>Each of your students is allowed to have up to <span class="mlprojecttype">{{ vm.policy.maxProjectsPerUser }}</span> projects. </li>
-            <li>Your class is allowed to have up to
+            <li ng-if="vm.policy.supportedProjectTypes.indexOf('text') >= 0">Your class is allowed to have up to
                 <span class="mlprojecttype">{{ vm.policy.maxTextModels }}</span>
                 machine learning models in total across all their
                 <span class="mlprojecttype">text</span> projects.</li>
-            <li>Your class is allowed to have up to
+            <li ng-if="vm.policy.supportedProjectTypes.indexOf('images') >= 0">Your class is allowed to have up to
                 <span class="mlprojecttype">{{ vm.policy.maxImageModels }}</span>
                 machine learning models in total across all their
                 <span class="mlprojecttype">images</span> projects.</li>
-            <li>Machine learning models created for
+            <li ng-if="vm.policy.supportedProjectTypes.indexOf('text') >= 0">Machine learning models created for
                 <span class="mlprojecttype">text</span>
                 projects will automatically be deleted after
                 <span class="mlprojecttype">{{ vm.policy.textClassifierExpiry }}</span> hours.<br/>
                 <em>(Don't worry! Training data will not be deleted, so they can always train a new machine learning model again if they still need it after this.)</em></li>
-            <li>Machine learning models created for
+            <li ng-if="vm.policy.supportedProjectTypes.indexOf('images') >= 0">Machine learning models created for
                 <span class="mlprojecttype">images</span>
                 projects will automatically be deleted after
                 <span class="mlprojecttype">{{ vm.policy.imageClassifierExpiry }}</span> hours.<br/>
