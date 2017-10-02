@@ -12,12 +12,12 @@ Code / engineering work
 * Some sort of admin controls for me so I'm not SQL'ing in a prod DB
 * Refactoring store.ts to remove duplicate code across text/images/numbers
 * Remove dupes from image training?
-* Plan for renewing the Let's Encrypt cert
 * drag/drop on IE is more broken than Safari. Damn you IE.
 * Handle Turkish characters (İ Ğ ģ ğ) in training data
 * Add Training Data is missing from Scratch page
 * Scratch is capturing images as 8 bits of color per pixel which visrec chokes on - use 24bpp
 * auth errors cant be displayed as they're inside isAuthenticated
+* Deal with Auth0 changing shit. Again. FFS. 
 
 Longer term goals
 * Restore sprites library to scratch-flash
@@ -30,5 +30,3 @@ Worksheets
 * Movie titles (text) - classify by genre
 * Song lyrics - genre (text)
 * Pac Man (https://www.youtube.com/watch?v=ENP236BVzq0)
-* Drawing with pen - image recognition or maybe OCR
-* Fix Tourist Info bot so it uses the button and resets on it

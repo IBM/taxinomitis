@@ -112,6 +112,9 @@
                         scope: 'openid email app_metadata'
                     }
                 },
+                theme : {
+                    logo : 'static/images/mlforkids-logo.jpg'
+                },
 
                 // assuming school computers are shared so doing this would be bad
                 rememberLastLogin: false,
