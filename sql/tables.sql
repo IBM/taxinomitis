@@ -46,12 +46,13 @@ CREATE INDEX numbersprojectsfields_getByProjectId on numbersprojectsfields(useri
 CREATE TABLE texttraining (
     id CHAR(36) NOT NULL PRIMARY KEY,
     projectid CHAR(36) NOT NULL,
-    textdata VARCHAR(1024) NOT NULL,
+    textdata VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
     label VARCHAR(100)
 );
 
+-- we use utf-8 instead of the default Latin for this column so we can store accented characters
+
 CREATE INDEX texttraining_renameTextTraining on texttraining(projectid, label) using HASH;
-CREATE INDEX texttraining_getTextTraining on texttraining(projectid, label, textdata) using BTREE;
 CREATE INDEX texttraining_getTrainingLabels on texttraining(projectid) using HASH;
 
 

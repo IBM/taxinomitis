@@ -13,7 +13,6 @@ Code / engineering work
 * Refactoring store.ts to remove duplicate code across text/images/numbers
 * Remove dupes from image training?
 * drag/drop on IE is more broken than Safari. Damn you IE.
-* Handle Turkish characters (İ Ğ ģ ğ) in training data
 * Add Training Data is missing from Scratch page
 * Scratch is capturing images as 8 bits of color per pixel which visrec chokes on - use 24bpp
 * auth errors cant be displayed as they're inside isAuthenticated

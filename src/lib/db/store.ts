@@ -416,7 +416,6 @@ export async function storeTextTraining(
     // prepare the data that we want to store
     const obj = dbobjects.createTextTraining(projectid, data, label);
 
-
     //
     // prepare the queries so we have everything ready before we
     //  get a DB connection from the pool
@@ -510,7 +509,7 @@ export async function getTextTraining(
 {
     const queryString = 'SELECT `id`, `textdata`, `label` FROM `texttraining` ' +
                         'WHERE `projectid` = ? ' +
-                        'ORDER BY `label`, `textdata` ' +
+                        'ORDER BY `label`, `id` ' +
                         'LIMIT ? OFFSET ?';
 
     const rows = await dbExecute(queryString, [ projectid, options.limit, options.start ]);
