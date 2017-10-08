@@ -194,7 +194,7 @@
             [ 'r', '{{name}}', 'return_choice_{{idx}}'],
             {{/choices}}
 
-            [ 'w', 'add training data {{#fields}}{{.}} %n {{/fields}} %s', 'numbers_store', {{#fields}}10, {{/fields}} 'label' ]
+            [ 'w', 'add training data {{#fields}}{{.}} %s {{/fields}} %s', 'numbers_store', {{#fields}}10, {{/fields}} 'label' ]
         ]
     };
 
