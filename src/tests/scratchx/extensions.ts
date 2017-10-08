@@ -98,11 +98,11 @@ describe('Scratchx - status', () => {
 
             assert(extension.indexOf(
                 '[ \'R\', ' +
-                '\'recognise numbers alpha %n beta %n gamma %n delta %n omega %n dupey %n  (label)\', ' +
+                '\'recognise numbers alpha %n beta %n gamma %n delta %n omega %s dupey %s  (label)\', ' +
                 '\'numbers_classification_label\' ]') > 0);
             assert(extension.indexOf(
                 '[ \'R\', ' +
-                '\'recognise numbers alpha %n beta %n gamma %n delta %n omega %n dupey %n  (confidence)\', ' +
+                '\'recognise numbers alpha %n beta %n gamma %n delta %n omega %s dupey %s  (confidence)\', ' +
                 '\'numbers_classification_confidence\' ]') > 0);
         });
     });

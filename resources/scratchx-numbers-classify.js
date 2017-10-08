@@ -183,8 +183,8 @@
 
     var descriptor = {
         blocks : [
-            [ 'R', 'recognise numbers {{#fields}}{{.}} %n {{/fields}} (label)', 'numbers_classification_label' ],
-            [ 'R', 'recognise numbers {{#fields}}{{.}} %n {{/fields}} (confidence)', 'numbers_classification_confidence' ],
+            [ 'R', 'recognise numbers {{#fields}}{{name}} {{typeformat}} {{/fields}} (label)', 'numbers_classification_label' ],
+            [ 'R', 'recognise numbers {{#fields}}{{name}} {{typeformat}} {{/fields}} (confidence)', 'numbers_classification_confidence' ],
 
             {{#labels}}
             [ 'r', '{{name}}', 'return_label_{{idx}}'],
@@ -194,7 +194,7 @@
             [ 'r', '{{name}}', 'return_choice_{{idx}}'],
             {{/choices}}
 
-            [ 'w', 'add training data {{#fields}}{{.}} %s {{/fields}} %s', 'numbers_store', {{#fields}}10, {{/fields}} 'label' ]
+            [ 'w', 'add training data {{#fields}}{{name}} {{typeformat}} {{/fields}} %s', 'numbers_store', {{#fields}}10, {{/fields}} 'label' ]
         ]
     };
 

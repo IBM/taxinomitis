@@ -76,7 +76,12 @@ async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.
             return { name, idx };
         }),
 
-        fields : project.fields.map((field) => field.name),
+        fields : project.fields.map((field) => {
+            return {
+                name : field.name,
+                typeformat : field.type === 'number' ? '%n' : '%s',
+            };
+        }),
 
         choices : allChoices.map((name, idx) => {
             return { name, idx };
