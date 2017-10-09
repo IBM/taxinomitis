@@ -33,7 +33,13 @@
 .studentslistdetail {
     padding-left: 0.5em;
     padding-right: 0.5em;
-    font-size: 0.9em;
+}
+
+.studentslistdetail .listheading {
+    font-size: 0.7em;
+}
+.studentslistdetail .listmain {
+    font-size: 1.2em;
 }
 
 .studentslistactions {
@@ -56,9 +62,6 @@
 
 .credentialsinfo {
     margin-bottom: 4em;
-}
-.credsservicetype {
-    margin-left: 4em;
 }
 .credserror {
     text-align: center;

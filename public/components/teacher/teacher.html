@@ -101,7 +101,11 @@
         <h3>Watson API keys available to your group</h3>
         <div ng-if="vm.credentials.loading.visrec || vm.credentials.loading.conv" class="loading"> </div>
         <div ng-if="vm.credentials.loading.conv === false">
-            <h4 class="credsservicetype">Watson Conversation</h4>
+            <div>
+                Training machine learning models for <span class="mlprojecttype">text</span> projects uses
+                the <a class="mlprojecttype" href="https://www.ibm.com/watson/services/conversation/">Watson Conversation</a>
+                service.</a>
+            </div>
             <div ng-if="vm.credentials.failed.conv" class="credserror" >Failed to get your Conversation passwords</div>
             <div style="height: 60px;">
                 <div class="newlabelbutton" ng-click="vm.addCredentials($event, 'conv')">
@@ -111,8 +115,23 @@
             </div>
             <table ng-if="vm.credentials.conv && vm.credentials.conv.length > 0" class="studentslist">
                 <tr ng-repeat="creds in vm.credentials.conv" ng-class-even="'even'" ng-class-odd="'odd'">
-                    <td class="studentslistdetail">{{ creds.username }}</td>
-                    <td class="studentslistdetail">{{ creds.password }}</td>
+                    <td><img src="static/images/conversation.jpg" alt="Watson Conversation"></td>
+                    <td class="studentslistdetail">
+                        <div class="listheading">
+                            Username
+                        </div>
+                        <div class="listmain">
+                            {{ creds.username }}
+                        </div>
+                    </td>
+                    <td class="studentslistdetail">
+                        <div class="listheading">
+                            Password
+                        </div>
+                        <div class="listmain">
+                            {{ creds.password }}
+                        </div>
+                    </td>
                     <td class="studentslistactions">
                         <button class="btn" ng-click="vm.deleteCredentials($event, creds, 'conv')">Remove</button>
                     </td>
@@ -123,7 +142,11 @@
             </div>
         </div>
         <div ng-if="vm.credentials.loading.visrec === false">
-            <h4 class="credsservicetype">Watson Visual Recognition</h4>
+            <div>
+                Training machine learning models for <span class="mlprojecttype">images</span> projects uses
+                the <a class="mlprojecttype" href="https://www.ibm.com/watson/services/visual-recognition/">Watson Visual Recognition</a>
+                service.</a>
+            </div>
             <div ng-if="vm.credentials.failed.visrec" class="credserror" >Failed to get your Visual Recognition API keys</div>
             <div style="height: 60px;">
                 <div class="newlabelbutton" ng-click="vm.addCredentials($event, 'visrec')">
@@ -131,9 +154,18 @@
                     <div class="newlabellabel">Add new API key</div>
                 </div>
             </div>
+
             <table ng-if="vm.credentials.conv && vm.credentials.visrec.length > 0" class="studentslist">
                 <tr ng-repeat="creds in vm.credentials.visrec" ng-class-even="'even'" ng-class-odd="'odd'">
-                    <td class="studentslistdetail">{{ creds.apikey }}</td>
+                    <td><img src="static/images/visualrecognition.jpg" alt="Watson Visual Recognition"></td>
+                    <td class="studentslistdetail">
+                        <div class="listheading">
+                            API key
+                        </div>
+                        <div class="listmain">
+                            {{ creds.apikey }}
+                        </div>
+                    </td>
                     <td class="studentslistactions">
                         <button class="btn" ng-click="vm.deleteCredentials($event, creds, 'visrec')">Remove</button>
                     </td>
