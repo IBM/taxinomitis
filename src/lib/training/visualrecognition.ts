@@ -8,6 +8,7 @@ import * as store from '../db/store';
 import * as DbObjects from '../db/db-types';
 import * as TrainingObjects from './training-types';
 import * as downloadAndZip from '../utils/downloadAndZip';
+import * as notifications from '../notifications/slack';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -374,6 +375,7 @@ async function submitTrainingToVisualRecognition(
     }
     catch (err) {
         log.error({ url, req, err }, 'Failed to train classifier');
+        notifications.notify('Failed to train image classifier');
 
         // The full error object will include the classifier request with the
         //  URL and credentials we used for it. So we don't want to return
@@ -388,6 +390,34 @@ async function submitTrainingToVisualRecognition(
 }
 
 
+
+
+
+export async function getImageClassifiers(
+    credentials: TrainingObjects.BluemixCredentials,
+): Promise<TrainingObjects.ClassifierSummary[]>
+{
+    const req = {
+        qs : {
+            version : '2016-05-20',
+            api_key : credentials.username + credentials.password,
+        },
+        headers : {
+            'user-agent' : 'machinelearningforkids',
+        },
+        json : true,
+    };
+
+    const body = await request.get(credentials.url + '/v3/classifiers', req);
+    return body.classifiers.map((classifierinfo) => {
+        return {
+            id : classifierinfo.classifier_id,
+            name : classifierinfo.name,
+            type : 'visrec',
+            credentials,
+        };
+    });
+}
 
 
 

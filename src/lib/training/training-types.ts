@@ -109,3 +109,11 @@ export interface Classification {
 export interface File {
     readonly path: string;
 }
+
+
+export interface ClassifierSummary {
+    readonly id: string;
+    readonly name: string;
+    readonly credentials: BluemixCredentials;
+    readonly type: BluemixServiceType;
+}

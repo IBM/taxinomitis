@@ -9,6 +9,8 @@ import * as visualrec from './training/visualrecognition';
 import setupAPI from './restapi/api';
 import * as server from './restapi/server';
 import * as constants from './utils/constants';
+import * as credentials from './training/credentials';
+import * as notifications from './notifications/slack';
 import loggerSetup from './utils/logger';
 
 const log = loggerSetup();
@@ -51,4 +53,13 @@ if (cf.isPrimaryInstance()) {
                 visualrec.cleanupExpiredClassifiers();
             });
     }, constants.ONE_HOUR);
+
+    // prepare Slack API
+    notifications.init();
+
+    // check that the Bluemix credentials stored in
+    //   the tool are still valid
+    setInterval(() => {
+        credentials.checkBluemixCredentials();
+    }, constants.ONE_DAY_PLUS_A_BIT);
 }

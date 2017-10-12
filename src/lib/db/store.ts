@@ -787,6 +787,24 @@ export async function storeBluemixCredentials(
 }
 
 
+export async function getAllBluemixCredentials(
+    service: TrainingObjects.BluemixServiceType,
+): Promise<TrainingObjects.BluemixCredentials[]>
+{
+    const queryString = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password` ' +
+                        'FROM `bluemixcredentials` ' +
+                        'WHERE `servicetype` = ?';
+
+    const rows = await dbExecute(queryString, [ service ]);
+    if (rows.length === 0) {
+        log.error({ rows, func : 'getBluemixCredentials' }, 'Unexpected response from DB');
+        throw new Error('Unexpected response when retrieving service credentials');
+    }
+    return rows.map(dbobjects.getCredentialsFromDbRow);
+}
+
+
+
 export async function getBluemixCredentials(
     classid: string, service: TrainingObjects.BluemixServiceType,
 ): Promise<TrainingObjects.BluemixCredentials[]>

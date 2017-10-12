@@ -6,6 +6,7 @@ import * as uuid from 'uuid/v1';
 import * as store from '../db/store';
 import * as DbObjects from '../db/db-types';
 import * as TrainingObjects from './training-types';
+import * as notifications from '../notifications/slack';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -299,6 +300,7 @@ async function submitTrainingToConversation(
     }
     catch (err) {
         log.error({ req, err }, 'Failed to train workspace');
+        notifications.notify('Failed to train text classifier');
 
         // The full error object will include the Conversation request with the
         //  URL and credentials we used for it. So we don't want to return
@@ -361,6 +363,36 @@ function chooseLabelAtRandom(project: DbObjects.Project): TrainingObjects.Classi
 
 
 
+
+
+export async function getTextClassifiers(
+    credentials: TrainingObjects.BluemixCredentials,
+): Promise<TrainingObjects.ClassifierSummary[]>
+{
+    const req = {
+        auth : {
+            user : credentials.username,
+            pass : credentials.password,
+        },
+        headers : {
+            'user-agent' : 'machinelearningforkids',
+        },
+        qs : {
+            version : '2017-05-26',
+        },
+        json : true,
+    };
+
+    const body = await request.get(credentials.url + '/v1/workspaces', req);
+    return body.workspaces.map((workspaceinfo) => {
+        return {
+            id : workspaceinfo.workspace_id,
+            name : workspaceinfo.name,
+            type : 'conv',
+            credentials,
+        };
+    });
+}
 
 
 
