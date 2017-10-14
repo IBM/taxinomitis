@@ -142,7 +142,10 @@
                 if (options && options.url.substr(options.url.length - 5) == '.html') {
                     return null;
                 }
-                return localStorage.getItem('id_token');
+
+                // window.localStorageObj is created in auth.service.js
+                //  It will be localStorage if available, or a local in-memory shim otherwise
+                return window.localStorageObj.getItem('id_token');
             }],
             whiteListedDomains: ['localhost'],
             unauthenticatedRedirectPath: '/login'

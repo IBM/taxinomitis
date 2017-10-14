@@ -22,7 +22,7 @@
 
         confirmLocalStorage();
 
-        var userProfileStr = localStorage.getItem('profile');
+        var userProfileStr = window.localStorageObj.getItem('profile');
         var userProfile = null;
         if (userProfileStr) {
             userProfile = JSON.parse(userProfileStr);
@@ -30,7 +30,7 @@
         var deferredProfile = $q.defer();
 
         if (userProfile) {
-            var expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+            var expiresAt = JSON.parse(window.localStorageObj.getItem('expires_at'));
             var isAuth = (new Date().getTime() < expiresAt);
 
             if (isAuth) {
@@ -78,10 +78,10 @@
         function logout() {
             deferredProfile = $q.defer();
 
-            localStorage.removeItem('access_token');
-            localStorage.removeItem('id_token');
-            localStorage.removeItem('expires_at');
-            localStorage.removeItem('scopes');
+            window.localStorageObj.removeItem('access_token');
+            window.localStorageObj.removeItem('id_token');
+            window.localStorageObj.removeItem('expires_at');
+            window.localStorageObj.removeItem('scopes');
 
             authManager.unauthenticate();
 
@@ -96,16 +96,16 @@
 
             var scopes = authResult.scope || REQUESTED_SCOPES || '';
 
-            localStorage.setItem('access_token', authResult.accessToken);
-            localStorage.setItem('id_token', authResult.idToken);
-            localStorage.setItem('expires_at', expiresAt);
-            localStorage.setItem('scopes', JSON.stringify(scopes));
+            window.localStorageObj.setItem('access_token', authResult.accessToken);
+            window.localStorageObj.setItem('id_token', authResult.idToken);
+            window.localStorageObj.setItem('expires_at', expiresAt);
+            window.localStorageObj.setItem('scopes', JSON.stringify(scopes));
 
             authManager.authenticate();
         }
 
         function storeProfile(profile) {
-            localStorage.setItem('profile', JSON.stringify(profile));
+            window.localStorageObj.setItem('profile', JSON.stringify(profile));
             deferredProfile.resolve(profile);
 
             $rootScope.isTeacher = (profile.role === 'supervisor');
@@ -166,7 +166,7 @@
         function isAuthenticated() {
             // Check whether the current time is past the
             // access token's expiry time
-            var expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+            var expiresAt = JSON.parse(window.localStorageObj.getItem('expires_at'));
             var isAuth = (new Date().getTime() < expiresAt);
             if (!isAuth) {
                 logout();
@@ -176,24 +176,31 @@
 
 
 
+
         function confirmLocalStorage() {
+            // some browsers allow localStorage to be disabled
+            window.localStorageObj = window.localStorage || {};
+
             // Safari, in Private Browsing Mode, looks like it supports localStorage but all calls to setItem
             // throw QuotaExceededError. If it looks like localStorage isn't working, we use a local object
-            if (typeof localStorage === 'object') {
+            if (typeof window.localStorageObj === 'object') {
                 try {
-                    localStorage.setItem('confirmLocalStorage', 1);
-                    localStorage.removeItem('confirmLocalStorage');
+                    window.localStorageObj.setItem('confirmLocalStorage', 1);
+                    window.localStorageObj.removeItem('confirmLocalStorage');
                 }
                 catch (e) {
                     console.log(e);
                     console.log('Replacing local storage');
 
                     window._tempLocalStorage = {};
-                    localStorage.setItem = function (key, val) {
+                    window.localStorageObj.setItem = function (key, val) {
                         window._tempLocalStorage[key] = val;
                     };
-                    localStorage.getItem = function (key) {
+                    window.localStorageObj.getItem = function (key) {
                         return window._tempLocalStorage[key];
+                    };
+                    window.localStorageObj.removeItem = function (key) {
+                        delete window._tempLocalStorage[key];
                     };
                 }
             }
