@@ -12,12 +12,18 @@
 <div ng-if="isAuthenticated && vm.profile.role === 'supervisor'" class="adminpage">
     <div ng-if="!vm || !vm.students" class="loading"> </div>
 
-    <div ng-repeat="error in vm.errors" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
+    <div ng-repeat="error in vm.errors"
+         class="alert alert-danger alert-dismissible pageheadermsg" role="alert"
+         ng-click="vm.dismissAlert('errors', $index)"
+         id="errors{{error.alertid}}">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <strong>Error:</strong> {{ error.message }}<br/>
         <em ng-if="error.status >= 500">If this keeps happening, please <a ui-sref="help">let me know</a>.</em>
     </div>
-    <div ng-repeat="warning in vm.warnings" class="alert alert-warning alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('warnings', $index)">
+    <div ng-repeat="warning in vm.warnings"
+         class="alert alert-warning alert-dismissible pageheadermsg" role="alert"
+         ng-click="vm.dismissAlert('warnings', $index)"
+         id="warnings{{warning.alertid}}">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <strong>Warning:</strong> {{ warning.message }}
     </div>
@@ -87,8 +93,8 @@
                 <td class="studentslistdetail" ng-if="!student.isPlaceholder && student.last_login"> Last login: {{ student.last_login | date : 'EEEE, MMMM d, y  h:mm a' }}  </td>
                 <td class="studentslistdetail" ng-if="!student.isPlaceholder && !student.last_login"> Not logged in yet </td>
                 <td class="studentslistactions" ng-if="!student.isPlaceholder">
-                    <button class="btn" ng-click="vm.resetUserPassword($event, student)">Reset password</button>
-                    <button class="btn" ng-click="vm.deleteUser($event, student)">Delete student account</button>
+                    <button class="btn btn-default" ng-click="vm.resetUserPassword($event, student)">Reset password</button>
+                    <button class="btn btn-default" ng-click="vm.deleteUser($event, student)">Delete student account</button>
                 </td>
             </tr>
         </table>
@@ -133,7 +139,7 @@
                         </div>
                     </td>
                     <td class="studentslistactions">
-                        <button class="btn" ng-click="vm.deleteCredentials($event, creds, 'conv')">Remove</button>
+                        <button class="btn btn-default" ng-click="vm.deleteCredentials($event, creds, 'conv')">Remove</button>
                     </td>
                 </tr>
             </table>
@@ -167,7 +173,7 @@
                         </div>
                     </td>
                     <td class="studentslistactions">
-                        <button class="btn" ng-click="vm.deleteCredentials($event, creds, 'visrec')">Remove</button>
+                        <button class="btn btn-default" ng-click="vm.deleteCredentials($event, creds, 'visrec')">Remove</button>
                     </td>
                 </tr>
             </table>

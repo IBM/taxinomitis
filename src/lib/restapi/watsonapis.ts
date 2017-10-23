@@ -7,6 +7,8 @@ import * as auth from './auth';
 import * as store from '../db/store';
 import * as dbobjects from '../db/objects';
 import * as TrainingTypes from '../training/training-types';
+import * as conversation from '../training/conversation';
+import * as visualRecognition from '../training/visualrecognition';
 import * as headers from './headers';
 import * as errors from './errors';
 import loggerSetup from '../utils/logger';
@@ -99,6 +101,24 @@ async function addCredentials(req: Express.Request, res: Express.Response) {
     }
 
     try {
+        if (newCredentials.servicetype === 'conv') {
+            await conversation.getTextClassifiers(newCredentials);
+        }
+        else if (newCredentials.servicetype === 'visrec') {
+            await visualRecognition.getImageClassifiers(newCredentials);
+        }
+    }
+    catch (err) {
+        if (err.statusCode === httpstatus.UNAUTHORIZED ||
+            err.statusCode === httpstatus.FORBIDDEN)
+        {
+            return res.status(httpstatus.BAD_REQUEST).json({ error : 'Watson credentials could not be verified' });
+        }
+        log.error({ err }, 'Failed to validate credentials');
+        return errors.unknownError(res, err);
+    }
+
+    try {
         const credsObj = await store.storeBluemixCredentials(tenant, newCredentials);
         res.status(httpstatus.CREATED).json(
             credsObj.servicetype === 'visrec' ?
@@ -106,7 +126,7 @@ async function addCredentials(req: Express.Request, res: Express.Response) {
                 returnConversationCredentials(credsObj),
         );
     }
-    catch (err){
+    catch (err) {
         log.error({ err }, 'Failed to add credentials');
         errors.unknownError(res, err);
     }

@@ -7,10 +7,10 @@
     TeacherController.$inject = [
         'authService',
         'usersService',
-        '$stateParams', '$mdDialog', '$timeout'
+        '$stateParams', '$mdDialog', '$document', '$timeout'
     ];
 
-    function TeacherController(authService, usersService, $stateParams, $mdDialog, $timeout) {
+    function TeacherController(authService, usersService, $stateParams, $mdDialog, $document, $timeout) {
 
         var vm = this;
         vm.authService = authService;
@@ -24,11 +24,13 @@
             vm[type].splice(errIdx, 1);
         };
         function displayAlert(type, status, errObj) {
+            var newId = alertId++;
             vm[type].push({
-                alertid : alertId++,
+                alertid : newId,
                 message : errObj.message || errObj.error || 'Unknown error',
                 status : status
             });
+            return newId;
         }
 
 
@@ -195,7 +197,8 @@
                             vm.credentials[type].push(newcreds);
                         })
                         .catch(function (err) {
-                            displayAlert('errors', err.status, err.data);
+                            var errId = displayAlert('errors', err.status, err.data);
+                            scrollToNewItem('errors' + errId);
                         });
                 },
                 function() {
@@ -264,5 +267,13 @@
                     displayAlert('errors', err.status, err.data);
                 });
         };
+
+
+        function scrollToNewItem(itemId) {
+            $timeout(function () {
+                var newItem = document.getElementById(itemId);
+                $document.duScrollToElementAnimated(angular.element(newItem));
+            }, 0);
+        }
     }
 }());

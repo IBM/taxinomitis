@@ -383,15 +383,29 @@ export async function getTextClassifiers(
         json : true,
     };
 
-    const body = await request.get(credentials.url + '/v1/workspaces', req);
-    return body.workspaces.map((workspaceinfo) => {
-        return {
-            id : workspaceinfo.workspace_id,
-            name : workspaceinfo.name,
-            type : 'conv',
-            credentials,
-        };
-    });
+
+    try {
+        const body = await request.get(credentials.url + '/v1/workspaces', req);
+        return body.workspaces.map((workspaceinfo) => {
+            return {
+                id : workspaceinfo.workspace_id,
+                name : workspaceinfo.name,
+                type : 'conv',
+                credentials,
+            };
+        });
+    }
+    catch (err) {
+        if (err.response && err.response.body) {
+            if (!err.response.body.statusCode) {
+                err.response.body.statusCode = err.response.body.code;
+            }
+            throw err.response.body;
+        }
+        else {
+            throw err;
+        }
+    }
 }
 
 
