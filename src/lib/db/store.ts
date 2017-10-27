@@ -1322,6 +1322,26 @@ export async function deleteScratchKeysByProjectId(projectid: string): Promise<v
 //
 // -----------------------------------------------------------------------------
 
+// export async function storeClassTenant(classid: string): Promise<Objects.ClassTenant>
+// {
+//     const obj = dbobjects.createClassTenant(classid);
+
+//     const queryString = 'INSERT INTO `tenants` ' +
+//                         '(`id`, `projecttypes`, `ismanaged`, ' +
+//                          '`maxusers`, `maxprojectsperuser`, ' +
+//                          '`textclassifiersexpiry`, `imageclassifiersexpiry`) ' +
+//                         'VALUES (?, ?, ?, ?, ?, ?, ?)';
+
+//     const values = [
+//         obj.id, obj.projecttypes, obj.ismanaged,
+//         obj.maxusers, obj.maxprojectsperuser,
+//         obj.textclassifiersexpiry, obj.imageclassifiersexpiry,
+//     ];
+
+//     const response = await dbExecute()
+// }
+
+
 export async function getClassTenant(classid: string): Promise<Objects.ClassTenant> {
     const queryString = 'SELECT `id`, `projecttypes`, `maxusers`, ' +
                                '`maxprojectsperuser`, ' +
@@ -1336,12 +1356,12 @@ export async function getClassTenant(classid: string): Promise<Objects.ClassTena
 
         return {
             id : classid,
-            supportedProjectTypes : [ 'text', 'numbers' ],
-            isManaged : true,
-            maxUsers : 8,
-            maxProjectsPerUser : 3,
-            textClassifierExpiry : 2,
-            imageClassifierExpiry : 1,
+            supportedProjectTypes : [ 'text', 'images', 'numbers' ],
+            isManaged : false,
+            maxUsers : 15,
+            maxProjectsPerUser : 2,
+            textClassifierExpiry : 24,
+            imageClassifierExpiry : 24,
         };
     }
     return dbobjects.getClassFromDbRow(rows[0]);

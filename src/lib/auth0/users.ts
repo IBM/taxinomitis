@@ -3,16 +3,33 @@ import * as randomstring from 'randomstring';
 // local dependencies
 import * as auth0requests from './requests';
 import * as Objects from './auth-types';
-import loggerSetup from '../utils/logger';
-
-
-const log = loggerSetup();
 
 
 async function getBearerToken(): Promise<string> {
-    log.debug('getting a bearer token');
     const body = await auth0requests.getOauthToken();
     return body.access_token;
+}
+
+
+function verifyTenant(student: Objects.UserMetadata, tenant: string) {
+    if (student.tenant !== tenant) {
+        const invalidTenant: any = new Error('Invalid tenant');
+        invalidTenant.statusCode = 404;
+        invalidTenant.error = 'Not Found';
+        invalidTenant.message = 'Userid with this tenant not found';
+        invalidTenant.errorCode = 'inexistent_user';
+        throw invalidTenant;
+    }
+}
+function verifyRole(student: Objects.UserMetadata, role: Objects.UserRole) {
+    if (student.role !== role) {
+        const invalidUser: any = new Error('Invalid user role');
+        invalidUser.statusCode = 404;
+        invalidUser.error = 'Not Found';
+        invalidUser.message = 'User with the specified userid and role not found';
+        invalidUser.errorCode = 'inexistent_user';
+        throw invalidUser;
+    }
 }
 
 
@@ -23,15 +40,8 @@ export async function getStudent(tenant: string, userid: string): Promise<Object
         const response: Objects.User = await auth0requests.getUser(token, userid);
 
         const student = response.app_metadata;
-
-        if (student.tenant !== tenant) {
-            const invalidTenant: any = new Error('Invalid tenant');
-            invalidTenant.statusCode = 404;
-            invalidTenant.error = 'Not Found';
-            invalidTenant.message = 'Userid with this tenant not found';
-            invalidTenant.errorCode = 'inexistent_user';
-            throw invalidTenant;
-        }
+        verifyTenant(student, tenant);
+        verifyRole(student, 'student');
 
         return {
             id: response.user_id,
@@ -69,38 +79,51 @@ export async function getStudents(tenant: string): Promise<Objects.Student[]> {
 }
 
 
-export async function countStudents(tenant: string): Promise<number> {
+export async function countUsers(tenant: string): Promise<number> {
     const token = await getBearerToken();
-
-    const studentsInfo: Objects.UsersInfo = await auth0requests.getUserCounts(token, tenant);
-
-    return studentsInfo.total;
+    const usersCountsInfo: Objects.UsersInfo = await auth0requests.getUserCounts(token, tenant);
+    return usersCountsInfo.total;
 }
 
 
-export async function createStudent(tenant: string, username: string): Promise<Objects.UserCreds> {
-    const password = randomstring.generate({ length : 9, readable : true });
-
+async function createUser(newUserDetails: Objects.NewUser): Promise<Objects.UserCreds> {
     const token = await getBearerToken();
+    const user = await auth0requests.createUser(token, newUserDetails);
+    return {
+        id : user.user_id,
+        username : user.username,
+        password : newUserDetails.password,
+    };
+}
 
-    const newUserDetails: Objects.NewUser = {
+export function createStudent(tenant: string, username: string): Promise<Objects.UserCreds> {
+    return createUser({
         email : username + '@do-not-require-emailaddresses-for-students.com',
         username,
-        password,
+        password : randomstring.generate({ length : 9, readable : true }),
+        verify_email : false,
+        connection : process.env.AUTH0_CONNECTION,
         app_metadata : {
             role : 'student',
             tenant,
         },
-    };
-
-    const user = await auth0requests.createUser(token, newUserDetails);
-
-    return {
-        id : user.user_id,
-        username : user.username,
-        password,
-    };
+    });
 }
+
+export function createTeacher(tenant: string, username: string, email: string): Promise<Objects.UserCreds> {
+    return createUser({
+        email,
+        username,
+        password : randomstring.generate({ length : 12, readable : true }),
+        verify_email : true,
+        connection : process.env.AUTH0_CONNECTION,
+        app_metadata : {
+            role : 'supervisor',
+            tenant,
+        },
+    });
+}
+
 
 
 export async function deleteStudent(tenant: string, userid: string) {
@@ -110,6 +133,11 @@ export async function deleteStudent(tenant: string, userid: string) {
 
     const token = await getBearerToken();
 
+    return auth0requests.deleteUser(token, userid);
+}
+
+export async function deleteTeacher(tenant: string, userid: string) {
+    const token = await getBearerToken();
     return auth0requests.deleteUser(token, userid);
 }
 

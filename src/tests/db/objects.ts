@@ -700,4 +700,77 @@ describe('DB objects', () => {
             assert.equal(creds.password, 'THTBtUnNl5jT');
         });
     });
+
+
+
+    describe('createClassTenant', () => {
+
+        it('should require a class id', (done) => {
+            try {
+                dbobjects.createClassTenant(undefined);
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required class id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should require a long enough class id', (done) => {
+            try {
+                dbobjects.createClassTenant('x');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Not a valid class id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should require a short enough class id', (done) => {
+            try {
+                dbobjects.createClassTenant('abcdefghijklmnopqrstuvwxyzabcdefghijk');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Not a valid class id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should require lowercase class ids', (done) => {
+            try {
+                dbobjects.createClassTenant('HELLO');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Not a valid class id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should require only letters in class ids', (done) => {
+            try {
+                dbobjects.createClassTenant('hello world');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Not a valid class id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should require a valid class id', () => {
+            const created = dbobjects.createClassTenant('testing');
+            assert.deepStrictEqual(created, {
+                id : 'testing',
+                projecttypes : 'text,images,numbers',
+                ismanaged : 0,
+                maxusers : 15,
+                maxprojectsperuser : 2,
+                textclassifiersexpiry : 24,
+                imageclassifiersexpiry : 24,
+            });
+        });
+    });
 });

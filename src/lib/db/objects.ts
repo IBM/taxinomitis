@@ -576,6 +576,31 @@ export function getScratchKeyFromDbRow(row: Objects.ScratchKeyDbRow): Objects.Sc
 //
 // -----------------------------------------------------------------------------
 
+const VALID_CLASSID = /^[a-z]{4,36}$/;
+
+export function createClassTenant(
+    classid: string,
+): Objects.ClassDbRow
+{
+    if (!classid) {
+        throw new Error('Missing required class id');
+    }
+    if (VALID_CLASSID.test(classid) === false) {
+        throw new Error('Not a valid class id');
+    }
+
+    return {
+        id : classid,
+        projecttypes : 'text,images,numbers',
+        ismanaged : 0,
+        maxusers : 15,
+        maxprojectsperuser : 2,
+        textclassifiersexpiry : 24,
+        imageclassifiersexpiry : 24,
+    };
+}
+
+
 export function getClassFromDbRow(row: Objects.ClassDbRow): Objects.ClassTenant {
     return {
         id : row.id,

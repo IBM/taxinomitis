@@ -9,6 +9,9 @@ import * as request from 'supertest';
 import * as httpstatus from 'http-status';
 import * as randomstring from 'randomstring';
 
+import * as conversation from '../../lib/training/conversation';
+import * as visualrecognition from '../../lib/training/visualrecognition';
+import * as TrainingTypes from '../../lib/training/training-types';
 import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
 import testapiserver from './testserver';
@@ -23,8 +26,15 @@ describe('REST API - Bluemix credentials', () => {
     let requireSupervisorStub;
     // let ensureUnmanagedStub;
     let getClassStub;
+    let getTextClassifiersStub;
+    let getImageClassifiersStub;
 
     function authNoOp(req, res, next) { next(); }
+
+
+    const VALID_USERNAME = randomstring.generate({ length : 36 });
+    const VALID_PASSWORD = randomstring.generate({ length : 12 });
+    const VALID_APIKEY = randomstring.generate({ length : 40 });
 
 
     before(async () => {
@@ -49,6 +59,28 @@ describe('REST API - Bluemix credentials', () => {
         });
         proxyquire('../../lib/restapi/auth', { '../db/store' : { getClassTenant : getClassStub } });
 
+
+        getTextClassifiersStub = sinon
+            .stub(conversation, 'getTextClassifiers')
+            .callsFake((creds: TrainingTypes.BluemixCredentials) => {
+                if (creds.username === VALID_USERNAME && creds.password === VALID_PASSWORD) {
+                    return Promise.resolve();
+                }
+                return Promise.reject({
+                    statusCode : 401,
+                });
+            });
+        getImageClassifiersStub = sinon
+            .stub(visualrecognition, 'getImageClassifiers')
+            .callsFake((creds: TrainingTypes.BluemixCredentials) => {
+                if (creds.username + creds.password === VALID_APIKEY) {
+                    return Promise.resolve();
+                }
+                return Promise.reject({
+                    statusCode : 403,
+                });
+            });
+
         await store.init();
 
         testServer = testapiserver();
@@ -59,6 +91,8 @@ describe('REST API - Bluemix credentials', () => {
         checkUserStub.restore();
         requireSupervisorStub.restore();
         getClassStub.restore();
+        getTextClassifiersStub.restore();
+        getImageClassifiersStub.restore();
 
         return store.disconnect();
     });
@@ -134,8 +168,6 @@ describe('REST API - Bluemix credentials', () => {
 
         it('should prevent deleting credentials from other tenants', () => {
             const classid = 'TESTTENANT';
-            const username = randomstring.generate({ length : 36 });
-            const password = randomstring.generate({ length : 12 });
 
             let credsid;
 
@@ -143,7 +175,8 @@ describe('REST API - Bluemix credentials', () => {
                 .post('/api/classes/' + classid + '/credentials')
                 .send({
                     servicetype : 'conv',
-                    username, password,
+                    username : VALID_USERNAME,
+                    password : VALID_PASSWORD,
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED)
@@ -206,12 +239,10 @@ describe('REST API - Bluemix credentials', () => {
         });
 
 
-        it('should create and delete conv credentials', () => {
+        it('should test Watson credentials', () => {
             const classid = 'TESTTENANT';
             const username = randomstring.generate({ length : 36 });
             const password = randomstring.generate({ length : 12 });
-
-            let credsid;
 
             return request(testServer)
                 .post('/api/classes/' + classid + '/credentials')
@@ -220,14 +251,35 @@ describe('REST API - Bluemix credentials', () => {
                     username, password,
                 })
                 .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    const body = res.body;
+                    assert.equal(body.error, 'Watson credentials could not be verified');
+                });
+        });
+
+
+        it('should create and delete conv credentials', () => {
+            const classid = 'TESTTENANT';
+
+            let credsid;
+
+            return request(testServer)
+                .post('/api/classes/' + classid + '/credentials')
+                .send({
+                    servicetype : 'conv',
+                    username : VALID_USERNAME,
+                    password : VALID_PASSWORD,
+                })
+                .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED)
                 .then((res) => {
                     const body = res.body;
                     assert(body.id);
                     credsid = body.id;
 
-                    assert.equal(body.username, username);
-                    assert.equal(body.password, password);
+                    assert.equal(body.username, VALID_USERNAME);
+                    assert.equal(body.password, VALID_PASSWORD);
 
                     return request(testServer)
                         .get('/api/classes/' + classid + '/credentials?servicetype=conv')
@@ -239,8 +291,8 @@ describe('REST API - Bluemix credentials', () => {
                     assert.equal(body.length, 1);
 
                     assert.equal(body[0].id, credsid);
-                    assert.equal(body[0].username, username);
-                    assert.equal(body[0].password, password);
+                    assert.equal(body[0].username, VALID_USERNAME);
+                    assert.equal(body[0].password, VALID_PASSWORD);
 
                     return request(testServer)
                         .delete('/api/classes/' + classid + '/credentials/' + credsid)
@@ -261,7 +313,6 @@ describe('REST API - Bluemix credentials', () => {
 
         it('should create and delete visrec credentials', () => {
             const classid = 'TESTTENANT';
-            const apikey = randomstring.generate({ length : 40 });
 
             let credsid;
 
@@ -269,7 +320,7 @@ describe('REST API - Bluemix credentials', () => {
                 .post('/api/classes/' + classid + '/credentials')
                 .send({
                     servicetype : 'visrec',
-                    apikey,
+                    apikey : VALID_APIKEY,
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED)
@@ -278,7 +329,7 @@ describe('REST API - Bluemix credentials', () => {
                     assert(body.id);
                     credsid = body.id;
 
-                    assert.equal(body.apikey, apikey);
+                    assert.equal(body.apikey, VALID_APIKEY);
 
                     return request(testServer)
                         .get('/api/classes/' + classid + '/credentials?servicetype=visrec')
@@ -290,7 +341,7 @@ describe('REST API - Bluemix credentials', () => {
                     assert.equal(body.length, 1);
 
                     assert.equal(body[0].id, credsid);
-                    assert.equal(body[0].apikey, apikey);
+                    assert.equal(body[0].apikey, VALID_APIKEY);
 
                     return request(testServer)
                         .delete('/api/classes/' + classid + '/credentials/' + credsid)

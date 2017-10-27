@@ -88,7 +88,7 @@ describe('auth0 users', () => {
                 './requests' : stubs,
             });
 
-            return users.countStudents(TESTTENANT)
+            return users.countUsers(TESTTENANT)
                 .then((count) => {
                     assert.equal(count, 5);
 
@@ -98,10 +98,47 @@ describe('auth0 users', () => {
     });
 
 
+    describe('getStudent()', () => {
+
+        it('should check the tenant is correct', async () => {
+            const newStudent = await users.createStudent(TESTTENANT, '104' + randomstring.generate({ length : 6 }));
+            assert(newStudent.password);
+            try {
+                await users.getStudent('DIFFERENT', newStudent.id);
+                assert.fail(1, 0, 'Failed to check student', '');
+            }
+            catch (err) {
+                assert.equal(err.error, 'Not Found');
+                assert.equal(err.statusCode, 404);
+                assert.equal(err.errorCode, 'inexistent_user');
+                assert.equal(err.message, 'Userid with this tenant not found');
+            }
+            await users.deleteStudent(TESTTENANT, newStudent.id);
+        });
+
+        it('should check the role is correct', async () => {
+            const username = '120' + randomstring.generate({ length : 6 });
+            const email = username + '@unittests.com';
+            const newTeacher = await users.createTeacher(TESTTENANT, username, email);
+            assert(newTeacher.password);
+            try {
+                await users.getStudent(TESTTENANT, newTeacher.id);
+                assert.fail(1, 0, 'Failed to check teacher role', '');
+            }
+            catch (err) {
+                assert.equal(err.error, 'Not Found');
+                assert.equal(err.statusCode, 404);
+                assert.equal(err.errorCode, 'inexistent_user');
+                assert.equal(err.message, 'User with the specified userid and role not found');
+            }
+            await users.deleteTeacher(TESTTENANT, newTeacher.id);
+        });
+    });
+
     describe('createStudent()', () => {
 
         it('should create a student', async () => {
-            const newStudent = await users.createStudent(TESTTENANT, '104' + randomstring.generate({ length : 6 }));
+            const newStudent = await users.createStudent(TESTTENANT, '141' + randomstring.generate({ length : 6 }));
             assert(newStudent.password);
             const retrieved = await users.getStudent(TESTTENANT, newStudent.id);
             assert.equal(retrieved.username, newStudent.username);
@@ -125,18 +162,18 @@ describe('auth0 users', () => {
             });
         }
 
-        it('should increase the number of students', async () => {
-            const before = await users.countStudents(TESTTENANT);
+        it.skip('should increase the number of students', async () => {
+            const before = await users.countUsers(TESTTENANT);
 
-            const newStudent = await users.createStudent(TESTTENANT, '131' + randomstring.generate({ length : 6 }));
+            const newStudent = await users.createStudent(TESTTENANT, '168' + randomstring.generate({ length : 6 }));
             await pause();
 
-            const after = await users.countStudents(TESTTENANT);
+            const after = await users.countUsers(TESTTENANT);
 
             await users.deleteStudent(TESTTENANT, newStudent.id);
             await pause();
 
-            const final = await users.countStudents(TESTTENANT);
+            const final = await users.countUsers(TESTTENANT);
 
             assert.equal(after, before + 1);
             assert.equal(final, before);
@@ -144,7 +181,7 @@ describe('auth0 users', () => {
 
 
         it('should reset password', async () => {
-            const newStudent = await users.createStudent(TESTTENANT, '147' + randomstring.generate({ length : 6 }));
+            const newStudent = await users.createStudent(TESTTENANT, '184' + randomstring.generate({ length : 6 }));
             assert(newStudent.password);
 
             const modified = await users.resetStudentPassword(TESTTENANT, newStudent.id);

@@ -19,13 +19,13 @@ export interface NewUser {
     username: string;
     password: string;
     app_metadata: UserMetadata;
-    connection?: string;
-    verify_email?: boolean;
+    connection: string;
+    verify_email: boolean;
 }
 
 export type UserRole = 'student' | 'supervisor';
 
-interface UserMetadata {
+export interface UserMetadata {
     role: UserRole;
     tenant: string;
 }
