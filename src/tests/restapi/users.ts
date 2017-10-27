@@ -82,12 +82,12 @@ describe('REST API - users', () => {
                     assert.deepEqual(body, {
                         maxTextModels : 0,
                         maxImageModels : 0,
-                        maxUsers: 8,
-                        supportedProjectTypes: [ 'text', 'numbers' ],
-                        isManaged : true,
-                        maxProjectsPerUser: 3,
-                        textClassifierExpiry: 2,
-                        imageClassifierExpiry : 1,
+                        maxUsers: 15,
+                        supportedProjectTypes: [ 'text', 'images', 'numbers' ],
+                        isManaged : false,
+                        maxProjectsPerUser: 2,
+                        textClassifierExpiry: 24,
+                        imageClassifierExpiry : 24,
                         textTrainingItemsPerProject : 500,
                         numberTrainingItemsPerProject : 1000,
                         imageTrainingItemsPerProject : 200,
@@ -257,7 +257,7 @@ describe('REST API - users', () => {
             const stubs = {
                 getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
                 createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
-                getUserCounts : sinon.stub(auth0, 'getUserCounts').resolves({ total : 8 }),
+                getUserCounts : sinon.stub(auth0, 'getUserCounts').resolves({ total : 15 }),
             };
 
             proxyquire('../../lib/auth0/users', {

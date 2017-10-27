@@ -7,6 +7,11 @@ import * as fileType from 'file-type';
 import * as readChunk from 'read-chunk';
 import * as tmp from 'tmp';
 import * as async from 'async';
+import loggerSetup from '../utils/logger';
+
+const log = loggerSetup();
+
+
 
 type IFileTypeCallback = (err: Error, filetype?: string) => void;
 type IErrCallback = (err: Error) => void;
@@ -34,7 +39,7 @@ export function verifyImage(url: string): Promise<void> {
                 });
             },
             (fileTypeExt, tmpFilePath, next) => {
-                fs.unlink(tmpFilePath);
+                fs.unlink(tmpFilePath, logError);
                 next(null, fileTypeExt);
             },
         ], (err, fileTypeExt: string) => {
@@ -87,3 +92,6 @@ function download(url: string, targetFilePath: string, callback: IErrCallback): 
 }
 
 
+function logError(err: NodeJS.ErrnoException) {
+    log.error({ err }, 'Core error');
+}

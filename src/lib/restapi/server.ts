@@ -27,8 +27,10 @@ export function setupForBluemix(app: express.Application): void {
         //  the auth-callbacks won't support use of www
         app.get('/*', (req, res, next) => {
             if (req.hostname.startsWith('www.')){
+                const host: string = req.headers.host as string;
+
                 res.redirect(httpstatus.MOVED_PERMANENTLY,
-                            'https://' + req.headers.host.substr(4) + req.url);
+                            'https://' + host.substr(4) + req.url);
             }
             else {
                 next();

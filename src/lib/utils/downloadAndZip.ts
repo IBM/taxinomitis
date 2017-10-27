@@ -52,7 +52,7 @@ function renameFileFromContents(filepath: string, sourceurl: string, callback: I
             if (filetype === 'jpg' || filetype === 'png') {
                 return next(null, filetype);
             }
-            fs.unlink(filepath);
+            fs.unlink(filepath, logError);
             next(new Error('Training data (' + sourceurl + ') has unsupported file type (' + filetype + ')'));
         },
         (filetype, next) => {
@@ -64,6 +64,9 @@ function renameFileFromContents(filepath: string, sourceurl: string, callback: I
     ], callback);
 }
 
+function logError(err: NodeJS.ErrnoException) {
+    log.error({ err }, 'Core error');
+}
 
 /**
  * Downloads a file from the specified URL to the specified location on disk.

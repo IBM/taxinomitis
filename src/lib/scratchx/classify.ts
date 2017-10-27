@@ -10,7 +10,9 @@ import * as numberService from '../training/numbers';
 import * as Types from '../db/db-types';
 import * as TrainingTypes from '../training/training-types';
 import * as base64decode from '../utils/base64decode';
+import loggerSetup from '../utils/logger';
 
+const log = loggerSetup();
 
 
 
@@ -48,7 +50,7 @@ async function classifyImage(key: Types.ScratchKey, base64imagedata: string): Pr
     if (key.classifierid && key.credentials) {
         const imagefile = await base64decode.run(base64imagedata);
         const resp = await visualrecog.testClassifierFile(key.credentials, key.classifierid, key.projectid, imagefile);
-        fs.unlink(imagefile);
+        fs.unlink(imagefile, logError);
         return resp;
     }
     else {
@@ -58,6 +60,9 @@ async function classifyImage(key: Types.ScratchKey, base64imagedata: string): Pr
     }
 }
 
+function logError(err: NodeJS.ErrnoException) {
+    log.error({ err }, 'Core error');
+}
 
 /**
  * Parses the provided string as a number if it can be.
