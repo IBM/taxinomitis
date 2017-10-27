@@ -29,6 +29,15 @@
                     VERSION : <%= VERSION %>
                 }
             })
+            .state('signup', {
+                url: '/signup',
+                controller: 'SignupController',
+                templateUrl: 'static/components-<%= VERSION %>/signup/signup.html',
+                controllerAs: 'vm',
+                params: {
+                    VERSION : <%= VERSION %>
+                }
+            })
             .state('about', {
                 url: '/about',
                 templateUrl: 'static/components-<%= VERSION %>/about/about.html'

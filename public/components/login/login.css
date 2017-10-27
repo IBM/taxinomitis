@@ -14,8 +14,42 @@
 }
 
 .loginPage {
-    max-width: 600px;
+    width: 90%;
     background-color: #f5f5f5;
     margin-left: auto;
     margin-right: auto;
 }
+
+.loginPage .nav-tabs {
+    display: flex;
+}
+.loginPage .nav-tabs li {
+    display: flex;
+    flex: 1;
+}
+
+.loginPage .nav-tabs li  a {
+    flex: 1;
+}
+
+.loginTypes {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.loginType {
+    border: thin #2e6da4 solid;
+    margin: 1em;
+    padding: 1em;
+    flex: 1;
+    min-width: 300px;
+}
+
+.loginType h5 {
+    text-align: center;
+    background-color: #d0d0d0;
+    padding: 0.8em;
+}
+
+
