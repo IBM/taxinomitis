@@ -18,6 +18,18 @@
                 });
         }
 
+        function createTeacher(username, email, notes) {
+            var newteacher = {
+                username : username,
+                email : email,
+                notes : notes
+            };
+
+            return $http.post('/api/teachers', newteacher)
+                .then(function (resp) {
+                    return resp.data;
+                });
+        }
 
         function getStudentList(profile) {
             return $http.get('/api/classes/' + profile.tenant + '/students')
@@ -68,6 +80,8 @@
 
 
         return {
+            createTeacher : createTeacher,
+
             addCredentials : addCredentials,
             getCredentials : getCredentials,
             deleteCredentials : deleteCredentials,

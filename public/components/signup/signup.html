@@ -1,22 +1,152 @@
 <div class="jumbotron">
-    <h2 class="text-center">Create a new class account</h2>
+    <h2 class="text-center">Create an unmanaged class account</h2>
 </div>
 <div ng-if="isAuthenticated" class="alert alert-info pageheadermsg">
     <strong>Info: </strong> Already logged in
 </div>
 
-<div ng-repeat="error in vm.errors" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
+<div ng-repeat="error in vm.errors" 
+    id="errors{{error.alertid}}"
+    class="alert alert-danger alert-dismissible pageheadermsg" role="alert" 
+    ng-click="vm.dismissAlert('errors', $index)">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <strong>Error:</strong> {{ error.message }}
 </div>
-<div ng-repeat="info in vm.infos" class="alert alert-info alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('info', $index)">
+<div ng-repeat="info in vm.infos" 
+    id="infos{{info.alertid}}"
+    class="alert alert-info alert-dismissible pageheadermsg" role="alert" 
+    ng-click="vm.dismissAlert('infos', $index)">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <strong>Info:</strong> {{ info.message }}
 </div>
 
 <div ng-if="!isAuthenticated" class="signupPage">
 
+    <form ng-cloak name="newClass" class="signupForm">
+
+        <div class="newprojectrow">
+            <md-input-container class="newprojectform">
+                <label>Username</label>
+                <input md-autofocus
+                        type="text"
+                        md-autofocus
+                        ng-required="true"
+                        ng-pattern="/^[\w.\-_]+$/"
+                        ng-disabled="vm.complete || vm.creating"
+                        ng-model="username"
+                        ng-focus="vm.focused = 'username'"
+                        md-maxlength="15"
+                        class="signuptextentry"/>
+            </md-input-container>
+            <div class="well newprojecthelp" ng-if="vm.focused === 'username'">
+                We need a unique username to identify you.
+            </div>
+        </div>
+
+        <div class="newprojectrow">
+            <md-input-container class="newprojectform">
+                <label>Email address</label>
+                <input type="email"
+                       ng-disabled="vm.complete || vm.creating"
+                       ng-required="true"
+                       ng-model="email"
+                       ng-focus="vm.focused = 'email'"
+                       class="signuptextentry"/>
+            </md-input-container>
+            <div class="well newprojecthelp" ng-if="vm.focused === 'email'">
+                <div style="margin-bottom: 1em">
+                    <strong>This will need to be verified before you'll be able to log in.</strong>
+                </div>
+                <div style="margin-bottom: 1em">
+                    I won't spam you - honest! But I need a way to get in touch if there are any problems. It's also useful to be able to reset your password if you forget it.
+                </div>
+                <div>
+                    The students in your group won't need to provide email addresses. I just need one contact per class.
+                </div>
+            </div>
+        </div>
 
 
+        <div class="newprojectrow">
+            <md-input-container class="newprojectform">
+                <label>Intended use</label>
+                <input md-autofocus
+                        type="text"
+                        ng-disabled="vm.complete || vm.creating"
+                        ng-required="false"
+                        ng-model="intendeduse"
+                        ng-maxlength="1000"
+                        ng-focus="vm.focused = 'intendeduse'"
+                        class="signuptextentry"/>
+            </md-input-container>
+            <div class="well newprojecthelp" ng-if="vm.focused === 'intendeduse'">
+                <div style="margin-bottom: 1em">
+                    I'd love to know a little about how this tool is being used, so if you don't mind sharing
+                    how you think you might use this, I'd appreciate it.
+                </div>
+                <div>
+                    Is it for a school lesson? After-school group? Coding club? Something else?
+                </div>
+            </div>
+        </div>
 
+        <div class="newprojectrow">
+            <md-input-container class="newprojectform">
+                <md-checkbox
+                    ng-model="terms"
+                    ng-disabled="vm.complete || vm.creating"
+                    ng-focus="vm.focused = 'terms'">
+                    By checking this box, you accept responsibility for any fees or charges incurred on IBM Bluemix.
+                </md-checkbox>
+            </md-input-container>
+            <div class="well newprojecthelp" ng-if="vm.focused === 'terms'">
+                Please read the notes below. If you're concerned about any of this, or have any questions, please
+                <a ui-sref="help">get in touch</a>.
+            </div>
+        </div>
+
+        <div class="well terms">
+            <div style="margin-bottom: 1em">
+                <strong>Setting up this tool to allow your students to train machine learning models will require
+                some codes (called "API keys") from IBM Bluemix. </strong>
+            </div>
+            <div>"Do I have to pay for that?"</div>
+            <ul>
+                <li>No.</li>
+                <li>Creating an account on IBM Bluemix is free</li>
+                <li>You do not need to provide a credit card to create an account</li>
+                <li>You do not need to provide a credit card to create the Watson API keys you will need</li>
+                <li>Watson API keys you can create for free have usage limits. You can choose to pay only if you want to increase these limits. It is these charges that are your responsibility.</li>
+                <li>An advisory price list is <a href="https://github.com/dalelane/ml-for-kids/raw/master/doc/machinelearningforkids-pricing.pdf">available for download</a>. While correct at the time of writing, it cannot be guaranteed to be correct. The only official price list is what is quoted in the IBM Bluemix Catalog itself. </li>
+            </ul>
+            <div>"Will my students need to do this?"</div>
+            <ul>
+                <li>No.</li>
+                <li>This is a one-off setup task that you will need to do as the teacher / group-leader. </li>
+                <li>Students in your group will not need to create an account with, or visit, IBM Bluemix.</li>
+            </ul>
+            <div>"How will I know how to do that?"</div>
+            <ul>
+                <li><a href="https://github.com/dalelane/ml-for-kids/blob/master/doc/machinelearningforkids-apikeys.pdf">Step-by-step instructions with screenshots</a> are available to walk you through this.</li>
+            </ul>
+            <div style="margin-bottom: 1em">
+                If you're concerned about any of this, or have any questions, please
+                <a ui-sref="help">get in touch</a>.
+            </div>
+        </div>
+
+        <div class="newprojectrow">
+            <span flex></span>
+            <md-button
+                class="md-raised md-primary"
+                ng-disabled="vm.complete || vm.creating || newClass.$invalid || terms !== true"
+                ng-click="vm.confirm({ username : username, email : email, intendeduse : intendeduse })">
+                Create class account
+            </md-button>
+            <md-button ui-sref="login" ng-disabled="vm.creating || vm.complete">
+                Cancel
+            </md-button>
+        </div>
+
+    </form>
 </div>

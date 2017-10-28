@@ -1,6 +1,7 @@
 // external dependencies
 import * as httpstatus from 'http-status';
 import * as Express from 'express';
+import * as uuid from 'uuid/v4';
 // local dependencies
 import * as auth0 from '../auth0/users';
 import * as auth from './auth';
@@ -8,7 +9,7 @@ import * as store from '../db/store';
 import * as dblimits from '../db/limits';
 import * as errors from './errors';
 import * as headers from './headers';
-import * as uuid from 'uuid/v4';
+import * as notifications from '../notifications/slack';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -45,6 +46,12 @@ async function createTeacher(req: Express.Request, res: Express.Response) {
         const teacher = await auth0.createTeacher(tenant,
                                                   req.body.username,
                                                   req.body.email);
+
+        const summarymessage: string = 'A new class account was created! ' +
+                                       'Username ' + req.body.username + ' has signed up, ' +
+                                       (req.body.notes ? 'saying "' + req.body.notes + '"' : '');
+        notifications.notify(summarymessage);
+
         return res.status(httpstatus.CREATED)
                   .json(teacher);
     }
@@ -52,7 +59,7 @@ async function createTeacher(req: Express.Request, res: Express.Response) {
         log.error({ err }, 'Failed to create class account');
 
         return res.status(httpstatus.INTERNAL_SERVER_ERROR)
-                  .json({ error : 'Failed to create new class account' });
+                  .json({ error : 'Failed to create new class account. ' + err.message });
     }
 }
 
