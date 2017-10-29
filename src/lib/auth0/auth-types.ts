@@ -21,6 +21,7 @@ export interface NewUser {
     app_metadata: UserMetadata;
     connection: string;
     verify_email: boolean;
+    email_verified: boolean;
 }
 
 export type UserRole = 'student' | 'supervisor';

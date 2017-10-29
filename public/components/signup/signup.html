@@ -14,10 +14,9 @@
 </div>
 <div ng-repeat="info in vm.infos"
     id="infos{{info.alertid}}"
-    class="alert alert-info alert-dismissible pageheadermsg" role="alert"
-    ng-click="vm.dismissAlert('infos', $index)">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <strong>Info:</strong> {{ info.message }}
+    class="alert alert-info pageheadermsg" role="alert">
+    <div>Your account has been created - your password is <strong>{{info.password}}</strong></div>
+    <div>Check your inbox for a confirmation email. You need to click the link in the email to activate your class account.</div>
 </div>
 
 <div ng-if="!isAuthenticated" class="signupPage">

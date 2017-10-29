@@ -48,8 +48,8 @@ async function createTeacher(req: Express.Request, res: Express.Response) {
                                                   req.body.email);
 
         const summarymessage: string = 'A new class account was created! ' +
-                                       'Username ' + req.body.username + ' has signed up, ' +
-                                       (req.body.notes ? 'saying "' + req.body.notes + '"' : '');
+                                       'Username ' + req.body.username + ' has signed up' +
+                                       (req.body.notes ? ', saying "' + req.body.notes + '"' : '');
         notifications.notify(summarymessage);
 
         return res.status(httpstatus.CREATED)

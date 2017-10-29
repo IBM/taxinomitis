@@ -47,9 +47,14 @@
                 usersService.createTeacher(newClassDetails.username, newClassDetails.email, newClassDetails.intendeduse)
                     .then(function (resp) {
                         console.log(resp);
-                        displayAlert('infos', 200, {
-                            message : 'Check your inbox for a confirmation email. Verifying your email will activate your class account.'
+
+                        var newId = alertId++;
+                        vm.infos.push({
+                            alertid : newId,
+                            password : resp.password
                         });
+                        scrollToNewItem('infos' + newId);
+
                         vm.complete = true;
                     })
                     .catch(function (err) {

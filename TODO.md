@@ -17,7 +17,6 @@ Code / engineering work
 * Scratch is capturing images as 8 bits of color per pixel which visrec chokes on - use 24bpp
 * auth errors cant be displayed as they're inside isAuthenticated
 * Deal with Auth0 changing shit. Again. FFS. 
-* Improve UI and documentation for BYO-credentials - so teachers will be able to do it
 
 Longer term goals
 * Restore sprites library to scratch-flash
