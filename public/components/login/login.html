@@ -35,7 +35,7 @@
     </div>
     <div ng-if="vm.selectedTab === 'reset'" class="loginPanel">
         <div class="loginPanel">
-            <h4>Are you a teacher / group leader?</h4>
+            <h4>Are you a teacher, or a leader of a coding club?</h4>
             <div>
                 If you're a teacher or coding group leader, you can use the button below to reset your password.
             </div>
@@ -54,22 +54,18 @@
                 That's no problem, though!
             </div>
             <div>
-                Just ask your teacher or group leader who first signed you up. They will be able to reset your password for you.
+                Just ask your teacher or group leader who first signed you up. They will be able to reset your password from their Admin page.
             </div>
         </div>
     </div>
     <div ng-if="vm.selectedTab === 'signup'" class="loginPanel">
         <div class="loginPanel">
-            <h4>Are you a teacher / group leader?</h4>
+            <h4>Are you a teacher, or a leader of a coding club?</h4>
             <div>
-                Machine Learning for Kids is designed for use in schools, however is also used by a variety of volunteer-led coding groups.
-                If you create an account for your school or coding club, you can create or manage logins for individual students yourself, within that class account.
+                If you would like access for your students, please create a class account below.
             </div>
             <div>
-                If you are a teacher or coding group leader who would like access for your group, create a class account below.
-            </div>
-            <div>
-                There are two types of class account depending on who sets it up.
+                There are two types of class account - depending on who sets it up.
             </div>
         </div>
         <div class="loginTypes">
@@ -78,7 +74,7 @@
                 <div>If you would like Dale to set up the class account, use the button below to send an email with the following information:</div>
                 <ul>
                     <li>When you would like the account for</li>
-                    <li>Roughly how many student accounts you want to be able to have</li>
+                    <li>Roughly how many student accounts you will need</li>
                     <li>The name of the school or coding group the account is for</li>
                 </ul>
                 <div style="text-align: center">
@@ -90,13 +86,13 @@
             <div class="loginType">
                 <h5>Create an <strong>unmanaged</strong> class account</h5>
                 <div>If you are happy to set up and manage the class account yourself, you can do it now!</div>
-                <div>This will involve you:</div>
+                <div>You will need to:</div>
                 <ul>
-                    <li>Creating an account on IBM Bluemix</li>
-                    <li>Creating API key(s) for Watson cloud services needed to train machine learning models</li>
-                    <li>Entering the API keys into this Machine Learning for Kids tool</li>
+                    <li>Create an account on IBM Bluemix</li>
+                    <li>Create API key(s) for Watson cloud services needed to train machine learning models</li>
+                    <li>Enter the API keys into this Machine Learning for Kids tool</li>
                 </ul>
-                <div>Step-by-step instructions with screenshots are available to walk you through this.</div>
+                <div>Step-by-step instructions (with screenshots) are available for all of this.</div>
                 <div style="text-align: center">
                     <button class="btn btn-primary login-button" ui-sref="signup">
                         Start
