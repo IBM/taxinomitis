@@ -241,7 +241,8 @@
                             displayPassword(ev, newUser);
                         })
                         .catch(function (err) {
-                            displayAlert('errors', err.status, err.data);
+                            var errId = displayAlert('errors', err.status, err.data);
+                            scrollToNewItem('errors' + errId);
 
                             vm.students = vm.students.filter(function (student) {
                                 return student.id !== newUserObj.id;

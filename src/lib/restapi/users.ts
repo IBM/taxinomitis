@@ -58,8 +58,17 @@ async function createTeacher(req: Express.Request, res: Express.Response) {
     catch (err) {
         log.error({ err }, 'Failed to create class account');
 
-        return res.status(httpstatus.INTERNAL_SERVER_ERROR)
-                  .json({ error : 'Failed to create new class account. ' + err.message });
+        let statusCode = httpstatus.INTERNAL_SERVER_ERROR;
+        let errObj = { error : 'Failed to create new class account' };
+
+        if (err.response && err.response.body && err.response.body.statusCode) {
+            statusCode = err.response.body.statusCode;
+        }
+        if (err.error) {
+            errObj = err.error;
+        }
+
+        return res.status(statusCode).json(errObj);
     }
 }
 
@@ -89,8 +98,19 @@ async function createStudent(req: Express.Request, res: Express.Response) {
                   .json(newstudent);
     }
     catch (err) {
-        return res.status(err.response.body.statusCode)
-                  .json(err.response.body);
+        log.error({ err }, 'Failed to create student account');
+
+        let statusCode = httpstatus.INTERNAL_SERVER_ERROR;
+        let errObj = { error : 'Failed to create new account' };
+
+        if (err.response && err.response.body && err.response.body.statusCode) {
+            statusCode = err.response.body.statusCode;
+        }
+        if (err.error) {
+            errObj = err.error;
+        }
+
+        return res.status(statusCode).json(errObj);
     }
 }
 

@@ -95,15 +95,7 @@ export function createUser(token: string, newuser: Objects.NewUser) {
         json : true,
     };
 
-    return request.post(createoptions)
-        .catch((resp) => {
-            if (resp.error) {
-                throw resp.error;
-            }
-            else {
-                throw resp;
-            }
-        });
+    return request.post(createoptions);
 }
 
 

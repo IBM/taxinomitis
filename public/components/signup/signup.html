@@ -5,16 +5,16 @@
     <strong>Info: </strong> Already logged in
 </div>
 
-<div ng-repeat="error in vm.errors" 
+<div ng-repeat="error in vm.errors"
     id="errors{{error.alertid}}"
-    class="alert alert-danger alert-dismissible pageheadermsg" role="alert" 
+    class="alert alert-danger alert-dismissible pageheadermsg" role="alert"
     ng-click="vm.dismissAlert('errors', $index)">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <strong>Error:</strong> {{ error.message }}
 </div>
-<div ng-repeat="info in vm.infos" 
+<div ng-repeat="info in vm.infos"
     id="infos{{info.alertid}}"
-    class="alert alert-info alert-dismissible pageheadermsg" role="alert" 
+    class="alert alert-info alert-dismissible pageheadermsg" role="alert"
     ng-click="vm.dismissAlert('infos', $index)">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <strong>Info:</strong> {{ info.message }}
@@ -116,8 +116,8 @@
                 <li>Creating an account on IBM Bluemix is free</li>
                 <li>You do not need to provide a credit card to create an account</li>
                 <li>You do not need to provide a credit card to create the Watson API keys you will need</li>
-                <li>Watson API keys you can create for free have usage limits. You can choose to pay only if you want to increase these limits. It is these charges that are your responsibility.</li>
-                <li>An advisory price list is <a href="https://github.com/dalelane/ml-for-kids/raw/master/doc/machinelearningforkids-pricing.pdf">available for download</a>. While correct at the time of writing, it cannot be guaranteed to be correct. The only official price list is what is quoted in the IBM Bluemix Catalog itself. </li>
+                <li>Watson API keys you can create for free have usage limits. You can choose to pay if you want to increase these limits. It is these charges that are your responsibility.</li>
+                <li>An advisory price list is included in the <a href="https://github.com/dalelane/ml-for-kids/raw/master/doc/machinelearningforkids-apikeys.pdf">setup instructions</a> (section 4). </li>
             </ul>
             <div>"Will my students need to do this?"</div>
             <ul>
@@ -127,7 +127,7 @@
             </ul>
             <div>"How will I know how to do that?"</div>
             <ul>
-                <li><a href="https://github.com/dalelane/ml-for-kids/blob/master/doc/machinelearningforkids-apikeys.pdf">Step-by-step instructions with screenshots</a> are available to walk you through this.</li>
+                <li><a href="https://github.com/dalelane/ml-for-kids/raw/master/doc/machinelearningforkids-ibmer.pdf">Step-by-step instructions with screenshots</a> are available to walk you through this.</li>
             </ul>
             <div style="margin-bottom: 1em">
                 If you're concerned about any of this, or have any questions, please
