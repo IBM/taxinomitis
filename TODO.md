@@ -17,7 +17,6 @@ Code / engineering work
 * Scratch is capturing images as 8 bits of color per pixel which visrec chokes on - use 24bpp
 * auth errors cant be displayed as they're inside isAuthenticated
 * Deal with Auth0 changing shit. Again. FFS. 
-* Only users created by instance0 will report to Slack
 
 Longer term goals
 * Restore sprites library to scratch-flash

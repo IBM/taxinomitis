@@ -41,6 +41,10 @@ process.on('uncaughtException', (err) => {
 });
 
 
+// prepare Slack API
+notifications.init();
+
+
 // start scheduled cleanup tasks
 if (cf.isPrimaryInstance()) {
     log.info('Scheduling clean-up task to run every hour');
@@ -53,9 +57,6 @@ if (cf.isPrimaryInstance()) {
                 visualrec.cleanupExpiredClassifiers();
             });
     }, constants.ONE_HOUR);
-
-    // prepare Slack API
-    notifications.init();
 
     // check that the Bluemix credentials stored in
     //   the tool are still valid
