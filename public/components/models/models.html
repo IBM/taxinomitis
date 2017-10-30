@@ -316,7 +316,7 @@
                     </td>
                 </tr>
             </table>
-            <input type="submit" class="btn" value="Test" ng-disabled="testform.$invalid" style="margin-left: 1em;" >
+            <input type="submit" class="btn btn-primary" value="Test" ng-disabled="testform.$invalid" style="margin-left: 1em;" >
         </form>
         <div style="margin: 2em;" ng-if="testoutput">
             <div>Recognised as <strong>{{ testoutput }}</strong> </div>
@@ -357,7 +357,7 @@
                 <tr><td colspan=2> &nbsp; </td></tr>
                 <tr>
                     <td colspan=2>
-                        <button class="btn"
+                        <button class="btn btn-danger"
                                 ng-click="vm.deleteModel($event, project, model)">
                             {{ model.status === 'Training' ? 'Cancel training' : 'Delete this model' }}
                         </button>
@@ -368,7 +368,7 @@
 
         <button ng-if="!loading && status !== 'training' && trainingdatastatus === 'data'"
                 style="margin: 4em;"
-                class="btn"
+                class="btn btn-primary"
                 ng-click="vm.createModel($event, project)"
                 ng-disabled="submittingTrainingRequest">
                 Train new machine learning model
@@ -397,7 +397,7 @@
                 <div class="answerconfirm" ng-if="answerCorrect">That's right!</div>
                 <div class="answerconfirm" ng-if="!answerCorrect">No, sorry. The correct answer is shown above.</div>
                 <div class="answernotes" ng-repeat="note in quizQuestion.notes"> {{ note }} </div>
-                <button class="btn" ng-click="vm.nextQuizQuestion()">Next question</button>
+                <button class="btn btn-default" ng-click="vm.nextQuizQuestion()">Next question</button>
             </div>
         </div>
     </div>
