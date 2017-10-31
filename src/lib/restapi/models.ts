@@ -96,6 +96,11 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
                         .send({ error : 'The credentials for the machine learning ' +
                                         'server used by your class were rejected.' });
             }
+            else if (err.message === 'Unexpected response when retrieving service credentials') {
+                return res.status(httpstatus.CONFLICT)
+                    .send({ error : 'No Watson credentials have been set up for training text projects. ' +
+                                    'Please let your teacher or group header know.' });
+            }
             else {
                 return errors.unknownError(res, err);
             }
@@ -120,6 +125,11 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
                 return res.status(httpstatus.INTERNAL_SERVER_ERROR)
                         .send({ error : 'The credentials for the machine learning ' +
                                         'server used by your class were rejected.' });
+            }
+            else if (err.message === 'Unexpected response when retrieving service credentials') {
+                return res.status(httpstatus.CONFLICT)
+                    .send({ error : 'No Watson credentials have been set up for training images projects. ' +
+                                    'Please let your teacher or group header know.' });
             }
             else {
                 return errors.unknownError(res, err);
