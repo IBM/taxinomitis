@@ -14,7 +14,7 @@
   "author": "Dale Lane",
   "devDependencies": {
     "@types/archiver": "^2.0.1",
-    "@types/async": "^2.0.44",
+    "@types/async": "^2.0.45",
     "@types/body-parser": "^1.16.5",
     "@types/bunyan": "1.8.3",
     "@types/clone": "^0.1.30",
@@ -39,7 +39,7 @@
     "autoprefixer": "^7.1.5",
     "clone": "^2.1.1",
     "del": "^3.0.0",
-    "filecompare": "1.0.3",
+    "filecompare": "1.0.4",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.0.0",
     "gulp-bower": "0.0.13",
@@ -63,7 +63,7 @@
     "supertest": "^3.0.0",
     "tslint": "^5.7.0",
     "tslint-eslint-rules": "^4.1.1",
-    "typescript": "^2.5.3",
+    "typescript": "^2.6.1",
     "typescript-require": "^0.2.9-1",
     "unzip": "^0.1.11"
   },
