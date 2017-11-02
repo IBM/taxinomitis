@@ -285,9 +285,15 @@ export async function testClassifierFile(
     };
 
     const body = await request.post(credentials.url + '/v3/classify', req);
-    return body.images[0].classifiers[0].classes.map((item) => {
-        return { class_name : item.class, confidence : Math.round(item.score * 100) };
-    }).sort(sortByConfidence);
+    if (body.images && body.images.length > 0) {
+        return body.images[0].classifiers[0].classes.map((item) => {
+            return { class_name : item.class, confidence : Math.round(item.score * 100) };
+        }).sort(sortByConfidence);
+    }
+    else {
+        log.error({ body }, 'Image was not classifiable');
+        return [];
+    }
 }
 
 export async function testClassifierURL(

@@ -51,17 +51,24 @@ async function classifyImage(key: Types.ScratchKey, base64imagedata: string): Pr
         const imagefile = await base64decode.run(base64imagedata);
         const resp = await visualrecog.testClassifierFile(key.credentials, key.classifierid, key.projectid, imagefile);
         fs.unlink(imagefile, logError);
-        return resp;
+
+        if (resp.length > 0) {
+            return resp;
+        }
     }
-    else {
-        // we don't have an image classifier yet, so we resort to random
-        const project = await store.getProject(key.projectid);
-        return chooseLabelsAtRandom(project);
-    }
+
+    // we don't have an image classifier yet, or we didn't get any useful
+    //  output from the image classifier.
+    // Either way, we resort to random
+    const project = await store.getProject(key.projectid);
+    return chooseLabelsAtRandom(project);
 }
 
+
 function logError(err: NodeJS.ErrnoException) {
-    log.error({ err }, 'Core error');
+    if (err) {
+        log.error({ err }, 'Error when deleting image file');
+    }
 }
 
 /**
