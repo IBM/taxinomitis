@@ -1,6 +1,5 @@
 const gulp = require('gulp');
 const bower = require('gulp-bower');
-const istanbul = require('gulp-istanbul');
 const mocha = require('gulp-mocha');
 const eslint = require('gulp-eslint');
 const tslint = require('gulp-tslint');
@@ -161,29 +160,15 @@ gulp.task('eslint', ['compile'], () => {
 
 gulp.task('lint', ['tslint', 'eslint']);
 
-gulp.task('coverage', ['compile'], () => {
-    return gulp.src(paths.jslib)
-        .pipe(istanbul({ includeUntested : true }))
-        .pipe(istanbul.hookRequire());
-});
-
-gulp.task('test', ['coverage'], () => {
+gulp.task('test', () => {
     const mochaOptions = {
         reporter : 'spec',
         timeout : 60000,
         bail : true
     };
 
-    const istanbulOptions = {
-        dir : 'coverage/mocha'
-    };
-
-    const coverageOptions = { thresholds : { global : 90 }};
-
     return gulp.src(paths.jstest)
-        .pipe(mocha(mochaOptions))
-        .pipe(istanbul.writeReports(istanbulOptions))
-        .pipe(istanbul.enforceThresholds(coverageOptions));
+        .pipe(mocha(mochaOptions));
 });
 
 gulp.task('web', ['css', 'minifyjs', 'images', 'html', 'angularcomponents', 'scratchxinstall']);

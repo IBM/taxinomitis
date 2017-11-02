@@ -27,3 +27,9 @@ export function notify(message: string): void {
         });
     }
 }
+
+export function close() {
+    if (webhook) {
+        webhook = null;
+    }
+}

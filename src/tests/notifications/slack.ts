@@ -56,6 +56,8 @@ describe('Notifications - Slack', () => {
     after(() => {
         process.env.SLACK_WEBHOOK_URL = slackEnv;
 
+        slack.close();
+
         slackClientStub.restore();
     });
 

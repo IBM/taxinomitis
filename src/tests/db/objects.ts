@@ -10,23 +10,57 @@ import * as Objects from '../../lib/db/db-types';
 
 describe('DB objects', () => {
 
-    // describe('getProjectFromDbRow()', () => {
-    //     it('should return labels for ids from DB', () => {
-    //         const testRow: Objects.ProjectDbRow = {
-    //             id : uuid(),
-    //             userid : 'testuser',
-    //             classid : 'testclass',
-    //             typeid : 2,
-    //             name : 'testproject',
-    //             labels : '',
-    //             fields : 'first,second',
-    //         };
-    //         const testProject: Objects.Project = dbobjects.getProjectFromDbRow(testRow);
+    describe('getProjectFromDbRow()', () => {
+        it('should return labels for ids from DB', () => {
+            const userid = 'testuser';
+            const classid = 'testclass';
+            const projectid = uuid();
 
-    //         assert.equal(testProject.type, 'numbers');
-    //         assert.deepEqual(testProject.fields, ['first', 'second']);
-    //     });
-    // });
+            const testRow: Objects.ProjectDbRow = {
+                id : projectid,
+                userid, classid,
+                language : 'ar',
+                typeid : 2,
+                name : 'testproject',
+                labels : '',
+                numfields : 2,
+                fields : [
+                    { id : uuid(), userid, classid, projectid, name : 'first', fieldtype : 1, choices : undefined },
+                    { id : uuid(), userid, classid, projectid, name : 'second', fieldtype : 1, choices : undefined },
+                ],
+            };
+
+            const testProject: Objects.Project = dbobjects.getProjectFromDbRow(testRow);
+
+            assert.equal(testProject.type, 'numbers');
+            assert.deepEqual(testProject.fields, [
+                { type : 'number', name : 'first', choices : [] },
+                { type : 'number', name : 'second', choices : [] },
+            ]);
+        });
+
+        it('should default language to English if unspecified', () => {
+            const userid = 'testuser';
+            const classid = 'testclass';
+            const projectid = uuid();
+
+            const testRow: Objects.ProjectDbRow = {
+                id : projectid,
+                userid, classid,
+                typeid : 1,
+                language : undefined,
+                name : 'testproject',
+                labels : '',
+                numfields : 0,
+                fields : [],
+            };
+
+            const testProject: Objects.Project = dbobjects.getProjectFromDbRow(testRow);
+
+            assert.equal(testProject.type, 'text');
+            assert.equal(testProject.language, 'en');
+        });
+    });
 
     describe('createLabel', () => {
 
@@ -241,13 +275,36 @@ describe('DB objects', () => {
             assert.fail(1, 0, 'Failed to reject project', '');
         });
 
+        it('should require a language', (done) => {
+            try {
+                dbobjects.createProject('bob', 'bobclass', 'text', 'project', undefined, []);
+            }
+            catch (err) {
+                assert.equal(err.message, 'Language not supported');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject project', '');
+        });
+
+        it('should require a valid language', (done) => {
+            try {
+                dbobjects.createProject('bob', 'bobclass', 'text', 'project', 'xxx' as Objects.TextProjectLanguage, []);
+            }
+            catch (err) {
+                assert.equal(err.message, 'Language not supported');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject project', '');
+        });
+
         it('should create a project object', () => {
-            const project = dbobjects.createProject('testuser', 'testclass', 'text', 'testproject', 'en', []);
+            const project = dbobjects.createProject('testuser', 'testclass', 'text', 'testproject', 'de', []);
             assert(project.id);
             assert.equal(project.name, 'testproject');
             assert.equal(project.classid, 'testclass');
             assert.equal(project.typeid, 1);
             assert.equal(project.userid, 'testuser');
+            assert.equal(project.language, 'de');
         });
 
         it('should need options for multichoice fields in numbers projects', (done) => {

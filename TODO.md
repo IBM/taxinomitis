@@ -19,7 +19,7 @@ Code / engineering work
 * Deal with Auth0 changing shit. Again. FFS. 
 * Need blue-green deploys. Really.
 * Check what happens if a classifier is deleted outside of MLforKids
-* Migrate gulp to grunt with move to ES2017
+* Put coverage back into task runner... maybe by moving to grunt?
 
 Longer term goals
 * Restore sprites library to scratch-flash

@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "scripts": {
     "start": "node dist/lib/app.js",
-    "test": "./node_modules/.bin/gulp"
+    "test": "./node_modules/.bin/gulp",
+    "coverage": "gulp compile ; ./node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- --no-timeouts dist/tests/**"
   },
   "engines": {
     "node": "8.x",
@@ -45,7 +46,6 @@
     "gulp-clean-css": "^3.9.0",
     "gulp-concat": "^2.6.1",
     "gulp-eslint": "^4.0.0",
-    "gulp-istanbul": "^1.1.2",
     "gulp-mocha": "3.0.1",
     "gulp-ng-annotate": "^2.0.0",
     "gulp-postcss": "^7.0.0",
@@ -56,6 +56,7 @@
     "gulp-tslint": "^8.1.2",
     "gulp-typescript": "^3.2.2",
     "gulp-uglify": "^3.0.0",
+    "istanbul": "^1.1.0-alpha.1",
     "mocha": "^3.2.0",
     "proxyquire": "^1.8.0",
     "sinon": "^3.2.1",
