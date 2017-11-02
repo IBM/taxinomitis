@@ -102,6 +102,7 @@ describe('Training - Visual Recognition', () => {
                 name : projectname,
                 userid, classid,
                 type : 'images',
+                language : 'en',
                 labels : ['rock', 'paper'],
                 numfields : 0,
             };
@@ -137,6 +138,7 @@ describe('Training - Visual Recognition', () => {
                 id : projectid,
                 name : projectname,
                 userid, classid,
+                language : 'en',
                 type : 'images',
                 labels : ['rock', 'paper'],
                 numfields : 0,
@@ -165,6 +167,7 @@ describe('Training - Visual Recognition', () => {
                 id : projectid,
                 name : projectname,
                 userid, classid,
+                language : 'en',
                 type : 'images',
                 labels : ['rock', 'paper'],
                 numfields : 0,
@@ -194,6 +197,7 @@ describe('Training - Visual Recognition', () => {
                 name : projectname,
                 userid, classid,
                 type : 'images',
+                language : 'en',
                 labels : ['rock', 'paper'],
                 numfields : 0,
             };

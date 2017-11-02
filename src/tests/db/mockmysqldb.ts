@@ -65,18 +65,19 @@ function mockExecute(query, params) {
         case 'SELECT `id`, `projecttypes`, `maxusers`, `maxprojectsperuser`, `textclassifiersexpiry`, `imageclassifiersexpiry`, `ismanaged` FROM `tenants` WHERE `id` = ?':
             return resolve([[]]);
 
-        case 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `labels`, `numfields` FROM `projects` WHERE `id` = ?':
+        case 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `language`, `labels`, `numfields` FROM `projects` WHERE `id` = ?':
             return resolve([[ {
                 id : 'PROJECTID',
                 userid : 'EXCEPTION',
                 classid : 'CLASSID',
                 typeid : 1,
                 name : 'name',
+                language : 'en',
                 labels : '',
                 numfields : 0,
             } ]]);
 
-        case 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `labels` FROM `projects` WHERE `classid` = ? AND `userid` = ?':
+        case 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `language`, `labels` FROM `projects` WHERE `classid` = ? AND `userid` = ?':
             ERROR = new Error('Some technical sounding SQL error from selecting projects');
             ERROR.code = 'ER_NO_SUCH_SELECT_ERROR';
             ERROR.errno = 6677;
@@ -131,7 +132,7 @@ function mockExecute(query, params) {
         case 'DELETE FROM `scratchkeys` WHERE `projectid` = ?':
             return resolve();
 
-        case 'INSERT INTO `projects` (`id`, `userid`, `classid`, `typeid`, `name`, `labels`, `numfields`) VALUES (?, ?, ?, ?, ?, ?, ?)':
+        case 'INSERT INTO `projects` (`id`, `userid`, `classid`, `typeid`, `name`, `language`, `labels`, `numfields`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)':
             if (params[1] === 'EXCEPTION') {
                 ERROR = new Error('We could not write the project to the DB');
                 ERROR.code = 'ER_SOME_INSERT_ERROR';

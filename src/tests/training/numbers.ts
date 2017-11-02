@@ -52,7 +52,7 @@ describe('Training - numbers service', () => {
                 { name : 'fraction', type : 'number' },
             ];
 
-            const project = await store.storeProject(USERID, CLASSID, 'numbers', 'good project', fields);
+            const project = await store.storeProject(USERID, CLASSID, 'numbers', 'good project', 'en', fields);
             await store.addLabelToProject(USERID, CLASSID, project.id, 'likes-animals');
             await store.addLabelToProject(USERID, CLASSID, project.id, 'hates-animals');
 
@@ -100,7 +100,7 @@ describe('Training - numbers service', () => {
                 { name : 'fraction', type : 'number' },
             ];
 
-            const project = await store.storeProject(USERID, CLASSID, 'numbers', 'good project', fields);
+            const project = await store.storeProject(USERID, CLASSID, 'numbers', 'good project', 'en', fields);
             goodProject = project.id;
             await store.addLabelToProject(USERID, CLASSID, project.id, 'likes-animals');
             await store.addLabelToProject(USERID, CLASSID, project.id, 'hates-animals');
@@ -135,7 +135,7 @@ describe('Training - numbers service', () => {
                 { name : 'fraction', type : 'number' },
             ];
 
-            const project = await store.storeProject(USERID, CLASSID, 'numbers', 'good project', fields);
+            const project = await store.storeProject(USERID, CLASSID, 'numbers', 'good project', 'en', fields);
             goodProject = project.id;
             await store.addLabelToProject(USERID, CLASSID, project.id, 'likes-animals');
             await store.addLabelToProject(USERID, CLASSID, project.id, 'hates-animals');

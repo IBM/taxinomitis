@@ -1,3 +1,5 @@
+import * as DbTypes from '../db/db-types';
+
 export interface BluemixCredentials {
     readonly id: string;
     readonly servicetype: BluemixServiceType;
@@ -23,7 +25,7 @@ export interface ConversationWorkspace {
     readonly credentialsid: string;
     readonly url: string;
     readonly name: string;
-    readonly language: string;
+    readonly language: DbTypes.TextProjectLanguage;
     readonly created: Date;
     expiry: Date;
     status?: ClassifierStatus;
@@ -33,7 +35,7 @@ export interface ConversationWorkspace {
 
 export interface ConversationTrainingData {
     readonly name: string;
-    readonly language: string;
+    readonly language: DbTypes.TextProjectLanguage;
     readonly intents: ConversationIntent[];
     readonly entities: any[];
     readonly dialog_nodes: any[];

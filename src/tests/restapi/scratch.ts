@@ -69,7 +69,7 @@ describe('REST API - scratch keys', () => {
             const name = uuid();
             const typelabel = 'text';
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, []);
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', []);
 
             return request(testServer)
                 .get('/api/classes/' + TESTCLASS + '/students/' + userid + '/projects/' + project.id + '/scratchkeys')
@@ -113,7 +113,7 @@ describe('REST API - scratch keys', () => {
                 expiry : new Date(),
             };
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, []);
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', []);
             await store.storeBluemixCredentials(TESTCLASS, credentials);
             await store.storeConversationWorkspace(credentials, project, workspace);
 
@@ -146,6 +146,7 @@ describe('REST API - scratch keys', () => {
                 userid,
                 classid : TESTCLASS,
                 type : 'text',
+                language : 'en',
                 labels : [],
                 numfields : 0,
             };
@@ -179,6 +180,7 @@ describe('REST API - scratch keys', () => {
                 userid,
                 classid : TESTCLASS,
                 type : 'text',
+                language : 'en',
                 labels : [],
                 numfields : 0,
             };
@@ -226,6 +228,7 @@ describe('REST API - scratch keys', () => {
                 userid : 'userid',
                 classid : TESTCLASS,
                 type : 'text',
+                language : 'en',
                 labels : [],
                 numfields : 0,
             };
@@ -256,6 +259,7 @@ describe('REST API - scratch keys', () => {
                 userid : 'userid',
                 classid : TESTCLASS,
                 type : 'numbers',
+                language : 'en',
                 labels : [],
                 numfields : 3,
             };
@@ -287,6 +291,7 @@ describe('REST API - scratch keys', () => {
                 userid : 'userid',
                 classid : TESTCLASS,
                 type : 'images',
+                language : 'en',
                 labels : [],
                 numfields : 0,
             };
@@ -315,7 +320,7 @@ describe('REST API - scratch keys', () => {
             const name = uuid();
             const typelabel = 'text';
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, []);
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', []);
 
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'animal');
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'vegetable');
@@ -360,7 +365,7 @@ describe('REST API - scratch keys', () => {
             const name = uuid();
             const typelabel = 'numbers';
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, [
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [
                 { name : 'first', type : 'number' }, { name : 'second', type : 'number' },
                 { name : 'third', type : 'number' },
             ]);
@@ -407,7 +412,7 @@ describe('REST API - scratch keys', () => {
             const name = uuid();
             const typelabel = 'numbers';
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, [
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [
                 { name : 'first', type : 'number' }, { name : 'second', type : 'number' },
                 { name : 'third', type : 'number' },
             ]);
@@ -445,6 +450,7 @@ describe('REST API - scratch keys', () => {
                 userid,
                 classid : TESTCLASS,
                 type : 'text',
+                language : 'en',
                 labels : [],
                 numfields : 0,
             };
@@ -469,7 +475,7 @@ describe('REST API - scratch keys', () => {
         it('should build a working Scratchx extension', async () => {
             const userid = uuid();
 
-            const project = await store.storeProject(userid, TESTCLASS, 'text', 'dummyproject', []);
+            const project = await store.storeProject(userid, TESTCLASS, 'text', 'dummyproject', 'en', []);
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'LABEL NUMBER ONE');
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'SECOND LABEL');
 
@@ -501,7 +507,7 @@ describe('REST API - scratch keys', () => {
             const name = uuid();
             const typelabel = 'text';
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, []);
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', []);
 
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'animal');
 
@@ -539,7 +545,7 @@ describe('REST API - scratch keys', () => {
             const name = uuid();
             const typelabel = 'text';
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, []);
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', []);
 
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'animal');
 
@@ -577,7 +583,7 @@ describe('REST API - scratch keys', () => {
             const name = uuid();
             const typelabel = 'text';
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, []);
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', []);
 
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'animal');
 
@@ -633,7 +639,7 @@ describe('REST API - scratch keys', () => {
             const name = uuid();
             const typelabel = 'text';
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, []);
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', []);
 
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'animal');
 
@@ -682,7 +688,7 @@ describe('REST API - scratch keys', () => {
             const name = uuid();
             const typelabel = 'numbers';
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, [
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [
                 { name : 'left', type : 'number' }, { name : 'right', type : 'number' },
                 { name : 'another', type : 'multichoice', choices : [ 'bing', 'bong', 'bang' ] },
             ]);
@@ -733,7 +739,7 @@ describe('REST API - scratch keys', () => {
             const name = uuid();
             const typelabel = 'numbers';
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, [
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [
                 { name : 'a', type : 'number' },
             ]);
 
@@ -773,7 +779,7 @@ describe('REST API - scratch keys', () => {
             const name = uuid();
             const typelabel = 'numbers';
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, [
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [
                 { name : 'a', type : 'number' },
             ]);
 
@@ -814,7 +820,7 @@ describe('REST API - scratch keys', () => {
             const name = uuid();
             const typelabel = 'numbers';
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, [
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [
                 { name : 'a', type : 'number' },
                 { name : 'b', type : 'multichoice', choices : [ 'valid', 'good', 'okay' ] },
             ]);
@@ -856,7 +862,7 @@ describe('REST API - scratch keys', () => {
             const name = uuid();
             const typelabel = 'numbers';
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, [
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [
                 { name : 'a', type : 'number' },
             ]);
 
@@ -897,7 +903,7 @@ describe('REST API - scratch keys', () => {
             const name = uuid();
             const typelabel = 'numbers';
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, [
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [
                 { name : 'a', type : 'number' }, { name : 'b', type : 'number' },
                 { name : 'c', type : 'number' },
             ]);
@@ -943,7 +949,7 @@ describe('REST API - scratch keys', () => {
             const name = uuid();
             const typelabel = 'numbers';
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, [
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [
                 { name : 'a', type : 'number' }, { name : 'b', type : 'number' },
             ]);
 
@@ -1069,7 +1075,7 @@ describe('REST API - scratch keys', () => {
                 expiry : new Date(),
             };
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, []);
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', []);
             await store.storeBluemixCredentials(TESTCLASS, credentials);
             await store.storeConversationWorkspace(credentials, project, conversationWorkspace);
 
@@ -1153,7 +1159,7 @@ describe('REST API - scratch keys', () => {
                 expiry : new Date(),
             };
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, []);
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', []);
             await store.storeBluemixCredentials(TESTCLASS, credentials);
             await store.storeConversationWorkspace(credentials, project, conversationWorkspace);
 
@@ -1209,7 +1215,7 @@ describe('REST API - scratch keys', () => {
                 expiry : new Date(),
             };
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, []);
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', []);
             await store.storeBluemixCredentials(TESTCLASS, credentials);
             await store.storeConversationWorkspace(credentials, project, workspace);
 

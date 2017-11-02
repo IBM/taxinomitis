@@ -110,6 +110,7 @@ describe('DB store', () => {
                 classid,
                 type : 'text',
                 name : classifierInfo.name,
+                language : 'en',
                 labels : ['a'],
                 numfields : 0,
             };
@@ -188,6 +189,7 @@ describe('DB store', () => {
                 classid,
                 type : 'text',
                 name : expired.name,
+                language : 'en',
                 labels : ['a'],
                 numfields : 0,
             };
@@ -197,6 +199,7 @@ describe('DB store', () => {
                 classid,
                 type : 'text',
                 name : current.name,
+                language : 'en',
                 labels : ['a'],
                 numfields : 0,
             };
@@ -263,6 +266,7 @@ describe('DB store', () => {
                 classid,
                 type : 'text',
                 name : expired.name,
+                language : 'en',
                 labels : ['a'],
                 numfields : 0,
             };
@@ -329,6 +333,7 @@ describe('DB store', () => {
                 classid,
                 type : 'text',
                 name : classifierInfo.name,
+                language : 'en',
                 labels : ['a'],
                 numfields : 0,
             };
@@ -388,6 +393,7 @@ describe('DB store', () => {
                 classid,
                 type : 'text',
                 name : classifierInfo.name,
+                language : 'en',
                 labels : ['a'],
                 numfields : 0,
             };
@@ -482,6 +488,7 @@ describe('DB store', () => {
                 classid,
                 type : 'images',
                 name : expired.name,
+                language : 'en',
                 labels : ['a'],
                 numfields : 0,
             };
@@ -491,6 +498,7 @@ describe('DB store', () => {
                 classid,
                 type : 'images',
                 name : current.name,
+                language : 'en',
                 labels : ['a'],
                 numfields : 0,
             };
@@ -546,6 +554,7 @@ describe('DB store', () => {
                 classid,
                 type : 'images',
                 name : expired.name,
+                language : 'en',
                 labels : ['a'],
                 numfields : 0,
             };
@@ -614,6 +623,7 @@ describe('DB store', () => {
                 classid,
                 type : 'images',
                 name : classifierInfo.name,
+                language : 'en',
                 labels : ['a'],
                 numfields : 0,
             };

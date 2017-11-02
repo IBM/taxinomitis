@@ -7,6 +7,7 @@ export interface Project {
     readonly type: ProjectTypeLabel;
     name: string;
     labels: string[];
+    readonly language: TextProjectLanguage;
     readonly numfields: number;
     fields?: NumbersProjectFieldSummary[];
 }
@@ -17,6 +18,7 @@ export interface ProjectDbRow {
     readonly typeid: number;
     readonly name: string;
     readonly labels: string;
+    readonly language: string;
     readonly numfields: number;
     readonly fields: NumbersProjectFieldDbRow[];
 }
@@ -29,6 +31,10 @@ export interface ProjectType {
     readonly id: number;
     readonly label: ProjectTypeLabel;
 }
+
+export type TextProjectLanguage = 'en' | 'ar' | 'zh-tw' | 'zh-cn' |
+                                  'cs' | 'nl' | 'fr' | 'de' | 'it' |
+                                  'ja' | 'ko' | 'pt-br' | 'es';
 
 export interface NumbersProjectFieldSummary {
     readonly name: string;

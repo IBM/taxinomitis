@@ -50,7 +50,7 @@ describe('Scratchx - classify', () => {
 
         it('should return random classes for projects without classifiers', async () => {
             const userid = uuid();
-            const project = await store.storeProject(userid, TESTCLASS, 'images', 'test project', []);
+            const project = await store.storeProject(userid, TESTCLASS, 'images', 'test project', 'en', []);
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'left');
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'right');
 
@@ -96,7 +96,7 @@ describe('Scratchx - classify', () => {
 
         it('should return random classes for projects without classifiers', async () => {
             const userid = uuid();
-            const project = await store.storeProject(userid, TESTCLASS, 'text', 'test project', []);
+            const project = await store.storeProject(userid, TESTCLASS, 'text', 'test project', 'en', []);
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'animal');
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'vegetable');
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'mineral');
@@ -174,7 +174,7 @@ describe('Scratchx - classify', () => {
             });
 
             const userid = uuid();
-            const project = await store.storeProject(userid, TESTCLASS, 'text', 'test project', []);
+            const project = await store.storeProject(userid, TESTCLASS, 'text', 'test project', 'en', []);
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'ALPHA');
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'BETA');
 
@@ -232,7 +232,7 @@ describe('Scratchx - classify', () => {
 
         it('should return random classes for projects without classifiers', async () => {
             const userid = uuid();
-            const project = await store.storeProject(userid, TESTCLASS, 'numbers', 'test project', [
+            const project = await store.storeProject(userid, TESTCLASS, 'numbers', 'test project', 'en', [
                 { name : 'size', type : 'number' },
             ]);
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'fruit');
@@ -268,7 +268,7 @@ describe('Scratchx - classify', () => {
             });
 
             const userid = uuid();
-            const project = await store.storeProject(userid, TESTCLASS, 'numbers', 'test project', [
+            const project = await store.storeProject(userid, TESTCLASS, 'numbers', 'test project', 'en', [
                 { name : 'a', type : 'number' },
             ]);
 

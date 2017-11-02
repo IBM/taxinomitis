@@ -25,7 +25,7 @@ describe('ScratchKeys store', () => {
     });
     beforeEach(async () => {
         project = await store.storeProject(
-            reusedUserid, reusedClassid, 'text', randomstring.generate({ length : 20 }), [],
+            reusedUserid, reusedClassid, 'text', randomstring.generate({ length : 20 }), 'en', [],
         );
     });
     after(() => {

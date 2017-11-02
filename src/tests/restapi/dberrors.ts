@@ -79,7 +79,7 @@ describe('REST API - DB error handling', () => {
 
 
         it('POST /api/classes/CLASSID/students/EXCEPTION/projects', () => {
-            const projectDetails = { name : 'PROJECT NAME', type : 'text' };
+            const projectDetails = { name : 'PROJECT NAME', type : 'text', language : 'es' };
             const url = '/api/classes/CLASSID/students/EXCEPTION/projects';
 
             return request(testServer)
@@ -103,7 +103,7 @@ describe('REST API - DB error handling', () => {
 
 
         it('POST /api/classes/CLASSID/students/STUDENTID/projects', () => {
-            const projectDetails = { name : 'PROJECT NAME', type : 'text' };
+            const projectDetails = { name : 'PROJECT NAME', type : 'text', language : 'nl' };
             const url = '/api/classes/CLASSID/students/STUDENTID/projects';
 
             return request(testServer)

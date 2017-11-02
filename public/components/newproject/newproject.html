@@ -80,6 +80,40 @@
 
 
         <!-- ---------------------------------------- -->
+        <!--   LANGUAGE                               -->
+        <!--                                          -->
+        <!-- displayed only for text projects         -->
+        <!-- ---------------------------------------- -->
+        <div class="newprojectfields newprojectlanguage" ng-show="projectType === 'text'">
+            <md-input-container class="newprojectform">
+                <label>Language</label>
+                <md-select ng-model="language"
+                           ng-focus="vm.focused = 'language'"
+                           class="newprojecttype">
+                    <md-option value="en" ng-selected="true">English</md-option>
+                    <md-option value="ar">Arabic</md-option>
+                    <md-option value="zh-tw">Chinese (traditional)</md-option>
+                    <md-option value="zh-cn">Chinese (simplified)</md-option>
+                    <md-option value="cs">Czech</md-option>
+                    <md-option value="nl">Dutch</md-option>
+                    <md-option value="fr">French</md-option>
+                    <md-option value="de">German</md-option>
+                    <md-option value="it">Italian</md-option>
+                    <md-option value="ja">Japanese</md-option>
+                    <md-option value="ko">Korean</md-option>
+                    <md-option value="pt-br">Portuguese (Brazillian)</md-option>
+                    <md-option value="es">Spanish</md-option>
+                </md-select>
+            </md-input-container>
+            <div class="well newprojecthelp"
+                    ng-if="vm.focused === 'language' && projectType === 'text'">
+                What language will the text in this project be?
+            </div>
+        </div>
+
+
+
+        <!-- ---------------------------------------- -->
         <!--   FIELDS                                 -->
         <!--                                          -->
         <!-- displayed only for numbers projects      -->
@@ -205,7 +239,7 @@
             <md-button
                 class="md-raised md-primary"
                 ng-disabled="vm.creating || newProject.$invalid || vm.isInvalid(projectType)"
-                ng-click="vm.confirm({ name : projectName, type : projectType, fields : vm.fields })">
+                ng-click="vm.confirm({ name : projectName, type : projectType, fields : vm.fields, language : language })">
                 Create
             </md-button>
             <md-button ui-sref="projects">

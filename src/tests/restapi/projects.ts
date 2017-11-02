@@ -80,7 +80,7 @@ describe('REST API - projects', () => {
 
             return request(testServer)
                 .post(url)
-                .send({ name : uuid(), type : 'text' })
+                .send({ name : uuid(), type : 'text', language : 'en' })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED)
                 .then((res) => {
@@ -126,7 +126,7 @@ describe('REST API - projects', () => {
 
             return request(testServer)
                 .post(url)
-                .send({ name : uuid(), type : 'text' })
+                .send({ name : uuid(), type : 'text', language : 'en' })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED)
                 .then((res) => {
@@ -164,7 +164,7 @@ describe('REST API - projects', () => {
 
             return request(testServer)
                 .post(url)
-                .send({ name : uuid(), type : 'text' })
+                .send({ name : uuid(), type : 'text', language : 'en' })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED)
                 .then((res) => {
@@ -212,27 +212,27 @@ describe('REST API - projects', () => {
 
             return request(testServer)
                 .post(url)
-                .send({ name : uuid(), type : 'text' })
+                .send({ name : uuid(), type : 'text', language : 'en' })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED)
                 .then(() => {
                     return request(testServer)
                         .post(url)
-                        .send({ name : uuid(), type : 'text' })
+                        .send({ name : uuid(), type : 'text', language : 'en'  })
                         .expect('Content-Type', /json/)
                         .expect(httpstatus.CREATED);
                 })
                 .then(() => {
                     return request(testServer)
                         .post(url)
-                        .send({ name : uuid(), type : 'text' })
+                        .send({ name : uuid(), type : 'text', language : 'en'  })
                         .expect('Content-Type', /json/)
                         .expect(httpstatus.CREATED);
                 })
                 .then(() => {
                     return request(testServer)
                         .post(url)
-                        .send({ name : uuid(), type : 'text' })
+                        .send({ name : uuid(), type : 'text', language : 'en'  })
                         .expect('Content-Type', /json/)
                         .expect(httpstatus.CONFLICT);
                 })
@@ -368,6 +368,7 @@ describe('REST API - projects', () => {
             const projectDetails = {
                 name : uuid(),
                 type : 'text',
+                language : 'it',
             };
             const studentId = uuid();
 
@@ -384,6 +385,7 @@ describe('REST API - projects', () => {
                     assert.equal(body.classid, TESTCLASS);
                     assert.equal(body.type, projectDetails.type);
                     assert.equal(body.name, projectDetails.name);
+                    assert.equal(body.language, projectDetails.language);
                     assert(body.id);
 
                     return request(testServer)
@@ -397,6 +399,7 @@ describe('REST API - projects', () => {
                     assert.equal(body.classid, TESTCLASS);
                     assert.equal(body.type, projectDetails.type);
                     assert.equal(body.name, projectDetails.name);
+                    assert.equal(body.language, projectDetails.language);
                 });
         });
 
@@ -427,7 +430,7 @@ describe('REST API - projects', () => {
 
             return request(testServer)
                 .post(url)
-                .send({ name : uuid(), type : 'text' })
+                .send({ name : uuid(), type : 'text', language : 'en' })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED)
                 .then(() => {
@@ -443,7 +446,7 @@ describe('REST API - projects', () => {
 
                     return request(testServer)
                         .post(url)
-                        .send({ name : uuid(), type : 'text' })
+                        .send({ name : uuid(), type : 'text', language : 'en' })
                         .expect('Content-Type', /json/)
                         .expect(httpstatus.CREATED);
                 })
@@ -496,7 +499,7 @@ describe('REST API - projects', () => {
 
                     return request(testServer)
                         .post('/api/classes/' + TESTCLASS + '/students/' + studentA + '/projects')
-                        .send({ name : uuid(), type : 'text' })
+                        .send({ name : uuid(), type : 'text', language : 'en' })
                         .expect('Content-Type', /json/)
                         .expect(httpstatus.CREATED);
                 })
@@ -515,7 +518,7 @@ describe('REST API - projects', () => {
 
                     return request(testServer)
                         .post('/api/classes/' + TESTCLASS + '/students/' + studentB + '/projects')
-                        .send({ name : uuid(), type : 'text' })
+                        .send({ name : uuid(), type : 'text', language : 'en' })
                         .expect('Content-Type', /json/)
                         .expect(httpstatus.CREATED);
                 })
@@ -539,7 +542,7 @@ describe('REST API - projects', () => {
     describe('modifyProjectLabels()', () => {
 
         it('should add a label', () => {
-            const projectDetails = { type : 'text', name : uuid() };
+            const projectDetails = { type : 'text', name : uuid(), language : 'en' };
             const studentId = uuid();
             let projectId;
 
@@ -624,7 +627,7 @@ describe('REST API - projects', () => {
 
 
         it('should remove a label', () => {
-            const projectDetails = { type : 'text', name : uuid() };
+            const projectDetails = { type : 'text', name : uuid(), language : 'en' };
             const studentId = uuid();
             let projectId;
 
@@ -690,7 +693,7 @@ describe('REST API - projects', () => {
 
 
         it('should replace labels', () => {
-            const projectDetails = { type : 'text', name : uuid() };
+            const projectDetails = { type : 'text', name : uuid(), language : 'en'  };
             const studentId = uuid();
             let projectId;
 
@@ -757,7 +760,7 @@ describe('REST API - projects', () => {
 
 
         it('should verify PATCH requests', () => {
-            const projectDetails = { type : 'text', name : uuid() };
+            const projectDetails = { type : 'text', name : uuid(), language : 'en'  };
             const studentId = uuid();
             let projectId;
 

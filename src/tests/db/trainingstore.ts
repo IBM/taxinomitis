@@ -179,6 +179,7 @@ describe('DB store - training', () => {
                 userid, classid,
                 'numbers',
                 'project name',
+                'en',
                 [
                     { name : 'first', type : 'number' }, { name : 'second', type : 'number' },
                     { name : 'third', type : 'number' },

@@ -20,6 +20,7 @@ CREATE TABLE projects (
     classid CHAR(36) NOT NULL,
     typeid TINYINT NOT NULL,
     name VARCHAR(36) NOT NULL,
+    language CHAR(6),
     labels VARCHAR(500) NOT NULL,
     numfields TINYINT NOT NULL
 );

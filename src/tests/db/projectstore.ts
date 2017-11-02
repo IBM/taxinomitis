@@ -35,19 +35,19 @@ describe('DB store', () => {
             assert(util.isArray(projects));
             assert.equal(projects.length, 0);
 
-            await store.storeProject(user, TESTCLASS, 'text', uuid(), []);
+            await store.storeProject(user, TESTCLASS, 'text', uuid(), 'en', []);
 
             projects = await store.getProjectsByUserId(user, TESTCLASS);
             assert(util.isArray(projects));
             assert.equal(projects.length, 1);
 
-            await store.storeProject(user, TESTCLASS, 'text', uuid(), []);
+            await store.storeProject(user, TESTCLASS, 'text', uuid(), 'en', []);
 
             projects = await store.getProjectsByUserId(user, TESTCLASS);
             assert(util.isArray(projects));
             assert.equal(projects.length, 2);
 
-            await store.storeProject(uuid(), TESTCLASS, 'text', uuid(), []);
+            await store.storeProject(uuid(), TESTCLASS, 'text', uuid(), 'en', []);
 
             projects = await store.getProjectsByUserId(user, TESTCLASS);
             assert(util.isArray(projects));
@@ -75,7 +75,7 @@ describe('DB store', () => {
             const name = uuid();
             const typelabel = 'images';
 
-            const project = await store.storeProject(userid, classid, typelabel, name, []);
+            const project = await store.storeProject(userid, classid, typelabel, name, 'en', []);
 
             let retrieved = await store.getProject(project.id);
             assert.equal(retrieved.id, project.id);
@@ -110,7 +110,7 @@ describe('DB store', () => {
                 { name : 'ninth', type : 'number' },
             ];
 
-            const project = await store.storeProject(userid, classid, typelabel, name, numberfields);
+            const project = await store.storeProject(userid, classid, typelabel, name, 'en', numberfields);
 
             const fields = await store.getNumberProjectFields(userid, classid, project.id);
             assert.equal(fields.length, 9);
@@ -140,7 +140,7 @@ describe('DB store', () => {
                 name : 'myoption', type : 'multichoice', choices : [ 'male', 'female' ],
             };
 
-            const project = await store.storeProject(userid, classid, typelabel, name, [ numField, chcField ]);
+            const project = await store.storeProject(userid, classid, typelabel, name, 'en', [ numField, chcField ]);
 
             let retrieved = await store.getProject(project.id);
             assert.equal(retrieved.id, project.id);
@@ -215,13 +215,13 @@ describe('DB store', () => {
             assert(util.isArray(projects));
             assert.equal(projects.length, 0);
 
-            await store.storeProject(firstUser, TESTCLASS, 'text', uuid(), []);
+            await store.storeProject(firstUser, TESTCLASS, 'text', uuid(), 'en', []);
 
             projects = await store.getProjectsByClassId(TESTCLASS);
             assert(util.isArray(projects));
             assert.equal(projects.length, 1);
 
-            await store.storeProject(secondUser, TESTCLASS, 'text', uuid(), []);
+            await store.storeProject(secondUser, TESTCLASS, 'text', uuid(), 'en', []);
 
             projects = await store.getProjectsByClassId(TESTCLASS);
             assert(util.isArray(projects));
@@ -237,13 +237,13 @@ describe('DB store', () => {
             assert(util.isArray(projects));
             const numProjects = projects.length;
 
-            await store.storeProject(firstUser, TESTCLASS, 'text', uuid(), []);
+            await store.storeProject(firstUser, TESTCLASS, 'text', uuid(), 'en', []);
 
             projects = await store.getProjectsByClassId(TESTCLASS);
             assert(util.isArray(projects));
             assert.equal(projects.length, numProjects + 1);
 
-            await store.storeProject(secondUser, TESTCLASS, 'text', uuid(), []);
+            await store.storeProject(secondUser, TESTCLASS, 'text', uuid(), 'en', []);
 
             projects = await store.getProjectsByClassId(TESTCLASS);
             assert(util.isArray(projects));
@@ -262,7 +262,7 @@ describe('DB store', () => {
 
         it('should add a label to a project', async () => {
             const userid = uuid();
-            const project = await store.storeProject(userid, TESTCLASS, 'text', uuid(), []);
+            const project = await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', []);
 
             let retrieved = await store.getProject(project.id);
             assert.deepEqual(retrieved.labels, []);
@@ -284,7 +284,7 @@ describe('DB store', () => {
 
         it('should not store duplicate labels', async () => {
             const userid = uuid();
-            const project = await store.storeProject(userid, TESTCLASS, 'text', uuid(), []);
+            const project = await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', []);
 
             let retrieved = await store.getProject(project.id);
             assert.deepEqual(retrieved.labels, []);
@@ -306,7 +306,7 @@ describe('DB store', () => {
 
         it('should not store empty labels', async () => {
             const userid = uuid();
-            const project = await store.storeProject(userid, TESTCLASS, 'text', uuid(), []);
+            const project = await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', []);
 
             let retrieved = await store.getProject(project.id);
             assert.deepEqual(retrieved.labels, []);
@@ -325,7 +325,7 @@ describe('DB store', () => {
     describe('removeLabelFromProject', () => {
 
         async function createProjectWithLabels(userid, labels) {
-            const project = await store.storeProject(userid, TESTCLASS, 'text', uuid(), []);
+            const project = await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', []);
             for (const label of labels) {
                 await store.addLabelToProject(userid, TESTCLASS, project.id, label);
             }
@@ -408,8 +408,8 @@ describe('DB store', () => {
         it('should remove user projects', async () => {
             const userid = uuid();
 
-            await store.storeProject(userid, TESTCLASS, 'text', uuid(), []);
-            await store.storeProject(userid, TESTCLASS, 'text', uuid(), []);
+            await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', []);
+            await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', []);
 
             const count = await store.countProjectsByUserId(userid, TESTCLASS);
             assert.equal(count, 2);

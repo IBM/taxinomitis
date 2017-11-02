@@ -74,7 +74,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'images', 'demo', []);
+            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', []);
             const projectid = project.id;
 
             return request(testServer)
@@ -94,7 +94,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
             const projectid = project.id;
 
             return request(testServer)
@@ -111,7 +111,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
             const projectid = project.id;
 
             await store.storeTextTraining(projectid, 'apple', 'fruit');
@@ -140,7 +140,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'numbers', 'demo', [
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo', 'en', [
                 { name : 'a', type : 'number' },
             ]);
             const projectid = project.id;
@@ -186,7 +186,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
             const projectid = project.id;
 
             return request(testServer)
@@ -203,7 +203,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
             const projectid = project.id;
 
             const trainingurl = '/api/classes/' + classid +
@@ -231,7 +231,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'numbers', 'demo', [
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo', 'en', [
                 { name : 'x', type : 'number' },
             ]);
             const projectid = project.id;
@@ -261,7 +261,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'numbers', 'demo', [
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo', 'en', [
                 { name : 'x', type : 'number' },
             ]);
             const projectid = project.id;
@@ -292,7 +292,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
             const projectid = project.id;
 
             const trainingurl = '/api/classes/' + classid +
@@ -321,7 +321,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'numbers', 'demo', [
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo', 'en', [
                 { name : 'one', type : 'number' }, { name : 'two', type : 'number' },
                 { name : 'three', type : 'number' },
             ]);
@@ -353,7 +353,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'numbers', 'demo', [
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo', 'en', [
                 { name : 'first', type : 'number' }, { name : 'second', type : 'number' },
                 { name : 'third', type : 'number' },
             ]);
@@ -382,7 +382,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'images', 'demo', []);
+            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', []);
             const projectid = project.id;
 
             const trainingurl = '/api/classes/' + classid +
@@ -410,7 +410,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'images', 'demo', []);
+            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', []);
             const projectid = project.id;
 
             const trainingurl = '/api/classes/' + classid +
@@ -440,7 +440,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'images', 'demo', []);
+            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', []);
             const projectid = project.id;
 
             const trainingurl = '/api/classes/' + classid +
@@ -478,7 +478,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
             const projectid = project.id;
 
             const trainingurl = '/api/classes/' + classid +
@@ -517,7 +517,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
             const projectid = project.id;
 
             await store.storeTextTraining(projectid, uuid(), 'label');
@@ -568,7 +568,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'numbers', 'demo', [
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo', 'en', [
                 { name : 'one', type : 'number' }, { name : 'two', type : 'number' },
             ]);
             const projectid = project.id;
@@ -620,7 +620,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
             const projectid = project.id;
 
             const projecturl = '/api/classes/' + classid +
@@ -687,7 +687,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'images', 'demo', []);
+            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', []);
             const projectid = project.id;
 
             return request(testServer)
@@ -707,7 +707,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
             const projectid = project.id;
 
             return request(testServer)
@@ -724,7 +724,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
             const projectid = project.id;
 
             const data = [];
@@ -764,7 +764,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
             const projectid = project.id;
 
             const data = [];
@@ -808,7 +808,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'numbers', 'demo',
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo', 'en',
                 [
                     { name : 'one', type : 'number' }, { name : 'two', type : 'number' },
                     { name : 'three', type : 'number' }, { name : 'four', type : 'number' },
@@ -863,7 +863,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
             const projectid = project.id;
 
             const apple = await store.storeTextTraining(projectid, 'apple', 'fruit');
@@ -938,7 +938,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
             const projectid = project.id;
 
             await store.storeTextTraining(projectid, 'apple', 'fruit');
@@ -983,7 +983,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'numbers', 'demo', [
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo', 'en', [
                 { name : 'field', type : 'number' },
             ]);
             const projectid = project.id;
@@ -1037,7 +1037,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
             const projectid = project.id;
 
             await store.addLabelToProject(userid, classid, projectid, 'animal');

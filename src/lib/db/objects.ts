@@ -15,7 +15,11 @@ import * as TrainingObjects from '../training/training-types';
 // -----------------------------------------------------------------------------
 
 export function createProject(
-    userid: string, classid: string, type: string, name: string, fields: Objects.NumbersProjectFieldSummary[],
+    userid: string, classid: string,
+    type: string,
+    name: string,
+    textlanguage: Objects.TextProjectLanguage,
+    fields: Objects.NumbersProjectFieldSummary[],
 ): Objects.ProjectDbRow
 {
     if (projects.typeLabels.indexOf(type) === -1) {
@@ -45,6 +49,29 @@ export function createProject(
         throw new Error('Fields not supported for non-numbers projects');
     }
 
+    let language = '';
+    if (type === 'text') {
+        switch (textlanguage) {
+        case 'en':
+        case 'ar':
+        case 'zh-tw':
+        case 'zh-cn':
+        case 'cs':
+        case 'nl':
+        case 'fr':
+        case 'de':
+        case 'it':
+        case 'ja':
+        case 'ko':
+        case 'pt-br':
+        case 'es':
+            language = textlanguage;
+            break;
+        default:
+            throw new Error('Language not supported');
+        }
+    }
+
     return {
         id : projectid,
         userid,
@@ -52,23 +79,38 @@ export function createProject(
         typeid : projects.typesByLabel[type].id,
         name,
         labels : '',
+        language,
         fields : fieldsObjs,
         numfields : fieldsObjs.length,
     };
 }
 
 export function getProjectFromDbRow(row: Objects.ProjectDbRow): Objects.Project {
+    const type = projects.typesById[row.typeid].label;
+
+    let language: Objects.TextProjectLanguage;
+    if (type === 'text') {
+        if (row.language) {
+            language = row.language as Objects.TextProjectLanguage;
+        }
+        else {
+            language = 'en';
+        }
+    }
+
     return {
         id : row.id,
         userid : row.userid,
         classid : row.classid,
-        type : projects.typesById[row.typeid].label,
+        type,
         name : row.name,
         labels : getLabelsFromList(row.labels),
+        language,
         numfields : row.numfields ? row.numfields : 0,
         fields : row.fields ? row.fields.map(getNumbersProjectFieldSummaryFromDbRow) : [],
     };
 }
+
 
 const MIN_FIELDS = 1;
 const MAX_FIELDS = 10;
@@ -421,13 +463,21 @@ export function createConversationWorkspace(
 }
 
 export function getWorkspaceFromDbRow(row: TrainingObjects.ClassifierDbRow): TrainingObjects.ConversationWorkspace {
+    let language: Objects.TextProjectLanguage;
+    if (row.language) {
+        language = row.language as Objects.TextProjectLanguage;
+    }
+    else {
+        language = 'en';
+    }
+
     return {
         id : row.id,
         workspace_id : row.classifierid,
         credentialsid : row.credentialsid,
         url : row.url,
         name : row.name,
-        language : row.language,
+        language,
         created : row.created,
         expiry : row.expiry,
     };

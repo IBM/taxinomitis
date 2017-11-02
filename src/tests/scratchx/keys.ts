@@ -32,7 +32,7 @@ describe('Scratchx - keys', () => {
     describe('text projects', () => {
 
         it('should create an empty key for projects without classifiers', async () => {
-            const project = await store.storeProject(uuid(), TESTCLASS, 'text', 'test project', []);
+            const project = await store.storeProject(uuid(), TESTCLASS, 'text', 'test project', 'en', []);
             const key = await keys.createKey(project.id);
             assert(key.id);
             assert(!key.model);
@@ -44,7 +44,7 @@ describe('Scratchx - keys', () => {
 
         it('should create an empty key for projects with classifiers', async () => {
             const userid = uuid();
-            const project = await store.storeProject(userid, TESTCLASS, 'text', 'test project', []);
+            const project = await store.storeProject(userid, TESTCLASS, 'text', 'test project', 'en', []);
             const creds = await store.storeBluemixCredentials(TESTCLASS, {
                 id : uuid(),
                 username : 'user',
@@ -81,7 +81,7 @@ describe('Scratchx - keys', () => {
     describe('numbers projects', () => {
 
         it('should create an empty key', async () => {
-            const project = await store.storeProject(uuid(), TESTCLASS, 'numbers', 'test project', [
+            const project = await store.storeProject(uuid(), TESTCLASS, 'numbers', 'test project', 'en', [
                 { name : 'one', type : 'number' }, { name : 'two', type : 'number' },
             ]);
             const key = await keys.createKey(project.id);
@@ -95,7 +95,7 @@ describe('Scratchx - keys', () => {
 
         it('should create a key for projects with a classifier', async () => {
             const userid = uuid();
-            const project = await store.storeProject(userid, TESTCLASS, 'numbers', 'test project', [
+            const project = await store.storeProject(userid, TESTCLASS, 'numbers', 'test project', 'en', [
                 { name : 'a', type : 'number' },
             ]);
 
@@ -119,7 +119,7 @@ describe('Scratchx - keys', () => {
     describe('images projects', () => {
 
         it('should create an empty key for projects without classifiers', async () => {
-            const project = await store.storeProject(uuid(), TESTCLASS, 'images', 'images project', []);
+            const project = await store.storeProject(uuid(), TESTCLASS, 'images', 'images project', 'en', []);
             const key = await keys.createKey(project.id);
             assert(key.id);
             assert(!key.model);
@@ -131,7 +131,7 @@ describe('Scratchx - keys', () => {
 
         it('should create an empty key for projects with classifiers', async () => {
             const userid = uuid();
-            const project = await store.storeProject(userid, TESTCLASS, 'images', 'images project', []);
+            const project = await store.storeProject(userid, TESTCLASS, 'images', 'images project', 'en', []);
             const creds = await store.storeBluemixCredentials(TESTCLASS, {
                 id : uuid(),
                 username : 'user',

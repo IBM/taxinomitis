@@ -194,6 +194,7 @@ export function getProject(projectid: string): Promise<DbTypes.Project>
             userid : 'userid',
             classid : 'classid',
             type : 'text',
+            language : 'en',
             labels : ['temperature', 'conditions'],
             numfields : 0,
         }));
@@ -209,6 +210,7 @@ export function getProject(projectid: string): Promise<DbTypes.Project>
             userid : 'userid',
             classid : 'classid',
             type : 'images',
+            language : 'en',
             labels : ['rock', 'paper'],
             numfields : 0,
         }));

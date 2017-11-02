@@ -18,10 +18,11 @@ Code / engineering work
 * auth errors cant be displayed as they're inside isAuthenticated
 * Deal with Auth0 changing shit. Again. FFS. 
 * Need blue-green deploys. Really.
+* Check what happens if a classifier is deleted outside of MLforKids
+* Migrate gulp to grunt with move to ES2017
 
 Longer term goals
 * Restore sprites library to scratch-flash
-* Support for training text in languages other than English
 
 Worksheets
 * Restructure worksheets to demonstrate small ground truth makes crap classifiers

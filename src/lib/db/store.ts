@@ -78,13 +78,16 @@ async function dbExecute(query: string, params: any[]) {
 // -----------------------------------------------------------------------------
 
 export async function storeProject(
-    userid: string, classid: string, type: Objects.ProjectTypeLabel, name: string,
+    userid: string, classid: string,
+    type: Objects.ProjectTypeLabel,
+    name: string,
+    language: Objects.TextProjectLanguage,
     fields: Objects.NumbersProjectFieldSummary[],
 ): Promise<Objects.Project>
 {
     let obj: Objects.ProjectDbRow;
     try {
-        obj = dbobjects.createProject(userid, classid, type, name, fields);
+        obj = dbobjects.createProject(userid, classid, type, name, language, fields);
     }
     catch (err) {
         err.statusCode = 400;
@@ -92,11 +95,14 @@ export async function storeProject(
     }
 
     const insertProjectQry: string = 'INSERT INTO `projects` ' +
-        '(`id`, `userid`, `classid`, `typeid`, `name`, `labels`, `numfields`) ' +
-        'VALUES (?, ?, ?, ?, ?, ?, ?)';
+        '(`id`, `userid`, `classid`, `typeid`, `name`, `language`, `labels`, `numfields`) ' +
+        'VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
     const insertProjectValues = [
-        obj.id, obj.userid, obj.classid,
-        obj.typeid, obj.name, obj.labels, obj.fields.length,
+        obj.id,
+        obj.userid, obj.classid,
+        obj.typeid,
+        obj.name, obj.language, obj.labels,
+        obj.fields.length,
     ];
 
     const insertFieldsQry: string = 'INSERT INTO `numbersprojectsfields` ' +
@@ -247,7 +253,7 @@ export async function replaceLabelsForProject(
 
 
 export async function getProject(id: string): Promise<Objects.Project> {
-    const queryString = 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `labels`, `numfields` ' +
+    const queryString = 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `language`, `labels`, `numfields` ' +
                         'FROM `projects` ' +
                         'WHERE `id` = ?';
 
@@ -261,7 +267,7 @@ export async function getProject(id: string): Promise<Objects.Project> {
 
 
 export async function getProjectsByUserId(userid: string, classid: string): Promise<Objects.Project[]> {
-    const queryString = 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `labels` ' +
+    const queryString = 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `language`, `labels` ' +
                         'FROM `projects` ' +
                         'WHERE `classid` = ? AND `userid` = ?';
 
@@ -285,7 +291,7 @@ export async function countProjectsByUserId(userid: string, classid: string): Pr
 
 
 export async function getProjectsByClassId(classid: string): Promise<Objects.Project[]> {
-    const queryString = 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `labels` ' +
+    const queryString = 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `labels`, `language` ' +
                         'FROM `projects` ' +
                         'WHERE `classid` = ?';
 

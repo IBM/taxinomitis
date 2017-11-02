@@ -95,6 +95,7 @@ describe('Training - Conversation', () => {
                 name : projectname,
                 userid, classid,
                 type : 'text',
+                language : 'fr',
                 labels : ['temperature', 'conditions'],
                 numfields : 0,
             };
@@ -105,7 +106,7 @@ describe('Training - Conversation', () => {
             assert.deepEqual(classifier, {
                 id : classifier.id,
                 name : projectname,
-                language : 'en',
+                language : 'fr',
                 created : newClassifierDate,
                 updated : newClassifierDate,
                 expiry : newExpiryDate,
@@ -134,6 +135,7 @@ describe('Training - Conversation', () => {
                 name : projectname,
                 userid, classid,
                 type : 'text',
+                language : 'pt-br',
                 labels : ['this', 'that'],
                 numfields : 0,
             };
@@ -241,7 +243,7 @@ describe('Training - Conversation', () => {
                 credentialsid : '123',
                 url : 'http://conversation.service/v1/workspaces/doesnotactuallyexist',
                 name : 'This does not exist',
-                language : 'en',
+                language : 'fr',
                 created : new Date(),
                 expiry : new Date(),
             });
@@ -362,7 +364,7 @@ describe('Training - Conversation', () => {
             return new Promise((resolve, reject) => {
                 if (options.body.name === 'Bob\'s text project') {
 
-                    assert.equal(options.body.language, 'en');
+                    assert.equal(options.body.language, 'fr');
                     assert.equal(options.body.intents[0].intent, 'temperature');
                     assert.equal(options.body.intents[1].intent, 'conditions');
                     assert.equal(options.body.intents[0].examples.length, 18);
@@ -521,7 +523,7 @@ describe('Training - Conversation', () => {
         id : uuid(),
         credentialsid : '123',
         name : 'good classifier',
-        language : 'en',
+        language : 'fr',
         created : new Date(),
         expiry : new Date(),
         url : 'http://conversation.service/v1/workspaces/good',
@@ -549,7 +551,7 @@ describe('Training - Conversation', () => {
         id : uuid(),
         credentialsid : '123',
         name : 'try again later',
-        language : 'en',
+        language : 'fr',
         created : new Date(),
         expiry : new Date(),
         url : 'http://conversation.service/v1/workspaces/stillgoing',
@@ -577,7 +579,7 @@ describe('Training - Conversation', () => {
         id : uuid(),
         credentialsid : '123',
         name : 'bad bad bad',
-        language : 'en',
+        language : 'fr',
         created : new Date(),
         expiry : new Date(),
         url : 'http://conversation.service/v1/workspaces/bad',
@@ -604,7 +606,7 @@ describe('Training - Conversation', () => {
         id : uuid(),
         credentialsid : '123',
         name : 'not here any more',
-        language : 'en',
+        language : 'fr',
         created : new Date(),
         expiry : new Date(),
         url : 'http://conversation.service/v1/workspaces/deleted',

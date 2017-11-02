@@ -22,6 +22,7 @@ describe('Scratchx - status', () => {
                 id : uuid(),
                 type : 'text',
                 name : 'TEST',
+                language : 'en',
                 userid : uuid(),
                 classid : uuid(),
                 labels : [ 'LABEL NUMBER ONE', 'SECOND LABEL' ],
@@ -61,6 +62,7 @@ describe('Scratchx - status', () => {
                 name : 'TEST',
                 userid : uuid(),
                 classid : uuid(),
+                language : 'en',
                 labels : [ 'left', 'middle', 'right' ],
                 numfields : 6,
                 fields : [
@@ -124,6 +126,7 @@ describe('Scratchx - status', () => {
                 id : uuid(),
                 type : 'images',
                 name : 'TEST',
+                language : 'en',
                 userid : uuid(),
                 classid : uuid(),
                 labels : [ 'LABEL NUMBER ONE', 'SECOND LABEL', 'THIRD LABEL' ],

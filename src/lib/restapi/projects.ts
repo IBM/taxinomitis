@@ -51,6 +51,10 @@ async function createProject(req: Express.Request, res: Express.Response) {
         return res.status(httpstatus.BAD_REQUEST)
                   .send({ error : 'Missing required field' });
     }
+    if (req.body.type === 'text' && !req.body.language) {
+        return res.status(httpstatus.BAD_REQUEST)
+                  .send({ error : 'Missing required field' });
+    }
 
     const numProjects = await store.countProjectsByUserId(userid, classid);
     const tenantPolicy = await store.getClassTenant(classid);
@@ -66,7 +70,11 @@ async function createProject(req: Express.Request, res: Express.Response) {
 
 
     try {
-        const project = await store.storeProject(userid, classid, req.body.type, req.body.name, req.body.fields);
+        const project = await store.storeProject(userid, classid,
+            req.body.type,
+            req.body.name,
+            req.body.language,
+            req.body.fields);
         return res.status(httpstatus.CREATED).json(project);
     }
     catch (err) {
