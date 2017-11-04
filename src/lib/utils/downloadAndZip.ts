@@ -65,7 +65,9 @@ function renameFileFromContents(filepath: string, sourceurl: string, callback: I
 }
 
 function logError(err: NodeJS.ErrnoException) {
-    log.error({ err }, 'Core error');
+    if (err) {
+        log.error({ err }, 'Failed to delete file');
+    }
 }
 
 /**

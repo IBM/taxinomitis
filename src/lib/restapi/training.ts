@@ -49,7 +49,7 @@ async function getTraining(req: auth.RequestWithProject, res: Express.Response) 
     const options: Objects.PagingOptions = getPagingOptions(req);
 
     try {
-        let training = [];
+        let training: any[] = [];
         const count = await store.countTraining(req.project.type, req.project.id);
 
         switch (req.project.type) {

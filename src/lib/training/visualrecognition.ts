@@ -381,7 +381,7 @@ async function submitTrainingToVisualRecognition(
     }
     catch (err) {
         log.error({ url, req, err }, 'Failed to train classifier');
-        notifications.notify('Failed to train image classifier');
+        notifications.notify('Failed to train image classifier : ' + err.message);
 
         // The full error object will include the classifier request with the
         //  URL and credentials we used for it. So we don't want to return

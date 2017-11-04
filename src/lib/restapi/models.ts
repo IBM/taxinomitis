@@ -27,7 +27,7 @@ function returnConversationWorkspace(classifier: Types.ConversationWorkspace) {
         status : classifier.status,
     };
 }
-function transformStatus(visualClassifierStatus: string): string {
+function transformStatus(visualClassifierStatus?: string): string | undefined {
     switch (visualClassifierStatus) {
     case 'training':
         return 'Training';

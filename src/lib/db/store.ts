@@ -336,14 +336,16 @@ export async function countTraining(type: Objects.ProjectTypeLabel, projectid: s
 }
 
 
-export async function countTrainingByLabel(type: Objects.ProjectTypeLabel, projectid: string) {
+export async function countTrainingByLabel(type: Objects.ProjectTypeLabel, projectid: string)
+    : Promise<{ [label: string]: number }>
+{
     const dbTable = getDbTable(type);
 
     const queryString = 'SELECT `label`, COUNT(*) AS `trainingcount` FROM `' + dbTable + '` ' +
                         'WHERE `projectid` = ? ' +
                         'GROUP BY `label`';
     const response = await dbExecute(queryString, [projectid]);
-    const counts = {};
+    const counts: { [label: string]: number } = {};
     for (const count of response) {
         counts[count.label] = count.trainingcount;
     }
@@ -1217,7 +1219,9 @@ export async function storeScratchKey(
                         'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     const values = [
         obj.id, project.name, project.type,
-        obj.credentials.url, obj.credentials.username, obj.credentials.password,
+        obj.credentials ? obj.credentials.url : undefined,
+        obj.credentials ? obj.credentials.username : undefined,
+        obj.credentials ? obj.credentials.password : undefined,
         obj.classifierid,
         obj.projectid, project.userid, project.classid,
     ];

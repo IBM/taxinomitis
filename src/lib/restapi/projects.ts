@@ -208,8 +208,8 @@ function getProjectPatch(req: Express.Request) {
         if (util.isArray(value) === false) {
             throw new Error('PATCH requests to replace labels should specify an array');
         }
-        value = value.map((item) => item.toString().trim())
-                     .filter((item) => item);
+        value = value.map((item: any) => item.toString().trim())
+                     .filter((item: any) => item);
 
         for (const item of value) {
             if (item.length > Objects.MAX_LABEL_LENGTH) {
@@ -254,6 +254,8 @@ async function modifyProject(req: Express.Request, res: Express.Response) {
         case 'replace':
             response = await store.replaceLabelsForProject(userid, classid, projectid, patch.value);
             break;
+        default:
+            response = [];
         }
 
         res.json(response);

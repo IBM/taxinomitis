@@ -47,16 +47,16 @@ async function storeNumbers(key: Types.ScratchKey, label: string, numbersStr: st
     // verify that the all the fields are the right type
     const fields = await store.getNumberProjectFields(project.userid, project.classid, project.id);
     const numbers: number[] = fields.map((field, idx) => {
-        if (field.type === 'number') {
-            const asNum = parseFloat(numbersStr[idx]);
-            if (isNaN(asNum)) {
+        if (field.type === 'multichoice') {
+            const asNum = field.choices.indexOf(numbersStr[idx]);
+            if (asNum === -1) {
                 throw new Error('Invalid data');
             }
             return asNum;
         }
-        else if (field.type === 'multichoice') {
-            const asNum = field.choices.indexOf(numbersStr[idx]);
-            if (asNum === -1) {
+        else { // if (field.type === 'number') {
+            const asNum = parseFloat(numbersStr[idx]);
+            if (isNaN(asNum)) {
                 throw new Error('Invalid data');
             }
             return asNum;

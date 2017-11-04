@@ -300,7 +300,7 @@ async function submitTrainingToConversation(
     }
     catch (err) {
         log.error({ req, err }, 'Failed to train workspace');
-        notifications.notify('Failed to train text classifier');
+        notifications.notify('Failed to train text classifier: ' + err.message);
 
         // The full error object will include the Conversation request with the
         //  URL and credentials we used for it. So we don't want to return

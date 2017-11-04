@@ -31,35 +31,42 @@ export function getStatus(scratchKey: Types.ScratchKey): Promise<ScratchTypes.St
 
 async function getTextClassifierStatus(scratchKey: Types.ScratchKey): Promise<ScratchTypes.Status> {
 
-    const credentials: TrainingTypes.BluemixCredentials = scratchKey.credentials;
-    const classifier: TrainingTypes.ConversationWorkspace = {
-        id : 'workspaceid',
-        name: scratchKey.name,
-        workspace_id: scratchKey.classifierid,
-        credentialsid: credentials.id,
-        created: new Date(),
-        expiry: new Date(),
-        language: 'en',
-        url: scratchKey.credentials.url + '/v1/workspaces/' + scratchKey.classifierid,
-    };
-
-    const classifierWithStatus = await conversation.getStatus(credentials, classifier);
-    if (classifierWithStatus.status === 'Available') {
-        return {
-            status : 2,
-            msg : 'Ready',
+    if (scratchKey.credentials) {
+        const credentials: TrainingTypes.BluemixCredentials = scratchKey.credentials;
+        const classifier: TrainingTypes.ConversationWorkspace = {
+            id : 'workspaceid',
+            name: scratchKey.name,
+            workspace_id: scratchKey.classifierid,
+            credentialsid: credentials.id,
+            created: new Date(),
+            expiry: new Date(),
+            language: 'en',
+            url: scratchKey.credentials.url + '/v1/workspaces/' + scratchKey.classifierid,
         };
-    }
-    else if (classifierWithStatus.status === 'Training') {
+
+        const classifierWithStatus = await conversation.getStatus(credentials, classifier);
+        if (classifierWithStatus.status === 'Available') {
+            return {
+                status : 2,
+                msg : 'Ready',
+            };
+        }
+        else if (classifierWithStatus.status === 'Training') {
+            return {
+                status : 1,
+                msg : 'Model not ready yet',
+            };
+        }
+
         return {
-            status : 1,
-            msg : 'Model not ready yet',
+            status : 0,
+            msg : 'Model ' + classifierWithStatus.status,
         };
     }
 
     return {
         status : 0,
-        msg : 'Model ' + classifierWithStatus.status,
+        msg : 'Classifier not found',
     };
 }
 
@@ -67,34 +74,41 @@ async function getTextClassifierStatus(scratchKey: Types.ScratchKey): Promise<Sc
 
 async function getImageClassifierStatus(scratchKey: Types.ScratchKey): Promise<ScratchTypes.Status> {
 
-    const credentials: TrainingTypes.BluemixCredentials = scratchKey.credentials;
-    const classifier: TrainingTypes.VisualClassifier = {
-        id : 'classifierid',
-        name : scratchKey.name,
-        classifierid : scratchKey.classifierid,
-        credentialsid : credentials.id,
-        created: new Date(),
-        expiry: new Date(),
-        url: scratchKey.credentials.url + '/v3/classifiers/' + scratchKey.classifierid,
-    };
-
-    const classifierWithStatus = await visualrecog.getStatus(credentials, classifier);
-    if (classifierWithStatus.status === 'ready') {
-        return {
-            status : 2,
-            msg : 'Ready',
+    if (scratchKey.credentials) {
+        const credentials: TrainingTypes.BluemixCredentials = scratchKey.credentials;
+        const classifier: TrainingTypes.VisualClassifier = {
+            id : 'classifierid',
+            name : scratchKey.name,
+            classifierid : scratchKey.classifierid,
+            credentialsid : credentials.id,
+            created: new Date(),
+            expiry: new Date(),
+            url: scratchKey.credentials.url + '/v3/classifiers/' + scratchKey.classifierid,
         };
-    }
-    else if (classifierWithStatus.status === 'training') {
+
+        const classifierWithStatus = await visualrecog.getStatus(credentials, classifier);
+        if (classifierWithStatus.status === 'ready') {
+            return {
+                status : 2,
+                msg : 'Ready',
+            };
+        }
+        else if (classifierWithStatus.status === 'training') {
+            return {
+                status : 1,
+                msg : 'Model not ready yet',
+            };
+        }
+
         return {
-            status : 1,
-            msg : 'Model not ready yet',
+            status : 0,
+            msg : 'Model ' + classifierWithStatus.status,
         };
     }
 
     return {
         status : 0,
-        msg : 'Model ' + classifierWithStatus.status,
+        msg : 'Classifier not found',
     };
 }
 

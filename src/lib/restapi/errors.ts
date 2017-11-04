@@ -45,12 +45,18 @@ export function unknownError(res: Express.Response, err) {
 
 
 export function registerErrorHandling(app: Express.Application) {
-    app.use((err, req, res, next) => {
-        if (err.name === 'UnauthorizedError') {
-            return notAuthorised(res);
-        }
+    app.use((err: NodeJS.ErrnoException,
+             req: Express.Request,
+             res: Express.Response,
+             next: (e?: NodeJS.ErrnoException) => void) =>
+    {
+        if (err) {
+            if (err.name === 'UnauthorizedError') {
+                return notAuthorised(res);
+            }
 
-        log.error({ err }, 'Unhandled exception');
+            log.error({ err }, 'Unhandled exception');
+        }
 
         next();
     });

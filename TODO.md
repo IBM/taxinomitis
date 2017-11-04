@@ -20,6 +20,7 @@ Code / engineering work
 * Need blue-green deploys. Really.
 * Check what happens if a classifier is deleted outside of MLforKids
 * Put coverage back into task runner... maybe by moving to grunt?
+* Strict checking for TS code
 
 Longer term goals
 * Restore sprites library to scratch-flash

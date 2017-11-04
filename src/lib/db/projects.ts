@@ -1,4 +1,11 @@
-const TYPES = {
+import * as DbTypes from './db-types';
+
+interface ProjectTypeInfo {
+    readonly id: number;
+    readonly label: DbTypes.ProjectTypeLabel;
+}
+
+const TYPES: {[s: string]: ProjectTypeInfo} = {
     text : {
         id : 1,
         label : 'text',
@@ -13,7 +20,7 @@ const TYPES = {
     },
 };
 
-const typesById = {};
+const typesById: {[id: number]: ProjectTypeInfo} = {};
 Object.keys(TYPES).forEach((label) => {
     const type = TYPES[label];
     typesById[type.id] = type;
@@ -24,7 +31,12 @@ const typesByLabel = TYPES;
 
 // ----
 
-const FIELDTYPES = {
+interface FieldTypeInfo {
+    readonly id: number;
+    readonly label: DbTypes.NumbersProjectFieldTypeLabel;
+}
+
+const FIELDTYPES: {[s: string]: FieldTypeInfo} = {
     number : {
         id : 1,
         label : 'number',
@@ -35,7 +47,7 @@ const FIELDTYPES = {
     },
 };
 
-const fieldTypesById = {};
+const fieldTypesById: {[id: number]: FieldTypeInfo}  = {};
 Object.keys(FIELDTYPES).forEach((label) => {
     const type = FIELDTYPES[label];
     fieldTypesById[type.id] = type;

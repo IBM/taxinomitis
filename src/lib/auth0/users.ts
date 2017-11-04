@@ -103,7 +103,7 @@ export function createStudent(tenant: string, username: string): Promise<Objects
         password : randomstring.generate({ length : 9, readable : true }),
         verify_email : false,
         email_verified : true,
-        connection : process.env.AUTH0_CONNECTION,
+        connection : process.env.AUTH0_CONNECTION as string,
         app_metadata : {
             role : 'student',
             tenant,
@@ -118,7 +118,7 @@ export function createTeacher(tenant: string, username: string, email: string): 
         password : randomstring.generate({ length : 12, readable : true }),
         verify_email : true,
         email_verified : false,
-        connection : process.env.AUTH0_CONNECTION,
+        connection : process.env.AUTH0_CONNECTION as string,
         app_metadata : {
             role : 'supervisor',
             tenant,

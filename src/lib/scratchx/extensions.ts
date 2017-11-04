@@ -53,11 +53,13 @@ async function getImagesExtension(scratchkey: Types.ScratchKey, project: Types.P
 
 async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string> {
     const allChoices = [];
-    for (const field of project.fields) {
-        if (field.type === 'multichoice') {
-            for (const choice of field.choices) {
-                if (allChoices.indexOf(choice) === -1) {
-                    allChoices.push(choice);
+    if (project.fields) {
+        for (const field of project.fields) {
+            if (field.type === 'multichoice' && field.choices) {
+                for (const choice of field.choices) {
+                    if (allChoices.indexOf(choice) === -1) {
+                        allChoices.push(choice);
+                    }
                 }
             }
         }
@@ -76,12 +78,12 @@ async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.
             return { name, idx };
         }),
 
-        fields : project.fields.map((field) => {
+        fields : project.fields ? project.fields.map((field) => {
             return {
                 name : field.name,
                 typeformat : field.type === 'number' ? '%n' : '%s',
             };
-        }),
+        }) : [],
 
         choices : allChoices.map((name, idx) => {
             return { name, idx };

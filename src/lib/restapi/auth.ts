@@ -64,7 +64,10 @@ export function requireSupervisor(req: Express.Request, res: Express.Response, n
 }
 
 
-export async function ensureUnmanaged(req: Express.Request, res: Express.Response, next) {
+export async function ensureUnmanaged(
+    req: Express.Request, res: Express.Response,
+    next: (err?: NodeJS.ErrnoException) => void)
+{
     const tenant = req.params.classid;
 
     try {
@@ -82,7 +85,11 @@ export async function ensureUnmanaged(req: Express.Request, res: Express.Respons
 }
 
 
-export async function verifyProjectAccess(req: Express.Request, res: Express.Response, next) {
+export async function verifyProjectAccess(
+    req: Express.Request,
+    res: Express.Response,
+    next: (e?: NodeJS.ErrnoException) => void)
+{
     const classid: string = req.params.classid;
     const userid: string = req.params.studentid;
     const projectid: string = req.params.projectid;
