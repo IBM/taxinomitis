@@ -6,6 +6,7 @@
 
 -- prod
 -- \connect mysql://admin:ZLLIDCRHUXXAISWD@bluemix-sandbox-dal-9-portal.8.dblayer.com:28820/compose
+-- \connect mysql://admin:OESBMDFNIEQNHVID@bluemix-sandbox-dal-9-portal.8.dblayer.com:30359/compose
 
 
 -- \sql

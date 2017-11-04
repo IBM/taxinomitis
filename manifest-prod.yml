@@ -17,9 +17,9 @@ applications:
     AUTH0_API_CLIENTSECRET: 9o0iJsVGO4zYsJMQ82yN2EJcrM-dHZe2Wa0ICBYBpMMsrUGj7wHsAr_YP8-Xc4p9
     AUTH0_AUDIENCE: https://machinelearningforkids.co.uk/users
     MYSQLHOST: bluemix-sandbox-dal-9-portal.8.dblayer.com
-    MYSQLPORT: 28820
+    MYSQLPORT: 30359
     MYSQLUSER: admin
-    MYSQLPASSWORD: ZLLIDCRHUXXAISWD
+    MYSQLPASSWORD: OESBMDFNIEQNHVID
     MYSQLDATABASE: mlforkidsdb
     NUMBERS_SERVICE: https://taxinomitis-numbers-service.mybluemix.net
     NUMBERS_SERVICE_USER: 6d6f8d02-5c5d-11e7-907b-a6006ad3dba0
