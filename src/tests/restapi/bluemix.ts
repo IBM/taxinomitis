@@ -18,7 +18,7 @@ describe('REST API - Bluemix', () => {
                 .get('/')
                 .expect(httpStatus.MOVED_PERMANENTLY)
                 .then((res) => {
-                    assert(res.headers.location.startsWith('https'));
+                    assert(res.header.location.startsWith('https'));
 
                     delete process.env.BLUEMIX_REGION;
                 });

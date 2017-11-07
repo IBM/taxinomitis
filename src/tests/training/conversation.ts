@@ -21,21 +21,21 @@ import * as mockstore from './mockstore';
 
 describe('Training - Conversation', () => {
 
-    let getStub;
-    let createStub;
-    let deleteStub;
-    let getProjectStub;
-    let authStoreStub;
-    let authByIdStoreStub;
-    let countStoreStub;
-    let getConversationWorkspacesStub;
-    let getStoreStub;
-    let storeStoreStub;
-    let updateConversationStub;
-    let deleteStoreStub;
-    let storeScratchKeyStub;
-    let resetExpiredScratchKeyStub;
-    let getClassStub;
+    let getStub: sinon.SinonStub;
+    let createStub: sinon.SinonStub;
+    let deleteStub: sinon.SinonStub;
+    let getProjectStub: sinon.SinonStub;
+    let authStoreStub: sinon.SinonStub;
+    let authByIdStoreStub: sinon.SinonStub;
+    let countStoreStub: sinon.SinonStub;
+    let getConversationWorkspacesStub: sinon.SinonStub;
+    let getStoreStub: sinon.SinonStub;
+    let storeStoreStub: sinon.SinonStub;
+    let updateConversationStub: sinon.SinonStub;
+    let deleteStoreStub: sinon.SinonStub;
+    let storeScratchKeyStub: sinon.SinonStub;
+    let resetExpiredScratchKeyStub: sinon.SinonStub;
+    let getClassStub: sinon.SinonStub;
 
 
     before(() => {
@@ -295,7 +295,7 @@ describe('Training - Conversation', () => {
         });
 
         it('should get info for no classifiers', async () => {
-            const reqClone = [ ];
+            const reqClone: TrainingTypes.ConversationWorkspace[] = [ ];
             const none = await conversation.getClassifierStatuses('CLASSID', reqClone);
 
             assert.deepEqual(none, []);
@@ -330,7 +330,7 @@ describe('Training - Conversation', () => {
     newExpiryDate.setHours(newClassifierDate.getHours() + 2);
 
     const mockConversation = {
-        getClassifier : (url) => {
+        getClassifier : (url: string) => {
             return new Promise((resolve, reject) => {
                 switch (url) {
                 case 'http://conversation.service/v1/workspaces/good':
@@ -346,7 +346,7 @@ describe('Training - Conversation', () => {
                 }
             });
         },
-        deleteClassifier : (url) => {
+        deleteClassifier : (url: string) => {
             return new Promise((resolve, reject) => {
                 switch (url) {
                 case 'http://conversation.service/v1/workspaces/good':
@@ -360,7 +360,7 @@ describe('Training - Conversation', () => {
                 }
             });
         },
-        createClassifier : (url, options) => {
+        createClassifier : (url: string, options) => {
             return new Promise((resolve, reject) => {
                 if (options.body.name === 'Bob\'s text project') {
 
@@ -393,7 +393,7 @@ describe('Training - Conversation', () => {
                 }
             });
         },
-        testClassifier : (url, opts) => {
+        testClassifier : (url: string, opts) => {
             return new Promise((resolve) => {
                 switch (url) {
                 case 'http://conversation.service/v1/workspaces/good/message':

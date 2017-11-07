@@ -23,11 +23,11 @@ describe('REST API - Security', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpStatus.OK)
                 .then((res) => {
-                    assert.equal(res.headers['x-dns-prefetch-control'], 'off');
-                    assert.equal(res.headers['x-frame-options'], 'SAMEORIGIN');
-                    assert.equal(res.headers['x-content-type-options'], 'nosniff');
-                    assert.equal(res.headers['x-download-options'], 'noopen');
-                    assert.equal(res.headers['x-xss-protection'], '1; mode=block');
+                    assert.equal(res.header['x-dns-prefetch-control'], 'off');
+                    assert.equal(res.header['x-frame-options'], 'SAMEORIGIN');
+                    assert.equal(res.header['x-content-type-options'], 'nosniff');
+                    assert.equal(res.header['x-download-options'], 'noopen');
+                    assert.equal(res.header['x-xss-protection'], '1; mode=block');
                 });
         });
     });

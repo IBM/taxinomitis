@@ -25,7 +25,7 @@ describe('Scratchx - status', () => {
             language : 'en',
             url : 'conversation.url',
         };
-        let getStatusStub;
+        let getStatusStub: sinon.SinonStub;
 
         before(() => {
             getStatusStub = sinon.stub(conversation, 'getStatus').resolves(testStatus);
@@ -190,7 +190,7 @@ describe('Scratchx - status', () => {
             expiry : new Date(),
             url : 'conversation.url',
         };
-        let getStatusStub;
+        let getStatusStub: sinon.SinonStub;
 
         before(() => {
             getStatusStub = sinon.stub(visualrecog, 'getStatus').resolves(testStatus);

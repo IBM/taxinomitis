@@ -324,7 +324,7 @@ describe('DB store', () => {
 
     describe('removeLabelFromProject', () => {
 
-        async function createProjectWithLabels(userid, labels) {
+        async function createProjectWithLabels(userid: string, labels: string[]) {
             const project = await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', []);
             for (const label of labels) {
                 await store.addLabelToProject(userid, TESTCLASS, project.id, label);

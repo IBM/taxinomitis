@@ -28,7 +28,7 @@ export const getOauthToken = {
 
 
 export const getUser = {
-    johndoe : (token, userid) => { // eslint-disable-line no-unused-vars
+    johndoe : (token: string, userid: string) => { // eslint-disable-line no-unused-vars
         return Promise.resolve({
             email: 'bobbyball@do-not-require-emailaddresses-for-students.com',
             username: 'bobbyball',
@@ -62,10 +62,10 @@ export const getUser = {
 };
 
 export const getUsers = {
-    empty : (token, tenant) => { // eslint-disable-line no-unused-vars
+    empty : (token: string, tenant: string) => { // eslint-disable-line no-unused-vars
         return Promise.resolve([]);
     },
-    single : (token, tenant) => { // eslint-disable-line no-unused-vars
+    single : (token: string, tenant: string) => { // eslint-disable-line no-unused-vars
         return Promise.resolve([
             {
                 email: 'bobbyball@do-not-require-emailaddresses-for-students.com',
@@ -98,13 +98,13 @@ export const getUsers = {
             },
         ]);
     },
-    error : (token, tenant) => { // eslint-disable-line no-unused-vars
+    error : (token: string, tenant: string) => { // eslint-disable-line no-unused-vars
         throw new Error('Failed to get users');
     },
 };
 
 
-export const getUserCounts = (token, tenant) => { // eslint-disable-line no-unused-vars
+export const getUserCounts = (token: string, tenant: string) => { // eslint-disable-line no-unused-vars
     return Promise.resolve({
         start : 0,
         limit : 50,
@@ -115,7 +115,7 @@ export const getUserCounts = (token, tenant) => { // eslint-disable-line no-unus
 };
 
 export const createUser = {
-    good : (token, newuser) => {
+    good : (token: string, newuser) => {
         return Promise.resolve({
             email : newuser.email,
             username : newuser.username,
@@ -138,13 +138,13 @@ export const createUser = {
 };
 
 export const deleteUser = {
-    good : (token, userid) => { // eslint-disable-line no-unused-vars
+    good : (token: string, userid) => { // eslint-disable-line no-unused-vars
         return Promise.resolve();
     },
 };
 
 export const modifyUser = {
-    good : (token, userid, modifications) => { // eslint-disable-line no-unused-vars
+    good : (token: string, userid: string, modifications) => { // eslint-disable-line no-unused-vars
         return Promise.resolve({
             email: 'bobbyball@do-not-require-emailaddresses-for-students.com',
             username: 'bobbyball',

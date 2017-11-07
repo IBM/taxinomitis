@@ -19,11 +19,11 @@ describe('Training - numbers service', () => {
     const USERID = 'TESTUSER';
     const CLASSID = 'TESTTENANT';
 
-    let postStub;
-    let deleteStub;
+    let postStub: sinon.SinonStub;
+    let deleteStub: sinon.SinonStub;
 
-    let goodProject;
-    let missingProject;
+    let goodProject: string;
+    let missingProject: string;
 
     before(() => {
         postStub = sinon.stub(request, 'post');
@@ -245,7 +245,7 @@ describe('Training - numbers service', () => {
 
 
     const mockNumbers = {
-        createClassifier : (url, opts) => {
+        createClassifier : (url: string, opts) => {
             if (opts.body.projectid === goodProject) {
                 return Promise.resolve({
                     time : 0.0009050369262695312,
@@ -256,7 +256,7 @@ describe('Training - numbers service', () => {
                 return Promise.reject({ error : 'Bad things' });
             }
         },
-        testClassifier : (url, opts) => {
+        testClassifier : (url: string, opts) => {
             assert(url);
             assert(opts.auth.user);
             assert(opts.auth.pass);
@@ -277,7 +277,7 @@ describe('Training - numbers service', () => {
                 return Promise.reject({ error : 'Bad things' });
             }
         },
-        deleteClassifier : (url, opts) => {
+        deleteClassifier : (url: string, opts) => {
             assert(url);
             assert(opts.auth.user);
             assert(opts.auth.pass);

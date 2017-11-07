@@ -20,20 +20,18 @@ describe('REST API - UI', () => {
 
 
     describe('ui redirects', () => {
-        function verifyRedirect(name) {
+        function verifyRedirect(name: string) {
             return request(testServer)
                 .get('/' + name)
                 .expect(httpStatus.FOUND)
                 .then((res) => {
-                    assert.equal(res.headers.location, '/#!/' + name);
+                    assert.equal(res.header.location, '/#!/' + name);
                 });
         }
 
-        it('should redirect main site sections',  async () => {
+        it('should redirect main site sections', () => {
             const names = [ 'about', 'projects', 'news', 'teacher', 'worksheets', 'help' ];
-            for (const name of names) {
-                await verifyRedirect(name);
-            }
+            return Promise.all(names.map((name) => verifyRedirect(name)));
         });
     });
 
@@ -44,7 +42,7 @@ describe('REST API - UI', () => {
                 .expect('Content-Type', /html/)
                 .expect(httpStatus.OK)
                 .then((res) => {
-                    assert.equal(res.headers['cache-control'], 'public, max-age=0');
+                    assert.equal(res.header['cache-control'], 'public, max-age=0');
                 });
         });
     });

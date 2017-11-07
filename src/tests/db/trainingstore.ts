@@ -277,7 +277,7 @@ describe('DB store - training', () => {
 
             const data = [];
 
-            const expected = {};
+            const expected: { [label: string]: number } = {};
 
             for (let labelIdx = 0; labelIdx < 5; labelIdx++) {
                 const label = uuid();
@@ -322,7 +322,7 @@ describe('DB store - training', () => {
             return store.deleteTrainingByProjectId('text', projectid);
         });
 
-        async function createTestData(projectid, numLabels, numText) {
+        async function createTestData(projectid: string, numLabels: number, numText: number) {
             const testdata = [];
             const labels = [];
 
@@ -373,13 +373,16 @@ describe('DB store - training', () => {
 
             for (let idx = 0; idx < 10; idx++) {
                 const search = { start : idx, limit : 10 - idx };
-                const retrieved = await store.getTextTraining(projectid, search);
+                const retrieved: Objects.TextTraining[] = await store.getTextTraining(projectid, search);
                 assert.equal(retrieved.length, 10 - idx);
 
                 for (let verify = idx; verify < (10 - idx); verify++) {
                     const next = retrieved.shift();
-                    assert.equal(next.label, label);
-                    assert.equal(next.textdata, verify);
+                    assert(next);
+                    if (next) {
+                        assert.equal(next.label, label);
+                        assert.equal(next.textdata, verify);
+                    }
                 }
             }
 
@@ -409,7 +412,7 @@ describe('DB store - training', () => {
         });
 
 
-        async function createTestData(projectid, numLabels, numText) {
+        async function createTestData(projectid: string, numLabels: number, numText: number) {
             const testdata = [];
             const labels = [];
 

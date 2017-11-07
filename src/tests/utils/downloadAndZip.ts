@@ -49,7 +49,7 @@ describe('Utils - base64decode', () => {
                         unzippedFiles.push(target);
                         entry.pipe(fs.createWriteStream(target));
                     })
-                    .on('close', (err) => {
+                    .on('close', (err: NodeJS.ErrnoException) => {
                         next(err, unzippedFiles);
                     });
             },
@@ -69,28 +69,34 @@ describe('Utils - base64decode', () => {
             (unzippedFilesInfo, next) => {
                 assert.equal(unzippedFilesInfo.length, 3);
                 async.each(unzippedFilesInfo,
-                    (unzippedFileInfo: any, nextFile) => {
-                        switch (unzippedFileInfo.size) {
+                    (unzippedFile: any, nextFile) => {
+                        switch (unzippedFile.size) {
                         case 21450:
-                            filecompare('./src/tests/utils/resources/map.jpg', unzippedFileInfo.location, (isEq) => {
-                                assert(isEq);
-                                nextFile();
-                            });
+                            filecompare('./src/tests/utils/resources/map.jpg',
+                                        unzippedFile.location,
+                                        (isEq: boolean) => {
+                                            assert(isEq);
+                                            nextFile();
+                                        });
                             break;
                         case 4518:
-                            filecompare('./src/tests/utils/resources/watson.jpg', unzippedFileInfo.location, (isEq) => {
-                                assert(isEq);
-                                nextFile();
-                            });
+                            filecompare('./src/tests/utils/resources/watson.jpg',
+                                        unzippedFile.location,
+                                        (isEq: boolean) => {
+                                            assert(isEq);
+                                            nextFile();
+                                        });
                             break;
                         case 1915:
-                            filecompare('./src/tests/utils/resources/ibm.png', unzippedFileInfo.location, (isEq) => {
-                                assert(isEq);
-                                nextFile();
-                            });
+                            filecompare('./src/tests/utils/resources/ibm.png',
+                                        unzippedFile.location,
+                                        (isEq: boolean) => {
+                                            assert(isEq);
+                                            nextFile();
+                                        });
                             break;
                         default:
-                            assert.fail(0, 1, 'Unexpected file size ' + unzippedFileInfo.size);
+                            assert.fail(0, 1, 'Unexpected file size ' + unzippedFile.size);
                             break;
                         }
                     },

@@ -17,7 +17,7 @@ describe('Notifications - Slack', () => {
     const expectedMessage = 'This is my message';
     const unsendableMessage = 'This message cannot be sent';
 
-    let slackClientStub;
+    let slackClientStub: sinon.SinonStub;
 
     before(() => {
         slackEnv = process.env.SLACK_WEBHOOK_URL;

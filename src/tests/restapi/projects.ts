@@ -21,9 +21,9 @@ const TESTCLASS = 'UNIQUECLASSID';
 
 describe('REST API - projects', () => {
 
-    let authStub;
-    let checkUserStub;
-    let requireSupervisorStub;
+    let authStub: sinon.SinonStub;
+    let checkUserStub: sinon.SinonStub;
+    let requireSupervisorStub: sinon.SinonStub;
 
     function authNoOp(req, res, next) { next(); }
 
@@ -119,7 +119,7 @@ describe('REST API - projects', () => {
         });
 
         it('should delete project details', () => {
-            let projectId;
+            let projectId: string;
 
             const studentId = uuid();
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
@@ -544,7 +544,7 @@ describe('REST API - projects', () => {
         it('should add a label', () => {
             const projectDetails = { type : 'text', name : uuid(), language : 'en' };
             const studentId = uuid();
-            let projectId;
+            let projectId: string;
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
@@ -629,7 +629,7 @@ describe('REST API - projects', () => {
         it('should remove a label', () => {
             const projectDetails = { type : 'text', name : uuid(), language : 'en' };
             const studentId = uuid();
-            let projectId;
+            let projectId: string;
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
@@ -695,7 +695,7 @@ describe('REST API - projects', () => {
         it('should replace labels', () => {
             const projectDetails = { type : 'text', name : uuid(), language : 'en'  };
             const studentId = uuid();
-            let projectId;
+            let projectId: string;
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
@@ -762,7 +762,7 @@ describe('REST API - projects', () => {
         it('should verify PATCH requests', () => {
             const projectDetails = { type : 'text', name : uuid(), language : 'en'  };
             const studentId = uuid();
-            let projectId;
+            let projectId: string;
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 

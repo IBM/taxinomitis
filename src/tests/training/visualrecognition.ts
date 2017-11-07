@@ -24,22 +24,22 @@ import * as mockstore from './mockstore';
 
 describe('Training - Visual Recognition', () => {
 
-    let getStub;
-    let createStub;
-    let deleteStub;
-    let getProjectStub;
-    let authStoreStub;
-    let authByIdStoreStub;
-    let countStoreStub;
-    let getImageClassifiers;
-    let getStoreStub;
-    let storeStoreStub;
-    let deleteStoreStub;
-    let storeScratchKeyStub;
-    let resetExpiredScratchKeyStub;
-    let getClassStub;
+    let getStub: sinon.SinonStub;
+    let createStub: sinon.SinonStub;
+    let deleteStub: sinon.SinonStub;
+    let getProjectStub: sinon.SinonStub;
+    let authStoreStub: sinon.SinonStub;
+    let authByIdStoreStub: sinon.SinonStub;
+    let countStoreStub: sinon.SinonStub;
+    let getImageClassifiers: sinon.SinonStub;
+    let getStoreStub: sinon.SinonStub;
+    let storeStoreStub: sinon.SinonStub;
+    let deleteStoreStub: sinon.SinonStub;
+    let storeScratchKeyStub: sinon.SinonStub;
+    let resetExpiredScratchKeyStub: sinon.SinonStub;
+    let getClassStub: sinon.SinonStub;
 
-    let downloadStub;
+    let downloadStub: sinon.SinonStub;
 
 
     before(() => {
@@ -324,7 +324,7 @@ describe('Training - Visual Recognition', () => {
     newExpiryDate.setHours(newClassifierDate.getHours() + 3);
 
     const mockVisRec = {
-        getClassifier : (url) => {
+        getClassifier : (url: string) => {
             return new Promise((resolve, reject) => {
                 switch (url) {
                 case 'http://visual.recognition.service/v3/classifiers/good':
@@ -340,7 +340,7 @@ describe('Training - Visual Recognition', () => {
                 }
             });
         },
-        deleteClassifier : (url) => {
+        deleteClassifier : (url: string) => {
             return new Promise((resolve, reject) => {
                 switch (url) {
                 case 'http://visual.recognition.service/v3/classifiers/good':
@@ -354,7 +354,7 @@ describe('Training - Visual Recognition', () => {
                 }
             });
         },
-        testClassify : (url, opts) => {
+        testClassify : (url: string, opts) => {
             assert.equal(url, 'http://visual.recognition.service/v3/classify');
             assert.equal(opts.qs.version, '2016-05-20');
             assert.equal(opts.qs.api_key, 'userpass');
@@ -414,7 +414,7 @@ describe('Training - Visual Recognition', () => {
                 });
             }
         },
-        createClassifier : (url, options) => {
+        createClassifier : (url: string, options) => {
             if (options.formData.name === 'Bob\'s images proj') {
                 assert.equal(options.qs.version, '2016-05-20');
                 assert.equal(options.qs.api_key, 'userpass');

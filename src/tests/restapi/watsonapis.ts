@@ -21,13 +21,13 @@ let testServer;
 
 describe('REST API - Bluemix credentials', () => {
 
-    let authStub;
-    let checkUserStub;
-    let requireSupervisorStub;
+    let authStub: sinon.SinonStub;
+    let checkUserStub: sinon.SinonStub;
+    let requireSupervisorStub: sinon.SinonStub;
     // let ensureUnmanagedStub;
-    let getClassStub;
-    let getTextClassifiersStub;
-    let getImageClassifiersStub;
+    let getClassStub: sinon.SinonStub;
+    let getTextClassifiersStub: sinon.SinonStub;
+    let getImageClassifiersStub: sinon.SinonStub;
 
     function authNoOp(req, res, next) { next(); }
 
@@ -169,7 +169,7 @@ describe('REST API - Bluemix credentials', () => {
         it('should prevent deleting credentials from other tenants', () => {
             const classid = 'TESTTENANT';
 
-            let credsid;
+            let credsid: string;
 
             return request(testServer)
                 .post('/api/classes/' + classid + '/credentials')
@@ -262,7 +262,7 @@ describe('REST API - Bluemix credentials', () => {
         it('should create and delete conv credentials', () => {
             const classid = 'TESTTENANT';
 
-            let credsid;
+            let credsid: string;
 
             return request(testServer)
                 .post('/api/classes/' + classid + '/credentials')
@@ -314,7 +314,7 @@ describe('REST API - Bluemix credentials', () => {
         it('should create and delete visrec credentials', () => {
             const classid = 'TESTTENANT';
 
-            let credsid;
+            let credsid: string;
 
             return request(testServer)
                 .post('/api/classes/' + classid + '/credentials')

@@ -20,9 +20,9 @@ let testServer;
 
 describe('REST API - DB error handling', () => {
 
-    let authStub;
-    let checkUserStub;
-    let requireSupervisorStub;
+    let authStub: sinon.SinonStub;
+    let checkUserStub: sinon.SinonStub;
+    let requireSupervisorStub: sinon.SinonStub;
 
     function authNoOp(req, res, next) { next(); }
 

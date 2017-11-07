@@ -23,28 +23,27 @@ let testServer;
 
 describe('REST API - models', () => {
 
-    let authStub;
-    let checkUserStub;
-    let requireSupervisorStub;
+    let authStub: sinon.SinonStub;
+    let checkUserStub: sinon.SinonStub;
+    let requireSupervisorStub: sinon.SinonStub;
 
     function authNoOp(req, res, next) { next(); }
 
-    const conversationStub = {
-        getClassifiersStub : undefined,
-        trainClassifierStub : undefined,
-        testClassifierStub : undefined,
-        deleteClassifierStub : undefined,
+    const conversationStub: { [label: string]: sinon.SinonStub } = {
+        getClassifiersStub : sinon.stub(conversation, 'getClassifierStatuses'),
+        trainClassifierStub : sinon.stub(conversation, 'trainClassifier'),
+        testClassifierStub : sinon.stub(conversation, 'testClassifier'),
+        deleteClassifierStub : sinon.stub(conversation, 'deleteClassifier'),
     };
-    const numbersStub = {
-        getClassifiersStub : undefined,
-        trainClassifierStub : undefined,
-        testClassifierStub : undefined,
-        deleteClassifierStub : undefined,
+    const numbersStub: { [label: string]: sinon.SinonStub } = {
+        trainClassifierStub : sinon.stub(numbers, 'trainClassifier'),
+        testClassifierStub : sinon.stub(numbers, 'testClassifier'),
+        deleteClassifierStub : sinon.stub(numbers, 'deleteClassifier'),
     };
-    const imagesStub = {
-        getClassifiersStub : undefined,
-        trainClassifierStub : undefined,
-        deleteClassifierStub : undefined,
+    const imagesStub: { [label: string]: sinon.SinonStub } = {
+        getClassifiersStub : sinon.stub(visualrecog, 'getClassifierStatuses'),
+        trainClassifierStub : sinon.stub(visualrecog, 'trainClassifier'),
+        deleteClassifierStub : sinon.stub(visualrecog, 'deleteClassifier'),
     };
 
     const updated = new Date();
@@ -63,7 +62,6 @@ describe('REST API - models', () => {
             },
         });
 
-        conversationStub.getClassifiersStub = sinon.stub(conversation, 'getClassifierStatuses');
         conversationStub.getClassifiersStub.callsFake((classid, classifiers: Types.ConversationWorkspace[]) => {
             return new Promise((resolve) => {
                 resolve(classifiers.map((classifier) => {
@@ -80,7 +78,7 @@ describe('REST API - models', () => {
                 }));
             });
         });
-        conversationStub.trainClassifierStub = sinon.stub(conversation, 'trainClassifier');
+
         conversationStub.trainClassifierStub.callsFake((project: DbTypes.Project) => {
             if (project.name === 'no more room') {
                 const err = new Error('Your class already has created their maximum allowed number of models');
@@ -107,7 +105,7 @@ describe('REST API - models', () => {
                 return Promise.resolve(workspace);
             }
         });
-        conversationStub.testClassifierStub = sinon.stub(conversation, 'testClassifier').callsFake(() => {
+        conversationStub.testClassifierStub.callsFake(() => {
             const classifications: Types.Classification[] = [
                 { class_name : 'first', confidence : 0.8 },
                 { class_name : 'second', confidence : 0.15 },
@@ -115,11 +113,10 @@ describe('REST API - models', () => {
             ];
             return Promise.resolve(classifications);
         });
-        conversationStub.deleteClassifierStub = sinon.stub(conversation, 'deleteClassifier').callsFake(() => {
+        conversationStub.deleteClassifierStub.callsFake(() => {
             return new Promise((resolve) => { resolve(); });
         });
 
-        numbersStub.trainClassifierStub = sinon.stub(numbers, 'trainClassifier');
         numbersStub.trainClassifierStub.callsFake((project: DbTypes.Project) => {
             return Promise.resolve({
                 created : new Date(),
@@ -127,7 +124,7 @@ describe('REST API - models', () => {
                 classifierid : project.id,
             });
         });
-        numbersStub.testClassifierStub = sinon.stub(numbers, 'testClassifier').callsFake(() => {
+        numbersStub.testClassifierStub.callsFake(() => {
             const classifications: Types.Classification[] = [
                 { class_name : 'first', confidence : 0.8 },
                 { class_name : 'second', confidence : 0.15 },
@@ -135,11 +132,10 @@ describe('REST API - models', () => {
             ];
             return Promise.resolve(classifications);
         });
-        numbersStub.deleteClassifierStub = sinon.stub(numbers, 'deleteClassifier').callsFake(() => {
+        numbersStub.deleteClassifierStub.callsFake(() => {
             return new Promise((resolve) => { resolve(); });
         });
 
-        imagesStub.getClassifiersStub = sinon.stub(visualrecog, 'getClassifierStatuses');
         imagesStub.getClassifiersStub.callsFake((classid, classifiers: Types.VisualClassifier[]) => {
             return new Promise((resolve) => {
                 resolve(classifiers.map((classifier) => {
@@ -154,7 +150,7 @@ describe('REST API - models', () => {
                 }));
             });
         });
-        imagesStub.trainClassifierStub = sinon.stub(visualrecog, 'trainClassifier');
+
         imagesStub.trainClassifierStub.callsFake((project: DbTypes.Project) => {
             if (project.name === 'no more room') {
                 const err = new Error('Your class already has created their maximum allowed number of models');
@@ -188,7 +184,7 @@ describe('REST API - models', () => {
                 return Promise.resolve(workspace);
             }
         });
-        imagesStub.deleteClassifierStub = sinon.stub(visualrecog, 'deleteClassifier').callsFake(() => {
+        imagesStub.deleteClassifierStub.callsFake(() => {
             return new Promise((resolve) => { resolve(); });
         });
 

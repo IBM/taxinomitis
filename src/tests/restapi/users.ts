@@ -26,9 +26,9 @@ describe('REST API - users', () => {
     };
 
 
-    let authStub;
-    let checkUserStub;
-    let requireSupervisorStub;
+    let authStub: sinon.SinonStub;
+    let checkUserStub: sinon.SinonStub;
+    let requireSupervisorStub: sinon.SinonStub;
 
     function authNoOp(req, res, next) { next(); }
 

@@ -43,17 +43,17 @@ export function getBluemixCredentialsById(id: string) {
     });
 }
 
-const NUM_TRAINING_PER_LABEL = {
+const NUM_TRAINING_PER_LABEL: { [label: string]: number } = {
     temperature : 18,
     conditions : 16,
 };
-const NUM_IMAGES_TRAINING_PER_LABEL = {
+const NUM_IMAGES_TRAINING_PER_LABEL: { [label: string]: number } = {
     rock : 12, paper : 11,
 };
-const NUM_IMAGES_TRAINING_TINY = {
+const NUM_IMAGES_TRAINING_TINY: { [label: string]: number } = {
     rock : 2, paper : 3,
 };
-const NUM_IMAGES_TRAINING_MASSIVE = {
+const NUM_IMAGES_TRAINING_MASSIVE: { [label: string]: number } = {
     rock : 20000, paper : 25000,
 };
 
@@ -102,8 +102,11 @@ export function getImageTrainingByLabel(projectid: string, label: string, option
     else if (projectid === 'massivevis') {
         end = Math.min(start + limit, NUM_IMAGES_TRAINING_MASSIVE[label]);
     }
+    else {
+        throw new Error('Unexpected project id');
+    }
 
-    const training = [];
+    const training: Array<{ [imageurl: string]: string }> = [];
 
     for (let idx = start; idx < end; idx++) {
         training.push({ imageurl : 'http://some-website.com/' + label + '-' + idx + '.jpg' });
@@ -215,4 +218,6 @@ export function getProject(projectid: string): Promise<DbTypes.Project>
             numfields : 0,
         }));
     }
+
+    throw new Error('Unexpected project id');
 }

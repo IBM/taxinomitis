@@ -362,8 +362,11 @@ describe('ScratchKeys store', () => {
 
         const verifyBefore = await store.getScratchKey(scratchKey);
         assert.equal(verifyBefore.classifierid, expired.workspace_id);
-        assert.equal(verifyBefore.credentials.username, credentials.username);
-        assert.equal(verifyBefore.credentials.password, credentials.password);
+        assert(verifyBefore.credentials);
+        if (verifyBefore.credentials) {
+            assert.equal(verifyBefore.credentials.username, credentials.username);
+            assert.equal(verifyBefore.credentials.password, credentials.password);
+        }
 
         const deleteStub = sinon.stub(request, 'delete').resolves();
         await conversation.cleanupExpiredClassifiers();
