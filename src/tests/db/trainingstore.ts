@@ -206,7 +206,10 @@ describe('DB store - training', () => {
             assert.deepEqual(labels, ['TENS', 'THOUSANDS']);
 
             const updated = await store.getProject(project.id);
-            assert.deepEqual(updated.labels, ['TENS', 'THOUSANDS']);
+            assert(updated);
+            if (updated) {
+                assert.deepEqual(updated.labels, ['TENS', 'THOUSANDS']);
+            }
 
             counts = await store.countTrainingByLabel('numbers', project.id);
             assert.deepEqual(counts, { TENS : 3, THOUSANDS : 1 });

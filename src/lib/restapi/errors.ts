@@ -21,7 +21,7 @@ export function forbidden(res: Express.Response) {
 export function supervisorOnly(res: Express.Response) {
     return res.status(httpstatus.FORBIDDEN).json({ error : 'Only supervisors are allowed to invoke this'});
 }
-export function unknownError(res: Express.Response, err) {
+export function unknownError(res: Express.Response, err: NodeJS.ErrnoException | any) {
     if (err && err.sqlState) {
         err = {
             error : 'Error accessing the database used to store data',

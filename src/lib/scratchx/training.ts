@@ -14,6 +14,11 @@ async function storeText(key: Types.ScratchKey, label: string, textStr: string):
 
     const project = await store.getProject(key.projectid);
 
+    // check that this isn't an unknown project
+    if (!project) {
+        throw new Error('Project not found');
+    }
+
     // check that we have a label that is in the project
     if (project.labels.indexOf(label) === -1) {
         throw new Error('Invalid label');
@@ -34,6 +39,12 @@ async function storeNumbers(key: Types.ScratchKey, label: string, numbersStr: st
     }
 
     const project = await store.getProject(key.projectid);
+
+    // check that this isn't an unknown project
+    if (!project) {
+        throw new Error('Project not found');
+    }
+
     // check that we have the right number of numbers to store
     if (numbersStr.length !== project.numfields) {
         throw new Error('Missing data');

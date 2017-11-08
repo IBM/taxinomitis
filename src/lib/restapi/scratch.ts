@@ -138,6 +138,9 @@ async function getScratchxExtension(req: Express.Request, res: Express.Response)
     try {
         const scratchKey = await store.getScratchKey(apikey);
         const project = await store.getProject(scratchKey.projectid);
+        if (!project) {
+            return errors.notFound(res);
+        }
 
         if (project.type === 'numbers') {
             project.fields = await store.getNumberProjectFields(project.userid, project.classid, project.id);

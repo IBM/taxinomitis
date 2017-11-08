@@ -10,7 +10,7 @@ import * as errors from '../../lib/restapi/errors';
 describe('REST API - Error Handling', () => {
 
 
-    function validate(expectedStatusCode, expectedPayload, callback): Express.Response {
+    function validate(expectedStatusCode: number, expectedPayload: object, callback: () => void): Express.Response {
         const res = {
             status : (code) => {
                 assert.equal(code, expectedStatusCode);

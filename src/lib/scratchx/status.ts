@@ -31,7 +31,7 @@ export function getStatus(scratchKey: Types.ScratchKey): Promise<ScratchTypes.St
 
 async function getTextClassifierStatus(scratchKey: Types.ScratchKey): Promise<ScratchTypes.Status> {
 
-    if (scratchKey.credentials) {
+    if (scratchKey.credentials && scratchKey.classifierid) {
         const credentials: TrainingTypes.BluemixCredentials = scratchKey.credentials;
         const classifier: TrainingTypes.ConversationWorkspace = {
             id : 'workspaceid',
@@ -74,7 +74,7 @@ async function getTextClassifierStatus(scratchKey: Types.ScratchKey): Promise<Sc
 
 async function getImageClassifierStatus(scratchKey: Types.ScratchKey): Promise<ScratchTypes.Status> {
 
-    if (scratchKey.credentials) {
+    if (scratchKey.credentials && scratchKey.classifierid) {
         const credentials: TrainingTypes.BluemixCredentials = scratchKey.credentials;
         const classifier: TrainingTypes.VisualClassifier = {
             id : 'classifierid',

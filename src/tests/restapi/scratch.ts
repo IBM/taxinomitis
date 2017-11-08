@@ -8,6 +8,7 @@ import * as sinon from 'sinon';
 import * as proxyquire from 'proxyquire';
 import * as util from 'util';
 import * as requestPromise from 'request-promise';
+import * as Express from 'express';
 
 import * as DbTypes from '../../lib/db/db-types';
 import * as Types from '../../lib/training/training-types';
@@ -19,7 +20,7 @@ import testapiserver from './testserver';
 
 
 
-let testServer;
+let testServer: Express.Express;
 
 
 const TESTCLASS = 'UNIQUECLASSID';
@@ -32,7 +33,12 @@ describe('REST API - scratch keys', () => {
     let checkUserStub: sinon.SinonStub;
     let requireSupervisorStub: sinon.SinonStub;
 
-    function authNoOp(req, res, next) { next(); }
+    function authNoOp(
+        req: Express.Request, res: Express.Response,
+        next: (err?: NodeJS.ErrnoException) => void)
+    {
+        next();
+    }
 
 
     before(async () => {
@@ -988,7 +994,7 @@ describe('REST API - scratch keys', () => {
         });
 
 
-        function mockClassifier(url, opts) {
+        function mockClassifier(url: string, opts) {
             return new Promise((resolve) => {
                 resolve({
                     intents : [

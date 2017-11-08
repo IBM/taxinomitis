@@ -9,7 +9,7 @@ import * as auth0 from '../../lib/auth0/requests';
 import * as mocks from './requestmocks';
 
 
-describe('auth0 users', () => {
+describe.skip('auth0 users', () => {
 
     const TESTTENANT: string = 'TESTTENANT';
 

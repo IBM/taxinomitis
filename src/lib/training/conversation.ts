@@ -344,10 +344,15 @@ export async function testClassifier(
     const body = await request.post(credentials.url + '/v1/workspaces/' + classifierId + '/message', req);
     if (body.intents.length === 0) {
         const project = await store.getProject(projectid);
-        return [ chooseLabelAtRandom(project) ];
+        if (project) {
+            return [ chooseLabelAtRandom(project) ];
+        }
+        else {
+            return [];
+        }
     }
 
-    return body.intents.map((item) => {
+    return body.intents.map((item: ConversationApiResponsePayloadIntentItem) => {
         return { class_name : item.intent, confidence : Math.round(item.confidence * 100) };
     });
 }
@@ -386,7 +391,7 @@ export async function getTextClassifiers(
 
     try {
         const body = await request.get(credentials.url + '/v1/workspaces', req);
-        return body.workspaces.map((workspaceinfo) => {
+        return body.workspaces.map((workspaceinfo: ConversationApiResponsePayloadWorkspaceItem) => {
             return {
                 id : workspaceinfo.workspace_id,
                 name : workspaceinfo.name,
@@ -412,6 +417,7 @@ export async function getTextClassifiers(
 
 
 
+
 export async function cleanupExpiredClassifiers(): Promise<void[]>
 {
     log.info('Cleaning up expired Conversation workspaces');
@@ -419,3 +425,16 @@ export async function cleanupExpiredClassifiers(): Promise<void[]>
     const expired: TrainingObjects.ConversationWorkspace[] = await store.getExpiredConversationWorkspaces();
     return Promise.all(expired.map(deleteClassifier));
 }
+
+
+interface ConversationApiResponsePayloadIntentItem {
+    readonly intent: string;
+    readonly confidence: number;
+}
+interface ConversationApiResponsePayloadWorkspaceItem {
+    readonly workspace_id: string;
+    readonly name: string;
+}
+
+
+

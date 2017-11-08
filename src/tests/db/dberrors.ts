@@ -8,11 +8,22 @@ import * as proxyquire from 'proxyquire';
 import * as mockMysqldb from './mockmysqldb';
 
 import * as store from '../../lib/db/store';
+import * as Objects from '../../lib/db/db-types';
 
 
 describe('DB store - error handling', () => {
 
-    let stubbedStore;
+    interface Store {
+        init(): Promise<void>;
+        disconnect(): Promise<void>;
+        addLabelToProject(userid: string, classid: string, projectid: string, label: string): Promise<string[]>;
+        countProjectsByUserId(userid: string, classid: string): Promise<number>;
+        getProjectsByUserId(userid: string, classid: string): Promise<Objects.Project[]>;
+        deleteTraining(type: Objects.ProjectTypeLabel, projectid: string, trainingid: string): Promise<void>;
+        deleteTrainingByProjectId(type: Objects.ProjectTypeLabel, projectid: string): Promise<void>;
+    }
+
+    let stubbedStore: Store;
 
     before('set up mocks', () => {
         stubbedStore = proxyquire('../../lib/db/store', {

@@ -78,13 +78,16 @@ describe('DB store', () => {
             const project = await store.storeProject(userid, classid, typelabel, name, 'en', []);
 
             let retrieved = await store.getProject(project.id);
-            assert.equal(retrieved.id, project.id);
-            assert.equal(retrieved.name, name);
-            assert.equal(retrieved.classid, classid);
-            assert.equal(retrieved.type, typelabel);
-            assert.equal(retrieved.userid, userid);
+            assert(retrieved);
+            if (retrieved) {
+                assert.equal(retrieved.id, project.id);
+                assert.equal(retrieved.name, name);
+                assert.equal(retrieved.classid, classid);
+                assert.equal(retrieved.type, typelabel);
+                assert.equal(retrieved.userid, userid);
 
-            await store.deleteEntireProject(userid, classid, project);
+                await store.deleteEntireProject(userid, classid, project);
+            }
 
             retrieved = await store.getProject(project.id);
             assert(!retrieved);
@@ -143,12 +146,15 @@ describe('DB store', () => {
             const project = await store.storeProject(userid, classid, typelabel, name, 'en', [ numField, chcField ]);
 
             let retrieved = await store.getProject(project.id);
-            assert.equal(retrieved.id, project.id);
-            assert.equal(retrieved.name, name);
-            assert.equal(retrieved.classid, classid);
-            assert.equal(retrieved.type, typelabel);
-            assert.equal(retrieved.userid, userid);
-            assert.equal(retrieved.numfields, 2);
+            assert(retrieved);
+            if (retrieved) {
+                assert.equal(retrieved.id, project.id);
+                assert.equal(retrieved.name, name);
+                assert.equal(retrieved.classid, classid);
+                assert.equal(retrieved.type, typelabel);
+                assert.equal(retrieved.userid, userid);
+                assert.equal(retrieved.numfields, 2);
+            }
 
             const fields = await store.getNumberProjectFields(userid, classid, project.id);
             assert.equal(fields.length, 2);
@@ -265,21 +271,30 @@ describe('DB store', () => {
             const project = await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', []);
 
             let retrieved = await store.getProject(project.id);
-            assert.deepEqual(retrieved.labels, []);
+            assert(retrieved);
+            if (retrieved) {
+                assert.deepEqual(retrieved.labels, []);
+            }
 
             const label1 = randomstring.generate({ length : 16 });
             let newlabels = await store.addLabelToProject(userid, TESTCLASS, project.id, label1);
             assert.deepEqual(newlabels, [ label1 ]);
 
             retrieved = await store.getProject(project.id);
-            assert.deepEqual(retrieved.labels, [ label1 ]);
+            assert(retrieved);
+            if (retrieved) {
+                assert.deepEqual(retrieved.labels, [ label1 ]);
+            }
 
             const label2 = randomstring.generate({ length : 16 });
             newlabels = await store.addLabelToProject(userid, TESTCLASS, project.id, label2);
             assert.deepEqual(newlabels, [ label1, label2 ]);
 
             retrieved = await store.getProject(project.id);
-            assert.deepEqual(retrieved.labels, [ label1, label2 ]);
+            assert(retrieved);
+            if (retrieved) {
+                assert.deepEqual(retrieved.labels, [ label1, label2 ]);
+            }
         });
 
         it('should not store duplicate labels', async () => {
@@ -287,20 +302,29 @@ describe('DB store', () => {
             const project = await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', []);
 
             let retrieved = await store.getProject(project.id);
-            assert.deepEqual(retrieved.labels, []);
+            assert(retrieved);
+            if (retrieved) {
+                assert.deepEqual(retrieved.labels, []);
+            }
 
             const label1 = randomstring.generate({ length : 16 });
             let newlabels = await store.addLabelToProject(userid, TESTCLASS, project.id, label1);
             assert.deepEqual(newlabels, [ label1 ]);
 
             retrieved = await store.getProject(project.id);
-            assert.deepEqual(retrieved.labels, [ label1 ]);
+            assert(retrieved);
+            if (retrieved) {
+                assert.deepEqual(retrieved.labels, [ label1 ]);
+            }
 
             newlabels = await store.addLabelToProject(userid, TESTCLASS, project.id, label1);
             assert.deepEqual(newlabels, [ label1 ]);
 
             retrieved = await store.getProject(project.id);
-            assert.deepEqual(retrieved.labels, [ label1 ]);
+            assert(retrieved);
+            if (retrieved) {
+                assert.deepEqual(retrieved.labels, [ label1 ]);
+            }
         });
 
 
@@ -309,14 +333,20 @@ describe('DB store', () => {
             const project = await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', []);
 
             let retrieved = await store.getProject(project.id);
-            assert.deepEqual(retrieved.labels, []);
+            assert(retrieved);
+            if (retrieved) {
+                assert.deepEqual(retrieved.labels, []);
+            }
 
             const label1 = '';
             const newlabels = await store.addLabelToProject(userid, TESTCLASS, project.id, label1);
             assert.deepEqual(newlabels, [ '' ]);
 
             retrieved = await store.getProject(project.id);
-            assert.deepEqual(retrieved.labels, [  ]);
+            assert(retrieved);
+            if (retrieved) {
+                assert.deepEqual(retrieved.labels, [  ]);
+            }
         });
 
     });
@@ -353,7 +383,10 @@ describe('DB store', () => {
             assert.deepEqual(newLabels, [ 'america', 'canada', 'denmark' ]);
 
             const project = await store.getProject(projectid);
-            assert.deepEqual(project.labels, [ 'america', 'canada', 'denmark' ]);
+            assert(project);
+            if (project) {
+                assert.deepEqual(project.labels, [ 'america', 'canada', 'denmark' ]);
+            }
 
             const countAfter = await store.countTrainingByLabel('text', projectid);
             assert.deepEqual(countAfter, {
@@ -371,7 +404,10 @@ describe('DB store', () => {
             assert.deepEqual(newLabels, labels);
 
             const project = await store.getProject(projectid);
-            assert.deepEqual(project.labels, labels);
+            assert(project);
+            if (project) {
+                assert.deepEqual(project.labels, labels);
+            }
         });
 
 
@@ -384,7 +420,10 @@ describe('DB store', () => {
             assert.deepEqual(newLabels, labels);
 
             const project = await store.getProject(projectid);
-            assert.deepEqual(project.labels, labels);
+            assert(project);
+            if (project) {
+                assert.deepEqual(project.labels, labels);
+            }
         });
 
         it('should remove all labels from a project', async () => {

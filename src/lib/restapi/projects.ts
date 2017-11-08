@@ -93,7 +93,7 @@ function getProject(req: Express.Request, res: Express.Response) {
     const projectid: string = req.params.projectid;
 
     return store.getProject(projectid)
-        .then((project: Objects.Project) => {
+        .then((project: Objects.Project | undefined) => {
             if (project) {
                 if (project.classid === classid && project.userid === userid) {
                     return res.set(headers.NO_CACHE).json(project);
@@ -106,7 +106,7 @@ function getProject(req: Express.Request, res: Express.Response) {
                 return errors.notFound(res);
             }
         })
-        .catch((err) => {
+        .catch((err: NodeJS.ErrnoException) => {
             log.error({ err }, 'Server error');
             errors.unknownError(res, err);
         });
@@ -141,7 +141,7 @@ async function deleteProject(req: Express.Request, res: Express.Response) {
     const projectid = req.params.projectid;
 
     try {
-        const project: Objects.Project = await store.getProject(projectid);
+        const project: Objects.Project | undefined = await store.getProject(projectid);
 
         if (project) {
             if (project.classid === classid && project.userid === userid) {

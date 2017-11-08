@@ -6,6 +6,7 @@ import * as httpstatus from 'http-status';
 import * as sinon from 'sinon';
 import * as proxyquire from 'proxyquire';
 import * as randomstring from 'randomstring';
+import * as express from 'express';
 
 import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
@@ -18,7 +19,7 @@ import testapiserver from './testserver';
 
 
 
-let testServer;
+let testServer: express.Express;
 
 
 describe('REST API - models', () => {
@@ -27,7 +28,12 @@ describe('REST API - models', () => {
     let checkUserStub: sinon.SinonStub;
     let requireSupervisorStub: sinon.SinonStub;
 
-    function authNoOp(req, res, next) { next(); }
+    function authNoOp(
+        req: Express.Request, res: Express.Response,
+        next: (err?: NodeJS.ErrnoException) => void)
+    {
+        next();
+    }
 
     const conversationStub: { [label: string]: sinon.SinonStub } = {
         getClassifiersStub : sinon.stub(conversation, 'getClassifierStatuses'),

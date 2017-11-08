@@ -42,7 +42,7 @@ async function restartConnection() {
 }
 
 
-async function handleDbException(err) {
+async function handleDbException(err: NodeJS.ErrnoException) {
     log.error({ err }, 'DB error');
     if (err.code === 'ER_OPTION_PREVENTS_STATEMENT' &&  err.errno === 1290)
     {
@@ -228,6 +228,10 @@ export async function removeLabelFromProject(
 ): Promise<string[]>
 {
     const project = await getProject(projectid);
+    if (!project) {
+        throw new Error('Project not found');
+    }
+
     const labels = project.labels;
 
     const index = labels.indexOf(labelToRemove);
@@ -252,7 +256,7 @@ export async function replaceLabelsForProject(
 }
 
 
-export async function getProject(id: string): Promise<Objects.Project> {
+export async function getProject(id: string): Promise<Objects.Project | undefined> {
     const queryString = 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `language`, `labels`, `numfields` ' +
                         'FROM `projects` ' +
                         'WHERE `id` = ?';
@@ -547,7 +551,9 @@ export async function getUniqueTrainingTextsByLabel(
                         'WHERE `projectid` = ? AND `label` = ? ' +
                         'LIMIT ? OFFSET ?';
 
-    const rows = await dbExecute(queryString, [ projectid, label, options.limit, options.start ]);
+    const queryParams = [ projectid, label, options.limit, options.start ];
+
+    const rows: Array<{ textdata: string }> = await dbExecute(queryString, queryParams);
     return rows.map((row) => row.textdata);
 }
 
@@ -856,7 +862,15 @@ export async function countBluemixCredentialsByType(classid: string): Promise<{ 
 
     const counts = { conv : 0, visrec : 0 };
     for (const row of rows) {
-        counts[row.servicetype] = row.count;
+        if (row.servicetype === 'conv') {
+            counts.conv = row.count;
+        }
+        else if (row.servicetype === 'visrec') {
+            counts.visrec = row.count;
+        }
+        else {
+            log.error({ row, classid }, 'Unexpected bluemix service type found in DB');
+        }
     }
 
     return counts;

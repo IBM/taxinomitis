@@ -7,13 +7,14 @@ import * as proxyquire from 'proxyquire';
 import * as request from 'supertest';
 import * as httpstatus from 'http-status';
 import * as randomstring from 'randomstring';
+import * as express from 'express';
 
 import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
 import testapiserver from './testserver';
 
 
-let testServer;
+let testServer: express.Express;
 
 
 const TESTCLASS = 'UNIQUECLASSID';
@@ -25,7 +26,12 @@ describe('REST API - projects', () => {
     let checkUserStub: sinon.SinonStub;
     let requireSupervisorStub: sinon.SinonStub;
 
-    function authNoOp(req, res, next) { next(); }
+    function authNoOp(
+        req: Express.Request, res: Express.Response,
+        next: (err?: NodeJS.ErrnoException) => void)
+    {
+        next();
+    }
 
 
     before(async () => {

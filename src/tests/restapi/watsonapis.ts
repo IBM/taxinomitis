@@ -8,6 +8,7 @@ import * as proxyquire from 'proxyquire';
 import * as request from 'supertest';
 import * as httpstatus from 'http-status';
 import * as randomstring from 'randomstring';
+import * as express from 'express';
 
 import * as conversation from '../../lib/training/conversation';
 import * as visualrecognition from '../../lib/training/visualrecognition';
@@ -16,7 +17,7 @@ import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
 import testapiserver from './testserver';
 
-let testServer;
+let testServer: express.Express;
 
 
 describe('REST API - Bluemix credentials', () => {
@@ -29,7 +30,12 @@ describe('REST API - Bluemix credentials', () => {
     let getTextClassifiersStub: sinon.SinonStub;
     let getImageClassifiersStub: sinon.SinonStub;
 
-    function authNoOp(req, res, next) { next(); }
+    function authNoOp(
+        req: Express.Request, res: Express.Response,
+        next: (err?: NodeJS.ErrnoException) => void)
+    {
+        next();
+    }
 
 
     const VALID_USERNAME = randomstring.generate({ length : 36 });

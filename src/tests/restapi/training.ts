@@ -6,6 +6,7 @@ import * as httpstatus from 'http-status';
 import * as sinon from 'sinon';
 import * as proxyquire from 'proxyquire';
 import * as randomstring from 'randomstring';
+import * as express from 'express';
 
 import * as store from '../../lib/db/store';
 import * as limits from '../../lib/db/limits';
@@ -14,7 +15,7 @@ import testapiserver from './testserver';
 
 
 
-let testServer;
+let testServer: express.Express;
 
 
 describe('REST API - training', () => {
@@ -23,7 +24,12 @@ describe('REST API - training', () => {
     let checkUserStub: sinon.SinonStub;
     let requireSupervisorStub: sinon.SinonStub;
 
-    function authNoOp(req, res, next) { next(); }
+    function authNoOp(
+        req: Express.Request, res: Express.Response,
+        next: (err?: NodeJS.ErrnoException) => void)
+    {
+        next();
+    }
 
 
     before(async () => {

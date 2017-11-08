@@ -3,6 +3,7 @@
 import * as assert from 'assert';
 import * as request from 'supertest';
 import * as httpStatus from 'http-status';
+import * as express from 'express';
 
 import testServerSetup from './testserver';
 
@@ -10,7 +11,7 @@ import testServerSetup from './testserver';
 
 describe('REST API - Security', () => {
 
-    let testServer;
+    let testServer: express.Express;
 
     before(() => {
         testServer = testServerSetup();

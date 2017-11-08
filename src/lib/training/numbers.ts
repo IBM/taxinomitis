@@ -84,6 +84,10 @@ export async function testClassifier(
     catch (err) {
         if (err.statusCode === httpStatus.NOT_FOUND) {
             const project = await store.getProject(projectid);
+            if (!project) {
+                throw new Error('Project not found');
+            }
+
             await trainClassifier(project);
             body = await request.post(url, req);
         }

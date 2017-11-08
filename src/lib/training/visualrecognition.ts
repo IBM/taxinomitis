@@ -161,8 +161,7 @@ function validateRequest(urls: string[]): void {
 async function getTraining(project: DbObjects.Project): Promise<object> {
     const counts = await store.countTrainingByLabel('images', project.id);
 
-    const examples = {
-    };
+    const examples: { [label: string]: string } = {};
 
     for (const label of project.labels) {
         const training = await store.getImageTrainingByLabel(project.id, label, {
