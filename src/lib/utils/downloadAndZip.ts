@@ -18,9 +18,9 @@ type IFileTypeCallback = (err?: Error, filetype?: string) => void;
 type IErrCallback = (err?: Error) => void;
 type IRenameCallback = (err?: Error, renamedPath?: string) => void;
 type IDownloadCallback = (err?: Error, downloadedFilePath?: string) => void;
-type IDownloadAllCallback = (err: Error, downloadedFilePaths?: string[]) => void;
-type IZipCallback = (err: Error, zipPath?: string, zipSize?: number) => void;
-type ICreateZipCallback = (err: Error, zipPath?: string) => void;
+type IDownloadAllCallback = (err?: Error, downloadedFilePaths?: string[]) => void;
+type IZipCallback = (err?: Error, zipPath?: string, zipSize?: number) => void;
+type ICreateZipCallback = (err?: Error, zipPath?: string) => void;
 
 
 /**
@@ -150,7 +150,7 @@ function createZip(filepaths: string[], callback: IZipCallback): void {
         const archive = archiver('zip', { zlib : { level : 9 } });
 
         outputStream.on('close', () => {
-            callback(null, zipfilename, archive.pointer());
+            callback(undefined, zipfilename, archive.pointer());
         });
 
         outputStream.on('warning', callback);
@@ -192,16 +192,16 @@ function downloadAllIntoZip(urls: string[], callback: ICreateZipCallback): void 
             downloadAll(urls, next);
         },
         (downloadedFilePaths: string[], next) => {
-            createZip(downloadedFilePaths, (err, zippath: string, zipsize: number) => {
+            createZip(downloadedFilePaths, (err?: Error, zippath?: string, zipsize?: number) => {
                 next(err, downloadedFilePaths, zippath, zipsize);
             });
         },
-        (downloadedFilePaths: string[], zipFilePath: string, zipFileSize: number, next) => {
+        (downloadedFilePaths: string[], zipFilePath: string, zipFileSize: number, next: IZipCallback) => {
             deleteFiles(downloadedFilePaths, (err) => {
                 next(err, zipFilePath, zipFileSize);
             });
         },
-        (zipFilePath: string, zipFileSize: number, next) => {
+        (zipFilePath: string, zipFileSize: number, next: ICreateZipCallback) => {
             validateZip(zipFileSize, (err) => {
                 next(err, zipFilePath);
             });

@@ -13,7 +13,7 @@ describe('Utils - base64decode', () => {
     it('should decode a jpg file', (done) => {
         decoder.run(TESTDATA)
             .then((path) => {
-                filecompare('./src/tests/utils/resources/test.jpg', path, (isEqual) => {
+                filecompare('./src/tests/utils/resources/test.jpg', path, (isEqual: boolean) => {
                     assert(isEqual);
                     fs.unlink(path, done);
                 });

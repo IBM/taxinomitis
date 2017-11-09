@@ -10,6 +10,14 @@ import * as Objects from '../../lib/db/db-types';
 
 describe('DB objects', () => {
 
+    // @ts-ignore need to check for values that might be undefined at runtime
+    const UNDEFINED_STRING: string = undefined;
+    // @ts-ignore need to check for values that might be undefined at runtime
+    const UNDEFINED_NUMBERS: number[] = undefined;
+    // @ts-ignore need to check for values that might be undefined at runtime
+    const UNDEFINED_LANG: Objects.TextProjectLanguage = undefined;
+
+
     describe('getProjectFromDbRow()', () => {
         it('should return labels for ids from DB', () => {
             const userid = 'testuser';
@@ -48,7 +56,7 @@ describe('DB objects', () => {
                 id : projectid,
                 userid, classid,
                 typeid : 1,
-                language : undefined,
+                language : UNDEFINED_LANG,
                 name : 'testproject',
                 labels : '',
                 numfields : 0,
@@ -266,7 +274,7 @@ describe('DB objects', () => {
 
         it('should require project name', (done) => {
             try {
-                dbobjects.createProject('bob', 'bobclass', 'text', undefined, 'en', []);
+                dbobjects.createProject('bob', 'bobclass', 'text', UNDEFINED_STRING, 'en', []);
             }
             catch (err) {
                 assert.equal(err.message, 'Missing required attributes');
@@ -277,7 +285,7 @@ describe('DB objects', () => {
 
         it('should require a language', (done) => {
             try {
-                dbobjects.createProject('bob', 'bobclass', 'text', 'project', undefined, []);
+                dbobjects.createProject('bob', 'bobclass', 'text', 'project', UNDEFINED_LANG, []);
             }
             catch (err) {
                 assert.equal(err.message, 'Language not supported');
@@ -487,7 +495,7 @@ describe('DB objects', () => {
 
         it('should require text data', (done) => {
             try {
-                dbobjects.createTextTraining('testproject', undefined, undefined);
+                dbobjects.createTextTraining('testproject', UNDEFINED_STRING, UNDEFINED_STRING);
             }
             catch (err) {
                 assert.equal(err.message, 'Missing required attributes');
@@ -509,7 +517,7 @@ describe('DB objects', () => {
         });
 
         it('should allow training data without labels', () => {
-            const training = dbobjects.createTextTraining('testproject', 'mytext', undefined);
+            const training = dbobjects.createTextTraining('testproject', 'mytext', UNDEFINED_STRING);
             assert(training.id);
             assert.equal(training.projectid, 'testproject');
             assert.equal(training.textdata, 'mytext');
@@ -539,7 +547,7 @@ describe('DB objects', () => {
 
         it('should require number data', (done) => {
             try {
-                dbobjects.createNumberTraining('testproject', undefined, undefined);
+                dbobjects.createNumberTraining('testproject', UNDEFINED_NUMBERS, UNDEFINED_STRING);
             }
             catch (err) {
                 assert.equal(err.message, 'Missing required attributes');
@@ -550,7 +558,7 @@ describe('DB objects', () => {
 
         it('should require at least one number data item', (done) => {
             try {
-                dbobjects.createNumberTraining('testproject', [], undefined);
+                dbobjects.createNumberTraining('testproject', [], UNDEFINED_STRING);
             }
             catch (err) {
                 assert.equal(err.message, 'Missing required attributes');
@@ -561,7 +569,7 @@ describe('DB objects', () => {
 
         it('should require valid number data', (done) => {
             try {
-                dbobjects.createNumberTraining('testproject', [10, 'HELLO', 34] as any, undefined);
+                dbobjects.createNumberTraining('testproject', [10, 'HELLO', 34] as any, UNDEFINED_STRING);
             }
             catch (err) {
                 assert.equal(err.message, 'Data contains non-numeric items');
@@ -571,7 +579,7 @@ describe('DB objects', () => {
         });
 
         it('should allow training data without labels', () => {
-            const training = dbobjects.createNumberTraining('testproject', [123, 456], undefined);
+            const training = dbobjects.createNumberTraining('testproject', [123, 456], UNDEFINED_STRING);
             assert(training.id);
             assert.equal(training.projectid, 'testproject');
             assert.deepEqual(training.numberdata, [123, 456]);
@@ -616,7 +624,7 @@ describe('DB objects', () => {
         });
 
         it('should not require an image label', () => {
-            const training = dbobjects.createImageTraining('projectid', 'trainingurl', undefined);
+            const training = dbobjects.createImageTraining('projectid', 'trainingurl', UNDEFINED_STRING);
             assert(training.id);
             assert.equal(training.projectid, 'projectid');
             assert.equal(training.imageurl, 'trainingurl');
@@ -624,7 +632,7 @@ describe('DB objects', () => {
 
         it('should require an image url', (done) => {
             try {
-                dbobjects.createImageTraining('projectid', undefined, undefined);
+                dbobjects.createImageTraining('projectid', UNDEFINED_STRING, UNDEFINED_STRING);
             }
             catch (err) {
                 assert.equal(err.message, 'Missing required attributes');
@@ -650,7 +658,8 @@ describe('DB objects', () => {
 
         it('should require a service type', (done) => {
             try {
-                dbobjects.createBluemixCredentials(undefined, 'class', 'apikey', undefined, undefined);
+                dbobjects.createBluemixCredentials(UNDEFINED_STRING,
+                    'class', 'apikey', UNDEFINED_STRING, UNDEFINED_STRING);
             }
             catch (err) {
                 assert.equal(err.message, 'Missing required attributes');
@@ -661,7 +670,8 @@ describe('DB objects', () => {
 
         it('should require a valid service type', (done) => {
             try {
-                dbobjects.createBluemixCredentials('blah', 'class', 'apikey', undefined, undefined);
+                dbobjects.createBluemixCredentials('blah',
+                    'class', 'apikey', UNDEFINED_STRING, UNDEFINED_STRING);
             }
             catch (err) {
                 assert.equal(err.message, 'Invalid service type');
@@ -672,7 +682,9 @@ describe('DB objects', () => {
 
         it('should require an API key for visual recognition credentials', (done) => {
             try {
-                dbobjects.createBluemixCredentials('visrec', 'class', undefined, 'username', 'password');
+                dbobjects.createBluemixCredentials('visrec', 'class',
+                    UNDEFINED_STRING,
+                    'username', 'password');
             }
             catch (err) {
                 assert.equal(err.message, 'Missing required attributes');
@@ -683,7 +695,9 @@ describe('DB objects', () => {
 
         it('should require a valid API key for visual recognition credentials', (done) => {
             try {
-                dbobjects.createBluemixCredentials('visrec', 'class', 'too short', undefined, undefined);
+                dbobjects.createBluemixCredentials('visrec', 'class',
+                    'too short',
+                    undefined, undefined);
             }
             catch (err) {
                 assert.equal(err.message, 'Invalid API key');
@@ -764,7 +778,7 @@ describe('DB objects', () => {
 
         it('should require a class id', (done) => {
             try {
-                dbobjects.createClassTenant(undefined);
+                dbobjects.createClassTenant(UNDEFINED_STRING);
             }
             catch (err) {
                 assert.equal(err.message, 'Missing required class id');

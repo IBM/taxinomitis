@@ -138,7 +138,7 @@ export const createUser = {
 };
 
 export const deleteUser = {
-    good : (token: string, userid) => { // eslint-disable-line no-unused-vars
+    good : (token: string, userid: string) => { // eslint-disable-line no-unused-vars
         return Promise.resolve();
     },
 };

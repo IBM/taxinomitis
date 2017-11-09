@@ -84,6 +84,10 @@ export async function createKey(projectid: string): Promise<ScratchTypes.Key>
 {
     const project = await store.getProject(projectid);
 
+    if (!project) {
+        throw new Error('Project not found');
+    }
+
     switch (project.type) {
     case 'text':
         return createTextKey(project);

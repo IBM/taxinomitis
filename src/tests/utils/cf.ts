@@ -7,7 +7,7 @@ import * as cf from '../../lib/utils/cf';
 
 describe('Utils - cf', () => {
 
-    let oldEnv;
+    let oldEnv: string | undefined;
 
     before(() => {
         oldEnv = process.env.CF_INSTANCE_INDEX;

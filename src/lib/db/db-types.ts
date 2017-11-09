@@ -59,7 +59,7 @@ export interface NumbersProjectFieldDbRow {
     readonly projectid: string;
     readonly name: string;
     readonly fieldtype: number;
-    readonly choices: string;
+    readonly choices?: string;
 }
 
 export type NumbersProjectFieldTypeLabel = 'number' | 'multichoice';

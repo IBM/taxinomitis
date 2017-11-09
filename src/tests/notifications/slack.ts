@@ -12,7 +12,7 @@ import * as slack from '../../lib/notifications/slack';
 
 describe('Notifications - Slack', () => {
 
-    let slackEnv;
+    let slackEnv: string | undefined;
 
     const expectedMessage = 'This is my message';
     const unsendableMessage = 'This message cannot be sent';

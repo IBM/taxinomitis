@@ -380,8 +380,8 @@ export function getCredentialsFromDbRow(
 
 export function createBluemixCredentials(
     servicetype: string, classid: string,
-    apikey: string,
-    username: string, password: string,
+    apikey?: string,
+    username?: string, password?: string,
 ): TrainingObjects.BluemixCredentials
 {
     if (servicetype === undefined)
@@ -528,7 +528,7 @@ export function createVisualClassifier(
         name : classifierInfo.name,
         created : classifierInfo.created,
         expiry : classifierInfo.expiry,
-        language : null,
+        language : '',
     };
 }
 
@@ -589,6 +589,8 @@ export function getScratchKeyFromDbRow(row: Objects.ScratchKeyDbRow): Objects.Sc
     case 'numbers':
         servicetype = 'num';
         break;
+    default:
+        throw new Error('Unrecognised service type');
     }
 
     if (row.classifierid) {

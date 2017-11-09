@@ -2,7 +2,7 @@
 import * as bunyan from 'bunyan';
 
 
-let logger;
+let logger: bunyan;
 
 /**
  * Prepares an instance of a bunyan login.
