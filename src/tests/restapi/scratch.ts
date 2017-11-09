@@ -16,6 +16,7 @@ import * as Types from '../../lib/training/training-types';
 import * as store from '../../lib/db/store';
 import * as limits from '../../lib/db/limits';
 import * as auth from '../../lib/restapi/auth';
+import * as conversation from '../../lib/training/conversation';
 import testapiserver from './testserver';
 
 
@@ -994,7 +995,7 @@ describe('REST API - scratch keys', () => {
         });
 
 
-        function mockClassifier(url: string, opts) {
+        function mockClassifier(url: string, opts: conversation.ConversationApiRequestPayloadTestItem) {
             return new Promise((resolve) => {
                 resolve({
                     intents : [
@@ -1008,7 +1009,7 @@ describe('REST API - scratch keys', () => {
                         },
                     ],
                     entities : [],
-                    input : { text : opts.body.text },
+                    input : { text : opts.body.input.text },
                     output : {
                         text : [],
                         nodes_visited : [],

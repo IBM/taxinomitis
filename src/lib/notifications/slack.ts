@@ -17,7 +17,7 @@ export function init() {
 
 export function notify(message: string): void {
     if (webhook) {
-        webhook.send(message, (err, res) => {
+        webhook.send(message, (err?: NodeJS.ErrnoException, res?: object) => {
             if (err) {
                 log.error({ err }, 'Failed to send notification');
             }

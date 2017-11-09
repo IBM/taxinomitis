@@ -260,7 +260,7 @@ async function submitTrainingToConversation(
     id: string,
 ): Promise<TrainingObjects.ConversationWorkspace>
 {
-    const req = {
+    const req: ConversationApiRequestPayloadClassifierItem = {
         auth : {
             user : credentials.username,
             pass : credentials.password,
@@ -315,6 +315,8 @@ async function submitTrainingToConversation(
 }
 
 
+
+
 export async function testClassifier(
     credentials: TrainingObjects.BluemixCredentials,
     classifierId: string,
@@ -322,7 +324,7 @@ export async function testClassifier(
     text: string,
 ): Promise<TrainingObjects.Classification[]>
 {
-    const req = {
+    const req: ConversationApiRequestPayloadTestItem = {
         auth : {
             user : credentials.username,
             pass : credentials.password,
@@ -437,4 +439,38 @@ interface ConversationApiResponsePayloadWorkspaceItem {
 }
 
 
+export interface ConversationApiRequestPayloadClassifierItem {
+    readonly auth: {
+        readonly user: string;
+        readonly pass: string;
+    };
+    readonly headers: {
+        readonly 'user-agent': string;
+    };
+    readonly qs: {
+        readonly version: '2017-05-26';
+    };
+    readonly body: TrainingObjects.ConversationTrainingData;
+    readonly json: true;
+    readonly gzip: true;
+}
 
+
+export interface ConversationApiRequestPayloadTestItem {
+    readonly auth: {
+        readonly user: string;
+        readonly pass: string;
+    };
+    readonly headers: {
+        readonly 'user-agent': string;
+    };
+    readonly qs: {
+        readonly version: '2017-05-26';
+    };
+    readonly body: {
+        readonly input: {
+            readonly text: string;
+        };
+    };
+    readonly json: true;
+}

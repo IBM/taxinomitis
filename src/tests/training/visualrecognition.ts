@@ -5,6 +5,7 @@
 // tslint:disable:max-line-length
 
 import * as uuid from 'uuid/v1';
+import * as fs from 'fs';
 import * as assert from 'assert';
 import * as httpstatus from 'http-status';
 import * as sinon from 'sinon';
@@ -414,14 +415,16 @@ describe('Training - Visual Recognition', () => {
                 });
             }
         },
-        createClassifier : (url: string, options) => {
+        createClassifier : (url: string, options: visrec.VisualRecogApiRequestPayloadClassifierItem) => {
             if (options.formData.name === 'Bob\'s images proj') {
                 assert.equal(options.qs.version, '2016-05-20');
                 assert.equal(options.qs.api_key, 'userpass');
                 assert.equal(options.json, true);
                 assert.equal(options.formData.name, 'Bob\'s images proj');
-                assert.equal(typeof options.formData.rock_positive_examples.path, 'string');
-                assert.equal(typeof options.formData.paper_positive_examples.path, 'string');
+                const rockStream: fs.ReadStream = options.formData.rock_positive_examples as fs.ReadStream;
+                assert.equal(typeof rockStream.path, 'string');
+                const paperStream: fs.ReadStream = options.formData.paper_positive_examples as fs.ReadStream;
+                assert.equal(typeof paperStream.path, 'string');
 
                 return new Promise((resolve, reject) => {
                     resolve({

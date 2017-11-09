@@ -360,7 +360,7 @@ describe('Training - Conversation', () => {
                 }
             });
         },
-        createClassifier : (url: string, options) => {
+        createClassifier : (url: string, options: conversation.ConversationApiRequestPayloadClassifierItem) => {
             return new Promise((resolve, reject) => {
                 if (options.body.name === 'Bob\'s text project') {
 
@@ -393,7 +393,7 @@ describe('Training - Conversation', () => {
                 }
             });
         },
-        testClassifier : (url: string, opts) => {
+        testClassifier : (url: string, opts: conversation.ConversationApiRequestPayloadTestItem) => {
             return new Promise((resolve) => {
                 switch (url) {
                 case 'http://conversation.service/v1/workspaces/good/message':

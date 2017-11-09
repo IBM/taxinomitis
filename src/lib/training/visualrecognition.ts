@@ -45,7 +45,7 @@ export async function trainClassifier(
 async function createClassifier(
     project: DbObjects.Project,
     credentialsPool: TrainingObjects.BluemixCredentials[],
-    training: object,
+    training: { [label: string]: string },
 ): Promise<TrainingObjects.VisualClassifier>
 {
     let classifier: TrainingObjects.VisualClassifier;
@@ -158,7 +158,7 @@ function validateRequest(urls: string[]): void {
 
 
 
-async function getTraining(project: DbObjects.Project): Promise<object> {
+async function getTraining(project: DbObjects.Project): Promise<{ [label: string]: string }> {
     const counts = await store.countTrainingByLabel('images', project.id);
 
     const examples: { [label: string]: string } = {};
@@ -251,7 +251,6 @@ async function deleteClassifierFromBluemix(
 
 
 
-
 export async function testClassifierFile(
     credentials: TrainingObjects.BluemixCredentials,
     classifierid: string,
@@ -331,21 +330,22 @@ function sortByConfidence(item1: TrainingObjects.Classification, item2: Training
 
 
 
+
 async function submitTrainingToVisualRecognition(
     project: DbObjects.Project,
     credentials: TrainingObjects.BluemixCredentials,
     url: string,
-    training: object,
+    training: { [label: string]: string },
 ): Promise<TrainingObjects.VisualClassifier>
 {
-    const trainingData = {
+    const trainingData: { [label: string]: fs.ReadStream | string } = {
         name : project.name,
     };
     for (const label of project.labels) {
         trainingData[label + '_positive_examples'] = fs.createReadStream(training[label]);
     }
 
-    const req = {
+    const req: VisualRecogApiRequestPayloadClassifierItem = {
         qs : {
             version : '2016-05-20',
             api_key : credentials.username + credentials.password,
@@ -436,3 +436,23 @@ export async function cleanupExpiredClassifiers(): Promise<void[]>
     const expired: TrainingObjects.VisualClassifier[] = await store.getExpiredImageClassifiers();
     return Promise.all(expired.map(deleteClassifier));
 }
+
+
+
+export interface VisualRecogApiRequestPayloadClassifierItem {
+    readonly qs: {
+        readonly version: '2016-05-20';
+        readonly api_key: string;
+    };
+    readonly headers: {
+        readonly 'user-agent': string;
+    };
+    readonly formData: TrainingData;
+    readonly json: true;
+    readonly timeout: number;
+}
+
+interface TrainingData {
+    [label: string]: fs.ReadStream | string;
+}
+

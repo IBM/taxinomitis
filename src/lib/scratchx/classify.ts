@@ -36,6 +36,9 @@ async function classifyText(key: Types.ScratchKey, text: string): Promise<Traini
     else {
         // we don't have a Conversation workspace yet, so we resort to random
         const project = await store.getProject(key.projectid);
+        if (!project) {
+            throw new Error('Project not found');
+        }
         return chooseLabelsAtRandom(project);
     }
 }
@@ -61,6 +64,9 @@ async function classifyImage(key: Types.ScratchKey, base64imagedata: string): Pr
     //  output from the image classifier.
     // Either way, we resort to random
     const project = await store.getProject(key.projectid);
+    if (!project) {
+        throw new Error('Project not found');
+    }
     return chooseLabelsAtRandom(project);
 }
 
@@ -87,6 +93,9 @@ async function classifyNumbers(key: Types.ScratchKey, numbers: string[]): Promis
         throw new Error('Missing data');
     }
     const project = await store.getProject(key.projectid);
+    if (!project) {
+        throw new Error('Project not found');
+    }
     if (numbers.length !== project.numfields) {
         throw new Error('Missing data');
     }
