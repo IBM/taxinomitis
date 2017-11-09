@@ -1,8 +1,6 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
-import * as filecompare from 'filecompare';
 import * as fs from 'fs';
-import * as unzip from 'unzip';
 import * as tmp from 'tmp';
 import * as async from 'async';
 

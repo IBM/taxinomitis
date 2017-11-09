@@ -71,7 +71,7 @@ async function classifyImage(key: Types.ScratchKey, base64imagedata: string): Pr
 }
 
 
-function logError(err: NodeJS.ErrnoException) {
+function logError(err?: Error) {
     if (err) {
         log.error({ err }, 'Error when deleting image file');
     }

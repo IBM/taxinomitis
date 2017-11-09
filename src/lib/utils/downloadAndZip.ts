@@ -14,14 +14,13 @@ const log = loggerSetup();
 
 
 
-type IFileTypeCallback = (err: Error, filetype?: string) => void;
-type IErrCallback = (err: Error) => void;
-type IRenameCallback = (err: Error, renamedPath?: string) => void;
-type IDownloadCallback = (err: Error, downloadedFilePath?: string) => void;
+type IFileTypeCallback = (err?: Error, filetype?: string) => void;
+type IErrCallback = (err?: Error) => void;
+type IRenameCallback = (err?: Error, renamedPath?: string) => void;
+type IDownloadCallback = (err?: Error, downloadedFilePath?: string) => void;
 type IDownloadAllCallback = (err: Error, downloadedFilePaths?: string[]) => void;
 type IZipCallback = (err: Error, zipPath?: string, zipSize?: number) => void;
 type ICreateZipCallback = (err: Error, zipPath?: string) => void;
-
 
 
 /**
@@ -31,7 +30,7 @@ function getFileTypeFromContents(filepath: string, callback: IFileTypeCallback):
     readChunk(filepath, 0, 4100)
         .then((buffer) => {
             const type = fileType(buffer);
-            callback(null, type ? type.ext : 'unknown');
+            callback(undefined, type ? type.ext : 'unknown');
         })
         .catch(callback);
 }
@@ -45,17 +44,17 @@ function getFileTypeFromContents(filepath: string, callback: IFileTypeCallback):
  */
 function renameFileFromContents(filepath: string, sourceurl: string, callback: IRenameCallback): void {
     async.waterfall([
-        (next) => {
+        (next: IErrCallback) => {
             getFileTypeFromContents(filepath, next);
         },
-        (filetype, next) => {
+        (filetype: string, next: IFileTypeCallback) => {
             if (filetype === 'jpg' || filetype === 'png') {
-                return next(null, filetype);
+                return next(undefined, filetype);
             }
             fs.unlink(filepath, logError);
             next(new Error('Training data (' + sourceurl + ') has unsupported file type (' + filetype + ')'));
         },
-        (filetype, next) => {
+        (filetype: string, next: IRenameCallback) => {
             const newFilePath = filepath + '.' + filetype;
             fs.rename(filepath, newFilePath, (err) => {
                 next(err, newFilePath);
@@ -64,7 +63,7 @@ function renameFileFromContents(filepath: string, sourceurl: string, callback: I
     ], callback);
 }
 
-function logError(err: NodeJS.ErrnoException) {
+function logError(err?: Error) {
     if (err) {
         log.error({ err }, 'Failed to delete file');
     }
@@ -93,23 +92,23 @@ function download(url: string, targetFilePath: string, callback: IErrCallback): 
  */
 function downloadAndRename(url: string, callback: IDownloadCallback): void {
     async.waterfall([
-        (next) => {
+        (next: IDownloadCallback) => {
             // work out where to download the file to
             tmp.file({ keep : true }, (err, tmppath) => {
                 next(err, tmppath);
             });
         },
-        (tmpFilePath, next) => {
+        (tmpFilePath: string, next: IDownloadCallback) => {
             // download the file to the temp location on disk
             download(url, tmpFilePath, (err) => {
                 next(err, tmpFilePath);
             });
         },
-        (tmpFilePath, next) => {
+        (tmpFilePath: string, next: IRenameCallback) => {
             // rename the file to give it the right extension
             renameFileFromContents(tmpFilePath, url, next);
         },
-    ], (err: Error, downloadedPath: string) => {
+    ], (err?: Error, downloadedPath?: string) => {
         if (err) {
             log.error({ err, url }, 'Failed to download');
         }
@@ -177,7 +176,7 @@ function validateZip(filesize: number, callback: IErrCallback): void {
     if (filesize > 100000000) {
         return callback(new Error('Training data exceeds maximum limit (100 mb)'));
     }
-    return callback(null);
+    return callback(undefined);
 }
 
 
@@ -189,7 +188,7 @@ function validateZip(filesize: number, callback: IErrCallback): void {
  */
 function downloadAllIntoZip(urls: string[], callback: ICreateZipCallback): void {
     async.waterfall([
-        (next) => {
+        (next: IDownloadAllCallback) => {
             downloadAll(urls, next);
         },
         (downloadedFilePaths: string[], next) => {

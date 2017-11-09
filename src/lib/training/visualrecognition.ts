@@ -180,11 +180,11 @@ async function getTraining(project: DbObjects.Project): Promise<{ [label: string
 
 
 
-function deleteTrainingFiles(training) {
+function deleteTrainingFiles(training: { [label: string]: string }): void {
     const trainingKeys = Object.keys(training);
     for (const trainingKey of trainingKeys) {
         if (trainingKey !== 'name') {
-            fs.unlink(training[trainingKey], (err) => {
+            fs.unlink(training[trainingKey], (err?: Error) => {
                 if (err) {
                     log.error({ err }, 'Failed to delete training file');
                 }

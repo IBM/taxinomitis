@@ -13,8 +13,8 @@ const log = loggerSetup();
 
 
 
-type IFileTypeCallback = (err: Error, filetype?: string) => void;
-type IErrCallback = (err: Error) => void;
+type IFileTypeCallback = (err?: Error, filetype?: string) => void;
+type IErrCallback = (err?: Error) => void;
 
 
 
@@ -65,7 +65,7 @@ function getFileTypeFromContents(filepath: string, callback: IFileTypeCallback):
     readChunk(filepath, 0, 4100)
         .then((buffer) => {
             const type = fileType(buffer);
-            callback(null, type ? type.ext : 'unknown');
+            callback(undefined, type ? type.ext : 'unknown');
         })
         .catch(callback);
 }
@@ -92,6 +92,6 @@ function download(url: string, targetFilePath: string, callback: IErrCallback): 
 }
 
 
-function logError(err: NodeJS.ErrnoException) {
+function logError(err: Error) {
     log.error({ err }, 'Core error');
 }

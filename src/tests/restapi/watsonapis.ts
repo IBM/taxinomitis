@@ -32,7 +32,7 @@ describe('REST API - Bluemix credentials', () => {
 
     function authNoOp(
         req: Express.Request, res: Express.Response,
-        next: (err?: NodeJS.ErrnoException) => void)
+        next: (err?: Error) => void)
     {
         next();
     }

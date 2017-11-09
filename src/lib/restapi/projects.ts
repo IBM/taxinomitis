@@ -106,7 +106,7 @@ function getProject(req: Express.Request, res: Express.Response) {
                 return errors.notFound(res);
             }
         })
-        .catch((err: NodeJS.ErrnoException) => {
+        .catch((err: Error) => {
             log.error({ err }, 'Server error');
             errors.unknownError(res, err);
         });

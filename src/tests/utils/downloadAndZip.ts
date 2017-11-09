@@ -49,7 +49,7 @@ describe('Utils - base64decode', () => {
                         unzippedFiles.push(target);
                         entry.pipe(fs.createWriteStream(target));
                     })
-                    .on('close', (err: NodeJS.ErrnoException) => {
+                    .on('close', (err?: Error) => {
                         next(err, unzippedFiles);
                     });
             },
