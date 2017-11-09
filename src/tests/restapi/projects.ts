@@ -492,7 +492,7 @@ describe('REST API - projects', () => {
             const studentA = uuid();
             const studentB = uuid();
 
-            let count;
+            let count: number;
 
             return request(testServer)
                 .get('/api/classes/' + TESTCLASS + '/projects')

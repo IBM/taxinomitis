@@ -7,11 +7,12 @@ const log = loggerSetup();
 
 
 
-let webhook;
+let webhook: IncomingWebhook | undefined;
 
 export function init() {
-    if (process.env.SLACK_WEBHOOK_URL) {
-        webhook = new IncomingWebhook(process.env.SLACK_WEBHOOK_URL);
+    const slackUrl: string | undefined = process.env.SLACK_WEBHOOK_URL;
+    if (slackUrl) {
+        webhook = new IncomingWebhook(slackUrl);
     }
 }
 
@@ -30,6 +31,6 @@ export function notify(message: string): void {
 
 export function close() {
     if (webhook) {
-        webhook = null;
+        webhook = undefined;
     }
 }

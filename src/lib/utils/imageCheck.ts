@@ -12,8 +12,9 @@ import loggerSetup from '../utils/logger';
 const log = loggerSetup();
 
 
-
+type IFilePathCallback = (err?: Error, location?: string) => void;
 type IFileTypeCallback = (err?: Error, filetype?: string) => void;
+type IFilePathTypeCallback = (err?: Error, filetype?: string, location?: string) => void;
 type IErrCallback = (err?: Error) => void;
 
 
@@ -21,28 +22,28 @@ type IErrCallback = (err?: Error) => void;
 export function verifyImage(url: string): Promise<void> {
     return new Promise((resolve, reject) => {
         async.waterfall([
-            (next) => {
+            (next: IFilePathCallback) => {
                 // work out where to download the file to
                 tmp.file({ keep : true }, (err, tmppath) => {
                     next(err, tmppath);
                 });
             },
-            (tmpFilePath, next) => {
+            (tmpFilePath: string, next: IFilePathCallback) => {
                 // download the file to the temp location on disk
                 download(url, tmpFilePath, (err) => {
                     next(err, tmpFilePath);
                 });
             },
-            (tmpFilePath, next) => {
-                getFileTypeFromContents(tmpFilePath, (err, type) => {
+            (tmpFilePath: string, next: IFilePathTypeCallback) => {
+                getFileTypeFromContents(tmpFilePath, (err?: Error, type?: string) => {
                     next(err, type, tmpFilePath);
                 });
             },
-            (fileTypeExt, tmpFilePath, next) => {
+            (fileTypeExt: string, tmpFilePath: string, next: IFileTypeCallback) => {
                 fs.unlink(tmpFilePath, logError);
-                next(null, fileTypeExt);
+                next(undefined, fileTypeExt);
             },
-        ], (err, fileTypeExt: string) => {
+        ], (err?: Error, fileTypeExt?: string) => {
             if (err) {
                 return reject(err);
             }

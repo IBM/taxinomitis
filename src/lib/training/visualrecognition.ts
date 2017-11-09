@@ -282,7 +282,7 @@ export async function testClassifierFile(
         json : true,
     };
 
-    const body = await request.post(credentials.url + '/v3/classify', req);
+    const body: VisualRecogApiResponsePayloadClassifyFile = await request.post(credentials.url + '/v3/classify', req);
     if (body.images && body.images.length > 0) {
         return body.images[0].classifiers[0].classes.map((item) => {
             return { class_name : item.class, confidence : Math.round(item.score * 100) };
@@ -316,7 +316,7 @@ export async function testClassifierURL(
         json : true,
     };
 
-    const body = await request.get(credentials.url + '/v3/classify', req);
+    const body: VisualRecogApiResponsePayloadClassification = await request.get(credentials.url + '/v3/classify', req);
     return body.images[0].classifiers[0].classes.map((item) => {
         return { class_name : item.class, confidence : Math.round(item.score * 100) };
     }).sort(sortByConfidence);
@@ -413,14 +413,15 @@ export async function getImageClassifiers(
         json : true,
     };
 
-    const body = await request.get(credentials.url + '/v3/classifiers', req);
+    const body: VisualRecogApiResponsePayloadClassifiers = await request.get(credentials.url + '/v3/classifiers', req);
     return body.classifiers.map((classifierinfo) => {
-        return {
+        const summary: TrainingObjects.ClassifierSummary = {
             id : classifierinfo.classifier_id,
             name : classifierinfo.name,
             type : 'visrec',
             credentials,
         };
+        return summary;
     });
 }
 
@@ -439,6 +440,19 @@ export async function cleanupExpiredClassifiers(): Promise<void[]>
 
 
 
+export interface VisualRecogApiResponsePayloadClassifiers {
+    readonly classifiers: VisualRecogApiResponsePayloadClassifier[];
+}
+
+export interface VisualRecogApiResponsePayloadClassifier {
+    readonly classifier_id: string;
+    readonly name: string;
+    readonly owner: string;
+    readonly status: string;
+    readonly created: string;
+    readonly classes: Array<{ class: string }>;
+}
+
 export interface VisualRecogApiRequestPayloadClassifierItem {
     readonly qs: {
         readonly version: '2016-05-20';
@@ -454,5 +468,36 @@ export interface VisualRecogApiRequestPayloadClassifierItem {
 
 interface TrainingData {
     [label: string]: fs.ReadStream | string;
+}
+
+export interface VisualRecogApiResponsePayloadClassification {
+    readonly images: Array<{
+        readonly classifiers: Array<{
+            readonly classes: Array<{
+                readonly class: string;
+                readonly score: number;
+            }>;
+            readonly classifier_id: string;
+            readonly name: string;
+        }>;
+        readonly resolved_url: string;
+        readonly source_url: string;
+    }>;
+    readonly images_processed: number;
+}
+
+export interface VisualRecogApiResponsePayloadClassifyFile {
+    readonly images: Array<{
+        readonly classifiers: Array<{
+            readonly classes: Array<{
+                readonly class: string;
+                readonly score: number;
+            }>;
+            readonly classifier_id: string;
+            readonly name: string;
+        }>;
+        readonly image: string;
+    }>;
+    readonly images_processed: number;
 }
 

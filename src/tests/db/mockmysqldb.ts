@@ -36,7 +36,7 @@ export function createPool() {
 
 // tslint:disable:max-line-length
 
-function mockExecute(query, params) {
+function mockExecute(query: string, params: any[]) {
     return new Promise((resolve, reject) => {
 
         let ERROR: any;
