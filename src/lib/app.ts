@@ -37,7 +37,7 @@ app.listen(port, host, () => {
 // log any uncaught errors before crashing
 process.on('uncaughtException', (err) => {
     log.error({ err, stack : err.stack }, 'Crash');
-    process.exit(1);
+    process.exit(1);   // eslint-disable-line
 });
 
 

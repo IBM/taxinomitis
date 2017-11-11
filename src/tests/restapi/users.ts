@@ -1,5 +1,5 @@
 /*eslint-env mocha */
-import * as util from 'util';
+
 import * as uuid from 'uuid/v1';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
@@ -311,7 +311,7 @@ describe('REST API - users', () => {
                 .then((res) => {
                     const body = res.body;
                     assert.equal(body.length, 0);
-                    assert(util.isArray(body));
+                    assert(Array.isArray(body));
                 })
                 .then(function restore() {
                     stubs.getOauthToken.restore();
@@ -336,7 +336,7 @@ describe('REST API - users', () => {
                 .then((res) => {
                     const body = res.body;
                     assert.equal(body.length, 1);
-                    assert(util.isArray(body));
+                    assert(Array.isArray(body));
                 })
                 .then(function restore() {
                     stubs.getOauthToken.restore();

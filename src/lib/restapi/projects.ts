@@ -1,5 +1,4 @@
 // external dependencies
-import * as util from 'util';
 import * as Express from 'express';
 import * as httpstatus from 'http-status';
 // local dependencies
@@ -169,7 +168,7 @@ async function deleteProject(req: Express.Request, res: Express.Response) {
 function getProjectPatch(req: Express.Request) {
     const patchRequests = req.body;
 
-    if (util.isArray(patchRequests) === false) {
+    if (Array.isArray(patchRequests) === false) {
         throw new Error('PATCH body should be an array');
     }
 
@@ -205,7 +204,7 @@ function getProjectPatch(req: Express.Request) {
         }
     }
     else if (op === 'replace') {
-        if (util.isArray(value) === false) {
+        if (Array.isArray(value) === false) {
             throw new Error('PATCH requests to replace labels should specify an array');
         }
         value = value.map((item: any) => item.toString().trim())

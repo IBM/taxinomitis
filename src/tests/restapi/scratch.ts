@@ -6,7 +6,6 @@ import * as httpstatus from 'http-status';
 import * as randomstring from 'randomstring';
 import * as sinon from 'sinon';
 import * as proxyquire from 'proxyquire';
-import * as util from 'util';
 import * as requestPromise from 'request-promise';
 import * as Express from 'express';
 
@@ -84,7 +83,7 @@ describe('REST API - scratch keys', () => {
                 .expect(httpstatus.OK)
                 .then(async (res) => {
                     const body = res.body;
-                    assert(util.isArray(body));
+                    assert(Array.isArray(body));
                     assert.equal(body.length, 1);
                     assert(body[0].id);
                     assert.equal(body[0].id.length, 72);
@@ -130,7 +129,7 @@ describe('REST API - scratch keys', () => {
                 .expect(httpstatus.OK)
                 .then(async (res) => {
                     const body = res.body;
-                    assert(util.isArray(body));
+                    assert(Array.isArray(body));
                     assert.equal(body.length, 1);
                     assert(body[0].id);
                     assert.equal(body[0].id.length, 72);
@@ -167,7 +166,7 @@ describe('REST API - scratch keys', () => {
                 .then(async (res) => {
                     const body = res.body;
 
-                    assert(util.isArray(body));
+                    assert(Array.isArray(body));
                     assert.equal(body.length, 1);
                     assert(body[0].id);
                     assert.equal(body[0].id, keyId);
@@ -212,7 +211,7 @@ describe('REST API - scratch keys', () => {
                 .then(async (res) => {
                     const body = res.body;
 
-                    assert(util.isArray(body));
+                    assert(Array.isArray(body));
                     assert.equal(body.length, 1);
                     assert(body[0].id);
                     assert.equal(body[0].id, keyId);

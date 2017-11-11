@@ -1,6 +1,5 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
-import * as util from 'util';
 import * as uuid from 'uuid/v1';
 import * as randomstring from 'randomstring';
 
@@ -32,31 +31,31 @@ describe('DB store', () => {
             const user = uuid();
 
             let projects = await store.getProjectsByUserId(user, TESTCLASS);
-            assert(util.isArray(projects));
+            assert(Array.isArray(projects));
             assert.equal(projects.length, 0);
 
             await store.storeProject(user, TESTCLASS, 'text', uuid(), 'en', []);
 
             projects = await store.getProjectsByUserId(user, TESTCLASS);
-            assert(util.isArray(projects));
+            assert(Array.isArray(projects));
             assert.equal(projects.length, 1);
 
             await store.storeProject(user, TESTCLASS, 'text', uuid(), 'en', []);
 
             projects = await store.getProjectsByUserId(user, TESTCLASS);
-            assert(util.isArray(projects));
+            assert(Array.isArray(projects));
             assert.equal(projects.length, 2);
 
             await store.storeProject(uuid(), TESTCLASS, 'text', uuid(), 'en', []);
 
             projects = await store.getProjectsByUserId(user, TESTCLASS);
-            assert(util.isArray(projects));
+            assert(Array.isArray(projects));
             assert.equal(projects.length, 2);
 
             await store.deleteEntireUser(user, TESTCLASS);
 
             projects = await store.getProjectsByUserId(user, TESTCLASS);
-            assert(util.isArray(projects));
+            assert(Array.isArray(projects));
             assert.equal(projects.length, 0);
         });
 
@@ -206,7 +205,7 @@ describe('DB store', () => {
 
             const projects = await store.getProjectsByClassId(unknownClass);
 
-            assert(util.isArray(projects));
+            assert(Array.isArray(projects));
             assert.equal(projects.length, 0);
         });
 
@@ -218,19 +217,19 @@ describe('DB store', () => {
             await store.deleteProjectsByClassId(TESTCLASS);
 
             let projects = await store.getProjectsByClassId(TESTCLASS);
-            assert(util.isArray(projects));
+            assert(Array.isArray(projects));
             assert.equal(projects.length, 0);
 
             await store.storeProject(firstUser, TESTCLASS, 'text', uuid(), 'en', []);
 
             projects = await store.getProjectsByClassId(TESTCLASS);
-            assert(util.isArray(projects));
+            assert(Array.isArray(projects));
             assert.equal(projects.length, 1);
 
             await store.storeProject(secondUser, TESTCLASS, 'text', uuid(), 'en', []);
 
             projects = await store.getProjectsByClassId(TESTCLASS);
-            assert(util.isArray(projects));
+            assert(Array.isArray(projects));
             assert.equal(projects.length, 2);
         });
 
@@ -240,19 +239,19 @@ describe('DB store', () => {
             const secondUser = uuid();
 
             let projects = await store.getProjectsByClassId(TESTCLASS);
-            assert(util.isArray(projects));
+            assert(Array.isArray(projects));
             const numProjects = projects.length;
 
             await store.storeProject(firstUser, TESTCLASS, 'text', uuid(), 'en', []);
 
             projects = await store.getProjectsByClassId(TESTCLASS);
-            assert(util.isArray(projects));
+            assert(Array.isArray(projects));
             assert.equal(projects.length, numProjects + 1);
 
             await store.storeProject(secondUser, TESTCLASS, 'text', uuid(), 'en', []);
 
             projects = await store.getProjectsByClassId(TESTCLASS);
-            assert(util.isArray(projects));
+            assert(Array.isArray(projects));
             assert.equal(projects.length, numProjects + 2);
 
             projects = await store.getProjectsByUserId(firstUser, TESTCLASS);

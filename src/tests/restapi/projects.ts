@@ -1,5 +1,4 @@
 /*eslint-env mocha */
-import * as util from 'util';
 import * as uuid from 'uuid/v1';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
@@ -423,7 +422,7 @@ describe('REST API - projects', () => {
                 .expect(httpstatus.OK)
                 .then((res) => {
                     const body = res.body;
-                    assert(util.isArray(body));
+                    assert(Array.isArray(body));
                     assert.equal(body.length, 0);
                 });
         });
@@ -447,7 +446,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert(util.isArray(body));
+                    assert(Array.isArray(body));
                     assert.equal(body.length, 1);
 
                     return request(testServer)
@@ -464,7 +463,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert(util.isArray(body));
+                    assert(Array.isArray(body));
                     assert.equal(body.length, 2);
                 });
         });
@@ -482,7 +481,7 @@ describe('REST API - projects', () => {
                 .expect(httpstatus.OK)
                 .then((res) => {
                     const body = res.body;
-                    assert(util.isArray(body));
+                    assert(Array.isArray(body));
                     assert.equal(body.length, 0);
                 });
         });
@@ -500,7 +499,7 @@ describe('REST API - projects', () => {
                 .expect(httpstatus.OK)
                 .then((res) => {
                     const body = res.body;
-                    assert(util.isArray(body));
+                    assert(Array.isArray(body));
                     count = body.length;
 
                     return request(testServer)
@@ -517,7 +516,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert(util.isArray(body));
+                    assert(Array.isArray(body));
                     assert.equal(body.length, count + 1);
 
                     count = body.length;
@@ -536,7 +535,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert(util.isArray(body));
+                    assert(Array.isArray(body));
                     assert.equal(body.length, count + 1);
                 });
         });
