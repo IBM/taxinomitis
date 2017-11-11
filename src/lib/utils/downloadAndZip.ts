@@ -19,6 +19,7 @@ type IErrCallback = (err?: Error) => void;
 type IRenameCallback = (err?: Error, renamedPath?: string) => void;
 type IDownloadCallback = (err?: Error, downloadedFilePath?: string) => void;
 type IDownloadAllCallback = (err?: Error, downloadedFilePaths?: string[]) => void;
+type IZippedCallback = (err?: Error, downloadedFilePaths?: string[], zipPath?: string, zipSize?: number) => void;
 type IZipCallback = (err?: Error, zipPath?: string, zipSize?: number) => void;
 type ICreateZipCallback = (err?: Error, zipPath?: string) => void;
 
@@ -191,7 +192,7 @@ function downloadAllIntoZip(urls: string[], callback: ICreateZipCallback): void 
         (next: IDownloadAllCallback) => {
             downloadAll(urls, next);
         },
-        (downloadedFilePaths: string[], next) => {
+        (downloadedFilePaths: string[], next: IZippedCallback) => {
             createZip(downloadedFilePaths, (err?: Error, zippath?: string, zipsize?: number) => {
                 next(err, downloadedFilePaths, zippath, zipsize);
             });

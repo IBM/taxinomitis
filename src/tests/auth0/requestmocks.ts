@@ -144,7 +144,7 @@ export const deleteUser = {
 };
 
 export const modifyUser = {
-    good : (token: string, userid: string, modifications) => { // eslint-disable-line no-unused-vars
+    good : (token: string, userid: string, modifications: object) => { // eslint-disable-line no-unused-vars
         return Promise.resolve({
             email: 'bobbyball@do-not-require-emailaddresses-for-students.com',
             username: 'bobbyball',

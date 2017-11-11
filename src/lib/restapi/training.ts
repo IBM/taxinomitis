@@ -171,29 +171,34 @@ export default function registerApis(app: Express.Application) {
             auth.authenticate,
             auth.checkValidUser,
             auth.verifyProjectAccess,
+            // @ts-ignore
             getTraining);
 
     app.get('/api/classes/:classid/students/:studentid/projects/:projectid/labels',
             auth.authenticate,
             auth.checkValidUser,
             auth.verifyProjectAccess,
+            // @ts-ignore
             getLabels);
 
     app.put('/api/classes/:classid/students/:studentid/projects/:projectid/labels',
             auth.authenticate,
             auth.checkValidUser,
             auth.verifyProjectAccess,
+            // @ts-ignore
             editLabel);
 
     app.delete('/api/classes/:classid/students/:studentid/projects/:projectid/training/:trainingid',
                auth.authenticate,
                auth.checkValidUser,
                auth.verifyProjectAccess,
+               // @ts-ignore
                deleteTraining);
 
     app.post('/api/classes/:classid/students/:studentid/projects/:projectid/training',
              auth.authenticate,
              auth.checkValidUser,
              auth.verifyProjectAccess,
+             // @ts-ignore
              storeTraining);
 }

@@ -353,7 +353,9 @@ describe('REST API - scratch keys', () => {
                                           callbackFunctionName + '(';
 
                     assert(text.startsWith(expectedStart));
-                    const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
+
+                    const classificationRespStr: string = text.substring(expectedStart.length, text.length - 2);
+                    const payload: ClassificationResponse[] = JSON.parse(classificationRespStr);
 
                     assert.equal(payload.length, 3);
                     payload.forEach((item) => {
@@ -364,7 +366,11 @@ describe('REST API - scratch keys', () => {
                 });
         });
 
-
+        interface ClassificationResponse {
+            readonly confidence: number;
+            readonly random: boolean;
+            readonly class_name: string;
+        }
 
         it('should return random labels for numbers without a classifier', async () => {
             const userid = uuid();
@@ -401,7 +407,9 @@ describe('REST API - scratch keys', () => {
                                           callbackFunctionName + '(';
 
                     assert(text.startsWith(expectedStart));
-                    const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
+
+                    const classificationRespStr: string = text.substring(expectedStart.length, text.length - 2);
+                    const payload: ClassificationResponse[] = JSON.parse(classificationRespStr);
 
                     assert.equal(payload.length, 3);
                     payload.forEach((item) => {

@@ -1,11 +1,13 @@
 // eslint-disable-file no-case-declarations
 
+import * as mysql from 'mysql2/promise';
 import * as sinon from 'sinon';
 
-export const MOCK_POOL = {
+export const MOCK_POOL: mysql.ConnectionPool = {
     getConnection : () => {
-        const mockConnection = {
+        const mockConnection: mysql.Connection = {
             execute : mockExecute,
+            query : mockQuery,
             release : sinon.stub(),
         };
         return Promise.resolve(mockConnection);
@@ -34,9 +36,13 @@ export function createPool() {
     return Promise.resolve(MOCK_POOL);
 }
 
+function mockQuery(query: string, params: any[]): Promise<any[]> {
+    return mockExecute(query, params);
+}
+
 // tslint:disable:max-line-length
 
-function mockExecute(query: string, params: any[]) {
+function mockExecute(query: string, params: any[]): Promise<any[]> {
     return new Promise((resolve, reject) => {
 
         let ERROR: any;

@@ -752,7 +752,7 @@ describe('REST API - training', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK)
                 .then((res) => {
-                    const body = res.body;
+                    const body: Array<{ id: string, label: string, textdata: string }> = res.body;
                     assert.equal(body.length, 6);
 
                     body.forEach((item) => {
@@ -793,7 +793,7 @@ describe('REST API - training', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK)
                 .then((res) => {
-                    const body = res.body;
+                    const body: Array<{ id: string, label: string, textdata: string }> = res.body;
                     assert.equal(body.length, 10);
 
                     body.forEach((item) => {
@@ -842,7 +842,7 @@ describe('REST API - training', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK)
                 .then((res) => {
-                    const body = res.body;
+                    const body: Array<{ id: string, label: string, numberdata: number[] }> = res.body;
                     assert.equal(body.length, 10);
 
                     body.forEach((item) => {

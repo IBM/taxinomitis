@@ -24,27 +24,31 @@ describe('Utils - base64decode', () => {
             });
     });
 
+    interface TestFile {
+        readonly location: string;
+        readonly size: number;
+    }
 
     it('should decode a jpg file', (done) => {
         async.waterfall([
-            (next) => {
+            (next: (err?: Error, path?: string) => void) => {
                 downloadZip.run(TESTURLS)
                     .then((path) => {
-                        next(null, path);
+                        next(undefined, path);
                     })
                     .catch(next);
             },
-            (zipfile, next) => {
+            (zipfile: string, next: (err?: Error, path?: string, downloadedZip?: string) => void) => {
                 tmp.dir({ keep : true }, (err, path) => {
                     next(err, path, zipfile);
                 });
             },
-            (unzipTarget, zipFile, next) => {
-                const unzippedFiles = [];
+            (unzipTarget: string, zipFile: string, next: (err?: Error, files?: string[]) => void) => {
+                const unzippedFiles: string[] = [];
 
                 fs.createReadStream(zipFile)
                     .pipe(unzip.Parse())
-                    .on('entry', (entry) => {
+                    .on('entry', (entry: any) => {
                         const target = unzipTarget + '/' + entry.path;
                         unzippedFiles.push(target);
                         entry.pipe(fs.createWriteStream(target));
@@ -53,8 +57,8 @@ describe('Utils - base64decode', () => {
                         next(err, unzippedFiles);
                     });
             },
-            (unzippedFiles: string[], next) => {
-                async.map(unzippedFiles, (unzippedFile, nextFile) => {
+            (unzippedFiles: string[], next: (err?: Error, files?: TestFile[]) => void) => {
+                async.map(unzippedFiles, (unzippedFile: string, nextFile: (err?: Error, file?: TestFile) => void) => {
                     fs.stat(unzippedFile, (err, stats) => {
                         if (err) {
                             return nextFile(err);
@@ -66,7 +70,7 @@ describe('Utils - base64decode', () => {
                     });
                 }, next);
             },
-            (unzippedFilesInfo, next) => {
+            (unzippedFilesInfo: TestFile[], next: () => void) => {
                 assert.equal(unzippedFilesInfo.length, 3);
                 async.each(unzippedFilesInfo,
                     (unzippedFile: any, nextFile) => {

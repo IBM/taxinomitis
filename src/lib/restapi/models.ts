@@ -236,18 +236,21 @@ export default function registerApis(app: Express.Application) {
             auth.authenticate,
             auth.checkValidUser,
             auth.verifyProjectAccess,
+            // @ts-ignore
             getModels);
 
     app.post('/api/classes/:classid/students/:studentid/projects/:projectid/models',
              auth.authenticate,
              auth.checkValidUser,
              auth.verifyProjectAccess,
+             // @ts-ignore
              newModel);
 
     app.delete('/api/classes/:classid/students/:studentid/projects/:projectid/models/:modelid',
                auth.authenticate,
                auth.checkValidUser,
                auth.verifyProjectAccess,
+               // @ts-ignore
                deleteModel);
 
     app.post('/api/classes/:classid/students/:studentid/projects/:projectid/models/:modelid/label',

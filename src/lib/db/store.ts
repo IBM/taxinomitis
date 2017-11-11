@@ -1,4 +1,5 @@
 // local dependencies
+import * as mysql from 'mysql2/promise';
 import * as mysqldb from './mysqldb';
 import * as dbobjects from './objects';
 import * as Objects from './db-types';
@@ -11,7 +12,7 @@ import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
 
-let dbConnPool;
+let dbConnPool: mysql.ConnectionPool;
 
 export async function init() {
     if (!dbConnPool) {
@@ -22,11 +23,12 @@ export async function init() {
 export async function disconnect() {
     if (dbConnPool) {
         await mysqldb.disconnect();
+        // @ts-ignore
         dbConnPool = undefined;
     }
 }
 
-export function replaceDbConnPoolForTest(testDbConnPool) {
+export function replaceDbConnPoolForTest(testDbConnPool: mysql.ConnectionPool) {
     dbConnPool = testDbConnPool;
 }
 
