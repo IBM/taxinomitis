@@ -123,6 +123,7 @@ function downloadAndRename(url: string, callback: IDownloadCallback): void {
  *  the location of the downloaded files.
  */
 function downloadAll(urls: string[], callback: IDownloadAllCallback): void {
+    // @ts-ignore async.map types have a problem with this
     async.map(urls, downloadAndRename, callback);
 }
 

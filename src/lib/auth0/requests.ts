@@ -111,7 +111,7 @@ export function deleteUser(token: string, userid: string) {
     return request.delete(deleteoptions);
 }
 
-export function modifyUser(token: string, userid: string, modifications) {
+export function modifyUser(token: string, userid: string, modifications: Objects.Modifications) {
     const modifyoptions = {
         method: 'PATCH',
         url: 'https://' + process.env.AUTH0_DOMAIN + '/api/v2/users/' + userid,

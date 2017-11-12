@@ -355,16 +355,19 @@ describe('Training - Visual Recognition', () => {
                 }
             });
         },
-        testClassify : (url: string, opts) => {
+        testClassify : (url: string, opts: visrec.VisualRecogApiRequestPayloadTestFileItem | visrec.VisualRecogApiRequestPayloadTestUrlItem) => {
             assert.equal(url, 'http://visual.recognition.service/v3/classify');
             assert.equal(opts.qs.version, '2016-05-20');
             assert.equal(opts.qs.api_key, 'userpass');
             assert.equal(opts.headers['user-agent'], 'machinelearningforkids');
 
-            if (opts.qs.classifier_ids === 'good' && opts.qs.url) {
-                assert.equal(opts.qs.owners, 'me');
-                assert.equal(opts.qs.threshold, 0.0);
-                assert(opts.qs.url.startsWith('http'));
+            const fileOptions = opts as visrec.VisualRecogApiRequestPayloadTestFileItem;
+            const urlOptions = opts as visrec.VisualRecogApiRequestPayloadTestUrlItem;
+
+            if (urlOptions.qs.classifier_ids === 'good' && urlOptions.qs.url) {
+                assert.equal(urlOptions.qs.owners, 'me');
+                assert.equal(urlOptions.qs.threshold, 0.0);
+                assert(urlOptions.qs.url.startsWith('http'));
 
                 return new Promise((resolve) => {
                     return resolve({
@@ -381,17 +384,17 @@ describe('Training - Visual Recognition', () => {
                                     },
                                 ],
                                 resolved_url : 'https://some-server.com/your-image.jpg',
-                                source_url : opts.qs.url,
+                                source_url : urlOptions.qs.url,
                             },
                         ],
                         images_processed : 1,
                     });
                 });
             }
-            else if (opts.formData.parameters.value === JSON.stringify({
+            else if (fileOptions.formData.parameters.value === JSON.stringify({
                 owners : 'me', classifier_ids : 'good', threshold : 0.0,
             })) {
-                assert(opts.formData.images_file);
+                assert(fileOptions.formData.images_file);
 
                 return new Promise((resolve) => {
                     return resolve({

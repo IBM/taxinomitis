@@ -11,6 +11,7 @@ import * as server from './restapi/server';
 import * as constants from './utils/constants';
 import * as credentials from './training/credentials';
 import * as notifications from './notifications/slack';
+import portNumber from './utils/port';
 import loggerSetup from './utils/logger';
 
 const log = loggerSetup();
@@ -18,7 +19,7 @@ const log = loggerSetup();
 // create server
 const app = express();
 const host: string = process.env.HOST || '0.0.0.0';
-const port: number = parseInt(process.env.PORT, 10) || 8000;
+const port: number = portNumber(process.env.PORT, 8000);
 
 // force HTTPS when running on Bluemix
 server.setupForBluemix(app);

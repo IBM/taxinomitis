@@ -7,7 +7,7 @@ export interface Project {
     readonly type: ProjectTypeLabel;
     name: string;
     labels: string[];
-    readonly language: TextProjectLanguage;
+    readonly language: TextProjectLanguage | '';
     readonly numfields: number;
     fields?: NumbersProjectFieldSummary[];
 }

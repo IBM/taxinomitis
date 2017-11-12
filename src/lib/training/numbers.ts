@@ -63,7 +63,7 @@ export async function testClassifier(
 {
     const fieldsInfo = await store.getNumberProjectFields(studentid, tenantid, projectid);
 
-    const req = {
+    const req: NumbersApiRequestPayloadTestItem = {
         auth : {
             user : process.env.NUMBERS_SERVICE_USER,
             pass : process.env.NUMBERS_SERVICE_PASS,
@@ -77,7 +77,7 @@ export async function testClassifier(
     };
     const url = process.env.NUMBERS_SERVICE + '/api/classify';
 
-    let body;
+    let body: { [classname: string]: number };
     try {
         body = await request.post(url, req);
     }
@@ -106,7 +106,7 @@ export async function testClassifier(
 
 export async function deleteClassifier(studentid: string, tenantid: string, projectid: string): Promise<void>
 {
-    const req = {
+    const req: NumbersApiDeleteClassifierRequest = {
         auth : {
             user : process.env.NUMBERS_SERVICE_USER,
             pass : process.env.NUMBERS_SERVICE_PASS,
@@ -132,7 +132,7 @@ async function submitTraining(
     tenantid: string, studentid: string, projectid: string, data: any[][],
 ): Promise<void>
 {
-    const req = {
+    const req: NumbersApiRequestPayloadClassifierItem = {
         auth : {
             user : process.env.NUMBERS_SERVICE_USER,
             pass : process.env.NUMBERS_SERVICE_PASS,
@@ -163,9 +163,9 @@ async function submitTraining(
 function prepareDataObject(
     fields: Objects.NumbersProjectField[],
     dataitems: number[],
-)
+): { [fieldname: string]: string | number }
 {
-    const trainingObj: any = {};
+    const trainingObj: { [fieldname: string]: string | number } = {};
 
     fields.forEach((field, fieldPos) => {
         const num = dataitems[fieldPos];
@@ -198,3 +198,52 @@ async function fetchTraining(project: Objects.Project): Promise<any[][]> {
                        ];
                    });
 }
+
+
+
+
+
+
+export interface NumbersApiRequestPayloadClassifierItem {
+    readonly auth: {
+        readonly user: string | undefined;
+        readonly pass: string | undefined;
+    };
+    readonly body: {
+        readonly tenantid: string;
+        readonly studentid: string;
+        readonly projectid: string;
+        readonly data: any[][];
+    };
+    readonly json: true;
+    readonly gzip: true;
+}
+
+export interface NumbersApiRequestPayloadTestItem {
+    readonly auth: {
+        readonly user: string | undefined;
+        readonly pass: string | undefined;
+    };
+    readonly body: {
+        readonly tenantid: string;
+        readonly studentid: string;
+        readonly projectid: string;
+        readonly data: { [fieldname: string]: string | number };
+    };
+    readonly json: true;
+    readonly gzip: true;
+}
+
+export interface NumbersApiDeleteClassifierRequest {
+    readonly auth: {
+        readonly user: string | undefined;
+        readonly pass: string | undefined;
+    };
+    readonly qs: {
+        readonly tenantid: string;
+        readonly studentid: string;
+        readonly projectid: string;
+    };
+    readonly json: true;
+}
+

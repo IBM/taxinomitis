@@ -43,3 +43,6 @@ export interface UserCreds {
     password: string;
 }
 
+export interface Modifications {
+    readonly password: string;
+}

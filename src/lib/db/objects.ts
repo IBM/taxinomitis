@@ -88,7 +88,7 @@ export function createProject(
 export function getProjectFromDbRow(row: Objects.ProjectDbRow): Objects.Project {
     const type = projects.typesById[row.typeid].label;
 
-    let language: Objects.TextProjectLanguage;
+    let language: Objects.TextProjectLanguage | '';
     if (type === 'text') {
         if (row.language) {
             language = row.language as Objects.TextProjectLanguage;
@@ -96,6 +96,9 @@ export function getProjectFromDbRow(row: Objects.ProjectDbRow): Objects.Project 
         else {
             language = 'en';
         }
+    }
+    else {
+        language = '';
     }
 
     return {

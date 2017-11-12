@@ -237,7 +237,7 @@ async function getTraining(project: DbObjects.Project): Promise<TrainingObjects.
 
     return {
         name : project.name,
-        language : project.language,
+        language : project.language ? project.language : 'en',
         intents,
         dialog_nodes : [],
         counterexamples: [],

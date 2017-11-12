@@ -258,7 +258,7 @@ export async function testClassifierFile(
     imagefilepath: string,
 ): Promise<TrainingObjects.Classification[]>
 {
-    const req = {
+    const req: VisualRecogApiRequestPayloadTestFileItem = {
         qs : {
             version : '2016-05-20',
             api_key : credentials.username + credentials.password,
@@ -301,7 +301,7 @@ export async function testClassifierURL(
     imageurl: string,
 ): Promise<TrainingObjects.Classification[]>
 {
-    const req = {
+    const req: VisualRecogApiRequestPayloadTestUrlItem = {
         qs : {
             version : '2016-05-20',
             api_key : credentials.username + credentials.password,
@@ -465,6 +465,44 @@ export interface VisualRecogApiRequestPayloadClassifierItem {
     readonly json: true;
     readonly timeout: number;
 }
+
+export interface VisualRecogApiRequestPayloadTestUrlItem {
+    readonly qs: {
+        readonly version: '2016-05-20';
+        readonly api_key: string;
+        readonly url: string;
+        readonly owners: 'me';
+        readonly classifier_ids: string;
+        readonly threshold: number;
+    };
+    readonly headers: {
+        readonly 'user-agent': string;
+    };
+    readonly json: true;
+}
+
+export interface VisualRecogApiRequestPayloadTestFileItem {
+    readonly qs: {
+        readonly version: '2016-05-20';
+        readonly api_key: string;
+    };
+    readonly headers: {
+        readonly 'user-agent': string;
+    };
+    readonly formData: {
+        readonly images_file: fs.ReadStream,
+        readonly parameters: {
+            readonly value: string;
+            readonly options: {
+                readonly contentType: 'application/json';
+            };
+        };
+    };
+    readonly json: true;
+}
+
+
+
 
 interface TrainingData {
     [label: string]: fs.ReadStream | string;

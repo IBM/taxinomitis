@@ -194,9 +194,13 @@ describe('Training - numbers service', () => {
             assert.equal(keys[0].classifierid, project.id);
             assert.equal(keys[0].projectid, project.id);
             assert.equal(keys[0].type, 'numbers');
-            assert.equal(keys[0].credentials.servicetype, 'num');
-            assert.equal(keys[0].credentials.username, USERID);
-            assert.equal(keys[0].credentials.password, CLASSID);
+            const credentials = keys[0].credentials;
+            assert(credentials);
+            if (credentials) {
+                assert.equal(credentials.servicetype, 'num');
+                assert.equal(credentials.username, USERID);
+                assert.equal(credentials.password, CLASSID);
+            }
 
             const classifications = await numbers.testClassifier(USERID, CLASSID, project.id, [10, 5, 0.5]);
             assert.deepEqual(classifications, [
@@ -242,10 +246,24 @@ describe('Training - numbers service', () => {
     });
 
 
+    interface NumbersApiRequestPayloadClassifierItem {
+        readonly auth: {
+            readonly user: string;
+            readonly pass: string;
+        };
+        readonly body: {
+            readonly tenantid: string;
+            readonly studentid: string;
+            readonly projectid: string;
+            readonly data: any[][];
+        };
+        readonly json: true;
+        readonly gzip: true;
+    }
 
 
     const mockNumbers = {
-        createClassifier : (url: string, opts) => {
+        createClassifier : (url: string, opts: numbers.NumbersApiRequestPayloadClassifierItem) => {
             if (opts.body.projectid === goodProject) {
                 return Promise.resolve({
                     time : 0.0009050369262695312,
@@ -256,7 +274,7 @@ describe('Training - numbers service', () => {
                 return Promise.reject({ error : 'Bad things' });
             }
         },
-        testClassifier : (url: string, opts) => {
+        testClassifier : (url: string, opts: numbers.NumbersApiRequestPayloadTestItem) => {
             assert(url);
             assert(opts.auth.user);
             assert(opts.auth.pass);
@@ -277,7 +295,7 @@ describe('Training - numbers service', () => {
                 return Promise.reject({ error : 'Bad things' });
             }
         },
-        deleteClassifier : (url: string, opts) => {
+        deleteClassifier : (url: string, opts: numbers.NumbersApiDeleteClassifierRequest) => {
             assert(url);
             assert(opts.auth.user);
             assert(opts.auth.pass);
@@ -286,3 +304,8 @@ describe('Training - numbers service', () => {
     };
 
 });
+
+
+
+
+

@@ -57,7 +57,7 @@ describe('Utils - base64decode', () => {
                         next(err, unzippedFiles);
                     });
             },
-            (unzippedFiles: string[], next: (err?: Error, files?: TestFile[]) => void) => {
+            (unzippedFiles: string[], next: (err?: Error, files?: Array<TestFile | undefined>) => void) => {
                 async.map(unzippedFiles, (unzippedFile: string, nextFile: (err?: Error, file?: TestFile) => void) => {
                     fs.stat(unzippedFile, (err, stats) => {
                         if (err) {

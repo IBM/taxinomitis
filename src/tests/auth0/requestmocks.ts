@@ -1,6 +1,8 @@
 /*eslint-env mocha */
 /*eslint no-unused-vars: 0 */
 
+import * as Objects from '../../lib/auth0/auth-types';
+
 const TOKENS = {
     GOOD : 'eyJ0eXAiOiJKV1QiLCXXXciOiJSUzI1NYYYImtpZCI6Ik5VRkZRMEZFUlRVMk1qQXhNMEU1TXpaQ09FVkZRVVU1' +
            'UmpRMk1UazRPRU01TmpRek5ETTFRUSJ9.eyJpc3MiOiJodHRwczovL2RhbGVsYW5lLmV1LmF1dGgwLmNvbS8iLC' +
@@ -115,7 +117,7 @@ export const getUserCounts = (token: string, tenant: string) => { // eslint-disa
 };
 
 export const createUser = {
-    good : (token: string, newuser) => {
+    good : (token: string, newuser: Objects.NewUser) => {
         return Promise.resolve({
             email : newuser.email,
             username : newuser.username,
