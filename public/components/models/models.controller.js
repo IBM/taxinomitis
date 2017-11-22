@@ -227,8 +227,14 @@
                                       $scope.models[0].classifierid, $scope.models[0].credentialsid,
                                       testdata)
                 .then(function (resp) {
-                    $scope.testoutput = resp[0].class_name;
-                    $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
+                    if (resp && resp.length > 0) {
+                        $scope.testoutput = resp[0].class_name;
+                        $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
+                    }
+                    else {
+                        $scope.testoutput = 'Unknown';
+                        $scope.testoutput_explanation = "Test value could not be recognised";
+                    }
                 })
                 .catch(function (err) {
                     displayAlert('errors', err.status, err.data);
