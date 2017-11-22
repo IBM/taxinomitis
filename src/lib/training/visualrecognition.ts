@@ -283,7 +283,12 @@ export async function testClassifierFile(
     };
 
     const body: VisualRecogApiResponsePayloadClassifyFile = await request.post(credentials.url + '/v3/classify', req);
-    if (body.images && body.images.length > 0) {
+    if (body.images &&
+        body.images.length > 0 &&
+        body.images[0].classifiers &&
+        body.images[0].classifiers.length > 0 &&
+        body.images[0].classifiers[0].classes)
+    {
         return body.images[0].classifiers[0].classes.map((item) => {
             return { class_name : item.class, confidence : Math.round(item.score * 100) };
         }).sort(sortByConfidence);
@@ -317,7 +322,12 @@ export async function testClassifierURL(
     };
 
     const body: VisualRecogApiResponsePayloadClassification = await request.get(credentials.url + '/v3/classify', req);
-    if (body.images && body.images.length > 0) {
+    if (body.images &&
+        body.images.length > 0 &&
+        body.images[0].classifiers &&
+        body.images[0].classifiers.length > 0 &&
+        body.images[0].classifiers[0].classes)
+    {
         return body.images[0].classifiers[0].classes.map((item) => {
             return { class_name : item.class, confidence : Math.round(item.score * 100) };
         }).sort(sortByConfidence);
