@@ -1,11 +1,15 @@
 applications:
 - path: .
   memory: 256M
-  instances: 3
-  domain: mybluemix.net
-  name: machinelearningforkids
-
   disk_quota: 512M
+  instances: 3
+
+  name: machinelearningforkids
+  routes:
+  - route: www.machinelearningforkids.co.uk
+  - route: machinelearningforkids.co.uk
+  - route: machinelearningforkids.mybluemix.net
+
   env:
     NODE_ENV: production
     AUTH0_DOMAIN: ml-for-kids.auth0.com
