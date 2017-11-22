@@ -1,7 +1,6 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
 import * as sinon from 'sinon';
-import * as proxyquire from 'proxyquire';
 
 import * as loggerSetup from '../utils/logger';
 
@@ -49,9 +48,6 @@ describe('Notifications - Slack', () => {
                     assert.equal(msg, expectedMessage);
                 }
             });
-        proxyquire('../../lib/notifications/slack', {
-            '@slack/client' : slackClient,
-        });
     });
     after(() => {
         process.env.SLACK_WEBHOOK_URL = slackEnv;

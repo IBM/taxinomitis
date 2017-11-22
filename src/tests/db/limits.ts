@@ -3,7 +3,6 @@ import * as assert from 'assert';
 import * as uuid from 'uuid/v1';
 import * as randomstring from 'randomstring';
 import * as sinon from 'sinon';
-import * as proxyquire from 'proxyquire';
 
 import * as Objects from '../../lib/db/db-types';
 import * as store from '../../lib/db/store';
@@ -19,10 +18,6 @@ describe('DB store - limits', () => {
         limitsStub.returns({
             textTrainingItemsPerProject : 2,
             numberTrainingItemsPerProject : 2,
-        });
-
-        proxyquire('../../lib/db/store', {
-            './limits' : limitsStub,
         });
 
         return store.init();

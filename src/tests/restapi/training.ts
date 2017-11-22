@@ -4,7 +4,6 @@ import * as assert from 'assert';
 import * as request from 'supertest';
 import * as httpstatus from 'http-status';
 import * as sinon from 'sinon';
-import * as proxyquire from 'proxyquire';
 import * as randomstring from 'randomstring';
 import * as express from 'express';
 
@@ -36,13 +35,6 @@ describe('REST API - training', () => {
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
         checkUserStub = sinon.stub(auth, 'checkValidUser').callsFake(authNoOp);
         requireSupervisorStub = sinon.stub(auth, 'requireSupervisor').callsFake(authNoOp);
-        proxyquire('../../lib/restapi/users', {
-            './auth' : {
-                authenticate : authStub,
-                checkValidUser : checkUserStub,
-                requireSupervisor : requireSupervisorStub,
-            },
-        });
 
         await store.init();
 
@@ -533,10 +525,6 @@ describe('REST API - training', () => {
             limitsStub.returns({
                 textTrainingItemsPerProject : 2,
                 numberTrainingItemsPerProject : 2,
-            });
-
-            proxyquire('../../lib/db/store', {
-                './limits' : limitsStub,
             });
 
             const trainingurl = '/api/classes/' + classid +

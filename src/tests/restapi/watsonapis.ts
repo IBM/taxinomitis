@@ -4,7 +4,6 @@ import * as util from 'util';
 import * as uuid from 'uuid/v1';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
-import * as proxyquire from 'proxyquire';
 import * as request from 'supertest';
 import * as httpstatus from 'http-status';
 import * as randomstring from 'randomstring';
@@ -47,13 +46,6 @@ describe('REST API - Bluemix credentials', () => {
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
         checkUserStub = sinon.stub(auth, 'checkValidUser').callsFake(authNoOp);
         requireSupervisorStub = sinon.stub(auth, 'requireSupervisor').callsFake(authNoOp);
-        proxyquire('../../lib/restapi/users', {
-            './auth' : {
-                authenticate : authStub,
-                checkValidUser : checkUserStub,
-                requireSupervisor : requireSupervisorStub,
-            },
-        });
 
         getClassStub = sinon.stub(store, 'getClassTenant').callsFake((id) => {
             if (id === 'TESTTENANT' || id === 'DIFFERENT') {
@@ -63,8 +55,6 @@ describe('REST API - Bluemix credentials', () => {
                 return Promise.resolve({ isManaged : true });
             }
         });
-        proxyquire('../../lib/restapi/auth', { '../db/store' : { getClassTenant : getClassStub } });
-
 
         getTextClassifiersStub = sinon
             .stub(conversation, 'getTextClassifiers')

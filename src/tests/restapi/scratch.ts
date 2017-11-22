@@ -5,7 +5,6 @@ import * as request from 'supertest';
 import * as httpstatus from 'http-status';
 import * as randomstring from 'randomstring';
 import * as sinon from 'sinon';
-import * as proxyquire from 'proxyquire';
 import * as requestPromise from 'request-promise';
 import * as Express from 'express';
 
@@ -45,13 +44,6 @@ describe('REST API - scratch keys', () => {
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
         checkUserStub = sinon.stub(auth, 'checkValidUser').callsFake(authNoOp);
         requireSupervisorStub = sinon.stub(auth, 'requireSupervisor').callsFake(authNoOp);
-        proxyquire('../../lib/restapi/users', {
-            './auth' : {
-                authenticate : authStub,
-                checkValidUser : checkUserStub,
-                requireSupervisor : requireSupervisorStub,
-            },
-        });
 
         await store.init();
 
@@ -609,11 +601,6 @@ describe('REST API - scratch keys', () => {
                 textTrainingItemsPerProject : 2,
                 numberTrainingItemsPerProject : 2,
             });
-
-            proxyquire('../../lib/db/store', {
-                './limits' : limitsStub,
-            });
-
 
             const keyId = await store.storeUntrainedScratchKey(project);
 

@@ -2,7 +2,6 @@
 import * as assert from 'assert';
 import * as uuid from 'uuid/v1';
 import * as sinon from 'sinon';
-import * as proxyquire from 'proxyquire';
 import * as request from 'request-promise';
 import * as store from '../../lib/db/store';
 import * as conversation from '../../lib/training/conversation';
@@ -167,12 +166,6 @@ describe('Scratchx - classify', () => {
 
 
 
-            proxyquire('../../lib/training/conversation', {
-                'request-promise' : {
-                    post : requestPostStub,
-                },
-            });
-
             const userid = uuid();
             const project = await store.storeProject(userid, TESTCLASS, 'text', 'test project', 'en', []);
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'ALPHA');
@@ -259,12 +252,6 @@ describe('Scratchx - classify', () => {
             const requestPostStub = sinon.stub(request, 'post').resolves({
                 label_name_1 : 86,
                 label_name_2 : 90,
-            });
-
-            proxyquire('../../lib/training/numbers', {
-                'request-promise' : {
-                    post : requestPostStub,
-                },
             });
 
             const userid = uuid();

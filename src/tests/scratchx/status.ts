@@ -2,7 +2,6 @@
 import * as assert from 'assert';
 import * as uuid from 'uuid/v1';
 import * as sinon from 'sinon';
-import * as proxyquire from 'proxyquire';
 import * as conversation from '../../lib/training/conversation';
 import * as visualrecog from '../../lib/training/visualrecognition';
 import * as status from '../../lib/scratchx/status';
@@ -29,11 +28,6 @@ describe('Scratchx - status', () => {
 
         before(() => {
             getStatusStub = sinon.stub(conversation, 'getStatus').resolves(testStatus);
-            proxyquire('../../lib/scratchx/status', {
-                '../training/conversation' : {
-                    getStatus : getStatusStub,
-                },
-            });
         });
         after(() => {
             getStatusStub.restore();
@@ -194,11 +188,6 @@ describe('Scratchx - status', () => {
 
         before(() => {
             getStatusStub = sinon.stub(visualrecog, 'getStatus').resolves(testStatus);
-            proxyquire('../../lib/scratchx/status', {
-                '../training/visualrecognition' : {
-                    getStatus : getStatusStub,
-                },
-            });
         });
         after(() => {
             getStatusStub.restore();

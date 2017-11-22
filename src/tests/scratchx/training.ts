@@ -2,7 +2,6 @@
 import * as assert from 'assert';
 import * as uuid from 'uuid/v1';
 import * as sinon from 'sinon';
-import * as proxyquire from 'proxyquire';
 import * as randomstring from 'randomstring';
 import * as store from '../../lib/db/store';
 import * as training from '../../lib/scratchx/training';

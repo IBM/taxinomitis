@@ -3,7 +3,6 @@ import * as assert from 'assert';
 import * as util from 'util';
 import * as uuid from 'uuid/v1';
 import * as sinon from 'sinon';
-import * as proxyquire from 'proxyquire';
 import * as request from 'supertest';
 import * as httpstatus from 'http-status';
 import * as randomstring from 'randomstring';
@@ -37,14 +36,6 @@ describe('REST API - DB error handling', () => {
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
         checkUserStub = sinon.stub(auth, 'checkValidUser').callsFake(authNoOp);
         requireSupervisorStub = sinon.stub(auth, 'requireSupervisor').callsFake(authNoOp);
-
-        proxyquire('../../lib/restapi/projects', {
-            './auth' : {
-                authenticate : authStub,
-                checkValidUser : checkUserStub,
-                requireSupervisor : requireSupervisorStub,
-            },
-        });
 
         store.replaceDbConnPoolForTest(mockMysqldb.MOCK_POOL);
 

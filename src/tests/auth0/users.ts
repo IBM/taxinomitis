@@ -1,7 +1,6 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
 import * as sinon from 'sinon';
-import * as proxyquire from 'proxyquire';
 import * as randomstring from 'randomstring';
 
 import * as users from '../../lib/auth0/users';
@@ -22,10 +21,6 @@ describe.skip('auth0 users', () => {
                 getUsers : sinon.stub(auth0, 'getUsers').callsFake(mocks.getUsers.empty),
             };
 
-            proxyquire('../../lib/auth0/users', {
-                './requests' : stubs,
-            });
-
             return users.getStudents('empty')
                 .then((students) => {
                     assert(Array.isArray(students));
@@ -43,10 +38,6 @@ describe.skip('auth0 users', () => {
                 getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
                 getUsers : sinon.stub(auth0, 'getUsers').callsFake(mocks.getUsers.single),
             };
-
-            proxyquire('../../lib/auth0/users', {
-                './requests' : stubs,
-            });
 
             return users.getStudents('single')
                 .then((students) => {
@@ -83,10 +74,6 @@ describe.skip('auth0 users', () => {
             const stubs = {
                 getUserCountsStub : sinon.stub(auth0, 'getUserCounts').callsFake(mocks.getUserCounts),
             };
-
-            proxyquire('../../lib/auth0/users', {
-                './requests' : stubs,
-            });
 
             return users.countUsers(TESTTENANT)
                 .then((count) => {

@@ -3,7 +3,6 @@
 import * as uuid from 'uuid/v1';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
-import * as proxyquire from 'proxyquire';
 import * as request from 'supertest';
 import * as httpstatus from 'http-status';
 import * as randomstring from 'randomstring';
@@ -43,13 +42,6 @@ describe('REST API - users', () => {
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
         checkUserStub = sinon.stub(auth, 'checkValidUser').callsFake(authNoOp);
         requireSupervisorStub = sinon.stub(auth, 'requireSupervisor').callsFake(authNoOp);
-        proxyquire('../../lib/restapi/users', {
-            './auth' : {
-                authenticate : authStub,
-                checkValidUser : checkUserStub,
-                requireSupervisor : requireSupervisorStub,
-            },
-        });
 
         testServer = testapiserver();
     });
@@ -70,10 +62,6 @@ describe('REST API - users', () => {
                 createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
                 getUserCounts : sinon.stub(auth0, 'getUserCounts').callsFake(mocks.getUserCounts),
             };
-
-            proxyquire('../../lib/auth0/users', {
-                './requests' : stubs,
-            });
 
             return store.init()
                 .then(() => {
@@ -121,10 +109,6 @@ describe('REST API - users', () => {
                 deleteUser : sinon.stub(auth0, 'deleteUser').callsFake(mocks.deleteUser.good),
             };
 
-            proxyquire('../../lib/auth0/users', {
-                './requests' : stubs,
-            });
-
             return store.init()
                 .then(() => {
                     return request(testServer)
@@ -146,10 +130,6 @@ describe('REST API - users', () => {
                 getUser : sinon.stub(auth0, 'getUser').callsFake(mocks.getUser.johndoe),
                 deleteUser : sinon.stub(auth0, 'deleteUser').callsFake(mocks.deleteUser.good),
             };
-
-            proxyquire('../../lib/auth0/users', {
-                './requests' : stubs,
-            });
 
             return request(testServer)
                 .del('/api/classes/' + TENANTS.incorrect + '/students/auth0|58dd72d0b2e87002695249b6')
@@ -178,10 +158,6 @@ describe('REST API - users', () => {
                 createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
                 getUserCounts : sinon.stub(auth0, 'getUserCounts').callsFake(mocks.getUserCounts),
             };
-
-            proxyquire('../../lib/auth0/users', {
-                './requests' : stubs,
-            });
 
             const username = 'R129' + randomstring.generate({ length : 9, readable : true });
 
@@ -214,10 +190,6 @@ describe('REST API - users', () => {
                 createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
             };
 
-            proxyquire('../../lib/auth0/users', {
-                './requests' : stubs,
-            });
-
             return request(testServer)
                 .post('/api/classes/mytesttenant/students')
                 .expect('Content-Type', /json/)
@@ -238,10 +210,6 @@ describe('REST API - users', () => {
                 getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
                 createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
             };
-
-            proxyquire('../../lib/auth0/users', {
-                './requests' : stubs,
-            });
 
             return request(testServer)
                 .post('/api/classes/mytesttenant/students')
@@ -265,10 +233,6 @@ describe('REST API - users', () => {
                 createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
                 getUserCounts : sinon.stub(auth0, 'getUserCounts').resolves({ total : 15 }),
             };
-
-            proxyquire('../../lib/auth0/users', {
-                './requests' : stubs,
-            });
 
             return store.init()
                 .then(() => {
@@ -300,10 +264,6 @@ describe('REST API - users', () => {
                 getUsers : sinon.stub(auth0, 'getUsers').callsFake(mocks.getUsers.empty),
             };
 
-            proxyquire('../../lib/auth0/users', {
-                './requests' : stubs,
-            });
-
             return request(testServer)
                 .get('/api/classes/empty/students')
                 .expect('Content-Type', /json/)
@@ -325,10 +285,6 @@ describe('REST API - users', () => {
                 getUsers : sinon.stub(auth0, 'getUsers').callsFake(mocks.getUsers.single),
             };
 
-            proxyquire('../../lib/auth0/users', {
-                './requests' : stubs,
-            });
-
             return request(testServer)
                 .get('/api/classes/single/students')
                 .expect('Content-Type', /json/)
@@ -349,10 +305,6 @@ describe('REST API - users', () => {
                 getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
                 getUsers : sinon.stub(auth0, 'getUsers').callsFake(mocks.getUsers.error),
             };
-
-            proxyquire('../../lib/auth0/users', {
-                './requests' : stubs,
-            });
 
             return request(testServer)
                 .get('/api/classes/single/students')
@@ -377,10 +329,6 @@ describe('REST API - users', () => {
                 getUser : sinon.stub(auth0, 'getUser').callsFake(mocks.getUser.johndoe),
                 modifyUser : sinon.stub(auth0, 'modifyUser').callsFake(mocks.modifyUser.good),
             };
-
-            proxyquire('../../lib/auth0/users', {
-                './requests' : stubs,
-            });
 
             const userid = 'auth0|58dd72d0b2e87002695249b6';
 
@@ -407,10 +355,6 @@ describe('REST API - users', () => {
                 getUser : sinon.stub(auth0, 'getUser').callsFake(mocks.getUser.johndoe),
                 modifyUser : sinon.stub(auth0, 'modifyUser').callsFake(mocks.modifyUser.good),
             };
-
-            proxyquire('../../lib/auth0/users', {
-                './requests' : stubs,
-            });
 
             return request(testServer)
                 .post('/api/classes/' + TENANTS.incorrect + '/students/auth0|58dd72d0b2e87002695249b6/password')
