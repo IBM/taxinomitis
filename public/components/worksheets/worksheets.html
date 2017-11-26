@@ -5,8 +5,23 @@
     <p>These projects are downloadable step-by-step guides, with explanations and colour screenshots for students to follow.</p>
     <p>Each project is a stand-alone activity, written to last for a single lesson, and will guide children to create a game or interactive project that demonstrates a real-world use of artificial intelligence and machine learning.</p>
 </div>
+<div class="worksheetfilters">
+    <md-select ng-model="projecttype" class="filter">
+        <md-option value="ALL">All project types</md-option>
+        <md-option value="text">Train a computer to recognise <strong>text</strong></md-option>
+        <md-option value="images">Train a computer to recognise <strong>images</strong></md-option>
+        <md-option value="numbers">Train a computer to recognise <strong>numbers</strong></md-option>
+    </md-select>
+    <md-select ng-model="projectdifficulty" class="filter">
+        <md-option value="ALL">All difficulties</md-option>
+        <md-option value="Beginner"><strong>Beginner</strong> projects</md-option>
+        <md-option value="Intermediate"><strong>Intermediate</strong> projects</md-option>
+        <md-option value="Advanced"><strong>Advanced</strong> projects</md-option>
+    </md-select>
+    <br clear="all"/>
+</div>
 <div class="worksheets">
-    <div ng-repeat="worksheet in vm.worksheets" class="worksheetcard">
+    <div ng-repeat="worksheet in vm.worksheets | filter : filterWorksheets" class="worksheetcard">
         <div class="cardmain">
             <div class="info">
                 <div class="title"><a ng-click="vm.downloadWorksheet($event, worksheet)">{{worksheet.title}}</a></div>

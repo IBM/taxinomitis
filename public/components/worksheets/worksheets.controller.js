@@ -202,7 +202,7 @@
                 summary : 'Teach a computer to recognise visual style',
                 description : 'Make a game in Scratch to test whether it really is possible to judge a book by its cover.',
                 difficulty : 'Intermediate',
-                type : 'numbers',
+                type : 'images',
                 image : 'static/images/project-judgeabook.png',
                 tags : [ 'image classification', 'supervised learning' ],
                 downloads : [
@@ -280,6 +280,21 @@
                 targetEvent : ev,
                 clickOutsideToClose : true
             });
+        };
+
+
+        $scope.projecttype = 'ALL';
+        $scope.projectdifficulty = 'ALL';
+        $scope.filterWorksheets = function (item) {
+            var match = true;
+
+            if (($scope.projecttype !== 'ALL') && match) {
+                match = (item.type === $scope.projecttype);
+            }
+            if (($scope.projectdifficulty != 'ALL') && match) {
+                match = (item.difficulty === $scope.projectdifficulty);
+            }
+            return match;
         };
 
     }

@@ -3,10 +3,29 @@
     margin: 1em 3em;
 }
 
+.worksheetfilters {
+    padding: 2em;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.worksheetfilters .filter {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+
+    margin: 1em;
+    min-width: 300px;
+}
+
 .worksheets {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .worksheetcard {
