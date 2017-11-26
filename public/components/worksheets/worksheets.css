@@ -1,3 +1,151 @@
+.worksheetsintro {
+    font-size: 1.2em;
+    margin: 1em 3em;
+}
+
+.worksheets {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.worksheetcard {
+    border-radius: 1em;
+    background-color: #eee;
+    margin: 1em;
+    padding: 0.6em;
+
+    /* flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0; */
+}
+
+.worksheetcard .title {
+    font-size: 1.6em;
+    font-weight: bold;
+    padding-bottom: 0.5em;
+    cursor: pointer;
+}
+
+.worksheetcard .summary {
+    font-size: 1em;
+}
+
+.worksheetcard .description {
+    font-size: 1.1em;
+    padding-bottom: 0.2em;
+    font-weight: 500;
+}
+
+.worksheetcard img {
+    margin-top: 1em;
+    width: 100%;
+    border: thin #aaa solid;
+}
+
+.worksheetcard .cardmain {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.worksheetcard .cardmain .info {
+    flex-grow: 1;
+}
+
+@media (max-width: 650px) {
+    .worksheetcard {
+
+    }
+    .worksheetcard .cardmain .info {
+        min-width: 200px;
+    }
+
+    .worksheetcard .cardmain .image {
+
+    }
+}
+@media (min-width: 650px) and (max-width: 900px) {
+    .worksheetcard {
+        min-width: 200px;
+        max-width: 320px;
+    }
+    .worksheetcard .cardmain .info {
+
+    }
+    .worksheetcard .cardmain .image {
+
+    }
+}
+@media (min-width: 900px) and (max-width: 1100px) {
+    .worksheetcard .cardmain .info {
+        min-width: 100px;
+        max-width: 250px;
+    }
+
+    .worksheetcard .cardmain .image {
+        min-width: 100px;
+        max-width: 250px;
+    }
+}
+@media (min-width: 1100px) {
+    .worksheetcard .cardmain .info {
+        min-width: 100px;
+        max-width: 220px;
+    }
+
+    .worksheetcard .cardmain .image {
+        min-width: 100px;
+        max-width: 160px;
+    }
+}
+
+
+
+
+.worksheetcard .cardfooter {
+    display: flex;
+    flex-direction: row;
+    margin-top: 0.6em;
+}
+
+.worksheetcard .cardfooter span.heading {
+    font-size: 0.8em;
+    color: #555555;
+}
+
+.worksheetcard .cardfooter .difficulty {
+    text-align: left;
+    margin-right: auto;
+}
+.worksheetcard .cardfooter .projecttype {
+    text-align: right;
+    margin-left: auto;
+}
+
+.worksheetcard .download {
+    margin-left: 0.7em;
+    margin-top: auto;
+}
+
+.worksheetcard .download .btn {
+    font-size: 0.8em;
+}
+
+.worksheetcard .cardfooter .tags {
+    font-size: 0.8em;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: auto;
+    max-width: 250px;
+}
+.worksheettype {
+    color: #00008b;
+    font-weight: bold;
+}
+
+
+
 td.worksheetname {
     margin: 1em;
     font-size: 1.1em;
@@ -18,10 +166,6 @@ td.worksheetinfo {
     padding: 1em;
 }
 
-.worksheettype {
-    color: #00008b;
-    font-weight: bold;
-}
 
 .worksheetslist small {
     font-size: 0.7em;

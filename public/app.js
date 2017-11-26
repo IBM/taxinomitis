@@ -52,7 +52,12 @@
             })
             .state('worksheets', {
                 url: '/worksheets',
-                templateUrl: 'static/components-<%= VERSION %>/worksheets/worksheets.html'
+                controller: 'WorksheetsController',
+                templateUrl: 'static/components-<%= VERSION %>/worksheets/worksheets.html',
+                controllerAs: 'vm',
+                params: {
+                    VERSION : <%= VERSION %>
+                }
             })
             .state('teacher', {
                 url: '/teacher',

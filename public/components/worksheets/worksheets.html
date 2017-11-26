@@ -1,290 +1,33 @@
 <div class="jumbotron">
     <h2 class="text-center">Machine learning projects</h2>
 </div>
-<div style="padding: 1em 4em;">
-    <div class="alert alert-info pageheadermsg">
-        <p>If you have any worksheets or project ideas that you'd like to add to this list, please email <a href="mailto:Dale.Lane@uk.ibm.com">Dale.Lane@uk.ibm.com</a>.</p>
+<div class="worksheetsintro">
+    <p>These projects are downloadable step-by-step guides, with explanations and colour screenshots for students to follow.</p>
+    <p>Each project is a stand-alone activity, written to last for a single lesson, and will guide children to create a game or interactive project that demonstrates a real-world use of artificial intelligence and machine learning.</p>
+</div>
+<div class="worksheets">
+    <div ng-repeat="worksheet in vm.worksheets" class="worksheetcard">
+        <div class="cardmain">
+            <div class="info">
+                <div class="title"><a ng-click="vm.downloadWorksheet($event, worksheet)">{{worksheet.title}}</a></div>
+                <div class="description">{{worksheet.description}}</div>
+                <div class="summary">{{worksheet.summary}}</div>
+            </div>
+            <div class="image">
+                <img src="{{worksheet.image}}">
+            </div>
+        </div>
+        <div class="cardfooter">
+            <div class="difficulty"><span class="heading">Difficulty:</span> {{worksheet.difficulty}}</div>
+            <div class="projecttype"><span class="heading">Recognising:</span> <span class="worksheettype">{{worksheet.type}}</span></div>
+        </div>
+        <div class="cardfooter">
+            <div class="tags"><span class="heading">Tags:</span> {{worksheet.tags.join(', ')}}</div>
+            <div class="download">
+                <a ng-click="vm.downloadWorksheet($event, worksheet)" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-download-alt"> </span> Download
+                </a>
+            </div>
+        </div>
     </div>
-    <table border=1 class="worksheetslist">
-        <tr>
-            <td class="worksheetname">Smart Classroom</td>
-            <td class="worksheetinfo">
-                Create a smart assistant in Scratch that lets you control virtual devices by understanding your instructions.
-                <br/><br/>
-                <em>Tags: digital assistants, supervised learning</em>
-            </td>
-            <td><small>Recognising</small> <br/><span class="worksheettype">text</span></td>
-            <td><small>Difficulty:</small> <br/>Beginner</td>
-            <td class="worksheetdownloads">
-                <a href="https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-smartclassroom.pdf">
-                    <span class="glyphicon glyphicon-download-alt"> </span> Download</a>
-                <br/>
-                <br/>
-                <small>
-                    You will need:
-                    <br/>
-                    <a href="https://github.com/dalelane/ml-for-kids/raw/master/worksheets/smart-classroom.sbx">
-                        <span class="glyphicon glyphicon-download-alt"> </span> smart-classroom.sbx</a>
-                </small>
-            </td>
-        </tr>
-        <tr>
-            <td class="worksheetname">Journey to school</td>
-            <td class="worksheetinfo">
-                Train the computer to be able to predict how you travel to school in the morning.
-                <br/><br/>
-                <em>Tags: predictive model, testing and accuracy, supervised learning</em>
-            </td>
-            <td><small>Recognising</small> <br/><span class="worksheettype">numbers</span></td>
-            <td><small>Difficulty:</small> <br/>Beginner</td>
-            <td class="worksheetdownloads">
-                <a href="https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-journeytoschool.pdf">
-                    <span class="glyphicon glyphicon-download-alt"> </span> Download
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td class="worksheetname">Car or Cup?</td>
-            <td class="worksheetinfo">
-                Train the computer to be able to sort photos into groups
-                <br/><br/>
-                <em>Tags: image classification, supervised learning</em>
-            </td>
-            <td><small>Recognising</small> <br/><span class="worksheettype">images</span></td>
-            <td><small>Difficulty:</small> <br/>Beginner</td>
-            <td class="worksheetdownloads">
-                <a href="https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-carorcup.pdf">
-                    <span class="glyphicon glyphicon-download-alt"> </span> Download</a>
-                <br/>
-                <br/>
-                <small>
-                    You will need:
-                    <br/>
-                    <a href="https://github.com/dalelane/ml-for-kids/raw/master/worksheets/car-or-cup.sbx">
-                        <span class="glyphicon glyphicon-download-alt"> </span> car-or-cup.sbx</a>
-                </small>
-            </td>
-        </tr>
-        <tr>
-            <td class="worksheetname">Snap!</td>
-            <td class="worksheetinfo">
-                Make a card game in Scratch that learns to recognise pictures of your card
-                <br/><br/>
-                <em>Tags: image classification, supervised learning</em>
-            </td>
-            <td><small>Recognising</small> <br/><span class="worksheettype">images</span></td>
-            <td><small>Difficulty:</small> <br/>Beginner</td>
-            <td class="worksheetdownloads">
-                <a href="https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-snap.pdf">
-                    <span class="glyphicon glyphicon-download-alt"> </span> Download</a>
-                <br/>
-                <br/>
-                <small>
-                    You will need:
-                    <br/>
-                    <a href="https://github.com/dalelane/ml-for-kids/raw/master/worksheets/snap.sbx">
-                        <span class="glyphicon glyphicon-download-alt"> </span> snap.sbx</a>
-                </small>
-            </td>
-        </tr>
-        <tr>
-            <td class="worksheetname">Mailman Max</td>
-            <td class="worksheetinfo">
-                Make a postal sorting office in Scratch that can recognise handwritten postcodes on envelopes.
-                <br/><br/>
-                <em>Tags: optical character recognition, handwriting recognition, image classification, supervised learning</em>
-            </td>
-            <td><small>Recognising</small> <br/><span class="worksheettype">images</span></td>
-            <td><small>Difficulty:</small> <br/>Beginner</td>
-            <td class="worksheetdownloads">
-                <a href="https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-mailmanmax.pdf">
-                    <span class="glyphicon glyphicon-download-alt"> </span> Download</a>
-                <br/>
-                <br/>
-                <small>
-                    You will need:
-                    <br/>
-                    <a href="https://github.com/dalelane/ml-for-kids/raw/master/worksheets/mailman-max.sbx">
-                        <span class="glyphicon glyphicon-download-alt"> </span> mailman-max.sbx</a>
-                </small>
-            </td>
-        </tr>
-        <tr>
-            <td class="worksheetname">Make Me Happy</td>
-            <td class="worksheetinfo">
-                Create a character in Scratch that smiles if you say nice things to it and cries if you say mean things to it.
-                <br/><br/>
-                <em>Tags: sentiment analysis, supervised learning</em>
-            </td>
-            <td><small>Recognising</small> <br/><span class="worksheettype">text</span></td>
-            <td><small>Difficulty:</small> <br/>Intermediate</td>
-            <td class="worksheetdownloads">
-                <a href="https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-makemehappy.pdf">
-                    <span class="glyphicon glyphicon-download-alt"> </span> Download
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td class="worksheetname">Tourist Info</td>
-            <td class="worksheetinfo">
-                Create a mobile app in Scratch that recommends tourist attractions based on people's interests.
-                <br/><br/>
-                <em>Tags: training bias, recommendations, supervised learning</em>
-            </td>
-            <td><small>Recognising</small> <br/><span class="worksheettype">text</span></td>
-            <td><small>Difficulty:</small> <br/>Intermediate</td>
-            <td class="worksheetdownloads">
-                <a href="https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-touristinfo.pdf">
-                    <span class="glyphicon glyphicon-download-alt"> </span> Download</a>
-                <br/>
-                <br/>
-                <small>
-                    You will need:
-                    <br/>
-                    <a href="https://github.com/dalelane/ml-for-kids/raw/master/worksheets/tourist-info.sbx">
-                        <span class="glyphicon glyphicon-download-alt"> </span> tourist-info.sbx</a>
-                </small>
-            </td>
-        </tr>
-        <tr>
-            <td class="worksheetname">Noughts &amp; crosses</td>
-            <td class="worksheetinfo">
-                Create a Scratch noughts and crosses game that learns how to beat you.
-                <br/><br/>
-                <em>Tags: decision tree learning, reinforcement learning, categorical data</em>
-            </td>
-            <td><small>Recognising</small> <br/><span class="worksheettype">numbers</span></td>
-            <td><small>Difficulty:</small> <br/>Intermediate</td>
-            <td class="worksheetdownloads">
-                <a href="https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-noughtsandcrosses.pdf">
-                    <span class="glyphicon glyphicon-download-alt"> </span> Download</a>
-                <br/>
-                <br/>
-                <small>
-                    You will need:
-                    <br/>
-                    <a href="https://github.com/dalelane/ml-for-kids/raw/master/worksheets/noughts-and-crosses.sbx">
-                        <span class="glyphicon glyphicon-download-alt"> </span> noughts-and-crosses.sbx</a>
-                </small>
-            </td>
-        </tr>
-        <tr>
-            <td class="worksheetname">School Library</td>
-            <td class="worksheetinfo">
-                Create a school librarian in Scratch that suggests who a reading book might be suitable for.
-                <br/><br/>
-                <em>Tags: predictive model, recommendations, supervised learning</em>
-            </td>
-            <td><small>Recognising</small> <br/><span class="worksheettype">numbers</span></td>
-            <td><small>Difficulty:</small> <br/>Intermediate</td>
-            <td class="worksheetdownloads">
-                <a href="https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-schoollibrary.pdf">
-                    <span class="glyphicon glyphicon-download-alt"> </span> Download
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td class="worksheetname">Rock, Paper, Scissors</td>
-            <td class="worksheetinfo">
-                Make a Rock, Paper, Scissors game in Scratch that learns to recognise pictures of your hand.
-                <br/><br/>
-                <em>Tags: image classification, supervised learning</em>
-            </td>
-            <td><small>Recognising</small> <br/><span class="worksheettype">images</span></td>
-            <td><small>Difficulty:</small> <br/>Intermediate</td>
-            <td class="worksheetdownloads">
-                <a href="https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-rockpaperscissors.pdf">
-                    <span class="glyphicon glyphicon-download-alt"> </span> Download</a>
-                <br/>
-                <br/>
-                <small>
-                    You will need:
-                    <br/>
-                    <a href="https://github.com/dalelane/ml-for-kids/raw/master/worksheets/rock-paper-scissors.sbx">
-                        <span class="glyphicon glyphicon-download-alt"> </span> rock-paper-scissors.sbx</a>
-                </small>
-            </td>
-        </tr>
-        <tr>
-            <td class="worksheetname">Judge a book</td>
-            <td class="worksheetinfo">
-                Make a game in Scratch to test whether it really is possible to judge a book by its cover.
-                <br/><br/>
-                <em>Tags: image classification, supervised learning</em>
-            </td>
-            <td><small>Recognising</small> <br/><span class="worksheettype">images</span></td>
-            <td><small>Difficulty:</small> <br/>Intermediate</td>
-            <td class="worksheetdownloads">
-                <a href="https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-judgeabook.pdf">
-                    <span class="glyphicon glyphicon-download-alt"> </span> Download</a>
-                <br/>
-                <br/>
-                <small>
-                    You will need:
-                    <br/>
-                    <a href="https://github.com/dalelane/ml-for-kids/raw/master/worksheets/judge-a-book.sbx">
-                        <span class="glyphicon glyphicon-download-alt"> </span> judge-a-book.sbx</a>
-                </small>
-            </td>
-        </tr>
-        <tr>
-            <td class="worksheetname">Sorting Hat</td>
-            <td class="worksheetinfo">
-                Create a Sorting Hat like in Harry Potter, that puts you in a school House based on what you say.
-                <br/><br/>
-                <em>Tags: text classification, supervised learning</em>
-            </td>
-            <td><small>Recognising</small> <br/><span class="worksheettype">text</span></td>
-            <td><small>Difficulty:</small> <br/>Advanced</td>
-            <td class="worksheetdownloads">
-                <a href="https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-sortinghat.pdf">
-                    <span class="glyphicon glyphicon-download-alt"> </span> Download
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td class="worksheetname">Headlines</td>
-            <td class="worksheetinfo">
-                Train a computer to recognise headlines from national newspapers.
-                <br/><br/>
-                <em>Tags: text classification, supervised learning, testing</em>
-            </td>
-            <td><small>Recognising</small> <br/><span class="worksheettype">text</span></td>
-            <td><small>Difficulty:</small> <br/>Advanced</td>
-            <td class="worksheetdownloads">
-                <a href="https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-headlines.pdf">
-                    <span class="glyphicon glyphicon-download-alt"> </span> Download</a>
-                <br/>
-                <br/>
-                <small>
-                    You will need:
-                    <br/>
-                    <a href="https://github.com/dalelane/ml-for-kids/raw/master/worksheets/headlines.sbx">
-                        <span class="glyphicon glyphicon-download-alt"> </span> headlines.sbx</a>
-                </small>
-            </td>
-        </tr>
-        <tr>
-            <td class="worksheetname">Top Trumps</td>
-            <td class="worksheetinfo">
-                Train a computer to be able to play the Top Trumps card game in Scratch.
-                <br/><br/>
-                <em>Tags: decision tree learning, reinforcement learning, categorical data</em>
-            </td>
-            <td><small>Recognising</small> <br/><span class="worksheettype">numbers</span></td>
-            <td><small>Difficulty:</small> <br/>Advanced</td>
-            <td class="worksheetdownloads">
-                <a href="https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-toptrumps.pdf">
-                    <span class="glyphicon glyphicon-download-alt"> </span> Download</a>
-                <br/>
-                <br/>
-                <small>
-                    You will need:
-                    <br/>
-                    <a href="https://github.com/dalelane/ml-for-kids/raw/master/worksheets/top-trumps.sbx">
-                        <span class="glyphicon glyphicon-download-alt"> </span> top-trumps.sbx</a>
-                </small>
-            </td>
-        </tr>
-    </table>
 </div>
