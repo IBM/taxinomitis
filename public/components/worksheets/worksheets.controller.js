@@ -71,7 +71,8 @@
                     }
                 ],
                 notes : [
-                    'Students will need a digital camera (ideally a webcam) to make this project'
+                    'Students will need a webcam (or some other digital camera) to make this project',
+                    'The worksheet recommends using imagebin.ca to store the training images. If your Internet connection blocks access to imagebin.ca then you will need to provide an alternative.'
                 ]
             },
             {
@@ -87,6 +88,9 @@
                         worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-mailmanmax.pdf',
                         starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/mailman-max.sbx'
                     }
+                ],
+                notes : [
+                    'The worksheet recommends using imagebin.ca to store the training images. If your Internet connection blocks access to imagebin.ca then you will need to provide an alternative.'
                 ]
             },
             {
@@ -125,6 +129,21 @@
                 ]
             },
             {
+                title : 'Pac-Man',
+                summary : 'Teach a computer to play a game',
+                description : 'Create a Pac-Man game in Scratch that learns how to avoid the ghost.',
+                difficulty : 'Intermediate',
+                type : 'numbers',
+                image : 'static/images/project-pacman.png',
+                tags : [ 'decision tree learning', 'reinforcement learning' ],
+                downloads : [
+                    {
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-pacman.pdf',
+                        starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/pacman.sbx'
+                    }
+                ]
+            },
+            {
                 title : 'Tourist Info',
                 summary : 'Teach a computer to make recommendations',
                 description : 'Create a mobile app in Scratch that recommends tourist attractions based on people\'s interests.',
@@ -160,22 +179,7 @@
                 ],
                 notes : [
                     'Students will need access to copies of Harry Potter books to do this project. Allowing students to use websites with Harry Potter quotes is an alternative if this is not possible.',
-                    'Students will need to type in approximately forty quotes from Harry Potter books to collect the training data for this project. Students who would find this much typing to be too time consuming might find it easier to instead copy/paste quotes from websites with Harry Potter quotes'
-                ]
-            },
-            {
-                title : 'Noughts & Crosses',
-                summary : 'Teach a computer to play a game',
-                description : 'Create a noughts and crosses game in Scratch that learns how to beat you.',
-                difficulty : 'Intermediate',
-                type : 'numbers',
-                image : 'static/images/project-noughtsandcrosses.png',
-                tags : [ 'decision tree learning', 'reinforcement learning', 'categorical data' ],
-                downloads : [
-                    {
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-noughtsandcrosses.pdf',
-                        starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/noughts-and-crosses.sbx'
-                    }
+                    'Students will need to type in approximately forty quotes from Harry Potter books to collect training data for this project. Students who would find this much typing to be too time-consuming might find it easier to instead copy/paste quotes from websites with Harry Potter quotes.'
                 ]
             },
             {
@@ -183,7 +187,7 @@
                 summary : 'Teach a computer to recognise shapes',
                 description : 'Make a Rock, Paper, Scissors game in Scratch that learns to recognise hand shapes.',
                 difficulty : 'Intermediate',
-                type : 'numbers',
+                type : 'images',
                 image : 'static/images/project-rockpaperscissors.png',
                 tags : [ 'image classification', 'supervised learning' ],
                 downloads : [
@@ -193,7 +197,8 @@
                     }
                 ],
                 notes : [
-                    'Students will need a digital camera (ideally a webcam) to make this project',
+                    'Students will need a webcam (or some other digital camera) to make this project',
+                    'The worksheet recommends using imagebin.ca to store the training images. If your Internet connection blocks access to imagebin.ca then you will need to provide an alternative.',
                     'Students will be taking photos of their hands, and uploading these to the Internet to train the computer to recognise hand shapes. While children are unlikely to be recognizable by their hands, you may want to get parental / guardian permission before running this activity.'
                 ]
             },
@@ -227,6 +232,21 @@
                 ],
                 notes : [
                     'Students will need access to several books, sorted by reading level. The project was written for a school group that have their computer suite in the school library.'
+                ]
+            },
+            {
+                title : 'Noughts & Crosses',
+                summary : 'Teach a computer to play a game',
+                description : 'Create a noughts and crosses game in Scratch that learns how to beat you.',
+                difficulty : 'Advanced',
+                type : 'numbers',
+                image : 'static/images/project-noughtsandcrosses.png',
+                tags : [ 'decision tree learning', 'reinforcement learning', 'categorical data' ],
+                downloads : [
+                    {
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-noughtsandcrosses.pdf',
+                        starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/noughts-and-crosses.sbx'
+                    }
                 ]
             },
             {

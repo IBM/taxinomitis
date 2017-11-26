@@ -11,7 +11,6 @@ Code / engineering work
 * Delete entire project is actually calling taxinomitis-numbers during tests
 * Some sort of admin controls for me so I'm not SQL'ing in a prod DB
 * Refactoring store.ts to remove duplicate code across text/images/numbers
-* Remove dupes from image training?
 * drag/drop on IE is more broken than Safari. Damn you IE.
 * Add Training Data is missing from Scratch page
 * Scratch is capturing images as 8 bits of color per pixel which visrec chokes on - use 24bpp
@@ -19,6 +18,7 @@ Code / engineering work
 * Deal with Auth0 changing shit. Again. FFS. 
 * Check what happens if a classifier is deleted outside of MLforKids
 * Put coverage back into task runner... maybe by moving to grunt?
+* Make links to open Scratch into buttons. always. 
 
 Longer term goals
 * Restore sprites library to scratch-flash
@@ -29,4 +29,3 @@ Worksheets
 * School Prospectus (text)
 * Movie titles (text) - classify by genre
 * Song lyrics - genre (text)
-* Pac Man (https://www.youtube.com/watch?v=ENP236BVzq0)
