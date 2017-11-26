@@ -101,6 +101,7 @@
 
             if (data) {
                 scope.getController().addConfirmedTrainingData(data, label);
+                scope.$apply();
             }
             else {
                 scope.getController().displayAlert('warnings', 400, {

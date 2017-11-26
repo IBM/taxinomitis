@@ -163,8 +163,14 @@
             var data;
             var placeholder;
 
+            var duplicate = false;
+
             if ($scope.project.type === 'text') {
                 data = resp;
+
+                duplicate = $scope.training[label].some(function (existingitem) {
+                    return existingitem.textdata === data;
+                });
 
                 placeholder = {
                     id : placeholderId++,
@@ -188,6 +194,10 @@
             else if ($scope.project.type === 'images') {
                 data = resp;
 
+                duplicate = $scope.training[label].some(function (existingitem) {
+                    return existingitem.imageurl === data;
+                });
+
                 placeholder = {
                     id : placeholderId++,
                     label : label,
@@ -195,6 +205,12 @@
                     imageurl : data,
                     isPlaceholder : true
                 };
+            }
+
+            if (duplicate) {
+                return displayAlert('errors', 400, {
+                    message : 'That is already in your training data'
+                });
             }
 
             $scope.training[label].push(placeholder);
