@@ -37,7 +37,7 @@
                 Your project isn't ready to be used in Scratch yet.
             </div>
             <div class="modelstatusdetail">
-                (You can use <a href="/scratchx" target="_blank"><strong>Scratch</strong> by itself</a> if you want.)
+                (You can use <a href="/scratchx" class="btn btn-default" target="_blank">Scratch by itself</a> if you want.)
             </div>
             <div class="modelstatusdetail">
                 Or go to the <a ui-sref="mlproject_models({ projectId : projectId })">Learn &amp; Test</a>
@@ -113,7 +113,7 @@
                     You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId })">train one now</a></strong> and then come back to open Scratch.
                 </div>
                 <div>
-                    Or you can go <strong><a target="_blank" href="{{ scratchkey.url }}">straight into Scratch</a></strong> now.
+                    Or you can go <a class="btn btn-default" target="_blank" href="{{ scratchkey.url }}">straight into Scratch</a> now.
                 </div>
             </div>
             <div ng-if="scratchkey.model">

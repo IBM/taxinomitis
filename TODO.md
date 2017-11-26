@@ -18,7 +18,6 @@ Code / engineering work
 * Deal with Auth0 changing shit. Again. FFS. 
 * Check what happens if a classifier is deleted outside of MLforKids
 * Put coverage back into task runner... maybe by moving to grunt?
-* Make links to open Scratch into buttons. always. 
 
 Longer term goals
 * Restore sprites library to scratch-flash
