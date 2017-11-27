@@ -1139,6 +1139,44 @@ export async function getExpiredImageClassifiers(): Promise<TrainingObjects.Visu
 }
 
 
+
+
+
+export async function getClassifierByBluemixId(classifierid: string):
+    Promise<TrainingObjects.VisualClassifier|TrainingObjects.ConversationWorkspace|undefined>
+{
+    const queryString = 'SELECT `id`, `credentialsid`, `projectid`, `servicetype`,' +
+                            ' `classifierid`, `url`, `name`, `language`, `created`, `expiry` ' +
+                            'FROM `bluemixclassifiers` ' +
+                            'WHERE `classifierid` = ?';
+
+    const rows = await dbExecute(queryString, [ classifierid ]);
+    if (rows.length === 0) {
+        return;
+    }
+    else if (rows.length === 1) {
+        const classifierType: TrainingObjects.BluemixServiceType = rows[0].servicetype;
+        switch (classifierType) {
+        case 'conv':
+            return dbobjects.getWorkspaceFromDbRow(rows[0]);
+        case 'visrec':
+            return dbobjects.getVisualClassifierFromDbRow(rows[0]);
+        default:
+            log.error({ rows, func : 'getClassifierByBluemixId' }, 'Unexpected response from DB');
+            throw new Error('Unspected response when retrieving Bluemix classifier details');
+        }
+    }
+    else {
+        log.error({ rows, func : 'getClassifierByBluemixId' }, 'Unexpected response from DB');
+        throw new Error('Unspected response when retrieving Bluemix classifier details');
+    }
+}
+
+
+
+
+
+
 // -----------------------------------------------------------------------------
 //
 // SCRATCH KEYS

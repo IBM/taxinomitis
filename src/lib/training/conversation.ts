@@ -242,6 +242,9 @@ async function getTraining(project: DbObjects.Project): Promise<TrainingObjects.
         dialog_nodes : [],
         counterexamples: [],
         entities : [],
+        metadata : {
+            createdby : 'machinelearningforkids',
+        },
     };
 }
 

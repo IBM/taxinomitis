@@ -168,8 +168,11 @@ describe('Scratchx - classify', () => {
 
             const userid = uuid();
             const project = await store.storeProject(userid, TESTCLASS, 'text', 'test project', 'en', []);
+            await wait(100);
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'ALPHA');
+            await wait(200);
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'BETA');
+            await wait(200);
 
             const key: Types.ScratchKey = {
                 id : uuid(),
@@ -290,5 +293,10 @@ describe('Scratchx - classify', () => {
     });
 
 
+    async function wait(duration: number): Promise<{}> {
+        return new Promise((resolve) => {
+            setTimeout(resolve, duration);
+        });
+    }
 
 });

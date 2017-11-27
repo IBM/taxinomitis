@@ -135,7 +135,7 @@
                 difficulty : 'Intermediate',
                 type : 'numbers',
                 image : 'static/images/project-pacman.png',
-                tags : [ 'decision tree learning', 'reinforcement learning' ],
+                tags : [ 'decision tree learning' ],
                 downloads : [
                     {
                         worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-pacman.pdf',

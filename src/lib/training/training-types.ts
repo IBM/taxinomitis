@@ -40,6 +40,7 @@ export interface ConversationTrainingData {
     readonly entities: any[];
     readonly dialog_nodes: any[];
     readonly counterexamples: any[];
+    readonly metadata: { [key: string]: string };
 }
 export interface ConversationIntent {
     readonly intent: string;
