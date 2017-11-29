@@ -2,6 +2,7 @@
     margin-left: auto;
     margin-right: auto;
     display: flex;
+    width: 90%;
     flex-direction: row;
     flex-wrap: wrap;
 }
@@ -51,11 +52,4 @@
 
 .mlprojectmenubutton button {
     width: 240px;
-}
-
-
-@media only screen and (min-device-width: 736px) { 
-    .menucontainer {
-        width: 90%;
-    }
 }

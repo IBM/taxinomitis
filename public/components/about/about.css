@@ -1,8 +1,39 @@
+@media (max-width: 520px) {
+    .aboutsection.mlprojectmenu {
+        padding: 1em;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .aboutwide.aboutsection {
+        width: 100%;
+    }
+    .aboutsection .mlprojectmenutitle {
+        font-size: 2em;
+    }
+    .aboutsection .aboutdescription {
+        font-size: 1em;
+    }
+}
+
+@media (min-width: 520px) {
+    .aboutwide.aboutsection {
+        min-width: 510px;
+    }
+}
+
+.aboutvideo {
+    width: 100%;
+    min-height: 225px;
+}
+
 .aboutdescription {
     padding-top: 1em;
     font-size: 1.2em;
 }
 
-.aboutsection.mlprojectmenu {
-    min-width: 375px;
+.aboutnarrow.aboutsection {
+    flex-grow: 2;
+}
+.aboutwide.aboutsection {
+    flex-grow: 3;
 }
