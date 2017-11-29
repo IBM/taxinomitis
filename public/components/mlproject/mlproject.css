@@ -2,9 +2,14 @@
     margin-left: auto;
     margin-right: auto;
     display: flex;
-    width: 90%;
     flex-direction: row;
     flex-wrap: wrap;
+}
+
+@media (min-width: 560px) {
+    .menucontainer {
+        width: 90%;
+    }
 }
 
 .mlprojectmenu {

@@ -19,11 +19,16 @@
     .aboutwide.aboutsection {
         min-width: 510px;
     }
+    .aboutnarrow.aboutsection {
+        min-width: 335px;
+    }
+    .aboutvideo {
+        min-height: 300px;
+    }
 }
 
 .aboutvideo {
     width: 100%;
-    min-height: 225px;
 }
 
 .aboutdescription {
