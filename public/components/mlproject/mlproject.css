@@ -1,7 +1,6 @@
 .menucontainer {
     margin-left: auto;
     margin-right: auto;
-    width: 90%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -52,4 +51,11 @@
 
 .mlprojectmenubutton button {
     width: 240px;
+}
+
+
+@media only screen and (min-device-width: 736px) { 
+    .menucontainer {
+        width: 90%;
+    }
 }
