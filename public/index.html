@@ -38,32 +38,32 @@
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li><a ui-sref="welcome">
+                            <li><a ui-sref="welcome" data-toggle="collapse" data-target=".navbar-collapse.in">
                               Welcome
                             </a></li>
-                            <li><a ui-sref="about">
+                            <li><a ui-sref="about" data-toggle="collapse" data-target=".navbar-collapse.in">
                               About
                             </a></li>
-                            <li ng-if="isAuthenticated && isTeacher"><a ui-sref="teacher">
+                            <li ng-if="isAuthenticated && isTeacher"><a ui-sref="teacher" data-toggle="collapse" data-target=".navbar-collapse.in">
                               Teacher
                             </a></li>
-                            <li ng-if="isAuthenticated"><a ui-sref="projects">
+                            <li ng-if="isAuthenticated"><a ui-sref="projects" data-toggle="collapse" data-target=".navbar-collapse.in">
                               Projects
                             </a></li>
-                            <li><a ui-sref="worksheets">
+                            <li><a ui-sref="worksheets" data-toggle="collapse" data-target=".navbar-collapse.in">
                               Worksheets
                             </a></li>
-                            <li><a ui-sref="news">
+                            <li><a ui-sref="news" data-toggle="collapse" data-target=".navbar-collapse.in">
                               News
                             </a></li>
-                            <li><a ui-sref="help">
+                            <li><a ui-sref="help" data-toggle="collapse" data-target=".navbar-collapse.in">
                               Help
                             </a></li>
 
-                            <li ng-if="!isAuthenticated"><a ui-sref="login">
+                            <li ng-if="!isAuthenticated"><a ui-sref="login" data-toggle="collapse" data-target=".navbar-collapse.in">
                               Log In
                             </a></li>
-                            <li ng-if="isAuthenticated"><a ui-sref="welcome" ng-click="authService.logout()">
+                            <li ng-if="isAuthenticated"><a ui-sref="welcome" ng-click="authService.logout()" data-toggle="collapse" data-target=".navbar-collapse.in">
                               Log Out
                             </a></li>
                         </ul>
