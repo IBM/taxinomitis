@@ -67,3 +67,12 @@
     text-align: center;
     margin-bottom: 6em;
 }
+
+
+.passworddisplaydialog {
+    font-size: 2em;
+    font-family: monospace;
+    margin-left: 1em;
+    margin-right: 1em;
+    font-weight: bold;
+}

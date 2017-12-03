@@ -16,6 +16,7 @@
     "angular-jwt": "0.1.9",
     "angular-lock": "2.0.3",
     "angular-material": "1.1.5",
+    "angular-sanitize": "1.6.7",
     "angular-scroll": "1.0.2",
     "angular-ui-router": "1.0.8",
     "auth0-lock" : "10.21.1",

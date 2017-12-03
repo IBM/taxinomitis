@@ -3,6 +3,7 @@ import * as randomstring from 'randomstring';
 // local dependencies
 import * as auth0requests from './requests';
 import * as Objects from './auth-types';
+import * as passphrases from './passphrases';
 
 
 async function getBearerToken(): Promise<string> {
@@ -100,7 +101,7 @@ export function createStudent(tenant: string, username: string): Promise<Objects
     return createUser({
         email : username + '@do-not-require-emailaddresses-for-students.com',
         username,
-        password : randomstring.generate({ length : 9, readable : true }),
+        password : passphrases.generate(),
         verify_email : false,
         email_verified : true,
         connection : process.env.AUTH0_CONNECTION as string,
@@ -145,7 +146,7 @@ export async function deleteTeacher(tenant: string, userid: string) {
 
 
 export async function resetStudentPassword(tenant: string, userid: string): Promise<Objects.UserCreds> {
-    const password = randomstring.generate({ length : 9, readable : true });
+    const password = passphrases.generate();
 
     // will verify the tenant matches the student
     //   throwing an exception if there is a problem

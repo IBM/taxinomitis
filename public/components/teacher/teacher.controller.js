@@ -50,7 +50,7 @@
                 $mdDialog.alert()
                     .clickOutsideToClose(true)
                     .title(student.username)
-                    .textContent('Password : ' + student.password)
+                    .htmlContent('Password: <span class="passworddisplaydialog">' + student.password + '</span>')
                     .ariaLabel('Confirm student password')
                     .ok('OK')
                     .targetEvent(ev)
