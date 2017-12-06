@@ -269,6 +269,43 @@
                 });
         };
 
+        vm.resetUsersPassword = function (ev, student) {
+            student.isPlaceholder = true;
+
+            usersService.resetStudentPassword(student, vm.profile.tenant)
+                .then(function (updatedUser) {
+                    student.isPlaceholder = false;
+                    displayPassword(ev, updatedUser);
+                })
+                .catch(function (err) {
+                    student.isPlaceholder = false;
+                    displayAlert('errors', err.status, err.data);
+                });
+        };
+
+        vm.resetStudentsPassword = function (ev) {
+            vm.students.forEach(function (student) {
+                student.isPlaceholder = true;
+            });
+
+            usersService.resetStudentsPassword(vm.students, vm.profile.tenant)
+                .then(function (updatedUsers) {
+                    vm.students.forEach(function (student) {
+                        student.isPlaceholder = false;
+                    });
+                    displayPassword(ev, {
+                        username : 'All students',
+                        password : updatedUsers[0].password
+                    });
+                })
+                .catch(function (err) {
+                    vm.students.forEach(function (student) {
+                        student.isPlaceholder = false;
+                    });
+                    displayAlert('errors', err.status, err.data);
+                });
+        };
+
 
         function scrollToNewItem(itemId) {
             $timeout(function () {

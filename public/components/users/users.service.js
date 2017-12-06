@@ -59,6 +59,19 @@
                     return resp.data;
                 });
         }
+        function resetStudentsPassword(profiles, tenant) {
+            var students = profiles.map(function (profile) {
+                return {
+                    op : 'replace',
+                    path : '/password',
+                    value : { id : profile.id }
+                };
+            });
+            return $http.patch('/api/classes/' + tenant + '/students', students)
+                .then(function (resp) {
+                    return resp.data;
+                });
+        }
 
 
 
@@ -93,7 +106,8 @@
             createStudent : createStudent,
             deleteStudent : deleteStudent,
 
-            resetStudentPassword : resetStudentPassword
+            resetStudentPassword : resetStudentPassword,
+            resetStudentsPassword : resetStudentsPassword
         };
     }
 })();

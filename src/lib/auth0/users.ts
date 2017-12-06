@@ -145,6 +145,37 @@ export async function deleteTeacher(tenant: string, userid: string) {
 }
 
 
+async function resetPassword(
+    tenant: string,
+    userid: string, password: string,
+    token: string,
+): Promise<Objects.UserCreds>
+{
+    // will verify the tenant matches the student
+    //   throwing an exception if there is a problem
+    await getStudent(tenant, userid);
+
+    const user = await auth0requests.modifyUser(token, userid, { password });
+
+    return {
+        id : user.user_id,
+        username : user.username,
+        password,
+    };
+}
+
+
+export async function resetStudentsPassword(tenant: string, userids: string[]): Promise<Objects.UserCreds[]>
+{
+    const password = passphrases.generate();
+
+    const token = await getBearerToken();
+
+    return Promise.all(userids.map((userid) => resetPassword(tenant, userid, password, token)));
+}
+
+
+
 export async function resetStudentPassword(tenant: string, userid: string): Promise<Objects.UserCreds> {
     const password = passphrases.generate();
 
@@ -164,4 +195,3 @@ export async function resetStudentPassword(tenant: string, userid: string): Prom
         password,
     };
 }
-

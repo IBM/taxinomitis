@@ -70,6 +70,7 @@
         <hr/>
     </div>
 
+
     <div ng-if="vm && vm.students">
         <h3>Students in your group</h3>
 
@@ -90,11 +91,17 @@
                 <td class="studentslistname placeholder" ng-if="student.isPlaceholder" colspan=4> {{ student.username }} </td>
 
                 <td class="studentslistname" ng-if="!student.isPlaceholder"> {{ student.username }} </td>
-                <td class="studentslistdetail" ng-if="!student.isPlaceholder && student.last_login"> Last login: {{ student.last_login | date : 'EEEE, MMMM d, y  h:mm a' }}  </td>
+                <td class="studentslistdetail detail" ng-if="!student.isPlaceholder && student.last_login"> Last login: {{ student.last_login | date : 'EEEE, MMMM d, y  h:mm a' }}  </td>
                 <td class="studentslistdetail" ng-if="!student.isPlaceholder && !student.last_login"> Not logged in yet </td>
                 <td class="studentslistactions" ng-if="!student.isPlaceholder">
                     <button class="btn btn-default" ng-click="vm.resetUserPassword($event, student)">Reset password</button>
                     <button class="btn btn-default" ng-click="vm.deleteUser($event, student)">Delete student account</button>
+                </td>
+            </tr>
+            <tr ng-if="vm.students.length > 1">
+                <td colspan=2> </td>
+                <td class="studentslistactions" colspan=2>
+                    <button class="btn btn-default" ng-click="vm.resetStudentsPassword($event)">Reset password for all students</button>
                 </td>
             </tr>
         </table>

@@ -150,6 +150,30 @@ function resetStudentPassword(req: Express.Request, res: Express.Response) {
         });
 }
 
+function resetStudentsPassword(req: Express.Request, res: Express.Response) {
+    const tenant = req.params.classid;
+
+    let studentids: string[];
+    try {
+        studentids = getUserPatch(req);
+    }
+    catch (err) {
+        return res.status(httpstatus.BAD_REQUEST)
+                  .json({
+                      error : err.message,
+                  });
+    }
+
+    return auth0.resetStudentsPassword(tenant, studentids)
+        .then((students) => {
+            res.json(students);
+        })
+        .catch((err) => {
+            res.status(err.statusCode)
+                .json(err);
+        });
+}
+
 
 
 
@@ -188,6 +212,27 @@ async function getPolicy(req: Express.Request, res: Express.Response) {
 
 
 
+function getUserPatch(req: Express.Request): string[] {
+    const patchRequests = req.body;
+
+    if (Array.isArray(patchRequests) === false) {
+        throw new Error('PATCH body should be an array');
+    }
+
+    return patchRequests.map((patchRequest: any) => {
+        if (patchRequest &&
+            patchRequest.op &&
+            patchRequest.path &&
+            patchRequest.value &&
+            patchRequest.op === 'replace' &&
+            patchRequest.path === '/password' &&
+            patchRequest.value.id)
+        {
+            return patchRequest.value.id;
+        }
+        throw new Error('Invalid PATCH request');
+    });
+}
 
 
 
@@ -223,6 +268,12 @@ export default function registerApis(app: Express.Application) {
         auth.checkValidUser,
         auth.requireSupervisor,
         resetStudentPassword);
+
+    app.patch('/api/classes/:classid/students',
+        auth.authenticate,
+        auth.checkValidUser,
+        auth.requireSupervisor,
+        resetStudentsPassword);
 
 
     // API for creating new tenants / teacher accounts so
