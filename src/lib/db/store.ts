@@ -985,8 +985,7 @@ export async function updateConversationWorkspaceExpiry(
 {
     const queryString: string = 'UPDATE `bluemixclassifiers` ' +
                                 'SET `expiry` = ? ' +
-                                'WHERE `id` = ? ' +
-                                'ORDER BY `expiry`';
+                                'WHERE `id` = ?';
     const values = [ workspace.expiry, workspace.id ];
 
     const response = await dbExecute(queryString, values);
