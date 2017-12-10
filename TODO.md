@@ -18,6 +18,7 @@ Code / engineering work
 * Deal with Auth0 changing shit. Again. FFS. 
 * Put coverage back into task runner... maybe by moving to grunt?
 * Add a confirm dialog to the Reset-All-Passwords button
+* Update build so that prod output isn't wiped by clean
 
 Longer term goals
 * Restore sprites library to scratch-flash
