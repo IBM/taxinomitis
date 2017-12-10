@@ -17,6 +17,7 @@ Code / engineering work
 * auth errors cant be displayed as they're inside isAuthenticated
 * Deal with Auth0 changing shit. Again. FFS. 
 * Put coverage back into task runner... maybe by moving to grunt?
+* Add a confirm dialog to the Reset-All-Passwords button
 
 Longer term goals
 * Restore sprites library to scratch-flash
