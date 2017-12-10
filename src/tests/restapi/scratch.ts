@@ -5,6 +5,7 @@ import * as request from 'supertest';
 import * as httpstatus from 'http-status';
 import * as randomstring from 'randomstring';
 import * as sinon from 'sinon';
+import * as proxyquire from 'proxyquire';
 import * as requestPromise from 'request-promise';
 import * as Express from 'express';
 
@@ -39,6 +40,8 @@ describe('REST API - scratch keys', () => {
         next();
     }
 
+    let deleteStub: sinon.SinonStub;
+
 
     before(async () => {
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
@@ -48,6 +51,11 @@ describe('REST API - scratch keys', () => {
         await store.init();
 
         testServer = testapiserver();
+
+        deleteStub = sinon.stub(requestPromise, 'delete').resolves();
+        proxyquire('../../lib/training/conversation', {
+            'request-promise' : deleteStub,
+        });
     });
 
 
@@ -55,6 +63,8 @@ describe('REST API - scratch keys', () => {
         authStub.restore();
         checkUserStub.restore();
         requireSupervisorStub.restore();
+
+        deleteStub.restore();
 
         return store.disconnect();
     });
