@@ -288,7 +288,7 @@ async function submitTrainingToConversation(
         modelAutoExpiryTime.setHours(modelAutoExpiryTime.getHours() +
                                      tenantPolicy.textClassifierExpiry);
 
-        return {
+        const workspace: TrainingObjects.ConversationWorkspace = {
             id,
             name : body.name,
             language : body.language,
@@ -300,6 +300,16 @@ async function submitTrainingToConversation(
             status : body.status ? body.status : 'Training',
             url : credentials.url + '/v1/workspaces/' + body.workspace_id,
         };
+
+        // record info about the new workspace
+        // log.info({
+        //     response : body,
+        //     policy : tenantPolicy,
+        //     expiry : modelAutoExpiryTime,
+        //     workspace,
+        // }, 'Trained Conversation workspace');
+
+        return workspace;
     }
     catch (err) {
         log.error({ req, err }, 'Failed to train workspace');
