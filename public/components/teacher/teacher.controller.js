@@ -269,40 +269,40 @@
                 });
         };
 
-        vm.resetUsersPassword = function (ev, student) {
-            student.isPlaceholder = true;
+        vm.resetUsersPassword = function (ev) {
+            var confirm = $mdDialog.confirm()
+                .title('Are you sure?')
+                .textContent('Do you want to reset the passwords for all your students (so they all have the same password)?')
+                .ariaLabel('Confirm')
+                .targetEvent(ev)
+                .ok('Yes')
+                .cancel('No');
 
-            usersService.resetStudentPassword(student, vm.profile.tenant)
-                .then(function (updatedUser) {
-                    student.isPlaceholder = false;
-                    displayPassword(ev, updatedUser);
-                })
-                .catch(function (err) {
-                    student.isPlaceholder = false;
-                    displayAlert('errors', err.status, err.data);
-                });
-        };
-
-        vm.resetStudentsPassword = function (ev) {
-            vm.students.forEach(function (student) {
-                student.isPlaceholder = true;
-            });
-
-            usersService.resetStudentsPassword(vm.students, vm.profile.tenant)
-                .then(function (updatedUsers) {
+            $mdDialog.show(confirm).then(
+                function() {
                     vm.students.forEach(function (student) {
-                        student.isPlaceholder = false;
+                        student.isPlaceholder = true;
                     });
-                    displayPassword(ev, {
-                        username : 'All students',
-                        password : updatedUsers[0].password
-                    });
-                })
-                .catch(function (err) {
-                    vm.students.forEach(function (student) {
-                        student.isPlaceholder = false;
-                    });
-                    displayAlert('errors', err.status, err.data);
+
+                    usersService.resetStudentsPassword(vm.students, vm.profile.tenant)
+                        .then(function (updatedUsers) {
+                            vm.students.forEach(function (student) {
+                                student.isPlaceholder = false;
+                            });
+                            displayPassword(ev, {
+                                username : 'All students',
+                                password : updatedUsers[0].password
+                            });
+                        })
+                        .catch(function (err) {
+                            vm.students.forEach(function (student) {
+                                student.isPlaceholder = false;
+                            });
+                            displayAlert('errors', err.status, err.data);
+                        });
+                },
+                function() {
+                    // cancelled. do nothing
                 });
         };
 
