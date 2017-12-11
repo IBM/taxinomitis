@@ -26,6 +26,7 @@
     margin: 1em;
     min-width: 25em;
     max-width: 40%;
+    max-height: calc(100% - 25px);
     display: flex;
     flex-direction: column;
     position: relative;
