@@ -365,7 +365,6 @@ describe('Training - Visual Recognition', () => {
             const urlOptions = opts as visrec.VisualRecogApiRequestPayloadTestUrlItem;
 
             if (urlOptions.qs.classifier_ids === 'good' && urlOptions.qs.url) {
-                assert.equal(urlOptions.qs.owners, 'me');
                 assert.equal(urlOptions.qs.threshold, 0.0);
                 assert(urlOptions.qs.url.startsWith('http'));
 
@@ -392,8 +391,9 @@ describe('Training - Visual Recognition', () => {
                 });
             }
             else if (fileOptions.formData.parameters.value === JSON.stringify({
-                owners : 'me', classifier_ids : 'good', threshold : 0.0,
-            })) {
+                owners : [ 'me' ], classifier_ids : [ 'good' ], threshold : 0.0,
+            }))
+            {
                 assert(fileOptions.formData.images_file);
 
                 return new Promise((resolve) => {

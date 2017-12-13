@@ -270,8 +270,8 @@ export async function testClassifierFile(
             images_file : fs.createReadStream(imagefilepath),
             parameters : {
                 value : JSON.stringify({
-                    owners : 'me',
-                    classifier_ids : classifierid,
+                    owners : [ 'me' ],
+                    classifier_ids : [ classifierid ],
                     threshold : 0.0,
                 }),
                 options : {
@@ -311,7 +311,6 @@ export async function testClassifierURL(
             version : '2016-05-20',
             api_key : credentials.username + credentials.password,
             url : imageurl,
-            owners : 'me',
             classifier_ids : classifierid,
             threshold : 0.0,
         },
@@ -487,7 +486,6 @@ export interface VisualRecogApiRequestPayloadTestUrlItem {
         readonly version: '2016-05-20';
         readonly api_key: string;
         readonly url: string;
-        readonly owners: 'me';
         readonly classifier_ids: string;
         readonly threshold: number;
     };
