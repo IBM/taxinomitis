@@ -7,6 +7,10 @@
     float: left;
 }
 
+.scratchblockscontainer {
+    overflow-x: scroll;
+}
+
 .statusicon.ok {
     background-color: limegreen;
 }
