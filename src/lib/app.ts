@@ -1,6 +1,5 @@
 // external dependencies
 import * as express from 'express';
-import * as httpstatus from 'http-status';
 // local dependencies
 import * as store from './db/store';
 import * as cf from './utils/cf';
