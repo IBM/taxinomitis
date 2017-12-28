@@ -9,10 +9,14 @@ import restapi from './restapi';
 import * as constants from './utils/constants';
 import * as credentials from './training/credentials';
 import * as notifications from './notifications/slack';
+import { confirmRequiredEnvironment } from './utils/env';
 import portNumber from './utils/port';
 import loggerSetup from './utils/logger';
 
 const log = loggerSetup();
+
+// do this before doing anything!
+confirmRequiredEnvironment();
 
 // create server
 const app = express();
