@@ -12,6 +12,7 @@ import registerTrainingApis from './training';
 import registerModelApis from './models';
 import registerScratchApis from './scratch';
 import registerWatsonApis from './watsonapis';
+import * as serverConfig from './config';
 import * as errors from './errors';
 import loggerSetup from '../utils/logger';
 
@@ -25,13 +26,22 @@ const log = loggerSetup();
 export default function setup(app: Express.Application): void {
     log.info('Setting up REST API');
 
+    // force HTTPS when running on Bluemix
+    serverConfig.setupForBluemix(app);
+
+    // UI setup
+    serverConfig.setupUI(app);
+
+    // third-party middleware
     app.use(query());
     app.use(helmet());
     app.use(cors());
 
+    // body types
     app.use('/api/scratch/:scratchkey/classify', bodyParser.json({ limit : '3mb' }));
     app.use('/', bodyParser.json());
 
+    // API route handlers
     registerBluemixApis(app);
     registerUserApis(app);
     registerProjectApis(app);
@@ -40,6 +50,7 @@ export default function setup(app: Express.Application): void {
     registerScratchApis(app);
     registerWatsonApis(app);
 
+    // error handling
     errors.registerErrorHandling(app);
 }
 

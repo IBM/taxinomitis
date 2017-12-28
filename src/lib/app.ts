@@ -5,8 +5,7 @@ import * as store from './db/store';
 import * as cf from './utils/cf';
 import * as conversation from './training/conversation';
 import * as visualrec from './training/visualrecognition';
-import setupAPI from './restapi/api';
-import * as server from './restapi/server';
+import restapi from './restapi';
 import * as constants from './utils/constants';
 import * as credentials from './training/credentials';
 import * as notifications from './notifications/slack';
@@ -20,15 +19,9 @@ const app = express();
 const host: string = process.env.HOST || '0.0.0.0';
 const port: number = portNumber(process.env.PORT, 8000);
 
-// force HTTPS when running on Bluemix
-server.setupForBluemix(app);
-
-// UI setup
-server.setupUI(app);
-
 // setup server and run
 store.init();
-setupAPI(app);
+restapi(app);
 app.listen(port, host, () => {
     log.info({ host, port }, 'Running');
 });

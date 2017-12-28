@@ -1,11 +1,9 @@
 import * as express from 'express';
-import restapiSetup from '../../lib/restapi/api';
-import * as serverSetup from '../../lib/restapi/server';
+import restapi from '../../lib/restapi';
+import * as serverConfig from '../../lib/restapi/config';
 
 export default function setup(): express.Express {
     const app: express.Express = express();
-    serverSetup.setupForBluemix(app);
-    serverSetup.setupUI(app);
-    restapiSetup(app);
+    restapi(app);
     return app;
 }
