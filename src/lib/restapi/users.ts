@@ -8,6 +8,7 @@ import * as auth from './auth';
 import * as store from '../db/store';
 import * as dblimits from '../db/limits';
 import * as errors from './errors';
+import * as urls from './urls';
 import * as headers from './headers';
 import * as notifications from '../notifications/slack';
 import loggerSetup from '../utils/logger';
@@ -239,37 +240,37 @@ function getUserPatch(req: Express.Request): string[] {
 
 export default function registerApis(app: Express.Application) {
 
-    app.get('/api/classes/:classid/policy',
+    app.get(urls.TENANT_POLICY,
         auth.authenticate,
         auth.checkValidUser,
         auth.requireSupervisor,
         getPolicy);
 
-    app.get('/api/classes/:classid/students',
+    app.get(urls.USERS,
         auth.authenticate,
         auth.checkValidUser,
         auth.requireSupervisor,
         getStudents);
 
-    app.post('/api/classes/:classid/students',
+    app.post(urls.USERS,
         auth.authenticate,
         auth.checkValidUser,
         auth.requireSupervisor,
         createStudent);
 
-    app.delete('/api/classes/:classid/students/:studentid',
+    app.delete(urls.USER,
         auth.authenticate,
         auth.checkValidUser,
         auth.requireSupervisor,
         deleteStudent);
 
-    app.post('/api/classes/:classid/students/:studentid/password',
+    app.post(urls.USER_PASSWORD,
         auth.authenticate,
         auth.checkValidUser,
         auth.requireSupervisor,
         resetStudentPassword);
 
-    app.patch('/api/classes/:classid/students',
+    app.patch(urls.USERS,
         auth.authenticate,
         auth.checkValidUser,
         auth.requireSupervisor,

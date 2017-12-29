@@ -5,6 +5,7 @@ import * as httpstatus from 'http-status';
 import * as auth from './auth';
 import * as store from '../db/store';
 import * as Objects from '../db/db-types';
+import * as urls from './urls';
 import * as errors from './errors';
 import * as headers from './headers';
 import loggerSetup from '../utils/logger';
@@ -272,38 +273,38 @@ async function modifyProject(req: Express.Request, res: Express.Response) {
 
 export default function registerApis(app: Express.Application) {
 
-    app.get('/api/classes/:classid/projects',
+    app.get(urls.ALL_CLASS_PROJECTS,
             auth.authenticate,
             auth.checkValidUser,
             auth.requireSupervisor,
             getProjectsByClassId);
 
-    app.get('/api/classes/:classid/students/:studentid/projects',
+    app.get(urls.PROJECTS,
             auth.authenticate,
             auth.checkValidUser,
             getProjectsByUserId);
 
-    app.post('/api/classes/:classid/students/:studentid/projects',
+    app.post(urls.PROJECTS,
             auth.authenticate,
             auth.checkValidUser,
             createProject);
 
-    app.get('/api/classes/:classid/students/:studentid/projects/:projectid',
+    app.get(urls.PROJECT,
             auth.authenticate,
             auth.checkValidUser,
             getProject);
 
-    app.get('/api/classes/:classid/students/:studentid/projects/:projectid/fields',
+    app.get(urls.FIELDS,
             auth.authenticate,
             auth.checkValidUser,
             getProjectFields);
 
-    app.delete('/api/classes/:classid/students/:studentid/projects/:projectid',
+    app.delete(urls.PROJECT,
             auth.authenticate,
             auth.checkValidUser,
             deleteProject);
 
-    app.patch('/api/classes/:classid/students/:studentid/projects/:projectid',
+    app.patch(urls.PROJECT,
             auth.authenticate,
             auth.checkValidUser,
             modifyProject);

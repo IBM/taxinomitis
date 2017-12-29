@@ -73,25 +73,25 @@ function del(key: string) {
 
 
 
-function getFromStruct(
-    classid: string,
-    userid: string,
-    projectid: string,
-    imageid: string,
-): IBMCosSDK.S3.PutObjectRequest
-{
-    return bucketStructured[classid][userid][projectid][imageid];
-}
+// function getFromStruct(
+//     classid: string,
+//     userid: string,
+//     projectid: string,
+//     imageid: string,
+// ): IBMCosSDK.S3.PutObjectRequest
+// {
+//     return bucketStructured[classid][userid][projectid][imageid];
+// }
 
-function getFromFlat(
-    classid: string,
-    userid: string,
-    projectid: string,
-    imageid: string,
-): IBMCosSDK.S3.PutObjectRequest
-{
-    return bucketFlat[[classid, userid, projectid, imageid].join('/')];
-}
+// function getFromFlat(
+//     classid: string,
+//     userid: string,
+//     projectid: string,
+//     imageid: string,
+// ): IBMCosSDK.S3.PutObjectRequest
+// {
+//     return bucketFlat[[classid, userid, projectid, imageid].join('/')];
+// }
 
 
 
@@ -204,18 +204,18 @@ export function reset() {
     store({
         Bucket: 'BUCKETID',
         Key: 'INVALIDCLASS/INVALIDUSER/INVALIDPROJECT/MISSINGMETADATA',
-        Body: new Buffer('999'),
+        Body: Buffer.from('999'),
     });
     store({
         Bucket: 'BUCKETID',
         Key: 'INVALIDCLASS/INVALIDUSER/INVALIDPROJECT/INVALIDMETADATA',
-        Body: new Buffer('999'),
+        Body: Buffer.from('999'),
         Metadata: {},
     });
     store({
         Bucket: 'BUCKETID',
         Key: 'INVALIDCLASS/INVALIDUSER/INVALIDPROJECT/INVALIDIMAGETYPE',
-        Body: new Buffer('999'),
+        Body: Buffer.from('999'),
         Metadata: {
             filetype : 'mystery',
         },

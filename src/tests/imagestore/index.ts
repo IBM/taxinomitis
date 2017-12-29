@@ -93,7 +93,7 @@ describe('Object Store', () => {
                 projectid : 'MYPROJECT',
                 imageid : 'MYPNGIMAGE',
             };
-            const image = new Buffer('ABCDEF');
+            const image = Buffer.from('ABCDEF');
             const imageType = 'image/png';
 
             const stored = await imagestore.storeImage(spec, imageType, image);
@@ -117,7 +117,7 @@ describe('Object Store', () => {
                 projectid : 'MYPROJECT',
                 imageid : 'MYJPEGIMAGE',
             };
-            const image = new Buffer('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+            const image = Buffer.from('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
             const imageType = 'image/jpeg';
 
             const stored = await imagestore.storeImage(spec, imageType, image);
@@ -144,7 +144,7 @@ describe('Object Store', () => {
                 projectid : 'MYPROJECT',
                 imageid : 'MYPNGIMAGE',
             };
-            const image = new Buffer('ABCDEFGHIJK');
+            const image = Buffer.from('ABCDEFGHIJK');
             const imageType = 'image/png';
 
             const stored = await imagestore.storeImage(spec, imageType, image);
@@ -184,7 +184,7 @@ describe('Object Store', () => {
                     projectid : 'MYTESTPROJECT',
                     imageid : 'MYTESTPNGIMAGE' + i,
                 };
-                const image = new Buffer(randomstring.generate({ length : 100 }));
+                const image = Buffer.from(randomstring.generate({ length : 100 }));
                 const imageType = 'image/png';
 
                 await imagestore.storeImage(spec, imageType, image);
@@ -240,7 +240,7 @@ describe('Object Store', () => {
                         projectid : 'MYTESTPROJECT' + proj,
                         imageid : 'MYTESTJPGIMAGE' + img,
                     };
-                    const image = new Buffer(randomstring.generate({ length : 100 }));
+                    const image = Buffer.from(randomstring.generate({ length : 100 }));
                     const imageType = 'image/jpeg';
 
                     await imagestore.storeImage(spec, imageType, image);
@@ -296,7 +296,7 @@ describe('Object Store', () => {
                             projectid : 'ATESTPROJECT' + proj,
                             imageid : 'ATESTPNGIMAGE' + img,
                         };
-                        const image = new Buffer(randomstring.generate({ length : 100 }));
+                        const image = Buffer.from(randomstring.generate({ length : 100 }));
                         const imageType = 'image/png';
 
                         await imagestore.storeImage(spec, imageType, image);

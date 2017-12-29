@@ -9,6 +9,7 @@ import * as dbobjects from '../db/objects';
 import * as TrainingTypes from '../training/training-types';
 import * as conversation from '../training/conversation';
 import * as visualRecognition from '../training/visualrecognition';
+import * as urls from './urls';
 import * as headers from './headers';
 import * as errors from './errors';
 import loggerSetup from '../utils/logger';
@@ -137,21 +138,21 @@ async function addCredentials(req: Express.Request, res: Express.Response) {
 
 
 export default function registerApis(app: Express.Application) {
-    app.get('/api/classes/:classid/credentials',
+    app.get(urls.BLUEMIX_CREDENTIALS,
         auth.authenticate,
         auth.checkValidUser,
         auth.requireSupervisor,
         auth.ensureUnmanaged,
         getCredentials);
 
-    app.delete('/api/classes/:classid/credentials/:credentialsid',
+    app.delete(urls.BLUEMIX_CREDENTIAL,
         auth.authenticate,
         auth.checkValidUser,
         auth.requireSupervisor,
         auth.ensureUnmanaged,
         deleteCredentials);
 
-    app.post('/api/classes/:classid/credentials',
+    app.post(urls.BLUEMIX_CREDENTIALS,
         auth.authenticate,
         auth.checkValidUser,
         auth.requireSupervisor,
