@@ -12,6 +12,8 @@ export interface ImageSpec extends ProjectSpec {
     readonly imageid: string;
 }
 
+export type ObjectStoreSpec = ClassSpec | UserSpec | ProjectSpec | ImageSpec;
+
 export type ImageFileType = 'image/png' | 'image/jpg' | 'image/jpeg' | '';
 
 export interface Image {

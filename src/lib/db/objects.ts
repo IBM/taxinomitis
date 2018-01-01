@@ -5,6 +5,7 @@ import * as uuidv4 from 'uuid/v4';
 import * as projects from './projects';
 import * as Objects from './db-types';
 import * as TrainingObjects from '../training/training-types';
+import * as ObjectStoreTypes from '../imagestore/types';
 
 
 
@@ -622,6 +623,112 @@ export function getScratchKeyFromDbRow(row: Objects.ScratchKeyDbRow): Objects.Sc
         };
     }
 }
+
+
+
+
+// -----------------------------------------------------------------------------
+//
+// PENDING JOBS
+//
+// -----------------------------------------------------------------------------
+
+export function createDeleteImageJob(spec: ObjectStoreTypes.ImageSpec): Objects.PendingJob
+{
+    if (!spec.classid) {
+        throw new Error('Missing required class id');
+    }
+    if (!spec.userid) {
+        throw new Error('Missing required user id');
+    }
+    if (!spec.projectid) {
+        throw new Error('Missing required project id');
+    }
+    if (!spec.imageid) {
+        throw new Error('Missing required image id');
+    }
+
+    return {
+        id : uuid(),
+        jobtype : Objects.PendingJobType.DeleteOneImageFromObjectStorage,
+        jobdata : spec,
+        attempts : 0,
+    };
+}
+
+export function createDeleteProjectImagesJob(spec: ObjectStoreTypes.ProjectSpec): Objects.PendingJob
+{
+    if (!spec.classid) {
+        throw new Error('Missing required class id');
+    }
+    if (!spec.userid) {
+        throw new Error('Missing required user id');
+    }
+    if (!spec.projectid) {
+        throw new Error('Missing required project id');
+    }
+
+    return {
+        id : uuid(),
+        jobtype : Objects.PendingJobType.DeleteProjectImagesFromObjectStorage,
+        jobdata : spec,
+        attempts : 0,
+    };
+}
+
+export function createDeleteUserImagesJob(spec: ObjectStoreTypes.UserSpec): Objects.PendingJob
+{
+    if (!spec.classid) {
+        throw new Error('Missing required class id');
+    }
+    if (!spec.userid) {
+        throw new Error('Missing required user id');
+    }
+
+    return {
+        id : uuid(),
+        jobtype : Objects.PendingJobType.DeleteUserImagesFromObjectStorage,
+        jobdata : spec,
+        attempts : 0,
+    };
+}
+
+export function createDeleteClassImagesJob(spec: ObjectStoreTypes.ClassSpec): Objects.PendingJob
+{
+    if (!spec.classid) {
+        throw new Error('Missing required class id');
+    }
+
+    return {
+        id : uuid(),
+        jobtype : Objects.PendingJobType.DeleteClassImagesFromObjectStorage,
+        jobdata : spec,
+        attempts : 0,
+    };
+}
+
+
+export function getPendingJobFromDbRow(row: Objects.PendingJobDbRow): Objects.PendingJob
+{
+    if (row.lastattempt) {
+        return {
+            id : row.id,
+            jobtype : row.jobtype,
+            jobdata : JSON.parse(row.jobdata),
+            attempts : row.attempts,
+            lastattempt : row.lastattempt,
+        };
+    }
+    else {
+        return {
+            id : row.id,
+            jobtype : row.jobtype,
+            jobdata : JSON.parse(row.jobdata),
+            attempts : row.attempts,
+        };
+    }
+}
+
 
 
 

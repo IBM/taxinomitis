@@ -774,6 +774,159 @@ describe('DB objects', () => {
 
 
 
+    describe('crete pending job', () => {
+
+        const classid = 'classid';
+        const userid = 'userid';
+        const projectid = 'projectid';
+        const imageid = 'imageid';
+
+        it('should require a class id for image jobs', (done) => {
+            try {
+                dbobjects.createDeleteImageJob({
+                    classid : UNDEFINED_STRING,
+                    userid, projectid, imageid,
+                });
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required class id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should require a userid id for image jobs', (done) => {
+            try {
+                dbobjects.createDeleteImageJob({
+                    userid : UNDEFINED_STRING,
+                    classid, projectid, imageid,
+                });
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required user id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should require a project id for image jobs', (done) => {
+            try {
+                dbobjects.createDeleteImageJob({
+                    projectid : UNDEFINED_STRING,
+                    classid, userid, imageid,
+                });
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required project id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should require a image id for image jobs', (done) => {
+            try {
+                dbobjects.createDeleteImageJob({
+                    imageid : UNDEFINED_STRING,
+                    classid, userid, projectid,
+                });
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required image id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+
+
+        it('should require a class id for project jobs', (done) => {
+            try {
+                dbobjects.createDeleteProjectImagesJob({
+                    classid : UNDEFINED_STRING,
+                    userid, projectid,
+                });
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required class id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should require a userid id for project jobs', (done) => {
+            try {
+                dbobjects.createDeleteProjectImagesJob({
+                    userid : UNDEFINED_STRING,
+                    classid, projectid,
+                });
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required user id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should require a project id for project jobs', (done) => {
+            try {
+                dbobjects.createDeleteProjectImagesJob({
+                    projectid : UNDEFINED_STRING,
+                    classid, userid,
+                });
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required project id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+
+        it('should require a class id for user jobs', (done) => {
+            try {
+                dbobjects.createDeleteUserImagesJob({
+                    classid : UNDEFINED_STRING,
+                    userid,
+                });
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required class id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should require a userid id for user jobs', (done) => {
+            try {
+                dbobjects.createDeleteUserImagesJob({
+                    userid : UNDEFINED_STRING,
+                    classid,
+                });
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required user id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+
+        it('should require a class id for class jobs', (done) => {
+            try {
+                dbobjects.createDeleteClassImagesJob({
+                    classid : UNDEFINED_STRING,
+                });
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required class id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+    });
+
+
+
     describe('createClassTenant', () => {
 
         it('should require a class id', (done) => {
