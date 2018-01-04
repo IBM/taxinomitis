@@ -74,7 +74,8 @@ function handleUpload(req: Express.Request, res: Express.Response) {
                 imageSpec.projectid,
                 parse.createImageUrl(imageSpec),
                 imageLabel,
-                true);
+                true,
+                imageSpec.imageid);
 
             if (etag) {
                 res.setHeader('ETag', etag);

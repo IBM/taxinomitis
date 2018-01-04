@@ -326,6 +326,7 @@ export function createImageTraining(
     imageurl: string,
     label: string,
     stored: boolean,
+    imageid?: string,
 ): Objects.ImageTrainingDbRow
 {
     if (projectid === undefined || projectid === '' ||
@@ -339,7 +340,7 @@ export function createImageTraining(
     }
 
     const object: any = {
-        id : uuid(),
+        id : imageid ? imageid : uuid(),
         projectid,
         imageurl,
     };

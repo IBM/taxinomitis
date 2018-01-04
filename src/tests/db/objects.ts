@@ -649,6 +649,16 @@ describe('DB objects', () => {
             assert.equal(training.imageurl, 'trainingurl');
         });
 
+        it('should allow ID to be provided', () => {
+            const testImageId = 'TESTIMAGEID';
+            const training = dbobjects.createImageTraining('projectid', 'trainingurl', 'testlabel', true, testImageId);
+            assert.equal(training.label, 'testlabel');
+            assert.equal(training.projectid, 'projectid');
+            assert.equal(training.imageurl, 'trainingurl');
+            assert.equal(training.id, testImageId);
+        });
+
+
         it('should require an image url', (done) => {
             try {
                 dbobjects.createImageTraining('projectid', UNDEFINED_STRING, UNDEFINED_STRING, false);

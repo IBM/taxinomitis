@@ -1,6 +1,8 @@
 /*eslint-env mocha */
 
 import * as assert from 'assert';
+import * as fs from 'fs';
+import * as uuid from 'uuid/v1';
 import * as express from 'express';
 import * as sinon from 'sinon';
 import * as randomstring from 'randomstring';
@@ -85,7 +87,7 @@ describe('REST API - image uploads', () => {
 
 
 
-    describe('invalid requests', () => {
+    describe('invalid uploads', () => {
 
         it('should require a file', () => {
             return request(testServer)
@@ -118,7 +120,7 @@ describe('REST API - image uploads', () => {
     });
 
 
-    describe('valid requests', () => {
+    describe('valid uploads', () => {
         it('should upload a file', () => {
             return request(testServer)
                 .post('/api/classes/TESTCLASS/students/TESTSTUDENT/projects/TESTPROJECT/images')
@@ -135,11 +137,84 @@ describe('REST API - image uploads', () => {
                     // tslint:disable-next-line:max-line-length
                     assert(res.body.imageurl.startsWith('/api/classes/TESTCLASS/students/TESTSTUDENT/projects/TESTPROJECT/images/'));
 
+                    assert.equal(res.body.imageurl,
+                        '/api/classes/TESTCLASS/students/TESTSTUDENT/projects/TESTPROJECT/images/' + res.body.id);
+
                     assert(res.header.etag);
 
                     return store.deleteTraining('images', 'TESTPROJECT', res.body.id);
                 });
         });
+
+    });
+
+
+
+    describe('invalid downloads', () => {
+
+        it('should handle non-existent images', () => {
+            return request(testServer)
+                .get('/api/classes/someclassid/students/somestudentid/projects/projectid/images/someimageid')
+                .set('Authorization', 'Bearer some token')
+                .expect(httpStatus.NOT_FOUND)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, { error : 'File not found' });
+                });
+        });
+    });
+
+
+
+    describe('valid downloads', () => {
+
+        function readFileToBuffer(path: string) {
+            return new Promise((resolve, reject) => {
+                fs.readFile(path, (err, data) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    return resolve(data);
+                });
+            });
+        }
+
+        it('should download a file', async () => {
+            let id;
+            const filepath = './src/tests/utils/resources/test-01.jpg';
+            const contents = await readFileToBuffer(filepath);
+
+            const classid = uuid();
+            const userid = uuid();
+            const projectid = uuid();
+
+            const imagesurl = '/api/classes/' + classid +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/images';
+
+            await request(testServer)
+                .post(imagesurl)
+                .attach('image', filepath)
+                .field('label', 'testlabel')
+                .expect(httpStatus.CREATED)
+                .then((res) => {
+                    assert(res.body.id);
+                    id = res.body.id;
+
+                    assert.equal(res.body.projectid, projectid);
+                });
+
+            await request(testServer)
+                .get(imagesurl + '/' + id)
+                .expect(httpStatus.OK)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, contents);
+                    assert.equal(res.header['content-type'], 'image/jpeg');
+                });
+
+            return store.deleteTraining('images', projectid, id);
+        });
+
     });
 
 });

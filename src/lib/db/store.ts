@@ -561,13 +561,13 @@ export async function getUniqueTrainingTextsByLabel(
 
 
 export async function storeImageTraining(
-    projectid: string, imageurl: string, label: string, stored: boolean,
+    projectid: string, imageurl: string, label: string, stored: boolean, imageid?: string,
 ): Promise<Objects.ImageTraining>
 {
     let outcome: InsertTrainingOutcome;
 
     // prepare the data that we want to store
-    const obj = dbobjects.createImageTraining(projectid, imageurl, label, stored);
+    const obj = dbobjects.createImageTraining(projectid, imageurl, label, stored, imageid);
 
 
     //
