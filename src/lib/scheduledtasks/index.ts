@@ -34,6 +34,10 @@ export function run(): void {
         setInterval(() => {
             pendingjobs.run();
         }, constants.THREE_HOURS);
+        // run immediately so we don't have to wait for three hours
+        //  for this to be done (this task is more critical than the
+        //  others)
+        pendingjobs.run();
 
 
 
