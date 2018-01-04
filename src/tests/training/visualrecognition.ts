@@ -503,10 +503,12 @@ describe('Training - Visual Recognition', () => {
 
 
     const mockDownloadAndZip = {
-        run : (urls: string[]) => {
-            for (const url of urls) {
-                assert.equal(typeof url, 'string');
-                assert(url.startsWith('http'));
+        run : (locations: downloadAndZip.ImageDownload[]) => {
+            for (const location of locations) {
+                if (location.type === 'download') {
+                    assert.equal(typeof location.url, 'string');
+                    assert(location.url.startsWith('http'));
+                }
             }
             return Promise.resolve('/tmp/training.zip');
         },

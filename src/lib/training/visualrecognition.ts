@@ -145,13 +145,13 @@ export function getStatus(
 
 
 /**
- * Confirms that the provided URLs should be usable by the Vision Recognition service.
+ * Confirms that the provided locations should be usable by the Vision Recognition service.
  */
-function validateRequest(urls: string[]): void {
-    if (urls.length < 10) {
+function validateRequest(locations: any[]): void {
+    if (locations.length < 10) {
         throw new Error('Not enough images to train the classifier');
     }
-    if (urls.length > 10000) {
+    if (locations.length > 10000) {
         throw new Error('Number of images exceeds maximum (10000)');
     }
 }
@@ -168,10 +168,30 @@ async function getTraining(project: DbObjects.Project): Promise<{ [label: string
             start : 0, limit : counts[label],
         });
 
-        const trainingUrls = training.map((trainingitem) => trainingitem.imageurl);
-        validateRequest(trainingUrls);
+        const trainingLocations = training.map((trainingitem) => {
+            if (trainingitem.isstored) {
+                const fromStorage: downloadAndZip.ImageDownload = {
+                    type : 'retrieve',
+                    spec : {
+                        imageid : trainingitem.id,
+                        projectid : project.id,
+                        userid : project.userid,
+                        classid : project.classid,
+                    },
+                };
+                return fromStorage;
+            }
+            else {
+                const fromWeb: downloadAndZip.ImageDownload = {
+                    type : 'download',
+                    url: trainingitem.imageurl,
+                };
+                return fromWeb;
+            }
+        });
+        validateRequest(trainingLocations);
 
-        const trainingZip = await downloadAndZip.run(trainingUrls);
+        const trainingZip = await downloadAndZip.run(trainingLocations);
         examples[label] = trainingZip;
     }
 

@@ -29,7 +29,7 @@ describe('Utils - base64decode', () => {
         readonly size: number;
     }
 
-    it('should decode a jpg file', (done) => {
+    it('should download a jpg file', (done) => {
         async.waterfall([
             (next: (err?: Error, path?: string) => void) => {
                 downloadZip.run(TESTURLS)
@@ -119,16 +119,27 @@ describe('Utils - base64decode', () => {
 
 
 
-const TESTURLS: string[] = [
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/IBM_logo.svg/220px-IBM_logo.svg.png?download',
-    // tslint:disable-next-line:max-line-length
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Thomas_J_Watson_Sr.jpg/148px-Thomas_J_Watson_Sr.jpg?download',
-    // tslint:disable-next-line:max-line-length
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Old_Map_Hursley_1607.jpg/218px-Old_Map_Hursley_1607.jpg?download',
+const TESTURLS: downloadZip.DownloadFromWeb[] = [
+    {
+        type: 'download',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/IBM_logo.svg/220px-IBM_logo.svg.png?download',
+    },
+    {
+        type: 'download',
+        // tslint:disable-next-line:max-line-length
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Thomas_J_Watson_Sr.jpg/148px-Thomas_J_Watson_Sr.jpg?download',
+    },
+    {
+        type: 'download',
+        // tslint:disable-next-line:max-line-length
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Old_Map_Hursley_1607.jpg/218px-Old_Map_Hursley_1607.jpg?download',
+    },
 ];
 
 
-const INVALIDURLS: string[] = [
-    // tslint:disable-next-line:max-line-length
-    'https://www.w3.org/Graphics/SVG/svglogo.svg',
+const INVALIDURLS: downloadZip.DownloadFromWeb[] = [
+    {
+        type: 'download',
+        url: 'https://www.w3.org/Graphics/SVG/svglogo.svg',
+    },
 ];

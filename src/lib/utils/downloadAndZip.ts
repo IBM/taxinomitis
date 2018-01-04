@@ -8,9 +8,31 @@ import * as request from 'request';
 import * as archiver from 'archiver';
 import * as fileType from 'file-type';
 import * as readChunk from 'read-chunk';
+// local dependencies
+import * as imagestore from '../imagestore';
 import loggerSetup from './logger';
 
 const log = loggerSetup();
+
+
+
+export interface RetrieveFromStorage {
+    readonly type: 'retrieve';
+    readonly spec: ObjectStorageSpec;
+}
+interface ObjectStorageSpec {
+    readonly imageid: string;
+    readonly projectid: string;
+    readonly userid: string;
+    readonly classid: string;
+}
+export interface DownloadFromWeb {
+    readonly type: 'download';
+    readonly url: string;
+}
+
+export type ImageDownload = RetrieveFromStorage | DownloadFromWeb;
+
 
 
 
@@ -37,13 +59,25 @@ function getFileTypeFromContents(filepath: string, callback: IFileTypeCallback):
 }
 
 
+function summary(location: ImageDownload): string {
+    if (location.type === 'download') {
+        return location.url;
+    }
+    else if (location.type === 'retrieve') {
+        return location.spec.imageid;
+    }
+    else {
+        return 'unknown';
+    }
+}
+
 /**
  * Rename the provided file based on the contents.
  *
  * @param filepath - location of the file on disk
- * @param sourceurl - URL the file was downloaded from
+ * @param source - location the file was downloaded from
  */
-function renameFileFromContents(filepath: string, sourceurl: string, callback: IRenameCallback): void {
+function renameFileFromContents(filepath: string, source: ImageDownload, callback: IRenameCallback): void {
     async.waterfall([
         (next: IErrCallback) => {
             getFileTypeFromContents(filepath, next);
@@ -53,7 +87,7 @@ function renameFileFromContents(filepath: string, sourceurl: string, callback: I
                 return next(undefined, filetype);
             }
             fs.unlink(filepath, logError);
-            next(new Error('Training data (' + sourceurl + ') has unsupported file type (' + filetype + ')'));
+            next(new Error('Training data (' + summary(source) + ') has unsupported file type (' + filetype + ')'));
         },
         (filetype: string, next: IRenameCallback) => {
             const newFilePath = filepath + '.' + filetype;
@@ -85,13 +119,48 @@ function download(url: string, targetFilePath: string, callback: IErrCallback): 
 
 
 /**
+ * Retrieves a file from the S3 Object Storage to the specified location on disk.
+ *
+ * @param spec - elements of the key in object store
+ * @param targetFilePath - writes to
+ */
+function retrieve(spec: ObjectStorageSpec, targetFilePath: string, callback: IErrCallback): void {
+    imagestore.getImage(spec)
+        .then((imagedata) => {
+            fs.writeFile(targetFilePath, imagedata.body, callback);
+        })
+        .catch((err) => {
+            log.error({ err }, 'Failed to retrieve image from storage');
+            callback(err);
+        });
+}
+
+
+
+
+function retrieveImage(location: ImageDownload, targetFilePath: string, callback: IErrCallback): void {
+    if (location.type === 'download') {
+        download(location.url, targetFilePath, callback);
+    }
+    else if (location.type === 'retrieve') {
+        retrieve(location.spec, targetFilePath, callback);
+    }
+    else {
+        throw new Error('Unsupported location type');
+    }
+}
+
+
+
+
+/**
  * Downloads a file to the temp folder and renames it based on the file type.
  *  This is done based on the file contents, and is not dependent on any file
- *  extension in the URL.
+ *  extension in a URL.
  *
- * @param url - URL to download the file from
+ * @param location - details of where to retrieve the image from
  */
-function downloadAndRename(url: string, callback: IDownloadCallback): void {
+function downloadAndRename(location: ImageDownload, callback: IDownloadCallback): void {
     async.waterfall([
         (next: IDownloadCallback) => {
             // work out where to download the file to
@@ -101,17 +170,17 @@ function downloadAndRename(url: string, callback: IDownloadCallback): void {
         },
         (tmpFilePath: string, next: IDownloadCallback) => {
             // download the file to the temp location on disk
-            download(url, tmpFilePath, (err) => {
+            retrieveImage(location, tmpFilePath, (err) => {
                 next(err, tmpFilePath);
             });
         },
         (tmpFilePath: string, next: IRenameCallback) => {
             // rename the file to give it the right extension
-            renameFileFromContents(tmpFilePath, url, next);
+            renameFileFromContents(tmpFilePath, location, next);
         },
     ], (err?: Error, downloadedPath?: string) => {
         if (err) {
-            log.error({ err, url }, 'Failed to download');
+            log.error({ err, location }, 'Failed to download');
         }
         callback(err, downloadedPath);
     });
@@ -119,12 +188,12 @@ function downloadAndRename(url: string, callback: IDownloadCallback): void {
 
 
 /**
- * Download all of the files from the provided URLs to disk, and return
+ * Download all of the files from the provided locations to disk, and return
  *  the location of the downloaded files.
  */
-function downloadAll(urls: string[], callback: IDownloadAllCallback): void {
+function downloadAll(locations: ImageDownload[], callback: IDownloadAllCallback): void {
     // @ts-ignore async.map types have a problem with this
-    async.map(urls, downloadAndRename, callback);
+    async.map(locations, downloadAndRename, callback);
 }
 
 
@@ -184,14 +253,14 @@ function validateZip(filesize: number, callback: IErrCallback): void {
 
 
 /**
- * Downloads the files from the provided list of URLs, create a zip file,
+ * Downloads the files from the provided list of locations, create a zip file,
  *  add all of the downloaded files to the zip file, and then delete the
  *  originals. Return the zip.
  */
-function downloadAllIntoZip(urls: string[], callback: ICreateZipCallback): void {
+function downloadAllIntoZip(locations: ImageDownload[], callback: ICreateZipCallback): void {
     async.waterfall([
         (next: IDownloadAllCallback) => {
-            downloadAll(urls, next);
+            downloadAll(locations, next);
         },
         (downloadedFilePaths: string[], next: IZippedCallback) => {
             createZip(downloadedFilePaths, (err?: Error, zippath?: string, zipsize?: number) => {
@@ -215,9 +284,9 @@ function downloadAllIntoZip(urls: string[], callback: ICreateZipCallback): void 
 
 
 
-export function run(urls: string[]): Promise<string> {
+export function run(locations: ImageDownload[]): Promise<string> {
     return new Promise((resolve, reject) => {
-        downloadAllIntoZip(urls, (err, zippath) => {
+        downloadAllIntoZip(locations, (err, zippath) => {
             if (err) {
                 log.error({ err }, 'Failed to create training zip');
                 return reject(err);
