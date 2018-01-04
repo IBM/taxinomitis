@@ -933,6 +933,8 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
+            await store.deleteAllPendingJobs();
+
             const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
             const projectid = project.id;
 
@@ -968,7 +970,78 @@ describe('REST API - training', () => {
                             assert.equal(res.header['content-range'], 'items 0-0/1');
                         });
                 })
+                .then(async () => {
+                    const job = await store.getNextPendingJob();
+                    assert(!job);
+
+                    return store.deleteEntireProject(userid, classid, project);
+                });
+        });
+
+
+        it('should delete image training', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            await store.deleteAllPendingJobs();
+
+            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', []);
+            const projectid = project.id;
+
+            const trainingOne = await store.storeImageTraining(projectid, 'someurl', 'label', true);
+            const trainingTwo = await store.storeImageTraining(projectid, 'someurl', 'label', false);
+
+            const trainingurl = '/api/classes/' + classid +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/training';
+
+            return request(testServer)
+                .get(trainingurl)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK)
+                .then((res) => {
+                    const body = res.body;
+                    assert.equal(body.length, 2);
+                    assert.equal(res.header['content-range'], 'items 0-1/2');
+
+                    return request(testServer)
+                        .delete(trainingurl + '/' + trainingOne.id)
+                        .expect(httpstatus.NO_CONTENT);
+                })
+                .then(async () => {
+                    const job = await store.getNextPendingJob();
+                    assert(job);
+                    if (job) {
+                        assert.equal(job.jobtype, 1);
+                        assert.equal(job.attempts, 0);
+                        assert.deepStrictEqual(job.jobdata, {
+                            projectid, userid, classid,
+                            imageid : trainingOne.id,
+                        });
+
+                        await store.deletePendingJob(job);
+                    }
+
+                    return request(testServer)
+                        .get(trainingurl)
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.OK)
+                        .then((res) => {
+                            const body = res.body;
+                            assert.equal(body.length, 1);
+                            assert.equal(res.header['content-range'], 'items 0-0/1');
+                        });
+                })
                 .then(() => {
+                    return request(testServer)
+                        .delete(trainingurl + '/' + trainingTwo.id)
+                        .expect(httpstatus.NO_CONTENT);
+                })
+                .then(async () => {
+                    const job = await store.getNextPendingJob();
+                    assert(!job);
+
                     return store.deleteEntireProject(userid, classid, project);
                 });
         });

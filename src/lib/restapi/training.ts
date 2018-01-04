@@ -108,8 +108,18 @@ function editLabel(req: auth.RequestWithProject, res: Express.Response) {
 }
 
 
-function deleteTraining(req: auth.RequestWithProject, res: Express.Response) {
+async function deleteTraining(req: auth.RequestWithProject, res: Express.Response) {
     const trainingid: string = req.params.trainingid;
+
+    if (req.project.type === 'images') {
+        const inImageStore = await store.isImageStored(trainingid);
+        if (inImageStore) {
+            store.storeDeleteImageJob(req.params.classid,
+                                      req.params.studentid,
+                                      req.params.projectid,
+                                      trainingid);
+        }
+    }
 
     return store.deleteTraining(req.project.type, req.project.id, trainingid)
         .then(() => {

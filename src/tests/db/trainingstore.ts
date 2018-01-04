@@ -611,6 +611,9 @@ describe('DB store - training', () => {
             assert.equal(training.label, label);
             assert.equal(training.isstored, false);
 
+            const isStored = await store.isImageStored(training.id);
+            assert.equal(isStored, false);
+
             return store.deleteTrainingByProjectId('images', projectid);
         });
 
@@ -626,6 +629,9 @@ describe('DB store - training', () => {
             assert.equal(training.imageurl, url);
             assert.equal(training.label, label);
             assert.equal(training.isstored, true);
+
+            const isStored = await store.isImageStored(training.id);
+            assert.equal(isStored, true);
 
             return store.deleteTrainingByProjectId('images', projectid);
         });

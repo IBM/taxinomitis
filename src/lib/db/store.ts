@@ -661,6 +661,26 @@ export async function getImageTrainingByLabel(
     return rows.map(dbobjects.getImageTrainingFromDbRow);
 }
 
+export async function getStoredImageTraining(projectid: string, label: string): Promise<Objects.ImageTraining[]>
+{
+    const queryString = 'SELECT `id`, `imageurl`, `label`, `isstored` FROM `imagetraining` ' +
+                        'WHERE `projectid` = ? AND `label` = ? AND `isstored` = 1 ' +
+                        'LIMIT 1000';
+
+    const rows = await dbExecute(queryString, [ projectid, label ]);
+    return rows.map(dbobjects.getImageTrainingFromDbRow);
+}
+
+export async function isImageStored(imageid: string): Promise<boolean> {
+    const queryString = 'SELECT `isstored` FROM `imagetraining` WHERE `id` = ?';
+    const values = [ imageid ];
+    const rows = await dbExecute(queryString, values);
+    if (rows.length > 0) {
+        return rows[0].isstored === 1;
+    }
+    return false;
+}
+
 
 
 

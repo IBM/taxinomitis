@@ -212,7 +212,9 @@ describe('REST API - image uploads', () => {
                     assert.equal(res.header['content-type'], 'image/jpeg');
                 });
 
-            return store.deleteTraining('images', projectid, id);
+            if (id) {
+                return store.deleteTraining('images', projectid, id);
+            }
         });
 
     });

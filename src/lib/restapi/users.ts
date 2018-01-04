@@ -133,6 +133,15 @@ async function deleteStudent(req: Express.Request, res: Express.Response) {
     }
     catch (err) {
         log.error({ err }, 'Failed to clean up projects for deleted user');
+        notifications.notify('Failed to delete user ' + userid + ' from ' + tenant);
+    }
+
+    try {
+        await store.storeDeleteUserImagesJob(tenant, userid);
+    }
+    catch (err) {
+        log.error({ err }, 'Failed to clean up image store for deleted user');
+        notifications.notify('Failed to delete storage for user ' + userid + ' from ' + tenant);
     }
 }
 

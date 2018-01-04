@@ -9,6 +9,7 @@ import * as express from 'express';
 
 import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
+import * as Types from '../../lib/imagestore/types';
 import testapiserver from './testserver';
 
 
@@ -50,6 +51,7 @@ describe('REST API - projects', () => {
         requireSupervisorStub.restore();
 
         await store.deleteProjectsByClassId(TESTCLASS);
+        await store.deleteAllPendingJobs();
         return store.disconnect();
     });
 
@@ -147,6 +149,51 @@ describe('REST API - projects', () => {
                         .expect('Content-Type', /json/)
                         .expect(httpstatus.NOT_FOUND);
                 })
+                .then((res) => {
+                    const body = res.body;
+                    assert.equal(body.error, 'Not found');
+                });
+        });
+
+
+        it('should clean up object storage when deleting image projects', async () => {
+            let projectid: string = '';
+
+            const classid = 'TESTTENANT';
+            const userid = uuid();
+            const url = '/api/classes/' + classid + '/students/' + userid + '/projects';
+
+            await store.deleteAllPendingJobs();
+
+            const jobBefore = await store.getNextPendingJob();
+            assert(!jobBefore);
+
+            await request(testServer)
+                .post(url)
+                .send({ name : uuid(), type : 'images', language : 'en' })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED)
+                .then((res) => {
+                    const body = res.body;
+                    assert(body.id);
+                    projectid = body.id;
+                });
+
+            await request(testServer)
+                .del(url + '/' + projectid)
+                .expect(httpstatus.NO_CONTENT);
+
+            const jobAfter = await store.getNextPendingJob();
+            assert(jobAfter);
+            if (jobAfter) {
+                assert.equal(jobAfter.jobtype, 2);
+                assert.deepStrictEqual(jobAfter.jobdata, { projectid, userid, classid });
+            }
+
+            return request(testServer)
+                .get(url + '/' + projectid)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.NOT_FOUND)
                 .then((res) => {
                     const body = res.body;
                     assert.equal(body.error, 'Not found');
@@ -687,6 +734,95 @@ describe('REST API - projects', () => {
                     assert.deepEqual(body.labels, []);
                 });
         });
+
+
+        it('should cleanup object storage after removing a label', async () => {
+            const studentId = uuid();
+            let projectId: string = '';
+            const label = 'newlabel';
+            const imageIds = [ uuid(), uuid(), uuid() ];
+
+            const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
+
+            await store.deleteAllPendingJobs();
+
+            const project = await store.storeProject(studentId, TESTCLASS, 'images', uuid(), 'en', []);
+            projectId = project.id;
+
+            await request(testServer)
+                .patch(url + '/' + projectId)
+                .send([{
+                    path : '/labels', op : 'add',
+                    value : label,
+                }])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            await store.storeImageTraining(
+                projectId,
+                '/api/classes/' + TESTCLASS +
+                    '/students/' + studentId +
+                    '/projects/' + projectId +
+                    '/images/' + imageIds[0],
+                label,
+                true,
+                imageIds[0]);
+            await store.storeImageTraining(
+                projectId,
+                '/api/classes/' + TESTCLASS +
+                    '/students/' + studentId +
+                    '/projects/' + projectId +
+                    '/images/' + imageIds[1],
+                label,
+                true,
+                imageIds[1]);
+            await store.storeImageTraining(
+                projectId,
+                '/api/classes/' + TESTCLASS +
+                    '/students/' + studentId +
+                    '/projects/' + projectId +
+                    '/images/' + imageIds[2],
+                label,
+                true,
+                imageIds[2]);
+
+            await store.storeImageTraining(
+                projectId,
+                'http://existingimage.com/image.png',
+                label,
+                false);
+
+            await request(testServer)
+                .patch(url + '/' + projectId)
+                .send([{
+                    path : '/labels', op : 'remove',
+                    value : label,
+                }])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK);
+
+            let jobCount = 0;
+            let job = await store.getNextPendingJob();
+            while (job) {
+                assert.equal(job.jobtype, 1);
+                const jobdata: Types.ImageSpec = job.jobdata as Types.ImageSpec;
+                assert.equal(jobdata.projectid, projectId);
+                assert.equal(jobdata.userid, studentId);
+                assert.equal(jobdata.classid, TESTCLASS);
+                assert(imageIds.includes(jobdata.imageid));
+
+                jobCount += 1;
+
+                await store.deletePendingJob(job);
+                job = await store.getNextPendingJob();
+            }
+
+            assert.equal(jobCount, 3);
+
+            const count = await store.countTraining('images', projectId);
+            assert.equal(count, 0);
+        });
+
 
 
         it('should replace labels', () => {

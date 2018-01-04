@@ -145,6 +145,13 @@ async function deleteProject(req: Express.Request, res: Express.Response) {
 
         if (project) {
             if (project.classid === classid && project.userid === userid) {
+
+                // if this is an images project, schedule a job to clean up
+                //  any usage of the S3 Object Store by the training images
+                if (project.type === 'images') {
+                    await store.storeDeleteProjectImagesJob(classid, userid, projectid);
+                }
+
                 await store.deleteEntireProject(userid, classid, project);
                 return res.sendStatus(httpstatus.NO_CONTENT);
             }
@@ -225,6 +232,14 @@ function getProjectPatch(req: Express.Request) {
 }
 
 
+async function deleteImages(classid: string, userid: string, projectid: string, label: string): Promise<void> {
+    const imagesToDelete = await store.getStoredImageTraining(projectid, label);
+    for (const imageToDelete of imagesToDelete) {
+        await store.storeDeleteImageJob(classid, userid, projectid, imageToDelete.id);
+    }
+}
+
+
 async function modifyProject(req: Express.Request, res: Express.Response) {
     const classid = req.params.classid;
     const userid = req.params.studentid;
@@ -249,6 +264,9 @@ async function modifyProject(req: Express.Request, res: Express.Response) {
             response = await store.addLabelToProject(userid, classid, projectid, patch.value);
             break;
         case 'remove':
+            // delete anything with the label from the S3 Object Store
+            await deleteImages(classid, userid, projectid, patch.value);
+            // delete anything with the label from the MySQL DB
             response = await store.removeLabelFromProject(userid, classid, projectid, patch.value);
             break;
         case 'replace':
