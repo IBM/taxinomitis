@@ -37,6 +37,10 @@ export async function run(): Promise<void> {
     catch (err) {
         log.error({ err, nextJob }, 'Pending job failure');
         notifications.notify('Critical failure in processing pending jobs: ' + err.message);
+
+        if (nextJob) {
+            db.recordUnsuccessfulPendingJobExecution(nextJob);
+        }
     }
 }
 
