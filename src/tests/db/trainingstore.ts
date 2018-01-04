@@ -539,7 +539,7 @@ describe('DB store - training', () => {
             assert.equal(retrieved.length, 0);
 
             for (const item of data) {
-                await store.storeImageTraining(projectid, item.imageurl, item.label);
+                await store.storeImageTraining(projectid, item.imageurl, item.label, false);
             }
 
             retrieved = await store.getImageTrainingByLabel(projectid, targetlabel, DEFAULT_PAGING);
@@ -599,16 +599,33 @@ describe('DB store - training', () => {
 
     describe('storeImageTraining', () => {
 
+        it('should store remote image data', async () => {
+            const projectid = uuid();
+            const url = uuid();
+            const label = uuid();
+
+            const training = await store.storeImageTraining(projectid, url, label, false);
+            assert(training);
+            assert.equal(training.projectid, projectid);
+            assert.equal(training.imageurl, url);
+            assert.equal(training.label, label);
+            assert.equal(training.isstored, false);
+
+            return store.deleteTrainingByProjectId('images', projectid);
+        });
+
+
         it('should store image data', async () => {
             const projectid = uuid();
             const url = uuid();
             const label = uuid();
 
-            const training = await store.storeImageTraining(projectid, url, label);
+            const training = await store.storeImageTraining(projectid, url, label, true);
             assert(training);
             assert.equal(training.projectid, projectid);
             assert.equal(training.imageurl, url);
             assert.equal(training.label, label);
+            assert.equal(training.isstored, true);
 
             return store.deleteTrainingByProjectId('images', projectid);
         });
@@ -620,7 +637,7 @@ describe('DB store - training', () => {
             const label = uuid();
 
             try {
-                await store.storeImageTraining(projectid, url, label);
+                await store.storeImageTraining(projectid, url, label, false);
                 assert.fail(0, 1, 'should not reach here', '');
             }
             catch (err) {

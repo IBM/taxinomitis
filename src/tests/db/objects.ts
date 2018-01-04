@@ -192,11 +192,30 @@ describe('DB objects', () => {
                 id : uuid(),
                 imageurl : 'http://images.com/example/image1.jpg',
                 projectid : 'testproject',
+                isstored : 0,
             };
             const expectedTraining: Objects.ImageTraining = {
                 id : testRow.id,
                 imageurl : testRow.imageurl,
                 projectid : 'testproject',
+                isstored : false,
+            };
+
+            assert.deepEqual(dbobjects.getImageTrainingFromDbRow(testRow), expectedTraining);
+        });
+
+        it('should return stored training data', () => {
+            const testRow: Objects.ImageTrainingDbRow = {
+                id : uuid(),
+                imageurl : 'http://images.com/example/image1.jpg',
+                projectid : 'testproject',
+                isstored : 1,
+            };
+            const expectedTraining: Objects.ImageTraining = {
+                id : testRow.id,
+                imageurl : testRow.imageurl,
+                projectid : 'testproject',
+                isstored : true,
             };
 
             assert.deepEqual(dbobjects.getImageTrainingFromDbRow(testRow), expectedTraining);
@@ -614,7 +633,7 @@ describe('DB objects', () => {
     describe('createImageTraining()', () => {
         it('should require project id', (done) => {
             try {
-                dbobjects.createImageTraining('', 'myimageurl', 'label');
+                dbobjects.createImageTraining('', 'myimageurl', 'label', false);
             }
             catch (err) {
                 assert.equal(err.message, 'Missing required attributes');
@@ -624,7 +643,7 @@ describe('DB objects', () => {
         });
 
         it('should not require an image label', () => {
-            const training = dbobjects.createImageTraining('projectid', 'trainingurl', UNDEFINED_STRING);
+            const training = dbobjects.createImageTraining('projectid', 'trainingurl', UNDEFINED_STRING, false);
             assert(training.id);
             assert.equal(training.projectid, 'projectid');
             assert.equal(training.imageurl, 'trainingurl');
@@ -632,7 +651,7 @@ describe('DB objects', () => {
 
         it('should require an image url', (done) => {
             try {
-                dbobjects.createImageTraining('projectid', UNDEFINED_STRING, UNDEFINED_STRING);
+                dbobjects.createImageTraining('projectid', UNDEFINED_STRING, UNDEFINED_STRING, false);
             }
             catch (err) {
                 assert.equal(err.message, 'Missing required attributes');
@@ -643,7 +662,7 @@ describe('DB objects', () => {
 
         it('should require a storable image url', (done) => {
             try {
-                dbobjects.createImageTraining('projectid', randomstring.generate({ length : 1500 }), 'label');
+                dbobjects.createImageTraining('projectid', randomstring.generate({ length : 1500 }), 'label', false);
             }
             catch (err) {
                 assert.equal(err.message, 'Image URL exceeds maximum allowed length (1024 characters)');

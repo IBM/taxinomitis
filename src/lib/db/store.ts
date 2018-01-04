@@ -561,13 +561,13 @@ export async function getUniqueTrainingTextsByLabel(
 
 
 export async function storeImageTraining(
-    projectid: string, imageurl: string, label: string,
+    projectid: string, imageurl: string, label: string, stored: boolean,
 ): Promise<Objects.ImageTraining>
 {
     let outcome: InsertTrainingOutcome;
 
     // prepare the data that we want to store
-    const obj = dbobjects.createImageTraining(projectid, imageurl, label);
+    const obj = dbobjects.createImageTraining(projectid, imageurl, label, stored);
 
 
     //
@@ -578,8 +578,10 @@ export async function storeImageTraining(
     const countQry = 'SELECT COUNT(*) AS `trainingcount` FROM `imagetraining` WHERE `projectid` = ?';
     const countValues = [ projectid ];
 
-    const insertQry = 'INSERT INTO `imagetraining` (`id`, `projectid`, `imageurl`, `label`) VALUES (?, ?, ?, ?)';
-    const insertValues = [ obj.id, obj.projectid, obj.imageurl, obj.label ];
+    const insertQry = 'INSERT INTO `imagetraining` ' +
+                        '(`id`, `projectid`, `imageurl`, `label`, `isstored`) ' +
+                        'VALUES (?, ?, ?, ?, ?)';
+    const insertValues = [ obj.id, obj.projectid, obj.imageurl, obj.label, obj.isstored ];
 
 
     //
@@ -637,7 +639,7 @@ export async function getImageTraining(
     projectid: string, options: Objects.PagingOptions,
 ): Promise<Objects.ImageTraining[]>
 {
-    const queryString = 'SELECT `id`, `imageurl`, `label` FROM `imagetraining` ' +
+    const queryString = 'SELECT `id`, `imageurl`, `label`, `isstored` FROM `imagetraining` ' +
                         'WHERE `projectid` = ? ' +
                         'ORDER BY `label`, `imageurl` ' +
                         'LIMIT ? OFFSET ?';
@@ -651,7 +653,7 @@ export async function getImageTrainingByLabel(
     projectid: string, label: string, options: Objects.PagingOptions,
 ): Promise<Objects.ImageTraining[]>
 {
-    const queryString = 'SELECT `id`, `imageurl`, `label` FROM `imagetraining` ' +
+    const queryString = 'SELECT `id`, `imageurl`, `label`, `isstored` FROM `imagetraining` ' +
                         'WHERE `projectid` = ? AND `label` = ? ' +
                         'LIMIT ? OFFSET ?';
 

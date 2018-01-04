@@ -5,6 +5,7 @@ import * as httpStatus from 'http-status';
 // local dependencies
 import * as config from '../../imagestore/config';
 import * as store from '../../imagestore';
+import * as db from '../../db/store';
 import * as urls from '../urls';
 import * as parse from './urlparse';
 import loggerSetup from '../../utils/logger';
@@ -43,7 +44,7 @@ function handleUpload(req: Express.Request, res: Express.Response) {
         });
     }
 
-    uploadHandler(req, res, (err?: Error) => {
+    uploadHandler(req, res, async (err?: Error) => {
         if (err) {
             return returnUploadError(res, err);
         }
@@ -52,26 +53,42 @@ function handleUpload(req: Express.Request, res: Express.Response) {
                 error : 'File not provided',
             });
         }
-
-        const imageSpec: StoreTypes.ImageSpec = parse.imagesUrl(req);
-        const imageType: StoreTypes.ImageFileType = getImageType(req.file.mimetype);
-
-        store.storeImage(imageSpec, imageType, req.file.buffer)
-            .then((etag) => {
-                if (etag) {
-                    res.setHeader('ETag', etag);
-                }
-                res.status(httpStatus.CREATED).json({
-                    id : imageSpec.imageid,
-                });
-            })
-            .catch((storeErr) => {
-                log.error({ err : storeErr }, 'Store fail');
-                res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
-                    error : storeErr.message,
-                    details : storeErr,
-                });
+        if (!req.body ||
+            !req.body.label ||
+            typeof req.body.label !== 'string' ||
+            req.body.label.trim().length === 0)
+        {
+            return res.status(httpStatus.BAD_REQUEST).json({
+                error : 'Image label not provided',
             });
+        }
+
+        try {
+            const imageSpec: StoreTypes.ImageSpec = parse.imagesUrl(req);
+            const imageType: StoreTypes.ImageFileType = getImageType(req.file.mimetype);
+            const imageLabel: string = req.body.label.trim();
+
+            const etag = await store.storeImage(imageSpec, imageType, req.file.buffer);
+
+            const training = await db.storeImageTraining(
+                imageSpec.projectid,
+                parse.createImageUrl(imageSpec),
+                imageLabel,
+                true);
+
+            if (etag) {
+                res.setHeader('ETag', etag);
+            }
+
+            res.status(httpStatus.CREATED).json(training);
+        }
+        catch (storeErr) {
+            log.error({ err : storeErr }, 'Store fail');
+            res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+                error : storeErr.message,
+                details : storeErr,
+            });
+        }
     });
 }
 

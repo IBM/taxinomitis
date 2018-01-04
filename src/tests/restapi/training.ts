@@ -466,6 +466,7 @@ describe('REST API - training', () => {
                     assert.equal(body.length, 1);
                     assert.equal(body[0].label, 'test');
                     assert.equal(body[0].imageurl, 'https://www.w3.org/html/logo/downloads/HTML5_Logo_128.png');
+                    assert.strictEqual(body[0].isstored, false);
 
                     return store.deleteEntireProject(userid, classid, project);
                 });

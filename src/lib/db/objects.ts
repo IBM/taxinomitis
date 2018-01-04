@@ -321,7 +321,13 @@ export function getNumberTrainingFromDbRow(row: Objects.NumberTrainingDbRow): Ob
 
 
 
-export function createImageTraining(projectid: string, imageurl: string, label: string): Objects.ImageTraining {
+export function createImageTraining(
+    projectid: string,
+    imageurl: string,
+    label: string,
+    stored: boolean,
+): Objects.ImageTrainingDbRow
+{
     if (projectid === undefined || projectid === '' ||
         imageurl === undefined || imageurl === '')
     {
@@ -342,6 +348,8 @@ export function createImageTraining(projectid: string, imageurl: string, label: 
         object.label = label;
     }
 
+    object.isstored = stored ? 1 : 0;
+
     return object;
 }
 
@@ -349,6 +357,7 @@ export function getImageTrainingFromDbRow(row: Objects.ImageTrainingDbRow): Obje
     const obj: any = {
         id : row.id,
         imageurl : row.imageurl,
+        isstored : row.isstored ? true : false,
     };
     if (row.label) {
         obj.label = row.label;

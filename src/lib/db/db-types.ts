@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import * as TrainingObjects from '../training/training-types';
 import * as ObjectStoreTypes from '../imagestore/types';
 
@@ -102,6 +104,7 @@ export interface ImageTraining {
     readonly imageurl: string;
     label?: string;
     projectid?: string;
+    isstored: boolean;
 }
 
 export interface ImageTrainingDbRow {
@@ -109,6 +112,7 @@ export interface ImageTrainingDbRow {
     readonly imageurl: string;
     readonly label?: string;
     readonly projectid?: string;
+    readonly isstored: number;
 }
 
 

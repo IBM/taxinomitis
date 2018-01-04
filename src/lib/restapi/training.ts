@@ -141,7 +141,7 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
             break;
         case 'images':
             await imageCheck.verifyImage(data);
-            training = await store.storeImageTraining(req.project.id, data, label);
+            training = await store.storeImageTraining(req.project.id, data, label, false);
             break;
         }
 

@@ -59,7 +59,8 @@ CREATE TABLE imagetraining (
     id CHAR(36) NOT NULL PRIMARY KEY,
     projectid CHAR(36) NOT NULL,
     imageurl VARCHAR(1024) NOT NULL,
-    label VARCHAR(100)
+    label VARCHAR(100),
+    isstored BOOLEAN DEFAULT false
 );
 
 CREATE INDEX imagetraining_getImageTraining on imagetraining(projectid, label, imageurl) using BTREE;
