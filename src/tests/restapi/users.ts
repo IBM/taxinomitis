@@ -102,27 +102,49 @@ describe('REST API - users', () => {
 
     describe('deleteStudent()', () => {
 
-        it('should delete a student', () => {
+        it('should delete a student', async () => {
             const stubs = {
                 getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
                 getUser : sinon.stub(auth0, 'getUser').callsFake(mocks.getUser.johndoe),
                 deleteUser : sinon.stub(auth0, 'deleteUser').callsFake(mocks.deleteUser.good),
             };
 
-            return store.init()
-                .then(() => {
-                    return request(testServer)
-                        .del('/api/classes/' + TENANTS.correct + '/students/auth0|58dd72d0b2e87002695249b6')
-                        .expect(httpstatus.NO_CONTENT);
-                })
-                .then(() => {
-                    stubs.getOauthToken.restore();
-                    stubs.getUser.restore();
-                    stubs.deleteUser.restore();
+            const userid = 'auth0|58dd72d0b2e87002695249b6';
 
-                    return store.disconnect();
+            await store.init();
+
+            await store.deleteAllPendingJobs();
+
+            await request(testServer)
+                .del('/api/classes/' + TENANTS.correct + '/students/' + userid)
+                .expect(httpstatus.NO_CONTENT);
+
+            await oneSecond();
+
+            const jobAfter = await store.getNextPendingJob();
+            assert(jobAfter);
+            if (jobAfter) {
+                assert.equal(jobAfter.jobtype, 3);
+                assert.deepStrictEqual(jobAfter.jobdata, {
+                    userid,
+                    classid : TENANTS.correct,
                 });
+            }
+
+            stubs.getOauthToken.restore();
+            stubs.getUser.restore();
+            stubs.deleteUser.restore();
+
+            return store.disconnect();
         });
+
+
+        function oneSecond(): Promise<void> {
+            return new Promise((resolve) => {
+                setTimeout(resolve, 1000);
+            });
+        }
+
 
         it('should refuse to delete students from a different tenant', () => {
             const stubs = {

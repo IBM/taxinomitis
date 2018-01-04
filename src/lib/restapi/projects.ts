@@ -5,6 +5,7 @@ import * as httpstatus from 'http-status';
 import * as auth from './auth';
 import * as store from '../db/store';
 import * as Objects from '../db/db-types';
+import * as urls from './urls';
 import * as errors from './errors';
 import * as headers from './headers';
 import loggerSetup from '../utils/logger';
@@ -144,6 +145,13 @@ async function deleteProject(req: Express.Request, res: Express.Response) {
 
         if (project) {
             if (project.classid === classid && project.userid === userid) {
+
+                // if this is an images project, schedule a job to clean up
+                //  any usage of the S3 Object Store by the training images
+                if (project.type === 'images') {
+                    await store.storeDeleteProjectImagesJob(classid, userid, projectid);
+                }
+
                 await store.deleteEntireProject(userid, classid, project);
                 return res.sendStatus(httpstatus.NO_CONTENT);
             }
@@ -224,6 +232,14 @@ function getProjectPatch(req: Express.Request) {
 }
 
 
+async function deleteImages(classid: string, userid: string, projectid: string, label: string): Promise<void> {
+    const imagesToDelete = await store.getStoredImageTraining(projectid, label);
+    for (const imageToDelete of imagesToDelete) {
+        await store.storeDeleteImageJob(classid, userid, projectid, imageToDelete.id);
+    }
+}
+
+
 async function modifyProject(req: Express.Request, res: Express.Response) {
     const classid = req.params.classid;
     const userid = req.params.studentid;
@@ -248,6 +264,9 @@ async function modifyProject(req: Express.Request, res: Express.Response) {
             response = await store.addLabelToProject(userid, classid, projectid, patch.value);
             break;
         case 'remove':
+            // delete anything with the label from the S3 Object Store
+            await deleteImages(classid, userid, projectid, patch.value);
+            // delete anything with the label from the MySQL DB
             response = await store.removeLabelFromProject(userid, classid, projectid, patch.value);
             break;
         case 'replace':
@@ -272,38 +291,38 @@ async function modifyProject(req: Express.Request, res: Express.Response) {
 
 export default function registerApis(app: Express.Application) {
 
-    app.get('/api/classes/:classid/projects',
+    app.get(urls.ALL_CLASS_PROJECTS,
             auth.authenticate,
             auth.checkValidUser,
             auth.requireSupervisor,
             getProjectsByClassId);
 
-    app.get('/api/classes/:classid/students/:studentid/projects',
+    app.get(urls.PROJECTS,
             auth.authenticate,
             auth.checkValidUser,
             getProjectsByUserId);
 
-    app.post('/api/classes/:classid/students/:studentid/projects',
+    app.post(urls.PROJECTS,
             auth.authenticate,
             auth.checkValidUser,
             createProject);
 
-    app.get('/api/classes/:classid/students/:studentid/projects/:projectid',
+    app.get(urls.PROJECT,
             auth.authenticate,
             auth.checkValidUser,
             getProject);
 
-    app.get('/api/classes/:classid/students/:studentid/projects/:projectid/fields',
+    app.get(urls.FIELDS,
             auth.authenticate,
             auth.checkValidUser,
             getProjectFields);
 
-    app.delete('/api/classes/:classid/students/:studentid/projects/:projectid',
+    app.delete(urls.PROJECT,
             auth.authenticate,
             auth.checkValidUser,
             deleteProject);
 
-    app.patch('/api/classes/:classid/students/:studentid/projects/:projectid',
+    app.patch(urls.PROJECT,
             auth.authenticate,
             auth.checkValidUser,
             modifyProject);

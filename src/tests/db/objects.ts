@@ -192,11 +192,30 @@ describe('DB objects', () => {
                 id : uuid(),
                 imageurl : 'http://images.com/example/image1.jpg',
                 projectid : 'testproject',
+                isstored : 0,
             };
             const expectedTraining: Objects.ImageTraining = {
                 id : testRow.id,
                 imageurl : testRow.imageurl,
                 projectid : 'testproject',
+                isstored : false,
+            };
+
+            assert.deepEqual(dbobjects.getImageTrainingFromDbRow(testRow), expectedTraining);
+        });
+
+        it('should return stored training data', () => {
+            const testRow: Objects.ImageTrainingDbRow = {
+                id : uuid(),
+                imageurl : 'http://images.com/example/image1.jpg',
+                projectid : 'testproject',
+                isstored : 1,
+            };
+            const expectedTraining: Objects.ImageTraining = {
+                id : testRow.id,
+                imageurl : testRow.imageurl,
+                projectid : 'testproject',
+                isstored : true,
             };
 
             assert.deepEqual(dbobjects.getImageTrainingFromDbRow(testRow), expectedTraining);
@@ -614,7 +633,7 @@ describe('DB objects', () => {
     describe('createImageTraining()', () => {
         it('should require project id', (done) => {
             try {
-                dbobjects.createImageTraining('', 'myimageurl', 'label');
+                dbobjects.createImageTraining('', 'myimageurl', 'label', false);
             }
             catch (err) {
                 assert.equal(err.message, 'Missing required attributes');
@@ -624,15 +643,25 @@ describe('DB objects', () => {
         });
 
         it('should not require an image label', () => {
-            const training = dbobjects.createImageTraining('projectid', 'trainingurl', UNDEFINED_STRING);
+            const training = dbobjects.createImageTraining('projectid', 'trainingurl', UNDEFINED_STRING, false);
             assert(training.id);
             assert.equal(training.projectid, 'projectid');
             assert.equal(training.imageurl, 'trainingurl');
         });
 
+        it('should allow ID to be provided', () => {
+            const testImageId = 'TESTIMAGEID';
+            const training = dbobjects.createImageTraining('projectid', 'trainingurl', 'testlabel', true, testImageId);
+            assert.equal(training.label, 'testlabel');
+            assert.equal(training.projectid, 'projectid');
+            assert.equal(training.imageurl, 'trainingurl');
+            assert.equal(training.id, testImageId);
+        });
+
+
         it('should require an image url', (done) => {
             try {
-                dbobjects.createImageTraining('projectid', UNDEFINED_STRING, UNDEFINED_STRING);
+                dbobjects.createImageTraining('projectid', UNDEFINED_STRING, UNDEFINED_STRING, false);
             }
             catch (err) {
                 assert.equal(err.message, 'Missing required attributes');
@@ -643,7 +672,7 @@ describe('DB objects', () => {
 
         it('should require a storable image url', (done) => {
             try {
-                dbobjects.createImageTraining('projectid', randomstring.generate({ length : 1500 }), 'label');
+                dbobjects.createImageTraining('projectid', randomstring.generate({ length : 1500 }), 'label', false);
             }
             catch (err) {
                 assert.equal(err.message, 'Image URL exceeds maximum allowed length (1024 characters)');
@@ -769,6 +798,159 @@ describe('DB objects', () => {
             assert.equal(creds.servicetype, 'conv');
             assert.equal(creds.username, 'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL');
             assert.equal(creds.password, 'THTBtUnNl5jT');
+        });
+    });
+
+
+
+    describe('crete pending job', () => {
+
+        const classid = 'classid';
+        const userid = 'userid';
+        const projectid = 'projectid';
+        const imageid = 'imageid';
+
+        it('should require a class id for image jobs', (done) => {
+            try {
+                dbobjects.createDeleteImageJob({
+                    classid : UNDEFINED_STRING,
+                    userid, projectid, imageid,
+                });
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required class id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should require a userid id for image jobs', (done) => {
+            try {
+                dbobjects.createDeleteImageJob({
+                    userid : UNDEFINED_STRING,
+                    classid, projectid, imageid,
+                });
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required user id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should require a project id for image jobs', (done) => {
+            try {
+                dbobjects.createDeleteImageJob({
+                    projectid : UNDEFINED_STRING,
+                    classid, userid, imageid,
+                });
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required project id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should require a image id for image jobs', (done) => {
+            try {
+                dbobjects.createDeleteImageJob({
+                    imageid : UNDEFINED_STRING,
+                    classid, userid, projectid,
+                });
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required image id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+
+
+        it('should require a class id for project jobs', (done) => {
+            try {
+                dbobjects.createDeleteProjectImagesJob({
+                    classid : UNDEFINED_STRING,
+                    userid, projectid,
+                });
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required class id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should require a userid id for project jobs', (done) => {
+            try {
+                dbobjects.createDeleteProjectImagesJob({
+                    userid : UNDEFINED_STRING,
+                    classid, projectid,
+                });
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required user id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should require a project id for project jobs', (done) => {
+            try {
+                dbobjects.createDeleteProjectImagesJob({
+                    projectid : UNDEFINED_STRING,
+                    classid, userid,
+                });
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required project id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+
+        it('should require a class id for user jobs', (done) => {
+            try {
+                dbobjects.createDeleteUserImagesJob({
+                    classid : UNDEFINED_STRING,
+                    userid,
+                });
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required class id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+        it('should require a userid id for user jobs', (done) => {
+            try {
+                dbobjects.createDeleteUserImagesJob({
+                    userid : UNDEFINED_STRING,
+                    classid,
+                });
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required user id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
+
+
+        it('should require a class id for class jobs', (done) => {
+            try {
+                dbobjects.createDeleteClassImagesJob({
+                    classid : UNDEFINED_STRING,
+                });
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing required class id');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
         });
     });
 

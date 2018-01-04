@@ -9,6 +9,7 @@ import registerBluemixApis from './bluemix';
 import registerUserApis from './users';
 import registerProjectApis from './projects';
 import registerTrainingApis from './training';
+import registerImageApis from './images';
 import registerModelApis from './models';
 import registerScratchApis from './scratch';
 import registerWatsonApis from './watsonapis';
@@ -46,6 +47,7 @@ export default function setup(app: Express.Application): void {
     registerUserApis(app);
     registerProjectApis(app);
     registerTrainingApis(app);
+    registerImageApis(app);
     registerModelApis(app);
     registerScratchApis(app);
     registerWatsonApis(app);

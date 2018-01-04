@@ -383,14 +383,13 @@ describe('REST API - models', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK)
                 .then(async (res) => {
-                    assert.deepEqual(res.body, [
-                        {
-                            classifierid : projectid,
-                            created : expectedTimestamp,
-                            status : 'Available',
-                            updated : expectedTimestamp,
-                        },
-                    ]);
+                    assert.equal(res.body.length, 1);
+                    assert.equal(res.body[0].classifierid, projectid);
+                    assert.equal(res.body[0].status, 'Available');
+                    assert(res.body[0].created);
+                    assert(res.body[0].updated);
+                    assert.equal(res.body[0].created.substr(0, 18), expectedTimestamp.substr(0, 18));
+                    assert.equal(res.body[0].updated.substr(0, 18), expectedTimestamp.substr(0, 18));
 
                     await store.deleteEntireProject(userid, classid, project);
                 });

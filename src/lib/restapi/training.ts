@@ -6,6 +6,7 @@ import * as rangeParse from 'http-range-parse';
 import * as auth from './auth';
 import * as store from '../db/store';
 import * as Objects from '../db/db-types';
+import * as urls from './urls';
 import * as errors from './errors';
 import * as headers from './headers';
 import * as imageCheck from '../utils/imageCheck';
@@ -107,8 +108,18 @@ function editLabel(req: auth.RequestWithProject, res: Express.Response) {
 }
 
 
-function deleteTraining(req: auth.RequestWithProject, res: Express.Response) {
+async function deleteTraining(req: auth.RequestWithProject, res: Express.Response) {
     const trainingid: string = req.params.trainingid;
+
+    if (req.project.type === 'images') {
+        const inImageStore = await store.isImageStored(trainingid);
+        if (inImageStore) {
+            store.storeDeleteImageJob(req.params.classid,
+                                      req.params.studentid,
+                                      req.params.projectid,
+                                      trainingid);
+        }
+    }
 
     return store.deleteTraining(req.project.type, req.project.id, trainingid)
         .then(() => {
@@ -140,7 +151,7 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
             break;
         case 'images':
             await imageCheck.verifyImage(data);
-            training = await store.storeImageTraining(req.project.id, data, label);
+            training = await store.storeImageTraining(req.project.id, data, label, false);
             break;
         }
 
@@ -167,35 +178,35 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
 
 
 export default function registerApis(app: Express.Application) {
-    app.get('/api/classes/:classid/students/:studentid/projects/:projectid/training',
+    app.get(urls.TRAININGITEMS,
             auth.authenticate,
             auth.checkValidUser,
             auth.verifyProjectAccess,
             // @ts-ignore
             getTraining);
 
-    app.get('/api/classes/:classid/students/:studentid/projects/:projectid/labels',
+    app.get(urls.LABELS,
             auth.authenticate,
             auth.checkValidUser,
             auth.verifyProjectAccess,
             // @ts-ignore
             getLabels);
 
-    app.put('/api/classes/:classid/students/:studentid/projects/:projectid/labels',
+    app.put(urls.LABELS,
             auth.authenticate,
             auth.checkValidUser,
             auth.verifyProjectAccess,
             // @ts-ignore
             editLabel);
 
-    app.delete('/api/classes/:classid/students/:studentid/projects/:projectid/training/:trainingid',
+    app.delete(urls.TRAININGITEM,
                auth.authenticate,
                auth.checkValidUser,
                auth.verifyProjectAccess,
                // @ts-ignore
                deleteTraining);
 
-    app.post('/api/classes/:classid/students/:studentid/projects/:projectid/training',
+    app.post(urls.TRAININGITEMS,
              auth.authenticate,
              auth.checkValidUser,
              auth.verifyProjectAccess,

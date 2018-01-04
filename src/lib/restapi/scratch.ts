@@ -10,6 +10,7 @@ import * as status from '../scratchx/status';
 import * as keys from '../scratchx/keys';
 import * as classifier from '../scratchx/classify';
 import * as training from '../scratchx/training';
+import * as urls from './urls';
 import * as headers from './headers';
 import loggerSetup from '../utils/logger';
 
@@ -177,16 +178,16 @@ async function getScratchxStatus(req: Express.Request, res: Express.Response) {
 
 export default function registerApis(app: Express.Application) {
 
-    app.get('/api/classes/:classid/students/:studentid/projects/:projectid/scratchkeys',
+    app.get(urls.SCRATCHKEYS,
             auth.authenticate,
             auth.checkValidUser,
             getScratchKeys);
 
-    app.get('/api/scratch/:scratchkey/classify', classifyWithScratchKey);
-    app.post('/api/scratch/:scratchkey/classify', postClassifyWithScratchKey);
+    app.get(urls.SCRATCHKEY_CLASSIFY, classifyWithScratchKey);
+    app.post(urls.SCRATCHKEY_CLASSIFY, postClassifyWithScratchKey);
 
-    app.get('/api/scratch/:scratchkey/train', storeTrainingData);
+    app.get(urls.SCRATCHKEY_TRAIN, storeTrainingData);
 
-    app.get('/api/scratch/:scratchkey/extension.js', getScratchxExtension);
-    app.get('/api/scratch/:scratchkey/status', getScratchxStatus);
+    app.get(urls.SCRATCHKEY_EXTENSION, getScratchxExtension);
+    app.get(urls.SCRATCHKEY_STATUS, getScratchxStatus);
 }

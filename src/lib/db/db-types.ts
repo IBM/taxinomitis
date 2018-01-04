@@ -1,4 +1,7 @@
+/* eslint-disable no-unused-vars */
+
 import * as TrainingObjects from '../training/training-types';
+import * as ObjectStoreTypes from '../imagestore/types';
 
 export interface Project {
     readonly id: string;
@@ -101,6 +104,7 @@ export interface ImageTraining {
     readonly imageurl: string;
     label?: string;
     projectid?: string;
+    isstored: boolean;
 }
 
 export interface ImageTrainingDbRow {
@@ -108,6 +112,7 @@ export interface ImageTrainingDbRow {
     readonly imageurl: string;
     readonly label?: string;
     readonly projectid?: string;
+    readonly isstored: number;
 }
 
 
@@ -132,6 +137,34 @@ export interface ScratchKeyDbRow {
     readonly servicepassword: string;
     readonly classifierid: string;
 }
+
+
+
+
+export interface PendingJob {
+    readonly id: string;
+    readonly jobtype: PendingJobType;
+    readonly jobdata: PendingJobData;
+    attempts: number;
+    lastattempt?: Date;
+}
+
+export interface PendingJobDbRow {
+    readonly id: string;
+    readonly jobtype: PendingJobType;
+    readonly jobdata: string;
+    readonly attempts: number;
+    readonly lastattempt: Date;
+}
+
+export enum PendingJobType {
+    DeleteOneImageFromObjectStorage      = 1,
+    DeleteProjectImagesFromObjectStorage = 2,
+    DeleteUserImagesFromObjectStorage    = 3,
+    DeleteClassImagesFromObjectStorage   = 4,
+}
+
+export type PendingJobData = ObjectStoreTypes.ObjectStoreSpec;
 
 
 

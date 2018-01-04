@@ -561,13 +561,13 @@ export async function getUniqueTrainingTextsByLabel(
 
 
 export async function storeImageTraining(
-    projectid: string, imageurl: string, label: string,
+    projectid: string, imageurl: string, label: string, stored: boolean, imageid?: string,
 ): Promise<Objects.ImageTraining>
 {
     let outcome: InsertTrainingOutcome;
 
     // prepare the data that we want to store
-    const obj = dbobjects.createImageTraining(projectid, imageurl, label);
+    const obj = dbobjects.createImageTraining(projectid, imageurl, label, stored, imageid);
 
 
     //
@@ -578,8 +578,10 @@ export async function storeImageTraining(
     const countQry = 'SELECT COUNT(*) AS `trainingcount` FROM `imagetraining` WHERE `projectid` = ?';
     const countValues = [ projectid ];
 
-    const insertQry = 'INSERT INTO `imagetraining` (`id`, `projectid`, `imageurl`, `label`) VALUES (?, ?, ?, ?)';
-    const insertValues = [ obj.id, obj.projectid, obj.imageurl, obj.label ];
+    const insertQry = 'INSERT INTO `imagetraining` ' +
+                        '(`id`, `projectid`, `imageurl`, `label`, `isstored`) ' +
+                        'VALUES (?, ?, ?, ?, ?)';
+    const insertValues = [ obj.id, obj.projectid, obj.imageurl, obj.label, obj.isstored ];
 
 
     //
@@ -637,7 +639,7 @@ export async function getImageTraining(
     projectid: string, options: Objects.PagingOptions,
 ): Promise<Objects.ImageTraining[]>
 {
-    const queryString = 'SELECT `id`, `imageurl`, `label` FROM `imagetraining` ' +
+    const queryString = 'SELECT `id`, `imageurl`, `label`, `isstored` FROM `imagetraining` ' +
                         'WHERE `projectid` = ? ' +
                         'ORDER BY `label`, `imageurl` ' +
                         'LIMIT ? OFFSET ?';
@@ -651,12 +653,32 @@ export async function getImageTrainingByLabel(
     projectid: string, label: string, options: Objects.PagingOptions,
 ): Promise<Objects.ImageTraining[]>
 {
-    const queryString = 'SELECT `id`, `imageurl`, `label` FROM `imagetraining` ' +
+    const queryString = 'SELECT `id`, `imageurl`, `label`, `isstored` FROM `imagetraining` ' +
                         'WHERE `projectid` = ? AND `label` = ? ' +
                         'LIMIT ? OFFSET ?';
 
     const rows = await dbExecute(queryString, [ projectid, label, options.limit, options.start ]);
     return rows.map(dbobjects.getImageTrainingFromDbRow);
+}
+
+export async function getStoredImageTraining(projectid: string, label: string): Promise<Objects.ImageTraining[]>
+{
+    const queryString = 'SELECT `id`, `imageurl`, `label`, `isstored` FROM `imagetraining` ' +
+                        'WHERE `projectid` = ? AND `label` = ? AND `isstored` = 1 ' +
+                        'LIMIT 1000';
+
+    const rows = await dbExecute(queryString, [ projectid, label ]);
+    return rows.map(dbobjects.getImageTrainingFromDbRow);
+}
+
+export async function isImageStored(imageid: string): Promise<boolean> {
+    const queryString = 'SELECT `isstored` FROM `imagetraining` WHERE `id` = ?';
+    const values = [ imageid ];
+    const rows = await dbExecute(queryString, values);
+    if (rows.length > 0) {
+        return rows[0].isstored === 1;
+    }
+    return false;
 }
 
 
@@ -1377,6 +1399,129 @@ export async function deleteScratchKeysByProjectId(projectid: string): Promise<v
     }
 }
 
+
+
+// -----------------------------------------------------------------------------
+//
+// PENDING JOBS
+//
+// -----------------------------------------------------------------------------
+
+export function deleteAllPendingJobs(): Promise<void>
+{
+    return dbExecute('DELETE FROM `pendingjobs`', []);
+}
+
+async function storePendingJob(job: Objects.PendingJob): Promise<Objects.PendingJob>
+{
+    const queryString = 'INSERT INTO `pendingjobs` ' +
+        '(`id`, `jobtype`, `jobdata`, `attempts`) ' +
+        'VALUES (?, ?, ?, ?)';
+
+    const values = [
+        job.id,
+        job.jobtype,
+        JSON.stringify(job.jobdata),
+        job.attempts,
+    ];
+
+    const response = await dbExecute(queryString, values);
+    if (response.affectedRows !== 1) {
+        log.error({ response, job }, 'Failed to store pending job');
+        throw new Error('Failed to store pending job');
+    }
+
+    return job;
+}
+
+export function storeDeleteImageJob(
+    classid: string, userid: string, projectid: string,
+    imageid: string,
+): Promise<Objects.PendingJob>
+{
+    const obj = dbobjects.createDeleteImageJob({ classid, userid, projectid, imageid });
+    return storePendingJob(obj);
+}
+
+export function storeDeleteProjectImagesJob(
+    classid: string, userid: string, projectid: string,
+): Promise<Objects.PendingJob>
+{
+    const obj = dbobjects.createDeleteProjectImagesJob({ classid, userid, projectid });
+    return storePendingJob(obj);
+}
+
+export function storeDeleteUserImagesJob(
+    classid: string, userid: string,
+): Promise<Objects.PendingJob>
+{
+    const obj = dbobjects.createDeleteUserImagesJob({ classid, userid });
+    return storePendingJob(obj);
+}
+
+export function storeDeleteClassImagesJob(classid: string): Promise<Objects.PendingJob>
+{
+    const obj = dbobjects.createDeleteClassImagesJob({ classid });
+    return storePendingJob(obj);
+}
+
+
+export async function recordUnsuccessfulPendingJobExecution(job: Objects.PendingJob): Promise<Objects.PendingJob>
+{
+    const attempts = job.attempts + 1;
+    const lastattempt = new Date();
+
+    const queryString = 'UPDATE `pendingjobs` ' +
+                            'SET `attempts` = ?, `lastattempt` = ? ' +
+                            'WHERE `id` = ?';
+    const values = [ attempts, lastattempt, job.id ];
+
+    const response = await dbExecute(queryString,  values);
+    if (response.affectedRows !== 1) {
+        log.error({ queryString, values, job }, 'Failed to update pending job');
+        throw new Error('Pending job not updated');
+    }
+
+    return {
+        id: job.id,
+        jobtype: job.jobtype,
+        jobdata: job.jobdata,
+        attempts,
+        lastattempt,
+    };
+}
+
+export async function deletePendingJob(job: Objects.PendingJob): Promise<void>
+{
+    const queryString = 'DELETE from `pendingjobs` where `id` = ?';
+    const values = [ job.id ];
+
+    const response = await dbExecute(queryString, values);
+    if (response.warningStatus !== 0) {
+        log.error({ job, response }, 'Failed to delete pending job');
+        throw new Error('Failed to delete pending job');
+    }
+}
+
+export async function getNextPendingJob(): Promise<Objects.PendingJob | undefined>
+{
+    const queryString = 'SELECT * from `pendingjobs` ORDER BY `id` LIMIT 1';
+    const rows = await dbExecute(queryString, []);
+
+    if (rows.length === 0) {
+        // no more jobs to do - yay
+        return undefined;
+    }
+    else if (rows.length === 1) {
+        // found a job to do - that's okay
+        return dbobjects.getPendingJobFromDbRow(rows[0]);
+    }
+    else {
+        // should never get here.... because the SQL says LIMIT 1!
+        log.error({ rows, func : 'getNextPendingJob' }, 'Unexpected response from DB');
+        throw new Error('Unexpected response when retrieving pending job from DB');
+    }
+}
 
 
 // -----------------------------------------------------------------------------

@@ -170,9 +170,9 @@ describe('Scratchx - classify', () => {
             const project = await store.storeProject(userid, TESTCLASS, 'text', 'test project', 'en', []);
             await wait(100);
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'ALPHA');
-            await wait(200);
+            await wait(400);
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'BETA');
-            await wait(200);
+            await wait(500);
 
             const key: Types.ScratchKey = {
                 id : uuid(),

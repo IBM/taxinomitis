@@ -9,6 +9,7 @@ import * as Types from '../training/training-types';
 import * as conversation from '../training/conversation';
 import * as visualrec from '../training/visualrecognition';
 import * as numbers from '../training/numbers';
+import * as urls from './urls';
 import * as errors from './errors';
 import * as headers from './headers';
 import loggerSetup from '../utils/logger';
@@ -232,28 +233,28 @@ async function testModel(req: Express.Request, res: Express.Response) {
 
 export default function registerApis(app: Express.Application) {
 
-    app.get('/api/classes/:classid/students/:studentid/projects/:projectid/models',
+    app.get(urls.MODELS,
             auth.authenticate,
             auth.checkValidUser,
             auth.verifyProjectAccess,
             // @ts-ignore
             getModels);
 
-    app.post('/api/classes/:classid/students/:studentid/projects/:projectid/models',
+    app.post(urls.MODELS,
              auth.authenticate,
              auth.checkValidUser,
              auth.verifyProjectAccess,
              // @ts-ignore
              newModel);
 
-    app.delete('/api/classes/:classid/students/:studentid/projects/:projectid/models/:modelid',
+    app.delete(urls.MODEL,
                auth.authenticate,
                auth.checkValidUser,
                auth.verifyProjectAccess,
                // @ts-ignore
                deleteModel);
 
-    app.post('/api/classes/:classid/students/:studentid/projects/:projectid/models/:modelid/label',
+    app.post(urls.MODELTEST,
              auth.authenticate,
              auth.checkValidUser,
              testModel);

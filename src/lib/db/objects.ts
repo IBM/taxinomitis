@@ -5,6 +5,7 @@ import * as uuidv4 from 'uuid/v4';
 import * as projects from './projects';
 import * as Objects from './db-types';
 import * as TrainingObjects from '../training/training-types';
+import * as ObjectStoreTypes from '../imagestore/types';
 
 
 
@@ -320,7 +321,14 @@ export function getNumberTrainingFromDbRow(row: Objects.NumberTrainingDbRow): Ob
 
 
 
-export function createImageTraining(projectid: string, imageurl: string, label: string): Objects.ImageTraining {
+export function createImageTraining(
+    projectid: string,
+    imageurl: string,
+    label: string,
+    stored: boolean,
+    imageid?: string,
+): Objects.ImageTrainingDbRow
+{
     if (projectid === undefined || projectid === '' ||
         imageurl === undefined || imageurl === '')
     {
@@ -332,7 +340,7 @@ export function createImageTraining(projectid: string, imageurl: string, label: 
     }
 
     const object: any = {
-        id : uuid(),
+        id : imageid ? imageid : uuid(),
         projectid,
         imageurl,
     };
@@ -341,6 +349,8 @@ export function createImageTraining(projectid: string, imageurl: string, label: 
         object.label = label;
     }
 
+    object.isstored = stored ? 1 : 0;
+
     return object;
 }
 
@@ -348,6 +358,7 @@ export function getImageTrainingFromDbRow(row: Objects.ImageTrainingDbRow): Obje
     const obj: any = {
         id : row.id,
         imageurl : row.imageurl,
+        isstored : row.isstored ? true : false,
     };
     if (row.label) {
         obj.label = row.label;
@@ -622,6 +633,112 @@ export function getScratchKeyFromDbRow(row: Objects.ScratchKeyDbRow): Objects.Sc
         };
     }
 }
+
+
+
+
+// -----------------------------------------------------------------------------
+//
+// PENDING JOBS
+//
+// -----------------------------------------------------------------------------
+
+export function createDeleteImageJob(spec: ObjectStoreTypes.ImageSpec): Objects.PendingJob
+{
+    if (!spec.classid) {
+        throw new Error('Missing required class id');
+    }
+    if (!spec.userid) {
+        throw new Error('Missing required user id');
+    }
+    if (!spec.projectid) {
+        throw new Error('Missing required project id');
+    }
+    if (!spec.imageid) {
+        throw new Error('Missing required image id');
+    }
+
+    return {
+        id : uuid(),
+        jobtype : Objects.PendingJobType.DeleteOneImageFromObjectStorage,
+        jobdata : spec,
+        attempts : 0,
+    };
+}
+
+export function createDeleteProjectImagesJob(spec: ObjectStoreTypes.ProjectSpec): Objects.PendingJob
+{
+    if (!spec.classid) {
+        throw new Error('Missing required class id');
+    }
+    if (!spec.userid) {
+        throw new Error('Missing required user id');
+    }
+    if (!spec.projectid) {
+        throw new Error('Missing required project id');
+    }
+
+    return {
+        id : uuid(),
+        jobtype : Objects.PendingJobType.DeleteProjectImagesFromObjectStorage,
+        jobdata : spec,
+        attempts : 0,
+    };
+}
+
+export function createDeleteUserImagesJob(spec: ObjectStoreTypes.UserSpec): Objects.PendingJob
+{
+    if (!spec.classid) {
+        throw new Error('Missing required class id');
+    }
+    if (!spec.userid) {
+        throw new Error('Missing required user id');
+    }
+
+    return {
+        id : uuid(),
+        jobtype : Objects.PendingJobType.DeleteUserImagesFromObjectStorage,
+        jobdata : spec,
+        attempts : 0,
+    };
+}
+
+export function createDeleteClassImagesJob(spec: ObjectStoreTypes.ClassSpec): Objects.PendingJob
+{
+    if (!spec.classid) {
+        throw new Error('Missing required class id');
+    }
+
+    return {
+        id : uuid(),
+        jobtype : Objects.PendingJobType.DeleteClassImagesFromObjectStorage,
+        jobdata : spec,
+        attempts : 0,
+    };
+}
+
+
+export function getPendingJobFromDbRow(row: Objects.PendingJobDbRow): Objects.PendingJob
+{
+    if (row.lastattempt) {
+        return {
+            id : row.id,
+            jobtype : row.jobtype,
+            jobdata : JSON.parse(row.jobdata),
+            attempts : row.attempts,
+            lastattempt : row.lastattempt,
+        };
+    }
+    else {
+        return {
+            id : row.id,
+            jobtype : row.jobtype,
+            jobdata : JSON.parse(row.jobdata),
+            attempts : row.attempts,
+        };
+    }
+}
+
 
 
 
