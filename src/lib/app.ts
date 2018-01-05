@@ -2,6 +2,7 @@
 import * as express from 'express';
 // local dependencies
 import * as store from './db/store';
+import * as imagestore from './imagestore';
 import restapi from './restapi';
 import * as notifications from './notifications/slack';
 import * as scheduledtasks from './scheduledtasks';
@@ -23,19 +24,26 @@ process.on('uncaughtException', (err) => {
 // prepare Slack API for reporting alerts
 notifications.init();
 
+// connect to S3 object storage used to store images
+imagestore.init();
+
 // connect to MySQL DB
-store.init();
+store.init()
+    .then(() => {
+        // create server
+        const app = express();
+        const host: string = process.env.HOST || '0.0.0.0';
+        const port: number = portNumber(process.env.PORT, 8000);
 
-// create server
-const app = express();
-const host: string = process.env.HOST || '0.0.0.0';
-const port: number = portNumber(process.env.PORT, 8000);
+        // setup server and run
+        restapi(app);
+        app.listen(port, host, () => {
+            log.info({ host, port }, 'Running');
+        });
 
-// setup server and run
-restapi(app);
-app.listen(port, host, () => {
-    log.info({ host, port }, 'Running');
-});
+        // start scheduled cleanup tasks
+        scheduledtasks.run();
+    });
 
-// start scheduled cleanup tasks
-scheduledtasks.run();
+
+
