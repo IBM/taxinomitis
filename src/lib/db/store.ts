@@ -1610,6 +1610,7 @@ export async function deleteEntireProject(userid: string, classid: string, proje
         'DELETE FROM `numbersprojectsfields` WHERE `projectid` = ?',
         'DELETE FROM `texttraining` WHERE `projectid` = ?',
         'DELETE FROM `numbertraining` WHERE `projectid` = ?',
+        'DELETE FROM `imagetraining` WHERE `projectid` = ?',
         'DELETE FROM `bluemixclassifiers` WHERE `projectid` = ?',
         'DELETE FROM `taxinoclassifiers` WHERE `projectid` = ?',
         'DELETE FROM `scratchkeys` WHERE `projectid` = ?',

@@ -94,5 +94,7 @@ function download(url: string, targetFilePath: string, callback: IErrCallback): 
 
 
 function logError(err: Error) {
-    log.error({ err }, 'Core error');
+    if (err) {
+        log.error({ err }, 'Core error');
+    }
 }
