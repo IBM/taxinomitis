@@ -24,6 +24,9 @@
             vm[type].splice(errIdx, 1);
         };
         function displayAlert(type, status, errObj) {
+            if (!errObj) {
+                errObj = {};
+            }
             var newId = alertId++;
             vm[type].push({
                 alertid : newId,

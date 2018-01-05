@@ -23,6 +23,9 @@
             vm[type].splice(errIdx, 1);
         };
         function displayAlert(type, errObj) {
+            if (!errObj) {
+                errObj = {};
+            }
             vm[type].push({ alertid : alertId++, message : errObj.message || errObj.error || 'Unknown error' });
         }
 

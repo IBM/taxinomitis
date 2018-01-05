@@ -11,10 +11,11 @@
         '$scope',
         '$mdDialog',
         '$document',
-        '$timeout'
+        '$timeout',
+        '$q'
     ];
 
-    function TrainingController(authService, projectsService, trainingService, $stateParams, $scope, $mdDialog, $document, $timeout) {
+    function TrainingController(authService, projectsService, trainingService, $stateParams, $scope, $mdDialog, $document, $timeout, $q) {
 
         var vm = this;
         vm.authService = authService;
@@ -30,6 +31,9 @@
             vm[type].splice(errIdx, 1);
         };
         function displayAlert(type, status, errObj) {
+            if (!errObj) {
+                errObj = {};
+            }
             vm[type].push({
                 alertid : alertId++,
                 message : errObj.message || errObj.error || 'Unknown error',
@@ -318,6 +322,131 @@
                 }
             );
         };
+
+
+        vm.useWebcam = function (ev, label) {
+            $mdDialog.show({
+                locals : {
+                    label : label,
+                    project : $scope.project
+                },
+                controller : function ($scope, locals) {
+                    $scope.label = locals.label;
+                    $scope.project = locals.project;
+                    $scope.values = {};
+                    $scope.channel = {};
+                    $scope.webcamerror = false;
+                    $scope.webcamInitComplete = false;
+
+                    $scope.webcamCanvas = null;
+
+                    $scope.hide = function() {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function() {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function(resp) {
+                        getWebcamData()
+                            .then(function (imagedata) {
+                                $mdDialog.hide(imagedata);
+                            });
+                    };
+
+
+                    $scope.onWebcamSuccess = function () {
+                        $scope.$apply(function() {
+                            $scope.webcamInitComplete = true;
+                        });
+                    };
+
+                    function displayWebcamError(err) {
+                        $scope.webcamerror = err;
+                        if (err && err.message) {
+                            if (err.name === 'NotAllowedError') {
+                                $scope.webcamerrordetail = 'Not allowed to use the web-cam';
+                            }
+                            else {
+                                $scope.webcamerrordetail = err.message;
+                            }
+                        }
+                    }
+
+                    $scope.onWebcamError = function(err) {
+                        $scope.webcamInitComplete = true;
+
+                        try {
+                            $scope.$apply(
+                                function() {
+                                    displayWebcamError(err);
+                                }
+                            );
+                        }
+                        catch (applyErr) {
+                            $timeout(function () {
+                                displayWebcamError(err);
+                            }, 0, false);
+                        }
+                    };
+
+
+                    function getWebcamData() {
+                        var hiddenCanvas = document.createElement('canvas');
+                        hiddenCanvas.width = $scope.channel.video.width;
+                        hiddenCanvas.height = $scope.channel.video.height;
+
+                        var ctx = hiddenCanvas.getContext('2d');
+                        ctx.drawImage($scope.channel.video,
+                            0, 0,
+                            $scope.channel.video.width, $scope.channel.video.height);
+
+                        return $q(function(resolve, reject) {
+                            hiddenCanvas.toBlob(function (blob) {
+                                resolve(blob);
+                            }, 'image/jpeg');
+                        });
+                    };
+
+                },
+                templateUrl : 'static/components-' + $stateParams.VERSION + '/training/webcam.tmpl.html',
+                targetEvent : ev,
+                clickOutsideToClose : true
+            })
+            .then(
+                function (resp) {
+                    var placeholder = {
+                        id : placeholderId++,
+                        label : label,
+                        projectid: $scope.projectId,
+                        imageurl : URL.createObjectURL(resp),
+                        isPlaceholder : true
+                    };
+
+                    $scope.training[label].push(placeholder);
+
+                    trainingService.uploadImage($scope.project.id, vm.profile.user_id, vm.profile.tenant, resp, label)
+                        .then(function (newitem) {
+                            placeholder.isPlaceholder = false;
+                            placeholder.id = newitem.id;
+
+                            scrollToNewItem(newitem.id);
+                        })
+                        .catch(function (err) {
+                            displayAlert('errors', err.status, err.data);
+
+                            var idxToRemove = findTrainingIndex(label, placeholder.id);
+                            if (idxToRemove !== -1) {
+                                $scope.training[label].splice(idxToRemove, 1);
+                            }
+                        });
+                },
+                function() {
+                    // cancelled. do nothing
+                }
+            );
+        };
+
+
 
 
 

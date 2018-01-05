@@ -1,7 +1,7 @@
 (function () {
 
     angular
-        .module('app', ['ngMaterial', 'ngAnimate', 'ngMessages', 'ngSanitize', 'auth0.lock', 'angular-jwt', 'ui.router', 'duScroll'])
+        .module('app', ['ngMaterial', 'ngAnimate', 'ngMessages', 'ngSanitize', 'auth0.lock', 'angular-jwt', 'ui.router', 'duScroll', 'webcam'])
         .config(config);
 
     config.$inject = [

@@ -20,6 +20,7 @@ export async function run(): Promise<void> {
 
         while (nextJob) {
             await processor.processJob(nextJob);
+            await db.deletePendingJob(nextJob);
 
             nextJob = await db.getNextPendingJob();
         }

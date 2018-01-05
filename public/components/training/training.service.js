@@ -90,8 +90,32 @@
         }
 
 
+        function uploadImage(projectid, userid, tenant, imgdata, label) {
+            var url = '/api/classes/' + tenant +
+                        '/students/' + userid +
+                        '/projects/' + projectid +
+                        '/images';
+
+            var data = new FormData();
+            data.append('image', imgdata, 'webcam.jpg');
+            data.append('label', label);
+
+            var postreq = {
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined }
+            };
+
+            return $http.post(url, data, postreq)
+                .then(function (resp) {
+                    return resp.data;
+                });
+        }
+
+
         return {
             newTrainingData : newTrainingData,
+            uploadImage : uploadImage,
+
             getTraining : getTraining,
             deleteTrainingData : deleteTrainingData,
             getModels : getModels,

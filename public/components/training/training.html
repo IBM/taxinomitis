@@ -91,8 +91,16 @@
                 </div>
                 <div style="text-align: center; height: 45px;">
                     <div class="btn newexamplebutton" ng-click="vm.addTrainingData($event, label)">
-                        <div class="newexampleicon">+</div>
-                        <div class="newexamplelabel">Add example</div>
+                        <div class="newexamplelabel">
+                            <span class="glyphicon glyphicon-link"></span>
+                            www
+                        </div>
+                    </div>
+                    <div class="btn newexamplebutton" ng-click="vm.useWebcam($event, label)">
+                        <div class="newexamplelabel">
+                            <span class="glyphicon glyphicon-camera"></span>
+                            webcam
+                        </div>
                     </div>
                 </div>
             </div>
