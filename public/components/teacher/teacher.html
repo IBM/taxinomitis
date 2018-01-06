@@ -38,7 +38,7 @@
         <div> The following limits are in place for your class: </div>
 
         <ul class="adminrestriction">
-            <li>You can have up to <span class="mlprojecttype">{{ vm.policy.maxUsers }}</span> students in your group. </li>
+            <li>You can have up to <span class="mlprojecttype">{{ vm.policy.maxUsers }}</span> users (including students and teachers) in your group. </li>
             <li>Your students can create projects to recognise <span class="mlprojecttype">{{ vm.policy.supportedProjectTypes.join(' or ') }}</span>. </li>
             <li>Each of your students is allowed to have up to <span class="mlprojecttype">{{ vm.policy.maxProjectsPerUser }}</span> projects. </li>
             <li ng-if="vm.policy.supportedProjectTypes.indexOf('text') >= 0">Your class is allowed to have up to
