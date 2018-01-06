@@ -3,6 +3,7 @@ import * as Express from 'express';
 import * as multer from 'multer';
 import * as httpStatus from 'http-status';
 // local dependencies
+import * as auth from '../auth';
 import * as config from '../../imagestore/config';
 import * as store from '../../imagestore';
 import * as db from '../../db/store';
@@ -31,16 +32,28 @@ export default function registerApis(app: Express.Application) {
     uploadHandler = prepareMulterUploadHandler();
 
     // register route handler
-    app.post(urls.IMAGES, handleUpload);
+    app.post(urls.IMAGES,
+             auth.authenticate,
+             auth.checkValidUser,
+             auth.verifyProjectAccess,
+             // @ts-ignore
+             handleUpload);
 }
 
 
 
-function handleUpload(req: Express.Request, res: Express.Response) {
+function handleUpload(req: auth.RequestWithProject, res: Express.Response) {
     if (!uploadHandler) {
         return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
             error : 'Server not initialised',
             details : 'Multer upload handler undefined',
+        });
+    }
+
+    // make sure this is an images project before we proceed
+    if (req.project.type !== 'images') {
+        return res.status(httpStatus.BAD_REQUEST).json({
+            error : 'Only images projects allow image uploads',
         });
     }
 
@@ -62,6 +75,12 @@ function handleUpload(req: Express.Request, res: Express.Response) {
                 error : 'Image label not provided',
             });
         }
+        if (req.project.labels.includes(req.body.label) === false) {
+            return res.status(httpStatus.BAD_REQUEST).json({
+                error : 'Unrecognised label',
+            });
+        }
+
 
         try {
             const imageSpec: StoreTypes.ImageSpec = parse.imagesUrl(req);
