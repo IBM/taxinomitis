@@ -1,0 +1,30 @@
+.mlcanvas .toolslabel {
+    font-size: 0.8em;
+    margin-bottom: 5px;
+    color: #5555CC;
+    font-weight: bold;
+}
+
+.mlcanvas canvas {
+    height: 300px;
+    width: 500px;
+    border: thin grey solid;
+    margin: 2px;
+    cursor: crosshair;
+
+    flex: 1;
+}
+
+.mlcanvas .canvastools {
+    vertical-align: top;
+    margin-left: 5px;
+    padding: 1em;
+
+    flex: 1;
+}
+
+.mlcanvas {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

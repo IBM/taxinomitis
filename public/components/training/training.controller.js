@@ -346,7 +346,7 @@
                     $scope.cancel = function() {
                         $mdDialog.cancel();
                     };
-                    $scope.confirm = function(resp) {
+                    $scope.confirm = function() {
                         getWebcamData()
                             .then(function (imagedata) {
                                 $mdDialog.hide(imagedata);
@@ -448,7 +448,76 @@
 
 
 
+        vm.useCanvas = function (ev, label) {
+            $mdDialog.show({
+                locals : {
+                    label : label,
+                    project : $scope.project
+                },
+                controller : function ($scope, locals) {
+                    $scope.label = locals.label;
+                    $scope.project = locals.project;
+                    $scope.values = {};
 
+                    $scope.hide = function() {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function() {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function() {
+                        getCanvasData()
+                            .then(function (imagedata) {
+                                $mdDialog.hide(imagedata);
+                            });
+                    };
+
+
+                    function getCanvasData() {
+                        return $q(function(resolve, reject) {
+                            $scope.canvas.toBlob(function (blob) {
+                                resolve(blob);
+                            }, 'image/jpeg');
+                        });
+                    };
+                },
+                templateUrl : 'static/components-' + $stateParams.VERSION + '/training/canvas.tmpl.html',
+                targetEvent : ev,
+                clickOutsideToClose : true
+            })
+            .then(
+                function (resp) {
+                    var placeholder = {
+                        id : placeholderId++,
+                        label : label,
+                        projectid: $scope.projectId,
+                        imageurl : URL.createObjectURL(resp),
+                        isPlaceholder : true
+                    };
+
+                    $scope.training[label].push(placeholder);
+
+                    trainingService.uploadImage($scope.project.id, vm.profile.user_id, vm.profile.tenant, resp, label)
+                        .then(function (newitem) {
+                            placeholder.isPlaceholder = false;
+                            placeholder.id = newitem.id;
+
+                            scrollToNewItem(newitem.id);
+                        })
+                        .catch(function (err) {
+                            displayAlert('errors', err.status, err.data);
+
+                            var idxToRemove = findTrainingIndex(label, placeholder.id);
+                            if (idxToRemove !== -1) {
+                                $scope.training[label].splice(idxToRemove, 1);
+                            }
+                        });
+                },
+                function() {
+                    // cancelled. do nothing
+                }
+            );
+        };
 
 
         function scrollToNewItem(itemId) {
