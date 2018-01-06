@@ -2,6 +2,7 @@
 import * as Express from 'express';
 import * as httpStatus from 'http-status';
 // local dependencies
+import * as auth from '../auth';
 import * as store from '../../imagestore';
 import * as parse from './urlparse';
 import * as urls from '../urls';
@@ -14,7 +15,11 @@ import * as urls from '../urls';
 export default function registerApis(app: Express.Application) {
 
     // register route handler
-    app.get(urls.IMAGE, handleDownload);
+    app.get(urls.IMAGE,
+            auth.authenticate,
+            auth.checkValidUser,
+            auth.verifyProjectAccess,
+            handleDownload);
 }
 
 

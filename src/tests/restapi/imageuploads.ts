@@ -26,6 +26,8 @@ describe('REST API - image uploads', () => {
     let checkUserStub: sinon.SinonStub;
     let requireSupervisorStub: sinon.SinonStub;
 
+    const TESTCLASS = 'TESTCLASS';
+
     function authNoOp(
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
@@ -59,13 +61,15 @@ describe('REST API - image uploads', () => {
     });
 
 
-    after(() => {
+    after(async () => {
         process.env.OBJECT_STORE_CREDS = oldEnvCreds;
         process.env.OBJECT_STORE_BUCKET = oldEnvBucket;
 
         authStub.restore();
         checkUserStub.restore();
         requireSupervisorStub.restore();
+
+        await store.deleteProjectsByClassId(TESTCLASS);
 
         return store.disconnect();
     });
@@ -89,9 +93,28 @@ describe('REST API - image uploads', () => {
 
     describe('invalid uploads', () => {
 
+        let projectid = '';
+
+        before(() => {
+            return store.storeProject('studentid', TESTCLASS, 'images', 'invalids', 'en', [])
+                .then((proj) => {
+                    projectid = proj.id;
+                    return store.addLabelToProject('studentid', TESTCLASS, projectid, 'KNOWN');
+                });
+        });
+
+        it('should require a valid project', () => {
+            return request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/studentid/projects/NOTAREALPROJECT/images')
+                .expect(httpStatus.NOT_FOUND)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, { error : 'Not found' });
+                });
+        });
+
         it('should require a file', () => {
             return request(testServer)
-                .post('/api/classes/classid/students/studentid/projects/projectid/images')
+                .post('/api/classes/' + TESTCLASS + '/students/studentid/projects/' + projectid + '/images')
                 .expect(httpStatus.BAD_REQUEST)
                 .then((res) => {
                     assert.deepStrictEqual(res.body, { error : 'File not provided' });
@@ -100,7 +123,7 @@ describe('REST API - image uploads', () => {
 
         it('should require an image file', () => {
             return request(testServer)
-                .post('/api/classes/classid/students/studentid/projects/projectid/images')
+                .post('/api/classes/' + TESTCLASS + '/students/studentid/projects/' + projectid + '/images')
                 .attach('image', './package.json')
                 .expect(httpStatus.BAD_REQUEST)
                 .then((res) => {
@@ -110,35 +133,65 @@ describe('REST API - image uploads', () => {
 
         it('should require a label', () => {
             return request(testServer)
-                .post('/api/classes/classid/students/studentid/projects/projectid/images')
+                .post('/api/classes/' + TESTCLASS + '/students/studentid/projects/' + projectid + '/images')
                 .attach('image', './src/tests/utils/resources/test-02.jpg')
                 .expect(httpStatus.BAD_REQUEST)
                 .then((res) => {
                     assert.deepStrictEqual(res.body, { error : 'Image label not provided' });
                 });
         });
+
+        it('should only support image projects', async () => {
+            const project = await store.storeProject('studentid', TESTCLASS, 'text', 'invalid', 'en', []);
+            return request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/studentid/projects/' + project.id + '/images')
+                .attach('image', './src/tests/utils/resources/test-04.jpg')
+                .expect(httpStatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, { error : 'Only images projects allow image uploads' });
+                });
+        });
+
+        it('should require a known label', () => {
+            return request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/studentid/projects/' + projectid + '/images')
+                .attach('image', './src/tests/utils/resources/test-02.jpg')
+                .field('label', 'MYSTERY')
+                .expect(httpStatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, { error : 'Unrecognised label' });
+                });
+        });
     });
 
 
     describe('valid uploads', () => {
-        it('should upload a file', () => {
+        it('should upload a file', async () => {
+            const USER = 'TESTSTUDENT';
+            const LABEL = 'testlabel';
+            const project = await store.storeProject(USER, TESTCLASS, 'images', 'test uploads', 'en', []);
+            await store.addLabelToProject(USER, TESTCLASS, project.id, LABEL);
+
+            const IMAGESURL = '/api/classes/' + TESTCLASS +
+                                '/students/' + USER +
+                                '/projects/' + project.id +
+                                '/images';
+
             return request(testServer)
-                .post('/api/classes/TESTCLASS/students/TESTSTUDENT/projects/TESTPROJECT/images')
+                .post(IMAGESURL)
                 .attach('image', './src/tests/utils/resources/test-01.jpg')
-                .field('label', 'testlabel')
+                .field('label', LABEL)
                 .expect(httpStatus.CREATED)
                 .then((res) => {
                     assert(res.body.id);
 
                     assert.strictEqual(res.body.isstored, true);
-                    assert.strictEqual(res.body.label, 'testlabel');
-                    assert.equal(res.body.projectid, 'TESTPROJECT');
+                    assert.strictEqual(res.body.label, LABEL);
+                    assert.equal(res.body.projectid, project.id);
 
-                    // tslint:disable-next-line:max-line-length
-                    assert(res.body.imageurl.startsWith('/api/classes/TESTCLASS/students/TESTSTUDENT/projects/TESTPROJECT/images/'));
+                    assert(res.body.imageurl.startsWith(IMAGESURL));
 
-                    assert.equal(res.body.imageurl,
-                        '/api/classes/TESTCLASS/students/TESTSTUDENT/projects/TESTPROJECT/images/' + res.body.id);
+                    assert.equal(res.body.imageurl, IMAGESURL + '/' + res.body.id);
 
                     assert(res.header.etag);
 
@@ -152,10 +205,18 @@ describe('REST API - image uploads', () => {
 
     describe('invalid downloads', () => {
 
+        let projectid = '';
+
+        before(() => {
+            return store.storeProject('studentid', TESTCLASS, 'images', 'invalids', 'en', [])
+                .then((proj) => {
+                    projectid = proj.id;
+                });
+        });
+
         it('should handle non-existent images', () => {
             return request(testServer)
-                .get('/api/classes/someclassid/students/somestudentid/projects/projectid/images/someimageid')
-                .set('Authorization', 'Bearer some token')
+                .get('/api/classes/' + TESTCLASS + '/students/studentid/projects/' + projectid + '/images/someimageid')
                 .expect(httpStatus.NOT_FOUND)
                 .then((res) => {
                     assert.deepStrictEqual(res.body, { error : 'File not found' });
@@ -183,11 +244,15 @@ describe('REST API - image uploads', () => {
             const filepath = './src/tests/utils/resources/test-01.jpg';
             const contents = await readFileToBuffer(filepath);
 
-            const classid = uuid();
             const userid = uuid();
-            const projectid = uuid();
 
-            const imagesurl = '/api/classes/' + classid +
+            const project = await store.storeProject(userid, TESTCLASS, 'images', 'valid', 'en', []);
+            const projectid = project.id;
+
+            const label = 'testlabel';
+            await store.addLabelToProject(userid, TESTCLASS, projectid, label);
+
+            const imagesurl = '/api/classes/' + TESTCLASS +
                                 '/students/' + userid +
                                 '/projects/' + projectid +
                                 '/images';
@@ -195,7 +260,7 @@ describe('REST API - image uploads', () => {
             await request(testServer)
                 .post(imagesurl)
                 .attach('image', filepath)
-                .field('label', 'testlabel')
+                .field('label', label)
                 .expect(httpStatus.CREATED)
                 .then((res) => {
                     assert(res.body.id);
