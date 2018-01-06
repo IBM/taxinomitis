@@ -275,6 +275,7 @@ describe('REST API - image uploads', () => {
                 .then((res) => {
                     assert.deepStrictEqual(res.body, contents);
                     assert.equal(res.header['content-type'], 'image/jpeg');
+                    assert.equal(res.header['cache-control'], 'max-age=31536000');
                 });
 
             if (id) {

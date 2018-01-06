@@ -36,6 +36,10 @@ async function handleDownload(req: Express.Request, res: Express.Response) {
             res.setHeader('ETag', image.etag);
         }
 
+        // this is slow, so encourage browsers to cache the images
+        //  rather than repeatedly download them
+        res.setHeader('Cache-Control', 'max-age=31536000');
+
         res.send(image.body);
     }
     catch (err) {
