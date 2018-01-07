@@ -53,6 +53,10 @@ gulp.task('bower', function() {
     return bower({ cwd : './public', directory : '../web/static/bower_components' });
 });
 
+gulp.task('twitter', function() {
+    return gulp.src('public/twitter-card.html').pipe(gulp.dest('web/dynamic'));
+});
+
 gulp.task('crossdomain', function() {
     return gulp.src('public/crossdomain.xml').pipe(gulp.dest('web/dynamic'));
 });
@@ -138,7 +142,7 @@ function prepareHtml (isForProd) {
 gulp.task('html', () => {
     return prepareHtml(false);
 });
-gulp.task('prodhtml', () => {
+gulp.task('prodhtml', ['twitter'], () => {
     return prepareHtml(true);
 });
 
