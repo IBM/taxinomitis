@@ -88,9 +88,6 @@
                         worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-mailmanmax.pdf',
                         starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/mailman-max.sbx'
                     }
-                ],
-                notes : [
-                    'The worksheet recommends using imagebin.ca to store the training images. If your Internet connection blocks access to imagebin.ca then you will need to provide an alternative.'
                 ]
             },
             {
@@ -198,8 +195,7 @@
                 ],
                 notes : [
                     'Students will need a webcam (or some other digital camera) to make this project',
-                    'The worksheet recommends using imagebin.ca to store the training images. If your Internet connection blocks access to imagebin.ca then you will need to provide an alternative.',
-                    'Students will be taking photos of their hands, and uploading these to the Internet to train the computer to recognise hand shapes. While children are unlikely to be recognizable by their hands, you may want to get parental / guardian permission before running this activity.'
+                    'Students will be taking photos of their hands, and uploading these to train the computer to recognise hand shapes. While children are unlikely to be recognizable by their hands, you may want to get parental / guardian permission before running this activity.'
                 ]
             },
             {
