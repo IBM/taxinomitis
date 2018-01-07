@@ -341,9 +341,11 @@
                     $scope.webcamCanvas = null;
 
                     $scope.hide = function() {
+                        closeWebcam()
                         $mdDialog.hide();
                     };
                     $scope.cancel = function() {
+                        closeWebcam()
                         $mdDialog.cancel();
                     };
                     $scope.confirm = function() {
@@ -359,6 +361,21 @@
                             $scope.webcamInitComplete = true;
                         });
                     };
+
+                    function closeWebcam() {
+                        if ($scope.channel &&
+                            $scope.channel.video)
+                        {
+                            try {
+                                var closeWebcam = new Event('$destroy');
+                                $scope.channel.video.dispatchEvent(closeWebcam);
+                            }
+                            catch (err) {
+                                console.log('Failed to stop webcam');
+                                console.log(err);
+                            }
+                        }
+                    }
 
                     function displayWebcamError(err) {
                         $scope.webcamerror = err;
@@ -399,6 +416,8 @@
                         ctx.drawImage($scope.channel.video,
                             0, 0,
                             $scope.channel.video.width, $scope.channel.video.height);
+
+                        closeWebcam()
 
                         return $q(function(resolve, reject) {
                             hiddenCanvas.toBlob(function (blob) {
