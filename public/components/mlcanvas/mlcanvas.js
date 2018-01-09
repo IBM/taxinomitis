@@ -46,7 +46,7 @@ angular.module('app')
                     mousex = e.offsetX;
                     mousey = e.offsetY;
 
-                    if (e.buttons) {
+                    if (e.buttons || e.which) {
                         ctx.beginPath();
                         ctx.globalCompositeOperation = 'source-over';
                         if ($scope.canvastool == 'tooldraw') {
