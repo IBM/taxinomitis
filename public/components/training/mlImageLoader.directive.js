@@ -106,7 +106,7 @@
             else {
                 scope.getController().displayAlert('warnings', 400, {
                     message : isSafari() ?
-                        'Dragging pictures does not work in Safari. Use a different browser, or use the "Add example" button instead.' :
+                        'Dragging pictures does not work in Safari. Use a different browser, or use the "www" button instead.' :
                         'Drag a picture from another web page into one of the training buckets'
                 });
                 scope.$apply();

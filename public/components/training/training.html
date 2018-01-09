@@ -83,7 +83,15 @@
                     <div class="trainingbucketitem" ng-repeat="item in training[label]" id="{{item.id}}" ng-class="{ error : item.loadingFailed }">
                         <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true"
                               ng-click="vm.deleteText(label, item, $index)"></span>
-                        <img src="{{ item.imageurl }}"
+                        <!-- hosted images need to be fetched using the httpSrc directive so that an auth header is included -->
+                        <img ng-if="item.imageurl && item.imageurl.substring(0, 4) === '/api'"
+                             http-src="{{ item.imageurl }}"
+                             class="trainingImageThumbnail"
+                             alt="{{ item.imageurl }}"
+                             ml-image-on-error="vm.onImageError(item)">
+                        <!-- public images can be fetched by the browser - using ngSrc to set the img.src value in a safe way -->
+                        <img ng-if="item.imageurl && item.imageurl.substring(0, 4) !== '/api'"
+                             ng-src="{{ item.imageurl }}"
                              class="trainingImageThumbnail"
                              alt="{{ item.imageurl }}"
                              ml-image-on-error="vm.onImageError(item)">
