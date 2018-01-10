@@ -4,9 +4,7 @@ angular.module('app')
             template: '<div class="mlcanvas">' +
                         '<canvas width="500" height="300" ' +
                         '   ng-mousedown="handleMouseDown($event)"' +
-                        '   ng-touchstart="handleMouseDown($event)"' +
                         '   ng-mousemove="handleMouseMove($event)"' +
-                        '   ng-touchmove="handleMouseMove($event)"' +
                         '    ></canvas>' +
                         '<div class="canvastools">' +
                         '    <div class="toolslabel">Tools</div>' +
@@ -72,26 +70,7 @@ angular.module('app')
                     ctx.fillRect(0,0,500,300);
                 };
 
-                function preventScrollOnTouch() {
-                    document.body.addEventListener('touchstart', function (e) {
-                        if (e.target === canvas) {
-                            e.preventDefault();
-                        }
-                    }, false);
-                    document.body.addEventListener('touchend', function (e) {
-                        if (e.target === canvas) {
-                            e.preventDefault();
-                        }
-                    }, false);
-                    document.body.addEventListener('touchmove', function (e) {
-                        if (e.target === canvas) {
-                            e.preventDefault();
-                        }
-                    }, false);
-                }
-
                 $scope.reset();
-                preventScrollOnTouch();
             }
         };
     });

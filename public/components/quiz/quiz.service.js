@@ -11,7 +11,7 @@
 
         var allQuestions = [
             {
-                question : 'In general, do machines learn better with:',
+                question : 'In general, machines learn better with:',
                 attempted : false,
                 answers : [
                     { text : 'More examples', correct : true },
@@ -28,7 +28,7 @@
                     { text : 'A collection of photos of dogs', correct : false },
                     { text : 'Varied photos of different types of apples in different places', correct : true },
                     { text : 'Identical photos of an apple', correct : false },
-                    { text : 'Very very similar photos of the same apple', correct : false }
+                    { text : 'Very, very similar photos of the same apple', correct : false }
                 ],
                 notes : [
                     'The more varied the examples you can collect, the more the system can learn about how to recognise different pictures of an apple.',

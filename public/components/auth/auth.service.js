@@ -129,6 +129,8 @@
 
 
         function setupAuth() {
+            lock.interceptHash();
+
             lock.on('authenticated', function (authResult) {
                 if (authResult && authResult.accessToken && authResult.idToken) {
                     storeToken(authResult);
@@ -179,7 +181,13 @@
 
         function confirmLocalStorage() {
             // some browsers allow localStorage to be disabled
-            window.localStorageObj = window.localStorage || {};
+            try {
+                window.localStorageObj = window.localStorage || {};
+            }
+            catch (err) {
+                console.log('Unable to access localStorage');
+                window.localStorageObj = {};
+            }
 
             // Safari, in Private Browsing Mode, looks like it supports localStorage but all calls to setItem
             // throw QuotaExceededError. If it looks like localStorage isn't working, we use a local object

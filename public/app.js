@@ -1,7 +1,7 @@
 (function () {
 
     angular
-        .module('app', ['ngMaterial', 'ngAnimate', 'ngMessages', 'ngSanitize', 'ngTouch', 'auth0.lock', 'angular-jwt', 'ui.router', 'duScroll', 'webcam'])
+        .module('app', ['ngMaterial', 'ngAnimate', 'ngMessages', 'ngSanitize', 'auth0.lock', 'angular-jwt', 'ui.router', 'duScroll', 'webcam'])
         .config(config);
 
     config.$inject = [
@@ -116,11 +116,10 @@
             clientID : AUTH0_CLIENT_ID,
             domain : AUTH0_DOMAIN,
             options : {
-                oidcConformant : true,
                 autoclose : true,
                 auth : {
                     responseType: 'token id_token',
-                    audience: AUTH0_AUDIENCE, // 'https://' + AUTH0_DOMAIN + '/userinfo',
+                    audience: 'https://' + AUTH0_DOMAIN + '/userinfo',
                     redirectUrl: AUTH0_CALLBACK_URL,
                     params: {
                         scope: 'openid email app_metadata'
