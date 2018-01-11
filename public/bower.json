@@ -14,15 +14,16 @@
   "dependencies": {
     "angular": "1.6.8",
     "angular-jwt": "0.1.9",
-    "angular-lock": "2.0.3",
-    "angular-material": "1.1.5",
+    "angular-lock2": "angular-lock#2.0.3",
+    "angular-material1": "angular-material#1.1.5",
     "angular-sanitize": "1.6.8",
     "angular-scroll": "1.0.2",
     "angular-ui-router": "1.0.13",
-    "auth0-lock": "11.0.1",
+    "auth0-lock11": "auth0-lock#11.0.1",
+    "auth0js8": "auth0.js#8.12.1",
     "bootstrap": "3.3.7",
-    "jquery": "3.2.1",
-    "webcam": "webcam-directive#^3.1.1"
+    "jquery3": "jquery#3.2.1",
+    "webcam": "webcam-directive#3.1.1"
   },
   "resolutions": {
     "angular": "1.6.8"
