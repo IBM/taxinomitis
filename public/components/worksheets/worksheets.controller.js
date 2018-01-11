@@ -71,8 +71,7 @@
                     }
                 ],
                 notes : [
-                    'Students will need a webcam (or some other digital camera) to make this project',
-                    'The worksheet recommends using imagebin.ca to store the training images. If your Internet connection blocks access to imagebin.ca then you will need to provide an alternative.'
+                    'Students will need a webcam (or some other digital camera) to make this project'
                 ]
             },
             {
