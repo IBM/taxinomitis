@@ -31,6 +31,14 @@
                 });
         }
 
+
+        function getClassesList() {
+            return $http.get('/api/classes')
+                .then(function (resp) {
+                    return resp.data;
+                });
+        }
+
         function getStudentList(profile) {
             return $http.get('/api/classes/' + profile.tenant + '/students')
                 .then(function (resp) {
@@ -94,6 +102,8 @@
 
         return {
             createTeacher : createTeacher,
+
+            getClassesList : getClassesList,
 
             addCredentials : addCredentials,
             getCredentials : getCredentials,

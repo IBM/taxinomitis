@@ -4,6 +4,8 @@ export interface User {
     username: string;
     app_metadata: UserMetadata;
     last_login?: string;
+    created_at: string;
+    logins_count: number;
 }
 
 export interface UsersInfo {
@@ -45,4 +47,27 @@ export interface UserCreds {
 
 export interface Modifications {
     readonly password: string;
+}
+
+
+export interface TenantInfo {
+    readonly id: string;
+    readonly supervisors: SupervisorInfo[];
+    readonly is_managed: boolean;
+    readonly credentials: BluemixCredentialsCounts;
+}
+
+export interface SupervisorInfo {
+    readonly user_id: string;
+    readonly email: string;
+    readonly username: string;
+    readonly created: Date;
+    readonly last_login?: Date;
+    readonly logins_count: number;
+}
+
+export interface BluemixCredentialsCounts {
+    readonly conv: number;
+    readonly visrec: number;
+    readonly total: number;
 }

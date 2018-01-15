@@ -13,6 +13,7 @@ import registerImageApis from './images';
 import registerModelApis from './models';
 import registerScratchApis from './scratch';
 import registerWatsonApis from './watsonapis';
+import registerAdminApis from './siteadmin';
 import * as serverConfig from './config';
 import * as errors from './errors';
 import loggerSetup from '../utils/logger';
@@ -51,6 +52,7 @@ export default function setup(app: Express.Application): void {
     registerModelApis(app);
     registerScratchApis(app);
     registerWatsonApis(app);
+    registerAdminApis(app);
 
     // error handling
     errors.registerErrorHandling(app);

@@ -42,6 +42,34 @@ export async function getUser(token: string, userid: string): Promise<Objects.Us
     return user;
 }
 
+export async function getSupervisors(
+    token: string,
+    batch: number, batchsize: number,
+): Promise<{ total: number, users: Objects.User[]}>
+{
+    const getoptions = {
+        method: 'GET',
+        url: 'https://' + process.env.AUTH0_DOMAIN + '/api/v2/users',
+        headers: {
+            authorization : 'Bearer ' + token,
+        },
+        qs : {
+            q : 'app_metadata.role:"supervisor"',
+            include_totals : true,
+
+            page: batch,
+            per_page : batchsize,
+        },
+        json : true,
+    };
+
+    const response = await request.get(getoptions);
+    return {
+        users : response.users,
+        total : response.total,
+    };
+}
+
 export async function getUsers(token: string, tenant: string): Promise<Objects.User[]> {
     const getoptions = {
         method: 'GET',
@@ -51,6 +79,7 @@ export async function getUsers(token: string, tenant: string): Promise<Objects.U
         },
         qs : {
             q : 'app_metadata.role:"student" AND app_metadata.tenant:"' + tenant + '"',
+            per_page : 100,
         },
         json : true,
     };

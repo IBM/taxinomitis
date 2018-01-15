@@ -1,0 +1,33 @@
+.siteadmintable {
+    font-size: 0.8em;
+    margin-bottom: 3em;
+}
+
+.siteadmintable tr:hover {
+    background-color: #c9c9e1;
+}
+
+.siteadminfilters {
+    padding: 1em;
+    border: thin grey solid;
+    margin: 1em;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.adminpage .siteadminfilters .adminfilter {
+    flex: 1;
+}
+
+.adminpage .siteadmintable td {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.adminpage .siteadmincontrol {
+    padding: 1em;
+    border: thin grey solid;
+    margin: 3em;
+}

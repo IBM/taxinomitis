@@ -63,6 +63,16 @@ export function requireSupervisor(req: Express.Request, res: Express.Response, n
     next();
 }
 
+export function requireSiteAdmin(req: Express.Request, res: Express.Response, next: Express.NextFunction) {
+    getValuesFromToken(req);
+
+    if (req.user.app_metadata.role !== 'siteadmin') {
+        return res.status(httpstatus.FORBIDDEN).json({ error : 'Forbidden' });
+    }
+
+    next();
+}
+
 
 export async function ensureUnmanaged(
     req: Express.Request, res: Express.Response,

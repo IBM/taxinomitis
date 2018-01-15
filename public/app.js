@@ -109,6 +109,12 @@
                 controller: 'ScratchController',
                 templateUrl: 'static/components-<%= VERSION %>/scratch/scratch.html',
                 controllerAs: 'vm'
+            })
+            .state('siteadmin', {
+                url: '/siteadmin',
+                controller: 'AdminController',
+                templateUrl: 'static/components-<%= VERSION %>/admin/admin.html',
+                controllerAs: 'vm'
             });
 
 

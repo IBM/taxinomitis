@@ -901,6 +901,26 @@ export async function countBluemixCredentialsByType(classid: string): Promise<{ 
 }
 
 
+export async function countGlobalBluemixCredentials():
+    Promise<{ [classid: string]: { conv: number, visrec: number, total: number } }>
+{
+    const credsQuery = 'SELECT `classid`, ' +
+                           'sum(case when servicetype = "conv" then 1 else 0 end) conv, ' +
+                           'sum(case when servicetype = "visrec" then 1 else 0 end) visrec ' +
+                       'FROM `bluemixcredentials` ' +
+                       'GROUP BY `classid`';
+    const rows = await dbExecute(credsQuery, []);
+
+    const counts: { [classid: string]: { conv: number, visrec: number, total: number } } = {};
+    for (const row of rows) {
+        const conv = parseInt(row.conv, 10);
+        const visrec = parseInt(row.visrec, 10);
+        const total = conv + visrec;
+        counts[row.classid] = { conv, visrec, total };
+    }
+    return counts;
+}
+
 
 export async function deleteBluemixCredentials(credentialsid: string): Promise<void> {
     const queryString = 'DELETE FROM `bluemixcredentials` WHERE `id` = ?';
@@ -1573,6 +1593,20 @@ export async function getClassTenant(classid: string): Promise<Objects.ClassTena
         };
     }
     return dbobjects.getClassFromDbRow(rows[0]);
+}
+
+
+export async function getClassTenants(): Promise<Objects.ClassTenant[]> {
+    const queryString = 'SELECT `id`, `projecttypes`, `maxusers`, ' +
+                            '`maxprojectsperuser`, ' +
+                            '`textclassifiersexpiry`, `imageclassifiersexpiry`, ' +
+                            '`ismanaged` ' +
+                        'FROM `tenants` ' +
+                        'LIMIT 1000';
+
+    const rows = await dbExecute(queryString, []);
+
+    return rows.map(dbobjects.getClassFromDbRow);
 }
 
 
