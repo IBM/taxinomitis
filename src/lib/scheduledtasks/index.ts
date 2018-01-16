@@ -48,6 +48,5 @@ export function run(): void {
             credentials.checkBluemixCredentials();
         }, constants.ONE_DAY_PLUS_A_BIT);
 
-
     }
 }

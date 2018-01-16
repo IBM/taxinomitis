@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import * as DbTypes from '../db/db-types';
 
 export interface BluemixCredentials {
@@ -120,3 +122,23 @@ export interface ClassifierSummary {
     readonly credentials: BluemixCredentials;
     readonly type: BluemixServiceType;
 }
+
+
+
+
+
+
+
+
+export enum KnownErrorCondition {
+    UnmanagedBluemixClassifier = 1,
+    BadBluemixCredentials = 2,
+}
+
+export interface KnownError {
+    readonly id: string;
+    readonly type: KnownErrorCondition;
+    readonly servicetype: BluemixServiceType;
+    readonly objid: string;
+}
+

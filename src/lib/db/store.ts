@@ -1420,6 +1420,20 @@ export async function deleteScratchKeysByProjectId(projectid: string): Promise<v
 }
 
 
+// -----------------------------------------------------------------------------
+//
+// KNOWN SYSTEM ERRORS
+//
+// -----------------------------------------------------------------------------
+
+export async function getAllKnownErrors(): Promise<TrainingObjects.KnownError[]> {
+    const queryString = 'SELECT * FROM `knownsyserrors`';
+    const rows = await dbExecute(queryString, []);
+    return rows.map(dbobjects.getKnownErrorFromDbRow);
+}
+
+
+
 
 // -----------------------------------------------------------------------------
 //

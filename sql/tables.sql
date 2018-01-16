@@ -147,6 +147,15 @@ CREATE TABLE pendingjobs (
 
 -- ------------------------------------------------------------------
 
+CREATE TABLE knownsyserrors (
+    id CHAR(36) NOT NULL PRIMARY KEY,
+    type TINYINT UNSIGNED NOT NULL,
+    servicetype VARCHAR(8) NOT NULL,
+    objid VARCHAR(50) NOT NULL
+);
+
+-- ------------------------------------------------------------------
+
 CREATE TABLE tenants (
     id VARCHAR(36) NOT NULL PRIMARY KEY,
     projecttypes VARCHAR(25) NOT NULL DEFAULT 'text,numbers',

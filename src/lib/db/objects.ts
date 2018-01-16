@@ -635,6 +635,21 @@ export function getScratchKeyFromDbRow(row: Objects.ScratchKeyDbRow): Objects.Sc
 }
 
 
+// -----------------------------------------------------------------------------
+//
+// KNOWN SYSTEM ERRORS
+//
+// -----------------------------------------------------------------------------
+
+export function getKnownErrorFromDbRow(row: TrainingObjects.KnownError): TrainingObjects.KnownError {
+    return {
+        id : row.id,
+        type : row.type,
+        servicetype : row.servicetype,
+        objid : row.objid,
+    };
+}
+
 
 
 // -----------------------------------------------------------------------------
