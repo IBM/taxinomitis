@@ -8,10 +8,10 @@
         'authService',
         'projectsService', 'trainingService', 'quizService',
         '$stateParams',
-        '$scope', '$interval', '$q'
+        '$scope', '$mdDialog', '$timeout', '$interval', '$q'
     ];
 
-    function ModelsController(authService, projectsService, trainingService, quizService, $stateParams, $scope, $interval, $q) {
+    function ModelsController(authService, projectsService, trainingService, quizService, $stateParams, $scope, $mdDialog, $timeout, $interval, $q) {
 
         var vm = this;
         vm.authService = authService;
@@ -267,6 +267,166 @@
                 .catch(function (err) {
                     displayAlert('errors', err.status, err.data);
                 });
+        };
+
+
+        vm.useWebcam = function (ev, label) {
+            $scope.testformData.testimageurl = '';
+
+            $mdDialog.show({
+                controller : function ($scope) {
+                    $scope.channel = {};
+                    $scope.webcamerror = false;
+                    $scope.webcamInitComplete = false;
+
+                    $scope.webcamCanvas = null;
+
+                    $scope.hide = function() {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function() {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function() {
+                        $mdDialog.hide(getWebcamData());
+                    };
+
+                    $scope.onWebcamSuccess = function () {
+                        $scope.$apply(function() {
+                            $scope.webcamInitComplete = true;
+                        });
+                    };
+
+                    function displayWebcamError(err) {
+                        $scope.webcamerror = err;
+                        if (err && err.message) {
+                            if (err.name === 'NotAllowedError') {
+                                $scope.webcamerrordetail = 'Not allowed to use the web-cam';
+                            }
+                            else {
+                                $scope.webcamerrordetail = err.message;
+                            }
+                        }
+                    }
+
+                    $scope.onWebcamError = function(err) {
+                        $scope.webcamInitComplete = true;
+
+                        try {
+                            $scope.$apply(
+                                function() {
+                                    displayWebcamError(err);
+                                }
+                            );
+                        }
+                        catch (applyErr) {
+                            $timeout(function () {
+                                displayWebcamError(err);
+                            }, 0, false);
+                        }
+                    };
+
+
+                    function getWebcamData() {
+                        var hiddenCanvas = document.createElement('canvas');
+                        hiddenCanvas.width = $scope.channel.video.width;
+                        hiddenCanvas.height = $scope.channel.video.height;
+
+                        var ctx = hiddenCanvas.getContext('2d');
+                        ctx.drawImage($scope.channel.video,
+                            0, 0,
+                            $scope.channel.video.width, $scope.channel.video.height);
+
+                        var imagedata = hiddenCanvas.toDataURL('image/jpeg');
+                        var strippedHeaderData = imagedata.substr(imagedata.indexOf(',') + 1);
+                        return strippedHeaderData;
+                    };
+
+                },
+                templateUrl : 'static/components-' + $stateParams.VERSION + '/models/webcam.tmpl.html',
+                targetEvent : ev,
+                clickOutsideToClose : true
+            })
+            .then(
+                function (webcamimagedata) {
+                    $scope.testoutput = "please wait...";
+                    $scope.testoutput_explanation = "";
+
+                    trainingService.testModel($scope.project.id, $scope.project.type,
+                                              vm.profile.user_id, vm.profile.tenant,
+                                              $scope.models[0].classifierid, $scope.models[0].credentialsid,
+                                              { type : $scope.project.type, data : webcamimagedata })
+                        .then(function (resp) {
+                            if (resp && resp.length > 0) {
+                                $scope.testoutput = resp[0].class_name;
+                                $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
+                            }
+                            else {
+                                $scope.testoutput = 'Unknown';
+                                $scope.testoutput_explanation = "Test value could not be recognised";
+                            }
+                        })
+                        .catch(function (err) {
+                            displayAlert('errors', err.status, err.data);
+                        });
+                },
+                function() {
+                    // cancelled. do nothing
+                }
+            );
+        };
+
+
+
+        vm.useCanvas = function (ev) {
+            $scope.testformData.testimageurl = '';
+
+            $mdDialog.show({
+                controller : function ($scope) {
+                    $scope.hide = function() {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function() {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function() {
+                        var imagedata = $scope.canvas.toDataURL('image/jpeg');
+                        var strippedHeaderData = imagedata.substr(imagedata.indexOf(',') + 1);
+                        $mdDialog.hide(strippedHeaderData);
+                    };
+
+                },
+                templateUrl : 'static/components-' + $stateParams.VERSION + '/models/canvas.tmpl.html',
+                targetEvent : ev,
+                clickOutsideToClose : true
+            })
+            .then(
+                function (canvasimagedata) {
+                    $scope.testoutput = "please wait...";
+                    $scope.testoutput_explanation = "";
+
+                    trainingService.testModel($scope.project.id, $scope.project.type,
+                                              vm.profile.user_id, vm.profile.tenant,
+                                              $scope.models[0].classifierid, $scope.models[0].credentialsid,
+                                              { type : $scope.project.type, data : canvasimagedata })
+                        .then(function (resp) {
+                            if (resp && resp.length > 0) {
+                                $scope.testoutput = resp[0].class_name;
+                                $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
+                            }
+                            else {
+                                $scope.testoutput = 'Unknown';
+                                $scope.testoutput_explanation = "Test value could not be recognised";
+                            }
+                        })
+                        .catch(function (err) {
+                            displayAlert('errors', err.status, err.data);
+                        });
+                },
+                function() {
+                    // cancelled. do nothing
+                }
+            );
         };
 
 

@@ -1,0 +1,18 @@
+<md-dialog aria-label="Draw something to test">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Draw something to test your model with</h2>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <mlcanvas></mlcanvas>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <span flex></span>
+        <md-button type="submit" class="md-raised md-primary" ng-disabled="false" ng-click="confirm()">
+            <span class="glyphicon glyphicon-pencil"></span>
+            Test
+        </md-button>
+        <md-button ng-click="cancel()">Cancel</md-button>
+    </md-dialog-actions>
+</md-dialog>

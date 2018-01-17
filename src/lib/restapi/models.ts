@@ -9,6 +9,7 @@ import * as Types from '../training/training-types';
 import * as conversation from '../training/conversation';
 import * as visualrec from '../training/visualrecognition';
 import * as numbers from '../training/numbers';
+import * as base64decode from '../utils/base64decode';
 import * as urls from './urls';
 import * as errors from './errors';
 import * as headers from './headers';
@@ -201,12 +202,22 @@ async function testModel(req: Express.Request, res: Express.Response) {
         }
         else if (type === 'images') {
             const imageurl = req.body.image;
-            if (!imageurl || !credsid) {
+            const imagedata = req.body.data;
+
+            if (!credsid || (!imageurl && !imagedata)) {
                 return errors.missingData(res);
             }
 
             const creds = await store.getBluemixCredentialsById(credsid);
-            const classes = await visualrec.testClassifierURL(creds, modelid, projectid, imageurl);
+
+            let classes: Types.Classification[];
+            if (imageurl) {
+                classes = await visualrec.testClassifierURL(creds, modelid, projectid, imageurl);
+            }
+            else {
+                const imagefile = await base64decode.run(imagedata);
+                classes = await visualrec.testClassifierFile(creds, modelid, projectid, imagefile);
+            }
             return res.json(classes);
         }
         else if (type === 'numbers') {

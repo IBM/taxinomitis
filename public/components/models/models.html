@@ -292,12 +292,36 @@
                    ng-model="testformData.testquestion"
                    ng-required="true"
                    placeholder="enter a test text here">
+            <div ng-if="project.type === 'images'" ng-click="vm.useWebcam($event)"
+                 class="btn newexamplebutton" style="margin: 2em">
+                <div class="newexamplelabel">
+                    &nbsp;
+                    <span class="glyphicon glyphicon-camera"></span>
+                    Test with <strong>webcam</strong>
+                </div>
+            </div>
+            <div ng-if="project.type === 'images'" ng-click="vm.useCanvas($event)"
+                 class="btn newexamplebutton" style="margin: 1em" >
+                <div class="newexamplelabel">
+                    &nbsp;
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    Test by <strong>drawing</strong>
+                </div>
+            </div>
+            <br ng-if="project.type === 'images'"/>
             <input ng-if="project.type === 'images'"
                    style="margin-left: 2em; width: 70%"
                    type="text"
                    ng-model="testformData.testimageurl"
                    ng-required="true"
-                   placeholder="URL for an image">
+                   placeholder="Test with a web address for an image on the Internet">
+            <button ng-if="project.type === 'images'"
+                   class="btn btn-default"
+                   type="submit"
+                   ng-disabled="testform.$invalid">Test with <strong>www</strong></button>
+
+
+
             <table ng-if="project.type === 'numbers'" style="margin-left: 2em; margin-bottom: 1em;">
                 <tr ng-repeat="field in project.fields">
                     <td style="padding-right: 2em;">{{ field.name }}</td>
@@ -316,7 +340,7 @@
                     </td>
                 </tr>
             </table>
-            <input type="submit" class="btn btn-primary" value="Test" ng-disabled="testform.$invalid" style="margin-left: 1em;" >
+            <input ng-if="project.type !== 'images'" type="submit" class="btn btn-primary" value="Test" ng-disabled="testform.$invalid" style="margin-left: 1em;" >
         </form>
         <div style="margin: 2em;" ng-if="testoutput">
             <div>Recognised as <strong>{{ testoutput }}</strong> </div>

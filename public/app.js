@@ -102,7 +102,10 @@
                 url: '/mlproject/:projectId/models',
                 controller: 'ModelsController',
                 templateUrl: 'static/components-<%= VERSION %>/models/models.html',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                params: {
+                    VERSION : <%= VERSION %>
+                }
             })
             .state('mlproject_scratch', {
                 url: '/mlproject/:projectId/scratch',

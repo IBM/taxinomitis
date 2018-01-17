@@ -1,0 +1,31 @@
+<md-dialog aria-label="Take a photo to test">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Take a photo to test your model with</h2>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <img src="static/images/loading.gif" ng-hide="webcamInitComplete" alt="loading" style="margin: 1em auto; width: 320px;"/>
+        <webcam
+            channel="channel"
+            ng-hide="webcamerror"
+            on-error="onWebcamError(err)"
+            on-access-denied="onWebcamError(err)"
+            on-streaming="onWebcamSuccess()"></webcam>
+        <div class="webcamerror" ng-show="webcamerror">
+            <strong>Sorry! We weren't able to get a webcam to work for you.</strong>
+        </div>
+        <div class="webcamerror" ng-show="webcamerrordetail">
+            The message we got from your web browser was: <br/>
+            {{ webcamerrordetail }}
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <span flex></span>
+        <md-button type="submit" class="md-raised md-primary" ng-disabled="webcamerror" ng-click="confirm()">
+            <span class="glyphicon glyphicon-camera"></span>
+            Test
+        </md-button>
+        <md-button ng-click="cancel()">Cancel</md-button>
+    </md-dialog-actions>
+</md-dialog>
