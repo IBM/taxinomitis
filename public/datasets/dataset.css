@@ -1,0 +1,43 @@
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.intro {
+    font-size: 1.3em;
+    margin: 0.4em;
+}
+
+.controls {
+    border: thin grey solid;
+    margin: 2em;
+    padding: 1em;
+}
+
+h2 {
+    border-top-style: solid;
+    border-top-width: 4px;
+    border-top-color: darkgreen;
+    padding-top: 0.5em;
+}
+
+.dataset {
+    padding: 0 1em;
+}
+
+.dataset, img {
+    margin: 1em;
+}
+
+.dataset.thumbnails > img {
+    width: 150px;
+}
+
+.choices {
+    padding: 1em 2em 0 2em;
+    font-size: 1.1em;
+}
+
+.emphasize {
+    font-size: 1.2em;
+    font-weight: bold;
+}

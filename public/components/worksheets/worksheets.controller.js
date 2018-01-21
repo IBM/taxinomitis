@@ -213,6 +213,21 @@
                 ]
             },
             {
+                title : 'Confused',
+                summary : 'Teach a computer to recognise fruit',
+                description : 'Learn about how computers can be confused and can make mistakes if they\'re trained badly.',
+                difficulty : 'Intermediate',
+                type : 'images',
+                image : 'static/images/project-confused.png',
+                tags : [ 'image classification', 'supervised learning' ],
+                downloads : [
+                    {
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-confused.pdf',
+                        starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/confused.sbx'
+                    }
+                ]
+            },
+            {
                 title : 'School Library',
                 summary : 'Teach a computer to make recommendations',
                 description : 'Create a school librarian in Scratch that suggests who a reading book might be suitable for.',
