@@ -156,6 +156,14 @@
                 console.log(err);
                 return logout();
             });
+
+            // auth0 looks completely broken so try starting again
+            lock.on('unrecoverable_error', function (err) {
+                console.log('lock unrecoverable error');
+                console.log(err);
+                logout();
+                return window.location.reload(true);
+            });
         }
 
 
