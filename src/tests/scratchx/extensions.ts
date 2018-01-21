@@ -43,6 +43,45 @@ describe('Scratchx - status', () => {
             assert(extension.indexOf(
                 '[ \'R\', \'recognise text %s (confidence)\', \'text_classification_confidence\', \'text\' ]') > 0);
         });
+
+
+        it('should handle apostrophes in project names', async () => {
+            const key: Types.ScratchKey = {
+                id : uuid(),
+                name : "This is Dale's test",
+                type : 'text',
+                projectid : uuid(),
+                classifierid : uuid(),
+            };
+            const proj: Types.Project = {
+                id : uuid(),
+                type : 'text',
+                name : "This is Dale's test",
+                language : 'en',
+                userid : uuid(),
+                classid : uuid(),
+                labels : [ 'LABEL NUMBER ONE', 'SECOND LABEL', 'THIRD' ],
+                numfields : 0,
+            };
+
+            const extension = await extensions.getScratchxExtension(key, proj);
+
+            assert(extension.indexOf('/api/scratch/' + key.id + '/status') > 0);
+            assert(extension.indexOf('/api/scratch/' + key.id + '/classify') > 0);
+            assert(extension.indexOf('ext.return_label_0 = function () {') > 0);
+            assert(extension.indexOf('ext.return_label_1 = function () {') > 0);
+            assert(extension.indexOf('ext.return_label_2 = function () {') > 0);
+            assert(extension.indexOf('ext.return_label_3 = function () {') === -1);
+            assert(extension.indexOf('[ \'r\', \'LABEL NUMBER ONE\', \'return_label_0\'],') > 0);
+            assert(extension.indexOf('[ \'r\', \'SECOND LABEL\', \'return_label_1\'],') > 0);
+            assert(extension.indexOf('[ \'r\', \'THIRD\', \'return_label_2\'],') > 0);
+            assert(extension.indexOf(
+                '[ \'R\', \'recognise text %s (label)\', \'text_classification_label\', \'text\' ]') > 0);
+            assert(extension.indexOf(
+                '[ \'R\', \'recognise text %s (confidence)\', \'text_classification_confidence\', \'text\' ]') > 0);
+
+            assert(extension.indexOf("ScratchExtensions.register('This is Dale\\'s test', descriptor, ext)") > 0);
+        });
     });
 
 

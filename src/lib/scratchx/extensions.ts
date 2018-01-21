@@ -20,6 +20,10 @@ function readFile(path: string): Promise<string> {
 }
 
 
+function escapeProjectName(name: string): string {
+    return name.replace(/'/g, '\\\'');
+}
+
 async function getTextExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string> {
     const template: string = await readFile('./resources/scratchx-text-classify.js');
     Mustache.parse(template);
@@ -28,7 +32,7 @@ async function getTextExtension(scratchkey: Types.ScratchKey, project: Types.Pro
         classifyurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/classify',
         storeurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/train',
 
-        projectname : scratchkey.name,
+        projectname : escapeProjectName(scratchkey.name),
         labels : project.labels.map((name, idx) => {
             return { name, idx };
         }),
@@ -43,7 +47,7 @@ async function getImagesExtension(scratchkey: Types.ScratchKey, project: Types.P
         statusurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/status',
         classifyurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/classify',
 
-        projectname : scratchkey.name,
+        projectname : escapeProjectName(scratchkey.name),
         labels : project.labels.map((name, idx) => {
             return { name, idx };
         }),
@@ -72,7 +76,7 @@ async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.
         classifyurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/classify',
         storeurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/train',
 
-        projectname : scratchkey.name,
+        projectname : escapeProjectName(scratchkey.name),
 
         labels : project.labels.map((name, idx) => {
             return { name, idx };
