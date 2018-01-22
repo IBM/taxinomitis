@@ -31,15 +31,11 @@
 .worksheetcard {
     border-radius: 1em;
     background-color: #eee;
-    margin: 1em;
-    padding: 0.6em;
+    margin: 14px;
+    padding: 8px;
 
     display: flex;
     flex-direction: column;
-
-    /* flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: 0; */
 }
 
 .worksheetcard .title {
@@ -68,62 +64,133 @@
 .worksheetcard .cardmain {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
 
     flex-grow: 1;
 }
 
 .worksheetcard .cardmain .info {
-    flex-grow: 1;
+    margin-right: 8px;
 }
 
-@media (max-width: 650px) {
+/* *************************************/
+/*     ONE column     (vertical cards) */
+/* *************************************/
+@media (max-width: 450px) {
+
     .worksheetcard {
-
+        width: 100%;
     }
-    .worksheetcard .cardmain .info {
-        min-width: 200px;
-    }
-
-    .worksheetcard .cardmain .image {
-
+    .worksheetcard .cardmain {
+        flex-direction: column;
     }
 }
-@media (min-width: 650px) and (max-width: 900px) {
+
+/* *************************************/
+/*     ONE column   (horizontal cards) */
+/* *************************************/
+@media (min-width: 450px) and (max-width: 600px) {
+
     .worksheetcard {
-        min-width: 200px;
-        max-width: 320px;
+        width: 100%;
     }
-    .worksheetcard .cardmain .info {
-
-    }
-    .worksheetcard .cardmain .image {
-
-    }
-}
-@media (min-width: 900px) and (max-width: 1100px) {
-    .worksheetcard .cardmain .info {
-        min-width: 100px;
-        max-width: 250px;
-    }
-
-    .worksheetcard .cardmain .image {
-        min-width: 100px;
-        max-width: 250px;
-    }
-}
-@media (min-width: 1100px) {
-    .worksheetcard .cardmain .info {
-        min-width: 100px;
-        max-width: 220px;
-    }
-
-    .worksheetcard .cardmain .image {
-        min-width: 100px;
-        max-width: 160px;
+    .worksheetcard .cardmain {
+        flex-direction: row;
     }
 }
 
+/* *************************************/
+/*     TWO columns    (vertical cards) */
+/* *************************************/
+@media (min-width: 600px) and (max-width: 770px) {
+
+    .worksheetcard {
+        width: calc(50% - 28px);
+    }
+    .worksheetcard .cardmain {
+        flex-direction: column;
+    }
+}
+
+/* *************************************/
+/*     TWO columns  (horizontal cards) */
+/* *************************************/
+@media (min-width: 770px) and (max-width: 960px) {
+
+    .worksheetcard {
+        width: calc(50% - 28px);
+    }
+    .worksheetcard .cardmain {
+        flex-direction: row;
+    }
+}
+
+/* *************************************/
+/*     THREE columns  (vertical cards) */
+/* *************************************/
+@media (min-width: 960px) and (max-width: 1100px) {
+
+    .worksheetcard {
+        width: calc(33.3% - 28px);
+    }
+    .worksheetcard .cardmain {
+        flex-direction: column;
+    }
+}
+
+/* *************************************/
+/*    THREE columns (horizontal cards) */
+/* *************************************/
+@media (min-width: 1100px) and (max-width: 1400px) {
+
+    .worksheetcard {
+        width: calc(33.3% - 28px);
+    }
+    .worksheetcard .cardmain {
+        flex-direction: row;
+    }
+}
+
+/* *************************************/
+/*     FOUR columns   (vertical cards) */
+/* *************************************/
+@media (min-width: 1400px) and (max-width: 1600px) {
+
+    .worksheetcard {
+        width: calc(25% - 28px);
+    }
+    .worksheetcard .cardmain {
+        flex-direction: column;
+    }
+}
+
+
+/* *************************************/
+/*    FOUR columns  (horizontal cards) */
+/* *************************************/
+@media (min-width: 1600px) and (max-width: 2100px) {
+
+    .worksheetcard {
+        width: calc(25% - 28px);
+    }
+    .worksheetcard .cardmain {
+        flex-direction: row;
+    }
+}
+
+/* *************************************/
+/*     FIVE columns   (vertical cards) */
+/* *************************************/
+@media (min-width: 2100px) {
+
+    .worksheetcard {
+        width: calc(20% - 28px);
+    }
+    .worksheetcard .cardmain {
+        flex-direction: column;
+    }
+}
+
+/* *************************************/
 
 
 
