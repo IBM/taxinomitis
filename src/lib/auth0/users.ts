@@ -171,9 +171,31 @@ export async function resetStudentsPassword(tenant: string, userids: string[]): 
 
     const token = await getBearerToken();
 
-    return Promise.all(userids.map((userid) => resetPassword(tenant, userid, password, token)));
+    let backoff = 5;
+
+    const allCreds: Objects.UserCreds[] = [];
+
+    // auth0 will reject a large number of concurrent requests, so
+    //  we do this sequentially
+    for (const userid of userids) {
+        const creds = await resetPassword(tenant, userid, password, token);
+        allCreds.push(creds);
+
+        // auth0 rate-limits aggressively, so protect against
+        //  large workloads by waiting increasingly long times
+        //  for large requests
+        await pause(backoff);
+        backoff += 1;
+    }
+    return allCreds;
 }
 
+
+function pause(delay: number): Promise<void> {
+    return new Promise((resolve) => {
+        setTimeout(resolve, delay);
+    });
+}
 
 
 export async function resetStudentPassword(tenant: string, userid: string): Promise<Objects.UserCreds> {
