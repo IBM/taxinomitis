@@ -219,7 +219,7 @@
                 difficulty : 'Intermediate',
                 type : 'images',
                 image : 'static/images/project-confused.png',
-                tags : [ 'image classification', 'supervised learning' ],
+                tags : [ 'image classification', 'supervised learning', 'overfitting' ],
                 downloads : [
                     {
                         worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-confused.pdf',
