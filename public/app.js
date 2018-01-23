@@ -135,7 +135,8 @@
                     }
                 },
                 theme : {
-                    logo : 'static/images/mlforkids-logo.jpg'
+                    logo : 'static/images/mlforkids-logo.jpg',
+                    primaryColor : '#337ab7'
                 },
 
                 // assuming school computers are shared so doing this would be bad
