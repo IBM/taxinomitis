@@ -11,21 +11,21 @@
 
         var allQuestions = [
             {
-                question : 'In general, machines learn better with:',
+                question : 'In general, what will help machines to learn better?',
                 attempted : false,
                 answers : [
                     { text : 'More examples', correct : true },
                     { text : 'Fewer examples', correct : false }
                 ],
                 notes : [
-                    'That isn\'t the only factor that affects things, but in general, the more examples it has to learn from, the better.'
+                    'That isn\'t the only factor that has an effect. But in general, the more examples it has to learn from, the better.'
                 ]
             },
             {
-                question : 'Which of these sets of examples will probably do the best job of training a computer to recognise a photo of an apple?',
+                question : 'Which of these would probably be best for training a computer to recognise a photo of an apple?',
                 attempted : false,
                 answers : [
-                    { text : 'A collection of photos of dogs', correct : false },
+                    { text : 'Photos of dogs', correct : false },
                     { text : 'Varied photos of different types of apples in different places', correct : true },
                     { text : 'Identical photos of an apple', correct : false },
                     { text : 'Very, very similar photos of the same apple', correct : false }
@@ -36,12 +36,12 @@
                 ]
             },
             {
-                question : 'Which of these would be a good use case for machine learning?',
+                question : 'Which of these would be a good use of machine learning?',
                 attempted : false,
                 answers : [
                     { text : 'Adding big numbers together', correct : false },
                     { text : 'Storing and retrieving customer records', correct : false },
-                    { text : 'Recognising if an email is spam or not', correct : true },
+                    { text : 'Recognising if an email is spam', correct : true },
                     { text : 'Counting the number of times a button is pressed', correct : false }
                 ],
                 notes : [
@@ -50,7 +50,7 @@
                 ]
             },
             {
-                question : 'Which of these is NOT a good use case for machine learning?',
+                question : 'Which of these is NOT a good use of machine learning?',
                 attempted : false,
                 answers : [
                     { text : 'Sentiment analysis - recognising the mood, tone or emotion in text', correct : false },
@@ -59,23 +59,23 @@
                     { text : 'Self-driving cars', correct : false },
                     { text : 'Predicting if a credit card transaction is fraudulent', correct : false },
                     { text : 'Calculating the current cost of a product in different countries based on exchange rates', correct : true },
-                    { text : 'Recommending a movie based on films you\'ve previously watched', correct : false }
+                    { text : 'Recommending a movie based on films you\'ve watched before', correct : false }
                 ],
                 notes : [
-                    'Tasks which involve following rules that can be worked out are not a good use for machine learning.',
+                    'Tasks that involve following rules which can be worked out are not a good use for machine learning.',
                     'A computer isn\'t going to learn how to apply an exchange rate from examples - we can just tell it what to do.'
                 ]
             },
             {
-                question : 'Which of the following approaches would be more likely to be successful?',
+                question : 'Which of these approaches would be more likely to be successful?',
                 attempted : false,
                 answers : [
-                    { text : 'Collect a small set of examples, train a system, test to see how good it is. Add more examples, train and test again. Repeat until it gets good enough for your needs.', correct : true },
-                    { text : 'More examples is better, so decide you must need millions. Start collecting a massive set of examples, and spend months continually collecting more and more and more.', correct : false }
+                    { text : 'Collect a small set of examples, train a system, test to see how good it is. Add more examples, train and test again. Repeat until it gets good enough.', correct : true },
+                    { text : 'More examples is better, so decide you must need millions. Start collecting a massive set of examples, and spend months collecting more and more and more.', correct : false }
                 ],
                 notes : [
                     'More examples is generally better, but be practical.',
-                    'Pragmatism is important, so regular testing is useful to let you know how things are going, and when you\'ve done enough.',
+                    'Pragmatism is important. Regular testing is useful to let you know how things are going, and when you\'ve done enough.',
                     'When you\'ve only got ten examples, another ten will probably make a huge difference.',
                     'When you\'ve got 100,000 examples, another ten probably won\'t have a noticeable impact.'
                 ]
@@ -92,7 +92,7 @@
                 ]
             },
             {
-                question : 'A machine learning system which has been trained to recognise pictures which have a tree in them should be effective at which of the following tasks:',
+                question : 'A machine learning system trained to recognise pictures with a tree in should be effective at which of the following tasks:',
                 attempted : false,
                 answers : [
                     { text : 'Identifying pictures of fruit', correct : false },
@@ -106,18 +106,18 @@
                 ]
             },
             {
-                question : 'Alice and Bob both want to train a machine learning system to recognise if some text is happy/positive or sad/negative. Which of them will probably train the best system?',
+                question : 'Alice and Bob both want to train a machine learning system to recognise if text is happy/positive or sad/negative. Which of them will probably train the best system?',
                 attempted : false,
                 answers : [
-                    { text : 'Alice - who has collected 10 varied examples of happy text, and 10 varied examples of sad text', correct : true },
-                    { text : 'Bob - who has collected 1000 examples of happy writing and 20 examples of sad writing', correct : false }
+                    { text : 'Alice. She has collected 10 varied examples of happy text, and 10 varied examples of sad text', correct : true },
+                    { text : 'Bob. He has collected 1000 examples of happy writing and 20 examples of sad writing', correct : false }
                 ],
                 notes : [
                     'Collecting a roughly similar number of examples for each label is a useful technique.',
                     'If nearly every example of writing you train a system with is happy, you might end up training the system to assume that sad writing is very unlikely, and that it should assume happy more often.',
                     '',
                     'But, you might want it to do this.',
-                    'If you\'re training a system to recognise text where it is happy 98% of the time, then training it with that realistic experience might be worth a try.'
+                    'If you\'re training a system to recognise text where it is happy 98% of the time, training it with that realistic experience might be worth a try.'
                 ]
             }
         ];
