@@ -225,6 +225,35 @@ describe('REST API - training', () => {
         });
 
 
+        it('should reject empty text data in training', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
+            const projectid = project.id;
+
+            const trainingurl = '/api/classes/' + classid +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/training';
+
+            return request(testServer)
+                .post(trainingurl)
+                .send({
+                    label : 'nothing-to-label',
+                    data : '    ',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    const body = res.body;
+                    assert.deepEqual(body, { error : 'Empty text is not allowed' });
+
+                    return store.deleteEntireProject(userid, classid, project);
+                });
+        });
+
+
         it('should require numeric data in training', async () => {
             const classid = uuid();
             const userid = uuid();

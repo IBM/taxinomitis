@@ -38,6 +38,24 @@ describe('DB store - training', () => {
             return store.deleteTrainingByProjectId('text', projectid);
         });
 
+        it('should reject empty strings', async () => {
+            const projectid = uuid();
+            const text = '     ';
+            const label = uuid();
+
+            try {
+                await store.storeTextTraining(projectid, text, label);
+                assert.fail(0, 1, 'should not reach here', '');
+            }
+            catch (err) {
+                assert(err);
+                assert.equal(err.message, 'Empty text is not allowed');
+
+                const count = await store.countTraining('text', projectid);
+                assert.equal(count, 0);
+            }
+        });
+
         it('should limit maximum training data length', async () => {
             const projectid = uuid();
             const text = randomstring.generate({ length : 1200 });

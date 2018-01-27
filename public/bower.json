@@ -19,13 +19,14 @@
     "angular-sanitize": "1.6.8",
     "angular-scroll": "1.0.2",
     "angular-ui-router": "1.0.13",
-    "auth0-lock11": "auth0-lock#11.0.1",
-    "auth0js8": "auth0.js#8.12.1",
+    "auth0-lock111": "auth0-lock#11.1.0",
+    "auth0js9": "auth0.js#9.1.0",
     "bootstrap": "3.3.7",
     "jquery3": "jquery#3.2.1",
     "webcam": "webcam-directive#3.1.1"
   },
   "resolutions": {
-    "angular": "1.6.8"
+    "angular": "1.6.8",
+    "auth0.js": "9.1.0"
   }
 }

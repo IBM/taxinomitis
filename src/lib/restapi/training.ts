@@ -159,6 +159,7 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
     }
     catch (err) {
         if (err.message === 'Text exceeds maximum allowed length (1024 characters)' ||
+            err.message === 'Empty text is not allowed' ||
             err.message === 'Number of data items exceeded maximum' ||
             err.message === 'Data contains non-numeric items' ||
             err.message === 'Missing required attributes' ||

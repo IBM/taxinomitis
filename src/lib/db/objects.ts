@@ -242,6 +242,12 @@ export function createTextTraining(projectid: string, data: string, label: strin
         throw new Error('Missing required attributes');
     }
 
+    data = data.trim();
+
+    if (data.length === 0) {
+        throw new Error('Empty text is not allowed');
+    }
+
     if (data.length > MAX_CONTENTS_LENGTH) {
         throw new Error('Text exceeds maximum allowed length (1024 characters)');
     }
