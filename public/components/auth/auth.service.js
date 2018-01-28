@@ -50,6 +50,9 @@
                     });
                 }
             }
+            else {
+                logout();
+            }
         }
 
 
@@ -200,14 +203,17 @@
         }
 
         function isAuthenticated() {
-            // Check whether the current time is past the
-            // access token's expiry time
-            var expiresAt = JSON.parse(window.localStorageObj.getItem('expires_at'));
-            var isAuth = (new Date().getTime() < expiresAt);
-            if (!isAuth) {
-                logout();
+            if (userProfile) {
+                // Check whether the current time is past the
+                // access token's expiry time
+                var expiresAt = JSON.parse(window.localStorageObj.getItem('expires_at'));
+                var isAuth = (new Date().getTime() < expiresAt);
+                if (!isAuth) {
+                    logout();
+                }
+                return isAuth;
             }
-            return isAuth;
+            return false;
         }
 
 
