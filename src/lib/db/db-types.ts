@@ -13,6 +13,7 @@ export interface Project {
     readonly language: TextProjectLanguage | '';
     readonly numfields: number;
     fields?: NumbersProjectFieldSummary[];
+    readonly isCrowdSourced: boolean;
 }
 export interface ProjectDbRow {
     readonly id: string;
@@ -24,6 +25,7 @@ export interface ProjectDbRow {
     readonly language: string;
     readonly numfields: number;
     readonly fields: NumbersProjectFieldDbRow[];
+    readonly iscrowdsourced: number;
 }
 
 export type ProjectTypeLabel = 'text' | 'numbers' | 'images';

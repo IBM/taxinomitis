@@ -44,20 +44,26 @@
 
         $scope.loadingtraining = true;
 
+        $scope.crowdSourced = false;
+
         $scope.projectId = $stateParams.projectId;
+        $scope.userId = $stateParams.userId;
         $scope.training = {};
 
         authService.getProfileDeferred()
             .then(function (profile) {
                 vm.profile = profile;
 
-                return projectsService.getProject($scope.projectId, profile.user_id, profile.tenant);
+                return projectsService.getProject($scope.projectId, $scope.userId, profile.tenant);
             })
             .then(function (project) {
                 $scope.project = project;
 
+                $scope.crowdSourced = project.isCrowdSourced &&
+                                      (vm.profile.user_id !== project.userid);
+
                 if (project.type === 'numbers') {
-                    return projectsService.getFields($scope.projectId, vm.profile.user_id, vm.profile.tenant);
+                    return projectsService.getFields($scope.projectId, $scope.userId, vm.profile.tenant);
                 }
             })
             .then(function (fields) {
@@ -70,7 +76,7 @@
                     $scope.training[label] = [];
                 }
 
-                return trainingService.getTraining($scope.projectId, vm.profile.user_id, vm.profile.tenant);
+                return trainingService.getTraining($scope.projectId, $scope.userId, vm.profile.tenant);
             })
             .then(function (training) {
                 $scope.loadingtraining = false;
@@ -219,7 +225,7 @@
 
             $scope.training[label].push(placeholder);
 
-            trainingService.newTrainingData($scope.projectId, vm.profile.user_id, vm.profile.tenant, data, label)
+            trainingService.newTrainingData($scope.projectId, $scope.userId, vm.profile.tenant, data, label)
                 .then(function (newitem) {
                     placeholder.isPlaceholder = false;
                     placeholder.id = newitem.id;
@@ -269,7 +275,7 @@
             })
             .then(
                 function (newlabel) {
-                    projectsService.addLabelToProject($scope.projectId, vm.profile.user_id, vm.profile.tenant, newlabel)
+                    projectsService.addLabelToProject($scope.projectId, $scope.userId, vm.profile.tenant, newlabel)
                         .then(function (labels) {
                             $scope.project.labels = labels;
                             for (var i = 0; i < labels.length; i++) {
@@ -293,7 +299,7 @@
 
         vm.deleteText = function (label, item, idx) {
             $scope.training[label].splice(idx, 1);
-            trainingService.deleteTrainingData($scope.projectId, vm.profile.user_id, vm.profile.tenant, item.id);
+            trainingService.deleteTrainingData($scope.projectId, $scope.userId, vm.profile.tenant, item.id);
         };
 
         vm.deleteLabel = function (ev, label, idx) {
@@ -312,7 +318,7 @@
 
                     refreshLabelsSummary();
 
-                    projectsService.removeLabelFromProject($scope.projectId, vm.profile.user_id, vm.profile.tenant, label)
+                    projectsService.removeLabelFromProject($scope.projectId, $scope.userId, vm.profile.tenant, label)
                         .catch(function (err) {
                             displayAlert('errors', err.status, err.data);
                         });
@@ -424,7 +430,7 @@
 
                     $scope.training[label].push(placeholder);
 
-                    trainingService.uploadImage($scope.project.id, vm.profile.user_id, vm.profile.tenant, resp, label)
+                    trainingService.uploadImage($scope.project.id, $scope.userId, vm.profile.tenant, resp, label)
                         .then(function (newitem) {
                             placeholder.isPlaceholder = false;
                             placeholder.id = newitem.id;
@@ -497,7 +503,7 @@
 
                     $scope.training[label].push(placeholder);
 
-                    trainingService.uploadImage($scope.project.id, vm.profile.user_id, vm.profile.tenant, resp, label)
+                    trainingService.uploadImage($scope.project.id, $scope.userId, vm.profile.tenant, resp, label)
                         .then(function (newitem) {
                             placeholder.isPlaceholder = false;
                             placeholder.id = newitem.id;

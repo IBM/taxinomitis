@@ -117,6 +117,21 @@
         };
 
 
+        vm.displayCrowdSourcedInfo = function (ev) {
+            ev.stopPropagation();
+            ev.preventDefault();
+
+            $mdDialog.show(
+                $mdDialog.alert()
+                  .clickOutsideToClose(true)
+                  .title('Crowd-sourced project')
+                  .textContent('This is a whole-class project. All the students in your class are able to access it and contribute training data to it.')
+                  .ariaLabel('Crowd-sourced project')
+                  .ok('Got it!')
+                  .targetEvent(ev)
+              );
+        };
+
         function findProjectIndex(id) {
             var len = vm.projects.length;
             for (var i = 0; i < len; i++) {

@@ -23,10 +23,21 @@ describe('REST API - training', () => {
     let checkUserStub: sinon.SinonStub;
     let requireSupervisorStub: sinon.SinonStub;
 
+    let nextAuth0UserId = 'userid';
+    let nextAuth0UserTenant = 'tenant';
+    let nextAuth0UserRole = 'student';
+
     function authNoOp(
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
     {
+        req.user = {
+            sub : nextAuth0UserId,
+            app_metadata : {
+                tenant : nextAuth0UserTenant,
+                role : nextAuth0UserRole,
+            },
+        };
         next();
     }
 
@@ -39,6 +50,12 @@ describe('REST API - training', () => {
         await store.init();
 
         testServer = testapiserver();
+    });
+
+    beforeEach(() => {
+        nextAuth0UserId = 'userid';
+        nextAuth0UserTenant = 'classid';
+        nextAuth0UserRole = 'student';
     });
 
 
@@ -57,6 +74,10 @@ describe('REST API - training', () => {
             const classid = uuid();
             const studentid = uuid();
             const projectid = uuid();
+
+            nextAuth0UserId = studentid;
+            nextAuth0UserTenant = classid;
+
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + studentid + '/projects/' + projectid + '/labels')
                 .expect('Content-Type', /json/)
@@ -72,8 +93,11 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', [], false);
             const projectid = project.id;
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/labels')
@@ -92,8 +116,11 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
             const projectid = project.id;
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/DIFFERENTUSER/projects/' + projectid + '/labels')
@@ -109,8 +136,11 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
             const projectid = project.id;
+            await store.addLabelToProject(userid, classid, projectid, 'fruit');
+            await store.addLabelToProject(userid, classid, projectid, 'vegetable');
+            await store.addLabelToProject(userid, classid, projectid, 'meat');
 
             await store.storeTextTraining(projectid, 'apple', 'fruit');
             await store.storeTextTraining(projectid, 'banana', 'fruit');
@@ -118,6 +148,9 @@ describe('REST API - training', () => {
             await store.storeTextTraining(projectid, 'cabbage', 'vegetable');
             await store.storeTextTraining(projectid, 'potato', 'vegetable');
             await store.storeTextTraining(projectid, 'beef', 'meat');
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/labels')
@@ -140,13 +173,18 @@ describe('REST API - training', () => {
 
             const project = await store.storeProject(userid, classid, 'numbers', 'demo', 'en', [
                 { name : 'a', type : 'number' },
-            ]);
+            ], false);
             const projectid = project.id;
+            await store.addLabelToProject(userid, classid, projectid, 'fruit');
+            await store.addLabelToProject(userid, classid, projectid, 'vegetable');
 
             await store.storeNumberTraining(projectid, [1], 'fruit');
             await store.storeNumberTraining(projectid, [2], 'vegetable');
             await store.storeNumberTraining(projectid, [3], 'vegetable');
             await store.storeNumberTraining(projectid, [4], 'vegetable');
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/labels')
@@ -170,6 +208,10 @@ describe('REST API - training', () => {
             const classid = uuid();
             const studentid = uuid();
             const projectid = uuid();
+
+            nextAuth0UserId = studentid;
+            nextAuth0UserTenant = classid;
+
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + studentid + '/projects/' + projectid + '/training')
                 .expect('Content-Type', /json/)
@@ -184,8 +226,11 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
             const projectid = project.id;
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/DIFFERENTUSER/projects/' + projectid + '/training')
@@ -201,13 +246,16 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
             const projectid = project.id;
 
             const trainingurl = '/api/classes/' + classid +
                                 '/students/' + userid +
                                 '/projects/' + projectid +
                                 '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .post(trainingurl)
@@ -229,13 +277,16 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
             const projectid = project.id;
 
             const trainingurl = '/api/classes/' + classid +
                                 '/students/' + userid +
                                 '/projects/' + projectid +
                                 '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .post(trainingurl)
@@ -260,13 +311,16 @@ describe('REST API - training', () => {
 
             const project = await store.storeProject(userid, classid, 'numbers', 'demo', 'en', [
                 { name : 'x', type : 'number' },
-            ]);
+            ], false);
             const projectid = project.id;
 
             const trainingurl = '/api/classes/' + classid +
                                 '/students/' + userid +
                                 '/projects/' + projectid +
                                 '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .post(trainingurl)
@@ -290,13 +344,16 @@ describe('REST API - training', () => {
 
             const project = await store.storeProject(userid, classid, 'numbers', 'demo', 'en', [
                 { name : 'x', type : 'number' },
-            ]);
+            ], false);
             const projectid = project.id;
 
             const trainingurl = '/api/classes/' + classid +
                                 '/students/' + userid +
                                 '/projects/' + projectid +
                                 '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .post(trainingurl)
@@ -319,13 +376,16 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
             const projectid = project.id;
 
             const trainingurl = '/api/classes/' + classid +
                                 '/students/' + userid +
                                 '/projects/' + projectid +
                                 '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .post(trainingurl)
@@ -351,13 +411,16 @@ describe('REST API - training', () => {
             const project = await store.storeProject(userid, classid, 'numbers', 'demo', 'en', [
                 { name : 'one', type : 'number' }, { name : 'two', type : 'number' },
                 { name : 'three', type : 'number' },
-            ]);
+            ], false);
             const projectid = project.id;
 
             const trainingurl = '/api/classes/' + classid +
                                 '/students/' + userid +
                                 '/projects/' + projectid +
                                 '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .post(trainingurl)
@@ -383,7 +446,7 @@ describe('REST API - training', () => {
             const project = await store.storeProject(userid, classid, 'numbers', 'demo', 'en', [
                 { name : 'first', type : 'number' }, { name : 'second', type : 'number' },
                 { name : 'third', type : 'number' },
-            ]);
+            ], false);
 
             const projectid = project.id;
 
@@ -391,6 +454,9 @@ describe('REST API - training', () => {
                                 '/students/' + userid +
                                 '/projects/' + projectid +
                                 '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .post(trainingurl)
@@ -409,13 +475,16 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', [], false);
             const projectid = project.id;
 
             const trainingurl = '/api/classes/' + classid +
                                 '/students/' + userid +
                                 '/projects/' + projectid +
                                 '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .post(trainingurl)
@@ -437,13 +506,16 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', [], false);
             const projectid = project.id;
 
             const trainingurl = '/api/classes/' + classid +
                                 '/students/' + userid +
                                 '/projects/' + projectid +
                                 '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .post(trainingurl)
@@ -467,13 +539,16 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', [], false);
             const projectid = project.id;
 
             const trainingurl = '/api/classes/' + classid +
                                 '/students/' + userid +
                                 '/projects/' + projectid +
                                 '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .post(trainingurl)
@@ -506,13 +581,16 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
             const projectid = project.id;
 
             const trainingurl = '/api/classes/' + classid +
                                 '/students/' + userid +
                                 '/projects/' + projectid +
                                 '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .post(trainingurl)
@@ -545,7 +623,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
             const projectid = project.id;
 
             await store.storeTextTraining(projectid, uuid(), 'label');
@@ -561,6 +639,9 @@ describe('REST API - training', () => {
                                 '/students/' + userid +
                                 '/projects/' + projectid +
                                 '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .post(trainingurl)
@@ -594,12 +675,15 @@ describe('REST API - training', () => {
 
             const project = await store.storeProject(userid, classid, 'numbers', 'demo', 'en', [
                 { name : 'one', type : 'number' }, { name : 'two', type : 'number' },
-            ]);
+            ], false);
             const projectid = project.id;
 
             const projecturl = '/api/classes/' + classid +
                                '/students/' + userid +
                                '/projects/' + projectid;
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .post(projecturl + '/training')
@@ -644,12 +728,15 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
             const projectid = project.id;
 
             const projecturl = '/api/classes/' + classid +
                                '/students/' + userid +
                                '/projects/' + projectid;
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .post(projecturl + '/training')
@@ -696,6 +783,10 @@ describe('REST API - training', () => {
             const classid = uuid();
             const studentid = uuid();
             const projectid = uuid();
+
+            nextAuth0UserId = studentid;
+            nextAuth0UserTenant = classid;
+
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + studentid + '/projects/' + projectid + '/training')
                 .expect('Content-Type', /json/)
@@ -711,8 +802,11 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', [], false);
             const projectid = project.id;
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/training')
@@ -731,8 +825,11 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
             const projectid = project.id;
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/DIFFERENTUSER/projects/' + projectid + '/training')
@@ -748,7 +845,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
             const projectid = project.id;
 
             const data = [];
@@ -764,6 +861,9 @@ describe('REST API - training', () => {
             }
 
             await store.bulkStoreTextTraining(projectid, data);
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/training')
@@ -788,7 +888,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
             const projectid = project.id;
 
             const data = [];
@@ -804,6 +904,9 @@ describe('REST API - training', () => {
             }
 
             await store.bulkStoreTextTraining(projectid, data);
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/training')
@@ -837,7 +940,7 @@ describe('REST API - training', () => {
                     { name : 'one', type : 'number' }, { name : 'two', type : 'number' },
                     { name : 'three', type : 'number' }, { name : 'four', type : 'number' },
                     { name : 'five', type : 'number' },
-                ]);
+                ], false);
             const projectid = project.id;
 
             const data = [];
@@ -853,6 +956,9 @@ describe('REST API - training', () => {
             }
 
             await store.bulkStoreNumberTraining(projectid, data);
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/training')
@@ -887,7 +993,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
             const projectid = project.id;
 
             const apple = await store.storeTextTraining(projectid, 'apple', 'fruit');
@@ -897,6 +1003,9 @@ describe('REST API - training', () => {
                                 '/students/' + userid +
                                 '/projects/' + projectid +
                                 '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .get(trainingurl)
@@ -964,7 +1073,7 @@ describe('REST API - training', () => {
 
             await store.deleteAllPendingJobs();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
             const projectid = project.id;
 
             await store.storeTextTraining(projectid, 'apple', 'fruit');
@@ -974,6 +1083,9 @@ describe('REST API - training', () => {
                                 '/students/' + userid +
                                 '/projects/' + projectid +
                                 '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .get(trainingurl)
@@ -1014,7 +1126,7 @@ describe('REST API - training', () => {
 
             await store.deleteAllPendingJobs();
 
-            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', [], false);
             const projectid = project.id;
 
             const trainingOne = await store.storeImageTraining(projectid, 'someurl', 'label', true);
@@ -1024,6 +1136,9 @@ describe('REST API - training', () => {
                                 '/students/' + userid +
                                 '/projects/' + projectid +
                                 '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .get(trainingurl)
@@ -1082,7 +1197,7 @@ describe('REST API - training', () => {
 
             const project = await store.storeProject(userid, classid, 'numbers', 'demo', 'en', [
                 { name : 'field', type : 'number' },
-            ]);
+            ], false);
             const projectid = project.id;
 
             await store.storeNumberTraining(projectid, [100], 'fruit');
@@ -1092,6 +1207,9 @@ describe('REST API - training', () => {
                                 '/students/' + userid +
                                 '/projects/' + projectid +
                                 '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .get(trainingurl)
@@ -1134,7 +1252,7 @@ describe('REST API - training', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
             const projectid = project.id;
 
             await store.addLabelToProject(userid, classid, projectid, 'animal');
@@ -1148,6 +1266,9 @@ describe('REST API - training', () => {
             const projecturl = '/api/classes/' + classid +
                                '/students/' + userid +
                                '/projects/' + projectid;
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             return request(testServer)
                 .delete(projecturl)

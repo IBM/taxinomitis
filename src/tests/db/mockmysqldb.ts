@@ -53,8 +53,8 @@ function mockExecute(query: string, params: any[]): Promise<any[]> {
             // if (params[0] === 'projectid' && params[1] === 'userid' && params[2] === 'classid') {
             return resolve([[{ id : params[0], labels : 'one,two,three' }]]);
 
-        case 'SELECT COUNT(*) AS count FROM `projects` WHERE `classid` = ? AND `userid` = ?':
-            if (params[1] === 'UNCOUNTABLE') {
+        case 'SELECT COUNT(*) AS count FROM `projects` WHERE `userid` = ? AND `classid` = ?':
+            if (params[0] === 'UNCOUNTABLE') {
                 ERROR = new Error('The MySQL server is running with the --read-only option so it cannot execute this statement');
                 ERROR.code = 'ER_OPTION_PREVENTS_STATEMENT';
                 ERROR.errno = 1290;
@@ -71,7 +71,7 @@ function mockExecute(query: string, params: any[]): Promise<any[]> {
         case 'SELECT `id`, `projecttypes`, `maxusers`, `maxprojectsperuser`, `textclassifiersexpiry`, `imageclassifiersexpiry`, `ismanaged` FROM `tenants` WHERE `id` = ?':
             return resolve([[]]);
 
-        case 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `language`, `labels`, `numfields` FROM `projects` WHERE `id` = ?':
+        case 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `language`, `labels`, `numfields`, `iscrowdsourced` FROM `projects` WHERE `id` = ?':
             return resolve([[ {
                 id : 'PROJECTID',
                 userid : 'EXCEPTION',
@@ -81,9 +81,10 @@ function mockExecute(query: string, params: any[]): Promise<any[]> {
                 language : 'en',
                 labels : '',
                 numfields : 0,
+                iscrowdsourced : 0,
             } ]]);
 
-        case 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `language`, `labels` FROM `projects` WHERE `classid` = ? AND `userid` = ?':
+        case 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `language`, `labels`, `iscrowdsourced` FROM `projects` WHERE `classid` = ? AND (`userid` = ? OR `iscrowdsourced` = True)':
             ERROR = new Error('Some technical sounding SQL error from selecting projects');
             ERROR.code = 'ER_NO_SUCH_SELECT_ERROR';
             ERROR.errno = 6677;
@@ -138,7 +139,7 @@ function mockExecute(query: string, params: any[]): Promise<any[]> {
         case 'DELETE FROM `scratchkeys` WHERE `projectid` = ?':
             return resolve();
 
-        case 'INSERT INTO `projects` (`id`, `userid`, `classid`, `typeid`, `name`, `language`, `labels`, `numfields`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)':
+        case 'INSERT INTO `projects` (`id`, `userid`, `classid`, `typeid`, `name`, `language`, `labels`, `numfields`, `iscrowdsourced`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)':
             if (params[1] === 'EXCEPTION') {
                 ERROR = new Error('We could not write the project to the DB');
                 ERROR.code = 'ER_SOME_INSERT_ERROR';

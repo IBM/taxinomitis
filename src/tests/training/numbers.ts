@@ -52,17 +52,17 @@ describe('Training - numbers service', () => {
                 { name : 'fraction', type : 'number' },
             ];
 
-            const project = await store.storeProject(USERID, CLASSID, 'numbers', 'good project', 'en', fields);
-            await store.addLabelToProject(USERID, CLASSID, project.id, 'likes-animals');
-            await store.addLabelToProject(USERID, CLASSID, project.id, 'hates-animals');
+            const project = await store.storeProject(USERID, CLASSID, 'numbers', 'good project', 'en', fields, false);
+            await store.addLabelToProject(USERID, CLASSID, project.id, 'likes_animals');
+            await store.addLabelToProject(USERID, CLASSID, project.id, 'hates_animals');
 
             await store.bulkStoreNumberTraining(project.id, [
-                { label : 'likes-animals', numberdata : [3, 0, 0] },
-                { label : 'likes-animals', numberdata : [1, 1, 0] },
-                { label : 'likes-animals', numberdata : [0, 1, 2] },
-                { label : 'hates-animals', numberdata : [0, 1, 0.1] },
-                { label : 'hates-animals', numberdata : [0, 0, 0] },
-                { label : 'hates-animals', numberdata : [0, 0, 0] },
+                { label : 'likes_animals', numberdata : [3, 0, 0] },
+                { label : 'likes_animals', numberdata : [1, 1, 0] },
+                { label : 'likes_animals', numberdata : [0, 1, 2] },
+                { label : 'hates_animals', numberdata : [0, 1, 0.1] },
+                { label : 'hates_animals', numberdata : [0, 0, 0] },
+                { label : 'hates_animals', numberdata : [0, 0, 0] },
             ]);
 
             const classifier = await numbers.trainClassifier(project);
@@ -100,14 +100,14 @@ describe('Training - numbers service', () => {
                 { name : 'fraction', type : 'number' },
             ];
 
-            const project = await store.storeProject(USERID, CLASSID, 'numbers', 'good project', 'en', fields);
+            const project = await store.storeProject(USERID, CLASSID, 'numbers', 'good project', 'en', fields, false);
             goodProject = project.id;
-            await store.addLabelToProject(USERID, CLASSID, project.id, 'likes-animals');
-            await store.addLabelToProject(USERID, CLASSID, project.id, 'hates-animals');
+            await store.addLabelToProject(USERID, CLASSID, project.id, 'likes_animals');
+            await store.addLabelToProject(USERID, CLASSID, project.id, 'hates_animals');
 
             await store.bulkStoreNumberTraining(project.id, [
-                { label : 'likes-animals', numberdata : [3, 0, 0] },
-                { label : 'hates-animals', numberdata : [0, 1, 0.1] },
+                { label : 'likes_animals', numberdata : [3, 0, 0] },
+                { label : 'hates_animals', numberdata : [0, 1, 0.1] },
             ]);
 
             const classifier = await numbers.trainClassifier(project);
@@ -127,35 +127,39 @@ describe('Training - numbers service', () => {
             await store.deleteEntireProject(USERID, CLASSID, project);
         });
 
-
-
         it('should manage number classifiers', async () => {
             const fields: dbtypes.NumbersProjectFieldSummary[] = [
                 { name : 'cats', type : 'number' }, { name : 'dogs', type : 'number' },
                 { name : 'fraction', type : 'number' },
             ];
 
-            const project = await store.storeProject(USERID, CLASSID, 'numbers', 'good project', 'en', fields);
+            const project = await store.storeProject(USERID, CLASSID, 'numbers', 'good project', 'en', fields, false);
             goodProject = project.id;
-            await store.addLabelToProject(USERID, CLASSID, project.id, 'likes-animals');
-            await store.addLabelToProject(USERID, CLASSID, project.id, 'hates-animals');
+            await store.addLabelToProject(USERID, CLASSID, project.id, 'likes_animals');
+            await store.addLabelToProject(USERID, CLASSID, project.id, 'hates_animals');
 
             await store.bulkStoreNumberTraining(project.id, [
-                { label : 'likes-animals', numberdata : [3, 0, 0] },
-                { label : 'likes-animals', numberdata : [1, 1, 0] },
-                { label : 'likes-animals', numberdata : [0, 1, 2] },
-                { label : 'likes-animals', numberdata : [1, 2, 0] },
-                { label : 'likes-animals', numberdata : [0, 0, 1.5] },
-                { label : 'likes-animals', numberdata : [0, 0, 0] },
-                { label : 'hates-animals', numberdata : [0, 0, 0.25] },
-                { label : 'hates-animals', numberdata : [0, 0, 0] },
-                { label : 'hates-animals', numberdata : [0, 0, 0] },
-                { label : 'hates-animals', numberdata : [0, 1, 0.1] },
-                { label : 'hates-animals', numberdata : [0, 0, 0] },
-                { label : 'hates-animals', numberdata : [0, 0, 0] },
+                { label : 'likes_animals', numberdata : [3, 0, 0] },
+                { label : 'likes_animals', numberdata : [1, 1, 0] },
+                { label : 'likes_animals', numberdata : [0, 1, 2] },
+                { label : 'likes_animals', numberdata : [1, 2, 0] },
+                { label : 'likes_animals', numberdata : [0, 0, 1.5] },
+                { label : 'likes_animals', numberdata : [0, 0, 0] },
+                { label : 'hates_animals', numberdata : [0, 0, 0.25] },
+                { label : 'hates_animals', numberdata : [0, 0, 0] },
+                { label : 'hates_animals', numberdata : [0, 0, 0] },
+                { label : 'hates_animals', numberdata : [0, 1, 0.1] },
+                { label : 'hates_animals', numberdata : [0, 0, 0] },
+                { label : 'hates_animals', numberdata : [0, 0, 0] },
+                { label : 'ignored', numberdata : [1, 2, 3] },
             ]);
 
-            const classifier = await numbers.trainClassifier(project);
+            const fetched = await store.getProject(goodProject);
+            if (!fetched) {
+                return assert.fail('');
+            }
+
+            const classifier = await numbers.trainClassifier(fetched);
             assert.equal(classifier.classifierid, project.id);
             assert(classifier.created instanceof Date);
             assert.equal(classifier.status, 'Available');
@@ -170,18 +174,18 @@ describe('Training - numbers service', () => {
                     studentid : USERID,
                     projectid : project.id,
                     data : [
-                        [ { cats : 0, dogs : 0, fraction : 0.25 },  'hates-animals' ],
-                        [ { cats : 0, dogs : 0, fraction : 0 },  'hates-animals' ],
-                        [ { cats : 0, dogs : 0, fraction : 0 },  'hates-animals' ],
-                        [ { cats : 0, dogs : 1, fraction : 0.1 },  'hates-animals' ],
-                        [ { cats : 0, dogs : 0, fraction : 0 },  'hates-animals' ],
-                        [ { cats : 0, dogs : 0, fraction : 0 },  'hates-animals' ],
-                        [ { cats : 3, dogs : 0, fraction : 0 },  'likes-animals' ],
-                        [ { cats : 1, dogs : 1, fraction : 0 },  'likes-animals' ],
-                        [ { cats : 0, dogs : 1, fraction : 2 },  'likes-animals' ],
-                        [ { cats : 1, dogs : 2, fraction : 0 },  'likes-animals' ],
-                        [ { cats : 0, dogs : 0, fraction : 1.5 },  'likes-animals' ],
-                        [ { cats : 0, dogs : 0, fraction : 0 }, 'likes-animals' ],
+                        [ { cats : 0, dogs : 0, fraction : 0.25 },  'hates_animals' ],
+                        [ { cats : 0, dogs : 0, fraction : 0 },  'hates_animals' ],
+                        [ { cats : 0, dogs : 0, fraction : 0 },  'hates_animals' ],
+                        [ { cats : 0, dogs : 1, fraction : 0.1 },  'hates_animals' ],
+                        [ { cats : 0, dogs : 0, fraction : 0 },  'hates_animals' ],
+                        [ { cats : 0, dogs : 0, fraction : 0 },  'hates_animals' ],
+                        [ { cats : 3, dogs : 0, fraction : 0 },  'likes_animals' ],
+                        [ { cats : 1, dogs : 1, fraction : 0 },  'likes_animals' ],
+                        [ { cats : 0, dogs : 1, fraction : 2 },  'likes_animals' ],
+                        [ { cats : 1, dogs : 2, fraction : 0 },  'likes_animals' ],
+                        [ { cats : 0, dogs : 0, fraction : 1.5 },  'likes_animals' ],
+                        [ { cats : 0, dogs : 0, fraction : 0 }, 'likes_animals' ],
                     ],
                 },
                 json : true,

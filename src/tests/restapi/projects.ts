@@ -25,10 +25,21 @@ describe('REST API - projects', () => {
     let checkUserStub: sinon.SinonStub;
     let requireSupervisorStub: sinon.SinonStub;
 
+    let nextAuth0UserId = 'userid';
+    let nextAuth0UserTenant = 'tenant';
+    let nextAuth0UserRole = 'student';
+
     function authNoOp(
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
     {
+        req.user = {
+            sub : nextAuth0UserId,
+            app_metadata : {
+                tenant : nextAuth0UserTenant,
+                role : nextAuth0UserRole,
+            },
+        };
         next();
     }
 
@@ -43,6 +54,12 @@ describe('REST API - projects', () => {
         testServer = testapiserver();
 
         return store.deleteProjectsByClassId(TESTCLASS);
+    });
+
+    beforeEach(() => {
+        nextAuth0UserId = 'userid';
+        nextAuth0UserTenant = 'classid';
+        nextAuth0UserRole = 'student';
     });
 
     after(async () => {
@@ -62,6 +79,7 @@ describe('REST API - projects', () => {
             const classid = uuid();
             const studentid = uuid();
             const projectid = uuid();
+            nextAuth0UserId = studentid;
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + studentid + '/projects/' + projectid)
                 .expect('Content-Type', /json/)
@@ -77,6 +95,7 @@ describe('REST API - projects', () => {
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
             const INCORRECT_CLASS = uuid();
 
+            nextAuth0UserId = studentId;
             return request(testServer)
                 .post(url)
                 .send({ name : uuid(), type : 'text', language : 'en' })
@@ -98,6 +117,110 @@ describe('REST API - projects', () => {
                 });
         });
 
+        it('should fetch crowd-sourced projects', () => {
+            const studentId = uuid();
+            const teacherId = uuid();
+
+            nextAuth0UserTenant = TESTCLASS;
+
+            nextAuth0UserId = teacherId;
+            nextAuth0UserRole = 'supervisor';
+
+            let projectInfo: any;
+
+            return request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/' + teacherId + '/projects')
+                .send({ name : uuid(), type : 'text', language : 'en', isCrowdSourced : true })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED)
+                .then((res) => {
+                    const body = res.body;
+                    assert(body.id);
+                    const projectId = body.id;
+                    projectInfo = body;
+
+                    nextAuth0UserId = studentId;
+                    nextAuth0UserRole = 'student';
+
+                    return request(testServer)
+                        .get('/api/classes/' + TESTCLASS + '/students/' + teacherId + '/projects/' + projectId)
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.OK);
+                })
+                .then((res) => {
+                    const body = res.body;
+                    assert.deepStrictEqual(body, projectInfo);
+                });
+        });
+
+        it('should fetch own crowd-sourced projects', () => {
+            const teacherId = uuid();
+
+            nextAuth0UserTenant = TESTCLASS;
+
+            nextAuth0UserId = teacherId;
+            nextAuth0UserRole = 'supervisor';
+
+            let projectInfo: any;
+
+            return request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/' + teacherId + '/projects')
+                .send({ name : uuid(), type : 'text', language : 'en', isCrowdSourced : true })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED)
+                .then((res) => {
+                    const body = res.body;
+                    assert(body.id);
+                    const projectId = body.id;
+                    projectInfo = body;
+
+                    return request(testServer)
+                        .get('/api/classes/' + TESTCLASS + '/students/' + teacherId + '/projects/' + projectId)
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.OK);
+                })
+                .then((res) => {
+                    const body = res.body;
+                    assert.deepStrictEqual(body, projectInfo);
+                });
+        });
+
+
+        it('should verify fetching crowd-sourced projects', () => {
+            const studentId = uuid();
+            const teacherId = uuid();
+
+            nextAuth0UserTenant = TESTCLASS;
+
+            nextAuth0UserId = teacherId;
+            nextAuth0UserRole = 'supervisor';
+
+            return request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/' + teacherId + '/projects')
+                .send({ name : uuid(), type : 'text', language : 'en', isCrowdSourced : false })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED)
+                .then((res) => {
+                    const body = res.body;
+                    assert(body.id);
+                    const projectId = body.id;
+
+                    nextAuth0UserId = studentId;
+                    nextAuth0UserRole = 'student';
+
+                    return request(testServer)
+                        .get('/api/classes/' + TESTCLASS + '/students/' + teacherId + '/projects/' + projectId)
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.FORBIDDEN);
+                })
+                .then((res) => {
+                    const body = res.body;
+                    assert.deepStrictEqual(body, {
+                        error : 'Invalid access',
+                    });
+                });
+        });
+
     });
 
 
@@ -107,6 +230,7 @@ describe('REST API - projects', () => {
             const classid = uuid();
             const studentid = uuid();
             const projectid = uuid();
+            nextAuth0UserId = studentid;
             return request(testServer)
                 .del('/api/classes/' + classid + '/students/' + studentid + '/projects/' + projectid)
                 .expect('Content-Type', /json/)
@@ -123,6 +247,7 @@ describe('REST API - projects', () => {
             const studentId = uuid();
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
+            nextAuth0UserId = studentId;
             return request(testServer)
                 .post(url)
                 .send({ name : uuid(), type : 'text', language : 'en' })
@@ -168,6 +293,8 @@ describe('REST API - projects', () => {
             const jobBefore = await store.getNextPendingJob();
             assert(!jobBefore);
 
+            nextAuth0UserId = userid;
+
             await request(testServer)
                 .post(url)
                 .send({ name : uuid(), type : 'images', language : 'en' })
@@ -205,6 +332,7 @@ describe('REST API - projects', () => {
             const studentId = uuid();
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
             const INCORRECT_CLASS = uuid();
+            nextAuth0UserId = studentId;
 
             return request(testServer)
                 .post(url)
@@ -237,6 +365,7 @@ describe('REST API - projects', () => {
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
+            nextAuth0UserId = studentId;
             return request(testServer)
                 .post(url)
                 .send({ name : uuid(), type : 'images' })
@@ -254,6 +383,7 @@ describe('REST API - projects', () => {
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
+            nextAuth0UserId = studentId;
             return request(testServer)
                 .post(url)
                 .send({ name : uuid(), type : 'text', language : 'en' })
@@ -292,6 +422,7 @@ describe('REST API - projects', () => {
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
+            nextAuth0UserId = studentId;
             return request(testServer)
                 .post(url)
                 .send(projectDetails)
@@ -313,6 +444,7 @@ describe('REST API - projects', () => {
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
+            nextAuth0UserId = studentId;
             return request(testServer)
                 .post(url)
                 .send(projectDetails)
@@ -334,6 +466,7 @@ describe('REST API - projects', () => {
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
+            nextAuth0UserId = studentId;
             return request(testServer)
                 .post(url)
                 .send(projectDetails)
@@ -355,6 +488,7 @@ describe('REST API - projects', () => {
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
+            nextAuth0UserId = studentId;
             return request(testServer)
                 .post(url)
                 .send(projectDetails)
@@ -376,6 +510,7 @@ describe('REST API - projects', () => {
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
+            nextAuth0UserId = studentId;
             return request(testServer)
                 .post(url)
                 .send(projectDetails)
@@ -397,6 +532,7 @@ describe('REST API - projects', () => {
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
+            nextAuth0UserId = studentId;
             return request(testServer)
                 .post(url)
                 .send(projectDetails)
@@ -418,6 +554,7 @@ describe('REST API - projects', () => {
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
+            nextAuth0UserId = studentId;
             return request(testServer)
                 .post(url)
                 .send(projectDetails)
@@ -425,11 +562,12 @@ describe('REST API - projects', () => {
                 .expect(httpstatus.CREATED)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.userid, studentId);
-                    assert.equal(body.classid, TESTCLASS);
-                    assert.equal(body.type, projectDetails.type);
-                    assert.equal(body.name, projectDetails.name);
-                    assert.equal(body.language, projectDetails.language);
+                    assert.strictEqual(body.userid, studentId);
+                    assert.strictEqual(body.classid, TESTCLASS);
+                    assert.strictEqual(body.type, projectDetails.type);
+                    assert.strictEqual(body.name, projectDetails.name);
+                    assert.strictEqual(body.language, projectDetails.language);
+                    assert.strictEqual(body.isCrowdSourced, false);
                     assert(body.id);
 
                     return request(testServer)
@@ -439,11 +577,82 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.userid, studentId);
-                    assert.equal(body.classid, TESTCLASS);
-                    assert.equal(body.type, projectDetails.type);
-                    assert.equal(body.name, projectDetails.name);
-                    assert.equal(body.language, projectDetails.language);
+                    assert.strictEqual(body.userid, studentId);
+                    assert.strictEqual(body.classid, TESTCLASS);
+                    assert.strictEqual(body.type, projectDetails.type);
+                    assert.strictEqual(body.name, projectDetails.name);
+                    assert.strictEqual(body.language, projectDetails.language);
+                    assert.strictEqual(body.isCrowdSourced, false);
+                });
+        });
+
+        it('should only allow teachers to create crowd-sourced projects', () => {
+            const projectDetails = {
+                name : uuid(),
+                type : 'text',
+                language : 'it',
+                isCrowdSourced : true,
+            };
+            const studentId = uuid();
+
+            const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
+
+            nextAuth0UserId = studentId;
+
+            return request(testServer)
+                .post(url)
+                .send(projectDetails)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.FORBIDDEN)
+                .then((res) => {
+                    const body = res.body;
+                    assert.deepStrictEqual(body, {
+                        error : 'Only teachers or group leaders can create crowd-sourced projects',
+                    });
+                });
+        });
+
+        it('should store crowd-sourced projects', () => {
+            const projectDetails = {
+                name : uuid(),
+                type : 'text',
+                language : 'it',
+                isCrowdSourced : true,
+            };
+            const studentId = uuid();
+
+            const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
+
+            nextAuth0UserId = studentId;
+            nextAuth0UserRole = 'supervisor';
+            return request(testServer)
+                .post(url)
+                .send(projectDetails)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED)
+                .then((res) => {
+                    const body = res.body;
+                    assert.strictEqual(body.userid, studentId);
+                    assert.strictEqual(body.classid, TESTCLASS);
+                    assert.strictEqual(body.type, projectDetails.type);
+                    assert.strictEqual(body.name, projectDetails.name);
+                    assert.strictEqual(body.language, projectDetails.language);
+                    assert.strictEqual(body.isCrowdSourced, true);
+                    assert(body.id);
+
+                    return request(testServer)
+                        .get(url + '/' + body.id)
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.OK);
+                })
+                .then((res) => {
+                    const body = res.body;
+                    assert.strictEqual(body.userid, studentId);
+                    assert.strictEqual(body.classid, TESTCLASS);
+                    assert.strictEqual(body.type, projectDetails.type);
+                    assert.strictEqual(body.name, projectDetails.name);
+                    assert.strictEqual(body.language, projectDetails.language);
+                    assert.strictEqual(body.isCrowdSourced, true);
                 });
         });
 
@@ -455,6 +664,7 @@ describe('REST API - projects', () => {
         it('should cope with an empty list', () => {
             const classid = uuid();
             const studentid = uuid();
+            nextAuth0UserId = studentid;
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + studentid + '/projects')
                 .expect('Content-Type', /json/)
@@ -470,8 +680,11 @@ describe('REST API - projects', () => {
         it('should return projects for a user', () => {
             const studentId = uuid();
 
+            let count = 0;
+
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
+            nextAuth0UserId = studentId;
             return request(testServer)
                 .post(url)
                 .send({ name : uuid(), type : 'text', language : 'en' })
@@ -486,7 +699,8 @@ describe('REST API - projects', () => {
                 .then((res) => {
                     const body = res.body;
                     assert(Array.isArray(body));
-                    assert.equal(body.length, 1);
+                    assert(body.length > 0);
+                    count = body.length;
 
                     return request(testServer)
                         .post(url)
@@ -503,7 +717,132 @@ describe('REST API - projects', () => {
                 .then((res) => {
                     const body = res.body;
                     assert(Array.isArray(body));
-                    assert.equal(body.length, 2);
+                    assert.equal(body.length, count + 1);
+                });
+        });
+
+
+        function testCreateProject(classid: string, user: string, crowd: boolean): Promise<any> {
+            return request(testServer)
+                    .post('/api/classes/' + classid + '/students/' + user + '/projects')
+                    .send({ name : uuid(), type : 'text', language : 'en', isCrowdSourced : crowd })
+                    .expect('Content-Type', /json/)
+                    .expect(httpstatus.CREATED)
+                    .then((res) => {
+                        return res.body;
+                    });
+        }
+        function testGetProjects(classid: string, user: string): Promise<any> {
+            return request(testServer)
+                    .get('/api/classes/' + classid + '/students/' + user + '/projects')
+                    .expect('Content-Type', /json/)
+                    .expect(httpstatus.OK)
+                    .then((res) => {
+                        return res.body;
+                    });
+        }
+        function testSetUser(classid: string, user: string) {
+            nextAuth0UserTenant = classid;
+            nextAuth0UserId = user;
+            nextAuth0UserRole = 'student';
+        }
+        function testSetTeacher(classid: string, user: string) {
+            testSetUser(classid, user);
+            nextAuth0UserRole = 'supervisor';
+        }
+
+        function compareProjects(objA: any, objB: any) {
+            if (objA.id > objB.id) {
+                return 1;
+            }
+            if (objA.id < objB.id) {
+                return -1;
+            }
+            return 0;
+        }
+
+        async function testVerifyAll(
+            classid: string,
+            studentA: string, studentB: string, teacherId: string,
+            expected: any)
+        {
+            expected.studentA.sort(compareProjects);
+            expected.studentB.sort(compareProjects);
+            expected.teacher.sort(compareProjects);
+
+            testSetUser(classid, studentA);
+            let projects = await testGetProjects(classid, studentA);
+            projects.sort(compareProjects);
+            assert.deepStrictEqual(projects, expected.studentA);
+
+            testSetUser(classid, studentB);
+            projects = await testGetProjects(classid, studentB);
+            projects.sort(compareProjects);
+            assert.deepStrictEqual(projects, expected.studentB);
+
+            testSetTeacher(classid, teacherId);
+            projects = await testGetProjects(classid, teacherId);
+            projects.sort(compareProjects);
+            assert.deepStrictEqual(projects, expected.teacher);
+        }
+
+        it('should return crowd-sourced projects', () => {
+            const classId = uuid();
+
+            const studentA = uuid();
+            const studentB = uuid();
+            const teacherId = uuid();
+
+            const expectedStudentA: any[] = [];
+            const expectedStudentB: any[] = [];
+            const expectedTeacher: any[] = [];
+
+            const expected = {
+                studentA : expectedStudentA,
+                studentB : expectedStudentB,
+                teacher : expectedTeacher,
+            };
+
+            return testVerifyAll(classId, studentA, studentB, teacherId, expected)
+                .then(() => {
+                    return testCreateProject(classId, studentA, false);
+                })
+                .then((newproj) => {
+                    expected.studentA.push(newproj);
+                    return testVerifyAll(classId, studentA, studentB, teacherId, expected);
+                })
+                .then(() => {
+                    return testCreateProject(classId, studentA, false);
+                })
+                .then((newproj) => {
+                    expected.studentA.push(newproj);
+                    return testVerifyAll(classId, studentA, studentB, teacherId, expected);
+                })
+                .then(() => {
+                    return testCreateProject(classId, teacherId, true);
+                })
+                .then((newproj) => {
+                    expected.studentA.push(newproj);
+                    expected.studentB.push(newproj);
+                    expected.teacher.push(newproj);
+                    return testVerifyAll(classId, studentA, studentB, teacherId, expected);
+                })
+                .then(() => {
+                    return testCreateProject(classId, studentB, false);
+                })
+                .then((newproj) => {
+                    expected.studentB.push(newproj);
+                    return testVerifyAll(classId, studentA, studentB, teacherId, expected);
+                })
+                .then(() => {
+                    return testCreateProject(classId, teacherId, false);
+                })
+                .then((newproj) => {
+                    expected.teacher.push(newproj);
+                    return testVerifyAll(classId, studentA, studentB, teacherId, expected);
+                })
+                .then(() => {
+                    return store.deleteProjectsByClassId(classId);
                 });
         });
 
@@ -532,6 +871,7 @@ describe('REST API - projects', () => {
 
             let count: number;
 
+            nextAuth0UserId = 'teacher';
             return request(testServer)
                 .get('/api/classes/' + TESTCLASS + '/projects')
                 .expect('Content-Type', /json/)
@@ -592,6 +932,7 @@ describe('REST API - projects', () => {
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
+            nextAuth0UserId = studentId;
             return request(testServer)
                 .post(url)
                 .send(projectDetails)
@@ -677,6 +1018,7 @@ describe('REST API - projects', () => {
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
+            nextAuth0UserId = studentId;
             return request(testServer)
                 .post(url)
                 .send(projectDetails)
@@ -746,9 +1088,10 @@ describe('REST API - projects', () => {
 
             await store.deleteAllPendingJobs();
 
-            const project = await store.storeProject(studentId, TESTCLASS, 'images', uuid(), 'en', []);
+            const project = await store.storeProject(studentId, TESTCLASS, 'images', uuid(), 'en', [], false);
             projectId = project.id;
 
+            nextAuth0UserId = studentId;
             await request(testServer)
                 .patch(url + '/' + projectId)
                 .send([{
@@ -832,6 +1175,7 @@ describe('REST API - projects', () => {
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
+            nextAuth0UserId = studentId;
             return request(testServer)
                 .post(url)
                 .send(projectDetails)
@@ -898,6 +1242,10 @@ describe('REST API - projects', () => {
             let projectId: string;
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
+
+            nextAuth0UserId = studentId;
+            nextAuth0UserRole = 'student';
+            nextAuth0UserTenant = TESTCLASS;
 
             return request(testServer)
                 .post(url)
@@ -1067,7 +1415,7 @@ describe('REST API - projects', () => {
                             value : 'newlabel',
                         }])
                         .expect('Content-Type', /json/)
-                        .expect(httpstatus.INTERNAL_SERVER_ERROR);
+                        .expect(httpstatus.FORBIDDEN);
                 });
         });
 

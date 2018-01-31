@@ -34,19 +34,19 @@ describe('DB store', () => {
             assert(Array.isArray(projects));
             assert.equal(projects.length, 0);
 
-            await store.storeProject(user, TESTCLASS, 'text', uuid(), 'en', []);
+            await store.storeProject(user, TESTCLASS, 'text', uuid(), 'en', [], false);
 
             projects = await store.getProjectsByUserId(user, TESTCLASS);
             assert(Array.isArray(projects));
             assert.equal(projects.length, 1);
 
-            await store.storeProject(user, TESTCLASS, 'text', uuid(), 'en', []);
+            await store.storeProject(user, TESTCLASS, 'text', uuid(), 'en', [], false);
 
             projects = await store.getProjectsByUserId(user, TESTCLASS);
             assert(Array.isArray(projects));
             assert.equal(projects.length, 2);
 
-            await store.storeProject(uuid(), TESTCLASS, 'text', uuid(), 'en', []);
+            await store.storeProject(uuid(), TESTCLASS, 'text', uuid(), 'en', [], false);
 
             projects = await store.getProjectsByUserId(user, TESTCLASS);
             assert(Array.isArray(projects));
@@ -68,22 +68,48 @@ describe('DB store', () => {
             assert(!retrieved);
         });
 
+        it('should retrieve a crowd-sourced project', async () => {
+            const userid = uuid();
+            const classid = uuid();
+            const name = uuid();
+            const typelabel = 'images';
+
+            const project = await store.storeProject(userid, classid, typelabel, name, 'en', [], true);
+
+            let retrieved = await store.getProject(project.id);
+            assert(retrieved);
+            if (retrieved) {
+                assert.strictEqual(retrieved.id, project.id);
+                assert.strictEqual(retrieved.name, name);
+                assert.strictEqual(retrieved.classid, classid);
+                assert.strictEqual(retrieved.type, typelabel);
+                assert.strictEqual(retrieved.userid, userid);
+                assert.strictEqual(retrieved.isCrowdSourced, true);
+
+                await store.deleteEntireProject(userid, classid, project);
+            }
+
+            retrieved = await store.getProject(project.id);
+            assert(!retrieved);
+        });
+
         it('should retrieve a project', async () => {
             const userid = uuid();
             const classid = uuid();
             const name = uuid();
             const typelabel = 'images';
 
-            const project = await store.storeProject(userid, classid, typelabel, name, 'en', []);
+            const project = await store.storeProject(userid, classid, typelabel, name, 'en', [], false);
 
             let retrieved = await store.getProject(project.id);
             assert(retrieved);
             if (retrieved) {
-                assert.equal(retrieved.id, project.id);
-                assert.equal(retrieved.name, name);
-                assert.equal(retrieved.classid, classid);
-                assert.equal(retrieved.type, typelabel);
-                assert.equal(retrieved.userid, userid);
+                assert.strictEqual(retrieved.id, project.id);
+                assert.strictEqual(retrieved.name, name);
+                assert.strictEqual(retrieved.classid, classid);
+                assert.strictEqual(retrieved.type, typelabel);
+                assert.strictEqual(retrieved.userid, userid);
+                assert.strictEqual(retrieved.isCrowdSourced, false);
 
                 await store.deleteEntireProject(userid, classid, project);
             }
@@ -112,7 +138,7 @@ describe('DB store', () => {
                 { name : 'ninth', type : 'number' },
             ];
 
-            const project = await store.storeProject(userid, classid, typelabel, name, 'en', numberfields);
+            const project = await store.storeProject(userid, classid, typelabel, name, 'en', numberfields, false);
 
             const fields = await store.getNumberProjectFields(userid, classid, project.id);
             assert.equal(fields.length, 9);
@@ -142,7 +168,10 @@ describe('DB store', () => {
                 name : 'myoption', type : 'multichoice', choices : [ 'male', 'female' ],
             };
 
-            const project = await store.storeProject(userid, classid, typelabel, name, 'en', [ numField, chcField ]);
+            const project = await store.storeProject(userid, classid,
+                                                     typelabel, name, 'en',
+                                                     [ numField, chcField ],
+                                                     false);
 
             let retrieved = await store.getProject(project.id);
             assert(retrieved);
@@ -220,13 +249,13 @@ describe('DB store', () => {
             assert(Array.isArray(projects));
             assert.equal(projects.length, 0);
 
-            await store.storeProject(firstUser, TESTCLASS, 'text', uuid(), 'en', []);
+            await store.storeProject(firstUser, TESTCLASS, 'text', uuid(), 'en', [], false);
 
             projects = await store.getProjectsByClassId(TESTCLASS);
             assert(Array.isArray(projects));
             assert.equal(projects.length, 1);
 
-            await store.storeProject(secondUser, TESTCLASS, 'text', uuid(), 'en', []);
+            await store.storeProject(secondUser, TESTCLASS, 'text', uuid(), 'en', [], false);
 
             projects = await store.getProjectsByClassId(TESTCLASS);
             assert(Array.isArray(projects));
@@ -242,13 +271,13 @@ describe('DB store', () => {
             assert(Array.isArray(projects));
             const numProjects = projects.length;
 
-            await store.storeProject(firstUser, TESTCLASS, 'text', uuid(), 'en', []);
+            await store.storeProject(firstUser, TESTCLASS, 'text', uuid(), 'en', [], false);
 
             projects = await store.getProjectsByClassId(TESTCLASS);
             assert(Array.isArray(projects));
             assert.equal(projects.length, numProjects + 1);
 
-            await store.storeProject(secondUser, TESTCLASS, 'text', uuid(), 'en', []);
+            await store.storeProject(secondUser, TESTCLASS, 'text', uuid(), 'en', [], false);
 
             projects = await store.getProjectsByClassId(TESTCLASS);
             assert(Array.isArray(projects));
@@ -263,11 +292,90 @@ describe('DB store', () => {
     });
 
 
+    describe('getProjectsByUserId', () => {
+
+        const CLASSID = uuid();
+
+        after(() => {
+            return store.deleteProjectsByClassId(CLASSID);
+        });
+
+        function getNumProjects(userid: string, classid: string): Promise<number> {
+            return store.getProjectsByUserId(userid, classid)
+                .then((projects) => {
+                    assert(Array.isArray(projects));
+                    return projects.length;
+                });
+        }
+
+        interface ProjsCount {
+            readonly userid: string;
+            readonly classid: string;
+            readonly expected: number;
+        }
+
+        async function verifyProjectCounts(expecteds: ProjsCount[]): Promise<void> {
+            for (const expected of expecteds) {
+                const count = await getNumProjects(expected.userid, expected.classid);
+                assert.strictEqual(count, expected.expected);
+            }
+        }
+
+        it('should return projects the user has access to', async () => {
+
+            const userA = uuid();
+            const userB = uuid();
+            const userC = uuid();
+
+            await verifyProjectCounts([
+                { userid : userA, classid : CLASSID, expected : 0 },
+                { userid : userB, classid : CLASSID, expected : 0 },
+                { userid : userC, classid : CLASSID, expected : 0 },
+            ]);
+
+            await store.storeProject(userA, CLASSID, 'text', uuid(), 'en', [], false);
+
+            await verifyProjectCounts([
+                { userid : userA, classid : CLASSID, expected : 1 },
+                { userid : userB, classid : CLASSID, expected : 0 },
+                { userid : userC, classid : CLASSID, expected : 0 },
+            ]);
+
+            await store.storeProject(userA, CLASSID, 'text', uuid(), 'en', [], false);
+            await store.storeProject(userB, CLASSID, 'text', uuid(), 'en', [], false);
+
+            await verifyProjectCounts([
+                { userid : userA, classid : CLASSID, expected : 2 },
+                { userid : userB, classid : CLASSID, expected : 1 },
+                { userid : userC, classid : CLASSID, expected : 0 },
+            ]);
+
+            await store.storeProject(uuid(), CLASSID, 'text', uuid(), 'en', [], true);
+
+            await verifyProjectCounts([
+                { userid : userA, classid : CLASSID, expected : 3 },
+                { userid : userB, classid : CLASSID, expected : 2 },
+                { userid : userC, classid : CLASSID, expected : 1 },
+            ]);
+
+            await store.storeProject(userA, TESTCLASS, 'text', uuid(), 'en', [], true);
+            await store.storeProject(userA, TESTCLASS, 'text', uuid(), 'en', [], false);
+
+            await verifyProjectCounts([
+                { userid : userA, classid : CLASSID, expected : 3 },
+                { userid : userB, classid : CLASSID, expected : 2 },
+                { userid : userC, classid : CLASSID, expected : 1 },
+            ]);
+        });
+
+    });
+
+
     describe('addLabelToProject', () => {
 
         it('should add a label to a project', async () => {
             const userid = uuid();
-            const project = await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', []);
+            const project = await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', [], false);
 
             let retrieved = await store.getProject(project.id);
             assert(retrieved);
@@ -298,7 +406,7 @@ describe('DB store', () => {
 
         it('should not store duplicate labels', async () => {
             const userid = uuid();
-            const project = await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', []);
+            const project = await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', [], false);
 
             let retrieved = await store.getProject(project.id);
             assert(retrieved);
@@ -329,7 +437,7 @@ describe('DB store', () => {
 
         it('should not store empty labels', async () => {
             const userid = uuid();
-            const project = await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', []);
+            const project = await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', [], false);
 
             let retrieved = await store.getProject(project.id);
             assert(retrieved);
@@ -354,40 +462,41 @@ describe('DB store', () => {
     describe('removeLabelFromProject', () => {
 
         async function createProjectWithLabels(userid: string, labels: string[]) {
-            const project = await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', []);
+            const project = await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', [], false);
             for (const label of labels) {
                 await store.addLabelToProject(userid, TESTCLASS, project.id, label);
             }
-            return project.id;
+            return project;
         }
 
         it('should remove a label from a text project', async () => {
             const userid = uuid();
             const labels = [ 'america', 'belgium', 'canada', 'denmark' ];
-            const projectid = await createProjectWithLabels(userid, labels);
+            let project: Objects.Project | undefined = await createProjectWithLabels(userid, labels);
 
-            await store.storeTextTraining(projectid, 'aalborg', 'denmark');
-            await store.storeTextTraining(projectid, 'kolding', 'denmark');
-            await store.storeTextTraining(projectid, 'montreal', 'canada');
-            await store.storeTextTraining(projectid, 'mons', 'belgium');
-            await store.storeTextTraining(projectid, 'ostend', 'belgium');
-            await store.storeTextTraining(projectid, 'brussels', 'belgium');
+            await store.storeTextTraining(project.id, 'aalborg', 'denmark');
+            await store.storeTextTraining(project.id, 'kolding', 'denmark');
+            await store.storeTextTraining(project.id, 'montreal', 'canada');
+            await store.storeTextTraining(project.id, 'mons', 'belgium');
+            await store.storeTextTraining(project.id, 'ostend', 'belgium');
+            await store.storeTextTraining(project.id, 'brussels', 'belgium');
 
-            const countBefore = await store.countTrainingByLabel('text', projectid);
+            const countBefore = await store.countTrainingByLabel(project);
             assert.deepEqual(countBefore, {
                 belgium : 3, canada : 1, denmark : 2,
             });
 
-            const newLabels = await store.removeLabelFromProject(userid, TESTCLASS, projectid, 'belgium');
+            const newLabels = await store.removeLabelFromProject(userid, TESTCLASS, project.id, 'belgium');
             assert.deepEqual(newLabels, [ 'america', 'canada', 'denmark' ]);
 
-            const project = await store.getProject(projectid);
+            project = await store.getProject(project.id);
             assert(project);
-            if (project) {
-                assert.deepEqual(project.labels, [ 'america', 'canada', 'denmark' ]);
+            if (!project) {
+                return assert.fail('fail');
             }
+            assert.deepEqual(project.labels, [ 'america', 'canada', 'denmark' ]);
 
-            const countAfter = await store.countTrainingByLabel('text', projectid);
+            const countAfter = await store.countTrainingByLabel(project);
             assert.deepEqual(countAfter, {
                 canada : 1, denmark : 2,
             });
@@ -397,15 +506,15 @@ describe('DB store', () => {
         it('should not remove a label not in a project', async () => {
             const userid = uuid();
             const labels = [ 'hampshire', 'berkshire', 'wiltshire', 'sussex' ];
-            const projectid = await createProjectWithLabels(userid, labels);
+            const project = await createProjectWithLabels(userid, labels);
 
-            const newLabels = await store.removeLabelFromProject(userid, TESTCLASS, projectid, 'london');
+            const newLabels = await store.removeLabelFromProject(userid, TESTCLASS, project.id, 'london');
             assert.deepEqual(newLabels, labels);
 
-            const project = await store.getProject(projectid);
-            assert(project);
-            if (project) {
-                assert.deepEqual(project.labels, labels);
+            const fetched = await store.getProject(project.id);
+            assert(fetched);
+            if (fetched) {
+                assert.deepEqual(fetched.labels, labels);
             }
         });
 
@@ -413,27 +522,27 @@ describe('DB store', () => {
         it('should not remove an empty label', async () => {
             const userid = uuid();
             const labels = [ 'hampshire', 'berkshire', 'wiltshire', 'sussex' ];
-            const projectid = await createProjectWithLabels(userid, labels);
+            const project = await createProjectWithLabels(userid, labels);
 
-            const newLabels = await store.removeLabelFromProject(userid, TESTCLASS, projectid, '');
+            const newLabels = await store.removeLabelFromProject(userid, TESTCLASS, project.id, '');
             assert.deepEqual(newLabels, labels);
 
-            const project = await store.getProject(projectid);
-            assert(project);
-            if (project) {
-                assert.deepEqual(project.labels, labels);
+            const fetched = await store.getProject(project.id);
+            assert(fetched);
+            if (fetched) {
+                assert.deepEqual(fetched.labels, labels);
             }
         });
 
         it('should remove all labels from a project', async () => {
             const userid = uuid();
             const labels = [ 'one', 'two' ];
-            const projectid = await createProjectWithLabels(userid, labels);
+            const project = await createProjectWithLabels(userid, labels);
 
-            let newLabels = await store.removeLabelFromProject(userid, TESTCLASS, projectid, 'one');
+            let newLabels = await store.removeLabelFromProject(userid, TESTCLASS, project.id, 'one');
             assert.deepEqual(newLabels, [ 'two' ]);
 
-            newLabels = await store.removeLabelFromProject(userid, TESTCLASS, projectid, 'two');
+            newLabels = await store.removeLabelFromProject(userid, TESTCLASS, project.id, 'two');
             assert.deepEqual(newLabels, [ ]);
         });
 
@@ -446,8 +555,8 @@ describe('DB store', () => {
         it('should remove user projects', async () => {
             const userid = uuid();
 
-            await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', []);
-            await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', []);
+            await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', [], false);
+            await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', [], false);
 
             const count = await store.countProjectsByUserId(userid, TESTCLASS);
             assert.equal(count, 2);

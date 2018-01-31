@@ -16,7 +16,7 @@
         <h2 class="text-center">Using machine learning in Scratch</h2>
     </div>
     <div class="backbutton">
-        <a ui-sref="mlproject({ projectId : projectId })">&lt; Back to project</a>
+        <a ui-sref="mlproject({ projectId : projectId, userId : userId  })">&lt; Back to project</a>
     </div>
 
     <div ng-repeat="error in vm.errors" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
@@ -40,7 +40,7 @@
                 (You can use <a href="/scratchx" class="btn btn-default" target="_blank">Scratch by itself</a> if you want.)
             </div>
             <div class="modelstatusdetail">
-                Or go to the <a ui-sref="mlproject_models({ projectId : projectId })">Learn &amp; Test</a>
+                Or go to the <a ui-sref="mlproject_models({ projectId : projectId, userId : userId })">Learn &amp; Test</a>
                 page for some tips on what to do next.
             </div>
         </div>
@@ -54,7 +54,7 @@
                     You haven't trained a machine learning model yet.
                 </div>
                 <div>
-                    You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId })">train one now</a></strong> and then come back to open Scratch.
+                    You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId, userId : userId })">train one now</a></strong> and then come back to open Scratch.
                 </div>
                 <div>
                     Or you can go <a class="btn btn-default" target="_blank" href="{{ scratchkey.url }}">straight into Scratch</a> now.
@@ -128,7 +128,7 @@
                 <ul>
                     <li><div class="statusicon ok"> </div> means your model is trained and ready to go
                     <li><div class="statusicon notready"> </div>  means your model hasn't finished training yet
-                    <li><div class="statusicon error"> </div>  means something went wrong. Go back to the <a ui-sref="mlproject_models({ projectId : projectId })">Learn &amp; Test</a> page to see what went wrong with training.
+                    <li><div class="statusicon error"> </div>  means something went wrong. Go back to the <a ui-sref="mlproject_models({ projectId : projectId, userId : userId })">Learn &amp; Test</a> page to see what went wrong with training.
                 </ul>
             </div>
         </div>

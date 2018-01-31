@@ -37,6 +37,10 @@
         $scope.loading = true;
         $scope.status = 'unknown';
         $scope.projectId = $stateParams.projectId;
+        $scope.userId = $stateParams.userId;
+
+        $scope.owner = true;
+
         $scope.minimumExamples = 'five';
         $scope.testformData = {};
 
@@ -48,13 +52,16 @@
                 vm.profile = profile;
 
                 return $q.all({
-                    project : projectsService.getProject($scope.projectId, vm.profile.user_id, vm.profile.tenant),
-                    labels : projectsService.getLabels($scope.projectId, vm.profile.user_id, vm.profile.tenant),
-                    models : trainingService.getModels($scope.projectId, vm.profile.user_id, vm.profile.tenant)
+                    project : projectsService.getProject($scope.projectId, $scope.userId, vm.profile.tenant),
+                    labels : projectsService.getLabels($scope.projectId, $scope.userId, vm.profile.tenant),
+                    models : trainingService.getModels($scope.projectId, $scope.userId, vm.profile.tenant)
                 });
             })
             .then(function (values) {
                 $scope.project = values.project;
+
+                $scope.owner = (vm.profile.user_id === $scope.project.userid);
+
                 if (values.project.type === 'images') {
                     $scope.minimumExamples = 'ten';
                 }
@@ -65,7 +72,7 @@
                 $scope.status = getStatus();
 
                 if ($scope.project.type === 'numbers') {
-                    return projectsService.getFields($scope.projectId, vm.profile.user_id, vm.profile.tenant);
+                    return projectsService.getFields($scope.projectId, $scope.userId, vm.profile.tenant);
                 }
             })
             .then(function (fields) {
@@ -176,7 +183,7 @@
 
 
         function fetchModels() {
-            return trainingService.getModels($scope.projectId, vm.profile.user_id, vm.profile.tenant)
+            return trainingService.getModels($scope.projectId, $scope.userId, vm.profile.tenant)
                 .then(function (models) {
                     $scope.models = models;
                     $scope.status = getStatus();
@@ -187,7 +194,7 @@
 
         vm.createModel = function (ev, project) {
             $scope.submittingTrainingRequest = true;
-            trainingService.newModel(project.id, vm.profile.user_id, vm.profile.tenant)
+            trainingService.newModel(project.id, $scope.userId, vm.profile.tenant)
                 .then(function (newmodel) {
                     $scope.models = [ newmodel ];
                     $scope.status = getStatus();
@@ -226,7 +233,7 @@
             $scope.testoutput_explanation = "";
 
             trainingService.testModel(project.id, project.type,
-                                      vm.profile.user_id, vm.profile.tenant,
+                                      $scope.userId, vm.profile.tenant,
                                       $scope.models[0].classifierid, $scope.models[0].credentialsid,
                                       testdata)
                 .then(function (resp) {
@@ -249,7 +256,7 @@
 
         vm.deleteModel = function (ev, project, model) {
             var classifierid = model.classifierid;
-            trainingService.deleteModel(project.id, vm.profile.user_id, vm.profile.tenant, classifierid)
+            trainingService.deleteModel(project.id, $scope.userId, vm.profile.tenant, classifierid)
                 .then(function () {
                     $scope.models = $scope.models.filter(function (md) {
                         return md.classifierid !== classifierid;
@@ -353,7 +360,7 @@
                     $scope.testoutput_explanation = "";
 
                     trainingService.testModel($scope.project.id, $scope.project.type,
-                                              vm.profile.user_id, vm.profile.tenant,
+                                              $scope.userId, vm.profile.tenant,
                                               $scope.models[0].classifierid, $scope.models[0].credentialsid,
                                               { type : $scope.project.type, data : webcamimagedata })
                         .then(function (resp) {
@@ -406,7 +413,7 @@
                     $scope.testoutput_explanation = "";
 
                     trainingService.testModel($scope.project.id, $scope.project.type,
-                                              vm.profile.user_id, vm.profile.tenant,
+                                              $scope.userId, vm.profile.tenant,
                                               $scope.models[0].classifierid, $scope.models[0].credentialsid,
                                               { type : $scope.project.type, data : canvasimagedata })
                         .then(function (resp) {

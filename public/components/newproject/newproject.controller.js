@@ -7,11 +7,11 @@
     NewProjectController.$inject = [
         'authService',
         'projectsService',
-        '$state'
+        '$state', '$rootScope'
     ];
 
 
-    function NewProjectController(authService, projectsService, $state) {
+    function NewProjectController(authService, projectsService, $state, $rootScope) {
 
         var vm = this;
         vm.authService = authService;
@@ -19,7 +19,7 @@
         vm.creating = false;
 
         vm.fields = [];
-        vm.focused = '';
+        vm.focused = $rootScope.isTeacher ? 'crowdsourced' : 'name';
 
         var alertId = 1;
         vm.errors = [];

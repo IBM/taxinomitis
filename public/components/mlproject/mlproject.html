@@ -15,21 +15,21 @@
             <div class="mlprojectmenutitle">Train</div>
             <div class="mlprojectmenudescription">Collect examples of what you want the computer to recognise.</div>
             <div class="mlprojectmenubutton">
-                <button type="button" class="btn btn-primary" ui-sref="mlproject_training({ projectId : projectId })">Train</button>
+                <button type="button" class="btn btn-primary" ui-sref="mlproject_training({ projectId : projectId, userId : userId })">Train</button>
             </div>
         </div>
         <div class="mlprojectmenu">
             <div class="mlprojectmenutitle">Learn &amp; Test</div>
             <div class="mlprojectmenudescription">Use the examples to train the computer to recognise {{ project.type }}.</div>
             <div class="mlprojectmenubutton">
-                <button type="button" class="btn btn-primary" ui-sref="mlproject_models({ projectId : projectId })">Learn &amp; Test</button>
+                <button type="button" class="btn btn-primary" ui-sref="mlproject_models({ projectId : projectId, userId : userId })">Learn &amp; Test</button>
             </div>
         </div>
         <div class="mlprojectmenuexpanded">
             <div class="mlprojectmenutitle">Scratch</div>
             <div class="mlprojectmenudescription">Use the machine learning model you've trained to make a game in Scratch.</div>
             <div class="mlprojectmenubutton">
-                <button type="button" class="btn btn-primary" ui-sref="mlproject_scratch({ projectId : projectId })">Scratch</button>
+                <button type="button" class="btn btn-primary" ui-sref="mlproject_scratch({ projectId : projectId, userId : userId })">Scratch</button>
             </div>
         </div>
     </div>

@@ -14,7 +14,7 @@
         <h2 class="text-center">Machine learning models</h2>
     </div>
     <div class="backbutton">
-        <a ui-sref="mlproject({ projectId : projectId })">&lt; Back to project</a>
+        <a ui-sref="mlproject({ projectId : projectId, userId : userId })">&lt; Back to project</a>
     </div>
 
     <div ng-repeat="error in vm.errors" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
@@ -45,7 +45,11 @@
                 <!-- TRAINING -->
                 <!-- ******** -->
                 <div ng-switch-when="training">
-                    <div class="modelstatusdetail">
+                    <div class="modelstatusdetail" ng-if="project.isCrowdSourced">
+                        Your class is training a machine learning model using the
+                        examples of {{ project.type }} that you all collected.
+                    </div>
+                    <div class="modelstatusdetail" ng-hide="project.isCrowdSourced">
                         You've started training a machine learning model using the
                         examples of {{ project.type }} that you collected.
                     </div>
@@ -66,18 +70,24 @@
                 <!-- ***** -->
                 <div ng-switch-when="ready">
                     <div class="modelstatusdetail">
-                        You've trained a machine learning model to recognise
-                        when {{ project.type }}
+                        <span ng-if="project.isCrowdSourced">Your class has </span>
+                        <span ng-hide="project.isCrowdSourced">You have </span>
+                        trained a machine learning model to recognise when
+                        {{ project.type }}
                         {{ project.type === 'text' ? 'is' : 'are' }}
                         {{ projectSummary }}.
                     </div>
                     <div class="modelstatusdetail">
-                        You created the model on
+                        <span ng-hide="owner">Your teacher </span>
+                        <span ng-if="owner">You </span>
+                        created the model on
                         {{ models[0].updated | date : 'fullDate' }}
                         {{ models[0].updated | date : 'shortTime' }}.
                     </div>
                     <div class="modelstatusdetail">
-                        You've collected:
+                        <span ng-if="project.isCrowdSourced">Your class has </span>
+                        <span ng-hide="project.isCrowdSourced">You have </span>
+                        collected:
                         <ul>
                             <li ng-repeat="training in trainingcounts">
                                 {{ training.count }}
@@ -94,8 +104,13 @@
                 <!-- ***** -->
                 <div ng-switch-when="error">
                     <div class="modelstatusdetail">
-                        You tried training a machine learning model using the
-                        examples of {{ project.type }} that you collected.
+                        <span ng-hide="owner">Your teacher </span>
+                        <span ng-if="owner">You </span>
+                        tried training a machine learning model using the
+                        examples of {{ project.type }} that
+                        <span ng-if="project.isCrowdSourced">your class </span>
+                        <span ng-hide="project.isCrowdSourced">you </span>
+                        collected.
                     </div>
                     <div class="modelstatusdetail">
                         Unfortunately, something went wrong.
@@ -108,25 +123,35 @@
                 <!-- **** -->
                 <div ng-switch-default>
                     <div ng-if="project.labels.length === 0">
-                        <div class="modelstatusdetail">
+                        <div class="modelstatusdetail" ng-if="project.isCrowdSourced">
+                            Your class said you want to collect examples of {{ project.type }}.
+                        </div>
+                        <div class="modelstatusdetail" ng-hide="project.isCrowdSourced">
                             You've said you want to collect examples of {{ project.type }}.
                         </div>
                     </div>
                     <div ng-if="project.labels.length > 0 && trainingdatastatus === 'no_data'">
                         <div class="modelstatusdetail" >
-                            You've said that you want to collect examples of {{ project.type }}
+                            <span ng-if="project.isCrowdSourced">Your class </span>
+                            <span ng-hide="project.isCrowdSourced">You </span>
+                            said that you want to collect examples of {{ project.type }}
                             for a computer to use to recognise
                             when {{ project.type }}
                             {{ project.type === 'text' ? 'is' : 'are' }}
                             {{ projectSummary }}.
                         </div>
                         <div class="modelstatusdetail" >
-                            So far, you haven't collected any examples yet.
+                            So far,
+                            <span ng-if="project.isCrowdSourced">your class </span>
+                            <span ng-hide="project.isCrowdSourced">you </span>
+                            haven't collected any examples yet.
                         </div>
                     </div>
                     <div ng-if="project.labels.length > 0 && trainingdatastatus !== 'no_data'">
                         <div class="modelstatusdetail" >
-                            You've collected examples of {{ project.type }}
+                            <span ng-if="project.isCrowdSourced">Your class has </span>
+                            <span ng-hide="project.isCrowdSourced">You have </span>
+                            collected examples of {{ project.type }}
                             for a computer to use to recognise
                             when {{ project.type }}
                             {{ project.type === 'text' ? 'is' : 'are' }}
@@ -181,15 +206,23 @@
                     </div>
                     <div class="modelstatusdetail">
                         If the computer seems to have learned to recognise things correctly, then you
-                        can go to <a ui-sref="mlproject_scratch({ projectId : projectId })">Scratch</a>
+                        can go to <a ui-sref="mlproject_scratch({ projectId : projectId, userId : userId })">Scratch</a>
                         and use what the computer has learned to make a game!
                     </div>
-                    <div class="modelstatusdetail">
-                        If the computer is getting too many things wrong, you might want to go
-                        back to the <a ui-sref="mlproject_training({ projectId : projectId })">Train</a>
-                        page and collect some more examples. Once you've done that, click on the button
-                        below to train a new machine learning model and see what different the extra examples
-                        will make!
+                    <div class="modelstatusdetail" ng-hide="project.isCrowdSourced">
+                        If the computer is getting too many things wrong,
+                        <span ng-if="project.isCrowdSourced">your class </span>
+                        <span ng-hide="project.isCrowdSourced">you </span>
+                        might want to go back to the
+                        <a ui-sref="mlproject_training({ projectId : projectId, userId : userId })">Train</a>
+                        page and collect some more examples.
+                        <span ng-if="owner">
+                        Once you've done that, click on the button below to train a new machine learning
+                        model and see what difference the extra examples will make!
+                        </span>
+                        <span ng-hide="owner">
+                        Once you've done that, your teacher will need to train a new machine learning model.
+                        </span>
                     </div>
                 </div>
 
@@ -212,7 +245,7 @@
                 <div ng-switch-default>
                     <div ng-if="project.labels.length === 0">
                         <div class="modelstatusdetail">
-                            The next step is to go to the <a ui-sref="mlproject_training({ projectId : projectId })">Train</a>
+                            The next step is to go to the <a ui-sref="mlproject_training({ projectId : projectId, userId : userId })">Train</a>
                             page. Add some labels for each of the things that you want to teach the computer to
                             be able to recognise.
                         </div>
@@ -222,14 +255,14 @@
                             You've only said one thing that you want the computer to be able to recognise:
                             {{ project.labels[0] }}.
                         </div>
-                        <div class="modelstatusdetail">
+                        <div class="modelstatusdetail" ng-if="owner">
                             <strong>Is that the only thing you want the computer to be able to recognise?</strong>
                         </div>
-                        <div class="modelstatusdetail">
+                        <div class="modelstatusdetail" ng-if="owner">
                             <ul>
                                 <li><strong>No?</strong>
                                     <br/>
-                                    Go back to the <a ui-sref="mlproject_training({ projectId : projectId })">Train</a> page.
+                                    Go back to the <a ui-sref="mlproject_training({ projectId : projectId, userId : userId })">Train</a> page.
                                     <br/>
                                     Add more labels for each of the things that you want to teach the computer to be able to recognise.
                                     <br/><br/>
@@ -240,7 +273,7 @@
                                     <br/>
                                     For the computer to be able to learn how to recognise {{ project.labels[0] }}, you need to give it some examples of things that aren't {{ project.labels[0] }}.
                                     <br/>
-                                    Go back to the <a ui-sref="mlproject_training({ projectId : projectId })">Train</a> page and create a new label for examples of things that aren't {{ project.labels[0] }}. You could call it "not-{{ project.labels[0] }}".
+                                    Go back to the <a ui-sref="mlproject_training({ projectId : projectId, userId : userId })">Train</a> page and create a new label for examples of things that aren't {{ project.labels[0] }}. You could call it "not-{{ project.labels[0] }}".
                                     </li>
                             </ul>
                         </div>
@@ -248,7 +281,7 @@
                     <div ng-if="project.labels.length > 1">
                         <div ng-if="trainingdatastatus === 'no_data'" class="modelstatusdetail">
                             The next step is to go to the
-                            <a ui-sref="mlproject_training({ projectId : projectId })">Train</a>
+                            <a ui-sref="mlproject_training({ projectId : projectId, userId : userId })">Train</a>
                             page. Add examples for each of the labels.
                         </div>
                         <div ng-if="trainingdatastatus === 'insufficient_data'">
@@ -256,23 +289,41 @@
                                 Keep going!
                             </div>
                             <div class="modelstatusdetail">
-                                Go back to the <a ui-sref="mlproject_training({ projectId : projectId })">Train</a>
+                                <span ng-hide="owner && project.isCrowdSourced">Go </span>
+                                <span ng-if="owner && project.isCrowdSourced">Ask your class to go </span>
+                                back to the <a ui-sref="mlproject_training({ projectId : projectId, userId : userId })">Train</a>
                                 page and collect more examples for each of the labels.
                             </div>
                             <div class="modelstatusdetail">
-                                The more you can get, the better
-                                it should learn, but you need at least {{ minimumExamples }} examples of each as an absolute minimum.
+                                The more you can get, the better it should learn, but you need
+                                at least {{ minimumExamples }} examples of each as an absolute
+                                minimum.
                             </div>
                         </div>
-                        <div ng-if="trainingdatastatus === 'data'">
+                        <div ng-if="trainingdatastatus === 'data' && owner">
                             <div class="modelstatusdetail">
                                 Ready to start the computer's training?
                             </div>
                             <div class="modelstatusdetail">
-                                Click the button below to start training a machine learning model using the examples you've collected so far.
+                                Click the button below to start training a machine learning model using the examples
+                                <span ng-if="project.isCrowdSourced">your class </span>
+                                <span ng-hide="project.isCrowdSourced">you </span>
+                                have collected so far.
                             </div>
+                            <div class="modelstatusdetail" ng-if="project.isCrowdSourced">
+                                (Or ask your class to go back to the
+                                <a ui-sref="mlproject_training({ projectId : projectId, userId : userId })">Train</a>
+                                page if you want them to collect more examples first.)
+                            </div>
+                            <div class="modelstatusdetail" ng-hide="project.isCrowdSourced">
+                                (Or go back to the
+                                <a ui-sref="mlproject_training({ projectId : projectId, userId : userId })">Train</a>
+                                page if you want to collect some more examples first.)
+                            </div>
+                        </div>
+                        <div ng-if="trainingdatastatus === 'data' && !owner">
                             <div class="modelstatusdetail">
-                                (Or go back to the Train page if you want to collect some more examples first.)
+                                Waiting for your teacher to start the computer's training.
                             </div>
                         </div>
                     </div>
@@ -350,7 +401,7 @@
 
 
 
-    <div ng-if="(models && models.length > 0) || trainingdatastatus === 'data'" class="trainingserversection">
+    <div ng-if="(models && models.length > 0) || trainingdatastatus === 'data'" class="trainingserversection" ng-hide="!owner">
         <div>
             <strong>Info from training computer:</strong>
         </div>
@@ -382,6 +433,7 @@
                 <tr>
                     <td colspan=2>
                         <button class="btn btn-danger"
+                                ng-if="owner"
                                 ng-click="vm.deleteModel($event, project, model)">
                             {{ model.status === 'Training' ? 'Cancel training' : 'Delete this model' }}
                         </button>
@@ -390,7 +442,7 @@
             </table>
         </div>
 
-        <button ng-if="!loading && status !== 'training' && trainingdatastatus === 'data'"
+        <button ng-if="!loading && status !== 'training' && trainingdatastatus === 'data' && owner"
                 style="margin: 4em;"
                 class="btn btn-primary"
                 ng-click="vm.createModel($event, project)"

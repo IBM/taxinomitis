@@ -159,7 +159,7 @@ function validateRequest(locations: any[]): void {
 
 
 async function getTraining(project: DbObjects.Project): Promise<{ [label: string]: string }> {
-    const counts = await store.countTrainingByLabel('images', project.id);
+    const counts = await store.countTrainingByLabel(project);
 
     const examples: { [label: string]: string } = {};
 
@@ -415,7 +415,10 @@ async function submitTrainingToVisualRecognition(
     }
     catch (err) {
         log.error({ url, req, err }, 'Failed to train classifier');
-        notifications.notify('Failed to train image classifier : ' + err.message);
+        notifications.notify('Failed to train image classifier ' +
+                             'for project ' + project.id + ' ' +
+                             'in class ' + project.classid + ' : ' +
+                             err.message);
 
         // The full error object will include the classifier request with the
         //  URL and credentials we used for it. So we don't want to return

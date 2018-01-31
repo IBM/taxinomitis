@@ -77,7 +77,7 @@ describe('REST API - scratch keys', () => {
             const name = uuid();
             const typelabel = 'text';
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', []);
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
 
             return request(testServer)
                 .get('/api/classes/' + TESTCLASS + '/students/' + userid + '/projects/' + project.id + '/scratchkeys')
@@ -121,7 +121,7 @@ describe('REST API - scratch keys', () => {
                 expiry : new Date(),
             };
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', []);
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
             await store.storeBluemixCredentials(TESTCLASS, credentials);
             await store.storeConversationWorkspace(credentials, project, workspace);
 
@@ -145,20 +145,13 @@ describe('REST API - scratch keys', () => {
 
 
         it('should return an existing scratch key', async () => {
-            const projectid = uuid();
             const userid = uuid();
 
-            const project: DbTypes.Project = {
-                id : projectid,
-                name : 'dummyproject',
-                userid,
-                classid : TESTCLASS,
-                type : 'text',
-                language : 'en',
-                labels : [],
-                numfields : 0,
-            };
+            const project: DbTypes.Project = await store.storeProject(
+                userid, TESTCLASS, 'text',
+                'dummyproject', 'en', [], false);
 
+            const projectid = project.id;
             const keyId = await store.storeUntrainedScratchKey(project);
 
             return request(testServer)
@@ -175,24 +168,17 @@ describe('REST API - scratch keys', () => {
                     assert(!body[0].model);
 
                     await store.deleteScratchKey(keyId);
+                    await store.deleteEntireProject(userid, TESTCLASS, project);
                 });
         });
 
         it('should return an existing trained scratch key', async () => {
-            const projectid = uuid();
             const userid = uuid();
 
-            const project: DbTypes.Project = {
-                id : projectid,
-                name : 'A Fake Project',
-                userid,
-                classid : TESTCLASS,
-                type : 'text',
-                language : 'en',
-                labels : [],
-                numfields : 0,
-            };
+            const project: DbTypes.Project = await store.storeProject(
+                userid, TESTCLASS, 'text', 'A Fake Project', 'en', [], false);
 
+            const projectid = project.id;
             const classifierid = randomstring.generate({ length : 12 });
 
             const credentials = {
@@ -220,6 +206,7 @@ describe('REST API - scratch keys', () => {
                     assert.equal(body[0].model, classifierid);
 
                     await store.deleteScratchKey(keyId);
+                    await store.deleteEntireProject(userid, TESTCLASS, project);
                 });
         });
     });
@@ -239,6 +226,7 @@ describe('REST API - scratch keys', () => {
                 language : 'en',
                 labels : [],
                 numfields : 0,
+                isCrowdSourced : false,
             };
 
             const key = await store.storeUntrainedScratchKey(project);
@@ -270,6 +258,7 @@ describe('REST API - scratch keys', () => {
                 language : 'en',
                 labels : [],
                 numfields : 3,
+                isCrowdSourced : false,
             };
 
             const key = await store.storeUntrainedScratchKey(project);
@@ -302,6 +291,7 @@ describe('REST API - scratch keys', () => {
                 language : 'en',
                 labels : [],
                 numfields : 0,
+                isCrowdSourced : false,
             };
 
             const key = await store.storeUntrainedScratchKey(project);
@@ -328,7 +318,7 @@ describe('REST API - scratch keys', () => {
             const name = uuid();
             const typelabel = 'text';
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', []);
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
 
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'animal');
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'vegetable');
@@ -382,7 +372,7 @@ describe('REST API - scratch keys', () => {
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [
                 { name : 'first', type : 'number' }, { name : 'second', type : 'number' },
                 { name : 'third', type : 'number' },
-            ]);
+            ], false);
 
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'animal');
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'vegetable');
@@ -431,7 +421,7 @@ describe('REST API - scratch keys', () => {
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [
                 { name : 'first', type : 'number' }, { name : 'second', type : 'number' },
                 { name : 'third', type : 'number' },
-            ]);
+            ], false);
 
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'fruit');
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'vegetable');
@@ -469,6 +459,7 @@ describe('REST API - scratch keys', () => {
                 language : 'en',
                 labels : [],
                 numfields : 0,
+                isCrowdSourced : false,
             };
             const keyId = await store.storeUntrainedScratchKey(project);
 
@@ -491,7 +482,7 @@ describe('REST API - scratch keys', () => {
         it('should build a working Scratchx extension', async () => {
             const userid = uuid();
 
-            const project = await store.storeProject(userid, TESTCLASS, 'text', 'dummyproject', 'en', []);
+            const project = await store.storeProject(userid, TESTCLASS, 'text', 'dummyproject', 'en', [], false);
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'LABEL NUMBER ONE');
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'SECOND LABEL');
 
@@ -523,7 +514,7 @@ describe('REST API - scratch keys', () => {
             const name = uuid();
             const typelabel = 'text';
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', []);
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
 
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'animal');
 
@@ -561,7 +552,7 @@ describe('REST API - scratch keys', () => {
             const name = uuid();
             const typelabel = 'text';
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', []);
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
 
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'animal');
 
@@ -599,7 +590,7 @@ describe('REST API - scratch keys', () => {
             const name = uuid();
             const typelabel = 'text';
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', []);
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
 
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'animal');
 
@@ -650,7 +641,7 @@ describe('REST API - scratch keys', () => {
             const name = uuid();
             const typelabel = 'text';
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', []);
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
 
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'animal');
 
@@ -702,7 +693,7 @@ describe('REST API - scratch keys', () => {
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [
                 { name : 'left', type : 'number' }, { name : 'right', type : 'number' },
                 { name : 'another', type : 'multichoice', choices : [ 'bing', 'bong', 'bang' ] },
-            ]);
+            ], false);
 
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'TOP');
 
@@ -752,7 +743,7 @@ describe('REST API - scratch keys', () => {
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [
                 { name : 'a', type : 'number' },
-            ]);
+            ], false);
 
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'animal');
 
@@ -792,7 +783,7 @@ describe('REST API - scratch keys', () => {
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [
                 { name : 'a', type : 'number' },
-            ]);
+            ], false);
 
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'animal');
 
@@ -834,7 +825,7 @@ describe('REST API - scratch keys', () => {
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [
                 { name : 'a', type : 'number' },
                 { name : 'b', type : 'multichoice', choices : [ 'valid', 'good', 'okay' ] },
-            ]);
+            ], false);
 
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'animal');
 
@@ -875,7 +866,7 @@ describe('REST API - scratch keys', () => {
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [
                 { name : 'a', type : 'number' },
-            ]);
+            ], false);
 
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'animal');
 
@@ -917,7 +908,7 @@ describe('REST API - scratch keys', () => {
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [
                 { name : 'a', type : 'number' }, { name : 'b', type : 'number' },
                 { name : 'c', type : 'number' },
-            ]);
+            ], false);
 
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'animal');
 
@@ -962,7 +953,7 @@ describe('REST API - scratch keys', () => {
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [
                 { name : 'a', type : 'number' }, { name : 'b', type : 'number' },
-            ]);
+            ], false);
 
             await store.addLabelToProject(userid, TESTCLASS, project.id, 'animal');
 
@@ -1086,7 +1077,7 @@ describe('REST API - scratch keys', () => {
                 expiry : new Date(),
             };
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', []);
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
             await store.storeBluemixCredentials(TESTCLASS, credentials);
             await store.storeConversationWorkspace(credentials, project, conversationWorkspace);
 
@@ -1170,7 +1161,7 @@ describe('REST API - scratch keys', () => {
                 expiry : new Date(),
             };
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', []);
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
             await store.storeBluemixCredentials(TESTCLASS, credentials);
             await store.storeConversationWorkspace(credentials, project, conversationWorkspace);
 
@@ -1226,7 +1217,7 @@ describe('REST API - scratch keys', () => {
                 expiry : new Date(),
             };
 
-            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', []);
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
             await store.storeBluemixCredentials(TESTCLASS, credentials);
             await store.storeConversationWorkspace(credentials, project, workspace);
 

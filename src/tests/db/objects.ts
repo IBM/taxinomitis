@@ -36,10 +36,12 @@ describe('DB objects', () => {
                     { id : uuid(), userid, classid, projectid, name : 'first', fieldtype : 1, choices : undefined },
                     { id : uuid(), userid, classid, projectid, name : 'second', fieldtype : 1, choices : undefined },
                 ],
+                iscrowdsourced : 0,
             };
 
             const testProject: Objects.Project = dbobjects.getProjectFromDbRow(testRow);
 
+            assert.equal(testProject.isCrowdSourced, false);
             assert.equal(testProject.type, 'numbers');
             assert.deepEqual(testProject.fields, [
                 { type : 'number', name : 'first', choices : [] },
@@ -61,12 +63,14 @@ describe('DB objects', () => {
                 labels : '',
                 numfields : 0,
                 fields : [],
+                iscrowdsourced : 0,
             };
 
             const testProject: Objects.Project = dbobjects.getProjectFromDbRow(testRow);
 
             assert.equal(testProject.type, 'text');
             assert.equal(testProject.language, 'en');
+            assert.equal(testProject.isCrowdSourced, false);
         });
     });
 
@@ -260,7 +264,7 @@ describe('DB objects', () => {
     describe('createProject()', () => {
         it('should reject invalid project types', (done) => {
             try {
-                dbobjects.createProject('bob', 'bobclass', 'invalidtype', 'projectname', 'en', []);
+                dbobjects.createProject('bob', 'bobclass', 'invalidtype', 'projectname', 'en', [], false);
             }
             catch (err) {
                 assert.equal(err.message, 'Invalid project type invalidtype');
@@ -271,7 +275,7 @@ describe('DB objects', () => {
 
         it('should require user id', (done) => {
             try {
-                dbobjects.createProject('', 'myclass', 'text', 'projectname', 'en', []);
+                dbobjects.createProject('', 'myclass', 'text', 'projectname', 'en', [], false);
             }
             catch (err) {
                 assert.equal(err.message, 'Missing required attributes');
@@ -282,7 +286,7 @@ describe('DB objects', () => {
 
         it('should require class id', (done) => {
             try {
-                dbobjects.createProject('bob', '', 'text', 'projectname', 'en', []);
+                dbobjects.createProject('bob', '', 'text', 'projectname', 'en', [], false);
             }
             catch (err) {
                 assert.equal(err.message, 'Missing required attributes');
@@ -293,7 +297,7 @@ describe('DB objects', () => {
 
         it('should require project name', (done) => {
             try {
-                dbobjects.createProject('bob', 'bobclass', 'text', UNDEFINED_STRING, 'en', []);
+                dbobjects.createProject('bob', 'bobclass', 'text', UNDEFINED_STRING, 'en', [], false);
             }
             catch (err) {
                 assert.equal(err.message, 'Missing required attributes');
@@ -304,7 +308,7 @@ describe('DB objects', () => {
 
         it('should require a language', (done) => {
             try {
-                dbobjects.createProject('bob', 'bobclass', 'text', 'project', UNDEFINED_LANG, []);
+                dbobjects.createProject('bob', 'bobclass', 'text', 'project', UNDEFINED_LANG, [], false);
             }
             catch (err) {
                 assert.equal(err.message, 'Language not supported');
@@ -315,7 +319,9 @@ describe('DB objects', () => {
 
         it('should require a valid language', (done) => {
             try {
-                dbobjects.createProject('bob', 'bobclass', 'text', 'project', 'xxx' as Objects.TextProjectLanguage, []);
+                dbobjects.createProject('bob', 'bobclass', 'text', 'project',
+                                        'xxx' as Objects.TextProjectLanguage,
+                                        [], false);
             }
             catch (err) {
                 assert.equal(err.message, 'Language not supported');
@@ -325,19 +331,31 @@ describe('DB objects', () => {
         });
 
         it('should create a project object', () => {
-            const project = dbobjects.createProject('testuser', 'testclass', 'text', 'testproject', 'de', []);
+            const project = dbobjects.createProject('testuser', 'testclass', 'text', 'testproject', 'de', [], false);
             assert(project.id);
-            assert.equal(project.name, 'testproject');
-            assert.equal(project.classid, 'testclass');
-            assert.equal(project.typeid, 1);
-            assert.equal(project.userid, 'testuser');
-            assert.equal(project.language, 'de');
+            assert.strictEqual(project.name, 'testproject');
+            assert.strictEqual(project.classid, 'testclass');
+            assert.strictEqual(project.typeid, 1);
+            assert.strictEqual(project.userid, 'testuser');
+            assert.strictEqual(project.language, 'de');
+            assert.strictEqual(project.iscrowdsourced, 0);
+        });
+
+        it('should create a crowdsourced project object', () => {
+            const project = dbobjects.createProject('testuser', 'testclass', 'text', 'testproject', 'de', [], true);
+            assert(project.id);
+            assert.strictEqual(project.name, 'testproject');
+            assert.strictEqual(project.classid, 'testclass');
+            assert.strictEqual(project.typeid, 1);
+            assert.strictEqual(project.userid, 'testuser');
+            assert.strictEqual(project.language, 'de');
+            assert.strictEqual(project.iscrowdsourced, 1);
         });
 
         it('should need options for multichoice fields in numbers projects', (done) => {
             try {
                 const field: Objects.NumbersProjectFieldSummary = { name : 'a', type : 'multichoice' };
-                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ]);
+                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
             }
             catch (err) {
                 assert.equal(err.message, 'Not enough choices provided');
@@ -351,7 +369,7 @@ describe('DB objects', () => {
                 const field: Objects.NumbersProjectFieldSummary = {
                     name : 'a', type : 'multichoice', choices : [ 'onlyone' ],
                 };
-                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ]);
+                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
             }
             catch (err) {
                 assert.equal(err.message, 'Not enough choices provided');
@@ -366,7 +384,7 @@ describe('DB objects', () => {
                     name : 'a', type : 'multichoice',
                     choices : [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm' ],
                 };
-                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ]);
+                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
             }
             catch (err) {
                 assert.equal(err.message, 'Too many choices specified');
@@ -381,7 +399,7 @@ describe('DB objects', () => {
                     name : 'a', type : 'multichoice',
                     choices : [ 'a', '', 'c' ],
                 };
-                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ]);
+                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
             }
             catch (err) {
                 assert.equal(err.message, 'Invalid choice value');
@@ -396,7 +414,7 @@ describe('DB objects', () => {
                     name : 'a', type : 'multichoice',
                     choices : [ 'a', '1Boo' ],
                 };
-                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ]);
+                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
             }
             catch (err) {
                 assert.equal(err.message, 'Invalid choice value');
@@ -411,7 +429,7 @@ describe('DB objects', () => {
                     name : 'a', type : 'multichoice',
                     choices : [ 'a', 'This , Should', 'c' ],
                 };
-                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ]);
+                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
             }
             catch (err) {
                 assert.equal(err.message, 'Invalid choice value');
@@ -426,7 +444,7 @@ describe('DB objects', () => {
                     name : 'a', type : 'multichoice',
                     choices : [ 'a', 'This Is A Stupidly Long Option To Include', 'c' ],
                 };
-                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ]);
+                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
             }
             catch (err) {
                 assert.equal(err.message, 'Invalid choice value');
@@ -446,7 +464,7 @@ describe('DB objects', () => {
                         { name : 'i', type : 'number' }, { name : 'j', type : 'number' },
                         { name : 'k', type : 'number' }, { name : 'l', type : 'number' },
                         { name : 'm', type : 'number' }, { name : 'n', type : 'number' },
-                    ]);
+                    ], false);
             }
             catch (err) {
                 assert.equal(err.message, 'Too many fields specified');
@@ -460,7 +478,7 @@ describe('DB objects', () => {
                 dbobjects.createProject('testuser', 'testclass', 'text', 'testproject', 'en', [
                     { name : 'a', type : 'number' }, { name : 'b', type : 'number' },
                     { name : 'c', type : 'number' },
-                ]);
+                ], false);
             }
             catch (err) {
                 assert.equal(err.message, 'Fields not supported for non-numbers projects');
@@ -475,7 +493,7 @@ describe('DB objects', () => {
                 { name : 'a', type : 'number' }, { name : 'b', type : 'number' },
                 { name : 'c', type : 'number' },
                 { name : 'd', type : 'multichoice', choices : [ 'left', 'right' ] },
-            ]);
+            ], false);
 
             assert(project.id);
             assert.equal(project.classid, 'testclass');
@@ -485,6 +503,7 @@ describe('DB objects', () => {
             assert.equal(project.fields.length, 4);
             assert.equal(project.typeid, 2);
             assert.equal(project.userid, 'testuser');
+            assert.equal(project.iscrowdsourced, 0);
             project.fields.forEach((field) => {
                 assert(field.id);
                 assert.equal(field.classid, 'testclass');

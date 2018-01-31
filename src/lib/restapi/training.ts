@@ -80,9 +80,14 @@ async function getTraining(req: auth.RequestWithProject, res: Express.Response) 
 
 async function getLabels(req: auth.RequestWithProject, res: Express.Response) {
     try {
-        const counts = await store.countTrainingByLabel(req.project.type, req.project.id);
+        const counts = await store.countTrainingByLabel(req.project);
 
-        res.set(headers.NO_CACHE).json(counts);
+        const labelCounts: { [label: string]: number } = {};
+        for (const label of req.project.labels) {
+            labelCounts[label] = (label in counts) ? counts[label] : 0;
+        }
+
+        res.set(headers.NO_CACHE).json(labelCounts);
     }
     catch (err) {
         errors.unknownError(res, err);
@@ -196,7 +201,7 @@ export default function registerApis(app: Express.Application) {
     app.put(urls.LABELS,
             auth.authenticate,
             auth.checkValidUser,
-            auth.verifyProjectAccess,
+            auth.verifyProjectOwner,
             // @ts-ignore
             editLabel);
 

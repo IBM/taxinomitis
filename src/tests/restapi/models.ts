@@ -27,10 +27,15 @@ describe('REST API - models', () => {
     let checkUserStub: sinon.SinonStub;
     let requireSupervisorStub: sinon.SinonStub;
 
+    let nextAuth0Userid = 'studentid';
+
     function authNoOp(
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
     {
+        req.user = {
+            sub : nextAuth0Userid,
+        };
         next();
     }
 
@@ -220,6 +225,8 @@ describe('REST API - models', () => {
             const classid = uuid();
             const studentid = uuid();
             const projectid = uuid();
+
+            nextAuth0Userid = studentid;
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + studentid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -234,9 +241,10 @@ describe('REST API - models', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
             const projectid = project.id;
 
+            nextAuth0Userid = userid;
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/DIFFERENTUSER/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -251,9 +259,10 @@ describe('REST API - models', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
             const projectid = project.id;
 
+            nextAuth0Userid = userid;
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -272,9 +281,10 @@ describe('REST API - models', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', [], false);
             const projectid = project.id;
 
+            nextAuth0Userid = userid;
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -292,7 +302,7 @@ describe('REST API - models', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', [], false);
             const projectid = project.id;
 
             const credentials: Types.BluemixCredentials = {
@@ -333,6 +343,7 @@ describe('REST API - models', () => {
             await store.storeImageClassifier(credentials, project, classifierBInfo);
 
 
+            nextAuth0Userid = userid;
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -369,7 +380,7 @@ describe('REST API - models', () => {
 
             const project = await store.storeProject(userid, classid, 'numbers', 'demo', 'en', [
                 { name : 'a', type : 'number' }, { name : 'b', type : 'number' },
-            ]);
+            ], false);
             const projectid = project.id;
 
             const classifier = await store.storeNumbersClassifier(userid, classid, projectid, 'Available');
@@ -378,6 +389,7 @@ describe('REST API - models', () => {
 
             const expectedTimestamp = created.toISOString();
 
+            nextAuth0Userid = userid;
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -400,7 +412,7 @@ describe('REST API - models', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
             const projectid = project.id;
 
             const credentials: Types.BluemixCredentials = {
@@ -443,6 +455,7 @@ describe('REST API - models', () => {
             await store.storeConversationWorkspace(credentials, project, classifierBInfo);
 
 
+            nextAuth0Userid = userid;
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -480,6 +493,7 @@ describe('REST API - models', () => {
             const classid = uuid();
             const studentid = uuid();
             const projectid = uuid();
+            nextAuth0Userid = studentid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + studentid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -494,9 +508,10 @@ describe('REST API - models', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
             const projectid = project.id;
 
+            nextAuth0Userid = userid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/DIFFERENTUSER/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -506,15 +521,32 @@ describe('REST API - models', () => {
                 });
         });
 
+        it('should verify user', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
+            const projectid = project.id;
+
+            nextAuth0Userid = 'SOMEUSER';
+            return request(testServer)
+                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.FORBIDDEN)
+                .then(() => {
+                    return store.deleteEntireUser(userid, classid);
+                });
+        });
 
         it('should enforce tenant policies on number of NLC classifiers', async () => {
             const classid = uuid();
             const userid = uuid();
             const projName = 'no more room';
 
-            const project = await store.storeProject(userid, classid, 'text', projName, 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', projName, 'en', [], false);
             const projectid = project.id;
 
+            nextAuth0Userid = userid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -534,9 +566,10 @@ describe('REST API - models', () => {
             const userid = uuid();
             const projName = 'bad creds';
 
-            const project = await store.storeProject(userid, classid, 'text', projName, 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', projName, 'en', [], false);
             const projectid = project.id;
 
+            nextAuth0Userid = userid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -557,9 +590,10 @@ describe('REST API - models', () => {
             const userid = uuid();
             const projName = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', projName, 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', projName, 'en', [], false);
             const projectid = project.id;
 
+            nextAuth0Userid = userid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -586,9 +620,10 @@ describe('REST API - models', () => {
             const userid = uuid();
             const projName = 'no more room';
 
-            const project = await store.storeProject(userid, classid, 'images', projName, 'en', []);
+            const project = await store.storeProject(userid, classid, 'images', projName, 'en', [], false);
             const projectid = project.id;
 
+            nextAuth0Userid = userid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -607,9 +642,10 @@ describe('REST API - models', () => {
             const userid = uuid();
             const projName = 'unknown creds';
 
-            const project = await store.storeProject(userid, classid, 'images', projName, 'en', []);
+            const project = await store.storeProject(userid, classid, 'images', projName, 'en', [], false);
             const projectid = project.id;
 
+            nextAuth0Userid = userid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -629,9 +665,10 @@ describe('REST API - models', () => {
             const userid = uuid();
             const projName = 'bad creds';
 
-            const project = await store.storeProject(userid, classid, 'images', projName, 'en', []);
+            const project = await store.storeProject(userid, classid, 'images', projName, 'en', [], false);
             const projectid = project.id;
 
+            nextAuth0Userid = userid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -651,9 +688,10 @@ describe('REST API - models', () => {
             const userid = uuid();
             const projName = 'insufficient';
 
-            const project = await store.storeProject(userid, classid, 'images', projName, 'en', []);
+            const project = await store.storeProject(userid, classid, 'images', projName, 'en', [], false);
             const projectid = project.id;
 
+            nextAuth0Userid = userid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -673,9 +711,10 @@ describe('REST API - models', () => {
             const userid = uuid();
             const projName = uuid();
 
-            const project = await store.storeProject(userid, classid, 'images', projName, 'en', []);
+            const project = await store.storeProject(userid, classid, 'images', projName, 'en', [], false);
             const projectid = project.id;
 
+            nextAuth0Userid = userid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -704,9 +743,10 @@ describe('REST API - models', () => {
 
             const project = await store.storeProject(userid, classid, 'numbers', projName, 'en', [
                 { name : 'a', type : 'number' }, { name : 'b', type : 'number' },
-            ]);
+            ], false);
             const projectid = project.id;
 
+            nextAuth0Userid = userid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -729,6 +769,7 @@ describe('REST API - models', () => {
     describe('testModel', () => {
 
         it('should require a model type', () => {
+            nextAuth0Userid = 'userid';
             return request(testServer)
                 .post('/api/classes/' + 'classid' +
                         '/students/' + 'userid' +
@@ -748,6 +789,7 @@ describe('REST API - models', () => {
 
 
         it('should require text to test with', () => {
+            nextAuth0Userid = 'userid';
             return request(testServer)
                 .post('/api/classes/' + 'classid' +
                         '/students/' + 'userid' +
@@ -766,6 +808,7 @@ describe('REST API - models', () => {
         });
 
         it('should require credentials to test with', () => {
+            nextAuth0Userid = 'userid';
             return request(testServer)
                 .post('/api/classes/' + 'classid' +
                         '/students/' + 'userid' +
@@ -791,7 +834,7 @@ describe('REST API - models', () => {
             const projName = uuid();
             const modelid = randomstring.generate({ length : 10 });
 
-            const project = await store.storeProject(userid, classid, 'text', projName, 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', projName, 'en', [], false);
             const projectid = project.id;
 
             const credentials: Types.BluemixCredentials = {
@@ -819,6 +862,7 @@ describe('REST API - models', () => {
             };
             await store.storeConversationWorkspace(credentials, project, classifierInfo);
 
+            nextAuth0Userid = userid;
             return request(testServer)
                 .post('/api/classes/' + classid +
                         '/students/' + userid +
@@ -914,7 +958,7 @@ describe('REST API - models', () => {
             const userid = uuid();
             const modelid = uuid();
 
-            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
             const projectid = project.id;
 
             return request(testServer)
@@ -937,9 +981,10 @@ describe('REST API - models', () => {
 
             const project = await store.storeProject(userid, classid, 'numbers', projName, 'en', [
                 { name : 'A', type : 'number' },
-            ]);
+            ], false);
             const projectid = project.id;
 
+            nextAuth0Userid = userid;
             return request(testServer)
                 .delete('/api/classes/' + classid +
                         '/students/' + userid +
@@ -958,7 +1003,7 @@ describe('REST API - models', () => {
             const projName = uuid();
             const modelid = randomstring.generate({ length : 10 });
 
-            const project = await store.storeProject(userid, classid, 'text', projName, 'en', []);
+            const project = await store.storeProject(userid, classid, 'text', projName, 'en', [], false);
             const projectid = project.id;
 
             const credentials: Types.BluemixCredentials = {
@@ -986,6 +1031,7 @@ describe('REST API - models', () => {
             };
             await store.storeConversationWorkspace(credentials, project, classifierInfo);
 
+            nextAuth0Userid = userid;
             return request(testServer)
                 .delete('/api/classes/' + classid +
                         '/students/' + userid +
@@ -1005,7 +1051,7 @@ describe('REST API - models', () => {
             const projName = uuid();
             const modelid = randomstring.generate({ length : 10 });
 
-            const project = await store.storeProject(userid, classid, 'images', projName, 'en', []);
+            const project = await store.storeProject(userid, classid, 'images', projName, 'en', [], false);
             const projectid = project.id;
 
             const credentials: Types.BluemixCredentials = {
@@ -1032,6 +1078,7 @@ describe('REST API - models', () => {
             };
             await store.storeImageClassifier(credentials, project, classifierInfo);
 
+            nextAuth0Userid = userid;
             return request(testServer)
                 .delete('/api/classes/' + classid +
                         '/students/' + userid +

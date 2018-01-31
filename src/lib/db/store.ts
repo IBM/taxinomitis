@@ -85,11 +85,12 @@ export async function storeProject(
     name: string,
     language: Objects.TextProjectLanguage,
     fields: Objects.NumbersProjectFieldSummary[],
+    crowdsource: boolean,
 ): Promise<Objects.Project>
 {
     let obj: Objects.ProjectDbRow;
     try {
-        obj = dbobjects.createProject(userid, classid, type, name, language, fields);
+        obj = dbobjects.createProject(userid, classid, type, name, language, fields, crowdsource);
     }
     catch (err) {
         err.statusCode = 400;
@@ -97,14 +98,15 @@ export async function storeProject(
     }
 
     const insertProjectQry: string = 'INSERT INTO `projects` ' +
-        '(`id`, `userid`, `classid`, `typeid`, `name`, `language`, `labels`, `numfields`) ' +
-        'VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+        '(`id`, `userid`, `classid`, `typeid`, `name`, `language`, `labels`, `numfields`, `iscrowdsourced`) ' +
+        'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
     const insertProjectValues = [
         obj.id,
         obj.userid, obj.classid,
         obj.typeid,
         obj.name, obj.language, obj.labels,
         obj.fields.length,
+        obj.iscrowdsourced,
     ];
 
     const insertFieldsQry: string = 'INSERT INTO `numbersprojectsfields` ' +
@@ -259,7 +261,10 @@ export async function replaceLabelsForProject(
 
 
 export async function getProject(id: string): Promise<Objects.Project | undefined> {
-    const queryString = 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `language`, `labels`, `numfields` ' +
+    const queryString = 'SELECT `id`, `userid`, `classid`, ' +
+                            '`typeid`, `name`, `language`, ' +
+                            '`labels`, `numfields`, ' +
+                            '`iscrowdsourced` ' +
                         'FROM `projects` ' +
                         'WHERE `id` = ?';
 
@@ -272,10 +277,20 @@ export async function getProject(id: string): Promise<Objects.Project | undefine
 }
 
 
+/**
+ * Fetches projects that the specified user is entitled to access.
+ *
+ * This list should include:
+ *  Any projects created by the specified user
+ *  Any crowd-sourced projects owned by the user the class is in.
+ */
 export async function getProjectsByUserId(userid: string, classid: string): Promise<Objects.Project[]> {
-    const queryString = 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `language`, `labels` ' +
+    const queryString = 'SELECT `id`, `userid`, `classid`, ' +
+                            '`typeid`, `name`, `language`, ' +
+                            '`labels`, ' +
+                            '`iscrowdsourced` ' +
                         'FROM `projects` ' +
-                        'WHERE `classid` = ? AND `userid` = ?';
+                        'WHERE `classid` = ? AND (`userid` = ? OR `iscrowdsourced` = True)';
 
     const rows = await dbExecute(queryString, [ classid, userid ]);
     return rows.map(dbobjects.getProjectFromDbRow);
@@ -285,9 +300,9 @@ export async function getProjectsByUserId(userid: string, classid: string): Prom
 export async function countProjectsByUserId(userid: string, classid: string): Promise<number> {
     const queryString = 'SELECT COUNT(*) AS count ' +
                         'FROM `projects` ' +
-                        'WHERE `classid` = ? AND `userid` = ?';
+                        'WHERE `userid` = ? AND `classid` = ?';
 
-    const rows = await dbExecute(queryString, [ classid, userid ]);
+    const rows = await dbExecute(queryString, [ userid, classid ]);
     if (rows.length !== 1) {
         return 0;
     }
@@ -297,7 +312,7 @@ export async function countProjectsByUserId(userid: string, classid: string): Pr
 
 
 export async function getProjectsByClassId(classid: string): Promise<Objects.Project[]> {
-    const queryString = 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `labels`, `language` ' +
+    const queryString = 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `labels`, `language`, `iscrowdsourced` ' +
                         'FROM `projects` ' +
                         'WHERE `classid` = ?';
 
@@ -342,15 +357,15 @@ export async function countTraining(type: Objects.ProjectTypeLabel, projectid: s
 }
 
 
-export async function countTrainingByLabel(type: Objects.ProjectTypeLabel, projectid: string)
+export async function countTrainingByLabel(project: Objects.Project)
     : Promise<{ [label: string]: number }>
 {
-    const dbTable = getDbTable(type);
+    const dbTable = getDbTable(project.type);
 
     const queryString = 'SELECT `label`, COUNT(*) AS `trainingcount` FROM `' + dbTable + '` ' +
                         'WHERE `projectid` = ? ' +
                         'GROUP BY `label`';
-    const response = await dbExecute(queryString, [projectid]);
+    const response = await dbExecute(queryString, [project.id]);
     const counts: { [label: string]: number } = {};
     for (const count of response) {
         counts[count.label] = count.trainingcount;

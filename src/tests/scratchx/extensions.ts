@@ -27,6 +27,7 @@ describe('Scratchx - status', () => {
                 classid : uuid(),
                 labels : [ 'LABEL NUMBER ONE', 'SECOND LABEL' ],
                 numfields : 0,
+                isCrowdSourced : false,
             };
 
             const extension = await extensions.getScratchxExtension(key, proj);
@@ -62,6 +63,7 @@ describe('Scratchx - status', () => {
                 classid : uuid(),
                 labels : [ 'LABEL NUMBER ONE', 'SECOND LABEL', 'THIRD' ],
                 numfields : 0,
+                isCrowdSourced : false,
             };
 
             const extension = await extensions.getScratchxExtension(key, proj);
@@ -110,6 +112,7 @@ describe('Scratchx - status', () => {
                     { name : 'omega', type : 'multichoice', choices : [ 'AAAA', 'BBBB', 'CCCC' ] },
                     { name : 'dupey', type : 'multichoice', choices : [ 'new', 'BBBB', 'hiding' ] },
                 ],
+                isCrowdSourced : false,
             };
 
             const extension = await extensions.getScratchxExtension(key, proj);
@@ -170,6 +173,7 @@ describe('Scratchx - status', () => {
                 classid : uuid(),
                 labels : [ 'LABEL NUMBER ONE', 'SECOND LABEL', 'THIRD LABEL' ],
                 numfields : 0,
+                isCrowdSourced : false,
             };
 
             const extension = await extensions.getScratchxExtension(key, proj);

@@ -181,6 +181,7 @@ export default function registerApis(app: Express.Application) {
     app.get(urls.SCRATCHKEYS,
             auth.authenticate,
             auth.checkValidUser,
+            auth.verifyProjectAccess,
             getScratchKeys);
 
     app.get(urls.SCRATCHKEY_CLASSIFY, classifyWithScratchKey);

@@ -254,14 +254,14 @@ export default function registerApis(app: Express.Application) {
     app.post(urls.MODELS,
              auth.authenticate,
              auth.checkValidUser,
-             auth.verifyProjectAccess,
+             auth.verifyProjectOwner,
              // @ts-ignore
              newModel);
 
     app.delete(urls.MODEL,
                auth.authenticate,
                auth.checkValidUser,
-               auth.verifyProjectAccess,
+               auth.verifyProjectOwner,
                // @ts-ignore
                deleteModel);
 

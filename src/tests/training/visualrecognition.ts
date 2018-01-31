@@ -106,6 +106,7 @@ describe('Training - Visual Recognition', () => {
                 language : 'en',
                 labels : ['rock', 'paper'],
                 numfields : 0,
+                isCrowdSourced : false,
             };
 
             const classifier = await visrec.trainClassifier(project);
@@ -143,6 +144,7 @@ describe('Training - Visual Recognition', () => {
                 type : 'images',
                 labels : ['rock', 'paper'],
                 numfields : 0,
+                isCrowdSourced : false,
             };
 
             try {
@@ -172,6 +174,7 @@ describe('Training - Visual Recognition', () => {
                 type : 'images',
                 labels : ['rock', 'paper'],
                 numfields : 0,
+                isCrowdSourced : false,
             };
 
             try {
@@ -201,6 +204,7 @@ describe('Training - Visual Recognition', () => {
                 language : 'en',
                 labels : ['rock', 'paper'],
                 numfields : 0,
+                isCrowdSourced : false,
             };
 
             try {

@@ -68,13 +68,26 @@ async function createProject(req: Express.Request, res: Express.Response) {
                   .send({ error : 'Support for ' + req.body.type + ' projects is not enabled for your class' });
     }
 
+    // only teachers are allowed to create crowdsourced projects
+    let crowdsourced: boolean = false;
+    if (req.body.isCrowdSourced) {
+        if (req.user.app_metadata.role !== 'supervisor') {
+            return res.status(httpstatus.FORBIDDEN)
+                      .send({ error : 'Only teachers or group leaders can create crowd-sourced projects' });
+        }
+        else {
+            crowdsourced = true;
+        }
+    }
+
 
     try {
         const project = await store.storeProject(userid, classid,
             req.body.type,
             req.body.name,
             req.body.language,
-            req.body.fields);
+            req.body.fields,
+            crowdsourced);
         return res.status(httpstatus.CREATED).json(project);
     }
     catch (err) {
@@ -87,29 +100,8 @@ async function createProject(req: Express.Request, res: Express.Response) {
 }
 
 
-function getProject(req: Express.Request, res: Express.Response) {
-    const classid: string = req.params.classid;
-    const userid: string = req.params.studentid;
-    const projectid: string = req.params.projectid;
-
-    return store.getProject(projectid)
-        .then((project: Objects.Project | undefined) => {
-            if (project) {
-                if (project.classid === classid && project.userid === userid) {
-                    return res.set(headers.NO_CACHE).json(project);
-                }
-                else {
-                    return errors.forbidden(res);
-                }
-            }
-            else {
-                return errors.notFound(res);
-            }
-        })
-        .catch((err: Error) => {
-            log.error({ err }, 'Server error');
-            errors.unknownError(res, err);
-        });
+function getProject(req: auth.RequestWithProject, res: Express.Response) {
+    return res.set(headers.NO_CACHE).json(req.project);
 }
 
 
@@ -135,33 +127,22 @@ function getProjectFields(req: Express.Request, res: Express.Response) {
 
 
 
-async function deleteProject(req: Express.Request, res: Express.Response) {
+async function deleteProject(req: auth.RequestWithProject, res: Express.Response) {
     const classid = req.params.classid;
     const userid = req.params.studentid;
     const projectid = req.params.projectid;
 
     try {
-        const project: Objects.Project | undefined = await store.getProject(projectid);
+        const project: Objects.Project = req.project;
 
-        if (project) {
-            if (project.classid === classid && project.userid === userid) {
-
-                // if this is an images project, schedule a job to clean up
-                //  any usage of the S3 Object Store by the training images
-                if (project.type === 'images') {
-                    await store.storeDeleteProjectImagesJob(classid, userid, projectid);
-                }
-
-                await store.deleteEntireProject(userid, classid, project);
-                return res.sendStatus(httpstatus.NO_CONTENT);
-            }
-            else {
-                return errors.forbidden(res);
-            }
+        // if this is an images project, schedule a job to clean up
+        //  any usage of the S3 Object Store by the training images
+        if (project.type === 'images') {
+            await store.storeDeleteProjectImagesJob(classid, userid, projectid);
         }
-        else {
-            return errors.notFound(res);
-        }
+
+        await store.deleteEntireProject(userid, classid, project);
+        return res.sendStatus(httpstatus.NO_CONTENT);
     }
     catch (err) {
         log.error({ err }, 'Server error');
@@ -310,6 +291,8 @@ export default function registerApis(app: Express.Application) {
     app.get(urls.PROJECT,
             auth.authenticate,
             auth.checkValidUser,
+            auth.verifyProjectAccess,
+            // @ts-ignore
             getProject);
 
     app.get(urls.FIELDS,
@@ -320,10 +303,13 @@ export default function registerApis(app: Express.Application) {
     app.delete(urls.PROJECT,
             auth.authenticate,
             auth.checkValidUser,
+            auth.verifyProjectOwner,
+            // @ts-ignore
             deleteProject);
 
     app.patch(urls.PROJECT,
             auth.authenticate,
             auth.checkValidUser,
+            auth.verifyProjectOwner,
             modifyProject);
 }

@@ -219,7 +219,7 @@ export function getStatus(
 
 
 async function getTraining(project: DbObjects.Project): Promise<TrainingObjects.ConversationTrainingData> {
-    const counts = await store.countTrainingByLabel('text', project.id);
+    const counts = await store.countTrainingByLabel(project);
 
     const intents: TrainingObjects.ConversationIntent[] = [];
     for (const label of project.labels) {

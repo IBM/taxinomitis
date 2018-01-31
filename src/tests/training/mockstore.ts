@@ -57,17 +57,17 @@ const NUM_IMAGES_TRAINING_MASSIVE: { [label: string]: number } = {
     rock : 20000, paper : 25000,
 };
 
-export function countTrainingByLabel(type: DbTypes.ProjectTypeLabel, projectid: string): Promise<{}> {
-    if (projectid === 'projectbob') {
+export function countTrainingByLabel(project: DbTypes.Project): Promise<{}> {
+    if (project.id === 'projectbob') {
         return new Promise((resolve) => resolve(NUM_TRAINING_PER_LABEL));
     }
-    else if (projectid === 'projectbobvis' || projectid === 'projectbobvislim') {
+    else if (project.id === 'projectbobvis' || project.id === 'projectbobvislim') {
         return new Promise((resolve) => resolve(NUM_IMAGES_TRAINING_PER_LABEL));
     }
-    else if (projectid === 'tinyvis') {
+    else if (project.id === 'tinyvis') {
         return new Promise((resolve) => resolve(NUM_IMAGES_TRAINING_TINY));
     }
-    else if (projectid === 'massivevis') {
+    else if (project.id === 'massivevis') {
         return new Promise((resolve) => resolve(NUM_IMAGES_TRAINING_MASSIVE));
     }
     else {
@@ -200,6 +200,7 @@ export function getProject(projectid: string): Promise<DbTypes.Project>
             language : 'en',
             labels : ['temperature', 'conditions'],
             numfields : 0,
+            isCrowdSourced : false,
         }));
     }
     else if (projectid === 'projectbobvis' ||
@@ -216,6 +217,7 @@ export function getProject(projectid: string): Promise<DbTypes.Project>
             language : 'en',
             labels : ['rock', 'paper'],
             numfields : 0,
+            isCrowdSourced : false,
         }));
     }
 

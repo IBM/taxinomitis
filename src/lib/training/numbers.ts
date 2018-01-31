@@ -190,7 +190,7 @@ async function fetchTraining(project: Objects.Project): Promise<any[][]> {
     });
     const fieldsInfo = await store.getNumberProjectFields(project.userid, project.classid, project.id);
 
-    return training.filter((item) => item.label)
+    return training.filter((item) => item.label && project.labels.includes(item.label))
                    .map((item) => {
                        return [
                            prepareDataObject(fieldsInfo, item.numberdata),

@@ -25,7 +25,7 @@ describe('Scratchx - keys', () => {
     describe('text projects', () => {
 
         it('should store text training', async () => {
-            const testProject = await store.storeProject(TESTUSER, TESTCLASS, 'text', 'name', 'en', []);
+            const testProject = await store.storeProject(TESTUSER, TESTCLASS, 'text', 'name', 'en', [], false);
             assert.equal(testProject.name, 'name');
             assert.equal(testProject.classid, TESTCLASS);
             assert.equal(testProject.userid, TESTUSER);
@@ -46,7 +46,7 @@ describe('Scratchx - keys', () => {
         });
 
         it('should require data to store text training', async () => {
-            const testProject = await store.storeProject(TESTUSER, TESTCLASS, 'text', 'name', 'en', []);
+            const testProject = await store.storeProject(TESTUSER, TESTCLASS, 'text', 'name', 'en', [], false);
             assert.equal(testProject.name, 'name');
             assert.equal(testProject.classid, TESTCLASS);
             assert.equal(testProject.userid, TESTUSER);
@@ -82,7 +82,7 @@ describe('Scratchx - keys', () => {
             const testProject = await store.storeProject(TESTUSER, TESTCLASS, 'numbers', 'name', 'en', [
                 { name : 'a', type : 'number' }, { name : 'b', type : 'number' },
                 { name : 'c', type : 'number' },
-            ]);
+            ], false);
 
             await store.addLabelToProject(TESTUSER, TESTCLASS, testProject.id, 'NUMLAB');
 
@@ -104,7 +104,7 @@ describe('Scratchx - keys', () => {
             const testProject = await store.storeProject(TESTUSER, TESTCLASS, 'numbers', 'name', 'en', [
                 { name : 'a', type : 'number' }, { name : 'b', type : 'number' },
                 { name : 'c', type : 'number' },
-            ]);
+            ], false);
 
             await store.addLabelToProject(TESTUSER, TESTCLASS, testProject.id, 'NUMLAB');
 

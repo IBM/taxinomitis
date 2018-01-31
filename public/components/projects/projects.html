@@ -38,7 +38,7 @@
             <div class="mlprojectdetails placeholder" ng-if="project.isPlaceholder">
                 <div class="mlprojecttitle">{{ project.name }}</div>
             </div>
-            <div class="mlprojectdetails" ng-if="!project.isPlaceholder" ui-sref="mlproject({ projectId : project.id })">
+            <div class="mlprojectdetails" ng-if="!project.isPlaceholder" ui-sref="mlproject({ projectId : project.id, userId : project.userid })">
                 <div class="mlprojecttitle">{{ project.name }}</div>
                 <div class="mlprojectdescription">
                     Recognising
@@ -48,10 +48,12 @@
                         <span class="mlprojectlabels">{{ project.labelsSummary }}</span>
                     </span>
                 </div>
+                <div class="mlprojectcrowd" ng-if="project.isCrowdSourced" ng-click="vm.displayCrowdSourcedInfo($event)"> </div>
             </div>
             <img class="mlprojectdelete"
                  src="static/images/trash.png"
                  ng-if="!project.isPlaceholder"
+                 ng-hide="project.isCrowdSourced && !isTeacher"
                  ng-click="vm.deleteProject($event, project)"
                  alt="Delete project" />
         </div>

@@ -23,6 +23,35 @@
     <form ng-cloak name="newProject">
 
         <!-- ---------------------------------------- -->
+        <!--   CROWD-SOURCED                          -->
+        <!--                                          -->
+        <!--            displayed for teachers only   -->
+        <!-- ---------------------------------------- -->
+        <div class="newprojectrow" ng-show="isTeacher">
+            <md-input-container class="newprojectform">
+                <md-checkbox
+                       ng-model="crowdSourced"
+                       ng-focus="vm.focused = 'crowdsourced'"
+                       ng-disabled="vm.creating"
+                       class="newprojectname"
+                       style="font-size: 1.7em">
+                       Whole-class project?
+                </md-checkbox>
+            </md-input-container>
+            <div class="well newprojecthelp" ng-if="vm.focused === 'crowdsourced' && !vm.creating">
+                <div style="margin-bottom: 1em">
+                Tick this if you want your whole class to be able to work on
+                this project together.
+                </div>
+                <div>
+                This is useful for projects that teach crowd-sourcing as
+                an approach to training machine learning projects.
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ---------------------------------------- -->
         <!--   NAME                                   -->
         <!--                                          -->
         <!--            displayed for all projects    -->
@@ -30,14 +59,14 @@
         <div class="newprojectrow">
             <md-input-container class="newprojectform">
                 <label>Project Name</label>
-                <input md-autofocus
-                       ng-minlength="1" ng-maxlength="36"
+                <input ng-minlength="1" ng-maxlength="36"
                        ng-required="true"
                        ng-model="projectName"
+                       ng-disabled="vm.creating"
                        ng-focus="vm.focused = 'name'"
                        class="newprojectname"/>
             </md-input-container>
-            <div class="well newprojecthelp" ng-if="vm.focused === 'name'">
+            <div class="well newprojecthelp" ng-if="vm.focused === 'name' && !vm.creating">
                 Give your project a name to describe what sort of thing
                 you'll try to teach the computer to recognise.
             </div>
@@ -54,6 +83,7 @@
                 <label>Recognizing</label>
                 <md-select ng-required="true"
                            ng-model="projectType"
+                           ng-disabled="vm.creating"
                            ng-focus="vm.focused = 'type'"
                            class="newprojecttype">
                     <md-option value="text">text</md-option>
@@ -62,7 +92,7 @@
                 </md-select>
             </md-input-container>
             <div class="well newprojecthelp"
-                 ng-if="vm.focused === 'type' && projectType !== 'numbers'">
+                 ng-if="vm.focused === 'type' && projectType !== 'numbers' && !vm.creating">
                 <div style="margin-bottom: 1em">
                 What type of thing do you want to teach the computer to recognise?
                 </div>
@@ -89,6 +119,7 @@
                 <label>Language</label>
                 <md-select ng-model="language"
                            ng-focus="vm.focused = 'language'"
+                           ng-disabled="vm.creating"
                            class="newprojecttype">
                     <md-option value="en" ng-selected="true">English</md-option>
                     <md-option value="ar">Arabic</md-option>
@@ -106,7 +137,7 @@
                 </md-select>
             </md-input-container>
             <div class="well newprojecthelp"
-                    ng-if="vm.focused === 'language' && projectType === 'text'">
+                    ng-if="vm.focused === 'language' && projectType === 'text' && !vm.creating">
                 What language will the text in this project be?
             </div>
         </div>
@@ -130,6 +161,7 @@
                     <input ng-minlength="1" ng-maxlength="12"
                            ng-required="true"
                            ng-model="field.name"
+                           ng-disabled="vm.creating"
                            ng-focus="vm.focused = 'fieldname' + $index"
                            class="newprojectfieldname"/>
                 </md-input-container>
@@ -141,6 +173,7 @@
                     <label>Type of value</label>
                     <md-select ng-required="true"
                                ng-model="field.type"
+                               ng-disabled="vm.creating"
                                ng-focus="vm.focused = 'fieldtype' + $index"
                                class="newprojectfieldtype">
                         <md-option value="number">number</md-option>
@@ -239,7 +272,7 @@
             <md-button
                 class="md-raised md-primary"
                 ng-disabled="vm.creating || newProject.$invalid || vm.isInvalid(projectType)"
-                ng-click="vm.confirm({ name : projectName, type : projectType, fields : vm.fields, language : language })">
+                ng-click="vm.confirm({ name : projectName, type : projectType, fields : vm.fields, language : language, isCrowdSourced : (isTeacher && crowdSourced) ? true : false })">
                 Create
             </md-button>
             <md-button ui-sref="projects">

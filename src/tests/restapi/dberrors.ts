@@ -28,6 +28,9 @@ describe('REST API - DB error handling', () => {
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
     {
+        req.user = {
+            sub : 'EXCEPTION',
+        };
         next();
     }
 

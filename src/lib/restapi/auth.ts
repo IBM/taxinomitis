@@ -95,10 +95,13 @@ export async function ensureUnmanaged(
 }
 
 
-export async function verifyProjectAccess(
+
+
+async function verifyProjectAuth(
     req: Express.Request,
     res: Express.Response,
-    next: (e?: Error) => void)
+    next: (e?: Error) => void,
+    isCrowdSourcedAllowed: boolean)
 {
     const classid: string = req.params.classid;
     const userid: string = req.params.studentid;
@@ -107,10 +110,21 @@ export async function verifyProjectAccess(
     try {
         const project = await store.getProject(projectid);
         if (!project) {
+            // attempt to access non-existent project
             return errors.notFound(res);
         }
-        if (project.classid !== classid || project.userid !== userid) {
+        if (project.classid !== classid) {
+            // attempt to access a project from another class/tenant
             return errors.forbidden(res);
+        }
+        const isOwner = req.user && (project.userid === req.user.sub) && (project.userid === userid);
+        if (isOwner === false) {
+            // attempt to access a classmate's project...
+
+            if (!isCrowdSourcedAllowed || !project.isCrowdSourced) {
+                // ...and that isn't okay
+                return errors.forbidden(res);
+            }
         }
 
         const modifiedRequest: RequestWithProject = req as RequestWithProject;
@@ -121,4 +135,33 @@ export async function verifyProjectAccess(
     catch (err) {
         return next(err);
     }
+}
+
+
+/**
+ * API Auth middleware.
+ *
+ * Ensures that the user is accessing a project that they
+ *  have exclusive rights to.
+ */
+export async function verifyProjectOwner(
+    req: Express.Request,
+    res: Express.Response,
+    next: (e?: Error) => void)
+{
+    verifyProjectAuth(req, res, next, false);
+}
+
+/**
+ * API Auth middleware.
+ *
+ * Ensures that the user is accessing a project that they
+ *  have at least read access to.
+ */
+export async function verifyProjectAccess(
+    req: Express.Request,
+    res: Express.Response,
+    next: (e?: Error) => void)
+{
+    verifyProjectAuth(req, res, next, true);
 }

@@ -10,11 +10,12 @@ CREATE TABLE projects (
     name VARCHAR(36) NOT NULL,
     language CHAR(6),
     labels VARCHAR(500) NOT NULL,
-    numfields TINYINT NOT NULL
+    numfields TINYINT NOT NULL,
+    iscrowdsourced BOOLEAN DEFAULT false
 );
 
 CREATE INDEX projects_getCurrentLabels on projects(id, userid, classid) using HASH;
-CREATE INDEX projects_getProjectsByUserId on projects(classid, userid) using HASH;
+CREATE INDEX projects_getProjectsByUserId on projects(classid, userid, iscrowdsourced) using HASH;
 
 
 

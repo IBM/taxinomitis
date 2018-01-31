@@ -98,6 +98,7 @@ describe('Training - Conversation', () => {
                 language : 'fr',
                 labels : ['temperature', 'conditions'],
                 numfields : 0,
+                isCrowdSourced : false,
             };
 
             const classifier = await conversation.trainClassifier(project);
@@ -138,6 +139,7 @@ describe('Training - Conversation', () => {
                 language : 'pt-br',
                 labels : ['this', 'that'],
                 numfields : 0,
+                isCrowdSourced : false,
             };
 
             try {

@@ -84,13 +84,13 @@
                 controllerAs: 'vm'
             })
             .state('mlproject', {
-                url: '/mlproject/:projectId',
+                url: '/mlproject/:userId/:projectId',
                 controller: 'ProjectController',
                 templateUrl: 'static/components-<%= VERSION %>/mlproject/mlproject.html',
                 controllerAs: 'vm'
             })
             .state('mlproject_training', {
-                url: '/mlproject/:projectId/training',
+                url: '/mlproject/:userId/:projectId/training',
                 controller: 'TrainingController',
                 templateUrl: 'static/components-<%= VERSION %>/training/training.html',
                 controllerAs: 'vm',
@@ -99,7 +99,7 @@
                 }
             })
             .state('mlproject_models', {
-                url: '/mlproject/:projectId/models',
+                url: '/mlproject/:userId/:projectId/models',
                 controller: 'ModelsController',
                 templateUrl: 'static/components-<%= VERSION %>/models/models.html',
                 controllerAs: 'vm',
@@ -108,7 +108,7 @@
                 }
             })
             .state('mlproject_scratch', {
-                url: '/mlproject/:projectId/scratch',
+                url: '/mlproject/:userId/:projectId/scratch',
                 controller: 'ScratchController',
                 templateUrl: 'static/components-<%= VERSION %>/scratch/scratch.html',
                 controllerAs: 'vm'

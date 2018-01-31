@@ -113,6 +113,7 @@ describe('DB store', () => {
                 language : 'en',
                 labels : ['a'],
                 numfields : 0,
+                isCrowdSourced : false,
             };
 
             await store.storeConversationWorkspace(creds, project, classifierInfo);
@@ -192,6 +193,7 @@ describe('DB store', () => {
                 language : 'en',
                 labels : ['a'],
                 numfields : 0,
+                isCrowdSourced : false,
             };
             const projectCurrent: DbTypes.Project = {
                 id : projectid,
@@ -202,6 +204,7 @@ describe('DB store', () => {
                 language : 'en',
                 labels : ['a'],
                 numfields : 0,
+                isCrowdSourced : false,
             };
 
             await store.storeConversationWorkspace(credentials, projectExpired, expired);
@@ -269,6 +272,7 @@ describe('DB store', () => {
                 language : 'en',
                 labels : ['a'],
                 numfields : 0,
+                isCrowdSourced : false,
             };
 
             await store.storeConversationWorkspace(credentials, projectExpired, expired);
@@ -336,6 +340,7 @@ describe('DB store', () => {
                 language : 'en',
                 labels : ['a'],
                 numfields : 0,
+                isCrowdSourced : false,
             };
 
             await store.storeConversationWorkspace(credentials, project, classifierInfo);
@@ -396,6 +401,7 @@ describe('DB store', () => {
                 language : 'en',
                 labels : ['a'],
                 numfields : 0,
+                isCrowdSourced : false,
             };
 
             await store.storeConversationWorkspace(credentials, project, classifierInfo);
@@ -491,6 +497,7 @@ describe('DB store', () => {
                 language : 'en',
                 labels : ['a'],
                 numfields : 0,
+                isCrowdSourced : false,
             };
             const projectCurrent: DbTypes.Project = {
                 id : projectid,
@@ -501,6 +508,7 @@ describe('DB store', () => {
                 language : 'en',
                 labels : ['a'],
                 numfields : 0,
+                isCrowdSourced : false,
             };
 
             await store.storeImageClassifier(credentials, projectExpired, expired);
@@ -557,6 +565,7 @@ describe('DB store', () => {
                 language : 'en',
                 labels : ['a'],
                 numfields : 0,
+                isCrowdSourced : false,
             };
 
             await store.storeImageClassifier(credentials, projectExpired, expired);
@@ -626,6 +635,7 @@ describe('DB store', () => {
                 language : 'en',
                 labels : ['a'],
                 numfields : 0,
+                isCrowdSourced : false,
             };
 
             await store.storeImageClassifier(credentials, project, classifierInfo);

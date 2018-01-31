@@ -21,6 +21,7 @@ export function createProject(
     name: string,
     textlanguage: Objects.TextProjectLanguage,
     fields: Objects.NumbersProjectFieldSummary[],
+    crowdsource: boolean,
 ): Objects.ProjectDbRow
 {
     if (projects.typeLabels.indexOf(type) === -1) {
@@ -83,6 +84,7 @@ export function createProject(
         language,
         fields : fieldsObjs,
         numfields : fieldsObjs.length,
+        iscrowdsourced : crowdsource ? 1 : 0,
     };
 }
 
@@ -112,6 +114,7 @@ export function getProjectFromDbRow(row: Objects.ProjectDbRow): Objects.Project 
         language,
         numfields : row.numfields ? row.numfields : 0,
         fields : row.fields ? row.fields.map(getNumbersProjectFieldSummaryFromDbRow) : [],
+        isCrowdSourced : row.iscrowdsourced === 1,
     };
 }
 

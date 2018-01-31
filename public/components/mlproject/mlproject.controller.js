@@ -14,12 +14,13 @@
         vm.authService = authService;
 
         $scope.projectId = $stateParams.projectId;
+        $scope.userId = $stateParams.userId;
 
         authService.getProfileDeferred()
             .then(function (profile) {
                 vm.profile = profile;
 
-                return projectsService.getProject($scope.projectId, profile.user_id, profile.tenant);
+                return projectsService.getProject($scope.projectId, $scope.userId, profile.tenant);
             })
             .then(function (project) {
                 $scope.project = project;

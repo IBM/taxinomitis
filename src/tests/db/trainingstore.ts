@@ -201,7 +201,8 @@ describe('DB store - training', () => {
                 [
                     { name : 'first', type : 'number' }, { name : 'second', type : 'number' },
                     { name : 'third', type : 'number' },
-                ]);
+                ],
+                false);
 
 
             await store.addLabelToProject(userid, classid, project.id, 'TENS');
@@ -217,7 +218,7 @@ describe('DB store - training', () => {
 
             await wait();
 
-            let counts = await store.countTrainingByLabel('numbers', project.id);
+            let counts = await store.countTrainingByLabel(project);
             assert.deepEqual(counts, { TENS : 3, HUNDREDS : 2, THOUSANDS : 1 });
 
             const labels = await store.removeLabelFromProject(userid, classid, project.id, 'HUNDREDS');
@@ -229,7 +230,7 @@ describe('DB store - training', () => {
                 assert.deepEqual(updated.labels, ['TENS', 'THOUSANDS']);
             }
 
-            counts = await store.countTrainingByLabel('numbers', project.id);
+            counts = await store.countTrainingByLabel(project);
             assert.deepEqual(counts, { TENS : 3, THOUSANDS : 1 });
 
             await store.deleteEntireProject(userid, classid, project);
@@ -292,8 +293,10 @@ describe('DB store - training', () => {
         });
 
         it('should count training data by label', async () => {
-            const projectid = uuid();
-            let counts = await store.countTrainingByLabel('text', projectid);
+            const userid = uuid();
+            const project = await store.storeProject(userid, 'UNIQUECLASSID', 'text', 'name', 'en', [], false);
+            const projectid = project.id;
+            let counts = await store.countTrainingByLabel(project);
             assert.deepEqual(counts, {});
 
             const data = [];
@@ -302,6 +305,9 @@ describe('DB store - training', () => {
 
             for (let labelIdx = 0; labelIdx < 5; labelIdx++) {
                 const label = uuid();
+
+                await store.addLabelToProject(userid, 'UNIQUECLASSID', projectid, label);
+
                 const num = 8 + labelIdx;
 
                 for (let text = 0; text < num; text++) {
@@ -315,7 +321,7 @@ describe('DB store - training', () => {
 
             await store.bulkStoreTextTraining(projectid, data);
 
-            counts = await store.countTrainingByLabel('text', projectid);
+            counts = await store.countTrainingByLabel(project);
             assert.deepEqual(counts, expected);
 
             return store.deleteTrainingByProjectId('text', projectid);
@@ -577,7 +583,8 @@ describe('DB store - training', () => {
     describe('renameTextTrainingLabel', () => {
 
         it('should rename a label', async () => {
-            const projectid = uuid();
+            const project = await store.storeProject(uuid(), 'UNIQUECLASSID', 'text', 'name', 'en', [], false);
+
             const BEFORE = uuid();
             const AFTER = uuid();
 
@@ -592,9 +599,9 @@ describe('DB store - training', () => {
                 { textdata : uuid(), label : BEFORE },
                 { textdata : uuid(), label : uuid() },
             ];
-            await store.bulkStoreTextTraining(projectid, data);
+            await store.bulkStoreTextTraining(project.id, data);
 
-            const fetched = await store.getTextTraining(projectid, DEFAULT_PAGING);
+            const fetched = await store.getTextTraining(project.id, DEFAULT_PAGING);
             const expected = fetched.map((item) => {
                 if (item.label === BEFORE) {
                     return { id: item.id, textdata : item.textdata, label : AFTER };
@@ -602,12 +609,12 @@ describe('DB store - training', () => {
                 return item;
             });
 
-            await store.renameTrainingLabel('text', projectid, BEFORE, AFTER);
+            await store.renameTrainingLabel('text', project.id, BEFORE, AFTER);
 
-            const retrieved = await store.getTextTraining(projectid, DEFAULT_PAGING);
+            const retrieved = await store.getTextTraining(project.id, DEFAULT_PAGING);
             assert.deepEqual(retrieved, expected);
 
-            const counts = await store.countTrainingByLabel('text', projectid);
+            const counts = await store.countTrainingByLabel(project);
             assert.equal(counts[AFTER], 3);
             assert.equal(BEFORE in counts, false);
         });

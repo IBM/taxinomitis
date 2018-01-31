@@ -28,10 +28,15 @@ describe('REST API - image uploads', () => {
 
     const TESTCLASS = 'TESTCLASS';
 
+    let NEXT_USERID = 'studentid';
+
     function authNoOp(
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
     {
+        req.user = {
+            sub : NEXT_USERID,
+        };
         next();
     }
 
@@ -82,6 +87,8 @@ describe('REST API - image uploads', () => {
         cosStub = sinon.stub(IBMCosSDK, 'S3');
         cosStub.returns(mock.mockS3);
         imagestore.init();
+
+        NEXT_USERID = 'studentid';
     });
     afterEach(() => {
         cosStub.restore();
@@ -96,7 +103,7 @@ describe('REST API - image uploads', () => {
         let projectid = '';
 
         before(() => {
-            return store.storeProject('studentid', TESTCLASS, 'images', 'invalids', 'en', [])
+            return store.storeProject('studentid', TESTCLASS, 'images', 'invalids', 'en', [], false)
                 .then((proj) => {
                     projectid = proj.id;
                     return store.addLabelToProject('studentid', TESTCLASS, projectid, 'KNOWN');
@@ -142,7 +149,7 @@ describe('REST API - image uploads', () => {
         });
 
         it('should only support image projects', async () => {
-            const project = await store.storeProject('studentid', TESTCLASS, 'text', 'invalid', 'en', []);
+            const project = await store.storeProject('studentid', TESTCLASS, 'text', 'invalid', 'en', [], false);
             return request(testServer)
                 .post('/api/classes/' + TESTCLASS + '/students/studentid/projects/' + project.id + '/images')
                 .attach('image', './src/tests/utils/resources/test-04.jpg')
@@ -169,13 +176,15 @@ describe('REST API - image uploads', () => {
         it('should upload a file', async () => {
             const USER = 'TESTSTUDENT';
             const LABEL = 'testlabel';
-            const project = await store.storeProject(USER, TESTCLASS, 'images', 'test uploads', 'en', []);
+            const project = await store.storeProject(USER, TESTCLASS, 'images', 'test uploads', 'en', [], false);
             await store.addLabelToProject(USER, TESTCLASS, project.id, LABEL);
 
             const IMAGESURL = '/api/classes/' + TESTCLASS +
                                 '/students/' + USER +
                                 '/projects/' + project.id +
                                 '/images';
+
+            NEXT_USERID = USER;
 
             return request(testServer)
                 .post(IMAGESURL)
@@ -208,7 +217,7 @@ describe('REST API - image uploads', () => {
         let projectid = '';
 
         before(() => {
-            return store.storeProject('studentid', TESTCLASS, 'images', 'invalids', 'en', [])
+            return store.storeProject('studentid', TESTCLASS, 'images', 'invalids', 'en', [], false)
                 .then((proj) => {
                     projectid = proj.id;
                 });
@@ -246,11 +255,13 @@ describe('REST API - image uploads', () => {
 
             const userid = uuid();
 
-            const project = await store.storeProject(userid, TESTCLASS, 'images', 'valid', 'en', []);
+            const project = await store.storeProject(userid, TESTCLASS, 'images', 'valid', 'en', [], false);
             const projectid = project.id;
 
             const label = 'testlabel';
             await store.addLabelToProject(userid, TESTCLASS, projectid, label);
+
+            NEXT_USERID = userid;
 
             const imagesurl = '/api/classes/' + TESTCLASS +
                                 '/students/' + userid +
