@@ -6,7 +6,11 @@
         <button class="btn btn-primary" ng-click="vm.authService.login()">Log In</button>
     </div>
 </div>
-<div ng-if="isAuthenticated && projectId">
+<div ng-if="failure" class="alert alert-danger pageheadermsg" role="alert">
+    <strong>Error:</strong> {{ failure.message }}<br/>
+    <em ng-if="failure.status >= 500">If this keeps happening, please <a ui-sref="help">let me know</a>.</em>
+</div>
+<div ng-if="isAuthenticated && projectId && !failure">
     <div class="jumbotron">
         <h2 class="text-center">"{{ project.name }}"</h2>
     </div>

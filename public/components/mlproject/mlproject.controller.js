@@ -24,6 +24,12 @@
             })
             .then(function (project) {
                 $scope.project = project;
+            })
+            .catch(function (err) {
+                $scope.failure = {
+                    message : err.data.error,
+                    status : err.status
+                };
             });
     }
 }());

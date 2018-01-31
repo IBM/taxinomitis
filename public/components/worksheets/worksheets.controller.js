@@ -167,10 +167,15 @@
                 difficulty : 'Intermediate',
                 type : 'text',
                 image : 'static/images/project-sortinghat.png',
-                tags : [ 'text classification', 'supervised learning' ],
+                tags : [ 'text classification', 'supervised learning', 'crowd sourcing' ],
                 downloads : [
                     {
+                        description : 'Individual version of the project, where each student trains their own machine learning model independently',
                         worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-sortinghat.pdf'
+                    },
+                    {
+                        description : 'Group version of the project, where all students in the class work together to train a shared machine learning model',
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-sortinghat-crowd.pdf'
                     }
                 ],
                 notes : [

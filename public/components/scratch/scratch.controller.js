@@ -26,7 +26,7 @@
                 if (!errObj) {
                     errObj = {};
                 }
-                vm[type].push({ alertid : alertId++, message : errObj.message || errObj.error || 'Unknown error' });
+                vm[type].push({ alertid : alertId++, message : errObj.message || errObj.error || 'Unknown error', status : errObj.status });
             }
 
 
