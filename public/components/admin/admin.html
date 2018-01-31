@@ -48,6 +48,14 @@
             </select>
         </div>
         <div class="adminfilter">
+            <label for="filterIbm">IBM</label>
+            <select name="filterIbm" ng-model="vm.filters.ibm">
+                <option value="all"></option>
+                <option value="exclude">exclude IBMers</option>
+                <option value="only">only IBMers</option>
+            </select>
+        </div>
+        <div class="adminfilter">
             <label for="filterDale">Admins</label>
             <select name="filterDale" ng-model="vm.filters.dale">
                 <option value="all"></option>
@@ -56,9 +64,9 @@
         </div>
     </div>
     <div class="siteadmincontrol">
-        <button ng-click="vm.filters = { managed : 'all', credentials : 'setup', demo : 'all', active : 'once', dale : 'exclude' };">
+        <button ng-click="vm.filters = { managed : 'all', credentials : 'setup', demo : 'all', active : 'once', ibm : 'all', dale : 'exclude' };">
             View active tenants</button>
-        <button ng-click="vm.filters = { managed : 'all', credentials : 'all', demo : 'all', active : 'all', dale : 'all' };">
+        <button ng-click="vm.filters = { managed : 'all', credentials : 'all', demo : 'all', active : 'all', ibm : 'all', dale : 'all' };">
             Clear filters</button>
     </div>
 

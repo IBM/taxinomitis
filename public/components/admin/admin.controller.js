@@ -21,6 +21,7 @@
             credentials : 'all',
             demo : 'all',
             active : 'all',
+            ibm : 'all',
             dale : 'all'
         };
 
@@ -75,6 +76,14 @@
                 }
                 else if (vm.filters.active === 'never') {
                     passFilter = item.supervisors[0].logins_count === 0;
+                }
+            }
+            if (passFilter && vm.filters.ibm !== 'all') {
+                if (vm.filters.ibm === 'only') {
+                    passFilter = item.supervisors[0].email.indexOf('ibm.com') > 0;
+                }
+                else if (vm.filters.ibm === 'exclude') {
+                    passFilter = item.supervisors[0].email.indexOf('ibm.com') <= 0;
                 }
             }
             if (passFilter && vm.filters.dale !== 'all') {
