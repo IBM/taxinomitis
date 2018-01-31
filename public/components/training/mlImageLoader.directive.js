@@ -8,10 +8,12 @@
     function mlImageLoader() {
 
         function cancel(evt) {
-            if (evt.preventDefault) {
+            if (evt && evt.preventDefault) {
                 evt.preventDefault();
             }
-            evt.dataTransfer.dropEffect = 'copy';
+            if (evt && evt.dataTransfer) {
+                evt.dataTransfer.dropEffect = 'copy';
+            }
             return false;
         }
 
@@ -63,7 +65,21 @@
         var GOOG_IMG_REGEX = /^https:\/\/www\.google\.co[a-z.]+\/imgres\?(imgurl=.*)/;
 
 
+        function getType(types, type) {
+            if (types.indexOf(type) !== -1) {
+                return type;
+            }
+            else {
+                return 'Text';
+            }
+        }
+
+
         function handleDrop(evt, label, scope) {
+            if (!evt.dataTransfer) {
+                return false;
+            }
+
             if (evt.preventDefault) {
                 evt.preventDefault();
             }
@@ -77,8 +93,9 @@
             }
 
             var data;
-            if (evt.dataTransfer.types) {
-                var src = evt.dataTransfer.getData('text/uri-list');
+            if (evt.dataTransfer.types && evt.dataTransfer.types.length > 0) {
+                var type = getType(evt.dataTransfer.types, 'text/uri-list');
+                var src = evt.dataTransfer.getData(type);
                 var googleImagesCheck = src.match(GOOG_IMG_REGEX);
                 if (googleImagesCheck) {
                     var googleImagesUrl = googleImagesCheck[1];
@@ -86,7 +103,8 @@
                     data = googleImgsUrlParms.imgurl;
                 }
                 else {
-                    var linksrc = evt.dataTransfer.getData('text/html');
+                    var type = getType(evt.dataTransfer.types, 'text/html');
+                    var linksrc = evt.dataTransfer.getData(type);
                     var parsed = parseHTML(linksrc);
                     var img = parsed.querySelector('img');
                     if (img) {
@@ -137,13 +155,15 @@
                 return cancel(evt);
             });
             jqlElement.addEventListener('drop', function (evt) {
-                counter = 0;
-                angular.element(evt.target).removeClass('hover');
-                jqlElements.removeClass('hover');
+                if (evt && evt.dataTransfer) {
+                    counter = 0;
+                    angular.element(evt.target).removeClass('hover');
+                    jqlElements.removeClass('hover');
 
-                angular.element(document.querySelector('.trainingbucketitems.hover')).removeClass('hover');
+                    angular.element(document.querySelector('.trainingbucketitems.hover')).removeClass('hover');
 
-                return handleDrop(evt, label, scope);
+                    return handleDrop(evt, label, scope);
+                }
             });
         }
 
