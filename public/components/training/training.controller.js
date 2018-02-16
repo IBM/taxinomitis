@@ -101,8 +101,8 @@
 
 
         function refreshLabelsSummary () {
+            var summary = '';
             if ($scope.project.labels.length > 0) {
-                var summary = '';
                 switch ($scope.project.labels.length) {
                     case 1:
                         summary = $scope.project.labels[0];
@@ -121,8 +121,8 @@
                                     ($scope.project.labels.length - 2) + ' other classes';
                         break;
                 }
-                $scope.project.labelsSummary = summary;
             }
+            $scope.project.labelsSummary = summary;
         }
 
 
