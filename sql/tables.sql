@@ -14,8 +14,8 @@ CREATE TABLE projects (
     iscrowdsourced BOOLEAN DEFAULT false
 );
 
-CREATE INDEX projects_getCurrentLabels on projects(id, userid, classid) using HASH;
-CREATE INDEX projects_getProjectsByUserId on projects(classid, userid, iscrowdsourced) using HASH;
+CREATE INDEX projects_getCurrentLabels on projects(id, userid, classid);
+CREATE INDEX projects_getProjectsByUserId on projects(classid, userid, iscrowdsourced);
 
 
 
@@ -29,7 +29,7 @@ CREATE TABLE numbersprojectsfields (
     choices VARCHAR(50)
 );
 
-CREATE INDEX numbersprojectsfields_getByProjectId on numbersprojectsfields(userid, classid, projectid) using HASH;
+CREATE INDEX numbersprojectsfields_getByProjectId on numbersprojectsfields(userid, classid, projectid);
 
 -- ------------------------------------------------------------------
 
@@ -42,8 +42,8 @@ CREATE TABLE texttraining (
 
 -- we use utf-8 instead of the default Latin for this column so we can store accented characters
 
-CREATE INDEX texttraining_renameTextTraining on texttraining(projectid, label) using HASH;
-CREATE INDEX texttraining_getTrainingLabels on texttraining(projectid) using HASH;
+CREATE INDEX texttraining_renameTextTraining on texttraining(projectid, label);
+CREATE INDEX texttraining_getTrainingLabels on texttraining(projectid);
 
 
 CREATE TABLE numbertraining (
@@ -53,7 +53,7 @@ CREATE TABLE numbertraining (
     label VARCHAR(100)
 );
 
-CREATE INDEX numbertraining_getNumberTraining on numbertraining(projectid, label) using BTREE;
+CREATE INDEX numbertraining_getNumberTraining on numbertraining(projectid, label);
 
 
 CREATE TABLE imagetraining (
@@ -64,8 +64,8 @@ CREATE TABLE imagetraining (
     isstored BOOLEAN DEFAULT false
 );
 
-CREATE INDEX imagetraining_getImageTraining on imagetraining(projectid, label, imageurl) using BTREE;
-CREATE INDEX imagetraining_getTrainingLabels on imagetraining(projectid) using HASH;
+CREATE INDEX imagetraining_getImageTraining on imagetraining(projectid, label, imageurl);
+CREATE INDEX imagetraining_getTrainingLabels on imagetraining(projectid);
 
 -- ------------------------------------------------------------------
 
@@ -78,7 +78,7 @@ CREATE TABLE bluemixcredentials (
     password VARCHAR(36)
 );
 
-CREATE INDEX bluemixcredentials_getBluemixCredentials on bluemixcredentials(classid, servicetype) using HASH;
+CREATE INDEX bluemixcredentials_getBluemixCredentials on bluemixcredentials(classid, servicetype);
 
 
 -- ------------------------------------------------------------------
@@ -98,9 +98,10 @@ CREATE TABLE bluemixclassifiers (
     expiry DATETIME NOT NULL
 );
 
-CREATE INDEX bluemixclassifiers_getServiceCredentials on bluemixclassifiers(servicetype, classifierid, projectid, classid, userid) using HASH;
-CREATE INDEX bluemixclassifiers_deleteNLCClassifier on bluemixclassifiers(projectid, userid, classid, classifierid) using HASH;
-CREATE INDEX bluemixclassifiers_countNLCClassifiers on bluemixclassifiers(classid) using HASH;
+CREATE INDEX bluemixclassifiers_getServiceCredentials on bluemixclassifiers(servicetype, classifierid, projectid, classid, userid);
+CREATE INDEX bluemixclassifiers_deleteNLCClassifier on bluemixclassifiers(projectid, userid, classid, classifierid);
+CREATE INDEX bluemixclassifiers_countNLCClassifiers on bluemixclassifiers(classid);
+CREATE INDEX bluemixclassifiers_getClassifier on bluemixclassifiers(projectid, classifierid);
 
 
 -- ------------------------------------------------------------------
@@ -112,7 +113,6 @@ CREATE TABLE taxinoclassifiers (
     created DATETIME NOT NULL,
     status TINYINT NOT NULL
 );
-
 
 
 -- ------------------------------------------------------------------
@@ -130,9 +130,9 @@ CREATE TABLE scratchkeys (
     classid CHAR(36) NOT NULL
 );
 
-CREATE INDEX scratchkeys_updateScratchKey on scratchkeys(id, userid, projectid, classid) using HASH;
-CREATE INDEX scratchkeys_findScratchKeys on scratchkeys(projectid, userid, classid) using HASH;
-
+CREATE INDEX scratchkeys_updateScratchKey on scratchkeys(id, userid, projectid, classid);
+CREATE INDEX scratchkeys_findScratchKeys on scratchkeys(projectid, userid, classid);
+CREATE INDEX scratchkeys_resetExpiredScratchKey on scratchkeys(classifierid, projectid);
 
 
 -- ------------------------------------------------------------------
