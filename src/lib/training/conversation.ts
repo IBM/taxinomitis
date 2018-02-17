@@ -21,6 +21,7 @@ export const ERROR_MESSAGES = {
                          'at too fast a rate. ' +
                          'Please stop now and let your teacher or group leader know that ' +
                          '"the Watson Conversation service is currently rate limiting their API key"',
+    MODEL_NOT_FOUND : 'Your machine learning model could not be found on the training server. Please try again',
 };
 
 
@@ -145,12 +146,22 @@ async function updateWorkspace(
     }
     catch (err) {
         if (err.error &&
-                 err.error.error &&
-                 err.error.error.startsWith('Rate limit exceeded'))
+            err.error.error &&
+            err.error.error.startsWith('Rate limit exceeded'))
         {
             // The class is probably using a Lite plan API key and between
             //  them are hammering the Train Model button too fast
             throw new Error(ERROR_MESSAGES.API_KEY_RATE_LIMIT);
+        }
+        else if (err.statusCode === httpStatus.NOT_FOUND) {
+            // the Conversation workspace could not be found - it was likely
+            //  deleted from outside of the tool
+
+            // delete the DB reference
+            store.deleteConversationWorkspace(workspace.id);
+
+            // fail, so the user can try again and this time create a new workspace
+            throw new Error(ERROR_MESSAGES.MODEL_NOT_FOUND);
         }
         else {
             // Otherwise - rethrow it so we can bug out.

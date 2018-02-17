@@ -95,6 +95,9 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
             else if (err.message === conversation.ERROR_MESSAGES.API_KEY_RATE_LIMIT) {
                 return res.status(httpstatus.TOO_MANY_REQUESTS).send({ error : err.message });
             }
+            else if (err.message === conversation.ERROR_MESSAGES.MODEL_NOT_FOUND) {
+                return res.status(httpstatus.NOT_FOUND).send({ error : err.message });
+            }
             else if (err.statusCode === httpstatus.UNAUTHORIZED) {
                 return res.status(httpstatus.INTERNAL_SERVER_ERROR)
                         .send({ error : 'The credentials for the machine learning ' +
