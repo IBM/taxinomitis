@@ -8,10 +8,10 @@
         'authService',
         'projectsService', 'trainingService', 'quizService',
         '$stateParams',
-        '$scope', '$mdDialog', '$timeout', '$interval', '$q'
+        '$scope', '$mdDialog', '$timeout', '$interval', '$q', '$document'
     ];
 
-    function ModelsController(authService, projectsService, trainingService, quizService, $stateParams, $scope, $mdDialog, $timeout, $interval, $q) {
+    function ModelsController(authService, projectsService, trainingService, quizService, $stateParams, $scope, $mdDialog, $timeout, $interval, $q, $document) {
 
         var vm = this;
         vm.authService = authService;
@@ -27,11 +27,13 @@
             if (!errObj) {
                 errObj = {};
             }
+            var newId = alertId++;
             vm[type].push({
-                alertid : alertId++,
+                alertid : newId,
                 message : errObj.message || errObj.error || 'Unknown error',
                 status : status
             });
+            return newId;
         }
 
         $scope.loading = true;
@@ -81,7 +83,8 @@
                 $scope.loading = false;
             })
             .catch(function (err) {
-                displayAlert('errors', err.status, err.data);
+                var errId = displayAlert('errors', err.status, err.data);
+                scrollToNewItem('errors' + errId);
             });
 
 
@@ -206,7 +209,8 @@
                 .catch(function (err) {
                     $scope.submittingTrainingRequest = false;
 
-                    displayAlert('errors', err.status, err.data);
+                    var errId = displayAlert('errors', err.status, err.data);
+                    scrollToNewItem('errors' + errId);
                 });
         };
 
@@ -247,7 +251,8 @@
                     }
                 })
                 .catch(function (err) {
-                    displayAlert('errors', err.status, err.data);
+                    var errId = displayAlert('errors', err.status, err.data);
+                    scrollToNewItem('errors' + errId);
                 });
         };
 
@@ -272,7 +277,8 @@
                     }
                 })
                 .catch(function (err) {
-                    displayAlert('errors', err.status, err.data);
+                    var errId = displayAlert('errors', err.status, err.data);
+                    scrollToNewItem('errors' + errId);
                 });
         };
 
@@ -374,7 +380,8 @@
                             }
                         })
                         .catch(function (err) {
-                            displayAlert('errors', err.status, err.data);
+                            var errId = displayAlert('errors', err.status, err.data);
+                            scrollToNewItem('errors' + errId);
                         });
                 },
                 function() {
@@ -427,7 +434,8 @@
                             }
                         })
                         .catch(function (err) {
-                            displayAlert('errors', err.status, err.data);
+                            var errId = displayAlert('errors', err.status, err.data);
+                            scrollToNewItem('errors' + errId);
                         });
                 },
                 function() {
@@ -470,6 +478,16 @@
                 return summary;
             }
         }
+
+
+
+        function scrollToNewItem(itemId) {
+            $timeout(function () {
+                var newItem = document.getElementById(itemId);
+                $document.duScrollToElementAnimated(angular.element(newItem));
+            }, 0);
+        }
+
 
     }
 

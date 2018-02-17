@@ -96,7 +96,8 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
                 return res.status(httpstatus.TOO_MANY_REQUESTS).send({ error : err.message });
             }
             else if (err.message === conversation.ERROR_MESSAGES.MODEL_NOT_FOUND) {
-                return res.status(httpstatus.NOT_FOUND).send({ error : err.message });
+                return res.status(httpstatus.NOT_FOUND)
+                          .send({ error : err.message + ' Please try again' });
             }
             else if (err.statusCode === httpstatus.UNAUTHORIZED) {
                 return res.status(httpstatus.INTERNAL_SERVER_ERROR)
@@ -242,6 +243,10 @@ async function testModel(req: Express.Request, res: Express.Response) {
         }
     }
     catch (err) {
+        if (err.message === conversation.ERROR_MESSAGES.MODEL_NOT_FOUND) {
+            return res.status(httpstatus.NOT_FOUND).send({ error : err.message + ' Refresh the page' });
+        }
+
         log.error({ err }, 'Test error');
         return errors.unknownError(res, err);
     }

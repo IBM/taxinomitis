@@ -17,7 +17,10 @@
         <a ui-sref="mlproject({ projectId : projectId, userId : userId })">&lt; Back to project</a>
     </div>
 
-    <div ng-repeat="error in vm.errors" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
+    <div ng-repeat="error in vm.errors"
+         class="alert alert-danger alert-dismissible pageheadermsg" role="alert"
+         ng-click="vm.dismissAlert('errors', $index)"
+         id="errors{{error.alertid}}">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <strong>Error:</strong> {{ error.message }}<br/>
         <em ng-if="error.status >= 500">If this keeps happening, please <a ui-sref="help">let me know</a>.</em>

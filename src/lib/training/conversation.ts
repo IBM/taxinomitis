@@ -21,7 +21,7 @@ export const ERROR_MESSAGES = {
                          'at too fast a rate. ' +
                          'Please stop now and let your teacher or group leader know that ' +
                          '"the Watson Conversation service is currently rate limiting their API key"',
-    MODEL_NOT_FOUND : 'Your machine learning model could not be found on the training server. Please try again',
+    MODEL_NOT_FOUND : 'Your machine learning model could not be found on the training server.',
 };
 
 
@@ -429,20 +429,32 @@ export async function testClassifier(
         json : true,
     };
 
-    const body = await request.post(credentials.url + '/v1/workspaces/' + classifierId + '/message', req);
-    if (body.intents.length === 0) {
-        const project = await store.getProject(projectid);
-        if (project) {
-            return [ chooseLabelAtRandom(project) ];
+    try {
+        const body = await request.post(credentials.url + '/v1/workspaces/' + classifierId + '/message', req);
+        if (body.intents.length === 0) {
+            const project = await store.getProject(projectid);
+            if (project) {
+                return [ chooseLabelAtRandom(project) ];
+            }
+            else {
+                return [];
+            }
         }
-        else {
-            return [];
-        }
-    }
 
-    return body.intents.map((item: ConversationApiResponsePayloadIntentItem) => {
-        return { class_name : item.intent, confidence : Math.round(item.confidence * 100) };
-    });
+        return body.intents.map((item: ConversationApiResponsePayloadIntentItem) => {
+            return { class_name : item.intent, confidence : Math.round(item.confidence * 100) };
+        });
+    }
+    catch (err) {
+        if (err.statusCode === httpStatus.NOT_FOUND &&
+            err.error && err.error.code && err.error.code === httpStatus.NOT_FOUND)
+        {
+            throw new Error(ERROR_MESSAGES.MODEL_NOT_FOUND);
+        }
+
+        log.error({ err, classifierId, credentials, projectid }, 'Failed to classify text');
+        throw err;
+    }
 }
 
 
