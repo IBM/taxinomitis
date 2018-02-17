@@ -89,9 +89,11 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
             return res.status(httpstatus.CREATED).json(returnConversationWorkspace(model));
         }
         catch (err) {
-            if (err.message === 'Your class already has created their maximum allowed number of models') {
-                return res.status(httpstatus.CONFLICT)
-                        .send({ error : err.message });
+            if (err.message === conversation.ERROR_MESSAGES.INSUFFICIENT_API_KEYS) {
+                return res.status(httpstatus.CONFLICT).send({ error : err.message });
+            }
+            else if (err.message === conversation.ERROR_MESSAGES.API_KEY_RATE_LIMIT) {
+                return res.status(httpstatus.TOO_MANY_REQUESTS).send({ error : err.message });
             }
             else if (err.statusCode === httpstatus.UNAUTHORIZED) {
                 return res.status(httpstatus.INTERNAL_SERVER_ERROR)
@@ -114,8 +116,11 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
             return res.status(httpstatus.CREATED).json(returnVisualRecognition(model));
         }
         catch (err) {
-            if (err.message === 'Your class already has created their maximum allowed number of models') {
+            if (err.message === visualrec.ERROR_MESSAGES.INSUFFICIENT_API_KEYS) {
                 return res.status(httpstatus.CONFLICT).send({ error : err.message });
+            }
+            else if (err.message === visualrec.ERROR_MESSAGES.API_KEY_RATE_LIMIT) {
+                return res.status(httpstatus.TOO_MANY_REQUESTS).send({ error : err.message });
             }
             else if (err.message === 'Not enough images to train the classifier' ||
                      err.message === 'Number of images exceeds maximum (10000)' ||

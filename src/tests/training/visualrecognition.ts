@@ -212,7 +212,7 @@ describe('Training - Visual Recognition', () => {
                 assert.fail(0, 1, 'should not have reached here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Your class already has created their maximum allowed number of models');
+                assert.equal(err.message, visrec.ERROR_MESSAGES.INSUFFICIENT_API_KEYS);
             }
 
             assert.equal(storeScratchKeyStub.called, false);
@@ -451,7 +451,11 @@ describe('Training - Visual Recognition', () => {
                 return new Promise((resolve, reject) => {
                     const err = {
                         error : {
-                            error : 'Cannot execute learning task. : this plan instance can have only 1 custom classifier(s), and 1 already exist.',
+                            error :  {
+                                description : 'Cannot execute learning task. : this plan instance can have only 1 custom classifier(s), and 1 already exist.',
+                                code : 400,
+                                error_id : 'input_error',
+                            },
                         },
                         statusCode : 400,
                         status : 400,

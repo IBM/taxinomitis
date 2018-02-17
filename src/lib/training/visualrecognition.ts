@@ -14,6 +14,18 @@ import loggerSetup from '../utils/logger';
 const log = loggerSetup();
 
 
+export const ERROR_MESSAGES = {
+    UNKNOWN : 'Failed to train machine learning model',
+    INSUFFICIENT_API_KEYS : 'Your class already has created their maximum allowed number of models. ' +
+                            'Please let your teacher or group leader know that ' +
+                            'their "Watson Visual Recognition API keys have no more classifiers available"',
+    API_KEY_RATE_LIMIT : 'Your class is making too many requests to create machine learning models ' +
+                         'at too fast a rate. ' +
+                         'Please stop now and let your teacher or group leader know that ' +
+                         '"the Watson Visual Recognition service is currently rate limiting their API key"',
+};
+
+
 
 
 export async function trainClassifier(
@@ -50,6 +62,12 @@ async function createClassifier(
 {
     let classifier: TrainingObjects.VisualClassifier;
 
+    // Unless we see a different error, if this doesn't work, the reason
+    //  will be that we don't have room for any new classifiers with the
+    //  available credentials
+    let finalError = ERROR_MESSAGES.INSUFFICIENT_API_KEYS;
+
+
     for (const credentials of credentialsPool) {
         try {
             const url = credentials.url + '/v3/classifiers';
@@ -62,22 +80,47 @@ async function createClassifier(
             return classifier;
         }
         catch (err) {
-            // If we couldn't create a classifier because we've used up the
-            //  number of classifiers allowed with these creds, then swallow
-            //  the error so we can try the next set of creds in the pool
-            // Otherwise - rethrow it so we can bug out.
-            if (!err.error || !err.error.error ||
-                err.error.error.indexOf('this plan instance can have only') === -1 ||
-                err.error.error.indexOf('already exist') === -1)
+            if (err.error &&
+                err.error.error &&
+                err.error.error.description &&
+                err.error.error.description.indexOf('this plan instance can have only') >= 0 &&
+                err.error.error.description.indexOf('already exist') >= 0)
             {
+                // We couldn't create a classifier because we've used up the
+                //  number of custom classifiers allowed with these creds.
+                // So we'll swallow the error so we can try the next set of
+                //  creds in the pool
+                finalError = ERROR_MESSAGES.INSUFFICIENT_API_KEYS;
+            }
+            else if (err.error &&
+                err.error.statusInfo &&
+                err.error.statusInfo === 'Key is over transaction limit')
+            {
+                // The class is probably using a Lite plan API key and between
+                //  them are hammering the Train Model button too fast
+                // So we'll swallow the error so we can try the next set of
+                //  creds in the pool
+                finalError = ERROR_MESSAGES.API_KEY_RATE_LIMIT;
+            }
+            else {
+                // Otherwise - rethrow it so we can bug out.
+                log.error({ err, project }, 'Unhandled Visual Recognition exception');
                 throw err;
             }
         }
     }
 
-    // if we're here, it means we don't have room for any new classifiers
-    //  with the available credentials
-    throw new Error('Your class already has created their maximum allowed number of models');
+
+    //
+    // If we're here, either:
+    //  1) there were no credentials, so we never entered the for loop above, so we use
+    //      the default finalError
+    //  2) every attempt to train a model failed, but with an exception that was swallowed
+    //      above, with finalError being set with the reason
+    //
+
+
+    throw new Error(finalError);
 }
 
 
@@ -414,7 +457,7 @@ async function submitTrainingToVisualRecognition(
         };
     }
     catch (err) {
-        log.error({ url, req, err }, 'Failed to train classifier');
+        log.error({ url, req, err }, ERROR_MESSAGES.UNKNOWN);
         notifications.notify('Failed to train image classifier ' +
                              'for project ' + project.id + ' ' +
                              'in class ' + project.classid + ' : ' +
@@ -424,7 +467,7 @@ async function submitTrainingToVisualRecognition(
         //  URL and credentials we used for it. So we don't want to return
         //  that - after logging, we create a new exception to throw, with
         //  just the bits that should be safe to share.
-        const trainingError: any = new Error('Failed to train classifier');
+        const trainingError: any = new Error(ERROR_MESSAGES.UNKNOWN);
         trainingError.error = err.error;
         trainingError.statusCode = err.statusCode;
 

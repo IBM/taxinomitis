@@ -147,7 +147,65 @@ describe('Training - Conversation', () => {
                 assert.fail(0, 1, 'should not have allowed this', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Failed to train workspace');
+                assert.equal(err.message, conversation.ERROR_MESSAGES.UNKNOWN);
+            }
+        });
+
+
+        it('should handle model limit failures to create a classifier', async () => {
+            storeScratchKeyStub.reset();
+
+            const classid = 'TESTTENANT';
+            const userid = 'unluckybob';
+            const projectid = 'projectbob';
+            const projectname = 'Too Many Models';
+
+            const project: DbTypes.Project = {
+                id : projectid,
+                name : projectname,
+                userid, classid,
+                type : 'text',
+                language : 'en',
+                labels : ['this', 'that'],
+                numfields : 0,
+                isCrowdSourced : false,
+            };
+
+            try {
+                await conversation.trainClassifier(project);
+                assert.fail(0, 1, 'should not have allowed this', '');
+            }
+            catch (err) {
+                assert.equal(err.message, conversation.ERROR_MESSAGES.INSUFFICIENT_API_KEYS);
+            }
+        });
+
+
+        it('should handle rate limit failures to create a classifier', async () => {
+            storeScratchKeyStub.reset();
+
+            const classid = 'TESTTENANT';
+            const userid = 'unluckybob';
+            const projectid = 'projectbob';
+            const projectname = 'Coming Too Fast';
+
+            const project: DbTypes.Project = {
+                id : projectid,
+                name : projectname,
+                userid, classid,
+                type : 'text',
+                language : 'en',
+                labels : ['this', 'that'],
+                numfields : 0,
+                isCrowdSourced : false,
+            };
+
+            try {
+                await conversation.trainClassifier(project);
+                assert.fail(0, 1, 'should not have allowed this', '');
+            }
+            catch (err) {
+                assert.equal(err.message, conversation.ERROR_MESSAGES.API_KEY_RATE_LIMIT);
             }
         });
     });
@@ -382,15 +440,33 @@ describe('Training - Conversation', () => {
                         workspace_id : '04f2d303-16fd-4f2e-80f4-2c66784cc0fe',
                     });
                 }
+                else if (options.body.name === 'Coming Too Fast') {
+                    reject({
+                        error : {
+                            error : 'Rate limit exceeded',
+                            code : 429,
+                        },
+                    });
+                }
+                else if (options.body.name === 'Too Many Models') {
+                    reject({
+                        error : {
+                            error : 'Maximum workspaces limit exceeded. Limit = 5',
+                            code : 400,
+                        },
+                    });
+                }
                 else {
                     reject({
-                        error : 'Invalid Request Body',
-                        errors : [
-                            {
-                                message : 'text cannot be longer than 1024 characters',
-                                path : '.intents[0].examples[0].text',
-                            },
-                        ],
+                        error : {
+                            error : 'Invalid Request Body',
+                            errors : [
+                                {
+                                    message : 'text cannot be longer than 1024 characters',
+                                    path : '.intents[0].examples[0].text',
+                                },
+                            ],
+                        },
                     });
                 }
             });

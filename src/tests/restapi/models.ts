@@ -84,7 +84,7 @@ describe('REST API - models', () => {
 
         conversationStub.trainClassifierStub.callsFake((project: DbTypes.Project) => {
             if (project.name === 'no more room') {
-                const err = new Error('Your class already has created their maximum allowed number of models');
+                const err = new Error(conversation.ERROR_MESSAGES.INSUFFICIENT_API_KEYS);
                 return Promise.reject(err);
             }
             else if (project.name === 'bad creds') {
@@ -156,7 +156,7 @@ describe('REST API - models', () => {
 
         imagesStub.trainClassifierStub.callsFake((project: DbTypes.Project) => {
             if (project.name === 'no more room') {
-                const err = new Error('Your class already has created their maximum allowed number of models');
+                const err = new Error(visualrecog.ERROR_MESSAGES.INSUFFICIENT_API_KEYS);
                 return Promise.reject(err);
             }
             else if (project.name === 'insufficient') {
@@ -554,7 +554,7 @@ describe('REST API - models', () => {
                 .then(async (res) => {
                     const body = res.body;
 
-                    assert.equal(body.error, 'Your class already has created their maximum allowed number of models');
+                    assert.equal(body.error, conversation.ERROR_MESSAGES.INSUFFICIENT_API_KEYS);
 
                     await store.deleteEntireUser(userid, classid);
                 });
@@ -631,7 +631,7 @@ describe('REST API - models', () => {
                 .then(async (res) => {
                     const body = res.body;
 
-                    assert.equal(body.error, 'Your class already has created their maximum allowed number of models');
+                    assert.equal(body.error, visualrecog.ERROR_MESSAGES.INSUFFICIENT_API_KEYS);
 
                     await store.deleteEntireUser(userid, classid);
                 });

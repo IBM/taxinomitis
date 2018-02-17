@@ -12,6 +12,16 @@ import loggerSetup from '../utils/logger';
 const log = loggerSetup();
 
 
+export const ERROR_MESSAGES = {
+    UNKNOWN : 'Failed to train machine learning model',
+    INSUFFICIENT_API_KEYS : 'Your class already has created their maximum allowed number of models. ' +
+                            'Please let your teacher or group leader know that ' +
+                            'their "Watson Conversation API keys have no more workspaces available"',
+    API_KEY_RATE_LIMIT : 'Your class is making too many requests to create machine learning models ' +
+                         'at too fast a rate. ' +
+                         'Please stop now and let your teacher or group leader know that ' +
+                         '"the Watson Conversation service is currently rate limiting their API key"',
+};
 
 
 export async function trainClassifier(
@@ -53,6 +63,12 @@ async function createWorkspace(
 
     const id: string = uuid();
 
+    // Unless we see a different error, if this doesn't work, the reason
+    //  will be that we don't have room for any new workspaces with the
+    //  available credentials
+    let finalError = ERROR_MESSAGES.INSUFFICIENT_API_KEYS;
+
+
     for (const credentials of credentialsPool) {
         try {
             const url = credentials.url + '/v1/workspaces';
@@ -66,22 +82,49 @@ async function createWorkspace(
             return workspace;
         }
         catch (err) {
-            // If we couldn't create a workspace because we've used up the
-            //  number of workspaces allowed with these creds, then swallow
-            //  the error so we can try the next set of creds in the pool
-            // Otherwise - rethrow it so we can bug out.
-            if (!err.error || !err.error.error ||
-                err.error.error.startsWith('Maximum workspaces limit exceeded') === false)
+            if (err.error &&
+                err.error.error &&
+                err.error.error.startsWith('Maximum workspaces limit exceeded'))
             {
+                // We couldn't create a workspace because we've used up the
+                //  number of workspaces allowed with these creds.
+                // So we'll swallow the error so we can try the next set of
+                //  creds in the pool
+                finalError = ERROR_MESSAGES.INSUFFICIENT_API_KEYS;
+            }
+            else if (err.error &&
+                     err.error.error &&
+                     err.error.error.startsWith('Rate limit exceeded'))
+            {
+                // The class is probably using a Lite plan API key and between
+                //  them are hammering the Train Model button too fast
+                // So we'll swallow the error so we can try the next set of
+                //  creds in the pool
+                finalError = ERROR_MESSAGES.API_KEY_RATE_LIMIT;
+            }
+            else {
+                // Otherwise - rethrow it so we can bug out.
+                log.error({ err, project }, 'Unhandled Conversation exception');
                 throw err;
             }
         }
     }
 
-    // if we're here, it means we don't have room for any new workspaces
-    //  with the available credentials
-    throw new Error('Your class already has created their maximum allowed number of models');
+
+    //
+    // If we're here, either:
+    //  1) there were no credentials, so we never entered the for loop above, so we use
+    //      the default finalError
+    //  2) every attempt to train a model failed, but with an exception that was swallowed
+    //      above, with finalError being set with the reason
+    //
+
+
+    throw new Error(finalError);
 }
+
+
+
 
 
 async function updateWorkspace(
@@ -93,11 +136,28 @@ async function updateWorkspace(
 {
     const url = credentials.url + '/v1/workspaces/' + workspace.workspace_id;
 
-    const modified = await submitTrainingToConversation(project, credentials, url, training, workspace.id);
+    try {
+        const modified = await submitTrainingToConversation(project, credentials, url, training, workspace.id);
 
-    await store.updateConversationWorkspaceExpiry(modified);
+        await store.updateConversationWorkspaceExpiry(modified);
 
-    return modified;
+        return modified;
+    }
+    catch (err) {
+        if (err.error &&
+                 err.error.error &&
+                 err.error.error.startsWith('Rate limit exceeded'))
+        {
+            // The class is probably using a Lite plan API key and between
+            //  them are hammering the Train Model button too fast
+            throw new Error(ERROR_MESSAGES.API_KEY_RATE_LIMIT);
+        }
+        else {
+            // Otherwise - rethrow it so we can bug out.
+            log.error({ err }, 'Unhandled Conversation exception');
+            throw err;
+        }
+    }
 }
 
 
@@ -312,7 +372,7 @@ async function submitTrainingToConversation(
         return workspace;
     }
     catch (err) {
-        log.error({ req, err }, 'Failed to train workspace');
+        log.error({ req, err }, ERROR_MESSAGES.UNKNOWN);
         notifications.notify('Failed to train text classifier for project ' +
                              project.id + ' : ' +
                              err.message);
@@ -321,7 +381,7 @@ async function submitTrainingToConversation(
         //  URL and credentials we used for it. So we don't want to return
         //  that - after logging, we create a new exception to throw, with
         //  just the bits that should be safe to share.
-        const trainingError: any = new Error('Failed to train workspace');
+        const trainingError: any = new Error(ERROR_MESSAGES.UNKNOWN);
         trainingError.error = err.error;
         trainingError.statusCode = err.statusCode;
 
