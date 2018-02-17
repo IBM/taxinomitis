@@ -11,7 +11,7 @@
     background-color: #eeeeee;
     border-radius: 2em;
     width: 40%;
-    margin: 1%;
+    margin: 1% 1% 1em 1%;
     padding: 2em;
     position: relative;
     min-width: 400px;
@@ -46,7 +46,7 @@
 
 .trainingserversection {
     border: thin black solid;
-    margin: 6em;
+    margin: 2em 6em 6em 6em;
 }
 
 
