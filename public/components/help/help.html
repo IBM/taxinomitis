@@ -37,13 +37,13 @@
         on the summary for more info.
     </div>
     <div style="margin-bottom: 0.8em;">
-        If you're still stuck, or you've run into a problem I've not included in the list, sorry! Please let me know so I can help.
+        If you're still stuck, or you've run into a problem I've not included in the list, sorry! Please <a href="mailto:dale.lane@uk.ibm.com">let me know</a> so I can help.
     </div>
     <div class="panel-group">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#helpScratch" target="_self">I don't know how to get Scratch working</a>
+                    <a data-toggle="collapse" href="#helpScratch" target="_self">I don't know how to get Scratch working</a>
                 </h4>
             </div>
             <div id="helpScratch" class="panel-collapse collapse">
@@ -62,7 +62,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#helpSafeMode" target="_self">The "Load Project" and "Save Project" menus in Scratch don't work</a>
+                    <a data-toggle="collapse" href="#helpSafeMode" target="_self">The "Load Project" and "Save Project" menus in Scratch don't work</a>
                 </h4>
             </div>
             <div id="helpSafeMode" class="panel-collapse collapse">
@@ -81,7 +81,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#helpIEDrag" target="_self">Dragging images into training buckets (for image projects) doesn't work</a>
+                    <a data-toggle="collapse" href="#helpIEDrag" target="_self">Dragging images into training buckets (for image projects) doesn't work</a>
                 </h4>
             </div>
             <div id="helpIEDrag" class="panel-collapse collapse">
@@ -98,7 +98,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#helpScratchStatus" target="_self">Machine learning classifier blocks in Scratch don't work</a>
+                    <a data-toggle="collapse" href="#helpScratchStatus" target="_self">Machine learning classifier blocks in Scratch don't work</a>
                 </h4>
             </div>
             <div id="helpScratchStatus" class="panel-collapse collapse">
@@ -134,7 +134,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#helpAPISetup" target="_self">"No Watson credentials have been set up"</a>
+                    <a data-toggle="collapse" href="#helpAPISetup" target="_self">"No Watson credentials have been set up"</a>
                 </h4>
             </div>
             <div id="helpAPISetup" class="panel-collapse collapse">
@@ -153,7 +153,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#helpConversationAPISetup" target="_self">"Watson Conversation API keys have no more workspaces available"</a>
+                    <a data-toggle="collapse" href="#helpConversationAPISetup" target="_self">"Watson Conversation API keys have no more workspaces available"</a>
                 </h4>
             </div>
             <div id="helpConversationAPISetup" class="panel-collapse collapse">
@@ -193,7 +193,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#helpVisRecAPISetup" target="_self">"Watson Visual Recognition API keys have no more classifiers available"</a>
+                    <a data-toggle="collapse" href="#helpVisRecAPISetup" target="_self">"Watson Visual Recognition API keys have no more classifiers available"</a>
                 </h4>
             </div>
             <div id="helpVisRecAPISetup" class="panel-collapse collapse">
@@ -233,7 +233,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#helpRateLimiting" target="_self">"Watson ... is currently rate limiting their API key"</a>
+                    <a data-toggle="collapse" href="#helpRateLimiting" target="_self">"Watson ... is currently rate limiting their API key"</a>
                 </h4>
             </div>
             <div id="helpRateLimiting" class="panel-collapse collapse">
@@ -268,6 +268,87 @@
                     If students are clicking the "Train new Machine Learning model" button and getting "no more workspaces available" or
                     "no more classifiers available" errors (as described above), then they should be aware that repeatedly clicking the
                     button will not resolve the issue, and will in fact make the situation worse for the rest of the class.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#helpTiers" target="_self">Number of available ML models in the Teacher's page is incorrect</a>
+                </h4>
+            </div>
+            <div id="helpTiers" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>
+                    The Teacher's page shows the number of machine learning models available to your class. (This page is only accessible to
+                    teachers or group leaders). This value is calculated by taking the number of API keys / credentials that the teacher has
+                    created, and multiplying it by the number of machine learning models that can be created with a single API key.
+                    </p>
+                    <p>
+                    Unfortunately, this can be misleading. The value is based on assumptions about which Pricing Plan were used when creating
+                    API keys.
+                    </p>
+                    <p>
+                    For <span class="mlprojecttype">text</span> projects, the assumption is that "Standard Plan" will be used for creating
+                    <a href="https://console.bluemix.net/catalog/services/conversation">Watson Conversation</a> credentials, as this supports
+                    20 "workspaces". The teacher's page multiplies the number of Watson Conversation credentials by 20 when displaying
+                    <blockquote>"Your class is allowed to have up to ?? machine learning models in total across all their text projects."</blockquote>
+                    </p>
+                    <p>
+                    The "Lite Plan" supports only 5 "workspaces", so if any of the Watson Conversation credentials were created in the Lite
+                    pricing plan, then this means the actual limit will be less than displayed on the Teacher's page.
+                    </p>
+                    <p>
+                    For <span class="mlprojecttype">images</span> projects, the assumption is that "Lite Plan" will be used for creating
+                    <a href="https://console.bluemix.net/catalog/services/watson_vision_combined">Watson Visual Recognition</a> API keys,
+                    as this supports 1 "custom model". The teacher's page multiplies the number of Watson Visual Recognition API keys by 1
+                    when displaying
+                    <blockquote>"Your class is allowed to have up to ?? machine learning models in total across all their images projects."</blockquote>
+                    </p>
+                    <p>
+                    The "Standard Plan" doesn't have a limit on the number of custom models, so if any of the Watson Visual Recognition
+                    API keys were created with the Standard pricing plan, this means there isn't actually a limit on the number of machine
+                    learning models for images projects, despite what is shown on the Teacher's page.
+                    </p>
+                    <p>
+                    Sorry for any confusion that this page causes. I will be updating the Teacher's admin page so it asks for the Pricing Plan
+                    for each set of credentials or API keys, so that I can do the appropriate multiplication in the UI.
+                    </p>
+                    <p>
+                    In the meantime, the correct limit is whatever is shown on IBM Cloud where the credentials are created. More detailed
+                    information about all of this can be found in this
+                    <a href="https://github.com/dalelane/ml-for-kids/raw/master/doc/machinelearningforkids-apikeys.pdf">PDF document about
+                    using Watson API keys with Machine Learning for Kids</a>.
+                    </p>
+                    <p>
+                    If you're not sure how to work out the limit for your class, please <a href="mailto:dale.lane@uk.ibm.com">let me know</a>
+                    and I'll try and help.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#helpEmailVerify" target="_self">I've created a class account but my teacher's logon isn't working</a>
+                </h4>
+            </div>
+            <div id="helpEmailVerify" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>
+                    You need to verify your email address before you'll be able to log on.
+                    </p>
+                    <p>
+                    When you created the class account, an email will be sent to the email address you provided, with a link to click on.
+                    If you click on that link, your email address will be verified and the class account will be activated.
+                    You should be able to log on now.
+                    </p>
+                    <p>
+                    If you haven't seen the verify email yet, make sure it's not gone into your spam folder.
+                    </p>
+                    <p>
+                    If you still can't find it, <a href="mailto:dale.lane@uk.ibm.com">let me know</a> and I'll try and help.
                     </p>
                 </div>
             </div>
