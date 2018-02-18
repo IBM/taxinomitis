@@ -384,8 +384,9 @@ async function submitTrainingToConversation(
     }
     catch (err) {
         log.error({ req, err }, ERROR_MESSAGES.UNKNOWN);
-        notifications.notify('Failed to train text classifier for project ' +
-                             project.id + ' : ' +
+        notifications.notify('Failed to train text classifier' +
+                             ' for project : ' + project.id +
+                             ' in class : ' + project.classid + ' : ' +
                              err.message);
 
         // The full error object will include the Conversation request with the

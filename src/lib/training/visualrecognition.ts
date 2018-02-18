@@ -458,9 +458,9 @@ async function submitTrainingToVisualRecognition(
     }
     catch (err) {
         log.error({ url, req, err }, ERROR_MESSAGES.UNKNOWN);
-        notifications.notify('Failed to train image classifier ' +
-                             'for project ' + project.id + ' ' +
-                             'in class ' + project.classid + ' : ' +
+        notifications.notify('Failed to train image classifier' +
+                             ' for project : ' + project.id +
+                             ' in class : ' + project.classid + ' : ' +
                              err.message);
 
         // The full error object will include the classifier request with the
