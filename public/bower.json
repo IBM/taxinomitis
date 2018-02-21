@@ -21,6 +21,7 @@
     "angular-ui-router": "1.0.13",
     "auth0-lock111": "auth0-lock#11.1.0",
     "auth0js9": "auth0.js#9.1.0",
+    "blueimp-canvas-to-blob": "3.14.0",
     "bootstrap": "3.3.7",
     "jquery3": "jquery#3.2.1",
     "webcam": "webcam-directive#3.1.1"
