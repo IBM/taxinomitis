@@ -35,16 +35,24 @@ angular.module('app')
                 $scope.canvas = element.find('canvas')[0];
                 var ctx = $scope.canvas.getContext('2d');
 
+                function isMouseButtonDown(mouseevt) {
+                    if (mouseevt.buttons !== undefined) {
+                        return mouseevt.buttons === 1;
+                    }
+                    // for Safari support, which doesn't support
+                    //  'which' for mouseevnets
+                    return mouseevt.which === 1;
+                }
+
                 $scope.handleMouseDown = function(e) {
                     last_mousex = mousex = e.offsetX;
                     last_mousey = mousey = e.offsetY;
-                    mousedown = true;
                 };
                 $scope.handleMouseMove = function handleMouseMove(e) {
                     mousex = e.offsetX;
                     mousey = e.offsetY;
 
-                    if (e.buttons || e.which) {
+                    if (isMouseButtonDown(e)) {
                         ctx.beginPath();
                         ctx.globalCompositeOperation = 'source-over';
                         if ($scope.canvastool == 'tooldraw') {
