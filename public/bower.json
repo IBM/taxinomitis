@@ -12,22 +12,22 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "1.6.8",
-    "angular-jwt": "0.1.9",
+    "auth0-lock1123": "auth0-lock#11.2.3",
+    "auth0js923": "auth0.js#9.2.3",
     "angular-lock2": "angular-lock#2.0.3",
-    "angular-material1": "angular-material#1.1.5",
-    "angular-sanitize": "1.6.8",
-    "angular-scroll": "1.0.2",
-    "angular-ui-router": "1.0.13",
-    "auth0-lock111": "auth0-lock#11.1.0",
-    "auth0js9": "auth0.js#9.1.0",
-    "blueimp-canvas-to-blob": "3.14.0",
+    "angular": "1.6.9",
+    "angular-jwt": "0.1.9",
+    "angular-material117": "angular-material#1.1.7",
+    "webcam": "webcam-directive#3.1.1",
+    "angular-ui-router15": "angular-ui-router#1.0.15",
     "bootstrap": "3.3.7",
-    "jquery3": "jquery#3.2.1",
-    "webcam": "webcam-directive#3.1.1"
+    "angular-scroll": "1.0.2",
+    "angular-sanitize": "1.6.9",
+    "blueimp-canvas-to-blob": "3.14.0",
+    "jquery331": "jquery#3.3.1"
   },
   "resolutions": {
-    "angular": "1.6.8",
-    "auth0.js": "9.1.0"
+    "angular": "1.6.9",
+    "auth0.js": "9.2.3"
   }
 }
