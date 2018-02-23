@@ -95,7 +95,7 @@
                     ng-model="terms"
                     ng-disabled="vm.complete || vm.creating"
                     ng-focus="vm.focused = 'terms'">
-                    By checking this box, you accept responsibility for any fees or charges incurred on IBM Cloud.
+                    By checking this box, you accept responsibility for any fees or charges incurred on <a href="https://console.bluemix.net/">IBM Cloud</a>.
                 </md-checkbox>
             </md-input-container>
             <div class="well newprojecthelp" ng-if="vm.focused === 'terms'">
@@ -112,17 +112,19 @@
             <div>"Do I have to pay for that?"</div>
             <ul>
                 <li>No.</li>
-                <li>Creating an account on IBM Cloud is free</li>
-                <li>You do not need to provide a credit card to create an account</li>
-                <li>You do not need to provide a credit card to create the Watson API keys you will need for text projects</li>
-                <li>Watson API keys you can create for free have usage limits. You can choose to pay if you want to increase these limits. It is these charges that are your responsibility.</li>
+                <li>Creating an account on IBM Cloud is free.</li>
+                <li>You do not need to provide IBM Cloud with a credit card to create an account.</li>
+                <li>You do not need to provide IBM Cloud with a credit card to create the Watson API keys you will need.</li>
+                <li>There is a limit to the number of free API keys you can create. Providing IBM Cloud with a credit card number increases this limit.</li>
+                <li>Watson API keys you can create for free have usage limits. You can choose to pay IBM if you want to increase these limits. It is these charges that are your responsibility.</li>
                 <li>An advisory price list is included in the <a href="https://github.com/dalelane/ml-for-kids/raw/master/doc/machinelearningforkids-apikeys.pdf">setup instructions</a> (section 4). </li>
             </ul>
             <div>"Will my students need to do this?"</div>
             <ul>
                 <li>No.</li>
                 <li>This is a one-off setup task that you will need to do as the teacher / group-leader. </li>
-                <li>Students in your group will not need to create an account with, or visit, IBM Cloud.</li>
+                <li>Students in your group will not need to create an account with IBM Cloud.</li>
+                <li>Students in your group will not need to visit IBM Cloud.</li>
             </ul>
             <div>"How will I know how to do that?"</div>
             <ul>
