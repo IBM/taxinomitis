@@ -171,7 +171,8 @@ export async function resetStudentsPassword(tenant: string, userids: string[]): 
 
     const token = await getBearerToken();
 
-    let backoff = 5;
+    let backoffMs = 5;
+    const MAX_BACKOFF_MS = 5000;
 
     const allCreds: Objects.UserCreds[] = [];
 
@@ -184,8 +185,11 @@ export async function resetStudentsPassword(tenant: string, userids: string[]): 
         // auth0 rate-limits aggressively, so protect against
         //  large workloads by waiting increasingly long times
         //  for large requests
-        await pause(backoff);
-        backoff += 1;
+        await pause(backoffMs);
+        backoffMs += 50;
+
+        // set an upper limit for how long to wait between requests
+        backoffMs = backoffMs > MAX_BACKOFF_MS ? MAX_BACKOFF_MS : backoffMs;
     }
     return allCreds;
 }
