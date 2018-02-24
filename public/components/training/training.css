@@ -214,6 +214,10 @@
 
 
 
+video.webcam-live {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
 
 .webcamerror {
     max-width: 500px;
