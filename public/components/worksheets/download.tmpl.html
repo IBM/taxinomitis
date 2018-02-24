@@ -1,7 +1,7 @@
 <md-dialog aria-label="Download project">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>{{worksheet.title}}</h2>
+            <h2>"{{worksheet.title}}" downloads</h2>
             <span flex></span>
             <md-button class="md-icon-button" ng-click="cancel()">
               <md-icon class="glyphicon glyphicon-remove" aria-label="Close dialog"></md-icon>
@@ -9,43 +9,56 @@
         </div>
     </md-toolbar>
     <md-dialog-content>
-        <div class="md-dialog-content" style="min-width: 300px; max-width: 600px;">
+        <div class="md-dialog-content" style="min-width: 300px; max-width: 1000px;">
             <md-card-content>
+                <h4 ng-if="worksheet.teachersnotes">For teachers:</h4>
+                <div ng-if="worksheet.teachersnotes"
+                    style="border-radius: 1em; background-color: #eeeeee; padding: 1em; margin-bottom: 1em;">
+                    <a class="btn btn-primary" href="{{worksheet.teachersnotes}}">
+                        <span class="glyphicon glyphicon-check"> </span>
+                        Download guidance for teachers on "{{worksheet.title}}"
+                    </a>
+                    <div style="margin-top: 1em;">
+                        This sheet contains information for teachers or coding group leaders to help them
+                        prepare, setup and supervise this project.
+                    </div>
+                </div>
                 <div ng-if="worksheet.notes && worksheet.notes.length > 0" style="margin-bottom: 1em">
                     <h4>Notes:</h4>
                     <div ng-repeat="note in worksheet.notes" style="margin-bottom: 0.5em">
                         <span class="glyphicon glyphicon-warning-sign"> </span> {{note}}
                     </div>
-
                     <hr ng-if="worksheet.downloads.length > 1" style="border-top: 3px double #8c8b8b;"/>
                 </div>
-
+                <h4 style="padding-top: 0.5em" ng-if="worksheet.teachersnotes">For students:</h4>
                 <div ng-repeat="download in worksheet.downloads"
-                    style="border-radius: 1em; background-color: #eeeeee; padding: 1em; margin-bottom: 1em;">
+                    style="border-radius: 1em; background-color: #eeeeee; padding: 1em; margin-bottom: 1em; ">
                     <div ng-if="download.description" style="margin-bottom: 1em;">
                         <strong>{{download.description}}</strong>
                     </div>
-                    <div>
-                        <a class="btn btn-primary"
-                        href="{{download.worksheet}}">Download project worksheet</a>
+                    <div style="margin: 1em 0;">
+                        <a class="btn btn-primary" href="{{download.worksheet}}">
+                            <span class="glyphicon glyphicon-print"> </span>
+                            Download project worksheet
+                        </a>
                     </div>
-                    <div style="padding-bottom: 1em; border-bottom: thin grey solid; margin: 1em 0;">
-                        <span class="glyphicon glyphicon-print"> </span>
-                        The blocks in Scratch scripts are colour-coded, so printing the worksheet in colour
-                        will make it easier for students.
-                    </div>
-                    <div ng-if="download.starter">
-                        <a class="btn btn-primary" href="{{download.starter}}">Starter Scratch project file</a>
-                        <div style="padding-bottom: 1em; margin-top: 1em;">
+                    <div ng-if="download.starter"
+                        style="border-top: thin grey solid; padding-top: 1em; margin-top: 1em;">
+                        <a class="btn btn-primary" href="{{download.starter}}">
                             <span class="glyphicon glyphicon-floppy-disk"> </span>
+                            Starter Scratch project file
+                        </a>
+                        <div style="margin-top: 0.5em;">
                             You will also need to provide students with a copy of this Scratch project file to
                             help get them started.
                         </div>
                     </div>
-                    <div ng-if="download.resources">
-                            <a class="btn btn-primary" href="{{download.resources}}">Additional project resources</a>
-                            <div style="padding-bottom: 1em; margin-top: 1em;">
-                                <span class="glyphicon glyphicon-floppy-disk"> </span>
+                    <div ng-if="download.resources" style="margin-top: 1em">
+                            <a class="btn btn-primary" href="{{download.resources}}">
+                                <span class="glyphicon glyphicon-print"> </span>
+                                Additional project resources
+                            </a>
+                            <div style="padding-bottom: 1em; margin-top: 0.5em;">
                                 You will also need to provide students with a printed copy of this file.
                             </div>
                         </div>

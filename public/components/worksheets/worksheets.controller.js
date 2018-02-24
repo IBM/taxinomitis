@@ -22,6 +22,7 @@
                 type : 'text',
                 image : 'static/images/project-smartclassroom.png',
                 tags : [ 'digital assistants', 'supervised learning' ],
+                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-smartclassroom.pdf',
                 downloads : [
                     {
                         description : 'Full version of the project, where the students make a non-machine learning version first to experience the value of using machine learning to do this',
@@ -43,6 +44,7 @@
                 type : 'text',
                 image : 'static/images/project-makemehappy.png',
                 tags : [ 'sentiment analysis', 'supervised learning' ],
+                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-makemehappy.pdf',
                 downloads : [
                     {
                         worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-makemehappy.pdf'
@@ -57,6 +59,7 @@
                 type : 'images',
                 image : 'static/images/project-snap.png',
                 tags : [ 'image classification', 'supervised learning' ],
+                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-snap.pdf',
                 downloads : [
                     {
                         description : 'Full version of the project, where the students make their own cards that they will train the computer to recognise',
@@ -69,9 +72,6 @@
                         starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/snap-easy.sbx',
                         resources : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/resources-snap-easy.pdf'
                     }
-                ],
-                notes : [
-                    'Students will need a webcam (or some other digital camera) to make this project'
                 ]
             },
             {
@@ -82,6 +82,7 @@
                 type : 'images',
                 image : 'static/images/project-mailmanmax.png',
                 tags : [ 'optical character recognition', 'handwriting recognition', 'image classification', 'supervised learning' ],
+                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-mailmanmax.pdf',
                 downloads : [
                     {
                         worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-mailmanmax.pdf',
@@ -97,14 +98,12 @@
                 type : 'images',
                 image : 'static/images/project-carorcup.png',
                 tags : [ 'image classification', 'supervised learning' ],
+                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-carorcup.pdf',
                 downloads : [
                     {
                         worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-carorcup.pdf',
                         starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/car-or-cup.sbx'
                     }
-                ],
-                notes : [
-                    'Students will need Internet access to search for pictures of cars and cups to train the computer with'
                 ]
             },
             {
@@ -132,6 +131,7 @@
                 type : 'numbers',
                 image : 'static/images/project-pacman.png',
                 tags : [ 'decision tree learning' ],
+                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-pacman.pdf',
                 downloads : [
                     {
                         worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-pacman.pdf',
@@ -147,6 +147,7 @@
                 type : 'text',
                 image : 'static/images/project-touristinfo.png',
                 tags : [ 'training bias', 'recommendations', 'supervised learning' ],
+                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-touristinfo.pdf',
                 downloads : [
                     {
                         description : 'Full version of the project',
@@ -168,6 +169,7 @@
                 type : 'text',
                 image : 'static/images/project-sortinghat.png',
                 tags : [ 'text classification', 'supervised learning', 'crowd sourcing' ],
+                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-sortinghat.pdf',
                 downloads : [
                     {
                         description : 'Individual version of the project, where each student trains their own machine learning model independently',
@@ -177,10 +179,6 @@
                         description : 'Group version of the project, where all students in the class work together to train a shared machine learning model',
                         worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-sortinghat-crowd.pdf'
                     }
-                ],
-                notes : [
-                    'Students will need access to copies of Harry Potter books to do this project. Allowing students to use websites with Harry Potter quotes is an alternative if this is not possible.',
-                    'Students will need to type in approximately forty quotes from Harry Potter books to collect training data for this project. Students who would find this much typing to be too time-consuming might find it easier to instead copy/paste quotes from websites with Harry Potter quotes.'
                 ]
             },
             {
@@ -191,15 +189,12 @@
                 type : 'images',
                 image : 'static/images/project-rockpaperscissors.png',
                 tags : [ 'image classification', 'supervised learning' ],
+                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-rockpaperscissors.pdf',
                 downloads : [
                     {
                         worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-rockpaperscissors.pdf',
                         starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/rock-paper-scissors.sbx'
                     }
-                ],
-                notes : [
-                    'Students will need a webcam (or some other digital camera) to make this project',
-                    'Students will be taking photos of their hands, and uploading these to train the computer to recognise hand shapes. While children are unlikely to be recognizable by their hands, you may want to get parental / guardian permission before running this activity.'
                 ]
             },
             {
@@ -210,6 +205,7 @@
                 type : 'images',
                 image : 'static/images/project-judgeabook.png',
                 tags : [ 'image classification', 'supervised learning' ],
+                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-judgeabook.pdf',
                 downloads : [
                     {
                         worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-judgeabook.pdf',
@@ -257,6 +253,7 @@
                 type : 'numbers',
                 image : 'static/images/project-noughtsandcrosses.png',
                 tags : [ 'decision tree learning', 'reinforcement learning', 'categorical data' ],
+                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-noughtsandcrosses.pdf',
                 downloads : [
                     {
                         worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-noughtsandcrosses.pdf',
@@ -272,6 +269,7 @@
                 type : 'numbers',
                 image : 'static/images/project-toptrumps.png',
                 tags : [ 'decision tree learning', 'reinforcement learning', 'categorical data' ],
+                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-toptrumps.pdf',
                 downloads : [
                     {
                         worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-toptrumps.pdf',
@@ -287,6 +285,7 @@
                 type : 'text',
                 image : 'static/images/project-headlines.png',
                 tags : [ 'text classification', 'supervised learning', 'testing' ],
+                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-headlines.pdf',
                 downloads : [
                     {
                         worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-headlines.pdf',
