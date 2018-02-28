@@ -214,6 +214,21 @@
                 ]
             },
             {
+                title : 'Locate Larry',
+                summary : 'Teach a computer to find something in a picture',
+                description : 'Make a "Where\'s Wally?"-style game in Scratch, and teach the computer to find your character.',
+                difficulty : 'Intermediate',
+                type : 'images',
+                image : 'static/images/project-locatelarry.png',
+                tags : [ 'image classification', 'supervised learning', 'image pre-processing' ],
+                downloads : [
+                    {
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-locatelarry.pdf',
+                        starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/locate-larry.sbx'
+                    }
+                ]
+            },
+            {
                 title : 'Confused',
                 summary : 'Teach a computer to recognise fruit',
                 description : 'Learn about how computers can be confused and can make mistakes if they\'re trained badly.',
@@ -221,6 +236,7 @@
                 type : 'images',
                 image : 'static/images/project-confused.png',
                 tags : [ 'image classification', 'supervised learning', 'overfitting' ],
+                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-confused.pdf',
                 downloads : [
                     {
                         worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-confused.pdf',
