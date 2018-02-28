@@ -1,6 +1,12 @@
+// external dependencies
+import * as uuid from 'uuid/v4';
 // local dependencies
 import * as store from '../db/store';
 import * as Types from '../db/db-types';
+import * as imagestore from '../imagestore';
+import * as urlparse from '../restapi/images/urlparse';
+import * as ImageTypes from '../imagestore/types';
+
 
 
 
@@ -80,12 +86,52 @@ async function storeNumbers(key: Types.ScratchKey, label: string, numbersStr: st
 }
 
 
+async function storeImages(key: Types.ScratchKey, label: string, base64imagedata: string): Promise<Types.ImageTraining>
+{
+    // check image data to store
+    if (!base64imagedata || base64imagedata.trim().length === 0) {
+        throw new Error('Missing data');
+    }
+
+    // check project
+    const project = await store.getProject(key.projectid);
+
+    // check that this isn't an unknown project
+    if (!project) {
+        throw new Error('Project not found');
+    }
+
+    // check that we have a label that is in the project
+    if (project.labels.indexOf(label) === -1) {
+        throw new Error('Invalid label');
+    }
+
+    // All looks good!
+
+    const imageSpec: ImageTypes.ImageSpec = {
+        classid : project.classid,
+        userid : project.userid,
+        projectid : project.id,
+        imageid : uuid(),
+    };
+
+    await imagestore.storeImage(imageSpec, 'image/jpeg', Buffer.from(base64imagedata, 'base64'));
+
+    return store.storeImageTraining(
+        imageSpec.projectid,
+        urlparse.createImageUrl(imageSpec),
+        label,
+        true,
+        imageSpec.imageid);
+}
+
+
 
 export function storeTrainingData(scratchKey: Types.ScratchKey, label: string, data: any): Promise<any>
 {
     switch (scratchKey.type) {
     case 'text':
-        return storeText(scratchKey, label, data);
+        return storeText(scratchKey, label, data as string);
     case 'numbers': {
         let dataAsArray: string[] = data;
         if (data && Array.isArray(dataAsArray) === false) {
@@ -94,6 +140,6 @@ export function storeTrainingData(scratchKey: Types.ScratchKey, label: string, d
         return storeNumbers(scratchKey, label, dataAsArray);
     }
     case 'images':
-        throw new Error('Not implemented yet');
+        return storeImages(scratchKey, label, data as string);
     }
 }

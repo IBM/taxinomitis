@@ -89,11 +89,48 @@
     }
 
 
+    function storeImage(imagedata, label, callback) {
+        $.ajax({
+            url : '{{{ storeurl }}}',
+            dataType : 'jsonp',
+            data : {
+                data : imagedata,
+                label : label
+            },
+            success : function (data) {
+                callback();
+            },
+            error : function (err) {
+                console.log(err);
+
+                classifierStatus = {
+                    status : 0,
+                    msg : 'Failed to submit image to training data store'
+                };
+                pollStatus();
+                callback();
+            }
+        });
+    }
+
+
     ext.image_classification_label = function (imagedata, callback) {
         classifyImage(imagedata, function (result) {
             callback(result.class_name);
         });
     };
+
+
+    ext.image_store = function (imagedata, label, callback) {
+        // TODO verify label
+
+        // storeImage(imagedata, label, callback);
+        console.log(imagedata);
+        console.log(label);
+
+        storeImage(imagedata, label, callback);
+    };
+
 
 
     {{#labels}}
@@ -108,6 +145,7 @@
             {{#labels}}
             [ 'r', '{{name}}', 'return_label_{{idx}}'],
             {{/labels}}
+            [ 'w', 'add training data %s %s', 'image_store', 'image', 'label']
         ]
     };
 

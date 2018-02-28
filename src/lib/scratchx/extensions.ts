@@ -46,6 +46,7 @@ async function getImagesExtension(scratchkey: Types.ScratchKey, project: Types.P
     const rendered = Mustache.render(template, {
         statusurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/status',
         classifyurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/classify',
+        storeurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/train',
 
         projectname : escapeProjectName(scratchkey.name),
         labels : project.labels.map((name, idx) => {
