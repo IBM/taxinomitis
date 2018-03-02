@@ -1,11 +1,10 @@
 This is an automated email from Machine Learning for Kids.
-----------------------------------------------------------
 
-You're receiving this email because you created a class account with Machine Learning for Kids ( https://machinelearningforkids.co.uk )
+You're receiving this email because you created a class account with Machine Learning for Kids.
 
 A regular check of the Watson Conversation credentials that you provided for use by Machine Learning for Kids found a machine learning model (what Conversation calls a "workspace") that isn't known to Machine Learning for Kids.
 
-The classifier ID is: WORKSPACEID
+The workspace ID is: WORKSPACEID
 
 How could this happen?
 
