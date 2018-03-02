@@ -1,0 +1,28 @@
+This is an automated email from Machine Learning for Kids.
+----------------------------------------------------------
+
+You're receiving this email because you created a class account with Machine Learning for Kids ( https://machinelearningforkids.co.uk )
+
+There was a failure during a regular check of the Watson credentials that you provided for use by Machine Learning for Kids.
+
+The error returned by IBM Cloud was:
+ERROR-MESSAGE
+
+The username being checked was:
+USERID (Watson Conversation / Visual Recognition)
+
+How could this happen?
+
+The mostly likely reason is that since adding the credentials to Machine Learning for Kids, you've deleted the credentials from IBM Cloud (or deleted your IBM Cloud account entirely).
+
+Please go back to https://machinelearningforkids.co.uk/teacher and remove the credentials from your list.
+
+If that's not the case, please let me know.
+
+You won't be notified about these credentials again.
+
+Kind regards
+
+Dale
+--
+machinelearningforkids.co.uk

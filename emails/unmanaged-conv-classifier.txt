@@ -1,0 +1,30 @@
+This is an automated email from Machine Learning for Kids.
+----------------------------------------------------------
+
+You're receiving this email because you created a class account with Machine Learning for Kids ( https://machinelearningforkids.co.uk )
+
+A regular check of the Watson Conversation credentials that you provided for use by Machine Learning for Kids found a machine learning model (what Conversation calls a "workspace") that isn't known to Machine Learning for Kids.
+
+The classifier ID is: WORKSPACEID
+
+How could this happen?
+
+Reason 1)
+You're using your Watson Conversation credentials for other things as well as Machine Learning for Kids, and you intentionally created another workspace for another reason.
+That's fine! Just ignore this email.
+But be aware that they count towards the limits that IBM Cloud enforces for your credentials, so that will mean one fewer model that can be created by your students.
+
+Reason 2)
+Something went wrong when the workspace was being deleted and it was left behind accidentally.
+It should be deleted as it counts towards the limits that IBM Cloud enforces for your credentials, and so will mean one fewer model that your students can create.
+If you know how, feel free to delete it yourself using the Watson Conversation UI or API.
+If you don't, please just send an email to dale.lane@uk.ibm.com and I'd be happy to do it for you.
+
+
+You won't be notified about this workspace again.
+
+Kind regards
+
+Dale
+--
+machinelearningforkids.co.uk
