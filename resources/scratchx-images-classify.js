@@ -123,11 +123,6 @@
 
     ext.image_store = function (imagedata, label, callback) {
         // TODO verify label
-
-        // storeImage(imagedata, label, callback);
-        console.log(imagedata);
-        console.log(label);
-
         storeImage(imagedata, label, callback);
     };
 
