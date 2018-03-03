@@ -114,13 +114,11 @@
                 type : 'numbers',
                 image : 'static/images/project-journeytoschool.png',
                 tags : [ 'predictive model', 'testing and accuracy', 'supervised learning' ],
+                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-journeytoschool.pdf',
                 downloads : [
                     {
                         worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-journeytoschool.pdf'
                     }
-                ],
-                notes : [
-                    'Students will need to conduct a travel survey first, using the results to train the computer. Sample results are included in the worksheet if they don\'t have time to do this'
                 ]
             },
             {
@@ -221,6 +219,7 @@
                 type : 'images',
                 image : 'static/images/project-locatelarry.png',
                 tags : [ 'image classification', 'supervised learning', 'image pre-processing' ],
+                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-locatelarry.pdf',
                 downloads : [
                     {
                         worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-locatelarry.pdf',
@@ -252,13 +251,11 @@
                 type : 'numbers',
                 image : 'static/images/project-schoollibrary.png',
                 tags : [ 'predictive model', 'recommendations', 'supervised learning' ],
+                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-schoollibrary.pdf',
                 downloads : [
                     {
                         worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-schoollibrary.pdf'
                     }
-                ],
-                notes : [
-                    'Students will need access to several books, sorted by reading level. The project was written for a school group that have their computer suite in the school library.'
                 ]
             },
             {
