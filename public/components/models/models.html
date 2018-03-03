@@ -437,9 +437,12 @@
                     <td colspan=2>
                         <button class="btn btn-danger"
                                 ng-if="owner"
-                                ng-click="vm.deleteModel($event, project, model)">
+                                ng-click="vm.deleteModel($event, project, model)"
+                                ng-disabled="submittingDeleteRequest">
                             {{ model.status === 'Training' ? 'Cancel training' : 'Delete this model' }}
                         </button>
+
+                        <md-progress-circular style="display: inline" ng-if="submittingDeleteRequest" md-mode="indeterminate"></md-progress-circular>
                     </td>
                 </tr>
             </table>
@@ -449,7 +452,7 @@
                 style="margin: 4em;"
                 class="btn btn-primary"
                 ng-click="vm.createModel($event, project)"
-                ng-disabled="submittingTrainingRequest">
+                ng-disabled="submittingTrainingRequest || submittingDeleteRequest">
                 Train new machine learning model
         </button>
 

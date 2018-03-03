@@ -10,3 +10,4 @@ public/bower_components
 web
 manifest-dev.yml
 manifest-prod.yml
+ops/deploy.sh

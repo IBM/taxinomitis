@@ -260,6 +260,7 @@
 
 
         vm.deleteModel = function (ev, project, model) {
+            $scope.submittingDeleteRequest = true;
             var classifierid = model.classifierid;
             trainingService.deleteModel(project.id, $scope.userId, vm.profile.tenant, classifierid)
                 .then(function () {
@@ -275,8 +276,12 @@
                     else if ($scope.status === 'training' && !timer) {
                         refreshModels();
                     }
+
+                    $scope.submittingDeleteRequest = false;
                 })
                 .catch(function (err) {
+                    $scope.submittingDeleteRequest = false;
+
                     var errId = displayAlert('errors', err.status, err.data);
                     scrollToNewItem('errors' + errId);
                 });
