@@ -9,3 +9,8 @@ archive
 .git
 .vscode
 *.md
+emails
+src
+custom_typings
+ops
+.vscode
