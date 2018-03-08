@@ -69,7 +69,7 @@
                     {
                         description : 'Shorter version of the project, providing children with pre-made cards that you will need to print out, to save the students time having to make them',
                         worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-snap-easy.pdf',
-                        starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/snap-easy.sbx',
+                        starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/snap.sbx',
                         resources : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/resources-snap-easy.pdf'
                     }
                 ]
