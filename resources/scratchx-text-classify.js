@@ -46,8 +46,8 @@
         setTimeout(function () {
             // check the status
             getStatus(function () {
-                // if it's still training, poll again
-                if (classifierStatus.status === 1) {
+                // if there is a problem, poll again
+                if (classifierStatus.status !== 2) {
                     pollStatus();
                 }
             });
