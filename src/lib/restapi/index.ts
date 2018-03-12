@@ -1,6 +1,5 @@
 // external dependencies
 import * as bodyParser from 'body-parser';
-import * as cors from 'cors';
 import * as Express from 'express';
 import * as helmet from 'helmet';
 import * as query from 'connect-query';
@@ -37,7 +36,6 @@ export default function setup(app: Express.Application): void {
     // third-party middleware
     app.use(query());
     app.use(helmet());
-    app.use(cors());
 
     // body types
     app.use('/api/scratch/:scratchkey/classify', bodyParser.json({ limit : '3mb' }));
