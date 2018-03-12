@@ -1,5 +1,7 @@
 (function(ext) {
 
+    var pollTimer;
+
     var classifierStatus = {
         status : 1,
         msg : 'Getting status',
@@ -41,16 +43,20 @@
     }
 
     function pollStatus() {
-        // wait 2 seconds
-        setTimeout(function () {
-            // check the status
-            getStatus(function () {
-                // if there is a problem, poll again
-                if (classifierStatus.status !== 2) {
-                    pollStatus();
-                }
-            });
-        }, 2000);
+        if (!pollTimer) {
+            // wait 5 seconds
+            pollTimer = setTimeout(function () {
+                // check the status
+                getStatus(function () {
+                    pollTimer = undefined;
+
+                    // if there is a problem, poll again
+                    if (classifierStatus.status !== 2) {
+                        pollStatus();
+                    }
+                });
+            }, 5000);
+        }
     }
 
     getStatus();
