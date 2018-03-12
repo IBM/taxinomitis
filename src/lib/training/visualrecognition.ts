@@ -105,6 +105,14 @@ async function createClassifier(
             else {
                 // Otherwise - rethrow it so we can bug out.
                 log.error({ err, project }, 'Unhandled Visual Recognition exception');
+
+                // This shouldn't happen.
+                // It probably needs more immediate attention, so notify the Slack bot
+                notifications.notify('Unexpected failure to train image classifier' +
+                                     ' for project : ' + project.id +
+                                     ' in class : ' + project.classid + ' : ' +
+                                     err.message);
+
                 throw err;
             }
         }
@@ -119,6 +127,13 @@ async function createClassifier(
     //      above, with finalError being set with the reason
     //
 
+    // This is a user-error, not indicative of an MLforKids failure.
+    //  But notify the Slack bot anyway, as for now it is useful to be able to
+    //  keep track of how frequently users are running into these resource limits.
+    notifications.notify('Failed to train image classifier' +
+                         ' for project : ' + project.id +
+                         ' in class : ' + project.classid +
+                         ' because:\n' + finalError);
 
     throw new Error(finalError);
 }
@@ -458,10 +473,6 @@ async function submitTrainingToVisualRecognition(
     }
     catch (err) {
         log.error({ url, req, err }, ERROR_MESSAGES.UNKNOWN);
-        notifications.notify('Failed to train image classifier' +
-                             ' for project : ' + project.id +
-                             ' in class : ' + project.classid + ' : ' +
-                             err.message);
 
         // The full error object will include the classifier request with the
         //  URL and credentials we used for it. So we don't want to return
