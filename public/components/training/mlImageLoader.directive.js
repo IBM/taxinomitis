@@ -66,7 +66,7 @@
 
 
         function getType(types, type) {
-            if (types && types.indexOf(type) !== -1) {
+            if (types && types.indexOf && types.indexOf(type) !== -1) {
                 return type;
             }
             else {
