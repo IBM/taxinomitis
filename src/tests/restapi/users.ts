@@ -172,6 +172,132 @@ describe('REST API - users', () => {
     });
 
 
+    describe('createTeacher()', () => {
+
+        it('should require a payload', () => {
+            return request(testServer)
+                .post('/api/teachers')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepEqual(res.body, {
+                        error: 'A username and email address for a class leader ' +
+                               'is required to create a new class',
+                    });
+                });
+        });
+
+        it('should require a username', () => {
+            return request(testServer)
+                .post('/api/teachers')
+                .send({
+                    email : 'mickey@disney.com',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepEqual(res.body, {
+                        error: 'A username and email address for a class leader ' +
+                               'is required to create a new class',
+                    });
+                });
+        });
+
+        it('should require an email address', () => {
+            return request(testServer)
+                .post('/api/teachers')
+                .send({
+                    username : 'mickeymouse',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepEqual(res.body, {
+                        error: 'A username and email address for a class leader ' +
+                               'is required to create a new class',
+                    });
+                });
+        });
+
+        it('should enforce username rules', () => {
+            return request(testServer)
+                .post('/api/teachers')
+                .send({
+                    username : 'Mickey Mouse!',
+                    email : 'mickey@disney.com',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepEqual(res.body, {
+                        error: 'Invalid username. Use letters, numbers, hyphens and underscores, only.',
+                    });
+                });
+        });
+
+        it('should create a new teacher', () => {
+            const stubs = {
+                getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
+                createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
+                getUserCounts : sinon.stub(auth0, 'getUserCounts').callsFake(mocks.getUserCounts),
+            };
+
+            return request(testServer)
+                    .post('/api/teachers')
+                    .send({
+                        username : 'mickeymouse',
+                        email : 'mickey@disney.com',
+                    })
+                    .expect('Content-Type', /json/)
+                    .expect(httpstatus.CREATED)
+                    .then((res) => {
+                        const body = res.body;
+                        assert(body.id);
+                        assert(body.password);
+                        assert.equal(body.username, 'mickeymouse');
+
+                        stubs.getOauthToken.restore();
+                        stubs.createUser.restore();
+                        stubs.getUserCounts.restore();
+
+                        return store.disconnect();
+                    });
+        });
+
+
+        it('should create a new teacher with explanations', () => {
+            const stubs = {
+                getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
+                createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
+                getUserCounts : sinon.stub(auth0, 'getUserCounts').callsFake(mocks.getUserCounts),
+            };
+
+            return request(testServer)
+                    .post('/api/teachers')
+                    .send({
+                        username : 'mickeymouse',
+                        email : 'mickey@disney.com',
+                        notes : 'Hello Mickey',
+                    })
+                    .expect('Content-Type', /json/)
+                    .expect(httpstatus.CREATED)
+                    .then((res) => {
+                        const body = res.body;
+                        assert(body.id);
+                        assert(body.password);
+                        assert.equal(body.username, 'mickeymouse');
+
+                        stubs.getOauthToken.restore();
+                        stubs.createUser.restore();
+                        stubs.getUserCounts.restore();
+
+                        return store.disconnect();
+                    });
+        });
+
+    });
+
+
     describe('createStudent()', () => {
 
         it('should create a new user', () => {

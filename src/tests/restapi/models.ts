@@ -92,6 +92,14 @@ describe('REST API - models', () => {
                 err.statusCode = httpstatus.UNAUTHORIZED;
                 return Promise.reject(err);
             }
+            else if (project.name === 'too fast') {
+                const err: any = new Error(conversation.ERROR_MESSAGES.API_KEY_RATE_LIMIT);
+                return Promise.reject(err);
+            }
+            else if (project.name === 'deleted model') {
+                const err: any = new Error(conversation.ERROR_MESSAGES.MODEL_NOT_FOUND);
+                return Promise.reject(err);
+            }
             else {
                 const workspace: Types.ConversationWorkspace = {
                     id : uuid(),
@@ -171,6 +179,10 @@ describe('REST API - models', () => {
             else if (project.name === 'bad creds') {
                 const err: any = new Error('Unauthorized');
                 err.statusCode = httpstatus.FORBIDDEN;
+                return Promise.reject(err);
+            }
+            else if (project.name === 'too fast') {
+                const err: any = new Error(visualrecog.ERROR_MESSAGES.API_KEY_RATE_LIMIT);
                 return Promise.reject(err);
             }
             else {
@@ -585,6 +597,57 @@ describe('REST API - models', () => {
         });
 
 
+        it('should handle failure when updating deleted Conversation workspaces', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = 'deleted model';
+
+            const project = await store.storeProject(userid, classid, 'text', projName, 'en', [], false);
+            const projectid = project.id;
+
+            nextAuth0Userid = userid;
+            return request(testServer)
+                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.NOT_FOUND)
+                .then(async (res) => {
+                    const body = res.body;
+
+                    assert.equal(body.error,
+                        'Your machine learning model could not be found on the training server. Please try again');
+
+                    await store.deleteEntireUser(userid, classid);
+                });
+        });
+
+
+        it('should handle rate limit errors from Conversation', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = 'too fast';
+
+            const project = await store.storeProject(userid, classid, 'text', projName, 'en', [], false);
+            const projectid = project.id;
+
+            nextAuth0Userid = userid;
+            return request(testServer)
+                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.TOO_MANY_REQUESTS)
+                .then(async (res) => {
+                    const body = res.body;
+
+                    assert.equal(body.error,
+                        'Your class is making too many requests to create machine learning models ' +
+                         'at too fast a rate. ' +
+                         'Please stop now and let your teacher or group leader know that ' +
+                         '"the Watson Conversation service is currently rate limiting their API key"');
+
+                    await store.deleteEntireUser(userid, classid);
+                });
+        });
+
+
         it('should train new text classifiers', async () => {
             const classid = uuid();
             const userid = uuid();
@@ -636,6 +699,34 @@ describe('REST API - models', () => {
                     await store.deleteEntireUser(userid, classid);
                 });
         });
+
+
+        it('should handle rate limiting from Visual Recognition API', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = 'too fast';
+
+            const project = await store.storeProject(userid, classid, 'images', projName, 'en', [], false);
+            const projectid = project.id;
+
+            nextAuth0Userid = userid;
+            return request(testServer)
+                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.TOO_MANY_REQUESTS)
+                .then(async (res) => {
+                    const body = res.body;
+
+                    assert.equal(body.error,
+                        'Your class is making too many requests to create machine learning models ' +
+                         'at too fast a rate. ' +
+                         'Please stop now and let your teacher or group leader know that ' +
+                         '"the Watson Visual Recognition service is currently rate limiting their API key"');
+
+                    await store.deleteEntireUser(userid, classid);
+                });
+        });
+
 
         it('should handle bad images credentials in unmanaged classes', async () => {
             const classid = uuid();
