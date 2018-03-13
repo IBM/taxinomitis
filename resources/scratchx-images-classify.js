@@ -119,6 +119,11 @@
             callback(result.class_name);
         });
     };
+    ext.image_classification_confidence = function (imagedata, callback) {
+        classifyImage(imagedata, function (result) {
+            callback(result.confidence);
+        });
+    };
 
 
     ext.image_store = function (imagedata, label, callback) {
@@ -137,6 +142,7 @@
     var descriptor = {
         blocks : [
             [ 'R', 'recognise image %s (label)', 'image_classification_label', 'costume image' ],
+            [ 'R', 'recognise image %s (confidence)', 'image_classification_confidence', 'costume image' ],
             {{#labels}}
             [ 'r', '{{name}}', 'return_label_{{idx}}'],
             {{/labels}}
