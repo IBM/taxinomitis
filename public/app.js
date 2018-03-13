@@ -16,6 +16,10 @@
     function config($stateProvider, $locationProvider, lockProvider, $urlRouterProvider, jwtOptionsProvider, $httpProvider) {
 
         $stateProvider
+            .state('home', {
+                url: '',
+                templateUrl: 'static/components-<%= VERSION %>/welcome/welcome.html'
+            })
             .state('welcome', {
                 url: '/welcome',
                 templateUrl: 'static/components-<%= VERSION %>/welcome/welcome.html'
@@ -118,6 +122,10 @@
                 controller: 'AdminController',
                 templateUrl: 'static/components-<%= VERSION %>/admin/admin.html',
                 controllerAs: 'vm'
+            })
+            .state('404', {
+                url: '/404',
+                templateUrl: 'static/components-<%= VERSION %>/404/404.html'
             });
 
 
@@ -158,7 +166,7 @@
 
 
 
-        $urlRouterProvider.otherwise('/welcome');
+        $urlRouterProvider.otherwise('/404');
 
         jwtOptionsProvider.config({
             tokenGetter: ['options', function (options) {

@@ -61,3 +61,18 @@ export function registerErrorHandling(app: Express.Application) {
         next();
     });
 }
+
+
+export function register404Handler(app: Express.Application) {
+    app.use((req: Express.Request,
+             res: Express.Response,
+             next: (e?: Error) => void) =>   // eslint-disable-line no-unused-vars
+    {
+        if (req.accepts('html')) {
+            res.redirect('/#!/404');
+        }
+        else {
+            notFound(res);
+        }
+    });
+}

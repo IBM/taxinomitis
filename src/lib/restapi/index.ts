@@ -54,5 +54,6 @@ export default function setup(app: Express.Application): void {
 
     // error handling
     errors.registerErrorHandling(app);
+    errors.register404Handler(app);
 }
 
