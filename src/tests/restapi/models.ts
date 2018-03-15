@@ -641,7 +641,7 @@ describe('REST API - models', () => {
                         'Your class is making too many requests to create machine learning models ' +
                          'at too fast a rate. ' +
                          'Please stop now and let your teacher or group leader know that ' +
-                         '"the Watson Conversation service is currently rate limiting their API key"');
+                         '"the Watson Assistant service is currently rate limiting their API key"');
 
                     await store.deleteEntireUser(userid, classid);
                 });

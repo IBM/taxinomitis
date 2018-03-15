@@ -153,7 +153,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#helpConversationAPISetup" target="_self">"Watson Conversation API keys have no more workspaces available"</a>
+                    <a data-toggle="collapse" href="#helpConversationAPISetup" target="_self">"Watson Assistant API keys have no more workspaces available"</a>
                 </h4>
             </div>
             <div id="helpConversationAPISetup" class="panel-collapse collapse">
@@ -162,7 +162,7 @@
                     Machine learning models in the tool are created using IBM Watson APIs.
                     </p>
                     <p>
-                    Watson Conversation credentials created by teachers have a limit on the number of machine learning models that
+                    Watson Assistant (formerly Watson Conversation) credentials created by teachers have a limit on the number of machine learning models that
                     they can be used to create. This is displayed in the IBM Cloud UI where the credentials were created, where they
                     are called "workspaces".
                     </p>
@@ -172,7 +172,7 @@
                     <blockquote>
                     Your class already has created their maximum allowed number of models.
                     Please let your teacher or group leader know that
-                    their "Watson Conversation API keys have no more workspaces available".
+                    their "Watson Assistant API keys have no more workspaces available".
                     </blockquote>
                     </p>
                     <p>
@@ -181,11 +181,11 @@
                     </p>
                     <p>
                     One way to avoid this error in future would be smaller class sizes. If there are fewer students than the number
-                    of workspaces supported by the Watson Conversation credentials, then the limits will not be hit.
+                    of workspaces supported by the Watson Assistant (formerly Conversation) credentials, then the limits will not be hit.
                     </p>
                     <p>
-                    Another way to avoid this error is to add additional Watson Conversation API keys to the class, or to use a
-                    Watson Conversation instance "plan" that has higher limits.
+                    Another way to avoid this error is to add additional Watson Assistant API keys to the class, or to use a
+                    Watson Assistant instance "plan" that has higher limits.
                     </p>
                 </div>
             </div>
@@ -257,7 +257,7 @@
                     Your class is making too many requests to create machine learning models
                     at too fast a rate.
                     Please stop now and let your teacher or group leader know that
-                    "the Watson Conversation service is currently rate limiting their API key"
+                    "the Watson Assistant service is currently rate limiting their API key"
                     </blockquote>
                     </p>
                     <p>
@@ -291,12 +291,12 @@
                     </p>
                     <p>
                     For <span class="mlprojecttype">text</span> projects, the assumption is that "Standard Plan" will be used for creating
-                    <a href="https://console.bluemix.net/catalog/services/conversation">Watson Conversation</a> credentials, as this supports
-                    20 "workspaces". The teacher's page multiplies the number of Watson Conversation credentials by 20 when displaying
+                    <a href="https://console.bluemix.net/catalog/services/conversation">Watson Assistant</a> (formerly Watson Conversation) credentials, as this supports
+                    20 "workspaces". The teacher's page multiplies the number of Watson Assistant credentials by 20 when displaying
                     <blockquote>"Your class is allowed to have up to ?? machine learning models in total across all their text projects."</blockquote>
                     </p>
                     <p>
-                    The "Lite Plan" supports only 5 "workspaces", so if any of the Watson Conversation credentials were created in the Lite
+                    The "Lite Plan" supports only 5 "workspaces", so if any of the Watson Assistant credentials were created in the Lite
                     pricing plan, then this means the actual limit will be less than displayed on the Teacher's page.
                     </p>
                     <p>
@@ -349,6 +349,22 @@
                     </p>
                     <p>
                     If you still can't find it, <a href="mailto:dale.lane@uk.ibm.com">let me know</a> and I'll try and help.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#helpAssistant" target="_self">What is Assistant? What happened to Conversation?</a>
+                </h4>
+            </div>
+            <div id="helpAssistant" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>
+                    In March 2018, the "Watson Conversation" service was renamed to "Watson Assistant". Any previous references to
+                    "Conversation" can be read as "Assistant" now. Any Watson Conversation service instances or credentials created
+                    prior to this point can continue to be used as equivalent to Watson Assistant.
                     </p>
                 </div>
             </div>

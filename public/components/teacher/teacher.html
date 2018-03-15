@@ -116,10 +116,10 @@
         <div ng-if="vm.credentials.loading.conv === false">
             <div>
                 Training machine learning models for <span class="mlprojecttype">text</span> projects uses
-                the <a class="mlprojecttype" href="https://www.ibm.com/watson/services/conversation/">Watson Conversation</a>
-                service.</a>
+                the <a class="mlprojecttype" href="https://www.ibm.com/watson/services/conversation/">Watson Assistant</a>
+                (formerly Watson Conversation) service.</a>
             </div>
-            <div ng-if="vm.credentials.failed.conv" class="credserror" >Failed to get your Conversation passwords</div>
+            <div ng-if="vm.credentials.failed.conv" class="credserror" >Failed to get your Watson Assistant passwords</div>
             <div style="height: 60px;">
                 <div class="newlabelbutton" ng-click="vm.addCredentials($event, 'conv')">
                     <div class="newlabelicon">+</div>
@@ -128,7 +128,7 @@
             </div>
             <table ng-if="vm.credentials.conv && vm.credentials.conv.length > 0" class="studentslist">
                 <tr ng-repeat="creds in vm.credentials.conv" ng-class-even="'even'" ng-class-odd="'odd'">
-                    <td><img src="static/images/conversation.jpg" alt="Watson Conversation"></td>
+                    <td><img src="static/images/conversation.jpg" alt="Watson Assistant"></td>
                     <td class="studentslistdetail">
                         <div class="listheading">
                             Username
@@ -151,7 +151,7 @@
                 </tr>
             </table>
             <div class="credserror" ng-if="vm.credentials.conv && vm.credentials.conv.length === 0">
-                You don't have any Conversation credentials. This means that it will not be possible to train models for <strong>text</strong> projects.
+                You don't have any Assistant credentials. This means that it will not be possible to train models for <strong>text</strong> projects.
             </div>
         </div>
         <div ng-if="vm.credentials.loading.visrec === false">

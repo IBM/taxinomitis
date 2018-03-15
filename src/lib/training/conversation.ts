@@ -16,11 +16,11 @@ export const ERROR_MESSAGES = {
     UNKNOWN : 'Failed to train machine learning model',
     INSUFFICIENT_API_KEYS : 'Your class already has created their maximum allowed number of models. ' +
                             'Please let your teacher or group leader know that ' +
-                            'their "Watson Conversation API keys have no more workspaces available"',
+                            'their "Watson Assistant API keys have no more workspaces available"',
     API_KEY_RATE_LIMIT : 'Your class is making too many requests to create machine learning models ' +
                          'at too fast a rate. ' +
                          'Please stop now and let your teacher or group leader know that ' +
-                         '"the Watson Conversation service is currently rate limiting their API key"',
+                         '"the Watson Assistant service is currently rate limiting their API key"',
     MODEL_NOT_FOUND : 'Your machine learning model could not be found on the training server.',
 };
 
