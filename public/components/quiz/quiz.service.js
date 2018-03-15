@@ -28,7 +28,7 @@
                     { text : 'Photos of dogs', correct : false },
                     { text : 'Varied photos of different types of apples in different places', correct : true },
                     { text : 'Identical photos of an apple', correct : false },
-                    { text : 'Very, very similar photos of the same apple', correct : false }
+                    { text : 'Very, very similar photos of the same apple in the same place', correct : false }
                 ],
                 notes : [
                     'The more varied the examples you can collect, the more the system can learn about how to recognise different pictures of an apple.',
@@ -46,7 +46,7 @@
                 ],
                 notes : [
                     'Spam filters are a good example of machine learning.',
-                    'With enough examples of legitimate emails, and enough examples of spam emails, a computer can start to learn how to recognise a spam email - without someone needing to manually define a set of rules first.'
+                    'With enough examples of legitimate emails, and enough examples of spam emails, a computer can start to learn how to recognise a spam email - without someone needing to work out a set of rules first.'
                 ]
             },
             {
@@ -119,7 +119,32 @@
                     'But, you might want it to do this.',
                     'If you\'re training a system to recognise text where it is happy 98% of the time, training it with that realistic experience might be worth a try.'
                 ]
+            },
+            {
+                question : 'Advanced machine learning technology will always give correct answers. Incorrect answers mean the machine learning technology isn\'t very good',
+                attempted : false,
+                answers : [
+                    { text : 'True', correct : false },
+                    { text : 'False', correct : true }
+                ],
+                notes : [
+                    'Not necessarily.',
+                    '',
+                    'The technology and algorithms are important. BUT machine learning systems are only as accurate and reliable as the training that they are given.',
+                    'Simple machine learning algorithms with a lot of high quality training can do better than the most advanced machine learning algorithms with a small amount of poor quality training.'
+                ]
             }
+            // {
+            //     question : 'You can always trust the answers that you get from a machine learning system',
+            //     attempted : false,
+            //     answers : [
+            //         { text : 'True', correct : false },
+            //         { text : 'False', correct : true }
+            //     ],
+            //     notes : [
+            //         'Machine learning systems are as reliable as the people who trained them'
+            //     ]
+            // }
         ];
 
         function random(numChoices) {
