@@ -138,6 +138,21 @@
                 ]
             },
             {
+                title : 'Chatbots',
+                summary : 'Teach a computer to recognise questions',
+                description : 'Create a chatbot that can answer questions about a topic of your choice.',
+                difficulty : 'Intermediate',
+                type : 'text',
+                image : 'static/images/project-chatbots.png',
+                tags : [ 'sentiment analysis', 'supervised learning' ],
+                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-chatbots.pdf',
+                downloads : [
+                    {
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-chatbots.pdf'
+                    }
+                ]
+            },
+            {
                 title : 'Tourist Info',
                 summary : 'Teach a computer to make recommendations',
                 description : 'Create a mobile app in Scratch that recommends tourist attractions based on people\'s interests.',
