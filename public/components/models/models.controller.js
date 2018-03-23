@@ -93,7 +93,9 @@
             var no_data = true;
             var insufficient_data = 0;
             var MIN = $scope.project.type === 'images' ? 10 : 5;
-            $scope.trainingcounts = Object.keys(labels).map(function (label) {
+            var labelslist = Object.keys(labels);
+
+            $scope.trainingcounts = labelslist.map(function (label) {
                 var count = labels[label];
                 if (count > 0) {
                     no_data = false;
@@ -108,7 +110,10 @@
                 $scope.trainingdatastatus = 'no_data';
             }
             else {
-                if (insufficient_data > 1 || insufficient_data === Object.keys(labels).length) {
+                if (insufficient_data > 1 ||
+                    insufficient_data === labelslist.length ||
+                    labelslist.length < 2)
+                {
                     $scope.trainingdatastatus = 'insufficient_data';
                 }
                 else {
