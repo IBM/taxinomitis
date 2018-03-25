@@ -1,0 +1,168 @@
+<md-dialog aria-label="Training error">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>You've seen this error a few times now...</h2>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content">
+
+            <!-- ===================================== -->
+            <!--  Errors from TEXT projects            -->
+            <!-- ===================================== -->
+
+            <md-card-content ng-if="code === 'MLMOD01'">
+                <div class="errdetail">
+                    There is a limit for the number of machine learning models from text projects for all the students in your class.
+                </div>
+                <div class="errdetail">
+                    Unfortunately, your class has hit this limit.
+                </div>
+                <div class="errdetail">
+                    You <strong>will not be able to train a new model</strong> for your project until:
+                    <ul>
+                        <li> One of the students in your class deletes one of their machine learning models; OR </li>
+                        <li> Your teacher or group leader increases the limit by adding additional Watson Assistant API keys to your class </li>
+                    </ul>
+                </div>
+                <div>
+                    Please let your teacher know before trying again.
+                </div>
+            </md-card-content>
+            <md-card-content ng-if="code === 'MLMOD02'">
+                <div class="errdetail">
+                    Your class is making too many requests to create machine learning models
+                    at too fast a rate.
+                </div>
+                <div>
+                    You need to stop now, and let your teacher know.
+                </div>
+            </md-card-content>
+            <md-card-content ng-if="code === 'MLMOD03'">
+                <div class="errdetail">
+                    Your machine learning model could not be found on the training server.
+                </div>
+                <div>
+                    Please let your teacher know before trying again.
+                </div>
+            </md-card-content>
+            <md-card-content ng-if="code === 'MLMOD04'">
+                <div class="errdetail">
+                    Machine learning models in this tool are created using IBM Watson APIs.
+                </div>
+                <div class="errdetail">
+                    The Watson credentials that your teacher or group leader set up are being rejected by the IBM service. This probably means that they've been deleted.
+                </div>
+                <div>
+                    Please let your teacher know.
+                </div>
+            </md-card-content>
+            <md-card-content ng-if="code === 'MLMOD05'">
+                <div class="errdetail">
+                    Machine learning models in this tool are created using IBM Watson APIs.
+                </div>
+                <div class="errdetail">
+                    This means that the teacher or group leader who set up this class needs to set up a Watson Assistant service.
+                </div>
+                <div class="errdetail">
+                    Please let them know that they need to &nbsp;
+                    <strong><a href="https://github.com/dalelane/ml-for-kids/raw/master/doc/machinelearningforkids-ibmer.pdf">follow the setup instructions</a></strong> &nbsp;
+                    to finish setting up your class account.
+                </div>
+                <div>
+                    <em>
+                        These instructions can also be downloaded from the
+                        <strong><a ui-sref="help">Help pages</a></strong>.
+                    </em>
+                </div>
+            </md-card-content>
+
+
+            <!-- ===================================== -->
+            <!--  Errors from IMAGES projects          -->
+            <!-- ===================================== -->
+
+            <md-card-content ng-if="code === 'MLMOD06'">
+                <div class="errdetail">
+                    There is a limit for the number of machine learning models from images projects for all the students in your class.
+                </div>
+                <div class="errdetail">
+                    Unfortunately, your class has hit this limit.
+                </div>
+                <div class="errdetail">
+                    You <strong>will not be able to train a new model</strong> for your project until:
+                    <ul>
+                        <li> One of the students in your class deletes one of their machine learning models; OR </li>
+                        <li> Your teacher or group leader increases the limit by adding additional Watson Visual Recognition API keys to your class </li>
+                    </ul>
+                </div>
+                <div>
+                    Please let your teacher know before trying again.
+                </div>
+            </md-card-content>
+            <md-card-content ng-if="code === 'MLMOD07'">
+                <div class="errdetail">
+                    Your class is making too many requests to create machine learning models
+                    at too fast a rate.
+                </div>
+                <div>
+                    You need to stop now, and let your teacher know.
+                </div>
+            </md-card-content>
+            <md-card-content ng-if="code === 'MLMOD08'">
+                <div class="errdetail">
+                    There is a problem with the training data that you've collected that is stopping
+                    the machine learning model from being trained.
+                </div>
+                <div>
+                    You need to go back to the "Learn &amp; Test" page to correct the problem
+                    before clicking the button to train a model again.
+                </div>
+            </md-card-content>
+            <md-card-content ng-if="code === 'MLMOD09'">
+                <div class="errdetail">
+                    Machine learning models in this tool are created using IBM Watson APIs.
+                </div>
+                <div class="errdetail">
+                    The Watson credentials that your teacher or group leader set up are being rejected by the IBM service. This probably means that they've been deleted.
+                </div>
+                <div>
+                    Please let your teacher know.
+                </div>
+            </md-card-content>
+            <md-card-content ng-if="code === 'MLMOD10'">
+                <div class="errdetail">
+                    Machine learning models in this tool are created using IBM Watson APIs.
+                </div>
+                <div class="errdetail">
+                    This means that the teacher or group leader who set up this class needs to set up a Watson Visual Recognition service.
+                </div>
+                <div class="errdetail">
+                    Please let them know that they need to &nbsp;
+                    <strong><a href="https://github.com/dalelane/ml-for-kids/raw/master/doc/machinelearningforkids-ibmer.pdf">follow the setup instructions</a></strong> &nbsp;
+                    to finish setting up your class account.
+                </div>
+                <div>
+                    <em>
+                        These instructions can also be downloaded from the
+                        <strong><a ui-sref="help">Help pages</a></strong>.
+                    </em>
+                </div>
+            </md-card-content>
+            <md-card-content ng-hide="code">
+                <div class="errdetail">
+                    You've seen the same error multiple times within the last few minutes.
+                </div>
+                <div>
+                    Please ask your teacher or group leader to review the &nbsp;
+                    <strong><a ui-sref="help">Help pages</a></strong> &nbsp;
+                    for information on how to fix the problem.
+                </div>
+            </md-card-content>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <span flex></span>
+        <md-button class="md-raised md-primary" ng-click="hide()">OK</md-button>
+    </md-dialog-actions>
+</md-dialog>

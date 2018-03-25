@@ -90,24 +90,30 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
         }
         catch (err) {
             if (err.message === conversation.ERROR_MESSAGES.INSUFFICIENT_API_KEYS) {
-                return res.status(httpstatus.CONFLICT).send({ error : err.message });
+                return res.status(httpstatus.CONFLICT).send({ code : 'MLMOD01', error : err.message });
             }
             else if (err.message === conversation.ERROR_MESSAGES.API_KEY_RATE_LIMIT) {
-                return res.status(httpstatus.TOO_MANY_REQUESTS).send({ error : err.message });
+                return res.status(httpstatus.TOO_MANY_REQUESTS).send({ code : 'MLMOD02', error : err.message });
             }
             else if (err.message === conversation.ERROR_MESSAGES.MODEL_NOT_FOUND) {
                 return res.status(httpstatus.NOT_FOUND)
-                          .send({ error : err.message + ' Please try again' });
+                          .send({ code : 'MLMOD03', error : err.message + ' Please try again' });
             }
             else if (err.statusCode === httpstatus.UNAUTHORIZED) {
                 return res.status(httpstatus.INTERNAL_SERVER_ERROR)
-                        .send({ error : 'The credentials for the machine learning ' +
-                                        'server used by your class were rejected.' });
+                        .send({
+                            code : 'MLMOD04',
+                            error : 'The credentials for the machine learning ' +
+                                    'server used by your class were rejected.',
+                        });
             }
             else if (err.message === 'Unexpected response when retrieving service credentials') {
                 return res.status(httpstatus.CONFLICT)
-                    .send({ error : 'No Watson credentials have been set up for training text projects. ' +
-                                    'Please let your teacher or group header know.' });
+                    .send({
+                        code : 'MLMOD05',
+                        error : 'No Watson credentials have been set up for training text projects. ' +
+                                'Please let your teacher or group leader know.',
+                    });
             }
             else {
                 return errors.unknownError(res, err);
@@ -121,26 +127,32 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
         }
         catch (err) {
             if (err.message === visualrec.ERROR_MESSAGES.INSUFFICIENT_API_KEYS) {
-                return res.status(httpstatus.CONFLICT).send({ error : err.message });
+                return res.status(httpstatus.CONFLICT).send({ code : 'MLMOD06', error : err.message });
             }
             else if (err.message === visualrec.ERROR_MESSAGES.API_KEY_RATE_LIMIT) {
-                return res.status(httpstatus.TOO_MANY_REQUESTS).send({ error : err.message });
+                return res.status(httpstatus.TOO_MANY_REQUESTS).send({ code : 'MLMOD07', error : err.message });
             }
             else if (err.message === 'Not enough images to train the classifier' ||
                      err.message === 'Number of images exceeds maximum (10000)' ||
                      err.message.indexOf(') has unsupported file type (') > 0)
             {
-                return res.status(httpstatus.BAD_REQUEST).send({ error : err.message });
+                return res.status(httpstatus.BAD_REQUEST).send({ code : 'MLMOD08', error : err.message });
             }
             else if (err.statusCode === httpstatus.UNAUTHORIZED || err.statusCode === httpstatus.FORBIDDEN) {
                 return res.status(httpstatus.INTERNAL_SERVER_ERROR)
-                        .send({ error : 'The credentials for the machine learning ' +
-                                        'server used by your class were rejected.' });
+                        .send({
+                            code : 'MLMOD09',
+                            error : 'The credentials for the machine learning ' +
+                                    'server used by your class were rejected.',
+                        });
             }
             else if (err.message === 'Unexpected response when retrieving service credentials') {
                 return res.status(httpstatus.CONFLICT)
-                    .send({ error : 'No Watson credentials have been set up for training images projects. ' +
-                                    'Please let your teacher or group header know.' });
+                    .send({
+                        code : 'MLMOD10',
+                        error : 'No Watson credentials have been set up for training images projects. ' +
+                                'Please let your teacher or group leader know.',
+                    });
             }
             else {
                 return errors.unknownError(res, err);

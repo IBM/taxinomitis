@@ -16,6 +16,76 @@
         var vm = this;
         vm.authService = authService;
 
+        // -------------------------------------------------
+        //  error handling
+        // -------------------------------------------------
+        var THREE_MINUTES = 3 * 60 * 1000;
+
+        var lastAlert = {
+            code : 'ERR',
+            message : 'Something went wrong',
+            incidences : 0,
+            firstseen : new Date().getTime()
+        };
+
+        function reset() {
+            lastAlert = {
+                code : 'ERR',
+                message : 'Something went wrong',
+                incidences : 0,
+                firstseen : new Date().getTime()
+            };
+        }
+        function checkForRepeatedErrors(newAlert) {
+            var threeMinutesAgo = new Date().getTime() - THREE_MINUTES;
+
+            var hasMatchingCode = newAlert.code ? (newAlert.code === lastAlert.code) : false;
+            var hasMatchingMessage = newAlert.code ? false : (newAlert.message === lastAlert.message);
+            var isRecent = (lastAlert.firstseen > threeMinutesAgo);
+
+
+            if ((hasMatchingCode || hasMatchingMessage) && isRecent)
+            {
+                // we've seen this error before within the last few minutes!
+                lastAlert.incidences += 1;
+            }
+            else {
+                // this is different to the last error, so reset the count
+                lastAlert = {
+                    code : newAlert.code,
+                    message : newAlert.message,
+                    incidences : 1,
+                    firstseen : new Date().getTime()
+                };
+            }
+
+            // should we give the user some extra help?
+            if (lastAlert.incidences > 3){
+                var errCode = lastAlert.code;
+
+                $mdDialog.show({
+                    controller : function ($scope) {
+                        $scope.code = errCode;
+
+                        $scope.hide = function() {
+                            $mdDialog.hide();
+                        };
+                    },
+                    templateUrl : 'static/components-' + $stateParams.VERSION + '/models/errordetail.tmpl.html'
+                })
+                .then(
+                    function () {
+                        // informational only. do nothing
+                    },
+                    function() {
+                        // cancelled. do nothing
+                    }
+                );
+
+                reset();
+            }
+        }
+
 
         var alertId = 1;
         vm.errors = [];
@@ -27,14 +97,25 @@
             if (!errObj) {
                 errObj = {};
             }
+
+            // create alert and display it
             var newId = alertId++;
-            vm[type].push({
+            var newAlert = {
+                code : errObj.code,
                 alertid : newId,
                 message : errObj.message || errObj.error || 'Unknown error',
                 status : status
-            });
+            };
+            vm[type].push(newAlert);
+
+            // check if we're seeing this alert a lot
+            checkForRepeatedErrors(newAlert);
+
             return newId;
         }
+        // -------------------------------------------------
+
+
 
         $scope.loading = true;
         $scope.status = 'unknown';

@@ -112,3 +112,6 @@
     margin: 0.5em 2em 1em 2em;
 }
 
+.md-dialog-container .errdetail {
+    padding-bottom: 1em;
+}
