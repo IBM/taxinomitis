@@ -356,6 +356,37 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#helpAuth0Indexing" target="_self">Missing student account from the list in the teacher's page</a>
+                </h4>
+            </div>
+            <div id="helpAuth0Indexing" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>
+                    User management for Machine Learning for Kids is implemented using the third party service, <a href="https://auth0.com/">Auth0</a>.
+                    </p>
+                    <p>
+                    Occassionally, the list of students that Auth0 returns can get a little out of date, and fail to reflect students that have recently
+                    been created (or similarly, still show students that have been recently deleted).
+                    </p>
+                    <p>
+                    In these instances, the students have normally been successfully created (or deleted) and it is just that the list of students being
+                    displayed doesn't reflect recent updates.
+                    </p>
+                    <p>
+                    Auth0 will normally report such incidents on their status page as
+                    <a href="https://status.auth0.com/incidents/0sk1d3hjlw0m">user indexing delays</a>
+                    or
+                    <a href="https://status.auth0.com/incidents/t8995b9jggx5">problems with their Search API</a>.
+                    </p>
+                    <p>
+                    The best thing to do in these cases is to wait for the Auth0 indexing to catch up.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
                     <a data-toggle="collapse" href="#helpAssistant" target="_self">What is Assistant? What happened to Conversation?</a>
                 </h4>
             </div>
