@@ -7,20 +7,29 @@ There was a failure during a regular check of the Watson credentials that you pr
 The error returned by IBM Cloud was:
 ERRORMESSAGE
 
-
 The username being checked was:
-USERID (Watson Conversation / Visual Recognition)
+USERID (Watson Assistant / Visual Recognition)
 
 
 How could this happen?
 
 The mostly likely reason is that since adding the credentials to Machine Learning for Kids, you've deleted the credentials from IBM Cloud (or deleted your IBM Cloud account entirely).
 
-Please go back to https://machinelearningforkids.co.uk/teacher and remove the credentials from your list.
+
+Why am I telling you?
+
+I'm letting you know to avoid the chance of you running a class and only finding out that the credentials in your account aren't working when your students fail to train any machine learning models. 
+
+To avoid spamming you, you won't be notified about these credentials again.
+
+
+What should you do?
+
+If you have deleted the credentials from IBM Cloud, please go back to https://machinelearningforkids.co.uk/teacher and remove the credentials from your list.
 
 If that's not the case, please let me know.
 
-You won't be notified about these credentials again.
+
 
 Kind regards
 
