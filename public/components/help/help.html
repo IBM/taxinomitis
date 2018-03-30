@@ -3,42 +3,47 @@
         If you have any problems or questions, please email Dale.Lane@uk.ibm.com
     </div>
 </div>
-<div style="padding: 0 1em">
-    <h3>Getting started</h3>
+
+
+<div class="helpsection">
+    <h3>Getting started?</h3>
     <div>Download a PDF with a short getting started guide:</div>
-    <div>
-        <a href="https://github.com/dalelane/ml-for-kids/raw/master/doc/machinelearningforkids-schools.pdf">
-            <img src="static/images/gettingstarted.png" border=0 alt="thumbnail image" align="left" hspace=10>
-        </a>
-        <a href="https://github.com/dalelane/ml-for-kids/raw/master/doc/machinelearningforkids-schools.pdf">
-            <h4>Managed class accounts</h4>
-        </a>
-        <div>For school teachers, coding group leaders, or other volunteers</div>
+    <div class="helpguides">
+        <div class="helpguide">
+            <a href="https://github.com/dalelane/ml-for-kids/raw/master/doc/machinelearningforkids-schools.pdf">
+                <img src="static/images/gettingstarted.png" border=0 alt="thumbnail image" align="left" hspace=10>
+            </a>
+            <a href="https://github.com/dalelane/ml-for-kids/raw/master/doc/machinelearningforkids-schools.pdf">
+                <h4>Managed class accounts</h4>
+            </a>
+            <div>For school teachers, coding group leaders, or other volunteers</div>
+        </div>
+        <div class="helpguide">
+            <a href="https://github.com/dalelane/ml-for-kids/raw/master/doc/machinelearningforkids-ibmer.pdf">
+                <img src="static/images/gettingstarted.png" border=0 alt="thumbnail image" align="left" hspace=10>
+            </a>
+            <a href="https://github.com/dalelane/ml-for-kids/raw/master/doc/machinelearningforkids-ibmer.pdf">
+                <h4>Unmanaged class accounts</h4>
+            </a>
+            <div>For IBM employees, or teachers and coding group leaders who manage their own class accounts</div>
+        </div>
     </div>
-    <div style="clear: both; margin-bottom: 0.7em;"></div>
-    <div>
-        <a href="https://github.com/dalelane/ml-for-kids/raw/master/doc/machinelearningforkids-ibmer.pdf">
-            <img src="static/images/gettingstarted.png" border=0 alt="thumbnail image" align="left" hspace=10>
-        </a>
-        <a href="https://github.com/dalelane/ml-for-kids/raw/master/doc/machinelearningforkids-ibmer.pdf">
-            <h4>Unmanaged class accounts</h4>
-        </a>
-        <div>For IBM employees, or teachers and coding group leaders who manage their own class accounts</div>
-    </div>
-    <div style="clear: both; margin-bottom: 0.9em;"></div>
 </div>
-<div style="padding: 0 1em 3em 1em">
+
+
+<div class="faqs">
     <h3>Having problems?</h3>
-    <div style="margin-bottom: 0.8em;">
+    <div class="intro">
         Is something not working?
     </div>
-    <div style="margin-bottom: 0.8em;">
+    <div class="intro">
         The list below contains the questions and issues that I hear about most often. If you see something that looks similar to your problem, click
         on the summary for more info.
     </div>
-    <div style="margin-bottom: 0.8em;">
+    <div class="intro">
         If you're still stuck, or you've run into a problem I've not included in the list, sorry! Please <a href="mailto:dale.lane@uk.ibm.com">let me know</a> so I can help.
     </div>
+    <h4>Scratch issues</h4>
     <div class="panel-group">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -81,23 +86,6 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#helpIEDrag" target="_self">Dragging images into training buckets (for image projects) doesn't work</a>
-                </h4>
-            </div>
-            <div id="helpIEDrag" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <p>
-                    Dragging images into the training buckets doesn't work if you're using Safari or Internet Explorer.
-                    </p>
-                    <p>
-                    Sorry about this. If you can use another browser like Firefox or Chrome, please do that. Otherwise, you can click the "www" button and paste in the URL of training pictures instead.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
                     <a data-toggle="collapse" href="#helpScratchStatus" target="_self">Machine learning classifier blocks in Scratch don't work</a>
                 </h4>
             </div>
@@ -131,6 +119,29 @@
                 </div>
             </div>
         </div>
+    </div>
+    <h4>Training UI issues</h4>
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#helpIEDrag" target="_self">Dragging images into training buckets (for image projects) doesn't work</a>
+                </h4>
+            </div>
+            <div id="helpIEDrag" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>
+                    Dragging images into the training buckets doesn't work if you're using Safari or Internet Explorer.
+                    </p>
+                    <p>
+                    Sorry about this. If you can use another browser like Firefox or Chrome, please do that. Otherwise, you can click the "www" button and paste in the URL of training pictures instead.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h4>Errors training machine learning models</h4>
+    <div class="panel-group">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
@@ -272,6 +283,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <h4>Teacher / Admin UI issues</h4>
+    <div class="panel-group">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
@@ -331,31 +345,6 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#helpEmailVerify" target="_self">I've created a class account but my teacher's logon isn't working</a>
-                </h4>
-            </div>
-            <div id="helpEmailVerify" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <p>
-                    You need to verify your email address before you'll be able to log on.
-                    </p>
-                    <p>
-                    When you created the class account, an email will be sent to the email address you provided, with a link to click on.
-                    If you click on that link, your email address will be verified and the class account will be activated.
-                    You should be able to log on now.
-                    </p>
-                    <p>
-                    If you haven't seen the verify email yet, make sure it's not gone into your spam folder.
-                    </p>
-                    <p>
-                    If you still can't find it, <a href="mailto:dale.lane@uk.ibm.com">let me know</a> and I'll try and help.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
                     <a data-toggle="collapse" href="#helpAuth0Indexing" target="_self">Missing student account from the list in the teacher's page</a>
                 </h4>
             </div>
@@ -401,4 +390,106 @@
             </div>
         </div>
     </div>
+    <h4>Account issues</h4>
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#helpEmailVerify" target="_self">I've created a class account but my teacher's logon isn't working</a>
+                </h4>
+            </div>
+            <div id="helpEmailVerify" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>
+                    You need to verify your email address before you'll be able to log on.
+                    </p>
+                    <p>
+                    When you created the class account, an email will be sent to the email address you provided, with a link to click on.
+                    If you click on that link, your email address will be verified and the class account will be activated.
+                    You should be able to log on now.
+                    </p>
+                    <p>
+                    If you haven't seen the verify email yet, make sure it's not gone into your spam folder.
+                    </p>
+                    <p>
+                    If you still can't find it, <a href="mailto:dale.lane@uk.ibm.com">let me know</a> and I'll try and help.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#helpDeleteAccount" target="_self">Deleting accounts</a>
+                </h4>
+            </div>
+            <div id="helpDeleteAccount" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p><strong>Student accounts</strong></p>
+                    <p>
+                    Students cannot delete their own accounts.
+                    </p>
+                    <p>
+                    A teacher can delete a student account at any time by visiting the "Teacher" page  and clicking the "Delete student account" button next to the student account you want to delete.
+                    </p>
+                    <p>
+                    This will delete all information stored about that student and all of their projects and machine learning models.
+                    </p>
+                    <p>
+                    It cannot be undone.
+                    </p>
+                    <p><strong>Teacher accounts</strong></p>
+                    <p>
+                    Deleting a teacher account will delete the entire class and all of the student accounts in it. It cannot be undone.
+                    </p>
+                    <p>
+                    This cannot be done from the UI (<em>although I'm working on adding it - it will be there soon</em>).
+                    </p>
+                    <p>
+                    To delete a teacher account, please <a href="mailto:dale.lane@uk.ibm.com">email me</a> and I will do it for you.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#helpPersonalInfo" target="_self">What information is stored about users?</a>
+                </h4>
+            </div>
+            <div id="helpPersonalInfo" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p><strong>Teacher accounts</strong></p>
+                    <p>
+                    I store the username and email address that you provide when you create the account, so that I can keep in touch with you.
+                    </p>
+                    <p><strong>Student accounts</strong></p>
+                    <p>
+                    I store the usernames for student accounts, so that I can let them log in. I have no email addresses or contact details for students.
+                    I have no other personally identifying information about students.
+                    </p>
+                    <p>
+                    I also <a href="https://github.com/dalelane/ml-for-kids/raw/master/doc/machinelearningforkids-schools.pdf">recommend that students are given generic
+                    usernames</a> (e.g. "student1") so that students are not identifiable outside of their school or coding group.
+                    </p>
+                    <p><strong>General information stored about all accounts</strong></p>
+                    <p>
+                    User management for Machine Learning for Kids is implemented using the third party service, <a href="https://auth0.com/">Auth0</a>. They store
+                    the IP address that you last logged into Machine Learning for Kids from, and the type of browser you used. I've never found a reason to use that,
+                    but it is stored if I did want to go and look for it.
+                    </p>
+                    <p>
+                    Errors that happen in the web browser are captured using the third party service, <a href="https://sentry.io/">Sentry</a>. If something
+                    goes wrong, it will capture information about the error, including your username, IP address, type of browser you were using, and a technical
+                    description of what went wrong.
+                    </p>
+                    <p>
+                    I use <a href="https://www.google.com/analytics/">Google Analytics</a> so that I know how many users visit Machine Learning for Kids each day.
+                    Although it captures information such as geographic location and browser type, this is only ever displayed to me in an anonymised aggregate way.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

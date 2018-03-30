@@ -1,0 +1,40 @@
+.helpsection {
+    margin-left: 30px;
+    margin-right: 30px;
+    background-color: #eeeeee;
+    border-radius: 2em;
+    padding: 1em;
+    margin-bottom: 4em;
+}
+
+.helpsection h3 {
+    margin-top: 15px;
+}
+
+.helpguides {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.helpguide {
+    flex: 1;
+    min-width: 200px;
+    margin: 1em;
+}
+
+.helpguide h4 {
+    margin-top: 0;
+}
+
+.faqs {
+    padding: 0 1em 3em 1em;
+}
+
+.faqs .intro {
+    margin-bottom: 0.8em;
+}
+
+.faqs .panel-group {
+    margin-left: 2em;
+}
