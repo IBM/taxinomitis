@@ -26,13 +26,11 @@
                 downloads : [
                     {
                         description : 'Full version of the project, where the students make a non-machine learning version first to experience the value of using machine learning to do this',
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-smartclassroom.pdf',
-                        starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/smart-classroom.sbx'
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-smartclassroom.pdf'
                     },
                     {
                         description : 'Shorter version of the project, where the students only make a machine learning version of the assistant',
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-smartclassroom-easy.pdf',
-                        starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/smart-classroom-easy.sbx'
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-smartclassroom-easy.pdf'
                     }
                 ]
             },
@@ -63,13 +61,11 @@
                 downloads : [
                     {
                         description : 'Full version of the project, where the students make their own cards that they will train the computer to recognise',
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-snap.pdf',
-                        starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/snap.sbx'
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-snap.pdf'
                     },
                     {
                         description : 'Shorter version of the project, providing children with pre-made cards that you will need to print out, to save the students time having to make them',
                         worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-snap-easy.pdf',
-                        starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/snap.sbx',
                         resources : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/resources-snap-easy.pdf'
                     }
                 ]
@@ -85,8 +81,7 @@
                 teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-mailmanmax.pdf',
                 downloads : [
                     {
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-mailmanmax.pdf',
-                        starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/mailman-max.sbx'
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-mailmanmax.pdf'
                     }
                 ]
             },
@@ -101,8 +96,22 @@
                 teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-carorcup.pdf',
                 downloads : [
                     {
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-carorcup.pdf',
-                        starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/car-or-cup.sbx'
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-carorcup.pdf'
+                    }
+                ]
+            },
+            {
+                title : 'Face Lock',
+                summary : 'Teach a computer to recognise faces',
+                description : 'Make a phone in Scratch that unlocks if it recognises your face.',
+                difficulty : 'Beginner',
+                type : 'images',
+                image : 'static/images/project-facelock.png',
+                tags : [ 'facial recognition', 'biometrics', 'image classification', 'supervised learning' ],
+                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-facelock.pdf',
+                downloads : [
+                    {
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-facelock.pdf'
                     }
                 ]
             },
@@ -132,8 +141,7 @@
                 teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-pacman.pdf',
                 downloads : [
                     {
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-pacman.pdf',
-                        starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/pacman.sbx'
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-pacman.pdf'
                     }
                 ]
             },
@@ -164,13 +172,11 @@
                 downloads : [
                     {
                         description : 'Full version of the project',
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-touristinfo.pdf',
-                        starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/tourist-info.sbx'
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-touristinfo.pdf'
                     },
                     {
                         description : 'Shorter version of the project, where students make less of the Scratch project themselves, with more of the scripting provided in the starter project file',
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-touristinfo-easy.pdf',
-                        starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/tourist-info-easy.sbx'
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-touristinfo-easy.pdf'
                     }
                 ]
             },
@@ -205,8 +211,7 @@
                 teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-rockpaperscissors.pdf',
                 downloads : [
                     {
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-rockpaperscissors.pdf',
-                        starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/rock-paper-scissors.sbx'
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-rockpaperscissors.pdf'
                     }
                 ]
             },
@@ -221,8 +226,7 @@
                 teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-judgeabook.pdf',
                 downloads : [
                     {
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-judgeabook.pdf',
-                        starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/judge-a-book.sbx'
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-judgeabook.pdf'
                     }
                 ]
             },
@@ -237,8 +241,7 @@
                 teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-locatelarry.pdf',
                 downloads : [
                     {
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-locatelarry.pdf',
-                        starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/locate-larry.sbx'
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-locatelarry.pdf'
                     }
                 ]
             },
@@ -253,8 +256,7 @@
                 teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-confused.pdf',
                 downloads : [
                     {
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-confused.pdf',
-                        starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/confused.sbx'
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-confused.pdf'
                     }
                 ]
             },
@@ -284,8 +286,7 @@
                 teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-noughtsandcrosses.pdf',
                 downloads : [
                     {
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-noughtsandcrosses.pdf',
-                        starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/noughts-and-crosses.sbx'
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-noughtsandcrosses.pdf'
                     }
                 ]
             },
@@ -300,8 +301,7 @@
                 teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-toptrumps.pdf',
                 downloads : [
                     {
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-toptrumps.pdf',
-                        starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/top-trumps.sbx'
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-toptrumps.pdf'
                     }
                 ]
             },
@@ -316,8 +316,7 @@
                 teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-headlines.pdf',
                 downloads : [
                     {
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-headlines.pdf',
-                        starter : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/headlines.sbx'
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-headlines.pdf'
                     }
                 ]
             },
