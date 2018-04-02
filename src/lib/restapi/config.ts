@@ -58,6 +58,8 @@ export function setupUI(app: express.Application): void {
     app.get('/teacher', (req, res) => { res.redirect('/#!/teacher'); });
     app.get('/worksheets', (req, res) => { res.redirect('/#!/worksheets'); });
     app.get('/help', (req, res) => { res.redirect('/#!/help'); });
+    app.get('/signup', (req, res) => { res.redirect('/#!/signup'); });
+    app.get('/login', (req, res) => { res.redirect('/#!/login'); });
 
     const indexHtml: string = path.join(__dirname, '/../../../web/dynamic');
     app.use('/', express.static(indexHtml, { maxAge : 0 }));
