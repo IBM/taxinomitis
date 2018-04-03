@@ -90,7 +90,7 @@ CREATE TABLE bluemixclassifiers (
     projectid CHAR(36) NOT NULL,
     classid CHAR(36) NOT NULL,
     servicetype VARCHAR(8) NOT NULL,
-    classifierid VARCHAR(36) NOT NULL,
+    classifierid VARCHAR(52) NOT NULL,
     url VARCHAR(200) NOT NULL,
     name VARCHAR(100),
     language VARCHAR(5),
@@ -124,7 +124,7 @@ CREATE TABLE scratchkeys (
     serviceurl VARCHAR(200),
     serviceusername VARCHAR(36),
     servicepassword VARCHAR(36),
-    classifierid VARCHAR(36),
+    classifierid VARCHAR(52),
     projectid CHAR(36) NOT NULL,
     userid CHAR(36) NOT NULL,
     classid CHAR(36) NOT NULL

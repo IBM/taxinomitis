@@ -104,7 +104,10 @@ async function createClassifier(
             }
             else {
                 // Otherwise - rethrow it so we can bug out.
-                log.error({ err, project }, 'Unhandled Visual Recognition exception');
+                log.error({
+                    err, project,
+                    credentials : credentials.id,
+                }, 'Unhandled Visual Recognition exception');
 
                 // This shouldn't happen.
                 // It probably needs more immediate attention, so notify the Slack bot
