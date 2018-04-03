@@ -238,8 +238,12 @@ async function testModel(req: Express.Request, res: Express.Response) {
             }
             else {
                 const imagefile = await base64decode.run(imagedata);
-                classes = await visualrec.testClassifierFile(creds, modelid, projectid, imagefile);
-                fs.unlink(imagefile, logError);
+                try {
+                    classes = await visualrec.testClassifierFile(creds, modelid, projectid, imagefile);
+                }
+                finally {
+                    fs.unlink(imagefile, logError);
+                }
             }
             return res.json(classes);
         }

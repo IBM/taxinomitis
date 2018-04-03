@@ -126,7 +126,7 @@ async function storeTrainingData(req: Express.Request, res: Express.Response) {
             return res.status(httpstatus.NOT_IMPLEMENTED).jsonp({ error : 'Not implemented yet' });
         }
 
-        log.error({ err }, 'Classify error');
+        log.error({ err }, 'Store error');
         return res.status(httpstatus.INTERNAL_SERVER_ERROR).jsonp(err);
     }
 }

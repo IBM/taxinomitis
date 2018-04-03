@@ -52,11 +52,19 @@ async function classifyImage(key: Types.ScratchKey, base64imagedata: string): Pr
 
     if (key.classifierid && key.credentials) {
         const imagefile = await base64decode.run(base64imagedata);
-        const resp = await visualrecog.testClassifierFile(key.credentials, key.classifierid, key.projectid, imagefile);
-        fs.unlink(imagefile, logError);
 
-        if (resp.length > 0) {
-            return resp;
+        try {
+            const resp = await visualrecog.testClassifierFile(key.credentials,
+                                                              key.classifierid,
+                                                              key.projectid,
+                                                              imagefile);
+
+            if (resp.length > 0) {
+                return resp;
+            }
+        }
+        finally {
+            fs.unlink(imagefile, logError);
         }
     }
 
