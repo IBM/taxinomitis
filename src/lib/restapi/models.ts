@@ -1,4 +1,5 @@
 // external dependencies
+import * as fs from 'fs';
 import * as Express from 'express';
 import * as httpstatus from 'http-status';
 // local dependencies
@@ -238,6 +239,7 @@ async function testModel(req: Express.Request, res: Express.Response) {
             else {
                 const imagefile = await base64decode.run(imagedata);
                 classes = await visualrec.testClassifierFile(creds, modelid, projectid, imagefile);
+                fs.unlink(imagefile, logError);
             }
             return res.json(classes);
         }
@@ -261,6 +263,13 @@ async function testModel(req: Express.Request, res: Express.Response) {
 
         log.error({ err }, 'Test error');
         return errors.unknownError(res, err);
+    }
+}
+
+
+function logError(err?: Error) {
+    if (err) {
+        log.error({ err }, 'Error when deleting image file');
     }
 }
 

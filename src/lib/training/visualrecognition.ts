@@ -264,7 +264,7 @@ function deleteTrainingFiles(training: { [label: string]: string }): void {
         if (trainingKey !== 'name') {
             fs.unlink(training[trainingKey], (err?: Error) => {
                 if (err) {
-                    log.error({ err }, 'Failed to delete training file');
+                    log.error({ err, trainingKey, path : training[trainingKey] }, 'Failed to delete training file');
                 }
             });
         }
