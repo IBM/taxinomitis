@@ -14,6 +14,8 @@ type IDecodeCallback = (err: Error, decodedFilePath?: string) => void;
 function decodeJpg(base64data: string, callback: IDecodeCallback): void {
     tmp.file({
         keep : true,
+        discardDescriptor : true,
+        prefix : 'b64-',
         postfix : '.jpg',
     }, (err, filepath) =>
     {

@@ -24,7 +24,7 @@ export function verifyImage(url: string): Promise<void> {
         async.waterfall([
             (next: IFilePathCallback) => {
                 // work out where to download the file to
-                tmp.file({ keep : true }, (err, tmppath) => {
+                tmp.file({ keep : true, discardDescriptor : true, prefix : 'chk-' }, (err, tmppath) => {
                     next(err, tmppath);
                 });
             },
