@@ -11,3 +11,4 @@ web
 manifest-dev.yml
 manifest-prod.yml
 ops/deploy.sh
+ops/rollback.sh
