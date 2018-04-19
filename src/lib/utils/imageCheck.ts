@@ -24,7 +24,7 @@ export function verifyImage(url: string): Promise<void> {
         async.waterfall([
             (next: IFilePathCallback) => {
                 // work out where to download the file to
-                tmp.file({ keep : true }, (err, tmppath) => {
+                tmp.file({ keep : true, discardDescriptor : true, prefix : 'chk-' }, (err, tmppath) => {
                     next(err, tmppath);
                 });
             },
@@ -35,18 +35,21 @@ export function verifyImage(url: string): Promise<void> {
                 });
             },
             (tmpFilePath: string, next: IFilePathTypeCallback) => {
+                // sniff the start of the file to work out the file type
                 getFileTypeFromContents(tmpFilePath, (err?: Error, type?: string) => {
-                    next(err, type, tmpFilePath);
+                    next(err, tmpFilePath, type);
                 });
             },
-            (fileTypeExt: string, tmpFilePath: string, next: IFileTypeCallback) => {
+        ], (err?: Error, tmpFilePath?: string, fileTypeExt?: string) => {
+
+            if (tmpFilePath) {
                 fs.unlink(tmpFilePath, logError);
-                next(undefined, fileTypeExt);
-            },
-        ], (err?: Error, fileTypeExt?: string) => {
+            }
+
             if (err) {
                 return reject(err);
             }
+
             const isOkay = (fileTypeExt === 'jpg') || (fileTypeExt === 'png');
             if (!isOkay) {
                 return reject(new Error('Unsupported file type (' + fileTypeExt + '). ' +
@@ -95,6 +98,6 @@ function download(url: string, targetFilePath: string, callback: IErrCallback): 
 
 function logError(err: Error) {
     if (err) {
-        log.error({ err }, 'Core error');
+        log.error({ err }, 'Failure to delete a temp file');
     }
 }

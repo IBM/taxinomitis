@@ -164,7 +164,7 @@ function downloadAndRename(location: ImageDownload, callback: IDownloadCallback)
     async.waterfall([
         (next: IDownloadCallback) => {
             // work out where to download the file to
-            tmp.file({ keep : true }, (err, tmppath) => {
+            tmp.file({ keep : true, discardDescriptor : true, prefix : 'dl-' }, (err, tmppath) => {
                 next(err, tmppath);
             });
         },
