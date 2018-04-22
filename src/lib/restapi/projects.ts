@@ -5,6 +5,8 @@ import * as httpstatus from 'http-status';
 import * as auth from './auth';
 import * as store from '../db/store';
 import * as Objects from '../db/db-types';
+import * as users from '../auth0/users';
+import * as Users from '../auth0/auth-types';
 import * as urls from './urls';
 import * as errors from './errors';
 import * as headers from './headers';
@@ -13,13 +15,37 @@ import loggerSetup from '../utils/logger';
 const log = loggerSetup();
 
 
+interface ProjectWithOwner extends Objects.Project {
+    owner?: Users.Student;
+    hasModel?: boolean;
+}
+
+
 
 function getProjectsByClassId(req: Express.Request, res: Express.Response) {
     const classid: string = req.params.classid;
 
-    store.getProjectsByClassId(classid)
-        .then((projects: Objects.Project[]) => {
-            res.set(headers.NO_CACHE).json(projects);
+    const responsePromises: [Promise<{[id: string]: Users.Student }>, Promise<Objects.Project[]>, Promise<String[]>] = [
+        users.getStudentsByUserId(classid),
+        store.getProjectsByClassId(classid),
+        store.getProjectsWithBluemixClassifiers(classid),
+    ];
+
+    Promise.all(responsePromises)
+        .then((response) => {
+            const students = response[0];
+            const projects = response[1];
+            const projectIdsWithModels = response[2];
+
+            const ownedProjects: ProjectWithOwner[] = projects.map((project) => {
+                const ownedProject: ProjectWithOwner = project;
+                ownedProject.owner = students[project.userid];
+                ownedProject.hasModel = projectIdsWithModels.includes(project.id);
+
+                return ownedProject;
+            });
+
+            return res.json(ownedProjects);
         })
         .catch((err) => {
             log.error({ err }, 'Server error');

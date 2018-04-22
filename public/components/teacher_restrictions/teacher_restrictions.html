@@ -1,0 +1,85 @@
+<div class="jumbotron">
+    <h2 class="text-center">Administration : Restrictions</h2>
+</div>
+<div ng-if="!isAuthenticated">
+    <div class="alert alert-warning pageheadermsg">
+        <strong>Not logged in</strong>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" ng-click="vm.authService.login()">Log In</button>
+    </div>
+</div>
+<div ng-if="isAuthenticated && vm.profile.role === 'supervisor'" class="adminpage">
+
+    <div ng-if="!vm || !vm.policy" class="loading"> </div>
+
+    <div ng-repeat="error in vm.errors"
+         class="alert alert-danger alert-dismissible pageheadermsg" role="alert"
+         ng-click="vm.dismissAlert('errors', $index)"
+         id="errors{{error.alertid}}">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Error:</strong> {{ error.message }}<br/>
+        <em ng-if="error.status >= 500">If this keeps happening, please <a ui-sref="help">let me know</a>.</em>
+    </div>
+    <div ng-repeat="warning in vm.warnings"
+         class="alert alert-warning alert-dismissible pageheadermsg" role="alert"
+         ng-click="vm.dismissAlert('warnings', $index)"
+         id="warnings{{warning.alertid}}">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Warning:</strong> {{ warning.message }}
+    </div>
+
+    <div ng-if="vm && vm.policy">
+        <div class="alert alert-info pageheadermsg">
+            If any of these restrictions cause a problem for your group, please <strong><a style="cursor: pointer;" ui-sref="help">get in touch</a></strong>.
+        </div>
+
+        <div class="helpsection">
+            <h4> Limits for your class </h4>
+
+            <div class="adminrestriction">You can have up to <span class="mlprojecttype">{{ vm.policy.maxUsers }}</span> users (including students and teachers) in your group. </div>
+            <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('text') >= 0">Your class is allowed to have up to
+                    <span class="mlprojecttype">{{ vm.policy.maxTextModels }}</span>
+                    machine learning models in total across all their
+                    <span class="mlprojecttype">text</span> projects.</div>
+            <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('images') >= 0">Your class is allowed to have up to
+                    <span class="mlprojecttype">{{ vm.policy.maxImageModels }}</span>
+                    machine learning models in total across all their
+                    <span class="mlprojecttype">images</span> projects.</div>
+        </div>
+        
+        <div class="helpsection">
+            <h4> Limits for projects created by your students </h4>
+
+            <div class="adminrestriction">Each of your students is allowed to have up to <span class="mlprojecttype">{{ vm.policy.maxProjectsPerUser }}</span> projects. </div>
+            <div class="adminrestriction">Your students can create projects to recognise <span class="mlprojecttype">{{ vm.policy.supportedProjectTypes.join(' or ') }}</span>. </div>
+
+            <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('text') >= 0">
+                    Each <span class="mlprojecttype">text</span> project can have up to <span class="mlprojecttype">{{ vm.policy.textTrainingItemsPerProject }}</span> training data examples. </div>
+            <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('numbers') >= 0">
+                    Each <span class="mlprojecttype">numbers</span> project can have up to <span class="mlprojecttype">{{ vm.policy.numberTrainingItemsPerProject }}</span> training data examples. </div>
+            <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('images') >= 0">
+                    Each <span class="mlprojecttype">images</span> project can have up to <span class="mlprojecttype">{{ vm.policy.imageTrainingItemsPerProject }}</span> training data examples. </div>
+        </div>
+
+        <div class="helpsection">        
+            <h4> To help you avoid the limits for number of machine learning models: </h4>
+
+            <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('text') >= 0">Machine learning models created for
+                    <span class="mlprojecttype">text</span>
+                    projects will automatically be deleted after
+                    <span class="mlprojecttype">{{ vm.policy.textClassifierExpiry }}</span> hours.<br/>
+                    <em>(Don't worry! Training data will not be deleted, so students can always train a new machine learning model again if they still need it after this.)</em></div>
+            <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('images') >= 0">Machine learning models created for
+                    <span class="mlprojecttype">images</span>
+                    projects will automatically be deleted after
+                    <span class="mlprojecttype">{{ vm.policy.imageClassifierExpiry }}</span> hours.<br/>
+                    <em>(Don't worry! Training data will not be deleted, so students can always train a new machine learning model again if they still need it after this.)</em></div>
+        </div>
+    </div>
+
+</div>
+
+<div ng-if="isAuthenticated && vm.profile.role !== 'supervisor'" class="alert alert-danger pageheadermsg">
+    <strong>Error:</strong> You are not authorized to access the restrictions in place for your class.
+</div>

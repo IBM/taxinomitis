@@ -1,0 +1,33 @@
+.studentslist.wide {
+    width: 95%;
+    min-width: 95%;
+}
+
+.studentslist.wide tr:hover {
+    background-color: #c9c9e1;
+}
+
+.studentslistdetail .mlprojectcrowd {
+    background-color: white;
+    background-size: contain;
+    background-image: url('./../../images/group.png');
+}
+
+.studentslist .projectslistname {
+    font-size: 1.15em;
+    font-weight: bold;
+}
+
+.studentslist .projecttype {
+    color: darkblue;
+    font-weight: bold;
+    margin-left: 0.3em;
+    margin-right: 0.3em;
+    font-size: 1em;
+}
+
+.miniwatsonicon {
+    height: 23px;
+    width: 23px;
+    border: 1px #333 solid;
+}

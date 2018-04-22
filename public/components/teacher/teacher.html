@@ -10,187 +10,46 @@
     </div>
 </div>
 <div ng-if="isAuthenticated && vm.profile.role === 'supervisor'" class="adminpage">
-    <div ng-if="!vm || !vm.students" class="loading"> </div>
 
-    <div ng-repeat="error in vm.errors"
-         class="alert alert-danger alert-dismissible pageheadermsg" role="alert"
-         ng-click="vm.dismissAlert('errors', $index)"
-         id="errors{{error.alertid}}">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Error:</strong> {{ error.message }}<br/>
-        <em ng-if="error.status >= 500">If this keeps happening, please <a ui-sref="help">let me know</a>.</em>
-    </div>
-    <div ng-repeat="warning in vm.warnings"
-         class="alert alert-warning alert-dismissible pageheadermsg" role="alert"
-         ng-click="vm.dismissAlert('warnings', $index)"
-         id="warnings{{warning.alertid}}">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Warning:</strong> {{ warning.message }}
-    </div>
-
-    <div ng-if="vm && vm.policy">
-        <h3>Restrictions</h3>
-
-        <div class="alert alert-info pageheadermsg">
-            If any of these restrictions cause a problem for your group, please <strong><a style="cursor: pointer;" ui-sref="help">get in touch</a></strong>.
-        </div>
-
-        <div> The following limits are in place for your class: </div>
-
-        <ul class="adminrestriction">
-            <li>You can have up to <span class="mlprojecttype">{{ vm.policy.maxUsers }}</span> users (including students and teachers) in your group. </li>
-            <li>Your students can create projects to recognise <span class="mlprojecttype">{{ vm.policy.supportedProjectTypes.join(' or ') }}</span>. </li>
-            <li>Each of your students is allowed to have up to <span class="mlprojecttype">{{ vm.policy.maxProjectsPerUser }}</span> projects. </li>
-            <li ng-if="vm.policy.supportedProjectTypes.indexOf('text') >= 0">Your class is allowed to have up to
-                <span class="mlprojecttype">{{ vm.policy.maxTextModels }}</span>
-                machine learning models in total across all their
-                <span class="mlprojecttype">text</span> projects.</li>
-            <li ng-if="vm.policy.supportedProjectTypes.indexOf('images') >= 0">Your class is allowed to have up to
-                <span class="mlprojecttype">{{ vm.policy.maxImageModels }}</span>
-                machine learning models in total across all their
-                <span class="mlprojecttype">images</span> projects.</li>
-            <li ng-if="vm.policy.supportedProjectTypes.indexOf('text') >= 0">Machine learning models created for
-                <span class="mlprojecttype">text</span>
-                projects will automatically be deleted after
-                <span class="mlprojecttype">{{ vm.policy.textClassifierExpiry }}</span> hours.<br/>
-                <em>(Don't worry! Training data will not be deleted, so they can always train a new machine learning model again if they still need it after this.)</em></li>
-            <li ng-if="vm.policy.supportedProjectTypes.indexOf('images') >= 0">Machine learning models created for
-                <span class="mlprojecttype">images</span>
-                projects will automatically be deleted after
-                <span class="mlprojecttype">{{ vm.policy.imageClassifierExpiry }}</span> hours.<br/>
-                <em>(Don't worry! Training data will not be deleted, so they can always train a new machine learning model again if they still need it after this.)</em></li>
-            <li ng-if="vm.policy.supportedProjectTypes.indexOf('text') >= 0">
-                Each <span class="mlprojecttype">text</span> project can have up to <span class="mlprojecttype">{{ vm.policy.textTrainingItemsPerProject }}</span> training data examples. </li>
-            <li ng-if="vm.policy.supportedProjectTypes.indexOf('numbers') >= 0">
-                Each <span class="mlprojecttype">numbers</span> project can have up to <span class="mlprojecttype">{{ vm.policy.numberTrainingItemsPerProject }}</span> training data examples. </li>
-            <li ng-if="vm.policy.supportedProjectTypes.indexOf('images') >= 0">
-                Each <span class="mlprojecttype">images</span> project can have up to <span class="mlprojecttype">{{ vm.policy.imageTrainingItemsPerProject }}</span> training data examples. </li>
-        </ul>
-
-        <hr/>
-    </div>
-
-
-    <div ng-if="vm && vm.students">
-        <h3>Students in your group</h3>
-
-        <div class="alert alert-info pageheadermsg" ng-if="vm.students && vm.students.length === 0">
-            Click on the 'plus' button on the right to create the first student
-            <span class="glyphicon glyphicon-arrow-right"></span>
-        </div>
-
-        <div style="height: 60px;">
-            <div class="newlabelbutton" ng-click="vm.createUser($event)">
-                <div class="newlabelicon">+</div>
-                <div class="newlabellabel">Add new student</div>
+    <div class="menucontainer">
+        <div class="mlprojectmenu">
+            <div class="mlprojectmenutitle">Restrictions</div>
+            <div class="mlprojectmenudescription">Review limits and restrictions that apply to your class</div>
+            <div class="mlprojectmenubutton">
+                <button type="button" class="btn btn-primary" ui-sref="teacher_restrictions">Restrictions</button>
             </div>
         </div>
-
-        <table class="studentslist">
-            <tr ng-repeat="student in vm.students" ng-class-even="'even'" ng-class-odd="'odd'">
-                <td class="studentslistname placeholder" ng-if="student.isPlaceholder" colspan=4> {{ student.username }} </td>
-
-                <td class="studentslistname" ng-if="!student.isPlaceholder"> {{ student.username }} </td>
-                <td class="studentslistdetail detail" ng-if="!student.isPlaceholder && student.last_login"> Last login: {{ student.last_login | date : 'EEEE, MMMM d, y  h:mm a' }}  </td>
-                <td class="studentslistdetail" ng-if="!student.isPlaceholder && !student.last_login"> Not logged in yet </td>
-                <td class="studentslistactions" ng-if="!student.isPlaceholder">
-                    <button class="btn btn-default" ng-click="vm.resetUserPassword($event, student)">Reset password</button>
-                    <button class="btn btn-default" ng-click="vm.deleteUser($event, student)">Delete student account</button>
-                </td>
-            </tr>
-            <tr ng-if="vm.students.length > 1">
-                <td colspan=2> </td>
-                <td class="studentslistactions" colspan=2>
-                    <button class="btn btn-default" ng-click="vm.resetUsersPassword($event)">Reset password for all students</button>
-                </td>
-            </tr>
-        </table>
-
-        <hr/>
-    </div>
-
-
-    <div ng-if="vm && vm.credentials" class="credentialsinfo">
-        <h3>Watson API keys available to your group</h3>
-        <div ng-if="vm.credentials.loading.visrec || vm.credentials.loading.conv" class="loading"> </div>
-        <div ng-if="vm.credentials.loading.conv === false">
-            <div>
-                Training machine learning models for <span class="mlprojecttype">text</span> projects uses
-                the <a class="mlprojecttype" href="https://www.ibm.com/watson/services/conversation/">Watson Assistant</a>
-                (formerly Watson Conversation) service.</a>
-            </div>
-            <div ng-if="vm.credentials.failed.conv" class="credserror" >Failed to get your Watson Assistant passwords</div>
-            <div style="height: 60px;">
-                <div class="newlabelbutton" ng-click="vm.addCredentials($event, 'conv')">
-                    <div class="newlabelicon">+</div>
-                    <div class="newlabellabel">Add new credentials</div>
+        <div class="mlprojectmenu" 
+            ng-if="vm.policy && (vm.policy.isManaged === false)" 
+            ng-class="{ 'warningmenu' : vm.policy && vm.policy.missingCredentials }">
+            <div class="mlprojectmenutitle">API Keys</div>            
+            <div class="mlprojectmenudescription">
+                <div ng-if="vm.policy && vm.policy.missingCredentials">
+                    <span class="glyphicon glyphicon-warning-sign"> </span> <strong>Incomplete!</strong>
                 </div>
+                Set up IBM Watson credentials to enable your class to create machine learning models
             </div>
-            <table ng-if="vm.credentials.conv && vm.credentials.conv.length > 0" class="studentslist">
-                <tr ng-repeat="creds in vm.credentials.conv" ng-class-even="'even'" ng-class-odd="'odd'">
-                    <td><img src="static/images/conversation.jpg" alt="Watson Assistant"></td>
-                    <td class="studentslistdetail">
-                        <div class="listheading">
-                            Username
-                        </div>
-                        <div class="listmain">
-                            {{ creds.username }}
-                        </div>
-                    </td>
-                    <td class="studentslistdetail">
-                        <div class="listheading">
-                            Password
-                        </div>
-                        <div class="listmain">
-                            {{ creds.password }}
-                        </div>
-                    </td>
-                    <td class="studentslistactions">
-                        <button class="btn btn-default" ng-click="vm.deleteCredentials($event, creds, 'conv')">Remove</button>
-                    </td>
-                </tr>
-            </table>
-            <div class="credserror" ng-if="vm.credentials.conv && vm.credentials.conv.length === 0">
-                You don't have any Assistant credentials. This means that it will not be possible to train models for <strong>text</strong> projects.
+            <div class="mlprojectmenubutton">
+                <button type="button" class="btn btn-primary" ui-sref="teacher_apikeys">Watson API Keys</button>
             </div>
         </div>
-        <div ng-if="vm.credentials.loading.visrec === false">
-            <div>
-                Training machine learning models for <span class="mlprojecttype">images</span> projects uses
-                the <a class="mlprojecttype" href="https://www.ibm.com/watson/services/visual-recognition/">Watson Visual Recognition</a>
-                service.</a>
-            </div>
-            <div ng-if="vm.credentials.failed.visrec" class="credserror" >Failed to get your Visual Recognition API keys</div>
-            <div style="height: 60px;">
-                <div class="newlabelbutton" ng-click="vm.addCredentials($event, 'visrec')">
-                    <div class="newlabelicon">+</div>
-                    <div class="newlabellabel">Add new API key</div>
-                </div>
-            </div>
-
-            <table ng-if="vm.credentials.conv && vm.credentials.visrec.length > 0" class="studentslist">
-                <tr ng-repeat="creds in vm.credentials.visrec" ng-class-even="'even'" ng-class-odd="'odd'">
-                    <td><img src="static/images/visualrecognition.jpg" alt="Watson Visual Recognition"></td>
-                    <td class="studentslistdetail">
-                        <div class="listheading">
-                            API key
-                        </div>
-                        <div class="listmain">
-                            {{ creds.apikey }}
-                        </div>
-                    </td>
-                    <td class="studentslistactions">
-                        <button class="btn btn-default" ng-click="vm.deleteCredentials($event, creds, 'visrec')">Remove</button>
-                    </td>
-                </tr>
-            </table>
-            <div class="credserror" ng-if="vm.credentials.visrec && vm.credentials.visrec.length === 0">
-                You don't have any Visual Recognition API keys. This means that it will not be possible to train models for <strong>images</strong> projects.
+        <div class="mlprojectmenu">
+            <div class="mlprojectmenutitle">Students</div>
+            <div class="mlprojectmenudescription">Create, reset and delete logins for students in your class </div>
+            <div class="mlprojectmenubutton">
+                <button type="button" class="btn btn-primary" ui-sref="teacher_students">Student management</button>
             </div>
         </div>
-    </div>
+        <div class="mlprojectmenu">
+            <div class="mlprojectmenutitle">Supervision</div>
+            <div class="mlprojectmenudescription">Review projects that your students have created </div>
+            <div class="mlprojectmenubutton">
+                <button type="button" class="btn btn-primary" ui-sref="teacher_supervision">Supervision</button>
+            </div>
+        </div>
+    </div>    
 </div>
 
 <div ng-if="isAuthenticated && vm.profile.role !== 'supervisor'" class="alert alert-danger pageheadermsg">
-    <strong>Error:</strong> You are not authorized to access the list of students in your class.
+    <strong>Error:</strong> You are not authorized to access the teacher page for your class.
 </div>

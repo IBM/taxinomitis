@@ -2,15 +2,15 @@
 
     angular
         .module('app')
-        .controller('TeacherController', TeacherController);
+        .controller('TeacherRestrictionsController', TeacherRestrictionsController);
 
-    TeacherController.$inject = [
+    TeacherRestrictionsController.$inject = [
         'authService',
         'usersService',
         '$document', '$timeout'
     ];
 
-    function TeacherController(authService, usersService, $document, $timeout) {
+    function TeacherRestrictionsController(authService, usersService, $document, $timeout) {
 
         var vm = this;
         vm.authService = authService;
@@ -42,19 +42,10 @@
                 vm.profile = profile;
 
                 if (profile.role === 'supervisor') {
+
                     usersService.getClassPolicy(profile)
                         .then(function (policy) {
                             vm.policy = policy;
-
-                            vm.policy.missingCredentials = false;
-                            for (var i = 0; i < policy.supportedProjectTypes.length; i++) {
-                                var projectType = policy.supportedProjectTypes[i];
-                                if ((projectType === 'text' && policy.maxTextModels === 0) ||
-                                    (projectType === 'images' && policy.maxImageModels === 0))
-                                {
-                                    vm.policy.missingCredentials = true;
-                                }
-                            }
                         })
                         .catch(function (err) {
                             displayAlert('errors', err.status, err.data);
@@ -64,9 +55,6 @@
             .catch(function (err) {
                 displayAlert('errors', err.status, err.data);
             });
-
-
-
 
 
         function scrollToNewItem(itemId) {

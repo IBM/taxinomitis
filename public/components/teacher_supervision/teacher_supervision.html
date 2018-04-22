@@ -1,0 +1,87 @@
+<div class="jumbotron">
+        <h2 class="text-center">Administration : Student projects</h2>
+    </div>
+    <div ng-if="!isAuthenticated">
+        <div class="alert alert-warning pageheadermsg">
+            <strong>Not logged in</strong>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary" ng-click="vm.authService.login()">Log In</button>
+        </div>
+    </div>
+    <div ng-if="isAuthenticated && vm.profile.role === 'supervisor'" class="adminpage">
+
+        <div ng-if="!vm || !vm.projects" class="loading"> </div>
+
+        <div ng-repeat="error in vm.errors"
+             class="alert alert-danger alert-dismissible pageheadermsg" role="alert"
+             ng-click="vm.dismissAlert('errors', $index)"
+             id="errors{{error.alertid}}">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Error:</strong> {{ error.message }}<br/>
+            <em ng-if="error.status >= 500">If this keeps happening, please <a ui-sref="help">let me know</a>.</em>
+        </div>
+        <div ng-repeat="warning in vm.warnings"
+             class="alert alert-warning alert-dismissible pageheadermsg" role="alert"
+             ng-click="vm.dismissAlert('warnings', $index)"
+             id="warnings{{warning.alertid}}">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Warning:</strong> {{ warning.message }}
+        </div>
+
+        <div ng-if="vm && vm.projects">
+
+            <div class="studentslist" ng-if="vm.projects.length === 0">
+                <p>None of the students in your class currently have any projects. </p>
+                <p>Once your students start creating projects, come back here to see an overview of their work. </p>
+            </div>
+
+            <table class="studentslist wide" ng-if="vm.projects.length > 0">
+                <tr>
+                    <th title="Name of the project">
+                        Name
+                        <span class="glyphicon glyphicon-triangle-top" ng-click="vm.orderBy = 'name'"></span>
+                        <span class="glyphicon glyphicon-triangle-bottom" ng-click="vm.orderBy = '-name'"></span>
+                    </th>
+                    <th title="Type of project - what the computer is being trained to recognise">
+                        Type
+                        <span class="glyphicon glyphicon-triangle-top" ng-click="vm.orderBy = 'type'"></span>
+                        <span class="glyphicon glyphicon-triangle-bottom" ng-click="vm.orderBy = '-type'"></span>
+                    </th>
+                    <th>
+                    </th>
+                    <th title="Owner of the project">
+                        Student
+                        <span class="glyphicon glyphicon-triangle-top" ng-click="vm.orderBy = 'owner.username'"></span>
+                        <span class="glyphicon glyphicon-triangle-bottom" ng-click="vm.orderBy = '-owner.username'"></span>
+                    </th>
+                    <th title="Whether the project currently has a trained model using a Watson API key">
+                        ML models
+                        <span class="glyphicon glyphicon-triangle-top" ng-click="vm.orderBy = ['-hasModel', 'type']"></span>
+                    </th>
+                </tr>
+                <tr ng-repeat="project in vm.projects | orderBy : vm.orderBy" ng-class-even="'even'" ng-class-odd="'odd'">
+                    <!-- Project name -->
+                    <td class="projectslistname"> {{ project.name }} </td>
+                    <!-- Project type  (text/images/numbers) -->
+                    <td class="studentslistdetail projecttype"> {{ project.type }} </td>
+                    <!-- Classes / Labels -->
+                    <td class="studentslistdetail detail"> {{ project.labelsSummary }} </td>
+                    <!-- Who owns the project -->
+                    <td class="studentslistdetail detail" ng-hide="project.owner || project.isCrowdSourced"> </td>
+                    <td class="studentslistdetail detail" ng-if="project.owner"> {{ project.owner.username }} </td>
+                    <td class="studentslistdetail" ng-if="project.isCrowdSourced"><div class="mlprojectcrowd miniwatsonicon" title="'Whole class project' - available to all students in the class" > </div> </td>
+                    <!-- If it has a trained model -->
+                    <td class="studentslistdetail detail" ng-hide="project.hasModel"> </td>
+                    <td class="studentslistdetail detail" ng-if="project.hasModel && project.type === 'text'"><img class="miniwatsonicon" src="static/images/conversation.jpg" alt="Watson Assistant"></td>
+                    <td class="studentslistdetail detail" ng-if="project.hasModel && project.type === 'images'"><img class="miniwatsonicon" src="static/images/visualrecognition.jpg" alt="Watson Visual Recognition"></td>
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+
+    <div ng-if="isAuthenticated && vm.profile.role !== 'supervisor'" class="alert alert-danger pageheadermsg">
+        <strong>Error:</strong> You are not authorized to access the list of projects for all students in your class.
+    </div>

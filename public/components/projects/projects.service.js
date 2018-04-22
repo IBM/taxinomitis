@@ -10,6 +10,13 @@
 
     function projectsService($q, $http) {
 
+        function getClassProjects(profile) {
+            return $http.get('/api/classes/' + profile.tenant + '/projects')
+                .then(function (resp) {
+                    return resp.data;
+                });
+        }
+
         function getProjects(profile) {
             return $http.get('/api/classes/' + profile.tenant + '/students/' + profile.user_id + '/projects')
                 .then(function (resp) {
@@ -79,6 +86,8 @@
         return {
             getProject : getProject,
             getProjects : getProjects,
+            getClassProjects : getClassProjects, 
+            
             deleteProject : deleteProject,
             createProject : createProject,
 

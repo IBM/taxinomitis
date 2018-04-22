@@ -1196,6 +1196,14 @@ export async function getExpiredImageClassifiers(): Promise<TrainingObjects.Visu
 
 
 
+export async function getProjectsWithBluemixClassifiers(classid: string): Promise<string[]> {
+    const queryString = 'SELECT `projectid` FROM `bluemixclassifiers` WHERE `classid` = ?';
+
+    const rows = await dbExecute(queryString, [ classid ]);
+    return rows.map((row: any) => row.projectid);
+}
+
+
 
 
 export async function getClassifierByBluemixId(classifierid: string):

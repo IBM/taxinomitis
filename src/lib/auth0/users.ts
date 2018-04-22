@@ -80,6 +80,19 @@ export async function getStudents(tenant: string): Promise<Objects.Student[]> {
 }
 
 
+export async function getStudentsByUserId(tenant: string): Promise<{ [id: string]: Objects.Student }> {
+    const students = await getStudents(tenant);
+
+    const studentsIndexedById: {[id: string]: Objects.Student } = {};
+
+    students.forEach((student) => {
+        studentsIndexedById[student.id] = student;
+    });
+
+    return studentsIndexedById;
+}
+
+
 export async function countUsers(tenant: string): Promise<number> {
     const token = await getBearerToken();
     const usersCountsInfo: Objects.UsersInfo = await auth0requests.getUserCounts(token, tenant);

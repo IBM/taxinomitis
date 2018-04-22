@@ -1,81 +1,8 @@
-.studentslist {
-    margin-left: auto;
-    margin-right: auto;
-    min-width: 80%;
-    margin-bottom: 4em;
-}
-
-.studentslist .odd {
-    background-color: #f4f4f4;
-}
-.studentslist .even {
-    background-color: #e8e8ff;
-}
-
-.studentlistheading {
-    font-weight: bold;
-    font-size: 1.1em;
-    padding: 1em;
-}
-
-.studentslistname {
-    padding-left: 1em;
-    padding-right: 1em;
-}
-
-.studentslistname.placeholder {
-    font-style: italic;
-    color: #888888;
-    padding-top: 0.9em;
-    padding-bottom: 0.9em;
-}
-
-.studentslistdetail {
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-}
-.studentslistdetail.detail {
-    font-size: 0.9em;
-}
-
-.studentslistdetail .listheading {
-    font-size: 0.7em;
-}
-.studentslistdetail .listmain {
-    font-size: 1.2em;
-}
-
-.studentslistactions {
-    padding: 0.4em;
-    text-align: right;
-}
-
 .adminpage {
     padding-left: 2em;
     padding-right: 2em;
 }
 
-.adminrestriction {
-    margin-left: 2em;
-    font-size: 0.9em;
-}
-.adminrestriction li {
-    margin-bottom: 0.4em;
-}
-
-.credentialsinfo {
-    margin-bottom: 4em;
-}
-.credserror {
-    text-align: center;
-    margin-bottom: 6em;
-}
-
-
-.passworddisplaydialog {
-    font-size: 2em;
-    font-family: monospace;
-    margin-left: 1em;
-    margin-right: 1em;
-    font-weight: bold;
+.mlprojectmenu.warningmenu {
+    background-color: #f9e0e0;
 }

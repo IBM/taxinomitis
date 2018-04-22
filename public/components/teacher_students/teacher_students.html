@@ -1,0 +1,71 @@
+<div class="jumbotron">
+        <h2 class="text-center">Administration : Student management</h2>
+    </div>
+    <div ng-if="!isAuthenticated">
+        <div class="alert alert-warning pageheadermsg">
+            <strong>Not logged in</strong>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary" ng-click="vm.authService.login()">Log In</button>
+        </div>
+    </div>
+    <div ng-if="isAuthenticated && vm.profile.role === 'supervisor'" class="adminpage">
+    
+        <div ng-if="!vm || !vm.students" class="loading"> </div>
+    
+        <div ng-repeat="error in vm.errors"
+             class="alert alert-danger alert-dismissible pageheadermsg" role="alert"
+             ng-click="vm.dismissAlert('errors', $index)"
+             id="errors{{error.alertid}}">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Error:</strong> {{ error.message }}<br/>
+            <em ng-if="error.status >= 500">If this keeps happening, please <a ui-sref="help">let me know</a>.</em>
+        </div>
+        <div ng-repeat="warning in vm.warnings"
+             class="alert alert-warning alert-dismissible pageheadermsg" role="alert"
+             ng-click="vm.dismissAlert('warnings', $index)"
+             id="warnings{{warning.alertid}}">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Warning:</strong> {{ warning.message }}
+        </div>
+    
+        <div ng-if="vm && vm.students">
+            <div class="alert alert-info pageheadermsg" ng-if="vm.students && vm.students.length === 0">
+                Click on the 'plus' button on the right to create the first student
+                <span class="glyphicon glyphicon-arrow-right"></span>
+            </div>
+    
+            <div style="height: 60px;">
+                <div class="newlabelbutton" ng-click="vm.createUser($event)">
+                    <div class="newlabelicon">+</div>
+                    <div class="newlabellabel">Add new student</div>
+                </div>
+            </div>
+    
+            <table class="studentslist">
+                <tr ng-repeat="student in vm.students" ng-class-even="'even'" ng-class-odd="'odd'">
+                    <td class="studentslistname placeholder" ng-if="student.isPlaceholder" colspan=4> {{ student.username }} </td>
+    
+                    <td class="studentslistname" ng-if="!student.isPlaceholder"> {{ student.username }} </td>
+                    <td class="studentslistdetail detail" ng-if="!student.isPlaceholder && student.last_login"> Last login: {{ student.last_login | date : 'EEEE, MMMM d, y  h:mm a' }}  </td>
+                    <td class="studentslistdetail" ng-if="!student.isPlaceholder && !student.last_login"> Not logged in yet </td>
+                    <td class="studentslistactions" ng-if="!student.isPlaceholder">
+                        <button class="btn btn-default" ng-click="vm.resetUserPassword($event, student)">Reset password</button>
+                        <button class="btn btn-default" ng-click="vm.deleteUser($event, student)">Delete student account</button>
+                    </td>
+                </tr>
+                <tr ng-if="vm.students.length > 1">
+                    <td colspan=2> </td>
+                    <td class="studentslistactions" colspan=2>
+                        <button class="btn btn-default" ng-click="vm.resetUsersPassword($event)">Reset password for all students</button>
+                    </td>
+                </tr>
+            </table>    
+        </div>
+    
+    </div>
+    
+    <div ng-if="isAuthenticated && vm.profile.role !== 'supervisor'" class="alert alert-danger pageheadermsg">
+        <strong>Error:</strong> You are not authorized to access the list of students in your class.
+    </div>
+    

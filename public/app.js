@@ -72,6 +72,39 @@
                     VERSION : <%= VERSION %>
                 }
             })
+            .state('teacher_restrictions', {
+                url: '/teacher/restrictions',
+                controller: 'TeacherRestrictionsController',
+                templateUrl: 'static/components-<%= VERSION %>/teacher_restrictions/teacher_restrictions.html',
+                controllerAs: 'vm'
+            }) 
+            .state('teacher_apikeys', {
+                url: '/teacher/apikeys',
+                controller: 'TeacherApiKeysController',
+                templateUrl: 'static/components-<%= VERSION %>/teacher_apikeys/teacher_apikeys.html',
+                controllerAs: 'vm',
+                params: {
+                    VERSION : <%= VERSION %>
+                }
+            })
+            .state('teacher_students', {
+                url: '/teacher/students',
+                controller: 'TeacherStudentsController',
+                templateUrl: 'static/components-<%= VERSION %>/teacher_students/teacher_students.html',
+                controllerAs: 'vm',
+                params: {
+                    VERSION : <%= VERSION %>
+                }
+            })
+            .state('teacher_supervision', {
+                url: '/teacher/projects',
+                controller: 'TeacherProjectsController',
+                templateUrl: 'static/components-<%= VERSION %>/teacher_supervision/teacher_supervision.html',
+                controllerAs: 'vm',
+                params: {
+                    VERSION : <%= VERSION %>
+                }
+            })
             .state('newproject', {
                 url: '/newproject',
                 controller: 'NewProjectController',
