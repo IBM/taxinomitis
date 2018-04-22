@@ -59,7 +59,7 @@
         function login() {
             lock.show({
                 languageDictionary : {
-                    title: 'Log in to ML for kids'
+                    title: 'Log in to ML for Kids'
                 }
             });
         }
@@ -154,37 +154,16 @@
                 }
             });
 
-            // lock.on('authorization_error', function (err) {
-            //     if (err && err.error === 'invalid_user_password') {
-            //         console.log(err.error);
-            //     }
-            //     else {
-            //         deferredProfile = $q.defer();
-            //         var message = err.errorDescription || err.error;
-            //         deferredProfile.reject(new Error(err.errorDescription));
-            //     }
-            // });
-            //     console.log(err.errorDescription);
-            //     console.log(err.errorDescription == 'Please verify your email to activate your class account');
-            //     console.log(err.errorDescription === 'Please verify your email to activate your class account');
-            //     if (err &&
-            //         err.errorDescription &&
-            //         err.errorDescription === 'Please verify your email to activate your class account')
-            //     {
-            //         console.log('swallowing up error');
-            //         deferredProfile = $q.defer();
-            //         deferredProfile.reject(new Error(err.errorDescription));
-            //         return;
-            //     }
-            //     else if (err && err.error === 'invalid_user_password') {
-
-            //     }
-            //     else {
-            //         console.log('lock authorization error');
-            //         console.log(err);
-            //         return logout();
-            //     }
-            // });
+            lock.on('authorization_error', function (err) {
+                if (err && err.errorDescription) {
+                    if (err.errorDescription === 'Please verify your email to activate your class account') {
+                        alert('Please verify your email to activate your class account\n\n' +
+                              'When you created your account, you should have been sent an email to verify your address. \n' +
+                              'Clicking on the link in that email will activate your class account.\n\n' +
+                              'Please click on the Help tab for more info');
+                    }
+                }
+            });
 
             // auth0 looks completely broken so try starting again
             lock.on('unrecoverable_error', function (err) {
