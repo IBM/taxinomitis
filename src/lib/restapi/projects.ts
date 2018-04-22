@@ -25,7 +25,7 @@ interface ProjectWithOwner extends Objects.Project {
 function getProjectsByClassId(req: Express.Request, res: Express.Response) {
     const classid: string = req.params.classid;
 
-    const responsePromises: [Promise<{[id: string]: Users.Student }>, Promise<Objects.Project[]>, Promise<String[]>] = [
+    const responsePromises: [Promise<{[id: string]: Users.Student }>, Promise<Objects.Project[]>, Promise<string[]>] = [
         users.getStudentsByUserId(classid),
         store.getProjectsByClassId(classid),
         store.getProjectsWithBluemixClassifiers(classid),
