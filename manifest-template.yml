@@ -25,7 +25,7 @@ applications:
     MYSQLUSER: MY_MYSQL_USER
     MYSQLPASSWORD: MY_MYSQL_PASSWORD
     MYSQLDATABASE: MY_MYSQL_DB
-    NUMBERS_SERVICE: https://numbers-service.mybluemix.net
+    NUMBERS_SERVICE: https://taxinomitis-numbers-service.mybluemix.net
     NUMBERS_SERVICE_USER: numbers-service-username
     NUMBERS_SERVICE_PASS: numbers-service-password
     SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/MY/SLACK/CREDS"
