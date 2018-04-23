@@ -168,3 +168,14 @@ CREATE TABLE tenants (
 );
 
 INSERT INTO tenants (id, projecttypes) VALUES ("TESTTENANT", "text,images,numbers");
+
+INSERT INTO tenants (id, projecttypes, maxusers, maxprojectsperuser, textclassifiersexpiry, ismanaged)
+        VALUES ('session-users', 'text,numbers', 20, 1, 4, false);
+
+-- ------------------------------------------------------------------
+
+CREATE TABLE sessionusers (
+    id VARCHAR(36) NOT NULL PRIMARY KEY,
+    token VARCHAR(36) NOT NULL,
+    sessionexpiry DATETIME
+);

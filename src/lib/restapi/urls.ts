@@ -1,7 +1,7 @@
 // tslint:disable:max-line-length
 
 
-
+export const TEACHERS             = '/api/teachers';
 export const CLASSES              = '/api/classes';
 
 //
@@ -47,6 +47,12 @@ export const SCRATCHKEY_CLASSIFY  = '/api/scratch/:scratchkey/classify';
 export const SCRATCHKEY_STATUS    = '/api/scratch/:scratchkey/status';
 export const SCRATCHKEY_EXTENSION = '/api/scratch/:scratchkey/extension.js';
 
+//
+// URLs about session users
+export const SESSION_USERS        = '/api/sessionusers';
+export const SESSION_USER         = '/api/classes/:classid/sessionusers/:studentid';
+
+export const SESSION_USER_APIS    = '/api/classes/session-users/*';
 
 
 // tslint:enable:max-line-length

@@ -6,14 +6,16 @@
 
     authService.$inject = [
         'lock', 'authManager',
-        '$q',
+        '$q', '$http',
         '$rootScope',
         '$state',
         '$timeout'
     ];
 
 
-    function authService(lock, authManager, $q, $rootScope, $state, $timeout) {
+    function authService(lock, authManager, $q, $http, $rootScope, $state, $timeout) {
+
+        var SESSION_USERS_CLASS = 'session-users';
 
         var vm = this;
 
@@ -78,19 +80,35 @@
         }
 
 
-        function logout() {
+        function clearAuthData() {
             deferredProfile = $q.defer();
 
             window.localStorageObj.removeItem('access_token');
             window.localStorageObj.removeItem('id_token');
             window.localStorageObj.removeItem('expires_at');
             window.localStorageObj.removeItem('scopes');
+            window.localStorageObj.removeItem('profile');
 
             authManager.unauthenticate();
 
             userProfile = null;
             $rootScope.isTeacher = false;
             $rootScope.isAuthenticated = false;
+        }
+
+        function logout() {
+
+            console.log(userProfile);
+
+            if (userProfile && userProfile.tenant === SESSION_USERS_CLASS) {
+                deleteSessionUser(userProfile.user_id)
+                    .then(function () {
+                        clearAuthData();
+                    });
+            }
+            else {
+                clearAuthData();
+            }
         }
 
 
@@ -237,6 +255,57 @@
 
 
 
+
+
+        function switchToSessionUser(userinfo) {
+            // clear out any existing user/auth info
+            logout();
+
+            window.localStorageObj.setItem('access_token', userinfo.token);
+            window.localStorageObj.setItem('id_token', userinfo.jwt);
+
+            var expiryTime = JSON.stringify(new Date(userinfo.sessionExpiry).getTime());
+            window.localStorageObj.setItem('expires_at', expiryTime);
+
+            window.localStorageObj.setItem('scopes', 'openid email');
+
+            userProfile = {
+                tenant : SESSION_USERS_CLASS,
+                role : 'student',
+                user_id : userinfo.id
+            };
+
+            window.localStorageObj.setItem('profile', JSON.stringify(userProfile));
+            deferredProfile.resolve(userProfile);
+
+            $rootScope.isAuthenticated = true;
+            $rootScope.isTeacher = false;
+
+            // authManager.authenticate();
+        }
+
+
+
+        function createSessionUser() {
+            return $http.post('/api/sessionusers')
+                .then(function (resp) {
+                    var sessionuser = resp.data;
+
+                    switchToSessionUser(sessionuser);
+
+                    return sessionuser;
+                });
+        }
+
+        function deleteSessionUser(userid) {
+            return $http.delete('/api/classes/' + SESSION_USERS_CLASS + '/sessionusers/' + userid)
+                .catch(function (err) {
+                    console.log(err);
+                });
+        }
+
+
+
         return {
             login: login,
             reset : reset,
@@ -244,7 +313,9 @@
 
             setupAuth: setupAuth,
             getProfileDeferred: getProfileDeferred,
-            isAuthenticated : isAuthenticated
+            isAuthenticated : isAuthenticated,
+
+            createSessionUser : createSessionUser
         };
     }
 })();

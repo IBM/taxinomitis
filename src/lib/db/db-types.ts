@@ -198,3 +198,20 @@ export interface ClassDbRow {
     readonly imageclassifiersexpiry: number;
     readonly ismanaged: number;
 }
+
+
+
+
+
+
+export interface TemporaryUser {
+    readonly id: string;
+    readonly token: string;
+    readonly sessionExpiry: Date;
+}
+
+export interface TemporaryUserDbRow {
+    readonly id: string;
+    readonly token: string;
+    readonly sessionexpiry: Date;
+}

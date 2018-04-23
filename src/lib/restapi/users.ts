@@ -288,5 +288,5 @@ export default function registerApis(app: Express.Application) {
 
     // API for creating new tenants / teacher accounts so
     //  this API can't be an authenticated one
-    app.post('/api/teachers', createTeacher);
+    app.post(urls.TEACHERS, createTeacher);
 }

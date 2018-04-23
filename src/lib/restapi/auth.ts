@@ -2,10 +2,14 @@
 import * as Express from 'express';
 import * as jwt from 'express-jwt';
 import * as jwksRsa from 'jwks-rsa';
+import * as jwtDecode from 'jwt-decode';
+import * as jsonwebtoken from 'jsonwebtoken';
 import * as httpstatus from 'http-status';
 // local dependencies
 import * as errors from './errors';
+import * as urls from './urls';
 import * as store from '../db/store';
+import * as sessionusers from '../sessionusers';
 import * as Objects from '../db/db-types';
 
 
@@ -14,7 +18,24 @@ export interface RequestWithProject extends Express.Request {
 }
 
 
-export const authenticate = jwt({
+
+const JWT_SECRET: string = process.env.AUTH0_CLIENT_SECRET as string;
+
+
+
+export function generateJwt(payload: object): string {
+    return jsonwebtoken.sign(payload, JWT_SECRET, {
+        algorithm: 'HS256',
+    });
+}
+
+
+
+
+/**
+ * Auth middleware for all normal users - who are authenticated by Auth0.
+ */
+const auth0Authenticate = jwt({
     secret : jwksRsa.expressJwtSecret({
         cache : true,
         rateLimit : true,
@@ -27,8 +48,71 @@ export const authenticate = jwt({
     aud : process.env.AUTH0_AUDIENCE,
 
     issuer : `https://${process.env.AUTH0_DOMAIN}/`,
-    algorithms : ['RS256'],
+    algorithms : [ 'RS256' ],
 });
+
+
+
+/**
+ * Auth middleware for users in the session-users class - who are authenticated locally.
+ */
+async function sessionusersAuthenticate(
+    jwtTokenString: string,
+    req: Express.Request, res: Express.Response, next: Express.NextFunction)
+{
+    const decoded: Objects.TemporaryUser = jwtDecode(jwtTokenString);
+
+    try {
+        const sessionUserIsAuthenticated = await sessionusers.checkSessionToken(req.params.studentid, decoded.token);
+
+        if (sessionUserIsAuthenticated) {
+            req.user = {
+                sub : decoded.id,
+                app_metadata : {
+                    role : 'student',
+                    tenant : sessionusers.CLASS_NAME,
+                },
+                session : decoded,
+            };
+
+            next();
+        }
+        else {
+            errors.notAuthorised(res);
+        }
+    }
+    catch (err) {
+        next(err);
+    }
+}
+
+
+
+
+
+export function authenticate(req: Express.Request, res: Express.Response, next: Express.NextFunction) {
+
+        // the request is trying to access a resource in the session-users class
+    if ((req.params.classid === sessionusers.CLASS_NAME) &&
+        // the request includes an auth header
+        req.headers.authorization &&
+        typeof req.headers.authorization === 'string' &&
+        // the auth header has a bearer token
+        (req.headers.authorization.split(' ')[0] === 'Bearer'))
+    {
+        // Access to resources in the session-users class is managed locally
+        const jwtToken = req.headers.authorization.split(' ')[1];
+        sessionusersAuthenticate(jwtToken, req, res, next);
+    }
+    else {
+        // Access to ALL other resources is managed using Auth0
+        auth0Authenticate(req, res, next);
+    }
+}
+
+
+
+
 
 
 

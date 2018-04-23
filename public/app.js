@@ -77,7 +77,7 @@
                 controller: 'TeacherRestrictionsController',
                 templateUrl: 'static/components-<%= VERSION %>/teacher_restrictions/teacher_restrictions.html',
                 controllerAs: 'vm'
-            }) 
+            })
             .state('teacher_apikeys', {
                 url: '/teacher/apikeys',
                 controller: 'TeacherApiKeysController',
@@ -148,6 +148,12 @@
                 url: '/mlproject/:userId/:projectId/scratch',
                 controller: 'ScratchController',
                 templateUrl: 'static/components-<%= VERSION %>/scratch/scratch.html',
+                controllerAs: 'vm'
+            })
+            .state('sessionusers', {
+                url: '/beta/tryitnow',
+                controller: 'SessionUsersController',
+                templateUrl: 'static/components-<%= VERSION %>/sessionusers/sessionusers.html',
                 controllerAs: 'vm'
             })
             .state('siteadmin', {

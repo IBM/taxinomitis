@@ -808,3 +808,37 @@ export function getClassFromDbRow(row: Objects.ClassDbRow): Objects.ClassTenant 
         imageClassifierExpiry : row.imageclassifiersexpiry,
     };
 }
+
+
+
+
+// -----------------------------------------------------------------------------
+//
+// TEMPORARY SESSION USERS
+//
+// -----------------------------------------------------------------------------
+
+
+function getSessionExpiryTime(lifespan: number): Date {
+    const expiry = new Date(new Date().getTime() + lifespan);
+    expiry.setMilliseconds(0);
+    return expiry;
+}
+
+
+
+export function createTemporaryUser(lifespan: number): Objects.TemporaryUserDbRow {
+    return {
+        id : uuidv4(),
+        token : uuidv4(),
+        sessionexpiry : getSessionExpiryTime(lifespan),
+    };
+}
+
+export function getTemporaryUserFromDbRow(row: Objects.TemporaryUserDbRow): Objects.TemporaryUser {
+    return {
+        id : row.id,
+        token : row.token,
+        sessionExpiry : row.sessionexpiry,
+    };
+}

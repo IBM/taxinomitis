@@ -3,6 +3,7 @@ import * as cf from '../utils/cf';
 import * as conversation from '../training/conversation';
 import * as visualrec from '../training/visualrecognition';
 import * as credentials from '../training/credentials';
+import * as sessionusers from '../sessionusers';
 import * as pendingjobs from '../pendingjobs/runner';
 import * as constants from '../utils/constants';
 import loggerSetup from '../utils/logger';
@@ -16,6 +17,15 @@ export function run(): void {
 
     // start scheduled cleanup tasks
     if (cf.isPrimaryInstance()) {
+
+
+        log.info('Scheduling automatic expiry of session users');
+        // delete any session users with a session expiry
+        //   that has passed
+        setInterval(() => {
+            sessionusers.cleanupExpiredSessionUsers();
+        }, constants.FIFTY_MINUTES);
+
 
 
         log.info('Scheduling clean-up task to run every hour');
@@ -34,10 +44,6 @@ export function run(): void {
         setInterval(() => {
             pendingjobs.run();
         }, constants.THREE_HOURS);
-        // run immediately so we don't have to wait for three hours
-        //  for this to be done (this task is more critical than the
-        //  others)
-        pendingjobs.run();
 
 
 
@@ -47,6 +53,18 @@ export function run(): void {
         setInterval(() => {
             credentials.checkBluemixCredentials();
         }, constants.ONE_DAY_PLUS_A_BIT);
+
+
+
+
+
+
+        // run these immediately so we don't have to wait for them to
+        //  be done (these tasks are more critical than the others)
+        pendingjobs.run()
+            .then(() => {
+                sessionusers.cleanupExpiredSessionUsers();
+            });
 
     }
 }

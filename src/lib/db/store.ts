@@ -1648,6 +1648,104 @@ export async function getClassTenants(): Promise<Objects.ClassTenant[]> {
 
 
 
+
+
+// -----------------------------------------------------------------------------
+//
+// TEMPORARY SESSION USERS
+//
+// -----------------------------------------------------------------------------
+
+
+export function testonly_resetSessionUsersStore(): Promise<void>
+{
+    return dbExecute('DELETE FROM `sessionusers`', []);
+}
+
+
+
+export async function storeTemporaryUser(lifespan: number): Promise<Objects.TemporaryUser>
+{
+    const obj = dbobjects.createTemporaryUser(lifespan);
+
+    const insertUserQry = 'INSERT INTO `sessionusers` ' +
+        '(`id`, `token`, `sessionexpiry`) ' +
+        'VALUES (?, ?, ?)';
+
+    const insertUserValues = [ obj.id, obj.token, obj.sessionexpiry ];
+
+    const response = await dbExecute(insertUserQry, insertUserValues);
+    if (response.affectedRows === 1) {
+        return dbobjects.getTemporaryUserFromDbRow(obj);
+    }
+    throw new Error('Failed to store temporary user');
+}
+
+export async function getTemporaryUser(id: string): Promise<Objects.TemporaryUser | undefined>
+{
+    const queryString = 'SELECT `id`, `token`, `sessionexpiry` ' +
+                        'FROM `sessionusers` ' +
+                        'WHERE `id` = ?';
+
+    const rows = await dbExecute(queryString, [ id ]);
+    if (rows.length !== 1) {
+        log.error({ id }, 'Temporary user not found');
+        return;
+    }
+    return dbobjects.getTemporaryUserFromDbRow(rows[0]);
+}
+
+export async function deleteTemporaryUser(user: Objects.TemporaryUser): Promise<void>
+{
+    const queryString = 'DELETE FROM `sessionusers` WHERE `id` = ?';
+
+    const response = await dbExecute(queryString, [ user.id ]);
+    if (response.warningStatus !== 0) {
+        throw new Error('Failed to delete temporary user');
+    }
+}
+
+export async function countTemporaryUsers(): Promise<number>
+{
+    const queryString = 'SELECT COUNT(*) AS count FROM `sessionusers`';
+
+    const rows = await dbExecute(queryString, [ ]);
+    if (rows.length !== 1) {
+        return 0;
+    }
+
+    return rows[0].count;
+}
+
+
+export async function getExpiredTemporaryUsers(): Promise<Objects.TemporaryUser[]>
+{
+    const queryString = 'SELECT `id`, `token`, `sessionexpiry` ' +
+                        'FROM `sessionusers` ' +
+                        'WHERE `sessionexpiry` < ? ' +
+                        'LIMIT 50';
+
+    const rows = await dbExecute(queryString, [ new Date() ]);
+    return rows.map(dbobjects.getTemporaryUserFromDbRow);
+}
+
+export async function bulkDeleteTemporaryUsers(users: Objects.TemporaryUser[]): Promise<void>
+{
+    const queryPlaceholders: string[] = [];
+    const ids = users.map((user) => {
+        queryPlaceholders.push('?');
+        return user.id;
+    });
+
+    const deleteQueryString = 'DELETE FROM `sessionusers` WHERE `id` IN (' + queryPlaceholders.join(',') + ')';
+
+    const response = await dbExecute(deleteQueryString, ids);
+    if (response.warningStatus !== 0) {
+        throw new Error('Failed to delete temporary users');
+    }
+}
+
+
 // -----------------------------------------------------------------------------
 //
 // UBER DELETERS
