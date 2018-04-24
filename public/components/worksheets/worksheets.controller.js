@@ -316,6 +316,11 @@
                 teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-headlines.pdf',
                 downloads : [
                     {
+                        description : 'Simplified version of the project, where students make a simple project to put newspapers on the right shelves',
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-headlines-easy.pdf'
+                    },
+                    {
+                        description : 'Advanced version of the project, where students make a testing framework to analyse the performance of their model',
                         worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-headlines.pdf'
                     }
                 ]
