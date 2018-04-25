@@ -161,7 +161,8 @@
                             {{ projectSummary }}.
                         </div>
                         <div class="modelstatusdetail">
-                            You've collected:
+                            <span ng-if="project.isCrowdSourced">They've collected: </span>
+                            <span ng-hide="project.isCrowdSourced">You've collected: </span>
                             <ul>
                                 <li ng-repeat="training in trainingcounts">
                                     {{ training.count }}

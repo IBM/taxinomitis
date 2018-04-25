@@ -92,11 +92,16 @@
                 difficulty : 'Beginner',
                 type : 'images',
                 image : 'static/images/project-carorcup.png',
-                tags : [ 'image classification', 'supervised learning' ],
+                tags : [ 'image classification', 'supervised learning', 'crowd sourcing' ],
                 teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-carorcup.pdf',
                 downloads : [
                     {
+                        description : 'Individual version of the project, where each student trains their own machine learning model independently',
                         worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-carorcup.pdf'
+                    },
+                    {
+                        description : 'Group version of the project, where all students in the class work together to train a shared machine learning model',
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-carorcup-crowd.pdf'
                     }
                 ]
             },
