@@ -1,7 +1,12 @@
 (function(ext) {
 
+    var STATUS_ERROR = 0;
+    var STATUS_WARNING = 1;
+    var STATUS_OK = 2;
+
+
     var classifierStatus = {
-        status : 1,
+        status : STATUS_WARNING,
         msg : 'Getting status',
     };
 
@@ -11,7 +16,12 @@
         return classifierStatus;
     };
 
+
+    var checkingStatus = false;
+
     function getStatus(callback) {
+        checkingStatus = true;
+
         $.ajax({
             url : '{{{ statusurl }}}',
             dataType : 'jsonp',
@@ -21,40 +31,26 @@
                 if (callback) {
                     callback();
                 }
+
+                checkingStatus = false;
             },
             error : function (err) {
                 console.log(err);
 
                 classifierStatus = {
-                    status : 0,
+                    status : STATUS_ERROR,
                     msg : 'Unable to communicate with machine learning service'
                 };
 
                 if (callback) {
                     callback();
                 }
+
+                checkingStatus = false;
             }
         });
     }
 
-    function pollStatus() {
-        // wait 30 seconds
-        setTimeout(function () {
-            // check the status
-            getStatus(function () {
-                // if there is a problem, poll again
-                if (classifierStatus.status !== 2) {
-                    pollStatus();
-                }
-            });
-        }, 30000);
-    }
-
-    getStatus();
-
-    if (classifierStatus.status === 1) {
-        pollStatus();
-    }
 
     function classifyImage(imagedata, callback) {
         $.ajax({
@@ -72,15 +68,23 @@
                     result = { class_name : 'Unknown', confidence : 0 };
                 }
 
+                if (result.random && classifierStatus.status === STATUS_OK) {
+                    // we got a randomly selected result (which means we must not have a working classifier)
+                    //  but we thought we had a model with a good status
+                    // check the status again!
+                    initStatusCheck();
+                }
+
                 callback(result);
             },
             error : function (err) {
                 console.log(err);
 
                 classifierStatus = {
-                    status : 0,
+                    status : STATUS_ERROR,
                     msg : 'Failed to submit image to machine learning service'
                 };
+
                 callback({ class_name : 'Unknown', confidence : 0 });
 
                 pollStatus();
@@ -104,11 +108,12 @@
                 console.log(err);
 
                 classifierStatus = {
-                    status : 0,
+                    status : STATUS_ERROR,
                     msg : 'Failed to submit image to training data store'
                 };
-                pollStatus();
                 callback();
+
+                pollStatus();
             }
         });
     }
@@ -152,4 +157,92 @@
 
     // Register the extension
     ScratchExtensions.register('{{{ projectname }}}', descriptor, ext);
+
+
+
+
+
+    //
+    // keep the status of the ML model current
+    //
+
+
+    // 0 = error
+    // 1 = warning
+    // 2 = ok
+    //
+    // Anything other than 2 means there is some sort of problem
+    function statusProblem() {
+        return classifierStatus.status !== STATUS_OK;
+    }
+
+    var statusPollingTimer = null;
+
+    function isNotPolling() {
+        return statusPollingTimer === null;
+    }
+
+    function pollStatus() {
+        if (!statusPollingTimer) {
+            // wait 30 seconds...
+            statusPollingTimer = setTimeout(function () {
+                // get status (and poll again if needed)
+                initStatusCheck();
+            }, 30000);
+        }
+    }
+
+    // check the status at least once
+    function initStatusCheck() {
+        // Check the current status using the /status API
+        getStatus(function () {
+            statusPollingTimer = null;
+
+            if (statusProblem() && userIsActive()) {
+                // If there is a problem, and the user is
+                //  still using Scratch, start (or continue)
+                //  polling the status API
+                pollStatus();
+            }
+            else {
+                // If the status is OK, we can leave it
+                //  (if the status actually changes, we'll
+                //  find out the next time we call /classify)
+                // Alternatively, if the user is idle, it
+                //  doesn't matter. If they return, we'll
+                //  check again.
+            }
+        });
+    }
+
+    getStatus();
+    initStatusCheck();
+
+    //
+    // track idle time so that we can reduce the frequency of the
+    //  status API calls if the user has gone away
+    //
+
+    var lastUserActivity = Date.now();
+    function resetIdleTimer() {
+        lastUserActivity = Date.now();
+
+        if (statusProblem() && isNotPolling() && !checkingStatus) {
+            // first activity after an idle period
+            initStatusCheck();
+        }
+    }
+    var EVENTS_INDICATING_USER_ACTIVITY = [ 'mousemove', 'mousedown', 'click', 'scroll', 'keydown', 'touchstart' ];
+    for (var e = 0; e < EVENTS_INDICATING_USER_ACTIVITY.length; e++) {
+        window.addEventListener(EVENTS_INDICATING_USER_ACTIVITY[e], resetIdleTimer, true);
+    }
+
+
+    var FIFTEEN_MINUTES = 900000;
+    function userIsActive() {
+        var idleTime = Date.now() - lastUserActivity;
+        return idleTime < FIFTEEN_MINUTES;
+    }
+
+
 })({});

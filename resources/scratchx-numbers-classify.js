@@ -1,15 +1,19 @@
 (function(ext) {
 
-    var pollTimer;
+    var STATUS_ERROR = 0;
+    var STATUS_WARNING = 1;
+    var STATUS_OK = 2;
+
 
     var classifierStatus = {
-        status : 1,
+        status : STATUS_WARNING,
         msg : 'Getting status',
     };
 
     ext._shutdown = function() {};
 
     ext.resultscache = {
+        // schema:
         // space_separated_numbers : { class_name : topClassName, confidence : topClassConfidence }
     };
 
@@ -17,7 +21,12 @@
         return classifierStatus;
     };
 
+
+    var checkingStatus = false;
+
     function getStatus(callback) {
+        checkingStatus = true;
+
         $.ajax({
             url : '{{{ statusurl }}}',
             dataType : 'jsonp',
@@ -27,42 +36,24 @@
                 if (callback) {
                     callback();
                 }
+
+                checkingStatus = false;
             },
             error : function (err) {
                 console.log(err);
+
                 classifierStatus = {
-                    status : 0,
+                    status : STATUS_ERROR,
                     msg : 'Unable to communicate with machine learning service'
                 };
 
                 if (callback) {
                     callback();
                 }
+
+                checkingStatus = false;
             }
         });
-    }
-
-    function pollStatus() {
-        if (!pollTimer) {
-            // wait 5 seconds
-            pollTimer = setTimeout(function () {
-                // check the status
-                getStatus(function () {
-                    pollTimer = undefined;
-
-                    // if there is a problem, poll again
-                    if (classifierStatus.status !== 2) {
-                        pollStatus();
-                    }
-                });
-            }, 5000);
-        }
-    }
-
-    getStatus();
-
-    if (classifierStatus.status === 1) {
-        pollStatus();
     }
 
 
@@ -82,9 +73,17 @@
                     result = { class_name : 'Unknown', confidence : 0 };
                 }
 
-                // if the result was chosen at random (instead of using
-                //  a trained classifier) then we don't cache it
-                if (!result.random) {
+                if (result.random) {
+                    if (classifierStatus.status === STATUS_OK) {
+                        // we got a randomly selected result (which means we must not have a working classifier)
+                        //  but we thought we had a model with a good status
+                        // check the status again!
+                        initStatusCheck();
+                    }
+                }
+                else {
+                    // if the result was chosen at random (instead of using
+                    //  a trained classifier) then we don't cache it
                     ext.resultscache[cacheKey] = result;
                 }
 
@@ -92,12 +91,15 @@
             },
             error : function (err) {
                 console.log(err);
+
                 classifierStatus = {
-                    status : 0,
+                    status : STATUS_ERROR,
                     msg : 'Failed to submit numbers to machine learning service'
                 };
-                pollStatus();
+
                 callback({ class_name : 'Unknown', confidence : 0 });
+
+                pollStatus();
             }
         });
     }
@@ -116,12 +118,14 @@
             },
             error : function (err) {
                 console.log(err);
+
                 classifierStatus = {
-                    status : 0,
+                    status : STATUS_ERROR,
                     msg : 'Failed to submit numbers to training data store'
                 };
-                pollStatus();
                 callback();
+
+                pollStatus();
             }
         });
     }
@@ -206,4 +210,92 @@
 
     // Register the extension
     ScratchExtensions.register('{{{ projectname }}}', descriptor, ext);
+
+
+
+
+
+    //
+    // keep the status of the ML model current
+    //
+
+
+    // 0 = error
+    // 1 = warning
+    // 2 = ok
+    //
+    // Anything other than 2 means there is some sort of problem
+    function statusProblem() {
+        return classifierStatus.status !== STATUS_OK;
+    }
+
+    var statusPollingTimer = null;
+
+    function isNotPolling() {
+        return statusPollingTimer === null;
+    }
+
+    function pollStatus() {
+        if (!statusPollingTimer) {
+            // wait 5 seconds...
+            statusPollingTimer = setTimeout(function () {
+                // get status (and poll again if needed)
+                initStatusCheck();
+            }, 5000);
+        }
+    }
+
+    // check the status at least once
+    function initStatusCheck() {
+        // Check the current status using the /status API
+        getStatus(function () {
+            statusPollingTimer = null;
+
+            if (statusProblem() && userIsActive()) {
+                // If there is a problem, and the user is
+                //  still using Scratch, start (or continue)
+                //  polling the status API
+                pollStatus();
+            }
+            else {
+                // If the status is OK, we can leave it
+                //  (if the status actually changes, we'll
+                //  find out the next time we call /classify)
+                // Alternatively, if the user is idle, it
+                //  doesn't matter. If they return, we'll
+                //  check again.
+            }
+        });
+    }
+
+    getStatus();
+    initStatusCheck();
+
+    //
+    // track idle time so that we can reduce the frequency of the
+    //  status API calls if the user has gone away
+    //
+
+    var lastUserActivity = Date.now();
+    function resetIdleTimer() {
+        lastUserActivity = Date.now();
+
+        if (statusProblem() && isNotPolling() && !checkingStatus) {
+            // first activity after an idle period
+            initStatusCheck();
+        }
+    }
+    var EVENTS_INDICATING_USER_ACTIVITY = [ 'mousemove', 'mousedown', 'click', 'scroll', 'keydown', 'touchstart' ];
+    for (var e = 0; e < EVENTS_INDICATING_USER_ACTIVITY.length; e++) {
+        window.addEventListener(EVENTS_INDICATING_USER_ACTIVITY[e], resetIdleTimer, true);
+    }
+
+
+    var FIFTEEN_MINUTES = 900000;
+    function userIsActive() {
+        var idleTime = Date.now() - lastUserActivity;
+        return idleTime < FIFTEEN_MINUTES;
+    }
+
+
 })({});
