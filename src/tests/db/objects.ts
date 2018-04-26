@@ -975,6 +975,19 @@ describe('DB objects', () => {
 
 
 
+    describe('getKnownErrorFromDbRow', () => {
+
+        it('should get data from DB records', () => {
+            assert.deepStrictEqual(dbobjects.getKnownErrorFromDbRow({
+                id : '001', type : 1, servicetype : 'conv', objid : 'abc',
+            }), {
+                id : '001', type : 1, servicetype : 'conv', objid : 'abc',
+            });
+        });
+
+    });
+
+
     describe('createClassTenant', () => {
 
         it('should require a class id', (done) => {

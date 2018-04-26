@@ -22,8 +22,6 @@ const TESTCLASS = 'UNIQUECLASSID';
 describe('REST API - projects', () => {
 
     let authStub: sinon.SinonStub;
-    let checkUserStub: sinon.SinonStub;
-    let requireSupervisorStub: sinon.SinonStub;
 
     let nextAuth0UserId = 'userid';
     let nextAuth0UserTenant = 'tenant';
@@ -34,11 +32,9 @@ describe('REST API - projects', () => {
         next: (err?: Error) => void)
     {
         req.user = {
-            sub : nextAuth0UserId,
-            app_metadata : {
-                tenant : nextAuth0UserTenant,
-                role : nextAuth0UserRole,
-            },
+            'sub' : nextAuth0UserId,
+            'https://machinelearningforkids.co.uk/api/role' : nextAuth0UserRole,
+            'https://machinelearningforkids.co.uk/api/tenant' : nextAuth0UserTenant,
         };
         next();
     }
@@ -46,8 +42,6 @@ describe('REST API - projects', () => {
 
     before(async () => {
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
-        checkUserStub = sinon.stub(auth, 'checkValidUser').callsFake(authNoOp);
-        requireSupervisorStub = sinon.stub(auth, 'requireSupervisor').callsFake(authNoOp);
 
         await store.init();
 
@@ -64,8 +58,6 @@ describe('REST API - projects', () => {
 
     after(async () => {
         authStub.restore();
-        checkUserStub.restore();
-        requireSupervisorStub.restore();
 
         await store.deleteProjectsByClassId(TESTCLASS);
         await store.deleteAllPendingJobs();
@@ -80,6 +72,7 @@ describe('REST API - projects', () => {
             const studentid = uuid();
             const projectid = uuid();
             nextAuth0UserId = studentid;
+            nextAuth0UserTenant = classid;
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + studentid + '/projects/' + projectid)
                 .expect('Content-Type', /json/)
@@ -96,6 +89,7 @@ describe('REST API - projects', () => {
             const INCORRECT_CLASS = uuid();
 
             nextAuth0UserId = studentId;
+            nextAuth0UserTenant = TESTCLASS;
             return request(testServer)
                 .post(url)
                 .send({ name : uuid(), type : 'text', language : 'en' })
@@ -105,6 +99,8 @@ describe('REST API - projects', () => {
                     const body = res.body;
                     assert(body.id);
                     const projectId = body.id;
+
+                    nextAuth0UserTenant = INCORRECT_CLASS;
 
                     return request(testServer)
                         .get('/api/classes/' + INCORRECT_CLASS + '/students/' + studentId + '/projects/' + projectId)
@@ -231,6 +227,7 @@ describe('REST API - projects', () => {
             const studentid = uuid();
             const projectid = uuid();
             nextAuth0UserId = studentid;
+            nextAuth0UserTenant = classid;
             return request(testServer)
                 .del('/api/classes/' + classid + '/students/' + studentid + '/projects/' + projectid)
                 .expect('Content-Type', /json/)
@@ -248,6 +245,7 @@ describe('REST API - projects', () => {
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
             nextAuth0UserId = studentId;
+            nextAuth0UserTenant = TESTCLASS;
             return request(testServer)
                 .post(url)
                 .send({ name : uuid(), type : 'text', language : 'en' })
@@ -294,6 +292,7 @@ describe('REST API - projects', () => {
             assert(!jobBefore);
 
             nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
 
             await request(testServer)
                 .post(url)
@@ -333,6 +332,7 @@ describe('REST API - projects', () => {
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
             const INCORRECT_CLASS = uuid();
             nextAuth0UserId = studentId;
+            nextAuth0UserTenant = TESTCLASS;
 
             return request(testServer)
                 .post(url)
@@ -366,6 +366,8 @@ describe('REST API - projects', () => {
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
             nextAuth0UserId = studentId;
+            nextAuth0UserTenant = TESTCLASS;
+
             return request(testServer)
                 .post(url)
                 .send({ name : uuid(), type : 'images' })
@@ -384,6 +386,8 @@ describe('REST API - projects', () => {
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
             nextAuth0UserId = studentId;
+            nextAuth0UserTenant = TESTCLASS;
+
             return request(testServer)
                 .post(url)
                 .send({ name : uuid(), type : 'text', language : 'en' })
@@ -423,6 +427,8 @@ describe('REST API - projects', () => {
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
             nextAuth0UserId = studentId;
+            nextAuth0UserTenant = TESTCLASS;
+
             return request(testServer)
                 .post(url)
                 .send(projectDetails)
@@ -445,6 +451,8 @@ describe('REST API - projects', () => {
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
             nextAuth0UserId = studentId;
+            nextAuth0UserTenant = TESTCLASS;
+
             return request(testServer)
                 .post(url)
                 .send(projectDetails)
@@ -467,6 +475,8 @@ describe('REST API - projects', () => {
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
             nextAuth0UserId = studentId;
+            nextAuth0UserTenant = TESTCLASS;
+
             return request(testServer)
                 .post(url)
                 .send(projectDetails)
@@ -489,6 +499,8 @@ describe('REST API - projects', () => {
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
             nextAuth0UserId = studentId;
+            nextAuth0UserTenant = TESTCLASS;
+
             return request(testServer)
                 .post(url)
                 .send(projectDetails)
@@ -511,6 +523,8 @@ describe('REST API - projects', () => {
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
             nextAuth0UserId = studentId;
+            nextAuth0UserTenant = TESTCLASS;
+
             return request(testServer)
                 .post(url)
                 .send(projectDetails)
@@ -533,6 +547,8 @@ describe('REST API - projects', () => {
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
             nextAuth0UserId = studentId;
+            nextAuth0UserTenant = TESTCLASS;
+
             return request(testServer)
                 .post(url)
                 .send(projectDetails)
@@ -555,6 +571,8 @@ describe('REST API - projects', () => {
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
             nextAuth0UserId = studentId;
+            nextAuth0UserTenant = TESTCLASS;
+
             return request(testServer)
                 .post(url)
                 .send(projectDetails)
@@ -598,6 +616,7 @@ describe('REST API - projects', () => {
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
             nextAuth0UserId = studentId;
+            nextAuth0UserTenant = TESTCLASS;
 
             return request(testServer)
                 .post(url)
@@ -624,7 +643,9 @@ describe('REST API - projects', () => {
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
             nextAuth0UserId = studentId;
+            nextAuth0UserTenant = TESTCLASS;
             nextAuth0UserRole = 'supervisor';
+
             return request(testServer)
                 .post(url)
                 .send(projectDetails)
@@ -665,6 +686,7 @@ describe('REST API - projects', () => {
             const classid = uuid();
             const studentid = uuid();
             nextAuth0UserId = studentid;
+            nextAuth0UserTenant = classid;
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + studentid + '/projects')
                 .expect('Content-Type', /json/)
@@ -685,6 +707,8 @@ describe('REST API - projects', () => {
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
             nextAuth0UserId = studentId;
+            nextAuth0UserTenant = TESTCLASS;
+
             return request(testServer)
                 .post(url)
                 .send({ name : uuid(), type : 'text', language : 'en' })
@@ -853,6 +877,8 @@ describe('REST API - projects', () => {
 
         it('should cope with an empty list', () => {
             const classid = uuid();
+            nextAuth0UserRole = 'supervisor';
+            nextAuth0UserTenant = classid;
             return request(testServer)
                 .get('/api/classes/' + classid + '/projects')
                 .expect('Content-Type', /json/)
@@ -872,6 +898,8 @@ describe('REST API - projects', () => {
             let count: number;
 
             nextAuth0UserId = 'teacher';
+            nextAuth0UserRole = 'supervisor';
+            nextAuth0UserTenant = TESTCLASS;
             return request(testServer)
                 .get('/api/classes/' + TESTCLASS + '/projects')
                 .expect('Content-Type', /json/)
@@ -933,6 +961,9 @@ describe('REST API - projects', () => {
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
             nextAuth0UserId = studentId;
+            nextAuth0UserTenant = TESTCLASS;
+            nextAuth0UserRole = 'student';
+
             return request(testServer)
                 .post(url)
                 .send(projectDetails)
@@ -1019,6 +1050,9 @@ describe('REST API - projects', () => {
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
             nextAuth0UserId = studentId;
+            nextAuth0UserTenant = TESTCLASS;
+            nextAuth0UserRole = 'student';
+
             return request(testServer)
                 .post(url)
                 .send(projectDetails)
@@ -1092,6 +1126,9 @@ describe('REST API - projects', () => {
             projectId = project.id;
 
             nextAuth0UserId = studentId;
+            nextAuth0UserTenant = TESTCLASS;
+            nextAuth0UserRole = 'student';
+
             await request(testServer)
                 .patch(url + '/' + projectId)
                 .send([{
@@ -1176,6 +1213,9 @@ describe('REST API - projects', () => {
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
 
             nextAuth0UserId = studentId;
+            nextAuth0UserTenant = TESTCLASS;
+            nextAuth0UserRole = 'student';
+
             return request(testServer)
                 .post(url)
                 .send(projectDetails)

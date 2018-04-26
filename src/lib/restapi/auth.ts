@@ -60,7 +60,14 @@ async function sessionusersAuthenticate(
     jwtTokenString: string,
     req: Express.Request, res: Express.Response, next: Express.NextFunction)
 {
-    const decoded: Objects.TemporaryUser = jwtDecode(jwtTokenString);
+    let decoded: Objects.TemporaryUser;
+
+    try {
+        decoded = jwtDecode(jwtTokenString);
+    }
+    catch (err) {
+        return errors.notAuthorised(res);
+    }
 
     try {
         const sessionUserIsAuthenticated = await sessionusers.checkSessionToken(req.params.studentid, decoded.token);
