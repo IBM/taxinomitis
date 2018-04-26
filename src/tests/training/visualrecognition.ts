@@ -12,6 +12,7 @@ import * as sinon from 'sinon';
 import * as request from 'request-promise';
 import * as clone from 'clone';
 import * as randomstring from 'randomstring';
+import * as tmp from 'tmp';
 
 import * as store from '../../lib/db/store';
 import * as visrec from '../../lib/training/visualrecognition';
@@ -223,6 +224,15 @@ describe('Training - Visual Recognition', () => {
 
     describe('test classifier', () => {
 
+        const PLACEHOLDER_IMAGE_FILE = '/tmp/image.jpg';
+
+        before((done) => {
+            fs.writeFile(PLACEHOLDER_IMAGE_FILE, 'placeholderdata', done);
+        });
+        after((done) => {
+            fs.unlink(PLACEHOLDER_IMAGE_FILE, done);
+        });
+
         it('should classify images by URL', async () => {
             const creds = mockstore.credsForVisRec;
             const classes = await visrec.testClassifierURL(creds, 'good', 'projectbobvis', 'http://test.com/image.jpg');
@@ -234,7 +244,7 @@ describe('Training - Visual Recognition', () => {
 
         it('should classify images by file', async () => {
             const creds = mockstore.credsForVisRec;
-            const classes = await visrec.testClassifierFile(creds, 'good', 'projectbobvis', '/tmp/image.jpg');
+            const classes = await visrec.testClassifierFile(creds, 'good', 'projectbobvis', PLACEHOLDER_IMAGE_FILE);
             assert.deepEqual(classes, [
                 { class_name : 'rock', confidence : 75 },
                 { class_name : 'paper', confidence : 3 },
@@ -512,13 +522,18 @@ describe('Training - Visual Recognition', () => {
 
     const mockDownloadAndZip = {
         run : (locations: downloadAndZip.ImageDownload[]) => {
-            for (const location of locations) {
-                if (location.type === 'download') {
-                    assert.equal(typeof location.url, 'string');
-                    assert(location.url.startsWith('http'));
+            return new Promise((resolve) => {
+                for (const location of locations) {
+                    if (location.type === 'download') {
+                        assert.equal(typeof location.url, 'string');
+                        assert(location.url.startsWith('http'));
+                    }
                 }
-            }
-            return Promise.resolve('/tmp/training.zip');
+
+                tmp.file((err, path) => {
+                    resolve(path);
+                });
+            });
         },
     };
 

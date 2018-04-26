@@ -42,6 +42,28 @@ describe('Utils - imageCheck', () => {
             });
     });
 
+    it('should tolerate gibberish without crashing', (done) => {
+        imageCheck.verifyImage(GIBBERISH)
+            .then(() => {
+                assert.fail(0, 1, 'Should not accept that');
+            })
+            .catch((err) => {
+                assert.equal(err.message, 'Unable to download image from ' + GIBBERISH);
+                done();
+            });
+    });
+
+    it('should tolerate special characters without crashing', (done) => {
+        imageCheck.verifyImage(SPECIALCHARS)
+            .then(() => {
+                assert.fail(0, 1, 'Should not accept that');
+            })
+            .catch((err) => {
+                assert.equal(err.message, 'Unable to download image from ' + SPECIALCHARS);
+                done();
+            });
+    });
+
 });
 
 
@@ -55,3 +77,5 @@ const VALID_PNG = 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Tim
 // tslint:disable-next-line:max-line-length
 const INVALID_GIF = 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Missing_square_edit.gif/240px-Missing_square_edit.gif';
 const NON_EXISTENT = 'http://this.does.not.exist.com/mypic.jpg';
+const GIBBERISH = '12345';
+const SPECIALCHARS = '*';
