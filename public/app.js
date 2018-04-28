@@ -150,12 +150,6 @@
                 templateUrl: 'static/components-<%= VERSION %>/scratch/scratch.html',
                 controllerAs: 'vm'
             })
-            .state('sessionusers', {
-                url: '/beta/tryitnow',
-                controller: 'SessionUsersController',
-                templateUrl: 'static/components-<%= VERSION %>/sessionusers/sessionusers.html',
-                controllerAs: 'vm'
-            })
             .state('siteadmin', {
                 url: '/siteadmin',
                 controller: 'AdminController',

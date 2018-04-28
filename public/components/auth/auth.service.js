@@ -97,9 +97,6 @@
         }
 
         function logout() {
-
-            console.log(userProfile);
-
             if (userProfile && userProfile.tenant === SESSION_USERS_CLASS) {
                 deleteSessionUser(userProfile.user_id)
                     .then(function () {
@@ -222,7 +219,6 @@
                 window.localStorageObj = window.localStorage || {};
             }
             catch (err) {
-                console.log('Unable to access localStorage');
                 window.localStorageObj = {};
             }
 
@@ -234,9 +230,6 @@
                     window.localStorageObj.removeItem('confirmLocalStorage');
                 }
                 catch (e) {
-                    console.log(e);
-                    console.log('Replacing local storage');
-
                     window._tempLocalStorage = {};
                     window.localStorageObj.setItem = function (key, val) {
                         window._tempLocalStorage[key] = val;

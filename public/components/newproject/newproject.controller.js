@@ -31,6 +31,17 @@
             if (!errObj) {
                 errObj = {};
             }
+
+            if (errObj &&
+                status === 403 &&
+                errObj.error === 'Support for images projects is not enabled for your class' &&
+                vm.profile.tenant === 'session-users')
+            {
+                errObj.message = 'You can\'t train machine learning models to recognise images with "Try it now". ' +
+                                 'You will be able to create images projects if you login with a regular account. ' +
+                                 'See the "Help" page for more details about the differences between creating an account and using "Try it now".';
+            }
+
             vm[type].push({
                 alertid : alertId++,
                 message : errObj.message || errObj.error || 'Unknown error',
