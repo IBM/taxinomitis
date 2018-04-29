@@ -31,12 +31,12 @@ export default function setup(app: Express.Application): void {
     // force HTTPS when running on Bluemix
     serverConfig.setupForBluemix(app);
 
-    // UI setup
-    serverConfig.setupUI(app);
-
     // third-party middleware
     app.use(query());
     app.use(helmet());
+
+    // UI setup
+    serverConfig.setupUI(app);
 
     // body types
     app.use('/api/scratch/:scratchkey/classify', bodyParser.json({ limit : '3mb' }));
