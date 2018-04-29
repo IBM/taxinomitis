@@ -1,6 +1,6 @@
 .loginPage {
     margin: 0 auto 3em auto;
-    background: #d0d0dd;
+    background: #dcdce0;
     border-radius: 1em;
     padding: 3em;
     max-width: 700px;
@@ -134,8 +134,21 @@
     flex: 1;
     min-width: 350px;
     border: thin #2e6da4 solid;
-    margin: 1em;
     padding: 1em;
+}
+
+@media (max-width: 550px) {
+    .loginPage .loginType {
+        margin-left:-3em;
+        margin-right: -3em;
+        margin-bottom: 2em
+    }
+}
+
+@media (min-width: 550px) {
+    .loginPage .loginType {
+        margin:1em
+    }
 }
 
 .loginPage .loginType .loginNewClassType {
