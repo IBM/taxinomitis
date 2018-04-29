@@ -35,6 +35,8 @@
     margin-bottom: 0.8em;
 }
 
-.faqs .panel-group {
-    margin-left: 2em;
+@media (min-width: 450px) {
+    .faqs .panel-group {
+        margin-left: 2em;
+    }
 }
