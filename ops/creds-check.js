@@ -4,6 +4,10 @@ const creds = require('../dist/lib/training/credentials');
 store.init()
     .then(() => {
         return creds.checkBluemixCredentials();
+    })
+    .then(() => {
+        console.log('check complete.');
+        return store.disconnect();
     });
 
 /*
