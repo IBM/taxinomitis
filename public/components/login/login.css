@@ -91,13 +91,14 @@
     width: 100%;
 }
 
-.loginInfoGrid table, th, td {
+table.loginInfoGrid th,
+table.loginInfoGrid td {
     border: thin black solid;
     border-collapse: collapse;
-    font-weight: bold;
 }
 
-.loginInfoGrid th, td {
+.loginInfoGrid th,
+.loginInfoGrid td {
     padding: 1em;
 }
 
@@ -108,6 +109,7 @@
 
 .loginInfoGrid .loginInfoGridLabel {
     background-color: #B0C4DE;
+    font-weight: bold;
 }
 
 .loginInfoGridSubItem {
