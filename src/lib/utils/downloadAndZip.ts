@@ -9,7 +9,9 @@ import * as archiver from 'archiver';
 import * as fileType from 'file-type';
 import * as readChunk from 'read-chunk';
 // local dependencies
+import * as download from './download';
 import * as imagestore from '../imagestore';
+import * as notifications from '../notifications/slack';
 import loggerSetup from './logger';
 
 const log = loggerSetup();
@@ -104,18 +106,6 @@ function logError(err?: Error) {
     }
 }
 
-/**
- * Downloads a file from the specified URL to the specified location on disk.
- *
- * @param url  - downloads from
- * @param targetFilePath  - writes to
- */
-function download(url: string, targetFilePath: string, callback: IErrCallback): void {
-    request.get({ url, timeout : 10000 })
-        .on('error', callback)
-        .on('end', callback)
-        .pipe(fs.createWriteStream(targetFilePath));
-}
 
 
 /**
@@ -140,7 +130,7 @@ function retrieve(spec: ObjectStorageSpec, targetFilePath: string, callback: IEr
 
 function retrieveImage(location: ImageDownload, targetFilePath: string, callback: IErrCallback): void {
     if (location.type === 'download') {
-        download(location.url, targetFilePath, callback);
+        download.file(location.url, targetFilePath, callback);
     }
     else if (location.type === 'retrieve') {
         retrieve(location.spec, targetFilePath, callback);
@@ -211,9 +201,41 @@ function deleteFiles(filepaths: string[], callback: IErrCallback): void {
  * Creates a zip file and add the contents of the specified files.
  */
 function createZip(filepaths: string[], callback: IZipCallback): void {
+
+    let callbackCalled = false;
+
+    // There have been very occasional crashes in production due to the callback
+    //  function here being called multiple times.
+    // I can't see why this might happen, so this function is a temporary way of
+    //  1) preventing future crashes
+    //  2) capturing what makes it happen - with a nudge via Slack so I don't miss it
+    //
+    // It is just a brute-force check to make sure we don't call callback twice.
+    //  I hope that the next time this happens, the URL and/or file path gives me
+    //  a clue as to why.
+    //
+    // Yeah, it's horrid. I know.
+    function invokeCallbackSafely(err?: Error, zipPath?: string, zipSize?: number): void {
+        if (callbackCalled) {
+            log.error({ filepaths }, 'Attempt to call callbackfn multiple times');
+            notifications.notify('downloadAndZip failure');
+        }
+        else {
+            callbackCalled = true;
+            if (err) {
+                callback(err);
+            }
+            else {
+                callback(err, zipPath, zipSize);
+            }
+        }
+    }
+
+
     tmp.file({ keep : true, postfix : '.zip' }, (err, zipfilename) => {
         if (err) {
-            return callback(err);
+            log.error({ err, filepaths }, 'Failure to create zip file');
+            return invokeCallbackSafely(err);
         }
 
         const outputStream = fs.createWriteStream(zipfilename);
@@ -221,11 +243,18 @@ function createZip(filepaths: string[], callback: IZipCallback): void {
         const archive = archiver('zip', { zlib : { level : 9 } });
 
         outputStream.on('close', () => {
-            callback(undefined, zipfilename, archive.pointer());
+            invokeCallbackSafely(undefined, zipfilename, archive.pointer());
         });
 
-        outputStream.on('warning', callback);
-        outputStream.on('error', callback);
+        outputStream.on('warning', () => {
+            log.error({ arguments }, 'Unexpected warning event from writable filestream');
+            notifications.notify('outputStream warning');
+        });
+
+        outputStream.on('error', (ziperr) => {
+            log.error({ err }, 'Failed to write to zip file');
+            invokeCallbackSafely(ziperr);
+        });
 
         archive.pipe(outputStream);
 

@@ -11,6 +11,18 @@ import * as imageCheck from '../../lib/utils/imageCheck';
 
 describe('Utils - imageCheck', () => {
 
+    it('should handle multiple requests in parallel', () => {
+        return Promise.all([
+            imageCheck.verifyImage(VALID_JPG), imageCheck.verifyImage(VALID_PNG),
+            imageCheck.verifyImage(VALID_JPG), imageCheck.verifyImage(VALID_PNG),
+            imageCheck.verifyImage(VALID_JPG), imageCheck.verifyImage(VALID_PNG),
+            imageCheck.verifyImage(VALID_JPG), imageCheck.verifyImage(VALID_PNG),
+            imageCheck.verifyImage(VALID_JPG), imageCheck.verifyImage(VALID_PNG),
+            imageCheck.verifyImage(VALID_JPG), imageCheck.verifyImage(VALID_PNG),
+        ]);
+    });
+
+
     it('should verify a jpg', (done) => {
         imageCheck.verifyImage(VALID_JPG).then(done);
     });

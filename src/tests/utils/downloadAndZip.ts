@@ -24,6 +24,16 @@ describe('Utils - base64decode', () => {
             });
     });
 
+    it('should handle requests in parallel', () => {
+        return Promise.all([
+            downloadZip.run(TESTURLS),
+            downloadZip.run(TESTURLS),
+            downloadZip.run(TESTURLS),
+            downloadZip.run(TESTURLS),
+            downloadZip.run(TESTURLS),
+        ]);
+    });
+
     interface TestFile {
         readonly location: string;
         readonly size: number;
