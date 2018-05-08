@@ -2,6 +2,7 @@
 import * as request from 'request-promise';
 import * as httpStatus from 'http-status';
 import * as uuid from 'uuid/v1';
+import * as _ from 'lodash';
 // local dependencies
 import * as store from '../db/store';
 import * as DbObjects from '../db/db-types';
@@ -69,8 +70,13 @@ async function createWorkspace(
     //  available credentials
     let finalError = ERROR_MESSAGES.INSUFFICIENT_API_KEYS;
 
+    // shuffle the pool of credentials so the usage will be distributed
+    //  across the set, rather than always directing training requests to
+    //  the first creds in the pool
+    const shuffledCredentialsPool = _.shuffle(credentialsPool);
 
-    for (const credentials of credentialsPool) {
+
+    for (const credentials of shuffledCredentialsPool) {
         try {
             const url = credentials.url + '/v1/workspaces';
             workspace = await submitTrainingToConversation(project, credentials, url, training, id);
