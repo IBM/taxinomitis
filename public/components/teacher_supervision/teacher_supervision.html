@@ -58,6 +58,8 @@
                     <th title="Whether the project currently has a trained model using a Watson API key">
                         ML models
                         <span class="glyphicon glyphicon-triangle-top" ng-click="vm.orderBy = ['-hasModel', 'type']"></span>
+                        <br/>
+                        <em style="font-weight: normal; font-size: 0.8em;">Click the icon to delete</em>
                     </th>
                 </tr>
                 <tr ng-repeat="project in vm.projects | orderBy : vm.orderBy" ng-class-even="'even'" ng-class-odd="'odd'">
@@ -73,8 +75,18 @@
                     <td class="studentslistdetail" ng-if="project.isCrowdSourced"><div class="mlprojectcrowd miniwatsonicon" title="'Whole class project' - available to all students in the class" > </div> </td>
                     <!-- If it has a trained model -->
                     <td class="studentslistdetail detail" ng-hide="project.hasModel"> </td>
-                    <td class="studentslistdetail detail" ng-if="project.hasModel && project.type === 'text'"><img class="miniwatsonicon" src="static/images/conversation.jpg" alt="Watson Assistant"></td>
-                    <td class="studentslistdetail detail" ng-if="project.hasModel && project.type === 'images'"><img class="miniwatsonicon" src="static/images/visualrecognition.jpg" alt="Watson Visual Recognition"></td>
+                    <td class="studentslistdetail detail" ng-if="project.hasModel && project.type === 'text'">
+                        <img class="miniwatsonicon" style="cursor: pointer"
+                             src="static/images/conversation.jpg"
+                             ng-click="vm.deleteModel($event, project)"
+                             alt="Model using a Watson Assistant API key">
+                    </td>
+                    <td class="studentslistdetail detail" ng-if="project.hasModel && project.type === 'images'">
+                        <img class="miniwatsonicon" style="cursor: pointer"
+                             src="static/images/visualrecognition.jpg"
+                             ng-click="vm.deleteModel($event, project)"
+                             alt="Model using a Watson Visual Recognition API key">
+                    </td>
                 </tr>
             </table>
 

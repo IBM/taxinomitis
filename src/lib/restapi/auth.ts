@@ -187,12 +187,27 @@ export async function ensureUnmanaged(
 
 
 
+enum ACCESS_TYPE {
+    owneronly,     // access is allowed only to users who created the resource being accessed
+                   //
+    crowdsourced,  // access is allowed to users in the same class as the creator of the resource being accessed
+                   //   as long as the resource has been flagged as "crowd-sourced"
+    teacheraccess, // access is allowed to the user who created the resource being accessed OR
+                   //         their teacher
+}
 
+
+/**
+ * Express middleware to verify if the request should be authorised.
+ *
+ * @param isCrowdSourcedAllowed - if true, access is authorised for users in the same class as the project
+ * @param isTeacherAccessAllowed - if true, access is authorised for teachers in the same class as the project
+ */
 async function verifyProjectAuth(
     req: Express.Request,
     res: Express.Response,
     next: (e?: Error) => void,
-    isCrowdSourcedAllowed: boolean)
+    allowedAccessTypes: ACCESS_TYPE)
 {
     const classid: string = req.params.classid;
     const userid: string = req.params.studentid;
@@ -200,6 +215,7 @@ async function verifyProjectAuth(
 
     try {
         const project = await store.getProject(projectid);
+
         if (!project) {
             // attempt to access non-existent project
             return errors.notFound(res);
@@ -208,14 +224,25 @@ async function verifyProjectAuth(
             // attempt to access a project from another class/tenant
             return errors.forbidden(res);
         }
+
         const isOwner = req.user && (project.userid === req.user.sub) && (project.userid === userid);
         if (isOwner === false) {
-            // attempt to access a classmate's project...
+            // The request has come from a user who is not the owner of
+            //  the project that they are trying to access.
+            //
+            // That might be okay under some circumstances...
 
-            if (!isCrowdSourcedAllowed || !project.isCrowdSourced) {
-                // ...and that isn't okay
+            if (// owneronly : if they're not the owner, this access isn't allowed
+                (allowedAccessTypes === ACCESS_TYPE.owneronly) ||
+                // crowdsourced : if the project isn't crowd-sourced, this access isn't allowed
+                (allowedAccessTypes === ACCESS_TYPE.crowdsourced && !project.isCrowdSourced) ||
+                // teacheraccess : if the user isn't a teacher, this access isn't allowed
+                (allowedAccessTypes === ACCESS_TYPE.teacheraccess && req.user.app_metadata.role !== 'supervisor'))
+            {
                 return errors.forbidden(res);
             }
+
+            // otherwise, carry on - it's okay
         }
 
         const modifiedRequest: RequestWithProject = req as RequestWithProject;
@@ -240,7 +267,7 @@ export async function verifyProjectOwner(
     res: Express.Response,
     next: (e?: Error) => void)
 {
-    verifyProjectAuth(req, res, next, false);
+    verifyProjectAuth(req, res, next, ACCESS_TYPE.owneronly);
 }
 
 /**
@@ -254,5 +281,20 @@ export async function verifyProjectAccess(
     res: Express.Response,
     next: (e?: Error) => void)
 {
-    verifyProjectAuth(req, res, next, true);
+    verifyProjectAuth(req, res, next, ACCESS_TYPE.crowdsourced);
+}
+
+/**
+ * API Auth middleware.
+ *
+ * Ensures that the user is accessing a project that they
+ *  have exclusive rights to, or they are the teacher of
+ *  the owner of the project.
+ */
+export async function verifyProjectOwnerOrTeacher(
+    req: Express.Request,
+    res: Express.Response,
+    next: (e?: Error) => void)
+{
+    verifyProjectAuth(req, res, next, ACCESS_TYPE.teacheraccess);
 }

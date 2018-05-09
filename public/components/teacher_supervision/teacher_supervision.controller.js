@@ -7,11 +7,11 @@
     TeacherProjectsController.$inject = [
         'authService',
         'usersService',
-        'projectsService', 
+        'projectsService', 'trainingService',
         '$stateParams', '$mdDialog', '$document', '$timeout'
     ];
 
-    function TeacherProjectsController(authService, usersService, projectsService, $stateParams, $mdDialog, $document, $timeout) {
+    function TeacherProjectsController(authService, usersService, projectsService, trainingService, $stateParams, $mdDialog, $document, $timeout) {
 
         var vm = this;
         vm.authService = authService;
@@ -93,7 +93,33 @@
             });
 
 
+        vm.deleteModel = function (ev, project) {
+            var confirm = $mdDialog.confirm()
+                .title('Are you sure?')
+                .textContent('Do you want to delete ' +
+                             (project.owner ? project.owner.username + '\'s ' : '') +
+                             'machine learning model from project ' + project.name + '?')
+                .ariaLabel('Confirm')
+                .targetEvent(ev)
+                .ok('Yes')
+                .cancel('No');
 
+            $mdDialog.show(confirm).then(
+                function() {
+                    project.hasModel = false;
+                    trainingService.deleteModel(project.id, project.userid, project.classid, project.classifierId)
+                        .then(function () {
+                            console.log('deletion successful');
+                        })
+                        .catch(function (err) {
+                            displayAlert('errors', err.status, err.data);
+                        });
+                },
+                function() {
+                    // cancelled. do nothing
+                }
+            );
+        };
 
 
         function scrollToNewItem(itemId) {

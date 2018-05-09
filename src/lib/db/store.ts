@@ -1196,11 +1196,17 @@ export async function getExpiredImageClassifiers(): Promise<TrainingObjects.Visu
 
 
 
-export async function getProjectsWithBluemixClassifiers(classid: string): Promise<string[]> {
-    const queryString = 'SELECT `projectid` FROM `bluemixclassifiers` WHERE `classid` = ?';
+export async function getProjectsWithBluemixClassifiers(classid: string): Promise<{[projectid: string]: string}> {
+    const queryString = 'SELECT `projectid`, `classifierid` FROM `bluemixclassifiers` WHERE `classid` = ?';
+
+    const projects: {[projectid: string]: string} = {};
 
     const rows = await dbExecute(queryString, [ classid ]);
-    return rows.map((row: any) => row.projectid);
+    rows.forEach((row: any) => {
+        projects[row.projectid] = row.classifierid;
+    });
+
+    return projects;
 }
 
 

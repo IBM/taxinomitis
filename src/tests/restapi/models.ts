@@ -24,10 +24,11 @@ let testServer: express.Express;
 describe('REST API - models', () => {
 
     let authStub: sinon.SinonStub;
-    let checkUserStub: sinon.SinonStub;
-    let requireSupervisorStub: sinon.SinonStub;
 
     let nextAuth0Userid = 'studentid';
+    let nextAuth0Role = 'student';
+    let nextAuth0Class = 'CLASSID';
+
 
     function authNoOp(
         req: Express.Request, res: Express.Response,
@@ -35,6 +36,10 @@ describe('REST API - models', () => {
     {
         req.user = {
             sub : nextAuth0Userid,
+            app_metadata : {
+                role : nextAuth0Role,
+                tenant : nextAuth0Class,
+            },
         };
         next();
     }
@@ -62,8 +67,6 @@ describe('REST API - models', () => {
 
     before(async () => {
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
-        checkUserStub = sinon.stub(auth, 'checkValidUser').callsFake(authNoOp);
-        requireSupervisorStub = sinon.stub(auth, 'requireSupervisor').callsFake(authNoOp);
 
         conversationStub.getClassifiersStub.callsFake((classid, classifiers: Types.ConversationWorkspace[]) => {
             return new Promise((resolve) => {
@@ -212,8 +215,6 @@ describe('REST API - models', () => {
 
     after(() => {
         authStub.restore();
-        checkUserStub.restore();
-        requireSupervisorStub.restore();
 
         conversationStub.getClassifiersStub.restore();
         conversationStub.trainClassifierStub.restore();
@@ -239,6 +240,8 @@ describe('REST API - models', () => {
             const projectid = uuid();
 
             nextAuth0Userid = studentid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + studentid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -257,6 +260,8 @@ describe('REST API - models', () => {
             const projectid = project.id;
 
             nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/DIFFERENTUSER/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -275,6 +280,8 @@ describe('REST API - models', () => {
             const projectid = project.id;
 
             nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -297,6 +304,8 @@ describe('REST API - models', () => {
             const projectid = project.id;
 
             nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -356,6 +365,8 @@ describe('REST API - models', () => {
 
 
             nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -402,6 +413,8 @@ describe('REST API - models', () => {
             const expectedTimestamp = created.toISOString();
 
             nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -468,6 +481,8 @@ describe('REST API - models', () => {
 
 
             nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -506,6 +521,8 @@ describe('REST API - models', () => {
             const studentid = uuid();
             const projectid = uuid();
             nextAuth0Userid = studentid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + studentid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -523,7 +540,9 @@ describe('REST API - models', () => {
             const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
             const projectid = project.id;
 
-            nextAuth0Userid = userid;
+            nextAuth0Userid = 'DIFFERENTUSER';
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/DIFFERENTUSER/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -541,6 +560,8 @@ describe('REST API - models', () => {
             const projectid = project.id;
 
             nextAuth0Userid = 'SOMEUSER';
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -559,6 +580,8 @@ describe('REST API - models', () => {
             const projectid = project.id;
 
             nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -582,6 +605,8 @@ describe('REST API - models', () => {
             const projectid = project.id;
 
             nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -606,6 +631,8 @@ describe('REST API - models', () => {
             const projectid = project.id;
 
             nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -630,6 +657,8 @@ describe('REST API - models', () => {
             const projectid = project.id;
 
             nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -657,6 +686,8 @@ describe('REST API - models', () => {
             const projectid = project.id;
 
             nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -687,6 +718,8 @@ describe('REST API - models', () => {
             const projectid = project.id;
 
             nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -710,6 +743,8 @@ describe('REST API - models', () => {
             const projectid = project.id;
 
             nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -737,6 +772,8 @@ describe('REST API - models', () => {
             const projectid = project.id;
 
             nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -760,6 +797,8 @@ describe('REST API - models', () => {
             const projectid = project.id;
 
             nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -783,6 +822,8 @@ describe('REST API - models', () => {
             const projectid = project.id;
 
             nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -806,6 +847,8 @@ describe('REST API - models', () => {
             const projectid = project.id;
 
             nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -838,6 +881,8 @@ describe('REST API - models', () => {
             const projectid = project.id;
 
             nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
@@ -861,6 +906,8 @@ describe('REST API - models', () => {
 
         it('should require a model type', () => {
             nextAuth0Userid = 'userid';
+            nextAuth0Role = 'student';
+            nextAuth0Class = 'classid';
             return request(testServer)
                 .post('/api/classes/' + 'classid' +
                         '/students/' + 'userid' +
@@ -881,6 +928,8 @@ describe('REST API - models', () => {
 
         it('should require text to test with', () => {
             nextAuth0Userid = 'userid';
+            nextAuth0Role = 'student';
+            nextAuth0Class = 'classid';
             return request(testServer)
                 .post('/api/classes/' + 'classid' +
                         '/students/' + 'userid' +
@@ -900,6 +949,8 @@ describe('REST API - models', () => {
 
         it('should require credentials to test with', () => {
             nextAuth0Userid = 'userid';
+            nextAuth0Role = 'student';
+            nextAuth0Class = 'classid';
             return request(testServer)
                 .post('/api/classes/' + 'classid' +
                         '/students/' + 'userid' +
@@ -954,6 +1005,8 @@ describe('REST API - models', () => {
             await store.storeConversationWorkspace(credentials, project, classifierInfo);
 
             nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .post('/api/classes/' + classid +
                         '/students/' + userid +
@@ -982,6 +1035,8 @@ describe('REST API - models', () => {
         });
 
         it('should submit a classify request to numbers service', () => {
+            nextAuth0Role = 'testuser';
+            nextAuth0Class = 'testclass';
             return request(testServer)
                 .post('/api/classes/testclass/students/testuser/projects/testproject/models/testmodel/label')
                 .send({
@@ -1002,6 +1057,8 @@ describe('REST API - models', () => {
         });
 
         it('should require data for the numbers service', () => {
+            nextAuth0Role = 'testuser';
+            nextAuth0Class = 'testclass';
             return request(testServer)
                 .post('/api/classes/testclass/students/testuser/projects/testproject/models/testmodel/label')
                 .send({
@@ -1012,6 +1069,8 @@ describe('REST API - models', () => {
         });
 
         it('should require numbers for the numbers service', () => {
+            nextAuth0Role = 'testuser';
+            nextAuth0Class = 'testclass';
             return request(testServer)
                 .post('/api/classes/testclass/students/testuser/projects/testproject/models/testmodel/label')
                 .send({
@@ -1031,6 +1090,9 @@ describe('REST API - models', () => {
             const studentid = uuid();
             const projectid = uuid();
             const modelid = uuid();
+            nextAuth0Userid = studentid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .delete('/api/classes/' + classid +
                         '/students/' + studentid +
@@ -1052,12 +1114,113 @@ describe('REST API - models', () => {
             const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
             const projectid = project.id;
 
+            nextAuth0Userid = 'DIFFERENTUSER';
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .delete('/api/classes/' + classid +
                         '/students/DIFFERENTUSER/projects/' + projectid +
                         '/models/' + modelid)
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.FORBIDDEN)
+                .then(() => {
+                    return store.deleteEntireUser(userid, classid);
+                });
+        });
+
+        it('should allow teachers to delete models', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = uuid();
+            const modelid = randomstring.generate({ length : 10 });
+
+            const project = await store.storeProject(userid, classid, 'text', projName, 'en', [], false);
+            const projectid = project.id;
+
+            const credentials: Types.BluemixCredentials = {
+                id : uuid(),
+                username : uuid(),
+                password : uuid(),
+                servicetype : 'conv',
+                url : uuid(),
+                classid,
+            };
+            await store.storeBluemixCredentials(classid, credentials);
+
+            const created = new Date();
+            created.setMilliseconds(0);
+
+            const classifierInfo: Types.ConversationWorkspace = {
+                id : uuid(),
+                workspace_id : modelid,
+                credentialsid : credentials.id,
+                created,
+                expiry : created,
+                language : 'en',
+                name : projName,
+                url : uuid(),
+            };
+            await store.storeConversationWorkspace(credentials, project, classifierInfo);
+
+            nextAuth0Userid = 'teacheruserid';
+            nextAuth0Role = 'supervisor';
+            nextAuth0Class = classid;
+            return request(testServer)
+                .delete('/api/classes/' + classid +
+                        '/students/' + userid +
+                        '/projects/' + projectid +
+                        '/models/' + modelid)
+                .expect(httpstatus.NO_CONTENT)
+                .then(async () => {
+                    await store.deleteEntireUser(userid, classid);
+                    await store.deleteBluemixCredentials(credentials.id);
+                });
+        });
+
+
+        it('should not allow teachers from other classes to delete models', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = uuid();
+            const modelid = randomstring.generate({ length : 10 });
+
+            const project = await store.storeProject(userid, classid, 'text', projName, 'en', [], false);
+            const projectid = project.id;
+
+            const credentials: Types.BluemixCredentials = {
+                id : uuid(),
+                username : uuid(),
+                password : uuid(),
+                servicetype : 'conv',
+                url : uuid(),
+                classid,
+            };
+            await store.storeBluemixCredentials(classid, credentials);
+
+            const created = new Date();
+            created.setMilliseconds(0);
+
+            const classifierInfo: Types.ConversationWorkspace = {
+                id : uuid(),
+                workspace_id : modelid,
+                credentialsid : credentials.id,
+                created,
+                expiry : created,
+                language : 'en',
+                name : projName,
+                url : uuid(),
+            };
+            await store.storeConversationWorkspace(credentials, project, classifierInfo);
+
+            nextAuth0Userid = 'teacheruserid';
+            nextAuth0Role = 'supervisor';
+            nextAuth0Class = 'DIFFERENTCLASSID';
+            return request(testServer)
+                .delete('/api/classes/' + classid +
+                        '/students/teacheruserid/projects/' + projectid +
+                        '/models/' + modelid)
+                .expect(httpstatus.FORBIDDEN)
+                .expect('Content-Type', /json/)
                 .then(() => {
                     return store.deleteEntireUser(userid, classid);
                 });
@@ -1076,6 +1239,8 @@ describe('REST API - models', () => {
             const projectid = project.id;
 
             nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .delete('/api/classes/' + classid +
                         '/students/' + userid +
@@ -1123,6 +1288,8 @@ describe('REST API - models', () => {
             await store.storeConversationWorkspace(credentials, project, classifierInfo);
 
             nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .delete('/api/classes/' + classid +
                         '/students/' + userid +
@@ -1170,6 +1337,8 @@ describe('REST API - models', () => {
             await store.storeImageClassifier(credentials, project, classifierInfo);
 
             nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
             return request(testServer)
                 .delete('/api/classes/' + classid +
                         '/students/' + userid +
