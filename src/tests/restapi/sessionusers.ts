@@ -114,7 +114,7 @@ describe('REST API - session users', () => {
 
 
     async function fillSessionUsersClass(): Promise<void> {
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 360; i++) {
             await store.storeTemporaryUser(1);
         }
     }

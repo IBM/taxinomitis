@@ -11,9 +11,6 @@ import * as Objects from '../db/db-types';
  * A system class (named in @CLASS_NAME) is created in the tenants DB table, so
  *  limits that apply to session users can be modified at runtime by updating
  *  this class.
- *
- * Note that the current implementation only queries the tenants DB table once,
- *  so a rolling restart is needed to apply any policy modifications.
  */
 
 
@@ -22,35 +19,17 @@ export const CLASS_NAME = 'session-users';
 
 const SESSION_LIFESPAN = 4 * 60 * 60 * 1000; // 4 hours
 
+/** The number of users that can be created in this class. After this, the class is considered full.  */
+const MAX_ALLOWED_USERS = 360;
+
 export const ERROR_MESSAGES = {
     CLASS_FULL : 'Class full',
 };
 
 
 
-let sessionClassPolicyChecked = false;
-
-let MAX_ALLOWED_USERS = 0;
-
-
-
-async function checkSessionClassPolicy(): Promise<void> {
-    if (sessionClassPolicyChecked === false) {
-
-        const policy = await store.getClassTenant(CLASS_NAME);
-
-        MAX_ALLOWED_USERS = policy.maxUsers;
-
-        sessionClassPolicyChecked = true;
-    }
-}
-
-
-
 export async function createSessionUser(): Promise<Objects.TemporaryUser>
 {
-    await checkSessionClassPolicy();
-
     // is the session class full?
     const currentClassSize = await store.countTemporaryUsers();
     if (currentClassSize >= MAX_ALLOWED_USERS) {
