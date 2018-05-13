@@ -112,6 +112,28 @@
         }
 
 
+
+        function getUnmanagedClassifiers(tenant) {
+            var url = '/api/classes/' + tenant + '/classifiers';
+
+            return $http.get(url, { params : { type : 'unmanaged' } })
+                .then(function (resp) {
+                    return resp.data;
+                });
+        }
+
+        function deleteBluemixClassifier(tenant, classifierid, credentialsid, type) {
+            var url = '/api/classes/' + tenant + '/classifiers/' + classifierid;
+
+            return $http.delete(url, {
+                params : {
+                    type : type,
+                    credentialsid : credentialsid
+                }
+            });
+        }
+
+
         return {
             newTrainingData : newTrainingData,
             uploadImage : uploadImage,
@@ -121,7 +143,10 @@
             getModels : getModels,
             newModel : newModel,
             testModel : testModel,
-            deleteModel : deleteModel
+            deleteModel : deleteModel,
+
+            getUnmanagedClassifiers : getUnmanagedClassifiers,
+            deleteBluemixClassifier : deleteBluemixClassifier
         };
     }
 })();

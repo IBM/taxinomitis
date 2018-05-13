@@ -31,3 +31,34 @@
     width: 23px;
     border: 1px #333 solid;
 }
+
+.mediumwatsonicon {
+    height: 38px;
+    width: 38px;
+    border: 1px #333 solid;
+}
+
+.unmanagedClassifiers {
+    background-color: #f5d0d0;
+    border: thin grey solid;
+    padding: 1em;
+    margin-bottom: 2em;
+}
+.unmanagedClassifiers .warningHeading {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-bottom: 0.7em;
+}
+.unmanagedClassifiers .warningSubHeading {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin: 1em;
+    color: #333;
+}
+.unmanagedClassifiers .warningExplanation {
+    margin: 1em;
+}
+
+.unmanagedClassifiersTable td {
+    padding-bottom: 5px;
+}

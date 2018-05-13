@@ -29,7 +29,77 @@
             <strong>Warning:</strong> {{ warning.message }}
         </div>
 
+
+        <div ng-if="vm && vm.classifiers && (vm.classifiers.conv.length > 0 || vm.classifiers.visrec.length > 0)" class="unmanagedClassifiers">
+            <div class="warningHeading">Warning</div>
+            <div class="warningExplanation">
+                A check of the Watson API keys that you provided has found
+                <span ng-if="(vm.classifiers.conv.length + vm.classifiers.visrec.length) === 1">a </span>
+                machine learning model<span ng-if="(vm.classifiers.conv.length + vm.classifiers.visrec.length) > 1">s </span>
+                that isn't known to Machine Learning for Kids.
+            </div>
+            <div class="warningSubHeading">How could this happen?</div>
+            <div class="warningExplanation">
+                <strong>Reason 1: </strong>
+                You're using your Watson API keys for other things as well as
+                Machine Learning for Kids.
+            </div>
+            <div class="warningExplanation">
+                That's fine - you can ignore this. Just be aware that these
+                count towards the limits that IBM Cloud enforces for your
+                Watson credentials, so these mean that fewer models can be
+                created by your students.
+            </div>
+            <div class="warningExplanation">
+                <strong>Reason 2: </strong>
+                Something went wrong when the machine learning model was being
+                deleted, and it was left behind accidentally.
+            </div>
+            <div class="warningExplanation">
+                You should delete the model, as it counts towards the limits
+                that IBM Cloud enforces for your credentials, and so will
+                mean fewer models that your students can create.
+            </div>
+
+            <table style="width: 100%;" class="unmanagedClassifiersTable">
+                <tr ng-repeat="classifier in vm.classifiers.conv">
+                    <td><img class="mediumwatsonicon" hspace=10
+                            src="static/images/conversation.jpg"
+                            alt="Model using a Watson Assistant API key"></td>
+                    <td><strong>Watson Assistant</strong> workspace
+                            (<small>{{ classifier.id }}</small>) called
+                            <strong>"{{ classifier.name }}"</strong></td>
+                    <td><button class="btn btn-danger"
+                                    style="margin-left: 1em"
+                                    ng-click="vm.deleteClassifier($event, classifier)"
+                                    ng-disabled="submittingDeleteRequest">
+                                Delete
+                            </button></td>
+                </tr>
+                <tr ng-repeat="classifier in vm.classifiers.visrec">
+                    <td><img class="mediumwatsonicon" hspace=10
+                            src="static/images/visualrecognition.jpg"
+                            alt="Model using a Watson Visual Recognition API key"></td>
+                    <td><strong>Visual Recognition</strong> classifier
+                            ({{ classifier.id }}) called
+                            <strong>"{{ classifier.name }}"</strong></td>
+                    <td><button class="btn btn-danger"
+                                    style="margin-left: 1em"
+                                    ng-click="vm.deleteClassifier($event, classifier)"
+                                    ng-disabled="submittingDeleteRequest">
+                                Delete
+                            </button></td>
+                </tr>
+            </table>
+        </div>
+
+
         <div ng-if="vm && vm.projects">
+
+            <div class="helpsection">
+                <p>This page displays a list of all of the projects that your class currently has. You can use it to review what they're working on. </p>
+                <p>If you've hit the limit for the number of machine learning models that your class can create, you can use this to see which projects currently have a machine learning model, and delete any that you think are no longer needed. </p>
+            </div>
 
             <div class="studentslist" ng-if="vm.projects.length === 0">
                 <p>None of the students in your class currently have any projects. </p>

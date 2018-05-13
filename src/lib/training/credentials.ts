@@ -1,11 +1,12 @@
 // local dependencies
 import * as store from '../db/store';
+import { ClassTenant } from '../db/db-types';
 import * as visrec from './visualrecognition';
 import * as conv from './conversation';
-import * as Types from './training-types';
+import * as bluemixclassifiers from './classifiers';
 import * as notifications from '../notifications/slack';
 import loggerSetup from '../utils/logger';
-import { ClassifierSummary, BluemixServiceType, BluemixCredentials } from './training-types';
+import { ClassifierSummary, BluemixServiceType, BluemixCredentials, KnownErrorCondition } from './training-types';
 
 const log = loggerSetup();
 
@@ -21,6 +22,10 @@ interface ExpectedErrors {
 
 
 
+/**
+ * Gets the flat list of known errors from the DB, and group
+ *  them by type.
+ */
 async function getKnownErrors(): Promise<ExpectedErrors> {
     const errs = await store.getAllKnownErrors();
     const indexedErrs: ExpectedErrors = {
@@ -31,7 +36,7 @@ async function getKnownErrors(): Promise<ExpectedErrors> {
     };
     for (const err of errs) {
         switch (err.type) {
-        case Types.KnownErrorCondition.UnmanagedBluemixClassifier:
+        case KnownErrorCondition.UnmanagedBluemixClassifier:
             if (err.servicetype === 'conv') {
                 indexedErrs.unmanagedConvClassifiers.push(err.objid);
             }
@@ -43,7 +48,7 @@ async function getKnownErrors(): Promise<ExpectedErrors> {
                 notifications.notify('Unrecognised known error service type ' + err.servicetype);
             }
             break;
-        case Types.KnownErrorCondition.BadBluemixCredentials:
+        case KnownErrorCondition.BadBluemixCredentials:
             if (err.servicetype === 'conv') {
                 indexedErrs.badBluemixConvCredentials.push(err.objid);
             }
@@ -71,38 +76,64 @@ export async function checkBluemixCredentials() {
     log.info('Checking Bluemix credentials');
     notifications.notify('Checking Bluemix credentials');
 
+    // get the list of errors that the teacher have already been
+    //  emailed a notification about, and so should be ignored
     const knownErrors = await getKnownErrors();
 
+
+    //
+    // checking Watson Conversation credentials...
+    //
     const textCredentials = await store.getAllBluemixCredentials('conv');
     for (const credentials of textCredentials) {
+
+        let classifiers: ClassifierSummary[] = [];
+
+        // get all of the classifiers owned by these credentials
         try {
-            const classifiers = await conv.getTextClassifiers(credentials);
-            log.info({ classifiers }, 'Classifiers');
-            await verifyClassifiers(classifiers, 'conv', credentials, knownErrors);
+            classifiers = await conv.getTextClassifiers(credentials);
         }
         catch (err) {
-            if (checkIfErrorExpected(knownErrors, 'badBluemixCredentials', 'conv', credentials.id) === false) {
-                log.error({ err, credentials }, 'Failed to verify credentials');
-                notifications.notify('Test for Conversation credentials ' + credentials.id + ' ' +
-                                    'being used by ' + credentials.classid + ' ' +
-                                    'failed with error : ' + err.message);
+            // these credentials didn't work.
+            if (isErrorExpected(knownErrors, 'badBluemixCredentials', 'conv', credentials.id) === false) {
+                reportBadCredentials(err, credentials, 'conv');
+            }
+        }
+
+        // check each of the classifiers owned by these credentials
+        for (const classifier of classifiers) {
+            const known = await isClassifierKnown(classifier, credentials, 'conv', knownErrors);
+            if (known === false) {
+                await handleUnknownClassifier(credentials, classifier);
             }
         }
     }
 
+
+    //
+    // checking Visual Recognition credentials...
+    //
     const imageCredentials = await store.getAllBluemixCredentials('visrec');
     for (const credentials of imageCredentials) {
+
+        let classifiers: ClassifierSummary[] = [];
+
+        // get all of the classifiers owned by these credentials
         try {
-            const classifiers = await visrec.getImageClassifiers(credentials);
-            log.info({ classifiers }, 'Classifiers');
-            await verifyClassifiers(classifiers, 'visrec', credentials, knownErrors);
+            classifiers = await visrec.getImageClassifiers(credentials);
         }
         catch (err) {
-            if (checkIfErrorExpected(knownErrors, 'badBluemixCredentials', 'visrec', credentials.id) === false) {
-                log.error({ err, credentials }, 'Failed to verify credentials');
-                notifications.notify('Test for Visual Recognition credentials ' + credentials.id + ' ' +
-                                    'being used by ' + credentials.classid + ' ' +
-                                    'failed with error : ' + err.message + ' ' + err.description);
+            // these credentials didn't work.
+            if (isErrorExpected(knownErrors, 'badBluemixCredentials', 'visrec', credentials.id) === false) {
+                reportBadCredentials(err, credentials, 'visrec');
+            }
+        }
+
+        // check each of the classifiers owned by these credentials
+        for (const classifier of classifiers) {
+            const known = await isClassifierKnown(classifier, credentials, 'visrec', knownErrors);
+            if (known === false) {
+                await handleUnknownClassifier(credentials, classifier);
             }
         }
     }
@@ -112,6 +143,7 @@ export async function checkBluemixCredentials() {
 
     notifications.notify('Check complete');
 }
+
 
 
 
@@ -136,13 +168,33 @@ function reportMissingErrors(expectedErrors: ExpectedErrors): void {
 
 
 
-const IGNORE: string[] = [
-    'Car Dashboard - Sample',
-];
+function reportBadCredentials(err: Error, credentials: BluemixCredentials, type: BluemixServiceType): void {
+    log.error({ err, type, credentials }, 'Failed to verify credentials');
+
+    let service = '';
+    if (type === 'conv') {
+        service = 'Watson Assistant ';
+    }
+    else if (type === 'visrec') {
+        service = 'Visual Recognition ';
+    }
+
+    notifications.notify('Test for ' + service +
+                         'credentials ' + credentials.id + ' ' +
+                         'being used by ' + credentials.classid + ' ' +
+                         'failed with error : ' + err.message);
+}
 
 
-
-function checkIfErrorExpected(
+/**
+ * Checks if the specified error is in the provided list of known/acknowledged errors.
+ *
+ *  If true, the error will be removed from the provided list, allowing what's left
+ *  in the list at the end of this to be used as a list of expected-but-not-encountered errors.
+ *
+ * @returns true if the error was expected / known / acknowledged
+ */
+function isErrorExpected(
     expectedErrors: ExpectedErrors,
     errortype: 'unmanagedClassifiers' | 'badBluemixCredentials',
     servicetype: BluemixServiceType,
@@ -202,32 +254,71 @@ function checkIfErrorExpected(
 
 
 
-async function verifyClassifiers(
-    classifiers: ClassifierSummary[],
-    expected: BluemixServiceType,
+
+
+
+/**
+ * Checks a classifier that was found in Bluemix, to see if information
+ *  about it is stored in the DB.
+ *
+ * @returns true if the classifier is known
+ */
+async function isClassifierKnown(
+    classifier: ClassifierSummary,
     creds: BluemixCredentials,
+    expected: BluemixServiceType,
     expectedErrors: ExpectedErrors,
-): Promise<void>
+): Promise<boolean>
 {
-    for (const classifier of classifiers) {
-        try {
-            const classifierInfo = await store.getClassifierByBluemixId(classifier.id);
-            if (!classifierInfo &&
-                IGNORE.indexOf(classifier.name) === -1 &&
-                checkIfErrorExpected(expectedErrors, 'unmanagedClassifiers', expected, classifier.id) === false)
-            {
-                log.error({ classifier, creds, expected }, 'Unmanaged Bluemix classifier detected');
-                notifications.notify('Unmanaged Bluemix classifier detected! ' +
-                                     ' name:' + classifier.name +
-                                     ' type:' + expected +
-                                     ' id:' + classifier.id +
-                                     ' creds: ' + creds.id +
-                                     ' class: ' + creds.classid);
-            }
+    try {
+        const classifierInfo = await store.getClassifierByBluemixId(classifier.id);
+
+            // if the classifier wasn't found in the DB...
+        if (!classifierInfo &&
+            // ... and it isn't a classifier that everyone gets as a sample out of the box ...
+            bluemixclassifiers.IGNORE.indexOf(classifier.name) === -1 &&
+            // ... and we haven't already notified the teacher about this...
+            isErrorExpected(expectedErrors, 'unmanagedClassifiers', expected, classifier.id) === false)
+        {
+            // then classifier is not known!
+            log.error({ classifier, creds, expected }, 'Unmanaged Bluemix classifier detected');
+            notifications.notify('Unmanaged Bluemix classifier detected! ' +
+                                 ' name:' + classifier.name +
+                                 ' type:' + expected +
+                                 ' id:' + classifier.id +
+                                 ' creds: ' + creds.id +
+                                 ' class: ' + creds.classid);
+            return false;
         }
-        catch (err) {
-            log.error({ err, classifier }, 'Failed to get classifier info from DB');
-            notifications.notify('Failed to verify ' + expected + ' classifier ' + classifier.id);
-        }
+
+        return true;
+    }
+    catch (err) {
+        log.error({ err, classifier }, 'Failed to get classifier info from DB');
+        notifications.notify('Failed to verify ' + expected + ' classifier ' + classifier.id);
+
+        // Okay... so the classifier isn't known, so we're about to lie here.
+        //  but it's not really lying, it's more optimistic. We haven't been
+        //  able to successfully confirm that the classifier isn't in the DB,
+        //  so let's assume that it's probably there.
+        // (With a prod on Slack so it can be investigated properly).
+        return true;
     }
 }
+
+
+
+async function handleUnknownClassifier(credentials: BluemixCredentials, classifier: ClassifierSummary): Promise<void> {
+    const classPolicy = await store.getClassTenant(credentials.classid);
+
+    if (classPolicy.isManaged) {
+        notifications.notify('DELETING UNKNOWN ' + classifier.type + ' classifier ' +
+                                ' id : ' + classifier.id +
+                                ' name : ' + classifier.name +
+                                ' from class ' + credentials.classid);
+        await bluemixclassifiers.deleteClassifier(classifier.type, credentials, classifier.id);
+    }
+}
+
+
+
