@@ -34,18 +34,21 @@ export async function trainClassifier(
 
     const training = await getTraining(project);
 
+    // determine when the Conversation workspace should be deleted
+    const tenantPolicy = await store.getClassTenant(project.classid);
+
     const existingWorkspaces = await store.getConversationWorkspaces(project.id);
     if (existingWorkspaces.length > 0) {
         workspace = existingWorkspaces[0];
 
         const credentials = await store.getBluemixCredentialsById(workspace.credentialsid);
 
-        workspace = await updateWorkspace(project, credentials, workspace, training);
+        workspace = await updateWorkspace(project, credentials, workspace, training, tenantPolicy);
     }
     else {
         const credentials = await store.getBluemixCredentials(project.classid, 'conv');
 
-        workspace = await createWorkspace(project, credentials, training);
+        workspace = await createWorkspace(project, credentials, training, tenantPolicy);
     }
 
     return workspace;
@@ -59,6 +62,7 @@ async function createWorkspace(
     project: DbObjects.Project,
     credentialsPool: TrainingObjects.BluemixCredentials[],
     training: TrainingObjects.ConversationTrainingData,
+    tenantPolicy: DbObjects.ClassTenant,
 ): Promise<TrainingObjects.ConversationWorkspace>
 {
     let workspace;
@@ -79,7 +83,11 @@ async function createWorkspace(
     for (const credentials of shuffledCredentialsPool) {
         try {
             const url = credentials.url + '/v1/workspaces';
-            workspace = await submitTrainingToConversation(project, credentials, url, training, id);
+            workspace = await submitTrainingToConversation(
+                project,
+                credentials, url, training,
+                id,
+                tenantPolicy);
 
             await store.storeConversationWorkspace(credentials, project, workspace);
 
@@ -111,7 +119,15 @@ async function createWorkspace(
             }
             else {
                 // Otherwise - rethrow it so we can bug out.
-                log.error({ err, project }, 'Unhandled Conversation exception');
+                log.error({ err, project, credentials : credentials.id }, 'Unhandled Conversation exception');
+
+                // This shouldn't happen.
+                // It probably needs more immediate attention, so notify the Slack bot
+                notifications.notify('Unexpected failure to train text classifier' +
+                                     ' for project : ' + project.id +
+                                     ' in class : ' + project.classid + ' : ' +
+                                     err.message);
+
                 throw err;
             }
         }
@@ -126,6 +142,13 @@ async function createWorkspace(
     //      above, with finalError being set with the reason
     //
 
+    // This is a user-error, not indicative of an MLforKids failure.
+    //  But notify the Slack bot anyway, as for now it is useful to be able to
+    //  keep track of how frequently users are running into these resource limits.
+    notifications.notify('Failed to train text classifier' +
+                         ' for project : ' + project.id +
+                         ' in class : ' + project.classid +
+                         ' because:\n' + finalError);
 
     throw new Error(finalError);
 }
@@ -139,12 +162,16 @@ async function updateWorkspace(
     credentials: TrainingObjects.BluemixCredentials,
     workspace: TrainingObjects.ConversationWorkspace,
     training: TrainingObjects.ConversationTrainingData,
+    tenantPolicy: DbObjects.ClassTenant,
 ): Promise<TrainingObjects.ConversationWorkspace>
 {
     const url = credentials.url + '/v1/workspaces/' + workspace.workspace_id;
 
     try {
-        const modified = await submitTrainingToConversation(project, credentials, url, training, workspace.id);
+        const modified = await submitTrainingToConversation(
+            project,
+            credentials, url, training, workspace.id,
+            tenantPolicy);
 
         await store.updateConversationWorkspaceExpiry(modified);
 
@@ -199,7 +226,7 @@ export async function deleteClassifier(classifier: TrainingObjects.ConversationW
     await store.resetExpiredScratchKey(classifier.workspace_id, 'text');
 }
 
-async function deleteClassifierFromBluemix(
+export async function deleteClassifierFromBluemix(
     credentials: TrainingObjects.BluemixCredentials,
     classifierId: string,
 ): Promise<void>
@@ -338,6 +365,7 @@ async function submitTrainingToConversation(
     url: string,
     training: TrainingObjects.ConversationTrainingData,
     id: string,
+    tenantPolicy: DbObjects.ClassTenant,
 ): Promise<TrainingObjects.ConversationWorkspace>
 {
     const req: ConversationApiRequestPayloadClassifierItem = {
@@ -360,7 +388,6 @@ async function submitTrainingToConversation(
         const body = await request.post(url, req);
 
         // determine when the Conversation workspace should be deleted
-        const tenantPolicy = await store.getClassTenant(project.classid);
         const modelAutoExpiryTime = new Date(body.updated);
         modelAutoExpiryTime.setHours(modelAutoExpiryTime.getHours() +
                                      tenantPolicy.textClassifierExpiry);
@@ -392,8 +419,9 @@ async function submitTrainingToConversation(
         log.error({ req, err }, ERROR_MESSAGES.UNKNOWN);
         notifications.notify('Failed to train text classifier' +
                              ' for project : ' + project.id +
-                             ' in class : ' + project.classid + ' : ' +
-                             err.message);
+                             ' in class : ' + project.classid +
+                             ' using creds : ' + credentials.id +
+                             ' : ' + err.message);
 
         // The full error object will include the Conversation request with the
         //  URL and credentials we used for it. So we don't want to return
@@ -491,6 +519,7 @@ export async function getTextClassifiers(
         },
         qs : {
             version : '2017-05-26',
+            page_limit : 100,
         },
         json : true,
     };
@@ -509,7 +538,7 @@ export async function getTextClassifiers(
     }
     catch (err) {
         if (err.response && err.response.body) {
-            if (!err.response.body.statusCode) {
+            if (!err.response.body.statusCode && typeof err.response.body === 'object') {
                 err.response.body.statusCode = err.response.body.code;
             }
             throw err.response.body;

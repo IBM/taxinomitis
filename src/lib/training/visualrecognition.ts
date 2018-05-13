@@ -62,6 +62,10 @@ async function createClassifier(
 {
     let classifier: TrainingObjects.VisualClassifier;
 
+
+    const tenantPolicy = await store.getClassTenant(project.classid);
+
+
     // Unless we see a different error, if this doesn't work, the reason
     //  will be that we don't have room for any new classifiers with the
     //  available credentials
@@ -71,7 +75,7 @@ async function createClassifier(
     for (const credentials of credentialsPool) {
         try {
             const url = credentials.url + '/v3/classifiers';
-            classifier = await submitTrainingToVisualRecognition(project, credentials, url, training);
+            classifier = await submitTrainingToVisualRecognition(project, credentials, url, training, tenantPolicy);
 
             await store.storeImageClassifier(credentials, project, classifier);
 
@@ -299,7 +303,7 @@ export async function deleteClassifier(classifier: TrainingObjects.VisualClassif
 
 
 
-async function deleteClassifierFromBluemix(
+export async function deleteClassifierFromBluemix(
     credentials: TrainingObjects.BluemixCredentials,
     classifierId: string,
 ): Promise<void>
@@ -432,6 +436,7 @@ async function submitTrainingToVisualRecognition(
     credentials: TrainingObjects.BluemixCredentials,
     url: string,
     training: { [label: string]: string },
+    tenantPolicy: DbObjects.ClassTenant,
 ): Promise<TrainingObjects.VisualClassifier>
 {
     const trainingData: { [label: string]: fs.ReadStream | string } = {
@@ -458,7 +463,6 @@ async function submitTrainingToVisualRecognition(
         const body = await request.post(url, req);
 
         // determine when the classifier should be deleted
-        const tenantPolicy = await store.getClassTenant(project.classid);
         const modelAutoExpiryTime = new Date(body.created);
         modelAutoExpiryTime.setHours(modelAutoExpiryTime.getHours() +
                                      tenantPolicy.imageClassifierExpiry);
