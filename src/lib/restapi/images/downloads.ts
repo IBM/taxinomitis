@@ -6,6 +6,7 @@ import * as auth from '../auth';
 import * as store from '../../imagestore';
 import * as parse from './urlparse';
 import * as urls from '../urls';
+import * as headers from '../headers';
 
 
 
@@ -27,6 +28,11 @@ export default function registerApis(app: Express.Application) {
 async function handleDownload(req: Express.Request, res: Express.Response) {
     try {
         const image = await store.getImage(parse.imageUrl(req));
+
+        //
+        // set headers dynamically based on the image we've fetched
+        //
+
         res.setHeader('Content-Type', image.filetype);
 
         if (image.modified) {
@@ -36,9 +42,12 @@ async function handleDownload(req: Express.Request, res: Express.Response) {
             res.setHeader('ETag', image.etag);
         }
 
-        // this is slow, so encourage browsers to cache the images
-        //  rather than repeatedly download them
-        res.setHeader('Cache-Control', 'max-age=31536000');
+        // This is slow, so encourage browsers to aggressively
+        //  cache the images rather than repeatedly download them
+        // (This is safe as we don't allow images to be modified,
+        //  so it's okay to treat them as immutable).
+        res.set(headers.CACHE_1YEAR);
+
 
         res.send(image.body);
     }
