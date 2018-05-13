@@ -246,8 +246,8 @@ function createZip(filepaths: string[], callback: IZipCallback): void {
             invokeCallbackSafely(undefined, zipfilename, archive.pointer());
         });
 
-        outputStream.on('warning', () => {
-            log.error({ arguments }, 'Unexpected warning event from writable filestream');
+        outputStream.on('warning', (warning) => {
+            log.error({ warning }, 'Unexpected warning event from writable filestream');
             notifications.notify('outputStream warning');
         });
 
