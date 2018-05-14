@@ -58,7 +58,7 @@ const NUM_IMAGES_TRAINING_MASSIVE: { [label: string]: number } = {
 };
 
 export function countTrainingByLabel(project: DbTypes.Project): Promise<{}> {
-    if (project.id === 'projectbob') {
+    if (project.id === 'projectbob' || project.id === 'existingprojectid') {
         return new Promise((resolve) => resolve(NUM_TRAINING_PER_LABEL));
     }
     else if (project.id === 'projectbobvis' || project.id === 'projectbobvislim') {
@@ -149,9 +149,25 @@ export function updateConversationWorkspaceExpiry()
     return new Promise((resolve) => resolve());
 }
 
-export function getConversationWorkspaces()
+export function getConversationWorkspaces(projectid: string)
 {
-    return new Promise((resolve) => resolve([]));
+    return new Promise((resolve) => {
+        if (projectid === 'existingprojectid') {
+            return resolve([
+                {
+                    id : 'existingworkspacedbid',
+                    workspace_id : 'existing-classifier',
+                    credentialsid : '123',
+                    url : 'http://conversation.service/v1/workspaces/existing-classifier',
+                    name : 'existing',
+                    language : 'de',
+                    created : new Date(),
+                    expiry : new Date(),
+                },
+            ]);
+        }
+        resolve([]);
+    });
 }
 export function getImageClassifiers()
 {
@@ -216,6 +232,19 @@ export function getProject(projectid: string): Promise<DbTypes.Project>
             type : 'images',
             language : 'en',
             labels : ['rock', 'paper'],
+            numfields : 0,
+            isCrowdSourced : false,
+        }));
+    }
+    else if (projectid === 'existingprojectid') {
+        return new Promise((resolve) => resolve({
+            id : projectid,
+            name : 'existing',
+            userid : 'userid',
+            classid : 'classid',
+            type : 'text',
+            language : 'de',
+            labels : ['temperature', 'conditions'],
             numfields : 0,
             isCrowdSourced : false,
         }));

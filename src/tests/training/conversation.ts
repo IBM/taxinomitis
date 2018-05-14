@@ -212,6 +212,40 @@ describe('Training - Conversation', () => {
 
 
 
+    describe('update classifier', () => {
+
+        it('should update a classifier', async () => {
+            storeScratchKeyStub.reset();
+
+            const classid = 'classid';
+            const userid = 'bob';
+            const projectid = 'existingprojectid';
+            const projectname = 'existing';
+
+            const project: DbTypes.Project = {
+                id : projectid,
+                name : projectname,
+                userid, classid,
+                type : 'text',
+                language : 'de',
+                labels : ['big', 'small'],
+                numfields : 0,
+                isCrowdSourced : false,
+            };
+
+            const before = new Date();
+
+            const classifier = await conversation.trainClassifier(project);
+
+            assert.notStrictEqual(existingClassifier.expiry.getTime(),
+                                  classifier.expiry.getTime());
+            assert(classifier.expiry.getTime() > before.getTime());
+        });
+
+    });
+
+
+
     describe('test classifier', () => {
 
         it('should return classes from Conversation service', async () => {
@@ -456,6 +490,19 @@ describe('Training - Conversation', () => {
                         },
                     });
                 }
+                else if (options.body.name === 'existing' &&
+                         url.endsWith('/existing-classifier'))
+                {
+                    resolve({
+                        name : options.body.name,
+                        created : new Date().toISOString(),
+                        updated : new Date().toISOString(),
+                        language : options.body.language,
+                        metadata : null,
+                        description : null,
+                        workspace_id : 'existing-classifier',
+                    });
+                }
                 else {
                     reject({
                         error : {
@@ -693,5 +740,33 @@ describe('Training - Conversation', () => {
     const unknownClassifierWithStatus = Object.assign({}, unknownClassifier, {
         status : 'Non Existent',
     });
+
+
+
+    const existingClassifier: TrainingTypes.ConversationWorkspace = {
+        id : 'existingworkspacedbid',
+        credentialsid : '123',
+        name : 'existing',
+        language : 'de',
+        created : new Date(),
+        expiry : new Date(),
+        url : 'http://conversation.service/v1/workspaces/existing-classifier',
+        workspace_id : 'existing-classifier',
+    };
+    const existingClassifierWithStatus = Object.assign({}, existingClassifier, {
+        status : 'Available',
+        updated : existingClassifier.created,
+    });
+
+    const existingClassifierStatus = {
+        name : existingClassifier.name,
+        language : existingClassifier.language,
+        metadata : null,
+        description : null,
+        workspace_id : 'existing-classifier',
+        status : 'Available',
+        created : existingClassifier.created.toISOString(),
+        updated : existingClassifier.created.toISOString(),
+    };
 
 });
