@@ -22,8 +22,6 @@ function createSessionUser(req: Express.Request, res: Express.Response)
 {
     sessionusers.createSessionUser()
         .then((user) => {
-            notifications.notify('New "Try it now" session');
-
             return res.status(httpstatus.CREATED).json({
                 id : user.id,
                 token : user.token,
