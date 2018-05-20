@@ -16,8 +16,8 @@ But be aware that they count towards the limits that IBM Cloud enforces for your
 Reason 2)
 Something went wrong when the classifier was being deleted and it was left behind accidentally.
 It should be deleted as it counts towards the limits that IBM Cloud enforces for your credentials, and so will mean one fewer model that your students can create.
-If you know how, feel free to delete it yourself using the Watson Visual Recognition training UI or API.
-If you don't, please just send an email to dale.lane@uk.ibm.com and I'd be happy to do it for you.
+You can do that from https://machinelearningforkids.co.uk/#!/teacher/projects
+Or, please just send an email to dale.lane@uk.ibm.com and I'd be happy to do it for you.
 
 You won't be notified about this classifier again.
 

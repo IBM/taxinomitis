@@ -753,20 +753,20 @@ describe('Training - Conversation', () => {
         url : 'http://conversation.service/v1/workspaces/existing-classifier',
         workspace_id : 'existing-classifier',
     };
-    const existingClassifierWithStatus = Object.assign({}, existingClassifier, {
-        status : 'Available',
-        updated : existingClassifier.created,
-    });
+    // const existingClassifierWithStatus = Object.assign({}, existingClassifier, {
+    //     status : 'Available',
+    //     updated : existingClassifier.created,
+    // });
 
-    const existingClassifierStatus = {
-        name : existingClassifier.name,
-        language : existingClassifier.language,
-        metadata : null,
-        description : null,
-        workspace_id : 'existing-classifier',
-        status : 'Available',
-        created : existingClassifier.created.toISOString(),
-        updated : existingClassifier.created.toISOString(),
-    };
+    // const existingClassifierStatus = {
+    //     name : existingClassifier.name,
+    //     language : existingClassifier.language,
+    //     metadata : null,
+    //     description : null,
+    //     workspace_id : 'existing-classifier',
+    //     status : 'Available',
+    //     created : existingClassifier.created.toISOString(),
+    //     updated : existingClassifier.created.toISOString(),
+    // };
 
 });
