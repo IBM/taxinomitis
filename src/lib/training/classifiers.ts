@@ -11,11 +11,6 @@ export async function getUnknownTextClassifiers(classid: string): Promise<Classi
 {
     const unknownTextClassifiers: ClassifierSummary[] = [];
 
-    // check if this is a class that it is okay to skip
-    if (IGNORE_TENANTS.includes(classid)){
-        return unknownTextClassifiers;
-    }
-
     // get all of the Bluemix credentials in the class
     const credentialsPool = await store.getBluemixCredentials(classid, 'conv');
     // for each API key...
@@ -44,11 +39,6 @@ export async function getUnknownTextClassifiers(classid: string): Promise<Classi
 export async function getUnknownImageClassifiers(classid: string): Promise<ClassifierSummary[]>
 {
     const unknownImageClassifiers: ClassifierSummary[] = [];
-
-    // check if this is a class that it is okay to skip
-    if (IGNORE_TENANTS.includes(classid)){
-        return unknownImageClassifiers;
-    }
 
     // get all of the Bluemix credentials in the class
     const credentialsPool = await store.getBluemixCredentials(classid, 'visrec');
@@ -107,4 +97,5 @@ export const IGNORE: string[] = [
 export const IGNORE_TENANTS: string[] = [
     '1f1e7205-0c8f-4c53-bb33-ba630ef688f7',
     'fc688e7a-c358-4c8a-889a-e643b2f10938',
+    'ravenscroftj',
 ];

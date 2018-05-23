@@ -101,10 +101,12 @@ export async function checkBluemixCredentials() {
         }
 
         // check each of the classifiers owned by these credentials
-        for (const classifier of classifiers) {
-            const known = await isClassifierKnown(classifier, credentials, 'conv', knownErrors);
-            if (known === false) {
-                await handleUnknownClassifier(credentials, classifier);
+        if (bluemixclassifiers.IGNORE_TENANTS.includes(credentials.classid) === false) {
+            for (const classifier of classifiers) {
+                const known = await isClassifierKnown(classifier, credentials, 'conv', knownErrors);
+                if (known === false) {
+                    await handleUnknownClassifier(credentials, classifier);
+                }
             }
         }
     }
@@ -130,10 +132,12 @@ export async function checkBluemixCredentials() {
         }
 
         // check each of the classifiers owned by these credentials
-        for (const classifier of classifiers) {
-            const known = await isClassifierKnown(classifier, credentials, 'visrec', knownErrors);
-            if (known === false) {
-                await handleUnknownClassifier(credentials, classifier);
+        if (bluemixclassifiers.IGNORE_TENANTS.includes(credentials.classid) === false) {
+            for (const classifier of classifiers) {
+                const known = await isClassifierKnown(classifier, credentials, 'visrec', knownErrors);
+                if (known === false) {
+                    await handleUnknownClassifier(credentials, classifier);
+                }
             }
         }
     }
