@@ -84,7 +84,10 @@
                 else {
                     // if the result was chosen at random (instead of using
                     //  a trained classifier) then we don't cache it
-                    ext.resultscache[cacheKey] = result;
+
+
+                    // temporarily disable caching for an event
+                    // ext.resultscache[cacheKey] = result;
                 }
 
                 callback(result);
@@ -237,11 +240,11 @@
 
     function pollStatus() {
         if (!statusPollingTimer) {
-            // wait 5 seconds...
+            // wait 10 seconds...
             statusPollingTimer = setTimeout(function () {
                 // get status (and poll again if needed)
                 initStatusCheck();
-            }, 5000);
+            }, 10000);
         }
     }
 

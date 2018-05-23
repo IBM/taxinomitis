@@ -11,7 +11,7 @@ import * as ScratchTypes from './scratchx-types';
 export function getStatus(scratchKey: Types.ScratchKey): Promise<ScratchTypes.Status> {
     if (!scratchKey.classifierid) {
         return Promise.resolve({
-            status : 0,
+            status : scratchKey.type === 'numbers' ? 2 : 0,
             msg : 'No models trained yet - only random answers can be chosen',
         });
     }
