@@ -97,7 +97,7 @@ describe('REST API - classifiers', () => {
         created : new Date(),
         expiry : new Date(),
         name : imagesProjectName,
-        url : 'https://gateway-test.watsonplatform.net/visual-recognition/api',
+        url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
     };
 
 

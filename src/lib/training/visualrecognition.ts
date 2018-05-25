@@ -7,9 +7,11 @@ import * as uuid from 'uuid/v1';
 import * as store from '../db/store';
 import * as DbObjects from '../db/db-types';
 import * as TrainingObjects from './training-types';
+import * as iam from '../iam';
 import * as downloadAndZip from '../utils/downloadAndZip';
 import * as notifications from '../notifications/slack';
 import loggerSetup from '../utils/logger';
+import { create } from 'archiver';
 
 const log = loggerSetup();
 
@@ -177,22 +179,12 @@ export function getClassifierStatuses(
 }
 
 
-export function getStatus(
+export async function getStatus(
     credentials: TrainingObjects.BluemixCredentials,
     classifier: TrainingObjects.VisualClassifier,
-): PromiseLike<TrainingObjects.VisualClassifier>
+): Promise<TrainingObjects.VisualClassifier>
 {
-    const req = {
-        qs : {
-            version : '2016-05-20',
-            api_key : credentials.username + credentials.password,
-        },
-        headers : {
-            'user-agent' : 'machinelearningforkids',
-        },
-        json : true,
-        gzip : true,
-    };
+    const req = await createBaseRequest(credentials);
     return request.get(classifier.url, req)
         .then((body) => {
             classifier.status = body.status;
@@ -308,16 +300,7 @@ export async function deleteClassifierFromBluemix(
     classifierId: string,
 ): Promise<void>
 {
-    const req = {
-        qs : {
-            version : '2016-05-20',
-            api_key : credentials.username + credentials.password,
-        },
-        headers : {
-            'user-agent' : 'machinelearningforkids',
-        },
-        timeout : 120000,
-    };
+    const req = await createBaseRequest(credentials);
 
     try {
         const url = credentials.url + '/v3/classifiers/' + classifierId;
@@ -343,14 +326,8 @@ export async function testClassifierFile(
     imagefilepath: string,
 ): Promise<TrainingObjects.Classification[]>
 {
-    const req: VisualRecogApiRequestPayloadTestFileItem = {
-        qs : {
-            version : '2016-05-20',
-            api_key : credentials.username + credentials.password,
-        },
-        headers : {
-            'user-agent' : 'machinelearningforkids',
-        },
+    const basereq = await createBaseRequest(credentials);
+    const testreq: TestFileRequest = {
         formData : {
             images_file : fs.createReadStream(imagefilepath),
             parameters : {
@@ -364,8 +341,9 @@ export async function testClassifierFile(
                 },
             },
         },
-        json : true,
     };
+    const req: NewTestFileRequest | LegacyTestFileRequest = { ...basereq, ...testreq };
+
 
     const body: VisualRecogApiResponsePayloadClassifyFile = await request.post(credentials.url + '/v3/classify', req);
     if (body.images &&
@@ -384,6 +362,7 @@ export async function testClassifierFile(
     }
 }
 
+
 export async function testClassifierURL(
     credentials: TrainingObjects.BluemixCredentials,
     classifierid: string,
@@ -391,18 +370,21 @@ export async function testClassifierURL(
     imageurl: string,
 ): Promise<TrainingObjects.Classification[]>
 {
-    const req: VisualRecogApiRequestPayloadTestUrlItem = {
+    const basereq = await createBaseRequest(credentials);
+    const testreq: TestUrlRequest = {
         qs : {
-            version : '2016-05-20',
-            api_key : credentials.username + credentials.password,
             url : imageurl,
             classifier_ids : classifierid,
             threshold : 0.0,
         },
-        headers : {
-            'user-agent' : 'machinelearningforkids',
-        },
-        json : true,
+    };
+
+    const req = {
+        qs : { ...basereq.qs, ...testreq.qs },
+        headers : basereq.headers,
+        json : basereq.json,
+        gzip : basereq.gzip,
+        timeout : basereq.timeout,
     };
 
     const body: VisualRecogApiResponsePayloadClassification = await request.get(credentials.url + '/v3/classify', req);
@@ -439,24 +421,17 @@ async function submitTrainingToVisualRecognition(
     tenantPolicy: DbObjects.ClassTenant,
 ): Promise<TrainingObjects.VisualClassifier>
 {
-    const trainingData: { [label: string]: fs.ReadStream | string } = {
+    const trainingData: { name: string, [label: string]: fs.ReadStream | string } = {
         name : project.name,
     };
     for (const label of project.labels) {
         trainingData[label + '_positive_examples'] = fs.createReadStream(training[label]);
     }
 
-    const req: VisualRecogApiRequestPayloadClassifierItem = {
-        qs : {
-            version : '2016-05-20',
-            api_key : credentials.username + credentials.password,
-        },
-        headers : {
-            'user-agent' : 'machinelearningforkids',
-        },
+    const basereq = await createBaseRequest(credentials);
+    const req: NewTrainingRequest | LegacyTrainingRequest = {
+        ...basereq,
         formData : trainingData,
-        json : true,
-        timeout : 180000,
     };
 
     try {
@@ -501,17 +476,7 @@ export async function getImageClassifiers(
     credentials: TrainingObjects.BluemixCredentials,
 ): Promise<TrainingObjects.ClassifierSummary[]>
 {
-    const req = {
-        qs : {
-            version : '2016-05-20',
-            api_key : credentials.username + credentials.password,
-        },
-        headers : {
-            'user-agent' : 'machinelearningforkids',
-        },
-        json : true,
-    };
-
+    const req = await createBaseRequest(credentials);
     const body: VisualRecogApiResponsePayloadClassifiers = await request.get(credentials.url + '/v3/classifiers', req);
     return body.classifiers.map((classifierinfo) => {
         const summary: TrainingObjects.ClassifierSummary = {
@@ -538,6 +503,140 @@ export async function cleanupExpiredClassifiers(): Promise<void[]>
 }
 
 
+/**
+ * Identifies what type of credentials are provided, so that the right auth
+ *  mechanism can be used.
+ */
+function getType(credentials: TrainingObjects.BluemixCredentials): TrainingObjects.VisualRecCredsType {
+    if (credentials.url === 'https://gateway-a.watsonplatform.net/visual-recognition/api') {
+        return 'legacy';
+    }
+    return 'current';
+}
+
+
+async function createBaseRequest(credentials: TrainingObjects.BluemixCredentials)
+    : Promise<LegacyVisReqRequest | NewVisReqRequest>
+{
+    // tslint:disable-next-line:variable-name
+    const api_key: string = credentials.username + credentials.password;
+
+    if (getType(credentials) === 'legacy') {
+        const req: LegacyVisReqRequest = {
+            qs : {
+                version: '2016-05-20',
+                api_key,
+            },
+            headers : {
+                'user-agent': 'machinelearningforkids',
+            },
+            json : true,
+            gzip : true,
+            timeout : 120000,
+        };
+        return Promise.resolve(req);
+    }
+    else {
+        const authHeader = await iam.getAuthHeader(api_key);
+
+        const req: NewVisReqRequest = {
+            qs : {
+                version : '2018-03-19',
+            },
+            headers : {
+                'user-agent': 'machinelearningforkids',
+                'Authorization': authHeader,
+            },
+            json : true,
+            gzip : true,
+            timeout : 120000,
+        };
+        return req;
+    }
+}
+
+
+
+
+
+
+interface VisReqRequestBase {
+    readonly qs: {
+        readonly version: string;
+    };
+    readonly headers: {
+        readonly 'user-agent': 'machinelearningforkids';
+    };
+    readonly json: true;
+    readonly gzip: true;
+    readonly timeout: number;
+}
+
+export interface LegacyVisReqRequest extends VisReqRequestBase {
+    readonly qs: {
+        readonly version: '2016-05-20';
+        readonly api_key: string;
+    };
+}
+export interface NewVisReqRequest extends VisReqRequestBase {
+    readonly qs: {
+        readonly version: '2018-03-19';
+    };
+    readonly headers: {
+        readonly 'user-agent': 'machinelearningforkids';
+        readonly Authorization: string;
+    };
+}
+
+interface TrainingRequest {
+    readonly formData: TrainingData;
+}
+interface TestUrlRequest {
+    readonly qs: {
+        readonly url: string;
+        readonly classifier_ids: string;
+        readonly threshold: number;
+    };
+}
+interface TestFileRequest {
+    readonly formData: {
+        readonly images_file: fs.ReadStream,
+        readonly parameters: {
+            readonly value: string;
+            readonly options: {
+                readonly contentType: 'application/json';
+            };
+        };
+    };
+}
+
+
+export interface LegacyTrainingRequest extends TrainingRequest, LegacyVisReqRequest {}
+export interface NewTrainingRequest extends TrainingRequest, NewVisReqRequest {}
+export interface LegacyTestFileRequest extends TestFileRequest, LegacyVisReqRequest {}
+export interface NewTestFileRequest extends TestFileRequest, NewVisReqRequest {}
+export interface LegacyTestUrlRequest extends TestUrlRequest, LegacyVisReqRequest {
+    readonly qs: {
+        readonly version: '2016-05-20';
+        readonly api_key: string;
+
+        readonly url: string;
+        readonly classifier_ids: string;
+        readonly threshold: number;
+    };
+}
+export interface NewTestUrlRequest extends TestUrlRequest, NewVisReqRequest {
+    readonly qs: {
+        readonly version: '2018-03-19';
+
+        readonly url: string;
+        readonly classifier_ids: string;
+        readonly threshold: number;
+    };
+}
+
+
+
 
 export interface VisualRecogApiResponsePayloadClassifiers {
     readonly classifiers: VisualRecogApiResponsePayloadClassifier[];
@@ -552,57 +651,9 @@ export interface VisualRecogApiResponsePayloadClassifier {
     readonly classes: Array<{ class: string }>;
 }
 
-export interface VisualRecogApiRequestPayloadClassifierItem {
-    readonly qs: {
-        readonly version: '2016-05-20';
-        readonly api_key: string;
-    };
-    readonly headers: {
-        readonly 'user-agent': string;
-    };
-    readonly formData: TrainingData;
-    readonly json: true;
-    readonly timeout: number;
-}
-
-export interface VisualRecogApiRequestPayloadTestUrlItem {
-    readonly qs: {
-        readonly version: '2016-05-20';
-        readonly api_key: string;
-        readonly url: string;
-        readonly classifier_ids: string;
-        readonly threshold: number;
-    };
-    readonly headers: {
-        readonly 'user-agent': string;
-    };
-    readonly json: true;
-}
-
-export interface VisualRecogApiRequestPayloadTestFileItem {
-    readonly qs: {
-        readonly version: '2016-05-20';
-        readonly api_key: string;
-    };
-    readonly headers: {
-        readonly 'user-agent': string;
-    };
-    readonly formData: {
-        readonly images_file: fs.ReadStream,
-        readonly parameters: {
-            readonly value: string;
-            readonly options: {
-                readonly contentType: 'application/json';
-            };
-        };
-    };
-    readonly json: true;
-}
-
-
-
 
 interface TrainingData {
+    name: string;
     [label: string]: fs.ReadStream | string;
 }
 
@@ -636,4 +687,5 @@ export interface VisualRecogApiResponsePayloadClassifyFile {
     }>;
     readonly images_processed: number;
 }
+
 

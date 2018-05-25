@@ -464,7 +464,7 @@ describe('DB store', () => {
                 username : uuid(),
                 password : uuid(),
                 servicetype : 'visrec',
-                url : uuid(),
+                url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
                 classid,
             };
             const expired: Types.VisualClassifier = {
@@ -472,7 +472,7 @@ describe('DB store', () => {
                 name : 'ONE',
                 classifierid : uuid(),
                 credentialsid : credentials.id,
-                url : uuid(),
+                url : 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/' + uuid(),
                 created : now,
                 expiry : past,
             };
@@ -541,7 +541,7 @@ describe('DB store', () => {
                 username : uuid(),
                 password : uuid(),
                 servicetype : 'visrec',
-                url : uuid(),
+                url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
                 classid,
             };
             await store.storeBluemixCredentials(classid, credentials);
@@ -551,7 +551,7 @@ describe('DB store', () => {
                 name : 'ONE',
                 classifierid : uuid(),
                 credentialsid : credentials.id,
-                url : uuid(),
+                url : 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/' + uuid(),
                 created : now,
                 expiry : past,
             };
@@ -608,7 +608,7 @@ describe('DB store', () => {
                 username : uuid(),
                 password : uuid(),
                 servicetype : 'visrec',
-                url : uuid(),
+                url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
                 classid,
             };
             const userid = uuid();
@@ -623,7 +623,7 @@ describe('DB store', () => {
                 created,
                 expiry : created,
                 name : 'DUMMY',
-                url : uuid(),
+                url : 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/' + uuid(),
             };
 
             const project: DbTypes.Project = {

@@ -3,6 +3,7 @@ import * as express from 'express';
 // local dependencies
 import * as store from './db/store';
 import * as imagestore from './imagestore';
+import * as iamcache from './iam';
 import restapi from './restapi';
 import * as notifications from './notifications/slack';
 import * as scheduledtasks from './scheduledtasks';
@@ -26,6 +27,9 @@ notifications.init();
 
 // connect to S3 object storage used to store images
 imagestore.init();
+
+// initialise the cache for tokens from Bluemix IAM
+iamcache.init();
 
 // connect to MySQL DB
 store.init()

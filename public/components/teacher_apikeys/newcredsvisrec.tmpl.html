@@ -8,26 +8,6 @@
         <md-dialog-content>
             <div class="md-dialog-content" style="min-width: 400px">
                 <md-card-content>
-                    <div layout="row" style="margin-bottom: 1em">
-                        <strong>24 May 2018</strong>
-                    </div>
-                    <div layout="row" style="margin-bottom: 1em">
-                        The Watson Visual Recognition service has a new authentication
-                        model that breaks registration for Machine Learning for Kids.
-                    </div>
-                    <div layout="row" style="margin-bottom: 1em">
-                        Visual Recognition credentials created before today will
-                        continue to work, but you won't be able to add new credentials
-                        until I re-work the registration system to cope with the
-                        new authentication mechanism.
-                    </div>
-                    <div layout="row" style="margin-bottom: 1em">
-                        I'll fix this as quickly as I can. And I'm very very sorry
-                        about any inconvenience that this might cause. If you have an
-                        urgent need to support images projects, please let me know
-                        and I'll see what I can do to help.
-                    </div>
-                    <!--
                     <div layout="row">
                         Provide an API key for Watson Visual Recognition.
                     </div>
@@ -54,15 +34,11 @@
                                 md-maxlength="44"></input>
                         </md-input-container>
                     </div>
-                    -->
                 </md-card-content>
                 <md-dialog-actions layout="row">
                     <span flex></span>
-                    <!--
                     <md-button type="submit" class="md-raised md-primary" ng-disabled="newCredentials.$invalid">Add</md-button>
                     <md-button ng-click="cancel()">Cancel</md-button>
-                    -->
-                    <md-button ng-click="cancel()">OK</md-button>
                 </md-dialog-actions>
             </div>
         </md-dialog-content>

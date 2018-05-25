@@ -756,12 +756,12 @@ describe('DB objects', () => {
 
         it('should create visual recognition credentials', () => {
             const creds = dbobjects.createBluemixCredentials('visrec', 'class',
-                'JykrybuxnMtGI8qQncMHKGugNunl5Z7jWXxoRDSa', undefined, undefined);
+                'Jykrybu3xnMtGI8qQncMHKaJ1GugNunl5Z7jWXxoRDSa', undefined, undefined);
             assert(creds.id);
             assert(creds.url);
             assert.equal(creds.servicetype, 'visrec');
-            assert.equal(creds.username, 'JykrybuxnMtGI8qQncMH');
-            assert.equal(creds.password, 'KGugNunl5Z7jWXxoRDSa');
+            assert.equal(creds.username, 'Jykrybu3xnMtGI8qQncMHK');
+            assert.equal(creds.password, 'aJ1GugNunl5Z7jWXxoRDSa');
         });
 
         it('should require a username for conversation credentials', (done) => {
@@ -822,7 +822,7 @@ describe('DB objects', () => {
 
 
 
-    describe('crete pending job', () => {
+    describe('create pending job', () => {
 
         const classid = 'classid';
         const userid = 'userid';

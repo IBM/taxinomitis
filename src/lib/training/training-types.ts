@@ -66,6 +66,17 @@ export interface VisualClassifier {
 
 export type VisualClassifierStatus = 'training' | 'ready' | 'Non Existent'| 'ERROR';
 
+/**
+ * Type of credentials for the Watson Visual Recognition service.
+ *
+ * 'legacy' refers to credentials created before May 22 2018,
+ *           which use an API Key query parameter for authentication.
+ * 'current' refers to credentials created after May 22 2018
+ *            which use a bearer token request header for auth.
+ */
+export type VisualRecCredsType = 'legacy' | 'current';
+
+
 
 export interface ClassifierDbRow {
     readonly id: string;

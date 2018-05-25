@@ -39,7 +39,7 @@ describe('REST API - Bluemix credentials', () => {
 
     const VALID_USERNAME = randomstring.generate({ length : 36 });
     const VALID_PASSWORD = randomstring.generate({ length : 12 });
-    const VALID_APIKEY = randomstring.generate({ length : 40 });
+    const VALID_APIKEY = randomstring.generate({ length : 44 });
 
 
     before(async () => {

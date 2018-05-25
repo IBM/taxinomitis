@@ -16,7 +16,7 @@ export const credsForVisRec: TrainingTypes.BluemixCredentials = {
     username : 'user',
     password : 'pass',
     servicetype : 'visrec',
-    url : 'http://visual.recognition.service',
+    url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
     classid : 'classid',
 };
 

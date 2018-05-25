@@ -136,7 +136,7 @@ describe('Scratchx - status', () => {
 
     describe('numbers projects', () => {
 
-        it('should return status 0 for untrained projects', async () => {
+        it('should return status 2 for untrained projects', async () => {
             const key: Types.ScratchKey = {
                 id : uuid(),
                 name : 'TEST',
@@ -146,7 +146,7 @@ describe('Scratchx - status', () => {
 
             const statusObj = await status.getStatus(key);
             assert.deepEqual(statusObj, {
-                status : 0,
+                status : 2,
                 msg : 'No models trained yet - only random answers can be chosen',
             });
         });

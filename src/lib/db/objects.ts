@@ -414,14 +414,16 @@ export function createBluemixCredentials(
 
     if (servicetype === 'visrec') {
         if (apikey) {
-            if (apikey.length === 40) {
+            if (apikey.length === 44 || apikey.length === 40) {
                 return {
                     id : uuid(),
-                    username : apikey.substr(0, 20),
-                    password : apikey.substr(20),
+                    username : apikey.substr(0, 22),
+                    password : apikey.substr(22),
                     classid,
                     servicetype : 'visrec',
-                    url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
+                    url : apikey.length === 40 ?
+                        'https://gateway-a.watsonplatform.net/visual-recognition/api' :
+                        'https://gateway.watsonplatform.net/visual-recognition/api',
                 };
             }
             else {

@@ -18,6 +18,7 @@ import * as store from '../../lib/db/store';
 import * as visrec from '../../lib/training/visualrecognition';
 import * as DbTypes from '../../lib/db/db-types';
 import * as TrainingTypes from '../../lib/training/training-types';
+import * as iam from '../../lib/iam';
 import * as downloadAndZip from '../../lib/utils/downloadAndZip';
 
 import * as mockstore from './mockstore';
@@ -45,6 +46,8 @@ describe('Training - Visual Recognition', () => {
 
 
     before(() => {
+        iam.init();
+
         getStub = sinon.stub(request, 'get');
         getStub.withArgs(sinon.match(/.*classifiers.*/), sinon.match.any).callsFake(mockVisRec.getClassifier);
         getStub.withArgs(sinon.match(/.*classify/), sinon.match.any).callsFake(mockVisRec.testClassify);
@@ -118,7 +121,7 @@ describe('Training - Visual Recognition', () => {
                 name : projectname,
                 classifierid : 'good',
                 status : 'training',
-                url : 'http://visual.recognition.service/v3/classifiers/good',
+                url : 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/good',
                 credentialsid : '456',
                 created : newClassifierDate,
                 expiry : newExpiryDate,
@@ -270,10 +273,10 @@ describe('Training - Visual Recognition', () => {
             assert(deleteStub.calledOnce);
             assert(deleteStoreStub.calledOnce);
 
-            assert(deleteStub.calledWith('http://visual.recognition.service/v3/classifiers/good', {
+            assert(deleteStub.calledWith('https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/good', {
                 qs : { version : '2016-05-20', api_key : 'userpass' },
                 headers : { 'user-agent' : 'machinelearningforkids' },
-                timeout : 120000,
+                timeout : 120000, gzip : true, json : true,
             }));
             assert(deleteStoreStub.calledWith(goodClassifier.id));
             assert(resetExpiredScratchKeyStub.called);
@@ -293,10 +296,10 @@ describe('Training - Visual Recognition', () => {
             assert(deleteStub.calledOnce);
             assert(deleteStoreStub.calledOnce);
 
-            assert(deleteStub.calledWith('http://visual.recognition.service/v3/classifiers/unknown', {
+            assert(deleteStub.calledWith('https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/unknown', {
                 qs : { version : '2016-05-20', api_key : 'userpass' },
                 headers : { 'user-agent' : 'machinelearningforkids' },
-                timeout : 120000,
+                timeout : 120000, gzip : true, json : true,
             }));
             assert(deleteStoreStub.calledWith(unknownClassifier.id));
             assert(resetExpiredScratchKeyStub.called);
@@ -342,7 +345,7 @@ describe('Training - Visual Recognition', () => {
         getClassifier : (url: string) => {
             return new Promise((resolve, reject) => {
                 switch (url) {
-                case 'http://visual.recognition.service/v3/classifiers/good':
+                case 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/good':
                     return resolve(goodClassifierStatus);
                 // case 'http://visual.recognition.service/v1/classifiers/bad':
                 //     return resolve(brokenClassifierStatus);
@@ -358,25 +361,25 @@ describe('Training - Visual Recognition', () => {
         deleteClassifier : (url: string) => {
             return new Promise((resolve, reject) => {
                 switch (url) {
-                case 'http://visual.recognition.service/v3/classifiers/good':
+                case 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/good':
                     return resolve();
-                case 'http://visual.recognition.service/v3/classifiers/bad':
+                case 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/bad':
                     return resolve();
-                case 'http://visual.recognition.service/v3/classifiers/stillgoing':
+                case 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/stillgoing':
                     return resolve();
                 default:
                     return reject({ error : 'Resource not found' });
                 }
             });
         },
-        testClassify : (url: string, opts: visrec.VisualRecogApiRequestPayloadTestFileItem | visrec.VisualRecogApiRequestPayloadTestUrlItem) => {
-            assert.equal(url, 'http://visual.recognition.service/v3/classify');
+        testClassify : (url: string, opts: visrec.LegacyTestFileRequest | visrec.LegacyTestUrlRequest) => {
+            assert.equal(url, 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classify');
             assert.equal(opts.qs.version, '2016-05-20');
             assert.equal(opts.qs.api_key, 'userpass');
             assert.equal(opts.headers['user-agent'], 'machinelearningforkids');
 
-            const fileOptions = opts as visrec.VisualRecogApiRequestPayloadTestFileItem;
-            const urlOptions = opts as visrec.VisualRecogApiRequestPayloadTestUrlItem;
+            const fileOptions = opts as visrec.LegacyTestFileRequest;
+            const urlOptions = opts as visrec.LegacyTestUrlRequest;
 
             if (urlOptions.qs.classifier_ids === 'good' && urlOptions.qs.url) {
                 assert.equal(urlOptions.qs.threshold, 0.0);
@@ -432,7 +435,7 @@ describe('Training - Visual Recognition', () => {
                 });
             }
         },
-        createClassifier : (url: string, options: visrec.VisualRecogApiRequestPayloadClassifierItem) => {
+        createClassifier : (url: string, options: visrec.LegacyTrainingRequest) => {
             if (options.formData.name === 'Bob\'s images proj') {
                 assert.equal(options.qs.version, '2016-05-20');
                 assert.equal(options.qs.api_key, 'userpass');
@@ -484,7 +487,7 @@ describe('Training - Visual Recognition', () => {
         name : 'good classifier',
         created : new Date(),
         expiry : new Date(),
-        url : 'http://visual.recognition.service/v3/classifiers/good',
+        url : 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/good',
         classifierid : 'good',
     };
     const goodClassifierWithStatus = Object.assign({}, goodClassifier, {
@@ -511,7 +514,7 @@ describe('Training - Visual Recognition', () => {
         name : 'unknown classifier',
         created : new Date(),
         expiry : new Date(),
-        url : 'http://visual.recognition.service/v3/classifiers/unknown',
+        url : 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/unknown',
         classifierid : 'unknown',
     };
     const unknownClassifierWithStatus = Object.assign({}, unknownClassifier, {
