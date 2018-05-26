@@ -1,6 +1,9 @@
 const store = require('../dist/lib/db/store');
+const iam = require('../dist/lib/iam');
 const creds = require('../dist/lib/training/credentials');
 
+
+iam.init();
 store.init()
     .then(() => {
         return creds.checkBluemixCredentials();
