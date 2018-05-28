@@ -23,6 +23,15 @@ export async function trainClassifier(
     try {
         // create a new classifier
         const data = await fetchTraining(project);
+        if (data.length === 0) {
+            // no training data available to train a classifier
+            return {
+                created : new Date(),
+                status: 'Failed',
+                classifierid : '',
+            };
+        }
+
         await submitTraining(project.classid, project.userid, project.id, data);
 
         status = 'Available';
@@ -83,13 +92,20 @@ export async function testClassifier(
     }
     catch (err) {
         if (err.statusCode === httpStatus.NOT_FOUND) {
+            // no ML model found, so try to train one now
+            //  and then try the call again
             const project = await store.getProject(projectid);
             if (!project) {
                 throw new Error('Project not found');
             }
 
-            await trainClassifier(project);
-            body = await request.post(url, req);
+            const classifier = await trainClassifier(project);
+            if (classifier.status === 'Available') {
+                body = await request.post(url, req);
+            }
+            else {
+                throw new Error('Failed to create classifier');
+            }
         }
         else {
             throw err;

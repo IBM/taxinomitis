@@ -291,7 +291,12 @@
                 teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-noughtsandcrosses.pdf',
                 downloads : [
                     {
+                        description : 'Classroom version, where each student makes the game themselves',
                         worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-noughtsandcrosses.pdf'
+                    },
+                    {
+                        description : 'Demo version, for events like Science Fairs where each child has a minute or two to try something',
+                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-noughtsandcrosses-event.pdf'
                     }
                 ]
             },

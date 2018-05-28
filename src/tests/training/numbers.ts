@@ -55,6 +55,7 @@ describe('Training - numbers service', () => {
             const project = await store.storeProject(USERID, CLASSID, 'numbers', 'good project', 'en', fields, false);
             await store.addLabelToProject(USERID, CLASSID, project.id, 'likes_animals');
             await store.addLabelToProject(USERID, CLASSID, project.id, 'hates_animals');
+            project.labels = ['likes_animals', 'hates_animals'];
 
             await store.bulkStoreNumberTraining(project.id, [
                 { label : 'likes_animals', numberdata : [3, 0, 0] },
@@ -104,6 +105,7 @@ describe('Training - numbers service', () => {
             goodProject = project.id;
             await store.addLabelToProject(USERID, CLASSID, project.id, 'likes_animals');
             await store.addLabelToProject(USERID, CLASSID, project.id, 'hates_animals');
+            project.labels = ['likes_animals', 'hates_animals'];
 
             await store.bulkStoreNumberTraining(project.id, [
                 { label : 'likes_animals', numberdata : [3, 0, 0] },
@@ -137,6 +139,7 @@ describe('Training - numbers service', () => {
             goodProject = project.id;
             await store.addLabelToProject(USERID, CLASSID, project.id, 'likes_animals');
             await store.addLabelToProject(USERID, CLASSID, project.id, 'hates_animals');
+            project.labels = ['likes_animals', 'hates_animals'];
 
             await store.bulkStoreNumberTraining(project.id, [
                 { label : 'likes_animals', numberdata : [3, 0, 0] },

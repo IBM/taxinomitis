@@ -108,18 +108,23 @@ async function classifyNumbers(key: Types.ScratchKey, numbers: string[]): Promis
         throw new Error('Missing data');
     }
 
-    if (key.classifierid && key.credentials) {
-        const resp = await numberService.testClassifier(
-            key.credentials.username,
-            key.credentials.password,
-            key.classifierid,
-            numbers.map(safeParseFloat));
-        return resp;
+    try {
+        if (key.classifierid && key.credentials) {
+            const resp = await numberService.testClassifier(
+                key.credentials.username,
+                key.credentials.password,
+                key.classifierid,
+                numbers.map(safeParseFloat));
+            return resp;
+        }
     }
-    else {
-        // we don't have a trained decision tree yet, so we resort to random
-        return chooseLabelsAtRandom(project);
+    catch (err) {
+        log.error({ err }, 'Failed to test numbers classifier');
     }
+
+    // we don't have a trained functional decision tree,
+    //  so we resort to choosing random
+    return chooseLabelsAtRandom(project);
 }
 
 
