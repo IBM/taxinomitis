@@ -210,6 +210,7 @@ async function testModel(req: Express.Request, res: Express.Response) {
     const modelid = req.params.modelid;
     const type = req.body.type;
     const credsid = req.body.credentialsid;
+    const requestTimestamp = new Date();
 
     try {
         if (type === 'text') {
@@ -219,7 +220,8 @@ async function testModel(req: Express.Request, res: Express.Response) {
             }
 
             const creds = await store.getBluemixCredentialsById(credsid);
-            const classes = await conversation.testClassifier(creds, modelid, projectid, text);
+
+            const classes = await conversation.testClassifier(creds, modelid, requestTimestamp, projectid, text);
             return res.json(classes);
         }
         else if (type === 'images') {
@@ -234,15 +236,15 @@ async function testModel(req: Express.Request, res: Express.Response) {
 
             let classes: Types.Classification[];
             if (imageurl) {
-                classes = await visualrec.testClassifierURL(creds, modelid, projectid, imageurl);
+                classes = await visualrec.testClassifierURL(creds, modelid, requestTimestamp, projectid, imageurl);
             }
             else {
-                const imagefile = await base64decode.run(imagedata);
+                const imgfile = await base64decode.run(imagedata);
                 try {
-                    classes = await visualrec.testClassifierFile(creds, modelid, projectid, imagefile);
+                    classes = await visualrec.testClassifierFile(creds, modelid, requestTimestamp, projectid, imgfile);
                 }
                 finally {
-                    fs.unlink(imagefile, logError);
+                    fs.unlink(imgfile, logError);
                 }
             }
             return res.json(classes);
@@ -253,7 +255,7 @@ async function testModel(req: Express.Request, res: Express.Response) {
                 return errors.missingData(res);
             }
 
-            const classes = await numbers.testClassifier(userid, classid, projectid, numberdata);
+            const classes = await numbers.testClassifier(userid, classid, requestTimestamp, projectid, numberdata);
             return res.json(classes);
         }
         else {

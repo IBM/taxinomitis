@@ -15,8 +15,11 @@ import * as conversation from '../../lib/training/conversation';
 import * as DbTypes from '../../lib/db/db-types';
 import * as TrainingTypes from '../../lib/training/training-types';
 
+import loggerSetup from '../../lib/utils/logger';
+
 import * as mockstore from './mockstore';
 
+const log = loggerSetup();
 
 
 describe('Training - Conversation', () => {
@@ -35,6 +38,7 @@ describe('Training - Conversation', () => {
     let deleteStoreStub: sinon.SinonStub;
     let storeScratchKeyStub: sinon.SinonStub;
     let resetExpiredScratchKeyStub: sinon.SinonStub;
+    let updateScratchKeyTimestampStub: sinon.SinonStub;
     let getClassStub: sinon.SinonStub;
 
 
@@ -55,6 +59,7 @@ describe('Training - Conversation', () => {
         updateConversationStub = sinon.stub(store, 'updateConversationWorkspaceExpiry').callsFake(mockstore.updateConversationWorkspaceExpiry);
         deleteStoreStub = sinon.stub(store, 'deleteConversationWorkspace').callsFake(mockstore.deleteConversationWorkspace);
         storeScratchKeyStub = sinon.stub(store, 'storeOrUpdateScratchKey').callsFake(mockstore.storeOrUpdateScratchKey);
+        updateScratchKeyTimestampStub = sinon.stub(store, 'updateScratchKeyTimestamp').callsFake(mockstore.updateScratchKeyTimestamp);
         resetExpiredScratchKeyStub = sinon.stub(store, 'resetExpiredScratchKey').callsFake(mockstore.resetExpiredScratchKey);
         getClassStub = sinon.stub(store, 'getClassTenant').callsFake(mockstore.getClassTenant);
     });
@@ -72,6 +77,7 @@ describe('Training - Conversation', () => {
         updateConversationStub.restore();
         deleteStoreStub.restore();
         storeScratchKeyStub.restore();
+        updateScratchKeyTimestampStub.restore();
         resetExpiredScratchKeyStub.restore();
         getClassStub.restore();
     });
@@ -257,15 +263,20 @@ describe('Training - Conversation', () => {
                 url : 'http://conversation.service',
                 classid : 'classid',
             };
-            const classes = await conversation.testClassifier(creds, 'good', 'projectbob', 'Hello');
+            const classifierTimestamp = new Date();
+            classifierTimestamp.setMilliseconds(0);
+
+            const classes = await conversation.testClassifier(creds, 'good', classifierTimestamp, 'projectbob', 'Hello');
             assert.deepEqual(classes, [
                 {
                     class_name : 'temperature',
                     confidence : 100,
+                    classifierTimestamp,
                 },
                 {
                     class_name : 'conditions',
                     confidence : 0,
+                    classifierTimestamp,
                 },
             ]);
         });
@@ -280,7 +291,7 @@ describe('Training - Conversation', () => {
                 url : 'http://conversation.service',
                 classid : 'classid',
             };
-            const classes = await conversation.testClassifier(creds, 'bad', 'projectbob', 'Hello');
+            const classes = await conversation.testClassifier(creds, 'bad', new Date(), 'projectbob', 'Hello');
             assert.equal(classes.length, 1);
             assert.equal(classes[0].confidence, 0);
             assert.equal(classes[0].random, true);
@@ -455,6 +466,7 @@ describe('Training - Conversation', () => {
             });
         },
         createClassifier : (url: string, options: conversation.ConversationApiRequestPayloadClassifierItem) => {
+            log.debug({ url, options }, 'mock create classifier');
             return new Promise((resolve, reject) => {
                 if (options.body.name === 'Bob\'s text project') {
 

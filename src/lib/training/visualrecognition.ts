@@ -81,7 +81,7 @@ async function createClassifier(
 
             await store.storeImageClassifier(credentials, project, classifier);
 
-            await store.storeOrUpdateScratchKey(project, credentials, classifier.classifierid);
+            await store.storeOrUpdateScratchKey(project, credentials, classifier.classifierid, classifier.created);
 
             return classifier;
         }
@@ -321,7 +321,7 @@ export async function deleteClassifierFromBluemix(
 
 export async function testClassifierFile(
     credentials: TrainingObjects.BluemixCredentials,
-    classifierid: string,
+    classifierid: string, classifierTimestamp: Date,
     projectid: string,
     imagefilepath: string,
 ): Promise<TrainingObjects.Classification[]>
@@ -353,7 +353,7 @@ export async function testClassifierFile(
         body.images[0].classifiers[0].classes)
     {
         return body.images[0].classifiers[0].classes.map((item) => {
-            return { class_name : item.class, confidence : Math.round(item.score * 100) };
+            return { class_name : item.class, confidence : Math.round(item.score * 100), classifierTimestamp };
         }).sort(sortByConfidence);
     }
     else {
@@ -365,7 +365,7 @@ export async function testClassifierFile(
 
 export async function testClassifierURL(
     credentials: TrainingObjects.BluemixCredentials,
-    classifierid: string,
+    classifierid: string, classifierTimestamp: Date,
     projectid: string,
     imageurl: string,
 ): Promise<TrainingObjects.Classification[]>
@@ -395,7 +395,7 @@ export async function testClassifierURL(
         body.images[0].classifiers[0].classes)
     {
         return body.images[0].classifiers[0].classes.map((item) => {
-            return { class_name : item.class, confidence : Math.round(item.score * 100) };
+            return { class_name : item.class, confidence : Math.round(item.score * 100), classifierTimestamp };
         }).sort(sortByConfidence);
     }
     else {

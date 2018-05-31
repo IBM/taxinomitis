@@ -190,7 +190,9 @@ describe('REST API - scratch keys', () => {
                 classid : TESTCLASS,
             };
 
-            const keyId = await store.storeScratchKey(project, credentials, classifierid);
+            const ts = new Date(2018, 6, 2, 1, 15, 0);
+
+            const keyId = await store.storeScratchKey(project, credentials, classifierid, ts);
 
             return request(testServer)
                 .get('/api/classes/' + TESTCLASS + '/students/' + userid + '/projects/' + projectid + '/scratchkeys')
@@ -1050,6 +1052,7 @@ describe('REST API - scratch keys', () => {
         }
 
 
+
         it('should return classes from a classifier', async () => {
             const userid = uuid();
             const name = uuid();
@@ -1066,6 +1069,8 @@ describe('REST API - scratch keys', () => {
 
             const workspaceId = randomstring.generate({ length : 32 });
 
+            const ts = new Date(2018, 3, 2, 1, 12, 0);
+
             const conversationWorkspace: Types.ConversationWorkspace = {
                 id : uuid(),
                 workspace_id : workspaceId,
@@ -1073,7 +1078,7 @@ describe('REST API - scratch keys', () => {
                 url : uuid(),
                 name,
                 language : 'en',
-                created : new Date(),
+                created : ts,
                 expiry : new Date(),
             };
 
@@ -1083,7 +1088,77 @@ describe('REST API - scratch keys', () => {
 
             const scratchKey = await store.storeOrUpdateScratchKey(
                 project,
-                credentials, conversationWorkspace.workspace_id);
+                credentials, conversationWorkspace.workspace_id, conversationWorkspace.created);
+
+            const conversationStub = sinon.stub(requestPromise, 'post').callsFake(mockClassifier);
+
+            conversationStub.resetHistory();
+            assert(conversationStub.notCalled);
+
+            await request(testServer)
+                .get('/api/scratch/' + scratchKey + '/classify')
+                .query({ callback : 'cb', data : 'haddock' })
+                // this is a JSONP API
+                .expect('Content-Type', /javascript/)
+                .expect(httpstatus.OK);
+
+            assert(conversationStub.calledOnce);
+
+            conversationStub.resetHistory();
+            assert(conversationStub.notCalled);
+
+            await request(testServer)
+                .get('/api/scratch/' + scratchKey + '/classify')
+                .set('If-Modified-Since', ts.toISOString())
+                .query({ callback : 'cb', data : 'haddock' })
+                .expect(httpstatus.NOT_MODIFIED);
+
+            assert(conversationStub.notCalled);
+
+            await store.deleteEntireProject(userid, TESTCLASS, project);
+            await store.deleteBluemixCredentials(credentials.id);
+
+            conversationStub.restore();
+        });
+
+
+
+        it('should return classes from a classifier', async () => {
+            const userid = uuid();
+            const name = uuid();
+            const typelabel = 'text';
+
+            const credentials = {
+                id : uuid(),
+                username : randomstring.generate({ length : 12 }),
+                password : randomstring.generate({ length : 20 }),
+                servicetype : 'conv' as Types.BluemixServiceType,
+                url : uuid(),
+                classid : TESTCLASS,
+            };
+
+            const workspaceId = randomstring.generate({ length : 32 });
+
+            const ts = new Date(2018, 3, 2, 1, 12, 0);
+
+            const conversationWorkspace: Types.ConversationWorkspace = {
+                id : uuid(),
+                workspace_id : workspaceId,
+                credentialsid : credentials.id,
+                url : uuid(),
+                name,
+                language : 'en',
+                created : ts,
+                expiry : new Date(),
+            };
+
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
+            await store.storeBluemixCredentials(TESTCLASS, credentials);
+            await store.storeConversationWorkspace(credentials, project, conversationWorkspace);
+
+            const scratchKey = await store.storeOrUpdateScratchKey(
+                project,
+                credentials, conversationWorkspace.workspace_id, conversationWorkspace.created);
 
             const conversationStub = sinon.stub(requestPromise, 'post').callsFake(mockClassifier);
 
@@ -1107,8 +1182,8 @@ describe('REST API - scratch keys', () => {
                     const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
 
                     assert.deepEqual(payload, [
-                        { class_name: 'temperature', confidence: 64 },
-                        { class_name: 'conditions', confidence: 36 },
+                        { class_name: 'temperature', confidence: 64, classifierTimestamp : ts.toISOString() },
+                        { class_name: 'conditions', confidence: 36, classifierTimestamp : ts.toISOString() },
                     ]);
 
                     await store.deleteEntireProject(userid, TESTCLASS, project);
@@ -1150,6 +1225,9 @@ describe('REST API - scratch keys', () => {
 
             const workspaceId = randomstring.generate({ length : 32 });
 
+            const ts = new Date();
+            ts.setMilliseconds(0);
+
             const conversationWorkspace: Types.ConversationWorkspace = {
                 id : uuid(),
                 workspace_id : workspaceId,
@@ -1157,7 +1235,7 @@ describe('REST API - scratch keys', () => {
                 url : uuid(),
                 name,
                 language : 'en',
-                created : new Date(),
+                created : ts,
                 expiry : new Date(),
             };
 
@@ -1167,7 +1245,7 @@ describe('REST API - scratch keys', () => {
 
             const scratchKey = await store.storeOrUpdateScratchKey(
                 project,
-                credentials, conversationWorkspace.workspace_id);
+                credentials, conversationWorkspace.workspace_id, conversationWorkspace.created);
 
             const conversationStub = sinon.stub(requestPromise, 'post').callsFake(mockClassifier);
 
@@ -1180,8 +1258,8 @@ describe('REST API - scratch keys', () => {
                     const payload = res.body;
 
                     assert.deepEqual(payload, [
-                        { class_name: 'temperature', confidence: 64 },
-                        { class_name: 'conditions', confidence: 36 },
+                        { class_name: 'temperature', confidence: 64, classifierTimestamp : ts.toISOString() },
+                        { class_name: 'conditions', confidence: 36, classifierTimestamp : ts.toISOString() },
                     ]);
 
                     await store.deleteEntireProject(userid, TESTCLASS, project);
@@ -1223,7 +1301,7 @@ describe('REST API - scratch keys', () => {
 
             const scratchKey = await store.storeOrUpdateScratchKey(
                 project,
-                credentials, workspace.workspace_id);
+                credentials, workspace.workspace_id, workspace.created);
 
             const conversationStub = sinon.stub(requestPromise, 'post').callsFake(brokenClassifier);
 

@@ -126,6 +126,7 @@ export interface ScratchKey {
     readonly type: ProjectTypeLabel;
     readonly credentials?: TrainingObjects.BluemixCredentials;
     readonly classifierid?: string;
+    readonly updated: Date;
 }
 
 export interface ScratchKeyDbRow {
@@ -138,6 +139,7 @@ export interface ScratchKeyDbRow {
     readonly serviceusername: string;
     readonly servicepassword: string;
     readonly classifierid: string;
+    readonly updated: Date;
 }
 
 

@@ -583,12 +583,14 @@ export function createScratchKey(
     name: string, type: Objects.ProjectTypeLabel,
     projectid: string,
     classifierid: string,
+    timestamp: Date,
 ): Objects.ScratchKey
 {
     return {
         id : uuid() + uuidv4(),
         name, type, projectid,
         credentials, classifierid,
+        updated : timestamp,
     };
 }
 
@@ -599,6 +601,7 @@ export function createUntrainedScratchKey(
     return {
         id : uuid() + uuidv4(),
         name, type, projectid,
+        updated : new Date(),
     };
 }
 
@@ -633,6 +636,7 @@ export function getScratchKeyFromDbRow(row: Objects.ScratchKeyDbRow): Objects.Sc
                 classid : row.classid,
             },
             classifierid : row.classifierid,
+            updated : row.updated,
         };
     }
     else {
@@ -641,6 +645,7 @@ export function getScratchKeyFromDbRow(row: Objects.ScratchKeyDbRow): Objects.Sc
             projectid : row.projectid,
             name : row.projectname,
             type : row.projecttype,
+            updated : row.updated,
         };
     }
 }

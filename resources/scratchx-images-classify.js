@@ -4,6 +4,8 @@
     var STATUS_WARNING = 1;
     var STATUS_OK = 2;
 
+    var TEN_SECONDS = 10 * 1000;
+
 
     var classifierStatus = {
         status : STATUS_WARNING,
@@ -12,13 +14,41 @@
 
     ext._shutdown = function() {};
 
+    ext.resultscache = {
+        // schema:
+        //
+        // cacheKey (md5 hash of image) : {
+        //
+        //    // returned by the API
+        //    class_name : topClassName,
+        //    confidence : topClassConfidence,
+        //    classifierTimestamp : isoStringDateTime,
+        //
+        //    // added locally
+        //    fetched : timestamp-ms-since-epoch
+        // }
+    };
+
     ext._getStatus = function() {
         return classifierStatus;
     };
 
 
+
+    // returns the current date in the format that the API uses
+    function nowAsString() {
+        return new Date().toISOString();
+    }
+
+
+    // are we currently checking the classifier status?
+    //  used as a primitive lock to prevent multiple concurrent checks being made
     var checkingStatus = false;
 
+
+    // Submit xhr request to the status API to get the current status
+    //  of the machine learning model. This will be called repeatedly
+    //  to poll the classifier status.
     function getStatus(callback) {
         checkingStatus = true;
 
@@ -52,29 +82,62 @@
     }
 
 
-    function classifyImage(imagedata, callback) {
+    // Submit xhr request to the classify API to get a label for the image
+    function classifyImage(imagedata, cacheKey, lastmodified, callback) {
         $.ajax({
             url : '{{{ classifyurl }}}',
-            type : 'POST',
             dataType : 'json',
+            type : 'POST',
             contentType : 'application/json',
             data : '{"data":"' + imagedata + '"}',
-            success : function (data) {
+            headers : {
+                'If-Modified-Since': lastmodified
+            },
+            success : function (data, status) {
                 var result;
-                if (data.length > 0) {
+
+                if (status === 'notmodified') {
+                    // the API returned an HTTP-304 so we'll reuse
+                    //  the value we got last time
+                    result = ext.resultscache[cacheKey];
+                }
+                else if (data && data.length > 0) {
+                    // we got a result from the classifier
                     result = data[0];
                 }
                 else {
-                    result = { class_name : 'Unknown', confidence : 0 };
+                    // we got an API response successfully, but the response
+                    //  is that the classifier could not classify the image
+                    result = {
+                        class_name : 'Unknown',
+                        confidence : 0,
+                        classifierTimestamp : nowAsString()
+                    };
                 }
 
-                if (result.random && classifierStatus.status === STATUS_OK) {
-                    // we got a randomly selected result (which means we must not have a working classifier)
-                    //  but we thought we had a model with a good status
-                    // check the status again!
-                    initStatusCheck();
+
+                if (result.random) {
+                    if (classifierStatus.status === STATUS_OK) {
+                        // We got a randomly selected result (which means we must not
+                        //  have a working classifier) but we thought we had a model
+                        //  with a good status.
+                        // This should not be possible - we've gotten into a weird
+                        //  unexpected state.
+                        //
+                        // Check the status again!
+                        initStatusCheck();
+                    }
+                }
+                else {
+                    // timestamp used for local throttling
+                    result.fetched = Date.now();
+
+                    // if the result was chosen at random (instead of using
+                    //  a trained classifier) then we don't cache it
+                    ext.resultscache[cacheKey] = result;
                 }
 
+                // return the final result (either from cache or API response)
                 callback(result);
             },
             error : function (err) {
@@ -119,23 +182,65 @@
     }
 
 
+    function veryRecently(timestamp) {
+        return (timestamp + TEN_SECONDS) > Date.now();
+    }
+
+
+
+    function getImageClassificationResponse(imagedata, cacheKey, valueToReturn, callback) {
+        var cached = ext.resultscache[cacheKey];
+
+        // protect against kids putting the ML block inside a forever
+        //  loop making too many requests too quickly
+        // this throttling means we won't try and classify the same
+        //  string more than once every 10 seconds
+        if (cached && cached.fetched && veryRecently(cached.fetched)) {
+            return callback(cached[valueToReturn]);
+        }
+
+        // if we have a cached value, get it's timestamp
+        var lastmodified = nowAsString();
+        if (cached && cached.classifierTimestamp) {
+            lastmodified = cached.classifierTimestamp;
+        }
+
+        // submit to the classify API
+        classifyImage(imagedata, cacheKey, lastmodified, function (result) {
+            // return the requested value from the response
+            callback(result[valueToReturn]);
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     ext.image_classification_label = function (imagedata, callback) {
-        classifyImage(imagedata, function (result) {
-            callback(result.class_name);
-        });
-    };
-    ext.image_classification_confidence = function (imagedata, callback) {
-        classifyImage(imagedata, function (result) {
-            callback(result.confidence);
-        });
+        getImageClassificationResponse(imagedata, md5(imagedata), 'class_name', callback);
     };
 
+    ext.image_classification_confidence = function (imagedata, callback) {
+        getImageClassificationResponse(imagedata, md5(imagedata), 'confidence', callback);
+    };
 
     ext.image_store = function (imagedata, label, callback) {
         // TODO verify label
+
+
+
+
+
         storeImage(imagedata, label, callback);
     };
-
 
 
     {{#labels}}

@@ -14,9 +14,10 @@ import * as visualrecog from '../../lib/training/visualrecognition';
 import * as numbers from '../../lib/training/numbers';
 import * as DbTypes from '../../lib/db/db-types';
 import * as Types from '../../lib/training/training-types';
+import loggerSetup from '../../lib/utils/logger';
 import testapiserver from './testserver';
 
-
+const log = loggerSetup();
 
 let testServer: express.Express;
 
@@ -120,10 +121,12 @@ describe('REST API - models', () => {
             }
         });
         conversationStub.testClassifierStub.callsFake(() => {
+            log.debug('conversationStub testClassifier stub');
+            const classifierTimestamp = new Date(Date.UTC(2017, 4, 4, 12, 1));
             const classifications: Types.Classification[] = [
-                { class_name : 'first', confidence : 0.8 },
-                { class_name : 'second', confidence : 0.15 },
-                { class_name : 'third', confidence : 0.05 },
+                { class_name : 'first', confidence : 0.8, classifierTimestamp },
+                { class_name : 'second', confidence : 0.15, classifierTimestamp },
+                { class_name : 'third', confidence : 0.05, classifierTimestamp },
             ];
             return Promise.resolve(classifications);
         });
@@ -139,10 +142,11 @@ describe('REST API - models', () => {
             });
         });
         numbersStub.testClassifierStub.callsFake(() => {
+            const classifierTimestamp = new Date();
             const classifications: Types.Classification[] = [
-                { class_name : 'first', confidence : 0.8 },
-                { class_name : 'second', confidence : 0.15 },
-                { class_name : 'third', confidence : 0.05 },
+                { class_name : 'first', confidence : 0.8, classifierTimestamp },
+                { class_name : 'second', confidence : 0.15, classifierTimestamp },
+                { class_name : 'third', confidence : 0.05, classifierTimestamp },
             ];
             return Promise.resolve(classifications);
         });
@@ -1023,10 +1027,13 @@ describe('REST API - models', () => {
                 .then(async (res) => {
                     const body = res.body;
 
+                    const classifierTimestamp = body[0].classifierTimestamp;
+                    assert(classifierTimestamp);
+
                     assert.deepEqual(body, [
-                        { class_name : 'first', confidence : 0.8 },
-                        { class_name : 'second', confidence : 0.15 },
-                        { class_name : 'third', confidence : 0.05 },
+                        { class_name : 'first', confidence : 0.8, classifierTimestamp },
+                        { class_name : 'second', confidence : 0.15, classifierTimestamp },
+                        { class_name : 'third', confidence : 0.05, classifierTimestamp },
                     ]);
 
                     await store.deleteEntireUser(userid, classid);
@@ -1048,10 +1055,13 @@ describe('REST API - models', () => {
                 .then((res) => {
                     const body = res.body;
 
+                    const classifierTimestamp = body[0].classifierTimestamp;
+                    assert(classifierTimestamp);
+
                     assert.deepEqual(body, [
-                        { class_name : 'first', confidence : 0.8 },
-                        { class_name : 'second', confidence : 0.15 },
-                        { class_name : 'third', confidence : 0.05 },
+                        { class_name : 'first', confidence : 0.8, classifierTimestamp },
+                        { class_name : 'second', confidence : 0.15, classifierTimestamp },
+                        { class_name : 'third', confidence : 0.05, classifierTimestamp },
                     ]);
                 });
         });

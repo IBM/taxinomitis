@@ -40,6 +40,7 @@ describe('Scratchx - status', () => {
                 name : 'TEST',
                 type : 'text',
                 projectid : uuid(),
+                updated : new Date(),
             };
 
             const statusObj = await status.getStatus(key);
@@ -66,6 +67,7 @@ describe('Scratchx - status', () => {
                     servicetype : 'conv',
                     classid : '',
                 },
+                updated : new Date(),
             };
 
             testStatus.status = 'Non Existent';
@@ -94,6 +96,7 @@ describe('Scratchx - status', () => {
                     servicetype : 'conv',
                     classid : '',
                 },
+                updated : new Date(),
             };
 
             testStatus.status = 'Training';
@@ -121,6 +124,7 @@ describe('Scratchx - status', () => {
                     servicetype : 'conv',
                     classid : '',
                 },
+                updated : new Date(),
             };
 
             testStatus.status = 'Available';
@@ -142,6 +146,7 @@ describe('Scratchx - status', () => {
                 name : 'TEST',
                 type : 'numbers',
                 projectid : uuid(),
+                updated : new Date(),
             };
 
             const statusObj = await status.getStatus(key);
@@ -159,6 +164,7 @@ describe('Scratchx - status', () => {
                 type : 'numbers',
                 projectid : uuid(),
                 classifierid : uuid(),
+                updated : new Date(),
             };
 
             const statusObj = await status.getStatus(key);
@@ -200,6 +206,7 @@ describe('Scratchx - status', () => {
                 name : 'TEST',
                 type : 'images',
                 projectid : uuid(),
+                updated : new Date(),
             };
 
             const statusObj = await status.getStatus(key);
@@ -226,6 +233,7 @@ describe('Scratchx - status', () => {
                     servicetype : 'conv',
                     classid : '',
                 },
+                updated : new Date(),
             };
 
             testStatus.status = 'Non Existent';
@@ -254,6 +262,7 @@ describe('Scratchx - status', () => {
                     servicetype : 'conv',
                     classid : '',
                 },
+                updated : new Date(),
             };
 
             testStatus.status = 'training';
@@ -281,6 +290,7 @@ describe('Scratchx - status', () => {
                     servicetype : 'conv',
                     classid : '',
                 },
+                updated : new Date(),
             };
 
             testStatus.status = 'ready';
@@ -298,6 +308,7 @@ describe('Scratchx - status', () => {
                 name : 'TEST',
                 type : 'images',
                 projectid : uuid(),
+                updated : new Date(),
             };
 
             const statusObj = await status.getStatus(key);

@@ -60,9 +60,17 @@ async function classifyWithScratchKey(req: Express.Request, res: Express.Respons
         }
 
         const scratchKey = await store.getScratchKey(apikey);
+
+        if (req.header('if-modified-since') &&
+            scratchKey.updated &&
+            scratchKey.updated.toISOString() === req.header('if-modified-since'))
+        {
+            return res.sendStatus(httpstatus.NOT_MODIFIED);
+        }
+
         const classes = await classifier.classify(scratchKey, req.query.data);
 
-        return res.set(headers.NO_CACHE).jsonp(classes);
+        return res.set(headers.CACHE_10SECONDS).jsonp(classes);
     }
     catch (err) {
         if (err.message === 'Missing data') {
@@ -83,9 +91,17 @@ async function postClassifyWithScratchKey(req: Express.Request, res: Express.Res
         }
 
         const scratchKey = await store.getScratchKey(apikey);
+
+        if (req.header('if-modified-since') &&
+            scratchKey.updated &&
+            scratchKey.updated.toISOString() === req.header('if-modified-since'))
+        {
+            return res.sendStatus(httpstatus.NOT_MODIFIED);
+        }
+
         const classes = await classifier.classify(scratchKey, req.body.data);
 
-        return res.set(headers.NO_CACHE).json(classes);
+        return res.json(classes);
     }
     catch (err) {
         if (err.message === 'Missing data') {

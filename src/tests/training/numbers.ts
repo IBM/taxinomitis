@@ -118,12 +118,19 @@ describe('Training - numbers service', () => {
             goodProject = 'CLEARED';
             missingProject = project.id;
 
-            const classifications = await numbers.testClassifier(USERID, CLASSID, project.id, [10, 5, 0.5]);
+            const classifierTimestamp = new Date();
+            classifierTimestamp.setMilliseconds(0);
+
+            const classifications = await numbers.testClassifier(
+                USERID, CLASSID,
+                classifierTimestamp,
+                project.id, [10, 5, 0.5]);
+
             assert.deepEqual(classifications, [
-                { class_name: 'label_name_2', confidence: 90 },
-                { class_name: 'label_name_1', confidence: 86 },
-                { class_name: 'label_name_4', confidence: 46 },
-                { class_name: 'label_name_3', confidence: 13 },
+                { class_name: 'label_name_2', confidence: 90, classifierTimestamp },
+                { class_name: 'label_name_1', confidence: 86, classifierTimestamp },
+                { class_name: 'label_name_4', confidence: 46, classifierTimestamp },
+                { class_name: 'label_name_3', confidence: 13, classifierTimestamp },
             ]);
 
             await store.deleteEntireProject(USERID, CLASSID, project);
@@ -209,12 +216,18 @@ describe('Training - numbers service', () => {
                 assert.equal(credentials.password, CLASSID);
             }
 
-            const classifications = await numbers.testClassifier(USERID, CLASSID, project.id, [10, 5, 0.5]);
+            const classifierTimestamp = new Date();
+            classifierTimestamp.setMilliseconds(0);
+
+            const classifications = await numbers.testClassifier(
+                USERID, CLASSID,
+                classifierTimestamp,
+                project.id, [10, 5, 0.5]);
             assert.deepEqual(classifications, [
-                { class_name: 'label_name_2', confidence: 90 },
-                { class_name: 'label_name_1', confidence: 86 },
-                { class_name: 'label_name_4', confidence: 46 },
-                { class_name: 'label_name_3', confidence: 13 },
+                { class_name: 'label_name_2', confidence: 90, classifierTimestamp },
+                { class_name: 'label_name_1', confidence: 86, classifierTimestamp },
+                { class_name: 'label_name_4', confidence: 46, classifierTimestamp },
+                { class_name: 'label_name_3', confidence: 13, classifierTimestamp },
             ]);
 
             assert(postStub.calledWith(sinon.match.any, {

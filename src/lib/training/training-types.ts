@@ -120,6 +120,12 @@ export interface Classification {
     // true if this was a randomly generated "classification"
     //  created while waiting for a classifier to be ready
     readonly random?: boolean;
+
+    // the time that the classifier (which returned this
+    //  classification) was trained
+    // allows classifications to be cached by clients, with
+    //  the cache expiring when there is a new classifier
+    readonly classifierTimestamp: Date;
 }
 
 export interface File {

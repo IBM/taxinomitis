@@ -229,6 +229,9 @@ describe('Training - Visual Recognition', () => {
 
         const PLACEHOLDER_IMAGE_FILE = '/tmp/image.jpg';
 
+        const classifierTimestamp = new Date();
+        classifierTimestamp.setMilliseconds(0);
+
         before((done) => {
             fs.writeFile(PLACEHOLDER_IMAGE_FILE, 'placeholderdata', done);
         });
@@ -238,19 +241,19 @@ describe('Training - Visual Recognition', () => {
 
         it('should classify images by URL', async () => {
             const creds = mockstore.credsForVisRec;
-            const classes = await visrec.testClassifierURL(creds, 'good', 'projectbobvis', 'http://test.com/image.jpg');
+            const classes = await visrec.testClassifierURL(creds, 'good', classifierTimestamp, 'projectbobvis', 'http://test.com/image.jpg');
             assert.deepEqual(classes, [
-                { class_name : 'rock', confidence : 65 },
-                { class_name : 'paper', confidence : 13 },
+                { class_name : 'rock', confidence : 65, classifierTimestamp },
+                { class_name : 'paper', confidence : 13, classifierTimestamp },
             ]);
         });
 
         it('should classify images by file', async () => {
             const creds = mockstore.credsForVisRec;
-            const classes = await visrec.testClassifierFile(creds, 'good', 'projectbobvis', PLACEHOLDER_IMAGE_FILE);
+            const classes = await visrec.testClassifierFile(creds, 'good', classifierTimestamp, 'projectbobvis', PLACEHOLDER_IMAGE_FILE);
             assert.deepEqual(classes, [
-                { class_name : 'rock', confidence : 75 },
-                { class_name : 'paper', confidence : 3 },
+                { class_name : 'rock', confidence : 75, classifierTimestamp },
+                { class_name : 'paper', confidence : 3, classifierTimestamp },
             ]);
         });
 

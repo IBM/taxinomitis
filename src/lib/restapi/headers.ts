@@ -3,6 +3,10 @@ export const NO_CACHE = {
     'Expires' : 0,
 };
 
+export const CACHE_10SECONDS = {
+    'Cache-Control' : 'max-age=10',
+};
+
 export const CACHE_1MINUTE = {
     'Cache-Control' : 'max-age=60',
 };

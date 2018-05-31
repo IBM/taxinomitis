@@ -74,7 +74,9 @@ describe('ScratchKeys store', () => {
         };
         const classifierid = randomstring.generate({ length : 12 });
 
-        await store.storeOrUpdateScratchKey(project, credentials, classifierid);
+        const ts = new Date(2018, 5, 30, 1, 2, 3);
+
+        await store.storeOrUpdateScratchKey(project, credentials, classifierid, ts);
 
         const retrievedAfter: any = await store.getScratchKey(keyid);
         delete credentials.id;
@@ -85,6 +87,7 @@ describe('ScratchKeys store', () => {
         assert.equal(retrievedAfter.type, 'text');
         assert.deepEqual(retrievedAfter.credentials, credentials);
         assert.equal(retrievedAfter.classifierid, classifierid);
+        assert.strictEqual(retrievedAfter.updated.getTime(), ts.getTime());
     });
 
 
@@ -122,7 +125,7 @@ describe('ScratchKeys store', () => {
 
         const keyid = await store.storeOrUpdateScratchKey(
             project,
-            credentials, classifierid,
+            credentials, classifierid, new Date(),
         );
 
         return store.deleteScratchKey(keyid);
@@ -140,10 +143,11 @@ describe('ScratchKeys store', () => {
             classid : reusedClassid,
         };
         const classifierid = randomstring.generate({ length : 12 });
+        const ts = new Date(2018, 3, 2, 1, 15, 12);
 
         const keyid = await store.storeOrUpdateScratchKey(
             project,
-            credentials, classifierid,
+            credentials, classifierid, ts,
         );
 
         const retrieved: any = await store.getScratchKey(keyid);
@@ -155,6 +159,7 @@ describe('ScratchKeys store', () => {
         assert.equal(retrieved.type, project.type);
         assert.deepEqual(retrieved.credentials, credentials);
         assert.equal(retrieved.classifierid, classifierid);
+        assert.strictEqual(retrieved.updated.getTime(), ts.getTime());
     });
 
 
@@ -168,10 +173,11 @@ describe('ScratchKeys store', () => {
             classid : reusedClassid,
         };
         const classifierid = randomstring.generate({ length : 12 });
+        const ts = new Date(2018, 3, 18, 3, 10, 0);
 
         const keyid = await store.storeOrUpdateScratchKey(
             project,
-            credentials, classifierid,
+            credentials, classifierid, ts,
         );
 
         const response: any[] = await store.findScratchKeys(project.userid, project.id, project.classid);
@@ -186,6 +192,7 @@ describe('ScratchKeys store', () => {
         assert.equal(retrieved.type, project.type);
         assert.deepEqual(retrieved.credentials, credentials);
         assert.equal(retrieved.classifierid, classifierid);
+        assert.strictEqual(retrieved.updated.getTime(), ts.getTime());
 
         return store.deleteScratchKey(keyid);
     });
@@ -206,8 +213,10 @@ describe('ScratchKeys store', () => {
 
         const classifierIDs = [ classifieridA, classifieridB, classifieridC, classifieridD ];
 
+        const ts = new Date(2018, 1, 1, 1, 1, 1);
+
         for (const classifierid of classifierIDs) {
-            await store.storeScratchKey(project, credentials, classifierid);
+            await store.storeScratchKey(project, credentials, classifierid, ts);
         }
 
         const response: any[] = await store.findScratchKeys(project.userid, project.id, project.classid);
@@ -221,6 +230,7 @@ describe('ScratchKeys store', () => {
             assert.equal(retrieved.name, project.name);
             assert.equal(retrieved.type, project.type);
             assert.deepEqual(retrieved.credentials, credentials);
+            assert.strictEqual(retrieved.updated.getTime(), ts.getTime());
 
             assert(classifierIDs.indexOf(retrieved.classifierid) >= 0);
         }
@@ -239,16 +249,20 @@ describe('ScratchKeys store', () => {
         };
         const classifierid = randomstring.generate({ length : 12 });
 
+        const before = new Date(2018, 1, 1, 0, 0, 0);
+
         const keyid = await store.storeOrUpdateScratchKey(
             project,
-            credentials, classifierid,
+            credentials, classifierid, before,
         );
 
         const newClassifierId = randomstring.generate({ length : 11 });
 
+        const after = new Date(2018, 2, 2, 0, 0, 0);
+
         const updatedKeyId = await store.storeOrUpdateScratchKey(
             project,
-            credentials, newClassifierId,
+            credentials, newClassifierId, after,
         );
 
         assert.equal(updatedKeyId, keyid);
@@ -263,6 +277,7 @@ describe('ScratchKeys store', () => {
         assert.deepEqual(retrieved.credentials, credentials);
 
         assert.equal(retrieved.classifierid, newClassifierId);
+        assert.strictEqual(retrieved.updated.getTime(), after.getTime());
     });
 
 
@@ -276,10 +291,11 @@ describe('ScratchKeys store', () => {
             classid : reusedClassid,
         };
         const classifierid = randomstring.generate({ length : 12 });
+        const ts = new Date();
 
         const keyid = await store.storeOrUpdateScratchKey(
             project,
-            credentials, classifierid,
+            credentials, classifierid, ts,
         );
 
         await store.deleteScratchKey(keyid);
@@ -309,6 +325,7 @@ describe('ScratchKeys store', () => {
         const keyid = await store.storeOrUpdateScratchKey(
             project,
             credentials, classifierid,
+            new Date(),
         );
 
         await store.deleteScratchKeysByProjectId(project.id);
@@ -357,7 +374,7 @@ describe('ScratchKeys store', () => {
 
         const scratchKey: string = await store.storeOrUpdateScratchKey(
             project,
-            credentials, expired.workspace_id,
+            credentials, expired.workspace_id, now,
         );
 
         const verifyBefore = await store.getScratchKey(scratchKey);

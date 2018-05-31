@@ -92,7 +92,7 @@ async function createWorkspace(
             await store.storeConversationWorkspace(credentials, project, workspace);
 
             await store.storeOrUpdateScratchKey(project,
-                credentials, workspace.workspace_id);
+                credentials, workspace.workspace_id, workspace.created);
 
             return workspace;
         }
@@ -174,6 +174,9 @@ async function updateWorkspace(
             tenantPolicy);
 
         await store.updateConversationWorkspaceExpiry(modified);
+
+        const timestamp = modified.updated ? modified.updated : modified.created;
+        await store.updateScratchKeyTimestamp(project, timestamp);
 
         return modified;
     }
@@ -440,7 +443,7 @@ async function submitTrainingToConversation(
 
 export async function testClassifier(
     credentials: TrainingObjects.BluemixCredentials,
-    classifierId: string,
+    classifierId: string, classifierTimestamp: Date,
     projectid: string,
     text: string,
 ): Promise<TrainingObjects.Classification[]>
@@ -469,7 +472,7 @@ export async function testClassifier(
         if (body.intents.length === 0) {
             const project = await store.getProject(projectid);
             if (project) {
-                return [ chooseLabelAtRandom(project) ];
+                return [ chooseLabelAtRandom(project, classifierTimestamp) ];
             }
             else {
                 return [];
@@ -477,7 +480,11 @@ export async function testClassifier(
         }
 
         return body.intents.map((item: ConversationApiResponsePayloadIntentItem) => {
-            return { class_name : item.intent, confidence : Math.round(item.confidence * 100) };
+            return {
+                class_name : item.intent,
+                confidence : Math.round(item.confidence * 100),
+                classifierTimestamp,
+            };
         });
     }
     catch (err) {
@@ -495,9 +502,14 @@ export async function testClassifier(
 
 
 
-function chooseLabelAtRandom(project: DbObjects.Project): TrainingObjects.Classification {
+function chooseLabelAtRandom(project: DbObjects.Project, classifierTimestamp: Date): TrainingObjects.Classification {
     const randomIndex = Math.floor(Math.random() * project.labels.length);
-    return { class_name : project.labels[randomIndex], confidence : 0, random : true };
+    return {
+        class_name : project.labels[randomIndex],
+        confidence : 0,
+        random : true,
+        classifierTimestamp,
+    };
 }
 
 

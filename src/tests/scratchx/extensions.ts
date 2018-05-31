@@ -17,6 +17,7 @@ describe('Scratchx - status', () => {
                 type : 'text',
                 projectid : uuid(),
                 classifierid : uuid(),
+                updated : new Date(),
             };
             const proj: Types.Project = {
                 id : uuid(),
@@ -53,6 +54,7 @@ describe('Scratchx - status', () => {
                 type : 'text',
                 projectid : uuid(),
                 classifierid : uuid(),
+                updated : new Date(),
             };
             const proj: Types.Project = {
                 id : uuid(),
@@ -96,6 +98,7 @@ describe('Scratchx - status', () => {
                 type : 'numbers',
                 projectid : uuid(),
                 classifierid : uuid(),
+                updated : new Date(),
             };
             const proj: Types.Project = {
                 id : uuid(),
@@ -163,6 +166,7 @@ describe('Scratchx - status', () => {
                 type : 'images',
                 projectid : uuid(),
                 classifierid : uuid(),
+                updated : new Date(),
             };
             const proj: Types.Project = {
                 id : uuid(),

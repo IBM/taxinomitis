@@ -1041,9 +1041,9 @@ export async function updateConversationWorkspaceExpiry(
 ): Promise<void>
 {
     const queryString: string = 'UPDATE `bluemixclassifiers` ' +
-                                'SET `expiry` = ? ' +
+                                'SET `created` = ?, `expiry` = ? ' +
                                 'WHERE `id` = ?';
-    const values = [ workspace.expiry, workspace.id ];
+    const values = [ workspace.created, workspace.expiry, workspace.id ];
 
     const response = await dbExecute(queryString, values);
     if (response.affectedRows !== 1) {
@@ -1260,13 +1260,13 @@ export async function storeUntrainedScratchKey(project: Objects.Project): Promis
     const queryString = 'INSERT INTO `scratchkeys` ' +
                         '(`id`, ' +
                         '`projectid`, `projectname`, `projecttype`, ' +
-                        '`userid`, `classid`) ' +
-                        'VALUES (?, ?, ?, ?, ?, ?)';
+                        '`userid`, `classid`, `updated`) ' +
+                        'VALUES (?, ?, ?, ?, ?, ?, ?)';
 
     const values = [
         obj.id,
         project.id, obj.name, obj.type,
-        project.userid, project.classid,
+        project.userid, project.classid, obj.updated,
     ];
 
     const response = await dbExecute(queryString, values);
@@ -1284,10 +1284,12 @@ export function resetExpiredScratchKey(id: string, projecttype: Objects.ProjectT
 {
     const queryString = 'UPDATE `scratchkeys` ' +
                         'SET `classifierid` = ? , ' +
-                            '`serviceurl` = ? , `serviceusername` = ? , `servicepassword` = ? ' +
+                            '`serviceurl` = ? , `serviceusername` = ? , `servicepassword` = ?, ' +
+                            '`updated` = ? ' +
                         'WHERE `classifierid` = ? AND `projecttype` = ?';
     const values = [
         null, null, null, null,
+        new Date(),
         id, projecttype,
     ];
 
@@ -1302,7 +1304,7 @@ export function resetExpiredScratchKey(id: string, projecttype: Objects.ProjectT
 export async function storeOrUpdateScratchKey(
     project: Objects.Project,
     credentials: TrainingObjects.BluemixCredentials,
-    classifierid: string,
+    classifierid: string, timestamp: Date,
 ): Promise<string>
 {
     const existing: Objects.ScratchKey[] = await findScratchKeys(project.userid, project.id, project.classid);
@@ -1311,15 +1313,13 @@ export async function storeOrUpdateScratchKey(
             existing[0].id,
             project.userid, project.id, project.classid,
             credentials,
-            classifierid,
+            classifierid, timestamp,
         );
     }
     else {
-        return storeScratchKey(project, credentials, classifierid);
+        return storeScratchKey(project, credentials, classifierid, timestamp);
     }
 }
-
-
 
 
 
@@ -1330,17 +1330,20 @@ export async function storeOrUpdateScratchKey(
 export async function storeScratchKey(
     project: Objects.Project,
     credentials: TrainingObjects.BluemixCredentials,
-    classifierid: string,
+    classifierid: string, timestamp: Date,
 ): Promise<string>
 {
-    const obj = dbobjects.createScratchKey(credentials, project.name, project.type, project.id, classifierid);
+    const obj = dbobjects.createScratchKey(
+        credentials,
+        project.name, project.type, project.id,
+        classifierid, timestamp);
 
     const queryString = 'INSERT INTO `scratchkeys` ' +
                         '(`id`, `projectname`, `projecttype`, ' +
                         '`serviceurl`, `serviceusername`, `servicepassword`, ' +
                         '`classifierid`, ' +
-                        '`projectid`, `userid`, `classid`) ' +
-                        'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+                        '`projectid`, `userid`, `classid`, `updated`) ' +
+                        'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     const values = [
         obj.id, project.name, project.type,
         obj.credentials ? obj.credentials.url : undefined,
@@ -1348,6 +1351,7 @@ export async function storeScratchKey(
         obj.credentials ? obj.credentials.password : undefined,
         obj.classifierid,
         obj.projectid, project.userid, project.classid,
+        obj.updated,
     ];
 
     const response = await dbExecute(queryString, values);
@@ -1366,16 +1370,19 @@ export async function storeScratchKey(
 async function updateScratchKey(
     scratchKeyId: string,
     userid: string, projectid: string, classid: string,
-    credentials: TrainingObjects.BluemixCredentials, classifierid: string,
+    credentials: TrainingObjects.BluemixCredentials,
+    classifierid: string, timestamp: Date,
 ): Promise<string>
 {
     const queryString = 'UPDATE `scratchkeys` ' +
                         'SET `classifierid` = ? , ' +
+                            '`updated` = ?, ' +
                             '`serviceurl` = ? , `serviceusername` = ? , `servicepassword` = ? ' +
                         'WHERE `id` = ? AND ' +
                             '`userid` = ? AND `projectid` = ? AND `classid` = ?';
     const values = [
         classifierid,
+        timestamp,
         credentials.url, credentials.username, credentials.password,
         scratchKeyId,
         userid, projectid, classid,
@@ -1392,12 +1399,36 @@ async function updateScratchKey(
 
 
 
+
+export async function updateScratchKeyTimestamp(
+    project: Objects.Project,
+    timestamp: Date,
+): Promise<void>
+{
+    const queryString = 'UPDATE `scratchkeys` ' +
+                        'SET `updated` = ? ' +
+                        'WHERE `userid` = ? AND `projectid` = ? AND `classid` = ?';
+    const values = [
+        timestamp,
+        project.userid, project.id, project.classid,
+    ];
+
+    const response = await dbExecute(queryString, values);
+    if (response.affectedRows !== 1) {
+        log.error({ queryString, values, response }, 'Failed to update scratchkey timestamp');
+        throw new Error('Scratch key timestamp not updated');
+    }
+}
+
+
+
+
 export async function getScratchKey(key: string): Promise<Objects.ScratchKey> {
     const queryString = 'SELECT ' +
                             '`id`, `classid`, ' +
                             '`projectid`, `projectname`, `projecttype`, ' +
                             '`serviceurl`, `serviceusername`, `servicepassword`, ' +
-                            '`classifierid` ' +
+                            '`classifierid`, `updated` ' +
                         'FROM `scratchkeys` ' +
                         'WHERE `id` = ?';
 
@@ -1418,7 +1449,7 @@ export async function findScratchKeys(
     const queryString = 'SELECT ' +
                             '`id`, `classid`, `projectid`, `projectname`, `projecttype`, ' +
                             '`serviceurl`, `serviceusername`, `servicepassword`, ' +
-                            '`classifierid` ' +
+                            '`classifierid`, `updated` ' +
                         'FROM `scratchkeys` ' +
                         'WHERE `projectid` = ? AND `userid` = ? AND `classid` = ?';
 

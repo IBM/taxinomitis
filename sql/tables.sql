@@ -127,7 +127,8 @@ CREATE TABLE scratchkeys (
     classifierid VARCHAR(52),
     projectid CHAR(36) NOT NULL,
     userid CHAR(36) NOT NULL,
-    classid CHAR(36) NOT NULL
+    classid CHAR(36) NOT NULL,
+    updated DATETIME NOT NULL
 );
 
 CREATE INDEX scratchkeys_updateScratchKey on scratchkeys(id, userid, projectid, classid);

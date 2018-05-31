@@ -57,7 +57,7 @@ export async function trainClassifier(
     const storedClassifier = await store.storeNumbersClassifier(project.userid, project.classid, project.id, status);
     if (status === 'Available') {
         const classifierid = project.id;
-        await store.storeOrUpdateScratchKey(project, credentials, classifierid);
+        await store.storeOrUpdateScratchKey(project, credentials, classifierid, storedClassifier.created);
     }
 
     return storedClassifier;
@@ -66,7 +66,8 @@ export async function trainClassifier(
 
 
 export async function testClassifier(
-    studentid: string, tenantid: string, projectid: string,
+    studentid: string, tenantid: string,
+    classifierTimestamp: Date, projectid: string,
     data: any[],
 ): Promise<TrainingObjects.Classification[]>
 {
@@ -113,7 +114,11 @@ export async function testClassifier(
     }
     return Object.keys(body)
             .map((key) => {
-                return { class_name : key, confidence : body[key] };
+                return {
+                    class_name : key,
+                    confidence : body[key],
+                    classifierTimestamp,
+                };
             })
             .sort(confidenceSort);
 }

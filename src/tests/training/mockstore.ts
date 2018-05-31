@@ -146,7 +146,7 @@ export function storeImageClassifier(
 
 export function updateConversationWorkspaceExpiry()
 {
-    return new Promise((resolve) => resolve());
+    return Promise.resolve();
 }
 
 export function getConversationWorkspaces(projectid: string)
@@ -171,25 +171,29 @@ export function getConversationWorkspaces(projectid: string)
 }
 export function getImageClassifiers()
 {
-    return new Promise((resolve) => resolve([]));
+    return Promise.resolve([]);
 }
 
 export function deleteConversationWorkspace()
 {
-    return new Promise((resolve) => resolve());
+    return Promise.resolve();
 }
 export function deleteImageClassifier()
 {
-    return new Promise((resolve) => resolve());
+    return Promise.resolve();
 }
 
 export function storeOrUpdateScratchKey()
 {
-    return new Promise((resolve) => resolve());
+    return Promise.resolve();
+}
+export function updateScratchKeyTimestamp()
+{
+    return Promise.resolve();
 }
 export function resetExpiredScratchKey()
 {
-    return new Promise((resolve) => resolve());
+    return Promise.resolve();
 }
 
 export function getClassTenant(classid: string)

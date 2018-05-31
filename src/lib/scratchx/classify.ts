@@ -19,7 +19,12 @@ const log = loggerSetup();
 function chooseLabelsAtRandom(project: Types.Project): TrainingTypes.Classification[] {
     const confidence = Math.round((1 / project.labels.length) * 100);
     return _.shuffle(project.labels).map((label) => {
-        return { class_name : label, confidence, random : true };
+        return {
+            class_name : label,
+            confidence,
+            random : true,
+            classifierTimestamp : new Date(),
+        };
     });
 }
 
@@ -30,7 +35,9 @@ async function classifyText(key: Types.ScratchKey, text: string): Promise<Traini
     }
 
     if (key.classifierid && key.credentials) {
-        const resp = await conversation.testClassifier(key.credentials, key.classifierid, key.projectid, text);
+        const resp = await conversation.testClassifier(
+            key.credentials, key.classifierid, key.updated,
+            key.projectid, text);
         return resp;
     }
     else {
@@ -56,6 +63,7 @@ async function classifyImage(key: Types.ScratchKey, base64imagedata: string): Pr
         try {
             const resp = await visualrecog.testClassifierFile(key.credentials,
                                                               key.classifierid,
+                                                              key.updated,
                                                               key.projectid,
                                                               imagefile);
 
@@ -113,6 +121,7 @@ async function classifyNumbers(key: Types.ScratchKey, numbers: string[]): Promis
             const resp = await numberService.testClassifier(
                 key.credentials.username,
                 key.credentials.password,
+                key.updated,
                 key.classifierid,
                 numbers.map(safeParseFloat));
             return resp;
