@@ -4,11 +4,14 @@ applications:
   disk_quota: 512M
   instances: 3
 
-  name: machinelearningforkids
+  name: machinelearningforkids-region
   routes:
   - route: www.machinelearningforkids.co.uk
   - route: machinelearningforkids.co.uk
-  - route: machinelearningforkids.mybluemix.net
+  - route: machinelearningforkids-region.region.mybluemix.net
+
+  services:
+  - mlforkids-auto-scaling
 
   env:
     NODE_ENV: production
@@ -31,3 +34,4 @@ applications:
     SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/MY/SLACK/CREDS"
     OBJECT_STORE_CREDS: '{"creds":"here"}'
     OBJECT_STORE_BUCKET: MY_IMAGESTORE_BUCKET
+    PRIMARY_INSTANCE: false

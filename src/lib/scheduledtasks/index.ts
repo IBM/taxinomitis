@@ -65,6 +65,8 @@ export function run(): void {
             .then(() => {
                 sessionusers.cleanupExpiredSessionUsers();
             });
-
+    }
+    else {
+        log.info('Secondary app instance. Not scheduling any tasks');
     }
 }
