@@ -9,6 +9,7 @@ dist
 public/bower_components
 web
 manifest-dev.yml
-manifest-prod.yml
+manifest-prod-ussouth.yml
+manifest-prod-eugb.yml
 ops/deploy.sh
 ops/rollback.sh
