@@ -161,6 +161,21 @@
     right: 0;
 }
 
+.trainingcountlabel {
+    font-size: 1.7em;
+    background-color: white;
+    border-radius: 1em;
+    border: thin #006400 solid;
+    color: #006400;
+    position: absolute;
+    bottom: -0.8em;
+    right: -0.8em;
+    min-width: 1.6em;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+    text-align: center;
+}
+
 
 .trainingbucketitem.placeholder,
 .trainingbucketitem.placeholder .numberdatalabel,
