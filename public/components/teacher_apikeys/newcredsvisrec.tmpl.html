@@ -28,7 +28,7 @@
                             <input type="text" name="text"
                                 md-autofocus
                                 ng-required="true"
-                                ng-pattern="/^[0-9A-Za-z]{44}$/"
+                                ng-pattern="/^([0-9a-f]{40}|[0-9A-Za-z\-]{44})$/"
                                 ng-model="apikey"
                                 placeholder="API key"
                                 md-maxlength="44"></input>
