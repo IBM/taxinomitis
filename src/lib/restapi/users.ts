@@ -211,6 +211,7 @@ async function getPolicy(req: Express.Request, res: Express.Response) {
 
             textTrainingItemsPerProject : storelimits.textTrainingItemsPerProject,
             numberTrainingItemsPerProject : storelimits.numberTrainingItemsPerProject,
+            numberTrainingItemsPerClassProject : storelimits.numberTrainingItemsPerClassProject,
             imageTrainingItemsPerProject : storelimits.imageTrainingItemsPerProject,
         });
     }

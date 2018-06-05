@@ -38,7 +38,7 @@
                         '/projects/' + projectid +
                         '/training';
 
-            return $http.get(url, { headers : { Range : 'items=0-1000' } })
+            return $http.get(url, { headers : { Range : 'items=0-3000' } })
                 .then(function (resp) {
                     return resp.data;
                 });

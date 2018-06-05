@@ -103,7 +103,7 @@ describe('DB store - training', () => {
             const label = uuid();
             const data = [1, 2, 3, 4];
 
-            const training = await store.storeNumberTraining(projectid, data, label);
+            const training = await store.storeNumberTraining(projectid, false, data, label);
             assert(training);
             assert.equal(training.projectid, projectid);
             assert.deepEqual(training.numberdata, [1, 2, 3, 4]);
@@ -118,7 +118,7 @@ describe('DB store - training', () => {
             const label = uuid();
 
             try {
-                await store.storeNumberTraining(projectid, data, label);
+                await store.storeNumberTraining(projectid, false, data, label);
             }
             catch (err) {
                 assert.equal(err.message, 'Number of data items exceeded maximum');
@@ -163,7 +163,7 @@ describe('DB store - training', () => {
             const data = [1, 2, 3];
             const label = uuid();
 
-            const training = await store.storeNumberTraining(projectid, data, label);
+            const training = await store.storeNumberTraining(projectid, false, data, label);
             assert(training);
 
             let retrieved = await store.getNumberTraining(projectid, DEFAULT_PAGING);
@@ -209,12 +209,12 @@ describe('DB store - training', () => {
             await store.addLabelToProject(userid, classid, project.id, 'HUNDREDS');
             await store.addLabelToProject(userid, classid, project.id, 'THOUSANDS');
 
-            store.storeNumberTraining(project.id, [1000, 2000, 3000], 'THOUSANDS');
-            store.storeNumberTraining(project.id, [10, 20, 30], 'TENS');
-            store.storeNumberTraining(project.id, [100, 300, 500], 'HUNDREDS');
-            store.storeNumberTraining(project.id, [50, 60, 70], 'TENS');
-            store.storeNumberTraining(project.id, [200, 300, 400], 'HUNDREDS');
-            store.storeNumberTraining(project.id, [20, 40, 60], 'TENS');
+            store.storeNumberTraining(project.id, false, [1000, 2000, 3000], 'THOUSANDS');
+            store.storeNumberTraining(project.id, false, [10, 20, 30], 'TENS');
+            store.storeNumberTraining(project.id, false, [100, 300, 500], 'HUNDREDS');
+            store.storeNumberTraining(project.id, false, [50, 60, 70], 'TENS');
+            store.storeNumberTraining(project.id, false, [200, 300, 400], 'HUNDREDS');
+            store.storeNumberTraining(project.id, false, [20, 40, 60], 'TENS');
 
             await wait();
 
@@ -425,7 +425,7 @@ describe('DB store - training', () => {
             const data = [1, 3, 5];
             const label = uuid();
 
-            const training = await store.storeNumberTraining(projectid, data, label);
+            const training = await store.storeNumberTraining(projectid, false, data, label);
             assert(training);
 
             const retrieved = await store.getNumberTraining(projectid, DEFAULT_PAGING);

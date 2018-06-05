@@ -82,7 +82,7 @@ async function storeNumbers(key: Types.ScratchKey, label: string, numbersStr: st
 
     // All looks good!
 
-    return store.storeNumberTraining(project.id, numbers, label);
+    return store.storeNumberTraining(project.id, project.isCrowdSourced, numbers, label);
 }
 
 

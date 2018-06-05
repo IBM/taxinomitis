@@ -152,7 +152,7 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
             training = await store.storeTextTraining(req.project.id, data, label);
             break;
         case 'numbers':
-            training = await store.storeNumberTraining(req.project.id, data, label);
+            training = await store.storeNumberTraining(req.project.id, req.project.isCrowdSourced, data, label);
             break;
         case 'images':
             await imageCheck.verifyImage(data);

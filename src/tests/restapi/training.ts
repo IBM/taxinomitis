@@ -178,10 +178,10 @@ describe('REST API - training', () => {
             await store.addLabelToProject(userid, classid, projectid, 'fruit');
             await store.addLabelToProject(userid, classid, projectid, 'vegetable');
 
-            await store.storeNumberTraining(projectid, [1], 'fruit');
-            await store.storeNumberTraining(projectid, [2], 'vegetable');
-            await store.storeNumberTraining(projectid, [3], 'vegetable');
-            await store.storeNumberTraining(projectid, [4], 'vegetable');
+            await store.storeNumberTraining(projectid, false, [1], 'fruit');
+            await store.storeNumberTraining(projectid, false, [2], 'vegetable');
+            await store.storeNumberTraining(projectid, false, [3], 'vegetable');
+            await store.storeNumberTraining(projectid, false, [4], 'vegetable');
 
             nextAuth0UserId = userid;
             nextAuth0UserTenant = classid;
@@ -1200,8 +1200,8 @@ describe('REST API - training', () => {
             ], false);
             const projectid = project.id;
 
-            await store.storeNumberTraining(projectid, [100], 'fruit');
-            await store.storeNumberTraining(projectid, [123], 'fruit');
+            await store.storeNumberTraining(projectid, false, [100], 'fruit');
+            await store.storeNumberTraining(projectid, false, [123], 'fruit');
 
             const trainingurl = '/api/classes/' + classid +
                                 '/students/' + userid +

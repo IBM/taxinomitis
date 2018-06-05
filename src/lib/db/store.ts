@@ -707,7 +707,7 @@ enum InsertTrainingOutcome {
 
 
 export async function storeNumberTraining(
-    projectid: string, data: number[], label: string,
+    projectid: string, isClassProject: boolean, data: number[], label: string,
 ): Promise<Objects.NumberTraining>
 {
     let outcome: InsertTrainingOutcome;
@@ -740,7 +740,12 @@ export async function storeNumberTraining(
         const [countResponse] = await dbConn.execute(countQry, countValues);
         const count = countResponse[0].trainingcount;
 
-        if (count >= limits.getStoreLimits().numberTrainingItemsPerProject) {
+        // how much training data are they allowed to have
+        const classLimits = limits.getStoreLimits();
+        const limit = isClassProject ? classLimits.numberTrainingItemsPerClassProject :
+                                       classLimits.numberTrainingItemsPerProject;
+
+        if (count >= limit) {
             // they already have too much data - nothing else to do
             outcome = InsertTrainingOutcome.NotStored_MetLimit;
         }

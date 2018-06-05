@@ -57,18 +57,18 @@ describe('DB store - limits', () => {
     it('should enforce number training limits', async () => {
         const projectid = uuid();
 
-        let training = await store.storeNumberTraining(projectid, [1], 'label');
+        let training = await store.storeNumberTraining(projectid, false, [1], 'label');
         assert(training);
         assert.equal(training.projectid, projectid);
         assert.equal(training.label, 'label');
 
-        training = await store.storeNumberTraining(projectid, [2], 'label');
+        training = await store.storeNumberTraining(projectid, false, [2], 'label');
         assert(training);
         assert.equal(training.projectid, projectid);
         assert.equal(training.label, 'label');
 
         try {
-            await store.storeNumberTraining(projectid, [3], 'label');
+            await store.storeNumberTraining(projectid, false, [3], 'label');
             assert.fail(0, 1, 'should not have reached here', '');
         }
         catch (err) {
