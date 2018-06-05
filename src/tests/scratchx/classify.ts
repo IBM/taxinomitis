@@ -51,6 +51,25 @@ describe('Scratchx - classify', () => {
             }
         });
 
+        it('should require a real project', async () => {
+            const key: Types.ScratchKey = {
+                id : uuid(),
+                name : 'TEST',
+                type : 'images',
+                projectid : uuid(),
+                updated : new Date(),
+            };
+
+            try {
+                await classifier.classify(key, 'something');
+                assert.fail(0, 1, 'Should not reach here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Project not found');
+            }
+        });
+
+
         it('should return random classes for projects without classifiers', async () => {
             const userid = uuid();
             const project = await store.storeProject(userid, TESTCLASS, 'images', 'test project', 'en', [], false);
@@ -165,6 +184,24 @@ describe('Scratchx - classify', () => {
         });
 
 
+        it('should require a valid project', async () => {
+            const key: Types.ScratchKey = {
+                id : uuid(),
+                name : 'TEST',
+                type : 'text',
+                projectid : uuid(),
+                updated : new Date(),
+            };
+
+            try {
+                await classifier.classify(key, 'HELLO');
+                assert.fail(0, 1, 'Should not reach here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Project not found');
+            }
+        });
+
 
         it('should return random classes for projects without classifiers', async () => {
             const userid = uuid();
@@ -269,6 +306,24 @@ describe('Scratchx - classify', () => {
             }
         });
 
+
+        it('should require a real project', async () => {
+            const key: Types.ScratchKey = {
+                id : uuid(),
+                name : 'TEST',
+                type : 'numbers',
+                projectid : uuid(),
+                updated : new Date(),
+            };
+
+            try {
+                await classifier.classify(key, ['123']);
+                assert.fail(0, 1, 'Should not reach here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Project not found');
+            }
+        });
 
 
         it('should return random classes for projects without classifiers', async () => {

@@ -833,7 +833,9 @@ function getSessionExpiryTime(lifespan: number): Date {
 }
 
 
-
+/**
+ * @param lifespan - how long the user should exist for, in milliseconds
+ */
 export function createTemporaryUser(lifespan: number): Objects.TemporaryUserDbRow {
     return {
         id : uuidv4(),

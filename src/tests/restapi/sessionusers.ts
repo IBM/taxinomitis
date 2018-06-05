@@ -21,19 +21,27 @@ let testServer: express.Express;
 describe('REST API - session users', () => {
 
     let authStub: sinon.SinonStub;
-    let checkUserStub: sinon.SinonStub;
+
+    let nextAuth0UserId = 'userid';
+    let nextAuth0UserTenant = 'tenant';
+    let nextAuth0UserRole = 'student';
+    let nextDecodedToken = {};
 
     function authNoOp(
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
     {
+        req.user = {
+            'sub' : nextAuth0UserId,
+            'https://machinelearningforkids.co.uk/api/role' : nextAuth0UserRole,
+            'https://machinelearningforkids.co.uk/api/tenant' : nextAuth0UserTenant,
+            'session' : nextDecodedToken,
+        };
         next();
     }
 
-
     before(() => {
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
-        checkUserStub = sinon.stub(auth, 'checkValidUser').callsFake(authNoOp);
 
         testServer = testapiserver();
 
@@ -42,10 +50,13 @@ describe('REST API - session users', () => {
 
     after(() => {
         authStub.restore();
-        checkUserStub.restore();
 
         return store.disconnect();
     });
+
+
+
+
 
 
 
@@ -108,6 +119,71 @@ describe('REST API - session users', () => {
     });
 
 
+
+    describe('deleteSessionUser', () => {
+
+        it('should not allow a session user to log off another user', async () => {
+            const user = await store.storeTemporaryUser(300000);
+
+            nextAuth0UserId = user.id;
+            nextAuth0UserRole = 'student';
+            nextAuth0UserTenant = 'session-users';
+            nextDecodedToken = user;
+
+            const resp = await request(testServer)
+                                .delete('/api/classes/session-users/sessionusers/' + 'someoneelse')
+                                .expect(httpstatus.FORBIDDEN);
+
+            const verify = await store.getTemporaryUser(user.id);
+            assert(verify);
+
+            return store.deleteTemporaryUser(user);
+        });
+
+
+        it('should not delete a session user that was not successfully retrieved', async () => {
+            const user = await store.storeTemporaryUser(300000);
+
+            nextAuth0UserId = user.id;
+            nextAuth0UserRole = 'student';
+            nextAuth0UserTenant = 'session-users';
+            nextDecodedToken = {
+                id : user.id,
+            };
+
+            const resp = await request(testServer)
+                                .delete('/api/classes/session-users/sessionusers/' + user.id)
+                                .expect(httpstatus.BAD_REQUEST);
+
+            const verify = await store.getTemporaryUser(user.id);
+            assert(verify);
+
+            return store.deleteTemporaryUser(user);
+        });
+
+
+        it('should delete a session user at log-off', async () => {
+            const user = await store.storeTemporaryUser(300000);
+
+            const verify = await store.getTemporaryUser(user.id);
+            assert(verify);
+            if (verify) {
+                assert.strictEqual(verify.token, user.token);
+            }
+
+            nextAuth0UserId = user.id;
+            nextAuth0UserRole = 'student';
+            nextAuth0UserTenant = 'session-users';
+            nextDecodedToken = user;
+
+            const resp = await request(testServer)
+                                .delete('/api/classes/session-users/sessionusers/' + user.id)
+                                .expect(httpstatus.NO_CONTENT);
+
+            const verifyMissing = await store.getTemporaryUser(user.id);
+            assert(!verifyMissing);
+        });
+    });
 
 
 

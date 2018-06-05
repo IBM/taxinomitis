@@ -3,6 +3,7 @@ import * as assert from 'assert';
 import * as uuid from 'uuid/v1';
 import * as sinon from 'sinon';
 import * as randomstring from 'randomstring';
+import * as Types from '../../lib/db/db-types';
 import * as store from '../../lib/db/store';
 import * as training from '../../lib/scratchx/training';
 
@@ -45,6 +46,26 @@ describe('Scratchx - keys', () => {
             assert.equal(retrieved[0].label, 'MYLAB');
         });
 
+        it('should verify that a project exists before storing text training', async () => {
+            const type: Types.ProjectTypeLabel = 'text';
+
+            const scratchKey = {
+                id : uuid(),
+                projectid : uuid(),
+                name : 'fakey fake',
+                type,
+                updated : new Date(),
+            };
+
+            try {
+                await training.storeTrainingData(scratchKey, 'MYLAB', 'wootywootwoot');
+                assert.fail(0, 1, 'should not reach here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Project not found');
+            }
+        });
+
         it('should require data to store text training', async () => {
             const testProject = await store.storeProject(TESTUSER, TESTCLASS, 'text', 'name', 'en', [], false);
             assert.equal(testProject.name, 'name');
@@ -76,6 +97,68 @@ describe('Scratchx - keys', () => {
     });
 
 
+    describe('image projects', () => {
+
+        it('should verify that a project exists before storing image training', async () => {
+            const type: Types.ProjectTypeLabel = 'images';
+
+            const scratchKey = {
+                id : uuid(),
+                projectid : uuid(),
+                name : 'fakey fake',
+                type,
+                updated : new Date(),
+            };
+
+            try {
+                await training.storeTrainingData(scratchKey, 'MYLAB', 'wootywootwoot');
+                assert.fail(0, 1, 'should not reach here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Project not found');
+            }
+        });
+
+
+        it('should require data and a valid label to store image training', async () => {
+            const testProject = await store.storeProject(TESTUSER, TESTCLASS, 'images', 'name', 'en', [], false);
+            assert.equal(testProject.name, 'name');
+            assert.equal(testProject.classid, TESTCLASS);
+            assert.equal(testProject.userid, TESTUSER);
+
+            await store.addLabelToProject(TESTUSER, TESTCLASS, testProject.id, 'MYLAB');
+
+            const scratchKeyId = await store.storeUntrainedScratchKey(testProject);
+            const scratchKey = await store.getScratchKey(scratchKeyId);
+
+            try {
+                await training.storeTrainingData(scratchKey, 'MYLAB', ' ');
+                assert.fail(0, 1, 'should not reach here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing data');
+            }
+
+            try {
+                await training.storeTrainingData(scratchKey, 'MYLAB', '');
+                assert.fail(0, 1, 'should not reach here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Missing data');
+            }
+
+            try {
+                await training.storeTrainingData(scratchKey, 'NOTCORRECT', 'valid');
+                assert.fail(0, 1, 'should not reach here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Invalid label');
+            }
+        });
+
+    });
+
+
     describe('number projects', () => {
 
         it('should store number training', async () => {
@@ -97,6 +180,27 @@ describe('Scratchx - keys', () => {
             const retrieved = await store.getNumberTraining(testProject.id, { start : 0, limit : 10 });
             assert.deepEqual(retrieved[0].numberdata, [4, 5, 6]);
             assert.equal(retrieved[0].label, 'NUMLAB');
+        });
+
+
+        it('should verify that a project exists before storing image training', async () => {
+            const type: Types.ProjectTypeLabel = 'numbers';
+
+            const scratchKey = {
+                id : uuid(),
+                projectid : uuid(),
+                name : 'fakey fake',
+                type,
+                updated : new Date(),
+            };
+
+            try {
+                await training.storeTrainingData(scratchKey, 'MYLAB', 'wootywootwoot');
+                assert.fail(0, 1, 'should not reach here', '');
+            }
+            catch (err) {
+                assert.equal(err.message, 'Project not found');
+            }
         });
 
 

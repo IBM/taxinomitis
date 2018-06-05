@@ -96,6 +96,10 @@ describe('REST API - models', () => {
                 err.statusCode = httpstatus.UNAUTHORIZED;
                 return Promise.reject(err);
             }
+            else if (project.name === 'no creds') {
+                const err: any = new Error('Unexpected response when retrieving service credentials');
+                return Promise.reject(err);
+            }
             else if (project.name === 'too fast') {
                 const err: any = new Error(conversation.ERROR_MESSAGES.API_KEY_RATE_LIMIT);
                 return Promise.reject(err);
@@ -186,6 +190,10 @@ describe('REST API - models', () => {
             else if (project.name === 'bad creds') {
                 const err: any = new Error('Unauthorized');
                 err.statusCode = httpstatus.FORBIDDEN;
+                return Promise.reject(err);
+            }
+            else if (project.name === 'no creds') {
+                const err: any = new Error('Unexpected response when retrieving service credentials');
                 return Promise.reject(err);
             }
             else if (project.name === 'too fast') {
@@ -575,7 +583,7 @@ describe('REST API - models', () => {
                 });
         });
 
-        it('should enforce tenant policies on number of NLC classifiers', async () => {
+        it('should enforce tenant policies on number of Conversation classifiers', async () => {
             const classid = uuid();
             const userid = uuid();
             const projName = 'no more room';
@@ -620,6 +628,33 @@ describe('REST API - models', () => {
 
                     assert.equal(body.error,
                         'The credentials for the machine learning server used by your class were rejected.');
+
+                    await store.deleteEntireUser(userid, classid);
+                });
+        });
+
+
+        it('should handle missing text credentials in unmanaged classes', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = 'no creds';
+
+            const project = await store.storeProject(userid, classid, 'text', projName, 'en', [], false);
+            const projectid = project.id;
+
+            nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
+            return request(testServer)
+                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CONFLICT)
+                .then(async (res) => {
+                    const body = res.body;
+
+                    assert.equal(body.error,
+                        'No Watson credentials have been set up for training text projects. ' +
+                        'Please let your teacher or group leader know.');
 
                     await store.deleteEntireUser(userid, classid);
                 });
@@ -812,6 +847,32 @@ describe('REST API - models', () => {
 
                     assert.equal(body.error,
                         'The credentials for the machine learning server used by your class were rejected.');
+
+                    await store.deleteEntireUser(userid, classid);
+                });
+        });
+
+        it('should handle missing images credentials in unmanaged classes', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = 'no creds';
+
+            const project = await store.storeProject(userid, classid, 'images', projName, 'en', [], false);
+            const projectid = project.id;
+
+            nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
+            return request(testServer)
+                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CONFLICT)
+                .then(async (res) => {
+                    const body = res.body;
+
+                    assert.equal(body.error,
+                        'No Watson credentials have been set up for training images projects. ' +
+                        'Please let your teacher or group leader know.');
 
                     await store.deleteEntireUser(userid, classid);
                 });
