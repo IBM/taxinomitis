@@ -134,6 +134,8 @@ describe('REST API - session users', () => {
                                 .delete('/api/classes/session-users/sessionusers/' + 'someoneelse')
                                 .expect(httpstatus.FORBIDDEN);
 
+            assert.deepStrictEqual(resp.body, { error : 'Invalid access' });
+
             const verify = await store.getTemporaryUser(user.id);
             assert(verify);
 
@@ -154,6 +156,8 @@ describe('REST API - session users', () => {
             const resp = await request(testServer)
                                 .delete('/api/classes/session-users/sessionusers/' + user.id)
                                 .expect(httpstatus.BAD_REQUEST);
+
+            assert.deepStrictEqual(resp.body, { error : 'Missing data' });
 
             const verify = await store.getTemporaryUser(user.id);
             assert(verify);
@@ -176,9 +180,9 @@ describe('REST API - session users', () => {
             nextAuth0UserTenant = 'session-users';
             nextDecodedToken = user;
 
-            const resp = await request(testServer)
-                                .delete('/api/classes/session-users/sessionusers/' + user.id)
-                                .expect(httpstatus.NO_CONTENT);
+            await request(testServer)
+                    .delete('/api/classes/session-users/sessionusers/' + user.id)
+                    .expect(httpstatus.NO_CONTENT);
 
             const verifyMissing = await store.getTemporaryUser(user.id);
             assert(!verifyMissing);

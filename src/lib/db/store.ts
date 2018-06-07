@@ -851,7 +851,8 @@ export async function getAllBluemixCredentials(
 {
     const queryString = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password` ' +
                         'FROM `bluemixcredentials` ' +
-                        'WHERE `servicetype` = ?';
+                        'WHERE `servicetype` = ? ' +
+                        'LIMIT 2000';
 
     const rows = await dbExecute(queryString, [ service ]);
     if (rows.length === 0) {

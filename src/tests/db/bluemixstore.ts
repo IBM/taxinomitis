@@ -26,6 +26,23 @@ describe('DB store', () => {
 
     describe('Bluemix credentials', () => {
 
+        it('should retrieve all conv Bluemix credentials', async () => {
+            const retrieved = await store.getAllBluemixCredentials('conv');
+            assert(retrieved.length > 0);
+            for (const cred of retrieved) {
+                assert.equal(cred.servicetype, 'conv');
+            }
+        });
+
+        it('should retrieve all visrec Bluemix credentials', async () => {
+            const retrieved = await store.getAllBluemixCredentials('visrec');
+            assert(retrieved.length > 0);
+            for (const cred of retrieved) {
+                assert.equal(cred.servicetype, 'visrec');
+            }
+        });
+
+
         it('should store and retrieve Bluemix credentials', async () => {
             const classid = uuid();
 

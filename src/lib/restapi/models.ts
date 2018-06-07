@@ -266,6 +266,9 @@ async function testModel(req: Express.Request, res: Express.Response) {
         if (err.message === conversation.ERROR_MESSAGES.MODEL_NOT_FOUND) {
             return res.status(httpstatus.NOT_FOUND).send({ error : err.message + ' Refresh the page' });
         }
+        if (err.message === 'Unexpected response when retrieving the service credentials') {
+            return errors.notFound(res);
+        }
 
         log.error({ err }, 'Test error');
         return errors.unknownError(res, err);

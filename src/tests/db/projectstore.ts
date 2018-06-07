@@ -373,6 +373,17 @@ describe('DB store', () => {
 
     describe('addLabelToProject', () => {
 
+        it('should handle non-existent projects', (done) => {
+            store.addLabelToProject(uuid(), TESTCLASS, 'text', 'MYNEWLABEL')
+                .then(() => {
+                    assert.fail('should not have let this happen');
+                })
+                .catch((err) => {
+                    assert.strictEqual(err.message, 'Project not found');
+                    done();
+                });
+        });
+
         it('should add a label to a project', async () => {
             const userid = uuid();
             const project = await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', [], false);
@@ -468,6 +479,18 @@ describe('DB store', () => {
             }
             return project;
         }
+
+
+        it('should handle non-existent projects', (done) => {
+            store.removeLabelFromProject(uuid(), TESTCLASS, 'text', 'MYOLDLABEL')
+                .then(() => {
+                    assert.fail('should not have let this happen');
+                })
+                .catch((err) => {
+                    assert.strictEqual(err.message, 'Project not found');
+                    done();
+                });
+        });
 
         it('should remove a label from a text project', async () => {
             const userid = uuid();

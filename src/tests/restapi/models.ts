@@ -1,5 +1,6 @@
 /*eslint-env mocha */
 import * as uuid from 'uuid/v1';
+import * as fs from 'fs';
 import * as assert from 'assert';
 import * as request from 'supertest';
 import * as httpstatus from 'http-status';
@@ -14,10 +15,8 @@ import * as visualrecog from '../../lib/training/visualrecognition';
 import * as numbers from '../../lib/training/numbers';
 import * as DbTypes from '../../lib/db/db-types';
 import * as Types from '../../lib/training/training-types';
-import loggerSetup from '../../lib/utils/logger';
 import testapiserver from './testserver';
 
-const log = loggerSetup();
 
 let testServer: express.Express;
 
@@ -60,6 +59,8 @@ describe('REST API - models', () => {
         getClassifiersStub : sinon.stub(visualrecog, 'getClassifierStatuses'),
         trainClassifierStub : sinon.stub(visualrecog, 'trainClassifier'),
         deleteClassifierStub : sinon.stub(visualrecog, 'deleteClassifier'),
+        testClassifierUrlStub : sinon.stub(visualrecog, 'testClassifierURL'),
+        testClassifierFileStub : sinon.stub(visualrecog, 'testClassifierFile'),
     };
 
     const updated = new Date();
@@ -125,7 +126,6 @@ describe('REST API - models', () => {
             }
         });
         conversationStub.testClassifierStub.callsFake(() => {
-            log.debug('conversationStub testClassifier stub');
             const classifierTimestamp = new Date(Date.UTC(2017, 4, 4, 12, 1));
             const classifications: Types.Classification[] = [
                 { class_name : 'first', confidence : 0.8, classifierTimestamp },
@@ -135,7 +135,7 @@ describe('REST API - models', () => {
             return Promise.resolve(classifications);
         });
         conversationStub.deleteClassifierStub.callsFake(() => {
-            return new Promise((resolve) => { resolve(); });
+            return Promise.resolve();
         });
 
         numbersStub.trainClassifierStub.callsFake((project: DbTypes.Project) => {
@@ -215,7 +215,38 @@ describe('REST API - models', () => {
             }
         });
         imagesStub.deleteClassifierStub.callsFake(() => {
-            return new Promise((resolve) => { resolve(); });
+            return Promise.resolve();
+        });
+        imagesStub.testClassifierUrlStub.callsFake((
+            creds: Types.BluemixCredentials, classifierid: string,
+            classifierTimestamp: Date,
+            // projectid: string, imageurl: string,
+            ) =>
+        {
+            const classifications: Types.Classification[] = [
+                { class_name : 'First', confidence : 0.6, classifierTimestamp },
+                { class_name : 'Second', confidence : 0.2, classifierTimestamp },
+            ];
+            return Promise.resolve(classifications);
+        });
+        imagesStub.testClassifierFileStub.callsFake((
+            creds: Types.BluemixCredentials, classifierid: string,
+            classifierTimestamp: Date,
+            projectid: string, imagefile: string) =>
+        {
+            return new Promise((resolve, reject) => {
+                fs.access(imagefile, fs.constants.R_OK, (err) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    const classifications: Types.Classification[] = [
+                        { class_name : 'Third', confidence : 0.5, classifierTimestamp },
+                        { class_name : 'Fourth', confidence : 0.4, classifierTimestamp },
+                    ];
+                    return resolve(classifications);
+                });
+            });
         });
 
 
@@ -238,6 +269,8 @@ describe('REST API - models', () => {
         imagesStub.getClassifiersStub.restore();
         imagesStub.trainClassifierStub.restore();
         imagesStub.deleteClassifierStub.restore();
+        imagesStub.testClassifierUrlStub.restore();
+        imagesStub.testClassifierFileStub.restore();
 
         return store.disconnect();
     });
@@ -1012,6 +1045,30 @@ describe('REST API - models', () => {
                 });
         });
 
+        it('should require images to test with', () => {
+            nextAuth0Userid = 'userid';
+            nextAuth0Role = 'student';
+            nextAuth0Class = 'classid';
+            return request(testServer)
+                .post('/api/classes/' + 'classid' +
+                        '/students/' + 'userid' +
+                        '/projects/' + 'projectid' +
+                        '/models/' + 'modelid' +
+                        '/label')
+                .send({
+                    type : 'images',
+                    credentialsid : 'HELLO',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((resp) => {
+                    assert.deepEqual(resp.body, { error : 'Missing data' });
+                });
+        });
+
+
+
+
         it('should require credentials to test with', () => {
             nextAuth0Userid = 'userid';
             nextAuth0Role = 'student';
@@ -1030,6 +1087,75 @@ describe('REST API - models', () => {
                 .expect(httpstatus.BAD_REQUEST)
                 .then((resp) => {
                     assert.deepEqual(resp.body, { error : 'Missing data' });
+                });
+        });
+
+
+        it('should require valid credentials to test text with', () => {
+            nextAuth0Userid = 'userid';
+            nextAuth0Role = 'student';
+            nextAuth0Class = 'classid';
+            return request(testServer)
+                .post('/api/classes/' + 'classid' +
+                        '/students/' + 'userid' +
+                        '/projects/' + 'projectid' +
+                        '/models/' + 'modelid' +
+                        '/label')
+                .send({
+                    type : 'text',
+                    text : 'HELLO',
+                    credentialsid : 'blahblahblah',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.NOT_FOUND)
+                .then((resp) => {
+                    assert.deepEqual(resp.body, { error : 'Not found' });
+                });
+        });
+
+
+        it('should require credentials to test images with', () => {
+            nextAuth0Userid = 'userid';
+            nextAuth0Role = 'student';
+            nextAuth0Class = 'classid';
+            return request(testServer)
+                .post('/api/classes/' + 'classid' +
+                        '/students/' + 'userid' +
+                        '/projects/' + 'projectid' +
+                        '/models/' + 'modelid' +
+                        '/label')
+                .send({
+                    type : 'images',
+                    text : 'HELLO',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((resp) => {
+                    assert.deepEqual(resp.body, { error : 'Missing data' });
+                });
+        });
+
+
+        it('should require valid credentials to test images with', () => {
+            nextAuth0Userid = 'userid';
+            nextAuth0Role = 'student';
+            nextAuth0Class = 'classid';
+            return request(testServer)
+                .post('/api/classes/' + 'classid' +
+                        '/students/' + 'userid' +
+                        '/projects/' + 'projectid' +
+                        '/models/' + 'modelid' +
+                        '/label')
+                .send({
+                    type : 'images',
+                    text : 'HELLO',
+                    credentialsid : 'blahblahblah',
+                    image : 'http://www.lovelypictures.com/cat.jpg',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.NOT_FOUND)
+                .then((resp) => {
+                    assert.deepEqual(resp.body, { error : 'Not found' });
                 });
         });
 
@@ -1126,6 +1252,152 @@ describe('REST API - models', () => {
                     ]);
                 });
         });
+
+
+        it('should submit a URL classify request to Visual Recognition', async () => {
+
+            const classid = uuid();
+            const userid = uuid();
+            const projName = uuid();
+            const modelid = randomstring.generate({ length : 10 });
+
+            const project = await store.storeProject(userid, classid, 'images', projName, 'en', [], false);
+            const projectid = project.id;
+
+            const credentials: Types.BluemixCredentials = {
+                id : uuid(),
+                username : randomstring.generate(20),
+                password : randomstring.generate(20),
+                servicetype : 'visrec',
+                url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
+                classid,
+            };
+            await store.storeBluemixCredentials(classid, credentials);
+
+            const created = new Date();
+            created.setMilliseconds(0);
+
+            const classifierTimestamp = created.toISOString();
+
+            const classifierInfo: Types.VisualClassifier = {
+                id : uuid(),
+                classifierid : modelid,
+                credentialsid : credentials.id,
+                created,
+                expiry : created,
+                name : projName,
+                url : uuid(),
+            };
+            await store.storeImageClassifier(credentials, project, classifierInfo);
+
+            nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
+            return request(testServer)
+                .post('/api/classes/' + classid +
+                        '/students/' + userid +
+                        '/projects/' + projectid +
+                        '/models/' + modelid +
+                        '/label')
+                .send({
+                    image : 'http://www.lovelypictures.com/cat.jpg',
+                    type : 'images',
+                    credentialsid : credentials.id,
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK)
+                .then(async (res) => {
+                    const body = res.body;
+
+                    await store.deleteEntireUser(userid, classid);
+                    await store.deleteBluemixCredentials(credentials.id);
+
+                    assert.notStrictEqual(classifierTimestamp, body[0].classifierTimestamp);
+                    assert.notStrictEqual(classifierTimestamp, body[1].classifierTimestamp);
+
+                    delete body[0].classifierTimestamp;
+                    delete body[1].classifierTimestamp;
+
+                    assert.deepEqual(body, [
+                        { class_name : 'First', confidence : 0.6 },
+                        { class_name : 'Second', confidence : 0.2 },
+                    ]);
+                });
+        });
+
+
+
+        it('should submit a file classify request to Visual Recognition', async () => {
+
+            const classid = uuid();
+            const userid = uuid();
+            const projName = uuid();
+            const modelid = randomstring.generate({ length : 10 });
+
+            const project = await store.storeProject(userid, classid, 'images', projName, 'en', [], false);
+            const projectid = project.id;
+
+            const credentials: Types.BluemixCredentials = {
+                id : uuid(),
+                username : randomstring.generate(20),
+                password : randomstring.generate(20),
+                servicetype : 'visrec',
+                url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
+                classid,
+            };
+            await store.storeBluemixCredentials(classid, credentials);
+
+            const created = new Date();
+            created.setMilliseconds(0);
+
+            const classifierTimestamp = created.toISOString();
+
+            const classifierInfo: Types.VisualClassifier = {
+                id : uuid(),
+                classifierid : modelid,
+                credentialsid : credentials.id,
+                created,
+                expiry : created,
+                name : projName,
+                url : uuid(),
+            };
+            await store.storeImageClassifier(credentials, project, classifierInfo);
+
+            nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
+            return request(testServer)
+                .post('/api/classes/' + classid +
+                        '/students/' + userid +
+                        '/projects/' + projectid +
+                        '/models/' + modelid +
+                        '/label')
+                .send({
+                    data : 'PRETEND THIS IS THE DATA OF AN IMAGE',
+                    type : 'images',
+                    credentialsid : credentials.id,
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK)
+                .then(async (res) => {
+                    const body = res.body;
+
+                    await store.deleteEntireUser(userid, classid);
+                    await store.deleteBluemixCredentials(credentials.id);
+
+                    assert.notStrictEqual(classifierTimestamp, body[0].classifierTimestamp);
+                    assert.notStrictEqual(classifierTimestamp, body[1].classifierTimestamp);
+
+                    delete body[0].classifierTimestamp;
+                    delete body[1].classifierTimestamp;
+
+                    assert.deepEqual(body, [
+                        { class_name : 'Third', confidence : 0.5 },
+                        { class_name : 'Fourth', confidence : 0.4 },
+                    ]);
+                });
+        });
+
 
         it('should require data for the numbers service', () => {
             nextAuth0Role = 'testuser';

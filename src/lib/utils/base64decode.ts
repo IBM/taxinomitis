@@ -34,7 +34,7 @@ export function run(base64data: string): Promise<string> {
     return new Promise((resolve, reject) => {
         decodeJpg(base64data, (err, filepath) => {
             if (err) {
-                log.error({ err }, 'Failed to decode data');
+                log.error({ err, filepath }, 'Failed to decode data');
                 return reject(err);
             }
             return resolve(filepath);
