@@ -41,7 +41,7 @@
     "@types/tmp": "0.0.33",
     "@types/unzip": "^0.1.1",
     "@types/uuid": "^3.4.1",
-    "autoprefixer": "^8.5.2",
+    "autoprefixer": "^8.6.1",
     "clone": "^2.1.2",
     "del": "^3.0.0",
     "eslint-plugin-node": "^6.0.1",
