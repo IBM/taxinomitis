@@ -332,8 +332,8 @@
         });
     }
 
-    getStatus();
     initStatusCheck();
+
 
     //
     // track idle time so that we can reduce the frequency of the
