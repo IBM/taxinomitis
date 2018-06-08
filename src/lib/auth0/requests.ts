@@ -59,6 +59,8 @@ export async function getSupervisors(
 
             page: batch,
             per_page : batchsize,
+
+            search_engine : 'v3',
         },
         json : true,
     };
@@ -80,6 +82,8 @@ export async function getUsers(token: string, tenant: string): Promise<Objects.U
         qs : {
             q : 'app_metadata.role:"student" AND app_metadata.tenant:"' + tenant + '"',
             per_page : 100,
+
+            search_engine : 'v3',
         },
         json : true,
     };
@@ -103,6 +107,8 @@ export async function getUserCounts(token: string, tenant: string): Promise<Obje
             fields : 'id',
             include_fields : true,
             include_totals : true,
+
+            search_engine : 'v3',
         },
         json : true,
     };
