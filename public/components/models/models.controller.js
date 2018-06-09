@@ -233,13 +233,20 @@
 
         var timer = null;
 
+        function stopRefreshing() {
+            if (timer) {
+                $interval.cancel(timer);
+                timer = null;
+            }
+        }
+
         function refreshModels () {
             if (!timer) {
                 timer = $interval(function () {
                     fetchModels()
                         .then(function () {
                             if ($scope.status !== 'training') {
-                                $interval.cancel(timer);
+                                stopRefreshing();
                             }
                         });
                 }, 30000);
@@ -355,12 +362,11 @@
                     });
                     $scope.status = getStatus();
 
-                    if ($scope.status !== 'training' && timer) {
-                        $timeout.cancel(timer);
-                        timer = null;
-                    }
-                    else if ($scope.status === 'training' && !timer) {
+                    if ($scope.status === 'training') {
                         refreshModels();
+                    }
+                    else {
+                        stopRefreshing();
                     }
 
                     $scope.submittingDeleteRequest = false;
@@ -537,12 +543,7 @@
 
 
 
-        $scope.$on("$destroy", function(evt) {
-            if (timer) {
-                $interval.cancel( timer );
-                timer = null;
-            }
-        });
+        $scope.$on("$destroy", stopRefreshing);
 
 
         function generateProjectSummary() {
