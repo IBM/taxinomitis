@@ -449,6 +449,18 @@ describe('DB store', () => {
 
     describe('Image classifiers', () => {
 
+        let setTimeoutStub: sinon.SinonStub;
+
+        before(() => {
+            setTimeoutStub = sinon.stub(global, 'setTimeout');
+        });
+        beforeEach(() => {
+            setTimeoutStub.resetHistory();
+        });
+        after(() => {
+            setTimeoutStub.restore();
+        });
+
 
         function sortClassifiers(a: Types.VisualClassifier, b: Types.VisualClassifier): number {
             if (a.id < b.id) {
@@ -597,6 +609,8 @@ describe('DB store', () => {
             await visualrecog.cleanupExpiredClassifiers();
             assert(deleteStub.called);
             deleteStub.restore();
+
+            assert(setTimeoutStub.called);
 
             const countAfter = await store.getExpiredImageClassifiers();
             assert.equal(countAfter.length, 0);

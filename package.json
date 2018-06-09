@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "start": "node -r bluemix-autoscaling-agent --max-old-space-size=192 dist/lib/app.js",
+    "local": "node dist/lib/app.js",
     "test": "./node_modules/.bin/gulp",
     "coverage": "gulp compile ; ./node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- --no-timeouts dist/tests/**"
   },

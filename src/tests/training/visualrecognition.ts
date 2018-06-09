@@ -41,6 +41,7 @@ describe('Training - Visual Recognition', () => {
     let storeScratchKeyStub: sinon.SinonStub;
     let resetExpiredScratchKeyStub: sinon.SinonStub;
     let getClassStub: sinon.SinonStub;
+    let setTimeoutStub: sinon.SinonStub;
 
     let downloadStub: sinon.SinonStub;
 
@@ -67,6 +68,7 @@ describe('Training - Visual Recognition', () => {
         storeScratchKeyStub = sinon.stub(store, 'storeOrUpdateScratchKey').callsFake(mockstore.storeOrUpdateScratchKey);
         resetExpiredScratchKeyStub = sinon.stub(store, 'resetExpiredScratchKey').callsFake(mockstore.resetExpiredScratchKey);
         getClassStub = sinon.stub(store, 'getClassTenant').callsFake(mockstore.getClassTenant);
+        setTimeoutStub = sinon.stub(global, 'setTimeout').returns({});
 
         downloadStub = sinon.stub(downloadAndZip, 'run').callsFake(mockDownloadAndZip.run);
     });
@@ -86,6 +88,7 @@ describe('Training - Visual Recognition', () => {
         storeScratchKeyStub.restore();
         resetExpiredScratchKeyStub.restore();
         getClassStub.restore();
+        setTimeoutStub.restore();
 
         downloadStub.restore();
     });
@@ -266,10 +269,12 @@ describe('Training - Visual Recognition', () => {
         it('should delete a classifier', async () => {
             deleteStub.reset();
             deleteStoreStub.reset();
+            setTimeoutStub.reset();
             resetExpiredScratchKeyStub.reset();
 
             assert.equal(deleteStub.called, false);
             assert.equal(deleteStoreStub.called, false);
+            assert.equal(setTimeoutStub.called, false);
 
             await visrec.deleteClassifier(goodClassifier);
 
@@ -283,12 +288,14 @@ describe('Training - Visual Recognition', () => {
             }));
             assert(deleteStoreStub.calledWith(goodClassifier.id));
             assert(resetExpiredScratchKeyStub.called);
+            assert(setTimeoutStub.called);
         });
 
 
         it('should handle deleting unknown classifiers', async () => {
             deleteStub.reset();
             deleteStoreStub.reset();
+            setTimeoutStub.reset();
             resetExpiredScratchKeyStub.reset();
 
             assert.equal(deleteStub.called, false);
@@ -298,6 +305,7 @@ describe('Training - Visual Recognition', () => {
 
             assert(deleteStub.calledOnce);
             assert(deleteStoreStub.calledOnce);
+            assert(setTimeoutStub.calledOnce);
 
             assert(deleteStub.calledWith('https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/unknown', {
                 qs : { version : '2016-05-20', api_key : 'userpass' },

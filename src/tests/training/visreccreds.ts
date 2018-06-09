@@ -37,6 +37,8 @@ describe('Training - Visual Recognition - IAM/API keys', () => {
     let resetExpiredScratchKeyStub: sinon.SinonStub;
     let deleteImageClassifierStub: sinon.SinonStub;
 
+    let setTimeoutStub: sinon.SinonStub;
+
     let downloadStub: sinon.SinonStub;
 
 
@@ -73,6 +75,7 @@ describe('Training - Visual Recognition - IAM/API keys', () => {
         deleteImageClassifierStub = sinon.stub(store, 'deleteImageClassifier')
                                          .callsFake(mockVisRec.store.deleteImageClassifier);
 
+        setTimeoutStub = sinon.stub(global, 'setTimeout').returns({});
 
         downloadStub = sinon.stub(downloadAndZip, 'run').callsFake(mockVisRec.download.run);
     });
@@ -91,6 +94,7 @@ describe('Training - Visual Recognition - IAM/API keys', () => {
         storeScratchKeyStub.restore();
         resetExpiredScratchKeyStub.restore();
         deleteImageClassifierStub.restore();
+        setTimeoutStub.restore();
         downloadStub.restore();
     });
 
@@ -99,6 +103,7 @@ describe('Training - Visual Recognition - IAM/API keys', () => {
         deleteImageClassifierStub.resetHistory();
         resetExpiredScratchKeyStub.resetHistory();
         getImageTrainingByLabelStub.resetHistory();
+        setTimeoutStub.resetHistory();
         deleteStub.resetHistory();
     });
 
@@ -152,6 +157,8 @@ describe('Training - Visual Recognition - IAM/API keys', () => {
             assert(deleteImageClassifierStub.called);
             assert(resetExpiredScratchKeyStub.called);
             assert(deleteStub.called);
+
+            assert(setTimeoutStub.calledOnce);
 
             assert(deleteStub.calledWith(mockVisRec.CREDENTIALS_LEGACY.url + '/v3/classifiers/' + classifierinfo.id,
                                          sinon.match.has('qs', {
@@ -224,6 +231,8 @@ describe('Training - Visual Recognition - IAM/API keys', () => {
                                                        mockVisRec.CREDENTIALS_NEW.password);
             assert(authHeader.startsWith('Bearer '));
             assert(authHeader.length > 20);
+
+            assert(setTimeoutStub.calledOnce);
 
             assert(deleteStub.calledWith(mockVisRec.CREDENTIALS_NEW.url + '/v3/classifiers/' + classifierinfo.id,
                                          sinon.match.has('headers', sinon.match.has('Authorization', authHeader))));
