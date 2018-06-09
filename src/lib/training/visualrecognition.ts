@@ -9,6 +9,7 @@ import * as DbObjects from '../db/db-types';
 import * as TrainingObjects from './training-types';
 import * as iam from '../iam';
 import * as downloadAndZip from '../utils/downloadAndZip';
+import * as constants from '../utils/constants';
 import * as notifications from '../notifications/slack';
 import loggerSetup from '../utils/logger';
 import { create } from 'archiver';
@@ -284,6 +285,9 @@ export async function deleteClassifier(classifier: TrainingObjects.VisualClassif
     try {
         const credentials = await store.getBluemixCredentialsById(classifier.credentialsid);
         await deleteClassifierFromBluemix(credentials, classifier.classifierid);
+
+        // in case it reappears later...
+        deleteClassifierFromBluemixAgain(credentials, classifier.classifierid);
     }
     catch (err) {
         log.error({ err, classifier }, 'Unable to delete image classifier');
@@ -291,7 +295,71 @@ export async function deleteClassifier(classifier: TrainingObjects.VisualClassif
 
     await store.deleteImageClassifier(classifier.id);
     await store.resetExpiredScratchKey(classifier.classifierid, 'images');
+
 }
+
+
+
+/**
+ * A horrid kludgey workaround for some frustrating behaviour in the Visual
+ *  Recognition API.
+ *
+ * When the service gets busy, this scenario starts becoming common:
+ *
+ *  1) user starts training classifier (attempt-1)
+ *  2) user cancels the training by deleting the attempt-1 classifier
+ *  3) cancelled/deleted classifier disappears from their list of classifiers
+ *  4) this lets them start training a new classifier (attempt-2)
+ *  5) a few minutes later, the attempt-1 classifier has finished training and
+ *       appears in their list of classifiers as ready
+ *
+ * The user now has two classifiers: attempt-1 and attempt-2. Which is more than
+ *  a free tier API key is allowed. The first attempt-1 classifier is divorced /
+ *  orphaned from Machine Learning for Kids. And even if they delete the second
+ *  attempt-2 classifier, they still are at their limit so they can't train any
+ *  new classifiers.
+ *
+ * This results in an email to me asking why they're getting "You're not allowed
+ *  to create any more classifiers" when they think they don't have any.
+ *
+ * So...
+ *
+ * When we cancel the training of a classifier, we'll wait fifteen minutes (assuming
+ *  that most classifiers will complete within this time). And then we'll delete
+ *  it again, so if it's reappeared, we'll be able to clean up before the user
+ *  notices a problem.
+ *
+ * If the original cancellation/deletion works, this will fail with a 404-not-found
+ *  so we need to swallow those, as it indicates things were actually working.
+ *
+ * (We could make this the responsibility of the pendingjobs class, but that only
+ *  runs every 3 hours, and when this is a problem it normally inconveniences
+ *  users within 3 hours. The risk of doing this is that if we restart before the
+ *  15-minute timer fires, then we'll never do this cleanup - whereas pendingjobs
+ *  does clear the outstanding work queue on restart).
+ *
+ * @param credentials
+ * @param classifier
+ * @param classifierid
+ */
+function deleteClassifierFromBluemixAgain(
+    credentials: TrainingObjects.BluemixCredentials,
+    classifierId: string,
+): void
+{
+    setTimeout(() => {
+        deleteClassifierFromBluemix(credentials, classifierId)
+            .catch((err) => {
+                log.error({ err }, 'Failed to delete Visual Recognition classifier');
+                notifications.notify('Failed to delete Visual Recognition classifier ' +
+                                     'after second attempt. \n' +
+                                     'Class : ' + credentials.classid + '\n' +
+                                     'Model : ' + classifierId + '\n' +
+                                     'Creds : ' + credentials.id);
+            });
+    }, constants.FIFTEEN_MINUTES);
+}
+
 
 
 
