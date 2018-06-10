@@ -39,6 +39,8 @@ describe('REST API - Bluemix credentials', () => {
 
     const VALID_USERNAME = randomstring.generate({ length : 36 });
     const VALID_PASSWORD = randomstring.generate({ length : 12 });
+    const VALID_EU_USERNAME = randomstring.generate({ length : 36 });
+    const VALID_EU_PASSWORD = randomstring.generate({ length : 12 });
     const VALID_APIKEY = randomstring.generate({ length : 44 });
 
 
@@ -57,10 +59,13 @@ describe('REST API - Bluemix credentials', () => {
         });
 
         getTextClassifiersStub = sinon
-            .stub(conversation, 'getTextClassifiers')
-            .callsFake((creds: TrainingTypes.BluemixCredentials) => {
-                if (creds.username === VALID_USERNAME && creds.password === VALID_PASSWORD) {
-                    return Promise.resolve();
+            .stub(conversation, 'identifyRegion')
+            .callsFake((username: string, password: string) => {
+                if (username === VALID_USERNAME && password === VALID_PASSWORD) {
+                    return Promise.resolve('https://gateway.watsonplatform.net/conversation/api');
+                }
+                else if (username === VALID_EU_USERNAME && password === VALID_EU_PASSWORD) {
+                    return Promise.resolve('https://gateway-fra.watsonplatform.net/assistant/api');
                 }
                 return Promise.reject({
                     statusCode : 401,
@@ -255,7 +260,7 @@ describe('REST API - Bluemix credentials', () => {
         });
 
 
-        it('should create and delete conv credentials', () => {
+        it('should create and delete conv credentials using US-South', () => {
             const classid = 'TESTTENANT';
 
             let credsid: string;
@@ -282,13 +287,73 @@ describe('REST API - Bluemix credentials', () => {
                         .expect('Content-Type', /json/)
                         .expect(httpstatus.OK);
                 })
-                .then((res) => {
+                .then(async (res) => {
                     const body = res.body;
                     assert.equal(body.length, 1);
 
                     assert.equal(body[0].id, credsid);
                     assert.equal(body[0].username, VALID_USERNAME);
                     assert.equal(body[0].password, VALID_PASSWORD);
+
+                    // check that the correct region was identified
+                    const verify = await store.getBluemixCredentialsById(credsid);
+                    assert.strictEqual(verify.url, 'https://gateway.watsonplatform.net/conversation/api');
+
+                    return request(testServer)
+                        .delete('/api/classes/' + classid + '/credentials/' + credsid)
+                        .expect(httpstatus.NO_CONTENT);
+                })
+                .then(() => {
+                    return request(testServer)
+                        .get('/api/classes/' + classid + '/credentials?servicetype=conv')
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.OK);
+                })
+                .then((res) => {
+                    const body = res.body;
+                    assert.deepEqual(body, []);
+                });
+        });
+
+
+        it('should create and delete conv credentials using EU-FR', () => {
+            const classid = 'TESTTENANT';
+
+            let credsid: string;
+
+            return request(testServer)
+                .post('/api/classes/' + classid + '/credentials')
+                .send({
+                    servicetype : 'conv',
+                    username : VALID_EU_USERNAME,
+                    password : VALID_EU_PASSWORD,
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED)
+                .then((res) => {
+                    const body = res.body;
+                    assert(body.id);
+                    credsid = body.id;
+
+                    assert.equal(body.username, VALID_EU_USERNAME);
+                    assert.equal(body.password, VALID_EU_PASSWORD);
+
+                    return request(testServer)
+                        .get('/api/classes/' + classid + '/credentials?servicetype=conv')
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.OK);
+                })
+                .then(async (res) => {
+                    const body = res.body;
+                    assert.equal(body.length, 1);
+
+                    assert.equal(body[0].id, credsid);
+                    assert.equal(body[0].username, VALID_EU_USERNAME);
+                    assert.equal(body[0].password, VALID_EU_PASSWORD);
+
+                    // check that the correct region was identified
+                    const verify = await store.getBluemixCredentialsById(credsid);
+                    assert.strictEqual(verify.url, 'https://gateway-fra.watsonplatform.net/assistant/api');
 
                     return request(testServer)
                         .delete('/api/classes/' + classid + '/credentials/' + credsid)

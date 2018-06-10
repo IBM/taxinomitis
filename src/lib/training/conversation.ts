@@ -514,6 +514,58 @@ function chooseLabelAtRandom(project: DbObjects.Project, classifierTimestamp: Da
 
 
 
+/**
+ * An admin user has provided the credentials for a Watson Assistant service instance,
+ *  but we don't know which IBM Cloud region the service instance is from. This function
+ *  identifies the region (by trying the credentials in all known regions, and returning
+ *  the URL for the region that the credentials were not rejected in).
+ *
+ * @returns url - Promise that resolves to the URL that accepted the credentials
+ */
+export async function identifyRegion(username: string, password: string): Promise<string>
+{
+    const testRequest = {
+        auth : {
+            user : username,
+            pass : password,
+        },
+        headers : {
+            'user-agent' : 'machinelearningforkids',
+        },
+        qs : {
+            version : '2017-05-26',
+            page_limit : 1,
+        },
+        json : true,
+    };
+
+    const POSSIBLE_URLS = [
+        'https://gateway.watsonplatform.net/conversation/api',
+        'https://gateway-fra.watsonplatform.net/assistant/api',
+    ];
+
+    let lastErr: Error = new Error('Failed to verify credentials');
+
+    for (const url of POSSIBLE_URLS) {
+        try {
+            log.debug({ url }, 'Testing Watson Assistant credentials');
+            await request.get(url + '/v1/workspaces', testRequest);
+
+            // if we're here, the credentials were accepted
+            return url;
+        }
+        catch (err) {
+            log.debug({ url, err }, 'Credentials rejected');
+            lastErr = err;
+        }
+    }
+
+    // if we're here, all URLs rejected the credentials
+    throw lastErr;
+}
+
+
+
 
 
 

@@ -90,6 +90,10 @@ async function deleteCredentials(req: Express.Request, res: Express.Response) {
 async function addCredentials(req: Express.Request, res: Express.Response) {
     const tenant = req.params.classid;
 
+    //
+    // check that we've been given something that at least looks like
+    //  a set of Bluemix credentials
+    //
     let newCredentials: TrainingTypes.BluemixCredentials;
     try {
         newCredentials = dbobjects.createBluemixCredentials(
@@ -101,9 +105,14 @@ async function addCredentials(req: Express.Request, res: Express.Response) {
         return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
     }
 
+    //
+    // check that the credentials work by trying to use them in a
+    //  Bluemix API call without failure
+    //
     try {
         if (newCredentials.servicetype === 'conv') {
-            await conversation.getTextClassifiers(newCredentials);
+            const workingUrl = await conversation.identifyRegion(newCredentials.username, newCredentials.password);
+            newCredentials.url = workingUrl;
         }
         else if (newCredentials.servicetype === 'visrec') {
             await visualRecognition.getImageClassifiers(newCredentials);
@@ -119,6 +128,9 @@ async function addCredentials(req: Express.Request, res: Express.Response) {
         return errors.unknownError(res, err);
     }
 
+    //
+    // validated! store the credentials as they look good
+    //
     try {
         const credsObj = await store.storeBluemixCredentials(tenant, newCredentials);
         res.status(httpstatus.CREATED).json(

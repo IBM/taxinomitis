@@ -5,7 +5,9 @@ import * as DbTypes from '../db/db-types';
 export interface BluemixCredentials {
     readonly id: string;
     readonly servicetype: BluemixServiceType;
-    readonly url: string;
+    // not readonly, because we don't know what the correct URL is
+    //  until after we've tried a few options
+    url: string;
     readonly username: string;
     readonly password: string;
     readonly classid: string;
