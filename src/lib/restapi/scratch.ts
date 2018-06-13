@@ -165,6 +165,7 @@ async function getScratchxExtension(req: Express.Request, res: Express.Response)
 
         const extension = await extensions.getScratchxExtension(scratchKey, project);
         return res.set('Content-Type', 'application/javascript')
+                  .set(headers.NO_CACHE)
                   .send(extension);
     }
     catch (err) {
