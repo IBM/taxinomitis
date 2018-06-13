@@ -1,0 +1,66 @@
+This is an automated email from Machine Learning for Kids.
+
+You're receiving this email because your class encountered a large number of errors from IBM Watson credentials.
+
+What errors were there?
+=======================
+
+Students in your class tried to train machine learning models, but this failed with errors like:
+
+> Your class already has created their maximum allowed number of models.
+>
+> Please let your teacher or group leader know that their
+> "Watson Assistant API keys have no more workspaces available"
+
+They continued trying to train machine learning models despite these errors, until these repeated efforts started to result in with errors like:
+
+> Your class is making too many requests to create machine learning models at too fast a rate.
+> Please stop now and let your teacher or group leader know that
+> "the Watson Assistant service is currently rate limiting their API key"
+
+This will have even started to impact usage of the machine learning models that were previously successfully trained.
+
+
+Why did this happen?
+====================
+
+When your students click the "Train new machine learning model" button, this uses the IBM Watson service keys that you provided when you set up the class.
+
+(You can review these at https://machinelearningforkids.co.uk/#!/teacher/apikeys )
+
+Each of the service keys that you provide come with usage limits. These vary based on the Plan for the service instances that you create (i.e. a "Standard" tier Watson API key lets your class train more machine learning models than a "Free" or "Lite" tier Watson API key).
+
+These are displayed in the IBM Cloud UI where the credentials were created (where Watson Assistant calls them "workspaces", and Visual Recognition calls them "custom models").
+
+These are described in more detail in the document here:
+https://github.com/dalelane/ml-for-kids/raw/master/doc/machinelearningforkids-apikeys.pdf
+
+To be clear, these limits are applied and enforced by the IBM Watson APIs - *not* by Machine Learning for Kids.
+
+
+What can you do?
+================
+
+You need enough Watson API keys to support the number of students in your class, and the number of projects that they have.
+
+The errors your class encountered today suggests that you don't have enough service instances for your students.
+
+Things that you could try:
+
+* Create additional IBM Watson API key(s) and add them to your class account. There are no limits for the number of API keys you can have in a class.
+Add them to https://machinelearningforkids.co.uk/#!/teacher/apikeys
+
+* Use a different Plan for the API keys you create. Lite plan API keys for Watson Assistant allow your class to create 5 machine learning models. If you have more than five students, that won't be enough. You could try using the Standard plan, which allows 20 machine learning models.
+
+* Advise your students that when they see errors saying that they can't train a machine learning model, that repeatedly clicking the button will not improve that, and will in fact make things worse for their classmates
+
+* Use "whole class projects" - where all (or groups) of your students work together on a shared project. If 10 of your students train a machine learning model between them, instead of training a machine learning model each, then you won't need as many API keys.
+
+If you have any questions or concerns about this, or think this will prevent you from running the classes you want to run, please get in touch - I will help in any way I can.
+
+
+Kind regards
+
+Dale
+--
+machinelearningforkids.co.uk
