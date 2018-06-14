@@ -55,6 +55,17 @@ interface ConversationIntentExample {
 }
 
 
+/**
+ * Type of credentials for the Watson Assistant service.
+ *
+ * 'legacy' refers to credentials created in regions outside au-syd,
+ *           which use a username and password for authentication.
+ * 'current' refers to credentials created after May 22 2018
+ *            which use a bearer token request header for auth.
+ */
+export type ConversationCredsType = 'legacy' | 'current';
+
+
 export interface VisualClassifier {
     readonly id: string;
     readonly classifierid: string;

@@ -164,7 +164,7 @@ export const request = {
         }
     },
 
-    delete : (url: string, options: visrec.LegacyVisReqRequest | visrec.NewVisReqRequest) => {
+    delete : (url: string, options: visrec.LegacyVisRecRequest | visrec.NewVisRecRequest) => {
         assert(options.qs.version);
         assert(options.headers);
         return Promise.resolve();

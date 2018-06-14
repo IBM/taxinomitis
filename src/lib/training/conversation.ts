@@ -5,10 +5,13 @@ import * as uuid from 'uuid/v1';
 import * as _ from 'lodash';
 // local dependencies
 import * as store from '../db/store';
+import * as iam from '../iam';
 import * as DbObjects from '../db/db-types';
 import * as TrainingObjects from './training-types';
 import * as notifications from '../notifications/slack';
 import loggerSetup from '../utils/logger';
+import { bulkStoreNumberTraining } from '../db/store';
+import { create } from 'domain';
 
 const log = loggerSetup();
 
@@ -229,23 +232,13 @@ export async function deleteClassifier(classifier: TrainingObjects.ConversationW
     await store.resetExpiredScratchKey(classifier.workspace_id, 'text');
 }
 
+
 export async function deleteClassifierFromBluemix(
     credentials: TrainingObjects.BluemixCredentials,
     classifierId: string,
 ): Promise<void>
 {
-    const req = {
-        auth : {
-            user : credentials.username,
-            pass : credentials.password,
-        },
-        headers : {
-            'user-agent' : 'machinelearningforkids',
-        },
-        qs : {
-            version : '2017-05-26',
-        },
-    };
+    const req = await createBaseRequest(credentials);
 
     try {
         const url = credentials.url + '/v1/workspaces/' + classifierId;
@@ -292,34 +285,24 @@ export function getClassifierStatuses(
 
 
 
-export function getStatus(
+export async function getStatus(
     credentials: TrainingObjects.BluemixCredentials,
     workspace: TrainingObjects.ConversationWorkspace,
-): PromiseLike<TrainingObjects.ConversationWorkspace>
+): Promise<TrainingObjects.ConversationWorkspace>
 {
-    return request.get(workspace.url, {
-        auth : {
-            user : credentials.username,
-            pass : credentials.password,
-        },
-        headers : {
-            'user-agent' : 'machinelearningforkids',
-        },
-        qs : {
-            version : '2017-05-26',
-        },
-        json : true,
-    })
-    .then((body) => {
-        workspace.status = body.status;
-        workspace.updated = new Date(body.updated);
-        return workspace;
-    })
-    .catch((err) => {
-        log.error({ err }, 'Failed to get status');
-        workspace.status = 'Non Existent';
-        return workspace;
-    });
+    const req = await createBaseRequest(credentials);
+
+    return request.get(workspace.url, req)
+        .then((body) => {
+            workspace.status = body.status;
+            workspace.updated = new Date(body.updated);
+            return workspace;
+        })
+        .catch((err) => {
+            log.error({ err }, 'Failed to get status');
+            workspace.status = 'Non Existent';
+            return workspace;
+        });
 }
 
 
@@ -371,20 +354,10 @@ async function submitTrainingToConversation(
     tenantPolicy: DbObjects.ClassTenant,
 ): Promise<TrainingObjects.ConversationWorkspace>
 {
-    const req: ConversationApiRequestPayloadClassifierItem = {
-        auth : {
-            user : credentials.username,
-            pass : credentials.password,
-        },
-        headers : {
-            'user-agent' : 'machinelearningforkids',
-        },
-        qs : {
-            version : '2017-05-26',
-        },
+    const basereq = await createBaseRequest(credentials);
+    const req: NewTrainingRequest | LegacyTrainingRequest = {
+        ...basereq,
         body : training,
-        json : true,
-        gzip : true,
     };
 
     try {
@@ -448,23 +421,14 @@ export async function testClassifier(
     text: string,
 ): Promise<TrainingObjects.Classification[]>
 {
-    const req: ConversationApiRequestPayloadTestItem = {
-        auth : {
-            user : credentials.username,
-            pass : credentials.password,
-        },
-        headers : {
-            'user-agent' : 'machinelearningforkids',
-        },
-        qs : {
-            version : '2017-05-26',
-        },
+    const basereq = await createBaseRequest(credentials);
+    const req = {
+        ...basereq,
         body : {
             input : {
                 text,
             },
         },
-        json : true,
     };
 
     try {
@@ -524,24 +488,28 @@ function chooseLabelAtRandom(project: DbObjects.Project, classifierTimestamp: Da
  */
 export async function identifyRegion(username: string, password: string): Promise<string>
 {
-    const testRequest = {
-        auth : {
-            user : username,
-            pass : password,
-        },
-        headers : {
-            'user-agent' : 'machinelearningforkids',
-        },
-        qs : {
-            version : '2017-05-26',
-            page_limit : 1,
-        },
-        json : true,
-    };
+    const testRequest = await createBaseRequest({
+        username, password,
+        servicetype: 'conv',
+
+        // We don't know these values, but createBaseRequest is a private
+        //  function that we know doesn't use them, so it's safe to fill
+        //  these with any old junk.
+        classid: 'placeholder',
+        id: 'placeholder',
+        url: 'unknown',
+    });
+
+    // as we don't care about the response (we're just checking the credentials)
+    //  we try to keep the request as small as possible
+    testRequest.qs.page_limit = 1;
+
 
     const POSSIBLE_URLS = [
         'https://gateway.watsonplatform.net/conversation/api',
         'https://gateway-fra.watsonplatform.net/assistant/api',
+        'https://gateway.watsonplatform.net/assistant/api',
+        'https://gateway-wdc.watsonplatform.net/assistant/api',
     ];
 
     let lastErr: Error = new Error('Failed to verify credentials');
@@ -573,21 +541,10 @@ export async function getTextClassifiers(
     credentials: TrainingObjects.BluemixCredentials,
 ): Promise<TrainingObjects.ClassifierSummary[]>
 {
-    const req = {
-        auth : {
-            user : credentials.username,
-            pass : credentials.password,
-        },
-        headers : {
-            'user-agent' : 'machinelearningforkids',
-        },
-        qs : {
-            version : '2017-05-26',
-            page_limit : 100,
-        },
-        json : true,
-    };
+    const req =  await createBaseRequest(credentials);
 
+    // to avoid repeated requests, we ask for *all* the classifiers!
+    req.qs.page_limit = 100;
 
     try {
         const body = await request.get(credentials.url + '/v1/workspaces', req);
@@ -627,6 +584,66 @@ export async function cleanupExpiredClassifiers(): Promise<void[]>
 }
 
 
+
+/**
+ * Identifies what type of credentials are provided, so that the right auth
+ *  mechanism can be used.
+ */
+function getType(credentials: TrainingObjects.BluemixCredentials): TrainingObjects.ConversationCredsType {
+    if (credentials.username.length === 36 && credentials.password.length === 12) {
+        return 'legacy';
+    }
+    return 'current';
+}
+
+
+
+
+async function createBaseRequest(credentials: TrainingObjects.BluemixCredentials)
+    : Promise<LegacyConvRequest | NewConvRequest>
+{
+    if (getType(credentials) === 'legacy') {
+        const req: LegacyConvRequest = {
+            qs : {
+                version: '2017-05-26',
+            },
+            auth : {
+                user : credentials.username,
+                pass : credentials.password,
+            },
+            headers: {
+                'user-agent': 'machinelearningforkids',
+            },
+            json : true,
+            gzip : true,
+            timeout : 30000,
+        };
+        return Promise.resolve(req);
+    }
+    else {
+        const authHeader = await iam.getAuthHeader(credentials.username + credentials.password);
+
+        const req: NewConvRequest = {
+            qs : {
+                version: '2018-02-16',
+            },
+            headers : {
+                'user-agent': 'machinelearningforkids',
+                'Authorization': authHeader,
+            },
+            json : true,
+            gzip : true,
+            timeout : 30000,
+        };
+        return req;
+    }
+}
+
+
+
+
+
+
 interface ConversationApiResponsePayloadIntentItem {
     readonly intent: string;
     readonly confidence: number;
@@ -637,38 +654,54 @@ interface ConversationApiResponsePayloadWorkspaceItem {
 }
 
 
-export interface ConversationApiRequestPayloadClassifierItem {
-    readonly auth: {
-        readonly user: string;
-        readonly pass: string;
+
+interface ConversationRequestBase {
+    readonly qs: {
+        readonly version: string;
+        page_limit?: number;
     };
     readonly headers: {
-        readonly 'user-agent': string;
+        readonly 'user-agent': 'machinelearningforkids';
     };
-    readonly qs: {
-        readonly version: '2017-05-26';
-    };
-    readonly body: TrainingObjects.ConversationTrainingData;
     readonly json: true;
     readonly gzip: true;
+    readonly timeout: number;
 }
 
-
-export interface ConversationApiRequestPayloadTestItem {
+interface LegacyConvRequest extends ConversationRequestBase {
+    readonly qs: {
+        readonly version: '2017-05-26';
+        page_limit?: number;
+    };
     readonly auth: {
         readonly user: string;
         readonly pass: string;
     };
-    readonly headers: {
-        readonly 'user-agent': string;
-    };
+}
+interface NewConvRequest extends ConversationRequestBase {
     readonly qs: {
-        readonly version: '2017-05-26';
+        readonly version: '2018-02-16';
+        page_limit?: number;
     };
+    readonly headers: {
+        readonly 'user-agent': 'machinelearningforkids';
+        readonly Authorization: string;
+    };
+}
+
+interface TrainingRequest {
+    readonly body: TrainingObjects.ConversationTrainingData;
+}
+interface TestRequest {
     readonly body: {
         readonly input: {
             readonly text: string;
         };
     };
-    readonly json: true;
 }
+
+
+export interface LegacyTrainingRequest extends TrainingRequest, LegacyConvRequest {}
+export interface NewTrainingRequest extends TrainingRequest, NewConvRequest {}
+export interface LegacyTestRequest extends TestRequest, LegacyConvRequest {}
+export interface NewTestRequest extends TestRequest, NewConvRequest {}

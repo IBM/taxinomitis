@@ -4,8 +4,8 @@ import * as DbObjects from '../../lib/db/objects';
 
 export const creds: TrainingTypes.BluemixCredentials = {
     id : '123',
-    username : 'user',
-    password : 'pass',
+    username : 'useruseruseruseruseruseruseruseruser',
+    password : 'passpasspass',
     servicetype : 'conv',
     url : 'http://conversation.service',
     classid : 'classid',

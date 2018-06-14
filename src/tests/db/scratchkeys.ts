@@ -351,8 +351,8 @@ describe('ScratchKeys store', () => {
 
         const credentials: Types.BluemixCredentials = {
             id : uuid(),
-            username : uuid(),
-            password : uuid(),
+            username : randomstring.generate(36),
+            password : randomstring.generate(12),
             servicetype : 'conv',
             url : uuid(),
             classid : reusedClassid,

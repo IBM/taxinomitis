@@ -1,0 +1,8 @@
+{
+  "apikey": "T4iQLgpObvjyoVGFH1goFz0d9vUTr2DXkxN7zK7OvM_3",
+  "iam_apikey_description": "Auto generated apikey during resource-key operation for Instance - crn:v1:bluemix:public:conversation:au-syd:a/b2e26f0179b0c2678eb932efd36ee4eb:a25dd6c8-9042-4970-aebf-1a647ef9c86f::",
+  "iam_apikey_name": "auto-generated-apikey-d89a7820-98dd-423c-8b32-8df3eb8e9774",
+  "iam_role_crn": "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+  "iam_serviceid_crn": "crn:v1:bluemix:public:iam-identity::a/b2e26f0179b0c2678eb932efd36ee4eb::serviceid:ServiceId-aa33357d-7742-4bcf-bb8a-120ab34cdbdb",
+  "url": "https://gateway-syd.watsonplatform.net/assistant/api"
+}

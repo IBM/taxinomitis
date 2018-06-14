@@ -1,7 +1,6 @@
 // external dependencies
 import * as LRU from 'lru';
 // internal dependencies
-import * as Types from './iam-types';
 import * as tokens from './tokens';
 import * as constants from '../utils/constants';
 

@@ -992,7 +992,7 @@ describe('REST API - scratch keys', () => {
         });
 
 
-        function mockClassifier(url: string, opts: conversation.ConversationApiRequestPayloadTestItem) {
+        function mockClassifier(url: string, opts: conversation.LegacyTestRequest) {
             return new Promise((resolve) => {
                 resolve({
                     intents : [
@@ -1060,8 +1060,8 @@ describe('REST API - scratch keys', () => {
 
             const credentials = {
                 id : uuid(),
-                username : randomstring.generate({ length : 12 }),
-                password : randomstring.generate({ length : 20 }),
+                username : randomstring.generate({ length : 36 }),
+                password : randomstring.generate({ length : 12 }),
                 servicetype : 'conv' as Types.BluemixServiceType,
                 url : uuid(),
                 classid : TESTCLASS,
@@ -1130,8 +1130,8 @@ describe('REST API - scratch keys', () => {
 
             const credentials = {
                 id : uuid(),
-                username : randomstring.generate({ length : 12 }),
-                password : randomstring.generate({ length : 20 }),
+                username : randomstring.generate({ length : 36 }),
+                password : randomstring.generate({ length : 12 }),
                 servicetype : 'conv' as Types.BluemixServiceType,
                 url : uuid(),
                 classid : TESTCLASS,
@@ -1216,8 +1216,8 @@ describe('REST API - scratch keys', () => {
 
             const credentials = {
                 id : uuid(),
-                username : randomstring.generate({ length : 12 }),
-                password : randomstring.generate({ length : 20 }),
+                username : randomstring.generate({ length : 36 }),
+                password : randomstring.generate({ length : 12 }),
                 servicetype : 'conv' as Types.BluemixServiceType,
                 url : uuid(),
                 classid : TESTCLASS,
@@ -1277,8 +1277,8 @@ describe('REST API - scratch keys', () => {
 
             const credentials = {
                 id : uuid(),
-                username : randomstring.generate({ length : 12 }),
-                password : randomstring.generate({ length : 20 }),
+                username : randomstring.generate({ length : 36 }),
+                password : randomstring.generate({ length : 12 }),
                 servicetype : 'conv' as Types.BluemixServiceType,
                 url : uuid(),
                 classid : TESTCLASS,

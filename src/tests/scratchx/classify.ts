@@ -249,8 +249,8 @@ describe('Scratchx - classify', () => {
                 classifierid : 'good',
                 credentials : {
                     id : uuid(),
-                    username : 'user',
-                    password : 'pass',
+                    username : 'useruseruseruseruseruseruseruseruser',
+                    password : 'passpasspass',
                     servicetype : 'conv',
                     url : 'url',
                     classid : TESTCLASS,

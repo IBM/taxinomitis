@@ -448,6 +448,21 @@ export function createBluemixCredentials(
                 throw new Error('Invalid credentials');
             }
         }
+        else if (apikey) {
+            if (apikey.length === 44) {
+                return {
+                    id : uuid(),
+                    username : apikey.substr(0, 22),
+                    password : apikey.substr(22),
+                    classid,
+                    servicetype : 'conv',
+                    url : 'https://gateway-wdc.watsonplatform.net/assistant/api',
+                };
+            }
+            else {
+                throw new Error('Invalid API key');
+            }
+        }
         else {
             throw new Error('Missing required attributes');
         }

@@ -584,13 +584,13 @@ function getType(credentials: TrainingObjects.BluemixCredentials): TrainingObjec
 
 
 async function createBaseRequest(credentials: TrainingObjects.BluemixCredentials)
-    : Promise<LegacyVisReqRequest | NewVisReqRequest>
+    : Promise<LegacyVisRecRequest | NewVisRecRequest>
 {
     // tslint:disable-next-line:variable-name
     const api_key: string = credentials.username + credentials.password;
 
     if (getType(credentials) === 'legacy') {
-        const req: LegacyVisReqRequest = {
+        const req: LegacyVisRecRequest = {
             qs : {
                 version: '2016-05-20',
                 api_key,
@@ -607,7 +607,7 @@ async function createBaseRequest(credentials: TrainingObjects.BluemixCredentials
     else {
         const authHeader = await iam.getAuthHeader(api_key);
 
-        const req: NewVisReqRequest = {
+        const req: NewVisRecRequest = {
             qs : {
                 version : '2018-03-19',
             },
@@ -628,7 +628,7 @@ async function createBaseRequest(credentials: TrainingObjects.BluemixCredentials
 
 
 
-interface VisReqRequestBase {
+interface VisRecRequestBase {
     readonly qs: {
         readonly version: string;
     };
@@ -640,13 +640,13 @@ interface VisReqRequestBase {
     readonly timeout: number;
 }
 
-export interface LegacyVisReqRequest extends VisReqRequestBase {
+export interface LegacyVisRecRequest extends VisRecRequestBase {
     readonly qs: {
         readonly version: '2016-05-20';
         readonly api_key: string;
     };
 }
-export interface NewVisReqRequest extends VisReqRequestBase {
+export interface NewVisRecRequest extends VisRecRequestBase {
     readonly qs: {
         readonly version: '2018-03-19';
     };
@@ -679,11 +679,11 @@ interface TestFileRequest {
 }
 
 
-export interface LegacyTrainingRequest extends TrainingRequest, LegacyVisReqRequest {}
-export interface NewTrainingRequest extends TrainingRequest, NewVisReqRequest {}
-export interface LegacyTestFileRequest extends TestFileRequest, LegacyVisReqRequest {}
-export interface NewTestFileRequest extends TestFileRequest, NewVisReqRequest {}
-export interface LegacyTestUrlRequest extends TestUrlRequest, LegacyVisReqRequest {
+export interface LegacyTrainingRequest extends TrainingRequest, LegacyVisRecRequest {}
+export interface NewTrainingRequest extends TrainingRequest, NewVisRecRequest {}
+export interface LegacyTestFileRequest extends TestFileRequest, LegacyVisRecRequest {}
+export interface NewTestFileRequest extends TestFileRequest, NewVisRecRequest {}
+export interface LegacyTestUrlRequest extends TestUrlRequest, LegacyVisRecRequest {
     readonly qs: {
         readonly version: '2016-05-20';
         readonly api_key: string;
@@ -693,7 +693,7 @@ export interface LegacyTestUrlRequest extends TestUrlRequest, LegacyVisReqReques
         readonly threshold: number;
     };
 }
-export interface NewTestUrlRequest extends TestUrlRequest, NewVisReqRequest {
+export interface NewTestUrlRequest extends TestUrlRequest, NewVisRecRequest {
     readonly qs: {
         readonly version: '2018-03-19';
 

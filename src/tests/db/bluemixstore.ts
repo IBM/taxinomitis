@@ -1,6 +1,5 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
-import * as util from 'util';
 import * as randomstring from 'randomstring';
 import * as sinon from 'sinon';
 import * as uuid from 'uuid/v1';
@@ -172,8 +171,8 @@ describe('DB store', () => {
 
             const credentials: Types.BluemixCredentials = {
                 id : uuid(),
-                username : uuid(),
-                password : uuid(),
+                username : randomstring.generate(36),
+                password : randomstring.generate(12),
                 servicetype : 'conv',
                 url : uuid(),
                 classid,
@@ -261,8 +260,8 @@ describe('DB store', () => {
 
             const credentials: Types.BluemixCredentials = {
                 id : uuid(),
-                username : uuid(),
-                password : uuid(),
+                username : randomstring.generate(36),
+                password : randomstring.generate(12),
                 servicetype : 'conv',
                 url : uuid(),
                 classid,
@@ -327,8 +326,8 @@ describe('DB store', () => {
 
             const credentials: Types.BluemixCredentials = {
                 id : uuid(),
-                username : uuid(),
-                password : uuid(),
+                username : randomstring.generate(36),
+                password : randomstring.generate(12),
                 servicetype : 'conv',
                 url : uuid(),
                 classid,
@@ -387,8 +386,8 @@ describe('DB store', () => {
 
             const credentials: Types.BluemixCredentials = {
                 id : uuid(),
-                username : uuid(),
-                password : uuid(),
+                username : randomstring.generate(36),
+                password : randomstring.generate(12),
                 servicetype : 'conv',
                 url : uuid(),
                 classid,

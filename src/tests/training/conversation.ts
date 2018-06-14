@@ -257,8 +257,8 @@ describe('Training - Conversation', () => {
         it('should return classes from Conversation service', async () => {
             const creds: TrainingTypes.BluemixCredentials = {
                 id : '123',
-                username : 'user',
-                password : 'pass',
+                username : 'useruseruseruseruseruseruseruseruser',
+                password : 'passpasspass',
                 servicetype : 'conv',
                 url : 'http://conversation.service',
                 classid : 'classid',
@@ -285,8 +285,8 @@ describe('Training - Conversation', () => {
         it('should fail to return classes from broken Conversation workspace', async () => {
             const creds: TrainingTypes.BluemixCredentials = {
                 id : '123',
-                username : 'user',
-                password : 'pass',
+                username : 'useruseruseruseruseruseruseruseruser',
+                password : 'passpasspass',
                 servicetype : 'conv',
                 url : 'http://conversation.service',
                 classid : 'classid',
@@ -316,9 +316,10 @@ describe('Training - Conversation', () => {
             assert(deleteStoreStub.calledOnce);
 
             assert(deleteStub.calledWith('http://conversation.service/v1/workspaces/good', {
-                auth : { user : 'user', pass : 'pass' },
+                auth : { user : 'useruseruseruseruseruseruseruseruser', pass : 'passpasspass' },
                 qs : { version : '2017-05-26' },
                 headers : { 'user-agent' : 'machinelearningforkids' },
+                json: true, gzip: true, timeout: 30000,
             }));
             assert(deleteStoreStub.calledWith(goodClassifier.id));
             assert(resetExpiredScratchKeyStub.called);
@@ -357,9 +358,10 @@ describe('Training - Conversation', () => {
             assert(deleteStoreStub.calledOnce);
 
             assert(deleteStub.calledWith('http://conversation.service/v1/workspaces/doesnotactuallyexist', {
-                auth : { user : 'user', pass : 'pass' },
+                auth : { user : 'useruseruseruseruseruseruseruseruser', pass : 'passpasspass' },
                 qs : { version : '2017-05-26' },
                 headers : { 'user-agent' : 'machinelearningforkids' },
+                json: true, gzip: true, timeout: 30000,
             }));
             assert(deleteStoreStub.calledWith(workspaceid));
             assert(resetExpiredScratchKeyStub.called);
@@ -465,7 +467,7 @@ describe('Training - Conversation', () => {
                 }
             });
         },
-        createClassifier : (url: string, options: conversation.ConversationApiRequestPayloadClassifierItem) => {
+        createClassifier : (url: string, options: conversation.LegacyTrainingRequest) => {
             log.debug({ url, options }, 'mock create classifier');
             return new Promise((resolve, reject) => {
                 if (options.body.name === 'Bob\'s text project') {
@@ -530,7 +532,7 @@ describe('Training - Conversation', () => {
                 }
             });
         },
-        testClassifier : (url: string, opts: conversation.ConversationApiRequestPayloadTestItem) => {
+        testClassifier : (url: string, opts: conversation.LegacyTestRequest) => {
             return new Promise((resolve) => {
                 switch (url) {
                 case 'http://conversation.service/v1/workspaces/good/message':
