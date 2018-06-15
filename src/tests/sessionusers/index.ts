@@ -36,7 +36,7 @@ describe('session users', () => {
 
         it('should enforce session class size limit', async () => {
 
-            const TEST_CLASS_LIMIT = 360;
+            const TEST_CLASS_LIMIT = 560;
 
             const setupPromises: Array<Promise<Objects.TemporaryUser>> = [];
             for (let i = 0; i < TEST_CLASS_LIMIT; i++) {
