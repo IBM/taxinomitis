@@ -589,7 +589,7 @@ export async function cleanupExpiredClassifiers(): Promise<void[]>
  * Identifies what type of credentials are provided, so that the right auth
  *  mechanism can be used.
  */
-function getType(credentials: TrainingObjects.BluemixCredentials): TrainingObjects.ConversationCredsType {
+export function getType(credentials: TrainingObjects.BluemixCredentials): TrainingObjects.ConversationCredsType {
     if (credentials.username.length === 36 && credentials.password.length === 12) {
         return 'legacy';
     }

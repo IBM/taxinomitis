@@ -25,11 +25,19 @@ function returnVisualRecognitionCredentials(credentials: TrainingTypes.BluemixCr
     };
 }
 function returnConversationCredentials(credentials: TrainingTypes.BluemixCredentials) {
-    return {
-        id : credentials.id,
-        username : credentials.username,
-        password : credentials.password,
-    };
+    if (conversation.getType(credentials) === 'legacy') {
+        return {
+            id : credentials.id,
+            username : credentials.username,
+            password : credentials.password,
+        };
+    }
+    else {
+        return {
+            id : credentials.id,
+            apikey : credentials.username + credentials.password,
+        };
+    }
 }
 
 

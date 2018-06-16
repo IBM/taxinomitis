@@ -12,17 +12,17 @@
 <div ng-if="isAuthenticated && vm.profile.role !== 'supervisor'" class="alert alert-danger pageheadermsg">
     <strong>Error:</strong> You are not authorized to access the Watson API keys used by your class.
 </div>
-    
+
 <div ng-if="isAuthenticated && vm.policy && vm.policy.isManaged" class="alert alert-danger pageheadermsg">
     <strong>Error:</strong> API Keys used by your class are being managed for you.
 </div>
-    
+
 <div ng-if="isAuthenticated && vm.profile.role === 'supervisor'" class="adminpage">
 
     <div class="alert alert-info pageheadermsg">
-        If you're not sure what to do here, please follow the 
+        If you're not sure what to do here, please follow the
         <a href="https://github.com/dalelane/ml-for-kids/raw/master/doc/machinelearningforkids-apikeys.pdf"> step-by-step guide </a>.
-        
+
         If you'd like any help, please <strong><a style="cursor: pointer;" ui-sref="help">get in touch</a></strong>.
     </div>
 
@@ -61,7 +61,7 @@
             <table ng-if="vm.credentials.conv && vm.credentials.conv.length > 0" class="studentslist">
                 <tr ng-repeat="creds in vm.credentials.conv" ng-class-even="'even'" ng-class-odd="'odd'">
                     <td><img src="static/images/conversation.jpg" alt="Watson Assistant"></td>
-                    <td class="studentslistdetail">
+                    <td class="studentslistdetail" ng-if="creds.username">
                         <div class="listheading">
                             Username
                         </div>
@@ -69,13 +69,24 @@
                             {{ creds.username }}
                         </div>
                     </td>
-                    <td class="studentslistdetail">
+                    <td class="studentslistdetail" ng-if="creds.password">
                         <div class="listheading">
                             Password
                         </div>
                         <div class="listmain">
                             {{ creds.password }}
                         </div>
+                    </td>
+                    <td class="studentslistdetail" ng-if="creds.apikey">
+                        <div class="listheading">
+                            API key
+                        </div>
+                        <div class="listmain">
+                            {{ creds.apikey }}
+                        </div>
+                    </td>
+                    <td class="studentslistdetail" ng-if="creds.apikey">
+                        <!-- placeholder -->
                     </td>
                     <td class="studentslistactions">
                         <button class="btn btn-default" ng-click="vm.deleteCredentials($event, creds, 'conv')">Remove</button>

@@ -1,49 +1,83 @@
-<md-dialog aria-label="Store new Watson Assistant API key">
+<md-dialog aria-label="Store new Watson Assistant API key" style="max-width: 90%; max-height: 90%">
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h2>Add new Watson Assistant credentials</h2>
         </div>
     </md-toolbar>
-    <form ng-cloak name="newCredentials" ng-submit="confirm({ username : username, password : password })">
+    <form ng-cloak name="newCredentials"
+          ng-submit="confirm({ username : username, password : password, apikey : apikey })">
         <md-dialog-content>
             <div class="md-dialog-content" style="min-width: 400px">
                 <md-card-content>
-                    <div layout="row">
+                    <div>
                         Provide a username and password for Watson Assistant.
                     </div>
-                    <div layout="row">
+                    <div style="margin-top: 0.5em">
                         These will be used when you (or students in your class) train
                         models in text projects.
                     </div>
-                    <div layout="row">
+                    <div style="margin-top: 0.5em">
                         This will not be shown to students in your group.
                     </div>
-                    <div layout="row" style="margin-top: 1em">
-                        For help creating a username and password, download the &nbsp;
-                        <a href="https://github.com/dalelane/ml-for-kids/raw/master/doc/machinelearningforkids-apikeys.pdf"> step-by-step guide </a>.
+                    <div style="margin-top: 1em">
+                        For help creating a username and password or API key, download the &nbsp;
+                        <a href="https://github.com/dalelane/ml-for-kids/raw/master/doc/machinelearningforkids-apikeys.pdf"> step by step guide </a>.
                     </div>
                     <div layout="row" style="margin-top: 1em;">
-                        <md-input-container style="min-width: 320px">
-                            <label>Username</label>
-                            <input type="text" name="text"
-                                md-autofocus
-                                ng-required="true"
-                                ng-pattern="/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[34][0-9a-fA-F]{3}-[89ab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/"
-                                ng-model="username"
-                                placeholder="username"
-                                md-maxlength="36"></input>
-                        </md-input-container>
+                        <span flex></span>
+                        <md-button class="md-raised"
+                                   style="padding-left: 15px; padding-right: 15px;"
+                                   ng-click="type = 'password'"
+                                   ng-class="{ 'md-primary' : type === 'password' }">
+                            Username / Password
+                        </md-button>
+                        <md-button class="md-raised"
+                                   style="padding-left: 15px; padding-right: 15px;"
+                                   ng-click="type = 'apikey'"
+                                   ng-class="{ 'md-primary' : type === 'apikey' }">
+                            API key
+                        </md-button>
+                        <span flex></span>
                     </div>
-                    <div layout="row">
-                        <md-input-container style="min-width: 280px">
-                            <label>Password</label>
-                            <input type="text" name="text"
-                                ng-required="true"
-                                ng-pattern="/^[0-9A-Za-z]{12}$/"
-                                ng-model="password"
-                                placeholder="password"
-                                md-maxlength="12"></input>
-                        </md-input-container>
+                    <div ng-hide="type !== 'password'">
+                        <div layout="row" style="margin-top: 1em;">
+                            <md-input-container style="width: 100%;">
+                                <label>Username</label>
+                                <input type="text" name="text"
+                                    md-autofocus
+                                    ng-required="type === 'password'"
+                                    ng-pattern="/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[34][0-9a-fA-F]{3}-[89ab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/"
+                                    ng-model="username"
+                                    placeholder="username"
+                                    style="width: 100%;"
+                                    md-maxlength="36"></input>
+                            </md-input-container>
+                        </div>
+                        <div layout="row">
+                            <md-input-container style="width: 100%;">
+                                <label>Password</label>
+                                <input type="text" name="text"
+                                    ng-required="type === 'password'"
+                                    ng-pattern="/^[0-9A-Za-z]{12}$/"
+                                    ng-model="password"
+                                    placeholder="password"
+                                    md-maxlength="12"></input>
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div ng-hide="type !== 'apikey'">
+                        <div layout="row" style="margin-top: 1em;">
+                            <md-input-container style="width: 100%;">
+                                <label>API key</label>
+                                <input type="text" name="text"
+                                    md-autofocus
+                                    ng-required="type === 'apikey'"
+                                    ng-pattern="/^[0-9A-Za-z\-\_]{44}$/"
+                                    ng-model="apikey"
+                                    placeholder="API key"
+                                    md-maxlength="44"></input>
+                            </md-input-container>
+                        </div>
                     </div>
                 </md-card-content>
                 <md-dialog-actions layout="row">
