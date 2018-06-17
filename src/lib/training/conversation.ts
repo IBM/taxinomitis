@@ -363,8 +363,12 @@ async function submitTrainingToConversation(
     try {
         const body = await request.post(url, req);
 
+        // check that we have timestamps, or create our own otherwise
+        const created = body.created ? new Date(body.created) : new Date();
+        const updated = body.updated ? new Date(body.updated) : new Date();
+
         // determine when the Conversation workspace should be deleted
-        const modelAutoExpiryTime = new Date(body.updated);
+        const modelAutoExpiryTime = new Date(updated.getTime());
         modelAutoExpiryTime.setHours(modelAutoExpiryTime.getHours() +
                                      tenantPolicy.textClassifierExpiry);
 
@@ -372,8 +376,8 @@ async function submitTrainingToConversation(
             id,
             name : body.name,
             language : body.language,
-            created : new Date(body.created),
-            updated : new Date(body.updated),
+            created,
+            updated,
             expiry : modelAutoExpiryTime,
             workspace_id : body.workspace_id,
             credentialsid : credentials.id,
