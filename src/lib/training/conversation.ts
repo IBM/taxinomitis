@@ -10,8 +10,6 @@ import * as DbObjects from '../db/db-types';
 import * as TrainingObjects from './training-types';
 import * as notifications from '../notifications/slack';
 import loggerSetup from '../utils/logger';
-import { bulkStoreNumberTraining } from '../db/store';
-import { create } from 'domain';
 
 const log = loggerSetup();
 
@@ -275,8 +273,15 @@ export function getClassifierStatuses(
     return Promise.all(
         workspaces.map(async (workspace) => {
             if (workspace.credentialsid in credentialsCacheById === false) {
-                const creds = await store.getBluemixCredentialsById(workspace.credentialsid);
-                credentialsCacheById[workspace.credentialsid] = creds;
+                try {
+                    const creds = await store.getBluemixCredentialsById(workspace.credentialsid);
+                    credentialsCacheById[workspace.credentialsid] = creds;
+                }
+                catch (err) {
+                    log.error({ err }, 'Credentials for Conversation workspace are missing');
+                    workspace.status = 'Unavailable';
+                    return workspace;
+                }
             }
             return getStatus(credentialsCacheById[workspace.credentialsid], workspace);
         }),
@@ -631,6 +636,7 @@ async function createBaseRequest(credentials: TrainingObjects.BluemixCredentials
         const req: NewConvRequest = {
             qs : {
                 version: '2018-02-16',
+                include_audit: true,
             },
             headers : {
                 'user-agent': 'machinelearningforkids',
@@ -687,6 +693,7 @@ interface NewConvRequest extends ConversationRequestBase {
     readonly qs: {
         readonly version: '2018-02-16';
         page_limit?: number;
+        readonly include_audit: true;
     };
     readonly headers: {
         readonly 'user-agent': 'machinelearningforkids';
