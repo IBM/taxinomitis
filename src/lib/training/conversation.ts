@@ -510,10 +510,11 @@ export async function identifyRegion(username: string, password: string): Promis
 
 
     const POSSIBLE_URLS = [
-        'https://gateway.watsonplatform.net/conversation/api',
-        'https://gateway-fra.watsonplatform.net/assistant/api',
         'https://gateway.watsonplatform.net/assistant/api',
         'https://gateway-wdc.watsonplatform.net/assistant/api',
+        'https://gateway-syd.watsonplatform.net/assistant/api',
+        'https://gateway-fra.watsonplatform.net/assistant/api',
+        'https://gateway.watsonplatform.net/conversation/api',
     ];
 
     let lastErr: Error = new Error('Failed to verify credentials');
