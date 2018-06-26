@@ -6,7 +6,8 @@
     max-width: 700px;
 }
 
-.loginPage.loginPageWide {
+.loginPage.loginPageWide,
+.loginPageFooter.loginPageWide {
     max-width: none;
     margin-left: 1em;
     margin-right: 1em;
@@ -162,4 +163,11 @@ table.loginInfoGrid td {
 .loginPage .loginType .loginNewClassInfo {
     font-size: 1em;
     margin: 1em 0;
+}
+
+.loginPageFooter {
+    margin: 0 auto 3em auto;
+    max-width: 700px;
+    text-align: right;
+    font-size: 0.8em;
 }
