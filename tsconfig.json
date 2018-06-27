@@ -8,6 +8,8 @@
     "module": "commonjs",
     "outDir": "dist",
     "alwaysStrict": true,
+    "removeComments": false,
+    "sourceMap": false,
     "strict": true,
     "skipLibCheck": true
   },
