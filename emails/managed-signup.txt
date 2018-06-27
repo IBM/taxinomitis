@@ -6,7 +6,7 @@ I've set up a new class account you can access using:
     password:  PASSWORD
 
 You can download a PDF which describes how you can get started at
-https://github.com/dalelane/ml-for-kids/raw/master/doc/machinelearningforkids-schools.pdf
+https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-schools.pdf
 
 In particular, please take note of item 4 - "reviewing your class limits".
 

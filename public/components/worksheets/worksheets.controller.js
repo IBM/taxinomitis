@@ -22,15 +22,15 @@
                 type : 'text',
                 image : 'static/images/project-smartclassroom.png',
                 tags : [ 'digital assistants', 'supervised learning' ],
-                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-smartclassroom.pdf',
+                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-smartclassroom.pdf',
                 downloads : [
                     {
                         description : 'Full version of the project, where the students make a non-machine learning version first to experience the value of using machine learning to do this',
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-smartclassroom.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom.pdf'
                     },
                     {
                         description : 'Shorter version of the project, where the students only make a machine learning version of the assistant',
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-smartclassroom-easy.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-easy.pdf'
                     }
                 ]
             },
@@ -42,10 +42,10 @@
                 type : 'text',
                 image : 'static/images/project-makemehappy.png',
                 tags : [ 'sentiment analysis', 'supervised learning' ],
-                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-makemehappy.pdf',
+                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-makemehappy.pdf',
                 downloads : [
                     {
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-makemehappy.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy.pdf'
                     }
                 ]
             },
@@ -57,16 +57,16 @@
                 type : 'images',
                 image : 'static/images/project-snap.png',
                 tags : [ 'image classification', 'supervised learning' ],
-                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-snap.pdf',
+                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-snap.pdf',
                 downloads : [
                     {
                         description : 'Full version of the project, where the students make their own cards that they will train the computer to recognise',
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-snap.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap.pdf'
                     },
                     {
                         description : 'Shorter version of the project, providing children with pre-made cards that you will need to print out, to save the students time having to make them',
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-snap-easy.pdf',
-                        resources : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/resources-snap-easy.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap-easy.pdf',
+                        resources : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/resources-snap-easy.pdf'
                     }
                 ]
             },
@@ -78,10 +78,10 @@
                 type : 'images',
                 image : 'static/images/project-mailmanmax.png',
                 tags : [ 'optical character recognition', 'handwriting recognition', 'image classification', 'supervised learning' ],
-                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-mailmanmax.pdf',
+                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-mailmanmax.pdf',
                 downloads : [
                     {
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-mailmanmax.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mailmanmax.pdf'
                     }
                 ]
             },
@@ -93,15 +93,15 @@
                 type : 'images',
                 image : 'static/images/project-carorcup.png',
                 tags : [ 'image classification', 'supervised learning', 'crowd sourcing' ],
-                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-carorcup.pdf',
+                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-carorcup.pdf',
                 downloads : [
                     {
                         description : 'Individual version of the project, where each student trains their own machine learning model independently',
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-carorcup.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup.pdf'
                     },
                     {
                         description : 'Group version of the project, where all students in the class work together to train a shared machine learning model',
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-carorcup-crowd.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup-crowd.pdf'
                     }
                 ]
             },
@@ -113,10 +113,10 @@
                 type : 'images',
                 image : 'static/images/project-facelock.png',
                 tags : [ 'facial recognition', 'biometrics', 'image classification', 'supervised learning' ],
-                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-facelock.pdf',
+                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-facelock.pdf',
                 downloads : [
                     {
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-facelock.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facelock.pdf'
                     }
                 ]
             },
@@ -128,10 +128,10 @@
                 type : 'numbers',
                 image : 'static/images/project-journeytoschool.png',
                 tags : [ 'predictive model', 'testing and accuracy', 'supervised learning' ],
-                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-journeytoschool.pdf',
+                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-journeytoschool.pdf',
                 downloads : [
                     {
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-journeytoschool.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-journeytoschool.pdf'
                     }
                 ]
             },
@@ -143,10 +143,10 @@
                 type : 'numbers',
                 image : 'static/images/project-pacman.png',
                 tags : [ 'decision tree learning' ],
-                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-pacman.pdf',
+                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-pacman.pdf',
                 downloads : [
                     {
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-pacman.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pacman.pdf'
                     }
                 ]
             },
@@ -158,10 +158,10 @@
                 type : 'text',
                 image : 'static/images/project-chatbots.png',
                 tags : [ 'sentiment analysis', 'supervised learning' ],
-                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-chatbots.pdf',
+                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chatbots.pdf',
                 downloads : [
                     {
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-chatbots.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots.pdf'
                     }
                 ]
             },
@@ -173,15 +173,15 @@
                 type : 'text',
                 image : 'static/images/project-touristinfo.png',
                 tags : [ 'training bias', 'recommendations', 'supervised learning' ],
-                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-touristinfo.pdf',
+                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-touristinfo.pdf',
                 downloads : [
                     {
                         description : 'Full version of the project',
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-touristinfo.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-touristinfo.pdf'
                     },
                     {
                         description : 'Shorter version of the project, where students make less of the Scratch project themselves, with more of the scripting provided in the starter project file',
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-touristinfo-easy.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-touristinfo-easy.pdf'
                     }
                 ]
             },
@@ -193,15 +193,15 @@
                 type : 'text',
                 image : 'static/images/project-sortinghat.png',
                 tags : [ 'text classification', 'supervised learning', 'crowd sourcing' ],
-                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-sortinghat.pdf',
+                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-sortinghat.pdf',
                 downloads : [
                     {
                         description : 'Individual version of the project, where each student trains their own machine learning model independently',
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-sortinghat.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat.pdf'
                     },
                     {
                         description : 'Group version of the project, where all students in the class work together to train a shared machine learning model',
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-sortinghat-crowd.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat-crowd.pdf'
                     }
                 ]
             },
@@ -213,10 +213,10 @@
                 type : 'images',
                 image : 'static/images/project-rockpaperscissors.png',
                 tags : [ 'image classification', 'supervised learning' ],
-                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-rockpaperscissors.pdf',
+                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-rockpaperscissors.pdf',
                 downloads : [
                     {
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-rockpaperscissors.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-rockpaperscissors.pdf'
                     }
                 ]
             },
@@ -228,10 +228,10 @@
                 type : 'images',
                 image : 'static/images/project-judgeabook.png',
                 tags : [ 'image classification', 'supervised learning' ],
-                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-judgeabook.pdf',
+                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook.pdf',
                 downloads : [
                     {
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-judgeabook.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf'
                     }
                 ]
             },
@@ -243,10 +243,10 @@
                 type : 'images',
                 image : 'static/images/project-locatelarry.png',
                 tags : [ 'image classification', 'supervised learning', 'image pre-processing' ],
-                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-locatelarry.pdf',
+                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-locatelarry.pdf',
                 downloads : [
                     {
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-locatelarry.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf'
                     }
                 ]
             },
@@ -258,10 +258,10 @@
                 type : 'images',
                 image : 'static/images/project-confused.png',
                 tags : [ 'image classification', 'supervised learning', 'overfitting' ],
-                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-confused.pdf',
+                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-confused.pdf',
                 downloads : [
                     {
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-confused.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-confused.pdf'
                     }
                 ]
             },
@@ -273,10 +273,10 @@
                 type : 'numbers',
                 image : 'static/images/project-schoollibrary.png',
                 tags : [ 'predictive model', 'recommendations', 'supervised learning' ],
-                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-schoollibrary.pdf',
+                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-schoollibrary.pdf',
                 downloads : [
                     {
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-schoollibrary.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf'
                     }
                 ]
             },
@@ -288,15 +288,15 @@
                 type : 'numbers',
                 image : 'static/images/project-noughtsandcrosses.png',
                 tags : [ 'decision tree learning', 'reinforcement learning', 'categorical data' ],
-                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-noughtsandcrosses.pdf',
+                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-noughtsandcrosses.pdf',
                 downloads : [
                     {
                         description : 'Classroom version, where each student makes the game themselves',
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-noughtsandcrosses.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses.pdf'
                     },
                     {
                         description : 'Demo version, for events like Science Fairs where each child has a minute or two to try something',
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-noughtsandcrosses-event.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-event.pdf'
                     }
                 ]
             },
@@ -308,10 +308,10 @@
                 type : 'numbers',
                 image : 'static/images/project-toptrumps.png',
                 tags : [ 'decision tree learning', 'reinforcement learning', 'categorical data' ],
-                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-toptrumps.pdf',
+                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-toptrumps.pdf',
                 downloads : [
                     {
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-toptrumps.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-toptrumps.pdf'
                     }
                 ]
             },
@@ -323,15 +323,15 @@
                 type : 'text',
                 image : 'static/images/project-headlines.png',
                 tags : [ 'text classification', 'supervised learning', 'testing' ],
-                teachersnotes : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/teachersnotes-headlines.pdf',
+                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines.pdf',
                 downloads : [
                     {
                         description : 'Simplified version of the project, where students make a simple project to put newspapers on the right shelves',
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-headlines-easy.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-easy.pdf'
                     },
                     {
                         description : 'Advanced version of the project, where students make a testing framework to analyse the performance of their model',
-                        worksheet : 'https://github.com/dalelane/ml-for-kids/raw/master/worksheets/worksheet-headlines.pdf'
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf'
                     }
                 ]
             },

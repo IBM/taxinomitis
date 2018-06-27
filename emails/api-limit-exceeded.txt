@@ -33,7 +33,7 @@ Each of the service keys that you provide come with usage limits. These vary bas
 These are displayed in the IBM Cloud UI where the credentials were created (where Watson Assistant calls them "workspaces", and Visual Recognition calls them "custom models").
 
 These are described in more detail in the document here:
-https://github.com/dalelane/ml-for-kids/raw/master/doc/machinelearningforkids-apikeys.pdf
+https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf
 
 To be clear, these limits are applied and enforced by the IBM Watson APIs - *not* by Machine Learning for Kids.
 
