@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+- "8.10"
+before_install:
+- npm install -g typescript
+- npm install -g tslint
+- npm install -g tslint-eslint-rules
+script:
+- tslint -c tslint.json 'src/**/*.ts'
