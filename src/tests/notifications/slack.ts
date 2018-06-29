@@ -2,8 +2,6 @@
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 
-import * as loggerSetup from '../utils/logger';
-
 import * as slackClient from '@slack/client';
 import * as slack from '../../lib/notifications/slack';
 

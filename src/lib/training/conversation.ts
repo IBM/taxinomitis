@@ -467,7 +467,7 @@ export async function testClassifier(
             throw new Error(ERROR_MESSAGES.MODEL_NOT_FOUND);
         }
 
-        log.error({ err, classifierId, credentials, projectid }, 'Failed to classify text');
+        log.error({ err, classifierId, credentials, projectid, text }, 'Failed to classify text');
         throw err;
     }
 }
