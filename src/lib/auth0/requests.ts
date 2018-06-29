@@ -2,6 +2,7 @@
 import * as request from 'request-promise';
 // local dependencies
 import * as Objects from './auth-types';
+import * as env from '../utils/env';
 
 // NO LOGIC IN HERE!
 //  PUTTING ONLY XHR REQUESTS IN ONE PLACE MAKES IT EASIER TO STUB OUT AUTH0 FOR TEST PURPOSES
@@ -11,13 +12,13 @@ import * as Objects from './auth-types';
 export function getOauthToken() {
     const options = {
         method: 'POST',
-        url: 'https://' + process.env.AUTH0_DOMAIN + '/oauth/token',
+        url: 'https://' + process.env[env.AUTH0_DOMAIN] + '/oauth/token',
         headers: { 'content-type': 'application/json' },
         json : true,
         body: {
-            client_id : process.env.AUTH0_API_CLIENTID,
-            client_secret : process.env.AUTH0_API_CLIENTSECRET,
-            audience : 'https://' + process.env.AUTH0_DOMAIN + '/api/v2/',
+            client_id : process.env[env.AUTH0_API_CLIENTID],
+            client_secret : process.env[env.AUTH0_API_CLIENTSECRET],
+            audience : 'https://' + process.env[env.AUTH0_DOMAIN] + '/api/v2/',
             grant_type : 'client_credentials',
         },
     };
@@ -28,7 +29,7 @@ export function getOauthToken() {
 export async function getUser(token: string, userid: string): Promise<Objects.User> {
     const getoptions = {
         method: 'GET',
-        url: 'https://' + process.env.AUTH0_DOMAIN + '/api/v2/users/' + userid,
+        url: 'https://' + process.env[env.AUTH0_DOMAIN] + '/api/v2/users/' + userid,
         headers: {
             authorization : 'Bearer ' + token,
         },
@@ -51,7 +52,7 @@ export async function getUser(token: string, userid: string): Promise<Objects.Us
 export async function getSupervisor(token: string, tenant: string): Promise<Objects.SupervisorInfo | undefined> {
     const getoptions = {
         method: 'GET',
-        url: 'https://' + process.env.AUTH0_DOMAIN + '/api/v2/users',
+        url: 'https://' + process.env[env.AUTH0_DOMAIN] + '/api/v2/users',
         headers: {
             authorization : 'Bearer ' + token,
         },
@@ -80,7 +81,7 @@ export async function getSupervisors(
 {
     const getoptions = {
         method: 'GET',
-        url: 'https://' + process.env.AUTH0_DOMAIN + '/api/v2/users',
+        url: 'https://' + process.env[env.AUTH0_DOMAIN] + '/api/v2/users',
         headers: {
             authorization : 'Bearer ' + token,
         },
@@ -106,7 +107,7 @@ export async function getSupervisors(
 export async function getUsers(token: string, tenant: string): Promise<Objects.User[]> {
     const getoptions = {
         method: 'GET',
-        url: 'https://' + process.env.AUTH0_DOMAIN + '/api/v2/users',
+        url: 'https://' + process.env[env.AUTH0_DOMAIN] + '/api/v2/users',
         headers: {
             authorization : 'Bearer ' + token,
         },
@@ -129,7 +130,7 @@ export async function getUsers(token: string, tenant: string): Promise<Objects.U
 export async function getUserCounts(token: string, tenant: string): Promise<Objects.UsersInfo> {
     const getoptions = {
         method: 'GET',
-        url: 'https://' + process.env.AUTH0_DOMAIN + '/api/v2/users',
+        url: 'https://' + process.env[env.AUTH0_DOMAIN] + '/api/v2/users',
         headers: {
             authorization : 'Bearer ' + token,
         },
@@ -153,7 +154,7 @@ export async function getUserCounts(token: string, tenant: string): Promise<Obje
 export function createUser(token: string, newuser: Objects.NewUser) {
     const createoptions = {
         method: 'POST',
-        url: 'https://' + process.env.AUTH0_DOMAIN + '/api/v2/users',
+        url: 'https://' + process.env[env.AUTH0_DOMAIN] + '/api/v2/users',
         headers: {
             authorization : 'Bearer ' + token,
         },
@@ -168,7 +169,7 @@ export function createUser(token: string, newuser: Objects.NewUser) {
 export function deleteUser(token: string, userid: string) {
     const deleteoptions = {
         method: 'DELETE',
-        url: 'https://' + process.env.AUTH0_DOMAIN + '/api/v2/users/' + userid,
+        url: 'https://' + process.env[env.AUTH0_DOMAIN] + '/api/v2/users/' + userid,
         headers: {
             authorization : 'Bearer ' + token,
         },
@@ -180,7 +181,7 @@ export function deleteUser(token: string, userid: string) {
 export function modifyUser(token: string, userid: string, modifications: Objects.Modifications) {
     const modifyoptions = {
         method: 'PATCH',
-        url: 'https://' + process.env.AUTH0_DOMAIN + '/api/v2/users/' + userid,
+        url: 'https://' + process.env[env.AUTH0_DOMAIN] + '/api/v2/users/' + userid,
         headers: {
             authorization : 'Bearer ' + token,
         },

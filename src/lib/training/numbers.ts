@@ -5,6 +5,7 @@ import * as httpStatus from 'http-status';
 import * as store from '../db/store';
 import * as Objects from '../db/db-types';
 import * as TrainingObjects from './training-types';
+import * as env from '../utils/env';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -75,8 +76,8 @@ export async function testClassifier(
 
     const req: NumbersApiRequestPayloadTestItem = {
         auth : {
-            user : process.env.NUMBERS_SERVICE_USER,
-            pass : process.env.NUMBERS_SERVICE_PASS,
+            user : process.env[env.NUMBERS_SERVICE_USER],
+            pass : process.env[env.NUMBERS_SERVICE_PASS],
         },
         body : {
             tenantid, studentid, projectid,
@@ -85,7 +86,7 @@ export async function testClassifier(
         json : true,
         gzip : true,
     };
-    const url = process.env.NUMBERS_SERVICE + '/api/classify';
+    const url = process.env[env.NUMBERS_SERVICE] + '/api/classify';
 
     let body: { [classname: string]: number };
     try {
@@ -129,14 +130,14 @@ export async function deleteClassifier(studentid: string, tenantid: string, proj
 {
     const req: NumbersApiDeleteClassifierRequest = {
         auth : {
-            user : process.env.NUMBERS_SERVICE_USER,
-            pass : process.env.NUMBERS_SERVICE_PASS,
+            user : process.env[env.NUMBERS_SERVICE_USER],
+            pass : process.env[env.NUMBERS_SERVICE_PASS],
         },
         qs : { tenantid, studentid, projectid },
         json : true,
     };
 
-    const url = process.env.NUMBERS_SERVICE + '/api/models';
+    const url = process.env[env.NUMBERS_SERVICE] + '/api/models';
     await request.delete(url, req);
 }
 
@@ -155,8 +156,8 @@ async function submitTraining(
 {
     const req: NumbersApiRequestPayloadClassifierItem = {
         auth : {
-            user : process.env.NUMBERS_SERVICE_USER,
-            pass : process.env.NUMBERS_SERVICE_PASS,
+            user : process.env[env.NUMBERS_SERVICE_USER],
+            pass : process.env[env.NUMBERS_SERVICE_PASS],
         },
         body : {
             tenantid, studentid, projectid, data,
@@ -165,7 +166,7 @@ async function submitTraining(
         gzip : true,
     };
 
-    const url = process.env.NUMBERS_SERVICE + '/api/models';
+    const url = process.env[env.NUMBERS_SERVICE] + '/api/models';
 
     try {
         await request.post(url, req);

@@ -4,9 +4,10 @@ import * as Mustache from 'mustache';
 // local dependencies
 import * as Types from '../db/db-types';
 import * as fileutils from '../utils/fileutils';
+import * as env from '../utils/env';
 
 
-const ROOT_URL = process.env.AUTH0_CALLBACK_URL;
+const ROOT_URL = process.env[env.AUTH0_CALLBACK_URL];
 
 
 function escapeProjectName(name: string): string {

@@ -1,3 +1,4 @@
+import * as env from './env';
 
 /**
  * If there are multiple instances of this application running in Bluemix,
@@ -14,7 +15,7 @@ export function isPrimaryInstance(): boolean
 {
     if (process.env.CF_INSTANCE_INDEX) {
         return process.env.CF_INSTANCE_INDEX === '0' &&
-               process.env.PRIMARY_INSTANCE === 'true';
+               process.env[env.PRIMARY_INSTANCE] === 'true';
     }
     else {
         // not running in Bluemix, so we assume this
