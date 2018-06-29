@@ -23,6 +23,7 @@ process.on('uncaughtException', shutdown.crash);
 
 // terminate quickly if Cloud Foundry sends a SIGTERM signal
 process.on('SIGTERM', shutdown.now);
+process.on('SIGINT', shutdown.now);
 
 // prepare Slack API for reporting alerts
 slack.init();
