@@ -93,6 +93,13 @@ export async function getStudentsByUserId(tenant: string): Promise<{ [id: string
 }
 
 
+export async function getTeacherByClassId(tenant: string): Promise<Objects.SupervisorInfo | undefined> {
+    const token = await getBearerToken();
+
+    return auth0requests.getSupervisor(token, tenant);
+}
+
+
 export async function countUsers(tenant: string): Promise<number> {
     const token = await getBearerToken();
     const usersCountsInfo: Objects.UsersInfo = await auth0requests.getUserCounts(token, tenant);
