@@ -134,6 +134,8 @@ async function sendEmail(tenant: string, templateinfo: EmailTemplate, values: Em
         html : Mustache.render(templateHtml, values),
     };
 
+    log.info({ tenant, email : teacher.email, subject : templateinfo.subject }, 'Sending email');
+
     return transporter.sendMail(email);
 }
 

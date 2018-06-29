@@ -1,7 +1,6 @@
 const gulp = require('gulp');
 const bower = require('gulp-bower');
 const mocha = require('gulp-mocha');
-const eslint = require('gulp-eslint');
 const tslint = require('gulp-tslint');
 const ts = require('gulp-typescript');
 const cleanCSS = require('gulp-clean-css');
@@ -159,14 +158,7 @@ gulp.task('tslint', () => {
         .pipe(tslint.report());
 });
 
-gulp.task('eslint', ['compile'], () => {
-    return gulp.src(paths.js)
-        .pipe(eslint())
-        .pipe(eslint.format())
-        .pipe(eslint.failAfterError());
-});
-
-gulp.task('lint', ['tslint', 'eslint']);
+gulp.task('lint', ['tslint']);
 
 gulp.task('test', () => {
     const mochaOptions = {

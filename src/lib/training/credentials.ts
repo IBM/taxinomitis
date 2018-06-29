@@ -1,10 +1,10 @@
 // local dependencies
 import * as store from '../db/store';
-import { ClassTenant } from '../db/db-types';
 import * as visrec from './visualrecognition';
 import * as conv from './conversation';
 import * as bluemixclassifiers from './classifiers';
-import * as notifications from '../notifications/slack';
+import * as slack from '../notifications/slack';
+import * as emails from '../notifications/email';
 import loggerSetup from '../utils/logger';
 import { ClassifierSummary, BluemixServiceType, BluemixCredentials, KnownErrorCondition } from './training-types';
 
@@ -45,7 +45,7 @@ async function getKnownErrors(): Promise<ExpectedErrors> {
             }
             else {
                 log.error({ err }, 'Unrecognised known error');
-                notifications.notify('Unrecognised known error service type ' + err.servicetype);
+                slack.notify('Unrecognised known error service type ' + err.servicetype);
             }
             break;
         case KnownErrorCondition.BadBluemixCredentials:
@@ -57,12 +57,12 @@ async function getKnownErrors(): Promise<ExpectedErrors> {
             }
             else {
                 log.error({ err }, 'Unrecognised known error');
-                notifications.notify('Unrecognised known error service type ' + err.servicetype);
+                slack.notify('Unrecognised known error service type ' + err.servicetype);
             }
             break;
         default:
             log.error({ err }, 'Unrecognised known error');
-            notifications.notify('Unrecognised known error type ' + err.type);
+            slack.notify('Unrecognised known error type ' + err.type);
         }
     }
     return indexedErrs;
@@ -74,7 +74,7 @@ async function getKnownErrors(): Promise<ExpectedErrors> {
 export async function checkBluemixCredentials() {
 
     log.info('Checking Bluemix credentials');
-    notifications.notify('Checking Bluemix credentials');
+    slack.notify('Checking Bluemix credentials');
 
     // get the list of errors that the teacher have already been
     //  emailed a notification about, and so should be ignored
@@ -96,7 +96,7 @@ export async function checkBluemixCredentials() {
         catch (err) {
             // these credentials didn't work.
             if (isErrorExpected(knownErrors, 'badBluemixCredentials', 'conv', credentials.id) === false) {
-                reportBadCredentials(err, credentials, 'conv');
+                await reportBadCredentials(err, credentials);
             }
         }
 
@@ -127,7 +127,7 @@ export async function checkBluemixCredentials() {
         catch (err) {
             // these credentials didn't work.
             if (isErrorExpected(knownErrors, 'badBluemixCredentials', 'visrec', credentials.id) === false) {
-                reportBadCredentials(err, credentials, 'visrec');
+                await reportBadCredentials(err, credentials);
             }
         }
 
@@ -145,7 +145,7 @@ export async function checkBluemixCredentials() {
 
     reportMissingErrors(knownErrors);
 
-    notifications.notify('Check complete');
+    slack.notify('Check complete');
 }
 
 
@@ -153,41 +153,108 @@ export async function checkBluemixCredentials() {
 
 function reportMissingErrors(expectedErrors: ExpectedErrors): void {
     if (expectedErrors.badBluemixConvCredentials.length > 0) {
-        notifications.notify('Failed to find expected bad conv credentials : ' +
-                             expectedErrors.badBluemixConvCredentials.join(', '));
+        slack.notify('Failed to find expected bad conv credentials : ' +
+                     expectedErrors.badBluemixConvCredentials.join(', '));
     }
     if (expectedErrors.badBluemixVisrecCredentials.length > 0) {
-        notifications.notify('Failed to find expected bad visrec credentials : ' +
-                             expectedErrors.badBluemixVisrecCredentials.join(', '));
+        slack.notify('Failed to find expected bad visrec credentials : ' +
+                     expectedErrors.badBluemixVisrecCredentials.join(', '));
     }
     if (expectedErrors.unmanagedConvClassifiers.length > 0) {
-        notifications.notify('Failed to find expected conv classifiers : ' +
-                             expectedErrors.unmanagedConvClassifiers.join(', '));
+        slack.notify('Failed to find expected conv classifiers : ' +
+                     expectedErrors.unmanagedConvClassifiers.join(', '));
     }
     if (expectedErrors.unmanagedVisrecClassifiers.length > 0) {
-        notifications.notify('Failed to find expected visrec classifiers : ' +
-                             expectedErrors.unmanagedVisrecClassifiers.join(', '));
+        slack.notify('Failed to find expected visrec classifiers : ' +
+                     expectedErrors.unmanagedVisrecClassifiers.join(', '));
     }
 }
 
 
 
-function reportBadCredentials(err: Error, credentials: BluemixCredentials, type: BluemixServiceType): void {
-    log.error({ err, type, credentials }, 'Failed to verify credentials');
+async function reportBadCredentials(err: Error, credentials: BluemixCredentials): Promise<void> {
+    log.error({ err, credentials }, 'Failed to verify credentials');
 
-    let service = '';
-    if (type === 'conv') {
-        service = 'Watson Assistant ';
+    //
+    // Notify site admin
+    //
+
+    let servicename: 'Watson Assistant' | 'Visual Recognition';
+    if (credentials.servicetype === 'conv') {
+        servicename = 'Watson Assistant';
     }
-    else if (type === 'visrec') {
-        service = 'Visual Recognition ';
+    else {
+        servicename = 'Visual Recognition';
     }
 
-    notifications.notify('Test for ' + service +
-                         'credentials ' + credentials.id + ' ' +
-                         'being used by ' + credentials.classid + ' ' +
-                         'failed with error : ' + err.message);
+    slack.notify('Test for ' + servicename +
+                 ' credentials ' + credentials.id +
+                 ' being used by ' + credentials.classid +
+                 ' failed with error : ' + err.message);
+
+
+    //
+    // Notify the teacher responsible for the class
+    //
+
+    // store the report, so that we don't report this multiple times
+    await store.storeNewKnownError(KnownErrorCondition.BadBluemixCredentials,
+                                   credentials.servicetype,
+                                   credentials.id);
+    // send an email
+    await emails.invalidCredentials(credentials.classid, {
+        errormessage : err.message,
+        servicename,
+        userid : credentials.servicetype === 'conv' ?
+                    credentials.username :
+                    credentials.username + credentials.password,
+    });
 }
+
+
+async function reportUnmanagedClassifier(
+    classifier: ClassifierSummary,
+    creds: BluemixCredentials,
+): Promise<void>
+{
+    log.error({ classifier, creds }, 'Unmanaged Bluemix classifier detected');
+
+    //
+    // Notify site admin
+    //
+
+    slack.notify('Unmanaged Bluemix classifier detected! ' +
+                 ' name:' + classifier.name +
+                 ' type:' + classifier.type +
+                 ' id:' + classifier.id +
+                 ' creds: ' + creds.id +
+                 ' class: ' + creds.classid);
+
+
+    //
+    // Notify the teacher responsible for the class
+    //
+
+    // store the report, so we don't report this multiple times
+    await store.storeNewKnownError(KnownErrorCondition.UnmanagedBluemixClassifier,
+                                   creds.servicetype,
+                                   classifier.id);
+    // send an email
+    if (creds.servicetype === 'conv') {
+        await emails.unknownConvClassifier(creds.classid, {
+            workspace : classifier.id,
+        });
+    }
+    else if (creds.servicetype === 'visrec') {
+        await emails.unknownVisrecClassifier(creds.classid, {
+            classifier : classifier.id,
+        });
+    }
+
+}
+
+
+
 
 
 /**
@@ -285,13 +352,6 @@ async function isClassifierKnown(
             isErrorExpected(expectedErrors, 'unmanagedClassifiers', expected, classifier.id) === false)
         {
             // then classifier is not known!
-            log.error({ classifier, creds, expected }, 'Unmanaged Bluemix classifier detected');
-            notifications.notify('Unmanaged Bluemix classifier detected! ' +
-                                 ' name:' + classifier.name +
-                                 ' type:' + expected +
-                                 ' id:' + classifier.id +
-                                 ' creds: ' + creds.id +
-                                 ' class: ' + creds.classid);
             return false;
         }
 
@@ -299,7 +359,7 @@ async function isClassifierKnown(
     }
     catch (err) {
         log.error({ err, classifier }, 'Failed to get classifier info from DB');
-        notifications.notify('Failed to verify ' + expected + ' classifier ' + classifier.id);
+        slack.notify('Failed to verify ' + expected + ' classifier ' + classifier.id);
 
         // Okay... so the classifier isn't known, so we're about to lie here.
         //  but it's not really lying, it's more optimistic. We haven't been
@@ -311,16 +371,34 @@ async function isClassifierKnown(
 }
 
 
-
+/**
+ * We found an unknown classifier in IBM Cloud.
+ * This function handles that.
+ * Handling that means two things:
+ *
+ * 1) If this is a managed class, we own the Bluemix credentials, so there is
+ *     no appropriate way that this could have happened. We just delete the
+ *     classifier (and notify siteadmin through Slack as it suggests something
+ *     went wrong somewhere)
+ * 2) If this is an unmanaged class, we notify the class teacher, as they
+ *     might have done this on purpose.
+ */
 async function handleUnknownClassifier(credentials: BluemixCredentials, classifier: ClassifierSummary): Promise<void> {
     const classPolicy = await store.getClassTenant(credentials.classid);
 
     if (classPolicy.isManaged) {
-        notifications.notify('DELETING UNKNOWN ' + classifier.type + ' classifier ' +
-                                ' id : ' + classifier.id +
-                                ' name : ' + classifier.name +
-                                ' from class ' + credentials.classid);
+        // no good reason for this - delete it
+
+        slack.notify('DELETING UNKNOWN ' + classifier.type + ' classifier ' +
+                     ' id : ' + classifier.id +
+                     ' name : ' + classifier.name +
+                     ' from class ' + credentials.classid);
         await bluemixclassifiers.deleteClassifier(classifier.type, credentials, classifier.id);
+    }
+    else {
+        // possibly a good reason for this - report it
+
+        await reportUnmanagedClassifier(classifier, credentials);
     }
 }
 
