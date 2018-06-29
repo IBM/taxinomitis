@@ -681,6 +681,29 @@ export function getKnownErrorFromDbRow(row: TrainingObjects.KnownError): Trainin
     };
 }
 
+export function createKnownError(
+    type: TrainingObjects.KnownErrorCondition,
+    servicetype: TrainingObjects.BluemixServiceType,
+    objid: string): TrainingObjects.KnownError
+{
+    if (servicetype !== 'conv' && servicetype !== 'visrec') {
+        throw new Error('Unexpected service type');
+    }
+    if (type !== TrainingObjects.KnownErrorCondition.BadBluemixCredentials &&
+        type !== TrainingObjects.KnownErrorCondition.UnmanagedBluemixClassifier)
+    {
+        throw new Error('Unexpected error type');
+    }
+    if (!objid || objid.trim().length === 0 || objid.length > 50) {
+        throw new Error('Bad object id');
+    }
+
+    return {
+        id : uuid(),
+        type, servicetype, objid,
+    };
+}
+
 
 
 // -----------------------------------------------------------------------------

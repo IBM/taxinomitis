@@ -1,0 +1,37 @@
+This is an automated email from Machine Learning for Kids.
+
+You're receiving this email because you created a class account with Machine Learning for Kids.
+
+There was a failure during a regular check of the Watson credentials that you provided for use by Machine Learning for Kids.
+
+The error returned by IBM Cloud was:
+{{{ errormessage }}}
+
+The username being checked was:
+{{{ userid }}} ({{{ servicename }}})
+
+
+How could this happen?
+
+The mostly likely reason is that since adding the credentials to Machine Learning for Kids, you've deleted the credentials from IBM Cloud (or deleted your IBM Cloud account entirely).
+
+
+Why am I telling you?
+
+I'm letting you know to avoid the chance of you running a class and only finding out that the credentials in your account aren't working when your students fail to train any machine learning models. 
+
+To avoid spamming you, you won't be notified about these credentials again.
+
+
+What should you do?
+
+If you have deleted the credentials from IBM Cloud, please go back to https://machinelearningforkids.co.uk/teacher and remove the credentials from your list.
+
+If that's not the case, please let me know.
+
+
+
+Kind regards
+
+--
+machinelearningforkids.co.uk

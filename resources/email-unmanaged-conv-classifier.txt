@@ -1,0 +1,30 @@
+This is an automated email from Machine Learning for Kids.
+
+You're receiving this email because you created a class account with Machine Learning for Kids.
+
+A regular check of the Watson Assistant credentials that you provided for use by Machine Learning for Kids found a machine learning model (what Assistant calls a "workspace") that isn't known to Machine Learning for Kids.
+
+The workspace ID is: {{{ workspace }}}
+
+How could this happen?
+
+Reason 1)
+You're using your Watson Assistant credentials for other things as well as Machine Learning for Kids, and you intentionally created another workspace for another reason.
+That's fine! Just ignore this email.
+But be aware that they count towards the limits that IBM Cloud enforces for your credentials, so that will mean one fewer model that can be created by your students.
+
+Reason 2)
+Something went wrong when the workspace was being deleted and it was left behind accidentally.
+It should be deleted as it counts towards the limits that IBM Cloud enforces for your credentials, and so will mean one fewer model that your students can create.
+You can do that from https://machinelearningforkids.co.uk/#!/teacher/projects
+
+
+You won't be notified about this workspace again.
+
+Kind regards
+
+--
+machinelearningforkids.co.uk
+
+
+PS - If you get these emails too often because of reason 1 (you're using your IBM Cloud credentials for other things, and frequently have Watson Assistant workspaces outside of Machine Learning for Kids) and would like to disable them, please let me know. These emails are intended to be helpful, and prevent any unexpected surprises when you're in front of your class. But if they're not helpful, I can turn them off for your class.

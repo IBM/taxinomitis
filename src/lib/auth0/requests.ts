@@ -42,6 +42,37 @@ export async function getUser(token: string, userid: string): Promise<Objects.Us
     return user;
 }
 
+
+/**
+ * Returns the registered teacher for the specified class.
+ *  If there is more than one supervisor for a class, only the
+ *  first user account returned by Auth0 will be returned.
+ */
+export async function getSupervisor(token: string, tenant: string): Promise<Objects.SupervisorInfo | undefined> {
+    const getoptions = {
+        method: 'GET',
+        url: 'https://' + process.env.AUTH0_DOMAIN + '/api/v2/users',
+        headers: {
+            authorization : 'Bearer ' + token,
+        },
+        qs : {
+            q : 'app_metadata.role:"supervisor" AND app_metadata.tenant:"' + tenant + '"',
+            per_page : 1,
+
+            search_engine : 'v3',
+        },
+        json : true,
+    };
+
+    return request.get(getoptions)
+        .then((users) => {
+            if (users.length > 0) {
+                return users[0];
+            }
+        });
+}
+
+
 export async function getSupervisors(
     token: string,
     batch: number, batchsize: number,

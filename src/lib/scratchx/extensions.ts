@@ -3,21 +3,10 @@ import * as fs from 'fs';
 import * as Mustache from 'mustache';
 // local dependencies
 import * as Types from '../db/db-types';
+import * as fileutils from '../utils/fileutils';
 
 
 const ROOT_URL = process.env.AUTH0_CALLBACK_URL;
-
-
-function readFile(path: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-        fs.readFile(path, 'utf8', (err, contents) => {
-            if (err) {
-                return reject(err);
-            }
-            return resolve(contents);
-        });
-    });
-}
 
 
 function escapeProjectName(name: string): string {
@@ -25,7 +14,7 @@ function escapeProjectName(name: string): string {
 }
 
 async function getTextExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string> {
-    const template: string = await readFile('./resources/scratchx-text-classify.js');
+    const template: string = await fileutils.read('./resources/scratchx-text-classify.js');
     Mustache.parse(template);
     const rendered = Mustache.render(template, {
         statusurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/status',
@@ -41,7 +30,7 @@ async function getTextExtension(scratchkey: Types.ScratchKey, project: Types.Pro
 }
 
 async function getImagesExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string> {
-    const template: string = await readFile('./resources/scratchx-images-classify.js');
+    const template: string = await fileutils.read('./resources/scratchx-images-classify.js');
     Mustache.parse(template);
     const rendered = Mustache.render(template, {
         statusurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/status',
@@ -70,7 +59,7 @@ async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.
         }
     }
 
-    const template: string = await readFile('./resources/scratchx-numbers-classify.js');
+    const template: string = await fileutils.read('./resources/scratchx-numbers-classify.js');
     Mustache.parse(template);
     const rendered = Mustache.render(template, {
         statusurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/status',

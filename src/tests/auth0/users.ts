@@ -122,6 +122,33 @@ describe.skip('auth0 users', () => {
         });
     });
 
+
+    describe('getTeacher()', () => {
+
+        it('should create and fetch a teacher', async () => {
+            const tenant = randomstring.generate(10);
+            const teachername = randomstring.generate(12);
+            const teacheremail = randomstring.generate(6).toLowerCase() + '@unittests.com';
+
+            const newTeacher = await users.createTeacher(tenant, teachername, teacheremail);
+
+            const fetched = await users.getTeacherByClassId(tenant);
+            assert(fetched);
+            if (fetched) {
+                assert.strictEqual(fetched.email, teacheremail);
+            }
+            await users.deleteTeacher(tenant, newTeacher.id);
+        });
+
+        it('should return nothing for non-existent classes', async () => {
+            const tenant = randomstring.generate(12);
+            const fetched = await users.getTeacherByClassId(tenant);
+            assert(!fetched);
+        });
+
+    });
+
+
     describe('createStudent()', () => {
 
         it('should create a student', async () => {
