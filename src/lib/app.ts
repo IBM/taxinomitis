@@ -9,6 +9,7 @@ import * as slack from './notifications/slack';
 import * as email from './notifications/email';
 import * as scheduledtasks from './scheduledtasks';
 import { confirmRequiredEnvironment } from './utils/env';
+import * as shutdown from './utils/shutdown';
 import portNumber from './utils/port';
 import loggerSetup from './utils/logger';
 
@@ -22,6 +23,9 @@ process.on('uncaughtException', (err) => {
     log.error({ err, stack : err.stack }, 'Crash');
     process.exit(1);   // eslint-disable-line
 });
+
+// terminate quickly if Cloud Foundry sends a SIGTERM signal
+process.on('SIGTERM', shutdown.now);
 
 // prepare Slack API for reporting alerts
 slack.init();
