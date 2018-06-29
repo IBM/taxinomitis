@@ -19,10 +19,7 @@ const log = loggerSetup();
 confirmRequiredEnvironment();
 
 // log any uncaught errors before crashing
-process.on('uncaughtException', (err) => {
-    log.error({ err, stack : err.stack }, 'Crash');
-    process.exit(1);   // eslint-disable-line
-});
+process.on('uncaughtException', shutdown.crash);
 
 // terminate quickly if Cloud Foundry sends a SIGTERM signal
 process.on('SIGTERM', shutdown.now);
