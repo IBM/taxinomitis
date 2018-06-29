@@ -5,6 +5,7 @@ import * as randomstring from 'randomstring';
 
 import * as dbobjects from '../../lib/db/objects';
 import * as Objects from '../../lib/db/db-types';
+import * as TrainingObjects from '../../lib/training/training-types';
 
 
 
@@ -809,6 +810,28 @@ describe('DB objects', () => {
             assert.fail(1, 0, 'Failed to reject request', '');
         });
 
+        it('should require 44 char API keys for conversation credentials', () => {
+            try {
+                dbobjects.createBluemixCredentials('conv', 'class',
+                    'xo1Nisc2iDTGNUfU9KzCxhxo1Nisc2iDTGNUfU9KzCxhn2mrxvA8_YVERYDl-kaBdW',
+                    undefined, undefined);
+                assert.fail('should not reach here');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Invalid API key');
+            }
+        });
+
+        it('should support API keys for conversation credentials', () => {
+            const creds = dbobjects.createBluemixCredentials('conv', 'class',
+                'xo1Nisc2iDTGNUfU9KzCxhn2mrxvA8_YVERYDl-kaBdW', undefined, undefined);
+            assert(creds.id);
+            assert(creds.url);
+            assert.equal(creds.servicetype, 'conv');
+            assert.equal(creds.username, 'xo1Nisc2iDTGNUfU9KzCxh');
+            assert.equal(creds.password, 'n2mrxvA8_YVERYDl-kaBdW');
+        });
+
         it('should create conversation credentials', () => {
             const creds = dbobjects.createBluemixCredentials('conv', 'class',
                 undefined, 'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL', 'THTBtUnNl5jT');
@@ -983,6 +1006,33 @@ describe('DB objects', () => {
             }), {
                 id : '001', type : 1, servicetype : 'conv', objid : 'abc',
             });
+        });
+
+    });
+
+
+    describe('createKnownError', () => {
+
+        it('should reject invalid service types', () => {
+            try {
+                dbobjects.createKnownError(1, 'wrong' as TrainingObjects.BluemixServiceType, 'objid');
+                assert.fail('should not have reached here');
+            }
+            catch (err) {
+                assert(err);
+                assert.strictEqual(err.message, 'Unexpected service type');
+            }
+        });
+
+        it('should reject invalid error types', () => {
+            try {
+                dbobjects.createKnownError(9, 'conv', 'objid');
+                assert.fail('should not have reached here');
+            }
+            catch (err) {
+                assert(err);
+                assert.strictEqual(err.message, 'Unexpected error type');
+            }
         });
 
     });

@@ -1498,6 +1498,35 @@ export async function getAllKnownErrors(): Promise<TrainingObjects.KnownError[]>
     return rows.map(dbobjects.getKnownErrorFromDbRow);
 }
 
+export async function storeNewKnownError(
+    type: TrainingObjects.KnownErrorCondition,
+    service: TrainingObjects.BluemixServiceType,
+    objectid: string,
+): Promise<TrainingObjects.KnownError>
+{
+    const knownError = dbobjects.createKnownError(type, service, objectid);
+
+    const queryString = 'INSERT INTO `knownsyserrors` ' +
+        '(`id`, `type`, `servicetype`, `objid`) ' +
+        'VALUES (?, ?, ?, ?)';
+
+    const values = [ knownError.id, knownError.type, knownError.servicetype, knownError.objid ];
+
+    const response = await dbExecute(queryString, values);
+    if (response.affectedRows !== 1) {
+        log.error({ response, knownError }, 'Failed to store known error');
+        throw new Error('Failed to store known error');
+    }
+
+    return knownError;
+}
+
+
+// only used for unit tests
+export function deleteAllKnownErrors(): Promise<void>
+{
+    return dbExecute('DELETE FROM `knownsyserrors`', []);
+}
 
 
 
