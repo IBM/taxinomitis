@@ -6,6 +6,7 @@ import * as Mustache from 'mustache';
 // local dependencies
 import * as fileutils from '../utils/fileutils';
 import * as auth0 from '../auth0/users';
+import * as env from '../utils/env';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -16,24 +17,24 @@ let transporter: nodemailer.Transporter | undefined;
 
 
 export function init(): Promise<void> {
-    if (process.env.SMTP_HOST && process.env.SMTP_PORT &&
-        process.env.SMTP_USER && process.env.SMTP_PASS &&
-        process.env.SMTP_REPLY_TO)
+    if (process.env[env.SMTP_HOST] && process.env[env.SMTP_PORT] &&
+        process.env[env.SMTP_USER] && process.env[env.SMTP_PASS] &&
+        process.env[env.SMTP_REPLY_TO])
     {
         const mailOptions: SMTPPool.Options = {
             name : 'machinelearningforkids.co.uk',
-            host : process.env.SMTP_HOST,
-            port : parseInt(process.env.SMTP_PORT, 10),
+            host : process.env[env.SMTP_HOST],
+            port : parseInt(process.env[env.SMTP_PORT] as string, 10),
             secure : true,
             auth : {
-                user : process.env.SMTP_USER,
-                pass : process.env.SMTP_PASS,
+                user : process.env[env.SMTP_USER],
+                pass : process.env[env.SMTP_PASS],
             },
             pool : true,
         };
         const mailDefaults = {
-            from : 'Machine Learning for Kids <' + process.env.SMTP_USER + '>',
-            replyTo : process.env.SMTP_REPLY_TO,
+            from : 'Machine Learning for Kids <' + process.env[env.SMTP_USER] + '>',
+            replyTo : process.env[env.SMTP_REPLY_TO],
         };
 
         const verifyTransporter = nodemailer.createTransport(mailOptions, mailDefaults);

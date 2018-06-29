@@ -4,6 +4,7 @@ import * as randomstring from 'randomstring';
 import * as auth0requests from './requests';
 import * as Objects from './auth-types';
 import * as passphrases from './passphrases';
+import * as env from '../utils/env';
 
 
 async function getBearerToken(): Promise<string> {
@@ -124,7 +125,7 @@ export function createStudent(tenant: string, username: string): Promise<Objects
         password : passphrases.generate(),
         verify_email : false,
         email_verified : true,
-        connection : process.env.AUTH0_CONNECTION as string,
+        connection : process.env[env.AUTH0_CONNECTION] as string,
         app_metadata : {
             role : 'student',
             tenant,
@@ -139,7 +140,7 @@ export function createTeacher(tenant: string, username: string, email: string): 
         password : randomstring.generate({ length : 12, readable : true }),
         verify_email : true,
         email_verified : false,
-        connection : process.env.AUTH0_CONNECTION as string,
+        connection : process.env[env.AUTH0_CONNECTION] as string,
         app_metadata : {
             role : 'supervisor',
             tenant,
