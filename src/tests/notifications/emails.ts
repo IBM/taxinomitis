@@ -42,7 +42,7 @@ describe('Notifications - Email', () => {
         close : sinon.stub().callsFake(() => {
             throw new Error('Should not be called');
         }),
-        sendMail : sinon.stub().callsFake((email: Mailer.Options) => {
+        sendMail : sinon.stub().callsFake((/*email: Mailer.Options*/) => {
             return Promise.reject(new Error('should not be called'));
         }),
     };
@@ -66,7 +66,7 @@ describe('Notifications - Email', () => {
         });
 
         nodemailerStub = sinon.stub(nodemailer, 'createTransport')
-            .callsFake((options, defaults) => {
+            .callsFake((options/*, defaults*/) => {
                 if (options.auth.user === 'valid-user') {
                     return validTransporterStub;
                 }
