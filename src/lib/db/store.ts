@@ -1695,7 +1695,7 @@ export async function getClassTenant(classid: string): Promise<Objects.ClassTena
             id : classid,
             supportedProjectTypes : [ 'text', 'images', 'numbers' ],
             isManaged : false,
-            maxUsers : 15,
+            maxUsers : 25,
             maxProjectsPerUser : 2,
             textClassifierExpiry : 24,
             imageClassifierExpiry : 24,
