@@ -194,6 +194,20 @@ async function reportBadCredentials(err: Error, credentials: BluemixCredentials)
 
 
     //
+    // special cases - ignore some errors
+    //
+    //  Visual Recognition will occassionally return the
+    //   string 'unspecified error - please try again\n' with an HTTP 500 response code
+    //   even when the credentials are fine
+    //  We don't want to notify teachers about these.
+    //
+
+    if (err.message.startsWith('unspecified error - please try again')) {
+        return;
+    }
+
+
+    //
     // Notify the teacher responsible for the class
     //
 
