@@ -1,7 +1,36 @@
 <div class="jumbotron">
-    <h2 class="text-center">News and updates</h2>
+    <h2 class="text-center">News</h2>
 </div>
 <div class="newsUpdates">
-    <a class="twitter-timeline" data-lang="en" data-width="600" data-link-color="#2B7BB9" href="https://twitter.com/MLforKids">News and updates from @MLforKids</a>
+    <div style="text-align: center">
+        <md-button class="md-raised"
+            style="padding-left: 15px; padding-right: 15px;"
+            ng-click="type = 'twitter'"
+            ng-class="{ 'md-primary' : type !== 'wakelet' }">
+            News &amp; Updates
+        </md-button>
+        <md-button class="md-raised"
+            style="padding-left: 15px; padding-right: 15px;"
+            ng-click="type = 'wakelet'"
+            ng-class="{ 'md-primary' : type === 'wakelet' }">
+            Mentions &amp; Media
+        </md-button>
+    </div>
+</div>
+<div class="newsUpdates">
+    <div ng-hide="type === 'wakelet'">
+        <a class="twitter-timeline"
+            data-lang="en"
+            data-width="700"
+            data-link-color="#2B7BB9"
+            href="https://twitter.com/MLforKids">News and updates from @MLforKids</a>
+    </div>
+    <div ng-hide="type !== 'wakelet'">
+        <iframe class="wakeletEmbed" width="100%" height="100%"
+            src="//embed.wakelet.com/wakes/4d3680cb-2a11-49ab-9180-fcfeced48393/list?no-title=true"
+            style="border: none"
+            allow="autoplay">loading Mentions &amp; Media from wakelet.com</iframe>
+    </div>
 </div>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script async src="//embed-assets.wakelet.com/wakelet-embed.js" charset="utf-8"></script>
