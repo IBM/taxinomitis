@@ -11,7 +11,7 @@
         '$urlRouterProvider',
         'jwtOptionsProvider',
         '$httpProvider',
-        '$translateProvider',
+        '$translateProvider'
     ];
 
     function config($stateProvider, $locationProvider, lockProvider, $urlRouterProvider, jwtOptionsProvider, $httpProvider, $translateProvider) {
@@ -225,20 +225,19 @@
                 suffix: '.json'
             })
             .determinePreferredLanguage(function () {
-                let lang = 'en'; // default language
-
-                if (navigator.language) {
-                    lang = navigator.language;
-                }
+                let lang = navigator.userLanguage || navigator.language;
 
                 // if it is set via query, use that
                 const queries = document.location.search.substr(1).split('&');
-                for (query in queries) {
+                for (let i = 0; i < queries.length; i++) {
+                    const query = queries[0];
                     if (query.startsWith('lang=')) {
                         lang = query.substr('lang='.length);
                         break;
                     }
                 }
+
+                lang = lang.toLowerCase();
 
                 // shorten en-XX to en
                 if (lang.startsWith('en')) {
