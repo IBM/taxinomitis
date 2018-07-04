@@ -25,12 +25,16 @@
                 teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-smartclassroom.pdf',
                 downloads : [
                     {
-                        description : 'Full version of the project, where the students make a non-machine learning version first to experience the value of using machine learning to do this',
+                        description : 'Full version of the project, where the students make a non-machine learning version first',
                         worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom.pdf'
                     },
                     {
                         description : 'Shorter version of the project, where the students only make a machine learning version of the assistant',
                         worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-easy.pdf'
+                    },
+                    {
+                        description : 'Quick version of the project, skipping the use of confidence scores to handle unrecognised commands',
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-tryitnow.pdf'
                     }
                 ]
             },
@@ -45,7 +49,12 @@
                 teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-makemehappy.pdf',
                 downloads : [
                     {
+                        description : 'Full version of the project, where the students make a non-machine learning version of the project first',
                         worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy.pdf'
+                    },
+                    {
+                        description : 'Shorter version of the project, where the students only make a machine learning version of the assistant',
+                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-easy.pdf'
                     }
                 ]
             },

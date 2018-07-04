@@ -76,7 +76,7 @@ describe('REST API - users', () => {
                     assert.deepEqual(body, {
                         maxTextModels : 0,
                         maxImageModels : 0,
-                        maxUsers: 15,
+                        maxUsers: 25,
                         supportedProjectTypes: [ 'text', 'images', 'numbers' ],
                         isManaged : false,
                         maxProjectsPerUser: 2,
@@ -380,7 +380,7 @@ describe('REST API - users', () => {
             const stubs = {
                 getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
                 createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
-                getUserCounts : sinon.stub(auth0, 'getUserCounts').resolves({ total : 15 }),
+                getUserCounts : sinon.stub(auth0, 'getUserCounts').resolves({ total : 25 }),
             };
 
             return store.init()

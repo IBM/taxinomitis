@@ -202,7 +202,10 @@ async function reportBadCredentials(err: Error, credentials: BluemixCredentials)
     //  We don't want to notify teachers about these.
     //
 
-    if (err.message.startsWith('unspecified error - please try again')) {
+    if (err.message &&
+        typeof err.message === 'string' &&
+        err.message.startsWith('unspecified error - please try again'))
+    {
         return;
     }
 
