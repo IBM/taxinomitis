@@ -1,13 +1,13 @@
 <div class="jumbotron">
-    <h2 class="text-center">Get started with machine learning</h2>
+    <h2 class="text-center" translate>LOGIN.TITLE</h2>
 </div>
-<div ng-if="isAuthenticated" class="alert alert-info pageheadermsg">
-    <strong>Info: </strong> Already logged in
+<div ng-if="isAuthenticated" class="alert alert-info pageheadermsg" translate>
+    LOGIN.ALREADY_LOGGEDIN
 </div>
 
 <div ng-if="failure" class="alert alert-danger pageheadermsg" role="alert" id="sessionuserfailure">
-    <strong>Error:</strong> {{ failure.message }}<br/>
-    <em ng-if="failure.status >= 500">If this keeps happening, please <a ui-sref="help">let me know</a>.</em>
+    <span translate translate-values="{ message: failure.message }">LOGIN.ERROR</span><br/>
+    <em ng-if="failure.status >= 500" translate>LOGIN.ERROR_HELP</em>
 </div>
 
 
@@ -19,23 +19,23 @@
     <!-- ********************** -->
     <div ng-if="vm.loginstate === 'login'">
         <div class="loginItem">
-            <label>First time here?</label>
-            <button class="btn btn-primary login-button" ng-click="vm.loginstate = 'signup'"> Sign up </button>
+            <label translate>LOGIN.FIRST_TIME</label>
+            <button class="btn btn-primary login-button" ng-click="vm.loginstate = 'signup'" translate>LOGIN.SIGN_UP</button>
         </div>
         <div class="loginInfoLink loginButtonInfo">
-            <a href="" ng-click="vm.loginstate = 'whyregister'">Why register?</a>
+            <a href="" ng-click="vm.loginstate = 'whyregister'" translate>LOGIN.WHY_REGISTER</a>
         </div>
         <div class="loginItem">
-            <label>Already registered?</label>
-            <button class="btn btn-primary login-button" ng-click="vm.authService.login()"> Log in </button>
+            <label translate>LOGIN.ALREADY_REGISTERED</label>
+            <button class="btn btn-primary login-button" ng-click="vm.authService.login()" translate>LOGIN.LOGIN</button>
         </div>
         <div class="loginInfoLink loginButtonInfo">
-            <a href="" ng-click="vm.loginstate = 'reset'">Forgot your details?</a>
+            <a href="" ng-click="vm.loginstate = 'reset'" translate>LOGIN.FORGOT_DETAILS</a>
         </div>
         <hr/>
         <div class="loginItem">
-            <label>Try without registering</label>
-            <button class="btn btn-primary login-button" ng-click="vm.startTryItNowSession()"> Try it now </button>
+            <label translate>LOGIN.TRY_TITLE</label>
+            <button class="btn btn-primary login-button" ng-click="vm.startTryItNowSession()" translate>LOGIN.TRY_NOW</button>
         </div>
     </div>
 
@@ -46,25 +46,23 @@
     <!-- ********************** -->
     <div ng-if="vm.loginstate === 'signup'">
         <div class="loginInfoLink">
-            <a href="" ng-click="vm.loginstate = 'login'">&lt; Back</a>
+            <a href="" ng-click="vm.loginstate = 'login'">&lt; <span translate>LOGIN.BACK</span></a>
         </div>
-        <div class="loginHeading">Sign up</div>
-        <div class="loginInfo">
-            Welcome!  It's great that you're interested in having an account to log in to Machine Learning for Kids.
-        </div>
+        <div class="loginHeading" translate>LOGIN.SIGN_UP</div>
+        <div class="loginInfo" translate>LOGIN.WELCOME</div>
         <div class="loginInfoLink loginButtonInfo">
-            <a href="" ng-click="vm.loginstate = 'whyregister'">Why register?</a>
+            <a href="" ng-click="vm.loginstate = 'whyregister'" translate>LOGIN.WHY_REGISTER</a>
         </div>
         <hr/>
-        <div class="loginSubheading">Who are you?</div>
+        <div class="loginSubheading" translate>LOGIN.WHO_YOU</div>
         <div class="wideLoginButton">
-            <button class="btn btn-primary" ng-click="vm.loginstate = 'teachersignup'">
-                A teacher or leader of a coding club
+            <button class="btn btn-primary" ng-click="vm.loginstate = 'teachersignup'" translate>
+                LOGIN.TEACHER
             </button>
         </div>
         <div class="wideLoginButton">
-            <button class="btn btn-primary" ng-click="vm.loginstate = 'newstudent'">
-                A student
+            <button class="btn btn-primary" ng-click="vm.loginstate = 'newstudent'" translate>
+                LOGIN.STUDENT
             </button>
         </div>
     </div>
@@ -76,22 +74,20 @@
     <!-- ********************** -->
     <div ng-if="vm.loginstate === 'reset'">
         <div class="loginInfoLink">
-            <a href="" ng-click="vm.loginstate = 'login'">&lt; Back</a>
+            <a href="" ng-click="vm.loginstate = 'login'">&lt; <span>LOGIN.BACK</span></a>
         </div>
-        <div class="loginHeading">Forgot your details</div>
-        <div class="loginInfo">
-            Forgot your username or password? That's okay - we all forget things sometimes.
-        </div>
+        <div class="loginHeading" translate>LOGIN.FORGOT_DETAILS</div>
+        <div class="loginInfo" translate>LOGIN.FORGOT_TEXT</div>
         <hr/>
-        <div class="loginSubheading">Who are you?</div>
+        <div class="loginSubheading" translate>LOGIN.WHO_YOU</div>
         <div class="wideLoginButton">
-            <button class="btn btn-primary" ng-click="vm.authService.reset()">
-                A teacher or leader of a coding club
+            <button class="btn btn-primary" ng-click="vm.authService.reset()" translate>
+                LOGIN.TEACHER
             </button>
         </div>
         <div class="wideLoginButton">
-            <button class="btn btn-primary" ng-click="vm.loginstate = 'resetstudent'">
-                A student
+            <button class="btn btn-primary" ng-click="vm.loginstate = 'resetstudent'" translate>
+                LOGIN.STUDENT
             </button>
         </div>
     </div>
@@ -104,15 +100,11 @@
     <!-- ************************** -->
     <div ng-if="vm.loginstate === 'teachersignup'">
         <div class="loginInfoLink">
-            <a href="" ng-click="vm.loginstate = 'signup'">&lt; Back</a>
+            <a href="" ng-click="vm.loginstate = 'signup'">&lt; <span translate>LOGIN.BACK</span></a>
         </div>
-        <div class="loginHeading">Are you a teacher or leader of a coding club?</div>
-        <div class="loginInfo">
-            If you would like access for your students, please create a class account below.
-        </div>
-        <div class="loginInfo">
-            There are two types of class account - depending on who sets it up.
-        </div>
+        <div class="loginHeading" translate>SIGNUP.TEACHER.TITLE</div>
+        <div class="loginInfo" translate>SIGNUP.TEACHER.INFO1</div>
+        <div class="loginInfo" translate>SIGNUP.TEACHER.INFO2</div>
         <div class="loginItem">
             <div class="loginType">
                 <div class="loginNewClassType">Create an <strong>unmanaged</strong> class account</div>

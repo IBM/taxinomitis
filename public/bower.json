@@ -16,6 +16,8 @@
     "auth0js923": "auth0.js#9.2.3",
     "angular-lock2": "angular-lock#2.0.3",
     "angular": "1.6.9",
+    "angular-translate": "2.18.1",
+    "angular-translate-loader-static-files": "2.18.1",
     "angular-jwt": "0.1.9",
     "angular-material117": "angular-material#1.1.7",
     "webcam": "webcam-directive#3.1.1",

@@ -1,7 +1,7 @@
 (function () {
 
     angular
-        .module('app', ['ngMaterial', 'ngAnimate', 'ngMessages', 'ngSanitize', 'auth0.lock', 'angular-jwt', 'ui.router', 'duScroll', 'webcam'])
+        .module('app', ['ngMaterial', 'ngAnimate', 'ngMessages', 'ngSanitize', 'auth0.lock', 'angular-jwt', 'ui.router', 'duScroll', 'webcam', 'pascalprecht.translate'])
         .config(config);
 
     config.$inject = [
@@ -11,9 +11,10 @@
         '$urlRouterProvider',
         'jwtOptionsProvider',
         '$httpProvider',
+        '$translateProvider',
     ];
 
-    function config($stateProvider, $locationProvider, lockProvider, $urlRouterProvider, jwtOptionsProvider, $httpProvider) {
+    function config($stateProvider, $locationProvider, lockProvider, $urlRouterProvider, jwtOptionsProvider, $httpProvider, $translateProvider) {
 
         $stateProvider
             .state('home', {
@@ -216,5 +217,36 @@
         });
 
         $httpProvider.interceptors.push('jwtInterceptor');
-    }
+
+        $translateProvider
+            .useSanitizeValueStrategy('sanitizeParameters')
+            .useStaticFilesLoader({
+                prefix: 'static/languages-<%= VERSION %>/',
+                suffix: '.json'
+            })
+            .determinePreferredLanguage(function () {
+                let lang = 'en'; // default language
+
+                if (navigator.language) {
+                    lang = navigator.language;
+                }
+
+                // if it is set via query, use that
+                const queries = document.location.search.substr(1).split('&');
+                for (query in queries) {
+                    if (query.startsWith('lang=')) {
+                        lang = query.substr('lang='.length);
+                        break;
+                    }
+                }
+
+                // shorten en-XX to en
+                if (lang.startsWith('en')) {
+                    lang = 'en';
+                }
+
+                return lang;
+            })
+            .fallbackLanguage('en');
+        }
 })();
