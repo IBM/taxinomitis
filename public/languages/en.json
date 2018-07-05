@@ -1,0 +1,42 @@
+{
+    "APP": {
+        "BACK": "Back"
+    },
+    "WELCOME": {
+        "TITLE": "Teach a computer to play a game",
+        "GET_STARTED": "Get started",
+        "LEARN_MORE": "Learn more",
+        "ADMIN_LABEL": "Go to your <strong>Admin Page</strong>",
+        "PROJECT_LABEL": "Go to your <strong>Projects</strong>",
+        "STEP_1_TEXT": "Collect examples of things you want to be able to recognise",
+        "STEP_2_TEXT": "Use the examples to train a computer to be able to recognise them",
+        "STEP_3_TEXT": "Make a game in Scratch that uses the computer's ability to recognise them"
+    },
+    "LOGIN": {
+        "TITLE": "Get started with machine learning",
+        "WELCOME": "Welcome!  It's great that you're interested in having an account to log in to Machine Learning for Kids.",
+        "ALREADY_LOGGEDIN": "<strong>Info: </strong> Already logged in",
+        "ERROR": "<strong>Error:</strong> {{ message }}",
+        "ERROR_HELP": "If this keeps happening, please visit our help section",
+        "FIRST_TIME": "First time here?",
+        "SIGN_UP": "Sign up",
+        "WHY_REGISTER": "Why register?",
+        "ALREADY_REGISTERED": "Already registered?",
+        "LOGIN": "Log in",
+        "FORGOT_DETAILS": "Forgot your details?",
+        "TRY_TITLE": "Try without registering",
+        "TRY_NOW": "Try it now",
+        "BACK": "@:APP.BACK",
+        "WHO_YOU": "Who are you?",
+        "TEACHER": "A teacher or leader of a coding club",
+        "STUDENT": "A student",
+        "FORGOT_TEXT": "Forgot your username or password? That's okay - we all forget things sometimes."
+    },
+    "SIGNUP": {
+        "TEACHER": {
+            "TITLE": "Are you a teacher or leader of a coding club?",
+            "INFO1": "If you would like access for your students, please create a class account below.",
+            "INFO2": "There are two types of class account - depending on who sets it up."
+        }
+    }
+}

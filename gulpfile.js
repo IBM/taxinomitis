@@ -102,6 +102,11 @@ gulp.task('angularcomponents', ['jsapp'], () => {
             .pipe(gulp.dest('web/static/components-' + VERSION));
 });
 
+gulp.task('languages', [], () => {
+    return gulp.src('public/languages/**')
+            .pipe(gulp.dest('web/static/languages-' + VERSION));
+});
+
 gulp.task('images', () => {
     return gulp.src('public/images/*').pipe(gulp.dest('web/static/images'));
 });
@@ -171,7 +176,7 @@ gulp.task('test', () => {
         .pipe(mocha(mochaOptions));
 });
 
-gulp.task('web', ['css', 'minifyjs', 'images', 'html', 'angularcomponents', 'datasets', 'scratchxinstall']);
+gulp.task('web', ['css', 'minifyjs', 'images', 'html', 'angularcomponents', 'languages', 'datasets', 'scratchxinstall']);
 gulp.task('build', ['web', 'compile']);
 
 gulp.task('default', sequence('build', 'lint', 'test'));
