@@ -37,6 +37,15 @@
             </div>
         </div>
     </div>
+    <div class="menucontainer" ng-if="project.type === 'text' || project.type === 'images'">
+        <div class="mlprojectmenu" style="max-width: 300px; font-size: 0.8em;">
+            <div class="mlprojectmenutitle">Python</div>
+            <div class="mlprojectmenudescription"><span class="badge">Beta</span> Try using the machine learning model you've trained from a Python program</div>
+            <div class="mlprojectmenubutton">
+                <button type="button" class="btn btn-primary" ui-sref="mlproject_python({ projectId : projectId, userId : userId })">Python</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div ng-if="isAuthenticated && !projectId" class="alert alert-danger pageheadermsg">

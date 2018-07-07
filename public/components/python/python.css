@@ -1,0 +1,42 @@
+.pythoncodebox {
+    font-size: 0.7em;
+    background: #ffffff;
+    overflow:auto;
+    width:auto;
+    border:solid gray;
+    border-width:.1em .1em .1em .8em;
+    padding:.2em .6em;
+}
+
+.pythoncodebox .pythoncode {
+    margin: 0;
+    line-height: 125%;
+}
+
+.pythoncodebox .pythoncode .pythoncomments {
+    color: #888888;
+}
+
+.pythoncodebox .pythoncode .pythonfunc {
+    color: #008800;
+    font-weight: bold;
+}
+
+.pythoncodebox .pythoncode .pythonfuncname {
+    color: #0066BB;
+    font-weight: bold;
+}
+
+.pythoncodebox .pythoncode .pythonop {
+    color: #333333;
+}
+
+.pythoncodebox .pythoncode .pythonimport {
+    color: #0e84b5;
+    font-weight: bold;
+}
+
+.pythoncodebox .pythoncode .pythonint {
+    color: #0000DD;
+    font-weight: bold;
+}
