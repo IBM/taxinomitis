@@ -185,6 +185,6 @@ gulp.task('default', sequence('build', 'lint', 'test'));
 gulp.task('buildprod', sequence(
     'clean',
     'bower',
-    ['css', 'minifyprodjs', 'images', 'prodhtml', 'angularcomponents', 'datasets', 'scratchxinstall'],
+    ['css', 'minifyprodjs', 'images', 'prodhtml', 'angularcomponents', 'languages', 'datasets', 'scratchxinstall'],
     'compile',
     'lint'));
