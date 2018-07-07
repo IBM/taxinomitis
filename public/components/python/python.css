@@ -30,3 +30,13 @@
 .pythoncodebox .pythoncode .pythonop {
     color: #333333;
 }
+
+.pythoncodebox .pythoncode .pythonimport {
+    color: #0e84b5;
+    font-weight: bold;
+}
+
+.pythoncodebox .pythoncode .pythonint {
+    color: #0000DD;
+    font-weight: bold;
+}

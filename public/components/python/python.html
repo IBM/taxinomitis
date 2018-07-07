@@ -99,7 +99,7 @@ result: '{{ project.labels[0] }}' with 81% confidence</pre></div>
             </div>
         </div>
         <div class="modelguidance" ng-if="project.type === 'text'">
-<div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">import</span> <span style="pythonimport">requests</span>
+<div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">import</span> <span class="pythonimport">requests</span>
 
 <span class="pythoncomments"># This function will pass your text to the machine learning model</span>
 <span class="pythoncomments"># and return the top result with the highest confidence</span>
@@ -111,7 +111,7 @@ result: '{{ project.labels[0] }}' with 81% confidence</pre></div>
 
     <span class="pythonfunc">if</span> response<span class="pythonop">.</span>ok:
         responseData <span class="pythonop">=</span> response<span class="pythonop">.</span>json()
-        topMatch <span class="pythonop">=</span> responseData[<span style="pythonint">0</span>]
+        topMatch <span class="pythonop">=</span> responseData[<span class="pythonint">0</span>]
         <span class="pythonfunc">return</span> topMatch
     <span class="pythonfunc">else</span>:
         response<span class="pythonop">.</span>raise_for_status()
@@ -129,7 +129,7 @@ confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
 </pre></div>
         </div>
         <div class="modelguidance" ng-if="project.type === 'images' && testsource === 'local'">
-<div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">import</span> <span style="pythonimport">requests</span>
+<div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">import</span> <span class="pythonimport">requests</span>
 
 <span class="pythoncomments"># Gets the contents of an image file to be sent to the</span>
 <span class="pythoncomments"># machine learning model for classifying</span>
@@ -149,7 +149,7 @@ confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
 
     <span class="pythonfunc">if</span> response<span class="pythonop">.</span>ok:
         responseData <span class="pythonop">=</span> response<span class="pythonop">.</span>json()
-        topMatch <span class="pythonop">=</span> responseData[<span style="pythonint">0</span>]
+        topMatch <span class="pythonop">=</span> responseData[<span class="pythonint">0</span>]
         <span class="pythonfunc">return</span> topMatch
     <span class="pythonfunc">else</span>:
         response<span class="pythonop">.</span>raise_for_status()
@@ -167,7 +167,7 @@ confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
 </pre></div>
         </div>
         <div class="modelguidance" ng-if="project.type === 'images' && testsource === 'web'">
-<div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">import</span> <span style="pythonimport">requests</span><span class="pythonop">,</span> <span style="pythonimport">base64</span>
+<div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">import</span> <span class="pythonimport">requests</span><span class="pythonop">,</span> <span class="pythonimport">base64</span>
 
 <span class="pythoncomments"># Gets the contents of an image on the Internet to be</span>
 <span class="pythoncomments"># sent to the machine learning model for classifying</span>
@@ -185,7 +185,7 @@ confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
 
     <span class="pythonfunc">if</span> response<span class="pythonop">.</span>ok:
         responseData <span class="pythonop">=</span> response<span class="pythonop">.</span>json()
-        topMatch <span class="pythonop">=</span> responseData[<span style="pythonint">0</span>]
+        topMatch <span class="pythonop">=</span> responseData[<span class="pythonint">0</span>]
         <span class="pythonfunc">return</span> topMatch
     <span class="pythonfunc">else</span>:
         response<span class="pythonop">.</span>raise_for_status()
