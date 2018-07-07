@@ -1,0 +1,122 @@
+<div ng-if="!isAuthenticated">
+    <div class="alert alert-warning pageheadermsg">
+        <strong>Not logged in</strong>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" ng-click="vm.authService.login()">Log In</button>
+    </div>
+</div>
+
+<div ng-if="isAuthenticated && !projectId" class="alert alert-danger pageheadermsg">
+    <strong>Error:</strong> Missing project id. Go back to <a ui-sref="projects">your projects</a>
+</div>
+
+<div ng-if="isAuthenticated && projectId">
+    <div class="jumbotron">
+        <h2 class="text-center">Using machine learning in Python</h2>
+    </div>
+    <div class="backbutton">
+        <a ui-sref="mlproject({ projectId : projectId, userId : userId  })">&lt; Back to project</a>
+    </div>
+
+    <div ng-repeat="error in vm.errors" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Error:</strong> {{ error.message }}<br/>
+        <em ng-if="error.status >= 500">If this keeps happening, please <a ui-sref="help">let me know</a>.</em>
+    </div>
+    <div ng-repeat="warning in vm.warnings" class="alert alert-warning alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('warnings', $index)">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Warning:</strong> {{ warning.message }}
+    </div>
+
+    <div ng-if="projectId && !project" class="loading"> </div>
+
+    <div ng-if="project" class="alert alert-warning pageheadermsg" role="alert" style="margin-top: 1em">
+        <strong>Warning:</strong> This is a beta feature. Please report issues at https://github.com/IBM/taxinomitis/issues/11
+    </div>
+
+    <div ng-if="project && project.labels.length <= 1" class="modelguidancecontainer">
+        <div class="modelguidance">
+            <div class="modelstatusdetail">
+                Your project isn't ready to be used in Python yet.
+            </div>
+            <div class="modelstatusdetail">
+                Or go to the <a ui-sref="mlproject_models({ projectId : projectId, userId : userId })">Learn &amp; Test</a>
+                page for some tips on what to do next.
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="project && project.labels.length > 1" style="margin: 2em;">
+        <div ng-if="scratchkey">
+            <div ng-if="!scratchkey.model">
+                <div class="alert alert-info" role="alert">
+                    You haven't trained a machine learning model yet.
+                </div>
+                <div>
+                    You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId, userId : userId })">train one now</a></strong> and then come back to start your Python project.
+                </div>
+            </div>
+        </div>
+        <div ng-hide="project.type === 'text'">
+            Python projects are only for text projects at the moment.
+        </div>
+    </div>
+
+    <div ng-if="scratchkey && scratchkey.model" class="modelguidancecontainer">
+        <div class="modelguidance">
+            <div class="modelstatusdetail">
+                If you know how to use Python, you can use the machine learning model
+                that you've trained from a Python program.
+            </div>
+            <div class="modelstatusdetail">
+                This page gives a simple example of how to do it.
+            </div>
+            <div class="modelstatusdetail">
+                Change <code><span style="background-color: #fff0f0">&quot;The text that you want to test&quot;</span></code>
+                to something different.
+            </div>
+            <div class="modelstatusdetail">
+                Running it will print something like:
+            </div>
+            <div class="modelstatusdetail"><pre>$ python yourscript.py
+result: '{{ project.labels[0] }}' with 81% confidence</pre></div>
+            <div class="modelstatusdetail">
+                If you've never used the <a href="http://docs.python-requests.org"><code>requests</code></a>
+                library before, you might need to <a href="http://docs.python-requests.org/en/master/user/install/#install">install it first</a>.
+                Ask your teacher for help if you're not sure how to do that.
+            </div>
+        </div>
+        <div class="modelguidance">
+<div style="font-size: 0.7em; background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">requests</span>
+
+<span style="color: #888888"># This function will pass your text to the machine learning model</span>
+<span style="color: #888888"># and return the top result with the highest confidence</span>
+<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">classify</span>(text):
+    key <span style="color: #333333">=</span> &quot;{{ scratchkey.id }}&quot;
+    url <span style="color: #333333">=</span> &quot;https://machinelearningforkids.co.uk/api/scratch/&quot;+ key + &quot;/classify&quot;
+
+    response <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(url, params<span style="color: #333333">=</span>{ &quot;data&quot; : text })
+
+    <span style="color: #008800; font-weight: bold">if</span> response<span style="color: #333333">.</span>ok:
+        responseData <span style="color: #333333">=</span> response<span style="color: #333333">.</span>json()
+        topMatch <span style="color: #333333">=</span> responseData[<span style="color: #0000DD; font-weight: bold">0</span>]
+        <span style="color: #008800; font-weight: bold">return</span> topMatch
+    <span style="color: #008800; font-weight: bold">else</span>:
+        response<span style="color: #333333">.</span>raise_for_status()
+
+
+<span style="color: #888888"># CHANGE THIS to something you want your machine learning model to classify</span>
+demo <span style="color: #333333">=</span> classify(<span style="background-color: #fff0f0">&quot;The text that you want to test&quot;</span>)
+
+label <span style="color: #333333">=</span> demo[&quot;class_name&quot;]
+confidence <span style="color: #333333">=</span> demo[&quot;confidence&quot;]
+
+
+<span style="color: #888888"># CHANGE THIS to do something different with the result</span>
+<span style="color: #008800; font-weight: bold">print</span> (&quot;result: &#39;%s&#39; with %d%% confidence&quot; <span style="color: #333333">%</span> (label, confidence))
+</pre></div>
+        </div>
+    </div>
+</div>
+

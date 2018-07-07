@@ -76,6 +76,9 @@ async function classifyWithScratchKey(req: Express.Request, res: Express.Respons
         if (err.message === 'Missing data') {
             return res.status(httpstatus.BAD_REQUEST).jsonp({ error : 'Missing data' });
         }
+        if (err.message === 'Unexpected response when retrieving credentials for Scratch') {
+            return res.status(httpstatus.NOT_FOUND).jsonp({ error : 'Scratch key not found' });
+        }
 
         log.error({ err }, 'Classify error');
         return res.status(httpstatus.INTERNAL_SERVER_ERROR).jsonp(err);
