@@ -30,6 +30,17 @@
             $scope.projectId = $stateParams.projectId;
             $scope.userId = $stateParams.userId;
 
+            $scope.testsource = 'local';
+            $scope.testdata = {
+                text      : 'The text that you want to test',
+                imagefile : 'my-test-image.jpg',
+                imageurl  : 'https://www.site-on-the-internet.com/image.jpg'
+            };
+
+            $scope.setSource = function (source) {
+                $scope.testsource = source;
+            };
+
             authService.getProfileDeferred()
                 .then(function (profile) {
                     vm.profile = profile;
@@ -39,7 +50,7 @@
                 .then(function (project) {
                     $scope.project = project;
 
-                    if (project.type === 'text') {
+                    if (project.type !== 'numbers') {
                         return scratchkeysService.getScratchKeys(project.id, $scope.userId, vm.profile.tenant);
                     }
                 })
