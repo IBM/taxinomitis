@@ -11,7 +11,7 @@ import * as downloadZip from '../../lib/utils/downloadAndZip';
 
 
 
-describe('Utils - base64decode', () => {
+describe('Utils - download and zip', () => {
 
     it('should reject non jpg/png files', (done) => {
         downloadZip.run(INVALIDURLS)
@@ -39,7 +39,7 @@ describe('Utils - base64decode', () => {
         readonly size: number;
     }
 
-    it('should download a jpg file', (done) => {
+    it('should download a jpg or png file', (done) => {
         async.waterfall([
             (next: (err?: Error, path?: string) => void) => {
                 downloadZip.run(TESTURLS)

@@ -2,6 +2,7 @@
 import * as express from 'express';
 import * as httpstatus from 'http-status';
 import * as path from 'path';
+import * as compression from 'compression';
 // local dependencies
 import * as constants from '../utils/constants';
 
@@ -43,13 +44,13 @@ export function setupForBluemix(app: express.Application): void {
 
 export function setupUI(app: express.Application): void {
     const uilocation: string = path.join(__dirname, '/../../../web/static');
-    app.use('/static', express.static(uilocation, { maxAge : constants.ONE_YEAR }));
+    app.use('/static', compression(), express.static(uilocation, { maxAge : constants.ONE_YEAR }));
 
     const scratchxlocation: string = path.join(__dirname, '/../../../web/scratchx');
-    app.use('/scratchx', express.static(scratchxlocation, { maxAge : constants.ONE_WEEK }));
+    app.use('/scratchx', compression(), express.static(scratchxlocation, { maxAge : constants.ONE_WEEK }));
 
     const datasetslocation: string = path.join(__dirname, '/../../../web/datasets');
-    app.use('/datasets', express.static(datasetslocation, { maxAge : constants.ONE_WEEK }));
+    app.use('/datasets', compression(), express.static(datasetslocation, { maxAge : constants.ONE_WEEK }));
 
 
     app.get('/about', (req, res) => { res.redirect('/#!/about'); });
