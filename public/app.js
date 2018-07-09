@@ -231,12 +231,12 @@
                 suffix: '.json'
             })
             .determinePreferredLanguage(function () {
-                let lang = navigator.userLanguage || navigator.language;
+                var lang = navigator.userLanguage || navigator.language;
 
                 // if it is set via query, use that
                 const queries = document.location.search.substr(1).split('&');
                 for (let i = 0; i < queries.length; i++) {
-                    const query = queries[0];
+                    var query = queries[0];
                     if (query.startsWith('lang=')) {
                         lang = query.substr('lang='.length);
                         break;
