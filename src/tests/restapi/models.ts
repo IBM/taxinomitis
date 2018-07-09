@@ -655,12 +655,13 @@ describe('REST API - models', () => {
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.INTERNAL_SERVER_ERROR)
+                .expect(httpstatus.CONFLICT)
                 .then(async (res) => {
                     const body = res.body;
 
                     assert.equal(body.error,
-                        'The credentials for the machine learning server used by your class were rejected.');
+                        'The Watson credentials being used by your class were rejected. ' +
+                        'Please let your teacher or group leader know.');
 
                     await store.deleteEntireUser(userid, classid);
                 });
@@ -849,12 +850,13 @@ describe('REST API - models', () => {
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.INTERNAL_SERVER_ERROR)
+                .expect(httpstatus.CONFLICT)
                 .then(async (res) => {
                     const body = res.body;
 
                     assert.equal(body.error,
-                        'The credentials for the machine learning server used by your class were rejected.');
+                        'The Watson credentials being used by your class were rejected. ' +
+                        'Please let your teacher or group leader know.');
 
                     await store.deleteEntireUser(userid, classid);
                 });
@@ -874,12 +876,13 @@ describe('REST API - models', () => {
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.INTERNAL_SERVER_ERROR)
+                .expect(httpstatus.CONFLICT)
                 .then(async (res) => {
                     const body = res.body;
 
                     assert.equal(body.error,
-                        'The credentials for the machine learning server used by your class were rejected.');
+                        'The Watson credentials being used by your class were rejected. ' +
+                        'Please let your teacher or group leader know.');
 
                     await store.deleteEntireUser(userid, classid);
                 });

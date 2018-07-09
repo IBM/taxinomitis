@@ -870,7 +870,7 @@ export async function getBluemixCredentials(
 
     const rows = await dbExecute(queryString, [ classid, service ]);
     if (rows.length === 0) {
-        log.error({ rows, func : 'getBluemixCredentials' }, 'Unexpected response from DB');
+        log.warn({ rows, func : 'getBluemixCredentials' }, 'Unexpected response from DB');
         throw new Error('Unexpected response when retrieving service credentials');
     }
     return rows.map(dbobjects.getCredentialsFromDbRow);

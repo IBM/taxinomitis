@@ -101,11 +101,11 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
                           .send({ code : 'MLMOD03', error : err.message + ' Please try again' });
             }
             else if (err.statusCode === httpstatus.UNAUTHORIZED) {
-                return res.status(httpstatus.INTERNAL_SERVER_ERROR)
+                return res.status(httpstatus.CONFLICT)
                         .send({
                             code : 'MLMOD04',
-                            error : 'The credentials for the machine learning ' +
-                                    'server used by your class were rejected.',
+                            error : 'The Watson credentials being used by your class were rejected. ' +
+                                    'Please let your teacher or group leader know.',
                         });
             }
             else if (err.message === 'Unexpected response when retrieving service credentials') {
@@ -140,11 +140,11 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
                 return res.status(httpstatus.BAD_REQUEST).send({ code : 'MLMOD08', error : err.message });
             }
             else if (err.statusCode === httpstatus.UNAUTHORIZED || err.statusCode === httpstatus.FORBIDDEN) {
-                return res.status(httpstatus.INTERNAL_SERVER_ERROR)
+                return res.status(httpstatus.CONFLICT)
                         .send({
                             code : 'MLMOD09',
-                            error : 'The credentials for the machine learning ' +
-                                    'server used by your class were rejected.',
+                            error : 'The Watson credentials being used by your class were rejected. ' +
+                                    'Please let your teacher or group leader know.',
                         });
             }
             else if (err.message === 'Unexpected response when retrieving service credentials') {
