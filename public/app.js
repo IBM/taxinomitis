@@ -235,7 +235,7 @@
 
                 // if it is set via query, use that
                 const queries = document.location.search.substr(1).split('&');
-                for (let i = 0; i < queries.length; i++) {
+                for (var i = 0; i < queries.length; i++) {
                     var query = queries[0];
                     if (query.startsWith('lang=')) {
                         lang = query.substr('lang='.length);
