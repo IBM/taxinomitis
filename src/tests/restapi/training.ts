@@ -10,6 +10,7 @@ import * as express from 'express';
 import * as store from '../../lib/db/store';
 import * as limits from '../../lib/db/limits';
 import * as auth from '../../lib/restapi/auth';
+import * as visrec from '../../lib/training/visualrecognition';
 import testapiserver from './testserver';
 
 
@@ -529,6 +530,43 @@ describe('REST API - training', () => {
                     assert.deepEqual(res.body, {
                         error: 'Unsupported file type (unknown). Only jpg and png images are supported.',
                     });
+
+                    return store.deleteEntireProject(userid, classid, project);
+                });
+        });
+
+
+        it('should reject image training that is too big', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', [], false);
+            const projectid = project.id;
+
+            const trainingurl = '/api/classes/' + classid +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
+
+            const reduceMaxFileSize = sinon.stub(visrec, 'getMaxImageFileSize').returns(2000);
+
+            return request(testServer)
+                .post(trainingurl)
+                .send({
+                    data : 'https://www.w3.org/html/logo/downloads/HTML5_Logo_128.png',
+                    label : 'test',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    reduceMaxFileSize.restore();
+
+                    assert.deepStrictEqual({
+                        error : 'Image file size (2.17 KB) is too big. Please choose images smaller than 1.95 KB',
+                    }, res.body);
 
                     return store.deleteEntireProject(userid, classid, project);
                 });

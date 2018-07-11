@@ -1,16 +1,14 @@
 // core dependencies
-import * as http from 'http';
 import * as fs from 'fs';
 // external dependencies
-import * as request from 'request';
 import * as fileType from 'file-type';
 import * as readChunk from 'read-chunk';
 import * as tmp from 'tmp';
 import * as async from 'async';
+import * as filesize from 'filesize';
 // local dependencies
 import * as download from './download';
 import loggerSetup from '../utils/logger';
-import * as notifications from '../notifications/slack';
 
 
 
@@ -23,8 +21,13 @@ type IFilePathTypeCallback = (err?: Error, filetype?: string, location?: string)
 type IErrCallback = (err?: Error) => void;
 
 
+export const ERROR_PREFIXES = {
+    BAD_TYPE : 'Unsupported file type',
+    TOO_BIG : 'Image file size',
+};
 
-export function verifyImage(url: string): Promise<void> {
+
+export function verifyImage(url: string, maxAllowedSizeBytes: number): Promise<void> {
     return new Promise((resolve, reject) => {
         async.waterfall([
             (next: IFilePathCallback) => {
@@ -37,6 +40,21 @@ export function verifyImage(url: string): Promise<void> {
                 // download the file to the temp location on disk
                 download.file(url, tmpFilePath, (err) => {
                     next(err, tmpFilePath);
+                });
+            },
+            (tmpFilePath: string, next: IFilePathCallback) => {
+                // check that the file isn't too big
+                fs.stat(tmpFilePath, (err, stats: fs.Stats) => {
+                    if (err) {
+                        return next(err);
+                    }
+                    if (stats.size > maxAllowedSizeBytes) {
+                        return next(new Error(ERROR_PREFIXES.TOO_BIG +
+                                              ' (' + filesize(stats.size) + ') ' +
+                                              'is too big. Please choose images smaller than ' +
+                                              filesize(maxAllowedSizeBytes)));
+                    }
+                    return next(err, tmpFilePath);
                 });
             },
             (tmpFilePath: string, next: IFilePathTypeCallback) => {
@@ -57,13 +75,16 @@ export function verifyImage(url: string): Promise<void> {
 
             const isOkay = (fileTypeExt === 'jpg') || (fileTypeExt === 'png');
             if (!isOkay) {
-                return reject(new Error('Unsupported file type (' + fileTypeExt + '). ' +
+                return reject(new Error(ERROR_PREFIXES.BAD_TYPE + ' (' + fileTypeExt + '). ' +
                                         'Only jpg and png images are supported.'));
             }
             return resolve();
         });
     });
 }
+
+
+
 
 
 

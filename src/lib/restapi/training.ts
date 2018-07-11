@@ -9,6 +9,7 @@ import * as Objects from '../db/db-types';
 import * as urls from './urls';
 import * as errors from './errors';
 import * as headers from './headers';
+import * as visrec from '../training/visualrecognition';
 import * as imageCheck from '../utils/imageCheck';
 import loggerSetup from '../utils/logger';
 
@@ -155,7 +156,7 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
             training = await store.storeNumberTraining(req.project.id, req.project.isCrowdSourced, data, label);
             break;
         case 'images':
-            await imageCheck.verifyImage(data);
+            await imageCheck.verifyImage(data, visrec.getMaxImageFileSize());
             training = await store.storeImageTraining(req.project.id, data, label, false);
             break;
         }
@@ -168,8 +169,9 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
             err.message === 'Number of data items exceeded maximum' ||
             err.message === 'Data contains non-numeric items' ||
             err.message === 'Missing required attributes' ||
-            err.message.startsWith('Unsupported file type') ||
-            err.message.startsWith('Unable to download image from '))
+            err.message.startsWith(imageCheck.ERROR_PREFIXES.BAD_TYPE) ||
+            err.message.startsWith('Unable to download image from ') ||
+            err.message.startsWith(imageCheck.ERROR_PREFIXES.TOO_BIG))
         {
             return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
         }

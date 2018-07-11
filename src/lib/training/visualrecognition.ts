@@ -29,6 +29,12 @@ export const ERROR_MESSAGES = {
 };
 
 
+/** The size of the largest file that we are willing to download for putting into a training zip. */
+const MAX_IMAGE_FILE_SIZE_BYTES = 5242880;
+
+export function getMaxImageFileSize(): number {
+    return MAX_IMAGE_FILE_SIZE_BYTES;
+}
 
 
 export async function trainClassifier(
