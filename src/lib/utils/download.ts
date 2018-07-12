@@ -2,15 +2,20 @@
 import * as fs from 'fs';
 // external dependencies
 import * as request from 'request';
+import * as sharp from 'sharp';
+import * as probe from 'probe-image-size';
 // local dependencies
-import loggerSetup from '../utils/logger';
-import * as notifications from '../notifications/slack';
-
+import loggerSetup from './logger';
 
 const log = loggerSetup();
 
 
+
 type IErrCallback = (err?: Error) => void;
+
+
+// disable aggressive use of memory for caching
+sharp.cache(false);
 
 
 
@@ -21,45 +26,101 @@ type IErrCallback = (err?: Error) => void;
  * @param targetFilePath  - writes to
  */
 export function file(url: string, targetFilePath: string, callback: IErrCallback): void {
-    let callbackCalled = false;
 
-    // There have been very occasional crashes in production due to the callback
-    //  function here being called multiple times.
-    // I can't see why this might happen, so this function is a temporary way of
-    //  1) preventing future crashes
-    //  2) capturing what makes it happen - with a nudge via Slack so I don't miss it
-    //
-    // It is just a brute-force check to make sure we don't call callback twice.
-    //  I hope that the next time this happens, the URL and/or file path gives me
-    //  a clue as to why.
-    //
-    // Yeah, it's horrid. I know.
-    function invokeCallbackSafely(reportFailure: boolean): void {
-        if (callbackCalled) {
-            log.error({ url, targetFilePath }, 'Attempt to call callbackfn multiple times');
-            notifications.notify('imageCheck failure : ' + url);
-        }
-        else {
-            callbackCalled = true;
-            if (reportFailure) {
-                callback(new Error('Unable to download image from ' + url));
-            }
-            else {
-                callback();
-            }
+    // local inner function used to avoid calling callback multiple times
+    let resolved = false;
+    function resolve(err?: Error) {
+        if (resolved === false) {
+            resolved = true;
+            return callback(err);
         }
     }
 
+    const writeStream = fs.createWriteStream(targetFilePath)
+                            .on('error', resolve)
+                            .on('finish', resolve);
 
     try {
         request.get({ url, timeout : 10000 })
             .on('error', () => {
-                invokeCallbackSafely(true);
+                resolve(new Error('Unable to download image from ' + url));
             })
-            .pipe(fs.createWriteStream(targetFilePath)
-                    .on('finish', () => { invokeCallbackSafely(false); }));
+            .pipe(writeStream);
     }
     catch (err) {
-        invokeCallbackSafely(true);
+        log.error({ err, url }, 'Failed to download');
+        resolve(new Error('Unable to download image from ' + url));
     }
 }
+
+
+
+
+/**
+ * Downloads a file from the specified URL to the specified location on disk.
+ *
+ * @param url  - downloads from
+ * @param maxLength - the longest allowable length in pixels (width or height - whichever is longest)
+ * @param targetFilePath  - writes to
+ */
+export function resize(url: string, maxLength: number, targetFilePath: string, callback: IErrCallback): void {
+
+    // local inner function used to avoid calling callback multiple times
+    let resolved = false;
+    function resolve(err?: Error) {
+        if (resolved === false) {
+            resolved = true;
+            return callback(err);
+        }
+    }
+
+
+    probe(url)
+        .then((imageinfo: any) => {
+            if (imageinfo.type !== 'jpg' && imageinfo.type !== 'jpeg' && imageinfo.type !== 'png') {
+                log.error({ imageinfo, url }, 'Unexpected file type');
+                throw new Error('Unsupported file type ' + imageinfo.type);
+            }
+
+
+            let resizeWidth: number | undefined;
+            let resizeHeight: number | undefined;
+
+            if (imageinfo &&
+                imageinfo.width &&
+                imageinfo.height &&
+                (imageinfo.height > maxLength || imageinfo.width > maxLength))
+            {
+                if (imageinfo.height > imageinfo.width) {
+                    resizeHeight = maxLength;
+                }
+                else {
+                    resizeWidth = maxLength;
+                }
+            }
+            else {
+                // no need to resize, as the image is already
+                //  smaller than the specified maxLength
+                //  (or we weren't able to determine the metadata)
+                return file(url, targetFilePath, callback);
+            }
+
+
+            const shrinkStream = sharp()
+                                    .resize(resizeWidth, resizeHeight)
+                                    .on('error', resolve)
+                                    .toFile(targetFilePath, resolve);
+
+            request.get({ url, timeout : 10000 })
+                    .on('error', (err) => {
+                        log.error({ err, url }, 'Download fail');
+                        resolve(new Error('Unable to download image from ' + url));
+                    })
+                    .pipe(shrinkStream);
+        })
+        .catch((err: Error) => {
+            log.error({ err, url }, 'Probe fail');
+            resolve(new Error('Unable to download image from ' + url));
+        });
+}
+

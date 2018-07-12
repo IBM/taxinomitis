@@ -18,7 +18,7 @@ const log = loggerSetup();
 type IFilePathCallback = (err?: Error, location?: string) => void;
 type IFileTypeCallback = (err?: Error, filetype?: string) => void;
 type IFilePathTypeCallback = (err?: Error, filetype?: string, location?: string) => void;
-type IErrCallback = (err?: Error) => void;
+
 
 
 export const ERROR_PREFIXES = {

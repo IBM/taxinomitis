@@ -30,11 +30,14 @@ export const ERROR_MESSAGES = {
 
 
 /** The size of the largest file that we are willing to download for putting into a training zip. */
-const MAX_IMAGE_FILE_SIZE_BYTES = 5242880;
-
+const MAX_IMAGE_FILE_SIZE_BYTES = 8388608;
 export function getMaxImageFileSize(): number {
     return MAX_IMAGE_FILE_SIZE_BYTES;
 }
+
+/** The width that training files are resized to before putting into a training zip. */
+export const MAX_TRAINING_IMAGE_WIDTH_PIXELS = 600;
+
 
 
 export async function trainClassifier(

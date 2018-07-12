@@ -4,13 +4,13 @@ import * as path from 'path';
 // external dependencies
 import * as tmp from 'tmp';
 import * as async from 'async';
-import * as request from 'request';
 import * as archiver from 'archiver';
 import * as fileType from 'file-type';
 import * as readChunk from 'read-chunk';
 // local dependencies
 import * as download from './download';
 import * as imagestore from '../imagestore';
+import * as visrec from '../training/visualrecognition';
 import * as notifications from '../notifications/slack';
 import loggerSetup from './logger';
 
@@ -130,7 +130,7 @@ function retrieve(spec: ObjectStorageSpec, targetFilePath: string, callback: IEr
 
 function retrieveImage(location: ImageDownload, targetFilePath: string, callback: IErrCallback): void {
     if (location.type === 'download') {
-        download.file(location.url, targetFilePath, callback);
+        download.resize(location.url, visrec.MAX_TRAINING_IMAGE_WIDTH_PIXELS, targetFilePath, callback);
     }
     else if (location.type === 'retrieve') {
         retrieve(location.spec, targetFilePath, callback);
@@ -273,6 +273,7 @@ function createZip(filepaths: string[], callback: IZipCallback): void {
  * Confirms that the created zip file should be usable by the Vision Recognition service.
  */
 function validateZip(filesize: number, callback: IErrCallback): void {
+    log.debug({ filesize }, 'Created zip file for training Visual Recognition');
     if (filesize > 100000000) {
         return callback(new Error('Training data exceeds maximum limit (100 mb)'));
     }
