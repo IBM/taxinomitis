@@ -130,7 +130,7 @@ function verifyBucket(): void {
         MaxKeys: 1,
     };
 
-    cos.listObjects(req, (err: IBMCosSDK.AWSError, output: IBMCosSDK.S3.ListObjectsOutput) => {
+    cos.listObjects(req, (err: IBMCosSDK.AWSError/*, output: IBMCosSDK.S3.ListObjectsOutput*/) => {
         if (err) {
             log.error({ err }, 'Unable to query Object Storage');
             throw new Error('Failed to verify Object Store config : ' + err.message);
