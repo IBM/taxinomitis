@@ -155,6 +155,14 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
                                 'Please let your teacher or group leader know.',
                     });
             }
+            else if (err.message.includes('413 Request Entity Too Large')) {
+                return res.status(httpstatus.REQUEST_ENTITY_TOO_LARGE)
+                    .json({
+                        code : 'MLMOD11',
+                        error : 'Machine learning server rejected the training request ' +
+                                'because the training data was too large',
+                    });
+            }
             else {
                 return errors.unknownError(res, err);
             }
