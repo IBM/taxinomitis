@@ -40,6 +40,8 @@ export function init(): void {
     else {
         throw new Error('Missing OBJECT_STORE_CREDS');
     }
+
+    verifyBucket();
 }
 
 
@@ -118,5 +120,21 @@ function getImageObject(key: string, response: IBMCosSDK.S3.GetObjectOutput): Ty
         etag : response.ETag,
         filetype : getImageType(key, response),
     };
+}
+
+
+
+function verifyBucket(): void {
+    const req: IBMCosSDK.S3.ListObjectsRequest = {
+        Bucket: BUCKET,
+        MaxKeys: 1,
+    };
+
+    cos.listObjects(req, (err: IBMCosSDK.AWSError/*, output: IBMCosSDK.S3.ListObjectsOutput*/) => {
+        if (err) {
+            log.error({ err }, 'Unable to query Object Storage');
+            throw new Error('Failed to verify Object Store config : ' + err.message);
+        }
+    });
 }
 

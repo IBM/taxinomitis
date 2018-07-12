@@ -4,7 +4,6 @@ import * as IBMCosSDK from 'ibm-cos-sdk';
 import * as keys from './keys';
 // type definitions
 import * as Types from './types';
-import { getImage } from './index';
 
 
 
