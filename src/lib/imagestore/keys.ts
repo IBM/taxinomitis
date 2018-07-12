@@ -1,5 +1,4 @@
 // local dependency
-import * as Types from './types';
 import { ImageSpec, ProjectSpec, UserSpec, ClassSpec } from './types';
 
 export const SEPARATOR = '/';
