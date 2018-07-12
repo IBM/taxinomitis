@@ -201,7 +201,7 @@ async function getPolicy(req: Express.Request, res: Express.Response) {
             isManaged : policy.isManaged,
 
             maxTextModels : availableTextCredentials * 20,
-            maxImageModels : availableImageCredentials * 1,
+            maxImageModels : availableImageCredentials * 2,
 
             maxUsers : policy.maxUsers,
             supportedProjectTypes : policy.supportedProjectTypes,
