@@ -2,5 +2,21 @@ language: node_js
 node_js:
 - "8"
 
+env:
+  global:
+    - MYSQLUSER=travis
+    - MYSQLPASSWORD=
+    - MYSQLDATABASE=mlforkidsdb
+    - MYSQLHOST=localhost
+    - MYSQLPORT=3306
+
+services:
+- mysql
+
+before_install:
+- mysql -u root --password="" -e 'DROP DATABASE IF EXISTS mlforkidsdb;'
+- mysql -u root --password="" -e 'CREATE DATABASE mlforkidsdb;'
+- mysql -u root --password="" < sql/tables.sql
+
 script:
 - npm run compile

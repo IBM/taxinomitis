@@ -80,6 +80,10 @@ CREATE TABLE bluemixcredentials (
 
 CREATE INDEX bluemixcredentials_getBluemixCredentials on bluemixcredentials(classid, servicetype);
 
+INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, password)
+    VALUES
+    ('01cf0343-6bd7-4732-95f0-8c8dbc0be922', 'testing', 'conv', 'https://gateway.watsonplatform.net/conversation/api', '263913bf-07b0-4d04-b08d-1a3a38c287d6', 'A8PV7mFeg37b'),
+    ('3a9a71ab-de77-4912-b0b0-f0c9698d9245', 'testing', 'visrec', 'https://gateway.watsonplatform.net/visual-recognition/api', 'ChfzmB5KwqQhu4jk0zKpOj', 'JqZfa6xuDgwcOmUoYHCBzE');
 
 -- ------------------------------------------------------------------
 
@@ -168,10 +172,11 @@ CREATE TABLE tenants (
     ismanaged BOOLEAN DEFAULT true
 );
 
-INSERT INTO tenants (id, projecttypes) VALUES ("TESTTENANT", "text,images,numbers");
-
 INSERT INTO tenants (id, projecttypes, maxusers, maxprojectsperuser, textclassifiersexpiry, ismanaged)
-        VALUES ('session-users', 'text,numbers', 20, 1, 4, false);
+    VALUES
+        ('TESTTENANT', 'text,images,numbers', 8, 3, 2, true),
+        ('UNIQUECLASSID', 'text,numbers', 8, 3, 2, true),
+        ('session-users', 'text,numbers', 5, 1, 4, false);
 
 -- ------------------------------------------------------------------
 

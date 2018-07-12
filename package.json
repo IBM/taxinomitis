@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "start": "node -r bluemix-autoscaling-agent --max-old-space-size=192 dist/lib/app.js",
-    "compile": "./node_modules/.bin/grunt compile",
+    "compile": "./node_modules/.bin/grunt",
     "local": "node dist/lib/app.js",
     "test": "./node_modules/.bin/gulp",
     "coverage": "gulp compile ; ./node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- --no-timeouts dist/tests/**"
@@ -54,6 +54,7 @@
     "eslint-plugin-node": "^6.0.1",
     "filecompare": "1.0.4",
     "grunt": "^1.0.3",
+    "grunt-mocha-test": "^0.13.3",
     "grunt-ts": "^6.0.0-beta.20",
     "grunt-tslint": "^5.0.2",
     "gruntify-eslint": "^5.0.0",
