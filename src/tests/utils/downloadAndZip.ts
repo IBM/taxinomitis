@@ -85,7 +85,7 @@ describe('Utils - download and zip', () => {
                 async.each(unzippedFilesInfo,
                     (unzippedFile: any, nextFile) => {
                         switch (unzippedFile.size) {
-                        case 21450:
+                        case 22955:
                             filecompare('./src/tests/utils/resources/map.jpg',
                                         unzippedFile.location,
                                         (isEq: boolean) => {
@@ -93,7 +93,7 @@ describe('Utils - download and zip', () => {
                                             nextFile();
                                         });
                             break;
-                        case 4518:
+                        case 7519:
                             filecompare('./src/tests/utils/resources/watson.jpg',
                                         unzippedFile.location,
                                         (isEq: boolean) => {
@@ -101,7 +101,7 @@ describe('Utils - download and zip', () => {
                                             nextFile();
                                         });
                             break;
-                        case 1909:
+                        case 12396:
                             filecompare('./src/tests/utils/resources/ibm.png',
                                         unzippedFile.location,
                                         (isEq: boolean) => {

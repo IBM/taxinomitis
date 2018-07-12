@@ -60,11 +60,17 @@ export function file(url: string, targetFilePath: string, callback: IErrCallback
  * Downloads a file from the specified URL to the specified location on disk.
  *
  * @param url  - downloads from
- * @param maxLength - the longest allowable length in pixels (width or height - whichever is longest)
+ * @param width - width (in pixels) to resize the image to
+ * @param height - height (in pixels) to resize the image to
  * @param targetFilePath  - writes to
  */
-export function resize(url: string, maxLength: number, targetFilePath: string, callback: IErrCallback): void {
-
+export function resize(
+    url: string,
+    width: number, height: number,
+    targetFilePath: string,
+    callback: IErrCallback,
+): void
+{
     // local inner function used to avoid calling callback multiple times
     let resolved = false;
     function resolve(err?: Error) {
@@ -74,7 +80,6 @@ export function resize(url: string, maxLength: number, targetFilePath: string, c
         }
     }
 
-
     probe(url)
         .then((imageinfo: any) => {
             if (imageinfo.type !== 'jpg' && imageinfo.type !== 'jpeg' && imageinfo.type !== 'png') {
@@ -82,45 +87,28 @@ export function resize(url: string, maxLength: number, targetFilePath: string, c
                 throw new Error('Unsupported file type ' + imageinfo.type);
             }
 
-
-            let resizeWidth: number | undefined;
-            let resizeHeight: number | undefined;
-
-            if (imageinfo &&
-                imageinfo.width &&
-                imageinfo.height &&
-                (imageinfo.height > maxLength || imageinfo.width > maxLength))
-            {
-                if (imageinfo.height > imageinfo.width) {
-                    resizeHeight = maxLength;
-                }
-                else {
-                    resizeWidth = maxLength;
-                }
-            }
-            else {
-                // no need to resize, as the image is already
-                //  smaller than the specified maxLength
-                //  (or we weren't able to determine the metadata)
-                return file(url, targetFilePath, callback);
-            }
-
-
             const shrinkStream = sharp()
-                                    .resize(resizeWidth, resizeHeight)
+                                    // resize before writing to disk
+                                    .resize(width, height)
+                                    // skew, don't crop
+                                    .ignoreAspectRatio()
                                     .on('error', resolve)
+                                    // write to file using the same image
+                                    //  format (i.e. jpg vs png) as the
+                                    //  original
                                     .toFile(targetFilePath, resolve);
 
             request.get({ url, timeout : 10000 })
-                    .on('error', (err) => {
-                        log.error({ err, url }, 'Download fail');
-                        resolve(new Error('Unable to download image from ' + url));
-                    })
-                    .pipe(shrinkStream);
+                .on('error', (err) => {
+                    log.error({ err, url }, 'Download fail');
+                    resolve(new Error('Unable to download image from ' + url));
+                })
+                .pipe(shrinkStream);
         })
-        .catch((err: Error) => {
-            log.error({ err, url }, 'Probe fail');
+        .catch ((err: any) => {
+            log.error({ err, url }, 'Download fail');
             resolve(new Error('Unable to download image from ' + url));
         });
 }
+
 

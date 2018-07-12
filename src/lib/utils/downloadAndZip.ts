@@ -130,7 +130,10 @@ function retrieve(spec: ObjectStorageSpec, targetFilePath: string, callback: IEr
 
 function retrieveImage(location: ImageDownload, targetFilePath: string, callback: IErrCallback): void {
     if (location.type === 'download') {
-        download.resize(location.url, visrec.MAX_TRAINING_IMAGE_WIDTH_PIXELS, targetFilePath, callback);
+        download.resize(location.url,
+            visrec.IMAGE_WIDTH_PIXELS, visrec.IMAGE_HEIGHT_PIXELS,
+            targetFilePath,
+            callback);
     }
     else if (location.type === 'retrieve') {
         retrieve(location.spec, targetFilePath, callback);

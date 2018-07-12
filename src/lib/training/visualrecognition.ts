@@ -35,8 +35,19 @@ export function getMaxImageFileSize(): number {
     return MAX_IMAGE_FILE_SIZE_BYTES;
 }
 
+//
+// These dimensions are chosen because it's what the Visual Recognition service uses.
+//  It will skew the aspect ratio of images that aren't already square - but that's
+//  what the Visual Recognition service will do anyway.
+// The benefit of doing the resizing locally (rather than uploading the images in their
+//  original size and leaving the Visual Recognition service to resize it to these
+//  dimensions) is that it dramatically reduces the disk overhead for running the
+//  site. (Albeit at a increased cost in memory overhead)
+//
 /** The width that training files are resized to before putting into a training zip. */
-export const MAX_TRAINING_IMAGE_WIDTH_PIXELS = 600;
+export const IMAGE_WIDTH_PIXELS = 224;
+/** The height that training files are resized to before putting into a training zip. */
+export const IMAGE_HEIGHT_PIXELS = 224;
 
 
 
