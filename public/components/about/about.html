@@ -1,64 +1,30 @@
 <div class="jumbotron">
-    <h2 class="text-center">Machine Learning for kids</h2>
+    <h2 class="text-center" translate="ABOUT.TITLE"></h2>
 </div>
 <div class="menucontainer">
     <div class="mlprojectmenu aboutsection aboutwide">
-        <div class="mlprojectmenutitle">In 6 seconds...</div>
+        <div class="mlprojectmenutitle" translate="ABOUT.IN6SECS"></div>
         <img class="aboutvideo" src="static/images/machinelearningforkids.gif">
     </div>
     <div class="mlprojectmenu aboutsection aboutwide">
-        <div class="mlprojectmenutitle">In 20 minutes...</div>
+        <div class="mlprojectmenutitle" translate="ABOUT.IN20MINS"></div>
         <iframe class="aboutvideo" src="https://www.youtube.com/embed/2drwelVD4Qw?rel=0" frameborder="0" allowfullscreen></iframe>
     </div>
     <div class="mlprojectmenu aboutsection aboutnarrow">
-        <div class="mlprojectmenutitle">What?</div>
-        <div class="aboutdescription">
-            This tool introduces machine learning by providing hands-on experiences for training machine learning systems
-            and building things with them.
-            <br/><br/>
-            It provides an easy-to-use guided environment for training machine learning models for classifying text, numbers or
-            recognising images.
-            <br/><br/>
-            This builds on existing efforts to introduce and teach coding to children, by adding these models to
-            <a href="https://scratch.mit.edu/about" target="_blank">Scratch</a>
-            (a widely used educational coding platform), allowing children to create projects and build games with the
-            machine learning models that they've trained.
-            <br/><br/>
-            To learn more, look at:
-            <button type="button" class="btn btn-primary" ui-sref="worksheets">Worksheets</button>
-        </div>
+        <div class="mlprojectmenutitle" translate="ABOUT.WHAT.TITLE"></div>
+        <div class="aboutdescription" translate="ABOUT.WHAT.BODY"></div>
+        <button type="button" class="btn btn-primary" ui-sref="worksheets" translate="APP.WORKSHEETS"></button>
     </div>
     <div class="mlprojectmenu aboutsection aboutnarrow">
-        <div class="mlprojectmenutitle">Why?</div>
-        <div class="aboutdescription">
-            Machine learning is all around us. We all use machine learning systems every day - such as spam filters, recommendation engines,
-            language translation services, chatbots and digital assistants, search engines, and fraud detection systems.
-            <br/><br/>
-            It will soon be normal for machine learning systems to drive our cars, and help doctors to diagnose and treat our illnesses.
-            <br/><br/>
-            It's important that kids are aware of how our world works. The best way to understand the capabilities and implications
-            is to be able to build with this technology for themselves.
-            <br/><br/>
-            To learn more, read:
-            <a target="_blank" class="btn btn-primary" href="http://dalelane.co.uk/blog/?p=3513">"Introducing Machine Learning to kids"</a>
-        </div>
+        <div class="mlprojectmenutitle" translate="ABOUT.WHY.TITLE"></div>
+        <div class="aboutdescription" translate="ABOUT.WHY.BODY"></div>
     </div>
     <div class="mlprojectmenu aboutsection aboutnarrow">
-        <div class="mlprojectmenutitle">Tech</div>
+        <div class="mlprojectmenutitle" translate="ABOUT.TECH.TITLE"></div>
+        <div class="aboutdescription" translate="ABOUT.TECH.BODY"></div>
         <div class="aboutdescription">
-            The tool is entirely web-based and requires no installs or complicated setup to be able to use.
-            <br/><br/>
-            It was designed for use in the classroom by schools and volunteer-run coding groups for children,
-            and provides an admin page for teachers or group leaders to be able to manage and administer
-            access for their students.
-            <br/><br/>
-            It is being built by <a target="_blank" href="http://dalelane.co.uk/">Dale Lane</a> using APIs from
-            <a target="_blank" href="https://www.ibm.com/watson/developercloud/">IBM Watson Developer Cloud</a>.
-            <br/><br/>
-            <span ng-if="!isAuthenticated">
-            To get started:
-            <button type="button" class="btn btn-primary" ui-sref="login">Log In</button>
-            </span>
+            <span ng-if="!isAuthenticated" translate="ABOUT.TECH.LOGIN"></span>
+            <button type='button' class='btn btn-primary' ui-sref='login' translate="APP.LOGIN"></button>
         </div>
     </div>
 </div>
