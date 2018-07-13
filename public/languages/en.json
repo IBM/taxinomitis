@@ -1,6 +1,26 @@
 {
     "APP": {
-        "BACK": "Back"
+        "BACK": "Back",
+        "WORKSHEETS": "Worksheets",
+        "LOGIN": "Log In"
+    },
+    "ABOUT": {
+        "TITLE": "Machine Learning for Kids",
+        "IN6SECS": "In 6 seconds...",
+        "IN20MINS": "In 20 minutes...",
+        "WHAT": {
+            "TITLE": "What?",
+            "BODY" : "This tool introduces machine learning by providing hands-on experiences for training machine learning systems and building things with them.        <br/><br/>It provides an easy-to-use guided environment for training machine learning models for classifying text, numbers or recognising images.<br/><br/>This builds on existing efforts to introduce and teach coding to children, by adding these models to <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> (a widely used educational coding platform), allowing children to create projects and build games with the machine learning models that they've trained.<br/><br/>To learn more, look at:"
+        },
+        "WHY": {
+            "TITLE": "Why?",
+            "BODY": "Machine learning is all around us. We all use machine learning systems every day - such as spam filters, recommendation engines, language translation services, chatbots and digital assistants, search engines, and fraud detection systems.<br/><br/>It will soon be normal for machine learning systems to drive our cars, and help doctors to diagnose and treat our illnesses.<br/><br/>It's important that kids are aware of how our world works. The best way to understand the capabilities and implications is to be able to build with this technology for themselves.<br/><br/>To learn more, read: <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'Introducing Machine Learning to kids'</a>"
+        },
+        "TECH": {
+            "TITLE": "Tech",
+            "BODY": "The tool is entirely web-based and requires no installs or complicated setup to be able to use.<br/><br/>It was designed for use in the classroom by schools and volunteer-run coding groups for children,and provides an admin page for teachers or group leaders to be able to manage and administer access for their students.<br/><br/>It is being built by <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> using APIs from <a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a>.",
+            "LOGIN": "To get started: "
+        }
     },
     "WELCOME": {
         "TITLE": "Teach a computer to play a game",
