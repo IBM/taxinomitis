@@ -93,216 +93,117 @@
             </div>
         </div>
     </div>
-    <h4>Training UI issues</h4>
+    <h4 translate="HELP.TRAININGUI.TITLE"></h4>
     <div class="panel-group">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#helpIEDrag" target="_self">Dragging images into training buckets (for image projects) doesn't work</a>
+                    <a data-toggle="collapse" href="#helpIEDrag" target="_self" translate="HELP.TRAININGUI.Q1"></a>
                 </h4>
             </div>
             <div id="helpIEDrag" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <p>
-                    Dragging images into the training buckets doesn't work if you're using Safari or Internet Explorer.
-                    </p>
-                    <p>
-                    Sorry about this. If you can use another browser like Firefox or Chrome, please do that. Otherwise, you can click the "www" button and paste in the URL of training pictures instead.
-                    </p>
+                    <p translate="HELP.TRAININGUI.Q1-A-1"></p>
+                    <p translate="HELP.TRAININGUI.Q1-A-2"></p>
                 </div>
             </div>
         </div>
     </div>
-    <h4>Errors training machine learning models</h4>
+    <h4 translate="HELP.MODELS.TITLE"></h4>
     <div class="panel-group">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#helpAPISetup" target="_self">"No Watson credentials have been set up"</a>
+                    <a data-toggle="collapse" href="#helpAPISetup" target="_self" translate="HELP.MODELS.Q1"></a>
                 </h4>
             </div>
             <div id="helpAPISetup" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <p>
-                    Machine learning models in the tool are created using IBM Watson APIs.
-                    </p>
-                    <p>
-                    If you have an "unmanaged" class account, then your teacher or group leader will need to provide Watson API credentials
-                    from IBM Cloud for this to work. Step-by-step instructions for how they can do this are in the "Getting Started" document
-                    at the top of this page.
-                    </p>
+                    <p translate="HELP.MODELS.Q1-A-1"></p>
+                    <p translate="HELP.MODELS.Q1-A-2"></p>
                 </div>
             </div>
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#helpAPIRejected" target="_self">"Watson credentials being used by your class were rejected"</a>
+                    <a data-toggle="collapse" href="#helpAPIRejected" target="_self" translate="HELP.MODELS.Q2"></a>
                 </h4>
             </div>
             <div id="helpAPIRejected" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <p>
-                    Machine learning models in the tool are created using IBM Watson APIs.
-                    </p>
-                    <p>
-                    If you have an "unmanaged" class account, then your teacher or group leader will have provided Watson API credentials
-                    from IBM Cloud for this to work (as described in the "Getting Started" document at the top of this page).
-                    </p>
-                    <p>
-                    However, the credentials that were provided are currently not working. The most likely reason is that the credentials
-                    were deleted from IBM Cloud since they were originally provided. If that isn't the case, the teacher or group leader
-                    who provided the Watson credentials needs to go back to the IBM Cloud dashboard to check the status of the
-                    Watson Assistant or Visual Recognition service that they created.
-                    </p>
+                    <p translate="HELP.MODELS.Q2-A-1"></p>
+                    <p translate="HELP.MODELS.Q2-A-2"></p>
+                    <p translate="HELP.MODELS.Q2-A-3"></p>
                 </div>
             </div>
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#helpConversationAPISetup" target="_self">"Watson Assistant API keys have no more workspaces available"</a>
+                    <a data-toggle="collapse" href="#helpConversationAPISetup" target="_self" translate="HELP.MODELS.Q3"></a>
                 </h4>
             </div>
             <div id="helpConversationAPISetup" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <p>
-                    Machine learning models in the tool are created using IBM Watson APIs.
-                    </p>
-                    <p>
-                    Watson Assistant (formerly Watson Conversation) credentials created by teachers have a limit on the number of machine learning models that
-                    they can be used to create. This is displayed in the IBM Cloud UI where the credentials were created, where they
-                    are called "workspaces".
-                    </p>
-                    <p>
-                    If this limit is exceeded, attempts to train new machine learning models will fail, and this message will be
-                    displayed:
-                    <blockquote>
-                    Your class already has created their maximum allowed number of models.
-                    Please let your teacher or group leader know that
-                    their "Watson Assistant API keys have no more workspaces available".
-                    </blockquote>
-                    </p>
-                    <p>
-                    If a student who has a successfully trained model then deletes their model, this will free up a workspace for use
-                    by another student.
-                    </p>
-                    <p>
-                    One way to avoid this error in future would be smaller class sizes. If there are fewer students than the number
-                    of workspaces supported by the Watson Assistant (formerly Conversation) credentials, then the limits will not be hit.
-                    </p>
-                    <p>
-                    Another way to avoid this error is to add additional Watson Assistant API keys to the class, or to use a
-                    Watson Assistant instance "plan" that has higher limits.
-                    </p>
+                    <p translate="HELP.MODELS.Q3-A-1"></p>
+                    <p translate="HELP.MODELS.Q3-A-2"></p>
+                    <p translate="HELP.MODELS.Q3-A-3"></p>
+                    <blockquote translate="HELP.MODELS.Q3-A-4"></blockquote>
+                    <p translate="HELP.MODELS.Q3-A-5"></p>
+                    <p translate="HELP.MODELS.Q3-A-6"></p>
+                    <p translate="HELP.MODELS.Q3-A-7"></p>
                 </div>
             </div>
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#helpVisRecAPISetup" target="_self">"Watson Visual Recognition API keys have no more classifiers available"</a>
+                    <a data-toggle="collapse" href="#helpVisRecAPISetup" target="_self" translate="HELP.MODELS.Q4"></a>
                 </h4>
             </div>
             <div id="helpVisRecAPISetup" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <p>
-                    Machine learning models in the tool are created using IBM Watson APIs.
-                    </p>
-                    <p>
-                    Watson Visual Recognition credentials created by teachers have a limit on the number of machine learning models that
-                    they can be used to create. This is displayed in the IBM Cloud UI where the credentials were created, where they
-                    are called "custom classifiers".
-                    </p>
-                    <p>
-                    If this limit is exceeded, attempts to train new machine learning models will fail, and this message will be
-                    displayed:
-                    <blockquote>
-                    Your class already has created their maximum allowed number of models.
-                    Please let your teacher or group leader know that
-                    their "Watson Visual Recognition API keys have no more classifiers available".
-                    </blockquote>
-                    </p>
-                    <p>
-                    If a student who has a successfully trained model then deletes their model, this will free up a custom classifier
-                    for use by another student.
-                    </p>
-                    <p>
-                    One way to avoid this error in future would be smaller class sizes. If there are fewer students than the number
-                    of custom classifiers supported by the Watson Visual Recognition credentials, then the limits will not be hit.
-                    </p>
-                    <p>
-                    Another way to avoid this error is to add additional Watson Visual Recognition API keys to the class, or to use a
-                    Watson Visual Recognition instance "plan" that has higher limits.
-                    </p>
+                    <p translate="HELP.MODELS.Q4-A-1"></p>
+                    <p translate="HELP.MODELS.Q4-A-2"></p>
+                    <p translate="HELP.MODELS.Q4-A-3"></p>
+                    <blockquote translate="HELP.MODELS.Q4-A-4"></blockquote>
+                    <p translate="HELP.MODELS.Q4-A-5"></p>
+                    <p translate="HELP.MODELS.Q4-A-6"></p>
+                    <p translate="HELP.MODELS.Q4-A-7"></p>
                 </div>
             </div>
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#helpRateLimiting" target="_self">"Watson ... is currently rate limiting their API key"</a>
+                    <a data-toggle="collapse" href="#helpRateLimiting" target="_self" translate="HELP.MODELS.Q5"></a>
                 </h4>
             </div>
             <div id="helpRateLimiting" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <p>
-                    Machine learning models in the tool are created using IBM Watson APIs.
-                    </p>
-                    <p>
-                    If you have an "unmanaged" class account, then your teacher or group leader will need to provide Watson API credentials
-                    from IBM Cloud for this to work.
-                    </p>
-                    <p>
-                    If free accounts are created, they will apply a limit on the rate of requests for new machine learning models. In normal usage,
-                    this will not impact the class. However, if students get a "no more workspaces available" or "no more classifiers available"
-                    error (as described above) but then continue to click the "Train new Machine Learning model" button multiple times per second,
-                    for several minutes, then the rate limiting will apply.
-                    </p>
-                    <p>
-                    A message like this will be displayed to students in this case:
-                    <blockquote>
-                    Your class is making too many requests to create machine learning models
-                    at too fast a rate.
-                    Please stop now and let your teacher or group leader know that
-                    "the Watson Assistant service is currently rate limiting their API key"
-                    </blockquote>
-                    </p>
-                    <p>
-                    The rate limiting isn't applied by, or under the control of, the Machine Learning for Kids site. It is usually temporary,
-                    and is best resolved by waiting for a short time.
-                    </p>
-                    <p>
-                    If students are clicking the "Train new Machine Learning model" button and getting "no more workspaces available" or
-                    "no more classifiers available" errors (as described above), then they should be aware that repeatedly clicking the
-                    button will not resolve the issue, and will in fact make the situation worse for the rest of the class.
-                    </p>
+                    <p translate="HELP.MODELS.Q5-A-1"></p>
+                    <p translate="HELP.MODELS.Q5-A-2"></p>
+                    <p translate="HELP.MODELS.Q5-A-3"></p>
+                    <p translate="HELP.MODELS.Q5-A-4"></p>
+                    <blockquote translate="HELP.MODELS.Q5-A-5"></blockquote>
+                    <p translate="HELP.MODELS.Q5-A-6"></p>
+                    <p translate="HELP.MODELS.Q5-A-7"></p>
                 </div>
             </div>
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#helpStalled" target="_self">I've been waiting for a model to train for ages!</a>
+                    <a data-toggle="collapse" href="#helpStalled" target="_self" translate="HELP.MODELS.Q6"></a>
                 </h4>
             </div>
             <div id="helpStalled" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <p>
-                    Try refreshing the page.
-                    </p>
-                    <p>
-                    The page should check on the status of the machine learning model every 30 seconds, but very
-                    occassionally it stops checking, so you might be waiting for the model when it is actually
-                    ready for you.
-                    </p>
-                    <p>
-                    If it's been more than a few minutes, it's worth checking by refreshing / reloading the page.
-                    </p>
-                    <p>
-                    If it's been more than ten minutes, it might be worth considering restarting (click the Cancel
-                    button and then click the button to train a new machine learning model again).
-                    </p>
+                    <p translate="HELP.MODELS.Q6-A-1"></p>
+                    <p translate="HELP.MODELS.Q6-A-2"></p>
+                    <p translate="HELP.MODELS.Q6-A-3"></p>
+                    <p translate="HELP.MODELS.Q6-A-4"></p>
                 </div>
             </div>
         </div>
