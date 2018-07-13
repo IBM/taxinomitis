@@ -31,7 +31,8 @@
         }
     },
     "ERRORS": {
-        "PAGENOTFOUND": "Page not found"
+        "PAGENOTFOUND": "Page not found",
+        "NOTLOGGEDIN": "Not logged in"
     },
     "WELCOME": {
         "TITLE": "Teach a computer to play a game",
@@ -69,6 +70,13 @@
             "INFO1": "If you would like access for your students, please create a class account below.",
             "INFO2": "There are two types of class account - depending on who sets it up."
         }
+    },
+    "PROJECTS": {
+        "TITLE": "Your machine learning projects",
+        "ADDNEWPROJECT": "Add a new project",
+        "CREATEFIRSTPROJECT": "Click on the 'plus' button on the right to create your first project.",
+        "RECOGNISING": "Recognising",
+        "AS": "as"
     },
     "HELP": {
         "CONTACT": "If you have any problems or questions, please email Dale.Lane@uk.ibm.com",

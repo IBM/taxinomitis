@@ -1,12 +1,12 @@
 <div class="jumbotron">
-    <h2 class="text-center">Your machine learning projects</h2>
+    <h2 class="text-center" translate="PROJECTS.TITLE"></h2>
 </div>
 <div ng-if="!isAuthenticated">
     <div class="alert alert-warning pageheadermsg">
-        <strong>Not logged in</strong>
+        <strong translate="ERRORS.NOTLOGGEDIN"></strong>
     </div>
     <div class="text-center">
-        <button class="btn btn-primary" ng-click="vm.authService.login()">Log In</button>
+        <button class="btn btn-primary" ng-click="vm.authService.login()" translate="APP.LOGIN"></button>
     </div>
 </div>
 <div ng-if="isAuthenticated">
@@ -23,7 +23,7 @@
     <div>
         <div class="newprojectbutton" ui-sref="newproject">
             <div class="newprojecticon">+</div>
-            <div class="newprojectlabel">Add a new project</div>
+            <div class="newprojectlabel" translate="PROJECTS.ADDNEWPROJECT"></div>
         </div>
     </div>
 
@@ -31,7 +31,7 @@
 
     <div class="text-center">
         <div class="alert alert-info pageheadermsg" ng-if="vm.projects && vm.projects.length === 0">
-            Click on the 'plus' button on the right to create your first project.
+            {{ 'PROJECTS.CREATEFIRSTPROJECT' | translate }}
             <span class="glyphicon glyphicon-arrow-right"></span>
         </div>
         <div class="mlproject" ng-repeat="project in vm.projects" id="{{project.id}}">
@@ -41,10 +41,10 @@
             <div class="mlprojectdetails" ng-if="!project.isPlaceholder" ui-sref="mlproject({ projectId : project.id, userId : project.userid })">
                 <div class="mlprojecttitle">{{ project.name }}</div>
                 <div class="mlprojectdescription">
-                    Recognising
+                    {{ 'PROJECTS.RECOGNISING' | translate }}
                     <span class="mlprojecttype">{{ project.type }}</span>
                     <span ng-if="project.labelsSummary">
-                        as
+                        {{ 'PROJECTS.AS' | translate }}
                         <span class="mlprojectlabels">{{ project.labelsSummary }}</span>
                     </span>
                 </div>
