@@ -2,8 +2,14 @@
     "APP": {
         "TITLE": "Machine Learning for Kids",
         "BACK": "Back",
+        "ABOUT": "About",
+        "TEACHER": "Teacher",
+        "PROJECTS": "Projects",
         "WORKSHEETS": "Worksheets",
+        "NEWS": "News",
+        "HELP": "Help",
         "LOGIN": "Log In",
+        "LOGOUT": "Log Out",
         "ERROR": "Error"
     },
     "ABOUT": {
