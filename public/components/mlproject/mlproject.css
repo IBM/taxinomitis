@@ -58,3 +58,51 @@
 .mlprojectmenubutton button {
     width: 240px;
 }
+
+
+@media (min-width: 500px) {
+    .mlprojectpage .advanced {
+        margin: 5em 2em 1em 2em;
+        padding: 1em 2em;
+    }
+    .advanced .mlprojectmenu {
+        max-width: 300px;
+    }
+}
+@media (max-width: 500px) {
+    .mlprojectpage .advanced {
+        margin: 5em 0 1em 0;
+        padding: 1em;
+    }
+}
+
+.advanced .mlprojectmenu {
+    font-size: 0.85em;
+}
+
+.advanced .mlprojectmenudescription {
+    height: 80px;
+}
+
+.mlprojectpage .advancedMenu {
+    background-color: #eeeeee;
+    padding: 0.5em;
+}
+
+.mlprojectpage .advancedMenu .glyphicon {
+    margin-right: 10px;
+}
+
+.mlprojectpage .collapsable {
+    transition: all .4s ease-in-out;
+    min-height: 20px;
+    overflow: hidden;
+    background-color: #f9f9ff;
+}
+.mlprojectpage .collapsable.expanded {
+    padding-bottom: 2em;
+}
+.mlprojectpage .collapsable.collapsed {
+    height: 0;
+    min-height: 0;
+}

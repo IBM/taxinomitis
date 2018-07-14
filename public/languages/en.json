@@ -78,6 +78,29 @@
         "RECOGNISING": "Recognising",
         "AS": "as"
     },
+    "PROJECT": {
+        "TRAIN": {
+            "TITLE": "Train",
+            "BODY": "Collect examples of what you want the computer to recognise."
+        },
+        "LEARNANDTEST": {
+            "TITLE": "Learn &amp; Test",
+            "BODY": "Use the examples to train the computer to recognise"
+        },
+        "SCRATCH": {
+            "TITLE": "Scratch",
+            "BODY": "Use the machine learning model you've trained to make a game in Scratch."
+        },
+        "ADVANCED": "<strong>Advanced</strong> ways to use your machine learning model",
+        "PYTHON": {
+            "TITLE": "Python",
+            "BODY": "Use the machine learning model you've trained in a Python program."
+        },
+        "APPINVENTOR": {
+            "TITLE": "App Inventor",
+            "BODY": "Make a mobile app that uses your machine learning model"
+        }
+    },
     "HELP": {
         "CONTACT": "If you have any problems or questions, please email Dale.Lane@uk.ibm.com",
         "GETTINGSTARTED": {
