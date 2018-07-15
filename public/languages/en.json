@@ -134,6 +134,33 @@
             "WEBCAMERROR": "The message we got from your web browser was:"
         }
     },
+    "MODELS": {
+        "TITLE": "Machine learning models",
+        "TRAIN": "Train new machine learning model",
+        "CANCEL": "Cancel training",
+        "DELETE": "Delete this model",
+        "WHATHAVEYOUDONE": {
+            "TITLE": "What have you done?",
+            "PLEASEWAIT": "This normally takes a few minutes, but can take a little longer if the training computer is very busy.",
+            "FAIL": "Unfortunately, something went wrong."
+        },
+        "WHATSNEXT": {
+            "TITLE": "What's next?",
+            "PLEASEWAIT": "You could wait for the machine learning model to finish being trained.",
+            "OFFERQUIZ": "Or, you could try the machine learning quiz below, to check what you've learned."
+        },
+        "TRAINING": {
+            "TITLE": "Info from training computer:",
+            "STARTED": "Model started training at:",
+            "STATUS": "Current model status:",
+            "DETAIL": "Detail:",
+            "DELETION": "Model will automatically be deleted after:"
+        },
+        "QUIZ": {
+            "TITLE": "Quiz time!",
+            "INTROQUESTION": "While you are waiting for the model to finish training, try answering this question."
+        }
+    },
     "HELP": {
         "CONTACT": "If you have any problems or questions, please email Dale.Lane@uk.ibm.com",
         "GETTINGSTARTED": {

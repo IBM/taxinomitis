@@ -1,9 +1,9 @@
 <div ng-if="!isAuthenticated">
     <div class="alert alert-warning pageheadermsg">
-        <strong>Not logged in</strong>
+        <strong translate="ERRORS.NOTLOGGEDIN"></strong>
     </div>
     <div class="text-center">
-        <button class="btn btn-primary" ng-click="vm.authService.login()">Log In</button>
+        <button class="btn btn-primary" ng-click="vm.authService.login()" translate="APP.LOGIN"></button>
     </div>
 </div>
 <div ng-if="isAuthenticated && !projectId" class="alert alert-danger pageheadermsg">
@@ -11,10 +11,10 @@
 </div>
 <div ng-if="isAuthenticated && projectId">
     <div class="jumbotron">
-        <h2 class="text-center">Machine learning models</h2>
+        <h2 class="text-center" translate="MODELS.TITLE"></h2>
     </div>
     <div class="backbutton">
-        <a ui-sref="mlproject({ projectId : projectId, userId : userId })">&lt; Back to project</a>
+        <a ui-sref="mlproject({ projectId : projectId, userId : userId })" translate="APP.BACKTOPROJECT"></a>
     </div>
 
     <div ng-repeat="error in vm.errors"
@@ -40,7 +40,7 @@
         <!--   NOW   -->
         <!-- ======= -->
         <div class="modelguidance">
-            <div class="modelstatusheading">What have you done?</div>
+            <div class="modelstatusheading" translate="MODELS.WHATHAVEYOUDONE.TITLE"></div>
 
             <div ng-switch on="status">
 
@@ -61,10 +61,7 @@
                         {{ models[0].updated | date : 'fullDate' }}
                         {{ models[0].updated | date : 'shortTime' }}.
                     </div>
-                    <div class="modelstatusdetail">
-                        This normally takes a few minutes, but can take a little
-                        longer if the training computer is very busy.
-                    </div>
+                    <div class="modelstatusdetail" translate="MODELS.WHATHAVEYOUDONE.PLEASEWAIT"></div>
                 </div>
 
 
@@ -115,9 +112,7 @@
                         <span ng-hide="project.isCrowdSourced">you </span>
                         collected.
                     </div>
-                    <div class="modelstatusdetail">
-                        Unfortunately, something went wrong.
-                    </div>
+                    <div class="modelstatusdetail" translate="MODELS.WHATHAVEYOUDONE.FAIL"></div>
                 </div>
 
 
@@ -182,7 +177,7 @@
         <!--   NEXT   -->
         <!-- ======== -->
         <div class="modelguidance">
-            <div class="modelstatusheading">What's next?</div>
+            <div class="modelstatusheading" translate="MODELS.WHATSNEXT.TITLE"></div>
 
             <div ng-switch on="status">
 
@@ -190,12 +185,8 @@
                 <!-- TRAINING -->
                 <!-- ******** -->
                 <div ng-switch-when="training">
-                    <div class="modelstatusdetail">
-                        You could wait for the machine learning model to finish being trained.
-                    </div>
-                    <div class="modelstatusdetail" ng-if="quizQuestion">
-                        Or, you could try the machine learning quiz below, to check what you've learned.
-                    </div>
+                    <div class="modelstatusdetail" translate="MODELS.WHATSNEXT.PLEASEWAIT"></div>
+                    <div class="modelstatusdetail" ng-if="quizQuestion" translate="MODELS.WHATSNEXT.OFFERQUIZ"></div>
                 </div>
 
 
@@ -406,31 +397,29 @@
 
 
     <div ng-if="(models && models.length > 0) || trainingdatastatus === 'data'" class="trainingserversection" ng-hide="!owner">
-        <div>
-            <strong>Info from training computer:</strong>
-        </div>
+        <div><strong translate="MODELS.TRAINING.TITLE"></strong></div>
         <div ng-repeat="model in models">
             <table class="modelinfo">
                 <tr>
-                    <td><strong>Model started training at:</strong></td>
+                    <td><strong translate="MODELS.TRAINING.STARTED"></strong></td>
                     <td>
                         {{ model.updated | date : 'fullDate' }}
                         {{ model.updated | date : 'shortTime' }}
                     </td>
                 </tr>
                 <tr>
-                    <td><strong>Current model status:</strong></td>
+                    <td><strong translate="MODELS.TRAINING.STATUS"></strong></td>
                     <td> {{ model.status }} </td>
                 </tr>
                 <tr ng-if="model.expiry">
-                    <td><strong>Model will automatically be deleted after:</strong></td>
+                    <td><strong translate="MODELS.TRAINING.DELETION"></strong></td>
                     <td>
                         {{ model.expiry | date : 'fullDate' }}
                         {{ model.expiry | date : 'shortTime' }}
                     </td>
                 </tr>
                 <tr ng-if="model.statusDescription">
-                    <td><strong>Detail:</strong></td>
+                    <td><strong translate="MODELS.TRANSLATE.DETAIL"></strong></td>
                     <td> {{ model.statusDescription }} </td>
                 </tr>
                 <tr><td colspan=2> &nbsp; </td></tr>
@@ -440,7 +429,7 @@
                                 ng-if="owner"
                                 ng-click="vm.deleteModel($event, project, model)"
                                 ng-disabled="submittingDeleteRequest">
-                            {{ model.status === 'Training' ? 'Cancel training' : 'Delete this model' }}
+                            {{ (model.status === 'Training' ? 'MODELS.CANCEL' : 'MODELS.DELETE') | translate }}
                         </button>
 
                         <md-progress-circular style="display: inline" ng-if="submittingDeleteRequest" md-mode="indeterminate"></md-progress-circular>
@@ -453,9 +442,8 @@
                 style="margin: 4em;"
                 class="btn btn-primary"
                 ng-click="vm.createModel($event, project)"
-                ng-disabled="submittingTrainingRequest || submittingDeleteRequest">
-                Train new machine learning model
-        </button>
+                ng-disabled="submittingTrainingRequest || submittingDeleteRequest"
+                translate="MODELS.TRAIN"></button>
 
         <md-progress-circular style="display: inline" ng-if="submittingTrainingRequest" md-mode="indeterminate"></md-progress-circular>
     </div>
@@ -464,8 +452,8 @@
 
     <div class="quizSection" ng-if="(status === 'training') && quizQuestion">
         <hr>
-        <h3>Quiz time!</h3>
-        <div class="quizintro">While you are waiting for the model to finish training, try answering this question. </div>
+        <h3 translate="MODELS.QUIZ.TITLE">Quiz time!</h3>
+        <div class="quizintro" translate="MODELS.QUIZ.INTROQUESTION"> </div>
         <div class="quizintro" ng-if="quizQuestion.attempted">You've seen this one before - let's see if you remember what the right answer is this time! </div>
 
         <div class="quiz">
