@@ -26,7 +26,7 @@ Why did this happen?
 
 When your students click the "Train new machine learning model" button, this uses the IBM Watson service keys that you provided when you set up the class.
 
-(You can review these at https://machinelearningforkids.co.uk/#!/teacher/apikeys )
+(You can review these at https://machinelearningforkids.co.uk/#!/teacher/apikeys)
 
 Each of the service keys that you provide come with usage limits. These vary based on the Plan for the service instances that you create (i.e. a "Standard" tier Watson API key lets your class train more machine learning models than a "Free" or "Lite" tier Watson API key).
 
