@@ -1,25 +1,25 @@
 <div ng-if="!isAuthenticated">
     <div class="alert alert-warning pageheadermsg">
-        <strong>Not logged in</strong>
+        <strong translate="ERRORS.NOTLOGGEDIN"></strong>
     </div>
     <div class="text-center">
-        <button class="btn btn-primary" ng-click="vm.authService.login()">Log In</button>
+        <button class="btn btn-primary" ng-click="vm.authService.login()" translate="APP.LOGIN"></button>
     </div>
 </div>
 <div ng-if="isAuthenticated">
     <div class="jumbotron training">
-        <h2 class="text-center" ng-if="!project">Training</h2>
+        <h2 class="text-center" ng-if="!project" translate="TRAINING.TITLE"></h2>
         <div class="mlprojectdescription" ng-if="project">
-            Recognising
+            {{ 'PROJECTS.RECOGNISING' | translate }}
             <span class="mlprojecttype">{{ project.type }}</span>
             <span ng-if="project.labelsSummary">
-                as
+                {{ 'PROJECTS.AS' | translate }}
                 <span class="mlprojectlabels">{{ project.labelsSummary }}</span>
             </span>
         </div>
     </div>
     <div style="margin: 5px;">
-        <a ui-sref="mlproject({ projectId : projectId, userId : userId })">&lt; Back to project</a>
+        <a ui-sref="mlproject({ projectId : projectId, userId : userId })" translate="APP.BACKTOPROJECT"></a>
     </div>
 
     <div ng-repeat="error in vm.errors" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
@@ -38,19 +38,18 @@
         <div style="height: 60px;">
             <div class="newlabelbutton" ng-click="vm.addLabel($event, project)" ng-hide="crowdSourced">
                 <div class="newlabelicon">+</div>
-                <div class="newlabellabel">Add new label</div>
+                <div class="newlabellabel" translate="TRAINING.ADDLABEL"></div>
             </div>
         </div>
 
         <div class="alert alert-info pageheadermsg" ng-if="project.labels.length === 0 && !crowdSourced">
-            Click on the 'plus' button on the right to add your first bucket.
+            {{ 'TRAINING.CREATEFIRSTLABEL' | translate }}
             <span class="glyphicon glyphicon-arrow-right"></span>
         </div>
 
-        <div class="alert alert-info pageheadermsg" ng-if="project.labels.length === 0 && crowdSourced">
-            Refresh this page after your teacher has created the training buckets.
-        </div>
-
+        <div class="alert alert-info pageheadermsg"
+             ng-if="project.labels.length === 0 && crowdSourced"
+             translate="TRAINING.CROWDSOURCEDEMPTY"></div>
 
         <div class="trainingbuckets">
             <div class="trainingbucket" ng-repeat="label in project.labels">
@@ -87,7 +86,7 @@
                 </div>
                 <div class="trainingbucketitems" ng-if="project.type === 'images'" ml-image-loader>
                     <div class="loadingtraining" ng-if="loadingtraining"> </div>
-                    <div class="dragprompt" ng-hide="loadingtraining || training[label].length > 0">Drag pictures from other browser windows and drop them here</div>
+                    <div class="dragprompt" ng-hide="loadingtraining || training[label].length > 0" translate="TRAINING.DRAGIMAGES"></div>
                     <div class="trainingbucketitem" ng-repeat="item in training[label]" id="{{item.id}}" ng-class="{ error : item.loadingFailed }">
                         <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true"
                               ng-click="vm.deleteText(label, item, $index)"></span>
@@ -108,27 +107,27 @@
                 <div style="text-align: center; height: 45px;">
                     <div class="btn newexamplebutton" ng-click="vm.addTrainingData($event, label)" ng-if="project.type !== 'images'">
                         <div class="newexampleicon">+</div>
-                        <div class="newexamplelabel">Add example</div>
+                        <div class="newexamplelabel" translate="TRAINING.ADDEXAMPLE"></div>
                     </div>
                     <div class="btn newexamplebutton" ng-click="vm.addTrainingData($event, label)" ng-if="project.type === 'images'">
                         <div class="newexamplelabel">
                             &nbsp;
                             <span class="glyphicon glyphicon-link"></span>
-                            www
+                            {{ 'TRAINING.ADDURL' | translate }}
                         </div>
                     </div>
                     <div class="btn newexamplebutton" ng-click="vm.useWebcam($event, label)" ng-if="project.type === 'images'">
                         <div class="newexamplelabel">
                             &nbsp;
                             <span class="glyphicon glyphicon-camera"></span>
-                            webcam
+                            {{ 'TRAINING.ADDWEBCAM' | translate }}
                         </div>
                     </div>
                     <div class="btn newexamplebutton" ng-click="vm.useCanvas($event, label)" ng-if="project.type === 'images'">
                         <div class="newexamplelabel">
                             &nbsp;
                             <span class="glyphicon glyphicon-pencil"></span>
-                            draw
+                            {{ 'TRAINING.ADDDRAWING' | translate }}
                         </div>
                     </div>
                 </div>

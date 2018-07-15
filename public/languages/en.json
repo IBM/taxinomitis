@@ -1,7 +1,14 @@
 {
     "APP": {
         "TITLE": "Machine Learning for Kids",
+
         "BACK": "Back",
+        "BACKTOPROJECT": "&lt; Back to project",
+        "ERROR": "Error",
+
+        "ADD": "Add",
+        "CANCEL": "Cancel",
+
         "ABOUT": "About",
         "TEACHER": "Teacher",
         "PROJECTS": "Projects",
@@ -9,8 +16,7 @@
         "NEWS": "News",
         "HELP": "Help",
         "LOGIN": "Log In",
-        "LOGOUT": "Log Out",
-        "ERROR": "Error"
+        "LOGOUT": "Log Out"
     },
     "ABOUT": {
         "TITLE": "Machine Learning for Kids",
@@ -99,6 +105,33 @@
         "APPINVENTOR": {
             "TITLE": "App Inventor",
             "BODY": "Make a mobile app that uses your machine learning model"
+        }
+    },
+    "TRAINING": {
+        "TITLE": "Training",
+        "ADDLABEL": "Add new label",
+        "CREATEFIRSTLABEL": "Click on the 'plus' button on the right to add your first bucket.",
+        "CROWDSOURCEDEMPTY": "Refresh this page after your teacher has created the training buckets.",
+        "ADDEXAMPLE": "Add example",
+        "ADDURL": "www",
+        "ADDWEBCAM": "webcam",
+        "ADDDRAWING": "draw",
+        "DRAGIMAGES": "Drag pictures from other browser windows and drop them here",
+        "NEWLABEL": {
+            "INTRO": "Enter new label to recognise",
+            "ERROR": "Only use letters and numbers in labels"
+        },
+        "NEWEXAMPLE": {
+            "INTRO": "Enter an example of ",
+            "INTROURL": "Enter the URL of a picture that is an example of",
+            "INTRODRAWING": "Draw a new example of",
+            "INTROWEBCAM": "Add new example of",
+            "ERROR": "You're not allowed to use tabs or newlines.",
+            "REQUIRED": "You have to include values for all fields in an example",
+            "PATTERNNUMBER": "This doesn't look like a number",
+            "PATTERNURL": "This needs to be the web address of a picture",
+            "WEBCAMFAIL": "Sorry! We weren't able to get a webcam to work for you.",
+            "WEBCAMERROR": "The message we got from your web browser was:"
         }
     },
     "HELP": {
