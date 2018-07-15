@@ -1,5 +1,11 @@
 module.exports = function(grunt) {
 
+    // something unique to protect against problems from browsers
+    //  caching old versions of JS
+    const now = new Date();
+    const VERSION = now.getTime();
+
+
     grunt.initConfig({
         ts : {
             options : {
@@ -34,6 +40,78 @@ module.exports = function(grunt) {
                 },
                 src : ['dist/tests/**/*.js']
             }
+        },
+        nyc : {
+            cover : {
+                options : {
+                    cwd : './dist',
+                    include : ['lib/**'],
+                    exclude : ['tests/**'],
+                    reporter: ['lcov', 'text-summary'],
+                    reportDir : '../coverage'
+                },
+                cmd : false,
+                args : ['grunt', 'mochaTest']
+            }
+        },
+        'bower-install-simple' : {
+            options : {
+                cwd : './public',
+                directory : '../web/static/bower_components'
+            },
+            prod : {
+                options : {
+                    production : true
+                }
+            },
+            dev : {
+                options : {
+                    production : false
+                }
+            }
+        },
+        copy : {
+            twittercard : {
+                src : 'public/twitter-card.html',
+                dest : 'web/dynamic/twitter-card.html'
+            },
+            crossdomain : {
+                src : 'public/crossdomain.xml',
+                dest : 'web/dynamic/crossdomain.xml'
+            },
+            scratchx : {
+                expand : true,
+                cwd : 'public/scratchx',
+                src : '**',
+                dest : 'web/scratchx'
+            },
+            datasets : {
+                expand : true,
+                cwd : 'public/datasets',
+                src : '**',
+                dest : 'web/datasets'
+            }
+        },
+        cssmin : {
+            target : {
+                files : [
+                    {
+                        src : ['public/app.css', 'public/components/**/*.css'],
+                        dest : 'web/static/style-' + VERSION + '.min.css'
+                    }
+                ]
+            }
+        },
+        postcss : {
+            options : {
+                map : false,
+                processors: [
+                    require('autoprefixer')
+                ]
+            },
+            dist : {
+                src : 'web/static/style*css'
+            }
         }
     });
 
@@ -41,9 +119,23 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-ts');
     grunt.loadNpmTasks('grunt-tslint');
     grunt.loadNpmTasks('grunt-mocha-test');
+    grunt.loadNpmTasks('grunt-simple-nyc');
+    grunt.loadNpmTasks('grunt-bower-install-simple');
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-postcss');
 
+    // back-end tasks
     grunt.registerTask('compile', ['ts', 'tslint:all', 'eslint']);
-    grunt.registerTask('test', ['mochaTest']);
+    grunt.registerTask('test', ['nyc:cover']);
+
+    // front-end tasks
+    grunt.registerTask('bower', ['bower-install-simple']);
+    grunt.registerTask('scratchx', ['copy:scratchx', 'copy:crossdomain']);
+    grunt.registerTask('datasets', ['copy:datasets']);
+    grunt.registerTask('twitter', ['copy:twittercard']);
+    grunt.registerTask('frontendfiles', ['bower', 'scratchx', 'datasets', 'twitter']);
+    grunt.registerTask('css', ['cssmin', 'postcss:dist']);
 
 
     grunt.registerTask('default', ['compile', 'test']);
