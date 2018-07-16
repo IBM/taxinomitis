@@ -7,6 +7,10 @@ module.exports = function(grunt) {
 
 
     grunt.initConfig({
+        clean : {
+            ts : ['./dist'],
+            web : ['./web']
+        },
         ts : {
             options : {
                 fast : 'never'
@@ -90,6 +94,38 @@ module.exports = function(grunt) {
                 cwd : 'public/datasets',
                 src : '**',
                 dest : 'web/datasets'
+            },
+            jsapp : {
+                src : 'public/app.js',
+                dest : 'web/static/app-' + VERSION + '.js',
+                options : {
+                    process : function (content, srcpath) {
+                        return grunt.template.process(content, { data : { VERSION }})
+                    }
+                }
+            },
+            components : {
+                expand : true,
+                cwd : 'public/components',
+                src : '**',
+                dest : 'web/static/components-' + VERSION,
+                options : {
+                    process : function (content, srcpath) {
+                        return grunt.template.process(content, { data : { VERSION }})
+                    }
+                }
+            },
+            languages : {
+                expand : true,
+                cwd : 'public/languages',
+                src : '**',
+                dest : 'web/static/languages-' + VERSION
+            },
+            images : {
+                expand : true,
+                cwd : 'public/images',
+                src : '**',
+                dest : 'web/static/images'
             }
         },
         cssmin : {
@@ -121,22 +157,43 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-simple-nyc');
     grunt.loadNpmTasks('grunt-bower-install-simple');
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-postcss');
 
+
+
+
+    //-----------------------------------
     // back-end tasks
+    //-----------------------------------
+    // compile the typescript code and run the linter
     grunt.registerTask('compile', ['ts', 'tslint:all', 'eslint']);
+    // run the back-end unit and integration tests, with coverage
     grunt.registerTask('test', ['nyc:cover']);
 
-    // front-end tasks
-    grunt.registerTask('bower', ['bower-install-simple']);
-    grunt.registerTask('scratchx', ['copy:scratchx', 'copy:crossdomain']);
-    grunt.registerTask('datasets', ['copy:datasets']);
-    grunt.registerTask('twitter', ['copy:twittercard']);
-    grunt.registerTask('frontendfiles', ['bower', 'scratchx', 'datasets', 'twitter']);
-    grunt.registerTask('css', ['cssmin', 'postcss:dist']);
 
+    //-----------------------------------
+    // front-end tasks
+    //-----------------------------------
+    // fetch UI third-party dependencies
+    grunt.registerTask('bower', ['bower-install-simple']);
+    // install Scratchx into the deployment
+    grunt.registerTask('scratchx', ['copy:scratchx', 'copy:crossdomain']);
+    // copy the datasets mini-site into the deployment
+    grunt.registerTask('datasets', ['copy:datasets']);
+    // copy the Twitter card into the deployment
+    grunt.registerTask('twitter', ['copy:twittercard']);
+    // minify the CSS
+    grunt.registerTask('css', ['cssmin', 'postcss:dist']);
+    // prepare the main app
+    grunt.registerTask('uiapp', ['copy:jsapp', 'copy:components', 'copy:languages', 'copy:images']);
+
+
+
+    //
+    grunt.registerTask('frontendfiles', ['bower', 'scratchx', 'datasets', 'twitter']);
 
     grunt.registerTask('default', ['compile', 'test']);
 };
