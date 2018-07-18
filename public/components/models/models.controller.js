@@ -258,14 +258,18 @@
         }
 
         vm.checkQuizAnswers = function (quizQuestion) {
-            $scope.answered = true;
-            $scope.answerCorrect = allAnswersAreCorrect(quizQuestion.answers);
+            // timeout is to allow the ng-model to update to reflect the
+            //  user's click before evaluating the answer based on the model
+            $timeout(function () {
+                $scope.answered = true;
+                $scope.answerCorrect = allAnswersAreCorrect(quizQuestion.answers);
 
-            if ($scope.answerCorrect === false) {
-                quizQuestion.answers.forEach(function (answer) {
-                    answer.selected = answer.correct;
-                });
-            }
+                if ($scope.answerCorrect === false) {
+                    quizQuestion.answers.forEach(function (answer) {
+                        answer.selected = answer.correct;
+                    });
+                }
+            }, 0);
         };
         vm.nextQuizQuestion = function () {
             $scope.answered = false;
