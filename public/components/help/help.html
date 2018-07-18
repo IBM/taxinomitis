@@ -208,61 +208,27 @@
             </div>
         </div>
     </div>
-    <h4>Teacher / Admin UI issues</h4>
+    <h4 translate="HELP.TEACHERUI.TITLE"></h4>
     <div class="panel-group">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#helpTiers" target="_self">Number of available ML models in the Teacher's page is incorrect</a>
+                    <a data-toggle="collapse" href="#helpTiers" target="_self" translate="HELP.TEACHERUI.Q1"></a>
                 </h4>
             </div>
             <div id="helpTiers" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <p>
-                    The Teacher's page shows the number of machine learning models available to your class. (This page is only accessible to
-                    teachers or group leaders). This value is calculated by taking the number of API keys / credentials that the teacher has
-                    created, and multiplying it by the number of machine learning models that can be created with a single API key.
-                    </p>
-                    <p>
-                    Unfortunately, this can be misleading. The value is based on assumptions about which Pricing Plan were used when creating
-                    API keys.
-                    </p>
-                    <p>
-                    For <span class="mlprojecttype">text</span> projects, the assumption is that "Standard Plan" will be used for creating
-                    <a href="https://console.bluemix.net/catalog/services/conversation">Watson Assistant</a> (formerly Watson Conversation) credentials, as this supports
-                    20 "workspaces". The teacher's page multiplies the number of Watson Assistant credentials by 20 when displaying
-                    <blockquote>"Your class is allowed to have up to ?? machine learning models in total across all their text projects."</blockquote>
-                    </p>
-                    <p>
-                    The "Lite Plan" supports only 5 "workspaces", so if any of the Watson Assistant credentials were created in the Lite
-                    pricing plan, then this means the actual limit will be less than displayed on the Teacher's page.
-                    </p>
-                    <p>
-                    For <span class="mlprojecttype">images</span> projects, the assumption is that "Lite Plan" will be used for creating
-                    <a href="https://console.bluemix.net/catalog/services/watson_vision_combined">Watson Visual Recognition</a> API keys,
-                    as this supports 1 "custom model". The teacher's page multiplies the number of Watson Visual Recognition API keys by 1
-                    when displaying
-                    <blockquote>"Your class is allowed to have up to ?? machine learning models in total across all their images projects."</blockquote>
-                    </p>
-                    <p>
-                    The "Standard Plan" doesn't have a limit on the number of custom models, so if any of the Watson Visual Recognition
-                    API keys were created with the Standard pricing plan, this means there isn't actually a limit on the number of machine
-                    learning models for images projects, despite what is shown on the Teacher's page.
-                    </p>
-                    <p>
-                    Sorry for any confusion that this page causes. I will be updating the Teacher's admin page so it asks for the Pricing Plan
-                    for each set of credentials or API keys, so that I can do the appropriate multiplication in the UI.
-                    </p>
-                    <p>
-                    In the meantime, the correct limit is whatever is shown on IBM Cloud where the credentials are created. More detailed
-                    information about all of this can be found in this
-                    <a href="https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf">PDF document about
-                    using Watson API keys with Machine Learning for Kids</a>.
-                    </p>
-                    <p>
-                    If you're not sure how to work out the limit for your class, please <a href="mailto:dale.lane@uk.ibm.com">let me know</a>
-                    and I'll try and help.
-                    </p>
+                    <p translate="HELP.TEACHERUI.Q1-A-1"></p>
+                    <p translate="HELP.TEACHERUI.Q1-A-2"></p>
+                    <p translate="HELP.TEACHERUI.Q1-A-3"></p>
+                    <blockquote translate="HELP.TEACHERUI.Q1-A-4"></blockquote>
+                    <p translate="HELP.TEACHERUI.Q1-A-5"></p>
+                    <p translate="HELP.TEACHERUI.Q1-A-6"></p>
+                    <blockquote translate="HELP.TEACHERUI.Q1-A-7"></blockquote>
+                    <p translate="HELP.TEACHERUI.Q1-A-8"></p>
+                    <p translate="HELP.TEACHERUI.Q1-A-9"></p>
+                    <p translate="HELP.TEACHERUI.Q1-A-10"></p>
+                    <p translate="HELP.TEACHERUI.Q1-A-11"></p>
                 </div>
             </div>
         </div>

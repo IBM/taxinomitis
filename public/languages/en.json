@@ -254,6 +254,23 @@
             "Q6-A-2": "The page should check on the status of the machine learning model every 30 seconds, but very occassionally it stops checking, so you might be waiting for the model when it is actually ready for you.",
             "Q6-A-3": "If it's been more than a few minutes, it's worth checking by refreshing / reloading the page.",
             "Q6-A-4": "If it's been more than ten minutes, it might be worth considering restarting (click the Cancel button and then click the button to train a new machine learning model again)."
+        },
+
+        "TEACHERUI": {
+            "TITLE": "Teacher / Admin UI issues",
+
+            "Q1": "Number of available ML models in the Teacher's page is incorrect",
+            "Q1-A-1": "The Teacher's page shows the number of machine learning models available to your class. (This page is only accessible to teachers or group leaders). This value is calculated by taking the number of API keys / credentials that the teacher has created, and multiplying it by the number of machine learning models that can be created with a single API key.",
+            "Q1-A-2": "Unfortunately, this can be misleading. The value is based on assumptions about which Pricing Plan were used when creating API keys.",
+            "Q1-A-3": "For <span class='mlprojecttype'>text</span> projects, the assumption is that 'Standard Plan' will be used for creating <a href='https://console.bluemix.net/catalog/services/conversation'>Watson Assistant</a> (formerly Watson Conversation) credentials, as this supports 20 'workspaces'. The teacher's page multiplies the number of Watson Assistant credentials by 20 when displaying",
+            "Q1-A-4": "\"Your class is allowed to have up to ?? machine learning models in total across all their text projects.\"",
+            "Q1-A-5": "The \"Lite Plan\" supports only 5 \"workspaces\", so if any of the Watson Assistant credentials were created in the Lite pricing plan, then this means the actual limit will be less than displayed on the Teacher's page.",
+            "Q1-A-6": "For <span class='mlprojecttype'>images</span> projects, the assumption is that \"Lite Plan\" will be used for creating <a href='https://console.bluemix.net/catalog/services/watson_vision_combined'>Watson Visual Recognition</a> API keys, as this supports 1 \"custom model\". The teacher's page multiplies the number of Watson Visual Recognition API keys by 1 when displaying",
+            "Q1-A-7": "\"Your class is allowed to have up to ?? machine learning models in total across all their images projects.\"",
+            "Q1-A-8": "The \"Standard Plan\" doesn't have a limit on the number of custom models, so if any of the Watson Visual Recognition API keys were created with the Standard pricing plan, this means there isn't actually a limit on the number of machine learning models for images projects, despite what is shown on the Teacher's page.",
+            "Q1-A-9": "Sorry for any confusion that this page causes. I will be updating the Teacher's admin page so it asks for the Pricing Plan for each set of credentials or API keys, so that I can do the appropriate multiplication in the UI.",
+            "Q1-A-10": "In the meantime, the correct limit is whatever is shown on IBM Cloud where the credentials are created. More detailed information about all of this can be found in this <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'>PDF document about using Watson API keys with Machine Learning for Kids</a>.",
+            "Q1-A-11": "If you're not sure how to work out the limit for your class, please <a href='mailto:dale.lane@uk.ibm.com'>let me know</a> and I'll try and help."
         }
     }
 }
