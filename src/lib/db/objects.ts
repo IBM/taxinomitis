@@ -129,6 +129,12 @@ const MULTICHOICES_CHOICE_LABEL_MAXLENGTH = 9;
 
 const IS_VALID_CHOICE = /^[^0-9\-.,][^,]*$/;
 
+/**
+ * Limit project names to 1-36 ASCII characters - everything
+ * between a space (ASCII code 32) to a black square (ASCII code 254)
+ */
+export const VALID_PROJECT_NAME = /^[ -■]{1,36}$/;
+
 
 export function createNumberProjectField(
     userid: string, classid: string, projectid: string,

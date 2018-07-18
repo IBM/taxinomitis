@@ -360,6 +360,24 @@ describe('REST API - projects', () => {
     describe('createProject()', () => {
 
 
+        it('should reject names that cannot be stored by MySQL using "utf8"', () => {
+            const studentId = uuid();
+
+            const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
+
+            nextAuth0UserId = studentId;
+            nextAuth0UserTenant = TESTCLASS;
+
+            return request(testServer)
+                .post(url)
+                .send({ name : '⚽', type : 'text' })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((err) => {
+                    assert.equal(err.body.error, 'Invalid project name');
+                });
+        });
+
         it('should respect tenant policies on project types', () => {
             const studentId = uuid();
 
