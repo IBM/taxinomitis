@@ -751,4 +751,5 @@ export interface NewTestRequest extends TestRequest, NewConvRequest {}
 const DISRUPTIVE_TENANTS = [
     '2b7707ab-6172-4400-96d4-0970fe2f9eab',
     'f8874ca0-93cc-4915-8031-cb9f0b83b78a',
+    'ab05513f-8023-45f2-b344-2e92a496d233',
 ];
