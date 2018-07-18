@@ -5,6 +5,7 @@ import * as httpstatus from 'http-status';
 import * as auth from './auth';
 import * as store from '../db/store';
 import * as Objects from '../db/db-types';
+import * as dbobjects from '../db/objects';
 import * as users from '../auth0/users';
 import * as Users from '../auth0/auth-types';
 import * as urls from './urls';
@@ -87,6 +88,10 @@ async function createProject(req: Express.Request, res: Express.Response) {
     if (!req.body || !req.body.type || !req.body.name) {
         return res.status(httpstatus.BAD_REQUEST)
                   .send({ error : 'Missing required field' });
+    }
+    if (dbobjects.VALID_PROJECT_NAME.test(req.body.name) === false) {
+        return res.status(httpstatus.BAD_REQUEST)
+                  .send({ error : 'Invalid project name' });
     }
     if (req.body.type === 'text' && !req.body.language) {
         return res.status(httpstatus.BAD_REQUEST)
