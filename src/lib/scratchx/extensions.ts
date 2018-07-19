@@ -1,5 +1,4 @@
 // external dependencies
-import * as fs from 'fs';
 import * as Mustache from 'mustache';
 // local dependencies
 import * as Types from '../db/db-types';
@@ -14,8 +13,11 @@ function escapeProjectName(name: string): string {
     return name.replace(/'/g, '\\\'');
 }
 
-async function getTextExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string> {
-    const template: string = await fileutils.read('./resources/scratchx-text-classify.js');
+async function getTextExtension(scratchkey: Types.ScratchKey, project: Types.Project, version: 2 | 3): Promise<string> {
+    const template: string = await fileutils.read(
+        version === 3 ? './resources/scratch3-text-classify.js' :
+                        './resources/scratchx-text-classify.js');
+
     Mustache.parse(template);
     const rendered = Mustache.render(template, {
         statusurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/status',
@@ -89,10 +91,15 @@ async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.
 
 
 
-export function getScratchxExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string> {
+export function getScratchxExtension(
+    scratchkey: Types.ScratchKey,
+    project: Types.Project,
+    version: 2 | 3,
+): Promise<string>
+{
     switch (scratchkey.type) {
     case 'text':
-        return getTextExtension(scratchkey, project);
+        return getTextExtension(scratchkey, project, version);
     case 'images':
         return getImagesExtension(scratchkey, project);
     case 'numbers':

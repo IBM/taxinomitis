@@ -152,7 +152,8 @@ async function storeTrainingData(req: Express.Request, res: Express.Response) {
 
 
 
-async function getScratchxExtension(req: Express.Request, res: Express.Response) {
+
+async function getExtension(req: Express.Request, res: Express.Response, version: 2 | 3) {
     const apikey = req.params.scratchkey;
 
     try {
@@ -166,7 +167,7 @@ async function getScratchxExtension(req: Express.Request, res: Express.Response)
             project.fields = await store.getNumberProjectFields(project.userid, project.classid, project.id);
         }
 
-        const extension = await extensions.getScratchxExtension(scratchKey, project);
+        const extension = await extensions.getScratchxExtension(scratchKey, project, version);
         return res.set('Content-Type', 'application/javascript')
                   .set(headers.NO_CACHE)
                   .send(extension);
@@ -177,7 +178,12 @@ async function getScratchxExtension(req: Express.Request, res: Express.Response)
 }
 
 
-
+function getScratchxExtension(req: Express.Request, res: Express.Response) {
+    getExtension(req, res, 2);
+}
+function getScratch3Extension(req: Express.Request, res: Express.Response) {
+    getExtension(req, res, 3);
+}
 
 
 async function getScratchxStatus(req: Express.Request, res: Express.Response) {
@@ -210,5 +216,6 @@ export default function registerApis(app: Express.Application) {
     app.get(urls.SCRATCHKEY_TRAIN, storeTrainingData);
 
     app.get(urls.SCRATCHKEY_EXTENSION, getScratchxExtension);
+    app.get(urls.SCRATCH3_EXTENSION, getScratch3Extension);
     app.get(urls.SCRATCHKEY_STATUS, getScratchxStatus);
 }

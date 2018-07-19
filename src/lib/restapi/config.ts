@@ -49,6 +49,9 @@ export function setupUI(app: express.Application): void {
     const scratchxlocation: string = path.join(__dirname, '/../../../web/scratchx');
     app.use('/scratchx', compression(), express.static(scratchxlocation, { maxAge : constants.ONE_WEEK }));
 
+    const scratch3alpha: string = path.join(__dirname, '/../../../web/scratch3alpha');
+    app.use('/scratch3alpha', compression(), express.static(scratch3alpha, { maxAge : constants.ONE_WEEK }));
+
     const datasetslocation: string = path.join(__dirname, '/../../../web/datasets');
     app.use('/datasets', compression(), express.static(datasetslocation, { maxAge : constants.ONE_WEEK }));
 

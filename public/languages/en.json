@@ -105,6 +105,10 @@
         "APPINVENTOR": {
             "TITLE": "App Inventor",
             "BODY": "Make a mobile app that uses your machine learning model"
+        },
+        "SCRATCH3": {
+            "TITLE": "Scratch 3",
+            "BODY": "What Scratch 3 might look like with machine learning blocks"
         }
     },
     "TRAINING": {

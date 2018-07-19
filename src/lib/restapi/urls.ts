@@ -48,6 +48,7 @@ export const SCRATCHKEY_TRAIN      = '/api/scratch/:scratchkey/train';
 export const SCRATCHKEY_CLASSIFY   = '/api/scratch/:scratchkey/classify';
 export const SCRATCHKEY_STATUS     = '/api/scratch/:scratchkey/status';
 export const SCRATCHKEY_EXTENSION  = '/api/scratch/:scratchkey/extension.js';
+export const SCRATCH3_EXTENSION    = '/api/scratch/:scratchkey/extension3.js';
 
 //
 // URLs about session users

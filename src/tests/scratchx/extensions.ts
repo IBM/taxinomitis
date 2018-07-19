@@ -31,7 +31,7 @@ describe('Scratchx - status', () => {
                 isCrowdSourced : false,
             };
 
-            const extension = await extensions.getScratchxExtension(key, proj);
+            const extension = await extensions.getScratchxExtension(key, proj, 2);
 
             assert(extension.indexOf('/api/scratch/' + key.id + '/status') > 0);
             assert(extension.indexOf('/api/scratch/' + key.id + '/classify') > 0);
@@ -68,7 +68,7 @@ describe('Scratchx - status', () => {
                 isCrowdSourced : false,
             };
 
-            const extension = await extensions.getScratchxExtension(key, proj);
+            const extension = await extensions.getScratchxExtension(key, proj, 2);
 
             assert(extension.indexOf('/api/scratch/' + key.id + '/status') > 0);
             assert(extension.indexOf('/api/scratch/' + key.id + '/classify') > 0);
@@ -118,7 +118,7 @@ describe('Scratchx - status', () => {
                 isCrowdSourced : false,
             };
 
-            const extension = await extensions.getScratchxExtension(key, proj);
+            const extension = await extensions.getScratchxExtension(key, proj, 2);
 
             assert(extension.indexOf('/api/scratch/' + key.id + '/status') > 0);
             assert(extension.indexOf('/api/scratch/' + key.id + '/classify') > 0);
@@ -180,7 +180,7 @@ describe('Scratchx - status', () => {
                 isCrowdSourced : false,
             };
 
-            const extension = await extensions.getScratchxExtension(key, proj);
+            const extension = await extensions.getScratchxExtension(key, proj, 2);
 
             assert(extension.indexOf('/api/scratch/' + key.id + '/status') > 0);
             assert(extension.indexOf('/api/scratch/' + key.id + '/classify') > 0);
