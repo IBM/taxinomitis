@@ -52,7 +52,7 @@
             <div class="menucontainer" >
                 <div class="mlprojectmenu">
                     <div class="mlprojectmenutitle" translate="PROJECT.PYTHON.TITLE"></div>
-                    <div class="mlprojectmenudescription"><span class="badge">Beta</span> <span translate="PROJECT.PYTHON.BODY"></span></div>
+                    <div class="mlprojectmenudescription" translate="PROJECT.PYTHON.BODY"></div>
                     <div class="mlprojectmenubutton">
                         <button type="button" class="btn btn-primary"
                                 ui-sref="mlproject_python({ projectId : projectId, userId : userId })"
@@ -66,6 +66,15 @@
                         <button type="button" class="btn btn-primary"
                                 ng-click="vm.appInventor($event)"
                                 translate="PROJECT.APPINVENTOR.TITLE"></button>
+                    </div>
+                </div>
+                <div class="mlprojectmenu" ng-if="project.type === 'text'">
+                    <div class="mlprojectmenutitle" translate="PROJECT.SCRATCH3.TITLE"></div>
+                    <div class="mlprojectmenudescription"><span class="badge">Early Alpha</span> <span translate="PROJECT.SCRATCH3.BODY"></span></div>
+                    <div class="mlprojectmenubutton">
+                        <button type="button" class="btn btn-primary"
+                                ui-sref="mlproject_scratch3({ projectId : projectId, userId : userId })"
+                                translate="PROJECT.SCRATCH3.TITLE"></button>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 trash
 public/scratchx
+public/scratch3
 node_modules
 coverage
 logs/*.log

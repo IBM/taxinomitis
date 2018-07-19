@@ -64,6 +64,10 @@ gulp.task('scratchxinstall', ['crossdomain'], function() {
     return gulp.src('public/scratchx/**').pipe(gulp.dest('web/scratchx'));
 });
 
+gulp.task('scratch3install', ['crossdomain'], function() {
+    return gulp.src('public/scratch3/**').pipe(gulp.dest('web/scratch3alpha'));
+});
+
 gulp.task('datasets', function() {
     return gulp.src('public/datasets/**').pipe(gulp.dest('web/datasets'));
 });
@@ -176,7 +180,7 @@ gulp.task('test', () => {
         .pipe(mocha(mochaOptions));
 });
 
-gulp.task('web', ['css', 'minifyjs', 'images', 'html', 'angularcomponents', 'languages', 'datasets', 'scratchxinstall']);
+gulp.task('web', ['css', 'minifyjs', 'images', 'html', 'angularcomponents', 'languages', 'datasets', 'scratchxinstall', 'scratch3install']);
 gulp.task('build', ['web', 'compile']);
 
 gulp.task('default', sequence('build', 'lint', 'test'));
@@ -185,6 +189,6 @@ gulp.task('default', sequence('build', 'lint', 'test'));
 gulp.task('buildprod', sequence(
     'clean',
     'bower',
-    ['css', 'minifyprodjs', 'images', 'prodhtml', 'angularcomponents', 'languages', 'datasets', 'scratchxinstall'],
+    ['css', 'minifyprodjs', 'images', 'prodhtml', 'angularcomponents', 'languages', 'datasets', 'scratchxinstall', 'scratch3install'],
     'compile',
     'lint'));

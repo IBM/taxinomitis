@@ -151,6 +151,12 @@
                 templateUrl: 'static/components-<%= VERSION %>/scratch/scratch.html',
                 controllerAs: 'vm'
             })
+            .state('mlproject_scratch3', {
+                url: '/mlproject/:userId/:projectId/scratch3',
+                controller: 'Scratch3Controller',
+                templateUrl: 'static/components-<%= VERSION %>/scratch3/scratch3.html',
+                controllerAs: 'vm'
+            })
             .state('mlproject_python', {
                 url: '/mlproject/:userId/:projectId/python',
                 controller: 'PythonController',
