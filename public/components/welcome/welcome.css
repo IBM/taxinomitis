@@ -9,9 +9,10 @@
 }
 
 .getstartedaction button {
-    width: 40%;
+    width: 180px;
     margin-right: 1em;
     margin-left: 1em;
+    margin-bottom: 2em;
 }
 
 .getstartedinfo {
@@ -32,7 +33,7 @@
     margin-top: 0;
 }
 
-@media only screen and (max-device-width: 736px) { 
+@media only screen and (max-device-width: 736px) {
     .welcome {
         font-size: 1rem;
     }

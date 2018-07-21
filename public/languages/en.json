@@ -97,7 +97,7 @@
             "TITLE": "Scratch",
             "BODY": "Use the machine learning model you've trained to make a game in Scratch."
         },
-        "ADVANCED": "<strong>Advanced</strong> ways to use your machine learning model",
+        "ADVANCED": "<strong>Advanced</strong> ways to use machine learning models",
         "PYTHON": {
             "TITLE": "Python",
             "BODY": "Use the machine learning model you've trained in a Python program."
@@ -203,7 +203,7 @@
 
             "Q4": "Can it be used on an iPad?",
             "Q4-A-1": "Machine Learning for Kids uses Scratch 2. Scratch needs Adobe Flash to work, so you need to be using an operating system and a web browser that can work with Flash (so that means no iPads for now, sorry).",
-            "Q4-A-2": "<a href='https://scratch.mit.edu/preview-faq'>Scratch 3 is under development</a>, and will remove the need for Adobe Flash. Once this is released, I hope that this will allow projects to be worked on from tablets like iPads. I'm not sure when this will be, though."
+            "Q4-A-2": "<a href='https://scratch.mit.edu/preview-faq'>Scratch 3 is under development</a>, and will remove the need for Adobe Flash. Once this is released, I hope that this will allow projects to be worked on from tablets like iPads. I'm <a href='https://github.com/IBM/taxinomitis/issues/21'>working to be ready for this now</a>."
         },
 
         "TRAININGUI": {
@@ -274,7 +274,54 @@
             "Q1-A-8": "The \"Standard Plan\" doesn't have a limit on the number of custom models, so if any of the Watson Visual Recognition API keys were created with the Standard pricing plan, this means there isn't actually a limit on the number of machine learning models for images projects, despite what is shown on the Teacher's page.",
             "Q1-A-9": "Sorry for any confusion that this page causes. I will be updating the Teacher's admin page so it asks for the Pricing Plan for each set of credentials or API keys, so that I can do the appropriate multiplication in the UI.",
             "Q1-A-10": "In the meantime, the correct limit is whatever is shown on IBM Cloud where the credentials are created. More detailed information about all of this can be found in this <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'>PDF document about using Watson API keys with Machine Learning for Kids</a>.",
-            "Q1-A-11": "If you're not sure how to work out the limit for your class, please <a href='mailto:dale.lane@uk.ibm.com'>let me know</a> and I'll try and help."
+            "Q1-A-11": "If you're not sure how to work out the limit for your class, please <a href='mailto:dale.lane@uk.ibm.com'>let me know</a> and I'll try and help.",
+
+            "Q2": "Missing student account from the list in the teacher's page",
+            "Q2-A-1": "User management for Machine Learning for Kids is implemented using the third party service, <a href=\"https://auth0.com/\">Auth0</a>.",
+            "Q2-A-2": "Occassionally, the list of students that Auth0 returns can get a little out of date, and fail to reflect students that have recently been created (or similarly, still show students that have been recently deleted).",
+            "Q2-A-3": "In these instances, the students have normally been successfully created (or deleted) and it is just that the list of students being displayed doesn't reflect recent updates.",
+            "Q2-A-4": "Auth0 will normally report such incidents on their status page as <a href='https://status.auth0.com/incidents/0sk1d3hjlw0m'>user indexing delays</a> or <a href='https://status.auth0.com/incidents/t8995b9jggx5'>problems with their Search API</a>.",
+            "Q2-A-5": "The best thing to do in these cases is to wait for the Auth0 indexing to catch up.",
+
+            "Q3": "What is Assistant? What happened to Conversation?",
+            "Q3-A-1": "In March 2018, the \"Watson Conversation\" service was renamed to \"Watson Assistant\". Any previous references to \"Conversation\" can be read as \"Assistant\" now. Any Watson Conversation service instances or credentials created prior to this point can continue to be used as equivalent to Watson Assistant.",
+
+            "Q4": "Why are machine learning models automatically deleted?",
+            "Q4-A-1": "This was a feature requested by schools when Machine Learning for Kids was first developed. It came from the fact that there is a limit for how many machine learning models a class can have at any given time, and a need to make it easy to manage this limit.",
+            "Q4-A-2": "Rather than requiring kids to have to clean up after a lesson and delete their models (in order to allow the next class to be able to create models), the tool can automatically clean up by deleting the models after the lesson is over. This makes it easy to run the next lesson, and the next lesson after that, without manual clean-ups in between.",
+            "Q4-A-3": "The time limit before models are deleted is configurable. In a school, where lessons are 1 or 2 hours long, deleting models after two hours might be sensible. For a weekly coding club, six days might be a better fit to make sure that models are cleared up before each new club session.",
+            "Q4-A-4": "To check the time limit for your class, visit the <a href='https://machinelearningforkids.co.uk/#!/teacher/restrictions'>Restrictions section of your Teacher page</a>.",
+            "Q4-A-5": "To change the time limit for your class, <a href='mailto:dale.lane@uk.ibm.com'>please send me an email</a>.",
+            "Q4-A-6": "<em>Note: Only machine learning models are automatically deleted, not the training data that was used to create them. So if a model is automatically deleted for a project that a student is still working on, they can always just click the \"Train\" button again to create the model again.</em>"
+        },
+
+        "ACCOUNTISSUES": {
+            "TITLE": "Account issues",
+
+            "Q1": "What is the difference between creating accounts or using \"Try it now\"?",
+            "Q1-A-1": "Using \"Try it now\" to means there is no need to log on or create an account. There are no passwords for students to have to remember, and no need for teachers to have to provide personal information. It also saves teachers the time needed to manage student accounts.",
+            "Q1-A-2": "However, creating an account does enable additional features. Students can save their work and come back to it in a later lesson. They can work on a project together with other students in their class. They can log on from home and show their family what they've made.",
+            "Q1-A-3": "A summary of the differences is shown below:",
+
+            "Q2": "I've created a class account but my teacher's logon isn't working",
+            "Q2-A-1": "You need to verify your email address before you'll be able to log on.",
+            "Q2-A-2": "When you created the class account, an email will be sent to the email address you provided, with a link to click on. If you click on that link, your email address will be verified and the class account will be activated. You should be able to log on now.",
+            "Q2-A-3": "If you haven't seen the verify email yet, make sure it's not gone into your spam folder.",
+            "Q2-A-4": "If you still can't find it, <a href='mailto:dale.lane@uk.ibm.com'>let me know</a> and I'll try and help.",
+
+            "Q3": "Deleting accounts",
+            "Q3-A-1": "Student accounts",
+            "Q3-A-2": "Students cannot delete their own accounts.",
+            "Q3-A-3": "A teacher can delete a student account at any time by visiting the \"Teacher\" page  and clicking the \"Delete student account\" button next to the student account you want to delete.",
+            "Q3-A-4": "This will delete all information stored about that student and all of their projects and machine learning models.",
+            "Q3-A-5": "It cannot be undone.",
+            "Q3-A-6": "Teacher accounts",
+            "Q3-A-7": "Deleting a teacher account will delete the entire class and all of the student accounts in it. It cannot be undone.",
+            "Q3-A-8": "This cannot be done from the UI (<em>although <a href='https://github.com/IBM/taxinomitis/issues/24'>I'm working on adding it</a></em>).",
+            "Q3-A-9": "To delete a teacher account in the meantime, please <a href='mailto:dale.lane@uk.ibm.com'>email me</a> and I will do it for you.",
+
+            "Q4": "What information is stored about users?"
+
         }
     }
 }

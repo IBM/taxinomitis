@@ -26,8 +26,17 @@
     font-size: 2.2em;
 }
 
+@media(max-width: 460px) {
+    .mlprojectdescription {
+        padding: 0.5em 0.5em 0;
+    }
+}
+@media(min-width: 460px) {
+    .mlprojectdescription {
+        padding: 0.5em 2.5em 0;
+    }
+}
 .mlprojectdescription {
-    padding: 0.5em 2.5em 0;
     font-size: 1.2em;
 }
 

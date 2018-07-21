@@ -82,6 +82,26 @@
     max-width: 95%;
 }
 
+@media(min-width: 460px) {
+    .newtrainingdatadialog .trainingtextinput {
+        min-width: 480px;
+    }
+}
+
+@media(max-width: 460px) {
+    md-dialog.newtrainingdatadialog {
+        max-width: 100%;
+        width: 100%;
+    }
+    .newtrainingdatadialog .trainingtextinput {
+        max-width: 100%;
+        width: 100%;
+    }
+    .newtrainingdatadialog .trainingtextinput input {
+        width: 100%;
+    }
+}
+
 
 .dragprompt {
     color: #808080;

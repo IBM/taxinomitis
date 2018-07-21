@@ -1,4 +1,4 @@
-<md-dialog aria-label="Add new example">
+<md-dialog aria-label="Add new example" class="newtrainingdatadialog">
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h2 translate="TRAINING.ADDEXAMPLE"></h2>
@@ -6,10 +6,10 @@
     </md-toolbar>
     <form ng-cloak name="newTextTrainingData" ng-hide="project.type !== 'text'" ng-submit="confirm(example)">
         <md-dialog-content>
-            <div class="md-dialog-content" style="min-width: 500px">
+            <div class="md-dialog-content">
                 <md-card-content>
                     <div layout="row">
-                        <md-input-container style="min-width: 480px">
+                        <md-input-container class="trainingtextinput">
                             <label>{{ 'TRAINING.NEWEXAMPLE.INTRO' | translate }} '{{ label }}'</label>
                             <input type="text" name="text"
                                    md-autofocus="project.type === 'text'"
