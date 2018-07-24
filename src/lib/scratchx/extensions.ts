@@ -48,7 +48,9 @@ async function getImagesExtension(scratchkey: Types.ScratchKey, project: Types.P
     return rendered;
 }
 
-async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string> {
+async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.Project,
+                                   version: 2 | 3): Promise<string>
+{
     const allChoices = [];
     if (project.fields) {
         for (const field of project.fields) {
@@ -62,7 +64,10 @@ async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.
         }
     }
 
-    const template: string = await fileutils.read('./resources/scratchx-numbers-classify.js');
+    const template: string = await fileutils.read(
+        version === 3 ? './resources/scratch3-numbers-classify.js' :
+                        './resources/scratchx-numbers-classify.js');
+
     Mustache.parse(template);
     const rendered = Mustache.render(template, {
         statusurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/status',
@@ -75,10 +80,17 @@ async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.
             return { name, idx };
         }),
 
-        fields : project.fields ? project.fields.map((field) => {
+        fields : project.fields ? project.fields.map((field, idx) => {
             return {
                 name : field.name,
+                type : field.type,
+                multichoice : field.type === 'multichoice',
                 typeformat : field.type === 'number' ? '%n' : '%s',
+                idx,
+                menu : field.type === 'multichoice' ? field.choices : [],
+                default : field.type === 'multichoice' ?
+                            ((field.choices && field.choices.length > 0) ? field.choices[0] : '') :
+                            0,
             };
         }) : [],
 
@@ -103,6 +115,6 @@ export function getScratchxExtension(
     case 'images':
         return getImagesExtension(scratchkey, project);
     case 'numbers':
-        return getNumbersExtension(scratchkey, project);
+        return getNumbersExtension(scratchkey, project, version);
     }
 }
