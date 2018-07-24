@@ -166,6 +166,12 @@
             "INTROQUESTION": "While you are waiting for the model to finish training, try answering this question."
         }
     },
+    "PYTHON": {
+        "TITLE": "Using machine learning in Python",
+
+        "NOTREADY": "Your project isn't ready to be used in Python yet.",
+        "NOMODEL": "You haven't trained a machine learning model yet."
+    },
     "HELP": {
         "CONTACT": "If you have any problems or questions, please email Dale.Lane@uk.ibm.com",
         "GETTINGSTARTED": {

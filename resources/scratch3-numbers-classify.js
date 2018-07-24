@@ -1,4 +1,4 @@
-class MachineLearningText {
+class MachineLearningNumbers {
 
     constructor() {
         this._labels = [ {{#labels}} '{{name}}', {{/labels}} ];
@@ -11,7 +11,7 @@ class MachineLearningText {
 
         return {
             // making the id unique to allow multiple instances
-            id: 'mlforkidstext' + Date.now(),
+            id: 'mlforkidsnumbers' + Date.now(),
             // the name of the student project
             name: '{{{ projectname }}}',
 
@@ -28,29 +28,47 @@ class MachineLearningText {
 
             // blocks to add to the new section
             blocks: [
-                // classify the text and return the label
+                // classify the numbers and return the label
                 {
                     opcode: 'label',
                     blockType: Scratch.BlockType.REPORTER,
-                    text: 'recognise text [TEXT] (label)',
+                    text: 'recognise numbers {{#fields}} {{name}}[FIELD{{idx}}] {{/fields}} (label)',
                     arguments: {
-                        TEXT: {
+                        {{#fields}}
+                        FIELD{{idx}}: {
+                            {{#multichoice}}
                             type: Scratch.ArgumentType.STRING,
-                            defaultValue: 'text'
-                        }
+                            menu: 'choices{{idx}}',
+                            defaultValue: '{{default}}'
+                            {{/multichoice}}
+                            {{^multichoice}}
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 0
+                            {{/multichoice}}
+                        },
+                        {{/fields}}
                     }
                 },
 
-                // classify the text and return the confidence score
+                // classify the numbers and return the confidence score
                 {
                     opcode: 'confidence',
                     blockType: Scratch.BlockType.REPORTER,
-                    text: 'recognise text [TEXT] (confidence)',
+                    text: 'recognise numbers {{#fields}} {{name}}[FIELD{{idx}}] {{/fields}} (confidence)',
                     arguments: {
-                        TEXT: {
+                        {{#fields}}
+                        FIELD{{idx}}: {
+                            {{#multichoice}}
                             type: Scratch.ArgumentType.STRING,
-                            defaultValue: 'text'
-                        }
+                            menu: 'choices{{idx}}',
+                            defaultValue: '{{default}}'
+                            {{/multichoice}}
+                            {{^multichoice}}
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 0
+                            {{/multichoice}}
+                        },
+                        {{/fields}}
                     }
                 },
 
@@ -67,12 +85,21 @@ class MachineLearningText {
                 {
                     opcode: 'addTraining',
                     blockType: Scratch.BlockType.COMMAND,
-                    text: 'add training data [TEXT] [LABEL]',
+                    text: 'add training data {{#fields}} {{name}}[FIELD{{idx}}] {{/fields}} is [LABEL]',
                     arguments: {
-                        TEXT: {
+                        {{#fields}}
+                        FIELD{{idx}}: {
+                            {{#multichoice}}
                             type: Scratch.ArgumentType.STRING,
-                            defaultValue: 'text'
+                            menu: 'choices{{idx}}',
+                            defaultValue: '{{default}}'
+                            {{/multichoice}}
+                            {{^multichoice}}
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 0
+                            {{/multichoice}}
                         },
+                        {{/fields}}
                         LABEL: {
                             type: Scratch.ArgumentType.STRING,
                             defaultValue: this._labels[0],
@@ -83,17 +110,25 @@ class MachineLearningText {
             ],
 
             menus: {
-                labels: this._labels
+                labels: this._labels,
+
+                {{#fields}}
+                choices{{idx}} : [
+                    {{#menu}}'{{.}}',{{/menu}}
+                ],
+                {{/fields}}
             }
         };
     }
 
 
-    label({ TEXT }) {
-        return new Promise(resolve => getTextClassificationResponse(TEXT, TEXT, 'class_name', resolve));
+
+
+    label(args) {
+        return new Promise(resolve => prepareArgsGetNumberClassificationResponse('class_name', args, resolve));
     }
-    confidence({ TEXT }) {
-        return new Promise(resolve => getTextClassificationResponse(TEXT, TEXT, 'confidence', resolve));
+    confidence(args) {
+        return new Promise(resolve => prepareArgsGetNumberClassificationResponse('confidence', args, resolve));
     }
 
 
@@ -104,19 +139,17 @@ class MachineLearningText {
     {{/labels}}
 
 
-    addTraining({ TEXT, LABEL }) {
+    addTraining(args) {
+        var numbers = getFieldValues(args);
+        var label = args.LABEL;
+
         var url = new URL('{{{ storeurl }}}');
-        url.searchParams.append('data', TEXT);
-        url.searchParams.append('label', LABEL);
+        for (var i = 0; i < numbers.length; i++) {
+            url.searchParams.append('data', numbers[i]);
+        }
+        url.searchParams.append('label', label);
 
-        var options = {
-            body: {
-                data: TEXT,
-                label: LABEL
-            }
-        };
-
-        return fetch(url, options)
+        return fetch(url)
             .then((response) => {
                 if (response.status !== 200) {
                     return response.json();
@@ -130,12 +163,10 @@ class MachineLearningText {
     }
 }
 
-
-
 var resultsCache = {
-    // schema for objects in this cache:
+    // schema:
     //
-    // cacheKey (text to be classified) : {
+    // cacheKey (space_separated_numbers) : {
     //
     //    // returned by the API
     //    class_name : topClassName,
@@ -146,12 +177,6 @@ var resultsCache = {
     //    fetched : timestamp-ms-since-epoch
     // }
 };
-
-
-
-var TEN_SECONDS = 10 * 1000;
-
-
 
 
 // returns the current date in the format that the API uses
@@ -165,14 +190,11 @@ function veryRecently(timestamp) {
 
 
 
-
-
-// Submit xhr request to the classify API to get a label for a string
-function classifyText(text, cacheKey, lastmodified, callback) {
-    var url = new URL('{{{ classifyurl }}}');
-    url.searchParams.append('data', text);
-
+// Submit xhr request to the classify API to get a label for a set of numbers
+function classifyNumbers(numbers, cacheKey, lastmodified, callback) {
     var options = {
+        method : 'POST',
+        body : JSON.stringify({ data : numbers }),
         headers : {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -181,7 +203,7 @@ function classifyText(text, cacheKey, lastmodified, callback) {
         }
     };
 
-    return fetch(url, options)
+    return fetch('{{{ classifyurl }}}', options)
         .then((response) => {
             if (response.status === 304 && resultsCache[cacheKey]) {
                 // the API returned NOT-MODIFIED so we'll
@@ -219,13 +241,40 @@ function classifyText(text, cacheKey, lastmodified, callback) {
 }
 
 
-function getTextClassificationResponse(text, cacheKey, valueToReturn, callback) {
+
+
+
+
+function getFieldValues(args) {
+    var values = [];
+    for (var i = 0; i < {{fields.length}}; i++) {
+        values.push(args['FIELD' + i]);
+    }
+    return values;
+}
+function getCacheKey(numbers) {
+    return numbers.join(' ');
+}
+
+
+
+
+
+function prepareArgsGetNumberClassificationResponse(valueToReturn, args, callback) {
+    var numbers = getFieldValues(args);
+    var cacheKey = getCacheKey(numbers);
+
+    getNumberClassificationResponse(numbers, cacheKey, valueToReturn, callback);
+}
+
+
+function getNumberClassificationResponse(numbers, cacheKey, valueToReturn, callback) {
     var cached = resultsCache[cacheKey];
 
     // protect against kids putting the ML block inside a forever
     //  loop making too many requests too quickly
     // this throttling means we won't try and classify the same
-    //  string more than once every 10 seconds
+    //  numbers more than once every 10 seconds
     if (cached && cached.fetched && veryRecently(cached.fetched)) {
         return callback(cached[valueToReturn]);
     }
@@ -237,7 +286,7 @@ function getTextClassificationResponse(text, cacheKey, valueToReturn, callback) 
     }
 
     // submit to the classify API
-    classifyText(text, cacheKey, lastmodified, function (result) {
+    classifyNumbers(numbers, cacheKey, lastmodified, function (result) {
         if (result.random) {
             // We got a randomly selected result (which means we must not
             //  have a working classifier) but we thought we had a model
@@ -259,4 +308,4 @@ function getTextClassificationResponse(text, cacheKey, valueToReturn, callback) 
 }
 
 
-Scratch.extensions.register(new MachineLearningText());
+Scratch.extensions.register(new MachineLearningNumbers());

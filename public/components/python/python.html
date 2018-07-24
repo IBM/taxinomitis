@@ -1,9 +1,9 @@
 <div ng-if="!isAuthenticated">
     <div class="alert alert-warning pageheadermsg">
-        <strong>Not logged in</strong>
+        <strong translate="ERRORS.NOTLOGGEDIN"></strong>
     </div>
     <div class="text-center">
-        <button class="btn btn-primary" ng-click="vm.authService.login()">Log In</button>
+        <button class="btn btn-primary" ng-click="vm.authService.login()" translate="APP.LOGIN"></button>
     </div>
 </div>
 
@@ -13,7 +13,7 @@
 
 <div ng-if="isAuthenticated && projectId">
     <div class="jumbotron">
-        <h2 class="text-center">Using machine learning in Python</h2>
+        <h2 class="text-center" translate="PYTHON.TITLE"></h2>
     </div>
     <div class="backbutton">
         <a ui-sref="mlproject({ projectId : projectId, userId : userId  })">&lt; Back to project</a>
@@ -33,11 +33,9 @@
 
     <div ng-if="project && project.labels.length <= 1" class="modelguidancecontainer">
         <div class="modelguidance">
+            <div class="modelstatusdetail" translate="PYTHON.NOTREADY"></div>
             <div class="modelstatusdetail">
-                Your project isn't ready to be used in Python yet.
-            </div>
-            <div class="modelstatusdetail">
-                Or go to the <a ui-sref="mlproject_models({ projectId : projectId, userId : userId })">Learn &amp; Test</a>
+                Or go to the <a ui-sref="mlproject_models({ projectId : projectId, userId : userId })" translate="PROJECT.LEARNANDTEST.TITLE"></a>
                 page for some tips on what to do next.
             </div>
         </div>
@@ -46,9 +44,7 @@
     <div ng-if="project && project.labels.length > 1" style="margin: 2em;">
         <div ng-if="scratchkey">
             <div ng-if="!scratchkey.model">
-                <div class="alert alert-info" role="alert">
-                    You haven't trained a machine learning model yet.
-                </div>
+                <div class="alert alert-info" role="alert" translate="PYTHON.NOMODEL"></div>
                 <div>
                     You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId, userId : userId })">train one now</a></strong> and then come back to start your Python project.
                 </div>
