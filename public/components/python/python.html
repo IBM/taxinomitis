@@ -54,22 +54,38 @@
                 </div>
             </div>
         </div>
-        <div ng-if="project.type === 'numbers'">
-            Python projects are not available for numbers models at the moment.
-        </div>
     </div>
 
-    <div ng-if="scratchkey && scratchkey.model" class="modelguidancecontainer" ng-hide="project.type === 'numbers'">
+    <div ng-if="scratchkey && scratchkey.model" class="modelguidancecontainer">
         <div class="modelguidance">
             <div class="modelstatusdetail">
                 If you know how to use Python, you can use this code to
                 <span ng-if="project.type === 'text'">submit text</span>
+                <span ng-if="project.type === 'numbers'">submit numbers</span>
                 <span ng-if="project.type === 'images' && testsource === 'local'">submit an image file that you have on your computer</span>
                 <span ng-if="project.type === 'images' && testsource === 'web'">submit an image file from the Internet</span>
                 to the machine learning model that you've trained.
             </div>
             <div class="modelstatusdetail" ng-if="project.type==='text'">
                 Enter the text: <input style="padding-left: 1em; padding-right: 1em; width: 80%;" ng-model="testdata.text"></input>
+            </div>
+            <div class="modelstatusdetail" ng-if="project.type==='numbers'">
+                Enter the numbers below:
+            </div>
+            <div class="modelstatusdetail" ng-if="project.type==='numbers'">
+                <div ng-repeat="field in fields track by $index">
+                    {{ field.name }} :
+                    <input ng-if="field.type === 'number'"
+                           type="number"
+                           ng-model="testdata.fields[$index]"
+                           ng-init="testdata.fields[$index] = 0"></input>
+                    <select ng-if="field.type === 'multichoice'"
+                            ng-model="testdata.fields[$index]"
+                            ng-options="value for value in field.choices"
+                            ng-init="testdata.fields[$index] = field.choices[0]"
+                            style="height: 24px">
+                    </select>
+                </div>
             </div>
             <div class="modelstatusdetail" ng-if="project.type==='images' && testsource === 'local'">
                 Enter the name of your image file: <input style="padding-left: 1em; padding-right: 1em; width: 80%;" ng-model="testdata.imagefile"></input>
@@ -115,6 +131,37 @@ result: '{{ project.labels[0] }}' with 81% confidence</pre></div>
 
 <span class="pythoncomments"># CHANGE THIS to something you want your machine learning model to classify</span>
 demo <span class="pythonop">=</span> classify(<span style="background-color: #fff0f0">&quot;<strong>{{ testdata.text }}</strong>&quot;</span>)
+
+label <span class="pythonop">=</span> demo[&quot;class_name&quot;]
+confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
+
+
+<span class="pythoncomments"># CHANGE THIS to do something different with the result</span>
+<span class="pythonfunc">print</span> (&quot;result: &#39;%s&#39; with %d%% confidence&quot; <span class="pythonop">%</span> (label, confidence))
+</pre></div>
+        </div>
+        <div class="modelguidance" ng-if="project.type === 'numbers'">
+<div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">import</span> <span class="pythonimport">requests</span>
+
+<span class="pythoncomments"># This function will pass your numbers to the machine learning model</span>
+<span class="pythoncomments"># and return the top result with the highest confidence</span>
+<span class="pythonfunc">def</span> <span class="pythonfuncname">classify</span>(numbers):
+    key <span class="pythonop">=</span> &quot;{{ scratchkey.id }}&quot;
+    url <span class="pythonop">=</span> &quot;https://machinelearningforkids.co.uk/api/scratch/&quot;+ key + &quot;/classify&quot;
+
+    response <span class="pythonop">=</span> requests<span class="pythonop">.</span>get(url, params<span class="pythonop">=</span>{ &quot;data&quot; : numbers })
+
+    <span class="pythonfunc">if</span> response<span class="pythonop">.</span>ok:
+        responseData <span class="pythonop">=</span> response<span class="pythonop">.</span>json()
+        topMatch <span class="pythonop">=</span> responseData[<span class="pythonint">0</span>]
+        <span class="pythonfunc">return</span> topMatch
+    <span class="pythonfunc">else</span>:
+        response<span class="pythonop">.</span>raise_for_status()
+
+
+<span class="pythoncomments"># CHANGE THIS to something you want your machine learning model to classify</span>
+<div ng-repeat="field in testdata.fields track by $index">data{{ $index + 1 }} <span class="pythonop">=</span> <span style="background-color: #fff0f0"><strong><span ng-if="fields[$index].type === 'multichoice'">"</span>{{ field ? field : 0 }}<span ng-if="fields[$index].type === 'multichoice'">"</span></strong></span></div>
+demo <span class="pythonop">=</span> classify([ <span ng-repeat="field in testdata.fields track by $index">data{{ $index + 1 }}<span ng-show="!$last">,</span> </span> ])
 
 label <span class="pythonop">=</span> demo[&quot;class_name&quot;]
 confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
