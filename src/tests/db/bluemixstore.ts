@@ -29,7 +29,7 @@ describe('DB store', () => {
             const retrieved = await store.getAllBluemixCredentials('conv');
             assert(retrieved.length > 0);
             for (const cred of retrieved) {
-                assert.equal(cred.servicetype, 'conv');
+                assert.strictEqual(cred.servicetype, 'conv');
             }
         });
 
@@ -37,7 +37,7 @@ describe('DB store', () => {
             const retrieved = await store.getAllBluemixCredentials('visrec');
             assert(retrieved.length > 0);
             for (const cred of retrieved) {
-                assert.equal(cred.servicetype, 'visrec');
+                assert.strictEqual(cred.servicetype, 'visrec');
             }
         });
 
@@ -57,7 +57,7 @@ describe('DB store', () => {
             await store.storeBluemixCredentials(classid, creds);
 
             const retrieved = await store.getBluemixCredentials(classid, 'conv');
-            assert.deepEqual(retrieved, [ creds ]);
+            assert.deepStrictEqual(retrieved, [ creds ]);
 
             await store.deleteBluemixCredentials(creds.id);
         });
@@ -77,7 +77,7 @@ describe('DB store', () => {
             await store.storeBluemixCredentials(classid, creds);
 
             const retrieved = await store.getBluemixCredentials(classid, 'conv');
-            assert.deepEqual(retrieved, [ creds ]);
+            assert.deepStrictEqual(retrieved, [ creds ]);
 
             await store.deleteBluemixCredentials(creds.id);
 
@@ -86,7 +86,7 @@ describe('DB store', () => {
                     assert.fail(1, 0, 'Should not reach here', '');
                 })
                 .catch((err) => {
-                    assert.equal(err.message, 'Unexpected response when retrieving service credentials');
+                    assert.strictEqual(err.message, 'Unexpected response when retrieving service credentials');
                 });
         });
 
@@ -135,7 +135,7 @@ describe('DB store', () => {
             await store.storeConversationWorkspace(creds, project, classifierInfo);
 
             const retrievedCreds = await store.getBluemixCredentialsById(creds.id);
-            assert.deepEqual(retrievedCreds, creds);
+            assert.deepStrictEqual(retrievedCreds, creds);
 
             await store.deleteBluemixCredentials(creds.id);
             await store.deleteConversationWorkspacesByProjectId(projectid);
@@ -149,7 +149,7 @@ describe('DB store', () => {
         it('should return 0 for unknown users', async () => {
             const unknownClass = uuid();
             const count = await store.countConversationWorkspaces(unknownClass);
-            assert.equal(count, 0);
+            assert.strictEqual(count, 0);
         });
 
 
@@ -227,10 +227,10 @@ describe('DB store', () => {
             await store.storeConversationWorkspace(credentials, projectCurrent, current);
 
             const retrievedAll = await store.getConversationWorkspaces(projectid);
-            assert.deepEqual(retrievedAll, [ expired, current ]);
+            assert.deepStrictEqual(retrievedAll, [ expired, current ]);
 
             const retrievedExpired = await store.getExpiredConversationWorkspaces();
-            assert.deepEqual(retrievedExpired.sort(sortWorkspaces),
+            assert.deepStrictEqual(retrievedExpired.sort(sortWorkspaces),
                              alreadyExpired.concat([ expired ]).sort(sortWorkspaces));
         });
 
@@ -294,7 +294,7 @@ describe('DB store', () => {
             await store.storeConversationWorkspace(credentials, projectExpired, expired);
 
             const verifyBefore = await store.getConversationWorkspace(projectid, expired.workspace_id);
-            assert.deepEqual(verifyBefore, expired);
+            assert.deepStrictEqual(verifyBefore, expired);
 
             const countBefore = await store.getExpiredConversationWorkspaces();
             assert(countBefore.length >= 0);
@@ -305,7 +305,7 @@ describe('DB store', () => {
             deleteStub.restore();
 
             const countAfter = await store.getExpiredConversationWorkspaces();
-            assert.equal(countAfter.length, 0);
+            assert.strictEqual(countAfter.length, 0);
 
             try {
                 await store.getConversationWorkspace(projectid, expired.workspace_id);
@@ -370,7 +370,7 @@ describe('DB store', () => {
             await store.updateConversationWorkspaceExpiry(classifierInfo);
 
             const retrieve = await store.getConversationWorkspace(projectid, classifierInfo.workspace_id);
-            assert.deepEqual(retrieve.expiry, updatedDate);
+            assert.deepStrictEqual(retrieve.expiry, updatedDate);
         });
 
 
@@ -379,10 +379,10 @@ describe('DB store', () => {
             const projectid = uuid();
 
             const before = await store.getConversationWorkspaces(projectid);
-            assert.equal(before.length, 0);
+            assert.strictEqual(before.length, 0);
 
             const countBefore = await store.countConversationWorkspaces(classid);
-            assert.equal(countBefore, 0);
+            assert.strictEqual(countBefore, 0);
 
             const credentials: Types.BluemixCredentials = {
                 id : uuid(),
@@ -423,23 +423,23 @@ describe('DB store', () => {
             await store.storeConversationWorkspace(credentials, project, classifierInfo);
 
             const after = await store.getConversationWorkspaces(projectid);
-            assert.equal(after.length, 1);
+            assert.strictEqual(after.length, 1);
 
             const countAfter = await store.countConversationWorkspaces(classid);
-            assert.equal(countAfter, 1);
+            assert.strictEqual(countAfter, 1);
 
 
             const retrieved = after[0];
 
-            assert.deepEqual(retrieved, classifierInfo);
+            assert.deepStrictEqual(retrieved, classifierInfo);
 
             await store.deleteConversationWorkspace(classifierInfo.id);
 
             const empty = await store.getConversationWorkspaces(projectid);
-            assert.equal(empty.length, 0);
+            assert.strictEqual(empty.length, 0);
 
             const countEmpty = await store.countConversationWorkspaces(classid);
-            assert.equal(countEmpty, 0);
+            assert.strictEqual(countEmpty, 0);
         });
 
     });
@@ -543,10 +543,10 @@ describe('DB store', () => {
             await store.storeImageClassifier(credentials, projectCurrent, current);
 
             const retrievedAll = await store.getImageClassifiers(projectid);
-            assert.deepEqual(retrievedAll, [ expired, current ]);
+            assert.deepStrictEqual(retrievedAll, [ expired, current ]);
 
             const retrievedExpired = await store.getExpiredImageClassifiers();
-            assert.deepEqual(retrievedExpired.sort(sortClassifiers),
+            assert.deepStrictEqual(retrievedExpired.sort(sortClassifiers),
                              alreadyExpired.concat([ expired ]).sort(sortClassifiers));
         });
 
@@ -599,7 +599,7 @@ describe('DB store', () => {
             await store.storeImageClassifier(credentials, projectExpired, expired);
 
             const verifyBefore = await store.getImageClassifier(projectid, expired.classifierid);
-            assert.deepEqual(verifyBefore, expired);
+            assert.deepStrictEqual(verifyBefore, expired);
 
             const countBefore = await store.getExpiredImageClassifiers();
             assert(countBefore.length >= 0);
@@ -612,7 +612,7 @@ describe('DB store', () => {
             assert(setTimeoutStub.called);
 
             const countAfter = await store.getExpiredImageClassifiers();
-            assert.equal(countAfter.length, 0);
+            assert.strictEqual(countAfter.length, 0);
 
             try {
                 await store.getImageClassifier(projectid, expired.classifierid);
@@ -631,7 +631,7 @@ describe('DB store', () => {
             const projectid = uuid();
 
             const before = await store.getImageClassifiers(projectid);
-            assert.equal(before.length, 0);
+            assert.strictEqual(before.length, 0);
 
             const credentials: Types.BluemixCredentials = {
                 id : uuid(),
@@ -671,17 +671,17 @@ describe('DB store', () => {
             await store.storeImageClassifier(credentials, project, classifierInfo);
 
             const after = await store.getImageClassifiers(projectid);
-            assert.equal(after.length, 1);
+            assert.strictEqual(after.length, 1);
 
 
             const retrieved = after[0];
 
-            assert.deepEqual(retrieved, classifierInfo);
+            assert.deepStrictEqual(retrieved, classifierInfo);
 
             await store.deleteImageClassifier(classifierInfo.id);
 
             const empty = await store.getImageClassifiers(projectid);
-            assert.equal(empty.length, 0);
+            assert.strictEqual(empty.length, 0);
         });
 
     });

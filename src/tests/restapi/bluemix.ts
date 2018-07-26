@@ -35,8 +35,8 @@ describe('REST API - Bluemix', () => {
                 .expect(httpStatus.OK)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(typeof body, 'object');
-                    assert.equal(Object.keys(body).length, 0);
+                    assert.strictEqual(typeof body, 'object');
+                    assert.strictEqual(Object.keys(body).length, 0);
                 });
         });
     });

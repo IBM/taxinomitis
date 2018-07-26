@@ -36,7 +36,7 @@ describe('Scratchx - keys', () => {
             assert(key.id);
             assert(!key.model);
             const scratchkey = await store.getScratchKey(key.id);
-            assert.equal(scratchkey.name, project.name);
+            assert.strictEqual(scratchkey.name, project.name);
             await store.deleteScratchKey(key.id);
         });
 
@@ -67,9 +67,9 @@ describe('Scratchx - keys', () => {
             const key = await keys.createKey(project.id);
             assert(key.id);
             assert(key.model);
-            assert.equal(key.model, conversationwkspace.workspace_id);
+            assert.strictEqual(key.model, conversationwkspace.workspace_id);
             const scratchkey = await store.getScratchKey(key.id);
-            assert.equal(scratchkey.name, project.name);
+            assert.strictEqual(scratchkey.name, project.name);
             await store.deleteScratchKey(key.id);
             await store.deleteConversationWorkspace(conversationwkspace.id);
             await store.deleteBluemixCredentials(creds.id);
@@ -87,7 +87,7 @@ describe('Scratchx - keys', () => {
             assert(key.id);
             assert(!key.model);
             const scratchkey = await store.getScratchKey(key.id);
-            assert.equal(scratchkey.name, project.name);
+            assert.strictEqual(scratchkey.name, project.name);
             await store.deleteScratchKey(key.id);
         });
 
@@ -102,11 +102,11 @@ describe('Scratchx - keys', () => {
 
             const key = await keys.createKey(project.id);
             assert(key.id);
-            assert.equal(project.id, key.model);
+            assert.strictEqual(project.id, key.model);
 
             const scratchkey = await store.getScratchKey(key.id);
-            assert.equal(scratchkey.name, project.name);
-            assert.equal(scratchkey.classifierid, project.id);
+            assert.strictEqual(scratchkey.name, project.name);
+            assert.strictEqual(scratchkey.classifierid, project.id);
 
             await store.deleteEntireProject(userid, TESTCLASS, project);
         });
@@ -123,7 +123,7 @@ describe('Scratchx - keys', () => {
             assert(key.id);
             assert(!key.model);
             const scratchkey = await store.getScratchKey(key.id);
-            assert.equal(scratchkey.name, project.name);
+            assert.strictEqual(scratchkey.name, project.name);
             await store.deleteScratchKey(key.id);
         });
 
@@ -153,9 +153,9 @@ describe('Scratchx - keys', () => {
             const key = await keys.createKey(project.id);
             assert(key.id);
             assert(key.model);
-            assert.equal(key.model, visualclassifier.classifierid);
+            assert.strictEqual(key.model, visualclassifier.classifierid);
             const scratchkey = await store.getScratchKey(key.id);
-            assert.equal(scratchkey.name, project.name);
+            assert.strictEqual(scratchkey.name, project.name);
             await store.deleteScratchKey(key.id);
             await store.deleteImageClassifier(visualclassifier.id);
             await store.deleteBluemixCredentials(creds.id);

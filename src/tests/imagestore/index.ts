@@ -166,9 +166,9 @@ describe('Object Store', () => {
                 assert.fail('should not reach here');
             }
             catch (err) {
-                assert.equal(err.message, 'The specified key does not exist.');
-                assert.equal(err.code, 'NoSuchKey');
-                assert.equal(err.statusCode, 404);
+                assert.strictEqual(err.message, 'The specified key does not exist.');
+                assert.strictEqual(err.code, 'NoSuchKey');
+                assert.strictEqual(err.statusCode, 404);
             }
         });
     });
@@ -213,9 +213,9 @@ describe('Object Store', () => {
                 assert.fail('should not reach here');
             }
             catch (err) {
-                assert.equal(err.message, 'The specified key does not exist.');
-                assert.equal(err.code, 'NoSuchKey');
-                assert.equal(err.statusCode, 404);
+                assert.strictEqual(err.message, 'The specified key does not exist.');
+                assert.strictEqual(err.code, 'NoSuchKey');
+                assert.strictEqual(err.statusCode, 404);
             }
         });
 
@@ -269,9 +269,9 @@ describe('Object Store', () => {
                 assert.fail('should not reach here');
             }
             catch (err) {
-                assert.equal(err.message, 'The specified key does not exist.');
-                assert.equal(err.code, 'NoSuchKey');
-                assert.equal(err.statusCode, 404);
+                assert.strictEqual(err.message, 'The specified key does not exist.');
+                assert.strictEqual(err.code, 'NoSuchKey');
+                assert.strictEqual(err.statusCode, 404);
             }
         });
 
@@ -325,9 +325,9 @@ describe('Object Store', () => {
                 assert.fail('should not reach here');
             }
             catch (err) {
-                assert.equal(err.message, 'The specified key does not exist.');
-                assert.equal(err.code, 'NoSuchKey');
-                assert.equal(err.statusCode, 404);
+                assert.strictEqual(err.message, 'The specified key does not exist.');
+                assert.strictEqual(err.code, 'NoSuchKey');
+                assert.strictEqual(err.statusCode, 404);
             }
         });
 

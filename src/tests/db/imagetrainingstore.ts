@@ -38,20 +38,20 @@ describe('DB store - image training', () => {
             ];
 
             let retrieved = await store.getImageTrainingByLabel(projectid, targetlabel, DEFAULT_PAGING);
-            assert.equal(retrieved.length, 0);
+            assert.strictEqual(retrieved.length, 0);
 
             for (const item of data) {
                 await store.storeImageTraining(projectid, item.imageurl, item.label, false);
             }
 
             retrieved = await store.getImageTrainingByLabel(projectid, targetlabel, DEFAULT_PAGING);
-            assert.equal(retrieved.length, 3);
-            assert.deepEqual(retrieved.map((item) => item.imageurl),
+            assert.strictEqual(retrieved.length, 3);
+            assert.deepStrictEqual(retrieved.map((item) => item.imageurl),
                                 [ data[1].imageurl, data[4].imageurl, data[6].imageurl ]);
 
             retrieved = await store.getImageTrainingByLabel(projectid, targetlabel, { start : 1, limit : 1 });
-            assert.equal(retrieved.length, 1);
-            assert.deepEqual(retrieved.map((item) => item.imageurl),
+            assert.strictEqual(retrieved.length, 1);
+            assert.deepStrictEqual(retrieved.map((item) => item.imageurl),
                                 [ data[4].imageurl ]);
 
             return store.deleteTrainingByProjectId('images', projectid);
@@ -68,13 +68,13 @@ describe('DB store - image training', () => {
 
             const training = await store.storeImageTraining(projectid, url, label, false);
             assert(training);
-            assert.equal(training.projectid, projectid);
-            assert.equal(training.imageurl, url);
-            assert.equal(training.label, label);
-            assert.equal(training.isstored, false);
+            assert.strictEqual(training.projectid, projectid);
+            assert.strictEqual(training.imageurl, url);
+            assert.strictEqual(training.label, label);
+            assert.strictEqual(training.isstored, false);
 
             const isStored = await store.isImageStored(training.id);
-            assert.equal(isStored, false);
+            assert.strictEqual(isStored, false);
 
             return store.deleteTrainingByProjectId('images', projectid);
         });
@@ -87,13 +87,13 @@ describe('DB store - image training', () => {
 
             const training = await store.storeImageTraining(projectid, url, label, true);
             assert(training);
-            assert.equal(training.projectid, projectid);
-            assert.equal(training.imageurl, url);
-            assert.equal(training.label, label);
-            assert.equal(training.isstored, true);
+            assert.strictEqual(training.projectid, projectid);
+            assert.strictEqual(training.imageurl, url);
+            assert.strictEqual(training.label, label);
+            assert.strictEqual(training.isstored, true);
 
             const isStored = await store.isImageStored(training.id);
-            assert.equal(isStored, true);
+            assert.strictEqual(isStored, true);
 
             return store.deleteTrainingByProjectId('images', projectid);
         });
@@ -110,10 +110,10 @@ describe('DB store - image training', () => {
             }
             catch (err) {
                 assert(err);
-                assert.equal(err.message, 'Image URL exceeds maximum allowed length (1024 characters)');
+                assert.strictEqual(err.message, 'Image URL exceeds maximum allowed length (1024 characters)');
 
                 const count = await store.countTraining('text', projectid);
-                assert.equal(count, 0);
+                assert.strictEqual(count, 0);
             }
         });
     });

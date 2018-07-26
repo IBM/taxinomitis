@@ -119,7 +119,7 @@ describe('Training - Visual Recognition', () => {
             const classifier = await visrec.trainClassifier(project);
             assert(classifier.id);
 
-            assert.deepEqual(classifier, {
+            assert.deepStrictEqual(classifier, {
                 id : classifier.id,
                 name : projectname,
                 classifierid : 'good',
@@ -159,10 +159,10 @@ describe('Training - Visual Recognition', () => {
                 assert.fail(0, 1, 'should not have reached here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Not enough images to train the classifier');
+                assert.strictEqual(err.message, 'Not enough images to train the classifier');
             }
 
-            assert.equal(storeScratchKeyStub.called, false);
+            assert.strictEqual(storeScratchKeyStub.called, false);
         });
 
         it('should not try to create a classifier with too much training data', async () => {
@@ -189,10 +189,10 @@ describe('Training - Visual Recognition', () => {
                 assert.fail(0, 1, 'should not have reached here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Number of images exceeds maximum (10000)');
+                assert.strictEqual(err.message, 'Number of images exceeds maximum (10000)');
             }
 
-            assert.equal(storeScratchKeyStub.called, false);
+            assert.strictEqual(storeScratchKeyStub.called, false);
         });
 
         it('should handle hitting limits on API keys', async () => {
@@ -219,10 +219,10 @@ describe('Training - Visual Recognition', () => {
                 assert.fail(0, 1, 'should not have reached here', '');
             }
             catch (err) {
-                assert.equal(err.message, visrec.ERROR_MESSAGES.INSUFFICIENT_API_KEYS);
+                assert.strictEqual(err.message, visrec.ERROR_MESSAGES.INSUFFICIENT_API_KEYS);
             }
 
-            assert.equal(storeScratchKeyStub.called, false);
+            assert.strictEqual(storeScratchKeyStub.called, false);
         });
     });
 
@@ -245,7 +245,7 @@ describe('Training - Visual Recognition', () => {
         it('should classify images by URL', async () => {
             const creds = mockstore.credsForVisRec;
             const classes = await visrec.testClassifierURL(creds, 'good', classifierTimestamp, 'projectbobvis', 'http://test.com/image.jpg');
-            assert.deepEqual(classes, [
+            assert.deepStrictEqual(classes, [
                 { class_name : 'rock', confidence : 65, classifierTimestamp },
                 { class_name : 'paper', confidence : 13, classifierTimestamp },
             ]);
@@ -254,7 +254,7 @@ describe('Training - Visual Recognition', () => {
         it('should classify images by file', async () => {
             const creds = mockstore.credsForVisRec;
             const classes = await visrec.testClassifierFile(creds, 'good', classifierTimestamp, 'projectbobvis', PLACEHOLDER_IMAGE_FILE);
-            assert.deepEqual(classes, [
+            assert.deepStrictEqual(classes, [
                 { class_name : 'rock', confidence : 75, classifierTimestamp },
                 { class_name : 'paper', confidence : 3, classifierTimestamp },
             ]);
@@ -272,9 +272,9 @@ describe('Training - Visual Recognition', () => {
             setTimeoutStub.reset();
             resetExpiredScratchKeyStub.reset();
 
-            assert.equal(deleteStub.called, false);
-            assert.equal(deleteStoreStub.called, false);
-            assert.equal(setTimeoutStub.called, false);
+            assert.strictEqual(deleteStub.called, false);
+            assert.strictEqual(deleteStoreStub.called, false);
+            assert.strictEqual(setTimeoutStub.called, false);
 
             await visrec.deleteClassifier(goodClassifier);
 
@@ -298,8 +298,8 @@ describe('Training - Visual Recognition', () => {
             setTimeoutStub.reset();
             resetExpiredScratchKeyStub.reset();
 
-            assert.equal(deleteStub.called, false);
-            assert.equal(deleteStoreStub.called, false);
+            assert.strictEqual(deleteStub.called, false);
+            assert.strictEqual(deleteStoreStub.called, false);
 
             await visrec.deleteClassifier(unknownClassifier);
 
@@ -325,7 +325,7 @@ describe('Training - Visual Recognition', () => {
             const reqClone = clone([ goodClassifier ]);
             const one = await visrec.getClassifierStatuses('CLASSID', reqClone);
 
-            assert.deepEqual(one, [ goodClassifierWithStatus ]);
+            assert.deepStrictEqual(one, [ goodClassifierWithStatus ]);
         });
 
         it('should get info for unknown classifiers', async () => {
@@ -335,7 +335,7 @@ describe('Training - Visual Recognition', () => {
             ]);
             const three = await visrec.getClassifierStatuses('CLASSID', reqClone);
 
-            assert.deepEqual(three, [
+            assert.deepStrictEqual(three, [
                 unknownClassifierWithStatus,
                 goodClassifierWithStatus,
             ]);
@@ -384,16 +384,16 @@ describe('Training - Visual Recognition', () => {
             });
         },
         testClassify : (url: string, opts: visrec.LegacyTestFileRequest | visrec.LegacyTestUrlRequest) => {
-            assert.equal(url, 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classify');
-            assert.equal(opts.qs.version, '2016-05-20');
-            assert.equal(opts.qs.api_key, 'userpass');
-            assert.equal(opts.headers['user-agent'], 'machinelearningforkids');
+            assert.strictEqual(url, 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classify');
+            assert.strictEqual(opts.qs.version, '2016-05-20');
+            assert.strictEqual(opts.qs.api_key, 'userpass');
+            assert.strictEqual(opts.headers['user-agent'], 'machinelearningforkids');
 
             const fileOptions = opts as visrec.LegacyTestFileRequest;
             const urlOptions = opts as visrec.LegacyTestUrlRequest;
 
             if (urlOptions.qs.classifier_ids === 'good' && urlOptions.qs.url) {
-                assert.equal(urlOptions.qs.threshold, 0.0);
+                assert.strictEqual(urlOptions.qs.threshold, 0.0);
                 assert(urlOptions.qs.url.startsWith('http'));
 
                 return new Promise((resolve) => {
@@ -448,14 +448,14 @@ describe('Training - Visual Recognition', () => {
         },
         createClassifier : (url: string, options: visrec.LegacyTrainingRequest) => {
             if (options.formData.name === 'Bob\'s images proj') {
-                assert.equal(options.qs.version, '2016-05-20');
-                assert.equal(options.qs.api_key, 'userpass');
-                assert.equal(options.json, true);
-                assert.equal(options.formData.name, 'Bob\'s images proj');
+                assert.strictEqual(options.qs.version, '2016-05-20');
+                assert.strictEqual(options.qs.api_key, 'userpass');
+                assert.strictEqual(options.json, true);
+                assert.strictEqual(options.formData.name, 'Bob\'s images proj');
                 const rockStream: fs.ReadStream = options.formData.rock_positive_examples as fs.ReadStream;
-                assert.equal(typeof rockStream.path, 'string');
+                assert.strictEqual(typeof rockStream.path, 'string');
                 const paperStream: fs.ReadStream = options.formData.paper_positive_examples as fs.ReadStream;
-                assert.equal(typeof paperStream.path, 'string');
+                assert.strictEqual(typeof paperStream.path, 'string');
 
                 return new Promise((resolve, reject) => {
                     resolve({
@@ -539,7 +539,7 @@ describe('Training - Visual Recognition', () => {
             return new Promise((resolve) => {
                 for (const location of locations) {
                     if (location.type === 'download') {
-                        assert.equal(typeof location.url, 'string');
+                        assert.strictEqual(typeof location.url, 'string');
                         assert(location.url.startsWith('http'));
                     }
                 }

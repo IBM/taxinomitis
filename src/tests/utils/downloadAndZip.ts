@@ -81,7 +81,7 @@ describe('Utils - download and zip', () => {
                 }, next);
             },
             (unzippedFilesInfo: TestFile[], next: () => void) => {
-                assert.equal(unzippedFilesInfo.length, 3);
+                assert.strictEqual(unzippedFilesInfo.length, 3);
                 async.each(unzippedFilesInfo,
                     (unzippedFile: any, nextFile) => {
                         switch (unzippedFile.size) {

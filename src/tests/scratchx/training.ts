@@ -27,9 +27,9 @@ describe('Scratchx - keys', () => {
 
         it('should store text training', async () => {
             const testProject = await store.storeProject(TESTUSER, TESTCLASS, 'text', 'name', 'en', [], false);
-            assert.equal(testProject.name, 'name');
-            assert.equal(testProject.classid, TESTCLASS);
-            assert.equal(testProject.userid, TESTUSER);
+            assert.strictEqual(testProject.name, 'name');
+            assert.strictEqual(testProject.classid, TESTCLASS);
+            assert.strictEqual(testProject.userid, TESTUSER);
 
             await store.addLabelToProject(TESTUSER, TESTCLASS, testProject.id, 'MYLAB');
 
@@ -39,11 +39,11 @@ describe('Scratchx - keys', () => {
             await training.storeTrainingData(scratchKey, 'MYLAB', 'Inserted from Scratch');
 
             const count = await store.countTraining('text', testProject.id);
-            assert.equal(count, 1);
+            assert.strictEqual(count, 1);
 
             const retrieved = await store.getTextTraining(testProject.id, { start : 0, limit : 10 });
-            assert.equal(retrieved[0].textdata, 'Inserted from Scratch');
-            assert.equal(retrieved[0].label, 'MYLAB');
+            assert.strictEqual(retrieved[0].textdata, 'Inserted from Scratch');
+            assert.strictEqual(retrieved[0].label, 'MYLAB');
         });
 
         it('should verify that a project exists before storing text training', async () => {
@@ -62,15 +62,15 @@ describe('Scratchx - keys', () => {
                 assert.fail(0, 1, 'should not reach here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Project not found');
+                assert.strictEqual(err.message, 'Project not found');
             }
         });
 
         it('should require data to store text training', async () => {
             const testProject = await store.storeProject(TESTUSER, TESTCLASS, 'text', 'name', 'en', [], false);
-            assert.equal(testProject.name, 'name');
-            assert.equal(testProject.classid, TESTCLASS);
-            assert.equal(testProject.userid, TESTUSER);
+            assert.strictEqual(testProject.name, 'name');
+            assert.strictEqual(testProject.classid, TESTCLASS);
+            assert.strictEqual(testProject.userid, TESTUSER);
 
             await store.addLabelToProject(TESTUSER, TESTCLASS, testProject.id, 'MYLAB');
 
@@ -82,7 +82,7 @@ describe('Scratchx - keys', () => {
                 assert.fail(0, 1, 'should not reach here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Missing data');
+                assert.strictEqual(err.message, 'Missing data');
             }
 
             try {
@@ -90,7 +90,7 @@ describe('Scratchx - keys', () => {
                 assert.fail(0, 1, 'should not reach here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Missing data');
+                assert.strictEqual(err.message, 'Missing data');
             }
 
         });
@@ -115,16 +115,16 @@ describe('Scratchx - keys', () => {
                 assert.fail(0, 1, 'should not reach here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Project not found');
+                assert.strictEqual(err.message, 'Project not found');
             }
         });
 
 
         it('should require data and a valid label to store image training', async () => {
             const testProject = await store.storeProject(TESTUSER, TESTCLASS, 'images', 'name', 'en', [], false);
-            assert.equal(testProject.name, 'name');
-            assert.equal(testProject.classid, TESTCLASS);
-            assert.equal(testProject.userid, TESTUSER);
+            assert.strictEqual(testProject.name, 'name');
+            assert.strictEqual(testProject.classid, TESTCLASS);
+            assert.strictEqual(testProject.userid, TESTUSER);
 
             await store.addLabelToProject(TESTUSER, TESTCLASS, testProject.id, 'MYLAB');
 
@@ -136,7 +136,7 @@ describe('Scratchx - keys', () => {
                 assert.fail(0, 1, 'should not reach here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Missing data');
+                assert.strictEqual(err.message, 'Missing data');
             }
 
             try {
@@ -144,7 +144,7 @@ describe('Scratchx - keys', () => {
                 assert.fail(0, 1, 'should not reach here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Missing data');
+                assert.strictEqual(err.message, 'Missing data');
             }
 
             try {
@@ -152,7 +152,7 @@ describe('Scratchx - keys', () => {
                 assert.fail(0, 1, 'should not reach here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Invalid label');
+                assert.strictEqual(err.message, 'Invalid label');
             }
         });
 
@@ -175,11 +175,11 @@ describe('Scratchx - keys', () => {
             await training.storeTrainingData(scratchKey, 'NUMLAB', ['4', '5', '6']);
 
             const count = await store.countTraining('numbers', testProject.id);
-            assert.equal(count, 1);
+            assert.strictEqual(count, 1);
 
             const retrieved = await store.getNumberTraining(testProject.id, { start : 0, limit : 10 });
-            assert.deepEqual(retrieved[0].numberdata, [4, 5, 6]);
-            assert.equal(retrieved[0].label, 'NUMLAB');
+            assert.deepStrictEqual(retrieved[0].numberdata, [4, 5, 6]);
+            assert.strictEqual(retrieved[0].label, 'NUMLAB');
         });
 
 
@@ -199,7 +199,7 @@ describe('Scratchx - keys', () => {
                 assert.fail(0, 1, 'should not reach here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Project not found');
+                assert.strictEqual(err.message, 'Project not found');
             }
         });
 
@@ -220,7 +220,7 @@ describe('Scratchx - keys', () => {
                 assert.fail(0, 1, 'should not reach here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Missing data');
+                assert.strictEqual(err.message, 'Missing data');
             }
 
             try {
@@ -228,7 +228,7 @@ describe('Scratchx - keys', () => {
                 assert.fail(0, 1, 'should not reach here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Missing data');
+                assert.strictEqual(err.message, 'Missing data');
             }
         });
     });

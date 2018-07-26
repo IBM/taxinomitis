@@ -110,7 +110,7 @@ describe('Training - Conversation', () => {
             const classifier = await conversation.trainClassifier(project);
             assert(classifier.id);
 
-            assert.deepEqual(classifier, {
+            assert.deepStrictEqual(classifier, {
                 id : classifier.id,
                 name : projectname,
                 language : 'fr',
@@ -153,7 +153,7 @@ describe('Training - Conversation', () => {
                 assert.fail(0, 1, 'should not have allowed this', '');
             }
             catch (err) {
-                assert.equal(err.message, conversation.ERROR_MESSAGES.UNKNOWN);
+                assert.strictEqual(err.message, conversation.ERROR_MESSAGES.UNKNOWN);
             }
         });
 
@@ -182,7 +182,7 @@ describe('Training - Conversation', () => {
                 assert.fail(0, 1, 'should not have allowed this', '');
             }
             catch (err) {
-                assert.equal(err.message, conversation.ERROR_MESSAGES.INSUFFICIENT_API_KEYS);
+                assert.strictEqual(err.message, conversation.ERROR_MESSAGES.INSUFFICIENT_API_KEYS);
             }
         });
 
@@ -211,7 +211,7 @@ describe('Training - Conversation', () => {
                 assert.fail(0, 1, 'should not have allowed this', '');
             }
             catch (err) {
-                assert.equal(err.message, conversation.ERROR_MESSAGES.API_KEY_RATE_LIMIT);
+                assert.strictEqual(err.message, conversation.ERROR_MESSAGES.API_KEY_RATE_LIMIT);
             }
         });
     });
@@ -267,7 +267,7 @@ describe('Training - Conversation', () => {
             classifierTimestamp.setMilliseconds(0);
 
             const classes = await conversation.testClassifier(creds, 'good', classifierTimestamp, 'projectbob', 'Hello');
-            assert.deepEqual(classes, [
+            assert.deepStrictEqual(classes, [
                 {
                     class_name : 'temperature',
                     confidence : 100,
@@ -292,9 +292,9 @@ describe('Training - Conversation', () => {
                 classid : 'classid',
             };
             const classes = await conversation.testClassifier(creds, 'bad', new Date(), 'projectbob', 'Hello');
-            assert.equal(classes.length, 1);
-            assert.equal(classes[0].confidence, 0);
-            assert.equal(classes[0].random, true);
+            assert.strictEqual(classes.length, 1);
+            assert.strictEqual(classes[0].confidence, 0);
+            assert.strictEqual(classes[0].random, true);
         });
     });
 
@@ -307,8 +307,8 @@ describe('Training - Conversation', () => {
             deleteStoreStub.reset();
             resetExpiredScratchKeyStub.reset();
 
-            assert.equal(deleteStub.called, false);
-            assert.equal(deleteStoreStub.called, false);
+            assert.strictEqual(deleteStub.called, false);
+            assert.strictEqual(deleteStoreStub.called, false);
 
             await conversation.deleteClassifier(goodClassifier);
 
@@ -338,8 +338,8 @@ describe('Training - Conversation', () => {
                 .withArgs('http://conversation.service/v1/workspaces/doesnotactuallyexist', sinon.match.any)
                 .throws(missingErr);
 
-            assert.equal(deleteStub.called, false);
-            assert.equal(deleteStoreStub.called, false);
+            assert.strictEqual(deleteStub.called, false);
+            assert.strictEqual(deleteStoreStub.called, false);
 
             const workspaceid = uuid();
 
@@ -375,7 +375,7 @@ describe('Training - Conversation', () => {
             const reqClone = clone([ goodClassifier ]);
             const one = await conversation.getClassifierStatuses('CLASSID', reqClone);
 
-            assert.deepEqual(one, [ goodClassifierWithStatus ]);
+            assert.deepStrictEqual(one, [ goodClassifierWithStatus ]);
         });
 
 
@@ -383,7 +383,7 @@ describe('Training - Conversation', () => {
             const reqClone = clone([ brokenClassifier ]);
             const one = await conversation.getClassifierStatuses('CLASSID', reqClone);
 
-            assert.deepEqual(one, [ brokenClassifierWithStatus ]);
+            assert.deepStrictEqual(one, [ brokenClassifierWithStatus ]);
         });
 
         it('should get info for multiple classifiers', async () => {
@@ -394,7 +394,7 @@ describe('Training - Conversation', () => {
             ]);
             const three = await conversation.getClassifierStatuses('CLASSID', reqClone);
 
-            assert.deepEqual(three, [
+            assert.deepStrictEqual(three, [
                 goodClassifierWithStatus,
                 brokenClassifierWithStatus,
                 trainingClassifierWithStatus,
@@ -405,7 +405,7 @@ describe('Training - Conversation', () => {
             const reqClone: TrainingTypes.ConversationWorkspace[] = [ ];
             const none = await conversation.getClassifierStatuses('CLASSID', reqClone);
 
-            assert.deepEqual(none, []);
+            assert.deepStrictEqual(none, []);
         });
 
 
@@ -418,7 +418,7 @@ describe('Training - Conversation', () => {
             ]);
             const three = await conversation.getClassifierStatuses('CLASSID', reqClone);
 
-            assert.deepEqual(three, [
+            assert.deepStrictEqual(three, [
                 brokenClassifierWithStatus,
                 unknownClassifierWithStatus,
                 trainingClassifierWithStatus,
@@ -472,11 +472,11 @@ describe('Training - Conversation', () => {
             return new Promise((resolve, reject) => {
                 if (options.body.name === 'Bob\'s text project') {
 
-                    assert.equal(options.body.language, 'fr');
-                    assert.equal(options.body.intents[0].intent, 'temperature');
-                    assert.equal(options.body.intents[1].intent, 'conditions');
-                    assert.equal(options.body.intents[0].examples.length, 18);
-                    assert.equal(options.body.intents[1].examples.length, 16);
+                    assert.strictEqual(options.body.language, 'fr');
+                    assert.strictEqual(options.body.intents[0].intent, 'temperature');
+                    assert.strictEqual(options.body.intents[1].intent, 'conditions');
+                    assert.strictEqual(options.body.intents[0].examples.length, 18);
+                    assert.strictEqual(options.body.intents[1].examples.length, 16);
 
                     resolve({
                         name : options.body.name,

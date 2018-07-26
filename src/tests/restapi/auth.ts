@@ -20,10 +20,10 @@ describe('REST API - Auth', () => {
             const req = {} as Express.Request;
             const res = {
                 status : (code) => {
-                    assert.equal(code, 401);
+                    assert.strictEqual(code, 401);
                     return {
                         json : (obj) => {
-                            assert.deepEqual(obj, { error : 'Not authorised' });
+                            assert.deepStrictEqual(obj, { error : 'Not authorised' });
                             done();
                         },
                     };
@@ -43,10 +43,10 @@ describe('REST API - Auth', () => {
         //     } as Express.Request;
         //     const res = {
         //         status : (code) => {
-        //             assert.equal(code, 401);
+        //             assert.strictEqual(code, 401);
         //             return {
         //                 json : (obj) => {
-        //                     assert.deepEqual(obj, { error : 'Not authorised' });
+        //                     assert.deepStrictEqual(obj, { error : 'Not authorised' });
         //                     done();
         //                 },
         //             };
@@ -71,10 +71,10 @@ describe('REST API - Auth', () => {
             } as Express.Request;
             const res = {
                 status : (code) => {
-                    assert.equal(code, 403);
+                    assert.strictEqual(code, 403);
                     return {
                         json : (obj) => {
-                            assert.deepEqual(obj, { error : 'Invalid access' });
+                            assert.deepStrictEqual(obj, { error : 'Invalid access' });
                             done();
                         },
                     };
@@ -123,10 +123,10 @@ describe('REST API - Auth', () => {
             } as Express.Request;
             const res = {
                 status : (code) => {
-                    assert.equal(code, 403);
+                    assert.strictEqual(code, 403);
                     return {
                         json : (obj) => {
-                            assert.deepEqual(obj, { error : 'Only supervisors are allowed to invoke this' });
+                            assert.deepStrictEqual(obj, { error : 'Only supervisors are allowed to invoke this' });
                             done();
                         },
                     };
@@ -187,7 +187,7 @@ describe('REST API - Auth', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.UNAUTHORIZED)
                 .then((res) => {
-                    assert.deepEqual(res.body, { error : 'Not authorised' });
+                    assert.deepStrictEqual(res.body, { error : 'Not authorised' });
                 });
         });
 
@@ -203,7 +203,7 @@ describe('REST API - Auth', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.UNAUTHORIZED)
                 .then((res) => {
-                    assert.deepEqual(res.body, { error : 'Not authorised' });
+                    assert.deepStrictEqual(res.body, { error : 'Not authorised' });
                 });
         });
 

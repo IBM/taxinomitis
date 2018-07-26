@@ -264,7 +264,7 @@ export const download = {
         return new Promise((resolve) => {
             for (const location of locations) {
                 if (location.type === 'download') {
-                    assert.equal(typeof location.url, 'string');
+                    assert.strictEqual(typeof location.url, 'string');
                     assert(location.url.startsWith('http'));
                 }
             }

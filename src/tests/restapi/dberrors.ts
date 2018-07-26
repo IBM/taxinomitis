@@ -65,7 +65,7 @@ describe('REST API - DB error handling', () => {
                 .expect(httpstatus.INTERNAL_SERVER_ERROR)
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, {
+                    assert.deepStrictEqual(body, {
                         error : 'Error accessing the database used to store data',
                         detail : {
                             code : 'ER_NO_SUCH_SELECT_ERROR',
@@ -89,7 +89,7 @@ describe('REST API - DB error handling', () => {
                 .expect(httpstatus.INTERNAL_SERVER_ERROR)
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, {
+                    assert.deepStrictEqual(body, {
                         error : 'Error accessing the database used to store data',
                         detail : {
                             code: 'ER_SOME_INSERT_ERROR',
@@ -113,7 +113,7 @@ describe('REST API - DB error handling', () => {
                 .expect(httpstatus.INTERNAL_SERVER_ERROR)
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, {
+                    assert.deepStrictEqual(body, {
                         error : 'Failed to store project',
                     });
                 });
@@ -129,7 +129,7 @@ describe('REST API - DB error handling', () => {
                 .expect(httpstatus.INTERNAL_SERVER_ERROR)
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, {
+                    assert.deepStrictEqual(body, {
                         error : 'Error accessing the database used to store data',
                         detail : {
                             code: 'ER_SOME_DELETE_ERROR',
@@ -158,7 +158,7 @@ describe('REST API - DB error handling', () => {
                 .expect(httpstatus.INTERNAL_SERVER_ERROR)
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, {
+                    assert.deepStrictEqual(body, {
                         error : 'Error accessing the database used to store data',
                         detail : {
                             code: 'ER_SOME_INSERT_ERROR',
@@ -183,7 +183,7 @@ describe('REST API - DB error handling', () => {
                 .expect(httpstatus.INTERNAL_SERVER_ERROR)
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, {
+                    assert.deepStrictEqual(body, {
                         error : 'Failed to store training data',
                     });
                 });

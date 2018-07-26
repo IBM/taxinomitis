@@ -47,7 +47,7 @@ describe('Scratchx - classify', () => {
                 assert.fail(0, 1, 'Should not reach here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Missing data');
+                assert.strictEqual(err.message, 'Missing data');
             }
         });
 
@@ -65,7 +65,7 @@ describe('Scratchx - classify', () => {
                 assert.fail(0, 1, 'Should not reach here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Project not found');
+                assert.strictEqual(err.message, 'Project not found');
             }
         });
 
@@ -85,10 +85,10 @@ describe('Scratchx - classify', () => {
             };
 
             const classifications = await classifier.classify(key, 'image data to be classified');
-            assert.equal(classifications.length, 2);
+            assert.strictEqual(classifications.length, 2);
             for (const classification of classifications) {
                 assert(classification.random);
-                assert.equal(classification.confidence, 50);
+                assert.strictEqual(classification.confidence, 50);
             }
         });
 
@@ -179,7 +179,7 @@ describe('Scratchx - classify', () => {
                 assert.fail(0, 1, 'Should not reach here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Missing data');
+                assert.strictEqual(err.message, 'Missing data');
             }
         });
 
@@ -198,7 +198,7 @@ describe('Scratchx - classify', () => {
                 assert.fail(0, 1, 'Should not reach here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Project not found');
+                assert.strictEqual(err.message, 'Project not found');
             }
         });
 
@@ -219,10 +219,10 @@ describe('Scratchx - classify', () => {
             };
 
             const classifications = await classifier.classify(key, 'text to be classified');
-            assert.equal(classifications.length, 3);
+            assert.strictEqual(classifications.length, 3);
             for (const classification of classifications) {
                 assert(classification.random);
-                assert.equal(classification.confidence, 33);
+                assert.strictEqual(classification.confidence, 33);
             }
         });
 
@@ -261,7 +261,7 @@ describe('Scratchx - classify', () => {
             const classifications = await stubbedClassifier.classify(key, 'text to be classified');
             log.info({ classifications }, 'classifications');
 
-            assert.deepEqual(classifications, [
+            assert.deepStrictEqual(classifications, [
                 { class_name: 'BETA', confidence: 84, classifierTimestamp : ts },
                 { class_name: 'ALPHA', confidence: 16, classifierTimestamp : ts },
             ]);
@@ -302,7 +302,7 @@ describe('Scratchx - classify', () => {
                 assert.fail(0, 1, 'Should not reach here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Missing data');
+                assert.strictEqual(err.message, 'Missing data');
             }
         });
 
@@ -321,7 +321,7 @@ describe('Scratchx - classify', () => {
                 assert.fail(0, 1, 'Should not reach here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Project not found');
+                assert.strictEqual(err.message, 'Project not found');
             }
         });
 
@@ -343,10 +343,10 @@ describe('Scratchx - classify', () => {
             };
 
             const classifications = await classifier.classify(key, ['123']);
-            assert.equal(classifications.length, 2);
+            assert.strictEqual(classifications.length, 2);
             for (const classification of classifications) {
                 assert(classification.random);
-                assert.equal(classification.confidence, 50);
+                assert.strictEqual(classification.confidence, 50);
             }
         });
 
@@ -382,7 +382,7 @@ describe('Scratchx - classify', () => {
             };
 
             const classifications = await classifier.classify(key, ['123']);
-            assert.deepEqual(classifications, [
+            assert.deepStrictEqual(classifications, [
                 { class_name: 'label_name_2', confidence: 90, classifierTimestamp : ts },
                 { class_name: 'label_name_1', confidence: 86, classifierTimestamp : ts },
             ]);

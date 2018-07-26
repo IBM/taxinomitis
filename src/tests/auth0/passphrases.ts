@@ -7,7 +7,7 @@ import { WORDS } from '../../lib/utils/dictionary';
 describe('passphrases generator', () => {
 
     it('should generate a string', () => {
-        assert.equal(typeof passphrases.generate(), 'string');
+        assert.strictEqual(typeof passphrases.generate(), 'string');
     });
 
     it('should generate a string of at least eight characters in length', () => {
@@ -15,14 +15,14 @@ describe('passphrases generator', () => {
     });
 
     it('should generate a string without spaces in it', () => {
-        assert.equal(passphrases.generate().indexOf(' '), -1);
+        assert.strictEqual(passphrases.generate().indexOf(' '), -1);
     });
 
     it('should not modify the dictionary when generating passphrases', () => {
         const firstInDictBefore = WORDS[0];
         passphrases.generate();
         const firstInDictAfter = WORDS[0];
-        assert.equal(firstInDictBefore, firstInDictAfter);
+        assert.strictEqual(firstInDictBefore, firstInDictAfter);
     });
 
     it('should generate different passphrases each time', () => {
@@ -33,7 +33,7 @@ describe('passphrases generator', () => {
         }
 
         const NUM_UNIQ_PHRASES = Array.from(new Set(values)).length;
-        assert.equal(NUM_PHRASES, NUM_UNIQ_PHRASES);
+        assert.strictEqual(NUM_PHRASES, NUM_UNIQ_PHRASES);
     });
 
     it('should contain three or four words in a phrase', () => {

@@ -13,10 +13,10 @@ describe('REST API - Error Handling', () => {
     function validate(expectedStatusCode: number, expectedPayload: object, callback: () => void): Express.Response {
         const res = {
             status : (code) => {
-                assert.equal(code, expectedStatusCode);
+                assert.strictEqual(code, expectedStatusCode);
                 return {
                     json : (obj) => {
-                        assert.deepEqual(obj, expectedPayload);
+                        assert.deepStrictEqual(obj, expectedPayload);
                         callback();
                     },
                 };

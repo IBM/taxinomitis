@@ -73,7 +73,7 @@ describe('REST API - users', () => {
                 .then((res) => {
                     const body = res.body;
 
-                    assert.deepEqual(body, {
+                    assert.deepStrictEqual(body, {
                         maxTextModels : 0,
                         maxImageModels : 0,
                         maxUsers: 25,
@@ -125,7 +125,7 @@ describe('REST API - users', () => {
             const jobAfter = await store.getNextPendingJob();
             assert(jobAfter);
             if (jobAfter) {
-                assert.equal(jobAfter.jobtype, 3);
+                assert.strictEqual(jobAfter.jobtype, 3);
                 assert.deepStrictEqual(jobAfter.jobdata, {
                     userid,
                     classid : TENANTS.correct,
@@ -160,8 +160,8 @@ describe('REST API - users', () => {
                 .expect(httpstatus.NOT_FOUND)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.statusCode, 404);
-                    assert.equal(body.error, 'Not Found');
+                    assert.strictEqual(body.statusCode, 404);
+                    assert.strictEqual(body.error, 'Not Found');
                 })
                 .then(function restore() {
                     stubs.getOauthToken.restore();
@@ -181,7 +181,7 @@ describe('REST API - users', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
-                    assert.deepEqual(res.body, {
+                    assert.deepStrictEqual(res.body, {
                         error: 'A username and email address for a class leader ' +
                                'is required to create a new class',
                     });
@@ -197,7 +197,7 @@ describe('REST API - users', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
-                    assert.deepEqual(res.body, {
+                    assert.deepStrictEqual(res.body, {
                         error: 'A username and email address for a class leader ' +
                                'is required to create a new class',
                     });
@@ -213,7 +213,7 @@ describe('REST API - users', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
-                    assert.deepEqual(res.body, {
+                    assert.deepStrictEqual(res.body, {
                         error: 'A username and email address for a class leader ' +
                                'is required to create a new class',
                     });
@@ -230,7 +230,7 @@ describe('REST API - users', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
-                    assert.deepEqual(res.body, {
+                    assert.deepStrictEqual(res.body, {
                         error: 'Invalid username. Use letters, numbers, hyphens and underscores, only.',
                     });
                 });
@@ -255,7 +255,7 @@ describe('REST API - users', () => {
                         const body = res.body;
                         assert(body.id);
                         assert(body.password);
-                        assert.equal(body.username, 'mickeymouse');
+                        assert.strictEqual(body.username, 'mickeymouse');
 
                         stubs.getOauthToken.restore();
                         stubs.createUser.restore();
@@ -286,7 +286,7 @@ describe('REST API - users', () => {
                         const body = res.body;
                         assert(body.id);
                         assert(body.password);
-                        assert.equal(body.username, 'mickeymouse');
+                        assert.strictEqual(body.username, 'mickeymouse');
 
                         stubs.getOauthToken.restore();
                         stubs.createUser.restore();
@@ -322,7 +322,7 @@ describe('REST API - users', () => {
                     const body = res.body;
                     assert(body.id);
                     assert(body.password);
-                    assert.equal(body.username, username);
+                    assert.strictEqual(body.username, username);
 
                     stubs.getOauthToken.restore();
                     stubs.createUser.restore();
@@ -345,7 +345,7 @@ describe('REST API - users', () => {
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.error, 'Missing required field "username"');
+                    assert.strictEqual(body.error, 'Missing required field "username"');
                 })
                 .then(function restore() {
                     stubs.getOauthToken.restore();
@@ -367,7 +367,8 @@ describe('REST API - users', () => {
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.error, 'Invalid username. Use letters, numbers, hyphens and underscores, only.');
+                    assert.strictEqual(body.error,
+                                       'Invalid username. Use letters, numbers, hyphens and underscores, only.');
                 })
                 .then(function restore() {
                     stubs.getOauthToken.restore();
@@ -393,7 +394,7 @@ describe('REST API - users', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.error, 'Class already has maximum allowed number of students');
+                    assert.strictEqual(body.error, 'Class already has maximum allowed number of students');
 
                     stubs.getOauthToken.restore();
                     stubs.createUser.restore();
@@ -419,7 +420,7 @@ describe('REST API - users', () => {
                 .expect(httpstatus.OK)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.length, 0);
+                    assert.strictEqual(body.length, 0);
                     assert(Array.isArray(body));
                 })
                 .then(function restore() {
@@ -440,7 +441,7 @@ describe('REST API - users', () => {
                 .expect(httpstatus.OK)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.length, 1);
+                    assert.strictEqual(body.length, 1);
                     assert(Array.isArray(body));
                 })
                 .then(function restore() {
@@ -487,7 +488,7 @@ describe('REST API - users', () => {
                 .expect(httpstatus.OK)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.id, userid);
+                    assert.strictEqual(body.id, userid);
                     assert(body.username);
                     assert(body.password);
                 })
@@ -511,8 +512,8 @@ describe('REST API - users', () => {
                 .expect(httpstatus.NOT_FOUND)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.statusCode, 404);
-                    assert.equal(body.error, 'Not Found');
+                    assert.strictEqual(body.statusCode, 404);
+                    assert.strictEqual(body.error, 'Not Found');
                 })
                 .then(function restore() {
                     stubs.getOauthToken.restore();

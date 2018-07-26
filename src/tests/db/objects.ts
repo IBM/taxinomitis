@@ -42,9 +42,9 @@ describe('DB objects', () => {
 
             const testProject: Objects.Project = dbobjects.getProjectFromDbRow(testRow);
 
-            assert.equal(testProject.isCrowdSourced, false);
-            assert.equal(testProject.type, 'numbers');
-            assert.deepEqual(testProject.fields, [
+            assert.strictEqual(testProject.isCrowdSourced, false);
+            assert.strictEqual(testProject.type, 'numbers');
+            assert.deepStrictEqual(testProject.fields, [
                 { type : 'number', name : 'first', choices : [] },
                 { type : 'number', name : 'second', choices : [] },
             ]);
@@ -69,46 +69,46 @@ describe('DB objects', () => {
 
             const testProject: Objects.Project = dbobjects.getProjectFromDbRow(testRow);
 
-            assert.equal(testProject.type, 'text');
-            assert.equal(testProject.language, 'en');
-            assert.equal(testProject.isCrowdSourced, false);
+            assert.strictEqual(testProject.type, 'text');
+            assert.strictEqual(testProject.language, 'en');
+            assert.strictEqual(testProject.isCrowdSourced, false);
         });
     });
 
     describe('createLabel', () => {
 
         it('should remove spaces', () => {
-            assert.equal(dbobjects.createLabel('One Two Three'),
+            assert.strictEqual(dbobjects.createLabel('One Two Three'),
                          'One_Two_Three');
         });
 
         it('should remove special characters', () => {
-            assert.equal(dbobjects.createLabel('It\'s over here?'),
+            assert.strictEqual(dbobjects.createLabel('It\'s over here?'),
                          'It_s_over_here_');
         });
 
         it('should remove hyphens', () => {
-            assert.equal(dbobjects.createLabel('Science-Fiction'),
+            assert.strictEqual(dbobjects.createLabel('Science-Fiction'),
                          'Science_Fiction');
         });
 
         it('should remove slashes', () => {
-            assert.equal(dbobjects.createLabel('Forward/Backward\\Pipe|'),
+            assert.strictEqual(dbobjects.createLabel('Forward/Backward\\Pipe|'),
                          'Forward_Backward_Pipe_');
         });
 
         it('should remove quotes', () => {
-            assert.equal(dbobjects.createLabel('Single\'s "doubles" and `ticks`'),
+            assert.strictEqual(dbobjects.createLabel('Single\'s "doubles" and `ticks`'),
                          'Single_s__doubles__and__ticks_');
         });
 
         it('should remove brackets', () => {
-            assert.equal(dbobjects.createLabel('This (and) [the] other'),
+            assert.strictEqual(dbobjects.createLabel('This (and) [the] other'),
                          'This__and___the__other');
         });
 
         it('should remove wildcard characters', () => {
-            assert.equal(dbobjects.createLabel('$2 * $3'),
+            assert.strictEqual(dbobjects.createLabel('$2 * $3'),
                          '_2____3');
         });
 
@@ -137,7 +137,7 @@ describe('DB objects', () => {
                 imageClassifierExpiry : 1,
             };
 
-            assert.deepEqual(dbobjects.getClassFromDbRow(testRow), expectedPolicy);
+            assert.deepStrictEqual(dbobjects.getClassFromDbRow(testRow), expectedPolicy);
         });
     });
 
@@ -153,7 +153,7 @@ describe('DB objects', () => {
                 textdata : testRow.textdata,
             };
 
-            assert.deepEqual(dbobjects.getTextTrainingFromDbRow(testRow), expectedTraining);
+            assert.deepStrictEqual(dbobjects.getTextTrainingFromDbRow(testRow), expectedTraining);
         });
     });
 
@@ -169,7 +169,7 @@ describe('DB objects', () => {
                 numberdata : [ 1, 3, 4.3, -5.1, 9.3214, 0.1 ],
             };
 
-            assert.deepEqual(dbobjects.getNumberTrainingFromDbRow(testRow), expectedTraining);
+            assert.deepStrictEqual(dbobjects.getNumberTrainingFromDbRow(testRow), expectedTraining);
         });
 
         it('should return training data with labels', () => {
@@ -186,7 +186,7 @@ describe('DB objects', () => {
                 projectid : testRow.projectid,
             };
 
-            assert.deepEqual(dbobjects.getNumberTrainingFromDbRow(testRow), expectedTraining);
+            assert.deepStrictEqual(dbobjects.getNumberTrainingFromDbRow(testRow), expectedTraining);
         });
     });
 
@@ -206,7 +206,7 @@ describe('DB objects', () => {
                 isstored : false,
             };
 
-            assert.deepEqual(dbobjects.getImageTrainingFromDbRow(testRow), expectedTraining);
+            assert.deepStrictEqual(dbobjects.getImageTrainingFromDbRow(testRow), expectedTraining);
         });
 
         it('should return stored training data', () => {
@@ -223,7 +223,7 @@ describe('DB objects', () => {
                 isstored : true,
             };
 
-            assert.deepEqual(dbobjects.getImageTrainingFromDbRow(testRow), expectedTraining);
+            assert.deepStrictEqual(dbobjects.getImageTrainingFromDbRow(testRow), expectedTraining);
         });
     });
 
@@ -241,7 +241,7 @@ describe('DB objects', () => {
                 assert.fail(0, 1, 'Should not have reached here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'No room for the label');
+                assert.strictEqual(err.message, 'No room for the label');
             }
         });
 
@@ -250,13 +250,13 @@ describe('DB objects', () => {
 
     describe('getLabelsFromList()', () => {
         it('should handle empty lists', () => {
-            assert.deepEqual(dbobjects.getLabelsFromList(''), [ ]);
+            assert.deepStrictEqual(dbobjects.getLabelsFromList(''), [ ]);
         });
         it('should remove empty items', () => {
-            assert.deepEqual(dbobjects.getLabelsFromList('apple,,banana'), [ 'apple', 'banana' ]);
+            assert.deepStrictEqual(dbobjects.getLabelsFromList('apple,,banana'), [ 'apple', 'banana' ]);
         });
         it('should trim items', () => {
-            assert.deepEqual(dbobjects.getLabelsFromList('apple,  ,banana , cabbage'),
+            assert.deepStrictEqual(dbobjects.getLabelsFromList('apple,  ,banana , cabbage'),
                              [ 'apple', 'banana', 'cabbage' ]);
         });
     });
@@ -268,7 +268,7 @@ describe('DB objects', () => {
                 dbobjects.createProject('bob', 'bobclass', 'invalidtype', 'projectname', 'en', [], false);
             }
             catch (err) {
-                assert.equal(err.message, 'Invalid project type invalidtype');
+                assert.strictEqual(err.message, 'Invalid project type invalidtype');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject project', '');
@@ -279,7 +279,7 @@ describe('DB objects', () => {
                 dbobjects.createProject('', 'myclass', 'text', 'projectname', 'en', [], false);
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required attributes');
+                assert.strictEqual(err.message, 'Missing required attributes');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject project', '');
@@ -290,7 +290,7 @@ describe('DB objects', () => {
                 dbobjects.createProject('bob', '', 'text', 'projectname', 'en', [], false);
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required attributes');
+                assert.strictEqual(err.message, 'Missing required attributes');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject project', '');
@@ -301,7 +301,7 @@ describe('DB objects', () => {
                 dbobjects.createProject('bob', 'bobclass', 'text', UNDEFINED_STRING, 'en', [], false);
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required attributes');
+                assert.strictEqual(err.message, 'Missing required attributes');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject project', '');
@@ -312,7 +312,7 @@ describe('DB objects', () => {
                 dbobjects.createProject('bob', 'bobclass', 'text', 'project', UNDEFINED_LANG, [], false);
             }
             catch (err) {
-                assert.equal(err.message, 'Language not supported');
+                assert.strictEqual(err.message, 'Language not supported');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject project', '');
@@ -325,7 +325,7 @@ describe('DB objects', () => {
                                         [], false);
             }
             catch (err) {
-                assert.equal(err.message, 'Language not supported');
+                assert.strictEqual(err.message, 'Language not supported');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject project', '');
@@ -359,7 +359,7 @@ describe('DB objects', () => {
                 dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
             }
             catch (err) {
-                assert.equal(err.message, 'Not enough choices provided');
+                assert.strictEqual(err.message, 'Not enough choices provided');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject project', '');
@@ -373,7 +373,7 @@ describe('DB objects', () => {
                 dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
             }
             catch (err) {
-                assert.equal(err.message, 'Not enough choices provided');
+                assert.strictEqual(err.message, 'Not enough choices provided');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject project', '');
@@ -388,7 +388,7 @@ describe('DB objects', () => {
                 dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
             }
             catch (err) {
-                assert.equal(err.message, 'Too many choices specified');
+                assert.strictEqual(err.message, 'Too many choices specified');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject project', '');
@@ -403,7 +403,7 @@ describe('DB objects', () => {
                 dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
             }
             catch (err) {
-                assert.equal(err.message, 'Invalid choice value');
+                assert.strictEqual(err.message, 'Invalid choice value');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject project', '');
@@ -418,7 +418,7 @@ describe('DB objects', () => {
                 dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
             }
             catch (err) {
-                assert.equal(err.message, 'Invalid choice value');
+                assert.strictEqual(err.message, 'Invalid choice value');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject project', '');
@@ -433,7 +433,7 @@ describe('DB objects', () => {
                 dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
             }
             catch (err) {
-                assert.equal(err.message, 'Invalid choice value');
+                assert.strictEqual(err.message, 'Invalid choice value');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject project', '');
@@ -448,7 +448,7 @@ describe('DB objects', () => {
                 dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', [ field ], false);
             }
             catch (err) {
-                assert.equal(err.message, 'Invalid choice value');
+                assert.strictEqual(err.message, 'Invalid choice value');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject project', '');
@@ -468,7 +468,7 @@ describe('DB objects', () => {
                     ], false);
             }
             catch (err) {
-                assert.equal(err.message, 'Too many fields specified');
+                assert.strictEqual(err.message, 'Too many fields specified');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject project', '');
@@ -482,7 +482,7 @@ describe('DB objects', () => {
                 ], false);
             }
             catch (err) {
-                assert.equal(err.message, 'Fields not supported for non-numbers projects');
+                assert.strictEqual(err.message, 'Fields not supported for non-numbers projects');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject project', '');
@@ -497,25 +497,25 @@ describe('DB objects', () => {
             ], false);
 
             assert(project.id);
-            assert.equal(project.classid, 'testclass');
-            assert.equal(project.labels, '');
-            assert.equal(project.name, 'testproject');
-            assert.equal(project.numfields, 4);
-            assert.equal(project.fields.length, 4);
-            assert.equal(project.typeid, 2);
-            assert.equal(project.userid, 'testuser');
-            assert.equal(project.iscrowdsourced, 0);
+            assert.strictEqual(project.classid, 'testclass');
+            assert.strictEqual(project.labels, '');
+            assert.strictEqual(project.name, 'testproject');
+            assert.strictEqual(project.numfields, 4);
+            assert.strictEqual(project.fields.length, 4);
+            assert.strictEqual(project.typeid, 2);
+            assert.strictEqual(project.userid, 'testuser');
+            assert.strictEqual(project.iscrowdsourced, 0);
             project.fields.forEach((field) => {
                 assert(field.id);
-                assert.equal(field.classid, 'testclass');
-                assert.equal(field.userid, 'testuser');
-                assert.equal(field.projectid, project.id);
+                assert.strictEqual(field.classid, 'testclass');
+                assert.strictEqual(field.userid, 'testuser');
+                assert.strictEqual(field.projectid, project.id);
             });
-            assert.equal(project.fields[0].fieldtype, 1);
-            assert.equal(project.fields[1].fieldtype, 1);
-            assert.equal(project.fields[2].fieldtype, 1);
-            assert.equal(project.fields[3].fieldtype, 2);
-            assert.equal(project.fields[3].choices, 'left,right');
+            assert.strictEqual(project.fields[0].fieldtype, 1);
+            assert.strictEqual(project.fields[1].fieldtype, 1);
+            assert.strictEqual(project.fields[2].fieldtype, 1);
+            assert.strictEqual(project.fields[3].fieldtype, 2);
+            assert.strictEqual(project.fields[3].choices, 'left,right');
         });
     });
 
@@ -526,7 +526,7 @@ describe('DB objects', () => {
                 dbobjects.createTextTraining('', 'text', 'label');
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required attributes');
+                assert.strictEqual(err.message, 'Missing required attributes');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject training', '');
@@ -537,7 +537,7 @@ describe('DB objects', () => {
                 dbobjects.createTextTraining('testproject', UNDEFINED_STRING, UNDEFINED_STRING);
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required attributes');
+                assert.strictEqual(err.message, 'Missing required attributes');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject training', '');
@@ -546,28 +546,28 @@ describe('DB objects', () => {
         it('should remove tabs from text data', () => {
             const training = dbobjects.createTextTraining('testproject',
                 'This should	include a tab. Do not remove	it.', 'mylabel');
-            assert.equal(training.textdata, 'This should include a tab. Do not remove it.');
+            assert.strictEqual(training.textdata, 'This should include a tab. Do not remove it.');
         });
 
         it('should remove new lines from text data', () => {
             const training = dbobjects.createTextTraining('testproject',
                 'This should include a new line.\nDo not remove it.', 'mylabel');
-            assert.equal(training.textdata, 'This should include a new line. Do not remove it.');
+            assert.strictEqual(training.textdata, 'This should include a new line. Do not remove it.');
         });
 
         it('should allow training data without labels', () => {
             const training = dbobjects.createTextTraining('testproject', 'mytext', UNDEFINED_STRING);
             assert(training.id);
-            assert.equal(training.projectid, 'testproject');
-            assert.equal(training.textdata, 'mytext');
+            assert.strictEqual(training.projectid, 'testproject');
+            assert.strictEqual(training.textdata, 'mytext');
         });
 
         it('should create training data objects', () => {
             const training = dbobjects.createTextTraining('testproject', 'mytext', 'mylabel');
             assert(training.id);
-            assert.equal(training.projectid, 'testproject');
-            assert.equal(training.textdata, 'mytext');
-            assert.equal(training.label, 'mylabel');
+            assert.strictEqual(training.projectid, 'testproject');
+            assert.strictEqual(training.textdata, 'mytext');
+            assert.strictEqual(training.label, 'mylabel');
         });
     });
 
@@ -578,7 +578,7 @@ describe('DB objects', () => {
                 dbobjects.createNumberTraining('', [1], 'label');
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required attributes');
+                assert.strictEqual(err.message, 'Missing required attributes');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject training', '');
@@ -589,7 +589,7 @@ describe('DB objects', () => {
                 dbobjects.createNumberTraining('testproject', UNDEFINED_NUMBERS, UNDEFINED_STRING);
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required attributes');
+                assert.strictEqual(err.message, 'Missing required attributes');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject training', '');
@@ -600,7 +600,7 @@ describe('DB objects', () => {
                 dbobjects.createNumberTraining('testproject', [], UNDEFINED_STRING);
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required attributes');
+                assert.strictEqual(err.message, 'Missing required attributes');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject training', '');
@@ -611,7 +611,7 @@ describe('DB objects', () => {
                 dbobjects.createNumberTraining('testproject', [10, 'HELLO', 34] as any, UNDEFINED_STRING);
             }
             catch (err) {
-                assert.equal(err.message, 'Data contains non-numeric items');
+                assert.strictEqual(err.message, 'Data contains non-numeric items');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject training', '');
@@ -620,8 +620,8 @@ describe('DB objects', () => {
         it('should allow training data without labels', () => {
             const training = dbobjects.createNumberTraining('testproject', [123, 456], UNDEFINED_STRING);
             assert(training.id);
-            assert.equal(training.projectid, 'testproject');
-            assert.deepEqual(training.numberdata, [123, 456]);
+            assert.strictEqual(training.projectid, 'testproject');
+            assert.deepStrictEqual(training.numberdata, [123, 456]);
         });
 
         it('should limit the number of training data objects', (done) => {
@@ -633,7 +633,7 @@ describe('DB objects', () => {
                 assert.fail(0, 1, 'Should not have allowed this', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Number of data items exceeded maximum');
+                assert.strictEqual(err.message, 'Number of data items exceeded maximum');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject training', '');
@@ -643,9 +643,9 @@ describe('DB objects', () => {
         it('should create training data objects', () => {
             const training = dbobjects.createNumberTraining('testproject', [0.1, 200, -999.888], 'mylabel');
             assert(training.id);
-            assert.equal(training.projectid, 'testproject');
-            assert.deepEqual(training.numberdata, [0.1, 200, -999.888]);
-            assert.equal(training.label, 'mylabel');
+            assert.strictEqual(training.projectid, 'testproject');
+            assert.deepStrictEqual(training.numberdata, [0.1, 200, -999.888]);
+            assert.strictEqual(training.label, 'mylabel');
         });
     });
 
@@ -656,7 +656,7 @@ describe('DB objects', () => {
                 dbobjects.createImageTraining('', 'myimageurl', 'label', false);
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required attributes');
+                assert.strictEqual(err.message, 'Missing required attributes');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject training', '');
@@ -665,17 +665,17 @@ describe('DB objects', () => {
         it('should not require an image label', () => {
             const training = dbobjects.createImageTraining('projectid', 'trainingurl', UNDEFINED_STRING, false);
             assert(training.id);
-            assert.equal(training.projectid, 'projectid');
-            assert.equal(training.imageurl, 'trainingurl');
+            assert.strictEqual(training.projectid, 'projectid');
+            assert.strictEqual(training.imageurl, 'trainingurl');
         });
 
         it('should allow ID to be provided', () => {
             const testImageId = 'TESTIMAGEID';
             const training = dbobjects.createImageTraining('projectid', 'trainingurl', 'testlabel', true, testImageId);
-            assert.equal(training.label, 'testlabel');
-            assert.equal(training.projectid, 'projectid');
-            assert.equal(training.imageurl, 'trainingurl');
-            assert.equal(training.id, testImageId);
+            assert.strictEqual(training.label, 'testlabel');
+            assert.strictEqual(training.projectid, 'projectid');
+            assert.strictEqual(training.imageurl, 'trainingurl');
+            assert.strictEqual(training.id, testImageId);
         });
 
 
@@ -684,7 +684,7 @@ describe('DB objects', () => {
                 dbobjects.createImageTraining('projectid', UNDEFINED_STRING, UNDEFINED_STRING, false);
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required attributes');
+                assert.strictEqual(err.message, 'Missing required attributes');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject training', '');
@@ -695,7 +695,7 @@ describe('DB objects', () => {
                 dbobjects.createImageTraining('projectid', randomstring.generate({ length : 1500 }), 'label', false);
             }
             catch (err) {
-                assert.equal(err.message, 'Image URL exceeds maximum allowed length (1024 characters)');
+                assert.strictEqual(err.message, 'Image URL exceeds maximum allowed length (1024 characters)');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject training', '');
@@ -711,7 +711,7 @@ describe('DB objects', () => {
                     'class', 'apikey', UNDEFINED_STRING, UNDEFINED_STRING);
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required attributes');
+                assert.strictEqual(err.message, 'Missing required attributes');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject request', '');
@@ -723,7 +723,7 @@ describe('DB objects', () => {
                     'class', 'apikey', UNDEFINED_STRING, UNDEFINED_STRING);
             }
             catch (err) {
-                assert.equal(err.message, 'Invalid service type');
+                assert.strictEqual(err.message, 'Invalid service type');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject request', '');
@@ -736,7 +736,7 @@ describe('DB objects', () => {
                     'username', 'password');
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required attributes');
+                assert.strictEqual(err.message, 'Missing required attributes');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject request', '');
@@ -749,7 +749,7 @@ describe('DB objects', () => {
                     undefined, undefined);
             }
             catch (err) {
-                assert.equal(err.message, 'Invalid API key');
+                assert.strictEqual(err.message, 'Invalid API key');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject request', '');
@@ -760,9 +760,9 @@ describe('DB objects', () => {
                 'Jykrybu3xnMtGI8qQncMHKaJ1GugNunl5Z7jWXxoRDSa', undefined, undefined);
             assert(creds.id);
             assert(creds.url);
-            assert.equal(creds.servicetype, 'visrec');
-            assert.equal(creds.username, 'Jykrybu3xnMtGI8qQncMHK');
-            assert.equal(creds.password, 'aJ1GugNunl5Z7jWXxoRDSa');
+            assert.strictEqual(creds.servicetype, 'visrec');
+            assert.strictEqual(creds.username, 'Jykrybu3xnMtGI8qQncMHK');
+            assert.strictEqual(creds.password, 'aJ1GugNunl5Z7jWXxoRDSa');
         });
 
         it('should require a username for conversation credentials', (done) => {
@@ -770,7 +770,7 @@ describe('DB objects', () => {
                 dbobjects.createBluemixCredentials('conv', 'class', undefined, undefined, 'password');
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required attributes');
+                assert.strictEqual(err.message, 'Missing required attributes');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject request', '');
@@ -781,7 +781,7 @@ describe('DB objects', () => {
                 dbobjects.createBluemixCredentials('conv', 'class', undefined, 'username', undefined);
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required attributes');
+                assert.strictEqual(err.message, 'Missing required attributes');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject request', '');
@@ -792,7 +792,7 @@ describe('DB objects', () => {
                 dbobjects.createBluemixCredentials('conv', 'class', undefined, 'username', 'password');
             }
             catch (err) {
-                assert.equal(err.message, 'Invalid credentials');
+                assert.strictEqual(err.message, 'Invalid credentials');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject request', '');
@@ -804,7 +804,7 @@ describe('DB objects', () => {
                     'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL', 'password');
             }
             catch (err) {
-                assert.equal(err.message, 'Invalid credentials');
+                assert.strictEqual(err.message, 'Invalid credentials');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject request', '');
@@ -827,9 +827,9 @@ describe('DB objects', () => {
                 'xo1Nisc2iDTGNUfU9KzCxhn2mrxvA8_YVERYDl-kaBdW', undefined, undefined);
             assert(creds.id);
             assert(creds.url);
-            assert.equal(creds.servicetype, 'conv');
-            assert.equal(creds.username, 'xo1Nisc2iDTGNUfU9KzCxh');
-            assert.equal(creds.password, 'n2mrxvA8_YVERYDl-kaBdW');
+            assert.strictEqual(creds.servicetype, 'conv');
+            assert.strictEqual(creds.username, 'xo1Nisc2iDTGNUfU9KzCxh');
+            assert.strictEqual(creds.password, 'n2mrxvA8_YVERYDl-kaBdW');
         });
 
         it('should create conversation credentials', () => {
@@ -837,9 +837,9 @@ describe('DB objects', () => {
                 undefined, 'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL', 'THTBtUnNl5jT');
             assert(creds.id);
             assert(creds.url);
-            assert.equal(creds.servicetype, 'conv');
-            assert.equal(creds.username, 'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL');
-            assert.equal(creds.password, 'THTBtUnNl5jT');
+            assert.strictEqual(creds.servicetype, 'conv');
+            assert.strictEqual(creds.username, 'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL');
+            assert.strictEqual(creds.password, 'THTBtUnNl5jT');
         });
     });
 
@@ -860,7 +860,7 @@ describe('DB objects', () => {
                 });
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required class id');
+                assert.strictEqual(err.message, 'Missing required class id');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject request', '');
@@ -874,7 +874,7 @@ describe('DB objects', () => {
                 });
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required user id');
+                assert.strictEqual(err.message, 'Missing required user id');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject request', '');
@@ -888,7 +888,7 @@ describe('DB objects', () => {
                 });
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required project id');
+                assert.strictEqual(err.message, 'Missing required project id');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject request', '');
@@ -902,7 +902,7 @@ describe('DB objects', () => {
                 });
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required image id');
+                assert.strictEqual(err.message, 'Missing required image id');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject request', '');
@@ -918,7 +918,7 @@ describe('DB objects', () => {
                 });
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required class id');
+                assert.strictEqual(err.message, 'Missing required class id');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject request', '');
@@ -932,7 +932,7 @@ describe('DB objects', () => {
                 });
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required user id');
+                assert.strictEqual(err.message, 'Missing required user id');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject request', '');
@@ -946,7 +946,7 @@ describe('DB objects', () => {
                 });
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required project id');
+                assert.strictEqual(err.message, 'Missing required project id');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject request', '');
@@ -961,7 +961,7 @@ describe('DB objects', () => {
                 });
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required class id');
+                assert.strictEqual(err.message, 'Missing required class id');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject request', '');
@@ -975,7 +975,7 @@ describe('DB objects', () => {
                 });
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required user id');
+                assert.strictEqual(err.message, 'Missing required user id');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject request', '');
@@ -989,7 +989,7 @@ describe('DB objects', () => {
                 });
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required class id');
+                assert.strictEqual(err.message, 'Missing required class id');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject request', '');
@@ -1045,7 +1045,7 @@ describe('DB objects', () => {
                 dbobjects.createClassTenant(UNDEFINED_STRING);
             }
             catch (err) {
-                assert.equal(err.message, 'Missing required class id');
+                assert.strictEqual(err.message, 'Missing required class id');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject request', '');
@@ -1056,7 +1056,7 @@ describe('DB objects', () => {
                 dbobjects.createClassTenant('x');
             }
             catch (err) {
-                assert.equal(err.message, 'Not a valid class id');
+                assert.strictEqual(err.message, 'Not a valid class id');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject request', '');
@@ -1067,7 +1067,7 @@ describe('DB objects', () => {
                 dbobjects.createClassTenant('abcdefghijklmnopqrstuvwxyzabcdefghijk');
             }
             catch (err) {
-                assert.equal(err.message, 'Not a valid class id');
+                assert.strictEqual(err.message, 'Not a valid class id');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject request', '');
@@ -1078,7 +1078,7 @@ describe('DB objects', () => {
                 dbobjects.createClassTenant('HELLO');
             }
             catch (err) {
-                assert.equal(err.message, 'Not a valid class id');
+                assert.strictEqual(err.message, 'Not a valid class id');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject request', '');
@@ -1089,7 +1089,7 @@ describe('DB objects', () => {
                 dbobjects.createClassTenant('hello world');
             }
             catch (err) {
-                assert.equal(err.message, 'Not a valid class id');
+                assert.strictEqual(err.message, 'Not a valid class id');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject request', '');

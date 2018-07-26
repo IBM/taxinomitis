@@ -21,31 +21,31 @@ describe('Utils - cf', () => {
 
     it('should work outside Bluemix', () => {
         delete process.env.CF_INSTANCE_INDEX;
-        assert.equal(cf.isPrimaryInstance(), true);
+        assert.strictEqual(cf.isPrimaryInstance(), true);
     });
 
     it('should recognise when primary instance in US-South', () => {
         process.env.CF_INSTANCE_INDEX = '0';
         process.env.PRIMARY_INSTANCE = 'true';
-        assert.equal(cf.isPrimaryInstance(), true);
+        assert.strictEqual(cf.isPrimaryInstance(), true);
     });
 
     it('should recognise when secondary instance in US-South', () => {
         process.env.CF_INSTANCE_INDEX = '1';
         process.env.PRIMARY_INSTANCE = 'true';
-        assert.equal(cf.isPrimaryInstance(), false);
+        assert.strictEqual(cf.isPrimaryInstance(), false);
     });
 
     it('should recognise when primary instance in EU-GB', () => {
         process.env.CF_INSTANCE_INDEX = '0';
         process.env.PRIMARY_INSTANCE = 'false';
-        assert.equal(cf.isPrimaryInstance(), false);
+        assert.strictEqual(cf.isPrimaryInstance(), false);
     });
 
     it('should recognise when secondary instance in EU-GB', () => {
         process.env.CF_INSTANCE_INDEX = '1';
         process.env.PRIMARY_INSTANCE = 'false';
-        assert.equal(cf.isPrimaryInstance(), false);
+        assert.strictEqual(cf.isPrimaryInstance(), false);
     });
 
 });

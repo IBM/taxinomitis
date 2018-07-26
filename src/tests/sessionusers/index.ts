@@ -50,7 +50,7 @@ describe('session users', () => {
                 assert.fail('should not get here');
             }
             catch (e) {
-                assert.equal(e.message, sessionusers.ERROR_MESSAGES.CLASS_FULL);
+                assert.strictEqual(e.message, sessionusers.ERROR_MESSAGES.CLASS_FULL);
 
                 await store.bulkDeleteTemporaryUsers(fillers);
             }
@@ -89,7 +89,7 @@ describe('session users', () => {
                 });
             }
             catch (err) {
-                assert.equal(err.message, 'Failed to delete temporary user');
+                assert.strictEqual(err.message, 'Failed to delete temporary user');
             }
         });
 

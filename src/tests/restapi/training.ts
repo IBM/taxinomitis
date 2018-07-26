@@ -85,7 +85,7 @@ describe('REST API - training', () => {
                 .expect(httpstatus.NOT_FOUND)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.error, 'Not found');
+                    assert.strictEqual(body.error, 'Not found');
                 });
         });
 
@@ -106,7 +106,7 @@ describe('REST API - training', () => {
                 .expect(httpstatus.OK)
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, []);
+                    assert.deepStrictEqual(body, {});
 
                     return store.deleteEntireProject(userid, classid, project);
                 });
@@ -159,7 +159,7 @@ describe('REST API - training', () => {
                 .expect(httpstatus.OK)
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, {
+                    assert.deepStrictEqual(body, {
                         fruit : 2, vegetable : 3, meat : 1,
                     });
 
@@ -193,7 +193,7 @@ describe('REST API - training', () => {
                 .expect(httpstatus.OK)
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, {
+                    assert.deepStrictEqual(body, {
                         fruit : 1, vegetable : 3,
                     });
 
@@ -219,7 +219,7 @@ describe('REST API - training', () => {
                 .expect(httpstatus.NOT_FOUND)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.error, 'Not found');
+                    assert.strictEqual(body.error, 'Not found');
                 });
         });
 
@@ -267,7 +267,7 @@ describe('REST API - training', () => {
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, { error : 'Missing data' });
+                    assert.deepStrictEqual(body, { error : 'Missing data' });
 
                     return store.deleteEntireProject(userid, classid, project);
                 });
@@ -299,7 +299,7 @@ describe('REST API - training', () => {
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, { error : 'Empty text is not allowed' });
+                    assert.deepStrictEqual(body, { error : 'Empty text is not allowed' });
 
                     return store.deleteEntireProject(userid, classid, project);
                 });
@@ -332,7 +332,7 @@ describe('REST API - training', () => {
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, { error : 'Missing data' });
+                    assert.deepStrictEqual(body, { error : 'Missing data' });
 
                     return store.deleteEntireProject(userid, classid, project);
                 });
@@ -366,7 +366,7 @@ describe('REST API - training', () => {
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, { error : 'Missing required attributes' });
+                    assert.deepStrictEqual(body, { error : 'Missing required attributes' });
 
                     return store.deleteEntireProject(userid, classid, project);
                 });
@@ -398,7 +398,7 @@ describe('REST API - training', () => {
                 .then((res) => {
                     const body = res.body;
 
-                    assert.deepEqual(body, { error : 'Text exceeds maximum allowed length (1024 characters)' });
+                    assert.deepStrictEqual(body, { error : 'Text exceeds maximum allowed length (1024 characters)' });
 
                     return store.deleteEntireProject(userid, classid, project);
                 });
@@ -433,7 +433,7 @@ describe('REST API - training', () => {
                 .then((res) => {
                     const body = res.body;
 
-                    assert.deepEqual(body, { error : 'Number of data items exceeded maximum' });
+                    assert.deepStrictEqual(body, { error : 'Number of data items exceeded maximum' });
 
                     return store.deleteEntireProject(userid, classid, project);
                 });
@@ -496,7 +496,7 @@ describe('REST API - training', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
-                    assert.deepEqual(res.body, { error: 'Unable to download image from not a valid url' });
+                    assert.deepStrictEqual(res.body, { error: 'Unable to download image from not a valid url' });
 
                     return store.deleteEntireProject(userid, classid, project);
                 });
@@ -527,7 +527,7 @@ describe('REST API - training', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
-                    assert.deepEqual(res.body, {
+                    assert.deepStrictEqual(res.body, {
                         error: 'Unsupported file type (unknown). Only jpg and png images are supported.',
                     });
 
@@ -605,9 +605,9 @@ describe('REST API - training', () => {
                 .then((res) => {
                     const body = res.body;
 
-                    assert.equal(body.length, 1);
-                    assert.equal(body[0].label, 'test');
-                    assert.equal(body[0].imageurl, 'https://www.w3.org/html/logo/downloads/HTML5_Logo_128.png');
+                    assert.strictEqual(body.length, 1);
+                    assert.strictEqual(body[0].label, 'test');
+                    assert.strictEqual(body[0].imageurl, 'https://www.w3.org/html/logo/downloads/HTML5_Logo_128.png');
                     assert.strictEqual(body[0].isstored, false);
 
                     return store.deleteEntireProject(userid, classid, project);
@@ -646,11 +646,11 @@ describe('REST API - training', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.length, 1);
-                    assert.equal(res.header['content-range'], 'items 0-0/1');
+                    assert.strictEqual(body.length, 1);
+                    assert.strictEqual(res.header['content-range'], 'items 0-0/1');
 
-                    assert.equal(body[0].textdata, 'apple');
-                    assert.equal(body[0].label, 'fruit');
+                    assert.strictEqual(body[0].textdata, 'apple');
+                    assert.strictEqual(body[0].label, 'fruit');
 
                     return store.deleteEntireProject(userid, classid, project);
                 });
@@ -692,7 +692,7 @@ describe('REST API - training', () => {
                 .then((res) => {
                     const body = res.body;
 
-                    assert.deepEqual(body, {
+                    assert.deepStrictEqual(body, {
                         error: 'Project already has maximum allowed amount of training data',
                     });
 
@@ -742,7 +742,7 @@ describe('REST API - training', () => {
                 .then((res) => {
                     const body = res.body;
 
-                    assert.deepEqual(body, { error : 'Missing data' });
+                    assert.deepStrictEqual(body, { error : 'Missing data' });
 
                     return request(testServer)
                         .get(projecturl + '/training')
@@ -751,11 +751,11 @@ describe('REST API - training', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.length, 1);
-                    assert.equal(res.header['content-range'], 'items 0-0/1');
+                    assert.strictEqual(body.length, 1);
+                    assert.strictEqual(res.header['content-range'], 'items 0-0/1');
 
-                    assert.deepEqual(body[0].numberdata, [0.01, 0.02]);
-                    assert.equal(body[0].label, 'fruit');
+                    assert.deepStrictEqual(body[0].numberdata, [0.01, 0.02]);
+                    assert.strictEqual(body[0].label, 'fruit');
 
                     return store.deleteEntireProject(userid, classid, project);
                 });
@@ -801,11 +801,11 @@ describe('REST API - training', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.length, 1);
-                    assert.equal(res.header['content-range'], 'items 0-0/1');
+                    assert.strictEqual(body.length, 1);
+                    assert.strictEqual(res.header['content-range'], 'items 0-0/1');
 
-                    assert.equal(body[0].textdata, 'apple');
-                    assert.equal(body[0].label, 'healthy');
+                    assert.strictEqual(body[0].textdata, 'apple');
+                    assert.strictEqual(body[0].label, 'healthy');
 
                     return store.deleteEntireUser(userid, classid);
                 });
@@ -831,7 +831,7 @@ describe('REST API - training', () => {
                 .expect(httpstatus.NOT_FOUND)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.error, 'Not found');
+                    assert.strictEqual(body.error, 'Not found');
                 });
         });
 
@@ -852,7 +852,7 @@ describe('REST API - training', () => {
                 .expect(httpstatus.OK)
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, []);
+                    assert.deepStrictEqual(body, []);
 
                     return store.deleteEntireProject(userid, classid, project);
                 });
@@ -909,7 +909,7 @@ describe('REST API - training', () => {
                 .expect(httpstatus.OK)
                 .then((res) => {
                     const body: Array<{ id: string, label: string, textdata: string }> = res.body;
-                    assert.equal(body.length, 6);
+                    assert.strictEqual(body.length, 6);
 
                     body.forEach((item) => {
                         assert(item.id);
@@ -953,7 +953,7 @@ describe('REST API - training', () => {
                 .expect(httpstatus.OK)
                 .then((res) => {
                     const body: Array<{ id: string, label: string, textdata: string }> = res.body;
-                    assert.equal(body.length, 10);
+                    assert.strictEqual(body.length, 10);
 
                     body.forEach((item) => {
                         assert(item.id);
@@ -961,7 +961,7 @@ describe('REST API - training', () => {
                         assert(item.textdata);
                     });
 
-                    assert.equal(res.header['content-range'], 'items 0-9/20');
+                    assert.strictEqual(res.header['content-range'], 'items 0-9/20');
 
                     return store.deleteEntireProject(userid, classid, project);
                 });
@@ -1005,19 +1005,19 @@ describe('REST API - training', () => {
                 .expect(httpstatus.OK)
                 .then((res) => {
                     const body: Array<{ id: string, label: string, numberdata: number[] }> = res.body;
-                    assert.equal(body.length, 10);
+                    assert.strictEqual(body.length, 10);
 
                     body.forEach((item) => {
                         assert(item.id);
                         assert(item.label);
                         assert(item.numberdata);
-                        assert.equal(item.numberdata.length, 5);
+                        assert.strictEqual(item.numberdata.length, 5);
                         for (const num of item.numberdata) {
                             assert(!isNaN(num));
                         }
                     });
 
-                    assert.equal(res.header['content-range'], 'items 0-9/20');
+                    assert.strictEqual(res.header['content-range'], 'items 0-9/20');
 
                     return store.deleteEntireProject(userid, classid, project);
                 });
@@ -1051,8 +1051,8 @@ describe('REST API - training', () => {
                 .expect(httpstatus.OK)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.length, 2);
-                    assert.equal(res.header['content-range'], 'items 0-1/2');
+                    assert.strictEqual(body.length, 2);
+                    assert.strictEqual(res.header['content-range'], 'items 0-1/2');
 
                     return request(testServer)
                         .delete('/api/classes/' + classid +
@@ -1076,8 +1076,8 @@ describe('REST API - training', () => {
                         .expect(httpstatus.OK)
                         .then((res) => {
                             const body = res.body;
-                            assert.equal(body.length, 2);
-                            assert.equal(res.header['content-range'], 'items 0-1/2');
+                            assert.strictEqual(body.length, 2);
+                            assert.strictEqual(res.header['content-range'], 'items 0-1/2');
                         });
                 })
                 .then(() => {
@@ -1095,8 +1095,8 @@ describe('REST API - training', () => {
                         .expect(httpstatus.OK)
                         .then((res) => {
                             const body = res.body;
-                            assert.equal(body.length, 1);
-                            assert.equal(res.header['content-range'], 'items 0-0/1');
+                            assert.strictEqual(body.length, 1);
+                            assert.strictEqual(res.header['content-range'], 'items 0-0/1');
                         });
                 })
                 .then(() => {
@@ -1131,8 +1131,8 @@ describe('REST API - training', () => {
                 .expect(httpstatus.OK)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.length, 2);
-                    assert.equal(res.header['content-range'], 'items 0-1/2');
+                    assert.strictEqual(body.length, 2);
+                    assert.strictEqual(res.header['content-range'], 'items 0-1/2');
 
                     return request(testServer)
                         .delete(trainingurl + '/' + body[0].id)
@@ -1145,8 +1145,8 @@ describe('REST API - training', () => {
                         .expect(httpstatus.OK)
                         .then((res) => {
                             const body = res.body;
-                            assert.equal(body.length, 1);
-                            assert.equal(res.header['content-range'], 'items 0-0/1');
+                            assert.strictEqual(body.length, 1);
+                            assert.strictEqual(res.header['content-range'], 'items 0-0/1');
                         });
                 })
                 .then(async () => {
@@ -1184,8 +1184,8 @@ describe('REST API - training', () => {
                 .expect(httpstatus.OK)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.length, 2);
-                    assert.equal(res.header['content-range'], 'items 0-1/2');
+                    assert.strictEqual(body.length, 2);
+                    assert.strictEqual(res.header['content-range'], 'items 0-1/2');
 
                     return request(testServer)
                         .delete(trainingurl + '/' + trainingOne.id)
@@ -1195,8 +1195,8 @@ describe('REST API - training', () => {
                     const job = await store.getNextPendingJob();
                     assert(job);
                     if (job) {
-                        assert.equal(job.jobtype, 1);
-                        assert.equal(job.attempts, 0);
+                        assert.strictEqual(job.jobtype, 1);
+                        assert.strictEqual(job.attempts, 0);
                         assert.deepStrictEqual(job.jobdata, {
                             projectid, userid, classid,
                             imageid : trainingOne.id,
@@ -1211,8 +1211,8 @@ describe('REST API - training', () => {
                         .expect(httpstatus.OK)
                         .then((res) => {
                             const body = res.body;
-                            assert.equal(body.length, 1);
-                            assert.equal(res.header['content-range'], 'items 0-0/1');
+                            assert.strictEqual(body.length, 1);
+                            assert.strictEqual(res.header['content-range'], 'items 0-0/1');
                         });
                 })
                 .then(() => {
@@ -1255,8 +1255,8 @@ describe('REST API - training', () => {
                 .expect(httpstatus.OK)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.length, 2);
-                    assert.equal(res.header['content-range'], 'items 0-1/2');
+                    assert.strictEqual(body.length, 2);
+                    assert.strictEqual(res.header['content-range'], 'items 0-1/2');
 
                     return request(testServer)
                         .delete(trainingurl + '/' + body[0].id)
@@ -1269,8 +1269,8 @@ describe('REST API - training', () => {
                         .expect(httpstatus.OK)
                         .then((res) => {
                             const body = res.body;
-                            assert.equal(body.length, 1);
-                            assert.equal(res.header['content-range'], 'items 0-0/1');
+                            assert.strictEqual(body.length, 1);
+                            assert.strictEqual(res.header['content-range'], 'items 0-0/1');
                         });
                 })
                 .then(() => {
@@ -1313,7 +1313,7 @@ describe('REST API - training', () => {
                 .expect(httpstatus.NO_CONTENT)
                 .then(async () => {
                     const count = await store.countTraining('text', projectid);
-                    assert.equal(count, 0);
+                    assert.strictEqual(count, 0);
 
                     try {
                         await store.getProject(projectid);
