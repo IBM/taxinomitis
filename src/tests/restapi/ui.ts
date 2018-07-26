@@ -26,7 +26,7 @@ describe('REST API - UI', () => {
                 .get('/' + name)
                 .expect(httpStatus.FOUND)
                 .then((res) => {
-                    assert.equal(res.header.location, '/#!/' + name);
+                    assert.strictEqual(res.header.location, '/#!/' + name);
                 });
         }
 
@@ -43,7 +43,7 @@ describe('REST API - UI', () => {
                 .expect('Content-Type', /html/)
                 .expect(httpStatus.OK)
                 .then((res) => {
-                    assert.equal(res.header['cache-control'], 'public, max-age=0');
+                    assert.strictEqual(res.header['cache-control'], 'public, max-age=0');
                 });
         });
     });

@@ -84,17 +84,17 @@ describe('REST API - session users', () => {
             assert(user.token);
             assert(user.sessionExpiry);
             assert(user.jwt);
-            assert.equal(typeof user.id, 'string');
-            assert.equal(typeof user.token, 'string');
-            assert.equal(typeof user.sessionExpiry, 'string');
-            assert.equal(typeof user.jwt, 'string');
+            assert.strictEqual(typeof user.id, 'string');
+            assert.strictEqual(typeof user.token, 'string');
+            assert.strictEqual(typeof user.sessionExpiry, 'string');
+            assert.strictEqual(typeof user.jwt, 'string');
 
             const exp = new Date(user.sessionExpiry);
             exp.setHours(exp.getHours() - 4);
             assert(timeBefore.getTime() < exp.getTime());
             assert(timeAfter.getTime() > exp.getTime());
 
-            assert.equal(user.jwt.split('.').length, 3);
+            assert.strictEqual(user.jwt.split('.').length, 3);
 
             const after = await store.countTemporaryUsers();
             assert.strictEqual(after, count + 1);

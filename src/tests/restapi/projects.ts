@@ -79,7 +79,7 @@ describe('REST API - projects', () => {
                 .expect(httpstatus.NOT_FOUND)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.error, 'Not found');
+                    assert.strictEqual(body.error, 'Not found');
                 });
         });
 
@@ -109,7 +109,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.error, 'Invalid access');
+                    assert.strictEqual(body.error, 'Invalid access');
                 });
         });
 
@@ -234,7 +234,7 @@ describe('REST API - projects', () => {
                 .expect(httpstatus.NOT_FOUND)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.error, 'Not found');
+                    assert.strictEqual(body.error, 'Not found');
                 });
         });
 
@@ -274,7 +274,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.error, 'Not found');
+                    assert.strictEqual(body.error, 'Not found');
                 });
         });
 
@@ -312,7 +312,7 @@ describe('REST API - projects', () => {
             const jobAfter = await store.getNextPendingJob();
             assert(jobAfter);
             if (jobAfter) {
-                assert.equal(jobAfter.jobtype, 2);
+                assert.strictEqual(jobAfter.jobtype, 2);
                 assert.deepStrictEqual(jobAfter.jobdata, { projectid, userid, classid });
             }
 
@@ -322,7 +322,7 @@ describe('REST API - projects', () => {
                 .expect(httpstatus.NOT_FOUND)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.error, 'Not found');
+                    assert.strictEqual(body.error, 'Not found');
                 });
         });
 
@@ -351,7 +351,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.error, 'Invalid access');
+                    assert.strictEqual(body.error, 'Invalid access');
                 });
         });
     });
@@ -374,7 +374,7 @@ describe('REST API - projects', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((err) => {
-                    assert.equal(err.body.error, 'Invalid project name');
+                    assert.strictEqual(err.body.error, 'Invalid project name');
                 });
         });
 
@@ -392,7 +392,7 @@ describe('REST API - projects', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.FORBIDDEN)
                 .then((err) => {
-                    assert.equal(err.body.error, 'Support for images projects is not enabled for your class');
+                    assert.strictEqual(err.body.error, 'Support for images projects is not enabled for your class');
                 });
         });
 
@@ -433,7 +433,7 @@ describe('REST API - projects', () => {
                         .expect(httpstatus.CONFLICT);
                 })
                 .then((err) => {
-                    assert.equal(err.body.error, 'User already has maximum number of projects');
+                    assert.strictEqual(err.body.error, 'User already has maximum number of projects');
                 });
         });
 
@@ -454,7 +454,7 @@ describe('REST API - projects', () => {
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.error, 'Missing required field');
+                    assert.strictEqual(body.error, 'Missing required field');
                 });
         });
 
@@ -477,7 +477,7 @@ describe('REST API - projects', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
-                    assert.deepEqual(res.body, { error : 'Fields required for numbers projects' });
+                    assert.deepStrictEqual(res.body, { error : 'Fields required for numbers projects' });
                 });
         });
 
@@ -501,7 +501,7 @@ describe('REST API - projects', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
-                    assert.deepEqual(res.body, { error : 'Fields required for numbers projects' });
+                    assert.deepStrictEqual(res.body, { error : 'Fields required for numbers projects' });
                 });
         });
 
@@ -525,7 +525,7 @@ describe('REST API - projects', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
-                    assert.deepEqual(res.body, { error : 'Missing required attributes' });
+                    assert.deepStrictEqual(res.body, { error : 'Missing required attributes' });
                 });
         });
 
@@ -549,7 +549,7 @@ describe('REST API - projects', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
-                    assert.deepEqual(res.body, { error : 'Invalid field name' });
+                    assert.deepStrictEqual(res.body, { error : 'Invalid field name' });
                 });
         });
 
@@ -573,7 +573,7 @@ describe('REST API - projects', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
-                    assert.deepEqual(res.body, { error : 'Invalid field type something' });
+                    assert.deepStrictEqual(res.body, { error : 'Invalid field type something' });
                 });
         });
 
@@ -712,7 +712,7 @@ describe('REST API - projects', () => {
                 .then((res) => {
                     const body = res.body;
                     assert(Array.isArray(body));
-                    assert.equal(body.length, 0);
+                    assert.strictEqual(body.length, 0);
                 });
         });
 
@@ -759,7 +759,7 @@ describe('REST API - projects', () => {
                 .then((res) => {
                     const body = res.body;
                     assert(Array.isArray(body));
-                    assert.equal(body.length, count + 1);
+                    assert.strictEqual(body.length, count + 1);
                 });
         });
 
@@ -904,7 +904,7 @@ describe('REST API - projects', () => {
                 .then((res) => {
                     const body = res.body;
                     assert(Array.isArray(body));
-                    assert.equal(body.length, 0);
+                    assert.strictEqual(body.length, 0);
                 });
         });
 
@@ -942,7 +942,7 @@ describe('REST API - projects', () => {
                 .then((res) => {
                     const body = res.body;
                     assert(Array.isArray(body));
-                    assert.equal(body.length, count + 1);
+                    assert.strictEqual(body.length, count + 1);
 
                     count = body.length;
 
@@ -961,7 +961,7 @@ describe('REST API - projects', () => {
                 .then((res) => {
                     const body = res.body;
                     assert(Array.isArray(body));
-                    assert.equal(body.length, count + 1);
+                    assert.strictEqual(body.length, count + 1);
                 });
         });
 
@@ -998,7 +998,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body.labels, []);
+                    assert.deepStrictEqual(body.labels, []);
 
                     return request(testServer)
                         .patch(url + '/' + projectId)
@@ -1017,7 +1017,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body.labels, [ 'newlabel' ]);
+                    assert.deepStrictEqual(body.labels, [ 'newlabel' ]);
 
                     return request(testServer)
                         .patch(url + '/' + projectId)
@@ -1036,7 +1036,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body.labels, [ 'newlabel', 'different' ]);
+                    assert.deepStrictEqual(body.labels, [ 'newlabel', 'different' ]);
 
                     return request(testServer)
                         .patch(url + '/' + projectId)
@@ -1055,7 +1055,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body.labels, [ 'newlabel', 'different' ]);
+                    assert.deepStrictEqual(body.labels, [ 'newlabel', 'different' ]);
                 });
         });
 
@@ -1087,7 +1087,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body.labels, []);
+                    assert.deepStrictEqual(body.labels, []);
 
                     return request(testServer)
                         .patch(url + '/' + projectId)
@@ -1106,7 +1106,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body.labels, [ 'newlabel' ]);
+                    assert.deepStrictEqual(body.labels, [ 'newlabel' ]);
 
                     return request(testServer)
                         .patch(url + '/' + projectId)
@@ -1125,7 +1125,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body.labels, []);
+                    assert.deepStrictEqual(body.labels, []);
                 });
         });
 
@@ -1202,11 +1202,11 @@ describe('REST API - projects', () => {
             let jobCount = 0;
             let job = await store.getNextPendingJob();
             while (job) {
-                assert.equal(job.jobtype, 1);
+                assert.strictEqual(job.jobtype, 1);
                 const jobdata: Types.ImageSpec = job.jobdata as Types.ImageSpec;
-                assert.equal(jobdata.projectid, projectId);
-                assert.equal(jobdata.userid, studentId);
-                assert.equal(jobdata.classid, TESTCLASS);
+                assert.strictEqual(jobdata.projectid, projectId);
+                assert.strictEqual(jobdata.userid, studentId);
+                assert.strictEqual(jobdata.classid, TESTCLASS);
                 assert(imageIds.includes(jobdata.imageid));
 
                 jobCount += 1;
@@ -1215,10 +1215,10 @@ describe('REST API - projects', () => {
                 job = await store.getNextPendingJob();
             }
 
-            assert.equal(jobCount, 3);
+            assert.strictEqual(jobCount, 3);
 
             const count = await store.countTraining('images', projectId);
-            assert.equal(count, 0);
+            assert.strictEqual(count, 0);
         });
 
 
@@ -1250,7 +1250,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body.labels, []);
+                    assert.deepStrictEqual(body.labels, []);
 
                     return request(testServer)
                         .patch(url + '/' + projectId)
@@ -1269,7 +1269,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body.labels, [ 'newlabel' ]);
+                    assert.deepStrictEqual(body.labels, [ 'newlabel' ]);
 
                     return request(testServer)
                         .patch(url + '/' + projectId)
@@ -1288,7 +1288,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body.labels, [ 'apple', 'banana', 'tomato' ]);
+                    assert.deepStrictEqual(body.labels, [ 'apple', 'banana', 'tomato' ]);
                 });
         });
 
@@ -1321,7 +1321,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, {
+                    assert.deepStrictEqual(body, {
                         error: 'PATCH body should be an array',
                     });
 
@@ -1333,7 +1333,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, {
+                    assert.deepStrictEqual(body, {
                         error: 'PATCH body should be an array',
                     });
 
@@ -1345,7 +1345,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, {
+                    assert.deepStrictEqual(body, {
                         error: 'Only individual PATCH requests are supported',
                     });
 
@@ -1357,7 +1357,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, {
+                    assert.deepStrictEqual(body, {
                         error: 'Only modifications to project labels are supported',
                     });
 
@@ -1369,7 +1369,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, {
+                    assert.deepStrictEqual(body, {
                         error: 'PATCH requests must include an op',
                     });
 
@@ -1381,7 +1381,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, {
+                    assert.deepStrictEqual(body, {
                         error: 'Invalid PATCH op',
                     });
 
@@ -1393,7 +1393,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, {
+                    assert.deepStrictEqual(body, {
                         error: 'PATCH requests must include a value',
                     });
 
@@ -1405,7 +1405,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, {
+                    assert.deepStrictEqual(body, {
                         error: 'PATCH requests to add or remove a label should specify a string',
                     });
 
@@ -1417,7 +1417,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, {
+                    assert.deepStrictEqual(body, {
                         error: 'Cannot add an empty label',
                     });
 
@@ -1432,7 +1432,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, {
+                    assert.deepStrictEqual(body, {
                         error: 'Label exceeds max length',
                     });
 
@@ -1447,7 +1447,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, {
+                    assert.deepStrictEqual(body, {
                         error: 'PATCH requests to replace labels should specify an array',
                     });
 
@@ -1462,7 +1462,7 @@ describe('REST API - projects', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, {
+                    assert.deepStrictEqual(body, {
                         error: 'Label exceeds max length',
                     });
 

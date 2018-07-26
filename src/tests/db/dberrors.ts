@@ -49,9 +49,9 @@ describe('DB store - error handling', () => {
                 assert.fail(0, 1, 'should not have reached here', '');
             }
             catch (err) {
-                assert.equal(mockMysqldb.connectsCount, connBefore + 1);
-                assert.equal(mockMysqldb.disconnectsCount, discBefore + 1);
-                assert.equal(err.message,
+                assert.strictEqual(mockMysqldb.connectsCount, connBefore + 1);
+                assert.strictEqual(mockMysqldb.disconnectsCount, discBefore + 1);
+                assert.strictEqual(err.message,
                     'The MySQL server is running with the --read-only option so it cannot execute this statement');
             }
         });
@@ -82,7 +82,7 @@ describe('DB store - error handling', () => {
                 assert.fail(0, 1, 'should not have reached here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Failed to delete training');
+                assert.strictEqual(err.message, 'Failed to delete training');
             }
         });
 
@@ -92,7 +92,7 @@ describe('DB store - error handling', () => {
                 assert.fail(0, 1, 'should not have reached here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Some technical SQL error from deleting training data rows');
+                assert.strictEqual(err.message, 'Some technical SQL error from deleting training data rows');
             }
         });
     });
@@ -108,7 +108,7 @@ describe('DB store - error handling', () => {
                 assert.fail(0, 1, 'should not have reached here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Some technical SQL error from deleting training data rows');
+                assert.strictEqual(err.message, 'Some technical SQL error from deleting training data rows');
             }
         });
     });
@@ -122,7 +122,7 @@ describe('DB store - error handling', () => {
                 assert.fail(0, 1, 'should not have reached here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Failed to delete training');
+                assert.strictEqual(err.message, 'Failed to delete training');
             }
         });
 
@@ -132,7 +132,8 @@ describe('DB store - error handling', () => {
                 assert.fail(0, 1, 'should not have reached here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Some technical sounding SQL error from deleting all the training data rows');
+                assert.strictEqual(err.message,
+                                   'Some technical sounding SQL error from deleting all the training data rows');
             }
         });
     });
@@ -146,7 +147,8 @@ describe('DB store - error handling', () => {
                 assert.fail(0, 1, 'should not have reached here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Some technical sounding SQL error from deleting all the training data rows');
+                assert.strictEqual(err.message,
+                                   'Some technical sounding SQL error from deleting all the training data rows');
             }
         });
     });
@@ -159,7 +161,7 @@ describe('DB store - error handling', () => {
                 assert.fail(0, 1, 'should not have reached here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'We could not update the labels list in the project');
+                assert.strictEqual(err.message, 'We could not update the labels list in the project');
             }
         });
 
@@ -169,7 +171,7 @@ describe('DB store - error handling', () => {
                 assert.fail(0, 1, 'should not have reached here', '');
             }
             catch (err) {
-                assert.equal(err.message, 'Project not updated');
+                assert.strictEqual(err.message, 'Project not updated');
             }
         });
 

@@ -67,12 +67,12 @@ describe('Training - numbers service', () => {
             ]);
 
             const classifier = await numbers.trainClassifier(project);
-            assert.equal(classifier.classifierid, project.id);
+            assert.strictEqual(classifier.classifierid, project.id);
             assert(classifier.created instanceof Date);
-            assert.equal(classifier.status, 'Failed');
+            assert.strictEqual(classifier.status, 'Failed');
 
             let keys = await store.findScratchKeys(USERID, project.id, CLASSID);
-            assert.equal(keys.length, 0);
+            assert.strictEqual(keys.length, 0);
 
             await store.deleteEntireProject(USERID, CLASSID, project);
 
@@ -90,7 +90,7 @@ describe('Training - numbers service', () => {
             }));
 
             keys = await store.findScratchKeys(USERID, project.id, CLASSID);
-            assert.equal(keys.length, 0);
+            assert.strictEqual(keys.length, 0);
         });
 
 
@@ -113,7 +113,7 @@ describe('Training - numbers service', () => {
             ]);
 
             const classifier = await numbers.trainClassifier(project);
-            assert.equal(classifier.status, 'Available');
+            assert.strictEqual(classifier.status, 'Available');
 
             goodProject = 'CLEARED';
             missingProject = project.id;
@@ -126,7 +126,7 @@ describe('Training - numbers service', () => {
                 classifierTimestamp,
                 project.id, [10, 5, 0.5]);
 
-            assert.deepEqual(classifications, [
+            assert.deepStrictEqual(classifications, [
                 { class_name: 'label_name_2', confidence: 90, classifierTimestamp },
                 { class_name: 'label_name_1', confidence: 86, classifierTimestamp },
                 { class_name: 'label_name_4', confidence: 46, classifierTimestamp },
@@ -170,9 +170,9 @@ describe('Training - numbers service', () => {
             }
 
             const classifier = await numbers.trainClassifier(fetched);
-            assert.equal(classifier.classifierid, project.id);
+            assert.strictEqual(classifier.classifierid, project.id);
             assert(classifier.created instanceof Date);
-            assert.equal(classifier.status, 'Available');
+            assert.strictEqual(classifier.status, 'Available');
 
             assert(postStub.calledWith(sinon.match.any, {
                 auth : {
@@ -204,16 +204,16 @@ describe('Training - numbers service', () => {
 
 
             let keys = await store.findScratchKeys(USERID, project.id, CLASSID);
-            assert.equal(keys.length, 1);
-            assert.equal(keys[0].classifierid, project.id);
-            assert.equal(keys[0].projectid, project.id);
-            assert.equal(keys[0].type, 'numbers');
+            assert.strictEqual(keys.length, 1);
+            assert.strictEqual(keys[0].classifierid, project.id);
+            assert.strictEqual(keys[0].projectid, project.id);
+            assert.strictEqual(keys[0].type, 'numbers');
             const credentials = keys[0].credentials;
             assert(credentials);
             if (credentials) {
-                assert.equal(credentials.servicetype, 'num');
-                assert.equal(credentials.username, USERID);
-                assert.equal(credentials.password, CLASSID);
+                assert.strictEqual(credentials.servicetype, 'num');
+                assert.strictEqual(credentials.username, USERID);
+                assert.strictEqual(credentials.password, CLASSID);
             }
 
             const classifierTimestamp = new Date();
@@ -223,7 +223,7 @@ describe('Training - numbers service', () => {
                 USERID, CLASSID,
                 classifierTimestamp,
                 project.id, [10, 5, 0.5]);
-            assert.deepEqual(classifications, [
+            assert.deepStrictEqual(classifications, [
                 { class_name: 'label_name_2', confidence: 90, classifierTimestamp },
                 { class_name: 'label_name_1', confidence: 86, classifierTimestamp },
                 { class_name: 'label_name_4', confidence: 46, classifierTimestamp },
@@ -261,7 +261,7 @@ describe('Training - numbers service', () => {
             }));
 
             keys = await store.findScratchKeys(USERID, project.id, CLASSID);
-            assert.equal(keys.length, 0);
+            assert.strictEqual(keys.length, 0);
         });
     });
 

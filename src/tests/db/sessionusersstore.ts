@@ -90,7 +90,7 @@ describe('temporary users store', () => {
                 });
             }
             catch (err) {
-                assert.equal(err.message, 'Failed to delete temporary user');
+                assert.strictEqual(err.message, 'Failed to delete temporary user');
             }
         });
     });
@@ -122,7 +122,7 @@ describe('temporary users store', () => {
             const expired = await store.getExpiredTemporaryUsers();
             assert(Array.isArray(expired));
             assert(expired.length > 0);
-            assert.equal(expired.length, before.length + 1);
+            assert.strictEqual(expired.length, before.length + 1);
             assert(expired.some((user) => {
                 return user.id === test.id &&
                        user.token === test.token &&
