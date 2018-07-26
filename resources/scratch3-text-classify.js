@@ -109,14 +109,7 @@ class MachineLearningText {
         url.searchParams.append('data', TEXT);
         url.searchParams.append('label', LABEL);
 
-        var options = {
-            body: {
-                data: TEXT,
-                label: LABEL
-            }
-        };
-
-        return fetch(url, options)
+        return fetch(url)
             .then((response) => {
                 if (response.status !== 200) {
                     return response.json();

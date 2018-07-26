@@ -4,7 +4,8 @@
 
         "BACK": "Back",
         "BACKTOPROJECT": "&lt; Back to project",
-        "ERROR": "Error",
+        "ERROR": "Error:",
+        "WARNING": "Warning:",
 
         "ADD": "Add",
         "CANCEL": "Cancel",
@@ -171,6 +172,19 @@
 
         "NOTREADY": "Your project isn't ready to be used in Python yet.",
         "NOMODEL": "You haven't trained a machine learning model yet."
+    },
+    "SCRATCH": {
+        "TITLE": "Using machine learning in Scratch",
+
+        "NOTREADY": "Your project isn't ready to be used in Scratch yet.",
+        "NOMODEL": "You haven't trained a machine learning model yet.",
+
+        "LAUNCH": "Open in Scratch"
+    },
+    "SCRATCH3": {
+        "TITLE": "Using machine learning in Scratch 3",
+
+        "BETAWARNING": "This is an early beta. Support for Scratch 3 is not finished, and will probably have a few bugs and problems."
     },
     "HELP": {
         "CONTACT": "If you have any problems or questions, please email Dale.Lane@uk.ibm.com",
