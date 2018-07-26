@@ -125,6 +125,26 @@ export async function getUsers(token: string, tenant: string): Promise<Objects.U
 }
 
 
+export async function getClassSupervisors(token: string, tenant: string): Promise<Objects.User[]> {
+    const getoptions = {
+        method: 'GET',
+        url: 'https://' + process.env[env.AUTH0_DOMAIN] + '/api/v2/users',
+        headers: {
+            authorization : 'Bearer ' + token,
+        },
+        qs : {
+            q : 'app_metadata.role:"supervisor" AND app_metadata.tenant:"' + tenant + '"',
+            per_page : 100,
+
+            search_engine : 'v3',
+        },
+        json : true,
+    };
+
+    const users = await request.get(getoptions);
+    return users;
+}
+
 
 
 export async function getUserCounts(token: string, tenant: string): Promise<Objects.UsersInfo> {

@@ -7,7 +7,7 @@ import * as passphrases from './passphrases';
 import * as env from '../utils/env';
 
 
-async function getBearerToken(): Promise<string> {
+export async function getBearerToken(): Promise<string> {
     const body = await auth0requests.getOauthToken();
     return body.access_token;
 }
