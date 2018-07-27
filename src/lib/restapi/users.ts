@@ -6,6 +6,7 @@ import * as uuid from 'uuid/v4';
 import * as auth0 from '../auth0/users';
 import * as auth from './auth';
 import * as store from '../db/store';
+import * as classdeleter from '../classdeleter';
 import * as dblimits from '../db/limits';
 import * as errors from './errors';
 import * as urls from './urls';
@@ -186,6 +187,27 @@ function resetStudentsPassword(req: Express.Request, res: Express.Response) {
 
 
 
+function deleteClass(req: Express.Request, res: Express.Response) {
+    const tenant = req.params.classid;
+    const confirm = req.query.confirm;
+
+    if (!confirm) {
+        return errors.missingData(res);
+    }
+
+    return classdeleter.deleteClass(tenant)
+        .then(() => {
+            return res.status(httpstatus.NO_CONTENT).send();
+        })
+        .catch((err) => {
+            log.error({ err, tenant }, 'Failed to delete class');
+            notifications.notify('Failed to delete class ' + tenant + ' because:\n' + err.message);
+
+            return errors.unknownError(res, err);
+        });
+}
+
+
 
 async function getPolicy(req: Express.Request, res: Express.Response) {
     const tenant = req.params.classid;
@@ -255,6 +277,12 @@ export default function registerApis(app: Express.Application) {
         auth.checkValidUser,
         auth.requireSupervisor,
         getPolicy);
+
+    app.delete(urls.CLASS,
+        auth.authenticate,
+        auth.checkValidUser,
+        auth.requireSupervisor,
+        deleteClass);
 
     app.get(urls.USERS,
         auth.authenticate,

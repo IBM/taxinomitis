@@ -6,6 +6,7 @@ import * as Mustache from 'mustache';
 // local dependencies
 import * as fileutils from '../utils/fileutils';
 import * as auth0 from '../auth0/users';
+import { SupervisorInfo } from '../auth0/auth-types';
 import * as env from '../utils/env';
 import loggerSetup from '../utils/logger';
 
@@ -65,13 +66,16 @@ export function close() {
 
 
 export async function invalidCredentials(tenant: string, failure: InvalidCredentialsEmail): Promise<void> {
-    return sendEmail(tenant, EMAILS.invalidcredentials, failure);
+    return sendEmail(tenant, EMAILS.invalidcredentials, failure, false);
 }
 export async function unknownConvClassifier(tenant: string, details: UnmanagedConvClassifier): Promise<void> {
-    return sendEmail(tenant, EMAILS.unmanagedconv, details);
+    return sendEmail(tenant, EMAILS.unmanagedconv, details, false);
 }
 export async function unknownVisrecClassifier(tenant: string, details: UnmanagedVisRecClassifier): Promise<void> {
-    return sendEmail(tenant, EMAILS.unmanagedvisrec, details);
+    return sendEmail(tenant, EMAILS.unmanagedvisrec, details, false);
+}
+export async function deletedClass(tenant: string, teachers: SupervisorInfo[]): Promise<void> {
+    return sendEmailToUser(teachers[0], tenant, EMAILS.deletedclass, { classid: tenant }, true);
 }
 
 export interface InvalidCredentialsEmail {
@@ -84,6 +88,9 @@ export interface UnmanagedConvClassifier {
 }
 export interface UnmanagedVisRecClassifier {
     readonly classifier: string;
+}
+export interface DeletedClass {
+    readonly classid: string;
 }
 
 
@@ -100,6 +107,10 @@ const EMAILS: { [key: string]: EmailTemplate } = {
         root : './resources/email-unmanaged-visrec-classifier.',
         subject : 'Unknown Visual Recognition classifier',
     },
+    deletedclass : {
+        root : './resources/email-deleted-class.',
+        subject : 'Goodbye',
+    },
 };
 
 
@@ -109,10 +120,9 @@ const EMAILS: { [key: string]: EmailTemplate } = {
 
 
 
-
-
-
-async function sendEmail(tenant: string, templateinfo: EmailTemplate, values: EmailValues): Promise<void> {
+async function sendEmail(
+    tenant: string, templateinfo: EmailTemplate, values: EmailValues, copyAdmin: boolean): Promise<void>
+{
     if (!transporter) {
         log.error('Skipping sending email as sender not initialized');
         return;
@@ -124,6 +134,20 @@ async function sendEmail(tenant: string, templateinfo: EmailTemplate, values: Em
         return;
     }
 
+    return sendEmailToUser(teacher, tenant, templateinfo, values, copyAdmin);
+}
+
+
+async function sendEmailToUser(
+    teacher: SupervisorInfo, tenant: string,
+    templateinfo: EmailTemplate, values: EmailValues,
+    copyAdmin: boolean): Promise<void>
+{
+    if (!transporter) {
+        log.error('Skipping sending email as sender not initialized');
+        return;
+    }
+
     const TEMPLATE_ROOT = templateinfo.root;
     const templateText: string = await fileutils.read(TEMPLATE_ROOT + 'txt');
     const templateHtml: string = await fileutils.read(TEMPLATE_ROOT + 'html');
@@ -131,6 +155,7 @@ async function sendEmail(tenant: string, templateinfo: EmailTemplate, values: Em
     const email: Mailer.Options = {
         subject : templateinfo.subject,
         to : teacher.email,
+        bcc : copyAdmin ? 'dale.lane@uk.ibm.com' : [],
         text : Mustache.render(templateText, values),
         html : Mustache.render(templateHtml, values),
     };
@@ -149,7 +174,8 @@ interface EmailTemplate {
 
 type EmailValues = InvalidCredentialsEmail |
                    UnmanagedConvClassifier |
-                   UnmanagedVisRecClassifier;
+                   UnmanagedVisRecClassifier |
+                   DeletedClass;
 
 
 

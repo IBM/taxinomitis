@@ -32,6 +32,11 @@
         }
 
 
+        function deleteClass(profile) {
+            return $http.delete('/api/classes/' + profile.tenant + '?confirm=true');
+        }
+
+
         function getClassesList() {
             return $http.get('/api/classes')
                 .then(function (resp) {
@@ -117,7 +122,10 @@
             deleteStudent : deleteStudent,
 
             resetStudentPassword : resetStudentPassword,
-            resetStudentsPassword : resetStudentsPassword
+            resetStudentsPassword : resetStudentsPassword,
+
+
+            deleteClass : deleteClass
         };
     }
 })();

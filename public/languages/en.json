@@ -337,8 +337,7 @@
             "Q3-A-5": "It cannot be undone.",
             "Q3-A-6": "Teacher accounts",
             "Q3-A-7": "Deleting a teacher account will delete the entire class and all of the student accounts in it. It cannot be undone.",
-            "Q3-A-8": "This cannot be done from the UI (<em>although <a href='https://github.com/IBM/taxinomitis/issues/24'>I'm working on adding it</a></em>).",
-            "Q3-A-9": "To delete a teacher account in the meantime, please <a href='mailto:dale.lane@uk.ibm.com'>email me</a> and I will do it for you.",
+            "Q3-A-8": "This can be done by clicking the \"Delete Class\" button in the Advanced options section of <a href='https://machinelearningforkids.co.uk/teacher'>your Teacher page</a>",
 
             "Q4": "What information is stored about users?"
 
