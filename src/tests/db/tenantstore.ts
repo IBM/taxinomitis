@@ -27,6 +27,6 @@ describe('DB store - tenants', () => {
         };
         const policy = await store.getClassTenant('TESTTENANT');
 
-        assert.deepEqual(policy, expected);
+        assert.deepStrictEqual(policy, expected);
     });
 });

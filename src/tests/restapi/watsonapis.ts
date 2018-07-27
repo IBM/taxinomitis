@@ -110,7 +110,7 @@ describe('REST API - Bluemix credentials', () => {
                 .expect(httpstatus.FORBIDDEN)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.error, 'Access to API keys is forbidden for managed tenants');
+                    assert.strictEqual(body.error, 'Access to API keys is forbidden for managed tenants');
                 });
         });
 
@@ -122,7 +122,7 @@ describe('REST API - Bluemix credentials', () => {
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.error, 'Missing required servicetype parameter');
+                    assert.strictEqual(body.error, 'Missing required servicetype parameter');
                 });
         });
 
@@ -134,7 +134,7 @@ describe('REST API - Bluemix credentials', () => {
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.error, 'Unrecognised servicetype parameter');
+                    assert.strictEqual(body.error, 'Unrecognised servicetype parameter');
                 });
         });
 
@@ -146,7 +146,7 @@ describe('REST API - Bluemix credentials', () => {
                 .expect(httpstatus.OK)
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, []);
+                    assert.deepStrictEqual(body, []);
                 });
         });
 
@@ -158,7 +158,7 @@ describe('REST API - Bluemix credentials', () => {
                 .expect(httpstatus.OK)
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, []);
+                    assert.deepStrictEqual(body, []);
                 });
         });
 
@@ -216,7 +216,7 @@ describe('REST API - Bluemix credentials', () => {
                 .expect(httpstatus.FORBIDDEN)
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, { error: 'Access to API keys is forbidden for managed tenants' });
+                    assert.deepStrictEqual(body, { error: 'Access to API keys is forbidden for managed tenants' });
                 });
         });
 
@@ -235,7 +235,7 @@ describe('REST API - Bluemix credentials', () => {
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.error, 'Invalid credentials');
+                    assert.strictEqual(body.error, 'Invalid credentials');
                 });
         });
 
@@ -255,7 +255,7 @@ describe('REST API - Bluemix credentials', () => {
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.error, 'Watson credentials could not be verified');
+                    assert.strictEqual(body.error, 'Watson credentials could not be verified');
                 });
         });
 
@@ -279,8 +279,8 @@ describe('REST API - Bluemix credentials', () => {
                     assert(body.id);
                     credsid = body.id;
 
-                    assert.equal(body.username, VALID_USERNAME);
-                    assert.equal(body.password, VALID_PASSWORD);
+                    assert.strictEqual(body.username, VALID_USERNAME);
+                    assert.strictEqual(body.password, VALID_PASSWORD);
 
                     return request(testServer)
                         .get('/api/classes/' + classid + '/credentials?servicetype=conv')
@@ -289,11 +289,11 @@ describe('REST API - Bluemix credentials', () => {
                 })
                 .then(async (res) => {
                     const body = res.body;
-                    assert.equal(body.length, 1);
+                    assert.strictEqual(body.length, 1);
 
-                    assert.equal(body[0].id, credsid);
-                    assert.equal(body[0].username, VALID_USERNAME);
-                    assert.equal(body[0].password, VALID_PASSWORD);
+                    assert.strictEqual(body[0].id, credsid);
+                    assert.strictEqual(body[0].username, VALID_USERNAME);
+                    assert.strictEqual(body[0].password, VALID_PASSWORD);
 
                     // check that the correct region was identified
                     const verify = await store.getBluemixCredentialsById(credsid);
@@ -311,7 +311,7 @@ describe('REST API - Bluemix credentials', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, []);
+                    assert.deepStrictEqual(body, []);
                 });
         });
 
@@ -335,8 +335,8 @@ describe('REST API - Bluemix credentials', () => {
                     assert(body.id);
                     credsid = body.id;
 
-                    assert.equal(body.username, VALID_EU_USERNAME);
-                    assert.equal(body.password, VALID_EU_PASSWORD);
+                    assert.strictEqual(body.username, VALID_EU_USERNAME);
+                    assert.strictEqual(body.password, VALID_EU_PASSWORD);
 
                     return request(testServer)
                         .get('/api/classes/' + classid + '/credentials?servicetype=conv')
@@ -345,11 +345,11 @@ describe('REST API - Bluemix credentials', () => {
                 })
                 .then(async (res) => {
                     const body = res.body;
-                    assert.equal(body.length, 1);
+                    assert.strictEqual(body.length, 1);
 
-                    assert.equal(body[0].id, credsid);
-                    assert.equal(body[0].username, VALID_EU_USERNAME);
-                    assert.equal(body[0].password, VALID_EU_PASSWORD);
+                    assert.strictEqual(body[0].id, credsid);
+                    assert.strictEqual(body[0].username, VALID_EU_USERNAME);
+                    assert.strictEqual(body[0].password, VALID_EU_PASSWORD);
 
                     // check that the correct region was identified
                     const verify = await store.getBluemixCredentialsById(credsid);
@@ -367,7 +367,7 @@ describe('REST API - Bluemix credentials', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, []);
+                    assert.deepStrictEqual(body, []);
                 });
         });
 
@@ -390,7 +390,7 @@ describe('REST API - Bluemix credentials', () => {
                     assert(body.id);
                     credsid = body.id;
 
-                    assert.equal(body.apikey, VALID_APIKEY);
+                    assert.strictEqual(body.apikey, VALID_APIKEY);
 
                     return request(testServer)
                         .get('/api/classes/' + classid + '/credentials?servicetype=visrec')
@@ -399,10 +399,10 @@ describe('REST API - Bluemix credentials', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.length, 1);
+                    assert.strictEqual(body.length, 1);
 
-                    assert.equal(body[0].id, credsid);
-                    assert.equal(body[0].apikey, VALID_APIKEY);
+                    assert.strictEqual(body[0].id, credsid);
+                    assert.strictEqual(body[0].apikey, VALID_APIKEY);
 
                     return request(testServer)
                         .delete('/api/classes/' + classid + '/credentials/' + credsid)
@@ -416,7 +416,7 @@ describe('REST API - Bluemix credentials', () => {
                 })
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, []);
+                    assert.deepStrictEqual(body, []);
                 });
         });
     });

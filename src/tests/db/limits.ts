@@ -33,20 +33,20 @@ describe('DB store - limits', () => {
 
         let training = await store.storeTextTraining(projectid, uuid(), 'label');
         assert(training);
-        assert.equal(training.projectid, projectid);
-        assert.equal(training.label, 'label');
+        assert.strictEqual(training.projectid, projectid);
+        assert.strictEqual(training.label, 'label');
 
         training = await store.storeTextTraining(projectid, uuid(), 'label');
         assert(training);
-        assert.equal(training.projectid, projectid);
-        assert.equal(training.label, 'label');
+        assert.strictEqual(training.projectid, projectid);
+        assert.strictEqual(training.label, 'label');
 
         try {
             await store.storeTextTraining(projectid, uuid(), 'label');
             assert.fail(0, 1, 'should not have reached here', '');
         }
         catch (err) {
-            assert.equal(err.message,
+            assert.strictEqual(err.message,
                          'Project already has maximum allowed amount of training data');
         }
 
@@ -59,20 +59,20 @@ describe('DB store - limits', () => {
 
         let training = await store.storeNumberTraining(projectid, false, [1], 'label');
         assert(training);
-        assert.equal(training.projectid, projectid);
-        assert.equal(training.label, 'label');
+        assert.strictEqual(training.projectid, projectid);
+        assert.strictEqual(training.label, 'label');
 
         training = await store.storeNumberTraining(projectid, false, [2], 'label');
         assert(training);
-        assert.equal(training.projectid, projectid);
-        assert.equal(training.label, 'label');
+        assert.strictEqual(training.projectid, projectid);
+        assert.strictEqual(training.label, 'label');
 
         try {
             await store.storeNumberTraining(projectid, false, [3], 'label');
             assert.fail(0, 1, 'should not have reached here', '');
         }
         catch (err) {
-            assert.equal(err.message,
+            assert.strictEqual(err.message,
                          'Project already has maximum allowed amount of training data');
         }
 

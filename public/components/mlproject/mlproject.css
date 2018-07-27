@@ -61,7 +61,8 @@
 
 
 @media (min-width: 500px) {
-    .mlprojectpage .advanced {
+    .mlprojectpage .advanced,
+    .adminpage .advanced {
         margin: 5em 2em 1em 2em;
         padding: 1em 2em;
     }
@@ -70,7 +71,8 @@
     }
 }
 @media (max-width: 500px) {
-    .mlprojectpage .advanced {
+    .mlprojectpage .advanced,
+    .adminpage .advanced {
         margin: 5em 0 1em 0;
         padding: 1em;
     }
@@ -84,25 +86,30 @@
     height: 80px;
 }
 
-.mlprojectpage .advancedMenu {
+.mlprojectpage .advancedMenu,
+.adminpage .advancedMenu {
     background-color: #eeeeee;
     padding: 0.5em;
 }
 
-.mlprojectpage .advancedMenu .glyphicon {
+.mlprojectpage .advancedMenu .glyphicon,
+.adminpage .advancedMenu .glyphicon {
     margin-right: 9px;
 }
 
-.mlprojectpage .collapsable {
+.mlprojectpage .collapsable,
+.adminpage .collapsable {
     transition: all .4s ease-in-out;
     min-height: 20px;
     overflow: hidden;
     background-color: #f9f9ff;
 }
-.mlprojectpage .collapsable.expanded {
+.mlprojectpage .collapsable.expanded,
+.adminpage .collapsable.expanded {
     padding-bottom: 2em;
 }
-.mlprojectpage .collapsable.collapsed {
+.mlprojectpage .collapsable.collapsed,
+.adminpage .collapsable.collapsed {
     height: 0;
     min-height: 0;
 }

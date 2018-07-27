@@ -37,7 +37,7 @@ describe('Utils - imageCheck', () => {
                 assert.fail(0, 1, 'Should not accept that');
             })
             .catch((err) => {
-                assert.equal(err.message, 'Unsupported file type (gif). Only jpg and png images are supported.');
+                assert.strictEqual(err.message, 'Unsupported file type (gif). Only jpg and png images are supported.');
                 done();
             });
     });
@@ -49,7 +49,7 @@ describe('Utils - imageCheck', () => {
                 assert.fail(0, 1, 'Should not accept that');
             })
             .catch((err) => {
-                assert.equal(err.message, 'Unable to download image from ' + NON_EXISTENT);
+                assert.strictEqual(err.message, 'Unable to download image from ' + NON_EXISTENT);
                 done();
             });
     });
@@ -60,7 +60,7 @@ describe('Utils - imageCheck', () => {
                 assert.fail(0, 1, 'Should not accept that');
             })
             .catch((err) => {
-                assert.equal(err.message, 'Unable to download image from ' + GIBBERISH);
+                assert.strictEqual(err.message, 'Unable to download image from ' + GIBBERISH);
                 done();
             });
     });
@@ -71,7 +71,7 @@ describe('Utils - imageCheck', () => {
                 assert.fail(0, 1, 'Should not accept that');
             })
             .catch((err) => {
-                assert.equal(err.message, 'Unable to download image from ' + SPECIALCHARS);
+                assert.strictEqual(err.message, 'Unable to download image from ' + SPECIALCHARS);
                 done();
             });
     });
@@ -82,7 +82,7 @@ describe('Utils - imageCheck', () => {
                 assert.fail(0, 1, 'Should not accept that');
             })
             .catch((err) => {
-                assert.equal(err.message,
+                assert.strictEqual(err.message,
                              'Image file size (8.71 KB) is too big. Please choose images smaller than 7.81 KB');
                 done();
             });

@@ -24,7 +24,7 @@ describe.skip('auth0 users', () => {
             return users.getStudents('empty')
                 .then((students) => {
                     assert(Array.isArray(students));
-                    assert.equal(students.length, 0);
+                    assert.strictEqual(students.length, 0);
                 })
                 .then(function restore() {
                     stubs.getOauthToken.restore();
@@ -42,8 +42,8 @@ describe.skip('auth0 users', () => {
             return users.getStudents('single')
                 .then((students) => {
                     assert(Array.isArray(students));
-                    assert.equal(students.length, 1);
-                    assert.equal(Object.keys(students[0]).length, 3);
+                    assert.strictEqual(students.length, 1);
+                    assert.strictEqual(Object.keys(students[0]).length, 3);
                     assert(students[0].id);
                     assert(students[0].username);
                     assert(students[0].last_login);
@@ -77,7 +77,7 @@ describe.skip('auth0 users', () => {
 
             return users.countUsers(TESTTENANT)
                 .then((count) => {
-                    assert.equal(count, 5);
+                    assert.strictEqual(count, 5);
 
                     stubs.getUserCountsStub.restore();
                 });
@@ -95,10 +95,10 @@ describe.skip('auth0 users', () => {
                 assert.fail(1, 0, 'Failed to check student', '');
             }
             catch (err) {
-                assert.equal(err.error, 'Not Found');
-                assert.equal(err.statusCode, 404);
-                assert.equal(err.errorCode, 'inexistent_user');
-                assert.equal(err.message, 'Userid with this tenant not found');
+                assert.strictEqual(err.error, 'Not Found');
+                assert.strictEqual(err.statusCode, 404);
+                assert.strictEqual(err.errorCode, 'inexistent_user');
+                assert.strictEqual(err.message, 'Userid with this tenant not found');
             }
             await users.deleteStudent(TESTTENANT, newStudent.id);
         });
@@ -113,10 +113,10 @@ describe.skip('auth0 users', () => {
                 assert.fail(1, 0, 'Failed to check teacher role', '');
             }
             catch (err) {
-                assert.equal(err.error, 'Not Found');
-                assert.equal(err.statusCode, 404);
-                assert.equal(err.errorCode, 'inexistent_user');
-                assert.equal(err.message, 'User with the specified userid and role not found');
+                assert.strictEqual(err.error, 'Not Found');
+                assert.strictEqual(err.statusCode, 404);
+                assert.strictEqual(err.errorCode, 'inexistent_user');
+                assert.strictEqual(err.message, 'User with the specified userid and role not found');
             }
             await users.deleteTeacher(TESTTENANT, newTeacher.id);
         });
@@ -155,7 +155,7 @@ describe.skip('auth0 users', () => {
             const newStudent = await users.createStudent(TESTTENANT, '141' + randomstring.generate({ length : 6 }));
             assert(newStudent.password);
             const retrieved = await users.getStudent(TESTTENANT, newStudent.id);
-            assert.equal(retrieved.username, newStudent.username);
+            assert.strictEqual(retrieved.username, newStudent.username);
             await users.deleteStudent(TESTTENANT, newStudent.id);
 
             try {
@@ -164,9 +164,9 @@ describe.skip('auth0 users', () => {
                 assert.fail(1, 0, 'Failed to delete student', '');
             }
             catch (err) {
-                assert.equal(err.error, 'Not Found');
-                assert.equal(err.statusCode, 404);
-                assert.equal(err.errorCode, 'inexistent_user');
+                assert.strictEqual(err.error, 'Not Found');
+                assert.strictEqual(err.statusCode, 404);
+                assert.strictEqual(err.errorCode, 'inexistent_user');
             }
         });
 
@@ -189,8 +189,8 @@ describe.skip('auth0 users', () => {
 
             const final = await users.countUsers(TESTTENANT);
 
-            assert.equal(after, before + 1);
-            assert.equal(final, before);
+            assert.strictEqual(after, before + 1);
+            assert.strictEqual(final, before);
         });
 
 
@@ -200,9 +200,9 @@ describe.skip('auth0 users', () => {
 
             const modified = await users.resetStudentPassword(TESTTENANT, newStudent.id);
             assert(modified.password);
-            assert.notEqual(modified.password, newStudent.password);
+            assert.notStrictEqual(modified.password, newStudent.password);
 
-            assert.equal(modified.username, newStudent.username);
+            assert.strictEqual(modified.username, newStudent.username);
 
             await users.deleteStudent(TESTTENANT, newStudent.id);
 
@@ -212,9 +212,9 @@ describe.skip('auth0 users', () => {
                 assert.fail(1, 0, 'Failed to delete student', '');
             }
             catch (err) {
-                assert.equal(err.error, 'Not Found');
-                assert.equal(err.statusCode, 404);
-                assert.equal(err.errorCode, 'inexistent_user');
+                assert.strictEqual(err.error, 'Not Found');
+                assert.strictEqual(err.statusCode, 404);
+                assert.strictEqual(err.errorCode, 'inexistent_user');
             }
         });
 

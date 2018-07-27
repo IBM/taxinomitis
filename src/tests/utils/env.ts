@@ -33,7 +33,7 @@ describe('Utils - env', () => {
             env.confirmRequiredEnvironment();
         }
         catch (err) {
-            assert.equal(err.message, 'Missing required environment variable OBJECT_STORE_BUCKET');
+            assert.strictEqual(err.message, 'Missing required environment variable OBJECT_STORE_BUCKET');
             done();
         }
     });

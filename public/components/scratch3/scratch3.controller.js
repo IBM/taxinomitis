@@ -39,7 +39,7 @@
                 .then(function (project) {
                     $scope.project = project;
 
-                    if (project.type === 'text') {
+                    if (project.type !== 'images') {
                         return scratchkeysService.getScratchKeys(project.id, $scope.userId, vm.profile.tenant);
                     }
                 })

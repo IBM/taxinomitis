@@ -14,7 +14,7 @@ describe('REST API - image urlparse', () => {
                 projectid : 'testproject',
             },
         });
-        assert.deepEqual(urlparse.projectUrl(req), {
+        assert.deepStrictEqual(urlparse.projectUrl(req), {
             classid : 'testclass',
             userid : 'testuser',
             projectid : 'testproject',
@@ -28,7 +28,7 @@ describe('REST API - image urlparse', () => {
                 studentid : 'testuser',
             },
         });
-        assert.deepEqual(urlparse.userUrl(req), {
+        assert.deepStrictEqual(urlparse.userUrl(req), {
             classid : 'testclass',
             userid : 'testuser',
         });
@@ -41,7 +41,7 @@ describe('REST API - image urlparse', () => {
                 classid : 'testclass',
             },
         });
-        assert.deepEqual(urlparse.classUrl(req), {
+        assert.deepStrictEqual(urlparse.classUrl(req), {
             classid : 'testclass',
         });
     });

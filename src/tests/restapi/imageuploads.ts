@@ -196,11 +196,11 @@ describe('REST API - image uploads', () => {
 
                     assert.strictEqual(res.body.isstored, true);
                     assert.strictEqual(res.body.label, LABEL);
-                    assert.equal(res.body.projectid, project.id);
+                    assert.strictEqual(res.body.projectid, project.id);
 
                     assert(res.body.imageurl.startsWith(IMAGESURL));
 
-                    assert.equal(res.body.imageurl, IMAGESURL + '/' + res.body.id);
+                    assert.strictEqual(res.body.imageurl, IMAGESURL + '/' + res.body.id);
 
                     assert(res.header.etag);
 
@@ -277,7 +277,7 @@ describe('REST API - image uploads', () => {
                     assert(res.body.id);
                     id = res.body.id;
 
-                    assert.equal(res.body.projectid, projectid);
+                    assert.strictEqual(res.body.projectid, projectid);
                 });
 
             await request(testServer)
@@ -285,8 +285,8 @@ describe('REST API - image uploads', () => {
                 .expect(httpStatus.OK)
                 .then((res) => {
                     assert.deepStrictEqual(res.body, contents);
-                    assert.equal(res.header['content-type'], 'image/jpeg');
-                    assert.equal(res.header['cache-control'], 'max-age=31536000');
+                    assert.strictEqual(res.header['content-type'], 'image/jpeg');
+                    assert.strictEqual(res.header['cache-control'], 'max-age=31536000');
                 });
 
             if (id) {

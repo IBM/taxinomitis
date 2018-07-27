@@ -86,9 +86,9 @@ describe('REST API - scratch keys', () => {
                 .then(async (res) => {
                     const body = res.body;
                     assert(Array.isArray(body));
-                    assert.equal(body.length, 1);
+                    assert.strictEqual(body.length, 1);
                     assert(body[0].id);
-                    assert.equal(body[0].id.length, 72);
+                    assert.strictEqual(body[0].id.length, 72);
                     assert(!body[0].model);
 
                     await store.deleteEntireUser(userid, TESTCLASS);
@@ -132,10 +132,10 @@ describe('REST API - scratch keys', () => {
                 .then(async (res) => {
                     const body = res.body;
                     assert(Array.isArray(body));
-                    assert.equal(body.length, 1);
+                    assert.strictEqual(body.length, 1);
                     assert(body[0].id);
-                    assert.equal(body[0].id.length, 72);
-                    assert.equal(body[0].model, workspace.workspace_id);
+                    assert.strictEqual(body[0].id.length, 72);
+                    assert.strictEqual(body[0].model, workspace.workspace_id);
 
                     await store.deleteEntireProject(userid, TESTCLASS, project);
                     await store.deleteBluemixCredentials(credentials.id);
@@ -162,9 +162,9 @@ describe('REST API - scratch keys', () => {
                     const body = res.body;
 
                     assert(Array.isArray(body));
-                    assert.equal(body.length, 1);
+                    assert.strictEqual(body.length, 1);
                     assert(body[0].id);
-                    assert.equal(body[0].id, keyId);
+                    assert.strictEqual(body[0].id, keyId);
                     assert(!body[0].model);
 
                     await store.deleteScratchKey(keyId);
@@ -202,10 +202,10 @@ describe('REST API - scratch keys', () => {
                     const body = res.body;
 
                     assert(Array.isArray(body));
-                    assert.equal(body.length, 1);
+                    assert.strictEqual(body.length, 1);
                     assert(body[0].id);
-                    assert.equal(body[0].id, keyId);
-                    assert.equal(body[0].model, classifierid);
+                    assert.strictEqual(body[0].id, keyId);
+                    assert.strictEqual(body[0].model, classifierid);
 
                     await store.deleteScratchKey(keyId);
                     await store.deleteEntireProject(userid, TESTCLASS, project);
@@ -242,7 +242,7 @@ describe('REST API - scratch keys', () => {
                 .then(async (res) => {
                     await store.deleteScratchKey(key);
 
-                    assert.equal(res.error.text,
+                    assert.strictEqual(res.error.text,
                         '/**/ typeof ' + callbackFunctionName +
                         ' === \'function\' && mycb({"error":"Missing data"});');
                 });
@@ -274,7 +274,7 @@ describe('REST API - scratch keys', () => {
                 .then(async (res) => {
                     await store.deleteScratchKey(key);
 
-                    assert.equal(res.error.text,
+                    assert.strictEqual(res.error.text,
                         '/**/ typeof ' + callbackFunctionName +
                         ' === \'function\' && mycb({"error":"Missing data"});');
                 });
@@ -308,7 +308,7 @@ describe('REST API - scratch keys', () => {
                 .then(async (res) => {
                     await store.deleteScratchKey(key);
 
-                    assert.equal(res.error.text,
+                    assert.strictEqual(res.error.text,
                         '/**/ typeof ' + callbackFunctionName +
                         ' === \'function\' && mycb({"error":"Not implemented yet"});');
                 });
@@ -351,9 +351,9 @@ describe('REST API - scratch keys', () => {
                     const classificationRespStr: string = text.substring(expectedStart.length, text.length - 2);
                     const payload: ClassificationResponse[] = JSON.parse(classificationRespStr);
 
-                    assert.equal(payload.length, 3);
+                    assert.strictEqual(payload.length, 3);
                     payload.forEach((item) => {
-                        assert.equal(item.confidence, 33);
+                        assert.strictEqual(item.confidence, 33);
                         assert(item.random);
                         assert(['animal', 'vegetable', 'mineral'].indexOf(item.class_name) >= 0);
                     });
@@ -405,9 +405,9 @@ describe('REST API - scratch keys', () => {
                     const classificationRespStr: string = text.substring(expectedStart.length, text.length - 2);
                     const payload: ClassificationResponse[] = JSON.parse(classificationRespStr);
 
-                    assert.equal(payload.length, 3);
+                    assert.strictEqual(payload.length, 3);
                     payload.forEach((item) => {
-                        assert.equal(item.confidence, 33);
+                        assert.strictEqual(item.confidence, 33);
                         assert(item.random);
                         assert(['animal', 'vegetable', 'mineral'].indexOf(item.class_name) >= 0);
                     });
@@ -441,7 +441,7 @@ describe('REST API - scratch keys', () => {
                 .then(async (res) => {
                     await store.deleteEntireProject(userid, TESTCLASS, project);
 
-                    assert.equal(res.error.text,
+                    assert.strictEqual(res.error.text,
                         '/**/ typeof ' + callbackFunctionName + ' === \'function\' && ' +
                         callbackFunctionName + '({"error":"Missing data"});');
                 });
@@ -470,7 +470,7 @@ describe('REST API - scratch keys', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK)
                 .then((res) => {
-                    assert.deepEqual(res.body, {
+                    assert.deepStrictEqual(res.body, {
                         msg : 'No models trained yet - only random answers can be chosen',
                         status : 0,
                     });
@@ -544,7 +544,7 @@ describe('REST API - scratch keys', () => {
                     assert(text.startsWith(expectedStart));
                     const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
 
-                    assert.deepEqual(payload, { error : 'Missing data' });
+                    assert.deepStrictEqual(payload, { error : 'Missing data' });
                 });
         });
 
@@ -582,7 +582,7 @@ describe('REST API - scratch keys', () => {
                     assert(text.startsWith(expectedStart));
                     const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
 
-                    assert.deepEqual(payload, { error : 'Invalid label' });
+                    assert.deepStrictEqual(payload, { error : 'Invalid label' });
                 });
         });
 
@@ -629,7 +629,7 @@ describe('REST API - scratch keys', () => {
                     assert(text.startsWith(expectedStart));
                     const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
 
-                    assert.deepEqual(payload, {
+                    assert.deepStrictEqual(payload, {
                         error: 'Project already has maximum allowed amount of training data',
                     });
 
@@ -660,11 +660,11 @@ describe('REST API - scratch keys', () => {
                 .then(async (res) => {
 
                     const count = await store.countTraining('text', project.id);
-                    assert.equal(count, 1);
+                    assert.strictEqual(count, 1);
 
                     const retrieved = await store.getTextTraining(project.id, { start : 0, limit : 10 });
-                    assert.equal(retrieved[0].textdata, 'inserted');
-                    assert.equal(retrieved[0].label, 'animal');
+                    assert.strictEqual(retrieved[0].textdata, 'inserted');
+                    assert.strictEqual(retrieved[0].label, 'animal');
 
                     await store.deleteEntireProject(userid, TESTCLASS, project);
 
@@ -679,9 +679,9 @@ describe('REST API - scratch keys', () => {
                     const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
 
                     assert(payload.id);
-                    assert.equal(payload.textdata, 'inserted');
-                    assert.equal(payload.label, 'animal');
-                    assert.equal(payload.projectid, project.id);
+                    assert.strictEqual(payload.textdata, 'inserted');
+                    assert.strictEqual(payload.label, 'animal');
+                    assert.strictEqual(payload.projectid, project.id);
                 });
         });
 
@@ -712,11 +712,11 @@ describe('REST API - scratch keys', () => {
                 .then(async (res) => {
 
                     const count = await store.countTraining('numbers', project.id);
-                    assert.equal(count, 1);
+                    assert.strictEqual(count, 1);
 
                     const retrieved = await store.getNumberTraining(project.id, { start : 0, limit : 10 });
-                    assert.deepEqual(retrieved[0].numberdata, [1, 2.2, 1]);
-                    assert.equal(retrieved[0].label, 'TOP');
+                    assert.deepStrictEqual(retrieved[0].numberdata, [1, 2.2, 1]);
+                    assert.strictEqual(retrieved[0].label, 'TOP');
 
                     await store.deleteEntireProject(userid, TESTCLASS, project);
 
@@ -731,9 +731,9 @@ describe('REST API - scratch keys', () => {
                     const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
 
                     assert(payload.id);
-                    assert.deepEqual(payload.numberdata, [1, 2.2, 1]);
-                    assert.equal(payload.label, 'TOP');
-                    assert.equal(payload.projectid, project.id);
+                    assert.deepStrictEqual(payload.numberdata, [1, 2.2, 1]);
+                    assert.strictEqual(payload.label, 'TOP');
+                    assert.strictEqual(payload.projectid, project.id);
                 });
         });
 
@@ -773,7 +773,7 @@ describe('REST API - scratch keys', () => {
                     assert(text.startsWith(expectedStart));
                     const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
 
-                    assert.deepEqual(payload, { error : 'Missing data' });
+                    assert.deepStrictEqual(payload, { error : 'Missing data' });
                 });
         });
 
@@ -813,7 +813,7 @@ describe('REST API - scratch keys', () => {
                     assert(text.startsWith(expectedStart));
                     const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
 
-                    assert.deepEqual(payload, { error : 'Invalid data' });
+                    assert.deepStrictEqual(payload, { error : 'Invalid data' });
                 });
         });
 
@@ -855,7 +855,7 @@ describe('REST API - scratch keys', () => {
                     assert(text.startsWith(expectedStart));
                     const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
 
-                    assert.deepEqual(payload, { error : 'Invalid data' });
+                    assert.deepStrictEqual(payload, { error : 'Invalid data' });
                 });
         });
 
@@ -896,7 +896,7 @@ describe('REST API - scratch keys', () => {
                     assert(text.startsWith(expectedStart));
                     const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
 
-                    assert.deepEqual(payload, { error : 'Missing data' });
+                    assert.deepStrictEqual(payload, { error : 'Missing data' });
                 });
         });
 
@@ -942,7 +942,7 @@ describe('REST API - scratch keys', () => {
                     assert(text.startsWith(expectedStart));
                     const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
 
-                    assert.deepEqual(payload, { error : 'Missing data' });
+                    assert.deepStrictEqual(payload, { error : 'Missing data' });
                 });
         });
 
@@ -987,7 +987,7 @@ describe('REST API - scratch keys', () => {
                     assert(text.startsWith(expectedStart));
                     const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
 
-                    assert.deepEqual(payload, { error : 'Invalid label' });
+                    assert.deepStrictEqual(payload, { error : 'Invalid label' });
                 });
         });
 
@@ -1181,7 +1181,7 @@ describe('REST API - scratch keys', () => {
                     assert(text.startsWith(expectedStart));
                     const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
 
-                    assert.deepEqual(payload, [
+                    assert.deepStrictEqual(payload, [
                         { class_name: 'temperature', confidence: 64, classifierTimestamp : ts.toISOString() },
                         { class_name: 'conditions', confidence: 36, classifierTimestamp : ts.toISOString() },
                     ]);
@@ -1204,7 +1204,7 @@ describe('REST API - scratch keys', () => {
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
                     const payload = res.body;
-                    assert.deepEqual(payload, { error : 'Missing data' });
+                    assert.deepStrictEqual(payload, { error : 'Missing data' });
                 });
         });
 
@@ -1257,7 +1257,7 @@ describe('REST API - scratch keys', () => {
                 .then(async (res) => {
                     const payload = res.body;
 
-                    assert.deepEqual(payload, [
+                    assert.deepStrictEqual(payload, [
                         { class_name: 'temperature', confidence: 64, classifierTimestamp : ts.toISOString() },
                         { class_name: 'conditions', confidence: 36, classifierTimestamp : ts.toISOString() },
                     ]);
@@ -1325,7 +1325,7 @@ describe('REST API - scratch keys', () => {
 
                     const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
 
-                    assert.deepEqual(payload, {
+                    assert.deepStrictEqual(payload, {
                         error : {
                             code : 500,
                             error : 'Something bad happened',

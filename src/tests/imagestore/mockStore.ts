@@ -13,7 +13,7 @@ function store(obj: IBMCosSDK.S3.PutObjectRequest) {
     bucketFlat[obj.Key] = obj;
 
     const keyChunks = obj.Key.split('/');
-    assert.equal(keyChunks.length, 4);
+    assert.strictEqual(keyChunks.length, 4);
     const classid = keyChunks[0];
     const userid = keyChunks[1];
     const projectid = keyChunks[2];
@@ -36,7 +36,7 @@ function store(obj: IBMCosSDK.S3.PutObjectRequest) {
 
 function del(key: string) {
     const keyChunks = key.split('/');
-    assert.equal(keyChunks.length, 4);
+    assert.strictEqual(keyChunks.length, 4);
     const classid = keyChunks[0];
     const userid = keyChunks[1];
     const projectid = keyChunks[2];
@@ -290,7 +290,7 @@ export const mockS3 = {
             promise : () => {
                 if (def.Prefix) {
                     const chunks = def.Prefix.split('/');
-                    assert.equal(chunks[chunks.length - 1], '');
+                    assert.strictEqual(chunks[chunks.length - 1], '');
 
                     if (chunks.length === 4) {
                         return Promise.resolve(listImages(

@@ -143,7 +143,7 @@ describe('DB store - pending jobs', () => {
             allJobs.project = await store.storeDeleteProjectImagesJob(classid, userid, projectid);
             allJobs.user = await store.storeDeleteUserImagesJob(classid, userid);
 
-            assert.equal(Object.keys(allJobs).length, 3);
+            assert.strictEqual(Object.keys(allJobs).length, 3);
 
             let next = await store.getNextPendingJob();
             while (next) {
@@ -167,7 +167,7 @@ describe('DB store - pending jobs', () => {
                 next = await store.getNextPendingJob();
             }
 
-            assert.equal(Object.keys(allJobs).length, 0);
+            assert.strictEqual(Object.keys(allJobs).length, 0);
         });
 
     });
@@ -205,8 +205,8 @@ describe('DB store - pending jobs', () => {
             const retrieveBefore = await store.getNextPendingJob();
             assert(retrieveBefore);
             if (retrieveBefore) {
-                assert.equal(job.id, retrieveBefore.id);
-                assert.equal(retrieveBefore.attempts, 1);
+                assert.strictEqual(job.id, retrieveBefore.id);
+                assert.strictEqual(retrieveBefore.attempts, 1);
             }
 
             await store.deletePendingJob(job);

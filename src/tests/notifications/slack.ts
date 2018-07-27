@@ -43,7 +43,7 @@ describe('Notifications - Slack', () => {
                     callback(new Error('Message cannot be sent'));
                 }
                 else {
-                    assert.equal(msg, expectedMessage);
+                    assert.strictEqual(msg, expectedMessage);
                 }
             });
     });
@@ -65,7 +65,7 @@ describe('Notifications - Slack', () => {
 
         slack.notify('This is my message which will not be sent');
 
-        assert.equal(slackClientStub.called, false);
+        assert.strictEqual(slackClientStub.called, false);
     });
 
     it('Send message before init', () => {
@@ -73,7 +73,7 @@ describe('Notifications - Slack', () => {
 
         slack.notify('This is my message which will not be sent');
 
-        assert.equal(slackClientStub.called, false);
+        assert.strictEqual(slackClientStub.called, false);
     });
 
     it('Send message after init', () => {

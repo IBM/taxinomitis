@@ -44,7 +44,7 @@ describe('Scratchx - status', () => {
             };
 
             const statusObj = await status.getStatus(key);
-            assert.deepEqual(statusObj, {
+            assert.deepStrictEqual(statusObj, {
                 status : 0,
                 msg : 'No models trained yet - only random answers can be chosen',
             });
@@ -73,7 +73,7 @@ describe('Scratchx - status', () => {
             testStatus.status = 'Non Existent';
 
             const statusObj = await status.getStatus(key);
-            assert.deepEqual(statusObj, {
+            assert.deepStrictEqual(statusObj, {
                 status : 0,
                 msg : 'Model Non Existent',
             });
@@ -102,7 +102,7 @@ describe('Scratchx - status', () => {
             testStatus.status = 'Training';
 
             const statusObj = await status.getStatus(key);
-            assert.deepEqual(statusObj, {
+            assert.deepStrictEqual(statusObj, {
                 status : 1,
                 msg : 'Model not ready yet',
             });
@@ -130,7 +130,7 @@ describe('Scratchx - status', () => {
             testStatus.status = 'Available';
 
             const statusObj = await status.getStatus(key);
-            assert.deepEqual(statusObj, {
+            assert.deepStrictEqual(statusObj, {
                 status : 2,
                 msg : 'Ready',
             });
@@ -150,7 +150,7 @@ describe('Scratchx - status', () => {
             };
 
             const statusObj = await status.getStatus(key);
-            assert.deepEqual(statusObj, {
+            assert.deepStrictEqual(statusObj, {
                 status : 2,
                 msg : 'No models trained yet - only random answers can be chosen',
             });
@@ -168,7 +168,7 @@ describe('Scratchx - status', () => {
             };
 
             const statusObj = await status.getStatus(key);
-            assert.deepEqual(statusObj, {
+            assert.deepStrictEqual(statusObj, {
                 status : 2,
                 msg : 'Status for TEST',
             });
@@ -210,7 +210,7 @@ describe('Scratchx - status', () => {
             };
 
             const statusObj = await status.getStatus(key);
-            assert.deepEqual(statusObj, {
+            assert.deepStrictEqual(statusObj, {
                 status : 0,
                 msg : 'No models trained yet - only random answers can be chosen',
             });
@@ -239,7 +239,7 @@ describe('Scratchx - status', () => {
             testStatus.status = 'Non Existent';
 
             const statusObj = await status.getStatus(key);
-            assert.deepEqual(statusObj, {
+            assert.deepStrictEqual(statusObj, {
                 status : 0,
                 msg : 'Model Non Existent',
             });
@@ -268,7 +268,7 @@ describe('Scratchx - status', () => {
             testStatus.status = 'training';
 
             const statusObj = await status.getStatus(key);
-            assert.deepEqual(statusObj, {
+            assert.deepStrictEqual(statusObj, {
                 status : 1,
                 msg : 'Model not ready yet',
             });
@@ -296,7 +296,7 @@ describe('Scratchx - status', () => {
             testStatus.status = 'ready';
 
             const statusObj = await status.getStatus(key);
-            assert.deepEqual(statusObj, {
+            assert.deepStrictEqual(statusObj, {
                 status : 2,
                 msg : 'Ready',
             });
@@ -312,7 +312,7 @@ describe('Scratchx - status', () => {
             };
 
             const statusObj = await status.getStatus(key);
-            assert.deepEqual(statusObj, {
+            assert.deepStrictEqual(statusObj, {
                 status : 0,
                 msg : 'No models trained yet - only random answers can be chosen',
             });

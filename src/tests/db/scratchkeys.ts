@@ -48,7 +48,7 @@ describe('ScratchKeys store', () => {
         const keyid = await store.storeUntrainedScratchKey(project);
 
         const retrieved = await store.getScratchKey(keyid);
-        assert.equal(retrieved.name, project.name);
+        assert.strictEqual(retrieved.name, project.name);
         assert(!retrieved.classifierid);
         assert(!retrieved.credentials);
 
@@ -60,7 +60,7 @@ describe('ScratchKeys store', () => {
         const keyid = await store.storeUntrainedScratchKey(project);
 
         const retrievedEmpty: any = await store.getScratchKey(keyid);
-        assert.equal(retrievedEmpty.name, project.name);
+        assert.strictEqual(retrievedEmpty.name, project.name);
         assert(!retrievedEmpty.classifierid);
         assert(!retrievedEmpty.credentials);
 
@@ -82,11 +82,11 @@ describe('ScratchKeys store', () => {
         delete credentials.id;
         delete retrievedAfter.credentials.id;
 
-        assert.equal(retrievedAfter.id, keyid);
-        assert.equal(retrievedAfter.name, project.name);
-        assert.equal(retrievedAfter.type, 'text');
-        assert.deepEqual(retrievedAfter.credentials, credentials);
-        assert.equal(retrievedAfter.classifierid, classifierid);
+        assert.strictEqual(retrievedAfter.id, keyid);
+        assert.strictEqual(retrievedAfter.name, project.name);
+        assert.strictEqual(retrievedAfter.type, 'text');
+        assert.deepStrictEqual(retrievedAfter.credentials, credentials);
+        assert.strictEqual(retrievedAfter.classifierid, classifierid);
         assert.strictEqual(retrievedAfter.updated.getTime(), ts.getTime());
     });
 
@@ -106,7 +106,7 @@ describe('ScratchKeys store', () => {
             assert.fail(1, 0, 'Should not have been able to retrieve a key', '');
         }
         catch (err) {
-            assert.equal(err.message, 'Unexpected response when retrieving credentials for Scratch');
+            assert.strictEqual(err.message, 'Unexpected response when retrieving credentials for Scratch');
         }
     });
 
@@ -154,11 +154,11 @@ describe('ScratchKeys store', () => {
         delete credentials.id;
         delete retrieved.credentials.id;
 
-        assert.equal(retrieved.id, keyid);
-        assert.equal(retrieved.name, project.name);
-        assert.equal(retrieved.type, project.type);
-        assert.deepEqual(retrieved.credentials, credentials);
-        assert.equal(retrieved.classifierid, classifierid);
+        assert.strictEqual(retrieved.id, keyid);
+        assert.strictEqual(retrieved.name, project.name);
+        assert.strictEqual(retrieved.type, project.type);
+        assert.deepStrictEqual(retrieved.credentials, credentials);
+        assert.strictEqual(retrieved.classifierid, classifierid);
         assert.strictEqual(retrieved.updated.getTime(), ts.getTime());
     });
 
@@ -181,17 +181,17 @@ describe('ScratchKeys store', () => {
         );
 
         const response: any[] = await store.findScratchKeys(project.userid, project.id, project.classid);
-        assert.equal(response.length, 1);
+        assert.strictEqual(response.length, 1);
         const retrieved = response[0];
 
         delete credentials.id;
         delete retrieved.credentials.id;
 
-        assert.equal(retrieved.id, keyid);
-        assert.equal(retrieved.name, project.name);
-        assert.equal(retrieved.type, project.type);
-        assert.deepEqual(retrieved.credentials, credentials);
-        assert.equal(retrieved.classifierid, classifierid);
+        assert.strictEqual(retrieved.id, keyid);
+        assert.strictEqual(retrieved.name, project.name);
+        assert.strictEqual(retrieved.type, project.type);
+        assert.deepStrictEqual(retrieved.credentials, credentials);
+        assert.strictEqual(retrieved.classifierid, classifierid);
         assert.strictEqual(retrieved.updated.getTime(), ts.getTime());
 
         return store.deleteScratchKey(keyid);
@@ -220,16 +220,16 @@ describe('ScratchKeys store', () => {
         }
 
         const response: any[] = await store.findScratchKeys(project.userid, project.id, project.classid);
-        assert.equal(response.length, classifierIDs.length);
+        assert.strictEqual(response.length, classifierIDs.length);
 
         delete credentials.id;
 
         for (const retrieved of response) {
             delete retrieved.credentials.id;
 
-            assert.equal(retrieved.name, project.name);
-            assert.equal(retrieved.type, project.type);
-            assert.deepEqual(retrieved.credentials, credentials);
+            assert.strictEqual(retrieved.name, project.name);
+            assert.strictEqual(retrieved.type, project.type);
+            assert.deepStrictEqual(retrieved.credentials, credentials);
             assert.strictEqual(retrieved.updated.getTime(), ts.getTime());
 
             assert(classifierIDs.indexOf(retrieved.classifierid) >= 0);
@@ -265,18 +265,18 @@ describe('ScratchKeys store', () => {
             credentials, newClassifierId, after,
         );
 
-        assert.equal(updatedKeyId, keyid);
+        assert.strictEqual(updatedKeyId, keyid);
 
         const retrieved: any = await store.getScratchKey(keyid);
 
         delete credentials.id;
         delete retrieved.credentials.id;
 
-        assert.equal(retrieved.name, project.name);
-        assert.equal(retrieved.type, project.type);
-        assert.deepEqual(retrieved.credentials, credentials);
+        assert.strictEqual(retrieved.name, project.name);
+        assert.strictEqual(retrieved.type, project.type);
+        assert.deepStrictEqual(retrieved.credentials, credentials);
 
-        assert.equal(retrieved.classifierid, newClassifierId);
+        assert.strictEqual(retrieved.classifierid, newClassifierId);
         assert.strictEqual(retrieved.updated.getTime(), after.getTime());
     });
 
@@ -306,7 +306,7 @@ describe('ScratchKeys store', () => {
             assert.fail(1, 0, 'Should not have been able to retrieve a key', '');
         }
         catch (err) {
-            assert.equal(err.message, 'Unexpected response when retrieving credentials for Scratch');
+            assert.strictEqual(err.message, 'Unexpected response when retrieving credentials for Scratch');
         }
     });
 
@@ -336,7 +336,7 @@ describe('ScratchKeys store', () => {
             assert.fail(1, 0, 'Should not have been able to retrieve a key', '');
         }
         catch (err) {
-            assert.equal(err.message, 'Unexpected response when retrieving credentials for Scratch');
+            assert.strictEqual(err.message, 'Unexpected response when retrieving credentials for Scratch');
         }
     });
 
@@ -378,11 +378,11 @@ describe('ScratchKeys store', () => {
         );
 
         const verifyBefore = await store.getScratchKey(scratchKey);
-        assert.equal(verifyBefore.classifierid, expired.workspace_id);
+        assert.strictEqual(verifyBefore.classifierid, expired.workspace_id);
         assert(verifyBefore.credentials);
         if (verifyBefore.credentials) {
-            assert.equal(verifyBefore.credentials.username, credentials.username);
-            assert.equal(verifyBefore.credentials.password, credentials.password);
+            assert.strictEqual(verifyBefore.credentials.username, credentials.username);
+            assert.strictEqual(verifyBefore.credentials.password, credentials.password);
         }
 
         const deleteStub = sinon.stub(request, 'delete').resolves();

@@ -293,7 +293,7 @@ describe('REST API - models', () => {
                 .expect(httpstatus.NOT_FOUND)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.error, 'Not found');
+                    assert.strictEqual(body.error, 'Not found');
                 });
         });
 
@@ -333,7 +333,7 @@ describe('REST API - models', () => {
                 .expect(httpstatus.OK)
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, []);
+                    assert.deepStrictEqual(body, []);
 
                     return store.deleteEntireUser(userid, classid);
                 });
@@ -357,7 +357,7 @@ describe('REST API - models', () => {
                 .expect(httpstatus.OK)
                 .then((res) => {
                     const body = res.body;
-                    assert.deepEqual(body, []);
+                    assert.deepStrictEqual(body, []);
 
                     return store.deleteEntireUser(userid, classid);
                 });
@@ -418,7 +418,7 @@ describe('REST API - models', () => {
                 .expect(httpstatus.OK)
                 .then(async (res) => {
 
-                    assert.deepEqual(res.body, [
+                    assert.deepStrictEqual(res.body, [
                         {
                             classifierid : 'busy',
                             credentialsid : credentials.id,
@@ -465,13 +465,13 @@ describe('REST API - models', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK)
                 .then(async (res) => {
-                    assert.equal(res.body.length, 1);
-                    assert.equal(res.body[0].classifierid, projectid);
-                    assert.equal(res.body[0].status, 'Available');
+                    assert.strictEqual(res.body.length, 1);
+                    assert.strictEqual(res.body[0].classifierid, projectid);
+                    assert.strictEqual(res.body[0].status, 'Available');
                     assert(res.body[0].created);
                     assert(res.body[0].updated);
-                    assert.equal(res.body[0].created.substr(0, 18), expectedTimestamp.substr(0, 18));
-                    assert.equal(res.body[0].updated.substr(0, 18), expectedTimestamp.substr(0, 18));
+                    assert.strictEqual(res.body[0].created.substr(0, 18), expectedTimestamp.substr(0, 18));
+                    assert.strictEqual(res.body[0].updated.substr(0, 18), expectedTimestamp.substr(0, 18));
 
                     await store.deleteEntireProject(userid, classid, project);
                 });
@@ -534,7 +534,7 @@ describe('REST API - models', () => {
                 .expect(httpstatus.OK)
                 .then(async (res) => {
 
-                    assert.deepEqual(res.body, [
+                    assert.deepStrictEqual(res.body, [
                         {
                             classifierid : 'busy',
                             credentialsid : credentials.id,
@@ -574,7 +574,7 @@ describe('REST API - models', () => {
                 .expect(httpstatus.NOT_FOUND)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.error, 'Not found');
+                    assert.strictEqual(body.error, 'Not found');
                 });
         });
 
@@ -634,7 +634,7 @@ describe('REST API - models', () => {
                 .then(async (res) => {
                     const body = res.body;
 
-                    assert.equal(body.error, conversation.ERROR_MESSAGES.INSUFFICIENT_API_KEYS);
+                    assert.strictEqual(body.error, conversation.ERROR_MESSAGES.INSUFFICIENT_API_KEYS);
 
                     await store.deleteEntireUser(userid, classid);
                 });
@@ -659,7 +659,7 @@ describe('REST API - models', () => {
                 .then(async (res) => {
                     const body = res.body;
 
-                    assert.equal(body.error,
+                    assert.strictEqual(body.error,
                         'The Watson credentials being used by your class were rejected. ' +
                         'Please let your teacher or group leader know.');
 
@@ -686,7 +686,7 @@ describe('REST API - models', () => {
                 .then(async (res) => {
                     const body = res.body;
 
-                    assert.equal(body.error,
+                    assert.strictEqual(body.error,
                         'No Watson credentials have been set up for training text projects. ' +
                         'Please let your teacher or group leader know.');
 
@@ -713,7 +713,7 @@ describe('REST API - models', () => {
                 .then(async (res) => {
                     const body = res.body;
 
-                    assert.equal(body.error,
+                    assert.strictEqual(body.error,
                         'Your machine learning model could not be found on the training server. Please try again');
 
                     await store.deleteEntireUser(userid, classid);
@@ -739,7 +739,7 @@ describe('REST API - models', () => {
                 .then(async (res) => {
                     const body = res.body;
 
-                    assert.equal(body.error,
+                    assert.strictEqual(body.error,
                         'Your class is making too many requests to create machine learning models ' +
                          'at too fast a rate. ' +
                          'Please stop now and let your teacher or group leader know that ' +
@@ -768,7 +768,7 @@ describe('REST API - models', () => {
                 .then((res) => {
                     const body = res.body;
 
-                    assert.deepEqual(body, {
+                    assert.deepStrictEqual(body, {
                         updated : '2017-05-04T12:01:00.000Z',
                         expiry : '2017-05-04T13:00:00.000Z',
                         name : projName,
@@ -800,7 +800,7 @@ describe('REST API - models', () => {
                 .then(async (res) => {
                     const body = res.body;
 
-                    assert.equal(body.error, visualrecog.ERROR_MESSAGES.INSUFFICIENT_API_KEYS);
+                    assert.strictEqual(body.error, visualrecog.ERROR_MESSAGES.INSUFFICIENT_API_KEYS);
 
                     await store.deleteEntireUser(userid, classid);
                 });
@@ -825,7 +825,7 @@ describe('REST API - models', () => {
                 .then(async (res) => {
                     const body = res.body;
 
-                    assert.equal(body.error,
+                    assert.strictEqual(body.error,
                         'Your class is making too many requests to create machine learning models ' +
                          'at too fast a rate. ' +
                          'Please stop now and let your teacher or group leader know that ' +
@@ -854,7 +854,7 @@ describe('REST API - models', () => {
                 .then(async (res) => {
                     const body = res.body;
 
-                    assert.equal(body.error,
+                    assert.strictEqual(body.error,
                         'The Watson credentials being used by your class were rejected. ' +
                         'Please let your teacher or group leader know.');
 
@@ -880,7 +880,7 @@ describe('REST API - models', () => {
                 .then(async (res) => {
                     const body = res.body;
 
-                    assert.equal(body.error,
+                    assert.strictEqual(body.error,
                         'The Watson credentials being used by your class were rejected. ' +
                         'Please let your teacher or group leader know.');
 
@@ -906,7 +906,7 @@ describe('REST API - models', () => {
                 .then(async (res) => {
                     const body = res.body;
 
-                    assert.equal(body.error,
+                    assert.strictEqual(body.error,
                         'No Watson credentials have been set up for training images projects. ' +
                         'Please let your teacher or group leader know.');
 
@@ -932,7 +932,7 @@ describe('REST API - models', () => {
                 .then(async (res) => {
                     const body = res.body;
 
-                    assert.equal(body.error,
+                    assert.strictEqual(body.error,
                         'Not enough images to train the classifier');
 
                     await store.deleteEntireUser(userid, classid);
@@ -957,7 +957,7 @@ describe('REST API - models', () => {
                 .then((res) => {
                     const body = res.body;
 
-                    assert.deepEqual(body, {
+                    assert.deepStrictEqual(body, {
                         updated : '2017-05-04T12:00:00.000Z',
                         expiry : '2017-05-04T13:00:00.000Z',
                         name : projName,
@@ -991,11 +991,11 @@ describe('REST API - models', () => {
                 .then((res) => {
                     const body = res.body;
 
-                    assert.equal(body.status, 'Available');
-                    assert.equal(body.classifierid, projectid);
+                    assert.strictEqual(body.status, 'Available');
+                    assert.strictEqual(body.classifierid, projectid);
 
                     const created = new Date(body.created);
-                    assert.equal(isNaN(created.getDate()), false);
+                    assert.strictEqual(isNaN(created.getDate()), false);
 
                     return store.deleteEntireProject(userid, classid, project);
                 });
@@ -1022,7 +1022,7 @@ describe('REST API - models', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((resp) => {
-                    assert.deepEqual(resp.body, { error : 'Missing data' });
+                    assert.deepStrictEqual(resp.body, { error : 'Missing data' });
                 });
         });
 
@@ -1044,7 +1044,7 @@ describe('REST API - models', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((resp) => {
-                    assert.deepEqual(resp.body, { error : 'Missing data' });
+                    assert.deepStrictEqual(resp.body, { error : 'Missing data' });
                 });
         });
 
@@ -1065,7 +1065,7 @@ describe('REST API - models', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((resp) => {
-                    assert.deepEqual(resp.body, { error : 'Missing data' });
+                    assert.deepStrictEqual(resp.body, { error : 'Missing data' });
                 });
         });
 
@@ -1089,7 +1089,7 @@ describe('REST API - models', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((resp) => {
-                    assert.deepEqual(resp.body, { error : 'Missing data' });
+                    assert.deepStrictEqual(resp.body, { error : 'Missing data' });
                 });
         });
 
@@ -1112,7 +1112,7 @@ describe('REST API - models', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.NOT_FOUND)
                 .then((resp) => {
-                    assert.deepEqual(resp.body, { error : 'Not found' });
+                    assert.deepStrictEqual(resp.body, { error : 'Not found' });
                 });
         });
 
@@ -1134,7 +1134,7 @@ describe('REST API - models', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((resp) => {
-                    assert.deepEqual(resp.body, { error : 'Missing data' });
+                    assert.deepStrictEqual(resp.body, { error : 'Missing data' });
                 });
         });
 
@@ -1158,7 +1158,7 @@ describe('REST API - models', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.NOT_FOUND)
                 .then((resp) => {
-                    assert.deepEqual(resp.body, { error : 'Not found' });
+                    assert.deepStrictEqual(resp.body, { error : 'Not found' });
                 });
         });
 
@@ -1220,7 +1220,7 @@ describe('REST API - models', () => {
                     const classifierTimestamp = body[0].classifierTimestamp;
                     assert(classifierTimestamp);
 
-                    assert.deepEqual(body, [
+                    assert.deepStrictEqual(body, [
                         { class_name : 'first', confidence : 0.8, classifierTimestamp },
                         { class_name : 'second', confidence : 0.15, classifierTimestamp },
                         { class_name : 'third', confidence : 0.05, classifierTimestamp },
@@ -1248,7 +1248,7 @@ describe('REST API - models', () => {
                     const classifierTimestamp = body[0].classifierTimestamp;
                     assert(classifierTimestamp);
 
-                    assert.deepEqual(body, [
+                    assert.deepStrictEqual(body, [
                         { class_name : 'first', confidence : 0.8, classifierTimestamp },
                         { class_name : 'second', confidence : 0.15, classifierTimestamp },
                         { class_name : 'third', confidence : 0.05, classifierTimestamp },
@@ -1321,7 +1321,7 @@ describe('REST API - models', () => {
                     delete body[0].classifierTimestamp;
                     delete body[1].classifierTimestamp;
 
-                    assert.deepEqual(body, [
+                    assert.deepStrictEqual(body, [
                         { class_name : 'First', confidence : 0.6 },
                         { class_name : 'Second', confidence : 0.2 },
                     ]);
@@ -1394,7 +1394,7 @@ describe('REST API - models', () => {
                     delete body[0].classifierTimestamp;
                     delete body[1].classifierTimestamp;
 
-                    assert.deepEqual(body, [
+                    assert.deepStrictEqual(body, [
                         { class_name : 'Third', confidence : 0.5 },
                         { class_name : 'Fourth', confidence : 0.4 },
                     ]);
@@ -1448,7 +1448,7 @@ describe('REST API - models', () => {
                 .expect(httpstatus.NOT_FOUND)
                 .then((res) => {
                     const body = res.body;
-                    assert.equal(body.error, 'Not found');
+                    assert.strictEqual(body.error, 'Not found');
                 });
         });
 
