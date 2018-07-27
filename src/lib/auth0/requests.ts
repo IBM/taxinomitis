@@ -125,7 +125,7 @@ export async function getUsers(token: string, tenant: string): Promise<Objects.U
 }
 
 
-export async function getClassSupervisors(token: string, tenant: string): Promise<Objects.User[]> {
+export async function getClassSupervisors(token: string, tenant: string): Promise<Objects.SupervisorInfo[]> {
     const getoptions = {
         method: 'GET',
         url: 'https://' + process.env[env.AUTH0_DOMAIN] + '/api/v2/users',

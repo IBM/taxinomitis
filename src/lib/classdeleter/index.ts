@@ -1,13 +1,14 @@
 // local dependencies
 import * as slack from '../notifications/slack';
+import * as emails from '../notifications/email';
 import * as db from '../db/store';
 import * as auth0 from '../auth0/users';
 import * as auth0requests from '../auth0/requests';
-import { User } from '../auth0/auth-types';
+import { User, SupervisorInfo } from '../auth0/auth-types';
 
 
 
-async function deleteUsers(classid: string, users: User[], auth0token: string): Promise<void> {
+async function deleteUsers(classid: string, users: User[] | SupervisorInfo[], auth0token: string): Promise<void> {
     for (const user of users) {
         await auth0requests.deleteUser(auth0token, user.user_id);
         await db.deleteEntireUser(user.user_id, classid);
@@ -47,17 +48,14 @@ export async function deleteClass(classid: string): Promise<void> {
     // find/remove.
 
     // delete the teachers
-    users = await auth0requests.getClassSupervisors(auth0token, classid);
-    while (users.length > 0) {
-        await deleteUsers(classid, users, auth0token);
-
-        users = await auth0requests.getClassSupervisors(auth0token, classid);
-    }
+    const teachers = await auth0requests.getClassSupervisors(auth0token, classid);
+    await deleteUsers(classid, teachers, auth0token);
 
 
     // Finally, schedule a background task to delete uploaded images
     await db.storeDeleteClassImagesJob(classid);
 
 
-    slack.notify('Successfully delete class "' + classid + '"');
+    slack.notify('Successfully deleted class "' + classid + '"');
+    emails.deletedClass(classid, teachers);
 }

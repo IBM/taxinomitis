@@ -5,17 +5,16 @@
         .controller('TeacherController', TeacherController);
 
     TeacherController.$inject = [
-        'authService',
-        'usersService',
-        '$document', '$timeout'
+        'authService', 'usersService',
+        '$mdDialog'
     ];
 
-    function TeacherController(authService, usersService, $document, $timeout) {
+    function TeacherController(authService, usersService, $mdDialog) {
 
         var vm = this;
         vm.authService = authService;
 
-        var placeholderId = 1;
+        vm.busy = false;
 
         var alertId = 1;
         vm.errors = [];
@@ -68,12 +67,33 @@
 
 
 
-
-        function scrollToNewItem(itemId) {
-            $timeout(function () {
-                var newItem = document.getElementById(itemId);
-                $document.duScrollToElementAnimated(angular.element(newItem));
-            }, 0);
+        vm.deleteClass = function (ev) {
+            var confirm = $mdDialog.confirm()
+                            .title('Are you sure?')
+                            .htmlContent('<div class="confirmdialogsmall">This cannot be undone. I will not ' +
+                                'be able to retrieve any of the projects from the class if you do this.</div>')
+                            .targetEvent(ev)
+                            .ok('Yes. Delete everything.')
+                            .cancel('No');
+            $mdDialog.show(confirm)
+                .then(
+                    function () {
+                        vm.busy = true;
+                        usersService.deleteClass(vm.profile)
+                            .then(function () {
+                                authService.logout();
+                            })
+                            .catch(function (err) {
+                                vm.busy = false;
+                                displayAlert('errors', err.status, err);
+                            });
+                    },
+                    function () { /* cancelled */ }
+                );
         }
+
+
+
+
     }
 }());

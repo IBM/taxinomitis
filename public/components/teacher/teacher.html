@@ -16,13 +16,13 @@
             <div class="mlprojectmenutitle">Restrictions</div>
             <div class="mlprojectmenudescription">Review limits and restrictions that apply to your class</div>
             <div class="mlprojectmenubutton">
-                <button type="button" class="btn btn-primary" ui-sref="teacher_restrictions">Restrictions</button>
+                <button type="button" class="btn btn-primary" ui-sref="teacher_restrictions" ng-disabled="vm.busy">Restrictions</button>
             </div>
         </div>
-        <div class="mlprojectmenu" 
-            ng-if="vm.policy && (vm.policy.isManaged === false)" 
+        <div class="mlprojectmenu"
+            ng-if="vm.policy && (vm.policy.isManaged === false)"
             ng-class="{ 'warningmenu' : vm.policy && vm.policy.missingCredentials }">
-            <div class="mlprojectmenutitle">API Keys</div>            
+            <div class="mlprojectmenutitle">API Keys</div>
             <div class="mlprojectmenudescription">
                 <div ng-if="vm.policy && vm.policy.missingCredentials">
                     <span class="glyphicon glyphicon-warning-sign"> </span> <strong>Incomplete!</strong>
@@ -30,24 +30,44 @@
                 Set up IBM Watson credentials to enable your class to create machine learning models
             </div>
             <div class="mlprojectmenubutton">
-                <button type="button" class="btn btn-primary" ui-sref="teacher_apikeys">Watson API Keys</button>
+                <button type="button" class="btn btn-primary" ui-sref="teacher_apikeys" ng-disabled="vm.busy">Watson API Keys</button>
             </div>
         </div>
         <div class="mlprojectmenu">
             <div class="mlprojectmenutitle">Students</div>
             <div class="mlprojectmenudescription">Create, reset and delete logins for students in your class </div>
             <div class="mlprojectmenubutton">
-                <button type="button" class="btn btn-primary" ui-sref="teacher_students">Student management</button>
+                <button type="button" class="btn btn-primary" ui-sref="teacher_students" ng-disabled="vm.busy">Student management</button>
             </div>
         </div>
         <div class="mlprojectmenu">
             <div class="mlprojectmenutitle">Supervision</div>
             <div class="mlprojectmenudescription">Review projects that your students have created </div>
             <div class="mlprojectmenubutton">
-                <button type="button" class="btn btn-primary" ui-sref="teacher_supervision">Supervision</button>
+                <button type="button" class="btn btn-primary" ui-sref="teacher_supervision" ng-disabled="vm.busy">Supervision</button>
             </div>
         </div>
-    </div>    
+    </div>
+
+    <div class="advanced">
+        <div ng-init="advancedClosed = true" ng-click="advancedClosed = !advancedClosed" class="advancedMenu">
+            <span class="glyphicon" ng-class="{ 'glyphicon-chevron-right' : advancedClosed, 'glyphicon-chevron-down' : !advancedClosed }"> </span>
+            <span>Advanced options</span>
+        </div>
+        <div ng-class="{ collapsed : advancedClosed, expanded : !advancedClosed }" class="collapsable">
+            <div class="menucontainer" >
+                <div class="mlprojectmenu warningmenu">
+                    <div class="mlprojectmenutitle">Delete class</div>
+                    <div class="mlprojectmenudescription">This will delete the accounts for you and all of the students in your class.</div>
+                    <div class="mlprojectmenubutton" ng-hide="vm.busy">
+                        <button type="button" class="btn btn-danger" ng-click="vm.deleteClass($event)" ng-disabled="vm.busy">Delete class</button>
+                    </div>
+                    <md-progress-circular style="margin-left: auto; margin-right: auto;" ng-if="vm.busy" md-mode="indeterminate"></md-progress-circular>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <div ng-if="isAuthenticated && vm.profile.role !== 'supervisor'" class="alert alert-danger pageheadermsg">
