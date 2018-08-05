@@ -147,4 +147,5 @@ export const IGNORE_TENANTS: string[] = [
     '12efff7e-ab03-41f0-bb8a-c0aedc3357cb',
     'ab05513f-8023-45f2-b344-2e92a496d233',
     '9579b0ef-9513-4813-9345-7e4328a37e78',
+    'f19a8ec5-befa-4744-8d27-6dfad1546097',
 ];
