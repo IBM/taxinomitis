@@ -2,14 +2,15 @@
 
     angular
         .module('app')
-        .controller('ProjectController', ProjectController);
+        .controller('AppInventorController', AppInventorController);
 
-    ProjectController.$inject = [
-        'authService', 'projectsService',
+    AppInventorController.$inject = [
+        'authService', 'projectsService', 'scratchkeysService',
         '$stateParams', '$scope'
     ];
 
-    function ProjectController(authService, projectsService, $stateParams, $scope) {
+    function AppInventorController(authService, projectsService, scratchkeysService, $stateParams, $scope) {
+
         var vm = this;
         vm.authService = authService;
 
@@ -24,6 +25,13 @@
             })
             .then(function (project) {
                 $scope.project = project;
+
+                return scratchkeysService.getScratchKeys($stateParams.projectId, $stateParams.userId, vm.profile.tenant);
+            })
+            .then(function (resp) {
+                if (resp) {
+                    $scope.scratchkey = resp[0];
+                }
             })
             .catch(function (err) {
                 $scope.failure = {

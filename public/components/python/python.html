@@ -8,7 +8,12 @@
 </div>
 
 <div ng-if="isAuthenticated && !projectId" class="alert alert-danger pageheadermsg">
-    <strong>Error:</strong> Missing project id. Go back to <a ui-sref="projects">your projects</a>
+    <strong translate="APP.ERROR"></strong> Missing project id. Go back to <a ui-sref="projects">your projects</a>
+</div>
+
+<div ng-if="failure" class="alert alert-danger pageheadermsg" role="alert">
+    <strong translate="APP.ERROR"></strong> {{ failure.message }}<br/>
+    <em ng-if="failure.status >= 500">If this keeps happening, please <a ui-sref="help">let me know</a>.</em>
 </div>
 
 <div ng-if="isAuthenticated && projectId">
@@ -16,17 +21,7 @@
         <h2 class="text-center" translate="PYTHON.TITLE"></h2>
     </div>
     <div class="backbutton">
-        <a ui-sref="mlproject({ projectId : projectId, userId : userId  })">&lt; Back to project</a>
-    </div>
-
-    <div ng-repeat="error in vm.errors" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Error:</strong> {{ error.message }}<br/>
-        <em ng-if="error.status >= 500">If this keeps happening, please <a ui-sref="help">let me know</a>.</em>
-    </div>
-    <div ng-repeat="warning in vm.warnings" class="alert alert-warning alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('warnings', $index)">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Warning:</strong> {{ warning.message }}
+        <a ui-sref="mlproject({ projectId : projectId, userId : userId  })" translate="APP.BACKTOPROJECT"></a>
     </div>
 
     <div ng-if="projectId && !project" class="loading"> </div>
