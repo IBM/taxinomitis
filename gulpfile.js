@@ -172,8 +172,7 @@ gulp.task('lint', ['tslint']);
 gulp.task('test', () => {
     const mochaOptions = {
         reporter : 'spec',
-        timeout : 60000,
-        bail : true
+        timeout : 60000
     };
 
     return gulp.src(paths.jstest)

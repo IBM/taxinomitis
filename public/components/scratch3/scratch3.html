@@ -11,22 +11,18 @@
     <strong translate="APP.ERROR"></strong> Missing project id. Go back to <a ui-sref="projects">your projects</a>
 </div>
 
+<div ng-if="failure" class="alert alert-danger pageheadermsg" role="alert">
+    <strong translate="APP.ERROR"></strong> {{ failure.message }}<br/>
+    <em ng-if="failure.status >= 500">If this keeps happening, please <a ui-sref="help">let me know</a>.</em>
+</div>
+
+
 <div ng-if="isAuthenticated && projectId">
     <div class="jumbotron">
         <h2 class="text-center" translate="SCRATCH3.TITLE"></h2>
     </div>
     <div class="backbutton">
         <a ui-sref="mlproject({ projectId : projectId, userId : userId  })" translate="APP.BACKTOPROJECT"></a>
-    </div>
-
-    <div ng-repeat="error in vm.errors" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong translate="APP.ERROR"></strong> {{ error.message }}<br/>
-        <em ng-if="error.status >= 500">If this keeps happening, please <a ui-sref="help">let me know</a>.</em>
-    </div>
-    <div ng-repeat="warning in vm.warnings" class="alert alert-warning alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('warnings', $index)">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong translate="APP.WARNING"></strong> {{ warning.message }}
     </div>
 
     <div ng-if="projectId && !project && !scratchkey" class="loading"> </div>

@@ -14,19 +14,6 @@
             var vm = this;
             vm.authService = authService;
 
-            var alertId = 1;
-            vm.errors = [];
-            vm.warnings = [];
-            vm.dismissAlert = function (type, errIdx) {
-                vm[type].splice(errIdx, 1);
-            };
-            function displayAlert(type, errObj) {
-                if (!errObj) {
-                    errObj = {};
-                }
-                vm[type].push({ alertid : alertId++, message : errObj.message || errObj.error || 'Unknown error', status : errObj.status });
-            }
-
             $scope.projectId = $stateParams.projectId;
             $scope.userId = $stateParams.userId;
 
@@ -69,7 +56,10 @@
                     }
                 })
                 .catch(function (err) {
-                    displayAlert('errors', err.data);
+                    $scope.failure = {
+                        message : err.data.error,
+                        status : err.status
+                    };
                 });
         }
     }());

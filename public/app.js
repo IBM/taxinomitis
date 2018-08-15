@@ -163,6 +163,12 @@
                 templateUrl: 'static/components-<%= VERSION %>/python/python.html',
                 controllerAs: 'vm'
             })
+            .state('mlproject_appinventor', {
+                url: '/mlproject/:userId/:projectId/appinventor',
+                controller: 'AppInventorController',
+                templateUrl: 'static/components-<%= VERSION %>/appinventor/appinventor.html',
+                controllerAs: 'vm'
+            })
             .state('siteadmin', {
                 url: '/siteadmin',
                 controller: 'AdminController',

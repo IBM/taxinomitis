@@ -61,10 +61,10 @@
                 </div>
                 <div class="mlprojectmenu">
                     <div class="mlprojectmenutitle" translate="PROJECT.APPINVENTOR.TITLE"></div>
-                    <div class="mlprojectmenudescription"><span class="badge">Idea</span> <span translate="PROJECT.APPINVENTOR.BODY"></span></div>
+                    <div class="mlprojectmenudescription"><span class="badge">Beta</span> <span translate="PROJECT.APPINVENTOR.BODY"></span></div>
                     <div class="mlprojectmenubutton">
                         <button type="button" class="btn btn-primary"
-                                ng-click="vm.appInventor($event)"
+                                ui-sref="mlproject_appinventor({ projectId : projectId, userId : userId })"
                                 translate="PROJECT.APPINVENTOR.TITLE"></button>
                     </div>
                 </div>
