@@ -54,7 +54,11 @@
                     <button class="btn btn-default" ng-click="vm.deleteUser($event, student)">Delete student account</button>
                 </td>
             </tr>
-            <tr ng-if="vm.students.length > 1">
+            <!-- the reset-all function is very slow with large number of users -->
+            <!-- (because Auth0 has no batch APIs, and we have to reset them    -->
+            <!--  one at a time)                                                -->
+            <!-- so we hide the button with classes of over 40 students         -->
+            <tr ng-if="vm.students.length > 1 && vm.students.length < 40">
                 <td colspan=2> </td>
                 <td class="studentslistactions" colspan=2>
                     <button class="btn btn-default" ng-click="vm.resetUsersPassword($event)">Reset password for all students</button>
