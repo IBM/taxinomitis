@@ -160,6 +160,18 @@ CREATE TABLE knownsyserrors (
     objid VARCHAR(50) NOT NULL
 );
 
+
+-- ------------------------------------------------------------------
+
+CREATE TABLE notificationoptouts (
+    id CHAR(36) NOT NULL PRIMARY KEY
+);
+
+CREATE TABLE disruptivetenants (
+    id CHAR(36) NOT NULL PRIMARY KEY
+);
+
+
 -- ------------------------------------------------------------------
 
 CREATE TABLE tenants (

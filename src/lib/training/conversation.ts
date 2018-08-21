@@ -124,7 +124,8 @@ async function createWorkspace(
 
                 // This shouldn't happen.
                 // It probably needs more immediate attention, so notify the Slack bot
-                if (DISRUPTIVE_TENANTS.includes(project.classid) === false) {
+                const ignore = await store.isTenantDisruptive(project.classid);
+                if (ignore === false) {
                     notifications.notify('Unexpected failure to train text classifier' +
                                         ' for project : ' + project.id +
                                         ' in class : ' + project.classid + ' : ' +
@@ -148,7 +149,8 @@ async function createWorkspace(
     // This is a user-error, not indicative of an MLforKids failure.
     //  But notify the Slack bot anyway, as for now it is useful to be able to
     //  keep track of how frequently users are running into these resource limits.
-    if (DISRUPTIVE_TENANTS.includes(project.classid) === false) {
+    const ignoreErr = await store.isTenantDisruptive(project.classid);
+    if (ignoreErr === false) {
         notifications.notify('Failed to train text classifier' +
                             ' for project : ' + project.id +
                             ' in class : ' + project.classid +
@@ -407,7 +409,8 @@ async function submitTrainingToConversation(
     catch (err) {
         log.error({ req, err }, ERROR_MESSAGES.UNKNOWN);
 
-        if (DISRUPTIVE_TENANTS.includes(project.classid) === false) {
+        const ignoreErr = await store.isTenantDisruptive(project.classid);
+        if (ignoreErr === false) {
             notifications.notify('Failed to train text classifier' +
                                 ' for project : ' + project.id +
                                 ' in class : ' + project.classid +
@@ -724,32 +727,3 @@ export interface LegacyTrainingRequest extends TrainingRequest, LegacyConvReques
 export interface NewTrainingRequest extends TrainingRequest, NewConvRequest {}
 export interface LegacyTestRequest extends TestRequest, LegacyConvRequest {}
 export interface NewTestRequest extends TestRequest, NewConvRequest {}
-
-
-
-
-
-
-
-/**
- * Tenants that have caused thousands of notifications about
- * training failures, who consistently ignore warnings of
- * insufficient API keys, and consistently ignore UI requests
- * to stop training new models even after rate limiting is
- * introduced.
- *
- * With the current implementation, where I receive a notification
- * to my mobile phone in the event of a training failure, this
- * is, at best, disruptive. Thousands of alert notifications in
- * an evening, aside from flattening my mobile phone battery,
- * makes it impossible for me to monitor or support other classes.
- *
- * For now, I'll ignore all errors from these classes. It's not
- * a great fix, but as a quick temporary patch to calm my
- * phone down, it'll do.
- */
-const DISRUPTIVE_TENANTS = [
-    '2b7707ab-6172-4400-96d4-0970fe2f9eab',
-    'f8874ca0-93cc-4915-8031-cb9f0b83b78a',
-    'ab05513f-8023-45f2-b344-2e92a496d233',
-];

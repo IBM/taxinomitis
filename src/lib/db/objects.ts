@@ -895,3 +895,13 @@ export function getTemporaryUserFromDbRow(row: Objects.TemporaryUserDbRow): Obje
         sessionExpiry : row.sessionexpiry,
     };
 }
+
+
+
+// -----------------------------------------------------------------------------
+// GENERIC DATA TYPE FUNCTIONS
+// -----------------------------------------------------------------------------
+
+export function getAsBoolean(row: any, field: string): boolean {
+    return row[field] === 1;
+}

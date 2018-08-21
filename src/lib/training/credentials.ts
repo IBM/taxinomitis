@@ -101,7 +101,8 @@ export async function checkBluemixCredentials() {
         }
 
         // check each of the classifiers owned by these credentials
-        if (bluemixclassifiers.IGNORE_TENANTS.includes(credentials.classid) === false) {
+        const optOut = await store.hasTenantOptedOutOfNotifications(credentials.classid);
+        if (optOut === false) {
             for (const classifier of classifiers) {
                 const known = await isClassifierKnown(classifier, credentials, 'conv', knownErrors);
                 if (known === false) {
@@ -132,7 +133,8 @@ export async function checkBluemixCredentials() {
         }
 
         // check each of the classifiers owned by these credentials
-        if (bluemixclassifiers.IGNORE_TENANTS.includes(credentials.classid) === false) {
+        const optOut = await store.hasTenantOptedOutOfNotifications(credentials.classid);
+        if (optOut === false) {
             for (const classifier of classifiers) {
                 const known = await isClassifierKnown(classifier, credentials, 'visrec', knownErrors);
                 if (known === false) {

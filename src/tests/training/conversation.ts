@@ -40,6 +40,7 @@ describe('Training - Conversation', () => {
     let resetExpiredScratchKeyStub: sinon.SinonStub;
     let updateScratchKeyTimestampStub: sinon.SinonStub;
     let getClassStub: sinon.SinonStub;
+    let isTenantDisruptiveStub: sinon.SinonStub;
 
 
     before(() => {
@@ -62,6 +63,7 @@ describe('Training - Conversation', () => {
         updateScratchKeyTimestampStub = sinon.stub(store, 'updateScratchKeyTimestamp').callsFake(mockstore.updateScratchKeyTimestamp);
         resetExpiredScratchKeyStub = sinon.stub(store, 'resetExpiredScratchKey').callsFake(mockstore.resetExpiredScratchKey);
         getClassStub = sinon.stub(store, 'getClassTenant').callsFake(mockstore.getClassTenant);
+        isTenantDisruptiveStub = sinon.stub(store, 'isTenantDisruptive').resolves(false);
     });
     after(() => {
         getStub.restore();
@@ -80,6 +82,7 @@ describe('Training - Conversation', () => {
         updateScratchKeyTimestampStub.restore();
         resetExpiredScratchKeyStub.restore();
         getClassStub.restore();
+        isTenantDisruptiveStub.restore();
     });
 
 
