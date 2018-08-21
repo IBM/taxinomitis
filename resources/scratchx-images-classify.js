@@ -256,8 +256,12 @@
             {{#labels}}
             [ 'r', '{{name}}', 'return_label_{{idx}}'],
             {{/labels}}
-            [ 'w', 'add training data %s %s', 'image_store', 'image', 'label']
-        ]
+            [ 'w', 'add training data %s to %m.labels', 'image_store', 'image', '{{firstlabel}}'],
+            [ 'w', 'add training data %s to %s', 'image_store', 'image', 'label']
+        ],
+        menus : {
+            labels : [ {{#labels}} '{{name}}', {{/labels}} ]
+        }
     };
 
     // Register the extension

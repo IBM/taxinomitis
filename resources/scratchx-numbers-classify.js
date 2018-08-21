@@ -268,8 +268,18 @@
             [ 'r', '{{name}}', 'return_choice_{{idx}}'],
             {{/choices}}
 
-            [ 'w', 'add training data {{#fields}}{{name}} {{typeformat}} {{/fields}} %s', 'numbers_store', {{#fields}}10, {{/fields}} 'label' ]
-        ]
+            [ 'w', 'add training data {{#fields}}{{name}} {{typeformat}} {{/fields}} to %m.labels', 'numbers_store', {{#fields}}10, {{/fields}} '{{firstlabel}}' ],
+            [ 'w', 'add training data {{#fields}}{{name}} {{typeformat}} {{/fields}} to %s', 'numbers_store', {{#fields}}10, {{/fields}} 'label' ]
+        ],
+        menus : {
+            labels : [ {{#labels}} '{{name}}', {{/labels}} ],
+
+            {{#fields}}
+            choices{{idx}} : [
+                {{#menu}}'{{.}}',{{/menu}}
+            ],
+            {{/fields}}
+        }
     };
 
     // Register the extension

@@ -28,6 +28,8 @@ async function getTextExtension(scratchkey: Types.ScratchKey, project: Types.Pro
         labels : project.labels.map((name, idx) => {
             return { name, idx };
         }),
+
+        firstlabel : project.labels.length > 0 ? project.labels[0] : '',
     });
     return rendered;
 }
@@ -44,6 +46,8 @@ async function getImagesExtension(scratchkey: Types.ScratchKey, project: Types.P
         labels : project.labels.map((name, idx) => {
             return { name, idx };
         }),
+
+        firstlabel : project.labels.length > 0 ? project.labels[0] : '',
     });
     return rendered;
 }
@@ -79,6 +83,8 @@ async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.
         labels : project.labels.map((name, idx) => {
             return { name, idx };
         }),
+
+        firstlabel : project.labels.length > 0 ? project.labels[0] : '',
 
         fields : project.fields ? project.fields.map((field, idx) => {
             return {
