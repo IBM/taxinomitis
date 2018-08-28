@@ -407,16 +407,22 @@
                     <td><strong translate="MODELS.TRAINING.STATUS"></strong></td>
                     <td> {{ model.status }} </td>
                 </tr>
-                <tr ng-if="model.expiry">
+                <tr ng-if="model.expiry && model.status !== 'Training'">
                     <td><strong translate="MODELS.TRAINING.DELETION"></strong></td>
                     <td>
                         {{ model.expiry | date : 'fullDate' }}
                         {{ model.expiry | date : 'shortTime' }}
                     </td>
                 </tr>
-                <tr ng-if="model.statusDescription">
-                    <td><strong translate="MODELS.TRANSLATE.DETAIL"></strong></td>
-                    <td> {{ model.statusDescription }} </td>
+                <tr ng-if="model.status === 'Training' && model.lastPollTime">
+                    <td><strong translate="MODELS.TRAINING.LASTCHECK"></strong></td>
+                    <td>
+                        <span title="{{ model.lastPollTime | amDateFormat: 'h:mm:ss a' }}" am-time-ago="model.lastPollTime"></span>
+                        <md-button class="md-icon-button test-tooltip">
+                            <md-tooltip md-direction="bottom" class="tooltipBody">{{ "MODELS.TRAINING.PROMPTREFRESH" | translate }}</md-tooltip>
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </md-button>
+                    </td>
                 </tr>
                 <tr><td colspan=2> &nbsp; </td></tr>
                 <tr>

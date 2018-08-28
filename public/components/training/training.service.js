@@ -51,7 +51,14 @@
                         '/models';
 
             return $http.get(url).then(function (resp) {
-                return resp.data;
+                var models = resp.data;
+                if (models) {
+                    var now = new Date();
+                    for (var i = 0; i < models.length; i++) {
+                        models[i].lastPollTime = now;
+                    }
+                }
+                return models;
             });
         }
 
@@ -62,6 +69,7 @@
                         '/models';
 
             return $http.post(url, {}, { timeout : 180000 }).then(function (resp) {
+                resp.data.lastPollTime = new Date();
                 return resp.data;
             });
         }

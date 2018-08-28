@@ -18,6 +18,7 @@
     "angular-jwt": "0.1.10",
     "angular-material": "1.1.10",
     "angular-messages": "1.7.2",
+    "angular-moment": "1.2.0",
     "angular-scroll": "1.0.2",
     "angular-sanitize": "1.7.2",
     "angular-ui-router": "1.0.18",

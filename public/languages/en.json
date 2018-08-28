@@ -160,7 +160,9 @@
             "STARTED": "Model started training at:",
             "STATUS": "Current model status:",
             "DETAIL": "Detail:",
-            "DELETION": "Model will automatically be deleted after:"
+            "DELETION": "Model will automatically be deleted after:",
+            "LASTCHECK": "Model last checked:",
+            "PROMPTREFRESH": "If this is more than a minute, you should refresh the page to get an up-to-date status"
         },
         "QUIZ": {
             "TITLE": "Quiz time!",
