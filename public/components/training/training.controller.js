@@ -152,6 +152,12 @@
                     $scope.confirm = function(resp) {
                         $mdDialog.hide(resp);
                     };
+
+                    $scope.$watch('example', function (newval, oldval) {
+                        if ($scope && $scope.example && newval !== oldval) {
+                            $scope.example = newval.replace(/[\r\n\t]/g, ' ');
+                        }
+                    }, true);
                 },
                 templateUrl : 'static/components-' + $stateParams.VERSION + '/training/trainingdata.tmpl.html',
                 targetEvent : ev,
