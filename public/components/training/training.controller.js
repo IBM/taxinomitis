@@ -152,6 +152,13 @@
                     $scope.confirm = function(resp) {
                         $mdDialog.hide(resp);
                     };
+                    $scope.submitOnEnter = function(event) {
+                        var code = event.keyCode || event.which;
+                        if (code === 13) {
+                            event.preventDefault();
+                            $scope.confirm($scope.example);
+                        }
+                    };
 
                     $scope.$watch('example', function (newval, oldval) {
                         if ($scope && $scope.example && newval !== oldval) {

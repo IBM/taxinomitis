@@ -13,6 +13,7 @@
                             <label>{{ 'TRAINING.NEWEXAMPLE.INTRO' | translate }} '{{ label }}'</label>
                             <textarea type="text" name="text"
                                    md-autofocus="project.type === 'text'"
+                                   ng-keypress="submitOnEnter($event)"
                                    ng-required="true"
                                    ng-model="example"
                                    md-maxlength="1000"></textarea>
