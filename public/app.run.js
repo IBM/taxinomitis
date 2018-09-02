@@ -23,5 +23,9 @@
         // send them back to the login screen if they get an HTTP 401
         //  from an API call
         authManager.redirectWhenUnauthenticated();
+
+        // display confirmation if the user is verifying their
+        //  email address with Auth0
+        authService.verifyEmail();
     }
 })();

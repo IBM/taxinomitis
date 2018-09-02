@@ -7,13 +7,15 @@
     authService.$inject = [
         'lock', 'authManager',
         '$q', '$http',
+        '$mdDialog',
         '$rootScope',
+        '$window',
         '$state',
         '$timeout'
     ];
 
 
-    function authService(lock, authManager, $q, $http, $rootScope, $state, $timeout) {
+    function authService(lock, authManager, $q, $http, $mdDialog, $rootScope, $window, $state, $timeout) {
 
         var SESSION_USERS_CLASS = 'session-users';
 
@@ -298,6 +300,30 @@
         }
 
 
+        function verifyEmail() {
+            var paramStr = $window.location.search;
+            if (paramStr &&
+                paramStr[0] === '?')
+            {
+                var params = {};
+                var paramsAry = paramStr.substr(1).split('&').forEach(function (str) {
+                    var pair = str.split('=');
+                    params[pair[0]] = pair[1];
+                });
+
+                if (params.message === 'Your%20email%20was%20verified.%20You%20can%20continue%20using%20the%20application.') {
+                    var alert = $mdDialog.alert()
+                                    .title('Welcome to Machine Learning for Kids')
+                                    .textContent('Your email address has been verified.')
+                                    .ok('OK');
+                    $mdDialog.show(alert).finally(function () {
+                        window.location = '/';
+                    });
+                }
+            }
+        }
+
+
 
         return {
             login: login,
@@ -308,7 +334,9 @@
             getProfileDeferred: getProfileDeferred,
             isAuthenticated : isAuthenticated,
 
-            createSessionUser : createSessionUser
+            createSessionUser : createSessionUser,
+
+            verifyEmail : verifyEmail
         };
     }
 })();
