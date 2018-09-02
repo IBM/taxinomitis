@@ -6,7 +6,6 @@
 
     config.$inject = [
         '$stateProvider',
-        '$locationProvider',
         'lockProvider',
         '$urlRouterProvider',
         'jwtOptionsProvider',
@@ -14,7 +13,7 @@
         '$translateProvider'
     ];
 
-    function config($stateProvider, $locationProvider, lockProvider, $urlRouterProvider, jwtOptionsProvider, $httpProvider, $translateProvider) {
+    function config($stateProvider, lockProvider, $urlRouterProvider, jwtOptionsProvider, $httpProvider, $translateProvider) {
 
         $stateProvider
             .state('home', {
@@ -265,5 +264,5 @@
                 return lang;
             })
             .fallbackLanguage('en');
-        }
+    }
 })();
