@@ -33,7 +33,7 @@
                         worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-easy.pdf'
                     },
                     {
-                        description : 'Quick version of the project, skipping the use of confidence scores to handle unrecognised commands',
+                        description : 'Quick simplified version of the project, ideal for use as a first introduction to the tool',
                         worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-tryitnow.pdf'
                     }
                 ]
