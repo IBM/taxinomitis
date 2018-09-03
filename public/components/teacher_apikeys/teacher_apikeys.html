@@ -3,18 +3,18 @@
 </div>
 <div ng-if="!isAuthenticated">
     <div class="alert alert-warning pageheadermsg">
-        <strong>Not logged in</strong>
+        <strong translate="ERRORS.NOTLOGGEDIN"></strong>
     </div>
     <div class="text-center">
-        <button class="btn btn-primary" ng-click="vm.authService.login()">Log In</button>
+        <button class="btn btn-primary" ng-click="vm.authService.login()" translate="APP.LOGIN"></button>
     </div>
 </div>
 <div ng-if="isAuthenticated && vm.profile.role !== 'supervisor'" class="alert alert-danger pageheadermsg">
-    <strong>Error:</strong> You are not authorized to access the Watson API keys used by your class.
+    <strong translate="APP.ERROR"></strong> You are not authorized to access the Watson API keys used by your class.
 </div>
 
 <div ng-if="isAuthenticated && vm.policy && vm.policy.isManaged" class="alert alert-danger pageheadermsg">
-    <strong>Error:</strong> API Keys used by your class are being managed for you.
+    <strong translate="APP.ERROR"></strong> API Keys used by your class are being managed for you.
 </div>
 
 <div ng-if="isAuthenticated && vm.profile.role === 'supervisor'" class="adminpage">

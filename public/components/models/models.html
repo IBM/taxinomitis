@@ -7,7 +7,7 @@
     </div>
 </div>
 <div ng-if="isAuthenticated && !projectId" class="alert alert-danger pageheadermsg">
-    <strong>Error:</strong> Missing project id. Go back to <a ui-sref="projects">your projects</a>
+    <strong translate="APP.ERROR"></strong> <span translate="ERRORS.MISSINGPROJECTID"></span> <a ui-sref="projects" translate="APP.PROJECTS"></a>
 </div>
 <div ng-if="isAuthenticated && projectId">
     <div class="jumbotron">
@@ -22,12 +22,12 @@
          ng-click="vm.dismissAlert('errors', $index)"
          id="errors{{error.alertid}}">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Error:</strong> {{ error.message }}<br/>
-        <em ng-if="error.status >= 500">If this keeps happening, please <a ui-sref="help">let me know</a>.</em>
+        <strong translate="APP.ERROR"></strong> {{ error.message }}<br/>
+        <em ng-if="error.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
     </div>
     <div ng-repeat="warning in vm.warnings" class="alert alert-warning alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('warnings', $index)">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Warning:</strong> {{ warning.message }}
+        <strong translate="APP.WARNING"></strong> {{ warning.message }}
     </div>
 
 

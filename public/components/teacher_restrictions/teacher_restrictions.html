@@ -3,10 +3,10 @@
 </div>
 <div ng-if="!isAuthenticated">
     <div class="alert alert-warning pageheadermsg">
-        <strong>Not logged in</strong>
+        <strong translate="ERRORS.NOTLOGGEDIN"></strong>
     </div>
     <div class="text-center">
-        <button class="btn btn-primary" ng-click="vm.authService.login()">Log In</button>
+        <button class="btn btn-primary" ng-click="vm.authService.login()" translate="APP.LOGIN"></button>
     </div>
 </div>
 <div ng-if="isAuthenticated && vm.profile.role === 'supervisor'" class="adminpage">
@@ -18,15 +18,15 @@
          ng-click="vm.dismissAlert('errors', $index)"
          id="errors{{error.alertid}}">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Error:</strong> {{ error.message }}<br/>
-        <em ng-if="error.status >= 500">If this keeps happening, please <a ui-sref="help">let me know</a>.</em>
+        <strong translate="APP.ERROR"></strong> {{ error.message }}<br/>
+        <em ng-if="error.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
     </div>
     <div ng-repeat="warning in vm.warnings"
          class="alert alert-warning alert-dismissible pageheadermsg" role="alert"
          ng-click="vm.dismissAlert('warnings', $index)"
          id="warnings{{warning.alertid}}">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Warning:</strong> {{ warning.message }}
+        <strong translate="APP.WARNING"></strong> {{ warning.message }}
     </div>
 
     <div ng-if="vm && vm.policy">
@@ -47,7 +47,7 @@
                     machine learning models in total across all their
                     <span class="mlprojecttype">images</span> projects.</div>
         </div>
-        
+
         <div class="helpsection">
             <h4> Limits for projects created by your students </h4>
 
@@ -62,7 +62,7 @@
                     Each <span class="mlprojecttype">images</span> project can have up to <span class="mlprojecttype">{{ vm.policy.imageTrainingItemsPerProject }}</span> training data examples. </div>
         </div>
 
-        <div class="helpsection">        
+        <div class="helpsection">
             <h4> To help you avoid the limits for number of machine learning models: </h4>
 
             <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('text') >= 0">Machine learning models created for
@@ -81,5 +81,5 @@
 </div>
 
 <div ng-if="isAuthenticated && vm.profile.role !== 'supervisor'" class="alert alert-danger pageheadermsg">
-    <strong>Error:</strong> You are not authorized to access the restrictions in place for your class.
+    <strong translate="APP.ERROR"></strong> You are not authorized to access the restrictions in place for your class.
 </div>

@@ -7,8 +7,8 @@
     </div>
 </div>
 <div ng-if="failure" class="alert alert-danger pageheadermsg" role="alert">
-    <strong>Error:</strong> {{ failure.message }}<br/>
-    <em ng-if="failure.status >= 500">If this keeps happening, please <a ui-sref="help">let me know</a>.</em>
+    <strong translate="APP.ERROR"></strong> {{ failure.message }}<br/>
+    <em ng-if="failure.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
 </div>
 <div ng-if="isAuthenticated && projectId && !failure" class="mlprojectpage">
     <div class="jumbotron">
@@ -61,7 +61,7 @@
                 </div>
                 <div class="mlprojectmenu">
                     <div class="mlprojectmenutitle" translate="PROJECT.APPINVENTOR.TITLE"></div>
-                    <div class="mlprojectmenudescription"><span class="badge">Beta</span> <span translate="PROJECT.APPINVENTOR.BODY"></span></div>
+                    <div class="mlprojectmenudescription"><span class="badge" translate="APP.BETA"></span> <span translate="PROJECT.APPINVENTOR.BODY"></span></div>
                     <div class="mlprojectmenubutton">
                         <button type="button" class="btn btn-primary"
                                 ui-sref="mlproject_appinventor({ projectId : projectId, userId : userId })"
@@ -70,7 +70,7 @@
                 </div>
                 <div class="mlprojectmenu" ng-if="project.type === 'text' || project.type === 'numbers'">
                     <div class="mlprojectmenutitle" translate="PROJECT.SCRATCH3.TITLE"></div>
-                    <div class="mlprojectmenudescription"><span class="badge">Beta</span> <span translate="PROJECT.SCRATCH3.BODY"></span></div>
+                    <div class="mlprojectmenudescription"><span class="badge" translate="APP.BETA"></span> <span translate="PROJECT.SCRATCH3.BODY"></span></div>
                     <div class="mlprojectmenubutton">
                         <button type="button" class="btn btn-primary"
                                 ui-sref="mlproject_scratch3({ projectId : projectId, userId : userId })"
@@ -82,5 +82,5 @@
     </div>
 </div>
 <div ng-if="isAuthenticated && !projectId" class="alert alert-danger pageheadermsg">
-    <strong>Error:</strong> Missing project id. Go back to <a ui-sref="projects">your projects</a>
+    <strong translate="APP.ERROR"></strong> <span translate="ERRORS.MISSINGPROJECTID"></span> <a ui-sref="projects" translate="APP.PROJECTS"></a>
 </div>

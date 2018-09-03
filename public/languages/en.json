@@ -6,6 +6,7 @@
         "BACKTOPROJECT": "&lt; Back to project",
         "ERROR": "Error:",
         "WARNING": "Warning:",
+        "INFO": "Info:",
 
         "ADD": "Add",
         "CANCEL": "Cancel",
@@ -17,7 +18,10 @@
         "NEWS": "News",
         "HELP": "Help",
         "LOGIN": "Log In",
-        "LOGOUT": "Log Out"
+        "LOGOUT": "Log Out",
+
+        "BETA": "Beta",
+        "INCOMPLETE": "Incomplete!"
     },
     "ABOUT": {
         "TITLE": "Machine Learning for Kids",
@@ -37,9 +41,25 @@
             "LOGIN": "To get started: "
         }
     },
+    "NEWS": {
+        "TITLE": "News",
+        "UPDATES": {
+            "TITLE": "News &amp; Updates",
+            "DESCRIPTION": "News and updates from @MLforKids"
+        },
+        "MENTIONS": {
+            "TITLE": "Mentions &amp; Media",
+            "DESCRIPTION": "loading Mentions &amp; Media from wakelet.com"
+        }
+    },
     "ERRORS": {
         "PAGENOTFOUND": "Page not found",
-        "NOTLOGGEDIN": "Not logged in"
+        "NOTLOGGEDIN": "Not logged in",
+
+        "MISSINGPROJECTID": "Missing project id. Go back to ",
+        "IFPERSISTENT": "If this keeps happening, please ",
+
+        "LETMEKNOW": "let me know"
     },
     "WELCOME": {
         "TITLE": "Teach a computer to play a game",
@@ -195,6 +215,67 @@
         "TITLE": "Using machine learning in Scratch 3",
 
         "BETAWARNING": "This is an early beta. Support for Scratch 3 is not finished, and will probably have a few bugs and problems."
+    },
+    "WORKSHEETS": {
+        "TITLE": "Machine learning projects",
+
+        "INTRO_1": "These projects are downloadable step-by-step guides, with explanations and colour screenshots for students to follow.",
+        "INTRO_2": "Each project is a stand-alone activity, written to last for a single lesson, and will guide children to create a game or interactive project that demonstrates a real-world use of artificial intelligence and machine learning.",
+        "INTRO_3": "Suggestions for new worksheets, suggestions of improvements to any of the worksheets, or contributions of new project worksheets, are all very welcome.",
+
+        "TYPES": {
+            "TITLE": "Recognising:",
+            "ALL": "All project types",
+
+            "PREFIX": "Train a computer to recognise ",
+
+            "TEXT": "text",
+            "IMAGES": "images",
+            "NUMBERS": "numbers"
+        },
+
+        "LEVELS": {
+            "TITLE": "Difficulty:",
+            "ALL": "All difficulties",
+            "BEGINNER": "Beginner",
+            "INTERMEDIATE": "Intermediate",
+            "ADVANCED": "Advanced"
+        },
+
+        "DOWNLOAD": "Download"
+    },
+    "TEACHER": {
+        "MENU": {
+            "TITLE": "Administration",
+
+            "RESTRICTIONS": {
+                "TITLE": "Restrictions",
+                "DESCRIPTION": "Review limits and restrictions that apply to your class"
+            },
+            "APIKEYS": {
+                "TITLE": "API Keys",
+                "TITLELONG": "Watson API Keys",
+                "DESCRIPTION": "Set up IBM Watson credentials to enable your class to create machine learning models"
+            },
+            "STUDENTS": {
+                "TITLE": "Students",
+                "TITLELONG": "Student management",
+                "DESCRIPTION": "Create, reset and delete logins for students in your class"
+            },
+            "SUPERVISION": {
+                "TITLE": "Supervision",
+                "DESCRIPTION": "Review projects that your students have created"
+            },
+
+            "ADVANCEDOPTIONS": "Advanced options",
+
+            "DELETECLASS": {
+                "TITLE": "Delete class",
+                "DESCRIPTION": "This will delete the accounts for you and all of the students in your class"
+            },
+
+            "NOTAUTHORISED": "You are not authorized to access the teacher page for your class."
+        }
     },
     "HELP": {
         "CONTACT": "If you have any problems or questions, please email Dale.Lane@uk.ibm.com",

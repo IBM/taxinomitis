@@ -1,20 +1,18 @@
 <div class="jumbotron">
-    <h2 class="text-center">News</h2>
+    <h2 class="text-center" translate="NEWS.TITLE"></h2>
 </div>
 <div class="newsUpdates">
     <div style="text-align: center">
         <md-button class="md-raised"
             style="padding-left: 15px; padding-right: 15px;"
             ng-click="type = 'twitter'"
-            ng-class="{ 'md-primary' : type !== 'wakelet' }">
-            News &amp; Updates
-        </md-button>
+            ng-class="{ 'md-primary' : type !== 'wakelet' }"
+            translate="NEWS.UPDATES.TITLE"></md-button>
         <md-button class="md-raised"
             style="padding-left: 15px; padding-right: 15px;"
             ng-click="type = 'wakelet'"
-            ng-class="{ 'md-primary' : type === 'wakelet' }">
-            Mentions &amp; Media
-        </md-button>
+            ng-class="{ 'md-primary' : type === 'wakelet' }"
+            translate="NEWS.MENTIONS.TITLE"></md-button>
     </div>
 </div>
 <div class="newsUpdates">
@@ -23,13 +21,15 @@
             data-lang="en"
             data-width="700"
             data-link-color="#2B7BB9"
-            href="https://twitter.com/MLforKids">News and updates from @MLforKids</a>
+            href="https://twitter.com/MLforKids"
+            translate="NEWS.UPDATES.DESCRIPTION"></a>
     </div>
     <div ng-hide="type !== 'wakelet'">
         <iframe class="wakeletEmbed" width="100%" height="100%"
             src="//embed.wakelet.com/wakes/4d3680cb-2a11-49ab-9180-fcfeced48393/list?no-title=true"
             style="border: none"
-            allow="autoplay">loading Mentions &amp; Media from wakelet.com</iframe>
+            allow="autoplay"
+            translate="NEWS.MENTIONS.DESCRIPTION"></iframe>
     </div>
 </div>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
