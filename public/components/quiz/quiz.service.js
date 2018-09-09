@@ -157,6 +157,31 @@
                     'Machine learning models can only learn from the examples we show them.',
                     'It is very easy for humans to accidentally introduce their likes and dislikes into machine learning models so we should be very careful about what training data we use.'
                 ]
+            },
+            {
+                question : 'Which of the following best describes unsupervised learning?',
+                attempted : false,
+                answers : [
+                    { text : 'Writing a program that contains lots of if/else statements to determine the result', correct : false },
+                    { text : 'A machine learning algorithm that uses unlabelled data and classifies it based on how similar one dataset is to another', correct : true },
+                    { text : 'A machine learning algorithm that uses labelled data and classifies it based on training from example input-output pairs', correct : false }
+                ],
+                notes : [
+                    'Unsupervised learning is a type of machine learning, whereas only using if/else statements is not.',
+                    'Unsupervised learning algorithms are still trained, but the inputs that are given to it are not labelled or classified.',
+                    'If the data is labelled then this is what\'s known as supervised learning.'
+                ]
+            },
+            {
+                question : 'Without machine learning, it would be impossible for search engines such as Google to exist.',
+                attempted : false,
+                answers : [
+                    { text : 'True', correct : false },
+                    { text : 'False', correct : true }
+                ],
+                notes : [
+                    'Whilst many modern search engines do use machine learning, it is possible to create one without it. A basic search engine will just look for documents (web pages) that include the words the user searches for.',
+                ]
             }
         ];
 
