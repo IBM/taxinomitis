@@ -306,7 +306,7 @@
                 paramStr[0] === '?')
             {
                 var params = {};
-                var paramsAry = paramStr.substr(1).split('&').forEach(function (str) {
+                paramStr.substr(1).split('&').forEach(function (str) {
                     var pair = str.split('=');
                     params[pair[0]] = pair[1];
                 });
