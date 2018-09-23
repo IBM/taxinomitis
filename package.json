@@ -92,7 +92,7 @@
     "unzip": "^0.1.11"
   },
   "dependencies": {
-    "@slack/client": "^3.16.0",
+    "@slack/client": "^4.6.0",
     "archiver": "^2.1.1",
     "async": "^2.6.1",
     "bluemix-autoscaling-agent": "^1.0.14",
