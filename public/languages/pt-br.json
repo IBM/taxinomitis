@@ -20,6 +20,8 @@
         "LOGIN": "Entrar",
         "LOGOUT": "Sair",
 
+        "LANGUAGE": "Language",
+
         "BETA": "Beta",
         "INCOMPLETE": "Incompleto!"
     },
@@ -134,7 +136,7 @@
     },
     "TRAINING": {
         "TITLE": "Treinando",
-        "ADDLABEL": "Adicionar um novo rótulo",  
+        "ADDLABEL": "Adicionar um novo rótulo",
         "CREATEFIRSTLABEL": "Clique no botão 'mais' à direita para adicionar seu primeiro grupo.",
         "CROWDSOURCEDEMPTY": "Atualizar esta página depois que seu professor tiver criado os grupos de treinamento.",
         "ADDEXAMPLE": "Adicionar exemplos",
@@ -242,7 +244,104 @@
             "ADVANCED": "Avançado"
         },
 
-        "DOWNLOAD": "Download"
+        "DOWNLOAD": "Download",
+
+
+        "SMARTCLASSROOM": {
+            "TITLE": "Smart Classroom",
+            "SUMMARY": "Teach a computer to recognise the meaning of your commands",
+            "DESCRIPTION": "Create a smart assistant in Scratch that lets you control virtual devices."
+        },
+        "MAKEMEHAPPY": {
+            "TITLE": "Make me happy",
+            "SUMMARY": "Teach a computer to recognise compliments and insults",
+            "DESCRIPTION": "Create a character in Scratch that smiles if you say nice things to it and cries if you say mean things to it."
+        },
+        "SNAP": {
+            "TITLE": "Snap!",
+            "SUMMARY": "Teach a computer to recognise what icons look like",
+            "DESCRIPTION": "Make a card game in Scratch that learns to recognise pictures of your card."
+        },
+        "MAILMANMAX": {
+            "TITLE": "Mailman Max",
+            "SUMMARY": "Teach a computer to recognise handwriting",
+            "DESCRIPTION": "Make a postal sorting office in Scratch that can recognise handwritten postcodes on envelopes."
+        },
+        "CARORCUP": {
+            "TITLE": "Car or cup",
+            "SUMMARY": "Teach a computer to recognise pictures of objects",
+            "DESCRIPTION": "Train the computer to be able to sort photos into groups."
+        },
+        "FACELOCK": {
+            "TITLE": "Face Lock",
+            "SUMMARY": "Teach a computer to recognise faces",
+            "DESCRIPTION": "Make a phone in Scratch that unlocks if it recognises your face."
+        },
+        "JOURNEYTOSCHOOL": {
+            "TITLE": "Journey to school",
+            "SUMMARY": "Teach a computer to make predictions",
+            "DESCRIPTION": "Train the computer to be able to predict how you travel to school in the morning."
+        },
+        "PACMAN": {
+            "TITLE": "Pac-Man",
+            "SUMMARY": "Teach a computer to play a game",
+            "DESCRIPTION": "Create a Pac-Man game in Scratch that learns how to avoid the ghost."
+        },
+        "CHATBOTS": {
+            "TITLE": "Chatbots",
+            "SUMMARY": "Teach a computer to recognise questions",
+            "DESCRIPTION": "Create a chatbot that can answer questions about a topic of your choice."
+        },
+        "TOURISTINFO": {
+            "TITLE": "Tourist Info",
+            "SUMMARY": "Teach a computer to make recommendations",
+            "DESCRIPTION": "Create a mobile app in Scratch that recommends tourist attractions based on people's interests."
+        },
+        "SORTINGHAT": {
+            "TITLE": "Sorting Hat",
+            "SUMMARY": "Teach a computer to recognise use of language",
+            "DESCRIPTION": "Create a Sorting Hat like in Harry Potter, that puts you in a school House based on what you say."
+        },
+        "ROCKPAPERSCISSORS": {
+            "TITLE": "Rock, Paper, Scissors",
+            "SUMMARY": "Teach a computer to recognise shapes",
+            "DESCRIPTION": "Make a Rock, Paper, Scissors game in Scratch that learns to recognise hand shapes."
+        },
+        "JUDGEABOOK": {
+            "TITLE": "Judge a book",
+            "SUMMARY": "Teach a computer to recognise visual style",
+            "DESCRIPTION": "Make a game in Scratch to test whether it really is possible to judge a book by its cover."
+        },
+        "LOCATELARRY": {
+            "TITLE": "Locate Larry",
+            "SUMMARY": "Teach a computer to find something in a picture",
+            "DESCRIPTION": "Make a \"Where's Wally?\"-style game in Scratch, and teach the computer to find your character."
+        },
+        "CONFUSED": {
+            "TITLE": "Confused",
+            "SUMMARY": "Teach a computer to recognise fruit",
+            "DESCRIPTION": "Learn about how computers can be confused and can make mistakes if they're trained badly."
+        },
+        "SCHOOLLIBRARY": {
+            "TITLE": "School Library",
+            "SUMMARY": "Teach a computer to make recommendations",
+            "DESCRIPTION": "Create a school librarian in Scratch that suggests who a reading book might be suitable for."
+        },
+        "NOUGHTSANDCROSSES": {
+            "TITLE": "Noughts & Crosses",
+            "SUMMARY": "Teach a computer to play a game",
+            "DESCRIPTION": "Create a noughts and crosses game in Scratch that learns how to beat you."
+        },
+        "TOPTRUMPS": {
+            "TITLE": "Top Trumps",
+            "SUMMARY": "Teach a computer to play a game",
+            "DESCRIPTION": "Train a computer to be able to play the Top Trumps card game in Scratch."
+        },
+        "HEADLINES": {
+            "TITLE": "Headlines",
+            "SUMMARY": "Test the computer's ability to recognise use of language",
+            "DESCRIPTION": "Train a computer to recognise headlines from national newspapers."
+        }
     },
     "TEACHER": {
         "MENU": {
@@ -272,6 +371,11 @@
             "DELETECLASS": {
                 "TITLE": "Deletar uma turma",
                 "DESCRIPTION": "Isso excluirá as contas para você e todos os alunos da sua turma"
+            },
+
+            "CANYOUHELP": {
+                "TITLE": "Can you help?",
+                "DESCRIPTION": "Please share your experiences and ideas for how to make the tool better"
             },
 
             "NOTAUTHORISED": "Você não está autorizado a acessar a página do professor para sua turma."
