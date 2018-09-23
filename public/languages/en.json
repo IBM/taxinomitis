@@ -373,6 +373,11 @@
                 "DESCRIPTION": "This will delete the accounts for you and all of the students in your class"
             },
 
+            "CANYOUHELP": {
+                "TITLE": "Can you help?",
+                "DESCRIPTION": "Please share your experiences and ideas for how to make the tool better"
+            },
+
             "NOTAUTHORISED": "You are not authorized to access the teacher page for your class."
         }
     },
