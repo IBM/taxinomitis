@@ -11,7 +11,7 @@ class MachineLearningText {
 
         return {
             // making the id unique to allow multiple instances
-            id: 'mlforkidstext' + Date.now(),
+            id: 'mlforkidstext{{{ projectid }}}',
             // the name of the student project
             name: '{{{ projectname }}}',
 

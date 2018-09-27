@@ -11,7 +11,7 @@ class MachineLearningNumbers {
 
         return {
             // making the id unique to allow multiple instances
-            id: 'mlforkidsnumbers' + Date.now(),
+            id: 'mlforkidsnumbers{{{ projectid }}}',
             // the name of the student project
             name: '{{{ projectname }}}',
 

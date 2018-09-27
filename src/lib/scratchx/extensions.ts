@@ -20,6 +20,8 @@ async function getTextExtension(scratchkey: Types.ScratchKey, project: Types.Pro
 
     Mustache.parse(template);
     const rendered = Mustache.render(template, {
+        projectid : project.id.replace(/-/g, ''),
+
         statusurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/status',
         classifyurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/classify',
         storeurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/train',
@@ -38,6 +40,8 @@ async function getImagesExtension(scratchkey: Types.ScratchKey, project: Types.P
     const template: string = await fileutils.read('./resources/scratchx-images-classify.js');
     Mustache.parse(template);
     const rendered = Mustache.render(template, {
+        projectid : project.id.replace(/-/g, ''),
+
         statusurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/status',
         classifyurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/classify',
         storeurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/train',
@@ -74,6 +78,8 @@ async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.
 
     Mustache.parse(template);
     const rendered = Mustache.render(template, {
+        projectid : project.id.replace(/-/g, ''),
+
         statusurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/status',
         classifyurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/classify',
         storeurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/train',
