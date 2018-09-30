@@ -81,6 +81,16 @@ class MachineLearningNumbers {
                 },
                 {{/labels}}
 
+                // provide blocks representing each of the choices
+                {{#choices}}
+                {
+                    opcode: 'return_choice_{{idx}}',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: '{{name}}'
+                },
+                {{/choices}}
+
+
                 // add training data to the project
                 {
                     opcode: 'addTraining',
@@ -138,6 +148,12 @@ class MachineLearningNumbers {
     }
     {{/labels}}
 
+    {{#choices}}
+    return_choice_{{idx}} () {
+        return '{{name}}';
+    }
+    {{/choices}}
+
 
     addTraining(args) {
         var numbers = getFieldValues(args);
@@ -185,6 +201,7 @@ function nowAsString() {
 }
 // returns true if the provided timestamp is within the last 10 seconds
 function veryRecently(timestamp) {
+    var TEN_SECONDS = 10 * 1000;
     return (timestamp + TEN_SECONDS) > Date.now();
 }
 
