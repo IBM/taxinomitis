@@ -1,5 +1,5 @@
 <div class="jumbotron">
-    <h2 class="text-center">Administration : IBM Watson API Keys</h2>
+    <h2 class="text-center" translate="TEACHER.APIKEYS.TITLE"></h2>
 </div>
 <div ng-if="!isAuthenticated">
     <div class="alert alert-warning pageheadermsg">
@@ -10,11 +10,11 @@
     </div>
 </div>
 <div ng-if="isAuthenticated && vm.profile.role !== 'supervisor'" class="alert alert-danger pageheadermsg">
-    <strong translate="APP.ERROR"></strong> You are not authorized to access the Watson API keys used by your class.
+    <strong translate="APP.ERROR"></strong> {{ 'TEACHER.APIKEYS.NOTAUTHORISED' | translate }}
 </div>
 
 <div ng-if="isAuthenticated && vm.policy && vm.policy.isManaged" class="alert alert-danger pageheadermsg">
-    <strong translate="APP.ERROR"></strong> API Keys used by your class are being managed for you.
+    <strong translate="APP.ERROR"></strong> {{ 'TEACHER.APIKEYS.MANAGEDCLASS' | translate }}
 </div>
 
 <div ng-if="isAuthenticated && vm.profile.role === 'supervisor'" class="adminpage">
@@ -34,14 +34,14 @@
          id="errors{{error.alertid}}">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <strong>Error:</strong> {{ error.message }}<br/>
-        <em ng-if="error.status >= 500">If this keeps happening, please <a ui-sref="help">let me know</a>.</em>
+        <em ng-if="error.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
     </div>
     <div ng-repeat="warning in vm.warnings"
          class="alert alert-warning alert-dismissible pageheadermsg" role="alert"
          ng-click="vm.dismissAlert('warnings', $index)"
          id="warnings{{warning.alertid}}">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Warning:</strong> {{ warning.message }}
+        <strong translate="APP.WARNING"></strong> {{ warning.message }}
     </div>
 
     <div ng-if="vm && vm.credentials" class="credentialsinfo">
@@ -55,7 +55,7 @@
             <div style="height: 60px;">
                 <div class="newlabelbutton" ng-click="vm.addCredentials($event, 'conv')">
                     <div class="newlabelicon">+</div>
-                    <div class="newlabellabel">Add new credentials</div>
+                    <div class="newlabellabel" translate="TEACHER.APIKEYS.ADDNEWCREDENTIALS"></div>
                 </div>
             </div>
             <table ng-if="vm.credentials.conv && vm.credentials.conv.length > 0" class="studentslist">
@@ -93,9 +93,7 @@
                     </td>
                 </tr>
             </table>
-            <div class="credserror" ng-if="vm.credentials.conv && vm.credentials.conv.length === 0">
-                You don't have any Assistant credentials. This means that it will not be possible to train models for <strong>text</strong> projects.
-            </div>
+            <div class="credserror" ng-if="vm.credentials.conv && vm.credentials.conv.length === 0" translate="TEACHER.APIKEYS.NO_TEXT_CREDENTIALS"></div>
         </div>
         <div ng-if="vm.credentials.loading.visrec === false">
             <div>
@@ -107,7 +105,7 @@
             <div style="height: 60px;">
                 <div class="newlabelbutton" ng-click="vm.addCredentials($event, 'visrec')">
                     <div class="newlabelicon">+</div>
-                    <div class="newlabellabel">Add new API key</div>
+                    <div class="newlabellabel" translate="TEACHER.APIKEYS.ADDAPIKEY"></div>
                 </div>
             </div>
 
@@ -127,9 +125,7 @@
                     </td>
                 </tr>
             </table>
-            <div class="credserror" ng-if="vm.credentials.visrec && vm.credentials.visrec.length === 0">
-                You don't have any Visual Recognition API keys. This means that it will not be possible to train models for <strong>images</strong> projects.
-            </div>
+            <div class="credserror" ng-if="vm.credentials.visrec && vm.credentials.visrec.length === 0" translate="TEACHER.APIKEYS.NO_IMAGE_CREDENTIALS"></div>
         </div>
     </div>
 

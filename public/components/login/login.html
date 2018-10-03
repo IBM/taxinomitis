@@ -107,31 +107,31 @@
         <div class="loginInfo" translate>SIGNUP.TEACHER.INFO2</div>
         <div class="loginItem">
             <div class="loginType">
-                <div class="loginNewClassType">Create an <strong>unmanaged</strong> class account</div>
-                <div class="loginNewClassInfo">If you are happy to set up and manage the class account yourself, you can do it now!</div>
-                <div class="loginNewClassInfo">You will need to:</div>
+                <div class="loginNewClassType" translate>SIGNUP.UNMANAGED.TITLE</div>
+                <div class="loginNewClassInfo" translate>SIGNUP.UNMANAGED.INTRO</div>
+                <div class="loginNewClassInfo" translate>SIGNUP.UNMANAGED.LISTINTRO</div>
                 <ul>
-                    <li>Create an account on IBM Cloud</li>
-                    <li>Create API key(s) for Watson cloud services needed to train machine learning models</li>
-                    <li>Enter the API keys into this Machine Learning for Kids tool</li>
+                    <li translate>SIGNUP.UNMANAGED.LIST_CREATEACCOUNT</li>
+                    <li translate>SIGNUP.UNMANAGED.LIST_CREATEAPIKEYS</li>
+                    <li translate>SIGNUP.UNMANAGED.LIST_ENTERAPIKEYS</li>
                 </ul>
-                <div class="loginNewClassInfo">Step-by-step instructions (with screenshots) are available for all of this.</div>
+                <div class="loginNewClassInfo" translate>SIGNUP.UNMANAGED.HELP</div>
                 <div style="text-align: center">
                     <button class="btn btn-primary signup-button" ui-sref="signup">
-                        <strong>Sign up</strong>
+                        <strong translate>LOGIN.SIGN_UP</strong>
                     </button>
                 </div>
             </div>
             <div class="loginType">
-                <div class="loginNewClassType">Create a <strong>managed</strong> class account</div>
-                <div class="loginNewClassInfo">If you would like Dale to set up the class account, use the button below to send an email with the following information:</div>
+                <div class="loginNewClassType" translate>SIGNUP.MANAGED.TITLE</div>
+                <div class="loginNewClassInfo" translate>SIGNUP.MANAGED.INTRO</div>
                 <ul>
-                    <li>Roughly how many student accounts you will need</li>
-                    <li>The name of the school or coding group the account is for</li>
+                    <li translate>SIGNUP.MANAGED.LIST_NUMBEROFSTUDENTS</li>
+                    <li translate>SIGNUP.MANAGED.LIST_NAMEOFSCHOOL</li>
                 </ul>
                 <div style="text-align: center">
-                    <button class="btn btn-primary signup-button" ng-click="vm.sendEmail()">
-                        Email
+                    <button class="btn btn-primary signup-button" ng-click="vm.sendEmail()" translate>
+                        SIGNUP.MANAGED.EMAIL
                     </button>
                 </div>
             </div>
@@ -187,16 +187,9 @@
         <div class="loginInfoLink">
             <a href="" ng-click="vm.loginstate = 'login'">&lt; Back</a>
         </div>
-        <div class="loginHeading">Why register?</div>
-        <div class="loginInfo">
-            <strong>You don't have to register or create an account</strong> to use Machine
-            Learning for Kids, but if you do, it does unlock a few features of the tool.
-        </div>
-        <div class="loginInfo">
-            The grid below explains the difference in what you can do if you click
-            "Try it now" without registering, and what you can do if you create an
-            account to log in with.
-        </div>
+        <div class="loginHeading" translate="LOGIN.WHY_REGISTER"></div>
+        <div class="loginInfo" translate="LOGIN.WHY_REGISTER_INTRO_1"></div>
+        <div class="loginInfo" translate="LOGIN.WHY_REGISTER_INTRO_2"></div>
         <div class="loginInfo">
             <table class="loginInfoGrid">
                 <tr>

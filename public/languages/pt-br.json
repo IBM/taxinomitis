@@ -82,6 +82,8 @@
         "FIRST_TIME": "Primeira vez aqui?",
         "SIGN_UP": "Registrar-se",
         "WHY_REGISTER": "Porque se cadastrar?",
+        "WHY_REGISTER_INTRO_1": "<strong>You don't have to register or create an account</strong> to use Machine Learning for Kids, but if you do, it does unlock a few features of the tool.",
+        "WHY_REGISTER_INTRO_2": "The grid below explains the difference in what you can do if you click \"Try it now\" without registering, and what you can do if you create an account to log in with.",
         "ALREADY_REGISTERED": "Já é cadastrado?",
         "LOGIN": "Login",
         "FORGOT_DETAILS": "Esqueceu os seu usuário ou senha?",
@@ -98,6 +100,22 @@
             "TITLE": "Você é um professor ou líder de um clube de programação?",
             "INFO1": "Se você deseja acesso para seus alunos, por favor crie uma conta e turma abaixo.",
             "INFO2": "Existem dois tipos de contas de turma - dependendo de quem a configura."
+        },
+        "UNMANAGED": {
+            "TITLE": "Create an <strong>unmanaged</strong> class account",
+            "INTRO": "If you are happy to set up and manage the class account yourself, you can do it now!",
+            "LISTINTRO": "You will need to:",
+            "LIST_CREATEACCOUNT": "Create an account on IBM Cloud",
+            "LIST_CREATEAPIKEYS": "Create API key(s) for Watson cloud services needed to train machine learning models",
+            "LIST_ENTERAPIKEYS": "Enter the API keys into this Machine Learning for Kids tool",
+            "HELP": "Step-by-step instructions (with screenshots) are available for all of this."
+        },
+        "MANAGED": {
+            "TITLE": "Create a <strong>managed</strong> class account",
+            "INTRO": "If you would like Dale to set up the class account, use the button below to send an email with the following information:",
+            "LIST_NUMBEROFSTUDENTS": "Roughly how many student accounts you will need",
+            "LIST_NAMEOFSCHOOL": "The name of the school or coding group the account is for",
+            "EMAIL": "Email"
         }
     },
     "PROJECTS": {
@@ -379,6 +397,18 @@
             },
 
             "NOTAUTHORISED": "Você não está autorizado a acessar a página do professor para sua turma."
+        },
+        "APIKEYS": {
+            "TITLE": "Administration : IBM Watson API Keys",
+
+            "ADDNEWCREDENTIALS": "Add new credentials",
+            "ADDAPIKEY": "Add new API key",
+
+            "NO_TEXT_CREDENTIALS": "You don't have any Assistant credentials. This means that it will not be possible to train models for <strong>text</strong> projects.",
+            "NO_IMAGE_CREDENTIALS": "You don't have any Visual Recognition API keys. This means that it will not be possible to train models for <strong>images</strong> projects.",
+
+            "NOTAUTHORISED": "You are not authorized to access the Watson API keys used by your class.",
+            "MANAGEDCLASS": "API Keys used by your class are being managed for you."
         }
     },
     "HELP": {
