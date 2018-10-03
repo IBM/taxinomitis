@@ -26,21 +26,17 @@
                 .then(function (project) {
                     $scope.project = project;
 
-                    if (project.type !== 'images') {
-                        return scratchkeysService.getScratchKeys(project.id, $scope.userId, vm.profile.tenant);
-                    }
+                    return scratchkeysService.getScratchKeys(project.id, $scope.userId, vm.profile.tenant);
                 })
                 .then(function (resp) {
-                    if (resp) {
-                        var scratchkey = resp[0];
+                    var scratchkey = resp[0];
 
-                        scratchkey.extensionurl = window.location.origin +
-                                                '/api/scratch/' +
-                                                scratchkey.id +
-                                                '/extension3.js'
+                    scratchkey.extensionurl = window.location.origin +
+                                            '/api/scratch/' +
+                                            scratchkey.id +
+                                            '/extension3.js'
 
-                        $scope.scratchkey = scratchkey;
-                    }
+                    $scope.scratchkey = scratchkey;
                 })
                 .catch(function (err) {
                     $scope.failure = {

@@ -243,7 +243,7 @@ function classifyNumbers(numbers, cacheKey, lastmodified, callback) {
                 });
             }
             else {
-                console.log(err);
+                console.log(response);
 
                 callback({
                     class_name: 'Unknown',

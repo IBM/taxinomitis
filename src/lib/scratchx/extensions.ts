@@ -36,8 +36,13 @@ async function getTextExtension(scratchkey: Types.ScratchKey, project: Types.Pro
     return rendered;
 }
 
-async function getImagesExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string> {
-    const template: string = await fileutils.read('./resources/scratchx-images-classify.js');
+async function getImagesExtension(scratchkey: Types.ScratchKey, project: Types.Project,
+                                  version: 2 | 3): Promise<string>
+{
+    const template: string = await fileutils.read(
+        version === 3 ? './resources/scratch3-images-classify.js' :
+                        './resources/scratchx-images-classify.js');
+
     Mustache.parse(template);
     const rendered = Mustache.render(template, {
         projectid : project.id.replace(/-/g, ''),
@@ -125,7 +130,7 @@ export function getScratchxExtension(
     case 'text':
         return getTextExtension(scratchkey, project, version);
     case 'images':
-        return getImagesExtension(scratchkey, project);
+        return getImagesExtension(scratchkey, project, version);
     case 'numbers':
         return getNumbersExtension(scratchkey, project, version);
     }
