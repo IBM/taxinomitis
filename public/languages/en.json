@@ -20,6 +20,8 @@
         "LOGIN": "Log In",
         "LOGOUT": "Log Out",
 
+        "LANGUAGE": "Language",
+
         "BETA": "Beta",
         "INCOMPLETE": "Incomplete!"
     },
@@ -80,6 +82,8 @@
         "FIRST_TIME": "First time here?",
         "SIGN_UP": "Sign up",
         "WHY_REGISTER": "Why register?",
+        "WHY_REGISTER_INTRO_1": "<strong>You don't have to register or create an account</strong> to use Machine Learning for Kids, but if you do, it does unlock a few features of the tool.",
+        "WHY_REGISTER_INTRO_2": "The grid below explains the difference in what you can do if you click \"Try it now\" without registering, and what you can do if you create an account to log in with.",
         "ALREADY_REGISTERED": "Already registered?",
         "LOGIN": "Log in",
         "FORGOT_DETAILS": "Forgot your details?",
@@ -96,6 +100,22 @@
             "TITLE": "Are you a teacher or leader of a coding club?",
             "INFO1": "If you would like access for your students, please create a class account below.",
             "INFO2": "There are two types of class account - depending on who sets it up."
+        },
+        "UNMANAGED": {
+            "TITLE": "Create an <strong>unmanaged</strong> class account",
+            "INTRO": "If you are happy to set up and manage the class account yourself, you can do it now!",
+            "LISTINTRO": "You will need to:",
+            "LIST_CREATEACCOUNT": "Create an account on IBM Cloud",
+            "LIST_CREATEAPIKEYS": "Create API key(s) for Watson cloud services needed to train machine learning models",
+            "LIST_ENTERAPIKEYS": "Enter the API keys into this Machine Learning for Kids tool",
+            "HELP": "Step-by-step instructions (with screenshots) are available for all of this."
+        },
+        "MANAGED": {
+            "TITLE": "Create a <strong>managed</strong> class account",
+            "INTRO": "If you would like Dale to set up the class account, use the button below to send an email with the following information:",
+            "LIST_NUMBEROFSTUDENTS": "Roughly how many student accounts you will need",
+            "LIST_NAMEOFSCHOOL": "The name of the school or coding group the account is for",
+            "EMAIL": "Email"
         }
     },
     "PROJECTS": {
@@ -242,7 +262,104 @@
             "ADVANCED": "Advanced"
         },
 
-        "DOWNLOAD": "Download"
+        "DOWNLOAD": "Download",
+
+
+        "SMARTCLASSROOM": {
+            "TITLE": "Smart Classroom",
+            "SUMMARY": "Teach a computer to recognise the meaning of your commands",
+            "DESCRIPTION": "Create a smart assistant in Scratch that lets you control virtual devices."
+        },
+        "MAKEMEHAPPY": {
+            "TITLE": "Make me happy",
+            "SUMMARY": "Teach a computer to recognise compliments and insults",
+            "DESCRIPTION": "Create a character in Scratch that smiles if you say nice things to it and cries if you say mean things to it."
+        },
+        "SNAP": {
+            "TITLE": "Snap!",
+            "SUMMARY": "Teach a computer to recognise what icons look like",
+            "DESCRIPTION": "Make a card game in Scratch that learns to recognise pictures of your card."
+        },
+        "MAILMANMAX": {
+            "TITLE": "Mailman Max",
+            "SUMMARY": "Teach a computer to recognise handwriting",
+            "DESCRIPTION": "Make a postal sorting office in Scratch that can recognise handwritten postcodes on envelopes."
+        },
+        "CARORCUP": {
+            "TITLE": "Car or cup",
+            "SUMMARY": "Teach a computer to recognise pictures of objects",
+            "DESCRIPTION": "Train the computer to be able to sort photos into groups."
+        },
+        "FACELOCK": {
+            "TITLE": "Face Lock",
+            "SUMMARY": "Teach a computer to recognise faces",
+            "DESCRIPTION": "Make a phone in Scratch that unlocks if it recognises your face."
+        },
+        "JOURNEYTOSCHOOL": {
+            "TITLE": "Journey to school",
+            "SUMMARY": "Teach a computer to make predictions",
+            "DESCRIPTION": "Train the computer to be able to predict how you travel to school in the morning."
+        },
+        "PACMAN": {
+            "TITLE": "Pac-Man",
+            "SUMMARY": "Teach a computer to play a game",
+            "DESCRIPTION": "Create a Pac-Man game in Scratch that learns how to avoid the ghost."
+        },
+        "CHATBOTS": {
+            "TITLE": "Chatbots",
+            "SUMMARY": "Teach a computer to recognise questions",
+            "DESCRIPTION": "Create a chatbot that can answer questions about a topic of your choice."
+        },
+        "TOURISTINFO": {
+            "TITLE": "Tourist Info",
+            "SUMMARY": "Teach a computer to make recommendations",
+            "DESCRIPTION": "Create a mobile app in Scratch that recommends tourist attractions based on people's interests."
+        },
+        "SORTINGHAT": {
+            "TITLE": "Sorting Hat",
+            "SUMMARY": "Teach a computer to recognise use of language",
+            "DESCRIPTION": "Create a Sorting Hat like in Harry Potter, that puts you in a school House based on what you say."
+        },
+        "ROCKPAPERSCISSORS": {
+            "TITLE": "Rock, Paper, Scissors",
+            "SUMMARY": "Teach a computer to recognise shapes",
+            "DESCRIPTION": "Make a Rock, Paper, Scissors game in Scratch that learns to recognise hand shapes."
+        },
+        "JUDGEABOOK": {
+            "TITLE": "Judge a book",
+            "SUMMARY": "Teach a computer to recognise visual style",
+            "DESCRIPTION": "Make a game in Scratch to test whether it really is possible to judge a book by its cover."
+        },
+        "LOCATELARRY": {
+            "TITLE": "Locate Larry",
+            "SUMMARY": "Teach a computer to find something in a picture",
+            "DESCRIPTION": "Make a \"Where's Wally?\"-style game in Scratch, and teach the computer to find your character."
+        },
+        "CONFUSED": {
+            "TITLE": "Confused",
+            "SUMMARY": "Teach a computer to recognise fruit",
+            "DESCRIPTION": "Learn about how computers can be confused and can make mistakes if they're trained badly."
+        },
+        "SCHOOLLIBRARY": {
+            "TITLE": "School Library",
+            "SUMMARY": "Teach a computer to make recommendations",
+            "DESCRIPTION": "Create a school librarian in Scratch that suggests who a reading book might be suitable for."
+        },
+        "NOUGHTSANDCROSSES": {
+            "TITLE": "Noughts & Crosses",
+            "SUMMARY": "Teach a computer to play a game",
+            "DESCRIPTION": "Create a noughts and crosses game in Scratch that learns how to beat you."
+        },
+        "TOPTRUMPS": {
+            "TITLE": "Top Trumps",
+            "SUMMARY": "Teach a computer to play a game",
+            "DESCRIPTION": "Train a computer to be able to play the Top Trumps card game in Scratch."
+        },
+        "HEADLINES": {
+            "TITLE": "Headlines",
+            "SUMMARY": "Test the computer's ability to recognise use of language",
+            "DESCRIPTION": "Train a computer to recognise headlines from national newspapers."
+        }
     },
     "TEACHER": {
         "MENU": {
@@ -274,7 +391,24 @@
                 "DESCRIPTION": "This will delete the accounts for you and all of the students in your class"
             },
 
+            "CANYOUHELP": {
+                "TITLE": "Can you help?",
+                "DESCRIPTION": "Please share your experiences and ideas for how to make the tool better"
+            },
+
             "NOTAUTHORISED": "You are not authorized to access the teacher page for your class."
+        },
+        "APIKEYS": {
+            "TITLE": "Administration : IBM Watson API Keys",
+
+            "ADDNEWCREDENTIALS": "Add new credentials",
+            "ADDAPIKEY": "Add new API key",
+
+            "NO_TEXT_CREDENTIALS": "You don't have any Assistant credentials. This means that it will not be possible to train models for <strong>text</strong> projects.",
+            "NO_IMAGE_CREDENTIALS": "You don't have any Visual Recognition API keys. This means that it will not be possible to train models for <strong>images</strong> projects.",
+
+            "NOTAUTHORISED": "You are not authorized to access the Watson API keys used by your class.",
+            "MANAGEDCLASS": "API Keys used by your class are being managed for you."
         }
     },
     "HELP": {
@@ -416,6 +550,21 @@
             "Q1-A-1": "Using \"Try it now\" to means there is no need to log on or create an account. There are no passwords for students to have to remember, and no need for teachers to have to provide personal information. It also saves teachers the time needed to manage student accounts.",
             "Q1-A-2": "However, creating an account does enable additional features. Students can save their work and come back to it in a later lesson. They can work on a project together with other students in their class. They can log on from home and show their family what they've made.",
             "Q1-A-3": "A summary of the differences is shown below:",
+
+            "CREATE_ACCOUNT": "Create an account",
+            "TRAINMODELS": "Train machine learning models to recognise...",
+            "USE_SCRATCH": "Use machine learning models from Scratch",
+            "CREATE_PROJECTS": "Create projects",
+            "ONE_PROJECT": " 1 project ",
+            "MULTIPLE_PROJECTS": " Multiple projects ",
+            "SAVE_PROJECTS": "Save and load projects",
+            "WORK_ON_PROJECTS": "Work on machine learning projects...",
+            "FEW_HOURS": " for a few hours ",
+            "UNTIL_DELETION": " until you delete them ",
+            "ONE_COMPUTER": " from one computer ",
+            "ONLINE": " anywhere online ",
+            "BY_YOURSELF": " by yourself ",
+            "WITH_CLASSMATES": "with classmates",
 
             "Q2": "I've created a class account but my teacher's logon isn't working",
             "Q2-A-1": "You need to verify your email address before you'll be able to log on.",

@@ -248,7 +248,7 @@
                 const queries = document.location.search.substr(1).split('&');
                 for (var i = 0; i < queries.length; i++) {
                     var query = queries[0];
-                    if (query.startsWith('lang=')) {
+                    if (query.indexOf('lang=') === 0) {
                         lang = query.substr('lang='.length);
                         break;
                     }
@@ -257,7 +257,7 @@
                 lang = lang.toLowerCase();
 
                 // shorten en-XX to en
-                if (lang.startsWith('en')) {
+                if (lang.indexOf('en') === 0) {
                     lang = 'en';
                 }
 

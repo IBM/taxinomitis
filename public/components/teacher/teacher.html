@@ -57,6 +57,15 @@
         <div ng-class="{ collapsed : advancedClosed, expanded : !advancedClosed }" class="collapsable">
             <div class="menucontainer" >
                 <div class="mlprojectmenu warningmenu">
+                    <div class="mlprojectmenutitle" translate="TEACHER.MENU.CANYOUHELP.TITLE"></div>
+                    <div class="mlprojectmenudescription" translate="TEACHER.MENU.CANYOUHELP.DESCRIPTION"></div>
+                    <div class="mlprojectmenubutton">
+                        <a class="btn btn-primary" style="width: 240px;"
+                           translate="TEACHER.MENU.CANYOUHELP.TITLE" target="_blank"
+                           href="https://github.com/IBM/taxinomitis/wiki/Input-from-teachers-and-group-leaders"></a>
+                    </div>
+                </div>
+                <div class="mlprojectmenu warningmenu">
                     <div class="mlprojectmenutitle" translate="TEACHER.MENU.DELETECLASS.TITLE"></div>
                     <div class="mlprojectmenudescription" translate="TEACHER.MENU.DELETECLASS.DESCRIPTION"></div>
                     <div class="mlprojectmenubutton" ng-hide="vm.busy">
