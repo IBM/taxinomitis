@@ -6,7 +6,7 @@
         <button class="btn btn-primary" ng-click="vm.authService.login()" translate="APP.LOGIN"></button>
     </div>
 </div>
-<div ng-if="isAuthenticated">
+<div ng-if="isAuthenticated" ignore-drop>
     <div class="jumbotron training">
         <h2 class="text-center" ng-if="!project" translate="TRAINING.TITLE"></h2>
         <div class="mlprojectdescription" ng-if="project">
