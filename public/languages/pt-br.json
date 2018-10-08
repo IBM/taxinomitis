@@ -82,8 +82,8 @@
         "FIRST_TIME": "Primeira vez aqui?",
         "SIGN_UP": "Registrar-se",
         "WHY_REGISTER": "Porque se cadastrar?",
-        "WHY_REGISTER_INTRO_1": "<strong>You don't have to register or create an account</strong> to use Machine Learning for Kids, but if you do, it does unlock a few features of the tool.",
-        "WHY_REGISTER_INTRO_2": "The grid below explains the difference in what you can do if you click \"Try it now\" without registering, and what you can do if you create an account to log in with.",
+        "WHY_REGISTER_INTRO_1": "<strong>Você não precisa se registrar ou criar uma conta</strong> para usar o Machine Learning for Kids, mas, isso desbloquearia alguns recursos adicionais nesta ferramenta.",
+        "WHY_REGISTER_INTRO_2": "O quadro abaixo explica o que pode ser feito se você clicar no \"Experimente agora\" sem se registar e o que se pode fazer se você criar uma conta para fazer o Login",
         "ALREADY_REGISTERED": "Já é cadastrado?",
         "LOGIN": "Login",
         "FORGOT_DETAILS": "Esqueceu os seu usuário ou senha?",
@@ -102,19 +102,19 @@
             "INFO2": "Existem dois tipos de contas de turma - dependendo de quem a configura."
         },
         "UNMANAGED": {
-            "TITLE": "Create an <strong>unmanaged</strong> class account",
-            "INTRO": "If you are happy to set up and manage the class account yourself, you can do it now!",
-            "LISTINTRO": "You will need to:",
-            "LIST_CREATEACCOUNT": "Create an account on IBM Cloud",
-            "LIST_CREATEAPIKEYS": "Create API key(s) for Watson cloud services needed to train machine learning models",
-            "LIST_ENTERAPIKEYS": "Enter the API keys into this Machine Learning for Kids tool",
-            "HELP": "Step-by-step instructions (with screenshots) are available for all of this."
+            "TITLE": "Criar uma conta de turma <strong>não gerenciada</strong>",
+            "INTRO": "Se você está disposto a criar e gerenciar uma conta de turma, você já pode fazer isso!",
+            "LISTINTRO": "Você precisará de:",
+            "LIST_CREATEACCOUNT": "Criar uma conta no IBM Cloud",
+            "LIST_CREATEAPIKEYS": "Criar chaves API para os Cloud services do Watson necessários para treinar os modelos de aprendizado de máquina.",
+            "LIST_ENTERAPIKEYS": "Cadastrar as chaves API geradas no Machine Learning for Kids",
+            "HELP": "Instruções passo-a-passo (com screenshots) estão disponíveis para todo o procedimento."
         },
         "MANAGED": {
-            "TITLE": "Create a <strong>managed</strong> class account",
-            "INTRO": "If you would like Dale to set up the class account, use the button below to send an email with the following information:",
-            "LIST_NUMBEROFSTUDENTS": "Roughly how many student accounts you will need",
-            "LIST_NAMEOFSCHOOL": "The name of the school or coding group the account is for",
+            "TITLE": "Criar uma conta de turma <strong>gerenciada</strong>",
+            "INTRO": "Se você quiser que o Dale configure a conta da turma, use o botão abaixo para enviar um email com as seguintes informações:",
+            "LIST_NUMBEROFSTUDENTS": "Aproximadamente quantas contas de estudantes você precisará",
+            "LIST_NAMEOFSCHOOL": "O nome da escola ou clube de programação que usará a conta",
             "EMAIL": "Email"
         }
     },
@@ -267,98 +267,98 @@
 
         "SMARTCLASSROOM": {
             "TITLE": "Smart Classroom",
-            "SUMMARY": "Teach a computer to recognise the meaning of your commands",
-            "DESCRIPTION": "Create a smart assistant in Scratch that lets you control virtual devices."
+            "SUMMARY": "Ensine um computador a reconhecer o significado dos seus comandos",
+            "DESCRIPTION": "Crie um assistente inteligente no Scratch que lhe permita controlar dispositivos virtuais."
         },
         "MAKEMEHAPPY": {
             "TITLE": "Make me happy",
-            "SUMMARY": "Teach a computer to recognise compliments and insults",
-            "DESCRIPTION": "Create a character in Scratch that smiles if you say nice things to it and cries if you say mean things to it."
+            "SUMMARY": "Ensine um computador a reconhecer elogios e insultos",
+            "DESCRIPTION": "Crie um personagem no Scratch que sorria se você disser coisas boas e chore se disser coisas ruins para ele."
         },
         "SNAP": {
             "TITLE": "Snap!",
-            "SUMMARY": "Teach a computer to recognise what icons look like",
-            "DESCRIPTION": "Make a card game in Scratch that learns to recognise pictures of your card."
+            "SUMMARY": "Ensine um computador a reconhecer naipes de baralho",
+            "DESCRIPTION": "Faça um jogo de cartas no Scratch que aprenda a reconhecer fotos da sua carta."
         },
         "MAILMANMAX": {
             "TITLE": "Mailman Max",
-            "SUMMARY": "Teach a computer to recognise handwriting",
-            "DESCRIPTION": "Make a postal sorting office in Scratch that can recognise handwritten postcodes on envelopes."
+            "SUMMARY": "Ensine um computador a reconhecer escrita",
+            "DESCRIPTION": "Faça um escritório de classificação postal no Scratch que possa reconhecer códigos postais escritos à mão em envelopes."
         },
         "CARORCUP": {
             "TITLE": "Car or cup",
-            "SUMMARY": "Teach a computer to recognise pictures of objects",
-            "DESCRIPTION": "Train the computer to be able to sort photos into groups."
+            "SUMMARY": "Ensine um computador a reconhecer fotos de objetos",
+            "DESCRIPTION": "Treine o computador para poder classificar fotos em grupos."
         },
         "FACELOCK": {
             "TITLE": "Face Lock",
-            "SUMMARY": "Teach a computer to recognise faces",
-            "DESCRIPTION": "Make a phone in Scratch that unlocks if it recognises your face."
+            "SUMMARY": "Ensine o computador a reconhecer rostos",
+            "DESCRIPTION": "Faça um telefone no Scratch que desbloqueia se reconhecer seu rosto."
         },
         "JOURNEYTOSCHOOL": {
             "TITLE": "Journey to school",
-            "SUMMARY": "Teach a computer to make predictions",
-            "DESCRIPTION": "Train the computer to be able to predict how you travel to school in the morning."
+            "SUMMARY": "Ensine um computador a fazer previsões",
+            "DESCRIPTION": "Treine o computador para poder prever como você vai para a escola."
         },
         "PACMAN": {
             "TITLE": "Pac-Man",
-            "SUMMARY": "Teach a computer to play a game",
-            "DESCRIPTION": "Create a Pac-Man game in Scratch that learns how to avoid the ghost."
+            "SUMMARY": "Ensine um computador a jogar um jogo",
+            "DESCRIPTION": "Crie um jogo de Pac-Man no Scratch que aprende a evitar o fantasma."
         },
         "CHATBOTS": {
             "TITLE": "Chatbots",
-            "SUMMARY": "Teach a computer to recognise questions",
-            "DESCRIPTION": "Create a chatbot that can answer questions about a topic of your choice."
+            "SUMMARY": "Ensina um computador a reconhecer perguntas",
+            "DESCRIPTION": "Crie um chatbot que possa responder a perguntas sobre um tópico de sua escolha."
         },
         "TOURISTINFO": {
             "TITLE": "Tourist Info",
-            "SUMMARY": "Teach a computer to make recommendations",
-            "DESCRIPTION": "Create a mobile app in Scratch that recommends tourist attractions based on people's interests."
+            "SUMMARY": "Ensine um computador a fazer recomendações",
+            "DESCRIPTION": "Crie um aplicativo no Scratch que recomende atrações turísticas com base nos interesses das pessoas."
         },
         "SORTINGHAT": {
             "TITLE": "Sorting Hat",
-            "SUMMARY": "Teach a computer to recognise use of language",
-            "DESCRIPTION": "Create a Sorting Hat like in Harry Potter, that puts you in a school House based on what you say."
+            "SUMMARY": "Ensine um computador a reconhecer o uso de linguagem",
+            "DESCRIPTION": "Crie um chapéu seletor como em Harry Potter, que coloca você em uma das casas de Hogwarts baseada no que você diz."
         },
         "ROCKPAPERSCISSORS": {
             "TITLE": "Rock, Paper, Scissors",
-            "SUMMARY": "Teach a computer to recognise shapes",
-            "DESCRIPTION": "Make a Rock, Paper, Scissors game in Scratch that learns to recognise hand shapes."
+            "SUMMARY": "Ensine um computador a reconhecer formas",
+            "DESCRIPTION": "Faz um jogo de Pedra, Papel e Tesoura no Scratch que aprende a reconhecer formas feitas pela mão."
         },
         "JUDGEABOOK": {
             "TITLE": "Judge a book",
-            "SUMMARY": "Teach a computer to recognise visual style",
-            "DESCRIPTION": "Make a game in Scratch to test whether it really is possible to judge a book by its cover."
+            "SUMMARY": "Ensine um computador a reconhecer estilo visual",
+            "DESCRIPTION": "Faça um jogo no Scratch para testar se é realmente possível julgar um livro pela capa."
         },
         "LOCATELARRY": {
             "TITLE": "Locate Larry",
-            "SUMMARY": "Teach a computer to find something in a picture",
-            "DESCRIPTION": "Make a \"Where's Wally?\"-style game in Scratch, and teach the computer to find your character."
+            "SUMMARY": "Ensine um computador a encontrar algo em uma foto",
+            "DESCRIPTION": "Faça um jogo estilo \"Onde está o Wally?\" no Scratch, e ensine o computador a encontrar o seu personagem."
         },
         "CONFUSED": {
             "TITLE": "Confused",
-            "SUMMARY": "Teach a computer to recognise fruit",
-            "DESCRIPTION": "Learn about how computers can be confused and can make mistakes if they're trained badly."
+            "SUMMARY": "Ensine um computador a reconhecer frutas",
+            "DESCRIPTION": "Aprenda como os computadores podem ser confundidos e cometer erros se forem mal treinados."
         },
         "SCHOOLLIBRARY": {
             "TITLE": "School Library",
-            "SUMMARY": "Teach a computer to make recommendations",
-            "DESCRIPTION": "Create a school librarian in Scratch that suggests who a reading book might be suitable for."
+            "SUMMARY": "Ensine um computador a fazer recomendações",
+            "DESCRIPTION": "Crie um bibliotecário escolar no Scratch que sugira para quem um livro pode ser adequado."
         },
         "NOUGHTSANDCROSSES": {
             "TITLE": "Noughts & Crosses",
-            "SUMMARY": "Teach a computer to play a game",
-            "DESCRIPTION": "Create a noughts and crosses game in Scratch that learns how to beat you."
+            "SUMMARY": "Ensine um computador a jogar um jogo",
+            "DESCRIPTION": "Criar um Jogo da Velha no Scratch que aprende a derrotá-lo"
         },
         "TOPTRUMPS": {
             "TITLE": "Top Trumps",
-            "SUMMARY": "Teach a computer to play a game",
-            "DESCRIPTION": "Train a computer to be able to play the Top Trumps card game in Scratch."
+            "SUMMARY": "Ensine um computador a jogar um jogo",
+            "DESCRIPTION": "Treine um computador para poder jogar o jogo de cartas Top Trumps no Scratch."
         },
         "HEADLINES": {
             "TITLE": "Headlines",
-            "SUMMARY": "Test the computer's ability to recognise use of language",
-            "DESCRIPTION": "Train a computer to recognise headlines from national newspapers."
+            "SUMMARY": "Teste a capacidade do computador de reconhecer o uso da linguagem",
+            "DESCRIPTION": "Treine um computador para reconhecer as manchetes dos principais jornais."
         }
     },
     "TEACHER": {
@@ -392,23 +392,23 @@
             },
 
             "CANYOUHELP": {
-                "TITLE": "Can you help?",
-                "DESCRIPTION": "Please share your experiences and ideas for how to make the tool better"
+                "TITLE": "Você pode ajudar?",
+                "DESCRIPTION": "Por favor, compartilhe suas experiências e idéias de como tornar esta ferramenta melhor"
             },
 
             "NOTAUTHORISED": "Você não está autorizado a acessar a página do professor para sua turma."
         },
         "APIKEYS": {
-            "TITLE": "Administration : IBM Watson API Keys",
+            "TITLE": "Administração : Chaves API do IBM Watson",
 
-            "ADDNEWCREDENTIALS": "Add new credentials",
-            "ADDAPIKEY": "Add new API key",
+            "ADDNEWCREDENTIALS": "Adicionar novas credenciais",
+            "ADDAPIKEY": "Adicionar nova chave API",
 
-            "NO_TEXT_CREDENTIALS": "You don't have any Assistant credentials. This means that it will not be possible to train models for <strong>text</strong> projects.",
-            "NO_IMAGE_CREDENTIALS": "You don't have any Visual Recognition API keys. This means that it will not be possible to train models for <strong>images</strong> projects.",
+            "NO_TEXT_CREDENTIALS": "Você não tem credenciais do Assistente. Isso significa que não será possível treinar modelos para projetos de <strong>texto</strong>.",
+            "NO_IMAGE_CREDENTIALS": "Você não tem nenhuma chave de API de Reconhecimento Visual. Isso significa que não será possível treinar modelos para projetos de <strong>imagem</strong>.",
 
-            "NOTAUTHORISED": "You are not authorized to access the Watson API keys used by your class.",
-            "MANAGEDCLASS": "API Keys used by your class are being managed for you."
+            "NOTAUTHORISED": "Você não está autorizado a acessar as chaves de API do Watson usadas por sua turma.",
+            "MANAGEDCLASS": "As chaves de API usadas por sua turma estão sendo gerenciadas para você."
         }
     },
     "HELP": {
@@ -551,20 +551,20 @@
             "Q1-A-2": "No entanto, a criação de uma conta permite recursos adicionais. Os alunos podem salvar seu trabalho e voltar a ele em uma lição posterior. Eles podem trabalhar em um projeto junto com outros alunos de sua turma. Eles podem fazer o login de casa e mostre a família deles o que foi feito.",
             "Q1-A-3": "Um resumo das diferenças é mostrado abaixo:",
 
-            "CREATE_ACCOUNT": "Create an account",
-            "TRAINMODELS": "Train machine learning models to recognise...",
-            "USE_SCRATCH": "Use machine learning models from Scratch",
-            "CREATE_PROJECTS": "Create projects",
-            "ONE_PROJECT": " 1 project ",
-            "MULTIPLE_PROJECTS": " Multiple projects ",
-            "SAVE_PROJECTS": "Save and load projects",
-            "WORK_ON_PROJECTS": "Work on machine learning projects...",
-            "FEW_HOURS": " for a few hours ",
-            "UNTIL_DELETION": " until you delete them ",
-            "ONE_COMPUTER": " from one computer ",
-            "ONLINE": " anywhere online ",
-            "BY_YOURSELF": " by yourself ",
-            "WITH_CLASSMATES": "with classmates",
+            "CREATE_ACCOUNT": "Criar uma conta",
+            "TRAINMODELS": "Treine modelos de Aprendizado de Máquina para reconhecer… ",
+            "USE_SCRATCH": "Use modelos de aprendizado de máquina no Scratch",
+            "CREATE_PROJECTS": "Criar projetos",
+            "ONE_PROJECT": " 1 projeto ",
+            "MULTIPLE_PROJECTS": " Múltiplos projetos ",
+            "SAVE_PROJECTS": "Salvar and carregar projetos",
+            "WORK_ON_PROJECTS": "Trabalhe em projetos de aprendizado de máquina...",
+            "FEW_HOURS": " por algumas horas ",
+            "UNTIL_DELETION": " até que você os delete ",
+            "ONE_COMPUTER": " de um computador ",
+            "ONLINE": " de qualquer lugar online ",
+            "BY_YOURSELF": " sozinho ",
+            "WITH_CLASSMATES": "com colegas de turma",
 
             "Q2": "Criei uma conta de turma, mas o meu login de professor não está funcionando",
             "Q2-A-1": "Você precisa verificar seu endereço de e-mail antes de poder fazer o login.",
