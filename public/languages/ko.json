@@ -1,0 +1,431 @@
+{
+    "APP": {
+        "TITLE": "아이들을 위한 머신러닝",
+
+        "BACK": "뒤로",
+        "BACKTOPROJECT": "&lt; 프로젝트로 돌아가기",
+        "ERROR": "에러:",
+        "WARNING": "경고:",
+        "INFO": "정보:",
+
+        "ADD": "추가",
+        "CANCEL": "취소",
+
+        "ABOUT": "소개",
+        "TEACHER": "선생님",
+        "PROJECTS": "프로젝트",
+        "WORKSHEETS": "워크시트",
+        "NEWS": "뉴스",
+        "HELP": "도움말",
+        "LOGIN": "로그인",
+        "LOGOUT": "로그아웃",
+
+        "LANGUAGE": "Language",
+
+        "BETA": "베타",
+        "INCOMPLETE": "미완성!"
+    },
+    "ABOUT": {
+        "TITLE": "아이들을 위한 머신러닝",
+        "IN6SECS": "6초 안에 가능!",
+        "IN20MINS": "20분 안에 가능",
+        "WHAT": {
+            "TITLE": "무엇을?",
+            "BODY" : "이 도구는 머신 러닝 시스템을 훈련시키고 만드는 실전적인 과정을 제공하며 아이들에게 머신러닝을 소개합니다. <br/><br/> 이 도구는 텍스트, 숫자 또는 이미지를 분류하는 머신러닝 모델을 만들 수 있는 환경을 제공합니다. <br/><br/>아이들에게 코딩을 소개하고 가르치기 위한 기존의 연구를 바탕으로, 이 모델을 <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a>(코딩 교육에 주로 사용되는 플랫폼)에 추가하여 아이들이 그들이 만든 머신러닝 모델을 바탕으로 프로젝트와 게임을 만들 수 있습니다. <br/><br/>자세한 내용은 다음을 참고하세요."
+        },
+        "WHY": {
+            "TITLE": "왜?",
+            "BODY": "머신러닝은 우리 주변에 있습니다. 우리는 스팸 필터, 추천 엔진, 언어 번역 서비스, 채팅 로봇 및 디지털 비서, 검색 엔진 및 사기 탐지 시스템과 같은 머신러닝 시스템을 매일 사용합니다.<br/><br/>머지 않아 머신러닝 시스템이 우리의 자동차를 운전하고, 의사가 우리의 질병을 진단하고 치료할 수 있도록 도와줄 것입니다. <br/><br/>아이들이 우리의 세계가 어떻게 작동하는지 알고 있어야 합니다. 기능과 의미를 이해하는 가장 좋은 방법은 이 기술을 직접 구현해 보는 것입니다. <br/><br/>자세한 내용은 다음을 참고하세요.: <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'Introducing Machine Learning to kids'</a>"
+        },
+        "TECH": {
+            "TITLE": "기술",
+            "BODY": "이 도구는 웹 기반이므로 설치나 복잡한 설정이 필요하지 않습니다. <br/><br/>학교, 교실에서 자발적으로 코딩 그룹을 운영하도록 설계되었습니다. 그리고 교사 또는 그룹 리더가 학생을 위한 액세스를 관리하고 관리할 수 있는 관리자 페이지를 제공합니다.<br/><br/><a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a>의 API를 사용하여 <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a>이 개발했습니다.",
+            "LOGIN": "시작하려면: "
+        }
+    },
+    "NEWS": {
+        "TITLE": "새소식",
+        "UPDATES": {
+            "TITLE": "뉴스 &amp; 새소식",
+            "DESCRIPTION": "@MLforKids의 새소식"
+        },
+        "MENTIONS": {
+            "TITLE": "알림",
+            "DESCRIPTION": "wakelet.com의 알림"
+        }
+    },
+    "ERRORS": {
+        "PAGENOTFOUND": "페이지를 찾을 수 없어요",
+        "NOTLOGGEDIN": "로그인되어 있지 않아요",
+
+        "MISSINGPROJECTID": "프로젝트 ID를 찾을 수 없어요",
+        "IFPERSISTENT": "계속 이런 현상이 일어난다면 ",
+
+        "LETMEKNOW": "알려주세요"
+    },
+    "WELCOME": {
+        "TITLE": "컴퓨터가 게임을 할 수 있도록 가르쳐봐요",
+        "GET_STARTED": "시작해봅시다",
+        "LEARN_MORE": "더 알아볼까요?",
+        "ADMIN_LABEL": "<strong>관리페이지</strong>로 이동",
+        "PROJECT_LABEL": "<strong>프로젝트</strong>로 이동",
+        "STEP_1_TEXT": "컴퓨터가 인식할 것들의 예를 모아보세요",
+        "STEP_2_TEXT": "예를 사용하여 컴퓨터가 그것을 인식하도록 훈련시켜보세요",
+        "STEP_3_TEXT": "컴퓨터의 인식기능을 사용하는 스크래치 게임을 만들어보세요"
+    },
+    "LOGIN": {
+        "TITLE": "머신러닝을 시작해봅시다",
+        "WELCOME": "반가워요! 아이들을 위한 머신러닝 계정을 만들어보세요",
+        "ALREADY_LOGGEDIN": "<strong>알림: </strong> 이미 로그인되어 있습니다",
+        "ERROR": "<strong>오류:</strong> {{ message }}",
+        "ERROR_HELP": "계속 오류가 난다면 도움말을 살펴보세요",
+        "FIRST_TIME": "처음인가요?",
+        "SIGN_UP": "계정 만들기",
+        "WHY_REGISTER": "왜 등록하나요?",
+        "ALREADY_REGISTERED": "이미 등록되어 있나요?",
+        "LOGIN": "로그인",
+        "FORGOT_DETAILS": "아이디나 비밀번호를 잊어버렸나요?",
+        "TRY_TITLE": "등록 건너뛰기",
+        "TRY_NOW": "지금 실행해보기",
+        "BACK": "@:APP.BACK",
+        "WHO_YOU": "누구십니까?",
+        "TEACHER": "교사 혹은 코딩 클럽의 리더",
+        "STUDENT": "학생",
+        "FORGOT_TEXT": "아이디와 비밀번호를 잊어버렸나요? 괜찮아요. 우리도 종종 잊어버립니다"
+    },
+    "SIGNUP": {
+        "TEACHER": {
+            "TITLE": "교사 혹은 코딩 클럽의 리더입니까?",
+            "INFO1": "여러분의 학생들이 접속할 수 있게끔 하려면, 먼저 교실을 만드세요",
+            "INFO2": "누가 만드느냐에 따라 두 종류의 교실 계정이 있습니다"
+        }
+    },
+    "PROJECTS": {
+        "TITLE": "당신의 머신러닝 프로젝트",
+        "ADDNEWPROJECT": "프로젝트 추가",
+        "CREATEFIRSTPROJECT": "'추가' 버튼을 클릭하여 여러분의 첫 번째 프로젝트를 만들어 보세요",
+        "RECOGNISING": "인식",
+        "AS": "as"
+    },
+    "PROJECT": {
+        "TRAIN": {
+            "TITLE": "훈련",
+            "BODY": "컴퓨터가 훈련할 수 있도록 다양한 데이터를 준비하세요"
+        },
+        "LEARNANDTEST": {
+            "TITLE": "학습 &amp; 평가",
+            "BODY": "데이터를 사용하여 컴퓨터를 학습시키세요"
+        },
+        "SCRATCH": {
+            "TITLE": "스크래치",
+            "BODY": "여러분이 만든 머신러닝 모델을 스크래치를 사용하여 적용하세요"
+        },
+        "ADVANCED": "머신러닝 모델을 적용하는 <strong>고급</strong> 단계",
+        "PYTHON": {
+            "TITLE": "파이썬",
+            "BODY": "여러분이 만든 머신러닝 모델을 파이썬을 사용하여 적용하세요"
+        },
+        "APPINVENTOR": {
+            "TITLE": "앱 인벤터",
+            "BODY": "여러분이 만든 머신러닝 모델을 앱 인벤터를 사용하여 적용하세요"
+        },
+        "SCRATCH3": {
+            "TITLE": "스크래치 3",
+            "BODY": "여러분이 만든 머신러닝 모델을 새로운 버전의 스크래치를 사용하여 적용하세요"
+        }
+    },
+    "TRAINING": {
+        "TITLE": "훈련",
+        "ADDLABEL": "새로운 라벨 추가",
+        "CREATEFIRSTLABEL": "'추가' 버튼을 클릭하여 당신의 첫번째 바구니를 만드세요",
+        "CROWDSOURCEDEMPTY": "선생님이 새로운 바구니를 만든 다음 페이지를 새로고침하세요",
+        "ADDEXAMPLE": "데이터 추가",
+        "ADDURL": "웹",
+        "ADDWEBCAM": "웹캠",
+        "ADDDRAWING": "그리기",
+        "DRAGIMAGES": "사진을 드래그하여 가져오세요",
+        "NEWLABEL": {
+            "INTRO": "새로운 라벨을 추가하세요",
+            "ERROR": "라벨 이름은 숫자와 문자로만 작성하세요"
+        },
+        "NEWEXAMPLE": {
+            "INTRO": "새로운 데이터를 추가하세요 ",
+            "INTROURL": "데이터의 URL을 입력하세요",
+            "INTRODRAWING": "데이터를 그려주세요",
+            "INTROWEBCAM": "새로운 데이터를 만드세요",
+            "ERROR": "탭이나 줄바꿈을 할 수 없습니다",
+            "REQUIRED": "데이터의 모든 필드를 작성하여야 합니다",
+            "PATTERNNUMBER": "숫자처럼 보이지 않네요",
+            "PATTERNURL": "이 사진은 웹 주소가 필요합니다",
+            "WEBCAMFAIL": "이런! 웹캠이 연결되었나요?",
+            "WEBCAMERROR": "웹 브라우저에서 가져온 메세지: "
+        }
+    },
+    "MODELS": {
+        "TITLE": "머신 러닝 모델",
+        "TRAIN": "새로운 머신 러닝 모델을 훈련시켜보세요",
+        "CANCEL": "훈련 취소",
+        "DELETE": "모델 삭제",
+        "WHATHAVEYOUDONE": {
+            "TITLE": "무슨일이죠?",
+            "PLEASEWAIT": "몇 분이 걸려요. 하지만 트레이닝 컴퓨터가 바쁘다면 조금 더 걸릴 수 있어요.",
+            "FAIL": "에고.. 뭔가 문제가 있네요"
+        },
+        "WHATSNEXT": {
+            "TITLE": "다음은?",
+            "PLEASEWAIT": "조금만 더 기다리세요",
+            "OFFERQUIZ": "아니면 머신러닝과 관련된 문제를 풀면서 기다려볼래요?",
+            "FAIL": "트레이닝 컴퓨터에서 보내온 에러 메시지는 아래와 같아요. 이해가 된다면 여러분이 직접 문제를 해결해보세요. 그렇지 않다면, 다시 한번 시도해보세요."
+        },
+        "TRAINING": {
+            "TITLE": "트레이닝 컴퓨터 정보:",
+            "STARTED": "시작한 시간:",
+            "STATUS": "모델의 상태:",
+            "DETAIL": "상세정보:",
+            "DELETION": "모델 지속 시간:",
+            "LASTCHECK": "최근 모델 체크 시간:",
+            "PROMPTREFRESH": "페이지를 새로고침하여 최신의 상태를 알아보세요"
+        },
+        "QUIZ": {
+            "TITLE": "퀴즈 시간!",
+            "INTROQUESTION": "모델이 만들어질 때 까지 문제를 한번 풀어보세요"
+        }
+    },
+    "PYTHON": {
+        "TITLE": "파이썬에서 머신러닝 사용하기",
+
+        "NOTREADY": "아직 준비중입니다",
+        "NOMODEL": "훈련된 모델이 없습니다"
+    },
+    "APPINVENTOR": {
+        "TITLE": "앱 인벤터에서 머신러닝 사용하기",
+
+        "NOTREADY": "아직 준비중입니다",
+        "NOMODEL": "훈련된 모델이 없습니다",
+
+        "BETAWARNING": "베타버전입니다. 앱 인벤터 지원이 완벽하지 않으며, 몇몇 버그를 수정중이에요."
+    },
+    "SCRATCH": {
+        "TITLE": "스크래치에서 머신러닝 사용하기",
+
+        "NOTREADY": "아직 준비중입니다",
+        "NOMODEL": "훈련된 모델이 없습니다",
+
+        "LAUNCH": "스크래치에서 열기"
+    },
+    "SCRATCH3": {
+        "TITLE": "스크래치3에서 머신러닝 사용하기",
+
+        "BETAWARNING": "베타버전입니다. 스크래치3 지원이 완벽하지 않으며, 몇몇 버그를 수정중이에요."
+    },
+    "WORKSHEETS": {
+        "TITLE": "머신러닝 프로젝트",
+
+        "INTRO_1": "이 프로젝트는 다운로드가 가능한 단계별 가이드이며, 학생들이 따라할 수 있도록 스크린샷과 설명이 있습니다.",
+        "INTRO_2": "각 프로젝트는 하나의 수업주제를 가지고 있으며, 학생들이 AI와 머신러닝을 사용하여 게임과 상호작용이 가능한 프로젝트를 만들 수 있습니다.",
+        "INTRO_3": "새로운 워크시트에 대한 제안이나, 워크시트에 대한 의견, 그리고 새로운 워크시트 개발에 참여해주시길 바랍니다.",
+
+        "TYPES": {
+            "TITLE": "인식:",
+            "ALL": "모든 프로젝트",
+
+            "PREFIX": "인식을 위한 컴퓨터 훈련",
+
+            "TEXT": "텍스트",
+            "IMAGES": "이미지",
+            "NUMBERS": "숫자"
+        },
+
+        "LEVELS": {
+            "TITLE": "난이도:",
+            "ALL": "모든 난이도",
+            "BEGINNER": "초급",
+            "INTERMEDIATE": "중급",
+            "ADVANCED": "상급"
+        },
+
+        "DOWNLOAD": "다운로드",
+
+
+        "SMARTCLASSROOM": {
+            "TITLE": "스마트 교실",
+            "SUMMARY": "당신의 말을 알아들을 수 있도록 컴퓨터를 가르쳐봐요",
+            "DESCRIPTION": "가상 기기에서 조정할 수 있는 스마트 어시스턴트를 만들어봐요"
+        },
+        "MAKEMEHAPPY": {
+            "TITLE": "날 기쁘게 해줘요",
+            "SUMMARY": "칭찬과 모욕을 인식하도록 컴퓨터를 가르쳐봐요",
+            "DESCRIPTION": "멋진 것을 말하면 웃고, 그렇지 않으면 우는 만드는 캐릭터를 스크래치로 만들어봐요"
+        },
+        "SNAP": {
+            "TITLE": "스냅!",
+            "SUMMARY": "어떤 아이콘이 보이는지 컴퓨터가 인식하도록 가르쳐봐요",
+            "DESCRIPTION": "카드 사진을 인식하는 방법을 배우는 Scratch의 카드 게임을 만들어봐요"
+        },
+        "MAILMANMAX": {
+            "TITLE": "우편배달부",
+            "SUMMARY": "컴퓨터에 손글씨 인식을 가르쳐봐요",
+            "DESCRIPTION": "봉투에 손으로 쓴 우편번호를 인식 할 수있는 스크래치에 우편 정렬 사무실을 만들어봐요"
+        },
+        "CARORCUP": {
+            "TITLE": "자동차 또은 컵",
+            "SUMMARY": "컴퓨터에 물체의 그림을 인식하도록 가르쳐봐요",
+            "DESCRIPTION": "사진을 그룹화할 수 있도록 컴퓨터를 가르쳐봐요"
+        },
+        "FACELOCK": {
+            "TITLE": "얼굴 잠금 장치",
+            "SUMMARY": "얼굴을 인식하도록 컴퓨터를 가르쳐봐요",
+            "DESCRIPTION": "얼굴을 인식하면 잠금을 해제하는 전화를 Scratch로 만들어봐요"
+        },
+        "JOURNEYTOSCHOOL": {
+            "TITLE": "학교 가는 길",
+            "SUMMARY": "컴퓨터에 예측을 하도록 가르쳐봐요",
+            "DESCRIPTION": "아침에 학교에 가는 방법을 예측할 수 있도록 컴퓨터를 가르쳐봐요"
+        },
+        "PACMAN": {
+            "TITLE": "팩맨",
+            "SUMMARY": "게임을 하기 위해 컴퓨터를 가르쳐봐요",
+            "DESCRIPTION": "유령을 피하는 방법을 배우는 팩맨 게임을 Scratch에서 만들어봐요"
+        },
+        "CHATBOTS": {
+            "TITLE": "챗봇",
+            "SUMMARY": "컴퓨터에 질문을 인식하도록 가르쳐봐요",
+            "DESCRIPTION": "선택한 주제에 관한 질문에 답변 할 수있는 챗봇을 만들어봐요"
+        },
+        "TOURISTINFO": {
+            "TITLE": "여행자 정보",
+            "SUMMARY": "컴퓨터가 추천을 하도록 가르쳐봐요",
+            "DESCRIPTION": "스크래치에서 사람들의 관심사를 기반으로하는 관광 명소를 추천하는 모바일 앱을 만들어봐요"
+        },
+        "SORTINGHAT": {
+            "TITLE": "모자 정렬",
+            "SUMMARY": "컴퓨터가 말을 인식하도록 가르쳐봐요",
+            "DESCRIPTION": "Harry Potter와 같은 Sorting Hat을 만들면, 당신이 말하는 대로 학교에 들어갈 수 있습니다"
+        },
+        "ROCKPAPERSCISSORS": {
+            "TITLE": "가위바위보",
+            "SUMMARY": "모양을 인식하도록 컴퓨터를 가르쳐봐요",
+            "DESCRIPTION": "손 모양을 인식하는 바위, 종이, 가위 (Scissors) 게임을 스크래치로 만들어봐요"
+        },
+        "JUDGEABOOK": {
+            "TITLE": "책 구별사",
+            "SUMMARY": "시각적 스타일을 인식하도록 컴퓨터를 가르쳐봐요",
+            "DESCRIPTION": "Scratch에서 게임을 만들어 책 표지를 판단 할 수 있는지 테스트 해봐요"
+        },
+        "LOCATELARRY": {
+            "TITLE": "래리 찾기",
+            "SUMMARY": "그림에서 무엇을 찾도록 컴퓨터를 가르쳐봐요",
+            "DESCRIPTION": "\"월리를 찾아라?\"와 같은 게임을 만들고, 여러분의 캐릭터를 찾을 수 있는 컴퓨터를 만들어봐요"
+        },
+        "CONFUSED": {
+            "TITLE": "맨붕",
+            "SUMMARY": "과일을 인식하도록 컴퓨터를 가르쳐봐요",
+            "DESCRIPTION": "잘못 훈련된 경우 컴퓨터가 얼마나 혼란스러워하고 실수를 저지르는지 살펴봐요"
+        },
+        "SCHOOLLIBRARY": {
+            "TITLE": "도서관",
+            "SUMMARY": "컴퓨터가 추천을 하도록 가르치십시오.",
+            "DESCRIPTION": "어떤 책이 적합한지를 제안하는 학교 사서를 스크래치로 만들어봐요"
+        },
+        "NOUGHTSANDCROSSES": {
+            "TITLE": "동그라미 & 엑스 게임",
+            "SUMMARY": "게임을 하기 위해 컴퓨터를 가르쳐봐요",
+            "DESCRIPTION": "여러분과 게임할 수 있는 동그라미 & 엑스 게임을 할 수 있는 컴퓨터를 스크래치에서 만들어보세요"
+        },
+        "TOPTRUMPS": {
+            "TITLE": "탑 트럼프",
+            "SUMMARY": "게임을 하기 위해 컴퓨터를 가르쳐봐요",
+            "DESCRIPTION": "여러분과 게임할 수 있는 탑 트럼프 게임을 할 수 있는 컴퓨터를 스크래치에서 만들어보세요"
+        },
+        "HEADLINES": {
+            "TITLE": "헤드라인",
+            "SUMMARY": "언어를 인식하는 컴퓨터의 능력을 테스트해봐요",
+            "DESCRIPTION": "전국 신문의 헤드 라인을 인식하도록 컴퓨터를 만들어봐요"
+        }
+    },
+    "TEACHER": {
+        "MENU": {
+            "TITLE": "관리자",
+
+            "RESTRICTIONS": {
+                "TITLE": "제한 사항",
+                "DESCRIPTION": "여러분의 교실에 적용되는 제한 사항입니다"
+            },
+            "APIKEYS": {
+                "TITLE": "API Keys",
+                "TITLELONG": "Watson API Keys",
+                "DESCRIPTION": "여러분의 교실에서 머신러닝 모델을 만들 수 있도록 IBM Watson 인증 정보를 준비하세요"
+            },
+            "STUDENTS": {
+                "TITLE": "학생",
+                "TITLELONG": "학생 관리",
+                "DESCRIPTION": "학급의 학생들을 위한 로그인 생성, 재설정 및 삭제"
+            },
+            "SUPERVISION": {
+                "TITLE": "관리",
+                "DESCRIPTION": "학생들이 만든 프로젝트 검토"
+            },
+
+            "ADVANCEDOPTIONS": "고급 옵션",
+
+            "DELETECLASS": {
+                "TITLE": "교실 삭제",
+                "DESCRIPTION": "당신과 당신의 학급에 있는 모든 학생의 계정이 삭제됩니다"
+            },
+
+            "NOTAUTHORISED": "학급의 교사 페이지에 액세스할 수 있는 권한이 없습니다"
+        }
+    },
+    "HELP": {
+        "CONTACT": "문제가 있거나 궁금한 사항이 있으면 이메일 Dale.Lane@uk.ibm.com로 연락주세요",
+        "GETTINGSTARTED": {
+            "TITLE": "시작하기",
+            "INTRO": "한번에 시작하기 PDF 다운로드:",
+            "MANAGED": "관리 클래스 계정",
+            "MANAGEDEXPL": "학교 교사, 코딩 그룹 지도자 또는 기타 자원 봉사자의 경우",
+            "UNMANAGED": "관리되지 않는 클래스 계정",
+            "UNMANAGEDEXPL": "자신의 클래스 계정을 관리하는 IBM 직원 또는 교사 및 코딩 그룹 책임자의 경우"
+        },
+        "FAQS": {
+            "TITLE": "더 알고 싶나요?",
+            "INTRO1": "뭔가 작동하지 않나요?",
+            "INTRO2": "아래 목록에는 가장 자주 듣는 질문과 문제가 포함되어 있습니다. 문제와 비슷한 것으로 보이는 것이 있으면 요약 정보를 클릭하세요.",
+            "INTRO3": "아직 해결이 안되거나, 목록에 포함되지 않은 문제가 발생하였나요? 죄송합니다! <a href='mailto:dale.lane@uk.ibm.com'>로 이메일을 보내주세요. </a> 또는 <a href='https://github.com/IBM/taxinomitis/issues'> 문제 보고서</a>를 작성해주세요."
+        },
+
+        "SCRATCH": {
+            "TITLE": "스크래치 문제",
+
+            "Q1": "스크래치를 어떻게 하는지 모릅니다",
+            "Q1-A-1": "아이들을 위한 머신러닝은 Scratch 2를 사용합니다. Scratch는 Adobe Flash가 필요하므로 Flash로 작업 할 수있는 운영 체제와 웹 브라우저를 사용하여야 합니다(아이패드는 사용할 수 없어요).",
+            "Q1-A-2": "플래시를 활성화하는 방법에 대해 잘 모르는 경우 <a href = 'https : //github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/ machinelearningforkids-scratchx.pdf '> 스크래치 작업을 위한 팁을 포함한 문서를 다운로드하세요.",
+
+            "Q2": "\"프로젝트 열기\"나 \"프로젝트 저장\" 메뉴가 작동하지 않습니다",
+            "Q2-A-1": "macOS의 사파리 브라우저에서 스크래치 메뉴의 \"File -&gt; 프로젝트 불러오기\" 와 \"File -&gt; 프로젝트 저장\" 가 작동하지 않는다면, 아마 세이프 모드에서 실행중일 수 있습니다.",
+            "Q2-A-2": "이 문제를 해결하기 위해 <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>사용 설명서</a>를 살펴보세요.",
+
+            "Q3": "스크래치에서 머신러닝 블록이 작동하지 않습니다",
+            "Q3-A-1": "때때로 컴퓨터 학습 모델의 스크래치 블록 서버와 연결이 끊길 수 있습니다. 이렇게 되면 결과를 반환하지 않습니다.",
+            "Q3-A-2": "\"추가 블럭\"팔레트에서 상태 표시등을 사용하여이 문제가 발생했는지 여부를 확인할 수 있습니다.",
+            "Q3-A-3": "스크래치 블록을 학습하는 머신 옆의 상태 표시등이 빨간색이면 일반적으로 이상이 있음을 나타냅니다. 일시적인 문제 일 수 있습니다. '파일' -&gt; '프로젝트 저장'을 사용하여 프로젝트를 저장한 다음 브라우저 페이지를 새로 고침하십시오. 페이지가 다시 로드된 후 상태 표시등이 녹색으로 바뀌면 '파일' -&gt; '프로젝트 불러오기'를 사용하여 프로젝트를 가져와서 중단한 부분부터 시작할 수 있습니다",
+            "Q3-A-4": "페이지를 새로고침 한 후에도 상태 표시등이 여전히 빨간색이면 머신러닝 모델에 문제가 있을 수 있습니다. \"학습 & amp; 테스트\" 페이지에서 모델에 대한 오류 메시지를 찾을 수 있습니다.",
+            "Q3-A-5": "스크래치 블록을 학습하는 머신 옆의 상태 표시등이 녹색이면 블록이 작동해야합니다. 예상한 답을 얻지 못하면 \"학습 및 테스트\"페이지로 이동하여 모델의 결과를 확인하십시오.",
+
+            "Q4": "iPad에서 사용할 수 있나요?",
+            "Q4-A-1": "Kids for Learning은 Scratch 2를 사용합니다. 스크래치(scratch)는 어도비 플래시가 필요하기 때문에 플래시로 작동할 수있는 운영체제와 웹 브라우저를 사용해야 합니다(즉, 아이패드는 현재 사용할 수 없습니다)",
+            "Q4-A-2": "<a href='https://scratch.mit.edu/preview-faq'> 스크래치 3 </a>가 개발 중이며 이 버전에서는 어도비 플래쉬가 필요하지 않습니다. 현재 <a href='https://github.com/IBM/taxinomitis/issues/21'> 스크래치 3 지원</a>을 위해 노력하고 있습니다. 베타 버전은 현재 프로젝트 페이지에서 텍스트 및 숫자 프로젝트에 사용할 수 있습니다.",
+
+            "Q5": "모든 버전의 스크래치를 사용할 수 있습니까?",
+            "Q5-A-1": "아이들을 위한 머신러닝 사이트에서 제공하는 Scratch 버전을 사용해야합니다. 프로젝트 페이지에서 스크래치(또는 '스크래치 3') 버튼을 클릭하면 시작할 수 있습니다."
+        },
+
+        "TRAININGUI": {
+            "TITLE": "트레이닝 UI 문제",
+
+            "Q1": "이미지를 트레이닝 버킷으로 드래그(이미지 프로젝트용)할 수 없습니다.",
+            "Q1-A-1": "Safari 또는 Internet Explorer를 사용하는 경우 트레이닝 버킷으로 이미지를 드래그하면 작동하지 않습니다.",
+            "Q1-A-2": "죄송합니다. Firefox나 Chrome과 같은 다른 브라우저를 사용할 수 있다면 그렇게 하십시오. 그렇지 않으면 \"www \"버튼을 클릭하여 트레이닝 사진의 URL을 붙여 넣으세요."
+        }
+    }
+}
+
