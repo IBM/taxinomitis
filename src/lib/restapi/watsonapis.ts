@@ -2,7 +2,6 @@
 import * as httpstatus from 'http-status';
 import * as Express from 'express';
 // local dependencies
-import * as auth0 from '../auth0/users';
 import * as auth from './auth';
 import * as store from '../db/store';
 import * as dbobjects from '../db/objects';
@@ -10,7 +9,6 @@ import * as TrainingTypes from '../training/training-types';
 import * as conversation from '../training/conversation';
 import * as visualRecognition from '../training/visualrecognition';
 import * as urls from './urls';
-import * as headers from './headers';
 import * as errors from './errors';
 import loggerSetup from '../utils/logger';
 
@@ -107,7 +105,8 @@ async function addCredentials(req: Express.Request, res: Express.Response) {
         newCredentials = dbobjects.createBluemixCredentials(
             req.body.servicetype, tenant,
             req.body.apikey,
-            req.body.username, req.body.password);
+            req.body.username, req.body.password,
+            req.body.credstype);
     }
     catch (err) {
         return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
@@ -140,7 +139,7 @@ async function addCredentials(req: Express.Request, res: Express.Response) {
     // validated! store the credentials as they look good
     //
     try {
-        const credsObj = await store.storeBluemixCredentials(tenant, newCredentials);
+        const credsObj = await store.storeBluemixCredentials(tenant, dbobjects.getCredentialsAsDbRow(newCredentials));
         res.status(httpstatus.CREATED).json(
             credsObj.servicetype === 'visrec' ?
                 returnVisualRecognitionCredentials(credsObj) :

@@ -1,17 +1,13 @@
 /*eslint-env mocha */
 
-import * as uuid from 'uuid/v1';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as request from 'supertest';
 import * as httpstatus from 'http-status';
-import * as randomstring from 'randomstring';
 import * as express from 'express';
 
 import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
-import * as auth0 from '../../lib/auth0/requests';
-import * as mocks from '../auth0/requestmocks';
 
 import testapiserver from './testserver';
 

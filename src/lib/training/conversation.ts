@@ -517,6 +517,7 @@ export async function identifyRegion(username: string, password: string): Promis
         classid: 'placeholder',
         id: 'placeholder',
         url: 'unknown',
+        credstype: 'unknown',
     });
 
     // as we don't care about the response (we're just checking the credentials)

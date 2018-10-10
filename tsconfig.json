@@ -11,7 +11,12 @@
     "removeComments": false,
     "sourceMap": false,
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "strictFunctionTypes": true,
+    "noUnusedLocals": true,
+    "strictPropertyInitialization": true,
+    "strictNullChecks": true,
+    "noFallthroughCasesInSwitch": true
   },
   "compileOnSave": false,
   "include": [

@@ -1,9 +1,5 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
-import * as fs from 'fs';
-import * as tmp from 'tmp';
-import * as async from 'async';
-
 import * as imageCheck from '../../lib/utils/imageCheck';
 
 

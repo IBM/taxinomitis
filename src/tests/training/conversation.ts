@@ -4,11 +4,9 @@
 
 import * as uuid from 'uuid/v1';
 import * as assert from 'assert';
-import * as httpstatus from 'http-status';
 import * as sinon from 'sinon';
 import * as request from 'request-promise';
 import * as clone from 'clone';
-import * as randomstring from 'randomstring';
 
 import * as store from '../../lib/db/store';
 import * as conversation from '../../lib/training/conversation';
@@ -265,6 +263,7 @@ describe('Training - Conversation', () => {
                 servicetype : 'conv',
                 url : 'http://conversation.service',
                 classid : 'classid',
+                credstype : 'unknown',
             };
             const classifierTimestamp = new Date();
             classifierTimestamp.setMilliseconds(0);
@@ -293,6 +292,7 @@ describe('Training - Conversation', () => {
                 servicetype : 'conv',
                 url : 'http://conversation.service',
                 classid : 'classid',
+                credstype : 'unknown',
             };
             const classes = await conversation.testClassifier(creds, 'bad', new Date(), 'projectbob', 'Hello');
             assert.strictEqual(classes.length, 1);

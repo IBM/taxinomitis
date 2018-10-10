@@ -1,7 +1,5 @@
 /*eslint-env mocha */
 
-import * as util from 'util';
-import * as uuid from 'uuid/v1';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as request from 'supertest';
@@ -178,6 +176,7 @@ describe('REST API - Bluemix credentials', () => {
                     servicetype : 'conv',
                     username : VALID_USERNAME,
                     password : VALID_PASSWORD,
+                    credstype : 'conv_lite',
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED)
@@ -250,6 +249,7 @@ describe('REST API - Bluemix credentials', () => {
                 .send({
                     servicetype : 'conv',
                     username, password,
+                    credstype : 'conv_standard',
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
@@ -271,6 +271,7 @@ describe('REST API - Bluemix credentials', () => {
                     servicetype : 'conv',
                     username : VALID_USERNAME,
                     password : VALID_PASSWORD,
+                    credstype : 'conv_lite',
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED)
@@ -327,6 +328,7 @@ describe('REST API - Bluemix credentials', () => {
                     servicetype : 'conv',
                     username : VALID_EU_USERNAME,
                     password : VALID_EU_PASSWORD,
+                    credstype : 'unknown',
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED)
@@ -382,6 +384,7 @@ describe('REST API - Bluemix credentials', () => {
                 .send({
                     servicetype : 'visrec',
                     apikey : VALID_APIKEY,
+                    credstype : 'visrec_lite',
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED)

@@ -1,6 +1,5 @@
 /*eslint-env mocha */
 
-import * as uuid from 'uuid/v1';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as request from 'supertest';

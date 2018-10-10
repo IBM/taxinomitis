@@ -12,7 +12,6 @@ import * as downloadAndZip from '../utils/downloadAndZip';
 import * as constants from '../utils/constants';
 import * as notifications from '../notifications/slack';
 import loggerSetup from '../utils/logger';
-import { create } from 'archiver';
 
 const log = loggerSetup();
 

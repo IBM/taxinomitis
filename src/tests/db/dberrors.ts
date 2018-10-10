@@ -1,13 +1,9 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
-import * as util from 'util';
-import * as uuid from 'uuid/v1';
-import * as sinon from 'sinon';
 import * as proxyquire from 'proxyquire';
 
 import * as mockMysqldb from './mockmysqldb';
 
-import * as store from '../../lib/db/store';
 import * as Objects from '../../lib/db/db-types';
 
 

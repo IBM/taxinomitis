@@ -1,7 +1,6 @@
 // external dependencies
 import * as httpstatus from 'http-status';
 import * as Express from 'express';
-import * as uuid from 'uuid/v4';
 // local dependencies
 import * as errors from './errors';
 import * as urls from './urls';

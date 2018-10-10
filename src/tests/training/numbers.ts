@@ -1,15 +1,12 @@
 /*eslint-env mocha */
 
-import * as uuid from 'uuid/v1';
 import * as assert from 'assert';
-import * as httpstatus from 'http-status';
 import * as sinon from 'sinon';
 import * as request from 'request-promise';
 
 import * as store from '../../lib/db/store';
 import * as dbtypes from '../../lib/db/db-types';
 import * as numbers from '../../lib/training/numbers';
-import * as TrainingTypes from '../../lib/training/training-types';
 
 
 
@@ -265,21 +262,6 @@ describe('Training - numbers service', () => {
         });
     });
 
-
-    interface NumbersApiRequestPayloadClassifierItem {
-        readonly auth: {
-            readonly user: string;
-            readonly pass: string;
-        };
-        readonly body: {
-            readonly tenantid: string;
-            readonly studentid: string;
-            readonly projectid: string;
-            readonly data: any[][];
-        };
-        readonly json: true;
-        readonly gzip: true;
-    }
 
 
     const mockNumbers = {

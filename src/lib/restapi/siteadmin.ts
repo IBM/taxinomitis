@@ -1,5 +1,4 @@
 // external dependencies
-import * as httpstatus from 'http-status';
 import * as Express from 'express';
 // local dependencies
 import * as auth0 from '../auth0/admin';

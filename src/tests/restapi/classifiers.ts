@@ -57,14 +57,14 @@ describe('REST API - classifiers', () => {
     const password = randomstring.generate(12);
     const apikey = randomstring.generate(40);
 
-    const convCredentials = dbobjects.createBluemixCredentials(conv,
+    const convCredentials: TrainingTypes.BluemixCredentials = dbobjects.createBluemixCredentials(conv,
         CLASSID,
         undefined,
-        username, password);
-    const visrecCredentials = dbobjects.createBluemixCredentials(visrec,
+        username, password, 'conv_standard');
+    const visrecCredentials: TrainingTypes.BluemixCredentials = dbobjects.createBluemixCredentials(visrec,
         CLASSID,
         apikey,
-        undefined, undefined);
+        undefined, undefined, 'visrec_standard');
 
 
     const textProject = dbobjects.getProjectFromDbRow(dbobjects.createProject(USERID, CLASSID,
@@ -108,8 +108,8 @@ describe('REST API - classifiers', () => {
 
         await store.init();
 
-        await store.storeBluemixCredentials(CLASSID, convCredentials);
-        await store.storeBluemixCredentials(CLASSID, visrecCredentials);
+        await store.storeBluemixCredentials(CLASSID, dbobjects.getCredentialsAsDbRow(convCredentials));
+        await store.storeBluemixCredentials(CLASSID, dbobjects.getCredentialsAsDbRow(visrecCredentials));
 
         await store.storeConversationWorkspace(convCredentials, textProject, validWorkspace);
         await store.storeImageClassifier(visrecCredentials, imagesProject, validClassifier);

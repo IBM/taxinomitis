@@ -3,13 +3,11 @@
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as uuid from 'uuid/v1';
-import * as randomstring from 'randomstring';
 import * as request from 'request-promise';
 
 import * as visrec from '../../lib/training/visualrecognition';
 import * as downloadAndZip from '../../lib/utils/downloadAndZip';
 
-import * as DbTypes from '../../lib/db/db-types';
 import * as TrainingTypes from '../../lib/training/training-types';
 
 import * as iam from '../../lib/iam';
@@ -17,7 +15,6 @@ import * as mockIAM from '../iam/mock-iam';
 import * as mockVisRec from './mock-visrec';
 
 import * as store from '../../lib/db/store';
-import * as mockStore from './mockstore';
 
 
 describe('Training - Visual Recognition - IAM/API keys', () => {

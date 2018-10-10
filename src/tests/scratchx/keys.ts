@@ -1,13 +1,9 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
 import * as uuid from 'uuid/v1';
-import * as sinon from 'sinon';
 import * as randomstring from 'randomstring';
 import * as store from '../../lib/db/store';
-import * as conversation from '../../lib/training/conversation';
-import * as status from '../../lib/scratchx/status';
 import * as keys from '../../lib/scratchx/keys';
-import * as Types from '../../lib/db/db-types';
 import * as TrainingTypes from '../../lib/training/training-types';
 
 
@@ -51,6 +47,7 @@ describe('Scratchx - keys', () => {
                 servicetype : 'conv',
                 url : 'http://url.com',
                 classid : TESTCLASS,
+                credstypeid : 2,
             });
             const conversationwkspace: TrainingTypes.ConversationWorkspace = {
                 id : uuid(),
@@ -138,6 +135,7 @@ describe('Scratchx - keys', () => {
                 servicetype : 'visrec',
                 url : 'http://url.com',
                 classid : TESTCLASS,
+                credstypeid : 0,
             });
             const visualclassifier: TrainingTypes.VisualClassifier = {
                 id : uuid(),

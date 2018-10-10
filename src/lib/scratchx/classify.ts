@@ -1,6 +1,5 @@
 // external dependencies
 import * as _ from 'lodash';
-import * as httpstatus from 'http-status';
 import * as fs from 'fs';
 // local dependencies
 import * as store from '../db/store';

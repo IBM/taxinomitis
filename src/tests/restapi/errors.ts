@@ -1,7 +1,5 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
-import * as request from 'supertest';
-import * as httpstatus from 'http-status';
 import * as Express from 'express';
 
 import * as errors from '../../lib/restapi/errors';

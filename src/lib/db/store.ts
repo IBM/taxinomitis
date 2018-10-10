@@ -827,19 +827,19 @@ export async function getNumberTraining(
 // -----------------------------------------------------------------------------
 
 export async function storeBluemixCredentials(
-    classid: string, credentials: TrainingObjects.BluemixCredentials,
+    classid: string, credentials: TrainingObjects.BluemixCredentialsDbRow,
 ): Promise<TrainingObjects.BluemixCredentials>
 {
     const queryString = 'INSERT INTO `bluemixcredentials` ' +
-                        '(`id`, `classid`, `servicetype`, `url`, `username`, `password`) ' +
-                        'VALUES (?, ?, ?, ?, ?, ?)';
+                        '(`id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid`) ' +
+                        'VALUES (?, ?, ?, ?, ?, ?, ?)';
 
     const values = [ credentials.id, classid,
-        credentials.servicetype, credentials.url, credentials.username, credentials.password ];
+        credentials.servicetype, credentials.url, credentials.username, credentials.password, credentials.credstypeid ];
 
     const response = await dbExecute(queryString, values);
     if (response.affectedRows === 1) {
-        return credentials;
+        return dbobjects.getCredentialsFromDbRow(credentials);
     }
     throw new Error('Failed to store credentials');
 }
@@ -849,7 +849,7 @@ export async function getAllBluemixCredentials(
     service: TrainingObjects.BluemixServiceType,
 ): Promise<TrainingObjects.BluemixCredentials[]>
 {
-    const queryString = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password` ' +
+    const queryString = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid` ' +
                         'FROM `bluemixcredentials` ' +
                         'WHERE `servicetype` = ? ' +
                         'LIMIT 2000';
@@ -864,7 +864,7 @@ export async function getBluemixCredentials(
     classid: string, service: TrainingObjects.BluemixServiceType,
 ): Promise<TrainingObjects.BluemixCredentials[]>
 {
-    const queryString = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password` ' +
+    const queryString = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid` ' +
                         'FROM `bluemixcredentials` ' +
                         'WHERE `classid` = ? AND `servicetype` = ?';
 
@@ -879,7 +879,7 @@ export async function getBluemixCredentials(
 
 export async function getBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.BluemixCredentials>
 {
-    const credsQuery = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password` ' +
+    const credsQuery = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid` ' +
                        'FROM `bluemixcredentials` ' +
                        'WHERE `id` = ?';
     const rows = await dbExecute(credsQuery, [ credentialsid ]);

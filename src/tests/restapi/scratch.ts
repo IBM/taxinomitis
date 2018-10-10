@@ -108,6 +108,7 @@ describe('REST API - scratch keys', () => {
                 servicetype : 'conv' as Types.BluemixServiceType,
                 url : uuid(),
                 classid : TESTCLASS,
+                credstypeid : 0,
             };
 
             const workspace: Types.ConversationWorkspace = {
@@ -122,8 +123,8 @@ describe('REST API - scratch keys', () => {
             };
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
-            await store.storeBluemixCredentials(TESTCLASS, credentials);
-            await store.storeConversationWorkspace(credentials, project, workspace);
+            const storedCredentials = await store.storeBluemixCredentials(TESTCLASS, credentials);
+            await store.storeConversationWorkspace(storedCredentials, project, workspace);
 
             return request(testServer)
                 .get('/api/classes/' + TESTCLASS + '/students/' + userid + '/projects/' + project.id + '/scratchkeys')
@@ -180,6 +181,7 @@ describe('REST API - scratch keys', () => {
 
             const projectid = project.id;
             const classifierid = randomstring.generate({ length : 12 });
+            const credstype: Types.BluemixCredentialsTypeLabel = 'unknown';
 
             const credentials = {
                 id : uuid(),
@@ -188,6 +190,7 @@ describe('REST API - scratch keys', () => {
                 servicetype : 'conv' as Types.BluemixServiceType,
                 url : uuid(),
                 classid : TESTCLASS,
+                credstype,
             };
 
             const ts = new Date(2018, 6, 2, 1, 15, 0);
@@ -1065,6 +1068,7 @@ describe('REST API - scratch keys', () => {
                 servicetype : 'conv' as Types.BluemixServiceType,
                 url : uuid(),
                 classid : TESTCLASS,
+                credstypeid : 0,
             };
 
             const workspaceId = randomstring.generate({ length : 32 });
@@ -1083,12 +1087,12 @@ describe('REST API - scratch keys', () => {
             };
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
-            await store.storeBluemixCredentials(TESTCLASS, credentials);
-            await store.storeConversationWorkspace(credentials, project, conversationWorkspace);
+            const storedCredentials = await store.storeBluemixCredentials(TESTCLASS, credentials);
+            await store.storeConversationWorkspace(storedCredentials, project, conversationWorkspace);
 
             const scratchKey = await store.storeOrUpdateScratchKey(
-                project,
-                credentials, conversationWorkspace.workspace_id, conversationWorkspace.created);
+                project, storedCredentials,
+                conversationWorkspace.workspace_id, conversationWorkspace.created);
 
             const conversationStub = sinon.stub(requestPromise, 'post').callsFake(mockClassifier);
 
@@ -1135,6 +1139,7 @@ describe('REST API - scratch keys', () => {
                 servicetype : 'conv' as Types.BluemixServiceType,
                 url : uuid(),
                 classid : TESTCLASS,
+                credstypeid : 0,
             };
 
             const workspaceId = randomstring.generate({ length : 32 });
@@ -1153,12 +1158,12 @@ describe('REST API - scratch keys', () => {
             };
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
-            await store.storeBluemixCredentials(TESTCLASS, credentials);
-            await store.storeConversationWorkspace(credentials, project, conversationWorkspace);
+            const storedCredentials = await store.storeBluemixCredentials(TESTCLASS, credentials);
+            await store.storeConversationWorkspace(storedCredentials, project, conversationWorkspace);
 
             const scratchKey = await store.storeOrUpdateScratchKey(
-                project,
-                credentials, conversationWorkspace.workspace_id, conversationWorkspace.created);
+                project, storedCredentials,
+                conversationWorkspace.workspace_id, conversationWorkspace.created);
 
             const conversationStub = sinon.stub(requestPromise, 'post').callsFake(mockClassifier);
 
@@ -1221,6 +1226,7 @@ describe('REST API - scratch keys', () => {
                 servicetype : 'conv' as Types.BluemixServiceType,
                 url : uuid(),
                 classid : TESTCLASS,
+                credstypeid : 0,
             };
 
             const workspaceId = randomstring.generate({ length : 32 });
@@ -1240,12 +1246,12 @@ describe('REST API - scratch keys', () => {
             };
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
-            await store.storeBluemixCredentials(TESTCLASS, credentials);
-            await store.storeConversationWorkspace(credentials, project, conversationWorkspace);
+            const storedCredentials = await store.storeBluemixCredentials(TESTCLASS, credentials);
+            await store.storeConversationWorkspace(storedCredentials, project, conversationWorkspace);
 
             const scratchKey = await store.storeOrUpdateScratchKey(
-                project,
-                credentials, conversationWorkspace.workspace_id, conversationWorkspace.created);
+                project, storedCredentials,
+                conversationWorkspace.workspace_id, conversationWorkspace.created);
 
             const conversationStub = sinon.stub(requestPromise, 'post').callsFake(mockClassifier);
 
@@ -1282,6 +1288,7 @@ describe('REST API - scratch keys', () => {
                 servicetype : 'conv' as Types.BluemixServiceType,
                 url : uuid(),
                 classid : TESTCLASS,
+                credstypeid : 0,
             };
 
             const workspace: Types.ConversationWorkspace = {
@@ -1296,12 +1303,12 @@ describe('REST API - scratch keys', () => {
             };
 
             const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [], false);
-            await store.storeBluemixCredentials(TESTCLASS, credentials);
-            await store.storeConversationWorkspace(credentials, project, workspace);
+            const storedCredentials = await store.storeBluemixCredentials(TESTCLASS, credentials);
+            await store.storeConversationWorkspace(storedCredentials, project, workspace);
 
             const scratchKey = await store.storeOrUpdateScratchKey(
-                project,
-                credentials, workspace.workspace_id, workspace.created);
+                project, storedCredentials,
+                workspace.workspace_id, workspace.created);
 
             const conversationStub = sinon.stub(requestPromise, 'post').callsFake(brokenClassifier);
 

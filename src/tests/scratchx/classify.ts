@@ -5,11 +5,8 @@ import * as sinon from 'sinon';
 import * as proxyquire from 'proxyquire';
 import * as request from 'request-promise';
 import * as store from '../../lib/db/store';
-import * as conversation from '../../lib/training/conversation';
-import * as numbers from '../../lib/training/numbers';
 import * as classifier from '../../lib/scratchx/classify';
 import * as Types from '../../lib/db/db-types';
-import * as TrainingTypes from '../../lib/training/training-types';
 import loggerSetup from '../../lib/utils/logger';
 
 const log = loggerSetup();
@@ -254,6 +251,7 @@ describe('Scratchx - classify', () => {
                     servicetype : 'conv',
                     url : 'url',
                     classid : TESTCLASS,
+                    credstype : 'unknown',
                 },
                 updated : ts,
             };
@@ -377,6 +375,7 @@ describe('Scratchx - classify', () => {
                     servicetype : 'conv',
                     url : 'url',
                     classid : TESTCLASS,
+                    credstype : 'unknown',
                 },
                 updated : ts,
             };

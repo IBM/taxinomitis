@@ -9,6 +9,7 @@ export const creds: TrainingTypes.BluemixCredentials = {
     servicetype : 'conv',
     url : 'http://conversation.service',
     classid : 'classid',
+    credstype : 'conv_lite',
 };
 
 export const credsForVisRec: TrainingTypes.BluemixCredentials = {
@@ -18,6 +19,7 @@ export const credsForVisRec: TrainingTypes.BluemixCredentials = {
     servicetype : 'visrec',
     url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
     classid : 'classid',
+    credstype : 'visrec_lite',
 };
 
 export function getBluemixCredentials(classid: string, service: TrainingTypes.BluemixServiceType) {

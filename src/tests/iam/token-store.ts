@@ -3,7 +3,6 @@
 import * as assert from 'assert';
 import * as request from 'request-promise';
 import * as sinon from 'sinon';
-import * as randomstring from 'randomstring';
 import * as tokens from '../../lib/iam/tokens';
 import * as store from '../../lib/iam/token-store';
 

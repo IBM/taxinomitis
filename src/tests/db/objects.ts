@@ -703,12 +703,72 @@ describe('DB objects', () => {
     });
 
 
+    describe('getCredentialsAsDbRow', () => {
+
+        it('should handle missing credentials types', () => {
+            const creds: TrainingObjects.BluemixCredentials = {
+                id : 'theid',
+                classid : 'theclassid',
+                username : 'theusername',
+                password : 'thepassword',
+                servicetype : 'conv',
+                url : 'theurl',
+            } as TrainingObjects.BluemixCredentials;
+            const result = dbobjects.getCredentialsAsDbRow(creds);
+            assert.strictEqual(result.credstypeid, 0);
+        });
+
+        it('should translate conv credentials types to an id', () => {
+            const creds: TrainingObjects.BluemixCredentials = {
+                id : 'theid',
+                classid : 'theclassid',
+                username : 'theusername',
+                password : 'thepassword',
+                servicetype : 'conv',
+                url : 'theurl',
+                credstype : 'conv_lite',
+            };
+            const result = dbobjects.getCredentialsAsDbRow(creds);
+            assert.strictEqual(result.credstypeid, 1);
+        });
+
+        it('should translate visrec credentials types to an id', () => {
+            const creds: TrainingObjects.BluemixCredentials = {
+                id : 'theid',
+                classid : 'theclassid',
+                username : 'theusername',
+                password : 'thepassword',
+                servicetype : 'visrec',
+                url : 'theurl',
+                credstype : 'visrec_standard',
+            };
+            const result = dbobjects.getCredentialsAsDbRow(creds);
+            assert.strictEqual(result.credstypeid, 4);
+        });
+
+    });
+
+
     describe('createBluemixCredentials', () => {
+
+        it('should require a credentials type', (done) => {
+            try {
+                dbobjects.createBluemixCredentials('visrec', 'class',
+                    'xo1Nisc2iDTGNUfU9KzCxhn2mrxvA8_YVERYDl-kaBdW', undefined, undefined,
+                    UNDEFINED_STRING);
+                assert.fail('should not reach here');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Missing required attributes');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
 
         it('should require a service type', (done) => {
             try {
                 dbobjects.createBluemixCredentials(UNDEFINED_STRING,
-                    'class', 'apikey', UNDEFINED_STRING, UNDEFINED_STRING);
+                    'class', 'apikey', UNDEFINED_STRING, UNDEFINED_STRING, 'unknown');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Missing required attributes');
@@ -720,7 +780,7 @@ describe('DB objects', () => {
         it('should require a valid service type', (done) => {
             try {
                 dbobjects.createBluemixCredentials('blah',
-                    'class', 'apikey', UNDEFINED_STRING, UNDEFINED_STRING);
+                    'class', 'apikey', UNDEFINED_STRING, UNDEFINED_STRING, 'unknown');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Invalid service type');
@@ -733,7 +793,7 @@ describe('DB objects', () => {
             try {
                 dbobjects.createBluemixCredentials('visrec', 'class',
                     UNDEFINED_STRING,
-                    'username', 'password');
+                    'username', 'password', 'unknown');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Missing required attributes');
@@ -746,7 +806,7 @@ describe('DB objects', () => {
             try {
                 dbobjects.createBluemixCredentials('visrec', 'class',
                     'too short',
-                    undefined, undefined);
+                    undefined, undefined, 'unknown');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Invalid API key');
@@ -757,7 +817,7 @@ describe('DB objects', () => {
 
         it('should create visual recognition credentials', () => {
             const creds = dbobjects.createBluemixCredentials('visrec', 'class',
-                'Jykrybu3xnMtGI8qQncMHKaJ1GugNunl5Z7jWXxoRDSa', undefined, undefined);
+                'Jykrybu3xnMtGI8qQncMHKaJ1GugNunl5Z7jWXxoRDSa', undefined, undefined, 'unknown');
             assert(creds.id);
             assert(creds.url);
             assert.strictEqual(creds.servicetype, 'visrec');
@@ -767,7 +827,7 @@ describe('DB objects', () => {
 
         it('should require a username for conversation credentials', (done) => {
             try {
-                dbobjects.createBluemixCredentials('conv', 'class', undefined, undefined, 'password');
+                dbobjects.createBluemixCredentials('conv', 'class', undefined, undefined, 'password', 'unknown');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Missing required attributes');
@@ -778,7 +838,7 @@ describe('DB objects', () => {
 
         it('should require a password for conversation credentials', (done) => {
             try {
-                dbobjects.createBluemixCredentials('conv', 'class', undefined, 'username', undefined);
+                dbobjects.createBluemixCredentials('conv', 'class', undefined, 'username', undefined, 'unknown');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Missing required attributes');
@@ -789,7 +849,7 @@ describe('DB objects', () => {
 
         it('should require a valid username for conversation credentials', (done) => {
             try {
-                dbobjects.createBluemixCredentials('conv', 'class', undefined, 'username', 'password');
+                dbobjects.createBluemixCredentials('conv', 'class', undefined, 'username', 'password', 'unknown');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Invalid credentials');
@@ -801,7 +861,7 @@ describe('DB objects', () => {
         it('should require a valid password for conversation credentials', (done) => {
             try {
                 dbobjects.createBluemixCredentials('conv', 'class', undefined,
-                    'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL', 'password');
+                    'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL', 'password', 'unknown');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Invalid credentials');
@@ -814,7 +874,7 @@ describe('DB objects', () => {
             try {
                 dbobjects.createBluemixCredentials('conv', 'class',
                     'xo1Nisc2iDTGNUfU9KzCxhxo1Nisc2iDTGNUfU9KzCxhn2mrxvA8_YVERYDl-kaBdW',
-                    undefined, undefined);
+                    undefined, undefined, 'unknown');
                 assert.fail('should not reach here');
             }
             catch (err) {
@@ -822,9 +882,39 @@ describe('DB objects', () => {
             }
         });
 
+        it('should reject invalid conv credential types', () => {
+            const INVALID_TYPES = ['visrec_lite', 'visrec_standard', 'random'];
+            for (const type of INVALID_TYPES) {
+                try {
+                    dbobjects.createBluemixCredentials('conv', 'class', undefined,
+                        'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL', 'THTBtUnNl5jT',
+                        type);
+                    assert.fail('should not reach here');
+                }
+                catch (err) {
+                    assert.strictEqual(err.message, 'Invalid credentials type');
+                }
+            }
+        });
+
+        it('should reject invalid visrec credential types', () => {
+            const INVALID_TYPES = ['conv_lite', 'conv_standard', 'random'];
+            for (const type of INVALID_TYPES) {
+                try {
+                    dbobjects.createBluemixCredentials('visrec', 'class',
+                        'xo1Nisc2iDTGNUfU9KzCxhn2mrxvA8_YVERYDl-kaBdW', undefined, undefined,
+                        type);
+                    assert.fail('should not reach here');
+                }
+                catch (err) {
+                    assert.strictEqual(err.message, 'Invalid credentials type');
+                }
+            }
+        });
+
         it('should support API keys for conversation credentials', () => {
             const creds = dbobjects.createBluemixCredentials('conv', 'class',
-                'xo1Nisc2iDTGNUfU9KzCxhn2mrxvA8_YVERYDl-kaBdW', undefined, undefined);
+                'xo1Nisc2iDTGNUfU9KzCxhn2mrxvA8_YVERYDl-kaBdW', undefined, undefined, 'unknown');
             assert(creds.id);
             assert(creds.url);
             assert.strictEqual(creds.servicetype, 'conv');
@@ -833,13 +923,18 @@ describe('DB objects', () => {
         });
 
         it('should create conversation credentials', () => {
-            const creds = dbobjects.createBluemixCredentials('conv', 'class',
-                undefined, 'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL', 'THTBtUnNl5jT');
-            assert(creds.id);
-            assert(creds.url);
-            assert.strictEqual(creds.servicetype, 'conv');
-            assert.strictEqual(creds.username, 'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL');
-            assert.strictEqual(creds.password, 'THTBtUnNl5jT');
+            const VALID_TYPES = ['conv_lite', 'conv_standard', 'unknown'];
+
+            for (const type of VALID_TYPES) {
+                const creds = dbobjects.createBluemixCredentials('conv', 'class',
+                    undefined, 'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL', 'THTBtUnNl5jT', type);
+                assert(creds.id);
+                assert(creds.url);
+                assert.strictEqual(creds.servicetype, 'conv');
+                assert.strictEqual(creds.username, 'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL');
+                assert.strictEqual(creds.password, 'THTBtUnNl5jT');
+                assert.strictEqual(creds.credstype, type);
+            }
         });
     });
 
