@@ -2,6 +2,7 @@
 import * as mysql from 'mysql2/promise';
 import * as mysqldb from './mysqldb';
 import * as dbobjects from './objects';
+import * as projectObjects from './projects';
 import * as Objects from './db-types';
 import * as numbers from '../training/numbers';
 import * as conversation from '../training/conversation';
@@ -842,6 +843,30 @@ export async function storeBluemixCredentials(
         return dbobjects.getCredentialsFromDbRow(credentials);
     }
     throw new Error('Failed to store credentials');
+}
+
+
+export async function setBluemixCredentialsType(
+    classid: string, credentialsid: string,
+    servicetype: TrainingObjects.BluemixServiceType,
+    credstype: TrainingObjects.BluemixCredentialsTypeLabel,
+): Promise<void>
+{
+    const credstypeObj = projectObjects.credsTypesByLabel[credstype];
+    if (!credstypeObj) {
+        throw new Error('Unrecognised credentials type');
+    }
+
+    const queryString = 'UPDATE `bluemixcredentials` ' +
+                        'SET `credstypeid` = ? ' +
+                        'WHERE `id` = ? AND `servicetype` = ? AND `classid` = ?';
+    const queryParameters = [ credstypeObj.id, credentialsid, servicetype, classid ];
+
+    const response = await dbExecute(queryString, queryParameters);
+    if (response.affectedRows !== 1) {
+        log.error({ queryString, queryParameters, response }, 'Failed to update credentials');
+        throw new Error('Bluemix credentials not updated');
+    }
 }
 
 
@@ -1927,6 +1952,19 @@ export async function deleteEntireUser(userid: string, classid: string): Promise
     const dbConn = await dbConnPool.getConnection();
     for (const deleteQuery of deleteQueries) {
         await dbConn.execute(deleteQuery, [ userid ]);
+    }
+    dbConn.release();
+}
+
+
+export async function deleteClassResources(classid: string): Promise<void> {
+    const deleteQueries = [
+        'DELETE FROM `bluemixcredentials` WHERE `classid` = ?',
+    ];
+
+    const dbConn = await dbConnPool.getConnection();
+    for (const deleteQuery of deleteQueries) {
+        await dbConn.execute(deleteQuery, [ classid ]);
     }
     dbConn.release();
 }

@@ -20,6 +20,7 @@ function returnVisualRecognitionCredentials(credentials: TrainingTypes.BluemixCr
     return {
         id : credentials.id,
         apikey : credentials.username + credentials.password,
+        credstype : credentials.credstype,
     };
 }
 function returnConversationCredentials(credentials: TrainingTypes.BluemixCredentials) {
@@ -28,12 +29,14 @@ function returnConversationCredentials(credentials: TrainingTypes.BluemixCredent
             id : credentials.id,
             username : credentials.username,
             password : credentials.password,
+            credstype : credentials.credstype,
         };
     }
     else {
         return {
             id : credentials.id,
             apikey : credentials.username + credentials.password,
+            credstype : credentials.credstype,
         };
     }
 }
@@ -153,7 +156,98 @@ async function addCredentials(req: Express.Request, res: Express.Response) {
 }
 
 
+async function modifyCredentials(req: Express.Request, res: Express.Response) {
+    const tenant = req.params.classid;
+    const credsid = req.params.credentialsid;
 
+    let patch;
+    try {
+        patch = getCredentialsPatch(req);
+    }
+    catch (err) {
+        return res.status(httpstatus.BAD_REQUEST)
+                  .json({
+                      error : err.message,
+                  });
+    }
+
+    try {
+        await store.setBluemixCredentialsType(tenant, credsid, patch.value.servicetype, patch.value.credstype);
+
+        return res.sendStatus(httpstatus.NO_CONTENT);
+    }
+    catch (err) {
+        if (err.message === 'Unrecognised credentials type') {
+            return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
+        }
+        if (err.message === 'Bluemix credentials not updated') {
+            return errors.notFound(res);
+        }
+        log.error({ err }, 'Failed to modify credentials');
+        errors.unknownError(res, err);
+    }
+}
+
+
+
+
+function getCredentialsPatch(req: Express.Request): ValidPatch {
+    const patchRequests = req.body;
+
+    if (Array.isArray(patchRequests) === false) {
+        throw new Error('PATCH body should be an array');
+    }
+
+    if (patchRequests.length !== 1) {
+        throw new Error('Only individual PATCH requests are supported');
+    }
+
+    const patchRequest = patchRequests[0];
+
+    if (patchRequest.path !== '/credstype') {
+        throw new Error('Only modifications to credentials type are supported');
+    }
+
+    if (!patchRequest.op) {
+        throw new Error('PATCH requests must include an op');
+    }
+    const op: string = patchRequest.op;
+
+    if (!patchRequest.value) {
+        throw new Error('PATCH requests must include a value');
+    }
+    const value = patchRequest.value;
+    if (op === 'replace') {
+        if (value.servicetype &&
+            (value.servicetype === 'conv' || value.servicetype === 'visrec') &&
+            value.credstype)
+        {
+            if ((value.servicetype === 'conv' && value.credstype.startsWith('visrec')) ||
+                (value.servicetype === 'visrec' && value.credstype.startsWith('conv')))
+            {
+                throw new Error('Invalid credentials type');
+            }
+            // valid
+        }
+        else {
+            throw new Error('PATCH requests must specify the service type and credentials type');
+        }
+    }
+    else {
+        throw new Error('Invalid PATCH op');
+    }
+
+    return { op, value };
+}
+
+
+interface ValidPatch {
+    readonly op: 'replace';
+    readonly value: {
+        readonly servicetype: 'conv' | 'visrec';
+        readonly credstype: TrainingTypes.BluemixCredentialsTypeLabel;
+    };
+}
 
 
 export default function registerApis(app: Express.Application) {
@@ -170,6 +264,13 @@ export default function registerApis(app: Express.Application) {
         auth.requireSupervisor,
         auth.ensureUnmanaged,
         deleteCredentials);
+
+    app.patch(urls.BLUEMIX_CREDENTIAL,
+        auth.authenticate,
+        auth.checkValidUser,
+        auth.requireSupervisor,
+        auth.ensureUnmanaged,
+        modifyCredentials);
 
     app.post(urls.BLUEMIX_CREDENTIALS,
         auth.authenticate,
