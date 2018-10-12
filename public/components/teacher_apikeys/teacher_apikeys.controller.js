@@ -15,8 +15,6 @@
         var vm = this;
         vm.authService = authService;
 
-        var placeholderId = 1;
-
         var alertId = 1;
         vm.errors = [];
         vm.warnings = [];
@@ -123,6 +121,7 @@
             $mdDialog.show({
                 controller : function ($scope, $mdDialog) {
                     $scope.type = 'password';
+                    $scope.credstype = '';
 
                     $scope.hide = function () {
                         $mdDialog.hide();

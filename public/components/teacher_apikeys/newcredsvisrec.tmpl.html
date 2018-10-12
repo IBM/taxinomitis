@@ -1,40 +1,62 @@
-<md-dialog aria-label="Store new Visual Recognition API key" style="max-width: 90%; max-height: 90%">
+<md-dialog aria-label="Store new Visual Recognition API key" style="max-width: 98%; max-height: 95%">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>Add new Visual Recognition API key</h2>
+            <h2>Add Visual Recognition API key</h2>
         </div>
     </md-toolbar>
-    <form ng-cloak name="newCredentials" ng-submit="confirm({ apikey : apikey })">
+    <form ng-cloak name="newCredentials"
+            ng-submit="confirm({ apikey : apikey, credstype : credstype })">
         <md-dialog-content>
-            <div class="md-dialog-content" style="min-width: 400px">
-                <md-card-content>
-                    <div>
-                        Provide an API key for Watson Visual Recognition.
+            <div layout="column">
+                <div layout="row">
+                    <div style="min-width: 380px; padding: 1em;">
+                        <div style="padding-right: 1em;">
+                            These will be used when your students train
+                            models in images projects.
+                        </div>
+                        <div style="padding-right: 1em;">
+                            This will not be shown to students in your group.
+                        </div>
+
+                        <hr/>
+
+                        <div style="margin-top: 1em; font-weight: bold;">
+                            Which Pricing Plan did you use?
+                        </div>
+                        <div style="margin-top: 0.2em; margin-left: 1em;">
+                            <md-radio-group ng-model="credstype" ng-required="true">
+                                <md-radio-button value="visrec_lite" class="md-primary">Lite <em>(free)</em></md-radio-button>
+                                <md-radio-button value="visrec_standard" class="md-primary">Standard <em>(paid)</em></md-radio-button>
+                                <md-radio-button value="unknown" class="md-primary"><em>Unknown</em></md-radio-button>
+                            </md-radio-group>
+                        </div>
+
+                        <hr/>
+
+                        <div style="margin-top: 1em; font-weight: bold;">
+                            Please enter the API key below
+                        </div>
+
+                        <div style="margin-top: 0.2em; margin-left: 1em;">
+                            <md-input-container style="width: 100%; padding-right: 1.1em;">
+                                <input type="text" name="text"
+                                    md-autofocus
+                                    ng-required="type === 'apikey'"
+                                    ng-pattern="/^([0-9a-f]{40}|[0-9A-Za-z\-\_]{44})$/"
+                                    ng-model="apikey"
+                                    placeholder="API key"
+                                    md-maxlength="44"></input>
+                            </md-input-container>
+                        </div>
                     </div>
-                    <div style="margin-top: 0.5em">
-                        This will be used when you (or students in your class) train
-                        models in images projects.
+                    <div class="additionalDialogInfo">
+                        <div style="padding: 0.5em; margin: 0.5em; border: thin #3C70B1 solid; background-color: #EAEBF0; font-size: 0.8em;">
+                            For help creating an API key, download the &nbsp;
+                            <a href="https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf"> step by step guide </a>.
+                        </div>
+                        <img src="static/images/creds-visrec-apikey.jpg" style="width: 100%" class="dialoghelpimages" alt="screenshot of the Visual Recognition screen"/>
                     </div>
-                    <div style="margin-top: 0.5em">
-                        This will not be shown to students in your group.
-                    </div>
-                    <div style="margin-top: 1em">
-                        For help creating an API key, download the &nbsp;
-                        <a href="https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf"> step by step guide </a>.
-                    </div>
-                    <div layout="row" style="margin-top: 1em;">
-                        <md-input-container style="width: 100%">
-                            <label>API key</label>
-                            <input type="text" name="text"
-                                md-autofocus
-                                ng-required="true"
-                                ng-pattern="/^([0-9a-f]{40}|[0-9A-Za-z\-\_]{44})$/"
-                                ng-model="apikey"
-                                placeholder="API key"
-                                md-maxlength="44"></input>
-                        </md-input-container>
-                    </div>
-                </md-card-content>
+                </div>
                 <md-dialog-actions layout="row">
                     <span flex></span>
                     <md-button type="submit" class="md-raised md-primary" ng-disabled="newCredentials.$invalid">Add</md-button>
