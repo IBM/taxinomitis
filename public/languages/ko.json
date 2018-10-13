@@ -401,12 +401,32 @@
             
             "ADDNEWCREDENTIALS": "Add new credentials",
             "ADDAPIKEY": "Add new API key",
-            
+            "REMOVE": "Remove",
+
             "NO_TEXT_CREDENTIALS": "You don't have any Assistant credentials. This means that it will not be possible to train models for <strong>text</strong> projects.",
             "NO_IMAGE_CREDENTIALS": "You don't have any Visual Recognition API keys. This means that it will not be possible to train models for <strong>images</strong> projects.",
             
             "NOTAUTHORISED": "You are not authorized to access the Watson API keys used by your class.",
-            "MANAGEDCLASS": "API Keys used by your class are being managed for you."
+            "MANAGEDCLASS": "API Keys used by your class are being managed for you.",
+
+            "HELP_STEPBYSTEP_GUIDE": "If you're not sure what to do here, please follow the <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> step-by-step guide </a>. If you'd like any help, please <strong><a style='cursor: pointer;' ui-sref='help'>get in touch</a></strong>.",
+
+            "INTRO_WATSONASSISTANT": "Training machine learning models for <span class='mlprojecttype'>text</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/conversation/'>Watson Assistant</a>",
+            "INTRO_VISUALRECOGNITION": "Training machine learning models for <span class='mlprojecttype'>images</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
+
+            "ERROR_FETCHING_WATSONASSISTANT": "Failed to get your Watson Assistant passwords",
+            "ERROR_FETCHING_VISUALRECOG": "Failed to get your Visual Recognition API keys",
+
+            "USERNAME": "Username",
+            "PASSWORD": "Password",
+            "APIKEY": "API key",
+
+            "NUMBER_OF_ML_MODELS": "Number of ML models",
+            "UNKNOWN": "unknown",
+            "UNLIMITED": "unlimited",
+
+            "LIMIT_TEXT_PROJECTS": "Number of text machine learning models your students can have:",
+            "LIMIT_IMAGE_PROJECTS": "Number of images machine learning models your students can have:"
         }
     },
     "HELP": {
