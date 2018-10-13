@@ -15,6 +15,11 @@
         var vm = this;
         vm.authService = authService;
 
+        vm.CONSTANTS = {
+            UNKNOWN : -1,
+            UNLIMITED : -2
+        };
+
         var alertId = 1;
         vm.errors = [];
         vm.warnings = [];
@@ -34,11 +39,41 @@
             return newId;
         }
 
+
+        function computeLimit(type) {
+            var creds = vm.credentials[type];
+
+            var mlmodels = 0;
+            for (var i = 0; i < creds.length; i++) {
+                var cred = creds[i];
+                if (cred.credstype === 'conv_lite') {
+                    mlmodels += 5;
+                }
+                else if (cred.credstype === 'conv_standard') {
+                    mlmodels += 20;
+                }
+                else if (cred.credstype === 'visrec_lite') {
+                    mlmodels += 2;
+                }
+                else if (cred.credstype === 'visrec_standard') {
+                    mlmodels = vm.CONSTANTS.UNLIMITED;
+                    break;
+                }
+                else {
+                    mlmodels = vm.CONSTANTS.UNKNOWN;
+                    break;
+                }
+            }
+            vm.credentials.totals[type] = mlmodels;
+        }
+
         function getCredentials(profile, type) {
             usersService.getCredentials(profile, type)
                 .then(function (creds) {
                     vm.credentials[type] = creds;
                     vm.credentials.loading[type] = false;
+
+                    computeLimit(type);
                 })
                 .catch(function (err) {
                     vm.credentials.failed[type] = true;
@@ -57,6 +92,10 @@
                 failed : {
                     visrec : false,
                     conv : false
+                },
+                totals : {
+                    visrec : vm.CONSTANTS.UNKNOWN,
+                    conv : vm.CONSTANTS.UNKNOWN
                 }
             };
             getCredentials(profile, 'visrec');
@@ -105,6 +144,7 @@
                             vm.credentials[type] = vm.credentials[type].filter(function (itm) {
                                 return itm.id !== creds.id;
                             });
+                            computeLimit(type);
                         })
                         .catch(function (err) {
                             displayAlert('errors', err.status, err.data);
@@ -144,6 +184,7 @@
                     usersService.addCredentials(credentialsToAdd, vm.profile.tenant)
                         .then(function (newcreds) {
                             vm.credentials[type].push(newcreds);
+                            computeLimit(type);
                         })
                         .catch(function (err) {
                             var errId = displayAlert('errors', err.status, err.data);
@@ -154,6 +195,19 @@
                     // cancelled. do nothing
                 }
             );
+        };
+
+
+        vm.explainLimit = function () {
+            var alert = $mdDialog.alert()
+                            .title('Limit on the number of machine learning models')
+                            .textContent('When a student in your class clicks on the "Train machine learning model" ' +
+                                         'button, the model that they create will count towards this limit. If this limit ' +
+                                         'is exceeded, they will see an error saying that the class has already created ' +
+                                         'their maximum allowed number of models. See the "Help" page for suggestions for ' +
+                                         'how to avoid this')
+                            .ok('OK');
+            $mdDialog.show(alert)
         };
 
 
