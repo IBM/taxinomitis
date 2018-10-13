@@ -7,11 +7,9 @@
 import * as uuid from 'uuid/v1';
 import * as fs from 'fs';
 import * as assert from 'assert';
-import * as httpstatus from 'http-status';
 import * as sinon from 'sinon';
 import * as request from 'request-promise';
 import * as clone from 'clone';
-import * as randomstring from 'randomstring';
 import * as tmp from 'tmp';
 
 import * as store from '../../lib/db/store';

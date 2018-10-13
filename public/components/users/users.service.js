@@ -11,11 +11,13 @@
 
     function usersService($q, $http) {
 
+        function returnData(resp) {
+            return resp.data;
+        }
+
         function getClassPolicy(profile) {
             return $http.get('/api/classes/' + profile.tenant + '/policy')
-                .then(function (resp) {
-                    return resp.data;
-                });
+                .then(returnData);
         }
 
         function createTeacher(username, email, notes) {
@@ -26,9 +28,7 @@
             };
 
             return $http.post('/api/teachers', newteacher)
-                .then(function (resp) {
-                    return resp.data;
-                });
+                .then(returnData);
         }
 
 
@@ -39,16 +39,12 @@
 
         function getClassesList() {
             return $http.get('/api/classes')
-                .then(function (resp) {
-                    return resp.data;
-                });
+                .then(returnData);
         }
 
         function getStudentList(profile) {
             return $http.get('/api/classes/' + profile.tenant + '/students')
-                .then(function (resp) {
-                    return resp.data;
-                });
+                .then(returnData);
         }
 
         function deleteStudent(profile, tenant) {
@@ -61,16 +57,12 @@
             };
 
             return $http.post('/api/classes/' + tenant + '/students', newstudent)
-                .then(function (resp) {
-                    return resp.data;
-                });
+                .then(returnData);
         }
 
         function resetStudentPassword(profile, tenant) {
             return $http.post('/api/classes/' + tenant + '/students/' + profile.id + '/password')
-                .then(function (resp) {
-                    return resp.data;
-                });
+                .then(returnData);
         }
         function resetStudentsPassword(profiles, tenant) {
             var students = profiles.map(function (profile) {
@@ -81,27 +73,35 @@
                 };
             });
             return $http.patch('/api/classes/' + tenant + '/students', students)
-                .then(function (resp) {
-                    return resp.data;
-                });
+                .then(returnData);
         }
 
 
 
         function getCredentials(profile, type) {
             return $http.get('/api/classes/' + profile.tenant + '/credentials?servicetype=' + type)
-                .then(function (resp) {
-                    return resp.data;
-                });
+                .then(returnData);
         }
         function deleteCredentials(profile, credentials) {
             return $http.delete('/api/classes/' + profile.tenant + '/credentials/' + credentials.id);
         }
         function addCredentials(credentials, tenant) {
             return $http.post('/api/classes/' + tenant + '/credentials', credentials)
-                .then(function (resp) {
-                    return resp.data;
-                });
+                .then(returnData);
+        }
+        function modifyCredentials(credentials, servicetype, credstype, tenant) {
+            var update = [
+                {
+                    op : 'replace',
+                    path : '/credstype',
+                    value : {
+                        servicetype : servicetype,
+                        credstype : credstype
+                    }
+                }
+            ];
+            return $http.patch('/api/classes/' + tenant + '/credentials/' + credentials.id, update)
+                .then(returnData);
         }
 
 
@@ -112,6 +112,7 @@
 
             addCredentials : addCredentials,
             getCredentials : getCredentials,
+            modifyCredentials : modifyCredentials,
             deleteCredentials : deleteCredentials,
 
             getClassPolicy : getClassPolicy,

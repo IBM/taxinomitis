@@ -1,7 +1,5 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
-import * as util from 'util';
-import * as uuid from 'uuid/v1';
 
 import * as store from '../../lib/db/store';
 import * as Types from '../../lib/db/db-types';

@@ -86,6 +86,14 @@ describe('Utils - download and zip', () => {
                     (unzippedFile: any, nextFile) => {
                         switch (unzippedFile.size) {
                         case 22955:
+                            filecompare('./src/tests/utils/resources/map_.jpg',
+                                        unzippedFile.location,
+                                        (isEq: boolean) => {
+                                            assert(isEq);
+                                            nextFile();
+                                        });
+                            break;
+                        case 23109:
                             filecompare('./src/tests/utils/resources/map.jpg',
                                         unzippedFile.location,
                                         (isEq: boolean) => {

@@ -25,6 +25,7 @@ export const CREDENTIALS_LEGACY: TrainingTypes.BluemixCredentials = {
     servicetype : 'visrec',
     url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
     classid : CLASSIDS.LEGACY,
+    credstype : 'visrec_standard',
 };
 export const CREDENTIALS_NEW: TrainingTypes.BluemixCredentials = {
     id : uuid(),
@@ -33,6 +34,7 @@ export const CREDENTIALS_NEW: TrainingTypes.BluemixCredentials = {
     servicetype : 'visrec',
     url : 'https://gateway.watsonplatform.net/visual-recognition/api',
     classid : CLASSIDS.NEW,
+    credstype : 'visrec_lite',
 };
 
 

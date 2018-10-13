@@ -1,11 +1,8 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
-import * as util from 'util';
-import * as uuid from 'uuid/v1';
 import * as sinon from 'sinon';
 import * as request from 'supertest';
 import * as httpstatus from 'http-status';
-import * as randomstring from 'randomstring';
 import * as express from 'express';
 
 import * as store from '../../lib/db/store';

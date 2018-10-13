@@ -11,6 +11,8 @@ import * as TrainingTypes from '../../lib/training/training-types';
 
 describe('Scratchx - status', () => {
 
+    const credstype = 'unknown';
+
     describe('text projects', () => {
 
         const testStatus: TrainingTypes.ConversationWorkspace = {
@@ -66,6 +68,7 @@ describe('Scratchx - status', () => {
                     password : 'pass',
                     servicetype : 'conv',
                     classid : '',
+                    credstype,
                 },
                 updated : new Date(),
             };
@@ -95,6 +98,7 @@ describe('Scratchx - status', () => {
                     password : 'pass',
                     servicetype : 'conv',
                     classid : '',
+                    credstype,
                 },
                 updated : new Date(),
             };
@@ -123,6 +127,7 @@ describe('Scratchx - status', () => {
                     password : 'pass',
                     servicetype : 'conv',
                     classid : '',
+                    credstype,
                 },
                 updated : new Date(),
             };
@@ -232,6 +237,7 @@ describe('Scratchx - status', () => {
                     password : 'pass',
                     servicetype : 'conv',
                     classid : '',
+                    credstype,
                 },
                 updated : new Date(),
             };
@@ -261,6 +267,7 @@ describe('Scratchx - status', () => {
                     password : 'pass',
                     servicetype : 'conv',
                     classid : '',
+                    credstype,
                 },
                 updated : new Date(),
             };
@@ -289,6 +296,7 @@ describe('Scratchx - status', () => {
                     password : 'pass',
                     servicetype : 'conv',
                     classid : '',
+                    credstype,
                 },
                 updated : new Date(),
             };

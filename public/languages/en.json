@@ -403,12 +403,32 @@
 
             "ADDNEWCREDENTIALS": "Add new credentials",
             "ADDAPIKEY": "Add new API key",
+            "REMOVE": "Remove",
 
             "NO_TEXT_CREDENTIALS": "You don't have any Assistant credentials. This means that it will not be possible to train models for <strong>text</strong> projects.",
             "NO_IMAGE_CREDENTIALS": "You don't have any Visual Recognition API keys. This means that it will not be possible to train models for <strong>images</strong> projects.",
 
             "NOTAUTHORISED": "You are not authorized to access the Watson API keys used by your class.",
-            "MANAGEDCLASS": "API Keys used by your class are being managed for you."
+            "MANAGEDCLASS": "API Keys used by your class are being managed for you.",
+
+            "HELP_STEPBYSTEP_GUIDE": "If you're not sure what to do here, please follow the <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> step-by-step guide </a>. If you'd like any help, please <strong><a style='cursor: pointer;' ui-sref='help'>get in touch</a></strong>.",
+
+            "INTRO_WATSONASSISTANT": "Training machine learning models for <span class='mlprojecttype'>text</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/conversation/'>Watson Assistant</a>",
+            "INTRO_VISUALRECOGNITION": "Training machine learning models for <span class='mlprojecttype'>images</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
+
+            "ERROR_FETCHING_WATSONASSISTANT": "Failed to get your Watson Assistant passwords",
+            "ERROR_FETCHING_VISUALRECOG": "Failed to get your Visual Recognition API keys",
+
+            "USERNAME": "Username",
+            "PASSWORD": "Password",
+            "APIKEY": "API key",
+
+            "NUMBER_OF_ML_MODELS": "Number of ML models",
+            "UNKNOWN": "unknown",
+            "UNLIMITED": "unlimited",
+
+            "LIMIT_TEXT_PROJECTS": "Number of <span class='mlprojecttype'>text</span> machine learning models your students can have:",
+            "LIMIT_IMAGE_PROJECTS": "Number of <span class='mlprojecttype'>images</span> machine learning models your students can have:"
         }
     },
     "HELP": {
@@ -511,28 +531,12 @@
         "TEACHERUI": {
             "TITLE": "Teacher / Admin UI issues",
 
-            "Q1": "Number of available ML models in the Teacher's page is incorrect",
-            "Q1-A-1": "The Teacher's page shows the number of machine learning models available to your class. (This page is only accessible to teachers or group leaders). This value is calculated by taking the number of API keys / credentials that the teacher has created, and multiplying it by the number of machine learning models that can be created with a single API key.",
-            "Q1-A-2": "Unfortunately, this can be misleading. The value is based on assumptions about which Pricing Plan were used when creating API keys.",
-            "Q1-A-3": "For <span class='mlprojecttype'>text</span> projects, the assumption is that 'Standard Plan' will be used for creating <a href='https://console.bluemix.net/catalog/services/conversation'>Watson Assistant</a> (formerly Watson Conversation) credentials, as this supports 20 'workspaces'. The teacher's page multiplies the number of Watson Assistant credentials by 20 when displaying",
-            "Q1-A-4": "\"Your class is allowed to have up to ?? machine learning models in total across all their text projects.\"",
-            "Q1-A-5": "The \"Lite Plan\" supports only 5 \"workspaces\", so if any of the Watson Assistant credentials were created in the Lite pricing plan, then this means the actual limit will be less than displayed on the Teacher's page.",
-            "Q1-A-6": "For <span class='mlprojecttype'>images</span> projects, the assumption is that \"Lite Plan\" will be used for creating <a href='https://console.bluemix.net/catalog/services/watson_vision_combined'>Watson Visual Recognition</a> API keys, as this supports 1 \"custom model\". The teacher's page multiplies the number of Watson Visual Recognition API keys by 1 when displaying",
-            "Q1-A-7": "\"Your class is allowed to have up to ?? machine learning models in total across all their images projects.\"",
-            "Q1-A-8": "The \"Standard Plan\" doesn't have a limit on the number of custom models, so if any of the Watson Visual Recognition API keys were created with the Standard pricing plan, this means there isn't actually a limit on the number of machine learning models for images projects, despite what is shown on the Teacher's page.",
-            "Q1-A-9": "Sorry for any confusion that this page causes. I will be updating the Teacher's admin page so it asks for the Pricing Plan for each set of credentials or API keys, so that I can do the appropriate multiplication in the UI.",
-            "Q1-A-10": "In the meantime, the correct limit is whatever is shown on IBM Cloud where the credentials are created. More detailed information about all of this can be found in this <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'>PDF document about using Watson API keys with Machine Learning for Kids</a>.",
-            "Q1-A-11": "If you're not sure how to work out the limit for your class, please <a href='mailto:dale.lane@uk.ibm.com'>let me know</a> and I'll try and help.",
-
             "Q2": "Missing student account from the list in the teacher's page",
             "Q2-A-1": "User management for Machine Learning for Kids is implemented using the third party service, <a href=\"https://auth0.com/\">Auth0</a>.",
             "Q2-A-2": "Occassionally, the list of students that Auth0 returns can get a little out of date, and fail to reflect students that have recently been created (or similarly, still show students that have been recently deleted).",
             "Q2-A-3": "In these instances, the students have normally been successfully created (or deleted) and it is just that the list of students being displayed doesn't reflect recent updates.",
             "Q2-A-4": "Auth0 will normally report such incidents on their status page as <a href='https://status.auth0.com/incidents/0sk1d3hjlw0m'>user indexing delays</a> or <a href='https://status.auth0.com/incidents/t8995b9jggx5'>problems with their Search API</a>.",
             "Q2-A-5": "The best thing to do in these cases is to wait for the Auth0 indexing to catch up.",
-
-            "Q3": "What is Assistant? What happened to Conversation?",
-            "Q3-A-1": "In March 2018, the \"Watson Conversation\" service was renamed to \"Watson Assistant\". Any previous references to \"Conversation\" can be read as \"Assistant\" now. Any Watson Conversation service instances or credentials created prior to this point can continue to be used as equivalent to Watson Assistant.",
 
             "Q4": "Why are machine learning models automatically deleted?",
             "Q4-A-1": "This was a feature requested by schools when Machine Learning for Kids was first developed. It came from the fact that there is a limit for how many machine learning models a class can have at any given time, and a need to make it easy to manage this limit.",

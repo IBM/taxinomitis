@@ -38,7 +38,8 @@ export async function deleteClass(classid: string): Promise<void> {
 
         users = await auth0requests.getUsers(auth0token, classid);
     }
-
+    // delete the class-wide resources (e.g. Bluemix creds)
+    await db.deleteClassResources(classid);
 
     // The teacher account is deleted last, so that if anything
     // goes wrong, the teacher can try again.

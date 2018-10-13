@@ -6,3 +6,23 @@
     text-align: center;
     margin-bottom: 6em;
 }
+
+.studentslistdetail .listheading {
+    font-size: 0.6em;
+    color: #404040;
+}
+.studentslistdetail .listmain {
+    font-size: 1em;
+    padding-left: 1em;
+}
+
+
+
+.additionalDialogInfo {
+    max-width: 520px;
+}
+@media (max-width: 600px) {
+    .additionalDialogInfo {
+        display: none;
+    }
+}

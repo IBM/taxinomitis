@@ -5,7 +5,6 @@ import * as httpstatus from 'http-status';
 // local dependencies
 import * as auth from './auth';
 import * as store from '../db/store';
-import * as Objects from '../db/db-types';
 import * as Types from '../training/training-types';
 import * as conversation from '../training/conversation';
 import * as visualrec from '../training/visualrecognition';

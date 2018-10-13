@@ -222,8 +222,8 @@ async function getPolicy(req: Express.Request, res: Express.Response) {
         return res.json({
             isManaged : policy.isManaged,
 
-            maxTextModels : availableTextCredentials * 20,
-            maxImageModels : availableImageCredentials * 2,
+            maxTextModels : availableTextCredentials,
+            maxImageModels : availableImageCredentials,
 
             maxUsers : policy.maxUsers,
             supportedProjectTypes : policy.supportedProjectTypes,

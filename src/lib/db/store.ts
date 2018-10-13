@@ -2,6 +2,7 @@
 import * as mysql from 'mysql2/promise';
 import * as mysqldb from './mysqldb';
 import * as dbobjects from './objects';
+import * as projectObjects from './projects';
 import * as Objects from './db-types';
 import * as numbers from '../training/numbers';
 import * as conversation from '../training/conversation';
@@ -827,21 +828,45 @@ export async function getNumberTraining(
 // -----------------------------------------------------------------------------
 
 export async function storeBluemixCredentials(
-    classid: string, credentials: TrainingObjects.BluemixCredentials,
+    classid: string, credentials: TrainingObjects.BluemixCredentialsDbRow,
 ): Promise<TrainingObjects.BluemixCredentials>
 {
     const queryString = 'INSERT INTO `bluemixcredentials` ' +
-                        '(`id`, `classid`, `servicetype`, `url`, `username`, `password`) ' +
-                        'VALUES (?, ?, ?, ?, ?, ?)';
+                        '(`id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid`) ' +
+                        'VALUES (?, ?, ?, ?, ?, ?, ?)';
 
     const values = [ credentials.id, classid,
-        credentials.servicetype, credentials.url, credentials.username, credentials.password ];
+        credentials.servicetype, credentials.url, credentials.username, credentials.password, credentials.credstypeid ];
 
     const response = await dbExecute(queryString, values);
     if (response.affectedRows === 1) {
-        return credentials;
+        return dbobjects.getCredentialsFromDbRow(credentials);
     }
     throw new Error('Failed to store credentials');
+}
+
+
+export async function setBluemixCredentialsType(
+    classid: string, credentialsid: string,
+    servicetype: TrainingObjects.BluemixServiceType,
+    credstype: TrainingObjects.BluemixCredentialsTypeLabel,
+): Promise<void>
+{
+    const credstypeObj = projectObjects.credsTypesByLabel[credstype];
+    if (!credstypeObj) {
+        throw new Error('Unrecognised credentials type');
+    }
+
+    const queryString = 'UPDATE `bluemixcredentials` ' +
+                        'SET `credstypeid` = ? ' +
+                        'WHERE `id` = ? AND `servicetype` = ? AND `classid` = ?';
+    const queryParameters = [ credstypeObj.id, credentialsid, servicetype, classid ];
+
+    const response = await dbExecute(queryString, queryParameters);
+    if (response.affectedRows !== 1) {
+        log.error({ queryString, queryParameters, response }, 'Failed to update credentials');
+        throw new Error('Bluemix credentials not updated');
+    }
 }
 
 
@@ -849,7 +874,7 @@ export async function getAllBluemixCredentials(
     service: TrainingObjects.BluemixServiceType,
 ): Promise<TrainingObjects.BluemixCredentials[]>
 {
-    const queryString = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password` ' +
+    const queryString = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid` ' +
                         'FROM `bluemixcredentials` ' +
                         'WHERE `servicetype` = ? ' +
                         'LIMIT 2000';
@@ -864,7 +889,7 @@ export async function getBluemixCredentials(
     classid: string, service: TrainingObjects.BluemixServiceType,
 ): Promise<TrainingObjects.BluemixCredentials[]>
 {
-    const queryString = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password` ' +
+    const queryString = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid` ' +
                         'FROM `bluemixcredentials` ' +
                         'WHERE `classid` = ? AND `servicetype` = ?';
 
@@ -879,7 +904,7 @@ export async function getBluemixCredentials(
 
 export async function getBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.BluemixCredentials>
 {
-    const credsQuery = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password` ' +
+    const credsQuery = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid` ' +
                        'FROM `bluemixcredentials` ' +
                        'WHERE `id` = ?';
     const rows = await dbExecute(credsQuery, [ credentialsid ]);
@@ -895,19 +920,24 @@ export async function getBluemixCredentialsById(credentialsid: string): Promise<
 
 export async function countBluemixCredentialsByType(classid: string): Promise<{ conv: number, visrec: number }>
 {
-    const credsQuery = 'SELECT `servicetype`, count(*) as count ' +
+    const credsQuery = 'SELECT `servicetype`, `credstypeid`, count(*) as count ' +
                        'FROM `bluemixcredentials` ' +
                        'WHERE `classid` = ? ' +
-                       'GROUP BY `servicetype`';
+                       'GROUP BY `servicetype`, `credstypeid`';
     const rows = await dbExecute(credsQuery, [ classid ]);
 
     const counts = { conv : 0, visrec : 0 };
     for (const row of rows) {
         if (row.servicetype === 'conv') {
-            counts.conv = row.count;
+            if (row.credstypeid === projectObjects.credsTypesByLabel.conv_standard.id) {
+                counts.conv += 20;
+            }
+            else {
+                counts.conv += 5;
+            }
         }
         else if (row.servicetype === 'visrec') {
-            counts.visrec = row.count;
+            counts.visrec += 2;
         }
         else {
             log.error({ row, classid }, 'Unexpected bluemix service type found in DB');
@@ -1927,6 +1957,19 @@ export async function deleteEntireUser(userid: string, classid: string): Promise
     const dbConn = await dbConnPool.getConnection();
     for (const deleteQuery of deleteQueries) {
         await dbConn.execute(deleteQuery, [ userid ]);
+    }
+    dbConn.release();
+}
+
+
+export async function deleteClassResources(classid: string): Promise<void> {
+    const deleteQueries = [
+        'DELETE FROM `bluemixcredentials` WHERE `classid` = ?',
+    ];
+
+    const dbConn = await dbConnPool.getConnection();
+    for (const deleteQuery of deleteQueries) {
+        await dbConn.execute(deleteQuery, [ classid ]);
     }
     dbConn.release();
 }

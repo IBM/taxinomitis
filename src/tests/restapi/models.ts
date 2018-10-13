@@ -375,9 +375,10 @@ describe('REST API - models', () => {
                 id : uuid(),
                 username : uuid(),
                 password : uuid(),
-                servicetype : 'conv',
+                servicetype : 'visrec',
                 url : uuid(),
                 classid,
+                credstype : 'unknown',
             };
 
             const createdA = new Date();
@@ -492,6 +493,7 @@ describe('REST API - models', () => {
                 servicetype : 'conv',
                 url : uuid(),
                 classid,
+                credstype : 'conv_lite',
             };
 
             const createdA = new Date();
@@ -1173,15 +1175,16 @@ describe('REST API - models', () => {
             const project = await store.storeProject(userid, classid, 'text', projName, 'en', [], false);
             const projectid = project.id;
 
-            const credentials: Types.BluemixCredentials = {
+            const credentials: Types.BluemixCredentialsDbRow = {
                 id : uuid(),
                 username : uuid(),
                 password : uuid(),
                 servicetype : 'conv',
                 url : uuid(),
                 classid,
+                credstypeid : 1,
             };
-            await store.storeBluemixCredentials(classid, credentials);
+            const storedCredentials = await store.storeBluemixCredentials(classid, credentials);
 
             const created = new Date();
             created.setMilliseconds(0);
@@ -1196,7 +1199,7 @@ describe('REST API - models', () => {
                 name : projName,
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(credentials, project, classifierInfo);
+            await store.storeConversationWorkspace(storedCredentials, project, classifierInfo);
 
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
@@ -1267,15 +1270,16 @@ describe('REST API - models', () => {
             const project = await store.storeProject(userid, classid, 'images', projName, 'en', [], false);
             const projectid = project.id;
 
-            const credentials: Types.BluemixCredentials = {
+            const credentials: Types.BluemixCredentialsDbRow = {
                 id : uuid(),
                 username : randomstring.generate(20),
                 password : randomstring.generate(20),
                 servicetype : 'visrec',
                 url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
                 classid,
+                credstypeid : 3,
             };
-            await store.storeBluemixCredentials(classid, credentials);
+            const storedCredentials = await store.storeBluemixCredentials(classid, credentials);
 
             const created = new Date();
             created.setMilliseconds(0);
@@ -1291,7 +1295,7 @@ describe('REST API - models', () => {
                 name : projName,
                 url : uuid(),
             };
-            await store.storeImageClassifier(credentials, project, classifierInfo);
+            await store.storeImageClassifier(storedCredentials, project, classifierInfo);
 
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
@@ -1340,15 +1344,16 @@ describe('REST API - models', () => {
             const project = await store.storeProject(userid, classid, 'images', projName, 'en', [], false);
             const projectid = project.id;
 
-            const credentials: Types.BluemixCredentials = {
+            const credentials: Types.BluemixCredentialsDbRow = {
                 id : uuid(),
                 username : randomstring.generate(20),
                 password : randomstring.generate(20),
                 servicetype : 'visrec',
                 url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
                 classid,
+                credstypeid : 4,
             };
-            await store.storeBluemixCredentials(classid, credentials);
+            const storedCredentials = await store.storeBluemixCredentials(classid, credentials);
 
             const created = new Date();
             created.setMilliseconds(0);
@@ -1364,7 +1369,7 @@ describe('REST API - models', () => {
                 name : projName,
                 url : uuid(),
             };
-            await store.storeImageClassifier(credentials, project, classifierInfo);
+            await store.storeImageClassifier(storedCredentials, project, classifierInfo);
 
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
@@ -1483,15 +1488,16 @@ describe('REST API - models', () => {
             const project = await store.storeProject(userid, classid, 'text', projName, 'en', [], false);
             const projectid = project.id;
 
-            const credentials: Types.BluemixCredentials = {
+            const credentials: Types.BluemixCredentialsDbRow = {
                 id : uuid(),
                 username : uuid(),
                 password : uuid(),
                 servicetype : 'conv',
                 url : uuid(),
                 classid,
+                credstypeid : 1,
             };
-            await store.storeBluemixCredentials(classid, credentials);
+            const storedCredentials = await store.storeBluemixCredentials(classid, credentials);
 
             const created = new Date();
             created.setMilliseconds(0);
@@ -1506,7 +1512,7 @@ describe('REST API - models', () => {
                 name : projName,
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(credentials, project, classifierInfo);
+            await store.storeConversationWorkspace(storedCredentials, project, classifierInfo);
 
             nextAuth0Userid = 'teacheruserid';
             nextAuth0Role = 'supervisor';
@@ -1533,15 +1539,16 @@ describe('REST API - models', () => {
             const project = await store.storeProject(userid, classid, 'text', projName, 'en', [], false);
             const projectid = project.id;
 
-            const credentials: Types.BluemixCredentials = {
+            const credentials: Types.BluemixCredentialsDbRow = {
                 id : uuid(),
                 username : uuid(),
                 password : uuid(),
                 servicetype : 'conv',
                 url : uuid(),
                 classid,
+                credstypeid : 2,
             };
-            await store.storeBluemixCredentials(classid, credentials);
+            const storedCredentials = await store.storeBluemixCredentials(classid, credentials);
 
             const created = new Date();
             created.setMilliseconds(0);
@@ -1556,7 +1563,7 @@ describe('REST API - models', () => {
                 name : projName,
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(credentials, project, classifierInfo);
+            await store.storeConversationWorkspace(storedCredentials, project, classifierInfo);
 
             nextAuth0Userid = 'teacheruserid';
             nextAuth0Role = 'supervisor';
@@ -1608,15 +1615,16 @@ describe('REST API - models', () => {
             const project = await store.storeProject(userid, classid, 'text', projName, 'en', [], false);
             const projectid = project.id;
 
-            const credentials: Types.BluemixCredentials = {
+            const credentials: Types.BluemixCredentialsDbRow = {
                 id : uuid(),
                 username : uuid(),
                 password : uuid(),
                 servicetype : 'conv',
                 url : uuid(),
                 classid,
+                credstypeid : 1,
             };
-            await store.storeBluemixCredentials(classid, credentials);
+            const storedCredentials = await store.storeBluemixCredentials(classid, credentials);
 
             const created = new Date();
             created.setMilliseconds(0);
@@ -1631,7 +1639,7 @@ describe('REST API - models', () => {
                 name : projName,
                 url : uuid(),
             };
-            await store.storeConversationWorkspace(credentials, project, classifierInfo);
+            await store.storeConversationWorkspace(storedCredentials, project, classifierInfo);
 
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';
@@ -1658,15 +1666,16 @@ describe('REST API - models', () => {
             const project = await store.storeProject(userid, classid, 'images', projName, 'en', [], false);
             const projectid = project.id;
 
-            const credentials: Types.BluemixCredentials = {
+            const credentials: Types.BluemixCredentialsDbRow = {
                 id : uuid(),
                 username : uuid(),
                 password : uuid(),
                 servicetype : 'conv',
                 url : uuid(),
                 classid,
+                credstypeid : 2,
             };
-            await store.storeBluemixCredentials(classid, credentials);
+            const storedCredentials = await store.storeBluemixCredentials(classid, credentials);
 
             const created = new Date();
             created.setMilliseconds(0);
@@ -1680,7 +1689,7 @@ describe('REST API - models', () => {
                 name : projName,
                 url : uuid(),
             };
-            await store.storeImageClassifier(credentials, project, classifierInfo);
+            await store.storeImageClassifier(storedCredentials, project, classifierInfo);
 
             nextAuth0Userid = userid;
             nextAuth0Role = 'student';

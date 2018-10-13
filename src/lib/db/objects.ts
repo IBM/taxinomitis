@@ -404,13 +404,75 @@ export function getCredentialsFromDbRow(
         username : row.username,
         password : row.password,
         classid : row.classid,
+        credstype : row.credstypeid ? projects.credsTypesById[row.credstypeid].label : 'unknown',
     };
+}
+
+export function getCredentialsAsDbRow(obj: TrainingObjects.BluemixCredentials,
+): TrainingObjects.BluemixCredentialsDbRow
+{
+    return {
+        id : obj.id,
+        servicetype : obj.servicetype,
+        url : obj.url,
+        username : obj.username,
+        password : obj.password,
+        classid : obj.classid,
+        credstypeid : obj.credstype ?
+                        projects.credsTypesByLabel[obj.credstype].id :
+                        projects.credsTypesByLabel.unknown.id,
+    };
+}
+
+function validateVisrecApiKey(apikey?: string): string {
+    if (apikey) {
+        if (apikey.length === 44 || apikey.length === 40) {
+            // yay - valid
+            return apikey;
+        }
+        else {
+            throw new Error('Invalid API key');
+        }
+    }
+    else {
+        throw new Error('Missing required attributes');
+    }
+}
+
+function getCredentialsType(
+    servicetype: TrainingObjects.BluemixServiceType,
+    credstype?: string,
+): TrainingObjects.BluemixCredentialsTypeLabel {
+
+    if (!credstype) {
+        throw new Error('Missing required attributes');
+    }
+
+    if (credstype === 'unknown') {
+        return 'unknown';
+    }
+
+    switch (servicetype) {
+    case 'conv':
+        if (credstype === 'conv_lite' || credstype === 'conv_standard') {
+            return credstype;
+        }
+        throw new Error('Invalid credentials type');
+    case 'visrec':
+        if (credstype === 'visrec_lite' || credstype === 'visrec_standard') {
+            return credstype;
+        }
+        throw new Error('Invalid credentials type');
+    default:
+        throw new Error('Invalid service type');
+    }
 }
 
 export function createBluemixCredentials(
     servicetype: string, classid: string,
     apikey?: string,
     username?: string, password?: string,
+    credstype?: string,
 ): TrainingObjects.BluemixCredentials
 {
     if (servicetype === undefined)
@@ -419,26 +481,19 @@ export function createBluemixCredentials(
     }
 
     if (servicetype === 'visrec') {
-        if (apikey) {
-            if (apikey.length === 44 || apikey.length === 40) {
-                return {
-                    id : uuid(),
-                    username : apikey.substr(0, 22),
-                    password : apikey.substr(22),
-                    classid,
-                    servicetype : 'visrec',
-                    url : apikey.length === 40 ?
-                        'https://gateway-a.watsonplatform.net/visual-recognition/api' :
-                        'https://gateway.watsonplatform.net/visual-recognition/api',
-                };
-            }
-            else {
-                throw new Error('Invalid API key');
-            }
-        }
-        else {
-            throw new Error('Missing required attributes');
-        }
+        apikey = validateVisrecApiKey(apikey);
+
+        return {
+            id : uuid(),
+            username : apikey.substr(0, 22),
+            password : apikey.substr(22),
+            classid,
+            servicetype : 'visrec',
+            url : apikey.length === 40 ?
+                'https://gateway-a.watsonplatform.net/visual-recognition/api' :
+                'https://gateway.watsonplatform.net/visual-recognition/api',
+            credstype : getCredentialsType('visrec', credstype),
+        };
     }
     else if (servicetype === 'conv') {
         if (username && password) {
@@ -448,6 +503,7 @@ export function createBluemixCredentials(
                     username, password, classid,
                     servicetype : 'conv',
                     url : 'https://gateway.watsonplatform.net/conversation/api',
+                    credstype : getCredentialsType('conv', credstype),
                 };
             }
             else {
@@ -463,6 +519,7 @@ export function createBluemixCredentials(
                     classid,
                     servicetype : 'conv',
                     url : 'https://gateway-wdc.watsonplatform.net/assistant/api',
+                    credstype : getCredentialsType('conv', credstype),
                 };
             }
             else {
@@ -655,6 +712,7 @@ export function getScratchKeyFromDbRow(row: Objects.ScratchKeyDbRow): Objects.Sc
                 username : row.serviceusername,
                 password : row.servicepassword,
                 classid : row.classid,
+                credstype : 'unknown',
             },
             classifierid : row.classifierid,
             updated : row.updated,

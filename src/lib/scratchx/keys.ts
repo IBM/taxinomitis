@@ -67,6 +67,7 @@ async function createNumbersKey(project: Types.Project): Promise<ScratchTypes.Ke
             username: project.userid,
             password: project.classid,
             classid : project.classid,
+            credstype : 'unknown',
         };
 
         const classifier = numClassifiers[0];

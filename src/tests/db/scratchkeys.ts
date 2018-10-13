@@ -1,6 +1,5 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
-import * as util from 'util';
 import * as uuid from 'uuid/v1';
 import * as randomstring from 'randomstring';
 import * as sinon from 'sinon';
@@ -64,6 +63,8 @@ describe('ScratchKeys store', () => {
         assert(!retrievedEmpty.classifierid);
         assert(!retrievedEmpty.credentials);
 
+        const credstype: Types.BluemixCredentialsTypeLabel = 'unknown';
+
         const credentials = {
             id : uuid(),
             servicetype : 'conv' as Types.BluemixServiceType,
@@ -71,6 +72,7 @@ describe('ScratchKeys store', () => {
             password : randomstring.generate({ length : 20 }),
             url : uuid(),
             classid : reusedClassid,
+            credstype,
         };
         const classifierid = randomstring.generate({ length : 12 });
 
@@ -113,13 +115,17 @@ describe('ScratchKeys store', () => {
 
 
     it('should create a scratch key', async () => {
-        const credentials: Types.BluemixCredentials = {
+        const credstype: Types.BluemixCredentialsTypeLabel = 'unknown';
+        const servicetype: Types.BluemixServiceType = 'conv';
+
+        const credentials = {
             id : uuid(),
-            servicetype : 'conv',
+            servicetype,
             username : randomstring.generate({ length : 10 }),
             password : randomstring.generate({ length : 20 }),
             url : uuid(),
             classid : reusedClassid,
+            credstype,
         };
         const classifierid = randomstring.generate({ length : 12 });
 
@@ -134,6 +140,8 @@ describe('ScratchKeys store', () => {
 
 
     it('should retrieve a scratch key', async () => {
+        const credstype: Types.BluemixCredentialsTypeLabel = 'unknown';
+
         const credentials = {
             id : uuid(),
             servicetype : 'conv' as Types.BluemixServiceType,
@@ -141,6 +149,7 @@ describe('ScratchKeys store', () => {
             password : randomstring.generate({ length : 20 }),
             url : uuid(),
             classid : reusedClassid,
+            credstype,
         };
         const classifierid = randomstring.generate({ length : 12 });
         const ts = new Date(2018, 3, 2, 1, 15, 12);
@@ -164,6 +173,8 @@ describe('ScratchKeys store', () => {
 
 
     it('should find a scratch key for a project', async () => {
+        const credstype: Types.BluemixCredentialsTypeLabel = 'unknown';
+
         const credentials = {
             id : uuid(),
             servicetype : 'conv' as Types.BluemixServiceType,
@@ -171,6 +182,7 @@ describe('ScratchKeys store', () => {
             password : randomstring.generate({ length : 20 }),
             url : uuid(),
             classid : reusedClassid,
+            credstype,
         };
         const classifierid = randomstring.generate({ length : 12 });
         const ts = new Date(2018, 3, 18, 3, 10, 0);
@@ -198,6 +210,8 @@ describe('ScratchKeys store', () => {
     });
 
     it('should find scratch keys for a project', async () => {
+        const credstype: Types.BluemixCredentialsTypeLabel = 'unknown';
+
         const credentials = {
             id : uuid(),
             servicetype : 'conv' as Types.BluemixServiceType,
@@ -205,6 +219,7 @@ describe('ScratchKeys store', () => {
             password : randomstring.generate({ length : 20 }),
             url : uuid(),
             classid : reusedClassid,
+            credstype,
         };
         const classifieridA = randomstring.generate({ length : 12 });
         const classifieridB = randomstring.generate({ length : 11 });
@@ -239,6 +254,8 @@ describe('ScratchKeys store', () => {
 
 
     it('should update a scratch key', async () => {
+        const credstype: Types.BluemixCredentialsTypeLabel = 'unknown';
+
         const credentials = {
             id : uuid(),
             servicetype : 'conv' as Types.BluemixServiceType,
@@ -246,6 +263,7 @@ describe('ScratchKeys store', () => {
             password : randomstring.generate({ length : 20 }),
             url : uuid(),
             classid : reusedClassid,
+            credstype,
         };
         const classifierid = randomstring.generate({ length : 12 });
 
@@ -282,6 +300,8 @@ describe('ScratchKeys store', () => {
 
 
     it('should delete a scratch key', async () => {
+        const credstype: Types.BluemixCredentialsTypeLabel = 'unknown';
+
         const credentials = {
             id : uuid(),
             servicetype : 'conv' as Types.BluemixServiceType,
@@ -289,6 +309,7 @@ describe('ScratchKeys store', () => {
             password : randomstring.generate({ length : 20 }),
             url : uuid(),
             classid : reusedClassid,
+            credstype,
         };
         const classifierid = randomstring.generate({ length : 12 });
         const ts = new Date();
@@ -312,6 +333,8 @@ describe('ScratchKeys store', () => {
 
 
     it('should delete keys by projectid', async () => {
+        const credstype: Types.BluemixCredentialsTypeLabel = 'unknown';
+
         const credentials = {
             id : uuid(),
             servicetype : 'conv' as Types.BluemixServiceType,
@@ -319,6 +342,7 @@ describe('ScratchKeys store', () => {
             password : randomstring.generate({ length : 20 }),
             url : uuid(),
             classid : reusedClassid,
+            credstype,
         };
         const classifierid = randomstring.generate({ length : 12 });
 
@@ -349,15 +373,16 @@ describe('ScratchKeys store', () => {
         past.setDate(past.getDate() - 1);
         past.setMilliseconds(0);
 
-        const credentials: Types.BluemixCredentials = {
+        const credentialsInfo: Types.BluemixCredentialsDbRow = {
             id : uuid(),
             username : randomstring.generate(36),
             password : randomstring.generate(12),
             servicetype : 'conv',
             url : uuid(),
             classid : reusedClassid,
+            credstypeid : 1,
         };
-        await store.storeBluemixCredentials(project.classid, credentials);
+        const credentials = await store.storeBluemixCredentials(project.classid, credentialsInfo);
 
         const expired: Types.ConversationWorkspace = {
             id : uuid(),

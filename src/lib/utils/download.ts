@@ -87,11 +87,12 @@ export function resize(
                 throw new Error('Unsupported file type ' + imageinfo.type);
             }
 
+            // skew, don't crop, when resizing
+            const options = { fit : 'fill' } as sharp.ResizeOptions;
+
             const shrinkStream = sharp()
                                     // resize before writing to disk
-                                    .resize(width, height)
-                                    // skew, don't crop
-                                    .ignoreAspectRatio()
+                                    .resize(width, height, options)
                                     .on('error', resolve)
                                     // write to file using the same image
                                     //  format (i.e. jpg vs png) as the

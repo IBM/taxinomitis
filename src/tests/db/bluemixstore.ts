@@ -5,6 +5,7 @@ import * as sinon from 'sinon';
 import * as uuid from 'uuid/v1';
 
 import * as store from '../../lib/db/store';
+import * as projectObjects from '../../lib/db/projects';
 import * as conversation from '../../lib/training/conversation';
 import * as visualrecog from '../../lib/training/visualrecognition';
 import * as Types from '../../lib/training/training-types';
@@ -42,10 +43,10 @@ describe('DB store', () => {
         });
 
 
-        it('should store and retrieve Bluemix credentials', async () => {
+        it('should store and retrieve lite Bluemix credentials', async () => {
             const classid = uuid();
 
-            const creds: Types.BluemixCredentials = {
+            const credsinfo = {
                 id : uuid(),
                 username : randomstring.generate({ length : 8 }),
                 password : randomstring.generate({ length : 20 }),
@@ -54,18 +55,116 @@ describe('DB store', () => {
                 classid,
             };
 
+            const creds: Types.BluemixCredentialsDbRow = {
+                ...credsinfo,
+                credstypeid : 1,
+            };
+
             await store.storeBluemixCredentials(classid, creds);
 
             const retrieved = await store.getBluemixCredentials(classid, 'conv');
-            assert.deepStrictEqual(retrieved, [ creds ]);
+            assert.deepStrictEqual(retrieved, [ {
+                ...credsinfo,
+                credstype : 'conv_lite',
+            } ]);
+
+            const counts = await store.countGlobalBluemixCredentials();
+            assert.deepStrictEqual(counts[classid], { conv : 1, visrec : 0, total : 1 });
 
             await store.deleteBluemixCredentials(creds.id);
+
+            const countsAfter = await store.countGlobalBluemixCredentials();
+            assert.strictEqual(countsAfter[classid], undefined);
+        });
+
+        it('should store and retrieve standard Bluemix credentials', async () => {
+            const classid = uuid();
+
+            const countBefore = await store.countBluemixCredentialsByType(classid);
+            assert.deepStrictEqual(countBefore, { conv : 0, visrec : 0 });
+
+            const credsinfo = {
+                id : uuid(),
+                username : randomstring.generate({ length : 8 }),
+                password : randomstring.generate({ length : 20 }),
+                servicetype : 'conv',
+                url : 'http://conversation.service/api/classifiers',
+                classid,
+            };
+
+            const creds: Types.BluemixCredentialsDbRow = {
+                ...credsinfo,
+                credstypeid : projectObjects.credsTypesByLabel.conv_standard.id,
+            };
+
+            await store.storeBluemixCredentials(classid, creds);
+
+            const countAfter = await store.countBluemixCredentialsByType(classid);
+            assert.deepStrictEqual(countAfter, { conv : 20, visrec : 0 });
+
+            const retrieved = await store.getBluemixCredentials(classid, 'conv');
+            assert.deepStrictEqual(retrieved, [ {
+                ...credsinfo,
+                credstype : 'conv_standard',
+            } ]);
+
+            await store.deleteBluemixCredentials(creds.id);
+        });
+
+        it('should count the number of models from Bluemix credentials', async () => {
+            const classid = uuid();
+
+            const ids = [ uuid(), uuid(), uuid(), uuid() ];
+
+            await store.storeBluemixCredentials(classid, {
+                id : ids[0],
+                username : randomstring.generate({ length : 8 }),
+                password : randomstring.generate({ length : 20 }),
+                servicetype : 'conv',
+                url : 'http://conversation.service/api/classifiers',
+                classid,
+                credstypeid : projectObjects.credsTypesByLabel.conv_standard.id,
+            });
+            await store.storeBluemixCredentials(classid, {
+                id : ids[1],
+                username : randomstring.generate({ length : 8 }),
+                password : randomstring.generate({ length : 20 }),
+                servicetype : 'conv',
+                url : 'http://conversation.service/api/classifiers',
+                classid,
+                credstypeid : projectObjects.credsTypesByLabel.conv_lite.id,
+            });
+            await store.storeBluemixCredentials(classid, {
+                id : ids[2],
+                username : randomstring.generate({ length : 8 }),
+                password : randomstring.generate({ length : 20 }),
+                servicetype : 'conv',
+                url : 'http://conversation.service/api/classifiers',
+                classid,
+                credstypeid : projectObjects.credsTypesByLabel.unknown.id,
+            });
+            await store.storeBluemixCredentials(classid, {
+                id : ids[3],
+                username : uuid(),
+                password : uuid(),
+                servicetype : 'visrec',
+                url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
+                classid,
+                credstypeid : projectObjects.credsTypesByLabel.visrec_lite.id,
+            });
+
+            const countAfter = await store.countBluemixCredentialsByType(classid);
+            assert.deepStrictEqual(countAfter, { conv : 30, visrec : 2 });
+
+            for (const id of ids) {
+                await store.deleteBluemixCredentials(id);
+            }
         });
 
         it('should throw an error when fetching non-existent credentials', async () => {
             const classid = uuid();
 
-            const creds: Types.BluemixCredentials = {
+            const credsinfo = {
                 id : uuid(),
                 username : randomstring.generate({ length : 8 }),
                 password : randomstring.generate({ length : 20 }),
@@ -74,10 +173,18 @@ describe('DB store', () => {
                 classid,
             };
 
+            const creds: Types.BluemixCredentialsDbRow = {
+                ...credsinfo,
+                credstypeid : 2,
+            };
+
             await store.storeBluemixCredentials(classid, creds);
 
             const retrieved = await store.getBluemixCredentials(classid, 'conv');
-            assert.deepStrictEqual(retrieved, [ creds ]);
+            assert.deepStrictEqual(retrieved, [ {
+                ...credsinfo,
+                credstype : 'conv_standard',
+            } ]);
 
             await store.deleteBluemixCredentials(creds.id);
 
@@ -95,7 +202,7 @@ describe('DB store', () => {
             const projectid = uuid();
             const userid = uuid();
 
-            const creds: Types.BluemixCredentials = {
+            const credsinfo = {
                 id : uuid(),
                 username : randomstring.generate({ length : 8 }),
                 password : randomstring.generate({ length : 20 }),
@@ -104,7 +211,12 @@ describe('DB store', () => {
                 classid,
             };
 
-            await store.storeBluemixCredentials(classid, creds);
+            const creds: Types.BluemixCredentialsDbRow = {
+                ...credsinfo,
+                credstypeid : 2,
+            };
+
+            const storedcreds = await store.storeBluemixCredentials(classid, creds);
 
             const created = new Date();
             created.setMilliseconds(0);
@@ -132,13 +244,99 @@ describe('DB store', () => {
                 isCrowdSourced : false,
             };
 
-            await store.storeConversationWorkspace(creds, project, classifierInfo);
+            await store.storeConversationWorkspace(storedcreds, project, classifierInfo);
 
             const retrievedCreds = await store.getBluemixCredentialsById(creds.id);
-            assert.deepStrictEqual(retrievedCreds, creds);
+            assert.deepStrictEqual(retrievedCreds, {
+                ...credsinfo,
+                credstype : 'conv_standard',
+            });
 
             await store.deleteBluemixCredentials(creds.id);
             await store.deleteConversationWorkspacesByProjectId(projectid);
+        });
+
+
+        it('should modify Conversation Bluemix credentials', async () => {
+
+            const before = projectObjects.credsTypesByLabel.conv_lite;
+            const after  = projectObjects.credsTypesByLabel.conv_standard;
+
+            const classid = uuid();
+
+            const credsinfo = {
+                id : uuid(),
+                username : randomstring.generate({ length : 8 }),
+                password : randomstring.generate({ length : 20 }),
+                servicetype : 'conv',
+                url : 'http://conversation.service/api/classifiers',
+                classid,
+            };
+
+            const creds: Types.BluemixCredentialsDbRow = {
+                ...credsinfo,
+                credstypeid : before.id,
+            };
+
+            await store.storeBluemixCredentials(classid, creds);
+
+            const verifyBefore = await store.getBluemixCredentialsById(creds.id);
+
+            await store.setBluemixCredentialsType(classid, credsinfo.id, 'conv', after.label);
+
+            const verifyAfter = await store.getBluemixCredentialsById(creds.id);
+
+            await store.deleteBluemixCredentials(creds.id);
+
+            assert.strictEqual(verifyBefore.credstype, before.label);
+            assert.strictEqual(verifyAfter.credstype, after.label);
+        });
+
+        it('should modify Visual Recognition Bluemix credentials', async () => {
+
+            const before = projectObjects.credsTypesByLabel.visrec_standard;
+            const after  = projectObjects.credsTypesByLabel.visrec_lite;
+
+            const classid = uuid();
+
+            const credsinfo = {
+                id : uuid(),
+                username : uuid(),
+                password : uuid(),
+                servicetype : 'visrec',
+                url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
+                classid,
+            };
+
+            const creds: Types.BluemixCredentialsDbRow = {
+                ...credsinfo,
+                credstypeid : before.id,
+            };
+
+            await store.storeBluemixCredentials(classid, creds);
+
+            const verifyBefore = await store.getBluemixCredentialsById(creds.id);
+
+            await store.setBluemixCredentialsType(classid, credsinfo.id, 'visrec', after.label);
+
+            const verifyAfter = await store.getBluemixCredentialsById(creds.id);
+
+            await store.deleteBluemixCredentials(creds.id);
+
+            assert.strictEqual(verifyBefore.credstype, before.label);
+            assert.strictEqual(verifyAfter.credstype, after.label);
+        });
+
+
+        it('should reject modifications for invalid credentials types', async () => {
+            try {
+                await store.setBluemixCredentialsType('classid', 'credsid', 'conv',
+                    'fish' as Types.BluemixCredentialsTypeLabel);
+                assert.fail('Should not reach here');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Unrecognised credentials type');
+            }
         });
 
     });
@@ -176,6 +374,7 @@ describe('DB store', () => {
                 servicetype : 'conv',
                 url : uuid(),
                 classid,
+                credstype : 'conv_standard',
             };
             const expired: Types.ConversationWorkspace = {
                 id : uuid(),
@@ -258,15 +457,16 @@ describe('DB store', () => {
             past.setDate(past.getDate() - 1);
             past.setMilliseconds(0);
 
-            const credentials: Types.BluemixCredentials = {
+            const credentials: Types.BluemixCredentialsDbRow = {
                 id : uuid(),
                 username : randomstring.generate(36),
                 password : randomstring.generate(12),
                 servicetype : 'conv',
                 url : uuid(),
                 classid,
+                credstypeid : 1,
             };
-            await store.storeBluemixCredentials(classid, credentials);
+            const storedcreds = await store.storeBluemixCredentials(classid, credentials);
 
             const expired: Types.ConversationWorkspace = {
                 id : uuid(),
@@ -291,7 +491,7 @@ describe('DB store', () => {
                 isCrowdSourced : false,
             };
 
-            await store.storeConversationWorkspace(credentials, projectExpired, expired);
+            await store.storeConversationWorkspace(storedcreds, projectExpired, expired);
 
             const verifyBefore = await store.getConversationWorkspace(projectid, expired.workspace_id);
             assert.deepStrictEqual(verifyBefore, expired);
@@ -331,6 +531,7 @@ describe('DB store', () => {
                 servicetype : 'conv',
                 url : uuid(),
                 classid,
+                credstype : 'conv_standard',
             };
 
             const created = new Date();
@@ -391,6 +592,7 @@ describe('DB store', () => {
                 servicetype : 'conv',
                 url : uuid(),
                 classid,
+                credstype : 'conv_lite',
             };
             const userid = uuid();
 
@@ -494,6 +696,7 @@ describe('DB store', () => {
                 servicetype : 'visrec',
                 url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
                 classid,
+                credstype : 'visrec_lite',
             };
             const expired: Types.VisualClassifier = {
                 id : uuid(),
@@ -564,15 +767,21 @@ describe('DB store', () => {
             past.setDate(past.getDate() - 1);
             past.setMilliseconds(0);
 
-            const credentials: Types.BluemixCredentials = {
+            const credentials: Types.BluemixCredentialsDbRow = {
                 id : uuid(),
                 username : uuid(),
                 password : uuid(),
                 servicetype : 'visrec',
                 url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
                 classid,
+                credstypeid : 4,
             };
-            await store.storeBluemixCredentials(classid, credentials);
+            const storedcreds = await store.storeBluemixCredentials(classid, credentials);
+
+            const counts = await store.countBluemixCredentialsByType(classid);
+            assert.deepStrictEqual(counts, { conv : 0, visrec : 2 });
+            const allCounts = await store.countGlobalBluemixCredentials();
+            assert.deepStrictEqual(allCounts[classid], { conv : 0, visrec : 1, total : 1 });
 
             const expired: Types.VisualClassifier = {
                 id : uuid(),
@@ -596,7 +805,7 @@ describe('DB store', () => {
                 isCrowdSourced : false,
             };
 
-            await store.storeImageClassifier(credentials, projectExpired, expired);
+            await store.storeImageClassifier(storedcreds, projectExpired, expired);
 
             const verifyBefore = await store.getImageClassifier(projectid, expired.classifierid);
             assert.deepStrictEqual(verifyBefore, expired);
@@ -640,6 +849,7 @@ describe('DB store', () => {
                 servicetype : 'visrec',
                 url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
                 classid,
+                credstype : 'visrec_lite',
             };
             const userid = uuid();
 
