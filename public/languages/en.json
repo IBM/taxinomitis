@@ -538,9 +538,6 @@
             "Q2-A-4": "Auth0 will normally report such incidents on their status page as <a href='https://status.auth0.com/incidents/0sk1d3hjlw0m'>user indexing delays</a> or <a href='https://status.auth0.com/incidents/t8995b9jggx5'>problems with their Search API</a>.",
             "Q2-A-5": "The best thing to do in these cases is to wait for the Auth0 indexing to catch up.",
 
-            "Q3": "What is Assistant? What happened to Conversation?",
-            "Q3-A-1": "In March 2018, the \"Watson Conversation\" service was renamed to \"Watson Assistant\". Any previous references to \"Conversation\" can be read as \"Assistant\" now. Any Watson Conversation service instances or credentials created prior to this point can continue to be used as equivalent to Watson Assistant.",
-
             "Q4": "Why are machine learning models automatically deleted?",
             "Q4-A-1": "This was a feature requested by schools when Machine Learning for Kids was first developed. It came from the fact that there is a limit for how many machine learning models a class can have at any given time, and a need to make it easy to manage this limit.",
             "Q4-A-2": "Rather than requiring kids to have to clean up after a lesson and delete their models (in order to allow the next class to be able to create models), the tool can automatically clean up by deleting the models after the lesson is over. This makes it easy to run the next lesson, and the next lesson after that, without manual clean-ups in between.",
