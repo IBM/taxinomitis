@@ -197,6 +197,44 @@
             );
         };
 
+        vm.modifyCredentials = function (ev, creds, type) {
+            $mdDialog.show({
+                controller : function ($scope, $mdDialog) {
+                    $scope.credstype = creds.credstype;
+                    $scope.currentcredstype = creds.credstype;
+
+                    $scope.hide = function () {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function () {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function (resp) {
+                        $mdDialog.hide(resp);
+                    };
+                },
+                templateUrl : 'static/components-' + $stateParams.VERSION + '/teacher_apikeys/modifycreds' + type + '.tmpl.html',
+                targetEvent : ev,
+                clickOutsideToClose : true
+            })
+            .then(
+                function(modifyRequest) {
+                    usersService.modifyCredentials(creds, type, modifyRequest.credstype, vm.profile.tenant)
+                        .then(function () {
+                            creds.credstype = modifyRequest.credstype;
+                            computeLimit(type);
+                        })
+                        .catch(function (err) {
+                            var errId = displayAlert('errors', err.status, err.data);
+                            scrollToNewItem('errors' + errId);
+                        });
+                },
+                function() {
+                    // cancelled. do nothing
+                }
+            );
+        };
+
 
         vm.explainLimit = function () {
             var alert = $mdDialog.alert()

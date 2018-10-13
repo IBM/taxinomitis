@@ -82,7 +82,7 @@
                             {{ creds.apikey }}
                         </div>
                     </td>
-                    <td class="studentslistdetail">
+                    <td class="studentslistdetail" style="cursor: pointer" ng-click="vm.modifyCredentials($event, creds, 'conv')">
                         <div class="listheading">
                             Number of ML models
                         </div>
@@ -133,7 +133,7 @@
                             {{ creds.apikey }}
                         </div>
                     </td>
-                    <td class="studentslistdetail">
+                    <td class="studentslistdetail" style="cursor: pointer" ng-click="vm.modifyCredentials($event, creds, 'visrec')">
                         <div class="listheading">
                             Number of ML models
                         </div>
