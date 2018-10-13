@@ -19,12 +19,7 @@
 
 <div ng-if="isAuthenticated && vm.profile.role === 'supervisor'" class="adminpage">
 
-    <div class="alert alert-info pageheadermsg">
-        If you're not sure what to do here, please follow the
-        <a href="https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf"> step-by-step guide </a>.
-
-        If you'd like any help, please <strong><a style="cursor: pointer;" ui-sref="help">get in touch</a></strong>.
-    </div>
+    <div class="alert alert-info pageheadermsg" translate="TEACHER.APIKEYS.HELP_STEPBYSTEP_GUIDE"></div>
 
     <div ng-if="!vm || !vm.credentials || vm.credentials.loading.visrec || vm.credentials.loading.conv" class="loading"> </div>
 
@@ -33,7 +28,7 @@
          ng-click="vm.dismissAlert('errors', $index)"
          id="errors{{error.alertid}}">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Error:</strong> {{ error.message }}<br/>
+        <strong translate="APP.ERROR"></strong> {{ error.message }}<br/>
         <em ng-if="error.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
     </div>
     <div ng-repeat="warning in vm.warnings"
@@ -46,11 +41,8 @@
 
     <div ng-if="vm && vm.credentials" class="credentialsinfo">
         <div ng-if="vm.credentials.loading.conv === false" style="border-top: thin #444 solid; padding-top: 1em; margin-bottom: 2em;">
-            <div>
-                Training machine learning models for <span class="mlprojecttype">text</span> projects uses
-                <a class="mlprojecttype" href="https://www.ibm.com/watson/services/conversation/">Watson Assistant</a>
-            </div>
-            <div ng-if="vm.credentials.failed.conv" class="credserror" >Failed to get your Watson Assistant passwords</div>
+            <div translate="TEACHER.APIKEYS.INTRO_WATSONASSISTANT"></div>
+            <div ng-if="vm.credentials.failed.conv" class="credserror" translate="TEACHER.APIKEYS.ERROR_FETCHING_WATSONASSISTANT"></div>
             <div style="height: 60px;">
                 <div class="newlabelbutton" ng-click="vm.addCredentials($event, 'conv')" style="margin-right: 1.5em;">
                     <div class="newlabelicon">+</div>
@@ -63,45 +55,37 @@
                         <img width=50 height=50 src="static/images/conversation.jpg" alt="Watson Assistant">
                     </td>
                     <td class="studentslistdetail">
-                        <div class="listheading" ng-if="creds.username">
-                            Username
-                        </div>
+                        <div class="listheading" ng-if="creds.username" translate="TEACHER.APIKEYS.USERNAME"></div>
                         <div class="listmain" ng-if="creds.username">
                             {{ creds.username }}
                         </div>
-                        <div class="listheading" ng-if="creds.password" style="padding-top: 0.5em;">
-                            Password
-                        </div>
+                        <div class="listheading" ng-if="creds.password" translate="TEACHER.APIKEYS.PASSWORD" style="padding-top: 0.5em;" ></div>
                         <div class="listmain" ng-if="creds.password">
                             {{ creds.password }}
                         </div>
-                        <div class="listheading" ng-if="creds.apikey">
-                            API key
-                        </div>
+                        <div class="listheading" ng-if="creds.apikey" translate="TEACHER.APIKEYS.APIKEY"></div>
                         <div class="listmain" ng-if="creds.apikey">
                             {{ creds.apikey }}
                         </div>
                     </td>
                     <td class="studentslistdetail" style="cursor: pointer" ng-click="vm.modifyCredentials($event, creds, 'conv')">
-                        <div class="listheading">
-                            Number of ML models
-                        </div>
+                        <div class="listheading" translate="TEACHER.APIKEYS.NUMBER_OF_ML_MODELS"></div>
                         <div class="listmain" ng-switch="creds.credstype">
                             <span style="font-size: 1.2em;" ng-switch-when="conv_lite">5</span>
                             <span style="font-size: 1.2em;" ng-switch-when="conv_standard">20</span>
-                            <span style="font-size: 1.4em; font-style: italic" ng-switch-default>unknown</span>
+                            <span style="font-size: 1.4em; font-style: italic" ng-switch-default translate="TEACHER.APIKEYS.UNKNOWN"></span>
                         </div>
                     </td>
                     <td class="studentslistactions">
-                        <button class="btn btn-default" ng-click="vm.deleteCredentials($event, creds, 'conv')">Remove</button>
+                        <button class="btn btn-default" ng-click="vm.deleteCredentials($event, creds, 'conv')" translate="TEACHER.APIKEYS.REMOVE"></button>
                     </td>
                 </tr>
             </table>
             <div style="font-size: 1.25em; text-align: right; margin-right: 1em; cursor: pointer;"
                  ng-if="vm.credentials.conv && vm.credentials.conv.length > 0"
                  ng-click="vm.explainLimit()">
-                Number of <span class="mlprojecttype">text</span> machine learning models your students can have:
-                <span style="font-size: 1.15em; font-style: italic" ng-if="vm.credentials.totals.conv === vm.CONSTANTS.UNKNOWN">unknown</span>
+                {{ 'TEACHER.APIKEYS.LIMIT_TEXT_PROJECTS' | translate }}
+                <span style="font-size: 1.15em; font-style: italic" ng-if="vm.credentials.totals.conv === vm.CONSTANTS.UNKNOWN" translate="TEACHER.APIKEYS.UNKNOWN"></span>
                 <span style="font-size: 1.15em; font-weight: bold;" ng-if="vm.credentials.totals.conv >= 0">{{ vm.credentials.totals.conv }}</span>
             </div>
             <div class="credserror" ng-if="vm.credentials.conv && vm.credentials.conv.length === 0" translate="TEACHER.APIKEYS.NO_TEXT_CREDENTIALS"></div>
@@ -109,11 +93,8 @@
 
 
         <div ng-if="vm.credentials.loading.visrec === false" style="border-top: thin #444 solid; padding-top: 1em; margin-bottom: 2em;">
-            <div>
-                Training machine learning models for <span class="mlprojecttype">images</span> projects uses
-                <a class="mlprojecttype" href="https://www.ibm.com/watson/services/visual-recognition/">Watson Visual Recognition</a>
-            </div>
-            <div ng-if="vm.credentials.failed.visrec" class="credserror" >Failed to get your Visual Recognition API keys</div>
+            <div translate="TEACHER.APIKEYS.INTRO_VISUALRECOGNITION"></div>
+            <div ng-if="vm.credentials.failed.visrec" class="credserror" translate="TEACHER.APIKEYS.ERROR_FETCHING_VISUALRECOG"></div>
             <div style="height: 60px;">
                 <div class="newlabelbutton" ng-click="vm.addCredentials($event, 'visrec')" style="margin-right: 1.5em">
                     <div class="newlabelicon">+</div>
@@ -126,34 +107,30 @@
                         <img width=50 height=50 src="static/images/visualrecognition.jpg" alt="Watson Visual Recognition">
                     </td>
                     <td class="studentslistdetail">
-                        <div class="listheading">
-                            API key
-                        </div>
+                        <div class="listheading" translate="TEACHER.APIKEYS.APIKEY"></div>
                         <div class="listmain">
                             {{ creds.apikey }}
                         </div>
                     </td>
                     <td class="studentslistdetail" style="cursor: pointer" ng-click="vm.modifyCredentials($event, creds, 'visrec')">
-                        <div class="listheading">
-                            Number of ML models
-                        </div>
+                        <div class="listheading" translate="TEACHER.APIKEYS.NUMBER_OF_ML_MODELS"></div>
                         <div class="listmain" ng-switch="creds.credstype">
                             <span style="font-size: 1.2em;" ng-switch-when="visrec_lite">2</span>
-                            <span style="font-size: 1.2em;" ng-switch-when="visrec_standard">unlimited</span>
-                            <span style="font-size: 1.4em; font-style: italic" ng-switch-default>unknown</span>
+                            <span style="font-size: 1.2em;" ng-switch-when="visrec_standard" translate="TEACHER.APIKEYS.UNLIMITED"></span>
+                            <span style="font-size: 1.4em; font-style: italic" ng-switch-default translate="TEACHER.APIKEYS.UNKNOWN"></span>
                         </div>
                     </td>
                     <td class="studentslistactions">
-                        <button class="btn btn-default" ng-click="vm.deleteCredentials($event, creds, 'visrec')">Remove</button>
+                        <button class="btn btn-default" ng-click="vm.deleteCredentials($event, creds, 'visrec')" translate="TEACHER.APIKEYS.REMOVE"></button>
                     </td>
                 </tr>
             </table>
             <div style="font-size: 1.25em; text-align: right; margin-right: 1em; cursor: pointer;"
                  ng-if="vm.credentials.visrec && vm.credentials.visrec.length > 0"
                  ng-click="vm.explainLimit()">
-                Number of <span class="mlprojecttype">images</span> machine learning models your students can have:
-                <span style="font-size: 1.15em; font-style: italic" ng-if="vm.credentials.totals.visrec === vm.CONSTANTS.UNKNOWN">unknown</span>
-                <span style="font-size: 1.15em;" ng-if="vm.credentials.totals.visrec === vm.CONSTANTS.UNLIMITED">unlimited</span>
+                {{ 'TEACHER.APIKEYS.LIMIT_IMAGE_PROJECTS' | translate }}
+                <span style="font-size: 1.15em; font-style: italic" ng-if="vm.credentials.totals.visrec === vm.CONSTANTS.UNKNOWN" translate="TEACHER.APIKEYS.UNKNOWN"></span>
+                <span style="font-size: 1.15em;" ng-if="vm.credentials.totals.visrec === vm.CONSTANTS.UNLIMITED" translate="TEACHER.APIKEYS.UNLIMITED"></span>
                 <span style="font-size: 1.15em; font-weight: bold;" ng-if="vm.credentials.totals.visrec >= 0">{{ vm.credentials.totals.visrec }}</span>
             </div>
             <div class="credserror" ng-if="vm.credentials.visrec && vm.credentials.visrec.length === 0" translate="TEACHER.APIKEYS.NO_IMAGE_CREDENTIALS"></div>
