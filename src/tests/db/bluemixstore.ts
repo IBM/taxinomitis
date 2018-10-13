@@ -94,13 +94,13 @@ describe('DB store', () => {
 
             const creds: Types.BluemixCredentialsDbRow = {
                 ...credsinfo,
-                credstypeid : 2,
+                credstypeid : projectObjects.credsTypesByLabel.conv_standard.id,
             };
 
             await store.storeBluemixCredentials(classid, creds);
 
             const countAfter = await store.countBluemixCredentialsByType(classid);
-            assert.deepStrictEqual(countAfter, { conv : 1, visrec : 0 });
+            assert.deepStrictEqual(countAfter, { conv : 20, visrec : 0 });
 
             const retrieved = await store.getBluemixCredentials(classid, 'conv');
             assert.deepStrictEqual(retrieved, [ {
@@ -109,6 +109,56 @@ describe('DB store', () => {
             } ]);
 
             await store.deleteBluemixCredentials(creds.id);
+        });
+
+        it('should count the number of models from Bluemix credentials', async () => {
+            const classid = uuid();
+
+            const ids = [ uuid(), uuid(), uuid(), uuid() ];
+
+            await store.storeBluemixCredentials(classid, {
+                id : ids[0],
+                username : randomstring.generate({ length : 8 }),
+                password : randomstring.generate({ length : 20 }),
+                servicetype : 'conv',
+                url : 'http://conversation.service/api/classifiers',
+                classid,
+                credstypeid : projectObjects.credsTypesByLabel.conv_standard.id,
+            });
+            await store.storeBluemixCredentials(classid, {
+                id : ids[1],
+                username : randomstring.generate({ length : 8 }),
+                password : randomstring.generate({ length : 20 }),
+                servicetype : 'conv',
+                url : 'http://conversation.service/api/classifiers',
+                classid,
+                credstypeid : projectObjects.credsTypesByLabel.conv_lite.id,
+            });
+            await store.storeBluemixCredentials(classid, {
+                id : ids[2],
+                username : randomstring.generate({ length : 8 }),
+                password : randomstring.generate({ length : 20 }),
+                servicetype : 'conv',
+                url : 'http://conversation.service/api/classifiers',
+                classid,
+                credstypeid : projectObjects.credsTypesByLabel.unknown.id,
+            });
+            await store.storeBluemixCredentials(classid, {
+                id : ids[3],
+                username : uuid(),
+                password : uuid(),
+                servicetype : 'visrec',
+                url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
+                classid,
+                credstypeid : projectObjects.credsTypesByLabel.visrec_lite.id,
+            });
+
+            const countAfter = await store.countBluemixCredentialsByType(classid);
+            assert.deepStrictEqual(countAfter, { conv : 30, visrec : 2 });
+
+            for (const id of ids) {
+                await store.deleteBluemixCredentials(id);
+            }
         });
 
         it('should throw an error when fetching non-existent credentials', async () => {
@@ -729,7 +779,7 @@ describe('DB store', () => {
             const storedcreds = await store.storeBluemixCredentials(classid, credentials);
 
             const counts = await store.countBluemixCredentialsByType(classid);
-            assert.deepStrictEqual(counts, { conv : 0, visrec : 1 });
+            assert.deepStrictEqual(counts, { conv : 0, visrec : 2 });
             const allCounts = await store.countGlobalBluemixCredentials();
             assert.deepStrictEqual(allCounts[classid], { conv : 0, visrec : 1, total : 1 });
 

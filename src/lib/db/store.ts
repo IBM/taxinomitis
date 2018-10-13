@@ -920,19 +920,24 @@ export async function getBluemixCredentialsById(credentialsid: string): Promise<
 
 export async function countBluemixCredentialsByType(classid: string): Promise<{ conv: number, visrec: number }>
 {
-    const credsQuery = 'SELECT `servicetype`, count(*) as count ' +
+    const credsQuery = 'SELECT `servicetype`, `credstypeid`, count(*) as count ' +
                        'FROM `bluemixcredentials` ' +
                        'WHERE `classid` = ? ' +
-                       'GROUP BY `servicetype`';
+                       'GROUP BY `servicetype`, `credstypeid`';
     const rows = await dbExecute(credsQuery, [ classid ]);
 
     const counts = { conv : 0, visrec : 0 };
     for (const row of rows) {
         if (row.servicetype === 'conv') {
-            counts.conv = row.count;
+            if (row.credstypeid === projectObjects.credsTypesByLabel.conv_standard.id) {
+                counts.conv += 20;
+            }
+            else {
+                counts.conv += 5;
+            }
         }
         else if (row.servicetype === 'visrec') {
-            counts.visrec = row.count;
+            counts.visrec += 2;
         }
         else {
             log.error({ row, classid }, 'Unexpected bluemix service type found in DB');
