@@ -79,8 +79,6 @@ CREATE TABLE bluemixcredentials (
     credstypeid TINYINT NOT NULL
 );
 
--- ALTER TABLE bluemixcredentials ADD COLUMN credstypeid TINYINT NOT NULL;
-
 CREATE INDEX bluemixcredentials_getBluemixCredentials on bluemixcredentials(classid, servicetype);
 
 INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, password)

@@ -114,7 +114,7 @@ describe('DB store', () => {
         it('should count the number of models from Bluemix credentials', async () => {
             const classid = uuid();
 
-            const ids = [ uuid(), uuid(), uuid(), uuid() ];
+            const ids = [ uuid(), uuid(), uuid(), uuid(), uuid() ];
 
             await store.storeBluemixCredentials(classid, {
                 id : ids[0],
@@ -141,10 +141,19 @@ describe('DB store', () => {
                 servicetype : 'conv',
                 url : 'http://conversation.service/api/classifiers',
                 classid,
-                credstypeid : projectObjects.credsTypesByLabel.unknown.id,
+                credstypeid : projectObjects.credsTypesByLabel.conv_lite.id,
             });
             await store.storeBluemixCredentials(classid, {
                 id : ids[3],
+                username : randomstring.generate({ length : 8 }),
+                password : randomstring.generate({ length : 20 }),
+                servicetype : 'conv',
+                url : 'http://conversation.service/api/classifiers',
+                classid,
+                credstypeid : projectObjects.credsTypesByLabel.unknown.id,
+            });
+            await store.storeBluemixCredentials(classid, {
+                id : ids[4],
                 username : uuid(),
                 password : uuid(),
                 servicetype : 'visrec',
@@ -154,7 +163,7 @@ describe('DB store', () => {
             });
 
             const countAfter = await store.countBluemixCredentialsByType(classid);
-            assert.deepStrictEqual(countAfter, { conv : 30, visrec : 2 });
+            assert.deepStrictEqual(countAfter, { conv : 35, visrec : 2 });
 
             for (const id of ids) {
                 await store.deleteBluemixCredentials(id);

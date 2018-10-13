@@ -427,8 +427,8 @@
             "UNKNOWN": "unknown",
             "UNLIMITED": "unlimited",
 
-            "LIMIT_TEXT_PROJECTS": "Number of <span class='mlprojecttype'>text</span> machine learning models your students can have:",
-            "LIMIT_IMAGE_PROJECTS": "Number of <span class='mlprojecttype'>images</span> machine learning models your students can have:"
+            "LIMIT_TEXT_PROJECTS": "Number of text machine learning models your students can have:",
+            "LIMIT_IMAGE_PROJECTS": "Number of images machine learning models your students can have:"
         }
     },
     "HELP": {

@@ -930,14 +930,14 @@ export async function countBluemixCredentialsByType(classid: string): Promise<{ 
     for (const row of rows) {
         if (row.servicetype === 'conv') {
             if (row.credstypeid === projectObjects.credsTypesByLabel.conv_standard.id) {
-                counts.conv += 20;
+                counts.conv += (20 * row.count);
             }
             else {
-                counts.conv += 5;
+                counts.conv += (5 * row.count);
             }
         }
         else if (row.servicetype === 'visrec') {
-            counts.visrec += 2;
+            counts.visrec += (2 * row.count);
         }
         else {
             log.error({ row, classid }, 'Unexpected bluemix service type found in DB');
