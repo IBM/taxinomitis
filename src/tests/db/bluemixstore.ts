@@ -8,6 +8,7 @@ import * as store from '../../lib/db/store';
 import * as projectObjects from '../../lib/db/projects';
 import * as conversation from '../../lib/training/conversation';
 import * as visualrecog from '../../lib/training/visualrecognition';
+import * as credentialsmgr from '../../lib/training/credentials';
 import * as Types from '../../lib/training/training-types';
 import * as DbTypes from '../../lib/db/db-types';
 
@@ -348,6 +349,97 @@ describe('DB store', () => {
             }
         });
 
+
+
+        it('should clean up classifiers and scratch keys when credentials are deleted', async () => {
+
+            //
+            // create a credentials, classifier and scratch key - all using same credentials
+            //
+
+            const classid = 'TESTTENANT';
+            const userid = uuid();
+
+            const credsinfo = {
+                id : uuid(),
+                username : uuid(),
+                password : uuid(),
+                servicetype : 'visrec',
+                url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
+                classid,
+            };
+
+            const creds: Types.BluemixCredentialsDbRow = {
+                ...credsinfo,
+                credstypeid : projectObjects.credsTypesByLabel.visrec_lite.id,
+            };
+
+            const credentials: Types.BluemixCredentials = await store.storeBluemixCredentials(classid, creds);
+
+            const project: DbTypes.Project = await store.storeProject(
+                userid, classid,
+                'text',
+                'project name',
+                'en', [], false);
+
+            const now = new Date();
+            now.setMilliseconds(0);
+            now.setSeconds(now.getSeconds() - 1);
+
+            const future = new Date();
+            future.setDate(future.getDate() + 1);
+            future.setMilliseconds(0);
+
+            let classifier: Types.VisualClassifier = {
+                id : uuid(),
+                name : 'classifier name',
+                classifierid : uuid(),
+                credentialsid : credentials.id,
+                url : uuid(),
+                created : now,
+                expiry : future,
+            };
+
+            classifier = await store.storeImageClassifier(credentials, project, classifier);
+
+            const scratchkeyid = await store.storeScratchKey(project, credentials, classifier.id, now);
+
+            //
+            // check everything was created
+            //
+
+            let scratchkey = await store.getScratchKey(scratchkeyid);
+            assert(scratchkey.classifierid);
+            assert(scratchkey.credentials);
+            const timestamp = scratchkey.updated;
+
+            const verify = await store.getBluemixCredentialsById(credentials.id);
+            assert(verify);
+            assert.deepStrictEqual(verify, credentials);
+
+            //
+            // delete the credentials
+            //
+
+            await credentialsmgr.deleteBluemixCredentials(credentials);
+
+            //
+            // verify that the scratch key is reset and the classifier has been deleted
+            //
+
+            scratchkey = await store.getScratchKey(scratchkeyid);
+            assert(!scratchkey.classifierid);
+            assert(!scratchkey.credentials);
+            assert(scratchkey.updated.getTime() > timestamp.getTime());
+
+            try {
+                await store.getBluemixCredentialsById(credentials.id);
+                assert.fail('should not have reached here');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Unexpected response when retrieving the service credentials');
+            }
+        });
     });
 
 
