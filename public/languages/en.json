@@ -280,6 +280,11 @@
             "SUMMARY": "Teach a computer to recognise what icons look like",
             "DESCRIPTION": "Make a card game in Scratch that learns to recognise pictures of your card."
         },
+        "CHAMELEON": {
+            "TITLE": "Chameleon",
+            "SUMMARY": "Teach a computer to recognise colours",
+            "DESCRIPTION": "Make a chameleon in Scratch that changes colour to match its background"
+        },
         "MAILMANMAX": {
             "TITLE": "Mailman Max",
             "SUMMARY": "Teach a computer to recognise handwriting",
