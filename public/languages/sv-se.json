@@ -254,9 +254,9 @@
         "LEVELS": {
             "TITLE": "Svårighetsgrad:",
             "ALL": "Alla svårighetsgrader",
-            "BEGINNER": "Nybörjare",
-            "INTERMEDIATE": "Medel",
-            "ADVANCED": "Avancerat"
+            "BEGINNER": "Nybörjarprojekt",
+            "INTERMEDIATE": "Medelsvåra projekt",
+            "ADVANCED": "Avancerade projekt"
         },
 
         "DOWNLOAD": "Ladda ner",

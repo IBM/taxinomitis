@@ -257,9 +257,9 @@
         "LEVELS": {
             "TITLE": "Difficulty:",
             "ALL": "All difficulties",
-            "BEGINNER": "Beginner",
-            "INTERMEDIATE": "Intermediate",
-            "ADVANCED": "Advanced"
+            "BEGINNER": "Beginner projects",
+            "INTERMEDIATE": "Intermediate projects",
+            "ADVANCED": "Advanced projects"
         },
 
         "DOWNLOAD": "Download",
