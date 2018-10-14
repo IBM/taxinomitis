@@ -910,7 +910,10 @@ export async function getBluemixCredentialsById(credentialsid: string): Promise<
     const rows = await dbExecute(credsQuery, [ credentialsid ]);
 
     if (rows.length !== 1) {
-        log.error({ rows, func : 'getBluemixCredentialsById' }, 'Unexpected response from DB');
+        log.error({
+            credentialsid, credsQuery, rows,
+            func : 'getBluemixCredentialsById',
+        }, 'Unexpected response from DB');
         throw new Error('Unexpected response when retrieving the service credentials');
     }
     return dbobjects.getCredentialsFromDbRow(rows[0]);
@@ -973,6 +976,16 @@ export async function deleteBluemixCredentials(credentialsid: string): Promise<v
     const queryString = 'DELETE FROM `bluemixcredentials` WHERE `id` = ?';
 
     const response = await dbExecute(queryString, [ credentialsid ]);
+    if (response.warningStatus !== 0) {
+        throw new Error('Failed to delete credentials info');
+    }
+}
+
+
+export async function deleteClassifiersByCredentials(credentials: TrainingObjects.BluemixCredentials): Promise<void> {
+    const queryString = 'DELETE FROM `bluemixclassifiers` WHERE `credentialsid` = ?';
+
+    const response = await dbExecute(queryString, [ credentials.id ]);
     if (response.warningStatus !== 0) {
         throw new Error('Failed to delete credentials info');
     }
@@ -1329,6 +1342,23 @@ export function resetExpiredScratchKey(id: string, projecttype: Objects.ProjectT
 }
 
 
+export function removeCredentialsFromScratchKeys(credentials: TrainingObjects.BluemixCredentials): Promise<void>
+{
+    const queryString = 'UPDATE `scratchkeys` ' +
+                        'SET `classifierid` = ? , ' +
+                            '`serviceurl` = ? , `serviceusername` = ? , `servicepassword` = ?, ' +
+                            '`updated` = ? ' +
+                        'WHERE `serviceusername` = ? AND `servicepassword` = ? AND `classid` = ?';
+    const values = [
+        null, null, null, null,
+        new Date(),
+        credentials.username, credentials.password, credentials.classid,
+    ];
+
+    return dbExecute(queryString, values);
+}
+
+
 
 /**
  * @returns the ScratchKey ID - whether created or updated
@@ -1388,7 +1418,7 @@ export async function storeScratchKey(
 
     const response = await dbExecute(queryString, values);
     if (response.affectedRows !== 1) {
-        log.error({ response }, 'Failed to store Scratch key');
+        log.error({ response, queryString, values }, 'Failed to store Scratch key');
         throw new Error('Failed to store Scratch key');
     }
 
@@ -1540,7 +1570,7 @@ export async function storeNewKnownError(
 
     const response = await dbExecute(queryString, values);
     if (response.affectedRows !== 1) {
-        log.error({ response, knownError }, 'Failed to store known error');
+        log.error({ response, values, knownError }, 'Failed to store known error');
         throw new Error('Failed to store known error');
     }
 
@@ -1653,7 +1683,7 @@ export async function deletePendingJob(job: Objects.PendingJob): Promise<void>
 
     const response = await dbExecute(queryString, values);
     if (response.warningStatus !== 0) {
-        log.error({ job, response }, 'Failed to delete pending job');
+        log.error({ job, response, values }, 'Failed to delete pending job');
         throw new Error('Failed to delete pending job');
     }
 }

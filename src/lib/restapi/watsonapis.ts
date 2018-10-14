@@ -8,6 +8,7 @@ import * as dbobjects from '../db/objects';
 import * as TrainingTypes from '../training/training-types';
 import * as conversation from '../training/conversation';
 import * as visualRecognition from '../training/visualrecognition';
+import * as credentialsmgr from '../training/credentials';
 import * as urls from './urls';
 import * as errors from './errors';
 import loggerSetup from '../utils/logger';
@@ -85,7 +86,7 @@ async function deleteCredentials(req: Express.Request, res: Express.Response) {
             return errors.notFound(res);
         }
 
-        await store.deleteBluemixCredentials(credsid);
+        await credentialsmgr.deleteBluemixCredentials(credentials);
         return res.sendStatus(httpstatus.NO_CONTENT);
     }
     catch (err){
