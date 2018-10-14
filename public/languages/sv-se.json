@@ -277,6 +277,11 @@
             "SUMMARY": "Lär en dator att känna igen hur ikoner ser ut",
             "DESCRIPTION": "Skapa ett kortspel i Scratch som lär sig att känna igen bilder på ditt kort."
         },
+        "CHAMELEON": {
+            "TITLE": "Chameleon",
+            "SUMMARY": "Teach a computer to recognise colours",
+            "DESCRIPTION": "Make a chameleon in Scratch that changes colour to match its background"
+        },
         "MAILMANMAX": {
             "TITLE": "Brevbärare Max",
             "SUMMARY": "Lär en dator att känna igen handskrift",

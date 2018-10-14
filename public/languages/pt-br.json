@@ -280,6 +280,11 @@
             "SUMMARY": "Ensine um computador a reconhecer naipes de baralho",
             "DESCRIPTION": "Faça um jogo de cartas no Scratch que aprenda a reconhecer fotos da sua carta."
         },
+        "CHAMELEON": {
+            "TITLE": "Chameleon",
+            "SUMMARY": "Teach a computer to recognise colours",
+            "DESCRIPTION": "Make a chameleon in Scratch that changes colour to match its background"
+        },
         "MAILMANMAX": {
             "TITLE": "Mailman Max",
             "SUMMARY": "Ensine um computador a reconhecer escrita",

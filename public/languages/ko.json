@@ -278,6 +278,11 @@
             "SUMMARY": "어떤 아이콘이 보이는지 컴퓨터가 인식하도록 가르쳐봐요",
             "DESCRIPTION": "카드 사진을 인식하는 방법을 배우는 Scratch의 카드 게임을 만들어봐요"
         },
+        "CHAMELEON": {
+            "TITLE": "Chameleon",
+            "SUMMARY": "Teach a computer to recognise colours",
+            "DESCRIPTION": "Make a chameleon in Scratch that changes colour to match its background"
+        },
         "MAILMANMAX": {
             "TITLE": "우편배달부",
             "SUMMARY": "컴퓨터에 손글씨 인식을 가르쳐봐요",
@@ -388,24 +393,24 @@
                 "TITLE": "교실 삭제",
                 "DESCRIPTION": "당신과 당신의 학급에 있는 모든 학생의 계정이 삭제됩니다"
             },
-            
+
             "CANYOUHELP": {
                 "TITLE": "Can you help?",
                 "DESCRIPTION": "Please share your experiences and ideas for how to make the tool better"
             },
-            
+
             "NOTAUTHORISED": "You are not authorized to access the teacher page for your class."
         },
         "APIKEYS": {
             "TITLE": "Administration : IBM Watson API Keys",
-            
+
             "ADDNEWCREDENTIALS": "Add new credentials",
             "ADDAPIKEY": "Add new API key",
             "REMOVE": "Remove",
 
             "NO_TEXT_CREDENTIALS": "You don't have any Assistant credentials. This means that it will not be possible to train models for <strong>text</strong> projects.",
             "NO_IMAGE_CREDENTIALS": "You don't have any Visual Recognition API keys. This means that it will not be possible to train models for <strong>images</strong> projects.",
-            
+
             "NOTAUTHORISED": "You are not authorized to access the Watson API keys used by your class.",
             "MANAGEDCLASS": "API Keys used by your class are being managed for you.",
 
