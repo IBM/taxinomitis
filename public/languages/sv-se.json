@@ -123,6 +123,51 @@
         "RECOGNISING": "Känna igen",
         "AS": "som"
     },
+    "NEWPROJECT": {
+        "TITLE": "Starta ett nytt maskininlärningsprojekt",
+        "PROJECT_NAME": {
+            "TITLE": "Projektnamn",
+            "NOTES": "Ge ditt projekt ett namn som beskriver vad för slags saker du kommer att försöka lära din dator att känna igen."
+        },
+        "WHOLE_CLASS_PROJECT": {
+            "TITLE": "Whole-class project?",
+            "NOTES_1": "Tick this if you want your whole class to be able to work on this project together.",
+            "NOTES_2": "This is useful for projects that teach crowd-sourcing as an approach to training machine learning projects."
+        },
+        "TYPES": {
+            "LABEL": "Känna igen",
+            "NOTES_1": "Vad för slags saker vill du lära datorn att känna igen?",
+            "NOTES_2": "Välj \"text\" för ord, meningar eller stycken",
+            "NOTES_3": "Välj \"bilder\" för foton, diagram och bilder",
+            "NOTES_4": "Välj \"siffror\" för uppsättningar med siffror eller lista med val"
+        },
+        "LANGUAGE": {
+            "LABEL": "Language",
+            "NOTES": "What language will the text in this project be?"
+        },
+        "FIELDS": {
+            "TYPE": {
+                "TITLE": "Typ av värde",
+                "NUMBER": "number",
+                "MULTIPLE_CHOICE": "flervalslista"
+            },
+            "CHOICES": {
+                "TITLE": "Val:",
+                "LABEL": "lägg till ett val"
+            },
+            "NEWFIELD": {
+                "DESCRIBE_FIELD": "Give this field a name to describe the value",
+                "MULTICHOICE": "If it can be described as choosing from a few options, choose \"multiple-choice\".",
+                "ADD_FIRST_FIELD": "Skriv ett val som ska användas i din flervalslista och tryck Enter.",
+                "ADD_ANOTHER_FIELD": "Skriv ett val som ska användas i din flervalslista och tryck Enter."
+            },
+            "NEWVALUE": {
+                "ADD_FIRST_VALUE": "Start to describe the values that you'll include with each example to train the computer with by clicking the 'Add a value' button.",
+                "VALUES_LIMIT": "You are not allowed more than 10 values in a project."
+            }
+        },
+        "CREATE": "Skapa"
+    },
     "PROJECT": {
         "TRAIN": {
             "TITLE": "Träna",

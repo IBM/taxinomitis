@@ -1,5 +1,5 @@
 <div class="jumbotron">
-    <h2 class="text-center">Start a new machine learning project</h2>
+    <h2 class="text-center" translate="NEWPROJECT.TITLE"></h2>
 </div>
 <div ng-if="!isAuthenticated">
     <div class="alert alert-warning pageheadermsg">
@@ -35,18 +35,12 @@
                        ng-disabled="vm.creating"
                        class="newprojectname"
                        style="font-size: 1.7em">
-                       Whole-class project?
+                       {{ 'NEWPROJECT.WHOLE_CLASS_PROJECT.TITLE' | translate }}
                 </md-checkbox>
             </md-input-container>
             <div class="well newprojecthelp" ng-if="vm.focused === 'crowdsourced' && !vm.creating">
-                <div style="margin-bottom: 1em">
-                Tick this if you want your whole class to be able to work on
-                this project together.
-                </div>
-                <div>
-                This is useful for projects that teach crowd-sourcing as
-                an approach to training machine learning projects.
-                </div>
+                <div style="margin-bottom: 1em" translate="NEWPROJECT.WHOLE_CLASS_PROJECT.NOTES_1"></div>
+                <div translate="NEWPROJECT.WHOLE_CLASS_PROJECT.NOTES_2"></div>
             </div>
         </div>
 
@@ -58,7 +52,7 @@
         <!-- ---------------------------------------- -->
         <div class="newprojectrow">
             <md-input-container class="newprojectform">
-                <label>Project Name</label>
+                <label translate="NEWPROJECT.PROJECT_NAME.TITLE"></label>
                 <input ng-minlength="1" ng-maxlength="36"
                        ng-required="true"
                        ng-model="projectName"
@@ -66,10 +60,9 @@
                        ng-focus="vm.focused = 'name'"
                        class="newprojectname"/>
             </md-input-container>
-            <div class="well newprojecthelp" ng-if="vm.focused === 'name' && !vm.creating">
-                Give your project a name to describe what sort of thing
-                you'll try to teach the computer to recognise.
-            </div>
+            <div class="well newprojecthelp"
+                 ng-if="vm.focused === 'name' && !vm.creating"
+                 translate="NEWPROJECT.PROJECT_NAME.NOTES"></div>
         </div>
 
 
@@ -80,31 +73,23 @@
         <!-- ---------------------------------------- -->
         <div class="newprojectrow">
             <md-input-container class="newprojectform">
-                <label>Recognising</label>
+                <label translate="NEWPROJECT.TYPES.LABEL"></label>
                 <md-select ng-required="true"
                            ng-model="projectType"
                            ng-disabled="vm.creating"
                            ng-focus="vm.focused = 'type'"
                            class="newprojecttype">
-                    <md-option value="text">text</md-option>
-                    <md-option value="images">images</md-option>
-                    <md-option value="numbers">numbers</md-option>
+                    <md-option value="text" translate="WORKSHEETS.TYPES.TEXT"></md-option>
+                    <md-option value="images" translate="WORKSHEETS.TYPES.IMAGES"></md-option>
+                    <md-option value="numbers"  translate="WORKSHEETS.TYPES.NUMBERS"></md-option>
                 </md-select>
             </md-input-container>
             <div class="well newprojecthelp"
                  ng-if="vm.focused === 'type' && projectType !== 'numbers' && !vm.creating">
-                <div style="margin-bottom: 1em">
-                What type of thing do you want to teach the computer to recognise?
-                </div>
-                <div>
-                For words, sentences or paragraphs, choose "text"
-                </div>
-                <div>
-                For photos, diagrams and pictures, choose "images"
-                </div>
-                <div>
-                For sets of numbers or multiple choices, choose "numbers"
-                </div>
+                <div style="margin-bottom: 1em" translate="NEWPROJECT.TYPES.NOTES_1"></div>
+                <div translate="NEWPROJECT.TYPES.NOTES_2"></div>
+                <div translate="NEWPROJECT.TYPES.NOTES_3"></div>
+                <div translate="NEWPROJECT.TYPES.NOTES_4"></div>
             </div>
         </div>
 
@@ -116,7 +101,7 @@
         <!-- ---------------------------------------- -->
         <div class="newprojectfields newprojectlanguage" ng-show="projectType === 'text'">
             <md-input-container class="newprojectform">
-                <label>Language</label>
+                <label translate="NEWPROJECT.LANGUAGE.LABEL"></label>
                 <md-select ng-model="language"
                            ng-focus="vm.focused = 'language'"
                            ng-disabled="vm.creating"
@@ -137,9 +122,8 @@
                 </md-select>
             </md-input-container>
             <div class="well newprojecthelp"
-                    ng-if="vm.focused === 'language' && projectType === 'text' && !vm.creating">
-                What language will the text in this project be?
-            </div>
+                    ng-if="vm.focused === 'language' && projectType === 'text' && !vm.creating"
+                    translate="NEWPROJECT.LANGUAGE.NOTES"></div>
         </div>
 
 
@@ -170,14 +154,14 @@
                 <!--  FIELD TYPE       -->
                 <!-- ----------------- -->
                 <md-input-container class="newprojectform"  style="flex: 1;">
-                    <label>Type of value</label>
+                    <label translate="NEWPROJECT.FIELDS.TYPE.TITLE"></label>
                     <md-select ng-required="true"
                                ng-model="field.type"
                                ng-disabled="vm.creating"
                                ng-focus="vm.focused = 'fieldtype' + $index"
                                class="newprojectfieldtype">
-                        <md-option value="number">number</md-option>
-                        <md-option value="multichoice">multiple-choice</md-option>
+                        <md-option value="number" translate="NEWPROJECT.FIELDS.TYPE.NUMBER"></md-option>
+                        <md-option value="multichoice" translate="NEWPROJECT.FIELDS.TYPE.MULTIPLE_CHOICE"></md-option>
                     </md-select>
 
                     <!-- ----------------- -->
@@ -185,7 +169,8 @@
                     <!-- ----------------- -->
                     <div class="newprojectfieldchoices" ng-if="field.type==='multichoice'">
                         <!--  list the current choices -->
-                        <div class="newprojectfieldchoiceslabel md-required">Choices:</div>
+                        <div class="newprojectfieldchoiceslabel md-required"
+                             translate="NEWPROJECT.FIELDS.CHOICES.TITLE"></div>
                         <div class="newprojectfieldchoice"
                             ng-repeat="choice in field.choices track by $index">
                                 {{ choice }}
@@ -195,7 +180,7 @@
                         </div>
                         <!--  add a new choice -->
                         <md-input-container class="newfieldentry" ng-if="field.type==='multichoice' && field.choices.length < 5">
-                            <label>add a choice</label>
+                            <label translate="NEWPROJECT.FIELDS.CHOICES.LABEL"></label>
                             <input class="newprojectfieldchoiceentry"
                                    ng-model="field.newfieldchoice"
                                    ng-pattern="/^[^0-9\-\.][^,]*$/"
@@ -211,27 +196,22 @@
                 <!-- HELP text -->
                 <!-- --------- -->
                 <div class="well newprojecthelp"
-                     ng-if="vm.focused === 'fieldname' + $index">
-                    Give this field a name to describe the value
-                </div>
+                     ng-if="vm.focused === 'fieldname' + $index"
+                     translate="NEWPROJECT.FIELDS.NEWFIELD.DESCRIBE_FIELD"></div>
                 <div class="well newprojecthelp"
                      ng-if="vm.focused === 'fieldtype' + $index">
                     <div style="margin-bottom: 1em">
                     If {{ field.name === '' ? 'this field' : field.name }} can be described as
                     numbers, choose "number".
                     </div>
-                    <div>
-                    If it can be described as choosing from a few options, choose "multiple-choice".
-                    </div>
+                    <div translate="NEWPROJECT.FIELDS.NEWFIELD.MULTICHOICE"></div>
                 </div>
                 <div class="well newprojecthelp"
-                     ng-if="vm.focused === 'newfieldchoice' + $index && field.choices.length === 0">
-                    Type in a choice to use in your multiple-choice list, then press Enter.
-                </div>
+                     ng-if="vm.focused === 'newfieldchoice' + $index && field.choices.length === 0"
+                     translate="NEWPROJECT.FIELDS.NEWFIELD.ADD_FIRST_FIELD"></div>
                 <div class="well newprojecthelp"
-                     ng-if="vm.focused === 'newfieldchoice' + $index && field.choices.length > 0 && field.choices.length < 5">
-                    Type in another choice to use in your multiple-choice list, then press Enter.
-                </div>
+                     ng-if="vm.focused === 'newfieldchoice' + $index && field.choices.length > 0 && field.choices.length < 5"
+                     translate="NEWPROJECT.FIELDS.NEWFIELD.ADD_ANOTHER_FIELD"></div>
 
                 <!-- ------------- -->
                 <!-- DELETE button -->
@@ -250,14 +230,10 @@
                     Add {{ vm.fields.length > 0 ? 'another' : 'a' }} value
                 </md-button>
             </div>
-            <div class="well newprojecthelp" ng-show="vm.fields.length === 0">
-                Start to describe the values that you'll include with each
-                example to train the computer with by clicking the
-                'Add a value' button.
-            </div>
-            <div class="well newprojecthelp" ng-show="vm.fields.length >= 10">
-                You are not allowed more than 10 values in a project.
-            </div>
+            <div class="well newprojecthelp" ng-show="vm.fields.length === 0"
+                 translate="NEWPROJECT.FIELDS.NEWVALUE.ADD_FIRST_VALUE"></div>
+            <div class="well newprojecthelp" ng-show="vm.fields.length >= 10"
+                 translate="NEWPROJECT.FIELDS.NEWVALUE.VALUES_LIMIT"></div>
         </div>
 
 
@@ -272,12 +248,10 @@
             <md-button
                 class="md-raised md-primary"
                 ng-disabled="vm.creating || newProject.$invalid || vm.isInvalid(projectType)"
-                ng-click="vm.confirm({ name : projectName, type : projectType, fields : vm.fields, language : language, isCrowdSourced : (isTeacher && crowdSourced) ? true : false })">
-                Create
+                ng-click="vm.confirm({ name : projectName, type : projectType, fields : vm.fields, language : language, isCrowdSourced : (isTeacher && crowdSourced) ? true : false })"
+                translate="NEWPROJECT.CREATE">
             </md-button>
-            <md-button ui-sref="projects">
-                Cancel
-            </md-button>
+            <md-button ui-sref="projects" translate="APP.CANCEL"></md-button>
         </div>
 
     </form>
