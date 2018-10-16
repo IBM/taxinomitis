@@ -1,8 +1,10 @@
 import { WORDS } from '../utils/dictionary';
 import { int } from '../utils/random';
 
+const MIN_ACCEPTABLE_LENGTH = 8;
+const MAX_ACCEPTABLE_LENGTH = 18;
 
-const SEPARATORS = [ '-', '+', '*', '.', '/' ];
+const SEPARATORS = [ '-', '+', '*', '.', '/', '=', '%', '@' ];
 
 
 function getSeparator(): string {
@@ -10,7 +12,7 @@ function getSeparator(): string {
 }
 
 function numberOfWords(): number {
-    return int(3, 4);
+    return int(2, 5);
 }
 
 function shuffle(): number {
@@ -22,7 +24,13 @@ function getShuffledWordsCopy(): string[] {
 }
 
 export function generate(): string {
-    return getShuffledWordsCopy()
-               .slice(0, numberOfWords())
-               .join(getSeparator());
+    let passphrase = '';
+    while (passphrase.length < MIN_ACCEPTABLE_LENGTH ||
+           passphrase.length > MAX_ACCEPTABLE_LENGTH)
+    {
+        passphrase = getShuffledWordsCopy()
+                        .slice(0, numberOfWords())
+                        .join(getSeparator());
+    }
+    return passphrase;
 }

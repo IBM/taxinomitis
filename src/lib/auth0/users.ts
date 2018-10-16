@@ -5,6 +5,7 @@ import * as auth0requests from './requests';
 import * as Objects from './auth-types';
 import * as passphrases from './passphrases';
 import * as env from '../utils/env';
+import * as notifications from '../notifications/slack';
 
 
 export async function getBearerToken(): Promise<string> {
@@ -186,11 +187,38 @@ async function resetPassword(
 }
 
 
-export async function resetStudentsPassword(tenant: string, userids: string[]): Promise<Objects.UserCreds[]>
+/**
+ * Resets the password for a group of users.
+ *
+ * This is a very slow function, so it will return after
+ * verifying that have generated the password and successfully
+ * created the bearer token to use.
+ *
+ * @returns the password that the students will be given
+ */
+export async function resetStudentsPassword(tenant: string, userids: string[]): Promise<string>
 {
     const password = passphrases.generate();
 
     const token = await getBearerToken();
+
+    // Intentionally not using 'await' here - which means
+    // the next line will continue without waiting for
+    // the function to complete
+    // This is because we don't want to force the client
+    // to wait for this to finish
+    backgroundResetPasswords(tenant, token, userids, password);
+
+    return password;
+}
+
+
+async function backgroundResetPasswords(
+    tenant: string, token: string,
+    userids: string[], password: string,
+): Promise<Objects.UserCreds[]>
+{
+    notifications.notify('Resetting passwords for ' + tenant);
 
     let backoffMs = 5;
     const MAX_BACKOFF_MS = 5000;
@@ -212,6 +240,8 @@ export async function resetStudentsPassword(tenant: string, userids: string[]): 
         // set an upper limit for how long to wait between requests
         backoffMs = backoffMs > MAX_BACKOFF_MS ? MAX_BACKOFF_MS : backoffMs;
     }
+
+    notifications.notify('Resetting passwords for ' + tenant + ' complete.');
     return allCreds;
 }
 
