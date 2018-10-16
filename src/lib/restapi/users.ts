@@ -176,8 +176,8 @@ function resetStudentsPassword(req: Express.Request, res: Express.Response) {
     }
 
     return auth0.resetStudentsPassword(tenant, studentids)
-        .then((students) => {
-            res.json(students);
+        .then((password) => {
+            res.json({ password });
         })
         .catch((err) => {
             res.status(err.statusCode)

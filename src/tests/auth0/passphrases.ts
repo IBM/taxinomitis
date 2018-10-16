@@ -36,17 +36,23 @@ describe('passphrases generator', () => {
         assert.strictEqual(NUM_PHRASES, NUM_UNIQ_PHRASES);
     });
 
-    it('should contain three or four words in a phrase', () => {
+    it('should contain between two and five words in a phrase', () => {
         const phrase = passphrases.generate();
         const words = phrase.split(/[^A-Za-z]/);
-        assert(words.length === 3 || words.length === 4);
+        assert(words.length >= 2 || words.length <= 5);
     });
 
-    it('should use words longer than 2 characters but shorter than 12', () => {
+    it('should use words at least 2 characters long but shorter than 12', () => {
         const phrase = passphrases.generate();
         const words = phrase.split(/[^A-Za-z]/);
         words.forEach((word) => {
-            assert(word.length > 3 || words.length < 12);
+            assert(word.length >= 2 || words.length < 12);
         });
+    });
+
+    it('should generate passphrases that are at least eight characters long', () => {
+        const phrase = passphrases.generate();
+        assert(phrase.length >= 8);
+        assert(phrase.length <= 18);
     });
 });
