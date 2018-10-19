@@ -232,13 +232,101 @@
         "WHATHAVEYOUDONE": {
             "TITLE": "What have you done?",
             "PLEASEWAIT": "This normally takes a few minutes, but can take a little longer if the training computer is very busy.",
-            "FAIL": "Unfortunately, something went wrong."
+            "FAIL": "Unfortunately, something went wrong.",
+
+            "TRAINING" : {
+                "CROWDSOURCED" : {
+                    "TEXT" : "Your class is training a machine learning model using the examples of text that you all collected.",
+                    "IMAGES" : "Your class is training a machine learning model using the examples of images that you all collected.",
+                    "NUMBERS" : "Your class is training a machine learning model using the examples of numbers that you all collected."
+                },
+                "INDIVIDUAL" : {
+                    "TEXT" : "You've started training a machine learning model using the examples of text that you collected.",
+                    "IMAGES" : "You've started training a machine learning model using the examples of images that you collected.",
+                    "NUMBERS" : "You've started training a machine learning model using the examples of numbers that you collected."
+                },
+                "SINCE": "It's been training since"
+            },
+            "READY" : {
+                "CROWDSOURCED" : {
+                    "TEXT" : "Your class has trained a machine learning model to recognise when text is ",
+                    "IMAGES" : "Your class has trained a machine learning model to recognise when images are ",
+                    "NUMBERS" : "Your class has trained a machine learning model to recognise when numbers are "
+                },
+                "INDIVIDUAL" : {
+                    "TEXT" : "You have trained a machine learning model to recognise when text is ",
+                    "IMAGES" : "You have trained a machine learning model to recognise when images are ",
+                    "NUMBERS" : "You have trained a machine learning model to recognise when numbers are "
+                },
+                "CREATED" : {
+                    "TEACHER" : "Your teacher created the model on ",
+                    "YOU" : "You created the model on "
+                },
+                "TRAINING" : {
+                    "CLASS" : "Your class has collected: ",
+                    "YOU" : "You have collected: "
+                }
+            },
+            "IDLE" : {
+                "NOLABELS" : {
+                    "CROWDSOURCED" : {
+                        "TEXT" : "Your class said you want to collect examples of text.",
+                        "IMAGES" : "Your class said you want to collect examples of images.",
+                        "NUMBERS" : "Your class said you want to collect examples of numbers."
+                    },
+                    "INDIVIDUAL" : {
+                        "TEXT" : "You've said you want to collect examples of text.",
+                        "IMAGES" : "You've said you want to collect examples of images.",
+                        "NUMBERS" : "You've said you want to collect examples of numbers."
+                    }
+                },
+                "NODATA" : {
+                    "CROWDSOURCED" : {
+                        "TEXT" : "Your class said that you want to collect examples of text for a computer to recognise when text is ",
+                        "IMAGES" : "Your class said that you want to collect examples of images for a computer to recognise when images are ",
+                        "NUMBERS" : "Your class said that you want to collect examples of numbers for a computer to recognise when numbers are "
+                    },
+                    "INDIVIDUAL" : {
+                        "TEXT" : "You said that you want to collect examples of text for a computer to recognise when text is ",
+                        "IMAGES" : "You said that you want to collect examples of images for a computer to recognise when images are ",
+                        "NUMBERS" : "You said that you want to collect examples of numbers for a computer to recognise when numbers are "
+                    }
+                },
+                "NOEXAMPLES" : {
+                    "CLASS" : "So far, your class haven't collected any examples yet.",
+                    "YOU" : "So far, you haven't collected any examples yet."
+                },
+                "DATA" : {
+                    "CROWDSOURCED" : {
+                        "TEXT" : "Your class has collected examples of text for a computer to use to recognise when text is ",
+                        "IMAGES" : "Your class has collected examples of images for a computer to use to recognise when images are ",
+                        "NUMBERS" : "Your class has collected examples of numbers for a computer to use to recognise when numbers are "
+                    },
+                    "INDIVIDUAL" : {
+                        "TEXT" : "You have collected examples of text for a computer to use to recognise when text is ",
+                        "IMAGES" : "You have collected examples of images for a computer to use to recognise when images are ",
+                        "NUMBERS" : "You have collected examples of numbers for a computer to use to recognise when numbers are "
+                    },
+                    "COLLECTED" : {
+                        "CLASS" : "They've collected: ",
+                        "YOU" : "You've collected: "
+                    }
+                }
+            }
         },
         "WHATSNEXT": {
             "TITLE": "What's next?",
             "PLEASEWAIT": "You could wait for the machine learning model to finish being trained.",
             "OFFERQUIZ": "Or, you could try the machine learning quiz below, to check what you've learned.",
-            "FAIL": "The error message from the training computer is shown below. If that makes sense to you, try and fix the problem. Otherwise, it might be worth trying again in case it was just a random error."
+            "FAIL": "The error message from the training computer is shown below. If that makes sense to you, try and fix the problem. Otherwise, it might be worth trying again in case it was just a random error.",
+
+            "READY" : {
+                "TEST" : {
+                    "TEXT" : "Try testing the machine learning model below. Enter an example of text below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
+                    "IMAGES" : "Try testing the machine learning model below. Enter an example image below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
+                    "NUMBERS" : "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that."
+                }
+            }
         },
         "TRAINING": {
             "TITLE": "Info from training computer:",
