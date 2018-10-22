@@ -513,6 +513,11 @@
             "SUMMARY": "컴퓨터에 예측을 하도록 가르쳐봐요",
             "DESCRIPTION": "아침에 학교에 가는 방법을 예측할 수 있도록 컴퓨터를 가르쳐봐요"
         },
+        "SHYPANDA": {
+            "TITLE": "Shy Panda",
+            "SUMMARY": "Teach a computer to recognise pictures",
+            "DESCRIPTION": "Make a dancing panda that gets shy and stops dancing if it sees you looking."
+        },
         "PACMAN": {
             "TITLE": "팩맨",
             "SUMMARY": "게임을 하기 위해 컴퓨터를 가르쳐봐요",
