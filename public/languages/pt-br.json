@@ -126,49 +126,49 @@
         "AS": "como"
     },
     "NEWPROJECT": {
-        "TITLE": "Start a new machine learning project",
+        "TITLE": "Comece um novo projeto de aprendizado de máquina",
         "PROJECT_NAME": {
-            "TITLE": "Project Name",
-            "NOTES": "Give your project a name to describe what sort of thing you'll try to teach the computer to recognise."
+            "TITLE": "Nome do Projeto",
+            "NOTES": "Dê um nome ao seu projeto para descrever que tipo de coisa você tentará ensinar ao computador para reconhecer."
         },
         "WHOLE_CLASS_PROJECT": {
-            "TITLE": "Whole-class project?",
-            "NOTES_1": "Tick this if you want your whole class to be able to work on this project together.",
-            "NOTES_2": "This is useful for projects that teach crowd-sourcing as an approach to training machine learning projects."
+            "TITLE": "Projeto para toda a turma?",
+            "NOTES_1": "Assinale esta opção se você quiser que toda a sua turma possa trabalhar junta neste projeto.",
+            "NOTES_2": "Isso é útil para projetos que ensinam crowdsourcing como uma abordagem para o treinamento de projetos de aprendizado de máquina."
         },
         "TYPES": {
-            "LABEL": "Recognising",
-            "NOTES_1": "What type of thing do you want to teach the computer to recognise?",
-            "NOTES_2": "For words, sentences or paragraphs, choose \"text\"",
-            "NOTES_3": "For photos, diagrams and pictures, choose \"images\"",
-            "NOTES_4": "For sets of numbers or multiple choices, choose \"numbers\""
+            "LABEL": "Reconhecendo",
+            "NOTES_1": "Que tipo de coisa você quer ensinar o computador a reconhecer??",
+            "NOTES_2": "Para palavras, frases ou parágrafos, escolha \"texto\"",
+            "NOTES_3": "Para fotos, diagramas e imagens, escolha \"imagens\"",
+            "NOTES_4": "Para conjunto de números ou múltipla escolha, escolha \"números\""
         },
         "LANGUAGE": {
-            "LABEL": "Language",
-            "NOTES": "What language will the text in this project be?"
+            "LABEL": "Língua",
+            "NOTES": "Em qual linguagem será o texto deste projeto?"
         },
         "FIELDS": {
             "TYPE": {
-                "TITLE": "Type of value",
-                "NUMBER": "number",
-                "MULTIPLE_CHOICE": "multiple-choice"
+                "TITLE": "Tipo de valor",
+                "NUMBER": "número",
+                "MULTIPLE_CHOICE": "múltipla escolha"
             },
             "CHOICES": {
-                "TITLE": "Choices:",
-                "LABEL": "add a choice"
+                "TITLE": "Escolhas:",
+                "LABEL": "adicione uma escolha"
             },
             "NEWFIELD": {
-                "DESCRIBE_FIELD": "Give this field a name to describe the value",
-                "MULTICHOICE": "If it can be described as choosing from a few options, choose \"multiple-choice\".",
-                "ADD_FIRST_FIELD": "Type in a choice to use in your multiple-choice list, then press Enter.",
-                "ADD_ANOTHER_FIELD": "Type in another choice to use in your multiple-choice list, then press Enter."
+                "DESCRIBE_FIELD": "Dê a este campo um nome para descrever o valor",
+                "MULTICHOICE": "Se isso puder ser descrito com uma opção entre algumas opções, escolha \"múltipla escolha\".",
+                "ADD_FIRST_FIELD": "Digite uma opção para usar em sua lista de múltipla escolha e pressione Enter.",
+                "ADD_ANOTHER_FIELD": "Digite outra opção para usar em sua lista de múltipla escolha e pressione Enter."
             },
             "NEWVALUE": {
-                "ADD_FIRST_VALUE": "Start to describe the values that you'll include with each example to train the computer with by clicking the 'Add a value' button.",
-                "VALUES_LIMIT": "You are not allowed more than 10 values in a project."
+                "ADD_FIRST_VALUE": "Comece a descrever os valores que você incluirá em cada exemplo para treinar o computador clicando no botão 'Adicionar um valor'.",
+                "VALUES_LIMIT": "Você não pode ter mais que 10 valores em um projeto."
             }
         },
-        "CREATE": "Create"
+        "CREATE": "Criar"
     },
     "PROJECT": {
         "TRAIN": {
@@ -225,7 +225,7 @@
         }
     },
     "MODELS": {
-        "TITLE": "Modelos de aprendizagem de máquina",
+        "TITLE": "Modelos de aprendizado de máquina",
         "TRAIN": "Treinar um novo modelo de aprendizado de máquina",
         "CANCEL": "Cancelar treinamento",
         "DELETE": "Deletar este modelo",
@@ -236,99 +236,99 @@
 
             "TRAINING" : {
                 "CROWDSOURCED" : {
-                    "TEXT" : "Your class is training a machine learning model using the examples of text that you all collected.",
-                    "IMAGES" : "Your class is training a machine learning model using the examples of images that you all collected.",
-                    "NUMBERS" : "Your class is training a machine learning model using the examples of numbers that you all collected."
+                    "TEXT" : "Sua turma está treinando um modelo de aprendizado de máquina usando os exemplos de texto que vocês coletaram.",
+                    "IMAGES" : "Sua turma está treinando um modelo de aprendizado de máquina usando os exemplos de imagens que vocês coletaram.",
+                    "NUMBERS" : "Sua turma está treinando um modelo de aprendizado de máquina usando os exemplos de números que vocês coletaram."
                 },
                 "INDIVIDUAL" : {
-                    "TEXT" : "You've started training a machine learning model using the examples of text that you collected.",
-                    "IMAGES" : "You've started training a machine learning model using the examples of images that you collected.",
-                    "NUMBERS" : "You've started training a machine learning model using the examples of numbers that you collected."
+                    "TEXT" : "Você começou a treinar um modelo de aprendizado de máquina usando os exemplos de texto que você coletou.",
+                    "IMAGES" : "Você começou a treinar um modelo de aprendizado de máquina usando os exemplos de imagens que você coletou.",
+                    "NUMBERS" : "Você começou a treinar um modelo de aprendizado de máquina usando os exemplos de números que você coletou."
                 },
-                "SINCE": "It's been training since"
+                "SINCE": "Está treinando desde"
             },
             "READY" : {
                 "CROWDSOURCED" : {
-                    "TEXT" : "Your class has trained a machine learning model to recognise when text is ",
-                    "IMAGES" : "Your class has trained a machine learning model to recognise when images are ",
-                    "NUMBERS" : "Your class has trained a machine learning model to recognise when numbers are "
+                    "TEXT" : "Sua turma treinou um modelo de aprendizado de máquina para reconhecer quando o texto é ",
+                    "IMAGES" : "Sua turma treinou um modelo de aprendizado de máquina para reconhecer quando as imagens são ",
+                    "NUMBERS" : "Sua turma treinou um modelo de aprendizado de máquina para reconhecer quando os números são "
                 },
                 "INDIVIDUAL" : {
-                    "TEXT" : "You have trained a machine learning model to recognise when text is ",
-                    "IMAGES" : "You have trained a machine learning model to recognise when images are ",
-                    "NUMBERS" : "You have trained a machine learning model to recognise when numbers are "
+                    "TEXT" : "Você treinou um modelo de aprendizado de máquina para reconhecer quando o texto é ",
+                    "IMAGES" : "Você treinou um modelo de aprendizado de máquina para reconhecer quando as imagens são ",
+                    "NUMBERS" : "Você treinou um modelo de aprendizado de máquina para reconhecer quando os números são "
                 },
                 "CREATED" : {
-                    "TEACHER" : "Your teacher created the model on ",
-                    "YOU" : "You created the model on "
+                    "TEACHER" : "Seu professor criou o modelo em ",
+                    "YOU" : "Você criou o modelo em "
                 },
                 "TRAINING" : {
-                    "CLASS" : "Your class has collected: ",
-                    "YOU" : "You have collected: "
+                    "CLASS" : "Sua turma coletou: ",
+                    "YOU" : "Você coletou: "
                 }
             },
             "ERROR": {
                 "CROWDSOURCED" : {
                     "CLASS" : {
-                        "TEXT" : "Your teacher tried training a machine learning model using the examples of text that your class collected.",
-                        "IMAGES" : "Your teacher tried training a machine learning model using the examples of images that your class collected.",
-                        "NUMBERS" : "Your teacher tried training a machine learning model using the examples of numbers that your class collected."
+                        "TEXT" : "Seu professor tentou treinar um modelo de aprendizado de máquina usando os exemplos de texto que sua turma coletou.",
+                        "IMAGES" : "Seu professor tentou treinar um modelo de aprendizado de máquina usando os exemplos de imagens que sua turma coletou.",
+                        "NUMBERS" : "Seu professor tentou treinar um modelo de aprendizado de máquina usando os exemplos de números que sua turma coletou."
                     },
                     "YOU" : {
-                        "TEXT" : "You tried training a machine learning model using the examples of text that your class collected.",
-                        "IMAGES" : "You tried training a machine learning model using the examples of images that your class collected.",
-                        "NUMBERS" : "You tried training a machine learning model using the examples of numbers that your class collected."
+                        "TEXT" : "Você tentou treinar um modelo de aprendizado de máquina usando os exemplos de texto que sua turma coletou.",
+                        "IMAGES" : "Você tentou treinar um modelo de aprendizado de máquina usando os exemplos de imagens que sua turma coletou.",
+                        "NUMBERS" : "Você tentou treinar um modelo de aprendizado de máquina usando os exemplos de números que sua classe coletou."
                     }
                 },
                 "INDIVIDUAL" : {
-                    "TEXT" : "You tried training a machine learning model using the examples of text that you collected.",
-                    "IMAGES" : "You tried training a machine learning model using the examples of images that you collected.",
-                    "NUMBERS" : "You tried training a machine learning model using the examples of numbers that you collected."
+                    "TEXT" : "Você tentou treinar um modelo de aprendizado de máquina usando os exemplos de texto que você coletou.",
+                    "IMAGES" : "Você tentou treinar um modelo de aprendizado de máquina usando os exemplos de imagens que você coletou.",
+                    "NUMBERS" : "Você tentou treinar um modelo de aprendizado de máquina usando os exemplos de números que você coletou."
                 }
             },
             "IDLE" : {
                 "NOLABELS" : {
                     "CROWDSOURCED" : {
-                        "TEXT" : "Your class said you want to collect examples of text.",
-                        "IMAGES" : "Your class said you want to collect examples of images.",
-                        "NUMBERS" : "Your class said you want to collect examples of numbers."
+                        "TEXT" : "Sua turma disse que quer que você colete exemplos de texto.",
+                        "IMAGES" : "Sua turma disse que quer que você colete exemplos de imagens.",
+                        "NUMBERS" : "Sua turma disse que quer que você colete exemplos de números."
                     },
                     "INDIVIDUAL" : {
-                        "TEXT" : "You've said you want to collect examples of text.",
-                        "IMAGES" : "You've said you want to collect examples of images.",
-                        "NUMBERS" : "You've said you want to collect examples of numbers."
+                        "TEXT" : "Você disse que quer coletar exemplos de texto.",
+                        "IMAGES" : "Você disse que quer coletar exemplos de imagens.",
+                        "NUMBERS" : "Você disse que quer coletar exemplos de números."
                     }
                 },
                 "NODATA" : {
                     "CROWDSOURCED" : {
-                        "TEXT" : "Your class said that you want to collect examples of text for a computer to recognise when text is ",
-                        "IMAGES" : "Your class said that you want to collect examples of images for a computer to recognise when images are ",
-                        "NUMBERS" : "Your class said that you want to collect examples of numbers for a computer to recognise when numbers are "
+                        "TEXT" : "Sua turma disse que quer que você colete exemplos de texto para um computador reconhecer quando o texto é ",
+                        "IMAGES" : "Sua turma disse que quer que você colete exemplos de imagens para um computador reconhecer quando as imagens são ",
+                        "NUMBERS" : "Sua turma disse que quer que você colete exemplos de números para um computador reconhecer quando os números são "
                     },
                     "INDIVIDUAL" : {
-                        "TEXT" : "You said that you want to collect examples of text for a computer to recognise when text is ",
-                        "IMAGES" : "You said that you want to collect examples of images for a computer to recognise when images are ",
-                        "NUMBERS" : "You said that you want to collect examples of numbers for a computer to recognise when numbers are "
+                        "TEXT" : "Você disse que quer coletar exemplos de texto para um computador reconhecer quando o texto é ",
+                        "IMAGES" : "Você disse que quer coletar exemplos de imagens para um computador reconhecer quando as imagens são ",
+                        "NUMBERS" : "Você disse que quer coletar exemplos de números para um computador reconhecer quando os números são "
                     }
                 },
                 "NOEXAMPLES" : {
-                    "CLASS" : "So far, your class haven't collected any examples yet.",
-                    "YOU" : "So far, you haven't collected any examples yet."
+                    "CLASS" : "Até agora, sua turma ainda não coletou nenhum exemplo.",
+                    "YOU" : "Até agora, você ainda não coletou nenhum exemplo."
                 },
                 "DATA" : {
                     "CROWDSOURCED" : {
-                        "TEXT" : "Your class has collected examples of text for a computer to use to recognise when text is ",
-                        "IMAGES" : "Your class has collected examples of images for a computer to use to recognise when images are ",
-                        "NUMBERS" : "Your class has collected examples of numbers for a computer to use to recognise when numbers are "
+                        "TEXT" : "Sua turma coletou exemplos de texto para um computador usar para reconhecer quando o texto é ",
+                        "IMAGES" : "Sua turma coletou exemplos de imagens para um computador usar para reconhecer quando as imagens são ",
+                        "NUMBERS" : "Sua turma coletou exemplos de números para um computador usar para reconhecer quando os números são "
                     },
                     "INDIVIDUAL" : {
-                        "TEXT" : "You have collected examples of text for a computer to use to recognise when text is ",
-                        "IMAGES" : "You have collected examples of images for a computer to use to recognise when images are ",
-                        "NUMBERS" : "You have collected examples of numbers for a computer to use to recognise when numbers are "
+                        "TEXT" : "Você coletou exemplos de texto para um computador usar para reconhecer quando o texto é ",
+                        "IMAGES" : "Você coletou exemplos de imagens para um computador usar para reconhecer quando as imagens são ",
+                        "NUMBERS" : "Você coletou exemplos de números para um computador usar para reconhecer quando os números são "
                     },
                     "COLLECTED" : {
-                        "CLASS" : "They've collected: ",
-                        "YOU" : "You've collected: "
+                        "CLASS" : "Eles coletaram: ",
+                        "YOU" : "Você coletou: "
                     }
                 }
             }
@@ -340,58 +340,58 @@
             "FAIL": "A mensagem de erro do computador de treinamento é mostrada abaixo. Se isso fizer sentido para você, tente corrigir o problema. Caso contrário, pode valer a pena tentar novamente caso seja apenas um erro aleatório.",
 
             "IDLE": {
-                "NOLABELS" : "The next step is to go to the <strong>Train</strong> page. Add some labels for each of the things that you want to teach the computer to be able to recognise.",
+                "NOLABELS" : "O próximo passo é ir para a página <strong>Treinar</strong>. Adicione alguns rótulos para cada uma das coisas que você quer ensinar o computador a reconhecer.",
                 "ONELABEL" : {
-                    "EXPLANATION": "You've only said one thing that you want the computer to be able to recognise: {{ label }}",
-                    "ISTHATALL": "Is that the only thing you want the computer to be able to recognise?",
-                    "NO": "<strong>No?</strong><br/>Go back to the <strong>Train</strong> page.<br/>Add more labels for each of the things that you want to teach the computer to be able to recognise.<br/><br/>",
-                    "YES": "<strong>Yes?</strong><br/>You need to do a little more work first.<br/>For the computer to be able to learn how to recognise \"{{ label }}\", you need to give it some examples of things that aren't {{ label }}.<br/>Go back to the <strong>Train</strong> page and create a new label for examples of things that aren't {{ label }}. You could call it \"not-{{ label }}\"."
+                    "EXPLANATION": "Você só disse uma coisa que você quer que o computador seja capaz de reconhecer: {{ label }}",
+                    "ISTHATALL": "Esta é a única coisa que você quer que o computador reconheça??",
+                    "NO": "<strong>Não?</strong><br/>Volte para a página <strong>Treinar</strong>.<br/>Adicione mais rótulos para cada uma das coisas que você quer ensinar o computador a ser capaz de reconhecer. <br/><br/>",
+                    "YES": "<strong>Sim?</strong><br/>Você precisa fazer um pouco mais de trabalho primeiro. <br/>Para o computador poder aprender como reconhecer \"{{ label }}\", você precisa dar alguns exemplos de coisas que não são {{ label }}.<br/>Volte para a página <strong>Treinar</strong> e criar um novo rótulo de exemplos de coisas que não são {{ label }}. Você pode chamá-lo de \"não-{{ label }}\"."
                 },
                 "LABELS" : {
-                    "NO_DATA" : "The next step is to go to the <strong>Train</strong> page. Add examples for each of the labels.",
+                    "NO_DATA" : "O próximo passo é ir até a página <strong>Treinar</strong>. Adicionar exemplos para cada um dos rótulos.",
                     "MORE_DATA" : {
-                        "KEEP_GOING": "Keep going!",
+                        "KEEP_GOING": "Continue!",
                         "MORE_EXAMPLES" : {
-                            "YOU": "Go back to the <strong>Train</strong> page and collect more examples for each of the labels.",
-                            "CLASS": "Ask your class to go back to the <strong>Train</strong> page and collect more examples for each of the labels."
+                            "YOU": "Volte para a página <strong>Treinar</strong> e colete mais exemplos para cada um dos rótulos.",
+                            "CLASS": "Peça a seus colegas de turma para voltar para a página <strong>Treinar</strong> e colete mais exemplos para cada um dos rótulos."
                         },
-                        "MORE_IS_BETTER" : "The more you can get, the better it should learn, but you need at least {{ minimumExamples }} examples of each as an absolute minimum."
+                        "MORE_IS_BETTER" : "Quanto mais você conseguir é melhor para o aprendizado, mas você precisa de pelo menos {{ minimumExamples }} exemplos de cada como um valor mínimo absoluto."
                     },
                     "ENOUGH_DATA" : {
-                        "READY_TO_START" : "Ready to start the computer's training?",
+                        "READY_TO_START" : "Pronto para iniciar o treinamento do computador?",
                         "START_TRAINING" : {
-                            "CROWDSOURCED" : "Click the button below to start training a machine learning model using the examples your class have collected so far",
-                            "INDIVIDUAL" : "Click the button below to start training a machine learning model using the examples you have collected so far"
+                            "CROWDSOURCED" : "Clique no botão abaixo para começar a treinar um modelo de aprendizado de máquina usando os exemplos que sua turma coletou até agora",
+                            "INDIVIDUAL" : "Clique no botão abaixo para começar a treinar um modelo de aprendizado de máquina usando os exemplos que você coletou até agora"
                         },
                         "MORE_EXAMPLES" : {
-                            "CROWDSOURCED" : "(Or ask your class to go back to the <strong>Train</strong> page if you want them to collect more examples first.)",
-                            "INDIVIDUAL" : "(Or go back to the <strong>Train</strong> page if you want to collect some more examples first.)"
+                            "CROWDSOURCED" : "(Ou peça à sua turma que volte para a página <strong>Treinar</strong> se quiser que eles colecionem mais exemplos primeiro.)",
+                            "INDIVIDUAL" : "(Ou volte para a página <strong>Treinar</strong> se você quiser coletar mais alguns exemplos primeiro.)"
                         },
-                        "WAITING_FOR_TEACHER" : "Waiting for your teacher to start the computer's training."
+                        "WAITING_FOR_TEACHER" : "Esperando o seu professor iniciar o treinamento do computador."
                     }
                 }
             },
             "READY" : {
                 "TEST" : {
-                    "TEXT" : "Try testing the machine learning model below. Enter an example of text below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
-                    "IMAGES" : "Try testing the machine learning model below. Enter an example image below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
-                    "NUMBERS" : "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that."
+                    "TEXT" : "Tente testar o modelo de aprendizado de máquina abaixo. Digite um exemplo de texto, abaixo, que você não incluiu nos exemplos que você usou para treiná-lo. Ele lhe dirá o que ele reconhece e o quão confiante ele está na resposta.",
+                    "IMAGES" : "Tente testar o modelo de aprendizado de máquina abaixo. Coloque um exemplo de imagem, abaixo, que você não incluiu nos exemplos que você usou para treiná-lo. Ele lhe dirá o que ele reconhece e o quão confiante ele está na resposta.",
+                    "NUMBERS" : "Tente testar o modelo de aprendizado de máquina abaixo. Entre com um exemplo de números, abaixo, que você não incluiu nos exemplos que você usou para treiná-lo. Ele lhe dirá o que ele reconhece e o quão confiante ele está na resposta."
                 },
-                "SCRATCH" : "If the computer seems to have learned to recognise things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
+                "SCRATCH" : "Se o computador parece ter aprendido a reconhecer as coisas corretamente, então você pode ir ao Scratch e usar o que o computador aprendeu para fazer um jogo!",
                 "ADDITIONAL_TRAINING" : {
                     "MORE_EXAMPLES" : {
-                        "CROWDSOURCED" : "If the computer is getting too many things wrong, your class might want to go back to the <strong>Train</strong> page and collect some more examples.",
-                        "INDIVIDUAL" : "If the computer is getting too many things wrong, you might want to go back to the <strong>Train</strong> page and collect some more examples"
+                        "CROWDSOURCED" : "Se o computador estiver fazendo muitas coisas erradas, sua classe pode voltar para a página <strong>Treinar</strong> e coletar mais alguns exemplos.",
+                        "INDIVIDUAL" : "Se o computador estiver fazendo muitas coisas erradas, você pode voltar para a página <strong>Treinar</strong> e coletar mais alguns exemplos"
                     },
                     "RETRAIN" : {
-                        "YOU" : "Once you've done that, click on the button below to train a new machine learning model and see what difference the extra examples will make!",
-                        "CLASS" : "Once you've done that, your teacher will need to train a new machine learning model."
+                        "YOU" : "Depois de fazer isso, clique no botão abaixo para treinar um novo modelo de aprendizado de máquina e ver a diferença que os exemplos extras farão!",
+                        "CLASS" : "Depois disso, o professor precisará treinar um novo modelo de aprendizado de máquina."
                     }
                 }
             }
         },
         "TRAINING": {
-            "TITLE": "Info do computador de treinamento:",
+            "TITLE": "Informações do computador de treinamento:",
             "STARTED": "Modelo começou a ser treinado em:",
             "STATUS": "Status do modelo atual:",
             "DETAIL": "Detalhe:",
@@ -401,22 +401,22 @@
         },
         "TESTING": {
             "INTRO": {
-                "TEXT": "Try putting in some text to see how it is recognised based on your training.",
-                "IMAGES": "Try putting in an image to see how it is recognised based on your training.",
-                "NUMBERS": "Try putting in some numbers to see how it is recognised based on your training."
+                "TEXT": "Tente colocar algum texto para ver como ele é reconhecido com base no seu treinamento.",
+                "IMAGES": "Tente colocar uma imagem para ver como ela é reconhecida com base no seu treinamento.",
+                "NUMBERS": "Tente colocar alguns números para ver como ele é reconhecido com base no seu treinamento."
             },
-            "WEBCAM": "Test with <strong>webcam</strong>",
-            "DRAWING": "Test by <strong>drawing</strong>",
-            "WWW": "Test with <strong>www</strong>",
-            "RECOGNISED": "Recognised as  <strong>{{ testoutput }}</strong>"
+            "WEBCAM": "Teste com uma <strong>webcam</strong>",
+            "DRAWING": "Teste <strong>desenhando</strong>",
+            "WWW": "Teste com <strong>www</strong>",
+            "RECOGNISED": "Reconhecido como  <strong>{{ testoutput }}</strong>"
         },
         "QUIZ": {
             "TITLE": "Hora do Quiz!",
             "INTROQUESTION": "Enquanto você espera o modelo terminar o treinamento, tente responder a essa pergunta.",
-            "PREVIOUSLY_ATTEMPTED": "You've seen this one before - let's see if you remember what the right answer is this time!",
-            "CORRECT_ANSWER": "That's right!",
-            "INCORRECT_ANSWER": "No, sorry. The correct answer is shown above.",
-            "NEXT_QUESTION": "Next question"
+            "PREVIOUSLY_ATTEMPTED": "Você já viu isso antes - vamos ver se você lembra qual é a resposta certa desta vez!",
+            "CORRECT_ANSWER": "Está certo!",
+            "INCORRECT_ANSWER": "Não, desculpe. A resposta correta é mostrada acima.",
+            "NEXT_QUESTION": "Próxima questão"
         }
     },
     "PYTHON": {
@@ -476,12 +476,12 @@
 
 
         "SMARTCLASSROOM": {
-            "TITLE": "Smart Classroom",
+            "TITLE": "Sala de aula Inteligente",
             "SUMMARY": "Ensine um computador a reconhecer o significado dos seus comandos",
             "DESCRIPTION": "Crie um assistente inteligente no Scratch que lhe permita controlar dispositivos virtuais."
         },
         "MAKEMEHAPPY": {
-            "TITLE": "Make me happy",
+            "TITLE": "Me deixa feliz",
             "SUMMARY": "Ensine um computador a reconhecer elogios e insultos",
             "DESCRIPTION": "Crie um personagem no Scratch que sorria se você disser coisas boas e chore se disser coisas ruins para ele."
         },
@@ -491,17 +491,17 @@
             "DESCRIPTION": "Faça um jogo de cartas no Scratch que aprenda a reconhecer fotos da sua carta."
         },
         "CHAMELEON": {
-            "TITLE": "Chameleon",
-            "SUMMARY": "Teach a computer to recognise colours",
-            "DESCRIPTION": "Make a chameleon in Scratch that changes colour to match its background"
+            "TITLE": "Camaleão",
+            "SUMMARY": "Ensine um computador a reconhecer cores",
+            "DESCRIPTION": "Faça um camaleão no Scratch que troca de cor para se ajustar ao seu ambiente"
         },
         "MAILMANMAX": {
-            "TITLE": "Mailman Max",
+            "TITLE": "Carteiro Max",
             "SUMMARY": "Ensine um computador a reconhecer escrita",
             "DESCRIPTION": "Faça um escritório de classificação postal no Scratch que possa reconhecer códigos postais escritos à mão em envelopes."
         },
         "CARORCUP": {
-            "TITLE": "Car or cup",
+            "TITLE": "Carro ou copo",
             "SUMMARY": "Ensine um computador a reconhecer fotos de objetos",
             "DESCRIPTION": "Treine o computador para poder classificar fotos em grupos."
         },
@@ -511,7 +511,7 @@
             "DESCRIPTION": "Faça um telefone no Scratch que desbloqueia se reconhecer seu rosto."
         },
         "JOURNEYTOSCHOOL": {
-            "TITLE": "Journey to school",
+            "TITLE": "Jornada para a escola",
             "SUMMARY": "Ensine um computador a fazer previsões",
             "DESCRIPTION": "Treine o computador para poder prever como você vai para a escola."
         },
@@ -526,42 +526,42 @@
             "DESCRIPTION": "Crie um chatbot que possa responder a perguntas sobre um tópico de sua escolha."
         },
         "TOURISTINFO": {
-            "TITLE": "Tourist Info",
+            "TITLE": "Informações Turísticas",
             "SUMMARY": "Ensine um computador a fazer recomendações",
             "DESCRIPTION": "Crie um aplicativo no Scratch que recomende atrações turísticas com base nos interesses das pessoas."
         },
         "SORTINGHAT": {
-            "TITLE": "Sorting Hat",
+            "TITLE": "Chapéu seletor",
             "SUMMARY": "Ensine um computador a reconhecer o uso de linguagem",
             "DESCRIPTION": "Crie um chapéu seletor como em Harry Potter, que coloca você em uma das casas de Hogwarts baseada no que você diz."
         },
         "ROCKPAPERSCISSORS": {
-            "TITLE": "Rock, Paper, Scissors",
+            "TITLE": "Pedra, Papel e Tesoura",
             "SUMMARY": "Ensine um computador a reconhecer formas",
             "DESCRIPTION": "Faz um jogo de Pedra, Papel e Tesoura no Scratch que aprende a reconhecer formas feitas pela mão."
         },
         "JUDGEABOOK": {
-            "TITLE": "Judge a book",
+            "TITLE": "Julgue um livro",
             "SUMMARY": "Ensine um computador a reconhecer estilo visual",
             "DESCRIPTION": "Faça um jogo no Scratch para testar se é realmente possível julgar um livro pela capa."
         },
         "LOCATELARRY": {
-            "TITLE": "Locate Larry",
+            "TITLE": "Onde está o Larry",
             "SUMMARY": "Ensine um computador a encontrar algo em uma foto",
             "DESCRIPTION": "Faça um jogo estilo \"Onde está o Wally?\" no Scratch, e ensine o computador a encontrar o seu personagem."
         },
         "CONFUSED": {
-            "TITLE": "Confused",
+            "TITLE": "Confuso",
             "SUMMARY": "Ensine um computador a reconhecer frutas",
             "DESCRIPTION": "Aprenda como os computadores podem ser confundidos e cometer erros se forem mal treinados."
         },
         "SCHOOLLIBRARY": {
-            "TITLE": "School Library",
+            "TITLE": "Biblioteca da Escola",
             "SUMMARY": "Ensine um computador a fazer recomendações",
             "DESCRIPTION": "Crie um bibliotecário escolar no Scratch que sugira para quem um livro pode ser adequado."
         },
         "NOUGHTSANDCROSSES": {
-            "TITLE": "Noughts & Crosses",
+            "TITLE": "Jogo da Velha",
             "SUMMARY": "Ensine um computador a jogar um jogo",
             "DESCRIPTION": "Criar um Jogo da Velha no Scratch que aprende a derrotá-lo"
         },
@@ -571,7 +571,7 @@
             "DESCRIPTION": "Treine um computador para poder jogar o jogo de cartas Top Trumps no Scratch."
         },
         "HEADLINES": {
-            "TITLE": "Headlines",
+            "TITLE": "Manchetes",
             "SUMMARY": "Teste a capacidade do computador de reconhecer o uso da linguagem",
             "DESCRIPTION": "Treine um computador para reconhecer as manchetes dos principais jornais."
         }
@@ -618,7 +618,7 @@
 
             "ADDNEWCREDENTIALS": "Adicionar novas credenciais",
             "ADDAPIKEY": "Adicionar nova chave API",
-            "REMOVE": "Remove",
+            "REMOVE": "Remover",
 
             "NO_TEXT_CREDENTIALS": "Você não tem credenciais do Assistente. Isso significa que não será possível treinar modelos para projetos de <strong>texto</strong>.",
             "NO_IMAGE_CREDENTIALS": "Você não tem nenhuma chave de API de Reconhecimento Visual. Isso significa que não será possível treinar modelos para projetos de <strong>imagem</strong>.",
@@ -626,24 +626,24 @@
             "NOTAUTHORISED": "Você não está autorizado a acessar as chaves de API do Watson usadas por sua turma.",
             "MANAGEDCLASS": "As chaves de API usadas por sua turma estão sendo gerenciadas para você.",
 
-            "HELP_STEPBYSTEP_GUIDE": "If you're not sure what to do here, please follow the <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> step-by-step guide </a>. If you'd like any help, please <strong><a style='cursor: pointer;' ui-sref='help'>get in touch</a></strong>.",
+            "HELP_STEPBYSTEP_GUIDE": "Se você não tem certeza do que fazer aqui, por favor siga o guia <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> Passo-a-Passo </a>. Se você gostaria de ajuda, por favor,<strong><a style='cursor: pointer;' ui-sref='help'>entre em contato</a></strong>.",
 
-            "INTRO_WATSONASSISTANT": "Training machine learning models for <span class='mlprojecttype'>text</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/conversation/'>Watson Assistant</a>",
-            "INTRO_VISUALRECOGNITION": "Training machine learning models for <span class='mlprojecttype'>images</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
+            "INTRO_WATSONASSISTANT": "Treinar modelos de aprendizado de máquina para projetos de <span class='mlprojecttype'>text</span> usa o <a class='mlprojecttype' href='https://www.ibm.com/watson/services/conversation/'>Watson Assistant</a>",
+            "INTRO_VISUALRECOGNITION": "Treinar modelos de aprendizado de máquina para projetos de <span class='mlprojecttype'>images</span> usa o <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
 
-            "ERROR_FETCHING_WATSONASSISTANT": "Failed to get your Watson Assistant passwords",
-            "ERROR_FETCHING_VISUALRECOG": "Failed to get your Visual Recognition API keys",
+            "ERROR_FETCHING_WATSONASSISTANT": "Falha ao obter suas senhas do seu Watson Assistant",
+            "ERROR_FETCHING_VISUALRECOG": "Falha ao obter suas chaves API do Watson Visual Recognition",
 
-            "USERNAME": "Username",
-            "PASSWORD": "Password",
-            "APIKEY": "API key",
+            "USERNAME": "Usuário",
+            "PASSWORD": "Senha",
+            "APIKEY": "Chave API",
 
-            "NUMBER_OF_ML_MODELS": "Number of ML models",
-            "UNKNOWN": "unknown",
-            "UNLIMITED": "unlimited",
+            "NUMBER_OF_ML_MODELS": "Número de modelos de AM",
+            "UNKNOWN": "desconhecido",
+            "UNLIMITED": "ilimitado",
 
-            "LIMIT_TEXT_PROJECTS": "Number of text machine learning models your students can have:",
-            "LIMIT_IMAGE_PROJECTS": "Number of images machine learning models your students can have:"
+            "LIMIT_TEXT_PROJECTS": "Número de aprendizado de máquina de Texto que seus alunos podem ter:",
+            "LIMIT_IMAGE_PROJECTS": "Número de aprendizado de máquina de Imagem que seus alunos podem ter:"
         }
     },
     "HELP": {
@@ -704,7 +704,7 @@
             "Q1-A-1": "Os modelos de aprendizado de máquina na ferramenta são criados usando as APIs do IBM Watson",
             "Q1-A-2": "Se você tiver uma conta de turma \"unmanaged\", então, seu professor ou líder do grupo precisará fornecer credenciais da API do Watson do IBM Cloud para que funcione. Instruções passo a passo sobre como eles podem fazer isso no documento \"Getting Started\" no topo desta página.",
 
-            "Q2": "\"credenciais do Watson sendo usadas pela sua turma foram rejeitadas\"",
+            "Q2": "\"Credenciais do Watson sendo usadas pela sua turma foram rejeitadas\"",
             "Q2-A-1": "Os modelos de aprendizado de máquina na ferramenta são criados usando as APIs do IBM Watson.",
             "Q2-A-2": "Se você tiver uma conta de turma \"unmanaged\", então, seu professor ou líder do grupo precisará fornecer credenciais da API do Watson do IBM Cloud para que funcione. Instruções passo a passo sobre como eles podem fazer isso no documento \"Getting Started\" no topo desta página.",
             "Q2-A-3": "No entanto, se as credenciais fornecidas atualmente não estão funcionando. O motivo mais provável é que as credenciais foram excluídas do IBM Cloud desde que foram originalmente fornecidas. Se esse não for o caso, o professor ou o líder do grupo que forneceu as credenciais do Watson precisa retornar ao painel do IBM Cloud para verificar o status do Assistente do Watson ou do serviço de Reconhecimento Visual que eles criaram.",
@@ -770,7 +770,7 @@
             "Q3-A-1": "Em março de 2018, o serviço \" Watson Conversation\" foi renomeado para \" Watson Assistant\". Qualquer referência anterior a \"Conversation\" pode ser lida como \" Assistant\" agora. Todas as instâncias ou credenciais do serviço de Conversação do Watson criadas antes deste ponto podem continuar a ser usadas como equivalentes ao Assistente do Watson.",
 
             "Q4": "Por que os modelos de aprendizado de máquina são excluídos automaticamente?",
-            "Q4-A-1": "TEste foi um recurso solicitado pelas escolas quando o Machine Learning for Kids foi desenvolvido pela primeira vez. Ele veio do fato de que há um limite para quantos modelos de aprendizado de máquina uma turma pode ter em um determinado momento, e a necessidade de facilitar o gerenciamento desse limite",
+            "Q4-A-1": "Este foi um recurso solicitado pelas escolas quando o Machine Learning for Kids foi desenvolvido pela primeira vez. Ele veio do fato de que há um limite para quantos modelos de aprendizado de máquina uma turma pode ter em um determinado momento, e a necessidade de facilitar o gerenciamento desse limite",
             "Q4-A-2": "Em vez de exigir que as crianças tenham que limpar depois de uma lição e excluir seus modelos (para permitir que a próxima turma possa criar modelos), a ferramenta pode limpar automaticamente, excluindo modelos após o término da aula. Isso facilita a execução da próxima lição e a próxima lição depois dessa, sem limpezas manuais nesse intervalo.",
             "Q4-A-3": "O limite de tempo antes de os modelos serem apagados é configurável. Em uma escola, onde as aulas duram 1 ou 2 horas, excluir modelos após duas horas pode ser sensato. Para um clube semanal de codificação, seis dias podem ser um ajuste melhor para garantir que os modelos sejam esclarecidos antes de cada nova sessão do clube.",
             "Q4-A-4": "Para verificar o limite de tempo da sua turma, visite a <a href='https://machinelearningforkids.co.uk/#!/teacher/restrictions'>seção Restrições da sua página de professor</a>.",
