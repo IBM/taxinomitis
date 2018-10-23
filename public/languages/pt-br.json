@@ -515,6 +515,11 @@
             "SUMMARY": "Ensine um computador a fazer previsões",
             "DESCRIPTION": "Treine o computador para poder prever como você vai para a escola."
         },
+        "SHYPANDA": {
+            "TITLE": "Shy Panda",
+            "SUMMARY": "Teach a computer to recognise pictures",
+            "DESCRIPTION": "Make a dancing panda that gets shy and stops dancing if it sees you looking."
+        },
         "PACMAN": {
             "TITLE": "Pac-Man",
             "SUMMARY": "Ensine um computador a jogar um jogo",
