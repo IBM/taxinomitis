@@ -1,0 +1,533 @@
+{
+	"APP": {
+		"TITLE": "Çocuklar İçin Makine Öğrenimi",
+		"BACK": "Geri",
+		"BACKTOPROJECT": "&lt; Projeye dön",
+		"ERROR": "Hata:",
+		"WARNING": "Uyarı:",
+		"INFO": "Bilgi:",
+		"ADD": "Ekle",
+		"CANCEL": "İptal",
+		"ABOUT": "Hakkında",
+		"TEACHER": "Öğretmen",
+		"PROJECTS": "Projeler",
+		"WORKSHEETS": "Çalışma Sayfaları",
+		"NEWS": "Haberler",
+		"HELP": "Yardım",
+		"LOGIN": "Oturum Aç",
+		"LOGOUT": "Oturumu Kapat",
+
+        "BETA": "Beta",
+		"INCOMPLETE": "Eksik!"
+	},
+	"ABOUT": {
+		"TITLE": "Çocuklar İçin Makine Öğrenimi",
+		"IN6SECS": "6 saniyede...",
+		"IN20MINS": "20 dakikada...",
+		"WHAT": {
+			"TITLE": "Nedir?",
+			"BODY": "Bu araç, makine öğrenimi sistemlerinin eğitilmesi ve bunlarla bir şeyler oluşturulması için uygulamalı deneyimler sağlayarak makine öğrenimini tanıtır. <br/><br/>Metin ve rakamların sınıflandırılması ya da fotoğrafların tanınmasına yönelik makine öğrenimi modellerinin eğitilmesi için kullanımı kolay, kılavuzlu bir ortam sağlar. <br/><br/>Burada çocukların eğittikleri makine öğrenimi modelleriyle projeler oluşturmalarını ve oyunlar tasarlamalarını sağlayan, <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> (yaygın bir biçimde kullanılan eğitim amaçlı kodlama platformu) platformuna bu modellerin eklenmesiyle çocuklara kodlamanın tanıtılması ve öğretilmesi için mevcut çalışmalardan yararlanılır. <br/><br/>Daha fazla bilgi edinmek için şuraya bakın:"
+		},
+		"WHY": {
+			"TITLE": "Neden?",
+			"BODY": "Makine öğrenimi her alanda karşımıza çıkıyor. Her gün hepimiz istenmeyen posta filtreleri, öneri motorları, dil çevirisi hizmetleri, sohbet robotları ve dijital yardımcılar, arama motorları ve sahteciliği saptama sistemleri gibi makine öğrenimi sistemlerini kullanıyoruz. <br/><br/>Makine öğrenimi sistemlerinin arabalarımızı kullanması, doktorlara hastalıkların teşhisi ve tedavisinde yardımcı olması yakında normal olacak. <br/><br/>Çocukların dünyada işlerin nasıl yürüdüğünün farkında olmaları önemlidir. Yeteneklerin ve çıkarımların anlaşılmasının en iyi yolu, bu teknolojiyle kendileri için bir şeyler yapabilmeleridir. <br/><br/>Daha fazla bilgi için <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'Makine öğreniminin çocuklara tanıtılması'</a> başlıklı yazıyı okuyabilirsiniz."
+		},
+		"TECH": {
+			"TITLE": "Teknoloji",
+			"BODY": "Araç, tamamıyla web tabanlıdır ve kullanmak için herhangi bir kurulum veya karmaşık ayarlar gerektirmez. <br/><br/>Okulllar ve gönüllülerce yönetilen kodlama grupları tarafından kullanılmak üzere çocuklara yönelik olarak tasarlanmıştır ve öğretmenlerin veya grup liderlerinin öğrenci erişimini yönetebilmeleri için bir yönetim sayfası sağlar.<br/><br/><a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> tarafından, <a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a> API'leri kullanılarak oluşturulmaktadır.",
+			"LOGIN": "Kullanmaya başlamak için: "
+		}
+	},
+	"NEWS": {
+		"TITLE": "Haberler",
+		"UPDATES": {
+			"TITLE": "Haberler ve Güncellemeler",
+			"DESCRIPTION": "@MLforKids'den Haberler ve Güncellemeler"
+		},
+		"MENTIONS": {
+			"TITLE": "Basında Çıkan Haberler",
+			"DESCRIPTION": "wakelet.com'dan Basında Çıkan Haberler bölümü yükleniyor"
+		}
+	},
+	"ERRORS": {
+		"PAGENOTFOUND": "Sayfa bulunamadı",
+		"NOTLOGGEDIN": "Oturum açılmadı",
+		"MISSINGPROJECTID": "Proje tanıtıcısı eksik. Şuraya dönün: ",
+		"IFPERSISTENT": "Bu devam ederse lütfen ",
+		"LETMEKNOW": "bana bildirin"
+	},
+	"WELCOME": {
+		"TITLE": "Bilgisayara oyun oynamayı öğretme",
+		"GET_STARTED": "Başlayın",
+		"LEARN_MORE": "Daha fazla bilgi edinin",
+		"ADMIN_LABEL": "<strong>Yönetim Sayfası</strong>'na gidin",
+		"PROJECT_LABEL": "<strong>Projeler</strong> sayfanıza gidin",
+		"STEP_1_TEXT": "Tanıyabilmeyi istediğiniz şeylerin örneklerini toplayın",
+		"STEP_2_TEXT": "Bir bilgisayarı bunları tanıyabilmesi için eğitmek üzere örnekleri kullanın",
+		"STEP_3_TEXT": "Scratch programında, bilgisayarın bunları tanıma yeteneğini kullanan bir oyun tasarlayın"
+	},
+	"LOGIN": {
+		"TITLE": "Makine öğrenimini kullanmaya başlama",
+		"WELCOME": "Hoş geldiniz! Çocuklar İçin Makine Öğrenimi'nde oturum açabilmek için bir hesap oluşturmak istemenize sevindik.",
+		"ALREADY_LOGGEDIN": "<strong>Bilgi: </strong> Oturum zaten açık",
+		"ERROR": "<strong>Hata:</strong> {{ message }}",
+		"ERROR_HELP": "Bu devam ederse lütfen yardım bölümümüzü ziyaret edin",
+		"FIRST_TIME": "Burada yeni misiniz?",
+		"SIGN_UP": "Kaydol",
+		"WHY_REGISTER": "Neden kaydolmalısınız?",
+		"WHY_REGISTER_INTRO_1": "Çocuklar İçin Makine Öğrenimi'ni kullanmak için <strong>kaydolmanız veya bir hesap oluşturmanıza gerek yok</strong>, ancak hesap oluşturduğunuzda aracın bazı özelliklerini de kullanabilirsiniz.",
+		"WHY_REGISTER_INTRO_2": "Aşağıdaki kılavuzda, kaydolmadan \"Hemen dene\" seçeneğini tıklatırsanız yapabilecekleriniz ve oturum açmak için bir hesap oluşturursanız yapabilecekleriniz arasındaki farklar açıklanır.",
+		"ALREADY_REGISTERED": "Zaten kayıtlı mısınız?",
+		"LOGIN": "Oturum aç",
+		"FORGOT_DETAILS": "Bilgilerinizi mi unuttunuz?",
+		"TRY_TITLE": "Kaydolmadan dene",
+		"TRY_NOW": "Hemen dene",
+		"BACK": "@:APP.BACK",
+		"WHO_YOU": "Kimsiniz?",
+		"TEACHER": "Öğretmen ya da kodlama kulübü lideri",
+		"STUDENT": "Öğrenci",
+		"FORGOT_TEXT": "Kullanıcı adınızı ya da parolanızı mı unuttunuz? Sorun değil, hepimiz bazen bir şeyleri unutuyoruz."
+	},
+	"SIGNUP": {
+		"TEACHER": {
+			"TITLE": "Öğretmen ya da kodlama kulübü lideri misiniz?",
+			"INFO1": "Öğrencileriniz için erişim istiyorsanız lütfen aşağıda bir sınıf hesabı oluşturun.",
+			"INFO2": "Kimin oluşturduğuna bağlı olarak iki tür sınıf hesabı vardır."
+		},
+		"UNMANAGED": {
+			"TITLE": "<strong>Yönetilmeyen</strong> sınıf hesabı oluşturma",
+			"INTRO": "Kendiniz sınıf hesabı oluşturmak ve yönetmekle ilgileniyorsanız, bunu hemen yapabilirsiniz!",
+			"LISTINTRO": "Yapmanız gerekenler:",
+			"LIST_CREATEACCOUNT": "IBM Cloud'da bir hesap oluşturun",
+			"LIST_CREATEAPIKEYS": "Makine öğrenimi modellerinin eğitilmesi için gereken Watson bulut hizmetleri için API anahtarını/anahtarlarını oluşturun",
+			"LIST_ENTERAPIKEYS": "API anahtarlarını bu Çocuklar İçin Makine Öğrenimi aracına girin",
+			"HELP": "Tüm bunlar için adım adım yönergelerden (ekran görüntüleriyle birlikte) yararlanılabilir."
+		},
+		"MANAGED": {
+			"TITLE": "<strong>Yönetilen</strong> sınıf hesabı oluşturma",
+			"INTRO": "Dale'in sınıf hesabı oluşturmasını istiyorsanız, aşağıdaki bilgileri içeren bir e-posta göndermek için aşağıdaki düğmeyi kullanın:",
+			"LIST_NUMBEROFSTUDENTS": "Yaklaşık olarak gerekli olacak öğrenci hesabı sayısı",
+			"LIST_NAMEOFSCHOOL": "Hesabın sahibi okulun veya kodlama grubunun adı",
+			"EMAIL": "E-posta"
+		}
+	},
+	"PROJECTS": {
+		"TITLE": "Makine öğrenimi projeleriniz",
+		"ADDNEWPROJECT": "Yeni proje ekle",
+		"CREATEFIRSTPROJECT": "İlk projenizi oluşturmak için sağdaki 'artı' düğmesini tıklatın.",
+		"RECOGNISING": "Tanıma",
+		"AS": "şu şekilde:"
+	},
+	"PROJECT": {
+		"TRAIN": {
+			"TITLE": "Eğitme",
+			"BODY": "Bilgisayarın tanımasını istediğiniz şeylerin örneklerini toplayın."
+		},
+		"LEARNANDTEST": {
+			"TITLE": "Öğrenme ve Test",
+			"BODY": "Bilgisayarı tanımasını sağlayacak şekilde eğitmek için örnekleri kullanın"
+		},
+		"SCRATCH": {
+			"TITLE": "Scratch",
+			"BODY": "Scratch'de bir oyun tasarlamak için, eğittiğiniz makine öğrenimi modelini kullanın."
+		},
+		"ADVANCED": "Makine öğrenimi modellerinin kullanımında <strong>gelişmiş</strong> yöntemler",
+		"PYTHON": {
+			"TITLE": "Python",
+			"BODY": "Bir Python programında eğittiğiniz makine öğrenimi modelini kullanın."
+		},
+		"APPINVENTOR": {
+			"TITLE": "Uygulama Yaratıcısı",
+			"BODY": "Makine öğrenimi modelinizi kullanan bir mobil uygulama yapın"
+		},
+		"SCRATCH3": {
+			"TITLE": "Scratch 3",
+			"BODY": "Scratch'in yeni sürümünde makine öğrenimi modelinizi kullanın"
+		}
+	},
+	"TRAINING": {
+		"TITLE": "Eğitim",
+		"ADDLABEL": "Yeni etiket ekle",
+		"CREATEFIRSTLABEL": "İlk paketi eklemek için sağdaki 'artı' düğmesini tıklatın.",
+		"CROWDSOURCEDEMPTY": "Öğretmeniniz eğitim paketlerini oluşturduktan sonra bu sayfayı yenileyin.",
+		"ADDEXAMPLE": "Örnek ekle",
+		"ADDURL": "www",
+		"ADDWEBCAM": "web kamerası",
+		"ADDDRAWING": "çizim",
+		"DRAGIMAGES": "Diğer tarayıcı pencerelerinden fotoğrafları sürükleyip buraya bırakın",
+		"NEWLABEL": {
+			"INTRO": "Tanıma için yeni etiket girin",
+			"ERROR": "Etiketlerde yalnızca harf ve rakam kullanın"
+		},
+		"NEWEXAMPLE": {
+			"INTRO": "Şunun için bir örnek girin:",
+			"INTROURL": "Şunun örneği olan bir resmin URL adresini girin",
+			"INTRODRAWING": "Şunun için yeni bir örnek çizin",
+			"INTROWEBCAM": "Şunun için yeni bir örnek ekleyin",
+			"ERROR": "Sekme veya yeni satır kullanılamaz.",
+			"REQUIRED": "Bir örnekteki tüm alanlar için değerleri eklemeniz gerekir",
+			"PATTERNNUMBER": "Bu bir sayıya benzemiyor",
+			"PATTERNURL": "Bu, bir fotoğrafın web adresi olmalıdır",
+			"WEBCAMFAIL": "Üzgünüz! Sizin için bir web kamerası getiremedik.",
+			"WEBCAMERROR": "Web tarayıcınızdan aldığımız ileti şöyle:"
+		}
+	},
+	"MODELS": {
+		"TITLE": "Makine öğrenimi modelleri",
+		"TRAIN": "Yeni makine öğrenimi modelini eğit",
+		"CANCEL": "Eğitimi iptal et",
+		"DELETE": "Bu modeli sil",
+		"WHATHAVEYOUDONE": {
+			"TITLE": "Neler yaptınız?",
+			"PLEASEWAIT": "Bu genellikle birkaç dakika sürer, ancak eğitim bilgisayarı çok meşgulse biraz daha uzun sürebilir.",
+			"FAIL": "Ne yazık ki birtakım sorunlar oluştu."
+		},
+		"WHATSNEXT": {
+			"TITLE": "Sırada ne var?",
+			"PLEASEWAIT": "Makine öğrenimi modelinin eğitiminin tamamlanmasını bekleyebilirsiniz.",
+			"OFFERQUIZ": "Veya neler öğrendiğinizi kontrol etmek için aşağıdaki makine öğrenimi testini çözebilirsiniz.",
+			"FAIL": "Eğitim bilgisayarından alınan hata iletisi aşağıdadır. Sizin için anlamlı geliyorsa, sorunu çözmeyi deneyin. Veya sıradan bir hataysa yeniden denemeye değebilir."
+		},
+		"TRAINING": {
+			"TITLE": "Eğitim bilgisayarından bilgiler:",
+			"STARTED": "Modelin eğitime başlama zamanı:",
+			"STATUS": "Modelin şu anki durumu:",
+			"DETAIL": "Ayrıntı:",
+			"DELETION": "Model, şu sürenin sonunda otomatik olarak silinir:",
+			"LASTCHECK": "Modelin en son kontrol edilme zamanı:",
+			"PROMPTREFRESH": "Bu, 1 dakikadan uzun bir süreyse güncel durumu görmek için sayfayı yenilemeniz gerekir"
+		},
+		"QUIZ": {
+			"TITLE": "Test zamanı!",
+			"INTROQUESTION": "Modelin eğitimini tamamlamasını beklerken bu soruyu yanıtlamayı deneyin."
+		}
+	},
+	"PYTHON": {
+		"TITLE": "Python'da makine öğrenimini kullanma",
+		"NOTREADY": "Projeniz henüz Python'da kullanılmaya hazır değil.",
+		"NOMODEL": "Henüz bir makine öğrenimi modelini eğitmediniz."
+	},
+	"APPINVENTOR": {
+		"TITLE": "Uygulama Yaratıcısı'nda makine öğrenimini kullanma",
+		"NOTREADY": "Projeniz henüz Uygulama Yaratıcısı’nda kullanılmaya hazır değil.",
+		"NOMODEL": " Henüz bir makine öğrenimi modelini eğitmediniz.",
+		"BETAWARNING": "Bu, erken bir beta sürümüdür. Uygulama Yaratıcısı desteği henüz tamamlanmadığından bazı sorunlar ve hatalar oluşabilir."
+	},
+	"SCRATCH": {
+		"TITLE": "Scratch'de makine öğrenimini kullanma",
+		"NOTREADY": "Projeniz henüz Scratch'de kullanılmaya hazır değil.",
+		"NOMODEL": " Henüz bir makine öğrenimi modelini eğitmediniz.",
+		"LAUNCH": "Scratch'de aç"
+	},
+	"SCRATCH3": {
+		"TITLE": "Scratch 3'te makine öğrenimini kullanma",
+		"BETAWARNING": " Bu, erken bir beta sürümüdür. Scratch 3 desteği henüz tamamlanmadığından bazı sorunlar ve hatalar oluşabilir."
+	},
+	"WORKSHEETS": {
+		"TITLE": "Makine öğrenimi projeleri",
+		"INTRO_1": "Bu projeler, öğrencilerin takip edebileceği açıklamalar ve renkli ekran görüntülerini içeren, karşıdan yükleyebileceğiniz adım adım yönergeli kılavuzlardır.",
+		"INTRO_2": "Her bir proje, tek bir ders boyunca sürecek şekilde yazılmış, bağımsız bir etkinliktir. Yapay zeka ve makine öğreniminin gerçek dünyada kullanımını gösteren, etkileşimli bir proje veya bir oyun yaratmak için öğrencilere yardımcı olur.",
+		"INTRO_3": "Yeni çalışma sayfaları için öneriler, çalışma sayfalarının herhangi birine ilişkin iyileştirme önerileri, yeni proje çalışma sayfası katkıları her zaman memnuniyetle kabul edilir.",
+		"TYPES": {
+			"TITLE": "Tanıma:",
+			"ALL": "Tüm proje türleri",
+			"PREFIX": "Bir bilgisayarı şunu/şunları tanıması için eğitin:",
+			"TEXT": "metin",
+			"IMAGES": "fotoğraflar",
+			"NUMBERS": "sayılar"
+		},
+		"LEVELS": {
+			"TITLE": "Zorluk:",
+			"ALL": "Tüm zorluklar",
+			"BEGINNER": "Başlangıç düzeyi",
+			"INTERMEDIATE": "Orta düzey",
+			"ADVANCED": "İleri düzey"
+		},
+		"DOWNLOAD": "Karşıdan Yükle",
+		"SMARTCLASSROOM": {
+			"TITLE": "Akıllı Sınıf",
+			"SUMMARY": "Bir bilgisayara komutlarınızın anlamını çözmesini öğretin",
+			"DESCRIPTION": "Scratch'te sanal cihazları kontrol etmenizi sağlayacak akıllı bir asistan yaratın."
+		},
+		"MAKEMEHAPPY": {
+			"TITLE": "Beni mutlu et",
+			"SUMMARY": "Bir bilgisayara iltifat ve kırıcı içerikli sözleri tanımayı öğretin",
+			"DESCRIPTION": "Scratch'te, güzel şeyler söylediğinizde gülümseyen, kötü şeyler söylediğinizde ise ağlayan bir karakter yaratın."
+		},
+		"SNAP": {
+			"TITLE": "Pişti!",
+			"SUMMARY": "Bir bilgisayara simgelerin nasıl göründüğünü çözmeyi öğretin",
+			"DESCRIPTION": "Scratch'te, oyun kartınızdaki resimleri tanımayı öğrenen bir kart oyunu tasarlayın."
+		},
+		"MAILMANMAX": {
+			"TITLE": "Postacı Max",
+			"SUMMARY": "Bir bilgisayara el yazısını tanımayı öğretin",
+			"DESCRIPTION": "Scratch'te, zarflar üzerindeki el yazısıyla yazılmış posta kodlarını tanıyabilen bir posta ayırma merkezi yaratın."
+		},
+		"CARORCUP": {
+			"TITLE": "Araba mı kupa mı",
+			"SUMMARY": "Bir bilgisayara nesnelerin fotoğraflarını tanımayı öğretin",
+			"DESCRIPTION": "Bilgisayara fotoğrafları gruplara ayırabilmeyi öğretin."
+		},
+		"FACELOCK": {
+			"TITLE": "Yüz Kilidi",
+			"SUMMARY": "Bir bilgisayara yüzleri tanımayı öğretin",
+			"DESCRIPTION": "Scratch platformunda, yüzü tanıyıp kilidini açan bir telefon yapın."
+		},
+		"JOURNEYTOSCHOOL": {
+			"TITLE": "Okul yolu",
+			"SUMMARY": "Bir bilgisayara tahminlerde bulunmayı öğretin",
+			"DESCRIPTION": "Bilgisayarı, sabah okula nasıl gittiğinizi tahmin edecek şekilde eğitin."
+		},
+		"PACMAN": {
+			"TITLE": "Pac-Man",
+			"SUMMARY": "Bir bilgisayara oyun oynamayı öğretin",
+			"DESCRIPTION": "Scratch'te, hayaletten nasıl kaçılacağını öğrenen bir Pac-Man oyunu yaratın."
+		},
+		"CHATBOTS": {
+			"TITLE": "Sohbet Robotları",
+			"SUMMARY": "Bir bilgisayara soruları tanımayı öğretin",
+			"DESCRIPTION": "Seçtiğiniz bir konu hakkındaki soruları yanıtlayabilen bir sohbet robotu yaratın."
+		},
+		"TOURISTINFO": {
+			"TITLE": "Turist Danışma Merkezi",
+			"SUMMARY": "Bir bilgisayara önerilerde bulunmayı öğretin",
+			"DESCRIPTION": "Scratch'te, kişilerin ilgi alanlarına göre gezilecek turistik yerleri öneren mobil uygulama yaratın."
+		},
+		"SORTINGHAT": {
+			"TITLE": "Seçmen Şapka",
+			"SUMMARY": "Bir bilgisayara dil kullanımını tanımayı öğretin",
+			"DESCRIPTION": "Söylediklerinize göre sizi bir okula yerleştiren, Harry Potter'daki gibi bir Seçmen Şapka yaratın."
+		},
+		"ROCKPAPERSCISSORS": {
+			"TITLE": "Taş, Kağıt, Makas",
+			"SUMMARY": "Bir bilgisayara şekilleri tanımayı öğretin",
+			"DESCRIPTION": "Scratch'te elinizin şekillerini tanıyan, bir Taş, Kağıt, Makas oyunu yapın. "
+		},
+		"JUDGEABOOK": {
+			"TITLE": "Kitabı tahmin et",
+			"SUMMARY": "Bir bilgisayara görsel stili tanımayı öğretin",
+			"DESCRIPTION": "Bir kitabı kapağından anlamanın gerçekten mümkün olup olmadığını test etmek için Scratch'te bir oyun tasarlayın."
+		},
+		"LOCATELARRY": {
+			"TITLE": "Duygu’yu bul",
+			"SUMMARY": "Bir bilgisayara resimdeki bir şeyi bulmayı öğretin",
+			"DESCRIPTION": "Scratch'te \"Ali Nerede?\" tarzında bir oyun tasarlayın ve bilgisayara karakterinizi bulmayı öğretin."
+		},
+		"CONFUSED": {
+			"TITLE": "Kafası karışık",
+			"SUMMARY": "Bir bilgisayara meyveleri tanımayı öğretin",
+			"DESCRIPTION": "Bir bilgisayarın kafasının nasıl karışabileceği ve kötü eğitilirse nasıl hatalar yapabileceği hakkında bilgi edinin."
+		},
+		"SCHOOLLIBRARY": {
+			"TITLE": "Okul Kütüphanesi",
+			"SUMMARY": "Bir bilgisayara önerilerde bulunmayı öğretin",
+			"DESCRIPTION": "Scratch'te bir okuma kitabının kime uygun olabileceği hakkında öneriler sunan bir kütüphane görevlisi yaratın."
+		},
+		"NOUGHTSANDCROSSES": {
+			"TITLE": "Üç Taş",
+			"SUMMARY": "Bir bilgisayara oyun oynamayı öğretin",
+			"DESCRIPTION": "Scratch'te sizi nasıl yeneceğini öğrenen bir üç taş oyunu yaratın. "
+		},
+		"TOPTRUMPS": {
+			"TITLE": "Top Trumps",
+			"SUMMARY": "Bir bilgisayara oyun oynamayı öğretin",
+			"DESCRIPTION": "Bir bilgisayarı Scratch'te Top Trumps kart okuyunu oynayabilecek şekilde eğitin."
+		},
+		"HEADLINES": {
+			"TITLE": "Manşetler",
+			"SUMMARY": "Bilgisayarın dil kullanımını tanıyabilme yeteneğini test edin",
+			"DESCRIPTION": "Bir bilgisayarı ulusal gazetelerdeki manşetleri tanıyabilecek şekilde eğitin."
+		}
+	},
+	"TEACHER": {
+		"MENU": {
+			"TITLE": "Yönetim",
+			"RESTRICTIONS": {
+				"TITLE": "Kısıtlamalar",
+				"DESCRIPTION": "Sınıfınız için geçerli olan sınırları ve kısıtlamaları inceleyin"
+			},
+			"APIKEYS": {
+				"TITLE": "API Anahtarları",
+				"TITLELONG": "Watson API Anahtarları",
+				"DESCRIPTION": "Sınıfınızın makine öğrenimi modelleri yaratmasını sağlayacak şekilde IBM Watson kimlik bilgilerini ayarlayın"
+			},
+			"STUDENTS": {
+				"TITLE": "Öğrenciler",
+				"TITLELONG": "Öğrenci yönetimi",
+				"DESCRIPTION": "Sınıfınızdaki öğrenciler için kullanıcı girişleri oluşturun, sıfırlayın ve silin"
+			},
+			"SUPERVISION": {
+				"TITLE": "Denetim",
+				"DESCRIPTION": "Öğrencilerinizin yarattığı projeleri inceleyin"
+			},
+			"ADVANCEDOPTIONS": "Gelişmiş seçenekler",
+			"DELETECLASS": {
+				"TITLE": "Sınıfı sil",
+				"DESCRIPTION": "Bu, sizin hesabınızı ve sınıfınızdaki tüm öğrencilerin hesaplarını siler"
+			},
+			"CANYOUHELP": {
+				"TITLE": "Yardımcı olur musunuz?",
+				"DESCRIPTION": "Lütfen aracın iyileştirilmesi için deneyimlerinizi ve fikirlerinizi paylaşın"
+			},
+			"NOTAUTHORISED": "Sınıfınız için öğretmen sayfasına erişim yetkiniz yok."
+		},
+		"APIKEYS": {
+			"TITLE": "Yönetim: IBM Watson API Anahtarları",
+			"ADDNEWCREDENTIALS": "Yeni kimlik bilgileri ekle",
+			"ADDAPIKEY": "Yeni API anahtarı ekle",
+			"NO_TEXT_CREDENTIALS": "Asistan kimlik bilginiz yok. Bu da <strong>metin</strong> projeleri için model eğitiminin mümkün olmayacağı anlamına gelir.",
+			"NO_IMAGE_CREDENTIALS": "Visual Recognition API anahtarınız yok. Bu da <strong>fotoğraflar</strong> projeleri için model eğitiminin mümkün olmayacağı anlamına gelir.",
+			"NOTAUTHORISED": "Sınıfınızın kullandığı Watson API anahtarlarına erişim yetkiniz yok.",
+			"MANAGEDCLASS": "Sınıfınızın kullandığı API Anahtarları sizin için yönetiliyor."
+		}
+	},
+	"HELP": {
+		"CONTACT": "Soru veya sorunlarınız için lütfen Dale.Lane@uk.ibm.com adresine e-posta gönderin",
+		"GETTINGSTARTED": {
+			"TITLE": "Kullanmaya yeni mi başlıyorsunuz?",
+			"INTRO": "Kısa bir başlangıç kılavuzunu içeren PDF dosyasını karşıdan yükleyin:",
+			"MANAGED": "Yönetilen sınıf hesapları",
+			"MANAGEDEXPL": "Okul öğretmenleri, kodlama grubu liderleri veya diğer gönüllüler için",
+			"UNMANAGED": "Yönetilmeyen sınıf hesapları",
+			"UNMANAGEDEXPL": "IBM çalışanları veya kendi sınıf hesaplarını yöneten öğretmenler ve kodlama grubu liderleri için"
+		},
+		"FAQS": {
+			"TITLE": "Daha fazla bilgi edinmek mi istiyorsunuz?",
+			"INTRO1": "Yolunda gitmeyen bir şeyler mi var?",
+			"INTRO2": "Aşağıdaki listede en çok duyduğum sorular ve sorunlar yer alıyor. Sizin yaşadığınıza benzer bir sorun görürseniz ayrıntılı bilgi için özeti tıklatın.",
+			"INTRO3": "Hala zor durumdaysanız veya listeye eklemediğim bir sorunla karşı karşıyaysanız, üzgünüm! Lütfen <a href='mailto:dale.lane@uk.ibm.com'>bana e-posta gönderin</a> veya size yardımcı olabilmem için <a href='https://github.com/IBM/taxinomitis/issues'>bir sorun raporu oluşturun</a>."
+		},
+		"SCRATCH": {
+			"TITLE": "Scratch sorunları",
+			"Q1": "Scratch'i nasıl çalıştıracağımı bilmiyorum",
+			"Q1-A-1": "Çocuklar İçin Makine Öğrenimi, Scratch 2'yi kullanır. Scratch'in çalışması için Adobe Flash gereklidir, bu nedenle Flash ile çalışabilen bir işletim sistemi ve web tarayıcısı kullanılabiliyor olmanız gerekir (üzgünüz ama bu, şimdilik iPad’lerin kullanılamayacağı anlamına geliyor).",
+			"Q1-A-2": "Flash'ı nasıl etkinleştireceğinizden emin değilseniz, <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>Scratch'i çalıştırmaya yönelik bazı ipuçlarının yer aldığı bir belgeyi karşıdan yükleyebilirsiniz</a>.",
+			"Q2": "Scratch'teki \"Proje Yükle\" ve \"Projeyi Kaydet\" menüleri çalışmıyor",
+			"Q2-A-1": "macOS'de Safari'yi kullanıyorsanız ve Scratch menüleri \"Dosya -&gt; Proje Yükle\" ve \"Dosya -&gt; Projeyi Kaydet\" çalışmıyorsa, bunun nedeni Güvenli Mod'da çalıştırmanız olabilir.",
+			"Q2-A-2": "Nasıl kontrol edebileceğiniz ve düzeltebileceğiniz hakkında bilgi için <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>buradaki yönergeleri izleyin</a>.",
+			"Q3": "Scratch'teki makine öğrenimi sınıflandırma blokları çalışmıyor",
+			"Q3-A-1": "Makine öğrenimi modeliniz için Scratch blokları ile sunucu bağlantısı bazen kopabilir. Bu durumda sonuç getirmeyi durdurur.",
+			"Q3-A-2": "\"Diğer bloklar\" bölmesindeki renkli durum ışığını kullanarak bunu kontrol edebilirsiniz.",
+			"Q3-A-3": "Makine öğrenimi Scratch bloklarınızın yanındaki durum ışığı kırmızı yanıyorsa, genellikle yolunda gitmeyen bir şeyler olduğu anlamına gelir. Bu geçici bir sorun olabilir. Projeyi kaydetmeyi deneyin ('Dosya' -&gt; 'Projeyi Kaydet' menüsünü kullanarak), ardından tarayıcı sayfasını yenileyin. Sayfa yeniden yüklendikten sonra durum ışığı yeşile dönerse, bıraktığınız yerden devam etmek için projenizi yükleyebilirsiniz ('Dosya' -&gt; 'Proje Yükle' menüsünü kullanarak).",
+			"Q3-A-4": "Sayfa yeniden yüklendikten sonra durum ışığı hala kırmızıysa, muhtemelen makine öğrenimi modeliyle ilgili bir hata vardır. Proje için \"Öğrenme ve Test\" sayfasına gidin, burada modeliniz hakkında hata iletilerini bulabilirsiniz.",
+			"Q3-A-5": "Makine öğrenimi Scratch blokları yanındaki durum ışığı yeşilse, bloklar çalışıyor demektir. Beklediğiniz yanıtları almıyorsanız, \"Öğrenme ve Test\" sayfasına gitmeyi ve modelinizin getirdiği sonuçları kontrol etmeyi deneyin.",
+			"Q4": "iPad'de kullanılabilir mi?",
+			"Q4-A-1": "Çocuklar İçin Makine Öğrenimi, Scratch 2'yi kullanır. Scratch'in çalışması için Adobe Flash gereklidir, bu nedenle Flash ile çalışabilen bir işletim sistemi ve web tarayıcısı kullanıyor olmanız gerekir (üzgünüz bu şimdilik iPad'lerle çalışmadığı anlamına geliyor).",
+			"Q4-A-2": "<a href='https://scratch.mit.edu/preview-faq'>Scratch 3 geliştirme aşamasında</a> ve Adobe Flash gerekliliğini ortadan kaldıracak. <a href='https://github.com/IBM/taxinomitis/issues/21'>Scratch 3 desteği üzerinde çalışıyorum</a>. Proje sayfanızdan şu anda metin ve rakam projeleri için bir Beta sürümüne ulaşabilirsiniz.",
+			"Q5": "Herhangi bir Scratch sürümü kullanabilir miyim?",
+			"Q5-A-1": "Çocuklar İçin Makine Öğrenimi sitesinin sağladığı Scratch sürümünü kullanmanız gerekir. Proje sayfanızdan Scratch (veya 'Scratch 3') düğmesini tıklatarak başlatabilirsiniz."
+		},
+		"TRAININGUI": {
+			"TITLE": "Eğitim Kullanıcı Arabirimi sorunları",
+			"Q1": "Fotoğrafları eğitim paketlerine sürükleme (fotoğraf projeleri için) işlevi çalışmıyor",
+			"Q1-A-1": "Safari veya Internet Explorer'ı kullanıyorsanız fotoğrafları eğitim paketlerine sürükleme işlevi çalışmaz.",
+			"Q1-A-2": "Bu durum için üzgünüm. Firefox veya Chrome gibi başka bir tarayıcı kullanabiliyorsanız, lütfen kullanın. Kullanamıyorsanız, bunun yerine \"www\" düğmesini tıklatıp eğitim fotoğrafların URL'sini yapıştırabilirsiniz."
+		},
+		"MODELS": {
+			"TITLE": "Makine öğrenimi modellerinin eğitimiyle ilgili hatalar",
+			"Q1": "\"Watson kimlik bilgileri ayarlanmadı\"",
+			"Q1-A-1": "Araçtaki makine öğrenimi modelleri, IBM Watson API'leri kullanılarak oluşturulur.",
+			"Q1-A-2": "\"Yönetilmeyen\" bir sınıf hesabınız varsa, öğretmeninizin veya grup liderinizin IBM Cloud'dan Watson API kimlik bilgilerini sağlaması gerekir. Bununla ilgili adım adım yönergeler bu sayfanın üstündeki \"Kullanmaya Başlama\" (Getting Started) belgesinde bulunur.",
+			"Q2": "\"Sınıfınızın kullandığı Watson kimlik bilgileri reddedildi\"",
+			"Q2-A-1": "Araçtaki makine öğrenimi modelleri, IBM Watson API'ler kullanılarak oluşturulur.",
+			"Q2-A-2": "\"Yönetilmeyen\" bir sınıf hesabınız varsa, bunun çalışması için öğretmeniniz ya da grup liderinizin IBM Cloud'dan alınan Watson API kimlik bilgilerini sağlamış olacaktır (bu sayfanın üstündeki \"Kullanmaya Başlama\" (Getting Started) belgesinde açıklandığı gibi).",
+			"Q2-A-3": "Ancak sağlanan kimlik bilgileri şu anda çalışmıyor. Bunun en olası nedeni, kimlik bilgilerinin ilk olarak sağlandığı IBM Cloud'dan silinmiş olması olabilir. Durum bu değilse, Watson kimlik bilgilerini sağlayan öğretmenin ya da grup liderinin, oluşturulan Watson Assistant ya da Visual Recognition hizmetinin durumunu kontrol etmek üzere IBM Cloud panosuna geri dönmesi gerekir.",
+			"Q3": "\"Watson Assistant API anahtarlarında başka kullanılabilir çalışma alanı yok\"",
+			"Q3-A-1": "Araçtaki makine öğrenimi modelleri, IBM Watson API'leri kullanılarak oluşturulur.",
+			"Q3-A-2": "Öğretmenlerin oluşturduğu Watson Assistant (önceki adıyla Watson Conversation) kimlik bilgileri kullanılarak oluşturabilecek makine öğrenimi modeli sayısında bir sınır vardır. Bu, \"çalışma alanı\" (workspace) olarak bilinen, kimlik bilgilerinin oluşturulduğu IBM Cloud kullanıcı arabiriminde görüntülenir.",
+			"Q3-A-3": "Bu sınır aşılırsa, yeni makine öğrenimi modellerini eğitme girişimleri başarısız olur ve bu ileti görüntülenir:",
+			"Q3-A-4": "Sınıfınız zaten izin verilen maksimum model sayısını oluşturdu. Lütfen öğretmeninize veya grup liderinize \"Watson Assistant API anahtarlarında başka kullanılabilir çalışma alanı kalmadığı\" konusunda bilgi verin.",
+			"Q3-A-5": "Başarılı bir biçimde eğitilmiş bir modeli olan öğrenci daha sonra modelini silerse, başka bir öğrencinin kullanımı için bir çalışma alanı boşaltılmış olur.",
+			"Q3-A-6": "Gelecekte bu hatadan kaçınmanın bir yolu da daha küçük sınıf boyutları olabilir. Watson Assistant (önceki adıyla Conversation) kimlik bilgileriyle desteklenen çalışma alanı sayısından daha az sayıda öğrenci olduğunda sınırlar aşılmaz.",
+			"Q3-A-7": "Bu hatadan kaçınmanın başka bir yolu da sınıfa yeni Watson Assistant API anahtarlarının eklenmesi ya da daha yüksek limitlere sahip bir Watson Assistant örnek \"planın\" kullanılmasıdır.",
+			"Q4": "\"Watson Visual Recognition API anahtarlarında başka kullanılabilir sınıflandırıcı yok\"",
+			"Q4-A-1": "Araçtaki makine öğrenimi modelleri IBM Watson API'leri kullanılarak oluşturulur.",
+			"Q4-A-2": "Öğretmenlerin oluşturduğu Watson Visual Recognition kimlik bilgilerinin, oluşturmak için kullanılabilecek makine öğrenimi modelleri sayısı sınırlıdır. Bu sınır, \"özel sınıflandırıcılar\" (custom classifiers) olarak bilinen kimlik bilgilerinin oluşturulduğu IBM Cloud kullanıcı arabiriminde görüntülenir.",
+			"Q4-A-3": " Bu sınır aşılırsa, yeni makine öğrenimi modellerini eğitme girişimleri başarısız olur ve bu ileti görüntülenir:",
+			"Q4-A-4": "Sınıfınız zaten izin verilen maksimum model sayısını oluşturdu. Lütfen öğretmeninizi veya grup liderinizi \"Watson Visual Recognition API anahtarlarında başka kullanılabilir sınıflandırıcı kalmadığı\" konusunda bilgilendirin.",
+			"Q4-A-5": " Başarılı bir biçimde eğitilmiş bir modeli olan öğrenci daha sonra modelini silerse, başka bir öğrencinin kullanımı için bir özel sınıflandırıcı boşaltılmış olur.",
+			"Q4-A-6": "Gelecekte bu hatadan kaçınmanın bir yolu da daha küçük sınıf boyutları olabilir. Watson Visual Recognition kimlik bilgileriyle desteklenen özel sınıflandırıcı sayısından daha az sayıda öğrenci olduğunda sınırlar aşılmaz.",
+			"Q4-A-7": "Bu hatadan kaçınmanın başka bir yolu da sınıfa yeni Watson Visual Recognition API anahtarlarının eklenmesi ya da daha yüksek sınırları olan bir Watson Visual Recognition örnek \"planının\" kullanılmasıdır.",
+			"Q5": "\"Watson ... şu anda API anahtarının hız sınırını belirliyor\"",
+			"Q5-A-1": "Araçtaki makine öğrenimi modelleri, IBM Watson API'ler kullanılarak oluşturulur.",
+			"Q5-A-2": "\"Yönetilmeyen\" bir sınıf hesabınız varsa, bunun çalışması için öğretmeninizin veya grup liderinizin IBM Cloud'dan Watson API kimlik bilgilerini sağlaması gerekir.",
+			"Q5-A-3": "Ücretsiz hesaplar oluşturulursa, yeni makine öğrenimi modelleri isteklerinin hızında bir sınır uygulanır. Olağan kullanımda sınıf bundan etkilenmez. Ancak öğrenciler \"başka kullanılabilir çalışma alanı yok\" veya \"başka kullanılabilir sınıflandırıcı yok\" hatası alırlarsa (yukarıda açıklandığı gibi) ve sonra birkaç dakika boyunca, saniyede birkaç kez \"Yeni Makine Öğrenimi modelini eğit\" düğmesini tıklatırlarsa hız sınırlaması uygulanır.",
+			"Q5-A-4": "Bu durumda öğrencilere buna benzer bir ileti görüntülenir:",
+			"Q5-A-5": "Sınıfınız, makine öğrenimi modellerini çok yüksek hızda oluşturmak için çok fazla sayıda istekte bulunuyor. Lütfen bunu sonlandırın ve öğretmeninizin veya grup liderinin \"Watson Assistant hizmeti şu anda API anahtarının hızını sınırlıyor\" durumundan haberdar olmasını sağlayın",
+			"Q5-A-6": "Hız sınırlaması, Çocuklar İçin Makine Öğrenimi sitesi tarafından uygulanmaz veya bu sitenin denetiminde değildir. Genellikle geçicidir ve en iyisi sorunun çözülmesi için kısa bir süre beklemektir.",
+			"Q5-A-7": "Öğrenciler \"Yeni Makine Öğrenimi modelini eğit\" düğmesini tıklatıp \"başka kullanılabilir çalışma alanı yok\" veya \"başka kullanılabilir sınıflandırıcı yok\" hatası alıyorlarsa (yukarıda açıklandığı gibi), düğmenin sürekli olarak tıklatılmasının sorunu çözmeyeceği ve aslında sınıfın geri kalanı için durumu daha da kötüleştireceği gerçeğinin farkında olmalıdırlar.",
+			"Q6": "Bir modelin eğitimi için çok uzun zamandır bekliyorum!",
+			"Q6-A-1": "Sayfayı yenilemeyi deneyin.",
+			"Q6-A-2": "Sayfanın, her 30 saniyede bir makine öğrenimi modelinin durumunu denetlemesi gerekir, ancak çok nadir olarak denetimi durdurur. Bu nedenle siz beklerken aslında o sırada model hazır olabilir.",
+			"Q6-A-3": "Birkaç dakikadan uzun sürdüyse, sayfayı yenilenerek/yeniden yüklenerek kontrol etmek yararlı olabilir.",
+			"Q6-A-4": "10 dakikadan uzun sürdüyse, yeniden başlatma düşünülebilir (İptal düğmesini tııklatın ve yeni bir makine öğrenimi modelini yeniden eğitmek için düğmeyi tıklatın)."
+		},
+		"TEACHERUI": {
+			"TITLE": "Öğretmen / Yönetim Kullanıcı Arabirimi sorunları",
+			"Q1": "Öğretmenin sayfasındaki makine öğrenimi modeli sayısı hatalı",
+			"Q1-A-1": "Öğretmenin sayfası, sınıfınızın kullanabileceği makine öğrenimi modeli sayısını gösterir. (Bu sayfaya yalnızca öğretmenler ya da grup liderleri erişebilir). Bu değer, öğretmenin oluşturduğu API anahtarı / kimlik bilgisi sayısı alınıp tek bir API anahtarıyla oluşturulabilecek makine öğrenimi sayısıyla çarpılarak hesaplanır.",
+			"Q1-A-2": "Ne yazık ki bu yanıltıcı olabilir. Değer, API anahtarları oluşturulurken kullanılan Fiyatlandırma Planı hakkında varsayımlara dayanır.",
+			"Q1-A-3": "<span class='mlprojecttype'>Metin</span> projeleri için, '20' çalışma alanı desteklendiğinden <a href='https://console.bluemix.net/catalog/services/conversation'>Watson Assistant</a> (önceki adıyla Watson Conversation) kimlik bilgileri oluşturulurken ‘Standard Plan’ kullanılacağı varsayılır. Öğretmenin sayfası, görüntülenirken Watson Assistant kimlik bilgileri sayısını 20 ile çarpar ",
+			"Q1-A-4": "\"Sınıfınız tüm metin projelerinde en çok toplam ?? makine öğrenimi modeline sahip olabilir.\"",
+			"Q1-A-5": "\"Lite Plan\" yalnızca 5 \"çalışma alanını\" destekler, bu nedenle Watson Assistant kimlik bilgilerinden herhangi biri Lite fiyatlandırma planında oluşturulduysa bu, gerçek sınırın Öğretmen sayfasında görüntülenenden daha düşük olacağı anlamına gelir.",
+			"Q1-A-6": "<span class='mlprojecttype'>Fotoğraf</span> projeleri için, 1 \"özel model\" desteklendiğinden <a href='https://console.bluemix.net/catalog/services/watson_vision_combined'>Watson Visual Recognition</a> API anahtarları oluşturmak için \"Lite Plan\" kullanılacağı varsayılır. Öğretmenin sayfası görüntülenirken Watson Visual Recognition API anahtarı sayısını 1 ile çarpar",
+			"Q1-A-7": "\"Sınıfınız tüm fotoğraf projelerinde en çok toplam ?? makine öğrenimi modeline sahip olabilir.\"",
+			"Q1-A-8": "\"Standard Plan\" özel model sayısına bir sınırlama getirmez, bu nedenle Watson Visual Recognition API anahtarlarının herhangi biri Standard fiyatlandırma planıyla oluşturulduysa bu, Öğretmenin sayfasında gösterilenin aksine, gerçekte fotoğraf projeleri için makine öğrenimi modelleri sayısında bir sınır olmadığı anlamına gelir.",
+			"Q1-A-9": "Bu sayfanın neden olduğu karışıklık için özür dilerim. Kullanıcı arabiriminde doğru çarpma işlemini yapabilmem için, Öğretmenin yönetim sayfasını, her kimlik bilgisi veya API anahtarı kümesi için Fiyatlandırma Planını soracak şekilde güncelleyeceğim.",
+			"Q1-A-10": "Bu arada doğru sınır, kimlik bilgilerinin oluşturulduğu IBM Cloud'da gösterilen sınırdır. Tüm bunlarla ilgili daha ayrıntılı bilgilere <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'>Çocuklar İçin Makine Öğrenimiyle Watson API anahtarlarının kullanımı hakkındaki PDFdosyasından</a> erişilebilir.",
+			"Q1-A-11": "Sınıfınıza uygun sınırı nasıl hesaplayacağınızdan emin değilseniz, lütfen <a href='mailto:dale.lane@uk.ibm.com'>benimle iletişime geçin</a>, ben size yardımcı olmaya çalışırım.",
+			"Q2": "Öğretmen sayfasındaki listede bazı öğrenci hesapları eksik ",
+			"Q2-A-1": "Çocuklar İçin Makine Öğrenimi için kullanıcı yönetimi <a href=\"https://auth0.com/\">Auth0</a> üçüncü kişi hizmeti kullanılarak uygulanır.",
+			"Q2-A-2": "Auth0 ile getirilen öğrencilerin listesi bazen güncel olmayabilir ve en son oluşturulan öğrencileri yansıtamayabilir (veya benzer şekilde en son silinen öğrencileri göstermeyebilir).",
+			"Q2-A-3": "Bu durumlarda öğrenciler genellikle başarıyla oluşturulmuştur (veya silinmiştir) ancak sadece görüntülenmekte olan öğrenci listesi en son güncellemeleri yansıtmıyordur.",
+			"Q2-A-4": "Auth0, durum sayfasında bu tür sorunları genellikle <a href='https://status.auth0.com/incidents/0sk1d3hjlw0m'>kullanıcı dizinleme gecikmeleri</a> veya <a href='https://status.auth0.com/incidents/t8995b9jggx5'>Arama API'siyle ilgili sorunlar</a> şeklinde raporlar.",
+			"Q2-A-5": "Bu durumlarda yapılacak en iyi şey, Auth0 dizinlemesinin yetişmesi için beklemektir.",
+			"Q3": "Assistant nedir? Conversation'a ne oldu?",
+			"Q3-A-1": "2018 Mart ayında \"Watson Conversation\" hizmetinin adı \"Watson Assistant\" olarak değiştirildi. Daha önceki \"Conversation\" atıflarını artık \"Assistant\" olarak düşünebilirsiniz. Bu noktadan önce oluşturulan herhangi bir Watson Conversation hizmet eşgörünümü ya da kimlik bilgileri, Watson Assistant'a eşdeğer olarak kullanılmaya devam edebilir.",
+			"Q4": "Makine öğrenimi modelleri neden otomatik olarak silinir?",
+			"Q4-A-1": "Bu, Çocuklar İçin Makine Öğrenimi ilk geliştirildiğinde okulların istediği bir özellikti. Bunun nedeni, belirli bir sürede bir sınıfın sahip olabileceği makine öğrenimi modeli sayısının sınırlı olması ve bu sınırın yönetiminin kolaylaştırılması gerekliliğiydi.",
+			"Q4-A-2": "Çocukların bir dersten sonra toparlanıp modellerini silmelerini (sonraki sınıfın modeller oluşturabilmesini sağlamak için) gerektirmek yerine araç, ders bittikten sonra modelleri silerek otomatik olarak temizlenebilir. Bu da aralarda manuel temizlik olmadan sonraki derslerin daha kolay yapılabilmesini sağlar. ",
+			"Q4-A-3": "Modellerin silinmesi için beklenecek süre sınırı yapılandırılabilir. Derslerin 1 veya 2 saat sürdüğü bir okulda, iki saat sonra modellerin silinmesi mantıklı olabilir. Haftalık bir kodlama kulübü için ise her yeni kulüp oturumundan önce modellerin temizlenmesini sağlamak için 6 gün makul olabilir.",
+			"Q4-A-4": "Sınıfınıza ilişkin süre sınırını kontrol etmek için <a href='https://machinelearningforkids.co.uk/#!/teacher/restrictions'>Öğretmen sayfanızın Kısıtlamalar bölümünü</a> ziyaret edebilirsiniz.",
+			"Q4-A-5": " Sınıfınıza ilişkin süre sınırını değiştirmek için <a href='mailto:dale.lane@uk.ibm.com'>lütfen bana bir e-posta gönderin</a>.",
+			"Q4-A-6": "<em>Not: Kullanılan eğitim verileri değil, yalnızca makine öğrenimi modelleri otomatik olarak silinir. Bir öğrencinin üzerinde hala çalıştığı bir proje için bir model otomatik olarak silinirse, her zaman modelin yeniden oluşturulması için \"Eğit\" düğmesi tıklatılabilir.</em>"
+		},
+		"ACCOUNTISSUES": {
+			"TITLE": "Hesap sorunları",
+			"Q1": "Hesap oluşturma veya \"Hemen deneyin\" seçeneği arasındaki fark nedir?",
+			"Q1-A-1": "\"Hemen deneyin\" seçeneğinin kullanılması, oturum açma veya bir hesap oluşturma zorunluluğunun olmadığı anlamına gelir. Öğrencilerin hatırlaması gereken herhangi bir parola bulunmaz, öğretmenlerin kişisel bilgileri sağlama zorunluluğu olmaz. Ayrıca öğretmenlere öğrenci hesaplarının yönetimi için gereken zamanı kazandırır.",
+			"Q1-A-2": "Ancak bir hesap oluşturmak da ek özellikler sağlar. Öğrenciler, çalışmalarını kaydedip sonraki bir derste buna dönebilirler. Sınıftaki diğer öğrencilerle birlikte bir proje üzerinde çalışabilirler. Evlerinden oturum açabilir ve ailelerine yaptıklarını gösterebilirler.",
+			"Q1-A-3": "Aradaki farkların bir özeti aşağıda gösterilir:",
+			"CREATE_ACCOUNT": "Hesap oluştur",
+			"TRAINMODELS": "Makine öğrenimi modellerine şunları tanımayı öğret...",
+			"USE_SCRATCH": "Scratch'teki makine öğrenimi modellerini kullan",
+			"CREATE_PROJECTS": "Proje oluştur",
+			"ONE_PROJECT": " 1 proje ",
+			"MULTIPLE_PROJECTS": " Birden çok proje ",
+			"SAVE_PROJECTS": "Projeleri kaydet ve yükle",
+			"WORK_ON_PROJECTS": "Makine öğrenimi projeleri üzerinde çalış...",
+			"FEW_HOURS": " birkaç saat için ",
+			"UNTIL_DELETION": " siz silinceye kadar ",
+			"ONE_COMPUTER": " bir bilgisayardan ",
+			"ONLINE": " çevrimiçi her yerden ",
+			"BY_YOURSELF": " kendiniz ",
+			"WITH_CLASSMATES": "sınıf arkadaşlarıyla",
+			"Q2": "Bir sınıf hesabı oluşturdum, ancak öğretmen girişi yapamıyorum",
+			"Q2-A-1": "Oturum açabilmek için e-posta adresinizi doğrulamanız gerekir.",
+			"Q2-A-2": "Sınıf hesabı oluşturduğunuzda, sağladığınız e-posta adresine tıklatılacak bir bağlantı içeren bir e-posta gönderilir. Bu bağlantıyı tıklatırsanız, e-posta adresiniz doğrulanır ve sınıf hesabı etkinleştirilir. Artık oturum açabilmeniz gerekir.",
+			"Q2-A-3": "Doğrulama e-postasını henüz görmediyseniz, istenmeyen posta klasörünüze gitmediğinden emin olun. ",
+			"Q2-A-4": "Yine de bulamıyorsanız <a href='mailto:dale.lane@uk.ibm.com'>benimle iletişime geçin</a>, size yardımcı olmaya çalışacağım.",
+			"Q3": "Hesapları silme",
+			"Q3-A-1": "Öğrenci hesapları",
+			"Q3-A-2": "Öğrenciler, kendi hesaplarını silemezler.",
+			"Q3-A-3": "Bir öğretmen, \"Öğretmen\" sayfasını ziyaret ederek ve silinmek istenen öğrencinin yanındaki \"Öğrenci hesabını sil\" düğmesini tıklatarak dilediği zaman bir öğrenci hesabını silebilir.",
+			"Q3-A-4": "Bu işlem sonucunda öğrenci hakkında saklanan tüm bilgiler, projelerinin ve makine öğrenimi modellerinin tümü silinir.",
+			"Q3-A-5": "Bu işlem geri alınamaz.",
+			"Q3-A-6": "Öğretmen hesapları",
+			"Q3-A-7": "Bir öğretmen hesabı silindiğinde, tüm sınıf ve içindeki öğrenci hesaplarının tamamı da silinir. Bu işlem geri alınamaz.",
+			"Q3-A-8": "Bu, <a href='https://machinelearningforkids.co.uk/teacher'>Öğretmen sayfanızın</a> Gelişmiş seçenekler bölümündeki \"Sınıfı Sil\" düğmesi tıklatılarak yapılabilir. ",
+			"Q4": "Kullanıcılar hakkında hangi bilgiler saklanır?"
+		}
+	}
+}
