@@ -35,17 +35,18 @@ export interface DownloadFromWeb {
 
 export type ImageDownload = RetrieveFromStorage | DownloadFromWeb;
 
+type PossibleError = Error | null;
 
 
-
-type IFileTypeCallback = (err?: Error, filetype?: string) => void;
-type IErrCallback = (err?: Error) => void;
-type IRenameCallback = (err?: Error, renamedPath?: string) => void;
-type IDownloadCallback = (err?: Error, downloadedFilePath?: string) => void;
-type IDownloadAllCallback = (err?: Error, downloadedFilePaths?: string[]) => void;
-type IZippedCallback = (err?: Error, downloadedFilePaths?: string[], zipPath?: string, zipSize?: number) => void;
-type IZipCallback = (err?: Error, zipPath?: string, zipSize?: number) => void;
-type ICreateZipCallback = (err?: Error, zipPath?: string) => void;
+type IFileTypeCallback = (err?: PossibleError, filetype?: string) => void;
+type IErrCallback = (err?: PossibleError) => void;
+type IRenameCallback = (err?: PossibleError, renamedPath?: string) => void;
+type IDownloadCallback = (err?: PossibleError, downloadedFilePath?: string) => void;
+type IDownloadAllCallback = (err?: PossibleError, downloadedFilePaths?: string[]) => void;
+type IZippedCallback = (err?: PossibleError, downloadedFilePaths?: string[],
+                        zipPath?: string, zipSize?: number) => void;
+type IZipCallback = (err?: PossibleError, zipPath?: string, zipSize?: number) => void;
+type ICreateZipCallback = (err?: PossibleError, zipPath?: string) => void;
 
 
 /**
@@ -171,7 +172,7 @@ function downloadAndRename(location: ImageDownload, callback: IDownloadCallback)
             // rename the file to give it the right extension
             renameFileFromContents(tmpFilePath, location, next);
         },
-    ], (err?: Error, downloadedPath?: string) => {
+    ], (err?: PossibleError, downloadedPath?: string) => {
         if (err) {
             log.error({ err, location }, 'Failed to download');
         }
@@ -296,7 +297,7 @@ function downloadAllIntoZip(locations: ImageDownload[], callback: ICreateZipCall
             downloadAll(locations, next);
         },
         (downloadedFilePaths: string[], next: IZippedCallback) => {
-            createZip(downloadedFilePaths, (err?: Error, zippath?: string, zipsize?: number) => {
+            createZip(downloadedFilePaths, (err?: PossibleError, zippath?: string, zipsize?: number) => {
                 next(err, downloadedFilePaths, zippath, zipsize);
             });
         },
