@@ -219,7 +219,7 @@
 		"NOMODEL": " Henüz bir makine öğrenimi modelini eğitmediniz.",
 		"LAUNCH": "Scratch'de aç",
 
-        "LAUNCH_SCRATCH_BY_ITSELF": "(You can use <a href='/scratchx' class='btn btn-default' target='_blank'>Scratch by itself</a> if you want.)",
+        "LAUNCH_SCRATCH_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch by itself</a> if you want.)",
         "GO_TO_LEARNANDTEST": "Or go to the <strong>Learn &amp; Test</strong> page for some tips on what to do next.",
 
         "MORE_BLOCKS": "Your project will add these blocks to the <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> tab in Scripts.",

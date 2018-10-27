@@ -205,10 +205,10 @@ function classifyText(text, cacheKey, lastmodified, callback) {
                     classifierTimestamp: nowAsString()
                 });
             }
+        })
+        .catch((err) => {
+            console.log(err);
         });
-        // .catch((err) => {
-
-        // });
 }
 
 
