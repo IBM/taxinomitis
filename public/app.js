@@ -263,6 +263,9 @@
                 else if (lang.indexOf('ko') === 0) {
                     lang = 'ko';
                 }
+                else if (lang.indexOf('zh') === 0) {
+                    lang = 'zh-cn';
+                }
 
                 return lang;
             })

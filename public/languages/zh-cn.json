@@ -20,8 +20,6 @@
 		"LOGIN": "登录",
 		"LOGOUT": "注销",
 
-		"LANGUAGE": "Language",
-
 		"BETA": " Beta版 ",
 		"INCOMPLETE": "不完整！"
 	},
@@ -439,7 +437,22 @@
 		"NOTREADY": "您的项目尚未准备好在Scratch中使用。",
 		"NOMODEL": "你还没有训练过机器学习模型。",
 
-		"LAUNCH": "在Scratch打开"
+		"LAUNCH": "在Scratch打开",
+
+        "LAUNCH_SCRATCH_BY_ITSELF": "(You can use <a href='/scratchx' class='btn btn-default' target='_blank'>Scratch by itself</a> if you want.)",
+        "GO_TO_LEARNANDTEST": "Or go to the <strong>Learn &amp; Test</strong> page for some tips on what to do next.",
+
+        "MORE_BLOCKS": "Your project will add these blocks to the <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> tab in Scripts.",
+        "EXPLAIN_RECOGNISE_LABEL": "Put {{ type }} in the input for this, and it will return the label that your machine learning model recognises it as.",
+        "EXPLAIN_RECOGNISE_CONFIDENCE": "This will return how confident your machine learning model is that it recognises the type of {{ type }}. (As a number from 0 - 100).",
+        "EXPLAIN_LABELS": "These blocks represent the labels you've created in your project, so you can use their names in your scripts.",
+        "EXPLAIN_COSTUMEIMAGE": "This block is in the Looks palette for Sprites and will return the image of the currently selected costume.",
+        "SAMPLE_SCRIPT": "This means you can do something like this:",
+        "SAMPLE_SCREENSHOT": "It will look something like this - except with the name of your project.",
+        "EXPLAIN_STATUS": "The coloured circle next to your project name tells you if your machine learning model is okay.",
+        "STATUS_GREEN": "means your model is trained and ready to go",
+        "STATUS_YELLOW": "means your model hasn't finished training yet",
+        "STATUS_RED": "means something went wrong. Go back to the <strong>Learn &amp; Test</strong> page to see what went wrong with training."
 	},
 	"SCRATCH3": {
 		"TITLE": "在Scratch 3中使用机器学习",
