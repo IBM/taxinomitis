@@ -205,6 +205,8 @@ export async function getStatus(
 ): Promise<TrainingObjects.VisualClassifier>
 {
     const req = await createBaseRequest(credentials);
+    // GETs don't need as long a timeout as POSTs
+    req.timeout = 30000;
     return request.get(classifier.url, req)
         .then((body) => {
             classifier.status = body.status;
@@ -564,6 +566,8 @@ export async function getImageClassifiers(
 ): Promise<TrainingObjects.ClassifierSummary[]>
 {
     const req = await createBaseRequest(credentials);
+    // GETs don't need as long a timeout as POSTs
+    req.timeout = 30000;
     const body: VisualRecogApiResponsePayloadClassifiers = await request.get(credentials.url + '/v3/classifiers', req);
     return body.classifiers.map((classifierinfo) => {
         const summary: TrainingObjects.ClassifierSummary = {
@@ -656,7 +660,7 @@ interface VisRecRequestBase {
     };
     readonly json: true;
     readonly gzip: true;
-    readonly timeout: number;
+    timeout: number;
 }
 
 export interface LegacyVisRecRequest extends VisRecRequestBase {
