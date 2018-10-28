@@ -44,11 +44,11 @@
     "NEWS": {
         "TITLE": "News",
         "UPDATES": {
-            "TITLE": "News &amp; Updates",
+            "TITLE": "News & Updates",
             "DESCRIPTION": "News and updates from @MLforKids"
         },
         "MENTIONS": {
-            "TITLE": "Mentions &amp; Media",
+            "TITLE": "Mentions & Media",
             "DESCRIPTION": "loading Mentions &amp; Media from wakelet.com"
         }
     },
