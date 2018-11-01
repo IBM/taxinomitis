@@ -34,49 +34,12 @@
             </div>
         </div>
         <div class="mlprojectmenuexpanded">
-            <div class="mlprojectmenutitle" translate="PROJECT.SCRATCH.TITLE"></div>
-            <div class="mlprojectmenudescription" translate="PROJECT.SCRATCH.BODY"></div>
+            <div class="mlprojectmenutitle" translate="PROJECT.MAKES.TITLE"></div>
+            <div class="mlprojectmenudescription" translate="PROJECT.MAKES.BODY"></div>
             <div class="mlprojectmenubutton">
                 <button type="button" class="btn btn-primary"
-                        ui-sref="mlproject_scratch({ projectId : projectId, userId : userId })"
-                        translate="PROJECT.SCRATCH.TITLE"></button>
-            </div>
-        </div>
-    </div>
-    <div class="advanced">
-        <div ng-init="advancedClosed = true" ng-click="advancedClosed = !advancedClosed" class="advancedMenu">
-            <span class="glyphicon" ng-class="{ 'glyphicon-chevron-right' : advancedClosed, 'glyphicon-chevron-down' : !advancedClosed }"> </span>
-            <span translate="PROJECT.ADVANCED"></span>
-        </div>
-        <div ng-class="{ collapsed : advancedClosed, expanded : !advancedClosed }" class="collapsable">
-            <div class="menucontainer" >
-                <div class="mlprojectmenu">
-                    <div class="mlprojectmenutitle" translate="PROJECT.PYTHON.TITLE"></div>
-                    <div class="mlprojectmenudescription" translate="PROJECT.PYTHON.BODY"></div>
-                    <div class="mlprojectmenubutton">
-                        <button type="button" class="btn btn-primary"
-                                ui-sref="mlproject_python({ projectId : projectId, userId : userId })"
-                                translate="PROJECT.PYTHON.TITLE"></button>
-                    </div>
-                </div>
-                <div class="mlprojectmenu">
-                    <div class="mlprojectmenutitle" translate="PROJECT.APPINVENTOR.TITLE"></div>
-                    <div class="mlprojectmenudescription"><span class="badge" translate="APP.BETA"></span> <span translate="PROJECT.APPINVENTOR.BODY"></span></div>
-                    <div class="mlprojectmenubutton">
-                        <button type="button" class="btn btn-primary"
-                                ui-sref="mlproject_appinventor({ projectId : projectId, userId : userId })"
-                                translate="PROJECT.APPINVENTOR.TITLE"></button>
-                    </div>
-                </div>
-                <div class="mlprojectmenu">
-                    <div class="mlprojectmenutitle" translate="PROJECT.SCRATCH3.TITLE"></div>
-                    <div class="mlprojectmenudescription"><span class="badge" translate="APP.BETA"></span> <span translate="PROJECT.SCRATCH3.BODY"></span></div>
-                    <div class="mlprojectmenubutton">
-                        <button type="button" class="btn btn-primary"
-                                ui-sref="mlproject_scratch3({ projectId : projectId, userId : userId })"
-                                translate="PROJECT.SCRATCH3.TITLE"></button>
-                    </div>
-                </div>
+                        ui-sref="mlproject_makes({ projectId : projectId, userId : userId })"
+                        translate="PROJECT.MAKES.TITLE"></button>
             </div>
         </div>
     </div>

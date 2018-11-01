@@ -71,7 +71,7 @@ class MachineLearningImages {
                     arguments: {
                         TEXT: {
                             type: Scratch.ArgumentType.STRING,
-                            defaultValue: 'text'
+                            defaultValue: 'costume image'
                         },
                         LABEL: {
                             type: Scratch.ArgumentType.STRING,

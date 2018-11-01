@@ -177,11 +177,14 @@
             "TITLE": "Aprender &amp; Testar",
             "BODY": "Use os exemplos para treinar o computador a reconhecer"
         },
+        "MAKES": {
+            "TITLE": "Make",
+            "BODY": "Use the machine learning model you've trained to make a game or app, in Scratch or in Python"
+        },
         "SCRATCH": {
             "TITLE": "Scratch",
             "BODY": "Use o modelo de aprendizado de máquina que você treinou para fazer um jogo no Scratch."
         },
-        "ADVANCED": "Maneiras <strong>Avançadas</strong> de usar os modelos de aprendizado de máquina",
         "PYTHON": {
             "TITLE": "Python",
             "BODY": "Use o modelo de aprendizado de máquina que você treinou em um programa em Python."
@@ -417,6 +420,13 @@
             "NEXT_QUESTION": "Próxima questão"
         }
     },
+    "MAKES": {
+        "TITLE": "Make something with your machine learning model",
+        "SCRATCH2": "Make a project in the current version of Scratch",
+        "SCRATCH3": "Use the new (beta) version of Scratch",
+        "PYTHON": "Write Python code to use your machine learning model",
+        "APPINVENTOR": "Make a mobile app for your phone or tablet"
+    },
     "PYTHON": {
         "TITLE": "Usando aprendizado de máquina em Python",
 
@@ -457,6 +467,7 @@
     "SCRATCH3": {
         "TITLE": "Usando o aprendizado de máquina no Scratch 3",
 
+        "LAUNCH": "Open in Scratch 3",
         "BETAWARNING": "Este é um early beta. O suporte para o Scratch 3 ainda não está concluído e provavelmente terá alguns bugs e problemas."
     },
     "WORKSHEETS": {
@@ -698,10 +709,6 @@
             "Q3-A-3": "Se a luz de status ao lado dos blocos de aprendizado de máquina no Scratch estiver vermelha, isso normalmente significa que algo está errado. Pode ser um problema temporário. Tente salvar seu projeto (usando 'Arquivo' -&gt; 'Salvar Projeto'), e então atualizando a página do navegador. Se a luz de status ficar verde depois que a página é recarregada, você pode carregar seu projeto (usando 'Arquivo' -&gt; 'Load Project') para continuar de onde parou.",
             "Q3-A-4": "Se a luz de status ainda estiver vermelha após recarregar a página, provavelmente há algo errado com o modelo de aprendizado de máquina. Tente acessar a parte \"Aprender &amp; Testar\" da aba projeto, que é onde qualquer mensagem de erro sobre o seu modelo pode ser encontrada.",
             "Q3-A-5": "Se a luz de status ao lado do seu bloco de aprendizado de máquina no Scratch estiver verde, então os blocos devem estar funcionando. Se você não está obtendo as respostas que espera deles, tente ir para a página \"Aprender &amp; Testar\" e verifique os resultados que seu modelo retorna.",
-
-            "Q4": "Pode ser usado em um  iPad?",
-            "Q4-A-1": "Machine Learning for Kids usa o Scratch 2. Essa versão do Scratch precisa do Adobe Flash para funcionar, então, você precisa usar um sistema operacional e um navegador da Web que funcionem com o Flash (O que significa que não funciona em iPads por enquanto, me desculpe).",
-            "Q4-A-2": "O <a href='https://scratch.mit.edu/preview-faq'>Scratch 3 Está em fase de desenvolvimento</a>,  removerá a necessidade do Adobe Flash. <a href='https://github.com/IBM/taxinomitis/issues/21'>Estou trabalhando no suporte ao Scratch 3</a>. Uma versão Beta está atualmente disponível para projetos de texto e números na sua página de Projeto.",
 
             "Q5": "Posso usar qualquer versão do Scratch?",
             "Q5-A-1": "Você precisa usar a versão do Scratch que é fornecida pelo site Machine Learning for Kids. Ele pode ser iniciado clicando no botão Scratch (ou 'Scratch 3') da sua página de projeto."
