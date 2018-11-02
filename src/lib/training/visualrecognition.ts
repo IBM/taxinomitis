@@ -82,7 +82,7 @@ async function createClassifier(
     training: { [label: string]: string },
 ): Promise<TrainingObjects.VisualClassifier>
 {
-    let classifier: TrainingObjects.VisualClassifier;
+    let classifier: TrainingObjects.VisualClassifier | undefined;
 
 
     const tenantPolicy = await store.getClassTenant(project.classid);
@@ -131,7 +131,7 @@ async function createClassifier(
             else {
                 // Otherwise - rethrow it so we can bug out.
                 log.error({
-                    err, project,
+                    err, project, classifier,
                     credentials : credentials.id,
                 }, 'Unhandled Visual Recognition exception');
 
