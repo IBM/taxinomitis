@@ -50,15 +50,6 @@
                 Or you can go <a class="btn btn-default" target="_blank" href="{{ scratchkey.url }}">straight into Scratch</a> now.
             </div>
         </div>
-        <!--
-        <div ng-if="scratchkey.model">
-            <div>
-                To add your model to a Scratch project that is already open, click on
-                "Load Experimental Extension" and use the URL :<br/>
-                <code>{{ scratchkey.extensionurl }}</code>
-            </div>
-        </div>
-        -->
         <div ng-if="scratchkey.model && scratchkey.url">
             <a target="_blank" class="btn btn-primary"
                href="{{ scratchkey.url }}"
@@ -108,6 +99,21 @@
                     <li><div class="statusicon notready"> </div>  <span translate="SCRATCH.STATUS_YELLOW"></span>
                     <li><div class="statusicon error"> </div>  <span translate="SCRATCH.STATUS_RED"></span>
                 </ul>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="scratchkey && scratchkey.extensionurl" class="modelguidancecontainer">
+        <div class="modelguidance">
+            <div class="modelstatusdetail">
+                To add your model to a Scratch project that is already open, click on
+                "Load Experimental Extension" and use the URL :<br/>
+                <code>{{ scratchkey.extensionurl }}</code>
+            </div>
+            <div class="modelstatusdetail">
+                You can use this to create Scratch projects using other extensions from
+                <a href="http://scratchx.org/#extensions" target="_blank">ScratchX</a>
+                together with your machine learning model.
             </div>
         </div>
     </div>
