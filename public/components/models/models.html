@@ -232,8 +232,8 @@
                     <div class="modelstatusdetail" ng-if="project.type === 'images'" translate="MODELS.WHATSNEXT.READY.TEST.IMAGES"></div>
                     <div class="modelstatusdetail" ng-if="project.type === 'numbers'" translate="MODELS.WHATSNEXT.READY.TEST.NUMBERS"></div>
                     <div class="modelstatusdetail" translate="MODELS.WHATSNEXT.READY.SCRATCH"></div>
-                    <div class="modelstatusdetail" ng-if="project.isCrowdSourced" translate="MODELS.WHATSNEXT.READY.ADDITIONAL_TRAINING.MORE_EXAMPLES.CROWDSOURCED"></div>
-                    <div class="modelstatusdetail" ng-hide="project.isCrowdSourced" translate="MODELS.WHATSNEXT.READY.ADDITIONAL_TRAINING.MORE_EXAMPLES.INDIVIDUAL"></div>
+                    <div class="modelstatusdetail" ng-if="project.isCrowdSourced" translate="MODELS.WHATSNEXT.READY.ADDITIONAL_TRAINING.MORE_EXAMPLES.CROWDSOURCED" translate-values='{ urls : projecturls }'></div>
+                    <div class="modelstatusdetail" ng-hide="project.isCrowdSourced" translate="MODELS.WHATSNEXT.READY.ADDITIONAL_TRAINING.MORE_EXAMPLES.INDIVIDUAL" translate-values='{ urls : projecturls }'></div>
                     <div class="modelstatusdetail" ng-if="owner" translate="MODELS.WHATSNEXT.READY.ADDITIONAL_TRAINING.RETRAIN.YOU"></div>
                     <div class="modelstatusdetail" ng-hide="owner" translate="MODELS.WHATSNEXT.READY.ADDITIONAL_TRAINING.RETRAIN.CLASS"></div>
                 </div>
@@ -252,7 +252,7 @@
                 <!-- **** -->
                 <div ng-switch-default>
                     <div ng-if="project.labels.length === 0">
-                        <div class="modelstatusdetail" translate="MODELS.WHATSNEXT.IDLE.NOLABELS"></div>
+                        <div class="modelstatusdetail" translate="MODELS.WHATSNEXT.IDLE.NOLABELS" translate-values='{ urls : projecturls }'></div>
                     </div>
                     <div ng-if="project.labels.length === 1">
                         <div class="modelstatusdetail" translate="MODELS.WHATSNEXT.IDLE.ONELABEL.EXPLANATION" translate-values='{ label : project.labels[0] }'></div>
@@ -261,26 +261,26 @@
                         </div>
                         <div class="modelstatusdetail" ng-if="owner">
                             <ul>
-                                <li translate="MODELS.WHATSNEXT.IDLE.ONELABEL.NO"></li>
-                                <li translate="MODELS.WHATSNEXT.IDLE.ONELABEL.YES" translate-values='{ label : project.labels[0] }'></li>
+                                <li translate="MODELS.WHATSNEXT.IDLE.ONELABEL.NO" translate-values='{ urls : projecturls }'></li>
+                                <li translate="MODELS.WHATSNEXT.IDLE.ONELABEL.YES" translate-values='{ urls : projecturls, label : project.labels[0] }'></li>
                             </ul>
                         </div>
                     </div>
                     <div ng-if="project.labels.length > 1">
-                        <div ng-if="trainingdatastatus === 'no_data'" class="modelstatusdetail"
+                        <div ng-if="trainingdatastatus === 'no_data'" class="modelstatusdetail" translate-values='{ urls : projecturls }'
                              translate="MODELS.WHATSNEXT.IDLE.LABELS.NO_DATA"></div>
                         <div ng-if="trainingdatastatus === 'insufficient_data'">
                             <div class="modelstatusdetail" translate="MODELS.WHATSNEXT.IDLE.LABELS.MORE_DATA.KEEP_GOING"></div>
-                            <div class="modelstatusdetail" ng-if="owner" translate="MODELS.WHATSNEXT.IDLE.LABELS.MORE_DATA.MORE_EXAMPLES.YOU"></div>
-                            <div class="modelstatusdetail" ng-hide="owner" translate="MODELS.WHATSNEXT.IDLE.LABELS.MORE_DATA.MORE_EXAMPLES.CLASS"></div>
+                            <div class="modelstatusdetail" ng-if="owner" translate="MODELS.WHATSNEXT.IDLE.LABELS.MORE_DATA.MORE_EXAMPLES.YOU" translate-values='{ urls : projecturls }'></div>
+                            <div class="modelstatusdetail" ng-hide="owner" translate="MODELS.WHATSNEXT.IDLE.LABELS.MORE_DATA.MORE_EXAMPLES.CLASS" translate-values='{ urls : projecturls }'></div>
                             <div class="modelstatusdetail" translate="MODELS.WHATSNEXT.IDLE.LABELS.MORE_DATA.MORE_IS_BETTER" translate-values='{ minimumExamples : minimumExamples }'></div>
                         </div>
                         <div ng-if="trainingdatastatus === 'data' && owner">
                             <div class="modelstatusdetail" translate="MODELS.WHATSNEXT.IDLE.LABELS.ENOUGH_DATA.READY_TO_START"></div>
                             <div class="modelstatusdetail" ng-if="project.isCrowdSourced" translate="MODELS.WHATSNEXT.IDLE.LABELS.ENOUGH_DATA.START_TRAINING.CROWDSOURCED"></div>
                             <div class="modelstatusdetail" ng-hide="project.isCrowdSourced" translate="MODELS.WHATSNEXT.IDLE.LABELS.ENOUGH_DATA.START_TRAINING.INDIVIDUAL"></div>
-                            <div class="modelstatusdetail" ng-if="project.isCrowdSourced" translate="MODELS.WHATSNEXT.IDLE.LABELS.ENOUGH_DATA.MORE_EXAMPLES.CROWDSOURCED"></div>
-                            <div class="modelstatusdetail" ng-hide="project.isCrowdSourced" translate="MODELS.WHATSNEXT.IDLE.LABELS.ENOUGH_DATA.MORE_EXAMPLES.INDIVIDUAL"></div>
+                            <div class="modelstatusdetail" ng-if="project.isCrowdSourced" translate="MODELS.WHATSNEXT.IDLE.LABELS.ENOUGH_DATA.MORE_EXAMPLES.CROWDSOURCED" translate-values='{ urls : projecturls }'></div>
+                            <div class="modelstatusdetail" ng-hide="project.isCrowdSourced" translate="MODELS.WHATSNEXT.IDLE.LABELS.ENOUGH_DATA.MORE_EXAMPLES.INDIVIDUAL" translate-values='{ urls : projecturls }'></div>
                         </div>
                         <div ng-if="trainingdatastatus === 'data' && !owner">
                             <div class="modelstatusdetail" translate="MODELS.WHATSNEXT.IDLE.LABELS.ENOUGH_DATA.WAITING_FOR_TEACHER"></div>

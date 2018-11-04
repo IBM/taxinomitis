@@ -122,6 +122,10 @@
         $scope.projectId = $stateParams.projectId;
         $scope.userId = $stateParams.userId;
 
+        $scope.projecturls = {
+            train : '/#!/mlproject/' + $stateParams.userId + '/' + $stateParams.projectId + '/training'
+        };
+
         $scope.owner = true;
 
         $scope.minimumExamples = 'five';
@@ -144,6 +148,8 @@
                 $scope.project = values.project;
 
                 $scope.owner = (vm.profile.user_id === $scope.project.userid);
+
+                $scope.projecturls.train = '/#!/mlproject/' + $scope.project.userid + '/' + $scope.project.id + '/training';
 
                 if (values.project.type === 'images') {
                     $scope.minimumExamples = 'ten';
