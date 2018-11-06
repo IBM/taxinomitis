@@ -8,10 +8,10 @@
             'authService',
             'projectsService', 'scratchkeysService',
             '$stateParams',
-            '$scope', '$window', '$timeout'
+            '$scope', '$timeout'
         ];
 
-        function ScratchController(authService, projectsService, scratchkeysService, $stateParams, $scope, $window, $timeout) {
+        function ScratchController(authService, projectsService, scratchkeysService, $stateParams, $scope, $timeout) {
 
             var vm = this;
             vm.authService = authService;
@@ -94,45 +94,26 @@
                     $timeout(function () {
                         scratchblocks.renderMatching('.scratchblocks');
                     }, 50);
+
+                    return scratchkeysService.getScratchKeys($scope.project.id, $scope.userId, vm.profile.tenant);
+                })
+                .then(function (resp) {
+                    var scratchkey = resp[0];
+
+                    scratchkey.extensionurl = window.location.origin +
+                                            '/api/scratch/' +
+                                            scratchkey.id +
+                                            '/extension.js'
+
+                    scratchkey.url = '/scratchx?url=' +
+                                    scratchkey.extensionurl +
+                                    '#scratch';
+
+                    $scope.scratchkey = scratchkey;
                 })
                 .catch(function (err) {
                     displayAlert('errors', err.data);
                 });
-
-
-            vm.getScratchKey = function (ev, project) {
-                // we need to open the window immediately after the user clicks the
-                //  button, otherwise the browser will consider this a pop-up and
-                //  block it
-                var scratchWindow = $window.open('/scratchx/loading.html', '_blank');
-
-                scratchkeysService.getScratchKeys(project.id, $scope.userId, vm.profile.tenant)
-                    .then(function (resp) {
-                        var scratchkey = resp[0];
-
-                        scratchkey.extensionurl = window.location.origin +
-                                                '/api/scratch/' +
-                                                scratchkey.id +
-                                                '/extension.js'
-
-                        scratchkey.url = '/scratchx?url=' +
-                                        scratchkey.extensionurl +
-                                        '#scratch';
-
-                        if (scratchkey.model) {
-                            scratchWindow.location.href = scratchkey.url;
-                        }
-                        else {
-                            scratchWindow.close();
-                        }
-
-                        $scope.scratchkey = scratchkey;
-                    })
-                    .catch(function (err) {
-                        displayAlert('errors', err.data);
-                    });
-
-            };
         }
 
     }());

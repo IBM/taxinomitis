@@ -65,7 +65,7 @@ gulp.task('scratchxinstall', ['crossdomain'], function() {
 });
 
 gulp.task('scratch3install', ['crossdomain'], function() {
-    return gulp.src('public/scratch3/**').pipe(gulp.dest('web/scratch3alpha'));
+    return gulp.src('public/scratch3/**').pipe(gulp.dest('web/scratch3'));
 });
 
 gulp.task('datasets', function() {

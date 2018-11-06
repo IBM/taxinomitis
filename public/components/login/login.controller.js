@@ -72,6 +72,7 @@
                     case 'login':
                     case 'reset':
                     case 'signup':
+                    case 'teachersignup':
                     case 'newstudent':
                     case 'whyregister':
                         vm.loginstate = urlParms.tab;

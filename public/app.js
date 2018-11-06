@@ -144,6 +144,12 @@
                     VERSION : <%= VERSION %>
                 }
             })
+            .state('mlproject_makes', {
+                url: '/mlproject/:userId/:projectId/makes',
+                controller: 'MakesController',
+                templateUrl: 'static/components-<%= VERSION %>/makes/makes.html',
+                controllerAs: 'vm'
+            })
             .state('mlproject_scratch', {
                 url: '/mlproject/:userId/:projectId/scratch',
                 controller: 'ScratchController',

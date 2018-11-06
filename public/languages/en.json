@@ -177,11 +177,14 @@
             "TITLE": "Learn &amp; Test",
             "BODY": "Use the examples to train the computer to recognise"
         },
+        "MAKES": {
+            "TITLE": "Make",
+            "BODY": "Use the machine learning model you've trained to make a game or app, in Scratch or in Python"
+        },
         "SCRATCH": {
             "TITLE": "Scratch",
             "BODY": "Use the machine learning model you've trained to make a game in Scratch."
         },
-        "ADVANCED": "<strong>Advanced</strong> ways to use machine learning models",
         "PYTHON": {
             "TITLE": "Python",
             "BODY": "Use the machine learning model you've trained in a Python program."
@@ -338,20 +341,20 @@
             "FAIL": "The error message from the training computer is shown below. If that makes sense to you, try and fix the problem. Otherwise, it might be worth trying again in case it was just a random error.",
 
             "IDLE": {
-                "NOLABELS" : "The next step is to go to the <strong>Train</strong> page. Add some labels for each of the things that you want to teach the computer to be able to recognise.",
+                "NOLABELS" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add some labels for each of the things that you want to teach the computer to be able to recognise.",
                 "ONELABEL" : {
                     "EXPLANATION": "You've only said one thing that you want the computer to be able to recognise: {{ label }}",
                     "ISTHATALL": "Is that the only thing you want the computer to be able to recognise?",
-                    "NO": "<strong>No?</strong><br/>Go back to the <strong>Train</strong> page.<br/>Add more labels for each of the things that you want to teach the computer to be able to recognise.<br/><br/>",
-                    "YES": "<strong>Yes?</strong><br/>You need to do a little more work first.<br/>For the computer to be able to learn how to recognise \"{{ label }}\", you need to give it some examples of things that aren't {{ label }}.<br/>Go back to the <strong>Train</strong> page and create a new label for examples of things that aren't {{ label }}. You could call it \"not-{{ label }}\"."
+                    "NO": "<strong>No?</strong><br/>Go back to the <a href='{{ urls.train }}'>Train</a> page.<br/>Add more labels for each of the things that you want to teach the computer to be able to recognise.<br/><br/>",
+                    "YES": "<strong>Yes?</strong><br/>You need to do a little more work first.<br/>For the computer to be able to learn how to recognise \"{{ label }}\", you need to give it some examples of things that aren't {{ label }}.<br/>Go back to the <a href='{{ urls.train }}'>Train</a> page and create a new label for examples of things that aren't {{ label }}. You could call it \"not-{{ label }}\"."
                 },
                 "LABELS" : {
-                    "NO_DATA" : "The next step is to go to the <strong>Train</strong> page. Add examples for each of the labels.",
+                    "NO_DATA" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples for each of the labels.",
                     "MORE_DATA" : {
                         "KEEP_GOING": "Keep going!",
                         "MORE_EXAMPLES" : {
-                            "YOU": "Go back to the <strong>Train</strong> page and collect more examples for each of the labels.",
-                            "CLASS": "Ask your class to go back to the <strong>Train</strong> page and collect more examples for each of the labels."
+                            "YOU": "Go back to the <a href='{{ urls.train }}'>Train</a> page and collect more examples for each of the labels.",
+                            "CLASS": "Ask your class to go back to the <a href='{{ urls.train }}'>Train</a> page and collect more examples for each of the labels."
                         },
                         "MORE_IS_BETTER" : "The more you can get, the better it should learn, but you need at least {{ minimumExamples }} examples of each as an absolute minimum."
                     },
@@ -362,8 +365,8 @@
                             "INDIVIDUAL" : "Click the button below to start training a machine learning model using the examples you have collected so far"
                         },
                         "MORE_EXAMPLES" : {
-                            "CROWDSOURCED" : "(Or ask your class to go back to the <strong>Train</strong> page if you want them to collect more examples first.)",
-                            "INDIVIDUAL" : "(Or go back to the <strong>Train</strong> page if you want to collect some more examples first.)"
+                            "CROWDSOURCED" : "(Or ask your class to go back to the <a href='{{ urls.train }}'>Train</a> page if you want them to collect more examples first.)",
+                            "INDIVIDUAL" : "(Or go back to the <a href='{{ urls.train }}'>Train</a> page if you want to collect some more examples first.)"
                         },
                         "WAITING_FOR_TEACHER" : "Waiting for your teacher to start the computer's training."
                     }
@@ -378,8 +381,8 @@
                 "SCRATCH" : "If the computer seems to have learned to recognise things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
                 "ADDITIONAL_TRAINING" : {
                     "MORE_EXAMPLES" : {
-                        "CROWDSOURCED" : "If the computer is getting too many things wrong, your class might want to go back to the <strong>Train</strong> page and collect some more examples.",
-                        "INDIVIDUAL" : "If the computer is getting too many things wrong, you might want to go back to the <strong>Train</strong> page and collect some more examples"
+                        "CROWDSOURCED" : "If the computer is getting too many things wrong, your class might want to go back to the <a href='{{ urls.train }}'>Train</a> page and collect some more examples.",
+                        "INDIVIDUAL" : "If the computer is getting too many things wrong, you might want to go back to the <a href='{{ urls.train }}'>Train</a> page and collect some more examples"
                     },
                     "RETRAIN" : {
                         "YOU" : "Once you've done that, click on the button below to train a new machine learning model and see what difference the extra examples will make!",
@@ -416,6 +419,13 @@
             "INCORRECT_ANSWER": "No, sorry. The correct answer is shown above.",
             "NEXT_QUESTION": "Next question"
         }
+    },
+    "MAKES": {
+        "TITLE": "Make something with your machine learning model",
+        "SCRATCH2": "Make a project in the current version of Scratch",
+        "SCRATCH3": "Use the new (beta) version of Scratch",
+        "PYTHON": "Write Python code to use your machine learning model",
+        "APPINVENTOR": "Make a mobile app for your phone or tablet"
     },
     "PYTHON": {
         "TITLE": "Using machine learning in Python",
@@ -456,6 +466,8 @@
     },
     "SCRATCH3": {
         "TITLE": "Using machine learning in Scratch 3",
+
+        "LAUNCH": "Open in Scratch 3",
 
         "BETAWARNING": "This is an early beta. Support for Scratch 3 is not finished, and will probably have a few bugs and problems."
     },
@@ -699,12 +711,8 @@
             "Q3-A-4": "If the status light is still red after reloading the page, then there is probably something wrong with the machine learning model. Try going to the \"Learn &amp; Test\" page for the project, which is where any error messages about your model can be found.",
             "Q3-A-5": "If the status light next to your machine learning Scratch blocks is green, then the blocks should be working. If you're not getting the responses you expect from them, try going to the \"Learn &amp; Test\" page and checking what results your model returns.",
 
-            "Q4": "Can it be used on an iPad?",
-            "Q4-A-1": "Machine Learning for Kids uses Scratch 2. Scratch needs Adobe Flash to work, so you need to be using an operating system and a web browser that can work with Flash (so that means no iPads for now, sorry).",
-            "Q4-A-2": "<a href='https://scratch.mit.edu/preview-faq'>Scratch 3 is under development</a>, and will remove the need for Adobe Flash. <a href='https://github.com/IBM/taxinomitis/issues/21'>I'm working on Scratch 3 support</a>. A Beta is currently available for text and numbers projects from your Project page.",
-
             "Q5": "Can I use any version of Scratch?",
-            "Q5-A-1": "You need to use the version of Scratch that is provided by the Machine Learning for Kids site. It can be launched by clicking the Scratch (or 'Scratch 3') button from your project page."
+            "Q5-A-1": "You need to use the versions of Scratch that are provided by the Machine Learning for Kids site. They can be launched by clicking the Scratch, or 'Scratch 3', buttons from your project page."
         },
 
         "TRAININGUI": {

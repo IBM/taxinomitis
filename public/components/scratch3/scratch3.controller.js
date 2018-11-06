@@ -5,8 +5,10 @@
             .controller('Scratch3Controller', Scratch3Controller);
 
         Scratch3Controller.$inject = [
-            'authService', 'projectsService', 'scratchkeysService',
-            '$stateParams', '$scope'
+            'authService',
+            'projectsService', 'scratchkeysService',
+            '$stateParams',
+            '$scope'
         ];
 
         function Scratch3Controller(authService, projectsService, scratchkeysService, $stateParams, $scope) {

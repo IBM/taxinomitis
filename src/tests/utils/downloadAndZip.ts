@@ -85,19 +85,11 @@ describe('Utils - download and zip', () => {
                 async.each(unzippedFilesInfo,
                     (unzippedFile: any, nextFile) => {
                         switch (unzippedFile.size) {
-                        case 22955:
-                            filecompare('./src/tests/utils/resources/map_.jpg',
-                                        unzippedFile.location,
-                                        (isEq: boolean) => {
-                                            assert(isEq);
-                                            nextFile();
-                                        });
-                            break;
                         case 23109:
                             filecompare('./src/tests/utils/resources/map.jpg',
                                         unzippedFile.location,
                                         (isEq: boolean) => {
-                                            assert(isEq);
+                                            assert(isEq, './src/tests/utils/resources/map.jpg');
                                             nextFile();
                                         });
                             break;
@@ -105,20 +97,21 @@ describe('Utils - download and zip', () => {
                             filecompare('./src/tests/utils/resources/watson.jpg',
                                         unzippedFile.location,
                                         (isEq: boolean) => {
-                                            assert(isEq);
+                                            assert(isEq, './src/tests/utils/resources/watson.jpg');
                                             nextFile();
                                         });
                             break;
-                        case 12396:
+                        case 15039:
                             filecompare('./src/tests/utils/resources/ibm.png',
                                         unzippedFile.location,
                                         (isEq: boolean) => {
-                                            assert(isEq);
+                                            assert(isEq, './src/tests/utils/resources/ibm.png');
                                             nextFile();
                                         });
                             break;
                         default:
-                            assert.fail(0, 1, 'Unexpected file size ' + unzippedFile.size);
+                            assert.fail(0, 1, 'Unexpected file size ' + unzippedFile.size + ' ' +
+                                              unzippedFile.location);
                             break;
                         }
                     },
@@ -140,12 +133,12 @@ describe('Utils - download and zip', () => {
 const TESTURLS: downloadZip.DownloadFromWeb[] = [
     {
         type: 'download',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/IBM_logo.svg/220px-IBM_logo.svg.png?download',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/IBM_logo.svg/320px-IBM_logo.svg.png',
     },
     {
         type: 'download',
         // tslint:disable-next-line:max-line-length
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Thomas_J_Watson_Sr.jpg/148px-Thomas_J_Watson_Sr.jpg?download',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Thomas_J_Watson_Sr.jpg/148px-Thomas_J_Watson_Sr.jpg',
     },
     {
         type: 'download',

@@ -177,11 +177,14 @@
             "TITLE": "학습 &amp; 평가",
             "BODY": "데이터를 사용하여 컴퓨터를 학습시키세요"
         },
+        "MAKES": {
+            "TITLE": "Make",
+            "BODY": "Use the machine learning model you've trained to make a game or app, in Scratch or in Python"
+        },
         "SCRATCH": {
             "TITLE": "스크래치",
             "BODY": "여러분이 만든 머신러닝 모델을 스크래치를 사용하여 적용하세요"
         },
-        "ADVANCED": "머신러닝 모델을 적용하는 <strong>고급</strong> 단계",
         "PYTHON": {
             "TITLE": "파이썬",
             "BODY": "여러분이 만든 머신러닝 모델을 파이썬을 사용하여 적용하세요"
@@ -417,6 +420,13 @@
             "NEXT_QUESTION": "Next question"
         }
     },
+    "MAKES": {
+        "TITLE": "Make something with your machine learning model",
+        "SCRATCH2": "Make a project in the current version of Scratch",
+        "SCRATCH3": "Use the new (beta) version of Scratch",
+        "PYTHON": "Write Python code to use your machine learning model",
+        "APPINVENTOR": "Make a mobile app for your phone or tablet"
+    },
     "PYTHON": {
         "TITLE": "파이썬에서 머신러닝 사용하기",
 
@@ -456,6 +466,8 @@
     },
     "SCRATCH3": {
         "TITLE": "스크래치3에서 머신러닝 사용하기",
+
+        "LAUNCH": "Open in Scratch 3",
 
         "BETAWARNING": "베타버전입니다. 스크래치3 지원이 완벽하지 않으며, 몇몇 버그를 수정중이에요."
     },
@@ -698,10 +710,6 @@
             "Q3-A-3": "스크래치 블록을 학습하는 머신 옆의 상태 표시등이 빨간색이면 일반적으로 이상이 있음을 나타냅니다. 일시적인 문제 일 수 있습니다. '파일' -&gt; '프로젝트 저장'을 사용하여 프로젝트를 저장한 다음 브라우저 페이지를 새로 고침하십시오. 페이지가 다시 로드된 후 상태 표시등이 녹색으로 바뀌면 '파일' -&gt; '프로젝트 불러오기'를 사용하여 프로젝트를 가져와서 중단한 부분부터 시작할 수 있습니다",
             "Q3-A-4": "페이지를 새로고침 한 후에도 상태 표시등이 여전히 빨간색이면 머신러닝 모델에 문제가 있을 수 있습니다. \"학습 & amp; 테스트\" 페이지에서 모델에 대한 오류 메시지를 찾을 수 있습니다.",
             "Q3-A-5": "스크래치 블록을 학습하는 머신 옆의 상태 표시등이 녹색이면 블록이 작동해야합니다. 예상한 답을 얻지 못하면 \"학습 및 테스트\"페이지로 이동하여 모델의 결과를 확인하십시오.",
-
-            "Q4": "iPad에서 사용할 수 있나요?",
-            "Q4-A-1": "Kids for Learning은 Scratch 2를 사용합니다. 스크래치(scratch)는 어도비 플래시가 필요하기 때문에 플래시로 작동할 수있는 운영체제와 웹 브라우저를 사용해야 합니다(즉, 아이패드는 현재 사용할 수 없습니다)",
-            "Q4-A-2": "<a href='https://scratch.mit.edu/preview-faq'> 스크래치 3 </a>가 개발 중이며 이 버전에서는 어도비 플래쉬가 필요하지 않습니다. 현재 <a href='https://github.com/IBM/taxinomitis/issues/21'> 스크래치 3 지원</a>을 위해 노력하고 있습니다. 베타 버전은 현재 프로젝트 페이지에서 텍스트 및 숫자 프로젝트에 사용할 수 있습니다.",
 
             "Q5": "모든 버전의 스크래치를 사용할 수 있습니까?",
             "Q5-A-1": "아이들을 위한 머신러닝 사이트에서 제공하는 Scratch 버전을 사용해야합니다. 프로젝트 페이지에서 스크래치(또는 '스크래치 3') 버튼을 클릭하면 시작할 수 있습니다."

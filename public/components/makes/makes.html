@@ -1,0 +1,106 @@
+<div ng-if="!isAuthenticated">
+    <div class="alert alert-warning pageheadermsg">
+        <strong translate="ERRORS.NOTLOGGEDIN"></strong>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" ng-click="vm.authService.login()" translate="APP.LOGIN"></button>
+    </div>
+</div>
+
+<div ng-if="isAuthenticated && !projectId" class="alert alert-danger pageheadermsg">
+    <strong translate="APP.ERROR">Error:</strong> <span translate="ERRORS.MISSINGPROJECTID"></span> <a ui-sref="projects" translate="APP.PROJECTS"></a>
+</div>
+
+<div ng-if="failure" class="alert alert-danger pageheadermsg" role="alert">
+    <strong translate="APP.ERROR"></strong> {{ failure.message }}<br/>
+    <em ng-if="failure.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
+</div>
+
+
+<div ng-if="isAuthenticated && projectId">
+    <div class="jumbotron">
+        <h2 class="text-center" translate="MAKES.TITLE"></h2>
+    </div>
+    <div class="backbutton">
+        <a ui-sref="mlproject({ projectId : projectId, userId : userId  })" translate="APP.BACKTOPROJECT"></a>
+    </div>
+
+    <div class="makes">
+        <div class="make">
+            <div class="makecard">
+                <div class="info">
+                    <div class="title" translate="PROJECT.SCRATCH.TITLE"></div>
+                    <div class="description" translate="MAKES.SCRATCH2"></div>
+                </div>
+                <div class="image">
+                    <img class="makeicon" src="static/images/logo-scratch2.png"/>
+                </div>
+            </div>
+            <div class="makebutton">
+                <button type="button" class="btn btn-primary"
+                    ui-sref="mlproject_scratch({ projectId : projectId, userId : userId })"
+                    translate="PROJECT.SCRATCH.TITLE"></button>
+            </div>
+            <div class="screenshot">
+                <img class="makeicon" src="static/images/screenshot-scratch-2.jpg"/>
+            </div>
+        </div>
+        <div class="make">
+            <div class="makecard">
+                <div class="info">
+                    <div class="title" translate="PROJECT.SCRATCH3.TITLE"></div>
+                    <div class="description" translate="MAKES.SCRATCH3"></div>
+                </div>
+                <div class="image">
+                    <img class="makeicon" src="static/images/logo-scratch3.png"/>
+                </div>
+            </div>
+            <div class="makebutton">
+                <button type="button" class="btn btn-primary"
+                        ui-sref="mlproject_scratch3({ projectId : projectId, userId : userId })"
+                        translate="PROJECT.SCRATCH3.TITLE"></button>
+            </div>
+            <div class="screenshot">
+                <img class="makeicon" src="static/images/screenshot-scratch-3.jpg"/>
+            </div>
+        </div>
+        <div class="make">
+            <div class="makecard">
+                <div class="info">
+                    <div class="title" translate="PROJECT.PYTHON.TITLE"></div>
+                    <div class="description" translate="MAKES.PYTHON"></div>
+                </div>
+                <div class="image">
+                    <img class="makeicon" src="static/images/logo-python.png"/>
+                </div>
+            </div>
+            <div class="makebutton">
+                <button type="button" class="btn btn-primary"
+                        ui-sref="mlproject_python({ projectId : projectId, userId : userId })"
+                        translate="PROJECT.PYTHON.TITLE"></button>
+            </div>
+            <div class="screenshot">
+                <img class="makeicon" src="static/images/screenshot-python.jpg"/>
+            </div>
+        </div>
+        <div class="make">
+            <div class="makecard">
+                <div class="info">
+                    <div class="title" translate="PROJECT.APPINVENTOR.TITLE"></div>
+                    <div class="description" translate="MAKES.APPINVENTOR"></div>
+                </div>
+                <div class="image">
+                    <img class="makeicon" src="static/images/logo-appinventor.png"/>
+                </div>
+            </div>
+            <div class="makebutton">
+                <button type="button" class="btn btn-primary"
+                        ui-sref="mlproject_appinventor({ projectId : projectId, userId : userId })"
+                        translate="PROJECT.APPINVENTOR.TITLE"></button>
+            </div>
+            <div class="screenshot">
+                <img class="makeicon" src="static/images/screenshot-appinventor.jpg"/>
+            </div>
+        </div>
+    </div>
+</div>

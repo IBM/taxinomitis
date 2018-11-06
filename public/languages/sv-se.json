@@ -177,11 +177,14 @@
             "TITLE": "Lär &amp; testa",
             "BODY": "Använd exemplen för att träna datorn att känna igen"
         },
+        "MAKES": {
+            "TITLE": "Make",
+            "BODY": "Use the machine learning model you've trained to make a game or app, in Scratch or in Python"
+        },
         "SCRATCH": {
             "TITLE": "Scratch",
             "BODY": "Använd maskininlärningsmodellen du har tränat för att skapa ett spel i Scratch."
         },
-        "ADVANCED": "<strong>Avancerade</strong> sätt att använda maskininlärningsmodeller",
         "PYTHON": {
             "TITLE": "Python",
             "BODY": "Använd maskininlärningsmodellen du tränat I ett Python-program."
@@ -417,6 +420,13 @@
             "NEXT_QUESTION": "Next question"
         }
     },
+    "MAKES": {
+        "TITLE": "Make something with your machine learning model",
+        "SCRATCH2": "Make a project in the current version of Scratch",
+        "SCRATCH3": "Use the new (beta) version of Scratch",
+        "PYTHON": "Write Python code to use your machine learning model",
+        "APPINVENTOR": "Make a mobile app for your phone or tablet"
+    },
     "PYTHON": {
         "TITLE": "Att använda maskininlärning i Python",
 
@@ -456,6 +466,7 @@
     "SCRATCH3": {
         "TITLE": "Att använda maskininlärning i Scratch 3",
 
+        "LAUNCH": "Open in Scratch 3",
         "BETAWARNING": "Det här är tidig beta. Support för Scratch 3 är inte klar, och kommer antagligen ha en del buggar och problem."
     },
     "WORKSHEETS": {
@@ -697,10 +708,6 @@
             "Q3-A-3": "Om statusljuset bredvid maskininlärningsblocken i Scratch är rött, betyder det vanligtvis att något är fel. Det kan vara ett tillfälligt problem. Försök spara ditt projekt (använd 'Arkiv' -&gt; 'Spara projekt'), och ladda sedan om din webbläsarfönstret. Om statusljuset blir grönt efter att sidan laddats om, kan du öppna ditt projekt (med 'Arkiv' -&gt; 'Öppna projekt') för att fortsätta där du slutade.",
             "Q3-A-4": "Om statusljuset fortfarande är rött efter att sidan laddats om, så är det troligtvis något fel med maskininlärningsmodellen. Försök att gå till \"Lär &amp; testa\"-sidan för projektet, där alla felmeddelanden för din modell finns.",
             "Q3-A-5": "Om statusljuset bredvid dina maskininlärningsblock i Scratch är grönt så borde blocken fungera. Om du inte får de svar som du förväntar dig från dem, försök gå till \"Lär &amp; testa\"-sidan och kontrollera vilka resultat din modell ger.",
-
-            "Q4": "Kan det användas på en iPad?",
-            "Q4-A-1": "Maskininlärning för barn använder Scratch 2. Scratch behöver Adobe Flash för att fungera, så du behöver använda ett operativsystem och en webbläsare som fungerar med Flash (så det betyder inga iPads för tillfället, ledsen).",
-            "Q4-A-2": "<a href='https://scratch.mit.edu/preview-faq'>Scratch 3 är under utveckling</a>, och kommer att ta bort behovet av Adobe Flash. <a href='https://github.com/IBM/taxinomitis/issues/21'>Jag arbetar med Scratch 3 support</a>. En Beta-version är nu tillgänglig för projekt för text och tal från din projektsida.",
 
             "Q5": "Kan jag använda vilken version av Scratch som helst?",
             "Q5-A-1": "Du måste använda Scratch-versionen som är tillgänglig på webbsidan Maskininlärning för barn. Den kan startas genom att klicka på Scratch-knappen (eller Scratch 3-knappen) från din projektsida."
