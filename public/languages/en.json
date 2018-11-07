@@ -450,7 +450,7 @@
         "LAUNCH": "Open in Scratch",
 
         "LAUNCH_SCRATCH_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch by itself</a> if you want.)",
-        "GO_TO_LEARNANDTEST": "Or go to the <strong>Learn &amp; Test</strong> page for some tips on what to do next.",
+        "GO_TO_LEARNANDTEST": "Or go to the <a href='{{ urls.learnandtest }}'>Learn &amp; Test</a> page for some tips on what to do next.",
 
         "MORE_BLOCKS": "Your project will add these blocks to the <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> tab in Scripts.",
         "EXPLAIN_RECOGNISE_LABEL": "Put {{ type }} in the input for this, and it will return the label that your machine learning model recognises it as.",
@@ -462,14 +462,12 @@
         "EXPLAIN_STATUS": "The coloured circle next to your project name tells you if your machine learning model is okay.",
         "STATUS_GREEN": "means your model is trained and ready to go",
         "STATUS_YELLOW": "means your model hasn't finished training yet",
-        "STATUS_RED": "means something went wrong. Go back to the <strong>Learn &amp; Test</strong> page to see what went wrong with training."
+        "STATUS_RED": "means something went wrong. Go back to the <a href='{{ urls.learnandtest }}'>Learn &amp; Test</a> page to see what went wrong with training."
     },
     "SCRATCH3": {
         "TITLE": "Using machine learning in Scratch 3",
 
-        "LAUNCH": "Open in Scratch 3",
-
-        "BETAWARNING": "This is an early beta. Support for Scratch 3 is not finished, and will probably have a few bugs and problems."
+        "LAUNCH": "Open in Scratch 3"
     },
     "WORKSHEETS": {
         "TITLE": "Machine learning projects",

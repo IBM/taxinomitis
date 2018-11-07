@@ -341,20 +341,20 @@
             "FAIL": "트레이닝 컴퓨터에서 보내온 에러 메시지는 아래와 같아요. 이해가 된다면 여러분이 직접 문제를 해결해보세요. 그렇지 않다면, 다시 한번 시도해보세요.",
 
             "IDLE": {
-                "NOLABELS" : "The next step is to go to the <strong>Train</strong> page. Add some labels for each of the things that you want to teach the computer to be able to recognise.",
+                "NOLABELS" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add some labels for each of the things that you want to teach the computer to be able to recognise.",
                 "ONELABEL" : {
                     "EXPLANATION": "You've only said one thing that you want the computer to be able to recognise: {{ label }}",
                     "ISTHATALL": "Is that the only thing you want the computer to be able to recognise?",
-                    "NO": "<strong>No?</strong><br/>Go back to the <strong>Train</strong> page.<br/>Add more labels for each of the things that you want to teach the computer to be able to recognise.<br/><br/>",
-                    "YES": "<strong>Yes?</strong><br/>You need to do a little more work first.<br/>For the computer to be able to learn how to recognise \"{{ label }}\", you need to give it some examples of things that aren't {{ label }}.<br/>Go back to the <strong>Train</strong> page and create a new label for examples of things that aren't {{ label }}. You could call it \"not-{{ label }}\"."
+                    "NO": "<strong>No?</strong><br/>Go back to the <a href='{{ urls.train }}'>Train</a> page.<br/>Add more labels for each of the things that you want to teach the computer to be able to recognise.<br/><br/>",
+                    "YES": "<strong>Yes?</strong><br/>You need to do a little more work first.<br/>For the computer to be able to learn how to recognise \"{{ label }}\", you need to give it some examples of things that aren't {{ label }}.<br/>Go back to the <a href='{{ urls.train }}'>Train</a> page and create a new label for examples of things that aren't {{ label }}. You could call it \"not-{{ label }}\"."
                 },
                 "LABELS" : {
-                    "NO_DATA" : "The next step is to go to the <strong>Train</strong> page. Add examples for each of the labels.",
+                    "NO_DATA" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples for each of the labels.",
                     "MORE_DATA" : {
                         "KEEP_GOING": "Keep going!",
                         "MORE_EXAMPLES" : {
-                            "YOU": "Go back to the <strong>Train</strong> page and collect more examples for each of the labels.",
-                            "CLASS": "Ask your class to go back to the <strong>Train</strong> page and collect more examples for each of the labels."
+                            "YOU": "Go back to the <a href='{{ urls.train }}'>Train</a> page and collect more examples for each of the labels.",
+                            "CLASS": "Ask your class to go back to the <a href='{{ urls.train }}'>Train</a> page and collect more examples for each of the labels."
                         },
                         "MORE_IS_BETTER" : "The more you can get, the better it should learn, but you need at least {{ minimumExamples }} examples of each as an absolute minimum."
                     },
@@ -365,8 +365,8 @@
                             "INDIVIDUAL" : "Click the button below to start training a machine learning model using the examples you have collected so far"
                         },
                         "MORE_EXAMPLES" : {
-                            "CROWDSOURCED" : "(Or ask your class to go back to the <strong>Train</strong> page if you want them to collect more examples first.)",
-                            "INDIVIDUAL" : "(Or go back to the <strong>Train</strong> page if you want to collect some more examples first.)"
+                            "CROWDSOURCED" : "(Or ask your class to go back to the <a href='{{ urls.train }}'>Train</a> page if you want them to collect more examples first.)",
+                            "INDIVIDUAL" : "(Or go back to the <a href='{{ urls.train }}'>Train</a> page if you want to collect some more examples first.)"
                         },
                         "WAITING_FOR_TEACHER" : "Waiting for your teacher to start the computer's training."
                     }
@@ -381,8 +381,8 @@
                 "SCRATCH" : "If the computer seems to have learned to recognise things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
                 "ADDITIONAL_TRAINING" : {
                     "MORE_EXAMPLES" : {
-                        "CROWDSOURCED" : "If the computer is getting too many things wrong, your class might want to go back to the <strong>Train</strong> page and collect some more examples.",
-                        "INDIVIDUAL" : "If the computer is getting too many things wrong, you might want to go back to the <strong>Train</strong> page and collect some more examples"
+                        "CROWDSOURCED" : "If the computer is getting too many things wrong, your class might want to go back to the <a href='{{ urls.train }}'>Train</a> page and collect some more examples.",
+                        "INDIVIDUAL" : "If the computer is getting too many things wrong, you might want to go back to the <a href='{{ urls.train }}'>Train</a> page and collect some more examples"
                     },
                     "RETRAIN" : {
                         "YOU" : "Once you've done that, click on the button below to train a new machine learning model and see what difference the extra examples will make!",
@@ -467,9 +467,7 @@
     "SCRATCH3": {
         "TITLE": "스크래치3에서 머신러닝 사용하기",
 
-        "LAUNCH": "Open in Scratch 3",
-
-        "BETAWARNING": "베타버전입니다. 스크래치3 지원이 완벽하지 않으며, 몇몇 버그를 수정중이에요."
+        "LAUNCH": "Open in Scratch 3"
     },
     "WORKSHEETS": {
         "TITLE": "머신러닝 프로젝트",
@@ -772,28 +770,12 @@
         "TEACHERUI": {
             "TITLE": "교사 / 관리자 UI 문제",
 
-            "Q1": "교사 페이지에서 사용 가능한 ML 모델의 수가 올바르지 않습니다.",
-            "Q1-A-1": "교사 페이지에는 수업에 사용할 수 있는 기계 학습 모델 수가 표시됩니다(이 페이지는 교사 또는 그룹 리더만 액세스 할 수 있습니다). 이 값은 교사가 만든 API 키 / 인증서의 수를 가져와 단일 API 키로 생성할 수있는 기계 학습 모델의 수를 곱하여 계산됩니다.",
-            "Q1-A-2": "유감스럽게도 이것은 오해의 소지가 있습니다. 이 값은 API 키를 만들 때 어떤 요금제가 사용되었는지를 기반으로 계산됩니다.",
-            "Q1-A-3": "<span class = 'mlprojecttype'>텍스트</span> 프로젝트의 경우 Watson Assistant (이전의 Watson Conversation) 인증서를 만드는 데에는 'Standard Plan'이 사용되며 이는 20개의 '작업 영역'을 지원합니다. 선생님 페이지는 <a href='https://console.bluemix.net/catalog/services/conversation'>Watson Assistant</a> 자격 증명의 수에 20을 곱하여 표시합니다.",
-            "Q1-A-4": "\"교실(클래스)은 몇 개까지 허용됩니까? 텍스트 프로젝트에서 허용하는 머신러닝 모델의 총 수는 얼마입니까?\"",
-            "Q1-A-5": "\"Lite Plan\"은 단지 5개의 \"workspaces\"를 지원합니다. 그러므로 Lite Plan으로 Watson Assistant 인증서가 만들어진 경우 실제 한계는 교사 페이지에 표시되는 것보다 적음을 의미합니다.",
-            "Q1-A-6": "<span class='mlprojecttype'>images</span> 프로젝트의 경우, \"Lite Plan\" 으로 <a href='https://console.bluemix.net/catalog/services/watson_vision_combined'>Watson Visual Recognition</a> API keys가 만들어졌다고 가정할 때, 1개의 \"custom model\"을 지원합니다. 선생님의 페이지에는 Watson Visual Recognition API 키의 수에 1을 곱한 값이 표시됩니다.",
-            "Q1-A-7": "\"교실(클래스)은 몇 개까지 허용됩니까? 이미지 프로젝트에서 허용하는 머신러닝 모델의 총 수는 얼마입니까?\"",
-            "Q1-A-8": "\"Standard Plan\"은 모델의 개수에 제한이 없습니다. 따라서 표준 가격 책정 계획으로 Watson Visual Recognition API 키 중 하나가 작성된 경우 이는 교사 페이지에 표시된 내용에도 불구하고 실제로 이미지 프로젝트의 기계 학습 모델 수에 제한이 없음을 의미합니다.",
-            "Q1-A-9": "이 페이지에서 혼동을 드리게해서 죄송합니다. 각 자격 증명 또는 API 키에 대한 가격 정책을 계획을 교사용 관리 페이지에 업데이트하여, UI에서 간단하게 계산할 수 있도록 하겠습니다.",
-            "Q1-A-10": "정확한 수는 IBM Cloud에서 확인할 수 있습니다. 더 자세한 내용은 <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'>PDF document about using Watson API keys with Machine Learning for Kids</a>에서 확인할 수 있습니다.",
-            "Q1-A-11": "여러분의 클래스의 제한을 잘 모르겠다면 <a href='mailto:dale.lane@uk.ibm.com'>이메일</a>을 보내주세요. 도와드리겠습니다.",
-
             "Q2": "선생님 페이지의 목록에서 학생 계정이 없어졌습니다",
             "Q2-A-1": "아이들을 위한 머신러닝의 사용자 관리는 서드파티 서비스인 <a href=\"https://auth0.com/\"> Auth0 </a>을 사용하여 구현됩니다.",
             "Q2-A-2": "때때로, Auth0가 반환하는 학생 목록은 예전 버전일 수 있으며 최근에 작성된 학생을 반영하지 못합니다(또는 마찬가지로 최근에 삭제된 학생을 표시 하기도 합니다).",
             "Q2-A-3": "이 경우 학생은 정상적으로 성공적으로 생성(또는 삭제)되었으며, 표시되는 학생 목록에 최근 업데이트가 반영되지 않았을 뿐입니다.",
             "Q2-A-4": "Auth0은 일반적으로 상태 페이지에서 <a href='https://status.auth0.com/incidents/0sk1d3hjlw0m'>사용자 목록 지연</a> 또는 <a href='https://status.auth0.com/incidents/t8995b9jggx5'>검색 API 관련 문제</a>와 같은 문제를 보고합니다.",
             "Q2-A-5": "가장 좋은 방법은 Auth0의 목록이 최신화되기를 기다리는 것입니다.",
-
-            "Q3": "Assistant 란 무엇입니까? Conversation은 어떻게 되었습니까?",
-            "Q3-A-1": "2018 년 3 월에 \"Watson Conversation\"서비스 이름이 \"Watson Assistant\"로 변경되었습니다. \"Conversation\"에 대한 이전 언급은 \"Assistant\"로 읽을 수 있습니다. 이 시점 이전에 생성된 모든 Watson Conversation 서비스 인스턴스나 인증서는 Watson Assistant와 동등한 것으로 계속 사용될 수 있습니다.",
 
             "Q4": "왜 머신러닝 모델이 자동으로 삭제됩니까",
             "Q4-A-1": "이것은 아이들을 위한 머신러닝이 처음 개발되었을 때, 학교에서 요청한 기능입니다. 주어진 시간에 클래스가 가질 수 있는 머신러닝 모델의 수에 제한을 두어 관리를 쉽게할 수 있도록 하기 위해서입니다.",

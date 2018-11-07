@@ -65,8 +65,8 @@
         "TITLE": "教电脑玩游戏",
         "GET_STARTED": "开始使用",
         "LEARN_MORE": "了解更多",
-        "ADMIN_LABEL": "转到<strong>管理页面</ strong> ",
-        "PROJECT_LABEL": "转到<strong>项目</ strong> ",
+        "ADMIN_LABEL": "转到<strong>管理页面</strong> ",
+        "PROJECT_LABEL": "转到<strong>项目</strong> ",
         "STEP_1_TEXT": "收集您想要识别的事物的例子",
         "STEP_2_TEXT": "使用示例训练计算机能够识别它们",
         "STEP_3_TEXT": "在Scratch中制作一个使用计算机识别它们的能力的游戏"
@@ -74,13 +74,13 @@
     "LOGIN": {
         "TITLE": "机器学习入门",
         "WELCOME": "欢迎！您有兴趣拥有一个帐户登录儿童机器学习,这很棒。",
-        "ALREADY_LOGGEDIN": " <strong>信息: </ strong>已登录",
-        "ERROR": " <strong>错误: </ strong> {{message}} ",
+        "ALREADY_LOGGEDIN": " <strong>信息: </strong>已登录",
+        "ERROR": " <strong>错误: </strong> {{message}} ",
         "ERROR_HELP": "如果这种情况持续发生,请访问我们的帮助部分",
         "FIRST_TIME": "第一次来这里？",
         "SIGN_UP": "注册",
         "WHY_REGISTER": "为什么要注册？",
-        "WHY_REGISTER_INTRO_1": " <strong>您无需注册或创建帐户</ strong>即可使用儿童机器学习功能,但如果您这样做,则可以解锁该工具的一些功能。",
+        "WHY_REGISTER_INTRO_1": " <strong>您无需注册或创建帐户</strong>即可使用儿童机器学习功能,但如果您这样做,则可以解锁该工具的一些功能。",
         "WHY_REGISTER_INTRO_2": "下面的网格说明了如果单击\"立即试用\"而无需注册,以及如果您创建一个帐户登录时可以执行的操作之间的区别。",
         "ALREADY_REGISTERED": "已经注册？",
         "LOGIN": "登录",
@@ -100,7 +100,7 @@
             "INFO2": "有两种类型的帐户 - 取决于谁设置它。"
         },
         "UNMANAGED": {
-            "TITLE": "创建<strong>非托管</ strong>类帐户",
+            "TITLE": "创建<strong>非托管</strong>类帐户",
             "INTRO": "如果您乐意自己设置和管理课程帐户,那么现在就可以做到！",
             "LISTINTRO": "你需要: ",
             "LIST_CREATEACCOUNT": "在IBM Cloud上创建一个帐户",
@@ -109,7 +109,7 @@
             "HELP": "所有这些都可以使用逐步说明（带屏幕截图）。"
         },
         "MANAGED": {
-            "TITLE": "创建<strong>托管</ strong>类帐户",
+            "TITLE": "创建<strong>托管</strong>类帐户",
             "INTRO": "如果您希望Dale设置班级帐户,请使用下面的按钮发送包含以下信息的电子邮件: ",
             "LIST_NUMBEROFSTUDENTS": "大概需要多少学生账户",
             "LIST_NAMEOFSCHOOL": "帐户所在的学校或编码组的名称",
@@ -341,20 +341,20 @@
             "FAIL": "来自训练计算机的错误信息如下所示。如果这对您有意义,请尝试解决问题。否则,如果它只是一个随机错误,可能值得再次尝试。",
 
             "IDLE": {
-                "NOLABELS": "下一步是转到<strong>培训</ strong>页面。为您希望教授计算机能够识别的每一项内容添加一些标签。",
+                "NOLABELS": "下一步是转到<strong>培训</strong>页面。为您希望教授计算机能够识别的每一项内容添加一些标签。",
                 "ONELABEL": {
                     "EXPLANATION": "你只说了一件你希望计算机能够识别的东西: {{label}} ",
                     "ISTHATALL": "这是您希望计算机能够识别的唯一内容吗？",
-                    "NO": " <strong>否？</ strong> <br/>返回<strong>训练</ strong>页面。<br/>为每个要教授的内容添加更多标签计算机能够识别。<br/> <br/> ",
-                    "YES": " <strong>是吗？</ strong>您需要先做一些工作。<br/>为了让计算机能够学会如何识别\" {{label}} \",你需要给它一些不是{{label}}的东西的例子。<br/>回到<strong>训练</ strong>页面并为不存在的事物的例子创建一个新的标签。\"{{label}}你可以称之为\"不- {{label}}\" 。"
+                    "NO": " <strong>否？</strong> <br/>返回<strong>训练</strong>页面。<br/>为每个要教授的内容添加更多标签计算机能够识别。<br/> <br/> ",
+                    "YES": " <strong>是吗？</strong>您需要先做一些工作。<br/>为了让计算机能够学会如何识别\" {{label}} \",你需要给它一些不是{{label}}的东西的例子。<br/>回到<strong>训练</strong>页面并为不存在的事物的例子创建一个新的标签。\"{{label}}你可以称之为\"不- {{label}}\" 。"
                 },
                 "LABELS": {
-                    "NO_DATA": "下一步是转到<strong>训练</ strong>页面。为每个标签添加示例。",
+                    "NO_DATA": "下一步是转到<strong>训练</strong>页面。为每个标签添加示例。",
                     "MORE_DATA": {
                         "KEEP_GOING": "继续！",
                         "MORE_EXAMPLES": {
-                            "YOU": "返回<strong>训练</ strong>页面,为每个标签收集更多示例。",
-                            "CLASS": "让您的班级返回<strong>培训</ strong>页面,并为每个标签收集更多示例。"
+                            "YOU": "返回<strong>训练</strong>页面,为每个标签收集更多示例。",
+                            "CLASS": "让您的班级返回<strong>培训</strong>页面,并为每个标签收集更多示例。"
                         },
                         "MORE_IS_BETTER": "你获得的越多,它应该学得越好,但你至少需要{{minimumExamples}}个例子作为绝对最小值。"
                     },
@@ -365,8 +365,8 @@
                             "INDIVIDUAL": "点击下面的按钮,开始使用您目前收集的示例训练机器学习模型"
                         },
                         "MORE_EXAMPLES": {
-                            "CROWDSOURCED": "（或者,如果您希望他们先收集更多示例,请让您的班级返回<strong>培训</ strong>页面。）",
-                            "INDIVIDUAL": "（或者,如果您想先收集更多示例,请返回<strong>训练</ strong>页面。）"
+                            "CROWDSOURCED": "（或者,如果您希望他们先收集更多示例,请让您的班级返回<strong>培训</strong>页面。）",
+                            "INDIVIDUAL": "（或者,如果您想先收集更多示例,请返回<strong>训练</strong>页面。）"
                         },
                         "WAITING_FOR_TEACHER": "等待老师开始计算机培训。"
                     }
@@ -381,8 +381,8 @@
                 "SCRATCH": "如果计算机似乎已经学会正确识别事物,那么你可以去Scratch并使用计算机学到的东西制作游戏！",
                 "ADDITIONAL_TRAINING": {
                     "MORE_EXAMPLES": {
-                        "CROWDSOURCED": "如果计算机出现太多问题,您的班级可能会想回到<strong>培训</ strong>页面并收集更多示例。",
-                        "INDIVIDUAL": "如果计算机出现太多错误,您可能需要返回<strong>训练</ strong>页面并收集更多示例"
+                        "CROWDSOURCED": "如果计算机出现太多问题,您的班级可能会想回到<strong>培训</strong>页面并收集更多示例。",
+                        "INDIVIDUAL": "如果计算机出现太多错误,您可能需要返回<strong>训练</strong>页面并收集更多示例"
                     },
                     "RETRAIN": {
                         "YOU": "完成后,点击下面的按钮来训练一个新的机器学习模型,看看额外的例子会有什么不同！",
@@ -406,10 +406,10 @@
                 "IMAGES": "尝试根据您的训练设置图像以查看其识别方式。",
                 "NUMBERS": "尝试输入一些数字,看看它是如何根据你的训练得到认可的。"
             },
-            "WEBCAM": "使用<strong>摄像头</ strong>进行测试",
-            "DRAWING": "通过<strong>绘图</ strong>进行测试",
-            "WWW": "用<strong> www </ strong>进行测试",
-            "RECOGNISED": "被认可为<strong> {{testoutput}} </ strong> "
+            "WEBCAM": "使用<strong>摄像头</strong>进行测试",
+            "DRAWING": "通过<strong>绘图</strong>进行测试",
+            "WWW": "用<strong> www </strong>进行测试",
+            "RECOGNISED": "被认可为<strong> {{testoutput}} </strong> "
         },
         "QUIZ": {
             "TITLE": "测验时间！",
@@ -450,7 +450,7 @@
         "LAUNCH": "在Scratch打开",
 
         "LAUNCH_SCRATCH_BY_ITSELF": "(如果你愿意的话，你可以使用 <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch by itself</a>.)",
-        "GO_TO_LEARNANDTEST": "或者转到<strong>学习和测试</ strong>页面，了解有关下一步操作的一些提示。",
+        "GO_TO_LEARNANDTEST": "或者转到<strong>学习和测试</strong>页面，了解有关下一步操作的一些提示。",
 
         "MORE_BLOCKS": "您的项目会将这些块添加到脚本中 <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> .",
         "EXPLAIN_RECOGNISE_LABEL": "将{{type}}放入此输入中，它将返回您的机器学习模型识别为的标签。",
@@ -462,12 +462,12 @@
         "EXPLAIN_STATUS": "项目名称旁边的彩色圆圈告诉您机器学习模型是否正常。",
         "STATUS_GREEN": "表示您的模型经过培训并准备就绪",
         "STATUS_YELLOW": "表示您的模型尚未完成培训",
-        "STATUS_RED": "表示出现了问题。请返回<strong>学习与测试</ strong>页面查看培训出了什么问题。"
+        "STATUS_RED": "表示出现了问题。请返回<strong>学习与测试</strong>页面查看培训出了什么问题。"
     },
     "SCRATCH3": {
         "TITLE": "在Scratch 3中使用机器学习",
 
-        "BETAWARNING": "这是一个早期测试版。对Scratch 3的支持尚未完成,可能会有一些错误和问题。"
+        "LAUNCH": "Open in Scratch 3"
     },
     "WORKSHEETS": {
         "TITLE": "机器学习项目",
@@ -648,13 +648,13 @@
             "ADDAPIKEY": "添加新的API密钥",
             "REMOVE": "删除",
 
-            "NO_TEXT_CREDENTIALS": "您没有任何助理凭据。这意味着无法为<strong>文本</ strong>项目培训模型。",
-            "NO_IMAGE_CREDENTIALS": "您没有任何Visual Recognition API密钥。这意味着无法为<strong>图像</ strong>项目训练模型。",
+            "NO_TEXT_CREDENTIALS": "您没有任何助理凭据。这意味着无法为<strong>文本</strong>项目培训模型。",
+            "NO_IMAGE_CREDENTIALS": "您没有任何Visual Recognition API密钥。这意味着无法为<strong>图像</strong>项目训练模型。",
 
             "NOTAUTHORISED": "您无权访问您班级使用的Watson API密钥。",
             "MANAGEDCLASS": "您的班级使用的API密钥正在为您管理。",
 
-            "HELP_STEPBYSTEP_GUIDE": "如果您不确定该怎么做,请按照<a href ='https: //github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys。 pdf'>分步指南</a>。如果您需要任何帮助,请<strong> <a style ='cursor: pointer;' ui-sref ='help'>取消联系</a> </ strong>。",
+            "HELP_STEPBYSTEP_GUIDE": "如果您不确定该怎么做,请按照<a href ='https: //github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys。 pdf'>分步指南</a>。如果您需要任何帮助,请<strong> <a style ='cursor: pointer;' ui-sref ='help'>取消联系</a> </strong>。",
 
             "INTRO_WATSONASSISTANT": " <span class ='mlprojecttype'> text </ span>项目的训练机器学习模型使用<a class ='mlprojecttype'href ='https: //www.ibm.com/watson/services/conversation /'> Watson Assistant </a> ",
             "INTRO_VISUALRECOGNITION": " <span class ='mlprojecttype'> images </ span>项目的训练机器学习模型使用<a class ='mlprojecttype'href ='https: //www.ibm.com/watson/services/visual -recognition /'> Watson Visual Recognition </a> ",

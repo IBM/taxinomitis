@@ -456,9 +456,7 @@
     },
     "SCRATCH3": {
         "TITLE": "Scratch 3'te makine öğrenimini kullanma",
-        "LAUNCH": "Open in Scratch 3",
-
-        "BETAWARNING": " Bu, erken bir beta sürümüdür. Scratch 3 desteği henüz tamamlanmadığından bazı sorunlar ve hatalar oluşabilir."
+        "LAUNCH": "Open in Scratch 3"
     },
     "WORKSHEETS": {
         "TITLE": "Makine öğrenimi projeleri",

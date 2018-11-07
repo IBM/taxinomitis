@@ -35,7 +35,7 @@
         <div class="modelguidance">
             <div class="modelstatusdetail" translate="SCRATCH.NOTREADY"></div>
             <div class="modelstatusdetail" translate="SCRATCH.LAUNCH_SCRATCH_BY_ITSELF" translate-values='{ "url" : "/scratchx" }'></div>
-            <div class="modelstatusdetail" translate="SCRATCH.GO_TO_LEARNANDTEST"></div>
+            <div class="modelstatusdetail" translate="SCRATCH.GO_TO_LEARNANDTEST" translate-values='{ urls : projecturls }'></div>
         </div>
     </div>
 
@@ -97,7 +97,7 @@
                 <ul>
                     <li><div class="statusicon ok"> </div> <span translate="SCRATCH.STATUS_GREEN"></span>
                     <li><div class="statusicon notready"> </div>  <span translate="SCRATCH.STATUS_YELLOW"></span>
-                    <li><div class="statusicon error"> </div>  <span translate="SCRATCH.STATUS_RED"></span>
+                    <li><div class="statusicon error"> </div>  <span translate="SCRATCH.STATUS_RED" translate-values='{ urls : projecturls }'></span>
                 </ul>
             </div>
         </div>

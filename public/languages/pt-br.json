@@ -467,8 +467,7 @@
     "SCRATCH3": {
         "TITLE": "Usando o aprendizado de máquina no Scratch 3",
 
-        "LAUNCH": "Open in Scratch 3",
-        "BETAWARNING": "Este é um early beta. O suporte para o Scratch 3 ainda não está concluído e provavelmente terá alguns bugs e problemas."
+        "LAUNCH": "Open in Scratch 3"
     },
     "WORKSHEETS": {
         "TITLE": "Projetos de Aprendizado de Máquina",
@@ -771,28 +770,12 @@
         "TEACHERUI": {
             "TITLE": "Problemas com a interface do professor/administrador",
 
-            "Q1": "Número de modelos de Aprendizado de Máquina disponíveis na página do professor está incorreto",
-            "Q1-A-1": "A página do professor mostra o número de modelos de aprendizado de máquina disponíveis para sua turma. (Essa página é acessível apenas para professores ou líderes de grupo). Esse valor é calculado considerando o número de chaves / credenciais de API que o professor criou, e multiplicando-o pelo número de modelos de aprendizado de máquina que podem ser criados com uma única chave de API.",
-            "Q1-A-2": "Infelizmente, isso pode ser ilusório. O valor é baseado em suposições sobre o qual Plano de preços foi usado ao criar chaves de API.",
-            "Q1-A-3": "Para projetos de <span class='mlprojecttype'>texto</span>, a hipótese é que o 'Plano Padrão' será usado para criar credenciais do <a href='https://console.bluemix.net/catalog/services/conversation'>Watson Assistant</a> (anteriormente Watson Conversation), pois suporta 20 'workspaces'. A página do professor exibe o número de credenciais do Assistente do Watson multiplicado por 20",
-            "Q1-A-4": "\" Sua turma pode ter até ?? modelos de aprendizado de máquina no total em todos os seus projetos de texto.\"",
-            "Q1-A-5": "O \"Plano Lite\" suporta apenas 5 \"workspaces\", portanto, se alguma credencial do Assistente do Watson tiver sido criada no plano de preços Lite, significa que um limite real menor será exibido na página do professor.",
-            "Q1-A-6": "Para Projetos de <span class='mlprojecttype'>imagem</span>, a hipótese é que o \"Plano Lite\" será usado para criar as chaves API do <a href='https://console.bluemix.net/catalog/services/watson_vision_combined'>Watson Visual Recognition</a>, pois ele suporta 1 \"modelo personalizado\". A página do professor exibe o número de chaves da API do Watson Visual Recognition multiplicado por 1",
-            "Q1-A-7": "\"Sua turma está autorizada a ter até ?? modelos de aprendizado de máquina no total em todos os projetos de imagem\"",
-            "Q1-A-8": "O \"Plano Standard\" não tem um limite no número de modelos personalizados, portanto, se alguma das chaves da API de Reconhecimento Visual do Watson tiver sido criada com o plano de preços Padrão, isso significa que não há realmente um limite no número de modelos de aprendizado de máquina para projetos de imagens, apesar do que é mostrado na página do Professor.",
-            "Q1-A-9": "Desculpe por qualquer confusão causada por esta página. Eu atualizarei a página de administração do Professor para que ele solicite o Plano de Preços para cada conjunto de credenciais ou chaves de API, para que eu possa fazer a multiplicação apropriada na interface do usuário.",
-            "Q1-A-10": "Nesse meio tempo, o limite correto é o que for mostrado no IBM Cloud, onde as credenciais são criadas. Informações mais detalhadas sobre tudo isso podem ser encontradas neste <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> documento PDF  sobre o uso de chaves de API do Watson com o Machine Learning for Kids</a>.",
-            "Q1-A-11": "Se você não tem certeza de como calcular o limite para sua turma, por favor <a href='mailto:dale.lane@uk.ibm.com'>me avise</a> e tentarei ajudar.",
-
             "Q2": "Conta do aluno ausente na lista na página do professor",
             "Q2-A-1": "O gerenciamento de usuários do Machine Learning for Kids é implementado usando o serviço de terceiros, <a href=\"https://auth0.com/\">Auth0</a>.",
             "Q2-A-2": "Ocasionalmente, a lista de alunos que o Auth0 retorna pode ficar um pouco desatualizada e não refletir os alunos que foram criados recentemente (ou, da mesma forma, mostrar alunos que foram excluídos recentemente).",
             "Q2-A-3": "Nestes casos, normalmente, os alunos foram criados com sucesso (ou excluídos) e é justo que a lista de alunos exibidos não reflita as atualizações recentes.",
             "Q2-A-4": "A Auth0 normalmente informará tais incidentes em sua página de status como <a href='https://status.auth0.com/incidents/0sk1d3hjlw0m'>user indexing delays</a> ou <a href='https://status.auth0.com/incidents/t8995b9jggx5'>problems with their Search API</a>.",
             "Q2-A-5": "A melhor coisa a fazer nesses casos é aguardar a indexação Auth0 normalizar o atraso.",
-
-            "Q3": "O que é o Assistant? O que aconteceu com o Conversation?",
-            "Q3-A-1": "Em março de 2018, o serviço \" Watson Conversation\" foi renomeado para \" Watson Assistant\". Qualquer referência anterior a \"Conversation\" pode ser lida como \" Assistant\" agora. Todas as instâncias ou credenciais do serviço de Conversação do Watson criadas antes deste ponto podem continuar a ser usadas como equivalentes ao Assistente do Watson.",
 
             "Q4": "Por que os modelos de aprendizado de máquina são excluídos automaticamente?",
             "Q4-A-1": "Este foi um recurso solicitado pelas escolas quando o Machine Learning for Kids foi desenvolvido pela primeira vez. Ele veio do fato de que há um limite para quantos modelos de aprendizado de máquina uma turma pode ter em um determinado momento, e a necessidade de facilitar o gerenciamento desse limite",
