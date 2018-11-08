@@ -6,16 +6,13 @@
 
     TeacherRestrictionsController.$inject = [
         'authService',
-        'usersService',
-        '$document', '$timeout'
+        'usersService'
     ];
 
-    function TeacherRestrictionsController(authService, usersService, $document, $timeout) {
+    function TeacherRestrictionsController(authService, usersService) {
 
         var vm = this;
         vm.authService = authService;
-
-        var placeholderId = 1;
 
         var alertId = 1;
         vm.errors = [];
@@ -55,13 +52,5 @@
             .catch(function (err) {
                 displayAlert('errors', err.status, err.data);
             });
-
-
-        function scrollToNewItem(itemId) {
-            $timeout(function () {
-                var newItem = document.getElementById(itemId);
-                $document.duScrollToElementAnimated(angular.element(newItem));
-            }, 0);
-        }
     }
 }());
