@@ -300,21 +300,48 @@
         }
 
 
-        function verifyEmail() {
+        function parseUrlParams(input) {
+            var params = {};
+            input.split('&').forEach(function (str) {
+                var pair = str.split('=');
+                params[pair[0]] = pair[1];
+            });
+            return params;
+        }
+
+
+        function checkForAuthMessagesInUrl() {
             var paramStr = $window.location.search;
+            var hashStr = $window.location.hash;
             if (paramStr &&
                 paramStr[0] === '?')
             {
-                var params = {};
-                paramStr.substr(1).split('&').forEach(function (str) {
-                    var pair = str.split('=');
-                    params[pair[0]] = pair[1];
-                });
+                var params = parseUrlParams(paramStr.substr(1));
 
-                if (params.message === 'Your%20email%20was%20verified.%20You%20can%20continue%20using%20the%20application.') {
+                if (params.message === 'Your%20email%20was%20verified.%20You%20can%20continue%20using%20the%20application.')
+                {
                     var alert = $mdDialog.alert()
                                     .title('Welcome to Machine Learning for Kids')
                                     .textContent('Your email address has been verified.')
+                                    .ok('OK');
+                    $mdDialog.show(alert).finally(function () {
+                        window.location = '/';
+                    });
+                }
+            }
+            else if (hashStr &&
+                     hashStr.length && hashStr.length > 3 &&
+                     hashStr.indexOf('#!#') === 0)
+            {
+                var params = parseUrlParams(hashStr.substr(3));
+
+                if (params.error === 'server_error' &&
+                    params.error_description === 'Unable%20to%20configure%20verification%20page.')
+                {
+                    var alert = $mdDialog.alert()
+                                    .title('"Unable to configure verification page"')
+                                    .htmlContent('<p>The most common cause of this is that your web browser refused to store the cookie needed to let you log in. </p>' +
+                                                 '<p>Please make sure that your browser settings <strong>allow third-party cookies</strong> and try again.</p>')
                                     .ok('OK');
                     $mdDialog.show(alert).finally(function () {
                         window.location = '/';
@@ -336,7 +363,7 @@
 
             createSessionUser : createSessionUser,
 
-            verifyEmail : verifyEmail
+            checkForAuthMessagesInUrl : checkForAuthMessagesInUrl
         };
     }
 })();
