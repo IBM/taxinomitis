@@ -44,7 +44,7 @@
     "NEWS": {
         "TITLE": "새소식",
         "UPDATES": {
-            "TITLE": "뉴스 &amp; 새소식",
+            "TITLE": "뉴스 & 새소식",
             "DESCRIPTION": "@MLforKids의 새소식"
         },
         "MENTIONS": {
@@ -123,6 +123,51 @@
         "RECOGNISING": "인식",
         "AS": "as"
     },
+    "NEWPROJECT": {
+        "TITLE": "Start a new machine learning project",
+        "PROJECT_NAME": {
+            "TITLE": "Project Name",
+            "NOTES": "Give your project a name to describe what sort of thing you'll try to teach the computer to recognise."
+        },
+        "WHOLE_CLASS_PROJECT": {
+            "TITLE": "Whole-class project?",
+            "NOTES_1": "Tick this if you want your whole class to be able to work on this project together.",
+            "NOTES_2": "This is useful for projects that teach crowd-sourcing as an approach to training machine learning projects."
+        },
+        "TYPES": {
+            "LABEL": "Recognising",
+            "NOTES_1": "What type of thing do you want to teach the computer to recognise?",
+            "NOTES_2": "For words, sentences or paragraphs, choose \"text\"",
+            "NOTES_3": "For photos, diagrams and pictures, choose \"images\"",
+            "NOTES_4": "For sets of numbers or multiple choices, choose \"numbers\""
+        },
+        "LANGUAGE": {
+            "LABEL": "Language",
+            "NOTES": "What language will the text in this project be?"
+        },
+        "FIELDS": {
+            "TYPE": {
+                "TITLE": "Type of value",
+                "NUMBER": "number",
+                "MULTIPLE_CHOICE": "multiple-choice"
+            },
+            "CHOICES": {
+                "TITLE": "Choices:",
+                "LABEL": "add a choice"
+            },
+            "NEWFIELD": {
+                "DESCRIBE_FIELD": "Give this field a name to describe the value",
+                "MULTICHOICE": "If it can be described as choosing from a few options, choose \"multiple-choice\".",
+                "ADD_FIRST_FIELD": "Type in a choice to use in your multiple-choice list, then press Enter.",
+                "ADD_ANOTHER_FIELD": "Type in another choice to use in your multiple-choice list, then press Enter."
+            },
+            "NEWVALUE": {
+                "ADD_FIRST_VALUE": "Start to describe the values that you'll include with each example to train the computer with by clicking the 'Add a value' button.",
+                "VALUES_LIMIT": "You are not allowed more than 10 values in a project."
+            }
+        },
+        "CREATE": "Create"
+    },
     "PROJECT": {
         "TRAIN": {
             "TITLE": "훈련",
@@ -132,11 +177,14 @@
             "TITLE": "학습 &amp; 평가",
             "BODY": "데이터를 사용하여 컴퓨터를 학습시키세요"
         },
+        "MAKES": {
+            "TITLE": "Make",
+            "BODY": "Use the machine learning model you've trained to make a game or app, in Scratch or in Python"
+        },
         "SCRATCH": {
             "TITLE": "스크래치",
             "BODY": "여러분이 만든 머신러닝 모델을 스크래치를 사용하여 적용하세요"
         },
-        "ADVANCED": "머신러닝 모델을 적용하는 <strong>고급</strong> 단계",
         "PYTHON": {
             "TITLE": "파이썬",
             "BODY": "여러분이 만든 머신러닝 모델을 파이썬을 사용하여 적용하세요"
@@ -185,13 +233,163 @@
         "WHATHAVEYOUDONE": {
             "TITLE": "무슨일이죠?",
             "PLEASEWAIT": "몇 분이 걸려요. 하지만 트레이닝 컴퓨터가 바쁘다면 조금 더 걸릴 수 있어요.",
-            "FAIL": "에고.. 뭔가 문제가 있네요"
+            "FAIL": "에고.. 뭔가 문제가 있네요",
+
+            "TRAINING" : {
+                "CROWDSOURCED" : {
+                    "TEXT" : "Your class is training a machine learning model using the examples of text that you all collected.",
+                    "IMAGES" : "Your class is training a machine learning model using the examples of images that you all collected.",
+                    "NUMBERS" : "Your class is training a machine learning model using the examples of numbers that you all collected."
+                },
+                "INDIVIDUAL" : {
+                    "TEXT" : "You've started training a machine learning model using the examples of text that you collected.",
+                    "IMAGES" : "You've started training a machine learning model using the examples of images that you collected.",
+                    "NUMBERS" : "You've started training a machine learning model using the examples of numbers that you collected."
+                },
+                "SINCE": "It's been training since"
+            },
+            "READY" : {
+                "CROWDSOURCED" : {
+                    "TEXT" : "Your class has trained a machine learning model to recognise when text is ",
+                    "IMAGES" : "Your class has trained a machine learning model to recognise when images are ",
+                    "NUMBERS" : "Your class has trained a machine learning model to recognise when numbers are "
+                },
+                "INDIVIDUAL" : {
+                    "TEXT" : "You have trained a machine learning model to recognise when text is ",
+                    "IMAGES" : "You have trained a machine learning model to recognise when images are ",
+                    "NUMBERS" : "You have trained a machine learning model to recognise when numbers are "
+                },
+                "CREATED" : {
+                    "TEACHER" : "Your teacher created the model on ",
+                    "YOU" : "You created the model on "
+                },
+                "TRAINING" : {
+                    "CLASS" : "Your class has collected: ",
+                    "YOU" : "You have collected: "
+                }
+            },
+            "ERROR": {
+                "CROWDSOURCED" : {
+                    "CLASS" : {
+                        "TEXT" : "Your teacher tried training a machine learning model using the examples of text that your class collected.",
+                        "IMAGES" : "Your teacher tried training a machine learning model using the examples of images that your class collected.",
+                        "NUMBERS" : "Your teacher tried training a machine learning model using the examples of numbers that your class collected."
+                    },
+                    "YOU" : {
+                        "TEXT" : "You tried training a machine learning model using the examples of text that your class collected.",
+                        "IMAGES" : "You tried training a machine learning model using the examples of images that your class collected.",
+                        "NUMBERS" : "You tried training a machine learning model using the examples of numbers that your class collected."
+                    }
+                },
+                "INDIVIDUAL" : {
+                    "TEXT" : "You tried training a machine learning model using the examples of text that you collected.",
+                    "IMAGES" : "You tried training a machine learning model using the examples of images that you collected.",
+                    "NUMBERS" : "You tried training a machine learning model using the examples of numbers that you collected."
+                }
+            },
+            "IDLE" : {
+                "NOLABELS" : {
+                    "CROWDSOURCED" : {
+                        "TEXT" : "Your class said you want to collect examples of text.",
+                        "IMAGES" : "Your class said you want to collect examples of images.",
+                        "NUMBERS" : "Your class said you want to collect examples of numbers."
+                    },
+                    "INDIVIDUAL" : {
+                        "TEXT" : "You've said you want to collect examples of text.",
+                        "IMAGES" : "You've said you want to collect examples of images.",
+                        "NUMBERS" : "You've said you want to collect examples of numbers."
+                    }
+                },
+                "NODATA" : {
+                    "CROWDSOURCED" : {
+                        "TEXT" : "Your class said that you want to collect examples of text for a computer to recognise when text is ",
+                        "IMAGES" : "Your class said that you want to collect examples of images for a computer to recognise when images are ",
+                        "NUMBERS" : "Your class said that you want to collect examples of numbers for a computer to recognise when numbers are "
+                    },
+                    "INDIVIDUAL" : {
+                        "TEXT" : "You said that you want to collect examples of text for a computer to recognise when text is ",
+                        "IMAGES" : "You said that you want to collect examples of images for a computer to recognise when images are ",
+                        "NUMBERS" : "You said that you want to collect examples of numbers for a computer to recognise when numbers are "
+                    }
+                },
+                "NOEXAMPLES" : {
+                    "CLASS" : "So far, your class haven't collected any examples yet.",
+                    "YOU" : "So far, you haven't collected any examples yet."
+                },
+                "DATA" : {
+                    "CROWDSOURCED" : {
+                        "TEXT" : "Your class has collected examples of text for a computer to use to recognise when text is ",
+                        "IMAGES" : "Your class has collected examples of images for a computer to use to recognise when images are ",
+                        "NUMBERS" : "Your class has collected examples of numbers for a computer to use to recognise when numbers are "
+                    },
+                    "INDIVIDUAL" : {
+                        "TEXT" : "You have collected examples of text for a computer to use to recognise when text is ",
+                        "IMAGES" : "You have collected examples of images for a computer to use to recognise when images are ",
+                        "NUMBERS" : "You have collected examples of numbers for a computer to use to recognise when numbers are "
+                    },
+                    "COLLECTED" : {
+                        "CLASS" : "They've collected: ",
+                        "YOU" : "You've collected: "
+                    }
+                }
+            }
         },
         "WHATSNEXT": {
             "TITLE": "다음은?",
             "PLEASEWAIT": "조금만 더 기다리세요",
             "OFFERQUIZ": "아니면 머신러닝과 관련된 문제를 풀면서 기다려볼래요?",
-            "FAIL": "트레이닝 컴퓨터에서 보내온 에러 메시지는 아래와 같아요. 이해가 된다면 여러분이 직접 문제를 해결해보세요. 그렇지 않다면, 다시 한번 시도해보세요."
+            "FAIL": "트레이닝 컴퓨터에서 보내온 에러 메시지는 아래와 같아요. 이해가 된다면 여러분이 직접 문제를 해결해보세요. 그렇지 않다면, 다시 한번 시도해보세요.",
+
+            "IDLE": {
+                "NOLABELS" : "The next step is to go to the <strong>Train</strong> page. Add some labels for each of the things that you want to teach the computer to be able to recognise.",
+                "ONELABEL" : {
+                    "EXPLANATION": "You've only said one thing that you want the computer to be able to recognise: {{ label }}",
+                    "ISTHATALL": "Is that the only thing you want the computer to be able to recognise?",
+                    "NO": "<strong>No?</strong><br/>Go back to the <strong>Train</strong> page.<br/>Add more labels for each of the things that you want to teach the computer to be able to recognise.<br/><br/>",
+                    "YES": "<strong>Yes?</strong><br/>You need to do a little more work first.<br/>For the computer to be able to learn how to recognise \"{{ label }}\", you need to give it some examples of things that aren't {{ label }}.<br/>Go back to the <strong>Train</strong> page and create a new label for examples of things that aren't {{ label }}. You could call it \"not-{{ label }}\"."
+                },
+                "LABELS" : {
+                    "NO_DATA" : "The next step is to go to the <strong>Train</strong> page. Add examples for each of the labels.",
+                    "MORE_DATA" : {
+                        "KEEP_GOING": "Keep going!",
+                        "MORE_EXAMPLES" : {
+                            "YOU": "Go back to the <strong>Train</strong> page and collect more examples for each of the labels.",
+                            "CLASS": "Ask your class to go back to the <strong>Train</strong> page and collect more examples for each of the labels."
+                        },
+                        "MORE_IS_BETTER" : "The more you can get, the better it should learn, but you need at least {{ minimumExamples }} examples of each as an absolute minimum."
+                    },
+                    "ENOUGH_DATA" : {
+                        "READY_TO_START" : "Ready to start the computer's training?",
+                        "START_TRAINING" : {
+                            "CROWDSOURCED" : "Click the button below to start training a machine learning model using the examples your class have collected so far",
+                            "INDIVIDUAL" : "Click the button below to start training a machine learning model using the examples you have collected so far"
+                        },
+                        "MORE_EXAMPLES" : {
+                            "CROWDSOURCED" : "(Or ask your class to go back to the <strong>Train</strong> page if you want them to collect more examples first.)",
+                            "INDIVIDUAL" : "(Or go back to the <strong>Train</strong> page if you want to collect some more examples first.)"
+                        },
+                        "WAITING_FOR_TEACHER" : "Waiting for your teacher to start the computer's training."
+                    }
+                }
+            },
+            "READY" : {
+                "TEST" : {
+                    "TEXT" : "Try testing the machine learning model below. Enter an example of text below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
+                    "IMAGES" : "Try testing the machine learning model below. Enter an example image below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
+                    "NUMBERS" : "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that."
+                },
+                "SCRATCH" : "If the computer seems to have learned to recognise things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
+                "ADDITIONAL_TRAINING" : {
+                    "MORE_EXAMPLES" : {
+                        "CROWDSOURCED" : "If the computer is getting too many things wrong, your class might want to go back to the <strong>Train</strong> page and collect some more examples.",
+                        "INDIVIDUAL" : "If the computer is getting too many things wrong, you might want to go back to the <strong>Train</strong> page and collect some more examples"
+                    },
+                    "RETRAIN" : {
+                        "YOU" : "Once you've done that, click on the button below to train a new machine learning model and see what difference the extra examples will make!",
+                        "CLASS" : "Once you've done that, your teacher will need to train a new machine learning model."
+                    }
+                }
+            }
         },
         "TRAINING": {
             "TITLE": "트레이닝 컴퓨터 정보:",
@@ -202,10 +400,32 @@
             "LASTCHECK": "최근 모델 체크 시간:",
             "PROMPTREFRESH": "페이지를 새로고침하여 최신의 상태를 알아보세요"
         },
+        "TESTING": {
+            "INTRO": {
+                "TEXT": "Try putting in some text to see how it is recognised based on your training.",
+                "IMAGES": "Try putting in an image to see how it is recognised based on your training.",
+                "NUMBERS": "Try putting in some numbers to see how it is recognised based on your training."
+            },
+            "WEBCAM": "Test with <strong>webcam</strong>",
+            "DRAWING": "Test by <strong>drawing</strong>",
+            "WWW": "Test with <strong>www</strong>",
+            "RECOGNISED": "Recognised as  <strong>{{ testoutput }}</strong>"
+        },
         "QUIZ": {
             "TITLE": "퀴즈 시간!",
-            "INTROQUESTION": "모델이 만들어질 때 까지 문제를 한번 풀어보세요"
+            "INTROQUESTION": "모델이 만들어질 때 까지 문제를 한번 풀어보세요",
+            "PREVIOUSLY_ATTEMPTED": "You've seen this one before - let's see if you remember what the right answer is this time!",
+            "CORRECT_ANSWER": "That's right!",
+            "INCORRECT_ANSWER": "No, sorry. The correct answer is shown above.",
+            "NEXT_QUESTION": "Next question"
         }
+    },
+    "MAKES": {
+        "TITLE": "Make something with your machine learning model",
+        "SCRATCH2": "Make a project in the current version of Scratch",
+        "SCRATCH3": "Use the new (beta) version of Scratch",
+        "PYTHON": "Write Python code to use your machine learning model",
+        "APPINVENTOR": "Make a mobile app for your phone or tablet"
     },
     "PYTHON": {
         "TITLE": "파이썬에서 머신러닝 사용하기",
@@ -227,10 +447,27 @@
         "NOTREADY": "아직 준비중입니다",
         "NOMODEL": "훈련된 모델이 없습니다",
 
-        "LAUNCH": "스크래치에서 열기"
+        "LAUNCH": "스크래치에서 열기",
+
+        "LAUNCH_SCRATCH_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch by itself</a> if you want.)",
+        "GO_TO_LEARNANDTEST": "Or go to the <strong>Learn &amp; Test</strong> page for some tips on what to do next.",
+
+        "MORE_BLOCKS": "Your project will add these blocks to the <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> tab in Scripts.",
+        "EXPLAIN_RECOGNISE_LABEL": "Put {{ type }} in the input for this, and it will return the label that your machine learning model recognises it as.",
+        "EXPLAIN_RECOGNISE_CONFIDENCE": "This will return how confident your machine learning model is that it recognises the type of {{ type }}. (As a number from 0 - 100).",
+        "EXPLAIN_LABELS": "These blocks represent the labels you've created in your project, so you can use their names in your scripts.",
+        "EXPLAIN_COSTUMEIMAGE": "This block is in the Looks palette for Sprites and will return the image of the currently selected costume.",
+        "SAMPLE_SCRIPT": "This means you can do something like this:",
+        "SAMPLE_SCREENSHOT": "It will look something like this - except with the name of your project.",
+        "EXPLAIN_STATUS": "The coloured circle next to your project name tells you if your machine learning model is okay.",
+        "STATUS_GREEN": "means your model is trained and ready to go",
+        "STATUS_YELLOW": "means your model hasn't finished training yet",
+        "STATUS_RED": "means something went wrong. Go back to the <strong>Learn &amp; Test</strong> page to see what went wrong with training."
     },
     "SCRATCH3": {
         "TITLE": "스크래치3에서 머신러닝 사용하기",
+
+        "LAUNCH": "Open in Scratch 3",
 
         "BETAWARNING": "베타버전입니다. 스크래치3 지원이 완벽하지 않으며, 몇몇 버그를 수정중이에요."
     },
@@ -278,6 +515,11 @@
             "SUMMARY": "어떤 아이콘이 보이는지 컴퓨터가 인식하도록 가르쳐봐요",
             "DESCRIPTION": "카드 사진을 인식하는 방법을 배우는 Scratch의 카드 게임을 만들어봐요"
         },
+        "CHAMELEON": {
+            "TITLE": "Chameleon",
+            "SUMMARY": "Teach a computer to recognise colours",
+            "DESCRIPTION": "Make a chameleon in Scratch that changes colour to match its background"
+        },
         "MAILMANMAX": {
             "TITLE": "우편배달부",
             "SUMMARY": "컴퓨터에 손글씨 인식을 가르쳐봐요",
@@ -297,6 +539,11 @@
             "TITLE": "학교 가는 길",
             "SUMMARY": "컴퓨터에 예측을 하도록 가르쳐봐요",
             "DESCRIPTION": "아침에 학교에 가는 방법을 예측할 수 있도록 컴퓨터를 가르쳐봐요"
+        },
+        "SHYPANDA": {
+            "TITLE": "Shy Panda",
+            "SUMMARY": "Teach a computer to recognise pictures",
+            "DESCRIPTION": "Make a dancing panda that gets shy and stops dancing if it sees you looking."
         },
         "PACMAN": {
             "TITLE": "팩맨",
@@ -388,25 +635,45 @@
                 "TITLE": "교실 삭제",
                 "DESCRIPTION": "당신과 당신의 학급에 있는 모든 학생의 계정이 삭제됩니다"
             },
-            
+
             "CANYOUHELP": {
                 "TITLE": "Can you help?",
                 "DESCRIPTION": "Please share your experiences and ideas for how to make the tool better"
             },
-            
+
             "NOTAUTHORISED": "You are not authorized to access the teacher page for your class."
         },
         "APIKEYS": {
             "TITLE": "Administration : IBM Watson API Keys",
-            
+
             "ADDNEWCREDENTIALS": "Add new credentials",
             "ADDAPIKEY": "Add new API key",
-            
+            "REMOVE": "Remove",
+
             "NO_TEXT_CREDENTIALS": "You don't have any Assistant credentials. This means that it will not be possible to train models for <strong>text</strong> projects.",
             "NO_IMAGE_CREDENTIALS": "You don't have any Visual Recognition API keys. This means that it will not be possible to train models for <strong>images</strong> projects.",
-            
+
             "NOTAUTHORISED": "You are not authorized to access the Watson API keys used by your class.",
-            "MANAGEDCLASS": "API Keys used by your class are being managed for you."
+            "MANAGEDCLASS": "API Keys used by your class are being managed for you.",
+
+            "HELP_STEPBYSTEP_GUIDE": "If you're not sure what to do here, please follow the <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> step-by-step guide </a>. If you'd like any help, please <strong><a style='cursor: pointer;' ui-sref='help'>get in touch</a></strong>.",
+
+            "INTRO_WATSONASSISTANT": "Training machine learning models for <span class='mlprojecttype'>text</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/conversation/'>Watson Assistant</a>",
+            "INTRO_VISUALRECOGNITION": "Training machine learning models for <span class='mlprojecttype'>images</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
+
+            "ERROR_FETCHING_WATSONASSISTANT": "Failed to get your Watson Assistant passwords",
+            "ERROR_FETCHING_VISUALRECOG": "Failed to get your Visual Recognition API keys",
+
+            "USERNAME": "Username",
+            "PASSWORD": "Password",
+            "APIKEY": "API key",
+
+            "NUMBER_OF_ML_MODELS": "Number of ML models",
+            "UNKNOWN": "unknown",
+            "UNLIMITED": "unlimited",
+
+            "LIMIT_TEXT_PROJECTS": "Number of text machine learning models your students can have:",
+            "LIMIT_IMAGE_PROJECTS": "Number of images machine learning models your students can have:"
         }
     },
     "HELP": {
@@ -443,10 +710,6 @@
             "Q3-A-3": "스크래치 블록을 학습하는 머신 옆의 상태 표시등이 빨간색이면 일반적으로 이상이 있음을 나타냅니다. 일시적인 문제 일 수 있습니다. '파일' -&gt; '프로젝트 저장'을 사용하여 프로젝트를 저장한 다음 브라우저 페이지를 새로 고침하십시오. 페이지가 다시 로드된 후 상태 표시등이 녹색으로 바뀌면 '파일' -&gt; '프로젝트 불러오기'를 사용하여 프로젝트를 가져와서 중단한 부분부터 시작할 수 있습니다",
             "Q3-A-4": "페이지를 새로고침 한 후에도 상태 표시등이 여전히 빨간색이면 머신러닝 모델에 문제가 있을 수 있습니다. \"학습 & amp; 테스트\" 페이지에서 모델에 대한 오류 메시지를 찾을 수 있습니다.",
             "Q3-A-5": "스크래치 블록을 학습하는 머신 옆의 상태 표시등이 녹색이면 블록이 작동해야합니다. 예상한 답을 얻지 못하면 \"학습 및 테스트\"페이지로 이동하여 모델의 결과를 확인하십시오.",
-
-            "Q4": "iPad에서 사용할 수 있나요?",
-            "Q4-A-1": "Kids for Learning은 Scratch 2를 사용합니다. 스크래치(scratch)는 어도비 플래시가 필요하기 때문에 플래시로 작동할 수있는 운영체제와 웹 브라우저를 사용해야 합니다(즉, 아이패드는 현재 사용할 수 없습니다)",
-            "Q4-A-2": "<a href='https://scratch.mit.edu/preview-faq'> 스크래치 3 </a>가 개발 중이며 이 버전에서는 어도비 플래쉬가 필요하지 않습니다. 현재 <a href='https://github.com/IBM/taxinomitis/issues/21'> 스크래치 3 지원</a>을 위해 노력하고 있습니다. 베타 버전은 현재 프로젝트 페이지에서 텍스트 및 숫자 프로젝트에 사용할 수 있습니다.",
 
             "Q5": "모든 버전의 스크래치를 사용할 수 있습니까?",
             "Q5-A-1": "아이들을 위한 머신러닝 사이트에서 제공하는 Scratch 버전을 사용해야합니다. 프로젝트 페이지에서 스크래치(또는 '스크래치 3') 버튼을 클릭하면 시작할 수 있습니다."
@@ -568,7 +831,7 @@
             "Q2-A-1": "로그온하려면 이메일 주소를 확인해야 합니다.",
             "Q2-A-2": "수업 계정을 만들면 입력하신 이메일 주소로 클릭할 수 있는 링크가 있는 이메일이 전송됩니다. 링크를 클릭하면 이메일 주소가 확인되고 현재 계정에 로그인 할 수 있습니다.",
             "Q2-A-3": "확인 이메일을 아직 보지 않았다면 스팸 폴더에 저장되지 않았는지 확인하십시오.",
-            "Q2-A-4": "여전히 찾치 못한다면, <a href='mailto:dale.lane@uk.ibm.com'>알려주세요</a>. 도움을 드리겠습니다.",
+            "Q2-A-4": "여전히 찾치 못한다며, <a href='mailto:dale.lane@uk.ibm.com'>알려주세요</a>. 도움을 드리겠습니다.",
 
             "Q3": "계정 삭제",
             "Q3-A-1": "학생 계정",
