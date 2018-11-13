@@ -449,7 +449,7 @@
         "LAUNCH": "Öppna i Scratch",
 
         "LAUNCH_SCRATCH_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch by itself</a> if you want.)",
-        "GO_TO_LEARNANDTEST": "Or go to the <strong>Learn &amp; Test</strong> page for some tips on what to do next.",
+        "GO_TO_LEARNANDTEST": "Or go to the <a href='{{ urls.learnandtest }}'>Learn &amp; Test</a> page for some tips on what to do next.",
 
         "MORE_BLOCKS": "Your project will add these blocks to the <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> tab in Scripts.",
         "EXPLAIN_RECOGNISE_LABEL": "Put {{ type }} in the input for this, and it will return the label that your machine learning model recognises it as.",
@@ -461,13 +461,12 @@
         "EXPLAIN_STATUS": "The coloured circle next to your project name tells you if your machine learning model is okay.",
         "STATUS_GREEN": "means your model is trained and ready to go",
         "STATUS_YELLOW": "means your model hasn't finished training yet",
-        "STATUS_RED": "means something went wrong. Go back to the <strong>Learn &amp; Test</strong> page to see what went wrong with training."
+        "STATUS_RED": "means something went wrong. Go back to the <a href='{{ urls.learnandtest }}'>Learn &amp; Test</a> page to see what went wrong with training."
     },
     "SCRATCH3": {
         "TITLE": "Att använda maskininlärning i Scratch 3",
 
-        "LAUNCH": "Open in Scratch 3",
-        "BETAWARNING": "Det här är tidig beta. Support för Scratch 3 är inte klar, och kommer antagligen ha en del buggar och problem."
+        "LAUNCH": "Open in Scratch 3"
     },
     "WORKSHEETS": {
         "TITLE": "Maskininlärningsprojekt",
@@ -770,28 +769,12 @@
         "TEACHERUI": {
             "TITLE": "Problem med Lärare-/Admin-gränssnitt",
 
-            "Q1": "Antalet tillgängliga ML-modeller på Lärarsidan stämmer inte",
-            "Q1-A-1": "Lärarens sida visar antalet maskininlärningsmodeller som är tillgängliga för din klass (Den här sidan är bara tillgänglig för lärare och handledare). Det här värdet beräknas genom att ta antalet API-nycklar / -uppgifter som läraren har skapat och multiplicera det med antalet maskininlärningsmodeller som kan skapas med en enskild API-nyckel.",
-            "Q1-A-2": "Tyvärr kan detta vara missvisande. Värdet är baserat på antaganden om vilken prisplan som användes när API-nycklarna skapades.",
-            "Q1-A-3": "För <span class='mlprojecttype'>text</span>-projekt, är antagandet att 'Standardplanen' kommer att användas för att skapa uppgifter för <a href='https://console.bluemix.net/catalog/services/conversation'>Watson Assistant</a> (tidigare Watson Conversation), eftersom denna har stöd för 20 'workspaces'. Lärarens sida multiplicerar antalet uppgifter för Watson Assistant med 20 när detta visas",
-            "Q1-A-4": "\"Din klass tillåts upp till ?? maskininlärningsmodeller totalt för alla deras projekt.\"",
-            "Q1-A-5": "\"Lite-planen\" har stöd för endast 5 \"workspaces\", så om någon av Watson Assistant-uppgifterna skapades med Lite-planen kommer den faktiska begränsningen att vara mindre än vad som visas på Lärarsidan.",
-            "Q1-A-6": "För <span class='mlprojecttype'>bild</span>-projekt, antas att \"Lite-planen\" kommer att användas för att skapa API-nycklar för <a href='https://console.bluemix.net/catalog/services/watson_vision_combined'>Watson Visual Recognition</a>, eftersom denna stöder 1 \"custom model\". Lärarens sida multiplicerar antalet API-nycklar för Watson Visual Recognition med 1 när detta visas",
-            "Q1-A-7": "\"Din klass tillåts upp till ?? maskininlärningsmodeller totalt för alla deras projekt.\"",
-            "Q1-A-8": "\"Standard-planen\" har ingen begränsning för antalet \"custom models\", så om någon av API-nycklarna för Watson Visual Recognition skapades med Standard-prisplanen, betyder det att det i själva verket inte är någon begränsning för antalet maskininlärningsmodeller för bildprojekt, oavsett vad som visas på Lärarsidan.",
-            "Q1-A-9": "Jag beklagar om den här sidan skapar förvirring. Jag kommer att uppdatera Lärarens admin-sida så att den frågar efter vilken prisplan som används för varje uppsättning uppgifter eller API-nycklar, så att jag kan göra multiplikationen korrekt i användargränssnittet.",
-            "Q1-A-10": "Under tiden är de korrekta begränsningarna de som visas i IBM Cloud där uppgifterna skapades. Mer detaljerad information om allt detta finns i det här <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'>PDF-dokumentet om att använda Watsons API-nycklar med Maskininlärning för barn</a>.",
-            "Q1-A-11": "Om du är osäker på hur du ska komma underfund med begränsningen för din klass, vänligen <a href='mailto:dale.lane@uk.ibm.com'>informera mig (på engelska)</a> så ska jag försöka hjälpa till.",
-
             "Q2": "Elevkonton saknas i listan på lärarens sida",
             "Q2-A-1": "Användarhantering i Maskininlärning för barn tillhandahålls genom tredjepartstjänsten <a href=\"https://auth0.com/\">Auth0</a>.",
             "Q2-A-2": "Emellanåt kan listan med elever som Auth0 ger bli lite inaktuell, och misslyckas med att presentera elever som nyligen har skapats (eller på motsvarande sätt fortfarande visa elever som nyligen har raderats).",
             "Q2-A-3": "I dessa fall har elever blivit skapade (eller raderade) framgångsrikt och det är bara listan med elever som visas som inte reflekterar nyliga uppdateringar.",
             "Q2-A-4": "Auth0 kommer normalt att rapportera sådana incidenter på sin statussida som <a href='https://status.auth0.com/incidents/0sk1d3hjlw0m'>\"user indexing delays\"</a> eller <a href='https://status.auth0.com/incidents/t8995b9jggx5'>problem med deras Sök-API</a>.",
             "Q2-A-5": "Det bästa man kan göra i de här fallen är att vänta på att Auth0:s indexering hinner ikapp.",
-
-            "Q3": "Vad är Assistant? Vad hände med Conversation?",
-            "Q3-A-1": "I mars 2018 ändrades namnet för tjänsten \"Watson Conversation\" till \"Watson Assistant\". Alla tidigare hänvisningar till \"Conversation\" kan läsas som \"Assistant\" nu. Alla instanser eller uppgifter skapade för tjänsten Watson Conversation innan den tidpunkten kan fortsätta användas likvärdigt med Watson Assistant.",
 
             "Q4": "Varför raderas maskininlärningsmodeller automatiskt?",
             "Q4-A-1": "Det här var en funktion som efterfrågades av skolor när Maskininlärning för barn först utvecklades. Det kom från det faktum att det finns en begränsning för hur många maskininlärningsmodeller en klass kan ha samtidigt, och som ett sätt att göra det enkelt att hantera denna begränsning.",

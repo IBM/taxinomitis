@@ -26,6 +26,6 @@
 
         // display confirmation if the user is verifying their
         //  email address with Auth0
-        authService.verifyEmail();
+        authService.checkForAuthMessagesInUrl();
     }
 })();

@@ -19,6 +19,11 @@
             $scope.projectId = $stateParams.projectId;
             $scope.userId = $stateParams.userId;
 
+            $scope.projecturls = {
+                train : '/#!/mlproject/' + $stateParams.userId + '/' + $stateParams.projectId + '/training',
+                learnandtest : '/#!/mlproject/' + $stateParams.userId + '/' + $stateParams.projectId + '/models'
+            };
+
             authService.getProfileDeferred()
                 .then(function (profile) {
                     vm.profile = profile;
@@ -27,6 +32,9 @@
                 })
                 .then(function (project) {
                     $scope.project = project;
+
+                    $scope.projecturls.train = '/#!/mlproject/' + $scope.project.userid + '/' + $scope.project.id + '/training';
+                    $scope.projecturls.learnandtest = '/#!/mlproject/' + $scope.project.userid + '/' + $scope.project.id + '/models';
 
                     return scratchkeysService.getScratchKeys(project.id, $scope.userId, vm.profile.tenant);
                 })

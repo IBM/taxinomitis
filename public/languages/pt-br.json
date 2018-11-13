@@ -85,7 +85,7 @@
         "ALREADY_REGISTERED": "Já é cadastrado?",
         "LOGIN": "Login",
         "FORGOT_DETAILS": "Esqueceu os seu usuário ou senha?",
-        "TRY_TITLE": "Testar sem se registar",
+        "TRY_TITLE": "Teste sem se registar",
         "TRY_NOW": "Experimente agora",
         "BACK": "@:APP.BACK",
         "WHO_YOU": "Quem é você?",
@@ -143,7 +143,7 @@
         },
         "LANGUAGE": {
             "LABEL": "Língua",
-            "NOTES": "Em qual linguagem será o texto deste projeto?"
+            "NOTES": "Em qual idioma será o texto deste projeto?"
         },
         "FIELDS": {
             "TYPE": {
@@ -174,7 +174,7 @@
             "BODY": "Colete exemplos do que você deseja que o computador reconheça."
         },
         "LEARNANDTEST": {
-            "TITLE": "Aprender &amp; Testar",
+            "TITLE": "Aprendizado &amp; Teste",
             "BODY": "Use os exemplos para treinar o computador a reconhecer"
         },
         "MAKES": {
@@ -341,20 +341,20 @@
             "FAIL": "A mensagem de erro do computador de treinamento é mostrada abaixo. Se isso fizer sentido para você, tente corrigir o problema. Caso contrário, pode valer a pena tentar novamente caso seja apenas um erro aleatório.",
 
             "IDLE": {
-                "NOLABELS" : "O próximo passo é ir para a página <strong>Treinar</strong>. Adicione alguns rótulos para cada uma das coisas que você quer ensinar o computador a reconhecer.",
+                "NOLABELS" : "O próximo passo é ir para a página <a href='{{ urls.train }}'>Treinar</a>. Adicione alguns rótulos para cada uma das coisas que você quer ensinar o computador a reconhecer.",
                 "ONELABEL" : {
                     "EXPLANATION": "Você só disse uma coisa que você quer que o computador seja capaz de reconhecer: {{ label }}",
                     "ISTHATALL": "Esta é a única coisa que você quer que o computador reconheça??",
-                    "NO": "<strong>Não?</strong><br/>Volte para a página <strong>Treinar</strong>.<br/>Adicione mais rótulos para cada uma das coisas que você quer ensinar o computador a ser capaz de reconhecer. <br/><br/>",
-                    "YES": "<strong>Sim?</strong><br/>Você precisa fazer um pouco mais de trabalho primeiro. <br/>Para o computador poder aprender como reconhecer \"{{ label }}\", você precisa dar alguns exemplos de coisas que não são {{ label }}.<br/>Volte para a página <strong>Treinar</strong> e criar um novo rótulo de exemplos de coisas que não são {{ label }}. Você pode chamá-lo de \"não-{{ label }}\"."
+                    "NO": "<strong>Não?</strong><br/>Volte para a página <a href='{{ urls.train }}'>Treinar</a>.<br/>Adicione mais rótulos para cada uma das coisas que você quer ensinar o computador a ser capaz de reconhecer. <br/><br/>",
+                    "YES": "<strong>Sim?</strong><br/>Você precisa fazer um pouco mais de trabalho primeiro. <br/>Para o computador poder aprender como reconhecer \"{{ label }}\", você precisa dar alguns exemplos de coisas que não são {{ label }}.<br/>Volte para a página <a href='{{ urls.train }}'>Treinar</a> e criar um novo rótulo de exemplos de coisas que não são {{ label }}. Você pode chamá-lo de \"não-{{ label }}\"."
                 },
                 "LABELS" : {
-                    "NO_DATA" : "O próximo passo é ir até a página <strong>Treinar</strong>. Adicionar exemplos para cada um dos rótulos.",
+                    "NO_DATA" : "O próximo passo é ir até a página <a href='{{ urls.train }}'>Treinar</a>. Adicionar exemplos para cada um dos rótulos.",
                     "MORE_DATA" : {
                         "KEEP_GOING": "Continue!",
                         "MORE_EXAMPLES" : {
-                            "YOU": "Volte para a página <strong>Treinar</strong> e colete mais exemplos para cada um dos rótulos.",
-                            "CLASS": "Peça a seus colegas de turma para voltar para a página <strong>Treinar</strong> e colete mais exemplos para cada um dos rótulos."
+                            "YOU": "Volte para a página <a href='{{ urls.train }}'>Treinar</a> e colete mais exemplos para cada um dos rótulos.",
+                            "CLASS": "Peça a seus colegas de turma para voltar para a página <a href='{{ urls.train }}'>Treinar</a> e colete mais exemplos para cada um dos rótulos."
                         },
                         "MORE_IS_BETTER" : "Quanto mais você conseguir é melhor para o aprendizado, mas você precisa de pelo menos {{ minimumExamples }} exemplos de cada como um valor mínimo absoluto."
                     },
@@ -365,8 +365,8 @@
                             "INDIVIDUAL" : "Clique no botão abaixo para começar a treinar um modelo de aprendizado de máquina usando os exemplos que você coletou até agora"
                         },
                         "MORE_EXAMPLES" : {
-                            "CROWDSOURCED" : "(Ou peça à sua turma que volte para a página <strong>Treinar</strong> se quiser que eles colecionem mais exemplos primeiro.)",
-                            "INDIVIDUAL" : "(Ou volte para a página <strong>Treinar</strong> se você quiser coletar mais alguns exemplos primeiro.)"
+                            "CROWDSOURCED" : "(Ou peça à sua turma que volte para a página <a href='{{ urls.train }}'>Treinar</a> se quiser que eles colecionem mais exemplos primeiro.)",
+                            "INDIVIDUAL" : "(Ou volte para a página <a href='{{ urls.train }}'>Treinar</a> se você quiser coletar mais alguns exemplos primeiro.)"
                         },
                         "WAITING_FOR_TEACHER" : "Esperando o seu professor iniciar o treinamento do computador."
                     }
@@ -381,8 +381,8 @@
                 "SCRATCH" : "Se o computador parece ter aprendido a reconhecer as coisas corretamente, então você pode ir ao Scratch e usar o que o computador aprendeu para fazer um jogo!",
                 "ADDITIONAL_TRAINING" : {
                     "MORE_EXAMPLES" : {
-                        "CROWDSOURCED" : "Se o computador estiver fazendo muitas coisas erradas, sua classe pode voltar para a página <strong>Treinar</strong> e coletar mais alguns exemplos.",
-                        "INDIVIDUAL" : "Se o computador estiver fazendo muitas coisas erradas, você pode voltar para a página <strong>Treinar</strong> e coletar mais alguns exemplos"
+                        "CROWDSOURCED" : "Se o computador estiver fazendo muitas coisas erradas, sua classe pode voltar para a página <a href='{{ urls.train }}'>Treinar</a> e coletar mais alguns exemplos.",
+                        "INDIVIDUAL" : "Se o computador estiver fazendo muitas coisas erradas, você pode voltar para a página <a href='{{ urls.train }}'>Treinar</a> e coletar mais alguns exemplos"
                     },
                     "RETRAIN" : {
                         "YOU" : "Depois de fazer isso, clique no botão abaixo para treinar um novo modelo de aprendizado de máquina e ver a diferença que os exemplos extras farão!",
@@ -421,11 +421,11 @@
         }
     },
     "MAKES": {
-        "TITLE": "Make something with your machine learning model",
-        "SCRATCH2": "Make a project in the current version of Scratch",
-        "SCRATCH3": "Use the new (beta) version of Scratch",
-        "PYTHON": "Write Python code to use your machine learning model",
-        "APPINVENTOR": "Make a mobile app for your phone or tablet"
+        "TITLE": "Faça alguma coisa com seu modelo de aprendizado de máquina",
+        "SCRATCH2": "Faça um projeto na versão atual do Scratch",
+        "SCRATCH3": "Use a nova versão (beta) do Scratch",
+        "PYTHON": "Escreva um código em Python para usar o seu modelo de aprendizado de máquina",
+        "APPINVENTOR": "Faça um aplicativo para o seu celular ou tablet"
     },
     "PYTHON": {
         "TITLE": "Usando aprendizado de máquina em Python",
@@ -449,26 +449,25 @@
 
         "LAUNCH": "Abrir no Scratch",
 
-        "LAUNCH_SCRATCH_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch by itself</a> if you want.)",
-        "GO_TO_LEARNANDTEST": "Or go to the <strong>Learn &amp; Test</strong> page for some tips on what to do next.",
+        "LAUNCH_SCRATCH_BY_ITSELF": "(Você pode usar <a href='{{ url }}' class='btn btn-default' target='_blank'>somente o Scratch</a> se você quiser.)",
+        "GO_TO_LEARNANDTEST": "Ou ir para a página <a href='{{ urls.learnandtest }}'>Aprendizado &amp; Teste</a> para algumas dicas do que fazer depois.",
 
-        "MORE_BLOCKS": "Your project will add these blocks to the <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> tab in Scripts.",
-        "EXPLAIN_RECOGNISE_LABEL": "Put {{ type }} in the input for this, and it will return the label that your machine learning model recognises it as.",
-        "EXPLAIN_RECOGNISE_CONFIDENCE": "This will return how confident your machine learning model is that it recognises the type of {{ type }}. (As a number from 0 - 100).",
-        "EXPLAIN_LABELS": "These blocks represent the labels you've created in your project, so you can use their names in your scripts.",
-        "EXPLAIN_COSTUMEIMAGE": "This block is in the Looks palette for Sprites and will return the image of the currently selected costume.",
-        "SAMPLE_SCRIPT": "This means you can do something like this:",
-        "SAMPLE_SCREENSHOT": "It will look something like this - except with the name of your project.",
-        "EXPLAIN_STATUS": "The coloured circle next to your project name tells you if your machine learning model is okay.",
-        "STATUS_GREEN": "means your model is trained and ready to go",
-        "STATUS_YELLOW": "means your model hasn't finished training yet",
-        "STATUS_RED": "means something went wrong. Go back to the <strong>Learn &amp; Test</strong> page to see what went wrong with training."
+        "MORE_BLOCKS": "Seu projeto irá adicionar estes blocos na seção <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>Mais Blocos</span> dos Scripts.",
+        "EXPLAIN_RECOGNISE_LABEL": "Coloque {{ type }} como um input dessa função, e ela irá retornar com qual rótulo o modelo de aprendizado de máquina interpretou que ele pertence.",
+        "EXPLAIN_RECOGNISE_CONFIDENCE": "Este bloco irá retornar a confiança que seu modelo de aprendizado de máquina tem ao reconhecer o tipo {{ type }} que foi entrado no campo. (Como um número de 0 - 100).",
+        "EXPLAIN_LABELS": "Esses blocos representam os rótulos que foram criados por você no seu projeto, para que você possa usá-los no seu programa.",
+        "EXPLAIN_COSTUMEIMAGE": "Esse bloco está na seção Aparência do seu Ator e irá retornar a imagem da fantasia que está selecionada no Ator.",
+        "SAMPLE_SCRIPT": "Isso quer dizer que você pode fazer algo como isto:",
+        "SAMPLE_SCREENSHOT": "Irá parecer mais ou menos como isso - exceto com o nome do seu projeto.",
+        "EXPLAIN_STATUS": "O círculo colorido próximo ao nome do seu projeto diz se o seu aprendizado de máquina está funcionando corretamente.",
+        "STATUS_GREEN": "quer dizer que o seu modelo está treinado e pronto para ser utilizado",
+        "STATUS_YELLOW": "quer dizer que o seu modelo ainda não terminou se der treinado",
+        "STATUS_RED": "quer dizer que algo deu errado. Volte para a página <a href='{{ urls.learnandtest }}'>Aprendizado &amp; Teste</a> para ver o que deu errado durante o treinamento."
     },
     "SCRATCH3": {
         "TITLE": "Usando o aprendizado de máquina no Scratch 3",
 
-        "LAUNCH": "Open in Scratch 3",
-        "BETAWARNING": "Este é um early beta. O suporte para o Scratch 3 ainda não está concluído e provavelmente terá alguns bugs e problemas."
+        "LAUNCH": "Open in Scratch 3"
     },
     "WORKSHEETS": {
         "TITLE": "Projetos de Aprendizado de Máquina",
@@ -540,9 +539,9 @@
             "DESCRIPTION": "Treine o computador para poder prever como você vai para a escola."
         },
         "SHYPANDA": {
-            "TITLE": "Shy Panda",
-            "SUMMARY": "Teach a computer to recognise pictures",
-            "DESCRIPTION": "Make a dancing panda that gets shy and stops dancing if it sees you looking."
+            "TITLE": "Panda tímido",
+            "SUMMARY": "Ensine um computador a reconhecer fotos",
+            "DESCRIPTION": "Faça um panda que dança mas fica com vergonha e para de dançar quando percebe que você está olhando pra ele."
         },
         "PACMAN": {
             "TITLE": "Pac-Man",
@@ -707,8 +706,8 @@
             "Q3-A-1": "De vez em quando, os blocos Scratch do seu modelo de aprendizado de máquina podem perder a conexão com o servidor. Quando isso acontece, eles param de retornar os resultados.",
             "Q3-A-2": "Você pode verificar se isso aconteceu usando a luz de status colorida na paleta \"More Blocks\".",
             "Q3-A-3": "Se a luz de status ao lado dos blocos de aprendizado de máquina no Scratch estiver vermelha, isso normalmente significa que algo está errado. Pode ser um problema temporário. Tente salvar seu projeto (usando 'Arquivo' -&gt; 'Salvar Projeto'), e então atualizando a página do navegador. Se a luz de status ficar verde depois que a página é recarregada, você pode carregar seu projeto (usando 'Arquivo' -&gt; 'Load Project') para continuar de onde parou.",
-            "Q3-A-4": "Se a luz de status ainda estiver vermelha após recarregar a página, provavelmente há algo errado com o modelo de aprendizado de máquina. Tente acessar a parte \"Aprender &amp; Testar\" da aba projeto, que é onde qualquer mensagem de erro sobre o seu modelo pode ser encontrada.",
-            "Q3-A-5": "Se a luz de status ao lado do seu bloco de aprendizado de máquina no Scratch estiver verde, então os blocos devem estar funcionando. Se você não está obtendo as respostas que espera deles, tente ir para a página \"Aprender &amp; Testar\" e verifique os resultados que seu modelo retorna.",
+            "Q3-A-4": "Se a luz de status ainda estiver vermelha após recarregar a página, provavelmente há algo errado com o modelo de aprendizado de máquina. Tente acessar a parte \"Aprendizado &amp; Teste\" da aba projeto, que é onde qualquer mensagem de erro sobre o seu modelo pode ser encontrada.",
+            "Q3-A-5": "Se a luz de status ao lado do seu bloco de aprendizado de máquina no Scratch estiver verde, então os blocos devem estar funcionando. Se você não está obtendo as respostas que espera deles, tente ir para a página \"Aprendizado &amp; Teste\" e verifique os resultados que seu modelo retorna.",
 
             "Q5": "Posso usar qualquer versão do Scratch?",
             "Q5-A-1": "Você precisa usar a versão do Scratch que é fornecida pelo site Machine Learning for Kids. Ele pode ser iniciado clicando no botão Scratch (ou 'Scratch 3') da sua página de projeto."
@@ -771,28 +770,12 @@
         "TEACHERUI": {
             "TITLE": "Problemas com a interface do professor/administrador",
 
-            "Q1": "Número de modelos de Aprendizado de Máquina disponíveis na página do professor está incorreto",
-            "Q1-A-1": "A página do professor mostra o número de modelos de aprendizado de máquina disponíveis para sua turma. (Essa página é acessível apenas para professores ou líderes de grupo). Esse valor é calculado considerando o número de chaves / credenciais de API que o professor criou, e multiplicando-o pelo número de modelos de aprendizado de máquina que podem ser criados com uma única chave de API.",
-            "Q1-A-2": "Infelizmente, isso pode ser ilusório. O valor é baseado em suposições sobre o qual Plano de preços foi usado ao criar chaves de API.",
-            "Q1-A-3": "Para projetos de <span class='mlprojecttype'>texto</span>, a hipótese é que o 'Plano Padrão' será usado para criar credenciais do <a href='https://console.bluemix.net/catalog/services/conversation'>Watson Assistant</a> (anteriormente Watson Conversation), pois suporta 20 'workspaces'. A página do professor exibe o número de credenciais do Assistente do Watson multiplicado por 20",
-            "Q1-A-4": "\" Sua turma pode ter até ?? modelos de aprendizado de máquina no total em todos os seus projetos de texto.\"",
-            "Q1-A-5": "O \"Plano Lite\" suporta apenas 5 \"workspaces\", portanto, se alguma credencial do Assistente do Watson tiver sido criada no plano de preços Lite, significa que um limite real menor será exibido na página do professor.",
-            "Q1-A-6": "Para Projetos de <span class='mlprojecttype'>imagem</span>, a hipótese é que o \"Plano Lite\" será usado para criar as chaves API do <a href='https://console.bluemix.net/catalog/services/watson_vision_combined'>Watson Visual Recognition</a>, pois ele suporta 1 \"modelo personalizado\". A página do professor exibe o número de chaves da API do Watson Visual Recognition multiplicado por 1",
-            "Q1-A-7": "\"Sua turma está autorizada a ter até ?? modelos de aprendizado de máquina no total em todos os projetos de imagem\"",
-            "Q1-A-8": "O \"Plano Standard\" não tem um limite no número de modelos personalizados, portanto, se alguma das chaves da API de Reconhecimento Visual do Watson tiver sido criada com o plano de preços Padrão, isso significa que não há realmente um limite no número de modelos de aprendizado de máquina para projetos de imagens, apesar do que é mostrado na página do Professor.",
-            "Q1-A-9": "Desculpe por qualquer confusão causada por esta página. Eu atualizarei a página de administração do Professor para que ele solicite o Plano de Preços para cada conjunto de credenciais ou chaves de API, para que eu possa fazer a multiplicação apropriada na interface do usuário.",
-            "Q1-A-10": "Nesse meio tempo, o limite correto é o que for mostrado no IBM Cloud, onde as credenciais são criadas. Informações mais detalhadas sobre tudo isso podem ser encontradas neste <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> documento PDF  sobre o uso de chaves de API do Watson com o Machine Learning for Kids</a>.",
-            "Q1-A-11": "Se você não tem certeza de como calcular o limite para sua turma, por favor <a href='mailto:dale.lane@uk.ibm.com'>me avise</a> e tentarei ajudar.",
-
             "Q2": "Conta do aluno ausente na lista na página do professor",
             "Q2-A-1": "O gerenciamento de usuários do Machine Learning for Kids é implementado usando o serviço de terceiros, <a href=\"https://auth0.com/\">Auth0</a>.",
             "Q2-A-2": "Ocasionalmente, a lista de alunos que o Auth0 retorna pode ficar um pouco desatualizada e não refletir os alunos que foram criados recentemente (ou, da mesma forma, mostrar alunos que foram excluídos recentemente).",
             "Q2-A-3": "Nestes casos, normalmente, os alunos foram criados com sucesso (ou excluídos) e é justo que a lista de alunos exibidos não reflita as atualizações recentes.",
             "Q2-A-4": "A Auth0 normalmente informará tais incidentes em sua página de status como <a href='https://status.auth0.com/incidents/0sk1d3hjlw0m'>user indexing delays</a> ou <a href='https://status.auth0.com/incidents/t8995b9jggx5'>problems with their Search API</a>.",
             "Q2-A-5": "A melhor coisa a fazer nesses casos é aguardar a indexação Auth0 normalizar o atraso.",
-
-            "Q3": "O que é o Assistant? O que aconteceu com o Conversation?",
-            "Q3-A-1": "Em março de 2018, o serviço \" Watson Conversation\" foi renomeado para \" Watson Assistant\". Qualquer referência anterior a \"Conversation\" pode ser lida como \" Assistant\" agora. Todas as instâncias ou credenciais do serviço de Conversação do Watson criadas antes deste ponto podem continuar a ser usadas como equivalentes ao Assistente do Watson.",
 
             "Q4": "Por que os modelos de aprendizado de máquina são excluídos automaticamente?",
             "Q4-A-1": "Este foi um recurso solicitado pelas escolas quando o Machine Learning for Kids foi desenvolvido pela primeira vez. Ele veio do fato de que há um limite para quantos modelos de aprendizado de máquina uma turma pode ter em um determinado momento, e a necessidade de facilitar o gerenciamento desse limite",

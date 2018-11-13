@@ -33,6 +33,11 @@
             $scope.projectId = $stateParams.projectId;
             $scope.userId = $stateParams.userId;
 
+            $scope.projecturls = {
+                train : '/#!/mlproject/' + $stateParams.userId + '/' + $stateParams.projectId + '/training',
+                learnandtest : '/#!/mlproject/' + $stateParams.userId + '/' + $stateParams.projectId + '/models'
+            };
+
             $scope.scratchblocks = {
                 label : '',
                 confidence : '',
@@ -48,6 +53,9 @@
                 })
                 .then(function (project) {
                     $scope.project = project;
+
+                    $scope.projecturls.train = '/#!/mlproject/' + $scope.project.userid + '/' + $scope.project.id + '/training';
+                    $scope.projecturls.learnandtest = '/#!/mlproject/' + $scope.project.userid + '/' + $scope.project.id + '/models';
 
                     if (project.type === 'numbers') {
                         return projectsService.getFields($scope.projectId, $scope.userId, vm.profile.tenant);

@@ -162,7 +162,6 @@ function veryRecently(timestamp) {
 // Submit xhr request to the classify API to get a label for the image
 function classifyImage(imagedata, cacheKey, lastmodified, callback) {
     var url = new URL('{{{ classifyurl }}}');
-    url.searchParams.append('data', imagedata);
 
     var options = {
         headers : {
@@ -170,7 +169,11 @@ function classifyImage(imagedata, cacheKey, lastmodified, callback) {
             'Content-Type': 'application/json',
 
             'If-Modified-Since': lastmodified
-        }
+        },
+        method : 'POST',
+        body : JSON.stringify({
+            data : imagedata
+        })
     };
 
     return fetch(url, options)
@@ -204,10 +207,10 @@ function classifyImage(imagedata, cacheKey, lastmodified, callback) {
                     classifierTimestamp: nowAsString()
                 });
             }
+        })
+        .catch((err) => {
+            console.log(err);
         });
-        // .catch((err) => {
-
-        // });
 }
 
 
