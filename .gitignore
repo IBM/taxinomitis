@@ -19,3 +19,4 @@ ops/*.sql
 ops/us-routes.sh
 ops/de-routes.sh
 archive
+.DS_Store
