@@ -435,6 +435,7 @@
     },
     "APPINVENTOR": {
         "TITLE": "Att använda maskininlärning i App-uppfinnaren",
+
         "NOTREADY": "Ditt projekt är inte klart att användas i App-uppfinnaren än.",
         "NOMODEL": "Du har inte tränat en maskininlärningsmodell än.",
 
@@ -495,6 +496,24 @@
         },
 
         "DOWNLOAD": "Ladda ner",
+
+        "MAKETYPES": {
+            "ALL": "All make types",
+
+            "SCRATCH": "Scratch projects",
+            "PYTHON": "Python projects",
+            "APPINVENTOR": "App Inventor projects",
+
+            "SCRATCH_WORKSHEET": "Worksheet for making project in Scratch",
+            "PYTHON_WORKSHEET": "Worksheet for making project in Python",
+            "APPINVENTOR_WORKSHEET": "Worksheet for making project in App Inventor"
+        },
+
+        "NO_WORKSHEETS": {
+            "NO_MATCHES": "There aren't any project worksheets that match those filters.",
+            "MAKE_YOUR_OWN": "You could adapt some of the existing worksheets or come up with a new one.",
+            "CONTRIBUTE": "If you do, please consider <a href='https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions'>contributing it for others to use</a>."
+        },
 
 
         "SMARTCLASSROOM": {

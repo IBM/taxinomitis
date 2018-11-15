@@ -19,10 +19,15 @@
         <md-option value="Intermediate"><strong translate="WORKSHEETS.LEVELS.INTERMEDIATE"></strong></md-option>
         <md-option value="Advanced"><strong translate="WORKSHEETS.LEVELS.ADVANCED"></strong></md-option>
     </md-select>
+    <md-select ng-model="projectmaketype" class="filter">
+        <md-option value="ALL" translate="WORKSHEETS.MAKETYPES.ALL"></md-option>
+        <md-option value="scratch"><strong translate="WORKSHEETS.MAKETYPES.SCRATCH"></strong></md-option>
+        <md-option value="python"><strong translate="WORKSHEETS.MAKETYPES.PYTHON"></strong></md-option>
+    </md-select>
     <br clear="all"/>
 </div>
 <div class="worksheets">
-    <div ng-repeat="worksheet in vm.worksheets | filter : filterWorksheets" class="worksheetcard">
+    <div ng-repeat="worksheet in vm.worksheets | filter : filterWorksheets as filteredWorksheets" class="worksheetcard">
         <div class="cardmain">
             <div class="info">
                 <div class="title"><a ng-click="vm.downloadWorksheet($event, worksheet)">{{worksheet.title}}</a></div>
@@ -38,12 +43,33 @@
             <div class="projecttype"><span class="heading" translate="WORKSHEETS.TYPES.TITLE"></span> <span class="worksheettype">{{worksheet.type}}</span></div>
         </div>
         <div class="cardfooter">
+            <div class="maketype" ng-repeat="maketype in worksheet.maketypes">
+                <img ng-if="maketype === 'scratch2'"
+                     src="static/images/logo-small-scratch2.png"
+                     alt="{{ 'WORKSHEETS.MAKETYPES.SCRATCH_WORKSHEET' | translate }}"
+                     title="{{ 'WORKSHEETS.MAKETYPES.SCRATCH_WORKSHEET' | translate }}"/>
+                <img ng-if="maketype === 'scratch3'"
+                     src="static/images/logo-small-scratch3.png"
+                     alt="{{ 'WORKSHEETS.MAKETYPES.SCRATCH_WORKSHEET' | translate }}"
+                     title="{{ 'WORKSHEETS.MAKETYPES.SCRATCH_WORKSHEET' | translate }}"/>
+                <img ng-if="maketype === 'python'"
+                     src="static/images/logo-small-python.png"
+                     alt="{{ 'WORKSHEETS.MAKETYPES.PYTHON_WORKSHEET' | translate }}"
+                     title="{{ 'WORKSHEETS.MAKETYPES.PYTHON_WORKSHEET' | translate }}"/>
+            </div>
             <div class="tags"><span class="heading">Tags:</span> {{ worksheet.tags.join(', ') }}</div>
             <div class="download">
                 <a ng-click="vm.downloadWorksheet($event, worksheet)" class="btn btn-primary">
                     <span class="glyphicon glyphicon-download-alt"> </span> {{ 'WORKSHEETS.DOWNLOAD' | translate }}
                 </a>
             </div>
+        </div>
+    </div>
+    <div ng-if="filteredWorksheets.length === 0" class="modelguidancecontainer">
+        <div class="modelguidance">
+            <p translate="WORKSHEETS.NO_WORKSHEETS.NO_MATCHES"></p>
+            <p translate="WORKSHEETS.NO_WORKSHEETS.MAKE_YOUR_OWN"></p>
+            <p translate="WORKSHEETS.NO_WORKSHEETS.CONTRIBUTE"></p>
         </div>
     </div>
 </div>
