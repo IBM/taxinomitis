@@ -236,7 +236,12 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chatbots.pdf',
                     downloads : [
                         {
+                            description : 'Scratch project - for making a chat bot in Scratch',
                             worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots.pdf'
+                        },
+                        {
+                            description : 'Python project - for making a chat bot using Python',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots-python.pdf'
                         }
                     ]
                 },
