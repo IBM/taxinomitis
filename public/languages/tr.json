@@ -585,6 +585,11 @@
             "SUMMARY": "Bir bilgisayara önerilerde bulunmayı öğretin",
             "DESCRIPTION": "Scratch'te bir okuma kitabının kime uygun olabileceği hakkında öneriler sunan bir kütüphane görevlisi yaratın."
         },
+        "WHATTWITTERTHINKS": {
+            "TITLE": "What does Twitter think?",
+            "SUMMARY": "Teach a computer to measure public opinion",
+            "DESCRIPTION": "Create a sentiment analysis tool in Scratch to analyze discussion on Twitter"
+        },
         "NOUGHTSANDCROSSES": {
             "TITLE": "Üç Taş",
             "SUMMARY": "Bir bilgisayara oyun oynamayı öğretin",

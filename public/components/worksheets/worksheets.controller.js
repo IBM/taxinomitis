@@ -34,6 +34,7 @@
             'WORKSHEETS.LOCATELARRY.TITLE', 'WORKSHEETS.LOCATELARRY.SUMMARY', 'WORKSHEETS.LOCATELARRY.DESCRIPTION',
             'WORKSHEETS.CONFUSED.TITLE', 'WORKSHEETS.CONFUSED.SUMMARY', 'WORKSHEETS.CONFUSED.DESCRIPTION',
             'WORKSHEETS.SCHOOLLIBRARY.TITLE', 'WORKSHEETS.SCHOOLLIBRARY.SUMMARY', 'WORKSHEETS.SCHOOLLIBRARY.DESCRIPTION',
+            'WORKSHEETS.WHATTWITTERTHINKS.TITLE', 'WORKSHEETS.WHATTWITTERTHINKS.SUMMARY', 'WORKSHEETS.WHATTWITTERTHINKS.DESCRIPTION',
             'WORKSHEETS.NOUGHTSANDCROSSES.TITLE', 'WORKSHEETS.NOUGHTSANDCROSSES.SUMMARY', 'WORKSHEETS.NOUGHTSANDCROSSES.DESCRIPTION',
             'WORKSHEETS.TOPTRUMPS.TITLE', 'WORKSHEETS.TOPTRUMPS.SUMMARY', 'WORKSHEETS.TOPTRUMPS.DESCRIPTION',
             'WORKSHEETS.HEADLINES.TITLE', 'WORKSHEETS.HEADLINES.SUMMARY', 'WORKSHEETS.HEADLINES.DESCRIPTION'
@@ -359,6 +360,22 @@
                     downloads : [
                         {
                             worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.WHATTWITTERTHINKS.TITLE'],
+                    summary : translations['WORKSHEETS.WHATTWITTERTHINKS.SUMMARY'],
+                    description : translations['WORKSHEETS.WHATTWITTERTHINKS.DESCRIPTION'],
+                    difficulty : 'Advanced',
+                    type : 'text',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-whattwitterthinks.png',
+                    tags : [ 'sentiment analysis', 'social media analysis', 'supervised learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-whattwitterthinks.pdf',
+                    downloads : [
+                        {
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf'
                         }
                     ]
                 },

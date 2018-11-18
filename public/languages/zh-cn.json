@@ -606,6 +606,11 @@
             "SUMMARY": "教电脑提出建议",
             "DESCRIPTION": "在Scratch中创建一个学校图书馆员,建议读者可能适合阅读。"
         },
+        "WHATTWITTERTHINKS": {
+            "TITLE": "What does Twitter think?",
+            "SUMMARY": "Teach a computer to measure public opinion",
+            "DESCRIPTION": "Create a sentiment analysis tool in Scratch to analyze discussion on Twitter"
+        },
         "NOUGHTSANDCROSSES": {
             "TITLE": " Noughts＆Crosses ",
             "SUMMARY": "教电脑玩游戏",

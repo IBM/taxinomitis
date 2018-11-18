@@ -606,6 +606,11 @@
             "SUMMARY": "Teach a computer to make recommendations",
             "DESCRIPTION": "Create a school librarian in Scratch that suggests who a reading book might be suitable for."
         },
+        "WHATTWITTERTHINKS": {
+            "TITLE": "What does Twitter think?",
+            "SUMMARY": "Teach a computer to measure public opinion",
+            "DESCRIPTION": "Create a sentiment analysis tool in Scratch to analyze discussion on Twitter"
+        },
         "NOUGHTSANDCROSSES": {
             "TITLE": "Noughts & Crosses",
             "SUMMARY": "Teach a computer to play a game",

@@ -251,10 +251,16 @@ function classifyNumbers(numbers, cacheKey, lastmodified, callback) {
                     classifierTimestamp: nowAsString()
                 });
             }
-        });
-        // .catch((err) => {
+        })
+        .catch((err) => {
+            console.log(err);
 
-        // });
+            callback({
+                class_name: 'Unknown',
+                confidence: 0,
+                classifierTimestamp: nowAsString()
+            });
+        });
 }
 
 

@@ -606,6 +606,11 @@
             "SUMMARY": "컴퓨터가 추천을 하도록 가르치십시오.",
             "DESCRIPTION": "어떤 책이 적합한지를 제안하는 학교 사서를 스크래치로 만들어봐요"
         },
+        "WHATTWITTERTHINKS": {
+            "TITLE": "What does Twitter think?",
+            "SUMMARY": "Teach a computer to measure public opinion",
+            "DESCRIPTION": "Create a sentiment analysis tool in Scratch to analyze discussion on Twitter"
+        },
         "NOUGHTSANDCROSSES": {
             "TITLE": "동그라미 & 엑스 게임",
             "SUMMARY": "게임을 하기 위해 컴퓨터를 가르쳐봐요",
