@@ -561,6 +561,11 @@
             "SUMMARY": "컴퓨터가 사진을 인식하도록 가르쳐봐요",
             "DESCRIPTION": "사람들이 판다를 쳐다보면 부끄러워하며 춤추는 것을 멈추는 판다를 만들어봐요"
         },
+        "VIRTUALPET": {
+            "TITLE": "Virtual Pet",
+            "SUMMARY": "Teach a computer to recognise pictures",
+            "DESCRIPTION": "Train the computer to recognise what you're doing so you can look after a virtual pet."
+        },
         "PACMAN": {
             "TITLE": "팩맨",
             "SUMMARY": "게임을 하기 위해 컴퓨터를 가르쳐봐요",

@@ -561,6 +561,11 @@
             "SUMMARY": "教电脑识别图片",
             "DESCRIPTION": "让一只跳舞的熊猫变得害羞,如果它看到你的样子就停止跳舞。"
         },
+        "VIRTUALPET": {
+            "TITLE": "Virtual Pet",
+            "SUMMARY": "Teach a computer to recognise pictures",
+            "DESCRIPTION": "Train the computer to recognise what you're doing so you can look after a virtual pet."
+        },
         "PACMAN": {
             "TITLE": "吃豆人",
             "SUMMARY": "教电脑玩游戏",
