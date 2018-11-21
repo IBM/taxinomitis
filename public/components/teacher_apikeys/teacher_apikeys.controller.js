@@ -160,7 +160,7 @@
         vm.addCredentials = function (ev, type) {
             $mdDialog.show({
                 controller : function ($scope, $mdDialog) {
-                    $scope.type = 'password';
+                    $scope.type = 'apikey';
                     $scope.credstype = '';
 
                     $scope.hide = function () {
