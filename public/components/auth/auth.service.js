@@ -347,6 +347,18 @@
                         window.location = '/';
                     });
                 }
+                else if (params.error === 'access_denied' &&
+                         params.error_description === 'Unknown%20or%20invalid%20login%20ticket.')
+                {
+                    var alert = $mdDialog.alert()
+                                    .title('"Unknown or invalid login ticket"')
+                                    .htmlContent('<p>The most common cause of this is that your web browser refused to store the cookie needed to let you log in. </p>' +
+                                                 '<p>Please make sure that your browser settings <strong>allow third-party cookies</strong> and try again.</p>')
+                                    .ok('OK');
+                    $mdDialog.show(alert).finally(function () {
+                        window.location = '/';
+                    });
+                }
             }
         }
 
