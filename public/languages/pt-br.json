@@ -68,8 +68,8 @@
         "ADMIN_LABEL": "Vá para a sua <strong>Página de administrador</strong>",
         "PROJECT_LABEL": "Acesse seus <strong>Projetos</strong>",
         "STEP_1_TEXT": "Colete exemplos de coisas que você quer ser capaz de reconhecer",
-        "STEP_2_TEXT": "Use os exemplos para treinar um computador para ser capaz de reconhecer",
-        "STEP_3_TEXT": "Crie um jogo no Scratch que usa a capacidade do computador para reconhecê-los"
+        "STEP_2_TEXT": "Use os exemplos para treinar o computador a ser capaz de reconhecê-los",
+        "STEP_3_TEXT": "Crie um jogo no Scratch que usa a capacidade do computador para reconhecer novos exemplos"
     },
     "LOGIN": {
         "TITLE": "Comece com o aprendizado de máquina",
@@ -179,7 +179,7 @@
         },
         "MAKES": {
             "TITLE": "Make",
-            "BODY": "Use the machine learning model you've trained to make a game or app, in Scratch or in Python"
+            "BODY": "Use o modelo de aprendizado de máquina que você treinou para fazer um jogo ou aplicativo, em Scratch ou em Python"
         },
         "SCRATCH": {
             "TITLE": "Scratch",
@@ -498,21 +498,21 @@
         "DOWNLOAD": "Download",
 
         "MAKETYPES": {
-            "ALL": "All make types",
+            "ALL": "Todos os tipos",
 
-            "SCRATCH": "Scratch projects",
-            "PYTHON": "Python projects",
-            "APPINVENTOR": "App Inventor projects",
+            "SCRATCH": "Projetos Scratch",
+            "PYTHON": "Projetos Python",
+            "APPINVENTOR": "Projetos App Inventor",
 
-            "SCRATCH_WORKSHEET": "Worksheet for making project in Scratch",
-            "PYTHON_WORKSHEET": "Worksheet for making project in Python",
-            "APPINVENTOR_WORKSHEET": "Worksheet for making project in App Inventor"
+            "SCRATCH_WORKSHEET": "Fichas de trabalho para fazer projetos em Scratch",
+            "PYTHON_WORKSHEET": "Fichas de trabalho para fazer projetos em Python",
+            "APPINVENTOR_WORKSHEET": "Fichas de trabalho para fazer projetos no App Inventor"
         },
 
         "NO_WORKSHEETS": {
-            "NO_MATCHES": "There aren't any project worksheets that match those filters.",
-            "MAKE_YOUR_OWN": "You could adapt some of the existing worksheets or come up with a new one.",
-            "CONTRIBUTE": "If you do, please consider <a href='https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions'>contributing it for others to use</a>."
+            "NO_MATCHES": "Não há nenhuma ficha de trabalho que correspondem a esses filtros.",
+            "MAKE_YOUR_OWN": "Você poderia adaptar algo das fichas de trabalho existentes ou criar algo novo.",
+            "CONTRIBUTE": "Se você criar algo novo, por favor, considere <a href='https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions'>divulgá-la para que outros também possam usá-la.</a>."
         },
 
 
@@ -562,9 +562,9 @@
             "DESCRIPTION": "Faça um panda que dança mas fica com vergonha e para de dançar quando percebe que você está olhando pra ele."
         },
         "VIRTUALPET": {
-            "TITLE": "Virtual Pet",
-            "SUMMARY": "Teach a computer to recognise pictures",
-            "DESCRIPTION": "Train the computer to recognise what you're doing so you can look after a virtual pet."
+            "TITLE": "Pet Virtual",
+            "SUMMARY": "Ensine um computador a reconhecer imagens",
+            "DESCRIPTION": "Treine um computador para reconhecer o que você está fazendo para cuidar do seu Pet Virtual."
         },
         "PACMAN": {
             "TITLE": "Pac-Man",
@@ -612,9 +612,9 @@
             "DESCRIPTION": "Crie um bibliotecário escolar no Scratch que sugira para quem um livro pode ser adequado."
         },
         "WHATTWITTERTHINKS": {
-            "TITLE": "What does Twitter think?",
-            "SUMMARY": "Teach a computer to measure public opinion",
-            "DESCRIPTION": "Create a sentiment analysis tool in Scratch to analyze discussion on Twitter"
+            "TITLE": "O que o Twitter acha?",
+            "SUMMARY": "Ensine um computador a medir opinião pública",
+            "DESCRIPTION": "Crie uma ferramente de análise de sentimento no Scratch para analisar discussões no Twitter"
         },
         "NOUGHTSANDCROSSES": {
             "TITLE": "Jogo da Velha",
@@ -682,10 +682,10 @@
             "NOTAUTHORISED": "Você não está autorizado a acessar as chaves de API do Watson usadas por sua turma.",
             "MANAGEDCLASS": "As chaves de API usadas por sua turma estão sendo gerenciadas para você.",
 
-            "HELP_STEPBYSTEP_GUIDE": "Se você não tem certeza do que fazer aqui, por favor siga o guia <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> Passo-a-Passo </a>. Se você gostaria de ajuda, por favor,<strong><a style='cursor: pointer;' ui-sref='help'>entre em contato</a></strong>.",
+            "HELP_STEPBYSTEP_GUIDE": "Se você não tem certeza do que fazer aqui, por favor siga o guia <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> Passo-a-Passo </a>. Se você gostaria de ajuda, por favor, <strong><a style='cursor: pointer;' ui-sref='help'>entre em contato</a></strong>.",
 
-            "INTRO_WATSONASSISTANT": "Treinar modelos de aprendizado de máquina para projetos de <span class='mlprojecttype'>text</span> usa o <a class='mlprojecttype' href='https://www.ibm.com/watson/services/conversation/'>Watson Assistant</a>",
-            "INTRO_VISUALRECOGNITION": "Treinar modelos de aprendizado de máquina para projetos de <span class='mlprojecttype'>images</span> usa o <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
+            "INTRO_WATSONASSISTANT": "Treinar modelos de aprendizado de máquina para projetos de <span class='mlprojecttype'>texto</span> usa o <a class='mlprojecttype' href='https://www.ibm.com/watson/services/conversation/'>Watson Assistant</a>",
+            "INTRO_VISUALRECOGNITION": "Treinar modelos de aprendizado de máquina para projetos de <span class='mlprojecttype'>imagens</span> usa o <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
 
             "ERROR_FETCHING_WATSONASSISTANT": "Falha ao obter suas senhas do seu Watson Assistant",
             "ERROR_FETCHING_VISUALRECOG": "Falha ao obter suas chaves API do Watson Visual Recognition",
