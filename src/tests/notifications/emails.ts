@@ -3,7 +3,9 @@ import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as nodemailer from 'nodemailer';
 import * as Mailer from 'nodemailer/lib/mailer';
+import * as SMTPPool from 'nodemailer/lib/smtp-pool';
 import * as auth0 from '../../lib/auth0/users';
+import * as authTypes from '../../lib/auth0/auth-types';
 import * as emails from '../../lib/notifications/email';
 
 
@@ -55,22 +57,29 @@ describe('Notifications - Email', () => {
         passEnv = process.env.SMTP_PASS;
         replyEnv = process.env.SMTP_REPLY_TO;
 
-        auth0Stub = sinon.stub(auth0, 'getTeacherByClassId').callsFake((tenant: string) => {
+        auth0Stub = sinon.stub(auth0, 'getTeacherByClassId').callsFake((tenant: string)
+            : Promise<authTypes.SupervisorInfo | undefined> =>
+        {
             if (tenant === 'TESTTENANT') {
-                return Promise.resolve({ email : 'teacher@email.com' });
+                const supervisor: authTypes.SupervisorInfo = {
+                    email : 'teacher@email.com',
+                } as authTypes.SupervisorInfo;
+                return Promise.resolve(supervisor);
             }
             else if (tenant === 'UNKNOWNEMAIL') {
-                return Promise.resolve({});
+                return Promise.resolve(undefined);
             }
-            return Promise.resolve();
+            return Promise.resolve(undefined);
         });
 
         nodemailerStub = sinon.stub(nodemailer, 'createTransport')
-            .callsFake((options/*, defaults*/) => {
-                if (options.auth.user === 'valid-user') {
-                    return validTransporterStub;
+            .callsFake((options: SMTPPool.Options, defaults?: SMTPPool.Options): Mailer => { // tslint-disable-line
+                if (options && options.auth && options.auth.user === 'valid-user') {
+                    const vts: unknown = validTransporterStub as unknown;
+                    return vts as Mailer;
                 }
-                return invalidTransporterStub;
+                const its: unknown = invalidTransporterStub;
+                return its as Mailer;
             });
     });
     after(() => {

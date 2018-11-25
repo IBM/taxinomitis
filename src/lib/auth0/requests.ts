@@ -9,7 +9,7 @@ import * as env from '../utils/env';
 //  ANYTHING THAT LOOKS LIKE APP LOGIC SHOULDN'T GO IN HERE AS IT WON'T BE TESTED AS MUCH
 
 
-export function getOauthToken() {
+export function getOauthToken(): Promise<Objects.Auth0TokenPayload> {
     const options = {
         method: 'POST',
         url: 'https://' + process.env[env.AUTH0_DOMAIN] + '/oauth/token',
@@ -23,7 +23,8 @@ export function getOauthToken() {
         },
     };
 
-    return request.post(options);
+    const resp = request.post(options) as unknown;
+    return resp as Promise<Objects.Auth0TokenPayload>;
 }
 
 export async function getUser(token: string, userid: string): Promise<Objects.User> {
@@ -171,7 +172,7 @@ export async function getUserCounts(token: string, tenant: string): Promise<Obje
 
 
 
-export function createUser(token: string, newuser: Objects.NewUser) {
+export async function createUser(token: string, newuser: Objects.NewUser): Promise<Objects.User> {
     const createoptions = {
         method: 'POST',
         url: 'https://' + process.env[env.AUTH0_DOMAIN] + '/api/v2/users',
@@ -182,11 +183,12 @@ export function createUser(token: string, newuser: Objects.NewUser) {
         json : true,
     };
 
-    return request.post(createoptions);
+    const userInfo = await request.post(createoptions);
+    return userInfo;
 }
 
 
-export function deleteUser(token: string, userid: string) {
+export async function deleteUser(token: string, userid: string): Promise<void> {
     const deleteoptions = {
         method: 'DELETE',
         url: 'https://' + process.env[env.AUTH0_DOMAIN] + '/api/v2/users/' + userid,
@@ -195,10 +197,12 @@ export function deleteUser(token: string, userid: string) {
         },
     };
 
-    return request.delete(deleteoptions);
+    await request.delete(deleteoptions);
 }
 
-export function modifyUser(token: string, userid: string, modifications: Objects.Modifications) {
+export async function modifyUser(token: string, userid: string, modifications: Objects.Modifications)
+    : Promise<Objects.User>
+{
     const modifyoptions = {
         method: 'PATCH',
         url: 'https://' + process.env[env.AUTH0_DOMAIN] + '/api/v2/users/' + userid,
@@ -209,6 +213,7 @@ export function modifyUser(token: string, userid: string, modifications: Objects
         json : true,
     };
 
-    return request.patch(modifyoptions);
+    const userInfo = await request.patch(modifyoptions);
+    return userInfo;
 }
 

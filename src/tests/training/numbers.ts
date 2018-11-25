@@ -2,11 +2,13 @@
 
 import * as assert from 'assert';
 import * as sinon from 'sinon';
+import * as coreReq from 'request';
 import * as request from 'request-promise';
 
 import * as store from '../../lib/db/store';
 import * as dbtypes from '../../lib/db/db-types';
 import * as numbers from '../../lib/training/numbers';
+import requestPromise = require('request-promise');
 
 
 
@@ -297,11 +299,17 @@ describe('Training - numbers service', () => {
                 return Promise.reject({ error : 'Bad things' });
             }
         },
-        deleteClassifier : (url: string, opts: numbers.NumbersApiDeleteClassifierRequest) => {
+        deleteClassifier : (url: string, options?: coreReq.CoreOptions) => {
+            // TODO this is ridiculous... do I really have to fight with TypeScript like this?
+            const unk: unknown = options as unknown;
+            const opts: numbers.NumbersApiDeleteClassifierRequest = unk as numbers.NumbersApiDeleteClassifierRequest;
+
             assert(url);
-            assert(opts.auth.user);
-            assert(opts.auth.pass);
-            return Promise.resolve({ ok : true });
+            assert(opts && opts.auth && opts.auth.user);
+            assert(opts && opts.auth && opts.auth.pass);
+
+            const prom: unknown = Promise.resolve();
+            return prom as requestPromise.RequestPromise;
         },
     };
 

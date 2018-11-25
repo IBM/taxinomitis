@@ -6,6 +6,7 @@ import * as httpstatus from 'http-status';
 import * as randomstring from 'randomstring';
 import * as sinon from 'sinon';
 import * as proxyquire from 'proxyquire';
+import * as coreReq from 'request';
 import * as requestPromise from 'request-promise';
 import * as Express from 'express';
 
@@ -606,6 +607,8 @@ describe('REST API - scratch keys', () => {
             limitsStub.returns({
                 textTrainingItemsPerProject : 2,
                 numberTrainingItemsPerProject : 2,
+                numberTrainingItemsPerClassProject : 2,
+                imageTrainingItemsPerProject : 100,
             });
 
             const keyId = await store.storeUntrainedScratchKey(project);
@@ -995,8 +998,12 @@ describe('REST API - scratch keys', () => {
         });
 
 
-        function mockClassifier(url: string, opts: conversation.LegacyTestRequest) {
-            return new Promise((resolve) => {
+        function mockClassifier(url: string, options?: coreReq.CoreOptions): requestPromise.RequestPromise {
+            // TODO this is ridiculous... do I really have to fight with TypeScript like this?
+            const unk: unknown = options as unknown;
+            const opts: conversation.LegacyTestRequest = unk as conversation.LegacyTestRequest;
+
+            const prom: unknown = new Promise((resolve) => {
                 resolve({
                     intents : [
                         {
@@ -1042,16 +1049,19 @@ describe('REST API - scratch keys', () => {
                     },
                 });
             });
+
+            return prom as requestPromise.RequestPromise;
         }
 
-        function brokenClassifier() {
-            return new Promise((resolve, reject) => {
+        function brokenClassifier(url: string, options?: coreReq.CoreOptions): requestPromise.RequestPromise {
+            const prom: unknown = new Promise((resolve, reject) => {
                 reject({ error : {
                     code : 500,
                     error : 'Something bad happened',
                     description : 'It really was very bad',
                 }});
             });
+            return prom as requestPromise.RequestPromise;
         }
 
 

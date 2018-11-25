@@ -72,7 +72,8 @@ describe('Training - Visual Recognition - IAM/API keys', () => {
         deleteImageClassifierStub = sinon.stub(store, 'deleteImageClassifier')
                                          .callsFake(mockVisRec.store.deleteImageClassifier);
 
-        setTimeoutStub = sinon.stub(global, 'setTimeout').returns({});
+        const fakeTimer: NodeJS.Timer = {} as NodeJS.Timer;
+        setTimeoutStub = sinon.stub(global, 'setTimeout').returns(fakeTimer);
 
         downloadStub = sinon.stub(downloadAndZip, 'run').callsFake(mockVisRec.download.run);
     });

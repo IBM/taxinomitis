@@ -16,6 +16,7 @@ import * as TrainingTypes from '../../lib/training/training-types';
 import loggerSetup from '../../lib/utils/logger';
 
 import * as mockstore from './mockstore';
+import requestPromise = require('request-promise');
 
 const log = loggerSetup();
 
@@ -441,7 +442,7 @@ describe('Training - Conversation', () => {
 
     const mockConversation = {
         getClassifier : (url: string) => {
-            return new Promise((resolve, reject) => {
+            const prom: unknown = new Promise((resolve, reject) => {
                 switch (url) {
                 case 'http://conversation.service/v1/workspaces/good':
                     return resolve(goodClassifierStatus);
@@ -455,9 +456,10 @@ describe('Training - Conversation', () => {
                     });
                 }
             });
+            return prom as requestPromise.RequestPromise;
         },
         deleteClassifier : (url: string) => {
-            return new Promise((resolve, reject) => {
+            const prom: unknown = new Promise((resolve, reject) => {
                 switch (url) {
                 case 'http://conversation.service/v1/workspaces/good':
                     return resolve();
@@ -469,6 +471,7 @@ describe('Training - Conversation', () => {
                     return reject({ error : 'Resource not found' });
                 }
             });
+            return prom as requestPromise.RequestPromise;
         },
         createClassifier : (url: string, options: conversation.LegacyTrainingRequest) => {
             log.debug({ url, options }, 'mock create classifier');

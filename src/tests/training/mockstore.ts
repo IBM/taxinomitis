@@ -22,7 +22,9 @@ export const credsForVisRec: TrainingTypes.BluemixCredentials = {
     credstype : 'visrec_lite',
 };
 
-export function getBluemixCredentials(classid: string, service: TrainingTypes.BluemixServiceType) {
+export function getBluemixCredentials(classid: string, service: TrainingTypes.BluemixServiceType)
+    : Promise<TrainingTypes.BluemixCredentials[]>
+{
     if (service === 'conv'){
         return new Promise((resolve) => resolve([ creds ]));
     }
@@ -31,7 +33,7 @@ export function getBluemixCredentials(classid: string, service: TrainingTypes.Bl
     }
     return new Promise((resolve) => resolve([ ]));
 }
-export function getBluemixCredentialsById(id: string) {
+export function getBluemixCredentialsById(id: string): Promise<TrainingTypes.BluemixCredentials> {
     return new Promise((resolve, reject) => {
         if (id === '123') {
             return resolve(creds);
@@ -77,7 +79,9 @@ export function countTrainingByLabel(project: DbTypes.Project): Promise<{}> {
     }
 }
 
-export function getUniqueTrainingTextsByLabel(projectid: string, label: string, options: DbTypes.PagingOptions) {
+export function getUniqueTrainingTextsByLabel(projectid: string, label: string, options: DbTypes.PagingOptions)
+    : Promise<string[]>
+{
     const start = options.start;
     const limit = options.limit;
     const end = Math.min(start + limit, NUM_TRAINING_PER_LABEL[label]);
@@ -91,7 +95,9 @@ export function getUniqueTrainingTextsByLabel(projectid: string, label: string, 
     return new Promise((resolve) => resolve(training));
 }
 
-export function getImageTrainingByLabel(projectid: string, label: string, options: DbTypes.PagingOptions) {
+export function getImageTrainingByLabel(projectid: string, label: string, options: DbTypes.PagingOptions)
+    : Promise<DbTypes.ImageTraining[]>
+{
     const start = options.start;
     const limit = options.limit;
     let end: number;
@@ -108,10 +114,13 @@ export function getImageTrainingByLabel(projectid: string, label: string, option
         throw new Error('Unexpected project id');
     }
 
-    const training: Array<{ [imageurl: string]: string }> = [];
+    const training: DbTypes.ImageTraining[] = [];
 
     for (let idx = start; idx < end; idx++) {
-        training.push({ imageurl : 'http://some-website.com/' + label + '-' + idx + '.jpg' });
+        const item: DbTypes.ImageTraining = {
+            imageurl : 'http://some-website.com/' + label + '-' + idx + '.jpg',
+        } as DbTypes.ImageTraining;
+        training.push(item);
     }
 
     return new Promise((resolve) => resolve(training));
@@ -151,7 +160,7 @@ export function updateConversationWorkspaceExpiry()
     return Promise.resolve();
 }
 
-export function getConversationWorkspaces(projectid: string)
+export function getConversationWorkspaces(projectid: string): Promise<TrainingTypes.ConversationWorkspace[]>
 {
     return new Promise((resolve) => {
         if (projectid === 'existingprojectid') {
@@ -185,9 +194,9 @@ export function deleteImageClassifier()
     return Promise.resolve();
 }
 
-export function storeOrUpdateScratchKey()
+export function storeOrUpdateScratchKey(): Promise<string>
 {
-    return Promise.resolve();
+    return Promise.resolve('');
 }
 export function updateScratchKeyTimestamp()
 {
@@ -198,16 +207,18 @@ export function resetExpiredScratchKey()
     return Promise.resolve();
 }
 
-export function getClassTenant(classid: string)
+export function getClassTenant(classid: string): Promise<DbTypes.ClassTenant>
 {
-    return new Promise((resolve) => resolve({
+    const placeholder: DbTypes.ClassTenant = {
         id : classid,
         supportedProjectTypes : [ 'text', 'images' ],
         maxUsers : 8,
         maxProjectsPerUser : 3,
         textClassifierExpiry : 2,
         imageClassifierExpiry : 3,
-    }));
+        isManaged : false,
+    };
+    return Promise.resolve(placeholder);
 }
 
 export function getProject(projectid: string): Promise<DbTypes.Project>
