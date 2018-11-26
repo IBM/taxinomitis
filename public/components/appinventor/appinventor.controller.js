@@ -31,6 +31,10 @@
             .then(function (resp) {
                 if (resp) {
                     $scope.scratchkey = resp[0];
+                    $scope.appinventorurl = window.location.origin +
+                                            '/api/appinventor/' +
+                                            $scope.scratchkey.id +
+                                            '/extension';
                 }
             })
             .catch(function (err) {

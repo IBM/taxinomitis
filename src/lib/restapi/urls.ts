@@ -51,6 +51,10 @@ export const SCRATCHKEY_EXTENSION  = '/api/scratch/:scratchkey/extension.js';
 export const SCRATCH3_EXTENSION    = '/api/scratch/:scratchkey/extension3.js';
 
 //
+// URLs about App Inventor
+export const APPINVENTOR_EXTENSION = '/api/appinventor/:scratchkey/extension';
+
+//
 // URLs about session users
 export const SESSION_USERS         = '/api/sessionusers';
 export const SESSION_USER          = '/api/classes/:classid/sessionusers/:studentid';

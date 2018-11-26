@@ -54,11 +54,11 @@
 
         <div class="modelguidance">
             <div class="modelstatusdetail">
-                <strong><a href="http://appinventor.mit.edu/">App Inventor</a></strong> is a tool to
-                build mobile apps that you can run on your Android phones and tablets.
+                You can use <strong><a href="http://appinventor.mit.edu/">App Inventor</a></strong>
+                to make mobile apps that run on your Android phones and tablets.
             </div>
             <div class="modelstatusdetail">
-                The tool runs in a web browser, like Scratch. And, like Scratch, you code the app
+                It runs in a web browser, like Scratch. Like Scratch, you code the app
                 by dragging, dropping and snapping together blocks.
             </div>
             <div class="modelstatusdetail">
@@ -66,7 +66,16 @@
                 with <strong>Machine Learning for Kids</strong> you can make an app for your
                 phone, powered by artificial intelligence, using your own machine learning models.
             </div>
-            <img src="static/images/appinventor.png" alt="App Inventor" style="width: 100%; border: thin #c9c9c9 solid;"/>
+            <div class="modelstatusdetail">
+                For more detailed instructions on how to use the App Inventor extension, see
+                <a href="https://github.com/kylecorry31/ML4K-AI-Extension">github.com/kylecorry31/ML4K-AI-Extension</a>
+            </div>
+            <div class="modelstatusdetail">
+                <em>Support for App Inventor was created by
+                    <a href="https://github.com/kylecorry31">Kyle Corry</a> and
+                    <a href="https://github.com/MrMazzone">Joe Mazzone</a></em>
+            </div>
+            <!-- <img src="static/images/appinventor.png" alt="App Inventor" style="width: 100%; border: thin #c9c9c9 solid;"/> -->
         </div>
         <div class="modelguidance">
             <div class="modelstatusdetail">
@@ -74,27 +83,14 @@
                 <a href="http://ai2.appinventor.mit.edu/">http://ai2.appinventor.mit.edu</a>
             </div>
             <div class="modelstatusdetail">
-                To add your machine learning model to your App Inventor project,
-                you will need to follow the instructions at
-                <a href="https://github.com/kylecorry31/ML4K-AI-Extension">github.com/kylecorry31/ML4K-AI-Extension</a>
+                To add your machine learning model to your App Inventor project:
+                <ol>
+                    <li>Click on <strong>Import extension</strong></li>
+                    <li>Click on <strong>URL</strong></li>
+                    <li>Fill in the URL for your project: <br/><code style="font-size: 75%;">{{ appinventorurl }}</code></li>
+                </ol>
             </div>
-            <div class="modelstatusdetail">
-                The instructions ask for a "<strong>Key</strong>". This is a secret code
-                that identifies your project, and proves that you should be allowed to use it.
-            </div>
-            <div class="modelstatusdetail">
-                The key for your project is:<br/>
-                <code>{{ scratchkey.id }}</code>
-            </div>
-            <img src="static/images/appinventorapikey.png" alt="App Inventor" style="width: 100%; border: thin #c9c9c9 solid;"/>
-            <div class="modelstatusdetail">
-                You'll need to use that in your project where it asks for a ML4K Key.
-            </div>
-            <div class="modelstatusdetail">
-                <em>Support for App Inventor was created by
-                    <a href="https://github.com/kylecorry31">Kyle Corry</a> and
-                    <a href="https://github.com/MrMazzone">Joe Mazzone</a></em>
-            </div>
+            <img src="static/images/appinventor-import.png" alt="App Inventor" style="width: 100%; border: thin #c9c9c9 solid;"/>
         </div>
 
     </div>
