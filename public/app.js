@@ -200,7 +200,7 @@
                     }
                 },
                 theme : {
-                    logo : 'static/images/mlforkids-logo.jpg',
+                    logo : 'static/images/mlforkids-logo.svg',
                     primaryColor : '#337ab7'
                 },
 
