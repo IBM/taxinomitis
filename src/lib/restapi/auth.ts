@@ -47,7 +47,7 @@ const auth0Authenticate = jwt({
     // audience : process.env[env.AUTH0_AUDIENCE],
     aud : process.env[env.AUTH0_AUDIENCE],
 
-    issuer : `https://${process.env[env.AUTH0_DOMAIN]}/`,
+    issuer : `https://${process.env[env.AUTH0_CUSTOM_DOMAIN]}/`,
     algorithms : [ 'RS256' ],
 });
 

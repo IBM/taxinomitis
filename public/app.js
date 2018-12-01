@@ -186,9 +186,9 @@
             });
 
 
-        lockProvider.init({
+        const lockProviderOptions = {
             clientID : AUTH0_CLIENT_ID,
-            domain : AUTH0_DOMAIN,
+            domain : AUTH0_CUSTOM_DOMAIN,
             options : {
                 autoclose : true,
                 auth : {
@@ -219,7 +219,11 @@
                 // we don't want people creating their own accounts
                 allowSignUp : false
             }
-        });
+        };
+        if (AUTH0_CDN_BASE) {
+            lockProviderOptions.options.configurationBaseUrl = AUTH0_CDN_BASE;
+        }
+        lockProvider.init(lockProviderOptions);
 
 
 
