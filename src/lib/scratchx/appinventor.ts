@@ -15,7 +15,7 @@ import * as fileutils from '../utils/fileutils';
 
 
 export async function getExtension(apikey: string): Promise<NodeJS.ReadableStream> {
-    const filedata = await fileutils.readBuffer('./resources/appinventor-ml4k-v0.8-beta.aix');
+    const filedata = await fileutils.readBuffer('./resources/appinventor-ml4k-v0.8.1-beta.aix');
 
     // The extension aix file is a zip file, containing a text file that
     //  needs to have the API key written to it
