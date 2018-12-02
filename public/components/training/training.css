@@ -17,6 +17,17 @@
     min-height: 200px;
 }
 
+@media (max-width: 550px) {
+    .trainingbuckets {
+        height: initial;
+        background-color: white; 
+    }
+
+    .trainingbuckets, .trainingbucket {
+        display: block;
+    }
+}
+
 .trainingbucket {
     flex: 1;
     flex-grow: 1;
