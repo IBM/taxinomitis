@@ -322,13 +322,18 @@
                     description : translations['WORKSHEETS.JUDGEABOOK.DESCRIPTION'],
                     difficulty : 'Intermediate',
                     type : 'images',
-                    maketypes : [ 'scratch2' ],
+                    maketypes : [ 'scratch3' ],
                     image : 'static/images/project-judgeabook.png',
                     tags : [ 'image classification', 'supervised learning' ],
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook.pdf',
                     downloads : [
                         {
+                            description : 'Full version of the project, where children make a game to compete against the computer to recognise books',
                             worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf'
+                        },
+                        {
+                            description : 'Simplified version of the project, where children get the computer to recognise books',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf'
                         }
                     ]
                 },
