@@ -29,37 +29,37 @@
         "IN20MINS": "20分で...",
         "WHAT": {
             "TITLE": "狙い",
-            "BODY" : "本ツールは、機会学習システムをトレーニングし、それを元にアプリを構築するという実際の経験を通して機械学習の基礎を学ぶためのものです。<br/><br/>文字や数字を分類したり、画像を判断するための機械学習モデルをトレーニングする、簡単に使える、ガイド付きの環境を提供します。<br/><br/>本ツールは子供たちにプログラミングを教えるための既存の多くの努力の上に構築されています。広くプログラミング教育用に使われているプラットフォームである<a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a>にこれらの機械学習モデルを追加することで、子供たちがプロジェクトやゲームを彼らがトレーニングした機会学習のモデルを使って構築できるようにしています。 <br/><br/>より詳細な情報は以下を参照下さい:"
+            "BODY" : "本ツールは、機械学習システムをトレーニングし、それを元にアプリを構築するという実際の経験を通して機械学習の基礎を学ぶためのものです。<br/><br/>文字や数字を分類したり、画像を判断するための機械学習モデルをトレーニングする、簡単に使える、ガイド付きの環境を提供します。<br/><br/>本ツールは子供たちにプログラミングを教えるための既存の多くの努力の上に構築されています。広くプログラミング教育用に使われているプラットフォームである<a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a>にこれらの機械学習モデルを追加することで、子供たちがプロジェクトやゲームを彼らがトレーニングした機会学習のモデルを使って構築できるようにしています。 <br/><br/>より詳細な情報は、以下を参照下さい:"
         },
         "WHY": {
             "TITLE": "Why?",
-            "BODY": "Machine learning is all around us. We all use machine learning systems every day - such as spam filters, recommendation engines, language translation services, chatbots and digital assistants, search engines, and fraud detection systems.<br/><br/>It will soon be normal for machine learning systems to drive our cars, and help doctors to diagnose and treat our illnesses. <br/><br/>It's important that kids are aware of how our world works. The best way to understand the capabilities and implications is to be able to build with this technology for themselves. <br/><br/>To learn more, read: <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'Introducing Machine Learning to kids'</a>"
+            "BODY": "機械学習システムは身近ないたるところにあり、毎日使っています。例えば、スパムフィルター、推奨エンジン、翻訳サービス、チャットボットとデジタルアシスタント、検索エンジン、そして不正検出システムなどです。<br/><br/>近い内に、機械学習システムが私たちの車を運転したり、私たちの病気を治すお医者さんを手伝うことが普通になるでしょう。<br/><br/>子供たちが私たちの世界がどのようにして機能しているのかを理解することは大切なことです。その能力や関連性を理解する最も良い方法は、彼ら自身がこの技術を用いて何かを作ってみることです。<br/><br/>より詳細な情報は、以下を読んでください。: <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'子供のための機械学習入門(英語)'</a>"
         },
         "TECH": {
-            "TITLE": "Tech",
-            "BODY": "The tool is entirely web-based and requires no installs or complicated setup to be able to use. <br/><br/>It was designed for use in the classroom by schools and volunteer-run coding groups for children, and provides an admin page for teachers or group leaders to be able to manage and administer access for their students.<br/><br/>It is being built by <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> using APIs from <a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a>.",
-            "LOGIN": "To get started: "
+            "TITLE": "技術",
+            "BODY": "このツールは全てWebベースで、使うためにソフトウェアの導入や複雑な設定等は不要です。<br/><br/>学校やボランティアが運営する子ど向けのプログラミンググループで使われるようにデザインしており、先生やグループリーダーが、生徒のアクセスを管理できるように管理者用ページも提供します。<br/><br/>本システムは<a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a>のAPIを利用して<a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a>が構築しました。",
+            "LOGIN": "始めるために: "
         }
     },
     "NEWS": {
-        "TITLE": "News",
+        "TITLE": "ニュース",
         "UPDATES": {
-            "TITLE": "News & Updates",
-            "DESCRIPTION": "News and updates from @MLforKids"
+            "TITLE": "ニュースと更新情報",
+            "DESCRIPTION": "@MLforKidsからのニュースと更新情報"
         },
         "MENTIONS": {
-            "TITLE": "Mentions & Media",
-            "DESCRIPTION": "loading Mentions &amp; Media from wakelet.com"
+            "TITLE": "メディアで取り上げられました",
+            "DESCRIPTION": "wakelet.comから取り込んだメディア情報"
         }
     },
     "ERRORS": {
-        "PAGENOTFOUND": "Page not found",
-        "NOTLOGGEDIN": "Not logged in",
+        "PAGENOTFOUND": "ページが見つかりません",
+        "NOTLOGGEDIN": "ログインしていません",
 
-        "MISSINGPROJECTID": "Missing project id. Go back to ",
-        "IFPERSISTENT": "If this keeps happening, please ",
+        "MISSINGPROJECTID": "プロジェクトidがありません。戻って ",
+        "IFPERSISTENT": "もし、継続的にこの問題が起こる場合は、 ",
 
-        "LETMEKNOW": "let me know"
+        "LETMEKNOW": "お知らせください。"
     },
     "WELCOME": {
         "TITLE": "Teach a computer to play a game",
