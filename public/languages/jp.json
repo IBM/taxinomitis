@@ -29,7 +29,7 @@
         "IN20MINS": "20分で...",
         "WHAT": {
             "TITLE": "狙い",
-            "BODY" : "This tool introduces machine learning by providing hands-on experiences for training machine learning systems and building things with them. <br/><br/>It provides an easy-to-use guided environment for training machine learning models for classifying text, numbers or recognising images. <br/><br/>This builds on existing efforts to introduce and teach coding to children, by adding these models to <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> (a widely used educational coding platform), allowing children to create projects and build games with the machine learning models that they've trained. <br/><br/>To learn more, look at:"
+            "BODY" : "本ツールは、機会学習システムをトレーニングし、それを元にアプリを構築するという実際の経験を通して機械学習の基礎を学ぶためのものです。<br/><br/>文字や数字を分類したり、画像を判断するための機械学習モデルをトレーニングする、簡単に使える、ガイド付きの環境を提供します。<br/><br/>本ツールは子供たちにプログラミングを教えるための既存の多くの努力の上に構築されています。広くプログラミング教育用に使われているプラットフォームである<a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a>にこれらの機械学習モデルを追加することで、子供たちがプロジェクトやゲームを彼らがトレーニングした機会学習のモデルを使って構築できるようにしています。 <br/><br/>より詳細な情報は以下を参照下さい:"
         },
         "WHY": {
             "TITLE": "Why?",
