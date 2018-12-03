@@ -1,20 +1,20 @@
 {
     "APP": {
-        "TITLE": "Machine Learning for Kids",
+        "TITLE": "子供のためのマシーンラーニング",
 
-        "BACK": "Back",
-        "BACKTOPROJECT": "&lt; Back to project",
-        "ERROR": "Error:",
-        "WARNING": "Warning:",
-        "INFO": "Info:",
+        "BACK": "戻る",
+        "BACKTOPROJECT": "&lt; プロジェクトに戻る",
+        "ERROR": "エラー:",
+        "WARNING": "注意:",
+        "INFO": "情報:",
 
-        "ADD": "Add",
-        "CANCEL": "Cancel",
+        "ADD": "追加",
+        "CANCEL": "取り消し",
 
-        "ABOUT": "About",
-        "TEACHER": "Teacher",
-        "PROJECTS": "Projects",
-        "WORKSHEETS": "Worksheets",
+        "ABOUT": "本サイトについて",
+        "TEACHER": "先生",
+        "PROJECTS": "プロジェクト",
+        "WORKSHEETS": "ワークシート",
         "NEWS": "News",
         "HELP": "Help",
         "LOGIN": "Log In",
