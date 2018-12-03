@@ -15,20 +15,20 @@
         "TEACHER": "先生",
         "PROJECTS": "プロジェクト",
         "WORKSHEETS": "ワークシート",
-        "NEWS": "News",
-        "HELP": "Help",
-        "LOGIN": "Log In",
-        "LOGOUT": "Log Out",
+        "NEWS": "ニュース",
+        "HELP": "ヘルプ",
+        "LOGIN": "ログイン",
+        "LOGOUT": "ログアウト",
 
-        "BETA": "Beta",
-        "INCOMPLETE": "Incomplete!"
+        "BETA": "ベータ版",
+        "INCOMPLETE": "未完成です!"
     },
     "ABOUT": {
-        "TITLE": "Machine Learning for Kids",
-        "IN6SECS": "In 6 seconds...",
-        "IN20MINS": "In 20 minutes...",
+        "TITLE": "子供のためのマシーンラーニング",
+        "IN6SECS": "６秒で...",
+        "IN20MINS": "20分で...",
         "WHAT": {
-            "TITLE": "What?",
+            "TITLE": "狙い",
             "BODY" : "This tool introduces machine learning by providing hands-on experiences for training machine learning systems and building things with them. <br/><br/>It provides an easy-to-use guided environment for training machine learning models for classifying text, numbers or recognising images. <br/><br/>This builds on existing efforts to introduce and teach coding to children, by adding these models to <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> (a widely used educational coding platform), allowing children to create projects and build games with the machine learning models that they've trained. <br/><br/>To learn more, look at:"
         },
         "WHY": {
