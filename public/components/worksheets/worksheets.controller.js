@@ -131,7 +131,7 @@
                     description : translations['WORKSHEETS.MAILMANMAX.DESCRIPTION'],
                     difficulty : 'Beginner',
                     type : 'images',
-                    maketypes : [ 'scratch2' ],
+                    maketypes : [ 'scratch3' ],
                     image : 'static/images/project-mailmanmax.png',
                     tags : [ 'optical character recognition', 'handwriting recognition', 'image classification' ],
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-mailmanmax.pdf',
