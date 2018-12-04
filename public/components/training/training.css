@@ -20,11 +20,13 @@
 @media (max-width: 550px) {
     .trainingbuckets {
         height: initial;
-        background-color: white; 
+        background-color: white;
     }
-
     .trainingbuckets, .trainingbucket {
         display: block;
+    }
+    .trainingbucket {
+        margin-top: 4rem;
     }
 }
 
