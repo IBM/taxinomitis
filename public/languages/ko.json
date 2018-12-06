@@ -200,7 +200,7 @@
     },
     "TRAINING": {
         "TITLE": "훈련",
-        "ADDLABEL": "새로운 라벨 추가",
+        "ADDLABEL": "새로운 레이블 추가",
         "CREATEFIRSTLABEL": "'추가' 버튼을 클릭하여 당신의 첫번째 바구니를 만드세요",
         "CROWDSOURCEDEMPTY": "선생님이 새로운 바구니를 만든 다음 페이지를 새로고침하세요",
         "ADDEXAMPLE": "데이터 추가",
@@ -209,8 +209,8 @@
         "ADDDRAWING": "그리기",
         "DRAGIMAGES": "사진을 드래그하여 가져오세요",
         "NEWLABEL": {
-            "INTRO": "새로운 라벨을 추가하세요",
-            "ERROR": "라벨 이름은 숫자와 문자로만 작성하세요"
+            "INTRO": "새로운 레이블을 추가하세요",
+            "ERROR": "레이블 이름은 숫자와 문자로만 작성하세요"
         },
         "NEWEXAMPLE": {
             "INTRO": "새로운 데이터를 추가하세요 ",
@@ -328,8 +328,8 @@
                         "NUMBERS" : "You have collected examples of numbers for a computer to use to recognise when numbers are "
                     },
                     "COLLECTED" : {
-                        "CLASS" : "They've collected: ",
-                        "YOU" : "You've collected: "
+                        "CLASS" : "반 친구들이 수집한 데이터: ",
+                        "YOU" : "여러분이 수집한 데이터: "
                     }
                 }
             }
@@ -498,21 +498,21 @@
         "DOWNLOAD": "다운로드",
 
         "MAKETYPES": {
-            "ALL": "All make types",
+            "ALL": "모든 종류의 프로젝트",
 
-            "SCRATCH": "Scratch projects",
-            "PYTHON": "Python projects",
-            "APPINVENTOR": "App Inventor projects",
+            "SCRATCH": "스크래치 프로젝트",
+            "PYTHON": "파이썬 프로젝트",
+            "APPINVENTOR": "앱 인벤터 프로젝트",
 
-            "SCRATCH_WORKSHEET": "Worksheet for making project in Scratch",
-            "PYTHON_WORKSHEET": "Worksheet for making project in Python",
-            "APPINVENTOR_WORKSHEET": "Worksheet for making project in App Inventor"
+            "SCRATCH_WORKSHEET": "스크래치 프로젝트를 위한 워크시트",
+            "PYTHON_WORKSHEET": "파이썬 프로젝트를 위한 워크시트",
+            "APPINVENTOR_WORKSHEET": "앱 인벤터 프로젝트를 위한 워크시트"
         },
 
         "NO_WORKSHEETS": {
-            "NO_MATCHES": "There aren't any project worksheets that match those filters.",
-            "MAKE_YOUR_OWN": "You could adapt some of the existing worksheets or come up with a new one.",
-            "CONTRIBUTE": "If you do, please consider <a href='https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions'>contributing it for others to use</a>."
+            "NO_MATCHES": "조건에 적합한 워크시트가 없습니다.",
+            "MAKE_YOUR_OWN": "기존의 워크시트를 사용해보거나, 새로운 워크시트에 도전해보세요.",
+            "CONTRIBUTE": "다른 사람을 위해 <a href='https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions'>기여</a>해 보세요."
         },
 
 
@@ -562,9 +562,9 @@
             "DESCRIPTION": "사람들이 판다를 쳐다보면 부끄러워하며 춤추는 것을 멈추는 판다를 만들어봐요"
         },
         "VIRTUALPET": {
-            "TITLE": "Virtual Pet",
-            "SUMMARY": "Teach a computer to recognise pictures",
-            "DESCRIPTION": "Train the computer to recognise what you're doing so you can look after a virtual pet."
+            "TITLE": "가상 애완동물",
+            "SUMMARY": "컴퓨터가 사진을 인식하도록 가르쳐봐요",
+            "DESCRIPTION": "여러분이 무엇을 하는지 알아차리는 컴퓨터를 만들어서 여러분이 가상 동물을 돌볼 수 있도록 해봐요."
         },
         "PACMAN": {
             "TITLE": "팩맨",
@@ -608,13 +608,13 @@
         },
         "SCHOOLLIBRARY": {
             "TITLE": "도서관",
-            "SUMMARY": "컴퓨터가 추천을 하도록 가르치십시오.",
+            "SUMMARY": "컴퓨터가 추천을 하도록 가르치십시오",
             "DESCRIPTION": "어떤 책이 적합한지를 제안하는 학교 사서를 스크래치로 만들어봐요"
         },
         "WHATTWITTERTHINKS": {
-            "TITLE": "What does Twitter think?",
-            "SUMMARY": "Teach a computer to measure public opinion",
-            "DESCRIPTION": "Create a sentiment analysis tool in Scratch to analyze discussion on Twitter"
+            "TITLE": "트위터는 어떻게 생각하나요?",
+            "SUMMARY": "대중의 의견을 알아차리도록 컴퓨터를 가르쳐봐요",
+            "DESCRIPTION": "트위터의 의견들을 분석할 수 있는 감정 분석 도구를 "
         },
         "NOUGHTSANDCROSSES": {
             "TITLE": "동그라미 & 엑스 게임",
