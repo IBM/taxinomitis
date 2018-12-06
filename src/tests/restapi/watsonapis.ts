@@ -12,6 +12,7 @@ import * as visualrecognition from '../../lib/training/visualrecognition';
 import * as TrainingTypes from '../../lib/training/training-types';
 import * as ProjectTypes from '../../lib/db/projects';
 import * as store from '../../lib/db/store';
+import * as Types from '../../lib/db/db-types';
 import * as auth from '../../lib/restapi/auth';
 import testapiserver from './testserver';
 
@@ -29,8 +30,10 @@ describe('REST API - Bluemix credentials', () => {
     let getImageClassifiersStub: sinon.SinonStub;
 
     function authNoOp(
-        req: Express.Request, res: Express.Response,
-        next: (err?: Error) => void)
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction,
+    )
     {
         next();
     }
@@ -48,12 +51,18 @@ describe('REST API - Bluemix credentials', () => {
         checkUserStub = sinon.stub(auth, 'checkValidUser').callsFake(authNoOp);
         requireSupervisorStub = sinon.stub(auth, 'requireSupervisor').callsFake(authNoOp);
 
-        getClassStub = sinon.stub(store, 'getClassTenant').callsFake((id) => {
+        getClassStub = sinon.stub(store, 'getClassTenant').callsFake((id: string): Promise<Types.ClassTenant> => {
             if (id === 'TESTTENANT' || id === 'DIFFERENT') {
-                return Promise.resolve({ isManaged : false });
+                const placeholder: Types.ClassTenant = {
+                    isManaged : false,
+                } as Types.ClassTenant;
+                return Promise.resolve(placeholder);
             }
             else {
-                return Promise.resolve({ isManaged : true });
+                const placeholder: Types.ClassTenant = {
+                    isManaged : true,
+                } as Types.ClassTenant;
+                return Promise.resolve(placeholder);
             }
         });
 
@@ -74,7 +83,8 @@ describe('REST API - Bluemix credentials', () => {
             .stub(visualrecognition, 'getImageClassifiers')
             .callsFake((creds: TrainingTypes.BluemixCredentials) => {
                 if (creds.username + creds.password === VALID_APIKEY) {
-                    return Promise.resolve();
+                    const placeholder: TrainingTypes.ClassifierSummary[] = [];
+                    return Promise.resolve(placeholder);
                 }
                 return Promise.reject({
                     statusCode : 403,

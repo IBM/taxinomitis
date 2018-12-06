@@ -32,6 +32,19 @@
     position: relative;
 }
 
+@media (max-width: 550px) {
+    .trainingbuckets {
+        height: initial;
+        background-color: white;
+    }
+    .trainingbuckets, .trainingbucket {
+        display: block;
+    }
+    .trainingbucket {
+        margin-top: 4rem;
+    }
+}
+
 .loadingtraining {
     background-image: url('../../images/loading.gif');
     background-repeat: no-repeat;

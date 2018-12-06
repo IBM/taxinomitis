@@ -25,6 +25,7 @@
             'WORKSHEETS.FACELOCK.TITLE', 'WORKSHEETS.FACELOCK.SUMMARY', 'WORKSHEETS.FACELOCK.DESCRIPTION',
             'WORKSHEETS.JOURNEYTOSCHOOL.TITLE', 'WORKSHEETS.JOURNEYTOSCHOOL.SUMMARY', 'WORKSHEETS.JOURNEYTOSCHOOL.DESCRIPTION',
             'WORKSHEETS.SHYPANDA.TITLE', 'WORKSHEETS.SHYPANDA.SUMMARY', 'WORKSHEETS.SHYPANDA.DESCRIPTION',
+            'WORKSHEETS.VIRTUALPET.TITLE', 'WORKSHEETS.VIRTUALPET.SUMMARY', 'WORKSHEETS.VIRTUALPET.DESCRIPTION',
             'WORKSHEETS.PACMAN.TITLE', 'WORKSHEETS.PACMAN.SUMMARY', 'WORKSHEETS.PACMAN.DESCRIPTION',
             'WORKSHEETS.CHATBOTS.TITLE', 'WORKSHEETS.CHATBOTS.SUMMARY', 'WORKSHEETS.CHATBOTS.DESCRIPTION',
             'WORKSHEETS.TOURISTINFO.TITLE', 'WORKSHEETS.TOURISTINFO.SUMMARY', 'WORKSHEETS.TOURISTINFO.DESCRIPTION',
@@ -34,6 +35,7 @@
             'WORKSHEETS.LOCATELARRY.TITLE', 'WORKSHEETS.LOCATELARRY.SUMMARY', 'WORKSHEETS.LOCATELARRY.DESCRIPTION',
             'WORKSHEETS.CONFUSED.TITLE', 'WORKSHEETS.CONFUSED.SUMMARY', 'WORKSHEETS.CONFUSED.DESCRIPTION',
             'WORKSHEETS.SCHOOLLIBRARY.TITLE', 'WORKSHEETS.SCHOOLLIBRARY.SUMMARY', 'WORKSHEETS.SCHOOLLIBRARY.DESCRIPTION',
+            'WORKSHEETS.WHATTWITTERTHINKS.TITLE', 'WORKSHEETS.WHATTWITTERTHINKS.SUMMARY', 'WORKSHEETS.WHATTWITTERTHINKS.DESCRIPTION',
             'WORKSHEETS.NOUGHTSANDCROSSES.TITLE', 'WORKSHEETS.NOUGHTSANDCROSSES.SUMMARY', 'WORKSHEETS.NOUGHTSANDCROSSES.DESCRIPTION',
             'WORKSHEETS.TOPTRUMPS.TITLE', 'WORKSHEETS.TOPTRUMPS.SUMMARY', 'WORKSHEETS.TOPTRUMPS.DESCRIPTION',
             'WORKSHEETS.HEADLINES.TITLE', 'WORKSHEETS.HEADLINES.SUMMARY', 'WORKSHEETS.HEADLINES.DESCRIPTION'
@@ -129,7 +131,7 @@
                     description : translations['WORKSHEETS.MAILMANMAX.DESCRIPTION'],
                     difficulty : 'Beginner',
                     type : 'images',
-                    maketypes : [ 'scratch2' ],
+                    maketypes : [ 'scratch3' ],
                     image : 'static/images/project-mailmanmax.png',
                     tags : [ 'optical character recognition', 'handwriting recognition', 'image classification' ],
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-mailmanmax.pdf',
@@ -246,6 +248,22 @@
                     ]
                 },
                 {
+                    title : translations['WORKSHEETS.VIRTUALPET.TITLE'],
+                    summary : translations['WORKSHEETS.VIRTUALPET.SUMMARY'],
+                    description : translations['WORKSHEETS.VIRTUALPET.DESCRIPTION'],
+                    difficulty : 'Intermediate',
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-virtualpet.png',
+                    tags : [ 'image classification', 'supervised learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-virtualpet.pdf',
+                    downloads : [
+                        {
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-virtualpet.pdf'
+                        }
+                    ]
+                },
+                {
                     title : translations['WORKSHEETS.TOURISTINFO.TITLE'],
                     summary : translations['WORKSHEETS.TOURISTINFO.SUMMARY'],
                     description : translations['WORKSHEETS.TOURISTINFO.DESCRIPTION'],
@@ -288,7 +306,7 @@
                     description : translations['WORKSHEETS.ROCKPAPERSCISSORS.DESCRIPTION'],
                     difficulty : 'Intermediate',
                     type : 'images',
-                    maketypes : [ 'scratch2' ],
+                    maketypes : [ 'scratch3' ],
                     image : 'static/images/project-rockpaperscissors.png',
                     tags : [ 'image classification', 'supervised learning' ],
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-rockpaperscissors.pdf',
@@ -304,13 +322,18 @@
                     description : translations['WORKSHEETS.JUDGEABOOK.DESCRIPTION'],
                     difficulty : 'Intermediate',
                     type : 'images',
-                    maketypes : [ 'scratch2' ],
+                    maketypes : [ 'scratch3' ],
                     image : 'static/images/project-judgeabook.png',
                     tags : [ 'image classification', 'supervised learning' ],
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook.pdf',
                     downloads : [
                         {
+                            description : 'Full version of the project, where children make a game to compete against the computer to recognise books',
                             worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf'
+                        },
+                        {
+                            description : 'Simplified version of the project, where children get the computer to recognise books',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf'
                         }
                     ]
                 },
@@ -359,6 +382,22 @@
                     downloads : [
                         {
                             worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.WHATTWITTERTHINKS.TITLE'],
+                    summary : translations['WORKSHEETS.WHATTWITTERTHINKS.SUMMARY'],
+                    description : translations['WORKSHEETS.WHATTWITTERTHINKS.DESCRIPTION'],
+                    difficulty : 'Advanced',
+                    type : 'text',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-whattwitterthinks.png',
+                    tags : [ 'sentiment analysis', 'social media analysis', 'supervised learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-whattwitterthinks.pdf',
+                    downloads : [
+                        {
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf'
                         }
                     ]
                 },

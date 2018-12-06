@@ -47,7 +47,7 @@ const auth0Authenticate = jwt({
     // audience : process.env[env.AUTH0_AUDIENCE],
     aud : process.env[env.AUTH0_AUDIENCE],
 
-    issuer : `https://${process.env[env.AUTH0_DOMAIN]}/`,
+    issuer : `https://${process.env[env.AUTH0_CUSTOM_DOMAIN]}/`,
     algorithms : [ 'RS256' ],
 });
 
@@ -137,10 +137,12 @@ export function checkValidUser(req: Express.Request, res: Express.Response, next
     getValuesFromToken(req);
 
     if (!req.user || !req.user.app_metadata) {
-        return errors.notAuthorised(res);
+        errors.notAuthorised(res);
+        return;
     }
     if (req.user.app_metadata.tenant !== req.params.classid) {
-        return errors.forbidden(res);
+        errors.forbidden(res);
+        return;
     }
 
     next();
@@ -148,7 +150,8 @@ export function checkValidUser(req: Express.Request, res: Express.Response, next
 
 export function requireSupervisor(req: Express.Request, res: Express.Response, next: Express.NextFunction) {
     if (req.user.app_metadata.role !== 'supervisor') {
-        return errors.supervisorOnly(res);
+        errors.supervisorOnly(res);
+        return;
     }
 
     next();
@@ -174,14 +177,15 @@ export async function ensureUnmanaged(
     try {
         const policy = await store.getClassTenant(tenant);
         if (policy.isManaged) {
-            return res.status(httpstatus.FORBIDDEN)
-                      .json({ error : 'Access to API keys is forbidden for managed tenants' });
+            res.status(httpstatus.FORBIDDEN)
+               .json({ error : 'Access to API keys is forbidden for managed tenants' });
+            return;
         }
 
         next();
     }
     catch (err) {
-        return next(err);
+        next(err);
     }
 }
 

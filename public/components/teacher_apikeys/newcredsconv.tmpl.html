@@ -38,8 +38,8 @@
                         </div>
                         <div style="margin-top: 0.2em; margin-left: 1em;">
                             <md-radio-group ng-model="type" ng-required="true">
-                                <md-radio-button value="password" class="md-primary">A username and password</md-radio-button>
-                                <md-radio-button value="apikey" class="md-primary">An API key</md-radio-button>
+                                <md-radio-button value="apikey" class="md-primary" ng-click="username = ''; password = ''">An API key</md-radio-button>
+                                <md-radio-button value="password" class="md-primary" ng-click="apikey = ''">A username and password</md-radio-button>
                             </md-radio-group>
                         </div>
 

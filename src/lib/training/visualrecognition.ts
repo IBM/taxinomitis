@@ -137,10 +137,17 @@ async function createClassifier(
 
                 // This shouldn't happen.
                 // It probably needs more immediate attention, so notify the Slack bot
+                let detail = '';
+                if (err.error &&
+                    err.error.error &&
+                    err.error.error.description)
+                {
+                    detail = '\n' + err.error.error.description;
+                }
                 notifications.notify('Unexpected failure to train image classifier' +
                                      ' for project : ' + project.id +
                                      ' in class : ' + project.classid + ' : ' +
-                                     err.message);
+                                     err.message + detail);
 
                 throw err;
             }

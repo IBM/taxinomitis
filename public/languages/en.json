@@ -561,6 +561,11 @@
             "SUMMARY": "Teach a computer to recognise pictures",
             "DESCRIPTION": "Make a dancing panda that gets shy and stops dancing if it sees you looking."
         },
+        "VIRTUALPET": {
+            "TITLE": "Virtual Pet",
+            "SUMMARY": "Teach a computer to recognise pictures",
+            "DESCRIPTION": "Train the computer to recognise what you're doing so you can look after a virtual pet."
+        },
         "PACMAN": {
             "TITLE": "Pac-Man",
             "SUMMARY": "Teach a computer to play a game",
@@ -605,6 +610,11 @@
             "TITLE": "School Library",
             "SUMMARY": "Teach a computer to make recommendations",
             "DESCRIPTION": "Create a school librarian in Scratch that suggests who a reading book might be suitable for."
+        },
+        "WHATTWITTERTHINKS": {
+            "TITLE": "What does Twitter think?",
+            "SUMMARY": "Teach a computer to measure public opinion",
+            "DESCRIPTION": "Create a sentiment analysis tool in Scratch to analyze discussion on Twitter"
         },
         "NOUGHTSANDCROSSES": {
             "TITLE": "Noughts & Crosses",

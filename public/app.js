@@ -186,9 +186,9 @@
             });
 
 
-        lockProvider.init({
+        const lockProviderOptions = {
             clientID : AUTH0_CLIENT_ID,
-            domain : AUTH0_DOMAIN,
+            domain : AUTH0_CUSTOM_DOMAIN,
             options : {
                 autoclose : true,
                 auth : {
@@ -200,7 +200,7 @@
                     }
                 },
                 theme : {
-                    logo : 'static/images/mlforkids-logo.jpg',
+                    logo : 'static/images/mlforkids-logo.svg',
                     primaryColor : '#337ab7'
                 },
 
@@ -219,7 +219,11 @@
                 // we don't want people creating their own accounts
                 allowSignUp : false
             }
-        });
+        };
+        if (AUTH0_CDN_BASE) {
+            lockProviderOptions.options.configurationBaseUrl = AUTH0_CDN_BASE;
+        }
+        lockProvider.init(lockProviderOptions);
 
 
 

@@ -1,3 +1,7 @@
+export interface Auth0TokenPayload {
+    readonly access_token: string;
+}
+
 export interface User {
     user_id: string;
     email: string;

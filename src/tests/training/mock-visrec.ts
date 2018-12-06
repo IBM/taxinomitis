@@ -2,6 +2,7 @@ import * as assert from 'assert';
 import * as randomstring from 'randomstring';
 import * as uuid from 'uuid/v1';
 import * as tmp from 'tmp';
+import * as coreReq from 'request';
 
 import * as visrec from '../../lib/training/visualrecognition';
 import * as DbTypes from '../../lib/db/db-types';
@@ -9,6 +10,7 @@ import * as TrainingTypes from '../../lib/training/training-types';
 import * as downloadAndZip from '../../lib/utils/downloadAndZip';
 import * as dbObjects from '../../lib/db/objects';
 import * as mockIam from '../iam/mock-iam';
+import requestPromise = require('request-promise');
 
 
 
@@ -166,10 +168,15 @@ export const request = {
         }
     },
 
-    delete : (url: string, options: visrec.LegacyVisRecRequest | visrec.NewVisRecRequest) => {
-        assert(options.qs.version);
-        assert(options.headers);
-        return Promise.resolve();
+    delete : (url: string, opts?: coreReq.CoreOptions) => {
+        // TODO this is ridiculous... do I really have to fight with TypeScript like this?
+        const unk: unknown = opts as unknown;
+        const options: visrec.NewVisRecRequest = unk as visrec.NewVisRecRequest;
+
+        assert(options && options.qs.version);
+        assert(options && options.headers);
+        const prom: unknown = Promise.resolve();
+        return prom as requestPromise.RequestPromise;
     },
 };
 
@@ -184,7 +191,9 @@ export const store = {
         assert.strictEqual(typeof projectid, 'string');
         return Promise.resolve([]);
     },
-    getImageTrainingByLabel: (projectid: string, label: string, options: DbTypes.PagingOptions) => {
+    getImageTrainingByLabel: (projectid: string, label: string, options: DbTypes.PagingOptions)
+        : Promise<DbTypes.ImageTraining[]> =>
+    {
         const project = PROJECTS_BY_ID[projectid];
         const trainingCounts = PROJECTS[project.name].training;
         const count = trainingCounts[label];
@@ -193,9 +202,12 @@ export const store = {
         const limit = options.limit;
         const end = Math.min(start + limit, count);
 
-        const training: Array<{ [imageurl: string]: string }> = [];
+        const training: DbTypes.ImageTraining[] = [];
         for (let idx = start; idx < end; idx++) {
-            training.push({ imageurl : 'http://' + randomstring.generate(10) + '.com/' + label + '-' + idx + '.jpg' });
+            const placeholder: DbTypes.ImageTraining = {
+                imageurl : 'http://' + randomstring.generate(10) + '.com/' + label + '-' + idx + '.jpg',
+            } as DbTypes.ImageTraining;
+            training.push(placeholder);
         }
 
         return Promise.resolve(training);
@@ -203,7 +215,9 @@ export const store = {
     countTrainingByLabel : (project: DbTypes.Project) => {
         return Promise.resolve(PROJECTS[project.name].training);
     },
-    getBluemixCredentials : (classid: string, service: TrainingTypes.BluemixServiceType) => {
+    getBluemixCredentials : (classid: string, service: TrainingTypes.BluemixServiceType)
+        : Promise<TrainingTypes.BluemixCredentials[]> =>
+    {
         assert.strictEqual(service, 'visrec');
         if (classid === CLASSIDS.LEGACY) {
             return Promise.resolve([ CREDENTIALS_LEGACY ]);
@@ -215,7 +229,7 @@ export const store = {
             return Promise.resolve([]);
         }
     },
-    getBluemixCredentialsById : (credentialsid: string) => {
+    getBluemixCredentialsById : (credentialsid: string): Promise<TrainingTypes.BluemixCredentials> => {
         switch (credentialsid) {
         case CREDENTIALS_LEGACY.id:
             return Promise.resolve(CREDENTIALS_LEGACY);
@@ -225,18 +239,20 @@ export const store = {
             throw new Error('Unexpected response when retrieving the service credentials');
         }
     },
-    getClassTenant : (classid: string) => {
-        return Promise.resolve({
+    getClassTenant : (classid: string): Promise<DbTypes.ClassTenant> => {
+        const placeholder: DbTypes.ClassTenant = {
             id : classid,
             supportedProjectTypes : [ 'text', 'images' ],
             maxUsers : 8,
             maxProjectsPerUser : 3,
             textClassifierExpiry : 2,
             imageClassifierExpiry : 3,
-        });
+            isManaged: false,
+        };
+        return Promise.resolve(placeholder);
     },
-    storeOrUpdateScratchKey : () => {
-        return Promise.resolve();
+    storeOrUpdateScratchKey : (): Promise<string> => {
+        return Promise.resolve('');
     },
     resetExpiredScratchKey : (id: string, projecttype: DbTypes.ProjectTypeLabel) => {
         assert.strictEqual(typeof id, 'string');
@@ -262,7 +278,7 @@ export const store = {
 
 
 export const download = {
-    run : (locations: downloadAndZip.ImageDownload[]) => {
+    run : (locations: downloadAndZip.ImageDownload[]): Promise<string> => {
         return new Promise((resolve) => {
             for (const location of locations) {
                 if (location.type === 'download') {

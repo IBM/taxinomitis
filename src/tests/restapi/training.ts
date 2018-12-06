@@ -671,6 +671,8 @@ describe('REST API - training', () => {
             limitsStub.returns({
                 textTrainingItemsPerProject : 2,
                 numberTrainingItemsPerProject : 2,
+                numberTrainingItemsPerClassProject : 2,
+                imageTrainingItemsPerProject : 100,
             });
 
             const trainingurl = '/api/classes/' + classid +

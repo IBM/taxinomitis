@@ -11,6 +11,7 @@ import * as httpstatus from 'http-status';
 
 
 import * as dbobjects from '../../lib/db/objects';
+import * as Types from '../../lib/db/db-types';
 import * as TrainingTypes from '../../lib/training/training-types';
 import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
@@ -341,8 +342,8 @@ describe('REST API - classifiers', () => {
 
 
     const mockStore = {
-        getClassTenant : (classid: string) => {
-            return {
+        getClassTenant : (classid: string): Promise<Types.ClassTenant> => {
+            const placeholder: Types.ClassTenant = {
                 id : classid,
                 supportedProjectTypes : [ 'text', 'images', 'numbers' ],
                 isManaged : classid === 'managed',
@@ -351,6 +352,7 @@ describe('REST API - classifiers', () => {
                 textClassifierExpiry : 24,
                 imageClassifierExpiry : 24,
             };
+            return Promise.resolve(placeholder);
         },
     };
 

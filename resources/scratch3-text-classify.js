@@ -208,6 +208,12 @@ function classifyText(text, cacheKey, lastmodified, callback) {
         })
         .catch((err) => {
             console.log(err);
+
+            callback({
+                class_name: 'Unknown',
+                confidence: 0,
+                classifierTimestamp: nowAsString()
+            });
         });
 }
 

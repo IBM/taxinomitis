@@ -329,25 +329,6 @@
                     });
                 }
             }
-            else if (hashStr &&
-                     hashStr.length && hashStr.length > 3 &&
-                     hashStr.indexOf('#!#') === 0)
-            {
-                var params = parseUrlParams(hashStr.substr(3));
-
-                if (params.error === 'server_error' &&
-                    params.error_description === 'Unable%20to%20configure%20verification%20page.')
-                {
-                    var alert = $mdDialog.alert()
-                                    .title('"Unable to configure verification page"')
-                                    .htmlContent('<p>The most common cause of this is that your web browser refused to store the cookie needed to let you log in. </p>' +
-                                                 '<p>Please make sure that your browser settings <strong>allow third-party cookies</strong> and try again.</p>')
-                                    .ok('OK');
-                    $mdDialog.show(alert).finally(function () {
-                        window.location = '/';
-                    });
-                }
-            }
         }
 
 

@@ -12,3 +12,14 @@ export function read(path: string): Promise<string> {
         });
     });
 }
+
+export function readBuffer(path: string): Promise<Buffer> {
+    return new Promise((resolve, reject) => {
+        fs.readFile(path, (err, contents) => {
+            if (err) {
+                return reject(err);
+            }
+            return resolve(contents);
+        });
+    });
+}
