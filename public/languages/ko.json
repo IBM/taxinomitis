@@ -408,8 +408,8 @@
             },
             "WEBCAM": "<strong>웹캠</strong>으로 테스트하기",
             "DRAWING": "<strong>그림 그리기</strong>로 테스트하기",
-            "WWW": "T<strong>인터넷 자료</strong>로 테스트하기",
-            "RECOGNISED": "R<strong>{{ testoutput }}</strong>(으)로 인식되었습니다."
+            "WWW": "<strong>인터넷 자료</strong>로 테스트하기",
+            "RECOGNISED": "<strong>{{ testoutput }}</strong>(으)로 인식되었습니다."
         },
         "QUIZ": {
             "TITLE": "퀴즈 시간!",
@@ -449,20 +449,20 @@
 
         "LAUNCH": "스크래치에서 열기",
 
-        "LAUNCH_SCRATCH_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch by itself</a> if you want.)",
-        "GO_TO_LEARNANDTEST": "Or go to the <strong>Learn &amp; Test</strong> page for some tips on what to do next.",
+        "LAUNCH_SCRATCH_BY_ITSELF": "(원한다면 <a href='{{ url }}' class='btn btn-default' target='_blank'>스크래치</a> 만을 사용할 수 있습니다.)",
+        "GO_TO_LEARNANDTEST": "혹은 <strong>학습 &amp; 테스트</strong> 페이지로 이동하여 다음에 무엇을 해야하는지에 대한 팁을 얻어보세요.",
 
-        "MORE_BLOCKS": "Your project will add these blocks to the <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> tab in Scripts.",
+        "MORE_BLOCKS": "더 많은 블록을 <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> 탭에서 추가할 수 있습니다.",
         "EXPLAIN_RECOGNISE_LABEL": "Put {{ type }} in the input for this, and it will return the label that your machine learning model recognises it as.",
         "EXPLAIN_RECOGNISE_CONFIDENCE": "This will return how confident your machine learning model is that it recognises the type of {{ type }}. (As a number from 0 - 100).",
         "EXPLAIN_LABELS": "These blocks represent the labels you've created in your project, so you can use their names in your scripts.",
         "EXPLAIN_COSTUMEIMAGE": "This block is in the Looks palette for Sprites and will return the image of the currently selected costume.",
         "SAMPLE_SCRIPT": "This means you can do something like this:",
-        "SAMPLE_SCREENSHOT": "It will look something like this - except with the name of your project.",
-        "EXPLAIN_STATUS": "The coloured circle next to your project name tells you if your machine learning model is okay.",
-        "STATUS_GREEN": "means your model is trained and ready to go",
-        "STATUS_YELLOW": "means your model hasn't finished training yet",
-        "STATUS_RED": "means something went wrong. Go back to the <strong>Learn &amp; Test</strong> page to see what went wrong with training."
+        "SAMPLE_SCREENSHOT": "이와 같이 나타납니다.It will look something like this - except with the name of your project.",
+        "EXPLAIN_STATUS": "동그라미의 색깔은 여러분의 머신러닝 모델이 어떠한 상태인지 나타냅니다.",
+        "STATUS_GREEN": "모델을 사용할 수 있다는 의미입니다.",
+        "STATUS_YELLOW": "아직 모델 학습이 완료되지 않았다는 의미입니다.",
+        "STATUS_RED": "무엇인가 잘못되었다는 표시입니다. <strong>학습 &amp; 테스트</strong> 페이지로 이동하여 무엇이 잘못되었는지 확인해보세요."
     },
     "SCRATCH3": {
         "TITLE": "스크래치3.0에서 머신러닝 사용하기",
@@ -677,29 +677,29 @@
             "REMOVE": "삭제",
 
             "NO_TEXT_CREDENTIALS": "여러분은 텍스트 인식 인증서(Assistant credentials)를 가지고 있지 않습니다. 그렇기 때문에 <strong>text</strong> 프로젝트를 만들 수 없습니다.",
-            "NO_IMAGE_CREDENTIALS": "You don't have any Visual Recognition API keys. This means that it will not be possible to train models for <strong>images</strong> projects.",
+            "NO_IMAGE_CREDENTIALS": "여러분은 이미지 인식 인증키(Visual Recognition API keys)를 가지고 있지 않습니다. 그렇기 때문에  <strong>images</strong> 프로젝트를 만들 수 없습니다.",
 
-            "NOTAUTHORISED": "You are not authorized to access the Watson API keys used by your class.",
-            "MANAGEDCLASS": "API Keys used by your class are being managed for you.",
+            "NOTAUTHORISED": "여러분의 교실에서 Watson API keys에 접근할 수 있는 권한이 없습니다.",
+            "MANAGEDCLASS": "API Keys가 여러분의 교실에서 관리되고 있습니다.",
 
-            "HELP_STEPBYSTEP_GUIDE": "If you're not sure what to do here, please follow the <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> step-by-step guide </a>. If you'd like any help, please <strong><a style='cursor: pointer;' ui-sref='help'>get in touch</a></strong>.",
+            "HELP_STEPBYSTEP_GUIDE": "어떻게 해야 할지 잘 모르겠다면 <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'>단계별 가이드</a>를 참고하세요. 도움이 필요하다면 <strong><a style='cursor: pointer;' ui-sref='help'>연락</a></strong>하세요.",
 
-            "INTRO_WATSONASSISTANT": "Training machine learning models for <span class='mlprojecttype'>text</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/conversation/'>Watson Assistant</a>",
-            "INTRO_VISUALRECOGNITION": "Training machine learning models for <span class='mlprojecttype'>images</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
+            "INTRO_WATSONASSISTANT": "<span class='mlprojecttype'>text</span> 프로젝트를 <a class='mlprojecttype' href='https://www.ibm.com/watson/services/conversation/'>Watson Assistant</a>를 사용하여 만들어보세요.",
+            "INTRO_VISUALRECOGNITION": "<span class='mlprojecttype'>images</span> 프로젝트를 <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>를 사용하여 만들어보세요",
 
-            "ERROR_FETCHING_WATSONASSISTANT": "Failed to get your Watson Assistant passwords",
-            "ERROR_FETCHING_VISUALRECOG": "Failed to get your Visual Recognition API keys",
+            "ERROR_FETCHING_WATSONASSISTANT": "여러분의 Watson Assistant 비밀번호가 잘못되었습니다.",
+            "ERROR_FETCHING_VISUALRECOG": "여러분의 Visual Recognition API keys가 잘못되었습니다.",
 
-            "USERNAME": "Username",
-            "PASSWORD": "Password",
+            "USERNAME": "사용자명",
+            "PASSWORD": "비밀번호",
             "APIKEY": "API key",
 
-            "NUMBER_OF_ML_MODELS": "Number of ML models",
-            "UNKNOWN": "unknown",
-            "UNLIMITED": "unlimited",
+            "NUMBER_OF_ML_MODELS": "ML models의 수",
+            "UNKNOWN": "알 수 없음",
+            "UNLIMITED": "제한없음",
 
-            "LIMIT_TEXT_PROJECTS": "Number of text machine learning models your students can have:",
-            "LIMIT_IMAGE_PROJECTS": "Number of images machine learning models your students can have:"
+            "LIMIT_TEXT_PROJECTS": "여러분의 교실 학생들이 만들 수 있는 텍스트 머신러닝 모델의 수:",
+            "LIMIT_IMAGE_PROJECTS": "여러분의 교실 학생들이 만들 수 있는  머신러닝 모델의 수:"
         }
     },
     "HELP": {
