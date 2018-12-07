@@ -95,44 +95,44 @@
     },
     "SIGNUP": {
         "TEACHER": {
-            "TITLE": "Are you a teacher or leader of a coding club?",
-            "INFO1": "If you would like access for your students, please create a class account below.",
-            "INFO2": "There are two types of class account - depending on who sets it up."
+            "TITLE": "あなたは先生か、コーディングクラブのリーダーですか?",
+            "INFO1": "もし、あなたの生徒のためにアクセスが必要な場合は、以下のクラスアカウントを作成してください。",
+            "INFO2": "クラスアカウントは、誰が設定したかで２種類に分かれます。"
         },
         "UNMANAGED": {
-            "TITLE": "Create an <strong>unmanaged</strong> class account",
-            "INTRO": "If you are happy to set up and manage the class account yourself, you can do it now!",
-            "LISTINTRO": "You will need to:",
-            "LIST_CREATEACCOUNT": "Create an account on IBM Cloud",
-            "LIST_CREATEAPIKEYS": "Create API key(s) for Watson cloud services needed to train machine learning models",
-            "LIST_ENTERAPIKEYS": "Enter the API keys into this Machine Learning for Kids tool",
-            "HELP": "Step-by-step instructions (with screenshots) are available for all of this."
+            "TITLE": "<strong>管理しない</strong>クラスアカウントを作成する",
+            "INTRO": "あなた自身でクラスアカウントを設定し、管理する場合は、今作成できます。",
+            "LISTINTRO": "あなたは以下を実施する必要があります:",
+            "LIST_CREATEACCOUNT": "IBM Cloudにアカウントを作成する",
+            "LIST_CREATEAPIKEYS": "機械学習モデルをトレイニングするために必要なWatson cloud サービスのAPI key(s)を作成する",
+            "LIST_ENTERAPIKEYS": "この子供のためのマシーンラーニングツールにAPI keys　を入力する",
+            "HELP": "ステップ毎のスクリーンショット付きの上記全ての操作手順はこちら"
         },
         "MANAGED": {
-            "TITLE": "Create a <strong>managed</strong> class account",
-            "INTRO": "If you would like Dale to set up the class account, use the button below to send an email with the following information:",
-            "LIST_NUMBEROFSTUDENTS": "Roughly how many student accounts you will need",
-            "LIST_NAMEOFSCHOOL": "The name of the school or coding group the account is for",
+            "TITLE": "<strong>管理される</strong>クラスアカウントの作成",
+            "INTRO": "もし、Daleにクラスアカウントの設定をして欲しい場合は、以下のボタンを使て以下の情報をemailで送信してください。",
+            "LIST_NUMBEROFSTUDENTS": "必要となる生徒用アカウントの大凡の数",
+            "LIST_NAMEOFSCHOOL": "アカウントを設定する学校、又はコーディンググループの名前",
             "EMAIL": "Email"
         }
     },
     "PROJECTS": {
-        "TITLE": "Your machine learning projects",
-        "ADDNEWPROJECT": "Add a new project",
-        "CREATEFIRSTPROJECT": "Click on the 'plus' button on the right to create your first project.",
-        "RECOGNISING": "Recognising",
-        "AS": "as"
+        "TITLE": "あなたの機械学習プロジェクト",
+        "ADDNEWPROJECT": "新しいプロジェクトの追加",
+        "CREATEFIRSTPROJECT": "最初のプロジェクトを作成するには右の 'プラス' ボタンをクリックしてください。",
+        "RECOGNISING": "認識",
+        "AS": "として"
     },
     "NEWPROJECT": {
-        "TITLE": "Start a new machine learning project",
+        "TITLE": "新しい機械学習プロジェクトの開始",
         "PROJECT_NAME": {
-            "TITLE": "Project Name",
-            "NOTES": "Give your project a name to describe what sort of thing you'll try to teach the computer to recognise."
+            "TITLE": "プロジェクト名",
+            "NOTES": "コンピュータに何を認識させたいのかが分かるようなプロジェクトの名前を付けましょう。"
         },
         "WHOLE_CLASS_PROJECT": {
-            "TITLE": "Whole-class project?",
-            "NOTES_1": "Tick this if you want your whole class to be able to work on this project together.",
-            "NOTES_2": "This is useful for projects that teach crowd-sourcing as an approach to training machine learning projects."
+            "TITLE": "クラス全体のプロジェクトですか?",
+            "NOTES_1": "もし、クラス全員でこのプロジェクトに取り組めるようにしたいときには、ここをマークしてください。",
+            "NOTES_2": "これは、機械学習プロジェクトのトレーニングのやり方としてのクラウドソーシングを教える際には有用です。"
         },
         "TYPES": {
             "LABEL": "Recognising",
