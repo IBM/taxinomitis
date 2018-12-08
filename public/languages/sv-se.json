@@ -738,7 +738,12 @@
             "Q3-A-5": "Om statusljuset bredvid dina maskininlärningsblock i Scratch är grönt så borde blocken fungera. Om du inte får de svar som du förväntar dig från dem, försök gå till \"Lär &amp; testa\"-sidan och kontrollera vilka resultat din modell ger.",
 
             "Q5": "Kan jag använda vilken version av Scratch som helst?",
-            "Q5-A-1": "Du måste använda Scratch-versionen som är tillgänglig på webbsidan Maskininlärning för barn. Den kan startas genom att klicka på Scratch-knappen (eller Scratch 3-knappen) från din projektsida."
+            "Q5-A-1": "Du måste använda Scratch-versionen som är tillgänglig på webbsidan Maskininlärning för barn. Den kan startas genom att klicka på Scratch-knappen (eller Scratch 3-knappen) från din projektsida.",
+
+            "Q6": "Scratch 3 is only saving projects to the 'Downloads' folder",
+            "Q6-A-1": "When you click 'File' -> 'Save to your computer' in Scratch 3, your Scratch project is saved to your computer.",
+            "Q6-A-2": "Some teachers reported a problem that this saved to the Downloads folder, on a computer where students don't have access in Windows to the Downloads folder. The result was that students were not able to access their saved projects.",
+            "Q6-A-3": "If you have this problem, you need to look in your web browser settings for a setting like 'Ask where to save each file before downloading'. If you enable that, your students will be able to choose where their projects are saved."
         },
 
         "TRAININGUI": {

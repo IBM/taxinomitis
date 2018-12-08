@@ -738,7 +738,12 @@
             "Q3-A-5": "스크래치 블록을 학습하는 머신 옆의 상태 표시등이 녹색이면 블록이 작동해야합니다. 예상한 답을 얻지 못하면 \"학습 및 테스트\"페이지로 이동하여 모델의 결과를 확인하십시오.",
 
             "Q5": "모든 버전의 스크래치를 사용할 수 있습니까?",
-            "Q5-A-1": "아이들을 위한 머신러닝 사이트에서 제공하는 Scratch 버전을 사용해야합니다. 프로젝트 페이지에서 스크래치(또는 '스크래치 3') 버튼을 클릭하면 시작할 수 있습니다."
+            "Q5-A-1": "아이들을 위한 머신러닝 사이트에서 제공하는 Scratch 버전을 사용해야합니다. 프로젝트 페이지에서 스크래치(또는 '스크래치 3') 버튼을 클릭하면 시작할 수 있습니다.",
+
+            "Q6": "Scratch 3 is only saving projects to the 'Downloads' folder",
+            "Q6-A-1": "When you click 'File' -> 'Save to your computer' in Scratch 3, your Scratch project is saved to your computer.",
+            "Q6-A-2": "Some teachers reported a problem that this saved to the Downloads folder, on a computer where students don't have access in Windows to the Downloads folder. The result was that students were not able to access their saved projects.",
+            "Q6-A-3": "If you have this problem, you need to look in your web browser settings for a setting like 'Ask where to save each file before downloading'. If you enable that, your students will be able to choose where their projects are saved."
         },
 
         "TRAININGUI": {

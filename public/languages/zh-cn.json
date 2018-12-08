@@ -738,7 +738,12 @@
             "Q3-A-5": "如果机器学习划痕块旁边的状态指示灯为绿色,那么块应该正常工作。如果您没有得到他们期望的响应,请尝试转到\"学习\" ＆安培; 测试\"页面并检查模型返回的结果。",
 
             "Q5": "我可以使用任何版本的Scratch吗？",
-            "Q5-A-1": "您需要使用由儿童机器学习站点提供的Scratch版本。可以通过单击项目页面中的Scratch（或'Scratch 3'）按钮来启动它。"
+            "Q5-A-1": "您需要使用由儿童机器学习站点提供的Scratch版本。可以通过单击项目页面中的Scratch（或'Scratch 3'）按钮来启动它。",
+
+            "Q6": "Scratch 3 is only saving projects to the 'Downloads' folder",
+            "Q6-A-1": "When you click 'File' -> 'Save to your computer' in Scratch 3, your Scratch project is saved to your computer.",
+            "Q6-A-2": "Some teachers reported a problem that this saved to the Downloads folder, on a computer where students don't have access in Windows to the Downloads folder. The result was that students were not able to access their saved projects.",
+            "Q6-A-3": "If you have this problem, you need to look in your web browser settings for a setting like 'Ask where to save each file before downloading'. If you enable that, your students will be able to choose where their projects are saved."
         },
 
         "TRAININGUI": {

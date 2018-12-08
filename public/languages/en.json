@@ -738,7 +738,12 @@
             "Q3-A-5": "If the status light next to your machine learning Scratch blocks is green, then the blocks should be working. If you're not getting the responses you expect from them, try going to the \"Learn &amp; Test\" page and checking what results your model returns.",
 
             "Q5": "Can I use any version of Scratch?",
-            "Q5-A-1": "You need to use the versions of Scratch that are provided by the Machine Learning for Kids site. They can be launched by clicking the Scratch, or 'Scratch 3', buttons from your project page."
+            "Q5-A-1": "You need to use the versions of Scratch that are provided by the Machine Learning for Kids site. They can be launched by clicking the Scratch, or 'Scratch 3', buttons from your project page.",
+
+            "Q6": "Scratch 3 is only saving projects to the 'Downloads' folder",
+            "Q6-A-1": "When you click 'File' -> 'Save to your computer' in Scratch 3, your Scratch project is saved to your computer.",
+            "Q6-A-2": "Some teachers reported a problem that this saved to the Downloads folder, on a computer where students don't have access in Windows to the Downloads folder. The result was that students were not able to access their saved projects.",
+            "Q6-A-3": "If you have this problem, you need to look in your web browser settings for a setting like 'Ask where to save each file before downloading'. If you enable that, your students will be able to choose where their projects are saved."
         },
 
         "TRAININGUI": {
