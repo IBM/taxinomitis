@@ -19,7 +19,20 @@
 
         var SESSION_USERS_CLASS = 'session-users';
 
+        // To avoid a session ever expiring, the UI will try to silently refresh
+        //  access tokens in the background.
+        // We'll do this 10 minutes before the token expires, to avoid risking a
+        //  timing window where we're too late to do it.
+        // This constant is the time before the token expiry when we'll try doing it.
+        var TEN_MINUTES_MILLISECS = 600000;
+
         var vm = this;
+
+        // If the user is logged in as a registered user, we'll try and refresh
+        //  their access token for them before it expires, to prevent them from
+        //  being logged off while active.
+        // This timer is used to do that.
+        var nextRefreshTimer = null;
 
         $rootScope.isTeacher = false;
         $rootScope.isAuthenticated = false;
@@ -34,10 +47,13 @@
         var deferredProfile = $q.defer();
 
         if (userProfile) {
-            var expiresAt = JSON.parse(window.localStorageObj.getItem('expires_at'));
-            var isAuth = (new Date().getTime() < expiresAt);
-
-            if (isAuth) {
+            if (hasSessionExpired()) {
+                // We found an access token in local storage, but it
+                // has expired, so we'll wipe it and force them to
+                // log in again.
+                logout();
+            }
+            else {
                 deferredProfile.resolve(userProfile);
 
                 $rootScope.isTeacher = (userProfile.role === 'supervisor');
@@ -53,10 +69,58 @@
                         tenant : userProfile.tenant
                     });
                 }
+
+                // Try to keep the user logged in while they're still active
+                //  by refreshing their access token for them in the background
+                // This can't be done for "Try it now" users, as those sessions
+                //  can't be renewed.
+                if (userProfile.tenant !== SESSION_USERS_CLASS) {
+                    var expiresAt = JSON.parse(window.localStorageObj.getItem('expires_at'));
+                    var refreshTime = expiresAt - TEN_MINUTES_MILLISECS;
+                    var timeToRefresh = refreshTime - (new Date().getTime());
+                    if (timeToRefresh > 0) {
+                        scheduleTokenRenewal(timeToRefresh);
+                    }
+                    else {
+                        // the session is going to expire within 10 minutes, so
+                        // we'll refresh it immediately
+                        renewLogin();
+                    }
+                }
             }
-            else {
-                logout();
-            }
+        }
+
+
+        function scheduleTokenRenewal(timeToRefreshMs) {
+            var refreshTime = new Date(Date.now() + timeToRefreshMs);
+            console.log('scheduling token renewal in ' +
+                        Math.round(timeToRefreshMs / 1000 / 60) + ' minutes (' +
+                        refreshTime.toString());
+            nextRefreshTimer = setTimeout(renewLogin, timeToRefreshMs);
+        }
+
+
+        function renewLogin() {
+            console.log('renewing login');
+            lock.checkSession({}, function (err, authres) {
+                if (err) {
+                    console.log('failed to renew login');
+                    console.log(err);
+                }
+                else if (authres) {
+                    console.log('renewed login');
+                    console.log(authres);
+                    storeToken(authres);
+
+                    // schedule the next renewal!
+                    var expiresInSeconds = authres.expiresIn;
+                    var expiresInMillisecs = expiresInSeconds * 1000;
+                    var timeToRefreshLogin = expiresInMillisecs - TEN_MINUTES_MILLISECS;
+                    if (timeToRefreshLogin > 0) {
+                        scheduleTokenRenewal(timeToRefreshLogin);
+                    }
+                }
+            });
         }
 
 
@@ -83,6 +147,11 @@
 
 
         function clearAuthData() {
+            if (nextRefreshTimer) {
+                clearTimeout(nextRefreshTimer);
+                nextRefreshTimer = null;
+            }
+
             deferredProfile = $q.defer();
 
             window.localStorageObj.removeItem('access_token');
@@ -163,6 +232,13 @@
                         }
                         vm.profile = extractAppMetadata(profile);
                         storeProfile(vm.profile);
+
+                        // schedule a refresh of the token a little before
+                        //  it is due to expire
+                        var expiresInSeconds = authResult.expiresIn;
+                        var expiresInMillisecs = expiresInSeconds * 1000;
+                        var timeToRefreshLogin = expiresInMillisecs - TEN_MINUTES_MILLISECS;
+                        scheduleTokenRenewal(timeToRefreshLogin);
 
                         $timeout(function () {
                             $state.go('welcome');
@@ -346,7 +422,6 @@
 
         function checkForAuthMessagesInUrl() {
             var paramStr = $window.location.search;
-            var hashStr = $window.location.hash;
             if (paramStr &&
                 paramStr[0] === '?')
             {
