@@ -99,7 +99,7 @@
         }
 
         function logout() {
-            if (userProfile && userProfile.tenant === SESSION_USERS_CLASS) {
+            if (userProfile && userProfile.tenant === SESSION_USERS_CLASS && authManager.isAuthenticated()) {
                 deleteSessionUser(userProfile.user_id)
                     .then(function () {
                         clearAuthData();
@@ -189,10 +189,34 @@
                 logout();
                 return window.location.reload(true);
             });
+
+            // after a session has expired, tell the user what happened
+            $rootScope.$on('tokenHasExpired', sessionExpired);
         }
 
 
+        function sessionExpired() {
+            clearAuthData();
 
+            var alert = $mdDialog.alert()
+                                .title('Session expired')
+                                .textContent('Please log in again.')
+                                .ok('OK');
+            $mdDialog.show(alert).finally(function () {
+                $state.go('login');
+            });
+        }
+
+
+        function handleUnauthenticated() {
+            if (hasSessionExpired()) {
+                sessionExpired();
+            }
+            else {
+                clearAuthData();
+                $state.go('login');
+            }
+        }
 
         function getProfileDeferred() {
             return deferredProfile.promise;
@@ -202,12 +226,22 @@
             if (userProfile) {
                 // Check whether the current time is past the
                 // access token's expiry time
-                var expiresAt = JSON.parse(window.localStorageObj.getItem('expires_at'));
-                var isAuth = (new Date().getTime() < expiresAt);
-                if (!isAuth) {
+                var expired = hasSessionExpired();
+                if (expired) {
                     logout();
                 }
-                return isAuth;
+                return !expired;
+            }
+            return false;
+        }
+
+        function hasSessionExpired() {
+            if (userProfile) {
+                // Check whether the current time is past the
+                // access token's expiry time
+                var expiresAt = JSON.parse(window.localStorageObj.getItem('expires_at'));
+                var expired = (new Date().getTime() > expiresAt);
+                return expired;
             }
             return false;
         }
@@ -334,13 +368,15 @@
 
 
         return {
-            login: login,
+            login : login,
             reset : reset,
-            logout: logout,
+            logout : logout,
 
-            setupAuth: setupAuth,
-            getProfileDeferred: getProfileDeferred,
+            setupAuth : setupAuth,
+            getProfileDeferred : getProfileDeferred,
             isAuthenticated : isAuthenticated,
+
+            handleUnauthenticated : handleUnauthenticated,
 
             createSessionUser : createSessionUser,
 

@@ -239,8 +239,9 @@
                 //  It will be localStorage if available, or a local in-memory shim otherwise
                 return window.localStorageObj.getItem('id_token');
             }],
-            whiteListedDomains: ['localhost'],
-            unauthenticatedRedirectPath: '/login'
+            unauthenticatedRedirector: ['authService', function (authService) {
+                authService.handleUnauthenticated();
+            }]
         });
 
         $httpProvider.interceptors.push('jwtInterceptor');

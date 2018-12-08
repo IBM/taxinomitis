@@ -26,7 +26,7 @@
             $scope.failure = null;
 
             authService.createSessionUser()
-                .then(function (newUser) {
+                .then(function (/* newUser */) {
                     $timeout(function () {
                         $state.go('projects');
                     });
