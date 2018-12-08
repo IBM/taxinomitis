@@ -135,31 +135,31 @@
             "NOTES_2": "これは、機械学習プロジェクトのトレーニングのやり方としてのクラウドソーシングを教える際には有用です。"
         },
         "TYPES": {
-            "LABEL": "Recognising",
-            "NOTES_1": "What type of thing do you want to teach the computer to recognise?",
-            "NOTES_2": "For words, sentences or paragraphs, choose \"text\"",
-            "NOTES_3": "For photos, diagrams and pictures, choose \"images\"",
-            "NOTES_4": "For sets of numbers or multiple choices, choose \"numbers\""
+            "LABEL": "認識させる",
+            "NOTES_1": "どんなタイプの情報をコンピュータに認識させたいですか?",
+            "NOTES_2": "単語、文章、パラグラフは、\"text\"を選んでください。",
+            "NOTES_3": "写真、図、図形は、\"images\"を選んでください。",
+            "NOTES_4": "数字のあつまりや、複数選択肢は、\"numbers\"を選択してください。"
         },
         "LANGUAGE": {
-            "LABEL": "Language",
-            "NOTES": "What language will the text in this project be?"
+            "LABEL": "使用言語",
+            "NOTES": "このプロジェクトでは何語を利用しますか?"
         },
         "FIELDS": {
             "TYPE": {
-                "TITLE": "Type of value",
-                "NUMBER": "number",
-                "MULTIPLE_CHOICE": "multiple-choice"
+                "TITLE": "タイプの値",
+                "NUMBER": "数値",
+                "MULTIPLE_CHOICE": "複数選択肢"
             },
             "CHOICES": {
-                "TITLE": "Choices:",
-                "LABEL": "add a choice"
+                "TITLE": "選択肢:",
+                "LABEL": "選択肢を追加"
             },
             "NEWFIELD": {
-                "DESCRIBE_FIELD": "Give this field a name to describe the value",
-                "MULTICHOICE": "If it can be described as choosing from a few options, choose \"multiple-choice\".",
-                "ADD_FIRST_FIELD": "Type in a choice to use in your multiple-choice list, then press Enter.",
-                "ADD_ANOTHER_FIELD": "Type in another choice to use in your multiple-choice list, then press Enter."
+                "DESCRIBE_FIELD": "この項目にその値を説明する名前を付けてください。",
+                "MULTICHOICE": "複数の選択肢から選ぶのであれば、\"multiple-choice\"を選んでください。",
+                "ADD_FIRST_FIELD": "選択肢を複数選択肢のリストに入力して、Enterを押してください。",
+                "ADD_ANOTHER_FIELD": "他の選択肢を複数選択肢のリストに入力して、Enterを押してください。"
             },
             "NEWVALUE": {
                 "ADD_FIRST_VALUE": "Start to describe the values that you'll include with each example to train the computer with by clicking the 'Add a value' button.",
