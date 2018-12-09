@@ -271,6 +271,9 @@
                 if (lang.indexOf('en') === 0) {
                     lang = 'en';
                 }
+                else if (lang.indexOf('es') === 0) {
+                    lang = 'es';
+                }
                 else if (lang.indexOf('ko') === 0) {
                     lang = 'ko';
                 }
