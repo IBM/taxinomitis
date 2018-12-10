@@ -29,7 +29,7 @@
         "IN20MINS": "En 20 minutos...",
         "WHAT": {
             "TITLE": "¿Qué?",
-            "BODY" : "Esta herramienta provee una introducción al aprendizaje automático a través de experiencias prácticas para entrenar sistemas de aprendizaje automático y construir cosas con ellos. <br/><br/>Provee un ambiente guidado fácil de usar para entrenar modelos de aprendizaje automático para clasificar texto, números o reconocimiento de imágenes. <br/><br/>Esto complementa los esfuerzos existentes para introducir y enseñar a programar a los niños, agregando estos modelos a <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> (la plataforma de programación educacional utilizada mundialmente), permitiendo a los niños crear proyectos y construir juegos con modelos de aprendizaje automático que ellos mismos han entrenado. <br/><br/>Para aprender más, ver:"
+            "BODY" : "Esta herramienta provee una introducción al aprendizaje automático a través de experiencias prácticas para entrenar sistemas de aprendizaje automático y construir cosas con ellos. <br/><br/>Provee un ambiente guidado fácil de usar para entrenar modelos de aprendizaje automático para clasificar texto, números o reconocimiento de imágenes. <br/><br/>Esto complementa los esfuerzos existentes para introducir y enseñar a programar a los niños, agregando estos modelos a <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> (la plataforma de programación educacional utilizada mundialmente), permitiendo a los niños crear proyectos y construir juegos con los modelos de aprendizaje automático que ellos mismos han entrenado. <br/><br/>Para aprender más, ver:"
         },
         "WHY": {
             "TITLE": "¿Por qué?",
@@ -62,13 +62,13 @@
         "LETMEKNOW": "házmelo saber"
     },
     "WELCOME": {
-        "TITLE": "Enséñale una computadora para jugar un juego.",
+        "TITLE": "Enséñale a una computadora a jugar un juego",
         "GET_STARTED": "Empezar",
         "LEARN_MORE": "Aprender más",
         "ADMIN_LABEL": "Ir a tu <strong>Página de Administración</strong>",
         "PROJECT_LABEL": "Ir a tus <strong>Proyectos</strong>",
         "STEP_1_TEXT": "Reúne ejemplos de cosas que quieres poder reconocer",
-        "STEP_2_TEXT": "Usa los ejemplos para entrenar una computadora para poder reconocerlos",
+        "STEP_2_TEXT": "Usa ejemplos para entrenar una computadora para poder reconocerlos",
         "STEP_3_TEXT": "Haz un juego en Scratch que use la habilidad de la computadora para reconocerlos"
     },
     "LOGIN": {
@@ -117,85 +117,85 @@
         }
     },
     "PROJECTS": {
-        "TITLE": "Your machine learning projects",
-        "ADDNEWPROJECT": "Add a new project",
-        "CREATEFIRSTPROJECT": "Click on the 'plus' button on the right to create your first project.",
-        "RECOGNISING": "Recognising",
-        "AS": "as"
+        "TITLE": "Tus proyectos de aprendizaje automático",
+        "ADDNEWPROJECT": "Añadir un nuevo proyecto",
+        "CREATEFIRSTPROJECT": "Haz clic en el botón 'más' a la izquierda para crear tu primer proyecto.",
+        "RECOGNISING": "Reconociendo",
+        "AS": "como"
     },
     "NEWPROJECT": {
-        "TITLE": "Start a new machine learning project",
+        "TITLE": "Iniciar un nuevo proyecto de aprendizaje automático",
         "PROJECT_NAME": {
-            "TITLE": "Project Name",
-            "NOTES": "Give your project a name to describe what sort of thing you'll try to teach the computer to recognise."
+            "TITLE": "Nombre del proyecto",
+            "NOTES": "Asigna un nombre a tu proyecto para describir qué tipo de cosas tratarás de enseñarle a la computadora a reconocer."
         },
         "WHOLE_CLASS_PROJECT": {
-            "TITLE": "Whole-class project?",
-            "NOTES_1": "Tick this if you want your whole class to be able to work on this project together.",
-            "NOTES_2": "This is useful for projects that teach crowd-sourcing as an approach to training machine learning projects."
+            "TITLE": "¿Proyecto de toda la clase?",
+            "NOTES_1": "Marca esto si deseas que toda tu clase pueda trabajar en este proyecto juntos.",
+            "NOTES_2": "Esto es útil para los proyectos que enseñan la participación colectiva como un enfoque para entrenar proyectos de aprendizaje automático."
         },
         "TYPES": {
-            "LABEL": "Recognising",
-            "NOTES_1": "What type of thing do you want to teach the computer to recognise?",
-            "NOTES_2": "For words, sentences or paragraphs, choose \"text\"",
-            "NOTES_3": "For photos, diagrams and pictures, choose \"images\"",
-            "NOTES_4": "For sets of numbers or multiple choices, choose \"numbers\""
+            "LABEL": "Reconociendo",
+            "NOTES_1": "¿Qué tipo de cosas quieres enseñar a la computadora a reconocer?",
+            "NOTES_2": "Para palabras, oraciones o párrafos, elige \"texto\"",
+            "NOTES_3": "Para fotos, diagramas e imágenes, elige \"imágenes\"",
+            "NOTES_4": "Para conjuntos de números u opciones múltiples, elija \"números\""
         },
         "LANGUAGE": {
-            "LABEL": "Language",
-            "NOTES": "What language will the text in this project be?"
+            "LABEL": "Lenguaje",
+            "NOTES": "¿En qué idioma será el texto en este proyecto?"
         },
         "FIELDS": {
             "TYPE": {
-                "TITLE": "Type of value",
-                "NUMBER": "number",
-                "MULTIPLE_CHOICE": "multiple-choice"
+                "TITLE": "Tipo de valor",
+                "NUMBER": "número",
+                "MULTIPLE_CHOICE": "opción multiple"
             },
             "CHOICES": {
-                "TITLE": "Choices:",
-                "LABEL": "add a choice"
+                "TITLE": "Opciones:",
+                "LABEL": "Agregar una opción"
             },
             "NEWFIELD": {
-                "DESCRIBE_FIELD": "Give this field a name to describe the value",
-                "MULTICHOICE": "If it can be described as choosing from a few options, choose \"multiple-choice\".",
-                "ADD_FIRST_FIELD": "Type in a choice to use in your multiple-choice list, then press Enter.",
-                "ADD_ANOTHER_FIELD": "Type in another choice to use in your multiple-choice list, then press Enter."
+                "DESCRIBE_FIELD": "Asigna un nombre a este campo para describir el valor",
+                "MULTICHOICE": "Si se puede describir como elegir entre algunas opciones, elige \"opción múltiple\".",
+                "ADD_FIRST_FIELD": "Escribe una opción para usar en tu lista de opciones múltiples, luego presiona Enter.",
+                "ADD_ANOTHER_FIELD": "Escribe otra opción para usar en su lista de opciones múltiples, luego presiona Enter."
             },
             "NEWVALUE": {
-                "ADD_FIRST_VALUE": "Start to describe the values that you'll include with each example to train the computer with by clicking the 'Add a value' button.",
-                "VALUES_LIMIT": "You are not allowed more than 10 values in a project."
+                "ADD_FIRST_VALUE": "Comienza a describir los valores que incluirás en cada ejemplo para entrenar la computadora haciendo clic en el botón 'Agregar un valor'.",
+                "VALUES_LIMIT": "No se permiten más de 10 valores en un proyecto."
             }
         },
-        "CREATE": "Create"
+        "CREATE": "Crear"
     },
     "PROJECT": {
         "TRAIN": {
-            "TITLE": "Train",
-            "BODY": "Collect examples of what you want the computer to recognise."
+            "TITLE": "Entrenar",
+            "BODY": "Recoge ejemplos de lo que quieres que la computadora reconozca."
         },
         "LEARNANDTEST": {
-            "TITLE": "Learn &amp; Test",
-            "BODY": "Use the examples to train the computer to recognise"
+            "TITLE": "Aprender &amp; Probar",
+            "BODY": "Usa los ejemplos para entrenar la computadora para reconocer."
         },
         "MAKES": {
             "TITLE": "Make",
-            "BODY": "Use the machine learning model you've trained to make a game or app, in Scratch or in Python"
+            "BODY": "Usa el modelo de aprendizaje automático que has entrenado para crear un juego o una aplicación, en Scratch o en Python"
         },
         "SCRATCH": {
             "TITLE": "Scratch",
-            "BODY": "Use the machine learning model you've trained to make a game in Scratch."
+            "BODY": "Usa el modelo de aprendizaje automático que has entrenado para hacer un juego en Scratch."
         },
         "PYTHON": {
             "TITLE": "Python",
-            "BODY": "Use the machine learning model you've trained in a Python program."
+            "BODY": "Usa el modelo de aprendizaje automático que has entrenado en un programa de Python."
         },
         "APPINVENTOR": {
-            "TITLE": "App Inventor",
-            "BODY": "Make a mobile app that uses your machine learning model"
+            "TITLE": "Inventor de aplicaciones",
+            "BODY": "Haz una aplicación móvil que use tu modelo de aprendizaje automático."
         },
         "SCRATCH3": {
             "TITLE": "Scratch 3",
-            "BODY": "Use your machine learning model in new version of Scratch"
+            "BODY": "Usa tu modelo de aprendizaje automático en la nueva versión de Scratch."
         }
     },
     "TRAINING": {
