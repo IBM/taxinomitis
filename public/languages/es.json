@@ -171,11 +171,11 @@
     "PROJECT": {
         "TRAIN": {
             "TITLE": "Entrenar",
-            "BODY": "Recoge ejemplos de lo que quieres que la computadora reconozca."
+            "BODY": "Recoge ejemplos de lo que quieres que la computadora reconozca"
         },
         "LEARNANDTEST": {
             "TITLE": "Aprender &amp; Probar",
-            "BODY": "Usa los ejemplos para entrenar la computadora para reconocer."
+            "BODY": "Usa los ejemplos para entrenar la computadora para reconocer"
         },
         "MAKES": {
             "TITLE": "Make",
@@ -183,19 +183,19 @@
         },
         "SCRATCH": {
             "TITLE": "Scratch",
-            "BODY": "Usa el modelo de aprendizaje automático que has entrenado para hacer un juego en Scratch."
+            "BODY": "Usa el modelo de aprendizaje automático que has entrenado para hacer un juego en Scratch"
         },
         "PYTHON": {
             "TITLE": "Python",
-            "BODY": "Usa el modelo de aprendizaje automático que has entrenado en un programa de Python."
+            "BODY": "Usa el modelo de aprendizaje automático que has entrenado en un programa de Python"
         },
         "APPINVENTOR": {
             "TITLE": "Inventor de aplicaciones",
-            "BODY": "Haz una aplicación móvil que use tu modelo de aprendizaje automático."
+            "BODY": "Haz una aplicación móvil que use tu modelo de aprendizaje automático"
         },
         "SCRATCH3": {
             "TITLE": "Scratch 3",
-            "BODY": "Usa tu modelo de aprendizaje automático en la nueva versión de Scratch."
+            "BODY": "Usa tu modelo de aprendizaje automático en la nueva versión de Scratch"
         }
     },
     "TRAINING": {
