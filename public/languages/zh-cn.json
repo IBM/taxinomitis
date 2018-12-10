@@ -29,15 +29,15 @@
         "IN20MINS": " 20分钟...... ",
         "WHAT": {
             "TITLE": "什么？",
-            "BODY": "该工具通过提供培训机器学习系统和用它们构建物品的实践经验来介绍机器学习。<br/> <br/>它为培训机器学习模型提供了一个易于使用的指导环境用于分类文本,数字或识别图像。<br/> <br/>这是建立在现有的向儿童介绍和教授编码的努力的基础上,将这些模型添加到<a href ='https: //scratch.mit.edu/关于'target ='_ blank'> Scratch </a>（一种广泛使用的教育编码平台）,允许孩子们用他们训练过的机器学习模型创建项目和构建游戏。<br/> <br/>到了解更多,看看: "
+            "BODY": "该工具通过提供培训机器学习系统和用它们构建物品的实践经验来介绍机器学习。<br/> <br/>它为培训机器学习模型提供了一个易于使用的指导环境用于分类文本,数字或识别图像。<br/> <br/>这是建立在现有的向儿童介绍和教授编码的努力的基础上,将这些模型添加到<a href ='https://scratch.mit.edu/关于' target ='_blank'> Scratch </a>（一种广泛使用的教育编码平台）,允许孩子们用他们训练过的机器学习模型创建项目和构建游戏。<br/> <br/>到了解更多,看看: "
         },
         "WHY": {
             "TITLE": "为什么？",
-            "BODY": "机器学习就在我们身边。我们每天都使用机器学习系统 - 例如垃圾邮件过滤器，推荐引擎，语言翻译服务，聊天机器人和数字助理，搜索引擎和欺诈检测系统。<br/> <br/>机器学习系统很快就能驾驶我们的汽车，并帮助医生诊断和治疗我们的疾病。<br/> <br/>让孩子们了解我们的世界是如何工作的。理解能力和含义的方法是能够用自己的技术构建。<br/> <br/>要了解更多信息，请阅读: <a target ='_ blank'class ='btn btn-primary'href = 'http://dalelane.co.uk/blog/?p=3513'> 向孩子们介绍机器学习</a>"
+            "BODY": "机器学习就在我们身边。我们每天都使用机器学习系统 - 例如垃圾邮件过滤器，推荐引擎，语言翻译服务，聊天机器人和数字助理，搜索引擎和欺诈检测系统。<br/> <br/>机器学习系统很快就能驾驶我们的汽车，并帮助医生诊断和治疗我们的疾病。<br/> <br/>让孩子们了解我们的世界是如何工作的。理解能力和含义的方法是能够用自己的技术构建。<br/> <br/>要了解更多信息，请阅读: <a target ='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'> 向孩子们介绍机器学习</a>"
         },
         "TECH": {
             "TITLE": " 技术 ",
-            "BODY": "该工具完全基于网络，无需安装或复杂的设置即可使用。<br/> <br/>它专为学校和志愿者编写的课堂设计而设计儿童，并为教师或小组负责人提供管理页面，以便能够管理和管理学生的访问权限。<br/> <br/>它由<a target ='_ blank'href ='http: /构建/dalelane.co.uk/'>Dale Lane </a>使用来自<a target='_blank' href='https://www.ibm.com/watson/developercloud/'> IBM Watson Developer Cloud的API </ a>。",
+            "BODY": "该工具完全基于网络，无需安装或复杂的设置即可使用。<br/> <br/>它专为学校和志愿者编写的课堂设计而设计儿童，并为教师或小组负责人提供管理页面，以便能够管理和管理学生的访问权限。<br/> <br/>它由<a target ='_blank' href='http://dalelane.co.uk/'>Dale Lane </a>使用来自<a target='_blank' href='https://www.ibm.com/watson/developercloud/'> IBM Watson Developer Cloud的API </ a>。",
             "LOGIN": "开始: "
         }
     },
@@ -682,10 +682,10 @@
             "NOTAUTHORISED": "您无权访问您班级使用的Watson API密钥。",
             "MANAGEDCLASS": "您的班级使用的API密钥正在为您管理。",
 
-            "HELP_STEPBYSTEP_GUIDE": "如果您不确定该怎么做,请按照<a href ='https: //github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys。 pdf'>分步指南</a>。如果您需要任何帮助,请<strong> <a style ='cursor: pointer;' ui-sref ='help'>取消联系</a> </strong>。",
+            "HELP_STEPBYSTEP_GUIDE": "如果您不确定该怎么做,请按照<a href ='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'>分步指南</a>。如果您需要任何帮助,请<strong> <a style ='cursor: pointer;' ui-sref='help'>取消联系</a> </strong>。",
 
-            "INTRO_WATSONASSISTANT": " <span class ='mlprojecttype'> text </ span>项目的训练机器学习模型使用<a class ='mlprojecttype'href ='https: //www.ibm.com/watson/services/conversation /'> Watson Assistant </a> ",
-            "INTRO_VISUALRECOGNITION": " <span class ='mlprojecttype'> images </ span>项目的训练机器学习模型使用<a class ='mlprojecttype'href ='https: //www.ibm.com/watson/services/visual -recognition /'> Watson Visual Recognition </a> ",
+            "INTRO_WATSONASSISTANT": " <span class ='mlprojecttype'> text </ span>项目的训练机器学习模型使用<a class='mlprojecttype' href ='https://www.ibm.com/watson/services/conversation'> Watson Assistant </a> ",
+            "INTRO_VISUALRECOGNITION": " <span class ='mlprojecttype'> images </ span>项目的训练机器学习模型使用<a class ='mlprojecttype' href ='https://www.ibm.com/watson/services/visual-recognition'> Watson Visual Recognition </a> ",
 
             "ERROR_FETCHING_WATSONASSISTANT": "无法获取您的Watson助手密码",
             "ERROR_FETCHING_VISUALRECOG": "无法获取您的Visual Recognition API密钥",
@@ -724,7 +724,7 @@
 
             "Q1": "我不知道如何让Scratch工作",
             "Q1-A-1": "儿童机器学习使用Scratch 2. Scratch需要Adobe Flash才能工作,所以你需要使用可以使用Flash的操作系统和网络浏览器（这意味着现在不需要iPad）对不起）。",
-            "Q1-A-2": "如果你不确定如何启用Flash,你可以<a href ='https: //github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/ machinelearningforkids-scratchx.pdf'>下载一份文档,其中包含一些让Scratch正常工作的技巧</a>。",
+            "Q1-A-2": "如果你不确定如何启用Flash,你可以<a href ='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>下载一份文档,其中包含一些让Scratch正常工作的技巧</a>。",
 
             "Q2": "在\"加载项目\"和\"保存项目\"的耐擦伤菜单不工作",
             "Q2-A-1": "如果你在MacOS使用Safari和划痕菜单\"文件- ＆GT; 加载项目\"和\"文件 - ＆gt; 保存项目\"菜单不起作用,可能是您在安全模式下运行。",
@@ -804,10 +804,10 @@
             "TITLE": "教师/管理员用户界面问题",
 
             "Q2": "教师页面列表中缺少学生帐户",
-            "Q2-A-1": "用于儿童机器学习的用户管理是使用第三方服务实施的,<a href= \" https://auth0.com/ \"> Auth0 </a>。",
+            "Q2-A-1": "用于儿童机器学习的用户管理是使用第三方服务实施的,<a href='https://auth0.com'> Auth0 </a>。",
             "Q2-A-2": "有时,Auth0返回的学生名单可能会过时,并且无法反映最近创建的学生（或类似地,仍然显示最近被删除的学生）。",
             "Q2-A-3": "在这些情况下,学生通常已成功创建（或删除）,只是显示的学生列表不反映最近的更新。",
-            "Q2-A-4": " Auth0通常会在其状态页面上报告此类事件为<a href='https://status.auth0.com/incidents/0sk1d3hjlw0m'>用户索引延迟</a>或<a href ='https: //status.auth0.com/incidents/t8995b9jggx5'>他们的搜索API问题</a>。",
+            "Q2-A-4": " Auth0通常会在其状态页面上报告此类事件为<a href='https://status.auth0.com/incidents/0sk1d3hjlw0m'>用户索引延迟</a>或<a href ='https://status.auth0.com/incidents/t8995b9jggx5'>他们的搜索API问题</a>。",
             "Q2-A-5": "在这些情况下,最好的办法是等待Auth0索引赶上来。",
 
             "Q4": "为什么机器学习模型会自动删除？",

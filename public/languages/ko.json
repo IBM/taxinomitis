@@ -684,7 +684,7 @@
 
             "HELP_STEPBYSTEP_GUIDE": "어떻게 해야 할지 잘 모르겠다면 <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'>단계별 가이드</a>를 참고하세요. 도움이 필요하다면 <strong><a style='cursor: pointer;' ui-sref='help'>연락</a></strong>하세요.",
 
-            "INTRO_WATSONASSISTANT": "<span class='mlprojecttype'>text</span> 프로젝트를 <a class='mlprojecttype' href='https://www.ibm.com/watson/services/conversation/'>Watson Assistant</a>를 사용하여 만들어보세요.",
+            "INTRO_WATSONASSISTANT": "<span class='mlprojecttype'>text</span> 프로젝트를 <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a>를 사용하여 만들어보세요.",
             "INTRO_VISUALRECOGNITION": "<span class='mlprojecttype'>images</span> 프로젝트를 <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>를 사용하여 만들어보세요",
 
             "ERROR_FETCHING_WATSONASSISTANT": "여러분의 Watson Assistant 비밀번호가 잘못되었습니다.",

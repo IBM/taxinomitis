@@ -655,7 +655,7 @@
 
             "HELP_STEPBYSTEP_GUIDE": "If you're not sure what to do here, please follow the <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> step-by-step guide </a>. If you'd like any help, please <strong><a style='cursor: pointer;' ui-sref='help'>get in touch</a></strong>.",
 
-            "INTRO_WATSONASSISTANT": "Training machine learning models for <span class='mlprojecttype'>text</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/conversation/'>Watson Assistant</a>",
+            "INTRO_WATSONASSISTANT": "Training machine learning models for <span class='mlprojecttype'>text</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a>",
             "INTRO_VISUALRECOGNITION": "Training machine learning models for <span class='mlprojecttype'>images</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
 
             "ERROR_FETCHING_WATSONASSISTANT": "Failed to get your Watson Assistant passwords",
@@ -731,11 +731,11 @@
 
             "Q3": "\"Watson Assistant API anahtarlarında başka kullanılabilir çalışma alanı yok\"",
             "Q3-A-1": "Araçtaki makine öğrenimi modelleri, IBM Watson API'leri kullanılarak oluşturulur.",
-            "Q3-A-2": "Öğretmenlerin oluşturduğu Watson Assistant (önceki adıyla Watson Conversation) kimlik bilgileri kullanılarak oluşturabilecek makine öğrenimi modeli sayısında bir sınır vardır. Bu, \"çalışma alanı\" (workspace) olarak bilinen, kimlik bilgilerinin oluşturulduğu IBM Cloud kullanıcı arabiriminde görüntülenir.",
+            "Q3-A-2": "Öğretmenlerin oluşturduğu Watson Assistant kimlik bilgileri kullanılarak oluşturabilecek makine öğrenimi modeli sayısında bir sınır vardır. Bu, \"çalışma alanı\" (workspace) olarak bilinen, kimlik bilgilerinin oluşturulduğu IBM Cloud kullanıcı arabiriminde görüntülenir.",
             "Q3-A-3": "Bu sınır aşılırsa, yeni makine öğrenimi modellerini eğitme girişimleri başarısız olur ve bu ileti görüntülenir:",
             "Q3-A-4": "Sınıfınız zaten izin verilen maksimum model sayısını oluşturdu. Lütfen öğretmeninize veya grup liderinize \"Watson Assistant API anahtarlarında başka kullanılabilir çalışma alanı kalmadığı\" konusunda bilgi verin.",
             "Q3-A-5": "Başarılı bir biçimde eğitilmiş bir modeli olan öğrenci daha sonra modelini silerse, başka bir öğrencinin kullanımı için bir çalışma alanı boşaltılmış olur.",
-            "Q3-A-6": "Gelecekte bu hatadan kaçınmanın bir yolu da daha küçük sınıf boyutları olabilir. Watson Assistant (önceki adıyla Conversation) kimlik bilgileriyle desteklenen çalışma alanı sayısından daha az sayıda öğrenci olduğunda sınırlar aşılmaz.",
+            "Q3-A-6": "Gelecekte bu hatadan kaçınmanın bir yolu da daha küçük sınıf boyutları olabilir. Watson Assistant kimlik bilgileriyle desteklenen çalışma alanı sayısından daha az sayıda öğrenci olduğunda sınırlar aşılmaz.",
             "Q3-A-7": "Bu hatadan kaçınmanın başka bir yolu da sınıfa yeni Watson Assistant API anahtarlarının eklenmesi ya da daha yüksek limitlere sahip bir Watson Assistant örnek \"planın\" kullanılmasıdır.",
 
             "Q4": "\"Watson Visual Recognition API anahtarlarında başka kullanılabilir sınıflandırıcı yok\"",

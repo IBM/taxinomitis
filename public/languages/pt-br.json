@@ -684,7 +684,7 @@
 
             "HELP_STEPBYSTEP_GUIDE": "Se você não tem certeza do que fazer aqui, por favor siga o guia <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> Passo-a-Passo </a>. Se você gostaria de ajuda, por favor, <strong><a style='cursor: pointer;' ui-sref='help'>entre em contato</a></strong>.",
 
-            "INTRO_WATSONASSISTANT": "Treinar modelos de aprendizado de máquina para projetos de <span class='mlprojecttype'>texto</span> usa o <a class='mlprojecttype' href='https://www.ibm.com/watson/services/conversation/'>Watson Assistant</a>",
+            "INTRO_WATSONASSISTANT": "Treinar modelos de aprendizado de máquina para projetos de <span class='mlprojecttype'>texto</span> usa o <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a>",
             "INTRO_VISUALRECOGNITION": "Treinar modelos de aprendizado de máquina para projetos de <span class='mlprojecttype'>imagens</span> usa o <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
 
             "ERROR_FETCHING_WATSONASSISTANT": "Falha ao obter suas senhas do seu Watson Assistant",
@@ -768,11 +768,11 @@
 
             "Q3": "\"As chaves da API do Watson Assistant não têm mais workspaces disponíveis\"",
             "Q3-A-1": "Os modelos de aprendizado de máquina na ferramenta são criados usando as APIs do IBM Watson.",
-            "Q3-A-2": "As credenciais do Watson Assistant (antigo Watson Conversation) criadas pelos professores têm um limite no número de modelos de aprendizado de máquina que podem ser usados para criar. Isso é exibido na interface do  IBM Cloud em que as credenciais foram criadas, onde eles são chamados  \"workspaces\".",
+            "Q3-A-2": "As credenciais do Watson Assistant criadas pelos professores têm um limite no número de modelos de aprendizado de máquina que podem ser usados para criar. Isso é exibido na interface do  IBM Cloud em que as credenciais foram criadas, onde eles são chamados  \"workspaces\".",
             "Q3-A-3": "Se este limite for excedido, as tentativas de treinar novos modelos de aprendizado de máquina falharão e esta mensagem será exibida:",
             "Q3-A-4": "Sua turma já criou o número máximo de modelos permitido. Informe ao seu professor ou líder de grupo que suas \"Watson Assistant API keys have no more workspaces available\".",
             "Q3-A-5": "Se um aluno, que possui um modelo treinado com sucesso, excluir o modelo, isso liberará um workspace para ser usado por outro aluno.",
-            "Q3-A-6": "Uma maneira de evitar esse erro no futuro seria criar turmas menores. Se houver menos alunos do que o número de workspaces suportados pelas credenciais do Assistente do Watson (anteriormente conhecido como Conversation), os limites não serão atingidos.",
+            "Q3-A-6": "Uma maneira de evitar esse erro no futuro seria criar turmas menores. Se houver menos alunos do que o número de workspaces suportados pelas credenciais do Assistente do Watson, os limites não serão atingidos.",
             "Q3-A-7": "Outra maneira de evitar esse erro é adicionar outras chaves da API do Watson Assistant à turma ou usar uma instância do Assistente do Watson \"plan\" que tem limites mais altos.",
 
             "Q4": "\"A chaves API do Watson Visual Recognition API não tem mais classificadores disponíveis\"",
