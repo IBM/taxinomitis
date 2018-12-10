@@ -171,31 +171,31 @@
     "PROJECT": {
         "TRAIN": {
             "TITLE": "Train",
-            "BODY": "Collect examples of what you want the computer to recognise."
+            "BODY": "Collect examples of what you want the computer to recognise"
         },
         "LEARNANDTEST": {
             "TITLE": "Learn &amp; Test",
-            "BODY": "Use the examples to train the computer to recognise."
+            "BODY": "Use the examples to train the computer to recognise"
         },
         "MAKES": {
             "TITLE": "Make",
-            "BODY": "Use the machine learning model you've trained to make a game or app, in Scratch or in Python."
+            "BODY": "Use the machine learning model you've trained to make a game or app, in Scratch or in Python"
         },
         "SCRATCH": {
             "TITLE": "Scratch",
-            "BODY": "Use the machine learning model you've trained to make a game in Scratch."
+            "BODY": "Use the machine learning model you've trained to make a game in Scratch"
         },
         "PYTHON": {
             "TITLE": "Python",
-            "BODY": "Use the machine learning model you've trained in a Python program."
+            "BODY": "Use the machine learning model you've trained in a Python program"
         },
         "APPINVENTOR": {
             "TITLE": "App Inventor",
-            "BODY": "Make a mobile app that uses your machine learning model."
+            "BODY": "Make a mobile app that uses your machine learning model"
         },
         "SCRATCH3": {
             "TITLE": "Scratch 3",
-            "BODY": "Use your machine learning model in new version of Scratch."
+            "BODY": "Use your machine learning model in new version of Scratch"
         }
     },
     "TRAINING": {
