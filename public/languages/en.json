@@ -171,7 +171,7 @@
     "PROJECT": {
         "TRAIN": {
             "TITLE": "Train",
-            "BODY": "Collect examples of what you want the computer to recognise."
+            "BODY": "Collect examples of what you want the computer to recognise"
         },
         "LEARNANDTEST": {
             "TITLE": "Learn &amp; Test",
@@ -183,11 +183,11 @@
         },
         "SCRATCH": {
             "TITLE": "Scratch",
-            "BODY": "Use the machine learning model you've trained to make a game in Scratch."
+            "BODY": "Use the machine learning model you've trained to make a game in Scratch"
         },
         "PYTHON": {
             "TITLE": "Python",
-            "BODY": "Use the machine learning model you've trained in a Python program."
+            "BODY": "Use the machine learning model you've trained in a Python program"
         },
         "APPINVENTOR": {
             "TITLE": "App Inventor",
