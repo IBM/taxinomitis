@@ -64,6 +64,7 @@
         </div>
 
         <div class="helpsection">
+            <button class="btn btn-default restrictionedit" translate="APP.EDIT" ng-click="vm.modifyExpiry($event)"></button>
             <h4> To help you avoid the limits for number of machine learning models: </h4>
 
             <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('text') >= 0">Machine learning models created for

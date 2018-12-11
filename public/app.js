@@ -76,7 +76,10 @@
                 url: '/teacher/restrictions',
                 controller: 'TeacherRestrictionsController',
                 templateUrl: 'static/components-<%= VERSION %>/teacher_restrictions/teacher_restrictions.html',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                params: {
+                    VERSION : <%= VERSION %>
+                }
             })
             .state('teacher_apikeys', {
                 url: '/teacher/apikeys',

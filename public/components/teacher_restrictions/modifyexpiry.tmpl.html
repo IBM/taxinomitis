@@ -1,0 +1,51 @@
+<md-dialog aria-label="Modify project expiry" style="max-width: 98%; max-height: 95%">
+    <md-toolbar>
+        <div class="md-toolbar-tools"><h2>Change when models are deleted</h2></div>
+    </md-toolbar>
+    <form ng-cloak name="modifyExpiry" ng-submit="confirm({ textexpiry : textexpiry, imageexpiry : imageexpiry })">
+        <md-dialog-content>
+            <div layout="column">
+                <div layout="row">
+                    <div style="width: 380px; padding: 1em;">
+                        <div style="padding-right: 1em;">Machine learning models created by your students are temporary.  </div>
+                        <div style="padding-right: 1em;">You can control how long they will be available for here.</div>
+
+                        <hr/>
+
+                        <div style="margin-top: 1em; font-weight: bold;">
+                            Text projects
+                        </div>
+                        <div style="margin-top: 0.2em; margin-left: 1em;">
+                            <md-slider ng-model="textexpiry" min="1" max="255" aria-label="blue" id="blue-slider" class="md-primary"></md-slider>
+                            <div>Models deleted after <strong>{{ hoursfilter(textexpiry) }}</strong></div>
+                        </div>
+
+                        <div style="margin-top: 1em; font-weight: bold;">
+                            Image projects
+                        </div>
+                        <div style="margin-top: 0.2em; margin-left: 1em;">
+                            <md-slider ng-model="imageexpiry" min="1" max="255" aria-label="blue" id="blue-slider" class="md-primary"></md-slider>
+                            <div>Models deleted after <strong>{{ hoursfilter(imageexpiry) }}</strong></div>
+                        </div>
+
+                        <hr/>
+
+                    </div>
+                    <div class="additionalDialogInfo">
+                        <div style="padding: 1em; margin: 0.5em; border: thin #3C70B1 solid; background-color: #EAEBF0; font-size: 0.8em;">
+                            <div style="margin-bottom: 0.8em;" translate="HELP.TEACHERUI.Q4-A-1"></div>
+                            <div style="margin-bottom: 0.8em;" translate="HELP.TEACHERUI.Q4-A-2"></div>
+                            <div style="margin-bottom: 0.8em;" translate="HELP.TEACHERUI.Q4-A-3"></div>
+                            <div translate="HELP.TEACHERUI.Q4-A-6"></div>
+                        </div>
+                    </div>
+                </div>
+                <md-dialog-actions layout="row">
+                    <span flex></span>
+                    <md-button type="submit" class="md-raised md-primary" ng-disabled="initialtextexpiry === textexpiry && initialimageexpiry === imageexpiry">Save</md-button>
+                    <md-button ng-click="cancel()">Cancel</md-button>
+                </md-dialog-actions>
+            </div>
+        </md-dialog-content>
+    </form>
+</md-dialog>

@@ -10,6 +10,7 @@
 
         "ADD": "Lägg till",
         "CANCEL": "Avbryt",
+        "EDIT": "Edit",
 
         "ABOUT": "Om",
         "TEACHER": "Lärare",
@@ -815,7 +816,6 @@
             "Q4-A-2": "Istället för att kräva att elever ska rensa upp efter en lektion och radera sina modeller (för att tillåta att nästa klass att kunna skapa modeller), kan verktyget automatiskt rensa upp genom att radera modellerna efter att lektionen är över. Det gör det enkelt att köra nästa lektion, och nästa efter det, utan manuella rensningar mellan.",
             "Q4-A-3": "Tidsgränsen innan modellerna raderas kan ställas in. I en skola där lektionerna är 1 eller 2 timmar långa, kan det vara förnuftigt att radera dem efter 2 timmar. För en kodningsträff en gång i veckan kan sex dagar vara mer lämpligt för att säkerställa att modellerna är rensade innan varje ny träff.",
             "Q4-A-4": "För att kontrollera tidsgränsen för din klass, besök <a href='https://machinelearningforkids.co.uk/#!/teacher/restrictions'>Begränsningar-sektionen på din lärarsida.</a>.",
-            "Q4-A-5": "För att ändra tidsgränsen för din klass, <a href='mailto:dale.lane@uk.ibm.com'>vänligen skicka ett mejl till mig (på engelska)</a>.",
             "Q4-A-6": "<em>Obs: Endast maskininlärningsmodeller raderas automatiskt, inte träningsdatan som användes för att skapa dem. Så om en modell raderas automatiskt för ett projekt som en elev fortfarande jobbar på, kan hen alltid bara klicka på \"Träna\"-knappen igen för att skapa modellen igen.</em>"
         },
 

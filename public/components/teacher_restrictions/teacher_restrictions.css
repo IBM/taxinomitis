@@ -6,3 +6,10 @@
 .adminpage .helpsection {
     margin-bottom: 2.5em;
 }
+
+.restrictionedit {
+    position: relative;
+    float: right;
+    padding-left: 1.2em;
+    padding-right: 1.2em;
+}

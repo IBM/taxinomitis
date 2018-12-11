@@ -10,6 +10,7 @@
 
         "ADD": "Adicionar",
         "CANCEL": "Cancelar",
+        "EDIT": "Edit",
 
         "ABOUT": "Sobre",
         "TEACHER": "Professor(a)",
@@ -815,7 +816,6 @@
             "Q4-A-2": "Em vez de exigir que as crianças tenham que limpar depois de uma lição e excluir seus modelos (para permitir que a próxima turma possa criar modelos), a ferramenta pode limpar automaticamente, excluindo modelos após o término da aula. Isso facilita a execução da próxima lição e a próxima lição depois dessa, sem limpezas manuais nesse intervalo.",
             "Q4-A-3": "O limite de tempo antes de os modelos serem apagados é configurável. Em uma escola, onde as aulas duram 1 ou 2 horas, excluir modelos após duas horas pode ser sensato. Para um clube semanal de codificação, seis dias podem ser um ajuste melhor para garantir que os modelos sejam esclarecidos antes de cada nova sessão do clube.",
             "Q4-A-4": "Para verificar o limite de tempo da sua turma, visite a <a href='https://machinelearningforkids.co.uk/#!/teacher/restrictions'>seção Restrições da sua página de professor</a>.",
-            "Q4-A-5": "Para mudar o limite de tempo da sua turma, <a href='mailto:dale.lane@uk.ibm.com'> por favor me mande um e-mail</a>.",
             "Q4-A-6": "<em>Observação: somente os modelos de aprendizado de máquina são excluídos automaticamente, não os dados de treinamento usados para criá-los. Portanto, se um modelo for automaticamente excluído de um projeto em que ele ainda esteja trabalhando, eles podem sempre clicar no botão \"Treinar\" novamente para criar o modelo novamente.</em>"
         },
 

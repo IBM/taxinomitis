@@ -20,6 +20,16 @@
                 .then(returnData);
         }
 
+        function modifyClassPolicy(profile, textexpiry, imageexpiry) {
+            var modification = [
+                { op : 'replace', path : '/textClassifierExpiry', value : textexpiry },
+                { op : 'replace', path : '/imageClassifierExpiry', value : imageexpiry }
+            ];
+            return $http.patch('/api/classes/' + profile.tenant + '/policy', modification)
+                .then(returnData);
+        }
+
+
         function createTeacher(username, email, notes) {
             var newteacher = {
                 username : username,
@@ -116,6 +126,7 @@
             deleteCredentials : deleteCredentials,
 
             getClassPolicy : getClassPolicy,
+            modifyClassPolicy : modifyClassPolicy,
 
             getStudentList : getStudentList,
 

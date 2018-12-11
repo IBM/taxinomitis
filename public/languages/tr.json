@@ -8,6 +8,7 @@
         "INFO": "Bilgi:",
         "ADD": "Ekle",
         "CANCEL": "İptal",
+        "EDIT": "Edit",
         "ABOUT": "Hakkında",
         "TEACHER": "Öğretmen",
         "PROJECTS": "Projeler",
@@ -777,7 +778,6 @@
             "Q4-A-2": "Çocukların bir dersten sonra toparlanıp modellerini silmelerini (sonraki sınıfın modeller oluşturabilmesini sağlamak için) gerektirmek yerine araç, ders bittikten sonra modelleri silerek otomatik olarak temizlenebilir. Bu da aralarda manuel temizlik olmadan sonraki derslerin daha kolay yapılabilmesini sağlar. ",
             "Q4-A-3": "Modellerin silinmesi için beklenecek süre sınırı yapılandırılabilir. Derslerin 1 veya 2 saat sürdüğü bir okulda, iki saat sonra modellerin silinmesi mantıklı olabilir. Haftalık bir kodlama kulübü için ise her yeni kulüp oturumundan önce modellerin temizlenmesini sağlamak için 6 gün makul olabilir.",
             "Q4-A-4": "Sınıfınıza ilişkin süre sınırını kontrol etmek için <a href='https://machinelearningforkids.co.uk/#!/teacher/restrictions'>Öğretmen sayfanızın Kısıtlamalar bölümünü</a> ziyaret edebilirsiniz.",
-            "Q4-A-5": " Sınıfınıza ilişkin süre sınırını değiştirmek için <a href='mailto:dale.lane@uk.ibm.com'>lütfen bana bir e-posta gönderin</a>.",
             "Q4-A-6": "<em>Not: Kullanılan eğitim verileri değil, yalnızca makine öğrenimi modelleri otomatik olarak silinir. Bir öğrencinin üzerinde hala çalıştığı bir proje için bir model otomatik olarak silinirse, her zaman modelin yeniden oluşturulması için \"Eğit\" düğmesi tıklatılabilir.</em>"
         },
         "ACCOUNTISSUES": {
