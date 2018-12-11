@@ -53,9 +53,12 @@ export async function deleteClass(classid: string): Promise<void> {
     await deleteUsers(classid, teachers, auth0token);
 
 
-    // Finally, schedule a background task to delete uploaded images
+    // Schedule a background task to delete uploaded images
     await db.storeDeleteClassImagesJob(classid);
 
+    // remove the class tenant if one exists (most classes won't
+    //  have one, unless they've modified the default class definition)
+    await db.deleteClassTenant(classid);
 
     slack.notify('Successfully deleted class "' + classid + '"');
     emails.deletedClass(classid, teachers);

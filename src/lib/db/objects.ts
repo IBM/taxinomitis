@@ -894,15 +894,7 @@ export function createClassTenant(
         throw new Error('Not a valid class id');
     }
 
-    return {
-        id : classid,
-        projecttypes : 'text,images,numbers',
-        ismanaged : 0,
-        maxusers : 15,
-        maxprojectsperuser : 2,
-        textclassifiersexpiry : 24,
-        imageclassifiersexpiry : 24,
-    };
+    return getClassDbRow(getDefaultClassTenant(classid));
 }
 
 
@@ -916,6 +908,58 @@ export function getClassFromDbRow(row: Objects.ClassDbRow): Objects.ClassTenant 
         textClassifierExpiry : row.textclassifiersexpiry,
         imageClassifierExpiry : row.imageclassifiersexpiry,
     };
+}
+
+export function getClassDbRow(tenant: Objects.ClassTenant): Objects.ClassDbRow {
+    return {
+        id : tenant.id,
+        projecttypes : tenant.supportedProjectTypes.join(','),
+        maxusers : tenant.maxUsers,
+        maxprojectsperuser : tenant.maxProjectsPerUser,
+        textclassifiersexpiry : tenant.textClassifierExpiry,
+        imageclassifiersexpiry : tenant.imageClassifierExpiry,
+        ismanaged : tenant.isManaged ? 1 : 0,
+    };
+}
+
+export function getDefaultClassTenant(classid: string): Objects.ClassTenant {
+    return {
+        id : classid,
+        supportedProjectTypes : [ 'text', 'images', 'numbers' ],
+        isManaged : false,
+        maxUsers : 25,
+        maxProjectsPerUser : 2,
+        textClassifierExpiry : 24,
+        imageClassifierExpiry : 24,
+    };
+}
+
+
+
+export function setClassTenantExpiries(
+    tenant: Objects.ClassTenant,
+    textexpiry: number, imageexpiry: number,
+): Objects.ClassTenant
+{
+    if (!tenant) {
+        throw new Error('Missing tenant info to update');
+    }
+    if (!textexpiry || !imageexpiry) {
+        throw new Error('Missing required expiry value');
+    }
+    if (!Number.isInteger(textexpiry) || !Number.isInteger(imageexpiry)) {
+        throw new Error('Expiry values should be an integer number of hours');
+    }
+    if (textexpiry < 1 || imageexpiry < 1) {
+        throw new Error('Expiry values should be a positive number of hours');
+    }
+    if (textexpiry > 255 || imageexpiry > 255) {
+        throw new Error('Expiry values should not be greater than 255 hours');
+    }
+
+    tenant.textClassifierExpiry = textexpiry;
+    tenant.imageClassifierExpiry = imageexpiry;
+    return tenant;
 }
 
 

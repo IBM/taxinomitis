@@ -117,28 +117,38 @@ describe('DB objects', () => {
 
 
     describe('getClassFromDbRow()', () => {
-        it('should return tenant policy info', () => {
-            const testRow: Objects.ClassDbRow = {
-                id : uuid(),
-                projecttypes : 'text,numbers',
-                ismanaged : 0,
-                maxusers : 3,
-                maxprojectsperuser : 2,
-                textclassifiersexpiry : 9,
-                imageclassifiersexpiry : 1,
-            };
-            const expectedPolicy: Objects.ClassTenant = {
-                id : testRow.id,
-                supportedProjectTypes : ['text', 'numbers'],
-                isManaged : false,
-                maxUsers : 3,
-                maxProjectsPerUser : 2,
-                textClassifierExpiry : 9,
-                imageClassifierExpiry : 1,
-            };
+        const testRow: Objects.ClassDbRow = {
+            id : uuid(),
+            projecttypes : 'text,numbers',
+            ismanaged : 0,
+            maxusers : 3,
+            maxprojectsperuser : 2,
+            textclassifiersexpiry : 9,
+            imageclassifiersexpiry : 1,
+        };
+        const expectedPolicy: Objects.ClassTenant = {
+            id : testRow.id,
+            supportedProjectTypes : ['text', 'numbers'],
+            isManaged : false,
+            maxUsers : 3,
+            maxProjectsPerUser : 2,
+            textClassifierExpiry : 9,
+            imageClassifierExpiry : 1,
+        };
 
+        it('should return tenant policy info', () => {
             assert.deepStrictEqual(dbobjects.getClassFromDbRow(testRow), expectedPolicy);
+            assert.deepStrictEqual(dbobjects.getClassFromDbRow({ ...testRow, ismanaged : 1 }),
+                                   { ...expectedPolicy, isManaged : true });
         });
+
+        it('should get tenant data as DB row', () => {
+            assert.deepStrictEqual(testRow, dbobjects.getClassDbRow(expectedPolicy));
+            assert.deepStrictEqual({ ...testRow, ismanaged : 1 },
+                                   dbobjects.getClassDbRow({ ...expectedPolicy, isManaged : true }));
+        });
+
+
     });
 
 
@@ -1133,6 +1143,59 @@ describe('DB objects', () => {
     });
 
 
+    describe('setClassTenantExpiries', () => {
+
+        const emptyUnknown: unknown = null;
+        const emptyNum: number = emptyUnknown as number;
+        const emptyTenant: Objects.ClassTenant = emptyUnknown as Objects.ClassTenant;
+        const stringVal: unknown = 'hello';
+        const stringNum: number = stringVal as number;
+        const tenant = dbobjects.getDefaultClassTenant(uuid());
+
+        const tests: Array<[ Objects.ClassTenant, number, number, string ]> = [
+            [ emptyTenant, 34, 45, 'Missing tenant info to update' ],
+            //
+            [ tenant, emptyNum, 12, 'Missing required expiry value' ],
+            [ tenant, 34, emptyNum, 'Missing required expiry value' ],
+            //
+            [ tenant, stringNum, 12, 'Expiry values should be an integer number of hours'],
+            [ tenant, 77, stringNum, 'Expiry values should be an integer number of hours'],
+            //
+            [ tenant, 11, 10.2, 'Expiry values should be an integer number of hours'],
+            [ tenant, 6.6, 10, 'Expiry values should be an integer number of hours'],
+            //
+            [ tenant, 11, -123, 'Expiry values should be a positive number of hours'],
+            [ tenant, -1, 10, 'Expiry values should be a positive number of hours'],
+            //
+            [ tenant, 11, 300, 'Expiry values should not be greater than 255 hours'],
+            [ tenant, 256, 10, 'Expiry values should not be greater than 255 hours'],
+        ];
+
+        it('should handle invalid input', () => {
+            for (const test of tests) {
+                try {
+                    dbobjects.setClassTenantExpiries(test[0], test[1], test[2]);
+                    assert.fail('should not have reached here');
+                }
+                catch (err) {
+                    assert(err);
+                    assert.strictEqual(err.message, test[3]);
+                }
+            }
+        });
+
+        it('should update expiry numbers', () => {
+            const updated = dbobjects.setClassTenantExpiries({ ... tenant }, 123, 234);
+            assert.strictEqual(tenant.id, updated.id);
+            assert.strictEqual(tenant.maxUsers, updated.maxUsers);
+            assert.strictEqual(tenant.maxProjectsPerUser, updated.maxProjectsPerUser);
+            assert.strictEqual(tenant.isManaged, updated.isManaged);
+            assert.strictEqual(123, updated.textClassifierExpiry);
+            assert.strictEqual(234, updated.imageClassifierExpiry);
+        });
+    });
+
+
     describe('createClassTenant', () => {
 
         it('should require a class id', (done) => {
@@ -1196,7 +1259,7 @@ describe('DB objects', () => {
                 id : 'testing',
                 projecttypes : 'text,images,numbers',
                 ismanaged : 0,
-                maxusers : 15,
+                maxusers : 25,
                 maxprojectsperuser : 2,
                 textclassifiersexpiry : 24,
                 imageclassifiersexpiry : 24,

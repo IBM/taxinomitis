@@ -1715,26 +1715,6 @@ export async function getNextPendingJob(): Promise<Objects.PendingJob | undefine
 //
 // -----------------------------------------------------------------------------
 
-// export async function storeClassTenant(classid: string): Promise<Objects.ClassTenant>
-// {
-//     const obj = dbobjects.createClassTenant(classid);
-
-//     const queryString = 'INSERT INTO `tenants` ' +
-//                         '(`id`, `projecttypes`, `ismanaged`, ' +
-//                          '`maxusers`, `maxprojectsperuser`, ' +
-//                          '`textclassifiersexpiry`, `imageclassifiersexpiry`) ' +
-//                         'VALUES (?, ?, ?, ?, ?, ?, ?)';
-
-//     const values = [
-//         obj.id, obj.projecttypes, obj.ismanaged,
-//         obj.maxusers, obj.maxprojectsperuser,
-//         obj.textclassifiersexpiry, obj.imageclassifiersexpiry,
-//     ];
-
-//     const response = await dbExecute()
-// }
-
-
 export async function getClassTenant(classid: string): Promise<Objects.ClassTenant> {
     const queryString = 'SELECT `id`, `projecttypes`, `maxusers`, ' +
                                '`maxprojectsperuser`, ' +
@@ -1744,20 +1724,17 @@ export async function getClassTenant(classid: string): Promise<Objects.ClassTena
                         'WHERE `id` = ?';
 
     const rows = await dbExecute(queryString, [ classid ]);
-    if (rows.length !== 1) {
-        log.debug({ rows, func : 'getClassTenant' }, 'Unexpected response from DB');
-
-        return {
-            id : classid,
-            supportedProjectTypes : [ 'text', 'images', 'numbers' ],
-            isManaged : false,
-            maxUsers : 25,
-            maxProjectsPerUser : 2,
-            textClassifierExpiry : 24,
-            imageClassifierExpiry : 24,
-        };
+    if (rows.length === 0) {
+        log.debug({ rows, func : 'getClassTenant' }, 'Empty response from DB');
+        return dbobjects.getDefaultClassTenant(classid);
     }
-    return dbobjects.getClassFromDbRow(rows[0]);
+    else if (rows.length > 1) {
+        log.error({ rows, func : 'getClassTenant' }, 'Unexpected response from DB');
+        return dbobjects.getDefaultClassTenant(classid);
+    }
+    else {
+        return dbobjects.getClassFromDbRow(rows[0]);
+    }
 }
 
 
@@ -1773,6 +1750,57 @@ export async function getClassTenants(): Promise<Objects.ClassTenant[]> {
 
     return rows.map(dbobjects.getClassFromDbRow);
 }
+
+
+
+export async function modifyClassTenantExpiries(
+    classid: string,
+    textexpiry: number, imageexpiry: number,
+): Promise<Objects.ClassTenant>
+{
+    const tenantinfo = await getClassTenant(classid);
+
+    const modified = dbobjects.setClassTenantExpiries(tenantinfo, textexpiry, imageexpiry);
+    const obj = dbobjects.getClassDbRow(modified);
+
+    const queryString = 'INSERT INTO `tenants` ' +
+                            '(`id`, `projecttypes`, ' +
+                                '`maxusers`, `maxprojectsperuser`, ' +
+                                '`textclassifiersexpiry`, `imageclassifiersexpiry`, ' +
+                                '`ismanaged`) ' +
+                            'VALUES (?, ?, ?, ?, ?, ?, ?) ' +
+                            'ON DUPLICATE KEY UPDATE `textclassifiersexpiry` = ?, ' +
+                                                    '`imageclassifiersexpiry` = ?';
+
+    const values = [
+        obj.id, obj.projecttypes,
+        obj.maxusers, obj.maxprojectsperuser,
+        obj.textclassifiersexpiry, obj.imageclassifiersexpiry,
+        obj.ismanaged,
+        //
+        obj.textclassifiersexpiry, obj.imageclassifiersexpiry,
+    ];
+
+    const response = await dbExecute(queryString, values);
+    if (response.affectedRows !== 1 &&  // row inserted
+        response.affectedRows !== 2)    // row updated
+    {
+        log.error({ response, values }, 'Failed to update tenant info');
+        throw new Error('Failed to update tenant info');
+    }
+
+    return modified;
+}
+
+
+export async function deleteClassTenant(classid: string): Promise<void> {
+    const deleteQuery = 'DELETE FROM `tenants` WHERE `id` = ?';
+    const response = await dbExecute(deleteQuery, [ classid ]);
+    if (response.warningStatus !== 0) {
+        throw new Error('Failed to delete class tenant');
+    }
+}
+
 
 
 

@@ -187,6 +187,41 @@ function resetStudentsPassword(req: Express.Request, res: Express.Response) {
 
 
 
+function modifyClass(req: Express.Request, res: Express.Response) {
+    const tenant = req.params.classid;
+
+    let patch: { textClassifierExpiry: number, imageClassifierExpiry: number };
+    try {
+        patch = getClassPatch(req);
+    }
+    catch (err) {
+        return res.status(httpstatus.BAD_REQUEST)
+                  .json({
+                      error : err.message,
+                  });
+    }
+
+    return store.modifyClassTenantExpiries(tenant,
+                                           patch.textClassifierExpiry,
+                                           patch.imageClassifierExpiry)
+        .then((modified) => {
+            res.json(modified);
+        })
+        .catch((err) => {
+            if (err.message === 'Missing required expiry value' ||
+                err.message === 'Expiry values should be an integer number of hours' ||
+                err.message === 'Expiry values should be a positive number of hours' ||
+                err.message === 'Expiry values should not be greater than 255 hours')
+            {
+                return errors.missingData(res);
+            }
+            return errors.unknownError(res, err);
+        });
+}
+
+
+
+
 function deleteClass(req: Express.Request, res: Express.Response) {
     const tenant = req.params.classid;
     const confirm = req.query.confirm;
@@ -267,6 +302,41 @@ function getUserPatch(req: Express.Request): string[] {
     });
 }
 
+function getClassPatch(req: Express.Request): { textClassifierExpiry: number, imageClassifierExpiry: number }
+{
+    const patchRequests = req.body;
+
+    if (Array.isArray(patchRequests) === false) {
+        throw new Error('PATCH body should be an array');
+    }
+    if (patchRequests.length !== 2) {
+        throw new Error('PATCH body should include 2 values');
+    }
+
+    const patch = {
+        textClassifierExpiry : 0,
+        imageClassifierExpiry : 0,
+    };
+
+    patchRequests.forEach((patchRequest: any) => {
+        if (patchRequest &&
+            patchRequest.op &&
+            patchRequest.path &&
+            patchRequest.value &&
+            patchRequest.op === 'replace' &&
+            (patchRequest.path === '/textClassifierExpiry' || patchRequest.path === '/imageClassifierExpiry'))
+        {
+            const path: 'textClassifierExpiry' | 'imageClassifierExpiry' = patchRequest.path.substr(1);
+            patch[path] = patchRequest.value;
+        }
+        else {
+            throw new Error('Invalid PATCH request');
+        }
+    });
+
+    return patch;
+}
+
 
 
 
@@ -277,6 +347,12 @@ export default function registerApis(app: Express.Application) {
         auth.checkValidUser,
         auth.requireSupervisor,
         getPolicy);
+
+    app.patch(urls.TENANT_POLICY,
+        auth.authenticate,
+        auth.checkValidUser,
+        auth.requireSupervisor,
+        modifyClass);
 
     app.delete(urls.CLASS,
         auth.authenticate,
