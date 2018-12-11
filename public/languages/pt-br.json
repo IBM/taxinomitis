@@ -11,6 +11,7 @@
         "ADD": "Adicionar",
         "CANCEL": "Cancelar",
         "EDIT": "Edit",
+        "TEST": "Test",
 
         "ABOUT": "Sobre",
         "TEACHER": "Professor(a)",
@@ -88,11 +89,16 @@
         "FORGOT_DETAILS": "Esqueceu os seu usuário ou senha?",
         "TRY_TITLE": "Teste sem se registar",
         "TRY_NOW": "Experimente agora",
-        "BACK": "@:APP.BACK",
         "WHO_YOU": "Quem é você?",
         "TEACHER": "Um professor ou líder de um clube de programação",
         "STUDENT": "Um estudante",
-        "FORGOT_TEXT": "Esqueceu seu nome de usuário ou senha? Tudo bem - todos nós esquecemos as coisas de vez em quando."
+        "FORGOT_TEXT": "Esqueceu seu nome de usuário ou senha? Tudo bem - todos nós esquecemos as coisas de vez em quando.",
+        "ARE_YOU_A_STUDENT": "Are you a student?",
+        "ARE_YOU_A_STUDENT_INTRO_1": "If your class is already using this tool, ask your teacher or coding group leader to create you an account.",
+        "ARE_YOU_A_STUDENT_INTRO_2": "If your class isn't already using the tool, ask your teacher or coding group leader to get in touch.",
+        "RESET_STUDENT_PASSWORD_1": "If you're a student, we don't have your email address to be able to send you a password-reset email.",
+        "RESET_STUDENT_PASSWORD_2": "That's no problem, though!",
+        "RESET_STUDENT_PASSWORD_3": "Just ask your teacher or group leader who first signed you up. They will be able to reset your password from their Admin page."
     },
     "SIGNUP": {
         "TEACHER": {
@@ -231,6 +237,8 @@
         "TRAIN": "Treinar um novo modelo de aprendizado de máquina",
         "CANCEL": "Cancelar treinamento",
         "DELETE": "Deletar este modelo",
+        "TEST_CANVAS": "Draw something to test your model with",
+        "TEST_WEBCAM": "Take a photo to test your model with",
         "WHATHAVEYOUDONE": {
             "TITLE": "O que você fez?",
             "PLEASEWAIT": "Isso normalmente leva alguns minutos, mas pode demorar um pouco mais se o computador de treinamento estiver muito ocupado.",
@@ -858,8 +866,16 @@
             "Q3-A-7": "A exclusão de uma conta de professor excluirá toda a turma e todas as contas de alunos. Não pode ser desfeita.",
             "Q3-A-8": "Isso pode ser feito clicando no botão \"Excluir turma\" na seção Opções avançadas da <a href='https://machinelearningforkids.co.uk/teacher'>sua página do Professor</a>",
 
-            "Q4": "Quais informações são armazenadas sobre os usuários?"
-
+            "Q4": "Quais informações são armazenadas sobre os usuários?",
+            "Q4-A-1": "Teacher accounts",
+            "Q4-A-2": "I store the username and email address that you provide when you create the account, so that I can keep in touch with you.",
+            "Q4-A-3": "Student accounts",
+            "Q4-A-4": "I store the usernames for student accounts, so that I can let them log in. I have no email addresses or contact details for students. I have no other personally identifying information about students.",
+            "Q4-A-5": "I also <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-schools.pdf'>recommend that students are given generic usernames</a> (e.g. student1) so that students are not identifiable outside of their school or coding group.",
+            "Q4-A-6": "General information stored about all accounts",
+            "Q4-A-7": "User management for Machine Learning for Kids is implemented using the third party service, <a href='https://auth0.com/'>Auth0</a>. They store the IP address that you last logged into Machine Learning for Kids from, and the type of browser you used. I've never found a reason to use that, but it is stored if I did want to go and look for it.",
+            "Q4-A-8": "Errors that happen in the web browser are captured using the third party service, <a href='https://sentry.io/'>Sentry</a>. If something goes wrong, it will capture information about the error, including your username, IP address, type of browser you were using, and a technical description of what went wrong.",
+            "Q4-A-9": "I use <a href='https://www.google.com/analytics/'>Google Analytics</a> so that I know how many users visit Machine Learning for Kids each day. Although it captures information such as geographic location and browser type, this is only ever displayed to me in an anonymised aggregate way."
         }
     }
 }

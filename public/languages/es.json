@@ -11,6 +11,7 @@
         "ADD": "Agregar",
         "CANCEL": "Cancelar",
         "EDIT": "Edit",
+        "TEST": "Test",
 
         "ABOUT": "Acerca de",
         "TEACHER": "Maestro",
@@ -88,11 +89,16 @@
         "FORGOT_DETAILS": "¿Olvidaste tus datos?",
         "TRY_TITLE": "Prueba sin registrarte",
         "TRY_NOW": "Pruébalo ahora",
-        "BACK": "@:APP.BACK",
         "WHO_YOU": "¿Quién eres tú?",
         "TEACHER": "Un maestro o líder de un club de codificación",
         "STUDENT": "Un estudiante",
-        "FORGOT_TEXT": "¿Haz olvidado tu nombre de usuario o contraseña? Está bien, todos olvidamos cosas a veces."
+        "FORGOT_TEXT": "¿Haz olvidado tu nombre de usuario o contraseña? Está bien, todos olvidamos cosas a veces.",
+        "ARE_YOU_A_STUDENT": "Are you a student?",
+        "ARE_YOU_A_STUDENT_INTRO_1": "If your class is already using this tool, ask your teacher or coding group leader to create you an account.",
+        "ARE_YOU_A_STUDENT_INTRO_2": "If your class isn't already using the tool, ask your teacher or coding group leader to get in touch.",
+        "RESET_STUDENT_PASSWORD_1": "If you're a student, we don't have your email address to be able to send you a password-reset email.",
+        "RESET_STUDENT_PASSWORD_2": "That's no problem, though!",
+        "RESET_STUDENT_PASSWORD_3": "Just ask your teacher or group leader who first signed you up. They will be able to reset your password from their Admin page."
     },
     "SIGNUP": {
         "TEACHER": {
@@ -231,6 +237,8 @@
         "TRAIN": "Train new machine learning model",
         "CANCEL": "Cancel training",
         "DELETE": "Delete this model",
+        "TEST_CANVAS": "Draw something to test your model with",
+        "TEST_WEBCAM": "Take a photo to test your model with",
         "WHATHAVEYOUDONE": {
             "TITLE": "What have you done?",
             "PLEASEWAIT": "This normally takes a few minutes, but can take a little longer if the training computer is very busy.",
@@ -858,8 +866,16 @@
             "Q3-A-7": "Deleting a teacher account will delete the entire class and all of the student accounts in it. It cannot be undone.",
             "Q3-A-8": "This can be done by clicking the \"Delete Class\" button in the Advanced options section of <a href='https://machinelearningforkids.co.uk/teacher'>your Teacher page</a>",
 
-            "Q4": "What information is stored about users?"
-
+            "Q4": "What information is stored about users?",
+            "Q4-A-1": "Teacher accounts",
+            "Q4-A-2": "I store the username and email address that you provide when you create the account, so that I can keep in touch with you.",
+            "Q4-A-3": "Student accounts",
+            "Q4-A-4": "I store the usernames for student accounts, so that I can let them log in. I have no email addresses or contact details for students. I have no other personally identifying information about students.",
+            "Q4-A-5": "I also <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-schools.pdf'>recommend that students are given generic usernames</a> (e.g. student1) so that students are not identifiable outside of their school or coding group.",
+            "Q4-A-6": "General information stored about all accounts",
+            "Q4-A-7": "User management for Machine Learning for Kids is implemented using the third party service, <a href='https://auth0.com/'>Auth0</a>. They store the IP address that you last logged into Machine Learning for Kids from, and the type of browser you used. I've never found a reason to use that, but it is stored if I did want to go and look for it.",
+            "Q4-A-8": "Errors that happen in the web browser are captured using the third party service, <a href='https://sentry.io/'>Sentry</a>. If something goes wrong, it will capture information about the error, including your username, IP address, type of browser you were using, and a technical description of what went wrong.",
+            "Q4-A-9": "I use <a href='https://www.google.com/analytics/'>Google Analytics</a> so that I know how many users visit Machine Learning for Kids each day. Although it captures information such as geographic location and browser type, this is only ever displayed to me in an anonymised aggregate way."
         }
     }
 }

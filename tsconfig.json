@@ -16,7 +16,8 @@
     "noUnusedLocals": true,
     "strictPropertyInitialization": true,
     "strictNullChecks": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true
   },
   "compileOnSave": false,
   "include": [

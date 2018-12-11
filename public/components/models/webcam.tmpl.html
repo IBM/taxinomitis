@@ -1,7 +1,7 @@
 <md-dialog aria-label="Take a photo to test">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>Take a photo to test your model with</h2>
+            <h2 translate>MODELS.TEST_WEBCAM</h2>
         </div>
     </md-toolbar>
     <md-dialog-content>
@@ -24,8 +24,8 @@
         <span flex></span>
         <md-button type="submit" class="md-raised md-primary" ng-disabled="webcamerror" ng-click="confirm()">
             <span class="glyphicon glyphicon-camera"></span>
-            Test
+            <span translate="APP.TEST"></span>
         </md-button>
-        <md-button ng-click="cancel()">Cancel</md-button>
+        <md-button ng-click="cancel()" translate="APP.CANCEL"></md-button>
     </md-dialog-actions>
 </md-dialog>
