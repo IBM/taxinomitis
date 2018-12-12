@@ -13,10 +13,10 @@
             on-access-denied="onWebcamError(err)"
             on-streaming="onWebcamSuccess()"></webcam>
         <div class="webcamerror" ng-show="webcamerror">
-            <strong>Sorry! We weren't able to get a webcam to work for you.</strong>
+            <strong translate>TRAINING.NEWEXAMPLE.WEBCAMFAIL</strong>
         </div>
         <div class="webcamerror" ng-show="webcamerrordetail">
-            The message we got from your web browser was: <br/>
+            {{ 'TRAINING.NEWEXAMPLE.WEBCAMERROR' | translate }} <br/>
             {{ webcamerrordetail }}
         </div>
     </md-dialog-content>

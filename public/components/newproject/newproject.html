@@ -61,8 +61,8 @@
                        ng-focus="vm.focused = 'name'"
                        class="newprojectname"/>
                 <div ng-messages="newProject.projectName.$error" ng-show="newProject.projectName.$dirty">
-                    <div ng-message="required">This is required!</div>
-                    <div ng-message="maxlength">That's too long!</div>
+                    <div ng-message="required" translate="NEWPROJECT.ERRORS.REQUIRED"></div>
+                    <div ng-message="maxlength" translate="NEWPROJECT.ERRORS.TOOLONG"></div>
                 </div>
             </md-input-container>
             <div class="well newprojecthelp"
@@ -155,8 +155,8 @@
                            ng-focus="vm.focused = 'fieldname' + $index"
                            class="newprojectfieldname"/>
                     <div ng-messages="newProject['numfield_' + $index].$error" ng-show="newProject['numfield_' + $index].$dirty">
-                        <div ng-message="required">This is required!</div>
-                        <div ng-message="maxlength">That's too long!</div>
+                        <div ng-message="required" translate="NEWPROJECT.ERRORS.REQUIRED"></div>
+                        <div ng-message="maxlength" translate="NEWPROJECT.ERRORS.TOOLONG"></div>
                     </div>
                 </md-input-container>
 
@@ -200,7 +200,7 @@
                                    ng-focus="vm.focused = 'newfieldchoice' + $parent.$index"
                                    ng-keyup="$event.keyCode === 13 && field.newfieldchoice.length <= 9 && [ vm.addFieldChoice(field.newfieldchoice, field), field.newfieldchoice = '' ]"></input>
                             <div ng-messages="newProject['choicefield_' + $index].$error" ng-show="newProject['choicefield_' + $index].$dirty">
-                                <div ng-message="maxlength">That's too long!</div>
+                                <div ng-message="maxlength" translate="NEWPROJECT.ERRORS.TOOLONG"></div>
                             </div>
                         </md-input-container>
                     </div>

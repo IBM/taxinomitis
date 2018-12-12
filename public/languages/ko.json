@@ -10,6 +10,7 @@
 
         "ADD": "추가",
         "CANCEL": "취소",
+        "DELETE": "Delete",
         "EDIT": "Edit",
         "TEST": "Test",
 
@@ -173,7 +174,11 @@
                 "VALUES_LIMIT": "프로젝트에 10개 이상의 값은 허용되지 않습니다"
             }
         },
-        "CREATE": "만들기"
+        "CREATE": "만들기",
+        "ERRORS": {
+            "REQUIRED": "This is required!",
+            "TOOLONG": "That's too long!"
+        }
     },
     "PROJECT": {
         "TRAIN": {
@@ -709,6 +714,41 @@
 
             "LIMIT_TEXT_PROJECTS": "여러분의 교실 학생들이 만들 수 있는 텍스트 머신러닝 모델의 수:",
             "LIMIT_IMAGE_PROJECTS": "여러분의 교실 학생들이 만들 수 있는  머신러닝 모델의 수:"
+        },
+        "SUPERVISION": {
+            "TITLE": "Administration : Student projects",
+
+            "INTRO_1": "This page displays a list of all of the projects that your class currently has. You can use it to review what they're working on.",
+            "INTRO_2": "If you've hit the limit for the number of machine learning models that your class can create, you can use this to see which projects currently have a machine learning model, and delete any that you think are no longer needed.",
+
+            "NO_PROJECTS_1": "None of the students in your class currently have any projects.",
+            "NO_PROJECTS_2": "Once your students start creating projects, come back here to see an overview of their work.",
+
+            "NAME": "Name",
+            "TYPE": "Type",
+            "STUDENT": "Student",
+            "MODELS": "ML models",
+
+            "DELETE": "Click the icon to delete",
+
+            "NOT_AUTHORIZED": "You are not authorized to access the list of projects for all students in your class."
+        },
+        "STUDENTMANAGEMENT": {
+            "TITLE": "Administration : Student management",
+
+            "CREATE_FIRST_STUDENT": "Click on the 'plus' button on the right to create the first student",
+            "ADD": "Add new student",
+            "NEW_USERNAME": "Choose a unique username",
+            "ALPHANUMERIC": "Only use letters and numbers",
+
+            "NOT_LOGGED_IN": "Not logged in yet",
+
+            "RESET_PASSWORD": "Reset password",
+            "RESET_ALL_PASSWORDS": "Reset password for all students",
+
+            "DELETE_STUDENT": "Delete student account",
+
+            "NOT_AUTHORIZED": "You are not authorized to access the list of students in your class."
         }
     },
     "HELP": {

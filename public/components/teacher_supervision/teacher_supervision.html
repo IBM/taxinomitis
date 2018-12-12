@@ -1,5 +1,5 @@
 <div class="jumbotron">
-    <h2 class="text-center">Administration : Student projects</h2>
+    <h2 class="text-center" translate>TEACHER.SUPERVISION.TITLE</h2>
 </div>
 <div ng-if="!isAuthenticated">
     <div class="alert alert-warning pageheadermsg">
@@ -31,7 +31,7 @@
 
 
     <div ng-if="vm && vm.classifiers && (vm.classifiers.conv.length > 0 || vm.classifiers.visrec.length > 0)" class="unmanagedClassifiers">
-        <div class="warningHeading">Warning</div>
+        <div class="warningHeading" translate>APP.WARNING</div>
         <div class="warningExplanation">
             A check of the Watson API keys that you provided has found
             <span ng-if="(vm.classifiers.conv.length + vm.classifiers.visrec.length) === 1">a </span>
@@ -70,11 +70,11 @@
                         (<small>{{ classifier.id }}</small>) called
                         <strong>"{{ classifier.name }}"</strong></td>
                 <td><button class="btn btn-danger"
-                                style="margin-left: 1em"
-                                ng-click="vm.deleteClassifier($event, classifier)"
-                                ng-disabled="submittingDeleteRequest">
-                            Delete
-                        </button></td>
+                            style="margin-left: 1em"
+                            ng-click="vm.deleteClassifier($event, classifier)"
+                            ng-disabled="submittingDeleteRequest"
+                            translate="APP.DELETE">
+                    </button></td>
             </tr>
             <tr ng-repeat="classifier in vm.classifiers.visrec">
                 <td><img class="mediumwatsonicon" hspace=10
@@ -84,11 +84,11 @@
                         ({{ classifier.id }}) called
                         <strong>"{{ classifier.name }}"</strong></td>
                 <td><button class="btn btn-danger"
-                                style="margin-left: 1em"
-                                ng-click="vm.deleteClassifier($event, classifier)"
-                                ng-disabled="submittingDeleteRequest">
-                            Delete
-                        </button></td>
+                            style="margin-left: 1em"
+                            ng-click="vm.deleteClassifier($event, classifier)"
+                            ng-disabled="submittingDeleteRequest"
+                            translate="APP.DELETE">
+                    </button></td>
             </tr>
         </table>
     </div>
@@ -97,39 +97,39 @@
     <div ng-if="vm && vm.projects">
 
         <div class="helpsection">
-            <p>This page displays a list of all of the projects that your class currently has. You can use it to review what they're working on. </p>
-            <p>If you've hit the limit for the number of machine learning models that your class can create, you can use this to see which projects currently have a machine learning model, and delete any that you think are no longer needed. </p>
+            <p translate>TEACHER.SUPERVISION.INTRO_1</p>
+            <p translate>TEACHER.SUPERVISION.INTRO_2</p>
         </div>
 
         <div class="studentslist" ng-if="vm.projects.length === 0">
-            <p>None of the students in your class currently have any projects. </p>
-            <p>Once your students start creating projects, come back here to see an overview of their work. </p>
+            <p translate>TEACHER.SUPERVISION.NO_PROJECTS_1</p>
+            <p translate>TEACHER.SUPERVISION.NO_PROJECTS_2</p>
         </div>
 
         <table class="studentslist wide" ng-if="vm.projects.length > 0">
             <tr>
                 <th title="Name of the project">
-                    Name
+                    {{ 'TEACHER.SUPERVISION.NAME' | translate }}
                     <span class="glyphicon glyphicon-triangle-top" ng-click="vm.orderBy = 'name'"></span>
                     <span class="glyphicon glyphicon-triangle-bottom" ng-click="vm.orderBy = '-name'"></span>
                 </th>
                 <th title="Type of project - what the computer is being trained to recognise">
-                    Type
+                    {{ 'TEACHER.SUPERVISION.TYPE' | translate }}
                     <span class="glyphicon glyphicon-triangle-top" ng-click="vm.orderBy = 'type'"></span>
                     <span class="glyphicon glyphicon-triangle-bottom" ng-click="vm.orderBy = '-type'"></span>
                 </th>
                 <th>
                 </th>
                 <th title="Owner of the project">
-                    Student
+                    {{ 'TEACHER.SUPERVISION.STUDENT' | translate }}
                     <span class="glyphicon glyphicon-triangle-top" ng-click="vm.orderBy = 'owner.username'"></span>
                     <span class="glyphicon glyphicon-triangle-bottom" ng-click="vm.orderBy = '-owner.username'"></span>
                 </th>
                 <th title="Whether the project currently has a trained model using a Watson API key">
-                    ML models
+                    {{ 'TEACHER.SUPERVISION.MODELS' | translate }}
                     <span class="glyphicon glyphicon-triangle-top" ng-click="vm.orderBy = ['-hasModel', 'type']"></span>
                     <br/>
-                    <em style="font-weight: normal; font-size: 0.8em;">Click the icon to delete</em>
+                    <em style="font-weight: normal; font-size: 0.8em;" translate>TEACHER.SUPERVISION.DELETE</em>
                 </th>
             </tr>
             <tr ng-repeat="project in vm.projects | orderBy : vm.orderBy" ng-class-even="'even'" ng-class-odd="'odd'">
@@ -165,5 +165,5 @@
 </div>
 
 <div ng-if="isAuthenticated && vm.profile.role !== 'supervisor'" class="alert alert-danger pageheadermsg">
-    <strong translate="APP.ERROR"></strong> You are not authorized to access the list of projects for all students in your class.
+    <strong translate="APP.ERROR"></strong> {{ 'TEACHER.SUPERVISION.NOT_AUTHORIZED' | translate }}
 </div>
