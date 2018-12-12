@@ -162,24 +162,24 @@
                 "ADD_ANOTHER_FIELD": "他の選択肢を複数選択肢のリストに入力して、Enterを押してください。"
             },
             "NEWVALUE": {
-                "ADD_FIRST_VALUE": "Start to describe the values that you'll include with each example to train the computer with by clicking the 'Add a value' button.",
-                "VALUES_LIMIT": "You are not allowed more than 10 values in a project."
+                "ADD_FIRST_VALUE": "コンピューターをトレーニングするそれそれの例に含まれる値を'Add a value'ボタンをクリックして説明することから始めてください。",
+                "VALUES_LIMIT": "一つのプロジェクトで扱える値の種類は最大１０です。"
             }
         },
-        "CREATE": "Create"
+        "CREATE": "作成"
     },
     "PROJECT": {
         "TRAIN": {
-            "TITLE": "Train",
-            "BODY": "Collect examples of what you want the computer to recognise."
+            "TITLE": "トレーニング",
+            "BODY": "コンピューターに認識させたい例を収集してください。"
         },
         "LEARNANDTEST": {
-            "TITLE": "Learn &amp; Test",
-            "BODY": "Use the examples to train the computer to recognise"
+            "TITLE": "学習 &amp; テスト",
+            "BODY": "例を使ってコンピューターが認識できるようにトレーニングします。"
         },
         "MAKES": {
-            "TITLE": "Make",
-            "BODY": "Use the machine learning model you've trained to make a game or app, in Scratch or in Python"
+            "TITLE": "プログラム作成",
+            "BODY": "あなたがトレーニングした機械学習モデルを用いて、ScratchやPythonでゲームやアプリを作成します。"
         },
         "SCRATCH": {
             "TITLE": "Scratch",
