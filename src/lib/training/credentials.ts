@@ -217,15 +217,19 @@ async function reportBadCredentials(err: Error, credentials: BluemixCredentials)
     //
     // special cases - ignore some errors
     //
-    //  Visual Recognition will occassionally return the
-    //   string 'unspecified error - please try again\n' with an HTTP 500 response code
-    //   even when the credentials are fine
     //  We don't want to notify teachers about these.
-    //
 
     if (err.message &&
         typeof err.message === 'string' &&
-        err.message.startsWith('unspecified error - please try again'))
+        (
+        //  Visual Recognition will occassionally return the
+        //   string 'unspecified error - please try again\n' with an HTTP 500 response code
+        //   even when the credentials are fine
+        err.message.startsWith('unspecified error - please try again') ||
+        //  Occassionally there is a timeout when we tried to poll
+        //   the service API. This is usually a temporary thing.
+        err.message === 'Error: ESOCKETTIMEDOUT'
+        ))
     {
         return;
     }
