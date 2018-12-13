@@ -1,7 +1,7 @@
 <md-dialog aria-label="Store new Watson Assistant API key" style="max-width: 98%; max-height: 95%">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>Add Watson Assistant credentials</h2>
+            <h2 translate>TEACHER.APIKEYS.ADD_API_KEYS.ASSISTANT_TITLE</h2>
         </div>
     </md-toolbar>
     <form ng-cloak name="newCredentials"
@@ -10,19 +10,12 @@
             <div layout="column">
                 <div layout="row">
                     <div style="min-width: 380px; padding: 1em;">
-                        <div style="padding-right: 1em;">
-                            These will be used when your students train
-                            models in text projects.
-                        </div>
-                        <div style="padding-right: 1em;">
-                            This will not be shown to students in your group.
-                        </div>
+                        <div style="padding-right: 1em;" translate>TEACHER.APIKEYS.ADD_API_KEYS.USED_FOR_TEXT_PROJECTS</div>
+                        <div style="padding-right: 1em;" translate>TEACHER.APIKEYS.ADD_API_KEYS.HIDDEN_FROM_STUDENTS</div>
 
                         <hr/>
 
-                        <div style="margin-top: 1em; font-weight: bold;">
-                            Which Pricing Plan did you use?
-                        </div>
+                        <div style="margin-top: 1em; font-weight: bold;" translate>TEACHER.APIKEYS.ADD_API_KEYS.PRICING_PLAN</div>
                         <div style="margin-top: 0.2em; margin-left: 1em;">
                             <md-radio-group ng-model="credstype" ng-required="true">
                                 <md-radio-button value="conv_lite" class="md-primary">Lite <em>(free)</em></md-radio-button>
@@ -33,9 +26,7 @@
 
                         <hr/>
 
-                        <div style="margin-top: 1em; font-weight: bold;">
-                            What did you create in Watson Assistant?
-                        </div>
+                        <div style="margin-top: 1em; font-weight: bold;" translate>TEACHER.APIKEYS.ADD_API_KEYS.CREDENTIALS_TYPE</div>
                         <div style="margin-top: 0.2em; margin-left: 1em;">
                             <md-radio-group ng-model="type" ng-required="true">
                                 <md-radio-button value="apikey" class="md-primary" ng-click="username = ''; password = ''">An API key</md-radio-button>
@@ -45,16 +36,12 @@
 
                         <hr/>
 
-                        <div ng-hide="type !== 'password'" style="margin-top: 1em; font-weight: bold;">
-                            Please enter the username and password below
-                        </div>
-                        <div ng-hide="type !== 'apikey'" style="margin-top: 1em; font-weight: bold;">
-                            Please enter the API key below
-                        </div>
+                        <div ng-hide="type !== 'password'" style="margin-top: 1em; font-weight: bold;" translate>TEACHER.APIKEYS.ADD_API_KEYS.ENTER_PASSWORD</div>
+                        <div ng-hide="type !== 'apikey'" style="margin-top: 1em; font-weight: bold;" translate>TEACHER.APIKEYS.ADD_API_KEYS.ENTER_APIKEY</div>
 
                         <div ng-hide="type !== 'password'" style="margin-top: 0.2em; margin-left: 1em;">
                             <md-input-container style="width: 100%; padding-right: 1.1em;">
-                                <label>Username</label>
+                                <label translate="TEACHER.APIKEYS.USERNAME"></label>
                                 <input type="text" name="text"
                                     md-autofocus
                                     ng-required="type === 'password'"
@@ -65,7 +52,7 @@
                                     md-maxlength="36"></input>
                             </md-input-container>
                             <md-input-container style="width: 100%; padding-right: 1.1em;">
-                                <label>Password</label>
+                                <label translate="TEACHER.APIKEYS.PASSWORD"></label>
                                 <input type="text" name="text"
                                     ng-required="type === 'password'"
                                     ng-pattern="/^[0-9A-Za-z]{12}$/"
@@ -97,8 +84,8 @@
                 </div>
                 <md-dialog-actions layout="row">
                     <span flex></span>
-                    <md-button type="submit" class="md-raised md-primary" ng-disabled="newCredentials.$invalid">Add</md-button>
-                    <md-button ng-click="cancel()">Cancel</md-button>
+                    <md-button type="submit" class="md-raised md-primary" ng-disabled="newCredentials.$invalid" translate="APP.ADD"></md-button>
+                    <md-button ng-click="cancel()" translate="APP.CANCEL"></md-button>
                 </md-dialog-actions>
             </div>
         </md-dialog-content>
