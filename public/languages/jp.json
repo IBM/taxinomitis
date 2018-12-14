@@ -179,23 +179,23 @@
         },
         "MAKES": {
             "TITLE": "プログラム作成",
-            "BODY": "あなたがトレーニングした機械学習モデルを用いて、ScratchやPythonでゲームやアプリを作成します。"
+            "BODY": "あなたがトレーニングした機械学習モデルを用いて、ScratchやPythonでゲームやアプリを作成する。"
         },
         "SCRATCH": {
             "TITLE": "Scratch",
-            "BODY": "Use the machine learning model you've trained to make a game in Scratch."
+            "BODY": "あなたがトレーニングした機械学習モデルを使って、Scratchアプリを作る。"
         },
         "PYTHON": {
             "TITLE": "Python",
-            "BODY": "Use the machine learning model you've trained in a Python program."
+            "BODY": "Pythonプログラムで、あなたがトレーニングした機械学習モデルを使う。"
         },
         "APPINVENTOR": {
-            "TITLE": "App Inventor",
-            "BODY": "Make a mobile app that uses your machine learning model"
+            "TITLE": "アプリ開発者",
+            "BODY": "あなたの機械学習モデルを用いたモバイルアプリを作成する。"
         },
         "SCRATCH3": {
             "TITLE": "Scratch 3",
-            "BODY": "Use your machine learning model in new version of Scratch"
+            "BODY": "Scratchの新しい版であなたの機械学習モデルを使ったアプリを作成する。"
         }
     },
     "TRAINING": {
