@@ -21,7 +21,7 @@ const VALID_USERNAME = /^[A-Za-z0-9\-_]+$/;
 
 
 function getStudents(req: Express.Request, res: Express.Response) {
-    return auth0.getStudents(req.params.classid)
+    return auth0.getAllStudents(req.params.classid)
         .then((students) => {
             res.set(headers.NO_CACHE).json(students);
         })

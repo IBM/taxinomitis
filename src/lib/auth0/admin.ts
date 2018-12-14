@@ -88,7 +88,8 @@ export async function getTenants(): Promise<Objects.TenantInfo[]> {
         return tenant;
     });
 
-    const demousers = await auth0requests.getUsers(token, 'demo');
+    // this is okay as long as the demo class doesn't have more than 100 students in
+    const demousers = await auth0requests.getUsers(token, 'demo', 0);
 
     return tenants.concat(demousers.map((demouser) => {
         return {

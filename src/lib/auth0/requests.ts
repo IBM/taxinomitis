@@ -105,7 +105,9 @@ export async function getSupervisors(
     };
 }
 
-export async function getUsers(token: string, tenant: string): Promise<Objects.User[]> {
+export const PAGE_SIZE = 100;
+
+export async function getUsers(token: string, tenant: string, page: number): Promise<Objects.User[]> {
     const getoptions = {
         method: 'GET',
         url: 'https://' + process.env[env.AUTH0_DOMAIN] + '/api/v2/users',
@@ -114,7 +116,8 @@ export async function getUsers(token: string, tenant: string): Promise<Objects.U
         },
         qs : {
             q : 'app_metadata.role:"student" AND app_metadata.tenant:"' + tenant + '"',
-            per_page : 100,
+            per_page : PAGE_SIZE,
+            page,
 
             search_engine : 'v3',
         },
@@ -135,7 +138,7 @@ export async function getClassSupervisors(token: string, tenant: string): Promis
         },
         qs : {
             q : 'app_metadata.role:"supervisor" AND app_metadata.tenant:"' + tenant + '"',
-            per_page : 100,
+            per_page : PAGE_SIZE,
 
             search_engine : 'v3',
         },

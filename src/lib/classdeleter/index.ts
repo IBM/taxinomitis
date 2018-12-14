@@ -32,11 +32,11 @@ export async function deleteClass(classid: string): Promise<void> {
     // the resources being deleted.
 
     // delete all students
-    let users = await auth0requests.getUsers(auth0token, classid);
+    let users = await auth0requests.getUsers(auth0token, classid, 0);
     while (users.length > 0) {
         await deleteUsers(classid, users, auth0token);
 
-        users = await auth0requests.getUsers(auth0token, classid);
+        users = await auth0requests.getUsers(auth0token, classid, 0);
     }
     // delete the class-wide resources (e.g. Bluemix creds)
     await db.deleteClassResources(classid);
