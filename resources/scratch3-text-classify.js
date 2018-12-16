@@ -88,7 +88,14 @@ class MachineLearningText {
                     }
                 },
 
-                // get the status of the ML model
+                // train a new machine learning model
+                {
+                    opcode: 'trainNewModel',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'train new machine learning model'
+                },
+
+                // get the status of the machine learning model
                 {
                     opcode: 'checkModelStatus',
                     blockType: Scratch.BlockType.BOOLEAN,
@@ -145,11 +152,25 @@ class MachineLearningText {
     }
 
 
+    trainNewModel() {
+        if (trainingModel || // currently submitting a new-model request, OR
+            lastModelTrainedRecently()) // we very recently submitted one
+        {
+            console.log('ignoring request - last status:');
+            console.log(classifierStatus);
+            return;
+        }
+
+        return trainNewClassifier()
+            .then((responseJson) => {
+                if (responseJson) {
+                    console.log(responseJson);
+                }
+            });
+    }
+
+
     checkModelStatus({ STATUS }) {
-        // { value : 'Ready', text : 'ready to use' },
-        // { value : 'Training', text : 'still training' },
-        // { value : 'Model Failed', text : 'ERROR - broken (failed to train)' },
-        // { value : 'Model Non Existent', text : 'ERROR - not known by the server' }
         return getStatus()
             .then((statusObj) => {
                 switch(STATUS) {
@@ -204,13 +225,20 @@ var FIVE_MINUTES = 5 * 60 * 1000;
 // the last time that we used the API to check the status
 //  of the ML model
 var lastStatusCheck = 0;
-
+// the last time that we used the API to train a new ML model
+var lastModelTrain = 0;
 
 // returns true if the last time that we checked the ML model
 //  status was longer ago than the provided time limit
 function lastStatusCheckExceededLimit(limit) {
     return (Date.now() - lastStatusCheck) > limit;
 }
+// returns true if the last time that we trained a ML model
+//  was too recently to do again
+function lastModelTrainedRecently() {
+    return (lastModelTrain + ONE_MINUTE) > Date.now();
+}
+
 // returns the current date in the format that the API uses
 function nowAsString() {
     return new Date().toISOString();
@@ -325,6 +353,58 @@ function getTextClassificationResponse(text, cacheKey, valueToReturn, callback) 
 // are we currently checking the classifier status?
 //  used as a primitive lock to prevent multiple concurrent checks being made
 var checkingStatus = false;
+// are we currently training a classifier?
+//  used as a primitive lock to prevent multiple concurrent requests being made
+var trainingModel = false;
+
+
+
+// make an XHR request to train a new ML model
+function trainNewClassifier() {
+    trainingModel = true;
+    lastStatusCheck = Date.now();
+    lastModelTrain = Date.now();
+
+    var url = new URL('{{{ modelurl }}}');
+    var options = {
+        headers : {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method : 'POST'
+    };
+
+    return fetch(url, options)
+        .then((response) => {
+            if (response.status === 200) {
+                return response.json().then((responseJson) => {
+                    classifierStatus = responseJson;
+                });
+            }
+            else {
+                console.log(response);
+
+                classifierStatus = {
+                    status : STATUS_ERROR,
+                    msg : 'Unable to communicate with machine learning service'
+                };
+            }
+        })
+        .then(() => {
+            trainingModel = false;
+            return classifierStatus;
+        })
+        .catch((err) => {
+            console.log(err);
+            trainingModel = false;
+
+            classifierStatus = {
+                status : STATUS_ERROR,
+                msg : 'Unable to communicate with machine learning service'
+            };
+            return classifierStatus;
+        });
+}
 
 
 // make an XHR request to fetch the current status of the ML model

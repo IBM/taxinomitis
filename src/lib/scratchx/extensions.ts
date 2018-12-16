@@ -25,6 +25,7 @@ async function getTextExtension(scratchkey: Types.ScratchKey, project: Types.Pro
         statusurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/status',
         classifyurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/classify',
         storeurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/train',
+        modelurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/models',
 
         projectname : escapeProjectName(scratchkey.name),
         labels : project.labels.map((name, idx) => {

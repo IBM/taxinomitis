@@ -46,6 +46,38 @@ describe('Scratchx - status', () => {
         });
 
 
+        it('should create a text classify extension for Scratch 3', async () => {
+            const key: Types.ScratchKey = {
+                id : uuid(),
+                name : 'TEST',
+                type : 'text',
+                projectid : uuid(),
+                classifierid : uuid(),
+                updated : new Date(),
+            };
+            const proj: Types.Project = {
+                id : uuid(),
+                type : 'text',
+                name : 'TEST',
+                language : 'en',
+                userid : uuid(),
+                classid : uuid(),
+                labels : [ 'LABEL NUMBER ONE', 'SECOND LABEL' ],
+                numfields : 0,
+                isCrowdSourced : false,
+            };
+
+            const extension = await extensions.getScratchxExtension(key, proj, 3);
+
+            assert(extension.indexOf('class MachineLearningText') === 0);
+            assert(extension.indexOf('this._labels = [  \'LABEL NUMBER ONE\',  \'SECOND LABEL\',  ];') > 0);
+            assert(extension.indexOf('name: \'TEST\',') > 0);
+            assert(extension.indexOf('return_label_0 () {') > 0);
+            assert(extension.indexOf('return_label_1 () {') > 0);
+            assert(extension.indexOf('return_label_2 () {') === -1);
+        });
+
+
         it('should handle apostrophes in project names', async () => {
             const key: Types.ScratchKey = {
                 id : uuid(),
