@@ -285,7 +285,37 @@ describe('REST API - scratch keys', () => {
         });
 
 
-        it.skip('should treat image projects as not implemented yet for training', async () => {
+        it('should check for existence of projects when creating ML models', async () => {
+            const projectid = uuid();
+
+            const project: DbTypes.Project = {
+                id : projectid,
+                name : 'Test Project',
+                userid : 'userid',
+                classid : TESTCLASS,
+                type : 'text',
+                language : 'en',
+                labels : [],
+                numfields : 0,
+                isCrowdSourced : false,
+            };
+
+            const key = await store.storeUntrainedScratchKey(project);
+
+            return request(testServer)
+                .post('/api/scratch/' + key + '/models')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.INTERNAL_SERVER_ERROR)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, {
+                        error : 'Project not found',
+                    });
+
+                    return store.deleteScratchKey(key);
+                });
+        });
+
+        it('should treat image projects as not implemented yet for creating ML models', async () => {
             const projectid = uuid();
 
             const project: DbTypes.Project = {
@@ -302,21 +332,89 @@ describe('REST API - scratch keys', () => {
 
             const key = await store.storeUntrainedScratchKey(project);
 
-            const callbackFunctionName = 'mycb';
             return request(testServer)
-                .get('/api/scratch/' + key + '/train')
-                .query({ callback : callbackFunctionName, data : 'inserted', label : 'animal' })
-                // this is a JSONP API
-                .expect('Content-Type', /javascript/)
+                .post('/api/scratch/' + key + '/models')
+                .expect('Content-Type', /json/)
                 .expect(httpstatus.NOT_IMPLEMENTED)
-                .then(async (res) => {
-                    await store.deleteScratchKey(key);
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, {
+                        error : 'Only text models can be trained using a Scratch key',
+                    });
 
-                    assert.strictEqual(res.error.text,
-                        '/**/ typeof ' + callbackFunctionName +
-                        ' === \'function\' && mycb({"error":"Not implemented yet"});');
+                    return store.deleteScratchKey(key);
                 });
         });
+
+        it('should treat numbers projects as not implemented yet for creating ML models', async () => {
+            const projectid = uuid();
+
+            const project: DbTypes.Project = {
+                id : projectid,
+                name : 'Test Project',
+                userid : 'userid',
+                classid : TESTCLASS,
+                type : 'numbers',
+                language : 'en',
+                labels : [],
+                numfields : 0,
+                isCrowdSourced : false,
+            };
+
+            const key = await store.storeUntrainedScratchKey(project);
+
+            return request(testServer)
+                .post('/api/scratch/' + key + '/models')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.NOT_IMPLEMENTED)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, {
+                        error : 'Only text models can be trained using a Scratch key',
+                    });
+
+                    return store.deleteScratchKey(key);
+                });
+        });
+
+
+        it('should handle unknown scratch keys by jsonp', async () => {
+            const callbackFunctionName = 'jsonpCallback';
+
+            return request(testServer)
+                .get('/api/scratch/' + 'THIS-DOES-NOT-REALLY-EXIST' + '/classify')
+                .query({ callback : callbackFunctionName, data : 'haddock' })
+                // this is a JSONP API
+                .expect('Content-Type', /javascript/)
+                .expect(httpstatus.NOT_FOUND)
+                .then(async (res) => {
+                    const text = res.text;
+
+                    const expectedStart = '/**/ typeof ' +
+                                          callbackFunctionName +
+                                          ' === \'function\' && ' +
+                                          callbackFunctionName + '(';
+
+                    assert(text.startsWith(expectedStart));
+
+                    const classificationRespStr: string = text.substring(expectedStart.length, text.length - 2);
+                    const payload: ClassificationResponse[] = JSON.parse(classificationRespStr);
+
+                    assert.deepStrictEqual(payload, { error : 'Scratch key not found' });
+                });
+        });
+
+        it('should handle unknown scratch keys', async () => {
+            const callbackFunctionName = 'jsonpCallback';
+
+            return request(testServer)
+                .post('/api/scratch/' + 'THIS-DOES-NOT-REALLY-EXIST' + '/classify')
+                .send({ callback : callbackFunctionName, data : 'haddock' })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.NOT_FOUND)
+                .then(async (res) => {
+                    assert.deepStrictEqual(res.body, { error : 'Scratch key not found' });
+                });
+        });
+
 
 
         it('should return random labels for text without a classifier', async () => {
@@ -549,6 +647,29 @@ describe('REST API - scratch keys', () => {
                     const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
 
                     assert.deepStrictEqual(payload, { error : 'Missing data' });
+                });
+        });
+
+
+        it('should handle unknown Scratch keys when storing text using a Scratch key', async () => {
+            const callbackFunctionName = 'jsonpCallback';
+            return request(testServer)
+                .get('/api/scratch/' + 'THIS-ALSO-DOES-NOT-EXIST' + '/train')
+                .query({ callback : callbackFunctionName, data : 'Data To Store', label : 'label' })
+                // this is a JSONP API
+                .expect('Content-Type', /javascript/)
+                .expect(httpstatus.NOT_FOUND)
+                .then(async (res) => {
+                    const text = res.text;
+                    const expectedStart = '/**/ typeof ' +
+                                          callbackFunctionName +
+                                          ' === \'function\' && ' +
+                                          callbackFunctionName + '(';
+
+                    assert(text.startsWith(expectedStart));
+                    const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
+
+                    assert.deepStrictEqual(payload, { error : 'Scratch key not found' });
                 });
         });
 

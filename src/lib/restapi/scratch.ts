@@ -6,6 +6,7 @@ import * as store from '../db/store';
 import * as errors from './errors';
 import * as auth from './auth';
 import * as extensions from '../scratchx/extensions';
+import * as models from '../scratchx/models';
 import * as status from '../scratchx/status';
 import * as keys from '../scratchx/keys';
 import * as classifier from '../scratchx/classify';
@@ -110,6 +111,9 @@ async function postClassifyWithScratchKey(req: Express.Request, res: Express.Res
         if (err.message === 'Missing data') {
             return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing data' });
         }
+        if (err.message === 'Unexpected response when retrieving credentials for Scratch') {
+            return res.status(httpstatus.NOT_FOUND).json({ error : 'Scratch key not found' });
+        }
 
         log.error({ err }, 'Classify error');
         return res.status(httpstatus.INTERNAL_SERVER_ERROR).json(err);
@@ -141,8 +145,8 @@ async function storeTrainingData(req: Express.Request, res: Express.Response) {
         if (err.message === 'Project already has maximum allowed amount of training data') {
             return res.status(httpstatus.CONFLICT).jsonp({ error : err.message });
         }
-        if (err.message === 'Not implemented yet') {
-            return res.status(httpstatus.NOT_IMPLEMENTED).jsonp({ error : 'Not implemented yet' });
+        if (err.message === 'Unexpected response when retrieving credentials for Scratch') {
+            return res.status(httpstatus.NOT_FOUND).jsonp({ error : 'Scratch key not found' });
         }
 
         log.error({ err }, 'Store error');
@@ -201,6 +205,25 @@ async function getScratchxStatus(req: Express.Request, res: Express.Response) {
 }
 
 
+async function trainNewClassifier(req: Express.Request, res: Express.Response) {
+    const apikey = req.params.scratchkey;
+
+    try {
+        const scratchKey = await store.getScratchKey(apikey);
+        const classifierStatus = await models.trainModel(scratchKey);
+
+        return res.set(headers.NO_CACHE).jsonp(classifierStatus);
+    }
+    catch (err) {
+        if (err.message === 'Only text models can be trained using a Scratch key') {
+            return res.status(httpstatus.NOT_IMPLEMENTED).json({ error : err.message });
+        }
+
+        errors.unknownError(res, err);
+    }
+}
+
+
 
 export default function registerApis(app: Express.Application) {
 
@@ -212,6 +235,7 @@ export default function registerApis(app: Express.Application) {
 
     app.get(urls.SCRATCHKEY_CLASSIFY, classifyWithScratchKey);
     app.post(urls.SCRATCHKEY_CLASSIFY, postClassifyWithScratchKey);
+    app.post(urls.SCRATCHKEY_MODEL, trainNewClassifier);
 
     app.get(urls.SCRATCHKEY_TRAIN, storeTrainingData);
 
