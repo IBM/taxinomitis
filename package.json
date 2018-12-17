@@ -48,7 +48,7 @@
     "@types/tmp": "0.0.33",
     "@types/unzip": "0.1.1",
     "@types/uuid": "3.4.4",
-    "autoprefixer": "9.4.2",
+    "autoprefixer": "9.4.3",
     "clone": "2.1.2",
     "del": "3.0.0",
     "eslint": "5.10.0",
