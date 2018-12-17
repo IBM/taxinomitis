@@ -338,37 +338,7 @@ describe('REST API - scratch keys', () => {
                 .expect(httpstatus.NOT_IMPLEMENTED)
                 .then((res) => {
                     assert.deepStrictEqual(res.body, {
-                        error : 'Only text models can be trained using a Scratch key',
-                    });
-
-                    return store.deleteScratchKey(key);
-                });
-        });
-
-        it('should treat numbers projects as not implemented yet for creating ML models', async () => {
-            const projectid = uuid();
-
-            const project: DbTypes.Project = {
-                id : projectid,
-                name : 'Test Project',
-                userid : 'userid',
-                classid : TESTCLASS,
-                type : 'numbers',
-                language : 'en',
-                labels : [],
-                numfields : 0,
-                isCrowdSourced : false,
-            };
-
-            const key = await store.storeUntrainedScratchKey(project);
-
-            return request(testServer)
-                .post('/api/scratch/' + key + '/models')
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_IMPLEMENTED)
-                .then((res) => {
-                    assert.deepStrictEqual(res.body, {
-                        error : 'Only text models can be trained using a Scratch key',
+                        error : 'Only text or numbers models can be trained using a Scratch key',
                     });
 
                     return store.deleteScratchKey(key);

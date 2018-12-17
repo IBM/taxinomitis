@@ -215,7 +215,7 @@ async function trainNewClassifier(req: Express.Request, res: Express.Response) {
         return res.set(headers.NO_CACHE).jsonp(classifierStatus);
     }
     catch (err) {
-        if (err.message === 'Only text models can be trained using a Scratch key') {
+        if (err.message === 'Only text or numbers models can be trained using a Scratch key') {
             return res.status(httpstatus.NOT_IMPLEMENTED).json({ error : err.message });
         }
 

@@ -129,7 +129,7 @@ describe('REST API - scratchkey models', () => {
 
 
 
-    it('should train a ML model using Scratch keys', async () => {
+    it('should train a text ML model using Scratch keys', async () => {
         const name = 'hurrah';
 
         const userid = uuid();
@@ -152,5 +152,43 @@ describe('REST API - scratchkey models', () => {
                 await store.deleteEntireUser(userid, TESTCLASS);
             });
     });
+
+    it('should train a numbers ML model using Scratch keys', async () => {
+        const name = 'numeric';
+
+        const userid = uuid();
+        const typelabel = 'numbers';
+        const fields: DbTypes.NumbersProjectFieldSummary[] = [
+            { name : 'age', type : 'number' },
+        ];
+
+        const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', fields, false);
+        await store.addLabelToProject(userid, TESTCLASS, project.id, 'young');
+        await store.addLabelToProject(userid, TESTCLASS, project.id, 'old');
+
+        await store.storeNumberTraining(project.id, false, [ 1 ], 'young');
+        await store.storeNumberTraining(project.id, false, [ 2 ], 'young');
+        await store.storeNumberTraining(project.id, false, [ 3 ], 'young');
+        await store.storeNumberTraining(project.id, false, [ 80 ], 'old');
+        await store.storeNumberTraining(project.id, false, [ 81 ], 'old');
+        await store.storeNumberTraining(project.id, false, [ 82 ], 'old');
+
+        const key = await store.storeUntrainedScratchKey(project);
+
+        return request(testServer)
+            .post('/api/scratch/' + key + '/models')
+            .expect('Content-Type', /json/)
+            .expect(httpstatus.OK)
+            .then(async (res) => {
+                assert.deepStrictEqual(res.body, {
+                    status : 2,
+                    msg : 'Ready',
+                });
+
+                await store.deleteEntireUser(userid, TESTCLASS);
+            });
+    });
+
+
 
 });
