@@ -531,6 +531,7 @@ export async function identifyRegion(username: string, password: string): Promis
         'https://gateway-syd.watsonplatform.net/assistant/api',
         'https://gateway-fra.watsonplatform.net/assistant/api',
         'https://gateway-tok.watsonplatform.net/assistant/api',
+        'https://gateway-lon.watsonplatform.net/assistant/api',
         'https://gateway.watsonplatform.net/conversation/api',
     ];
 
