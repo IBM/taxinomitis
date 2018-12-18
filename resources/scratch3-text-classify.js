@@ -138,7 +138,13 @@ class MachineLearningText {
         url.searchParams.append('data', TEXT);
         url.searchParams.append('label', LABEL);
 
-        return fetch(url)
+        var options = {
+            headers : {
+                'User-Agent': 'mlforkids-scratch3-text'
+            }
+        };
+
+        return fetch(url, options)
             .then((response) => {
                 if (response.status !== 200) {
                     return response.json();
@@ -261,6 +267,7 @@ function classifyText(text, cacheKey, lastmodified, callback) {
         headers : {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'User-Agent': 'mlforkids-scratch3-text',
 
             'If-Modified-Since': lastmodified
         }
@@ -369,7 +376,8 @@ function trainNewClassifier() {
     var options = {
         headers : {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'User-Agent': 'mlforkids-scratch3-text'
         },
         method : 'POST'
     };
@@ -416,7 +424,8 @@ function fetchStatus() {
     var options = {
         headers : {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'User-Agent': 'mlforkids-scratch3-text'
         }
     };
 

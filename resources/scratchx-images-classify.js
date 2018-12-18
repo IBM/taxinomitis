@@ -55,6 +55,9 @@
         $.ajax({
             url : '{{{ statusurl }}}',
             dataType : 'jsonp',
+            headers : {
+                'User-Agent': 'mlforkids-scratch2-images'
+            },
             success : function (data) {
                 classifierStatus = data;
 
@@ -91,7 +94,8 @@
             contentType : 'application/json',
             data : '{"data":"' + imagedata + '"}',
             headers : {
-                'If-Modified-Since': lastmodified
+                'If-Modified-Since': lastmodified,
+                'User-Agent': 'mlforkids-scratch2-images'
             },
             success : function (data, status) {
                 var result;
@@ -160,6 +164,9 @@
         $.ajax({
             url : '{{{ storeurl }}}',
             dataType : 'jsonp',
+            headers : {
+                'User-Agent': 'mlforkids-scratch2-images'
+            },
             data : {
                 data : imagedata,
                 label : label

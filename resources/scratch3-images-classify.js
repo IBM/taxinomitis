@@ -109,7 +109,13 @@ class MachineLearningImages {
         url.searchParams.append('data', TEXT);
         url.searchParams.append('label', LABEL);
 
-        return fetch(url)
+        var options = {
+            headers : {
+                'User-Agent': 'mlforkids-scratch3-images'
+            }
+        };
+
+        return fetch(url, options)
             .then((response) => {
                 if (response.status !== 200) {
                     return response.json();
@@ -167,6 +173,7 @@ function classifyImage(imagedata, cacheKey, lastmodified, callback) {
         headers : {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'User-Agent': 'mlforkids-scratch3-images',
 
             'If-Modified-Since': lastmodified
         },
