@@ -75,6 +75,15 @@
         }
 
 
+        function reportInvalidImageType(scope) {
+            scope.getController().displayAlert('warnings', 400, {
+                message : 'Sorry, that type of image is not supported. You can only use jpg or png pictures'
+            });
+            scope.$apply();
+            return false;
+        }
+
+
         function handleDrop(evt, label, scope) {
             if (!evt.dataTransfer) {
                 return false;
@@ -96,6 +105,10 @@
             if (evt.dataTransfer.types && evt.dataTransfer.types.length > 0) {
                 var type = getType(evt.dataTransfer.types, 'text/uri-list');
                 var src = evt.dataTransfer.getData(type);
+
+                if (src && typeof src === 'string' && src.substr(0, 10) === 'data:image') {
+                    return reportInvalidImageType(scope);
+                }
                 var googleImagesCheck = src.match(GOOG_IMG_REGEX);
                 if (googleImagesCheck) {
                     var googleImagesUrl = googleImagesCheck[1];
