@@ -142,6 +142,12 @@ export async function storeProject(
         }
     }
     catch (err) {
+        if (err.code === 'ER_TRUNCATED_WRONG_VALUE_FOR_FIELD') {
+            err.statusCode = 400;
+            err.message = 'Sorry, some of those letters can\'t be used in project names';
+            throw err;
+        }
+
         handleDbException(err);
         throw err;
     }
@@ -272,7 +278,7 @@ export async function getProject(id: string): Promise<Objects.Project | undefine
 
     const rows = await dbExecute(queryString, [ id ]);
     if (rows.length !== 1) {
-        log.error({ id }, 'Project not found');
+        log.error({ id, func : 'getProject' }, 'Project not found');
         return;
     }
     return dbobjects.getProjectFromDbRow(rows[0]);
