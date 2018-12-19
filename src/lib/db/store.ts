@@ -1,5 +1,6 @@
-// local dependencies
+// external dependencies
 import * as mysql from 'mysql2/promise';
+// local dependencies
 import * as mysqldb from './mysqldb';
 import * as dbobjects from './objects';
 import * as projectObjects from './projects';

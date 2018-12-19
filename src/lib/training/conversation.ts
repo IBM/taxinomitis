@@ -129,7 +129,7 @@ async function createWorkspace(
                     notifications.notify('Unexpected failure to train text classifier' +
                                         ' for project : ' + project.id +
                                         ' in class : ' + project.classid + ' : ' +
-                                        err.message);
+                                        err.message, notifications.SLACK_CHANNELS.TRAINING_ERRORS);
                 }
 
                 throw err;
@@ -152,9 +152,10 @@ async function createWorkspace(
     const ignoreErr = await store.isTenantDisruptive(project.classid);
     if (ignoreErr === false) {
         notifications.notify('Failed to train text classifier' +
-                            ' for project : ' + project.id +
-                            ' in class : ' + project.classid +
-                            ' because:\n' + finalError);
+                             ' for project : ' + project.id +
+                             ' in class : ' + project.classid +
+                             ' because:\n' + finalError,
+                             notifications.SLACK_CHANNELS.TRAINING_ERRORS);
     }
 
     throw new Error(finalError);
@@ -412,10 +413,11 @@ async function submitTrainingToConversation(
         const ignoreErr = await store.isTenantDisruptive(project.classid);
         if (ignoreErr === false) {
             notifications.notify('Failed to train text classifier' +
-                                ' for project : ' + project.id +
-                                ' in class : ' + project.classid +
-                                ' using creds : ' + credentials.id +
-                                ' : ' + err.message);
+                                 ' for project : ' + project.id +
+                                 ' in class : ' + project.classid +
+                                 ' using creds : ' + credentials.id +
+                                 ' : ' + err.message,
+                                 notifications.SLACK_CHANNELS.TRAINING_ERRORS);
         }
 
         // The full error object will include the Conversation request with the

@@ -58,7 +58,7 @@ async function classifyWithScratchKey(req: Express.Request, res: Express.Respons
     try {
         if (!req.query.data) {
             log.error({
-                agent : req.header('User-Agent'),
+                agent : req.header('X-User-Agent'),
                 key : apikey,
                 func : 'classifyWithScratchKey',
             }, 'Missing data');
@@ -86,7 +86,7 @@ async function classifyWithScratchKey(req: Express.Request, res: Express.Respons
             return res.status(httpstatus.NOT_FOUND).jsonp({ error : 'Scratch key not found' });
         }
 
-        log.error({ err, agent : req.header('User-Agent') }, 'Classify error');
+        log.error({ err, agent : req.header('X-User-Agent') }, 'Classify error');
         return res.status(httpstatus.INTERNAL_SERVER_ERROR).jsonp(err);
     }
 }
@@ -98,7 +98,7 @@ async function postClassifyWithScratchKey(req: Express.Request, res: Express.Res
     try {
         if (!req.body.data) {
             log.error({
-                agent : req.header('User-Agent'),
+                agent : req.header('X-User-Agent'),
                 key : apikey,
                 func : 'postClassifyWithScratchKey',
             }, 'Missing data');
@@ -126,7 +126,7 @@ async function postClassifyWithScratchKey(req: Express.Request, res: Express.Res
             return res.status(httpstatus.NOT_FOUND).json({ error : 'Scratch key not found' });
         }
 
-        log.error({ err, agent : req.header('User-Agent') }, 'Classify error');
+        log.error({ err, agent : req.header('X-User-Agent') }, 'Classify error');
         return res.status(httpstatus.INTERNAL_SERVER_ERROR).json(err);
     }
 }
@@ -139,7 +139,7 @@ async function storeTrainingData(req: Express.Request, res: Express.Response) {
     try {
         if (!req.query.data || !req.query.label) {
             log.error({
-                agent : req.header('User-Agent'),
+                agent : req.header('X-User-Agent'),
                 key : apikey,
                 func : 'storeTrainingData',
             }, 'Missing data');
@@ -165,7 +165,7 @@ async function storeTrainingData(req: Express.Request, res: Express.Response) {
             return res.status(httpstatus.NOT_FOUND).jsonp({ error : 'Scratch key not found' });
         }
 
-        log.error({ err, agent : req.header('User-Agent') }, 'Store error');
+        log.error({ err, agent : req.header('X-User-Agent') }, 'Store error');
         return res.status(httpstatus.INTERNAL_SERVER_ERROR).jsonp(err);
     }
 }
@@ -216,7 +216,7 @@ async function getScratchxStatus(req: Express.Request, res: Express.Response) {
         return res.set(headers.NO_CACHE).jsonp(scratchStatus);
     }
     catch (err) {
-        log.error({ err, agent : req.header('User-Agent') }, 'Status error');
+        log.error({ err, agent : req.header('X-User-Agent') }, 'Status error');
 
         errors.unknownError(res, err);
     }
@@ -237,7 +237,7 @@ async function trainNewClassifier(req: Express.Request, res: Express.Response) {
             return res.status(httpstatus.NOT_IMPLEMENTED).json({ error : err.message });
         }
 
-        log.error({ err, agent : req.header('User-Agent') }, 'Train error');
+        log.error({ err, agent : req.header('X-User-Agent') }, 'Train error');
         errors.unknownError(res, err);
     }
 }

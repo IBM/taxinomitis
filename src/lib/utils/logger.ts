@@ -1,8 +1,12 @@
 // global dependencies
 import * as bunyan from 'bunyan';
+import * as bunyanSlack from 'bunyan-slack';
+// local dependencies
+import * as env from '../utils/env';
 
 
 let logger: bunyan;
+
 
 /**
  * Prepares an instance of a bunyan login.
@@ -15,9 +19,9 @@ export default function getLogger(): bunyan {
         };
 
         if (process.env.NODE_ENV === 'production') {
-            // writing the logs to stdout/stderr so that
-            //  they can be picked up by Bluemix Log Service
             options.streams = [
+                // writing the logs to stdout/stderr so that
+                //  they can be picked up by Bluemix Log Service
                 {
                     level : bunyan.ERROR,
                     stream : process.stderr,
@@ -27,6 +31,36 @@ export default function getLogger(): bunyan {
                     stream : process.stdout,
                 },
             ];
+
+            if (process.env[env.SLACK_WEBHOOK_URL]) {
+                // post errors to Slack so I get notified
+                const slackLogger = new bunyanSlack({
+                    webhook_url: process.env[env.SLACK_WEBHOOK_URL],
+                    channel: 'errors',
+                    customFormatter: (record: any, levelName: string) => {
+                        return {
+                            text: record.msg,
+                            attachments: [{
+                                fallback: 'Error meta-data',
+                                color: levelName === 'error' ? '#c42939' : '#36a64f',
+                                author_name: 'bunyan',
+                                title: 'Error fields',
+                                fields: Object.keys(record).map((field) => {
+                                    return {
+                                        title : field,
+                                        value : field === 'err' ? record.err.stack : record[field],
+                                        short : field !== 'err',
+                                    };
+                                }),
+                            }],
+                        };
+                    },
+                });
+                options.streams.push({
+                    level : bunyan.ERROR,
+                    stream : slackLogger,
+                });
+            }
         }
         else {
             options.src = true;

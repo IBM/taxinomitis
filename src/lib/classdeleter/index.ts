@@ -18,7 +18,8 @@ async function deleteUsers(classid: string, users: User[] | SupervisorInfo[], au
 
 export async function deleteClass(classid: string): Promise<void> {
 
-    slack.notify('Deleting class "' + classid + '"');
+    slack.notify('Deleting class "' + classid + '"',
+                 slack.SLACK_CHANNELS.CLASS_DELETE);
 
     const auth0token = await auth0.getBearerToken();
 
@@ -60,6 +61,7 @@ export async function deleteClass(classid: string): Promise<void> {
     //  have one, unless they've modified the default class definition)
     await db.deleteClassTenant(classid);
 
-    slack.notify('Successfully deleted class "' + classid + '"');
+    slack.notify('Successfully deleted class "' + classid + '"',
+                 slack.SLACK_CHANNELS.CLASS_DELETE);
     emails.deletedClass(classid, teachers);
 }

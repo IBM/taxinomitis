@@ -140,7 +140,7 @@ class MachineLearningText {
 
         var options = {
             headers : {
-                'User-Agent': 'mlforkids-scratch3-text'
+                'X-User-Agent': 'mlforkids-scratch3-text'
             }
         };
 
@@ -267,7 +267,7 @@ function classifyText(text, cacheKey, lastmodified, callback) {
         headers : {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'User-Agent': 'mlforkids-scratch3-text',
+            'X-User-Agent': 'mlforkids-scratch3-text',
 
             'If-Modified-Since': lastmodified
         }
@@ -377,7 +377,7 @@ function trainNewClassifier() {
         headers : {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'User-Agent': 'mlforkids-scratch3-text'
+            'X-User-Agent': 'mlforkids-scratch3-text'
         },
         method : 'POST'
     };
@@ -425,7 +425,7 @@ function fetchStatus() {
         headers : {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'User-Agent': 'mlforkids-scratch3-text'
+            'X-User-Agent': 'mlforkids-scratch3-text'
         }
     };
 

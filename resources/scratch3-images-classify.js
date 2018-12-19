@@ -111,7 +111,7 @@ class MachineLearningImages {
 
         var options = {
             headers : {
-                'User-Agent': 'mlforkids-scratch3-images'
+                'X-User-Agent': 'mlforkids-scratch3-images'
             }
         };
 
@@ -173,7 +173,7 @@ function classifyImage(imagedata, cacheKey, lastmodified, callback) {
         headers : {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'User-Agent': 'mlforkids-scratch3-images',
+            'X-User-Agent': 'mlforkids-scratch3-images',
 
             'If-Modified-Since': lastmodified
         },

@@ -56,7 +56,7 @@
             url : '{{{ statusurl }}}',
             dataType : 'jsonp',
             headers : {
-                'User-Agent': 'mlforkids-scratch2-numbers'
+                'X-User-Agent': 'mlforkids-scratch2-numbers'
             },
             success : function (data) {
                 classifierStatus = data;
@@ -95,7 +95,7 @@
             },
             headers : {
                 'If-Modified-Since': lastmodified,
-                'User-Agent': 'mlforkids-scratch2-numbers'
+                'X-User-Agent': 'mlforkids-scratch2-numbers'
             },
             success : function (data, status) {
                 var result;
@@ -165,7 +165,7 @@
             url : '{{{ storeurl }}}',
             dataType : 'jsonp',
             headers : {
-                'User-Agent': 'mlforkids-scratch2-numbers'
+                'X-User-Agent': 'mlforkids-scratch2-numbers'
             },
             data : {
                 data : numbers,

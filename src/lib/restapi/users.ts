@@ -52,7 +52,7 @@ async function createTeacher(req: Express.Request, res: Express.Response) {
         const summarymessage: string = 'A new class account was created! ' +
                                        'Username ' + req.body.username + ' (' + req.body.email + ') has signed up' +
                                        (req.body.notes ? ', saying "' + req.body.notes + '"' : '');
-        notifications.notify(summarymessage);
+        notifications.notify(summarymessage, notifications.SLACK_CHANNELS.CLASS_CREATE);
 
         return res.status(httpstatus.CREATED)
                   .json(teacher);
@@ -134,7 +134,8 @@ async function deleteStudent(req: Express.Request, res: Express.Response) {
     }
     catch (err) {
         log.error({ err }, 'Failed to clean up projects for deleted user');
-        notifications.notify('Failed to delete user ' + userid + ' from ' + tenant);
+        notifications.notify('Failed to delete user ' + userid + ' from ' + tenant,
+                             notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
     }
 
     try {
@@ -142,7 +143,8 @@ async function deleteStudent(req: Express.Request, res: Express.Response) {
     }
     catch (err) {
         log.error({ err }, 'Failed to clean up image store for deleted user');
-        notifications.notify('Failed to delete storage for user ' + userid + ' from ' + tenant);
+        notifications.notify('Failed to delete storage for user ' + userid + ' from ' + tenant,
+                             notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
     }
 }
 
@@ -236,7 +238,8 @@ function deleteClass(req: Express.Request, res: Express.Response) {
         })
         .catch((err) => {
             log.error({ err, tenant }, 'Failed to delete class');
-            notifications.notify('Failed to delete class ' + tenant + ' because:\n' + err.message);
+            notifications.notify('Failed to delete class ' + tenant + ' because:\n' + err.message,
+                                 notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
 
             return errors.unknownError(res, err);
         });

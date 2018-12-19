@@ -167,7 +167,7 @@ class MachineLearningNumbers {
 
         var options = {
             headers : {
-                'User-Agent': 'mlforkids-scratch3-numbers'
+                'X-User-Agent': 'mlforkids-scratch3-numbers'
             }
         };
 
@@ -221,7 +221,7 @@ function classifyNumbers(numbers, cacheKey, lastmodified, callback) {
         headers : {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'User-Agent': 'mlforkids-scratch3-numbers',
+            'X-User-Agent': 'mlforkids-scratch3-numbers',
 
             'If-Modified-Since': lastmodified
         }

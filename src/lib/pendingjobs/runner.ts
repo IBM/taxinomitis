@@ -32,12 +32,14 @@ export async function run(): Promise<void> {
         log.info({ durationMs }, 'No pending jobs remain');
 
         if (durationMs > constants.THREE_HOURS) {
-            notifications.notify('Processing pending jobs took longer than THREE HOURS');
+            notifications.notify('Processing pending jobs took longer than THREE HOURS',
+                                 notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
         }
     }
     catch (err) {
         log.error({ err, nextJob }, 'Pending job failure');
-        notifications.notify('Critical failure in processing pending jobs: ' + err.message);
+        notifications.notify('Critical failure in processing pending jobs: ' + err.message,
+                             notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
 
         if (nextJob) {
             db.recordUnsuccessfulPendingJobExecution(nextJob);

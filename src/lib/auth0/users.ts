@@ -241,7 +241,8 @@ async function backgroundResetPasswords(
     userids: string[], password: string,
 ): Promise<Objects.UserCreds[]>
 {
-    notifications.notify('Resetting passwords for ' + tenant);
+    notifications.notify('Resetting passwords for ' + tenant,
+                         notifications.SLACK_CHANNELS.PASSWORD_RESET);
 
     let backoffMs = 5;
     const MAX_BACKOFF_MS = 5000;
@@ -264,7 +265,8 @@ async function backgroundResetPasswords(
         backoffMs = backoffMs > MAX_BACKOFF_MS ? MAX_BACKOFF_MS : backoffMs;
     }
 
-    notifications.notify('Resetting passwords for ' + tenant + ' complete.');
+    notifications.notify('Resetting passwords for ' + tenant + ' complete.',
+                         notifications.SLACK_CHANNELS.PASSWORD_RESET);
     return allCreds;
 }
 
