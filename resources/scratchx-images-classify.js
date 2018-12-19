@@ -196,6 +196,12 @@
 
 
     function getImageClassificationResponse(imagedata, cacheKey, valueToReturn, callback) {
+        if (imagedata === '' || imagedata === 'image') {
+            // The student has left the default text in the image block
+            //  so there is no point in submitting an xhr request
+            return callback('You need to put an image block in here');
+        }
+
         var cached = ext.resultscache[cacheKey];
 
         // protect against kids putting the ML block inside a forever
@@ -240,12 +246,12 @@
     };
 
     ext.image_store = function (imagedata, label, callback) {
+        if (imagedata === '' || imagedata === 'image') {
+            // The student has left the default text in the image block
+            //  so there is no point in submitting an xhr request
+            return callback('You need to put an image block in here');
+        }
         // TODO verify label
-
-
-
-
-
         storeImage(imagedata, label, callback);
     };
 
@@ -258,8 +264,8 @@
 
     var descriptor = {
         blocks : [
-            [ 'R', 'recognise image %s (label)', 'image_classification_label', 'costume image' ],
-            [ 'R', 'recognise image %s (confidence)', 'image_classification_confidence', 'costume image' ],
+            [ 'R', 'recognise image %s (label)', 'image_classification_label', 'image' ],
+            [ 'R', 'recognise image %s (confidence)', 'image_classification_confidence', 'image' ],
             {{#labels}}
             [ 'r', '{{name}}', 'return_label_{{idx}}'],
             {{/labels}}

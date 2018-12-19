@@ -36,7 +36,7 @@ class MachineLearningImages {
                     arguments: {
                         IMAGE: {
                             type: Scratch.ArgumentType.STRING,
-                            defaultValue: 'costume image'
+                            defaultValue: 'image'
                         }
                     }
                 },
@@ -49,7 +49,7 @@ class MachineLearningImages {
                     arguments: {
                         IMAGE: {
                             type: Scratch.ArgumentType.STRING,
-                            defaultValue: 'costume image'
+                            defaultValue: 'image'
                         }
                     }
                 },
@@ -71,7 +71,7 @@ class MachineLearningImages {
                     arguments: {
                         TEXT: {
                             type: Scratch.ArgumentType.STRING,
-                            defaultValue: 'costume image'
+                            defaultValue: 'image'
                         },
                         LABEL: {
                             type: Scratch.ArgumentType.STRING,
@@ -105,6 +105,12 @@ class MachineLearningImages {
 
 
     addTraining({ TEXT, LABEL }) {
+        if (TEXT === '' || TEXT === 'image') {
+            // The student has left the default text in the image block
+            //  so there is no point in submitting an xhr request
+            return;
+        }
+
         var url = new URL('{{{ storeurl }}}');
         url.searchParams.append('data', TEXT);
         url.searchParams.append('label', LABEL);
@@ -228,6 +234,12 @@ function classifyImage(imagedata, cacheKey, lastmodified, callback) {
 
 
 function getImageClassificationResponse(imagedata, cacheKey, valueToReturn, callback) {
+    if (imagedata === '' || imagedata === 'image') {
+        // The student has left the default text in the image block
+        //  so there is no point in submitting an xhr request
+        return callback('You need to put an image block in here');
+    }
+
     var cached = resultsCache[cacheKey];
 
     // protect against kids putting the ML block inside a forever
