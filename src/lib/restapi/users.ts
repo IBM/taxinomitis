@@ -58,6 +58,10 @@ async function createTeacher(req: Express.Request, res: Express.Response) {
                   .json(teacher);
     }
     catch (err) {
+        if (userAlreadyExists(err)) {
+            return res.status(httpstatus.CONFLICT).json({ error : 'There is already a user with that username' });
+        }
+
         log.error({ err }, 'Failed to create class account');
 
         let statusCode = httpstatus.INTERNAL_SERVER_ERROR;
@@ -100,6 +104,10 @@ async function createStudent(req: Express.Request, res: Express.Response) {
                   .json(newstudent);
     }
     catch (err) {
+        if (userAlreadyExists(err)) {
+            return res.status(httpstatus.CONFLICT).json({ error : 'There is already a student with that username' });
+        }
+
         log.error({ err }, 'Failed to create student account');
 
         let statusCode = httpstatus.INTERNAL_SERVER_ERROR;
@@ -114,6 +122,18 @@ async function createStudent(req: Express.Request, res: Express.Response) {
 
         return res.status(statusCode).json(errObj);
     }
+}
+
+
+function userAlreadyExists(err: any) {
+    return err && err.response && err.response.body &&
+           (
+               (err.response.body.statusCode === httpstatus.CONFLICT &&
+                err.response.body.message === 'The user already exists.')
+                ||
+               (err.response.body.statusCode === httpstatus.BAD_REQUEST &&
+                err.response.body.message === 'The username provided is in use already.')
+            );
 }
 
 
