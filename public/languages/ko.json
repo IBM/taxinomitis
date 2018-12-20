@@ -10,9 +10,9 @@
 
         "ADD": "추가",
         "CANCEL": "취소",
-        "DELETE": "Delete",
-        "EDIT": "Edit",
-        "TEST": "Test",
+        "DELETE": "삭재",
+        "EDIT": "수정",
+        "TEST": "",
 
         "ABOUT": "소개",
         "TEACHER": "선생님",
@@ -94,12 +94,12 @@
         "TEACHER": "교사 혹은 코딩 클럽의 리더",
         "STUDENT": "학생",
         "FORGOT_TEXT": "아이디와 비밀번호를 잊어버렸나요? 괜찮아요. 우리도 종종 잊어버립니다",
-        "ARE_YOU_A_STUDENT": "Are you a student?",
-        "ARE_YOU_A_STUDENT_INTRO_1": "If your class is already using this tool, ask your teacher or coding group leader to create you an account.",
-        "ARE_YOU_A_STUDENT_INTRO_2": "If your class isn't already using the tool, ask your teacher or coding group leader to get in touch.",
-        "RESET_STUDENT_PASSWORD_1": "If you're a student, we don't have your email address to be able to send you a password-reset email.",
-        "RESET_STUDENT_PASSWORD_2": "That's no problem, though!",
-        "RESET_STUDENT_PASSWORD_3": "Just ask your teacher or group leader who first signed you up. They will be able to reset your password from their Admin page."
+        "ARE_YOU_A_STUDENT": "학생입니까?",
+        "ARE_YOU_A_STUDENT_INTRO_1": "여러분의 학급이 이 도구를 사용한다면 여러분의 선생님 또는 코딩 그룹의 리더에게 여러분의 계정을 요청하세요.",
+        "ARE_YOU_A_STUDENT_INTRO_2": "여러분의 학습이 이 도구를 사용하지 않는다면 선생님에게 말씀드려보세요",
+        "RESET_STUDENT_PASSWORD_1": "여러분 학생이라면 우리는 여러분의 이메일을 가지고 있지 않기 때문에 비밀번호 리셋 이메일을 보낼 수 없습니다.",
+        "RESET_STUDENT_PASSWORD_2": "아무 문제 없어요",
+        "RESET_STUDENT_PASSWORD_3": "여러분의 선생님께 비밀번호를 리셋해달라고 요청하세요."
     },
     "SIGNUP": {
         "TEACHER": {
@@ -119,7 +119,7 @@
         "MANAGED": {
             "TITLE": "<strong>관리되는 </ strong> 교실 계정 만들기",
             "INTRO": "Dale이 계정을 개설하는 것을 도와주길 원한다면, 아래 버튼을 사용하여 다음 정보가 포함된 전자 메일을 보내십시오:",
-            "LIST_NUMBEROFSTUDENTS": "대략 얼마나 많은 학생 계좌가 필요한지",
+            "LIST_NUMBEROFSTUDENTS": "대략 얼마나 많은 학생 계정이 필요한지 알려주세요",
             "LIST_NAMEOFSCHOOL": "학교 또는 코딩 그룹의 이름",
             "EMAIL": "이메일"
         }
@@ -242,8 +242,8 @@
         "TRAIN": "새로운 머신 러닝 모델을 훈련시켜보세요",
         "CANCEL": "훈련 취소",
         "DELETE": "모델 삭제",
-        "TEST_CANVAS": "Draw something to test your model with",
-        "TEST_WEBCAM": "Take a photo to test your model with",
+        "TEST_CANVAS": "무엇인가를 그려서 모델을 테스트해보세요",
+        "TEST_WEBCAM": "사진을 찍어서 모델을 ",
         "WHATHAVEYOUDONE": {
             "TITLE": "무엇을 하고 있나요?",
             "PLEASEWAIT": "몇 분이 걸려요. 하지만 트레이닝 컴퓨터가 바쁘다면 조금 더 걸릴 수 있어요.",
@@ -716,28 +716,28 @@
             "LIMIT_IMAGE_PROJECTS": "여러분의 교실 학생들이 만들 수 있는  머신러닝 모델의 수:",
 
             "ADD_API_KEYS": {
-                "ASSISTANT_TITLE": "Add Watson Assistant credentials",
-                "VISUAL_RECOGNITION_TITLE": "Add Visual Recognition API key",
+                "ASSISTANT_TITLE": "Watson Assistant credentials을 추가하세요",
+                "VISUAL_RECOGNITION_TITLE": "Visual Recognition API key를 추가하세요",
 
-                "USED_FOR_TEXT_PROJECTS": "These will be used when your students train models in text projects.",
-                "USED_FOR_IMAGE_PROJECTS": "These will be used when your students train models in images projects.",
+                "USED_FOR_TEXT_PROJECTS": "텍스트 프로젝트에서 여러분의 학생들이 모델을 만들 때 사용됩니다.",
+                "USED_FOR_IMAGE_PROJECTS": "이미지 프로젝트에서 여러분의 학생들이 모델을 만들 때 사용됩니다.",
 
-                "HIDDEN_FROM_STUDENTS": "This will not be shown to students in your group.",
+                "HIDDEN_FROM_STUDENTS": "이것은 여러분의 학생들에게 보이지 않습니다.",
 
-                "PRICING_PLAN": "Which Pricing Plan did you use?",
-                "ENTER_APIKEY": "Please enter the API key below",
-                "ENTER_PASSWORD": "Please enter the username and password below",
+                "PRICING_PLAN": "어떤 가격 정책을 사용하고 있나요?",
+                "ENTER_APIKEY": "아래에 API key를 적어주세요",
+                "ENTER_PASSWORD": "아래에 사용자 이름과 비밀번호를 입력하세요",
 
-                "CREDENTIALS_TYPE": "What did you create in Watson Assistant?"
+                "CREDENTIALS_TYPE": "Watson Assistant에서 무엇을 만들었나요?"
             }
         },
         "RESTRICTIONS": {
-            "TITLE": "Administration : Restrictions",
+            "TITLE": "관리자 : 제한사항",
 
-            "ASK_FOR_CHANGES": "If any of these restrictions cause a problem for your group, please <strong><a href='/help'>get in touch</a></strong>.",
+            "ASK_FOR_CHANGES": "만약 여러분의 교실에서 아래의 제한 사항이 생긴다면 <strong><a href='/help'>연락</a></strong>해주세요.",
 
             "CLASS_LIMITS": {
-                "TITLE": "Limits for your class",
+                "TITLE": "여러분 학급의 제한 사항",
                 "NUM_USERS": "You can have up to <span class='mlprojecttype'>{{ num }}</span> users (including students and teachers) in your group.",
                 "NUM_TEXT_MODELS": "Your class is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> machine learning models in total across all their <span class='mlprojecttype'>text</span> projects.",
                 "NUM_IMAGE_MODELS": "Your class is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> machine learning models in total across all their <span class='mlprojecttype'>images</span> projects.</div>"
