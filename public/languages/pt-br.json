@@ -948,15 +948,15 @@
             "Q3-A-8": "Isso pode ser feito clicando no botão \"Excluir turma\" na seção Opções avançadas da <a href='https://machinelearningforkids.co.uk/teacher'>sua página do Professor</a>",
 
             "Q4": "Quais informações são armazenadas sobre os usuários?",
-            "Q4-A-1": "Teacher accounts",
-            "Q4-A-2": "I store the username and email address that you provide when you create the account, so that I can keep in touch with you.",
-            "Q4-A-3": "Student accounts",
-            "Q4-A-4": "I store the usernames for student accounts, so that I can let them log in. I have no email addresses or contact details for students. I have no other personally identifying information about students.",
-            "Q4-A-5": "I also <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-schools.pdf'>recommend that students are given generic usernames</a> (e.g. student1) so that students are not identifiable outside of their school or coding group.",
-            "Q4-A-6": "General information stored about all accounts",
-            "Q4-A-7": "User management for Machine Learning for Kids is implemented using the third party service, <a href='https://auth0.com/'>Auth0</a>. They store the IP address that you last logged into Machine Learning for Kids from, and the type of browser you used. I've never found a reason to use that, but it is stored if I did want to go and look for it.",
-            "Q4-A-8": "Errors that happen in the web browser are captured using the third party service, <a href='https://sentry.io/'>Sentry</a>. If something goes wrong, it will capture information about the error, including your username, IP address, type of browser you were using, and a technical description of what went wrong.",
-            "Q4-A-9": "I use <a href='https://www.google.com/analytics/'>Google Analytics</a> so that I know how many users visit Machine Learning for Kids each day. Although it captures information such as geographic location and browser type, this is only ever displayed to me in an anonymised aggregate way."
+            "Q4-A-1": "Contas de professor",
+            "Q4-A-2": "Eu armazeno nome de usuário e e-mail que você usou para criar a conta para que eu possa manter contato com você.",
+            "Q4-A-3": "Contas de estudante",
+            "Q4-A-4": "Eu armazeno nome de usuários para cada conta de estudante, para que eu possa autenticar os usuários. Eu não tenho endereço de e-mail ou contato dos estudantes. Eu não tenho nenhuma outra identificação pessoal dos estudantes.",
+            "Q4-A-5": "Eu também <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-schools.pdf'>recomendo que estudantes tenham usuários com nomes genéricos</a> (i.e. aluno1) para que eles não sejam facilmente identificáveis fora da escola ou do clube de programação.",
+            "Q4-A-6": "Informação geral armazenada de todas as contas",
+            "Q4-A-7": "A gestão de usuários para o Machine Learning for Kids é implementados usando um serviço de terceiros, <a href='https://auth0.com/'>Auth0</a>. Eles armazenam endereço IP de onde você fez o seu último Login no Machine Learning for Kids, e que tipo de navegador você usou. Eu nunca tive razões para usar isso, mas isso é armazenado para caso eu quisesse procurar por esses dados.",
+            "Q4-A-8": "Erros que acontecem no navegador são capturados por um serviço de terceiros, <a href='https://sentry.io/'>Sentry</a>. Se algo dá errado, as informações do erro serão capturados, incluindo nome de usuário, endereço IP, tipo de navegador que você está usando, e uma descrição técnica do que aconteceu de errado.",
+            "Q4-A-9": "Eu uso <a href='https://www.google.com/analytics/'>Google Analytics</a> para saber quantos usuários acessam Machine Learning for Kids todo dia. Embora eles tenham informações de localização geográfica e tipo de navegador, isso só me é exibido de forma agregada e anônima."
         }
     }
 }
