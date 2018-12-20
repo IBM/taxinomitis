@@ -1,5 +1,5 @@
 <div class="jumbotron">
-    <h2 class="text-center">Administration : Restrictions</h2>
+    <h2 class="text-center" translate>TEACHER.RESTRICTIONS.TITLE</h2>
 </div>
 <div ng-if="!isAuthenticated">
     <div class="alert alert-warning pageheadermsg">
@@ -30,58 +30,52 @@
     </div>
 
     <div ng-if="vm && vm.policy">
-        <div class="alert alert-info pageheadermsg">
-            If any of these restrictions cause a problem for your group, please <strong><a style="cursor: pointer;" ui-sref="help">get in touch</a></strong>.
+        <div class="alert alert-info pageheadermsg" translate>TEACHER.RESTRICTIONS.ASK_FOR_CHANGES</div>
+
+        <div class="helpsection">
+            <h4 translate>TEACHER.RESTRICTIONS.CLASS_LIMITS.TITLE</h4>
+
+            <div class="adminrestriction" translate="TEACHER.RESTRICTIONS.CLASS_LIMITS.NUM_USERS" translate-values="{ num : vm.policy.maxUsers }"></div>
+
+            <div class="adminrestriction" ng-if="vm.policy.isManaged && vm.policy.supportedProjectTypes.indexOf('text') >= 0"
+                                          translate="TEACHER.RESTRICTIONS.CLASS_LIMITS.NUM_TEXT_MODELS" translate-values="{ num : vm.policy.maxTextModels }"></div>
+            <div class="adminrestriction" ng-if="vm.policy.isManaged && vm.policy.supportedProjectTypes.indexOf('images') >= 0"
+                                          translate="TEACHER.RESTRICTIONS.CLASS_LIMITS.NUM_IMAGE_MODELS" translate-values="{ num : vm.policy.maxImageModels }"></div>
         </div>
 
         <div class="helpsection">
-            <h4> Limits for your class </h4>
+            <h4 translate>TEACHER.RESTRICTIONS.PROJECT_LIMITS.TITLE</h4>
 
-            <div class="adminrestriction">You can have up to <span class="mlprojecttype">{{ vm.policy.maxUsers }}</span> users (including students and teachers) in your group. </div>
+            <div class="adminrestriction" translate="TEACHER.RESTRICTIONS.PROJECT_LIMITS.NUM_PROJECTS" translate-values="{ num : vm.policy.maxProjectsPerUser }"></div>
+            <div class="adminrestriction" translate="TEACHER.RESTRICTIONS.PROJECT_LIMITS.TYPES" translate-values="{ types : vm.policy.supportedProjectTypes.join(' or ') }"></div>
 
-            <div class="adminrestriction" ng-if="vm.policy.isManaged && vm.policy.supportedProjectTypes.indexOf('text') >= 0">Your class is allowed to have up to
-                    <span class="mlprojecttype">{{ vm.policy.maxTextModels }}</span>
-                    machine learning models in total across all their
-                    <span class="mlprojecttype">text</span> projects.</div>
-            <div class="adminrestriction" ng-if="vm.policy.isManaged && vm.policy.supportedProjectTypes.indexOf('images') >= 0">Your class is allowed to have up to
-                    <span class="mlprojecttype">{{ vm.policy.maxImageModels }}</span>
-                    machine learning models in total across all their
-                    <span class="mlprojecttype">images</span> projects.</div>
-        </div>
-
-        <div class="helpsection">
-            <h4> Limits for projects created by your students </h4>
-
-            <div class="adminrestriction">Each of your students is allowed to have up to <span class="mlprojecttype">{{ vm.policy.maxProjectsPerUser }}</span> projects. </div>
-            <div class="adminrestriction">Your students can create projects to recognise <span class="mlprojecttype">{{ vm.policy.supportedProjectTypes.join(' or ') }}</span>. </div>
-
-            <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('text') >= 0">
-                    Each <span class="mlprojecttype">text</span> project can have up to <span class="mlprojecttype">{{ vm.policy.textTrainingItemsPerProject }}</span> training data examples. </div>
-            <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('numbers') >= 0">
-                    Each <span class="mlprojecttype">numbers</span> project can have up to <span class="mlprojecttype">{{ vm.policy.numberTrainingItemsPerProject }}</span> training data examples. </div>
-            <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('images') >= 0">
-                    Each <span class="mlprojecttype">images</span> project can have up to <span class="mlprojecttype">{{ vm.policy.imageTrainingItemsPerProject }}</span> training data examples. </div>
+            <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('text') >= 0"
+                 translate="TEACHER.RESTRICTIONS.PROJECT_LIMITS.TRAINING_DATA" translate-values="{ type : 'text', num : vm.policy.textTrainingItemsPerProject }"></div>
+            <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('numbers') >= 0"
+                 translate="TEACHER.RESTRICTIONS.PROJECT_LIMITS.TRAINING_DATA" translate-values="{ type : 'numbers', num : vm.policy.numberTrainingItemsPerProject }"></div>
+            <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('images') >= 0"
+                 translate="TEACHER.RESTRICTIONS.PROJECT_LIMITS.TRAINING_DATA" translate-values="{ type : 'images', num : vm.policy.imageTrainingItemsPerProject }"></div>
         </div>
 
         <div class="helpsection">
             <button class="btn btn-default restrictionedit" translate="APP.EDIT" ng-click="vm.modifyExpiry($event)"></button>
-            <h4> To help you avoid the limits for number of machine learning models: </h4>
+            <h4 translate>TEACHER.RESTRICTIONS.EXPIRY.TITLE</h4>
 
-            <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('text') >= 0">Machine learning models created for
-                    <span class="mlprojecttype">text</span>
-                    projects will automatically be deleted after
-                    <span class="mlprojecttype">{{ vm.policy.textClassifierExpiry }}</span> hours.<br/>
-                    <em>(Don't worry! Training data will not be deleted, so students can always train a new machine learning model again if they still need it after this.)</em></div>
-            <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('images') >= 0">Machine learning models created for
-                    <span class="mlprojecttype">images</span>
-                    projects will automatically be deleted after
-                    <span class="mlprojecttype">{{ vm.policy.imageClassifierExpiry }}</span> hours.<br/>
-                    <em>(Don't worry! Training data will not be deleted, so students can always train a new machine learning model again if they still need it after this.)</em></div>
+            <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('text') >= 0">
+                <div translate="TEACHER.RESTRICTIONS.EXPIRY.TIME_LIMIT"
+                     translate-values="{ type : 'text', num : vm.policy.textClassifierExpiry }"></div>
+                <div><em translate>TEACHER.RESTRICTIONS.EXPIRY.DONT_WORRY</em></div>
+            </div>
+            <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('images') >= 0">
+                <div translate="TEACHER.RESTRICTIONS.EXPIRY.TIME_LIMIT"
+                        translate-values="{ type : 'images', num : vm.policy.imageClassifierExpiry }"></div>
+                <div><em translate>TEACHER.RESTRICTIONS.EXPIRY.DONT_WORRY</em></div>
+            </div>
         </div>
     </div>
 
 </div>
 
 <div ng-if="isAuthenticated && vm.profile.role !== 'supervisor'" class="alert alert-danger pageheadermsg">
-    <strong translate="APP.ERROR"></strong> You are not authorized to access the restrictions in place for your class.
+    <strong translate="APP.ERROR"></strong> {{ 'TEACHER.RESTRICTIONS.NOT_AUTHORIZED' | translate }}
 </div>

@@ -18,7 +18,7 @@
             ng-click="vm.dismissAlert('errors', $index)"
             id="errors{{error.alertid}}">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Error:</strong> {{ error.message }}<br/>
+        <strong translate="APP.ERROR"></strong> {{ error.message }}<br/>
         <em ng-if="error.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
     </div>
     <div ng-repeat="warning in vm.warnings"

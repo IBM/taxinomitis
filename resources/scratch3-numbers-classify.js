@@ -165,7 +165,13 @@ class MachineLearningNumbers {
         }
         url.searchParams.append('label', label);
 
-        return fetch(url)
+        var options = {
+            headers : {
+                'X-User-Agent': 'mlforkids-scratch3-numbers'
+            }
+        };
+
+        return fetch(url, options)
             .then((response) => {
                 if (response.status !== 200) {
                     return response.json();
@@ -215,6 +221,7 @@ function classifyNumbers(numbers, cacheKey, lastmodified, callback) {
         headers : {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'X-User-Agent': 'mlforkids-scratch3-numbers',
 
             'If-Modified-Since': lastmodified
         }

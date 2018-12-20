@@ -42,6 +42,7 @@
     }
     .trainingbucket {
         margin-top: 4rem;
+        max-height: initial;
     }
 }
 

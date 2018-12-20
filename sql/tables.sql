@@ -189,7 +189,7 @@ INSERT INTO tenants (id, projecttypes, maxusers, maxprojectsperuser, textclassif
     VALUES
         ('TESTTENANT', 'text,images,numbers', 8, 3, 2, true),
         ('UNIQUECLASSID', 'text,numbers', 8, 3, 2, true),
-        ('session-users', 'text,numbers', 5, 1, 4, false);
+        ('session-users', 'text,numbers', 5, 1, 4, true);
 
 -- ------------------------------------------------------------------
 

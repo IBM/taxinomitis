@@ -147,7 +147,8 @@ async function createClassifier(
                 notifications.notify('Unexpected failure to train image classifier' +
                                      ' for project : ' + project.id +
                                      ' in class : ' + project.classid + ' : ' +
-                                     err.message + detail);
+                                     err.message + detail,
+                                     notifications.SLACK_CHANNELS.TRAINING_ERRORS);
 
                 throw err;
             }
@@ -169,7 +170,8 @@ async function createClassifier(
     notifications.notify('Failed to train image classifier' +
                          ' for project : ' + project.id +
                          ' in class : ' + project.classid +
-                         ' because:\n' + finalError);
+                         ' because:\n' + finalError,
+                         notifications.SLACK_CHANNELS.TRAINING_ERRORS);
 
     throw new Error(finalError);
 }
@@ -383,7 +385,8 @@ function deleteClassifierFromBluemixAgain(
                                      'after second attempt. \n' +
                                      'Class : ' + credentials.classid + '\n' +
                                      'Model : ' + classifierId + '\n' +
-                                     'Creds : ' + credentials.id);
+                                     'Creds : ' + credentials.id,
+                                     notifications.SLACK_CHANNELS.TRAINING_ERRORS);
             });
     }, constants.FIFTEEN_MINUTES);
 }

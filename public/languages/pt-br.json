@@ -713,7 +713,48 @@
             "UNLIMITED": "ilimitado",
 
             "LIMIT_TEXT_PROJECTS": "Número de aprendizado de máquina de Texto que seus alunos podem ter:",
-            "LIMIT_IMAGE_PROJECTS": "Número de aprendizado de máquina de Imagem que seus alunos podem ter:"
+            "LIMIT_IMAGE_PROJECTS": "Número de aprendizado de máquina de Imagem que seus alunos podem ter:",
+
+            "ADD_API_KEYS": {
+                "ASSISTANT_TITLE": "Add Watson Assistant credentials",
+                "VISUAL_RECOGNITION_TITLE": "Add Visual Recognition API key",
+
+                "USED_FOR_TEXT_PROJECTS": "These will be used when your students train models in text projects.",
+                "USED_FOR_IMAGE_PROJECTS": "These will be used when your students train models in images projects.",
+
+                "HIDDEN_FROM_STUDENTS": "This will not be shown to students in your group.",
+
+                "PRICING_PLAN": "Which Pricing Plan did you use?",
+                "ENTER_APIKEY": "Please enter the API key below",
+                "ENTER_PASSWORD": "Please enter the username and password below",
+
+                "CREDENTIALS_TYPE": "What did you create in Watson Assistant?"
+            }
+        },
+        "RESTRICTIONS": {
+            "TITLE": "Administration : Restrictions",
+
+            "ASK_FOR_CHANGES": "If any of these restrictions cause a problem for your group, please <strong><a href='/help'>get in touch</a></strong>.",
+
+            "CLASS_LIMITS": {
+                "TITLE": "Limits for your class",
+                "NUM_USERS": "You can have up to <span class='mlprojecttype'>{{ num }}</span> users (including students and teachers) in your group.",
+                "NUM_TEXT_MODELS": "Your class is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> machine learning models in total across all their <span class='mlprojecttype'>text</span> projects.",
+                "NUM_IMAGE_MODELS": "Your class is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> machine learning models in total across all their <span class='mlprojecttype'>images</span> projects.</div>"
+            },
+            "PROJECT_LIMITS": {
+                "TITLE": "Limits for projects created by your students",
+                "NUM_PROJECTS": "Each of your students is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> projects.",
+                "TYPES": "Your students can create projects to recognise <span class='mlprojecttype'>{{ types }}</span>.",
+                "TRAINING_DATA": "Each <span class='mlprojecttype'>{{ type }}</span> project can have up to <span class='mlprojecttype'>{{ num }}</span> training data examples. "
+            },
+            "EXPIRY": {
+                "TITLE": "To help you avoid the limits for number of machine learning models:",
+                "TIME_LIMIT": "Machine learning models created for <span class='mlprojecttype'>{{ type }}</span> projects will automatically be deleted after <span class='mlprojecttype'>{{ num }}</span> hours.",
+                "DONT_WORRY": "(Don't worry! Training data will not be deleted, so students can always train a new machine learning model again if they still need it after this.)"
+            },
+
+            "NOT_AUTHORIZED": "You are not authorized to access the restrictions in place for your class."
         },
         "SUPERVISION": {
             "TITLE": "Administration : Student projects",

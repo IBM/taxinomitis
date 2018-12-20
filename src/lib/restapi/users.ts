@@ -21,7 +21,7 @@ const VALID_USERNAME = /^[A-Za-z0-9\-_]+$/;
 
 
 function getStudents(req: Express.Request, res: Express.Response) {
-    return auth0.getStudents(req.params.classid)
+    return auth0.getAllStudents(req.params.classid)
         .then((students) => {
             res.set(headers.NO_CACHE).json(students);
         })
@@ -52,12 +52,16 @@ async function createTeacher(req: Express.Request, res: Express.Response) {
         const summarymessage: string = 'A new class account was created! ' +
                                        'Username ' + req.body.username + ' (' + req.body.email + ') has signed up' +
                                        (req.body.notes ? ', saying "' + req.body.notes + '"' : '');
-        notifications.notify(summarymessage);
+        notifications.notify(summarymessage, notifications.SLACK_CHANNELS.CLASS_CREATE);
 
         return res.status(httpstatus.CREATED)
                   .json(teacher);
     }
     catch (err) {
+        if (userAlreadyExists(err)) {
+            return res.status(httpstatus.CONFLICT).json({ error : 'There is already a user with that username' });
+        }
+
         log.error({ err }, 'Failed to create class account');
 
         let statusCode = httpstatus.INTERNAL_SERVER_ERROR;
@@ -100,6 +104,10 @@ async function createStudent(req: Express.Request, res: Express.Response) {
                   .json(newstudent);
     }
     catch (err) {
+        if (userAlreadyExists(err)) {
+            return res.status(httpstatus.CONFLICT).json({ error : 'There is already a student with that username' });
+        }
+
         log.error({ err }, 'Failed to create student account');
 
         let statusCode = httpstatus.INTERNAL_SERVER_ERROR;
@@ -114,6 +122,18 @@ async function createStudent(req: Express.Request, res: Express.Response) {
 
         return res.status(statusCode).json(errObj);
     }
+}
+
+
+function userAlreadyExists(err: any) {
+    return err && err.response && err.response.body &&
+           (
+               (err.response.body.statusCode === httpstatus.CONFLICT &&
+                err.response.body.message === 'The user already exists.')
+                ||
+               (err.response.body.statusCode === httpstatus.BAD_REQUEST &&
+                err.response.body.message === 'The username provided is in use already.')
+            );
 }
 
 
@@ -134,7 +154,8 @@ async function deleteStudent(req: Express.Request, res: Express.Response) {
     }
     catch (err) {
         log.error({ err }, 'Failed to clean up projects for deleted user');
-        notifications.notify('Failed to delete user ' + userid + ' from ' + tenant);
+        notifications.notify('Failed to delete user ' + userid + ' from ' + tenant,
+                             notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
     }
 
     try {
@@ -142,7 +163,8 @@ async function deleteStudent(req: Express.Request, res: Express.Response) {
     }
     catch (err) {
         log.error({ err }, 'Failed to clean up image store for deleted user');
-        notifications.notify('Failed to delete storage for user ' + userid + ' from ' + tenant);
+        notifications.notify('Failed to delete storage for user ' + userid + ' from ' + tenant,
+                             notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
     }
 }
 
@@ -236,7 +258,8 @@ function deleteClass(req: Express.Request, res: Express.Response) {
         })
         .catch((err) => {
             log.error({ err, tenant }, 'Failed to delete class');
-            notifications.notify('Failed to delete class ' + tenant + ' because:\n' + err.message);
+            notifications.notify('Failed to delete class ' + tenant + ' because:\n' + err.message,
+                                 notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
 
             return errors.unknownError(res, err);
         });

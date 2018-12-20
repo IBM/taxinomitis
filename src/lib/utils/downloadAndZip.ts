@@ -222,7 +222,8 @@ function createZip(filepaths: string[], callback: IZipCallback): void {
     function invokeCallbackSafely(err?: Error, zipPath?: string, zipSize?: number): void {
         if (callbackCalled) {
             log.error({ filepaths }, 'Attempt to call callbackfn multiple times');
-            notifications.notify('downloadAndZip failure');
+            notifications.notify('downloadAndZip failure',
+                                 notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
         }
         else {
             callbackCalled = true;
@@ -252,7 +253,8 @@ function createZip(filepaths: string[], callback: IZipCallback): void {
 
         outputStream.on('warning', (warning) => {
             log.error({ warning }, 'Unexpected warning event from writable filestream');
-            notifications.notify('outputStream warning');
+            notifications.notify('outputStream warning',
+                                 notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
         });
 
         outputStream.on('error', (ziperr) => {

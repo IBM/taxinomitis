@@ -63,10 +63,10 @@ export async function getStudent(tenant: string, userid: string): Promise<Object
 }
 
 
-export async function getStudents(tenant: string): Promise<Objects.Student[]> {
+async function getStudents(tenant: string, page: number): Promise<Objects.Student[]> {
     const token = await getBearerToken();
 
-    const students: Objects.User[] = await auth0requests.getUsers(token, tenant);
+    const students: Objects.User[] = await auth0requests.getUsers(token, tenant, page);
 
     return students
         .filter((student) => {
@@ -82,8 +82,31 @@ export async function getStudents(tenant: string): Promise<Objects.Student[]> {
 }
 
 
+export async function getAllStudents(tenant: string): Promise<Objects.Student[]> {
+    let page: number = 0;
+    let allstudents: Objects.Student[] = [];
+    let students: Objects.Student[] = [];
+
+    // the maximum size of a class is 255 students, so the most times
+    //  this will ever loop is 3 times. plus each student is very small,
+    //  so the overall memory implication of this loop isn't as bad
+    //  as it looks
+
+    students = await getStudents(tenant, page++);
+
+    while (students.length === auth0requests.PAGE_SIZE) {
+        allstudents = allstudents.concat(students);
+        students = await getStudents(tenant, page++);
+    }
+    allstudents = allstudents.concat(students);
+
+
+    return allstudents;
+}
+
+
 export async function getStudentsByUserId(tenant: string): Promise<{ [id: string]: Objects.Student }> {
-    const students = await getStudents(tenant);
+    const students = await getAllStudents(tenant);
 
     const studentsIndexedById: {[id: string]: Objects.Student } = {};
 
@@ -218,7 +241,8 @@ async function backgroundResetPasswords(
     userids: string[], password: string,
 ): Promise<Objects.UserCreds[]>
 {
-    notifications.notify('Resetting passwords for ' + tenant);
+    notifications.notify('Resetting passwords for ' + tenant,
+                         notifications.SLACK_CHANNELS.PASSWORD_RESET);
 
     let backoffMs = 5;
     const MAX_BACKOFF_MS = 5000;
@@ -241,7 +265,8 @@ async function backgroundResetPasswords(
         backoffMs = backoffMs > MAX_BACKOFF_MS ? MAX_BACKOFF_MS : backoffMs;
     }
 
-    notifications.notify('Resetting passwords for ' + tenant + ' complete.');
+    notifications.notify('Resetting passwords for ' + tenant + ' complete.',
+                         notifications.SLACK_CHANNELS.PASSWORD_RESET);
     return allCreds;
 }
 

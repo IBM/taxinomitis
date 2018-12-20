@@ -1,28 +1,21 @@
 <md-dialog aria-label="Store new Visual Recognition API key" style="max-width: 98%; max-height: 95%">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>Add Visual Recognition API key</h2>
+            <h2 translate>TEACHER.APIKEYS.ADD_API_KEYS.VISUAL_RECOGNITION_TITLE</h2>
         </div>
     </md-toolbar>
     <form ng-cloak name="newCredentials"
-            ng-submit="confirm({ apikey : apikey, credstype : credstype })">
+          ng-submit="confirm({ apikey : apikey, credstype : credstype })">
         <md-dialog-content>
             <div layout="column">
                 <div layout="row">
                     <div style="min-width: 380px; padding: 1em;">
-                        <div style="padding-right: 1em;">
-                            These will be used when your students train
-                            models in images projects.
-                        </div>
-                        <div style="padding-right: 1em;">
-                            This will not be shown to students in your group.
-                        </div>
+                        <div style="padding-right: 1em;" translate>TEACHER.APIKEYS.ADD_API_KEYS.USED_FOR_IMAGE_PROJECTS</div>
+                        <div style="padding-right: 1em;" translate>TEACHER.APIKEYS.ADD_API_KEYS.HIDDEN_FROM_STUDENTS</div>
 
                         <hr/>
 
-                        <div style="margin-top: 1em; font-weight: bold;">
-                            Which Pricing Plan did you use?
-                        </div>
+                        <div style="margin-top: 1em; font-weight: bold;" translate>TEACHER.APIKEYS.ADD_API_KEYS.PRICING_PLAN</div>
                         <div style="margin-top: 0.2em; margin-left: 1em;">
                             <md-radio-group ng-model="credstype" ng-required="true">
                                 <md-radio-button value="visrec_lite" class="md-primary">Lite <em>(free)</em></md-radio-button>
@@ -33,10 +26,7 @@
 
                         <hr/>
 
-                        <div style="margin-top: 1em; font-weight: bold;">
-                            Please enter the API key below
-                        </div>
-
+                        <div style="margin-top: 1em; font-weight: bold;" translate>TEACHER.APIKEYS.ADD_API_KEYS.ENTER_APIKEY</div>
                         <div style="margin-top: 0.2em; margin-left: 1em;">
                             <md-input-container style="width: 100%; padding-right: 1.1em;">
                                 <input type="text" name="text"
@@ -59,8 +49,8 @@
                 </div>
                 <md-dialog-actions layout="row">
                     <span flex></span>
-                    <md-button type="submit" class="md-raised md-primary" ng-disabled="newCredentials.$invalid">Add</md-button>
-                    <md-button ng-click="cancel()">Cancel</md-button>
+                    <md-button type="submit" class="md-raised md-primary" ng-disabled="newCredentials.$invalid" translate="APP.ADD"></md-button>
+                    <md-button ng-click="cancel()" translate="APP.CANCEL"></md-button>
                 </md-dialog-actions>
             </div>
         </md-dialog-content>
