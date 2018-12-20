@@ -119,10 +119,12 @@ class MachineLearningText {
 
 
     label({ TEXT }) {
-        return new Promise(resolve => getTextClassificationResponse(TEXT, TEXT, 'class_name', resolve));
+        var txt = removeLineBreaks(TEXT);
+        return new Promise(resolve => getTextClassificationResponse(txt, txt, 'class_name', resolve));
     }
     confidence({ TEXT }) {
-        return new Promise(resolve => getTextClassificationResponse(TEXT, TEXT, 'confidence', resolve));
+        var txt = removeLineBreaks(TEXT);
+        return new Promise(resolve => getTextClassificationResponse(txt, txt, 'confidence', resolve));
     }
 
 
@@ -134,8 +136,10 @@ class MachineLearningText {
 
 
     addTraining({ TEXT, LABEL }) {
+        var txt = removeLineBreaks(TEXT);
+
         var url = new URL('{{{ storeurl }}}');
-        url.searchParams.append('data', TEXT);
+        url.searchParams.append('data', txt);
         url.searchParams.append('label', LABEL);
 
         var options = {
@@ -512,6 +516,14 @@ function getStatus() {
             return Promise.resolve(classifierStatus);
         }
     }
+}
+
+
+// Newlines in text will cause errors in Watson Assistant API calls
+// so we replace them a with a space
+var LINE_BREAKS = /(\r\n|\n|\r|\t)/gm;
+function removeLineBreaks(str) {
+    return str.replace(LINE_BREAKS, ' ');
 }
 
 
