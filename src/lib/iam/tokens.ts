@@ -1,5 +1,6 @@
 // external dependencies
 import * as request from 'request-promise';
+import * as httpStatus from 'http-status';
 // local dependencies
 import * as Types from './iam-types';
 import * as constants from '../utils/constants';
@@ -39,15 +40,18 @@ export async function getAccessToken(apikey: string): Promise<Types.BluemixToken
         };
     }
     catch (err) {
-        log.error({ err }, 'Failed to get access token');
-
         if (err &&
             err.error && typeof err.error === 'object' &&
             err.error.errorCode === 'BXNIM0415E')
         {
-            throw new Error(ERRORS.INVALID_API_KEY);
+            log.debug({ err, apikey }, 'API key rejected');
+
+            const throwErr: any = new Error(ERRORS.INVALID_API_KEY);
+            throwErr.statusCode = httpStatus.UNAUTHORIZED;
+            throw throwErr;
         }
 
+        log.error({ err }, 'Failed to get access token');
         throw new Error(ERRORS.UNKNOWN);
     }
 }

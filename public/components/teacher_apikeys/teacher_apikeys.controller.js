@@ -180,15 +180,29 @@
             .then(
                 function(credentialsToAdd) {
                     credentialsToAdd.servicetype = type;
+                    credentialsToAdd.isPlaceholder = true;
+
+                    var placeholder = Date.now();
+                    credentialsToAdd.uniq = placeholder;
+
+                    vm.credentials[type].push(credentialsToAdd);
 
                     usersService.addCredentials(credentialsToAdd, vm.profile.tenant)
                         .then(function (newcreds) {
+                            vm.credentials[type] = vm.credentials[type].filter(function (c) {
+                                return c.uniq !== placeholder;
+                            });
+
                             vm.credentials[type].push(newcreds);
                             computeLimit(type);
                         })
                         .catch(function (err) {
                             var errId = displayAlert('errors', err.status, err.data);
                             scrollToNewItem('errors' + errId);
+
+                            vm.credentials[type] = vm.credentials[type].filter(function (c) {
+                                return c.uniq !== placeholder;
+                            });
                         });
                 },
                 function() {

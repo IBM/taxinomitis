@@ -54,7 +54,7 @@
                     <td class="additionalDialogInfo" style="width: 60px;">
                         <img width=50 height=50 src="static/images/conversation.jpg" alt="Watson Assistant">
                     </td>
-                    <td class="studentslistdetail">
+                    <td class="studentslistdetail" ng-class="{ 'placeholder' : creds.isPlaceholder }">
                         <div class="listheading" ng-if="creds.username" translate="TEACHER.APIKEYS.USERNAME"></div>
                         <div class="listmain" ng-if="creds.username">
                             {{ creds.username }}
@@ -68,7 +68,7 @@
                             {{ creds.apikey }}
                         </div>
                     </td>
-                    <td class="studentslistdetail" style="cursor: pointer" ng-click="vm.modifyCredentials($event, creds, 'conv')">
+                    <td class="studentslistdetail" style="cursor: pointer" ng-click="vm.modifyCredentials($event, creds, 'conv')" ng-hide="creds.isPlaceholder">
                         <div class="listheading" translate="TEACHER.APIKEYS.NUMBER_OF_ML_MODELS"></div>
                         <div class="listmain" ng-switch="creds.credstype">
                             <span style="font-size: 1.2em;" ng-switch-when="conv_lite">5</span>
@@ -76,7 +76,7 @@
                             <span style="font-size: 1.4em; font-style: italic" ng-switch-default translate="TEACHER.APIKEYS.UNKNOWN"></span>
                         </div>
                     </td>
-                    <td class="studentslistactions">
+                    <td class="studentslistactions" ng-hide="creds.isPlaceholder">
                         <button class="btn btn-default" ng-click="vm.deleteCredentials($event, creds, 'conv')" translate="TEACHER.APIKEYS.REMOVE"></button>
                     </td>
                 </tr>
@@ -106,13 +106,13 @@
                     <td class="additionalDialogInfo" style="width: 60px;">
                         <img width=50 height=50 src="static/images/visualrecognition.jpg" alt="Watson Visual Recognition">
                     </td>
-                    <td class="studentslistdetail">
+                    <td class="studentslistdetail" ng-class="{ 'placeholder' : creds.isPlaceholder }">
                         <div class="listheading" translate="TEACHER.APIKEYS.APIKEY"></div>
                         <div class="listmain">
                             {{ creds.apikey }}
                         </div>
                     </td>
-                    <td class="studentslistdetail" style="cursor: pointer" ng-click="vm.modifyCredentials($event, creds, 'visrec')">
+                    <td class="studentslistdetail" style="cursor: pointer" ng-click="vm.modifyCredentials($event, creds, 'visrec')" ng-hide="creds.isPlaceholder">
                         <div class="listheading" translate="TEACHER.APIKEYS.NUMBER_OF_ML_MODELS"></div>
                         <div class="listmain" ng-switch="creds.credstype">
                             <span style="font-size: 1.2em;" ng-switch-when="visrec_lite">2</span>
@@ -120,7 +120,7 @@
                             <span style="font-size: 1.4em; font-style: italic" ng-switch-default translate="TEACHER.APIKEYS.UNKNOWN"></span>
                         </div>
                     </td>
-                    <td class="studentslistactions">
+                    <td class="studentslistactions" ng-hide="creds.isPlaceholder">
                         <button class="btn btn-default" ng-click="vm.deleteCredentials($event, creds, 'visrec')" translate="TEACHER.APIKEYS.REMOVE"></button>
                     </td>
                 </tr>

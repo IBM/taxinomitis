@@ -16,7 +16,10 @@
     padding-left: 1em;
 }
 
-
+.studentslistdetail.placeholder .listheading,
+.studentslistdetail.placeholder .listmain {
+    font-style: italic
+}
 
 .additionalDialogInfo {
     max-width: 520px;

@@ -553,7 +553,7 @@ async function submitTrainingToVisualRecognition(
         };
     }
     catch (err) {
-        log.error({ url, req, err }, ERROR_MESSAGES.UNKNOWN);
+        log.warn({ url, req, project, err }, ERROR_MESSAGES.UNKNOWN);
 
         // The full error object will include the classifier request with the
         //  URL and credentials we used for it. So we don't want to return

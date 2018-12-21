@@ -408,7 +408,7 @@ async function submitTrainingToConversation(
         return workspace;
     }
     catch (err) {
-        log.error({ req, err }, ERROR_MESSAGES.UNKNOWN);
+        log.warn({ req, err }, ERROR_MESSAGES.UNKNOWN);
 
         const ignoreErr = await store.isTenantDisruptive(project.classid);
         if (ignoreErr === false) {

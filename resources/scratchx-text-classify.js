@@ -196,6 +196,11 @@
 
 
     function getTextClassificationResponse(text, cacheKey, valueToReturn, callback) {
+        var cleanedUpText = removeLineBreaks(text);
+        if (!cleanedUpText) {
+            return callback('You need to put some text that you want to classify in here');
+        }
+
         var cached = ext.resultscache[cacheKey];
 
         // protect against kids putting the ML block inside a forever
@@ -220,12 +225,12 @@
     }
 
 
-
-
-
-
-
-
+    // Newlines in text will cause errors in Watson Assistant API calls
+    // so we replace them a with a space
+    var LINE_BREAKS = /(\r\n|\n|\r|\t)/gm;
+    function removeLineBreaks(str) {
+        return str.replace(LINE_BREAKS, ' ').trim();
+    }
 
 
 

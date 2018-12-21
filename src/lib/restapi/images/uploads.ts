@@ -82,12 +82,15 @@ function handleUpload(req: auth.RequestWithProject, res: Express.Response) {
         }
 
 
+        let imageSpec: StoreTypes.ImageSpec | undefined;
+        let etag: string | undefined;
+
         try {
-            const imageSpec: StoreTypes.ImageSpec = parse.imagesUrl(req);
+            imageSpec = parse.imagesUrl(req);
             const imageType: StoreTypes.ImageFileType = getImageType(req.file.mimetype);
             const imageLabel: string = req.body.label.trim();
 
-            const etag = await store.storeImage(imageSpec, imageType, req.file.buffer);
+            etag = await store.storeImage(imageSpec, imageType, req.file.buffer);
 
             const training = await db.storeImageTraining(
                 imageSpec.projectid,
@@ -103,7 +106,22 @@ function handleUpload(req: auth.RequestWithProject, res: Express.Response) {
             res.status(httpStatus.CREATED).json(training);
         }
         catch (storeErr) {
-            log.error({ err : storeErr }, 'Store fail');
+            if (imageSpec && etag && storeErr &&
+                storeErr.message === 'Project already has maximum allowed amount of training data')
+            {
+                // we've already stored the image data in objectstorage, but
+                //  we failed to store the info about the image in MySQL as
+                //  the user has reached the project limit
+                // so we need to delete the image from image data again
+                //  (but we'll do that in the background rather than synchronously)
+                removeStoredImage(imageSpec);
+
+                return res.status(httpStatus.CONFLICT).json({
+                    error : 'Project already has maximum allowed amount of training data',
+                });
+            }
+
+            log.error({ err : storeErr, projectid : req.project.id }, 'Store fail');
             res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
                 error : storeErr.message,
                 details : storeErr,
@@ -178,3 +196,11 @@ function returnUploadError(res: Express.Response, err: Error) {
     });
 }
 
+
+
+function removeStoredImage(image: StoreTypes.ImageSpec): void {
+    db.storeDeleteImageJob(image.classid, image.userid, image.projectid, image.imageid)
+        .catch((err) => {
+            log.error({ err, image }, 'Failed to clean-up image');
+        });
+}

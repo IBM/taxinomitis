@@ -83,6 +83,10 @@
             return false;
         }
 
+        function urlIsImageData(url) {
+            return url && typeof url === 'string' && url.substr(0, 10) === 'data:image';
+        }
+
 
         function handleDrop(evt, label, scope) {
             if (!evt.dataTransfer) {
@@ -106,7 +110,7 @@
                 var type = getType(evt.dataTransfer.types, 'text/uri-list');
                 var src = evt.dataTransfer.getData(type);
 
-                if (src && typeof src === 'string' && src.substr(0, 10) === 'data:image') {
+                if (urlIsImageData(src)) {
                     return reportInvalidImageType(scope);
                 }
                 var googleImagesCheck = src.match(GOOG_IMG_REGEX);
@@ -131,6 +135,10 @@
 
 
             if (data) {
+                if (urlIsImageData(data)) {
+                    return reportInvalidImageType(scope);
+                }
+
                 scope.getController().addConfirmedTrainingData(data, label);
                 scope.$apply();
             }

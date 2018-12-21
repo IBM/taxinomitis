@@ -119,12 +119,10 @@ class MachineLearningText {
 
 
     label({ TEXT }) {
-        var txt = removeLineBreaks(TEXT);
-        return new Promise(resolve => getTextClassificationResponse(txt, txt, 'class_name', resolve));
+        return new Promise(resolve => getTextClassificationResponse(TEXT, TEXT, 'class_name', resolve));
     }
     confidence({ TEXT }) {
-        var txt = removeLineBreaks(TEXT);
-        return new Promise(resolve => getTextClassificationResponse(txt, txt, 'confidence', resolve));
+        return new Promise(resolve => getTextClassificationResponse(TEXT, TEXT, 'confidence', resolve));
     }
 
 
@@ -322,6 +320,11 @@ function classifyText(text, cacheKey, lastmodified, callback) {
 
 
 function getTextClassificationResponse(text, cacheKey, valueToReturn, callback) {
+    var cleanedUpText = removeLineBreaks(text);
+    if (!cleanedUpText) {
+        return callback('You need to put some text that you want to classify in here');
+    }
+
     var cached = resultsCache[cacheKey];
 
     // protect against kids putting the ML block inside a forever
@@ -339,7 +342,7 @@ function getTextClassificationResponse(text, cacheKey, valueToReturn, callback) 
     }
 
     // submit to the classify API
-    classifyText(text, cacheKey, lastmodified, function (result) {
+    classifyText(cleanedUpText, cacheKey, lastmodified, function (result) {
         if (result.random) {
             // We got a randomly selected result (which means we must not
             //  have a working classifier) but we thought we had a model
@@ -523,7 +526,7 @@ function getStatus() {
 // so we replace them a with a space
 var LINE_BREAKS = /(\r\n|\n|\r|\t)/gm;
 function removeLineBreaks(str) {
-    return str.replace(LINE_BREAKS, ' ');
+    return str.replace(LINE_BREAKS, ' ').trim();
 }
 
 
