@@ -10,9 +10,9 @@
 
         "ADD": "Adicionar",
         "CANCEL": "Cancelar",
-        "DELETE": "Delete",
-        "EDIT": "Edit",
-        "TEST": "Test",
+        "DELETE": "Deletar",
+        "EDIT": "Editar",
+        "TEST": "Testar",
 
         "ABOUT": "Sobre",
         "TEACHER": "Professor(a)",
@@ -68,7 +68,7 @@
         "TITLE": "Ensine um computador a jogar um jogo",
         "GET_STARTED": "Primeiros passos",
         "LEARN_MORE": "Saiba mais",
-        "ADMIN_LABEL": "Vá para a sua <strong>Página de administrador</strong>",
+        "ADMIN_LABEL": "<strong>Página de administrador</strong>",
         "PROJECT_LABEL": "Acesse seus <strong>Projetos</strong>",
         "STEP_1_TEXT": "Colete exemplos de coisas que você quer ser capaz de reconhecer",
         "STEP_2_TEXT": "Use os exemplos para treinar o computador a ser capaz de reconhecê-los",
@@ -94,12 +94,12 @@
         "TEACHER": "Um professor ou líder de um clube de programação",
         "STUDENT": "Um estudante",
         "FORGOT_TEXT": "Esqueceu seu nome de usuário ou senha? Tudo bem - todos nós esquecemos as coisas de vez em quando.",
-        "ARE_YOU_A_STUDENT": "Are you a student?",
-        "ARE_YOU_A_STUDENT_INTRO_1": "If your class is already using this tool, ask your teacher or coding group leader to create you an account.",
-        "ARE_YOU_A_STUDENT_INTRO_2": "If your class isn't already using the tool, ask your teacher or coding group leader to get in touch.",
-        "RESET_STUDENT_PASSWORD_1": "If you're a student, we don't have your email address to be able to send you a password-reset email.",
-        "RESET_STUDENT_PASSWORD_2": "That's no problem, though!",
-        "RESET_STUDENT_PASSWORD_3": "Just ask your teacher or group leader who first signed you up. They will be able to reset your password from their Admin page."
+        "ARE_YOU_A_STUDENT": "Você é um estudante?",
+        "ARE_YOU_A_STUDENT_INTRO_1": "Se a sua turma já está usando esta ferramenta, peça seu professor ou líder de clube de programação para criar uma conta para você.",
+        "ARE_YOU_A_STUDENT_INTRO_2": "Se a sua truma não está usando esta ferramenta, peça seu professor ou líder de clube de programação para entrar em contato.",
+        "RESET_STUDENT_PASSWORD_1": "Se você é um estudante, nós não temos o seu e-mail para conseguir te enviar uma mensagem com as informações da redefinição de senha.",
+        "RESET_STUDENT_PASSWORD_2": "Mas, isso não é um problema!",
+        "RESET_STUDENT_PASSWORD_3": "É só pedir para seu professor ou líder de grupo que criou a sua conta. Eles serão capazes de resetar a senha de sua conta da Página de Administrador deles."
     },
     "SIGNUP": {
         "TEACHER": {
@@ -176,8 +176,8 @@
         },
         "CREATE": "Criar",
         "ERRORS": {
-            "REQUIRED": "This is required!",
-            "TOOLONG": "That's too long!"
+            "REQUIRED": "Isso é necessário!",
+            "TOOLONG": "Isso é muito longo!"
         }
     },
     "PROJECT": {
@@ -190,7 +190,7 @@
             "BODY": "Use os exemplos para treinar o computador a reconhecer"
         },
         "MAKES": {
-            "TITLE": "Make",
+            "TITLE": "Faça",
             "BODY": "Use o modelo de aprendizado de máquina que você treinou para fazer um jogo ou aplicativo, em Scratch ou em Python"
         },
         "SCRATCH": {
@@ -242,8 +242,8 @@
         "TRAIN": "Treinar um novo modelo de aprendizado de máquina",
         "CANCEL": "Cancelar treinamento",
         "DELETE": "Deletar este modelo",
-        "TEST_CANVAS": "Draw something to test your model with",
-        "TEST_WEBCAM": "Take a photo to test your model with",
+        "TEST_CANVAS": "Desenhe algo para testar o seu modelo",
+        "TEST_WEBCAM": "Tire uma foto para testar o seu modelo",
         "WHATHAVEYOUDONE": {
             "TITLE": "O que você fez?",
             "PLEASEWAIT": "Isso normalmente leva alguns minutos, mas pode demorar um pouco mais se o computador de treinamento estiver muito ocupado.",
@@ -429,7 +429,7 @@
             "TITLE": "Hora do Quiz!",
             "INTROQUESTION": "Enquanto você espera o modelo terminar o treinamento, tente responder a essa pergunta.",
             "PREVIOUSLY_ATTEMPTED": "Você já viu isso antes - vamos ver se você lembra qual é a resposta certa desta vez!",
-            "CORRECT_ANSWER": "Está certo!",
+            "CORRECT_ANSWER": "Correto!",
             "INCORRECT_ANSWER": "Não, desculpe. A resposta correta é mostrada acima.",
             "NEXT_QUESTION": "Próxima questão"
         }
@@ -471,7 +471,7 @@
         "EXPLAIN_RECOGNISE_CONFIDENCE": "Este bloco irá retornar a confiança que seu modelo de aprendizado de máquina tem ao reconhecer o tipo {{ type }} que foi entrado no campo. (Como um número de 0 - 100).",
         "EXPLAIN_LABELS": "Esses blocos representam os rótulos que foram criados por você no seu projeto, para que você possa usá-los no seu programa.",
         "EXPLAIN_COSTUMEIMAGE": "Esse bloco está na seção Aparência do seu Ator e irá retornar a imagem da fantasia que está selecionada no Ator.",
-        "SAMPLE_SCRIPT": "Isso quer dizer que você pode fazer algo como isto:",
+        "SAMPLE_SCRIPT": "Isso quer dizer que você pode fazer algo assim:",
         "SAMPLE_SCREENSHOT": "Irá parecer mais ou menos como isso - exceto com o nome do seu projeto.",
         "EXPLAIN_STATUS": "O círculo colorido próximo ao nome do seu projeto diz se o seu aprendizado de máquina está funcionando corretamente.",
         "STATUS_GREEN": "quer dizer que o seu modelo está treinado e pronto para ser utilizado",
@@ -716,80 +716,80 @@
             "LIMIT_IMAGE_PROJECTS": "Número de aprendizado de máquina de Imagem que seus alunos podem ter:",
 
             "ADD_API_KEYS": {
-                "ASSISTANT_TITLE": "Add Watson Assistant credentials",
-                "VISUAL_RECOGNITION_TITLE": "Add Visual Recognition API key",
+                "ASSISTANT_TITLE": "Adicionar credenciais do Watson Assistant",
+                "VISUAL_RECOGNITION_TITLE": "Adicionar chaves de API do Visual Recognition",
 
-                "USED_FOR_TEXT_PROJECTS": "These will be used when your students train models in text projects.",
-                "USED_FOR_IMAGE_PROJECTS": "These will be used when your students train models in images projects.",
+                "USED_FOR_TEXT_PROJECTS": "Estas serão usadas quando seus estudantes estiverem treinando modelos para projetos de texto.",
+                "USED_FOR_IMAGE_PROJECTS": "Estas serão usadas quando seus estudantes estiverem treinando projetos com imagens.",
 
-                "HIDDEN_FROM_STUDENTS": "This will not be shown to students in your group.",
+                "HIDDEN_FROM_STUDENTS": "Isso não será mostrado para estudantes no seu grupo.",
 
-                "PRICING_PLAN": "Which Pricing Plan did you use?",
-                "ENTER_APIKEY": "Please enter the API key below",
-                "ENTER_PASSWORD": "Please enter the username and password below",
+                "PRICING_PLAN": "Qual Plano de Precificação você usou?",
+                "ENTER_APIKEY": "Por favor coloque a chave API abaixo",
+                "ENTER_PASSWORD": "Por favor insira o nome de usuário e a senha abaixo",
 
-                "CREDENTIALS_TYPE": "What did you create in Watson Assistant?"
+                "CREDENTIALS_TYPE": "O que você criou no Watson Assistant?"
             }
         },
         "RESTRICTIONS": {
-            "TITLE": "Administration : Restrictions",
+            "TITLE": "Administração : Restrições",
 
-            "ASK_FOR_CHANGES": "If any of these restrictions cause a problem for your group, please <strong><a href='/help'>get in touch</a></strong>.",
+            "ASK_FOR_CHANGES": "Se alguma destas restrições é um problema para o seu grupo, por favor <strong><a href='/help'>entre em contato</a></strong>.",
 
             "CLASS_LIMITS": {
-                "TITLE": "Limits for your class",
-                "NUM_USERS": "You can have up to <span class='mlprojecttype'>{{ num }}</span> users (including students and teachers) in your group.",
-                "NUM_TEXT_MODELS": "Your class is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> machine learning models in total across all their <span class='mlprojecttype'>text</span> projects.",
-                "NUM_IMAGE_MODELS": "Your class is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> machine learning models in total across all their <span class='mlprojecttype'>images</span> projects.</div>"
+                "TITLE": "Limites para a sua sala",
+                "NUM_USERS": "Você pode ter até <span class='mlprojecttype'>{{ num }}</span> usuários (incluindo estudantes e professores) no seu grupo.",
+                "NUM_TEXT_MODELS": "Sua sala pode ter até <span class='mlprojecttype'>{{ num }}</span> modelos de aprendizado de máquina no total para projetos de <span class='mlprojecttype'>texto</span>.",
+                "NUM_IMAGE_MODELS": "Sua sala pode ter até <span class='mlprojecttype'>{{ num }}</span> modelos de aprendizado de máquina no total para projetos de <span class='mlprojecttype'>imagens</span>.</div>"
             },
             "PROJECT_LIMITS": {
-                "TITLE": "Limits for projects created by your students",
-                "NUM_PROJECTS": "Each of your students is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> projects.",
-                "TYPES": "Your students can create projects to recognise <span class='mlprojecttype'>{{ types }}</span>.",
-                "TRAINING_DATA": "Each <span class='mlprojecttype'>{{ type }}</span> project can have up to <span class='mlprojecttype'>{{ num }}</span> training data examples. "
+                "TITLE": "Limites para projetos criados pelos seus estudantes",
+                "NUM_PROJECTS": "Cada um dos seus estudantes pode ter até <span class='mlprojecttype'>{{ num }}</span> projetos.",
+                "TYPES": "Seus estudantes podem criar projetos para reconhecer <span class='mlprojecttype'>{{ types }}</span>.",
+                "TRAINING_DATA": "Cada projeto de <span class='mlprojecttype'>{{ type }}</span> pode ter até <span class='mlprojecttype'>{{ num }}</span> exemplos no treinamento. "
             },
             "EXPIRY": {
-                "TITLE": "To help you avoid the limits for number of machine learning models:",
-                "TIME_LIMIT": "Machine learning models created for <span class='mlprojecttype'>{{ type }}</span> projects will automatically be deleted after <span class='mlprojecttype'>{{ num }}</span> hours.",
-                "DONT_WORRY": "(Don't worry! Training data will not be deleted, so students can always train a new machine learning model again if they still need it after this.)"
+                "TITLE": "Para te ajudar a controlar os limites no número de modelos de aprendizado de máquina:",
+                "TIME_LIMIT": "Modelos de aprendizado de máquina criados para projetos de <span class='mlprojecttype'>{{ type }}</span> serão automaticamente apagados depois de <span class='mlprojecttype'>{{ num }}</span> horas.",
+                "DONT_WORRY": "(Mas, não se preocupe! Os exemplos dados no treinamento não serão apagados, então os estudantes sempre poderão treinar um novo modelo de aprendizado de máquina se eles ainda precisarem disso depois.)"
             },
 
-            "NOT_AUTHORIZED": "You are not authorized to access the restrictions in place for your class."
+            "NOT_AUTHORIZED": "Você não está autorizado a acessar as restrições da sua turma."
         },
         "SUPERVISION": {
-            "TITLE": "Administration : Student projects",
+            "TITLE": "Administração : Projetos de estudantes",
 
-            "INTRO_1": "This page displays a list of all of the projects that your class currently has. You can use it to review what they're working on.",
-            "INTRO_2": "If you've hit the limit for the number of machine learning models that your class can create, you can use this to see which projects currently have a machine learning model, and delete any that you think are no longer needed.",
+            "INTRO_1": "Esta página mostra uma lista de todos os projetos que a sua turma atualmente têm. Você pode usá-lo para verificar o que eles estão fazendo.",
+            "INTRO_2": "Se você atingiu o limite de quantos modelos de aprendizado de máquina que sua turma pode ter, você pode ver quais projetos têm um modelo treinado e deletar aqueles que não são mais necessários.",
 
-            "NO_PROJECTS_1": "None of the students in your class currently have any projects.",
-            "NO_PROJECTS_2": "Once your students start creating projects, come back here to see an overview of their work.",
+            "NO_PROJECTS_1": "Nenhum dos seus alunos têm projetos.",
+            "NO_PROJECTS_2": "Quando seus alunos começarem a criar projetos, volte aqui para verificar o trabalho deles.",
 
-            "NAME": "Name",
-            "TYPE": "Type",
-            "STUDENT": "Student",
-            "MODELS": "ML models",
+            "NAME": "Nome",
+            "TYPE": "Tipo",
+            "STUDENT": "Estudante",
+            "MODELS": "Modelos de ML",
 
-            "DELETE": "Click the icon to delete",
+            "DELETE": "Clique no ícone para deletar",
 
-            "NOT_AUTHORIZED": "You are not authorized to access the list of projects for all students in your class."
+            "NOT_AUTHORIZED": "Você não está autorizado a acessar a lista de projetos de todos os estudantes na sua sala."
         },
         "STUDENTMANAGEMENT": {
-            "TITLE": "Administration : Student management",
+            "TITLE": "Administração : Gestão dos estudantes",
 
-            "CREATE_FIRST_STUDENT": "Click on the 'plus' button on the right to create the first student",
-            "ADD": "Add new student",
-            "NEW_USERNAME": "Choose a unique username",
-            "ALPHANUMERIC": "Only use letters and numbers",
+            "CREATE_FIRST_STUDENT": "Clique no botão 'mais' no lado direito para criar o seu primeiro aluno",
+            "ADD": "Adicionar um novo aluno",
+            "NEW_USERNAME": "Escolha um nome de usuário único",
+            "ALPHANUMERIC": "Use apenas letras e números",
 
-            "NOT_LOGGED_IN": "Not logged in yet",
+            "NOT_LOGGED_IN": "Ainda não está logado",
 
-            "RESET_PASSWORD": "Reset password",
-            "RESET_ALL_PASSWORDS": "Reset password for all students",
+            "RESET_PASSWORD": "Redefinir senha",
+            "RESET_ALL_PASSWORDS": "Redefinir senha para todos os alunos",
 
-            "DELETE_STUDENT": "Delete student account",
+            "DELETE_STUDENT": "Deletar conta de estudante",
 
-            "NOT_AUTHORIZED": "You are not authorized to access the list of students in your class."
+            "NOT_AUTHORIZED": "Você não está autorizado a acessar a lista de estudantes na sua sala."
         }
     },
     "HELP": {
@@ -830,10 +830,10 @@
             "Q5": "Posso usar qualquer versão do Scratch?",
             "Q5-A-1": "Você precisa usar a versão do Scratch que é fornecida pelo site Machine Learning for Kids. Ele pode ser iniciado clicando no botão Scratch (ou 'Scratch 3') da sua página de projeto.",
 
-            "Q6": "Scratch 3 is only saving projects to the 'Downloads' folder",
-            "Q6-A-1": "When you click 'File' -> 'Save to your computer' in Scratch 3, your Scratch project is saved to your computer.",
-            "Q6-A-2": "Some teachers reported a problem that this saved to the Downloads folder, on a computer where students don't have access in Windows to the Downloads folder. The result was that students were not able to access their saved projects.",
-            "Q6-A-3": "If you have this problem, you need to look in your web browser settings for a setting like 'Ask where to save each file before downloading'. If you enable that, your students will be able to choose where their projects are saved."
+            "Q6": "O Scratch 3 só salva projetos na pasta 'Downloads'",
+            "Q6-A-1": "Quando você clica em 'Arquivo' -> 'Baixar para o seu computador' no Scratch 3, seus projetos do Scratch é salvo no seu computador.",
+            "Q6-A-2": "Alguns professores reportaram um problema que o arquivo é salvo na pasta Downloads, em computadores que os alunos não têm acesso a esta pasta no Windows. Como resultados os alunos não foram capazes de acessar seus projetos salvos.",
+            "Q6-A-3": "Se você está com este problema, você precisa olhar nas configurações do seu navegador por uma configuração avançada do tipo 'Perguntar onde salvar cada arquivo antes de fazer download'. Se você ativar esta configuração, seus alunos serão capazes de escolher onde salvar os seus projetos."
         },
 
         "TRAININGUI": {
@@ -948,15 +948,15 @@
             "Q3-A-8": "Isso pode ser feito clicando no botão \"Excluir turma\" na seção Opções avançadas da <a href='https://machinelearningforkids.co.uk/teacher'>sua página do Professor</a>",
 
             "Q4": "Quais informações são armazenadas sobre os usuários?",
-            "Q4-A-1": "Teacher accounts",
-            "Q4-A-2": "I store the username and email address that you provide when you create the account, so that I can keep in touch with you.",
-            "Q4-A-3": "Student accounts",
-            "Q4-A-4": "I store the usernames for student accounts, so that I can let them log in. I have no email addresses or contact details for students. I have no other personally identifying information about students.",
-            "Q4-A-5": "I also <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-schools.pdf'>recommend that students are given generic usernames</a> (e.g. student1) so that students are not identifiable outside of their school or coding group.",
-            "Q4-A-6": "General information stored about all accounts",
-            "Q4-A-7": "User management for Machine Learning for Kids is implemented using the third party service, <a href='https://auth0.com/'>Auth0</a>. They store the IP address that you last logged into Machine Learning for Kids from, and the type of browser you used. I've never found a reason to use that, but it is stored if I did want to go and look for it.",
-            "Q4-A-8": "Errors that happen in the web browser are captured using the third party service, <a href='https://sentry.io/'>Sentry</a>. If something goes wrong, it will capture information about the error, including your username, IP address, type of browser you were using, and a technical description of what went wrong.",
-            "Q4-A-9": "I use <a href='https://www.google.com/analytics/'>Google Analytics</a> so that I know how many users visit Machine Learning for Kids each day. Although it captures information such as geographic location and browser type, this is only ever displayed to me in an anonymised aggregate way."
+            "Q4-A-1": "Contas de professor",
+            "Q4-A-2": "Eu armazeno nome de usuário e e-mail que você usou para criar a conta para que eu possa manter contato com você.",
+            "Q4-A-3": "Contas de estudante",
+            "Q4-A-4": "Eu armazeno nome de usuários para cada conta de estudante, para que eu possa autenticar os usuários. Eu não tenho endereço de e-mail ou contato dos estudantes. Eu não tenho nenhuma outra identificação pessoal dos estudantes.",
+            "Q4-A-5": "Eu também <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-schools.pdf'>recomendo que estudantes tenham usuários com nomes genéricos</a> (i.e. aluno1) para que eles não sejam facilmente identificáveis fora da escola ou do clube de programação.",
+            "Q4-A-6": "Informação geral armazenada de todas as contas",
+            "Q4-A-7": "A gestão de usuários para o Machine Learning for Kids é implementados usando um serviço de terceiros, <a href='https://auth0.com/'>Auth0</a>. Eles armazenam endereço IP de onde você fez o seu último Login no Machine Learning for Kids, e que tipo de navegador você usou. Eu nunca tive razões para usar isso, mas isso é armazenado para caso eu quisesse procurar por esses dados.",
+            "Q4-A-8": "Erros que acontecem no navegador são capturados por um serviço de terceiros, <a href='https://sentry.io/'>Sentry</a>. Se algo dá errado, as informações do erro serão capturados, incluindo nome de usuário, endereço IP, tipo de navegador que você está usando, e uma descrição técnica do que aconteceu de errado.",
+            "Q4-A-9": "Eu uso <a href='https://www.google.com/analytics/'>Google Analytics</a> para saber quantos usuários acessam Machine Learning for Kids todo dia. Embora eles tenham informações de localização geográfica e tipo de navegador, isso só me é exibido de forma agregada e anônima."
         }
     }
 }
