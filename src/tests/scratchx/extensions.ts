@@ -223,7 +223,7 @@ describe('Scratchx - status', () => {
             assert(extension.indexOf('[ \'r\', \'SECOND LABEL\', \'return_label_1\'],') > 0);
             assert(extension.indexOf('[ \'r\', \'THIRD LABEL\', \'return_label_2\'],') > 0);
             assert(extension.indexOf(
-                '[ \'R\', \'recognise image %s (label)\', \'image_classification_label\', \'costume image\' ]') > 0);
+                '[ \'R\', \'recognise image %s (label)\', \'image_classification_label\', \'image\' ]') > 0);
         });
     });
 });

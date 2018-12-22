@@ -139,16 +139,19 @@ const TESTURLS: downloadZip.DownloadFromWeb[] = [
     {
         type: 'download',
         url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/IBM_logo.svg/320px-IBM_logo.svg.png',
+        imageid : '1',
     },
     {
         type: 'download',
         // tslint:disable-next-line:max-line-length
         url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Thomas_J_Watson_Sr.jpg/148px-Thomas_J_Watson_Sr.jpg',
+        imageid : '2',
     },
     {
         type: 'download',
         // tslint:disable-next-line:max-line-length
         url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Old_Map_Hursley_1607.jpg/218px-Old_Map_Hursley_1607.jpg?download',
+        imageid : '3',
     },
 ];
 
@@ -157,5 +160,6 @@ const INVALIDURLS: downloadZip.DownloadFromWeb[] = [
     {
         type: 'download',
         url: 'https://www.w3.org/Graphics/SVG/svglogo.svg',
+        imageid : '4',
     },
 ];

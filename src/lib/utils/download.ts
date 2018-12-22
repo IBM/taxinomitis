@@ -2,6 +2,7 @@
 import * as fs from 'fs';
 // external dependencies
 import * as request from 'request';
+import * as httpstatus from 'http-status';
 import * as sharp from 'sharp';
 import * as probe from 'probe-image-size';
 // local dependencies
@@ -43,13 +44,13 @@ export function file(url: string, targetFilePath: string, callback: IErrCallback
     try {
         request.get({ url, timeout : 10000, rejectUnauthorized : false })
             .on('error', () => {
-                resolve(new Error('Unable to download image from ' + url));
+                resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
             })
             .pipe(writeStream);
     }
     catch (err) {
         log.error({ err, url }, 'Failed to download');
-        resolve(new Error('Unable to download image from ' + url));
+        resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
     }
 }
 
@@ -99,17 +100,26 @@ export function resize(
                                     //  original
                                     .toFile(targetFilePath, resolve);
 
-            request.get({ url, timeout : 10000 })
+            request.get({ url, timeout : 10000, rejectUnauthorized : false })
                 .on('error', (err) => {
-                    log.error({ err, url }, 'Download fail');
-                    resolve(new Error('Unable to download image from ' + url));
+                    log.warn({ err, url }, 'Download fail');
+                    resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
                 })
                 .pipe(shrinkStream);
         })
         .catch ((err: any) => {
-            log.error({ err, url }, 'Download fail');
-            resolve(new Error('Unable to download image from ' + url));
+            if (err.statusCode === httpstatus.NOT_FOUND) {
+                log.warn({ err, url }, 'Image could not be downloaded');
+            }
+            else {
+                log.error({ err, url }, 'Download fail');
+            }
+            resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
         });
 }
 
 
+
+export const ERRORS = {
+    DOWNLOAD_FAIL : 'Unable to download image from ',
+};

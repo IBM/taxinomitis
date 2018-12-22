@@ -272,7 +272,8 @@ async function getTraining(project: DbObjects.Project): Promise<{ [label: string
             else {
                 const fromWeb: downloadAndZip.ImageDownload = {
                     type : 'download',
-                    url: trainingitem.imageurl,
+                    url : trainingitem.imageurl,
+                    imageid : trainingitem.id,
                 };
                 return fromWeb;
             }
