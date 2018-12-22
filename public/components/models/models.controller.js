@@ -8,10 +8,10 @@
         'authService',
         'projectsService', 'trainingService', 'quizService',
         '$stateParams',
-        '$scope', '$mdDialog', '$timeout', '$interval', '$q', '$document'
+        '$scope', '$mdDialog', '$timeout', '$interval', '$q', '$document', '$state'
     ];
 
-    function ModelsController(authService, projectsService, trainingService, quizService, $stateParams, $scope, $mdDialog, $timeout, $interval, $q, $document) {
+    function ModelsController(authService, projectsService, trainingService, quizService, $stateParams, $scope, $mdDialog, $timeout, $interval, $q, $document, $state) {
 
         var vm = this;
         vm.authService = authService;
@@ -312,10 +312,57 @@
                 .catch(function (err) {
                     $scope.submittingTrainingRequest = false;
 
-                    var errId = displayAlert('errors', err.status, err.data);
-                    scrollToNewItem('errors' + errId);
+                    if (createModelFailedDueToDownloadFail(err)) {
+                        return $mdDialog.show({
+                            controller : function ($scope) {
+                                $scope.location = err.data.location;
+
+                                $scope.hide = function() {
+                                    $mdDialog.hide();
+                                };
+                                $scope.cancel = function() {
+                                    $mdDialog.cancel();
+                                };
+                                $scope.confirm = function() {
+                                    $mdDialog.hide(err.data.location);
+                                };
+                            },
+                            templateUrl : 'static/components-' + $stateParams.VERSION + '/models/downloadfail.tmpl.html'
+                        })
+                        .then(
+                            function (location) {
+                                if (location) {
+                                    trainingService.deleteTrainingData(project.id, $scope.userId, vm.profile.tenant, location.imageid)
+                                        .then(function() {
+                                            $state.reload();
+                                        })
+                                        .catch(function (e) {
+                                            var errId = displayAlert('errors', e.status, e.data);
+                                            scrollToNewItem('errors' + errId);
+                                        });
+                                }
+                            },
+                            function() {
+                                // cancelled. do nothing
+                            }
+                        );
+                    }
+                    else {
+                        var errId = displayAlert('errors', err.status, err.data);
+                        scrollToNewItem('errors' + errId);
+                    }
                 });
         };
+
+
+        function createModelFailedDueToDownloadFail(err) {
+            return err &&
+                   err.status === 409 &&
+                   err.data && err.data.code &&
+                   err.data.code === 'MLMOD12' &&
+                   err.data.location && err.data.location.imageid && err.data.location.url &&
+                   err.data.location.type === 'download';
+        }
 
 
         vm.testModel = function (ev, form, project) {

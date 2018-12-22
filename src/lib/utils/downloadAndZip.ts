@@ -31,6 +31,7 @@ interface ObjectStorageSpec {
 export interface DownloadFromWeb {
     readonly type: 'download';
     readonly url: string;
+    readonly imageid: string;
 }
 
 export type ImageDownload = RetrieveFromStorage | DownloadFromWeb;
@@ -165,6 +166,11 @@ function downloadAndRename(location: ImageDownload, callback: IDownloadCallback)
         (tmpFilePath: string, next: IDownloadCallback) => {
             // download the file to the temp location on disk
             retrieveImage(location, tmpFilePath, (err) => {
+                if (err && err.message.startsWith(download.ERRORS.DOWNLOAD_FAIL)) {
+                    const errWithLocation: any = err as unknown;
+                    errWithLocation.location = location;
+                    return callback(errWithLocation);
+                }
                 next(err, tmpFilePath);
             });
         },
@@ -324,7 +330,9 @@ export function run(locations: ImageDownload[]): Promise<string> {
     return new Promise((resolve, reject) => {
         downloadAllIntoZip(locations, (err, zippath) => {
             if (err) {
-                log.error({ err }, 'Failed to create training zip');
+                if (!err.message.startsWith(download.ERRORS.DOWNLOAD_FAIL)) {
+                    log.error({ err }, 'Failed to create training zip');
+                }
                 return reject(err);
             }
             return resolve(zippath);

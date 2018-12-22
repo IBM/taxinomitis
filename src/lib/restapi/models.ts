@@ -10,6 +10,7 @@ import * as conversation from '../training/conversation';
 import * as visualrec from '../training/visualrecognition';
 import * as numbers from '../training/numbers';
 import * as base64decode from '../utils/base64decode';
+import * as download from '../utils/download';
 import * as urls from './urls';
 import * as errors from './errors';
 import * as headers from './headers';
@@ -161,6 +162,14 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
                         error : 'Machine learning server rejected the training request ' +
                                 'because the training data was too large',
                     });
+            }
+            else if (err.message && err.message.startsWith(download.ERRORS.DOWNLOAD_FAIL)) {
+                return res.status(httpstatus.CONFLICT)
+                        .send({
+                            code : 'MLMOD12',
+                            error : 'One of your training images could not be downloaded',
+                            location : err.location,
+                        });
             }
             else {
                 return errors.unknownError(res, err);
