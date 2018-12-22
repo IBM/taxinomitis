@@ -41,7 +41,7 @@ export function file(url: string, targetFilePath: string, callback: IErrCallback
                             .on('finish', resolve);
 
     try {
-        request.get({ url, timeout : 10000 })
+        request.get({ url, timeout : 10000, rejectUnauthorized : false })
             .on('error', () => {
                 resolve(new Error('Unable to download image from ' + url));
             })
@@ -80,7 +80,7 @@ export function resize(
         }
     }
 
-    probe(url)
+    probe(url, { rejectUnauthorized : false })
         .then((imageinfo: any) => {
             if (imageinfo.type !== 'jpg' && imageinfo.type !== 'jpeg' && imageinfo.type !== 'png') {
                 log.error({ imageinfo, url }, 'Unexpected file type');
