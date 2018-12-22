@@ -738,58 +738,58 @@
 
             "CLASS_LIMITS": {
                 "TITLE": "여러분 학급의 제한 사항",
-                "NUM_USERS": "You can have up to <span class='mlprojecttype'>{{ num }}</span> users (including students and teachers) in your group.",
-                "NUM_TEXT_MODELS": "Your class is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> machine learning models in total across all their <span class='mlprojecttype'>text</span> projects.",
-                "NUM_IMAGE_MODELS": "Your class is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> machine learning models in total across all their <span class='mlprojecttype'>images</span> projects.</div>"
+                "NUM_USERS": "여러분은 <span class='mlprojecttype'>{{ num }}</span>명의 사용자를 만들 수 있습니다.",
+                "NUM_TEXT_MODELS": "여러분의 학급은 <span class='mlprojecttype'>text</span>프로젝트에서 <span class='mlprojecttype'>{{ num }}</span>개의 머신러닝 모델을 만들 수 있습니다.",
+                "NUM_IMAGE_MODELS": "여러분의 학급은 <span class='mlprojecttype'>images</span>프로젝트에서 <span class='mlprojecttype'>{{ num }}</span>개의 머신러닝 모델을 만들 수 있습니다.</div>"
             },
             "PROJECT_LIMITS": {
-                "TITLE": "Limits for projects created by your students",
-                "NUM_PROJECTS": "Each of your students is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> projects.",
-                "TYPES": "Your students can create projects to recognise <span class='mlprojecttype'>{{ types }}</span>.",
-                "TRAINING_DATA": "Each <span class='mlprojecttype'>{{ type }}</span> project can have up to <span class='mlprojecttype'>{{ num }}</span> training data examples. "
+                "TITLE": "학생 프로젝트 생성 제한",
+                "NUM_PROJECTS": "여러분은 학생들은 <span class='mlprojecttype'>{{ num }}</span>개의 프로젝트를 생성할 수 있습니다.",
+                "TYPES": "여러분의 학생들은 <span class='mlprojecttype'>{{ types }}</span> 방식의 프로젝트를 생성할 수 있습니다.",
+                "TRAINING_DATA": "<span class='mlprojecttype'>{{ type }}</span> 방식의 프로젝트는 <span class='mlprojecttype'>{{ num }}</span>개의 샘플 데이터를 가질 수 있습니다. "
             },
             "EXPIRY": {
-                "TITLE": "To help you avoid the limits for number of machine learning models:",
-                "TIME_LIMIT": "Machine learning models created for <span class='mlprojecttype'>{{ type }}</span> projects will automatically be deleted after <span class='mlprojecttype'>{{ num }}</span> hours.",
-                "DONT_WORRY": "(Don't worry! Training data will not be deleted, so students can always train a new machine learning model again if they still need it after this.)"
+                "TITLE": "머신 러닝 모델의 제한에 대한 도움 내용:",
+                "TIME_LIMIT": "<span class='mlprojecttype'>{{ type }}</span> 방식의 머신 러닝 모델은 <span class='mlprojecttype'>{{ num }}</span>시간 뒤에 자동을 삭제됩니다.",
+                "DONT_WORRY": "(걱정하지 마세요. 훈련 데이터는 사라지지 않습니다. 학생들으 새로우 머신러니 모델을 언제든지 다시 만들 수 있습니다.)"
             },
 
-            "NOT_AUTHORIZED": "You are not authorized to access the restrictions in place for your class."
+            "NOT_AUTHORIZED": "접속이 허가된 사용자가 아닙니다."
         },
         "SUPERVISION": {
-            "TITLE": "Administration : Student projects",
+            "TITLE": "관리자 : 학생 프로젝트",
 
-            "INTRO_1": "This page displays a list of all of the projects that your class currently has. You can use it to review what they're working on.",
-            "INTRO_2": "If you've hit the limit for the number of machine learning models that your class can create, you can use this to see which projects currently have a machine learning model, and delete any that you think are no longer needed.",
+            "INTRO_1": "이 페이지는 여러분의 교실에서 만든 프로젝트 목록을 보여줍니다. 학생들의 작업을 살펴볼 수 있습니다.",
+            "INTRO_2": "만약 여러분 교실이 만들 수 있는 머신러닝 모델의 개수를 초과하였다면 이 페이지에서 더이상 필요하지 않은 머신러닝 모델으 선택하여 삭제하세요.",
 
-            "NO_PROJECTS_1": "None of the students in your class currently have any projects.",
-            "NO_PROJECTS_2": "Once your students start creating projects, come back here to see an overview of their work.",
+            "NO_PROJECTS_1": "현재 생성된 프로젝트가 없습니다.",
+            "NO_PROJECTS_2": "학생들이 프로젝트를 만든 후 다시 이 페이지로 돌아오세요.",
 
-            "NAME": "Name",
-            "TYPE": "Type",
-            "STUDENT": "Student",
-            "MODELS": "ML models",
+            "NAME": "이름",
+            "TYPE": "타입",
+            "STUDENT": "학생",
+            "MODELS": "머신러닝 모델",
 
-            "DELETE": "Click the icon to delete",
+            "DELETE": "삭제하려면 아이콘을 클릭하세요",
 
-            "NOT_AUTHORIZED": "You are not authorized to access the list of projects for all students in your class."
+            "NOT_AUTHORIZED": "프로젝트 리스트에 접속할 권한이 없습니다."
         },
         "STUDENTMANAGEMENT": {
-            "TITLE": "Administration : Student management",
+            "TITLE": "관리자 : 학생 관리",
 
-            "CREATE_FIRST_STUDENT": "Click on the 'plus' button on the right to create the first student",
-            "ADD": "Add new student",
-            "NEW_USERNAME": "Choose a unique username",
-            "ALPHANUMERIC": "Only use letters and numbers",
+            "CREATE_FIRST_STUDENT": "첫 번째 학생을 생성하기 위해 '추가' 버튼을 클릭하세요",
+            "ADD": "새로운 학생 추가",
+            "NEW_USERNAME": "구분할 수 있는 이름을 입력하세요",
+            "ALPHANUMERIC": "영문자나 숫자만 사용하세요",
 
-            "NOT_LOGGED_IN": "Not logged in yet",
+            "NOT_LOGGED_IN": "아직 로그인하지 않았습니다",
 
-            "RESET_PASSWORD": "Reset password",
-            "RESET_ALL_PASSWORDS": "Reset password for all students",
+            "RESET_PASSWORD": "패스워드 리셋",
+            "RESET_ALL_PASSWORDS": "모든 학생 패스워드 리셋",
 
-            "DELETE_STUDENT": "Delete student account",
+            "DELETE_STUDENT": "학생 계정 삭제",
 
-            "NOT_AUTHORIZED": "You are not authorized to access the list of students in your class."
+            "NOT_AUTHORIZED": "학생 관리에 접근할 권한이 없습니다."
         }
     },
     "HELP": {
