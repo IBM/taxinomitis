@@ -10,9 +10,9 @@
 
         "ADD": "추가",
         "CANCEL": "취소",
-        "DELETE": "Delete",
-        "EDIT": "Edit",
-        "TEST": "Test",
+        "DELETE": "삭재",
+        "EDIT": "수정",
+        "TEST": "테스트",
 
         "ABOUT": "소개",
         "TEACHER": "선생님",
@@ -94,12 +94,12 @@
         "TEACHER": "교사 혹은 코딩 클럽의 리더",
         "STUDENT": "학생",
         "FORGOT_TEXT": "아이디와 비밀번호를 잊어버렸나요? 괜찮아요. 우리도 종종 잊어버립니다",
-        "ARE_YOU_A_STUDENT": "Are you a student?",
-        "ARE_YOU_A_STUDENT_INTRO_1": "If your class is already using this tool, ask your teacher or coding group leader to create you an account.",
-        "ARE_YOU_A_STUDENT_INTRO_2": "If your class isn't already using the tool, ask your teacher or coding group leader to get in touch.",
-        "RESET_STUDENT_PASSWORD_1": "If you're a student, we don't have your email address to be able to send you a password-reset email.",
-        "RESET_STUDENT_PASSWORD_2": "That's no problem, though!",
-        "RESET_STUDENT_PASSWORD_3": "Just ask your teacher or group leader who first signed you up. They will be able to reset your password from their Admin page."
+        "ARE_YOU_A_STUDENT": "학생입니까?",
+        "ARE_YOU_A_STUDENT_INTRO_1": "여러분의 학급이 이 도구를 사용한다면 여러분의 선생님 또는 코딩 그룹의 리더에게 여러분의 계정을 요청하세요.",
+        "ARE_YOU_A_STUDENT_INTRO_2": "여러분의 학습이 이 도구를 사용하지 않는다면 선생님에게 말씀드려보세요",
+        "RESET_STUDENT_PASSWORD_1": "여러분 학생이라면 우리는 여러분의 이메일을 가지고 있지 않기 때문에 비밀번호 리셋 이메일을 보낼 수 없습니다.",
+        "RESET_STUDENT_PASSWORD_2": "아무 문제 없어요",
+        "RESET_STUDENT_PASSWORD_3": "여러분의 선생님께 비밀번호를 리셋해달라고 요청하세요."
     },
     "SIGNUP": {
         "TEACHER": {
@@ -119,7 +119,7 @@
         "MANAGED": {
             "TITLE": "<strong>관리되는 </ strong> 교실 계정 만들기",
             "INTRO": "Dale이 계정을 개설하는 것을 도와주길 원한다면, 아래 버튼을 사용하여 다음 정보가 포함된 전자 메일을 보내십시오:",
-            "LIST_NUMBEROFSTUDENTS": "대략 얼마나 많은 학생 계좌가 필요한지",
+            "LIST_NUMBEROFSTUDENTS": "대략 얼마나 많은 학생 계정이 필요한지 알려주세요",
             "LIST_NAMEOFSCHOOL": "학교 또는 코딩 그룹의 이름",
             "EMAIL": "이메일"
         }
@@ -242,8 +242,8 @@
         "TRAIN": "새로운 머신 러닝 모델을 훈련시켜보세요",
         "CANCEL": "훈련 취소",
         "DELETE": "모델 삭제",
-        "TEST_CANVAS": "Draw something to test your model with",
-        "TEST_WEBCAM": "Take a photo to test your model with",
+        "TEST_CANVAS": "무엇인가를 그려서 모델을 테스트해보세요",
+        "TEST_WEBCAM": "사진을 찍어서 모델을 ",
         "WHATHAVEYOUDONE": {
             "TITLE": "무엇을 하고 있나요?",
             "PLEASEWAIT": "몇 분이 걸려요. 하지만 트레이닝 컴퓨터가 바쁘다면 조금 더 걸릴 수 있어요.",
@@ -716,80 +716,80 @@
             "LIMIT_IMAGE_PROJECTS": "여러분의 교실 학생들이 만들 수 있는  머신러닝 모델의 수:",
 
             "ADD_API_KEYS": {
-                "ASSISTANT_TITLE": "Add Watson Assistant credentials",
-                "VISUAL_RECOGNITION_TITLE": "Add Visual Recognition API key",
+                "ASSISTANT_TITLE": "Watson Assistant credentials을 추가하세요",
+                "VISUAL_RECOGNITION_TITLE": "Visual Recognition API key를 추가하세요",
 
-                "USED_FOR_TEXT_PROJECTS": "These will be used when your students train models in text projects.",
-                "USED_FOR_IMAGE_PROJECTS": "These will be used when your students train models in images projects.",
+                "USED_FOR_TEXT_PROJECTS": "텍스트 프로젝트에서 여러분의 학생들이 모델을 만들 때 사용됩니다.",
+                "USED_FOR_IMAGE_PROJECTS": "이미지 프로젝트에서 여러분의 학생들이 모델을 만들 때 사용됩니다.",
 
-                "HIDDEN_FROM_STUDENTS": "This will not be shown to students in your group.",
+                "HIDDEN_FROM_STUDENTS": "이것은 여러분의 학생들에게 보이지 않습니다.",
 
-                "PRICING_PLAN": "Which Pricing Plan did you use?",
-                "ENTER_APIKEY": "Please enter the API key below",
-                "ENTER_PASSWORD": "Please enter the username and password below",
+                "PRICING_PLAN": "어떤 가격 정책을 사용하고 있나요?",
+                "ENTER_APIKEY": "아래에 API key를 적어주세요",
+                "ENTER_PASSWORD": "아래에 사용자 이름과 비밀번호를 입력하세요",
 
-                "CREDENTIALS_TYPE": "What did you create in Watson Assistant?"
+                "CREDENTIALS_TYPE": "Watson Assistant에서 무엇을 만들었나요?"
             }
         },
         "RESTRICTIONS": {
-            "TITLE": "Administration : Restrictions",
+            "TITLE": "관리자 : 제한사항",
 
-            "ASK_FOR_CHANGES": "If any of these restrictions cause a problem for your group, please <strong><a href='/help'>get in touch</a></strong>.",
+            "ASK_FOR_CHANGES": "만약 여러분의 교실에서 아래의 제한 사항이 생긴다면 <strong><a href='/help'>연락</a></strong>해주세요.",
 
             "CLASS_LIMITS": {
-                "TITLE": "Limits for your class",
-                "NUM_USERS": "You can have up to <span class='mlprojecttype'>{{ num }}</span> users (including students and teachers) in your group.",
-                "NUM_TEXT_MODELS": "Your class is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> machine learning models in total across all their <span class='mlprojecttype'>text</span> projects.",
-                "NUM_IMAGE_MODELS": "Your class is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> machine learning models in total across all their <span class='mlprojecttype'>images</span> projects.</div>"
+                "TITLE": "여러분 학급의 제한 사항",
+                "NUM_USERS": "여러분은 <span class='mlprojecttype'>{{ num }}</span>명의 사용자를 만들 수 있습니다.",
+                "NUM_TEXT_MODELS": "여러분의 학급은 <span class='mlprojecttype'>text</span>프로젝트에서 <span class='mlprojecttype'>{{ num }}</span>개의 머신러닝 모델을 만들 수 있습니다.",
+                "NUM_IMAGE_MODELS": "여러분의 학급은 <span class='mlprojecttype'>images</span>프로젝트에서 <span class='mlprojecttype'>{{ num }}</span>개의 머신러닝 모델을 만들 수 있습니다.</div>"
             },
             "PROJECT_LIMITS": {
-                "TITLE": "Limits for projects created by your students",
-                "NUM_PROJECTS": "Each of your students is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> projects.",
-                "TYPES": "Your students can create projects to recognise <span class='mlprojecttype'>{{ types }}</span>.",
-                "TRAINING_DATA": "Each <span class='mlprojecttype'>{{ type }}</span> project can have up to <span class='mlprojecttype'>{{ num }}</span> training data examples. "
+                "TITLE": "학생 프로젝트 생성 제한",
+                "NUM_PROJECTS": "여러분은 학생들은 <span class='mlprojecttype'>{{ num }}</span>개의 프로젝트를 생성할 수 있습니다.",
+                "TYPES": "여러분의 학생들은 <span class='mlprojecttype'>{{ types }}</span> 방식의 프로젝트를 생성할 수 있습니다.",
+                "TRAINING_DATA": "<span class='mlprojecttype'>{{ type }}</span> 방식의 프로젝트는 <span class='mlprojecttype'>{{ num }}</span>개의 샘플 데이터를 가질 수 있습니다. "
             },
             "EXPIRY": {
-                "TITLE": "To help you avoid the limits for number of machine learning models:",
-                "TIME_LIMIT": "Machine learning models created for <span class='mlprojecttype'>{{ type }}</span> projects will automatically be deleted after <span class='mlprojecttype'>{{ num }}</span> hours.",
-                "DONT_WORRY": "(Don't worry! Training data will not be deleted, so students can always train a new machine learning model again if they still need it after this.)"
+                "TITLE": "머신 러닝 모델의 제한에 대한 도움 내용:",
+                "TIME_LIMIT": "<span class='mlprojecttype'>{{ type }}</span> 방식의 머신 러닝 모델은 <span class='mlprojecttype'>{{ num }}</span>시간 뒤에 자동으로 삭제됩니다.",
+                "DONT_WORRY": "(걱정하지 마세요. 훈련 데이터는 사라지지 않습니다. 학생들은 새로운 머신러닝 모델을 언제든지 다시 만들 수 있습니다.)"
             },
 
-            "NOT_AUTHORIZED": "You are not authorized to access the restrictions in place for your class."
+            "NOT_AUTHORIZED": "접속이 허가된 사용자가 아닙니다."
         },
         "SUPERVISION": {
-            "TITLE": "Administration : Student projects",
+            "TITLE": "관리자 : 학생 프로젝트",
 
-            "INTRO_1": "This page displays a list of all of the projects that your class currently has. You can use it to review what they're working on.",
-            "INTRO_2": "If you've hit the limit for the number of machine learning models that your class can create, you can use this to see which projects currently have a machine learning model, and delete any that you think are no longer needed.",
+            "INTRO_1": "이 페이지는 여러분의 교실에서 만든 프로젝트 목록을 보여줍니다. 학생들의 작업을 살펴볼 수 있습니다.",
+            "INTRO_2": "만약 여러분의 교실이 만들 수 있는 머신러닝 모델 개수를 초과하였다면, 이 페이지에서 더 이상 필요하지 않은 머신러닝 모델을 선택하여 삭제하세요.",
 
-            "NO_PROJECTS_1": "None of the students in your class currently have any projects.",
-            "NO_PROJECTS_2": "Once your students start creating projects, come back here to see an overview of their work.",
+            "NO_PROJECTS_1": "현재 생성된 프로젝트가 없습니다.",
+            "NO_PROJECTS_2": "학생들이 프로젝트를 만든 후 다시 이 페이지로 돌아오세요.",
 
-            "NAME": "Name",
-            "TYPE": "Type",
-            "STUDENT": "Student",
-            "MODELS": "ML models",
+            "NAME": "이름",
+            "TYPE": "타입",
+            "STUDENT": "학생",
+            "MODELS": "머신러닝 모델",
 
-            "DELETE": "Click the icon to delete",
+            "DELETE": "삭제하려면 아이콘을 클릭하세요",
 
-            "NOT_AUTHORIZED": "You are not authorized to access the list of projects for all students in your class."
+            "NOT_AUTHORIZED": "프로젝트 리스트에 접속할 권한이 없습니다."
         },
         "STUDENTMANAGEMENT": {
-            "TITLE": "Administration : Student management",
+            "TITLE": "관리자 : 학생 관리",
 
-            "CREATE_FIRST_STUDENT": "Click on the 'plus' button on the right to create the first student",
-            "ADD": "Add new student",
-            "NEW_USERNAME": "Choose a unique username",
-            "ALPHANUMERIC": "Only use letters and numbers",
+            "CREATE_FIRST_STUDENT": "첫 번째 학생을 생성하기 위해 '추가' 버튼을 클릭하세요",
+            "ADD": "새로운 학생 추가",
+            "NEW_USERNAME": "구분할 수 있는 이름을 입력하세요",
+            "ALPHANUMERIC": "영문자나 숫자만 사용하세요",
 
-            "NOT_LOGGED_IN": "Not logged in yet",
+            "NOT_LOGGED_IN": "아직 로그인하지 않았습니다",
 
-            "RESET_PASSWORD": "Reset password",
-            "RESET_ALL_PASSWORDS": "Reset password for all students",
+            "RESET_PASSWORD": "패스워드 리셋",
+            "RESET_ALL_PASSWORDS": "모든 학생 패스워드 리셋",
 
-            "DELETE_STUDENT": "Delete student account",
+            "DELETE_STUDENT": "학생 계정 삭제",
 
-            "NOT_AUTHORIZED": "You are not authorized to access the list of students in your class."
+            "NOT_AUTHORIZED": "학생 관리에 접근할 권한이 없습니다."
         }
     },
     "HELP": {
