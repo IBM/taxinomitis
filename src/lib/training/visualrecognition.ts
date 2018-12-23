@@ -487,20 +487,68 @@ export async function testClassifierURL(
         timeout : basereq.timeout,
     };
 
-    const body: VisualRecogApiResponsePayloadClassification = await request.get(credentials.url + '/v3/classify', req);
-    if (body.images &&
-        body.images.length > 0 &&
-        body.images[0].classifiers &&
-        body.images[0].classifiers.length > 0 &&
-        body.images[0].classifiers[0].classes)
-    {
-        return body.images[0].classifiers[0].classes.map((item) => {
-            return { class_name : item.class, confidence : Math.round(item.score * 100), classifierTimestamp };
-        }).sort(sortByConfidence);
+    try {
+        const url = credentials.url + '/v3/classify';
+        const body: VisualRecogApiResponsePayloadClassification = await request.get(url, req);
+        if (body.images &&
+            body.images.length > 0 &&
+            body.images[0].classifiers &&
+            body.images[0].classifiers.length > 0 &&
+            body.images[0].classifiers[0].classes)
+        {
+            return body.images[0].classifiers[0].classes.map((item) => {
+                return { class_name : item.class, confidence : Math.round(item.score * 100), classifierTimestamp };
+            }).sort(sortByConfidence);
+        }
+        else {
+            log.error({ body }, 'Image was not classifiable');
+            return [];
+        }
     }
-    else {
-        log.error({ body }, 'Image was not classifiable');
-        return [];
+    catch (err) {
+        // recognise some common errors and explain them in a more helpful way
+        //
+        //  otherwise, just re-throw as-is
+        if (err.error &&
+            err.error.images && Array.isArray(err.error.images) && err.error.images.length === 1 &&
+            err.error.images[0].error &&
+            err.error.images[0].error.code && err.error.images[0].error.description &&
+            typeof err.error.images[0].error.description === 'string')
+        {
+            const errorInfo = err.error.images[0].error;
+            if (errorInfo.code === 400 &&
+                errorInfo.description === 'Invalid/corrupted image data. ' +
+                                          'Supported image file formats are GIF, JPEG, PNG, and TIFF. ' +
+                                          'Supported compression format is ZIP.')
+            {
+                const externalError: any = new Error('A usable test image could not be found at that address. ' +
+                                                     'Remember, only jpg and png images are supported.');
+                externalError.statusCode = 400;
+                throw externalError;
+            }
+            else if (errorInfo.code === 400 &&
+                     (errorInfo.description === 'URL Fetcher error: Could not fetch URL: ' +
+                                                'Unable to resolve host name' ||
+                      errorInfo.description === 'URL Fetcher error: Could not fetch URL: ' +
+                                                'Timeout exceeded when loading resource'))
+            {
+                const externalError: any = new Error('Web address could not be contacted. ' +
+                                                     'Please enter the web address for a picture that you want to ' +
+                                                     'test your machine learning model on');
+                externalError.statusCode = 400;
+                throw externalError;
+            }
+            else if (errorInfo.code === 404 &&
+                     errorInfo.description.startsWith('None of the requested classifier ids were found: '))
+            {
+                const externalError: any = new Error('Your machine learning model could not be found. ' +
+                                                     'Has it been deleted?');
+                externalError.statusCode = 400;
+                throw externalError;
+            }
+        }
+
+        throw err;
     }
 }
 

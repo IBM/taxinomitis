@@ -401,6 +401,8 @@
                     }
                 })
                 .catch(function (err) {
+                    delete $scope.testoutput;
+
                     var errId = displayAlert('errors', err.status, err.data);
                     scrollToNewItem('errors' + errId);
                 });

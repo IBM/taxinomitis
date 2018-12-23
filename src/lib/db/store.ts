@@ -1502,11 +1502,17 @@ export async function getScratchKey(key: string): Promise<Objects.ScratchKey> {
                         'WHERE `id` = ?';
 
     const rows = await dbExecute(queryString, [ key ]);
-    if (rows.length !== 1) {
-        log.error({ rows, key, func : 'getScratchKey' }, 'Unexpected response from DB');
-        throw new Error('Unexpected response when retrieving credentials for Scratch');
+    if (rows.length === 1) {
+        return dbobjects.getScratchKeyFromDbRow(rows[0]);
     }
-    return dbobjects.getScratchKeyFromDbRow(rows[0]);
+
+    if (rows.length === 0) {
+        log.warn({ key, func : 'getScratchKey' }, 'Scratch key not found');
+    }
+    else if (rows.length > 1) {
+        log.error({ rows, key, func : 'getScratchKey' }, 'Unexpected response from DB');
+    }
+    throw new Error('Unexpected response when retrieving credentials for Scratch');
 }
 
 

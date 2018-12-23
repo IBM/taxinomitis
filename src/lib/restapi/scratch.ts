@@ -193,6 +193,10 @@ async function getExtension(req: Express.Request, res: Express.Response, version
                   .send(extension);
     }
     catch (err) {
+        if (err.message === 'Unexpected response when retrieving credentials for Scratch') {
+            return res.status(httpstatus.NOT_FOUND).json({ error : 'Scratch key not found' });
+        }
+
         errors.unknownError(res, err);
     }
 }
