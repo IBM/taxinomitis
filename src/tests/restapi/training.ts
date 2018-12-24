@@ -366,7 +366,7 @@ describe('REST API - training', () => {
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
                     const body = res.body;
-                    assert.deepStrictEqual(body, { error : 'Missing required attributes' });
+                    assert.deepStrictEqual(body, { error : 'Missing data' });
 
                     return store.deleteEntireProject(userid, classid, project);
                 });
@@ -433,7 +433,7 @@ describe('REST API - training', () => {
                 .then((res) => {
                     const body = res.body;
 
-                    assert.deepStrictEqual(body, { error : 'Number of data items exceeded maximum' });
+                    assert.deepStrictEqual(body, { error : 'Missing data' });
 
                     return store.deleteEntireProject(userid, classid, project);
                 });

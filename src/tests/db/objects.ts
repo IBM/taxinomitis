@@ -389,6 +389,23 @@ describe('DB objects', () => {
             assert.fail(1, 0, 'Failed to reject project', '');
         });
 
+        it('should prevent duplicate fields in numbers projects', (done) => {
+            try {
+                const fields: Objects.NumbersProjectFieldSummary[] = [
+                    { name : 'a', type : 'multichoice', choices : [ 'onlyone' ] },
+                    { name : 'b', type : 'number', choices : [] },
+                    { name : 'a', type : 'number', choices : [] },
+                    { name : 'c', type : 'multichoice', choices : [ 'yes', 'no' ] },
+                ];
+                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', fields, false);
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Fields all need different names');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject project', '');
+        });
+
         it('should prevent too many options for multichoice fields in numbers projects', (done) => {
             try {
                 const field: Objects.NumbersProjectFieldSummary = {

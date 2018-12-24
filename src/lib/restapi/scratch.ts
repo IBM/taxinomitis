@@ -86,7 +86,10 @@ async function classifyWithScratchKey(req: Express.Request, res: Express.Respons
             return res.status(httpstatus.NOT_FOUND).jsonp({ error : 'Scratch key not found' });
         }
 
-        log.error({ err, agent : req.header('X-User-Agent') }, 'Classify error');
+        const safeDataDebug = typeof req.query.data === 'string' ?
+                                  req.query.data.substr(0, 100) :
+                                  typeof req.query.data;
+        log.error({ err, data : safeDataDebug, agent : req.header('X-User-Agent') }, 'Classify error (get)');
         return res.status(httpstatus.INTERNAL_SERVER_ERROR).jsonp(err);
     }
 }
@@ -126,7 +129,10 @@ async function postClassifyWithScratchKey(req: Express.Request, res: Express.Res
             return res.status(httpstatus.NOT_FOUND).json({ error : 'Scratch key not found' });
         }
 
-        log.error({ err, agent : req.header('X-User-Agent') }, 'Classify error');
+        const safeDataDebug = typeof req.query.data === 'string' ?
+                                 req.query.data.substr(0, 100) :
+                                 typeof req.query.data;
+        log.error({ err, data : safeDataDebug, agent : req.header('X-User-Agent') }, 'Classify error (post)');
         return res.status(httpstatus.INTERNAL_SERVER_ERROR).json(err);
     }
 }

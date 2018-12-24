@@ -55,7 +55,7 @@ export function registerErrorHandling(app: Express.Application) {
                 return notAuthorised(res);
             }
 
-            log.error({ err }, 'Unhandled exception');
+            log.error({ err, url : req.url }, 'Unhandled exception');
         }
 
         next();

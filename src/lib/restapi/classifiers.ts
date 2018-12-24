@@ -66,7 +66,7 @@ async function getUnmanagedClassifiers(req: Express.Request, res: Express.Respon
                });
         })
         .catch((err) => {
-            log.error({ err }, 'Server error');
+            log.error({ err }, 'Server error while fetching unmanaged classifiers');
             errors.unknownError(res, err);
         });
 }
@@ -102,7 +102,8 @@ async function deleteBluemixClassifier(req: Express.Request, res: Express.Respon
         creds = await store.getBluemixCredentialsById(credentialsid);
     }
     catch (err) {
-        log.error({ err }, 'Failed to retrieve credentials');
+        log.error({ err, classid, classifierid, credentialsid },
+                  'Failed to retrieve credentials needed to delete classifier');
         return errors.notFound(res);
     }
 

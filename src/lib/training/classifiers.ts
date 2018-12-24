@@ -11,8 +11,22 @@ export async function getUnknownTextClassifiers(classid: string): Promise<Classi
 {
     const unknownTextClassifiers: ClassifierSummary[] = [];
 
+    let credentialsPool: BluemixCredentials[] = [];
+
     // get all of the Bluemix credentials in the class
-    const credentialsPool = await store.getBluemixCredentials(classid, 'conv');
+    try {
+        credentialsPool = await store.getBluemixCredentials(classid, 'conv');
+    }
+    catch (err) {
+        if (err.message === 'Unexpected response when retrieving service credentials') {
+            // class doesn't have any Watson Assistant credentials - which is
+            // not necessarily an error in this context
+            return unknownTextClassifiers;
+        }
+        // anything else is a legitimate error
+        throw err;
+    }
+
     // for each API key...
     for (const credentials of credentialsPool) {
         // get all of the classifiers according to Bluemix / Watson
@@ -40,8 +54,22 @@ export async function getUnknownImageClassifiers(classid: string): Promise<Class
 {
     const unknownImageClassifiers: ClassifierSummary[] = [];
 
+    let credentialsPool: BluemixCredentials[] = [];
+
     // get all of the Bluemix credentials in the class
-    const credentialsPool = await store.getBluemixCredentials(classid, 'visrec');
+    try {
+        credentialsPool = await store.getBluemixCredentials(classid, 'visrec');
+    }
+    catch (err) {
+        if (err.message === 'Unexpected response when retrieving service credentials') {
+            // class doesn't have any Visual Recognition credentials - which is
+            // not necessarily an error in this context
+            return unknownImageClassifiers;
+        }
+        // anything else is a legitimate error
+        throw err;
+    }
+
     // for each API key...
     for (const credentials of credentialsPool) {
         // get all of the classifiers according to Bluemix / Watson
