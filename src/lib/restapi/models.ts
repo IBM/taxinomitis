@@ -285,7 +285,7 @@ async function testModel(req: Express.Request, res: Express.Response) {
         if (err.message === 'Unexpected response when retrieving the service credentials') {
             return errors.notFound(res);
         }
-        if (type === 'images' && req.body.image && err.statusCode === 400) {
+        if (type === 'images' && err.statusCode === 400) {
             return res.status(httpstatus.BAD_REQUEST).send({ error : err.message });
         }
 

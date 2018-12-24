@@ -443,24 +443,50 @@ export async function testClassifierFile(
         },
     };
     const req: NewTestFileRequest | LegacyTestFileRequest = { ...basereq, ...testreq };
+    const url = credentials.url + '/v3/classify';
 
-
-    const body: VisualRecogApiResponsePayloadClassifyFile = await request.post(credentials.url + '/v3/classify', req);
-    if (body.images &&
-        body.images.length > 0 &&
-        body.images[0].classifiers &&
-        body.images[0].classifiers.length > 0 &&
-        body.images[0].classifiers[0].classes)
-    {
-        return body.images[0].classifiers[0].classes.map((item) => {
-            return { class_name : item.class, confidence : Math.round(item.score * 100), classifierTimestamp };
-        }).sort(sortByConfidence);
+    try {
+        const body: VisualRecogApiResponsePayloadClassifyFile = await request.post(url, req);
+        if (body.images &&
+            body.images.length > 0 &&
+            body.images[0].classifiers &&
+            body.images[0].classifiers.length > 0 &&
+            body.images[0].classifiers[0].classes)
+        {
+            return body.images[0].classifiers[0].classes.map((item) => {
+                return { class_name : item.class, confidence : Math.round(item.score * 100), classifierTimestamp };
+            }).sort(sortByConfidence);
+        }
+        else {
+            log.error({ body }, 'Image was not classifiable');
+            return [];
+        }
     }
-    else {
-        log.error({ body }, 'Image was not classifiable');
-        return [];
+    catch (err) {
+        // recognise some common errors and explain them in a more helpful way
+        //
+        //  otherwise, just re-throw as-is
+        if (err.error &&
+            err.error.images && Array.isArray(err.error.images) && err.error.images.length === 1 &&
+            err.error.images[0].error &&
+            err.error.images[0].error.code && err.error.images[0].error.description &&
+            typeof err.error.images[0].error.description === 'string')
+        {
+            const errorInfo = err.error.images[0].error;
+
+            if (classifierNotFoundError(errorInfo))
+            {
+                const externalError: any = new Error('Your machine learning model could not be found. ' +
+                                                     'Has it been deleted?');
+                externalError.statusCode = 400;
+                throw externalError;
+            }
+        }
+
+        throw err;
     }
 }
+
 
 
 export async function testClassifierURL(
@@ -538,8 +564,7 @@ export async function testClassifierURL(
                 externalError.statusCode = 400;
                 throw externalError;
             }
-            else if (errorInfo.code === 404 &&
-                     errorInfo.description.startsWith('None of the requested classifier ids were found: '))
+            else if (classifierNotFoundError(errorInfo))
             {
                 const externalError: any = new Error('Your machine learning model could not be found. ' +
                                                      'Has it been deleted?');
@@ -552,6 +577,16 @@ export async function testClassifierURL(
     }
 }
 
+
+
+function classifierNotFoundError(errorInfo: any): boolean {
+    return errorInfo &&
+           errorInfo.code &&
+           errorInfo.code === 404 &&
+           errorInfo.description &&
+           typeof errorInfo.description === 'string' &&
+           errorInfo.description.startsWith('None of the requested classifier ids were found: ');
+}
 
 
 function sortByConfidence(item1: TrainingObjects.Classification, item2: TrainingObjects.Classification): number {
