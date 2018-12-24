@@ -45,6 +45,9 @@ export function createProject(
         if (fields.length > MAX_FIELDS) {
             throw new Error('Too many fields specified');
         }
+        if (containsDuplicateNames(fields)) {
+            throw new Error('Fields all need different names');
+        }
         fieldsObjs = fields.map((field) => createNumberProjectField(userid, classid, projectid, field));
     }
     else if (fields && fields.length > 0) {
@@ -86,6 +89,17 @@ export function createProject(
         numfields : fieldsObjs.length,
         iscrowdsourced : crowdsource ? 1 : 0,
     };
+}
+
+function containsDuplicateNames(fields: Objects.NumbersProjectFieldSummary[]): boolean {
+    const names: { [key: string]: boolean } = {};
+    return fields.some((field) => {
+        if (names[field.name]) {
+            return true;
+        }
+        names[field.name] = true;
+        return false;
+    });
 }
 
 export function getProjectFromDbRow(row: Objects.ProjectDbRow): Objects.Project {

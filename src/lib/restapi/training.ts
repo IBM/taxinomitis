@@ -153,6 +153,9 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
             training = await store.storeTextTraining(req.project.id, data, label);
             break;
         case 'numbers':
+            if (!Array.isArray(data) || data.length !== req.project.numfields) {
+                return errors.missingData(res);
+            }
             training = await store.storeNumberTraining(req.project.id, req.project.isCrowdSourced, data, label);
             break;
         case 'images':
