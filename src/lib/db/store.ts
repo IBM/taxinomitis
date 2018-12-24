@@ -1908,7 +1908,7 @@ export async function getTemporaryUser(id: string): Promise<Objects.TemporaryUse
 
     const rows = await dbExecute(queryString, [ id ]);
     if (rows.length !== 1) {
-        log.error({ id }, 'Temporary user not found');
+        log.warn({ id }, 'Temporary user not found');
         return;
     }
     return dbobjects.getTemporaryUserFromDbRow(rows[0]);

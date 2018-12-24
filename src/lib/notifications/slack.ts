@@ -45,4 +45,5 @@ export const SLACK_CHANNELS = {
     CRITICAL_ERRORS : 'critical-errors',
     TRAINING_ERRORS : 'training-errors',
     UI_ERRORS : 'sentry',
+    SESSION_USERS : 'session-users',
 };
