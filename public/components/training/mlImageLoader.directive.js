@@ -84,7 +84,9 @@
         }
 
         function urlIsImageData(url) {
-            return url && typeof url === 'string' && url.substr(0, 10) === 'data:image';
+            return url && typeof url === 'string' &&
+                   (url.substr(0, 10) === 'data:image' ||
+                    url.substr(0, 11) === 'x-raw-image');
         }
 
 

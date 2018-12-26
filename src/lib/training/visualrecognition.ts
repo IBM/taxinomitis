@@ -481,6 +481,24 @@ export async function testClassifierFile(
                 externalError.statusCode = 400;
                 throw externalError;
             }
+            else if (errorInfo.code === 400 &&
+                     errorInfo.description === 'Invalid/corrupted image data. ' +
+                                               'Supported image file formats are GIF, JPEG, PNG, and TIFF. ' +
+                                               'Supported compression format is ZIP.')
+            {
+                const externalError: any = new Error('Invalid image data provided. ' +
+                                                     'Remember, only jpg and png images are supported.');
+                externalError.statusCode = 400;
+                throw externalError;
+            }
+        }
+        else if (err.error && err.error.error &&
+                 err.error.error.code === 400 &&
+                 err.error.error.description === 'No images were specified.')
+        {
+            const externalError: any = new Error('Missing data');
+            externalError.statusCode = 400;
+            throw externalError;
         }
 
         throw err;

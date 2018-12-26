@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <link href="help-scratch.css" rel="stylesheet">
+        <title>How to use the 'recognise image' blocks</title>
+    </head>
+    <body>
+        <div>
+            This is how to use the <img class="help-block" valign="middle" src="../../static/images/scratch3-recognise-label-images.png" alt="recognise images"> block for a sprite:
+        </div>
+        <div class="help-section">
+            <div class="help-item">
+                <span class="help-number">1.</span> Click on the blue-green <strong>Images</strong> icon in the toolbox.
+                <br/>
+                <img src="../../static/images/scratch3-image-blocks.png" alt="Image toolbox">
+            </div>
+        </div>
+        <div class="help-section">
+            <div class="help-item">
+                <span class="help-number">2.</span> Drag one of the image blocks into your recognise image block (either <strong>costume image</strong> or <strong>backdrop image</strong>)
+            </div>
+            <div class="help-item">
+                If you use <strong>costume image</strong> your machine learning model will try to recognise the current costume for this sprite (ignoring any backdrop, any other sprites, or whether or not this sprite is hidden or off-screen)
+                <br/>
+                <img class="help-block" src="../../static/images/scratch3-recognise-label-images-costumeimage.png" alt="costume image block">
+            </div>
+            <div class="help-item">
+                If you use <strong>backdrop image</strong> your machine learning model will try to recognise what it can see at your sprite's location - including other sprites that overlap and any backdrop.
+                <br/>
+                <img class="help-block" src="../../static/images/scratch3-recognise-label-images-backdropimage.png" alt="backdrop image block">
+            </div>
+        </div>
+    </body>
+</html>

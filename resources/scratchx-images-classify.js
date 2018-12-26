@@ -92,7 +92,7 @@
             dataType : 'json',
             type : 'POST',
             contentType : 'application/json',
-            data : '{"data":"' + imagedata + '"}',
+            data : '{"data":"' + imagedata + '","displayedhelp":' + displayedMLforKidsHelp + '}',
             headers : {
                 'If-Modified-Since': lastmodified,
                 'X-User-Agent': 'mlforkids-scratch2-images'
@@ -145,16 +145,26 @@
                 callback(result);
             },
             error : function (err) {
-                console.log(err);
+                if (err.status === 400 &&
+                    err.responseJSON &&
+                    (err.responseJSON.error === 'Missing data' ||
+                     err.responseJSON.error === 'Invalid image data provided. Remember, only jpg and png images are supported.'))
+                {
+                    incorrectUses[cacheKey] = err.responseJSON.error;
+                    registerIncorrectUse();
+                }
+                else {
+                    console.log(err);
 
-                classifierStatus = {
-                    status : STATUS_ERROR,
-                    msg : 'Failed to submit image to machine learning service'
-                };
+                    classifierStatus = {
+                        status : STATUS_ERROR,
+                        msg : 'Failed to submit image to machine learning service'
+                    };
+
+                    pollStatus();
+                }
 
                 callback({ class_name : 'Unknown', confidence : 0 });
-
-                pollStatus();
             }
         });
     }
@@ -199,6 +209,12 @@
         if (imagedata === '' || imagedata === 'image') {
             // The student has left the default text in the image block
             //  so there is no point in submitting an xhr request
+            registerIncorrectUse();
+            return callback('You need to put an image block in here');
+        }
+
+        if (incorrectUses[cacheKey]){
+            registerIncorrectUse();
             return callback('You need to put an image block in here');
         }
 
@@ -281,6 +297,33 @@
     ScratchExtensions.register('{{{ projectname }}}', descriptor, ext);
 
 
+    // keep a record of BAD_REQUEST requests so that we don't submit them
+    // multiple times.
+    var incorrectUses = {};
+
+    // the number of times that the 'recognise image' block has been used
+    // incorrectly (this will be reset when the Help page is displayed)
+    var numIncorrectUses = 0;
+
+    // the number of times that the 'recognise image' block should be used
+    // incorrectly before the Help page is shown
+    var MAX_INCORRECT_USES = 2;
+
+    // have we displayed the 'recognise image' help doc?
+    var displayedMLforKidsHelp = false;
+
+    function registerIncorrectUse() {
+        numIncorrectUses += 1;
+
+        if (numIncorrectUses >= MAX_INCORRECT_USES) {
+            if (!mlforkidsHelp && $('#scratch-mlforkids-help-recognise-image-costume').length) {
+                document.getElementById('scratch-mlforkids-help-recognise-image-costume').style.display = 'block';
+                document.getElementById('scratch').style.visibility = 'hidden';
+                displayedMLforKidsHelp = true;
+            }
+            numIncorrectUses = 0;
+        }
+    }
 
 
 

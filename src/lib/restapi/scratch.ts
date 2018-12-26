@@ -122,16 +122,25 @@ async function postClassifyWithScratchKey(req: Express.Request, res: Express.Res
         return res.json(classes);
     }
     catch (err) {
-        if (err.message === 'Missing data') {
-            return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing data' });
-        }
         if (err.message === 'Unexpected response when retrieving credentials for Scratch') {
             return res.status(httpstatus.NOT_FOUND).json({ error : 'Scratch key not found' });
         }
 
-        const safeDataDebug = typeof req.query.data === 'string' ?
-                                 req.query.data.substr(0, 100) :
-                                 typeof req.query.data;
+        const safeDataDebug = typeof req.body.data === 'string' ?
+                                 req.body.data.substr(0, 100) :
+                                 typeof req.body.data;
+
+        if (err.message === 'Missing data' ||
+            err.message === 'Invalid image data provided. Remember, only jpg and png images are supported.')
+        {
+            log.error({
+                agent : req.header('X-User-Agent'),
+                displayedHelp : req.body.displayedhelp,
+                data : safeDataDebug,
+            }, 'Missing data in Scratch key classification');
+            return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
+        }
+
         log.error({ err, data : safeDataDebug, agent : req.header('X-User-Agent') }, 'Classify error (post)');
         return res.status(httpstatus.INTERNAL_SERVER_ERROR).json(err);
     }
@@ -203,6 +212,7 @@ async function getExtension(req: Express.Request, res: Express.Response, version
             return res.status(httpstatus.NOT_FOUND).json({ error : 'Scratch key not found' });
         }
 
+        log.error({ err }, 'Failed to generate extension');
         errors.unknownError(res, err);
     }
 }
@@ -226,8 +236,11 @@ async function getScratchxStatus(req: Express.Request, res: Express.Response) {
         return res.set(headers.NO_CACHE).jsonp(scratchStatus);
     }
     catch (err) {
-        log.error({ err, agent : req.header('X-User-Agent') }, 'Status error');
+        if (err.message === 'Unexpected response when retrieving credentials for Scratch') {
+            return res.status(httpstatus.NOT_FOUND).jsonp({ error : 'Scratch key not found' });
+        }
 
+        log.error({ err, agent : req.header('X-User-Agent') }, 'Status error');
         errors.unknownError(res, err);
     }
 }
