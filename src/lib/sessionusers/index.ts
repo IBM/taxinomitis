@@ -1,7 +1,7 @@
 // local dependencies
 import * as store from '../db/store';
 import * as Objects from '../db/db-types';
-import * as notifications from '../notifications/slack';
+// import * as notifications from '../notifications/slack';
 
 
 /*
@@ -38,7 +38,7 @@ export async function createSessionUser(): Promise<Objects.TemporaryUser>
     }
 
     const user = await store.storeTemporaryUser(SESSION_LIFESPAN);
-    notifications.notify('Session user : ' + user.id, notifications.SLACK_CHANNELS.SESSION_USERS);
+    // notifications.notify('Session user : ' + user.id, notifications.SLACK_CHANNELS.SESSION_USERS);
 
     return user;
 }
@@ -50,7 +50,7 @@ export async function checkSessionToken(id: string, token: string): Promise<bool
 
     if (!sessionuser) {
         // user not known (may have expired, been explicitly deleted, or never existed)
-        notifications.notify('User not found : ' + id, notifications.SLACK_CHANNELS.SESSION_USERS);
+        // notifications.notify('User not found : ' + id, notifications.SLACK_CHANNELS.SESSION_USERS);
         return false;
     }
 
@@ -61,7 +61,7 @@ export async function checkSessionToken(id: string, token: string): Promise<bool
 
     if (sessionuser.sessionExpiry < new Date()) {
         // session expired
-        notifications.notify('User expired : ' + id, notifications.SLACK_CHANNELS.SESSION_USERS);
+        // notifications.notify('User expired : ' + id, notifications.SLACK_CHANNELS.SESSION_USERS);
         return false;
     }
 

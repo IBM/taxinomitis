@@ -10,12 +10,12 @@
         '$stateParams',
         '$scope',
         '$mdDialog',
-        '$document',
+        '$state',
         '$timeout',
         '$q'
     ];
 
-    function TrainingController(authService, projectsService, trainingService, $stateParams, $scope, $mdDialog, $document, $timeout, $q) {
+    function TrainingController(authService, projectsService, trainingService, $stateParams, $scope, $mdDialog, $state, $timeout, $q) {
 
         var vm = this;
         vm.authService = authService;
@@ -246,6 +246,10 @@
                     scrollToNewItem(newitem.id);
                 })
                 .catch(function (err) {
+                    if (errorSuggestsProjectDeleted(err)) {
+                        return $state.go('projects');
+                    }
+
                     displayAlert('errors', err.status, err.data);
 
                     var idxToRemove = findTrainingIndex(label, placeholder.id);
@@ -254,6 +258,14 @@
                     }
                 });
         };
+
+
+        function errorSuggestsProjectDeleted(err) {
+            return err &&
+                   err.status === 404 &&
+                   err.data &&
+                   err.data.error === 'Not found';
+        }
 
 
         vm.onImageLoad = function (image) {
@@ -300,6 +312,10 @@
                             refreshLabelsSummary();
                         })
                         .catch(function (err) {
+                            if (errorSuggestsProjectDeleted(err)) {
+                                return $state.go('projects');
+                            }
+
                             displayAlert('errors', err.status, err.data);
                         });
                 },

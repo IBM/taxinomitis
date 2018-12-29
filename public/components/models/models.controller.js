@@ -433,6 +433,10 @@
                 .catch(function (err) {
                     $scope.submittingDeleteRequest = false;
 
+                    if (err.status === 404 && err.data && err.data.error === 'Not found') {
+                        return $state.reload();
+                    }
+
                     var errId = displayAlert('errors', err.status, err.data);
                     scrollToNewItem('errors' + errId);
                 });

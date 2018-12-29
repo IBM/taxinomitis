@@ -90,6 +90,10 @@ async function deleteCredentials(req: Express.Request, res: Express.Response) {
         return res.sendStatus(httpstatus.NO_CONTENT);
     }
     catch (err){
+        if (err.message === 'Unexpected response when retrieving the service credentials') {
+            return errors.notFound(res);
+        }
+
         log.error({ err }, 'Failed to delete credentials');
         errors.unknownError(res, err);
     }

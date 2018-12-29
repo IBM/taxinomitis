@@ -235,9 +235,10 @@ async function reportBadCredentials(err: Error, credentials: BluemixCredentials)
         //   string 'unspecified error - please try again\n' with an HTTP 500 response code
         //   even when the credentials are fine
         err.message.startsWith('unspecified error - please try again') ||
-        //  Occassionally there is a timeout when we tried to poll
+        //  Occassionally there is a timeout when we try to poll
         //   the service API. This is usually a temporary thing.
-        err.message === 'Error: ESOCKETTIMEDOUT'
+        err.message === 'Error: ESOCKETTIMEDOUT' || err.message === 'ESOCKETTIMEDOUT' ||
+        err.message === 'Error: ETIMEDOUT' || err.message === 'ETIMEDOUT'
         ))
     {
         return;

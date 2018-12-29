@@ -229,6 +229,18 @@ describe('DB store', () => {
 
     describe('storeProject', () => {
 
+        it('should recognise SQL errors about unsupported characters', () => {
+            return store.storeProject('USERID', 'CLASSID', 'text',
+                                      'ğooğle', 'en', [], false)
+                        .then(() => {
+                            assert.fail('Should not have stored a project with this name');
+                        })
+                        .catch((err) => {
+                            assert.strictEqual(err.message,
+                                'Sorry, some of those letters can\'t be used in project names');
+                        });
+        });
+
         it('should return an empty list for unknown users', async () => {
             const unknownClass = uuid();
 

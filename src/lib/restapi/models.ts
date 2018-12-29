@@ -214,6 +214,12 @@ async function deleteModel(req: auth.RequestWithProject, res: Express.Response) 
         }
     }
     catch (err) {
+        if (err.message === 'Unexpected response when retrieving conversation workspace details' ||
+            err.message === 'Unexpected response when retrieving image classifier details')
+        {
+            return errors.notFound(res);
+        }
+
         return errors.unknownError(res, err);
     }
 }

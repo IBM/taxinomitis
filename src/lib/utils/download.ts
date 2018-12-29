@@ -102,17 +102,17 @@ export function resize(
 
             request.get({ url, timeout : 10000, rejectUnauthorized : false })
                 .on('error', (err) => {
-                    log.warn({ err, url }, 'Download fail');
+                    log.warn({ err, url }, 'Download fail (request)');
                     resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
                 })
                 .pipe(shrinkStream);
         })
         .catch ((err: any) => {
-            if (err.statusCode === httpstatus.NOT_FOUND) {
+            if (err.statusCode === httpstatus.NOT_FOUND || err.message === 'ETIMEDOUT') {
                 log.warn({ err, url }, 'Image could not be downloaded');
             }
             else {
-                log.error({ err, url }, 'Download fail');
+                log.error({ err, url }, 'Download fail (probe)');
             }
             resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
         });

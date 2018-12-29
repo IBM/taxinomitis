@@ -916,14 +916,22 @@ export async function getBluemixCredentialsById(credentialsid: string): Promise<
                        'WHERE `id` = ?';
     const rows = await dbExecute(credsQuery, [ credentialsid ]);
 
-    if (rows.length !== 1) {
+    if (rows.length === 1) {
+        return dbobjects.getCredentialsFromDbRow(rows[0]);
+    }
+    else if (rows.length === 0) {
+        log.warn({
+            credentialsid, credsQuery, rows,
+            func : 'getBluemixCredentialsById',
+        }, 'Credentials not found');
+    }
+    else {
         log.error({
             credentialsid, credsQuery, rows,
             func : 'getBluemixCredentialsById',
         }, 'Unexpected response from DB');
-        throw new Error('Unexpected response when retrieving the service credentials');
     }
-    return dbobjects.getCredentialsFromDbRow(rows[0]);
+    throw new Error('Unexpected response when retrieving the service credentials');
 }
 
 
@@ -1033,11 +1041,16 @@ export async function getConversationWorkspace(
                         'WHERE `projectid` = ? AND `classifierid` = ?';
 
     const rows = await dbExecute(queryString, [ projectid, classifierid ]);
-    if (rows.length !== 1) {
-        log.error({ rows, func : 'getConversationWorkspace' }, 'Unexpected response from DB');
-        throw new Error('Unexpected response when retrieving service details');
+    if (rows.length === 1) {
+        return dbobjects.getWorkspaceFromDbRow(rows[0]);
     }
-    return dbobjects.getWorkspaceFromDbRow(rows[0]);
+    else if (rows.length > 1) {
+        log.error({ projectid, classifierid, rows, func : 'getConversationWorkspace' }, 'Unexpected response from DB');
+    }
+    else {
+        log.warn({ projectid, classifierid, func : 'getConversationWorkspace' }, 'Conversation workspace not found');
+    }
+    throw new Error('Unexpected response when retrieving conversation workspace details');
 }
 
 
@@ -1217,11 +1230,16 @@ export async function getImageClassifier(
                         'WHERE `projectid` = ? AND `classifierid` = ?';
 
     const rows = await dbExecute(queryString, [ projectid, classifierid ]);
-    if (rows.length !== 1) {
-        log.error({ rows, func : 'getImageClassifier' }, 'Unexpected response from DB');
-        throw new Error('Unexpected response when retrieving service details');
+    if (rows.length === 1) {
+        return dbobjects.getVisualClassifierFromDbRow(rows[0]);
     }
-    return dbobjects.getVisualClassifierFromDbRow(rows[0]);
+    if (rows.length > 1) {
+        log.error({ rows, func : 'getImageClassifier' }, 'Unexpected response from DB');
+    }
+    else {
+        log.warn({ projectid, classifierid, func : 'getImageClassifier' }, 'Image classifier not found');
+    }
+    throw new Error('Unexpected response when retrieving image classifier details');
 }
 
 
