@@ -66,7 +66,7 @@ class MachineLearningText {
                 {
                     opcode: 'return_label_{{idx}}',
                     blockType: Scratch.BlockType.REPORTER,
-                    text: '{{name}}'
+                    text: ' {{name}}'
                 },
                 {{/labels}}
 

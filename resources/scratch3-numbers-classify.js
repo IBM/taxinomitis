@@ -77,7 +77,7 @@ class MachineLearningNumbers {
                 {
                     opcode: 'return_label_{{idx}}',
                     blockType: Scratch.BlockType.REPORTER,
-                    text: '{{name}}'
+                    text: ' {{name}}'
                 },
                 {{/labels}}
 
@@ -86,7 +86,7 @@ class MachineLearningNumbers {
                 {
                     opcode: 'return_choice_{{idx}}',
                     blockType: Scratch.BlockType.REPORTER,
-                    text: '{{name}}'
+                    text: ' {{name}}'
                 },
                 {{/choices}}
 
