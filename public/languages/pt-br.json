@@ -437,7 +437,7 @@
     "MAKES": {
         "TITLE": "Faça alguma coisa com seu modelo de aprendizado de máquina",
         "SCRATCH2": "Faça um projeto na versão atual do Scratch",
-        "SCRATCH3": "Use a nova versão (beta) do Scratch",
+        "SCRATCH3": "Use a nova versão do Scratch",
         "PYTHON": "Escreva um código em Python para usar o seu modelo de aprendizado de máquina",
         "APPINVENTOR": "Faça um aplicativo para o seu celular ou tablet"
     },

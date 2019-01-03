@@ -436,8 +436,8 @@
     },
     "MAKES": {
         "TITLE": "Make something with your machine learning model",
-        "SCRATCH2": "Make a project in the current version of Scratch",
-        "SCRATCH3": "Use the new (beta) version of Scratch",
+        "SCRATCH2": "Make a project in the old version of Scratch",
+        "SCRATCH3": "Use the new version of Scratch",
         "PYTHON": "Write Python code to use your machine learning model",
         "APPINVENTOR": "Make a mobile app for your phone or tablet"
     },
@@ -812,9 +812,9 @@
         "SCRATCH": {
             "TITLE": "Scratch issues",
 
-            "Q1": "I don't know how to get Scratch working",
-            "Q1-A-1": "Machine Learning for Kids uses Scratch 2. Scratch needs Adobe Flash to work, so you need to be using an operating system and a web browser that can work with Flash (so that means no iPads for now, sorry).",
-            "Q1-A-2": "If you're not sure about how to enable Flash, you can            <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>download a document with some tips for getting Scratch working</a>.",
+            "Q1": "I don't know how to get Scratch 2 working",
+            "Q1-A-1": "The old version of Scratch, Scratch 2, needs Adobe Flash to work, so you need to be using an operating system and a web browser that can work with Flash.",
+            "Q1-A-2": "If you're not sure about how to enable Flash, you can            <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>download a document with some tips for getting Scratch working</a>. Or you can use the new version of Scratch, Scratch 3, instead.",
 
             "Q2": "The \"Load Project\" and \"Save Project\" menus in Scratch don't work",
             "Q2-A-1": "If you're using Safari on macOS and the Scratch menus \"File -&gt; Load Project\" and \"File -&gt; Save Project\" menus aren't working, it might be that you're running in Safe Mode.",

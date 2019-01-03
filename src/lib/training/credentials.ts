@@ -202,7 +202,7 @@ function reportMissingErrors(expectedErrors: ExpectedErrors): void {
 
 
 async function reportBadCredentials(err: Error, credentials: BluemixCredentials): Promise<void> {
-    log.error({ err, credentials }, 'Failed to verify credentials');
+    log.warn({ err, credentials }, 'Failed to verify credentials');
 
     //
     // Notify site admin
@@ -269,7 +269,7 @@ async function reportUnmanagedClassifier(
     creds: BluemixCredentials,
 ): Promise<void>
 {
-    log.error({ classifier, creds }, 'Unmanaged Bluemix classifier detected');
+    log.warn({ classifier, creds }, 'Unmanaged Bluemix classifier detected');
 
     //
     // Notify site admin
