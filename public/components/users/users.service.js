@@ -46,12 +46,6 @@
             return $http.delete('/api/classes/' + profile.tenant + '?confirm=true');
         }
 
-
-        function getClassesList() {
-            return $http.get('/api/classes')
-                .then(returnData);
-        }
-
         function getStudentList(profile) {
             return $http.get('/api/classes/' + profile.tenant + '/students')
                 .then(returnData);
@@ -117,8 +111,6 @@
 
         return {
             createTeacher : createTeacher,
-
-            getClassesList : getClassesList,
 
             addCredentials : addCredentials,
             getCredentials : getCredentials,

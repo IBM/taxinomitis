@@ -177,12 +177,6 @@
                 templateUrl: 'static/components-<%= VERSION %>/appinventor/appinventor.html',
                 controllerAs: 'vm'
             })
-            .state('siteadmin', {
-                url: '/siteadmin',
-                controller: 'AdminController',
-                templateUrl: 'static/components-<%= VERSION %>/admin/admin.html',
-                controllerAs: 'vm'
-            })
             .state('404', {
                 url: '/404',
                 templateUrl: 'static/components-<%= VERSION %>/404/404.html'
