@@ -193,7 +193,7 @@ function downloadAndRename(location: ImageDownload, callback: IDownloadCallback)
  */
 function downloadAll(locations: ImageDownload[], callback: IDownloadAllCallback): void {
     // @ts-ignore async.map types have a problem with this
-    async.map(locations, downloadAndRename, callback);
+    async.mapLimit(locations, 1, downloadAndRename, callback);
 }
 
 

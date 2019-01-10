@@ -17,7 +17,8 @@ type IErrCallback = (err?: Error) => void;
 
 // disable aggressive use of memory for caching
 sharp.cache(false);
-
+// prevent sharp using multiple cores in parallel to reduce memory use
+sharp.concurrency(1);
 
 
 /**

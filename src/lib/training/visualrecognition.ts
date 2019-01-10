@@ -582,6 +582,16 @@ export async function testClassifierURL(
                 externalError.statusCode = 400;
                 throw externalError;
             }
+            else if (errorInfo.code === 400 &&
+                     (errorInfo.description === 'URL Fetcher error: Could not fetch URL: ' +
+                                                'Invalid URL specified'))
+            {
+                const externalError: any = new Error('Invalid URL. ' +
+                                                     'Please enter the web address for a picture that you want to ' +
+                                                     'test your machine learning model on');
+                externalError.statusCode = 400;
+                throw externalError;
+            }
             else if (classifierNotFoundError(errorInfo))
             {
                 const externalError: any = new Error('Your machine learning model could not be found. ' +
