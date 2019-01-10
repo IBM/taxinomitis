@@ -168,7 +168,7 @@
                 'X-User-Agent': 'mlforkids-scratch2-text'
             },
             data : {
-                data : text,
+                data : cleanUpText(text),
                 label : label
             },
             success : function (data) {
@@ -196,7 +196,7 @@
 
 
     function getTextClassificationResponse(text, cacheKey, valueToReturn, callback) {
-        var cleanedUpText = removeLineBreaks(text);
+        var cleanedUpText = cleanUpText(text);
         if (!cleanedUpText) {
             return callback('You need to put some text that you want to classify in here');
         }
@@ -218,7 +218,7 @@
         }
 
         // submit to the classify API
-        classifyText(text, cacheKey, lastmodified, function (result) {
+        classifyText(cleanedUpText, cacheKey, lastmodified, function (result) {
             // return the requested value from the response
             callback(result[valueToReturn]);
         });
@@ -228,8 +228,14 @@
     // Newlines in text will cause errors in Watson Assistant API calls
     // so we replace them a with a space
     var LINE_BREAKS = /(\r\n|\n|\r|\t)/gm;
-    function removeLineBreaks(str) {
-        return str.replace(LINE_BREAKS, ' ').trim();
+    function cleanUpText(str) {
+        // Newlines in text will cause errors in Watson Assistant API calls
+        // so we replace them a with a space
+        return str.replace(LINE_BREAKS, ' ')
+                  .trim()
+                  // Protect against text that will exceed the limit on
+                  //  number of characters allowed by the API
+                  .substr(0, 2000);
     }
 
 

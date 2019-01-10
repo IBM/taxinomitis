@@ -303,6 +303,8 @@
                    ng-pattern="/^[^\n\t\r]+$/"
                    ng-model="testformData.testquestion"
                    ng-required="true"
+                   maxlength="2000"
+                   ng-maxlength="2000"
                    placeholder="enter a test text here">
             <div ng-if="project.type === 'images'" ng-click="vm.useWebcam($event)"
                  class="btn newexamplebutton" style="margin: 2em">

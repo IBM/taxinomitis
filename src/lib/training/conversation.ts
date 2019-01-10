@@ -24,6 +24,7 @@ export const ERROR_MESSAGES = {
                          'Please stop now and let your teacher or group leader know that ' +
                          '"the Watson Assistant service is currently rate limiting their API key"',
     MODEL_NOT_FOUND : 'Your machine learning model could not be found on the training server.',
+    TEXT_TOO_LONG : 'text cannot be longer than 2048 characters',
 };
 
 
@@ -477,6 +478,14 @@ export async function testClassifier(
             err.error && err.error.code && err.error.code === httpStatus.NOT_FOUND)
         {
             throw new Error(ERROR_MESSAGES.MODEL_NOT_FOUND);
+        }
+        if (err.statusCode === httpStatus.BAD_REQUEST &&
+            err.error &&
+            err.error.code && err.error.code === httpStatus.BAD_REQUEST &&
+            err.error.errors && Array.isArray(err.error.errors) && err.error.errors.length > 0 &&
+            err.error.errors[0].message === ERROR_MESSAGES.TEXT_TOO_LONG)
+        {
+            throw new Error(ERROR_MESSAGES.TEXT_TOO_LONG);
         }
 
         log.error({ err, classifierId, credentials, projectid, text }, 'Failed to classify text');

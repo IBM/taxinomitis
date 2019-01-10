@@ -11,6 +11,7 @@ import * as status from '../scratchx/status';
 import * as keys from '../scratchx/keys';
 import * as classifier from '../scratchx/classify';
 import * as training from '../scratchx/training';
+import * as conversation from '../training/conversation';
 import * as urls from './urls';
 import * as headers from './headers';
 import loggerSetup from '../utils/logger';
@@ -82,6 +83,9 @@ async function classifyWithScratchKey(req: Express.Request, res: Express.Respons
         if (err.message === 'Missing data') {
             return res.status(httpstatus.BAD_REQUEST).jsonp({ error : 'Missing data' });
         }
+        if (err.message === conversation.ERROR_MESSAGES.TEXT_TOO_LONG) {
+            return res.status(httpstatus.BAD_REQUEST).jsonp({ error : err.message });
+        }
         if (err.message === 'Unexpected response when retrieving credentials for Scratch') {
             return res.status(httpstatus.NOT_FOUND).jsonp({ error : 'Scratch key not found' });
         }
@@ -124,6 +128,9 @@ async function postClassifyWithScratchKey(req: Express.Request, res: Express.Res
     catch (err) {
         if (err.message === 'Unexpected response when retrieving credentials for Scratch') {
             return res.status(httpstatus.NOT_FOUND).json({ error : 'Scratch key not found' });
+        }
+        if (err.message === conversation.ERROR_MESSAGES.TEXT_TOO_LONG) {
+            return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
         }
 
         const safeDataDebug = typeof req.body.data === 'string' ?
