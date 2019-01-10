@@ -304,6 +304,11 @@ export function getTextTrainingFromDbRow(row: Objects.TextTrainingDbRow): Object
 
 
 
+function isEmptyString(obj: any): boolean {
+    return typeof obj === 'string' && obj.trim().length === 0;
+}
+
+
 export function createNumberTraining(projectid: string, data: number[], label: string): Objects.NumberTraining {
     if (projectid === undefined || projectid === '' ||
         data === undefined || data.length === 0)
@@ -316,7 +321,7 @@ export function createNumberTraining(projectid: string, data: number[], label: s
     }
 
     for (const num of data) {
-        if (isNaN(num)) {
+        if (isNaN(num) || isEmptyString(num)) {
             throw new Error('Data contains non-numeric items');
         }
     }

@@ -619,8 +619,8 @@ describe('REST API - scratch keys', () => {
                     const body: string = res.text;
 
                     assert(body.startsWith('class MachineLearningText {'));
-                    assert(body.indexOf('text: \'LABEL_NUMBER_ONE\'') > 0);
-                    assert(body.indexOf('text: \'SECOND_LABEL\'') > 0);
+                    assert(body.indexOf('text: \' LABEL_NUMBER_ONE\'') > 0);
+                    assert(body.indexOf('text: \' SECOND_LABEL\'') > 0);
                     assert(body.indexOf('// the name of the student project') < body.indexOf('name: \'dummyproject\''));
                     assert(body.indexOf('name: \'dummyproject\'') < body.indexOf('colour for the blocks'));
                     assert(body.endsWith('Scratch.extensions.register(new MachineLearningText());\n'));
@@ -1088,6 +1088,52 @@ describe('REST API - scratch keys', () => {
                     const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
 
                     assert.deepStrictEqual(payload, { error : 'Missing data' });
+                });
+        });
+
+
+
+        it('should reject missing numbers when storing numbers using a Scratch key', async () => {
+            const userid = uuid();
+            const name = uuid();
+            const typelabel = 'numbers';
+
+            const project = await store.storeProject(userid, TESTCLASS, typelabel, name, 'en', [
+                { name : 'a', type : 'number' }, { name : 'b', type : 'number' },
+                { name : 'c', type : 'number' },
+            ], false);
+
+            await store.addLabelToProject(userid, TESTCLASS, project.id, 'animal');
+
+            const keyId = await store.storeUntrainedScratchKey(project);
+
+            const callbackFunctionName = 'jsonpCallback';
+
+            return request(testServer)
+                .get('/api/scratch/' + keyId + '/train')
+                .query({
+                    callback : callbackFunctionName,
+                    data : ['123', '45', ''],
+                    label : 'animal',
+                })
+                // this is a JSONP API
+                .expect('Content-Type', /javascript/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then(async (res) => {
+
+                    await store.deleteEntireProject(userid, TESTCLASS, project);
+
+                    const text = res.text;
+
+                    const expectedStart = '/**/ typeof ' +
+                                          callbackFunctionName +
+                                          ' === \'function\' && ' +
+                                          callbackFunctionName + '(';
+
+                    assert(text.startsWith(expectedStart));
+                    const payload = JSON.parse(text.substring(expectedStart.length, text.length - 2));
+
+                    assert.deepStrictEqual(payload, { error : 'Invalid data' });
                 });
         });
 

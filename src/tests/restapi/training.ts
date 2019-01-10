@@ -472,6 +472,40 @@ describe('REST API - training', () => {
         });
 
 
+        it('should reject missing numeric training', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo', 'en', [
+                { name : 'first', type : 'number' }, { name : 'second', type : 'number' },
+                { name : 'third', type : 'number' },
+            ], false);
+
+            const projectid = project.id;
+
+            const trainingurl = '/api/classes/' + classid +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
+
+            return request(testServer)
+                .post(trainingurl)
+                .send({
+                    data : [1, 2, ' '],
+                    label : 'fruit',
+                })
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, {
+                        error : 'Data contains non-numeric items',
+                    });
+                });
+        });
+
+
         it('should reject image training that is not a URL', async () => {
             const classid = uuid();
             const userid = uuid();
