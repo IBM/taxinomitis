@@ -491,6 +491,13 @@ export async function testClassifierFile(
                 externalError.statusCode = 400;
                 throw externalError;
             }
+            else if (errorInfo.code === 400 &&
+                     errorInfo.description.startsWith('Image resolution is smaller than the minimum limit'))
+            {
+                const externalError: any = new Error('Image is too small to be recognized');
+                externalError.statusCode = 400;
+                throw externalError;
+            }
         }
         else if (err.error && err.error.error &&
                  err.error.error.code === 400 &&
@@ -596,6 +603,13 @@ export async function testClassifierURL(
             {
                 const externalError: any = new Error('Your machine learning model could not be found. ' +
                                                      'Has it been deleted?');
+                externalError.statusCode = 400;
+                throw externalError;
+            }
+            else if (errorInfo.code === 400 &&
+                     errorInfo.description.startsWith('Image resolution is smaller than the minimum limit'))
+            {
+                const externalError: any = new Error('Image is too small to be recognized');
                 externalError.statusCode = 400;
                 throw externalError;
             }

@@ -89,6 +89,9 @@ async function classifyWithScratchKey(req: Express.Request, res: Express.Respons
         if (err.message === 'Unexpected response when retrieving credentials for Scratch') {
             return res.status(httpstatus.NOT_FOUND).jsonp({ error : 'Scratch key not found' });
         }
+        if (err.statusCode === httpstatus.BAD_REQUEST) {
+            return res.status(httpstatus.BAD_REQUEST).jsonp({ error : err.message });
+        }
 
         const safeDataDebug = typeof req.query.data === 'string' ?
                                   req.query.data.substr(0, 100) :
@@ -130,6 +133,9 @@ async function postClassifyWithScratchKey(req: Express.Request, res: Express.Res
             return res.status(httpstatus.NOT_FOUND).json({ error : 'Scratch key not found' });
         }
         if (err.message === conversation.ERROR_MESSAGES.TEXT_TOO_LONG) {
+            return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
+        }
+        if (err.statusCode === httpstatus.BAD_REQUEST) {
             return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
         }
 
