@@ -47,7 +47,6 @@ async function restartConnection() {
 
 
 async function handleDbException(err: NodeJS.ErrnoException) {
-    log.error({ err }, 'DB error');
     if (err.code === 'ER_OPTION_PREVENTS_STATEMENT' &&  err.errno === 1290)
     {
         // for this error, it is worth trying to reconnect to the DB
@@ -57,14 +56,13 @@ async function handleDbException(err: NodeJS.ErrnoException) {
 
 
 async function dbExecute(query: string, params: any[]) {
-    // const [response] = await dbConnPool.execute(query, params);
-    // return response;
     const dbConn = await dbConnPool.getConnection();
     try {
         const [response] = await dbConn.execute(query, params);
         return response;
     }
     catch (err) {
+        log.error({ query, params, err }, 'DB error');
         await handleDbException(err);
         throw err;
     }

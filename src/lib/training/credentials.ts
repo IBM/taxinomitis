@@ -243,6 +243,12 @@ async function reportBadCredentials(err: Error, credentials: BluemixCredentials)
     {
         return;
     }
+    const errorPayload: any = err;
+    if (errorPayload.code === 502 && errorPayload.statusCode === 502 &&
+        errorPayload.error === 'Bad Gateway')
+    {
+        return;
+    }
 
 
     //
