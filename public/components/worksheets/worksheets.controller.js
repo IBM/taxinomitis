@@ -38,7 +38,8 @@
             'WORKSHEETS.WHATTWITTERTHINKS.TITLE', 'WORKSHEETS.WHATTWITTERTHINKS.SUMMARY', 'WORKSHEETS.WHATTWITTERTHINKS.DESCRIPTION',
             'WORKSHEETS.NOUGHTSANDCROSSES.TITLE', 'WORKSHEETS.NOUGHTSANDCROSSES.SUMMARY', 'WORKSHEETS.NOUGHTSANDCROSSES.DESCRIPTION',
             'WORKSHEETS.TOPTRUMPS.TITLE', 'WORKSHEETS.TOPTRUMPS.SUMMARY', 'WORKSHEETS.TOPTRUMPS.DESCRIPTION',
-            'WORKSHEETS.HEADLINES.TITLE', 'WORKSHEETS.HEADLINES.SUMMARY', 'WORKSHEETS.HEADLINES.DESCRIPTION'
+            'WORKSHEETS.HEADLINES.TITLE', 'WORKSHEETS.HEADLINES.SUMMARY', 'WORKSHEETS.HEADLINES.DESCRIPTION',
+            'WORKSHEETS.FINDIT.TITLE', 'WORKSHEETS.FINDIT.SUMMARY', 'WORKSHEETS.FINDIT.DESCRIPTION'
         ]).then(function (translations) {
             vm.worksheets = [
                 {
@@ -458,6 +459,22 @@
                             worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf'
                         }
                     ]
+                },
+                {
+                    title : translations['WORKSHEETS.FINDIT.TITLE'],
+                    summary : translations['WORKSHEETS.FINDIT.SUMMARY'],
+                    description : translations['WORKSHEETS.FINDIT.DESCRIPTION'],
+                    difficulty : 'Advanced',
+                    type : 'images',
+                    maketypes : [ 'appinventor' ],
+                    image : 'static/images/project-findit.png',
+                    tags : [ 'image classification', 'supervised learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-findit.pdf',
+                    downloads : [
+                        {
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-findit.pdf'
+                        }
+                    ]
                 }
             ];
         });
@@ -498,6 +515,7 @@
             }
             if (($scope.projectmaketype !== 'ALL') && match) {
                 match = (($scope.projectmaketype === 'python' && item.maketypes.indexOf('python') >= 0) ||
+                         ($scope.projectmaketype === 'appinventor' && item.maketypes.indexOf('appinventor') >= 0) ||
                          (($scope.projectmaketype === 'scratch') && (item.maketypes.indexOf('scratch2') >= 0 ||
                                                                      item.maketypes.indexOf('scratch3') >= 0)));
             }

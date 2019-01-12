@@ -644,6 +644,11 @@
             "TITLE": "Rubriker",
             "SUMMARY": "Testa datorns förmåga att känna igen språkanvändning",
             "DESCRIPTION": "Träna en dator att känna igen rubriker från nationella nyhetstidningar."
+        },
+        "FINDIT": {
+            "TITLE": "Find It!",
+            "SUMMARY": "Teach a computer to recognise pictures",
+            "DESCRIPTION": "Make a hide-and-seek game for your mobile phone"
         }
     },
     "TEACHER": {

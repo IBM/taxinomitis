@@ -644,6 +644,11 @@
             "TITLE": "Headlines",
             "SUMMARY": "Test the computer's ability to recognise use of language",
             "DESCRIPTION": "Train a computer to recognise headlines from national newspapers."
+        },
+        "FINDIT": {
+            "TITLE": "Find It!",
+            "SUMMARY": "Teach a computer to recognise pictures",
+            "DESCRIPTION": "Make a hide-and-seek game for your mobile phone"
         }
     },
     "TEACHER": {

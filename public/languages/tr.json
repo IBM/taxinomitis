@@ -623,6 +623,11 @@
             "TITLE": "Manşetler",
             "SUMMARY": "Bilgisayarın dil kullanımını tanıyabilme yeteneğini test edin",
             "DESCRIPTION": "Bir bilgisayarı ulusal gazetelerdeki manşetleri tanıyabilecek şekilde eğitin."
+        },
+        "FINDIT": {
+            "TITLE": "Find It!",
+            "SUMMARY": "Teach a computer to recognise pictures",
+            "DESCRIPTION": "Make a hide-and-seek game for your mobile phone"
         }
     },
     "TEACHER": {

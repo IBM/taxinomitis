@@ -644,6 +644,11 @@
             "TITLE": "头条新闻",
             "SUMMARY": "测试计算机识别语言使用的能力",
             "DESCRIPTION": "训练计算机识别全国性报纸的头条新闻。"
+        },
+        "FINDIT": {
+            "TITLE": "Find It!",
+            "SUMMARY": "Teach a computer to recognise pictures",
+            "DESCRIPTION": "Make a hide-and-seek game for your mobile phone"
         }
     },
     "TEACHER": {

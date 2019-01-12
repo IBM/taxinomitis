@@ -23,6 +23,7 @@
         <md-option value="ALL" translate="WORKSHEETS.MAKETYPES.ALL"></md-option>
         <md-option value="scratch"><strong translate="WORKSHEETS.MAKETYPES.SCRATCH"></strong></md-option>
         <md-option value="python"><strong translate="WORKSHEETS.MAKETYPES.PYTHON"></strong></md-option>
+        <md-option value="appinventor"><strong translate="WORKSHEETS.MAKETYPES.APPINVENTOR"></strong></md-option>
     </md-select>
     <br clear="all"/>
 </div>
@@ -56,6 +57,10 @@
                      src="static/images/logo-small-python.png"
                      alt="{{ 'WORKSHEETS.MAKETYPES.PYTHON_WORKSHEET' | translate }}"
                      title="{{ 'WORKSHEETS.MAKETYPES.PYTHON_WORKSHEET' | translate }}"/>
+                <img ng-if="maketype === 'appinventor'"
+                     src="static/images/logo-small-appinventor.png"
+                     alt="{{ 'WORKSHEETS.MAKETYPES.APPINVENTOR' | translate }}"
+                     title="{{ 'WORKSHEETS.MAKETYPES.APPINVENTOR' | translate }}"/>
             </div>
             <div class="tags"><span class="heading">Tags:</span> {{ worksheet.tags.join(', ') }}</div>
             <div class="download">

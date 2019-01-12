@@ -644,6 +644,11 @@
             "TITLE": "Manchetes",
             "SUMMARY": "Teste a capacidade do computador de reconhecer o uso da linguagem",
             "DESCRIPTION": "Treine um computador para reconhecer as manchetes dos principais jornais."
+        },
+        "FINDIT": {
+            "TITLE": "Find It!",
+            "SUMMARY": "Teach a computer to recognise pictures",
+            "DESCRIPTION": "Make a hide-and-seek game for your mobile phone"
         }
     },
     "TEACHER": {
