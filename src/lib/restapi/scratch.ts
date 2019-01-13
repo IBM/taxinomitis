@@ -58,7 +58,7 @@ async function classifyWithScratchKey(req: Express.Request, res: Express.Respons
 
     try {
         if (!req.query.data) {
-            log.error({
+            log.warn({
                 agent : req.header('X-User-Agent'),
                 key : apikey,
                 func : 'classifyWithScratchKey',

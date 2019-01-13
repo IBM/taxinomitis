@@ -312,7 +312,7 @@ export async function getStatus(
             return workspace;
         })
         .catch((err) => {
-            log.error({ err }, 'Failed to get status');
+            log.warn({ err }, 'Failed to get status');
             workspace.status = 'Non Existent';
             return workspace;
         });

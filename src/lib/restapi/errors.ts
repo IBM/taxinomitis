@@ -58,7 +58,7 @@ export function registerErrorHandling(app: Express.Application) {
             log.error({ err, url : req.url }, 'Unhandled exception');
         }
 
-        next();
+        next(err);
     });
 }
 

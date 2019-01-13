@@ -222,7 +222,7 @@ export async function getStatus(
             return classifier;
         })
         .catch((err) => {
-            log.error({ err }, 'Failed to get status');
+            log.warn({ err }, 'Failed to get status');
             classifier.status = 'Non Existent';
             return classifier;
         });
@@ -568,9 +568,8 @@ export async function testClassifierURL(
         {
             const errorInfo = err.error.images[0].error;
             if (errorInfo.code === 400 &&
-                errorInfo.description === 'Invalid/corrupted image data. ' +
-                                          'Supported image file formats are GIF, JPEG, PNG, and TIFF. ' +
-                                          'Supported compression format is ZIP.')
+                errorInfo.description.startsWith('Invalid/corrupted image data. ' +
+                                                 'Supported image file formats are GIF, JPEG, PNG, and TIFF'))
             {
                 const externalError: any = new Error('A usable test image could not be found at that address. ' +
                                                      'Remember, only jpg and png images are supported.');

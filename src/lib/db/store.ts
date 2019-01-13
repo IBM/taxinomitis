@@ -62,7 +62,7 @@ async function dbExecute(query: string, params: any[]) {
         return response;
     }
     catch (err) {
-        log.error({ query, params, err }, 'DB error');
+        log.error({ query, params : params.join(','), err }, 'DB error');
         await handleDbException(err);
         throw err;
     }
