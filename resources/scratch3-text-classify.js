@@ -345,11 +345,8 @@ function getTextClassificationResponse(text, cacheKey, valueToReturn, callback) 
     classifyText(cleanedUpText, cacheKey, lastmodified, function (result) {
         if (result.random) {
             // We got a randomly selected result (which means we must not
-            //  have a working classifier) but we thought we had a model
-            //  with a good status.
-            // This should not be possible - we've gotten into a weird
-            //  unexpected state.
-            return callback(result[valueToReturn]);
+            //  have a working classifier).
+            console.log('randomly selected result returned by API');
         }
 
         // update the timestamp to allow local throttling
