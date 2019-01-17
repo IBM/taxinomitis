@@ -506,6 +506,71 @@ describe('REST API - training', () => {
         });
 
 
+        it('should reject huge numbers in numeric training', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo', 'en', [
+                { name : 'first', type : 'number' },
+            ], false);
+
+            const projectid = project.id;
+
+            const trainingurl = '/api/classes/' + classid +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
+
+            return request(testServer)
+                .post(trainingurl)
+                .send({
+                    data : [350000000000000000000000000000000000000],
+                    label : 'fruit',
+                })
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, {
+                        error : 'Number is too big',
+                    });
+                });
+        });
+
+        it('should reject tiny numbers in numeric training', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo', 'en', [
+                { name : 'first', type : 'number' },
+            ], false);
+
+            const projectid = project.id;
+
+            const trainingurl = '/api/classes/' + classid +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
+
+            return request(testServer)
+                .post(trainingurl)
+                .send({
+                    data : [-350000000000000000000000000000000000000],
+                    label : 'fruit',
+                })
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, {
+                        error : 'Number is too small',
+                    });
+                });
+        });
+
+
         it('should reject image training that is not a URL', async () => {
             const classid = uuid();
             const userid = uuid();
@@ -649,7 +714,37 @@ describe('REST API - training', () => {
         });
 
 
-        it('should store training', async () => {
+        it('should store number training', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo', 'en', [
+                { name : 'first', type : 'number' },
+            ], false);
+
+            const projectid = project.id;
+
+            const trainingurl = '/api/classes/' + classid +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
+
+            return request(testServer)
+                .post(trainingurl)
+                .send({
+                    data : [1234],
+                    label : 'fruit',
+                })
+                .expect(httpstatus.CREATED)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body.numberdata[0], 1234);
+                });
+        });
+
+        it('should store text training', async () => {
             const classid = uuid();
             const userid = uuid();
 

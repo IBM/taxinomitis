@@ -182,7 +182,9 @@ async function storeTrainingData(req: Express.Request, res: Express.Response) {
     catch (err) {
         if (err.message === 'Missing data' ||
             err.message === 'Invalid data' ||
-            err.message === 'Invalid label')
+            err.message === 'Invalid label' ||
+            err.message === 'Number is too small' ||
+            err.message === 'Number is too big')
         {
             return res.status(httpstatus.BAD_REQUEST).jsonp({ error : err.message });
         }

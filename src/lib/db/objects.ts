@@ -324,6 +324,12 @@ export function createNumberTraining(projectid: string, data: number[], label: s
         if (isNaN(num) || isEmptyString(num)) {
             throw new Error('Data contains non-numeric items');
         }
+        if (num < -3.4028235e+38) {
+            throw new Error('Number is too small');
+        }
+        if (num > 3.4028235e+38) {
+            throw new Error('Number is too big');
+        }
     }
 
     const object: any = {
