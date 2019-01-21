@@ -612,6 +612,16 @@ export async function testClassifierURL(
                 externalError.statusCode = 400;
                 throw externalError;
             }
+            else if (errorInfo.code === 400 &&
+                     errorInfo.description === 'URL Fetcher error: Could not fetch URL: ' +
+                                               'Access forbidden by target server')
+            {
+                const externalError: any = new Error('Access forbidden. ' +
+                                                     'Web server at that address would not allow the ' +
+                                                     'image to be downloaded.');
+                externalError.statusCode = 400;
+                throw externalError;
+            }
         }
 
         throw err;

@@ -373,6 +373,16 @@
             }
             else if (project.type === 'images') {
                 testdata.image = $scope.testformData.testimageurl;
+
+                if (testdata.image &&
+                    (testdata.image.substring(0, 10) === 'data:image' ||
+                     testdata.image.substring(0, 5) === 'blob:'))
+                {
+                    var errId = displayAlert('errors', 400, {
+                        message : 'Invalid URL. Please enter the web address for a picture that you want to test your machine learning model on'
+                    });
+                    return scrollToNewItem('errors' + errId);
+                }
             }
             else if (project.type === 'numbers') {
                 testdata.numbers = project.fields.map(function (field) {

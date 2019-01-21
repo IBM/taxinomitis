@@ -50,7 +50,7 @@ export function file(url: string, targetFilePath: string, callback: IErrCallback
             .pipe(writeStream);
     }
     catch (err) {
-        log.error({ err, url }, 'Failed to download');
+        log.error({ err, url }, 'Failed to download file');
         resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
     }
 }
