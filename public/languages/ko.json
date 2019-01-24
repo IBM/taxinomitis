@@ -797,6 +797,32 @@
             "NOT_AUTHORIZED": "학생 관리에 접근할 권한이 없습니다."
         }
     },
+    "SCRATCHBLOCKS": {
+        "TEXT_PROJECTS": {
+            "mlforkids.text.recogniseLabel": "recognise text [TEXT] (label)",
+            "mlforkids.text.recogniseConfidence": "recognise text [TEXT] (confidence)",
+            "mlforkids.text.addTraining": "add training data [TEXT] [LABEL]",
+            "mlforkids.text.trainNewModel": "train new machine learning model",
+            "mlforkids.text.checkModelStatus": "Is the machine learning model [STATUS] ?"
+        },
+        "IMAGES_PROJECTS": {
+            "mlforkids.images.recogniseLabel": "recognise image [IMAGE] (label)",
+            "mlforkids.images.recogniseConfidence": "recognise image [IMAGE] (confidence)",
+            "mlforkids.images.addTraining": "add training data [TEXT] [LABEL]"
+        },
+        "NUMBER_PROJECTS": {
+            "mlforkids.numbers.trainNewModel": "train new machine learning model"
+        },
+        "TWITTER": {
+            "mlforkids.twitter.getrecenttweet": "get the [INDEX] most recent tweet about [TOPIC]"
+        },
+        "IMAGE_BLOCKS": {
+            "mlforkids.imageblocks.getCostumeImage": "costume image",
+            "mlforkids.imageblocks.getBackdropCostumeImage": "backdrop image",
+            "mlforkids.imageblocks.getBackdropImage": "backdrop image",
+            "mlforkids.imageblocks.saveScreenshotToCostume": "save screenshot to costume"
+        }
+    },
     "HELP": {
         "CONTACT": "문제가 있거나 궁금한 사항이 있으면 이메일 Dale.Lane@uk.ibm.com로 연락주세요",
         "GETTINGSTARTED": {

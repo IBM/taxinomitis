@@ -797,6 +797,32 @@
             "NOT_AUTHORIZED": "Você não está autorizado a acessar a lista de estudantes na sua sala."
         }
     },
+    "SCRATCHBLOCKS": {
+        "TEXT_PROJECTS": {
+            "mlforkids.text.recogniseLabel": "recognise text [TEXT] (label)",
+            "mlforkids.text.recogniseConfidence": "recognise text [TEXT] (confidence)",
+            "mlforkids.text.addTraining": "add training data [TEXT] [LABEL]",
+            "mlforkids.text.trainNewModel": "train new machine learning model",
+            "mlforkids.text.checkModelStatus": "Is the machine learning model [STATUS] ?"
+        },
+        "IMAGES_PROJECTS": {
+            "mlforkids.images.recogniseLabel": "recognise image [IMAGE] (label)",
+            "mlforkids.images.recogniseConfidence": "recognise image [IMAGE] (confidence)",
+            "mlforkids.images.addTraining": "add training data [TEXT] [LABEL]"
+        },
+        "NUMBER_PROJECTS": {
+            "mlforkids.numbers.trainNewModel": "train new machine learning model"
+        },
+        "TWITTER": {
+            "mlforkids.twitter.getrecenttweet": "get the [INDEX] most recent tweet about [TOPIC]"
+        },
+        "IMAGE_BLOCKS": {
+            "mlforkids.imageblocks.getCostumeImage": "costume image",
+            "mlforkids.imageblocks.getBackdropCostumeImage": "backdrop image",
+            "mlforkids.imageblocks.getBackdropImage": "backdrop image",
+            "mlforkids.imageblocks.saveScreenshotToCostume": "save screenshot to costume"
+        }
+    },
     "HELP": {
         "CONTACT": "Se você tiver algum problema ou dúvida, por favor envie um e-mail para Dale.Lane@uk.ibm.com",
         "GETTINGSTARTED": {
