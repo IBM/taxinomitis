@@ -89,6 +89,7 @@ async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.
         statusurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/status',
         classifyurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/classify',
         storeurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/train',
+        modelurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/models',
 
         projectname : escapeProjectName(scratchkey.name),
 

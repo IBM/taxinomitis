@@ -116,6 +116,13 @@ class MachineLearningNumbers {
                             menu: 'labels'
                         }
                     }
+                },
+
+                // train a new machine learning model
+                {
+                    opcode: 'trainNewModel',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'train new machine learning model'
                 }
             ],
 
@@ -183,6 +190,20 @@ class MachineLearningNumbers {
                 }
             });
     }
+
+
+    trainNewModel() {
+        if (trainingModel || // currently submitting a new-model request, OR
+            lastModelTrainedRecently()) // we very recently submitted one
+        {
+            console.log('ignoring request');
+            return;
+        }
+
+        return trainNewClassifier();
+    }
+
+
 }
 
 var resultsCache = {
@@ -199,6 +220,21 @@ var resultsCache = {
     //    fetched : timestamp-ms-since-epoch
     // }
 };
+
+
+var ONE_MINUTE = 60 * 1000;
+
+
+// the last time that we used the API to train a new ML model
+var lastModelTrain = 0;
+
+// returns true if the last time that we trained a ML model
+//  was too recently to do again
+function lastModelTrainedRecently() {
+    return (lastModelTrain + ONE_MINUTE) > Date.now();
+}
+
+
 
 
 // returns the current date in the format that the API uses
@@ -336,6 +372,41 @@ function getNumberClassificationResponse(numbers, cacheKey, valueToReturn, callb
         callback(result[valueToReturn]);
     });
 }
+
+
+
+// are we currently training a classifier?
+//  used as a primitive lock to prevent multiple concurrent requests being made
+var trainingModel = false;
+
+
+// make an XHR request to train a new ML model
+function trainNewClassifier() {
+    trainingModel = true;
+    lastModelTrain = Date.now();
+
+    var url = new URL('{{{ modelurl }}}');
+    var options = {
+        headers : {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-User-Agent': 'mlforkids-scratch3-numbers'
+        },
+        method : 'POST'
+    };
+
+    return fetch(url, options)
+        .then((response) => {
+            console.log(response);
+            trainingModel = false;
+        })
+        .catch((err) => {
+            console.log(err);
+            trainingModel = false;
+        });
+}
+
+
 
 
 Scratch.extensions.register(new MachineLearningNumbers());
