@@ -188,12 +188,16 @@ async function getCurrentLabels(userid: string, classid: string, projectid: stri
         classid,
     ];
     const rows = await dbExecute(queryString, values);
-    if (rows.length !== 1) {
-        log.error({ projectid }, 'Project not found');
-        throw new Error('Project not found');
+    if (rows.length === 1) {
+        return dbobjects.getLabelsFromList(rows[0].labels);
     }
-
-    return dbobjects.getLabelsFromList(rows[0].labels);
+    else if (rows.length === 0) {
+        log.warn({ projectid, classid, func : 'getCurrentLabels' }, 'Project not found in request for labels');
+    }
+    else {
+        log.error({ projectid, classid, rows, func : 'getCurrentLabels' }, 'Unexpected number of project rows');
+    }
+    throw new Error('Project not found');
 }
 async function updateLabels(userid: string, classid: string, projectid: string, labels: string[]): Promise<any> {
     const queryString = 'UPDATE `projects` ' +
@@ -275,11 +279,16 @@ export async function getProject(id: string): Promise<Objects.Project | undefine
                         'WHERE `id` = ?';
 
     const rows = await dbExecute(queryString, [ id ]);
-    if (rows.length !== 1) {
-        log.error({ id, func : 'getProject' }, 'Project not found');
-        return;
+    if (rows.length === 1) {
+        return dbobjects.getProjectFromDbRow(rows[0]);
     }
-    return dbobjects.getProjectFromDbRow(rows[0]);
+    else if (rows.length === 0) {
+        log.warn({ id, func : 'getProject' }, 'Project not found');
+    }
+    else {
+        log.error({ rows, id, func : 'getProject' }, 'Project not found');
+    }
+    return;
 }
 
 
