@@ -821,6 +821,10 @@
             "mlforkids.imageblocks.getBackdropCostumeImage": "backdrop image",
             "mlforkids.imageblocks.getBackdropImage": "backdrop image",
             "mlforkids.imageblocks.saveScreenshotToCostume": "save screenshot to costume"
+        },
+        "GUI": {
+            "gui.menuBar.mlforkidsLibrary": "Project templates",
+            "gui.mlforkidsLibrary.templates": "Machine Learning for Kids modelos de projeto"
         }
     },
 	"HELP": {

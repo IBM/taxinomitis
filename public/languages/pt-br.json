@@ -821,6 +821,10 @@
             "mlforkids.imageblocks.getBackdropCostumeImage": "imagem do pano de fundo",
             "mlforkids.imageblocks.getBackdropImage": "imagem do pano de fundo",
             "mlforkids.imageblocks.saveScreenshotToCostume": "salvar captura de tela na fantasia"
+        },
+        "GUI": {
+            "gui.menuBar.mlforkidsLibrary": "Modelos de projeto",
+            "gui.mlforkidsLibrary.templates": "Machine Learning for Kids modelos de projeto"
         }
     },
     "HELP": {
