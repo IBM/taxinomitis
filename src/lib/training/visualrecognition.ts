@@ -403,7 +403,7 @@ export async function deleteClassifierFromBluemix(
     const req = await createBaseRequest(credentials);
 
     try {
-        const url = credentials.url + '/v3/classifiers/' + classifierId;
+        const url = credentials.url + '/v3/classifiers/' + encodeURIComponent(classifierId);
         await request.delete(url, req);
     }
     catch (err) {
@@ -684,7 +684,7 @@ async function submitTrainingToVisualRecognition(
             expiry : modelAutoExpiryTime,
             credentialsid : credentials.id,
             status : body.status ? body.status : 'training',
-            url : credentials.url + '/v3/classifiers/' + body.classifier_id,
+            url : credentials.url + '/v3/classifiers/' + encodeURIComponent(body.classifier_id),
         };
     }
     catch (err) {
