@@ -453,6 +453,7 @@ export async function testClassifier(
             input : {
                 text,
             },
+            alternate_intents : true,
         },
     };
 
@@ -662,7 +663,7 @@ async function createBaseRequest(credentials: TrainingObjects.BluemixCredentials
 
         const req: NewConvRequest = {
             qs : {
-                version: '2018-02-16',
+                version: '2018-09-20',
                 include_audit: true,
             },
             headers : {
@@ -718,7 +719,7 @@ interface LegacyConvRequest extends ConversationRequestBase {
 }
 interface NewConvRequest extends ConversationRequestBase {
     readonly qs: {
-        readonly version: '2018-02-16';
+        readonly version: '2018-09-20';
         page_limit?: number;
         readonly include_audit: true;
     };
@@ -736,6 +737,7 @@ interface TestRequest {
         readonly input: {
             readonly text: string;
         };
+        readonly alternate_intents: boolean;
     };
 }
 

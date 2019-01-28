@@ -194,7 +194,7 @@ describe('Training - Visual Recognition - IAM/API keys', () => {
             assert.strictEqual(classifier.url,
                                mockVisRec.CREDENTIALS_NEW.url +
                                     '/v3/classifiers/' +
-                                    classifier.classifierid);
+                                    encodeURIComponent(classifier.classifierid));
 
 
         });
@@ -222,7 +222,8 @@ describe('Training - Visual Recognition - IAM/API keys', () => {
             assert(resetExpiredScratchKeyStub.called);
             assert(deleteStub.called);
 
-            assert(deleteStub.calledWith(mockVisRec.CREDENTIALS_NEW.url + '/v3/classifiers/' + classifierinfo.id,
+            assert(deleteStub.calledWith(mockVisRec.CREDENTIALS_NEW.url + '/v3/classifiers/' +
+                                             encodeURIComponent(classifierinfo.id),
                                          sinon.match.has('qs', { version : '2018-03-19' })));
 
             const authHeader = await iam.getAuthHeader(mockVisRec.CREDENTIALS_NEW.username +
@@ -232,7 +233,8 @@ describe('Training - Visual Recognition - IAM/API keys', () => {
 
             assert(setTimeoutStub.calledOnce);
 
-            assert(deleteStub.calledWith(mockVisRec.CREDENTIALS_NEW.url + '/v3/classifiers/' + classifierinfo.id,
+            assert(deleteStub.calledWith(mockVisRec.CREDENTIALS_NEW.url + '/v3/classifiers/' +
+                                             encodeURIComponent(classifierinfo.id),
                                          sinon.match.has('headers', sinon.match.has('Authorization', authHeader))));
         });
 

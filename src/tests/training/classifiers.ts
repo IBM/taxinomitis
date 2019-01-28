@@ -160,7 +160,7 @@ describe('Training - Unmanaged classifiers', () => {
         getClassifiers : () => {
             return Promise.resolve({
                 pagination: {
-                    refresh_url: '/v1/workspaces?version=2018-02-16',
+                    refresh_url: '/v1/workspaces?version=2018-09-20',
                 },
                 workspaces: [
                     {
