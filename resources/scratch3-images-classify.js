@@ -121,25 +121,26 @@ class MachineLearningImages {
         }
 
         var url = new URL('{{{ storeurl }}}');
-        url.searchParams.append('data', TEXT);
-        url.searchParams.append('label', LABEL);
 
         var options = {
             headers : {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
                 'X-User-Agent': 'mlforkids-scratch3-images'
-            }
+            },
+            method : 'POST',
+            body : JSON.stringify({
+                data : TEXT,
+                label : LABEL
+            })
         };
 
         return fetch(url, options)
-            .then((response) => {
-                if (response.status !== 200) {
-                    return response.json();
-                }
+            .then(() => {
+                console.log('added');
             })
-            .then((responseJson) => {
-                if (responseJson) {
-                    console.log(responseJson);
-                }
+            .catch((err) => {
+                console.log(err);
             });
     }
 }

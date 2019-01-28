@@ -201,6 +201,46 @@ async function storeTrainingData(req: Express.Request, res: Express.Response) {
 }
 
 
+async function postStoreTrainingData(req: Express.Request, res: Express.Response) {
+    const apikey = req.params.scratchkey;
+
+    try {
+        if (!req.body.data || !req.body.label) {
+            log.warn({
+                agent : req.header('X-User-Agent'),
+                key : apikey,
+                func : 'postStoreTrainingData',
+            }, 'Missing data');
+            throw new Error('Missing data');
+        }
+
+        const scratchKey = await store.getScratchKey(apikey);
+        const stored = await training.storeTrainingData(scratchKey, req.body.label, req.body.data);
+
+        return res.set(headers.NO_CACHE).json(stored);
+    }
+    catch (err) {
+        if (err.message === 'Missing data' ||
+            err.message === 'Invalid data' ||
+            err.message === 'Invalid label' ||
+            err.message === 'Number is too small' ||
+            err.message === 'Number is too big')
+        {
+            return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
+        }
+        if (err.message === 'Project already has maximum allowed amount of training data') {
+            return res.status(httpstatus.CONFLICT).json({ error : err.message });
+        }
+        if (err.message === 'Unexpected response when retrieving credentials for Scratch') {
+            return res.status(httpstatus.NOT_FOUND).json({ error : 'Scratch key not found' });
+        }
+
+        log.error({ err, agent : req.header('X-User-Agent') }, 'Store error');
+        return res.status(httpstatus.INTERNAL_SERVER_ERROR).json(err);
+    }
+}
+
+
 
 
 async function getExtension(req: Express.Request, res: Express.Response, version: 2 | 3) {
@@ -295,6 +335,7 @@ export default function registerApis(app: Express.Application) {
     app.post(urls.SCRATCHKEY_MODEL, trainNewClassifier);
 
     app.get(urls.SCRATCHKEY_TRAIN, storeTrainingData);
+    app.post(urls.SCRATCHKEY_TRAIN, postStoreTrainingData);
 
     app.get(urls.SCRATCHKEY_EXTENSION, getScratchxExtension);
     app.get(urls.SCRATCH3_EXTENSION, getScratch3Extension);
