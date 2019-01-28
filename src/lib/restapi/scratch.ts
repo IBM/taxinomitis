@@ -107,7 +107,7 @@ async function postClassifyWithScratchKey(req: Express.Request, res: Express.Res
 
     try {
         if (!req.body.data) {
-            log.error({
+            log.warn({
                 agent : req.header('X-User-Agent'),
                 key : apikey,
                 func : 'postClassifyWithScratchKey',
@@ -146,7 +146,7 @@ async function postClassifyWithScratchKey(req: Express.Request, res: Express.Res
         if (err.message === 'Missing data' ||
             err.message === 'Invalid image data provided. Remember, only jpg and png images are supported.')
         {
-            log.error({
+            log.warn({
                 agent : req.header('X-User-Agent'),
                 displayedHelp : req.body.displayedhelp,
                 data : safeDataDebug,
@@ -166,7 +166,7 @@ async function storeTrainingData(req: Express.Request, res: Express.Response) {
 
     try {
         if (!req.query.data || !req.query.label) {
-            log.error({
+            log.warn({
                 agent : req.header('X-User-Agent'),
                 key : apikey,
                 func : 'storeTrainingData',

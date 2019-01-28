@@ -128,6 +128,13 @@ async function createClassifier(
                 //  creds in the pool
                 finalError = ERROR_MESSAGES.API_KEY_RATE_LIMIT;
             }
+            else if (err.error && err.error.code === 401 && err.error.error === 'Unauthorized')
+            {
+                // there is a problem with their API key
+                log.warn({ err, project, credentials : credentials.id },
+                         'Credentials rejected');
+                throw err;
+            }
             else {
                 // Otherwise - rethrow it so we can bug out.
                 log.error({
@@ -143,6 +150,9 @@ async function createClassifier(
                     err.error.error.description)
                 {
                     detail = '\n' + err.error.error.description;
+                }
+                else if (err.error && err.error.error) {
+                    detail = '\n' + err.error.error;
                 }
                 notifications.notify('Unexpected failure to train image classifier' +
                                      ' for project : ' + project.id +
@@ -252,36 +262,40 @@ async function getTraining(project: DbObjects.Project): Promise<{ [label: string
     const examples: { [label: string]: string } = {};
 
     for (const label of project.labels) {
-        const training = await store.getImageTrainingByLabel(project.id, label, {
-            start : 0, limit : counts[label],
-        });
 
-        const trainingLocations = training.map((trainingitem) => {
-            if (trainingitem.isstored) {
-                const fromStorage: downloadAndZip.ImageDownload = {
-                    type : 'retrieve',
-                    spec : {
+        if (label in counts && counts[label] > 0) {
+
+            const training = await store.getImageTrainingByLabel(project.id, label, {
+                start : 0, limit : counts[label],
+            });
+
+            const trainingLocations = training.map((trainingitem) => {
+                if (trainingitem.isstored) {
+                    const fromStorage: downloadAndZip.ImageDownload = {
+                        type : 'retrieve',
+                        spec : {
+                            imageid : trainingitem.id,
+                            projectid : project.id,
+                            userid : project.userid,
+                            classid : project.classid,
+                        },
+                    };
+                    return fromStorage;
+                }
+                else {
+                    const fromWeb: downloadAndZip.ImageDownload = {
+                        type : 'download',
+                        url : trainingitem.imageurl,
                         imageid : trainingitem.id,
-                        projectid : project.id,
-                        userid : project.userid,
-                        classid : project.classid,
-                    },
-                };
-                return fromStorage;
-            }
-            else {
-                const fromWeb: downloadAndZip.ImageDownload = {
-                    type : 'download',
-                    url : trainingitem.imageurl,
-                    imageid : trainingitem.id,
-                };
-                return fromWeb;
-            }
-        });
-        validateRequest(trainingLocations);
+                    };
+                    return fromWeb;
+                }
+            });
+            validateRequest(trainingLocations);
 
-        const trainingZip = await downloadAndZip.run(trainingLocations);
-        examples[label] = trainingZip;
+            const trainingZip = await downloadAndZip.run(trainingLocations);
+            examples[label] = trainingZip;
+        }
     }
 
     return examples;
