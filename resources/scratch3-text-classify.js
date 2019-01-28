@@ -39,7 +39,10 @@ class MachineLearningText {
                 {
                     opcode: 'label',
                     blockType: Scratch.BlockType.REPORTER,
-                    text: 'recognise text [TEXT] (label)',
+                    text: {
+                        default: 'recognise text [TEXT] (label)',
+                        id: 'mlforkids.text.recogniseLabel'
+                    },
                     arguments: {
                         TEXT: {
                             type: Scratch.ArgumentType.STRING,
@@ -52,7 +55,10 @@ class MachineLearningText {
                 {
                     opcode: 'confidence',
                     blockType: Scratch.BlockType.REPORTER,
-                    text: 'recognise text [TEXT] (confidence)',
+                    text: {
+                        default: 'recognise text [TEXT] (confidence)',
+                        id: 'recognise text [TEXT] (confidence)'
+                    },
                     arguments: {
                         TEXT: {
                             type: Scratch.ArgumentType.STRING,
@@ -74,7 +80,10 @@ class MachineLearningText {
                 {
                     opcode: 'addTraining',
                     blockType: Scratch.BlockType.COMMAND,
-                    text: 'add training data [TEXT] [LABEL]',
+                    text: {
+                        default: 'add training data [TEXT] [LABEL]',
+                        id: 'mlforkids.text.addTraining'
+                    },
                     arguments: {
                         TEXT: {
                             type: Scratch.ArgumentType.STRING,
@@ -92,14 +101,20 @@ class MachineLearningText {
                 {
                     opcode: 'trainNewModel',
                     blockType: Scratch.BlockType.COMMAND,
-                    text: 'train new machine learning model'
+                    text: {
+                        default: 'train new machine learning model',
+                        id: 'mlforkids.text.trainNewModel'
+                    }
                 },
 
                 // get the status of the machine learning model
                 {
                     opcode: 'checkModelStatus',
                     blockType: Scratch.BlockType.BOOLEAN,
-                    text: 'Is the machine learning model [STATUS] ?',
+                    text: {
+                        default: 'Is the machine learning model [STATUS] ?',
+                        id: 'mlforkids.text.checkModelStatus'
+                    },
                     arguments: {
                         STATUS: {
                             type: Scratch.ArgumentType.STRING,

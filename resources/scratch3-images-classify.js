@@ -32,7 +32,10 @@ class MachineLearningImages {
                 {
                     opcode: 'label',
                     blockType: Scratch.BlockType.REPORTER,
-                    text: 'recognise image [IMAGE] (label)',
+                    text: {
+                        default: 'recognise image [IMAGE] (label)',
+                        id: 'mlforkids.images.recogniseLabel'
+                    },
                     arguments: {
                         IMAGE: {
                             type: Scratch.ArgumentType.STRING,
@@ -45,7 +48,10 @@ class MachineLearningImages {
                 {
                     opcode: 'confidence',
                     blockType: Scratch.BlockType.REPORTER,
-                    text: 'recognise image [IMAGE] (confidence)',
+                    text: {
+                        default: 'recognise image [IMAGE] (confidence)',
+                        id: 'mlforkids.images.recogniseConfidence'
+                    },
                     arguments: {
                         IMAGE: {
                             type: Scratch.ArgumentType.STRING,
@@ -67,7 +73,10 @@ class MachineLearningImages {
                 {
                     opcode: 'addTraining',
                     blockType: Scratch.BlockType.COMMAND,
-                    text: 'add training data [TEXT] [LABEL]',
+                    text: {
+                        default: 'add training data [TEXT] [LABEL]',
+                        id: 'mlforkids.images.addTraining'
+                    },
                     arguments: {
                         TEXT: {
                             type: Scratch.ArgumentType.STRING,

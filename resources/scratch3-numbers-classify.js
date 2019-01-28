@@ -122,7 +122,10 @@ class MachineLearningNumbers {
                 {
                     opcode: 'trainNewModel',
                     blockType: Scratch.BlockType.COMMAND,
-                    text: 'train new machine learning model'
+                    text: {
+                        default: 'train new machine learning model',
+                        id: 'mlforkids.numbers.trainNewModel'
+                    }
                 }
             ],
 
