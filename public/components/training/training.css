@@ -25,11 +25,17 @@
     border-radius: 2em;
     margin: 1em;
     min-width: 25em;
-    max-width: 40%;
+    max-width: 47%;
     max-height: calc(100% - 25px);
     display: flex;
     flex-direction: column;
     position: relative;
+}
+
+@media (max-width: 770px) {
+    .trainingbucket {
+        max-width: 94%;
+    }
 }
 
 @media (max-width: 550px) {
