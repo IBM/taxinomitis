@@ -10,7 +10,7 @@
 
         "ADD": "추가",
         "CANCEL": "취소",
-        "DELETE": "삭재",
+        "DELETE": "삭제",
         "EDIT": "수정",
         "TEST": "테스트",
 
@@ -32,11 +32,11 @@
         "IN20MINS": "20분 안에 가능",
         "WHAT": {
             "TITLE": "무엇을?",
-            "BODY" : "이 도구는 머신러닝 시스템을 훈련시키고 만드는 실전적인 과정을 제공하며 아이들에게 머신러닝을 소개합니다. <br/><br/> 이 도구는 텍스트, 숫자 또는 이미지를 분류하는 머신러닝 모델을 만들 수 있는 환경을 제공합니다. <br/><br/>아이들에게 코딩을 소개하고 가르치기 위한 기존의 연구를 바탕으로, 이 모델을 <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a>(코딩 교육에 주로 사용되는 플랫폼)에 추가하여 아이들이 그들이 만든 머신러닝 모델을 바탕으로 프로젝트와 게임을 만들 수 있습니다. <br/><br/>자세한 내용은 다음을 참고하세요."
+            "BODY" : "이 도구는 머신러닝 시스템을 훈련시키고 만드는 실전적인 과정을 제공하며 아이들에게 머신러닝을 소개합니다. <br/><br/> 이 도구는 텍스트, 숫자 또는 이미지를 분류하는 머신러닝 모델을 만들 수 있는 환경을 제공합니다. <br/><br/>아이들에게 코딩을 소개하고 가르치기 위한 기존의 연구를 바탕으로, 이 모델을 <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a>(코딩 교육에 주로 사용되는 플랫폼)에 추가하여 아이들이 그들이 만든 머신러닝 모델을 바탕으로 프로젝트와 게임을 만들 수 있습니다. <br/><br/>자세한 내용은 다음을 참고하세요. <br/>"
         },
         "WHY": {
             "TITLE": "왜?",
-            "BODY": "머신러닝은 우리 주변에 있습니다. 우리는 스팸 필터, 추천 엔진, 언어 번역 서비스, 채팅 로봇 및 디지털 비서, 검색 엔진 및 사기 탐지 시스템과 같은 머신러닝 시스템을 매일 사용합니다.<br/><br/>머지 않아 머신러닝 시스템이 우리의 자동차를 운전하고, 의사가 우리의 질병을 진단하고 치료할 수 있도록 도와줄 것입니다. <br/><br/>아이들이 우리의 세계가 어떻게 작동하는지 알고 있어야 합니다. 기능과 의미를 이해하는 가장 좋은 방법은 이 기술을 직접 구현해 보는 것입니다. <br/><br/>자세한 내용은 다음을 참고하세요.: <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'아이들을 위한 머신러닝 소개'</a>"
+            "BODY": "머신러닝은 우리 주변에 있습니다. 우리는 스팸 필터, 추천 엔진, 언어 번역 서비스, 채팅 로봇 및 디지털 비서, 검색 엔진 및 사기 탐지 시스템과 같은 머신러닝 시스템을 매일 사용합니다.<br/><br/>머지 않아 머신러닝 시스템이 우리의 자동차를 운전하고, 의사가 우리의 질병을 진단하고 치료할 수 있도록 도와줄 것입니다. <br/><br/>아이들이 우리의 세계가 어떻게 작동하는지 알고 있어야 합니다. 기능과 의미를 이해하는 가장 좋은 방법은 이 기술을 직접 구현해 보는 것입니다. <br/><br/>자세한 내용은 다음을 참고하세요.<br/><br/> <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'아이들을 위한 머신러닝 소개'</a>"
         },
         "TECH": {
             "TITLE": "기술",
@@ -65,14 +65,14 @@
         "LETMEKNOW": "알려주세요"
     },
     "WELCOME": {
-        "TITLE": "컴퓨터가 게임을 할 수 있도록 가르쳐봐요",
+        "TITLE": "인공지능 게임을 만들어봐요.",
         "GET_STARTED": "시작해봅시다",
         "LEARN_MORE": "더 알아볼까요?",
         "ADMIN_LABEL": "<strong>관리페이지</strong>로 이동",
         "PROJECT_LABEL": "<strong>프로젝트</strong>로 이동",
-        "STEP_1_TEXT": "컴퓨터가 인식하길 원하는 여러 데이터를 모아보세요",
-        "STEP_2_TEXT": "컴퓨터가 그것을 인식할 수 있도록 데이터를 사용하여 훈련시켜보세요",
-        "STEP_3_TEXT": "컴퓨터의 인식 능력을 사용하여 스크래치 게임을 만들어보세요"
+        "STEP_1_TEXT": "먼저 여러 데이터를 모아보세요",
+        "STEP_2_TEXT": "데이터를 사용하여 인공지능을 훈련시켜보세요",
+        "STEP_3_TEXT": "인공지능을 사용하여 스크래치 게임을 만들어보세요"
     },
     "LOGIN": {
         "TITLE": "머신러닝을 시작해봅시다",
@@ -176,78 +176,78 @@
         },
         "CREATE": "만들기",
         "ERRORS": {
-            "REQUIRED": "This is required!",
-            "TOOLONG": "That's too long!"
+            "REQUIRED": "이 부분은 필요합니다.",
+            "TOOLONG": "너무 길어요!"
         }
     },
     "PROJECT": {
         "TRAIN": {
             "TITLE": "훈련",
-            "BODY": "컴퓨터가 훈련할 수 있도록 다양한 데이터를 준비하세요"
+            "BODY": "컴퓨터가 훈련할 수 있도록 다양한 데이터를 준비하세요."
         },
         "LEARNANDTEST": {
             "TITLE": "학습 &amp; 평가",
-            "BODY": "데이터를 사용하여 컴퓨터를 학습시키세요"
+            "BODY": "데이터를 사용하여 컴퓨터를 학습시키세요."
         },
         "MAKES": {
             "TITLE": "만들기",
-            "BODY": "스크래치나 파이썬을 사용하여 여러분이 만든 머신러닝 모델로 게임이나 프로그램을 만들어보세요"
+            "BODY": "스크래치나 파이썬을 사용하여 여러분이 만든 머신러닝 모델로 게임이나 프로그램을 만들어보세요."
         },
         "SCRATCH": {
-            "TITLE": "스크래치",
-            "BODY": "여러분이 만든 머신러닝 모델을 스크래치를 사용하여 적용하세요"
+            "TITLE": "스크래치 2",
+            "BODY": "여러분이 만든 머신러닝 모델을 스크래치 2을 사용하여 적용하세요."
         },
         "PYTHON": {
             "TITLE": "파이썬",
-            "BODY": "여러분이 만든 머신러닝 모델을 파이썬을 사용하여 적용하세요"
+            "BODY": "여러분이 만든 머신러닝 모델을 파이썬을 사용하여 적용하세요."
         },
         "APPINVENTOR": {
             "TITLE": "앱 인벤터",
-            "BODY": "여러분이 만든 머신러닝 모델을 앱 인벤터를 사용하여 적용하세요"
+            "BODY": "여러분이 만든 머신러닝 모델을 앱 인벤터를 사용하여 적용하세요."
         },
         "SCRATCH3": {
             "TITLE": "스크래치 3",
-            "BODY": "여러분이 만든 머신러닝 모델을 새로운 버전의 스크래치를 사용하여 적용하세요"
+            "BODY": "여러분이 만든 머신러닝 모델을 스크래치 3을 사용하여 적용하세요."
         }
     },
     "TRAINING": {
         "TITLE": "훈련",
         "ADDLABEL": "새로운 레이블 추가",
-        "CREATEFIRSTLABEL": "'추가' 버튼을 클릭하여 당신의 첫번째 바구니를 만드세요",
-        "CROWDSOURCEDEMPTY": "선생님이 새로운 바구니를 만든 다음 페이지를 새로고침하세요",
+        "CREATEFIRSTLABEL": "'추가' 버튼을 클릭하여 당신의 첫번째 바구니를 만드세요.",
+        "CROWDSOURCEDEMPTY": "선생님이 새로운 바구니를 만든 다음 페이지를 새로고침하세요.",
         "ADDEXAMPLE": "데이터 추가",
         "ADDURL": "웹",
         "ADDWEBCAM": "웹캠",
         "ADDDRAWING": "그리기",
-        "DRAGIMAGES": "사진을 드래그하여 가져오세요",
+        "DRAGIMAGES": "사진을 드래그하여 가져오세요.",
         "NEWLABEL": {
-            "INTRO": "새로운 레이블을 추가하세요",
-            "ERROR": "레이블 이름은 숫자와 문자로만 작성하세요"
+            "INTRO": "새로운 레이블을 추가하세요.",
+            "ERROR": "레이블 이름은 숫자와 문자로만 작성하세요."
         },
         "NEWEXAMPLE": {
-            "INTRO": "새로운 데이터를 추가하세요 ",
-            "INTROURL": "데이터의 URL을 입력하세요",
-            "INTRODRAWING": "데이터를 그려주세요",
-            "INTROWEBCAM": "새로운 데이터를 만드세요",
-            "ERROR": "탭이나 줄바꿈을 할 수 없습니다",
-            "REQUIRED": "데이터의 모든 필드를 작성하여야 합니다",
-            "PATTERNNUMBER": "숫자처럼 보이지 않네요",
-            "PATTERNURL": "이 사진은 웹 주소가 필요합니다",
+            "INTRO": "새로운 데이터를 추가하세요.",
+            "INTROURL": "데이터의 URL을 입력하세요.",
+            "INTRODRAWING": "데이터를 그려주세요.",
+            "INTROWEBCAM": "새로운 데이터를 만드세요.",
+            "ERROR": "탭이나 줄바꿈을 할 수 없습니다.",
+            "REQUIRED": "데이터의 모든 필드를 작성하여야 합니다.",
+            "PATTERNNUMBER": "숫자처럼 보이지 않네요.",
+            "PATTERNURL": "이 사진은 웹 주소가 필요합니다.",
             "WEBCAMFAIL": "이런! 웹캠이 연결되었나요?",
             "WEBCAMERROR": "웹 브라우저에서 가져온 메세지: "
         }
     },
     "MODELS": {
         "TITLE": "머신 러닝 모델",
-        "TRAIN": "새로운 머신 러닝 모델을 훈련시켜보세요",
+        "TRAIN": "새로운 머신 러닝 모델을 훈련시켜보세요.",
         "CANCEL": "훈련 취소",
         "DELETE": "모델 삭제",
-        "TEST_CANVAS": "무엇인가를 그려서 모델을 테스트해보세요",
+        "TEST_CANVAS": "무엇인가를 그려서 모델을 테스트해보세요.",
         "TEST_WEBCAM": "사진을 찍어서 모델을 ",
         "WHATHAVEYOUDONE": {
             "TITLE": "무엇을 하고 있나요?",
             "PLEASEWAIT": "몇 분이 걸려요. 하지만 트레이닝 컴퓨터가 바쁘다면 조금 더 걸릴 수 있어요.",
-            "FAIL": "에고.. 뭔가 문제가 있네요",
+            "FAIL": "에고.. 뭔가 문제가 있네요.",
 
             "TRAINING" : {
                 "CROWDSOURCED" : {
@@ -316,14 +316,14 @@
                 },
                 "NODATA" : {
                     "CROWDSOURCED" : {
-                        "TEXT" : "다음의 문자를 컴퓨터가 인식하기 위해 여러분 교실 친구들은 데이터를 추가해야합니다 : ",
-                        "IMAGES" : "다음의 그림를 컴퓨터가 인식하기 위해 여러분 교실 친구들은 데이터를 추가해야합니다 : ",
-                        "NUMBERS" : "다음의 숫자를 컴퓨터가 인식하기 위해 여러분 교실 친구들은 데이터를 추가해야합니다 : "
+                        "TEXT" : "다음의 문자를 컴퓨터가 인식하기 위해 여러분 교실 친구들은 데이터를 추가해야합니다: ",
+                        "IMAGES" : "다음의 그림를 컴퓨터가 인식하기 위해 여러분 교실 친구들은 데이터를 추가해야합니다: ",
+                        "NUMBERS" : "다음의 숫자를 컴퓨터가 인식하기 위해 여러분 교실 친구들은 데이터를 추가해야합니다: "
                     },
                     "INDIVIDUAL" : {
-                        "TEXT" : "다음의 문자를 컴퓨터가 인식하기 위해 여러분은 데이터를 추가해야합니다 : ",
-                        "IMAGES" : "다음의 그림을 컴퓨터가 인식하기 위해 여러분은 데이터를 추가해야합니다 : ",
-                        "NUMBERS" : "다음의 숫자를 컴퓨터가 인식하기 위해 여러분은 데이터를 추가해야합니다 : "
+                        "TEXT" : "다음의 문자를 컴퓨터가 인식하기 위해 여러분은 데이터를 추가해야합니다: ",
+                        "IMAGES" : "다음의 그림을 컴퓨터가 인식하기 위해 여러분은 데이터를 추가해야합니다: ",
+                        "NUMBERS" : "다음의 숫자를 컴퓨터가 인식하기 위해 여러분은 데이터를 추가해야합니다: "
                     }
                 },
                 "NOEXAMPLES" : {
@@ -357,7 +357,7 @@
             "IDLE": {
                 "NOLABELS" : "다음 단계로 <a href='{{ urls.train }}'>훈련</a>페이지로 가보세요. 컴퓨터가 인식하기를 원하는 몇 개의 레이블을 추가해보세요.",
                 "ONELABEL" : {
-                    "EXPLANATION": "여러분은 다음의 하나만 컴퓨터가 인식하도록 만들었습니다 : {{ label }}",
+                    "EXPLANATION": "여러분은 다음의 하나만 컴퓨터가 인식하도록 만들었습니다: {{ label }}",
                     "ISTHATALL": "컴퓨터가 인식하기 원하는 것이 하나뿐인가요?",
                     "NO": "<strong>아닌가요?</strong><br/> 그렇다면 <a href='{{ urls.train }}'>훈련</a>페이지로 이동하세요.<br/>더 많은 레이블을 추가하여 컴퓨터가 많은 것을 인식하도록 해 보세요.<br/><br/>",
                     "YES": "<strong>그런가요?</strong><br/>여러분은 먼저 할 일이 있습니다.<br/>컴퓨터가 \"{{ label }}\"를 인식할 수 있도록, {{ label }}이 아닌 여러 데이터를 모아야 합니다.<br/><a href='{{ urls.train }}'>훈련</a> 페이지로 돌아가서 {{ label }}이 아닌 레이블을 하나 만드세요. 그것을 \"not-{{ label }}\"이라 이름 지을 수 있어요."
@@ -479,9 +479,9 @@
         "STATUS_RED": "무엇인가 잘못되었다는 표시입니다. <strong>학습 &amp; 테스트</strong> 페이지로 이동하여 무엇이 잘못되었는지 확인해보세요."
     },
     "SCRATCH3": {
-        "TITLE": "스크래치3.0에서 머신러닝 사용하기",
+        "TITLE": "스크래치 3에서 머신러닝 사용하기",
 
-        "LAUNCH": "스크래치3.0 열기"
+        "LAUNCH": "스크래치 3 열기"
     },
     "WORKSHEETS": {
         "TITLE": "머신러닝 프로젝트",
@@ -532,123 +532,123 @@
 
         "SMARTCLASSROOM": {
             "TITLE": "스마트 교실",
-            "SUMMARY": "당신의 말을 알아들을 수 있도록 컴퓨터를 가르쳐봐요",
-            "DESCRIPTION": "가상 기기에서 조정할 수 있는 스마트 어시스턴트를 만들어봐요"
+            "SUMMARY": "당신의 말을 알아들을 수 있도록 컴퓨터를 가르쳐봐요.",
+            "DESCRIPTION": "가상 기기에서 조정할 수 있는 스마트 어시스턴트를 만들어봐요."
         },
         "MAKEMEHAPPY": {
             "TITLE": "날 기쁘게 해줘요",
-            "SUMMARY": "칭찬과 모욕을 인식하도록 컴퓨터를 가르쳐봐요",
-            "DESCRIPTION": "멋진 것을 말하면 웃고, 그렇지 않으면 우는 만드는 캐릭터를 스크래치로 만들어봐요"
+            "SUMMARY": "칭찬과 모욕을 인식하도록 컴퓨터를 가르쳐봐요.",
+            "DESCRIPTION": "멋진 것을 말하면 웃고, 그렇지 않으면 우는 만드는 캐릭터를 스크래치로 만들어봐요."
         },
         "SNAP": {
             "TITLE": "스냅!",
-            "SUMMARY": "어떤 아이콘이 보이는지 컴퓨터가 인식하도록 가르쳐봐요",
-            "DESCRIPTION": "카드 사진을 인식하는 방법을 배우는 Scratch의 카드 게임을 만들어봐요"
+            "SUMMARY": "어떤 아이콘이 보이는지 컴퓨터가 인식하도록 가르쳐봐요.",
+            "DESCRIPTION": "카드 사진을 인식하는 방법을 배우는 Scratch의 카드 게임을 만들어봐요."
         },
         "CHAMELEON": {
             "TITLE": "카멜레온",
-            "SUMMARY": "컴퓨터가 색깔을 인식하도록 가르쳐봐요",
-            "DESCRIPTION": "배경에 맞춰 카멜레온의 몸 색깔을 바꾸도록 만들어봐요"
+            "SUMMARY": "컴퓨터가 색깔을 인식하도록 가르쳐봐요.",
+            "DESCRIPTION": "배경에 맞춰 카멜레온의 몸 색깔을 바꾸도록 만들어봐요."
         },
         "MAILMANMAX": {
             "TITLE": "우편배달부",
-            "SUMMARY": "컴퓨터에 손글씨 인식을 가르쳐봐요",
-            "DESCRIPTION": "봉투에 손으로 쓴 우편번호를 인식 할 수있는 스크래치에 우편 정렬 사무실을 만들어봐요"
+            "SUMMARY": "컴퓨터에 손글씨 인식을 가르쳐봐요.",
+            "DESCRIPTION": "봉투에 손으로 쓴 우편번호를 인식 할 수있는 스크래치에 우편 정렬 사무실을 만들어봐요."
         },
         "CARORCUP": {
             "TITLE": "자동차 또은 컵",
-            "SUMMARY": "컴퓨터에 물체의 그림을 인식하도록 가르쳐봐요",
-            "DESCRIPTION": "사진을 그룹화할 수 있도록 컴퓨터를 가르쳐봐요"
+            "SUMMARY": "컴퓨터에 물체의 그림을 인식하도록 가르쳐봐요.",
+            "DESCRIPTION": "사진을 그룹화할 수 있도록 컴퓨터를 가르쳐봐요."
         },
         "FACELOCK": {
             "TITLE": "얼굴 잠금 장치",
-            "SUMMARY": "얼굴을 인식하도록 컴퓨터를 가르쳐봐요",
-            "DESCRIPTION": "얼굴을 인식하면 잠금을 해제하는 전화를 Scratch로 만들어봐요"
+            "SUMMARY": "얼굴을 인식하도록 컴퓨터를 가르쳐봐요.",
+            "DESCRIPTION": "얼굴을 인식하면 잠금을 해제하는 전화를 스크래치로 만들어봐요."
         },
         "JOURNEYTOSCHOOL": {
             "TITLE": "학교 가는 길",
             "SUMMARY": "컴퓨터에 예측을 하도록 가르쳐봐요",
-            "DESCRIPTION": "아침에 학교에 가는 방법을 예측할 수 있도록 컴퓨터를 가르쳐봐요"
+            "DESCRIPTION": "아침에 학교에 가는 방법을 예측할 수 있도록 컴퓨터를 가르쳐봐요."
         },
         "SHYPANDA": {
             "TITLE": "부끄럼쟁이 판다",
-            "SUMMARY": "컴퓨터가 사진을 인식하도록 가르쳐봐요",
-            "DESCRIPTION": "사람들이 판다를 쳐다보면 부끄러워하며 춤추는 것을 멈추는 판다를 만들어봐요"
+            "SUMMARY": "컴퓨터가 사진을 인식하도록 가르쳐봐요.",
+            "DESCRIPTION": "사람들이 판다를 쳐다보면 부끄러워하며 춤추는 것을 멈추는 판다를 만들어봐요."
         },
         "VIRTUALPET": {
             "TITLE": "가상 애완동물",
-            "SUMMARY": "컴퓨터가 사진을 인식하도록 가르쳐봐요",
+            "SUMMARY": "컴퓨터가 사진을 인식하도록 가르쳐봐요.",
             "DESCRIPTION": "여러분이 무엇을 하는지 알아차리는 컴퓨터를 만들어서 여러분이 가상 동물을 돌볼 수 있도록 해봐요."
         },
         "PACMAN": {
             "TITLE": "팩맨",
-            "SUMMARY": "게임을 하기 위해 컴퓨터를 가르쳐봐요",
-            "DESCRIPTION": "유령을 피하는 방법을 배우는 팩맨 게임을 Scratch에서 만들어봐요"
+            "SUMMARY": "게임을 하기 위해 컴퓨터를 가르쳐봐요.",
+            "DESCRIPTION": "유령을 피하는 방법을 배우는 팩맨 게임을 Scratch에서 만들어봐요."
         },
         "CHATBOTS": {
             "TITLE": "챗봇",
-            "SUMMARY": "컴퓨터에 질문을 인식하도록 가르쳐봐요",
-            "DESCRIPTION": "선택한 주제에 관한 질문에 답변 할 수있는 챗봇을 만들어봐요"
+            "SUMMARY": "컴퓨터에 질문을 인식하도록 가르쳐봐요.",
+            "DESCRIPTION": "선택한 주제에 관한 질문에 답변 할 수있는 챗봇을 만들어봐요."
         },
         "TOURISTINFO": {
             "TITLE": "여행자 정보",
-            "SUMMARY": "컴퓨터가 추천을 하도록 가르쳐봐요",
-            "DESCRIPTION": "스크래치에서 사람들의 관심사를 기반으로하는 관광 명소를 추천하는 모바일 앱을 만들어봐요"
+            "SUMMARY": "컴퓨터가 추천을 하도록 가르쳐봐요.",
+            "DESCRIPTION": "스크래치에서 사람들의 관심사를 기반으로하는 관광 명소를 추천하는 모바일 앱을 만들어봐요."
         },
         "SORTINGHAT": {
             "TITLE": "모자 정렬",
-            "SUMMARY": "컴퓨터가 말을 인식하도록 가르쳐봐요",
-            "DESCRIPTION": "Harry Potter와 같은 Sorting Hat을 만들면, 당신이 말하는 대로 학교에 들어갈 수 있습니다"
+            "SUMMARY": "컴퓨터가 말을 인식하도록 가르쳐봐요.",
+            "DESCRIPTION": "해리 포터와 같은 정렬 모자(Sorting Hat)을 만들면, 당신이 말하는 대로 학교에 들어갈 수 있습니다."
         },
         "ROCKPAPERSCISSORS": {
             "TITLE": "가위바위보",
-            "SUMMARY": "모양을 인식하도록 컴퓨터를 가르쳐봐요",
-            "DESCRIPTION": "손 모양을 인식하는 바위, 종이, 가위 (Scissors) 게임을 스크래치로 만들어봐요"
+            "SUMMARY": "모양을 인식하도록 컴퓨터를 가르쳐봐요.",
+            "DESCRIPTION": "손 모양을 인식하는 바위, 종이, 가위 (Scissors) 게임을 스크래치로 만들어봐요."
         },
         "JUDGEABOOK": {
             "TITLE": "책 구별사",
-            "SUMMARY": "시각적 스타일을 인식하도록 컴퓨터를 가르쳐봐요",
-            "DESCRIPTION": "Scratch에서 게임을 만들어 책 표지를 판단 할 수 있는지 테스트 해봐요"
+            "SUMMARY": "시각적 스타일을 인식하도록 컴퓨터를 가르쳐봐요.",
+            "DESCRIPTION": "Scratch에서 게임을 만들어 책 표지를 판단 할 수 있는지 테스트 해봐요."
         },
         "LOCATELARRY": {
             "TITLE": "래리 찾기",
-            "SUMMARY": "그림에서 무엇을 찾도록 컴퓨터를 가르쳐봐요",
-            "DESCRIPTION": "\"월리를 찾아라?\"와 같은 게임을 만들고, 여러분의 캐릭터를 찾을 수 있는 컴퓨터를 만들어봐요"
+            "SUMMARY": "그림에서 무엇을 찾도록 컴퓨터를 가르쳐봐요.",
+            "DESCRIPTION": "\"월리를 찾아라?\"와 같은 게임을 만들고, 여러분의 캐릭터를 찾을 수 있는 컴퓨터를 만들어봐요."
         },
         "CONFUSED": {
             "TITLE": "맨붕",
-            "SUMMARY": "과일을 인식하도록 컴퓨터를 가르쳐봐요",
-            "DESCRIPTION": "잘못 훈련된 경우 컴퓨터가 얼마나 혼란스러워하고 실수를 저지르는지 살펴봐요"
+            "SUMMARY": "과일을 인식하도록 컴퓨터를 가르쳐봐요.",
+            "DESCRIPTION": "잘못 훈련된 경우 컴퓨터가 얼마나 혼란스러워하고 실수를 저지르는지 살펴봐요."
         },
         "SCHOOLLIBRARY": {
             "TITLE": "도서관",
-            "SUMMARY": "컴퓨터가 추천을 하도록 가르치십시오",
-            "DESCRIPTION": "어떤 책이 적합한지를 제안하는 학교 사서를 스크래치로 만들어봐요"
+            "SUMMARY": "컴퓨터가 추천을 하도록 가르치십시오.",
+            "DESCRIPTION": "어떤 책이 적합한지를 제안하는 학교 사서를 스크래치로 만들어봐요."
         },
         "WHATTWITTERTHINKS": {
             "TITLE": "트위터는 어떻게 생각하나요?",
-            "SUMMARY": "대중의 의견을 알아차리도록 컴퓨터를 가르쳐봐요",
-            "DESCRIPTION": "트위터의 의견들을 분석할 수 있는 감정 분석 도구를 "
+            "SUMMARY": "대중의 의견을 알아차리도록 컴퓨터를 가르쳐봐요.",
+            "DESCRIPTION": "트위터의 의견들을 분석할 수 있는 감정 분석 도구를 스크래치에서 만들어봐요."
         },
         "NOUGHTSANDCROSSES": {
             "TITLE": "동그라미 & 엑스 게임",
-            "SUMMARY": "게임을 하기 위해 컴퓨터를 가르쳐봐요",
-            "DESCRIPTION": "여러분과 게임할 수 있는 동그라미 & 엑스 게임을 할 수 있는 컴퓨터를 스크래치에서 만들어보세요"
+            "SUMMARY": "게임을 하기 위해 컴퓨터를 가르쳐봐요.",
+            "DESCRIPTION": "여러분과 게임할 수 있는 동그라미 & 엑스 게임을 할 수 있는 컴퓨터를 스크래치에서 만들어보세요."
         },
         "TOPTRUMPS": {
             "TITLE": "탑 트럼프",
-            "SUMMARY": "게임을 하기 위해 컴퓨터를 가르쳐봐요",
-            "DESCRIPTION": "여러분과 게임할 수 있는 탑 트럼프 게임을 할 수 있는 컴퓨터를 스크래치에서 만들어보세요"
+            "SUMMARY": "게임을 하기 위해 컴퓨터를 가르쳐봐요.",
+            "DESCRIPTION": "여러분과 게임할 수 있는 탑 트럼프 게임을 할 수 있는 컴퓨터를 스크래치에서 만들어보세요."
         },
         "HEADLINES": {
             "TITLE": "헤드라인",
-            "SUMMARY": "언어를 인식하는 컴퓨터의 능력을 테스트해봐요",
-            "DESCRIPTION": "전국 신문의 헤드 라인을 인식하도록 컴퓨터를 만들어봐요"
+            "SUMMARY": "언어를 인식하는 컴퓨터의 능력을 테스트해봐요.",
+            "DESCRIPTION": "전국 신문의 헤드 라인을 인식하도록 컴퓨터를 만들어봐요."
         },
         "FINDIT": {
-            "TITLE": "Find It!",
-            "SUMMARY": "Teach a computer to recognise pictures",
-            "DESCRIPTION": "Make a hide-and-seek game for your mobile phone"
+            "TITLE": "찾아보세요!",
+            "SUMMARY": "사진을 인식하도록 컴퓨터를 가르쳐봐요.",
+            "DESCRIPTION": "여러분 스마트폰에서 할 수 있는 숨기고 찾기(hide-and-seek)게임을 만들어봐요."
         }
     },
     "TEACHER": {
@@ -799,32 +799,32 @@
     },
     "SCRATCHBLOCKS": {
         "TEXT_PROJECTS": {
-            "mlforkids.text.recogniseLabel": "recognise text [TEXT] (label)",
-            "mlforkids.text.recogniseConfidence": "recognise text [TEXT] (confidence)",
-            "mlforkids.text.addTraining": "add training data [TEXT] [LABEL]",
-            "mlforkids.text.trainNewModel": "train new machine learning model",
-            "mlforkids.text.checkModelStatus": "Is the machine learning model [STATUS] ?"
+            "mlforkids.text.recogniseLabel": "[TEXT] 텍스트 인식하기(레이블)",
+            "mlforkids.text.recogniseConfidence": "[TEXT] 텍스트 인식하기(정확도)",
+            "mlforkids.text.addTraining": "[TEXT]를 훈련 데이터로 추가[LABEL]",
+            "mlforkids.text.trainNewModel": "새로운 머신 러닝 모델 훈련하기",
+            "mlforkids.text.checkModelStatus": "머신 러닝 모델은 [STATUS] 상태인가요?"
         },
         "IMAGES_PROJECTS": {
-            "mlforkids.images.recogniseLabel": "recognise image [IMAGE] (label)",
-            "mlforkids.images.recogniseConfidence": "recognise image [IMAGE] (confidence)",
-            "mlforkids.images.addTraining": "add training data [TEXT] [LABEL]"
+            "mlforkids.images.recogniseLabel": "[IMAGE] 이미지 인식하기(레이블)",
+            "mlforkids.images.recogniseConfidence": "[IMAGE] 이미지 인식하기(정확도)",
+            "mlforkids.images.addTraining": "[IMAGE]를 훈련 데이터로 추가[LABEL]"
         },
         "NUMBER_PROJECTS": {
-            "mlforkids.numbers.trainNewModel": "train new machine learning model"
+            "mlforkids.numbers.trainNewModel": "새로운 머신 러닝 모델 훈련하기"
         },
         "TWITTER": {
-            "mlforkids.twitter.getrecenttweet": "get the [INDEX] most recent tweet about [TOPIC]"
+            "mlforkids.twitter.getrecenttweet": "[TOPIC]과 관련된 가장 최근 트윗 [INDEX]개 가져오기"
         },
         "IMAGE_BLOCKS": {
-            "mlforkids.imageblocks.getCostumeImage": "costume image",
-            "mlforkids.imageblocks.getBackdropCostumeImage": "backdrop image",
-            "mlforkids.imageblocks.getBackdropImage": "backdrop image",
-            "mlforkids.imageblocks.saveScreenshotToCostume": "save screenshot to costume"
+            "mlforkids.imageblocks.getCostumeImage": "모양",
+            "mlforkids.imageblocks.getBackdropCostumeImage": "배경",
+            "mlforkids.imageblocks.getBackdropImage": "배경",
+            "mlforkids.imageblocks.saveScreenshotToCostume": "모양으로 스크린샷 저장"
         },
         "GUI": {
-            "gui.menuBar.mlforkidsLibrary": "Project templates",
-            "gui.mlforkidsLibrary.templates": "Machine Learning for Kids modelos de projeto"
+            "gui.menuBar.mlforkidsLibrary": "프로젝트 템플릿",
+            "gui.mlforkidsLibrary.templates": "아이들을 위한 머신러닝 프로젝트 템플릿"
         }
     },
     "HELP": {
