@@ -32,7 +32,7 @@
         "IN20MINS": "20분 안에 가능",
         "WHAT": {
             "TITLE": "무엇을?",
-            "BODY" : "이 도구는 머신러닝 시스템을 훈련시키고 만드는 실전적인 과정을 제공하며 아이들에게 머신러닝을 소개합니다. <br/><br/> 이 도구는 텍스트, 숫자 또는 이미지를 분류하는 머신러닝 모델을 만들 수 있는 환경을 제공합니다. <br/><br/>아이들에게 코딩을 소개하고 가르치기 위한 기존의 연구를 바탕으로, 이 모델을 <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a>(코딩 교육에 주로 사용되는 플랫폼)에 추가하여 아이들이 그들이 만든 머신러닝 모델을 바탕으로 프로젝트와 게임을 만들 수 있습니다. <br/><br/>자세한 내용은 다음을 참고하세요. <br/>"
+            "BODY" : "이 도구는 머신러닝 시스템을 훈련시키고 만드는 실전적인 과정을 제공하며 아이들에게 머신러닝을 소개합니다. <br/><br/> 이 도구는 텍스트, 숫자 또는 이미지를 분류하는 머신러닝 모델을 만들 수 있는 환경을 제공합니다. <br/><br/>아이들에게 코딩을 소개하고 가르치기 위한 기존의 연구를 바탕으로, 이 모델을 <a href='https://scratch.mit.edu/about' target='_blank'>스크래치</a>(코딩 교육에 주로 사용되는 플랫폼)에 추가하여 아이들이 그들이 만든 머신러닝 모델을 바탕으로 프로젝트와 게임을 만들 수 있습니다. <br/><br/>자세한 내용은 다음을 참고하세요. <br/>"
         },
         "WHY": {
             "TITLE": "왜?",
@@ -437,7 +437,7 @@
     "MAKES": {
         "TITLE": "여러분의 머신러닝 모델로 프로그램을 만들어봅시다.",
         "SCRATCH2": "예전 버전의 스크래치로 만들어봅시다.",
-        "SCRATCH3": "새로운 버전인 스크래치로 만들어봅시다.",
+        "SCRATCH3": "새로운 버전의 스크래치로 만들어봅시다.",
         "PYTHON": "파이썬을 이용하여 만들어봅시다.",
         "APPINVENTOR": "여러분의 스마트폰이나 태블릿에서 사용할 수 있는 앱을 만들어봅시다."
     },
@@ -543,7 +543,7 @@
         "SNAP": {
             "TITLE": "스냅!",
             "SUMMARY": "어떤 아이콘이 보이는지 컴퓨터가 인식하도록 가르쳐봐요.",
-            "DESCRIPTION": "카드 사진을 인식하는 방법을 배우는 Scratch의 카드 게임을 만들어봐요."
+            "DESCRIPTION": "카드 사진을 인식하는 방법을 배우는 스크래치의 카드 게임을 만들어봐요."
         },
         "CHAMELEON": {
             "TITLE": "카멜레온",
@@ -583,7 +583,7 @@
         "PACMAN": {
             "TITLE": "팩맨",
             "SUMMARY": "게임을 하기 위해 컴퓨터를 가르쳐봐요.",
-            "DESCRIPTION": "유령을 피하는 방법을 배우는 팩맨 게임을 Scratch에서 만들어봐요."
+            "DESCRIPTION": "유령을 피하는 방법을 배우는 팩맨 게임을 스크래치에서 만들어봐요."
         },
         "CHATBOTS": {
             "TITLE": "챗봇",
@@ -608,7 +608,7 @@
         "JUDGEABOOK": {
             "TITLE": "책 구별사",
             "SUMMARY": "시각적 스타일을 인식하도록 컴퓨터를 가르쳐봐요.",
-            "DESCRIPTION": "Scratch에서 게임을 만들어 책 표지를 판단 할 수 있는지 테스트 해봐요."
+            "DESCRIPTION": "스크래치에서 게임을 만들어 책 표지를 판단 할 수 있는지 테스트 해봐요."
         },
         "LOCATELARRY": {
             "TITLE": "래리 찾기",
@@ -801,20 +801,20 @@
         "TEXT_PROJECTS": {
             "mlforkids.text.recogniseLabel": "[TEXT] 텍스트 인식하기(레이블)",
             "mlforkids.text.recogniseConfidence": "[TEXT] 텍스트 인식하기(정확도)",
-            "mlforkids.text.addTraining": "[TEXT]를 훈련 데이터로 추가[LABEL]",
+            "mlforkids.text.addTraining": "[TEXT](을)를 [LABEL]레이블의 훈련 데이터로 추가",
             "mlforkids.text.trainNewModel": "새로운 머신 러닝 모델 훈련하기",
             "mlforkids.text.checkModelStatus": "머신 러닝 모델은 [STATUS] 상태인가요?"
         },
         "IMAGES_PROJECTS": {
             "mlforkids.images.recogniseLabel": "[IMAGE] 이미지 인식하기(레이블)",
             "mlforkids.images.recogniseConfidence": "[IMAGE] 이미지 인식하기(정확도)",
-            "mlforkids.images.addTraining": "[IMAGE]를 훈련 데이터로 추가[LABEL]"
+            "mlforkids.images.addTraining": "[IMAGE](을)를 [LABEL]레이블의 훈련 데이터로 추가"
         },
         "NUMBER_PROJECTS": {
             "mlforkids.numbers.trainNewModel": "새로운 머신 러닝 모델 훈련하기"
         },
         "TWITTER": {
-            "mlforkids.twitter.getrecenttweet": "[TOPIC]과 관련된 가장 최근 트윗 [INDEX]개 가져오기"
+            "mlforkids.twitter.getrecenttweet": "[TOPIC](와)과 관련된 가장 최근 트윗 [INDEX]개 가져오기"
         },
         "IMAGE_BLOCKS": {
             "mlforkids.imageblocks.getCostumeImage": "모양",
@@ -848,7 +848,7 @@
             "TITLE": "스크래치 문제",
 
             "Q1": "스크래치를 어떻게 하는지 모릅니다",
-            "Q1-A-1": "아이들을 위한 머신러닝은 Scratch를 사용합니다. Scratch 2는 Adobe Flash가 필요하므로 Flash로 작업할 수 있는 운영 체제와 웹 브라우저를 사용하여야 합니다(아이패드는 사용할 수 없어요).",
+            "Q1-A-1": "아이들을 위한 머신러닝은 스크래치를 사용합니다. 스크래치 2는 Adobe Flash가 필요하므로 Flash로 작업할 수 있는 운영 체제와 웹 브라우저를 사용하여야 합니다(아이패드는 사용할 수 없어요).",
             "Q1-A-2": "플래시를 활성화하는 방법에 대해 잘 모르는 경우 <a href = 'https : //github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/ machinelearningforkids-scratchx.pdf '> 스크래치 작업을 위한 팁을 포함한 문서를 다운로드하세요.",
 
             "Q2": "\"프로젝트 열기\"나 \"프로젝트 저장\" 메뉴가 작동하지 않습니다",
@@ -863,7 +863,7 @@
             "Q3-A-5": "스크래치 블록을 학습하는 머신 옆의 상태 표시등이 녹색이면 블록이 작동해야합니다. 예상한 답을 얻지 못하면 \"학습 및 테스트\"페이지로 이동하여 모델의 결과를 확인하십시오.",
 
             "Q5": "모든 버전의 스크래치를 사용할 수 있습니까?",
-            "Q5-A-1": "아이들을 위한 머신러닝 사이트에서 제공하는 Scratch 버전을 사용해야합니다. 프로젝트 페이지에서 스크래치 3(또는 스크래치 2) 버튼을 클릭하면 시작할 수 있습니다.",
+            "Q5-A-1": "아이들을 위한 머신러닝 사이트에서 제공하는 스크래치 버전을 사용해야합니다. 프로젝트 페이지에서 스크래치 3(또는 스크래치 2) 버튼을 클릭하면 시작할 수 있습니다.",
 
             "Q6": "스크래치 3은 프로젝트를 '다운로드'폴더에만 저장합니다.",
             "Q6-A-1": "스크래치 3에서 '파일'-> '컴퓨터에 저장'을 클릭하면 스크래치 프로젝트가 컴퓨터에 저장됩니다.",
