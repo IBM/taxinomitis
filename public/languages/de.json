@@ -112,7 +112,7 @@
             "INTRO": "Wenn du deinen Klassenaccount selbst einrichten und verwalten möchtest, mache das jetzt!",
             "LISTINTRO": "Dafür musst du:",
             "LIST_CREATEACCOUNT": "Einen Account auf IBM Cloud erstellen",
-            "LIST_CREATEAPIKEYS": ""API Schlüssel für Watson Cloud Services erstellen, die benötigt werden, um die maschinellen Lernmodelle zu trainieren",
+            "LIST_CREATEAPIKEYS": "API Schlüssel für Watson Cloud Services erstellen, die benötigt werden, um die maschinellen Lernmodelle zu trainieren",
             "LIST_ENTERAPIKEYS": "Die API Schlüssel im Machine Learning for Kids Tool eingeben",
             "HELP": "Für alles gibt es Schritt-für-Schritt Anleitungen (mit Screenshots)."
         },
@@ -239,13 +239,13 @@
     },
     "MODELS": {
         "TITLE": "Machine Learning Models",
-        "TRAIN": "Train new machine learning model",
-        "CANCEL": "Cancel training",
-        "DELETE": "Delete this model",
-        "TEST_CANVAS": "Draw something to test your model with",
-        "TEST_WEBCAM": "Take a photo to test your model with",
+        "TRAIN": "Trainiere ein neues maschinelles Lernmodell",
+        "CANCEL": "Training abbrechen",
+        "DELETE": "Lösche dieses Model",
+        "TEST_CANVAS": "Zeichne etwas, um dein Model zu testen",
+        "TEST_WEBCAM": "Mache eine Foto, um dein Model zu testen",
         "WHATHAVEYOUDONE": {
-            "TITLE": "What have you done?",
+            "TITLE": ""What have you done?",
             "PLEASEWAIT": "This normally takes a few minutes, but can take a little longer if the training computer is very busy.",
             "FAIL": "Unfortunately, something went wrong.",
 
