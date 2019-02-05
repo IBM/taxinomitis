@@ -466,65 +466,65 @@
         "LAUNCH_SCRATCH_BY_ITSELF": "(Du kannst <a href='{{ url }}' class='btn btn-default' target='_blank'>nur Scratch allein</a> verwenden, wenn du möchtest.)",
         "GO_TO_LEARNANDTEST": "Oder gehe zur <a href='{{ urls.learnandtest }}'>Lernen &amp; Testen</a>-Seite. Dort findest du Tipps, was du als nächstes tun kannst.",
 
-        "MORE_BLOCKS": ""Your project will add these blocks to the <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> tab in Scripts.",
-        "EXPLAIN_RECOGNISE_LABEL": "Put {{ type }} in the input for this, and it will return the label that your machine learning model recognises it as.",
-        "EXPLAIN_RECOGNISE_CONFIDENCE": "This will return how confident your machine learning model is that it recognises the type of {{ type }}. (As a number from 0 - 100).",
-        "EXPLAIN_LABELS": "These blocks represent the labels you've created in your project, so you can use their names in your scripts.",
-        "EXPLAIN_COSTUMEIMAGE": "This block is in the Looks palette for Sprites and will return the image of the currently selected costume.",
-        "SAMPLE_SCRIPT": "This means you can do something like this:",
-        "SAMPLE_SCREENSHOT": "It will look something like this - except with the name of your project.",
-        "EXPLAIN_STATUS": "The coloured circle next to your project name tells you if your machine learning model is okay.",
-        "STATUS_GREEN": "means your model is trained and ready to go",
-        "STATUS_YELLOW": "means your model hasn't finished training yet",
-        "STATUS_RED": "means something went wrong. Go back to the <a href='{{ urls.learnandtest }}'>Learn &amp; Test</a> page to see what went wrong with training."
+        "MORE_BLOCKS": "Dein Projekt wird diese Blöcke im Bereich <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>Mehr Blöcke (More Blocks)</span> hinzufügen.",
+        "EXPLAIN_RECOGNISE_LABEL": "Nimm dieses {{ type }} als Eingabe hierfür und es wird dir die erkannte Kategorie zurückgegeben.",
+        "EXPLAIN_RECOGNISE_CONFIDENCE": "Dies gibt die Sicherheit an, mit der dein Machine Learning Model die Kategorie {{ type }}  erkannt hat. (Als eine Zahl zwischen 0 - 100).",
+        "EXPLAIN_LABELS": "Diese Blöcke repräsentieren die Kategorien, die du in deinem Projekt erstellt hast. Du kannst sie in deinem Programm verwenden.",
+        "EXPLAIN_COSTUMEIMAGE": "Diesen Block findest du unter Skripte im Bereich Aussehen. Er wählt das aktuelle Kostüm als Bild aus.",
+        "SAMPLE_SCRIPT": "Das bedeuetet, du kanns so etwas machen:",
+        "SAMPLE_SCREENSHOT": "Das sieht dann so aus. (Außer der Projektname.)",
+        "EXPLAIN_STATUS": "Der farbige Kreis neben deinem Projektnamen zeigt an, ob das Machine Learning Model einsatzbereit ist.",
+        "STATUS_GREEN": "bedeutet, dass dein Model trainiert und einsatzbereit ist",
+        "STATUS_YELLOW": "bedeutet, dass dein Model das Training noch nicht beendet hat",
+        "STATUS_RED": "bedeutet, dass es schief gelaufen ist. Gehe zurück zur <a href='{{ urls.learnandtest }}'>Lernen &amp; Testen</a>-Seite und prüfe was schief gelaufen ist."
     },
     "SCRATCH3": {
-        "TITLE": "Using machine learning in Scratch 3",
+        "TITLE": "Verwende Machine Learning in Scratch 3",
 
-        "LAUNCH": "Open in Scratch 3"
+        "LAUNCH": "In Scratch 3 öffnen"
     },
     "WORKSHEETS": {
-        "TITLE": "Machine learning projects",
+        "TITLE": "Arbeitsblätter zu Machine learning Projekten",
 
-        "INTRO_1": "These projects are downloadable step-by-step guides, with explanations and colour screenshots for students to follow.",
-        "INTRO_2": "Each project is a stand-alone activity, written to last for a single lesson, and will guide children to create a game or interactive project that demonstrates a real-world use of artificial intelligence and machine learning.",
-        "INTRO_3": "Suggestions for new worksheets, suggestions of improvements to any of the worksheets, or contributions of new project worksheets, are all very welcome.",
+        "INTRO_1": "Hier findest du Arbeitsblätter zum herunterladen auf Englisch. Auf den Arbeitsblättern sind verschiedene Machine Learning Projekte mit Schritt-für-Schritt Anleitungen, Beispielen und Screenshots, die deine Schüler befolgen können. Unterrichtsmaterialien auf Deutsch findest du auf <a href='https://appcamps.de/'>www.appcamps.de</a>",
+        "INTRO_2": "Jedes Projekt ist eigenständig und für eine Unterrichtseinheit konzipiert. Das Ergebnis ist jeweils ein Spiel oder interaktives Projekt, das den realen Einsatz von künstlicher Intelligenz und maschinellem Lernen demonstriert.",
+        "INTRO_3": "Vorschläge für neue Arbeitsblätter, Verbesserungsvorschläge für vorhandene Arbeitsblätter oder das Teilen eigener Arbeitsblätter sind sehr willkommen.",
 
         "TYPES": {
-            "TITLE": "Recognising:",
-            "ALL": "All project types",
+            "TITLE": "Erkennen:",
+            "ALL": "Alle Arten von Projekten",
 
-            "PREFIX": "Train a computer to recognise ",
+            "PREFIX": "Trainiere einen Computer, folgendes zu erkennen:",
 
-            "TEXT": "text",
-            "IMAGES": "images",
-            "NUMBERS": "numbers"
+            "TEXT": "Text",
+            "IMAGES": "Bilder",
+            "NUMBERS": "Zahlen"
         },
 
         "LEVELS": {
-            "TITLE": "Difficulty:",
-            "ALL": "All difficulties",
-            "BEGINNER": "Beginner projects",
-            "INTERMEDIATE": "Intermediate projects",
-            "ADVANCED": "Advanced projects"
+            "TITLE": "Schwierigkeit:",
+            "ALL": "Gesamtübersicht",
+            "BEGINNER": "Projekte für Anfänger",
+            "INTERMEDIATE": "Projekte für Intermediates",
+            "ADVANCED": "Projekte für Fortgeschrittene"
         },
 
-        "DOWNLOAD": "Download",
+        "DOWNLOAD": "Herunterladen",
 
         "MAKETYPES": {
-            "ALL": "All make types",
+            "ALL": "Alle Möglichkeiten für Anwendungen",
 
-            "SCRATCH": "Scratch projects",
-            "PYTHON": "Python projects",
-            "APPINVENTOR": "App Inventor projects",
+            "SCRATCH": "Scratch Projekte",
+            "PYTHON": "Python Projekte",
+            "APPINVENTOR": "App Inventor Projekte",
 
-            "SCRATCH_WORKSHEET": "Worksheet for making project in Scratch",
-            "PYTHON_WORKSHEET": "Worksheet for making project in Python",
-            "APPINVENTOR_WORKSHEET": "Worksheet for making project in App Inventor"
+            "SCRATCH_WORKSHEET": "Arbeitsblätter für Projekte in Scratch",
+            "PYTHON_WORKSHEET": "Arbeitsblätter für Projekte in Python",
+            "APPINVENTOR_WORKSHEET": "Arbeitsblätter für Projekte im App Inventor"
         },
 
         "NO_WORKSHEETS": {
-            "NO_MATCHES": "There aren't any project worksheets that match those filters.",
+            "NO_MATCHES": "Es gibt keine Arbeitsblätter entsprechend deiner Suchkriterien.",
             "MAKE_YOUR_OWN": "You could adapt some of the existing worksheets or come up with a new one.",
             "CONTRIBUTE": "If you do, please consider <a href='https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions'>contributing it for others to use</a>."
         },
