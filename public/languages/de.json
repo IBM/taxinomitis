@@ -36,7 +36,7 @@
         },
         "WHY": {
             "TITLE": "Warum?",
-            "BODY": "Maschinelles Lernen umgibt uns überall. Wir alle benutzen täglich maschinelle Lernsysteme - wie Spam-Filter, Empfehlungssysteme, Sprachübersetzungsdienste, Chatbots und digitale Assistenten, Suchmaschinen sowie Systeme zur Betrugserkennung. <br/><br/> In nicht allzu ferne Zukunft werden selbstfahrende Autos ebenso normal sein wie Systeme, die Ärzte dabei unterstützen Krankheiten zu erkennen und zu behandeln.<br/><br/> Es ist wichtig, dass Jeder, und vor allem Kinder und junge Erwachsene, wissen, wie unsere Welt funktioniert. Der beste Weg, um die Möglichkeiten und Auswirkungen von Künstlicher Intelligenz zu verstehen, ist, die Technologie selbst anzuwenden und eigene Applikationen zu bauen. <br/><br/> Hier erfährst du mehr: <a target='_blank' class='btn btn-primary' href='http://dalane.co.uk/blog/?p=3513'> "Einführung in Machine Learning (Blog auf Englisch von Dale Lane, dem Gründer der Plattform)</a>."
+            "BODY": "Maschinelles Lernen umgibt uns überall. Wir alle benutzen täglich maschinelle Lernsysteme - wie Spam-Filter, Empfehlungssysteme, Sprachübersetzungsdienste, Chatbots und digitale Assistenten, Suchmaschinen sowie Systeme zur Betrugserkennung. <br/><br/> In nicht allzu ferne Zukunft werden selbstfahrende Autos ebenso normal sein wie Systeme, die Ärzte dabei unterstützen Krankheiten zu erkennen und zu behandeln.<br/><br/> Es ist wichtig, dass Jeder, und vor allem Kinder und junge Erwachsene, wissen, wie unsere Welt funktioniert. Der beste Weg, um die Möglichkeiten und Auswirkungen von Künstlicher Intelligenz zu verstehen, ist, die Technologie selbst anzuwenden und eigene Applikationen zu bauen. <br/><br/> Hier erfährst du mehr: <a target='_blank' class='btn btn-primary' href='http://dalane.co.uk/blog/?p=3513'> Einführung in Machine Learning (Blog auf Englisch von Dale Lane, dem Gründer der Plattform)</a>."
         },
         "TECH": {
             "TITLE": "Technologie",
@@ -395,78 +395,78 @@
                 "SCRATCH" : "Wenn es so aussieht, dass der Computer gelernt hat, Dinge richtig zu erkennen, kannst jetzt du eine Anwendung - zum Beispiel ein Spiel in Scratch - programmieren!",
                 "ADDITIONAL_TRAINING" : {
                     "MORE_EXAMPLES" : {
-                        "CROWDSOURCED" : ""If the computer is getting too many things wrong, your class might want to go back to the <a href='{{ urls.train }}'>Train</a> page and collect some more examples.",
-                        "INDIVIDUAL" : "If the computer is getting too many things wrong, you might want to go back to the <a href='{{ urls.train }}'>Train</a> page and collect some more examples"
+                        "CROWDSOURCED" : "Wenn der Computer zu viele Fehler macht, kann es hilfreich sein zur <a href='{{ urls.train }}'>Trainingsseite</a> zurück zu gehen und mehr Beispiele zu sammeln.",
+                        "INDIVIDUAL" : "Wenn der Computer zu viele Fehler macht, kann es hilfreich sein zur <a href='{{ urls.train }}'>Trainigsseite</a> zurück zu gehen und mehr Beispiele zu sammeln."
                     },
                     "RETRAIN" : {
-                        "YOU" : "Once you've done that, click on the button below to train a new machine learning model and see what difference the extra examples will make!",
-                        "CLASS" : "Once you've done that, your teacher will need to train a new machine learning model."
+                        "YOU" : "Wenn du fertig bist, klicke unten auf den Button, um ein neues Machine Learning Model zu trainieren und prüfe, ob die hinzugefügten Beispiele einen Unterschied machen!",
+                        "CLASS" : "Wenn du fertig musst, muss deine Lehrkraft ein neues Machine Learning Model trainieren."
                     }
                 }
             }
         },
         "TRAINING": {
-            "TITLE": "Info from training computer:",
-            "STARTED": "Model started training at:",
-            "STATUS": "Current model status:",
-            "DETAIL": "Detail:",
-            "DELETION": "Model will automatically be deleted after:",
-            "LASTCHECK": "Model last checked:",
-            "PROMPTREFRESH": "If this is more than a minute, you should refresh the page to get an up-to-date status"
+            "TITLE": "Information vom Trainingscomputer:",
+            "STARTED": "Das Modell wurde erstellt am:",
+            "STATUS": "Aktueller Status:",
+            "DETAIL": "Details:",
+            "DELETION": "Das Modell wird automatisch gelöscht am:",
+            "LASTCHECK": "Das Model wurde zuletzt überprüft am:",
+            "PROMPTREFRESH": "Falls es länger als eine Minute her ist, solltest du die Seite neu laden, um den aktuellen Status zu erhalten"
         },
         "TESTING": {
             "INTRO": {
-                "TEXT": "Try putting in some text to see how it is recognised based on your training.",
-                "IMAGES": "Try putting in an image to see how it is recognised based on your training.",
-                "NUMBERS": "Try putting in some numbers to see how it is recognised based on your training."
+                "TEXT": "Füge ein Textbeispiel hinzu, um zu prüfen, ob die Kategorie erkannt wird.",
+                "IMAGES": "Füge ein Beispielbild hinzu, um zu prüfen, ob die Kategorie erkannt wird.",
+                "NUMBERS": "Füge ein Beispiel hinzu, um zu prüfen, ob die Kategorie erkannt wird."
             },
-            "WEBCAM": "Test with <strong>webcam</strong>",
-            "DRAWING": "Test by <strong>drawing</strong>",
-            "WWW": "Test with <strong>www</strong>",
-            "RECOGNISED": "Recognised as  <strong>{{ testoutput }}</strong>"
+            "WEBCAM": "Test mit <strong>Webcam</strong>",
+            "DRAWING": "Test durch <strong>Zeichnen</strong>",
+            "WWW": "Test mit <strong>www</strong>",
+            "RECOGNISED": "Erkannt als  <strong>{{ testoutput }}</strong>"
         },
         "QUIZ": {
-            "TITLE": "Quiz time!",
-            "INTROQUESTION": "While you are waiting for the model to finish training, try answering this question.",
-            "PREVIOUSLY_ATTEMPTED": "You've seen this one before - let's see if you remember what the right answer is this time!",
-            "CORRECT_ANSWER": "That's right!",
-            "INCORRECT_ANSWER": "No, sorry. The correct answer is shown above.",
-            "NEXT_QUESTION": "Next question"
+            "TITLE": "Zeit für ein Quiz!",
+            "INTROQUESTION": "Versuche die Fragen zu beantworten, während das Modell trainiert.",
+            "PREVIOUSLY_ATTEMPTED": "Du kennst diese Frage bereits. Mal sehen, ob du dich daran erinnerst, was die korrekte Antwort ist!",
+            "CORRECT_ANSWER": "Das ist korrekt!",
+            "INCORRECT_ANSWER": "Nein, sorry. Die korrekte Antwort wird oben angezeigt.",
+            "NEXT_QUESTION": "Nächste Frage"
         }
     },
     "MAKES": {
-        "TITLE": "Make something with your machine learning model",
-        "SCRATCH2": "Make a project in the old version of Scratch",
-        "SCRATCH3": "Use the new version of Scratch",
-        "PYTHON": "Write Python code to use your machine learning model",
-        "APPINVENTOR": "Make a mobile app for your phone or tablet"
+        "TITLE": "Nutze dein Machine Learning Model",
+        "SCRATCH2": "Erstelle ein Projekt in der alten Scratch Version",
+        "SCRATCH3": "Nutze das neue Scratch",
+        "PYTHON": "Schreibe Python Code, um dein Machine Learning Model zu nutzen",
+        "APPINVENTOR": "Erstelle eine App für dein Smartphone oder Tablet"
     },
     "PYTHON": {
-        "TITLE": "Using machine learning in Python",
+        "TITLE": "Nutze Machine Learning in Python",
 
-        "NOTREADY": "Your project isn't ready to be used in Python yet.",
-        "NOMODEL": "You haven't trained a machine learning model yet."
+        "NOTREADY": "Dein Projekt kann noch nicht in Python verwendet werden.",
+        "NOMODEL": "Du hast noch kein Machine Learning Model trainiert."
     },
     "APPINVENTOR": {
-        "TITLE": "Using machine learning in App Inventor",
+        "TITLE": "Verwende Machine Learning im App Inventor",
 
-        "NOTREADY": "Your project isn't ready to be used in App Inventor yet.",
-        "NOMODEL": "You haven't trained a machine learning model yet.",
+        "NOTREADY": "Dein Projekt kann noch nicht im App Inventor verwendet werden.",
+        "NOMODEL": "Du hast noch kein Machine Learning Model trainiert.",
 
-        "BETAWARNING": "This is an early beta. Support for App Inventor is not finished, and will probably have a few bugs and problems."
+        "BETAWARNING": "Dies ist eine frühe Beta-Version. Die Unterstützung für den App Inventor ist noch nicht abgeschlossen. Möglicherweise kommt es zu einigen Bugs und Problemen."
     },
     "SCRATCH": {
-        "TITLE": "Using machine learning in Scratch",
+        "TITLE": "Nutze Machine Learning in Scratch",
 
-        "NOTREADY": "Your project isn't ready to be used in Scratch yet.",
-        "NOMODEL": "You haven't trained a machine learning model yet.",
+        "NOTREADY": "Dein Projekt kann noch nicht in Scratch verwendet werden.",
+        "NOMODEL": "Du hast noch kein Machine Learning Model trainiert.",
 
-        "LAUNCH": "Open in Scratch",
+        "LAUNCH": "In Scratch öffnen",
 
-        "LAUNCH_SCRATCH_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch by itself</a> if you want.)",
-        "GO_TO_LEARNANDTEST": "Or go to the <a href='{{ urls.learnandtest }}'>Learn &amp; Test</a> page for some tips on what to do next.",
+        "LAUNCH_SCRATCH_BY_ITSELF": "(Du kannst <a href='{{ url }}' class='btn btn-default' target='_blank'>nur Scratch allein</a> verwenden, wenn du möchtest.)",
+        "GO_TO_LEARNANDTEST": "Oder gehe zur <a href='{{ urls.learnandtest }}'>Lernen &amp; Testen</a>-Seite. Dort findest du Tipps, was du als nächstes tun kannst.",
 
-        "MORE_BLOCKS": "Your project will add these blocks to the <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> tab in Scripts.",
+        "MORE_BLOCKS": ""Your project will add these blocks to the <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> tab in Scripts.",
         "EXPLAIN_RECOGNISE_LABEL": "Put {{ type }} in the input for this, and it will return the label that your machine learning model recognises it as.",
         "EXPLAIN_RECOGNISE_CONFIDENCE": "This will return how confident your machine learning model is that it recognises the type of {{ type }}. (As a number from 0 - 100).",
         "EXPLAIN_LABELS": "These blocks represent the labels you've created in your project, so you can use their names in your scripts.",
