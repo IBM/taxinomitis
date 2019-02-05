@@ -814,40 +814,40 @@
             "mlforkids.numbers.trainNewModel": "trainiere ein neues Machine Learning Model"
         },
         "TWITTER": {
-            "mlforkids.twitter.getrecenttweet": "get the [INDEX] most recent tweet about [TOPIC]"
+            "mlforkids.twitter.getrecenttweet": "such den [INDEX] letzten Tweet über [THEMA]"
         },
         "IMAGE_BLOCKS": {
-            "mlforkids.imageblocks.getCostumeImage": "costume image",
-            "mlforkids.imageblocks.getBackdropCostumeImage": "backdrop image",
-            "mlforkids.imageblocks.getBackdropImage": "backdrop image",
-            "mlforkids.imageblocks.saveScreenshotToCostume": "save screenshot to costume"
+            "mlforkids.imageblocks.getCostumeImage": "Kostümbild",
+            "mlforkids.imageblocks.getBackdropCostumeImage": "Bühnenbild",
+            "mlforkids.imageblocks.getBackdropImage": "Bühnenbild",
+            "mlforkids.imageblocks.saveScreenshotToCostume": "speicher einen Screenshot als Kostüm"
         },
         "GUI": {
-            "gui.menuBar.mlforkidsLibrary": "Project templates",
-            "gui.mlforkidsLibrary.templates": "Machine Learning for Kids modelos de projeto"
+            "gui.menuBar.mlforkidsLibrary": "Projectvorlagen",
+            "gui.mlforkidsLibrary.templates": "Machine Learning for Kids Projektvorlagen"
         }
     },
     "HELP": {
-        "CONTACT": "If you have any problems or questions, please email Dale.Lane@uk.ibm.com",
+        "CONTACT": "Wenn du Probleme oder Fragen hast, kontaktiere bitte Dale.Lane@uk.ibm.com (auf Englisch)",
         "GETTINGSTARTED": {
-            "TITLE": "Getting started?",
-            "INTRO": "Download a PDF with a short getting started guide:",
-            "MANAGED": "Managed class accounts",
-            "MANAGEDEXPL": "For school teachers, coding group leaders, or other volunteers",
-            "UNMANAGED": "Unmanaged class accounts",
-            "UNMANAGEDEXPL": "For IBM employees, or teachers and coding group leaders who manage their own class accounts"
+            "TITLE": "Vorbereitung?",
+            "INTRO": "Lade eine PDF mit Infos zur Vorbereitung (auf Englisch) herunter:",
+            "MANAGED": "Verwaltete Klassenaccounts",
+            "MANAGEDEXPL": "Für LehrerInnen, AG-LeiterInnen oder andere Voluntäre",
+            "UNMANAGED": "Nicht-verwaltete Klassenaccounts",
+            "UNMANAGEDEXPL": "Für IBM-Angestellte oder LehrerInnen und AG-LeiterInnen, die ihre eigenen Klassenaccounts verwalten möchten"
         },
         "FAQS": {
-            "TITLE": "Want to know more?",
-            "INTRO1": "Is something not working?",
-            "INTRO2": "The list below contains the questions and issues that I hear about most often. If you see something that looks similar to your problem, click on the summary for more info.",
-            "INTRO3": "If you're still stuck, or you've run into a problem I've not included in the list, sorry! Please <a href='mailto:dale.lane@uk.ibm.com'>email me</a> or <a href='https://github.com/IBM/taxinomitis/issues'>create an issue report</a> so that I can help."
+            "TITLE": "Willst du mehr erfahren?",
+            "INTRO1": "Funktioniert etwas nicht?",
+            "INTRO2": "Die folgende Liste enthält häufige Fragen. Wenn du etwas findest, das deinem Problem ähnelt, klicke auf die Zusammenfassung für mehr Infos.",
+            "INTRO3": "Wenn du trotzdem nicht weiterkommst, oder ein Problem hast, das hier nicht aufgelistet ist, sorry! Bitte <a href='mailto:dale.lane@uk.ibm.com'>kontaktiere Dale (auf Englisch)</a> oder <a href='https://github.com/IBM/taxinomitis/issues'>erstelle eine Fehlermeldung (ebenfalls auf Englisch)</a>, sodass Dale helfen kann."
         },
 
         "SCRATCH": {
-            "TITLE": "Scratch issues",
+            "TITLE": "Probleme mit Scratch",
 
-            "Q1": "I don't know how to get Scratch 2 working",
+            "Q1": ""I don't know how to get Scratch 2 working",
             "Q1-A-1": "The old version of Scratch, Scratch 2, needs Adobe Flash to work, so you need to be using an operating system and a web browser that can work with Flash.",
             "Q1-A-2": "If you're not sure about how to enable Flash, you can            <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>download a document with some tips for getting Scratch working</a>. Or you can use the new version of Scratch, Scratch 3, instead.",
 
