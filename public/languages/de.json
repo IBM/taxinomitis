@@ -847,15 +847,15 @@
         "SCRATCH": {
             "TITLE": "Probleme mit Scratch",
 
-            "Q1": ""I don't know how to get Scratch 2 working",
-            "Q1-A-1": "The old version of Scratch, Scratch 2, needs Adobe Flash to work, so you need to be using an operating system and a web browser that can work with Flash.",
-            "Q1-A-2": "If you're not sure about how to enable Flash, you can            <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>download a document with some tips for getting Scratch working</a>. Or you can use the new version of Scratch, Scratch 3, instead.",
+            "Q1": "Ich weiß nicht, wie ich Scratch 2 zum Laufen kriege",
+            "Q1-A-1": "Die alte Version von Scratch, Scratch 2, benötigt den Adobe Flash Player. Verwende ein Betriebssystem und Browser auf dem Flash installiert ist.",
+            "Q1-A-2": "Wenn du nicht weißt, wie du Flash aktivieren kannst, kannst du            <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>diese PDF (Englisch) mit Tipps zu Scratch herunterladen</a>. Alternativ kannst du die neue Version von Scratch, Scratch 3.0, verwenden.",
 
-            "Q2": "The \"Load Project\" and \"Save Project\" menus in Scratch don't work",
-            "Q2-A-1": "If you're using Safari on macOS and the Scratch menus \"File -&gt; Load Project\" and \"File -&gt; Save Project\" menus aren't working, it might be that you're running in Safe Mode.",
-            "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>Follow the instructions here</a> for how to check and fix this.",
+            "Q2": "Die Menüpunkte \"Projekt laden\" und \"Projekt speichern\" in Scratch funktionieren nicht",
+            "Q2-A-1": "Wenn du Safari auf macOS verwendest und die Scratch-Menüpunkte \"Datei -&gt; Projekt laden\" und \"Datei -&gt; Projekt speichern\" nicht funktionieren, kann es sein, dass du im Inkognito-Modus surfst.",
+            "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>Folge diesen Instruktionen (Englisch)</a>, um das Problem zu beheben.",
 
-            "Q3": "Machine learning classifier blocks in Scratch don't work",
+            "Q3": ""Machine learning classifier blocks in Scratch don't work",
             "Q3-A-1": "Occassionally, the Scratch blocks for your machine learning model can lose the connection to the server. When this happens, they will stop returning results.",
             "Q3-A-2": "You can check whether this has happened using the coloured status light in the \"More Blocks\" palette.",
             "Q3-A-3": "If the status light next to your machine learning Scratch blocks is red, that normally means something is wrong. It might be a temporary problem. Try saving your project (using 'File' -&gt; 'Save Project'), then refresh the browser page. If the status light goes green after the page reloads, you can load your project (using 'File' -&gt; 'Load Project') to pick up where you left off.",
