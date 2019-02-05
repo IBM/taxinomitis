@@ -525,100 +525,100 @@
 
         "NO_WORKSHEETS": {
             "NO_MATCHES": "Es gibt keine Arbeitsblätter entsprechend deiner Suchkriterien.",
-            "MAKE_YOUR_OWN": "You could adapt some of the existing worksheets or come up with a new one.",
-            "CONTRIBUTE": "If you do, please consider <a href='https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions'>contributing it for others to use</a>."
+            "MAKE_YOUR_OWN": "Du kannst die vorhandenen Arbeitsblätter anpassen oder eigene erstellen.",
+            "CONTRIBUTE": "Wenn du das machst, denk darüber nach, deine Arbeitsblätter zu <a href='https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions'>teilen, damit andere sie auch nutzen können</a>."
         },
 
 
         "SMARTCLASSROOM": {
-            "TITLE": "Smart Classroom",
-            "SUMMARY": "Teach a computer to recognise the meaning of your commands",
-            "DESCRIPTION": "Create a smart assistant in Scratch that lets you control virtual devices."
+            "TITLE": "Intelligentes Klassenzimmer",
+            "SUMMARY": "Bringe einem Computer bei, die Bedeutung deiner Kommandos zu erkennen",
+            "DESCRIPTION": "Erstelle einen intelligenten Assistenten in Scratch, mit dem du virtuelle Geräte steuern kannst."
         },
         "MAKEMEHAPPY": {
-            "TITLE": "Make me happy",
-            "SUMMARY": "Teach a computer to recognise compliments and insults",
-            "DESCRIPTION": "Create a character in Scratch that smiles if you say nice things to it and cries if you say mean things to it."
+            "TITLE": "Mach mich glücklich",
+            "SUMMARY": "Bringe einem Computer bei, Komplimente und Beleidigungen zu unterscheiden",
+            "DESCRIPTION": "Erstelle einen Charakter in Scratch, der lacht, wenn du ihm Komplimente machst und weint, wenn du ihn beleidigst.."
         },
         "SNAP": {
             "TITLE": "Snap!",
-            "SUMMARY": "Teach a computer to recognise what icons look like",
-            "DESCRIPTION": "Make a card game in Scratch that learns to recognise pictures of your card."
+            "SUMMARY": "Bringe einem Computer bei, Symbole zu erkennen",
+            "DESCRIPTION": "Erstelle ein Kartenspiel in Scratch, das lernt, die Spielkarten zu unterscheiden."
         },
         "CHAMELEON": {
-            "TITLE": "Chameleon",
-            "SUMMARY": "Teach a computer to recognise colours",
-            "DESCRIPTION": "Make a chameleon in Scratch that changes colour to match its background"
+            "TITLE": "Chamäleon",
+            "SUMMARY": "Bringe einem Computer bei, Farben zu erkennen",
+            "DESCRIPTION": "Erstelle ein Chamäleon in Scratch, dass seine Farbe dem Hintergrund anpasst."
         },
         "MAILMANMAX": {
-            "TITLE": "Mailman Max",
-            "SUMMARY": "Teach a computer to recognise handwriting",
-            "DESCRIPTION": "Make a postal sorting office in Scratch that can recognise handwritten postcodes on envelopes."
+            "TITLE": "Postbote Max",
+            "SUMMARY": "Bringe einem Computer bei, Handschrift zu lesen",
+            "DESCRIPTION": "Erstelle ein Postbüro in Scratch. Die Briefe werden sotiert, indem handgeschriebene Adressen automatisch ausgelesen werden."
         },
         "CARORCUP": {
-            "TITLE": "Car or cup",
-            "SUMMARY": "Teach a computer to recognise pictures of objects",
-            "DESCRIPTION": "Train the computer to be able to sort photos into groups."
+            "TITLE": "Auto oder Tasse",
+            "SUMMARY": "Bringe einem Computer bei, Objekte auf Bildern zu erkennen",
+            "DESCRIPTION": "Trainiere den Computer, Bilder in Gruppen zu sortieren."
         },
         "FACELOCK": {
             "TITLE": "Face Lock",
-            "SUMMARY": "Teach a computer to recognise faces",
-            "DESCRIPTION": "Make a phone in Scratch that unlocks if it recognises your face."
+            "SUMMARY": "Bringe einem Computer Gesichtserkennung bei",
+            "DESCRIPTION": "Erstelle eine Smartphone in Scratch, dass sich entsperrt, wenn es dein Gesicht erkennt."
         },
         "JOURNEYTOSCHOOL": {
-            "TITLE": "Journey to school",
-            "SUMMARY": "Teach a computer to make predictions",
-            "DESCRIPTION": "Train the computer to be able to predict how you travel to school in the morning."
+            "TITLE": "Der Schulweg",
+            "SUMMARY": "Bringe einem Computer bei, Vorhersagen zu treffen",
+            "DESCRIPTION": "Trainiere den Computer so, dass er vorhersagen kann, welchen Schulweg du am Morgen wählst."
         },
         "SHYPANDA": {
-            "TITLE": "Shy Panda",
-            "SUMMARY": "Teach a computer to recognise pictures",
-            "DESCRIPTION": "Make a dancing panda that gets shy and stops dancing if it sees you looking."
+            "TITLE": "Schüchterner Bär",
+            "SUMMARY": "Bringe einem Computer bei, Bilder zu erkennen",
+            "DESCRIPTION": "Erstelle einen tanzenden Panda, der schüchtern ist und stoppt, wenn er sieht, dass du ihm zuschaust."
         },
         "VIRTUALPET": {
-            "TITLE": "Virtual Pet",
-            "SUMMARY": "Teach a computer to recognise pictures",
-            "DESCRIPTION": "Train the computer to recognise what you're doing so you can look after a virtual pet."
+            "TITLE": "Virtuelles Haustier",
+            "SUMMARY": "Bringe einem Computer bei, Bilder zu erkennen",
+            "DESCRIPTION": "Bringe einem Computer bei, zu registrieren, was du tust, sodass du nach deinem virtuelles Haustier gucken kannst."
         },
         "PACMAN": {
             "TITLE": "Pac-Man",
-            "SUMMARY": "Teach a computer to play a game",
-            "DESCRIPTION": "Create a Pac-Man game in Scratch that learns how to avoid the ghost."
+            "SUMMARY": "Bringe einem Computer bei, ein Spiel zu spielen",
+            "DESCRIPTION": "Erstelle ein Pac-Man Spiel in Scatch, in dem Pac-Man lernt, vor den Geistern wegzulaufen."
         },
         "CHATBOTS": {
             "TITLE": "Chatbots",
-            "SUMMARY": "Teach a computer to recognise questions",
-            "DESCRIPTION": "Create a chatbot that can answer questions about a topic of your choice."
+            "SUMMARY": "Bringe einem Computer bei, Fragen zu erkennen",
+            "DESCRIPTION": "Erstelle einen Chatbot, der Fragen, zu einem Thema deiner Wahl beantworten kann."
         },
         "TOURISTINFO": {
-            "TITLE": "Tourist Info",
-            "SUMMARY": "Teach a computer to make recommendations",
-            "DESCRIPTION": "Create a mobile app in Scratch that recommends tourist attractions based on people's interests."
+            "TITLE": "Touristen Info",
+            "SUMMARY": "Bringe einem Computer bei, Empfehlungen zu geben",
+            "DESCRIPTION": "Erstelle eine Smartphone-App in Scratch, die interessenbasiert Empfehlungen für Attraktionen und Sehenswürdigkeiten gibt."
         },
         "SORTINGHAT": {
-            "TITLE": "Sorting Hat",
-            "SUMMARY": "Teach a computer to recognise use of language",
-            "DESCRIPTION": "Create a Sorting Hat like in Harry Potter, that puts you in a school House based on what you say."
+            "TITLE": "Der sprechende Hut",
+            "SUMMARY": "Bringe einem Computer, Sprachgebrauch zu erkennen",
+            "DESCRIPTION": "Erstelle einen sprechenden Hut,  wie in Harry Potter. Der Hut weist dich einem Haus zu, je nachdem, was du sagst."
         },
         "ROCKPAPERSCISSORS": {
-            "TITLE": "Rock, Paper, Scissors",
-            "SUMMARY": "Teach a computer to recognise shapes",
-            "DESCRIPTION": "Make a Rock, Paper, Scissors game in Scratch that learns to recognise hand shapes."
+            "TITLE": "Schere, Stein, Papier",
+            "SUMMARY": "Bringe einem Computer bei, Formen zu erkennen",
+            "DESCRIPTION": "Erstelle ein Schere-Stein-Papier-Spiel in Scratch, das Handgesten erkennt."
         },
         "JUDGEABOOK": {
-            "TITLE": "Judge a book",
-            "SUMMARY": "Teach a computer to recognise visual style",
-            "DESCRIPTION": "Make a game in Scratch to test whether it really is possible to judge a book by its cover."
+            "TITLE": "Buchbewertung",
+            "SUMMARY": "Bringe einem Computer bei, optisch Stilrichtungen zu unterscheiden",
+            "DESCRIPTION": "Erstelle ein Spiel in Scratch, um zu testen, ob es möglich ist, ein Buch nur mit dem Cover zu bewerten."
         },
         "LOCATELARRY": {
-            "TITLE": "Locate Larry",
-            "SUMMARY": "Teach a computer to find something in a picture",
-            "DESCRIPTION": "Make a \"Where's Wally?\"-style game in Scratch, and teach the computer to find your character."
+            "TITLE": "Finde Walter",
+            "SUMMARY": "Bringe einem Computer bei, etwas auf einem Bild zu finden",
+            "DESCRIPTION": "Erselle ein \"Wo ist Walter?\" ähnliches Spiel in Scratch und bringe dem Computer bei, deinen Charakter zu finden."
         },
         "CONFUSED": {
-            "TITLE": "Confused",
-            "SUMMARY": "Teach a computer to recognise fruit",
-            "DESCRIPTION": "Learn about how computers can be confused and can make mistakes if they're trained badly."
+            "TITLE": "Verwirrt",
+            "SUMMARY": "Bringe einem Computer bei, Früchte zu erkennen",
+            "DESCRIPTION": "Lerne, wie Computer in die Irre geführt werden können und Fehler machen, wenn Sie schlecht trainiert sind."
         },
         "SCHOOLLIBRARY": {
             "TITLE": "School Library",
