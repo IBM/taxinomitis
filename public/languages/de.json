@@ -618,37 +618,37 @@
         "CONFUSED": {
             "TITLE": "Verwirrt",
             "SUMMARY": "Bringe einem Computer bei, Früchte zu erkennen",
-            "DESCRIPTION": "Lerne, wie Computer in die Irre geführt werden können und Fehler machen, wenn Sie schlecht trainiert sind."
+            "DESCRIPTION": "Lerne, wie ein Computer in die Irre geführt werden kann und Fehler macht, wenn er schlecht trainiert ist."
         },
         "SCHOOLLIBRARY": {
-            "TITLE": "School Library",
-            "SUMMARY": "Teach a computer to make recommendations",
-            "DESCRIPTION": "Create a school librarian in Scratch that suggests who a reading book might be suitable for."
+            "TITLE": "Schulbücherei",
+            "SUMMARY": "Bringe einem Computer bei, Empfehlungen zu geben",
+            "DESCRIPTION": "Erstelle einen Schulbibliothekar in Scratch, der Buchempfehlungen gibt."
         },
         "WHATTWITTERTHINKS": {
-            "TITLE": "What does Twitter think?",
-            "SUMMARY": "Teach a computer to measure public opinion",
-            "DESCRIPTION": "Create a sentiment analysis tool in Scratch to analyze discussion on Twitter"
+            "TITLE": "Was denkt Twitter?",
+            "SUMMARY": "Bringe einem Computer bei, die öffentliche Meinung zu messen",
+            "DESCRIPTION": "Erstelle ein Sentimentanalysetool in Scratch, um Diskussionen auf Twitter zu analysieren"
         },
         "NOUGHTSANDCROSSES": {
-            "TITLE": "Noughts & Crosses",
-            "SUMMARY": "Teach a computer to play a game",
-            "DESCRIPTION": "Create a noughts and crosses game in Scratch that learns how to beat you."
+            "TITLE": "Tic-Tac-Toe",
+            "SUMMARY": "Bringe einem Computer bei, ein Spiel zu spielen",
+            "DESCRIPTION": "Erstelle ein Tic-Tac-Toe Spiel in Scratch, das lernt, dich zu besiegen."
         },
         "TOPTRUMPS": {
-            "TITLE": "Top Trumps",
-            "SUMMARY": "Teach a computer to play a game",
-            "DESCRIPTION": "Train a computer to be able to play the Top Trumps card game in Scratch."
+            "TITLE": "Quartett",
+            "SUMMARY": "Bringe einem Computer bei, ein Spiel zu spielen",
+            "DESCRIPTION": "Trainiere einem Computer so, dass er Quartett in Scratch spielen kann."
         },
         "HEADLINES": {
-            "TITLE": "Headlines",
-            "SUMMARY": "Test the computer's ability to recognise use of language",
-            "DESCRIPTION": "Train a computer to recognise headlines from national newspapers."
+            "TITLE": "Schlagzeilen",
+            "SUMMARY": "Teste die Fähigkeit eines Computers, den Sprachgebrauch zu erkennen",
+            "DESCRIPTION": "Trainiere einen Computer, Schlagzeilen in Tageszeitungen zu erkennen."
         },
         "FINDIT": {
-            "TITLE": "Find It!",
-            "SUMMARY": "Teach a computer to recognise pictures",
-            "DESCRIPTION": "Make a hide-and-seek game for your mobile phone"
+            "TITLE": "Finde es!",
+            "SUMMARY": "Bringe einem Computer bei, Bilder zu erkennen",
+            "DESCRIPTION": "Erstelle ein Versteken-Spiel für dein Smartphone"
         }
     },
     "TEACHER": {
@@ -656,55 +656,55 @@
             "TITLE": "Administration",
 
             "RESTRICTIONS": {
-                "TITLE": "Restrictions",
-                "DESCRIPTION": "Review limits and restrictions that apply to your class"
+                "TITLE": "Restriktionen",
+                "DESCRIPTION": "Hier kannst du alle Limitierungen und Einschränkungen für deine Klasse einsehen"
             },
             "APIKEYS": {
-                "TITLE": "API Keys",
-                "TITLELONG": "Watson API Keys",
-                "DESCRIPTION": "Set up IBM Watson credentials to enable your class to create machine learning models"
+                "TITLE": "API Schlüssel",
+                "TITLELONG": "Watson API Schlüssel",
+                "DESCRIPTION": "Richte die IBM Watson Credentials ein, damit deine Klasse Machine Learning Models erstellen kann"
             },
             "STUDENTS": {
-                "TITLE": "Students",
-                "TITLELONG": "Student management",
-                "DESCRIPTION": "Create, reset and delete logins for students in your class"
+                "TITLE": "SchülerInnen",
+                "TITLELONG": "SchülerInnenmanagement",
+                "DESCRIPTION": "Erstelle und lösche Accounts für deine SchülerInnen oder setzte die Log-In Daten zurück"
             },
             "SUPERVISION": {
                 "TITLE": "Supervision",
-                "DESCRIPTION": "Review projects that your students have created"
+                "DESCRIPTION": "Schau dir Projekte an, die deine SchülerInnen erstellt haben"
             },
 
-            "ADVANCEDOPTIONS": "Advanced options",
+            "ADVANCEDOPTIONS": "Erweiterte Optionen",
 
             "DELETECLASS": {
-                "TITLE": "Delete class",
-                "DESCRIPTION": "This will delete the accounts for you and all of the students in your class"
+                "TITLE": "Klasse löschen",
+                "DESCRIPTION": "Dein Account und die deiner SchülerInnen werden gelöscht"
             },
 
             "CANYOUHELP": {
-                "TITLE": "Can you help?",
-                "DESCRIPTION": "Please share your experiences and ideas for how to make the tool better"
+                "TITLE": "Hast du Feedback?",
+                "DESCRIPTION": "Bitte teile deine Erfahrungen und Ideen, um das Tool zu verbessern"
             },
 
-            "NOTAUTHORISED": "You are not authorized to access the teacher page for your class."
+            "NOTAUTHORISED": "Du bist nicht authorisiert die Lehrer-Ansicht für deine Klasse zu öffnen."
         },
         "APIKEYS": {
-            "TITLE": "Administration : IBM Watson API Keys",
+            "TITLE": "Administration : IBM Watson API Schlüssel",
 
-            "ADDNEWCREDENTIALS": "Add new credentials",
-            "ADDAPIKEY": "Add new API key",
-            "REMOVE": "Remove",
+            "ADDNEWCREDENTIALS": "Füge neue Credentials hinzu",
+            "ADDAPIKEY": "Füge einen neuen API Schlüssel hinzu",
+            "REMOVE": "Entfernen",
 
-            "NO_TEXT_CREDENTIALS": "You don't have any Assistant credentials. This means that it will not be possible to train models for <strong>text</strong> projects.",
-            "NO_IMAGE_CREDENTIALS": "You don't have any Visual Recognition API keys. This means that it will not be possible to train models for <strong>images</strong> projects.",
+            "NO_TEXT_CREDENTIALS": "Du hast keine Assistant Credentials. Das bedeutet, du kannst keine Models für <strong>Text</strong> Projekte trainieren.",
+            "NO_IMAGE_CREDENTIALS": "Du hast keine(n) Visual Recognition API Schlüssel. Das bedeutet, du kannst keine Models für Projekte mit <strong>Bilderkennung</strong> trainieren.",
 
-            "NOTAUTHORISED": "You are not authorized to access the Watson API keys used by your class.",
-            "MANAGEDCLASS": "API Keys used by your class are being managed for you.",
+            "NOTAUTHORISED": "Du bist nicht autorisiert die Watson API Schlüssel deiner Klasse einzusehen.",
+            "MANAGEDCLASS": "Die API Schlüssel deiner Klasse werden für dich verwaltet.",
 
-            "HELP_STEPBYSTEP_GUIDE": "If you're not sure what to do here, please follow the <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> step-by-step guide </a>. If you'd like any help, please <strong><a style='cursor: pointer;' ui-sref='help'>get in touch</a></strong>.",
+            "HELP_STEPBYSTEP_GUIDE": "Wenn du nicht sicher bist, was du hier tun sollst, folge bitte der <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> Schritt-für-Schritt Anleitung </a>. Wenn du Hilfe benötigst, <strong><a style='cursor: pointer;' ui-sref='help'>melde dich</a></strong>.",
 
-            "INTRO_WATSONASSISTANT": "Training machine learning models for <span class='mlprojecttype'>text</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a>",
-            "INTRO_VISUALRECOGNITION": "Training machine learning models for <span class='mlprojecttype'>images</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
+            "INTRO_WATSONASSISTANT": "Zum Trainieren der Machine Learning Models für <span class='mlprojecttype'>Text</span> Projekte wird der <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a> genutzt",
+            "INTRO_VISUALRECOGNITION": ""Training machine learning models for <span class='mlprojecttype'>images</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
 
             "ERROR_FETCHING_WATSONASSISTANT": "Failed to get your Watson Assistant passwords",
             "ERROR_FETCHING_VISUALRECOG": "Failed to get your Visual Recognition API keys",
