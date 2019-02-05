@@ -704,114 +704,114 @@
             "HELP_STEPBYSTEP_GUIDE": "Wenn du nicht sicher bist, was du hier tun sollst, folge bitte der <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> Schritt-für-Schritt Anleitung </a>. Wenn du Hilfe benötigst, <strong><a style='cursor: pointer;' ui-sref='help'>melde dich</a></strong>.",
 
             "INTRO_WATSONASSISTANT": "Zum Trainieren der Machine Learning Models für <span class='mlprojecttype'>Text</span> Projekte wird der <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a> genutzt",
-            "INTRO_VISUALRECOGNITION": ""Training machine learning models for <span class='mlprojecttype'>images</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
+            "INTRO_VISUALRECOGNITION": "Zum Trainieren der Machine Learning Models für <span class='mlprojecttype'>Bilderkennung</span> wird <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a> genutzt",
 
-            "ERROR_FETCHING_WATSONASSISTANT": "Failed to get your Watson Assistant passwords",
-            "ERROR_FETCHING_VISUALRECOG": "Failed to get your Visual Recognition API keys",
+            "ERROR_FETCHING_WATSONASSISTANT": "Dein Watson Assistant Passwort ist fehlgeschlagen",
+            "ERROR_FETCHING_VISUALRECOG": "Deine Visual Recognition API Schlüssel sind fehlgeschlagen",
 
-            "USERNAME": "Username",
-            "PASSWORD": "Password",
-            "APIKEY": "API key",
+            "USERNAME": "Benutzername",
+            "PASSWORD": "Passwort",
+            "APIKEY": "API Schlüssel",
 
-            "NUMBER_OF_ML_MODELS": "Number of ML models",
-            "UNKNOWN": "unknown",
-            "UNLIMITED": "unlimited",
+            "NUMBER_OF_ML_MODELS": "Anzahl an ML Models",
+            "UNKNOWN": "unbekannt",
+            "UNLIMITED": "unbegrenzt",
 
-            "LIMIT_TEXT_PROJECTS": "Number of text machine learning models your students can have:",
-            "LIMIT_IMAGE_PROJECTS": "Number of images machine learning models your students can have:",
+            "LIMIT_TEXT_PROJECTS": "Anzahl an Text Machine Learning Models, die deine SchülerInnen gleichzeitig erstellen können:",
+            "LIMIT_IMAGE_PROJECTS": "Anzahl an Bild Machine Learning Models, die deine SchülerInnen gleichzeitig erstellen können:",
 
             "ADD_API_KEYS": {
-                "ASSISTANT_TITLE": "Add Watson Assistant credentials",
-                "VISUAL_RECOGNITION_TITLE": "Add Visual Recognition API key",
+                "ASSISTANT_TITLE": "Füge Watson Assistant Credentials hinzu",
+                "VISUAL_RECOGNITION_TITLE": "Füge Visual Recognition API Schlüsssel hinzu",
 
-                "USED_FOR_TEXT_PROJECTS": "These will be used when your students train models in text projects.",
-                "USED_FOR_IMAGE_PROJECTS": "These will be used when your students train models in images projects.",
+                "USED_FOR_TEXT_PROJECTS": "Diese werden benutzt, wenn deine SchülerInnen Models in Textprojekten trainieren.",
+                "USED_FOR_IMAGE_PROJECTS": "Diese werden benutzt, wenn deine SchülerInnen Models in Bildprojekten trainieren.",
 
-                "HIDDEN_FROM_STUDENTS": "This will not be shown to students in your group.",
+                "HIDDEN_FROM_STUDENTS": "Dies wird deinen SchülerInnen nicht angezeigt.",
 
-                "PRICING_PLAN": "Which Pricing Plan did you use?",
-                "ENTER_APIKEY": "Please enter the API key below",
-                "ENTER_PASSWORD": "Please enter the username and password below",
+                "PRICING_PLAN": "Welchen Preisplan (Pricing Plan) hast du verwendet?",
+                "ENTER_APIKEY": "Bitte füge den API Schlüssel unten ein",
+                "ENTER_PASSWORD": "Bitte füge den Benutzernamen sowie das Passwort unten ein",
 
-                "CREDENTIALS_TYPE": "What did you create in Watson Assistant?"
+                "CREDENTIALS_TYPE": "Was hast du im Watson Assistant erstellt?"
             }
         },
         "RESTRICTIONS": {
-            "TITLE": "Administration : Restrictions",
+            "TITLE": "Administration : Restriktionen",
 
-            "ASK_FOR_CHANGES": "If any of these restrictions cause a problem for your group, please <strong><a href='/help'>get in touch</a></strong>.",
+            "ASK_FOR_CHANGES": "Wenn eine dieser Restriktionen zu Problemen führt, <strong><a href='/help'>melde dich bitte</a></strong>.",
 
             "CLASS_LIMITS": {
-                "TITLE": "Limits for your class",
-                "NUM_USERS": "You can have up to <span class='mlprojecttype'>{{ num }}</span> users (including students and teachers) in your group.",
-                "NUM_TEXT_MODELS": "Your class is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> machine learning models in total across all their <span class='mlprojecttype'>text</span> projects.",
-                "NUM_IMAGE_MODELS": "Your class is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> machine learning models in total across all their <span class='mlprojecttype'>images</span> projects.</div>"
+                "TITLE": "Limitierungen für deine Klasse",
+                "NUM_USERS": "Du kannst bis zu <span class='mlprojecttype'>{{ num }}</span> Nutzer (inklusive SchülerInnen und Lehrer) in deiner Gruppe haben.",
+                "NUM_TEXT_MODELS": "Deine Gruppe kann insgesamt maximal <span class='mlprojecttype'>{{ num }}</span> Machine Learning Models gleichzeitig für <span class='mlprojecttype'>Text</span> Projecte haben.",
+                "NUM_IMAGE_MODELS": "Deine Gruppe kann insgesamt maximal <span class='mlprojecttype'>{{ num }}</span> Machine Learning Models gleichzeitig für <span class='mlprojecttype'>Bild</span> Projecte haben.</div>"
             },
             "PROJECT_LIMITS": {
-                "TITLE": "Limits for projects created by your students",
-                "NUM_PROJECTS": "Each of your students is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> projects.",
-                "TYPES": "Your students can create projects to recognise <span class='mlprojecttype'>{{ types }}</span>.",
-                "TRAINING_DATA": "Each <span class='mlprojecttype'>{{ type }}</span> project can have up to <span class='mlprojecttype'>{{ num }}</span> training data examples. "
+                "TITLE": "Limitierungen für Projekte deiner SchülerInnen",
+                "NUM_PROJECTS": "Jeder deiner SchülerInnnen kann bis zu <span class='mlprojecttype'>{{ num }}</span> Projekte anlegen.",
+                "TYPES": "Deine SchülerInnen können Projekte mit <span class='mlprojecttype'>{{ types }}</span>-Erkennung erstellen.",
+                "TRAINING_DATA": "Jedes <span class='mlprojecttype'>{{ type }}</span> Projekt kann bis zu <span class='mlprojecttype'>{{ num }}</span> Beispieldaten für das Training haben. "
             },
             "EXPIRY": {
-                "TITLE": "To help you avoid the limits for number of machine learning models:",
-                "TIME_LIMIT": "Machine learning models created for <span class='mlprojecttype'>{{ type }}</span> projects will automatically be deleted after <span class='mlprojecttype'>{{ num }}</span> hours.",
-                "DONT_WORRY": "(Don't worry! Training data will not be deleted, so students can always train a new machine learning model again if they still need it after this.)"
+                "TITLE": "Tipps, damit du die maximale Anzahl der Machine Learning Models nicht erreichst:",
+                "TIME_LIMIT": "Machine Learning Models für <span class='mlprojecttype'>{{ type }}</span> Projekte werden automatisch nach <span class='mlprojecttype'>{{ num }}</span> Stunden gelöscht.",
+                "DONT_WORRY": "(Keine Sorge! Die Trainingsdaten werden nicht gelöscht. Die SchülerInnen können jederzeit ein neues Machine Learning Model trainieren, wenn sie es noch brauchen.)"
             },
 
-            "NOT_AUTHORIZED": "You are not authorized to access the restrictions in place for your class."
+            "NOT_AUTHORIZED": "Du bist nicht authorisiert die Restriktionen für deine Klasse einzusehen."
         },
         "SUPERVISION": {
-            "TITLE": "Administration : Student projects",
+            "TITLE": "Administration : Schülerprojekte",
 
-            "INTRO_1": "This page displays a list of all of the projects that your class currently has. You can use it to review what they're working on.",
-            "INTRO_2": "If you've hit the limit for the number of machine learning models that your class can create, you can use this to see which projects currently have a machine learning model, and delete any that you think are no longer needed.",
+            "INTRO_1": "Auf dieser Seite werden alle Projekte deiner SchülerInnen aufgelistet. Du kannst die Projekte öffnen und sehen, woran deine SchülerInnen momentan arbeiten.",
+            "INTRO_2": "Wenn deine Gruppe das Limit für die Anzahl der Machine Learning Models erreicht hat, kannst du hier einsehen, welche Projekte aktuell ein Machine Learning Model haben und gegebenenfalls löschen, falls du denkst, dass die Models nicht länger benötigt werden.",
 
-            "NO_PROJECTS_1": "None of the students in your class currently have any projects.",
-            "NO_PROJECTS_2": "Once your students start creating projects, come back here to see an overview of their work.",
+            "NO_PROJECTS_1": "Keine deiner SchülerInnen hat aktuell ein Projekt.",
+            "NO_PROJECTS_2": "Sobald deine SchülerInnen Projekte erstellen, kannst du sie hier einsehen.",
 
             "NAME": "Name",
-            "TYPE": "Type",
-            "STUDENT": "Student",
-            "MODELS": "ML models",
+            "TYPE": "Typ",
+            "STUDENT": "Schüler",
+            "MODELS": "ML Models",
 
-            "DELETE": "Click the icon to delete",
+            "DELETE": "Klicke das Symbol zum löschen",
 
-            "NOT_AUTHORIZED": "You are not authorized to access the list of projects for all students in your class."
+            "NOT_AUTHORIZED": "Du bist nicht authorisiert, eine Liste aller Projekte in deiner Gruppe einzusehen."
         },
         "STUDENTMANAGEMENT": {
-            "TITLE": "Administration : Student management",
+            "TITLE": "Administration : SchülerInnenmanagement",
 
-            "CREATE_FIRST_STUDENT": "Click on the 'plus' button on the right to create the first student",
-            "ADD": "Add new student",
-            "NEW_USERNAME": "Choose a unique username",
-            "ALPHANUMERIC": "Only use letters and numbers",
+            "CREATE_FIRST_STUDENT": "Klicke auf den 'plus' Button rechts, um deinen ersten Schüleraccount zu erstellen",
+            "ADD": "Füge einen neuen Schüler hinzu",
+            "NEW_USERNAME": "Wähle einen individuellen Benutzernamen",
+            "ALPHANUMERIC": "Verwende nur Buchstaben und Zahlen",
 
-            "NOT_LOGGED_IN": "Not logged in yet",
+            "NOT_LOGGED_IN": "Du bist noch nicht eingeloggt",
 
-            "RESET_PASSWORD": "Reset password",
-            "RESET_ALL_PASSWORDS": "Reset password for all students",
+            "RESET_PASSWORD": "Passwort zurücksetzen",
+            "RESET_ALL_PASSWORDS": "Passwort für alle Schüleraccounts zurücksetzen",
 
-            "DELETE_STUDENT": "Delete student account",
+            "DELETE_STUDENT": "Schüleraccount löschen",
 
-            "NOT_AUTHORIZED": "You are not authorized to access the list of students in your class."
+            "NOT_AUTHORIZED": "Du bist nicht authorisiert eine Liste der SchülerInnen in deiner Klasse einzusehen."
         }
     },
     "SCRATCHBLOCKS": {
         "TEXT_PROJECTS": {
-            "mlforkids.text.recogniseLabel": "recognise text [TEXT] (label)",
-            "mlforkids.text.recogniseConfidence": "recognise text [TEXT] (confidence)",
-            "mlforkids.text.addTraining": "add training data [TEXT] [LABEL]",
-            "mlforkids.text.trainNewModel": "train new machine learning model",
-            "mlforkids.text.checkModelStatus": "Is the machine learning model [STATUS] ?"
+            "mlforkids.text.recogniseLabel": "erkenne Text [TEXT] (Kategorie)",
+            "mlforkids.text.recogniseConfidence": "erkenne Text [TEXT] (confidence)",
+            "mlforkids.text.addTraining": "füge Trainingsdaten hinzu [TEXT] [KATEGORIE]",
+            "mlforkids.text.trainNewModel": "trainiere ein neues Machine Learning Model",
+            "mlforkids.text.checkModelStatus": "Ist das Machine Learning Model [STATUS] ?"
         },
         "IMAGES_PROJECTS": {
-            "mlforkids.images.recogniseLabel": "recognise image [IMAGE] (label)",
-            "mlforkids.images.recogniseConfidence": "recognise image [IMAGE] (confidence)",
-            "mlforkids.images.addTraining": "add training data [TEXT] [LABEL]"
+            "mlforkids.images.recogniseLabel": "erknne das Bild [IMAGE] (Kategorie)",
+            "mlforkids.images.recogniseConfidence": "erkenne das Bild mit [IMAGE] (confidence)",
+            "mlforkids.images.addTraining": "Füge Trainingsdaten hinzu [TEXT] [KATEGORIE]"
         },
         "NUMBER_PROJECTS": {
-            "mlforkids.numbers.trainNewModel": "train new machine learning model"
+            "mlforkids.numbers.trainNewModel": "trainiere ein neues Machine Learning Model"
         },
         "TWITTER": {
             "mlforkids.twitter.getrecenttweet": "get the [INDEX] most recent tweet about [TOPIC]"
