@@ -57,7 +57,7 @@ class MachineLearningText {
                     blockType: Scratch.BlockType.REPORTER,
                     text: {
                         default: 'recognise text [TEXT] (confidence)',
-                        id: 'recognise text [TEXT] (confidence)'
+                        id: 'mlforkids.text.recogniseConfidence'
                     },
                     arguments: {
                         TEXT: {

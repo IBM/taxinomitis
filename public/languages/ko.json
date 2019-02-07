@@ -808,7 +808,7 @@
         "IMAGES_PROJECTS": {
             "mlforkids.images.recogniseLabel": "[IMAGE] 이미지 인식하기(레이블)",
             "mlforkids.images.recogniseConfidence": "[IMAGE] 이미지 인식하기(정확도)",
-            "mlforkids.images.addTraining": "[IMAGE](을)를 [LABEL]레이블의 훈련 데이터로 추가"
+            "mlforkids.images.addTraining": "[TEXT](을)를 [LABEL]레이블의 훈련 데이터로 추가"
         },
         "NUMBER_PROJECTS": {
             "mlforkids.numbers.trainNewModel": "새로운 머신 러닝 모델 훈련하기"
