@@ -1,0 +1,997 @@
+{
+    "APP": {
+        "TITLE": "Machine Learning for Kids",
+
+        "BACK": "Zurück",
+        "BACKTOPROJECT": "&lt; Zurück zum Projekt",
+        "ERROR": "Fehler:",
+        "WARNING": "Warnung:",
+        "INFO": "Info:",
+
+        "ADD": "Hinzufügen",
+        "CANCEL": "Abbrechen",
+        "DELETE": "Löschen",
+        "EDIT": "Bearbeiten",
+        "TEST": "Testen",
+
+        "ABOUT": "Über",
+        "TEACHER": "Lehrer",
+        "PROJECTS": "Projekte",
+        "WORKSHEETS": "Arbeitsblätter",
+        "NEWS": "Neuigkeiten",
+        "HELP": "Hilfe",
+        "LOGIN": "Einloggen",
+        "LOGOUT": "Ausloggen",
+
+        "BETA": "Beta",
+        "INCOMPLETE": "Unvollständig!"
+    },
+    "ABOUT": {
+        "TITLE": "Machine Learning for Kids",
+        "IN6SECS": "In 6 Sekunden...",
+        "IN20MINS": "In 20 Minuten...",
+        "WHAT": {
+            "TITLE": "Was?",
+            "BODY" : "Dieses Tool führt über praktische Übungen an das Thema Künstliche Intelligenz, insbesondere das Maschinelle Lernen (Machine Learning) heran.<br/><br/> Es bietet eine einfach zu bedienende Umgebung zum Trainieren von maschinellen Lernmodellen, um Texte, Zahlen sowie Bilder zu klassifizieren.<br/><br/> Zur einfachen Heranführung und Vermittlung an das Thema Programmieren wird unter Anderem die blockbasierte Programmiersprache <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> (eine weit verbreitete Programmier-Lern-Plattform) verwendet. Die trainierten Machine Learning Models können in der Programmierumgebung verwendet werden, um zum Beispiel ein Spiel zu programmieren. <br/><br/> Hier erfährst du mehr:"
+        },
+        "WHY": {
+            "TITLE": "Warum?",
+            "BODY": "Maschinelles Lernen umgibt uns überall. Wir alle benutzen täglich maschinelle Lernsysteme - wie Spam-Filter, Empfehlungssysteme, Sprachübersetzungsdienste, Chatbots und digitale Assistenten, Suchmaschinen sowie Systeme zur Betrugserkennung. <br/><br/> In nicht allzu ferne Zukunft werden selbstfahrende Autos ebenso normal sein wie Systeme, die Ärzte dabei unterstützen Krankheiten zu erkennen und zu behandeln.<br/><br/> Es ist wichtig, dass Jeder, und vor allem Kinder und junge Erwachsene, wissen, wie unsere Welt funktioniert. Der beste Weg, um die Möglichkeiten und Auswirkungen von Künstlicher Intelligenz zu verstehen, ist, die Technologie selbst anzuwenden und eigene Applikationen zu bauen. <br/><br/> Hier erfährst du mehr: <a target='_blank' class='btn btn-primary' href='http://dalane.co.uk/blog/?p=3513'> Einführung in Machine Learning (Blog auf Englisch von Dale Lane, dem Gründer der Plattform)</a>."
+        },
+        "TECH": {
+            "TITLE": "Technologie",
+            "BODY": "Das Tool ist vollständig webbasiert und erfordert keine Installation oder kompliziertes Setup.<br/><br/> Es wurde für den Einsatz im Unterricht von Schulen, für AG’s oder Projektage entwickelt. Der Lehrkraft wird eine Administrator-Seite bereitgestellt, um Accounts für die SchülerInnen anzulegen und den Zugang der SchülerInnen verwalten zu können.<br/><br/> Das Tool wurde von <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> erstellt und nutzt APIs von der <a target = '_ blank' href = 'https: //www.ibm.com/watson/developercloud/'> IBM Watson Developer Cloud </a>.",
+            "LOGIN": "Los geht‘s: "
+        }
+    },
+    "NEWS": {
+        "TITLE": "Neuigkeiten",
+        "UPDATES": {
+            "TITLE": "News & Updates",
+            "DESCRIPTION": "News und updates von @MLforKids"
+        },
+        "MENTIONS": {
+            "TITLE": "Erwähnungen & Presse",
+            "DESCRIPTION": "lade Erwähnungen &amp; Presse von wakelet.com"
+        }
+    },
+    "ERRORS": {
+        "PAGENOTFOUND": "Seite nicht gefunden",
+        "NOTLOGGEDIN": "Nicht eingeloggt",
+
+        "MISSINGPROJECTID": "Fehlende Projekt ID. Gehe zurück zu ",
+        "IFPERSISTENT": "Wenn das weiterhin passiert, ",
+
+        "LETMEKNOW": "lass es mich wissen"
+    },
+    "WELCOME": {
+        "TITLE": "Bringe einem Computer bei, ein Spiel zu spielen",
+        "GET_STARTED": "Los geht‘s",
+        "LEARN_MORE": "Mehr erfahren",
+        "ADMIN_LABEL": "Zur <strong>Admin Seite</strong>",
+        "PROJECT_LABEL": "Zu deinen <strong>Projekten</strong>",
+        "STEP_1_TEXT": "Sammle Beispiele von Sachen, die du erkennen möchtest",
+        "STEP_2_TEXT": "Benutze die Beispiele, um den Computer zu trainieren, die Sachen zu erkennen",
+        "STEP_3_TEXT": "Erstelle ein Projekt in Scratch, das die Fähigkeit des Computers nutzt, die Sachen zu erkennen"
+    },
+    "LOGIN": {
+        "TITLE": "Los geht’s mit Machine Learning",
+        "WELCOME": "Willkommen!  Es ist schön, dass du dich für Machine Learning und einen Account auf der Plattform Machine Learning for Kids interessierst.",
+        "ALREADY_LOGGEDIN": "<strong>Info: </strong> Du bist bereits eingeloggt",
+        "ERROR": "<strong>Fehler:</strong> {{ message }}",
+        "ERROR_HELP": "Wenn das weiterhin passiert, gehe bitte auf unsere Hilfe-Seite",
+        "FIRST_TIME": "Bist du das erste Mal hier?",
+        "SIGN_UP": "Registrieren",
+        "WHY_REGISTER": "Warum registrieren?",
+        "WHY_REGISTER_INTRO_1": "<strong>Du musst dich nicht registrieren oder einen Account anlegen</strong>, um das Tool Machine Learning for Kids zu verwenden. Aber, wenn du es machst, gibt es einige Zusatzfunktionen.",
+        "WHY_REGISTER_INTRO_2": "Die Tabelle unten erklärt die Unterschiede zwischen\"Jetzt testen\" ohne Registrierung und dem Zugang mit einem Account.",
+        "ALREADY_REGISTERED": "Schon registriert?",
+        "LOGIN": "Einloggen",
+        "FORGOT_DETAILS": "Hast du deine Zugangsdaten vergessen?",
+        "TRY_TITLE": "Test ohne Account",
+        "TRY_NOW": "Jetzt testen",
+        "WHO_YOU": "Wer bist du?",
+        "TEACHER": "Eine Lehrkraft: Lehrer, AG- oder Projektleiter",
+        "STUDENT": "Ein/e Schüler/in",
+        "FORGOT_TEXT": "Hast du dein Benutzernamen oder dein Passwort vergessen? Halb so wild – wir alle vergessen manchmal etwas.",
+        "ARE_YOU_A_STUDENT": "Bist du ein/e Schülerr/in?",
+        "ARE_YOU_A_STUDENT_INTRO_1": "Wenn deine Klasse/ Lerngruppe bereits das Tool benutzt, frage deine Lehrkraft, dir einen Account zu erstellen.",
+        "ARE_YOU_A_STUDENT_INTRO_2": "Wenn deine Klasse/ Lerngruppe das Tool noch nicht benutzt, bitte deine Lehrkraft, sich zu informieren.",
+        "RESET_STUDENT_PASSWORD_1": "Wenn du Schüler bist, haben wir keine E-Mail Adresse von dir und können dir keine Mail schicken, um dein Passwort zurückzusetzen.",
+        "RESET_STUDENT_PASSWORD_2": "Das ist aber gar kein Problem!",
+        "RESET_STUDENT_PASSWORD_3": "Frage einfach deine Lehrkraft, die deinen Account erstellt hat. Sie kann dir ein neues Passwort geben."
+    },
+    "SIGNUP": {
+        "TEACHER": {
+            "TITLE": "Bist du eine Lehrkraft?",
+            "INFO1": "Wenn du Accounts für deine Schüler anlegen möchtest, dann lege bitte unten einen Klassenaccount an.",
+            "INFO2": "Es gibt zwei Arten von Klassenaccounts. Abhhängig davon, wer den Account anlegt."
+        },
+        "UNMANAGED": {
+            "TITLE": "Erstelle einen <strong>nicht verwalteten</strong> Klassenaccount",
+            "INTRO": "Wenn du deinen Klassenaccount selbst einrichten und verwalten möchtest, mache das jetzt!",
+            "LISTINTRO": "Dafür musst du:",
+            "LIST_CREATEACCOUNT": "Einen Account auf IBM Cloud erstellen",
+            "LIST_CREATEAPIKEYS": "API Schlüssel für Watson Cloud Services erstellen, die benötigt werden, um die maschinellen Lernmodelle zu trainieren",
+            "LIST_ENTERAPIKEYS": "Die API Schlüssel im Machine Learning for Kids Tool eingeben",
+            "HELP": "Für alles gibt es Schritt-für-Schritt Anleitungen (mit Screenshots)."
+        },
+        "MANAGED": {
+            "TITLE": "Erstelle eine <strong>verwalteten</strong> Klassenaccount",
+            "INTRO": "Wenn du möchtest, dass Dale deinen Klassenaccount erstellt, klicke auf den Button unten und sende eine E-Mail (auf Englisch) mit folgenden Informationen:",
+            "LIST_NUMBEROFSTUDENTS": "Ungefähre Anzahl der SchülerInnen",
+            "LIST_NAMEOFSCHOOL": "Name der Schule, AG oder Einrichtung, für die der Account ist",
+            "EMAIL": "E-Mail"
+        }
+    },
+    "PROJECTS": {
+        "TITLE": "Deine Machine Learning Projekte",
+        "ADDNEWPROJECT": "Erstelle ein neues Projekt",
+        "CREATEFIRSTPROJECT": "Klicke rechts auf den 'plus'-Button, um dein erstes Projekt zu erstellen.",
+        "RECOGNISING": "Erkennen",
+        "AS": "als"
+    },
+    "NEWPROJECT": {
+        "TITLE": "Starte ein neues Machine Learning Projekt",
+        "PROJECT_NAME": {
+            "TITLE": "Projektname",
+            "NOTES": "Gebe dem Projekt einen ausssagekräftigen Namen, der beschreibt, was du dem Computer beibringen möchtest."
+        },
+        "WHOLE_CLASS_PROJECT": {
+            "TITLE": "Klassenprojekt?",
+            "NOTES_1": "Wähle diese Option, wenn du möchtest, dass die gesamte Klasse zusammen an dem Projekt arbeiten kann.",
+            "NOTES_2": "Das ist zum Beispiel hilfreich, um \"Croud Sourcing\" als eine Methode, um Machine Learning Modelle zu trainieren, einzuführen."
+        },
+        "TYPES": {
+            "LABEL": "Erkenne",
+            "NOTES_1": "Was möchtest du dem Computer beibringen? Was soll der Computer erkennen?",
+            "NOTES_2": "Wähle \"Text\" für Wörter, Sätze oder Paragraphen",
+            "NOTES_3": "Wähle \"Bilder\" für Fotos, Diagramme und Bilder",
+            "NOTES_4": "Wähle \"Zahlen\" für Zahlen oder Multiple Choice"
+        },
+        "LANGUAGE": {
+            "LABEL": "Sprache",
+            "NOTES": "In welcher Sprache wir der Text dieses Projektes sein?"
+        },
+        "FIELDS": {
+            "TYPE": {
+                "TITLE": "Art der Werte",
+                "NUMBER": "Zahlen",
+                "MULTIPLE_CHOICE": "Multiple Choice"
+            },
+            "CHOICES": {
+                "TITLE": "Wahlmöglichkeiten:",
+                "LABEL": "füge eine Wahlmöglichkeit hinzu"
+            },
+            "NEWFIELD": {
+                "DESCRIBE_FIELD": "Gib diesem Feld einen Namen, um den Wert zu beschreiben",
+                "MULTICHOICE": "Wenn es eine Wahl zwichen verschiedenen Optionen ist, wähle \"Multiple Choice\".",
+                "ADD_FIRST_FIELD": "Tippe eine Wahlmöglichkeit ein und drücke Enter.",
+                "ADD_ANOTHER_FIELD": "Tippe eine weitere Wahlmöglichkeit ein und drücke Enter."
+            },
+            "NEWVALUE": {
+                "ADD_FIRST_VALUE": "Beschreibe die Werte, indem du Beispiele fürs Training des Computers hinzufügst. Klicke auf 'Wert hinzufügen'.",
+                "VALUES_LIMIT": "Du kannst nicht mehr als zehn Werte in einem Projekt hinzufügen."
+            }
+        },
+        "CREATE": "Erstelle",
+        "ERRORS": {
+            "REQUIRED": "Das ist erforderlich!",
+            "TOOLONG": "Das ist zu lang!"
+        }
+    },
+    "PROJECT": {
+        "TRAIN": {
+            "TITLE": "Trainieren",
+            "BODY": "Sammle Beispiele von Sachen, die der Computer erkennen soll"
+        },
+        "LEARNANDTEST": {
+            "TITLE": "Lernen &amp; Testen",
+            "BODY": "Verwende die Beispiele, um dem Computer zu trainieren, die Sachen zu erkennen"
+        },
+        "MAKES": {
+            "TITLE": "Machen",
+            "BODY": "Benutze das Machine Learning Model, das du trainiert hast, um ein Spiel oder eine App in Scratch, Python oder dem App Inventor zu erstellen"
+        },
+        "SCRATCH": {
+            "TITLE": "Scratch",
+            "BODY": "Verwende das maschinelle Lernmodell, das du trainiert hast, um ein Spiel in Scratch zu erstellen"
+        },
+        "PYTHON": {
+            "TITLE": "Python",
+            "BODY": "Verwende das maschinelle Lernmodell, das du trainiert hast, in einem Python Programm"
+        },
+        "APPINVENTOR": {
+            "TITLE": "App Inventor",
+            "BODY": "Erstelle eine mobile App, die dein maschinelles Lernmodell verwendet"
+        },
+        "SCRATCH3": {
+            "TITLE": "Scratch 3",
+            "BODY": "Verwende dein maschinelles Lernmodell im neuen Scratch 3.0"
+        }
+    },
+    "TRAINING": {
+        "TITLE": "Training",
+        "ADDLABEL": "Erstelle eine neue Kategorie (\"Label\")",
+        "CREATEFIRSTLABEL": "Klicke rechts auf den 'Plus'-Button, um eine Kategorie zu erstellen.",
+        "CROWDSOURCEDEMPTY": "Aktualisiere die Seite, sobald deine Lehrkraft die Kategorien erstellt hat.",
+        "ADDEXAMPLE": "Beispiel hinzufügen",
+        "ADDURL": "www",
+        "ADDWEBCAM": "Webcam",
+        "ADDDRAWING": "Zeichnen",
+        "DRAGIMAGES": "Ziehe Bilder aus einem anderen Browserfenster via Drag & Drop hierhin",
+        "NEWLABEL": {
+            "INTRO": "Erstelle eine neue Kategorie (\"Label\")",
+            "ERROR": "Verwende nur Buchstaben und Zahlen für Kategorienamen"
+        },
+        "NEWEXAMPLE": {
+            "INTRO": "Füge ein Beispiel hinzu ",
+            "INTROURL": "Füge als Beispiel die URL von einem Bild hinzu",
+            "INTRODRAWING": "Zeichne ein Beispiel",
+            "INTROWEBCAM": "Füge ein neues Beispiel hinzu",
+            "ERROR": "Du kannst keine mehrzeiligen Beispiele eingeben und darfst keine Tabs verwenden.",
+            "REQUIRED": "Du musst Werte für alle Felder in einem Beispiel hinzufügen",
+            "PATTERNNUMBER": "Das sieht nicht wie eine Zahl aus",
+            "PATTERNURL": "Hier muss die URL von einem Bild hin",
+            "WEBCAMFAIL": "Entschuldigung! Wir konnten die Webcam für dich nicht aktivieren.",
+            "WEBCAMERROR": "Die Nachricht, die wir von deinem Browser erhalten haben, ist:"
+        }
+    },
+    "MODELS": {
+        "TITLE": "Machine Learning Models",
+        "TRAIN": "Trainiere ein neues maschinelles Lernmodell",
+        "CANCEL": "Training abbrechen",
+        "DELETE": "Lösche dieses Model",
+        "TEST_CANVAS": "Zeichne etwas, um dein Model zu testen",
+        "TEST_WEBCAM": "Mache eine Foto, um dein Model zu testen",
+        "WHATHAVEYOUDONE": {
+            "TITLE": "Was hast du bisher gemacht?",
+            "PLEASEWAIT": "Gedulde dich ein paar Minuten. Wenn der Trainingscomputer viel zu tun hat, kann es etwas länger dauern.",
+            "FAIL": "Leider ist etwas schief gegangen.",
+
+            "TRAINING" : {
+                "CROWDSOURCED" : {
+                    "TEXT" : "Deine Klasse trainiert ein Machine Learning Model mit den Textbeispielen, die ihr gemeinsam gesammelt habt.",
+                    "IMAGES" : "Deine Klasse trainiert ein Machine Learning Model mit den Beispielbildern, die ihr gemeinsam gesammelt habt.",
+                    "NUMBERS" : "Deine Klasse trainiert ein Machine Learning Model mit den Beispieldaten, die ihr gemeinsam gesammelt habt."
+                },
+                "INDIVIDUAL" : {
+                    "TEXT" : "Du trainierst ein Machine Learning Model mit den Textbeispielen, die du gesammelt hast.",
+                    "IMAGES" : "Du trainierst ein Machine Learning Model mit den Beispielbildern, die du gesammelt hast.",
+                    "NUMBERS" : "Du trainierst ein Machine Learning Model mit den Beispieldaten, die du gesammelt hast."
+                },
+                "SINCE": "Das Training begann vor"
+            },
+            "READY" : {
+                "CROWDSOURCED" : {
+                    "TEXT" : "Deine Klasse hat ein Machine Learning Model trainiert, das Text erkennt und folgende Kategorien unterscheidet: ",
+                    "IMAGES" : "Deine Klasse hat ein Machine Learning Model trainiert, das Bilder erkennt und folgende Kategorien unterscheidet: ",
+                    "NUMBERS" : "Deine Klasse hat ein Machine Learning Model trainiert, das Zahlen erkennt und folgende Kategorien unterscheidet: "
+                },
+                "INDIVIDUAL" : {
+                    "TEXT" : "Du hast ein Machine Learning Model trainiert, das Text erkennt und folgende Kategorien unterscheidet: ",
+                    "IMAGES" : "Du hast ein Machine Learning Model trainiert, das Bilder erkennt und folgende Kategorien unterscheidet: ",
+                    "NUMBERS" : "Du hast ein Machine Learning Model trainiert, das Zahlen erkennt und folgende Kategorien unterscheidet: "
+                },
+                "CREATED" : {
+                    "TEACHER" : "Dein Lehrer erstellt das Model am ",
+                    "YOU" : "Du erstelltest das Model am "
+                },
+                "TRAINING" : {
+                    "CLASS" : "Deine Klasse war fleißig und hat viele Beispiele gesammelt: ",
+                    "YOU" : "Du warst fleißig und hast viele Beispiele gesammelt: "
+                }
+            },
+            "ERROR": {
+                "CROWDSOURCED" : {
+                    "CLASS" : {
+                        "TEXT" : "Deine Lehrkraft hat versucht, ein Machine Learning Model mit den von euch gesammelten Textbeispielen, zu trainieren.",
+                        "IMAGES" : "Deine Lehrkraft hat versucht, ein Machine Learning Model mit den von euch gesammelten Beispielbildern, zu trainieren.",
+                        "NUMBERS" : "Deine Lehrkraft hat versucht, ein Machine Learning Model mit den von euch gesammelten Beispieldaten, zu trainieren."
+                    },
+                    "YOU" : {
+                        "TEXT" : "Du hast versucht, ein Machine Learning Model mit den von euch gesammelten Textbeispielen, zu trainieren.",
+                        "IMAGES" : "Du hast versucht, ein Machine Learning Model mit den von euch gesammelten Beispielbildern, zu trainieren.",
+                        "NUMBERS" : "Du hast versucht, ein Machine Learning Model mit den von euch gesammelten Beispieldaten, zu trainieren."
+                    }
+                },
+                "INDIVIDUAL" : {
+                    "TEXT" : "Du hast versucht, ein Machine Learning Model mit den von dir gesammelten Textbeispielen, zu trainieren.",
+                    "IMAGES" : "Du hast versucht, ein Machine Learning Model mit den von dir gesammelten Beispielbildern, zu trainieren.",
+                    "NUMBERS" : "Du hast versucht, ein Machine Learning Model mit den von dir gesammelten Beispieldaten, zu trainieren."
+                }
+            },
+            "IDLE" : {
+                "NOLABELS" : {
+                    "CROWDSOURCED" : {
+                        "TEXT" : "Deine Klasse hat entschieden, dass ihr Textbeispiele sammeln wollt.",
+                        "IMAGES" : "Deine Klasse hat entschieden, dass ihr Beispielbilder sammeln wollt.",
+                        "NUMBERS" : "Deine Klasse hat entschieden, dass ihr Beispieldaten sammeln wollt."
+                    },
+                    "INDIVIDUAL" : {
+                        "TEXT" : "Du hast gesagt, dass du Textbeispiele sammeln möchtest.",
+                        "IMAGES" : "Du hast gesagt, dass du Beispielbilder sammeln möchtest.",
+                        "NUMBERS" : "Du hast gesagt, dass du Beispieldaten (Zahlen) sammeln möchtest."
+                    }
+                },
+                "NODATA" : {
+                    "CROWDSOURCED" : {
+                        "TEXT" : "Deine Klasse hat entschieden, dass ihr Textbeispiele sammeln wollt, damit der Computer folgende Kategorien unterscheidet: ",
+                        "IMAGES" : "Deine Klasse hat entschieden, dass ihr Beispielbilder sammeln wollt, damit der Computer folgende Kategorien unterscheidet: ",
+                        "NUMBERS" : "Deine Klasse hat entschieden, dass ihr Beispieldaten sammeln wollt, damit der Computer folgende Kategorien unterscheidet: "
+                    },
+                    "INDIVIDUAL" : {
+                        "TEXT" : "Du hast gesagt, dass du Textbeispiele sammeln möchtest, damit der Computer folgende Kategorien unterscheidet: ",
+                        "IMAGES" : "Du hast gesagt, dass du Beispielbilder sammeln möchtest, damit der Computer folgende Kategorien unterscheidet: ",
+                        "NUMBERS" : "Du hast gesagt, dass du Beispieldaten sammeln möchtest, damit der Computer folgende Kategorien unterscheidet: "
+                    }
+                },
+                "NOEXAMPLES" : {
+                    "CLASS" : "Bisher hat deine Klasse keine Beispiele gesammelt.",
+                    "YOU" : "Bisher hast du keine Beispiele gesammelt."
+                },
+                "DATA" : {
+                    "CROWDSOURCED" : {
+                        "TEXT" : "Deine Klasse hat Textbeispiele gesammelt, damit der Computer folgende Kategorien unterscheiden kann: ",
+                        "IMAGES" : "Deine Klasse hat Beispielbilder gesammelt, damit der Computer folgende Kategorien unterscheiden kann: ",
+                        "NUMBERS" : "Deine Klasse hat Beispieldaten gesammelt, damit der Computer folgende Kategorien unterscheiden kann: "
+                    },
+                    "INDIVIDUAL" : {
+                        "TEXT" : "Du hast Textbeispiele gesammelt, damit der Computer folgende Kategorien unterscheiden kann: ",
+                        "IMAGES" : "Du hast Beispielbilder gesammelt, damit der Computer folgende Kategorien unterscheiden kann: ",
+                        "NUMBERS" : "Du hast Beispieldaten gesammelt, damit der Computer folgende Kategorien unterscheiden kann: "
+                    },
+                    "COLLECTED" : {
+                        "CLASS" : "Ihr habt Folgendes gesammelt: ",
+                        "YOU" : "Du hast Folgendes gesammelt: "
+                    }
+                }
+            }
+        },
+        "WHATSNEXT": {
+            "TITLE": "Was kommt als Nächstes?",
+            "PLEASEWAIT": "Du kannst warten, bis das Machine Learning Model fertig trainiert ist.",
+            "OFFERQUIZ": "Oder, du überprüfst in dem Quiz unten, was du schon alles über Machine Learning gelernt hast.",
+            "FAIL": "Die Fehlermeldung von dem Trainingscomputer wird unten angezeigt. Wenn du kannst, versuche das Problem zu lösen. Andernfalls kann es hilfreich sein, es einfach noch mal auszuprobieren.",
+
+            "IDLE": {
+                "NOLABELS" : "Der nächste Schritt: Gehe auf die <a href='{{ urls.train }}'>Trainingsseite</a>. Erstelle Kategorien für alles, was der Computer erkennen soll.",
+                "ONELABEL" : {
+                    "EXPLANATION": "Bisher hast du nur folgende Kategorie erstellt: {{ label }}",
+                    "ISTHATALL": "Ist das das einzige, was du dem Computer beibringen möchtest?",
+                    "NO": "<strong>Nein?</strong><br/>Gehe zurück zur <a href='{{ urls.train }}'>Trainingsseite</a>.<br/>Füge weitere Kategorien hinzu.<br/><br/>",
+                    "YES": "<strong>Ja?</strong><br/>Du musst noch ein bisschen was vorbereiten.<br/>Damit der Computer \"{{ label }}\" erkennen kann, musst du ihm ein paar Beispiel dafür geben, was nicht zu der Kategorie {{ label }} gehört. <br/>Gehe zurück zur <a href='{{ urls.train }}'>Trainingsseite</a> und erstelle eine neue Kategorie mit Beispiele die nicht zu der Kategorie {{ label }} gehören. Du kannst die Kategorie \"Nicht-{{ label }}\" nennen."
+                },
+                "LABELS" : {
+                    "NO_DATA" : "Der nächste Schritt: Gehe auf die <a href='{{ urls.train }}'>Trainingsseite</a>. Füge Beispiele zu allen Kategorien hinzu.",
+                    "MORE_DATA" : {
+                        "KEEP_GOING": "Weiter so!",
+                        "MORE_EXAMPLES" : {
+                            "YOU": "Gehe zurück zur <a href='{{ urls.train }}'>Trainingsseite</a> und sammle mehr Beispiele für die verschiedenen Kategorien.",
+                            "CLASS": "Bitte deine Klasse zurück zur <a href='{{ urls.train }}'>Trainingsseite</a> zu gehen und mehr Beispiele für die verschiedenen Kategorien zu sammeln."
+                        },
+                        "MORE_IS_BETTER" : "Je mehr, desto besser. Mindestens brauchst du allerings {{ minimumExamples }} Beispiele für jede Kategorie."
+                    },
+                    "ENOUGH_DATA" : {
+                        "READY_TO_START" : "Bist du bereit, den Computer zu trainieren?",
+                        "START_TRAINING" : {
+                            "CROWDSOURCED" : "Klicke unten auf den Button, um das Training des Machine Learning Models zu starten",
+                            "INDIVIDUAL" : "Klicke unten auf den Button, um das Training des Machine Learning Models zu starten"
+                        },
+                        "MORE_EXAMPLES" : {
+                            "CROWDSOURCED" : "(Oder bitte deine Klasse zurück zur <a href='{{ urls.train }}'>Trainingsseite</a> zu gehen, wenn du erst noch mehr Beispiele sammeln möchtest.)",
+                            "INDIVIDUAL" : "(Oder gehe zurück zur <a href='{{ urls.train }}'>Trainingsseite</a> zu gehen, wenn du erst noch mehr Beispiele sammeln möchtest.)"
+                        },
+                        "WAITING_FOR_TEACHER" : "Warte darauf, dass deine Lehrkraft das Training startet."
+                    }
+                }
+            },
+            "READY" : {
+                "TEST" : {
+                    "TEXT" : "Teste das Machine Learning Model. Gib unten ein Textbeispiel ein, dass du nicht für das Training verwendet hast. Der Computer sagt dir, welcher Kategorie er dein Beispiel zuordnet und mit welcher Sicherheit (confidence).",
+                    "IMAGES" : "Teste das Machine Learning Model. Füge unten ein Beispielbild hinzu, dass du nicht für das Training verwendet hast. Der Computer sagt dir, welcher Kategorie er dein Beispiel zuordnet und mit welcher Sicherheit (confidence).",
+                    "NUMBERS" : "Teste das Machine Learning Model. Gib unten ein Beispiel ein, dass du nicht für das Training verwendet hast. Der Computer sagt dir, welcher Kategorie er dein Beispiel zuordnet und mit welcher Sicherheit (confidence)."
+                },
+                "SCRATCH" : "Wenn es so aussieht, dass der Computer gelernt hat, Dinge richtig zu erkennen, kannst jetzt du eine Anwendung - zum Beispiel ein Spiel in Scratch - programmieren!",
+                "ADDITIONAL_TRAINING" : {
+                    "MORE_EXAMPLES" : {
+                        "CROWDSOURCED" : "Wenn der Computer zu viele Fehler macht, kann es hilfreich sein zur <a href='{{ urls.train }}'>Trainingsseite</a> zurück zu gehen und mehr Beispiele zu sammeln.",
+                        "INDIVIDUAL" : "Wenn der Computer zu viele Fehler macht, kann es hilfreich sein zur <a href='{{ urls.train }}'>Trainigsseite</a> zurück zu gehen und mehr Beispiele zu sammeln."
+                    },
+                    "RETRAIN" : {
+                        "YOU" : "Wenn du fertig bist, klicke unten auf den Button, um ein neues Machine Learning Model zu trainieren und prüfe, ob die hinzugefügten Beispiele einen Unterschied machen!",
+                        "CLASS" : "Wenn du fertig musst, muss deine Lehrkraft ein neues Machine Learning Model trainieren."
+                    }
+                }
+            }
+        },
+        "TRAINING": {
+            "TITLE": "Information vom Trainingscomputer:",
+            "STARTED": "Das Modell wurde erstellt am:",
+            "STATUS": "Aktueller Status:",
+            "DETAIL": "Details:",
+            "DELETION": "Das Modell wird automatisch gelöscht am:",
+            "LASTCHECK": "Das Model wurde zuletzt überprüft am:",
+            "PROMPTREFRESH": "Falls es länger als eine Minute her ist, solltest du die Seite neu laden, um den aktuellen Status zu erhalten"
+        },
+        "TESTING": {
+            "INTRO": {
+                "TEXT": "Füge ein Textbeispiel hinzu, um zu prüfen, ob die Kategorie erkannt wird.",
+                "IMAGES": "Füge ein Beispielbild hinzu, um zu prüfen, ob die Kategorie erkannt wird.",
+                "NUMBERS": "Füge ein Beispiel hinzu, um zu prüfen, ob die Kategorie erkannt wird."
+            },
+            "WEBCAM": "Test mit <strong>Webcam</strong>",
+            "DRAWING": "Test durch <strong>Zeichnen</strong>",
+            "WWW": "Test mit <strong>www</strong>",
+            "RECOGNISED": "Erkannt als  <strong>{{ testoutput }}</strong>"
+        },
+        "QUIZ": {
+            "TITLE": "Zeit für ein Quiz!",
+            "INTROQUESTION": "Versuche die Fragen zu beantworten, während das Modell trainiert.",
+            "PREVIOUSLY_ATTEMPTED": "Du kennst diese Frage bereits. Mal sehen, ob du dich daran erinnerst, was die korrekte Antwort ist!",
+            "CORRECT_ANSWER": "Das ist korrekt!",
+            "INCORRECT_ANSWER": "Nein, sorry. Die korrekte Antwort wird oben angezeigt.",
+            "NEXT_QUESTION": "Nächste Frage"
+        }
+    },
+    "MAKES": {
+        "TITLE": "Nutze dein Machine Learning Model",
+        "SCRATCH2": "Erstelle ein Projekt in der alten Scratch Version",
+        "SCRATCH3": "Nutze das neue Scratch",
+        "PYTHON": "Schreibe Python Code, um dein Machine Learning Model zu nutzen",
+        "APPINVENTOR": "Erstelle eine App für dein Smartphone oder Tablet"
+    },
+    "PYTHON": {
+        "TITLE": "Nutze Machine Learning in Python",
+
+        "NOTREADY": "Dein Projekt kann noch nicht in Python verwendet werden.",
+        "NOMODEL": "Du hast noch kein Machine Learning Model trainiert."
+    },
+    "APPINVENTOR": {
+        "TITLE": "Verwende Machine Learning im App Inventor",
+
+        "NOTREADY": "Dein Projekt kann noch nicht im App Inventor verwendet werden.",
+        "NOMODEL": "Du hast noch kein Machine Learning Model trainiert.",
+
+        "BETAWARNING": "Dies ist eine frühe Beta-Version. Die Unterstützung für den App Inventor ist noch nicht abgeschlossen. Möglicherweise kommt es zu einigen Bugs und Problemen."
+    },
+    "SCRATCH": {
+        "TITLE": "Nutze Machine Learning in Scratch",
+
+        "NOTREADY": "Dein Projekt kann noch nicht in Scratch verwendet werden.",
+        "NOMODEL": "Du hast noch kein Machine Learning Model trainiert.",
+
+        "LAUNCH": "In Scratch öffnen",
+
+        "LAUNCH_SCRATCH_BY_ITSELF": "(Du kannst <a href='{{ url }}' class='btn btn-default' target='_blank'>nur Scratch allein</a> verwenden, wenn du möchtest.)",
+        "GO_TO_LEARNANDTEST": "Oder gehe zur <a href='{{ urls.learnandtest }}'>Lernen &amp; Testen</a>-Seite. Dort findest du Tipps, was du als nächstes tun kannst.",
+
+        "MORE_BLOCKS": "Dein Projekt wird diese Blöcke im Bereich <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>Weitere Blöcke (More Blocks)</span> hinzufügen.",
+        "EXPLAIN_RECOGNISE_LABEL": "Nimm dieses {{ type }} als Eingabe hierfür und es wird dir die erkannte Kategorie zurückgegeben.",
+        "EXPLAIN_RECOGNISE_CONFIDENCE": "Dies gibt die Sicherheit an, mit der dein Machine Learning Model die Kategorie {{ type }}  erkannt hat. (Als eine Zahl zwischen 0 - 100).",
+        "EXPLAIN_LABELS": "Diese Blöcke repräsentieren die Kategorien, die du in deinem Projekt erstellt hast. Du kannst sie in deinem Programm verwenden.",
+        "EXPLAIN_COSTUMEIMAGE": "Diesen Block findest du unter Skripte im Bereich Aussehen. Er wählt das aktuelle Kostüm als Bild aus.",
+        "SAMPLE_SCRIPT": "Das bedeuetet, du kanns so etwas machen:",
+        "SAMPLE_SCREENSHOT": "Das sieht dann so aus. (Außer der Projektname.)",
+        "EXPLAIN_STATUS": "Der farbige Kreis neben deinem Projektnamen zeigt an, ob das Machine Learning Model einsatzbereit ist.",
+        "STATUS_GREEN": "bedeutet, dass dein Model trainiert und einsatzbereit ist",
+        "STATUS_YELLOW": "bedeutet, dass dein Model das Training noch nicht beendet hat",
+        "STATUS_RED": "bedeutet, dass es schief gelaufen ist. Gehe zurück zur <a href='{{ urls.learnandtest }}'>Lernen &amp; Testen</a>-Seite und prüfe was schief gelaufen ist."
+    },
+    "SCRATCH3": {
+        "TITLE": "Verwende Machine Learning in Scratch 3",
+
+        "LAUNCH": "In Scratch 3 öffnen"
+    },
+    "WORKSHEETS": {
+        "TITLE": "Arbeitsblätter zu Machine learning Projekten",
+
+        "INTRO_1": "Hier findest du Arbeitsblätter zum herunterladen auf Englisch. Auf den Arbeitsblättern sind verschiedene Machine Learning Projekte mit Schritt-für-Schritt Anleitungen, Beispielen und Screenshots, die deine Schüler befolgen können. Unterrichtsmaterialien auf Deutsch findest du auf <a href='https://appcamps.de/'>www.appcamps.de</a>",
+        "INTRO_2": "Jedes Projekt ist eigenständig und für eine Unterrichtseinheit konzipiert. Das Ergebnis ist jeweils ein Spiel oder interaktives Projekt, das den realen Einsatz von künstlicher Intelligenz und maschinellem Lernen demonstriert.",
+        "INTRO_3": "Vorschläge für neue Arbeitsblätter, Verbesserungsvorschläge für vorhandene Arbeitsblätter oder das Teilen eigener Arbeitsblätter sind sehr willkommen.",
+
+        "TYPES": {
+            "TITLE": "Erkennen:",
+            "ALL": "Alle Arten von Projekten",
+
+            "PREFIX": "Trainiere einen Computer, folgendes zu erkennen:",
+
+            "TEXT": "Text",
+            "IMAGES": "Bilder",
+            "NUMBERS": "Zahlen"
+        },
+
+        "LEVELS": {
+            "TITLE": "Schwierigkeit:",
+            "ALL": "Gesamtübersicht",
+            "BEGINNER": "Projekte für Anfänger",
+            "INTERMEDIATE": "Projekte für Intermediates",
+            "ADVANCED": "Projekte für Fortgeschrittene"
+        },
+
+        "DOWNLOAD": "Herunterladen",
+
+        "MAKETYPES": {
+            "ALL": "Alle Möglichkeiten für Anwendungen",
+
+            "SCRATCH": "Scratch Projekte",
+            "PYTHON": "Python Projekte",
+            "APPINVENTOR": "App Inventor Projekte",
+
+            "SCRATCH_WORKSHEET": "Arbeitsblätter für Projekte in Scratch",
+            "PYTHON_WORKSHEET": "Arbeitsblätter für Projekte in Python",
+            "APPINVENTOR_WORKSHEET": "Arbeitsblätter für Projekte im App Inventor"
+        },
+
+        "NO_WORKSHEETS": {
+            "NO_MATCHES": "Es gibt keine Arbeitsblätter entsprechend deiner Suchkriterien.",
+            "MAKE_YOUR_OWN": "Du kannst die vorhandenen Arbeitsblätter anpassen oder eigene erstellen.",
+            "CONTRIBUTE": "Wenn du das machst, denk darüber nach, deine Arbeitsblätter zu <a href='https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions'>teilen, damit andere sie auch nutzen können</a>."
+        },
+
+
+        "SMARTCLASSROOM": {
+            "TITLE": "Intelligentes Klassenzimmer",
+            "SUMMARY": "Bringe einem Computer bei, die Bedeutung deiner Kommandos zu erkennen",
+            "DESCRIPTION": "Erstelle einen intelligenten Assistenten in Scratch, mit dem du virtuelle Geräte steuern kannst."
+        },
+        "MAKEMEHAPPY": {
+            "TITLE": "Mach mich glücklich",
+            "SUMMARY": "Bringe einem Computer bei, Komplimente und Beleidigungen zu unterscheiden",
+            "DESCRIPTION": "Erstelle einen Charakter in Scratch, der lacht, wenn du ihm Komplimente machst und weint, wenn du ihn beleidigst.."
+        },
+        "SNAP": {
+            "TITLE": "Snap!",
+            "SUMMARY": "Bringe einem Computer bei, Symbole zu erkennen",
+            "DESCRIPTION": "Erstelle ein Kartenspiel in Scratch, das lernt, die Spielkarten zu unterscheiden."
+        },
+        "CHAMELEON": {
+            "TITLE": "Chamäleon",
+            "SUMMARY": "Bringe einem Computer bei, Farben zu erkennen",
+            "DESCRIPTION": "Erstelle ein Chamäleon in Scratch, dass seine Farbe dem Hintergrund anpasst."
+        },
+        "MAILMANMAX": {
+            "TITLE": "Postbote Max",
+            "SUMMARY": "Bringe einem Computer bei, Handschrift zu lesen",
+            "DESCRIPTION": "Erstelle ein Postbüro in Scratch. Die Briefe werden sotiert, indem handgeschriebene Adressen automatisch ausgelesen werden."
+        },
+        "CARORCUP": {
+            "TITLE": "Auto oder Tasse",
+            "SUMMARY": "Bringe einem Computer bei, Objekte auf Bildern zu erkennen",
+            "DESCRIPTION": "Trainiere den Computer, Bilder in Gruppen zu sortieren."
+        },
+        "FACELOCK": {
+            "TITLE": "Face Lock",
+            "SUMMARY": "Bringe einem Computer Gesichtserkennung bei",
+            "DESCRIPTION": "Erstelle eine Smartphone in Scratch, dass sich entsperrt, wenn es dein Gesicht erkennt."
+        },
+        "JOURNEYTOSCHOOL": {
+            "TITLE": "Der Schulweg",
+            "SUMMARY": "Bringe einem Computer bei, Vorhersagen zu treffen",
+            "DESCRIPTION": "Trainiere den Computer so, dass er vorhersagen kann, welchen Schulweg du am Morgen wählst."
+        },
+        "SHYPANDA": {
+            "TITLE": "Schüchterner Bär",
+            "SUMMARY": "Bringe einem Computer bei, Bilder zu erkennen",
+            "DESCRIPTION": "Erstelle einen tanzenden Panda, der schüchtern ist und stoppt, wenn er sieht, dass du ihm zuschaust."
+        },
+        "VIRTUALPET": {
+            "TITLE": "Virtuelles Haustier",
+            "SUMMARY": "Bringe einem Computer bei, Bilder zu erkennen",
+            "DESCRIPTION": "Bringe einem Computer bei, zu registrieren, was du tust, sodass du nach deinem virtuelles Haustier gucken kannst."
+        },
+        "PACMAN": {
+            "TITLE": "Pac-Man",
+            "SUMMARY": "Bringe einem Computer bei, ein Spiel zu spielen",
+            "DESCRIPTION": "Erstelle ein Pac-Man Spiel in Scatch, in dem Pac-Man lernt, vor den Geistern wegzulaufen."
+        },
+        "CHATBOTS": {
+            "TITLE": "Chatbots",
+            "SUMMARY": "Bringe einem Computer bei, Fragen zu erkennen",
+            "DESCRIPTION": "Erstelle einen Chatbot, der Fragen, zu einem Thema deiner Wahl beantworten kann."
+        },
+        "TOURISTINFO": {
+            "TITLE": "Touristen Info",
+            "SUMMARY": "Bringe einem Computer bei, Empfehlungen zu geben",
+            "DESCRIPTION": "Erstelle eine Smartphone-App in Scratch, die interessenbasiert Empfehlungen für Attraktionen und Sehenswürdigkeiten gibt."
+        },
+        "SORTINGHAT": {
+            "TITLE": "Der sprechende Hut",
+            "SUMMARY": "Bringe einem Computer, Sprachgebrauch zu erkennen",
+            "DESCRIPTION": "Erstelle einen sprechenden Hut,  wie in Harry Potter. Der Hut weist dich einem Haus zu, je nachdem, was du sagst."
+        },
+        "ROCKPAPERSCISSORS": {
+            "TITLE": "Schere, Stein, Papier",
+            "SUMMARY": "Bringe einem Computer bei, Formen zu erkennen",
+            "DESCRIPTION": "Erstelle ein Schere-Stein-Papier-Spiel in Scratch, das Handgesten erkennt."
+        },
+        "JUDGEABOOK": {
+            "TITLE": "Buchbewertung",
+            "SUMMARY": "Bringe einem Computer bei, optisch Stilrichtungen zu unterscheiden",
+            "DESCRIPTION": "Erstelle ein Spiel in Scratch, um zu testen, ob es möglich ist, ein Buch nur mit dem Cover zu bewerten."
+        },
+        "LOCATELARRY": {
+            "TITLE": "Finde Walter",
+            "SUMMARY": "Bringe einem Computer bei, etwas auf einem Bild zu finden",
+            "DESCRIPTION": "Erselle ein \"Wo ist Walter?\" ähnliches Spiel in Scratch und bringe dem Computer bei, deinen Charakter zu finden."
+        },
+        "CONFUSED": {
+            "TITLE": "Verwirrt",
+            "SUMMARY": "Bringe einem Computer bei, Früchte zu erkennen",
+            "DESCRIPTION": "Lerne, wie ein Computer in die Irre geführt werden kann und Fehler macht, wenn er schlecht trainiert ist."
+        },
+        "SCHOOLLIBRARY": {
+            "TITLE": "Schulbücherei",
+            "SUMMARY": "Bringe einem Computer bei, Empfehlungen zu geben",
+            "DESCRIPTION": "Erstelle einen Schulbibliothekar in Scratch, der Buchempfehlungen gibt."
+        },
+        "WHATTWITTERTHINKS": {
+            "TITLE": "Was denkt Twitter?",
+            "SUMMARY": "Bringe einem Computer bei, die öffentliche Meinung zu messen",
+            "DESCRIPTION": "Erstelle ein Sentimentanalysetool in Scratch, um Diskussionen auf Twitter zu analysieren"
+        },
+        "NOUGHTSANDCROSSES": {
+            "TITLE": "Tic-Tac-Toe",
+            "SUMMARY": "Bringe einem Computer bei, ein Spiel zu spielen",
+            "DESCRIPTION": "Erstelle ein Tic-Tac-Toe Spiel in Scratch, das lernt, dich zu besiegen."
+        },
+        "TOPTRUMPS": {
+            "TITLE": "Quartett",
+            "SUMMARY": "Bringe einem Computer bei, ein Spiel zu spielen",
+            "DESCRIPTION": "Trainiere einem Computer so, dass er Quartett in Scratch spielen kann."
+        },
+        "HEADLINES": {
+            "TITLE": "Schlagzeilen",
+            "SUMMARY": "Teste die Fähigkeit eines Computers, den Sprachgebrauch zu erkennen",
+            "DESCRIPTION": "Trainiere einen Computer, Schlagzeilen in Tageszeitungen zu erkennen."
+        },
+        "FINDIT": {
+            "TITLE": "Finde es!",
+            "SUMMARY": "Bringe einem Computer bei, Bilder zu erkennen",
+            "DESCRIPTION": "Erstelle ein Versteken-Spiel für dein Smartphone"
+        }
+    },
+    "TEACHER": {
+        "MENU": {
+            "TITLE": "Administration",
+
+            "RESTRICTIONS": {
+                "TITLE": "Restriktionen",
+                "DESCRIPTION": "Hier kannst du alle Limitierungen und Einschränkungen für deine Klasse einsehen"
+            },
+            "APIKEYS": {
+                "TITLE": "API Schlüssel",
+                "TITLELONG": "Watson API Schlüssel",
+                "DESCRIPTION": "Richte die IBM Watson Credentials ein, damit deine Klasse Machine Learning Models erstellen kann"
+            },
+            "STUDENTS": {
+                "TITLE": "SchülerInnen",
+                "TITLELONG": "SchülerInnenmanagement",
+                "DESCRIPTION": "Erstelle und lösche Accounts für deine SchülerInnen oder setzte die Log-In Daten zurück"
+            },
+            "SUPERVISION": {
+                "TITLE": "Supervision",
+                "DESCRIPTION": "Schau dir Projekte an, die deine SchülerInnen erstellt haben"
+            },
+
+            "ADVANCEDOPTIONS": "Erweiterte Optionen",
+
+            "DELETECLASS": {
+                "TITLE": "Klasse löschen",
+                "DESCRIPTION": "Dein Account und die deiner SchülerInnen werden gelöscht"
+            },
+
+            "CANYOUHELP": {
+                "TITLE": "Hast du Feedback?",
+                "DESCRIPTION": "Bitte teile deine Erfahrungen und Ideen, um das Tool zu verbessern"
+            },
+
+            "NOTAUTHORISED": "Du bist nicht authorisiert die Lehrer-Ansicht für deine Klasse zu öffnen."
+        },
+        "APIKEYS": {
+            "TITLE": "Administration : IBM Watson API Schlüssel",
+
+            "ADDNEWCREDENTIALS": "Füge neue Credentials hinzu",
+            "ADDAPIKEY": "Füge einen neuen API Schlüssel hinzu",
+            "REMOVE": "Entfernen",
+
+            "NO_TEXT_CREDENTIALS": "Du hast keine Assistant Credentials. Das bedeutet, du kannst keine Models für <strong>Text</strong> Projekte trainieren.",
+            "NO_IMAGE_CREDENTIALS": "Du hast keine(n) Visual Recognition API Schlüssel. Das bedeutet, du kannst keine Models für Projekte mit <strong>Bilderkennung</strong> trainieren.",
+
+            "NOTAUTHORISED": "Du bist nicht autorisiert die Watson API Schlüssel deiner Klasse einzusehen.",
+            "MANAGEDCLASS": "Die API Schlüssel deiner Klasse werden für dich verwaltet.",
+
+            "HELP_STEPBYSTEP_GUIDE": "Wenn du nicht sicher bist, was du hier tun sollst, folge bitte der <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> Schritt-für-Schritt Anleitung </a>. Wenn du Hilfe benötigst, <strong><a style='cursor: pointer;' ui-sref='help'>melde dich</a></strong>.",
+
+            "INTRO_WATSONASSISTANT": "Zum Trainieren der Machine Learning Models für <span class='mlprojecttype'>Text</span> Projekte wird der <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a> genutzt",
+            "INTRO_VISUALRECOGNITION": "Zum Trainieren der Machine Learning Models für <span class='mlprojecttype'>Bilderkennung</span> wird <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a> genutzt",
+
+            "ERROR_FETCHING_WATSONASSISTANT": "Dein Watson Assistant Passwort ist fehlgeschlagen",
+            "ERROR_FETCHING_VISUALRECOG": "Deine Visual Recognition API Schlüssel sind fehlgeschlagen",
+
+            "USERNAME": "Benutzername",
+            "PASSWORD": "Passwort",
+            "APIKEY": "API Schlüssel",
+
+            "NUMBER_OF_ML_MODELS": "Anzahl an ML Models",
+            "UNKNOWN": "unbekannt",
+            "UNLIMITED": "unbegrenzt",
+
+            "LIMIT_TEXT_PROJECTS": "Anzahl an Text Machine Learning Models, die deine SchülerInnen gleichzeitig erstellen können:",
+            "LIMIT_IMAGE_PROJECTS": "Anzahl an Bild Machine Learning Models, die deine SchülerInnen gleichzeitig erstellen können:",
+
+            "ADD_API_KEYS": {
+                "ASSISTANT_TITLE": "Füge Watson Assistant Credentials hinzu",
+                "VISUAL_RECOGNITION_TITLE": "Füge Visual Recognition API Schlüsssel hinzu",
+
+                "USED_FOR_TEXT_PROJECTS": "Diese werden benutzt, wenn deine SchülerInnen Models in Textprojekten trainieren.",
+                "USED_FOR_IMAGE_PROJECTS": "Diese werden benutzt, wenn deine SchülerInnen Models in Bildprojekten trainieren.",
+
+                "HIDDEN_FROM_STUDENTS": "Dies wird deinen SchülerInnen nicht angezeigt.",
+
+                "PRICING_PLAN": "Welchen Preisplan (Pricing Plan) hast du verwendet?",
+                "ENTER_APIKEY": "Bitte füge den API Schlüssel unten ein",
+                "ENTER_PASSWORD": "Bitte füge den Benutzernamen sowie das Passwort unten ein",
+
+                "CREDENTIALS_TYPE": "Was hast du im Watson Assistant erstellt?"
+            }
+        },
+        "RESTRICTIONS": {
+            "TITLE": "Administration : Restriktionen",
+
+            "ASK_FOR_CHANGES": "Wenn eine dieser Restriktionen zu Problemen führt, <strong><a href='/help'>melde dich bitte</a></strong>.",
+
+            "CLASS_LIMITS": {
+                "TITLE": "Limitierungen für deine Klasse",
+                "NUM_USERS": "Du kannst bis zu <span class='mlprojecttype'>{{ num }}</span> Nutzer (inklusive SchülerInnen und Lehrer) in deiner Gruppe haben.",
+                "NUM_TEXT_MODELS": "Deine Gruppe kann insgesamt maximal <span class='mlprojecttype'>{{ num }}</span> Machine Learning Models gleichzeitig für <span class='mlprojecttype'>Text</span> Projecte haben.",
+                "NUM_IMAGE_MODELS": "Deine Gruppe kann insgesamt maximal <span class='mlprojecttype'>{{ num }}</span> Machine Learning Models gleichzeitig für <span class='mlprojecttype'>Bild</span> Projecte haben.</div>"
+            },
+            "PROJECT_LIMITS": {
+                "TITLE": "Limitierungen für Projekte deiner SchülerInnen",
+                "NUM_PROJECTS": "Jeder deiner SchülerInnnen kann bis zu <span class='mlprojecttype'>{{ num }}</span> Projekte anlegen.",
+                "TYPES": "Deine SchülerInnen können Projekte mit <span class='mlprojecttype'>{{ types }}</span>-Erkennung erstellen.",
+                "TRAINING_DATA": "Jedes <span class='mlprojecttype'>{{ type }}</span> Projekt kann bis zu <span class='mlprojecttype'>{{ num }}</span> Beispieldaten für das Training haben. "
+            },
+            "EXPIRY": {
+                "TITLE": "Tipps, damit du die maximale Anzahl der Machine Learning Models nicht erreichst:",
+                "TIME_LIMIT": "Machine Learning Models für <span class='mlprojecttype'>{{ type }}</span> Projekte werden automatisch nach <span class='mlprojecttype'>{{ num }}</span> Stunden gelöscht.",
+                "DONT_WORRY": "(Keine Sorge! Die Trainingsdaten werden nicht gelöscht. Die SchülerInnen können jederzeit ein neues Machine Learning Model trainieren, wenn sie es noch brauchen.)"
+            },
+
+            "NOT_AUTHORIZED": "Du bist nicht authorisiert die Restriktionen für deine Klasse einzusehen."
+        },
+        "SUPERVISION": {
+            "TITLE": "Administration : Schülerprojekte",
+
+            "INTRO_1": "Auf dieser Seite werden alle Projekte deiner SchülerInnen aufgelistet. Du kannst die Projekte öffnen und sehen, woran deine SchülerInnen momentan arbeiten.",
+            "INTRO_2": "Wenn deine Gruppe das Limit für die Anzahl der Machine Learning Models erreicht hat, kannst du hier einsehen, welche Projekte aktuell ein Machine Learning Model haben und gegebenenfalls löschen, falls du denkst, dass die Models nicht länger benötigt werden.",
+
+            "NO_PROJECTS_1": "Keine deiner SchülerInnen hat aktuell ein Projekt.",
+            "NO_PROJECTS_2": "Sobald deine SchülerInnen Projekte erstellen, kannst du sie hier einsehen.",
+
+            "NAME": "Name",
+            "TYPE": "Typ",
+            "STUDENT": "Schüler",
+            "MODELS": "ML Models",
+
+            "DELETE": "Klicke das Symbol zum löschen",
+
+            "NOT_AUTHORIZED": "Du bist nicht authorisiert, eine Liste aller Projekte in deiner Gruppe einzusehen."
+        },
+        "STUDENTMANAGEMENT": {
+            "TITLE": "Administration : SchülerInnenmanagement",
+
+            "CREATE_FIRST_STUDENT": "Klicke auf den 'plus' Button rechts, um deinen ersten Schüleraccount zu erstellen",
+            "ADD": "Füge einen neuen Schüler hinzu",
+            "NEW_USERNAME": "Wähle einen individuellen Benutzernamen",
+            "ALPHANUMERIC": "Verwende nur Buchstaben und Zahlen",
+
+            "NOT_LOGGED_IN": "Du bist noch nicht eingeloggt",
+
+            "RESET_PASSWORD": "Passwort zurücksetzen",
+            "RESET_ALL_PASSWORDS": "Passwort für alle Schüleraccounts zurücksetzen",
+
+            "DELETE_STUDENT": "Schüleraccount löschen",
+
+            "NOT_AUTHORIZED": "Du bist nicht authorisiert eine Liste der SchülerInnen in deiner Klasse einzusehen."
+        }
+    },
+    "SCRATCHBLOCKS": {
+        "TEXT_PROJECTS": {
+            "mlforkids.text.recogniseLabel": "erkenne Text [TEXT] (Kategorie)",
+            "mlforkids.text.recogniseConfidence": "erkenne Text [TEXT] (confidence)",
+            "mlforkids.text.addTraining": "füge Trainingsdaten hinzu [TEXT] [KATEGORIE]",
+            "mlforkids.text.trainNewModel": "trainiere ein neues Machine Learning Model",
+            "mlforkids.text.checkModelStatus": "Ist das Machine Learning Model [STATUS] ?"
+        },
+        "IMAGES_PROJECTS": {
+            "mlforkids.images.recogniseLabel": "erknne das Bild [IMAGE] (Kategorie)",
+            "mlforkids.images.recogniseConfidence": "erkenne das Bild mit [IMAGE] (confidence)",
+            "mlforkids.images.addTraining": "Füge Trainingsdaten hinzu [TEXT] [KATEGORIE]"
+        },
+        "NUMBER_PROJECTS": {
+            "mlforkids.numbers.trainNewModel": "trainiere ein neues Machine Learning Model"
+        },
+        "TWITTER": {
+            "mlforkids.twitter.getrecenttweet": "such den [INDEX] letzten Tweet über [THEMA]"
+        },
+        "IMAGE_BLOCKS": {
+            "mlforkids.imageblocks.getCostumeImage": "Kostümbild",
+            "mlforkids.imageblocks.getBackdropCostumeImage": "Bühnenbild",
+            "mlforkids.imageblocks.getBackdropImage": "Bühnenbild",
+            "mlforkids.imageblocks.saveScreenshotToCostume": "speicher einen Screenshot als Kostüm"
+        },
+        "GUI": {
+            "gui.menuBar.mlforkidsLibrary": "Projectvorlagen",
+            "gui.mlforkidsLibrary.templates": "Machine Learning for Kids Projektvorlagen"
+        }
+    },
+    "HELP": {
+        "CONTACT": "Wenn du Probleme oder Fragen hast, kontaktiere bitte Dale.Lane@uk.ibm.com (auf Englisch)",
+        "GETTINGSTARTED": {
+            "TITLE": "Vorbereitung?",
+            "INTRO": "Lade eine PDF mit Infos zur Vorbereitung (auf Englisch) herunter:",
+            "MANAGED": "Verwaltete Klassenaccounts",
+            "MANAGEDEXPL": "Für LehrerInnen, AG-LeiterInnen oder andere Voluntäre",
+            "UNMANAGED": "Nicht-verwaltete Klassenaccounts",
+            "UNMANAGEDEXPL": "Für IBM-Angestellte oder LehrerInnen und AG-LeiterInnen, die ihre eigenen Klassenaccounts verwalten möchten"
+        },
+        "FAQS": {
+            "TITLE": "Willst du mehr erfahren?",
+            "INTRO1": "Funktioniert etwas nicht?",
+            "INTRO2": "Die folgende Liste enthält häufige Fragen. Wenn du etwas findest, das deinem Problem ähnelt, klicke auf die Zusammenfassung für mehr Infos.",
+            "INTRO3": "Wenn du trotzdem nicht weiterkommst, oder ein Problem hast, das hier nicht aufgelistet ist, sorry! Bitte <a href='mailto:dale.lane@uk.ibm.com'>kontaktiere Dale (auf Englisch)</a> oder <a href='https://github.com/IBM/taxinomitis/issues'>erstelle eine Fehlermeldung (ebenfalls auf Englisch)</a>, sodass Dale helfen kann."
+        },
+
+        "SCRATCH": {
+            "TITLE": "Probleme mit Scratch",
+
+            "Q1": "Ich weiß nicht, wie ich Scratch 2 zum Laufen kriege",
+            "Q1-A-1": "Die alte Version von Scratch, Scratch 2, benötigt den Adobe Flash Player. Verwende ein Betriebssystem und Browser auf dem Flash installiert ist.",
+            "Q1-A-2": "Wenn du nicht weißt, wie du Flash aktivieren kannst, kannst du            <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>diese PDF (Englisch) mit Tipps zu Scratch herunterladen</a>. Alternativ kannst du die neue Version von Scratch, Scratch 3.0, verwenden.",
+
+            "Q2": "Die Menüpunkte \"Projekt laden\" und \"Projekt speichern\" in Scratch funktionieren nicht",
+            "Q2-A-1": "Wenn du Safari auf macOS verwendest und die Scratch-Menüpunkte \"Datei -&gt; Projekt laden\" und \"Datei -&gt; Projekt speichern\" nicht funktionieren, kann es sein, dass du im Inkognito-Modus surfst.",
+            "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>Folge diesen Instruktionen (Englisch)</a>, um das Problem zu beheben.",
+
+            "Q3": "Die Machine Learning Blöcke in Scratch funktionieren nicht",
+            "Q3-A-1": "Manchmal verlieren die Scratch Blöcke für das maschinelle Lernen die Verbindung zum Server. Wenn das passiert, liefern Sie kein Ergebnis mehr.",
+            "Q3-A-2": "Im Bereich \"Weitere Blöcke\" kannst du am farbigen Statuslicht erkennen, ob das der Fall ist.",
+            "Q3-A-3": "Wenn das Statuslicht neben den Machine Learning Blöcken in Scratch rot ist, läuft etwas schief. Es kann ein temporäres Problem sein.Versuche dein Projekt zu speichern ('Datei' -&gt; 'Projekt speichern') und lade die Browserseite neu. Wenn das Statuslicht nach dem Neuladen grün ist, lade dein Projekt hoch ('Datei' -&gt; 'Projekt laden'), um da weiterzumachen, wo du aufgehört hast.",
+            "Q3-A-4": "Wenn das Statuslicht rot bleibt, stimmt vielleicht etwas mit dem Machine Learning Model nicht. Gehe auf die \"Lernen &amp; Testen\"-Seite. Dort werden Fehlermeldungen für das Machine Learning Model angezeigt.",
+            "Q3-A-5": "Wenn das Statuslicht bei den Machine Learning Blöcken in Scratch grün leuchtet, sollten die Blöcke auch funktionieren. Wenn du andere Ergebnisse als erwartet erhältst, gehe zurück auf die \"Lernen &amp; Testen\"-Seite und prüfe welche Ergebnisse das Model ausgibt.",
+
+            "Q5": "Kann ich eine beliebige Scratch Version verwenden?",
+            "Q5-A-1": "Nein. Du musst die Scratch-Version auf der Machine Learning for Kids Seite verwenden. Du kannst Scratch öffnen, indem du in einem Projekt auf den Scratch (oder 'Scratch 3') -Button klickst.",
+
+            "Q6": "Scratch 3 speichert Projekte nur im 'Downloads' Ordner",
+            "Q6-A-1": "Durch Klicken auf 'Datei' -> 'Auf deinem Computer speichern' in Scratch 3, wird das Scratch Projekt auf deinem Computer gespeichert.",
+            "Q6-A-2": "Einige Lehrer haben berichtet, dass das Scratch Projekt automatisch im Downloads Ordner gespeichert wird, SchülerInnen allerdings keinen Zugang zu diesem Ordner haben. Als Resultat haben SchülerInnen keinen Zugriff auf ihre gespeicherten Projekte.",
+            "Q6-A-3": "Wenn du dieses Problem hast, überprüfe die Browsereinstellungen und suche nach so etwas wie 'Vor dem Download von Dateien nach dem Speicherort fragen'. Sobald du diese Option aktivierst, können deine SchülerInnen selbst den Speicherort wählen."
+        },
+
+        "TRAININGUI": {
+            "TITLE": "Probleme mit der Trainings-Benutzeroberfläche",
+
+            "Q1": "Bei Bilderkennungsprojekten funktioniert Drag-and-Drop von Bildern in die Trainingskategorien nicht.",
+            "Q1-A-1": "Drag-and-Drop von Bildern in die Trainingskategorien funktioniert nicht mit Safari oder dem Internet Explorer.",
+            "Q1-A-2": "Tut uns leid. Wenn du einen anderen Browser wie Firefox oder Chrome verwenden kannst, mach das bitte. Andernfalls kannst du den \"www\"-Button verwenden und die URLs einzeln hineinkopieren."
+        },
+
+        "MODELS": {
+            "TITLE": "Fehler beim Trainieren eines Machine Learning Models",
+
+            "Q1": "\"Es wurden keine Watson Credentials eingerichtet\"",
+            "Q1-A-1": "Die Machine Learning Models in diesem Tool verwenden IBM Watson APIs.",
+            "Q1-A-2": "Wenn du einen \"nicht-verwalteten\" Klassenaccount hast, muss deine Lehrkraft die Watson API Credentials von der IBM Cloud einrichten. Schritt-für-Schritt Anleitungen dazu gibt es im \"Vorbereitungs-\"dokument, oben auf dieser Seite.",
+
+            "Q2": "\"Die Watson Credentials deiner Klasse wurden abgelehnt\"",
+            "Q2-A-1": "Die Machine Learning Models in diesem Tool verwenden IBM Watson APIs.",
+            "Q2-A-2": "Wenn du einen \"nicht-verwalteten\" Klassenaccount hast, muss deine Lehrkraft die Watson API Credentials von der IBM Cloud einrichten. Schritt-für-Schritt Anleitungen dazu gibt es im  \"Vorbereitungs-\"dokument, oben auf dieser Seite.",
+            "Q2-A-3": "Wenn die Credentials trotz bereits erfolgter Einrichtung nicht funktionieren, wurden die Credentials wahrscheinlich aus der IBM Cloud gelöscht. Wenn das nicht der Fall ist, muss die Lehrkraft, die die Watson Credentials erstellt hat, zurück zum IBM Cloud Dashboard gehen und den Status des Watson Assistant oder Visual Recognition Service überprüfen.",
+
+            "Q3": "\"Watson Assistant API Schlüssel haben keine weiteren Arbeitsplätze (\"workspaces\") zur Verfügung\"",
+            "Q3-A-1": "Machine Learning Models werden, in diesem Tool, mit Anbindung an die IBM Watson APIs erstellt.",
+            "Q3-A-2": "Mit Watson Assistant Credentials, die von Lehrkräften erstellt werden, kann nur eine begrenzte Anzahl an Machine Learning Models gleichzeitig trainiert werden. Die Anzahl kann auf der Plattform in der Admin-Sicht unter API Schlüssel eingesehen werden. Alternativ in der IBM Cloud Benutzeroberfläche, wo die Credentials erstellt wurden.",
+            "Q3-A-3": "Sobald das Limit überschritten ist, scheitert der Versuch ein neues Machine Learning Model zu trainieren und diese Meldung wird angezeigt:",
+            "Q3-A-4": "Deine Klasse hat bereits die maximale Anzahl an Machine Learning Models erstellt. Bitte gib deiner Lehrkraft Bescheid, dass die \"Watson Assistant API Schlüssel keine weiteren Arbeitsplätze (workspaces) haben\".",
+            "Q3-A-5": "Sobald ein/e SchülerIn ein trainiertes Model löscht, wird ein Arbeitsplatz (workspace) freigegeben und kann von anderen SchülerInnen genutzt werden.",
+            "Q3-A-6": "Mit kleineren Klassengrößen, Partnerarbeit oder Klassenprojekten, kann der Fehler zukünftig vermieden werden, da dann auch weniger Models trainiert werden müssen und das Arbeitsplatz-Limit der Watson Assistant Credentials nicht überschritten wird.",
+            "Q3-A-7": "Eine andere Möglichkeit diesen Fehler zu umgehen, ist, bei der Klasse weitere Watson Assistant API Schlüssel hinzuzufügen oder einen Watson Assistant \"Plan\" mit einem höheren Limit zu verwenden.",
+
+            "Q4": "\"Watson Visual Recognition API Schlüssel haben keine weiteren Klassifizierer (\"classifiers\") zur Verfügung\"",
+            "Q4-A-1": "Machine Learning Models werden, in diesem Tool, mit Anbindung an die IBM Watson APIs erstellt.",
+            "Q4-A-2": "Mit Watson Visual Recognition Credentials, die von Lehrern erstellt werden, kann nur eine begrenzte Anzahl an Machine Learning Models trainiert werden. Die Anzahl kann auf der Plattform in der Admin-Sicht unter API Schlüssel eingesehen werden. Alternativ in der IBM Cloud Benutzeroberfläche, wo die Credentials erstellt wurden.",
+            "Q4-A-3": "Sobald das Limit überschritten ist, scheitert der Versuch ein neues Machine Learning Model zu trainieren und diese Meldung wird angezeigt:",
+            "Q4-A-4": "Deine Klasse hat bereits die maximale Anzahl an Machine Learning Models erstellt. Bitte gib deiner Lehrkraft Bescheid, dass die \"Watson Visual Recognition API Schlüssel keine weiteren Klassifizierer (classifiers) haben\".",
+            "Q4-A-5": "Sobald ein/e SchülerIn ein trainiertes Model löscht, wird ein Klassifizierer (classifier) freigegeben und kann von anderen SchülerInnen genutzt werden.",
+            "Q4-A-6": "Mit kleineren Klassengrößen, Partnerarbeit oder Klassenprojekten, kann der Fehler zukünftig vermieden werden, da dann auch weniger Models trainiert werden müssen und das Limit der Watson Visual Recognition Credentials nicht überschritten wird.",
+            "Q4-A-7": "Eine andere Möglichkeit diesen Fehler zu umgehen, ist, bei der Klasse weitere Watson Visual Recognition API Schlüssel hinzuzufügen oder einen Watson Visual Recognition \"Plan\" mit einem höheren Limit zu verwenden.",
+
+            "Q5": "\"Watson ... begrenzt die Anzahl der API Schlüssel\"",
+            "Q5-A-1": "Machine Learning Models werden, in diesem Tool, mit Anbindung an die IBM Watson APIs erstellt.",
+            "Q5-A-2": "Wenn du einen \"nicht-verwalteten\" Klassenaccount hast, muss deine Lehrkraft die Watson API Credentials von der IBM Cloud einrichten. Schritt-für-Schritt Anleitungen dazu gibt es im  \"Vorbereitungs-\"dokument, oben auf dieser Seite.",
+            "Q5-A-3": "Wenn der kostenlose \"Lite\" Plan verwendet wird, wird die Anzahl an Anfragen für Machine Learning Models begrenzt. Im normalen Gebrauch beeinflusst das die Gruppe nicht. Sollten die SchülerInnen jedoch eine Fehlermeldung \"keine weiteren Arbeitsplätze  (workspaces) zur Verfügung\" oder \"keine weiteren Klassifizierer (classifiers) zur Verfügung\" erhalten (s. oben) und trotzdem mehrfach pro Sekunde auf den \"Trainiere ein neues Machine Learning Model\" Button klicken, kann das Limit überschritten werden.",
+            "Q5-A-4": "In diesem Fall wird den SchülerInnen folgende Nachricht angezeigt:",
+            "Q5-A-5": "Deine Klasse möchte zu viele Machine Learning Models auf einmal erstellen. Bitte gehe zu deiner Lehrkraft und sage \"Watson begrenzt die Anzahl der API Schlüssel\"",
+            "Q5-A-6": "Das Limit wird nicht durch die Machine Learning for Kids Seite bestimmt. Normalerweise reicht es kurze Zeit zu warten, dann können wieder neue maschinelle Lernmodelle trainiert werden.",
+            "Q5-A-7": "Wenn SchülerInnen den \"Trainiere ein neues Machine Learning Model\" Button klicken und die Fehlermeldung \"keine weiteren Arbeitsplätze (workspaces) zur Verfügung\" oder \"keine weiteren Klassifizierer (classifiers) zur Verfügung\" erhalten, sollten sie wissen, dass mehrmaliges Klicken das Problem nicht löst, sondern für die gesamte Klasse verschlimmert.",
+
+            "Q6": "Ich warte bereits eine Ewigkeit darauf, dass das Model das Training beendet!",
+            "Q6-A-1": "Versuche die Seite neu zu laden.",
+            "Q6-A-2": "Alle 30 Sekunden überprüft die Seite den Status des Machine Learning Models. Manchmal schlägt die Überprüfung fehl, sodass das Model bereits trainiert ist und du umsonst wartest.",
+            "Q6-A-3": "Sobald du länger als ein paar Minuten wartest, solltest du die Seite neu laden.",
+            "Q6-A-4": "Wenn das Trainieren des Models tatsächlich länger als 10 Minuten dauert, kannst du überlegen das Training erneut zu starten. Klicke dazu auf \"Abbrechen\" und dann erneut auf den \"Trainiere ein neues Machine Learning Model\" Button."
+        },
+
+        "TEACHERUI": {
+            "TITLE": "Probleme mit der Lehrkraft-/ Admin-Benutzeroberfläche",
+
+            "Q2": "Auf der Admin Seite fehlen Schüleraccounts in der Liste",
+            "Q2-A-1": "Machine Learning for Kids nutzt für das Nutzermanagement den Service <a href=\"https://auth0.com/\">Auth0</a>.",
+            "Q2-A-2": "Manchmal ist die Liste an Schüleraccounts, die von Auth0 übermittelt wird, nicht aktuell und zeigt Schüleraccounts, die kürzlich erstellt wurden, nicht an. (Ebenso kann es vorkommen, dass Schüleraccounts angezeigt werden, die kürzlich gelöscht wurden).",
+            "Q2-A-3": "Normalerweise wird schlicht die Liste der Schüleraccounts nicht korrekt angezeigt und die Schüleraccounts wurden trotzdem erfolgreich erstellt (oder gelöscht).",
+            "Q2-A-4": "Normalerweise kannst du Störungen wie diese auf der Statusseite von Auth0, im Bereich <a href='https://status.auth0.com/incidents/0sk1d3hjlw0m'>user indexing delays</a> oder <a href='https://status.auth0.com/incidents/t8995b9jggx5'>problems with their Search API</a>, einsehen.",
+            "Q2-A-5": "Am besten ist es, abzuwarten, bis Auth0 das Problem behoben hat.",
+
+            "Q4": "Warum werden Machine Learning Models automatisch gelöscht?",
+            "Q4-A-1": "Als Machine Learning for Kids entwickelt wurde, wurde diese Funktion von Schulen erwünscht. Der Grund ist der Umstand, dass pro Klasse nur eine begrenzte Anzahl an Machine Learning Models trainiert werden kann und es so einfacher ist, das Limit zu verwalten.",
+            "Q4-A-2": "Anstatt die SchülerInnen zu bitten, nach der Lerneinheit ihre Models zu löschen (damit die nächste Klasse neue Models trainieren kann), löscht das Tool die Models automatisch. Auf diese Weise kann die nächste Lerneinheit, ohne manuelle Löschaktionen, beginnen.",
+            "Q4-A-3": "Die Zeit, bevor Modelle gelöscht werden, kann eingestellt werden. In Schulen, wo Unterrichtseinheiten meist eine oder zwei Stunden lang sind, kann es sinnvoll sein die Models bereits nach zwei Stunden zu löschen. Für einwöchige Workshops kann eine Frist von 6 Tagen besser sein.",
+            "Q4-A-4": "Um das Limit für deine Klasse einzustellen, gehe auf der <a href='https://machinelearningforkids.co.uk/#!/teacher/restrictions'>Lehrer/ Admin Seite auf den Bereich Einschränkungen</a>.",
+            "Q4-A-6": "<em>Beachte: Nur die Machine Learning Models werden automatisch gelöscht, nicht die Trainingsdaten. Wenn ein/e SchülerIn also an einem Projekt weiterarbeiten möchte, reicht es, das Model neu zu trainieren.</em>"
+        },
+
+        "ACCOUNTISSUES": {
+            "TITLE": "Probleme mit dem Account",
+
+            "Q1": "Was ist der Unterschied zwischen einem Account (Login) und \"Jetzt testen\"?",
+            "Q1-A-1": "\"Jetzt testen\" bedeutet, dass kein Account erstellt werden muss. Die SchülerInnen müssen sich kein Passwort merken und die Lehrkaft muss keine Kontaktdaten angeben sowie keine Schüleraccounts anlegen.",
+            "Q1-A-2": "Durch das Erstellen eines Accounts sind jedoch einige zusätzliche Funktionen möglich. In Schüleraccounts werden die Projekte gespeichert, sodass die SchülerInnen auch zu einem späteren Zeitpunkt daran weiterarbeiten können. Außerdem können die SchülerInnen an einem gemeinsamen Klassenprojekt arbeiten und sich auch von zu Hause einloggen (und ihrer Familie ihr Projekt zeigen).",
+            "Q1-A-3": "Das sind die Unterschiede:",
+
+            "CREATE_ACCOUNT": "Erstellen eines Accounts",
+            "TRAINMODELS": "Trainiere Machine Learning Models, um … zu erkennen",
+            "USE_SCRATCH": "Benutze Machine Learning Models in Scratch",
+            "CREATE_PROJECTS": "Erstelle Projekte",
+            "ONE_PROJECT": " 1 Projekt ",
+            "MULTIPLE_PROJECTS": " Mehrere Projekte ",
+            "SAVE_PROJECTS": "Speichere und lade Projekte",
+            "WORK_ON_PROJECTS": "Arbeite an Machine Learning Projekten...",
+            "FEW_HOURS": " für ein paar Stunden ",
+            "UNTIL_DELETION": " bis du sie löscht ",
+            "ONE_COMPUTER": " von einem Computer ",
+            "ONLINE": " egal wo, online ",
+            "BY_YOURSELF": " von dir selbst ",
+            "WITH_CLASSMATES": "mit Klassenkameraden",
+
+            "Q2": "Ich habe einen Klassenaccount erstellt, aber ich kann mich nicht einloggen",
+            "Q2-A-1": "Du musst deine E-Mail Adresse bestätigen (Verifizieren), bevor du dich einloggen kannst.",
+            "Q2-A-2": "Wenn du einen Account erstellst, wird automatisch eine E-Mail mit einem Link an die von dir angegebene E-Mail Adresse versendet. Wenn du auf den Link klickst, bestätigst du deine E-Mail Adresse und dein Klassenaccount wird freigeschaltet. Jetzt solltest du dich einloggen können.",
+            "Q2-A-3": "Wenn du bisher keine E-Mail gesehen hast, überprüfe deinen Spam-Ordner.",
+            "Q2-A-4": "Wenn du die Mail immer noch nicht finden kannst, <a href='mailto:dale.lane@uk.ibm.com'>schreibe Dale (auf Englisch)</a> und er versucht zu helfen.",
+
+            "Q3": "Accounts löschen",
+            "Q3-A-1": "Schüleraccounts",
+            "Q3-A-2": "SchülerInnen können ihre Accounts nicht selbst löschen.",
+            "Q3-A-3": "Die Lehrkraft kann jederzeit Schüleraccounts löschen. Dazu muss die \"Lehrer/ Admin\"-Seite aufgerufen werden und neben dem gewünschten Schüleraccount auf den \"Schüleraccount löschen\" Button geklickt werden.",
+            "Q3-A-4": "Durch das Löschen werden alle angegebenen Informationen über den Schüler, alle Projekte und Machine Learning Models des Schülers gelöscht.",
+            "Q3-A-5": "Das Löschen kann nicht rückgängig gemacht werden.",
+            "Q3-A-6": "Lehreraccounts",
+            "Q3-A-7": "Durch das Löschen des Lehreraccounts wird die gesamte Klasse inklusive aller Schüleraccounts gelöscht. Das Löschen kann nicht rückgängig gemacht werden!",
+            "Q3-A-8": "In den erweiterten Option der <a href='https://machinelearningforkids.co.uk/teacher'>Lehrer-/Admin-Seite</a> kann der Leheraccount durch Klick auf \"Klasse löschen\" unwiderruflich gelöscht werden.",
+
+            "Q4": "Welche Informationen werden über den Nutzer gespeichert?",
+            "Q4-A-1": "Lehreraccounts",
+            "Q4-A-2": "Der Benutzername sowie die E-Mail werden gespeichert. Das ist notwendig, damit wir dich kontaktieren können. (Zum Beispiel zum Verifizieren deines Accounts.)",
+            "Q4-A-3": "Schüleraccounts",
+            "Q4-A-4": "Der Benutzername wird gespeichert, damit sich die SchülerInnen auf der Plattform einloggen können. Es werden keine E-Mail Adresse, andere Kontaktdaten oder sonstige persönliche Informationen von SchülerInnen gespeichert.",
+            "Q4-A-5": "Wir empfehlen, den <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-schools.pdf'>SchülerInnen generische Benutzernamen zu geben</a> (z. B. student1). Auf diese Weise können SchülerInnen außerhalb der Gruppe nicht identifiziert werden.",
+            "Q4-A-6": "Allgemeine Information, die in allen Accounts gespeichert wird",
+            "Q4-A-7": "Für das Benutzermanagement bei Machine Learnign for Kids wird der Service <a href='https://auth0.com/'>Auth0</a> genutzt. Auth0 speichert die IP Adresse und den Browser, den du benutzt.",
+            "Q4-A-8": "Um Fehler im Webbrowser festzustellen, nutzt Machine Learning for Kids den Service <a href='https://sentry.io/'>Sentry</a>. Wenn ein Fehler auftritt, werde der Benutzername, die IP Adresse, die Browserart und eine technische Beschreibung des Fehlers, gesammelt.",
+            "Q4-A-9": "Wir nutzen <a href='https://www.google.com/analytics/'>Google Analytics</a>, um einen Überblick darüber zu erhalten, wie viele Nutzer unsere Plattform - Machine Learning for Kids - jeden Tag besuchen. Getrackte geographische Informationen sowie Informationen über den genutzten Browser werden nur in anonymisierter Form angezeigt."
+        }
+    }
+}
