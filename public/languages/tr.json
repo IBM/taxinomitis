@@ -1,0 +1,953 @@
+{
+    "APP": {
+        "TITLE": "Çocuklar İçin Makine Öğrenimi",
+        "BACK": "Geri",
+        "BACKTOPROJECT": "&lt; Projeye dön",
+        "ERROR": "Hata:",
+        "WARNING": "Uyarı:",
+        "INFO": "Bilgi:",
+        "ADD": "Ekle",
+        "CANCEL": "İptal",
+        "DELETE": "Delete",
+        "EDIT": "Edit",
+        "TEST": "Test",
+        "ABOUT": "Hakkında",
+        "TEACHER": "Öğretmen",
+        "PROJECTS": "Projeler",
+        "WORKSHEETS": "Çalışma Sayfaları",
+        "NEWS": "Haberler",
+        "HELP": "Yardım",
+        "LOGIN": "Oturum Aç",
+        "LOGOUT": "Oturumu Kapat",
+
+        "BETA": "Beta",
+        "INCOMPLETE": "Eksik!"
+    },
+    "ABOUT": {
+        "TITLE": "Çocuklar İçin Makine Öğrenimi",
+        "IN6SECS": "6 saniyede...",
+        "IN20MINS": "20 dakikada...",
+        "WHAT": {
+            "TITLE": "Nedir?",
+            "BODY": "Bu araç, makine öğrenimi sistemlerinin eğitilmesi ve bunlarla bir şeyler oluşturulması için uygulamalı deneyimler sağlayarak makine öğrenimini tanıtır. <br/><br/>Metin ve rakamların sınıflandırılması ya da fotoğrafların tanınmasına yönelik makine öğrenimi modellerinin eğitilmesi için kullanımı kolay, kılavuzlu bir ortam sağlar. <br/><br/>Burada çocukların eğittikleri makine öğrenimi modelleriyle projeler oluşturmalarını ve oyunlar tasarlamalarını sağlayan, <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> (yaygın bir biçimde kullanılan eğitim amaçlı kodlama platformu) platformuna bu modellerin eklenmesiyle çocuklara kodlamanın tanıtılması ve öğretilmesi için mevcut çalışmalardan yararlanılır. <br/><br/>Daha fazla bilgi edinmek için şuraya bakın:"
+        },
+        "WHY": {
+            "TITLE": "Neden?",
+            "BODY": "Makine öğrenimi her alanda karşımıza çıkıyor. Her gün hepimiz istenmeyen posta filtreleri, öneri motorları, dil çevirisi hizmetleri, sohbet robotları ve dijital yardımcılar, arama motorları ve sahteciliği saptama sistemleri gibi makine öğrenimi sistemlerini kullanıyoruz. <br/><br/>Makine öğrenimi sistemlerinin arabalarımızı kullanması, doktorlara hastalıkların teşhisi ve tedavisinde yardımcı olması yakında normal olacak. <br/><br/>Çocukların dünyada işlerin nasıl yürüdüğünün farkında olmaları önemlidir. Yeteneklerin ve çıkarımların anlaşılmasının en iyi yolu, bu teknolojiyle kendileri için bir şeyler yapabilmeleridir. <br/><br/>Daha fazla bilgi için <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'Makine öğreniminin çocuklara tanıtılması'</a> başlıklı yazıyı okuyabilirsiniz."
+        },
+        "TECH": {
+            "TITLE": "Teknoloji",
+            "BODY": "Araç, tamamıyla web tabanlıdır ve kullanmak için herhangi bir kurulum veya karmaşık ayarlar gerektirmez. <br/><br/>Okulllar ve gönüllülerce yönetilen kodlama grupları tarafından kullanılmak üzere çocuklara yönelik olarak tasarlanmıştır ve öğretmenlerin veya grup liderlerinin öğrenci erişimini yönetebilmeleri için bir yönetim sayfası sağlar.<br/><br/><a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> tarafından, <a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a> API'leri kullanılarak oluşturulmaktadır.",
+            "LOGIN": "Kullanmaya başlamak için: "
+        }
+    },
+    "NEWS": {
+        "TITLE": "Haberler",
+        "UPDATES": {
+            "TITLE": "Haberler ve Güncellemeler",
+            "DESCRIPTION": "@MLforKids'den Haberler ve Güncellemeler"
+        },
+        "MENTIONS": {
+            "TITLE": "Basında Çıkan Haberler",
+            "DESCRIPTION": "wakelet.com'dan Basında Çıkan Haberler bölümü yükleniyor"
+        }
+    },
+    "ERRORS": {
+        "PAGENOTFOUND": "Sayfa bulunamadı",
+        "NOTLOGGEDIN": "Oturum açılmadı",
+        "MISSINGPROJECTID": "Proje tanıtıcısı eksik. Şuraya dönün: ",
+        "IFPERSISTENT": "Bu devam ederse lütfen ",
+        "LETMEKNOW": "bana bildirin"
+    },
+    "WELCOME": {
+        "TITLE": "Bilgisayara oyun oynamayı öğretme",
+        "GET_STARTED": "Başlayın",
+        "LEARN_MORE": "Daha fazla bilgi edinin",
+        "ADMIN_LABEL": "<strong>Yönetim Sayfası</strong>'na gidin",
+        "PROJECT_LABEL": "<strong>Projeler</strong> sayfanıza gidin",
+        "STEP_1_TEXT": "Tanıyabilmeyi istediğiniz şeylerin örneklerini toplayın",
+        "STEP_2_TEXT": "Bir bilgisayarı bunları tanıyabilmesi için eğitmek üzere örnekleri kullanın",
+        "STEP_3_TEXT": "Scratch programında, bilgisayarın bunları tanıma yeteneğini kullanan bir oyun tasarlayın"
+    },
+    "LOGIN": {
+        "TITLE": "Makine öğrenimini kullanmaya başlama",
+        "WELCOME": "Hoş geldiniz! Çocuklar İçin Makine Öğrenimi'nde oturum açabilmek için bir hesap oluşturmak istemenize sevindik.",
+        "ALREADY_LOGGEDIN": "<strong>Bilgi: </strong> Oturum zaten açık",
+        "ERROR": "<strong>Hata:</strong> {{ message }}",
+        "ERROR_HELP": "Bu devam ederse lütfen yardım bölümümüzü ziyaret edin",
+        "FIRST_TIME": "Burada yeni misiniz?",
+        "SIGN_UP": "Kaydol",
+        "WHY_REGISTER": "Neden kaydolmalısınız?",
+        "WHY_REGISTER_INTRO_1": "Çocuklar İçin Makine Öğrenimi'ni kullanmak için <strong>kaydolmanız veya bir hesap oluşturmanıza gerek yok</strong>, ancak hesap oluşturduğunuzda aracın bazı özelliklerini de kullanabilirsiniz.",
+        "WHY_REGISTER_INTRO_2": "Aşağıdaki kılavuzda, kaydolmadan \"Hemen dene\" seçeneğini tıklatırsanız yapabilecekleriniz ve oturum açmak için bir hesap oluşturursanız yapabilecekleriniz arasındaki farklar açıklanır.",
+        "ALREADY_REGISTERED": "Zaten kayıtlı mısınız?",
+        "LOGIN": "Oturum aç",
+        "FORGOT_DETAILS": "Bilgilerinizi mi unuttunuz?",
+        "TRY_TITLE": "Kaydolmadan dene",
+        "TRY_NOW": "Hemen dene",
+        "WHO_YOU": "Kimsiniz?",
+        "TEACHER": "Öğretmen ya da kodlama kulübü lideri",
+        "STUDENT": "Öğrenci",
+        "FORGOT_TEXT": "Kullanıcı adınızı ya da parolanızı mı unuttunuz? Sorun değil, hepimiz bazen bir şeyleri unutuyoruz.",
+        "ARE_YOU_A_STUDENT": "Are you a student?",
+        "ARE_YOU_A_STUDENT_INTRO_1": "If your class is already using this tool, ask your teacher or coding group leader to create you an account.",
+        "ARE_YOU_A_STUDENT_INTRO_2": "If your class isn't already using the tool, ask your teacher or coding group leader to get in touch.",
+        "RESET_STUDENT_PASSWORD_1": "If you're a student, we don't have your email address to be able to send you a password-reset email.",
+        "RESET_STUDENT_PASSWORD_2": "That's no problem, though!",
+        "RESET_STUDENT_PASSWORD_3": "Just ask your teacher or group leader who first signed you up. They will be able to reset your password from their Admin page."
+    },
+    "SIGNUP": {
+        "TEACHER": {
+            "TITLE": "Öğretmen ya da kodlama kulübü lideri misiniz?",
+            "INFO1": "Öğrencileriniz için erişim istiyorsanız lütfen aşağıda bir sınıf hesabı oluşturun.",
+            "INFO2": "Kimin oluşturduğuna bağlı olarak iki tür sınıf hesabı vardır."
+        },
+        "UNMANAGED": {
+            "TITLE": "<strong>Yönetilmeyen</strong> sınıf hesabı oluşturma",
+            "INTRO": "Kendiniz sınıf hesabı oluşturmak ve yönetmekle ilgileniyorsanız, bunu hemen yapabilirsiniz!",
+            "LISTINTRO": "Yapmanız gerekenler:",
+            "LIST_CREATEACCOUNT": "IBM Cloud'da bir hesap oluşturun",
+            "LIST_CREATEAPIKEYS": "Makine öğrenimi modellerinin eğitilmesi için gereken Watson bulut hizmetleri için API anahtarını/anahtarlarını oluşturun",
+            "LIST_ENTERAPIKEYS": "API anahtarlarını bu Çocuklar İçin Makine Öğrenimi aracına girin",
+            "HELP": "Tüm bunlar için adım adım yönergelerden (ekran görüntüleriyle birlikte) yararlanılabilir."
+        },
+        "MANAGED": {
+            "TITLE": "<strong>Yönetilen</strong> sınıf hesabı oluşturma",
+            "INTRO": "Dale'in sınıf hesabı oluşturmasını istiyorsanız, aşağıdaki bilgileri içeren bir e-posta göndermek için aşağıdaki düğmeyi kullanın:",
+            "LIST_NUMBEROFSTUDENTS": "Yaklaşık olarak gerekli olacak öğrenci hesabı sayısı",
+            "LIST_NAMEOFSCHOOL": "Hesabın sahibi okulun veya kodlama grubunun adı",
+            "EMAIL": "E-posta"
+        }
+    },
+    "PROJECTS": {
+        "TITLE": "Makine öğrenimi projeleriniz",
+        "ADDNEWPROJECT": "Yeni proje ekle",
+        "CREATEFIRSTPROJECT": "İlk projenizi oluşturmak için sağdaki 'artı' düğmesini tıklatın.",
+        "RECOGNISING": "Tanıma",
+        "AS": "şu şekilde:"
+    },
+    "NEWPROJECT": {
+        "TITLE": "Start a new machine learning project",
+        "PROJECT_NAME": {
+            "TITLE": "Project Name",
+            "NOTES": "Give your project a name to describe what sort of thing you'll try to teach the computer to recognise."
+        },
+        "WHOLE_CLASS_PROJECT": {
+            "TITLE": "Whole-class project?",
+            "NOTES_1": "Tick this if you want your whole class to be able to work on this project together.",
+            "NOTES_2": "This is useful for projects that teach crowd-sourcing as an approach to training machine learning projects."
+        },
+        "TYPES": {
+            "LABEL": "Recognising",
+            "NOTES_1": "What type of thing do you want to teach the computer to recognise?",
+            "NOTES_2": "For words, sentences or paragraphs, choose \"text\"",
+            "NOTES_3": "For photos, diagrams and pictures, choose \"images\"",
+            "NOTES_4": "For sets of numbers or multiple choices, choose \"numbers\""
+        },
+        "LANGUAGE": {
+            "LABEL": "Language",
+            "NOTES": "What language will the text in this project be?"
+        },
+        "FIELDS": {
+            "TYPE": {
+                "TITLE": "Type of value",
+                "NUMBER": "number",
+                "MULTIPLE_CHOICE": "multiple-choice"
+            },
+            "CHOICES": {
+                "TITLE": "Choices:",
+                "LABEL": "add a choice"
+            },
+            "NEWFIELD": {
+                "DESCRIBE_FIELD": "Give this field a name to describe the value",
+                "MULTICHOICE": "If it can be described as choosing from a few options, choose \"multiple-choice\".",
+                "ADD_FIRST_FIELD": "Type in a choice to use in your multiple-choice list, then press Enter.",
+                "ADD_ANOTHER_FIELD": "Type in another choice to use in your multiple-choice list, then press Enter."
+            },
+            "NEWVALUE": {
+                "ADD_FIRST_VALUE": "Start to describe the values that you'll include with each example to train the computer with by clicking the 'Add a value' button.",
+                "VALUES_LIMIT": "You are not allowed more than 10 values in a project."
+            }
+        },
+        "CREATE": "Create",
+        "ERRORS": {
+            "REQUIRED": "This is required!",
+            "TOOLONG": "That's too long!"
+        }
+    },
+    "PROJECT": {
+        "TRAIN": {
+            "TITLE": "Eğitme",
+            "BODY": "Bilgisayarın tanımasını istediğiniz şeylerin örneklerini toplayın."
+        },
+        "LEARNANDTEST": {
+            "TITLE": "Öğrenme ve Test",
+            "BODY": "Bilgisayarı tanımasını sağlayacak şekilde eğitmek için örnekleri kullanın"
+        },
+        "MAKES": {
+            "TITLE": "Make",
+            "BODY": "Use the machine learning model you've trained to make a game or app, in Scratch or in Python"
+        },
+        "SCRATCH": {
+            "TITLE": "Scratch",
+            "BODY": "Scratch'de bir oyun tasarlamak için, eğittiğiniz makine öğrenimi modelini kullanın."
+        },
+        "PYTHON": {
+            "TITLE": "Python",
+            "BODY": "Bir Python programında eğittiğiniz makine öğrenimi modelini kullanın."
+        },
+        "APPINVENTOR": {
+            "TITLE": "Uygulama Yaratıcısı",
+            "BODY": "Makine öğrenimi modelinizi kullanan bir mobil uygulama yapın"
+        },
+        "SCRATCH3": {
+            "TITLE": "Scratch 3",
+            "BODY": "Scratch'in yeni sürümünde makine öğrenimi modelinizi kullanın"
+        }
+    },
+    "TRAINING": {
+        "TITLE": "Eğitim",
+        "ADDLABEL": "Yeni etiket ekle",
+        "CREATEFIRSTLABEL": "İlk paketi eklemek için sağdaki 'artı' düğmesini tıklatın.",
+        "CROWDSOURCEDEMPTY": "Öğretmeniniz eğitim paketlerini oluşturduktan sonra bu sayfayı yenileyin.",
+        "ADDEXAMPLE": "Örnek ekle",
+        "ADDURL": "www",
+        "ADDWEBCAM": "web kamerası",
+        "ADDDRAWING": "çizim",
+        "DRAGIMAGES": "Diğer tarayıcı pencerelerinden fotoğrafları sürükleyip buraya bırakın",
+        "NEWLABEL": {
+            "INTRO": "Tanıma için yeni etiket girin",
+            "ERROR": "Etiketlerde yalnızca harf ve rakam kullanın"
+        },
+        "NEWEXAMPLE": {
+            "INTRO": "Şunun için bir örnek girin:",
+            "INTROURL": "Şunun örneği olan bir resmin URL adresini girin",
+            "INTRODRAWING": "Şunun için yeni bir örnek çizin",
+            "INTROWEBCAM": "Şunun için yeni bir örnek ekleyin",
+            "ERROR": "Sekme veya yeni satır kullanılamaz.",
+            "REQUIRED": "Bir örnekteki tüm alanlar için değerleri eklemeniz gerekir",
+            "PATTERNNUMBER": "Bu bir sayıya benzemiyor",
+            "PATTERNURL": "Bu, bir fotoğrafın web adresi olmalıdır",
+            "WEBCAMFAIL": "Üzgünüz! Sizin için bir web kamerası getiremedik.",
+            "WEBCAMERROR": "Web tarayıcınızdan aldığımız ileti şöyle:"
+        }
+    },
+    "MODELS": {
+        "TITLE": "Makine öğrenimi modelleri",
+        "TRAIN": "Yeni makine öğrenimi modelini eğit",
+        "CANCEL": "Eğitimi iptal et",
+        "DELETE": "Bu modeli sil",
+        "TEST_CANVAS": "Draw something to test your model with",
+        "TEST_WEBCAM": "Take a photo to test your model with",
+        "WHATHAVEYOUDONE": {
+            "TITLE": "Neler yaptınız?",
+            "PLEASEWAIT": "Bu genellikle birkaç dakika sürer, ancak eğitim bilgisayarı çok meşgulse biraz daha uzun sürebilir.",
+            "FAIL": "Ne yazık ki birtakım sorunlar oluştu.",
+
+            "TRAINING" : {
+                "CROWDSOURCED" : {
+                    "TEXT" : "Your class is training a machine learning model using the examples of text that you all collected.",
+                    "IMAGES" : "Your class is training a machine learning model using the examples of images that you all collected.",
+                    "NUMBERS" : "Your class is training a machine learning model using the examples of numbers that you all collected."
+                },
+                "INDIVIDUAL" : {
+                    "TEXT" : "You've started training a machine learning model using the examples of text that you collected.",
+                    "IMAGES" : "You've started training a machine learning model using the examples of images that you collected.",
+                    "NUMBERS" : "You've started training a machine learning model using the examples of numbers that you collected."
+                },
+                "SINCE": "It's been training since"
+            },
+            "READY" : {
+                "CROWDSOURCED" : {
+                    "TEXT" : "Your class has trained a machine learning model to recognise when text is ",
+                    "IMAGES" : "Your class has trained a machine learning model to recognise when images are ",
+                    "NUMBERS" : "Your class has trained a machine learning model to recognise when numbers are "
+                },
+                "INDIVIDUAL" : {
+                    "TEXT" : "You have trained a machine learning model to recognise when text is ",
+                    "IMAGES" : "You have trained a machine learning model to recognise when images are ",
+                    "NUMBERS" : "You have trained a machine learning model to recognise when numbers are "
+                },
+                "CREATED" : {
+                    "TEACHER" : "Your teacher created the model on ",
+                    "YOU" : "You created the model on "
+                },
+                "TRAINING" : {
+                    "CLASS" : "Your class has collected: ",
+                    "YOU" : "You have collected: "
+                }
+            },
+            "ERROR": {
+                "CROWDSOURCED" : {
+                    "CLASS" : {
+                        "TEXT" : "Your teacher tried training a machine learning model using the examples of text that your class collected.",
+                        "IMAGES" : "Your teacher tried training a machine learning model using the examples of images that your class collected.",
+                        "NUMBERS" : "Your teacher tried training a machine learning model using the examples of numbers that your class collected."
+                    },
+                    "YOU" : {
+                        "TEXT" : "You tried training a machine learning model using the examples of text that your class collected.",
+                        "IMAGES" : "You tried training a machine learning model using the examples of images that your class collected.",
+                        "NUMBERS" : "You tried training a machine learning model using the examples of numbers that your class collected."
+                    }
+                },
+                "INDIVIDUAL" : {
+                    "TEXT" : "You tried training a machine learning model using the examples of text that you collected.",
+                    "IMAGES" : "You tried training a machine learning model using the examples of images that you collected.",
+                    "NUMBERS" : "You tried training a machine learning model using the examples of numbers that you collected."
+                }
+            },
+            "IDLE" : {
+                "NOLABELS" : {
+                    "CROWDSOURCED" : {
+                        "TEXT" : "Your class said you want to collect examples of text.",
+                        "IMAGES" : "Your class said you want to collect examples of images.",
+                        "NUMBERS" : "Your class said you want to collect examples of numbers."
+                    },
+                    "INDIVIDUAL" : {
+                        "TEXT" : "You've said you want to collect examples of text.",
+                        "IMAGES" : "You've said you want to collect examples of images.",
+                        "NUMBERS" : "You've said you want to collect examples of numbers."
+                    }
+                },
+                "NODATA" : {
+                    "CROWDSOURCED" : {
+                        "TEXT" : "Your class said that you want to collect examples of text for a computer to recognise when text is ",
+                        "IMAGES" : "Your class said that you want to collect examples of images for a computer to recognise when images are ",
+                        "NUMBERS" : "Your class said that you want to collect examples of numbers for a computer to recognise when numbers are "
+                    },
+                    "INDIVIDUAL" : {
+                        "TEXT" : "You said that you want to collect examples of text for a computer to recognise when text is ",
+                        "IMAGES" : "You said that you want to collect examples of images for a computer to recognise when images are ",
+                        "NUMBERS" : "You said that you want to collect examples of numbers for a computer to recognise when numbers are "
+                    }
+                },
+                "NOEXAMPLES" : {
+                    "CLASS" : "So far, your class haven't collected any examples yet.",
+                    "YOU" : "So far, you haven't collected any examples yet."
+                },
+                "DATA" : {
+                    "CROWDSOURCED" : {
+                        "TEXT" : "Your class has collected examples of text for a computer to use to recognise when text is ",
+                        "IMAGES" : "Your class has collected examples of images for a computer to use to recognise when images are ",
+                        "NUMBERS" : "Your class has collected examples of numbers for a computer to use to recognise when numbers are "
+                    },
+                    "INDIVIDUAL" : {
+                        "TEXT" : "You have collected examples of text for a computer to use to recognise when text is ",
+                        "IMAGES" : "You have collected examples of images for a computer to use to recognise when images are ",
+                        "NUMBERS" : "You have collected examples of numbers for a computer to use to recognise when numbers are "
+                    },
+                    "COLLECTED" : {
+                        "CLASS" : "They've collected: ",
+                        "YOU" : "You've collected: "
+                    }
+                }
+            }
+        },
+        "WHATSNEXT": {
+            "TITLE": "Sırada ne var?",
+            "PLEASEWAIT": "Makine öğrenimi modelinin eğitiminin tamamlanmasını bekleyebilirsiniz.",
+            "OFFERQUIZ": "Veya neler öğrendiğinizi kontrol etmek için aşağıdaki makine öğrenimi testini çözebilirsiniz.",
+            "FAIL": "Eğitim bilgisayarından alınan hata iletisi aşağıdadır. Sizin için anlamlı geliyorsa, sorunu çözmeyi deneyin. Veya sıradan bir hataysa yeniden denemeye değebilir.",
+
+            "IDLE": {
+                "NOLABELS" : "The next step is to go to the <strong>Train</strong> page. Add some labels for each of the things that you want to teach the computer to be able to recognise.",
+                "ONELABEL" : {
+                    "EXPLANATION": "You've only said one thing that you want the computer to be able to recognise: {{ label }}",
+                    "ISTHATALL": "Is that the only thing you want the computer to be able to recognise?",
+                    "NO": "<strong>No?</strong><br/>Go back to the <strong>Train</strong> page.<br/>Add more labels for each of the things that you want to teach the computer to be able to recognise.<br/><br/>",
+                    "YES": "<strong>Yes?</strong><br/>You need to do a little more work first.<br/>For the computer to be able to learn how to recognise \"{{ label }}\", you need to give it some examples of things that aren't {{ label }}.<br/>Go back to the <strong>Train</strong> page and create a new label for examples of things that aren't {{ label }}. You could call it \"not-{{ label }}\"."
+                },
+                "LABELS" : {
+                    "NO_DATA" : "The next step is to go to the <strong>Train</strong> page. Add examples for each of the labels.",
+                    "MORE_DATA" : {
+                        "KEEP_GOING": "Keep going!",
+                        "MORE_EXAMPLES" : {
+                            "YOU": "Go back to the <strong>Train</strong> page and collect more examples for each of the labels.",
+                            "CLASS": "Ask your class to go back to the <strong>Train</strong> page and collect more examples for each of the labels."
+                        },
+                        "MORE_IS_BETTER" : "The more you can get, the better it should learn, but you need at least {{ minimumExamples }} examples of each as an absolute minimum."
+                    },
+                    "ENOUGH_DATA" : {
+                        "READY_TO_START" : "Ready to start the computer's training?",
+                        "START_TRAINING" : {
+                            "CROWDSOURCED" : "Click the button below to start training a machine learning model using the examples your class have collected so far",
+                            "INDIVIDUAL" : "Click the button below to start training a machine learning model using the examples you have collected so far"
+                        },
+                        "MORE_EXAMPLES" : {
+                            "CROWDSOURCED" : "(Or ask your class to go back to the <strong>Train</strong> page if you want them to collect more examples first.)",
+                            "INDIVIDUAL" : "(Or go back to the <strong>Train</strong> page if you want to collect some more examples first.)"
+                        },
+                        "WAITING_FOR_TEACHER" : "Waiting for your teacher to start the computer's training."
+                    }
+                }
+            },
+            "READY" : {
+                "TEST" : {
+                    "TEXT" : "Try testing the machine learning model below. Enter an example of text below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
+                    "IMAGES" : "Try testing the machine learning model below. Enter an example image below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
+                    "NUMBERS" : "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that."
+                },
+                "SCRATCH" : "If the computer seems to have learned to recognise things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
+                "ADDITIONAL_TRAINING" : {
+                    "MORE_EXAMPLES" : {
+                        "CROWDSOURCED" : "If the computer is getting too many things wrong, your class might want to go back to the <strong>Train</strong> page and collect some more examples.",
+                        "INDIVIDUAL" : "If the computer is getting too many things wrong, you might want to go back to the <strong>Train</strong> page and collect some more examples"
+                    },
+                    "RETRAIN" : {
+                        "YOU" : "Once you've done that, click on the button below to train a new machine learning model and see what difference the extra examples will make!",
+                        "CLASS" : "Once you've done that, your teacher will need to train a new machine learning model."
+                    }
+                }
+            }
+        },
+        "TRAINING": {
+            "TITLE": "Eğitim bilgisayarından bilgiler:",
+            "STARTED": "Modelin eğitime başlama zamanı:",
+            "STATUS": "Modelin şu anki durumu:",
+            "DETAIL": "Ayrıntı:",
+            "DELETION": "Model, şu sürenin sonunda otomatik olarak silinir:",
+            "LASTCHECK": "Modelin en son kontrol edilme zamanı:",
+            "PROMPTREFRESH": "Bu, 1 dakikadan uzun bir süreyse güncel durumu görmek için sayfayı yenilemeniz gerekir"
+        },
+        "TESTING": {
+            "INTRO": {
+                "TEXT": "Try putting in some text to see how it is recognised based on your training.",
+                "IMAGES": "Try putting in an image to see how it is recognised based on your training.",
+                "NUMBERS": "Try putting in some numbers to see how it is recognised based on your training."
+            },
+            "WEBCAM": "Test with <strong>webcam</strong>",
+            "DRAWING": "Test by <strong>drawing</strong>",
+            "WWW": "Test with <strong>www</strong>",
+            "RECOGNISED": "Recognised as  <strong>{{ testoutput }}</strong>"
+        },
+        "QUIZ": {
+            "TITLE": "Test zamanı!",
+            "INTROQUESTION": "Modelin eğitimini tamamlamasını beklerken bu soruyu yanıtlamayı deneyin.",
+            "PREVIOUSLY_ATTEMPTED": "You've seen this one before - let's see if you remember what the right answer is this time!",
+            "CORRECT_ANSWER": "That's right!",
+            "INCORRECT_ANSWER": "No, sorry. The correct answer is shown above.",
+            "NEXT_QUESTION": "Next question"
+        }
+    },
+    "MAKES": {
+        "TITLE": "Make something with your machine learning model",
+        "SCRATCH2": "Make a project in the old version of Scratch",
+        "SCRATCH3": "Use the new version of Scratch",
+        "PYTHON": "Write Python code to use your machine learning model",
+        "APPINVENTOR": "Make a mobile app for your phone or tablet"
+    },
+    "PYTHON": {
+        "TITLE": "Python'da makine öğrenimini kullanma",
+        "NOTREADY": "Projeniz henüz Python'da kullanılmaya hazır değil.",
+        "NOMODEL": "Henüz bir makine öğrenimi modelini eğitmediniz."
+    },
+    "APPINVENTOR": {
+        "TITLE": "Uygulama Yaratıcısı'nda makine öğrenimini kullanma",
+        "NOTREADY": "Projeniz henüz Uygulama Yaratıcısı’nda kullanılmaya hazır değil.",
+        "NOMODEL": " Henüz bir makine öğrenimi modelini eğitmediniz.",
+        "BETAWARNING": "Bu, erken bir beta sürümüdür. Uygulama Yaratıcısı desteği henüz tamamlanmadığından bazı sorunlar ve hatalar oluşabilir."
+    },
+    "SCRATCH": {
+        "TITLE": "Scratch'de makine öğrenimini kullanma",
+        "NOTREADY": "Projeniz henüz Scratch'de kullanılmaya hazır değil.",
+        "NOMODEL": " Henüz bir makine öğrenimi modelini eğitmediniz.",
+        "LAUNCH": "Scratch'de aç",
+
+        "LAUNCH_SCRATCH_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch by itself</a> if you want.)",
+        "GO_TO_LEARNANDTEST": "Or go to the <strong>Learn &amp; Test</strong> page for some tips on what to do next.",
+
+        "MORE_BLOCKS": "Your project will add these blocks to the <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> tab in Scripts.",
+        "EXPLAIN_RECOGNISE_LABEL": "Put {{ type }} in the input for this, and it will return the label that your machine learning model recognises it as.",
+        "EXPLAIN_RECOGNISE_CONFIDENCE": "This will return how confident your machine learning model is that it recognises the type of {{ type }}. (As a number from 0 - 100).",
+        "EXPLAIN_LABELS": "These blocks represent the labels you've created in your project, so you can use their names in your scripts.",
+        "EXPLAIN_COSTUMEIMAGE": "This block is in the Looks palette for Sprites and will return the image of the currently selected costume.",
+        "SAMPLE_SCRIPT": "This means you can do something like this:",
+        "SAMPLE_SCREENSHOT": "It will look something like this - except with the name of your project.",
+        "EXPLAIN_STATUS": "The coloured circle next to your project name tells you if your machine learning model is okay.",
+        "STATUS_GREEN": "means your model is trained and ready to go",
+        "STATUS_YELLOW": "means your model hasn't finished training yet",
+        "STATUS_RED": "means something went wrong. Go back to the <strong>Learn &amp; Test</strong> page to see what went wrong with training."
+    },
+    "SCRATCH3": {
+        "TITLE": "Scratch 3'te makine öğrenimini kullanma",
+        "LAUNCH": "Open in Scratch 3"
+    },
+    "WORKSHEETS": {
+        "TITLE": "Makine öğrenimi projeleri",
+        "INTRO_1": "Bu projeler, öğrencilerin takip edebileceği açıklamalar ve renkli ekran görüntülerini içeren, karşıdan yükleyebileceğiniz adım adım yönergeli kılavuzlardır.",
+        "INTRO_2": "Her bir proje, tek bir ders boyunca sürecek şekilde yazılmış, bağımsız bir etkinliktir. Yapay zeka ve makine öğreniminin gerçek dünyada kullanımını gösteren, etkileşimli bir proje veya bir oyun yaratmak için öğrencilere yardımcı olur.",
+        "INTRO_3": "Yeni çalışma sayfaları için öneriler, çalışma sayfalarının herhangi birine ilişkin iyileştirme önerileri, yeni proje çalışma sayfası katkıları her zaman memnuniyetle kabul edilir.",
+        "TYPES": {
+            "TITLE": "Tanıma:",
+            "ALL": "Tüm proje türleri",
+            "PREFIX": "Bir bilgisayarı şunu/şunları tanıması için eğitin:",
+            "TEXT": "metin",
+            "IMAGES": "fotoğraflar",
+            "NUMBERS": "sayılar"
+        },
+        "LEVELS": {
+            "TITLE": "Zorluk:",
+            "ALL": "Tüm zorluklar",
+            "BEGINNER": "Başlangıç düzeyi",
+            "INTERMEDIATE": "Orta düzey",
+            "ADVANCED": "İleri düzey"
+        },
+        "DOWNLOAD": "Karşıdan Yükle",
+        "MAKETYPES": {
+            "ALL": "All make types",
+
+            "SCRATCH": "Scratch projects",
+            "PYTHON": "Python projects",
+            "APPINVENTOR": "App Inventor projects",
+
+            "SCRATCH_WORKSHEET": "Worksheet for making project in Scratch",
+            "PYTHON_WORKSHEET": "Worksheet for making project in Python",
+            "APPINVENTOR_WORKSHEET": "Worksheet for making project in App Inventor"
+        },
+        "NO_WORKSHEETS": {
+            "NO_MATCHES": "There aren't any project worksheets that match those filters.",
+            "MAKE_YOUR_OWN": "You could adapt some of the existing worksheets or come up with a new one.",
+            "CONTRIBUTE": "If you do, please consider <a href='https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions'>contributing it for others to use</a>."
+        },
+        "SMARTCLASSROOM": {
+            "TITLE": "Akıllı Sınıf",
+            "SUMMARY": "Bir bilgisayara komutlarınızın anlamını çözmesini öğretin",
+            "DESCRIPTION": "Scratch'te sanal cihazları kontrol etmenizi sağlayacak akıllı bir asistan yaratın."
+        },
+        "MAKEMEHAPPY": {
+            "TITLE": "Beni mutlu et",
+            "SUMMARY": "Bir bilgisayara iltifat ve kırıcı içerikli sözleri tanımayı öğretin",
+            "DESCRIPTION": "Scratch'te, güzel şeyler söylediğinizde gülümseyen, kötü şeyler söylediğinizde ise ağlayan bir karakter yaratın."
+        },
+        "SNAP": {
+            "TITLE": "Pişti!",
+            "SUMMARY": "Bir bilgisayara simgelerin nasıl göründüğünü çözmeyi öğretin",
+            "DESCRIPTION": "Scratch'te, oyun kartınızdaki resimleri tanımayı öğrenen bir kart oyunu tasarlayın."
+        },
+        "CHAMELEON": {
+            "TITLE": "Chameleon",
+            "SUMMARY": "Teach a computer to recognise colours",
+            "DESCRIPTION": "Make a chameleon in Scratch that changes colour to match its background"
+        },
+        "MAILMANMAX": {
+            "TITLE": "Postacı Max",
+            "SUMMARY": "Bir bilgisayara el yazısını tanımayı öğretin",
+            "DESCRIPTION": "Scratch'te, zarflar üzerindeki el yazısıyla yazılmış posta kodlarını tanıyabilen bir posta ayırma merkezi yaratın."
+        },
+        "CARORCUP": {
+            "TITLE": "Araba mı kupa mı",
+            "SUMMARY": "Bir bilgisayara nesnelerin fotoğraflarını tanımayı öğretin",
+            "DESCRIPTION": "Bilgisayara fotoğrafları gruplara ayırabilmeyi öğretin."
+        },
+        "FACELOCK": {
+            "TITLE": "Yüz Kilidi",
+            "SUMMARY": "Bir bilgisayara yüzleri tanımayı öğretin",
+            "DESCRIPTION": "Scratch platformunda, yüzü tanıyıp kilidini açan bir telefon yapın."
+        },
+        "JOURNEYTOSCHOOL": {
+            "TITLE": "Okul yolu",
+            "SUMMARY": "Bir bilgisayara tahminlerde bulunmayı öğretin",
+            "DESCRIPTION": "Bilgisayarı, sabah okula nasıl gittiğinizi tahmin edecek şekilde eğitin."
+        },
+        "SHYPANDA": {
+            "TITLE": "Shy Panda",
+            "SUMMARY": "Teach a computer to recognise pictures",
+            "DESCRIPTION": "Make a dancing panda that gets shy and stops dancing if it sees you looking."
+        },
+        "VIRTUALPET": {
+            "TITLE": "Virtual Pet",
+            "SUMMARY": "Teach a computer to recognise pictures",
+            "DESCRIPTION": "Train the computer to recognise what you're doing so you can look after a virtual pet."
+        },
+        "PACMAN": {
+            "TITLE": "Pac-Man",
+            "SUMMARY": "Bir bilgisayara oyun oynamayı öğretin",
+            "DESCRIPTION": "Scratch'te, hayaletten nasıl kaçılacağını öğrenen bir Pac-Man oyunu yaratın."
+        },
+        "CHATBOTS": {
+            "TITLE": "Sohbet Robotları",
+            "SUMMARY": "Bir bilgisayara soruları tanımayı öğretin",
+            "DESCRIPTION": "Seçtiğiniz bir konu hakkındaki soruları yanıtlayabilen bir sohbet robotu yaratın."
+        },
+        "TOURISTINFO": {
+            "TITLE": "Turist Danışma Merkezi",
+            "SUMMARY": "Bir bilgisayara önerilerde bulunmayı öğretin",
+            "DESCRIPTION": "Scratch'te, kişilerin ilgi alanlarına göre gezilecek turistik yerleri öneren mobil uygulama yaratın."
+        },
+        "SORTINGHAT": {
+            "TITLE": "Seçmen Şapka",
+            "SUMMARY": "Bir bilgisayara dil kullanımını tanımayı öğretin",
+            "DESCRIPTION": "Söylediklerinize göre sizi bir okula yerleştiren, Harry Potter'daki gibi bir Seçmen Şapka yaratın."
+        },
+        "ROCKPAPERSCISSORS": {
+            "TITLE": "Taş, Kağıt, Makas",
+            "SUMMARY": "Bir bilgisayara şekilleri tanımayı öğretin",
+            "DESCRIPTION": "Scratch'te elinizin şekillerini tanıyan, bir Taş, Kağıt, Makas oyunu yapın. "
+        },
+        "JUDGEABOOK": {
+            "TITLE": "Kitabı tahmin et",
+            "SUMMARY": "Bir bilgisayara görsel stili tanımayı öğretin",
+            "DESCRIPTION": "Bir kitabı kapağından anlamanın gerçekten mümkün olup olmadığını test etmek için Scratch'te bir oyun tasarlayın."
+        },
+        "LOCATELARRY": {
+            "TITLE": "Duygu’yu bul",
+            "SUMMARY": "Bir bilgisayara resimdeki bir şeyi bulmayı öğretin",
+            "DESCRIPTION": "Scratch'te \"Ali Nerede?\" tarzında bir oyun tasarlayın ve bilgisayara karakterinizi bulmayı öğretin."
+        },
+        "CONFUSED": {
+            "TITLE": "Kafası karışık",
+            "SUMMARY": "Bir bilgisayara meyveleri tanımayı öğretin",
+            "DESCRIPTION": "Bir bilgisayarın kafasının nasıl karışabileceği ve kötü eğitilirse nasıl hatalar yapabileceği hakkında bilgi edinin."
+        },
+        "SCHOOLLIBRARY": {
+            "TITLE": "Okul Kütüphanesi",
+            "SUMMARY": "Bir bilgisayara önerilerde bulunmayı öğretin",
+            "DESCRIPTION": "Scratch'te bir okuma kitabının kime uygun olabileceği hakkında öneriler sunan bir kütüphane görevlisi yaratın."
+        },
+        "WHATTWITTERTHINKS": {
+            "TITLE": "What does Twitter think?",
+            "SUMMARY": "Teach a computer to measure public opinion",
+            "DESCRIPTION": "Create a sentiment analysis tool in Scratch to analyze discussion on Twitter"
+        },
+        "NOUGHTSANDCROSSES": {
+            "TITLE": "Üç Taş",
+            "SUMMARY": "Bir bilgisayara oyun oynamayı öğretin",
+            "DESCRIPTION": "Scratch'te sizi nasıl yeneceğini öğrenen bir üç taş oyunu yaratın. "
+        },
+        "TOPTRUMPS": {
+            "TITLE": "Top Trumps",
+            "SUMMARY": "Bir bilgisayara oyun oynamayı öğretin",
+            "DESCRIPTION": "Bir bilgisayarı Scratch'te Top Trumps kart okuyunu oynayabilecek şekilde eğitin."
+        },
+        "HEADLINES": {
+            "TITLE": "Manşetler",
+            "SUMMARY": "Bilgisayarın dil kullanımını tanıyabilme yeteneğini test edin",
+            "DESCRIPTION": "Bir bilgisayarı ulusal gazetelerdeki manşetleri tanıyabilecek şekilde eğitin."
+        },
+        "FINDIT": {
+            "TITLE": "Find It!",
+            "SUMMARY": "Teach a computer to recognise pictures",
+            "DESCRIPTION": "Make a hide-and-seek game for your mobile phone"
+        }
+    },
+    "TEACHER": {
+        "MENU": {
+            "TITLE": "Yönetim",
+            "RESTRICTIONS": {
+                "TITLE": "Kısıtlamalar",
+                "DESCRIPTION": "Sınıfınız için geçerli olan sınırları ve kısıtlamaları inceleyin"
+            },
+            "APIKEYS": {
+                "TITLE": "API Anahtarları",
+                "TITLELONG": "Watson API Anahtarları",
+                "DESCRIPTION": "Sınıfınızın makine öğrenimi modelleri yaratmasını sağlayacak şekilde IBM Watson kimlik bilgilerini ayarlayın"
+            },
+            "STUDENTS": {
+                "TITLE": "Öğrenciler",
+                "TITLELONG": "Öğrenci yönetimi",
+                "DESCRIPTION": "Sınıfınızdaki öğrenciler için kullanıcı girişleri oluşturun, sıfırlayın ve silin"
+            },
+            "SUPERVISION": {
+                "TITLE": "Denetim",
+                "DESCRIPTION": "Öğrencilerinizin yarattığı projeleri inceleyin"
+            },
+            "ADVANCEDOPTIONS": "Gelişmiş seçenekler",
+            "DELETECLASS": {
+                "TITLE": "Sınıfı sil",
+                "DESCRIPTION": "Bu, sizin hesabınızı ve sınıfınızdaki tüm öğrencilerin hesaplarını siler"
+            },
+            "CANYOUHELP": {
+                "TITLE": "Yardımcı olur musunuz?",
+                "DESCRIPTION": "Lütfen aracın iyileştirilmesi için deneyimlerinizi ve fikirlerinizi paylaşın"
+            },
+            "NOTAUTHORISED": "Sınıfınız için öğretmen sayfasına erişim yetkiniz yok."
+        },
+        "APIKEYS": {
+            "TITLE": "Yönetim: IBM Watson API Anahtarları",
+            "ADDNEWCREDENTIALS": "Yeni kimlik bilgileri ekle",
+            "ADDAPIKEY": "Yeni API anahtarı ekle",
+            "REMOVE": "Remove",
+            "NO_TEXT_CREDENTIALS": "Asistan kimlik bilginiz yok. Bu da <strong>metin</strong> projeleri için model eğitiminin mümkün olmayacağı anlamına gelir.",
+            "NO_IMAGE_CREDENTIALS": "Visual Recognition API anahtarınız yok. Bu da <strong>fotoğraflar</strong> projeleri için model eğitiminin mümkün olmayacağı anlamına gelir.",
+            "NOTAUTHORISED": "Sınıfınızın kullandığı Watson API anahtarlarına erişim yetkiniz yok.",
+            "MANAGEDCLASS": "Sınıfınızın kullandığı API Anahtarları sizin için yönetiliyor.",
+
+            "HELP_STEPBYSTEP_GUIDE": "If you're not sure what to do here, please follow the <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> step-by-step guide </a>. If you'd like any help, please <strong><a style='cursor: pointer;' ui-sref='help'>get in touch</a></strong>.",
+
+            "INTRO_WATSONASSISTANT": "Training machine learning models for <span class='mlprojecttype'>text</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a>",
+            "INTRO_VISUALRECOGNITION": "Training machine learning models for <span class='mlprojecttype'>images</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
+
+            "ERROR_FETCHING_WATSONASSISTANT": "Failed to get your Watson Assistant passwords",
+            "ERROR_FETCHING_VISUALRECOG": "Failed to get your Visual Recognition API keys",
+
+            "USERNAME": "Username",
+            "PASSWORD": "Password",
+            "APIKEY": "API key",
+
+            "NUMBER_OF_ML_MODELS": "Number of ML models",
+            "UNKNOWN": "unknown",
+            "UNLIMITED": "unlimited",
+
+            "LIMIT_TEXT_PROJECTS": "Number of text machine learning models your students can have:",
+            "LIMIT_IMAGE_PROJECTS": "Number of images machine learning models your students can have:",
+
+            "ADD_API_KEYS": {
+                "ASSISTANT_TITLE": "Add Watson Assistant credentials",
+                "VISUAL_RECOGNITION_TITLE": "Add Visual Recognition API key",
+
+                "USED_FOR_TEXT_PROJECTS": "These will be used when your students train models in text projects.",
+                "USED_FOR_IMAGE_PROJECTS": "These will be used when your students train models in images projects.",
+
+                "HIDDEN_FROM_STUDENTS": "This will not be shown to students in your group.",
+
+                "PRICING_PLAN": "Which Pricing Plan did you use?",
+                "ENTER_APIKEY": "Please enter the API key below",
+                "ENTER_PASSWORD": "Please enter the username and password below",
+
+                "CREDENTIALS_TYPE": "What did you create in Watson Assistant?"
+            }
+        },
+        "RESTRICTIONS": {
+            "TITLE": "Administration : Restrictions",
+
+            "ASK_FOR_CHANGES": "If any of these restrictions cause a problem for your group, please <strong><a href='/help'>get in touch</a></strong>.",
+
+            "CLASS_LIMITS": {
+                "TITLE": "Limits for your class",
+                "NUM_USERS": "You can have up to <span class='mlprojecttype'>{{ num }}</span> users (including students and teachers) in your group.",
+                "NUM_TEXT_MODELS": "Your class is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> machine learning models in total across all their <span class='mlprojecttype'>text</span> projects.",
+                "NUM_IMAGE_MODELS": "Your class is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> machine learning models in total across all their <span class='mlprojecttype'>images</span> projects.</div>"
+            },
+            "PROJECT_LIMITS": {
+                "TITLE": "Limits for projects created by your students",
+                "NUM_PROJECTS": "Each of your students is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> projects.",
+                "TYPES": "Your students can create projects to recognise <span class='mlprojecttype'>{{ types }}</span>.",
+                "TRAINING_DATA": "Each <span class='mlprojecttype'>{{ type }}</span> project can have up to <span class='mlprojecttype'>{{ num }}</span> training data examples. "
+            },
+            "EXPIRY": {
+                "TITLE": "To help you avoid the limits for number of machine learning models:",
+                "TIME_LIMIT": "Machine learning models created for <span class='mlprojecttype'>{{ type }}</span> projects will automatically be deleted after <span class='mlprojecttype'>{{ num }}</span> hours.",
+                "DONT_WORRY": "(Don't worry! Training data will not be deleted, so students can always train a new machine learning model again if they still need it after this.)"
+            },
+
+            "NOT_AUTHORIZED": "You are not authorized to access the restrictions in place for your class."
+        },
+        "SUPERVISION": {
+            "TITLE": "Administration : Student projects",
+
+            "INTRO_1": "This page displays a list of all of the projects that your class currently has. You can use it to review what they're working on.",
+            "INTRO_2": "If you've hit the limit for the number of machine learning models that your class can create, you can use this to see which projects currently have a machine learning model, and delete any that you think are no longer needed.",
+
+            "NO_PROJECTS_1": "None of the students in your class currently have any projects.",
+            "NO_PROJECTS_2": "Once your students start creating projects, come back here to see an overview of their work.",
+
+            "NAME": "Name",
+            "TYPE": "Type",
+            "STUDENT": "Student",
+            "MODELS": "ML models",
+
+            "DELETE": "Click the icon to delete",
+
+            "NOT_AUTHORIZED": "You are not authorized to access the list of projects for all students in your class."
+        },
+        "STUDENTMANAGEMENT": {
+            "TITLE": "Administration : Student management",
+
+            "CREATE_FIRST_STUDENT": "Click on the 'plus' button on the right to create the first student",
+            "ADD": "Add new student",
+            "NEW_USERNAME": "Choose a unique username",
+            "ALPHANUMERIC": "Only use letters and numbers",
+
+            "NOT_LOGGED_IN": "Not logged in yet",
+
+            "RESET_PASSWORD": "Reset password",
+            "RESET_ALL_PASSWORDS": "Reset password for all students",
+
+            "DELETE_STUDENT": "Delete student account",
+
+            "NOT_AUTHORIZED": "You are not authorized to access the list of students in your class."
+        }
+    },
+    "SCRATCHBLOCKS": {
+        "TEXT_PROJECTS": {
+            "mlforkids.text.recogniseLabel": "recognise text [TEXT] (label)",
+            "mlforkids.text.recogniseConfidence": "recognise text [TEXT] (confidence)",
+            "mlforkids.text.addTraining": "add training data [TEXT] [LABEL]",
+            "mlforkids.text.trainNewModel": "train new machine learning model",
+            "mlforkids.text.checkModelStatus": "Is the machine learning model [STATUS] ?"
+        },
+        "IMAGES_PROJECTS": {
+            "mlforkids.images.recogniseLabel": "recognise image [IMAGE] (label)",
+            "mlforkids.images.recogniseConfidence": "recognise image [IMAGE] (confidence)",
+            "mlforkids.images.addTraining": "add training data [TEXT] [LABEL]"
+        },
+        "NUMBER_PROJECTS": {
+            "mlforkids.numbers.trainNewModel": "train new machine learning model"
+        },
+        "TWITTER": {
+            "mlforkids.twitter.getrecenttweet": "get the [INDEX] most recent tweet about [TOPIC]"
+        },
+        "IMAGE_BLOCKS": {
+            "mlforkids.imageblocks.getCostumeImage": "costume image",
+            "mlforkids.imageblocks.getBackdropCostumeImage": "backdrop image",
+            "mlforkids.imageblocks.getBackdropImage": "backdrop image",
+            "mlforkids.imageblocks.saveScreenshotToCostume": "save screenshot to costume"
+        },
+        "GUI": {
+            "gui.menuBar.mlforkidsLibrary": "Project templates",
+            "gui.mlforkidsLibrary.templates": "Machine Learning for Kids modelos de projeto"
+        }
+    },
+    "HELP": {
+        "CONTACT": "Soru veya sorunlarınız için lütfen Dale.Lane@uk.ibm.com adresine e-posta gönderin",
+        "GETTINGSTARTED": {
+            "TITLE": "Kullanmaya yeni mi başlıyorsunuz?",
+            "INTRO": "Kısa bir başlangıç kılavuzunu içeren PDF dosyasını karşıdan yükleyin:",
+            "MANAGED": "Yönetilen sınıf hesapları",
+            "MANAGEDEXPL": "Okul öğretmenleri, kodlama grubu liderleri veya diğer gönüllüler için",
+            "UNMANAGED": "Yönetilmeyen sınıf hesapları",
+            "UNMANAGEDEXPL": "IBM çalışanları veya kendi sınıf hesaplarını yöneten öğretmenler ve kodlama grubu liderleri için"
+        },
+        "FAQS": {
+            "TITLE": "Daha fazla bilgi edinmek mi istiyorsunuz?",
+            "INTRO1": "Yolunda gitmeyen bir şeyler mi var?",
+            "INTRO2": "Aşağıdaki listede en çok duyduğum sorular ve sorunlar yer alıyor. Sizin yaşadığınıza benzer bir sorun görürseniz ayrıntılı bilgi için özeti tıklatın.",
+            "INTRO3": "Hala zor durumdaysanız veya listeye eklemediğim bir sorunla karşı karşıyaysanız, üzgünüm! Lütfen <a href='mailto:dale.lane@uk.ibm.com'>bana e-posta gönderin</a> veya size yardımcı olabilmem için <a href='https://github.com/IBM/taxinomitis/issues'>bir sorun raporu oluşturun</a>."
+        },
+        "SCRATCH": {
+            "TITLE": "Scratch sorunları",
+            "Q1": "Scratch'i nasıl çalıştıracağımı bilmiyorum",
+            "Q1-A-1": "Çocuklar İçin Makine Öğrenimi, Scratch 2'yi kullanır. Scratch'in çalışması için Adobe Flash gereklidir, bu nedenle Flash ile çalışabilen bir işletim sistemi ve web tarayıcısı kullanılabiliyor olmanız gerekir (üzgünüz ama bu, şimdilik iPad’lerin kullanılamayacağı anlamına geliyor).",
+            "Q1-A-2": "Flash'ı nasıl etkinleştireceğinizden emin değilseniz, <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>Scratch'i çalıştırmaya yönelik bazı ipuçlarının yer aldığı bir belgeyi karşıdan yükleyebilirsiniz</a>.",
+            "Q2": "Scratch'teki \"Proje Yükle\" ve \"Projeyi Kaydet\" menüleri çalışmıyor",
+            "Q2-A-1": "macOS'de Safari'yi kullanıyorsanız ve Scratch menüleri \"Dosya -&gt; Proje Yükle\" ve \"Dosya -&gt; Projeyi Kaydet\" çalışmıyorsa, bunun nedeni Güvenli Mod'da çalıştırmanız olabilir.",
+            "Q2-A-2": "Nasıl kontrol edebileceğiniz ve düzeltebileceğiniz hakkında bilgi için <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>buradaki yönergeleri izleyin</a>.",
+            "Q3": "Scratch'teki makine öğrenimi sınıflandırma blokları çalışmıyor",
+            "Q3-A-1": "Makine öğrenimi modeliniz için Scratch blokları ile sunucu bağlantısı bazen kopabilir. Bu durumda sonuç getirmeyi durdurur.",
+            "Q3-A-2": "\"Diğer bloklar\" bölmesindeki renkli durum ışığını kullanarak bunu kontrol edebilirsiniz.",
+            "Q3-A-3": "Makine öğrenimi Scratch bloklarınızın yanındaki durum ışığı kırmızı yanıyorsa, genellikle yolunda gitmeyen bir şeyler olduğu anlamına gelir. Bu geçici bir sorun olabilir. Projeyi kaydetmeyi deneyin ('Dosya' -&gt; 'Projeyi Kaydet' menüsünü kullanarak), ardından tarayıcı sayfasını yenileyin. Sayfa yeniden yüklendikten sonra durum ışığı yeşile dönerse, bıraktığınız yerden devam etmek için projenizi yükleyebilirsiniz ('Dosya' -&gt; 'Proje Yükle' menüsünü kullanarak).",
+            "Q3-A-4": "Sayfa yeniden yüklendikten sonra durum ışığı hala kırmızıysa, muhtemelen makine öğrenimi modeliyle ilgili bir hata vardır. Proje için \"Öğrenme ve Test\" sayfasına gidin, burada modeliniz hakkında hata iletilerini bulabilirsiniz.",
+            "Q3-A-5": "Makine öğrenimi Scratch blokları yanındaki durum ışığı yeşilse, bloklar çalışıyor demektir. Beklediğiniz yanıtları almıyorsanız, \"Öğrenme ve Test\" sayfasına gitmeyi ve modelinizin getirdiği sonuçları kontrol etmeyi deneyin.",
+            "Q5": "Herhangi bir Scratch sürümü kullanabilir miyim?",
+            "Q5-A-1": "Çocuklar İçin Makine Öğrenimi sitesinin sağladığı Scratch sürümünü kullanmanız gerekir. Proje sayfanızdan Scratch (veya 'Scratch 3') düğmesini tıklatarak başlatabilirsiniz.",
+
+            "Q6": "Scratch 3 is only saving projects to the 'Downloads' folder",
+            "Q6-A-1": "When you click 'File' -> 'Save to your computer' in Scratch 3, your Scratch project is saved to your computer.",
+            "Q6-A-2": "Some teachers reported a problem that this saved to the Downloads folder, on a computer where students don't have access in Windows to the Downloads folder. The result was that students were not able to access their saved projects.",
+            "Q6-A-3": "If you have this problem, you need to look in your web browser settings for a setting like 'Ask where to save each file before downloading'. If you enable that, your students will be able to choose where their projects are saved."
+        },
+        "TRAININGUI": {
+            "TITLE": "Eğitim Kullanıcı Arabirimi sorunları",
+            "Q1": "Fotoğrafları eğitim paketlerine sürükleme (fotoğraf projeleri için) işlevi çalışmıyor",
+            "Q1-A-1": "Safari veya Internet Explorer'ı kullanıyorsanız fotoğrafları eğitim paketlerine sürükleme işlevi çalışmaz.",
+            "Q1-A-2": "Bu durum için üzgünüm. Firefox veya Chrome gibi başka bir tarayıcı kullanabiliyorsanız, lütfen kullanın. Kullanamıyorsanız, bunun yerine \"www\" düğmesini tıklatıp eğitim fotoğrafların URL'sini yapıştırabilirsiniz."
+        },
+        "MODELS": {
+            "TITLE": "Makine öğrenimi modellerinin eğitimiyle ilgili hatalar",
+
+            "Q1": "\"Watson kimlik bilgileri ayarlanmadı\"",
+            "Q1-A-1": "Araçtaki makine öğrenimi modelleri, IBM Watson API'leri kullanılarak oluşturulur.",
+            "Q1-A-2": "\"Yönetilmeyen\" bir sınıf hesabınız varsa, öğretmeninizin veya grup liderinizin IBM Cloud'dan Watson API kimlik bilgilerini sağlaması gerekir. Bununla ilgili adım adım yönergeler bu sayfanın üstündeki \"Kullanmaya Başlama\" (Getting Started) belgesinde bulunur.",
+
+            "Q2": "\"Sınıfınızın kullandığı Watson kimlik bilgileri reddedildi\"",
+            "Q2-A-1": "Araçtaki makine öğrenimi modelleri, IBM Watson API'ler kullanılarak oluşturulur.",
+            "Q2-A-2": "\"Yönetilmeyen\" bir sınıf hesabınız varsa, bunun çalışması için öğretmeniniz ya da grup liderinizin IBM Cloud'dan alınan Watson API kimlik bilgilerini sağlamış olacaktır (bu sayfanın üstündeki \"Kullanmaya Başlama\" (Getting Started) belgesinde açıklandığı gibi).",
+            "Q2-A-3": "Ancak sağlanan kimlik bilgileri şu anda çalışmıyor. Bunun en olası nedeni, kimlik bilgilerinin ilk olarak sağlandığı IBM Cloud'dan silinmiş olması olabilir. Durum bu değilse, Watson kimlik bilgilerini sağlayan öğretmenin ya da grup liderinin, oluşturulan Watson Assistant ya da Visual Recognition hizmetinin durumunu kontrol etmek üzere IBM Cloud panosuna geri dönmesi gerekir.",
+
+            "Q3": "\"Watson Assistant API anahtarlarında başka kullanılabilir çalışma alanı yok\"",
+            "Q3-A-1": "Araçtaki makine öğrenimi modelleri, IBM Watson API'leri kullanılarak oluşturulur.",
+            "Q3-A-2": "Öğretmenlerin oluşturduğu Watson Assistant kimlik bilgileri kullanılarak oluşturabilecek makine öğrenimi modeli sayısında bir sınır vardır. Bu, \"çalışma alanı\" (workspace) olarak bilinen, kimlik bilgilerinin oluşturulduğu IBM Cloud kullanıcı arabiriminde görüntülenir.",
+            "Q3-A-3": "Bu sınır aşılırsa, yeni makine öğrenimi modellerini eğitme girişimleri başarısız olur ve bu ileti görüntülenir:",
+            "Q3-A-4": "Sınıfınız zaten izin verilen maksimum model sayısını oluşturdu. Lütfen öğretmeninize veya grup liderinize \"Watson Assistant API anahtarlarında başka kullanılabilir çalışma alanı kalmadığı\" konusunda bilgi verin.",
+            "Q3-A-5": "Başarılı bir biçimde eğitilmiş bir modeli olan öğrenci daha sonra modelini silerse, başka bir öğrencinin kullanımı için bir çalışma alanı boşaltılmış olur.",
+            "Q3-A-6": "Gelecekte bu hatadan kaçınmanın bir yolu da daha küçük sınıf boyutları olabilir. Watson Assistant kimlik bilgileriyle desteklenen çalışma alanı sayısından daha az sayıda öğrenci olduğunda sınırlar aşılmaz.",
+            "Q3-A-7": "Bu hatadan kaçınmanın başka bir yolu da sınıfa yeni Watson Assistant API anahtarlarının eklenmesi ya da daha yüksek limitlere sahip bir Watson Assistant örnek \"planın\" kullanılmasıdır.",
+
+            "Q4": "\"Watson Visual Recognition API anahtarlarında başka kullanılabilir sınıflandırıcı yok\"",
+            "Q4-A-1": "Araçtaki makine öğrenimi modelleri IBM Watson API'leri kullanılarak oluşturulur.",
+            "Q4-A-2": "Öğretmenlerin oluşturduğu Watson Visual Recognition kimlik bilgilerinin, oluşturmak için kullanılabilecek makine öğrenimi modelleri sayısı sınırlıdır. Bu sınır, \"özel sınıflandırıcılar\" (custom classifiers) olarak bilinen kimlik bilgilerinin oluşturulduğu IBM Cloud kullanıcı arabiriminde görüntülenir.",
+            "Q4-A-3": " Bu sınır aşılırsa, yeni makine öğrenimi modellerini eğitme girişimleri başarısız olur ve bu ileti görüntülenir:",
+            "Q4-A-4": "Sınıfınız zaten izin verilen maksimum model sayısını oluşturdu. Lütfen öğretmeninizi veya grup liderinizi \"Watson Visual Recognition API anahtarlarında başka kullanılabilir sınıflandırıcı kalmadığı\" konusunda bilgilendirin.",
+            "Q4-A-5": " Başarılı bir biçimde eğitilmiş bir modeli olan öğrenci daha sonra modelini silerse, başka bir öğrencinin kullanımı için bir özel sınıflandırıcı boşaltılmış olur.",
+            "Q4-A-6": "Gelecekte bu hatadan kaçınmanın bir yolu da daha küçük sınıf boyutları olabilir. Watson Visual Recognition kimlik bilgileriyle desteklenen özel sınıflandırıcı sayısından daha az sayıda öğrenci olduğunda sınırlar aşılmaz.",
+            "Q4-A-7": "Bu hatadan kaçınmanın başka bir yolu da sınıfa yeni Watson Visual Recognition API anahtarlarının eklenmesi ya da daha yüksek sınırları olan bir Watson Visual Recognition örnek \"planının\" kullanılmasıdır.",
+
+            "Q5": "\"Watson ... şu anda API anahtarının hız sınırını belirliyor\"",
+            "Q5-A-1": "Araçtaki makine öğrenimi modelleri, IBM Watson API'ler kullanılarak oluşturulur.",
+            "Q5-A-2": "\"Yönetilmeyen\" bir sınıf hesabınız varsa, bunun çalışması için öğretmeninizin veya grup liderinizin IBM Cloud'dan Watson API kimlik bilgilerini sağlaması gerekir.",
+            "Q5-A-3": "Ücretsiz hesaplar oluşturulursa, yeni makine öğrenimi modelleri isteklerinin hızında bir sınır uygulanır. Olağan kullanımda sınıf bundan etkilenmez. Ancak öğrenciler \"başka kullanılabilir çalışma alanı yok\" veya \"başka kullanılabilir sınıflandırıcı yok\" hatası alırlarsa (yukarıda açıklandığı gibi) ve sonra birkaç dakika boyunca, saniyede birkaç kez \"Yeni Makine Öğrenimi modelini eğit\" düğmesini tıklatırlarsa hız sınırlaması uygulanır.",
+            "Q5-A-4": "Bu durumda öğrencilere buna benzer bir ileti görüntülenir:",
+            "Q5-A-5": "Sınıfınız, makine öğrenimi modellerini çok yüksek hızda oluşturmak için çok fazla sayıda istekte bulunuyor. Lütfen bunu sonlandırın ve öğretmeninizin veya grup liderinin \"Watson Assistant hizmeti şu anda API anahtarının hızını sınırlıyor\" durumundan haberdar olmasını sağlayın",
+            "Q5-A-6": "Hız sınırlaması, Çocuklar İçin Makine Öğrenimi sitesi tarafından uygulanmaz veya bu sitenin denetiminde değildir. Genellikle geçicidir ve en iyisi sorunun çözülmesi için kısa bir süre beklemektir.",
+            "Q5-A-7": "Öğrenciler \"Yeni Makine Öğrenimi modelini eğit\" düğmesini tıklatıp \"başka kullanılabilir çalışma alanı yok\" veya \"başka kullanılabilir sınıflandırıcı yok\" hatası alıyorlarsa (yukarıda açıklandığı gibi), düğmenin sürekli olarak tıklatılmasının sorunu çözmeyeceği ve aslında sınıfın geri kalanı için durumu daha da kötüleştireceği gerçeğinin farkında olmalıdırlar.",
+
+            "Q6": "Bir modelin eğitimi için çok uzun zamandır bekliyorum!",
+            "Q6-A-1": "Sayfayı yenilemeyi deneyin.",
+            "Q6-A-2": "Sayfanın, her 30 saniyede bir makine öğrenimi modelinin durumunu denetlemesi gerekir, ancak çok nadir olarak denetimi durdurur. Bu nedenle siz beklerken aslında o sırada model hazır olabilir.",
+            "Q6-A-3": "Birkaç dakikadan uzun sürdüyse, sayfayı yenilenerek/yeniden yüklenerek kontrol etmek yararlı olabilir.",
+            "Q6-A-4": "10 dakikadan uzun sürdüyse, yeniden başlatma düşünülebilir (İptal düğmesini tııklatın ve yeni bir makine öğrenimi modelini yeniden eğitmek için düğmeyi tıklatın)."
+        },
+        "TEACHERUI": {
+            "TITLE": "Öğretmen / Yönetim Kullanıcı Arabirimi sorunları",
+
+            "Q2": "Öğretmen sayfasındaki listede bazı öğrenci hesapları eksik ",
+            "Q2-A-1": "Çocuklar İçin Makine Öğrenimi için kullanıcı yönetimi <a href=\"https://auth0.com/\">Auth0</a> üçüncü kişi hizmeti kullanılarak uygulanır.",
+            "Q2-A-2": "Auth0 ile getirilen öğrencilerin listesi bazen güncel olmayabilir ve en son oluşturulan öğrencileri yansıtamayabilir (veya benzer şekilde en son silinen öğrencileri göstermeyebilir).",
+            "Q2-A-3": "Bu durumlarda öğrenciler genellikle başarıyla oluşturulmuştur (veya silinmiştir) ancak sadece görüntülenmekte olan öğrenci listesi en son güncellemeleri yansıtmıyordur.",
+            "Q2-A-4": "Auth0, durum sayfasında bu tür sorunları genellikle <a href='https://status.auth0.com/incidents/0sk1d3hjlw0m'>kullanıcı dizinleme gecikmeleri</a> veya <a href='https://status.auth0.com/incidents/t8995b9jggx5'>Arama API'siyle ilgili sorunlar</a> şeklinde raporlar.",
+            "Q2-A-5": "Bu durumlarda yapılacak en iyi şey, Auth0 dizinlemesinin yetişmesi için beklemektir.",
+
+            "Q4": "Makine öğrenimi modelleri neden otomatik olarak silinir?",
+            "Q4-A-1": "Bu, Çocuklar İçin Makine Öğrenimi ilk geliştirildiğinde okulların istediği bir özellikti. Bunun nedeni, belirli bir sürede bir sınıfın sahip olabileceği makine öğrenimi modeli sayısının sınırlı olması ve bu sınırın yönetiminin kolaylaştırılması gerekliliğiydi.",
+            "Q4-A-2": "Çocukların bir dersten sonra toparlanıp modellerini silmelerini (sonraki sınıfın modeller oluşturabilmesini sağlamak için) gerektirmek yerine araç, ders bittikten sonra modelleri silerek otomatik olarak temizlenebilir. Bu da aralarda manuel temizlik olmadan sonraki derslerin daha kolay yapılabilmesini sağlar. ",
+            "Q4-A-3": "Modellerin silinmesi için beklenecek süre sınırı yapılandırılabilir. Derslerin 1 veya 2 saat sürdüğü bir okulda, iki saat sonra modellerin silinmesi mantıklı olabilir. Haftalık bir kodlama kulübü için ise her yeni kulüp oturumundan önce modellerin temizlenmesini sağlamak için 6 gün makul olabilir.",
+            "Q4-A-4": "Sınıfınıza ilişkin süre sınırını kontrol etmek için <a href='https://machinelearningforkids.co.uk/#!/teacher/restrictions'>Öğretmen sayfanızın Kısıtlamalar bölümünü</a> ziyaret edebilirsiniz.",
+            "Q4-A-6": "<em>Not: Kullanılan eğitim verileri değil, yalnızca makine öğrenimi modelleri otomatik olarak silinir. Bir öğrencinin üzerinde hala çalıştığı bir proje için bir model otomatik olarak silinirse, her zaman modelin yeniden oluşturulması için \"Eğit\" düğmesi tıklatılabilir.</em>"
+        },
+        "ACCOUNTISSUES": {
+            "TITLE": "Hesap sorunları",
+            "Q1": "Hesap oluşturma veya \"Hemen deneyin\" seçeneği arasındaki fark nedir?",
+            "Q1-A-1": "\"Hemen deneyin\" seçeneğinin kullanılması, oturum açma veya bir hesap oluşturma zorunluluğunun olmadığı anlamına gelir. Öğrencilerin hatırlaması gereken herhangi bir parola bulunmaz, öğretmenlerin kişisel bilgileri sağlama zorunluluğu olmaz. Ayrıca öğretmenlere öğrenci hesaplarının yönetimi için gereken zamanı kazandırır.",
+            "Q1-A-2": "Ancak bir hesap oluşturmak da ek özellikler sağlar. Öğrenciler, çalışmalarını kaydedip sonraki bir derste buna dönebilirler. Sınıftaki diğer öğrencilerle birlikte bir proje üzerinde çalışabilirler. Evlerinden oturum açabilir ve ailelerine yaptıklarını gösterebilirler.",
+            "Q1-A-3": "Aradaki farkların bir özeti aşağıda gösterilir:",
+            "CREATE_ACCOUNT": "Hesap oluştur",
+            "TRAINMODELS": "Makine öğrenimi modellerine şunları tanımayı öğret...",
+            "USE_SCRATCH": "Scratch'teki makine öğrenimi modellerini kullan",
+            "CREATE_PROJECTS": "Proje oluştur",
+            "ONE_PROJECT": " 1 proje ",
+            "MULTIPLE_PROJECTS": " Birden çok proje ",
+            "SAVE_PROJECTS": "Projeleri kaydet ve yükle",
+            "WORK_ON_PROJECTS": "Makine öğrenimi projeleri üzerinde çalış...",
+            "FEW_HOURS": " birkaç saat için ",
+            "UNTIL_DELETION": " siz silinceye kadar ",
+            "ONE_COMPUTER": " bir bilgisayardan ",
+            "ONLINE": " çevrimiçi her yerden ",
+            "BY_YOURSELF": " kendiniz ",
+            "WITH_CLASSMATES": "sınıf arkadaşlarıyla",
+            "Q2": "Bir sınıf hesabı oluşturdum, ancak öğretmen girişi yapamıyorum",
+            "Q2-A-1": "Oturum açabilmek için e-posta adresinizi doğrulamanız gerekir.",
+            "Q2-A-2": "Sınıf hesabı oluşturduğunuzda, sağladığınız e-posta adresine tıklatılacak bir bağlantı içeren bir e-posta gönderilir. Bu bağlantıyı tıklatırsanız, e-posta adresiniz doğrulanır ve sınıf hesabı etkinleştirilir. Artık oturum açabilmeniz gerekir.",
+            "Q2-A-3": "Doğrulama e-postasını henüz görmediyseniz, istenmeyen posta klasörünüze gitmediğinden emin olun. ",
+            "Q2-A-4": "Yine de bulamıyorsanız <a href='mailto:dale.lane@uk.ibm.com'>benimle iletişime geçin</a>, size yardımcı olmaya çalışacağım.",
+            "Q3": "Hesapları silme",
+            "Q3-A-1": "Öğrenci hesapları",
+            "Q3-A-2": "Öğrenciler, kendi hesaplarını silemezler.",
+            "Q3-A-3": "Bir öğretmen, \"Öğretmen\" sayfasını ziyaret ederek ve silinmek istenen öğrencinin yanındaki \"Öğrenci hesabını sil\" düğmesini tıklatarak dilediği zaman bir öğrenci hesabını silebilir.",
+            "Q3-A-4": "Bu işlem sonucunda öğrenci hakkında saklanan tüm bilgiler, projelerinin ve makine öğrenimi modellerinin tümü silinir.",
+            "Q3-A-5": "Bu işlem geri alınamaz.",
+            "Q3-A-6": "Öğretmen hesapları",
+            "Q3-A-7": "Bir öğretmen hesabı silindiğinde, tüm sınıf ve içindeki öğrenci hesaplarının tamamı da silinir. Bu işlem geri alınamaz.",
+            "Q3-A-8": "Bu, <a href='https://machinelearningforkids.co.uk/teacher'>Öğretmen sayfanızın</a> Gelişmiş seçenekler bölümündeki \"Sınıfı Sil\" düğmesi tıklatılarak yapılabilir. ",
+            "Q4": "Kullanıcılar hakkında hangi bilgiler saklanır?",
+            "Q4-A-1": "Teacher accounts",
+            "Q4-A-2": "I store the username and email address that you provide when you create the account, so that I can keep in touch with you.",
+            "Q4-A-3": "Student accounts",
+            "Q4-A-4": "I store the usernames for student accounts, so that I can let them log in. I have no email addresses or contact details for students. I have no other personally identifying information about students.",
+            "Q4-A-5": "I also <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-schools.pdf'>recommend that students are given generic usernames</a> (e.g. student1) so that students are not identifiable outside of their school or coding group.",
+            "Q4-A-6": "General information stored about all accounts",
+            "Q4-A-7": "User management for Machine Learning for Kids is implemented using the third party service, <a href='https://auth0.com/'>Auth0</a>. They store the IP address that you last logged into Machine Learning for Kids from, and the type of browser you used. I've never found a reason to use that, but it is stored if I did want to go and look for it.",
+            "Q4-A-8": "Errors that happen in the web browser are captured using the third party service, <a href='https://sentry.io/'>Sentry</a>. If something goes wrong, it will capture information about the error, including your username, IP address, type of browser you were using, and a technical description of what went wrong.",
+            "Q4-A-9": "I use <a href='https://www.google.com/analytics/'>Google Analytics</a> so that I know how many users visit Machine Learning for Kids each day. Although it captures information such as geographic location and browser type, this is only ever displayed to me in an anonymised aggregate way."
+        }
+    }
+}

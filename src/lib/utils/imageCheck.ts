@@ -14,10 +14,10 @@ import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
 
-
-type IFilePathCallback = (err?: Error, location?: string) => void;
-type IFileTypeCallback = (err?: Error, filetype?: string) => void;
-type IFilePathTypeCallback = (err?: Error, filetype?: string, location?: string) => void;
+type PossibleError = Error | null;
+type IFilePathCallback = (err?: PossibleError, location?: string) => void;
+type IFileTypeCallback = (err?: PossibleError, filetype?: string) => void;
+type IFilePathTypeCallback = (err?: PossibleError, filetype?: string, location?: string) => void;
 
 
 
@@ -59,11 +59,11 @@ export function verifyImage(url: string, maxAllowedSizeBytes: number): Promise<v
             },
             (tmpFilePath: string, next: IFilePathTypeCallback) => {
                 // sniff the start of the file to work out the file type
-                getFileTypeFromContents(tmpFilePath, (err?: Error, type?: string) => {
+                getFileTypeFromContents(tmpFilePath, (err?: PossibleError, type?: string) => {
                     next(err, tmpFilePath, type);
                 });
             },
-        ], (err?: Error, tmpFilePath?: string, fileTypeExt?: string) => {
+        ], (err?: PossibleError, tmpFilePath?: string, fileTypeExt?: string) => {
 
             if (tmpFilePath) {
                 fs.unlink(tmpFilePath, logError);

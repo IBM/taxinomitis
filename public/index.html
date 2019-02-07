@@ -47,7 +47,7 @@
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <a class="navbar-brand" ui-sref="welcome" style="padding-top: 5px"><img src="static/images/mlforkids-logo-small.jpg" style="border: thin #c9c9c9 solid"></a>
+                        <a class="navbar-brand" ui-sref="welcome" style="padding-top: 5px"><img src="static/images/mlforkids-logo.svg" style="width: 40px; height: 40px;"></a>
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
@@ -55,7 +55,7 @@
                             <span class="icon-bar"></span>
                         </button>
                     </div>
-                    <div id="navbar" class="navbar-collapse collapse">
+                    <div id="navbar" class="navbar-collapse collapse" role="navigation">
                         <ul class="nav navbar-nav">
                             <li><a ui-sref="about" data-toggle="collapse" data-target=".navbar-collapse.in" translate="APP.ABOUT"></a></li>
                             <li ng-if="isAuthenticated && isTeacher"><a ui-sref="teacher" data-toggle="collapse" data-target=".navbar-collapse.in" translate="APP.TEACHER"></a></li>
@@ -67,6 +67,23 @@
                             <li ng-if="!isAuthenticated"><a ui-sref="login" data-toggle="collapse" data-target=".navbar-collapse.in" translate="APP.LOGIN"></a></li>
                             <li ng-if="isAuthenticated"><a ui-sref="welcome" ng-click="authService.logout()" data-toggle="collapse" data-target=".navbar-collapse.in" translate="APP.LOGOUT"></a></li>
                         </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Language</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="?lang=en">English</a></li>
+                                    <li><a href="?lang=zh-cn">简体中文</a></li>
+                                    <li><a href="?lang=ko">한국어</a></li>
+                                    <li><a href="?lang=pt-br">Português do Brasil</a></li>
+                                    <li><a href="?lang=si-lk">සිංහල</a></li>
+                                    <li><a href="?lang=es">Español</a></li>
+                                    <li><a href="?lang=sv-se">Svenska</a></li>
+                                    <li><a href="?lang=tr">Türkçe</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="https://github.com/IBM/taxinomitis/wiki/Support-for-other-languages" target="_blank">Other...</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </nav>
@@ -77,9 +94,12 @@
         <script type="text/javascript" src="/static/bower_components/bootstrap/js/alert.js"></script>
         <script type="text/javascript" src="/static/bower_components/bootstrap/js/transition.js"></script>
         <script type="text/javascript" src="/static/bower_components/bootstrap/js/collapse.js"></script>
+        <script type="text/javascript" src="/static/bower_components/bootstrap/js/dropdown.js"></script>
         <script type="text/javascript" src="/static/bower_components/bootstrap/js/tab.js"></script>
         <script type="text/javascript" src="/static/bower_components/bootstrap/js/tooltip.js"></script>
         <script type="text/javascript" src="/static/bower_components/bootstrap/js/popover.js"></script>
+
+        <script type="text/javascript" src="/static/bower_components/moment/min/moment.min.js"></script>
 
         <script type="text/javascript" src="/static/bower_components/angular/angular.min.js"></script>
         <script type="text/javascript" src="/static/bower_components/angular-translate/angular-translate.min.js"></script>
@@ -91,6 +111,7 @@
         <script type="text/javascript" src="/static/bower_components/angular-messages/angular-messages.min.js"></script>
         <script type="text/javascript" src="/static/bower_components/angular-scroll/angular-scroll.min.js"></script>
         <script type="text/javascript" src="/static/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+        <script type="text/javascript" src="/static/bower_components/angular-moment/angular-moment.min.js"></script>
 
         <!-- the minified version doesn't close the webcam properly -->
         <script type="text/javascript" src="/static/bower_components/webcam/app/scripts/webcam.js"></script>

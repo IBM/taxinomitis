@@ -8,10 +8,10 @@
         'authService',
         'projectsService', 'trainingService', 'quizService',
         '$stateParams',
-        '$scope', '$mdDialog', '$timeout', '$interval', '$q', '$document'
+        '$scope', '$mdDialog', '$timeout', '$interval', '$q', '$document', '$state'
     ];
 
-    function ModelsController(authService, projectsService, trainingService, quizService, $stateParams, $scope, $mdDialog, $timeout, $interval, $q, $document) {
+    function ModelsController(authService, projectsService, trainingService, quizService, $stateParams, $scope, $mdDialog, $timeout, $interval, $q, $document, $state) {
 
         var vm = this;
         vm.authService = authService;
@@ -122,6 +122,10 @@
         $scope.projectId = $stateParams.projectId;
         $scope.userId = $stateParams.userId;
 
+        $scope.projecturls = {
+            train : '/#!/mlproject/' + $stateParams.userId + '/' + $stateParams.projectId + '/training'
+        };
+
         $scope.owner = true;
 
         $scope.minimumExamples = 'five';
@@ -144,6 +148,8 @@
                 $scope.project = values.project;
 
                 $scope.owner = (vm.profile.user_id === $scope.project.userid);
+
+                $scope.projecturls.train = '/#!/mlproject/' + $scope.project.userid + '/' + $scope.project.id + '/training';
 
                 if (values.project.type === 'images') {
                     $scope.minimumExamples = 'ten';
@@ -306,10 +312,57 @@
                 .catch(function (err) {
                     $scope.submittingTrainingRequest = false;
 
-                    var errId = displayAlert('errors', err.status, err.data);
-                    scrollToNewItem('errors' + errId);
+                    if (createModelFailedDueToDownloadFail(err)) {
+                        return $mdDialog.show({
+                            controller : function ($scope) {
+                                $scope.location = err.data.location;
+
+                                $scope.hide = function() {
+                                    $mdDialog.hide();
+                                };
+                                $scope.cancel = function() {
+                                    $mdDialog.cancel();
+                                };
+                                $scope.confirm = function() {
+                                    $mdDialog.hide(err.data.location);
+                                };
+                            },
+                            templateUrl : 'static/components-' + $stateParams.VERSION + '/models/downloadfail.tmpl.html'
+                        })
+                        .then(
+                            function (location) {
+                                if (location) {
+                                    trainingService.deleteTrainingData(project.id, $scope.userId, vm.profile.tenant, location.imageid)
+                                        .then(function() {
+                                            $state.reload();
+                                        })
+                                        .catch(function (e) {
+                                            var errId = displayAlert('errors', e.status, e.data);
+                                            scrollToNewItem('errors' + errId);
+                                        });
+                                }
+                            },
+                            function() {
+                                // cancelled. do nothing
+                            }
+                        );
+                    }
+                    else {
+                        var errId = displayAlert('errors', err.status, err.data);
+                        scrollToNewItem('errors' + errId);
+                    }
                 });
         };
+
+
+        function createModelFailedDueToDownloadFail(err) {
+            return err &&
+                   err.status === 409 &&
+                   err.data && err.data.code &&
+                   err.data.code === 'MLMOD12' &&
+                   err.data.location && err.data.location.imageid && err.data.location.url &&
+                   err.data.location.type === 'download';
+        }
 
 
         vm.testModel = function (ev, form, project) {
@@ -320,6 +373,16 @@
             }
             else if (project.type === 'images') {
                 testdata.image = $scope.testformData.testimageurl;
+
+                if (testdata.image &&
+                    (testdata.image.substring(0, 10) === 'data:image' ||
+                     testdata.image.substring(0, 5) === 'blob:'))
+                {
+                    var errId = displayAlert('errors', 400, {
+                        message : 'Invalid URL. Please enter the web address for a picture that you want to test your machine learning model on'
+                    });
+                    return scrollToNewItem('errors' + errId);
+                }
             }
             else if (project.type === 'numbers') {
                 testdata.numbers = project.fields.map(function (field) {
@@ -348,6 +411,8 @@
                     }
                 })
                 .catch(function (err) {
+                    delete $scope.testoutput;
+
                     var errId = displayAlert('errors', err.status, err.data);
                     scrollToNewItem('errors' + errId);
                 });
@@ -377,6 +442,10 @@
                 })
                 .catch(function (err) {
                     $scope.submittingDeleteRequest = false;
+
+                    if (err.status === 404 && err.data && err.data.error === 'Not found') {
+                        return $state.reload();
+                    }
 
                     var errId = displayAlert('errors', err.status, err.data);
                     scrollToNewItem('errors' + errId);

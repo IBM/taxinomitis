@@ -3,7 +3,7 @@ class MachineLearningNumbers {
     constructor() {
         this._labels = [ {{#labels}} '{{name}}', {{/labels}} ];
 
-        this._icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4gcYFDscg0kLkgAAAQdJREFUSMdj9PZK+M9AR8DEQGdAdwtZCCnYsnU+0Yb5eCdSbiGxBhHrsOEfh6MWjlo4DEoaUksbQoCR3rUFCyVlJjl6WCgtM0nVgzXRFJfEYYg1t+QRNJiXl4W8VCotLY3Cd3DUZvj+/TtBw/j5uciz8ODBgwxCQuxwvpaWFsOLFy9olw937jjBEB7hC+ffv3+fgYODg3YWMjExMnz9+pWBgYGBQVlZmGH7tjO0t3DRwm0MjIz/GTw8naFiTLQuaRgZEpN8GZ4/f06864lwFFYLf/z4A7GSkZFh3drDDAwMDAxv374laFhRcTbDnTt3GBgYGBiuXLnCcGD/VdxFG71KGsZh3/IGABK+UkZW++njAAAAAElFTkSuQmCC';
+        this._icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4gwIFCspuPG7bgAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAElUlEQVRIx62WW2xUVRSGv73PmTOdmZbS9AYtlEsGW8qlKlqjhhjEK6gxGhJBn3zQBB9QMcREjEaCjRofeBKNkHgJRX3AiNGIpAmKgSYNkIgIba20FAq9wXTazsw5c/byoS1Q2mnHwHrZOefstf6z/rXWv7cigy17fX9ubNjd46VNuZCdKaWwtBqqnpO/5sDbDw1OtsfO5Oz7xooNe8t2v3Lf/GhpLkYgYClCQRsRQaEQhOGUj28MCsWJ9su88UXToDFiZYprZ/5d8I2RqrIZVM/JB+DTX1vY3dDKQMLDGGFmxOG952p4tKYMgMFUGhHMVCzYWbLFhh2HcWxNY93jbN17grKZYTY+dhu1b/7M0eZe3lm3PKs40wJqrfjkl2YsrejoGeKZjw4RcmyOtfXT1NaHbwxfHmrj7mghhXnBmwdUQMPJi9Q9fwcdPUMcae7h4/2n2LR2MauWzqLrchm2VtT/cZZX1yyeFlBPt0GApRUzqdt3ki1fH6OyPJ+XH6mkbzDFSzuPUBstpK17kNqFhRiRW5PhpViS2mgRyysK+KGpk0tXEjxQXcrcwggtF+P8cylOUV4QlUUNs8qwIOwQG3LZtLaKo809hByLYMCiqjyfXQdb2dfYgW+ya75pAY0Rtm+4nd/PdLOroZXK8hnkhQLsPHCG8/3D3F9VzD2Liti+vgY3bW6e0jFbsaCQU+di1FQUYFuKlVUl9MZTXIwlyI84aKWQWzEWY7b12WX8eKyTbd/9CQiptCEvFODddcu5t7I42zCZAdNGo1D0D7n0xVMYEVZWlfDTWw/ijVIXsBWW0qQ8n17PEBtyQYGRzMnamWunyA0F5IUdh9FajevasVXGuuqqFAqOZWGmIFfFG9f9jVJVN/aPQgjZPkpN4iwu7+s6QtpDTTIMnmcm7XZfpNEGM5yz8DV0uCLjWIx7Tg+QPL0NY8ET8xZQEAxmcWxBXzJJfXPLsA2CzilFO8WIpEEplBW+jjxB/ASIjHyzZ4ysQEEwSHEoB4BEOo1SIz6O1mg1PnMjI4UdqaFycDv34PX+Bgih6m3oUMVoRoMkTm5G/BRWbpRgdPPEegvsPn2aVNonEgjw5Px5lEUiUwy+uDjzXkQ5BVi5UbyehmsHcew4yikBhJxFW8C4E4Mo2LhkCUaE9YuiGcFuUBoB4xIoWkW6++DVt+65egLFq8F4iPEyBvJGhTs9jYBPGAvlFKGcQtLdB1HhCsRPoMPzuVU2UUu1Q6BkNW7X97jnvyFQ8jDKDv/vwJ4xHO7qyka8DYFZT2ES7fj9jThz14Pxx099FmZEaI0NZKJUY5IXEONiEufQkSiB0jWIPwRo/EQ7gmCG29GhuZMC9CeTiMCVVAoFpHx/ihrqAF7nXiQdJ9XxFTqvmsDspxEvhnhXSJ39HKU07r87CS35cNJsPvvrFDmWxbctrVfFoiIvNwOgcQlGNzNBM3JmAxC5c9e1XvYGxinIyFgott61YgLl18ueugaoMMkLoLM8qdJxGFWNvmQyq3uMAnqTSTQoG2U3JZo/iCNZXhKUQlthjDHUN7cgIlm6KRWy7eP/AR5T4+fuc4K4AAAAAElFTkSuQmCC';
     }
 
 
@@ -11,7 +11,7 @@ class MachineLearningNumbers {
 
         return {
             // making the id unique to allow multiple instances
-            id: 'mlforkidsnumbers' + Date.now(),
+            id: 'mlforkidsnumbers{{{ projectid }}}',
             // the name of the student project
             name: '{{{ projectname }}}',
 
@@ -77,9 +77,19 @@ class MachineLearningNumbers {
                 {
                     opcode: 'return_label_{{idx}}',
                     blockType: Scratch.BlockType.REPORTER,
-                    text: '{{name}}'
+                    text: ' {{name}}'
                 },
                 {{/labels}}
+
+                // provide blocks representing each of the choices
+                {{#choices}}
+                {
+                    opcode: 'return_choice_{{idx}}',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: ' {{name}}'
+                },
+                {{/choices}}
+
 
                 // add training data to the project
                 {
@@ -105,6 +115,16 @@ class MachineLearningNumbers {
                             defaultValue: this._labels[0],
                             menu: 'labels'
                         }
+                    }
+                },
+
+                // train a new machine learning model
+                {
+                    opcode: 'trainNewModel',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: {
+                        default: 'train new machine learning model',
+                        id: 'mlforkids.numbers.trainNewModel'
                     }
                 }
             ],
@@ -138,6 +158,12 @@ class MachineLearningNumbers {
     }
     {{/labels}}
 
+    {{#choices}}
+    return_choice_{{idx}} () {
+        return '{{name}}';
+    }
+    {{/choices}}
+
 
     addTraining(args) {
         var numbers = getFieldValues(args);
@@ -149,7 +175,13 @@ class MachineLearningNumbers {
         }
         url.searchParams.append('label', label);
 
-        return fetch(url)
+        var options = {
+            headers : {
+                'X-User-Agent': 'mlforkids-scratch3-numbers'
+            }
+        };
+
+        return fetch(url, options)
             .then((response) => {
                 if (response.status !== 200) {
                     return response.json();
@@ -161,6 +193,20 @@ class MachineLearningNumbers {
                 }
             });
     }
+
+
+    trainNewModel() {
+        if (trainingModel || // currently submitting a new-model request, OR
+            lastModelTrainedRecently()) // we very recently submitted one
+        {
+            console.log('ignoring request');
+            return;
+        }
+
+        return trainNewClassifier();
+    }
+
+
 }
 
 var resultsCache = {
@@ -179,12 +225,28 @@ var resultsCache = {
 };
 
 
+var ONE_MINUTE = 60 * 1000;
+
+
+// the last time that we used the API to train a new ML model
+var lastModelTrain = 0;
+
+// returns true if the last time that we trained a ML model
+//  was too recently to do again
+function lastModelTrainedRecently() {
+    return (lastModelTrain + ONE_MINUTE) > Date.now();
+}
+
+
+
+
 // returns the current date in the format that the API uses
 function nowAsString() {
     return new Date().toISOString();
 }
 // returns true if the provided timestamp is within the last 10 seconds
 function veryRecently(timestamp) {
+    var TEN_SECONDS = 10 * 1000;
     return (timestamp + TEN_SECONDS) > Date.now();
 }
 
@@ -198,6 +260,7 @@ function classifyNumbers(numbers, cacheKey, lastmodified, callback) {
         headers : {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'X-User-Agent': 'mlforkids-scratch3-numbers',
 
             'If-Modified-Since': lastmodified
         }
@@ -226,7 +289,7 @@ function classifyNumbers(numbers, cacheKey, lastmodified, callback) {
                 });
             }
             else {
-                console.log(err);
+                console.log(response);
 
                 callback({
                     class_name: 'Unknown',
@@ -234,10 +297,16 @@ function classifyNumbers(numbers, cacheKey, lastmodified, callback) {
                     classifierTimestamp: nowAsString()
                 });
             }
-        });
-        // .catch((err) => {
+        })
+        .catch((err) => {
+            console.log(err);
 
-        // });
+            callback({
+                class_name: 'Unknown',
+                confidence: 0,
+                classifierTimestamp: nowAsString()
+            });
+        });
 }
 
 
@@ -306,6 +375,41 @@ function getNumberClassificationResponse(numbers, cacheKey, valueToReturn, callb
         callback(result[valueToReturn]);
     });
 }
+
+
+
+// are we currently training a classifier?
+//  used as a primitive lock to prevent multiple concurrent requests being made
+var trainingModel = false;
+
+
+// make an XHR request to train a new ML model
+function trainNewClassifier() {
+    trainingModel = true;
+    lastModelTrain = Date.now();
+
+    var url = new URL('{{{ modelurl }}}');
+    var options = {
+        headers : {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-User-Agent': 'mlforkids-scratch3-numbers'
+        },
+        method : 'POST'
+    };
+
+    return fetch(url, options)
+        .then((response) => {
+            console.log(response);
+            trainingModel = false;
+        })
+        .catch((err) => {
+            console.log(err);
+            trainingModel = false;
+        });
+}
+
+
 
 
 Scratch.extensions.register(new MachineLearningNumbers());

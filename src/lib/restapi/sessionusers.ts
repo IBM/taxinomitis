@@ -1,7 +1,6 @@
 // external dependencies
 import * as httpstatus from 'http-status';
 import * as Express from 'express';
-import * as uuid from 'uuid/v4';
 // local dependencies
 import * as errors from './errors';
 import * as urls from './urls';
@@ -31,7 +30,8 @@ function createSessionUser(req: Express.Request, res: Express.Response)
         })
         .catch((err) => {
             log.error({ err }, 'Failed to create session user');
-            notifications.notify('Failed to create "Try it now" session : ' + err.message);
+            notifications.notify('Failed to create "Try it now" session : ' + err.message,
+                                 notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
 
             if (err.message === sessionusers.ERROR_MESSAGES.CLASS_FULL) {
                 return res.status(httpstatus.PRECONDITION_FAILED).json({ error : err.message });

@@ -10,12 +10,12 @@
         '$stateParams',
         '$scope',
         '$mdDialog',
-        '$document',
+        '$state',
         '$timeout',
         '$q'
     ];
 
-    function TrainingController(authService, projectsService, trainingService, $stateParams, $scope, $mdDialog, $document, $timeout, $q) {
+    function TrainingController(authService, projectsService, trainingService, $stateParams, $scope, $mdDialog, $state, $timeout, $q) {
 
         var vm = this;
         vm.authService = authService;
@@ -152,6 +152,19 @@
                     $scope.confirm = function(resp) {
                         $mdDialog.hide(resp);
                     };
+                    $scope.submitOnEnter = function(event) {
+                        var code = event.keyCode || event.which;
+                        if (code === 13) {
+                            event.preventDefault();
+                            $scope.confirm($scope.example);
+                        }
+                    };
+
+                    $scope.$watch('example', function (newval, oldval) {
+                        if ($scope && $scope.example && newval !== oldval) {
+                            $scope.example = newval.replace(/[\r\n\t]/g, ' ');
+                        }
+                    }, true);
                 },
                 templateUrl : 'static/components-' + $stateParams.VERSION + '/training/trainingdata.tmpl.html',
                 targetEvent : ev,
@@ -233,6 +246,10 @@
                     scrollToNewItem(newitem.id);
                 })
                 .catch(function (err) {
+                    if (errorSuggestsProjectDeleted(err)) {
+                        return $state.go('projects');
+                    }
+
                     displayAlert('errors', err.status, err.data);
 
                     var idxToRemove = findTrainingIndex(label, placeholder.id);
@@ -241,6 +258,14 @@
                     }
                 });
         };
+
+
+        function errorSuggestsProjectDeleted(err) {
+            return err &&
+                   err.status === 404 &&
+                   err.data &&
+                   err.data.error === 'Not found';
+        }
 
 
         vm.onImageLoad = function (image) {
@@ -287,6 +312,10 @@
                             refreshLabelsSummary();
                         })
                         .catch(function (err) {
+                            if (errorSuggestsProjectDeleted(err)) {
+                                return $state.go('projects');
+                            }
+
                             displayAlert('errors', err.status, err.data);
                         });
                 },

@@ -153,6 +153,9 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
             training = await store.storeTextTraining(req.project.id, data, label);
             break;
         case 'numbers':
+            if (!Array.isArray(data) || data.length !== req.project.numfields) {
+                return errors.missingData(res);
+            }
             training = await store.storeNumberTraining(req.project.id, req.project.isCrowdSourced, data, label);
             break;
         case 'images':
@@ -168,6 +171,8 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
             err.message === 'Empty text is not allowed' ||
             err.message === 'Number of data items exceeded maximum' ||
             err.message === 'Data contains non-numeric items' ||
+            err.message === 'Number is too small' ||
+            err.message === 'Number is too big' ||
             err.message === 'Missing required attributes' ||
             err.message.startsWith(imageCheck.ERROR_PREFIXES.BAD_TYPE) ||
             err.message.startsWith('Unable to download image from ') ||

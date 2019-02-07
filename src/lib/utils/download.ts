@@ -2,6 +2,7 @@
 import * as fs from 'fs';
 // external dependencies
 import * as request from 'request';
+import * as httpstatus from 'http-status';
 import * as sharp from 'sharp';
 import * as probe from 'probe-image-size';
 // local dependencies
@@ -16,7 +17,8 @@ type IErrCallback = (err?: Error) => void;
 
 // disable aggressive use of memory for caching
 sharp.cache(false);
-
+// prevent sharp using multiple cores in parallel to reduce memory use
+sharp.concurrency(1);
 
 
 /**
@@ -41,15 +43,15 @@ export function file(url: string, targetFilePath: string, callback: IErrCallback
                             .on('finish', resolve);
 
     try {
-        request.get({ url, timeout : 10000 })
+        request.get({ url, timeout : 10000, rejectUnauthorized : false })
             .on('error', () => {
-                resolve(new Error('Unable to download image from ' + url));
+                resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
             })
             .pipe(writeStream);
     }
     catch (err) {
-        log.error({ err, url }, 'Failed to download');
-        resolve(new Error('Unable to download image from ' + url));
+        log.error({ err, url }, 'Failed to download file');
+        resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
     }
 }
 
@@ -80,35 +82,45 @@ export function resize(
         }
     }
 
-    probe(url)
+    probe(url, { rejectUnauthorized : false })
         .then((imageinfo: any) => {
             if (imageinfo.type !== 'jpg' && imageinfo.type !== 'jpeg' && imageinfo.type !== 'png') {
                 log.error({ imageinfo, url }, 'Unexpected file type');
                 throw new Error('Unsupported file type ' + imageinfo.type);
             }
 
+            // skew, don't crop, when resizing
+            const options = { fit : 'fill' } as sharp.ResizeOptions;
+
             const shrinkStream = sharp()
                                     // resize before writing to disk
-                                    .resize(width, height)
-                                    // skew, don't crop
-                                    .ignoreAspectRatio()
+                                    .resize(width, height, options)
                                     .on('error', resolve)
                                     // write to file using the same image
                                     //  format (i.e. jpg vs png) as the
                                     //  original
                                     .toFile(targetFilePath, resolve);
 
-            request.get({ url, timeout : 10000 })
+            request.get({ url, timeout : 10000, rejectUnauthorized : false })
                 .on('error', (err) => {
-                    log.error({ err, url }, 'Download fail');
-                    resolve(new Error('Unable to download image from ' + url));
+                    log.warn({ err, url }, 'Download fail (request)');
+                    resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
                 })
                 .pipe(shrinkStream);
         })
         .catch ((err: any) => {
-            log.error({ err, url }, 'Download fail');
-            resolve(new Error('Unable to download image from ' + url));
+            if (err.statusCode === httpstatus.NOT_FOUND || err.message === 'ETIMEDOUT') {
+                log.warn({ err, url }, 'Image could not be downloaded');
+            }
+            else {
+                log.error({ err, url }, 'Download fail (probe)');
+            }
+            resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
         });
 }
 
 
+
+export const ERRORS = {
+    DOWNLOAD_FAIL : 'Unable to download image from ',
+};

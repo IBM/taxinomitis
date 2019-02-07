@@ -47,8 +47,13 @@ export const IMAGE                 = '/api/classes/:classid/students/:studentid/
 export const SCRATCHKEY_TRAIN      = '/api/scratch/:scratchkey/train';
 export const SCRATCHKEY_CLASSIFY   = '/api/scratch/:scratchkey/classify';
 export const SCRATCHKEY_STATUS     = '/api/scratch/:scratchkey/status';
+export const SCRATCHKEY_MODEL      = '/api/scratch/:scratchkey/models';
 export const SCRATCHKEY_EXTENSION  = '/api/scratch/:scratchkey/extension.js';
 export const SCRATCH3_EXTENSION    = '/api/scratch/:scratchkey/extension3.js';
+
+//
+// URLs about App Inventor
+export const APPINVENTOR_EXTENSION = '/api/appinventor/:scratchkey/extension';
 
 //
 // URLs about session users

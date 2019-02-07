@@ -31,7 +31,7 @@ export const getOauthToken = {
 
 export const getUser = {
     johndoe : (token: string, userid: string) => { // eslint-disable-line no-unused-vars
-        return Promise.resolve({
+        const user: unknown = {
             email: 'bobbyball@do-not-require-emailaddresses-for-students.com',
             username: 'bobbyball',
             email_verified: true,
@@ -59,7 +59,8 @@ export const getUser = {
             logins_count: 2,
             blocked_for: [],
             guardian_enrollments: [],
-        });
+        };
+        return Promise.resolve(user as Objects.User);
     },
 };
 
@@ -67,7 +68,8 @@ export const getUsers = {
     empty : (token: string, tenant: string) => { // eslint-disable-line no-unused-vars
         return Promise.resolve([]);
     },
-    single : (token: string, tenant: string) => { // eslint-disable-line no-unused-vars
+    single : (token: string, tenant: string): Promise<Objects.User[]> => { // eslint-disable-line no-unused-vars
+        const role: Objects.UserRole = 'student';
         return Promise.resolve([
             {
                 email: 'bobbyball@do-not-require-emailaddresses-for-students.com',
@@ -89,7 +91,7 @@ export const getUsers = {
                 name: 'bobbyball@do-not-require-emailaddresses-for-students.com',
                 last_password_reset: '2017-04-16T23:29:09.355Z',
                 app_metadata: {
-                    role: 'student',
+                    role,
                     tenant: 'single',
                 },
                 last_ip: '87.114.106.231',
@@ -118,7 +120,7 @@ export const getUserCounts = (token: string, tenant: string) => { // eslint-disa
 
 export const createUser = {
     good : (token: string, newuser: Objects.NewUser) => {
-        return Promise.resolve({
+        const placeholder: unknown = {
             email : newuser.email,
             username : newuser.username,
             app_metadata : newuser.app_metadata,
@@ -135,7 +137,8 @@ export const createUser = {
             picture: 'https://s.gravatar.com/avatar/e3c2ee5413cf2a34ec3f9d3f605b9067',
             updated_at: '2017-04-17T22:15:04.536Z',
             created_at: '2017-04-17T22:15:04.536Z',
-        });
+        };
+        return Promise.resolve(placeholder as Objects.User);
     },
 };
 
@@ -147,7 +150,7 @@ export const deleteUser = {
 
 export const modifyUser = {
     good : (token: string, userid: string, modifications: object) => { // eslint-disable-line no-unused-vars
-        return Promise.resolve({
+        const placeholder: unknown = {
             email: 'bobbyball@do-not-require-emailaddresses-for-students.com',
             username: 'bobbyball',
             email_verified: true,
@@ -167,6 +170,7 @@ export const modifyUser = {
             last_ip: '87.114.106.231',
             last_login: '2017-04-16T23:29:12.445Z',
             logins_count: 2,
-        });
+        };
+        return Promise.resolve(placeholder as Objects.User);
     },
 };

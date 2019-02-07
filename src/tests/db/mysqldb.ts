@@ -1,7 +1,5 @@
 /*eslint-env mocha */
 
-import * as assert from 'assert';
-
 import * as dbpool from '../../lib/db/mysqldb';
 import * as store from '../../lib/db/store';
 

@@ -1,7 +1,5 @@
 /*eslint-env mocha */
 
-import * as util from 'util';
-import * as uuid from 'uuid/v1';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as request from 'supertest';
@@ -12,7 +10,9 @@ import * as express from 'express';
 import * as conversation from '../../lib/training/conversation';
 import * as visualrecognition from '../../lib/training/visualrecognition';
 import * as TrainingTypes from '../../lib/training/training-types';
+import * as ProjectTypes from '../../lib/db/projects';
 import * as store from '../../lib/db/store';
+import * as Types from '../../lib/db/db-types';
 import * as auth from '../../lib/restapi/auth';
 import testapiserver from './testserver';
 
@@ -30,8 +30,10 @@ describe('REST API - Bluemix credentials', () => {
     let getImageClassifiersStub: sinon.SinonStub;
 
     function authNoOp(
-        req: Express.Request, res: Express.Response,
-        next: (err?: Error) => void)
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction,
+    )
     {
         next();
     }
@@ -49,12 +51,18 @@ describe('REST API - Bluemix credentials', () => {
         checkUserStub = sinon.stub(auth, 'checkValidUser').callsFake(authNoOp);
         requireSupervisorStub = sinon.stub(auth, 'requireSupervisor').callsFake(authNoOp);
 
-        getClassStub = sinon.stub(store, 'getClassTenant').callsFake((id) => {
+        getClassStub = sinon.stub(store, 'getClassTenant').callsFake((id: string): Promise<Types.ClassTenant> => {
             if (id === 'TESTTENANT' || id === 'DIFFERENT') {
-                return Promise.resolve({ isManaged : false });
+                const placeholder: Types.ClassTenant = {
+                    isManaged : false,
+                } as Types.ClassTenant;
+                return Promise.resolve(placeholder);
             }
             else {
-                return Promise.resolve({ isManaged : true });
+                const placeholder: Types.ClassTenant = {
+                    isManaged : true,
+                } as Types.ClassTenant;
+                return Promise.resolve(placeholder);
             }
         });
 
@@ -75,7 +83,8 @@ describe('REST API - Bluemix credentials', () => {
             .stub(visualrecognition, 'getImageClassifiers')
             .callsFake((creds: TrainingTypes.BluemixCredentials) => {
                 if (creds.username + creds.password === VALID_APIKEY) {
-                    return Promise.resolve();
+                    const placeholder: TrainingTypes.ClassifierSummary[] = [];
+                    return Promise.resolve(placeholder);
                 }
                 return Promise.reject({
                     statusCode : 403,
@@ -83,6 +92,7 @@ describe('REST API - Bluemix credentials', () => {
             });
 
         await store.init();
+        await store.deleteClassResources('TESTTENANT');
 
         testServer = testapiserver();
     });
@@ -178,6 +188,7 @@ describe('REST API - Bluemix credentials', () => {
                     servicetype : 'conv',
                     username : VALID_USERNAME,
                     password : VALID_PASSWORD,
+                    credstype : 'conv_lite',
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED)
@@ -199,6 +210,306 @@ describe('REST API - Bluemix credentials', () => {
     });
 
 
+
+    describe('modifyCredentials', () => {
+        it('should make sure that credentials type match the service type', () => {
+            const before = ProjectTypes.credsTypesByLabel.conv_lite.label;
+            const after = ProjectTypes.credsTypesByLabel.visrec_standard.label;
+
+            const servicetype = 'conv';
+            const classid = 'TESTTENANT';
+
+            let credsid: string;
+
+            return request(testServer)
+                .post('/api/classes/' + classid + '/credentials')
+                .send({
+                    servicetype,
+                    username : VALID_USERNAME,
+                    password : VALID_PASSWORD,
+                    credstype : before,
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED)
+                .then((res) => {
+                    const body = res.body;
+                    assert(body.id);
+                    credsid = body.id;
+
+                    assert.strictEqual(body.username, VALID_USERNAME);
+                    assert.strictEqual(body.password, VALID_PASSWORD);
+                    assert.strictEqual(body.credstype, before);
+
+                    return request(testServer)
+                        .get('/api/classes/' + classid + '/credentials?servicetype=conv')
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.OK);
+                })
+                .then(async (res) => {
+                    const body = res.body;
+                    assert.strictEqual(body.length, 1);
+
+                    assert.strictEqual(body[0].id, credsid);
+                    assert.strictEqual(body[0].username, VALID_USERNAME);
+                    assert.strictEqual(body[0].password, VALID_PASSWORD);
+                    assert.strictEqual(body[0].credstype, before);
+
+                    return request(testServer)
+                        .patch('/api/classes/' + classid + '/credentials/' + credsid)
+                        .send([{
+                            op : 'replace',
+                            path : '/credstype',
+                            value : {
+                                servicetype : 'visrec',
+                                credstype : after,
+                            },
+                        }])
+                        .expect(httpstatus.NOT_FOUND);
+                })
+                .then(() => {
+                    return request(testServer)
+                        .get('/api/classes/' + classid + '/credentials?servicetype=conv')
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.OK);
+                })
+                .then(async (res) => {
+                    const body = res.body;
+                    assert.strictEqual(body.length, 1);
+
+                    assert.strictEqual(body[0].id, credsid);
+                    assert.strictEqual(body[0].username, VALID_USERNAME);
+                    assert.strictEqual(body[0].password, VALID_PASSWORD);
+                    assert.strictEqual(body[0].credstype, before);
+
+                    return request(testServer)
+                        .delete('/api/classes/' + classid + '/credentials/' + credsid)
+                        .expect(httpstatus.NO_CONTENT);
+                });
+        });
+
+
+        it('should modify the type of conv credentials', () => {
+            const before = ProjectTypes.credsTypesByLabel.conv_lite.label;
+            const after = ProjectTypes.credsTypesByLabel.conv_standard.label;
+
+            const servicetype = 'conv';
+            const classid = 'TESTTENANT';
+
+            let credsid: string;
+
+            return request(testServer)
+                .post('/api/classes/' + classid + '/credentials')
+                .send({
+                    servicetype,
+                    username : VALID_USERNAME,
+                    password : VALID_PASSWORD,
+                    credstype : before,
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED)
+                .then((res) => {
+                    const body = res.body;
+                    assert(body.id);
+                    credsid = body.id;
+
+                    assert.strictEqual(body.username, VALID_USERNAME);
+                    assert.strictEqual(body.password, VALID_PASSWORD);
+                    assert.strictEqual(body.credstype, before);
+
+                    return request(testServer)
+                        .get('/api/classes/' + classid + '/credentials?servicetype=conv')
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.OK);
+                })
+                .then(async (res) => {
+                    const body = res.body;
+                    assert.strictEqual(body.length, 1);
+
+                    assert.strictEqual(body[0].id, credsid);
+                    assert.strictEqual(body[0].username, VALID_USERNAME);
+                    assert.strictEqual(body[0].password, VALID_PASSWORD);
+                    assert.strictEqual(body[0].credstype, before);
+
+                    return request(testServer)
+                        .patch('/api/classes/' + classid + '/credentials/' + credsid)
+                        .send([{
+                            op : 'replace',
+                            path : '/credstype',
+                            value : {
+                                servicetype,
+                                credstype : after,
+                            },
+                        }])
+                        .expect(httpstatus.NO_CONTENT);
+                })
+                .then(() => {
+                    return request(testServer)
+                        .get('/api/classes/' + classid + '/credentials?servicetype=conv')
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.OK);
+                })
+                .then(async (res) => {
+                    const body = res.body;
+                    assert.strictEqual(body.length, 1);
+
+                    assert.strictEqual(body[0].id, credsid);
+                    assert.strictEqual(body[0].username, VALID_USERNAME);
+                    assert.strictEqual(body[0].password, VALID_PASSWORD);
+                    assert.strictEqual(body[0].credstype, after);
+
+                    return request(testServer)
+                        .delete('/api/classes/' + classid + '/credentials/' + credsid)
+                        .expect(httpstatus.NO_CONTENT);
+                });
+        });
+
+
+        it('should modify the type of visrec credentials', () => {
+            const before = ProjectTypes.credsTypesByLabel.visrec_standard.label;
+            const after = ProjectTypes.credsTypesByLabel.visrec_lite.label;
+
+            const servicetype = 'visrec';
+            const classid = 'TESTTENANT';
+
+            let credsid: string;
+
+            return request(testServer)
+                .post('/api/classes/' + classid + '/credentials')
+                .send({
+                    servicetype,
+                    apikey : VALID_APIKEY,
+                    credstype : before,
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED)
+                .then((res) => {
+                    const body = res.body;
+                    assert(body.id);
+                    credsid = body.id;
+
+                    assert.strictEqual(body.apikey, VALID_APIKEY);
+                    assert.strictEqual(body.credstype, before);
+
+                    return request(testServer)
+                        .get('/api/classes/' + classid + '/credentials?servicetype=visrec')
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.OK);
+                })
+                .then(async (res) => {
+                    const body = res.body;
+                    assert.strictEqual(body.length, 1);
+
+                    assert.strictEqual(body[0].id, credsid);
+                    assert.strictEqual(body[0].apikey, VALID_APIKEY);
+                    assert.strictEqual(body[0].credstype, before);
+
+                    return request(testServer)
+                        .patch('/api/classes/' + classid + '/credentials/' + credsid)
+                        .send([{
+                            op : 'replace',
+                            path : '/credstype',
+                            value : {
+                                servicetype,
+                                credstype : after,
+                            },
+                        }])
+                        .expect(httpstatus.NO_CONTENT);
+                })
+                .then(() => {
+                    return request(testServer)
+                        .get('/api/classes/' + classid + '/credentials?servicetype=visrec')
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.OK);
+                })
+                .then(async (res) => {
+                    const body = res.body;
+                    assert.strictEqual(body.length, 1);
+
+                    assert.strictEqual(body[0].id, credsid);
+                    assert.strictEqual(body[0].apikey, VALID_APIKEY);
+                    assert.strictEqual(body[0].credstype, after);
+
+                    return request(testServer)
+                        .delete('/api/classes/' + classid + '/credentials/' + credsid)
+                        .expect(httpstatus.NO_CONTENT);
+                });
+        });
+
+
+
+        it('should reject invalid patch requests', async () => {
+            const tests = [
+                {
+                    input : { hello : 'world' },
+                    output : 'PATCH body should be an array',
+                },
+                {
+                    input : [ { hello : 'world' }, { again : 'world' } ],
+                    output : 'Only individual PATCH requests are supported',
+                },
+                {
+                    input : [{ op : 'replace', path : '/servicetype',
+                        value : { servicetype : 'conv', credstype : 'conv_lite' } }],
+                    output : 'Only modifications to credentials type are supported',
+                },
+                {
+                    input : [{ path : '/credstype',
+                        value : { servicetype : 'conv', credstype : 'conv_standard' } }],
+                    output : 'PATCH requests must include an op',
+                },
+                {
+                    input : [{ op : 'invalid', path : '/credstype',
+                        value : { servicetype : 'conv', credstype : 'conv_lite' } }],
+                    output : 'Invalid PATCH op',
+                },
+                {
+                    input : [{ op : 'replace', path : '/credstype' }],
+                    output : 'PATCH requests must include a value',
+                },
+                {
+                    input : [{ op : 'replace', path : '/credstype',
+                        value : { servicetype : 'invalid', credstype : 'conv_standard' } }],
+                    output : 'PATCH requests must specify the service type and credentials type',
+                },
+                {
+                    input : [{ op : 'replace', path : '/credstype',
+                        value : { servicetype : 'conv', credstype : 'invalid' } }],
+                    output : 'Unrecognised credentials type',
+                },
+                {
+                    input : [{ op : 'replace', path : '/credstype',
+                        value : { servicetype : 'conv', credstype : 'visrec_lite' } }],
+                    output : 'Invalid credentials type',
+                },
+            ];
+
+            for (const test of tests) {
+                await request(testServer)
+                        .patch('/api/classes/TESTTENANT/credentials/abcdef')
+                        .send(test.input)
+                        .expect(httpstatus.BAD_REQUEST)
+                        .expect('Content-Type', /json/)
+                        .then((err) => {
+                            assert.strictEqual(err.body.error, test.output);
+                        });
+            }
+        });
+
+
+        it('should fail to modify non-existent credentials', () => {
+            return request(testServer)
+                .patch('/api/classes/TESTTENANT/credentials/abcdef')
+                .send([{
+                    op : 'replace', path : '/credstype',
+                    value : { servicetype : 'conv', credstype : 'conv_standard' },
+                }])
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.NOT_FOUND);
+        });
+    });
+
+
+
     describe('createCredentials', () => {
 
         it('should prevent creating credentials for managed classes', () => {
@@ -211,6 +522,7 @@ describe('REST API - Bluemix credentials', () => {
                 .send({
                     servicetype : 'conv',
                     username, password,
+                    credstype : 'unknown',
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.FORBIDDEN)
@@ -230,6 +542,7 @@ describe('REST API - Bluemix credentials', () => {
                 .send({
                     servicetype : 'conv',
                     username, password,
+                    credstype : 'unknown',
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
@@ -250,6 +563,7 @@ describe('REST API - Bluemix credentials', () => {
                 .send({
                     servicetype : 'conv',
                     username, password,
+                    credstype : 'conv_standard',
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
@@ -271,6 +585,7 @@ describe('REST API - Bluemix credentials', () => {
                     servicetype : 'conv',
                     username : VALID_USERNAME,
                     password : VALID_PASSWORD,
+                    credstype : 'conv_lite',
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED)
@@ -281,6 +596,7 @@ describe('REST API - Bluemix credentials', () => {
 
                     assert.strictEqual(body.username, VALID_USERNAME);
                     assert.strictEqual(body.password, VALID_PASSWORD);
+                    assert.strictEqual(body.credstype, 'conv_lite');
 
                     return request(testServer)
                         .get('/api/classes/' + classid + '/credentials?servicetype=conv')
@@ -294,6 +610,7 @@ describe('REST API - Bluemix credentials', () => {
                     assert.strictEqual(body[0].id, credsid);
                     assert.strictEqual(body[0].username, VALID_USERNAME);
                     assert.strictEqual(body[0].password, VALID_PASSWORD);
+                    assert.strictEqual(body[0].credstype, 'conv_lite');
 
                     // check that the correct region was identified
                     const verify = await store.getBluemixCredentialsById(credsid);
@@ -327,6 +644,7 @@ describe('REST API - Bluemix credentials', () => {
                     servicetype : 'conv',
                     username : VALID_EU_USERNAME,
                     password : VALID_EU_PASSWORD,
+                    credstype : 'conv_standard',
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED)
@@ -337,6 +655,7 @@ describe('REST API - Bluemix credentials', () => {
 
                     assert.strictEqual(body.username, VALID_EU_USERNAME);
                     assert.strictEqual(body.password, VALID_EU_PASSWORD);
+                    assert.strictEqual(body.credstype, 'conv_standard');
 
                     return request(testServer)
                         .get('/api/classes/' + classid + '/credentials?servicetype=conv')
@@ -350,6 +669,7 @@ describe('REST API - Bluemix credentials', () => {
                     assert.strictEqual(body[0].id, credsid);
                     assert.strictEqual(body[0].username, VALID_EU_USERNAME);
                     assert.strictEqual(body[0].password, VALID_EU_PASSWORD);
+                    assert.strictEqual(body[0].credstype, 'conv_standard');
 
                     // check that the correct region was identified
                     const verify = await store.getBluemixCredentialsById(credsid);
@@ -372,6 +692,7 @@ describe('REST API - Bluemix credentials', () => {
         });
 
 
+
         it('should create and delete visrec credentials', () => {
             const classid = 'TESTTENANT';
 
@@ -382,6 +703,7 @@ describe('REST API - Bluemix credentials', () => {
                 .send({
                     servicetype : 'visrec',
                     apikey : VALID_APIKEY,
+                    credstype : 'visrec_lite',
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED)

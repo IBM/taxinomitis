@@ -24,6 +24,7 @@ export const ERROR_MESSAGES = {
                          'Please stop now and let your teacher or group leader know that ' +
                          '"the Watson Assistant service is currently rate limiting their API key"',
     MODEL_NOT_FOUND : 'Your machine learning model could not be found on the training server.',
+    TEXT_TOO_LONG : 'text cannot be longer than 2048 characters',
 };
 
 
@@ -124,11 +125,12 @@ async function createWorkspace(
 
                 // This shouldn't happen.
                 // It probably needs more immediate attention, so notify the Slack bot
-                if (DISRUPTIVE_TENANTS.includes(project.classid) === false) {
+                const ignore = await store.isTenantDisruptive(project.classid);
+                if (ignore === false) {
                     notifications.notify('Unexpected failure to train text classifier' +
                                         ' for project : ' + project.id +
                                         ' in class : ' + project.classid + ' : ' +
-                                        err.message);
+                                        err.message, notifications.SLACK_CHANNELS.TRAINING_ERRORS);
                 }
 
                 throw err;
@@ -148,11 +150,13 @@ async function createWorkspace(
     // This is a user-error, not indicative of an MLforKids failure.
     //  But notify the Slack bot anyway, as for now it is useful to be able to
     //  keep track of how frequently users are running into these resource limits.
-    if (DISRUPTIVE_TENANTS.includes(project.classid) === false) {
+    const ignoreErr = await store.isTenantDisruptive(project.classid);
+    if (ignoreErr === false) {
         notifications.notify('Failed to train text classifier' +
-                            ' for project : ' + project.id +
-                            ' in class : ' + project.classid +
-                            ' because:\n' + finalError);
+                             ' for project : ' + project.id +
+                             ' in class : ' + project.classid +
+                             ' because:\n' + finalError,
+                             notifications.SLACK_CHANNELS.TRAINING_ERRORS);
     }
 
     throw new Error(finalError);
@@ -308,7 +312,7 @@ export async function getStatus(
             return workspace;
         })
         .catch((err) => {
-            log.error({ err }, 'Failed to get status');
+            log.warn({ err }, 'Failed to get status');
             workspace.status = 'Non Existent';
             return workspace;
         });
@@ -322,16 +326,19 @@ async function getTraining(project: DbObjects.Project): Promise<TrainingObjects.
 
     const intents: TrainingObjects.ConversationIntent[] = [];
     for (const label of project.labels) {
-        const training = await store.getUniqueTrainingTextsByLabel(project.id, label, {
-            start : 0, limit : counts[label],
-        });
 
-        intents.push({
-            intent : label.replace(/\s/g, '_'),
-            examples : training.map((item) => {
-                return { text : item };
-            }),
-        });
+        if (label in counts && counts[label] > 0) {
+            const training = await store.getUniqueTrainingTextsByLabel(project.id, label, {
+                start : 0, limit : counts[label],
+            });
+
+            intents.push({
+                intent : label.replace(/\s/g, '_'),
+                examples : training.map((item) => {
+                    return { text : item };
+                }),
+            });
+        }
     }
 
     return {
@@ -405,14 +412,16 @@ async function submitTrainingToConversation(
         return workspace;
     }
     catch (err) {
-        log.error({ req, err }, ERROR_MESSAGES.UNKNOWN);
+        log.warn({ req, err }, ERROR_MESSAGES.UNKNOWN);
 
-        if (DISRUPTIVE_TENANTS.includes(project.classid) === false) {
+        const ignoreErr = await store.isTenantDisruptive(project.classid);
+        if (ignoreErr === false) {
             notifications.notify('Failed to train text classifier' +
-                                ' for project : ' + project.id +
-                                ' in class : ' + project.classid +
-                                ' using creds : ' + credentials.id +
-                                ' : ' + err.message);
+                                 ' for project : ' + project.id +
+                                 ' in class : ' + project.classid +
+                                 ' using creds : ' + credentials.id +
+                                 ' : ' + err.message,
+                                 notifications.SLACK_CHANNELS.TRAINING_ERRORS);
         }
 
         // The full error object will include the Conversation request with the
@@ -444,6 +453,7 @@ export async function testClassifier(
             input : {
                 text,
             },
+            alternate_intents : true,
         },
     };
 
@@ -472,6 +482,14 @@ export async function testClassifier(
             err.error && err.error.code && err.error.code === httpStatus.NOT_FOUND)
         {
             throw new Error(ERROR_MESSAGES.MODEL_NOT_FOUND);
+        }
+        if (err.statusCode === httpStatus.BAD_REQUEST &&
+            err.error &&
+            err.error.code && err.error.code === httpStatus.BAD_REQUEST &&
+            err.error.errors && Array.isArray(err.error.errors) && err.error.errors.length > 0 &&
+            err.error.errors[0].message === ERROR_MESSAGES.TEXT_TOO_LONG)
+        {
+            throw new Error(ERROR_MESSAGES.TEXT_TOO_LONG);
         }
 
         log.error({ err, classifierId, credentials, projectid, text }, 'Failed to classify text');
@@ -514,6 +532,7 @@ export async function identifyRegion(username: string, password: string): Promis
         classid: 'placeholder',
         id: 'placeholder',
         url: 'unknown',
+        credstype: 'unknown',
     });
 
     // as we don't care about the response (we're just checking the credentials)
@@ -526,6 +545,8 @@ export async function identifyRegion(username: string, password: string): Promis
         'https://gateway-wdc.watsonplatform.net/assistant/api',
         'https://gateway-syd.watsonplatform.net/assistant/api',
         'https://gateway-fra.watsonplatform.net/assistant/api',
+        'https://gateway-tok.watsonplatform.net/assistant/api',
+        'https://gateway-lon.watsonplatform.net/assistant/api',
         'https://gateway.watsonplatform.net/conversation/api',
     ];
 
@@ -642,7 +663,7 @@ async function createBaseRequest(credentials: TrainingObjects.BluemixCredentials
 
         const req: NewConvRequest = {
             qs : {
-                version: '2018-02-16',
+                version: '2018-09-20',
                 include_audit: true,
             },
             headers : {
@@ -698,7 +719,7 @@ interface LegacyConvRequest extends ConversationRequestBase {
 }
 interface NewConvRequest extends ConversationRequestBase {
     readonly qs: {
-        readonly version: '2018-02-16';
+        readonly version: '2018-09-20';
         page_limit?: number;
         readonly include_audit: true;
     };
@@ -716,6 +737,7 @@ interface TestRequest {
         readonly input: {
             readonly text: string;
         };
+        readonly alternate_intents: boolean;
     };
 }
 
@@ -724,32 +746,3 @@ export interface LegacyTrainingRequest extends TrainingRequest, LegacyConvReques
 export interface NewTrainingRequest extends TrainingRequest, NewConvRequest {}
 export interface LegacyTestRequest extends TestRequest, LegacyConvRequest {}
 export interface NewTestRequest extends TestRequest, NewConvRequest {}
-
-
-
-
-
-
-
-/**
- * Tenants that have caused thousands of notifications about
- * training failures, who consistently ignore warnings of
- * insufficient API keys, and consistently ignore UI requests
- * to stop training new models even after rate limiting is
- * introduced.
- *
- * With the current implementation, where I receive a notification
- * to my mobile phone in the event of a training failure, this
- * is, at best, disruptive. Thousands of alert notifications in
- * an evening, aside from flattening my mobile phone battery,
- * makes it impossible for me to monitor or support other classes.
- *
- * For now, I'll ignore all errors from these classes. It's not
- * a great fix, but as a quick temporary patch to calm my
- * phone down, it'll do.
- */
-const DISRUPTIVE_TENANTS = [
-    '2b7707ab-6172-4400-96d4-0970fe2f9eab',
-    'f8874ca0-93cc-4915-8031-cb9f0b83b78a',
-    'ab05513f-8023-45f2-b344-2e92a496d233',
-];

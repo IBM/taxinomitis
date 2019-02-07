@@ -8,7 +8,12 @@
 </div>
 
 <div ng-if="isAuthenticated && !projectId" class="alert alert-danger pageheadermsg">
-    <strong>Error:</strong> Missing project id. Go back to <a ui-sref="projects">your projects</a>
+    <strong translate="APP.ERROR"></strong> <span translate="ERRORS.MISSINGPROJECTID"></span> <a ui-sref="projects" translate="APP.PROJECTS"></a>
+</div>
+
+<div ng-if="failure" class="alert alert-danger pageheadermsg" role="alert">
+    <strong translate="APP.ERROR"></strong> {{ failure.message }}<br/>
+    <em ng-if="failure.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
 </div>
 
 <div ng-if="isAuthenticated && projectId">
@@ -16,17 +21,7 @@
         <h2 class="text-center" translate="PYTHON.TITLE"></h2>
     </div>
     <div class="backbutton">
-        <a ui-sref="mlproject({ projectId : projectId, userId : userId  })">&lt; Back to project</a>
-    </div>
-
-    <div ng-repeat="error in vm.errors" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Error:</strong> {{ error.message }}<br/>
-        <em ng-if="error.status >= 500">If this keeps happening, please <a ui-sref="help">let me know</a>.</em>
-    </div>
-    <div ng-repeat="warning in vm.warnings" class="alert alert-warning alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('warnings', $index)">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Warning:</strong> {{ warning.message }}
+        <a ui-sref="mlproject({ projectId : projectId, userId : userId  })" translate="APP.BACKTOPROJECT"></a>
     </div>
 
     <div ng-if="projectId && !project" class="loading"> </div>
@@ -35,7 +30,7 @@
         <div class="modelguidance">
             <div class="modelstatusdetail" translate="PYTHON.NOTREADY"></div>
             <div class="modelstatusdetail">
-                Or go to the <a ui-sref="mlproject_models({ projectId : projectId, userId : userId })" translate="PROJECT.LEARNANDTEST.TITLE"></a>
+                Go to the <a ui-sref="mlproject_models({ projectId : projectId, userId : userId })" translate="PROJECT.LEARNANDTEST.TITLE"></a>
                 page for some tips on what to do next.
             </div>
         </div>
@@ -52,13 +47,14 @@
         </div>
     </div>
 
-    <div ng-if="scratchkey && scratchkey.model" class="modelguidancecontainer">
-        <div class="modelguidance">
+    <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1">
+        <div class="modelguidance" ng-if="scratchkey.model" >
             <div class="modelstatusdetail">
-                If you know how to use Python, you can use this code to
+                You can use this code to
                 <span ng-if="project.type === 'text'">submit text</span>
                 <span ng-if="project.type === 'numbers'">submit numbers</span>
                 <span ng-if="project.type === 'images' && testsource === 'local'">submit an image file that you have on your computer</span>
+                <span ng-if="project.type === 'images' && testsource === 'webcam'">submit a photo from your webcam</span>
                 <span ng-if="project.type === 'images' && testsource === 'web'">submit an image file from the Internet</span>
                 to the machine learning model that you've trained.
             </div>
@@ -94,19 +90,29 @@
             </div>
             <div class="modelstatusdetail"><pre>$ python yourscript.py
 result: '{{ project.labels[0] }}' with 81% confidence</pre></div>
-            <div class="modelstatusdetail" ng-if="project.type==='images' && testsource === 'local'">
-                <a href="" ng-click="setSource('web')">Click here if you would prefer Python for submitting an image from the Internet</a>
+            <div class="modelstatusdetail" ng-if="project.type==='images' && testsource !== 'web'">
+                <a href="" ng-click="setSource('web')">Click here for Python for submitting an image from the Internet</a>
             </div>
-            <div class="modelstatusdetail" ng-if="project.type==='images' && testsource === 'web'">
-                <a href="" ng-click="setSource('local')">Click here if you would prefer Python for submitting an image file</a>
+            <div class="modelstatusdetail" ng-if="project.type==='images' && testsource !== 'webcam'">
+                <a href="" ng-click="setSource('webcam')">Click here for Python for submitting a photo from your webcam</a>
+            </div>
+            <div class="modelstatusdetail" ng-if="project.type==='images' && testsource !== 'local'">
+                <a href="" ng-click="setSource('local')">Click here for Python for submitting an image file</a>
             </div>
             <div class="modelstatusdetail">
-                If you've never used the <a href="http://docs.python-requests.org"><code>requests</code></a>
-                library before, you might need to <a href="http://docs.python-requests.org/en/master/user/install/#install">install it first</a>.
+                If you've never used <a href="http://docs.python-requests.org"><code>requests</code></a>
+                <span ng-hide="project.type==='images' && testsource === 'webcam'">
+                     before, you might need to <a href="http://docs.python-requests.org/en/master/user/install/#install">install it first</a>.
+                </span>
+                <span ng-if="project.type==='images' && testsource === 'webcam'">
+                    or <a href="https://pypi.org/project/opencv-python/"><code>OpenCV</code></a> libraries before, you might need to
+                    install them first.
+                </span>
+                <br/>
                 Ask your teacher for help if you're not sure how to do that.
             </div>
         </div>
-        <div class="modelguidance" ng-if="project.type === 'text'">
+        <div class="modelguidance" ng-if="scratchkey.model && project.type === 'text'" style="flex: 2">
 <div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">import</span> <span class="pythonimport">requests</span>
 
 <span class="pythoncomments"># This function will pass your text to the machine learning model</span>
@@ -125,18 +131,18 @@ result: '{{ project.labels[0] }}' with 81% confidence</pre></div>
         response<span class="pythonop">.</span>raise_for_status()
 
 
-<span class="pythoncomments"># CHANGE THIS to something you want your machine learning model to classify</span>
+<span class="pythoncomments"># <strong>CHANGE THIS</strong> to something you want your machine learning model to classify</span>
 demo <span class="pythonop">=</span> classify(<span style="background-color: #fff0f0">&quot;<strong>{{ testdata.text }}</strong>&quot;</span>)
 
 label <span class="pythonop">=</span> demo[&quot;class_name&quot;]
 confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
 
 
-<span class="pythoncomments"># CHANGE THIS to do something different with the result</span>
+<span class="pythoncomments"># <strong>CHANGE THIS</strong> to do something different with the result</span>
 <span class="pythonfunc">print</span> (&quot;result: &#39;%s&#39; with %d%% confidence&quot; <span class="pythonop">%</span> (label, confidence))
 </pre></div>
         </div>
-        <div class="modelguidance" ng-if="project.type === 'numbers'">
+        <div class="modelguidance" ng-if="scratchkey.model && project.type === 'numbers'"  style="flex: 2">
 <div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">import</span> <span class="pythonimport">requests</span>
 
 <span class="pythoncomments"># This function will pass your numbers to the machine learning model</span>
@@ -167,7 +173,7 @@ confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
 <span class="pythonfunc">print</span> (&quot;result: &#39;%s&#39; with %d%% confidence&quot; <span class="pythonop">%</span> (label, confidence))
 </pre></div>
         </div>
-        <div class="modelguidance" ng-if="project.type === 'images' && testsource === 'local'">
+        <div class="modelguidance" ng-if="scratchkey.model && project.type === 'images' && testsource === 'local'" style="flex: 2">
 <div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">import</span> <span class="pythonimport">requests</span>
 
 <span class="pythoncomments"># Gets the contents of an image file to be sent to the</span>
@@ -181,7 +187,7 @@ confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
 <span class="pythoncomments"># This function will pass your image to the machine learning model</span>
 <span class="pythoncomments"># and return the top result with the highest confidence</span>
 <span class="pythonfunc">def</span> <span class="pythonfuncname">classify</span>(imagefile):
-    key <span class="pythonop">=</span> &quot;9dcb8cf0-7655-11e7-bec6-4b6cfab7e9c1a914e139-e673-47a9-b442-dcef47e30012&quot;
+    key <span class="pythonop">=</span> &quot;{{ scratchkey.id }}&quot;
     url <span class="pythonop">=</span> &quot;https://machinelearningforkids.co.uk/api/scratch/&quot;<span class="pythonop">+</span> key <span class="pythonop">+</span> &quot;/classify&quot;
 
     response <span class="pythonop">=</span> requests<span class="pythonop">.</span>post(url, json<span class="pythonop">=</span>{ &quot;data&quot; : getImageFileData(imagefile) })
@@ -205,7 +211,51 @@ confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
 <span class="pythonfunc">print</span> (&quot;result: &#39;<span style="background-color: #eeeeee">%s</span>&#39; with <span style="background-color: #eeeeee">%d%%</span> confidence&quot; <span class="pythonop">%</span> (label, confidence))
 </pre></div>
         </div>
-        <div class="modelguidance" ng-if="project.type === 'images' && testsource === 'web'">
+        <div class="modelguidance" ng-if="scratchkey.model && project.type === 'images' && testsource === 'webcam'" style="flex: 2">
+<div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">import</span> <span class="pythonimport">cv2</span>, <span class="pythonimport">requests</span>, <span class="pythonimport">base64</span>
+
+<span class="pythoncomments"># Gets an image from the webcam</span>
+<span class="pythonfunc">def</span> <span class="pythonfuncname">getWebcamImageData</span>():
+    cam <span style="color: #333333">=</span> cv2<span style="color: #333333">.</span>VideoCapture(<span style="color: #0000DD; font-weight: bold">0</span>)
+    <span style="color: #008800; font-weight: bold">try</span>:
+        ok, image <span style="color: #333333">=</span> cam<span style="color: #333333">.</span>read()
+        <span style="color: #008800; font-weight: bold">if</span> ok <span style="color: #333333">!=</span> <span style="color: #007020">True</span>:
+            <span style="color: #008800; font-weight: bold">raise</span> <span style="color: #FF0000; font-weight: bold">ValueError</span>(<span style="background-color: #fff0f0">&quot;Problem using the webcam&quot;</span>)
+        ok, data <span style="color: #333333">=</span> cv2<span style="color: #333333">.</span>imencode(<span style="background-color: #fff0f0">&#39;.jpg&#39;</span>, image)
+        <span style="color: #008800; font-weight: bold">if</span> ok <span style="color: #333333">!=</span> <span style="color: #007020">True</span>:
+            <span style="color: #008800; font-weight: bold">raise</span> <span style="color: #FF0000; font-weight: bold">ValueError</span>(<span style="background-color: #fff0f0">&quot;Problem getting image data&quot;</span>)
+        <span style="color: #008800; font-weight: bold">return</span> base64<span style="color: #333333">.</span>b64encode(data)
+    <span style="color: #008800; font-weight: bold">finally</span>:
+        cam<span style="color: #333333">.</span>release()
+
+
+<span class="pythoncomments"># This function will pass your image to the machine learning model</span>
+<span class="pythoncomments"># and return the top result with the highest confidence</span>
+<span class="pythonfunc">def</span> <span class="pythonfuncname">classify</span>():
+    key <span class="pythonop">=</span> &quot;{{ scratchkey.id }}&quot;
+    url <span class="pythonop">=</span> &quot;https://machinelearningforkids.co.uk/api/scratch/&quot;<span class="pythonop">+</span> key <span class="pythonop">+</span> &quot;/classify&quot;
+
+    response <span class="pythonop">=</span> requests<span class="pythonop">.</span>post(url, json<span class="pythonop">=</span>{ &quot;data&quot; : getWebcamImageData() })
+
+    <span class="pythonfunc">if</span> response<span class="pythonop">.</span>ok:
+        responseData <span class="pythonop">=</span> response<span class="pythonop">.</span>json()
+        topMatch <span class="pythonop">=</span> responseData[<span class="pythonint">0</span>]
+        <span class="pythonfunc">return</span> topMatch
+    <span class="pythonfunc">else</span>:
+        response<span class="pythonop">.</span>raise_for_status()
+
+
+demo <span class="pythonop">=</span> classify()
+
+label <span class="pythonop">=</span> demo[&quot;class_name&quot;]
+confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
+
+
+<span class="pythoncomments"># CHANGE THIS to do something different with the result</span>
+<span class="pythonfunc">print</span> (&quot;result: &#39;<span style="background-color: #eeeeee">%s</span>&#39; with <span style="background-color: #eeeeee">%d%%</span> confidence&quot; <span class="pythonop">%</span> (label, confidence))
+            </pre></div>
+        </div>
+        <div class="modelguidance" ng-if="scratchkey.model && project.type === 'images' && testsource === 'web'" style="flex: 2">
 <div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">import</span> <span class="pythonimport">requests</span><span class="pythonop">,</span> <span class="pythonimport">base64</span>
 
 <span class="pythoncomments"># Gets the contents of an image on the Internet to be</span>
@@ -240,6 +290,18 @@ confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
 <span class="pythoncomments"># CHANGE THIS to do something different with the result</span>
 <span class="pythonfunc">print</span> (&quot;result: &#39;<span style="background-color: #eeeeee">%s</span>&#39; with <span style="background-color: #eeeeee">%d%%</span> confidence&quot; <span class="pythonop">%</span> (label, confidence))
 </pre></div>
+        </div>
+
+        <div class="modelguidance" style="flex-basis: 100%" ng-if="project.type !== 'images'">
+            <div class="modelstatusdetail">
+                If you know how to use it, your API key for this project is:
+            </div>
+            <div class="modelstatusdetail">
+                <div class="pythoncodebox"><pre class="pythoncode">{{ scratchkey.id }}</pre></div>
+            </div>
+            <div class="modelstatusdetail">
+                <em>Treat it like a password and make sure that you keep it secret!</em>
+            </div>
         </div>
     </div>
 </div>

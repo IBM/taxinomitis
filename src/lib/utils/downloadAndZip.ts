@@ -31,21 +31,23 @@ interface ObjectStorageSpec {
 export interface DownloadFromWeb {
     readonly type: 'download';
     readonly url: string;
+    readonly imageid: string;
 }
 
 export type ImageDownload = RetrieveFromStorage | DownloadFromWeb;
 
+type PossibleError = Error | null;
 
 
-
-type IFileTypeCallback = (err?: Error, filetype?: string) => void;
-type IErrCallback = (err?: Error) => void;
-type IRenameCallback = (err?: Error, renamedPath?: string) => void;
-type IDownloadCallback = (err?: Error, downloadedFilePath?: string) => void;
-type IDownloadAllCallback = (err?: Error, downloadedFilePaths?: string[]) => void;
-type IZippedCallback = (err?: Error, downloadedFilePaths?: string[], zipPath?: string, zipSize?: number) => void;
-type IZipCallback = (err?: Error, zipPath?: string, zipSize?: number) => void;
-type ICreateZipCallback = (err?: Error, zipPath?: string) => void;
+type IFileTypeCallback = (err?: PossibleError, filetype?: string) => void;
+type IErrCallback = (err?: PossibleError) => void;
+type IRenameCallback = (err?: PossibleError, renamedPath?: string) => void;
+type IDownloadCallback = (err?: PossibleError, downloadedFilePath?: string) => void;
+type IDownloadAllCallback = (err?: PossibleError, downloadedFilePaths?: string[]) => void;
+type IZippedCallback = (err?: PossibleError, downloadedFilePaths?: string[],
+                        zipPath?: string, zipSize?: number) => void;
+type IZipCallback = (err?: PossibleError, zipPath?: string, zipSize?: number) => void;
+type ICreateZipCallback = (err?: PossibleError, zipPath?: string) => void;
 
 
 /**
@@ -164,6 +166,11 @@ function downloadAndRename(location: ImageDownload, callback: IDownloadCallback)
         (tmpFilePath: string, next: IDownloadCallback) => {
             // download the file to the temp location on disk
             retrieveImage(location, tmpFilePath, (err) => {
+                if (err && err.message.startsWith(download.ERRORS.DOWNLOAD_FAIL)) {
+                    const errWithLocation: any = err as unknown;
+                    errWithLocation.location = location;
+                    return callback(errWithLocation);
+                }
                 next(err, tmpFilePath);
             });
         },
@@ -171,7 +178,7 @@ function downloadAndRename(location: ImageDownload, callback: IDownloadCallback)
             // rename the file to give it the right extension
             renameFileFromContents(tmpFilePath, location, next);
         },
-    ], (err?: Error, downloadedPath?: string) => {
+    ], (err?: PossibleError, downloadedPath?: string) => {
         if (err) {
             log.error({ err, location }, 'Failed to download');
         }
@@ -186,7 +193,7 @@ function downloadAndRename(location: ImageDownload, callback: IDownloadCallback)
  */
 function downloadAll(locations: ImageDownload[], callback: IDownloadAllCallback): void {
     // @ts-ignore async.map types have a problem with this
-    async.map(locations, downloadAndRename, callback);
+    async.mapLimit(locations, 2, downloadAndRename, callback);
 }
 
 
@@ -221,7 +228,8 @@ function createZip(filepaths: string[], callback: IZipCallback): void {
     function invokeCallbackSafely(err?: Error, zipPath?: string, zipSize?: number): void {
         if (callbackCalled) {
             log.error({ filepaths }, 'Attempt to call callbackfn multiple times');
-            notifications.notify('downloadAndZip failure');
+            notifications.notify('downloadAndZip failure',
+                                 notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
         }
         else {
             callbackCalled = true;
@@ -251,7 +259,8 @@ function createZip(filepaths: string[], callback: IZipCallback): void {
 
         outputStream.on('warning', (warning) => {
             log.error({ warning }, 'Unexpected warning event from writable filestream');
-            notifications.notify('outputStream warning');
+            notifications.notify('outputStream warning',
+                                 notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
         });
 
         outputStream.on('error', (ziperr) => {
@@ -296,7 +305,7 @@ function downloadAllIntoZip(locations: ImageDownload[], callback: ICreateZipCall
             downloadAll(locations, next);
         },
         (downloadedFilePaths: string[], next: IZippedCallback) => {
-            createZip(downloadedFilePaths, (err?: Error, zippath?: string, zipsize?: number) => {
+            createZip(downloadedFilePaths, (err?: PossibleError, zippath?: string, zipsize?: number) => {
                 next(err, downloadedFilePaths, zippath, zipsize);
             });
         },
@@ -321,7 +330,9 @@ export function run(locations: ImageDownload[]): Promise<string> {
     return new Promise((resolve, reject) => {
         downloadAllIntoZip(locations, (err, zippath) => {
             if (err) {
-                log.error({ err }, 'Failed to create training zip');
+                if (!err.message.startsWith(download.ERRORS.DOWNLOAD_FAIL)) {
+                    log.error({ err }, 'Failed to create training zip');
+                }
                 return reject(err);
             }
             return resolve(zippath);

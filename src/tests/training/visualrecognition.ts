@@ -7,11 +7,9 @@
 import * as uuid from 'uuid/v1';
 import * as fs from 'fs';
 import * as assert from 'assert';
-import * as httpstatus from 'http-status';
 import * as sinon from 'sinon';
 import * as request from 'request-promise';
 import * as clone from 'clone';
-import * as randomstring from 'randomstring';
 import * as tmp from 'tmp';
 
 import * as store from '../../lib/db/store';
@@ -22,6 +20,7 @@ import * as iam from '../../lib/iam';
 import * as downloadAndZip from '../../lib/utils/downloadAndZip';
 
 import * as mockstore from './mockstore';
+import requestPromise = require('request-promise');
 
 
 
@@ -68,7 +67,9 @@ describe('Training - Visual Recognition', () => {
         storeScratchKeyStub = sinon.stub(store, 'storeOrUpdateScratchKey').callsFake(mockstore.storeOrUpdateScratchKey);
         resetExpiredScratchKeyStub = sinon.stub(store, 'resetExpiredScratchKey').callsFake(mockstore.resetExpiredScratchKey);
         getClassStub = sinon.stub(store, 'getClassTenant').callsFake(mockstore.getClassTenant);
-        setTimeoutStub = sinon.stub(global, 'setTimeout').returns({});
+
+        const fakeTimer: NodeJS.Timer = {} as NodeJS.Timer;
+        setTimeoutStub = sinon.stub(global, 'setTimeout').returns(fakeTimer);
 
         downloadStub = sinon.stub(downloadAndZip, 'run').callsFake(mockDownloadAndZip.run);
     });
@@ -370,7 +371,7 @@ describe('Training - Visual Recognition', () => {
             });
         },
         deleteClassifier : (url: string) => {
-            return new Promise((resolve, reject) => {
+            const prom: unknown = new Promise((resolve, reject) => {
                 switch (url) {
                 case 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/good':
                     return resolve();
@@ -382,6 +383,7 @@ describe('Training - Visual Recognition', () => {
                     return reject({ error : 'Resource not found' });
                 }
             });
+            return prom as requestPromise.RequestPromise;
         },
         testClassify : (url: string, opts: visrec.LegacyTestFileRequest | visrec.LegacyTestUrlRequest) => {
             assert.strictEqual(url, 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classify');
@@ -535,7 +537,7 @@ describe('Training - Visual Recognition', () => {
 
 
     const mockDownloadAndZip = {
-        run : (locations: downloadAndZip.ImageDownload[]) => {
+        run : (locations: downloadAndZip.ImageDownload[]): Promise<string> => {
             return new Promise((resolve) => {
                 for (const location of locations) {
                     if (location.type === 'download') {

@@ -1,0 +1,128 @@
+.makes {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.make {
+    border-radius: 1em;
+    background-color: #eee;
+    margin: 14px;
+    padding: 8px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.makecard {
+    display: flex;
+    flex-direction: row;
+}
+
+.make .info {
+    flex-grow: 1;
+    flex-direction: column;
+}
+
+.make .info .title {
+    font-size: 1.8em;
+    font-weight: bold;
+    padding-bottom: 0.5em;
+}
+
+.make .info .description {
+    font-size: 1.1em;
+    padding-bottom: 0.2em;
+    font-weight: 500;
+    flex-grow: 1;
+}
+
+.make .makeicon {
+    margin-top: 1em;
+    border: thin #aaa solid;
+}
+
+.make .image .makeicon {
+    width: 100px;
+    margin-left: 1em;
+}
+
+.makebutton {
+    vertical-align: bottom;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1em;
+}
+
+.makebutton button {
+    width: 100%;
+}
+
+.make .screenshot {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.make .screenshot .makeicon {
+    width: 100%;
+}
+
+
+/* *************************************/
+/*     ONE column     (vertical cards) */
+/* *************************************/
+@media (max-width: 450px) {
+    .make {
+        width: 100%;
+    }
+    .makecard {
+        flex-direction: column;
+    }
+    .make .image,
+    .make .screenshot {
+        display: none;
+    }
+}
+
+/* *************************************/
+/*     ONE column   (horizontal cards) */
+/* *************************************/
+@media (min-width: 450px) and (max-width: 600px) {
+    .make {
+        width: 100%;
+    }
+    .make .screenshot {
+        display: none;
+    }
+}
+
+/* *************************************/
+/*     TWO columns  (horizontal cards) */
+/* *************************************/
+@media (min-width: 600px) and (max-width: 960px) {
+    .make {
+        width: calc(50% - 28px);
+    }
+}
+
+/* *************************************/
+/*    THREE columns (horizontal cards) */
+/* *************************************/
+@media (min-width: 960px) and (max-width: 1400px) {
+    .make {
+        width: calc(33.3% - 28px);
+    }
+}
+
+/* *************************************/
+/*    FOUR columns  (horizontal cards) */
+/* *************************************/
+@media (min-width: 1400px) {
+    .make {
+        width: calc(25% - 28px);
+    }
+}

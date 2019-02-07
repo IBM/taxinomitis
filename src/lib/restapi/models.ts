@@ -5,12 +5,12 @@ import * as httpstatus from 'http-status';
 // local dependencies
 import * as auth from './auth';
 import * as store from '../db/store';
-import * as Objects from '../db/db-types';
 import * as Types from '../training/training-types';
 import * as conversation from '../training/conversation';
 import * as visualrec from '../training/visualrecognition';
 import * as numbers from '../training/numbers';
 import * as base64decode from '../utils/base64decode';
+import * as download from '../utils/download';
 import * as urls from './urls';
 import * as errors from './errors';
 import * as headers from './headers';
@@ -163,6 +163,14 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
                                 'because the training data was too large',
                     });
             }
+            else if (err.message && err.message.startsWith(download.ERRORS.DOWNLOAD_FAIL)) {
+                return res.status(httpstatus.CONFLICT)
+                        .send({
+                            code : 'MLMOD12',
+                            error : 'One of your training images could not be downloaded',
+                            location : err.location,
+                        });
+            }
             else {
                 return errors.unknownError(res, err);
             }
@@ -206,6 +214,12 @@ async function deleteModel(req: auth.RequestWithProject, res: Express.Response) 
         }
     }
     catch (err) {
+        if (err.message === 'Unexpected response when retrieving conversation workspace details' ||
+            err.message === 'Unexpected response when retrieving image classifier details')
+        {
+            return errors.notFound(res);
+        }
+
         return errors.unknownError(res, err);
     }
 }
@@ -274,8 +288,14 @@ async function testModel(req: Express.Request, res: Express.Response) {
         if (err.message === conversation.ERROR_MESSAGES.MODEL_NOT_FOUND) {
             return res.status(httpstatus.NOT_FOUND).send({ error : err.message + ' Refresh the page' });
         }
+        if (err.message === conversation.ERROR_MESSAGES.TEXT_TOO_LONG) {
+            return res.status(httpstatus.BAD_REQUEST).send({ error : err.message });
+        }
         if (err.message === 'Unexpected response when retrieving the service credentials') {
             return errors.notFound(res);
+        }
+        if (type === 'images' && err.statusCode === 400) {
+            return res.status(httpstatus.BAD_REQUEST).send({ error : err.message });
         }
 
         log.error({ err }, 'Test error');

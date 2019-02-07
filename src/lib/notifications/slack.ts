@@ -17,9 +17,9 @@ export function init() {
     }
 }
 
-export function notify(message: string): void {
+export function notify(text: string, channel: string): void {
     if (webhook) {
-        webhook.send(message, (err?: Error, res?: object) => {
+        webhook.send({ text, channel }, (err?: Error, res?: object) => {
             if (err) {
                 log.error({ err }, 'Failed to send notification');
             }
@@ -35,3 +35,15 @@ export function close() {
         webhook = undefined;
     }
 }
+
+export const SLACK_CHANNELS = {
+    ERRORS : 'errors',
+    PASSWORD_RESET : 'password-resets',
+    CREDENTIALS : 'credentials-check',
+    CLASS_CREATE : 'new-classes',
+    CLASS_DELETE : 'deleted-classes',
+    CRITICAL_ERRORS : 'critical-errors',
+    TRAINING_ERRORS : 'training-errors',
+    UI_ERRORS : 'sentry',
+    SESSION_USERS : 'session-users',
+};

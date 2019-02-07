@@ -11,6 +11,7 @@ import registerTrainingApis from './training';
 import registerImageApis from './images';
 import registerModelApis from './models';
 import registerScratchApis from './scratch';
+import registerAppInventorApis from './appinventor';
 import registerWatsonApis from './watsonapis';
 import registerClassifierApis from './classifiers';
 import registerSessionUserApis from './sessionusers';
@@ -51,6 +52,7 @@ export default function setup(app: Express.Application): void {
     registerImageApis(app);
     registerModelApis(app);
     registerScratchApis(app);
+    registerAppInventorApis(app);
     registerWatsonApis(app);
     registerClassifierApis(app);
     registerSessionUserApis(app);

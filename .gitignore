@@ -19,3 +19,6 @@ ops/*.sql
 ops/us-routes.sh
 ops/de-routes.sh
 archive
+.DS_Store
+ops/.lastconv
+ops/.lastvisrec

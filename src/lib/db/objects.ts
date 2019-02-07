@@ -45,6 +45,9 @@ export function createProject(
         if (fields.length > MAX_FIELDS) {
             throw new Error('Too many fields specified');
         }
+        if (containsDuplicateNames(fields)) {
+            throw new Error('Fields all need different names');
+        }
         fieldsObjs = fields.map((field) => createNumberProjectField(userid, classid, projectid, field));
     }
     else if (fields && fields.length > 0) {
@@ -86,6 +89,17 @@ export function createProject(
         numfields : fieldsObjs.length,
         iscrowdsourced : crowdsource ? 1 : 0,
     };
+}
+
+function containsDuplicateNames(fields: Objects.NumbersProjectFieldSummary[]): boolean {
+    const names: { [key: string]: boolean } = {};
+    return fields.some((field) => {
+        if (names[field.name]) {
+            return true;
+        }
+        names[field.name] = true;
+        return false;
+    });
 }
 
 export function getProjectFromDbRow(row: Objects.ProjectDbRow): Objects.Project {
@@ -290,6 +304,11 @@ export function getTextTrainingFromDbRow(row: Objects.TextTrainingDbRow): Object
 
 
 
+function isEmptyString(obj: any): boolean {
+    return typeof obj === 'string' && obj.trim().length === 0;
+}
+
+
 export function createNumberTraining(projectid: string, data: number[], label: string): Objects.NumberTraining {
     if (projectid === undefined || projectid === '' ||
         data === undefined || data.length === 0)
@@ -302,8 +321,14 @@ export function createNumberTraining(projectid: string, data: number[], label: s
     }
 
     for (const num of data) {
-        if (isNaN(num)) {
+        if (isNaN(num) || isEmptyString(num)) {
             throw new Error('Data contains non-numeric items');
+        }
+        if (num < -3.4028235e+38) {
+            throw new Error('Number is too small');
+        }
+        if (num > 3.4028235e+38) {
+            throw new Error('Number is too big');
         }
     }
 
@@ -404,13 +429,75 @@ export function getCredentialsFromDbRow(
         username : row.username,
         password : row.password,
         classid : row.classid,
+        credstype : row.credstypeid ? projects.credsTypesById[row.credstypeid].label : 'unknown',
     };
+}
+
+export function getCredentialsAsDbRow(obj: TrainingObjects.BluemixCredentials,
+): TrainingObjects.BluemixCredentialsDbRow
+{
+    return {
+        id : obj.id,
+        servicetype : obj.servicetype,
+        url : obj.url,
+        username : obj.username,
+        password : obj.password,
+        classid : obj.classid,
+        credstypeid : obj.credstype ?
+                        projects.credsTypesByLabel[obj.credstype].id :
+                        projects.credsTypesByLabel.unknown.id,
+    };
+}
+
+function validateVisrecApiKey(apikey?: string): string {
+    if (apikey) {
+        if (apikey.length === 44 || apikey.length === 40) {
+            // yay - valid
+            return apikey;
+        }
+        else {
+            throw new Error('Invalid API key');
+        }
+    }
+    else {
+        throw new Error('Missing required attributes');
+    }
+}
+
+function getCredentialsType(
+    servicetype: TrainingObjects.BluemixServiceType,
+    credstype?: string,
+): TrainingObjects.BluemixCredentialsTypeLabel {
+
+    if (!credstype) {
+        throw new Error('Missing required attributes');
+    }
+
+    if (credstype === 'unknown') {
+        return 'unknown';
+    }
+
+    switch (servicetype) {
+    case 'conv':
+        if (credstype === 'conv_lite' || credstype === 'conv_standard') {
+            return credstype;
+        }
+        throw new Error('Invalid credentials type');
+    case 'visrec':
+        if (credstype === 'visrec_lite' || credstype === 'visrec_standard') {
+            return credstype;
+        }
+        throw new Error('Invalid credentials type');
+    default:
+        throw new Error('Invalid service type');
+    }
 }
 
 export function createBluemixCredentials(
     servicetype: string, classid: string,
     apikey?: string,
     username?: string, password?: string,
+    credstype?: string,
 ): TrainingObjects.BluemixCredentials
 {
     if (servicetype === undefined)
@@ -419,26 +506,19 @@ export function createBluemixCredentials(
     }
 
     if (servicetype === 'visrec') {
-        if (apikey) {
-            if (apikey.length === 44 || apikey.length === 40) {
-                return {
-                    id : uuid(),
-                    username : apikey.substr(0, 22),
-                    password : apikey.substr(22),
-                    classid,
-                    servicetype : 'visrec',
-                    url : apikey.length === 40 ?
-                        'https://gateway-a.watsonplatform.net/visual-recognition/api' :
-                        'https://gateway.watsonplatform.net/visual-recognition/api',
-                };
-            }
-            else {
-                throw new Error('Invalid API key');
-            }
-        }
-        else {
-            throw new Error('Missing required attributes');
-        }
+        apikey = validateVisrecApiKey(apikey);
+
+        return {
+            id : uuid(),
+            username : apikey.substr(0, 22),
+            password : apikey.substr(22),
+            classid,
+            servicetype : 'visrec',
+            url : apikey.length === 40 ?
+                'https://gateway-a.watsonplatform.net/visual-recognition/api' :
+                'https://gateway.watsonplatform.net/visual-recognition/api',
+            credstype : getCredentialsType('visrec', credstype),
+        };
     }
     else if (servicetype === 'conv') {
         if (username && password) {
@@ -448,6 +528,7 @@ export function createBluemixCredentials(
                     username, password, classid,
                     servicetype : 'conv',
                     url : 'https://gateway.watsonplatform.net/conversation/api',
+                    credstype : getCredentialsType('conv', credstype),
                 };
             }
             else {
@@ -463,6 +544,7 @@ export function createBluemixCredentials(
                     classid,
                     servicetype : 'conv',
                     url : 'https://gateway-wdc.watsonplatform.net/assistant/api',
+                    credstype : getCredentialsType('conv', credstype),
                 };
             }
             else {
@@ -655,6 +737,7 @@ export function getScratchKeyFromDbRow(row: Objects.ScratchKeyDbRow): Objects.Sc
                 username : row.serviceusername,
                 password : row.servicepassword,
                 classid : row.classid,
+                credstype : 'unknown',
             },
             classifierid : row.classifierid,
             updated : row.updated,
@@ -836,15 +919,7 @@ export function createClassTenant(
         throw new Error('Not a valid class id');
     }
 
-    return {
-        id : classid,
-        projecttypes : 'text,images,numbers',
-        ismanaged : 0,
-        maxusers : 15,
-        maxprojectsperuser : 2,
-        textclassifiersexpiry : 24,
-        imageclassifiersexpiry : 24,
-    };
+    return getClassDbRow(getDefaultClassTenant(classid));
 }
 
 
@@ -858,6 +933,58 @@ export function getClassFromDbRow(row: Objects.ClassDbRow): Objects.ClassTenant 
         textClassifierExpiry : row.textclassifiersexpiry,
         imageClassifierExpiry : row.imageclassifiersexpiry,
     };
+}
+
+export function getClassDbRow(tenant: Objects.ClassTenant): Objects.ClassDbRow {
+    return {
+        id : tenant.id,
+        projecttypes : tenant.supportedProjectTypes.join(','),
+        maxusers : tenant.maxUsers,
+        maxprojectsperuser : tenant.maxProjectsPerUser,
+        textclassifiersexpiry : tenant.textClassifierExpiry,
+        imageclassifiersexpiry : tenant.imageClassifierExpiry,
+        ismanaged : tenant.isManaged ? 1 : 0,
+    };
+}
+
+export function getDefaultClassTenant(classid: string): Objects.ClassTenant {
+    return {
+        id : classid,
+        supportedProjectTypes : [ 'text', 'images', 'numbers' ],
+        isManaged : false,
+        maxUsers : 25,
+        maxProjectsPerUser : 2,
+        textClassifierExpiry : 24,
+        imageClassifierExpiry : 24,
+    };
+}
+
+
+
+export function setClassTenantExpiries(
+    tenant: Objects.ClassTenant,
+    textexpiry: number, imageexpiry: number,
+): Objects.ClassTenant
+{
+    if (!tenant) {
+        throw new Error('Missing tenant info to update');
+    }
+    if (!textexpiry || !imageexpiry) {
+        throw new Error('Missing required expiry value');
+    }
+    if (!Number.isInteger(textexpiry) || !Number.isInteger(imageexpiry)) {
+        throw new Error('Expiry values should be an integer number of hours');
+    }
+    if (textexpiry < 1 || imageexpiry < 1) {
+        throw new Error('Expiry values should be a positive number of hours');
+    }
+    if (textexpiry > 255 || imageexpiry > 255) {
+        throw new Error('Expiry values should not be greater than 255 hours');
+    }
+
+    tenant.textClassifierExpiry = textexpiry;
+    tenant.imageClassifierExpiry = imageexpiry;
+    return tenant;
 }
 
 
@@ -894,4 +1021,14 @@ export function getTemporaryUserFromDbRow(row: Objects.TemporaryUserDbRow): Obje
         token : row.token,
         sessionExpiry : row.sessionexpiry,
     };
+}
+
+
+
+// -----------------------------------------------------------------------------
+// GENERIC DATA TYPE FUNCTIONS
+// -----------------------------------------------------------------------------
+
+export function getAsBoolean(row: any, field: string): boolean {
+    return row[field] === 1;
 }

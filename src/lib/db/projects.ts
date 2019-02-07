@@ -1,4 +1,5 @@
 import * as DbTypes from './db-types';
+import * as TrainingTypes from '../training/training-types';
 
 interface ProjectTypeInfo {
     readonly id: number;
@@ -47,7 +48,7 @@ const FIELDTYPES: {[s: string]: FieldTypeInfo} = {
     },
 };
 
-const fieldTypesById: {[id: number]: FieldTypeInfo}  = {};
+const fieldTypesById: {[id: number]: FieldTypeInfo} = {};
 Object.keys(FIELDTYPES).forEach((label) => {
     const type = FIELDTYPES[label];
     fieldTypesById[type.id] = type;
@@ -58,8 +59,48 @@ const fieldTypesByLabel = FIELDTYPES;
 
 // ----
 
+interface CredsTypeInfo {
+    readonly id: number;
+    readonly label: TrainingTypes.BluemixCredentialsTypeLabel;
+}
+
+const CREDSTYPES: {[s: string]: CredsTypeInfo} = {
+    unknown : {
+        id : 0,
+        label : 'unknown',
+    },
+    conv_lite : {
+        id : 1,
+        label : 'conv_lite',
+    },
+    conv_standard : {
+        id : 2,
+        label : 'conv_standard',
+    },
+    visrec_lite : {
+        id : 3,
+        label : 'visrec_lite',
+    },
+    visrec_standard : {
+        id : 4,
+        label : 'visrec_standard',
+    },
+};
+
+const credsTypesById: {[id: number]: CredsTypeInfo} = {};
+Object.keys(CREDSTYPES).forEach((label) => {
+    const type = CREDSTYPES[label];
+    credsTypesById[type.id] = type;
+});
+
+const credsTypeLabels: string[] = Object.keys(CREDSTYPES);
+const credsTypesByLabel = CREDSTYPES;
+
+// ----
+
 
 export {
     typeLabels, typesById, typesByLabel,
     fieldTypeLabels, fieldTypesById, fieldTypesByLabel,
+    credsTypeLabels, credsTypesById, credsTypesByLabel,
 };

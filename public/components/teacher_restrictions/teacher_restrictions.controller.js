@@ -7,15 +7,15 @@
     TeacherRestrictionsController.$inject = [
         'authService',
         'usersService',
-        '$document', '$timeout'
+        '$stateParams', '$mdDialog'
     ];
 
-    function TeacherRestrictionsController(authService, usersService, $document, $timeout) {
+    function TeacherRestrictionsController(authService, usersService, $stateParams, $mdDialog) {
 
         var vm = this;
         vm.authService = authService;
 
-        var placeholderId = 1;
+        vm.saving = false;
 
         var alertId = 1;
         vm.errors = [];
@@ -56,12 +56,77 @@
                 displayAlert('errors', err.status, err.data);
             });
 
+        vm.modifyExpiry = function (ev) {
+            var initialtextexpiry = vm.policy.textClassifierExpiry;
+            var initialimageexpiry = vm.policy.imageClassifierExpiry;
 
-        function scrollToNewItem(itemId) {
-            $timeout(function () {
-                var newItem = document.getElementById(itemId);
-                $document.duScrollToElementAnimated(angular.element(newItem));
-            }, 0);
-        }
+            $mdDialog.show({
+                controller : function ($scope, $mdDialog) {
+                    $scope.initialtextexpiry = initialtextexpiry;
+                    $scope.initialimageexpiry = initialimageexpiry;
+
+                    $scope.textexpiry = vm.policy.textClassifierExpiry;
+                    $scope.imageexpiry = vm.policy.imageClassifierExpiry;
+
+                    $scope.hoursfilter = function (hours) {
+                        if (hours === 1) {
+                            return '1 hour';
+                        }
+                        else if (hours < 24) {
+                            return hours + ' hours';
+                        }
+                        else if (hours === 24) {
+                            return '1 day';
+                        }
+                        else if (hours < 168) {
+                            return Math.floor(hours / 24) + ' days, ' + (hours % 24) + ' hours';
+                        }
+                        else if (hours === 168) {
+                            return '1 week';
+                        }
+                        else {
+                            return '1 week, ' +
+                                   Math.floor((hours - 168) / 24) + ' days, ' + (hours % 24) + ' hours';
+                        }
+                    };
+
+                    $scope.hide = function () {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function () {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function (resp) {
+                        $mdDialog.hide(resp);
+                    };
+                },
+                templateUrl : 'static/components-' + $stateParams.VERSION + '/teacher_restrictions/modifyexpiry.tmpl.html',
+                targetEvent : ev,
+                clickOutsideToClose : true
+            })
+            .then(
+                function (expiries) {
+                    vm.saving = true;
+                    vm.policy.textClassifierExpiry = '...';
+                    vm.policy.imageClassifierExpiry = '...';
+
+                    usersService.modifyClassPolicy(vm.profile, expiries.textexpiry, expiries.imageexpiry)
+                        .then(function (tenantinfo) {
+                            vm.saving = false;
+                            vm.policy.textClassifierExpiry = tenantinfo.textClassifierExpiry;
+                            vm.policy.imageClassifierExpiry = tenantinfo.imageClassifierExpiry;
+                        })
+                        .catch(function (err) {
+                            vm.saving = false;
+                            displayAlert('errors', err.status, err.data);
+                            vm.policy.textClassifierExpiry = initialtextexpiry;
+                            vm.policy.imageClassifierExpiry = initialimageexpiry;
+                        });
+                },
+                function() {
+                    // cancelled. do nothing
+                }
+            )
+        };
     }
 }());

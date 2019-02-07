@@ -117,28 +117,38 @@ describe('DB objects', () => {
 
 
     describe('getClassFromDbRow()', () => {
-        it('should return tenant policy info', () => {
-            const testRow: Objects.ClassDbRow = {
-                id : uuid(),
-                projecttypes : 'text,numbers',
-                ismanaged : 0,
-                maxusers : 3,
-                maxprojectsperuser : 2,
-                textclassifiersexpiry : 9,
-                imageclassifiersexpiry : 1,
-            };
-            const expectedPolicy: Objects.ClassTenant = {
-                id : testRow.id,
-                supportedProjectTypes : ['text', 'numbers'],
-                isManaged : false,
-                maxUsers : 3,
-                maxProjectsPerUser : 2,
-                textClassifierExpiry : 9,
-                imageClassifierExpiry : 1,
-            };
+        const testRow: Objects.ClassDbRow = {
+            id : uuid(),
+            projecttypes : 'text,numbers',
+            ismanaged : 0,
+            maxusers : 3,
+            maxprojectsperuser : 2,
+            textclassifiersexpiry : 9,
+            imageclassifiersexpiry : 1,
+        };
+        const expectedPolicy: Objects.ClassTenant = {
+            id : testRow.id,
+            supportedProjectTypes : ['text', 'numbers'],
+            isManaged : false,
+            maxUsers : 3,
+            maxProjectsPerUser : 2,
+            textClassifierExpiry : 9,
+            imageClassifierExpiry : 1,
+        };
 
+        it('should return tenant policy info', () => {
             assert.deepStrictEqual(dbobjects.getClassFromDbRow(testRow), expectedPolicy);
+            assert.deepStrictEqual(dbobjects.getClassFromDbRow({ ...testRow, ismanaged : 1 }),
+                                   { ...expectedPolicy, isManaged : true });
         });
+
+        it('should get tenant data as DB row', () => {
+            assert.deepStrictEqual(testRow, dbobjects.getClassDbRow(expectedPolicy));
+            assert.deepStrictEqual({ ...testRow, ismanaged : 1 },
+                                   dbobjects.getClassDbRow({ ...expectedPolicy, isManaged : true }));
+        });
+
+
     });
 
 
@@ -374,6 +384,23 @@ describe('DB objects', () => {
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Not enough choices provided');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject project', '');
+        });
+
+        it('should prevent duplicate fields in numbers projects', (done) => {
+            try {
+                const fields: Objects.NumbersProjectFieldSummary[] = [
+                    { name : 'a', type : 'multichoice', choices : [ 'onlyone' ] },
+                    { name : 'b', type : 'number', choices : [] },
+                    { name : 'a', type : 'number', choices : [] },
+                    { name : 'c', type : 'multichoice', choices : [ 'yes', 'no' ] },
+                ];
+                dbobjects.createProject('testuser', 'testclass', 'numbers', 'testproject', 'en', fields, false);
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Fields all need different names');
                 return done();
             }
             assert.fail(1, 0, 'Failed to reject project', '');
@@ -703,12 +730,72 @@ describe('DB objects', () => {
     });
 
 
+    describe('getCredentialsAsDbRow', () => {
+
+        it('should handle missing credentials types', () => {
+            const creds: TrainingObjects.BluemixCredentials = {
+                id : 'theid',
+                classid : 'theclassid',
+                username : 'theusername',
+                password : 'thepassword',
+                servicetype : 'conv',
+                url : 'theurl',
+            } as TrainingObjects.BluemixCredentials;
+            const result = dbobjects.getCredentialsAsDbRow(creds);
+            assert.strictEqual(result.credstypeid, 0);
+        });
+
+        it('should translate conv credentials types to an id', () => {
+            const creds: TrainingObjects.BluemixCredentials = {
+                id : 'theid',
+                classid : 'theclassid',
+                username : 'theusername',
+                password : 'thepassword',
+                servicetype : 'conv',
+                url : 'theurl',
+                credstype : 'conv_lite',
+            };
+            const result = dbobjects.getCredentialsAsDbRow(creds);
+            assert.strictEqual(result.credstypeid, 1);
+        });
+
+        it('should translate visrec credentials types to an id', () => {
+            const creds: TrainingObjects.BluemixCredentials = {
+                id : 'theid',
+                classid : 'theclassid',
+                username : 'theusername',
+                password : 'thepassword',
+                servicetype : 'visrec',
+                url : 'theurl',
+                credstype : 'visrec_standard',
+            };
+            const result = dbobjects.getCredentialsAsDbRow(creds);
+            assert.strictEqual(result.credstypeid, 4);
+        });
+
+    });
+
+
     describe('createBluemixCredentials', () => {
+
+        it('should require a credentials type', (done) => {
+            try {
+                dbobjects.createBluemixCredentials('visrec', 'class',
+                    'xo1Nisc2iDTGNUfU9KzCxhn2mrxvA8_YVERYDl-kaBdW', undefined, undefined,
+                    UNDEFINED_STRING);
+                assert.fail('should not reach here');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Missing required attributes');
+                return done();
+            }
+            assert.fail(1, 0, 'Failed to reject request', '');
+        });
 
         it('should require a service type', (done) => {
             try {
                 dbobjects.createBluemixCredentials(UNDEFINED_STRING,
-                    'class', 'apikey', UNDEFINED_STRING, UNDEFINED_STRING);
+                    'class', 'apikey', UNDEFINED_STRING, UNDEFINED_STRING, 'unknown');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Missing required attributes');
@@ -720,7 +807,7 @@ describe('DB objects', () => {
         it('should require a valid service type', (done) => {
             try {
                 dbobjects.createBluemixCredentials('blah',
-                    'class', 'apikey', UNDEFINED_STRING, UNDEFINED_STRING);
+                    'class', 'apikey', UNDEFINED_STRING, UNDEFINED_STRING, 'unknown');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Invalid service type');
@@ -733,7 +820,7 @@ describe('DB objects', () => {
             try {
                 dbobjects.createBluemixCredentials('visrec', 'class',
                     UNDEFINED_STRING,
-                    'username', 'password');
+                    'username', 'password', 'unknown');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Missing required attributes');
@@ -746,7 +833,7 @@ describe('DB objects', () => {
             try {
                 dbobjects.createBluemixCredentials('visrec', 'class',
                     'too short',
-                    undefined, undefined);
+                    undefined, undefined, 'unknown');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Invalid API key');
@@ -757,7 +844,7 @@ describe('DB objects', () => {
 
         it('should create visual recognition credentials', () => {
             const creds = dbobjects.createBluemixCredentials('visrec', 'class',
-                'Jykrybu3xnMtGI8qQncMHKaJ1GugNunl5Z7jWXxoRDSa', undefined, undefined);
+                'Jykrybu3xnMtGI8qQncMHKaJ1GugNunl5Z7jWXxoRDSa', undefined, undefined, 'unknown');
             assert(creds.id);
             assert(creds.url);
             assert.strictEqual(creds.servicetype, 'visrec');
@@ -767,7 +854,7 @@ describe('DB objects', () => {
 
         it('should require a username for conversation credentials', (done) => {
             try {
-                dbobjects.createBluemixCredentials('conv', 'class', undefined, undefined, 'password');
+                dbobjects.createBluemixCredentials('conv', 'class', undefined, undefined, 'password', 'unknown');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Missing required attributes');
@@ -778,7 +865,7 @@ describe('DB objects', () => {
 
         it('should require a password for conversation credentials', (done) => {
             try {
-                dbobjects.createBluemixCredentials('conv', 'class', undefined, 'username', undefined);
+                dbobjects.createBluemixCredentials('conv', 'class', undefined, 'username', undefined, 'unknown');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Missing required attributes');
@@ -789,7 +876,7 @@ describe('DB objects', () => {
 
         it('should require a valid username for conversation credentials', (done) => {
             try {
-                dbobjects.createBluemixCredentials('conv', 'class', undefined, 'username', 'password');
+                dbobjects.createBluemixCredentials('conv', 'class', undefined, 'username', 'password', 'unknown');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Invalid credentials');
@@ -801,7 +888,7 @@ describe('DB objects', () => {
         it('should require a valid password for conversation credentials', (done) => {
             try {
                 dbobjects.createBluemixCredentials('conv', 'class', undefined,
-                    'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL', 'password');
+                    'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL', 'password', 'unknown');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Invalid credentials');
@@ -814,7 +901,7 @@ describe('DB objects', () => {
             try {
                 dbobjects.createBluemixCredentials('conv', 'class',
                     'xo1Nisc2iDTGNUfU9KzCxhxo1Nisc2iDTGNUfU9KzCxhn2mrxvA8_YVERYDl-kaBdW',
-                    undefined, undefined);
+                    undefined, undefined, 'unknown');
                 assert.fail('should not reach here');
             }
             catch (err) {
@@ -822,9 +909,39 @@ describe('DB objects', () => {
             }
         });
 
+        it('should reject invalid conv credential types', () => {
+            const INVALID_TYPES = ['visrec_lite', 'visrec_standard', 'random'];
+            for (const type of INVALID_TYPES) {
+                try {
+                    dbobjects.createBluemixCredentials('conv', 'class', undefined,
+                        'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL', 'THTBtUnNl5jT',
+                        type);
+                    assert.fail('should not reach here');
+                }
+                catch (err) {
+                    assert.strictEqual(err.message, 'Invalid credentials type');
+                }
+            }
+        });
+
+        it('should reject invalid visrec credential types', () => {
+            const INVALID_TYPES = ['conv_lite', 'conv_standard', 'random'];
+            for (const type of INVALID_TYPES) {
+                try {
+                    dbobjects.createBluemixCredentials('visrec', 'class',
+                        'xo1Nisc2iDTGNUfU9KzCxhn2mrxvA8_YVERYDl-kaBdW', undefined, undefined,
+                        type);
+                    assert.fail('should not reach here');
+                }
+                catch (err) {
+                    assert.strictEqual(err.message, 'Invalid credentials type');
+                }
+            }
+        });
+
         it('should support API keys for conversation credentials', () => {
             const creds = dbobjects.createBluemixCredentials('conv', 'class',
-                'xo1Nisc2iDTGNUfU9KzCxhn2mrxvA8_YVERYDl-kaBdW', undefined, undefined);
+                'xo1Nisc2iDTGNUfU9KzCxhn2mrxvA8_YVERYDl-kaBdW', undefined, undefined, 'unknown');
             assert(creds.id);
             assert(creds.url);
             assert.strictEqual(creds.servicetype, 'conv');
@@ -833,13 +950,18 @@ describe('DB objects', () => {
         });
 
         it('should create conversation credentials', () => {
-            const creds = dbobjects.createBluemixCredentials('conv', 'class',
-                undefined, 'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL', 'THTBtUnNl5jT');
-            assert(creds.id);
-            assert(creds.url);
-            assert.strictEqual(creds.servicetype, 'conv');
-            assert.strictEqual(creds.username, 'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL');
-            assert.strictEqual(creds.password, 'THTBtUnNl5jT');
+            const VALID_TYPES = ['conv_lite', 'conv_standard', 'unknown'];
+
+            for (const type of VALID_TYPES) {
+                const creds = dbobjects.createBluemixCredentials('conv', 'class',
+                    undefined, 'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL', 'THTBtUnNl5jT', type);
+                assert(creds.id);
+                assert(creds.url);
+                assert.strictEqual(creds.servicetype, 'conv');
+                assert.strictEqual(creds.username, 'Mhtugfiuq6DNTMFRrwdMk2DUcvgAWj7W9jOL');
+                assert.strictEqual(creds.password, 'THTBtUnNl5jT');
+                assert.strictEqual(creds.credstype, type);
+            }
         });
     });
 
@@ -1038,6 +1160,59 @@ describe('DB objects', () => {
     });
 
 
+    describe('setClassTenantExpiries', () => {
+
+        const emptyUnknown: unknown = null;
+        const emptyNum: number = emptyUnknown as number;
+        const emptyTenant: Objects.ClassTenant = emptyUnknown as Objects.ClassTenant;
+        const stringVal: unknown = 'hello';
+        const stringNum: number = stringVal as number;
+        const tenant = dbobjects.getDefaultClassTenant(uuid());
+
+        const tests: Array<[ Objects.ClassTenant, number, number, string ]> = [
+            [ emptyTenant, 34, 45, 'Missing tenant info to update' ],
+            //
+            [ tenant, emptyNum, 12, 'Missing required expiry value' ],
+            [ tenant, 34, emptyNum, 'Missing required expiry value' ],
+            //
+            [ tenant, stringNum, 12, 'Expiry values should be an integer number of hours'],
+            [ tenant, 77, stringNum, 'Expiry values should be an integer number of hours'],
+            //
+            [ tenant, 11, 10.2, 'Expiry values should be an integer number of hours'],
+            [ tenant, 6.6, 10, 'Expiry values should be an integer number of hours'],
+            //
+            [ tenant, 11, -123, 'Expiry values should be a positive number of hours'],
+            [ tenant, -1, 10, 'Expiry values should be a positive number of hours'],
+            //
+            [ tenant, 11, 300, 'Expiry values should not be greater than 255 hours'],
+            [ tenant, 256, 10, 'Expiry values should not be greater than 255 hours'],
+        ];
+
+        it('should handle invalid input', () => {
+            for (const test of tests) {
+                try {
+                    dbobjects.setClassTenantExpiries(test[0], test[1], test[2]);
+                    assert.fail('should not have reached here');
+                }
+                catch (err) {
+                    assert(err);
+                    assert.strictEqual(err.message, test[3]);
+                }
+            }
+        });
+
+        it('should update expiry numbers', () => {
+            const updated = dbobjects.setClassTenantExpiries({ ... tenant }, 123, 234);
+            assert.strictEqual(tenant.id, updated.id);
+            assert.strictEqual(tenant.maxUsers, updated.maxUsers);
+            assert.strictEqual(tenant.maxProjectsPerUser, updated.maxProjectsPerUser);
+            assert.strictEqual(tenant.isManaged, updated.isManaged);
+            assert.strictEqual(123, updated.textClassifierExpiry);
+            assert.strictEqual(234, updated.imageClassifierExpiry);
+        });
+    });
+
+
     describe('createClassTenant', () => {
 
         it('should require a class id', (done) => {
@@ -1101,7 +1276,7 @@ describe('DB objects', () => {
                 id : 'testing',
                 projecttypes : 'text,images,numbers',
                 ismanaged : 0,
-                maxusers : 15,
+                maxusers : 25,
                 maxprojectsperuser : 2,
                 textclassifiersexpiry : 24,
                 imageclassifiersexpiry : 24,

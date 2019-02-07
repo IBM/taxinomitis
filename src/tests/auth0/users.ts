@@ -21,7 +21,7 @@ describe.skip('auth0 users', () => {
                 getUsers : sinon.stub(auth0, 'getUsers').callsFake(mocks.getUsers.empty),
             };
 
-            return users.getStudents('empty')
+            return users.getAllStudents('empty')
                 .then((students) => {
                     assert(Array.isArray(students));
                     assert.strictEqual(students.length, 0);
@@ -39,7 +39,7 @@ describe.skip('auth0 users', () => {
                 getUsers : sinon.stub(auth0, 'getUsers').callsFake(mocks.getUsers.single),
             };
 
-            return users.getStudents('single')
+            return users.getAllStudents('single')
                 .then((students) => {
                     assert(Array.isArray(students));
                     assert.strictEqual(students.length, 1);
@@ -56,7 +56,7 @@ describe.skip('auth0 users', () => {
 
 
         it('should fetch students', () => {
-            return users.getStudents(TESTTENANT)
+            return users.getAllStudents(TESTTENANT)
                 .then((students) => {
                     assert(Array.isArray(students));
                     students.forEach((student) => {

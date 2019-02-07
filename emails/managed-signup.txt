@@ -8,19 +8,6 @@ I've set up a new class account you can access using:
 You can download a PDF which describes how you can get started at
 https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-schools.pdf
 
-In particular, please take note of item 4 - "reviewing your class limits".
-
-Machine learning models that your students train are created using Watson API keys from IBM Cloud.
-
-Models for recognising images are created using "Visual Recognition" API keys. I've only added a single Visual Recognition API key, so you can try out projects to train a computer to recognise images. That won't be enough to cover a class. (one API key = one student).
-If you give me specific dates of when you'll do image projects, I'll try to borrow image API keys from other groups that aren't using them on those days.
-
-API keys for projects to recognise text and numbers are much cheaper, so I don't need to be as restrictive with those.
-
-If any of this doesn't make sense, please get in touch.
-
-But please make sure you are aware of the limits before using it with a class for the first time.
-
 Kind regards
 
 D

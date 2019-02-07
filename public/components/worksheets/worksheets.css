@@ -200,6 +200,17 @@
     margin-top: 0.6em;
 }
 
+.worksheetcard .cardfooter .maketype {
+    padding-left: 2px;
+    padding-right: 5px;
+}
+
+.worksheetcard .cardfooter .maketype img {
+    border: thin #555555 solid;
+    width: 32px;
+    height: 32px;
+}
+
 .worksheetcard .cardfooter span.heading {
     font-size: 0.8em;
     color: #555555;
@@ -208,6 +219,7 @@
 .worksheetcard .cardfooter .difficulty {
     text-align: left;
     margin-right: auto;
+    margin-left: 2px;
 }
 .worksheetcard .cardfooter .projecttype {
     text-align: right;
@@ -229,6 +241,8 @@
     margin-bottom: auto;
     margin-right: auto;
     max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .worksheettype {
     color: #00008b;

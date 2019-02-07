@@ -6,10 +6,12 @@ import * as store from '../db/store';
 import * as errors from './errors';
 import * as auth from './auth';
 import * as extensions from '../scratchx/extensions';
+import * as models from '../scratchx/models';
 import * as status from '../scratchx/status';
 import * as keys from '../scratchx/keys';
 import * as classifier from '../scratchx/classify';
 import * as training from '../scratchx/training';
+import * as conversation from '../training/conversation';
 import * as urls from './urls';
 import * as headers from './headers';
 import loggerSetup from '../utils/logger';
@@ -56,6 +58,11 @@ async function classifyWithScratchKey(req: Express.Request, res: Express.Respons
 
     try {
         if (!req.query.data) {
+            log.warn({
+                agent : req.header('X-User-Agent'),
+                key : apikey,
+                func : 'classifyWithScratchKey',
+            }, 'Missing data');
             throw new Error('Missing data');
         }
 
@@ -76,20 +83,35 @@ async function classifyWithScratchKey(req: Express.Request, res: Express.Respons
         if (err.message === 'Missing data') {
             return res.status(httpstatus.BAD_REQUEST).jsonp({ error : 'Missing data' });
         }
+        if (err.message === conversation.ERROR_MESSAGES.TEXT_TOO_LONG) {
+            return res.status(httpstatus.BAD_REQUEST).jsonp({ error : err.message });
+        }
         if (err.message === 'Unexpected response when retrieving credentials for Scratch') {
             return res.status(httpstatus.NOT_FOUND).jsonp({ error : 'Scratch key not found' });
         }
+        if (err.statusCode === httpstatus.BAD_REQUEST) {
+            return res.status(httpstatus.BAD_REQUEST).jsonp({ error : err.message });
+        }
 
-        log.error({ err }, 'Classify error');
+        const safeDataDebug = typeof req.query.data === 'string' ?
+                                  req.query.data.substr(0, 100) :
+                                  typeof req.query.data;
+        log.error({ err, data : safeDataDebug, agent : req.header('X-User-Agent') }, 'Classify error (get)');
         return res.status(httpstatus.INTERNAL_SERVER_ERROR).jsonp(err);
     }
 }
+
 
 async function postClassifyWithScratchKey(req: Express.Request, res: Express.Response) {
     const apikey = req.params.scratchkey;
 
     try {
         if (!req.body.data) {
+            log.warn({
+                agent : req.header('X-User-Agent'),
+                key : apikey,
+                func : 'postClassifyWithScratchKey',
+            }, 'Missing data');
             throw new Error('Missing data');
         }
 
@@ -107,11 +129,32 @@ async function postClassifyWithScratchKey(req: Express.Request, res: Express.Res
         return res.json(classes);
     }
     catch (err) {
-        if (err.message === 'Missing data') {
-            return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing data' });
+        if (err.message === 'Unexpected response when retrieving credentials for Scratch') {
+            return res.status(httpstatus.NOT_FOUND).json({ error : 'Scratch key not found' });
+        }
+        if (err.message === conversation.ERROR_MESSAGES.TEXT_TOO_LONG) {
+            return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
+        }
+        if (err.statusCode === httpstatus.BAD_REQUEST) {
+            return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
         }
 
-        log.error({ err }, 'Classify error');
+        const safeDataDebug = typeof req.body.data === 'string' ?
+                                 req.body.data.substr(0, 100) :
+                                 typeof req.body.data;
+
+        if (err.message === 'Missing data' ||
+            err.message === 'Invalid image data provided. Remember, only jpg and png images are supported.')
+        {
+            log.warn({
+                agent : req.header('X-User-Agent'),
+                displayedHelp : req.body.displayedhelp,
+                data : safeDataDebug,
+            }, 'Missing data in Scratch key classification');
+            return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
+        }
+
+        log.error({ err, data : safeDataDebug, agent : req.header('X-User-Agent') }, 'Classify error (post)');
         return res.status(httpstatus.INTERNAL_SERVER_ERROR).json(err);
     }
 }
@@ -123,6 +166,11 @@ async function storeTrainingData(req: Express.Request, res: Express.Response) {
 
     try {
         if (!req.query.data || !req.query.label) {
+            log.warn({
+                agent : req.header('X-User-Agent'),
+                key : apikey,
+                func : 'storeTrainingData',
+            }, 'Missing data');
             throw new Error('Missing data');
         }
 
@@ -134,19 +182,61 @@ async function storeTrainingData(req: Express.Request, res: Express.Response) {
     catch (err) {
         if (err.message === 'Missing data' ||
             err.message === 'Invalid data' ||
-            err.message === 'Invalid label')
+            err.message === 'Invalid label' ||
+            err.message === 'Number is too small' ||
+            err.message === 'Number is too big')
         {
             return res.status(httpstatus.BAD_REQUEST).jsonp({ error : err.message });
         }
         if (err.message === 'Project already has maximum allowed amount of training data') {
             return res.status(httpstatus.CONFLICT).jsonp({ error : err.message });
         }
-        if (err.message === 'Not implemented yet') {
-            return res.status(httpstatus.NOT_IMPLEMENTED).jsonp({ error : 'Not implemented yet' });
+        if (err.message === 'Unexpected response when retrieving credentials for Scratch') {
+            return res.status(httpstatus.NOT_FOUND).jsonp({ error : 'Scratch key not found' });
         }
 
-        log.error({ err }, 'Store error');
+        log.error({ err, agent : req.header('X-User-Agent') }, 'Store error');
         return res.status(httpstatus.INTERNAL_SERVER_ERROR).jsonp(err);
+    }
+}
+
+
+async function postStoreTrainingData(req: Express.Request, res: Express.Response) {
+    const apikey = req.params.scratchkey;
+
+    try {
+        if (!req.body.data || !req.body.label) {
+            log.warn({
+                agent : req.header('X-User-Agent'),
+                key : apikey,
+                func : 'postStoreTrainingData',
+            }, 'Missing data');
+            throw new Error('Missing data');
+        }
+
+        const scratchKey = await store.getScratchKey(apikey);
+        const stored = await training.storeTrainingData(scratchKey, req.body.label, req.body.data);
+
+        return res.set(headers.NO_CACHE).json(stored);
+    }
+    catch (err) {
+        if (err.message === 'Missing data' ||
+            err.message === 'Invalid data' ||
+            err.message === 'Invalid label' ||
+            err.message === 'Number is too small' ||
+            err.message === 'Number is too big')
+        {
+            return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
+        }
+        if (err.message === 'Project already has maximum allowed amount of training data') {
+            return res.status(httpstatus.CONFLICT).json({ error : err.message });
+        }
+        if (err.message === 'Unexpected response when retrieving credentials for Scratch') {
+            return res.status(httpstatus.NOT_FOUND).json({ error : 'Scratch key not found' });
+        }
+
+        log.error({ err, agent : req.header('X-User-Agent') }, 'Store error');
+        return res.status(httpstatus.INTERNAL_SERVER_ERROR).json(err);
     }
 }
 
@@ -173,6 +263,11 @@ async function getExtension(req: Express.Request, res: Express.Response, version
                   .send(extension);
     }
     catch (err) {
+        if (err.message === 'Unexpected response when retrieving credentials for Scratch') {
+            return res.status(httpstatus.NOT_FOUND).json({ error : 'Scratch key not found' });
+        }
+
+        log.error({ err }, 'Failed to generate extension');
         errors.unknownError(res, err);
     }
 }
@@ -196,6 +291,31 @@ async function getScratchxStatus(req: Express.Request, res: Express.Response) {
         return res.set(headers.NO_CACHE).jsonp(scratchStatus);
     }
     catch (err) {
+        if (err.message === 'Unexpected response when retrieving credentials for Scratch') {
+            return res.status(httpstatus.NOT_FOUND).jsonp({ error : 'Scratch key not found' });
+        }
+
+        log.error({ err, agent : req.header('X-User-Agent') }, 'Status error');
+        errors.unknownError(res, err);
+    }
+}
+
+
+async function trainNewClassifier(req: Express.Request, res: Express.Response) {
+    const apikey = req.params.scratchkey;
+
+    try {
+        const scratchKey = await store.getScratchKey(apikey);
+        const classifierStatus = await models.trainModel(scratchKey);
+
+        return res.set(headers.NO_CACHE).jsonp(classifierStatus);
+    }
+    catch (err) {
+        if (err.message === 'Only text or numbers models can be trained using a Scratch key') {
+            return res.status(httpstatus.NOT_IMPLEMENTED).json({ error : err.message });
+        }
+
+        log.error({ err, agent : req.header('X-User-Agent') }, 'Train error');
         errors.unknownError(res, err);
     }
 }
@@ -212,8 +332,10 @@ export default function registerApis(app: Express.Application) {
 
     app.get(urls.SCRATCHKEY_CLASSIFY, classifyWithScratchKey);
     app.post(urls.SCRATCHKEY_CLASSIFY, postClassifyWithScratchKey);
+    app.post(urls.SCRATCHKEY_MODEL, trainNewClassifier);
 
     app.get(urls.SCRATCHKEY_TRAIN, storeTrainingData);
+    app.post(urls.SCRATCHKEY_TRAIN, postStoreTrainingData);
 
     app.get(urls.SCRATCHKEY_EXTENSION, getScratchxExtension);
     app.get(urls.SCRATCH3_EXTENSION, getScratch3Extension);

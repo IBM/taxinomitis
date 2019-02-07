@@ -3,13 +3,11 @@
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as uuid from 'uuid/v1';
-import * as randomstring from 'randomstring';
 import * as request from 'request-promise';
 
 import * as visrec from '../../lib/training/visualrecognition';
 import * as downloadAndZip from '../../lib/utils/downloadAndZip';
 
-import * as DbTypes from '../../lib/db/db-types';
 import * as TrainingTypes from '../../lib/training/training-types';
 
 import * as iam from '../../lib/iam';
@@ -17,7 +15,6 @@ import * as mockIAM from '../iam/mock-iam';
 import * as mockVisRec from './mock-visrec';
 
 import * as store from '../../lib/db/store';
-import * as mockStore from './mockstore';
 
 
 describe('Training - Visual Recognition - IAM/API keys', () => {
@@ -75,7 +72,8 @@ describe('Training - Visual Recognition - IAM/API keys', () => {
         deleteImageClassifierStub = sinon.stub(store, 'deleteImageClassifier')
                                          .callsFake(mockVisRec.store.deleteImageClassifier);
 
-        setTimeoutStub = sinon.stub(global, 'setTimeout').returns({});
+        const fakeTimer: NodeJS.Timer = {} as NodeJS.Timer;
+        setTimeoutStub = sinon.stub(global, 'setTimeout').returns(fakeTimer);
 
         downloadStub = sinon.stub(downloadAndZip, 'run').callsFake(mockVisRec.download.run);
     });
@@ -196,7 +194,7 @@ describe('Training - Visual Recognition - IAM/API keys', () => {
             assert.strictEqual(classifier.url,
                                mockVisRec.CREDENTIALS_NEW.url +
                                     '/v3/classifiers/' +
-                                    classifier.classifierid);
+                                    encodeURIComponent(classifier.classifierid));
 
 
         });
@@ -224,7 +222,8 @@ describe('Training - Visual Recognition - IAM/API keys', () => {
             assert(resetExpiredScratchKeyStub.called);
             assert(deleteStub.called);
 
-            assert(deleteStub.calledWith(mockVisRec.CREDENTIALS_NEW.url + '/v3/classifiers/' + classifierinfo.id,
+            assert(deleteStub.calledWith(mockVisRec.CREDENTIALS_NEW.url + '/v3/classifiers/' +
+                                             encodeURIComponent(classifierinfo.id),
                                          sinon.match.has('qs', { version : '2018-03-19' })));
 
             const authHeader = await iam.getAuthHeader(mockVisRec.CREDENTIALS_NEW.username +
@@ -234,7 +233,8 @@ describe('Training - Visual Recognition - IAM/API keys', () => {
 
             assert(setTimeoutStub.calledOnce);
 
-            assert(deleteStub.calledWith(mockVisRec.CREDENTIALS_NEW.url + '/v3/classifiers/' + classifierinfo.id,
+            assert(deleteStub.calledWith(mockVisRec.CREDENTIALS_NEW.url + '/v3/classifiers/' +
+                                             encodeURIComponent(classifierinfo.id),
                                          sinon.match.has('headers', sinon.match.has('Authorization', authHeader))));
         });
 

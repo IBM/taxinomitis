@@ -18,8 +18,11 @@ let transporter: nodemailer.Transporter | undefined;
 
 
 export function init(): Promise<void> {
-    if (process.env[env.SMTP_HOST] && process.env[env.SMTP_PORT] &&
-        process.env[env.SMTP_USER] && process.env[env.SMTP_PASS] &&
+    const user = process.env[env.SMTP_USER];
+    const pass = process.env[env.SMTP_PASS];
+
+    if (user && pass &&
+        process.env[env.SMTP_HOST] && process.env[env.SMTP_PORT] &&
         process.env[env.SMTP_REPLY_TO])
     {
         const mailOptions: SMTPPool.Options = {
@@ -27,10 +30,7 @@ export function init(): Promise<void> {
             host : process.env[env.SMTP_HOST],
             port : parseInt(process.env[env.SMTP_PORT] as string, 10),
             secure : true,
-            auth : {
-                user : process.env[env.SMTP_USER],
-                pass : process.env[env.SMTP_PASS],
-            },
+            auth : { user, pass },
             pool : true,
         };
         const mailDefaults = {

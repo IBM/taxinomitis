@@ -21,6 +21,9 @@ export function forbidden(res: Express.Response) {
 export function supervisorOnly(res: Express.Response) {
     return res.status(httpstatus.FORBIDDEN).json({ error : 'Only supervisors are allowed to invoke this'});
 }
+export function requestTooLarge(res: Express.Response) {
+    return res.status(httpstatus.REQUEST_ENTITY_TOO_LARGE).json({ error : 'Payload too large' });
+}
 export function unknownError(res: Express.Response, err: NodeJS.ErrnoException | any) {
     if (err && err.sqlState) {
         err = {
@@ -54,11 +57,14 @@ export function registerErrorHandling(app: Express.Application) {
             if (err.name === 'UnauthorizedError') {
                 return notAuthorised(res);
             }
+            if (err.name === 'PayloadTooLargeError') {
+                return requestTooLarge(res);
+            }
 
-            log.error({ err }, 'Unhandled exception');
+            log.error({ err, url : req.url }, 'Unhandled exception');
         }
 
-        next();
+        next(err);
     });
 }
 

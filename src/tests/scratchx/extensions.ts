@@ -3,7 +3,6 @@ import * as assert from 'assert';
 import * as uuid from 'uuid/v1';
 import * as extensions from '../../lib/scratchx/extensions';
 import * as Types from '../../lib/db/db-types';
-import * as TrainingTypes from '../../lib/training/training-types';
 
 
 describe('Scratchx - status', () => {
@@ -44,6 +43,38 @@ describe('Scratchx - status', () => {
                 '[ \'R\', \'recognise text %s (label)\', \'text_classification_label\', \'text\' ]') > 0);
             assert(extension.indexOf(
                 '[ \'R\', \'recognise text %s (confidence)\', \'text_classification_confidence\', \'text\' ]') > 0);
+        });
+
+
+        it('should create a text classify extension for Scratch 3', async () => {
+            const key: Types.ScratchKey = {
+                id : uuid(),
+                name : 'TEST',
+                type : 'text',
+                projectid : uuid(),
+                classifierid : uuid(),
+                updated : new Date(),
+            };
+            const proj: Types.Project = {
+                id : uuid(),
+                type : 'text',
+                name : 'TEST',
+                language : 'en',
+                userid : uuid(),
+                classid : uuid(),
+                labels : [ 'LABEL NUMBER ONE', 'SECOND LABEL' ],
+                numfields : 0,
+                isCrowdSourced : false,
+            };
+
+            const extension = await extensions.getScratchxExtension(key, proj, 3);
+
+            assert(extension.indexOf('class MachineLearningText') === 0);
+            assert(extension.indexOf('this._labels = [  \'LABEL NUMBER ONE\',  \'SECOND LABEL\',  ];') > 0);
+            assert(extension.indexOf('name: \'TEST\',') > 0);
+            assert(extension.indexOf('return_label_0 () {') > 0);
+            assert(extension.indexOf('return_label_1 () {') > 0);
+            assert(extension.indexOf('return_label_2 () {') === -1);
         });
 
 
@@ -192,7 +223,7 @@ describe('Scratchx - status', () => {
             assert(extension.indexOf('[ \'r\', \'SECOND LABEL\', \'return_label_1\'],') > 0);
             assert(extension.indexOf('[ \'r\', \'THIRD LABEL\', \'return_label_2\'],') > 0);
             assert(extension.indexOf(
-                '[ \'R\', \'recognise image %s (label)\', \'image_classification_label\', \'costume image\' ]') > 0);
+                '[ \'R\', \'recognise image %s (label)\', \'image_classification_label\', \'image\' ]') > 0);
         });
     });
 });

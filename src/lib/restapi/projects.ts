@@ -60,7 +60,7 @@ function getProjectsByClassId(req: Express.Request, res: Express.Response) {
             return res.json(ownedProjects);
         })
         .catch((err) => {
-            log.error({ err }, 'Server error');
+            log.error({ err, func : 'getProjectsByClassId' }, 'Server error');
             errors.unknownError(res, err);
         });
 }
@@ -75,7 +75,7 @@ function getProjectsByUserId(req: Express.Request, res: Express.Response) {
             res.set(headers.NO_CACHE).json(projects);
         })
         .catch((err) => {
-            log.error({ err }, 'Server error');
+            log.error({ err, func : 'getProjectsByUserId' }, 'Server error');
             errors.unknownError(res, err);
         });
 }
@@ -136,7 +136,7 @@ async function createProject(req: Express.Request, res: Express.Response) {
         if (err.statusCode === httpstatus.BAD_REQUEST) {
             return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
         }
-        log.error({ err }, 'Server error');
+        log.error({ err, func : 'createProject' }, 'Server error');
         errors.unknownError(res, err);
     }
 }
@@ -162,7 +162,7 @@ function getProjectFields(req: Express.Request, res: Express.Response) {
             }
         })
         .catch((err) => {
-            log.error({ err }, 'Server error');
+            log.error({ err, func : 'getProjectFields' }, 'Server error');
             errors.unknownError(res, err);
         });
 }
@@ -187,7 +187,7 @@ async function deleteProject(req: auth.RequestWithProject, res: Express.Response
         return res.sendStatus(httpstatus.NO_CONTENT);
     }
     catch (err) {
-        log.error({ err }, 'Server error');
+        log.error({ err, func : 'deleteProject' }, 'Server error');
         errors.unknownError(res, err);
     }
 }
@@ -305,7 +305,7 @@ async function modifyProject(req: Express.Request, res: Express.Response) {
         if (err.message === 'No room for the label') {
             return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
         }
-        log.error({ err }, 'Server error');
+        log.error({ err, func : 'modifyProject' }, 'Server error');
         return errors.unknownError(res, err);
     }
 }

@@ -5,7 +5,6 @@ import * as fs from 'fs';
 import * as uuid from 'uuid/v1';
 import * as express from 'express';
 import * as sinon from 'sinon';
-import * as randomstring from 'randomstring';
 import * as IBMCosSDK from 'ibm-cos-sdk';
 import * as request from 'supertest';
 import * as httpStatus from 'http-status';

@@ -1,48 +1,47 @@
-<md-dialog aria-label="Store new Watson Assistant API key" style="max-width: 90%; max-height: 90%">
+<md-dialog aria-label="Store new Watson Assistant API key" style="max-width: 98%; max-height: 95%">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>Add new Watson Assistant credentials</h2>
+            <h2 translate>TEACHER.APIKEYS.ADD_API_KEYS.ASSISTANT_TITLE</h2>
         </div>
     </md-toolbar>
     <form ng-cloak name="newCredentials"
-          ng-submit="confirm({ username : username, password : password, apikey : apikey })">
+          ng-submit="confirm({ username : username, password : password, apikey : apikey, credstype : credstype })">
         <md-dialog-content>
-            <div class="md-dialog-content" style="min-width: 400px">
-                <md-card-content>
-                    <div>
-                        Provide a username and password for Watson Assistant.
-                    </div>
-                    <div style="margin-top: 0.5em">
-                        These will be used when you (or students in your class) train
-                        models in text projects.
-                    </div>
-                    <div style="margin-top: 0.5em">
-                        This will not be shown to students in your group.
-                    </div>
-                    <div style="margin-top: 1em">
-                        For help creating a username and password or API key, download the &nbsp;
-                        <a href="https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf"> step by step guide </a>.
-                    </div>
-                    <div layout="row" style="margin-top: 1em;">
-                        <span flex></span>
-                        <md-button class="md-raised"
-                                   style="padding-left: 15px; padding-right: 15px;"
-                                   ng-click="type = 'password'"
-                                   ng-class="{ 'md-primary' : type === 'password' }">
-                            Username / Password
-                        </md-button>
-                        <md-button class="md-raised"
-                                   style="padding-left: 15px; padding-right: 15px;"
-                                   ng-click="type = 'apikey'"
-                                   ng-class="{ 'md-primary' : type === 'apikey' }">
-                            API key
-                        </md-button>
-                        <span flex></span>
-                    </div>
-                    <div ng-hide="type !== 'password'">
-                        <div layout="row" style="margin-top: 1em;">
-                            <md-input-container style="width: 100%;">
-                                <label>Username</label>
+            <div layout="column">
+                <div layout="row">
+                    <div style="min-width: 380px; padding: 1em;">
+                        <div style="padding-right: 1em;" translate>TEACHER.APIKEYS.ADD_API_KEYS.USED_FOR_TEXT_PROJECTS</div>
+                        <div style="padding-right: 1em;" translate>TEACHER.APIKEYS.ADD_API_KEYS.HIDDEN_FROM_STUDENTS</div>
+
+                        <hr/>
+
+                        <div style="margin-top: 1em; font-weight: bold;" translate>TEACHER.APIKEYS.ADD_API_KEYS.PRICING_PLAN</div>
+                        <div style="margin-top: 0.2em; margin-left: 1em;">
+                            <md-radio-group ng-model="credstype" ng-required="true">
+                                <md-radio-button value="conv_lite" class="md-primary">Lite <em>(free)</em></md-radio-button>
+                                <md-radio-button value="conv_standard" class="md-primary">Standard <em>(paid)</em></md-radio-button>
+                                <md-radio-button value="unknown" class="md-primary"><em>Unknown</em></md-radio-button>
+                            </md-radio-group>
+                        </div>
+
+                        <hr/>
+
+                        <div style="margin-top: 1em; font-weight: bold;" translate>TEACHER.APIKEYS.ADD_API_KEYS.CREDENTIALS_TYPE</div>
+                        <div style="margin-top: 0.2em; margin-left: 1em;">
+                            <md-radio-group ng-model="type" ng-required="true">
+                                <md-radio-button value="apikey" class="md-primary" ng-click="username = ''; password = ''">An API key</md-radio-button>
+                                <md-radio-button value="password" class="md-primary" ng-click="apikey = ''">A username and password</md-radio-button>
+                            </md-radio-group>
+                        </div>
+
+                        <hr/>
+
+                        <div ng-hide="type !== 'password'" style="margin-top: 1em; font-weight: bold;" translate>TEACHER.APIKEYS.ADD_API_KEYS.ENTER_PASSWORD</div>
+                        <div ng-hide="type !== 'apikey'" style="margin-top: 1em; font-weight: bold;" translate>TEACHER.APIKEYS.ADD_API_KEYS.ENTER_APIKEY</div>
+
+                        <div ng-hide="type !== 'password'" style="margin-top: 0.2em; margin-left: 1em;">
+                            <md-input-container style="width: 100%; padding-right: 1.1em;">
+                                <label translate="TEACHER.APIKEYS.USERNAME"></label>
                                 <input type="text" name="text"
                                     md-autofocus
                                     ng-required="type === 'password'"
@@ -52,10 +51,8 @@
                                     style="width: 100%;"
                                     md-maxlength="36"></input>
                             </md-input-container>
-                        </div>
-                        <div layout="row">
-                            <md-input-container style="width: 100%;">
-                                <label>Password</label>
+                            <md-input-container style="width: 100%; padding-right: 1.1em;">
+                                <label translate="TEACHER.APIKEYS.PASSWORD"></label>
                                 <input type="text" name="text"
                                     ng-required="type === 'password'"
                                     ng-pattern="/^[0-9A-Za-z]{12}$/"
@@ -64,11 +61,8 @@
                                     md-maxlength="12"></input>
                             </md-input-container>
                         </div>
-                    </div>
-                    <div ng-hide="type !== 'apikey'">
-                        <div layout="row" style="margin-top: 1em;">
-                            <md-input-container style="width: 100%;">
-                                <label>API key</label>
+                        <div ng-hide="type !== 'apikey'" style="margin-top: 0.2em; margin-left: 1em;">
+                            <md-input-container style="width: 100%; padding-right: 1.1em;">
                                 <input type="text" name="text"
                                     md-autofocus
                                     ng-required="type === 'apikey'"
@@ -79,11 +73,19 @@
                             </md-input-container>
                         </div>
                     </div>
-                </md-card-content>
+                    <div class="additionalDialogInfo">
+                        <div style="padding: 0.5em; margin: 0.5em; border: thin #3C70B1 solid; background-color: #EAEBF0; font-size: 0.8em;">
+                            For help creating a username and password or API key, download the &nbsp;
+                            <a href="https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf"> step by step guide </a>.
+                        </div>
+                        <img ng-hide="type !== 'apikey'"   src="static/images/creds-conv-apikey.jpg" style="width: 100%" class="dialoghelpimages" alt="screenshot of the Watson Assistant screen"/>
+                        <img ng-hide="type !== 'password'" src="static/images/creds-conv-password.jpg" style="width: 100%" class="dialoghelpimages" alt="screenshot of the Watson Assistant screen"/>
+                    </div>
+                </div>
                 <md-dialog-actions layout="row">
                     <span flex></span>
-                    <md-button type="submit" class="md-raised md-primary" ng-disabled="newCredentials.$invalid">Add</md-button>
-                    <md-button ng-click="cancel()">Cancel</md-button>
+                    <md-button type="submit" class="md-raised md-primary" ng-disabled="newCredentials.$invalid" translate="APP.ADD"></md-button>
+                    <md-button ng-click="cancel()" translate="APP.CANCEL"></md-button>
                 </md-dialog-actions>
             </div>
         </md-dialog-content>

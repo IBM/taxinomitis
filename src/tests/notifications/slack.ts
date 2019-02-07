@@ -20,30 +20,31 @@ describe('Notifications - Slack', () => {
         slackEnv = process.env.SLACK_WEBHOOK_URL;
 
         slackClientStub = sinon.stub(slackClient.IncomingWebhook.prototype, 'send')
-            .callsFake((msg, callback) => {
-                if (msg === expectedMessage) {
-                    callback(null, {
-                        'content-type' : 'text/html',
-                        'content-length' : 2,
-                        'connection' : 'close',
-                        'access-control-allow-origin' : '*',
-                        'date' : 'Sun, 29 Oct 2017 01:07:33 GMT',
-                        'referrer-policy' : 'no-referrer',
-                        'server' : 'Apache',
-                        'strict-transport-security' : 'max-age=31536000; includeSubDomains; preload',
-                        'vary' : 'Accept-Encoding',
-                        'x-frame-options' : 'SAMEORIGIN',
-                        'x-slack-backend' : 'h',
-                        'x-cache' : 'Miss from cloudfront',
-                        'via' : '1.1 adc13b6f5827d04caa2efba65479257c.cloudfront.net (CloudFront)',
-                        'x-amz-cf-id' : '2G814ezFiZa2nzquI5HICNNdnRnTgr0-dUx98HQ3A==',
-                    });
+            .callsFake((msg: slackClient.IncomingWebhookSendArguments | string,
+                        callback: slackClient.IncomingWebhookResultCallback) =>
+            {
+                if (typeof msg === 'string') {
+                    return assert.fail('Missing channel name');
                 }
-                else if (msg === unsendableMessage) {
-                    callback(new Error('Message cannot be sent'));
+
+                if (msg.text === expectedMessage) {
+                    const confirm: slackClient.IncomingWebhookResult = {
+                        text: msg.text,
+                    };
+                    callback(undefined, confirm);
+                }
+                else if (msg.text === unsendableMessage) {
+                    const error = new Error('Message cannot be sent');
+
+                    const codedError: any = error;
+                    codedError.code = slackClient.ErrorCode.IncomingWebhookRequestError;
+                    codedError.original = error;
+
+                    callback(codedError, undefined);
                 }
                 else {
-                    assert.strictEqual(msg, expectedMessage);
+                    assert.strictEqual(msg.text, expectedMessage);
+                    assert.strictEqual(msg.channel, 'critical-errors');
                 }
             });
     });
@@ -63,7 +64,7 @@ describe('Notifications - Slack', () => {
 
         slack.init();
 
-        slack.notify('This is my message which will not be sent');
+        slack.notify('This is my message which will not be sent', slack.SLACK_CHANNELS.CRITICAL_ERRORS);
 
         assert.strictEqual(slackClientStub.called, false);
     });
@@ -71,7 +72,7 @@ describe('Notifications - Slack', () => {
     it('Send message before init', () => {
         slackClientStub.resetHistory();
 
-        slack.notify('This is my message which will not be sent');
+        slack.notify('This is my message which will not be sent', slack.SLACK_CHANNELS.CRITICAL_ERRORS);
 
         assert.strictEqual(slackClientStub.called, false);
     });
@@ -82,7 +83,7 @@ describe('Notifications - Slack', () => {
         process.env.SLACK_WEBHOOK_URL = 'https://fake.com';
         slack.init();
 
-        slack.notify('This is my message');
+        slack.notify('This is my message', slack.SLACK_CHANNELS.CRITICAL_ERRORS);
 
         assert(slackClientStub.called);
     });
@@ -93,7 +94,7 @@ describe('Notifications - Slack', () => {
         process.env.SLACK_WEBHOOK_URL = 'https://fake.com';
         slack.init();
 
-        slack.notify('This message cannot be sent');
+        slack.notify('This message cannot be sent', slack.SLACK_CHANNELS.CRITICAL_ERRORS);
 
         assert(slackClientStub.called);
     });

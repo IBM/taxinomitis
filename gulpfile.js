@@ -61,11 +61,19 @@ gulp.task('crossdomain', function() {
 });
 
 gulp.task('scratchxinstall', ['crossdomain'], function() {
-    return gulp.src('public/scratchx/**').pipe(gulp.dest('web/scratchx'));
+    return gulp.src([
+        'public/scratchx/**',
+        'public/components/help/help-scratch2*',
+        'public/components/help/help-scratch.css'
+    ]).pipe(gulp.dest('web/scratchx'));
 });
 
 gulp.task('scratch3install', ['crossdomain'], function() {
-    return gulp.src('public/scratch3/**').pipe(gulp.dest('web/scratch3alpha'));
+    return gulp.src([
+        'public/scratch3/**',
+        'public/components/help/help-scratch3*',
+        'public/components/help/help-scratch.css'
+    ]).pipe(gulp.dest('web/scratch3'));
 });
 
 gulp.task('datasets', function() {
@@ -172,8 +180,7 @@ gulp.task('lint', ['tslint']);
 gulp.task('test', () => {
     const mochaOptions = {
         reporter : 'spec',
-        timeout : 60000,
-        bail : true
+        timeout : 60000
     };
 
     return gulp.src(paths.jstest)

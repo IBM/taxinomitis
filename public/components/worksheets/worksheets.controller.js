@@ -6,346 +6,478 @@
 
     WorksheetsController.$inject = [
         '$stateParams',
+        '$translate',
         '$mdDialog', '$scope'
     ];
 
-    function WorksheetsController($stateParams, $mdDialog, $scope) {
+    function WorksheetsController($stateParams, $translate, $mdDialog, $scope) {
 
         var vm = this;
 
-        vm.worksheets = [
-            {
-                title : 'Smart classroom',
-                summary : 'Teach a computer to recognise the meaning of your commands',
-                description : 'Create a smart assistant in Scratch that lets you control virtual devices.',
-                difficulty : 'Beginner',
-                type : 'text',
-                image : 'static/images/project-smartclassroom.png',
-                tags : [ 'digital assistants', 'supervised learning' ],
-                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-smartclassroom.pdf',
-                downloads : [
-                    {
-                        description : 'Full version of the project, where the students make a non-machine learning version first',
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom.pdf'
-                    },
-                    {
-                        description : 'Shorter version of the project, where the students only make a machine learning version of the assistant',
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-easy.pdf'
-                    },
-                    {
-                        description : 'Quick version of the project, skipping the use of confidence scores to handle unrecognised commands',
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-tryitnow.pdf'
-                    }
-                ]
-            },
-            {
-                title : 'Make me happy',
-                summary : 'Teach a computer to recognise compliments and insults',
-                description : 'Create a character in Scratch that smiles if you say nice things to it and cries if you say mean things to it.',
-                difficulty : 'Beginner',
-                type : 'text',
-                image : 'static/images/project-makemehappy.png',
-                tags : [ 'sentiment analysis', 'supervised learning' ],
-                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-makemehappy.pdf',
-                downloads : [
-                    {
-                        description : 'Full version of the project, where the students make a non-machine learning version of the project first',
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy.pdf'
-                    },
-                    {
-                        description : 'Shorter version of the project, where the students only make a machine learning version of the assistant',
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-easy.pdf'
-                    }
-                ]
-            },
-            {
-                title : 'Snap!',
-                summary : 'Teach a computer to recognise what icons look like',
-                description : 'Make a card game in Scratch that learns to recognise pictures of your card.',
-                difficulty : 'Beginner',
-                type : 'images',
-                image : 'static/images/project-snap.png',
-                tags : [ 'image classification', 'supervised learning' ],
-                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-snap.pdf',
-                downloads : [
-                    {
-                        description : 'Full version of the project, where the students make their own cards that they will train the computer to recognise',
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap.pdf'
-                    },
-                    {
-                        description : 'Shorter version of the project, providing children with pre-made cards that you will need to print out, to save the students time having to make them',
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap-easy.pdf',
-                        resources : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/resources-snap-easy.pdf'
-                    }
-                ]
-            },
-            {
-                title : 'Mailman Max',
-                summary : 'Teach a computer to recognise handwriting',
-                description : 'Make a postal sorting office in Scratch that can recognise handwritten postcodes on envelopes.',
-                difficulty : 'Beginner',
-                type : 'images',
-                image : 'static/images/project-mailmanmax.png',
-                tags : [ 'optical character recognition', 'handwriting recognition', 'image classification', 'supervised learning' ],
-                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-mailmanmax.pdf',
-                downloads : [
-                    {
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mailmanmax.pdf'
-                    }
-                ]
-            },
-            {
-                title : 'Car or cup',
-                summary : 'Teach a computer to recognise pictures of objects',
-                description : 'Train the computer to be able to sort photos into groups.',
-                difficulty : 'Beginner',
-                type : 'images',
-                image : 'static/images/project-carorcup.png',
-                tags : [ 'image classification', 'supervised learning', 'crowd sourcing' ],
-                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-carorcup.pdf',
-                downloads : [
-                    {
-                        description : 'Individual version of the project, where each student trains their own machine learning model independently',
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup.pdf'
-                    },
-                    {
-                        description : 'Group version of the project, where all students in the class work together to train a shared machine learning model',
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup-crowd.pdf'
-                    }
-                ]
-            },
-            {
-                title : 'Face Lock',
-                summary : 'Teach a computer to recognise faces',
-                description : 'Make a phone in Scratch that unlocks if it recognises your face.',
-                difficulty : 'Beginner',
-                type : 'images',
-                image : 'static/images/project-facelock.png',
-                tags : [ 'facial recognition', 'biometrics', 'image classification', 'supervised learning' ],
-                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-facelock.pdf',
-                downloads : [
-                    {
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facelock.pdf'
-                    }
-                ]
-            },
-            {
-                title : 'Journey to school',
-                summary : 'Teach a computer to make predictions',
-                description : 'Train the computer to be able to predict how you travel to school in the morning.',
-                difficulty : 'Beginner',
-                type : 'numbers',
-                image : 'static/images/project-journeytoschool.png',
-                tags : [ 'predictive model', 'testing and accuracy', 'supervised learning' ],
-                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-journeytoschool.pdf',
-                downloads : [
-                    {
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-journeytoschool.pdf'
-                    }
-                ]
-            },
-            {
-                title : 'Pac-Man',
-                summary : 'Teach a computer to play a game',
-                description : 'Create a Pac-Man game in Scratch that learns how to avoid the ghost.',
-                difficulty : 'Intermediate',
-                type : 'numbers',
-                image : 'static/images/project-pacman.png',
-                tags : [ 'decision tree learning' ],
-                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-pacman.pdf',
-                downloads : [
-                    {
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pacman.pdf'
-                    }
-                ]
-            },
-            {
-                title : 'Chatbots',
-                summary : 'Teach a computer to recognise questions',
-                description : 'Create a chatbot that can answer questions about a topic of your choice.',
-                difficulty : 'Intermediate',
-                type : 'text',
-                image : 'static/images/project-chatbots.png',
-                tags : [ 'sentiment analysis', 'supervised learning' ],
-                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chatbots.pdf',
-                downloads : [
-                    {
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots.pdf'
-                    }
-                ]
-            },
-            {
-                title : 'Tourist Info',
-                summary : 'Teach a computer to make recommendations',
-                description : 'Create a mobile app in Scratch that recommends tourist attractions based on people\'s interests.',
-                difficulty : 'Intermediate',
-                type : 'text',
-                image : 'static/images/project-touristinfo.png',
-                tags : [ 'training bias', 'recommendations', 'supervised learning' ],
-                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-touristinfo.pdf',
-                downloads : [
-                    {
-                        description : 'Full version of the project',
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-touristinfo.pdf'
-                    },
-                    {
-                        description : 'Shorter version of the project, where students make less of the Scratch project themselves, with more of the scripting provided in the starter project file',
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-touristinfo-easy.pdf'
-                    }
-                ]
-            },
-            {
-                title : 'Sorting Hat',
-                summary : 'Teach a computer to recognise use of language',
-                description : 'Create a Sorting Hat like in Harry Potter, that puts you in a school House based on what you say.',
-                difficulty : 'Intermediate',
-                type : 'text',
-                image : 'static/images/project-sortinghat.png',
-                tags : [ 'text classification', 'supervised learning', 'crowd sourcing' ],
-                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-sortinghat.pdf',
-                downloads : [
-                    {
-                        description : 'Individual version of the project, where each student trains their own machine learning model independently',
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat.pdf'
-                    },
-                    {
-                        description : 'Group version of the project, where all students in the class work together to train a shared machine learning model',
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat-crowd.pdf'
-                    }
-                ]
-            },
-            {
-                title : 'Rock, Paper, Scissors',
-                summary : 'Teach a computer to recognise shapes',
-                description : 'Make a Rock, Paper, Scissors game in Scratch that learns to recognise hand shapes.',
-                difficulty : 'Intermediate',
-                type : 'images',
-                image : 'static/images/project-rockpaperscissors.png',
-                tags : [ 'image classification', 'supervised learning' ],
-                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-rockpaperscissors.pdf',
-                downloads : [
-                    {
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-rockpaperscissors.pdf'
-                    }
-                ]
-            },
-            {
-                title : 'Judge a book',
-                summary : 'Teach a computer to recognise visual style',
-                description : 'Make a game in Scratch to test whether it really is possible to judge a book by its cover.',
-                difficulty : 'Intermediate',
-                type : 'images',
-                image : 'static/images/project-judgeabook.png',
-                tags : [ 'image classification', 'supervised learning' ],
-                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook.pdf',
-                downloads : [
-                    {
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf'
-                    }
-                ]
-            },
-            {
-                title : 'Locate Larry',
-                summary : 'Teach a computer to find something in a picture',
-                description : 'Make a "Where\'s Wally?"-style game in Scratch, and teach the computer to find your character.',
-                difficulty : 'Intermediate',
-                type : 'images',
-                image : 'static/images/project-locatelarry.png',
-                tags : [ 'image classification', 'supervised learning', 'image pre-processing' ],
-                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-locatelarry.pdf',
-                downloads : [
-                    {
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf'
-                    }
-                ]
-            },
-            {
-                title : 'Confused',
-                summary : 'Teach a computer to recognise fruit',
-                description : 'Learn about how computers can be confused and can make mistakes if they\'re trained badly.',
-                difficulty : 'Intermediate',
-                type : 'images',
-                image : 'static/images/project-confused.png',
-                tags : [ 'image classification', 'supervised learning', 'overfitting' ],
-                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-confused.pdf',
-                downloads : [
-                    {
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-confused.pdf'
-                    }
-                ]
-            },
-            {
-                title : 'School Library',
-                summary : 'Teach a computer to make recommendations',
-                description : 'Create a school librarian in Scratch that suggests who a reading book might be suitable for.',
-                difficulty : 'Intermediate',
-                type : 'numbers',
-                image : 'static/images/project-schoollibrary.png',
-                tags : [ 'predictive model', 'recommendations', 'supervised learning' ],
-                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-schoollibrary.pdf',
-                downloads : [
-                    {
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf'
-                    }
-                ]
-            },
-            {
-                title : 'Noughts & Crosses',
-                summary : 'Teach a computer to play a game',
-                description : 'Create a noughts and crosses game in Scratch that learns how to beat you.',
-                difficulty : 'Advanced',
-                type : 'numbers',
-                image : 'static/images/project-noughtsandcrosses.png',
-                tags : [ 'decision tree learning', 'reinforcement learning', 'categorical data' ],
-                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-noughtsandcrosses.pdf',
-                downloads : [
-                    {
-                        description : 'Classroom version, where each student makes the game themselves',
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses.pdf'
-                    },
-                    {
-                        description : 'Demo version, for events like Science Fairs where each child has a minute or two to try something',
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-event.pdf'
-                    }
-                ]
-            },
-            {
-                title : 'Top Trumps',
-                summary : 'Teach a computer to play a game',
-                description : 'Train a computer to be able to play the Top Trumps card game in Scratch.',
-                difficulty : 'Advanced',
-                type : 'numbers',
-                image : 'static/images/project-toptrumps.png',
-                tags : [ 'decision tree learning', 'reinforcement learning', 'categorical data' ],
-                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-toptrumps.pdf',
-                downloads : [
-                    {
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-toptrumps.pdf'
-                    }
-                ]
-            },
-            {
-                title : 'Headlines',
-                summary : 'Test the computer\'s ability to recognise use of language',
-                description : 'Train a computer to recognise headlines from national newspapers.',
-                difficulty : 'Advanced',
-                type : 'text',
-                image : 'static/images/project-headlines.png',
-                tags : [ 'text classification', 'supervised learning', 'testing' ],
-                teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines.pdf',
-                downloads : [
-                    {
-                        description : 'Simplified version of the project, where students make a simple project to put newspapers on the right shelves',
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-easy.pdf'
-                    },
-                    {
-                        description : 'Advanced version of the project, where students make a testing framework to analyse the performance of their model',
-                        worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf'
-                    }
-                ]
-            },
-        ];
-
+        vm.worksheets = [];
+        $translate([
+            'WORKSHEETS.SMARTCLASSROOM.TITLE', 'WORKSHEETS.SMARTCLASSROOM.SUMMARY', 'WORKSHEETS.SMARTCLASSROOM.DESCRIPTION',
+            'WORKSHEETS.MAKEMEHAPPY.TITLE', 'WORKSHEETS.MAKEMEHAPPY.SUMMARY', 'WORKSHEETS.MAKEMEHAPPY.DESCRIPTION',
+            'WORKSHEETS.SNAP.TITLE', 'WORKSHEETS.SNAP.SUMMARY', 'WORKSHEETS.SNAP.DESCRIPTION',
+            'WORKSHEETS.CHAMELEON.TITLE', 'WORKSHEETS.CHAMELEON.SUMMARY', 'WORKSHEETS.CHAMELEON.DESCRIPTION',
+            'WORKSHEETS.MAILMANMAX.TITLE', 'WORKSHEETS.MAILMANMAX.SUMMARY', 'WORKSHEETS.MAILMANMAX.DESCRIPTION',
+            'WORKSHEETS.CARORCUP.TITLE', 'WORKSHEETS.CARORCUP.SUMMARY', 'WORKSHEETS.CARORCUP.DESCRIPTION',
+            'WORKSHEETS.FACELOCK.TITLE', 'WORKSHEETS.FACELOCK.SUMMARY', 'WORKSHEETS.FACELOCK.DESCRIPTION',
+            'WORKSHEETS.JOURNEYTOSCHOOL.TITLE', 'WORKSHEETS.JOURNEYTOSCHOOL.SUMMARY', 'WORKSHEETS.JOURNEYTOSCHOOL.DESCRIPTION',
+            'WORKSHEETS.SHYPANDA.TITLE', 'WORKSHEETS.SHYPANDA.SUMMARY', 'WORKSHEETS.SHYPANDA.DESCRIPTION',
+            'WORKSHEETS.VIRTUALPET.TITLE', 'WORKSHEETS.VIRTUALPET.SUMMARY', 'WORKSHEETS.VIRTUALPET.DESCRIPTION',
+            'WORKSHEETS.PACMAN.TITLE', 'WORKSHEETS.PACMAN.SUMMARY', 'WORKSHEETS.PACMAN.DESCRIPTION',
+            'WORKSHEETS.CHATBOTS.TITLE', 'WORKSHEETS.CHATBOTS.SUMMARY', 'WORKSHEETS.CHATBOTS.DESCRIPTION',
+            'WORKSHEETS.TOURISTINFO.TITLE', 'WORKSHEETS.TOURISTINFO.SUMMARY', 'WORKSHEETS.TOURISTINFO.DESCRIPTION',
+            'WORKSHEETS.SORTINGHAT.TITLE', 'WORKSHEETS.SORTINGHAT.SUMMARY', 'WORKSHEETS.SORTINGHAT.DESCRIPTION',
+            'WORKSHEETS.ROCKPAPERSCISSORS.TITLE', 'WORKSHEETS.ROCKPAPERSCISSORS.SUMMARY', 'WORKSHEETS.ROCKPAPERSCISSORS.DESCRIPTION',
+            'WORKSHEETS.JUDGEABOOK.TITLE', 'WORKSHEETS.JUDGEABOOK.SUMMARY', 'WORKSHEETS.JUDGEABOOK.DESCRIPTION',
+            'WORKSHEETS.LOCATELARRY.TITLE', 'WORKSHEETS.LOCATELARRY.SUMMARY', 'WORKSHEETS.LOCATELARRY.DESCRIPTION',
+            'WORKSHEETS.CONFUSED.TITLE', 'WORKSHEETS.CONFUSED.SUMMARY', 'WORKSHEETS.CONFUSED.DESCRIPTION',
+            'WORKSHEETS.SCHOOLLIBRARY.TITLE', 'WORKSHEETS.SCHOOLLIBRARY.SUMMARY', 'WORKSHEETS.SCHOOLLIBRARY.DESCRIPTION',
+            'WORKSHEETS.WHATTWITTERTHINKS.TITLE', 'WORKSHEETS.WHATTWITTERTHINKS.SUMMARY', 'WORKSHEETS.WHATTWITTERTHINKS.DESCRIPTION',
+            'WORKSHEETS.NOUGHTSANDCROSSES.TITLE', 'WORKSHEETS.NOUGHTSANDCROSSES.SUMMARY', 'WORKSHEETS.NOUGHTSANDCROSSES.DESCRIPTION',
+            'WORKSHEETS.TOPTRUMPS.TITLE', 'WORKSHEETS.TOPTRUMPS.SUMMARY', 'WORKSHEETS.TOPTRUMPS.DESCRIPTION',
+            'WORKSHEETS.HEADLINES.TITLE', 'WORKSHEETS.HEADLINES.SUMMARY', 'WORKSHEETS.HEADLINES.DESCRIPTION',
+            'WORKSHEETS.FINDIT.TITLE', 'WORKSHEETS.FINDIT.SUMMARY', 'WORKSHEETS.FINDIT.DESCRIPTION'
+        ]).then(function (translations) {
+            vm.worksheets = [
+                {
+                    title : translations['WORKSHEETS.SMARTCLASSROOM.TITLE'],
+                    summary : translations['WORKSHEETS.SMARTCLASSROOM.SUMMARY'],
+                    description : translations['WORKSHEETS.SMARTCLASSROOM.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'text',
+                    maketypes : [ 'scratch2' ],
+                    image : 'static/images/project-smartclassroom.png',
+                    tags : [ 'digital assistants', 'supervised learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-smartclassroom.pdf',
+                    downloads : [
+                        {
+                            description : 'Full version of the project, where the students make a non-machine learning version first',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom.pdf'
+                        },
+                        {
+                            description : 'Shorter version of the project, where the students only make a machine learning version of the assistant',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-easy.pdf'
+                        },
+                        {
+                            description : 'Quick simplified version of the project, ideal for use as a first introduction to the tool',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-tryitnow.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.MAKEMEHAPPY.TITLE'],
+                    summary : translations['WORKSHEETS.MAKEMEHAPPY.SUMMARY'],
+                    description : translations['WORKSHEETS.MAKEMEHAPPY.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'text',
+                    maketypes : [ 'scratch2' ],
+                    image : 'static/images/project-makemehappy.png',
+                    tags : [ 'sentiment analysis', 'supervised learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-makemehappy.pdf',
+                    downloads : [
+                        {
+                            description : 'Full version of the project, where the students make a non-machine learning version of the project first',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy.pdf'
+                        },
+                        {
+                            description : 'Shorter version of the project, where the students only make a machine learning version of the assistant',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-easy.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.SNAP.TITLE'],
+                    summary : translations['WORKSHEETS.SNAP.SUMMARY'],
+                    description : translations['WORKSHEETS.SNAP.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'images',
+                    maketypes : [ 'scratch2' ],
+                    image : 'static/images/project-snap.png',
+                    tags : [ 'image classification', 'supervised learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-snap.pdf',
+                    downloads : [
+                        {
+                            description : 'Full version of the project, where the students make their own cards that they will train the computer to recognise',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap.pdf'
+                        },
+                        {
+                            description : 'Shorter version of the project, providing children with pre-made cards that you will need to print out, to save the students time having to make them',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap-easy.pdf',
+                            resources : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/resources-snap-easy.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.CHAMELEON.TITLE'],
+                    summary : translations['WORKSHEETS.CHAMELEON.SUMMARY'],
+                    description : translations['WORKSHEETS.CHAMELEON.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'images',
+                    maketypes : [ 'scratch2' ],
+                    image : 'static/images/project-chameleon.png',
+                    tags : [ 'image classification', 'supervised learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chameleon.pdf',
+                    downloads : [
+                        {
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.MAILMANMAX.TITLE'],
+                    summary : translations['WORKSHEETS.MAILMANMAX.SUMMARY'],
+                    description : translations['WORKSHEETS.MAILMANMAX.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-mailmanmax.png',
+                    tags : [ 'optical character recognition', 'handwriting recognition', 'image classification' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-mailmanmax.pdf',
+                    downloads : [
+                        {
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mailmanmax.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.CARORCUP.TITLE'],
+                    summary : translations['WORKSHEETS.CARORCUP.SUMMARY'],
+                    description : translations['WORKSHEETS.CARORCUP.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'images',
+                    maketypes : [ 'scratch2' ],
+                    image : 'static/images/project-carorcup.png',
+                    tags : [ 'image classification', 'supervised learning', 'crowd sourcing' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-carorcup.pdf',
+                    downloads : [
+                        {
+                            description : 'Individual version of the project, where each student trains their own machine learning model independently',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup.pdf'
+                        },
+                        {
+                            description : 'Group version of the project, where all students in the class work together to train a shared machine learning model',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup-crowd.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.FACELOCK.TITLE'],
+                    summary : translations['WORKSHEETS.FACELOCK.SUMMARY'],
+                    description : translations['WORKSHEETS.FACELOCK.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'images',
+                    maketypes : [ 'scratch2' ],
+                    image : 'static/images/project-facelock.png',
+                    tags : [ 'facial recognition', 'biometrics', 'image classification', 'supervised learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-facelock.pdf',
+                    downloads : [
+                        {
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facelock.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.JOURNEYTOSCHOOL.TITLE'],
+                    summary : translations['WORKSHEETS.JOURNEYTOSCHOOL.SUMMARY'],
+                    description : translations['WORKSHEETS.JOURNEYTOSCHOOL.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'numbers',
+                    maketypes : [ 'scratch2' ],
+                    image : 'static/images/project-journeytoschool.png',
+                    tags : [ 'predictive model', 'testing and accuracy', 'supervised learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-journeytoschool.pdf',
+                    downloads : [
+                        {
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-journeytoschool.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.SHYPANDA.TITLE'],
+                    summary : translations['WORKSHEETS.SHYPANDA.SUMMARY'],
+                    description : translations['WORKSHEETS.SHYPANDA.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-shypanda.png',
+                    tags : [ 'image classification', 'supervised learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shypanda.pdf',
+                    downloads : [
+                        {
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.PACMAN.TITLE'],
+                    summary : translations['WORKSHEETS.PACMAN.SUMMARY'],
+                    description : translations['WORKSHEETS.PACMAN.DESCRIPTION'],
+                    difficulty : 'Intermediate',
+                    type : 'numbers',
+                    maketypes : [ 'scratch2' ],
+                    image : 'static/images/project-pacman.png',
+                    tags : [ 'decision tree learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-pacman.pdf',
+                    downloads : [
+                        {
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pacman.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.CHATBOTS.TITLE'],
+                    summary : translations['WORKSHEETS.CHATBOTS.SUMMARY'],
+                    description : translations['WORKSHEETS.CHATBOTS.DESCRIPTION'],
+                    difficulty : 'Intermediate',
+                    type : 'text',
+                    maketypes : [ 'scratch2', 'python' ],
+                    image : 'static/images/project-chatbots.png',
+                    tags : [ 'sentiment analysis', 'supervised learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chatbots.pdf',
+                    downloads : [
+                        {
+                            description : 'Scratch project - for making a chat bot in Scratch',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots.pdf'
+                        },
+                        {
+                            description : 'Python project - for making a chat bot using Python',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots-python.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.VIRTUALPET.TITLE'],
+                    summary : translations['WORKSHEETS.VIRTUALPET.SUMMARY'],
+                    description : translations['WORKSHEETS.VIRTUALPET.DESCRIPTION'],
+                    difficulty : 'Intermediate',
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-virtualpet.png',
+                    tags : [ 'image classification', 'supervised learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-virtualpet.pdf',
+                    downloads : [
+                        {
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-virtualpet.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.TOURISTINFO.TITLE'],
+                    summary : translations['WORKSHEETS.TOURISTINFO.SUMMARY'],
+                    description : translations['WORKSHEETS.TOURISTINFO.DESCRIPTION'],
+                    difficulty : 'Intermediate',
+                    type : 'text',
+                    maketypes : [ 'scratch2' ],
+                    image : 'static/images/project-touristinfo.png',
+                    tags : [ 'training bias', 'recommendations', 'supervised learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-touristinfo.pdf',
+                    downloads : [
+                        {
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-touristinfo.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.SORTINGHAT.TITLE'],
+                    summary : translations['WORKSHEETS.SORTINGHAT.SUMMARY'],
+                    description : translations['WORKSHEETS.SORTINGHAT.DESCRIPTION'],
+                    difficulty : 'Intermediate',
+                    type : 'text',
+                    maketypes : [ 'scratch2' ],
+                    image : 'static/images/project-sortinghat.png',
+                    tags : [ 'text classification', 'supervised learning', 'crowd sourcing' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-sortinghat.pdf',
+                    downloads : [
+                        {
+                            description : 'Individual version of the project, where each student trains their own machine learning model independently',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat.pdf'
+                        },
+                        {
+                            description : 'Group version of the project, where all students in the class work together to train a shared machine learning model',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat-crowd.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.ROCKPAPERSCISSORS.TITLE'],
+                    summary : translations['WORKSHEETS.ROCKPAPERSCISSORS.SUMMARY'],
+                    description : translations['WORKSHEETS.ROCKPAPERSCISSORS.DESCRIPTION'],
+                    difficulty : 'Intermediate',
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-rockpaperscissors.png',
+                    tags : [ 'image classification', 'supervised learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-rockpaperscissors.pdf',
+                    downloads : [
+                        {
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-rockpaperscissors.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.JUDGEABOOK.TITLE'],
+                    summary : translations['WORKSHEETS.JUDGEABOOK.SUMMARY'],
+                    description : translations['WORKSHEETS.JUDGEABOOK.DESCRIPTION'],
+                    difficulty : 'Intermediate',
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-judgeabook.png',
+                    tags : [ 'image classification', 'supervised learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook.pdf',
+                    downloads : [
+                        {
+                            description : 'Full version of the project, where children make a game to compete against the computer to recognise books',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf'
+                        },
+                        {
+                            description : 'Simplified version of the project, where children get the computer to recognise books',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.LOCATELARRY.TITLE'],
+                    summary : translations['WORKSHEETS.LOCATELARRY.SUMMARY'],
+                    description : translations['WORKSHEETS.LOCATELARRY.DESCRIPTION'],
+                    difficulty : 'Intermediate',
+                    type : 'images',
+                    maketypes : [ 'scratch2' ],
+                    image : 'static/images/project-locatelarry.png',
+                    tags : [ 'image classification', 'supervised learning', 'image pre-processing' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-locatelarry.pdf',
+                    downloads : [
+                        {
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.CONFUSED.TITLE'],
+                    summary : translations['WORKSHEETS.CONFUSED.SUMMARY'],
+                    description : translations['WORKSHEETS.CONFUSED.DESCRIPTION'],
+                    difficulty : 'Intermediate',
+                    type : 'images',
+                    maketypes : [ 'scratch2' ],
+                    image : 'static/images/project-confused.png',
+                    tags : [ 'image classification', 'supervised learning', 'overfitting' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-confused.pdf',
+                    downloads : [
+                        {
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-confused.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.SCHOOLLIBRARY.TITLE'],
+                    summary : translations['WORKSHEETS.SCHOOLLIBRARY.SUMMARY'],
+                    description : translations['WORKSHEETS.SCHOOLLIBRARY.DESCRIPTION'],
+                    difficulty : 'Intermediate',
+                    type : 'numbers',
+                    maketypes : [ 'scratch2' ],
+                    image : 'static/images/project-schoollibrary.png',
+                    tags : [ 'predictive model', 'recommendations', 'supervised learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-schoollibrary.pdf',
+                    downloads : [
+                        {
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.WHATTWITTERTHINKS.TITLE'],
+                    summary : translations['WORKSHEETS.WHATTWITTERTHINKS.SUMMARY'],
+                    description : translations['WORKSHEETS.WHATTWITTERTHINKS.DESCRIPTION'],
+                    difficulty : 'Advanced',
+                    type : 'text',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-whattwitterthinks.png',
+                    tags : [ 'sentiment analysis', 'social media analysis', 'supervised learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-whattwitterthinks.pdf',
+                    downloads : [
+                        {
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.NOUGHTSANDCROSSES.TITLE'],
+                    summary : translations['WORKSHEETS.NOUGHTSANDCROSSES.SUMMARY'],
+                    description : translations['WORKSHEETS.NOUGHTSANDCROSSES.DESCRIPTION'],
+                    difficulty : 'Advanced',
+                    type : 'numbers',
+                    maketypes : [ 'scratch2' ],
+                    image : 'static/images/project-noughtsandcrosses.png',
+                    tags : [ 'decision tree learning', 'reinforcement learning', 'categorical data' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-noughtsandcrosses.pdf',
+                    downloads : [
+                        {
+                            description : 'Classroom version, where each student makes the game themselves',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses.pdf'
+                        },
+                        {
+                            description : 'Demo version, for events like Science Fairs where each child has a minute or two to try something',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-event.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.TOPTRUMPS.TITLE'],
+                    summary : translations['WORKSHEETS.TOPTRUMPS.SUMMARY'],
+                    description : translations['WORKSHEETS.TOPTRUMPS.DESCRIPTION'],
+                    difficulty : 'Advanced',
+                    type : 'numbers',
+                    maketypes : [ 'scratch2' ],
+                    image : 'static/images/project-toptrumps.png',
+                    tags : [ 'decision tree learning', 'reinforcement learning', 'categorical data' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-toptrumps.pdf',
+                    downloads : [
+                        {
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-toptrumps.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.HEADLINES.TITLE'],
+                    summary : translations['WORKSHEETS.HEADLINES.SUMMARY'],
+                    description : translations['WORKSHEETS.HEADLINES.DESCRIPTION'],
+                    difficulty : 'Advanced',
+                    type : 'text',
+                    maketypes : [ 'scratch2' ],
+                    image : 'static/images/project-headlines.png',
+                    tags : [ 'text classification', 'supervised learning', 'testing' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines.pdf',
+                    downloads : [
+                        {
+                            description : 'Simplified version of the project, where students make a simple project to put newspapers on the right shelves',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-easy.pdf'
+                        },
+                        {
+                            description : 'Advanced version of the project, where students make a testing framework to analyse the performance of their model',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.FINDIT.TITLE'],
+                    summary : translations['WORKSHEETS.FINDIT.SUMMARY'],
+                    description : translations['WORKSHEETS.FINDIT.DESCRIPTION'],
+                    difficulty : 'Advanced',
+                    type : 'images',
+                    maketypes : [ 'appinventor' ],
+                    image : 'static/images/project-findit.png',
+                    tags : [ 'image classification', 'supervised learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-findit.pdf',
+                    downloads : [
+                        {
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-findit.pdf'
+                        }
+                    ]
+                }
+            ];
+        });
 
         vm.downloadWorksheet = function (ev, worksheet) {
             $mdDialog.show({
@@ -370,14 +502,22 @@
 
         $scope.projecttype = 'ALL';
         $scope.projectdifficulty = 'ALL';
+        $scope.projectmaketype = 'ALL';
+
         $scope.filterWorksheets = function (item) {
             var match = true;
 
             if (($scope.projecttype !== 'ALL') && match) {
                 match = (item.type === $scope.projecttype);
             }
-            if (($scope.projectdifficulty != 'ALL') && match) {
+            if (($scope.projectdifficulty !== 'ALL') && match) {
                 match = (item.difficulty === $scope.projectdifficulty);
+            }
+            if (($scope.projectmaketype !== 'ALL') && match) {
+                match = (($scope.projectmaketype === 'python' && item.maketypes.indexOf('python') >= 0) ||
+                         ($scope.projectmaketype === 'appinventor' && item.maketypes.indexOf('appinventor') >= 0) ||
+                         (($scope.projectmaketype === 'scratch') && (item.maketypes.indexOf('scratch2') >= 0 ||
+                                                                     item.maketypes.indexOf('scratch3') >= 0)));
             }
             return match;
         };

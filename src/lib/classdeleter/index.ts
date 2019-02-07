@@ -18,7 +18,8 @@ async function deleteUsers(classid: string, users: User[] | SupervisorInfo[], au
 
 export async function deleteClass(classid: string): Promise<void> {
 
-    slack.notify('Deleting class "' + classid + '"');
+    slack.notify('Deleting class "' + classid + '"',
+                 slack.SLACK_CHANNELS.CLASS_DELETE);
 
     const auth0token = await auth0.getBearerToken();
 
@@ -32,13 +33,14 @@ export async function deleteClass(classid: string): Promise<void> {
     // the resources being deleted.
 
     // delete all students
-    let users = await auth0requests.getUsers(auth0token, classid);
+    let users = await auth0requests.getUsers(auth0token, classid, 0);
     while (users.length > 0) {
         await deleteUsers(classid, users, auth0token);
 
-        users = await auth0requests.getUsers(auth0token, classid);
+        users = await auth0requests.getUsers(auth0token, classid, 0);
     }
-
+    // delete the class-wide resources (e.g. Bluemix creds)
+    await db.deleteClassResources(classid);
 
     // The teacher account is deleted last, so that if anything
     // goes wrong, the teacher can try again.
@@ -52,10 +54,14 @@ export async function deleteClass(classid: string): Promise<void> {
     await deleteUsers(classid, teachers, auth0token);
 
 
-    // Finally, schedule a background task to delete uploaded images
+    // Schedule a background task to delete uploaded images
     await db.storeDeleteClassImagesJob(classid);
 
+    // remove the class tenant if one exists (most classes won't
+    //  have one, unless they've modified the default class definition)
+    await db.deleteClassTenant(classid);
 
-    slack.notify('Successfully deleted class "' + classid + '"');
+    slack.notify('Successfully deleted class "' + classid + '"',
+                 slack.SLACK_CHANNELS.CLASS_DELETE);
     emails.deletedClass(classid, teachers);
 }

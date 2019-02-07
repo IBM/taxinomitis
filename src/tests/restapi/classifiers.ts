@@ -11,6 +11,7 @@ import * as httpstatus from 'http-status';
 
 
 import * as dbobjects from '../../lib/db/objects';
+import * as Types from '../../lib/db/db-types';
 import * as TrainingTypes from '../../lib/training/training-types';
 import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
@@ -57,14 +58,14 @@ describe('REST API - classifiers', () => {
     const password = randomstring.generate(12);
     const apikey = randomstring.generate(40);
 
-    const convCredentials = dbobjects.createBluemixCredentials(conv,
+    const convCredentials: TrainingTypes.BluemixCredentials = dbobjects.createBluemixCredentials(conv,
         CLASSID,
         undefined,
-        username, password);
-    const visrecCredentials = dbobjects.createBluemixCredentials(visrec,
+        username, password, 'conv_standard');
+    const visrecCredentials: TrainingTypes.BluemixCredentials = dbobjects.createBluemixCredentials(visrec,
         CLASSID,
         apikey,
-        undefined, undefined);
+        undefined, undefined, 'visrec_standard');
 
 
     const textProject = dbobjects.getProjectFromDbRow(dbobjects.createProject(USERID, CLASSID,
@@ -108,8 +109,8 @@ describe('REST API - classifiers', () => {
 
         await store.init();
 
-        await store.storeBluemixCredentials(CLASSID, convCredentials);
-        await store.storeBluemixCredentials(CLASSID, visrecCredentials);
+        await store.storeBluemixCredentials(CLASSID, dbobjects.getCredentialsAsDbRow(convCredentials));
+        await store.storeBluemixCredentials(CLASSID, dbobjects.getCredentialsAsDbRow(visrecCredentials));
 
         await store.storeConversationWorkspace(convCredentials, textProject, validWorkspace);
         await store.storeImageClassifier(visrecCredentials, imagesProject, validClassifier);
@@ -341,8 +342,8 @@ describe('REST API - classifiers', () => {
 
 
     const mockStore = {
-        getClassTenant : (classid: string) => {
-            return {
+        getClassTenant : (classid: string): Promise<Types.ClassTenant> => {
+            const placeholder: Types.ClassTenant = {
                 id : classid,
                 supportedProjectTypes : [ 'text', 'images', 'numbers' ],
                 isManaged : classid === 'managed',
@@ -351,6 +352,7 @@ describe('REST API - classifiers', () => {
                 textClassifierExpiry : 24,
                 imageClassifierExpiry : 24,
             };
+            return Promise.resolve(placeholder);
         },
     };
 
@@ -358,7 +360,7 @@ describe('REST API - classifiers', () => {
         getClassifiers : () => {
             return Promise.resolve({
                 pagination: {
-                    refresh_url: '/v1/workspaces?version=2018-02-16',
+                    refresh_url: '/v1/workspaces?version=2018-09-20',
                 },
                 workspaces: [
                     {

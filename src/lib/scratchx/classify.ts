@@ -1,6 +1,5 @@
 // external dependencies
 import * as _ from 'lodash';
-import * as httpstatus from 'http-status';
 import * as fs from 'fs';
 // local dependencies
 import * as store from '../db/store';
@@ -53,7 +52,8 @@ async function classifyText(key: Types.ScratchKey, text: string): Promise<Traini
 
 
 async function classifyImage(key: Types.ScratchKey, base64imagedata: string): Promise<TrainingTypes.Classification[]> {
-    if (!base64imagedata || base64imagedata.trim().length === 0) {
+    if (!base64imagedata || typeof base64imagedata !== 'string' || base64imagedata.trim().length === 0) {
+        log.warn({ base64imagedata, type : typeof base64imagedata, func : 'classifyImage' }, 'Missing data');
         throw new Error('Missing data');
     }
 

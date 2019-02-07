@@ -146,3 +146,13 @@
 .md-dialog-container .errdetail {
     padding-bottom: 1em;
 }
+
+
+.tooltipBody {
+    height: auto !important;
+    width: auto !important;
+    white-space: inherit !important;
+    font-size: 1em !important;
+    opacity: 1!important;
+    padding: 1em;
+}

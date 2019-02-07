@@ -5,8 +5,10 @@
             .controller('Scratch3Controller', Scratch3Controller);
 
         Scratch3Controller.$inject = [
-            'authService', 'projectsService', 'scratchkeysService',
-            '$stateParams', '$scope'
+            'authService',
+            'projectsService', 'scratchkeysService',
+            '$stateParams',
+            '$scope'
         ];
 
         function Scratch3Controller(authService, projectsService, scratchkeysService, $stateParams, $scope) {
@@ -14,21 +16,13 @@
             var vm = this;
             vm.authService = authService;
 
-            var alertId = 1;
-            vm.errors = [];
-            vm.warnings = [];
-            vm.dismissAlert = function (type, errIdx) {
-                vm[type].splice(errIdx, 1);
-            };
-            function displayAlert(type, errObj) {
-                if (!errObj) {
-                    errObj = {};
-                }
-                vm[type].push({ alertid : alertId++, message : errObj.message || errObj.error || 'Unknown error', status : errObj.status });
-            }
-
             $scope.projectId = $stateParams.projectId;
             $scope.userId = $stateParams.userId;
+
+            $scope.projecturls = {
+                train : '/#!/mlproject/' + $stateParams.userId + '/' + $stateParams.projectId + '/training',
+                learnandtest : '/#!/mlproject/' + $stateParams.userId + '/' + $stateParams.projectId + '/models'
+            };
 
             authService.getProfileDeferred()
                 .then(function (profile) {
@@ -39,24 +33,26 @@
                 .then(function (project) {
                     $scope.project = project;
 
-                    if (project.type !== 'images') {
-                        return scratchkeysService.getScratchKeys(project.id, $scope.userId, vm.profile.tenant);
-                    }
+                    $scope.projecturls.train = '/#!/mlproject/' + $scope.project.userid + '/' + $scope.project.id + '/training';
+                    $scope.projecturls.learnandtest = '/#!/mlproject/' + $scope.project.userid + '/' + $scope.project.id + '/models';
+
+                    return scratchkeysService.getScratchKeys(project.id, $scope.userId, vm.profile.tenant);
                 })
                 .then(function (resp) {
-                    if (resp) {
-                        var scratchkey = resp[0];
+                    var scratchkey = resp[0];
 
-                        scratchkey.extensionurl = window.location.origin +
-                                                '/api/scratch/' +
-                                                scratchkey.id +
-                                                '/extension3.js'
+                    scratchkey.extensionurl = window.location.origin +
+                                            '/api/scratch/' +
+                                            scratchkey.id +
+                                            '/extension3.js'
 
-                        $scope.scratchkey = scratchkey;
-                    }
+                    $scope.scratchkey = scratchkey;
                 })
                 .catch(function (err) {
-                    displayAlert('errors', err.data);
+                    $scope.failure = {
+                        message : err.data.error,
+                        status : err.status
+                    };
                 });
         }
     }());

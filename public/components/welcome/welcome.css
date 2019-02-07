@@ -24,7 +24,7 @@
 .getstartedinfo .stepnumber {
     font-size: 4em;
     font-weight: 700;
-    color: #606060;
+    color: #606080;
     margin-right: 1em;
     line-height: 1em;
 }
@@ -36,5 +36,39 @@
 @media only screen and (max-device-width: 736px) {
     .welcome {
         font-size: 1rem;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .motto {
+        font-size: 6em;
+    }
+    .getstartedinfo {
+        margin-left: 1em;
+    }
+    .getstartedinfo .stepnumber {
+        font-size: 4.5em;
+        margin-right: 0.7em;
+    }
+    .getstartedinfo h2 {
+        font-size: 32px;
+    }
+}
+@media (min-width: 1400px) {
+    .welcome {
+        width: 1350px;
+    }
+    .motto {
+        font-size: 7em;
+    }
+    .getstartedinfo {
+        margin-left: 2em;
+    }
+    .getstartedinfo .stepnumber {
+        font-size: 5em;
+        margin-right: 0.7em;
+    }
+    .getstartedinfo h2 {
+        font-size: 34px;
     }
 }

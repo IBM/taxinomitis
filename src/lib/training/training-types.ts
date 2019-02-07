@@ -11,17 +11,26 @@ export interface BluemixCredentials {
     readonly username: string;
     readonly password: string;
     readonly classid: string;
+    // not readonly, because users can modify this
+    credstype: BluemixCredentialsTypeLabel;
 }
 export interface BluemixCredentialsDbRow {
     readonly id: string;
     readonly servicetype: string;
-    readonly url: string;
+    // not readonly, because we don't know what the correct URL is
+    //  until after we've tried a few options
+    url: string;
     readonly username: string;
     readonly password: string;
     readonly classid: string;
+    readonly credstypeid?: number;
 }
 
 export type BluemixServiceType = 'conv' | 'visrec' | 'num';
+export type BluemixCredentialsTypeLabel = 'unknown' | ConversationCredentialsTypeLabel | VisualRecCredentialsTypeLabel;
+
+export type ConversationCredentialsTypeLabel = 'conv_lite' | 'conv_standard';
+export type VisualRecCredentialsTypeLabel = 'visrec_lite' | 'visrec_standard';
 
 export interface ConversationWorkspace {
     readonly id: string;

@@ -29,11 +29,11 @@ describe('Training - Unmanaged classifiers', () => {
     const convCredentials = dbobjects.createBluemixCredentials(conv,
         CLASSID,
         undefined,
-        username, password);
+        username, password, 'conv_lite');
     const visrecCredentials = dbobjects.createBluemixCredentials(visrec,
         CLASSID,
         apikey,
-        undefined, undefined);
+        undefined, undefined, 'visrec_lite');
 
 
     const textProject = dbobjects.getProjectFromDbRow(dbobjects.createProject(USERID, CLASSID,
@@ -86,8 +86,8 @@ describe('Training - Unmanaged classifiers', () => {
 
             await store.init();
 
-            await store.storeBluemixCredentials(CLASSID, convCredentials);
-            await store.storeBluemixCredentials(CLASSID, visrecCredentials);
+            await store.storeBluemixCredentials(CLASSID, dbobjects.getCredentialsAsDbRow(convCredentials));
+            await store.storeBluemixCredentials(CLASSID, dbobjects.getCredentialsAsDbRow(visrecCredentials));
 
             await store.storeConversationWorkspace(convCredentials, textProject, validWorkspace);
             await store.storeImageClassifier(visrecCredentials, imagesProject, validClassifier);
@@ -160,7 +160,7 @@ describe('Training - Unmanaged classifiers', () => {
         getClassifiers : () => {
             return Promise.resolve({
                 pagination: {
-                    refresh_url: '/v1/workspaces?version=2018-02-16',
+                    refresh_url: '/v1/workspaces?version=2018-09-20',
                 },
                 workspaces: [
                     {

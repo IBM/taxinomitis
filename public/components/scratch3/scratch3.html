@@ -8,8 +8,14 @@
 </div>
 
 <div ng-if="isAuthenticated && !projectId" class="alert alert-danger pageheadermsg">
-    <strong translate="APP.ERROR"></strong> Missing project id. Go back to <a ui-sref="projects">your projects</a>
+    <strong translate="APP.ERROR">Error:</strong> <span translate="ERRORS.MISSINGPROJECTID"></span> <a ui-sref="projects" translate="APP.PROJECTS"></a>
 </div>
+
+<div ng-if="failure" class="alert alert-danger pageheadermsg" role="alert">
+    <strong translate="APP.ERROR"></strong> {{ failure.message }}<br/>
+    <em ng-if="failure.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
+</div>
+
 
 <div ng-if="isAuthenticated && projectId">
     <div class="jumbotron">
@@ -19,64 +25,63 @@
         <a ui-sref="mlproject({ projectId : projectId, userId : userId  })" translate="APP.BACKTOPROJECT"></a>
     </div>
 
-    <div ng-repeat="error in vm.errors" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong translate="APP.ERROR"></strong> {{ error.message }}<br/>
-        <em ng-if="error.status >= 500">If this keeps happening, please <a ui-sref="help">let me know</a>.</em>
-    </div>
-    <div ng-repeat="warning in vm.warnings" class="alert alert-warning alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('warnings', $index)">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong translate="APP.WARNING"></strong> {{ warning.message }}
-    </div>
-
     <div ng-if="projectId && !project && !scratchkey" class="loading"> </div>
-
-    <div ng-if="project" class="alert alert-warning pageheadermsg" role="alert" style="margin-top: 1em">
-        <strong translate="APP.WARNING"></strong> {{ 'SCRATCH3.BETAWARNING' | translate }}
-    </div>
 
     <div ng-if="project && project.labels.length <= 1" class="modelguidancecontainer">
         <div class="modelguidance">
             <div class="modelstatusdetail" translate="SCRATCH.NOTREADY"></div>
+            <div class="modelstatusdetail" translate="SCRATCH.LAUNCH_SCRATCH_BY_ITSELF" translate-values='{ "url" : "/scratch3" }'></div>
+            <div class="modelstatusdetail" translate="SCRATCH.GO_TO_LEARNANDTEST" translate-values='{ urls : projecturls }'></div>
+        </div>
+    </div>
+
+
+    <div ng-if="scratchkey && project && project.labels.length > 1" style="margin: 2em;">
+        <div ng-if="!scratchkey.model">
+            <div class="alert alert-info" role="alert" translate="SCRATCH.NOMODEL"></div>
+            <div>
+                You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId, userId : userId })">train one now</a></strong> and then come back to open Scratch.
+            </div>
+            <div>
+                Or you can go <a class="btn btn-default" target="_blank" href="/scratch3?url={{ scratchkey.extensionurl }}">straight into Scratch</a> now.
+            </div>
+        </div>
+        <div ng-if="scratchkey.model">
+            <a target="_blank" class="btn btn-primary"
+               href="/scratch3?url={{ scratchkey.extensionurl }}"
+               translate="SCRATCH3.LAUNCH"></a>
+        </div>
+    </div>
+
+
+    <div ng-if="project && project.labels.length > 1" class="modelguidancecontainer">
+        <div class="modelguidance scratchblockscontainer">
+            <div class="modelstatusdetail">Your project will add these blocks to Scratch.</div>
+            <br/>
+            <div>
+                <img src="static/images/scratch3-recognise-label-{{ project.type }}.png">
+            </div>
+            <div class="modelstatusdetail" translate="SCRATCH.EXPLAIN_RECOGNISE_LABEL" translate-values='{ "type" : project.type }'></div>
+            <div>
+                <img src="static/images/scratch3-recognise-confidence-{{ project.type }}.png">
+            </div>
+            <div class="modelstatusdetail" translate="SCRATCH.EXPLAIN_RECOGNISE_CONFIDENCE" translate-values='{ "type" : project.type }'></div>
+            <div>
+                <img src="static/images/scratch3-label.png">
+            </div>
+            <div class="modelstatusdetail" translate="SCRATCH.EXPLAIN_LABELS" translate-values='{ "type" : project.type }'></div>
+            <div class="modelstatusdetail"><strong translate="SCRATCH.SAMPLE_SCRIPT"></strong></div>
+            <div>
+                <img src="static/images/scratch3-sample-{{ project.type }}.png">
+            </div>
+        </div>
+        <div class="modelguidance">
+            <div class="modelstatusdetail" translate="SCRATCH.SAMPLE_SCREENSHOT"></div>
             <div class="modelstatusdetail">
-                Or go to the <a ui-sref="mlproject_models({ projectId : projectId, userId : userId })">Learn &amp; Test</a>
-                page for some tips on what to do next.
+                <img src="static/images/scratch3-blocks-screenshot.jpg">
             </div>
         </div>
     </div>
 
-    <div ng-if="project && project.type === 'images'" style="margin: 2em;">
-        Scratch 3 isn't working with images projects yet, sorry.
-    </div>
-
-    <div ng-if="scratchkey && project.type !== 'images'" class="modelguidancecontainer">
-        <div class="modelguidance">
-            <div class="modelstatusdetail">
-                Have you heard about Scratch 3?
-            </div>
-            <div class="modelstatusdetail">
-                Scratch 3 is the new version of Scratch and is coming soon. For more info, read
-                <a href="https://medium.com/scratchteam-blog/3-things-to-know-about-scratch-3-0-18ee2f564278">3 Things To Know About Scratch 3.0</a>
-            </div>
-            <div class="modelstatusdetail">
-                I'm working on updating Machine Learning for Kids to work with Scratch 3, and this
-                page is here to give you a glimpse at what that might be like.
-            </div>
-        </div>
-        <div class="modelguidance">
-            <div class="modelstatusdetail">
-                Please be patient. It's going to be several weeks before this is properly
-                finished, so for now, assume that it's going to be a bit unfinished and
-                buggy.
-            </div>
-            <div class="modelstatusdetail">
-                If you'd like to give it a try, click the button below.
-            </div>
-            <div class="modelstatusdetail">
-                <a target="_blank" class="btn btn-default"
-                   href="/scratch3alpha?url={{ scratchkey.extensionurl }}">Open Scratch 3 (alpha)</a>
-            </div>
-        </div>
-    </div>
 </div>
 

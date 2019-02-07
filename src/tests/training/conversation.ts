@@ -4,11 +4,9 @@
 
 import * as uuid from 'uuid/v1';
 import * as assert from 'assert';
-import * as httpstatus from 'http-status';
 import * as sinon from 'sinon';
 import * as request from 'request-promise';
 import * as clone from 'clone';
-import * as randomstring from 'randomstring';
 
 import * as store from '../../lib/db/store';
 import * as conversation from '../../lib/training/conversation';
@@ -18,6 +16,7 @@ import * as TrainingTypes from '../../lib/training/training-types';
 import loggerSetup from '../../lib/utils/logger';
 
 import * as mockstore from './mockstore';
+import requestPromise = require('request-promise');
 
 const log = loggerSetup();
 
@@ -40,6 +39,7 @@ describe('Training - Conversation', () => {
     let resetExpiredScratchKeyStub: sinon.SinonStub;
     let updateScratchKeyTimestampStub: sinon.SinonStub;
     let getClassStub: sinon.SinonStub;
+    let isTenantDisruptiveStub: sinon.SinonStub;
 
 
     before(() => {
@@ -62,6 +62,7 @@ describe('Training - Conversation', () => {
         updateScratchKeyTimestampStub = sinon.stub(store, 'updateScratchKeyTimestamp').callsFake(mockstore.updateScratchKeyTimestamp);
         resetExpiredScratchKeyStub = sinon.stub(store, 'resetExpiredScratchKey').callsFake(mockstore.resetExpiredScratchKey);
         getClassStub = sinon.stub(store, 'getClassTenant').callsFake(mockstore.getClassTenant);
+        isTenantDisruptiveStub = sinon.stub(store, 'isTenantDisruptive').resolves(false);
     });
     after(() => {
         getStub.restore();
@@ -80,6 +81,7 @@ describe('Training - Conversation', () => {
         updateScratchKeyTimestampStub.restore();
         resetExpiredScratchKeyStub.restore();
         getClassStub.restore();
+        isTenantDisruptiveStub.restore();
     });
 
 
@@ -262,6 +264,7 @@ describe('Training - Conversation', () => {
                 servicetype : 'conv',
                 url : 'http://conversation.service',
                 classid : 'classid',
+                credstype : 'unknown',
             };
             const classifierTimestamp = new Date();
             classifierTimestamp.setMilliseconds(0);
@@ -290,6 +293,7 @@ describe('Training - Conversation', () => {
                 servicetype : 'conv',
                 url : 'http://conversation.service',
                 classid : 'classid',
+                credstype : 'unknown',
             };
             const classes = await conversation.testClassifier(creds, 'bad', new Date(), 'projectbob', 'Hello');
             assert.strictEqual(classes.length, 1);
@@ -438,7 +442,7 @@ describe('Training - Conversation', () => {
 
     const mockConversation = {
         getClassifier : (url: string) => {
-            return new Promise((resolve, reject) => {
+            const prom: unknown = new Promise((resolve, reject) => {
                 switch (url) {
                 case 'http://conversation.service/v1/workspaces/good':
                     return resolve(goodClassifierStatus);
@@ -452,9 +456,10 @@ describe('Training - Conversation', () => {
                     });
                 }
             });
+            return prom as requestPromise.RequestPromise;
         },
         deleteClassifier : (url: string) => {
-            return new Promise((resolve, reject) => {
+            const prom: unknown = new Promise((resolve, reject) => {
                 switch (url) {
                 case 'http://conversation.service/v1/workspaces/good':
                     return resolve();
@@ -466,6 +471,7 @@ describe('Training - Conversation', () => {
                     return reject({ error : 'Resource not found' });
                 }
             });
+            return prom as requestPromise.RequestPromise;
         },
         createClassifier : (url: string, options: conversation.LegacyTrainingRequest) => {
             log.debug({ url, options }, 'mock create classifier');

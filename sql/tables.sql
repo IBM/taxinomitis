@@ -75,7 +75,8 @@ CREATE TABLE bluemixcredentials (
     servicetype VARCHAR(8) NOT NULL,
     url VARCHAR(200) NOT NULL,
     username VARCHAR(36),
-    password VARCHAR(36)
+    password VARCHAR(36),
+    credstypeid TINYINT NOT NULL
 );
 
 CREATE INDEX bluemixcredentials_getBluemixCredentials on bluemixcredentials(classid, servicetype);
@@ -160,6 +161,18 @@ CREATE TABLE knownsyserrors (
     objid VARCHAR(50) NOT NULL
 );
 
+
+-- ------------------------------------------------------------------
+
+CREATE TABLE notificationoptouts (
+    id CHAR(36) NOT NULL PRIMARY KEY
+);
+
+CREATE TABLE disruptivetenants (
+    id CHAR(36) NOT NULL PRIMARY KEY
+);
+
+
 -- ------------------------------------------------------------------
 
 CREATE TABLE tenants (
@@ -176,7 +189,7 @@ INSERT INTO tenants (id, projecttypes, maxusers, maxprojectsperuser, textclassif
     VALUES
         ('TESTTENANT', 'text,images,numbers', 8, 3, 2, true),
         ('UNIQUECLASSID', 'text,numbers', 8, 3, 2, true),
-        ('session-users', 'text,numbers', 5, 1, 4, false);
+        ('session-users', 'text,numbers', 5, 1, 4, true);
 
 -- ------------------------------------------------------------------
 

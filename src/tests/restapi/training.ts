@@ -366,7 +366,7 @@ describe('REST API - training', () => {
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
                     const body = res.body;
-                    assert.deepStrictEqual(body, { error : 'Missing required attributes' });
+                    assert.deepStrictEqual(body, { error : 'Missing data' });
 
                     return store.deleteEntireProject(userid, classid, project);
                 });
@@ -433,7 +433,7 @@ describe('REST API - training', () => {
                 .then((res) => {
                     const body = res.body;
 
-                    assert.deepStrictEqual(body, { error : 'Number of data items exceeded maximum' });
+                    assert.deepStrictEqual(body, { error : 'Missing data' });
 
                     return store.deleteEntireProject(userid, classid, project);
                 });
@@ -468,6 +468,105 @@ describe('REST API - training', () => {
                 .expect(httpstatus.CREATED)
                 .then(() => {
                     return store.deleteEntireUser(userid, classid);
+                });
+        });
+
+
+        it('should reject missing numeric training', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo', 'en', [
+                { name : 'first', type : 'number' }, { name : 'second', type : 'number' },
+                { name : 'third', type : 'number' },
+            ], false);
+
+            const projectid = project.id;
+
+            const trainingurl = '/api/classes/' + classid +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
+
+            return request(testServer)
+                .post(trainingurl)
+                .send({
+                    data : [1, 2, ' '],
+                    label : 'fruit',
+                })
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, {
+                        error : 'Data contains non-numeric items',
+                    });
+                });
+        });
+
+
+        it('should reject huge numbers in numeric training', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo', 'en', [
+                { name : 'first', type : 'number' },
+            ], false);
+
+            const projectid = project.id;
+
+            const trainingurl = '/api/classes/' + classid +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
+
+            return request(testServer)
+                .post(trainingurl)
+                .send({
+                    data : [350000000000000000000000000000000000000],
+                    label : 'fruit',
+                })
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, {
+                        error : 'Number is too big',
+                    });
+                });
+        });
+
+        it('should reject tiny numbers in numeric training', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo', 'en', [
+                { name : 'first', type : 'number' },
+            ], false);
+
+            const projectid = project.id;
+
+            const trainingurl = '/api/classes/' + classid +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
+
+            return request(testServer)
+                .post(trainingurl)
+                .send({
+                    data : [-350000000000000000000000000000000000000],
+                    label : 'fruit',
+                })
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, {
+                        error : 'Number is too small',
+                    });
                 });
         });
 
@@ -615,7 +714,37 @@ describe('REST API - training', () => {
         });
 
 
-        it('should store training', async () => {
+        it('should store number training', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'numbers', 'demo', 'en', [
+                { name : 'first', type : 'number' },
+            ], false);
+
+            const projectid = project.id;
+
+            const trainingurl = '/api/classes/' + classid +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
+
+            return request(testServer)
+                .post(trainingurl)
+                .send({
+                    data : [1234],
+                    label : 'fruit',
+                })
+                .expect(httpstatus.CREATED)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body.numberdata[0], 1234);
+                });
+        });
+
+        it('should store text training', async () => {
             const classid = uuid();
             const userid = uuid();
 
@@ -671,6 +800,8 @@ describe('REST API - training', () => {
             limitsStub.returns({
                 textTrainingItemsPerProject : 2,
                 numberTrainingItemsPerProject : 2,
+                numberTrainingItemsPerClassProject : 2,
+                imageTrainingItemsPerProject : 100,
             });
 
             const trainingurl = '/api/classes/' + classid +

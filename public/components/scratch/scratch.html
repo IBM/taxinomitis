@@ -8,7 +8,7 @@
 </div>
 
 <div ng-if="isAuthenticated && !projectId" class="alert alert-danger pageheadermsg">
-    <strong translate="APP.ERROR"></strong> Missing project id. Go back to <a ui-sref="projects">your projects</a>
+    <strong translate="APP.ERROR"></strong> <span translate="ERRORS.MISSINGPROJECTID"></span> <a ui-sref="projects" translate="APP.PROJECTS"></a>
 </div>
 
 <div ng-if="isAuthenticated && projectId">
@@ -22,7 +22,7 @@
     <div ng-repeat="error in vm.errors" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <strong translate="APP.ERROR"></strong> {{ error.message }}<br/>
-        <em ng-if="error.status >= 500">If this keeps happening, please <a ui-sref="help">let me know</a>.</em>
+        <em ng-if="error.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
     </div>
     <div ng-repeat="warning in vm.warnings" class="alert alert-warning alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('warnings', $index)">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -34,101 +34,87 @@
     <div ng-if="project && project.labels.length <= 1" class="modelguidancecontainer">
         <div class="modelguidance">
             <div class="modelstatusdetail" translate="SCRATCH.NOTREADY"></div>
-            <div class="modelstatusdetail">
-                (You can use <a href="/scratchx" class="btn btn-default" target="_blank">Scratch by itself</a> if you want.)
-            </div>
-            <div class="modelstatusdetail">
-                Or go to the <a ui-sref="mlproject_models({ projectId : projectId, userId : userId })">Learn &amp; Test</a>
-                page for some tips on what to do next.
-            </div>
+            <div class="modelstatusdetail" translate="SCRATCH.LAUNCH_SCRATCH_BY_ITSELF" translate-values='{ "url" : "/scratchx" }'></div>
+            <div class="modelstatusdetail" translate="SCRATCH.GO_TO_LEARNANDTEST" translate-values='{ urls : projecturls }'></div>
         </div>
     </div>
 
 
-    <div ng-if="project && project.labels.length > 1" style="margin: 2em;">
-        <div ng-if="scratchkey">
-            <div ng-if="!scratchkey.model">
-                <div class="alert alert-info" role="alert" translate="SCRATCH.MODEL"></div>
-                <div>
-                    You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId, userId : userId })">train one now</a></strong> and then come back to open Scratch.
-                </div>
-                <div>
-                    Or you can go <a class="btn btn-default" target="_blank" href="{{ scratchkey.url }}">straight into Scratch</a> now.
-                </div>
+    <div ng-if="scratchkey && project && project.labels.length > 1" style="margin: 2em;">
+        <div ng-if="!scratchkey.model">
+            <div class="alert alert-info" role="alert" translate="SCRATCH.NOMODEL"></div>
+            <div>
+                You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId, userId : userId })">train one now</a></strong> and then come back to open Scratch.
             </div>
-            <div ng-if="scratchkey.model">
-                <div style="padding-bottom: 4px">
-                    To launch a new copy of Scratch with your model loaded, click this link:<br/>
-                    <a target="_blank" href="{{ scratchkey.url }}">{{ scratchkey.url }}</a>
-                </div>
-                <div>
-                    Or, to add your model to a Scratch project that is already open, click on "Load Experimental Extension" and use the URL :<br/>
-                    <code>{{ scratchkey.extensionurl }}</code>
-                </div>
+            <div>
+                Or you can go <a class="btn btn-default" target="_blank" href="{{ scratchkey.url }}">straight into Scratch</a> now.
             </div>
         </div>
-        <button ng-if="!scratchkey"
-                class="btn btn-primary"
-                ng-click="vm.getScratchKey($event, project)"
-                translate="SCRATCH.LAUNCH"></button>
+        <div ng-if="scratchkey.model && scratchkey.url">
+            <a target="_blank" class="btn btn-primary"
+               href="{{ scratchkey.url }}"
+               translate="SCRATCH.LAUNCH"></a>
+        </div>
     </div>
 
     <div ng-if="project && project.labels.length > 1" class="modelguidancecontainer">
         <div class="modelguidance scratchblockscontainer">
-            <div class="modelstatusdetail">
-                Your project will add these blocks to the
-                <span style="background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;">More Blocks</span>
-                tab in Scripts. <br/><br/>
-            </div>
+            <div class="modelstatusdetail" translate="SCRATCH.MORE_BLOCKS"></div>
+            <br/><br/>
             <div class="scratchblocks">
                 {{ scratchblocks.label }}
             </div>
-            <div class="modelstatusdetail">
-                Put {{ project.type }} in the input for this, and it will return the label that your machine learning model recognises it as.
-            </div>
+            <div class="modelstatusdetail" translate="SCRATCH.EXPLAIN_RECOGNISE_LABEL" translate-values='{ "type" : project.type }'></div>
+
             <div class="scratchblocks">
                 {{ scratchblocks.confidence }}
             </div>
-            <div class="modelstatusdetail">
-                This will return how confident your machine learning model is that it recognises the type of {{ project.type }}. (As a number from 0 - 100).
-            </div>
+            <div class="modelstatusdetail" translate="SCRATCH.EXPLAIN_RECOGNISE_CONFIDENCE" translate-values='{ "type" : project.type }'></div>
+
             <div class="scratchblocks" style="float: left" ng-repeat="label in project.labels">
                 {{label}} :: custom reporter
             </div>
-            <div class="modelstatusdetail" style="clear: both;">
-                These blocks represent the labels you've created in your project, so you can use their names in your scripts.
-            </div>
+            <div class="modelstatusdetail" style="clear: both;" translate="SCRATCH.EXPLAIN_LABELS"></div>
+
             <div class="scratchblocks" ng-if="project.type === 'images'">
                 costume image :: looks reporter
             </div>
-            <div class="modelstatusdetail" ng-if="project.type === 'images'">
-                This block is in the Looks palette for Sprites and will return the image of the currently selected costume.
-            </div>
-            <div class="modelstatusdetail">
-                <strong>This means you can do something like this:</strong>
-            </div>
+            <div class="modelstatusdetail" ng-if="project.type === 'images'" translate="SCRATCH.EXPLAIN_COSTUMEIMAGE"></div>
+
+            <div class="modelstatusdetail"><strong translate="SCRATCH.SAMPLE_SCRIPT"></strong></div>
             <div class="scratchblocks">
                 {{ scratchblocks.sample }}
             </div>
         </div>
         <div class="modelguidance">
-            <div class="modelstatusdetail">
-                It will look something like this - except with the name of your project.
-            </div>
+            <div class="modelstatusdetail" translate="SCRATCH.SAMPLE_SCREENSHOT"></div>
             <div class="modelstatusdetail">
                 <img src="static/images/scratch-screenshot.png">
             </div>
-            <div class="modelstatusdetail">
-                The coloured circle next to your project name tells you if your machine learning model is okay.
-            </div>
+
+            <div class="modelstatusdetail" translate="SCRATCH.EXPLAIN_STATUS"></div>
             <div class="modelstatusdetail">
                 <ul>
-                    <li><div class="statusicon ok"> </div> means your model is trained and ready to go
-                    <li><div class="statusicon notready"> </div>  means your model hasn't finished training yet
-                    <li><div class="statusicon error"> </div>  means something went wrong. Go back to the <a ui-sref="mlproject_models({ projectId : projectId, userId : userId })">Learn &amp; Test</a> page to see what went wrong with training.
+                    <li><div class="statusicon ok"> </div> <span translate="SCRATCH.STATUS_GREEN"></span>
+                    <li><div class="statusicon notready"> </div>  <span translate="SCRATCH.STATUS_YELLOW"></span>
+                    <li><div class="statusicon error"> </div>  <span translate="SCRATCH.STATUS_RED" translate-values='{ urls : projecturls }'></span>
                 </ul>
             </div>
         </div>
     </div>
-</div>
 
+    <div ng-if="scratchkey && scratchkey.extensionurl" class="modelguidancecontainer">
+        <div class="modelguidance">
+            <div class="modelstatusdetail">
+                To add your model to a Scratch project that is already open, click on
+                "Load Experimental Extension" and use the URL :<br/>
+                <code>{{ scratchkey.extensionurl }}</code>
+            </div>
+            <div class="modelstatusdetail">
+                You can use this to create Scratch projects using other extensions from
+                <a href="http://scratchx.org/#extensions" target="_blank">ScratchX</a>
+                together with your machine learning model.
+            </div>
+        </div>
+    </div>
+</div>

@@ -21,7 +21,7 @@ const VALID_USERNAME = /^[A-Za-z0-9\-_]+$/;
 
 
 function getStudents(req: Express.Request, res: Express.Response) {
-    return auth0.getStudents(req.params.classid)
+    return auth0.getAllStudents(req.params.classid)
         .then((students) => {
             res.set(headers.NO_CACHE).json(students);
         })
@@ -52,12 +52,16 @@ async function createTeacher(req: Express.Request, res: Express.Response) {
         const summarymessage: string = 'A new class account was created! ' +
                                        'Username ' + req.body.username + ' (' + req.body.email + ') has signed up' +
                                        (req.body.notes ? ', saying "' + req.body.notes + '"' : '');
-        notifications.notify(summarymessage);
+        notifications.notify(summarymessage, notifications.SLACK_CHANNELS.CLASS_CREATE);
 
         return res.status(httpstatus.CREATED)
                   .json(teacher);
     }
     catch (err) {
+        if (userAlreadyExists(err)) {
+            return res.status(httpstatus.CONFLICT).json({ error : 'There is already a user with that username' });
+        }
+
         log.error({ err }, 'Failed to create class account');
 
         let statusCode = httpstatus.INTERNAL_SERVER_ERROR;
@@ -100,6 +104,10 @@ async function createStudent(req: Express.Request, res: Express.Response) {
                   .json(newstudent);
     }
     catch (err) {
+        if (userAlreadyExists(err)) {
+            return res.status(httpstatus.CONFLICT).json({ error : 'There is already a student with that username' });
+        }
+
         log.error({ err }, 'Failed to create student account');
 
         let statusCode = httpstatus.INTERNAL_SERVER_ERROR;
@@ -114,6 +122,18 @@ async function createStudent(req: Express.Request, res: Express.Response) {
 
         return res.status(statusCode).json(errObj);
     }
+}
+
+
+function userAlreadyExists(err: any) {
+    return err && err.response && err.response.body &&
+           (
+               (err.response.body.statusCode === httpstatus.CONFLICT &&
+                err.response.body.message === 'The user already exists.')
+                ||
+               (err.response.body.statusCode === httpstatus.BAD_REQUEST &&
+                err.response.body.message === 'The username provided is in use already.')
+            );
 }
 
 
@@ -134,7 +154,8 @@ async function deleteStudent(req: Express.Request, res: Express.Response) {
     }
     catch (err) {
         log.error({ err }, 'Failed to clean up projects for deleted user');
-        notifications.notify('Failed to delete user ' + userid + ' from ' + tenant);
+        notifications.notify('Failed to delete user ' + userid + ' from ' + tenant,
+                             notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
     }
 
     try {
@@ -142,7 +163,8 @@ async function deleteStudent(req: Express.Request, res: Express.Response) {
     }
     catch (err) {
         log.error({ err }, 'Failed to clean up image store for deleted user');
-        notifications.notify('Failed to delete storage for user ' + userid + ' from ' + tenant);
+        notifications.notify('Failed to delete storage for user ' + userid + ' from ' + tenant,
+                             notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
     }
 }
 
@@ -176,14 +198,49 @@ function resetStudentsPassword(req: Express.Request, res: Express.Response) {
     }
 
     return auth0.resetStudentsPassword(tenant, studentids)
-        .then((students) => {
-            res.json(students);
+        .then((password) => {
+            res.json({ password });
         })
         .catch((err) => {
             res.status(err.statusCode)
                 .json(err);
         });
 }
+
+
+
+function modifyClass(req: Express.Request, res: Express.Response) {
+    const tenant = req.params.classid;
+
+    let patch: { textClassifierExpiry: number, imageClassifierExpiry: number };
+    try {
+        patch = getClassPatch(req);
+    }
+    catch (err) {
+        return res.status(httpstatus.BAD_REQUEST)
+                  .json({
+                      error : err.message,
+                  });
+    }
+
+    return store.modifyClassTenantExpiries(tenant,
+                                           patch.textClassifierExpiry,
+                                           patch.imageClassifierExpiry)
+        .then((modified) => {
+            res.json(modified);
+        })
+        .catch((err) => {
+            if (err.message === 'Missing required expiry value' ||
+                err.message === 'Expiry values should be an integer number of hours' ||
+                err.message === 'Expiry values should be a positive number of hours' ||
+                err.message === 'Expiry values should not be greater than 255 hours')
+            {
+                return errors.missingData(res);
+            }
+            return errors.unknownError(res, err);
+        });
+}
+
 
 
 
@@ -201,7 +258,8 @@ function deleteClass(req: Express.Request, res: Express.Response) {
         })
         .catch((err) => {
             log.error({ err, tenant }, 'Failed to delete class');
-            notifications.notify('Failed to delete class ' + tenant + ' because:\n' + err.message);
+            notifications.notify('Failed to delete class ' + tenant + ' because:\n' + err.message,
+                                 notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
 
             return errors.unknownError(res, err);
         });
@@ -222,8 +280,8 @@ async function getPolicy(req: Express.Request, res: Express.Response) {
         return res.json({
             isManaged : policy.isManaged,
 
-            maxTextModels : availableTextCredentials * 20,
-            maxImageModels : availableImageCredentials * 2,
+            maxTextModels : availableTextCredentials,
+            maxImageModels : availableImageCredentials,
 
             maxUsers : policy.maxUsers,
             supportedProjectTypes : policy.supportedProjectTypes,
@@ -267,6 +325,41 @@ function getUserPatch(req: Express.Request): string[] {
     });
 }
 
+function getClassPatch(req: Express.Request): { textClassifierExpiry: number, imageClassifierExpiry: number }
+{
+    const patchRequests = req.body;
+
+    if (Array.isArray(patchRequests) === false) {
+        throw new Error('PATCH body should be an array');
+    }
+    if (patchRequests.length !== 2) {
+        throw new Error('PATCH body should include 2 values');
+    }
+
+    const patch = {
+        textClassifierExpiry : 0,
+        imageClassifierExpiry : 0,
+    };
+
+    patchRequests.forEach((patchRequest: any) => {
+        if (patchRequest &&
+            patchRequest.op &&
+            patchRequest.path &&
+            patchRequest.value &&
+            patchRequest.op === 'replace' &&
+            (patchRequest.path === '/textClassifierExpiry' || patchRequest.path === '/imageClassifierExpiry'))
+        {
+            const path: 'textClassifierExpiry' | 'imageClassifierExpiry' = patchRequest.path.substr(1);
+            patch[path] = patchRequest.value;
+        }
+        else {
+            throw new Error('Invalid PATCH request');
+        }
+    });
+
+    return patch;
+}
+
 
 
 
@@ -277,6 +370,12 @@ export default function registerApis(app: Express.Application) {
         auth.checkValidUser,
         auth.requireSupervisor,
         getPolicy);
+
+    app.patch(urls.TENANT_POLICY,
+        auth.authenticate,
+        auth.checkValidUser,
+        auth.requireSupervisor,
+        modifyClass);
 
     app.delete(urls.CLASS,
         auth.authenticate,

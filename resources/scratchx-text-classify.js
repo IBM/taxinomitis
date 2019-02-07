@@ -55,6 +55,9 @@
         $.ajax({
             url : '{{{ statusurl }}}',
             dataType : 'jsonp',
+            headers : {
+                'X-User-Agent': 'mlforkids-scratch2-text'
+            },
             success : function (data) {
                 classifierStatus = data;
 
@@ -91,7 +94,8 @@
                 data : text
             },
             headers : {
-                'If-Modified-Since': lastmodified
+                'If-Modified-Since': lastmodified,
+                'X-User-Agent': 'mlforkids-scratch2-text'
             },
             success : function (data, status) {
                 var result;
@@ -160,8 +164,11 @@
         $.ajax({
             url : '{{{ storeurl }}}',
             dataType : 'jsonp',
+            headers : {
+                'X-User-Agent': 'mlforkids-scratch2-text'
+            },
             data : {
-                data : text,
+                data : cleanUpText(text, 1024),
                 label : label
             },
             success : function (data) {
@@ -189,6 +196,11 @@
 
 
     function getTextClassificationResponse(text, cacheKey, valueToReturn, callback) {
+        var cleanedUpText = cleanUpText(text, 2000);
+        if (!cleanedUpText) {
+            return callback('You need to put some text that you want to classify in here');
+        }
+
         var cached = ext.resultscache[cacheKey];
 
         // protect against kids putting the ML block inside a forever
@@ -206,19 +218,25 @@
         }
 
         // submit to the classify API
-        classifyText(text, cacheKey, lastmodified, function (result) {
+        classifyText(cleanedUpText, cacheKey, lastmodified, function (result) {
             // return the requested value from the response
             callback(result[valueToReturn]);
         });
     }
 
 
-
-
-
-
-
-
+    // Newlines in text will cause errors in Watson Assistant API calls
+    // so we replace them a with a space
+    var LINE_BREAKS = /(\r\n|\n|\r|\t)/gm;
+    function cleanUpText(str, maxlength) {
+        // Newlines in text will cause errors in Watson Assistant API calls
+        // so we replace them a with a space
+        return str.replace(LINE_BREAKS, ' ')
+                  .trim()
+                  // Protect against text that will exceed the limit on
+                  //  number of characters allowed by the API
+                  .substr(0, maxlength);
+    }
 
 
 
@@ -256,8 +274,12 @@
             {{#labels}}
             [ 'r', '{{name}}', 'return_label_{{idx}}'],
             {{/labels}}
-            [ 'w', 'add training data %s %s', 'text_store', 'text', 'label']
-        ]
+            [ 'w', 'add training data %s to %m.labels', 'text_store', 'text', '{{firstlabel}}'],
+            [ 'w', 'add training data %s to %s', 'text_store', 'text', 'label']
+        ],
+        menus : {
+            labels : [ {{#labels}} '{{name}}', {{/labels}} ]
+        }
     };
 
     // Register the extension

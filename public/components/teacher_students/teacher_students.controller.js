@@ -15,6 +15,8 @@
         var vm = this;
         vm.authService = authService;
 
+        vm.allStudentPasswordsReset = false;
+
         var placeholderId = 1;
 
         var alertId = 1;
@@ -48,12 +50,14 @@
         }
 
 
-        function displayPassword(ev, student) {
+        function displayPassword(ev, student, showWarning) {
             $mdDialog.show(
                 $mdDialog.alert()
                     .clickOutsideToClose(true)
                     .title(student.username)
-                    .htmlContent('Password: <span class="passworddisplaydialog">' + student.password + '</span>')
+                    .htmlContent(
+                        '<div>Password: <span class="passworddisplaydialog">' + student.password + '</span></div>' +
+                        (showWarning ? '<div><strong>Note:</strong> This may take a few minutes to take effect. Please be patient.' : ''))
                     .ariaLabel('Confirm student password')
                     .ok('OK')
                     .targetEvent(ev)
@@ -114,7 +118,7 @@
                 });
         };
 
-        
+
 
         vm.createUser = function (ev) {
             $mdDialog.show({
@@ -189,24 +193,27 @@
 
             $mdDialog.show(confirm).then(
                 function() {
+                    vm.allStudentPasswordsReset = true;
+
                     vm.students.forEach(function (student) {
                         student.isPlaceholder = true;
                     });
 
                     usersService.resetStudentsPassword(vm.students, vm.profile.tenant)
-                        .then(function (updatedUsers) {
+                        .then(function (resp) {
                             vm.students.forEach(function (student) {
                                 student.isPlaceholder = false;
                             });
                             displayPassword(ev, {
                                 username : 'All students',
-                                password : updatedUsers[0].password
-                            });
+                                password : resp.password
+                            }, vm.students.length > 40);
                         })
                         .catch(function (err) {
                             vm.students.forEach(function (student) {
                                 student.isPlaceholder = false;
                             });
+                            vm.allStudentPasswordsReset = false;
                             displayAlert('errors', err.status, err.data);
                         });
                 },

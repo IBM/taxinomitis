@@ -11,12 +11,12 @@
                     <div layout="row">
                         <md-input-container class="trainingtextinput">
                             <label>{{ 'TRAINING.NEWEXAMPLE.INTRO' | translate }} '{{ label }}'</label>
-                            <input type="text" name="text"
+                            <textarea type="text" name="text"
                                    md-autofocus="project.type === 'text'"
+                                   ng-keypress="submitOnEnter($event)"
                                    ng-required="true"
-                                   ng-pattern="/^[^\n\t\r]+$/"
                                    ng-model="example"
-                                   md-maxlength="1000"></input>
+                                   md-maxlength="1000"></textarea>
                             <div class="ng-animate" ng-messages="newTextTrainingData[text].$error" >
                                 <div ng-message="pattern" translate="TRAINING.NEWEXAMPLE.ERROR"></div>
                             </div>

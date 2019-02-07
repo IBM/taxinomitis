@@ -1,12 +1,11 @@
 (function () {
 
     angular
-        .module('app', ['ngMaterial', 'ngAnimate', 'ngMessages', 'ngSanitize', 'auth0.lock', 'angular-jwt', 'ui.router', 'duScroll', 'webcam', 'pascalprecht.translate'])
+        .module('app', ['ngMaterial', 'ngAnimate', 'ngMessages', 'ngSanitize', 'auth0.lock', 'angular-jwt', 'ui.router', 'duScroll', 'webcam', 'pascalprecht.translate', 'angularMoment'])
         .config(config);
 
     config.$inject = [
         '$stateProvider',
-        '$locationProvider',
         'lockProvider',
         '$urlRouterProvider',
         'jwtOptionsProvider',
@@ -14,7 +13,7 @@
         '$translateProvider'
     ];
 
-    function config($stateProvider, $locationProvider, lockProvider, $urlRouterProvider, jwtOptionsProvider, $httpProvider, $translateProvider) {
+    function config($stateProvider, lockProvider, $urlRouterProvider, jwtOptionsProvider, $httpProvider, $translateProvider) {
 
         $stateProvider
             .state('home', {
@@ -77,7 +76,10 @@
                 url: '/teacher/restrictions',
                 controller: 'TeacherRestrictionsController',
                 templateUrl: 'static/components-<%= VERSION %>/teacher_restrictions/teacher_restrictions.html',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                params: {
+                    VERSION : <%= VERSION %>
+                }
             })
             .state('teacher_apikeys', {
                 url: '/teacher/apikeys',
@@ -145,6 +147,12 @@
                     VERSION : <%= VERSION %>
                 }
             })
+            .state('mlproject_makes', {
+                url: '/mlproject/:userId/:projectId/makes',
+                controller: 'MakesController',
+                templateUrl: 'static/components-<%= VERSION %>/makes/makes.html',
+                controllerAs: 'vm'
+            })
             .state('mlproject_scratch', {
                 url: '/mlproject/:userId/:projectId/scratch',
                 controller: 'ScratchController',
@@ -163,10 +171,10 @@
                 templateUrl: 'static/components-<%= VERSION %>/python/python.html',
                 controllerAs: 'vm'
             })
-            .state('siteadmin', {
-                url: '/siteadmin',
-                controller: 'AdminController',
-                templateUrl: 'static/components-<%= VERSION %>/admin/admin.html',
+            .state('mlproject_appinventor', {
+                url: '/mlproject/:userId/:projectId/appinventor',
+                controller: 'AppInventorController',
+                templateUrl: 'static/components-<%= VERSION %>/appinventor/appinventor.html',
                 controllerAs: 'vm'
             })
             .state('404', {
@@ -175,9 +183,9 @@
             });
 
 
-        lockProvider.init({
+        const lockProviderOptions = {
             clientID : AUTH0_CLIENT_ID,
-            domain : AUTH0_DOMAIN,
+            domain : AUTH0_CUSTOM_DOMAIN,
             options : {
                 autoclose : true,
                 auth : {
@@ -189,7 +197,7 @@
                     }
                 },
                 theme : {
-                    logo : 'static/images/mlforkids-logo.jpg',
+                    logo : 'static/images/mlforkids-logo.svg',
                     primaryColor : '#337ab7'
                 },
 
@@ -208,7 +216,11 @@
                 // we don't want people creating their own accounts
                 allowSignUp : false
             }
-        });
+        };
+        if (AUTH0_CDN_BASE) {
+            lockProviderOptions.options.configurationBaseUrl = AUTH0_CDN_BASE;
+        }
+        lockProvider.init(lockProviderOptions);
 
 
 
@@ -224,8 +236,9 @@
                 //  It will be localStorage if available, or a local in-memory shim otherwise
                 return window.localStorageObj.getItem('id_token');
             }],
-            whiteListedDomains: ['localhost'],
-            unauthenticatedRedirectPath: '/login'
+            unauthenticatedRedirector: ['authService', function (authService) {
+                authService.handleUnauthenticated();
+            }]
         });
 
         $httpProvider.interceptors.push('jwtInterceptor');
@@ -243,7 +256,7 @@
                 const queries = document.location.search.substr(1).split('&');
                 for (var i = 0; i < queries.length; i++) {
                     var query = queries[0];
-                    if (query.startsWith('lang=')) {
+                    if (query.indexOf('lang=') === 0) {
                         lang = query.substr('lang='.length);
                         break;
                     }
@@ -252,12 +265,21 @@
                 lang = lang.toLowerCase();
 
                 // shorten en-XX to en
-                if (lang.startsWith('en')) {
+                if (lang.indexOf('en') === 0) {
                     lang = 'en';
+                }
+                else if (lang.indexOf('es') === 0) {
+                    lang = 'es';
+                }
+                else if (lang.indexOf('ko') === 0) {
+                    lang = 'ko';
+                }
+                else if (lang.indexOf('zh') === 0) {
+                    lang = 'zh-cn';
                 }
 
                 return lang;
             })
             .fallbackLanguage('en');
-        }
+    }
 })();

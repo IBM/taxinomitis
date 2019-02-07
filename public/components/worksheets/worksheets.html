@@ -1,28 +1,34 @@
 <div class="jumbotron">
-    <h2 class="text-center">Machine learning projects</h2>
+    <h2 class="text-center" translate="WORKSHEETS.TITLE"></h2>
 </div>
 <div class="worksheetsintro">
-    <p>These projects are downloadable step-by-step guides, with explanations and colour screenshots for students to follow.</p>
-    <p>Each project is a stand-alone activity, written to last for a single lesson, and will guide children to create a game or interactive project that demonstrates a real-world use of artificial intelligence and machine learning.</p>
-    <p style="font-size: 0.9em"><em><a href="https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions">Suggestions for new worksheets, suggestions of improvements to any of the worksheets, or contributions of new project worksheets, are all very welcome.</a></em></p>
+    <p translate="WORKSHEETS.INTRO_1"></p>
+    <p translate="WORKSHEETS.INTRO_2"></p>
+    <p style="font-size: 0.9em"><em><a href="https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions" translate="WORKSHEETS.INTRO_3"></a></em></p>
 </div>
 <div class="worksheetfilters">
     <md-select ng-model="projecttype" class="filter">
-        <md-option value="ALL">All project types</md-option>
-        <md-option value="text">Train a computer to recognise <strong>text</strong></md-option>
-        <md-option value="images">Train a computer to recognise <strong>images</strong></md-option>
-        <md-option value="numbers">Train a computer to recognise <strong>numbers</strong></md-option>
+        <md-option value="ALL" translate="WORKSHEETS.TYPES.ALL"></md-option>
+        <md-option value="text">{{ 'WORKSHEETS.TYPES.PREFIX' | translate }} <strong translate="WORKSHEETS.TYPES.TEXT"></strong></md-option>
+        <md-option value="images">{{ 'WORKSHEETS.TYPES.PREFIX' | translate }} <strong translate="WORKSHEETS.TYPES.IMAGES"></strong></md-option>
+        <md-option value="numbers">{{ 'WORKSHEETS.TYPES.PREFIX' | translate }} <strong translate="WORKSHEETS.TYPES.NUMBERS"></strong></md-option>
     </md-select>
     <md-select ng-model="projectdifficulty" class="filter">
-        <md-option value="ALL">All difficulties</md-option>
-        <md-option value="Beginner"><strong>Beginner</strong> projects</md-option>
-        <md-option value="Intermediate"><strong>Intermediate</strong> projects</md-option>
-        <md-option value="Advanced"><strong>Advanced</strong> projects</md-option>
+        <md-option value="ALL" translate="WORKSHEETS.LEVELS.ALL"></md-option>
+        <md-option value="Beginner"><strong translate="WORKSHEETS.LEVELS.BEGINNER"></strong></md-option>
+        <md-option value="Intermediate"><strong translate="WORKSHEETS.LEVELS.INTERMEDIATE"></strong></md-option>
+        <md-option value="Advanced"><strong translate="WORKSHEETS.LEVELS.ADVANCED"></strong></md-option>
+    </md-select>
+    <md-select ng-model="projectmaketype" class="filter">
+        <md-option value="ALL" translate="WORKSHEETS.MAKETYPES.ALL"></md-option>
+        <md-option value="scratch"><strong translate="WORKSHEETS.MAKETYPES.SCRATCH"></strong></md-option>
+        <md-option value="python"><strong translate="WORKSHEETS.MAKETYPES.PYTHON"></strong></md-option>
+        <md-option value="appinventor"><strong translate="WORKSHEETS.MAKETYPES.APPINVENTOR"></strong></md-option>
     </md-select>
     <br clear="all"/>
 </div>
 <div class="worksheets">
-    <div ng-repeat="worksheet in vm.worksheets | filter : filterWorksheets" class="worksheetcard">
+    <div ng-repeat="worksheet in vm.worksheets | filter : filterWorksheets as filteredWorksheets" class="worksheetcard">
         <div class="cardmain">
             <div class="info">
                 <div class="title"><a ng-click="vm.downloadWorksheet($event, worksheet)">{{worksheet.title}}</a></div>
@@ -34,16 +40,41 @@
             </div>
         </div>
         <div class="cardfooter">
-            <div class="difficulty"><span class="heading">Difficulty:</span> {{worksheet.difficulty}}</div>
-            <div class="projecttype"><span class="heading">Recognising:</span> <span class="worksheettype">{{worksheet.type}}</span></div>
+            <div class="difficulty"><span class="heading" translate="WORKSHEETS.LEVELS.TITLE"></span> {{worksheet.difficulty}}</div>
+            <div class="projecttype"><span class="heading" translate="WORKSHEETS.TYPES.TITLE"></span> <span class="worksheettype">{{worksheet.type}}</span></div>
         </div>
         <div class="cardfooter">
-            <div class="tags"><span class="heading">Tags:</span> {{worksheet.tags.join(', ')}}</div>
+            <div class="maketype" ng-repeat="maketype in worksheet.maketypes">
+                <img ng-if="maketype === 'scratch2'"
+                     src="static/images/logo-small-scratch2.png"
+                     alt="{{ 'WORKSHEETS.MAKETYPES.SCRATCH_WORKSHEET' | translate }}"
+                     title="{{ 'WORKSHEETS.MAKETYPES.SCRATCH_WORKSHEET' | translate }}"/>
+                <img ng-if="maketype === 'scratch3'"
+                     src="static/images/logo-small-scratch3.png"
+                     alt="{{ 'WORKSHEETS.MAKETYPES.SCRATCH_WORKSHEET' | translate }}"
+                     title="{{ 'WORKSHEETS.MAKETYPES.SCRATCH_WORKSHEET' | translate }}"/>
+                <img ng-if="maketype === 'python'"
+                     src="static/images/logo-small-python.png"
+                     alt="{{ 'WORKSHEETS.MAKETYPES.PYTHON_WORKSHEET' | translate }}"
+                     title="{{ 'WORKSHEETS.MAKETYPES.PYTHON_WORKSHEET' | translate }}"/>
+                <img ng-if="maketype === 'appinventor'"
+                     src="static/images/logo-small-appinventor.png"
+                     alt="{{ 'WORKSHEETS.MAKETYPES.APPINVENTOR' | translate }}"
+                     title="{{ 'WORKSHEETS.MAKETYPES.APPINVENTOR' | translate }}"/>
+            </div>
+            <div class="tags"><span class="heading">Tags:</span> {{ worksheet.tags.join(', ') }}</div>
             <div class="download">
                 <a ng-click="vm.downloadWorksheet($event, worksheet)" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-download-alt"> </span> Download
+                    <span class="glyphicon glyphicon-download-alt"> </span> {{ 'WORKSHEETS.DOWNLOAD' | translate }}
                 </a>
             </div>
+        </div>
+    </div>
+    <div ng-if="filteredWorksheets.length === 0" class="modelguidancecontainer">
+        <div class="modelguidance">
+            <p translate="WORKSHEETS.NO_WORKSHEETS.NO_MATCHES"></p>
+            <p translate="WORKSHEETS.NO_WORKSHEETS.MAKE_YOUR_OWN"></p>
+            <p translate="WORKSHEETS.NO_WORKSHEETS.CONTRIBUTE"></p>
         </div>
     </div>
 </div>

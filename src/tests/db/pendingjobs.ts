@@ -2,7 +2,6 @@
 import * as assert from 'assert';
 import * as uuid from 'uuid/v1';
 
-import * as Objects from '../../lib/db/db-types';
 import * as store from '../../lib/db/store';
 
 

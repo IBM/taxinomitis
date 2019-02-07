@@ -1,7 +1,9 @@
-// local dependencies
+// external dependencies
 import * as mysql from 'mysql2/promise';
+// local dependencies
 import * as mysqldb from './mysqldb';
 import * as dbobjects from './objects';
+import * as projectObjects from './projects';
 import * as Objects from './db-types';
 import * as numbers from '../training/numbers';
 import * as conversation from '../training/conversation';
@@ -45,7 +47,6 @@ async function restartConnection() {
 
 
 async function handleDbException(err: NodeJS.ErrnoException) {
-    log.error({ err }, 'DB error');
     if (err.code === 'ER_OPTION_PREVENTS_STATEMENT' &&  err.errno === 1290)
     {
         // for this error, it is worth trying to reconnect to the DB
@@ -55,14 +56,13 @@ async function handleDbException(err: NodeJS.ErrnoException) {
 
 
 async function dbExecute(query: string, params: any[]) {
-    // const [response] = await dbConnPool.execute(query, params);
-    // return response;
     const dbConn = await dbConnPool.getConnection();
     try {
         const [response] = await dbConn.execute(query, params);
         return response;
     }
     catch (err) {
+        log.error({ query, params : params.join(','), err }, 'DB error');
         await handleDbException(err);
         throw err;
     }
@@ -140,6 +140,12 @@ export async function storeProject(
         }
     }
     catch (err) {
+        if (err.code === 'ER_TRUNCATED_WRONG_VALUE_FOR_FIELD') {
+            err.statusCode = 400;
+            err.message = 'Sorry, some of those letters can\'t be used in project names';
+            throw err;
+        }
+
         handleDbException(err);
         throw err;
     }
@@ -182,12 +188,16 @@ async function getCurrentLabels(userid: string, classid: string, projectid: stri
         classid,
     ];
     const rows = await dbExecute(queryString, values);
-    if (rows.length !== 1) {
-        log.error({ projectid }, 'Project not found');
-        throw new Error('Project not found');
+    if (rows.length === 1) {
+        return dbobjects.getLabelsFromList(rows[0].labels);
     }
-
-    return dbobjects.getLabelsFromList(rows[0].labels);
+    else if (rows.length === 0) {
+        log.warn({ projectid, classid, func : 'getCurrentLabels' }, 'Project not found in request for labels');
+    }
+    else {
+        log.error({ projectid, classid, rows, func : 'getCurrentLabels' }, 'Unexpected number of project rows');
+    }
+    throw new Error('Project not found');
 }
 async function updateLabels(userid: string, classid: string, projectid: string, labels: string[]): Promise<any> {
     const queryString = 'UPDATE `projects` ' +
@@ -269,11 +279,16 @@ export async function getProject(id: string): Promise<Objects.Project | undefine
                         'WHERE `id` = ?';
 
     const rows = await dbExecute(queryString, [ id ]);
-    if (rows.length !== 1) {
-        log.error({ id }, 'Project not found');
-        return;
+    if (rows.length === 1) {
+        return dbobjects.getProjectFromDbRow(rows[0]);
     }
-    return dbobjects.getProjectFromDbRow(rows[0]);
+    else if (rows.length === 0) {
+        log.warn({ id, func : 'getProject' }, 'Project not found');
+    }
+    else {
+        log.error({ rows, id, func : 'getProject' }, 'Project not found');
+    }
+    return;
 }
 
 
@@ -827,21 +842,45 @@ export async function getNumberTraining(
 // -----------------------------------------------------------------------------
 
 export async function storeBluemixCredentials(
-    classid: string, credentials: TrainingObjects.BluemixCredentials,
+    classid: string, credentials: TrainingObjects.BluemixCredentialsDbRow,
 ): Promise<TrainingObjects.BluemixCredentials>
 {
     const queryString = 'INSERT INTO `bluemixcredentials` ' +
-                        '(`id`, `classid`, `servicetype`, `url`, `username`, `password`) ' +
-                        'VALUES (?, ?, ?, ?, ?, ?)';
+                        '(`id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid`) ' +
+                        'VALUES (?, ?, ?, ?, ?, ?, ?)';
 
     const values = [ credentials.id, classid,
-        credentials.servicetype, credentials.url, credentials.username, credentials.password ];
+        credentials.servicetype, credentials.url, credentials.username, credentials.password, credentials.credstypeid ];
 
     const response = await dbExecute(queryString, values);
     if (response.affectedRows === 1) {
-        return credentials;
+        return dbobjects.getCredentialsFromDbRow(credentials);
     }
     throw new Error('Failed to store credentials');
+}
+
+
+export async function setBluemixCredentialsType(
+    classid: string, credentialsid: string,
+    servicetype: TrainingObjects.BluemixServiceType,
+    credstype: TrainingObjects.BluemixCredentialsTypeLabel,
+): Promise<void>
+{
+    const credstypeObj = projectObjects.credsTypesByLabel[credstype];
+    if (!credstypeObj) {
+        throw new Error('Unrecognised credentials type');
+    }
+
+    const queryString = 'UPDATE `bluemixcredentials` ' +
+                        'SET `credstypeid` = ? ' +
+                        'WHERE `id` = ? AND `servicetype` = ? AND `classid` = ?';
+    const queryParameters = [ credstypeObj.id, credentialsid, servicetype, classid ];
+
+    const response = await dbExecute(queryString, queryParameters);
+    if (response.affectedRows !== 1) {
+        log.error({ queryString, queryParameters, response }, 'Failed to update credentials');
+        throw new Error('Bluemix credentials not updated');
+    }
 }
 
 
@@ -849,7 +888,7 @@ export async function getAllBluemixCredentials(
     service: TrainingObjects.BluemixServiceType,
 ): Promise<TrainingObjects.BluemixCredentials[]>
 {
-    const queryString = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password` ' +
+    const queryString = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid` ' +
                         'FROM `bluemixcredentials` ' +
                         'WHERE `servicetype` = ? ' +
                         'LIMIT 2000';
@@ -864,7 +903,7 @@ export async function getBluemixCredentials(
     classid: string, service: TrainingObjects.BluemixServiceType,
 ): Promise<TrainingObjects.BluemixCredentials[]>
 {
-    const queryString = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password` ' +
+    const queryString = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid` ' +
                         'FROM `bluemixcredentials` ' +
                         'WHERE `classid` = ? AND `servicetype` = ?';
 
@@ -879,35 +918,51 @@ export async function getBluemixCredentials(
 
 export async function getBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.BluemixCredentials>
 {
-    const credsQuery = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password` ' +
+    const credsQuery = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid` ' +
                        'FROM `bluemixcredentials` ' +
                        'WHERE `id` = ?';
     const rows = await dbExecute(credsQuery, [ credentialsid ]);
 
-    if (rows.length !== 1) {
-        log.error({ rows, func : 'getBluemixCredentialsById' }, 'Unexpected response from DB');
-        throw new Error('Unexpected response when retrieving the service credentials');
+    if (rows.length === 1) {
+        return dbobjects.getCredentialsFromDbRow(rows[0]);
     }
-    return dbobjects.getCredentialsFromDbRow(rows[0]);
+    else if (rows.length === 0) {
+        log.warn({
+            credentialsid, credsQuery, rows,
+            func : 'getBluemixCredentialsById',
+        }, 'Credentials not found');
+    }
+    else {
+        log.error({
+            credentialsid, credsQuery, rows,
+            func : 'getBluemixCredentialsById',
+        }, 'Unexpected response from DB');
+    }
+    throw new Error('Unexpected response when retrieving the service credentials');
 }
 
 
 
 export async function countBluemixCredentialsByType(classid: string): Promise<{ conv: number, visrec: number }>
 {
-    const credsQuery = 'SELECT `servicetype`, count(*) as count ' +
+    const credsQuery = 'SELECT `servicetype`, `credstypeid`, count(*) as count ' +
                        'FROM `bluemixcredentials` ' +
                        'WHERE `classid` = ? ' +
-                       'GROUP BY `servicetype`';
+                       'GROUP BY `servicetype`, `credstypeid`';
     const rows = await dbExecute(credsQuery, [ classid ]);
 
     const counts = { conv : 0, visrec : 0 };
     for (const row of rows) {
         if (row.servicetype === 'conv') {
-            counts.conv = row.count;
+            if (row.credstypeid === projectObjects.credsTypesByLabel.conv_standard.id) {
+                counts.conv += (20 * row.count);
+            }
+            else {
+                counts.conv += (5 * row.count);
+            }
         }
         else if (row.servicetype === 'visrec') {
-            counts.visrec = row.count;
+            counts.visrec += (2 * row.count);
         }
         else {
             log.error({ row, classid }, 'Unexpected bluemix service type found in DB');
@@ -949,6 +1004,16 @@ export async function deleteBluemixCredentials(credentialsid: string): Promise<v
 }
 
 
+export async function deleteClassifiersByCredentials(credentials: TrainingObjects.BluemixCredentials): Promise<void> {
+    const queryString = 'DELETE FROM `bluemixclassifiers` WHERE `credentialsid` = ?';
+
+    const response = await dbExecute(queryString, [ credentials.id ]);
+    if (response.warningStatus !== 0) {
+        throw new Error('Failed to delete credentials info');
+    }
+}
+
+
 export async function getNumbersClassifiers(projectid: string): Promise<TrainingObjects.NumbersClassifier[]>
 {
     const queryString = 'SELECT `projectid`, `userid`, `classid`, ' +
@@ -983,11 +1048,16 @@ export async function getConversationWorkspace(
                         'WHERE `projectid` = ? AND `classifierid` = ?';
 
     const rows = await dbExecute(queryString, [ projectid, classifierid ]);
-    if (rows.length !== 1) {
-        log.error({ rows, func : 'getConversationWorkspace' }, 'Unexpected response from DB');
-        throw new Error('Unexpected response when retrieving service details');
+    if (rows.length === 1) {
+        return dbobjects.getWorkspaceFromDbRow(rows[0]);
     }
-    return dbobjects.getWorkspaceFromDbRow(rows[0]);
+    else if (rows.length > 1) {
+        log.error({ projectid, classifierid, rows, func : 'getConversationWorkspace' }, 'Unexpected response from DB');
+    }
+    else {
+        log.warn({ projectid, classifierid, func : 'getConversationWorkspace' }, 'Conversation workspace not found');
+    }
+    throw new Error('Unexpected response when retrieving conversation workspace details');
 }
 
 
@@ -1167,11 +1237,16 @@ export async function getImageClassifier(
                         'WHERE `projectid` = ? AND `classifierid` = ?';
 
     const rows = await dbExecute(queryString, [ projectid, classifierid ]);
-    if (rows.length !== 1) {
-        log.error({ rows, func : 'getImageClassifier' }, 'Unexpected response from DB');
-        throw new Error('Unexpected response when retrieving service details');
+    if (rows.length === 1) {
+        return dbobjects.getVisualClassifierFromDbRow(rows[0]);
     }
-    return dbobjects.getVisualClassifierFromDbRow(rows[0]);
+    if (rows.length > 1) {
+        log.error({ rows, func : 'getImageClassifier' }, 'Unexpected response from DB');
+    }
+    else {
+        log.warn({ projectid, classifierid, func : 'getImageClassifier' }, 'Image classifier not found');
+    }
+    throw new Error('Unexpected response when retrieving image classifier details');
 }
 
 
@@ -1299,6 +1374,23 @@ export function resetExpiredScratchKey(id: string, projecttype: Objects.ProjectT
 }
 
 
+export function removeCredentialsFromScratchKeys(credentials: TrainingObjects.BluemixCredentials): Promise<void>
+{
+    const queryString = 'UPDATE `scratchkeys` ' +
+                        'SET `classifierid` = ? , ' +
+                            '`serviceurl` = ? , `serviceusername` = ? , `servicepassword` = ?, ' +
+                            '`updated` = ? ' +
+                        'WHERE `serviceusername` = ? AND `servicepassword` = ? AND `classid` = ?';
+    const values = [
+        null, null, null, null,
+        new Date(),
+        credentials.username, credentials.password, credentials.classid,
+    ];
+
+    return dbExecute(queryString, values);
+}
+
+
 
 /**
  * @returns the ScratchKey ID - whether created or updated
@@ -1358,7 +1450,7 @@ export async function storeScratchKey(
 
     const response = await dbExecute(queryString, values);
     if (response.affectedRows !== 1) {
-        log.error({ response }, 'Failed to store Scratch key');
+        log.error({ response, queryString, values }, 'Failed to store Scratch key');
         throw new Error('Failed to store Scratch key');
     }
 
@@ -1435,11 +1527,17 @@ export async function getScratchKey(key: string): Promise<Objects.ScratchKey> {
                         'WHERE `id` = ?';
 
     const rows = await dbExecute(queryString, [ key ]);
-    if (rows.length !== 1) {
-        log.error({ rows, func : 'getScratchKey' }, 'Unexpected response from DB');
-        throw new Error('Unexpected response when retrieving credentials for Scratch');
+    if (rows.length === 1) {
+        return dbobjects.getScratchKeyFromDbRow(rows[0]);
     }
-    return dbobjects.getScratchKeyFromDbRow(rows[0]);
+
+    if (rows.length === 0) {
+        log.warn({ key, func : 'getScratchKey' }, 'Scratch key not found');
+    }
+    else if (rows.length > 1) {
+        log.error({ rows, key, func : 'getScratchKey' }, 'Unexpected response from DB');
+    }
+    throw new Error('Unexpected response when retrieving credentials for Scratch');
 }
 
 
@@ -1510,7 +1608,7 @@ export async function storeNewKnownError(
 
     const response = await dbExecute(queryString, values);
     if (response.affectedRows !== 1) {
-        log.error({ response, knownError }, 'Failed to store known error');
+        log.error({ response, values, knownError }, 'Failed to store known error');
         throw new Error('Failed to store known error');
     }
 
@@ -1623,7 +1721,7 @@ export async function deletePendingJob(job: Objects.PendingJob): Promise<void>
 
     const response = await dbExecute(queryString, values);
     if (response.warningStatus !== 0) {
-        log.error({ job, response }, 'Failed to delete pending job');
+        log.error({ job, response, values }, 'Failed to delete pending job');
         throw new Error('Failed to delete pending job');
     }
 }
@@ -1655,26 +1753,6 @@ export async function getNextPendingJob(): Promise<Objects.PendingJob | undefine
 //
 // -----------------------------------------------------------------------------
 
-// export async function storeClassTenant(classid: string): Promise<Objects.ClassTenant>
-// {
-//     const obj = dbobjects.createClassTenant(classid);
-
-//     const queryString = 'INSERT INTO `tenants` ' +
-//                         '(`id`, `projecttypes`, `ismanaged`, ' +
-//                          '`maxusers`, `maxprojectsperuser`, ' +
-//                          '`textclassifiersexpiry`, `imageclassifiersexpiry`) ' +
-//                         'VALUES (?, ?, ?, ?, ?, ?, ?)';
-
-//     const values = [
-//         obj.id, obj.projecttypes, obj.ismanaged,
-//         obj.maxusers, obj.maxprojectsperuser,
-//         obj.textclassifiersexpiry, obj.imageclassifiersexpiry,
-//     ];
-
-//     const response = await dbExecute()
-// }
-
-
 export async function getClassTenant(classid: string): Promise<Objects.ClassTenant> {
     const queryString = 'SELECT `id`, `projecttypes`, `maxusers`, ' +
                                '`maxprojectsperuser`, ' +
@@ -1684,20 +1762,17 @@ export async function getClassTenant(classid: string): Promise<Objects.ClassTena
                         'WHERE `id` = ?';
 
     const rows = await dbExecute(queryString, [ classid ]);
-    if (rows.length !== 1) {
-        log.debug({ rows, func : 'getClassTenant' }, 'Unexpected response from DB');
-
-        return {
-            id : classid,
-            supportedProjectTypes : [ 'text', 'images', 'numbers' ],
-            isManaged : false,
-            maxUsers : 25,
-            maxProjectsPerUser : 2,
-            textClassifierExpiry : 24,
-            imageClassifierExpiry : 24,
-        };
+    if (rows.length === 0) {
+        log.debug({ rows, func : 'getClassTenant' }, 'Empty response from DB');
+        return dbobjects.getDefaultClassTenant(classid);
     }
-    return dbobjects.getClassFromDbRow(rows[0]);
+    else if (rows.length > 1) {
+        log.error({ rows, func : 'getClassTenant' }, 'Unexpected response from DB');
+        return dbobjects.getDefaultClassTenant(classid);
+    }
+    else {
+        return dbobjects.getClassFromDbRow(rows[0]);
+    }
 }
 
 
@@ -1715,6 +1790,107 @@ export async function getClassTenants(): Promise<Objects.ClassTenant[]> {
 }
 
 
+
+export async function modifyClassTenantExpiries(
+    classid: string,
+    textexpiry: number, imageexpiry: number,
+): Promise<Objects.ClassTenant>
+{
+    const tenantinfo = await getClassTenant(classid);
+
+    const modified = dbobjects.setClassTenantExpiries(tenantinfo, textexpiry, imageexpiry);
+    const obj = dbobjects.getClassDbRow(modified);
+
+    const queryString = 'INSERT INTO `tenants` ' +
+                            '(`id`, `projecttypes`, ' +
+                                '`maxusers`, `maxprojectsperuser`, ' +
+                                '`textclassifiersexpiry`, `imageclassifiersexpiry`, ' +
+                                '`ismanaged`) ' +
+                            'VALUES (?, ?, ?, ?, ?, ?, ?) ' +
+                            'ON DUPLICATE KEY UPDATE `textclassifiersexpiry` = ?, ' +
+                                                    '`imageclassifiersexpiry` = ?';
+
+    const values = [
+        obj.id, obj.projecttypes,
+        obj.maxusers, obj.maxprojectsperuser,
+        obj.textclassifiersexpiry, obj.imageclassifiersexpiry,
+        obj.ismanaged,
+        //
+        obj.textclassifiersexpiry, obj.imageclassifiersexpiry,
+    ];
+
+    const response = await dbExecute(queryString, values);
+    if (response.affectedRows !== 1 &&  // row inserted
+        response.affectedRows !== 2)    // row updated
+    {
+        log.error({ response, values }, 'Failed to update tenant info');
+        throw new Error('Failed to update tenant info');
+    }
+
+    return modified;
+}
+
+
+export async function deleteClassTenant(classid: string): Promise<void> {
+    const deleteQuery = 'DELETE FROM `tenants` WHERE `id` = ?';
+    const response = await dbExecute(deleteQuery, [ classid ]);
+    if (response.warningStatus !== 0) {
+        throw new Error('Failed to delete class tenant');
+    }
+}
+
+
+
+
+/**
+ * Checks the list of disruptive tenants to see if the provided class id
+ * is on the list.
+ *
+ * "Disruptive" tenants are classes that have caused thousands of
+ * notifications about training failures, who consistently ignore
+ * warnings of insufficient API keys, and consistently ignore UI
+ * requests to stop training new models even after rate limiting is
+ * introduced.
+ *
+ * With the current implementation, where I receive a notification
+ * to my mobile phone in the event of a training failure, this
+ * is, at best, disruptive. Thousands of alert notifications in
+ * an evening, aside from flattening my mobile phone battery,
+ * makes it impossible for me to monitor or support other classes.
+ *
+ * For such classes, all errors are ignored.
+ *
+ * @returns true if the tenant ID is on the disruptive list
+ */
+export function isTenantDisruptive(tenantid: string): Promise<boolean> {
+    return isStringInListTable(tenantid, 'disruptivetenants');
+}
+
+/**
+ * Checks the list of notification opt-outs to see if the provided class id
+ * is on the list.
+ *
+ * Most of these are tenants run by users who make regular usage of Bluemix
+ * API keys and do not need to be notified of usage outside of ML for Kids.
+ *
+ * @returns true if the tenant ID is on the opt-out list
+ */
+export function hasTenantOptedOutOfNotifications(tenantid: string): Promise<boolean> {
+    return isStringInListTable(tenantid, 'notificationoptouts');
+}
+
+
+/** Helper function to see if the provided value is contained in the provided single-column table. */
+async function isStringInListTable(value: string, tablename: string): Promise<boolean> {
+    const queryString = 'SELECT exists (' +
+                            'SELECT * from `' + tablename + '` ' +
+                                'WHERE `id` = ? ' +
+                                'LIMIT 1' +
+                        ') as stringinlist';
+    const rows = await dbExecute(queryString, [ value ]);
+
+    return dbobjects.getAsBoolean(rows[0], 'stringinlist');
+}
 
 
 
@@ -1757,7 +1933,7 @@ export async function getTemporaryUser(id: string): Promise<Objects.TemporaryUse
 
     const rows = await dbExecute(queryString, [ id ]);
     if (rows.length !== 1) {
-        log.error({ id }, 'Temporary user not found');
+        log.warn({ id }, 'Temporary user not found');
         return;
     }
     return dbobjects.getTemporaryUserFromDbRow(rows[0]);
@@ -1877,6 +2053,19 @@ export async function deleteEntireUser(userid: string, classid: string): Promise
     const dbConn = await dbConnPool.getConnection();
     for (const deleteQuery of deleteQueries) {
         await dbConn.execute(deleteQuery, [ userid ]);
+    }
+    dbConn.release();
+}
+
+
+export async function deleteClassResources(classid: string): Promise<void> {
+    const deleteQueries = [
+        'DELETE FROM `bluemixcredentials` WHERE `classid` = ?',
+    ];
+
+    const dbConn = await dbConnPool.getConnection();
+    for (const deleteQuery of deleteQueries) {
+        await dbConn.execute(deleteQuery, [ classid ]);
     }
     dbConn.release();
 }
