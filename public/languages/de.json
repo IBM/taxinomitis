@@ -801,14 +801,14 @@
         "TEXT_PROJECTS": {
             "mlforkids.text.recogniseLabel": "erkenne Text [TEXT] (Kategorie)",
             "mlforkids.text.recogniseConfidence": "erkenne Text [TEXT] (confidence)",
-            "mlforkids.text.addTraining": "füge Trainingsdaten hinzu [TEXT] [KATEGORIE]",
+            "mlforkids.text.addTraining": "füge Trainingsdaten hinzu [TEXT] [LABEL]",
             "mlforkids.text.trainNewModel": "trainiere ein neues Machine Learning Model",
             "mlforkids.text.checkModelStatus": "Ist das Machine Learning Model [STATUS] ?"
         },
         "IMAGES_PROJECTS": {
             "mlforkids.images.recogniseLabel": "erknne das Bild [IMAGE] (Kategorie)",
             "mlforkids.images.recogniseConfidence": "erkenne das Bild mit [IMAGE] (confidence)",
-            "mlforkids.images.addTraining": "Füge Trainingsdaten hinzu [TEXT] [KATEGORIE]"
+            "mlforkids.images.addTraining": "Füge Trainingsdaten hinzu [TEXT] [LABEL]"
         },
         "NUMBER_PROJECTS": {
             "mlforkids.numbers.trainNewModel": "trainiere ein neues Machine Learning Model"
