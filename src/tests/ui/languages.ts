@@ -14,6 +14,7 @@ describe('UI - NLS', () => {
     let tr: any;
     let cn: any;
     let si: any;
+    let nl: any;
 
     before(() => {
         en = JSON.parse(fs.readFileSync('./public/languages/en.json', 'utf8'));
@@ -25,10 +26,11 @@ describe('UI - NLS', () => {
         tr = JSON.parse(fs.readFileSync('./public/languages/tr.json', 'utf8'));
         cn = JSON.parse(fs.readFileSync('./public/languages/zh-cn.json', 'utf8'));
         si = JSON.parse(fs.readFileSync('./public/languages/si-lk.json', 'utf8'));
+        nl = JSON.parse(fs.readFileSync('./public/languages/nl-be.json', 'utf8'));
     });
 
 
-    function compareKeys(obj1: any, obj2: any, obj2name: string, keypath: string) {
+    function compareKeys(obj1: any, obj2: any, obj2name: string, keypath = '') {
         for (const key of Object.keys(obj1)) {
             if (key in obj2 === false) {
                 assert.fail(keypath + '.' + key + ' missing from ' + obj2name);
@@ -46,27 +48,30 @@ describe('UI - NLS', () => {
     }
 
     it('German', () => {
-        compareKeys(en, de, 'de', '');
+        compareKeys(en, de, 'de');
     });
     it('Spanish', () => {
-        compareKeys(en, es, 'es', '');
+        compareKeys(en, es, 'es');
     });
     it('Korean', () => {
-        compareKeys(en, ko, 'ko', '');
+        compareKeys(en, ko, 'ko');
     });
     it('Brazillian Portuguese', () => {
-        compareKeys(en, br, 'br', '');
+        compareKeys(en, br, 'br');
     });
     it('Swedish', () => {
-        compareKeys(en, se, 'se', '');
+        compareKeys(en, se, 'se');
     });
     it('Turkish', () => {
-        compareKeys(en, tr, 'tr', '');
+        compareKeys(en, tr, 'tr');
     });
     it('Chinese', () => {
-        compareKeys(en, cn, 'cn', '');
+        compareKeys(en, cn, 'cn');
     });
     it('Sinhalese', () => {
-        compareKeys(en, si, 'si', '');
+        compareKeys(en, si, 'si');
+    });
+    it('Dutch', () => {
+        compareKeys(en, nl, 'nl');
     });
 });

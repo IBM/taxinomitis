@@ -277,6 +277,9 @@
                 else if (lang.indexOf('zh') === 0) {
                     lang = 'zh-cn';
                 }
+                else if (lang.indexOf('nl') === 0) {
+                    lang = 'nl-be';
+                }
 
                 return lang;
             })
