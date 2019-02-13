@@ -199,41 +199,41 @@
         }
     },
     "TRAINING": {
-        "TITLE": "Training",
-        "ADDLABEL": "Add new label",
-        "CREATEFIRSTLABEL": "Click on the 'plus' button on the right to add your first bucket.",
-        "CROWDSOURCEDEMPTY": "Refresh this page after your teacher has created the training buckets.",
-        "ADDEXAMPLE": "Add example",
+        "TITLE": "トレーニング",
+        "ADDLABEL": "新しいラベルを追加",
+        "CREATEFIRSTLABEL": "最初のグループを追加するには、右側にある 'plus' ボタンをクリックしてください。",
+        "CROWDSOURCEDEMPTY": "先生がトレーニング用のグループを作成後に、このページをリフレッシュしてください。",
+        "ADDEXAMPLE": "例を追加",
         "ADDURL": "www",
         "ADDWEBCAM": "webcam",
-        "ADDDRAWING": "draw",
-        "DRAGIMAGES": "Drag pictures from other browser windows and drop them here",
+        "ADDDRAWING": "描画",
+        "DRAGIMAGES": "画像をブラウザの他画面からドラッグし、ここに落としてください。",
         "NEWLABEL": {
-            "INTRO": "Enter new label to recognise",
-            "ERROR": "Only use letters and numbers in labels"
+            "INTRO": "認識する新しいラベルを入力してください。",
+            "ERROR": "ラベルは英数字のみ利用できます。"
         },
         "NEWEXAMPLE": {
-            "INTRO": "Enter an example of ",
-            "INTROURL": "Enter the URL of a picture that is an example of",
-            "INTRODRAWING": "Draw a new example of",
-            "INTROWEBCAM": "Add new example of",
-            "ERROR": "You're not allowed to use tabs or newlines.",
-            "REQUIRED": "You have to include values for all fields in an example",
-            "PATTERNNUMBER": "This doesn't look like a number",
-            "PATTERNURL": "This needs to be the web address of a picture",
-            "WEBCAMFAIL": "Sorry! We weren't able to get a webcam to work for you.",
-            "WEBCAMERROR": "The message we got from your web browser was:"
+            "INTRO": "例を入力してください。",
+            "INTROURL": "例の画像のURLを入力してください。",
+            "INTRODRAWING": "例を描いてください。",
+            "INTROWEBCAM": "新しい例を追加してください。",
+            "ERROR": "タブや改行は利用できません。",
+            "REQUIRED": "例の全ての項目に値を入れる必要があります。",
+            "PATTERNNUMBER": "数字のようではないのですが",
+            "PATTERNURL": "画像のWebアドレスである必要があります。",
+            "WEBCAMFAIL": "失礼! webcamが動作するようにできません。",
+            "WEBCAMERROR": "あなたのWebブラウザから受け取ったメッセージは、:"
         }
     },
     "MODELS": {
-        "TITLE": "Machine learning models",
-        "TRAIN": "Train new machine learning model",
-        "CANCEL": "Cancel training",
-        "DELETE": "Delete this model",
+        "TITLE": "機械学習モデル",
+        "TRAIN": "新しい機械学習モデルをトレーニングする",
+        "CANCEL": "トレーニングを中止",
+        "DELETE": "このモデルを削除",
         "WHATHAVEYOUDONE": {
-            "TITLE": "What have you done?",
-            "PLEASEWAIT": "This normally takes a few minutes, but can take a little longer if the training computer is very busy.",
-            "FAIL": "Unfortunately, something went wrong.",
+            "TITLE": "何をしましたか?",
+            "PLEASEWAIT": "通常２，３分かかりますが、コンピューターが忙しい時には、それより長くかかることがあります。",
+            "FAIL": "残念ながら、何か上手く行きませんでした。",
 
             "TRAINING" : {
                 "CROWDSOURCED" : {
