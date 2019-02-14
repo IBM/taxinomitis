@@ -237,74 +237,74 @@
 
             "TRAINING" : {
                 "CROWDSOURCED" : {
-                    "TEXT" : "Your class is training a machine learning model using the examples of text that you all collected.",
-                    "IMAGES" : "Your class is training a machine learning model using the examples of images that you all collected.",
-                    "NUMBERS" : "Your class is training a machine learning model using the examples of numbers that you all collected."
+                    "TEXT" : "あなたのクラスは、あなた方が収集したテキストの例を用いて機械学習モデルをトレーニングしています。",
+                    "IMAGES" : "あなたのクラスは、あなた方が収集した画像の例を用いて機械学習モデルをトレーニングしています。",
+                    "NUMBERS" : "あなたのクラスは、あなた方が収集した数値の例を用いて機械学習モデルをトレーニングしています。"
                 },
                 "INDIVIDUAL" : {
-                    "TEXT" : "You've started training a machine learning model using the examples of text that you collected.",
-                    "IMAGES" : "You've started training a machine learning model using the examples of images that you collected.",
-                    "NUMBERS" : "You've started training a machine learning model using the examples of numbers that you collected."
+                    "TEXT" : "あなたは、あなたが収集した文字列の例を用いて機械学習モデルをトレーニングを既に始めています。",
+                    "IMAGES" : "あなたは、あなたが収集した画像の例を用いて機械学習モデルをトレーニングを既に始めています。",
+                    "NUMBERS" : "あなたは、あなたが収集した数値の例を用いて機械学習モデルをトレーニングを既に始めています。"
                 },
-                "SINCE": "It's been training since"
+                "SINCE": "トレーニングをしています。"
             },
             "READY" : {
                 "CROWDSOURCED" : {
-                    "TEXT" : "Your class has trained a machine learning model to recognise when text is ",
-                    "IMAGES" : "Your class has trained a machine learning model to recognise when images are ",
-                    "NUMBERS" : "Your class has trained a machine learning model to recognise when numbers are "
+                    "TEXT" : "あなたのクラスは、文字列を認識するように機械学習モデルをトレーニングしました。認識する文字列は、",
+                    "IMAGES" : "あなたのクラスは、画像を認識するように機械学習モデルをトレーニングしました。認識する画像は、",
+                    "NUMBERS" : "あなたのクラスは、数値を認識するように機械学習モデルをトレーニングしました。認識する数値は、"
                 },
                 "INDIVIDUAL" : {
-                    "TEXT" : "You have trained a machine learning model to recognise when text is ",
-                    "IMAGES" : "You have trained a machine learning model to recognise when images are ",
-                    "NUMBERS" : "You have trained a machine learning model to recognise when numbers are "
+                    "TEXT" : "あなたは、文字列を認識するように機械学習モデルをトレーニングしました。認識する文字列は、",
+                    "IMAGES" : "あなたは、画像を認識するように機械学習モデルをトレーニングしました。認識する画像は、",
+                    "NUMBERS" : "あなたのクラスは、数値を認識するように機械学習モデルをトレーニングしました。認識する数値は、"
                 },
                 "CREATED" : {
-                    "TEACHER" : "Your teacher created the model on ",
-                    "YOU" : "You created the model on "
+                    "TEACHER" : "あなたの先生が、作成したモデルは、",
+                    "YOU" : "あなたが作成したモデルは、"
                 },
                 "TRAINING" : {
-                    "CLASS" : "Your class has collected: ",
-                    "YOU" : "You have collected: "
+                    "CLASS" : "あなたのクラスが収集した: ",
+                    "YOU" : "あなたが収集した: "
                 }
             },
             "ERROR": {
                 "CROWDSOURCED" : {
                     "CLASS" : {
-                        "TEXT" : "Your teacher tried training a machine learning model using the examples of text that your class collected.",
-                        "IMAGES" : "Your teacher tried training a machine learning model using the examples of images that your class collected.",
-                        "NUMBERS" : "Your teacher tried training a machine learning model using the examples of numbers that your class collected."
+                        "TEXT" : "あなたの先生は、あなた方のクラスが収集した文字列を認識するように機械学習モデルのトレーニングを試みました。",
+                        "IMAGES" : "あなたの先生は、あなた方のクラスが収集した画像を認識するように機械学習モデルのトレーニングを試みました。",
+                        "NUMBERS" : "あなたの先生は、あなた方のクラスが収集した数値を認識するように機械学習モデルのトレーニングを試みました。"
                     },
                     "YOU" : {
-                        "TEXT" : "You tried training a machine learning model using the examples of text that your class collected.",
-                        "IMAGES" : "You tried training a machine learning model using the examples of images that your class collected.",
-                        "NUMBERS" : "You tried training a machine learning model using the examples of numbers that your class collected."
+                        "TEXT" : "あなたは、あなたが収集した文字列を認識するように機械学習モデルのトレーニングを試みました。",
+                        "IMAGES" : "あなたは、あなたが収集した画像を認識するように機械学習モデルのトレーニングを試みました。",
+                        "NUMBERS" : "あなた、あなたが収集した数値を認識するように機械学習モデルのトレーニングを試みました。"
                     }
                 },
                 "INDIVIDUAL" : {
-                    "TEXT" : "You tried training a machine learning model using the examples of text that you collected.",
-                    "IMAGES" : "You tried training a machine learning model using the examples of images that you collected.",
-                    "NUMBERS" : "You tried training a machine learning model using the examples of numbers that you collected."
+                    "TEXT" : "あなたは、あなたが収集した文字列を認識するように機械学習モデルのトレーニングを試みました。",
+                    "IMAGES" : "あなたは、あなたが収集した画像を認識するように機械学習モデルのトレーニングを試みました。",
+                    "NUMBERS" : "あなた、あなたが収集した数値を認識するように機械学習モデルのトレーニングを試みました。"
                 }
             },
             "IDLE" : {
                 "NOLABELS" : {
                     "CROWDSOURCED" : {
-                        "TEXT" : "Your class said you want to collect examples of text.",
-                        "IMAGES" : "Your class said you want to collect examples of images.",
-                        "NUMBERS" : "Your class said you want to collect examples of numbers."
+                        "TEXT" : "あなたのクラスは、あなたが文字列の例を収集したいと言いました。",
+                        "IMAGES" : "あなたのクラスは、あなたが画像の例を収集したいと言いました。",
+                        "NUMBERS" : "あなたのクラスは、あなたが数値の例を収集したいと言いました。"
                     },
                     "INDIVIDUAL" : {
-                        "TEXT" : "You've said you want to collect examples of text.",
-                        "IMAGES" : "You've said you want to collect examples of images.",
-                        "NUMBERS" : "You've said you want to collect examples of numbers."
+                        "TEXT" : "あなたは、あなたが文字列の例を収集したいと言っていました。",
+                        "IMAGES" : "あなたは、あなたが画像の例を収集したいと言っていました。",
+                        "NUMBERS" : "あなたは、あなたが数値の例を収集したいと言っていました。"
                     }
                 },
                 "NODATA" : {
                     "CROWDSOURCED" : {
-                        "TEXT" : "Your class said that you want to collect examples of text for a computer to recognise when text is ",
-                        "IMAGES" : "Your class said that you want to collect examples of images for a computer to recognise when images are ",
-                        "NUMBERS" : "Your class said that you want to collect examples of numbers for a computer to recognise when numbers are "
+                        "TEXT" : "あなたのクラスは、文字列が以下の時に、コンピューターが認識できるようにするために、あなたが文字列の例を集めたいと言いました。",
+                        "IMAGES" : "あなたのクラスは、画像が以下の時に、コンピューターが認識できるようにするために、あなたが画像の例を集めたいと言いました。",
+                        "NUMBERS" : "あなたのクラスは、数値が以下の時に、コンピューターが認識できるようにするために、あなたが数値の例を集めたいと言いました。"
                     },
                     "INDIVIDUAL" : {
                         "TEXT" : "You said that you want to collect examples of text for a computer to recognise when text is ",
