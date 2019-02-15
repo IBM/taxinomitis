@@ -307,9 +307,9 @@
                         "NUMBERS" : "あなたのクラスは、数値が以下の時に、コンピューターが認識できるようにするために、あなたが数値の例を集めたいと言いました。"
                     },
                     "INDIVIDUAL" : {
-                        "TEXT" : "You said that you want to collect examples of text for a computer to recognise when text is ",
-                        "IMAGES" : "You said that you want to collect examples of images for a computer to recognise when images are ",
-                        "NUMBERS" : "You said that you want to collect examples of numbers for a computer to recognise when numbers are "
+                        "TEXT" : "あなたは、文字列が以下の時に、コンピューターが認識できるようにするために、文字列の例を集めたいと言いました。",
+                        "IMAGES" : "あなたは、画像が以下の時に、コンピューターが認識できるようにするために、画像の例を集めたいと言いました。",
+                        "NUMBERS" : "あなたは、数値が以下の時に、コンピューターが認識できるようにするために、数値の例を集めたいと言いました。"
                     }
                 },
                 "NOEXAMPLES" : {
