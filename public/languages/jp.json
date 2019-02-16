@@ -449,10 +449,10 @@
 
         "LAUNCH": "Scratchを開く",
 
-        "LAUNCH_SCRATCH_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch by itself</a> if you want.)",
-        "GO_TO_LEARNANDTEST": "Or go to the <a href='{{ urls.learnandtest }}'>Learn &amp; Test</a> page for some tips on what to do next.",
+        "LAUNCH_SCRATCH_BY_ITSELF": "(希望するなら<a href='{{ url }}' class='btn btn-default' target='_blank'>Scratchそのもの</a>を使うこともできます。)",
+        "GO_TO_LEARNANDTEST": "又は、<a href='{{ urls.learnandtest }}'>学習とテスト</a> のページに行って次に何をするのかのアイデアを得るのはどうでしょうか。",
 
-        "MORE_BLOCKS": "Your project will add these blocks to the <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> tab in Scripts.",
+        "MORE_BLOCKS": "あなたのプロジェクトのスクリプトの<span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> タブにこれらのブロックが追加されます。",
         "EXPLAIN_RECOGNISE_LABEL": "Put {{ type }} in the input for this, and it will return the label that your machine learning model recognises it as.",
         "EXPLAIN_RECOGNISE_CONFIDENCE": "This will return how confident your machine learning model is that it recognises the type of {{ type }}. (As a number from 0 - 100).",
         "EXPLAIN_LABELS": "These blocks represent the labels you've created in your project, so you can use their names in your scripts.",
