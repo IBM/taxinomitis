@@ -453,91 +453,91 @@
         "GO_TO_LEARNANDTEST": "又は、<a href='{{ urls.learnandtest }}'>学習とテスト</a> のページに行って次に何をするのかのアイデアを得るのはどうでしょうか。",
 
         "MORE_BLOCKS": "あなたのプロジェクトのスクリプトの<span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> タブにこれらのブロックが追加されます。",
-        "EXPLAIN_RECOGNISE_LABEL": "Put {{ type }} in the input for this, and it will return the label that your machine learning model recognises it as.",
-        "EXPLAIN_RECOGNISE_CONFIDENCE": "This will return how confident your machine learning model is that it recognises the type of {{ type }}. (As a number from 0 - 100).",
-        "EXPLAIN_LABELS": "These blocks represent the labels you've created in your project, so you can use their names in your scripts.",
-        "EXPLAIN_COSTUMEIMAGE": "This block is in the Looks palette for Sprites and will return the image of the currently selected costume.",
-        "SAMPLE_SCRIPT": "This means you can do something like this:",
-        "SAMPLE_SCREENSHOT": "It will look something like this - except with the name of your project.",
-        "EXPLAIN_STATUS": "The coloured circle next to your project name tells you if your machine learning model is okay.",
-        "STATUS_GREEN": "means your model is trained and ready to go",
-        "STATUS_YELLOW": "means your model hasn't finished training yet",
-        "STATUS_RED": "means something went wrong. Go back to the <a href='{{ urls.learnandtest }}'>Learn &amp; Test</a> page to see what went wrong with training."
+        "EXPLAIN_RECOGNISE_LABEL": "{{ type }} を入力してください。機械学習モデルが認識したラベルを返します。",
+        "EXPLAIN_RECOGNISE_CONFIDENCE": "機械学習モデルが 認識した{{ type }}のタイプにどの程度確信をもっているかも(0から100の数字で）返します。",
+        "EXPLAIN_LABELS": "これらのブロックは、あなたがプロジェクトの中で作成したラベルをあなたがスクリプトの中で使えるように示します。",
+        "EXPLAIN_COSTUMEIMAGE": "このブロックは、スクリプトのための「見た目」パレットに入っており、現在選択されているコスチュームの画像を返します。",
+        "SAMPLE_SCRIPT": "ということは、こんなことができます:",
+        "SAMPLE_SCREENSHOT": "あなたのプロジェクトの名前以外は、こんな風にみえます。",
+        "EXPLAIN_STATUS": "あなたのプロジェクト名のとなりの色付きの円が、あなたの機械学習モデルが正常だと示しています。",
+        "STATUS_GREEN": "これは、あなたのモデルは、トレイニングされ利用可能であることを示しています。",
+        "STATUS_YELLOW": "これは、あなたのモデルはまだトレーニングが終わっていないことを示しています。",
+        "STATUS_RED": "これは、何か上手く行かなかったことを示しています。<a href='{{ urls.learnandtest }}'>学習とテスト</a> ページに戻って、トレーニングで何が問題だったのか確認してください。"
     },
     "SCRATCH3": {
-        "TITLE": "Using machine learning in Scratch 3",
+        "TITLE": "Scratch 3で機械学習を使う",
 
-        "LAUNCH": "Open in Scratch 3"
+        "LAUNCH": "Scratch 3を開く"
     },
     "WORKSHEETS": {
-        "TITLE": "Machine learning projects",
+        "TITLE": "機械学習プロジェクト",
 
-        "INTRO_1": "These projects are downloadable step-by-step guides, with explanations and colour screenshots for students to follow.",
-        "INTRO_2": "Each project is a stand-alone activity, written to last for a single lesson, and will guide children to create a game or interactive project that demonstrates a real-world use of artificial intelligence and machine learning.",
-        "INTRO_3": "Suggestions for new worksheets, suggestions of improvements to any of the worksheets, or contributions of new project worksheets, are all very welcome.",
+        "INTRO_1": "これらのプロジェクトはダウンロード可能なガイドで、生徒が追従できるステップ毎の説明とカラーのスクリーンショット付きです。",
+        "INTRO_2": "それぞれのプロジェクトは単発のプロジェクトで、一回のレッスンのために作られており、実世界での人口知能や機械学習の利用され方をデモする双方向性のあるプロジェクトやゲームを子供達が作れるようにガイドします。",
+        "INTRO_3": "新しいワークシートの提案、既存のワークシートの改善、新しいプロジェクトのワークシートの提供等をお願い致します。",
 
         "TYPES": {
-            "TITLE": "Recognising:",
-            "ALL": "All project types",
+            "TITLE": "認識する:",
+            "ALL": "全てのプロジェクトタイプ",
 
-            "PREFIX": "Train a computer to recognise ",
+            "PREFIX": "コンピュータを認識できるようにトレーニング",
 
-            "TEXT": "text",
-            "IMAGES": "images",
-            "NUMBERS": "numbers"
+            "TEXT": "文字列",
+            "IMAGES": "画像",
+            "NUMBERS": "数値"
         },
 
         "LEVELS": {
-            "TITLE": "Difficulty:",
-            "ALL": "All difficulties",
-            "BEGINNER": "Beginner projects",
-            "INTERMEDIATE": "Intermediate projects",
-            "ADVANCED": "Advanced projects"
+            "TITLE": "難易度:",
+            "ALL": "全ての難易度",
+            "BEGINNER": "初心者用プロジェクト",
+            "INTERMEDIATE": "中級用プロジェクト",
+            "ADVANCED": "上級者用プロジェクト"
         },
 
-        "DOWNLOAD": "Download",
+        "DOWNLOAD": "ダウンロード",
 
         "MAKETYPES": {
-            "ALL": "All make types",
+            "ALL": "全てのタイプ",
 
-            "SCRATCH": "Scratch projects",
-            "PYTHON": "Python projects",
-            "APPINVENTOR": "App Inventor projects",
+            "SCRATCH": "Scratch プロジェクト",
+            "PYTHON": "Python プロジェクト",
+            "APPINVENTOR": "App Inventor プロジェクト",
 
-            "SCRATCH_WORKSHEET": "Worksheet for making project in Scratch",
-            "PYTHON_WORKSHEET": "Worksheet for making project in Python",
-            "APPINVENTOR_WORKSHEET": "Worksheet for making project in App Inventor"
+            "SCRATCH_WORKSHEET": "Scratch用プロジェクトのためワークシート",
+            "PYTHON_WORKSHEET": "Python用プロジェクトのためワークシート",
+            "APPINVENTOR_WORKSHEET": "App Inventor用プロジェクトのためワークシート"
         },
 
         "NO_WORKSHEETS": {
-            "NO_MATCHES": "There aren't any project worksheets that match those filters.",
-            "MAKE_YOUR_OWN": "You could adapt some of the existing worksheets or come up with a new one.",
-            "CONTRIBUTE": "If you do, please consider <a href='https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions'>contributing it for others to use</a>."
+            "NO_MATCHES": "これらの条件に合致するプロジェクト ワークシートはありません。",
+            "MAKE_YOUR_OWN": "既存のワークシートを応用できるかもしれませんし、新しいワークシートを作って頂くこともできます。",
+            "CONTRIBUTE": "その場合は、他の利用者も利用できるように以下の情報を参照ください。<a href='https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions'>他の利用者のために貢献する</a>."
         },
 
 
         "SMARTCLASSROOM": {
-            "TITLE": "Smart Classroom",
-            "SUMMARY": "Teach a computer to recognise the meaning of your commands",
-            "DESCRIPTION": "Create a smart assistant in Scratch that lets you control virtual devices."
+            "TITLE": "スマート クラスルーム",
+            "SUMMARY": "あなたの指示が分かるようにコンピュータに教える。",
+            "DESCRIPTION": "あなたが画面上の機器を制御できるように賢いアシスタントを Scratchで作ります。"
         },
         "MAKEMEHAPPY": {
-            "TITLE": "Make me happy",
-            "SUMMARY": "Teach a computer to recognise compliments and insults",
-            "DESCRIPTION": "Create a character in Scratch that smiles if you say nice things to it and cries if you say mean things to it."
+            "TITLE": "私を幸せにして",
+            "SUMMARY": "誉め言葉と意地悪な言葉が認識できるようにコンピュータに教える。",
+            "DESCRIPTION": "Scratchで易しい言葉には微笑み、意地悪な言葉には泣く人物を作ります。"
         },
         "SNAP": {
-            "TITLE": "Snap!",
-            "SUMMARY": "Teach a computer to recognise what icons look like",
-            "DESCRIPTION": "Make a card game in Scratch that learns to recognise pictures of your card."
+            "TITLE": "スナップ!",
+            "SUMMARY": "アイコンがどのように見えるのか認識できるようにコンピュータに教える。",
+            "DESCRIPTION": "あなたのカードが認識できるように学習するカードゲームを製作します。"
         },
         "CHAMELEON": {
-            "TITLE": "Chameleon",
-            "SUMMARY": "Teach a computer to recognise colours",
-            "DESCRIPTION": "Make a chameleon in Scratch that changes colour to match its background"
+            "TITLE": "カメレオン",
+            "SUMMARY": "色を認識できるよにコンピュータに教えます。",
+            "DESCRIPTION": "背景に合わせて色を変えるカメレオンをScratchを使って作ります。"
         },
         "MAILMANMAX": {
-            "TITLE": "Mailman Max",
+            "TITLE": "郵便屋さん Max",
             "SUMMARY": "Teach a computer to recognise handwriting",
             "DESCRIPTION": "Make a postal sorting office in Scratch that can recognise handwritten postcodes on envelopes."
         },
