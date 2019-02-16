@@ -341,113 +341,113 @@
             "FAIL": "トレーニングコンピュータからのエラーメッセージをは以下の通りです。もし、理に適っていたら問題を修正してください。それ以外の場合は、偶然のエラーかもしれないのでもう一度試す価値があるかもしれません。",
 
             "IDLE": {
-                "NOLABELS" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add some labels for each of the things that you want to teach the computer to be able to recognise.",
+                "NOLABELS" : "次のステップは<a href='{{ urls.train }}'>Train</a> ページに行き、あなたがコンピュータが認識できるように教えたいそれぞれのものにラベルを追加してください。",
                 "ONELABEL" : {
-                    "EXPLANATION": "You've only said one thing that you want the computer to be able to recognise: {{ label }}",
-                    "ISTHATALL": "Is that the only thing you want the computer to be able to recognise?",
-                    "NO": "<strong>No?</strong><br/>Go back to the <a href='{{ urls.train }}'>Train</a> page.<br/>Add more labels for each of the things that you want to teach the computer to be able to recognise.<br/><br/>",
-                    "YES": "<strong>Yes?</strong><br/>You need to do a little more work first.<br/>For the computer to be able to learn how to recognise \"{{ label }}\", you need to give it some examples of things that aren't {{ label }}.<br/>Go back to the <a href='{{ urls.train }}'>Train</a> page and create a new label for examples of things that aren't {{ label }}. You could call it \"not-{{ label }}\"."
+                    "EXPLANATION": "あなたは、コンピュータに {{ label }} だけを認識させたいと言いました。",
+                    "ISTHATALL": "これ一つだけをコンピュータに認識させたいのですか？",
+                    "NO": "<strong>いいえ?</strong><br/><a href='{{ urls.train }}'>Train</a>ページに戻って、<br/>あなたがコンピュータが認識できるように教えたいものそれぞれにラベルを追加してください。<br/><br/>",
+                    "YES": "<strong>はい?</strong><br/>最初にもう少し作業をする必要があります。<br/>コンピュータが \"{{ label }}\"を認識するように学習するために、{{ label }}でないものの例をいくつか与える必要があります。<br/><a href='{{ urls.train }}'>Train</a> ページに戻って、{{ label }}ではないものの例ようにラベルを新しく作成してください。\"not-{{ label }}\"というラベルを付けることもできます。"
                 },
                 "LABELS" : {
-                    "NO_DATA" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples for each of the labels.",
+                    "NO_DATA" : "次のステップは、<a href='{{ urls.train }}'>Train</a>　ページに行き、それぞれのラベルの例を追加してください。",
                     "MORE_DATA" : {
-                        "KEEP_GOING": "Keep going!",
+                        "KEEP_GOING": "続けてください。",
                         "MORE_EXAMPLES" : {
-                            "YOU": "Go back to the <a href='{{ urls.train }}'>Train</a> page and collect more examples for each of the labels.",
-                            "CLASS": "Ask your class to go back to the <a href='{{ urls.train }}'>Train</a> page and collect more examples for each of the labels."
+                            "YOU": "<a href='{{ urls.train }}'>Train</a> ページに戻って、それぞれのラベル毎にもっと例を追加してください。",
+                            "CLASS": "生徒に<a href='{{ urls.train }}'>Train</a> ページに戻って、それぞれのラベル毎にもっと例を追加するように指示してください。"
                         },
-                        "MORE_IS_BETTER" : "The more you can get, the better it should learn, but you need at least {{ minimumExamples }} examples of each as an absolute minimum."
+                        "MORE_IS_BETTER" : "例が多い程、よりよく学習します。最低でも {{ minimumExamples }} の例が必要です。"
                     },
                     "ENOUGH_DATA" : {
-                        "READY_TO_START" : "Ready to start the computer's training?",
+                        "READY_TO_START" : "コンピュータをトレーニングする準備はできましたか？",
                         "START_TRAINING" : {
-                            "CROWDSOURCED" : "Click the button below to start training a machine learning model using the examples your class have collected so far",
-                            "INDIVIDUAL" : "Click the button below to start training a machine learning model using the examples you have collected so far"
+                            "CROWDSOURCED" : "これまでにあなたのクラスが収集した例を使って、機械学習モデルをトレーニング開始するためには、下のボタンをクリックしてください。",
+                            "INDIVIDUAL" : "これまでにあなたが収集した例を使って、機械学習モデルをトレーニング開始するためには、下のボタンをクリックしてください"
                         },
                         "MORE_EXAMPLES" : {
-                            "CROWDSOURCED" : "(Or ask your class to go back to the <a href='{{ urls.train }}'>Train</a> page if you want them to collect more examples first.)",
-                            "INDIVIDUAL" : "(Or go back to the <a href='{{ urls.train }}'>Train</a> page if you want to collect some more examples first.)"
+                            "CROWDSOURCED" : "(又は、もし、もっと例を追加させたい場合は、あなたのクラスに <a href='{{ urls.train }}'>Train</a> ページに戻るように指示してください。)",
+                            "INDIVIDUAL" : "(又は、もっと例を追加したい場合は、 <a href='{{ urls.train }}'>Train</a> ページに戻ってください。)"
                         },
-                        "WAITING_FOR_TEACHER" : "Waiting for your teacher to start the computer's training."
+                        "WAITING_FOR_TEACHER" : "あなたの先生がコンピュータのトレーニングを始めるのをまってください。"
                     }
                 }
             },
             "READY" : {
                 "TEST" : {
-                    "TEXT" : "Try testing the machine learning model below. Enter an example of text below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
-                    "IMAGES" : "Try testing the machine learning model below. Enter an example image below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
-                    "NUMBERS" : "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that."
+                    "TEXT" : "機械学習モデルをテストしてみましょう。トレーニング用の例で使っていない文字列の例を以下に入れてください。どのように認識したかと、どの程度その回答に自信があるかを示します。",
+                    "IMAGES" : "機械学習モデルをテストしてみましょう。トレーニング用の例で使っていない画像の例を以下に入れてください。どのように認識したかと、どの程度その回答に自信があるかを示します。",
+                    "NUMBERS" : "機械学習モデルをテストしてみましょう。トレーニング用の例で使っていない数値の例を以下に入れてください。どのように認識したかと、どの程度その回答に自信があるかを示します。"
                 },
-                "SCRATCH" : "If the computer seems to have learned to recognise things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
+                "SCRATCH" : "もし、コンピュータが正しく認識できるように学習したようであれば、Scratch に行ってコンピュータが学習したことをゲームを作るのに使いましょう。",
                 "ADDITIONAL_TRAINING" : {
                     "MORE_EXAMPLES" : {
-                        "CROWDSOURCED" : "If the computer is getting too many things wrong, your class might want to go back to the <a href='{{ urls.train }}'>Train</a> page and collect some more examples.",
-                        "INDIVIDUAL" : "If the computer is getting too many things wrong, you might want to go back to the <a href='{{ urls.train }}'>Train</a> page and collect some more examples"
+                        "CROWDSOURCED" : "もし、コンピュータが沢山間違えるようなら、あなたのクラスは、<a href='{{ urls.train }}'>Train</a> ページに戻って、もっと例を追加したいかもしれません。",
+                        "INDIVIDUAL" : "もし、コンピュータが沢山間違えるようなら、あなたは、<a href='{{ urls.train }}'>Train</a> ページに戻って、もっと例を追加したいかもしれません。"
                     },
                     "RETRAIN" : {
-                        "YOU" : "Once you've done that, click on the button below to train a new machine learning model and see what difference the extra examples will make!",
-                        "CLASS" : "Once you've done that, your teacher will need to train a new machine learning model."
+                        "YOU" : "例の追加が終わったら、追加した例がどのような違いを生むか、新しい機械学習モデルをトレーニングするために、以下のボタンをクリックしてください。",
+                        "CLASS" : "例の追加が終わったら、あなた方の先生は、新しい機械学習モデルをトレーニングします。"
                     }
                 }
             }
         },
         "TRAINING": {
-            "TITLE": "Info from training computer:",
-            "STARTED": "Model started training at:",
-            "STATUS": "Current model status:",
-            "DETAIL": "Detail:",
-            "DELETION": "Model will automatically be deleted after:",
-            "LASTCHECK": "Model last checked:",
-            "PROMPTREFRESH": "If this is more than a minute, you should refresh the page to get an up-to-date status"
+            "TITLE": "コンピュータからの情報:",
+            "STARTED": "モデルのトレーニング開始:",
+            "STATUS": "モデルの現状:",
+            "DETAIL": "詳細:",
+            "DELETION": "モデルは次の日時以降自動的に削除されます:",
+            "LASTCHECK": "最後にチェックされたタイミング:",
+            "PROMPTREFRESH": "もし、一分以上掛かっているなら、ページをリフレッシュして最新状況を入手してください。"
         },
         "TESTING": {
             "INTRO": {
-                "TEXT": "Try putting in some text to see how it is recognised based on your training.",
-                "IMAGES": "Try putting in an image to see how it is recognised based on your training.",
-                "NUMBERS": "Try putting in some numbers to see how it is recognised based on your training."
+                "TEXT": "トレーニングの結果、どのように認識されるのか文字列を入れて試しましょう。",
+                "IMAGES": "トレーニングの結果、どのように認識されるのか画像を入れて試しましょう。",
+                "NUMBERS": "トレーニングの結果、どのように認識されるのか数値を入れて試しましょう。"
             },
-            "WEBCAM": "Test with <strong>webcam</strong>",
-            "DRAWING": "Test by <strong>drawing</strong>",
-            "WWW": "Test with <strong>www</strong>",
-            "RECOGNISED": "Recognised as  <strong>{{ testoutput }}</strong>"
+            "WEBCAM": "<strong>webcam</strong>で試す。",
+            "DRAWING": "<strong>描いて</strong>試す",
+            "WWW": "<strong>www</strong>で試す",
+            "RECOGNISED": "<strong>{{ testoutput }}</strong>と認識しました。"
         },
         "QUIZ": {
-            "TITLE": "Quiz time!",
-            "INTROQUESTION": "While you are waiting for the model to finish training, try answering this question.",
-            "PREVIOUSLY_ATTEMPTED": "You've seen this one before - let's see if you remember what the right answer is this time!",
-            "CORRECT_ANSWER": "That's right!",
-            "INCORRECT_ANSWER": "No, sorry. The correct answer is shown above.",
-            "NEXT_QUESTION": "Next question"
+            "TITLE": "クイズタイム！",
+            "INTROQUESTION": "モデルのトレーニングが終わるまでの間にこの質問に答えてみよう。",
+            "PREVIOUSLY_ATTEMPTED": "一つ前にみていますね。 - 正しい答えがなにだったか思い出せるか見てみましょう。",
+            "CORRECT_ANSWER": "その通り！",
+            "INCORRECT_ANSWER": "いいえ。正しい答えは上ｎ通りです。",
+            "NEXT_QUESTION": "次の質問"
         }
     },
     "MAKES": {
-        "TITLE": "Make something with your machine learning model",
-        "SCRATCH2": "Make a project in the current version of Scratch",
-        "SCRATCH3": "Use the new (beta) version of Scratch",
-        "PYTHON": "Write Python code to use your machine learning model",
-        "APPINVENTOR": "Make a mobile app for your phone or tablet"
+        "TITLE": "あなたの機械学習モデルを使って何か作ってみましょう。",
+        "SCRATCH2": "Scratch（Version 2)を使ってプロジェクトを作成する。",
+        "SCRATCH3": "最新版のScratchを使う。",
+        "PYTHON": "機械学習モデルを使うのにPythonのコードを書く。",
+        "APPINVENTOR": "あたの携帯やタブレット用にアップを作成する。"
     },
     "PYTHON": {
-        "TITLE": "Using machine learning in Python",
+        "TITLE": "機械学習をPythonで使う",
 
-        "NOTREADY": "Your project isn't ready to be used in Python yet.",
-        "NOMODEL": "You haven't trained a machine learning model yet."
+        "NOTREADY": "あなたのプレジェクトはまだ、Pythonから使う準備ができていません。",
+        "NOMODEL": "まだ、機械学習モデルをトレーニングしていません。"
     },
     "APPINVENTOR": {
-        "TITLE": "Using machine learning in App Inventor",
+        "TITLE": "App Inventorで機械学習を使う",
 
-        "NOTREADY": "Your project isn't ready to be used in App Inventor yet.",
-        "NOMODEL": "You haven't trained a machine learning model yet.",
+        "NOTREADY": "あなたのプレジェクトはまだ、App Inventorで使う準備ができていません。",
+        "NOMODEL": "まだ、機械学習モデルをトレーニングしていません。",
 
-        "BETAWARNING": "This is an early beta. Support for App Inventor is not finished, and will probably have a few bugs and problems."
+        "BETAWARNING": "この版はまだベータ版で、App Inventorのサポートが完了していません。いくつか、バグや問題があると思います。"
     },
     "SCRATCH": {
-        "TITLE": "Using machine learning in Scratch",
+        "TITLE": "Scratchで機械学習を使う",
 
-        "NOTREADY": "Your project isn't ready to be used in Scratch yet.",
-        "NOMODEL": "You haven't trained a machine learning model yet.",
+        "NOTREADY": "あなたのプレジェクトはまだ、Scratchで使う準備ができていません。",
+        "NOMODEL": "まだ、機械学習モデルをトレーニングしていません。",
 
-        "LAUNCH": "Open in Scratch",
+        "LAUNCH": "Scratchを開く",
 
         "LAUNCH_SCRATCH_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch by itself</a> if you want.)",
         "GO_TO_LEARNANDTEST": "Or go to the <a href='{{ urls.learnandtest }}'>Learn &amp; Test</a> page for some tips on what to do next.",
