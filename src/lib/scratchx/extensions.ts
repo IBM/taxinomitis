@@ -1,5 +1,6 @@
 // external dependencies
 import * as Mustache from 'mustache';
+import * as he from 'he';
 // local dependencies
 import * as Types from '../db/db-types';
 import * as fileutils from '../utils/fileutils';
@@ -8,9 +9,17 @@ import * as env from '../utils/env';
 
 const ROOT_URL = process.env[env.AUTH0_CALLBACK_URL];
 
-
-function escapeProjectName(name: string): string {
-    return name.replace(/'/g, '\\\'');
+function escapeProjectName(name: string, version: 2 | 3): string {
+    if (version === 3) {
+        // Scratch 3 needs HTML encoding (e.g. '&lt;') as special
+        //  characters (e.g. '<') will prevent extensions from
+        //  loading
+        return he.encode(name);
+    }
+    else {
+        // Scratch 2 displays the string as-is
+        return name.replace(/'/g, '\\\'');
+    }
 }
 
 async function getTextExtension(scratchkey: Types.ScratchKey, project: Types.Project, version: 2 | 3): Promise<string> {
@@ -27,7 +36,7 @@ async function getTextExtension(scratchkey: Types.ScratchKey, project: Types.Pro
         storeurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/train',
         modelurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/models',
 
-        projectname : escapeProjectName(scratchkey.name),
+        projectname : escapeProjectName(scratchkey.name, version),
         labels : project.labels.map((name, idx) => {
             return { name, idx };
         }),
@@ -52,7 +61,7 @@ async function getImagesExtension(scratchkey: Types.ScratchKey, project: Types.P
         classifyurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/classify',
         storeurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/train',
 
-        projectname : escapeProjectName(scratchkey.name),
+        projectname : escapeProjectName(scratchkey.name, version),
         labels : project.labels.map((name, idx) => {
             return { name, idx };
         }),
@@ -91,7 +100,7 @@ async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.
         storeurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/train',
         modelurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/models',
 
-        projectname : escapeProjectName(scratchkey.name),
+        projectname : escapeProjectName(scratchkey.name, version),
 
         labels : project.labels.map((name, idx) => {
             return { name, idx };
