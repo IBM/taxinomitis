@@ -8,6 +8,7 @@ import * as store from '../db/store';
 import * as DbObjects from '../db/db-types';
 import * as TrainingObjects from './training-types';
 import * as iam from '../iam';
+import * as wikimedia from '../utils/wikimedia';
 import * as downloadAndZip from '../utils/downloadAndZip';
 import * as constants from '../utils/constants';
 import * as notifications from '../notifications/slack';
@@ -269,7 +270,9 @@ async function getTraining(project: DbObjects.Project): Promise<{ [label: string
                 start : 0, limit : counts[label],
             });
 
-            const trainingLocations = training.map((trainingitem) => {
+            const trainingLocations: downloadAndZip.ImageDownload[] = [];
+
+            for (const trainingitem of training) {
                 if (trainingitem.isstored) {
                     const fromStorage: downloadAndZip.ImageDownload = {
                         type : 'retrieve',
@@ -280,17 +283,14 @@ async function getTraining(project: DbObjects.Project): Promise<{ [label: string
                             classid : project.classid,
                         },
                     };
-                    return fromStorage;
+                    trainingLocations.push(fromStorage);
                 }
                 else {
-                    const fromWeb: downloadAndZip.ImageDownload = {
-                        type : 'download',
-                        url : trainingitem.imageurl,
-                        imageid : trainingitem.id,
-                    };
-                    return fromWeb;
+                    const fromWeb = await getImageDownloadSpec(trainingitem.id, trainingitem.imageurl);
+                    trainingLocations.push(fromWeb);
                 }
-            });
+            }
+
             validateRequest(trainingLocations);
 
             const trainingZip = await downloadAndZip.run(trainingLocations);
@@ -299,6 +299,36 @@ async function getTraining(project: DbObjects.Project): Promise<{ [label: string
     }
 
     return examples;
+}
+
+
+async function getImageDownloadSpec(imageid: string, imageurl: string): Promise<downloadAndZip.ImageDownload> {
+    if (wikimedia.isWikimedia(imageurl)) {
+        try {
+            const thumb = await wikimedia.getThumbnail(imageurl, 400);
+            return {
+                type : 'download',
+                imageid,
+                url : thumb,
+            };
+        }
+        catch (err) {
+            log.error({ err, imageid, imageurl }, 'getImageDownloadSpec fail');
+            return {
+                type : 'download',
+                imageid,
+                url : imageurl,
+            };
+        }
+    }
+    else {
+        const fromWeb: downloadAndZip.DownloadFromWeb = {
+            type : 'download',
+            imageid,
+            url : imageurl,
+        };
+        return Promise.resolve(fromWeb);
+    }
 }
 
 
