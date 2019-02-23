@@ -100,6 +100,8 @@ async function createClassifier(
             const url = credentials.url + '/v3/classifiers';
             classifier = await submitTrainingToVisualRecognition(project, credentials, url, training, tenantPolicy);
 
+            log.info({ classifier }, 'Created new classifier to store');
+
             await store.storeImageClassifier(credentials, project, classifier);
 
             await store.storeOrUpdateScratchKey(project, credentials, classifier.classifierid, classifier.created);
@@ -714,6 +716,19 @@ async function submitTrainingToVisualRecognition(
 
     try {
         const body = await request.post(url, req);
+
+        log.info({ body }, 'Response from creating visual recognition classifier');
+
+        if (body && body.error) {
+            log.error({ body }, 'Error payload from Visual Recognition');
+
+            // sometimes Visual Recogition returns an error object
+            // with an HTTP-200 response code, because... reasons?
+            throw {
+                error : body.error,
+                statusCode : 500,
+            };
+        }
 
         // determine when the classifier should be deleted
         const modelAutoExpiryTime = new Date(body.created);
