@@ -538,151 +538,151 @@
         },
         "MAILMANMAX": {
             "TITLE": "郵便屋さん Max",
-            "SUMMARY": "Teach a computer to recognise handwriting",
-            "DESCRIPTION": "Make a postal sorting office in Scratch that can recognise handwritten postcodes on envelopes."
+            "SUMMARY": "コンピュータに手書き文字の認識を教えましょう。",
+            "DESCRIPTION": "封筒の上の手書き郵便番号を認識する郵便の仕分け所をScratchを使って作りましょう。"
         },
         "CARORCUP": {
-            "TITLE": "Car or cup",
-            "SUMMARY": "Teach a computer to recognise pictures of objects",
-            "DESCRIPTION": "Train the computer to be able to sort photos into groups."
+            "TITLE": "車 又は カップ",
+            "SUMMARY": "物体の絵を認識できるようにコンピュータに教えましょう。",
+            "DESCRIPTION": "写真をグループに分類できるようにコンピュータをトレーニングしよう。"
         },
         "FACELOCK": {
-            "TITLE": "Face Lock",
-            "SUMMARY": "Teach a computer to recognise faces",
-            "DESCRIPTION": "Make a phone in Scratch that unlocks if it recognises your face."
+            "TITLE": "顔認証",
+            "SUMMARY": "顔を認識できるようにコンピュータをトレーニングしよう。",
+            "DESCRIPTION": "あなたの顔を認識したら、Scratchの中の携帯のロックを外すようにしよう。"
         },
         "JOURNEYTOSCHOOL": {
-            "TITLE": "Journey to school",
-            "SUMMARY": "Teach a computer to make predictions",
-            "DESCRIPTION": "Train the computer to be able to predict how you travel to school in the morning."
+            "TITLE": "学校への道",
+            "SUMMARY": "予想をするようにコンピュータに教えよう。",
+            "DESCRIPTION": "朝、学校にどのように行くかコンピュータが予想できるようにトレーニングしよう。"
         },
         "SHYPANDA": {
-            "TITLE": "Shy Panda",
-            "SUMMARY": "Teach a computer to recognise pictures",
-            "DESCRIPTION": "Make a dancing panda that gets shy and stops dancing if it sees you looking."
+            "TITLE": "恥ずかしがりやのパンダ",
+            "SUMMARY": "写真を認識できるようにコンピュータに教えよう。",
+            "DESCRIPTION": "もしあなたが見ているのに気づいたら踊るのをやる、恥ずかしがりやのパンダをつくろう。"
         },
         "VIRTUALPET": {
-            "TITLE": "Virtual Pet",
-            "SUMMARY": "Teach a computer to recognise pictures",
-            "DESCRIPTION": "Train the computer to recognise what you're doing so you can look after a virtual pet."
+            "TITLE": "仮想ペット",
+            "SUMMARY": "写真を認識できるようにコンピュータに教えよう。",
+            "DESCRIPTION": "仮想ペットの世話ができりょうに、あなたの動作をコンピュータが認識できるようにトレーニングしよう。"
         },
         "PACMAN": {
-            "TITLE": "Pac-Man",
-            "SUMMARY": "Teach a computer to play a game",
-            "DESCRIPTION": "Create a Pac-Man game in Scratch that learns how to avoid the ghost."
+            "TITLE": "パックマン",
+            "SUMMARY": "ゲームの遊び方をコンピュータに教えよう。",
+            "DESCRIPTION": "幽霊のよけ方を学習するパックマンゲームをScratchで作ろう。"
         },
         "CHATBOTS": {
-            "TITLE": "Chatbots",
-            "SUMMARY": "Teach a computer to recognise questions",
-            "DESCRIPTION": "Create a chatbot that can answer questions about a topic of your choice."
+            "TITLE": "チャットボット",
+            "SUMMARY": "質問が分かるようにコンピュータに教えよう。",
+            "DESCRIPTION": "あなたが選んだ話題に関する質問に答えられるチャットボットをつくろう。"
         },
         "TOURISTINFO": {
-            "TITLE": "Tourist Info",
-            "SUMMARY": "Teach a computer to make recommendations",
-            "DESCRIPTION": "Create a mobile app in Scratch that recommends tourist attractions based on people's interests."
+            "TITLE": "訪問先",
+            "SUMMARY": "推奨ができるようにコンピュータに教えよう。",
+            "DESCRIPTION": "旅行者の興味にあったアトラクションを推奨できる携帯アプリをScratchでつくろう。"
         },
         "SORTINGHAT": {
-            "TITLE": "Sorting Hat",
-            "SUMMARY": "Teach a computer to recognise use of language",
-            "DESCRIPTION": "Create a Sorting Hat like in Harry Potter, that puts you in a school House based on what you say."
+            "TITLE": "組分け帽子",
+            "SUMMARY": "言葉の使い方をコンピュータが認識できるようにトレーニングしよう。",
+            "DESCRIPTION": "あなたの言ったことに基づいて、あなたを寄宿舎に入れるハリーポッターの組分け帽子をつくろう。"
         },
         "ROCKPAPERSCISSORS": {
-            "TITLE": "Rock, Paper, Scissors",
-            "SUMMARY": "Teach a computer to recognise shapes",
-            "DESCRIPTION": "Make a Rock, Paper, Scissors game in Scratch that learns to recognise hand shapes."
+            "TITLE": "グー、チョキ、パー",
+            "SUMMARY": "コンピュータに形を認識できるように教えよう。",
+            "DESCRIPTION": "手の形を学習するグー・チョキ・パーのゲームをScratchでつくろう。"
         },
         "JUDGEABOOK": {
-            "TITLE": "Judge a book",
-            "SUMMARY": "Teach a computer to recognise visual style",
-            "DESCRIPTION": "Make a game in Scratch to test whether it really is possible to judge a book by its cover."
+            "TITLE": "本の判別",
+            "SUMMARY": "コンピュータが見た目で判別できるように教えよう。",
+            "DESCRIPTION": "表紙から本の種類を判別できるかテストするゲームをScratchで制作しよう。"
         },
         "LOCATELARRY": {
-            "TITLE": "Locate Larry",
-            "SUMMARY": "Teach a computer to find something in a picture",
-            "DESCRIPTION": "Make a \"Where's Wally?\"-style game in Scratch, and teach the computer to find your character."
+            "TITLE": "ラリーを見つけろ",
+            "SUMMARY": "写真の中の物を見つけるようにコンピュータに教えよう。",
+            "DESCRIPTION": "ウォーリーを探せのようにあなたのキャラクターを見つけるようにコンピュータに教えるタイプのゲームをScratchでつくろう。"
         },
         "CONFUSED": {
-            "TITLE": "Confused",
-            "SUMMARY": "Teach a computer to recognise fruit",
-            "DESCRIPTION": "Learn about how computers can be confused and can make mistakes if they're trained badly."
+            "TITLE": "混乱",
+            "SUMMARY": "果物を認識できるようにコンピュータに教えよう。",
+            "DESCRIPTION": "上手くトレーニングされないとコンピュータがどのように混乱して、間違えるか試してみよう。"
         },
         "SCHOOLLIBRARY": {
-            "TITLE": "School Library",
-            "SUMMARY": "Teach a computer to make recommendations",
-            "DESCRIPTION": "Create a school librarian in Scratch that suggests who a reading book might be suitable for."
+            "TITLE": "学校の図書館",
+            "SUMMARY": "コンピュータに推薦することを教えよう。",
+            "DESCRIPTION": "ある本がどのレベルの子に合うかアドバイスする図書館員をScratchでつくろう。"
         },
         "WHATTWITTERTHINKS": {
-            "TITLE": "What does Twitter think?",
-            "SUMMARY": "Teach a computer to measure public opinion",
-            "DESCRIPTION": "Create a sentiment analysis tool in Scratch to analyze discussion on Twitter"
+            "TITLE": "Twitterの考えは？",
+            "SUMMARY": "コンピュータに世論を推察することを教えよう。",
+            "DESCRIPTION": "Twitter上の議論を分析してセンチメント分析するツールをScratchで作ろう。"
         },
         "NOUGHTSANDCROSSES": {
-            "TITLE": "Noughts & Crosses",
-            "SUMMARY": "Teach a computer to play a game",
-            "DESCRIPTION": "Create a noughts and crosses game in Scratch that learns how to beat you."
+            "TITLE": "ナッツ＆クロス",
+            "SUMMARY": "ゲームの遊び方をコンピュータに教えよう。",
+            "DESCRIPTION": "あなたの負かし方を学習するナッツ＆クロスをScratchで作ろう。"
         },
         "TOPTRUMPS": {
-            "TITLE": "Top Trumps",
-            "SUMMARY": "Teach a computer to play a game",
-            "DESCRIPTION": "Train a computer to be able to play the Top Trumps card game in Scratch."
+            "TITLE": "トップトランプ",
+            "SUMMARY": "ゲームの遊び方をコンピュータに教えよう。",
+            "DESCRIPTION": "Scratchで作ったトップトランプのゲームを遊べるようにコンピュータをトレーニングしよう。"
         },
         "HEADLINES": {
-            "TITLE": "Headlines",
-            "SUMMARY": "Test the computer's ability to recognise use of language",
-            "DESCRIPTION": "Train a computer to recognise headlines from national newspapers."
+            "TITLE": "見出し",
+            "SUMMARY": "言葉の使い方を認識するコンピュータの能力をテストする。",
+            "DESCRIPTION": "全国紙の見出しを認識できるようにコンピュータをトレーニングしよう。"
         }
     },
     "TEACHER": {
         "MENU": {
-            "TITLE": "Administration",
+            "TITLE": "管理",
 
             "RESTRICTIONS": {
-                "TITLE": "Restrictions",
-                "DESCRIPTION": "Review limits and restrictions that apply to your class"
+                "TITLE": "制限",
+                "DESCRIPTION": "あなたのクラスに適用される制限や限界を確認してください。"
             },
             "APIKEYS": {
-                "TITLE": "API Keys",
-                "TITLELONG": "Watson API Keys",
-                "DESCRIPTION": "Set up IBM Watson credentials to enable your class to create machine learning models"
+                "TITLE": "API キー",
+                "TITLELONG": "Watson API キー",
+                "DESCRIPTION": "機械学習モデルをつくれるようにIBM Watsonの 証明書をセットアップする。"
             },
             "STUDENTS": {
-                "TITLE": "Students",
-                "TITLELONG": "Student management",
-                "DESCRIPTION": "Create, reset and delete logins for students in your class"
+                "TITLE": "生徒",
+                "TITLELONG": "生徒の管理",
+                "DESCRIPTION": "クラス用に生徒のログインの作成・リセット・削除する。"
             },
             "SUPERVISION": {
-                "TITLE": "Supervision",
-                "DESCRIPTION": "Review projects that your students have created"
+                "TITLE": "監督",
+                "DESCRIPTION": "あなたの生徒が作成したプロジェクトをレビューする。"
             },
 
-            "ADVANCEDOPTIONS": "Advanced options",
+            "ADVANCEDOPTIONS": "高度なオプション",
 
             "DELETECLASS": {
-                "TITLE": "Delete class",
-                "DESCRIPTION": "This will delete the accounts for you and all of the students in your class"
+                "TITLE": "クラスの削除",
+                "DESCRIPTION": "あなたを含むクラス中の生徒全員のアカウントを削除します。"
             },
 
             "CANYOUHELP": {
-                "TITLE": "Can you help?",
-                "DESCRIPTION": "Please share your experiences and ideas for how to make the tool better"
+                "TITLE": "ヘルプしてくれますか?",
+                "DESCRIPTION": "本ツールをより良くするためのアイデアと体験を共有ください。"
             },
 
-            "NOTAUTHORISED": "You are not authorized to access the teacher page for your class."
+            "NOTAUTHORISED": "あなたのクラスの先生用ページにアクセスすることは許可されていません。"
         },
         "APIKEYS": {
-            "TITLE": "Administration : IBM Watson API Keys",
+            "TITLE": "管理 : IBM Watson API キー",
 
-            "ADDNEWCREDENTIALS": "Add new credentials",
-            "ADDAPIKEY": "Add new API key",
-            "REMOVE": "Remove",
+            "ADDNEWCREDENTIALS": "新しいクレデンシャルの追加",
+            "ADDAPIKEY": "新しい API キーの追加",
+            "REMOVE": "削除",
 
-            "NO_TEXT_CREDENTIALS": "You don't have any Assistant credentials. This means that it will not be possible to train models for <strong>text</strong> projects.",
-            "NO_IMAGE_CREDENTIALS": "You don't have any Visual Recognition API keys. This means that it will not be possible to train models for <strong>images</strong> projects.",
+            "NO_TEXT_CREDENTIALS": "あなたは、Assistant credentialsを指定していません。これは、 <strong>文字列</strong> プロジェクト用のモデルをトレーニングできないことを意味します。",
+            "NO_IMAGE_CREDENTIALS": "あなたは、Visual Recognition API keysを指定していません。 これは、<strong>画像</strong> プロジェクト用のモデルをトレーニングできないことを意味します。",
 
-            "NOTAUTHORISED": "You are not authorized to access the Watson API keys used by your class.",
-            "MANAGEDCLASS": "API Keys used by your class are being managed for you.",
+            "NOTAUTHORISED": "あなたのクラスで使われる Watson API キーにアクセスする権限をあなたは持っていません。",
+            "MANAGEDCLASS": "あなたのクラスで使われる API キーはあなたのために管理されています。",
 
-            "HELP_STEPBYSTEP_GUIDE": "If you're not sure what to do here, please follow the <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> step-by-step guide </a>. If you'd like any help, please <strong><a style='cursor: pointer;' ui-sref='help'>get in touch</a></strong>.",
+            "HELP_STEPBYSTEP_GUIDE": "このページで何をしたら良いのか確信が無い場合は、この<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> step-by-step guide </a>を参照ください。 助けが必要であれば、<strong><a style='cursor: pointer;' ui-sref='help'>get in touch</a></strong>で連絡ください。",
 
             "INTRO_WATSONASSISTANT": "Training machine learning models for <span class='mlprojecttype'>text</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/conversation/'>Watson Assistant</a>",
             "INTRO_VISUALRECOGNITION": "Training machine learning models for <span class='mlprojecttype'>images</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
