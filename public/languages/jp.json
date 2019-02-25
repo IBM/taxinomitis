@@ -684,22 +684,22 @@
 
             "HELP_STEPBYSTEP_GUIDE": "このページで何をしたら良いのか確信が無い場合は、この<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> step-by-step guide </a>を参照ください。 助けが必要であれば、<strong><a style='cursor: pointer;' ui-sref='help'>get in touch</a></strong>で連絡ください。",
 
-            "INTRO_WATSONASSISTANT": "Training machine learning models for <span class='mlprojecttype'>text</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/conversation/'>Watson Assistant</a>",
-            "INTRO_VISUALRECOGNITION": "Training machine learning models for <span class='mlprojecttype'>images</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
+            "INTRO_WATSONASSISTANT": "機械学習モデルを <span class='mlprojecttype'>文字列</span>プロジェクトのためにトレーニングする際には、<a class='mlprojecttype' href='https://www.ibm.com/watson/services/conversation/'>Watson Assistant</a>を利用します。",
+            "INTRO_VISUALRECOGNITION": "機械学習モデルを <span class='mlprojecttype'>画像</span>プロジェクトのためにトレーニングする際には、<a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>を利用します。",
 
-            "ERROR_FETCHING_WATSONASSISTANT": "Failed to get your Watson Assistant passwords",
-            "ERROR_FETCHING_VISUALRECOG": "Failed to get your Visual Recognition API keys",
+            "ERROR_FETCHING_WATSONASSISTANT": "あなたの Watson Assistant パスワードを取得するのに失敗しました。",
+            "ERROR_FETCHING_VISUALRECOG": "あなたの Visual Recognition API キーを取得するのに失敗しました。",
 
-            "USERNAME": "Username",
-            "PASSWORD": "Password",
-            "APIKEY": "API key",
+            "USERNAME": "ユーザ名",
+            "PASSWORD": "パスワード",
+            "APIKEY": "API キー",
 
-            "NUMBER_OF_ML_MODELS": "Number of ML models",
-            "UNKNOWN": "unknown",
-            "UNLIMITED": "unlimited",
+            "NUMBER_OF_ML_MODELS": "機械学習モデルの数",
+            "UNKNOWN": "不明",
+            "UNLIMITED": "無制限",
 
-            "LIMIT_TEXT_PROJECTS": "Number of text machine learning models your students can have:",
-            "LIMIT_IMAGE_PROJECTS": "Number of images machine learning models your students can have:"
+            "LIMIT_TEXT_PROJECTS": "あなたの生徒が使える文字列機械学習モデルの数:",
+            "LIMIT_IMAGE_PROJECTS": "あなたの生徒が使える画像機械学習モデルの数:"
         }
     },
     "HELP": {
