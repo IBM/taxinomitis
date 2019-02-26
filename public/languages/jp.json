@@ -703,14 +703,14 @@
         }
     },
     "HELP": {
-        "CONTACT": "If you have any problems or questions, please email Dale.Lane@uk.ibm.com",
+        "CONTACT": "もし、問題や質問がある場合は、emailで Dale.Lane@uk.ibm.comまで英語でご連絡ください。",
         "GETTINGSTARTED": {
-            "TITLE": "Getting started?",
-            "INTRO": "Download a PDF with a short getting started guide:",
-            "MANAGED": "Managed class accounts",
-            "MANAGEDEXPL": "For school teachers, coding group leaders, or other volunteers",
-            "UNMANAGED": "Unmanaged class accounts",
-            "UNMANAGEDEXPL": "For IBM employees, or teachers and coding group leaders who manage their own class accounts"
+            "TITLE": "さあ、始めましょう",
+            "INTRO": "入門（簡易版）のPDFをダウンロードしてください。:",
+            "MANAGED": "クラス用アカウントの管理を委託",
+            "MANAGEDEXPL": "学校の教師、コーディンググループのリーダー、その他のボランティアの方々用",
+            "UNMANAGED": "クラス用アカウントを自己管理",
+            "UNMANAGEDEXPL": "自らアカウントを管理したい学校の教師、コーディンググループのリーダーやIBM の従業員用"
         },
         "FAQS": {
             "TITLE": "Want to know more?",
