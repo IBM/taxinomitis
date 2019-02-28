@@ -713,24 +713,24 @@
             "UNMANAGEDEXPL": "自らアカウントを管理したい学校の教師、コーディンググループのリーダーやIBM の従業員用"
         },
         "FAQS": {
-            "TITLE": "Want to know more?",
-            "INTRO1": "Is something not working?",
-            "INTRO2": "The list below contains the questions and issues that I hear about most often. If you see something that looks similar to your problem, click on the summary for more info.",
-            "INTRO3": "If you're still stuck, or you've run into a problem I've not included in the list, sorry! Please <a href='mailto:dale.lane@uk.ibm.com'>email me</a> or <a href='https://github.com/IBM/taxinomitis/issues'>create an issue report</a> so that I can help."
+            "TITLE": "もっと知る?",
+            "INTRO1": "何か上手く動作しないですか？",
+            "INTRO2": "よくある問題や質問を以下のリストにまとめています。もし、類似の問題に直面したら、まとめの文章をクリックして詳細を参照ください。",
+            "INTRO3": "それでも問題が解決できない場合や、リストにない問題に遭遇した場合は、お手数でも <a href='mailto:dale.lane@uk.ibm.com'>私に</a>英語でメールをするか、<a href='https://github.com/IBM/taxinomitis/issues'>このリンクから問題を報告</a>して頂ければ、問題解決を支援します。"
         },
 
         "SCRATCH": {
-            "TITLE": "Scratch issues",
+            "TITLE": "Scratch の問題",
 
-            "Q1": "I don't know how to get Scratch working",
-            "Q1-A-1": "Machine Learning for Kids uses Scratch 2. Scratch needs Adobe Flash to work, so you need to be using an operating system and a web browser that can work with Flash (so that means no iPads for now, sorry).",
-            "Q1-A-2": "If you're not sure about how to enable Flash, you can            <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>download a document with some tips for getting Scratch working</a>.",
+            "Q1": "Scratchが動作するようにする方法が分からない",
+            "Q1-A-1": "Machine Learning for Kidsは、Scratch 2を利用しています。Scratchが動作するには、Adobe Flashが必要なため、Flashが動作するウェブブラウザとOSの組み合わせを利用する必要があります。 (このため残念ながら iPads では動作しません。)",
+            "Q1-A-2": "Flashを利用可能にする方法が分からない場合は、<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>Scratchを動作させるようにするためのヒントに関する文章をダウンロード</a>してください。",
 
-            "Q2": "The \"Load Project\" and \"Save Project\" menus in Scratch don't work",
-            "Q2-A-1": "If you're using Safari on macOS and the Scratch menus \"File -&gt; Load Project\" and \"File -&gt; Save Project\" menus aren't working, it might be that you're running in Safe Mode.",
-            "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>Follow the instructions here</a> for how to check and fix this.",
+            "Q2": "The Scratch内の \"Load Project\" と \"Save Project\" メニューが動作しない。",
+            "Q2-A-1": "もし、MacOS上でSafariを利用していて、Scratchのメニュー \"File -&gt; Load Project\" と \"File -&gt; Save Project\" メニューが動作しない場合、もしかするとSafe Modeで動作させている可能性があります。",
+            "Q2-A-2": "どうのようにチェックして問題解決するかは、<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>ここにある手順に従ってください。</a>",
 
-            "Q3": "Machine learning classifier blocks in Scratch don't work",
+            "Q3": "Scratch 内のMachine learning classifierブロックが動作しない",
             "Q3-A-1": "Occassionally, the Scratch blocks for your machine learning model can lose the connection to the server. When this happens, they will stop returning results.",
             "Q3-A-2": "You can check whether this has happened using the coloured status light in the \"More Blocks\" palette.",
             "Q3-A-3": "If the status light next to your machine learning Scratch blocks is red, that normally means something is wrong. It might be a temporary problem. Try saving your project (using 'File' -&gt; 'Save Project'), then refresh the browser page. If the status light goes green after the page reloads, you can load your project (using 'File' -&gt; 'Load Project') to pick up where you left off.",
