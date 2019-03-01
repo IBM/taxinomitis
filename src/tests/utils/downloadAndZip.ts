@@ -67,7 +67,8 @@ describe('Utils - download and zip', () => {
                         next(err, unzippedFiles);
                     });
             },
-            (unzippedFiles: string[], next: (err?: Error, files?: Array<TestFile | undefined>) => void) => {
+            (unzippedFiles: string[], next: (err?: Error | undefined | null,
+                                             files?: Array<TestFile | undefined>) => void) => {
                 async.map(unzippedFiles, (unzippedFile: string, nextFile: (err?: Error, file?: TestFile) => void) => {
                     fs.stat(unzippedFile, (err, stats) => {
                         if (err) {
