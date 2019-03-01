@@ -14,7 +14,7 @@ import * as ImageTypes from '../imagestore/types';
 async function storeText(key: Types.ScratchKey, label: string, textStr: string): Promise<Types.TextTraining>
 {
     // check that we have some data to store
-    if (!textStr || textStr.trim().length === 0) {
+    if (!textStr || typeof textStr !== 'string' || textStr.trim().length === 0) {
         throw new Error('Missing data');
     }
 

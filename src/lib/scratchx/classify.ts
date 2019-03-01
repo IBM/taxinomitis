@@ -29,7 +29,7 @@ function chooseLabelsAtRandom(project: Types.Project): TrainingTypes.Classificat
 
 
 async function classifyText(key: Types.ScratchKey, text: string): Promise<TrainingTypes.Classification[]> {
-    if (!text || text.trim().length === 0) {
+    if (!text || typeof text !== 'string' || text.trim().length === 0) {
         throw new Error('Missing data');
     }
 
