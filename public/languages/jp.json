@@ -731,9 +731,9 @@
             "Q2-A-2": "どうのようにチェックして問題解決するかは、<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>ここにある手順に従ってください。</a>",
 
             "Q3": "Scratch 内のMachine learning classifierブロックが動作しない",
-            "Q3-A-1": "Occassionally, the Scratch blocks for your machine learning model can lose the connection to the server. When this happens, they will stop returning results.",
-            "Q3-A-2": "You can check whether this has happened using the coloured status light in the \"More Blocks\" palette.",
-            "Q3-A-3": "If the status light next to your machine learning Scratch blocks is red, that normally means something is wrong. It might be a temporary problem. Try saving your project (using 'File' -&gt; 'Save Project'), then refresh the browser page. If the status light goes green after the page reloads, you can load your project (using 'File' -&gt; 'Load Project') to pick up where you left off.",
+            "Q3-A-1": "稀に, machine learning model用のScratchブロックとサーバとのコネクションが切れることがあります。これが起きると、ブロックが結果を返さなくなります。",
+            "Q3-A-2": "この状態が発生しているのか発生しているのかを \"More Blocks\" palette内にあるステータスライトで確認できます。",
+            "Q3-A-3": "もし、このMachine Learning Scratch Block の並びにあるステータスライトが赤の場合、通常何か問題があることを示しています。一時的な問題の可能性もあります。あなたのプロジェクトTry saving your project (using 'File' -&gt; 'Save Project'), then refresh the browser page. If the status light goes green after the page reloads, you can load your project (using 'File' -&gt; 'Load Project') to pick up where you left off.",
             "Q3-A-4": "If the status light is still red after reloading the page, then there is probably something wrong with the machine learning model. Try going to the \"Learn &amp; Test\" page for the project, which is where any error messages about your model can be found.",
             "Q3-A-5": "If the status light next to your machine learning Scratch blocks is green, then the blocks should be working. If you're not getting the responses you expect from them, try going to the \"Learn &amp; Test\" page and checking what results your model returns.",
 
