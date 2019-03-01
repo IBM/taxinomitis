@@ -773,6 +773,15 @@ export async function getImageClassifiers(
     // GETs don't need as long a timeout as POSTs
     req.timeout = 30000;
     const body: VisualRecogApiResponsePayloadClassifiers = await request.get(credentials.url + '/v3/classifiers', req);
+
+    if (body && body.error) {
+        log.error({ body }, 'Unexpected response from Visual Recognition');
+        throw {
+            error : body.error,
+            statusCode : 500,
+        };
+    }
+
     return body.classifiers.map((classifierinfo) => {
         const summary: TrainingObjects.ClassifierSummary = {
             id : classifierinfo.classifier_id,
@@ -935,6 +944,9 @@ export interface NewTestUrlRequest extends TestUrlRequest, NewVisRecRequest {
 
 export interface VisualRecogApiResponsePayloadClassifiers {
     readonly classifiers: VisualRecogApiResponsePayloadClassifier[];
+
+    // sometimes Visual Recognition returns errors in response to GETs
+    readonly error?: any;
 }
 
 export interface VisualRecogApiResponsePayloadClassifier {
