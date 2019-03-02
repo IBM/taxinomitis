@@ -36,30 +36,36 @@
         </div>
     </div>
 
-    <div ng-if="project && project.labels.length > 1" style="margin: 2em;">
-        <div ng-if="scratchkey">
-            <div ng-if="!scratchkey.model">
-                <div class="alert alert-info" role="alert" translate="PYTHON.NOMODEL"></div>
-                <div>
-                    You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId, userId : userId })">train one now</a></strong> and then come back to start your Python project.
-                </div>
-            </div>
+    <div ng-if="project && project.labels.length > 1 && scratchkey && !scratchkey.model" style="margin: 2em;">
+        <div class="alert alert-info" role="alert" translate="PYTHON.NOMODEL"></div>
+        <div ng-if="project.type !== 'text'">
+            You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId, userId : userId })">train one now</a></strong> and then come back to start your Python project.
         </div>
     </div>
 
     <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1">
-        <div class="modelguidance" ng-if="scratchkey.model" >
+        <div class="modelguidance" ng-if="scratchkey.model || project.type === 'text' && functionType === 'store'" >
             <div class="modelstatusdetail">
                 You can use this code to
-                <span ng-if="project.type === 'text'">submit text</span>
+                <span ng-if="project.type === 'text' && functionType === 'classify'">submit text</span>
                 <span ng-if="project.type === 'numbers'">submit numbers</span>
                 <span ng-if="project.type === 'images' && testsource === 'local'">submit an image file that you have on your computer</span>
                 <span ng-if="project.type === 'images' && testsource === 'webcam'">submit a photo from your webcam</span>
                 <span ng-if="project.type === 'images' && testsource === 'web'">submit an image file from the Internet</span>
-                to the machine learning model that you've trained.
+                <span ng-if="functionType === 'classify'">to the machine learning model that you've trained.</span>
+                <span ng-if="project.type === 'text' && functionType === 'store'">add text examples to your training data.</span>
             </div>
-            <div class="modelstatusdetail" ng-if="project.type==='text'">
+            <div class="modelstatusdetail" ng-if="project.type==='text' && functionType === 'classify'">
                 Enter the text: <input style="padding-left: 1em; padding-right: 1em; width: 80%;" ng-model="testdata.text"></input>
+            </div>
+            <div class="modelstatusdetail" ng-if="project.type==='text' && functionType === 'store'">
+                Enter the text: <input style="padding-left: 1em; padding-right: 1em; width: 80%;" ng-model="testdata.storetext"></input>
+            </div>
+            <div class="modelstatusdetail" ng-if="project.type==='text' && functionType === 'store'">
+                Enter the label:
+                <select ng-model="testdata.label">
+                    <option ng-repeat="label in project.labels" value="{{ label }}">{{label}}</option>
+                </select>
             </div>
             <div class="modelstatusdetail" ng-if="project.type==='numbers'">
                 Enter the numbers below:
@@ -85,11 +91,17 @@
             <div class="modelstatusdetail" ng-if="project.type==='images' && testsource === 'web'">
                 Enter the web address for the image: <input style="padding-left: 1em; padding-right: 1em; width: 90%;" ng-model="testdata.imageurl"></input>
             </div>
-            <div class="modelstatusdetail">
+            <div class="modelstatusdetail" ng-hide="functionType === 'store'">
                 Running this code will print something like:
             </div>
-            <div class="modelstatusdetail"><pre>$ python yourscript.py
+            <div class="modelstatusdetail" ng-hide="functionType === 'store'"><pre>$ python yourscript.py
 result: '{{ project.labels[0] }}' with 81% confidence</pre></div>
+            <div class="modelstatusdetail" ng-if="project.type==='text' && functionType !== 'classify' && scratchkey.model">
+                <a href="" ng-click="setFunctionType('classify')">Click here for Python for recognising text</a>
+            </div>
+            <div class="modelstatusdetail" ng-if="project.type==='text' && functionType !== 'store'">
+                <a href="" ng-click="setFunctionType('store')">Click here for Python for adding a training example</a>
+            </div>
             <div class="modelstatusdetail" ng-if="project.type==='images' && testsource !== 'web'">
                 <a href="" ng-click="setSource('web')">Click here for Python for submitting an image from the Internet</a>
             </div>
@@ -112,8 +124,8 @@ result: '{{ project.labels[0] }}' with 81% confidence</pre></div>
                 Ask your teacher for help if you're not sure how to do that.
             </div>
         </div>
-        <div class="modelguidance" ng-if="scratchkey.model && project.type === 'text'" style="flex: 2">
-<div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">import</span> <span class="pythonimport">requests</span>
+        <div class="modelguidance" ng-if="project.type === 'text'" style="flex: 2">
+<div class="pythoncodebox" ng-if="scratchkey.model && functionType === 'classify'"><pre class="pythoncode"><span class="pythonfunc">import</span> <span class="pythonimport">requests</span>
 
 <span class="pythoncomments"># This function will pass your text to the machine learning model</span>
 <span class="pythoncomments"># and return the top result with the highest confidence</span>
@@ -141,6 +153,30 @@ confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
 <span class="pythoncomments"># <strong>CHANGE THIS</strong> to do something different with the result</span>
 <span class="pythonfunc">print</span> (&quot;result: &#39;%s&#39; with %d%% confidence&quot; <span class="pythonop">%</span> (label, confidence))
 </pre></div>
+<div class="pythoncodebox" ng-if="functionType === 'store'"><pre class="pythoncode"><span class="pythonfunc">import</span> <span class="pythonimport">requests</span>
+
+<span class="pythoncomments"># This function will store your text in one of the training</span>
+<span class="pythoncomments"># buckets in your machine learning project</span>
+<span class="pythonfunc">def</span> <span class="pythonfuncname">storeTraining</span>(text, label):
+    key <span class="pythonop">=</span> &quot;{{ scratchkey.id }}&quot;
+    url <span class="pythonop">=</span> &quot;https://machinelearningforkids.co.uk/api/scratch/&quot;+ key + &quot;/train&quot;
+
+    response <span class="pythonop">=</span> requests<span class="pythonop">.</span>post(url, json<span class="pythonop">=</span>{ &quot;data&quot; : text, &quot;label&quot; : label })
+
+    <span class="pythonfunc">if</span> response<span class="pythonop">.</span>ok == <span class="pythonint">False</span>:
+        <span class="pythoncomments"># if something went wrong, display the error</span>
+        <span class="pythonfunc">print</span> response<span class="pythonop">.</span>json()
+
+
+<span class="pythoncomments"># <strong>CHANGE THIS</strong> to the text that you want to store</span>
+training <span class="pythonop">=</span> <span style="background-color: #fff0f0">&quot;<strong>{{ testdata.storetext }}</strong>&quot;</span>
+
+<span class="pythoncomments"># <strong>CHANGE THIS</strong> to the training bucket to store it in</span>
+label <span class="pythonop">=</span> <span style="background-color: #fff0f0">&quot;<strong>{{ testdata.label }}</strong>&quot;</span>
+
+storeTraining(training, label)
+</pre></div>
+
         </div>
         <div class="modelguidance" ng-if="scratchkey.model && project.type === 'numbers'"  style="flex: 2">
 <div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">import</span> <span class="pythonimport">requests</span>
