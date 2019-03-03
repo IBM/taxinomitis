@@ -733,24 +733,24 @@
             "Q3": "Scratch 内のMachine learning classifierブロックが動作しない",
             "Q3-A-1": "稀に, machine learning model用のScratchブロックとサーバとのコネクションが切れることがあります。これが起きると、ブロックが結果を返さなくなります。",
             "Q3-A-2": "この状態が発生しているのか発生しているのかを \"More Blocks\" palette内にあるステータスライトで確認できます。",
-            "Q3-A-3": "もし、このMachine Learning Scratch Block の並びにあるステータスライトが赤の場合、通常何か問題があることを示しています。一時的な問題の可能性もあります。あなたのプロジェクトTry saving your project (using 'File' -&gt; 'Save Project'), then refresh the browser page. If the status light goes green after the page reloads, you can load your project (using 'File' -&gt; 'Load Project') to pick up where you left off.",
-            "Q3-A-4": "If the status light is still red after reloading the page, then there is probably something wrong with the machine learning model. Try going to the \"Learn &amp; Test\" page for the project, which is where any error messages about your model can be found.",
-            "Q3-A-5": "If the status light next to your machine learning Scratch blocks is green, then the blocks should be working. If you're not getting the responses you expect from them, try going to the \"Learn &amp; Test\" page and checking what results your model returns.",
+            "Q3-A-3": "もし、このMachine Learning Scratch Block の並びにあるステータスライトが赤の場合、通常何か問題があることを示しています。一時的な問題の可能性もあります。あなたのプロジェクトを保存し ('ファイル' -&gt; '直ちに保存'を使って), それから、ブラウザのページをリロードしてください。もしステータスライトが緑になったら、あなたのプロジェクトを読み込み ('ファイル' -&gt; 'コンピュータから読み込む'を使って) 、保存した所から再開してください。",
+            "Q3-A-4": "もし、ステータスライトがリロードしても赤のままの場合、恐らく機械学習モデルに問題があると思われます。\"学習とテスト\" のページに行き、あなたのモデルに関するエラーが出ていないか確認ください。",
+            "Q3-A-5": "もし、machine learning Scratch blocksの隣のステータスライトが緑なら、ブロックは機能するハズです。 もし、期待しているレスポンスが得られない場合は、\"学習とテスト\" のページに行き、あなたのモデルがどのような結果を返すか確認ください。",
 
-            "Q5": "Can I use any version of Scratch?",
-            "Q5-A-1": "You need to use the versions of Scratch that are provided by the Machine Learning for Kids site. They can be launched by clicking the Scratch, or 'Scratch 3', buttons from your project page."
+            "Q5": "どのバージョンのScratchでも使えますか？",
+            "Q5-A-1": "このサイトが提供しているScratchのバージョンを利用する必要があります。Scratchをクリックすることで自動的に起動されます。又は、あなたのプロジェクトページから'Scratch 3'を選択することで起動します。"
         },
 
         "TRAININGUI": {
-            "TITLE": "Training UI issues",
+            "TITLE": "トレーニングのUI関連",
 
-            "Q1": "Dragging images into training buckets (for image projects) doesn't work",
-            "Q1-A-1": "Dragging images into the training buckets doesn't work if you're using Safari or Internet Explorer.",
-            "Q1-A-2": "Sorry about this. If you can use another browser like Firefox or Chrome, please do that. Otherwise, you can click the \"www\" button and paste in the URL of training pictures instead."
+            "Q1": "画像プロジェクトで画像をトレーンンググループにドラッグすることができません。",
+            "Q1-A-1": "画像をトレーニンググループにドラッグする機能は、Safari と Internet Explorerでは機能しません。",
+            "Q1-A-2": "もし、FirefoxやChromeが使えるなら、これらのブラウザを利用してください。それが出来ない場合は、代わりに \"www\" ボタンをクリックしトレーニングしたい画像のURLを張り付けてください。"
         },
 
         "MODELS": {
-            "TITLE": "Errors training machine learning models",
+            "TITLE": "機械学習モデルトレーニングに関するエラー",
 
             "Q1": "\"No Watson credentials have been set up\"",
             "Q1-A-1": "Machine learning models in the tool are created using IBM Watson APIs.",
