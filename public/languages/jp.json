@@ -753,13 +753,13 @@
             "TITLE": "機械学習モデルトレーニングに関するエラー",
 
             "Q1": "\"No Watson credentials have been set up\"",
-            "Q1-A-1": "Machine learning models in the tool are created using IBM Watson APIs.",
-            "Q1-A-2": "If you have an \"unmanaged\" class account, then your teacher or group leader will need to provide Watson API credentials from IBM Cloud for this to work. Step-by-step instructions for how they can do this are in the \"Getting Started\" document at the top of this page.",
+            "Q1-A-1": "このツールの機械学習モデルは、IBM Watson APIを使って作られています。",
+            "Q1-A-2": "もしあなたが \"unmanaged\" クラスのアカウントを持っているなら、あなたの先生又はグループリーダーは、IBM CLoudで取得したWatson API credentialsをこのツールに登録する必要があります。どのようにクレデンシャルを取得して登録するのかのステップ毎の手順説明した文章がこのページのトップの \"Getting Started\"にあります。",
 
             "Q2": "\"Watson credentials being used by your class were rejected\"",
-            "Q2-A-1": "Machine learning models in the tool are created using IBM Watson APIs.",
-            "Q2-A-2": "If you have an \"unmanaged\" class account, then your teacher or group leader will have provided Watson API credentials from IBM Cloud for this to work (as described in the \"Getting Started\" document at the top of this page).",
-            "Q2-A-3": "However, the credentials that were provided are currently not working. The most likely reason is that the credentials were deleted from IBM Cloud since they were originally provided. If that isn't the case, the teacher or group leader who provided the Watson credentials needs to go back to the IBM Cloud dashboard to check the status of the Watson Assistant or Visual Recognition service that they created.",
+            "Q2-A-1": "このツールの機械学習モデルは、IBM Watson APIを使って作られています。",
+            "Q2-A-2": "もしあなたが \"unmanaged\" クラスのアカウントを持っているなら、 あなたの先生又はグループリーダーは、このページのトップの \"Getting Started\"で説明されているようにIBM CLoudで取得した有効なWatson API credentialsをこのツールに登録する必要があります。",
+            "Q2-A-3": "しかし、the credentials that were provided are currently not working. The most likely reason is that the credentials were deleted from IBM Cloud since they were originally provided. If that isn't the case, the teacher or group leader who provided the Watson credentials needs to go back to the IBM Cloud dashboard to check the status of the Watson Assistant or Visual Recognition service that they created.",
 
             "Q3": "\"Watson Assistant API keys have no more workspaces available\"",
             "Q3-A-1": "Machine learning models in the tool are created using IBM Watson APIs.",
