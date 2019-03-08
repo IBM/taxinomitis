@@ -120,6 +120,50 @@
 
 
 
+        vm.createMultipleUsers = function (ev) {
+            $mdDialog.show({
+                controller : function ($scope, $mdDialog) {
+                    $scope.remaining = vm.policy.maxUsers - vm.students.length;
+                    $scope.userslimit = vm.policy.maxUsers;
+
+                    $scope.hide = function () {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function () {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function (resp) {
+                        $mdDialog.hide(resp);
+                    };
+                    $scope.refreshPassword = function () {
+                        $scope.password = '...';
+                        usersService.getGeneratedPassword(vm.profile.tenant)
+                            .then(function (resp) {
+                                $scope.password = resp.password;
+                            })
+                            .catch(function (err) {
+                                console.log(err);
+                            });
+                    };
+
+                    $scope.refreshPassword();
+                },
+                templateUrl : 'static/components-' + $stateParams.VERSION + '/teacher_students/newstudents.tmpl.html',
+                targetEvent : ev,
+                clickOutsideToClose : true
+            })
+            .then(
+                function(prefix, num, pwd) {
+
+                },
+                function() {
+                    // cancelled. do nothing
+                }
+            );
+        };
+
+
+
         vm.createUser = function (ev) {
             $mdDialog.show({
                 controller : function ($scope, $mdDialog) {

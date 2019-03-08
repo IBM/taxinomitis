@@ -81,6 +81,12 @@
         }
 
 
+        function getGeneratedPassword(tenant) {
+            return $http.get('/api/classes/' + tenant + '/passwords')
+                .then(returnData);
+        }
+
+
 
         function getCredentials(profile, type) {
             return $http.get('/api/classes/' + profile.tenant + '/credentials?servicetype=' + type)
@@ -116,6 +122,8 @@
             getCredentials : getCredentials,
             modifyCredentials : modifyCredentials,
             deleteCredentials : deleteCredentials,
+
+            getGeneratedPassword : getGeneratedPassword,
 
             getClassPolicy : getClassPolicy,
             modifyClassPolicy : modifyClassPolicy,
