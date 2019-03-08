@@ -19,6 +19,7 @@ export const BLUEMIX_CLASSIFIER    = '/api/classes/:classid/classifiers/:classif
 export const USERS                 = '/api/classes/:classid/students';
 export const USER                  = '/api/classes/:classid/students/:studentid';
 export const USER_PASSWORD         = '/api/classes/:classid/students/:studentid/password';
+export const PASSWORD              = '/api/classes/:classid/passwords';
 
 //
 // URLS about student projects

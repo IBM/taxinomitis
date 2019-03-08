@@ -5,6 +5,7 @@ import * as uuid from 'uuid/v4';
 // local dependencies
 import * as auth0 from '../auth0/users';
 import * as auth from './auth';
+import * as passphrases from '../auth0/passphrases';
 import * as store from '../db/store';
 import * as classdeleter from '../classdeleter';
 import * as dblimits from '../db/limits';
@@ -362,6 +363,11 @@ function getClassPatch(req: Express.Request): { textClassifierExpiry: number, im
 
 
 
+function generatePassword(req: Express.Request, res: Express.Response) {
+    res.json({ password : passphrases.generate() });
+}
+
+
 
 export default function registerApis(app: Express.Application) {
 
@@ -413,6 +419,11 @@ export default function registerApis(app: Express.Application) {
         auth.requireSupervisor,
         resetStudentsPassword);
 
+    app.get(urls.PASSWORD,
+        auth.authenticate,
+        auth.checkValidUser,
+        auth.requireSupervisor,
+        generatePassword);
 
     // API for creating new tenants / teacher accounts so
     //  this API can't be an authenticated one
