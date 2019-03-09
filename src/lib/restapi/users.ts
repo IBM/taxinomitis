@@ -139,6 +139,8 @@ async function createStudents(req: Express.Request, res: Express.Response) {
     {
         return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing required field "number"' });
     }
+    // we don't need to check the password is good/sensible as password
+    //  complexity policy is defined and enforced at the Auth0 service
     if (!req.body.password || typeof req.body.password !== 'string' || req.body.password.trim().length === 0) {
         return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing required field "password"' });
     }

@@ -157,27 +157,29 @@
                 clickOutsideToClose : true
             })
             .then(
-                function(resp) {
-                    for (var i = 1; i <= resp.number; i++) {
+                function(dialogResp) {
+                    for (var i = 1; i <= dialogResp.number; i++) {
                         var newUserObj = {
                             id : placeholderId++,
-                            username : resp.prefix + i,
+                            username : dialogResp.prefix + i,
                             isPlaceholder : true
                         };
                         vm.students.push(newUserObj);
                     }
 
-                    usersService.createStudents(vm.profile.tenant, resp.prefix, resp.number, resp.password)
-                        .then(function (resp) {
+                    usersService.createStudents(vm.profile.tenant, dialogResp.prefix, dialogResp.number, dialogResp.password)
+                        .then(function (apiResp) {
                             vm.students = vm.students.filter(function (student) {
                                 return !student.isPlaceholder;
                             });
 
-                            for (var i = 0; i < resp.successes.length; i++) {
-                                vm.students.push(resp.successes[i]);
+                            if (apiResp && apiResp.successes) {
+                                for (var i = 0; i < apiResp.successes.length; i++) {
+                                    vm.students.push(apiResp.successes[i]);
+                                }
                             }
 
-                            displayCreateFailures(ev, resp);
+                            displayCreateFailures(ev, apiResp, dialogResp.password);
                         })
                         .catch(function (err) {
                             vm.students = vm.students.filter(function (student) {
@@ -298,18 +300,41 @@
         };
 
 
-        function displayCreateFailures (ev, resp) {
-            if (resp.failures && resp.failures.length > 0) {
-                displayErrorMessage(ev, 'Something went wrong',
-                    '<div>An unexpected error happened when trying to create: <br/>' +
-                        resp.failures.join(', ') +
-                        '</div>');
+        function displayCreateFailures (ev, resp, password) {
+            if (resp && resp.successes && resp.failures && resp.duplicates) {
+
+                if (resp.failures.length > 0 || resp.duplicates.length > 0)
+                {
+                    var title = resp.failures.length > 0 ?
+                                    'Something went wrong!' :
+                                    'Usernames already in use';
+
+                    var message = '';
+
+                    if (resp.failures.length > 0) {
+                        message = '<div>Sorry. An unexpected error happened when trying to create: <br/>' +
+                                    '<code>' + resp.failures.join(', ') + '</code>' +
+                                '</div>';
+                    }
+                    if (resp.duplicates.length > 0) {
+                        message = '<div>The following student accounts could not be created because there are ' +
+                                    'already users with these usernames: <br/>' +
+                                    '<code>' + resp.duplicates.join(', ') + '</code>' +
+                                '</div>';
+                    }
+
+                    displayErrorMessage(ev, title,
+                                        '<div style="padding: 1em">' + message + '</div>');
+                }
+                else if (resp.successes.length > 0) {
+                    displayPassword(ev, {
+                        username : 'New students created:',
+                        password : password
+                    }, false);
+                }
             }
-            else if (resp.duplicates && resp.duplicates.length > 0) {
-                displayErrorMessage(ev, 'Usernames already in use',
-                    '<div>The following student accounts could not be created because there are already users with these usernames: <br/>' +
-                        resp.duplicates.join(', ') +
-                        '</div>');
+            else {
+                displayAlert('errors', 500, { error : 'Unexpected response' });
             }
         }
 
