@@ -123,7 +123,7 @@
         vm.createMultipleUsers = function (ev) {
             $mdDialog.show({
                 controller : function ($scope, $mdDialog) {
-                    $scope.remaining = vm.policy.maxUsers - vm.students.length;
+                    $scope.remaining = vm.policy.maxUsers - vm.students.length - 1;
                     $scope.userslimit = vm.policy.maxUsers;
 
                     $scope.hide = function () {
@@ -132,8 +132,12 @@
                     $scope.cancel = function () {
                         $mdDialog.cancel();
                     };
-                    $scope.confirm = function (resp) {
-                        $mdDialog.hide(resp);
+                    $scope.confirm = function (prefix, number, password) {
+                        $mdDialog.hide({
+                            prefix : prefix,
+                            number : number,
+                            password : password
+                        });
                     };
                     $scope.refreshPassword = function () {
                         $scope.password = '...';
@@ -153,8 +157,35 @@
                 clickOutsideToClose : true
             })
             .then(
-                function(prefix, num, pwd) {
+                function(resp) {
+                    for (var i = 1; i <= resp.number; i++) {
+                        var newUserObj = {
+                            id : placeholderId++,
+                            username : resp.prefix + i,
+                            isPlaceholder : true
+                        };
+                        vm.students.push(newUserObj);
+                    }
 
+                    usersService.createStudents(vm.profile.tenant, resp.prefix, resp.number, resp.password)
+                        .then(function (resp) {
+                            vm.students = vm.students.filter(function (student) {
+                                return !student.isPlaceholder;
+                            });
+
+                            for (var i = 0; i < resp.successes.length; i++) {
+                                vm.students.push(resp.successes[i]);
+                            }
+
+                            displayCreateFailures(ev, resp);
+                        })
+                        .catch(function (err) {
+                            vm.students = vm.students.filter(function (student) {
+                                return !student.isPlaceholder;
+                            });
+
+                            displayAlert('errors', err.status, err.data);
+                        });
                 },
                 function() {
                     // cancelled. do nothing
@@ -266,6 +297,32 @@
                 });
         };
 
+
+        function displayCreateFailures (ev, resp) {
+            if (resp.failures && resp.failures.length > 0) {
+                displayErrorMessage(ev, 'Something went wrong',
+                    '<div>An unexpected error happened when trying to create: <br/>' +
+                        resp.failures.join(', ') +
+                        '</div>');
+            }
+            else if (resp.duplicates && resp.duplicates.length > 0) {
+                displayErrorMessage(ev, 'Usernames already in use',
+                    '<div>The following student accounts could not be created because there are already users with these usernames: <br/>' +
+                        resp.duplicates.join(', ') +
+                        '</div>');
+            }
+        }
+
+        function displayErrorMessage(ev, title, contents) {
+            $mdDialog.show(
+                $mdDialog.alert()
+                    .clickOutsideToClose(true)
+                    .title(title)
+                    .htmlContent(contents)
+                    .ok('OK')
+                    .targetEvent(ev)
+                );
+        }
 
         function scrollToNewItem(itemId) {
             $timeout(function () {

@@ -36,12 +36,14 @@
         </div>
 
         <div style="height: 60px;">
-            <div class="newlabelbutton" ng-disabled="!vm || !vm.policy || !vm.policy.maxUsers || !vm.students || vm.students.length === vm.policy.maxUsers"
-                                        ng-click="vm.createMultipleUsers($event)">
+            <div class="newlabelbutton" style="margin-right: 1em; clear: initial;"
+                 ng-disabled="!vm || !vm.policy || !vm.policy.maxUsers || !vm.students || vm.students.length === vm.policy.maxUsers"
+                 ng-click="vm.createMultipleUsers($event)">
                 <div class="newlabelicon">+</div>
-                <div class="newlabellabel" >Create multiple students</div>
+                <div class="newlabellabel" >Multiple students</div>
             </div>
-            <div class="newlabelbutton" ng-click="vm.createUser($event)">
+            <div class="newlabelbutton" style="margin-right: 1em; clear: initial;"
+                 ng-click="vm.createUser($event)">
                 <div class="newlabelicon">+</div>
                 <div class="newlabellabel" translate="TEACHER.STUDENTMANAGEMENT.ADD"></div>
             </div>

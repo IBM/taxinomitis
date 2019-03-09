@@ -64,6 +64,16 @@
                 .then(returnData);
         }
 
+        function createStudents(tenant, prefix, number, password) {
+            var bulkCreate = {
+                prefix : prefix,
+                number : number,
+                password : password
+            };
+            return $http.put('/api/classes/' + tenant + '/students', bulkCreate)
+                .then(returnData);
+        }
+
         function resetStudentPassword(profile, tenant) {
             return $http.post('/api/classes/' + tenant + '/students/' + profile.id + '/password')
                 .then(returnData);
@@ -131,6 +141,7 @@
             getStudentList : getStudentList,
 
             createStudent : createStudent,
+            createStudents : createStudents,
             deleteStudent : deleteStudent,
 
             resetStudentPassword : resetStudentPassword,

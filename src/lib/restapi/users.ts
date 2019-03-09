@@ -126,6 +126,63 @@ async function createStudent(req: Express.Request, res: Express.Response) {
 }
 
 
+async function createStudents(req: Express.Request, res: Express.Response) {
+    const tenant: string = req.params.classid;
+    if (!req.body) {
+        return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing required fields' });
+    }
+    if (!req.body.prefix || typeof req.body.prefix !== 'string' || req.body.prefix.trim().length === 0) {
+        return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing required field "prefix"' });
+    }
+    if (!req.body.number || Number.isInteger(req.body.number) === false ||
+        req.body.number <= 0 || req.body.number > 250)
+    {
+        return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing required field "number"' });
+    }
+    if (!req.body.password || typeof req.body.password !== 'string' || req.body.password.trim().length === 0) {
+        return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing required field "password"' });
+    }
+
+    const numUsersInTenant = await auth0.countUsers(tenant);
+    const tenantPolicy = await store.getClassTenant(tenant);
+    if (numUsersInTenant + req.body.number > tenantPolicy.maxUsers) {
+        return res.status(httpstatus.CONFLICT)
+                  .json({ error : 'That would exceed the number of students allowed in the class' });
+    }
+
+    const prefix = req.body.prefix.trim();
+    const password = req.body.password.trim();
+
+    log.info({ prefix, tenant, number : req.body.number }, 'Creating multiple students');
+
+    const successes: Array<{ id: string, username: string }> = [];
+    const duplicates: string[] = [];
+    const failures: string[] = [];
+
+    for (let idx = 1; idx <= req.body.number; idx++) {
+        const username = prefix + idx;
+        try {
+            const newstudent = await auth0.createStudentWithPwd(tenant, username, password);
+            successes.push({ id : newstudent.id, username : newstudent.username });
+        }
+        catch (err) {
+            if (userAlreadyExists(err)) {
+                duplicates.push(username);
+            }
+            else if (passwordRejected(err)) {
+                return res.status(httpstatus.BAD_REQUEST).json({ error : 'Password is too simple' });
+            }
+            else {
+                log.error({ err, username, tenant }, 'Failed to create student');
+                failures.push(username);
+            }
+        }
+    }
+
+    return res.status(httpstatus.OK).json({ successes, duplicates, failures });
+}
+
+
 function userAlreadyExists(err: any) {
     return err && err.response && err.response.body &&
            (
@@ -134,6 +191,13 @@ function userAlreadyExists(err: any) {
                 ||
                (err.response.body.statusCode === httpstatus.BAD_REQUEST &&
                 err.response.body.message === 'The username provided is in use already.')
+            );
+}
+function passwordRejected(err: any) {
+    return err && err.response && err.response.body &&
+           (
+               (err.response.body.statusCode === httpstatus.BAD_REQUEST &&
+                err.response.body.message === 'PasswordStrengthError: Password is too weak')
             );
 }
 
@@ -400,6 +464,12 @@ export default function registerApis(app: Express.Application) {
         auth.checkValidUser,
         auth.requireSupervisor,
         createStudent);
+
+    app.put(urls.USERS,
+        auth.authenticate,
+        auth.checkValidUser,
+        auth.requireSupervisor,
+        createStudents);
 
     app.delete(urls.USER,
         auth.authenticate,
