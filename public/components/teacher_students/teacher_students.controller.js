@@ -120,6 +120,83 @@
 
 
 
+        vm.createMultipleUsers = function (ev) {
+            $mdDialog.show({
+                controller : function ($scope, $mdDialog) {
+                    $scope.remaining = vm.policy.maxUsers - vm.students.length - 1;
+                    $scope.userslimit = vm.policy.maxUsers;
+
+                    $scope.hide = function () {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function () {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function (prefix, number, password) {
+                        $mdDialog.hide({
+                            prefix : prefix,
+                            number : number,
+                            password : password
+                        });
+                    };
+                    $scope.refreshPassword = function () {
+                        $scope.password = '...';
+                        usersService.getGeneratedPassword(vm.profile.tenant)
+                            .then(function (resp) {
+                                $scope.password = resp.password;
+                            })
+                            .catch(function (err) {
+                                console.log(err);
+                            });
+                    };
+
+                    $scope.refreshPassword();
+                },
+                templateUrl : 'static/components-' + $stateParams.VERSION + '/teacher_students/newstudents.tmpl.html',
+                targetEvent : ev,
+                clickOutsideToClose : true
+            })
+            .then(
+                function(dialogResp) {
+                    for (var i = 1; i <= dialogResp.number; i++) {
+                        var newUserObj = {
+                            id : placeholderId++,
+                            username : dialogResp.prefix + i,
+                            isPlaceholder : true
+                        };
+                        vm.students.push(newUserObj);
+                    }
+
+                    usersService.createStudents(vm.profile.tenant, dialogResp.prefix, dialogResp.number, dialogResp.password)
+                        .then(function (apiResp) {
+                            vm.students = vm.students.filter(function (student) {
+                                return !student.isPlaceholder;
+                            });
+
+                            if (apiResp && apiResp.successes) {
+                                for (var i = 0; i < apiResp.successes.length; i++) {
+                                    vm.students.push(apiResp.successes[i]);
+                                }
+                            }
+
+                            displayCreateFailures(ev, apiResp, dialogResp.password);
+                        })
+                        .catch(function (err) {
+                            vm.students = vm.students.filter(function (student) {
+                                return !student.isPlaceholder;
+                            });
+
+                            displayAlert('errors', err.status, err.data);
+                        });
+                },
+                function() {
+                    // cancelled. do nothing
+                }
+            );
+        };
+
+
+
         vm.createUser = function (ev) {
             $mdDialog.show({
                 controller : function ($scope, $mdDialog) {
@@ -222,6 +299,55 @@
                 });
         };
 
+
+        function displayCreateFailures (ev, resp, password) {
+            if (resp && resp.successes && resp.failures && resp.duplicates) {
+
+                if (resp.failures.length > 0 || resp.duplicates.length > 0)
+                {
+                    var title = resp.failures.length > 0 ?
+                                    'Something went wrong!' :
+                                    'Usernames already in use';
+
+                    var message = '';
+
+                    if (resp.failures.length > 0) {
+                        message = '<div>Sorry. An unexpected error happened when trying to create: <br/>' +
+                                    '<code>' + resp.failures.join(', ') + '</code>' +
+                                '</div>';
+                    }
+                    if (resp.duplicates.length > 0) {
+                        message = '<div>The following student accounts could not be created because there are ' +
+                                    'already users with these usernames: <br/>' +
+                                    '<code>' + resp.duplicates.join(', ') + '</code>' +
+                                '</div>';
+                    }
+
+                    displayErrorMessage(ev, title,
+                                        '<div style="padding: 1em">' + message + '</div>');
+                }
+                else if (resp.successes.length > 0) {
+                    displayPassword(ev, {
+                        username : 'New students created:',
+                        password : password
+                    }, false);
+                }
+            }
+            else {
+                displayAlert('errors', 500, { error : 'Unexpected response' });
+            }
+        }
+
+        function displayErrorMessage(ev, title, contents) {
+            $mdDialog.show(
+                $mdDialog.alert()
+                    .clickOutsideToClose(true)
+                    .title(title)
+                    .htmlContent(contents)
+                    .ok('OK')
+                    .targetEvent(ev)
+                );
+        }
 
         function scrollToNewItem(itemId) {
             $timeout(function () {

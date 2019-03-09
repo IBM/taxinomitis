@@ -157,6 +157,20 @@ export function createStudent(tenant: string, username: string): Promise<Objects
     });
 }
 
+export function createStudentWithPwd(tenant: string, username: string, password: string): Promise<Objects.UserCreds> {
+    return createUser({
+        email : username + '@do-not-require-emailaddresses-for-students.com',
+        username, password,
+        verify_email : false,
+        email_verified : true,
+        connection : process.env[env.AUTH0_CONNECTION] as string,
+        app_metadata : {
+            role : 'student',
+            tenant,
+        },
+    });
+}
+
 export function createTeacher(tenant: string, username: string, email: string): Promise<Objects.UserCreds> {
     return createUser({
         email,

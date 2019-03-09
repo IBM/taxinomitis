@@ -5,6 +5,7 @@ import * as uuid from 'uuid/v4';
 // local dependencies
 import * as auth0 from '../auth0/users';
 import * as auth from './auth';
+import * as passphrases from '../auth0/passphrases';
 import * as store from '../db/store';
 import * as classdeleter from '../classdeleter';
 import * as dblimits from '../db/limits';
@@ -125,6 +126,65 @@ async function createStudent(req: Express.Request, res: Express.Response) {
 }
 
 
+async function createStudents(req: Express.Request, res: Express.Response) {
+    const tenant: string = req.params.classid;
+    if (!req.body) {
+        return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing required fields' });
+    }
+    if (!req.body.prefix || typeof req.body.prefix !== 'string' || req.body.prefix.trim().length === 0) {
+        return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing required field "prefix"' });
+    }
+    if (!req.body.number || Number.isInteger(req.body.number) === false ||
+        req.body.number <= 0 || req.body.number > 250)
+    {
+        return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing required field "number"' });
+    }
+    // we don't need to check the password is good/sensible as password
+    //  complexity policy is defined and enforced at the Auth0 service
+    if (!req.body.password || typeof req.body.password !== 'string' || req.body.password.trim().length === 0) {
+        return res.status(httpstatus.BAD_REQUEST).json({ error : 'Missing required field "password"' });
+    }
+
+    const numUsersInTenant = await auth0.countUsers(tenant);
+    const tenantPolicy = await store.getClassTenant(tenant);
+    if (numUsersInTenant + req.body.number > tenantPolicy.maxUsers) {
+        return res.status(httpstatus.CONFLICT)
+                  .json({ error : 'That would exceed the number of students allowed in the class' });
+    }
+
+    const prefix = req.body.prefix.trim();
+    const password = req.body.password.trim();
+
+    log.info({ prefix, tenant, number : req.body.number }, 'Creating multiple students');
+
+    const successes: Array<{ id: string, username: string }> = [];
+    const duplicates: string[] = [];
+    const failures: string[] = [];
+
+    for (let idx = 1; idx <= req.body.number; idx++) {
+        const username = prefix + idx;
+        try {
+            const newstudent = await auth0.createStudentWithPwd(tenant, username, password);
+            successes.push({ id : newstudent.id, username : newstudent.username });
+        }
+        catch (err) {
+            if (userAlreadyExists(err)) {
+                duplicates.push(username);
+            }
+            else if (passwordRejected(err)) {
+                return res.status(httpstatus.BAD_REQUEST).json({ error : 'Password is too simple' });
+            }
+            else {
+                log.error({ err, username, tenant }, 'Failed to create student');
+                failures.push(username);
+            }
+        }
+    }
+
+    return res.status(httpstatus.OK).json({ successes, duplicates, failures });
+}
+
+
 function userAlreadyExists(err: any) {
     return err && err.response && err.response.body &&
            (
@@ -133,6 +193,13 @@ function userAlreadyExists(err: any) {
                 ||
                (err.response.body.statusCode === httpstatus.BAD_REQUEST &&
                 err.response.body.message === 'The username provided is in use already.')
+            );
+}
+function passwordRejected(err: any) {
+    return err && err.response && err.response.body &&
+           (
+               (err.response.body.statusCode === httpstatus.BAD_REQUEST &&
+                err.response.body.message === 'PasswordStrengthError: Password is too weak')
             );
 }
 
@@ -362,6 +429,11 @@ function getClassPatch(req: Express.Request): { textClassifierExpiry: number, im
 
 
 
+function generatePassword(req: Express.Request, res: Express.Response) {
+    res.json({ password : passphrases.generate() });
+}
+
+
 
 export default function registerApis(app: Express.Application) {
 
@@ -395,6 +467,12 @@ export default function registerApis(app: Express.Application) {
         auth.requireSupervisor,
         createStudent);
 
+    app.put(urls.USERS,
+        auth.authenticate,
+        auth.checkValidUser,
+        auth.requireSupervisor,
+        createStudents);
+
     app.delete(urls.USER,
         auth.authenticate,
         auth.checkValidUser,
@@ -413,6 +491,11 @@ export default function registerApis(app: Express.Application) {
         auth.requireSupervisor,
         resetStudentsPassword);
 
+    app.get(urls.PASSWORD,
+        auth.authenticate,
+        auth.checkValidUser,
+        auth.requireSupervisor,
+        generatePassword);
 
     // API for creating new tenants / teacher accounts so
     //  this API can't be an authenticated one
