@@ -794,7 +794,23 @@
 
 			"DELETE_STUDENT": "Borrar la cuenta del alumno",
 
-			"NOT_AUTHORIZED": "No tiene permisos para acceder a la lista de proyectos de los alumnos de la clase."
+			"NOT_AUTHORIZED": "No tiene permisos para acceder a la lista de proyectos de los alumnos de la clase.",
+
+            "ADD_MULTIPLE": {
+                "BUTTON" : "Multiple students",
+
+                "TITLE" : "Add new students",
+                "INTRO" : "You can use this to create more than one student account at the same time.",
+                "USERNAME" : "What do you want each username to start with?",
+                "USERNAME_REQUIRED" : "Please choose the prefix for the usernames",
+                "USERNAME_TOOLONG" : "That is too long",
+                "USERNAME_INVALID" : "Invalid characters",
+                "NUMBER" : "How many student accounts do you want?",
+                "NUMBER_REQUIRED" : "Please enter the number of students to create",
+                "NUMBER_TOOMANY" : "Your class has a limit of {{userslimit}} students.",
+                "PASSWORD" : "The password to give them:",
+                "PASSWORD_TOOSHORT" : "Too short"
+            }
 		}
 	},
     "SCRATCHBLOCKS": {

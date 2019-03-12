@@ -1,20 +1,17 @@
 <md-dialog aria-label="Create new students">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>Add new students</h2>
+            <h2 translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.TITLE"></h2>
         </div>
     </md-toolbar>
     <form ng-cloak name="newStudents" ng-submit="confirm(newstudent, numstudents, password)">
         <md-dialog-content>
-            <div style="margin: 1em;">
-                You can use this to create more than one student
-                account at the same time.
-            </div>
+            <div style="margin: 1em;" translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.INTRO"></div>
             <div class="md-dialog-content" style="min-width: 300px">
                 <md-card-content>
                     <div layout="column">
                         <md-input-container style="min-width: 280px">
-                            <label>What do you want each username to start with?</label>
+                            <label translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.USERNAME"></label>
                             <input type="text" name="text"
                                    md-autofocus
                                    ng-required="true"
@@ -25,27 +22,28 @@
                                    md-maxlength="15"
                                    ng-maxlength="15"></input>
                             <div class="ng-animate" ng-messages="newStudents.text.$error" ng-show="newStudents.text.$touched">
-                                <div ng-message-exp="['required','minlength']">Please choose the prefix for the usernames</div>
-                                <div ng-message="maxlength">That is too long</div>
-                                <div ng-message="pattern">Invalid characters</div>
+                                <div ng-message-exp="['required','minlength']" translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.USERNAME_REQUIRED"></div>
+                                <div ng-message="maxlength" translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.USERNAME_TOOLONG"></div>
+                                <div ng-message="pattern" translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.USERNAME_INVALID"></div>
                             </div>
                         </md-input-container>
                         <md-input-container>
-                            <label>How many student accounts do you want?</label>
+                            <label translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.NUMBER"></label>
                             <input type="number" name="number"
                                    ng-required="true"
                                    ng-model="numstudents"
                                    placeholder=0
                                    min=1 max="{{remaining}}"></input>
                             <div class="ng-animate" ng-messages="newStudents.number.$error" ng-show="newStudents.number.$touched">
-                                <div ng-message="max">Your class has a limit of {{userslimit}} students.</div>
-                                <div ng-message="required">Please enter the number of students to create</div>
+                                <div ng-message="required" translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.NUMBER_REQUIRED"></div>
+                                <div ng-message="max" translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.NUMBER_TOOMANY"
+                                                      translate-values="{ userslimit : userslimit }"></div>
                             </div>
                         </md-input-container>
                     </div>
                     <div layout="row">
                         <md-input-container style="min-width: 280px">
-                            <label>The password to give them:</label>
+                            <label translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.PASSWORD"></label>
                             <input type="text" name="password"
                                     readonly
                                     ng-required="true"
@@ -54,7 +52,7 @@
                                     style="font-family: monospace"
                                     md-minlength="8"></input>
                             <div class="ng-animate" ng-messages="newStudents.password.$error" ng-show="newStudents.password.$touched">
-                                <div ng-message="minlength">Too short</div>
+                                <div ng-message="minlength" translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.PASSWORD_TOOSHORT"></div>
                             </div>
                         </md-input-container>
                         <md-input-container>
