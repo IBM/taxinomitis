@@ -98,116 +98,116 @@
         "ARE_YOU_A_STUDENT_INTRO_1": "Si votre classe utilise déjà cet outil, demandez à votre enseignant ou au responsable de votre groupe de codage de vous créer un compte.",
         "ARE_YOU_A_STUDENT_INTRO_2": "Si votre classe n'utilise pas encore l'outil, demandez à votre enseignant ou au responsable de votre groupe de codage de vous contacter.",
         "RESET_STUDENT_PASSWORD_1": "Si vous êtes un élève, nous n'avons pas votre adresse de courriel pour pouvoir vous envoyer votre mot de passe réinitialisé.",
-        "RESET_STUDENT_PASSWORD_2": "That's no problem, though!",
-        "RESET_STUDENT_PASSWORD_3": "Just ask your teacher or group leader who first signed you up. They will be able to reset your password from their Admin page."
+        "RESET_STUDENT_PASSWORD_2": "Mais ce n'est pas un problème !",
+        "RESET_STUDENT_PASSWORD_3": "Il suffit de demander à votre enseignant ou à l'animateur du groupe qui vous a inscrit en premier. Ils pourront réinitialiser votre mot de passe à partir de leur page d'administration."
     },
     "SIGNUP": {
         "TEACHER": {
-            "TITLE": "Are you a teacher or leader of a coding club?",
-            "INFO1": "If you would like access for your students, please create a class account below.",
-            "INFO2": "There are two types of class account - depending on who sets it up."
+            "TITLE": "Êtes-vous enseignant ou responsable d'un club de codage ?",
+            "INFO1": "Si vous souhaitez un accès pour vos élèves, veuillez créer un compte de classe ci-dessous.",
+            "INFO2": "Il existe deux types de comptes de classe selon la personne qui les crée."
         },
         "UNMANAGED": {
-            "TITLE": "Create an <strong>unmanaged</strong> class account",
-            "INTRO": "If you are happy to set up and manage the class account yourself, you can do it now!",
-            "LISTINTRO": "You will need to:",
-            "LIST_CREATEACCOUNT": "Create an account on IBM Cloud",
-            "LIST_CREATEAPIKEYS": "Create API key(s) for Watson cloud services needed to train machine learning models",
-            "LIST_ENTERAPIKEYS": "Enter the API keys into this Machine Learning for Kids tool",
-            "HELP": "Step-by-step instructions (with screenshots) are available for all of this."
+            "TITLE": "Créer un compte de classe <strong>non géré</strong>",
+            "INTRO": "Si vous êtes heureux d'ouvrir et de gérer le compte de classe vous-même, vous pouvez le faire maintenant !",
+            "LISTINTRO": "Vous aurez besoin de : ",
+            "LIST_CREATEACCOUNT": "Créer un compte sur IBM Cloud",
+            "LIST_CREATEAPIKEYS": "Créer des clés API pour les services cloud de Watson qui sont nécessaires à la formation des modèles d'apprentissage machine",
+            "LIST_ENTERAPIKEYS": "Entrez les clés API dans cet outil d'apprentissage machine pour les enfants",
+            "HELP": "Des instructions pas à pas (avec des captures d'écran) sont disponibles pour cela."
         },
         "MANAGED": {
-            "TITLE": "Create a <strong>managed</strong> class account",
-            "INTRO": "If you would like Dale to set up the class account, use the button below to send an email with the following information:",
-            "LIST_NUMBEROFSTUDENTS": "Roughly how many student accounts you will need",
-            "LIST_NAMEOFSCHOOL": "The name of the school or coding group the account is for",
-            "EMAIL": "Email"
+            "TITLE": "Créer un compte de classe <strong> géré </strong>",
+            "INTRO": "Si vous souhaitez que Dale configure le compte de classe, utilisez le bouton ci-dessous pour envoyer un courrier électronique en anglais avec les informations suivantes :",
+            "LIST_NUMBEROFSTUDENTS": "De combien de comptes étudiants aurez vous besoin approximativement",
+            "LIST_NAMEOFSCHOOL": "Le nom de l'école ou du groupe de codage auquel le compte est destiné",
+            "EMAIL": "Adresse courriel"
         }
     },
     "PROJECTS": {
-        "TITLE": "Your machine learning projects",
-        "ADDNEWPROJECT": "Add a new project",
-        "CREATEFIRSTPROJECT": "Click on the 'plus' button on the right to create your first project.",
-        "RECOGNISING": "Recognising",
-        "AS": "as"
+        "TITLE": "Vos projets d'apprentissage machine",
+        "ADDNEWPROJECT": "Ajouter un nouveau projet",
+        "CREATEFIRSTPROJECT": "Cliquez sur le bouton 'plus' à droite pour créer votre premier projet.",
+        "RECOGNISING": "Reconnaissance",
+        "AS": "comme"
     },
     "NEWPROJECT": {
-        "TITLE": "Start a new machine learning project",
+        "TITLE": "Démarrer un nouveau projet d'apprentissage machine",
         "PROJECT_NAME": {
-            "TITLE": "Project Name",
-            "NOTES": "Give your project a name to describe what sort of thing you'll try to teach the computer to recognise."
+            "TITLE": "Nom du projet",
+            "NOTES": "Donnez un nom à votre projet pour décrire ce que vous allez essayer d'apprendre à l'ordinateur à reconnaître."
         },
         "WHOLE_CLASS_PROJECT": {
-            "TITLE": "Whole-class project?",
-            "NOTES_1": "Tick this if you want your whole class to be able to work on this project together.",
-            "NOTES_2": "This is useful for projects that teach crowd-sourcing as an approach to training machine learning projects."
+            "TITLE": "Projet pour la classe entière ?",
+            "NOTES_1": "Cochez cette case si vous voulez que toute votre classe puisse travailler ensemble sur ce projet.",
+            "NOTES_2": "Ceci est utile pour les projets qui enseignent le travail collaboratif (crowd-sourcing) en tant qu'approche de formation pour les projets d'apprentissage machine."
         },
         "TYPES": {
-            "LABEL": "Recognising",
-            "NOTES_1": "What type of thing do you want to teach the computer to recognise?",
-            "NOTES_2": "For words, sentences or paragraphs, choose \"text\"",
-            "NOTES_3": "For photos, diagrams and pictures, choose \"images\"",
-            "NOTES_4": "For sets of numbers or multiple choices, choose \"numbers\""
+            "LABEL": "Reconnaissance",
+            "NOTES_1": "Quel type de chose voulez-vous apprendre à l'ordinateur à reconnaître ?",
+            "NOTES_2": "Pour les mots, les phrases ou les paragraphes, choisissez \"text\"",
+            "NOTES_3": "Pour les photos, les diagrammes et les images, sélectionnez \"images\"",
+            "NOTES_4": "Pour les ensembles de nombres ou les choix multiples, sélectionnez \"numbers\""
         },
         "LANGUAGE": {
-            "LABEL": "Language",
-            "NOTES": "What language will the text in this project be?"
+            "LABEL": "Langue",
+            "NOTES": "En quelle langue le texte de ce projet sera-t-il rédigé ?"
         },
         "FIELDS": {
             "TYPE": {
-                "TITLE": "Type of value",
-                "NUMBER": "number",
-                "MULTIPLE_CHOICE": "multiple-choice"
+                "TITLE": "Type de valeur",
+                "NUMBER": "nombre",
+                "MULTIPLE_CHOICE": "choix multiple"
             },
             "CHOICES": {
-                "TITLE": "Choices:",
-                "LABEL": "add a choice"
+                "TITLE": "Choix:",
+                "LABEL": "ajouter un choix"
             },
             "NEWFIELD": {
-                "DESCRIBE_FIELD": "Give this field a name to describe the value",
-                "MULTICHOICE": "If it can be described as choosing from a few options, choose \"multiple-choice\".",
-                "ADD_FIRST_FIELD": "Type in a choice to use in your multiple-choice list, then press Enter.",
-                "ADD_ANOTHER_FIELD": "Type in another choice to use in your multiple-choice list, then press Enter."
+                "DESCRIBE_FIELD": "Donnez un nom à ce champ pour décrire la valeur",
+                "MULTICHOICE": "Si l'on peut dire qu'il s'agit d'un choix parmi quelques options, sélectionnez \"multiple-choice\".",
+                "ADD_FIRST_FIELD": "Saisissez un choix à utiliser dans votre liste à choix multiples, puis appuyez sur Entrée.",
+                "ADD_ANOTHER_FIELD": "Tapez un autre choix à utiliser dans votre liste à choix multiples, puis appuyez sur Entrée."
             },
             "NEWVALUE": {
-                "ADD_FIRST_VALUE": "Start to describe the values that you'll include with each example to train the computer with by clicking the 'Add a value' button.",
-                "VALUES_LIMIT": "You are not allowed more than 10 values in a project."
+                "ADD_FIRST_VALUE": "Commencez à décrire les valeurs que vous allez inclure avec chaque exemple pour entraîner l'ordinateur en cliquant sur le bouton 'Ajouter une valeur'.",
+                "VALUES_LIMIT": "Vous n'avez pas droit à plus de 10 valeurs dans un projet."
             }
         },
-        "CREATE": "Create",
+        "CREATE": "Créer",
         "ERRORS": {
-            "REQUIRED": "This is required!",
-            "TOOLONG": "That's too long!"
+            "REQUIRED": "Ceci est nécessaire !",
+            "TOOLONG": "C'est trop long !"
         }
     },
     "PROJECT": {
         "TRAIN": {
-            "TITLE": "Train",
-            "BODY": "Collect examples of what you want the computer to recognise"
+            "TITLE": "Entrainer",
+            "BODY": "Recueillez des exemples de ce que vous voulez que l'ordinateur reconnaisse"
         },
         "LEARNANDTEST": {
-            "TITLE": "Learn &amp; Test",
-            "BODY": "Use the examples to train the computer to recognise"
+            "TITLE": "Apprendre &amp; Tester",
+            "BODY": "Utilisez les exemples pour apprendre à l'ordinateur à les reconnaître"
         },
         "MAKES": {
-            "TITLE": "Make",
-            "BODY": "Use the machine learning model you've trained to make a game or app, in Scratch or in Python"
+            "TITLE": "Faire",
+            "BODY": "Utilisez le modèle d'apprentissage machine que vous avez formé pour créer un jeu ou une application, en Scratch ou en Python."
         },
         "SCRATCH": {
             "TITLE": "Scratch",
-            "BODY": "Use the machine learning model you've trained to make a game in Scratch"
+            "BODY": "Utilisez le modèle d'apprentissage machine que vous avez entraîné pour créer un jeu avec Scratch."
         },
         "PYTHON": {
             "TITLE": "Python",
-            "BODY": "Use the machine learning model you've trained in a Python program"
+            "BODY": "Utilisez le modèle d'apprentissage machine que vous avez entraîné dans un programme Python."
         },
         "APPINVENTOR": {
-            "TITLE": "App Inventor",
-            "BODY": "Make a mobile app that uses your machine learning model"
+            "TITLE": "Inventeur d'applications",
+            "BODY": "Créez une application mobile qui utilise votre modèle d'apprentissage automatique"
         },
         "SCRATCH3": {
             "TITLE": "Scratch 3",
-            "BODY": "Use your machine learning model in new version of Scratch"
+            "BODY": "Utilisez votre modèle d'apprentissage machine dans la nouvelle version de Scratch"
         }
     },
     "TRAINING": {
