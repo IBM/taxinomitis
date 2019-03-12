@@ -203,26 +203,26 @@
         },
         "APPINVENTOR": {
             "TITLE": "Inventeur d'applications",
-            "BODY": "Créez une application mobile qui utilise votre modèle d'apprentissage automatique"
+            "BODY": "Créez une application mobile qui utilise votre modèle d'apprentissage automatique."
         },
         "SCRATCH3": {
             "TITLE": "Scratch 3",
-            "BODY": "Utilisez votre modèle d'apprentissage machine dans la nouvelle version de Scratch"
+            "BODY": "Utilisez votre modèle d'apprentissage machine avec la nouvelle version de Scratch."
         }
     },
     "TRAINING": {
-        "TITLE": "Training",
-        "ADDLABEL": "Add new label",
-        "CREATEFIRSTLABEL": "Click on the 'plus' button on the right to add your first bucket.",
-        "CROWDSOURCEDEMPTY": "Refresh this page after your teacher has created the training buckets.",
-        "ADDEXAMPLE": "Add example",
+        "TITLE": "Entraînement",
+        "ADDLABEL": "Ajouter une nouvelle étiquette",
+        "CREATEFIRSTLABEL": "Cliquez sur le bouton 'plus' à droite pour ajouter votre premier support d'entraînement.",
+        "CROWDSOURCEDEMPTY": "Rafraîchissez cette page une fois que votre professeur aura créé les supports d'entraînement.",
+        "ADDEXAMPLE": "Ajouter un exemple",
         "ADDURL": "www",
         "ADDWEBCAM": "webcam",
-        "ADDDRAWING": "draw",
-        "DRAGIMAGES": "Drag pictures from other browser windows and drop them here",
+        "ADDDRAWING": "dessin",
+        "DRAGIMAGES": "Faites glisser les images depuis d'autres fenêtres du navigateur et déposez-les ici",
         "NEWLABEL": {
-            "INTRO": "Enter new label to recognise",
-            "ERROR": "Only use letters and numbers in labels"
+            "INTRO": "Entrer une nouvelle étiquette pour la reconnaissance",
+            "ERROR": "N'utilisez que des lettres et des chiffres sur les étiquettes."
         },
         "NEWEXAMPLE": {
             "INTRO": "Enter an example of ",
