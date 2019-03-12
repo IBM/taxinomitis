@@ -1,33 +1,33 @@
 {
     "APP": {
-        "TITLE": "Machine Learning for Kids",
+        "TITLE": "Apprentissage automatique (Machine learning) pour les enfants",
 
-        "BACK": "Back",
-        "BACKTOPROJECT": "&lt; Back to project",
-        "ERROR": "Error:",
-        "WARNING": "Warning:",
-        "INFO": "Info:",
+        "BACK": "Retour",
+        "BACKTOPROJECT": "&lt; Revenir au projet",
+        "ERROR": "Erreur :",
+        "WARNING": "Attention :",
+        "INFO": "Information :",
 
-        "ADD": "Add",
-        "CANCEL": "Cancel",
-        "DELETE": "Delete",
-        "EDIT": "Edit",
-        "TEST": "Test",
+        "ADD": "Ajouter",
+        "CANCEL": "Annuler",
+        "DELETE": "Effacer",
+        "EDIT": "Editer",
+        "TEST": "Tester",
 
-        "ABOUT": "About",
-        "TEACHER": "Teacher",
-        "PROJECTS": "Projects",
-        "WORKSHEETS": "Worksheets",
-        "NEWS": "News",
-        "HELP": "Help",
-        "LOGIN": "Log In",
-        "LOGOUT": "Log Out",
+        "ABOUT": "A propos",
+        "TEACHER": "Enseignants",
+        "PROJECTS": "Projets",
+        "WORKSHEETS": "Plan de travail",
+        "NEWS": "Nouvelles",
+        "HELP": "Aide",
+        "LOGIN": "Connexion",
+        "LOGOUT": "Déconnexion",
 
         "BETA": "Beta",
         "INCOMPLETE": "Incomplete!"
     },
     "ABOUT": {
-        "TITLE": "Machine Learning for Kids",
+        "TITLE": "Apprentissage automatique (Machine learning) pour les enfants",
         "IN6SECS": "In 6 seconds...",
         "IN20MINS": "In 20 minutes...",
         "WHAT": {
