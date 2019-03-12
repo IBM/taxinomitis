@@ -40,8 +40,8 @@
         },
         "TECH": {
             "TITLE": "Technologie",
-            "BODY": "The tool is entirely web-based and requires no installs or complicated setup to be able to use. <br/><br/>It was designed for use in the classroom by schools and volunteer-run coding groups for children, and provides an admin page for teachers or group leaders to be able to manage and administer access for their students.<br/><br/>It is being built by <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> using APIs from <a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a>.",
-            "LOGIN": "To get started: "
+            "BODY": "Ce service est entièrement basé sur les technologies web et ne requiert aucune installation ou paramétrage compliqué pour être utilisé. <br/><br/>Il a été conçu pour être utilisé en classe ou dans des activités parascolaires avec des enfants, et il propose une page permettant aux enseignants ou aux responsables de groupe de gérer et d'administrer l'accès des élèves.<br/><br/>Il a été conçu et réalisé par <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> et utilise des API depuis <a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a>.",
+            "LOGIN": "Pour démarrer : "
         }
     },
     "NEWS": {
@@ -51,13 +51,13 @@
             "DESCRIPTION": "Nouvelles et mise à jour de la part de @MLforKids"
         },
         "MENTIONS": {
-            "TITLE": "Mentions & Media",
-            "DESCRIPTION": "loading Mentions &amp; Media from wakelet.com"
+            "TITLE": "Mentions & Média",
+            "DESCRIPTION": "charge les Mentions &amp; Media depuis wakelet.com"
         }
     },
     "ERRORS": {
-        "PAGENOTFOUND": "Page not found",
-        "NOTLOGGEDIN": "Not logged in",
+        "PAGENOTFOUND": "Page absente",
+        "NOTLOGGEDIN": "Pas connecté",
 
         "MISSINGPROJECTID": "Missing project id. Go back to ",
         "IFPERSISTENT": "If this keeps happening, please ",
