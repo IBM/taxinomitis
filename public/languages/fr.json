@@ -32,11 +32,11 @@
         "IN20MINS": "En 20 minutes...",
         "WHAT": {
             "TITLE": "Quoi ?",
-            "BODY" : "This tool introduces machine learning by providing hands-on experiences for training machine learning systems and building things with them. <br/><br/>It provides an easy-to-use guided environment for training machine learning models for classifying text, numbers or recognising images. <br/><br/>This builds on existing efforts to introduce and teach coding to children, by adding these models to <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> (a widely used educational coding platform), allowing children to create projects and build games with the machine learning models that they've trained. <br/><br/>To learn more, look at:"
+            "BODY" : "Cet outil présente l'apprentissage machine (machine learning) en fournissant des expériences pratiques pour entrainer les systèmes d'apprentissage machine et construire des réalisations avec eux. <br/> <br/>Il fournit un environnement guidé, facile à utiliser pour entraîner des modèles d'apprentissage machine pour classer du texte, des nombres ou reconnaître des images. <br/> <br/>Ce projet s'appuie sur les efforts existants pour introduire et enseigner le codage aux enfants, en ajoutant ces modèles à <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> (une plate-forme de codage pédagogique largement utilisée), permettant aux enfants de créer des projets et de construire des jeux avec les modèles d'apprentissage machine qu'ils ont entraîner. <br/><br/>Pour en savoir plus, regardez : "
         },
         "WHY": {
             "TITLE": "Pourquoi ?",
-            "BODY": "Machine learning is all around us. We all use machine learning systems every day - such as spam filters, recommendation engines, language translation services, chatbots and digital assistants, search engines, and fraud detection systems.<br/><br/>It will soon be normal for machine learning systems to drive our cars, and help doctors to diagnose and treat our illnesses. <br/><br/>It's important that kids are aware of how our world works. The best way to understand the capabilities and implications is to be able to build with this technology for themselves. <br/><br/>To learn more, read: <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'Introducing Machine Learning to kids'</a>"
+            "BODY": "L'apprentissage machine est utilisé partout autour de nous. Nous utilisons tous des systèmes d'apprentissage automatique tous les jours - tels que les filtres anti-spam, les moteurs de recommandation, les services de traduction, les robots de discussion et les assistants numériques, les moteurs de recherche et les systèmes de détection des fraudes. <br/><br/>Il sera bientôt normal que les systèmes d'apprentissage automatique conduisent nos voitures et aident les médecins à poser un diagnostic et à traiter nos maladies. <br/><br/>Il est important que les enfants soient conscients du fonctionnement de notre monde. La meilleure façon de comprendre les capacités et les implications de cette technologie est d'être capable par eux-mêmes de construire des solutions avec cette technologie <br/><br/>Pour en savoir plus, lisez : <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'Introducing Machine Learning to kids'</a>"
         },
         "TECH": {
             "TITLE": "Technologie",
@@ -59,34 +59,34 @@
         "PAGENOTFOUND": "Page absente",
         "NOTLOGGEDIN": "Pas connecté",
 
-        "MISSINGPROJECTID": "Missing project id. Go back to ",
-        "IFPERSISTENT": "If this keeps happening, please ",
+        "MISSINGPROJECTID": "Le projet id. n'existe pas. Revenir à ",
+        "IFPERSISTENT": "Si celà continue, veuillez ",
 
-        "LETMEKNOW": "let me know"
+        "LETMEKNOW": "faites le moi savoir"
     },
     "WELCOME": {
-        "TITLE": "Teach a computer to play a game",
-        "GET_STARTED": "Get started",
-        "LEARN_MORE": "Learn more",
-        "ADMIN_LABEL": "Go to your <strong>Admin Page</strong>",
-        "PROJECT_LABEL": "Go to your <strong>Projects</strong>",
-        "STEP_1_TEXT": "Collect examples of things you want to be able to recognise",
-        "STEP_2_TEXT": "Use the examples to train a computer to be able to recognise them",
-        "STEP_3_TEXT": "Make a game in Scratch that uses the computer's ability to recognise them"
+        "TITLE": "Apprendre à l'ordinateur comment jouer",
+        "GET_STARTED": "Démarrez",
+        "LEARN_MORE": "En savoir plus",
+        "ADMIN_LABEL": "Aller à la page d'<strong>Administration</strong>",
+        "PROJECT_LABEL": "Aller à vos <strong>Projets</strong>",
+        "STEP_1_TEXT": "Recueillez des exemples de choses que vous voulez être capable de reconnaître",
+        "STEP_2_TEXT": "Utilisez les exemples pour former un ordinateur afin qu'il soit capable de les reconnaître",
+        "STEP_3_TEXT": "Réaliser un jeu dans Scratch qui utilise la capacité de l'ordinateur à les reconnaîtr"
     },
     "LOGIN": {
-        "TITLE": "Get started with machine learning",
-        "WELCOME": "Welcome!  It's great that you're interested in having an account to log in to Machine Learning for Kids.",
-        "ALREADY_LOGGEDIN": "<strong>Info: </strong> Already logged in",
-        "ERROR": "<strong>Error:</strong> {{ message }}",
-        "ERROR_HELP": "If this keeps happening, please visit our help section",
-        "FIRST_TIME": "First time here?",
-        "SIGN_UP": "Sign up",
-        "WHY_REGISTER": "Why register?",
-        "WHY_REGISTER_INTRO_1": "<strong>You don't have to register or create an account</strong> to use Machine Learning for Kids, but if you do, it does unlock a few features of the tool.",
+        "TITLE": "Commencez avec l'apprentissage machine",
+        "WELCOME": "Bienvenue ! C'est formidable que vous soyez intéressé d'avoir un compte pour vous connecter à Machine Learning for Kids.",
+        "ALREADY_LOGGEDIN": "<strong>Info : </strong> déja connecté",
+        "ERROR": "<strong>Erreur : </strong> {{ message }}",
+        "ERROR_HELP": "Si cela continue, veuillez visiter notre section d'aide",
+        "FIRST_TIME": "Ici pour la première fois ? ",
+        "SIGN_UP": "Se connecter",
+        "WHY_REGISTER": "Pourquoi s'enregistrer ? ",
+        "WHY_REGISTER_INTRO_1": "<strong> Il n'est pas utile de s'enregistrer ou de créer un compte</strong> pour utiliser Machine Learning for Kids, mais si vous le faites, celà vous permettra de d'utiliser quelques fonctionnalités supplémentaires.",
         "WHY_REGISTER_INTRO_2": "The grid below explains the difference in what you can do if you click \"Try it now\" without registering, and what you can do if you create an account to log in with.",
-        "ALREADY_REGISTERED": "Already registered?",
-        "LOGIN": "Log in",
+        "ALREADY_REGISTERED": "Déja enregistré ?",
+        "LOGIN": "Se connecter",
         "FORGOT_DETAILS": "Forgot your details?",
         "TRY_TITLE": "Try without registering",
         "TRY_NOW": "Try it now",
