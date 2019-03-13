@@ -202,7 +202,7 @@
             "BODY": "Utilisez le modèle d'apprentissage machine que vous avez entraîné dans un programme Python."
         },
         "APPINVENTOR": {
-            "TITLE": "Inventeur d'applications",
+            "TITLE": "App Inventor",
             "BODY": "Créez une application mobile qui utilise votre modèle d'apprentissage automatique."
         },
         "SCRATCH3": {
@@ -406,199 +406,199 @@
             }
         },
         "TRAINING": {
-            "TITLE": "Info from training computer:",
-            "STARTED": "Model started training at:",
+            "TITLE": "Informations provenant de l'ordinateur d'entraînement :",
+            "STARTED": "Le modèle a commencé l'entraînement à :",
             "STATUS": "Current model status:",
-            "DETAIL": "Detail:",
-            "DELETION": "Model will automatically be deleted after:",
-            "LASTCHECK": "Model last checked:",
-            "PROMPTREFRESH": "If this is more than a minute, you should refresh the page to get an up-to-date status"
+            "DETAIL": "Détail:",
+            "DELETION": "Le modèle sera automatiquement supprimé après :",
+            "LASTCHECK": "Dernière vérification du modèle :",
+            "PROMPTREFRESH": "Si celà dure plus d'une minute, vous devriez rafraîchir la page pour obtenir un statut à jour."
         },
         "TESTING": {
             "INTRO": {
-                "TEXT": "Try putting in some text to see how it is recognised based on your training.",
-                "IMAGES": "Try putting in an image to see how it is recognised based on your training.",
-                "NUMBERS": "Try putting in some numbers to see how it is recognised based on your training."
+                "TEXT": "Essayez d'insérer un texte pour voir comment il est reconnu en fonction de votre entraînement.",
+                "IMAGES": "Essayez d'insérer une image pour voir comment elle est reconnue en fonction de votre entraînement.",
+                "NUMBERS": "Essayez d'entrer quelques nombres pour voir comment ils sont reconnus en fonction de votre entraînement."
             },
-            "WEBCAM": "Test with <strong>webcam</strong>",
-            "DRAWING": "Test by <strong>drawing</strong>",
-            "WWW": "Test with <strong>www</strong>",
-            "RECOGNISED": "Recognised as  <strong>{{ testoutput }}</strong>"
+            "WEBCAM": "Tester avec <strong>webcam</strong>",
+            "DRAWING": "Tester par <strong>dessin</strong>",
+            "WWW": "Tester avec <strong>www</strong>",
+            "RECOGNISED": "Reconnu comme  <strong>{{ testoutput }}</strong>"
         },
         "QUIZ": {
-            "TITLE": "Quiz time!",
-            "INTROQUESTION": "While you are waiting for the model to finish training, try answering this question.",
-            "PREVIOUSLY_ATTEMPTED": "You've seen this one before - let's see if you remember what the right answer is this time!",
-            "CORRECT_ANSWER": "That's right!",
-            "INCORRECT_ANSWER": "No, sorry. The correct answer is shown above.",
-            "NEXT_QUESTION": "Next question"
+            "TITLE": "C'est l'heure du quiz !",
+            "INTROQUESTION": "Pendant que vous attendez que le modèle termine son entraînement, essayez de répondre à cette question.",
+            "PREVIOUSLY_ATTEMPTED": "Vous l'avez déjà vu - voyons si vous vous souvenez de la bonne réponse cette fois-ci !",
+            "CORRECT_ANSWER": "C'est ça !",
+            "INCORRECT_ANSWER": "Non, désolé. La bonne réponse est indiquée ci-dessus.",
+            "NEXT_QUESTION": "Question suivante"
         }
     },
     "MAKES": {
-        "TITLE": "Make something with your machine learning model",
-        "SCRATCH2": "Make a project in the old version of Scratch",
-        "SCRATCH3": "Use the new version of Scratch",
-        "PYTHON": "Write Python code to use your machine learning model",
-        "APPINVENTOR": "Make a mobile app for your phone or tablet"
+        "TITLE": "Faites quelque chose avec votre modèle d'apprentissage machine",
+        "SCRATCH2": "Créer un projet dans l'ancienne version de Scratch",
+        "SCRATCH3": "Utilisez la nouvelle version de Scratch",
+        "PYTHON": "Ecrire du code Python pour utiliser votre modèle d'apprentissage machine",
+        "APPINVENTOR": "Créez une application mobile pour votre téléphone ou tablette"
     },
     "PYTHON": {
-        "TITLE": "Using machine learning in Python",
+        "TITLE": "Utilisation de l'apprentissage machine avec Python",
 
-        "NOTREADY": "Your project isn't ready to be used in Python yet.",
-        "NOMODEL": "You haven't trained a machine learning model yet."
+        "NOTREADY": "Votre projet n'est pas encore prêt à être utilisé avec Python.",
+        "NOMODEL": "Vous n'avez pas encore entraîné un modèle d'apprentissage machine."
     },
     "APPINVENTOR": {
-        "TITLE": "Using machine learning in App Inventor",
+        "TITLE": "Utilisation de l'apprentissage automatique dans App Inventor",
 
-        "NOTREADY": "Your project isn't ready to be used in App Inventor yet.",
-        "NOMODEL": "You haven't trained a machine learning model yet.",
+        "NOTREADY": "Votre projet n'est pas encore prêt à être utilisé dans App Inventor.",
+        "NOMODEL": "Vous n'avez pas encore entraîné un modèle d'apprentissage machine.",
 
-        "BETAWARNING": "This is an early beta. Support for App Inventor is not finished, and will probably have a few bugs and problems."
+        "BETAWARNING": "Il s'agit d'une première version bêta. Le support pour App Inventor n'est pas terminé, et aura probablement quelques bugs et problèmes."
     },
     "SCRATCH": {
-        "TITLE": "Using machine learning in Scratch",
+        "TITLE": "Utilisation de l'apprentissage machine dans Scratch",
 
-        "NOTREADY": "Your project isn't ready to be used in Scratch yet.",
-        "NOMODEL": "You haven't trained a machine learning model yet.",
+        "NOTREADY": "Votre projet n'est pas encore prêt à être utilisé dans Scratch.",
+        "NOMODEL": "Vous n'avez pas encore entraîné un modèle d'apprentissage machine.",
 
-        "LAUNCH": "Open in Scratch",
+        "LAUNCH": "Ouvrir dans Scratch",
 
-        "LAUNCH_SCRATCH_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch by itself</a> if you want.)",
-        "GO_TO_LEARNANDTEST": "Or go to the <a href='{{ urls.learnandtest }}'>Learn &amp; Test</a> page for some tips on what to do next.",
+        "LAUNCH_SCRATCH_BY_ITSELF": "(Vous pouvez utiliser <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch lui même </a> si vous voulez.)",
+        "GO_TO_LEARNANDTEST": "Ou aller à la page <a href='{{ urls.learnandtest }}'>Entrainer &amp; Tester</a>  pour quelques conseils sur ce qu'il faut faire ensuite.",
 
-        "MORE_BLOCKS": "Your project will add these blocks to the <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> tab in Scripts.",
-        "EXPLAIN_RECOGNISE_LABEL": "Put {{ type }} in the input for this, and it will return the label that your machine learning model recognises it as.",
-        "EXPLAIN_RECOGNISE_CONFIDENCE": "This will return how confident your machine learning model is that it recognises the type of {{ type }}. (As a number from 0 - 100).",
-        "EXPLAIN_LABELS": "These blocks represent the labels you've created in your project, so you can use their names in your scripts.",
-        "EXPLAIN_COSTUMEIMAGE": "This block is in the Looks palette for Sprites and will return the image of the currently selected costume.",
-        "SAMPLE_SCRIPT": "This means you can do something like this:",
-        "SAMPLE_SCREENSHOT": "It will look something like this - except with the name of your project.",
-        "EXPLAIN_STATUS": "The coloured circle next to your project name tells you if your machine learning model is okay.",
-        "STATUS_GREEN": "means your model is trained and ready to go",
-        "STATUS_YELLOW": "means your model hasn't finished training yet",
-        "STATUS_RED": "means something went wrong. Go back to the <a href='{{ urls.learnandtest }}'>Learn &amp; Test</a> page to see what went wrong with training."
+        "MORE_BLOCKS": "Votre projet ajoutera ces blocs à l'onglet <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>Plus de blocs</span> dans Scripts.",
+        "EXPLAIN_RECOGNISE_LABEL": "Placer {{ type }} dans l'entrée prévue à cet effet, et il retournera l'étiquette de ce que votre modèle d'apprentissage machine reconnaît.",
+        "EXPLAIN_RECOGNISE_CONFIDENCE": "Cela retournera une indice de confiance de la machine pour la reconnaissance proposée de {{ type }}. (un nombre entre 0 - 100).",
+        "EXPLAIN_LABELS": "Ces blocs représentent les étiquettes que vous avez créées dans votre projet, vous pouvez donc utiliser leurs noms dans vos scripts.",
+        "EXPLAIN_COSTUMEIMAGE": "Ce bloc se trouve dans la palette Recherches pour Sprites et renvoie l'image du costume actuellement sélectionné.",
+        "SAMPLE_SCRIPT": "Cela signifie que vous pouvez faire quelque chose comme ça :",
+        "SAMPLE_SCREENSHOT": "Cela devrait ressembler à quelque chose comme ceci - sauf avec le nom de votre projet.",
+        "EXPLAIN_STATUS": "Le cercle coloré à côté du nom de votre projet vous indique si votre modèle d'apprentissage machine est correct.",
+        "STATUS_GREEN": "signifie que votre modèle est entraîné et prêt à l'emploi",
+        "STATUS_YELLOW": "signifie que votre modèle n'a pas encore terminé son entraînement",
+        "STATUS_RED": "signifie que quelque chose a mal tourné. Retournez à la page <a href='{{ urls.learnandtest }}'>Entraîner &amp; Tester</a> pour voir ce qui n'allait pas avec l'entraînement."
     },
     "SCRATCH3": {
-        "TITLE": "Using machine learning in Scratch 3",
+        "TITLE": "Utilisation de l'apprentissage machine dans Scratch 3",
 
-        "LAUNCH": "Open in Scratch 3"
+        "LAUNCH": "Ouvrir dans Scratch 3"
     },
     "WORKSHEETS": {
-        "TITLE": "Machine learning projects",
+        "TITLE": "Projets d'apprentissage machine",
 
-        "INTRO_1": "These projects are downloadable step-by-step guides, with explanations and colour screenshots for students to follow.",
-        "INTRO_2": "Each project is a stand-alone activity, written to last for a single lesson, and will guide children to create a game or interactive project that demonstrates a real-world use of artificial intelligence and machine learning.",
-        "INTRO_3": "Suggestions for new worksheets, suggestions of improvements to any of the worksheets, or contributions of new project worksheets, are all very welcome.",
+        "INTRO_1": "Ces projets sont des guides téléchargeables étape par étape, avec des explications et des captures d'écran en couleur que les élèves peuvent suivre.",
+        "INTRO_2": "Chaque projet est une activité autonome, écrite pour durer une seule leçon, et guidera les jeunes pour créer un jeu ou un projet interactif qui démontre une utilisation réelle de l'intelligence artificielle et de l'apprentissage automatique.",
+        "INTRO_3": "Les suggestions de nouvelles feuilles de travail, les suggestions d'améliorations à apporter à l'une ou l'autre des feuilles de travail, ou les contributions de nouvelles feuilles de travail de projet, sont toutes les bienvenues.",
 
         "TYPES": {
-            "TITLE": "Recognising:",
-            "ALL": "All project types",
+            "TITLE": "Reconnaître:",
+            "ALL": "Tous types de projets",
 
-            "PREFIX": "Train a computer to recognise ",
+            "PREFIX": "Entraîner un ordinateur à reconnaître ",
 
-            "TEXT": "text",
+            "TEXT": "texte",
             "IMAGES": "images",
-            "NUMBERS": "numbers"
+            "NUMBERS": "nombres"
         },
 
         "LEVELS": {
-            "TITLE": "Difficulty:",
-            "ALL": "All difficulties",
-            "BEGINNER": "Beginner projects",
-            "INTERMEDIATE": "Intermediate projects",
-            "ADVANCED": "Advanced projects"
+            "TITLE": "Difficulté:",
+            "ALL": "Toutes difficultés",
+            "BEGINNER": "Projets pour débutant",
+            "INTERMEDIATE": "Projets intermédiaires",
+            "ADVANCED": "Projets avancés"
         },
 
-        "DOWNLOAD": "Download",
+        "DOWNLOAD": "Télécharger",
 
         "MAKETYPES": {
-            "ALL": "All make types",
+            "ALL": "Tous les types de projets",
 
-            "SCRATCH": "Scratch projects",
-            "PYTHON": "Python projects",
-            "APPINVENTOR": "App Inventor projects",
+            "SCRATCH": "Projets Scratch",
+            "PYTHON": "Projets Python",
+            "APPINVENTOR": "Projets App Inventor",
 
-            "SCRATCH_WORKSHEET": "Worksheet for making project in Scratch",
-            "PYTHON_WORKSHEET": "Worksheet for making project in Python",
-            "APPINVENTOR_WORKSHEET": "Worksheet for making project in App Inventor"
+            "SCRATCH_WORKSHEET": "Feuille de travail pour réaliser un projet avec Scratch",
+            "PYTHON_WORKSHEET": "Feuille de travail pour réaliser un projet en Python",
+            "APPINVENTOR_WORKSHEET": "Feuille de travail pour réaliser un projet dans App Inventor"
         },
 
         "NO_WORKSHEETS": {
-            "NO_MATCHES": "There aren't any project worksheets that match those filters.",
-            "MAKE_YOUR_OWN": "You could adapt some of the existing worksheets or come up with a new one.",
-            "CONTRIBUTE": "If you do, please consider <a href='https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions'>contributing it for others to use</a>."
+            "NO_MATCHES": "Il n'y a pas de feuilles de travail de projet qui correspondent à ces filtres.",
+            "MAKE_YOUR_OWN": "Vous pouvez adapter certaines des feuilles de travail existantes ou en créer une nouvelle.",
+            "CONTRIBUTE": "Si c'est le cas, pensez à <a href='https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions'>contribuer pour que d'autres puissent l'utiliser</a>."
         },
 
 
         "SMARTCLASSROOM": {
-            "TITLE": "Smart Classroom",
-            "SUMMARY": "Teach a computer to recognise the meaning of your commands",
-            "DESCRIPTION": "Create a smart assistant in Scratch that lets you control virtual devices."
+            "TITLE": "Salle de classe intelligente",
+            "SUMMARY": "Apprenez à un ordinateur à reconnaître vos commandes",
+            "DESCRIPTION": "Créez un assistant intelligent dans Scratch qui vous permet de contrôler les périphériques virtuels."
         },
         "MAKEMEHAPPY": {
-            "TITLE": "Make me happy",
-            "SUMMARY": "Teach a computer to recognise compliments and insults",
-            "DESCRIPTION": "Create a character in Scratch that smiles if you say nice things to it and cries if you say mean things to it."
+            "TITLE": "Rends-moi heureux",
+            "SUMMARY": "Apprenez à un ordinateur à reconnaître les compliments et les insultes.",
+            "DESCRIPTION": "Créez un personnage dans Scratch qui sourit si vous lui dites des choses gentilles et pleure si vous lui dites des choses méchantes."
         },
         "SNAP": {
             "TITLE": "Snap!",
-            "SUMMARY": "Teach a computer to recognise what icons look like",
-            "DESCRIPTION": "Make a card game in Scratch that learns to recognise pictures of your card."
+            "SUMMARY": "Apprenez à un ordinateur à reconnaître à quoi ressemblent les icônes",
+            "DESCRIPTION": "Faites un jeu de cartes dans Scratch qui apprend à reconnaître les images de votre carte."
         },
         "CHAMELEON": {
-            "TITLE": "Chameleon",
-            "SUMMARY": "Teach a computer to recognise colours",
-            "DESCRIPTION": "Make a chameleon in Scratch that changes colour to match its background"
+            "TITLE": "Caméléon",
+            "SUMMARY": "Apprendre à un ordinateur à reconnaître les couleurs",
+            "DESCRIPTION": "Faites un caméléon dans Scratch qui change de couleur pour correspondre à son arrière-plan."
         },
         "MAILMANMAX": {
-            "TITLE": "Mailman Max",
-            "SUMMARY": "Teach a computer to recognise handwriting",
-            "DESCRIPTION": "Make a postal sorting office in Scratch that can recognise handwritten postcodes on envelopes."
+            "TITLE": "Le facteur Max",
+            "SUMMARY": "Apprendre à un ordinateur à reconnaître l'écriture manuscrite",
+            "DESCRIPTION": "Faites un bureau de tri postal dans Scratch qui peut reconnaître les codes postaux manuscrits sur les enveloppes."
         },
         "CARORCUP": {
-            "TITLE": "Car or cup",
-            "SUMMARY": "Teach a computer to recognise pictures of objects",
-            "DESCRIPTION": "Train the computer to be able to sort photos into groups."
+            "TITLE": "Voiture ou tasse",
+            "SUMMARY": "Apprendre à un ordinateur à reconnaître les images d'objets",
+            "DESCRIPTION": "Entraînez l'ordinateur pour qu'il soit capable de trier les photos en groupes."
         },
         "FACELOCK": {
-            "TITLE": "Face Lock",
-            "SUMMARY": "Teach a computer to recognise faces",
-            "DESCRIPTION": "Make a phone in Scratch that unlocks if it recognises your face."
+            "TITLE": "Débloquer son téléphone avec son visage",
+            "SUMMARY": "Apprendre à un ordinateur à reconnaître les visages",
+            "DESCRIPTION": "Faites un téléphone dans Scratch qui se déverrouille s'il reconnaît votre visage."
         },
         "JOURNEYTOSCHOOL": {
-            "TITLE": "Journey to school",
-            "SUMMARY": "Teach a computer to make predictions",
-            "DESCRIPTION": "Train the computer to be able to predict how you travel to school in the morning."
+            "TITLE": "Aller à l'école",
+            "SUMMARY": "Apprendre à un ordinateur à faire des prédictions",
+            "DESCRIPTION": "Entraînez l'ordinateur pour être capable de prédire comment vous vous rendrez à l'école le matin."
         },
         "SHYPANDA": {
-            "TITLE": "Shy Panda",
-            "SUMMARY": "Teach a computer to recognise pictures",
-            "DESCRIPTION": "Make a dancing panda that gets shy and stops dancing if it sees you looking."
+            "TITLE": "Panda timide",
+            "SUMMARY": "Apprendre à un ordinateur à reconnaître les images",
+            "DESCRIPTION": "Faites un panda dansant qui devient timide et arrête de danser si vous le regardez."
         },
         "VIRTUALPET": {
-            "TITLE": "Virtual Pet",
-            "SUMMARY": "Teach a computer to recognise pictures",
-            "DESCRIPTION": "Train the computer to recognise what you're doing so you can look after a virtual pet."
+            "TITLE": "Animal de compagnie virtuel",
+            "SUMMARY": "Apprendre à un ordinateur à reconnaître les images",
+            "DESCRIPTION": "Apprenez à l'ordinateur à reconnaître ce que vous faites afin de pouvoir prendre soin d'un animal de compagnie virtuel."
         },
         "PACMAN": {
             "TITLE": "Pac-Man",
-            "SUMMARY": "Teach a computer to play a game",
-            "DESCRIPTION": "Create a Pac-Man game in Scratch that learns how to avoid the ghost."
+            "SUMMARY": "Apprendre à un ordinateur à jouer à un jeu",
+            "DESCRIPTION": "Créer un jeu Pac-Man dans Scratch qui apprend comment éviter le fantôme."
         },
         "CHATBOTS": {
-            "TITLE": "Chatbots",
-            "SUMMARY": "Teach a computer to recognise questions",
-            "DESCRIPTION": "Create a chatbot that can answer questions about a topic of your choice."
+            "TITLE": "Agent conversationnel",
+            "SUMMARY": "Apprendre à un ordinateur à reconnaître les questions",
+            "DESCRIPTION": "Créez un agent conversationnel qui peut répondre à des questions sur un sujet de votre choix."
         },
         "TOURISTINFO": {
-            "TITLE": "Tourist Info",
-            "SUMMARY": "Teach a computer to make recommendations",
-            "DESCRIPTION": "Create a mobile app in Scratch that recommends tourist attractions based on people's interests."
+            "TITLE": "Information pour les touristes",
+            "SUMMARY": "Apprendre à un ordinateur à faire des recommandations",
+            "DESCRIPTION": "Créez une application mobile dans Scratch qui recommande des attractions touristiques en fonction des intérêts des gens."
         },
         "SORTINGHAT": {
-            "TITLE": "Sorting Hat",
-            "SUMMARY": "Teach a computer to recognise use of language",
-            "DESCRIPTION": "Create a Sorting Hat like in Harry Potter, that puts you in a school House based on what you say."
+            "TITLE": "Choixpeau",
+            "SUMMARY": "Apprendre à un ordinateur à reconnaître l'usage du langage",
+            "DESCRIPTION": "Créez un 'chapeau de tri' comme dans Harry Potter, qui vous place dans une école en fonction de ce que vous dites."
         },
         "ROCKPAPERSCISSORS": {
             "TITLE": "Rock, Paper, Scissors",
