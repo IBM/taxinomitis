@@ -703,172 +703,172 @@
 
             "HELP_STEPBYSTEP_GUIDE": "Si vous n'êtes pas sûr de ce qu'il faut faire ici, veuillez suivre le  <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> guide étape par étape </a>. Si vous avez besoin d'aide, veuillez <strong><a style='cursor : pointer;' ui-sref='help'>prendre contact</a></strong>.",
 
-            "INTRO_WATSONASSISTANT": "Training machine learning models for <span class='mlprojecttype'>text</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a>",
-            "INTRO_VISUALRECOGNITION": "Training machine learning models for <span class='mlprojecttype'>images</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
+            "INTRO_WATSONASSISTANT": "Modèles d'entraînement pour l'apprentissage machine pour des projets avec des <span class='mlprojecttype'>textes</span>  utilisant <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a>",
+            "INTRO_VISUALRECOGNITION": "TModèles d'entraînement pour l'apprentissage machine pour des projets avec des <span class='mlprojecttype'>images</span> utilisant <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
 
-            "ERROR_FETCHING_WATSONASSISTANT": "Failed to get your Watson Assistant passwords",
-            "ERROR_FETCHING_VISUALRECOG": "Failed to get your Visual Recognition API keys",
+            "ERROR_FETCHING_WATSONASSISTANT": "Échec de l'obtention de vos mots de passe Watson Assistant",
+            "ERROR_FETCHING_VISUALRECOG": "Échec de l'obtention de vos clés API Visual Recognition",
 
-            "USERNAME": "Username",
-            "PASSWORD": "Password",
-            "APIKEY": "API key",
+            "USERNAME": "Nom d'utilisateur",
+            "PASSWORD": "Mot de passe",
+            "APIKEY": "clé API",
 
-            "NUMBER_OF_ML_MODELS": "Number of ML models",
-            "UNKNOWN": "unknown",
-            "UNLIMITED": "unlimited",
+            "NUMBER_OF_ML_MODELS": "Nombre de modèles ML",
+            "UNKNOWN": "inconnu",
+            "UNLIMITED": "illimité",
 
-            "LIMIT_TEXT_PROJECTS": "Number of text machine learning models your students can have:",
-            "LIMIT_IMAGE_PROJECTS": "Number of images machine learning models your students can have:",
+            "LIMIT_TEXT_PROJECTS": "Nombre de modèles d'apprentissage automatique de textes que vos élèves peuvent avoir :",
+            "LIMIT_IMAGE_PROJECTS": "Nombre de modèles d'apprentissage automatique d'images que vos élèves peuvent avoir :",
 
             "ADD_API_KEYS": {
-                "ASSISTANT_TITLE": "Add Watson Assistant credentials",
-                "VISUAL_RECOGNITION_TITLE": "Add Visual Recognition API key",
+                "ASSISTANT_TITLE": "Ajouter les identifiants Watson Assistant",
+                "VISUAL_RECOGNITION_TITLE": "Ajout d'une clé API Visual Recognition",
 
-                "USED_FOR_TEXT_PROJECTS": "These will be used when your students train models in text projects.",
-                "USED_FOR_IMAGE_PROJECTS": "These will be used when your students train models in images projects.",
+                "USED_FOR_TEXT_PROJECTS": "Ils seront utilisés lorsque vos élèves entraîneront des modèles dans des projets de textes.",
+                "USED_FOR_IMAGE_PROJECTS": "Ils seront utilisés lorsque vos élèves entraîneront des modèles dans des projets d'images.",
 
-                "HIDDEN_FROM_STUDENTS": "This will not be shown to students in your group.",
+                "HIDDEN_FROM_STUDENTS": "Ceci ne sera pas montré aux élèves de votre groupe.",
 
-                "PRICING_PLAN": "Which Pricing Plan did you use?",
-                "ENTER_APIKEY": "Please enter the API key below",
-                "ENTER_PASSWORD": "Please enter the username and password below",
+                "PRICING_PLAN": "Quel plan tarifaire avez-vous utilisé ?",
+                "ENTER_APIKEY": "Veuillez entrer la clé API ci-dessous",
+                "ENTER_PASSWORD": "Veuillez entrer le nom d'utilisateur et le mot de passe ci-dessous",
 
-                "CREDENTIALS_TYPE": "What did you create in Watson Assistant?"
+                "CREDENTIALS_TYPE": "Qu'avez-vous créé dans Watson Assistant ?"
             }
         },
         "RESTRICTIONS": {
             "TITLE": "Administration : Restrictions",
 
-            "ASK_FOR_CHANGES": "If any of these restrictions cause a problem for your group, please <strong><a href='/help'>get in touch</a></strong>.",
+            "ASK_FOR_CHANGES": "Si l'une de ces restrictions pose un problème à votre groupe, veuillez <strong><a href='/help'> entrer en contact</a></strong>.",
 
             "CLASS_LIMITS": {
-                "TITLE": "Limits for your class",
-                "NUM_USERS": "You can have up to <span class='mlprojecttype'>{{ num }}</span> users (including students and teachers) in your group.",
-                "NUM_TEXT_MODELS": "Your class is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> machine learning models in total across all their <span class='mlprojecttype'>text</span> projects.",
-                "NUM_IMAGE_MODELS": "Your class is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> machine learning models in total across all their <span class='mlprojecttype'>images</span> projects.</div>"
+                "TITLE": "Limites pour votre classe",
+                "NUM_USERS": "Vous pouvez avoir jusqu'à <span class='mlprojecttype'>{{ num }}</span> utilisateurs (y compris étudiants et enseignants) dans votre groupe.",
+                "NUM_TEXT_MODELS": "Votre classe est autorisée à avoir jusqu'à <span class='mlprojecttype'>{{ num }}</span> modèles d'apprentissage machine au total sur tous ses projets d'analyse de <span class='mlprojecttype'>texte</span>.",
+                "NUM_IMAGE_MODELS": "Votre classe est autorisée à avoir jusqu'à <span class='mlprojecttype'>{{ num }}</span> modèles d'apprentissage machine au total sur tous leurs projets de <span class='mlprojecttype'>reconnaissance d'images </span>.</div>"
             },
             "PROJECT_LIMITS": {
-                "TITLE": "Limits for projects created by your students",
-                "NUM_PROJECTS": "Each of your students is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> projects.",
-                "TYPES": "Your students can create projects to recognise <span class='mlprojecttype'>{{ types }}</span>.",
-                "TRAINING_DATA": "Each <span class='mlprojecttype'>{{ type }}</span> project can have up to <span class='mlprojecttype'>{{ num }}</span> training data examples. "
+                "TITLE": "Limites pour les projets créés par vos élèves",
+                "NUM_PROJECTS": "Chacun de vos élèves est autorisé à avoir jusqu'à <span class='mlprojecttype'>{{ num }}</span> projets.",
+                "TYPES": "Vos élèves peuvent créer des projets pour reconnaître <span class='mlprojecttype'>{{ types}}</span>.",
+                "TRAINING_DATA": "Chaque projet <span class='mlprojecttype'>{{type }}</span> peut avoir jusqu'à <span class='mlprojecttype'>{{ num }}</span> exemples de données d'entraînement. "
             },
             "EXPIRY": {
-                "TITLE": "To help you avoid the limits for number of machine learning models:",
-                "TIME_LIMIT": "Machine learning models created for <span class='mlprojecttype'>{{ type }}</span> projects will automatically be deleted after <span class='mlprojecttype'>{{ num }}</span> hours.",
-                "DONT_WORRY": "(Don't worry! Training data will not be deleted, so students can always train a new machine learning model again if they still need it after this.)"
+                "TITLE": "Pour vous aider à éviter les limites du nombre de modèles d'apprentissage machine :",
+                "TIME_LIMIT": "Les modèles d'apprentissage machine créés pour le projet <span class='mlprojecttype'>{{ type }}</span>  seront automatiquement supprimés après <span class='mlprojecttype'>{{ num }}</span> heures.",
+                "DONT_WORRY": "(Ne vous inquiétez pas ! Les données d'entraînement ne seront pas effacées, de sorte que les élèves peuvent toujours recommencer à entraîner un nouveau modèle d'apprentissage machine s'ils en ont encore besoin après cela)."
             },
 
-            "NOT_AUTHORIZED": "You are not authorized to access the restrictions in place for your class."
+            "NOT_AUTHORIZED": "Vous n'êtes pas autorisé à accéder aux restrictions en place pour votre classe."
         },
         "SUPERVISION": {
-            "TITLE": "Administration : Student projects",
+            "TITLE": "Administration : Projets d'élèves",
 
-            "INTRO_1": "This page displays a list of all of the projects that your class currently has. You can use it to review what they're working on.",
-            "INTRO_2": "If you've hit the limit for the number of machine learning models that your class can create, you can use this to see which projects currently have a machine learning model, and delete any that you think are no longer needed.",
+            "INTRO_1": "Cette page affiche une liste de tous les projets que votre classe possède actuellement. Vous pouvez l'utiliser pour superviser ce sur quoi ils travaillent.",
+            "INTRO_2": "Si vous avez atteint la limite du nombre de modèles d'apprentissage machine que votre classe peut créer, vous pouvez utiliser cela pour voir quels projets disposent actuellement d'un modèle d'apprentissage machine, et supprimer ceux que vous pensez ne plus être nécessaires.",
 
-            "NO_PROJECTS_1": "None of the students in your class currently have any projects.",
-            "NO_PROJECTS_2": "Once your students start creating projects, come back here to see an overview of their work.",
+            "NO_PROJECTS_1": "Aucun des élèves de votre classe n'a actuellement de projet.",
+            "NO_PROJECTS_2": "Une fois que vos élèves auront commencé à créer des projets, revenez ici pour voir un aperçu de leur travail.",
 
-            "NAME": "Name",
+            "NAME": "Nom",
             "TYPE": "Type",
-            "STUDENT": "Student",
-            "MODELS": "ML models",
+            "STUDENT": "Élève",
+            "MODELS": "Modèles ML",
 
-            "DELETE": "Click the icon to delete",
+            "DELETE": "Cliquez sur l'icône pour supprimer",
 
-            "NOT_AUTHORIZED": "You are not authorized to access the list of projects for all students in your class."
+            "NOT_AUTHORIZED": "Vous n'êtes pas autorisé à accéder à la liste des projets pour tous les élèves de votre classe."
         },
         "STUDENTMANAGEMENT": {
-            "TITLE": "Administration : Student management",
+            "TITLE": "Administration : Gestion des élèves",
 
-            "CREATE_FIRST_STUDENT": "Click on the 'plus' button on the right to create the first student",
-            "ADD": "Add new student",
-            "NEW_USERNAME": "Choose a unique username",
-            "ALPHANUMERIC": "Only use letters and numbers",
+            "CREATE_FIRST_STUDENT": "Cliquez sur le bouton 'plus' à droite pour créer le premier élève.",
+            "ADD": "Ajouter un nouvel élève",
+            "NEW_USERNAME": "Choisir un nom d'utilisateur unique",
+            "ALPHANUMERIC": "N'utilisez que des lettres et des chiffres",
 
-            "NOT_LOGGED_IN": "Not logged in yet",
+            "NOT_LOGGED_IN": "Pas encore connecté",
 
-            "RESET_PASSWORD": "Reset password",
-            "RESET_ALL_PASSWORDS": "Reset password for all students",
+            "RESET_PASSWORD": "Réinitialiser le mot de passe",
+            "RESET_ALL_PASSWORDS": "Réinitialiser le mot de passe pour tous les élèves",
 
-            "DELETE_STUDENT": "Delete student account",
+            "DELETE_STUDENT": "Supprimer le compte d'élève",
 
-            "NOT_AUTHORIZED": "You are not authorized to access the list of students in your class."
+            "NOT_AUTHORIZED": "Vous n'êtes pas autorisé à accéder à la liste des élèves de votre classe."
         }
     },
     "SCRATCHBLOCKS": {
         "TEXT_PROJECTS": {
-            "mlforkids.text.recogniseLabel": "recognise text [TEXT] (label)",
-            "mlforkids.text.recogniseConfidence": "recognise text [TEXT] (confidence)",
-            "mlforkids.text.addTraining": "add training data [TEXT] [LABEL]",
-            "mlforkids.text.trainNewModel": "train new machine learning model",
-            "mlforkids.text.checkModelStatus": "Is the machine learning model [STATUS] ?"
+            "mlforkids.text.recogniseLabel": "reconnaître texte [TEXT] (label)",
+            "mlforkids.text.recogniseConfidence": "reconnaître texte [TEXT] (confiance)",
+            "mlforkids.text.addTraining": "ajout données d'entraînement [TEXT] [LABEL]",
+            "mlforkids.text.trainNewModel": "entrainer un nouveau modèle d'apprentissage machine",
+            "mlforkids.text.checkModelStatus": "Le modèle d'apprentissage machine est-il [STATUS] ?"
         },
         "IMAGES_PROJECTS": {
-            "mlforkids.images.recogniseLabel": "recognise image [IMAGE] (label)",
-            "mlforkids.images.recogniseConfidence": "recognise image [IMAGE] (confidence)",
-            "mlforkids.images.addTraining": "add training data [TEXT] [LABEL]"
+            "mlforkids.images.recogniseLabel": "reconnaître image [IMAGE] (label)",
+            "mlforkids.images.recogniseConfidence": "reconnaître image [IMAGE] (confiance)",
+            "mlforkids.images.addTraining": "ajout données d'entraînement [TEXT] [LABEL]"
         },
         "NUMBER_PROJECTS": {
-            "mlforkids.numbers.trainNewModel": "train new machine learning model"
+            "mlforkids.numbers.trainNewModel": "entrainer un nouveau modèle d'apprentissage machine"
         },
         "TWITTER": {
-            "mlforkids.twitter.getrecenttweet": "get the [INDEX] most recent tweet about [TOPIC]"
+            "mlforkids.twitter.getrecenttweet": "obtenir le [INDEX] plus récent tweet concernant [TOPIC]"
         },
         "IMAGE_BLOCKS": {
-            "mlforkids.imageblocks.getCostumeImage": "costume image",
-            "mlforkids.imageblocks.getBackdropCostumeImage": "backdrop image",
-            "mlforkids.imageblocks.getBackdropImage": "backdrop image",
-            "mlforkids.imageblocks.saveScreenshotToCostume": "save screenshot to costume"
+            "mlforkids.imageblocks.getCostumeImage": "image costume",
+            "mlforkids.imageblocks.getBackdropCostumeImage": "image arrière-plan",
+            "mlforkids.imageblocks.getBackdropImage": "image arrière-plan",
+            "mlforkids.imageblocks.saveScreenshotToCostume": "Enregistrer la capture d'écran dans le costume"
         },
         "GUI": {
-            "gui.menuBar.mlforkidsLibrary": "Project templates",
-            "gui.mlforkidsLibrary.templates": "Machine Learning for Kids modelos de projeto"
+            "gui.menuBar.mlforkidsLibrary": "Modèles de projets",
+            "gui.mlforkidsLibrary.templates": "Machine Learning for Kids modèles de projets"
         }
     },
     "HELP": {
-        "CONTACT": "If you have any problems or questions, please email Dale.Lane@uk.ibm.com",
+        "CONTACT": "Si vous avez des problèmes ou des questions, veuillez envoyer un courriel à Dale.Lane@uk.ibm.com",
         "GETTINGSTARTED": {
-            "TITLE": "Getting started?",
-            "INTRO": "Download a PDF with a short getting started guide:",
-            "MANAGED": "Managed class accounts",
-            "MANAGEDEXPL": "For school teachers, coding group leaders, or other volunteers",
-            "UNMANAGED": "Unmanaged class accounts",
-            "UNMANAGEDEXPL": "For IBM employees, or teachers and coding group leaders who manage their own class accounts"
+            "TITLE": "Pour commencer ?",
+            "INTRO": "Téléchargez un PDF avec un petit guide de démarrage :",
+            "MANAGED": "Comptes de classe gérés",
+            "MANAGEDEXPL": "Pour les enseignant.e.s des écoles, les responsables des groupes de codage ou d'autres bénévoles",
+            "UNMANAGED": "Comptes de classe non gérés",
+            "UNMANAGEDEXPL": "Pour les employés d'IBM ou les enseignants et les responsables de groupes de codage qui gèrent leurs propres comptes de classe."
         },
         "FAQS": {
-            "TITLE": "Want to know more?",
-            "INTRO1": "Is something not working?",
-            "INTRO2": "The list below contains the questions and issues that I hear about most often. If you see something that looks similar to your problem, click on the summary for more info.",
-            "INTRO3": "If you're still stuck, or you've run into a problem I've not included in the list, sorry! Please <a href='mailto:dale.lane@uk.ibm.com'>email me</a> or <a href='https://github.com/IBM/taxinomitis/issues'>create an issue report</a> so that I can help."
+            "TITLE": "Vous voulez en savoir plus ?",
+            "INTRO1": "Quelque chose ne fonctionne pas ?",
+            "INTRO2": "La liste ci-dessous contient les questions et les problèmes dont j'entends parler le plus souvent. Si vous voyez quelque chose qui ressemble à votre problème, cliquez sur le résumé pour plus d'informations.",
+            "INTRO3": "Si vous êtes toujours coincé, ou si vous avez rencontré un problème que je n'ai pas inclus dans la liste, désolé ! Veuillez <a href='mailto:dale.lane@uk.ibm.com'>m'envoyer un courriel</a> ou <a href='https://github.com/IBM/taxinomitis/issues'>créer un rapport de problème </a> pour que je puisse aider."
         },
 
         "SCRATCH": {
-            "TITLE": "Scratch issues",
+            "TITLE": "Problèmes avec Scratch",
 
-            "Q1": "I don't know how to get Scratch 2 working",
-            "Q1-A-1": "The old version of Scratch, Scratch 2, needs Adobe Flash to work, so you need to be using an operating system and a web browser that can work with Flash.",
-            "Q1-A-2": "If you're not sure about how to enable Flash, you can            <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>download a document with some tips for getting Scratch working</a>. Or you can use the new version of Scratch, Scratch 3, instead.",
+            "Q1": "Je ne sais pas comment faire fonctionner Scratch 2",
+            "Q1-A-1": "TL'ancienne version de Scratch, Scratch 2, nécessite Adobe Flash pour fonctionner, vous devez donc utiliser un système d'exploitation et un navigateur Web qui peut fonctionner avec Flash.",
+            "Q1-A-2": "Si vous n'êtes pas sûr de savoir comment activer Flash, vous pouvez <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>télécharger un document avec quelques conseils pour faire fonctionner Scratch </a>. Ou vous pouvez utiliser la nouvelle version de Scratch, Scratch 3, à la place.",
 
-            "Q2": "The \"Load Project\" and \"Save Project\" menus in Scratch don't work",
-            "Q2-A-1": "If you're using Safari on macOS and the Scratch menus \"File -&gt; Load Project\" and \"File -&gt; Save Project\" menus aren't working, it might be that you're running in Safe Mode.",
-            "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>Follow the instructions here</a> for how to check and fix this.",
+            "Q2": "Les menus \"Charger un projet\" et \"Enregistrer un projet\" ne fonctionnent pas dans Scratch",
+            "Q2-A-1": "Si vous utilisez Safari sous MacOS et que les menus \"Fichier -&gt ; Charger projet\" et \"Fichier -&gt ; Enregistrer projet\" ne fonctionnent pas, c'est peut-être que vous êtes en mode sans échec.",
+            "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>Suivez les instructions ici </a> pour savoir comment vérifier et corriger ce problème..",
 
-            "Q3": "Machine learning classifier blocks in Scratch don't work",
-            "Q3-A-1": "Occassionally, the Scratch blocks for your machine learning model can lose the connection to the server. When this happens, they will stop returning results.",
-            "Q3-A-2": "You can check whether this has happened using the coloured status light in the \"More Blocks\" palette.",
-            "Q3-A-3": "If the status light next to your machine learning Scratch blocks is red, that normally means something is wrong. It might be a temporary problem. Try saving your project (using 'File' -&gt; 'Save Project'), then refresh the browser page. If the status light goes green after the page reloads, you can load your project (using 'File' -&gt; 'Load Project') to pick up where you left off.",
-            "Q3-A-4": "If the status light is still red after reloading the page, then there is probably something wrong with the machine learning model. Try going to the \"Learn &amp; Test\" page for the project, which is where any error messages about your model can be found.",
-            "Q3-A-5": "If the status light next to your machine learning Scratch blocks is green, then the blocks should be working. If you're not getting the responses you expect from them, try going to the \"Learn &amp; Test\" page and checking what results your model returns.",
+            "Q3": "Les blocs de classification de l'apprentissage machine dans Scratch ne fonctionnent pas",
+            "Q3-A-1": "Occasionnellement, les blocs Scratch pour votre modèle d'apprentissage machine peuvent perdre la connexion au serveur. Lorsque cela se produit, ils arrêteront de retourner les résultats.",
+            "Q3-A-2": "Vous pouvez vérifier si cela s'est produit en utilisant le voyant d'état coloré dans la palette \"Plus de blocs\".",
+            "Q3-A-3": "Si le voyant d'état à côté du blocs Scratch d'apprentissage machine est rouge, cela signifie normalement que quelque chose ne va pas. C'est peut-être un problème temporaire. Essayez d'enregistrer votre projet (en utilisant 'Fichier' -&gt; 'Enregistrer le projet'), puis actualisez la page du navigateur. Si le voyant d'état devient vert après le rechargement de la page, vous pouvez charger votre projet (à l'aide de 'Fichier' -&gt; 'Charger le projet') pour reprendre là où vous vous étiez arrêté.",
+            "Q3-A-4": "Si le voyant d'état est toujours rouge après avoir rechargé la page, c'est qu'il y a probablement un problème avec le modèle d'apprentissage machine. Essayez d'aller sur la page \" Apprendre &amp ; Tester\" pour le projet, qui est l'endroit où se trouvent les messages d'erreur concernant votre modèle.",
+            "Q3-A-5": "Si le voyant d'état à côté du bloc Scratch d'apprentissage machine est vert, alors les blocs devraient fonctionner. Si vous n'obtenez pas les réponses que vous attendez d'eux, essayez d'aller à la page \" Apprendre &amp ; Tester\" et  vérifier quels résultats votre modèle renvoie.",
 
-            "Q5": "Can I use any version of Scratch?",
-            "Q5-A-1": "You need to use the versions of Scratch that are provided by the Machine Learning for Kids site. They can be launched by clicking the Scratch, or 'Scratch 3', buttons from your project page.",
+            "Q5": "Puis-je utiliser n'importe quelle version de Scratch ?",
+            "Q5-A-1": "Vous devez utiliser les versions de Scratch qui sont fournies par le site 'Machine Learning for Kids'. Ils peuvent être lancés en cliquant sur les boutons 'Scratch' ou 'Scratch 3' de la page de votre projet.",
 
-            "Q6": "Scratch 3 is only saving projects to the 'Downloads' folder",
-            "Q6-A-1": "When you click 'File' -> 'Save to your computer' in Scratch 3, your Scratch project is saved to your computer.",
-            "Q6-A-2": "Some teachers reported a problem that this saved to the Downloads folder, on a computer where students don't have access in Windows to the Downloads folder. The result was that students were not able to access their saved projects.",
-            "Q6-A-3": "If you have this problem, you need to look in your web browser settings for a setting like 'Ask where to save each file before downloading'. If you enable that, your students will be able to choose where their projects are saved."
+            "Q6": "Scratch 3 n'enregistre les projets que dans le dossier 'Téléchargements'.",
+            "Q6-A-1": "Lorsque vous cliquez sur 'Fichier' -> 'Enregistrer sur votre ordinateur' dans Scratch 3, votre projet Scratch est enregistré sur votre ordinateur.",
+            "Q6-A-2": "Certains enseignants ont signalé un problème enregistré dans le dossier Téléchargements, sur un ordinateur où les élèves n'ont pas accès dans Windows au dossier Téléchargements. Par conséquent, les élèves n'ont pas pu accéder à leurs projets sauvegardés.",
+            "Q6-A-3": "Si vous rencontrez ce problème, vous devez rechercher dans les paramètres de votre navigateur Web un paramètre comme 'Demander où enregistrer chaque fichier avant de le téléverser'. Si vous activez cette option, vos élèves pourront choisir où leurs projets seront sauvegardés."
         },
 
         "TRAININGUI": {
