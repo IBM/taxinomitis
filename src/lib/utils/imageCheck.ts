@@ -33,12 +33,20 @@ export function verifyImage(url: string, maxAllowedSizeBytes: number): Promise<v
             (next: IFilePathCallback) => {
                 // work out where to download the file to
                 tmp.file({ keep : true, discardDescriptor : true, prefix : 'chk-' }, (err, tmppath) => {
+                    if (err) {
+                        log.error({ err, url }, 'Failed to create tmp file');
+                    }
+
                     next(err, tmppath);
                 });
             },
             (tmpFilePath: string, next: IFilePathCallback) => {
                 // download the file to the temp location on disk
                 download.file(url, tmpFilePath, (err) => {
+                    if (err) {
+                        log.error({ err, tmpFilePath, url }, 'Failed to download image file');
+                    }
+
                     next(err, tmpFilePath);
                 });
             },
@@ -46,8 +54,10 @@ export function verifyImage(url: string, maxAllowedSizeBytes: number): Promise<v
                 // check that the file isn't too big
                 fs.stat(tmpFilePath, (err, stats: fs.Stats) => {
                     if (err) {
+                        log.error({ err, url }, 'Failed to check image file size');
                         return next(err);
                     }
+
                     if (stats.size > maxAllowedSizeBytes) {
                         return next(new Error(ERROR_PREFIXES.TOO_BIG +
                                               ' (' + filesize(stats.size) + ') ' +
@@ -60,6 +70,10 @@ export function verifyImage(url: string, maxAllowedSizeBytes: number): Promise<v
             (tmpFilePath: string, next: IFilePathTypeCallback) => {
                 // sniff the start of the file to work out the file type
                 getFileTypeFromContents(tmpFilePath, (err?: PossibleError, type?: string) => {
+                    if (err) {
+                        log.error({ err, url, tmpFilePath }, 'Failed to get file type');
+                    }
+
                     next(err, tmpFilePath, type);
                 });
             },

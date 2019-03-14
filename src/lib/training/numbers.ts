@@ -173,7 +173,7 @@ async function submitTraining(
         await request.post(url, req);
     }
     catch (err) {
-        log.error({ req, err }, 'Failed to train classifier');
+        log.error({ req, err, tenantid, projectid }, 'Failed to train numbers classifier');
 
         // The full error object will include information about the
         //  internal numbers service which we don't want to return

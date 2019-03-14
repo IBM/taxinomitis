@@ -705,7 +705,9 @@ async function submitTrainingToVisualRecognition(
         name : project.name,
     };
     for (const label of project.labels) {
-        trainingData[label + '_positive_examples'] = fs.createReadStream(training[label]);
+        if (label in training) {
+            trainingData[label + '_positive_examples'] = fs.createReadStream(training[label]);
+        }
     }
 
     const basereq = await createBaseRequest(credentials);
