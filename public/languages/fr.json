@@ -1,6 +1,6 @@
 {
     "APP": {
-        "TITLE": "Apprentissage automatique (Machine learning) pour les enfants",
+        "TITLE": "Machine learning for kids",
 
         "BACK": "Retour",
         "BACKTOPROJECT": "&lt; Revenir au projet",
@@ -27,7 +27,7 @@
         "INCOMPLETE": "Incomplète !"
     },
     "ABOUT": {
-        "TITLE": "Apprentissage automatique (Machine learning) pour les enfants",
+        "TITLE": "Machine learning for Kids",
         "IN6SECS": "En 6 secondes...",
         "IN20MINS": "En 20 minutes...",
         "WHAT": {
