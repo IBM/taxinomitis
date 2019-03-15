@@ -284,7 +284,7 @@ describe('Training - Visual Recognition', () => {
 
             assert(deleteStub.calledWith('https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/good', {
                 qs : { version : '2016-05-20', api_key : 'userpass' },
-                headers : { 'user-agent' : 'machinelearningforkids' },
+                headers : { 'user-agent' : 'machinelearningforkids', 'X-Watson-Learning-Opt-Out': 'true' },
                 timeout : 120000, gzip : true, json : true,
             }));
             assert(deleteStoreStub.calledWith(goodClassifier.id));
@@ -310,7 +310,7 @@ describe('Training - Visual Recognition', () => {
 
             assert(deleteStub.calledWith('https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/unknown', {
                 qs : { version : '2016-05-20', api_key : 'userpass' },
-                headers : { 'user-agent' : 'machinelearningforkids' },
+                headers : { 'user-agent' : 'machinelearningforkids', 'X-Watson-Learning-Opt-Out': 'true' },
                 timeout : 120000, gzip : true, json : true,
             }));
             assert(deleteStoreStub.calledWith(unknownClassifier.id));
@@ -390,6 +390,7 @@ describe('Training - Visual Recognition', () => {
             assert.strictEqual(opts.qs.version, '2016-05-20');
             assert.strictEqual(opts.qs.api_key, 'userpass');
             assert.strictEqual(opts.headers['user-agent'], 'machinelearningforkids');
+            assert.strictEqual(opts.headers['X-Watson-Learning-Opt-Out'], 'true');
 
             const fileOptions = opts as visrec.LegacyTestFileRequest;
             const urlOptions = opts as visrec.LegacyTestUrlRequest;
@@ -449,6 +450,8 @@ describe('Training - Visual Recognition', () => {
             }
         },
         createClassifier : (url: string, options: visrec.LegacyTrainingRequest) => {
+            assert.strictEqual(options.headers['X-Watson-Learning-Opt-Out'], 'true');
+
             if (options.formData.name === 'Bob\'s images proj') {
                 assert.strictEqual(options.qs.version, '2016-05-20');
                 assert.strictEqual(options.qs.api_key, 'userpass');

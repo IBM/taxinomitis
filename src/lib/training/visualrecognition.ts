@@ -835,6 +835,7 @@ async function createBaseRequest(credentials: TrainingObjects.BluemixCredentials
             },
             headers : {
                 'user-agent': 'machinelearningforkids',
+                'X-Watson-Learning-Opt-Out': 'true',
             },
             json : true,
             gzip : true,
@@ -851,6 +852,7 @@ async function createBaseRequest(credentials: TrainingObjects.BluemixCredentials
             },
             headers : {
                 'user-agent': 'machinelearningforkids',
+                'X-Watson-Learning-Opt-Out': 'true',
                 'Authorization': authHeader,
             },
             json : true,
@@ -872,6 +874,7 @@ interface VisRecRequestBase {
     };
     readonly headers: {
         readonly 'user-agent': 'machinelearningforkids';
+        readonly 'X-Watson-Learning-Opt-Out': 'true';
     };
     readonly json: true;
     readonly gzip: true;
@@ -890,6 +893,7 @@ export interface NewVisRecRequest extends VisRecRequestBase {
     };
     readonly headers: {
         readonly 'user-agent': 'machinelearningforkids';
+        readonly 'X-Watson-Learning-Opt-Out': 'true';
         readonly Authorization: string;
     };
 }

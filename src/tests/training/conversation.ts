@@ -322,7 +322,7 @@ describe('Training - Conversation', () => {
             assert(deleteStub.calledWith('http://conversation.service/v1/workspaces/good', {
                 auth : { user : 'useruseruseruseruseruseruseruseruser', pass : 'passpasspass' },
                 qs : { version : '2017-05-26' },
-                headers : { 'user-agent' : 'machinelearningforkids' },
+                headers : { 'user-agent' : 'machinelearningforkids', 'X-Watson-Learning-Opt-Out': 'true' },
                 json: true, gzip: true, timeout: 30000,
             }));
             assert(deleteStoreStub.calledWith(goodClassifier.id));
@@ -364,7 +364,7 @@ describe('Training - Conversation', () => {
             assert(deleteStub.calledWith('http://conversation.service/v1/workspaces/doesnotactuallyexist', {
                 auth : { user : 'useruseruseruseruseruseruseruseruser', pass : 'passpasspass' },
                 qs : { version : '2017-05-26' },
-                headers : { 'user-agent' : 'machinelearningforkids' },
+                headers : { 'user-agent' : 'machinelearningforkids', 'X-Watson-Learning-Opt-Out': 'true' },
                 json: true, gzip: true, timeout: 30000,
             }));
             assert(deleteStoreStub.calledWith(workspaceid));
@@ -475,6 +475,7 @@ describe('Training - Conversation', () => {
         },
         createClassifier : (url: string, options: conversation.LegacyTrainingRequest) => {
             log.debug({ url, options }, 'mock create classifier');
+            assert.strictEqual(options.headers['X-Watson-Learning-Opt-Out'], 'true');
             return new Promise((resolve, reject) => {
                 if (options.body.name === 'Bob\'s text project') {
 
@@ -539,6 +540,7 @@ describe('Training - Conversation', () => {
             });
         },
         testClassifier : (url: string, opts: conversation.LegacyTestRequest) => {
+            assert.strictEqual(opts.headers['X-Watson-Learning-Opt-Out'], 'true');
             return new Promise((resolve) => {
                 switch (url) {
                 case 'http://conversation.service/v1/workspaces/good/message':
