@@ -233,6 +233,11 @@ function classifyImage(imagedata, cacheKey, lastmodified, callback) {
                     {
                         registerIncorrectUse();
                     }
+                    else if (response.status === 400 && responseJson &&
+                        responseJson.error === 'Your machine learning model could not be found. Has it been deleted?')
+                    {
+                        postMessage({ mlforkids : 'mlforkids-recogniseimage-nomodel' });
+                    }
 
                     callback({
                         class_name: 'Unknown',
@@ -310,6 +315,8 @@ function getImageClassificationResponse(imagedata, cacheKey, valueToReturn, call
             // We got a randomly selected result (which means we must not
             //  have a working classifier).
             console.log('randomly selected result returned by API');
+
+            postMessage({ mlforkids : 'mlforkids-recogniseimage-nomodel' });
         }
 
         // update the timestamp to allow local throttling

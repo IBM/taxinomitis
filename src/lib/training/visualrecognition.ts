@@ -26,6 +26,7 @@ export const ERROR_MESSAGES = {
                          'at too fast a rate. ' +
                          'Please stop now and let your teacher or group leader know that ' +
                          '"the Watson Visual Recognition service is currently rate limiting their API key"',
+    NO_MODEL : 'Your machine learning model could not be found. Has it been deleted?',
 };
 
 
@@ -522,8 +523,7 @@ export async function testClassifierFile(
 
             if (classifierNotFoundError(errorInfo))
             {
-                const externalError: any = new Error('Your machine learning model could not be found. ' +
-                                                     'Has it been deleted?');
+                const externalError: any = new Error(ERROR_MESSAGES.NO_MODEL);
                 externalError.statusCode = 400;
                 throw externalError;
             }
@@ -646,8 +646,7 @@ export async function testClassifierURL(
             }
             else if (classifierNotFoundError(errorInfo))
             {
-                const externalError: any = new Error('Your machine learning model could not be found. ' +
-                                                     'Has it been deleted?');
+                const externalError: any = new Error(ERROR_MESSAGES.NO_MODEL);
                 externalError.statusCode = 400;
                 throw externalError;
             }
@@ -682,7 +681,8 @@ function classifierNotFoundError(errorInfo: any): boolean {
            errorInfo.code === 404 &&
            errorInfo.description &&
            typeof errorInfo.description === 'string' &&
-           errorInfo.description.startsWith('None of the requested classifier ids were found: ');
+           (errorInfo.description.startsWith('None of the requested classifier ids were found: ') ||
+            errorInfo.description === 'No classifiers found');
 }
 
 
@@ -1000,5 +1000,3 @@ export interface VisualRecogApiResponsePayloadClassifyFile {
     }>;
     readonly images_processed: number;
 }
-
-
