@@ -798,12 +798,12 @@
         "TEACHERUI": {
             "TITLE": "先生・管理者 UI 関連",
 
-            "Q2": "Missing student account from the list in the teacher's page",
-            "Q2-A-1": "User management for Machine Learning for Kids is implemented using the third party service, <a href=\"https://auth0.com/\">Auth0</a>.",
-            "Q2-A-2": "Occassionally, the list of students that Auth0 returns can get a little out of date, and fail to reflect students that have recently been created (or similarly, still show students that have been recently deleted).",
-            "Q2-A-3": "In these instances, the students have normally been successfully created (or deleted) and it is just that the list of students being displayed doesn't reflect recent updates.",
-            "Q2-A-4": "Auth0 will normally report such incidents on their status page as <a href='https://status.auth0.com/incidents/0sk1d3hjlw0m'>user indexing delays</a> or <a href='https://status.auth0.com/incidents/t8995b9jggx5'>problems with their Search API</a>.",
-            "Q2-A-5": "The best thing to do in these cases is to wait for the Auth0 indexing to catch up.",
+            "Q2": "先生用ページ内リストで生徒アカウントが不明",
+            "Q2-A-1": "Machine Learning for Kids の生徒管理はサードパーティー <a href=\"https://auth0.com/\">Auth0</a>.のサービスを利用しています。",
+            "Q2-A-2": "稀に, Auth0が返してくる生徒の情報が古い場合があり、最近追加された生徒が反映されていない（同様に最近削除した生徒が表示されている）場合があります。 ",
+            "Q2-A-3": "そのような場合でも、通常は、生徒情報は正常に作成（又は削除）されており、単に最近の変更が生徒のリストに反映されていないだけです。",
+            "Q2-A-4": "Auth0 は通常そのような問題を、そのステータスページで <a href='https://status.auth0.com/incidents/0sk1d3hjlw0m'>user indexing delays</a> or <a href='https://status.auth0.com/incidents/t8995b9jggx5'>problems with their Search API</a>で報告しています。",
+            "Q2-A-5": "このような場合は、Auth0 のインデクス後進が最新状況を反映するまで待つのがベストな対応になります。",
 
             "Q4": "Why are machine learning models automatically deleted?",
             "Q4-A-1": "This was a feature requested by schools when Machine Learning for Kids was first developed. It came from the fact that there is a limit for how many machine learning models a class can have at any given time, and a need to make it easy to manage this limit.",
