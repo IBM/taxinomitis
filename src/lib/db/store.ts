@@ -360,6 +360,8 @@ function getDbTable(type: Objects.ProjectTypeLabel): string {
         return 'numbertraining';
     case 'images':
         return 'imagetraining';
+    case 'sounds':
+        return 'soundtraining';
     }
 }
 
@@ -833,6 +835,91 @@ export async function getNumberTraining(
     const rows = await dbExecute(queryString, [ projectid, options.limit, options.start ]);
     return rows.map(dbobjects.getNumberTrainingFromDbRow);
 }
+
+
+
+
+
+
+export async function storeSoundTraining(
+    projectid: string, data: number[], label: string,
+): Promise<Objects.SoundTraining>
+{
+    let outcome: InsertTrainingOutcome;
+
+    // prepare the data to be stored
+    const obj = dbobjects.createSoundTraining(projectid, data, label);
+    const row = dbobjects.createSoundTrainingDbRow(obj);
+
+    // prepare the DB queries
+    const countQry = 'SELECT COUNT(*) AS `trainingcount` from `soundtraining` WHERE `projectid` = ?';
+    const countValues = [ projectid ];
+
+    const insertQry = 'INSERT INTO `soundtraining` (`id`, `projectid`, `audiodata`, `label`) VALUES (?, ?, ?, ?)';
+    const insertValues = [ row.id, row.projectid, row.audiodata, row.label ];
+
+    // connect to the DB
+    const dbConn = await dbConnPool.getConnection();
+
+    // store the data unless the project is already full
+    try {
+        // count the number of training items already in the project
+        const [countResponse] = await dbConn.execute(countQry, countValues);
+        const count = countResponse[0].trainingcount;
+
+        if (count >= limits.getStoreLimits().soundTrainingItemsPerProject) {
+            // they already have too much data - nothing else to do
+            outcome = InsertTrainingOutcome.NotStored_MetLimit;
+        }
+        else {
+            // they haven't reached their limit yet - okay to INSERT
+            const [insertResponse] = await dbConn.execute(insertQry, insertValues);
+            if (insertResponse.affectedRows === 1) {
+                outcome = InsertTrainingOutcome.StoredOk;
+            }
+            else {
+                // insert failed for an unknown reason
+                outcome = InsertTrainingOutcome.NotStored_UnknownFailure;
+            }
+        }
+    }
+    catch (err) {
+        handleDbException(err);
+        throw err;
+    }
+    finally {
+        dbConn.release();
+    }
+
+
+    // prepare the response
+
+    switch (outcome) {
+    case InsertTrainingOutcome.StoredOk:
+        return obj;
+    case InsertTrainingOutcome.NotStored_MetLimit:
+        throw new Error('Project already has maximum allowed amount of training data');
+    case InsertTrainingOutcome.NotStored_UnknownFailure:
+        throw new Error('Failed to store training data');
+    }
+}
+
+
+export async function getSoundTraining(
+    projectid: string, options: Objects.PagingOptions,
+): Promise<Objects.SoundTraining[]>
+{
+    const queryString = 'SELECT `id`, `audiodata`, `label` FROM `soundtraining` ' +
+                        'WHERE `projectid` = ? ' +
+                        'ORDER BY `label`, `id` ' +
+                        'LIMIT ? OFFSET ?';
+
+    const rows = await dbExecute(queryString, [ projectid, options.limit, options.start ]);
+    return rows.map(dbobjects.getSoundTrainingFromDbRow);
+}
+
+
+
 
 
 // -----------------------------------------------------------------------------
@@ -2016,6 +2103,10 @@ export async function deleteEntireProject(userid: string, classid: string, proje
     case 'numbers':
         await numbers.deleteClassifier(userid, classid, project.id);
         break;
+
+    case 'sounds':
+        // nothing to do - models all stored client-side
+        break;
     }
 
     const deleteQueries = [
@@ -2024,6 +2115,7 @@ export async function deleteEntireProject(userid: string, classid: string, proje
         'DELETE FROM `texttraining` WHERE `projectid` = ?',
         'DELETE FROM `numbertraining` WHERE `projectid` = ?',
         'DELETE FROM `imagetraining` WHERE `projectid` = ?',
+        'DELETE FROM `soundtraining` WHERE `projectid` = ?',
         'DELETE FROM `bluemixclassifiers` WHERE `projectid` = ?',
         'DELETE FROM `taxinoclassifiers` WHERE `projectid` = ?',
         'DELETE FROM `scratchkeys` WHERE `projectid` = ?',
@@ -2069,4 +2161,3 @@ export async function deleteClassResources(classid: string): Promise<void> {
     }
     dbConn.release();
 }
-

@@ -19,6 +19,10 @@ const TYPES: {[s: string]: ProjectTypeInfo} = {
         id : 3,
         label : 'images',
     },
+    sounds : {
+        id : 4,
+        label : 'sounds',
+    },
 };
 
 const typesById: {[id: number]: ProjectTypeInfo} = {};

@@ -93,23 +93,23 @@
 
         function scheduleTokenRenewal(timeToRefreshMs) {
             var refreshTime = new Date(Date.now() + timeToRefreshMs);
-            console.log('scheduling token renewal in ' +
-                        Math.round(timeToRefreshMs / 1000 / 60) + ' minutes (' +
-                        refreshTime.toString());
+            // console.log('scheduling token renewal in ' +
+            //             Math.round(timeToRefreshMs / 1000 / 60) + ' minutes (' +
+            //             refreshTime.toString());
             nextRefreshTimer = setTimeout(renewLogin, timeToRefreshMs);
         }
 
 
         function renewLogin() {
-            console.log('renewing login');
+            // console.log('renewing login');
             lock.checkSession({}, function (err, authres) {
                 if (err) {
                     console.log('failed to renew login');
                     console.log(err);
                 }
                 else if (authres) {
-                    console.log('renewed login');
-                    console.log(authres);
+                    // console.log('renewed login');
+                    // console.log(authres);
                     storeToken(authres);
 
                     // schedule the next renewal!

@@ -77,6 +77,9 @@ async function getModels(req: auth.RequestWithProject, res: Express.Response) {
         classifiers = await store.getNumbersClassifiers(projectid);
         classifiers = classifiers.map(returnNumberClassifier);
         break;
+    case 'sounds':
+        classifiers = [];
+        break;
     }
 
     return res.set(headers.NO_CACHE).json(classifiers);
@@ -185,6 +188,8 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
             return errors.unknownError(res, err);
         }
     }
+    case 'sounds':
+        return errors.notImplemented(res);
     }
 }
 
@@ -211,6 +216,8 @@ async function deleteModel(req: auth.RequestWithProject, res: Express.Response) 
             await numbers.deleteClassifier(userid, classid, projectid);
             return res.sendStatus(httpstatus.NO_CONTENT);
         }
+        case 'sounds':
+            return errors.notFound(res);
         }
     }
     catch (err) {
@@ -279,6 +286,9 @@ async function testModel(req: Express.Request, res: Express.Response) {
 
             const classes = await numbers.testClassifier(userid, classid, requestTimestamp, projectid, numberdata);
             return res.json(classes);
+        }
+        else if (type === 'sounds') {
+            return errors.notImplemented(res);
         }
         else {
             return errors.missingData(res);

@@ -41,6 +41,13 @@
                                  'You will be able to create images projects if you login with a regular account. ' +
                                  'See the "Help" page for more details about the differences between creating an account and using "Try it now".';
             }
+            else if (errObj &&
+                     status === 403 &&
+                     errObj.error === 'Support for sounds projects is not enabled for your class')
+            {
+                errObj.message = 'Sorry, sounds projects are a beta feature being tested by a few schools. ' +
+                                 'They will be available to all users soon!';
+            }
 
             vm[type].push({
                 alertid : alertId++,
@@ -118,7 +125,7 @@
             }
 
             projectsService.createProject(projectSpec, vm.profile.user_id, vm.profile.tenant)
-                .then(function (newproject) {
+                .then(function () {
                     $state.go('projects');
                 })
                 .catch(function (err) {

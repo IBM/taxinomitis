@@ -410,6 +410,59 @@ export function getImageTrainingFromDbRow(row: Objects.ImageTrainingDbRow): Obje
 }
 
 
+export const MAX_AUDIO_POINTS = 20000;
+
+export function createSoundTraining(projectid: string, data: any[], label: string): Objects.SoundTraining {
+    if (projectid === undefined || projectid === '' ||
+        label === undefined || label === '' ||
+        data === undefined || typeof data !== 'object' || !Array.isArray(data))
+    {
+        throw new Error('Missing required attributes');
+    }
+
+    if (data.length === 0) {
+        throw new Error('Empty audio is not allowed');
+    }
+    if (data.length > MAX_AUDIO_POINTS) {
+        throw new Error('Audio exceeds maximum allowed length');
+    }
+
+    const invalidAudio = data.some((item) => isNaN(parseFloat(item)));
+    if (invalidAudio) {
+        throw new Error('Invalid audio input');
+    }
+
+    return {
+        id : uuid(),
+        projectid,
+        audiodata : data,
+        label,
+    };
+}
+
+export function getSoundTrainingFromDbRow(row: Objects.SoundTrainingDbRow): Objects.SoundTraining {
+    const obj: any = {
+        id : row.id,
+        audiodata : row.audiodata.split(',').map(parseFloat),
+        label : row.label,
+    };
+
+    if (row.projectid) {
+        obj.projectid = row.projectid;
+    }
+
+    return obj;
+}
+
+export function createSoundTrainingDbRow(obj: Objects.SoundTraining): Objects.SoundTrainingDbRow {
+    return {
+        id : obj.id,
+        audiodata : obj.audiodata.join(','),
+        label : obj.label,
+        projectid : obj.projectid,
+    };
+}
+
 
 
 // -----------------------------------------------------------------------------
@@ -720,6 +773,9 @@ export function getScratchKeyFromDbRow(row: Objects.ScratchKeyDbRow): Objects.Sc
     case 'numbers':
         servicetype = 'num';
         break;
+    case 'sounds':
+        servicetype = 'sounds';
+        break;
     default:
         throw new Error('Unrecognised service type');
     }
@@ -952,7 +1008,7 @@ export function getDefaultClassTenant(classid: string): Objects.ClassTenant {
         id : classid,
         supportedProjectTypes : [ 'text', 'images', 'numbers' ],
         isManaged : false,
-        maxUsers : 25,
+        maxUsers : 30,
         maxProjectsPerUser : 2,
         textClassifierExpiry : 24,
         imageClassifierExpiry : 24,

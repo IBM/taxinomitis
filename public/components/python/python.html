@@ -26,7 +26,13 @@
 
     <div ng-if="projectId && !project" class="loading"> </div>
 
-    <div ng-if="project && project.labels.length <= 1" class="modelguidancecontainer">
+    <div ng-if="project && project.type === 'sounds'" class="modelguidancecontainer">
+        <div class="modelguidance">
+            Python cannot be used with sounds projects.
+        </div>
+    </div>
+
+    <div ng-if="project && project.labels.length <= 1 && project.type !== 'sounds'" class="modelguidancecontainer">
         <div class="modelguidance">
             <div class="modelstatusdetail" translate="PYTHON.NOTREADY"></div>
             <div class="modelstatusdetail">
@@ -36,14 +42,14 @@
         </div>
     </div>
 
-    <div ng-if="project && project.labels.length > 1 && scratchkey && !scratchkey.model" style="margin: 2em;">
+    <div ng-if="project && project.labels.length > 1 && scratchkey && !scratchkey.model && project.type !== 'sounds'" style="margin: 2em;">
         <div class="alert alert-info" role="alert" translate="PYTHON.NOMODEL"></div>
         <div ng-if="project.type !== 'text'">
             You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId, userId : userId })">train one now</a></strong> and then come back to start your Python project.
         </div>
     </div>
 
-    <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1">
+    <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1 && project.type !== 'sounds'">
         <div class="modelguidance" ng-if="scratchkey.model || project.type === 'text' && functionType === 'store'" >
             <div class="modelstatusdetail">
                 You can use this code to

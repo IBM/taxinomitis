@@ -147,7 +147,8 @@
            "NOTES_1": "ඔබට පරිගණකය පුහුණු කළ යුත්තේ කුමන ආකාරයේ දේවල් හදුනාගැනීමටද?",
            "NOTES_2": "වචන, වාක්‍ය හෝ ඡේද සදහා \"text\" තෝරන්න",
            "NOTES_3": "ඡායාරූප, රූපසටහන් හා පින්තූර සදහා \"images\" තෝරන්න",
-           "NOTES_4": "ඉලක්කම් වල එකතූන් හෝ බහුවරණ සදහා \"numbers\" තෝරන්න"
+           "NOTES_4": "ඉලක්කම් වල එකතූන් හෝ බහුවරණ සදහා \"numbers\" තෝරන්න",
+           "NOTES_5": "For voices and sounds, choose \"sounds\""
        },
        "LANGUAGE": {
            "LABEL": "භාෂාව",
@@ -235,7 +236,8 @@
             "PATTERNURL": "මෙය පින්තූරයක වෙබ් ලිපිනයක් වියයුතුය",
             "WEBCAMFAIL": "සමාවන්න! ඔබවෙනුවෙන් කටයුතු කළහැකි වෙබ් කැමරාවක් අපට සොයාගත නොහැක.",
             "WEBCAMERROR": "ඔබේ වෙබ් කැමරාවෙන් අපට ලැබුනු පණිවිඩය වනුයේ:"
-        }
+        },
+        "BACKGROUNDNOISE": "Collecting examples of background noise will help the computer to learn to recognize your sounds"
     },
     "MODELS": {
         "TITLE": "Machine learning ආක්‍රුතු",
@@ -253,12 +255,14 @@
                 "CROWDSOURCED" : {
                     "TEXT" : "ඔබේ පන්තිය ඔබ විසින් රැස්කරන ලද උදාහරණ ඡේද (text) භාවිතයෙන් machine learning ආක්‍රුතියක් පුහුණු කරයි.",
                     "IMAGES" : "ඔබ විසින් රැස් කරන ලද පින්තූර උදාහරණ භාවිතයෙන් ඔබේ පන්තිය machine learning ආක්‍රුතියක් පුහුණු කරයි.",
-                    "NUMBERS" : "ඔබ විසින් රැස් කරන ලද ඉලක්කම් උදාහරණ භාවිතයෙන් ඔබේ පන්තිය machine learning ආක්‍රුතියක් පුහුණු කරයි."
+                    "NUMBERS" : "ඔබ විසින් රැස් කරන ලද ඉලක්කම් උදාහරණ භාවිතයෙන් ඔබේ පන්තිය machine learning ආක්‍රුතියක් පුහුණු කරයි.",
+                    "SOUNDS" : "Your class is training a machine learning model using the examples of sounds that you all collected."
                 },
                 "INDIVIDUAL" : {
                     "TEXT" : "ඔබ ‍රැස් කළ text ඇසුරින් machine learning ආකෘතියක් පුහුණු කිරීම ආරම්භ කරන ලදි.",
                     "IMAGES" : "ඔබ ‍රැස් කළ images ඇසුරින් machine learning ආකෘතියක් පුහුණු කිරීම ආරම්භ කරන ලදි..",
-                    "NUMBERS" : "ඔබ ‍රැස් කළ ඉලක්කම් ඇසුරින් machine learning ආකෘතියක් පුහුණු කිරීම ආරම්භ කරන ලදි.."
+                    "NUMBERS" : "ඔබ ‍රැස් කළ ඉලක්කම් ඇසුරින් machine learning ආකෘතියක් පුහුණු කිරීම ආරම්භ කරන ලදි..",
+                    "SOUNDS" : "You've started training a machine learning model using the examples of sounds that you collected."
                 },
                 "SINCE": "එය මෙතරම් කාලයක සිට පුහුණු කරමින් පවතී"
             },
@@ -266,12 +270,14 @@
                 "CROWDSOURCED" : {
                     "TEXT" : "text පහත ආකාර වූ විට හඳුනාගැනීමට ඔබේ පන්තිය  machine learning ආකෘතියක් පුහුණු කර ඇත ",
                     "IMAGES" : "images පහත ආකාර වූ විට හඳුනාගැනීමට ඔබේ පන්තිය  machine learning ආකෘතියක් පුහුණු කර ඇත ",
-                    "NUMBERS" : "numbers පහත ආකාර වූ විට හඳුනාගැනීමට ඔබේ පන්තිය  machine learning ආකෘතියක් පුහුණු කර ඇත "
+                    "NUMBERS" : "numbers පහත ආකාර වූ විට හඳුනාගැනීමට ඔබේ පන්තිය  machine learning ආකෘතියක් පුහුණු කර ඇත ",
+                    "SOUNDS" : "Your class has trained a machine learning model to recognise when sounds are "
                 },
                 "INDIVIDUAL" : {
                     "TEXT" : "text පහත ආකාර වූ විට හඳුනාගැනීමට ඔබ machine learning ආකෘතියක් පුහුණු කර ඇත ",
                     "IMAGES" : "images පහත ආකාර වූ විට හඳුනාගැනීමට ඔබ machine learning ආකෘතියක් පුහුණු කර ඇත ",
-                    "NUMBERS" : "ඉලක්කම් පහත ආකාර වූ විට හඳුනාගැනීමට ඔබ machine learning ආකෘතියක් පුහුණු කර ඇත "
+                    "NUMBERS" : "ඉලක්කම් පහත ආකාර වූ විට හඳුනාගැනීමට ඔබ machine learning ආකෘතියක් පුහුණු කර ඇත ",
+                    "SOUNDS" : "You have trained a machine learning model to recognise when sounds are "
                 },
                 "CREATED" : {
                     "TEACHER" : "ඔබේ ගුරුවරයා තැනූ ආකෘතිය වනුයේ ",
@@ -287,18 +293,21 @@
                     "CLASS" : {
                         "TEXT" : "Your teacher tried training a machine learning model using the examples of text that your class collected.",
                         "IMAGES" : "Your teacher tried training a machine learning model using the examples of images that your class collected.",
-                        "NUMBERS" : "Your teacher tried training a machine learning model using the examples of numbers that your class collected."
+                        "NUMBERS" : "Your teacher tried training a machine learning model using the examples of numbers that your class collected.",
+                        "SOUNDS" : "Your teacher tried training a machine learning model using the examples of sounds that your class collected."
                     },
                     "YOU" : {
                         "TEXT" : "You tried training a machine learning model using the examples of text that your class collected.",
                         "IMAGES" : "You tried training a machine learning model using the examples of images that your class collected.",
-                        "NUMBERS" : "You tried training a machine learning model using the examples of numbers that your class collected."
+                        "NUMBERS" : "You tried training a machine learning model using the examples of numbers that your class collected.",
+                        "SOUNDS" : "You tried training a machine learning model using the examples of sounds that your class collected."
                     }
                 },
                 "INDIVIDUAL" : {
                     "TEXT" : "You tried training a machine learning model using the examples of text that you collected.",
                     "IMAGES" : "You tried training a machine learning model using the examples of images that you collected.",
-                    "NUMBERS" : "You tried training a machine learning model using the examples of numbers that you collected."
+                    "NUMBERS" : "You tried training a machine learning model using the examples of numbers that you collected.",
+                    "SOUNDS" : "You tried training a machine learning model using the examples of sounds that you collected."
                 }
             },
             "IDLE" : {
@@ -306,24 +315,28 @@
                     "CROWDSOURCED" : {
                         "TEXT" : "ඔබට text උදාහරණ එකතු කිරීමට අවශ්‍ය බව ඔබේ පන්තිය පවසා ඇත.",
                         "IMAGES" : "ඔබට image උදාහරණ එකතු කිරීමට අවශ්‍ය බව ඔබේ පන්තිය පවසා ඇත.",
-                        "NUMBERS" : "ඔබට numbers උදාහරණ එකතු කිරීමට අවශ්‍ය බව ඔබේ පන්තිය පවසා ඇත."
+                        "NUMBERS" : "ඔබට numbers උදාහරණ එකතු කිරීමට අවශ්‍ය බව ඔබේ පන්තිය පවසා ඇත.",
+                        "SOUNDS" : "Your class said you want to collect examples of sounds."
                     },
                     "INDIVIDUAL" : {
                         "TEXT" : "ඔබට text උදාහරණ එකතු කිරීමට අවශ්‍ය බව ඔබ පවසා ඇත.",
                         "IMAGES" : "ඔබට image උදාහරණ එකතු කිරීමට අවශ්‍ය බව ඔබ පවසා ඇත..",
-                        "NUMBERS" : "ඔබට number උදාහරණ එකතු කිරීමට අවශ්‍ය බව ඔබ පවසා ඇත."
+                        "NUMBERS" : "ඔබට number උදාහරණ එකතු කිරීමට අවශ්‍ය බව ඔබ පවසා ඇත.",
+                        "SOUNDS" : "You've said you want to collect examples of sounds."
                     }
                 },
                 "NODATA" : {
                     "CROWDSOURCED" : {
                         "TEXT" : "Text මේ ආකාර වූවිට පරිගණකයට හදුනාගැනීමට අවශ්‍ය text උදාහරණ රැස් කිරීමට ඔබට අවශ්‍ය බව ඔබේ පන්තිය පවසන ලදි ",
                         "IMAGES" : "Images මේ ආකාර වූවිට පරිගණකයට හදුනාගැනීමට අවශ්‍ය images උදාහරණ රැස් කිරීමට ඔබට අවශ්‍ය බව ඔබේ පන්තිය පවසන ලදි ",
-                        "NUMBERS" : "Numbers මේ ආකාර වූවිට පරිගණකයට හදුනාගැනීමට අවශ්‍ය numbers උදාහරණ රැස් කිරීමට ඔබට අවශ්‍ය බව ඔබේ පන්තිය පවසන ලදි "
+                        "NUMBERS" : "Numbers මේ ආකාර වූවිට පරිගණකයට හදුනාගැනීමට අවශ්‍ය numbers උදාහරණ රැස් කිරීමට ඔබට අවශ්‍ය බව ඔබේ පන්තිය පවසන ලදි ",
+                        "SOUNDS" : "Your class said that you want to collect examples of sounds for a computer to recognise when sounds are "
                     },
                     "INDIVIDUAL" : {
                         "TEXT" : "ඔබ පවසා ඇත්තේ text පහත ආකාර වූ විට පරිගණකයට හදුනා ගැනීම සදහා උදාහරණ අවශ්‍යව ඇති බවය ",
                         "IMAGES" : "ඔබ පවසා ඇත්තේ images පහත ආකාර වූ විට පරිගණකයට හදුනා ගැනීම සදහා උදාහරණ අවශ්‍යව ඇති බවය ",
-                        "NUMBERS" : "ඔබ පවසා ඇත්තේ numbers පහත ආකාර වූ විට පරිගණකයට හදුනා ගැනීම සදහා උදාහරණ අවශ්‍යව ඇති බවය  "
+                        "NUMBERS" : "ඔබ පවසා ඇත්තේ numbers පහත ආකාර වූ විට පරිගණකයට හදුනා ගැනීම සදහා උදාහරණ අවශ්‍යව ඇති බවය  ",
+                        "SOUNDS" : "You said that you want to collect examples of sounds for a computer to recognise when sounds are "
                     }
                 },
                 "NOEXAMPLES" : {
@@ -334,12 +347,14 @@
                     "CROWDSOURCED" : {
                         "TEXT" : "Your class has collected examples of text for a computer to use to recognise when text is ",
                         "IMAGES" : "Your class has collected examples of images for a computer to use to recognise when images are ",
-                        "NUMBERS" : "Your class has collected examples of numbers for a computer to use to recognise when numbers are "
+                        "NUMBERS" : "Your class has collected examples of numbers for a computer to use to recognise when numbers are ",
+                        "SOUNDS" : "Your class has collected examples of sounds for a computer to use to recognise when sounds are "
                     },
                     "INDIVIDUAL" : {
                         "TEXT" : "You have collected examples of text for a computer to use to recognise when text is ",
                         "IMAGES" : "You have collected examples of images for a computer to use to recognise when images are ",
-                        "NUMBERS" : "You have collected examples of numbers for a computer to use to recognise when numbers are "
+                        "NUMBERS" : "You have collected examples of numbers for a computer to use to recognise when numbers are ",
+                        "SOUNDS" : "You have collected examples of sounds for a computer to use to recognise when sounds are "
                     },
                      "COLLECTED" : {
                         "CLASS" : "ඔවුන් එකතු කර ඇත්තේ: ",
@@ -390,7 +405,8 @@
                 "TEST" : {
                     "TEXT" : "Try testing the machine learning model below. Enter an example of text below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
                     "IMAGES" : "Try testing the machine learning model below. Enter an example image below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
-                    "NUMBERS" : "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that."
+                    "NUMBERS" : "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
+                    "SOUNDS" : "Try testing the machine learning model below. Click the 'Start listening' button. If your machine learning model recognises any sounds, it will tell you what it recognises it as, and how confident it is in that."
                 },
                 "SCRATCH" : "If the computer seems to have learned to recognise things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
                 "ADDITIONAL_TRAINING" : {
@@ -418,12 +434,15 @@
             "INTRO": {
                 "TEXT": "Try putting in some text to see how it is recognised based on your training.",
                 "IMAGES": "Try putting in an image to see how it is recognised based on your training.",
-                "NUMBERS": "Try putting in some numbers to see how it is recognised based on your training."
+                "NUMBERS": "Try putting in some numbers to see how it is recognised based on your training.",
+                "SOUNDS": "Try making a sound to see how it is recognised based on your training"
             },
             "WEBCAM": "Test with <strong>webcam</strong>",
             "DRAWING": "Test by <strong>drawing</strong>",
             "WWW": "Test with <strong>www</strong>",
-            "RECOGNISED": "Recognised as  <strong>{{ testoutput }}</strong>"
+            "RECOGNISED": "Recognised as  <strong>{{ testoutput }}</strong>",
+            "STARTLISTENING": "Start listening",
+            "STOPLISTENING": "Stop listening"
         },
         "QUIZ": {
             "TITLE": "Quiz time!",
@@ -498,7 +517,8 @@
 
             "TEXT": "text",
             "IMAGES": "images",
-            "NUMBERS": "numbers"
+            "NUMBERS": "numbers",
+            "SOUNDS": "sounds"
         },
 
         "LEVELS": {
@@ -649,6 +669,11 @@
             "TITLE": "Find It!",
             "SUMMARY": "Teach a computer to recognise pictures",
             "DESCRIPTION": "Make a hide-and-seek game for your mobile phone"
+        },
+        "ALIENLANGUAGE": {
+            "TITLE": "Alien Language",
+            "SUMMARY": "Teach a computer to recognize sounds",
+            "DESCRIPTION": "Make an alien in Scratch that learns to recognize an alien language"
         }
     },
     "TEACHER": {

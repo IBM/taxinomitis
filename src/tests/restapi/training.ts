@@ -802,6 +802,7 @@ describe('REST API - training', () => {
                 numberTrainingItemsPerProject : 2,
                 numberTrainingItemsPerClassProject : 2,
                 imageTrainingItemsPerProject : 100,
+                soundTrainingItemsPerProject : 50,
             });
 
             const trainingurl = '/api/classes/' + classid +

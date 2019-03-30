@@ -6,12 +6,12 @@
 
     ModelsController.$inject = [
         'authService',
-        'projectsService', 'trainingService', 'quizService',
+        'projectsService', 'trainingService', 'quizService', 'soundTrainingService',
         '$stateParams',
         '$scope', '$mdDialog', '$timeout', '$interval', '$q', '$document', '$state'
     ];
 
-    function ModelsController(authService, projectsService, trainingService, quizService, $stateParams, $scope, $mdDialog, $timeout, $interval, $q, $document, $state) {
+    function ModelsController(authService, projectsService, trainingService, quizService, soundTrainingService, $stateParams, $scope, $mdDialog, $timeout, $interval, $q, $document, $state) {
 
         var vm = this;
         vm.authService = authService;
@@ -163,6 +163,9 @@
                 if ($scope.project.type === 'numbers') {
                     return projectsService.getFields($scope.projectId, $scope.userId, vm.profile.tenant);
                 }
+                if ($scope.project.type === 'sounds') {
+                    return soundTrainingService.initSoundSupport($scope.project.id);
+                }
             })
             .then(function (fields) {
                 $scope.project.fields = fields;
@@ -179,7 +182,13 @@
         function reviewTrainingData (labels) {
             var no_data = true;
             var insufficient_data = 0;
-            var MIN = $scope.project.type === 'images' ? 10 : 5;
+            var MIN = 5;
+            if ($scope.project.type === 'images') {
+                MIN = 10;
+            }
+            else if ($scope.project.type === 'sounds') {
+                MIN = 8;
+            }
             var labelslist = Object.keys(labels);
 
             $scope.trainingcounts = labelslist.map(function (label) {
@@ -199,7 +208,8 @@
             else {
                 if (insufficient_data > 1 ||
                     insufficient_data === labelslist.length ||
-                    labelslist.length < 2)
+                    labelslist.length < 2 ||
+                    ($scope.project.type === 'sounds' && insufficient_data > 0))
                 {
                     $scope.trainingdatastatus = 'insufficient_data';
                 }
@@ -248,6 +258,8 @@
 
         function refreshModels () {
             if (!timer) {
+                var interval = $scope.project.type === 'sounds' ? 2000 : 30000;
+
                 timer = $interval(function () {
                     fetchModels()
                         .then(function () {
@@ -255,7 +267,7 @@
                                 stopRefreshing();
                             }
                         });
-                }, 30000);
+                }, interval);
             }
         }
 
@@ -289,69 +301,85 @@
 
 
         function fetchModels() {
-            return trainingService.getModels($scope.projectId, $scope.userId, vm.profile.tenant)
-                .then(function (models) {
-                    $scope.models = models;
-                    $scope.status = getStatus();
-                });
+            var modelFunction = $scope.project.type === 'sounds' ?
+                                    soundTrainingService.getModels() :
+                                    trainingService.getModels($scope.projectId, $scope.userId, vm.profile.tenant);
+            return modelFunction.then(function (models) {
+                $scope.models = models;
+                $scope.status = getStatus();
+            });
         }
 
 
 
         vm.createModel = function (ev, project) {
             $scope.submittingTrainingRequest = true;
-            trainingService.newModel(project.id, $scope.userId, vm.profile.tenant)
-                .then(function (newmodel) {
-                    $scope.models = [ newmodel ];
-                    $scope.status = getStatus();
 
-                    $scope.submittingTrainingRequest = false;
+            if ($scope.project.type === 'sounds') {
+                soundTrainingService.newModel(project.id, $scope.userId, vm.profile.tenant)
+                    .then(function (newmodel) {
+                        $scope.models = [ newmodel ];
+                        $scope.status = getStatus();
 
-                    refreshModels();
-                })
-                .catch(function (err) {
-                    $scope.submittingTrainingRequest = false;
+                        $scope.submittingTrainingRequest = false;
 
-                    if (createModelFailedDueToDownloadFail(err)) {
-                        return $mdDialog.show({
-                            controller : function ($scope) {
-                                $scope.location = err.data.location;
+                        refreshModels();
+                    });
+            }
+            else {
+                trainingService.newModel(project.id, $scope.userId, vm.profile.tenant)
+                    .then(function (newmodel) {
+                        $scope.models = [ newmodel ];
+                        $scope.status = getStatus();
 
-                                $scope.hide = function() {
-                                    $mdDialog.hide();
-                                };
-                                $scope.cancel = function() {
-                                    $mdDialog.cancel();
-                                };
-                                $scope.confirm = function() {
-                                    $mdDialog.hide(err.data.location);
-                                };
-                            },
-                            templateUrl : 'static/components-' + $stateParams.VERSION + '/models/downloadfail.tmpl.html'
-                        })
-                        .then(
-                            function (location) {
-                                if (location) {
-                                    trainingService.deleteTrainingData(project.id, $scope.userId, vm.profile.tenant, location.imageid)
-                                        .then(function() {
-                                            $state.reload();
-                                        })
-                                        .catch(function (e) {
-                                            var errId = displayAlert('errors', e.status, e.data);
-                                            scrollToNewItem('errors' + errId);
-                                        });
+                        $scope.submittingTrainingRequest = false;
+
+                        refreshModels();
+                    })
+                    .catch(function (err) {
+                        $scope.submittingTrainingRequest = false;
+
+                        if (createModelFailedDueToDownloadFail(err)) {
+                            return $mdDialog.show({
+                                controller : function ($scope) {
+                                    $scope.location = err.data.location;
+
+                                    $scope.hide = function() {
+                                        $mdDialog.hide();
+                                    };
+                                    $scope.cancel = function() {
+                                        $mdDialog.cancel();
+                                    };
+                                    $scope.confirm = function() {
+                                        $mdDialog.hide(err.data.location);
+                                    };
+                                },
+                                templateUrl : 'static/components-' + $stateParams.VERSION + '/models/downloadfail.tmpl.html'
+                            })
+                            .then(
+                                function (location) {
+                                    if (location) {
+                                        trainingService.deleteTrainingData(project.id, $scope.userId, vm.profile.tenant, location.imageid)
+                                            .then(function() {
+                                                $state.reload();
+                                            })
+                                            .catch(function (e) {
+                                                var errId = displayAlert('errors', e.status, e.data);
+                                                scrollToNewItem('errors' + errId);
+                                            });
+                                    }
+                                },
+                                function() {
+                                    // cancelled. do nothing
                                 }
-                            },
-                            function() {
-                                // cancelled. do nothing
-                            }
-                        );
-                    }
-                    else {
-                        var errId = displayAlert('errors', err.status, err.data);
-                        scrollToNewItem('errors' + errId);
-                    }
-                });
+                            );
+                        }
+                        else {
+                            var errId = displayAlert('errors', err.status, err.data);
+                            scrollToNewItem('errors' + errId);
+                        }
+                    });
+            }
         };
 
 
@@ -613,6 +641,30 @@
                 }
             );
         };
+
+
+        vm.startListening = function () {
+            $scope.listening = true;
+            soundTrainingService.startTest(function (resp) {
+                $scope.$apply(
+                    function() {
+                        $scope.testoutput = resp[0].class_name;
+                        $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
+                    });
+            });
+        };
+        vm.stopListening = function () {
+            $scope.listening = false;
+            soundTrainingService.stopTest()
+                .then(function () {
+                    $scope.$apply(
+                        function() {
+                            delete $scope.testoutput;
+                            delete $scope.testoutput_explanation;
+                        });
+                });
+        };
+
 
 
 

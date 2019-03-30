@@ -360,6 +360,7 @@ async function getPolicy(req: Express.Request, res: Express.Response) {
             numberTrainingItemsPerProject : storelimits.numberTrainingItemsPerProject,
             numberTrainingItemsPerClassProject : storelimits.numberTrainingItemsPerClassProject,
             imageTrainingItemsPerProject : storelimits.imageTrainingItemsPerProject,
+            soundTrainingItemsPerProject : storelimits.soundTrainingItemsPerProject,
         });
     }
     catch (err){

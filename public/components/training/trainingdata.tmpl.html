@@ -93,4 +93,25 @@
             <md-button ng-click="cancel()" translate="APP.CANCEL"></md-button>
         </md-dialog-actions>
     </form>
+    <form ng-cloak name="newSoundsTrainingData" ng-hide="project.type !== 'sounds'">
+        <md-dialog-content>
+            <div class="md-dialog-content" style="min-width: 330px">
+                <md-card-content>
+                    <div>Record an example of '{{ label === '_background_noise_' ? 'background noise' : label }}'</div>
+                    <div layout="row">
+                        <md-progress-linear ng-if="recording" md-mode="determinate" value="{{recordingprogress}}" style="height: 49px; margin-top: 50px; vertical-align: middle;"></md-progress-linear>
+                        <mlsoundvis ng-if="example" ng-hide="recording" spectogram="example" modelinfo="soundModelInfo"></mlsoundvis>
+                        <div style="flex-grow: 1; height: 100px;" ng-hide="recording"></div>
+                        <button class="btn btn-primary" ng-click="recordSound(label)" ng-hide="recording || example"><img src="static/images/microphone.png" alt="record"/></button>
+                        <button class="btn btn-primary" ng-click="recordSound(label)" ng-hide="recording || !example"><img src="static/images/microphone.png" alt="record"/></button>
+                    </div>
+                </md-card-content>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button type="submit" class="md-raised md-primary" ng-disabled="!example" ng-click="confirm(example)" translate="APP.ADD"></md-button>
+            <md-button ng-click="cancel()" translate="APP.CANCEL"></md-button>
+        </md-dialog-actions>
+    </form>
 </md-dialog>

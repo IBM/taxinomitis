@@ -26,7 +26,7 @@ export interface BluemixCredentialsDbRow {
     readonly credstypeid?: number;
 }
 
-export type BluemixServiceType = 'conv' | 'visrec' | 'num';
+export type BluemixServiceType = 'conv' | 'visrec' | 'num' | 'sounds';
 export type BluemixCredentialsTypeLabel = 'unknown' | ConversationCredentialsTypeLabel | VisualRecCredentialsTypeLabel;
 
 export type ConversationCredentialsTypeLabel = 'conv_lite' | 'conv_standard';

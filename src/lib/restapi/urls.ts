@@ -1,5 +1,6 @@
 // tslint:disable:max-line-length
 
+export const ROOT                  = '/';
 
 export const TEACHERS              = '/api/teachers';
 export const CLASSES               = '/api/classes';

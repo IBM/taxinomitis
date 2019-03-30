@@ -147,7 +147,8 @@
             "NOTES_1": "컴퓨터가 어떤 방식으로 인식하도록 할지 선택해봅시다.?",
             "NOTES_2": "글자, 문장을 인식하도록 한다면 \"문자(text)\"를 선택하세요",
             "NOTES_3": "사진, 다이어그램 등을 인식하도록 원한다면 \"이미지(images)\"를 선택하세요",
-            "NOTES_4": "숫자 등을 인식하도록 원한다면 \"숫자(numbers)\"를 선택하세요"
+            "NOTES_4": "숫자 등을 인식하도록 원한다면 \"숫자(numbers)\"를 선택하세요",
+            "NOTES_5": "For voices and sounds, choose \"sounds\""
         },
         "LANGUAGE": {
             "LABEL": "언어",
@@ -235,7 +236,8 @@
             "PATTERNURL": "이 사진은 웹 주소가 필요합니다.",
             "WEBCAMFAIL": "이런! 웹캠이 연결되었나요?",
             "WEBCAMERROR": "웹 브라우저에서 가져온 메세지: "
-        }
+        },
+        "BACKGROUNDNOISE": "Collecting examples of background noise will help the computer to learn to recognize your sounds"
     },
     "MODELS": {
         "TITLE": "머신 러닝 모델",
@@ -253,12 +255,14 @@
                 "CROWDSOURCED" : {
                     "TEXT" : "여러분 교실 학생들이 만든 모든 '문자' 예제를 사용하여 머신러닝 모델을 만듭니다.",
                     "IMAGES" : "여러분 교실 학생들이 만든 모든 '이미지' 예제를 사용하여 머신러닝 모델을 만듭니다.",
-                    "NUMBERS" : "여러분 교실 학생들이 만든 모든 '숫자' 예제를 사용하여 머신러닝 모델을 만듭니다."
+                    "NUMBERS" : "여러분 교실 학생들이 만든 모든 '숫자' 예제를 사용하여 머신러닝 모델을 만듭니다.",
+                    "SOUNDS" : "Your class is training a machine learning model using the examples of sounds that you all collected."
                 },
                 "INDIVIDUAL" : {
                     "TEXT" : "여러분이 만든 모든 '문자' 예제를 사용하여 머신러닝 모델을 만듭니다.",
                     "IMAGES" : "여러분이 만든 모든 '이미지' 예제를 사용하여 머신러닝 모델을 만듭니다.",
-                    "NUMBERS" : "여러분이 만든 모든 '숫자' 예제를 사용하여 머신러닝 모델을 만듭니다."
+                    "NUMBERS" : "여러분이 만든 모든 '숫자' 예제를 사용하여 머신러닝 모델을 만듭니다.",
+                    "SOUNDS" : "You've started training a machine learning model using the examples of sounds that you collected."
                 },
                 "SINCE": "모델이 만들어지기 시작한 시각"
             },
@@ -266,12 +270,14 @@
                 "CROWDSOURCED" : {
                     "TEXT" : "여러분 교실 학생들의 머신러닝 모델이 완성되었으며, 다음을 인식할 수 있습니다: ",
                     "IMAGES" : "여러분 교실 학생들의 머신러닝 모델이 완성되었으며, 다음을 인식할 수 있습니다: ",
-                    "NUMBERS" : "여러분 교실 학생들의 머신러닝 모델이 완성되었으며, 다음을 인식할 수 있습니다: "
+                    "NUMBERS" : "여러분 교실 학생들의 머신러닝 모델이 완성되었으며, 다음을 인식할 수 있습니다: ",
+                    "SOUNDS" : "Your class has trained a machine learning model to recognise when sounds are "
                 },
                 "INDIVIDUAL" : {
                     "TEXT" : "여러분의 머신러닝 모델이 완성되었으며, 다음을 인식할 수 있습니다: ",
                     "IMAGES" : "여러분의 머신러닝 모델이 완성되었으며, 다음을 인식할 수 있습니다: ",
-                    "NUMBERS" : "여러분의 머신러닝 모델이 완성되었으며, 다음을 인식할 수 있습니다: "
+                    "NUMBERS" : "여러분의 머신러닝 모델이 완성되었으며, 다음을 인식할 수 있습니다: ",
+                    "SOUNDS" : "You have trained a machine learning model to recognise when sounds are "
                 },
                 "CREATED" : {
                     "TEACHER" : "여러분의 선생님이 인공지능 모델을 만든 시각: ",
@@ -287,18 +293,21 @@
                     "CLASS" : {
                         "TEXT" : "여러분 교실 학생들이 모은 문자 데이터를 사용하여 머신러닝 모델을 만들고 있습니다.",
                         "IMAGES" : "여러분 교실 학생들이 모은 이미지 데이터를 사용하여 머신러닝 모델을 만들고 있습니다.",
-                        "NUMBERS" : "여러분 교실 학생들이 모은 숫자 데이터를 사용하여 머신러닝 모델을 만들고 있습니다."
+                        "NUMBERS" : "여러분 교실 학생들이 모은 숫자 데이터를 사용하여 머신러닝 모델을 만들고 있습니다.",
+                        "SOUNDS" : "Your teacher tried training a machine learning model using the examples of sounds that your class collected."
                     },
                     "YOU" : {
                         "TEXT" : "여러분이 모은 문자 데이터를 사용하여 머신러닝 모델을 만들고 있습니다.",
                         "IMAGES" : "여러분이 모은 이미지 데이터를 사용하여 머신러닝 모델을 만들고 있습니다.",
-                        "NUMBERS" : "여러분이 모은 숫자 데이터를 사용하여 머신러닝 모델을 만들고 있습니다."
+                        "NUMBERS" : "여러분이 모은 숫자 데이터를 사용하여 머신러닝 모델을 만들고 있습니다.",
+                        "SOUNDS" : "You tried training a machine learning model using the examples of sounds that your class collected."
                     }
                 },
                 "INDIVIDUAL" : {
                     "TEXT" : "여러분이 모은 문자 데이터를 사용하여 머신러닝 모델을 만들고 있습니다.",
                     "IMAGES" : "여러분이 모은 이미지 데이터를 사용하여 머신러닝 모델을 만들고 있습니다.",
-                    "NUMBERS" : "여러분이 모은 숫자 데이터를 사용하여 머신러닝 모델을 만들고 있습니다."
+                    "NUMBERS" : "여러분이 모은 숫자 데이터를 사용하여 머신러닝 모델을 만들고 있습니다.",
+                    "SOUNDS" : "You tried training a machine learning model using the examples of sounds that you collected."
                 }
             },
             "IDLE" : {
@@ -306,24 +315,28 @@
                     "CROWDSOURCED" : {
                         "TEXT" : "여러분의 교실에서 문자 데이터를 더 모으기를 원합니다.",
                         "IMAGES" : "여러분의 교실에서 이미지 데이터를 더 모으기를 원합니다.",
-                        "NUMBERS" : "여러분의 교실에서 숫자 데이터를 더 모으기를 원합니다."
+                        "NUMBERS" : "여러분의 교실에서 숫자 데이터를 더 모으기를 원합니다.",
+                        "SOUNDS" : "Your class said you want to collect examples of sounds."
                     },
                     "INDIVIDUAL" : {
                         "TEXT" : "문자 데이터가 더 필요해요.",
                         "IMAGES" : "이미지 데이터가 더 필요해요.",
-                        "NUMBERS" : "숫자 데이터가 더 필요해요."
+                        "NUMBERS" : "숫자 데이터가 더 필요해요.",
+                        "SOUNDS" : "You've said you want to collect examples of sounds."
                     }
                 },
                 "NODATA" : {
                     "CROWDSOURCED" : {
                         "TEXT" : "다음의 문자를 컴퓨터가 인식하기 위해 여러분 교실 친구들은 데이터를 추가해야합니다: ",
                         "IMAGES" : "다음의 그림를 컴퓨터가 인식하기 위해 여러분 교실 친구들은 데이터를 추가해야합니다: ",
-                        "NUMBERS" : "다음의 숫자를 컴퓨터가 인식하기 위해 여러분 교실 친구들은 데이터를 추가해야합니다: "
+                        "NUMBERS" : "다음의 숫자를 컴퓨터가 인식하기 위해 여러분 교실 친구들은 데이터를 추가해야합니다: ",
+                        "SOUNDS" : "Your class said that you want to collect examples of sounds for a computer to recognise when sounds are "
                     },
                     "INDIVIDUAL" : {
                         "TEXT" : "다음의 문자를 컴퓨터가 인식하기 위해 여러분은 데이터를 추가해야합니다: ",
                         "IMAGES" : "다음의 그림을 컴퓨터가 인식하기 위해 여러분은 데이터를 추가해야합니다: ",
-                        "NUMBERS" : "다음의 숫자를 컴퓨터가 인식하기 위해 여러분은 데이터를 추가해야합니다: "
+                        "NUMBERS" : "다음의 숫자를 컴퓨터가 인식하기 위해 여러분은 데이터를 추가해야합니다: ",
+                        "SOUNDS" : "You said that you want to collect examples of sounds for a computer to recognise when sounds are "
                     }
                 },
                 "NOEXAMPLES" : {
@@ -334,12 +347,14 @@
                     "CROWDSOURCED" : {
                         "TEXT" : "다음의 문자를 컴퓨터가 인식하기 위해 여러분 교실 친구들은 데이터를 모았습니다.",
                         "IMAGES" : "다음의 그림를 컴퓨터가 인식하기 위해 여러분 교실 친구들은 데이터를 모았습니다.",
-                        "NUMBERS" : "다음의 숫자를 컴퓨터가 인식하기 위해 여러분 교실 친구들은 데이터를 모았습니다."
+                        "NUMBERS" : "다음의 숫자를 컴퓨터가 인식하기 위해 여러분 교실 친구들은 데이터를 모았습니다.",
+                        "SOUNDS" : "Your class has collected examples of sounds for a computer to use to recognise when sounds are "
                     },
                     "INDIVIDUAL" : {
                         "TEXT" : "다음의 문자를 컴퓨터가 인식하기 위해 여러분은 데이터를 모았습니다.",
                         "IMAGES" : "다음의 그림를 컴퓨터가 인식하기 위해 여러분은 데이터를 모았습니다.",
-                        "NUMBERS" : "다음의 숫자를 컴퓨터가 인식하기 위해 여러분은 데이터를 모았습니다."
+                        "NUMBERS" : "다음의 숫자를 컴퓨터가 인식하기 위해 여러분은 데이터를 모았습니다.",
+                        "SOUNDS" : "You have collected examples of sounds for a computer to use to recognise when sounds are "
                     },
                     "COLLECTED" : {
                         "CLASS" : "반 친구들이 수집한 데이터: ",
@@ -390,7 +405,8 @@
                 "TEST" : {
                     "TEXT" : "아래의 머신러닝 모델을 테스트 해보세요. 훈련에 사용한 예문에 포함시키지 않은 텍스트 예제를 입력하십시오. 이 텍스트가 어떻게 인식되는지, 어느 정도 정확한지 알려줍니다.",
                     "IMAGES" : "아래의 머신러닝 모델을 테스트 해보세요. 훈련에 사용한 예문에 포함시키지 않은 이미지 예제를 입력하십시오. 이 텍스트가 어떻게 인식되는지, 어느 정도 정확한지 알려줍니다.",
-                    "NUMBERS" : "아래의 머신러닝 모델을 테스트 해보세요. 훈련에 사용한 예문에 포함시키지 않은 숫자 예제를 입력하십시오. 이 텍스트가 어떻게 인식되는지, 어느 정도 정확한지 알려줍니다."
+                    "NUMBERS" : "아래의 머신러닝 모델을 테스트 해보세요. 훈련에 사용한 예문에 포함시키지 않은 숫자 예제를 입력하십시오. 이 텍스트가 어떻게 인식되는지, 어느 정도 정확한지 알려줍니다.",
+                    "SOUNDS" : "Try testing the machine learning model below. Click the 'Start listening' button. If your machine learning model recognises any sounds, it will tell you what it recognises it as, and how confident it is in that."
                 },
                 "SCRATCH" : "컴퓨터가 사물을 올바르게 인식하는 법을 배웠다면, 스크래치를 사용해서 컴퓨터가 배운 것을 게임에 사용해봅시다!",
                 "ADDITIONAL_TRAINING" : {
@@ -418,12 +434,15 @@
             "INTRO": {
                 "TEXT": "여러분의 모델이 잘 학습되었는지 확인하기 위해 문자를 넣어보세요.",
                 "IMAGES": "여러분의 모델이 잘 학습되었는지 확인하기 위해 이미지를 넣어보세요.",
-                "NUMBERS": "여러분의 모델이 잘 학습되었는지 확인하기 위해 숫자를 넣어보세요."
+                "NUMBERS": "여러분의 모델이 잘 학습되었는지 확인하기 위해 숫자를 넣어보세요.",
+                "SOUNDS": "Try making a sound to see how it is recognised based on your training"
             },
             "WEBCAM": "<strong>웹캠</strong>으로 테스트하기",
             "DRAWING": "<strong>그림 그리기</strong>로 테스트하기",
             "WWW": "<strong>인터넷 자료</strong>로 테스트하기",
-            "RECOGNISED": "<strong>{{ testoutput }}</strong>(으)로 인식되었습니다."
+            "RECOGNISED": "<strong>{{ testoutput }}</strong>(으)로 인식되었습니다.",
+            "STARTLISTENING": "Start listening",
+            "STOPLISTENING": "Stop listening"
         },
         "QUIZ": {
             "TITLE": "퀴즈 시간!",
@@ -498,7 +517,8 @@
 
             "TEXT": "텍스트",
             "IMAGES": "이미지",
-            "NUMBERS": "숫자"
+            "NUMBERS": "숫자",
+            "SOUNDS": "sounds"
         },
 
         "LEVELS": {
@@ -649,6 +669,11 @@
             "TITLE": "찾아보세요!",
             "SUMMARY": "사진을 인식하도록 컴퓨터를 가르쳐봐요.",
             "DESCRIPTION": "여러분 스마트폰에서 할 수 있는 숨기고 찾기(hide-and-seek)게임을 만들어봐요."
+        },
+        "ALIENLANGUAGE": {
+            "TITLE": "Alien Language",
+            "SUMMARY": "Teach a computer to recognize sounds",
+            "DESCRIPTION": "Make an alien in Scratch that learns to recognize an alien language"
         }
     },
     "TEACHER": {

@@ -28,7 +28,7 @@ export interface ProjectDbRow {
     readonly iscrowdsourced: number;
 }
 
-export type ProjectTypeLabel = 'text' | 'numbers' | 'images';
+export type ProjectTypeLabel = 'text' | 'numbers' | 'images' | 'sounds';
 
 export const MAX_LABEL_LENGTH = 30;
 
@@ -115,6 +115,20 @@ export interface ImageTrainingDbRow {
     readonly label?: string;
     readonly projectid?: string;
     readonly isstored: number;
+}
+
+export interface SoundTraining {
+    readonly id: string;
+    readonly audiodata: number[];
+    readonly label: string;
+    readonly projectid?: string;
+}
+
+export interface SoundTrainingDbRow {
+    readonly id: string;
+    readonly audiodata: string;
+    readonly label: string;
+    readonly projectid?: string;
 }
 
 

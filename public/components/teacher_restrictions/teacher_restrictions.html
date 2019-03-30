@@ -55,6 +55,9 @@
                  translate="TEACHER.RESTRICTIONS.PROJECT_LIMITS.TRAINING_DATA" translate-values="{ type : 'numbers', num : vm.policy.numberTrainingItemsPerProject }"></div>
             <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('images') >= 0"
                  translate="TEACHER.RESTRICTIONS.PROJECT_LIMITS.TRAINING_DATA" translate-values="{ type : 'images', num : vm.policy.imageTrainingItemsPerProject }"></div>
+            <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('sounds') >= 0"
+                translate="TEACHER.RESTRICTIONS.PROJECT_LIMITS.TRAINING_DATA" translate-values="{ type : 'sounds', num : vm.policy.soundTrainingItemsPerProject }"></div>
+
         </div>
 
         <div class="helpsection">

@@ -24,6 +24,9 @@ export function supervisorOnly(res: Express.Response) {
 export function requestTooLarge(res: Express.Response) {
     return res.status(httpstatus.REQUEST_ENTITY_TOO_LARGE).json({ error : 'Payload too large' });
 }
+export function notImplemented(res: Express.Response) {
+    return res.status(httpstatus.NOT_IMPLEMENTED).json({ error : 'Not implemented' });
+}
 export function unknownError(res: Express.Response, err: NodeJS.ErrnoException | any) {
     if (err && err.sqlState) {
         err = {

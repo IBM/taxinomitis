@@ -4,6 +4,7 @@ import * as he from 'he';
 // local dependencies
 import * as Types from '../db/db-types';
 import * as fileutils from '../utils/fileutils';
+import * as sound from '../training/sound';
 import * as env from '../utils/env';
 
 
@@ -130,6 +131,31 @@ async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.
 }
 
 
+async function getSoundExtension(scratchkey: Types.ScratchKey, project: Types.Project,
+                                 version: 2 | 3): Promise<string>
+{
+    const template: string = await fileutils.read(
+        version === 3 ? './resources/scratch3-sound-classify.js' :
+                        './resources/scratchx-sound-classify.js');
+
+    Mustache.parse(template);
+    const rendered = Mustache.render(template, {
+        projectid : project.id.replace(/-/g, ''),
+
+        storeurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/train',
+
+        projectname : escapeProjectName(scratchkey.name, version),
+        labels : project.labels.filter((name) => name !== sound.BACKGROUND_NOISE).map((name, idx) => {
+            return { name, idx };
+        }),
+
+        firstlabel : project.labels.length > 0 ? project.labels[0] : '',
+    });
+    return rendered;
+}
+
+
+
 
 export function getScratchxExtension(
     scratchkey: Types.ScratchKey,
@@ -144,5 +170,7 @@ export function getScratchxExtension(
         return getImagesExtension(scratchkey, project, version);
     case 'numbers':
         return getNumbersExtension(scratchkey, project, version);
+    case 'sounds':
+        return getSoundExtension(scratchkey, project, version);
     }
 }

@@ -25,8 +25,10 @@
         <a ui-sref="mlproject({ projectId : projectId, userId : userId  })" translate="APP.BACKTOPROJECT"></a>
     </div>
 
-    <div class="makes">
-        <div class="make">
+    <div ng-if="loading" class="loading"> </div>
+
+    <div ng-hide="loading" class="makes">
+        <div class="make" ng-hide="project.type === 'sounds'">
             <div class="makecard">
                 <div class="info">
                     <div class="title" translate="PROJECT.SCRATCH.TITLE"></div>
@@ -64,7 +66,7 @@
                 <img class="makeicon" src="static/images/screenshot-scratch-3.jpg"/>
             </div>
         </div>
-        <div class="make">
+        <div class="make" ng-hide="project.type === 'sounds'">
             <div class="makecard">
                 <div class="info">
                     <div class="title" translate="PROJECT.PYTHON.TITLE"></div>
@@ -83,7 +85,7 @@
                 <img class="makeicon" src="static/images/screenshot-python.jpg"/>
             </div>
         </div>
-        <div class="make">
+        <div class="make" ng-hide="project.type === 'sounds'">
             <div class="makecard">
                 <div class="info">
                     <div class="title" translate="PROJECT.APPINVENTOR.TITLE"></div>

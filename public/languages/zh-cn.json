@@ -147,7 +147,8 @@
             "NOTES_1": "你想教电脑识别什么类型的东西？",
             "NOTES_2": "对于单词,句子或段落,请选择\" text \" ",
             "NOTES_3": "对于照片,图表和图片,请选择\" images \" ",
-            "NOTES_4": "对于数字组或多个选项,请选择\"数字\" "
+            "NOTES_4": "对于数字组或多个选项,请选择\"数字\" ",
+            "NOTES_5": "For voices and sounds, choose \"sounds\""
         },
         "LANGUAGE": {
             "LABEL": "语言",
@@ -235,7 +236,8 @@
             "PATTERNURL": "这需要是图片的网址",
             "WEBCAMFAIL": "抱歉！我们无法让网络摄像头为您工作。",
             "WEBCAMERROR": "我们从您的网络浏览器收到的消息是: "
-        }
+        },
+        "BACKGROUNDNOISE": "Collecting examples of background noise will help the computer to learn to recognize your sounds"
     },
     "MODELS": {
         "TITLE": "机器学习模型",
@@ -253,12 +255,14 @@
                 "CROWDSOURCED": {
                     "TEXT": "您的班级正在使用您收集的文本示例来训练机器学习模型。",
                     "IMAGES": "您的班级正在使用您收集的图像示例来训练机器学习模型。",
-                    "NUMBERS": "您的班级正在使用您收集的数字示例来训练机器学习模型。"
+                    "NUMBERS": "您的班级正在使用您收集的数字示例来训练机器学习模型。",
+                    "SOUNDS" : "Your class is training a machine learning model using the examples of sounds that you all collected."
                 },
                 "INDIVIDUAL": {
                     "TEXT": "您已经开始使用您收集的文本示例来训练机器学习模型。",
                     "IMAGES": "您已经开始使用您收集的图像示例来训练机器学习模型。",
-                    "NUMBERS": "您已经开始使用您收集的数字示例来训练机器学习模型。"
+                    "NUMBERS": "您已经开始使用您收集的数字示例来训练机器学习模型。",
+                    "SOUNDS" : "You've started training a machine learning model using the examples of sounds that you collected."
                 },
                 "SINCE": "由于这是在训练"
             },
@@ -266,12 +270,14 @@
                 "CROWDSOURCED": {
                     "TEXT": "您的班级已培训机器学习模型,以识别文本何时",
                     "IMAGES": "你的班级已经培训了一种机器学习模型来识别图像是什么时候",
-                    "NUMBERS": "您的班级已培训机器学习模型,以识别数字何时"
+                    "NUMBERS": "您的班级已培训机器学习模型,以识别数字何时",
+                    "SOUNDS" : "Your class has trained a machine learning model to recognise when sounds are "
                 },
                 "INDIVIDUAL": {
                     "TEXT": "您已经培训了一种机器学习模型来识别文本的时间",
                     "IMAGES": "你已经训练了一个机器学习模型来识别图像是什么时候",
-                    "NUMBERS": "您已经培训了一种机器学习模型来识别数字是什么时候"
+                    "NUMBERS": "您已经培训了一种机器学习模型来识别数字是什么时候",
+                    "SOUNDS" : "You have trained a machine learning model to recognise when sounds are "
                 },
                 "CREATED": {
                     "TEACHER": "你的老师创造了模型",
@@ -287,18 +293,21 @@
                     "CLASS": {
                         "TEXT": "您的老师尝试使用您班级收集的文本示例来训练机器学习模型。",
                         "IMAGES": "您的老师尝试使用您班级收集的图像示例来训练机器学习模型。",
-                        "NUMBERS": "您的老师尝试使用您班级收集的数字示例来训练机器学习模型。"
+                        "NUMBERS": "您的老师尝试使用您班级收集的数字示例来训练机器学习模型。",
+                        "SOUNDS" : "Your teacher tried training a machine learning model using the examples of sounds that your class collected."
                     },
                     "YOU": {
                         "TEXT": "您尝试使用班级收集的文本示例来训练机器学习模型。",
                         "IMAGES": "您尝试使用您的班级收集的图像示例来训练机器学习模型。",
-                        "NUMBERS": "您尝试使用班级收集的数字示例来训练机器学习模型。"
+                        "NUMBERS": "您尝试使用班级收集的数字示例来训练机器学习模型。",
+                        "SOUNDS" : "You tried training a machine learning model using the examples of sounds that your class collected."
                     }
                 },
                 "INDIVIDUAL": {
                     "TEXT": "您尝试使用您收集的文本示例来训练机器学习模型。",
                     "IMAGES": "您尝试使用您收集的图像示例来训练机器学习模型。",
-                    "NUMBERS": "您尝试使用收集的数字示例来训练机器学习模型。"
+                    "NUMBERS": "您尝试使用收集的数字示例来训练机器学习模型。",
+                    "SOUNDS" : "You tried training a machine learning model using the examples of sounds that you collected."
                 }
             },
             "IDLE": {
@@ -306,24 +315,28 @@
                     "CROWDSOURCED": {
                         "TEXT": "你的班级说你想收集文字的例子。",
                         "IMAGES": "你的班级说你想收集图像的例子。",
-                        "NUMBERS": "你的班级说你想收集数字的例子。"
+                        "NUMBERS": "你的班级说你想收集数字的例子。",
+                        "SOUNDS" : "Your class said you want to collect examples of sounds."
                     },
                     "INDIVIDUAL": {
                         "TEXT": "你说你想收集文字的例子。",
                         "IMAGES": "你说你想要收集图像的例子。",
-                        "NUMBERS": "你说你想收集数字的例子。"
+                        "NUMBERS": "你说你想收集数字的例子。",
+                        "SOUNDS" : "You've said you want to collect examples of sounds."
                     }
                 },
                 "NODATA": {
                     "CROWDSOURCED": {
                         "TEXT": "您的班级表示您希望收集计算机文本的示例,以便识别文本的时间",
                         "IMAGES": "你的班级说你要收集图像的例子,以便计算机识别出图像的时间",
-                        "NUMBERS": "您的班级表示您希望收集计算机的数字示例以识别数字何时"
+                        "NUMBERS": "您的班级表示您希望收集计算机的数字示例以识别数字何时",
+                        "SOUNDS" : "Your class said that you want to collect examples of sounds for a computer to recognise when sounds are "
                     },
                     "INDIVIDUAL": {
                         "TEXT": "您说要收集计算机文本的示例,以便识别文本的时间",
                         "IMAGES": "你说你要收集图像的例子,让计算机识别图像的时间",
-                        "NUMBERS": "你说你要收集计算机数字的例子来识别数字是什么时候"
+                        "NUMBERS": "你说你要收集计算机数字的例子来识别数字是什么时候",
+                        "SOUNDS" : "You said that you want to collect examples of sounds for a computer to recognise when sounds are "
                     }
                 },
                 "NOEXAMPLES": {
@@ -334,12 +347,14 @@
                     "CROWDSOURCED": {
                         "TEXT": "您的班级已经收集了计算机用于识别文本的文本示例",
                         "IMAGES": "您的班级已经收集了计算机用于识别图像的图像示例",
-                        "NUMBERS": "您的班级已收集计算机的数字示例,用于识别数字何时"
+                        "NUMBERS": "您的班级已收集计算机的数字示例,用于识别数字何时",
+                        "SOUNDS" : "Your class has collected examples of sounds for a computer to use to recognise when sounds are "
                     },
                     "INDIVIDUAL": {
                         "TEXT": "您收集了计算机用于识别文本的文本示例",
                         "IMAGES": "您已经收集了计算机用于识别图像的图像示例",
-                        "NUMBERS": "您已收集计算机的数字示例,用于识别数字何时"
+                        "NUMBERS": "您已收集计算机的数字示例,用于识别数字何时",
+                        "SOUNDS" : "You have collected examples of sounds for a computer to use to recognise when sounds are "
                     },
                     "COLLECTED": {
                         "CLASS": "他们收集了: ",
@@ -390,7 +405,8 @@
                 "TEST": {
                     "TEXT": "尝试测试下面的机器学习模型。输入一个下面的文本示例,您没有在用于训练它的示例中包含这些文本。它会告诉您它识别它的内容,以及它对这个文本识别的信心",
                     "IMAGES": "尝试测试下面的机器学习模型。在下面输入一个示例图片,您没有在用于训练它的示例中包含这些图片。它会告诉您它识别它的内容,以及它对这个图片识别的信心。",
-                    "NUMBERS": "尝试测试下面的机器学习模型。输入一个下面的数字示例,您没有在用于训练它的示例中包含这些数字。它会告诉您它识别它的内容,以及它对这个数字识别的信心"
+                    "NUMBERS": "尝试测试下面的机器学习模型。输入一个下面的数字示例,您没有在用于训练它的示例中包含这些数字。它会告诉您它识别它的内容,以及它对这个数字识别的信心",
+                    "SOUNDS" : "Try testing the machine learning model below. Click the 'Start listening' button. If your machine learning model recognises any sounds, it will tell you what it recognises it as, and how confident it is in that."
                 },
                 "SCRATCH": "如果计算机似乎已经学会正确识别事物,那么你可以去Scratch并使用计算机学到的东西制作游戏！",
                 "ADDITIONAL_TRAINING": {
@@ -418,12 +434,15 @@
             "INTRO": {
                 "TEXT": "尝试根据您的训练添加一些文字以了解它是如何识别的。",
                 "IMAGES": "尝试根据您的训练设置图像以查看其识别方式。",
-                "NUMBERS": "尝试输入一些数字,看看它是如何根据你的训练得到认可的。"
+                "NUMBERS": "尝试输入一些数字,看看它是如何根据你的训练得到认可的。",
+                "SOUNDS": "Try making a sound to see how it is recognised based on your training"
             },
             "WEBCAM": "使用<strong>摄像头</strong>进行测试",
             "DRAWING": "通过<strong>绘图</strong>进行测试",
             "WWW": "用<strong> www </strong>进行测试",
-            "RECOGNISED": "被认可为<strong> {{testoutput}} </strong> "
+            "RECOGNISED": "被认可为<strong> {{testoutput}} </strong> ",
+            "STARTLISTENING": "Start listening",
+            "STOPLISTENING": "Stop listening"
         },
         "QUIZ": {
             "TITLE": "测验时间！",
@@ -498,7 +517,8 @@
 
             "TEXT": " 文本 ",
             "IMAGES": "图像",
-            "NUMBERS": "数字"
+            "NUMBERS": "数字",
+            "SOUNDS": "sounds"
         },
 
         "LEVELS": {
@@ -649,6 +669,11 @@
             "TITLE": "Find It!",
             "SUMMARY": "Teach a computer to recognise pictures",
             "DESCRIPTION": "Make a hide-and-seek game for your mobile phone"
+        },
+        "ALIENLANGUAGE": {
+            "TITLE": "Alien Language",
+            "SUMMARY": "Teach a computer to recognize sounds",
+            "DESCRIPTION": "Make an alien in Scratch that learns to recognize an alien language"
         }
     },
     "TEACHER": {

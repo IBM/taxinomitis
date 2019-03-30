@@ -161,6 +161,38 @@ async function postClassifyWithScratchKey(req: Express.Request, res: Express.Res
 
 
 
+
+async function getTrainingData(req: Express.Request, res: Express.Response) {
+    const apikey = req.params.scratchkey;
+
+    try {
+        const scratchKey = await store.getScratchKey(apikey);
+
+        if (scratchKey.type !== 'sounds') {
+            return res.status(httpstatus.METHOD_NOT_ALLOWED)
+                .json({
+                    error : 'Method not allowed',
+                });
+        }
+
+        const trainingData = await store.getSoundTraining(scratchKey.projectid, {
+            start : 0,
+            limit : 500,
+        });
+
+        return res.json(trainingData);
+    }
+    catch (err) {
+        if (err.message === 'Unexpected response when retrieving credentials for Scratch') {
+            return res.status(httpstatus.NOT_FOUND).json({ error : 'Scratch key not found' });
+        }
+
+        log.error({ err, agent : req.header('X-User-Agent') }, 'Fetch error');
+        return res.status(httpstatus.INTERNAL_SERVER_ERROR).jsonp(err);
+    }
+}
+
+
 async function storeTrainingData(req: Express.Request, res: Express.Response) {
     const apikey = req.params.scratchkey;
 
@@ -334,6 +366,7 @@ export default function registerApis(app: Express.Application) {
     app.post(urls.SCRATCHKEY_CLASSIFY, postClassifyWithScratchKey);
     app.post(urls.SCRATCHKEY_MODEL, trainNewClassifier);
 
+    app.get(urls.SCRATCHKEY_TRAIN, getTrainingData);
     app.get(urls.SCRATCHKEY_TRAIN, storeTrainingData);
     app.post(urls.SCRATCHKEY_TRAIN, postStoreTrainingData);
 

@@ -147,7 +147,8 @@
             "NOTES_1": "Welk type data wil je de computer leren om te herkennen?",
             "NOTES_2": "Voor woorden, zinnen of paragrafen, kies \"tekst\"",
             "NOTES_3": "Voor foto's, diagrammen en figuren, kies \"afbeelding\"",
-            "NOTES_4": "Voor groepen van cijfers of meerkeuzes, kies \"getal\""
+            "NOTES_4": "Voor groepen van cijfers of meerkeuzes, kies \"getal\"",
+            "NOTES_5": "For voices and sounds, choose \"sounds\""
         },
         "LANGUAGE": {
             "LABEL": "Taal",
@@ -235,7 +236,8 @@
             "PATTERNURL": "Dit moet het webadres zijn van een afbeelding",
             "WEBCAMFAIL": "Sorry! We kregen geen toegang tot je webcam.",
             "WEBCAMERROR": "Het bericht dat we kregen van je webbrowser was: "
-        }
+        },
+        "BACKGROUNDNOISE": "Collecting examples of background noise will help the computer to learn to recognize your sounds"
     },
     "MODELS": {
         "TITLE": "Machine learning modellen",
@@ -253,12 +255,14 @@
                 "CROWDSOURCED" : {
                     "TEXT" : "Je klas is een machine learning model aan het trainen op basis van de tekstvoorbeelden die jullie samen verzamelden.",
                     "IMAGES" : "Je klas is een machine learning model aan het trainen op basis van de afbeeldingen die jullie samen verzamelden.",
-                    "NUMBERS" : "Je klas is een machine learning model aan het trainen op basis van de getallen die jullie samen verzamelden."
+                    "NUMBERS" : "Je klas is een machine learning model aan het trainen op basis van de getallen die jullie samen verzamelden.",
+                    "SOUNDS" : "Your class is training a machine learning model using the examples of sounds that you all collected."
                 },
                 "INDIVIDUAL" : {
                     "TEXT" : "Je bent gestart met het trainen van een machine learning model op basis van de tekstvoorbeelden die je hebt verzameld.",
                     "IMAGES" : "Je bent gestart met het trainen van een machine learning model op basis van de afbeeldingen die je hebt verzameld.",
-                    "NUMBERS" : "Je bent gestart met het trainen van een machine learning model op basis van de getallen die je hebt verzameld."
+                    "NUMBERS" : "Je bent gestart met het trainen van een machine learning model op basis van de getallen die je hebt verzameld.",
+                    "SOUNDS" : "You've started training a machine learning model using the examples of sounds that you collected."
                 },
                 "SINCE": "De training is bezig sinds"
             },
@@ -266,12 +270,14 @@
                 "CROWDSOURCED" : {
                     "TEXT" : "Je klas heeft een machine learning model getraind om de herkennen wanneer de tekst gelijk is aan ",
                     "IMAGES" : "Je klas heeft een machine learning model getraind om te herkennen wanneer afbeeldingen gelijk zijn aan",
-                    "NUMBERS" : "Je klas heeft een machine learning model getraind om te herkennen wanneer getallen gelijk zijn aan"
+                    "NUMBERS" : "Je klas heeft een machine learning model getraind om te herkennen wanneer getallen gelijk zijn aan",
+                    "SOUNDS" : "Your class has trained a machine learning model to recognise when sounds are "
                 },
                 "INDIVIDUAL" : {
                     "TEXT" : "Je hebt een machine learning model getraind om te herkennen wanneer tekst gelijk is aan",
                     "IMAGES" : "Je hebt een machine learning model getraind om te herkennen wanneer afbeeldingen gelijk zijn aan",
-                    "NUMBERS" : "Je hebt een machine learning model getraind om te herkennen wanneer getallen gelijk zijn aan "
+                    "NUMBERS" : "Je hebt een machine learning model getraind om te herkennen wanneer getallen gelijk zijn aan ",
+                    "SOUNDS" : "You have trained a machine learning model to recognise when sounds are "
                 },
                 "CREATED" : {
                     "TEACHER" : "Je leerkracht creëerde een model om ",
@@ -287,18 +293,21 @@
                     "CLASS" : {
                         "TEXT" : "Je leerkracht probeerde om een machine learning model te trainen op basis van de tekstvoorbeelden die je klas verzamelde.",
                         "IMAGES" : "Je leerkracht probeerde om een machine learning model te trainen op basis van de afbeeldingen die je klas verzamelde.",
-                        "NUMBERS" : "Je leerkracht probeerde om een machine learning model te trainen op basis van de getallen die je klas verzamelde."
+                        "NUMBERS" : "Je leerkracht probeerde om een machine learning model te trainen op basis van de getallen die je klas verzamelde.",
+                        "SOUNDS" : "Your teacher tried training a machine learning model using the examples of sounds that your class collected."
                     },
                     "YOU" : {
                         "TEXT" : "Je probeerde een machine learning model te trainen op basis van de tekstvoorbeelden die je klas verzamelde.",
                         "IMAGES" : "Je probeerde een machine learning model te trainen op basis van de afbeeldingen die je klas verzamelde.",
-                        "NUMBERS" : "Je probeerde een machine learning model te trainen op basis van de getallen die je klas verzamelde."
+                        "NUMBERS" : "Je probeerde een machine learning model te trainen op basis van de getallen die je klas verzamelde.",
+                        "SOUNDS" : "You tried training a machine learning model using the examples of sounds that your class collected."
                     }
                 },
                 "INDIVIDUAL" : {
                     "TEXT" : "Je probeerde een machine learning model te trainen op basis van de tekstvoorbeelden die je verzamelde.",
                     "IMAGES" : "Je probeerde een machine learning model te trainen op basis van de afbeeldingen die je verzamelde.",
-                    "NUMBERS" : "Je probeerde een machine learning model te trainen op basis van de getallen die je verzamelde."
+                    "NUMBERS" : "Je probeerde een machine learning model te trainen op basis van de getallen die je verzamelde.",
+                    "SOUNDS" : "You tried training a machine learning model using the examples of sounds that you collected."
                 }
             },
             "IDLE" : {
@@ -306,24 +315,28 @@
                     "CROWDSOURCED" : {
                         "TEXT" : "Je klas zei dat je tekstvoorbeelden wilt verzamelen.",
                         "IMAGES" : "Je klas zei dat je afbeeldingen wilt verzamelen.",
-                        "NUMBERS" : "Je klas zei dat je getallen wilt verzamelen."
+                        "NUMBERS" : "Je klas zei dat je getallen wilt verzamelen.",
+                        "SOUNDS" : "Your class said you want to collect examples of sounds."
                     },
                     "INDIVIDUAL" : {
                         "TEXT" : "Je hebt gezegd dat je tekstvoorbeelden wilde verzamelen.",
                         "IMAGES" : "Je hebt gezegd dat je afbeeldingen wilde verzamelen.",
-                        "NUMBERS" : "Je hebt gezegd dat je getallen wilde verzamelen."
+                        "NUMBERS" : "Je hebt gezegd dat je getallen wilde verzamelen.",
+                        "SOUNDS" : "You've said you want to collect examples of sounds."
                     }
                 },
                 "NODATA" : {
                     "CROWDSOURCED" : {
                         "TEXT" : "Je klas zei dat je tekstvoorbeelden wilde verzamelen om te herkennen wanneer de tekst gelijk is aan ",
                         "IMAGES" : "Je klas zei dat je voorbeelden van afbeeldingen wilde verzamelen om te herkennen wanneer de afbeeldingen gelijk zijn aan ",
-                        "NUMBERS" : "Je klas zei dat je voorbeelden van getallen wilde verzamelen om te herkennen wanneer getallen gelijk zijn aan  "
+                        "NUMBERS" : "Je klas zei dat je voorbeelden van getallen wilde verzamelen om te herkennen wanneer getallen gelijk zijn aan  ",
+                        "SOUNDS" : "Your class said that you want to collect examples of sounds for a computer to recognise when sounds are "
                     },
                     "INDIVIDUAL" : {
                         "TEXT" : "Je zei zei dat je tekstvoorbeelden wilde verzamelen om te herkennen wanneer de tekst gelijk is aan ",
                         "IMAGES" : "Je zei dat je voorbeelden van afbeeldingen wilde verzamelen om te herkennen wanneer de afbeeldingen gelijk zijn aan ",
-                        "NUMBERS" : "Je zei dat je voorbeelden van getallen wilde verzamelen om te herkennen wanneer getallen gelijk zijn aan  "
+                        "NUMBERS" : "Je zei dat je voorbeelden van getallen wilde verzamelen om te herkennen wanneer getallen gelijk zijn aan  ",
+                        "SOUNDS" : "You said that you want to collect examples of sounds for a computer to recognise when sounds are "
                     }
                 },
                 "NOEXAMPLES" : {
@@ -334,12 +347,14 @@
                     "CROWDSOURCED" : {
                         "TEXT" : "Je klas heeft tekstvoorbeelden verzameld voor de computer om te herkennen wanneer de tekst gelijk is aan ",
                         "IMAGES" : "Je klas heeft voorbeelden van afbeeldingen verzameld voor de computer om te herkennen wanneer de afbeeldingen gelijk zijn aan ",
-                        "NUMBERS" : "Je klas heeft voorbeelden van getallen verzameld voor de computer om te herkennen wanneer de getallen gelijk zijn aan "
+                        "NUMBERS" : "Je klas heeft voorbeelden van getallen verzameld voor de computer om te herkennen wanneer de getallen gelijk zijn aan ",
+                        "SOUNDS" : "Your class has collected examples of sounds for a computer to use to recognise when sounds are "
                     },
                     "INDIVIDUAL" : {
                         "TEXT" : "Je hebt tekstvoorbeelden verzameld voor de computer om te herkennen wanneer de tekst gelijk is aan ",
                         "IMAGES" : "Je hebt voorbeelden van afbeeldingen verzameld voor de computer om te herkennen wanneer de afbeeldingen gelijk zijn aan ",
-                        "NUMBERS" : "Je hebt voorbeelden van getallen verzameld voor de computer om te herkennen wanneer de getallen gelijk zijn aan "
+                        "NUMBERS" : "Je hebt voorbeelden van getallen verzameld voor de computer om te herkennen wanneer de getallen gelijk zijn aan ",
+                        "SOUNDS" : "You have collected examples of sounds for a computer to use to recognise when sounds are "
                     },
                     "COLLECTED" : {
                         "CLASS" : "De klas heeft verzameld: ",
@@ -390,7 +405,8 @@
                 "TEST" : {
                     "TEXT" : "Probeer het machine learning model hieronder te testen. Geef een voorbeeldtekst in die niet in de gebruikte voorbeelden van de training zat. Het zal je vertellen wat het herkent en hoe zeker het is dat het juist is.",
                     "IMAGES" : "Probeer het onderstaande machine learning model. Vul hieronder een voorbeeldafbeelding in die je niet gebruikte om het model te trainen. Het zal je vertellen wat het herkent en hoe zeker het daarvan is. ",
-                    "NUMBERS" : "Probeer het onderstaande machine learning model. Vul enkele voorbeeldgetallen hieronder in die je niet gebruikte om het model te trainen. Het zal je vertellen wat het herkent en hoe zeker het daarvan is."
+                    "NUMBERS" : "Probeer het onderstaande machine learning model. Vul enkele voorbeeldgetallen hieronder in die je niet gebruikte om het model te trainen. Het zal je vertellen wat het herkent en hoe zeker het daarvan is.",
+                    "SOUNDS" : "Try testing the machine learning model below. Click the 'Start listening' button. If your machine learning model recognises any sounds, it will tell you what it recognises it as, and how confident it is in that."
                 },
                 "SCRATCH" : "Als het erop lijkt dat de computer heeft geleerd om dingen correct te herkennen, ga dan naar Scratch en gebruik wat de computer heeft geleerd om een spel te maken!",
                 "ADDITIONAL_TRAINING" : {
@@ -418,12 +434,15 @@
             "INTRO": {
                 "TEXT": "Probeer wat tekst in te geven om te zien hoe het wordt herkend op basis van de training.",
                 "IMAGES": "Probeer een afbeelding in te geven om te zien hoe het wordt herkend op basis van de training.",
-                "NUMBERS": "Probeer om een aantal getallen in te geven om te zien hoe ze herkend worden op basis van de training."
+                "NUMBERS": "Probeer om een aantal getallen in te geven om te zien hoe ze herkend worden op basis van de training.",
+                "SOUNDS": "Try making a sound to see how it is recognised based on your training"
             },
             "WEBCAM": "Test met <strong>webcam</strong>",
             "DRAWING": "Test door <strong>te tekenen</strong>",
             "WWW": "Test met <strong>www</strong>",
-            "RECOGNISED": "Herkend als  <strong>{{ testoutput }}</strong>"
+            "RECOGNISED": "Herkend als  <strong>{{ testoutput }}</strong>",
+            "STARTLISTENING": "Start listening",
+            "STOPLISTENING": "Stop listening"
         },
         "QUIZ": {
             "TITLE": "Tijd voor een quiz!",
@@ -498,7 +517,8 @@
 
             "TEXT": "tekst",
             "IMAGES": "afbeeldingen",
-            "NUMBERS": "getallen"
+            "NUMBERS": "getallen",
+            "SOUNDS": "sounds"
         },
 
         "LEVELS": {
@@ -649,6 +669,11 @@
             "TITLE": "Zoek het!",
             "SUMMARY": "Leer een computer afbeeldingen herkennen",
             "DESCRIPTION": "Maak een verstoppertjes spel voor je smartphone"
+        },
+        "ALIENLANGUAGE": {
+            "TITLE": "Alien Language",
+            "SUMMARY": "Teach a computer to recognize sounds",
+            "DESCRIPTION": "Make an alien in Scratch that learns to recognize an alien language"
         }
     },
     "TEACHER": {

@@ -26,7 +26,13 @@
 
     <div ng-if="projectId && !scratchkey" class="loading"> </div>
 
-    <div ng-if="project && project.labels.length <= 1" class="modelguidancecontainer">
+    <div ng-if="project && project.type === 'sounds'" class="modelguidancecontainer">
+        <div class="modelguidance">
+            App Inventor cannot be used with sounds projects.
+        </div>
+    </div>
+
+    <div ng-if="project && project.labels.length <= 1 && project.type !== 'sounds'" class="modelguidancecontainer">
         <div class="modelguidance">
             <div class="modelstatusdetail" translate="APPINVENTOR.NOTREADY"></div>
             <div class="modelstatusdetail">
@@ -36,20 +42,20 @@
         </div>
     </div>
 
-    <div ng-if="project && project.labels.length > 1 && scratchkey && !scratchkey.model" style="margin: 2em;">
+    <div ng-if="project && project.labels.length > 1 && scratchkey && !scratchkey.model  && project.type !== 'sounds'" style="margin: 2em;">
         <div class="alert alert-info" role="alert" translate="APPINVENTOR.NOMODEL"></div>
         <div>
             You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId, userId : userId })">train one now</a></strong> and then come back to start your App Inventor project.
         </div>
     </div>
 
-    <div ng-if="project && project.labels.length > 1 && scratchkey && scratchkey.model"
+    <div ng-if="project && project.labels.length > 1 && scratchkey && scratchkey.model  && project.type !== 'sounds'"
          class="alert alert-warning pageheadermsg" role="alert" style="margin-top: 1em">
         <strong translate="APP.WARNING"></strong> {{ 'APPINVENTOR.BETAWARNING' | translate }}
     </div>
 
 
-    <div ng-if="project && project.labels.length > 1 && scratchkey && scratchkey.model"
+    <div ng-if="project && project.labels.length > 1 && scratchkey && scratchkey.model  && project.type !== 'sounds'"
          class="modelguidancecontainer">
 
         <div class="modelguidance">

@@ -42,9 +42,13 @@
                     var scratchkey = resp[0];
 
                     scratchkey.extensionurl = window.location.origin +
-                                            '/api/scratch/' +
-                                            scratchkey.id +
-                                            '/extension3.js'
+                                              '/api/scratch/' +
+                                              scratchkey.id +
+                                              '/extension3.js'
+
+                    if ($scope.project.type === 'sounds') {
+                        scratchkey.model = 'placeholder';
+                    }
 
                     $scope.scratchkey = scratchkey;
                 })

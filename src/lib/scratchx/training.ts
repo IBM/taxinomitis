@@ -127,6 +127,18 @@ async function storeImages(key: Types.ScratchKey, label: string, base64imagedata
 
 
 
+async function storeSound(key: Types.ScratchKey): Promise<Types.SoundTraining>
+{
+    throw new Error('Not implemented yet');
+}
+
+
+
+
+
+
+
+
 export function storeTrainingData(scratchKey: Types.ScratchKey, label: string, data: any): Promise<any>
 {
     switch (scratchKey.type) {
@@ -141,5 +153,7 @@ export function storeTrainingData(scratchKey: Types.ScratchKey, label: string, d
     }
     case 'images':
         return storeImages(scratchKey, label, data as string);
+    case 'sounds':
+        return storeSound(scratchKey);
     }
 }

@@ -7,6 +7,7 @@
     TrainingController.$inject = [
         'authService',
         'projectsService', 'trainingService',
+        'soundTrainingService',
         '$stateParams',
         '$scope',
         '$mdDialog',
@@ -15,11 +16,10 @@
         '$q'
     ];
 
-    function TrainingController(authService, projectsService, trainingService, $stateParams, $scope, $mdDialog, $state, $timeout, $q) {
+    function TrainingController(authService, projectsService, trainingService, soundTrainingService, $stateParams, $scope, $mdDialog, $state, $timeout, $q) {
 
         var vm = this;
         vm.authService = authService;
-
 
         var placeholderId = 1;
 
@@ -50,6 +50,9 @@
         $scope.userId = $stateParams.userId;
         $scope.training = {};
 
+
+
+
         authService.getProfileDeferred()
             .then(function (profile) {
                 vm.profile = profile;
@@ -65,8 +68,15 @@
                 if (project.type === 'numbers') {
                     return projectsService.getFields($scope.projectId, $scope.userId, vm.profile.tenant);
                 }
+                else if (project.type === 'sounds') {
+                    return soundTrainingService.initSoundSupport(project.id);
+                }
             })
             .then(function (fields) {
+                if ($scope.project.type === 'sounds') {
+                    $scope.soundModelInfo = soundTrainingService.getModelInfo();
+                }
+
                 $scope.project.fields = fields;
 
                 refreshLabelsSummary();
@@ -103,22 +113,31 @@
         function refreshLabelsSummary () {
             var summary = '';
             if ($scope.project.labels.length > 0) {
-                switch ($scope.project.labels.length) {
+                var labels = $scope.project.type === 'sounds' ?
+                    $scope.project.labels.filter(function (label) {
+                        return label !== '_background_noise_';
+                    }) :
+                    $scope.project.labels;
+
+                switch (labels.length) {
+                    case 0:
+                        summary = '';
+                        break;
                     case 1:
-                        summary = $scope.project.labels[0];
+                        summary = labels[0];
                         break;
                     case 2:
-                        summary = $scope.project.labels[0] + ' or ' + $scope.project.labels[1];
+                        summary = labels[0] + ' or ' + labels[1];
                         break;
                     case 3:
-                        summary = $scope.project.labels[0] + ', ' +
-                                    $scope.project.labels[1] + ' or ' +
-                                    $scope.project.labels[2];
+                        summary = labels[0] + ', ' +
+                                  labels[1] + ' or ' +
+                                  labels[2];
                         break;
                     default:
-                        summary = $scope.project.labels[0] + ', ' +
-                                    $scope.project.labels[1] + ' or ' +
-                                    ($scope.project.labels.length - 2) + ' other classes';
+                        summary = labels[0] + ', ' +
+                                  labels[1] + ' or ' +
+                                  (labels.length - 2) + ' other classes';
                         break;
                 }
             }
@@ -136,11 +155,15 @@
             $mdDialog.show({
                 locals : {
                     label : label,
-                    project : $scope.project
+                    project : $scope.project,
+
+                    // only used for sound projects
+                    soundModelInfo : soundTrainingService.getModelInfo(),
                 },
                 controller : function ($scope, locals) {
                     $scope.label = locals.label;
                     $scope.project = locals.project;
+                    $scope.soundModelInfo = locals.soundModelInfo;
                     $scope.values = {};
 
                     $scope.hide = function() {
@@ -160,11 +183,43 @@
                         }
                     };
 
-                    $scope.$watch('example', function (newval, oldval) {
-                        if ($scope && $scope.example && newval !== oldval) {
-                            $scope.example = newval.replace(/[\r\n\t]/g, ' ');
-                        }
-                    }, true);
+                    $scope.recordSound = function(label) {
+                        delete $scope.example;
+                        $scope.recording = true;
+
+                        $scope.recordingprogress = 0;
+                        var progressInterval = setInterval(function () {
+                            $scope.$apply(
+                                function() {
+                                    $scope.recordingprogress += 10;
+                                });
+                        }, 1000 / 10);
+
+                        soundTrainingService.collectExample(label)
+                            .then(function (spectogram) {
+                                clearInterval(progressInterval);
+                                $scope.$apply(
+                                    function() {
+                                        $scope.recordingprogress = 100;
+                                        if (spectogram && spectogram.data && spectogram.data.length > 0) {
+                                            $scope.example = spectogram.data;
+                                        }
+                                        $scope.recording = false;
+                                    });
+                            })
+                            .catch(function () {
+                                clearInterval(progressInterval);
+                                $scope.recording = false;
+                            });
+                    };
+
+                    if (locals.project.type !== 'sounds') {
+                        $scope.$watch('example', function (newval, oldval) {
+                            if ($scope && $scope.example && newval !== oldval) {
+                                $scope.example = newval.replace(/[\r\n\t]/g, ' ');
+                            }
+                        }, true);
+                    }
                 },
                 templateUrl : 'static/components-' + $stateParams.VERSION + '/training/trainingdata.tmpl.html',
                 targetEvent : ev,
@@ -229,6 +284,17 @@
                     isPlaceholder : true
                 };
             }
+            else if ($scope.project.type === 'sounds') {
+                data = Array.prototype.slice.call(resp);
+
+                placeholder = {
+                    id : placeholderId++,
+                    label : label,
+                    projectid : $scope.projectId,
+                    audiodata : data,
+                    isPlaceholder : true
+                };
+            }
 
             if (duplicate) {
                 return displayAlert('errors', 400, {
@@ -281,7 +347,7 @@
         };
 
 
-        vm.addLabel = function (ev, project) {
+        vm.addLabel = function (ev) {
             $mdDialog.show({
                 controller : function ($scope, $mdDialog) {
                     $scope.hide = function () {

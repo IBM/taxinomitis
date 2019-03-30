@@ -479,6 +479,27 @@ describe('REST API - models', () => {
         });
 
 
+        it('should retrieve sound classifiers', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'sounds', 'demo', 'en', [], false);
+            const projectid = project.id;
+
+            nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
+            return request(testServer)
+                .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK)
+                .then(async (res) => {
+                    assert.deepStrictEqual(res.body, []);
+                    await store.deleteEntireProject(userid, classid, project);
+                });
+        });
+
+
         it('should retrieve text classifiers', async () => {
             const classid = uuid();
             const userid = uuid();
@@ -777,6 +798,34 @@ describe('REST API - models', () => {
                         status : 'Training',
                         classifierid : 'NEW-CREATED',
                         credentialsid : '123',
+                    });
+
+                    return store.deleteEntireUser(userid, classid);
+                });
+        });
+
+
+
+        it('should refuse to train sound classifiers', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = uuid();
+
+            const project = await store.storeProject(userid, classid, 'sounds', projName, 'en', [], false);
+            const projectid = project.id;
+
+            nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
+            return request(testServer)
+                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.NOT_IMPLEMENTED)
+                .then((res) => {
+                    const body = res.body;
+
+                    assert.deepStrictEqual(body, {
+                        error : 'Not implemented',
                     });
 
                     return store.deleteEntireUser(userid, classid);
@@ -1260,6 +1309,36 @@ describe('REST API - models', () => {
         });
 
 
+        it('should refuse to test sound models', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = uuid();
+            const modelid = randomstring.generate({ length : 10 });
+
+            const project = await store.storeProject(userid, classid, 'sounds', projName, 'en', [], false);
+            const projectid = project.id;
+
+            nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
+
+            return request(testServer)
+                .post('/api/classes/' + classid +
+                      '/students/' + userid +
+                      '/projects/' + projectid +
+                      '/models/' + modelid + '/label')
+                .send({
+                    numbers : [1, 2, 3],
+                    type : 'sounds',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.NOT_IMPLEMENTED)
+                .then((res) => {
+                    return store.deleteEntireUser(userid, classid);
+                });
+        });
+
+
         it('should submit a URL classify request to Visual Recognition', async () => {
 
             const classid = uuid();
@@ -1600,6 +1679,30 @@ describe('REST API - models', () => {
                         '/projects/' + projectid +
                         '/models/' + modelid)
                 .expect(httpstatus.NO_CONTENT)
+                .then(async () => {
+                    await store.deleteEntireUser(userid, classid);
+                });
+        });
+
+
+        it('should refuse to delete sound classifiers', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = uuid();
+            const modelid = randomstring.generate({ length : 10 });
+
+            const project = await store.storeProject(userid, classid, 'sounds', projName, 'en', [], false);
+            const projectid = project.id;
+
+            nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
+            return request(testServer)
+                .delete('/api/classes/' + classid +
+                        '/students/' + userid +
+                        '/projects/' + projectid +
+                        '/models/' + modelid)
+                .expect(httpstatus.NOT_FOUND)
                 .then(async () => {
                     await store.deleteEntireUser(userid, classid);
                 });

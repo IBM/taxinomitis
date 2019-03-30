@@ -25,6 +25,7 @@
             'WORKSHEETS.FACELOCK.TITLE', 'WORKSHEETS.FACELOCK.SUMMARY', 'WORKSHEETS.FACELOCK.DESCRIPTION',
             'WORKSHEETS.JOURNEYTOSCHOOL.TITLE', 'WORKSHEETS.JOURNEYTOSCHOOL.SUMMARY', 'WORKSHEETS.JOURNEYTOSCHOOL.DESCRIPTION',
             'WORKSHEETS.SHYPANDA.TITLE', 'WORKSHEETS.SHYPANDA.SUMMARY', 'WORKSHEETS.SHYPANDA.DESCRIPTION',
+            'WORKSHEETS.ALIENLANGUAGE.TITLE', 'WORKSHEETS.ALIENLANGUAGE.SUMMARY', 'WORKSHEETS.ALIENLANGUAGE.DESCRIPTION',
             'WORKSHEETS.VIRTUALPET.TITLE', 'WORKSHEETS.VIRTUALPET.SUMMARY', 'WORKSHEETS.VIRTUALPET.DESCRIPTION',
             'WORKSHEETS.PACMAN.TITLE', 'WORKSHEETS.PACMAN.SUMMARY', 'WORKSHEETS.PACMAN.DESCRIPTION',
             'WORKSHEETS.CHATBOTS.TITLE', 'WORKSHEETS.CHATBOTS.SUMMARY', 'WORKSHEETS.CHATBOTS.DESCRIPTION',
@@ -208,6 +209,22 @@
                     downloads : [
                         {
                             worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.ALIENLANGUAGE.TITLE'],
+                    summary : translations['WORKSHEETS.ALIENLANGUAGE.SUMMARY'],
+                    description : translations['WORKSHEETS.ALIENLANGUAGE.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'sounds',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-alienlanguage.png',
+                    tags : [ 'sound recognition', 'supervised learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-alienlanguage.pdf',
+                    downloads : [
+                        {
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-alienlanguage.pdf'
                         }
                     ]
                 },

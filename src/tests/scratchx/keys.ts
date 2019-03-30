@@ -160,4 +160,18 @@ describe('Scratchx - keys', () => {
         });
     });
 
+
+    describe('sound projects', () => {
+
+        it('should create an empty key', async () => {
+            const project = await store.storeProject(uuid(), TESTCLASS, 'sounds', 'test project', 'en', [], false);
+            const key = await keys.createKey(project.id);
+            assert(key.id);
+            assert(!key.model);
+            const scratchkey = await store.getScratchKey(key.id);
+            assert.strictEqual(scratchkey.name, project.name);
+            await store.deleteScratchKey(key.id);
+        });
+    });
+
 });

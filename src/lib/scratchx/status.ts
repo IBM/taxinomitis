@@ -23,6 +23,8 @@ export function getStatus(scratchKey: Types.ScratchKey): Promise<ScratchTypes.St
         return getImageClassifierStatus(scratchKey);
     case 'numbers':
         return getNumbersClassifierStatus(scratchKey);
+    case 'sounds':
+        return getSoundClassifierStatus(scratchKey);
     }
 }
 
@@ -116,4 +118,8 @@ async function getImageClassifierStatus(scratchKey: Types.ScratchKey): Promise<S
 
 function getNumbersClassifierStatus(scratchKey: Types.ScratchKey): Promise<ScratchTypes.Status> {
     return Promise.resolve({ status : 2, msg : 'Status for ' + scratchKey.name });
+}
+
+function getSoundClassifierStatus(scratchKey: Types.ScratchKey): Promise<ScratchTypes.Status> {
+    return Promise.resolve({ status : 0, msg : 'Classifier not found' });
 }

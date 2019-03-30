@@ -9,6 +9,7 @@ import * as dbobjects from '../db/objects';
 import * as users from '../auth0/users';
 import * as Users from '../auth0/auth-types';
 import * as urls from './urls';
+import * as sound from '../training/sound';
 import * as errors from './errors';
 import * as headers from './headers';
 import loggerSetup from '../utils/logger';
@@ -130,6 +131,11 @@ async function createProject(req: Express.Request, res: Express.Response) {
             req.body.language,
             req.body.fields,
             crowdsourced);
+
+
+        if (project.type === 'sounds') {
+            await store.addLabelToProject(userid, classid, project.id, sound.BACKGROUND_NOISE);
+        }
         return res.status(httpstatus.CREATED).json(project);
     }
     catch (err) {

@@ -36,7 +36,7 @@
 
     <div ng-if="project">
         <div style="height: 60px;">
-            <div class="newlabelbutton" ng-click="vm.addLabel($event, project)" ng-hide="crowdSourced">
+            <div class="newlabelbutton" ng-click="vm.addLabel($event)" ng-hide="crowdSourced">
                 <div class="newlabelicon">+</div>
                 <div class="newlabellabel" translate="TRAINING.ADDLABEL"></div>
             </div>
@@ -54,11 +54,11 @@
         <div class="trainingbuckets">
             <div class="trainingbucket" ng-repeat="label in project.labels">
                 <div class="trainingbucketheader">
-                    <span class="trainingbucketlabel">{{label}}</span>
+                    <span class="trainingbucketlabel">{{ label === '_background_noise_' ? 'background noise' : label }}</span>
                 </div>
                 <span class="glyphicon glyphicon-remove-circle deletelabel"
                       aria-hidden="true"
-                      ng-hide="crowdSourced"
+                      ng-hide="crowdSourced || label === '_background_noise_'"
                       ng-click="vm.deleteLabel($event, label, $index)"></span>
                 <div class="trainingbucketitems" ng-if="project.type === 'text'">
                     <div class="loadingtraining" ng-if="loadingtraining"> </div>
@@ -104,8 +104,18 @@
                              ml-image-on-error="vm.onImageError(item)">
                     </div>
                 </div>
+                <div class="trainingbucketitems" ng-if="project.type === 'sounds'">
+                    <div ng-if="label === '_background_noise_'" style="text-align: center; padding: 0.5em;" translate="TRAINING.BACKGROUNDNOISE"></div>
+                    <div class="loadingtraining" ng-if="loadingtraining"> </div>
+                    <div class="trainingbucketitem" ng-repeat="item in training[label]" ng-class="{ placeholder : item.isPlaceholder }" id="{{item.id}}">
+                        <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true"
+                              ng-click="vm.deleteText(label, item, $index)"
+                              ng-if="!item.isPlaceholder"></span>
+                        <mlsoundvis spectogram="item.audiodata" modelinfo="soundModelInfo"></mlsoundvis>
+                    </div>
+                </div>
                 <div style="text-align: center; height: 45px;">
-                    <div class="btn newexamplebutton" ng-click="vm.addTrainingData($event, label)" ng-if="project.type !== 'images'">
+                    <div class="btn newexamplebutton" ng-click="vm.addTrainingData($event, label)" ng-if="project.type === 'text' || project.type === 'numbers'">
                         <div class="newexampleicon">+</div>
                         <div class="newexamplelabel" translate="TRAINING.ADDEXAMPLE"></div>
                     </div>
@@ -129,6 +139,10 @@
                             <span class="glyphicon glyphicon-pencil"></span>
                             {{ 'TRAINING.ADDDRAWING' | translate }}
                         </div>
+                    </div>
+                    <div class="btn newexamplebutton" ng-click="vm.addTrainingData($event, label)" ng-if="project.type === 'sounds'" ng-disabled="loadingtraining">
+                        <div class="newexampleicon">+</div>
+                        <div class="newexamplelabel" translate="TRAINING.ADDEXAMPLE"></div>
                     </div>
                 </div>
                 <div class="trainingcountlabel" ng-if="training[label].length > 0">{{ training[label].length }}</div>

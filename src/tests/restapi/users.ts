@@ -85,6 +85,7 @@ describe('REST API - users', () => {
                         numberTrainingItemsPerProject : 1000,
                         numberTrainingItemsPerClassProject : 3000,
                         imageTrainingItemsPerProject : 100,
+                        soundTrainingItemsPerProject : 100,
                     });
 
                     stubs.getOauthToken.restore();

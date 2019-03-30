@@ -64,6 +64,9 @@ async function getTraining(req: auth.RequestWithProject, res: Express.Response) 
         case 'images':
             training = await store.getImageTraining(req.project.id, options);
             break;
+        case 'sounds':
+            training = await store.getSoundTraining(req.project.id, options);
+            break;
         }
 
         res.set('Content-Range',
@@ -162,6 +165,9 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
             await imageCheck.verifyImage(data, visrec.getMaxImageFileSize());
             training = await store.storeImageTraining(req.project.id, data, label, false);
             break;
+        case 'sounds':
+            training = await store.storeSoundTraining(req.project.id, data, label);
+            break;
         }
 
         res.status(httpstatus.CREATED).json(training);
@@ -176,7 +182,10 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
             err.message === 'Missing required attributes' ||
             err.message.startsWith(imageCheck.ERROR_PREFIXES.BAD_TYPE) ||
             err.message.startsWith('Unable to download image from ') ||
-            err.message.startsWith(imageCheck.ERROR_PREFIXES.TOO_BIG))
+            err.message.startsWith(imageCheck.ERROR_PREFIXES.TOO_BIG) ||
+            err.message === 'Empty audio is not allowed' ||
+            err.message === 'Audio exceeds maximum allowed length' ||
+            err.message === 'Invalid audio input')
         {
             return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
         }

@@ -139,6 +139,14 @@ async function classifyNumbers(key: Types.ScratchKey, numbers: string[]): Promis
 
 
 
+async function classifySound(key: Types.ScratchKey): Promise<TrainingTypes.Classification[]> {
+    const err: any = new Error('Sound classification is only available in the browser');
+    err.statusCode = 400;
+    throw err;
+}
+
+
+
 
 
 export function classify(scratchKey: Types.ScratchKey, data: any): Promise<TrainingTypes.Classification[]> {
@@ -149,5 +157,7 @@ export function classify(scratchKey: Types.ScratchKey, data: any): Promise<Train
         return classifyImage(scratchKey, data as string);
     case 'numbers':
         return classifyNumbers(scratchKey, data as string[]);
+    case 'sounds':
+        return classifySound(scratchKey);
     }
 }

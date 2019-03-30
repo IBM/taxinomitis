@@ -43,24 +43,30 @@
                     for (var i = 0; i < vm.projects.length; i++) {
                         var project = vm.projects[i];
 
-                        if (project.labels.length > 0) {
+                        var labels = project.type === 'sounds' ?
+                            project.labels.filter(function (label) {
+                                return label !== '_background_noise_';
+                            }) :
+                            project.labels;
+
+                        if (labels.length > 0) {
                             var summary = '';
-                            switch (project.labels.length) {
+                            switch (labels.length) {
                                 case 1:
-                                    summary = project.labels[0];
+                                    summary = labels[0];
                                     break;
                                 case 2:
-                                    summary = project.labels[0] + ' or ' + project.labels[1];
+                                    summary = labels[0] + ' or ' + labels[1];
                                     break;
                                 case 3:
-                                    summary = project.labels[0] + ', ' +
-                                              project.labels[1] + ' or ' +
-                                              project.labels[2];
+                                    summary = labels[0] + ', ' +
+                                              labels[1] + ' or ' +
+                                              labels[2];
                                     break;
                                 default:
-                                    summary = project.labels[0] + ', ' +
-                                              project.labels[1] + ' or ' +
-                                              (project.labels.length - 2) + ' other classes';
+                                    summary = labels[0] + ', ' +
+                                              labels[1] + ' or ' +
+                                              (labels.length - 2) + ' other classes';
                                     break;
                             }
                             project.labelsSummary = summary;

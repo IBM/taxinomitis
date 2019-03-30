@@ -147,7 +147,8 @@
             "NOTES_1": "Was möchtest du dem Computer beibringen? Was soll der Computer erkennen?",
             "NOTES_2": "Wähle \"Text\" für Wörter, Sätze oder Paragraphen",
             "NOTES_3": "Wähle \"Bilder\" für Fotos, Diagramme und Bilder",
-            "NOTES_4": "Wähle \"Zahlen\" für Zahlen oder Multiple Choice"
+            "NOTES_4": "Wähle \"Zahlen\" für Zahlen oder Multiple Choice",
+            "NOTES_5": "For voices and sounds, choose \"sounds\""
         },
         "LANGUAGE": {
             "LABEL": "Sprache",
@@ -235,7 +236,8 @@
             "PATTERNURL": "Hier muss die URL von einem Bild hin",
             "WEBCAMFAIL": "Entschuldigung! Wir konnten die Webcam für dich nicht aktivieren.",
             "WEBCAMERROR": "Die Nachricht, die wir von deinem Browser erhalten haben, ist:"
-        }
+        },
+        "BACKGROUNDNOISE": "Collecting examples of background noise will help the computer to learn to recognize your sounds"
     },
     "MODELS": {
         "TITLE": "Machine Learning Models",
@@ -253,12 +255,14 @@
                 "CROWDSOURCED" : {
                     "TEXT" : "Deine Klasse trainiert ein Machine Learning Model mit den Textbeispielen, die ihr gemeinsam gesammelt habt.",
                     "IMAGES" : "Deine Klasse trainiert ein Machine Learning Model mit den Beispielbildern, die ihr gemeinsam gesammelt habt.",
-                    "NUMBERS" : "Deine Klasse trainiert ein Machine Learning Model mit den Beispieldaten, die ihr gemeinsam gesammelt habt."
+                    "NUMBERS" : "Deine Klasse trainiert ein Machine Learning Model mit den Beispieldaten, die ihr gemeinsam gesammelt habt.",
+                    "SOUNDS" : "Your class is training a machine learning model using the examples of sounds that you all collected."
                 },
                 "INDIVIDUAL" : {
                     "TEXT" : "Du trainierst ein Machine Learning Model mit den Textbeispielen, die du gesammelt hast.",
                     "IMAGES" : "Du trainierst ein Machine Learning Model mit den Beispielbildern, die du gesammelt hast.",
-                    "NUMBERS" : "Du trainierst ein Machine Learning Model mit den Beispieldaten, die du gesammelt hast."
+                    "NUMBERS" : "Du trainierst ein Machine Learning Model mit den Beispieldaten, die du gesammelt hast.",
+                    "SOUNDS" : "You've started training a machine learning model using the examples of sounds that you collected."
                 },
                 "SINCE": "Das Training begann vor"
             },
@@ -266,12 +270,14 @@
                 "CROWDSOURCED" : {
                     "TEXT" : "Deine Klasse hat ein Machine Learning Model trainiert, das Text erkennt und folgende Kategorien unterscheidet: ",
                     "IMAGES" : "Deine Klasse hat ein Machine Learning Model trainiert, das Bilder erkennt und folgende Kategorien unterscheidet: ",
-                    "NUMBERS" : "Deine Klasse hat ein Machine Learning Model trainiert, das Zahlen erkennt und folgende Kategorien unterscheidet: "
+                    "NUMBERS" : "Deine Klasse hat ein Machine Learning Model trainiert, das Zahlen erkennt und folgende Kategorien unterscheidet: ",
+                    "SOUNDS" : "Your class has trained a machine learning model to recognise when sounds are "
                 },
                 "INDIVIDUAL" : {
                     "TEXT" : "Du hast ein Machine Learning Model trainiert, das Text erkennt und folgende Kategorien unterscheidet: ",
                     "IMAGES" : "Du hast ein Machine Learning Model trainiert, das Bilder erkennt und folgende Kategorien unterscheidet: ",
-                    "NUMBERS" : "Du hast ein Machine Learning Model trainiert, das Zahlen erkennt und folgende Kategorien unterscheidet: "
+                    "NUMBERS" : "Du hast ein Machine Learning Model trainiert, das Zahlen erkennt und folgende Kategorien unterscheidet: ",
+                    "SOUNDS" : "You have trained a machine learning model to recognise when sounds are "
                 },
                 "CREATED" : {
                     "TEACHER" : "Dein Lehrer erstellt das Model am ",
@@ -287,18 +293,21 @@
                     "CLASS" : {
                         "TEXT" : "Deine Lehrkraft hat versucht, ein Machine Learning Model mit den von euch gesammelten Textbeispielen, zu trainieren.",
                         "IMAGES" : "Deine Lehrkraft hat versucht, ein Machine Learning Model mit den von euch gesammelten Beispielbildern, zu trainieren.",
-                        "NUMBERS" : "Deine Lehrkraft hat versucht, ein Machine Learning Model mit den von euch gesammelten Beispieldaten, zu trainieren."
+                        "NUMBERS" : "Deine Lehrkraft hat versucht, ein Machine Learning Model mit den von euch gesammelten Beispieldaten, zu trainieren.",
+                        "SOUNDS" : "Your teacher tried training a machine learning model using the examples of sounds that your class collected."
                     },
                     "YOU" : {
                         "TEXT" : "Du hast versucht, ein Machine Learning Model mit den von euch gesammelten Textbeispielen, zu trainieren.",
                         "IMAGES" : "Du hast versucht, ein Machine Learning Model mit den von euch gesammelten Beispielbildern, zu trainieren.",
-                        "NUMBERS" : "Du hast versucht, ein Machine Learning Model mit den von euch gesammelten Beispieldaten, zu trainieren."
+                        "NUMBERS" : "Du hast versucht, ein Machine Learning Model mit den von euch gesammelten Beispieldaten, zu trainieren.",
+                        "SOUNDS" : "You tried training a machine learning model using the examples of sounds that your class collected."
                     }
                 },
                 "INDIVIDUAL" : {
                     "TEXT" : "Du hast versucht, ein Machine Learning Model mit den von dir gesammelten Textbeispielen, zu trainieren.",
                     "IMAGES" : "Du hast versucht, ein Machine Learning Model mit den von dir gesammelten Beispielbildern, zu trainieren.",
-                    "NUMBERS" : "Du hast versucht, ein Machine Learning Model mit den von dir gesammelten Beispieldaten, zu trainieren."
+                    "NUMBERS" : "Du hast versucht, ein Machine Learning Model mit den von dir gesammelten Beispieldaten, zu trainieren.",
+                    "SOUNDS" : "You tried training a machine learning model using the examples of sounds that you collected."
                 }
             },
             "IDLE" : {
@@ -306,24 +315,28 @@
                     "CROWDSOURCED" : {
                         "TEXT" : "Deine Klasse hat entschieden, dass ihr Textbeispiele sammeln wollt.",
                         "IMAGES" : "Deine Klasse hat entschieden, dass ihr Beispielbilder sammeln wollt.",
-                        "NUMBERS" : "Deine Klasse hat entschieden, dass ihr Beispieldaten sammeln wollt."
+                        "NUMBERS" : "Deine Klasse hat entschieden, dass ihr Beispieldaten sammeln wollt.",
+                        "SOUNDS" : "Your class said you want to collect examples of sounds."
                     },
                     "INDIVIDUAL" : {
                         "TEXT" : "Du hast gesagt, dass du Textbeispiele sammeln möchtest.",
                         "IMAGES" : "Du hast gesagt, dass du Beispielbilder sammeln möchtest.",
-                        "NUMBERS" : "Du hast gesagt, dass du Beispieldaten (Zahlen) sammeln möchtest."
+                        "NUMBERS" : "Du hast gesagt, dass du Beispieldaten (Zahlen) sammeln möchtest.",
+                        "SOUNDS" : "You've said you want to collect examples of sounds."
                     }
                 },
                 "NODATA" : {
                     "CROWDSOURCED" : {
                         "TEXT" : "Deine Klasse hat entschieden, dass ihr Textbeispiele sammeln wollt, damit der Computer folgende Kategorien unterscheidet: ",
                         "IMAGES" : "Deine Klasse hat entschieden, dass ihr Beispielbilder sammeln wollt, damit der Computer folgende Kategorien unterscheidet: ",
-                        "NUMBERS" : "Deine Klasse hat entschieden, dass ihr Beispieldaten sammeln wollt, damit der Computer folgende Kategorien unterscheidet: "
+                        "NUMBERS" : "Deine Klasse hat entschieden, dass ihr Beispieldaten sammeln wollt, damit der Computer folgende Kategorien unterscheidet: ",
+                        "SOUNDS" : "Your class said that you want to collect examples of sounds for a computer to recognise when sounds are "
                     },
                     "INDIVIDUAL" : {
                         "TEXT" : "Du hast gesagt, dass du Textbeispiele sammeln möchtest, damit der Computer folgende Kategorien unterscheidet: ",
                         "IMAGES" : "Du hast gesagt, dass du Beispielbilder sammeln möchtest, damit der Computer folgende Kategorien unterscheidet: ",
-                        "NUMBERS" : "Du hast gesagt, dass du Beispieldaten sammeln möchtest, damit der Computer folgende Kategorien unterscheidet: "
+                        "NUMBERS" : "Du hast gesagt, dass du Beispieldaten sammeln möchtest, damit der Computer folgende Kategorien unterscheidet: ",
+                        "SOUNDS" : "You said that you want to collect examples of sounds for a computer to recognise when sounds are "
                     }
                 },
                 "NOEXAMPLES" : {
@@ -334,12 +347,14 @@
                     "CROWDSOURCED" : {
                         "TEXT" : "Deine Klasse hat Textbeispiele gesammelt, damit der Computer folgende Kategorien unterscheiden kann: ",
                         "IMAGES" : "Deine Klasse hat Beispielbilder gesammelt, damit der Computer folgende Kategorien unterscheiden kann: ",
-                        "NUMBERS" : "Deine Klasse hat Beispieldaten gesammelt, damit der Computer folgende Kategorien unterscheiden kann: "
+                        "NUMBERS" : "Deine Klasse hat Beispieldaten gesammelt, damit der Computer folgende Kategorien unterscheiden kann: ",
+                        "SOUNDS" : "Your class has collected examples of sounds for a computer to use to recognise when sounds are "
                     },
                     "INDIVIDUAL" : {
                         "TEXT" : "Du hast Textbeispiele gesammelt, damit der Computer folgende Kategorien unterscheiden kann: ",
                         "IMAGES" : "Du hast Beispielbilder gesammelt, damit der Computer folgende Kategorien unterscheiden kann: ",
-                        "NUMBERS" : "Du hast Beispieldaten gesammelt, damit der Computer folgende Kategorien unterscheiden kann: "
+                        "NUMBERS" : "Du hast Beispieldaten gesammelt, damit der Computer folgende Kategorien unterscheiden kann: ",
+                        "SOUNDS" : "You have collected examples of sounds for a computer to use to recognise when sounds are "
                     },
                     "COLLECTED" : {
                         "CLASS" : "Ihr habt Folgendes gesammelt: ",
@@ -390,7 +405,8 @@
                 "TEST" : {
                     "TEXT" : "Teste das Machine Learning Model. Gib unten ein Textbeispiel ein, dass du nicht für das Training verwendet hast. Der Computer sagt dir, welcher Kategorie er dein Beispiel zuordnet und mit welcher Sicherheit (confidence).",
                     "IMAGES" : "Teste das Machine Learning Model. Füge unten ein Beispielbild hinzu, dass du nicht für das Training verwendet hast. Der Computer sagt dir, welcher Kategorie er dein Beispiel zuordnet und mit welcher Sicherheit (confidence).",
-                    "NUMBERS" : "Teste das Machine Learning Model. Gib unten ein Beispiel ein, dass du nicht für das Training verwendet hast. Der Computer sagt dir, welcher Kategorie er dein Beispiel zuordnet und mit welcher Sicherheit (confidence)."
+                    "NUMBERS" : "Teste das Machine Learning Model. Gib unten ein Beispiel ein, dass du nicht für das Training verwendet hast. Der Computer sagt dir, welcher Kategorie er dein Beispiel zuordnet und mit welcher Sicherheit (confidence).",
+                    "SOUNDS" : "Try testing the machine learning model below. Click the 'Start listening' button. If your machine learning model recognises any sounds, it will tell you what it recognises it as, and how confident it is in that."
                 },
                 "SCRATCH" : "Wenn es so aussieht, dass der Computer gelernt hat, Dinge richtig zu erkennen, kannst jetzt du eine Anwendung - zum Beispiel ein Spiel in Scratch - programmieren!",
                 "ADDITIONAL_TRAINING" : {
@@ -418,12 +434,15 @@
             "INTRO": {
                 "TEXT": "Füge ein Textbeispiel hinzu, um zu prüfen, ob die Kategorie erkannt wird.",
                 "IMAGES": "Füge ein Beispielbild hinzu, um zu prüfen, ob die Kategorie erkannt wird.",
-                "NUMBERS": "Füge ein Beispiel hinzu, um zu prüfen, ob die Kategorie erkannt wird."
+                "NUMBERS": "Füge ein Beispiel hinzu, um zu prüfen, ob die Kategorie erkannt wird.",
+                "SOUNDS": "Try making a sound to see how it is recognised based on your training"
             },
             "WEBCAM": "Test mit <strong>Webcam</strong>",
             "DRAWING": "Test durch <strong>Zeichnen</strong>",
             "WWW": "Test mit <strong>www</strong>",
-            "RECOGNISED": "Erkannt als  <strong>{{ testoutput }}</strong>"
+            "RECOGNISED": "Erkannt als  <strong>{{ testoutput }}</strong>",
+            "STARTLISTENING": "Start listening",
+            "STOPLISTENING": "Stop listening"
         },
         "QUIZ": {
             "TITLE": "Zeit für ein Quiz!",
@@ -498,7 +517,8 @@
 
             "TEXT": "Text",
             "IMAGES": "Bilder",
-            "NUMBERS": "Zahlen"
+            "NUMBERS": "Zahlen",
+            "SOUNDS": "sounds"
         },
 
         "LEVELS": {
@@ -649,6 +669,11 @@
             "TITLE": "Finde es!",
             "SUMMARY": "Bringe einem Computer bei, Bilder zu erkennen",
             "DESCRIPTION": "Erstelle ein Versteken-Spiel für dein Smartphone"
+        },
+        "ALIENLANGUAGE": {
+            "TITLE": "Alien Language",
+            "SUMMARY": "Teach a computer to recognize sounds",
+            "DESCRIPTION": "Make an alien in Scratch that learns to recognize an alien language"
         }
     },
     "TEACHER": {

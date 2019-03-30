@@ -748,6 +748,7 @@ describe('REST API - scratch keys', () => {
                 numberTrainingItemsPerProject : 2,
                 numberTrainingItemsPerClassProject : 2,
                 imageTrainingItemsPerProject : 100,
+                soundTrainingItemsPerProject : 100,
             });
 
             const keyId = await store.storeUntrainedScratchKey(project);
