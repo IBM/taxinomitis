@@ -810,16 +810,16 @@
             "Q4-A-2": "生徒にクラス終了後にクリーンナップと（次のクラスがモデルを作成できるように）彼らのモデルの削除をさせる代わりに、ツールがクラス終了後に自動的にモデルを削除し、クリーンナップします。これがクラスとクラスの間のクリーンナップ処理を省きクラスを実施するのを容易にします。",
             "Q4-A-3": "モデルが削除されるまでの時間は設定可能です。授業時間が１時間か2時間の学校の場合、2時間後にモデルを削除するように設定するのが良いでしょう。一週間続きのコーディングクラブの場合、6日後に削除するのが次のセッションを確実に実施するのに良いでしょう。",
             "Q4-A-4": "あなたのクラスの時間制限を <a href='https://machinelearningforkids.co.uk/#!/teacher/restrictions'>制限ページs section of your Teacher page</a>.",
-            "Q4-A-5": "To change the time limit for your class, <a href='mailto:dale.lane@uk.ibm.com'>please send me an email</a>.",
-            "Q4-A-6": "<em>Note: Only machine learning models are automatically deleted, not the training data that was used to create them. So if a model is automatically deleted for a project that a student is still working on, they can always just click the \"Train\" button again to create the model again.</em>"
+            "Q4-A-5": "あなたのクラスのために時間制限を変更するには <a href='mailto:dale.lane@uk.ibm.com'>私までメールを送ってください。</a>.",
+            "Q4-A-6": "<em>注意事項: 機械学習モデルだけが自動的に削除され、トレーニングのためのデータは削除されません。もし、生徒がまだ作業中のモデルが自動的に削除された場合でも, 彼らは \"Train\" ボタンをクリックするだけでモデルを再作成できます。</em>"
         },
 
         "ACCOUNTISSUES": {
-            "TITLE": "Account issues",
+            "TITLE": "アカウント関連",
 
-            "Q1": "What is the difference between creating accounts or using \"Try it now\"?",
-            "Q1-A-1": "Using \"Try it now\" to means there is no need to log on or create an account. There are no passwords for students to have to remember, and no need for teachers to have to provide personal information. It also saves teachers the time needed to manage student accounts.",
-            "Q1-A-2": "However, creating an account does enable additional features. Students can save their work and come back to it in a later lesson. They can work on a project together with other students in their class. They can log on from home and show their family what they've made.",
+            "Q1": "アカウントを作成するのと、 \"Try it now\"の違いはなんですか?",
+            "Q1-A-1": " \"Try it now\" を利用するとログインするしたり、アカウントを作成したりする必要はありません。思い出す必要のあるパスワードもありません。また、先生が個人情報を提供する必要もありません。 また、この方法は、先生が生徒のアカウントを管理する手間も省くことが可能です。",
+            "Q1-A-2": "しかし、creating an account does enable additional features. Students can save their work and come back to it in a later lesson. They can work on a project together with other students in their class. They can log on from home and show their family what they've made.",
             "Q1-A-3": "A summary of the differences is shown below:",
 
             "CREATE_ACCOUNT": "Create an account",
