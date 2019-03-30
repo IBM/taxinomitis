@@ -41,7 +41,7 @@ describe('Scratchx - classify', () => {
 
             try {
                 await classifier.classify(key, '  ');
-                assert.fail(0, 1, 'Should not reach here', '');
+                assert.fail('Should not reach here');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Missing data');
@@ -59,7 +59,7 @@ describe('Scratchx - classify', () => {
 
             try {
                 await classifier.classify(key, 'something');
-                assert.fail(0, 1, 'Should not reach here', '');
+                assert.fail('Should not reach here');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Project not found');
@@ -173,7 +173,7 @@ describe('Scratchx - classify', () => {
 
             try {
                 await classifier.classify(key, '  ');
-                assert.fail(0, 1, 'Should not reach here', '');
+                assert.fail('Should not reach here');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Missing data');
@@ -192,7 +192,7 @@ describe('Scratchx - classify', () => {
 
             try {
                 await classifier.classify(key, 'HELLO');
-                assert.fail(0, 1, 'Should not reach here', '');
+                assert.fail('Should not reach here');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Project not found');
@@ -297,7 +297,7 @@ describe('Scratchx - classify', () => {
 
             try {
                 await classifier.classify(key, []);
-                assert.fail(0, 1, 'Should not reach here', '');
+                assert.fail('Should not reach here');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Missing data');
@@ -316,7 +316,7 @@ describe('Scratchx - classify', () => {
 
             try {
                 await classifier.classify(key, ['123']);
-                assert.fail(0, 1, 'Should not reach here', '');
+                assert.fail('Should not reach here');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Project not found');

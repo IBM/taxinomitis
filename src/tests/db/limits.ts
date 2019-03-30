@@ -41,7 +41,7 @@ describe('DB store - limits', () => {
 
         try {
             await store.storeTextTraining(projectid, uuid(), 'label');
-            assert.fail(0, 1, 'should not have reached here', '');
+            assert.fail('should not have reached here');
         }
         catch (err) {
             assert.strictEqual(err.message,
@@ -67,7 +67,7 @@ describe('DB store - limits', () => {
 
         try {
             await store.storeNumberTraining(projectid, false, [3], 'label');
-            assert.fail(0, 1, 'should not have reached here', '');
+            assert.fail('should not have reached here');
         }
         catch (err) {
             assert.strictEqual(err.message,

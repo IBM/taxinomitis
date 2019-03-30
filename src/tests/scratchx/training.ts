@@ -57,7 +57,7 @@ describe('Scratchx - keys', () => {
 
             try {
                 await training.storeTrainingData(scratchKey, 'MYLAB', 'wootywootwoot');
-                assert.fail(0, 1, 'should not reach here', '');
+                assert.fail('should not reach here');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Project not found');
@@ -77,7 +77,7 @@ describe('Scratchx - keys', () => {
 
             try {
                 await training.storeTrainingData(scratchKey, 'MYLAB', ' ');
-                assert.fail(0, 1, 'should not reach here', '');
+                assert.fail('should not reach here');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Missing data');
@@ -85,7 +85,7 @@ describe('Scratchx - keys', () => {
 
             try {
                 await training.storeTrainingData(scratchKey, 'MYLAB', '');
-                assert.fail(0, 1, 'should not reach here', '');
+                assert.fail('should not reach here');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Missing data');
@@ -110,7 +110,7 @@ describe('Scratchx - keys', () => {
 
             try {
                 await training.storeTrainingData(scratchKey, 'MYLAB', 'wootywootwoot');
-                assert.fail(0, 1, 'should not reach here', '');
+                assert.fail('should not reach here');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Project not found');
@@ -131,7 +131,7 @@ describe('Scratchx - keys', () => {
 
             try {
                 await training.storeTrainingData(scratchKey, 'MYLAB', ' ');
-                assert.fail(0, 1, 'should not reach here', '');
+                assert.fail('should not reach here');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Missing data');
@@ -139,7 +139,7 @@ describe('Scratchx - keys', () => {
 
             try {
                 await training.storeTrainingData(scratchKey, 'MYLAB', '');
-                assert.fail(0, 1, 'should not reach here', '');
+                assert.fail('should not reach here');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Missing data');
@@ -147,7 +147,7 @@ describe('Scratchx - keys', () => {
 
             try {
                 await training.storeTrainingData(scratchKey, 'NOTCORRECT', 'valid');
-                assert.fail(0, 1, 'should not reach here', '');
+                assert.fail('should not reach here');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Invalid label');
@@ -194,7 +194,7 @@ describe('Scratchx - keys', () => {
 
             try {
                 await training.storeTrainingData(scratchKey, 'MYLAB', 'wootywootwoot');
-                assert.fail(0, 1, 'should not reach here', '');
+                assert.fail('should not reach here');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Project not found');
@@ -215,7 +215,7 @@ describe('Scratchx - keys', () => {
 
             try {
                 await training.storeTrainingData(scratchKey, 'NUMLAB', []);
-                assert.fail(0, 1, 'should not reach here', '');
+                assert.fail('should not reach here');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Missing data');
@@ -223,7 +223,7 @@ describe('Scratchx - keys', () => {
 
             try {
                 await training.storeTrainingData(scratchKey, 'NUMLAB', null);
-                assert.fail(0, 1, 'should not reach here', '');
+                assert.fail('should not reach here');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Missing data');

@@ -200,7 +200,7 @@ describe('DB store', () => {
 
             return store.getBluemixCredentials(classid, 'conv')
                 .then(() => {
-                    assert.fail(1, 0, 'Should not reach here', '');
+                    assert.fail('Should not reach here');
                 })
                 .catch((err) => {
                     assert.strictEqual(err.message, 'Unexpected response when retrieving service credentials');
@@ -610,7 +610,7 @@ describe('DB store', () => {
 
             try {
                 await store.getConversationWorkspace(projectid, expired.workspace_id);
-                assert.fail(0, 1, 'should not reach here', '');
+                assert.fail('should not reach here');
             }
             catch (err) {
                 assert(err);
@@ -926,7 +926,7 @@ describe('DB store', () => {
 
             try {
                 await store.getImageClassifier(projectid, expired.classifierid);
-                assert.fail(0, 1, 'should not reach here', '');
+                assert.fail('should not reach here');
             }
             catch (err) {
                 assert(err);

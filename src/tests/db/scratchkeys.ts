@@ -105,7 +105,7 @@ describe('ScratchKeys store', () => {
         try {
             await store.getScratchKey(keyid);
 
-            assert.fail(1, 0, 'Should not have been able to retrieve a key', '');
+            assert.fail('Should not have been able to retrieve a key');
         }
         catch (err) {
             assert.strictEqual(err.message, 'Unexpected response when retrieving credentials for Scratch');
@@ -324,7 +324,7 @@ describe('ScratchKeys store', () => {
         try {
             await store.getScratchKey(keyid);
 
-            assert.fail(1, 0, 'Should not have been able to retrieve a key', '');
+            assert.fail('Should not have been able to retrieve a key');
         }
         catch (err) {
             assert.strictEqual(err.message, 'Unexpected response when retrieving credentials for Scratch');
@@ -357,7 +357,7 @@ describe('ScratchKeys store', () => {
         try {
             await store.getScratchKey(keyid);
 
-            assert.fail(1, 0, 'Should not have been able to retrieve a key', '');
+            assert.fail('Should not have been able to retrieve a key');
         }
         catch (err) {
             assert.strictEqual(err.message, 'Unexpected response when retrieving credentials for Scratch');

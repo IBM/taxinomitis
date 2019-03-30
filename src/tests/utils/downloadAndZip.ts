@@ -2,7 +2,7 @@
 import * as assert from 'assert';
 import * as filecompare from 'filecompare';
 import * as fs from 'fs';
-import * as unzip from 'unzip';
+import * as unzip from 'unzip2';
 import * as tmp from 'tmp';
 import * as async from 'async';
 
@@ -55,7 +55,6 @@ describe('Utils - download and zip', () => {
             },
             (unzipTarget: string, zipFile: string, next: (err?: Error, files?: string[]) => void) => {
                 const unzippedFiles: string[] = [];
-
                 fs.createReadStream(zipFile)
                     .pipe(unzip.Parse())
                     .on('entry', (entry: any) => {

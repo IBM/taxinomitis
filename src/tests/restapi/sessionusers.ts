@@ -16,7 +16,7 @@ let testServer: express.Express;
 
 describe('REST API - session users', () => {
 
-    let authStub: sinon.SinonStub;
+    let authStub: sinon.SinonStub<[express.Request, express.Response, express.NextFunction], void>;
 
     let nextAuth0UserId = 'userid';
     let nextAuth0UserTenant = 'tenant';

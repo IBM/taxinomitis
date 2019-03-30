@@ -1449,7 +1449,7 @@ describe('REST API - training', () => {
 
                     try {
                         await store.getProject(projectid);
-                        assert.fail(0, 1, 'should not be here', '');
+                        assert.fail('should not be here');
                     }
                     catch (err) {
                         assert(err);

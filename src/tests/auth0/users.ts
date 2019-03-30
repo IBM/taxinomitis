@@ -92,7 +92,7 @@ describe.skip('auth0 users', () => {
             assert(newStudent.password);
             try {
                 await users.getStudent('DIFFERENT', newStudent.id);
-                assert.fail(1, 0, 'Failed to check student', '');
+                assert.fail('Failed to check student');
             }
             catch (err) {
                 assert.strictEqual(err.error, 'Not Found');
@@ -110,7 +110,7 @@ describe.skip('auth0 users', () => {
             assert(newTeacher.password);
             try {
                 await users.getStudent(TESTTENANT, newTeacher.id);
-                assert.fail(1, 0, 'Failed to check teacher role', '');
+                assert.fail('Failed to check teacher role');
             }
             catch (err) {
                 assert.strictEqual(err.error, 'Not Found');
@@ -161,7 +161,7 @@ describe.skip('auth0 users', () => {
             try {
                 await users.getStudent(TESTTENANT, newStudent.id);
 
-                assert.fail(1, 0, 'Failed to delete student', '');
+                assert.fail('Failed to delete student');
             }
             catch (err) {
                 assert.strictEqual(err.error, 'Not Found');
@@ -209,7 +209,7 @@ describe.skip('auth0 users', () => {
             try {
                 await users.getStudent(TESTTENANT, newStudent.id);
 
-                assert.fail(1, 0, 'Failed to delete student', '');
+                assert.fail('Failed to delete student');
             }
             catch (err) {
                 assert.strictEqual(err.error, 'Not Found');

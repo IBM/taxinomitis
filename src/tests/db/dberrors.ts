@@ -42,7 +42,7 @@ describe('DB store - error handling', () => {
 
             try {
                 await stubbedStore.countProjectsByUserId('UNCOUNTABLE', 'classid');
-                assert.fail(0, 1, 'should not have reached here', '');
+                assert.fail('should not have reached here');
             }
             catch (err) {
                 assert.strictEqual(mockMysqldb.connectsCount, connBefore + 1);
@@ -61,7 +61,7 @@ describe('DB store - error handling', () => {
         it('should handle weird errors', async () => {
             try {
                 await stubbedStore.getProjectsByUserId('userid', 'classid');
-                assert.fail(0, 1, 'should not have reached here', '');
+                assert.fail('should not have reached here');
             }
             catch (err) {
                 assert(err);
@@ -75,7 +75,7 @@ describe('DB store - error handling', () => {
         it('should handle errors', async () => {
             try {
                 await stubbedStore.deleteTraining('text', 'projectid', 'warningtrainingid');
-                assert.fail(0, 1, 'should not have reached here', '');
+                assert.fail('should not have reached here');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Failed to delete training');
@@ -85,7 +85,7 @@ describe('DB store - error handling', () => {
         it('should handle weird errors', async () => {
             try {
                 await stubbedStore.deleteTraining('text', 'projectid', 'trainingid');
-                assert.fail(0, 1, 'should not have reached here', '');
+                assert.fail('should not have reached here');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Some technical SQL error from deleting training data rows');
@@ -101,7 +101,7 @@ describe('DB store - error handling', () => {
         it('should handle weird errors', async () => {
             try {
                 await stubbedStore.deleteTraining('numbers', 'projectid', 'trainingid');
-                assert.fail(0, 1, 'should not have reached here', '');
+                assert.fail('should not have reached here');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Some technical SQL error from deleting training data rows');
@@ -115,7 +115,7 @@ describe('DB store - error handling', () => {
         it('should handle errors', async () => {
             try {
                 await stubbedStore.deleteTrainingByProjectId('text', 'ODDFAIL');
-                assert.fail(0, 1, 'should not have reached here', '');
+                assert.fail('should not have reached here');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Failed to delete training');
@@ -125,7 +125,7 @@ describe('DB store - error handling', () => {
         it('should handle weird errors', async () => {
             try {
                 await stubbedStore.deleteTrainingByProjectId('text', 'FAIL');
-                assert.fail(0, 1, 'should not have reached here', '');
+                assert.fail('should not have reached here');
             }
             catch (err) {
                 assert.strictEqual(err.message,
@@ -140,7 +140,7 @@ describe('DB store - error handling', () => {
         it('should handle weird errors', async () => {
             try {
                 await stubbedStore.deleteTrainingByProjectId('numbers', 'FAIL');
-                assert.fail(0, 1, 'should not have reached here', '');
+                assert.fail('should not have reached here');
             }
             catch (err) {
                 assert.strictEqual(err.message,
@@ -154,7 +154,7 @@ describe('DB store - error handling', () => {
         it('should handle weird errors', async () => {
             try {
                 await stubbedStore.addLabelToProject('userid', 'classid', 'projectid', 'labeltoadd');
-                assert.fail(0, 1, 'should not have reached here', '');
+                assert.fail('should not have reached here');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'We could not update the labels list in the project');
@@ -164,7 +164,7 @@ describe('DB store - error handling', () => {
         it('should handle failures', async () => {
             try {
                 await stubbedStore.addLabelToProject('userid', 'classid', 'projectid', 'BANG');
-                assert.fail(0, 1, 'should not have reached here', '');
+                assert.fail('should not have reached here');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Project not updated');

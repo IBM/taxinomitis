@@ -49,7 +49,7 @@ describe('DB store - numbers training', () => {
                 assert.strictEqual(err.message, 'Number of data items exceeded maximum');
                 return;
             }
-            assert.fail(1, 0, 'Failed to reject training', '');
+            assert.fail('Failed to reject training');
         });
     });
 

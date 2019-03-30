@@ -23,7 +23,7 @@ let testServer: express.Express;
 
 describe('REST API - models', () => {
 
-    let authStub: sinon.SinonStub;
+    let authStub: sinon.SinonStub<[express.Request, express.Response, express.NextFunction], void>;
 
     let nextAuth0Userid = 'studentid';
     let nextAuth0Role = 'student';
@@ -44,24 +44,20 @@ describe('REST API - models', () => {
         next();
     }
 
-    const conversationStub: { [label: string]: sinon.SinonStub } = {
-        getClassifiersStub : sinon.stub(conversation, 'getClassifierStatuses'),
-        trainClassifierStub : sinon.stub(conversation, 'trainClassifier'),
-        testClassifierStub : sinon.stub(conversation, 'testClassifier'),
-        deleteClassifierStub : sinon.stub(conversation, 'deleteClassifier'),
-    };
-    const numbersStub: { [label: string]: sinon.SinonStub } = {
-        trainClassifierStub : sinon.stub(numbers, 'trainClassifier'),
-        testClassifierStub : sinon.stub(numbers, 'testClassifier'),
-        deleteClassifierStub : sinon.stub(numbers, 'deleteClassifier'),
-    };
-    const imagesStub: { [label: string]: sinon.SinonStub } = {
-        getClassifiersStub : sinon.stub(visualrecog, 'getClassifierStatuses'),
-        trainClassifierStub : sinon.stub(visualrecog, 'trainClassifier'),
-        deleteClassifierStub : sinon.stub(visualrecog, 'deleteClassifier'),
-        testClassifierUrlStub : sinon.stub(visualrecog, 'testClassifierURL'),
-        testClassifierFileStub : sinon.stub(visualrecog, 'testClassifierFile'),
-    };
+    const conversationStubGetClassifiersStub = sinon.stub(conversation, 'getClassifierStatuses');
+    const conversationStubTrainClassifierStub = sinon.stub(conversation, 'trainClassifier');
+    const conversationStubTestClassifierStub = sinon.stub(conversation, 'testClassifier');
+    const conversationStubDeleteClassifierStub = sinon.stub(conversation, 'deleteClassifier');
+
+    const numbersStubTrainClassifierStub = sinon.stub(numbers, 'trainClassifier');
+    const numbersStubTestClassifierStub = sinon.stub(numbers, 'testClassifier');
+    const numbersStubDeleteClassifierStub = sinon.stub(numbers, 'deleteClassifier');
+
+    const imagesStubGetClassifiersStub = sinon.stub(visualrecog, 'getClassifierStatuses');
+    const imagesStubTrainClassifierStub = sinon.stub(visualrecog, 'trainClassifier');
+    const imagesStubDeleteClassifierStub = sinon.stub(visualrecog, 'deleteClassifier');
+    const imagesStubTestClassifierUrlStub = sinon.stub(visualrecog, 'testClassifierURL');
+    const imagesStubTestClassifierFileStub = sinon.stub(visualrecog, 'testClassifierFile');
 
     const updated = new Date();
     updated.setMilliseconds(0);
@@ -70,24 +66,29 @@ describe('REST API - models', () => {
     before(async () => {
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
 
-        conversationStub.getClassifiersStub.callsFake((classid, classifiers: Types.ConversationWorkspace[]) => {
+        conversationStubGetClassifiersStub.callsFake((classid, classifiers) =>  {
             return new Promise((resolve) => {
-                resolve(classifiers.map((classifier) => {
+                let output: Types.ConversationWorkspace[] = [];
+
+                output = classifiers.map((classifier) => {
                     classifier.updated = updated;
 
                     switch (classifier.workspace_id) {
                     case 'good':
                         classifier.status = 'Available';
-                        return classifier;
+                        break;
                     case 'busy':
                         classifier.status = 'Training';
-                        return classifier;
+                        break;
                     }
-                }));
+                    return classifier;
+                });
+
+                resolve(output);
             });
         });
 
-        conversationStub.trainClassifierStub.callsFake((project: DbTypes.Project) => {
+        conversationStubTrainClassifierStub.callsFake((project: DbTypes.Project) => {
             if (project.name === 'no more room') {
                 const err = new Error(conversation.ERROR_MESSAGES.INSUFFICIENT_API_KEYS);
                 return Promise.reject(err);
@@ -125,7 +126,7 @@ describe('REST API - models', () => {
                 return Promise.resolve(workspace);
             }
         });
-        conversationStub.testClassifierStub.callsFake(() => {
+        conversationStubTestClassifierStub.callsFake(() => {
             const classifierTimestamp = new Date(Date.UTC(2017, 4, 4, 12, 1));
             const classifications: Types.Classification[] = [
                 { class_name : 'first', confidence : 0.8, classifierTimestamp },
@@ -134,18 +135,19 @@ describe('REST API - models', () => {
             ];
             return Promise.resolve(classifications);
         });
-        conversationStub.deleteClassifierStub.callsFake(() => {
+        conversationStubDeleteClassifierStub.callsFake(() => {
             return Promise.resolve();
         });
 
-        numbersStub.trainClassifierStub.callsFake((project: DbTypes.Project) => {
-            return Promise.resolve({
+        numbersStubTrainClassifierStub.callsFake((project: DbTypes.Project) => {
+            const output: Types.NumbersClassifier = {
                 created : new Date(),
                 status : 'Available',
                 classifierid : project.id,
-            });
+            };
+            return Promise.resolve(output);
         });
-        numbersStub.testClassifierStub.callsFake(() => {
+        numbersStubTestClassifierStub.callsFake(() => {
             const classifierTimestamp = new Date();
             const classifications: Types.Classification[] = [
                 { class_name : 'first', confidence : 0.8, classifierTimestamp },
@@ -154,26 +156,30 @@ describe('REST API - models', () => {
             ];
             return Promise.resolve(classifications);
         });
-        numbersStub.deleteClassifierStub.callsFake(() => {
+        numbersStubDeleteClassifierStub.callsFake(() => {
             return new Promise((resolve) => { resolve(); });
         });
 
-        imagesStub.getClassifiersStub.callsFake((classid, classifiers: Types.VisualClassifier[]) => {
+        imagesStubGetClassifiersStub.callsFake((classid, classifiers: Types.VisualClassifier[]) => {
             return new Promise((resolve) => {
-                resolve(classifiers.map((classifier) => {
+                let output: Types.VisualClassifier[] = [];
+
+                output = classifiers.map((classifier) => {
                     switch (classifier.classifierid) {
                     case 'good':
                         classifier.status = 'ready';
-                        return classifier;
+                        break;
                     case 'busy':
                         classifier.status = 'training';
-                        return classifier;
+                        break;
                     }
-                }));
+                    return classifier;
+                });
+                resolve(output);
             });
         });
 
-        imagesStub.trainClassifierStub.callsFake((project: DbTypes.Project) => {
+        imagesStubTrainClassifierStub.callsFake((project: DbTypes.Project) => {
             if (project.name === 'no more room') {
                 const err = new Error(visualrecog.ERROR_MESSAGES.INSUFFICIENT_API_KEYS);
                 return Promise.reject(err);
@@ -214,10 +220,10 @@ describe('REST API - models', () => {
                 return Promise.resolve(workspace);
             }
         });
-        imagesStub.deleteClassifierStub.callsFake(() => {
+        imagesStubDeleteClassifierStub.callsFake(() => {
             return Promise.resolve();
         });
-        imagesStub.testClassifierUrlStub.callsFake((
+        imagesStubTestClassifierUrlStub.callsFake((
             creds: Types.BluemixCredentials, classifierid: string,
             classifierTimestamp: Date,
             // projectid: string, imageurl: string,
@@ -229,7 +235,7 @@ describe('REST API - models', () => {
             ];
             return Promise.resolve(classifications);
         });
-        imagesStub.testClassifierFileStub.callsFake((
+        imagesStubTestClassifierFileStub.callsFake((
             creds: Types.BluemixCredentials, classifierid: string,
             classifierTimestamp: Date,
             projectid: string, imagefile: string) =>
@@ -259,18 +265,18 @@ describe('REST API - models', () => {
     after(() => {
         authStub.restore();
 
-        conversationStub.getClassifiersStub.restore();
-        conversationStub.trainClassifierStub.restore();
-        conversationStub.testClassifierStub.restore();
-        conversationStub.deleteClassifierStub.restore();
-        numbersStub.trainClassifierStub.restore();
-        numbersStub.testClassifierStub.restore();
-        numbersStub.deleteClassifierStub.restore();
-        imagesStub.getClassifiersStub.restore();
-        imagesStub.trainClassifierStub.restore();
-        imagesStub.deleteClassifierStub.restore();
-        imagesStub.testClassifierUrlStub.restore();
-        imagesStub.testClassifierFileStub.restore();
+        conversationStubGetClassifiersStub.restore();
+        conversationStubTrainClassifierStub.restore();
+        conversationStubTestClassifierStub.restore();
+        conversationStubDeleteClassifierStub.restore();
+        numbersStubTrainClassifierStub.restore();
+        numbersStubTestClassifierStub.restore();
+        numbersStubDeleteClassifierStub.restore();
+        imagesStubGetClassifiersStub.restore();
+        imagesStubTrainClassifierStub.restore();
+        imagesStubDeleteClassifierStub.restore();
+        imagesStubTestClassifierUrlStub.restore();
+        imagesStubTestClassifierFileStub.restore();
 
         return store.disconnect();
     });

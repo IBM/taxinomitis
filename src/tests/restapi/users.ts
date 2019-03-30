@@ -25,9 +25,9 @@ describe('REST API - users', () => {
     };
 
 
-    let authStub: sinon.SinonStub;
-    let checkUserStub: sinon.SinonStub;
-    let requireSupervisorStub: sinon.SinonStub;
+    let authStub: sinon.SinonStub<[express.Request, express.Response, express.NextFunction], void>;
+    let checkUserStub: sinon.SinonStub<[express.Request, express.Response, express.NextFunction], void>;
+    let requireSupervisorStub: sinon.SinonStub<[express.Request, express.Response, express.NextFunction], void>;
 
     function authNoOp(
         req: Express.Request, res: Express.Response,
@@ -381,7 +381,8 @@ describe('REST API - users', () => {
             const stubs = {
                 getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
                 createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
-                getUserCounts : sinon.stub(auth0, 'getUserCounts').resolves({ total : 30 }),
+                getUserCounts : sinon.stub(auth0, 'getUserCounts').resolves({
+                    users: [], total : 30, start : 0, limit : 30, length : 30 }),
             };
 
             return store.init()

@@ -106,7 +106,7 @@ describe('DB store - image training', () => {
 
             try {
                 await store.storeImageTraining(projectid, url, label, false);
-                assert.fail(0, 1, 'should not reach here', '');
+                assert.fail('should not reach here');
             }
             catch (err) {
                 assert(err);

@@ -4,7 +4,7 @@ import * as request from 'supertest';
 import * as fs from 'fs';
 import * as Express from 'express';
 import * as httpstatus from 'http-status';
-import * as unzip from 'unzip';
+import * as unzip from 'unzip2';
 import * as tmp from 'tmp';
 
 import testapiserver from './testserver';
@@ -28,7 +28,7 @@ describe('REST API - App Inventor', () => {
             res.data += chunk;
         });
         res.on('end', () => {
-            cb(null, new Buffer(res.data, 'binary'));
+            cb(null, Buffer.from(res.data, 'binary'));
         });
     };
 

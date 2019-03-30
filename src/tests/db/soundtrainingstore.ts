@@ -81,7 +81,7 @@ describe('DB store - sound training', () => {
 
             try {
                 await store.storeSoundTraining(projectid, data, label);
-                assert.fail(0, 1, 'should not reach here', '');
+                assert.fail('should not reach here');
             }
             catch (err) {
                 assert(err);
@@ -99,7 +99,7 @@ describe('DB store - sound training', () => {
 
             try {
                 await store.storeSoundTraining(projectid, data, label);
-                assert.fail(0, 1, 'should not reach here', '');
+                assert.fail('should not reach here');
             }
             catch (err) {
                 assert(err);
@@ -117,7 +117,7 @@ describe('DB store - sound training', () => {
 
             try {
                 await store.storeSoundTraining(projectid, createTraining(), labels[0]);
-                assert.fail(0, 1, 'should not reach here', '');
+                assert.fail('should not reach here');
             }
             catch (err) {
                 assert(err);

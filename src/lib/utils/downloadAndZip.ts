@@ -5,8 +5,8 @@ import * as path from 'path';
 import * as tmp from 'tmp';
 import * as async from 'async';
 import * as archiver from 'archiver';
-import * as fileType from 'file-type';
-import * as readChunk from 'read-chunk';
+import fileType from 'file-type';
+import readChunk from 'read-chunk';
 // local dependencies
 import * as download from './download';
 import * as imagestore from '../imagestore';

@@ -1,8 +1,8 @@
 // core dependencies
 import * as fs from 'fs';
 // external dependencies
-import * as fileType from 'file-type';
-import * as readChunk from 'read-chunk';
+import fileType from 'file-type';
+import readChunk from 'read-chunk';
 import * as tmp from 'tmp';
 import * as async from 'async';
 import * as filesize from 'filesize';

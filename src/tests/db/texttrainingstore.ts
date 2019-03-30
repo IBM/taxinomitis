@@ -45,7 +45,7 @@ describe('DB store - text training', () => {
 
             try {
                 await store.storeTextTraining(projectid, text, label);
-                assert.fail(0, 1, 'should not reach here', '');
+                assert.fail('should not reach here');
             }
             catch (err) {
                 assert(err);
@@ -63,7 +63,7 @@ describe('DB store - text training', () => {
 
             try {
                 await store.storeTextTraining(projectid, text, label);
-                assert.fail(0, 1, 'should not reach here', '');
+                assert.fail('should not reach here');
             }
             catch (err) {
                 assert(err);
