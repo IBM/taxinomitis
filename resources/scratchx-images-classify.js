@@ -92,7 +92,10 @@
             dataType : 'json',
             type : 'POST',
             contentType : 'application/json',
-            data : '{"data":"' + imagedata + '","displayedhelp":' + displayedMLforKidsHelp + '}',
+            data : JSON.stringify({
+                data : imagedata,
+                displayedhelp : displayedMLforKidsHelp
+            }),
             headers : {
                 'If-Modified-Since': lastmodified,
                 'X-User-Agent': 'mlforkids-scratch2-images'
@@ -173,14 +176,16 @@
     function storeImage(imagedata, label, callback) {
         $.ajax({
             url : '{{{ storeurl }}}',
-            dataType : 'jsonp',
+            dataType : 'json',
+            method : 'POST',
+            contentType : 'application/json',
             headers : {
                 'X-User-Agent': 'mlforkids-scratch2-images'
             },
-            data : {
+            data : JSON.stringify({
                 data : imagedata,
                 label : label
-            },
+            }),
             success : function (data) {
                 callback();
             },

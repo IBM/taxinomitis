@@ -163,14 +163,16 @@
     function storeNumbers(numbers, label, callback) {
         $.ajax({
             url : '{{{ storeurl }}}',
-            dataType : 'jsonp',
+            dataType : 'json',
+            method : 'POST',
+            contentType : 'application/json',
             headers : {
                 'X-User-Agent': 'mlforkids-scratch2-numbers'
             },
-            data : {
+            data : JSON.stringify({
                 data : numbers,
                 label : label
-            },
+            }),
             success : function (data) {
                 callback();
             },

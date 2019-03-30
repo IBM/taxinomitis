@@ -163,14 +163,16 @@
     function storeText(text, label, callback) {
         $.ajax({
             url : '{{{ storeurl }}}',
-            dataType : 'jsonp',
+            dataType : 'json',
+            method : 'POST',
+            contentType : 'application/json',
             headers : {
                 'X-User-Agent': 'mlforkids-scratch2-text'
             },
-            data : {
+            data : JSON.stringify({
                 data : cleanUpText(text, 1024),
                 label : label
-            },
+            }),
             success : function (data) {
                 callback();
             },

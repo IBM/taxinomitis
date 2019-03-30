@@ -43,11 +43,17 @@ export function file(url: string, targetFilePath: string, callback: IErrCallback
                             .on('finish', resolve);
 
     try {
-        request.get({ url, timeout : 10000, rejectUnauthorized : false })
-            .on('error', () => {
-                resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
-            })
-            .pipe(writeStream);
+        request.get({
+            url,
+            timeout : 10000,
+            rejectUnauthorized : false,
+            strictSSL : false,
+        })
+        .on('error', (err) => {
+            log.error({ err }, 'request get fail');
+            resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
+        })
+        .pipe(writeStream);
     }
     catch (err) {
         log.error({ err, url }, 'Failed to download file');

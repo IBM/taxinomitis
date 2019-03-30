@@ -1276,7 +1276,7 @@ describe('DB objects', () => {
                 id : 'testing',
                 projecttypes : 'text,images,numbers',
                 ismanaged : 0,
-                maxusers : 25,
+                maxusers : 30,
                 maxprojectsperuser : 2,
                 textclassifiersexpiry : 24,
                 imageclassifiersexpiry : 24,
