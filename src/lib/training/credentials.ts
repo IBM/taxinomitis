@@ -247,6 +247,15 @@ async function reportBadCredentials(err: Error, credentials: BluemixCredentials)
     if (errorPayload.code === 502 && errorPayload.statusCode === 502 &&
         errorPayload.error === 'Bad Gateway')
     {
+        // this is indicative of a Watson infrastructure error
+        //  and not bad credentials
+        return;
+    }
+    if (errorPayload.code === 500 && errorPayload.statusCode === 500 &&
+        errorPayload.error === 'Internal Server Error')
+    {
+        // this is indicative of a Watson infrastructure error
+        //  and not bad credentials
         return;
     }
 
