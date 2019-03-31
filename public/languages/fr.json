@@ -671,9 +671,9 @@
             "DESCRIPTION": "Créez un jeu de cache-cache pour votre téléphone portable"
         },
         "ALIENLANGUAGE": {
-            "TITLE": "Alien Language",
-            "SUMMARY": "Teach a computer to recognize sounds",
-            "DESCRIPTION": "Make an alien in Scratch that learns to recognize an alien language"
+            "TITLE": "Communique avec un Alien",
+            "SUMMARY": "Entraine un ordinateur à reconnaître des sons",
+            "DESCRIPTION": "Crée un Alien dans Scratch qui apprend comment reconnaître des sons dans le langage alien"
         }
     },
     "TEACHER": {
