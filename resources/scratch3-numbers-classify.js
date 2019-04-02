@@ -170,15 +170,18 @@ class MachineLearningNumbers {
         var label = args.LABEL;
 
         var url = new URL('{{{ storeurl }}}');
-        for (var i = 0; i < numbers.length; i++) {
-            url.searchParams.append('data', numbers[i]);
-        }
-        url.searchParams.append('label', label);
 
         var options = {
             headers : {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
                 'X-User-Agent': 'mlforkids-scratch3-numbers'
-            }
+            },
+            method : 'POST',
+            body : JSON.stringify({
+                data : numbers,
+                label : label
+            })
         };
 
         return fetch(url, options)

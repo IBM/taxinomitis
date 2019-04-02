@@ -152,13 +152,18 @@ class MachineLearningText {
         var txt = cleanUpText(TEXT, 1024);
 
         var url = new URL('{{{ storeurl }}}');
-        url.searchParams.append('data', txt);
-        url.searchParams.append('label', LABEL);
 
         var options = {
             headers : {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
                 'X-User-Agent': 'mlforkids-scratch3-text'
-            }
+            },
+            method : 'POST',
+            body : JSON.stringify({
+                data : txt,
+                label : LABEL
+            })
         };
 
         return fetch(url, options)
