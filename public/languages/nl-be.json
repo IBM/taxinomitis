@@ -674,6 +674,11 @@
             "TITLE": "Alien Language",
             "SUMMARY": "Teach a computer to recognize sounds",
             "DESCRIPTION": "Make an alien in Scratch that learns to recognize an alien language"
+        },
+        "SECRETCODE": {
+            "TITLE": "Secret Code",
+            "SUMMARY": "Teach a computer to recognize speech",
+            "DESCRIPTION": "Train a computer to understand secret code words to guide a spy."
         }
     },
     "TEACHER": {

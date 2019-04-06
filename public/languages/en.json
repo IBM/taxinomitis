@@ -668,12 +668,17 @@
         "FINDIT": {
             "TITLE": "Find It!",
             "SUMMARY": "Teach a computer to recognise pictures",
-            "DESCRIPTION": "Make a hide-and-seek game for your mobile phone"
+            "DESCRIPTION": "Make a hide-and-seek game for your mobile phone."
         },
         "ALIENLANGUAGE": {
             "TITLE": "Alien Language",
             "SUMMARY": "Teach a computer to recognize sounds",
-            "DESCRIPTION": "Make an alien in Scratch that learns to recognize an alien language"
+            "DESCRIPTION": "Make an alien in Scratch that learns to recognize an alien language."
+        },
+        "SECRETCODE": {
+            "TITLE": "Secret Code",
+            "SUMMARY": "Teach a computer to recognize speech",
+            "DESCRIPTION": "Train a computer to understand secret code words to guide a spy."
         }
     },
     "TEACHER": {

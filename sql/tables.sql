@@ -196,8 +196,6 @@ CREATE TABLE tenants (
     ismanaged BOOLEAN DEFAULT true
 );
 
--- ALTER TABLE tenants MODIFY COLUMN projecttypes varchar(26) NOT NULL DEFAULT 'text,numbers,sounds';
-
 INSERT INTO tenants (id, projecttypes, maxusers, maxprojectsperuser, textclassifiersexpiry, ismanaged)
     VALUES
         ('TESTTENANT', 'text,images,numbers', 8, 3, 2, true),

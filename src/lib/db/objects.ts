@@ -1006,7 +1006,7 @@ export function getClassDbRow(tenant: Objects.ClassTenant): Objects.ClassDbRow {
 export function getDefaultClassTenant(classid: string): Objects.ClassTenant {
     return {
         id : classid,
-        supportedProjectTypes : [ 'text', 'images', 'numbers' ],
+        supportedProjectTypes : [ 'text', 'images', 'numbers', 'sounds' ],
         isManaged : false,
         maxUsers : 30,
         maxProjectsPerUser : 2,
