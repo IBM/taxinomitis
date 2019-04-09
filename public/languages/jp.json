@@ -837,9 +837,9 @@
             "BY_YOURSELF": " あなた自身で ",
             "WITH_CLASSMATES": "クラスメートと一緒に ",
 
-            "Q2": "I've created a class account but my teacher's logon isn't working",
-            "Q2-A-1": "You need to verify your email address before you'll be able to log on.",
-            "Q2-A-2": "When you created the class account, an email will be sent to the email address you provided, with a link to click on. If you click on that link, your email address will be verified and the class account will be activated. You should be able to log on now.",
+            "Q2": "クラスアカウントを作成しましたが、先生のログインでログインできません。",
+            "Q2-A-1": "ログオンできるようになる前に、あなたは、あなたのEmailアドレスを確認する必要があります。",
+            "Q2-A-2": "クラスアカウントを作成した時、あなたが提供したあなたののEmail アドレスにWhen you created the class account, an email will be sent to the email address you provided, with a link to click on. If you click on that link, your email address will be verified and the class account will be activated. You should be able to log on now.",
             "Q2-A-3": "If you haven't seen the verify email yet, make sure it's not gone into your spam folder.",
             "Q2-A-4": "If you still can't find it, <a href='mailto:dale.lane@uk.ibm.com'>let me know</a> and I'll try and help.",
 
