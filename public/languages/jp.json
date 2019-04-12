@@ -843,17 +843,17 @@
             "Q2-A-3": "もし、確認用のメールをまだ見ていないのであれば、スパムフォルダーに入っていないか確認してください。",
             "Q2-A-4": "見つけられない場合は、<a href='mailto:dale.lane@uk.ibm.com'>私に英語でお知らせください。</a> 問題解決できるよう支援します。",
 
-            "Q3": "Deleting accounts",
-            "Q3-A-1": "Student accounts",
-            "Q3-A-2": "Students cannot delete their own accounts.",
-            "Q3-A-3": "A teacher can delete a student account at any time by visiting the \"Teacher\" page  and clicking the \"Delete student account\" button next to the student account you want to delete.",
-            "Q3-A-4": "This will delete all information stored about that student and all of their projects and machine learning models.",
-            "Q3-A-5": "It cannot be undone.",
-            "Q3-A-6": "Teacher accounts",
-            "Q3-A-7": "Deleting a teacher account will delete the entire class and all of the student accounts in it. It cannot be undone.",
-            "Q3-A-8": "This can be done by clicking the \"Delete Class\" button in the Advanced options section of <a href='https://machinelearningforkids.co.uk/teacher'>your Teacher page</a>",
+            "Q3": "アカウントの削除",
+            "Q3-A-1": "生徒用アカウント",
+            "Q3-A-2": "制度は彼らのアカウントを削除できません。",
+            "Q3-A-3": "先生は削除したい生徒のアカウントをいつでも \"Teacher\" ページから生徒のアカウントの隣にある \"Delete student account\" ボタンをクリックすることで削除できます。",
+            "Q3-A-4": "アカウントを削除すると生徒の全てのデータ、プロジェクトと機械学習モデルが削除されます。",
+            "Q3-A-5": "削除後の復元は不可能",
+            "Q3-A-6": "先生アカウント",
+            "Q3-A-7": "先生アカウントを削除すると、クラスとクラス中の全ての生徒のアカウントも削除され、復元することはできません。",
+            "Q3-A-8": "先生アカウントの削除は<a href='https://machinelearningforkids.co.uk/teacher'>your Teacher page</a>にあるAdvanced optioins sections内の \"Delete Class\" ボタンをクリックすると削除されます。",
 
-            "Q4": "What information is stored about users?"
+            "Q4": "利用者に関してどのような情報が保存されますか?"
 
         }
     }
