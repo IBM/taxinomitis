@@ -839,9 +839,9 @@
 
             "Q2": "クラスアカウントを作成しましたが、先生のログインでログインできません。",
             "Q2-A-1": "ログオンできるようになる前に、あなたは、あなたのEmailアドレスを確認する必要があります。",
-            "Q2-A-2": "クラスアカウントを作成した時、あなたが提供したあなたののEmail アドレスにWhen you created the class account, an email will be sent to the email address you provided, with a link to click on. If you click on that link, your email address will be verified and the class account will be activated. You should be able to log on now.",
-            "Q2-A-3": "If you haven't seen the verify email yet, make sure it's not gone into your spam folder.",
-            "Q2-A-4": "If you still can't find it, <a href='mailto:dale.lane@uk.ibm.com'>let me know</a> and I'll try and help.",
+            "Q2-A-2": "クラスアカウントを作成時、あなたが提供したEmailアドレスに確認用のリンクを含むメールを送信します。このリンクをクリックすることでEmailアドレスが確認され、クラスアカウントが利用可能になり、ログインできるようになります。",
+            "Q2-A-3": "もし、確認用のメールをまだ見ていないのであれば、スパムフォルダーに入っていないか確認してください。",
+            "Q2-A-4": "見つけられない場合は、<a href='mailto:dale.lane@uk.ibm.com'>私に英語でお知らせください。</a> 問題解決できるよう支援します。",
 
             "Q3": "Deleting accounts",
             "Q3-A-1": "Student accounts",
