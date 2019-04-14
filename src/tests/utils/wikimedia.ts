@@ -34,7 +34,7 @@ describe('Utils - wikimedia', () => {
         for (const invalidurl of INVALID_URLS) {
             try {
                 await wikimedia.getThumbnail(invalidurl, 244);
-                assert.fail('should not be here');
+                assert.fail('should not be here : ' + invalidurl);
             }
             catch (err) {
                 assert.strictEqual(err.message, wikimedia.FAIL);
@@ -64,7 +64,7 @@ describe('Utils - wikimedia', () => {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Example_barcode.svg/244px-Example_barcode.svg.png',
     ];
     const INVALID_URLS = [
-        'https://something.com/mypicture.jpg',
+        'https://something.com/mygreatpicture.jpg',
         'https://upload.wikimedia.org/wikipedia/commons/1/16/Maltese_kitten.jpeg',
         'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png',
     ];

@@ -258,6 +258,12 @@ async function reportBadCredentials(err: Error, credentials: BluemixCredentials)
         //  and not bad credentials
         return;
     }
+    if (!err.message || err.message !== 'string' || err.message.trim().length === 0)
+    {
+        // we don't have a useful error message to return so err on the
+        // safe side and don't report
+        return;
+    }
 
 
     //

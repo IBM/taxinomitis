@@ -41,7 +41,8 @@
             'WORKSHEETS.NOUGHTSANDCROSSES.TITLE', 'WORKSHEETS.NOUGHTSANDCROSSES.SUMMARY', 'WORKSHEETS.NOUGHTSANDCROSSES.DESCRIPTION',
             'WORKSHEETS.TOPTRUMPS.TITLE', 'WORKSHEETS.TOPTRUMPS.SUMMARY', 'WORKSHEETS.TOPTRUMPS.DESCRIPTION',
             'WORKSHEETS.HEADLINES.TITLE', 'WORKSHEETS.HEADLINES.SUMMARY', 'WORKSHEETS.HEADLINES.DESCRIPTION',
-            'WORKSHEETS.FINDIT.TITLE', 'WORKSHEETS.FINDIT.SUMMARY', 'WORKSHEETS.FINDIT.DESCRIPTION'
+            'WORKSHEETS.FINDIT.TITLE', 'WORKSHEETS.FINDIT.SUMMARY', 'WORKSHEETS.FINDIT.DESCRIPTION',
+            'WORKSHEETS.JARGONBUSTER.TITLE', 'WORKSHEETS.JARGONBUSTER.SUMMARY', 'WORKSHEETS.JARGONBUSTER.DESCRIPTION'
         ]).then(function (translations) {
             vm.worksheets = [
                 {
@@ -50,7 +51,7 @@
                     description : translations['WORKSHEETS.SMARTCLASSROOM.DESCRIPTION'],
                     difficulty : 'Beginner',
                     type : 'text',
-                    maketypes : [ 'scratch2' ],
+                    maketypes : [ 'scratch3' ],
                     image : 'static/images/project-smartclassroom.png',
                     tags : [ 'digital assistants', 'supervised learning' ],
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-smartclassroom.pdf',
@@ -75,7 +76,7 @@
                     description : translations['WORKSHEETS.MAKEMEHAPPY.DESCRIPTION'],
                     difficulty : 'Beginner',
                     type : 'text',
-                    maketypes : [ 'scratch2' ],
+                    maketypes : [ 'scratch3' ],
                     image : 'static/images/project-makemehappy.png',
                     tags : [ 'sentiment analysis', 'supervised learning' ],
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-makemehappy.pdf',
@@ -417,6 +418,22 @@
                     downloads : [
                         {
                             worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.JARGONBUSTER.TITLE'],
+                    summary : translations['WORKSHEETS.JARGONBUSTER.SUMMARY'],
+                    description : translations['WORKSHEETS.JARGONBUSTER.DESCRIPTION'],
+                    difficulty : 'Intermediate',
+                    type : 'sounds',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-jargonbuster.png',
+                    tags : [ 'speech recognition', 'sound recognition', 'supervised learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-jargonbuster.pdf',
+                    downloads : [
+                        {
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-jargonbuster.pdf'
                         }
                     ]
                 },

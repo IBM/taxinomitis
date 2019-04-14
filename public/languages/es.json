@@ -679,6 +679,11 @@
             "TITLE": "Secret Code",
             "SUMMARY": "Teach a computer to recognize speech",
             "DESCRIPTION": "Train a computer to understand secret code words to guide a spy."
+        },
+        "JARGONBUSTER": {
+            "TITLE": "Jargon Buster",
+            "SUMMARY": "Teach a computer to listen for words",
+            "DESCRIPTION": "Make a project in Scratch that displays the meaning of words you say."
         }
 	},
 	"TEACHER": {

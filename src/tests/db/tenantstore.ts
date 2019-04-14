@@ -20,7 +20,7 @@ describe('DB store - tenants', () => {
     it('should retrieve the test tenant policy', async () => {
         const expected: Types.ClassTenant = {
             id : 'TESTTENANT',
-            supportedProjectTypes : ['text', 'images', 'numbers'],
+            supportedProjectTypes : ['text', 'images', 'numbers', 'sounds'],
             isManaged : true,
             maxUsers : 8,
             maxProjectsPerUser : 3,
@@ -59,7 +59,7 @@ describe('DB store - tenants', () => {
         const newclass: Types.ClassTenant = await store.modifyClassTenantExpiries(id, 100, 40);
         assert.deepStrictEqual(newclass, {
             id,
-            supportedProjectTypes : ['text', 'images', 'numbers'],
+            supportedProjectTypes : ['text', 'images', 'numbers', 'sounds'],
             isManaged : false,
             maxUsers : 30,
             maxProjectsPerUser : 2,
@@ -78,7 +78,7 @@ describe('DB store - tenants', () => {
         const newclass: Types.ClassTenant = await store.modifyClassTenantExpiries(id, 6, 7);
         assert.deepStrictEqual(newclass, {
             id,
-            supportedProjectTypes : ['text', 'images', 'numbers'],
+            supportedProjectTypes : ['text', 'images', 'numbers', 'sounds'],
             isManaged : false,
             maxUsers : 30,
             maxProjectsPerUser : 2,
@@ -89,7 +89,7 @@ describe('DB store - tenants', () => {
         let fetched: Types.ClassTenant = await store.getClassTenant(id);
         assert.deepStrictEqual(fetched, {
             id,
-            supportedProjectTypes : ['text', 'images', 'numbers'],
+            supportedProjectTypes : ['text', 'images', 'numbers', 'sounds'],
             isManaged : false,
             maxUsers : 30,
             maxProjectsPerUser : 2,
@@ -100,7 +100,7 @@ describe('DB store - tenants', () => {
         const updated: Types.ClassTenant = await store.modifyClassTenantExpiries(id, 12, 14);
         assert.deepStrictEqual(updated, {
             id,
-            supportedProjectTypes : ['text', 'images', 'numbers'],
+            supportedProjectTypes : ['text', 'images', 'numbers', 'sounds'],
             isManaged : false,
             maxUsers : 30,
             maxProjectsPerUser : 2,
@@ -111,7 +111,7 @@ describe('DB store - tenants', () => {
         fetched = await store.getClassTenant(id);
         assert.deepStrictEqual(fetched, {
             id,
-            supportedProjectTypes : ['text', 'images', 'numbers'],
+            supportedProjectTypes : ['text', 'images', 'numbers', 'sounds'],
             isManaged : false,
             maxUsers : 30,
             maxProjectsPerUser : 2,
@@ -124,7 +124,7 @@ describe('DB store - tenants', () => {
         fetched = await store.getClassTenant(id);
         assert.deepStrictEqual(fetched, {
             id,
-            supportedProjectTypes : ['text', 'images', 'numbers'],
+            supportedProjectTypes : ['text', 'images', 'numbers', 'sounds'],
             isManaged : false,
             maxUsers : 30,
             maxProjectsPerUser : 2,

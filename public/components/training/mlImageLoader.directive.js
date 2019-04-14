@@ -86,7 +86,9 @@
         function urlIsImageData(url) {
             return url && typeof url === 'string' &&
                    (url.substr(0, 10) === 'data:image' ||
-                    url.substr(0, 11) === 'x-raw-image');
+                    url.substr(0, 5) === 'blob:' ||
+                    url.substr(0, 11) === 'x-raw-image' ||
+                    url.substr(0, 5) === 'file:');
         }
 
 
@@ -122,8 +124,8 @@
                     data = googleImgsUrlParms.imgurl;
                 }
                 else {
-                    var type = getType(evt.dataTransfer.types, 'text/html');
-                    var linksrc = evt.dataTransfer.getData(type);
+                    var htmltype = getType(evt.dataTransfer.types, 'text/html');
+                    var linksrc = evt.dataTransfer.getData(htmltype);
                     var parsed = parseHTML(linksrc);
                     var img = parsed.querySelector('img');
                     if (img) {
