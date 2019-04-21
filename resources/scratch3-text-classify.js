@@ -541,13 +541,18 @@ function getStatus() {
 
 var LINE_BREAKS = /(\r\n|\n|\r|\t)/gm;
 function cleanUpText(str, maxlength) {
-    // Newlines in text will cause errors in Watson Assistant API calls
-    // so we replace them a with a space
-    return str.replace(LINE_BREAKS, ' ')
-              .trim()
-              // Protect against text that will exceed the limit on
-              //  number of characters allowed by the API
-              .substr(0, maxlength);
+    if (str) {
+        // Newlines in text will cause errors in Watson Assistant API calls
+        // so we replace them a with a space
+        return str.replace(LINE_BREAKS, ' ')
+                .trim()
+                // Protect against text that will exceed the limit on
+                //  number of characters allowed by the API
+                .substr(0, maxlength);
+    }
+    else {
+        return str;
+    }
 }
 
 
