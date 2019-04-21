@@ -76,7 +76,7 @@
                     description : translations['WORKSHEETS.MAKEMEHAPPY.DESCRIPTION'],
                     difficulty : 'Beginner',
                     type : 'text',
-                    maketypes : [ 'scratch3' ],
+                    maketypes : [ 'scratch3', 'python' ],
                     image : 'static/images/project-makemehappy.png',
                     tags : [ 'sentiment analysis', 'supervised learning' ],
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-makemehappy.pdf',
@@ -88,6 +88,10 @@
                         {
                             description : 'Shorter version of the project, where the students only make a machine learning version of the assistant',
                             worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-easy.pdf'
+                        },
+                        {
+                            description : 'Python project - for making the project using Python',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-python.pdf'
                         }
                     ]
                 },
@@ -151,7 +155,7 @@
                     description : translations['WORKSHEETS.CARORCUP.DESCRIPTION'],
                     difficulty : 'Beginner',
                     type : 'images',
-                    maketypes : [ 'scratch2' ],
+                    maketypes : [ 'scratch3' ],
                     image : 'static/images/project-carorcup.png',
                     tags : [ 'image classification', 'supervised learning', 'crowd sourcing' ],
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-carorcup.pdf',
@@ -252,7 +256,7 @@
                     description : translations['WORKSHEETS.CHATBOTS.DESCRIPTION'],
                     difficulty : 'Intermediate',
                     type : 'text',
-                    maketypes : [ 'scratch2', 'python' ],
+                    maketypes : [ 'scratch3', 'python' ],
                     image : 'static/images/project-chatbots.png',
                     tags : [ 'sentiment analysis', 'supervised learning' ],
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chatbots.pdf',
@@ -289,7 +293,7 @@
                     description : translations['WORKSHEETS.TOURISTINFO.DESCRIPTION'],
                     difficulty : 'Intermediate',
                     type : 'text',
-                    maketypes : [ 'scratch2' ],
+                    maketypes : [ 'scratch3' ],
                     image : 'static/images/project-touristinfo.png',
                     tags : [ 'training bias', 'recommendations', 'supervised learning' ],
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-touristinfo.pdf',
@@ -321,7 +325,7 @@
                     description : translations['WORKSHEETS.SORTINGHAT.DESCRIPTION'],
                     difficulty : 'Intermediate',
                     type : 'text',
-                    maketypes : [ 'scratch2' ],
+                    maketypes : [ 'scratch3' ],
                     image : 'static/images/project-sortinghat.png',
                     tags : [ 'text classification', 'supervised learning', 'crowd sourcing' ],
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-sortinghat.pdf',
@@ -379,7 +383,7 @@
                     description : translations['WORKSHEETS.LOCATELARRY.DESCRIPTION'],
                     difficulty : 'Intermediate',
                     type : 'images',
-                    maketypes : [ 'scratch2' ],
+                    maketypes : [ 'scratch3' ],
                     image : 'static/images/project-locatelarry.png',
                     tags : [ 'image classification', 'supervised learning', 'image pre-processing' ],
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-locatelarry.pdf',
@@ -395,7 +399,7 @@
                     description : translations['WORKSHEETS.CONFUSED.DESCRIPTION'],
                     difficulty : 'Intermediate',
                     type : 'images',
-                    maketypes : [ 'scratch2' ],
+                    maketypes : [ 'scratch3' ],
                     image : 'static/images/project-confused.png',
                     tags : [ 'image classification', 'supervised learning', 'overfitting' ],
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-confused.pdf',
