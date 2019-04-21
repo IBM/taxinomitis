@@ -179,7 +179,7 @@
             })
             .state('links', {
                 url: '/links',
-                templateUrl: 'static/components-<%= VERSION %>/links/links.html'
+                templateUrl: 'static/components-<%= VERSION %>/links/links.html#top'
             })
             .state('404', {
                 url: '/404',
