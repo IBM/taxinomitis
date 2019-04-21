@@ -287,6 +287,9 @@
                 else if (lang.indexOf('nl') === 0) {
                     lang = 'nl-be';
                 }
+                else if (lang.indexOf('ja') === 0) {
+                    lang = 'ja';
+                }
 
                 return lang;
             })
