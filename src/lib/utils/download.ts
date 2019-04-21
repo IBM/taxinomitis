@@ -20,6 +20,23 @@ sharp.cache(false);
 // prevent sharp using multiple cores in parallel to reduce memory use
 sharp.concurrency(1);
 
+// standard options for downloading images
+const REQUEST_OPTIONS = {
+    timeout : 10000,
+    rejectUnauthorized : false,
+    strictSSL : false,
+    headers : {
+        // identify source of the request
+        //  partly as it's polite and good practice,
+        //  partly as some websites block requests that don't specify a user-agent
+        'User-Agent': 'machinelearningforkids.co.uk',
+        // prefer images if we have a choice
+        'Accept': 'image/png,image/jpeg,image/*,*/*',
+        // some servers block requests that don't include this
+        'Accept-Language': '*',
+    },
+};
+
 
 /**
  * Downloads a file from the specified URL to the specified location on disk.
@@ -43,17 +60,12 @@ export function file(url: string, targetFilePath: string, callback: IErrCallback
                             .on('finish', resolve);
 
     try {
-        request.get({
-            url,
-            timeout : 10000,
-            rejectUnauthorized : false,
-            strictSSL : false,
-        })
-        .on('error', (err) => {
-            log.error({ err }, 'request get fail');
-            resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
-        })
-        .pipe(writeStream);
+        request.get({ ...REQUEST_OPTIONS, url })
+            .on('error', (err) => {
+                log.error({ err }, 'request get fail');
+                resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
+            })
+            .pipe(writeStream);
     }
     catch (err) {
         log.error({ err, url }, 'Failed to download file');
@@ -107,7 +119,7 @@ export function resize(
                                     //  original
                                     .toFile(targetFilePath, resolve);
 
-            request.get({ url, timeout : 10000, rejectUnauthorized : false })
+            request.get({ ...REQUEST_OPTIONS, url })
                 .on('error', (err) => {
                     log.warn({ err, url }, 'Download fail (request)');
                     resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
