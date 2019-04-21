@@ -177,6 +177,10 @@
                 templateUrl: 'static/components-<%= VERSION %>/appinventor/appinventor.html',
                 controllerAs: 'vm'
             })
+            .state('links', {
+                url: '/links',
+                templateUrl: 'static/components-<%= VERSION %>/links/links.html'
+            })
             .state('404', {
                 url: '/404',
                 templateUrl: 'static/components-<%= VERSION %>/404/404.html'
