@@ -223,12 +223,12 @@ confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
 <span class="pythonfunc">def</span> <span class="pythonfuncname">getImageFileData</span>(locationOfImageFile):
     <span class="pythonfunc">with</span> <span style="color: #007020">open</span>(locationOfImageFile, &quot;rb&quot;) <span class="pythonfunc">as</span> f:
         data <span class="pythonop">=</span> f<span class="pythonop">.</span>read()
-        <span class="pythonfunc">if</span> sys.version_info[<span class="pythonint">0</span>] <span class="pythonop">&lt;</span> 3:
+        <span class="pythonfunc">if</span> sys.version_info[<span class="pythonint">0</span>] <span class="pythonop">&lt;</span> <span class="pythonint">3</span>:
             <span class="pythoncomments"># Python 2 approach to handling bytes</span>
             <span class="pythonfunc">return</span> data.encode("base64")
         <span class="pythonfunc">else</span>:
             <span class="pythoncomments"># Python 3 approach to handling bytes</span>
-            <span class="pythonfunc">import</span> base64
+            <span class="pythonfunc">import</span> <span class="pythonimport">base64</span>
             <span class="pythonfunc">return</span> base64<span class="pythonop">.</span>b64encode(data)<span class="pythonop">.</span>decode()
 
 
@@ -272,12 +272,12 @@ confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
         ok, data <span style="color: #333333">=</span> cv2<span style="color: #333333">.</span>imencode(<span style="background-color: #fff0f0">&#39;.jpg&#39;</span>, image)
         <span style="color: #008800; font-weight: bold">if</span> ok <span style="color: #333333">!=</span> <span style="color: #007020">True</span>:
             <span style="color: #008800; font-weight: bold">raise</span> <span style="color: #FF0000; font-weight: bold">ValueError</span>(<span style="background-color: #fff0f0">&quot;Problem getting image data&quot;</span>)
-        <span class="pythonfunc">if</span> sys.version_info[<span class="pythonint">0</span>] <span class="pythonop">&lt;</span> 3:
+        <span class="pythonfunc">if</span> sys.version_info[<span class="pythonint">0</span>] <span class="pythonop">&lt;</span> <span class="pythonint">3</span>:
             <span class="pythoncomments"># Python 2 approach to handling bytes</span>
             <span class="pythonfunc">return</span> data.encode("base64")
         <span class="pythonfunc">else</span>:
             <span class="pythoncomments"># Python 3 approach to handling bytes</span>
-            <span class="pythonfunc">import</span> base64
+            <span class="pythonfunc">import</span> <span class="pythonimport">base64</span>
             <span class="pythonfunc">return</span> base64<span class="pythonop">.</span>b64encode(data)<span class="pythonop">.</span>decode()
     <span style="color: #008800; font-weight: bold">finally</span>:
         cam<span style="color: #333333">.</span>release()
@@ -316,12 +316,12 @@ confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
 <span class="pythoncomments"># sent to the machine learning model for classifying</span>
 <span class="pythonfunc">def</span> <span class="pythonfuncname">getImageUrlData</span>(wwwLocationOfImage):
     data = requests<span class="pythonop">.</span>get(wwwLocationOfImage)<span class="pythonop">.</span>content
-    <span class="pythonfunc">if</span> sys.version_info[<span class="pythonint">0</span>] <span class="pythonop">&lt;</span> 3:
+    <span class="pythonfunc">if</span> sys.version_info[<span class="pythonint">0</span>] <span class="pythonop">&lt;</span> <span class="pythonint">3</span>:
         <span class="pythoncomments"># Python 2 approach to handling bytes</span>
         <span class="pythonfunc">return</span> data.encode("base64")
     <span class="pythonfunc">else</span>:
         <span class="pythoncomments"># Python 3 approach to handling bytes</span>
-        <span class="pythonfunc">import</span> base64
+        <span class="pythonfunc">import</span> <span class="pythonimport">base64</span>
         <span class="pythonfunc">return</span> base64<span class="pythonop">.</span>b64encode(data)<span class="pythonop">.</span>decode()
 
 
