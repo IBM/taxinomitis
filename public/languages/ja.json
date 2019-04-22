@@ -27,25 +27,25 @@
         "INCOMPLETE": "未完成です!"
     },
     "ABOUT": {
-        "TITLE": "子供のためのマシーンラーニング",
+        "TITLE": "子供のための機械学習",
         "IN6SECS": "６秒で...",
         "IN20MINS": "20分で...",
         "WHAT": {
             "TITLE": "狙い",
-            "BODY" : "本ツールは、機械学習システムをトレーニングし、それを元にアプリを構築するという実際の経験を通して機械学習の基礎を学ぶためのものです。<br/><br/>文字や数字を分類したり、画像を判断するための機械学習モデルをトレーニングする、簡単に使える、ガイド付きの環境を提供します。<br/><br/>本ツールは子供たちにプログラミングを教えるための既存の多くの努力の上に構築されています。広くプログラミング教育用に使われているプラットフォームである<a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a>にこれらの機械学習モデルを追加することで、子供たちがプロジェクトやゲームを彼らがトレーニングした機会学習のモデルを使って構築できるようにしています。 <br/><br/>より詳細な情報は、以下を参照下さい:"
+            "BODY" : "本サイトは、機械学習システムをトレーニングし、それを元にアプリを構築するという実際の経験を通して機械学習の基礎を学ぶためのものです。<br/><br/>文字列や数字を分類したり、画像や音声を判断するための機械学習モデルをトレーニングする、簡単に使える、ガイド付きの環境を提供します。<br/><br/>本ツールは子供たちにプログラミングを教えるための既存の多くの努力の上に構築されています。広くプログラミング教育用に使われているプラットフォームである<a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a>にこれらの機械学習モデルを追加することで、子供たちがプロジェクトやゲームを彼らがトレーニングした機会学習のモデルを使って構築できるようにしています。 <br/><br/>より詳細な情報は、以下を参照下さい:"
         },
         "WHY": {
             "TITLE": "Why?",
-            "BODY": "機械学習システムは身近ないたるところにあり、毎日使っています。例えば、スパムフィルター、推奨エンジン、翻訳サービス、チャットボットとデジタルアシスタント、検索エンジン、そして不正検出システムなどです。<br/><br/>近い内に、機械学習システムが私たちの車を運転したり、私たちの病気を治すお医者さんを手伝うことが普通になるでしょう。<br/><br/>子供たちが私たちの世界がどのようにして機能しているのかを理解することは大切なことです。その能力や関連性を理解する最も良い方法は、彼ら自身がこの技術を用いて何かを作ってみることです。<br/><br/>より詳細な情報は、以下を読んでください。: <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'子供のための機械学習入門(英語)'</a>"
+            "BODY": "機械学習システムは身近ないたるところにあり、私たちは、毎日使っています。例えば、スパムフィルター、推奨エンジン、翻訳サービス、チャットボットとデジタルアシスタント、検索エンジン、そして不正検出システムなどです。<br/><br/>近い内に、機械学習システムが私たちの車を運転したり、私たちの病気を治すお医者さんを手伝うことが普通になるでしょう。<br/><br/>子供たちが私たちの世界がどのようにして機能しているのかを理解することは大切なことです。その能力や関連性を理解する最も良い方法は、彼ら自身がこの技術を用いて何かを作ってみることです。<br/><br/>より詳細な情報は、以下を読んでください。: <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'子供のための機械学習入門(英語)'</a>"
         },
         "TECH": {
             "TITLE": "技術",
-            "BODY": "このツールは全てWebベースで、使うためにソフトウェアの導入や複雑な設定等は不要です。<br/><br/>学校やボランティアが運営する子ど向けのプログラミンググループで使われるようにデザインしており、先生やグループリーダーが、生徒のアクセスを管理できるように管理者用ページも提供します。<br/><br/>本システムは<a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a>のAPIを利用して<a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a>が構築しました。",
+            "BODY": "このサイトは全てWebベースで、使うためにソフトウェアのインストールや複雑な設定等は不要です。<br/><br/>学校やボランティアが運営する子ど向けのプログラミンググループで使われるようにデザインしており、先生やグループリーダーが、生徒のアクセスを管理できるように管理者用ページも提供します。<br/><br/>本システムは<a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a>のAPIを利用して<a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a>が構築しました。",
             "LOGIN": "始めるために: "
         },
         "FURTHER": {
-            "TITLE": "Further learning",
-            "BODY": "Machine Learning for Kids is a useful tool for introducing children to how ML systems are trained, how they are used, and some of the real-world implications of AI applications. <br/><br/>For additional teaching and learning resources, including teaching the internals of ML systems, please see: "
+            "TITLE": "もっと知る",
+            "BODY": "Machine Learning for Kids は、子供たちに機械学習システムがどのようにトレーニングされるのか、使われるのか、そして現実に使われているＡＩアプリとの関係を紹介するのに役立つツールです。<br/><br/>追加の学習、教育リーソース（含む、機械学習システムの内部の仕組み）は、こちらを参照ください: "
         }
     },
     "NEWS": {
@@ -106,14 +106,14 @@
         "LETMEKNOW": "お知らせください。"
     },
     "WELCOME": {
-        "TITLE": "コンピューターにゲームの遊び方を教える",
+        "TITLE": "コンピューターにゲームの遊び方を教えよう",
         "GET_STARTED": "開始",
-        "LEARN_MORE": "もっと学習する",
+        "LEARN_MORE": "もっと知る",
         "ADMIN_LABEL": "<strong>管理ページ</strong>に移動",
         "PROJECT_LABEL": "あなたの<strong>プロジェクト</strong>に移動",
         "STEP_1_TEXT": "あなたが認識できるようにしたい物の例を集める",
         "STEP_2_TEXT": "例を使って、コンピューターがそれらを認識できるようにトレーニングする",
-        "STEP_3_TEXT": "Scratchでコンピューターがそれらを認識できる機能を使ったゲームを作る"
+        "STEP_3_TEXT": "Scratchでコンピューターがそれらを認識できる機能を使ったゲームやアプリを作る"
     },
     "LOGIN": {
         "TITLE": "機械学習をはじめよう",
@@ -135,12 +135,12 @@
         "TEACHER": "先生又はコーディンククラブのリーダー",
         "STUDENT": "生徒",
         "FORGOT_TEXT": "ユーザ名かパスワードを忘れた? 大丈夫、私たちはたまに忘れます。",
-        "ARE_YOU_A_STUDENT": "Are you a student?",
-        "ARE_YOU_A_STUDENT_INTRO_1": "If your class is already using this tool, ask your teacher or coding group leader to create you an account.",
-        "ARE_YOU_A_STUDENT_INTRO_2": "If your class isn't already using the tool, ask your teacher or coding group leader to get in touch.",
-        "RESET_STUDENT_PASSWORD_1": "If you're a student, we don't have your email address to be able to send you a password-reset email.",
-        "RESET_STUDENT_PASSWORD_2": "That's no problem, though!",
-        "RESET_STUDENT_PASSWORD_3": "Just ask your teacher or group leader who first signed you up. They will be able to reset your password from their Admin page."
+        "ARE_YOU_A_STUDENT": "あなたは生徒?",
+        "ARE_YOU_A_STUDENT_INTRO_1": "もし、あなたのクラスが既にこのツールを使っているなら、先生かコーディングのリーダーにあなたのアカウントを作成するように依頼してください。",
+        "ARE_YOU_A_STUDENT_INTRO_2": "もし、あなたのクラスがまだこのツールを使っていないなら、先生かコーディングリーダーにこのサイトを利用するように言ってください。",
+        "RESET_STUDENT_PASSWORD_1": "もし、あなたが生徒なら、私たちはパスワードリセットのためのEmailを送るあなたのEmailアドレスを持っていません。",
+        "RESET_STUDENT_PASSWORD_2": "でも、問題ありません!",
+        "RESET_STUDENT_PASSWORD_3": "あなたを最初にサインアップした先生かグループリーダーに頼んでください。彼らはあなたのパスワードを管理者ページからリセットできます。"
     },
     "SIGNUP": {
         "TEACHER": {
@@ -169,7 +169,7 @@
         "TITLE": "あなたの機械学習プロジェクト",
         "ADDNEWPROJECT": "新しいプロジェクトの追加",
         "CREATEFIRSTPROJECT": "最初のプロジェクトを作成するには右の 'プラス' ボタンをクリックしてください。",
-        "RECOGNISING": "認識",
+        "RECOGNISING": "認識対象:",
         "AS": "として"
     },
     "NEWPROJECT": {
@@ -186,10 +186,10 @@
         "TYPES": {
             "LABEL": "認識させる",
             "NOTES_1": "どんなタイプの情報をコンピュータに認識させたいですか?",
-            "NOTES_2": "単語、文章、パラグラフは、\"text\"を選んでください。",
-            "NOTES_3": "写真、図、図形は、\"images\"を選んでください。",
-            "NOTES_4": "数字のあつまりや、複数選択肢は、\"numbers\"を選択してください。",
-            "NOTES_5": "For voices and sounds, choose \"sounds\""
+            "NOTES_2": "単語、文章、パラグラフは、\"文字列\"を選んでください。",
+            "NOTES_3": "写真、図、図形は、\"画像\"を選んでください。",
+            "NOTES_4": "数字のあつまりや、複数選択肢は、\"数値\"を選択してください。",
+            "NOTES_5": "音声は、\"音声\"を選択してください。"
         },
         "LANGUAGE": {
             "LABEL": "使用言語",
@@ -218,8 +218,8 @@
         },
         "CREATE": "作成",
         "ERRORS": {
-            "REQUIRED": "This is required!",
-            "TOOLONG": "That's too long!"
+            "REQUIRED": "これは必要です!",
+            "TOOLONG": "長すぎます!"
         }
     },
     "PROJECT": {
@@ -278,15 +278,15 @@
             "WEBCAMFAIL": "失礼! webcamが動作するようにできません。",
             "WEBCAMERROR": "あなたのWebブラウザから受け取ったメッセージは、:"
         },
-        "BACKGROUNDNOISE": "Collecting examples of background noise will help the computer to learn to recognize your sounds"
+        "BACKGROUNDNOISE": "バックグラウンド ノイズの例を収集することは、コンピュータがあなたの音声を正しく認識することを助けます。"
     },
     "MODELS": {
         "TITLE": "機械学習モデル",
         "TRAIN": "新しい機械学習モデルをトレーニングする",
         "CANCEL": "トレーニングを中止",
         "DELETE": "このモデルを削除",
-        "TEST_CANVAS": "Draw something to test your model with",
-        "TEST_WEBCAM": "Take a photo to test your model with",
+        "TEST_CANVAS": "あなたのモデルをテストするために何か描いてください",
+        "TEST_WEBCAM": "あなたのモデルをテストするために写真を撮ってください",
         "WHATHAVEYOUDONE": {
             "TITLE": "何をしましたか?",
             "PLEASEWAIT": "通常２，３分かかりますが、コンピューターが忙しい時には、それより長くかかることがあります。",
@@ -297,13 +297,13 @@
                     "TEXT" : "あなたのクラスは、あなた方が収集したテキストの例を用いて機械学習モデルをトレーニングしています。",
                     "IMAGES" : "あなたのクラスは、あなた方が収集した画像の例を用いて機械学習モデルをトレーニングしています。",
                     "NUMBERS" : "あなたのクラスは、あなた方が収集した数値の例を用いて機械学習モデルをトレーニングしています。",
-                    "SOUNDS" : "Your class is training a machine learning model using the examples of sounds that you all collected."
+                    "SOUNDS" : "あなたのクラスは、あなた方が収集した音声の例を用いて機械学習モデルをトレーニングしています。"
                 },
                 "INDIVIDUAL" : {
                     "TEXT" : "あなたは、あなたが収集した文字列の例を用いて機械学習モデルをトレーニングを既に始めています。",
                     "IMAGES" : "あなたは、あなたが収集した画像の例を用いて機械学習モデルをトレーニングを既に始めています。",
                     "NUMBERS" : "あなたは、あなたが収集した数値の例を用いて機械学習モデルをトレーニングを既に始めています。",
-                    "SOUNDS" : "You've started training a machine learning model using the examples of sounds that you collected."
+                    "SOUNDS" : "あなたは、あなたが収集した音声の例を用いて機械学習モデルをトレーニングを既に始めています。"
                 },
                 "SINCE": "トレーニングをしています。"
             },
@@ -312,13 +312,13 @@
                     "TEXT" : "あなたのクラスは、文字列を認識するように機械学習モデルをトレーニングしました。認識する文字列は、",
                     "IMAGES" : "あなたのクラスは、画像を認識するように機械学習モデルをトレーニングしました。認識する画像は、",
                     "NUMBERS" : "あなたのクラスは、数値を認識するように機械学習モデルをトレーニングしました。認識する数値は、",
-                    "SOUNDS" : "Your class has trained a machine learning model to recognise when sounds are "
+                    "SOUNDS" : "あなたのクラスは、音声を認識するように機械学習モデルをトレーニングしました。認識する音声は、"
                 },
                 "INDIVIDUAL" : {
                     "TEXT" : "あなたは、文字列を認識するように機械学習モデルをトレーニングしました。認識する文字列は、",
                     "IMAGES" : "あなたは、画像を認識するように機械学習モデルをトレーニングしました。認識する画像は、",
                     "NUMBERS" : "あなたのクラスは、数値を認識するように機械学習モデルをトレーニングしました。認識する数値は、",
-                    "SOUNDS" : "You have trained a machine learning model to recognise when sounds are "
+                    "SOUNDS" : "Yあなたのクラスは、音声を認識するように機械学習モデルをトレーニングしました。認識する音声は、"
                 },
                 "CREATED" : {
                     "TEACHER" : "あなたの先生が、作成したモデルは、",
@@ -335,20 +335,20 @@
                         "TEXT" : "あなたの先生は、あなた方のクラスが収集した文字列を認識するように機械学習モデルのトレーニングを試みました。",
                         "IMAGES" : "あなたの先生は、あなた方のクラスが収集した画像を認識するように機械学習モデルのトレーニングを試みました。",
                         "NUMBERS" : "あなたの先生は、あなた方のクラスが収集した数値を認識するように機械学習モデルのトレーニングを試みました。",
-                        "SOUNDS" : "Your teacher tried training a machine learning model using the examples of sounds that your class collected."
+                        "SOUNDS" : "あなたの先生は、あなた方のクラスが収集した音声を認識するように機械学習モデルのトレーニングを試みました。"
                     },
                     "YOU" : {
                         "TEXT" : "あなたは、あなたが収集した文字列を認識するように機械学習モデルのトレーニングを試みました。",
                         "IMAGES" : "あなたは、あなたが収集した画像を認識するように機械学習モデルのトレーニングを試みました。",
                         "NUMBERS" : "あなた、あなたが収集した数値を認識するように機械学習モデルのトレーニングを試みました。",
-                        "SOUNDS" : "You tried training a machine learning model using the examples of sounds that your class collected."
+                        "SOUNDS" : "あなた、あなたが収集した音声を認識するように機械学習モデルのトレーニングを試みました。"
                     }
                 },
                 "INDIVIDUAL" : {
                     "TEXT" : "あなたは、あなたが収集した文字列を認識するように機械学習モデルのトレーニングを試みました。",
                     "IMAGES" : "あなたは、あなたが収集した画像を認識するように機械学習モデルのトレーニングを試みました。",
                     "NUMBERS" : "あなた、あなたが収集した数値を認識するように機械学習モデルのトレーニングを試みました。",
-                    "SOUNDS" : "You tried training a machine learning model using the examples of sounds that you collected."
+                    "SOUNDS" : "あなた、あなたが収集した音声を認識するように機械学習モデルのトレーニングを試みました。"
                 }
             },
             "IDLE" : {
@@ -357,13 +357,13 @@
                         "TEXT" : "あなたのクラスは、あなたが文字列の例を収集したいと言いました。",
                         "IMAGES" : "あなたのクラスは、あなたが画像の例を収集したいと言いました。",
                         "NUMBERS" : "あなたのクラスは、あなたが数値の例を収集したいと言いました。",
-                        "SOUNDS" : "Your class said you want to collect examples of sounds."
+                        "SOUNDS" : "あなたのクラスは、あなたが音声の例を収集したいと言いました。"
                     },
                     "INDIVIDUAL" : {
                         "TEXT" : "あなたは、あなたが文字列の例を収集したいと言っていました。",
                         "IMAGES" : "あなたは、あなたが画像の例を収集したいと言っていました。",
                         "NUMBERS" : "あなたは、あなたが数値の例を収集したいと言っていました。",
-                        "SOUNDS" : "You've said you want to collect examples of sounds."
+                        "SOUNDS" : "あなたは、あなたが音声の例を収集したいと言っていました。"
                     }
                 },
                 "NODATA" : {
@@ -371,13 +371,13 @@
                         "TEXT" : "あなたのクラスは、文字列が以下の時に、コンピューターが認識できるようにするために、あなたが文字列の例を集めたいと言いました。",
                         "IMAGES" : "あなたのクラスは、画像が以下の時に、コンピューターが認識できるようにするために、あなたが画像の例を集めたいと言いました。",
                         "NUMBERS" : "あなたのクラスは、数値が以下の時に、コンピューターが認識できるようにするために、あなたが数値の例を集めたいと言いました。",
-                        "SOUNDS" : "Your class said that you want to collect examples of sounds for a computer to recognise when sounds are "
+                        "SOUNDS" : "あなたのクラスは、音声が以下の時に、コンピューターが認識できるようにするために、あなたが音声の例を集めたいと言いました。"
                     },
                     "INDIVIDUAL" : {
                         "TEXT" : "あなたは、文字列が以下の時に、コンピューターが認識できるようにするために、文字列の例を集めたいと言いました。",
                         "IMAGES" : "あなたは、画像が以下の時に、コンピューターが認識できるようにするために、画像の例を集めたいと言いました。",
                         "NUMBERS" : "あなたは、数値が以下の時に、コンピューターが認識できるようにするために、数値の例を集めたいと言いました。",
-                        "SOUNDS" : "You said that you want to collect examples of sounds for a computer to recognise when sounds are "
+                        "SOUNDS" : "あなたは、音声が以下の時に、コンピューターが認識できるようにするために、音声の例を集めたいと言いました。"
                     }
                 },
                 "NOEXAMPLES" : {
@@ -389,13 +389,13 @@
                         "TEXT" : "あなたのクラスは、文字列が以下の時に、コンピューターが認識できるように、文字列の例を収集しました。",
                         "IMAGES" : "あなたのクラスは、画像が以下の時に、コンピューターが認識できるように、画像の例を収集しました。",
                         "NUMBERS" : "あなたのクラスは、数値が以下の時に、コンピューターが認識できるように、数値の例を収集しました。",
-                        "SOUNDS" : "Your class has collected examples of sounds for a computer to use to recognise when sounds are "
+                        "SOUNDS" : "あなたのクラスは、音声が以下の時に、コンピューターが認識できるように、音声の例を収集しました。"
                     },
                     "INDIVIDUAL" : {
                         "TEXT" : "あなたは、文字列が以下の時に、コンピューターが認識できるように、文字列の例を収集しました。",
                         "IMAGES" : "あなたは、画像が以下の時に、コンピューターが認識できるように、画像の例を収集しました。",
                         "NUMBERS" : "あなたは、数値が以下の時に、コンピューターが認識できるように、数値の例を収集しました。",
-                        "SOUNDS" : "You have collected examples of sounds for a computer to use to recognise when sounds are "
+                        "SOUNDS" : "あなたは、音声が以下の時に、コンピューターが認識できるように、音声の例を収集しました。"
                     },
                     "COLLECTED" : {
                         "CLASS" : "収集済み: ",
@@ -415,8 +415,8 @@
                 "ONELABEL" : {
                     "EXPLANATION": "あなたは、コンピュータに {{ label }} だけを認識させたいと言いました。",
                     "ISTHATALL": "これ一つだけをコンピュータに認識させたいのですか？",
-                    "NO": "<strong>いいえ?</strong><br/><a href='{{ urls.train }}'>Train</a>ページに戻って、<br/>あなたがコンピュータが認識できるように教えたいものそれぞれにラベルを追加してください。<br/><br/>",
-                    "YES": "<strong>はい?</strong><br/>最初にもう少し作業をする必要があります。<br/>コンピュータが \"{{ label }}\"を認識するように学習するために、{{ label }}でないものの例をいくつか与える必要があります。<br/><a href='{{ urls.train }}'>Train</a> ページに戻って、{{ label }}ではないものの例ようにラベルを新しく作成してください。\"not-{{ label }}\"というラベルを付けることもできます。"
+                    "NO": "<strong>いいえ?</strong><br/><a href='{{ urls.train }}'>Train</a>ページに戻って、<br/>コンピュータが認識できるようしたい対象のそれぞれにラベルを追加してください。<br/><br/>",
+                    "YES": "<strong>はい?</strong><br/>最初にもう少し作業をする必要があります。<br/>コンピュータが \"{{ label }}\"を認識できるように学習するために、{{ label }}でない認識対象の例をいくつか与える必要があります。<br/><a href='{{ urls.train }}'>トレーニング</a> ページに戻って、{{ label }}ではない、認識対象ようにラベルを新しく作成してください。\"not-{{ label }}\"というラベルを付けることもできます。"
                 },
                 "LABELS" : {
                     "NO_DATA" : "次のステップは、<a href='{{ urls.train }}'>Train</a>　ページに行き、それぞれのラベルの例を追加してください。",
@@ -447,7 +447,7 @@
                     "TEXT" : "機械学習モデルをテストしてみましょう。トレーニング用の例で使っていない文字列の例を以下に入れてください。どのように認識したかと、どの程度その回答に自信があるかを示します。",
                     "IMAGES" : "機械学習モデルをテストしてみましょう。トレーニング用の例で使っていない画像の例を以下に入れてください。どのように認識したかと、どの程度その回答に自信があるかを示します。",
                     "NUMBERS" : "機械学習モデルをテストしてみましょう。トレーニング用の例で使っていない数値の例を以下に入れてください。どのように認識したかと、どの程度その回答に自信があるかを示します。",
-                    "SOUNDS" : "Try testing the machine learning model below. Click the 'Start listening' button. If your machine learning model recognises any sounds, it will tell you what it recognises it as, and how confident it is in that."
+                    "SOUNDS" : "機械学習モデルをテストしてみましょう。トレーニング用の例で使っていない音声の例を以下に入れてください。どのように認識したかと、どの程度その回答に自信があるかを示します。"
                 },
                 "SCRATCH" : "もし、コンピュータが正しく認識できるように学習したようであれば、Scratch に行ってコンピュータが学習したことをゲームを作るのに使いましょう。",
                 "ADDITIONAL_TRAINING" : {
@@ -476,14 +476,14 @@
                 "TEXT": "トレーニングの結果、どのように認識されるのか文字列を入れて試しましょう。",
                 "IMAGES": "トレーニングの結果、どのように認識されるのか画像を入れて試しましょう。",
                 "NUMBERS": "トレーニングの結果、どのように認識されるのか数値を入れて試しましょう。",
-                "SOUNDS": "Try making a sound to see how it is recognised based on your training"
+                "SOUNDS": "トレーニングの結果、どのように認識されるのか音声を入れて試しましょう。"
             },
             "WEBCAM": "<strong>webcam</strong>で試す。",
             "DRAWING": "<strong>描いて</strong>試す",
             "WWW": "<strong>www</strong>で試す",
             "RECOGNISED": "<strong>{{ testoutput }}</strong>と認識しました。",
-            "STARTLISTENING": "Start listening",
-            "STOPLISTENING": "Stop listening"
+            "STARTLISTENING": "聞いてみよう",
+            "STOPLISTENING": "聞くのを停止"
         },
         "QUIZ": {
             "TITLE": "クイズタイム！",
@@ -546,20 +546,20 @@
     "WORKSHEETS": {
         "TITLE": "機械学習プロジェクト",
 
-        "INTRO_1": "これらのプロジェクトはダウンロード可能なガイドで、生徒が追従できるステップ毎の説明とカラーのスクリーンショット付きです。",
-        "INTRO_2": "それぞれのプロジェクトは単発のプロジェクトで、一回のレッスンのために作られており、実世界での人口知能や機械学習の利用され方をデモする双方向性のあるプロジェクトやゲームを子供達が作れるようにガイドします。",
+        "INTRO_1": "これらのプロジェクトは、生徒が追従できるようステップ毎の説明とカラーのスクリーンショット付きのガイド（ダウンロード可能、英語）を含みます。",
+        "INTRO_2": "それぞれのプロジェクトは単発のプロジェクトで、一回のレッスンで完結するように作られており、実世界での人口知能や機械学習の利用され方をデモするインタラクティブなプロジェクトやゲームを子供達が作れるようにガイドしています。",
         "INTRO_3": "新しいワークシートの提案、既存のワークシートの改善、新しいプロジェクトのワークシートの提供等をお願い致します。",
 
         "TYPES": {
             "TITLE": "認識する:",
             "ALL": "全てのプロジェクトタイプ",
 
-            "PREFIX": "コンピュータを認識できるようにトレーニング",
+            "PREFIX": "認識できるようにトレーニングする対象",
 
             "TEXT": "文字列",
             "IMAGES": "画像",
             "NUMBERS": "数値",
-            "SOUNDS": "sounds"
+            "SOUNDS": "音声"
         },
 
         "LEVELS": {
@@ -593,138 +593,138 @@
 
         "SMARTCLASSROOM": {
             "TITLE": "スマート クラスルーム",
-            "SUMMARY": "あなたの指示が分かるようにコンピュータに教える。",
+            "SUMMARY": "あなたの指示が分かるようにコンピュータに教えよう。",
             "DESCRIPTION": "あなたが画面上の機器を制御できるように賢いアシスタントを Scratchで作ります。"
         },
         "MAKEMEHAPPY": {
             "TITLE": "私を幸せにして",
-            "SUMMARY": "誉め言葉と意地悪な言葉が認識できるようにコンピュータに教える。",
+            "SUMMARY": "誉め言葉と意地悪な言葉が認識できるようにコンピュータに教えよう。",
             "DESCRIPTION": "Scratchで易しい言葉には微笑み、意地悪な言葉には泣く人物を作ります。"
         },
         "SNAP": {
             "TITLE": "スナップ!",
-            "SUMMARY": "アイコンがどのように見えるのか認識できるようにコンピュータに教える。",
+            "SUMMARY": "アイコンがどのように見えるのか認識できるようにコンピュータに教えよう。",
             "DESCRIPTION": "あなたのカードが認識できるように学習するカードゲームを製作します。"
         },
         "CHAMELEON": {
             "TITLE": "カメレオン",
-            "SUMMARY": "色を認識できるよにコンピュータに教えます。",
+            "SUMMARY": "色を認識できるよにコンピュータに教えよう。",
             "DESCRIPTION": "背景に合わせて色を変えるカメレオンをScratchを使って作ります。"
         },
         "MAILMANMAX": {
             "TITLE": "郵便屋さん Max",
-            "SUMMARY": "コンピュータに手書き文字の認識を教えましょう。",
-            "DESCRIPTION": "封筒の上の手書き郵便番号を認識する郵便の仕分け所をScratchを使って作りましょう。"
+            "SUMMARY": "コンピュータに手書き文字の認識を教えよう。",
+            "DESCRIPTION": "封筒の上の手書き郵便番号を認識する郵便の仕分け所をScratchを使って作ります。"
         },
         "CARORCUP": {
             "TITLE": "車 又は カップ",
-            "SUMMARY": "物体の絵を認識できるようにコンピュータに教えましょう。",
-            "DESCRIPTION": "写真をグループに分類できるようにコンピュータをトレーニングしよう。"
+            "SUMMARY": "物体の絵を認識できるようにコンピュータに教えよう。",
+            "DESCRIPTION": "写真をグループに分類できるようにコンピュータをトレーニングします。"
         },
         "FACELOCK": {
             "TITLE": "顔認証",
             "SUMMARY": "顔を認識できるようにコンピュータをトレーニングしよう。",
-            "DESCRIPTION": "あなたの顔を認識したら、Scratchの中の携帯のロックを外すようにしよう。"
+            "DESCRIPTION": "あなたの顔を認識したら、Scratchの中の携帯のロックを外すようにします。"
         },
         "JOURNEYTOSCHOOL": {
             "TITLE": "学校への道",
             "SUMMARY": "予想をするようにコンピュータに教えよう。",
-            "DESCRIPTION": "朝、学校にどのように行くかコンピュータが予想できるようにトレーニングしよう。"
+            "DESCRIPTION": "朝、学校にどのように行くかコンピュータが予想できるようにトレーニングします。"
         },
         "SHYPANDA": {
             "TITLE": "恥ずかしがりやのパンダ",
             "SUMMARY": "写真を認識できるようにコンピュータに教えよう。",
-            "DESCRIPTION": "もしあなたが見ているのに気づいたら踊るのをやる、恥ずかしがりやのパンダをつくろう。"
+            "DESCRIPTION": "もしあなたが見ているのに気づいたら踊るのをやる、恥ずかしがりやのパンダをつくります。"
         },
         "VIRTUALPET": {
             "TITLE": "仮想ペット",
             "SUMMARY": "写真を認識できるようにコンピュータに教えよう。",
-            "DESCRIPTION": "仮想ペットの世話ができりょうに、あなたの動作をコンピュータが認識できるようにトレーニングしよう。"
+            "DESCRIPTION": "仮想ペットの世話ができりょうに、あなたの動作をコンピュータが認識できるようにトレーニングします。"
         },
         "PACMAN": {
             "TITLE": "パックマン",
             "SUMMARY": "ゲームの遊び方をコンピュータに教えよう。",
-            "DESCRIPTION": "幽霊のよけ方を学習するパックマンゲームをScratchで作ろう。"
+            "DESCRIPTION": "幽霊のよけ方を学習するパックマンゲームをScratchで作ります。"
         },
         "CHATBOTS": {
             "TITLE": "チャットボット",
             "SUMMARY": "質問が分かるようにコンピュータに教えよう。",
-            "DESCRIPTION": "あなたが選んだ話題に関する質問に答えられるチャットボットをつくろう。"
+            "DESCRIPTION": "あなたが選んだ話題に関する質問に答えられるチャットボットをつくります。"
         },
         "TOURISTINFO": {
             "TITLE": "訪問先",
             "SUMMARY": "推奨ができるようにコンピュータに教えよう。",
-            "DESCRIPTION": "旅行者の興味にあったアトラクションを推奨できる携帯アプリをScratchでつくろう。"
+            "DESCRIPTION": "旅行者の興味にあったアトラクションを推奨できる携帯アプリをScratchでつくります。"
         },
         "SORTINGHAT": {
             "TITLE": "組分け帽子",
             "SUMMARY": "言葉の使い方をコンピュータが認識できるようにトレーニングしよう。",
-            "DESCRIPTION": "あなたの言ったことに基づいて、あなたを寄宿舎に入れるハリーポッターの組分け帽子をつくろう。"
+            "DESCRIPTION": "あなたの言ったことに基づいて、あなたを寄宿舎に入れるハリーポッターの組分け帽子をつくります。"
         },
         "ROCKPAPERSCISSORS": {
             "TITLE": "グー、チョキ、パー",
             "SUMMARY": "コンピュータに形を認識できるように教えよう。",
-            "DESCRIPTION": "手の形を学習するグー・チョキ・パーのゲームをScratchでつくろう。"
+            "DESCRIPTION": "手の形を学習するグー・チョキ・パーのゲームをScratchでつくります。"
         },
         "JUDGEABOOK": {
             "TITLE": "本の判別",
             "SUMMARY": "コンピュータが見た目で判別できるように教えよう。",
-            "DESCRIPTION": "表紙から本の種類を判別できるかテストするゲームをScratchで制作しよう。"
+            "DESCRIPTION": "表紙から本の種類を判別できるかテストするゲームをScratchで制作します。"
         },
         "LOCATELARRY": {
             "TITLE": "ラリーを見つけろ",
             "SUMMARY": "写真の中の物を見つけるようにコンピュータに教えよう。",
-            "DESCRIPTION": "ウォーリーを探せのようにあなたのキャラクターを見つけるようにコンピュータに教えるタイプのゲームをScratchでつくろう。"
+            "DESCRIPTION": "ウォーリーを探せのようにあなたのキャラクターを見つけるようにコンピュータに教えるタイプのゲームをScratchでつくります。"
         },
         "CONFUSED": {
             "TITLE": "混乱",
             "SUMMARY": "果物を認識できるようにコンピュータに教えよう。",
-            "DESCRIPTION": "上手くトレーニングされないとコンピュータがどのように混乱して、間違えるか試してみよう。"
+            "DESCRIPTION": "上手くトレーニングされないとコンピュータがどのように混乱して、間違えるか試してみます。"
         },
         "SCHOOLLIBRARY": {
             "TITLE": "学校の図書館",
             "SUMMARY": "コンピュータに推薦することを教えよう。",
-            "DESCRIPTION": "ある本がどのレベルの子に合うかアドバイスする図書館員をScratchでつくろう。"
+            "DESCRIPTION": "ある本がどのレベルの子に合うかアドバイスする図書館員をScratchでつくります。"
         },
         "WHATTWITTERTHINKS": {
             "TITLE": "Twitterの考えは？",
             "SUMMARY": "コンピュータに世論を推察することを教えよう。",
-            "DESCRIPTION": "Twitter上の議論を分析してセンチメント分析するツールをScratchで作ろう。"
+            "DESCRIPTION": "Twitter上の議論を分析してセンチメント分析するツールをScratchで作ります。"
         },
         "NOUGHTSANDCROSSES": {
             "TITLE": "ナッツ＆クロス",
             "SUMMARY": "ゲームの遊び方をコンピュータに教えよう。",
-            "DESCRIPTION": "あなたの負かし方を学習するナッツ＆クロスをScratchで作ろう。"
+            "DESCRIPTION": "あなたの負かし方を学習するナッツ＆クロスをScratchで作ります。"
         },
         "TOPTRUMPS": {
             "TITLE": "トップトランプ",
             "SUMMARY": "ゲームの遊び方をコンピュータに教えよう。",
-            "DESCRIPTION": "Scratchで作ったトップトランプのゲームを遊べるようにコンピュータをトレーニングしよう。"
+            "DESCRIPTION": "Scratchで作ったトップトランプのゲームを遊べるようにコンピュータをトレーニングします。"
         },
         "HEADLINES": {
             "TITLE": "見出し",
-            "SUMMARY": "言葉の使い方を認識するコンピュータの能力をテストする。",
-            "DESCRIPTION": "全国紙の見出しを認識できるようにコンピュータをトレーニングしよう。"
+            "SUMMARY": "言葉の使い方を認識するコンピュータの能力をテストしよう。",
+            "DESCRIPTION": "全国紙の見出しを認識できるようにコンピュータをトレーニングします。"
         },
         "FINDIT": {
-            "TITLE": "Find It!",
-            "SUMMARY": "Teach a computer to recognise pictures",
-            "DESCRIPTION": "Make a hide-and-seek game for your mobile phone."
+            "TITLE": "見つけた!",
+            "SUMMARY": "画像を認識できるようにコンピューターに教えよう。",
+            "DESCRIPTION": "あなたの携帯ようにかくれんぼゲームを作ります。"
         },
         "ALIENLANGUAGE": {
-            "TITLE": "Alien Language",
-            "SUMMARY": "Teach a computer to recognize sounds",
-            "DESCRIPTION": "Make an alien in Scratch that learns to recognize an alien language."
+            "TITLE": "エイリアンの言葉",
+            "SUMMARY": "音が理解できるようにコンピューターに教えよう。",
+            "DESCRIPTION": "エイリアンの言葉を認識すうるエイリアンをScratchを使って作ります。"
         },
         "SECRETCODE": {
-            "TITLE": "Secret Code",
-            "SUMMARY": "Teach a computer to recognize speech",
-            "DESCRIPTION": "Train a computer to understand secret code words to guide a spy."
+            "TITLE": "秘密のコード",
+            "SUMMARY": "言葉が理解できるようにコンピューターに教えよう。",
+            "DESCRIPTION": "スパイを誘導するために、秘密のコードを理解できるようにコンピューターに教えます。"
         },
         "JARGONBUSTER": {
-            "TITLE": "Jargon Buster",
-            "SUMMARY": "Teach a computer to listen for words",
-            "DESCRIPTION": "Make a project in Scratch that displays the meaning of words you say."
+            "TITLE": "専門語 バスター",
+            "SUMMARY": "単語を聞くようにコンピューターに教えよう。",
+            "DESCRIPTION": "あなたの言った言葉の意味を表示するプロジェクトをScratchで制作します。"
         }
     },
     "TEACHER": {
@@ -948,25 +948,25 @@
             "Q2-A-2": "どうのようにチェックして問題解決するかは、<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>ここにある手順に従ってください。</a>",
 
             "Q3": "Scratch 内のMachine learning classifierブロックが動作しない",
-            "Q3-A-1": "稀に, machine learning model用のScratchブロックとサーバとのコネクションが切れることがあります。これが起きると、ブロックが結果を返さなくなります。",
+            "Q3-A-1": "稀に, 機械学習モデル用のScratchブロックとサーバとのコネクションが切れることがあります。これが起きると、ブロックが結果を返さなくなります。",
             "Q3-A-2": "この状態が発生しているのか発生しているのかを \"More Blocks\" palette内にあるステータスライトで確認できます。",
             "Q3-A-3": "もし、このMachine Learning Scratch Block の並びにあるステータスライトが赤の場合、通常何か問題があることを示しています。一時的な問題の可能性もあります。あなたのプロジェクトを保存し ('ファイル' -&gt; '直ちに保存'を使って), それから、ブラウザのページをリロードしてください。もしステータスライトが緑になったら、あなたのプロジェクトを読み込み ('ファイル' -&gt; 'コンピュータから読み込む'を使って) 、保存した所から再開してください。",
             "Q3-A-4": "もし、ステータスライトがリロードしても赤のままの場合、恐らく機械学習モデルに問題があると思われます。\"学習とテスト\" のページに行き、あなたのモデルに関するエラーが出ていないか確認ください。",
-            "Q3-A-5": "もし、machine learning Scratch blocksの隣のステータスライトが緑なら、ブロックは機能するハズです。 もし、期待しているレスポンスが得られない場合は、\"学習とテスト\" のページに行き、あなたのモデルがどのような結果を返すか確認ください。",
+            "Q3-A-5": "もし、machine learning Scratch blocksの隣のステータスライトが緑なら、ブロックは機能するハズです。 もし、期待しているレスポンスが得られない場合は、\"学習とテスト\" のページに行き、あなたのモデルがどのような結果を返すか確認してください。",
 
             "Q5": "どのバージョンのScratchでも使えますか？",
             "Q5-A-1": "このサイトが提供しているScratchのバージョンを利用する必要があります。Scratchをクリックすることで自動的に起動されます。又は、あなたのプロジェクトページから'Scratch 3'を選択することで起動します。",
 
-            "Q6": "Scratch 3 is only saving projects to the 'Downloads' folder",
-            "Q6-A-1": "When you click 'File' -> 'Save to your computer' in Scratch 3, your Scratch project is saved to your computer.",
-            "Q6-A-2": "Some teachers reported a problem that this saved to the Downloads folder, on a computer where students don't have access in Windows to the Downloads folder. The result was that students were not able to access their saved projects.",
-            "Q6-A-3": "If you have this problem, you need to look in your web browser settings for a setting like 'Ask where to save each file before downloading'. If you enable that, your students will be able to choose where their projects are saved."
+            "Q6": "Scratch 3 がプロジェクトを 'Downloads' フォルダーにのみ保存する",
+            "Q6-A-1": "あなたが 'File' -> 'Save to your computer' と Scratch 3でクリックすると, あなたの Scratch は、プロジェクトをあなたのコンピュータ保存します。",
+            "Q6-A-2": "何人かの先生が、この際にプロジェクトが Downloads フォルダー（生徒がWindowsの Downloadフォルダーにアクセス権限がなくても）に保存ざれたと報告しています。結果的に、生徒は保存したプロジェクトにアクセスできませんでした。",
+            "Q6-A-3": "もし、この問題に直面した場合、ブラウザの設定を確認ください。ダウンロード関連で、「ファイルごとに保存先を指定する」というような設定があります。この設定を選択すると、あなたの生徒は、プロジェクトの保存先を選択できるようになります。"
         },
 
         "TRAININGUI": {
             "TITLE": "トレーニングのUI関連",
 
-            "Q1": "画像プロジェクトで画像をトレーンンググループにドラッグすることができません。",
+            "Q1": "画像プロジェクトで画像をトレーニング グループにドラッグすることができません。",
             "Q1-A-1": "画像をトレーニンググループにドラッグする機能は、Safari と Internet Explorerでは機能しません。",
             "Q1-A-2": "もし、FirefoxやChromeが使えるなら、これらのブラウザを利用してください。それが出来ない場合は、代わりに \"www\" ボタンをクリックしトレーニングしたい画像のURLを張り付けてください。"
         },
@@ -1066,10 +1066,10 @@
 
             "Q3": "アカウントの削除",
             "Q3-A-1": "生徒用アカウント",
-            "Q3-A-2": "制度は彼らのアカウントを削除できません。",
+            "Q3-A-2": "生徒は彼らのアカウントを削除できません。",
             "Q3-A-3": "先生は削除したい生徒のアカウントをいつでも \"Teacher\" ページから生徒のアカウントの隣にある \"Delete student account\" ボタンをクリックすることで削除できます。",
             "Q3-A-4": "アカウントを削除すると生徒の全てのデータ、プロジェクトと機械学習モデルが削除されます。",
-            "Q3-A-5": "削除後の復元は不可能",
+            "Q3-A-5": "削除後の復元は不可能です。",
             "Q3-A-6": "先生アカウント",
             "Q3-A-7": "先生アカウントを削除すると、クラスとクラス中の全ての生徒のアカウントも削除され、復元することはできません。",
             "Q3-A-8": "先生アカウントの削除は<a href='https://machinelearningforkids.co.uk/teacher'>your Teacher page</a>にあるAdvanced optioins sections内の \"Delete Class\" ボタンをクリックすると削除されます。",
