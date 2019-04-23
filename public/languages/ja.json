@@ -797,10 +797,10 @@
             "LIMIT_IMAGE_PROJECTS": "あなたの生徒が使える画像機械学習モデルの数:",
 
             "ADD_API_KEYS": {
-                "ASSISTANT_TITLE": "Add Watson Assistant credentials",
-                "VISUAL_RECOGNITION_TITLE": "Add Visual Recognition API key",
+                "ASSISTANT_TITLE": "Watson Assistant credentialsの追加",
+                "VISUAL_RECOGNITION_TITLE": "Visual Recognition API keyの追加",
 
-                "USED_FOR_TEXT_PROJECTS": "These will be used when your students train models in text projects.",
+                "USED_FOR_TEXT_PROJECTS": "これらは、These will be used when your students train models in text projects.",
                 "USED_FOR_IMAGE_PROJECTS": "These will be used when your students train models in images projects.",
 
                 "HIDDEN_FROM_STUDENTS": "This will not be shown to students in your group.",
