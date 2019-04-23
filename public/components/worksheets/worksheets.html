@@ -42,7 +42,12 @@
         </div>
         <div class="cardfooter">
             <div class="difficulty"><span class="heading" translate="WORKSHEETS.LEVELS.TITLE"></span> {{worksheet.difficulty}}</div>
-            <div class="projecttype"><span class="heading" translate="WORKSHEETS.TYPES.TITLE"></span> <span class="worksheettype">{{worksheet.type}}</span></div>
+            <div class="projecttype"><span class="heading" translate="WORKSHEETS.TYPES.TITLE"></span>
+                <span class="worksheettype" ng-if="worksheet.type === 'text'" translate="WORKSHEETS.TYPES.TEXT"></span>
+                <span class="worksheettype" ng-if="worksheet.type === 'images'" translate="WORKSHEETS.TYPES.IMAGES"></span>
+                <span class="worksheettype" ng-if="worksheet.type === 'numbers'" translate="WORKSHEETS.TYPES.NUMBERS"></span>
+                <span class="worksheettype" ng-if="worksheet.type === 'sounds'" translate="WORKSHEETS.TYPES.SOUNDS"></span>
+            </div>
         </div>
         <div class="cardfooter">
             <div class="maketype" ng-repeat="maketype in worksheet.maketypes">

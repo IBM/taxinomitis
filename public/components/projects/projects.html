@@ -42,7 +42,10 @@
                 <div class="mlprojecttitle">{{ project.name }}</div>
                 <div class="mlprojectdescription">
                     {{ 'PROJECTS.RECOGNISING' | translate }}
-                    <span class="mlprojecttype">{{ project.type }}</span>
+                    <span class="mlprojecttype" ng-if="project.type === 'text'" translate="WORKSHEETS.TYPES.TEXT"></span>
+                    <span class="mlprojecttype" ng-if="project.type === 'images'" translate="WORKSHEETS.TYPES.IMAGES"></span>
+                    <span class="mlprojecttype" ng-if="project.type === 'numbers'" translate="WORKSHEETS.TYPES.NUMBERS"></span>
+                    <span class="mlprojecttype" ng-if="project.type === 'sounds'" translate="WORKSHEETS.TYPES.SOUNDS"></span>
                     <span ng-if="project.labelsSummary">
                         {{ 'PROJECTS.AS' | translate }}
                         <span class="mlprojectlabels">{{ project.labelsSummary }}</span>
