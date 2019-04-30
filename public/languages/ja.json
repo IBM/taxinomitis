@@ -76,11 +76,11 @@
             "BODY2": "そのプログラムは、家族や技術メンターの支援を得て、子供たちが彼ら独自のAIプロジェクトのアイデアを作る競争を中心につくられています。"
         },
         "AIINSCHOOLS": {
-            "BODY1": "The AIinSchools programme provides a free lesson plan for teachers to explain AI to Year 9 (aged 13-14).",
-            "BODY2": "It includes both unplugged classroom activities, and programming activities for training neural networks on GPUs running on AWS."
+            "BODY1": "AIinSchools のプログラムは、第9学年(13歳から14歳）向けにAIを教えるレッスンプランを提供しています。",
+            "BODY2": "Internetを使わないアクティビティとAWS上のGPUを使ってニューラルネットワークをトレーニングするためのプログラミングの両方を含んでいます。"
         },
         "TEENSINAI": {
-            "BODY1": "Teens in AI use a combination of hackathons, accelerators and bootcamps to support young people aged 12-18 to explore AI."
+            "BODY1": "Teens in AI は、ハッカソン、ブートキャンプ、アクセラレータの組み合わで12から18歳の若者がAIを探求するのを支援しています。"
         },
         "AI4ALL": {
             "BODY1": "AI4ALL run summer camps for high school students in the US that give a detailed technical introduction to AI."
