@@ -89,11 +89,11 @@
             "BODY1": "プログラム可能な Cozmo ロボットを持っている生徒は、Calypso プログラミング フレームワークを用いて、画像認識や音声認識をつかったAIの経験を実地にすることが可能です。"
         },
         "AIINABOX": {
-            "BODY1": "AI-in-a-Box is a bundle of robots, accessories and teaching resources. The kit can be used to teach projects that cover topics like visual recognition, facial recognition, speech generation and speech recognition."
+            "BODY1": "AI-in-a-Box は、ロボット、アクセサリーと教育用リソースの組み合わせです。そのキットは、画像認識、顔認識、音声認識、音声生成といったトピックに関するプロジェクトを教えるのに使うことができます。 "
         },
         "VIDEOS": {
-            "TITLE": "Videos",
-            "INTRO": "I've also found these videos useful when introducing AI concepts:"
+            "TITLE": "ビデオ",
+            "INTRO": "これらのビデオはAIを教えるのに有効だと思います:"
         }
     },
     "ERRORS": {
