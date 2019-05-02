@@ -800,16 +800,16 @@
                 "ASSISTANT_TITLE": "Watson Assistant credentialsの追加",
                 "VISUAL_RECOGNITION_TITLE": "Visual Recognition API keyの追加",
 
-                "USED_FOR_TEXT_PROJECTS": "これらは、These will be used when your students train models in text projects.",
-                "USED_FOR_IMAGE_PROJECTS": "These will be used when your students train models in images projects.",
+                "USED_FOR_TEXT_PROJECTS": "これらは、生徒が文字列認識プロジェクト用にモデルをトレーニングする際に使用されます。",
+                "USED_FOR_IMAGE_PROJECTS": "これらは、生徒が画像認識プロジェクト用にモデルをトレーニングする際に使用されます。",
 
-                "HIDDEN_FROM_STUDENTS": "This will not be shown to students in your group.",
+                "HIDDEN_FROM_STUDENTS": "この情報は、あなたのグループの生徒には表示されません。",
 
-                "PRICING_PLAN": "Which Pricing Plan did you use?",
-                "ENTER_APIKEY": "Please enter the API key below",
-                "ENTER_PASSWORD": "Please enter the username and password below",
+                "PRICING_PLAN": "どの利用料金プランを使いましたか？",
+                "ENTER_APIKEY": "以下にAPI Keyを入力してください。",
+                "ENTER_PASSWORD": "ユーザ名とパスワードを以下に入力してください。",
 
-                "CREDENTIALS_TYPE": "What did you create in Watson Assistant?"
+                "CREDENTIALS_TYPE": "Watson Assistantで何を作成しましたか?"
             }
         },
         "RESTRICTIONS": {
