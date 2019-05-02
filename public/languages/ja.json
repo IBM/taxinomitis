@@ -813,14 +813,14 @@
             }
         },
         "RESTRICTIONS": {
-            "TITLE": "Administration : Restrictions",
+            "TITLE": "管理 : 制限事項",
 
-            "ASK_FOR_CHANGES": "If any of these restrictions cause a problem for your group, please <strong><a href='/help'>get in touch</a></strong>.",
+            "ASK_FOR_CHANGES": "もし、これらの制限事項があたなのグループで問題となる場合は、<strong><a href='/help'>ヘルプ</a></strong>まで英語でご連絡ください。",
 
             "CLASS_LIMITS": {
-                "TITLE": "Limits for your class",
-                "NUM_USERS": "You can have up to <span class='mlprojecttype'>{{ num }}</span> users (including students and teachers) in your group.",
-                "NUM_TEXT_MODELS": "Your class is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> machine learning models in total across all their <span class='mlprojecttype'>text</span> projects.",
+                "TITLE": "あなたのクラスの制限",
+                "NUM_USERS": "あなたのグループ内のユーザ数（生徒と先生を含む）の上限は<span class='mlprojecttype'>{{ num }}</span> 名です。",
+                "NUM_TEXT_MODELS": "あなたのクラスは、<span class='mlprojecttype'>{{ num }}</span> つの機械学習モデルをmachine learning models in total across all their <span class='mlprojecttype'>text</span> projects.",
                 "NUM_IMAGE_MODELS": "Your class is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> machine learning models in total across all their <span class='mlprojecttype'>images</span> projects.</div>"
             },
             "PROJECT_LIMITS": {
