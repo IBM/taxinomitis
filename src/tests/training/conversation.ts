@@ -44,12 +44,15 @@ describe('Training - Conversation', () => {
 
 
     before(() => {
+        // @ts-ignore
         getStub = sinon.stub(request, 'get').callsFake(mockConversation.getClassifier);
+        // @ts-ignore
         createStub = sinon.stub(request, 'post');
         // @ts-ignore
         createStub.withArgs(sinon.match(/.*workspaces/), sinon.match.any).callsFake(mockConversation.createClassifier);
         // @ts-ignore
         createStub.withArgs(sinon.match(/.*message/), sinon.match.any).callsFake(mockConversation.testClassifier);
+        // @ts-ignore
         deleteStub = sinon.stub(request, 'delete').callsFake(mockConversation.deleteClassifier);
 
         getProjectStub = sinon.stub(store, 'getProject').callsFake(mockstore.getProject);

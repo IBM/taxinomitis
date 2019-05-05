@@ -87,7 +87,7 @@ async function classifyImage(key: Types.ScratchKey, base64imagedata: string): Pr
 }
 
 
-function logError(err?: Error) {
+function logError(err?: Error | null) {
     if (err) {
         log.error({ err }, 'Error when deleting image file');
     }

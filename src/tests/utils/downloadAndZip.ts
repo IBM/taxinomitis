@@ -68,17 +68,19 @@ describe('Utils - download and zip', () => {
             },
             (unzippedFiles: string[], next: (err?: Error | undefined | null,
                                              files?: Array<TestFile | undefined>) => void) => {
-                async.map(unzippedFiles, (unzippedFile: string, nextFile: (err?: Error, file?: TestFile) => void) => {
-                    fs.stat(unzippedFile, (err, stats) => {
-                        if (err) {
-                            return nextFile(err);
-                        }
-                        nextFile(err, {
-                            location : unzippedFile,
-                            size : stats.size,
-                        });
-                    });
-                }, next);
+                async.map(unzippedFiles,
+                          (unzippedFile: string, nextFile: (err?: Error | null, file?: TestFile) => void) =>
+                          {
+                              fs.stat(unzippedFile, (err, stats) => {
+                                  if (err) {
+                                      return nextFile(err);
+                                  }
+                                  nextFile(err, {
+                                      location : unzippedFile,
+                                      size : stats.size,
+                                  });
+                              });
+                          }, next);
             },
             (unzippedFilesInfo: TestFile[], next: () => void) => {
                 assert.strictEqual(unzippedFilesInfo.length, 3);

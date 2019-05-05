@@ -31,6 +31,7 @@ describe('Notifications - Slack', () => {
                     const confirm: slackClient.IncomingWebhookResult = {
                         text: msg.text,
                     };
+                    // @ts-ignore
                     callback(undefined, confirm);
                 }
                 else if (msg.text === unsendableMessage) {
@@ -40,6 +41,7 @@ describe('Notifications - Slack', () => {
                     codedError.code = slackClient.ErrorCode.IncomingWebhookRequestError;
                     codedError.original = error;
 
+                    // @ts-ignore
                     callback(codedError, undefined);
                 }
                 else {

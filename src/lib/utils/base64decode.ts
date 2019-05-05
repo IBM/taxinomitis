@@ -8,7 +8,7 @@ const log = loggerSetup();
 
 
 
-type IDecodeCallback = (err: Error, decodedFilePath?: string) => void;
+type IDecodeCallback = (err?: Error | null, decodedFilePath?: string) => void;
 
 
 function decodeJpg(base64data: string, callback: IDecodeCallback): void {

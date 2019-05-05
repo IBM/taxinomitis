@@ -55,16 +55,19 @@ describe('Training - Visual Recognition', () => {
     before(() => {
         iam.init();
 
+        // @ts-ignore
         getStub = sinon.stub(request, 'get');
         // @ts-ignore
         getStub.withArgs(sinon.match(/.*classifiers.*/), sinon.match.any).callsFake(mockVisRec.getClassifier);
         // @ts-ignore
         getStub.withArgs(sinon.match(/.*classify/), sinon.match.any).callsFake(mockVisRec.testClassify);
+        // @ts-ignore
         createStub = sinon.stub(request, 'post');
         // @ts-ignore
         createStub.withArgs(sinon.match(/.*classifiers/), sinon.match.any).callsFake(mockVisRec.createClassifier);
         // @ts-ignore
         createStub.withArgs(sinon.match(/.*classify/), sinon.match.any).callsFake(mockVisRec.testClassify);
+        // @ts-ignore
         deleteStub = sinon.stub(request, 'delete').callsFake(mockVisRec.deleteClassifier);
 
         getProjectStub = sinon.stub(store, 'getProject').callsFake(mockstore.getProject);

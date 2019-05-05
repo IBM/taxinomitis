@@ -340,7 +340,7 @@ function deleteTrainingFiles(training: { [label: string]: string }): void {
     const trainingKeys = Object.keys(training);
     for (const trainingKey of trainingKeys) {
         if (trainingKey !== 'name') {
-            fs.unlink(training[trainingKey], (err?: Error) => {
+            fs.unlink(training[trainingKey], (err?: Error | null) => {
                 if (err) {
                     log.error({ err, trainingKey, path : training[trainingKey] }, 'Failed to delete training file');
                 }

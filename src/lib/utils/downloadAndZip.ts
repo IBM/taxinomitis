@@ -5,7 +5,7 @@ import * as path from 'path';
 import * as tmp from 'tmp';
 import * as async from 'async';
 import * as archiver from 'archiver';
-import fileType from 'file-type';
+import * as fileType from 'file-type';
 import readChunk from 'read-chunk';
 // local dependencies
 import * as download from './download';
@@ -102,7 +102,7 @@ function renameFileFromContents(filepath: string, source: ImageDownload, callbac
     ], callback);
 }
 
-function logError(err?: Error) {
+function logError(err?: Error | null) {
     if (err) {
         log.error({ err }, 'Failed to delete file');
     }

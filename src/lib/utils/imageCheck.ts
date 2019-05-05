@@ -1,7 +1,7 @@
 // core dependencies
 import * as fs from 'fs';
 // external dependencies
-import fileType from 'file-type';
+import * as fileType from 'file-type';
 import readChunk from 'read-chunk';
 import * as tmp from 'tmp';
 import * as async from 'async';
@@ -115,7 +115,7 @@ function getFileTypeFromContents(filepath: string, callback: IFileTypeCallback):
 }
 
 
-function logError(err: Error) {
+function logError(err: Error | null) {
     if (err) {
         log.error({ err }, 'Failure to delete a temp file');
     }

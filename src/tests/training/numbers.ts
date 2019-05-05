@@ -28,6 +28,7 @@ describe('Training - numbers service', () => {
         postStub = sinon.stub(request, 'post');
         postStub.withArgs(sinon.match(/.*models/), sinon.match.any).callsFake(mockNumbers.createClassifier);
         postStub.withArgs(sinon.match(/.*classify/), sinon.match.any).callsFake(mockNumbers.testClassifier);
+        // @ts-ignore
         deleteStub = sinon.stub(request, 'delete').callsFake(mockNumbers.deleteClassifier);
 
         return store.init();

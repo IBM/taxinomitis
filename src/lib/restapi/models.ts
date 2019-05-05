@@ -314,7 +314,7 @@ async function testModel(req: Express.Request, res: Express.Response) {
 }
 
 
-function logError(err?: Error) {
+function logError(err?: Error | null) {
     if (err) {
         log.error({ err }, 'Error when deleting image file');
     }

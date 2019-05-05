@@ -58,14 +58,17 @@ describe('Training - Visual Recognition - IAM/API keys', () => {
     before(() => {
         iam.init();
 
+        // @ts-ignore
         getStub = sinon.stub(request, 'get');
 
+        // @ts-ignore
         postStub = sinon.stub(request, 'post');
         // @ts-ignore
         postStub.withArgs('https://iam.bluemix.net/identity/token', sinon.match.any).callsFake(mockIAM.request.get);
         // @ts-ignore
         postStub.withArgs(sinon.match(/.*classifiers/), sinon.match.any).callsFake(mockVisRec.request.create);
 
+        // @ts-ignore
         deleteStub = sinon.stub(request, 'delete').callsFake(mockVisRec.request.delete);
 
 
