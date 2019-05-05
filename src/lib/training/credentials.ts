@@ -432,7 +432,7 @@ async function isClassifierKnown(
         return true;
     }
     catch (err) {
-        log.error({ err, classifier }, 'Failed to get classifier info from DB');
+        log.error({ err, classifier, creds, credid: creds.id }, 'Failed to get classifier info from DB');
         slack.notify('Failed to verify ' + expected + ' classifier ' + classifier.id,
                      slack.SLACK_CHANNELS.CREDENTIALS);
 

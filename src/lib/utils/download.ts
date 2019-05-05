@@ -10,6 +10,10 @@ import loggerSetup from './logger';
 
 const log = loggerSetup();
 
+// number of times an image download has been attempted
+let numDownloads = 0;
+// number of failures to download an image
+let numErrors = 0;
 
 
 type IErrCallback = (err?: Error) => void;
@@ -25,6 +29,7 @@ const REQUEST_OPTIONS = {
     timeout : 10000,
     rejectUnauthorized : false,
     strictSSL : false,
+    gzip : true,
     headers : {
         // identify source of the request
         //  partly as it's polite and good practice,
@@ -60,9 +65,13 @@ export function file(url: string, targetFilePath: string, callback: IErrCallback
                             .on('finish', resolve);
 
     try {
+        numDownloads += 1;
+
         request.get({ ...REQUEST_OPTIONS, url })
             .on('error', (err) => {
-                log.error({ err }, 'request get fail');
+                numErrors += 1;
+
+                log.error({ err, numDownloads, numErrors }, 'request get fail');
                 resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
             })
             .pipe(writeStream);
