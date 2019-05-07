@@ -820,17 +820,17 @@
             "CLASS_LIMITS": {
                 "TITLE": "あなたのクラスの制限",
                 "NUM_USERS": "あなたのグループ内のユーザ数（生徒と先生を含む）の上限は<span class='mlprojecttype'>{{ num }}</span> 名です。",
-                "NUM_TEXT_MODELS": "あなたのクラスは、<span class='mlprojecttype'>{{ num }}</span> つの機械学習モデルをmachine learning models in total across all their <span class='mlprojecttype'>text</span> projects.",
-                "NUM_IMAGE_MODELS": "Your class is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> machine learning models in total across all their <span class='mlprojecttype'>images</span> projects.</div>"
+                "NUM_TEXT_MODELS": "あなたのクラスは、クラス全体で合計<span class='mlprojecttype'>{{ num }}</span> つの機械学習モデルを<span class='mlprojecttype'>文字列</span> プロジェクトで利用できます。",
+                "NUM_IMAGE_MODELS": "あなたのクラスは、クラス全体で合計<span class='mlprojecttype'>{{ num }}</span> つの機械学習モデルを<span class='mlprojecttype'>画像</span>  プロジェクトで利用できます。</div>"
             },
             "PROJECT_LIMITS": {
-                "TITLE": "Limits for projects created by your students",
-                "NUM_PROJECTS": "Each of your students is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> projects.",
-                "TYPES": "Your students can create projects to recognise <span class='mlprojecttype'>{{ types }}</span>.",
-                "TRAINING_DATA": "Each <span class='mlprojecttype'>{{ type }}</span> project can have up to <span class='mlprojecttype'>{{ num }}</span> training data examples. "
+                "TITLE": "生徒によって作られるプロジェクトに関する制限",
+                "NUM_PROJECTS": "あなたの生徒一人一人は、 最大で<span class='mlprojecttype'>{{ num }}</span> つののプロジェクトを作成できます。",
+                "TYPES": "あなたの生徒たちは、<span class='mlprojecttype'>{{ types }}</span> を認識するプロジェクトを作成できます。",
+                "TRAINING_DATA": "各々の <span class='mlprojecttype'>{{ type }}</span> 認識プロジェクトは、最大<span class='mlprojecttype'>{{ num }}</span> つのトレーニングデータを使えます。"
             },
             "EXPIRY": {
-                "TITLE": "To help you avoid the limits for number of machine learning models:",
+                "TITLE": "機械学習モデル数の制限を回避するために",
                 "TIME_LIMIT": "Machine learning models created for <span class='mlprojecttype'>{{ type }}</span> projects will automatically be deleted after <span class='mlprojecttype'>{{ num }}</span> hours.",
                 "DONT_WORRY": "(Don't worry! Training data will not be deleted, so students can always train a new machine learning model again if they still need it after this.)"
             },
