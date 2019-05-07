@@ -44,7 +44,7 @@ export function verifyImage(url: string, maxAllowedSizeBytes: number): Promise<v
                 // download the file to the temp location on disk
                 download.file(url, tmpFilePath, (err) => {
                     if (err) {
-                        log.error({ err, tmpFilePath, url }, 'Failed to download image file');
+                        log.warn({ err, tmpFilePath, url }, 'Failed to download image file');
                     }
 
                     next(err, tmpFilePath);

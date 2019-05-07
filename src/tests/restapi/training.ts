@@ -786,6 +786,43 @@ describe('REST API - training', () => {
         });
 
 
+        it('should handle auth errors when storing image training', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', [], false);
+            const projectid = project.id;
+
+            const trainingurl = '/api/classes/' + classid +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/training';
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
+
+            return request(testServer)
+                .post(trainingurl)
+                .send({
+                    data : 'https://lh4.googleusercontent.com/ytIqqhmtwSe-0fG_' +
+                           'cTnOIz4ZAQAjtbD1OcaGQ9wZ5ELUBdbie0lkivWjbSw6BCiw1sRvKUI=w371',
+                    label : 'test',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    const body = res.body;
+
+                    assert.deepStrictEqual(body, {
+                        error : 'lh4.googleusercontent.com would not allow ' +
+                                '"Machine Learning for Kids" to use that image',
+                    });
+
+                    return store.deleteEntireProject(userid, classid, project);
+                });
+        });
+
+
         it('should enforce limits', async () => {
             const classid = uuid();
             const userid = uuid();

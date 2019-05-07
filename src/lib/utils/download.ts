@@ -68,6 +68,19 @@ export function file(url: string, targetFilePath: string, callback: IErrCallback
         numDownloads += 1;
 
         request.get({ ...REQUEST_OPTIONS, url })
+            .on('response', (r) => {
+                // request doesn't emit errors for unsuccessful status codes
+                //  so we check for status codes that look like errors here
+                if (r.statusCode >= 400) {
+                    if (r.statusCode === httpstatus.FORBIDDEN || r.statusCode === httpstatus.UNAUTHORIZED) {
+                        return resolve(new Error(safeGetHost(url) + ERRORS.DOWNLOAD_FORBIDDEN));
+                    }
+
+                    numErrors += 1;
+                    log.error({ statusCode : r.statusCode, url, numDownloads, numErrors }, 'Failed to request url');
+                    return resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
+                }
+            })
             .on('error', (err) => {
                 numErrors += 1;
 
@@ -139,6 +152,10 @@ export function resize(
             if (err.statusCode === httpstatus.NOT_FOUND || err.message === 'ETIMEDOUT') {
                 log.warn({ err, url }, 'Image could not be downloaded');
             }
+            else if (err.statusCode === httpstatus.FORBIDDEN || err.statusCode === httpstatus.UNAUTHORIZED) {
+                log.warn({ err, url }, 'Image download was forbidden');
+                return resolve(new Error(safeGetHost(url) + ERRORS.DOWNLOAD_FORBIDDEN));
+            }
             else {
                 log.error({ err, url }, 'Download fail (probe)');
             }
@@ -147,7 +164,23 @@ export function resize(
 }
 
 
+/**
+ * Return the host from a full URL. If the provided url string is not a valid
+ * URL, return "The website" instead.
+ */
+function safeGetHost(url: string): string {
+    try {
+        const parsed = new URL(url);
+        return parsed.hostname;
+    }
+    catch (err) {
+        log.debug({ url }, 'Failed to parse url');
+        return 'The website';
+    }
+}
+
 
 export const ERRORS = {
     DOWNLOAD_FAIL : 'Unable to download image from ',
+    DOWNLOAD_FORBIDDEN : ' would not allow "Machine Learning for Kids" to use that image',
 };

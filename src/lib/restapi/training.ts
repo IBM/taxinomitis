@@ -11,6 +11,7 @@ import * as errors from './errors';
 import * as headers from './headers';
 import * as visrec from '../training/visualrecognition';
 import * as imageCheck from '../utils/imageCheck';
+import * as imageDownload from '../utils/download';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -173,7 +174,9 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
         res.status(httpstatus.CREATED).json(training);
     }
     catch (err) {
-        if (err.message === 'Text exceeds maximum allowed length (1024 characters)' ||
+        if (err.message && typeof err.message === 'string' &&
+            (
+            err.message === 'Text exceeds maximum allowed length (1024 characters)' ||
             err.message === 'Empty text is not allowed' ||
             err.message === 'Number of data items exceeded maximum' ||
             err.message === 'Data contains non-numeric items' ||
@@ -183,9 +186,11 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
             err.message.startsWith(imageCheck.ERROR_PREFIXES.BAD_TYPE) ||
             err.message.startsWith('Unable to download image from ') ||
             err.message.startsWith(imageCheck.ERROR_PREFIXES.TOO_BIG) ||
+            err.message.includes(imageDownload.ERRORS.DOWNLOAD_FORBIDDEN) ||
             err.message === 'Empty audio is not allowed' ||
             err.message === 'Audio exceeds maximum allowed length' ||
-            err.message === 'Invalid audio input')
+            err.message === 'Invalid audio input'
+            ))
         {
             return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
         }
