@@ -831,61 +831,61 @@
             },
             "EXPIRY": {
                 "TITLE": "機械学習モデル数の制限を回避するために",
-                "TIME_LIMIT": "Machine learning models created for <span class='mlprojecttype'>{{ type }}</span> projects will automatically be deleted after <span class='mlprojecttype'>{{ num }}</span> hours.",
-                "DONT_WORRY": "(Don't worry! Training data will not be deleted, so students can always train a new machine learning model again if they still need it after this.)"
+                "TIME_LIMIT": "<span class='mlprojecttype'>{{ type }}</span> プロジェクトのために作成された機械学習モデルは、<span class='mlprojecttype'>{{ num }}</span> 時間後に自動的に削除されます。",
+                "DONT_WORRY": "(心配無用です。トレーニングデータは削除されないので、必要であれば、生徒は再度機械学習モデルをトレーニングできます。)"
             },
 
-            "NOT_AUTHORIZED": "You are not authorized to access the restrictions in place for your class."
+            "NOT_AUTHORIZED": "あなたのクラスの制限を超えてアクセスすることは許されていません。"
         },
         "SUPERVISION": {
-            "TITLE": "Administration : Student projects",
+            "TITLE": "管理: 生徒のプロジェクト管理",
 
-            "INTRO_1": "This page displays a list of all of the projects that your class currently has. You can use it to review what they're working on.",
-            "INTRO_2": "If you've hit the limit for the number of machine learning models that your class can create, you can use this to see which projects currently have a machine learning model, and delete any that you think are no longer needed.",
+            "INTRO_1": "本ページにはあなたのクラスで現在作成されている全プロジェクトを表示しています。生徒の作業状況把握に利用できます。",
+            "INTRO_2": "もし、あなたのクラスが機械学習モデル数の制限に達した際には、どのプロジェクトが機械学習モデルを利用しているのか確認でき、不要と思われるものを削除できます。 ",
 
-            "NO_PROJECTS_1": "None of the students in your class currently have any projects.",
-            "NO_PROJECTS_2": "Once your students start creating projects, come back here to see an overview of their work.",
+            "NO_PROJECTS_1": "あなたのクラスでは誰もプロジェクトを利用していません。",
+            "NO_PROJECTS_2": "あなたの生徒がプロジェクトを作成しだしたら、このページに戻り状況を確認してください。",
 
-            "NAME": "Name",
-            "TYPE": "Type",
-            "STUDENT": "Student",
-            "MODELS": "ML models",
+            "NAME": "名前",
+            "TYPE": "タイプ",
+            "STUDENT": "生徒",
+            "MODELS": "機械学習モデル",
 
-            "DELETE": "Click the icon to delete",
+            "DELETE": "削除するにはアイコンをクリックしてください。",
 
-            "NOT_AUTHORIZED": "You are not authorized to access the list of projects for all students in your class."
+            "NOT_AUTHORIZED": "あなたは、あなたのクラスの全ての生徒のプロジェクトにアクセスする権限がありません。"
         },
         "STUDENTMANAGEMENT": {
-            "TITLE": "Administration : Student management",
+            "TITLE": "管理: 生徒の管理",
 
-            "CREATE_FIRST_STUDENT": "Click on the 'plus' button on the right to create the first student",
-            "ADD": "Add new student",
-            "NEW_USERNAME": "Choose a unique username",
-            "ALPHANUMERIC": "Only use letters and numbers",
+            "CREATE_FIRST_STUDENT": "最初の生徒を追加するには右側のプラスのボタンをクリックしてください。",
+            "ADD": "新しい生徒の追加",
+            "NEW_USERNAME": "ユニークなユーザ名を設定して下さい。",
+            "ALPHANUMERIC": "英数字のみ利用可能です。",
 
-            "NOT_LOGGED_IN": "Not logged in yet",
+            "NOT_LOGGED_IN": "まだログインされていません。",
 
-            "RESET_PASSWORD": "Reset password",
-            "RESET_ALL_PASSWORDS": "Reset password for all students",
+            "RESET_PASSWORD": "パスワードのリセット",
+            "RESET_ALL_PASSWORDS": "全ての生徒のパスワードリセット",
 
-            "DELETE_STUDENT": "Delete student account",
+            "DELETE_STUDENT": "生徒アカウントの削除",
 
-            "NOT_AUTHORIZED": "You are not authorized to access the list of students in your class.",
+            "NOT_AUTHORIZED": "あなたのクラスの生徒の一覧へのアクセス権限がありません。",
 
             "ADD_MULTIPLE": {
-                "BUTTON" : "Multiple students",
+                "BUTTON" : "複数生徒",
 
-                "TITLE" : "Add new students",
-                "INTRO" : "You can use this to create more than one student account at the same time.",
-                "USERNAME" : "What do you want each username to start with?",
-                "USERNAME_REQUIRED" : "Please choose the prefix for the usernames",
-                "USERNAME_TOOLONG" : "That is too long",
-                "USERNAME_INVALID" : "Invalid characters",
-                "NUMBER" : "How many student accounts do you want?",
-                "NUMBER_REQUIRED" : "Please enter the number of students to create",
-                "NUMBER_TOOMANY" : "Your class has a limit of {{userslimit}} students.",
-                "PASSWORD" : "The password to give them:",
-                "PASSWORD_TOOSHORT" : "Too short"
+                "TITLE" : "新しい生徒の追加",
+                "INTRO" : "複数の生徒アカウントを同時に作成できます。",
+                "USERNAME" : "ユーザ名の先頭部分は何で始まりたいですか？",
+                "USERNAME_REQUIRED" : "ユーザ名の先頭部分を指定してください。",
+                "USERNAME_TOOLONG" : "長すぎます",
+                "USERNAME_INVALID" : "英数字のみ利用可能です",
+                "NUMBER" : "何人分の生徒アカウントを作成しますか？",
+                "NUMBER_REQUIRED" : "作成する生徒アカウントの数を入力してください。",
+                "NUMBER_TOOMANY" : "あなたのクラスの生徒数は最大{{userslimit}} 人です。",
+                "PASSWORD" : "かれらのパスワード:",
+                "PASSWORD_TOOSHORT" : "短かすぎます"
             }
         }
     },
