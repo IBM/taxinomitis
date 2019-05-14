@@ -891,22 +891,22 @@
     },
     "SCRATCHBLOCKS": {
         "TEXT_PROJECTS": {
-            "mlforkids.text.recogniseLabel": "recognise text [TEXT] (label)",
-            "mlforkids.text.recogniseConfidence": "recognise text [TEXT] (confidence)",
-            "mlforkids.text.addTraining": "add training data [TEXT] [LABEL]",
-            "mlforkids.text.trainNewModel": "train new machine learning model",
-            "mlforkids.text.checkModelStatus": "Is the machine learning model [STATUS] ?"
+            "mlforkids.text.recogniseLabel": "文字列を認識 [TEXT] (ラベル)",
+            "mlforkids.text.recogniseConfidence": "文字列を認識 [TEXT] (確信度)",
+            "mlforkids.text.addTraining": "トレーニングデータを追加 [TEXT] [LABEL]",
+            "mlforkids.text.trainNewModel": "新しい機械学習モデルをトレーニング",
+            "mlforkids.text.checkModelStatus": "機械学習モデルは [STATUS] ?"
         },
         "IMAGES_PROJECTS": {
-            "mlforkids.images.recogniseLabel": "recognise image [IMAGE] (label)",
-            "mlforkids.images.recogniseConfidence": "recognise image [IMAGE] (confidence)",
-            "mlforkids.images.addTraining": "add training data [TEXT] [LABEL]"
+            "mlforkids.images.recogniseLabel": "画像を認識 [IMAGE] (ラベル)",
+            "mlforkids.images.recogniseConfidence": "画像を認識 [IMAGE] (確信度)",
+            "mlforkids.images.addTraining": "トレーニングデータを追加 [TEXT] [LABEL]"
         },
         "NUMBER_PROJECTS": {
-            "mlforkids.numbers.trainNewModel": "train new machine learning model"
+            "mlforkids.numbers.trainNewModel": "新しい機械学習モデルをトレーニング"
         },
         "TWITTER": {
-            "mlforkids.twitter.getrecenttweet": "get the [INDEX] most recent tweet about [TOPIC]"
+            "mlforkids.twitter.getrecenttweet": "最新の [TOPIC] に関する [INDEX] を取得"
         },
         "IMAGE_BLOCKS": {
             "mlforkids.imageblocks.getCostumeImage": "costume image",
