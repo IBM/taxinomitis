@@ -366,7 +366,7 @@ describe('REST API - site alerts', () => {
                     })
                     .then(() => {
                         nextUser = AUTH_USERS.SITEADMIN;
-                        return store.storeSiteAlert(secondMessage, messageUrl, 'student', 'error', 10000)
+                        return store.storeSiteAlert(secondMessage, messageUrl, 'student', 'error', 10000);
                     })
                     .then(() => {
                         nextUser = AUTH_USERS.STUDENT;
