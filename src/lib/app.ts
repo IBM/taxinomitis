@@ -4,6 +4,7 @@ import * as express from 'express';
 import * as store from './db/store';
 import * as imagestore from './imagestore';
 import * as iamcache from './iam';
+import * as sitealerts from './sitealerts';
 import restapi from './restapi';
 import * as slack from './notifications/slack';
 import * as email from './notifications/email';
@@ -39,6 +40,9 @@ iamcache.init();
 // connect to MySQL DB
 store.init()
     .then(() => {
+        // check for current site alerts
+        sitealerts.refreshCache();
+
         // create server
         const app = express();
         const host: string = process.env.HOST || '0.0.0.0';

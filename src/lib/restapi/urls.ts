@@ -64,5 +64,13 @@ export const SESSION_USER          = '/api/classes/:classid/sessionusers/:studen
 
 export const SESSION_USER_APIS     = '/api/classes/session-users/*';
 
+//
+// URLs about site alerts
+export const SITEALERTS            = '/api/sitealerts';
+export const SITEALERTS_PUBLIC     = '/api/sitealerts/public';
+export const SITEALERTS_STUDENT    = '/api/sitealerts/alerts/:classid/students/:studentid';
+export const SITEALERTS_TEACHER    = '/api/sitealerts/alerts/:classid/supervisors/:studentid';
+export const SITEALERTS_REFRESH    = '/api/sitealerts/actions/refresh';
+
 
 // tslint:enable:max-line-length

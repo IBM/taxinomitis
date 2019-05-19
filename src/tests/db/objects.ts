@@ -5,6 +5,7 @@ import * as randomstring from 'randomstring';
 
 import * as dbobjects from '../../lib/db/objects';
 import * as Objects from '../../lib/db/db-types';
+import * as constants from '../../lib/utils/constants';
 import * as TrainingObjects from '../../lib/training/training-types';
 
 
@@ -1281,6 +1282,219 @@ describe('DB objects', () => {
                 textclassifiersexpiry : 24,
                 imageclassifiersexpiry : 24,
             });
+        });
+    });
+
+
+    describe('createSiteAlert', () => {
+
+        it('should create an error ready for inserting into the DB', () => {
+            const before = Date.now();
+            const alert = dbobjects.createSiteAlert(
+                'my message', 'http://go.here.com',
+                'supervisor',
+                'error',
+                constants.ONE_HOUR);
+            const after = Date.now();
+
+            assert(alert.timestamp.getTime() >= before);
+            assert(alert.timestamp.getTime() <= after);
+
+            assert(alert.expiry.getTime() - constants.ONE_HOUR >= before);
+            assert(alert.expiry.getTime() - constants.ONE_HOUR <= after);
+
+            assert.strictEqual(alert.message, 'my message');
+            assert.strictEqual(alert.url, 'http://go.here.com');
+            assert.strictEqual(alert.severityid, 3, 'severity');
+            assert.strictEqual(alert.audienceid, 3, 'audience');
+        });
+
+        it('should create a warning ready for inserting into the DB', () => {
+            const before = Date.now();
+            const alert = dbobjects.createSiteAlert(
+                'my message', 'http://go.here.com',
+                'public',
+                'warning',
+                constants.ONE_HOUR);
+            const after = Date.now();
+
+            assert(alert.timestamp.getTime() >= before);
+            assert(alert.timestamp.getTime() <= after);
+
+            assert(alert.expiry.getTime() - constants.ONE_HOUR >= before);
+            assert(alert.expiry.getTime() - constants.ONE_HOUR <= after);
+
+            assert.strictEqual(alert.message, 'my message');
+            assert.strictEqual(alert.url, 'http://go.here.com');
+            assert.strictEqual(alert.severityid, 2);
+            assert.strictEqual(alert.audienceid, 1);
+        });
+
+        it('should create an info message ready for inserting into the DB', () => {
+            const before = Date.now();
+            const alert = dbobjects.createSiteAlert(
+                'my message', 'http://go.here.com',
+                'student',
+                'info',
+                constants.ONE_HOUR);
+            const after = Date.now();
+
+            assert(alert.timestamp.getTime() >= before);
+            assert(alert.timestamp.getTime() <= after);
+
+            assert(alert.expiry.getTime() - constants.ONE_HOUR >= before);
+            assert(alert.expiry.getTime() - constants.ONE_HOUR <= after);
+
+            assert.strictEqual(alert.message, 'my message');
+            assert.strictEqual(alert.url, 'http://go.here.com');
+            assert.strictEqual(alert.severityid, 1);
+            assert.strictEqual(alert.audienceid, 2);
+        });
+
+        it('should reject messages that wont fit in the DB', () => {
+            try {
+                dbobjects.createSiteAlert(
+                    'This is my message. It is very long. This is my message. It is very long. This is my message. ' +
+                    'This is my message. It is very long. This is my message. It is very long. This is my message. ' +
+                    'This is my message. It is very long. This is my message. It is very long. This is my message. ',
+                    'http://go.here.com',
+                    'student',
+                    'info',
+                    constants.ONE_HOUR);
+                assert.fail('should not get here');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Invalid message');
+            }
+        });
+
+        it('should reject empty messages', () => {
+            try {
+                dbobjects.createSiteAlert(
+                    '',
+                    'http://go.here.com',
+                    'student',
+                    'info',
+                    constants.ONE_HOUR);
+                assert.fail('should not get here');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Missing required attributes');
+            }
+        });
+
+        it('should reject URLs that wont fit in the DB', () => {
+            try {
+                dbobjects.createSiteAlert(
+                    'This is my message.',
+                    'https://www.thisisaverylongurl-soitwillberejected-asitisreallyverylong-' +
+                        'sothevalidationcodeshouldrejectit-andnotallowittocontinue-messages-' +
+                        'will-go-in-here-validatingthelengthofthewebaddress-using-stringlen-' +
+                        'sothevalidationcodeshouldrejectit-andnotallowittocontinue-messages-' +
+                        'will-go-in-here-validatingthelengthofthewebaddress-using-stringlen-' +
+                        'sothevalidationcodeshouldrejectit-andnotallowittocontinue-messages-' +
+                        'will-go-in-here-validatingthelengthofthewebaddress-using-stringlength' +
+                        '.com',
+                    'supervisor',
+                    'error',
+                    constants.ONE_HOUR);
+                assert.fail('should not get here');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Invalid URL');
+            }
+        });
+
+        it('should reject empty URLs', () => {
+            try {
+                dbobjects.createSiteAlert(
+                    'This is my message.',
+                    '',
+                    'supervisor',
+                    'error',
+                    constants.ONE_HOUR);
+                assert.fail('should not get here');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Missing required attributes');
+            }
+        });
+
+        it('should reject invalid audiences', () => {
+            try {
+                dbobjects.createSiteAlert(
+                    'This is my message.',
+                    'https://alert.com',
+                    'mystery',
+                    'error',
+                    constants.ONE_HOUR);
+                assert.fail('should not get here');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Invalid audience type mystery');
+            }
+        });
+
+        it('should reject invalid severities', () => {
+            try {
+                dbobjects.createSiteAlert(
+                    'This is my message.',
+                    'https://alert.com',
+                    'public',
+                    'invalid',
+                    constants.ONE_HOUR);
+                assert.fail('should not get here');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Invalid severity type invalid');
+            }
+        });
+
+        it('should reject non-numeric expiry times', () => {
+            try {
+                const expiry = 'hello' as unknown;
+                const expiryNum = expiry as number;
+                dbobjects.createSiteAlert(
+                    'This is my message.',
+                    'https://alert.com',
+                    'public',
+                    'error',
+                    expiryNum);
+                assert.fail('should not get here');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Invalid expiry');
+            }
+        });
+
+        it('should reject negative expiry times', () => {
+            try {
+                dbobjects.createSiteAlert(
+                    'This is my message.',
+                    'https://alert.com',
+                    'public',
+                    'error',
+                    - 100);
+                assert.fail('should not get here');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Invalid expiry');
+            }
+        });
+
+        it('should reject zero expiry times', () => {
+            try {
+                dbobjects.createSiteAlert(
+                    'This is my message.',
+                    'https://alert.com',
+                    'public',
+                    'error',
+                    0);
+                assert.fail('should not get here');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Invalid expiry');
+            }
         });
     });
 });

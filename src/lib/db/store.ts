@@ -2077,6 +2077,74 @@ export async function bulkDeleteTemporaryUsers(users: Objects.TemporaryUser[]): 
 }
 
 
+
+// -----------------------------------------------------------------------------
+//
+// SITE ALERTS
+//
+// -----------------------------------------------------------------------------
+
+export function testonly_resetSiteAlertsStore(): Promise<void>
+{
+    return dbExecute('DELETE FROM `sitealerts`', []);
+}
+
+
+export async function storeSiteAlert(
+    message: string, url: string,
+    audience: Objects.SiteAlertAudienceLabel,
+    severity: Objects.SiteAlertSeverityLabel,
+    expiry: number,
+): Promise<Objects.SiteAlert>
+{
+    let obj: Objects.SiteAlertDbRow;
+    try {
+        obj = dbobjects.createSiteAlert(message, url, audience, severity, expiry);
+    }
+    catch (err) {
+        err.statusCode = 400;
+        throw err;
+    }
+
+    const insertAlertQry: string = 'INSERT INTO `sitealerts` ' +
+        '(`timestamp` , `severityid`, `audienceid`, `message`, `url`, `expiry`) ' +
+        'VALUES (?, ?, ?, ?, ?, ?)';
+    const insertAlertValues = [
+        obj.timestamp,
+        obj.severityid, obj.audienceid,
+        obj.message, obj.url,
+        obj.expiry,
+    ];
+
+    const response = await dbExecute(insertAlertQry, insertAlertValues);
+    if (response.affectedRows === 1) {
+        return dbobjects.getSiteAlertFromDbRow(obj);
+    }
+    throw new Error('Failed to store site alert');
+}
+
+
+export async function getLatestSiteAlert(): Promise<Objects.SiteAlert | undefined>
+{
+    const queryString = 'SELECT `timestamp` , `severityid`, `audienceid`, `message`, `url`, `expiry` ' +
+                        'FROM `sitealerts` ' +
+                        'ORDER BY `timestamp` DESC ' +
+                        'LIMIT 1';
+    const rows = await dbExecute(queryString, []);
+    if (rows.length === 1) {
+        return dbobjects.getSiteAlertFromDbRow(rows[0]);
+    }
+    else if (rows.length === 0) {
+        return;
+    }
+    else {
+        log.error({ rows, num : rows.length, func : 'getLatestSiteAlert' }, 'Unexpected response from DB');
+        return;
+    }
+}
+
+
+
 // -----------------------------------------------------------------------------
 //
 // UBER DELETERS

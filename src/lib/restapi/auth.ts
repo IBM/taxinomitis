@@ -140,7 +140,7 @@ export function checkValidUser(req: Express.Request, res: Express.Response, next
         errors.notAuthorised(res);
         return;
     }
-    if (req.user.app_metadata.tenant !== req.params.classid) {
+    if (req.params.classid && req.user.app_metadata.tenant !== req.params.classid) {
         errors.forbidden(res);
         return;
     }

@@ -209,3 +209,14 @@ CREATE TABLE sessionusers (
     token VARCHAR(36) NOT NULL,
     sessionexpiry DATETIME
 );
+
+-- ------------------------------------------------------------------
+
+CREATE TABLE sitealerts (
+    timestamp DATETIME NOT NULL PRIMARY KEY,
+    severityid TINYINT UNSIGNED NOT NULL,
+    audienceid TINYINT UNSIGNED NOT NULL,
+    message VARCHAR(280) NOT NULL,
+    url VARCHAR(280) NOT NULL,
+    expiry DATETIME NOT NULL
+);

@@ -74,7 +74,10 @@ describe('REST API - sound training', () => {
     after(() => {
         authStub.restore();
 
-        return store.deleteClassResources(CLASSID);
+        return store.deleteClassResources(CLASSID)
+            .then(() => {
+                return store.disconnect();
+            });
     });
 
 

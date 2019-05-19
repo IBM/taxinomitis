@@ -231,3 +231,29 @@ export interface TemporaryUserDbRow {
     readonly token: string;
     readonly sessionexpiry: Date;
 }
+
+
+
+
+
+
+export type SiteAlertSeverityLabel = 'error' | 'warning' | 'info';
+export type SiteAlertAudienceLabel = 'supervisor' | 'student' | 'public';
+
+export interface SiteAlert {
+    readonly timestamp: Date;
+    readonly severity: SiteAlertSeverityLabel;
+    readonly audience: SiteAlertAudienceLabel;
+    readonly message: string;
+    readonly url: string;
+    readonly expiry: Date;
+}
+
+export interface SiteAlertDbRow {
+    readonly timestamp: Date;
+    readonly severityid: number;
+    readonly audienceid: number;
+    readonly message: string;
+    readonly url: string;
+    readonly expiry: Date;
+}

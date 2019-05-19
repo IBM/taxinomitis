@@ -3,6 +3,7 @@ import * as uuid from 'uuid/v1';
 import * as uuidv4 from 'uuid/v4';
 // local dependencies
 import * as projects from './projects';
+import * as sitealerts from './site-alerts';
 import * as Objects from './db-types';
 import * as TrainingObjects from '../training/training-types';
 import * as ObjectStoreTypes from '../imagestore/types';
@@ -1076,6 +1077,68 @@ export function getTemporaryUserFromDbRow(row: Objects.TemporaryUserDbRow): Obje
         id : row.id,
         token : row.token,
         sessionExpiry : row.sessionexpiry,
+    };
+}
+
+
+
+// -----------------------------------------------------------------------------
+//
+// SITE ALERT MESSAGES
+//
+// -----------------------------------------------------------------------------
+
+const MAX_SITE_ALERT_STRING_LENGTH = 280;
+
+export function createSiteAlert(
+    message: string, url: string,
+    audience: string, severity: string,
+    expiry: number,
+): Objects.SiteAlertDbRow
+{
+    if (sitealerts.audienceLabels.indexOf(audience) === -1) {
+        throw new Error('Invalid audience type ' + audience);
+    }
+    if (sitealerts.severityLabels.indexOf(severity) === -1) {
+        throw new Error('Invalid severity type ' + severity);
+    }
+
+    if (message === undefined || typeof message !== 'string' || message === '' ||
+        url === undefined || typeof url !== 'string' || url === '')
+    {
+        throw new Error('Missing required attributes');
+    }
+    if (!expiry || isNaN(expiry) || expiry <= 0)
+    {
+        throw new Error('Invalid expiry');
+    }
+    if (message.length > MAX_SITE_ALERT_STRING_LENGTH) {
+        throw new Error('Invalid message');
+    }
+    if (url.length > MAX_SITE_ALERT_STRING_LENGTH) {
+        throw new Error('Invalid URL');
+    }
+
+    const now = new Date();
+
+    return {
+        timestamp : now,
+        audienceid : sitealerts.audiencesByLabel[audience].id,
+        severityid : sitealerts.severitiesByLabel[severity].id,
+        message, url,
+        expiry : new Date(now.getTime() + expiry),
+    };
+}
+
+export function getSiteAlertFromDbRow(row: Objects.SiteAlertDbRow): Objects.SiteAlert {
+    const severity = sitealerts.severitiesById[row.severityid].label;
+    const audience = sitealerts.audiencesById[row.audienceid].label;
+    return {
+        timestamp : row.timestamp,
+        severity, audience,
+        message : row.message,
+        url : row.url,
+        expiry : row.expiry,
     };
 }
 
