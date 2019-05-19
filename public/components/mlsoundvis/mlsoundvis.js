@@ -13,6 +13,10 @@ angular.module('app')
 
             link: function ($scope, element, attrs, controller, transcludeFn) {
 
+                if ($scope.datatype !== 'sounds') {
+                    return;
+                }
+
                 var min = Infinity;
                 var max = -Infinity;
                 for (var i = 0; i < $scope.spectogram.length; i++) {
