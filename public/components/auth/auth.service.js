@@ -165,6 +165,8 @@
             userProfile = null;
             $rootScope.isTeacher = false;
             $rootScope.isAuthenticated = false;
+
+            $rootScope.$broadcast('authStateChange', 'cleared auth data');
         }
 
         function logout() {
@@ -242,6 +244,7 @@
 
                         $timeout(function () {
                             $state.go('welcome');
+                            $rootScope.$broadcast('authStateChange', 'authentication complete');
                         });
                     });
                 }
@@ -256,6 +259,7 @@
                               'Please click on the Help tab for more info');
                     }
                 }
+                $rootScope.$broadcast('authStateChange', 'authorization error');
             });
 
             // auth0 looks completely broken so try starting again
@@ -386,7 +390,7 @@
             $rootScope.isAuthenticated = true;
             $rootScope.isTeacher = false;
 
-            // authManager.authenticate();
+            $rootScope.$broadcast('authStateChange', 'switched to session user');
         }
 
 

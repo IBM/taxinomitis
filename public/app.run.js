@@ -6,10 +6,10 @@
 
     run.$inject = [
         '$rootScope',
-        'authService', 'authManager'
+        'authService', 'authManager', 'sitealertsService'
     ];
 
-    function run($rootScope, authService, authManager) {
+    function run($rootScope, authService, authManager, sitealertsService) {
         // Put the authService on $rootScope so its methods
         // can be accessed from the nav bar
         $rootScope.authService = authService;
@@ -27,5 +27,8 @@
         // display confirmation if the user is verifying their
         //  email address with Auth0
         authService.checkForAuthMessagesInUrl();
+
+        // prepare the service for fetching site alerts
+        sitealertsService.init();
     }
 })();

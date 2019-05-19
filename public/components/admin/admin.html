@@ -1,0 +1,84 @@
+<div class="jumbotron">
+    <h2 class="text-center">Site admin</h2>
+</div>
+<div ng-if="!isAuthenticated">
+    <div class="alert alert-warning pageheadermsg">
+        <strong translate="ERRORS.NOTLOGGEDIN"></strong>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" ng-click="vm.authService.login()" translate="APP.LOGIN"></button>
+    </div>
+</div>
+<div ng-if="isAuthenticated && vm.profile.role === 'siteadmin'" class="adminpage">
+    <form name="newAlert" style="width: 80%">
+        <md-dialog-content>
+            <div>
+                <md-input-container style="width: 80%">
+                    <label>message</label>
+                    <input ng-minlength="1" ng-maxlength="280"
+                        ng-required="true"
+                        name="message"
+                        ng-model="message"/>
+                </md-input-container>
+            </div>
+            <div>
+                <md-input-container style="width: 80%">
+                    <label>url</label>
+                    <input ng-minlength="1" ng-maxlength="280"
+                        ng-required="true"
+                        name="url"
+                        ng-model="url"/>
+                </md-input-container>
+            </div>
+            <div>
+                <md-input-container>
+                    <label>severity</label>
+                    <md-select ng-required="true"
+                            name="severity"
+                            ng-model="severity">
+                        <md-option value="error">error</md-option>
+                        <md-option value="warning">warning</md-option>
+                        <md-option value="info">info</md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+            <div>
+                <md-input-container>
+                    <label>audience</label>
+                    <md-select ng-required="true"
+                            name="audience"
+                            ng-model="audience">
+                        <md-option value="student">student</md-option>
+                        <md-option value="supervisor">supervisor</md-option>
+                        <md-option value="public">public</md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+            <div>
+                <md-input-container>
+                    <label>expiry (hours)</label>
+                    <input ng-required="true"
+                        name="expiry"
+                        ng-model="expiry"
+                        ng-pattern="/^[0-9\.]+$/"></input>
+                    </md-select>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button type="submit" class="md-raised md-primary" ng-disabled="newAlert.$invalid" translate="APP.ADD"
+                       ng-click="vm.confirm({ message : message, url : url, audience : audience, severity : severity, expiry : expiry })" ></md-button>
+        </md-dialog-actions>
+        <md-dialog-actions layout="row">
+            <md-button type="submit" class="md-raised md-secondary" ng-click="vm.refresh()">Refresh cache</md-button>
+        </md-dialog-actions>
+    </form>
+
+
+    <div>
+        <div>Suggested messages:</div>
+        <p>Errors in the IBM Watson Assistant service are preventing some students from training machine learning models for text projects</p>
+        <p>Errors in the IBM Watson Visual Recognition service are preventing some students from training machine learning models for image projects</p>
+    </div>
+</div>

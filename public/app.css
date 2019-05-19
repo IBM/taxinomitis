@@ -33,3 +33,15 @@
 md-dialog.md-transition-in,md-dialog.md-transition-out {
     transition-duration: 0.2s !important;
 }
+
+.sitealert {
+    margin: 0;
+}
+.sitealert > .alert {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin: 0;
+}
+.sitealert a {
+    padding-left: 2em;
+}
