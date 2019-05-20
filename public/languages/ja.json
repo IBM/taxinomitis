@@ -909,13 +909,13 @@
             "mlforkids.twitter.getrecenttweet": "最新の [TOPIC] に関する [INDEX] を取得"
         },
         "IMAGE_BLOCKS": {
-            "mlforkids.imageblocks.getCostumeImage": "costume image",
-            "mlforkids.imageblocks.getBackdropCostumeImage": "backdrop image",
-            "mlforkids.imageblocks.getBackdropImage": "backdrop image",
-            "mlforkids.imageblocks.saveScreenshotToCostume": "save screenshot to costume"
+            "mlforkids.imageblocks.getCostumeImage": "コスチューム　イメージ",
+            "mlforkids.imageblocks.getBackdropCostumeImage": "バックドロップ イメージ",
+            "mlforkids.imageblocks.getBackdropImage": "バックドロップ イメージ",
+            "mlforkids.imageblocks.saveScreenshotToCostume": "スクリーンショットをコスチュームに保存"
         },
         "GUI": {
-            "gui.menuBar.mlforkidsLibrary": "Project templates",
+            "gui.menuBar.mlforkidsLibrary": "プロジェクト テンプレート",
             "gui.mlforkidsLibrary.templates": "Machine Learning for Kids modelos de projeto"
         }
     },
@@ -1075,14 +1075,14 @@
             "Q3-A-8": "先生アカウントの削除は<a href='https://machinelearningforkids.co.uk/teacher'>your Teacher page</a>にあるAdvanced optioins sections内の \"Delete Class\" ボタンをクリックすると削除されます。",
 
             "Q4": "利用者に関してどのような情報が保存されますか?",
-            "Q4-A-1": "Teacher accounts",
-            "Q4-A-2": "I store the username and email address that you provide when you create the account, so that I can keep in touch with you.",
-            "Q4-A-3": "Student accounts",
-            "Q4-A-4": "I store the usernames for student accounts, so that I can let them log in. I have no email addresses or contact details for students. I have no other personally identifying information about students.",
-            "Q4-A-5": "I also <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-schools.pdf'>recommend that students are given generic usernames</a> (e.g. student1) so that students are not identifiable outside of their school or coding group.",
-            "Q4-A-6": "General information stored about all accounts",
-            "Q4-A-7": "User management for Machine Learning for Kids is implemented using the third party service, <a href='https://auth0.com/'>Auth0</a>. They store the IP address that you last logged into Machine Learning for Kids from, and the type of browser you used. I've never found a reason to use that, but it is stored if I did want to go and look for it.",
-            "Q4-A-8": "Errors that happen in the web browser are captured using the third party service, <a href='https://sentry.io/'>Sentry</a>. If something goes wrong, it will capture information about the error, including your username, IP address, type of browser you were using, and a technical description of what went wrong.",
+            "Q4-A-1": "先生用アカウント",
+            "Q4-A-2": "アカウント作成時に入力されたユーザ名とemailアドレスは、今後の連絡用に保存されています。",
+            "Q4-A-3": "生徒アカウント",
+            "Q4-A-4": "生徒アカウント用のユーザ名は、ログイン用に保存されています。本サイトは、生徒のEmailアドレスや連絡情報は保持していません。また、生徒を特定できるその他の情報も保持していません。",
+            "Q4-A-5": "本サイトは、 <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-schools.pdf'>生徒にstudent1のような一般的なユーザ名を付与することを推奨しています。</a> そうすることで学校やコーディンググループ外で特定されることを防げます。",
+            "Q4-A-6": "全てのアカウントについて保存される一般的な情報",
+            "Q4-A-7": "本サイトの利用者管理は、サードパーティ<a href='https://auth0.com/'>Auth0</a>のサービスを利用して実装されており、あなたが本サイトにアクセスした最後の　IP アドレス、ブラウザのタイプを保存しています。",
+            "Q4-A-8": "Webブラウザで発生したエラーは、サードパーティのサービス<a href='https://sentry.io/'>Sentry</a>を用いて取得されます。もし不都合が発生したら、エラーに関する情報（ユーザ名、IPアドレス、ブラウザタイプ、不都合に関する技術的な説明）を取得します。 ",
             "Q4-A-9": "I use <a href='https://www.google.com/analytics/'>Google Analytics</a> so that I know how many users visit Machine Learning for Kids each day. Although it captures information such as geographic location and browser type, this is only ever displayed to me in an anonymised aggregate way.",
 
             "Q5": "What happens to training data created by students?",
