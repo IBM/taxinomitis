@@ -18,8 +18,8 @@ describe('Training - numbers service', () => {
     const USERID = 'TESTUSER';
     const CLASSID = 'TESTTENANT';
 
-    let postStub: sinon.SinonStub;
-    let deleteStub: sinon.SinonStub;
+    let postStub: sinon.SinonStub<any, any>;
+    let deleteStub: sinon.SinonStub<any, any>;
 
     let goodProject: string;
     let missingProject: string;

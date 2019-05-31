@@ -22,7 +22,7 @@ const TESTCLASS = 'UNIQUECLASSID';
 
 describe('REST API - scratchkey models', () => {
 
-    let mockConversation: sinon.SinonStub;
+    let mockConversation: sinon.SinonStub<[DbTypes.Project], Promise<TrainingTypes.ConversationWorkspace>>;
 
     before(async () => {
         await store.init();

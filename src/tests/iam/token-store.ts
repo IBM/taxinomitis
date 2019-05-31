@@ -14,7 +14,7 @@ import * as mockIAM from './mock-iam';
 
 describe('IAM - tokens store', () => {
 
-    let getTokenStub: sinon.SinonStub;
+    let getTokenStub: sinon.SinonStub<any, any>;
     let clock: sinon.SinonFakeTimers;
 
     before(() => {

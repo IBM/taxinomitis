@@ -21,13 +21,14 @@ let testServer: express.Express;
 
 describe('REST API - Bluemix credentials', () => {
 
-    let authStub: sinon.SinonStub;
-    let checkUserStub: sinon.SinonStub;
-    let requireSupervisorStub: sinon.SinonStub;
+    let authStub: sinon.SinonStub<any, any>;
+    let checkUserStub: sinon.SinonStub<any, any>;
+    let requireSupervisorStub: sinon.SinonStub<any, any>;
     // let ensureUnmanagedStub;
-    let getClassStub: sinon.SinonStub;
-    let getTextClassifiersStub: sinon.SinonStub;
-    let getImageClassifiersStub: sinon.SinonStub;
+    let getClassStub: sinon.SinonStub<[string], Promise<Types.ClassTenant>>;
+    let getTextClassifiersStub: sinon.SinonStub<[string, string], Promise<string>>;
+    let getImageClassifiersStub: sinon.SinonStub<[TrainingTypes.BluemixCredentials],
+                                                 Promise<TrainingTypes.ClassifierSummary[]>>;
 
     function authNoOp(
         req: express.Request,

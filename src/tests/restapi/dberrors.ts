@@ -17,16 +17,18 @@ let testServer: express.Express;
 
 describe('REST API - DB error handling', () => {
 
-    let authStub: sinon.SinonStub;
-    let checkUserStub: sinon.SinonStub;
-    let requireSupervisorStub: sinon.SinonStub;
+    let authStub: sinon.SinonStub<any, any>;
+    let checkUserStub: sinon.SinonStub<any, any>;
+    let requireSupervisorStub: sinon.SinonStub<any, any>;
 
     function authNoOp(
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
     {
-        req.user = {
+        const reqWithUser = req as auth.RequestWithUser;
+        reqWithUser.user = {
             sub : 'EXCEPTION',
+            app_metadata : {},
         };
         next();
     }

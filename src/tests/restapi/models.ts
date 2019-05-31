@@ -26,7 +26,7 @@ describe('REST API - models', () => {
     let authStub: sinon.SinonStub<[express.Request, express.Response, express.NextFunction], void>;
 
     let nextAuth0Userid = 'studentid';
-    let nextAuth0Role = 'student';
+    let nextAuth0Role: 'student' | 'supervisor' = 'student';
     let nextAuth0Class = 'CLASSID';
 
 
@@ -34,7 +34,8 @@ describe('REST API - models', () => {
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
     {
-        req.user = {
+        const reqWithUser = req as auth.RequestWithUser;
+        reqWithUser.user = {
             sub : nextAuth0Userid,
             app_metadata : {
                 role : nextAuth0Role,
@@ -1290,7 +1291,7 @@ describe('REST API - models', () => {
         });
 
         it('should submit a classify request to numbers service', () => {
-            nextAuth0Role = 'testuser';
+            nextAuth0Role = 'student';
             nextAuth0Class = 'testclass';
             return request(testServer)
                 .post('/api/classes/testclass/students/testuser/projects/testproject/models/testmodel/label')
@@ -1493,7 +1494,7 @@ describe('REST API - models', () => {
 
 
         it('should require data for the numbers service', () => {
-            nextAuth0Role = 'testuser';
+            nextAuth0Role = 'student';
             nextAuth0Class = 'testclass';
             return request(testServer)
                 .post('/api/classes/testclass/students/testuser/projects/testproject/models/testmodel/label')
@@ -1505,7 +1506,7 @@ describe('REST API - models', () => {
         });
 
         it('should require numbers for the numbers service', () => {
-            nextAuth0Role = 'testuser';
+            nextAuth0Role = 'student';
             nextAuth0Class = 'testclass';
             return request(testServer)
                 .post('/api/classes/testclass/students/testuser/projects/testproject/models/testmodel/label')

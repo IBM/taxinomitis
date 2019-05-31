@@ -72,7 +72,7 @@ describe('Training - Unmanaged classifiers', () => {
 
     describe('get unknown classifiers', () => {
 
-        let getClassifiersStub: sinon.SinonStub;
+        let getClassifiersStub: sinon.SinonStub<any, any>;
 
         before(async () => {
             getClassifiersStub = sinon.stub(request, 'get');
@@ -125,7 +125,7 @@ describe('Training - Unmanaged classifiers', () => {
 
     describe('delete classifier from Bluemix', () => {
 
-        let deleteClassifiersStub: sinon.SinonStub;
+        let deleteClassifiersStub: sinon.SinonStub<any, any>;
 
         before(async () => {
             deleteClassifiersStub = sinon.stub(request, 'delete');

@@ -26,7 +26,8 @@ describe('Scratchx - status', () => {
             language : 'en',
             url : 'conversation.url',
         };
-        let getStatusStub: sinon.SinonStub;
+        let getStatusStub: sinon.SinonStub<[TrainingTypes.BluemixCredentials, TrainingTypes.ConversationWorkspace],
+                                           Promise<TrainingTypes.ConversationWorkspace>>;
 
         before(() => {
             getStatusStub = sinon.stub(conversation, 'getStatus').resolves(testStatus);
@@ -195,7 +196,8 @@ describe('Scratchx - status', () => {
             expiry : new Date(),
             url : 'conversation.url',
         };
-        let getStatusStub: sinon.SinonStub;
+        let getStatusStub: sinon.SinonStub<[TrainingTypes.BluemixCredentials, TrainingTypes.VisualClassifier],
+                                           Promise<TrainingTypes.VisualClassifier>>;
 
         before(() => {
             getStatusStub = sinon.stub(visualrecog, 'getStatus').resolves(testStatus);

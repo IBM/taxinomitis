@@ -751,7 +751,7 @@ describe('DB store', () => {
 
     describe('Image classifiers', () => {
 
-        let setTimeoutStub: sinon.SinonStub;
+        let setTimeoutStub: sinon.SinonStub<any, any>;
 
         before(() => {
             setTimeoutStub = sinon.stub(global, 'setTimeout');

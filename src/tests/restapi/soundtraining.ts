@@ -23,7 +23,7 @@ describe('REST API - sound training', () => {
     const USERID = uuid();
 
 
-    let authStub: sinon.SinonStub;
+    let authStub: sinon.SinonStub<any, any>;
 
     const AUTH_USERS = {
         STUDENT : {
@@ -54,6 +54,7 @@ describe('REST API - sound training', () => {
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
     {
+        // @ts-ignore
         req.user = { ...nextUser };
         next();
     }

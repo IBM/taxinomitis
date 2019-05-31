@@ -20,19 +20,20 @@ let testServer: express.Express;
 
 describe('REST API - training', () => {
 
-    let authStub: sinon.SinonStub;
-    let checkUserStub: sinon.SinonStub;
-    let requireSupervisorStub: sinon.SinonStub;
+    let authStub: sinon.SinonStub<any, any>;
+    let checkUserStub: sinon.SinonStub<any, any>;
+    let requireSupervisorStub: sinon.SinonStub<any, any>;
 
     let nextAuth0UserId = 'userid';
     let nextAuth0UserTenant = 'tenant';
-    let nextAuth0UserRole = 'student';
+    let nextAuth0UserRole: 'student' | 'supervisor' = 'student';
 
     function authNoOp(
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
     {
-        req.user = {
+        const reqWithUser = req as auth.RequestWithUser;
+        reqWithUser.user = {
             sub : nextAuth0UserId,
             app_metadata : {
                 tenant : nextAuth0UserTenant,

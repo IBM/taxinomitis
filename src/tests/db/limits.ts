@@ -9,13 +9,22 @@ import * as limits from '../../lib/db/limits';
 
 describe('DB store - limits', () => {
 
-    let limitsStub: sinon.SinonStub;
+    let limitsStub: sinon.SinonStub<[], {
+        textTrainingItemsPerProject: number,
+        numberTrainingItemsPerProject: number,
+        numberTrainingItemsPerClassProject: number,
+        imageTrainingItemsPerProject: number,
+        soundTrainingItemsPerProject: number,
+    }>;
 
     before(() => {
         limitsStub = sinon.stub(limits, 'getStoreLimits');
         limitsStub.returns({
             textTrainingItemsPerProject : 2,
             numberTrainingItemsPerProject : 2,
+            numberTrainingItemsPerClassProject : 0,
+            imageTrainingItemsPerProject : 0,
+            soundTrainingItemsPerProject : 0,
         });
 
         return store.init();

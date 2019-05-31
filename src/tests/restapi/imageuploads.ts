@@ -21,9 +21,9 @@ let testServer: express.Express;
 
 describe('REST API - image uploads', () => {
 
-    let authStub: sinon.SinonStub;
-    let checkUserStub: sinon.SinonStub;
-    let requireSupervisorStub: sinon.SinonStub;
+    let authStub: sinon.SinonStub<any, any>;
+    let checkUserStub: sinon.SinonStub<any, any>;
+    let requireSupervisorStub: sinon.SinonStub<any, any>;
 
     const TESTCLASS = 'TESTCLASS';
 
@@ -33,8 +33,10 @@ describe('REST API - image uploads', () => {
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
     {
-        req.user = {
+        const reqWithUser = req as auth.RequestWithUser;
+        reqWithUser.user = {
             sub : NEXT_USERID,
+            app_metadata : {},
         };
         next();
     }

@@ -2,7 +2,8 @@
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 
-import * as slackClient from '@slack/client';
+import * as slackClient from '@slack/webhook';
+
 import * as slack from '../../lib/notifications/slack';
 
 
@@ -14,15 +15,13 @@ describe('Notifications - Slack', () => {
     const expectedMessage = 'This is my message';
     const unsendableMessage = 'This message cannot be sent';
 
-    let slackClientStub: sinon.SinonStub;
+    let slackClientStub: sinon.SinonStub<any, any>;
 
     before(() => {
         slackEnv = process.env.SLACK_WEBHOOK_URL;
 
         slackClientStub = sinon.stub(slackClient.IncomingWebhook.prototype, 'send')
-            .callsFake((msg: slackClient.IncomingWebhookSendArguments | string,
-                        callback: slackClient.IncomingWebhookResultCallback) =>
-            {
+            .callsFake((msg: slackClient.IncomingWebhookSendArguments | string) => {
                 if (typeof msg === 'string') {
                     return assert.fail('Missing channel name');
                 }
@@ -31,23 +30,34 @@ describe('Notifications - Slack', () => {
                     const confirm: slackClient.IncomingWebhookResult = {
                         text: msg.text,
                     };
-                    // @ts-ignore
-                    callback(undefined, confirm);
+                    return new Promise((resolve) => {
+                        resolve(confirm);
+                    });
                 }
                 else if (msg.text === unsendableMessage) {
                     const error = new Error('Message cannot be sent');
 
                     const codedError: any = error;
-                    codedError.code = slackClient.ErrorCode.IncomingWebhookRequestError;
+                    codedError.code = slackClient.ErrorCode.HTTPError;
                     codedError.original = error;
 
-                    // @ts-ignore
-                    callback(codedError, undefined);
+                    return new Promise((resolve, reject) => {
+                        reject(codedError);
+                    });
                 }
                 else {
                     assert.strictEqual(msg.text, expectedMessage);
                     assert.strictEqual(msg.channel, 'critical-errors');
                 }
+
+                const unexpError = new Error('Message cannot be sent');
+                const unexpCodedError: any = unexpError;
+                unexpCodedError.code = slackClient.ErrorCode.HTTPError;
+                unexpCodedError.original = unexpError;
+
+                return new Promise((resolve, reject) => {
+                    reject(unexpCodedError);
+                });
             });
     });
     after(() => {

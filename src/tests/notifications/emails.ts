@@ -18,8 +18,7 @@ describe('Notifications - Email', () => {
     let passEnv: string | undefined;
     let replyEnv: string | undefined;
 
-    let auth0Stub: sinon.SinonStub;
-
+    let auth0Stub: sinon.SinonStub<[string], Promise<authTypes.SupervisorInfo | undefined>>;
     let lastEmailText: any;
     let lastEmailHtml: any;
 

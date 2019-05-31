@@ -44,7 +44,7 @@ function createSessionUser(req: Express.Request, res: Express.Response)
 
 
 
-function deleteSessionUser(req: Express.Request, res: Express.Response)
+function deleteSessionUser(req: auth.RequestWithUser, res: Express.Response)
 {
     const userid = req.params.studentid;
 
@@ -88,6 +88,7 @@ export default function registerApis(app: Express.Application) {
     app.delete(urls.SESSION_USER,
         auth.authenticate,
         auth.checkValidUser,
+        // @ts-ignore
         deleteSessionUser);
 
 }

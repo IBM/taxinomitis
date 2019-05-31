@@ -84,7 +84,7 @@ export function file(url: string, targetFilePath: string, callback: IErrCallback
             .on('error', (err) => {
                 numErrors += 1;
 
-                log.error({ err, numDownloads, numErrors }, 'request get fail');
+                log.error({ err, url, numDownloads, numErrors }, 'request get fail');
                 resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
             })
             .pipe(writeStream);

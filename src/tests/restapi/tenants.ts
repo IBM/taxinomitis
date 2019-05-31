@@ -9,6 +9,7 @@ import * as express from 'express';
 import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
 import * as auth0 from '../../lib/auth0/requests';
+import * as auth0types from '../../lib/auth0/auth-types';
 import * as mocks from '../auth0/requestmocks';
 import testapiserver from './testserver';
 
@@ -18,9 +19,9 @@ let testServer: express.Express;
 
 describe('REST API - tenants', () => {
 
-    let authStub: sinon.SinonStub;
-    let getOauthToken: sinon.SinonStub;
-    let getUserCounts: sinon.SinonStub;
+    let authStub: sinon.SinonStub<any, any>;
+    let getOauthToken: sinon.SinonStub<[], Promise<auth0types.Auth0TokenPayload>>;
+    let getUserCounts: sinon.SinonStub<[string, string], Promise<auth0types.UsersInfo>>;
 
     let nextAuth0UserId = 'userid';
     let nextAuth0UserTenant = 'tenant';
@@ -30,6 +31,7 @@ describe('REST API - tenants', () => {
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
     {
+        // @ts-ignore
         req.user = {
             'sub' : nextAuth0UserId,
             'https://machinelearningforkids.co.uk/api/role' : nextAuth0UserRole,

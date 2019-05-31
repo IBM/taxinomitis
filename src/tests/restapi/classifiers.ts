@@ -28,10 +28,10 @@ describe('REST API - classifiers', () => {
     const CLASSID = uuid.v1();
     const USERID = uuid.v4();
 
-    let authStub: sinon.SinonStub;
+    let authStub: sinon.SinonStub<any, any>;
 
     let nextAuth0Userid = 'studentid';
-    let nextAuth0Role = 'student';
+    let nextAuth0Role: 'student' | 'supervisor' = 'student';
     let nextAuth0Class = 'CLASSID';
 
 
@@ -39,7 +39,8 @@ describe('REST API - classifiers', () => {
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
     {
-        req.user = {
+        const reqWithUser = req as auth.RequestWithUser;
+        reqWithUser.user = {
             sub : nextAuth0Userid,
             app_metadata : {
                 role : nextAuth0Role,
@@ -133,8 +134,8 @@ describe('REST API - classifiers', () => {
 
     describe('get unknown classifiers', () => {
 
-        let getClassifiersStub: sinon.SinonStub;
-        let getClassStub: sinon.SinonStub;
+        let getClassifiersStub: sinon.SinonStub<any, any>;
+        let getClassStub: sinon.SinonStub<[string], Promise<Types.ClassTenant>>;
 
 
 
@@ -236,7 +237,7 @@ describe('REST API - classifiers', () => {
 
     describe('delete classifiers', () => {
 
-        let deleteClassifiersStub: sinon.SinonStub;
+        let deleteClassifiersStub: sinon.SinonStub<any, any>;
 
         before(async () => {
             deleteClassifiersStub = sinon.stub(request, 'delete');

@@ -82,7 +82,7 @@ function getProjectsByUserId(req: Express.Request, res: Express.Response) {
 }
 
 
-async function createProject(req: Express.Request, res: Express.Response) {
+async function createProject(req: auth.RequestWithUser, res: Express.Response) {
     const classid: string = req.params.classid;
     const userid: string = req.params.studentid;
 
@@ -334,6 +334,7 @@ export default function registerApis(app: Express.Application) {
     app.post(urls.PROJECTS,
             auth.authenticate,
             auth.checkValidUser,
+            // @ts-ignore
             createProject);
 
     app.get(urls.PROJECT,

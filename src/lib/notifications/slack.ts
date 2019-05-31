@@ -1,5 +1,5 @@
 // external dependencies
-import { IncomingWebhook } from '@slack/client';
+import { IncomingWebhook, IncomingWebhookResult } from '@slack/webhook';
 // local dependencies
 import * as env from '../utils/env';
 import loggerSetup from '../utils/logger';
@@ -19,14 +19,13 @@ export function init() {
 
 export function notify(text: string, channel: string): void {
     if (webhook) {
-        webhook.send({ text, channel }, (err?: Error, res?: object) => {
-            if (err) {
-                log.error({ err }, 'Failed to send notification');
-            }
-            else {
+        webhook.send({ text, channel })
+            .then((res: IncomingWebhookResult) => {
                 log.debug({ res }, 'Sent notification');
-            }
-        });
+            })
+            .catch((err) => {
+                log.error({ err }, 'Failed to send notification');
+            });
     }
 }
 

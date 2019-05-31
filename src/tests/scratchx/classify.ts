@@ -94,7 +94,7 @@ describe('Scratchx - classify', () => {
 
     describe('text projects', () => {
 
-        let requestPostStub: sinon.SinonStub;
+        let requestPostStub: sinon.SinonStub<any, any>;
         before((done) => {
             requestPostStub = sinon.stub(request, 'post');
             requestPostStub.callsFake(() => {
@@ -270,7 +270,7 @@ describe('Scratchx - classify', () => {
 
     describe('numbers projects', () => {
 
-        let requestPostStub: sinon.SinonStub;
+        let requestPostStub: sinon.SinonStub<any, any>;
 
         before(() => {
             requestPostStub = sinon.stub(request, 'post');

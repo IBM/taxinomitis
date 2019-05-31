@@ -10,7 +10,7 @@ import * as mockIAM from './mock-iam';
 
 describe('IAM - access tokens', () => {
 
-    let getTokenStub: sinon.SinonStub;
+    let getTokenStub: sinon.SinonStub<any, any>;
 
     before(() => {
         getTokenStub = sinon.stub(request, 'post');

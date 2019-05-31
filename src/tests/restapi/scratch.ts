@@ -30,9 +30,9 @@ const TESTCLASS = 'UNIQUECLASSID';
 
 describe('REST API - scratch keys', () => {
 
-    let authStub: sinon.SinonStub;
-    let checkUserStub: sinon.SinonStub;
-    let requireSupervisorStub: sinon.SinonStub;
+    let authStub: sinon.SinonStub<any, any>;
+    let checkUserStub: sinon.SinonStub<any, any>;
+    let requireSupervisorStub: sinon.SinonStub<any, any>;
 
     function authNoOp(
         req: Express.Request, res: Express.Response,
@@ -41,7 +41,7 @@ describe('REST API - scratch keys', () => {
         next();
     }
 
-    let deleteStub: sinon.SinonStub;
+    let deleteStub: sinon.SinonStub<any, any>;
 
 
     before(async () => {

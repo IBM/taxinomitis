@@ -59,7 +59,7 @@ describe('REST API - Auth', () => {
         // });
 
         it('checkValidUser - need the right tenant', (done) => {
-            const req = {
+            const reqValues = {
                 params : {
                     classid : 'REQUESTEDTENANT',
                 },
@@ -68,7 +68,8 @@ describe('REST API - Auth', () => {
                         tenant : 'USERSTENANT',
                     },
                 },
-            } as Express.Request;
+            } as unknown;
+            const req = reqValues as Express.Request;
             const res = {
                 status : (code) => {
                     assert.strictEqual(code, 403);
@@ -87,7 +88,7 @@ describe('REST API - Auth', () => {
         });
 
         it('checkValidUser - valid user', (done) => {
-            const req = {
+            const reqValues = {
                 params : {
                     classid : 'USERSTENANT',
                 },
@@ -96,7 +97,8 @@ describe('REST API - Auth', () => {
                         tenant : 'USERSTENANT',
                     },
                 },
-            } as Express.Request;
+            } as unknown;
+            const req = reqValues as Express.Request;
             const resp = {
 
             } as Express.Response;
@@ -110,7 +112,7 @@ describe('REST API - Auth', () => {
 
 
         it('requireSupervisor - need the right role', (done) => {
-            const req = {
+            const reqValues = {
                 params : {
                     classid : 'USERSTENANT',
                 },
@@ -120,7 +122,8 @@ describe('REST API - Auth', () => {
                         role : 'student',
                     },
                 },
-            } as Express.Request;
+            } as unknown;
+            const req = reqValues as Express.Request;
             const res = {
                 status : (code) => {
                     assert.strictEqual(code, 403);
@@ -140,7 +143,7 @@ describe('REST API - Auth', () => {
 
 
         it('requireSupervisor - valid supervisor', (done) => {
-            const req = {
+            const reqValues = {
                 params : {
                     classid : 'USERSTENANT',
                 },
@@ -150,7 +153,8 @@ describe('REST API - Auth', () => {
                         role : 'supervisor',
                     },
                 },
-            } as Express.Request;
+            } as unknown;
+            const req = reqValues as Express.Request;
             const res = {
 
             } as Express.Response;

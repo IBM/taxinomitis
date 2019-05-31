@@ -14,7 +14,7 @@ let testServer: express.Express;
 
 describe('REST API - users', () => {
 
-    let authStub: sinon.SinonStub;
+    let authStub: sinon.SinonStub<any, any>;
 
     const AUTH_USERS = {
         STUDENT : {
@@ -37,6 +37,7 @@ describe('REST API - users', () => {
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
     {
+        // @ts-ignore
         req.user = { ...nextUser };
         next();
     }

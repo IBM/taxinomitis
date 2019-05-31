@@ -21,7 +21,7 @@ const TESTCLASS = 'UNIQUECLASSID';
 
 describe('REST API - projects', () => {
 
-    let authStub: sinon.SinonStub;
+    let authStub: sinon.SinonStub<any, any>;
 
     let nextAuth0UserId = 'userid';
     let nextAuth0UserTenant = 'tenant';
@@ -31,6 +31,7 @@ describe('REST API - projects', () => {
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
     {
+        // @ts-ignore
         req.user = {
             'sub' : nextAuth0UserId,
             'https://machinelearningforkids.co.uk/api/role' : nextAuth0UserRole,

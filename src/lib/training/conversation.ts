@@ -370,13 +370,15 @@ async function submitTrainingToConversation(
     tenantPolicy: DbObjects.ClassTenant,
 ): Promise<TrainingObjects.ConversationWorkspace>
 {
-    const basereq = await createBaseRequest(credentials);
-    const req: NewTrainingRequest | LegacyTrainingRequest = {
-        ...basereq,
-        body : training,
-    };
+    let req: NewTrainingRequest | LegacyTrainingRequest | undefined;
 
     try {
+        const basereq = await createBaseRequest(credentials);
+        req = {
+            ...basereq,
+            body : training,
+        };
+
         const body = await request.post(url, req);
 
         // check that we have timestamps, or create our own otherwise
@@ -412,7 +414,7 @@ async function submitTrainingToConversation(
         return workspace;
     }
     catch (err) {
-        log.warn({ req, err }, ERROR_MESSAGES.UNKNOWN);
+        log.warn({ req, err, project : project.id, credentials : credentials.id }, ERROR_MESSAGES.UNKNOWN);
 
         const ignoreErr = await store.isTenantDisruptive(project.classid);
         if (ignoreErr === false) {

@@ -16,7 +16,19 @@ import * as Objects from '../db/db-types';
 export interface RequestWithProject extends Express.Request {
     project: Objects.Project;
 }
+export interface RequestWithUser extends Express.Request {
+    user: {
+        readonly sub: string;
+        app_metadata: {
+            readonly role?: 'student' | 'supervisor' | 'siteadmin';
+            readonly tenant?: string;
+        };
+        readonly session?: Objects.TemporaryUser;
 
+        readonly 'https://machinelearningforkids.co.uk/api/role'?: 'student' | 'supervisor' | 'siteadmin';
+        readonly 'https://machinelearningforkids.co.uk/api/tenant'?: string;
+    };
+}
 
 
 const JWT_SECRET: string = process.env[env.AUTH0_CLIENT_SECRET] as string;
@@ -73,7 +85,8 @@ async function sessionusersAuthenticate(
         const sessionUserIsAuthenticated = await sessionusers.checkSessionToken(req.params.studentid, decoded.token);
 
         if (sessionUserIsAuthenticated) {
-            req.user = {
+            const reqWithUser = req as RequestWithUser;
+            reqWithUser.user = {
                 sub : decoded.id,
                 app_metadata : {
                     role : 'student',
@@ -123,7 +136,7 @@ export function authenticate(req: Express.Request, res: Express.Response, next: 
 
 
 
-function getValuesFromToken(req: Express.Request) {
+function getValuesFromToken(req: RequestWithUser) {
     if (req.user && !req.user.app_metadata) {
         req.user.app_metadata = {
             role : req.user['https://machinelearningforkids.co.uk/api/role'],
@@ -134,13 +147,17 @@ function getValuesFromToken(req: Express.Request) {
 
 
 export function checkValidUser(req: Express.Request, res: Express.Response, next: Express.NextFunction) {
-    getValuesFromToken(req);
+    const reqWithUser = req as RequestWithUser;
 
-    if (!req.user || !req.user.app_metadata) {
+    getValuesFromToken(reqWithUser);
+
+    if (!reqWithUser.user || !reqWithUser.user.app_metadata) {
         errors.notAuthorised(res);
         return;
     }
-    if (req.params.classid && req.user.app_metadata.tenant !== req.params.classid) {
+    if (reqWithUser.params.classid &&
+        reqWithUser.user.app_metadata.tenant !== reqWithUser.params.classid)
+    {
         errors.forbidden(res);
         return;
     }
@@ -149,7 +166,9 @@ export function checkValidUser(req: Express.Request, res: Express.Response, next
 }
 
 export function requireSupervisor(req: Express.Request, res: Express.Response, next: Express.NextFunction) {
-    if (req.user.app_metadata.role !== 'supervisor') {
+    const reqWithUser = req as RequestWithUser;
+
+    if (reqWithUser.user.app_metadata.role !== 'supervisor') {
         errors.supervisorOnly(res);
         return;
     }
@@ -158,9 +177,11 @@ export function requireSupervisor(req: Express.Request, res: Express.Response, n
 }
 
 export function requireSiteAdmin(req: Express.Request, res: Express.Response, next: Express.NextFunction) {
-    getValuesFromToken(req);
+    const reqWithUser = req as RequestWithUser;
 
-    if (req.user.app_metadata.role !== 'siteadmin') {
+    getValuesFromToken(reqWithUser);
+
+    if (reqWithUser.user.app_metadata.role !== 'siteadmin') {
         return res.status(httpstatus.FORBIDDEN).json({ error : 'Forbidden' });
     }
 
@@ -217,6 +238,8 @@ async function verifyProjectAuth(
     const userid: string = req.params.studentid;
     const projectid: string = req.params.projectid;
 
+    const reqWithUser = req as RequestWithUser;
+
     try {
         const project = await store.getProject(projectid);
 
@@ -229,7 +252,9 @@ async function verifyProjectAuth(
             return errors.forbidden(res);
         }
 
-        const isOwner = req.user && (project.userid === req.user.sub) && (project.userid === userid);
+        const isOwner = reqWithUser.user &&
+                        (project.userid === reqWithUser.user.sub) &&
+                        (project.userid === userid);
         if (isOwner === false) {
             // The request has come from a user who is not the owner of
             //  the project that they are trying to access.
@@ -241,7 +266,8 @@ async function verifyProjectAuth(
                 // crowdsourced : if the project isn't crowd-sourced, this access isn't allowed
                 (allowedAccessTypes === ACCESS_TYPE.crowdsourced && !project.isCrowdSourced) ||
                 // teacheraccess : if the user isn't a teacher, this access isn't allowed
-                (allowedAccessTypes === ACCESS_TYPE.teacheraccess && req.user.app_metadata.role !== 'supervisor'))
+                (allowedAccessTypes === ACCESS_TYPE.teacheraccess &&
+                 reqWithUser.user.app_metadata.role !== 'supervisor'))
             {
                 return errors.forbidden(res);
             }

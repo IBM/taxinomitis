@@ -120,7 +120,7 @@ describe('REST API - site alerts', () => {
 
     describe('authenticated', () => {
 
-        let authStub: sinon.SinonStub;
+        let authStub: sinon.SinonStub<any, any>;
 
         const CLASSID = uuid();
 
@@ -148,6 +148,7 @@ describe('REST API - site alerts', () => {
             req: Express.Request, res: Express.Response,
             next: (err?: Error) => void)
         {
+            // @ts-ignore
             req.user = { ...nextUser };
             next();
         }
