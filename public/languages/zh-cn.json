@@ -781,6 +781,8 @@
 
             "INTRO_WATSONASSISTANT": " <span class ='mlprojecttype'> text </ span>项目的训练机器学习模型使用<a class='mlprojecttype' href ='https://www.ibm.com/watson/services/conversation'> Watson Assistant </a> ",
             "INTRO_VISUALRECOGNITION": " <span class ='mlprojecttype'> images </ span>项目的训练机器学习模型使用<a class ='mlprojecttype' href ='https://www.ibm.com/watson/services/visual-recognition'> Watson Visual Recognition </a> ",
+            "INTRO_NUMBERS": "Training machine learning models for <span class='mlprojecttype'>numbers</span> projects does <strong>not</strong> require any API keys",
+            "INTRO_SOUNDS": "Training machine learning models for <span class='mlprojecttype'>sound</span> projects does <strong>not</strong> require any API keys",
 
             "ERROR_FETCHING_WATSONASSISTANT": "无法获取您的Watson助手密码",
             "ERROR_FETCHING_VISUALRECOG": "无法获取您的Visual Recognition API密钥",

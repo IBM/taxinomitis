@@ -781,6 +781,8 @@
 
 			"INTRO_WATSONASSISTANT": "El entrenamiento de modelos de aprendizaje automático para proyectos de <span class='mlprojecttype'>texot</span> usa <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a>",
 			"INTRO_VISUALRECOGNITION": "El entrenamiento de modelos de aprendizaje automático para proyectos de <span class='mlprojecttype'>imagen</span> usa <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
+            "INTRO_NUMBERS": "Training machine learning models for <span class='mlprojecttype'>numbers</span> projects does <strong>not</strong> require any API keys",
+            "INTRO_SOUNDS": "Training machine learning models for <span class='mlprojecttype'>sound</span> projects does <strong>not</strong> require any API keys",
 
 			"ERROR_FETCHING_WATSONASSISTANT": "Error al obtener tus claves de Watson Assistant ",
 			"ERROR_FETCHING_VISUALRECOG": "Error al obtener tus claves de Visual Recognition API ",

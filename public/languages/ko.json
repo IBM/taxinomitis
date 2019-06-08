@@ -781,6 +781,8 @@
 
             "INTRO_WATSONASSISTANT": "<span class='mlprojecttype'>text</span> 프로젝트를 <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a>를 사용하여 만들어보세요.",
             "INTRO_VISUALRECOGNITION": "<span class='mlprojecttype'>images</span> 프로젝트를 <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>를 사용하여 만들어보세요",
+            "INTRO_NUMBERS": "Training machine learning models for <span class='mlprojecttype'>numbers</span> projects does <strong>not</strong> require any API keys",
+            "INTRO_SOUNDS": "Training machine learning models for <span class='mlprojecttype'>sound</span> projects does <strong>not</strong> require any API keys",
 
             "ERROR_FETCHING_WATSONASSISTANT": "여러분의 Watson Assistant 비밀번호가 잘못되었습니다.",
             "ERROR_FETCHING_VISUALRECOG": "여러분의 Visual Recognition API keys가 잘못되었습니다.",

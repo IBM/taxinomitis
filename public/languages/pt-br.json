@@ -781,6 +781,8 @@
 
             "INTRO_WATSONASSISTANT": "Treinar modelos de aprendizado de máquina para projetos de <span class='mlprojecttype'>texto</span> usa o <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a>",
             "INTRO_VISUALRECOGNITION": "Treinar modelos de aprendizado de máquina para projetos de <span class='mlprojecttype'>imagens</span> usa o <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
+            "INTRO_NUMBERS": "Training machine learning models for <span class='mlprojecttype'>numbers</span> projects does <strong>not</strong> require any API keys",
+            "INTRO_SOUNDS": "Training machine learning models for <span class='mlprojecttype'>sound</span> projects does <strong>not</strong> require any API keys",
 
             "ERROR_FETCHING_WATSONASSISTANT": "Falha ao obter suas senhas do seu Watson Assistant",
             "ERROR_FETCHING_VISUALRECOG": "Falha ao obter suas chaves API do Watson Visual Recognition",

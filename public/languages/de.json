@@ -781,6 +781,8 @@
 
             "INTRO_WATSONASSISTANT": "Zum Trainieren der Machine Learning Models für <span class='mlprojecttype'>Text</span> Projekte wird der <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a> genutzt",
             "INTRO_VISUALRECOGNITION": "Zum Trainieren der Machine Learning Models für <span class='mlprojecttype'>Bilderkennung</span> wird <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a> genutzt",
+            "INTRO_NUMBERS": "Training machine learning models for <span class='mlprojecttype'>numbers</span> projects does <strong>not</strong> require any API keys",
+            "INTRO_SOUNDS": "Training machine learning models for <span class='mlprojecttype'>sound</span> projects does <strong>not</strong> require any API keys",
 
             "ERROR_FETCHING_WATSONASSISTANT": "Dein Watson Assistant Passwort ist fehlgeschlagen",
             "ERROR_FETCHING_VISUALRECOG": "Deine Visual Recognition API Schlüssel sind fehlgeschlagen",

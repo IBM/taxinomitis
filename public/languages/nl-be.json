@@ -781,6 +781,8 @@
 
             "INTRO_WATSONASSISTANT": "Het trainen van machine learning modellen voor <span class='mlprojecttype'>tekstherkenning</span> projecten gebeurt via de <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a>",
             "INTRO_VISUALRECOGNITION": "Het trainen van machine learning modellen voor <span class='mlprojecttype'>afbeeldingsherkenning</span> projecten gebeurt via de <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
+            "INTRO_NUMBERS": "Training machine learning models for <span class='mlprojecttype'>numbers</span> projects does <strong>not</strong> require any API keys",
+            "INTRO_SOUNDS": "Training machine learning models for <span class='mlprojecttype'>sound</span> projects does <strong>not</strong> require any API keys",
 
             "ERROR_FETCHING_WATSONASSISTANT": "Het ophalen van je Watson Assistant paswoord is niet gelukt",
             "ERROR_FETCHING_VISUALRECOG": "Het ophalen van je Visual Recognition API keys is niet gelukt",
