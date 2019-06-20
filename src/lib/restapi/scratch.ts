@@ -227,7 +227,7 @@ async function storeTrainingData(req: Express.Request, res: Express.Response) {
             return res.status(httpstatus.NOT_FOUND).json({ error : 'Scratch key not found' });
         }
 
-        log.error({ err, agent : req.header('X-User-Agent') }, 'Store error');
+        log.error({ err, datatype : typeof(req.body.data), agent : req.header('X-User-Agent') }, 'Store error');
         return res.status(httpstatus.INTERNAL_SERVER_ERROR).json(err);
     }
 }
