@@ -123,7 +123,7 @@
                     description : translations['WORKSHEETS.CHAMELEON.DESCRIPTION'],
                     difficulty : 'Beginner',
                     type : 'images',
-                    maketypes : [ 'scratch2' ],
+                    maketypes : [ 'scratch3' ],
                     image : 'static/images/project-chameleon.png',
                     tags : [ 'image classification', 'supervised learning' ],
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chameleon.pdf',
