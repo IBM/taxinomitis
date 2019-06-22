@@ -73,7 +73,7 @@ describe('Notifications - Email', () => {
 
         nodemailerStub = sinon.stub(nodemailer, 'createTransport')
             // @ts-ignore
-            .callsFake((options: SMTPPool.Options, defaults?: SMTPPool.Options): Mailer => { // tslint-disable-line
+            .callsFake((options: SMTPPool.Options /*, defaults?: SMTPPool.Options*/): Mailer => { // tslint-disable-line
                 if (options && options.auth && options.auth.user === 'valid-user') {
                     const vts: unknown = validTransporterStub as unknown;
                     return vts as Mailer;

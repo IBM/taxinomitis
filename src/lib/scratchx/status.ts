@@ -4,6 +4,9 @@ import * as TrainingTypes from '../training/training-types';
 import * as conversation from '../training/conversation';
 import * as visualrecog from '../training/visualrecognition';
 import * as ScratchTypes from './scratchx-types';
+import loggerSetup from '../utils/logger';
+
+const log = loggerSetup();
 
 
 
@@ -121,5 +124,6 @@ function getNumbersClassifierStatus(scratchKey: Types.ScratchKey): Promise<Scrat
 }
 
 function getSoundClassifierStatus(scratchKey: Types.ScratchKey): Promise<ScratchTypes.Status> {
+    log.error({ scratchKey }, 'Unexpected attempt to get status of sound model');
     return Promise.resolve({ status : 0, msg : 'Classifier not found' });
 }

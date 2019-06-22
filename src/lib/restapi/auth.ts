@@ -7,8 +7,8 @@ import * as jsonwebtoken from 'jsonwebtoken';
 import * as httpstatus from 'http-status';
 // local dependencies
 import * as errors from './errors';
-import * as env from '../utils/env';
 import * as store from '../db/store';
+import * as authvalues from '../auth0/values';
 import * as sessionusers from '../sessionusers';
 import * as Objects from '../db/db-types';
 
@@ -31,7 +31,7 @@ export interface RequestWithUser extends Express.Request {
 }
 
 
-const JWT_SECRET: string = process.env[env.AUTH0_CLIENT_SECRET] as string;
+const JWT_SECRET: string = authvalues.CLIENT_SECRET as string;
 
 
 
@@ -52,14 +52,14 @@ const auth0Authenticate = jwt({
         cache : true,
         rateLimit : true,
         jwksRequestsPerMinute : 5,
-        jwksUri : `https://${process.env[env.AUTH0_DOMAIN]}/.well-known/jwks.json`,
+        jwksUri : 'https://' + authvalues.DOMAIN + '/.well-known/jwks.json',
     }),
 
     // cf. https://github.com/auth0/express-jwt/issues/171#issuecomment-305876709
     // audience : process.env[env.AUTH0_AUDIENCE],
-    aud : process.env[env.AUTH0_AUDIENCE],
+    aud : authvalues.AUDIENCE,
 
-    issuer : `https://${process.env[env.AUTH0_CUSTOM_DOMAIN]}/`,
+    issuer : 'https://' + authvalues.CUSTOM_DOMAIN + '/',
     algorithms : [ 'RS256' ],
 });
 

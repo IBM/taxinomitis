@@ -23,7 +23,7 @@ export function init(): void {
         BUCKET = bucketString;
     }
     else {
-        throw new Error('Missing OBJECT_STORE_BUCKET');
+        log.debug('Missing OBJECT_STORE_BUCKET');
     }
 
     const credsString = process.env[env.OBJECT_STORE_CREDS];
@@ -38,10 +38,12 @@ export function init(): void {
         cos = new IBMCosSDK.S3(creds);
     }
     else {
-        throw new Error('Missing OBJECT_STORE_CREDS');
+        log.debug('Missing OBJECT_STORE_CREDS');
     }
 
-    verifyBucket();
+    if (BUCKET && creds) {
+        verifyBucket();
+    }
 }
 
 

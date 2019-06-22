@@ -87,7 +87,7 @@ CREATE TABLE bluemixcredentials (
     url VARCHAR(200) NOT NULL,
     username VARCHAR(36),
     password VARCHAR(36),
-    credstypeid TINYINT NOT NULL
+    credstypeid TINYINT NOT NULL DEFAULT 0
 );
 
 CREATE INDEX bluemixcredentials_getBluemixCredentials on bluemixcredentials(classid, servicetype);
@@ -198,7 +198,7 @@ CREATE TABLE tenants (
 
 INSERT INTO tenants (id, projecttypes, maxusers, maxprojectsperuser, textclassifiersexpiry, ismanaged)
     VALUES
-        ('TESTTENANT', 'text,images,numbers', 8, 3, 2, true),
+        ('TESTTENANT', 'text,images,numbers,sounds', 8, 3, 2, true),
         ('UNIQUECLASSID', 'text,numbers', 8, 3, 2, true),
         ('session-users', 'text,numbers,sounds', 5, 1, 4, true);
 

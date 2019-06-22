@@ -8,6 +8,7 @@ import * as request from 'request-promise';
 import * as store from '../../lib/db/store';
 import * as dbtypes from '../../lib/db/db-types';
 import * as numbers from '../../lib/training/numbers';
+import * as deployment from '../../lib/utils/deployment';
 import requestPromise = require('request-promise');
 
 
@@ -34,12 +35,13 @@ describe('Training - numbers service', () => {
         return store.init();
     });
     after(() => {
-        postStub.restore();
-        deleteStub.restore();
-
         return store.deleteEntireUser(USERID, CLASSID)
             .then(() => {
                 return store.disconnect();
+            })
+            .then(() => {
+                postStub.restore();
+                deleteStub.restore();
             });
     });
 
@@ -281,8 +283,13 @@ describe('Training - numbers service', () => {
         },
         testClassifier : (url: string, opts: numbers.NumbersApiRequestPayloadTestItem) => {
             assert(url);
-            assert(opts.auth.user);
-            assert(opts.auth.pass);
+            assert(opts && opts.auth);
+
+            if (deployment.isProdDeployment()) {
+                assert(opts && opts.auth && opts.auth.user);
+                assert(opts && opts.auth && opts.auth.pass);
+            }
+
             assert(opts.json);
             if (opts.body.projectid === goodProject) {
                 return Promise.resolve({
@@ -306,8 +313,12 @@ describe('Training - numbers service', () => {
             const opts: numbers.NumbersApiDeleteClassifierRequest = unk as numbers.NumbersApiDeleteClassifierRequest;
 
             assert(url);
-            assert(opts && opts.auth && opts.auth.user);
-            assert(opts && opts.auth && opts.auth.pass);
+            assert(opts && opts.auth);
+
+            if (deployment.isProdDeployment()) {
+                assert(opts && opts.auth && opts.auth.user);
+                assert(opts && opts.auth && opts.auth.pass);
+            }
 
             const prom: unknown = Promise.resolve();
             return prom as requestPromise.RequestPromise;

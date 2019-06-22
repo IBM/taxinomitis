@@ -3,6 +3,7 @@ applications:
   memory: 256M
   disk_quota: 512M
   instances: 3
+  command: npm run ibmcloud
 
   name: machinelearningforkids-region
   routes:
@@ -15,6 +16,7 @@ applications:
 
   env:
     NODE_ENV: production
+    DEPLOYMENT: deploymenttarget
     AUTH0_DOMAIN: MY_AUTH0_DOMAIN.AUTH0.COM
     AUTH0_CUSTOM_DOMAIN: login.machinelearningforkids.co.uk
     AUTH0_CONNECTION: MY_AUTH0_CONNECTION

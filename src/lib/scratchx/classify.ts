@@ -140,6 +140,7 @@ async function classifyNumbers(key: Types.ScratchKey, numbers: string[]): Promis
 
 
 async function classifySound(key: Types.ScratchKey): Promise<TrainingTypes.Classification[]> {
+    log.error({ key }, 'Unexpected attempt to test sound model');
     const err: any = new Error('Sound classification is only available in the browser');
     err.statusCode = 400;
     throw err;

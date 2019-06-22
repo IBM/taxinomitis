@@ -6,6 +6,7 @@ import * as credentials from '../training/credentials';
 import * as sessionusers from '../sessionusers';
 import * as pendingjobs from '../pendingjobs/runner';
 import * as constants from '../utils/constants';
+import * as deployment from '../utils/deployment';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -38,12 +39,14 @@ export function run(): void {
 
 
 
-        log.info('Scheduling image store cleanup to run every three hours');
-        // delete any images from the S3 object storage, where
-        //  they are no longer required for ML projects
-        setInterval(() => {
-            pendingjobs.run();
-        }, constants.THREE_HOURS);
+        if (deployment.isProdDeployment()) {
+            log.info('Scheduling image store cleanup to run every three hours');
+            // delete any images from the S3 object storage, where
+            //  they are no longer required for ML projects
+            setInterval(() => {
+                pendingjobs.run();
+            }, constants.THREE_HOURS);
+        }
 
 
 
@@ -61,9 +64,11 @@ export function run(): void {
 
         // run these immediately so we don't have to wait for them to
         //  be done (these tasks are more critical than the others)
-        pendingjobs.run()
+        sessionusers.cleanupExpiredSessionUsers()
             .then(() => {
-                sessionusers.cleanupExpiredSessionUsers();
+                if (deployment.isProdDeployment()) {
+                    pendingjobs.run();
+                }
             });
     }
     else {

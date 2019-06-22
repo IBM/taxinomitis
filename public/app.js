@@ -30,7 +30,7 @@
                 templateUrl: 'static/components-<%= VERSION %>/login/login.html',
                 controllerAs: 'vm',
                 params: {
-                    VERSION : <%= VERSION %>
+                    DEPLOYMENT : '<%= DEPLOYMENT %>'
                 }
             })
             .state('signup', {
@@ -39,7 +39,7 @@
                 templateUrl: 'static/components-<%= VERSION %>/signup/signup.html',
                 controllerAs: 'vm',
                 params: {
-                    VERSION : <%= VERSION %>
+                    DEPLOYMENT : '<%= DEPLOYMENT %>'
                 }
             })
             .state('about', {
@@ -67,10 +67,7 @@
                 url: '/teacher',
                 controller: 'TeacherController',
                 templateUrl: 'static/components-<%= VERSION %>/teacher/teacher.html',
-                controllerAs: 'vm',
-                params: {
-                    VERSION : <%= VERSION %>
-                }
+                controllerAs: 'vm'
             })
             .state('teacher_restrictions', {
                 url: '/teacher/restrictions',
@@ -103,19 +100,13 @@
                 url: '/teacher/projects',
                 controller: 'TeacherProjectsController',
                 templateUrl: 'static/components-<%= VERSION %>/teacher_supervision/teacher_supervision.html',
-                controllerAs: 'vm',
-                params: {
-                    VERSION : <%= VERSION %>
-                }
+                controllerAs: 'vm'
             })
             .state('newproject', {
                 url: '/newproject',
                 controller: 'NewProjectController',
                 templateUrl: 'static/components-<%= VERSION %>/newproject/newproject.html',
-                controllerAs: 'vm',
-                params: {
-                    VERSION : <%= VERSION %>
-                }
+                controllerAs: 'vm'
             })
             .state('projects', {
                 url: '/projects',
@@ -193,44 +184,51 @@
             });
 
 
-        const lockProviderOptions = {
-            clientID : AUTH0_CLIENT_ID,
-            domain : AUTH0_CUSTOM_DOMAIN,
-            options : {
-                autoclose : true,
-                auth : {
-                    responseType: 'token id_token',
-                    audience: 'https://' + AUTH0_DOMAIN + '/userinfo',
-                    redirectUrl: AUTH0_CALLBACK_URL,
-                    params: {
-                        scope: 'openid email app_metadata'
-                    }
-                },
-                theme : {
-                    logo : 'static/images/mlforkids-logo.svg',
-                    primaryColor : '#337ab7'
-                },
+        if (AUTH0_CLIENT_ID) {
+            console.log('YUP')
+            const lockProviderOptions = {
+                clientID : AUTH0_CLIENT_ID,
+                domain : AUTH0_CUSTOM_DOMAIN,
+                options : {
+                    autoclose : true,
+                    auth : {
+                        responseType: 'token id_token',
+                        audience: 'https://' + AUTH0_DOMAIN + '/userinfo',
+                        redirectUrl: AUTH0_CALLBACK_URL,
+                        params: {
+                            scope: 'openid email app_metadata'
+                        }
+                    },
+                    theme : {
+                        logo : 'static/images/mlforkids-logo.svg',
+                        primaryColor : '#337ab7'
+                    },
 
-                // assuming school computers are shared so doing this would be bad
-                rememberLastLogin: false,
+                    // assuming school computers are shared so doing this would be bad
+                    rememberLastLogin: false,
 
-                // don't ask for email address as identifier, as we're assuming
-                //  kids won't have email addresses so we don't want to confuse
-                //  matters by asking for it now
-                usernameStyle: 'username',
+                    // don't ask for email address as identifier, as we're assuming
+                    //  kids won't have email addresses so we don't want to confuse
+                    //  matters by asking for it now
+                    usernameStyle: 'username',
 
-                // password-reset is for teachers only, so we'll have a separate
-                //  way to get to this, and disable it on the default login popup
-                allowForgotPassword : false,
+                    // password-reset is for teachers only, so we'll have a separate
+                    //  way to get to this, and disable it on the default login popup
+                    allowForgotPassword : false,
 
-                // we don't want people creating their own accounts
-                allowSignUp : false
+                    // we don't want people creating their own accounts
+                    allowSignUp : false
+                }
+            };
+            if (AUTH0_CDN_BASE) {
+                lockProviderOptions.options.configurationBaseUrl = AUTH0_CDN_BASE;
             }
-        };
-        if (AUTH0_CDN_BASE) {
-            lockProviderOptions.options.configurationBaseUrl = AUTH0_CDN_BASE;
+
+            lockProvider.init(lockProviderOptions);
         }
-        lockProvider.init(lockProviderOptions);
+        else {
+            console.log('NOPE');
+        }
 
 
 

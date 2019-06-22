@@ -2,10 +2,10 @@
   "name": "ml-for-kids",
   "version": "0.0.1",
   "scripts": {
-    "start": "node -r bluemix-autoscaling-agent --max-old-space-size=192 dist/lib/app.js",
-    "compile": "./node_modules/.bin/grunt",
-    "local": "node dist/lib/app.js",
-    "test": "./node_modules/.bin/gulp",
+    "start": "node dist/lib/app.js",
+    "ibmcloud": "node -r bluemix-autoscaling-agent --max-old-space-size=192 dist/lib/app.js",
+    "build": "./node_modules/.bin/grunt",
+    "test": "./node_modules/.bin/grunt test",
     "coverage": "gulp compile ; ./node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- --no-timeouts dist/tests/**"
   },
   "engines": {
@@ -55,6 +55,7 @@
     "grunt": "1.0.4",
     "grunt-bower-install-simple": "1.2.8",
     "grunt-contrib-clean": "2.0.0",
+    "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-copy": "1.0.0",
     "grunt-contrib-cssmin": "3.0.0",
     "grunt-mocha-test": "0.13.3",

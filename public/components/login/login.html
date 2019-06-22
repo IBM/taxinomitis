@@ -18,21 +18,21 @@
     <!--  ENTRY POINT           -->
     <!-- ********************** -->
     <div ng-if="vm.loginstate === 'login'">
-        <div class="loginItem">
+        <div class="loginItem" ng-if="vm.deployment === 'machinelearningforkids.co.uk'">
             <label translate>LOGIN.FIRST_TIME</label>
             <button class="btn btn-primary login-button" ng-click="vm.loginstate = 'signup'" translate>LOGIN.SIGN_UP</button>
         </div>
-        <div class="loginInfoLink loginButtonInfo">
+        <div class="loginInfoLink loginButtonInfo" ng-if="vm.deployment === 'machinelearningforkids.co.uk'">
             <a href="" ng-click="vm.loginstate = 'whyregister'" translate>LOGIN.WHY_REGISTER</a>
         </div>
-        <div class="loginItem">
+        <div class="loginItem" ng-if="vm.deployment === 'machinelearningforkids.co.uk'">
             <label translate>LOGIN.ALREADY_REGISTERED</label>
             <button class="btn btn-primary login-button" ng-click="vm.authService.login()" translate>LOGIN.LOGIN</button>
         </div>
-        <div class="loginInfoLink loginButtonInfo">
+        <div class="loginInfoLink loginButtonInfo" ng-if="vm.deployment === 'machinelearningforkids.co.uk'">
             <a href="" ng-click="vm.loginstate = 'reset'" translate>LOGIN.FORGOT_DETAILS</a>
         </div>
-        <hr/>
+        <hr ng-if="vm.deployment === 'machinelearningforkids.co.uk'"/>
         <div class="loginItem">
             <label translate>LOGIN.TRY_TITLE</label>
             <button class="btn btn-primary login-button" ng-click="vm.startTryItNowSession()" translate>LOGIN.TRY_NOW</button>

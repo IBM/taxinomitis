@@ -1,6 +1,8 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
+import * as sinon from 'sinon';
 import * as uuid from 'uuid/v1';
+import * as requestPromise from 'request-promise';
 import * as Types from '../../lib/db/db-types';
 import * as store from '../../lib/db/store';
 import * as training from '../../lib/scratchx/training';
@@ -9,14 +11,21 @@ const TESTUSER = 'UNIQUEUSERID';
 const TESTCLASS = 'UNIQUECLASSID';
 
 
-describe('Scratchx - keys', () => {
+describe('Scratchx - training', () => {
+
+    let numbersTrainingServiceDeleteStub: sinon.SinonStub<any, any>;
+
 
     before(() => {
+        // @ts-ignore
+        numbersTrainingServiceDeleteStub = sinon.stub(requestPromise, 'delete').callsFake(stubbedRequestDelete);
+
         return store.init();
     });
 
     after(async () => {
         await store.deleteEntireUser(TESTUSER, TESTCLASS);
+        numbersTrainingServiceDeleteStub.restore();
         return store.disconnect();
     });
 
@@ -230,4 +239,18 @@ describe('Scratchx - keys', () => {
             }
         });
     });
+
+
+
+    const originalRequestDelete = requestPromise.delete;
+    const stubbedRequestDelete = (url: string, opts?: any) => {
+        if (url === 'undefined/api/models') {
+            // no test numbers service available
+            return Promise.resolve();
+        }
+        else {
+            // use a real test numbers service
+            return originalRequestDelete(url, opts);
+        }
+    };
 });

@@ -4,18 +4,32 @@
         .module('app')
         .service('authService', authService);
 
-    authService.$inject = [
-        'lock', 'authManager',
-        '$q', '$http',
-        '$mdDialog',
-        '$rootScope',
-        '$window',
-        '$state',
-        '$timeout'
-    ];
+    if (AUTH0_CLIENT_ID) {
+        authService.$inject = [
+            'authManager',
+            '$q', '$http',
+            '$mdDialog',
+            '$rootScope',
+            '$window',
+            '$state',
+            '$timeout',
+            'lock'
+        ];
+    }
+    else {
+        authService.$inject = [
+            'authManager',
+            '$q', '$http',
+            '$mdDialog',
+            '$rootScope',
+            '$window',
+            '$state',
+            '$timeout'
+        ];
+    }
 
 
-    function authService(lock, authManager, $q, $http, $mdDialog, $rootScope, $window, $state, $timeout) {
+    function authService(authManager, $q, $http, $mdDialog, $rootScope, $window, $state, $timeout, lock) {
 
         var SESSION_USERS_CLASS = 'session-users';
 
@@ -102,47 +116,62 @@
 
         function renewLogin() {
             // console.log('renewing login');
-            lock.checkSession({}, function (err, authres) {
-                if (err) {
-                    console.log('failed to renew login');
-                    console.log(err);
-                }
-                else if (authres) {
-                    // console.log('renewed login');
-                    // console.log(authres);
-                    storeToken(authres);
-
-                    // schedule the next renewal!
-                    var expiresInSeconds = authres.expiresIn;
-                    var expiresInMillisecs = expiresInSeconds * 1000;
-                    var timeToRefreshLogin = expiresInMillisecs - TEN_MINUTES_MILLISECS;
-                    if (timeToRefreshLogin > 0) {
-                        scheduleTokenRenewal(timeToRefreshLogin);
+            if (lock) {
+                lock.checkSession({}, function (err, authres) {
+                    if (err) {
+                        console.log('failed to renew login');
+                        console.log(err);
                     }
-                }
-            });
+                    else if (authres) {
+                        // console.log('renewed login');
+                        // console.log(authres);
+                        storeToken(authres);
+
+                        // schedule the next renewal!
+                        var expiresInSeconds = authres.expiresIn;
+                        var expiresInMillisecs = expiresInSeconds * 1000;
+                        var timeToRefreshLogin = expiresInMillisecs - TEN_MINUTES_MILLISECS;
+                        if (timeToRefreshLogin > 0) {
+                            scheduleTokenRenewal(timeToRefreshLogin);
+                        }
+                    }
+                });
+            }
+            else {
+                console.log('Unexpected call to renewLogin');
+            }
         }
 
 
         function login() {
-            lock.show({
-                languageDictionary : {
-                    title: 'Log in to ML for Kids'
-                }
-            });
+            if (lock) {
+                lock.show({
+                    languageDictionary : {
+                        title: 'Log in to ML for Kids'
+                    }
+                });
+            }
+            else {
+                console.log('Unexpected call to login');
+            }
         }
 
         function reset() {
-            lock.show({
-                languageDictionary : {
-                    title: 'Forgot your password?'
-                },
+            if (lock) {
+                lock.show({
+                    languageDictionary : {
+                        title: 'Forgot your password?'
+                    },
 
-                allowForgotPassword : true,
-                allowLogin : false,
+                    allowForgotPassword : true,
+                    allowLogin : false,
 
-                initialScreen : 'forgotPassword'
-            });
+                    initialScreen : 'forgotPassword'
+                });
+            }
+            else {
+                console.log('Unexpected call to reset');
+            }
         }
 
 
@@ -220,55 +249,57 @@
 
 
         function setupAuth() {
-            lock.interceptHash();
+            if (lock) {
+                lock.interceptHash();
 
-            lock.on('authenticated', function (authResult) {
-                if (authResult && authResult.accessToken && authResult.idToken) {
-                    storeToken(authResult);
+                lock.on('authenticated', function (authResult) {
+                    if (authResult && authResult.accessToken && authResult.idToken) {
+                        storeToken(authResult);
 
-                    lock.getUserInfo(authResult.accessToken, function (err, profile) {
-                        if (err) {
-                            console.log('lock auth failure');
-                            console.log(err);
-                            return logout();
-                        }
-                        vm.profile = extractAppMetadata(profile);
-                        storeProfile(vm.profile);
+                        lock.getUserInfo(authResult.accessToken, function (err, profile) {
+                            if (err) {
+                                console.log('lock auth failure');
+                                console.log(err);
+                                return logout();
+                            }
+                            vm.profile = extractAppMetadata(profile);
+                            storeProfile(vm.profile);
 
-                        // schedule a refresh of the token a little before
-                        //  it is due to expire
-                        var expiresInSeconds = authResult.expiresIn;
-                        var expiresInMillisecs = expiresInSeconds * 1000;
-                        var timeToRefreshLogin = expiresInMillisecs - TEN_MINUTES_MILLISECS;
-                        scheduleTokenRenewal(timeToRefreshLogin);
+                            // schedule a refresh of the token a little before
+                            //  it is due to expire
+                            var expiresInSeconds = authResult.expiresIn;
+                            var expiresInMillisecs = expiresInSeconds * 1000;
+                            var timeToRefreshLogin = expiresInMillisecs - TEN_MINUTES_MILLISECS;
+                            scheduleTokenRenewal(timeToRefreshLogin);
 
-                        $timeout(function () {
-                            $state.go('welcome');
-                            $rootScope.$broadcast('authStateChange', 'authentication complete');
+                            $timeout(function () {
+                                $state.go('welcome');
+                                $rootScope.$broadcast('authStateChange', 'authentication complete');
+                            });
                         });
-                    });
-                }
-            });
-
-            lock.on('authorization_error', function (err) {
-                if (err && err.errorDescription) {
-                    if (err.errorDescription === 'Please verify your email to activate your class account') {
-                        alert('Please verify your email to activate your class account\n\n' +
-                              'When you created your account, you should have been sent an email to verify your address. \n' +
-                              'Clicking on the link in that email will activate your class account.\n\n' +
-                              'Please click on the Help tab for more info');
                     }
-                }
-                $rootScope.$broadcast('authStateChange', 'authorization error');
-            });
+                });
 
-            // auth0 looks completely broken so try starting again
-            lock.on('unrecoverable_error', function (err) {
-                console.log('lock unrecoverable error');
-                console.log(err);
-                logout();
-                return window.location.reload(true);
-            });
+                lock.on('authorization_error', function (err) {
+                    if (err && err.errorDescription) {
+                        if (err.errorDescription === 'Please verify your email to activate your class account') {
+                            alert('Please verify your email to activate your class account\n\n' +
+                                'When you created your account, you should have been sent an email to verify your address. \n' +
+                                'Clicking on the link in that email will activate your class account.\n\n' +
+                                'Please click on the Help tab for more info');
+                        }
+                    }
+                    $rootScope.$broadcast('authStateChange', 'authorization error');
+                });
+
+                // auth0 looks completely broken so try starting again
+                lock.on('unrecoverable_error', function (err) {
+                    console.log('lock unrecoverable error');
+                    console.log(err);
+                    logout();
+                    return window.location.reload(true);
+                });
+            }
 
             // after a session has expired, tell the user what happened
             $rootScope.$on('tokenHasExpired', sessionExpired);
