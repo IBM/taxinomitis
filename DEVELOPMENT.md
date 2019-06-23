@@ -11,13 +11,13 @@ They are:
 6. Run the code
 
 
-## Step 1 - Get the dependencies
+## Step 1 - Get the dependencies
 
 To run the site, you need:
 - Node.js version 10
 - MySQL version 5.7
 
-## Step 2 - Get the code
+## Step 2 - Get the code
 
 `git clone git@github.com:IBM/taxinomitis.git`
 
