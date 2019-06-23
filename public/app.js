@@ -185,7 +185,6 @@
 
 
         if (AUTH0_CLIENT_ID) {
-            console.log('YUP')
             const lockProviderOptions = {
                 clientID : AUTH0_CLIENT_ID,
                 domain : AUTH0_CUSTOM_DOMAIN,
@@ -225,9 +224,6 @@
             }
 
             lockProvider.init(lockProviderOptions);
-        }
-        else {
-            console.log('NOPE');
         }
 
 
