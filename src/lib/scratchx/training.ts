@@ -6,7 +6,9 @@ import * as Types from '../db/db-types';
 import * as imagestore from '../imagestore';
 import * as urlparse from '../restapi/images/urlparse';
 import * as ImageTypes from '../imagestore/types';
+import loggerSetup from '../utils/logger';
 
+const log = loggerSetup();
 
 
 
@@ -129,6 +131,7 @@ async function storeImages(key: Types.ScratchKey, label: string, base64imagedata
 
 async function storeSound(key: Types.ScratchKey): Promise<Types.SoundTraining>
 {
+    log.error({ key }, 'Unexpected request to store sound training data');
     throw new Error('Not implemented yet');
 }
 

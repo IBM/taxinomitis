@@ -1,3 +1,6 @@
+// local dependencies
+import * as deployment from './deployment';
+
 export const OBJECT_STORE_CREDS = 'OBJECT_STORE_CREDS';
 export const OBJECT_STORE_BUCKET = 'OBJECT_STORE_BUCKET';
 export const AUTH0_DOMAIN = 'AUTH0_DOMAIN';
@@ -25,22 +28,30 @@ export const SMTP_PASS = 'SMTP_PASS';
 export const SMTP_REPLY_TO = 'SMTP_REPLY_TO';
 
 
-const ALL = [
+const DEFAULT = [
+    MYSQLHOST, MYSQLPORT, MYSQLUSER, MYSQLDATABASE,
+];
+
+const PROD = [
     OBJECT_STORE_CREDS, OBJECT_STORE_BUCKET,
     AUTH0_DOMAIN, AUTH0_CUSTOM_DOMAIN, AUTH0_CONNECTION, AUTH0_CLIENT_SECRET,
     AUTH0_CALLBACK_URL, AUTH0_API_CLIENTID, AUTH0_API_CLIENTSECRET,
     AUTH0_AUDIENCE,
-    MYSQLHOST, MYSQLPORT, MYSQLUSER, /*MYSQLPASSWORD,*/ MYSQLDATABASE,
+    MYSQLHOST, MYSQLPORT, MYSQLUSER, MYSQLPASSWORD, MYSQLDATABASE,
     NUMBERS_SERVICE, NUMBERS_SERVICE_USER, NUMBERS_SERVICE_PASS,
-    //
-    // NOT required to run:
-    // SLACK_WEBHOOK_URL
-    // PRIMARY_INSTANCE
-    // SMTP_HOST SMTP_PORT SMTP_USER SMTP_PASS SMTP_REPLY_TO
+    SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_REPLY_TO,
+    // optional - not required for prod
+    // SLACK_WEBHOOK_URL,
+    // PRIMARY_INSTANCE,
 ];
 
 export function confirmRequiredEnvironment() {
-    ALL.forEach(checkEnv);
+    if (deployment.isProdDeployment()) {
+        PROD.forEach(checkEnv);
+    }
+    else {
+        DEFAULT.forEach(checkEnv);
+    }
 }
 
 

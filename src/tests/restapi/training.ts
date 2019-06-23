@@ -2,6 +2,7 @@
 import * as uuid from 'uuid/v1';
 import * as assert from 'assert';
 import * as request from 'supertest';
+import * as requestPromise from 'request-promise';
 import * as httpstatus from 'http-status';
 import * as sinon from 'sinon';
 import * as randomstring from 'randomstring';
@@ -23,6 +24,9 @@ describe('REST API - training', () => {
     let authStub: sinon.SinonStub<any, any>;
     let checkUserStub: sinon.SinonStub<any, any>;
     let requireSupervisorStub: sinon.SinonStub<any, any>;
+
+    let numbersTrainingServicePostStub: sinon.SinonStub<any, any>;
+    let numbersTrainingServiceDeleteStub: sinon.SinonStub<any, any>;
 
     let nextAuth0UserId = 'userid';
     let nextAuth0UserTenant = 'tenant';
@@ -49,6 +53,11 @@ describe('REST API - training', () => {
         checkUserStub = sinon.stub(auth, 'checkValidUser').callsFake(authNoOp);
         requireSupervisorStub = sinon.stub(auth, 'requireSupervisor').callsFake(authNoOp);
 
+        // @ts-ignore
+        numbersTrainingServicePostStub = sinon.stub(requestPromise, 'post').callsFake(stubbedRequestPost);
+        // @ts-ignore
+        numbersTrainingServiceDeleteStub = sinon.stub(requestPromise, 'delete').callsFake(stubbedRequestDelete);
+
         await store.init();
 
         testServer = testapiserver();
@@ -65,6 +74,9 @@ describe('REST API - training', () => {
         authStub.restore();
         checkUserStub.restore();
         requireSupervisorStub.restore();
+
+        numbersTrainingServicePostStub.restore();
+        numbersTrainingServiceDeleteStub.restore();
 
         return store.disconnect();
     });
@@ -1496,5 +1508,32 @@ describe('REST API - training', () => {
         });
 
     });
+
+
+
+
+
+    const originalRequestPost = requestPromise.post;
+    const originalRequestDelete = requestPromise.delete;
+    const stubbedRequestPost = (url: string, opts?: any) => {
+        if (url === 'undefined/api/models') {
+            // no test numbers service available
+            return Promise.resolve();
+        }
+        else {
+            // use a real test numbers service
+            return originalRequestPost(url, opts);
+        }
+    };
+    const stubbedRequestDelete = (url: string, opts?: any) => {
+        if (url === 'undefined/api/models') {
+            // no test numbers service available
+            return Promise.resolve();
+        }
+        else {
+            // use a real test numbers service
+            return originalRequestDelete(url, opts);
+        }
+    };
 
 });

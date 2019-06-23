@@ -2,6 +2,7 @@
 import * as uuid from 'uuid/v1';
 import * as assert from 'assert';
 import * as request from 'supertest';
+import * as requestPromise from 'request-promise';
 import * as httpstatus from 'http-status';
 import * as randomstring from 'randomstring';
 import * as sinon from 'sinon';
@@ -23,6 +24,8 @@ const TESTCLASS = 'UNIQUECLASSID';
 describe('REST API - scratchkey models', () => {
 
     let mockConversation: sinon.SinonStub<[DbTypes.Project], Promise<TrainingTypes.ConversationWorkspace>>;
+    let numbersTrainingServicePostStub: sinon.SinonStub<any, any>;
+    let numbersTrainingServiceDeleteStub: sinon.SinonStub<any, any>;
 
     before(async () => {
         await store.init();
@@ -66,6 +69,35 @@ describe('REST API - scratchkey models', () => {
             }
             throw new Error('Unexpected project');
         });
+
+        const originalRequestPost = requestPromise.post;
+        const originalRequestDelete = requestPromise.delete;
+        const stubbedRequestPost = (url: string, opts?: any) => {
+            if (url === 'undefined/api/models') {
+                // no test numbers service available
+                return Promise.resolve();
+            }
+            else {
+                // use a real test numbers service
+                return originalRequestPost(url, opts);
+            }
+        };
+        const stubbedRequestDelete = (url: string, opts?: any) => {
+            if (url === 'undefined/api/models') {
+                // no test numbers service available
+                return Promise.resolve();
+            }
+            else {
+                // use a real test numbers service
+                return originalRequestDelete(url, opts);
+            }
+        };
+
+        // @ts-ignore
+        numbersTrainingServicePostStub = sinon.stub(requestPromise, 'post').callsFake(stubbedRequestPost);
+        // @ts-ignore
+        numbersTrainingServiceDeleteStub = sinon.stub(requestPromise, 'delete').callsFake(stubbedRequestDelete);
+
         proxyquire('../../lib/scratchx/models', {
             '../training/conversation' : mockConversation,
         });
@@ -73,6 +105,8 @@ describe('REST API - scratchkey models', () => {
 
     after(() => {
         mockConversation.restore();
+        numbersTrainingServicePostStub.restore();
+        numbersTrainingServiceDeleteStub.restore();
         return store.disconnect();
     });
 

@@ -20,6 +20,8 @@ const del = require('del');
 const now = new Date();
 const VERSION = now.getTime();
 
+const DEPLOYMENT = process.env.DEPLOYMENT;
+
 
 const paths = {
     json : ['src/**/*.json'],
@@ -104,7 +106,7 @@ gulp.task('css', ['html'], () => {
 
 gulp.task('jsapp', () => {
     return gulp.src('public/app.js')
-            .pipe(template({ VERSION }))
+            .pipe(template({ VERSION, DEPLOYMENT }))
             .pipe(rename('app-' + VERSION + '.js'))
             .pipe(gulp.dest('web/static'));
 });
@@ -124,7 +126,19 @@ gulp.task('images', () => {
 });
 
 function concatAndMinifiyWebJs (isForProd) {
-    const webJsWithAuth = (isForProd ? [ 'public/auth0-prod-variables.js' ] : [ 'public/auth0-variables.js']).concat(paths.webjs);
+    let additionalVariables;
+    if (process.env.DEPLOYMENT === 'machinelearningforkids.co.uk') {
+        if (isForProd) {
+            additionalVariables = ['public/auth0-prod-variables.js'];
+        }
+        else {
+            additionalVariables = ['public/auth0-variables.js'];
+        }
+    }
+    else {
+        additionalVariables = ['public/auth0-dev-variables.js'];
+    }
+    const webJsWithAuth = additionalVariables.concat(paths.webjs);
 
     return gulp.src(webJsWithAuth)
             .pipe(sourcemaps.init())
@@ -144,7 +158,7 @@ gulp.task('minifyprodjs', () => {
 });
 
 function prepareHtml (isForProd) {
-    const options = { VERSION };
+    const options = { VERSION, DEPLOYMENT };
     if (isForProd) {
         options.USE_IN_PROD_ONLY = '         ';
         options.AFTER_USE_IN_PROD_ONLY = '          ';

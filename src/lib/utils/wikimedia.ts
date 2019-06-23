@@ -51,7 +51,7 @@ export async function getThumbnail(imageurl: string, width: number): Promise<str
  * (e.g. BrownSpiderMonkey_%28edit2%29.jpg )
  */
 function getImageName(imageurl: string): string {
-    const imageAddress = url.parse(imageurl);
+    const imageAddress = new url.URL(imageurl);
     if (imageAddress && imageAddress.pathname) {
         const segments = imageAddress.pathname.split('/');
         if (imageurl.startsWith('https://upload.wikimedia.org/wikipedia/commons/thumb/')) {

@@ -7,8 +7,10 @@ import * as httpstatus from 'http-status';
 import * as randomstring from 'randomstring';
 import * as express from 'express';
 
+import * as auth0objects from '../../lib/auth0/auth-types';
 import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
+import * as auth0users from '../../lib/auth0/users';
 import * as Types from '../../lib/imagestore/types';
 import testapiserver from './testserver';
 
@@ -22,6 +24,7 @@ const TESTCLASS = 'UNIQUECLASSID';
 describe('REST API - projects', () => {
 
     let authStub: sinon.SinonStub<any, any>;
+    let studentsByUserIdStub: sinon.SinonStub<any, any>;
 
     let nextAuth0UserId = 'userid';
     let nextAuth0UserTenant = 'tenant';
@@ -40,9 +43,14 @@ describe('REST API - projects', () => {
         next();
     }
 
+    function emptyClass(): Promise<{ [id: string]: auth0objects.Student }> {
+        return Promise.resolve({});
+    }
+
 
     before(async () => {
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
+        studentsByUserIdStub = sinon.stub(auth0users, 'getStudentsByUserId').callsFake(emptyClass);
 
         await store.init();
 
@@ -59,6 +67,7 @@ describe('REST API - projects', () => {
 
     after(async () => {
         authStub.restore();
+        studentsByUserIdStub.restore();
 
         await store.deleteProjectsByClassId(TESTCLASS);
         await store.deleteAllPendingJobs();

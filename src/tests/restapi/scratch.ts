@@ -1066,7 +1066,7 @@ describe('REST API - scratch keys', () => {
             return prom as requestPromise.RequestPromise;
         }
 
-        function brokenClassifier(url: string, options?: coreReq.CoreOptions): requestPromise.RequestPromise {
+        function brokenClassifier(/*url: string, options?: coreReq.CoreOptions*/): requestPromise.RequestPromise {
             const prom: unknown = new Promise((resolve, reject) => {
                 reject({ error : {
                     code : 500,

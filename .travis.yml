@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- "8"
+- "10"
 
 env:
   global:
@@ -9,6 +9,7 @@ env:
     - MYSQLDATABASE=mlforkidsdb
     - MYSQLHOST=localhost
     - MYSQLPORT=3306
+    - DEPLOYMENT=travis
 
 services:
 - mysql
@@ -19,4 +20,4 @@ before_install:
 - mysql -u root --password="" < sql/tables.sql
 
 script:
-- npm run compile
+- npm run build

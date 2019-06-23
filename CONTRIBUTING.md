@@ -1,5 +1,7 @@
 # Contributing to Machine Learning for Kids
 
+For help with building the Machine Learning for Kids code, see `DEVELOPMENT.md`.
+
 We welcome contributions, but request you follow these guidelines.
 
  - [Raising issues](#raising-issues)

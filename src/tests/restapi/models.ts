@@ -1340,7 +1340,7 @@ describe('REST API - models', () => {
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.NOT_IMPLEMENTED)
-                .then((res) => {
+                .then(() => {
                     return store.deleteEntireUser(userid, classid);
                 });
         });
