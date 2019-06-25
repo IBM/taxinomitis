@@ -497,6 +497,7 @@ export async function storeTextTraining(
             }
             else {
                 // insert failed for no clear reason
+                log.error({ projectid, data, label, insertQry, insertValues, insertResponse }, 'INSERT text failure');
                 outcome = InsertTrainingOutcome.NotStored_UnknownFailure;
             }
         }
@@ -664,6 +665,28 @@ export async function storeImageTraining(
     case InsertTrainingOutcome.NotStored_UnknownFailure:
         throw new Error('Failed to store training data');
     }
+}
+
+
+export async function bulkStoreImageTraining(
+    projectid: string, training: Array<{imageurl: string, label: string}>,
+): Promise<void>
+{
+    const objects = training.map((item) => {
+        const obj = dbobjects.createImageTraining(projectid, item.imageurl, item.label, false);
+        return [ obj.id, obj.projectid, obj.imageurl, obj.label, obj.isstored ];
+    });
+
+    const queryString = 'INSERT INTO `imagetraining` (`id`, `projectid`, `imageurl`, `label`, `isstored`) VALUES ?';
+
+    const dbConn = await dbConnPool.getConnection();
+    const [response] = await dbConn.query(queryString, [ objects ]);
+    await dbConn.release();
+
+    if (response.affectedRows === training.length) {
+        return;
+    }
+    throw new Error('Failed to store training data');
 }
 
 

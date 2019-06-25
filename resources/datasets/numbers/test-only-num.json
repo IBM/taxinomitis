@@ -1,0 +1,26 @@
+{
+    "metadata": {
+        "name": "My project",
+        "fields": [
+            { "name": "count", "type": "number" },
+            { "name": "size", "type": "multichoice", "choices": [ "BIG", "SMALL" ] },
+            { "name": "age", "type": "number" },
+            { "name": "colour", "type": "multichoice", "choices": [ "RED", "GREEN", "BLUE" ] }
+        ]
+    },
+    "data": {
+        "first": [
+            [ 10, "BIG", 15, "RED" ],
+            [ 11, "SMALL", 14, "BLUE" ],
+            [ 12, "BIG", 13, "GREEN" ],
+            [ 13, "SMALL", 12, "GREEN" ]
+        ],
+        "second": [
+            [ 0, "SMALL", 1, "BLUE" ]
+        ],
+        "third": [
+            [ 5.8, "BIG", 18.1, "BLUE" ],
+            [ -102, "SMALL", -1, "GREEN" ]
+        ]
+    }
+}

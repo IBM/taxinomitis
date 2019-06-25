@@ -1,0 +1,20 @@
+{
+    "metadata": {
+        "name": "Pictures project"
+    },
+    "data": {
+        "cat": [
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Gillie_hunting_%282292639848%29.jpg/867px-Gillie_hunting_%282292639848%29.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/4/4c/Blackcat-Lilith.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Britishblue.jpg/744px-Britishblue.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Brown_and_white_tabby_cat_with_green_eyes-Hisashi-03.jpg/1599px-Brown_and_white_tabby_cat_with_green_eyes-Hisashi-03.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg/900px-Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg"
+        ],
+        "dog": [
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Racib%C3%B3rz_2007_082.jpg/1599px-Racib%C3%B3rz_2007_082.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/4/47/Golden_retriever.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Deutscher_Schaeferhund_Presley_von_Beluga.jpg/1600px-Deutscher_Schaeferhund_Presley_von_Beluga.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Brittany_Spaniel_standing.jpg/1583px-Brittany_Spaniel_standing.jpg"
+        ]
+    }
+}
