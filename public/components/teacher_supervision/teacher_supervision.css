@@ -10,7 +10,7 @@
 .studentslistdetail .mlprojectcrowd {
     background-color: white;
     background-size: contain;
-    background-image: url('./../../images/group.png');
+    background-image: url('./../../static/images/group.png');
 }
 
 .studentslist .projectslistname {
