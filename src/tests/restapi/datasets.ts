@@ -10,7 +10,6 @@ import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
 import * as auth0users from '../../lib/auth0/users';
 import testapiserver from './testserver';
-import { isNumber } from 'util';
 
 
 let testServer: express.Express;
@@ -174,7 +173,7 @@ describe('REST API - imported projects', () => {
                         assert(item.id);
                         assert(item.numberdata);
                         item.numberdata.forEach((num: number) => {
-                            assert(isNumber(num));
+                            assert.strictEqual(typeof num, 'number');
                         });
                         assert(item.label === 'first' || item.label === 'second' || item.label === 'third');
                     });

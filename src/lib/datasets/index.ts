@@ -44,7 +44,7 @@ export async function importDataset(userid: string, classid: string, crowdsource
 
 
 
-const VALID_DATASET_IDS = /^[a-z0-9\-]{1,30}$/;
+const VALID_DATASET_IDS = /^[a-z0-9-]{1,30}$/;
 
 
 
