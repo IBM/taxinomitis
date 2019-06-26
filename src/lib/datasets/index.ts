@@ -13,6 +13,7 @@ const log = loggerSetup();
 
 export const ERRORS = {
     DATASET_DOES_NOT_EXIST : 'The requested dataset could not be found',
+    INVALID_DATASET_ID : 'The requested dataset ID is not valid',
     UNEXPECTED_DATASET_TYPE : 'Cannot import projects using this dataset type',
 };
 
@@ -20,7 +21,7 @@ export const ERRORS = {
 
 
 
-export async function importDataset(userid: string, classid: string,
+export async function importDataset(userid: string, classid: string, crowdsource: boolean,
                                     type: dbobjects.ProjectTypeLabel,
                                     datasetid: string): Promise<dbobjects.Project>
 {
@@ -32,7 +33,7 @@ export async function importDataset(userid: string, classid: string,
     const datasetjson = dataset as Types.TextDataset | Types.NumbersDataset | Types.ImagesDataset;
 
     // prepare the project for importing
-    const project = await createProject(userid, classid, type, datasetjson);
+    const project = await createProject(userid, classid, crowdsource, type, datasetjson);
 
     // import the data into the project
     await importDataIntoProject(project, datasetjson);
@@ -43,7 +44,7 @@ export async function importDataset(userid: string, classid: string,
 
 
 
-
+const VALID_DATASET_IDS = /^[a-z0-9\-]{1,30}$/;
 
 
 
@@ -57,13 +58,20 @@ export async function importDataset(userid: string, classid: string,
  */
 function getDatasetLocation(type: dbobjects.ProjectTypeLabel, datasetid: string): Promise<string>
 {
-    const location = './resources/datasets/' + type + '/' + datasetid + '.json';
-
     return new Promise((resolve, reject) => {
+        if (VALID_DATASET_IDS.test(datasetid) === false) {
+            const errorObj = new Error(ERRORS.INVALID_DATASET_ID) as any;
+            errorObj.statusCode = 400;
+            return reject(errorObj);
+        }
+
+        const location = './resources/datasets/' + type + '/' + datasetid + '.json';
         fs.access(location, fs.constants.R_OK, (err) => {
             if (err) {
                 log.error({ err, location }, 'Failed to access dataset');
-                return reject(new Error(ERRORS.DATASET_DOES_NOT_EXIST));
+                const errorObj = new Error(ERRORS.DATASET_DOES_NOT_EXIST) as any;
+                errorObj.statusCode = 400;
+                return reject(errorObj);
             }
             return resolve(location);
         });
@@ -78,7 +86,7 @@ function getDatasetLocation(type: dbobjects.ProjectTypeLabel, datasetid: string)
 
 
 
-async function createProject(userid: string, classid: string,
+async function createProject(userid: string, classid: string, crowdsource: boolean,
                              type: dbobjects.ProjectTypeLabel,
                              dataset: Types.TextDataset | Types.NumbersDataset | Types.ImagesDataset,
                             ): Promise<dbobjects.Project>
@@ -101,9 +109,9 @@ async function createProject(userid: string, classid: string,
                                              dataset.metadata.name,
                                              language,
                                              fields,
-                                             false);
+                                             crowdsource);
 
-    await store.replaceLabelsForProject(userid, classid, project.id, labels);
+    project.labels = await store.replaceLabelsForProject(userid, classid, project.id, labels);
 
     return project;
 }
@@ -128,7 +136,9 @@ function importDataIntoProject(project: dbobjects.Project,
         return store.bulkStoreImageTraining(project.id, training);
     }
     else {
-        throw new Error(ERRORS.UNEXPECTED_DATASET_TYPE);
+        const failure = new Error(ERRORS.UNEXPECTED_DATASET_TYPE) as any;
+        failure.statusCode = 400;
+        throw failure;
     }
 }
 

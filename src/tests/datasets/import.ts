@@ -5,6 +5,7 @@ import * as requestPromise from 'request-promise';
 import * as uuid from 'uuid/v1';
 import * as store from '../../lib/db/store';
 import * as datasets from '../../lib/datasets';
+import * as dbtypes from '../../lib/db/db-types';
 
 
 
@@ -49,7 +50,18 @@ describe('Datasets import', () => {
     describe('Errors', () => {
 
         it('should handle requests to import non-existent datasets', () => {
-            return datasets.importDataset(uuid(), TESTCLASS, 'text', 'not-a-real-dataset')
+            return datasets.importDataset(uuid(), TESTCLASS, false, 'text', 'not-a-real-dataset')
+                .then(() => {
+                    assert.fail('should not get here');
+                })
+                .catch((err) => {
+                    assert.strictEqual(err.message, datasets.ERRORS.DATASET_DOES_NOT_EXIST);
+                });
+        });
+
+        it('should handle requests to import non-existent dataset types', () => {
+            return datasets.importDataset(uuid(), TESTCLASS, false,
+                                          '../../../' as dbtypes.ProjectTypeLabel, 'not-a-real-dataset')
                 .then(() => {
                     assert.fail('should not get here');
                 })
@@ -67,7 +79,7 @@ describe('Datasets import', () => {
         it('should import a text dataset', async () => {
             const user = uuid();
 
-            const project = await datasets.importDataset(user, TESTCLASS, 'text', 'test-only-txt');
+            const project = await datasets.importDataset(user, TESTCLASS, false, 'text', 'test-only-txt');
 
             await verifyTestTextProject(project.id);
             await store.deleteEntireProject(user, TESTCLASS, project);
@@ -111,7 +123,7 @@ describe('Datasets import', () => {
         it('should import a numbers dataset', async () => {
             const user = uuid();
 
-            const project = await datasets.importDataset(user, TESTCLASS, 'numbers', 'test-only-num');
+            const project = await datasets.importDataset(user, TESTCLASS, false, 'numbers', 'test-only-num');
 
             await verifyTestNumbersProject(project.id);
             await store.deleteEntireProject(user, TESTCLASS, project);
@@ -154,7 +166,7 @@ describe('Datasets import', () => {
         it('should import an images dataset', async () => {
             const user = uuid();
 
-            const project = await datasets.importDataset(user, TESTCLASS, 'images', 'test-only-img');
+            const project = await datasets.importDataset(user, TESTCLASS, false, 'images', 'test-only-img');
 
             await verifyTestImagesProject(project.id);
             await store.deleteEntireProject(user, TESTCLASS, project);
