@@ -86,8 +86,8 @@
         return {
             getProject : getProject,
             getProjects : getProjects,
-            getClassProjects : getClassProjects, 
-            
+            getClassProjects : getClassProjects,
+
             deleteProject : deleteProject,
             createProject : createProject,
 

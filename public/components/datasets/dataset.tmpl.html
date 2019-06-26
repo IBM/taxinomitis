@@ -1,0 +1,25 @@
+<md-dialog aria-label="Download project">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>"{{dataset.title}}"</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon class="glyphicon glyphicon-remove" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <form ng-submit="confirm(dataset)">
+        <md-dialog-content>
+            <div class="md-dialog-content" style="min-width: 300px; max-width: 1000px;">
+                <md-card-content>
+                    <div style="font-weight: bold; padding-bottom: 1em">{{dataset.description}}</div>
+                    <div style="white-space: pre-line;">{{dataset.details}}</div>
+                </md-card-content>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button type="submit" class="md-raised md-primary" ng-click="confirm(dataset)" translate="DATASETS.IMPORT"></md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
