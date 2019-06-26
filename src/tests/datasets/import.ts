@@ -73,6 +73,27 @@ describe('Datasets import', () => {
     });
 
 
+    describe('Verify datasets', () => {
+        it('should be able to import all prod datasets', async () => {
+            const user = uuid();
+
+            const prodDatasets: {[type: string]: string[]; } = {
+                numbers : [
+                    'titanic',
+                ],
+            };
+
+            for (const type of Object.keys(prodDatasets)) {
+                for (const dataset of prodDatasets[type]) {
+                    const project = await datasets.importDataset(user, TESTCLASS, false,
+                                                                 type as dbtypes.ProjectTypeLabel,
+                                                                 dataset);
+                    await store.deleteEntireProject(user, TESTCLASS, project);
+                }
+            }
+        });
+    });
+
 
     describe('Text datasets', () => {
 
