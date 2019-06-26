@@ -15,8 +15,6 @@
         var vm = this;
         vm.authService = authService;
 
-        var placeholderId = 1;
-
         var alertId = 1;
         vm.errors = [];
         vm.warnings = [];
