@@ -98,7 +98,7 @@
     height: 28px;
     width: 28px;
     background-size: contain;
-    background-image: url('./../../images/group.png');
+    background-image: url('./../../static/images/group.png');
     border: thin #333 solid;
     float: right;
 }
