@@ -56,7 +56,9 @@
                 vm.profile = profile;
 
                 $translate([
-                    'DATASETS.DATA.TITANIC.TITLE', 'DATASETS.DATA.TITANIC.SUMMARY', 'DATASETS.DATA.TITANIC.DESCRIPTION', 'DATASETS.DATA.TITANIC.DETAILS'
+                    'DATASETS.DATA.TITANIC.TITLE', 'DATASETS.DATA.TITANIC.SUMMARY', 'DATASETS.DATA.TITANIC.DESCRIPTION', 'DATASETS.DATA.TITANIC.DETAILS',
+                    'DATASETS.DATA.UKNEWSPAPERS.TITLE', 'DATASETS.DATA.UKNEWSPAPERS.SUMMARY', 'DATASETS.DATA.UKNEWSPAPERS.DESCRIPTION', 'DATASETS.DATA.UKNEWSPAPERS.DETAILS',
+                    'DATASETS.DATA.CATSANDDOGS.TITLE', 'DATASETS.DATA.CATSANDDOGS.SUMMARY', 'DATASETS.DATA.CATSANDDOGS.DESCRIPTION', 'DATASETS.DATA.CATSANDDOGS.DETAILS'
                 ]).then(function (translations) {
                     vm.datasets = [
                         {
@@ -67,6 +69,24 @@
                             details: translations['DATASETS.DATA.TITANIC.DETAILS'],
                             type: 'numbers',
                             image: 'static/images/dataset-titanic.png'
+                        },
+                        {
+                            id: 'uk-newspaper-headlines',
+                            title: translations['DATASETS.DATA.UKNEWSPAPERS.TITLE'],
+                            summary: translations['DATASETS.DATA.UKNEWSPAPERS.SUMMARY'],
+                            description: translations['DATASETS.DATA.UKNEWSPAPERS.DESCRIPTION'],
+                            details: translations['DATASETS.DATA.UKNEWSPAPERS.DETAILS'],
+                            type: 'text',
+                            image: 'static/images/dataset-ukheadlines.png'
+                        },
+                        {
+                            id: 'cats-and-dogs',
+                            title: translations['DATASETS.DATA.CATSANDDOGS.TITLE'],
+                            summary: translations['DATASETS.DATA.CATSANDDOGS.SUMMARY'],
+                            description: translations['DATASETS.DATA.CATSANDDOGS.DESCRIPTION'],
+                            details: translations['DATASETS.DATA.CATSANDDOGS.DETAILS'],
+                            type: 'images',
+                            image: 'static/images/dataset-catsanddogs.png'
                         }
                     ];
 

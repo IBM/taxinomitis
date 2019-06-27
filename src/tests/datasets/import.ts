@@ -81,6 +81,12 @@ describe('Datasets import', () => {
                 numbers : [
                     'titanic',
                 ],
+                text : [
+                    'uk-newspaper-headlines',
+                ],
+                images : [
+                    'cats-and-dogs',
+                ],
             };
 
             for (const type of Object.keys(prodDatasets)) {

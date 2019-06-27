@@ -9,6 +9,15 @@
         <button class="btn btn-primary" ng-click="vm.authService.login()" translate="APP.LOGIN"></button>
     </div>
 </div>
+<div ng-repeat="error in vm.errors" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong translate="APP.ERROR"></strong> {{ error.message }}<br/>
+    <em ng-if="error.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
+</div>
+<div ng-repeat="warning in vm.warnings" class="alert alert-warning alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('warnings', $index)">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong translate="APP.WARNING"></strong> {{ warning.message }}
+</div>
 <div class="datasetsintro">
     <p translate="DATASETS.INTRO.INTRO_1"></p>
     <p translate="DATASETS.INTRO.INTRO_2"></p>
@@ -16,16 +25,6 @@
 </div>
 <div ng-if="vm.loading" class="loading"></div>
 <div ng-if="isAuthenticated" style="padding: 2em">
-    <div ng-repeat="error in vm.errors" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong translate="APP.ERROR"></strong> {{ error.message }}<br/>
-        <em ng-if="error.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
-    </div>
-    <div ng-repeat="warning in vm.warnings" class="alert alert-warning alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('warnings', $index)">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong translate="APP.WARNING"></strong> {{ warning.message }}
-    </div>
-
     <div class="datasets">
         <div ng-hide="vm.loading" ng-repeat="dataset in vm.datasets" class="datasetcard">
             <div class="cardmain">
@@ -51,6 +50,22 @@
                 <div class="download">
                     <a class="btn btn-primary" ng-click="vm.displayDataset($event, dataset)" ng-disabled="vm.creating">
                         <span translate="DATASETS.IMPORT"></span> "{{dataset.title}}"
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="datasetcard" style="height: 100%;">
+            <div class="cardmain">
+                <div class="info">
+                    <div class="title" translate="DATASETS.MORE.TITLE"></div>
+                    <div class="summary" translate="DATASETS.MORE.SUMMARY"></div>
+                    <div class="description" translate="DATASETS.MORE.DESCRIPTION"></div>
+                </div>
+            </div>
+            <div class="cardfooter">
+                <div class="tags"></div>
+                <div class="download">
+                    <a class="btn btn-primary" target="_blank" href="https://github.com/IBM/taxinomitis/wiki/Input-from-teachers-and-group-leaders" ng-disabled="vm.creating" translate="DATASETS.MORE.MOREINFO">
                     </a>
                 </div>
             </div>
