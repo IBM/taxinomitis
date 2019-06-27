@@ -35,21 +35,22 @@
     <div ng-if="projectId && !project" class="loading"> </div>
 
     <div ng-if="project">
-        <div style="height: 60px;">
+        <div class="newlabelbuttons">
             <div class="newlabelbutton" ng-click="vm.addLabel($event)" ng-hide="crowdSourced">
                 <div class="newlabelicon">+</div>
                 <div class="newlabellabel" translate="TRAINING.ADDLABEL"></div>
             </div>
+            <div class="alert alert-info pageheadermsg"
+                 style="flex-grow: 1; text-align: center; margin-bottom: 8px;"
+                 ng-if="project.labels.length === 0 && !crowdSourced">
+                {{ 'TRAINING.CREATEFIRSTLABEL' | translate }}
+                <span class="glyphicon glyphicon-arrow-right"></span>
+            </div>
+            <div class="alert alert-info pageheadermsg"
+                 style="flex-grow: 1; text-align: center; margin-bottom: 8px;"
+                 ng-if="project.labels.length === 0 && crowdSourced"
+                 translate="TRAINING.CROWDSOURCEDEMPTY"></div>
         </div>
-
-        <div class="alert alert-info pageheadermsg" ng-if="project.labels.length === 0 && !crowdSourced">
-            {{ 'TRAINING.CREATEFIRSTLABEL' | translate }}
-            <span class="glyphicon glyphicon-arrow-right"></span>
-        </div>
-
-        <div class="alert alert-info pageheadermsg"
-             ng-if="project.labels.length === 0 && crowdSourced"
-             translate="TRAINING.CROWDSOURCEDEMPTY"></div>
 
         <div class="trainingbuckets">
             <div class="trainingbucket" ng-repeat="label in project.labels">

@@ -143,16 +143,20 @@
     outline: none !important;
 }
 
-.newlabelbutton {
-    float: right;
-    clear: both;
+.newlabelbuttons {
+    display: flex;
+    flex-direction: row-reverse;
     margin-right: 5em;
+}
+
+.newlabelbutton {
     border: 1px solid #ddd;
     border-right-width: 2px;
     border-bottom-width: 2px;
     border-radius: 5px;
     padding: 3px;
     outline: none;
+    margin-bottom: 11px;
 }
 
 .newlabelicon {

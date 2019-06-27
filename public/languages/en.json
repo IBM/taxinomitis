@@ -895,7 +895,7 @@
         "STUDENTMANAGEMENT": {
             "TITLE": "Administration : Student management",
 
-            "CREATE_FIRST_STUDENT": "Click on the 'plus' button on the right to create the first student",
+            "CREATE_FIRST_STUDENT": "Click on a 'plus' button on the right to create the first student",
             "ADD": "Add new student",
             "NEW_USERNAME": "Choose a unique username",
             "ALPHANUMERIC": "Only use letters and numbers",

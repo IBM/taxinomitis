@@ -43,7 +43,7 @@
         <div ng-if="vm.credentials.loading.conv === false" style="border-top: thin #444 solid; padding-top: 1em; margin-bottom: 2em;">
             <div translate="TEACHER.APIKEYS.INTRO_WATSONASSISTANT"></div>
             <div ng-if="vm.credentials.failed.conv" class="credserror" translate="TEACHER.APIKEYS.ERROR_FETCHING_WATSONASSISTANT"></div>
-            <div style="height: 60px;">
+            <div class="newlabelbuttons">
                 <div class="newlabelbutton" ng-click="vm.addCredentials($event, 'conv')" style="margin-right: 1.5em;">
                     <div class="newlabelicon">+</div>
                     <div class="newlabellabel" translate="TEACHER.APIKEYS.ADDNEWCREDENTIALS"></div>
@@ -95,7 +95,7 @@
         <div ng-if="vm.credentials.loading.visrec === false" style="border-top: thin #444 solid; padding-top: 1em; margin-bottom: 2em;">
             <div translate="TEACHER.APIKEYS.INTRO_VISUALRECOGNITION"></div>
             <div ng-if="vm.credentials.failed.visrec" class="credserror" translate="TEACHER.APIKEYS.ERROR_FETCHING_VISUALRECOG"></div>
-            <div style="height: 60px;">
+            <div class="newlabelbuttons">
                 <div class="newlabelbutton" ng-click="vm.addCredentials($event, 'visrec')" style="margin-right: 1.5em">
                     <div class="newlabelicon">+</div>
                     <div class="newlabellabel" translate="TEACHER.APIKEYS.ADDAPIKEY"></div>

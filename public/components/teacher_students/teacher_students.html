@@ -30,12 +30,7 @@
     </div>
 
     <div ng-if="vm && vm.students">
-        <div class="alert alert-info pageheadermsg" ng-if="vm.students && vm.students.length === 0">
-            {{ 'TEACHER.STUDENTMANAGEMENT.CREATE_FIRST_STUDENT' | translate }}
-            <span class="glyphicon glyphicon-arrow-right"></span>
-        </div>
-
-        <div style="height: 60px;">
+        <div class="newlabelbuttons">
             <div class="newlabelbutton" style="margin-right: 1em; clear: initial;"
                  ng-disabled="!vm || !vm.policy || !vm.policy.maxUsers || !vm.students || vm.students.length === vm.policy.maxUsers"
                  ng-click="vm.createMultipleUsers($event)">
@@ -46,6 +41,12 @@
                  ng-click="vm.createUser($event)">
                 <div class="newlabelicon">+</div>
                 <div class="newlabellabel" translate="TEACHER.STUDENTMANAGEMENT.ADD"></div>
+            </div>
+            <div class="alert alert-info pageheadermsg"
+                 style="flex-grow: 1; text-align: center; margin-bottom: 8px;"
+                 ng-if="vm.students && vm.students.length === 0">
+                {{ 'TEACHER.STUDENTMANAGEMENT.CREATE_FIRST_STUDENT' | translate }}
+                <span class="glyphicon glyphicon-arrow-right"></span>
             </div>
         </div>
 
