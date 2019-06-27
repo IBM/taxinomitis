@@ -53,7 +53,7 @@
 }
 
 .loadingtraining {
-    background-image: url('../../images/loading.gif');
+    background-image: url('./../../static/images/loading.gif');
     background-repeat: no-repeat;
     background-size: 150px 150px;
     width: 150px;

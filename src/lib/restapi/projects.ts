@@ -6,6 +6,7 @@ import * as auth from './auth';
 import * as store from '../db/store';
 import * as Objects from '../db/db-types';
 import * as dbobjects from '../db/objects';
+import * as datasets from '../datasets';
 import * as users from '../auth0/users';
 import * as Users from '../auth0/auth-types';
 import * as urls from './urls';
@@ -82,22 +83,49 @@ function getProjectsByUserId(req: Express.Request, res: Express.Response) {
 }
 
 
+/**
+ * This could be creating a new empty project, or creating a project based
+ *  on a pre-prepared dataset of training data.
+ */
 async function createProject(req: auth.RequestWithUser, res: Express.Response) {
     const classid: string = req.params.classid;
     const userid: string = req.params.studentid;
 
-    if (!req.body || !req.body.type || !req.body.name) {
-        return res.status(httpstatus.BAD_REQUEST)
-                  .send({ error : 'Missing required field' });
+    let isImport = false;
+
+    //
+    // Quick sanity check that the request looks to have the right
+    //  values in it.
+    //
+
+    if (req.body && req.body.dataset && req.body.type) {
+        // assume we're being asked to create a project
+        //  based on a pre-existing set of training data
+        isImport = true;
     }
-    if (dbobjects.VALID_PROJECT_NAME.test(req.body.name) === false) {
-        return res.status(httpstatus.BAD_REQUEST)
-                  .send({ error : 'Invalid project name' });
+    else {
+        // otherwise assume we're creating a new empty project
+
+        if (!req.body || !req.body.type || !req.body.name) {
+            return res.status(httpstatus.BAD_REQUEST)
+                    .send({ error : 'Missing required field' });
+        }
+        if (dbobjects.VALID_PROJECT_NAME.test(req.body.name) === false) {
+            return res.status(httpstatus.BAD_REQUEST)
+                    .send({ error : 'Invalid project name' });
+        }
+        if (req.body.type === 'text' && !req.body.language) {
+            return res.status(httpstatus.BAD_REQUEST)
+                    .send({ error : 'Missing required field' });
+        }
     }
-    if (req.body.type === 'text' && !req.body.language) {
-        return res.status(httpstatus.BAD_REQUEST)
-                  .send({ error : 'Missing required field' });
-    }
+
+
+    //
+    // Regardless of what type of project we're creating, we
+    //  check that the student is allowed to create a new
+    //  project of this type
+    //
 
     const numProjects = await store.countProjectsByUserId(userid, classid);
     const tenantPolicy = await store.getClassTenant(classid);
@@ -124,14 +152,28 @@ async function createProject(req: auth.RequestWithUser, res: Express.Response) {
     }
 
 
-    try {
-        const project = await store.storeProject(userid, classid,
-            req.body.type,
-            req.body.name,
-            req.body.language,
-            req.body.fields,
-            crowdsourced);
+    //
+    // The request looks okay, so we'll try and create it
+    //  (More checking will be performed, so there is still a chance
+    //   of a http-400 bad-request error being thrown, but we've
+    //   decided to at least attempt)
+    //
 
+    try {
+        let project;
+        if (isImport) {
+            project = await datasets.importDataset(userid, classid, crowdsourced,
+                                                   req.body.type,
+                                                   req.body.dataset);
+        }
+        else {
+            project = await store.storeProject(userid, classid,
+                                               req.body.type,
+                                               req.body.name,
+                                               req.body.language,
+                                               req.body.fields,
+                                               crowdsourced);
+        }
 
         if (project.type === 'sounds') {
             await store.addLabelToProject(userid, classid, project.id, sound.BACKGROUND_NOISE);
@@ -142,7 +184,7 @@ async function createProject(req: auth.RequestWithUser, res: Express.Response) {
         if (err.statusCode === httpstatus.BAD_REQUEST) {
             return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
         }
-        log.error({ err, func : 'createProject' }, 'Server error');
+        log.error({ err, func : 'createProject', request : req.body }, 'Server error');
         errors.unknownError(res, err);
     }
 }

@@ -108,6 +108,15 @@
                 templateUrl: 'static/components-<%= VERSION %>/newproject/newproject.html',
                 controllerAs: 'vm'
             })
+            .state('importdataset', {
+                url: '/importdataset',
+                controller: 'DatasetsController',
+                templateUrl: 'static/components-<%= VERSION %>/datasets/datasets.html',
+                controllerAs: 'vm',
+                params: {
+                    VERSION : <%= VERSION %>
+                }
+            })
             .state('projects', {
                 url: '/projects',
                 controller: 'ProjectsController',

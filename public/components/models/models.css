@@ -125,12 +125,12 @@
 
 
 .quizanswer input[type='checkbox']:checked {
-    background-image: url('./../../images/tick.png');
+    background-image: url('./../../static/images/tick.png');
 }
 
 .quizanswer.answered input[type='checkbox']:checked {
     background: darkgreen;
-    background-image: url('./../../images/tick-confirm.png');
+    background-image: url('./../../static/images/tick-confirm.png');
 }
 
 .answerconfirm {

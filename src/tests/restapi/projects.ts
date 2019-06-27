@@ -651,6 +651,49 @@ describe('REST API - projects', () => {
                 });
         });
 
+        it('should store sounds project details', () => {
+            const projectDetails = {
+                name : uuid(),
+                type : 'sounds',
+            };
+            const studentId = uuid();
+            const classid = 'TESTTENANT';
+
+            const url = '/api/classes/' + classid + '/students/' + studentId + '/projects';
+
+            nextAuth0UserId = studentId;
+            nextAuth0UserTenant = classid;
+
+            return request(testServer)
+                .post(url)
+                .send(projectDetails)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED)
+                .then((res) => {
+                    const body = res.body;
+                    assert.strictEqual(body.userid, studentId);
+                    assert.strictEqual(body.classid, classid);
+                    assert.strictEqual(body.type, projectDetails.type);
+                    assert.strictEqual(body.name, projectDetails.name);
+                    assert.strictEqual(body.isCrowdSourced, false);
+                    assert(body.id);
+
+                    return request(testServer)
+                        .get(url + '/' + body.id)
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.OK);
+                })
+                .then((res) => {
+                    const body = res.body;
+                    assert.strictEqual(body.userid, studentId);
+                    assert.strictEqual(body.classid, classid);
+                    assert.strictEqual(body.type, projectDetails.type);
+                    assert.strictEqual(body.name, projectDetails.name);
+                    assert.strictEqual(body.isCrowdSourced, false);
+                    assert.deepStrictEqual(body.labels, ['_background_noise_']);
+                });
+        });
+
         it('should only allow teachers to create crowd-sourced projects', () => {
             const projectDetails = {
                 name : uuid(),

@@ -222,6 +222,41 @@
             "TOOLONG": "Isso é muito longo!"
         }
     },
+    "DATASETS": {
+        "TITLE": "Copy a machine learning project template",
+        "INTRO": {
+            "INTRO_1": "You can create new machine learning project based on one of these templates.",
+            "INTRO_2": "Each one includes a set of training data that has been collected for you to help you get started quickly. ",
+            "INTRO_3": "You will be able to make changes to the training data if you like, or you can go straight to training a machine learning model with it. "
+        },
+        "IMPORT": "Import",
+        "MORE": {
+            "TITLE": "Other data sets",
+            "SUMMARY": "What other data sets would you like to see?",
+            "DESCRIPTION": "Have you got an idea for a data set you'd like to see available here? Or do you have a data set that you'd like to contribute? Please get in touch!",
+            "MOREINFO": "More..."
+        },
+        "DATA": {
+            "TITANIC": {
+                "TITLE": "Titanic survivors",
+                "SUMMARY": "Predict survival on the Titanic",
+                "DESCRIPTION": "On 15th April 1912, the RMS Titanic hit an iceberg and sank, killing over 1500 of the passengers and crew. This project includes personal data about hundreds of the passengers. You can use this to train a machine learning model that, if you give it a description of a passenger, can learn to predict the likelihood that they would have survived. ",
+                "DETAILS": "The 'ticket class' field is a number indicating the type of ticket for the passenger: first class (1), second class (2), or third class (3). \nThe 'gender' field is whether the passenger was 'male' or 'female'. \nThe 'age' field is the age of the passenger. \nThe 'sibl. sp.' is the number of brothers or sisters (siblings) the passenger had on board if they were a child, or the number of husbands or wives (spouses) the passenger had on board if they were an adult. \nThe 'par. ch.' field is the number of parents the passenger had on board if they were a child, or the number of children the passenger had on board if they were an adult. \nThe 'ticket fare' field is how much they paid for their ticket. \nThe 'embarked' field is where they got on board the Titanic, either Cherbourg, Queenstown or Southampton."
+            },
+            "CATSANDDOGS": {
+                "TITLE": "Cats and Dogs",
+                "SUMMARY": "Recognize photos of cats vs dogs",
+                "DESCRIPTION": "Training a machine learning model to recognise photos of cats and dogs is a good simple introduction to image recognition.",
+                "DETAILS": "This training dataset of photos from Wikimedia Commons is a good starting set for building your own training data of animal photos"
+            },
+            "UKNEWSPAPERS": {
+                "TITLE": "UK Newspaper Headlines",
+                "SUMMARY": "Recognize the use of language in newspaper headlines",
+                "DESCRIPTION": "Different newspapers use language in different ways. This project includes the main front page headline from four UK newspapers. You can use this to train a machine learning model that can learn to predict the most likely newspaper that a new headline is probably from. ",
+                "DETAILS": "This training dataset includes headlines from the Daily Mail, the Daily Telegraph, the Independent, and The Guardian"
+            }
+        }
+    },
     "PROJECT": {
         "TRAIN": {
             "TITLE": "Treinar",

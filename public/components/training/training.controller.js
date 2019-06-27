@@ -89,8 +89,6 @@
                 return trainingService.getTraining($scope.projectId, $scope.userId, vm.profile.tenant);
             })
             .then(function (training) {
-                $scope.loadingtraining = false;
-
                 for (var trainingitemIdx in training) {
                     var trainingitem = training[trainingitemIdx];
 
@@ -104,6 +102,8 @@
 
                     $scope.training[label].push(trainingitem);
                 }
+
+                $scope.loadingtraining = false;
             })
             .catch(function (err) {
                 displayAlert('errors', err.status, err.data);

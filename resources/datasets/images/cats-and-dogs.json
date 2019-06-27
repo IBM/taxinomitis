@@ -1,0 +1,51 @@
+{
+    "metadata": {
+        "name": "Cats and dogs"
+    },
+    "data": {
+        "cat": [
+            "https://upload.wikimedia.org/wikipedia/commons/2/2b/Sibirisk_Skovkat.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Bosque_de_noruega.jpg/120px-Bosque_de_noruega.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/A_sassy_cat.jpg/120px-A_sassy_cat.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Cat-MaineCoon-Lara2.png/598px-Cat-MaineCoon-Lara2.png",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Brown_tabby_and_white_domestic_cat_-_20070203.jpg/120px-Brown_tabby_and_white_domestic_cat_-_20070203.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cat_November_2010-1a.jpg/90px-Cat_November_2010-1a.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Hauskatze_schwarz.jpg/120px-Hauskatze_schwarz.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Cat_Indoors.JPG/120px-Cat_Indoors.JPG",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Flikr_-_alpha_the_cat_%28by%29.jpg/800px-Flikr_-_alpha_the_cat_%28by%29.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Flickr_-_Per_Ola_Wiberg_~_mostly_away_-_The_Old_gentleman%2C_Kotte%2C_is_22_years_old_and_still_alert.jpg/92px-Flickr_-_Per_Ola_Wiberg_~_mostly_away_-_The_Old_gentleman%2C_Kotte%2C_is_22_years_old_and_still_alert.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Chat_%C3%A0_l%27affut.jpg/120px-Chat_%C3%A0_l%27affut.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Domestic_cat.jpg/120px-Domestic_cat.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Bergneustadt_-_Wallstra%C3%9Fe1Museum_ex_16_ies.jpg/120px-Bergneustadt_-_Wallstra%C3%9Fe1Museum_ex_16_ies.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Cannelle.jpg/120px-Cannelle.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Gato_relami%C3%A9ndose_-_panoramio.jpg/120px-Gato_relami%C3%A9ndose_-_panoramio.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/20141223_-_Cat_of_Fuerteventura_by_sebaso_5.jpg/120px-20141223_-_Cat_of_Fuerteventura_by_sebaso_5.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Flickr_-_Per_Ola_Wiberg_~_mostly_away_-_Laban_is_posing.jpg/93px-Flickr_-_Per_Ola_Wiberg_~_mostly_away_-_Laban_is_posing.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/BillyHJay.jpg/120px-BillyHJay.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Connolley_cat.jpg/120px-Connolley_cat.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/American_curl.jpg/90px-American_curl.jpg"
+        ],
+        "dog": [
+            "https://upload.wikimedia.org/wikipedia/commons/9/94/Oola_-_6_months.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/9/9c/Yellow_Labrador_Retriever_2.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/a/aa/Flat_Coated_Retriever_-_black.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Istrische_Bracke.jpg/120px-Istrische_Bracke.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Welsh_Springer_Spaniel.jpg/800px-Welsh_Springer_Spaniel.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/%E0%B4%A8%E0%B4%BE%E0%B4%AF.jpg/90px-%E0%B4%A8%E0%B4%BE%E0%B4%AF.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Australian_Shepherd_rot_tricolor.jpg/120px-Australian_Shepherd_rot_tricolor.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Bvdb-bassethound2.jpg/120px-Bvdb-bassethound2.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Australian_red_and_white-Red_Rock.JPG/120px-Australian_red_and_white-Red_Rock.JPG",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Chandler_the_English_Cocker_Spaniel.jpg/120px-Chandler_the_English_Cocker_Spaniel.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Spoonsced.jpg/120px-Spoonsced.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/PlummerTerrier.jpg/120px-PlummerTerrier.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Zampone_Braque_de_Weimar.jpg/90px-Zampone_Braque_de_Weimar.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Golden_Retriever_2.JPG/120px-Golden_Retriever_2.JPG",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Kelp.jpg/120px-Kelp.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Estonian_Hound_at_show.jpg/120px-Estonian_Hound_at_show.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Dog_with_dumbbell.jpg/77px-Dog_with_dumbbell.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Elias1%C4%8Derven2006.jpg/120px-Elias1%C4%8Derven2006.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/2_yr_old_Dalmatian.jpg/782px-2_yr_old_Dalmatian.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Entlebucher.jpg/693px-Entlebucher.jpg"
+        ]
+    }
+}

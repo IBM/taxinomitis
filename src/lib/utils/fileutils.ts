@@ -23,3 +23,11 @@ export function readBuffer(path: string): Promise<Buffer> {
         });
     });
 }
+
+export function readJson(path: string): Promise<object>
+{
+    return read(path)
+        .then((textdata) => {
+            return JSON.parse(textdata);
+        });
+}

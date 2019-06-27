@@ -20,20 +20,24 @@
         <strong translate="APP.WARNING"></strong> {{ warning.message }}
     </div>
 
-    <div>
+    <div class="newprojectbuttons">
+        <div class="newprojectbutton" ui-sref="importdataset">
+            <div class="newprojecticon glyphicon glyphicon-import" style="font-size: 2em;"></div>
+            <div class="newprojectlabel">Copy template</div>
+        </div>
         <div class="newprojectbutton" ui-sref="newproject">
             <div class="newprojecticon">+</div>
             <div class="newprojectlabel" translate="PROJECTS.ADDNEWPROJECT"></div>
+        </div>
+        <div style="flex-grow: 1; text-align: center; margin-bottom: initial;" class="alert alert-info pageheadermsg" ng-if="vm.projects && vm.projects.length === 0">
+            {{ 'PROJECTS.CREATEFIRSTPROJECT' | translate }}
+            <span class="glyphicon glyphicon-arrow-right"></span>
         </div>
     </div>
 
     <div ng-if="!vm.projects" class="loading"> </div>
 
     <div class="text-center">
-        <div class="alert alert-info pageheadermsg" ng-if="vm.projects && vm.projects.length === 0">
-            {{ 'PROJECTS.CREATEFIRSTPROJECT' | translate }}
-            <span class="glyphicon glyphicon-arrow-right"></span>
-        </div>
         <div class="mlproject" ng-repeat="project in vm.projects" id="{{project.id}}">
             <div class="mlprojectdetails placeholder" ng-if="project.isPlaceholder">
                 <div class="mlprojecttitle">{{ project.name }}</div>

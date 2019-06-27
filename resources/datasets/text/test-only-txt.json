@@ -1,0 +1,19 @@
+{
+    "metadata": {
+        "name": "Test project",
+        "language": "en"
+    },
+    "data": {
+        "compliment": [
+            "You are lovely",
+            "I like you",
+            "We think you are a good person"
+        ],
+        "insult": [
+            "You suck",
+            "Everyone hatest you",
+            "You smell bad",
+            "You are an idiot"
+        ]
+    }
+}
