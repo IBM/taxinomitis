@@ -739,6 +739,11 @@
             "TITLE": "Jargon Buster",
             "SUMMARY": "Teach a computer to listen for words",
             "DESCRIPTION": "Make a project in Scratch that displays the meaning of words you say."
+        },
+        "TITANIC": {
+            "TITLE": "Titanic",
+            "SUMMARY": "Teach a computer to predict outcomes",
+            "DESCRIPTION": "Create a Python program that can predict who survived the sinking of the Titanic."
         }
     },
     "TEACHER": {

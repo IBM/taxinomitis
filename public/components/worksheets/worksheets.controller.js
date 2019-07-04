@@ -42,7 +42,8 @@
             'WORKSHEETS.TOPTRUMPS.TITLE', 'WORKSHEETS.TOPTRUMPS.SUMMARY', 'WORKSHEETS.TOPTRUMPS.DESCRIPTION',
             'WORKSHEETS.HEADLINES.TITLE', 'WORKSHEETS.HEADLINES.SUMMARY', 'WORKSHEETS.HEADLINES.DESCRIPTION',
             'WORKSHEETS.FINDIT.TITLE', 'WORKSHEETS.FINDIT.SUMMARY', 'WORKSHEETS.FINDIT.DESCRIPTION',
-            'WORKSHEETS.JARGONBUSTER.TITLE', 'WORKSHEETS.JARGONBUSTER.SUMMARY', 'WORKSHEETS.JARGONBUSTER.DESCRIPTION'
+            'WORKSHEETS.JARGONBUSTER.TITLE', 'WORKSHEETS.JARGONBUSTER.SUMMARY', 'WORKSHEETS.JARGONBUSTER.DESCRIPTION',
+            'WORKSHEETS.TITANIC.TITLE', 'WORKSHEETS.TITANIC.SUMMARY', 'WORKSHEETS.TITANIC.DESCRIPTION'
         ]).then(function (translations) {
             vm.worksheets = [
                 {
@@ -130,6 +131,22 @@
                     downloads : [
                         {
                             worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf'
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.TITANIC.TITLE'],
+                    summary : translations['WORKSHEETS.TITANIC.SUMMARY'],
+                    description : translations['WORKSHEETS.TITANIC.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'numbers',
+                    maketypes : [ 'python' ],
+                    image : 'static/images/project-titanic.png',
+                    tags : [ 'predictive model', 'supervised learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-titanic.pdf',
+                    downloads : [
+                        {
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf'
                         }
                     ]
                 },

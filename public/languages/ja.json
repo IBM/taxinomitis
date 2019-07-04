@@ -760,6 +760,11 @@
             "TITLE": "専門語 バスター",
             "SUMMARY": "単語を聞くようにコンピューターに教えよう。",
             "DESCRIPTION": "あなたの言った言葉の意味を表示するプロジェクトをScratchで制作します。"
+        },
+        "TITANIC": {
+            "TITLE": "Titanic",
+            "SUMMARY": "Teach a computer to predict outcomes",
+            "DESCRIPTION": "Create a Python program that can predict who survived the sinking of the Titanic."
         }
     },
     "TEACHER": {
