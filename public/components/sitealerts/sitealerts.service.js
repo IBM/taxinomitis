@@ -39,7 +39,7 @@
                 .then(function (resp) {
                     var msgs = resp.data;
                     if (msgs && msgs.length > 0 &&
-                        msgs[0].message && msgs[0].severity && msgs[0].url)
+                        msgs[0].message && msgs[0].severity)
                     {
                         $rootScope.siteAlert = msgs[0];
                     }
