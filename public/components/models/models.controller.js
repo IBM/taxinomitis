@@ -164,6 +164,7 @@
                     return projectsService.getFields($scope.projectId, $scope.userId, vm.profile.tenant);
                 }
                 if ($scope.project.type === 'sounds') {
+                    $scope.listening = false;
                     return soundTrainingService.initSoundSupport($scope.project.id);
                 }
             })
@@ -644,25 +645,29 @@
 
 
         vm.startListening = function () {
-            $scope.listening = true;
-            soundTrainingService.startTest(function (resp) {
-                $scope.$apply(
-                    function() {
-                        $scope.testoutput = resp[0].class_name;
-                        $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
-                    });
-            });
-        };
-        vm.stopListening = function () {
-            $scope.listening = false;
-            soundTrainingService.stopTest()
-                .then(function () {
+            if (!$scope.listening) {
+                $scope.listening = true;
+                soundTrainingService.startTest(function (resp) {
                     $scope.$apply(
                         function() {
-                            delete $scope.testoutput;
-                            delete $scope.testoutput_explanation;
+                            $scope.testoutput = resp[0].class_name;
+                            $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
                         });
                 });
+            }
+        };
+        vm.stopListening = function () {
+            if ($scope.listening) {
+                $scope.listening = false;
+                soundTrainingService.stopTest()
+                    .then(function () {
+                        $scope.$apply(
+                            function() {
+                                delete $scope.testoutput;
+                                delete $scope.testoutput_explanation;
+                            });
+                    });
+            }
         };
 
 
