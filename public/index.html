@@ -147,12 +147,13 @@
 
         <script type="text/javascript" src="/static/bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.min.js"></script>
 
-        <script type="text/javascript">var Raven = null;</script>
+        <script type="text/javascript">var Sentry = null;</script>
         <%= USE_IN_PROD_ONLY %>
-        <script src="https://cdn.ravenjs.com/3.26.2/angular/raven.min.js" crossorigin="anonymous"></script>
-        <script>Raven.config('https://b4bbe1a8fbce473cb9eb089652848a1e@sentry.io/202347', {
-                release: '<%= VERSION %>'
-            }).install();</script>
+        <script src="https://browser.sentry-cdn.com/5.5.0/bundle.min.js" crossorigin="anonymous"></script>
+        <script type="text/javascript">Sentry.init({
+            dsn: 'https://b4bbe1a8fbce473cb9eb089652848a1e@sentry.io/202347',
+            release: '<%= VERSION %>'
+        });</script>
         <%= AFTER_USE_IN_PROD_ONLY %>
 
         <script type="text/javascript" src="/static/app-<%= VERSION %>.js"></script>
