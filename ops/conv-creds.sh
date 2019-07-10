@@ -10,13 +10,13 @@ sid=$nextconv
 
 servicename=mlforkids-managed-$sid
 
-ibmcloud resource service-instance-create $servicename conversation standard us-south -g machinelearningforkids
+ibmcloud resource service-instance-create $servicename conversation standard us-south >> $DIR/../logs/create-conv.log
 
-convserviceid=`ibmcloud resource service-instance -g machinelearningforkids --location us-south --output json $servicename  | jq --raw-output .[0].id`
+convserviceid=`ibmcloud resource service-instance --location us-south --output json $servicename  | jq --raw-output .[0].id`
 
-ibmcloud resource service-key-create mlforkidsapikey Manager --instance-id "$convserviceid" -g machinelearningforkids
+ibmcloud resource service-key-create mlforkidsapikey Manager --instance-id "$convserviceid" >> $DIR/../logs/create-conv.log
 
-convapikey=`ibmcloud resource service-keys -g machinelearningforkids  --instance-id "$convserviceid" --output json | jq --raw-output .[0].credentials.apikey`
+convapikey=`ibmcloud resource service-keys --instance-id "$convserviceid" --output json | jq --raw-output .[0].credentials.apikey`
 
 uuid=`uuidgen | tr '[:upper:]' '[:lower:]'`
 
