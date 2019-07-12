@@ -14,6 +14,8 @@ It's currently running at https://MachineLearningForKids.co.uk
 
 ## The code
 
+[![Build Status](https://travis-ci.org/IBM/taxinomitis.svg?branch=master)](https://travis-ci.org/IBM/taxinomitis)
+
 This started as a personal side-project by [Dale Lane](https://github.com/dalelane/) for use by a couple of local schools. It's grown far beyond what I expected.
 
 All of this is a long-winded way of saying that I never expected to share this code with anyone, let alone open-source it. It definitely has many of the embarrassing hallmarks of a hobby project tinkered with in evenings and weekends... please keep that in mind when you look through the code, and bear with me while I try and tidy things up.
