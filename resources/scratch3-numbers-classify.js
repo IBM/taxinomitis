@@ -16,11 +16,11 @@ class MachineLearningNumbers {
             name: '{{{ projectname }}}',
 
             // colour for the blocks
-            colour: '#4B4A60',
+            color1: '#4B4A60',
             // colour for the menus in the blocks
-            colourSecondary: '#707070',
+            color2: '#707070',
             // border for blocks and parameter gaps
-            colourTertiary: '#4c97ff',
+            color3: '#4c97ff',
 
             // Machine Learning for Kids site icon
             menuIconURI: this._icon,
