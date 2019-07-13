@@ -1010,7 +1010,7 @@ export function getDefaultClassTenant(classid: string): Objects.ClassTenant {
         supportedProjectTypes : [ 'text', 'images', 'numbers', 'sounds' ],
         isManaged : false,
         maxUsers : 30,
-        maxProjectsPerUser : 2,
+        maxProjectsPerUser : 3,
         textClassifierExpiry : 24,
         imageClassifierExpiry : 24,
     };

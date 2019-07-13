@@ -123,7 +123,7 @@ describe('DB objects', () => {
             projecttypes : 'text,numbers',
             ismanaged : 0,
             maxusers : 3,
-            maxprojectsperuser : 2,
+            maxprojectsperuser : 4,
             textclassifiersexpiry : 9,
             imageclassifiersexpiry : 1,
         };
@@ -132,7 +132,7 @@ describe('DB objects', () => {
             supportedProjectTypes : ['text', 'numbers'],
             isManaged : false,
             maxUsers : 3,
-            maxProjectsPerUser : 2,
+            maxProjectsPerUser : 4,
             textClassifierExpiry : 9,
             imageClassifierExpiry : 1,
         };
@@ -1278,7 +1278,7 @@ describe('DB objects', () => {
                 projecttypes : 'text,images,numbers,sounds',
                 ismanaged : 0,
                 maxusers : 30,
-                maxprojectsperuser : 2,
+                maxprojectsperuser : 3,
                 textclassifiersexpiry : 24,
                 imageclassifiersexpiry : 24,
             });

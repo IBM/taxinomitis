@@ -62,7 +62,7 @@ describe('DB store - tenants', () => {
             supportedProjectTypes : ['text', 'images', 'numbers', 'sounds'],
             isManaged : false,
             maxUsers : 30,
-            maxProjectsPerUser : 2,
+            maxProjectsPerUser : 3,
             textClassifierExpiry : 100,
             imageClassifierExpiry : 40,
         });
@@ -81,7 +81,7 @@ describe('DB store - tenants', () => {
             supportedProjectTypes : ['text', 'images', 'numbers', 'sounds'],
             isManaged : false,
             maxUsers : 30,
-            maxProjectsPerUser : 2,
+            maxProjectsPerUser : 3,
             textClassifierExpiry : 6,
             imageClassifierExpiry : 7,
         });
@@ -92,7 +92,7 @@ describe('DB store - tenants', () => {
             supportedProjectTypes : ['text', 'images', 'numbers', 'sounds'],
             isManaged : false,
             maxUsers : 30,
-            maxProjectsPerUser : 2,
+            maxProjectsPerUser : 3,
             textClassifierExpiry : 6,
             imageClassifierExpiry : 7,
         });
@@ -103,7 +103,7 @@ describe('DB store - tenants', () => {
             supportedProjectTypes : ['text', 'images', 'numbers', 'sounds'],
             isManaged : false,
             maxUsers : 30,
-            maxProjectsPerUser : 2,
+            maxProjectsPerUser : 3,
             textClassifierExpiry : 12,
             imageClassifierExpiry : 14,
         });
@@ -114,7 +114,7 @@ describe('DB store - tenants', () => {
             supportedProjectTypes : ['text', 'images', 'numbers', 'sounds'],
             isManaged : false,
             maxUsers : 30,
-            maxProjectsPerUser : 2,
+            maxProjectsPerUser : 3,
             textClassifierExpiry : 12,
             imageClassifierExpiry : 14,
         });
@@ -127,7 +127,7 @@ describe('DB store - tenants', () => {
             supportedProjectTypes : ['text', 'images', 'numbers', 'sounds'],
             isManaged : false,
             maxUsers : 30,
-            maxProjectsPerUser : 2,
+            maxProjectsPerUser : 3,
             textClassifierExpiry : 24,
             imageClassifierExpiry : 24,
         });

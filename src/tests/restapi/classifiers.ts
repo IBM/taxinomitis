@@ -349,7 +349,7 @@ describe('REST API - classifiers', () => {
                 supportedProjectTypes : [ 'text', 'images', 'numbers' ],
                 isManaged : classid === 'managed',
                 maxUsers : 15,
-                maxProjectsPerUser : 2,
+                maxProjectsPerUser : 3,
                 textClassifierExpiry : 24,
                 imageClassifierExpiry : 24,
             };
