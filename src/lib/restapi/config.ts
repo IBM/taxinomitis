@@ -64,10 +64,7 @@ export function setupUI(app: express.Application): void {
     app.get('/help', (req, res) => { res.redirect('/#!/help'); });
     app.get('/signup', (req, res) => { res.redirect('/#!/signup'); });
     app.get('/login', (req, res) => { res.redirect('/#!/login'); });
-
-    app.get('/apikeys-guide', (req, res) => {
-        res.redirect('https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf');
-    });
+    app.get('/apikeys-guide', (req, res) => { res.redirect('/#!/apikeys-guide'); });
 
     const indexHtml: string = path.join(__dirname, '/../../../web/dynamic');
     app.use('/', express.static(indexHtml, { maxAge : 0 }));

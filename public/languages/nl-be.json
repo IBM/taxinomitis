@@ -817,7 +817,7 @@
             "NOTAUTHORISED": "Je bent niet gemachtigd om de Watson API keys gebruikt door je klas te bekijken.",
             "MANAGEDCLASS": "API Keys gebruikt voor je klas worden voor jou gemanaged.",
 
-            "HELP_STEPBYSTEP_GUIDE": "Als je niet zeker bent wat je hier moet doen, volg dan de <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> stap-voor-stap gids </a>. Als je verdere hulp nodig hebt, <strong><a style='cursor: pointer;' ui-sref='help'>neem dan a.u.b. contact op</a></strong>.",
+            "HELP_STEPBYSTEP_GUIDE": "Als je niet zeker bent wat je hier moet doen, volg dan de <a href='/apikeys-guide'> stap-voor-stap gids </a>. Als je verdere hulp nodig hebt, <strong><a style='cursor: pointer;' href='/help'>neem dan a.u.b. contact op</a></strong>.",
 
             "INTRO_WATSONASSISTANT": "Het trainen van machine learning modellen voor <span class='mlprojecttype'>tekstherkenning</span> projecten gebeurt via de <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a>",
             "INTRO_VISUALRECOGNITION": "Het trainen van machine learning modellen voor <span class='mlprojecttype'>afbeeldingsherkenning</span> projecten gebeurt via de <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
@@ -1134,6 +1134,16 @@
             "Q5-A-4": "Machine learning models for images projects are created using the <a href='https://www.ibm.com/watson/services/visual-recognition/'>IBM Visual Recognition</a> cloud service, which means when students train a model, a copy of their training images will be <a href='https://cloud.ibm.com/apidocs/visual-recognition#create-a-classifier'>uploaded to IBM Watson</a>. IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/visual-recognition#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
             "Q5-A-5": "IBM Watson provides some <a href='https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security-gdpr-wa'>general guidance for sharing training data with their services</a>, which also apply to training data created and collected in Machine Learning for Kids. Specifically, students should be advised not to include personally identifiable information in the examples that they collect."
         }
+    },
+    "APIKEYSGUIDE": {
+        "TITLE": "Guide to IBM Cloud",
+        "INTRO": {
+            "INTRO_1": "Teachers / parents / code club-leaders with unmanaged class accounts need to provide '<strong>API Keys</strong>' from IBM Cloud. These are secret codes that provide access to the artificial intelligence technology that will power student projects.",
+            "INTRO_2": "Text projects need a 'Watson Assistant' API Key. Image projects need a 'Visual Recognition' API Key. (Numbers and Sound projects don't require API Keys).",
+            "INTRO_3": "You will need to create an account on IBM Cloud to be able to create these codes. It is free to create an account, and there are no charges for 'Lite' API Keys. "
+        },
+        "LINK": "How to create API Keys",
+        "EXPLANATION": "Download a step-by-step guide for how to create API Keys on IBM Cloud"
     }
 }
 

@@ -54,6 +54,10 @@
                 url: '/help',
                 templateUrl: 'static/components-<%= VERSION %>/help/help.html'
             })
+            .state('apikeysguide', {
+                url: '/apikeys-guide',
+                templateUrl: 'static/components-<%= VERSION %>/apikeysguide/guide.html'
+            })
             .state('worksheets', {
                 url: '/worksheets',
                 controller: 'WorksheetsController',
