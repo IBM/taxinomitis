@@ -8,7 +8,8 @@ angular.module('app')
 
             scope: {
                 spectogram : '<',
-                modelinfo : '<'
+                modelinfo : '<',
+                datatype : '<'
             },
 
             link: function ($scope, element, attrs, controller, transcludeFn) {

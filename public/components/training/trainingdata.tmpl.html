@@ -100,7 +100,7 @@
                     <div>Record an example of '{{ label === '_background_noise_' ? 'background noise' : label }}'</div>
                     <div layout="row">
                         <md-progress-linear ng-if="recording" md-mode="determinate" value="{{recordingprogress}}" style="height: 49px; margin-top: 50px; vertical-align: middle;"></md-progress-linear>
-                        <mlsoundvis ng-if="example" ng-hide="recording" datatype="{{project.type}}" spectogram="example" modelinfo="soundModelInfo"></mlsoundvis>
+                        <mlsoundvis ng-if="example" ng-hide="recording" datatype="'sounds'" spectogram="example" modelinfo="soundModelInfo"></mlsoundvis>
                         <div style="flex-grow: 1; height: 100px;" ng-hide="recording"></div>
                         <button class="btn btn-primary" ng-click="recordSound(label)" ng-hide="recording || example"><img src="static/images/microphone.png" alt="record"/></button>
                         <button class="btn btn-primary" ng-click="recordSound(label)" ng-hide="recording || !example"><img src="static/images/microphone.png" alt="record"/></button>
