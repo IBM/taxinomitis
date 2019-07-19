@@ -122,8 +122,20 @@
         function startTest(callback) {
             return transferRecognizer.listen(function (result) {
                 var matches = [];
+
                 var labels = transferRecognizer.wordLabels();
-                for (var i = 0; i < result.scores.length; i++) {
+                if (!labels) {
+                    console.log('Labels unavailable');
+                    return callback(matches);
+                }
+
+                if (labels.length !== result.scores.length) {
+                    console.log('Unexpected number of results',
+                                labels.length,
+                                result.scores.length);
+                }
+
+                for (var i = 0; i < Math.min(labels.length, result.scores.length); i++) {
                     matches.push({
                         class_name : labels[i],
                         confidence : result.scores[i] * 100
