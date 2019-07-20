@@ -3,16 +3,13 @@ applications:
   memory: 256M
   disk_quota: 512M
   instances: 3
-  command: npm run ibmcloud
+  command: node --max-old-space-size=192 dist/lib/app.js
 
   name: machinelearningforkids-region
   routes:
   - route: www.machinelearningforkids.co.uk
   - route: machinelearningforkids.co.uk
   - route: machinelearningforkids-region.region.mybluemix.net
-
-  services:
-  - mlforkids-auto-scaling
 
   env:
     NODE_ENV: production
