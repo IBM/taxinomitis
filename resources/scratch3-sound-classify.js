@@ -126,6 +126,9 @@ class MachineLearningSound {
             })
             .then((trainingdata) => {
                 if (trainingdata) {
+                    // start listening for the 'modelready' or 'modelfailed'
+                    //  events that will follow the train request we're
+                    //  about to send
                     addEventListener('message', function (evt) {
                         that.receiveListenEvents(evt, that);
                     });
@@ -166,17 +169,23 @@ class MachineLearningSound {
                     mlForKidsListenEvents[match.class_name] = true;
                 }
             }
-            else if (msg.data.mlforkidssound === 'modelready')
+            else if (that && msg.data.mlforkidssound === 'modelready')
             {
                 that.modelReady = true;
                 that.training = false;
             }
-            else if (msg.data.mlforkidssound === 'modelfailed')
+            else if (that && msg.data.mlforkidssound === 'modelfailed')
             {
                 that.modelError = true;
                 that.training = false;
             }
 
+            // if we're not listening for sounds, then we're assuming that
+            //  the event we just heard was modelready or modelfailed
+            //  so we don't need to listen for any more events
+            //
+            // if we are listening for sounds, we need to leave the event
+            //  listener for future 'recognized' events
             if (that && !that.listening) {
                 removeEventListener('message', that.receiveListenEvents);
             }
@@ -186,6 +195,8 @@ class MachineLearningSound {
 
     startListening () {
         if (this.modelReady && !this.listening) {
+            // start listening for 'recognized' events that
+            //  will follow once we start recognizing sounds
             addEventListener('message', this.receiveListenEvents);
 
             mlForKidsListenEvents = {};
