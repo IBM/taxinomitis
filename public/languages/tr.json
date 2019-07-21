@@ -720,6 +720,16 @@
             "SUMMARY": "Bilgisayarın dil kullanımını tanıyabilme yeteneğini test edin",
             "DESCRIPTION": "Bir bilgisayarı ulusal gazetelerdeki manşetleri tanıyabilecek şekilde eğitin."
         },
+        "NEWSPAPERSHELVES": {
+            "TITLE": "Newspaper shelves",
+            "SUMMARY": "Test the computer's ability to recognise use of language",
+            "DESCRIPTION": "Train a computer to recognise headlines from national newspapers."
+        },
+        "HEADLINETESTING": {
+            "TITLE": "Headline testing",
+            "SUMMARY": "Test the computer's ability to recognise use of language",
+            "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is"
+        },
         "FINDIT": {
             "TITLE": "Find It!",
             "SUMMARY": "Teach a computer to recognise pictures",

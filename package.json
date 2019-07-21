@@ -48,7 +48,7 @@
     "autoprefixer": "9.6.1",
     "clone": "2.1.2",
     "del": "5.0.0",
-    "eslint": "6.0.1",
+    "eslint": "6.1.0",
     "eslint-plugin-node": "9.1.0",
     "filecompare": "1.0.4",
     "grunt": "1.0.4",
@@ -92,7 +92,7 @@
   },
   "dependencies": {
     "@slack/webhook": "^5.0.0",
-    "archiver": "3.0.0",
+    "archiver": "3.0.3",
     "async": "2.6.3",
     "body-parser": "1.19.0",
     "bunyan": "1.8.12",

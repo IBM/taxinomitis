@@ -741,6 +741,16 @@
             "SUMMARY": "언어를 인식하는 컴퓨터의 능력을 테스트해봐요.",
             "DESCRIPTION": "전국 신문의 헤드 라인을 인식하도록 컴퓨터를 만들어봐요."
         },
+        "NEWSPAPERSHELVES": {
+            "TITLE": "Newspaper shelves",
+            "SUMMARY": "Test the computer's ability to recognise use of language",
+            "DESCRIPTION": "Train a computer to recognise headlines from national newspapers."
+        },
+        "HEADLINETESTING": {
+            "TITLE": "Headline testing",
+            "SUMMARY": "Test the computer's ability to recognise use of language",
+            "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is"
+        },
         "FINDIT": {
             "TITLE": "찾아보세요!",
             "SUMMARY": "사진을 인식하도록 컴퓨터를 가르쳐봐요.",

@@ -741,6 +741,16 @@
             "SUMMARY": "Tester la capacité de l'ordinateur à reconnaître l'utilisation de la langue",
             "DESCRIPTION": "Entrainer un ordinateur à reconnaître les titres des journaux nationaux."
         },
+        "NEWSPAPERSHELVES": {
+            "TITLE": "Newspaper shelves",
+            "SUMMARY": "Test the computer's ability to recognise use of language",
+            "DESCRIPTION": "Train a computer to recognise headlines from national newspapers."
+        },
+        "HEADLINETESTING": {
+            "TITLE": "Headline testing",
+            "SUMMARY": "Test the computer's ability to recognise use of language",
+            "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is"
+        },
         "FINDIT": {
             "TITLE": "Trouve-le !",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître les images",
