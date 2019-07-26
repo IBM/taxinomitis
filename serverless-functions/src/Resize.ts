@@ -4,6 +4,7 @@ import * as request from 'request';
 // internal dependencies
 import { ResizeParams, isANonEmptyString } from './Requests';
 import { HtmlResponse } from './Responses';
+import { downloadTooBig } from './Rules';
 import { OK, BAD_REQUEST, ERROR } from './StatusCodes';
 import * as MimeTypes from './MimeTypes';
 
@@ -25,8 +26,10 @@ const REQUEST_OPTIONS = {
     },
 };
 
+
 // imagemagick option
 const IGNORE_ASPECT_RATIO = '!';
+
 
 export default function main(params: ResizeParams): Promise<HtmlResponse> {
 
@@ -40,17 +43,68 @@ export default function main(params: ResizeParams): Promise<HtmlResponse> {
 
         // resize image
         const url = params.url;
-        const downloadStream = request.get({ ...REQUEST_OPTIONS, url });
-        gm(downloadStream)
-            .resize(224, 224, IGNORE_ASPECT_RATIO)
-            .toBuffer('PNG', (err, buffer) => {
-                if (err) {
-                    console.log(err);
-                    return resolve(new HtmlResponse({ error : err.message }, ERROR));
+        request.get({ ...REQUEST_OPTIONS, url })
+            .on('error', (err) => {
+                return resolve(handleError(err));
+            })
+            .on('response', (downloadStream) => {
+                if (downloadStream.statusCode >= 400) {
+                    resolve(handleErrorResponse(downloadStream));
+
+                    return downloadStream.destroy();
                 }
-                return resolve(new HtmlResponse(buffer.toString('base64'),
-                                                OK, MimeTypes.ImagePng));
+                if (downloadTooBig(downloadStream.headers))
+                {
+                    resolve(new HtmlResponse({
+                        'error' : 'Image size exceeds maximum limit',
+                        'content-length' : downloadStream.headers['content-length'],
+                    }, BAD_REQUEST));
+
+                    return downloadStream.destroy();
+                }
+
+                gm(downloadStream)
+                    .resize(224, 224, IGNORE_ASPECT_RATIO)
+                    .toBuffer('png', (err, buffer) => {
+                        if (err) {
+                            return resolve(handleError(err));
+                        }
+                        return resolve(new HtmlResponse(buffer.toString('base64'),
+                                                        OK, MimeTypes.ImagePng));
+                    });
             });
     });
 }
+
+
+function handleErrorResponse(err: request.Response): HtmlResponse {
+    if (err.statusCode === 404) {
+        return new HtmlResponse({ error : 'Unable to download image from ' + err.request.host }, BAD_REQUEST);
+    }
+    if (err.statusCode === 401 || err.statusCode === 403) {
+        return new HtmlResponse({ error : err.request.host +
+                                          ' would not allow "Machine Learning for Kids" to use that image' },
+                                BAD_REQUEST);
+    }
+    if (err.statusCode === 500) {
+        return new HtmlResponse({ error : 'Unable to download image from ' + err.request.host }, BAD_REQUEST);
+    }
+
+    console.log(err);
+    return new HtmlResponse({ error : 'Unable to download image from ' + err.request.host }, ERROR);
+}
+
+
+function handleError(err: any): HtmlResponse {
+    if (err.message === 'Stream yields empty buffer') {
+        return new HtmlResponse({ error : 'Unsupported image file type' }, BAD_REQUEST);
+    }
+    if (err.errno === 'ENOTFOUND') {
+        return new HtmlResponse({ error : 'Website ' + err.hostname + ' could not be found' }, BAD_REQUEST);
+    }
+    console.log(err);
+    return new HtmlResponse({ error : err.message }, ERROR);
+}
+
+
 (<any>global).main = main;
