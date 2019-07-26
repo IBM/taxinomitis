@@ -264,7 +264,7 @@ function createZip(filepaths: string[], callback: IZipCallback): void {
         });
 
         outputStream.on('error', (ziperr) => {
-            log.error({ err }, 'Failed to write to zip file');
+            log.error({ err: ziperr }, 'Failed to write to zip file');
             invokeCallbackSafely(ziperr);
         });
 
