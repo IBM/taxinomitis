@@ -44,8 +44,8 @@
             "LOGIN": "시작하려면: "
         },
         "FURTHER": {
-            "TITLE": "Further learning",
-            "BODY": "Machine Learning for Kids is a useful tool for introducing children to how ML systems are trained, how they are used, and some of the real-world implications of AI applications. <br/><br/>For additional teaching and learning resources, including teaching the internals of ML systems, please see: "
+            "TITLE": "더 많은 자료",
+            "BODY": "Machine Learning for Kids는 머신러닝 시스템의 교육 방법, 사용 방법 및 AI 응용 프로그램의 실제 효과를 학생들에게 소개하는 데 유용한 도구입니다. <br/><br/>머신러닝 시스템 교육을 포함한 교수학습자료는 다음을 참조하십시오. "
         }
     },
     "NEWS": {
@@ -189,7 +189,7 @@
             "NOTES_2": "글자, 문장을 인식하도록 한다면 \"문자(text)\"를 선택하세요",
             "NOTES_3": "사진, 다이어그램 등을 인식하도록 원한다면 \"이미지(images)\"를 선택하세요",
             "NOTES_4": "숫자 등을 인식하도록 원한다면 \"숫자(numbers)\"를 선택하세요",
-            "NOTES_5": "For voices and sounds, choose \"sounds\""
+            "NOTES_5": "다양한 소리나 목소리를 인식하도록 원한다면 \"사운드(sounds)\"를 "
         },
         "LANGUAGE": {
             "LABEL": "언어",
@@ -223,37 +223,37 @@
         }
     },
     "DATASETS": {
-        "TITLE": "Copy a machine learning project template",
+        "TITLE": "머신러닝 프로젝트 템플릿 복사",
         "INTRO": {
-            "INTRO_1": "You can create new machine learning project based on one of these templates.",
-            "INTRO_2": "Each one includes a set of training data that has been collected for you to help you get started quickly. ",
-            "INTRO_3": "You will be able to make changes to the training data if you like, or you can go straight to training a machine learning model with it. "
+            "INTRO_1": "이 템플릿 중 하나를 기반으로 새로운 머신러닝 프로젝트를 만들 수 있습니다.",
+            "INTRO_2": "각 템플릿에는 여러분들이 빠르게 머신러닝을 시작할 수 있도록 훈련 데이터가 포함되어 있습니다.",
+            "INTRO_3": "원한다면 훈련 데이터를 수정할 수 있으며, 또는 데이터를 그대로 사용하여 머신러닝 모델을 만들 수 있습니다."
         },
-        "IMPORT": "Import",
+        "IMPORT": "가져오기",
         "MORE": {
-            "TITLE": "Other data sets",
-            "SUMMARY": "What other data sets would you like to see?",
-            "DESCRIPTION": "Have you got an idea for a data set you'd like to see available here? Or do you have a data set that you'd like to contribute? Please get in touch!",
+            "TITLE": "추가 데이터 세트",
+            "SUMMARY": "어떤 데이터 세트를 보고 싶습니까??",
+            "DESCRIPTION": "이 데이터 세트를 사용한 새로운 아이디어가 있습니까? 아니면 기여하고자하는 데이터 세트가 있습니까? 그렇다면 연락하십시오!",
             "MOREINFO": "More..."
         },
         "DATA": {
             "TITANIC": {
-                "TITLE": "Titanic survivors",
-                "SUMMARY": "Predict survival on the Titanic",
-                "DESCRIPTION": "On 15th April 1912, the RMS Titanic hit an iceberg and sank, killing over 1500 of the passengers and crew. This project includes personal data about hundreds of the passengers. You can use this to train a machine learning model that, if you give it a description of a passenger, can learn to predict the likelihood that they would have survived. ",
-                "DETAILS": "The 'ticket class' field is a number indicating the type of ticket for the passenger: first class (1), second class (2), or third class (3). \nThe 'gender' field is whether the passenger was 'male' or 'female'. \nThe 'age' field is the age of the passenger. \nThe 'sibl. sp.' is the number of brothers or sisters (siblings) the passenger had on board if they were a child, or the number of husbands or wives (spouses) the passenger had on board if they were an adult. \nThe 'par. ch.' field is the number of parents the passenger had on board if they were a child, or the number of children the passenger had on board if they were an adult. \nThe 'ticket fare' field is how much they paid for their ticket. \nThe 'embarked' field is where they got on board the Titanic, either Cherbourg, Queenstown or Southampton."
+                "TITLE": "타이타닉호 생존자",
+                "SUMMARY": "타이타닉호 생존자 예측",
+                "DESCRIPTION": "1912 년 4 월 15 일 타이타닉호가 빙산에 충돌한 후 침몰하여 승객과 승무원 중 1500명이 사망하였습니다.이 프로젝트에는 수백 명의 승객에 대한 개인 데이터가 포함되어 있습니다. 이를 사용하여 승객이 살아남을 수 있는 가능성을 예측할 수 있습니다. ",
+                "DETAILS": "'ticket class'필드는 1등석 (1), 2등석 (2) 또는 3등석 (3) 승객의 티켓 종류를 나타내는 번호입니다. \ n 'gender'입력란은 승객이 '남성'또는 '여성'인지 나타냅니다. \ n 'age'필드는 승객의 나이입니다. \ n 'sibl. sp.' 승객이 어렸을 때 동승 한 형제 또는 자매(들)의 수 또는 승객이 성인인 경우 탑승한 남편 또는 아내(배우자)의 수입니다. \ n 'par. ch.' 필드는 어른인 경우 승객이 탑승한 부모의 수 또는 성인인 경우 승객이 탑승한 자녀의 수입니다. \ n 'ticket fare'필드는 티켓 구입에 지불한 금액입니다. n 'embarked'필드는 Cherbourg, Queenstown 또는 Southampton와 같이 타이타닉호에 탑승 한 곳입니다."
             },
             "CATSANDDOGS": {
-                "TITLE": "Cats and Dogs",
-                "SUMMARY": "Recognize photos of cats vs dogs",
-                "DESCRIPTION": "Training a machine learning model to recognise photos of cats and dogs is a good simple introduction to image recognition.",
-                "DETAILS": "This training dataset of photos from Wikimedia Commons is a good starting set for building your own training data of animal photos"
+                "TITLE": "고양이와 개",
+                "SUMMARY": "고양이와 개 사진 구분",
+                "DESCRIPTION": "고양이와 개 사진을 인식하는 머신러닝 모델 교육은 이미지 인식을 소개하기에 좋은 예제입니다.",
+                "DETAILS": "Wikimedia Commons의 이미지 훈련 데이터 세트는 동물 사진의 훈련 데이터를 구축하기에 적절합니다."
             },
             "UKNEWSPAPERS": {
-                "TITLE": "UK Newspaper Headlines",
-                "SUMMARY": "Recognize the use of language in newspaper headlines",
-                "DESCRIPTION": "Different newspapers use language in different ways. This project includes the main front page headline from four UK newspapers. You can use this to train a machine learning model that can learn to predict the most likely newspaper that a new headline is probably from. ",
-                "DETAILS": "This training dataset includes headlines from the Daily Mail, the Daily Telegraph, the Independent, and The Guardian"
+                "TITLE": "영국 신문의 헤드라인",
+                "SUMMARY": "신문 헤드라인에서의 문체 인식",
+                "DESCRIPTION": "각 신문사는 서로 다른 문체를 가지고 있습니다. 이 프로젝트에는 4 개의 영국 신문의 주요 프론트 페이지 헤드 라인이 포함되어 있습니다. 이 도구를 사용하여 새로운 광고 제목이있는 가능성이 가장 높은 신문을 예측하는 방법을 학습 할 수있는 기계 학습 모델을 학습 할 수 있습니다. 새로운 헤드 라인을 인식하여 어떤 신문사인지 예측하는 머신 러닝 모델을 만들 수 있습니다.",
+                "DETAILS": "이 훈련 데이터는 the Daily Mail, the Daily Telegraph, the Independent, and The Guardian의 헤드 라인을 포함합니다."
             }
         }
     },
@@ -313,7 +313,7 @@
             "WEBCAMFAIL": "이런! 웹캠이 연결되었나요?",
             "WEBCAMERROR": "웹 브라우저에서 가져온 메세지: "
         },
-        "BACKGROUNDNOISE": "Collecting examples of background noise will help the computer to learn to recognize your sounds"
+        "BACKGROUNDNOISE": "주변 소음 수집은 컴퓨터가 여러분의 소리를 인식하는데 도움이 됩니다."
     },
     "MODELS": {
         "TITLE": "머신 러닝 모델",
@@ -332,13 +332,13 @@
                     "TEXT" : "여러분 교실 학생들이 만든 모든 '문자' 예제를 사용하여 머신러닝 모델을 만듭니다.",
                     "IMAGES" : "여러분 교실 학생들이 만든 모든 '이미지' 예제를 사용하여 머신러닝 모델을 만듭니다.",
                     "NUMBERS" : "여러분 교실 학생들이 만든 모든 '숫자' 예제를 사용하여 머신러닝 모델을 만듭니다.",
-                    "SOUNDS" : "Your class is training a machine learning model using the examples of sounds that you all collected."
+                    "SOUNDS" : "여러분 교실 학생들이 만든 모든 '사운드' 예제를 사용하여 머신러닝 모델을 만듭니다."
                 },
                 "INDIVIDUAL" : {
                     "TEXT" : "여러분이 만든 모든 '문자' 예제를 사용하여 머신러닝 모델을 만듭니다.",
                     "IMAGES" : "여러분이 만든 모든 '이미지' 예제를 사용하여 머신러닝 모델을 만듭니다.",
                     "NUMBERS" : "여러분이 만든 모든 '숫자' 예제를 사용하여 머신러닝 모델을 만듭니다.",
-                    "SOUNDS" : "You've started training a machine learning model using the examples of sounds that you collected."
+                    "SOUNDS" : "여러분이 만든 모든 '사운드' 예제를 사용하여 머신러닝 모델을 만듭니다."
                 },
                 "SINCE": "모델이 만들어지기 시작한 시각"
             },
@@ -347,13 +347,13 @@
                     "TEXT" : "여러분 교실 학생들의 머신러닝 모델이 완성되었으며, 다음을 인식할 수 있습니다: ",
                     "IMAGES" : "여러분 교실 학생들의 머신러닝 모델이 완성되었으며, 다음을 인식할 수 있습니다: ",
                     "NUMBERS" : "여러분 교실 학생들의 머신러닝 모델이 완성되었으며, 다음을 인식할 수 있습니다: ",
-                    "SOUNDS" : "Your class has trained a machine learning model to recognise when sounds are "
+                    "SOUNDS" : "여러분 교실 학생들의 머신러닝 모델이 완성되었으며, 다음을 인식할 수 있습니다: "
                 },
                 "INDIVIDUAL" : {
                     "TEXT" : "여러분의 머신러닝 모델이 완성되었으며, 다음을 인식할 수 있습니다: ",
                     "IMAGES" : "여러분의 머신러닝 모델이 완성되었으며, 다음을 인식할 수 있습니다: ",
                     "NUMBERS" : "여러분의 머신러닝 모델이 완성되었으며, 다음을 인식할 수 있습니다: ",
-                    "SOUNDS" : "You have trained a machine learning model to recognise when sounds are "
+                    "SOUNDS" : "여러분의 머신러닝 모델이 완성되었으며, 다음을 인식할 수 있습니다:  "
                 },
                 "CREATED" : {
                     "TEACHER" : "여러분의 선생님이 인공지능 모델을 만든 시각: ",
@@ -370,20 +370,20 @@
                         "TEXT" : "여러분 교실 학생들이 모은 문자 데이터를 사용하여 머신러닝 모델을 만들고 있습니다.",
                         "IMAGES" : "여러분 교실 학생들이 모은 이미지 데이터를 사용하여 머신러닝 모델을 만들고 있습니다.",
                         "NUMBERS" : "여러분 교실 학생들이 모은 숫자 데이터를 사용하여 머신러닝 모델을 만들고 있습니다.",
-                        "SOUNDS" : "Your teacher tried training a machine learning model using the examples of sounds that your class collected."
+                        "SOUNDS" : "여러분 교실 학생들이 모은 사운드 데이터를 사용하여 머신러닝 모델을 만들고 있습니다."
                     },
                     "YOU" : {
                         "TEXT" : "여러분이 모은 문자 데이터를 사용하여 머신러닝 모델을 만들고 있습니다.",
                         "IMAGES" : "여러분이 모은 이미지 데이터를 사용하여 머신러닝 모델을 만들고 있습니다.",
                         "NUMBERS" : "여러분이 모은 숫자 데이터를 사용하여 머신러닝 모델을 만들고 있습니다.",
-                        "SOUNDS" : "You tried training a machine learning model using the examples of sounds that your class collected."
+                        "SOUNDS" : "여러분이 모은 사운드 데이터를 사용하여 머신러닝 모델을 만들고 있습니다."
                     }
                 },
                 "INDIVIDUAL" : {
                     "TEXT" : "여러분이 모은 문자 데이터를 사용하여 머신러닝 모델을 만들고 있습니다.",
                     "IMAGES" : "여러분이 모은 이미지 데이터를 사용하여 머신러닝 모델을 만들고 있습니다.",
                     "NUMBERS" : "여러분이 모은 숫자 데이터를 사용하여 머신러닝 모델을 만들고 있습니다.",
-                    "SOUNDS" : "You tried training a machine learning model using the examples of sounds that you collected."
+                    "SOUNDS" : "여러분이 모은 사운드 데이터를 사용하여 머신러닝 모델을 만들고 있습니다."
                 }
             },
             "IDLE" : {
@@ -392,13 +392,13 @@
                         "TEXT" : "여러분의 교실에서 문자 데이터를 더 모으기를 원합니다.",
                         "IMAGES" : "여러분의 교실에서 이미지 데이터를 더 모으기를 원합니다.",
                         "NUMBERS" : "여러분의 교실에서 숫자 데이터를 더 모으기를 원합니다.",
-                        "SOUNDS" : "Your class said you want to collect examples of sounds."
+                        "SOUNDS" : "여러분의 교실에서 사운드 데이터를 더 모으기를 원합니다."
                     },
                     "INDIVIDUAL" : {
                         "TEXT" : "문자 데이터가 더 필요해요.",
                         "IMAGES" : "이미지 데이터가 더 필요해요.",
                         "NUMBERS" : "숫자 데이터가 더 필요해요.",
-                        "SOUNDS" : "You've said you want to collect examples of sounds."
+                        "SOUNDS" : "사운드 데이터가 더 필요해요."
                     }
                 },
                 "NODATA" : {
@@ -406,13 +406,13 @@
                         "TEXT" : "다음의 문자를 컴퓨터가 인식하기 위해 여러분 교실 친구들은 데이터를 추가해야합니다: ",
                         "IMAGES" : "다음의 그림를 컴퓨터가 인식하기 위해 여러분 교실 친구들은 데이터를 추가해야합니다: ",
                         "NUMBERS" : "다음의 숫자를 컴퓨터가 인식하기 위해 여러분 교실 친구들은 데이터를 추가해야합니다: ",
-                        "SOUNDS" : "Your class said that you want to collect examples of sounds for a computer to recognise when sounds are "
+                        "SOUNDS" : "다음의 사운드를 컴퓨터가 인식하기 위해 여러분 교실 친구들은 데이터를 추가해야합니다: "
                     },
                     "INDIVIDUAL" : {
                         "TEXT" : "다음의 문자를 컴퓨터가 인식하기 위해 여러분은 데이터를 추가해야합니다: ",
                         "IMAGES" : "다음의 그림을 컴퓨터가 인식하기 위해 여러분은 데이터를 추가해야합니다: ",
                         "NUMBERS" : "다음의 숫자를 컴퓨터가 인식하기 위해 여러분은 데이터를 추가해야합니다: ",
-                        "SOUNDS" : "You said that you want to collect examples of sounds for a computer to recognise when sounds are "
+                        "SOUNDS" : "다음의 사운드를 컴퓨터가 인식하기 위해 여러분은 데이터를 추가해야합니다: "
                     }
                 },
                 "NOEXAMPLES" : {
@@ -424,13 +424,13 @@
                         "TEXT" : "다음의 문자를 컴퓨터가 인식하기 위해 여러분 교실 친구들은 데이터를 모았습니다.",
                         "IMAGES" : "다음의 그림를 컴퓨터가 인식하기 위해 여러분 교실 친구들은 데이터를 모았습니다.",
                         "NUMBERS" : "다음의 숫자를 컴퓨터가 인식하기 위해 여러분 교실 친구들은 데이터를 모았습니다.",
-                        "SOUNDS" : "Your class has collected examples of sounds for a computer to use to recognise when sounds are "
+                        "SOUNDS" : "다음의 사운드를 컴퓨터가 인식하기 위해 여러분 교실 친구들은 데이터를 모았습니다."
                     },
                     "INDIVIDUAL" : {
                         "TEXT" : "다음의 문자를 컴퓨터가 인식하기 위해 여러분은 데이터를 모았습니다.",
                         "IMAGES" : "다음의 그림를 컴퓨터가 인식하기 위해 여러분은 데이터를 모았습니다.",
                         "NUMBERS" : "다음의 숫자를 컴퓨터가 인식하기 위해 여러분은 데이터를 모았습니다.",
-                        "SOUNDS" : "You have collected examples of sounds for a computer to use to recognise when sounds are "
+                        "SOUNDS" : "다음의 를 컴퓨터가 인식하기 위해 여러분은 데이터를 모았습니다."
                     },
                     "COLLECTED" : {
                         "CLASS" : "반 친구들이 수집한 데이터: ",
@@ -479,10 +479,10 @@
             },
             "READY" : {
                 "TEST" : {
-                    "TEXT" : "아래의 머신러닝 모델을 테스트 해보세요. 훈련에 사용한 예문에 포함시키지 않은 텍스트 예제를 입력하십시오. 이 텍스트가 어떻게 인식되는지, 어느 정도 정확한지 알려줍니다.",
-                    "IMAGES" : "아래의 머신러닝 모델을 테스트 해보세요. 훈련에 사용한 예문에 포함시키지 않은 이미지 예제를 입력하십시오. 이 텍스트가 어떻게 인식되는지, 어느 정도 정확한지 알려줍니다.",
-                    "NUMBERS" : "아래의 머신러닝 모델을 테스트 해보세요. 훈련에 사용한 예문에 포함시키지 않은 숫자 예제를 입력하십시오. 이 텍스트가 어떻게 인식되는지, 어느 정도 정확한지 알려줍니다.",
-                    "SOUNDS" : "Try testing the machine learning model below. Click the 'Start listening' button. If your machine learning model recognises any sounds, it will tell you what it recognises it as, and how confident it is in that."
+                    "TEXT" : "아래의 머신러닝 모델을 테스트 해보세요. 훈련에 사용한 예문에 포함시키지 않은 텍스트 예제를 입력하십시오. 이것이 어떻게 인식되는지, 어느 정도 정확한지 알려줍니다.",
+                    "IMAGES" : "아래의 머신러닝 모델을 테스트 해보세요. 훈련에 사용한 예문에 포함시키지 않은 이미지 예제를 입력하십시오. 이것이 어떻게 인식되는지, 어느 정도 정확한지 알려줍니다.",
+                    "NUMBERS" : "아래의 머신러닝 모델을 테스트 해보세요. 훈련에 사용한 예문에 포함시키지 않은 숫자 예제를 입력하십시오. 이것이 어떻게 인식되는지, 어느 정도 정확한지 알려줍니다.",
+                    "SOUNDS" : "아래의 머신러닝 모델을 테스트 해보세요. 훈련에 사용한 예문에 포함시키지 않은 사운드 예제를 입력하십시오. 이것이 어떻게 인식되는지, 어느 정도 정확한지 알려줍니다."
                 },
                 "SCRATCH" : "컴퓨터가 사물을 올바르게 인식하는 법을 배웠다면, 스크래치를 사용해서 컴퓨터가 배운 것을 게임에 사용해봅시다!",
                 "ADDITIONAL_TRAINING" : {
@@ -511,14 +511,14 @@
                 "TEXT": "여러분의 모델이 잘 학습되었는지 확인하기 위해 문자를 넣어보세요.",
                 "IMAGES": "여러분의 모델이 잘 학습되었는지 확인하기 위해 이미지를 넣어보세요.",
                 "NUMBERS": "여러분의 모델이 잘 학습되었는지 확인하기 위해 숫자를 넣어보세요.",
-                "SOUNDS": "Try making a sound to see how it is recognised based on your training"
+                "SOUNDS": "여러분의 모델이 잘 학습되었는지 확인하기 위해 사운드를 넣어보세요."
             },
             "WEBCAM": "<strong>웹캠</strong>으로 테스트하기",
             "DRAWING": "<strong>그림 그리기</strong>로 테스트하기",
             "WWW": "<strong>인터넷 자료</strong>로 테스트하기",
             "RECOGNISED": "<strong>{{ testoutput }}</strong>(으)로 인식되었습니다.",
-            "STARTLISTENING": "Start listening",
-            "STOPLISTENING": "Stop listening"
+            "STARTLISTENING": "듣기 시작",
+            "STOPLISTENING": "듣기 "
         },
         "QUIZ": {
             "TITLE": "퀴즈 시간!",
@@ -739,17 +739,17 @@
         "HEADLINES": {
             "TITLE": "헤드라인",
             "SUMMARY": "언어를 인식하는 컴퓨터의 능력을 테스트해봐요.",
-            "DESCRIPTION": "전국 신문의 헤드 라인을 인식하도록 컴퓨터를 만들어봐요."
+            "DESCRIPTION": "전국 신문의 헤드 라인을 인식하도록 프로그램을 만들어봐요."
         },
         "NEWSPAPERSHELVES": {
-            "TITLE": "Newspaper shelves",
-            "SUMMARY": "Test the computer's ability to recognise use of language",
-            "DESCRIPTION": "Train a computer to recognise headlines from national newspapers."
+            "TITLE": "신문 가판대",
+            "SUMMARY": "컴퓨터의 언어사용(문체) 인식 능력 테스트",
+            "DESCRIPTION": "전국 신문의 헤드 라인을 인식하도록 프로그램을 만들어봐요."
         },
         "HEADLINETESTING": {
-            "TITLE": "Headline testing",
-            "SUMMARY": "Test the computer's ability to recognise use of language",
-            "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is"
+            "TITLE": "헤드라인 테스트",
+            "SUMMARY": "언어를 인식하는 컴퓨터의 능력을 테스트해봐요.",
+            "DESCRIPTION": "머신러닝 모델 성능을 측정할 수 있는 도구를 만들어봐요."
         },
         "FINDIT": {
             "TITLE": "찾아보세요!",
@@ -757,24 +757,24 @@
             "DESCRIPTION": "여러분 스마트폰에서 할 수 있는 숨기고 찾기(hide-and-seek)게임을 만들어봐요."
         },
         "ALIENLANGUAGE": {
-            "TITLE": "Alien Language",
-            "SUMMARY": "Teach a computer to recognize sounds",
-            "DESCRIPTION": "Make an alien in Scratch that learns to recognize an alien language"
+            "TITLE": "외계인 언어",
+            "SUMMARY": "소리를 인식하도록 컴퓨터를 가르쳐봐요.",
+            "DESCRIPTION": "외계인의 언어를 인식하는 프로그램을 만들어봐요."
         },
         "SECRETCODE": {
-            "TITLE": "Secret Code",
-            "SUMMARY": "Teach a computer to recognize speech",
-            "DESCRIPTION": "Train a computer to understand secret code words to guide a spy."
+            "TITLE": "비밀 코드",
+            "SUMMARY": "스피치를 인식하도록 컴퓨터를 가르쳐봐요.",
+            "DESCRIPTION": "스파이를 안내할 비밀 코드를 찾아내는 프로그램을 만들어봐요."
         },
         "JARGONBUSTER": {
-            "TITLE": "Jargon Buster",
-            "SUMMARY": "Teach a computer to listen for words",
-            "DESCRIPTION": "Make a project in Scratch that displays the meaning of words you say."
+            "TITLE": "자르곤 버스터(Jargon Buster)",
+            "SUMMARY": "단어를 들을 수 있도록 컴퓨터를 가르쳐봐요",
+            "DESCRIPTION": "여러분이 말하는 단어의 뜻을 알려주는 프로그램을 만들어봐요."
         },
         "TITANIC": {
-            "TITLE": "Titanic",
-            "SUMMARY": "Teach a computer to predict outcomes",
-            "DESCRIPTION": "Create a Python program that can predict who survived the sinking of the Titanic."
+            "TITLE": "타이타닉",
+            "SUMMARY": "결과를 예측하도록 컴퓨터를 가르쳐봐요.",
+            "DESCRIPTION": "침몰하는 타이타닉호에서 누가 생존하는지 예측하는 프로그램을 파이썬으로 만들어봐요."
         }
     },
     "TEACHER": {
@@ -831,8 +831,8 @@
 
             "INTRO_WATSONASSISTANT": "<span class='mlprojecttype'>text</span> 프로젝트를 <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a>를 사용하여 만들어보세요.",
             "INTRO_VISUALRECOGNITION": "<span class='mlprojecttype'>images</span> 프로젝트를 <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>를 사용하여 만들어보세요",
-            "INTRO_NUMBERS": "Training machine learning models for <span class='mlprojecttype'>numbers</span> projects does <strong>not</strong> require any API keys",
-            "INTRO_SOUNDS": "Training machine learning models for <span class='mlprojecttype'>sound</span> projects does <strong>not</strong> require any API keys",
+            "INTRO_NUMBERS": "<span class='mlprojecttype'>숫자</span> 프로젝트를 만들기 위해서는 API keys가 필요하지 <strong>않습니다.</strong>",
+            "INTRO_SOUNDS": "<span class='mlprojecttype'></span> 프로젝트를 만들기 위해서는 API keys가 필요하지 <strong>않습니다.</strong>",
 
             "ERROR_FETCHING_WATSONASSISTANT": "여러분의 Watson Assistant 비밀번호가 잘못되었습니다.",
             "ERROR_FETCHING_VISUALRECOG": "여러분의 Visual Recognition API keys가 잘못되었습니다.",
@@ -927,17 +927,17 @@
             "ADD_MULTIPLE": {
                 "BUTTON" : "Multiple students",
 
-                "TITLE" : "Add new students",
-                "INTRO" : "You can use this to create more than one student account at the same time.",
-                "USERNAME" : "What do you want each username to start with?",
-                "USERNAME_REQUIRED" : "Please choose the prefix for the usernames",
-                "USERNAME_TOOLONG" : "That is too long",
-                "USERNAME_INVALID" : "Invalid characters",
-                "NUMBER" : "How many student accounts do you want?",
-                "NUMBER_REQUIRED" : "Please enter the number of students to create",
-                "NUMBER_TOOMANY" : "Your class has a limit of {{userslimit}} students.",
-                "PASSWORD" : "The password to give them:",
-                "PASSWORD_TOOSHORT" : "Too short"
+                "TITLE" : "새로운 학생 추가",
+                "INTRO" : "여려명의 학생 계정을 추가할 때 사용할 수 있습니다.",
+                "USERNAME" : "각 계정이 어떤 이름으로 시작하기를 원합니까?",
+                "USERNAME_REQUIRED" : "계정 이름의 접두사가 필요합니다.",
+                "USERNAME_TOOLONG" : "너무 길어요.",
+                "USERNAME_INVALID" : "잘못된 문자입니다.",
+                "NUMBER" : "몇개의 계정을 생성하고 싶습니까?",
+                "NUMBER_REQUIRED" : "만들고자 하는 학생 계정의 수를 입력하세요.",
+                "NUMBER_TOOMANY" : "여러분의 교실은 {{userslimit}}개의 계정까지 생성할 수 있습니다.",
+                "PASSWORD" : "비밀번호:",
+                "PASSWORD_TOOSHORT" : "너무 짧습니다."
             }
         }
     },
