@@ -1,4 +1,5 @@
 /*eslint-env mocha */
+/* tslint:disable:no-console */
 import * as assert from 'assert';
 import * as fs from 'fs';
 import * as async from 'async';
@@ -223,7 +224,7 @@ describe('Create image training zip function', () => {
             const params: CreateZipParams = {
                 locations : [
                     { type : 'download', imageid : '1',
-                        url : 'http://this-website-does-not-actually-exist.co.uk/image.jpg' }
+                        url : 'http://this-website-does-not-actually-exist.co.uk/image.jpg' },
                 ],
                 imagestore : {
                     bucketid : process.env.OBJECT_STORE_BUCKET,
@@ -244,7 +245,7 @@ describe('Create image training zip function', () => {
             const params: CreateZipParams = {
                 locations : [
                     { type : 'download', imageid : '1',
-                        url : 'https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg?download' }
+                        url : 'https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg?download' },
                 ],
                 imagestore : {
                     bucketid : process.env.OBJECT_STORE_BUCKET,
@@ -374,7 +375,7 @@ describe('Create image training zip function', () => {
             },
         ] as unknown as CreateZipParams[];
 
-        function isExpectedResponse(resp: HttpResponse) : boolean {
+        function isExpectedResponse(resp: HttpResponse): boolean {
             return resp.body.error === 'Invalid request payload' &&
                     resp.statusCode === 400;
         }

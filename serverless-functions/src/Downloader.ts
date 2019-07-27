@@ -1,3 +1,4 @@
+/* tslint:disable:no-console */
 // external dependencies
 import * as fs from 'fs';
 import * as path from 'path';
@@ -139,7 +140,7 @@ function createZip(filepaths: string[], callback: IZipCallback): void {
 
         const outputStream = fs.createWriteStream(zipfilename);
 
-        const archive = archiver('zip', { zlib : { level : 6 } });
+        const archive = archiver('zip', { zlib : { level : 9 } });
 
         outputStream.on('close', () => {
             callback(undefined, zipfilename, archive.pointer());

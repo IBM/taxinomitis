@@ -1,3 +1,4 @@
+/* tslint:disable:no-console */
 // external dependencies
 import readChunk from 'read-chunk';
 import * as fileType from 'file-type';

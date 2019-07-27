@@ -1,3 +1,4 @@
+/* tslint:disable:no-console */
 // external dependencies
 import * as gm from 'gm';
 import * as request from 'request';

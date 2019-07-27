@@ -1,3 +1,4 @@
+/* tslint:disable:no-console */
 // external dependencies
 import * as fs from 'fs';
 import * as IBMCosSDK from 'ibm-cos-sdk';

@@ -1,3 +1,5 @@
+/* tslint:disable:no-console */
+// internal dependencies
 import { IncomingHttpHeaders } from 'http';
 import { IErrCallback } from './Callbacks';
 
