@@ -213,7 +213,7 @@ export function run(store: ImageStore, locations: ImageDownload[]): Promise<stri
                 fs.readFile(zipFilePath, 'base64', (err?: Error | null, zipdata?: string) => {
                     next(err, zipFilePath, zipdata);
                 });
-            }
+            },
         ],
         // @ts-ignore
         (err, zippath, zipdata) => {

@@ -4,6 +4,7 @@ module.exports = {
     entry: {
         CreateZip: `./src/CreateZip.ts`,
         Resize: `./src/Resize.ts`,
+        AuthCheck: `./src/AuthCheck.ts`
     },
     output: {
         path: path.resolve(__dirname, 'dist'),

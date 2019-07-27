@@ -1,8 +1,8 @@
 // local dependencies
-import loggerSetup from '../utils/logger';
+// import loggerSetup from './logger';
 
-const log = loggerSetup();
-log.info({ deployment : process.env.DEPLOYMENT }, 'Deployment location');
+// const log = loggerSetup();
+// log.info({ deployment : process.env.DEPLOYMENT }, 'Deployment location');
 
 
 /**

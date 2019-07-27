@@ -10,6 +10,10 @@ packages:
         function: dist/Resize.js
         runtime: nodejs:10
         web-export: true
+      AuthCheck:
+        function: dist/AuthCheck.js
+        runtime: nodejs:10
+        web-export: true
     apis:
       mltraining-images:
         api:
@@ -19,5 +23,9 @@ packages:
               response: http
           resize-image:
             ResizeImage:
+              method: GET
+              response: http
+          auth-check:
+            AuthCheck:
               method: GET
               response: http

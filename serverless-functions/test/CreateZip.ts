@@ -217,6 +217,48 @@ describe('Create image training zip function', () => {
                     assert.strictEqual(resp.body.error, 'Unable to download image from upload.wikimedia.org');
                 });
         });
+
+
+        it('should handle requests to include images from non-existent hosts', () => {
+            const params: CreateZipParams = {
+                locations : [
+                    { type : 'download', imageid : '1',
+                        url : 'http://this-website-does-not-actually-exist.co.uk/image.jpg' }
+                ],
+                imagestore : {
+                    bucketid : process.env.OBJECT_STORE_BUCKET,
+                    credentials : JSON.parse(process.env.OBJECT_STORE_CREDS),
+                },
+            };
+
+            return CreateZip(params)
+                .then((resp) => {
+                    assert.strictEqual(resp.statusCode, 500);
+                    assert.strictEqual(resp.body.error,
+                                       'Website this-website-does-not-actually-exist.co.uk could not be found');
+                });
+        });
+
+
+        it('should handle requests to include unsupported image types', () => {
+            const params: CreateZipParams = {
+                locations : [
+                    { type : 'download', imageid : '1',
+                        url : 'https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg?download' }
+                ],
+                imagestore : {
+                    bucketid : process.env.OBJECT_STORE_BUCKET,
+                    credentials : JSON.parse(process.env.OBJECT_STORE_CREDS),
+                },
+            };
+
+            return CreateZip(params)
+                .then((resp) => {
+                    assert.strictEqual(resp.statusCode, 500);
+                    assert.strictEqual(resp.body.error,
+                                       'Unsupported image file type');
+                });
+        });
     });
 
 
