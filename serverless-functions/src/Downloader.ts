@@ -63,6 +63,10 @@ function downloadImage(location: DownloadFromWeb, callback: IDownloadCallback): 
         (tmpFilePath: string, next: IDownloadCallback) => {
             runResizeFunction({ url : location.url })
                 .then((response) => {
+                    if (response.statusCode !== 200) {
+                        // console.log('runResizeFunction fail', location);
+                        return next(new Error(response.body.error), tmpFilePath);
+                    }
                     fs.writeFile(tmpFilePath, response.body, 'base64', (err) => {
                         next(err, tmpFilePath);
                     });
@@ -73,7 +77,7 @@ function downloadImage(location: DownloadFromWeb, callback: IDownloadCallback): 
         },
     ], (err?: Error | null, downloadedPath?: string) => {
         if (err) {
-            console.log('Failed to download', err, location);
+            // console.log('Failed to download', err, location);
         }
         callback(err, downloadedPath);
     });

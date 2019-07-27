@@ -9,7 +9,6 @@ import { IErrCallback } from './Callbacks';
  * @param callback
  */
 export function validateZip(filesize: number, callback: IErrCallback): void {
-    console.log('Created zip file for training Visual Recognition : bytes = ', filesize);
     if (filesize > 100000000) {
         return callback(new Error('Training data exceeds maximum limit (100 mb)'));
     }
