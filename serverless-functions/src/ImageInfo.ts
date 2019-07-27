@@ -19,7 +19,7 @@ export default function main(filepath: string, callback: IFileTypeCallback): voi
             callback(undefined, type ? type.ext : 'unknown');
         })
         .catch((err) => {
-            console.log(err);
+            console.log('imageinfo', err);
             callback(undefined, 'png');
         });
 }

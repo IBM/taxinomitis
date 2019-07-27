@@ -29,7 +29,6 @@ module.exports = {
     externals : {}
 };
 
-// https://console.bluemix.net/docs/openwhisk/openwhisk_reference.html#openwhisk_ref_javascript_environments_8
 const installedModules = [
     'amqplib',
     'apn',

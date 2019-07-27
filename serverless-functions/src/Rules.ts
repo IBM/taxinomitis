@@ -34,7 +34,7 @@ export function downloadTooBig(headers: IncomingHttpHeaders): boolean {
         }
         catch (err) {
             console.log('Unable to parse content-length header', sizeStr);
-            console.log(err);
+            console.log('downloadTooBig', err);
         }
     }
 

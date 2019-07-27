@@ -4,11 +4,11 @@ import * as path from 'path';
 import * as async from 'async';
 import * as tmp from 'tmp';
 import * as archiver from 'archiver';
-import * as openwhisk from 'openwhisk';
 // internal dependencies
 import { RetrieveFromStorage, DownloadFromWeb, ImageDownload } from './Requests';
 import ImageStore from './ImageStore';
 import ImageInfo from './ImageInfo';
+import { runResizeFunction } from './OpenWhisk';
 import { IFileTypeCallback } from './ImageInfo';
 import { validateZip } from './Rules';
 import { IErrCallback, IRenameCallback, IDownloadAllCallback,
@@ -19,7 +19,6 @@ import { IErrCallback, IRenameCallback, IDownloadAllCallback,
 
 
 let imagestore: ImageStore;
-let ow: openwhisk.Client;
 
 
 
@@ -62,19 +61,15 @@ function downloadImage(location: DownloadFromWeb, callback: IDownloadCallback): 
             });
         },
         (tmpFilePath: string, next: IDownloadCallback) => {
-            ow.actions.invoke({
-                name : 'mltraining-images/ResizeImage',
-                blocking : true,
-                result : true,
-                params : { url : location.url }
-            }).then((response) => {
-                fs.writeFile(tmpFilePath, response.body, 'base64', (err) => {
+            runResizeFunction({ url : location.url })
+                .then((response) => {
+                    fs.writeFile(tmpFilePath, response.body, 'base64', (err) => {
+                        next(err, tmpFilePath);
+                    });
+                }).catch((err) => {
+                    console.log('downloadImage fail', err);
                     next(err, tmpFilePath);
                 });
-            }).catch((err) => {
-                console.log(err);
-                next(err, tmpFilePath);
-            });
         },
     ], (err?: Error | null, downloadedPath?: string) => {
         if (err) {
@@ -100,7 +95,6 @@ function retrieveImage(location: RetrieveFromStorage, callback: IDownloadCallbac
                     next(undefined, tmpFilePath);
                 })
                 .catch((err) => {
-                    console.log(err);
                     next(err, tmpFilePath);
                 });
         },
@@ -109,9 +103,6 @@ function retrieveImage(location: RetrieveFromStorage, callback: IDownloadCallbac
             renameFileFromContents(tmpFilePath, location, next);
         },
     ], (err?: Error | null, downloadedPath?: string) => {
-        if (err) {
-            console.log('Failed to download', err, location);
-        }
         callback(err, downloadedPath);
     });
 }
@@ -182,7 +173,6 @@ function createZip(filepaths: string[], callback: IZipCallback): void {
  */
 export function run(store: ImageStore, locations: ImageDownload[]): Promise<string> {
     imagestore = store;
-    ow = openwhisk();
 
     return new Promise((resolve, reject) => {
         async.waterfall([
@@ -224,8 +214,6 @@ export function run(store: ImageStore, locations: ImageDownload[]): Promise<stri
         // @ts-ignore
         (err, zippath, zipdata) => {
             if (err) {
-                console.log(err);
-                console.log(zippath);
                 return reject(err);
             }
             return resolve(zipdata);

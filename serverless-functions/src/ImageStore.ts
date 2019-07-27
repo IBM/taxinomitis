@@ -13,9 +13,10 @@ const SUPPORTED_IMAGE_MIMETYPES = [
 
 
 export default class ImageStore {
-    bucketId: string;
-    credentials: Requests.ImageStoreCredentials;
-    cos: IBMCosSDK.S3;
+    private bucketId: string;
+    private credentials: Requests.ImageStoreCredentials;
+
+    private cos: IBMCosSDK.S3;
 
 
     constructor(public connectioninfo: Requests.ImageStoreInfo) {
@@ -24,8 +25,14 @@ export default class ImageStore {
     }
 
 
-    connect(): void {
-        this.cos = new IBMCosSDK.S3(this.credentials);
+    public connect(): void {
+        try {
+            this.cos = new IBMCosSDK.S3(this.credentials);
+        }
+        catch (err) {
+            console.log('imagestore connect', err);
+            throw err;
+        }
     }
 
 
@@ -35,7 +42,7 @@ export default class ImageStore {
      * @param imagespec - the ID of the image to download
      * @param targetFile - the location on disk to download it to
      */
-    download(imagespec: Requests.ObjectStorageSpec, targetFile: string): Promise<void> {
+    public download(imagespec: Requests.ObjectStorageSpec, targetFile: string): Promise<void> {
         const objectDefinition: IBMCosSDK.S3.GetObjectRequest = {
             Bucket: this.bucketId,
             Key: this.generateKey(imagespec),
@@ -47,11 +54,22 @@ export default class ImageStore {
             })
             .then((image) => {
                 return fs.promises.writeFile(targetFile, image.body);
+            })
+            .catch((err) => {
+                let cause;
+                if (err.message === 'Missing credentials in config') {
+                    cause = 'auth';
+                }
+                else {
+                    console.log('imagestore download', err);
+                    cause = 'unknown';
+                }
+                throw new Error('Unable to download image from store (' + cause + ')');
             });
     }
 
 
-    generateKey(spec: Requests.ObjectStorageSpec): string {
+    private generateKey(spec: Requests.ObjectStorageSpec): string {
         return [
             spec.classid,
             spec.userid,
@@ -61,7 +79,7 @@ export default class ImageStore {
     }
 
 
-    getImageObject(key: string, response: IBMCosSDK.S3.GetObjectOutput): Requests.Image {
+    private getImageObject(key: string, response: IBMCosSDK.S3.GetObjectOutput): Requests.Image {
         return {
             size : response.ContentLength ? response.ContentLength : -1,
             body : response.Body as Buffer,
@@ -72,7 +90,7 @@ export default class ImageStore {
     }
 
 
-    getImageType(key: string, response: IBMCosSDK.S3.GetObjectOutput): Requests.ImageFileType {
+    private getImageType(key: string, response: IBMCosSDK.S3.GetObjectOutput): Requests.ImageFileType {
         if (response.Metadata) {
             if (SUPPORTED_IMAGE_MIMETYPES.includes(response.Metadata.filetype)) {
                 return response.Metadata.filetype as Requests.ImageFileType;

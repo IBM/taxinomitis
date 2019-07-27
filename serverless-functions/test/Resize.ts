@@ -53,6 +53,14 @@ describe('Resize function', () => {
 
     describe('Error handling', () => {
 
+        it('should require a url parameter', () => {
+            return checkError(undefined, { error : 'url is a required parameter' }, 400);
+        });
+
+        it('should require a non-empty url parameter', () => {
+            return checkError('', { error : 'url is a required parameter' }, 400);
+        });
+
         it('should report that SVG files are not supported', () => {
             return checkError('https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg?download',
                               { error : 'Unsupported image file type' },

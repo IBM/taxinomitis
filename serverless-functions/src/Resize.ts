@@ -3,7 +3,7 @@ import * as gm from 'gm';
 import * as request from 'request';
 // internal dependencies
 import { ResizeParams, isANonEmptyString } from './Requests';
-import { HtmlResponse } from './Responses';
+import { HttpResponse } from './Responses';
 import { downloadTooBig } from './Rules';
 import { OK, BAD_REQUEST, ERROR } from './StatusCodes';
 import * as MimeTypes from './MimeTypes';
@@ -31,13 +31,13 @@ const REQUEST_OPTIONS = {
 const IGNORE_ASPECT_RATIO = '!';
 
 
-export default function main(params: ResizeParams): Promise<HtmlResponse> {
+export default function main(params: ResizeParams): Promise<HttpResponse> {
 
     return new Promise((resolve) => {
         // check the request is safe to use
         const isValid = isANonEmptyString(params.url);
         if (!isValid) {
-            return resolve(new HtmlResponse({ error : 'url is a required parameter' },
+            return resolve(new HttpResponse({ error : 'url is a required parameter' },
                                             BAD_REQUEST));
         }
 
@@ -55,7 +55,7 @@ export default function main(params: ResizeParams): Promise<HtmlResponse> {
                 }
                 if (downloadTooBig(downloadStream.headers))
                 {
-                    resolve(new HtmlResponse({
+                    resolve(new HttpResponse({
                         'error' : 'Image size exceeds maximum limit',
                         'content-length' : downloadStream.headers['content-length'],
                     }, BAD_REQUEST));
@@ -69,7 +69,7 @@ export default function main(params: ResizeParams): Promise<HtmlResponse> {
                         if (err) {
                             return resolve(handleError(err));
                         }
-                        return resolve(new HtmlResponse(buffer.toString('base64'),
+                        return resolve(new HttpResponse(buffer.toString('base64'),
                                                         OK, MimeTypes.ImagePng));
                     });
             });
@@ -77,33 +77,33 @@ export default function main(params: ResizeParams): Promise<HtmlResponse> {
 }
 
 
-function handleErrorResponse(err: request.Response): HtmlResponse {
+function handleErrorResponse(err: request.Response): HttpResponse {
     if (err.statusCode === 404) {
-        return new HtmlResponse({ error : 'Unable to download image from ' + err.request.host }, BAD_REQUEST);
+        return new HttpResponse({ error : 'Unable to download image from ' + err.request.host }, BAD_REQUEST);
     }
     if (err.statusCode === 401 || err.statusCode === 403) {
-        return new HtmlResponse({ error : err.request.host +
+        return new HttpResponse({ error : err.request.host +
                                           ' would not allow "Machine Learning for Kids" to use that image' },
                                 BAD_REQUEST);
     }
     if (err.statusCode === 500) {
-        return new HtmlResponse({ error : 'Unable to download image from ' + err.request.host }, BAD_REQUEST);
+        return new HttpResponse({ error : 'Unable to download image from ' + err.request.host }, BAD_REQUEST);
     }
 
-    console.log(err);
-    return new HtmlResponse({ error : 'Unable to download image from ' + err.request.host }, ERROR);
+    console.log('resize handleErrorResponse', err);
+    return new HttpResponse({ error : 'Unable to download image from ' + err.request.host }, ERROR);
 }
 
 
-function handleError(err: any): HtmlResponse {
+function handleError(err: any): HttpResponse {
     if (err.message === 'Stream yields empty buffer') {
-        return new HtmlResponse({ error : 'Unsupported image file type' }, BAD_REQUEST);
+        return new HttpResponse({ error : 'Unsupported image file type' }, BAD_REQUEST);
     }
     if (err.errno === 'ENOTFOUND') {
-        return new HtmlResponse({ error : 'Website ' + err.hostname + ' could not be found' }, BAD_REQUEST);
+        return new HttpResponse({ error : 'Website ' + err.hostname + ' could not be found' }, BAD_REQUEST);
     }
-    console.log(err);
-    return new HtmlResponse({ error : err.message }, ERROR);
+    console.log('resize handleError', err);
+    return new HttpResponse({ error : err.message }, ERROR);
 }
 
 
