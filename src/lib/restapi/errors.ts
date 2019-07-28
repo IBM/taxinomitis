@@ -77,7 +77,7 @@ export function register404Handler(app: Express.Application) {
              res: Express.Response,
              next: (e?: Error) => void) =>   // eslint-disable-line no-unused-vars
     {
-        log.error({ req, res }, '404');
+        log.info({ req, res }, '404');
 
         if (req.accepts('html')) {
             res.redirect('/#!/404');
