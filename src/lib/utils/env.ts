@@ -26,6 +26,8 @@ export const SMTP_PORT = 'SMTP_PORT';
 export const SMTP_USER = 'SMTP_USER';
 export const SMTP_PASS = 'SMTP_PASS';
 export const SMTP_REPLY_TO = 'SMTP_REPLY_TO';
+export const SERVERLESS_OPENWHISK_URL = 'SERVERLESS_OPENWHISK_URL';
+export const SERVERLESS_OPENWHISK_KEY = 'SERVERLESS_OPENWHISK_KEY';
 
 
 const DEFAULT = [
@@ -43,6 +45,7 @@ const PROD = [
     // optional - not required for prod
     // SLACK_WEBHOOK_URL,
     // PRIMARY_INSTANCE,
+    // SERVERLESS_OPENWHISK_URL, SERVERLESS_OPENWHISK_KEY
 ];
 
 export function confirmRequiredEnvironment() {

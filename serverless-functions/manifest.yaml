@@ -1,0 +1,31 @@
+packages:
+  mltraining-images:
+    version: 0.12
+    actions:
+      CreateZip:
+        function: dist/CreateZip.js
+        runtime: nodejs:10
+        web-export: true
+      ResizeImage:
+        function: dist/Resize.js
+        runtime: nodejs:10
+        web-export: true
+      AuthCheck:
+        function: dist/AuthCheck.js
+        runtime: nodejs:10
+        web-export: true
+    apis:
+      mltraining-images:
+        api:
+          create-zip:
+            CreateZip:
+              method: POST
+              response: http
+          resize-image:
+            ResizeImage:
+              method: GET
+              response: http
+          auth-check:
+            AuthCheck:
+              method: GET
+              response: http

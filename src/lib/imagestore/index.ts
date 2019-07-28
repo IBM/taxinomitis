@@ -14,6 +14,7 @@ const log = loggerSetup();
 
 let cos: IBMCosSDK.S3;
 let BUCKET: string;
+let creds: object;
 
 
 
@@ -27,7 +28,6 @@ export function init(): void {
     }
 
     const credsString = process.env[env.OBJECT_STORE_CREDS];
-    let creds;
     if (credsString) {
         try {
             creds = JSON.parse(credsString);
@@ -44,6 +44,13 @@ export function init(): void {
     if (BUCKET && creds) {
         verifyBucket();
     }
+}
+
+export function getCredentials() {
+    return {
+        bucketid : BUCKET,
+        credentials : creds,
+    };
 }
 
 
