@@ -355,7 +355,7 @@ function runLocally(locations: ImageDownload[]): Promise<string> {
 
 
 
-async function runInServerless(locations: ImageDownload[]): Promise<string> {
+export async function runInServerless(locations: ImageDownload[]): Promise<string> {
     return new Promise((resolve, reject) => {
         tmp.file({ keep : true, postfix : '.zip' }, (tmperr?: Error, zipfile?: string) => {
             if (tmperr || !zipfile) {
