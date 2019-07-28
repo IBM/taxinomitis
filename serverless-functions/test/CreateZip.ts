@@ -236,7 +236,8 @@ describe('Create image training zip function', () => {
                 .then((resp) => {
                     assert.strictEqual(resp.statusCode, 500);
                     assert.strictEqual(resp.body.error,
-                                       'Website this-website-does-not-actually-exist.co.uk could not be found');
+                                       'Unable to download image from this-website-does-not-actually-exist.co.uk');
+                    assert.deepStrictEqual(resp.body.location, params.locations[0]);
                 });
         });
 

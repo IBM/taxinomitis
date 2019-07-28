@@ -101,7 +101,7 @@ function handleError(err: any): HttpResponse {
         return new HttpResponse({ error : 'Unsupported image file type' }, BAD_REQUEST);
     }
     if (err.errno === 'ENOTFOUND') {
-        return new HttpResponse({ error : 'Website ' + err.hostname + ' could not be found' }, BAD_REQUEST);
+        return new HttpResponse({ error : 'Unable to download image from ' + err.hostname }, BAD_REQUEST);
     }
     console.log('resize handleError', err);
     return new HttpResponse({ error : err.message }, ERROR);

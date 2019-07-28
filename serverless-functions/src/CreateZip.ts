@@ -23,7 +23,13 @@ export default function main(params: CreateZipParams): Promise<HttpResponse> {
             return new HttpResponse(zipFileData, OK, MimeTypes.ZipData);
         })
         .catch((err) => {
-            return new HttpResponse({ error : err.message }, ERROR);
+            const errorPayload = { error : err.message } as any;
+            if (err.location) {
+                errorPayload.location = err.location;
+            }
+            return new HttpResponse(errorPayload, ERROR, {
+                'X-MachineLearningForKids-Error' : JSON.stringify(errorPayload),
+            });
         });
 }
 

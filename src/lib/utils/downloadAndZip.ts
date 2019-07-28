@@ -384,6 +384,23 @@ async function runInServerless(locations: ImageDownload[]): Promise<string> {
                 log.error({ err }, 'Failed to run function');
                 return reject(err);
             })
+            .on('response', (resp) => {
+                if (resp.statusCode !== 200) {
+                    let functionError = new Error('Failed to create zip') as any;
+                    const hdrs = resp.headers['x-machinelearningforkids-error'];
+                    if (hdrs && typeof hdrs === 'string') {
+                        try {
+                            const functionErrorInfo = JSON.parse(hdrs);
+                            functionError = new Error(functionErrorInfo.error) as any;
+                            functionError.location = functionErrorInfo.location;
+                        }
+                        catch (err) {
+                            log.error({ err }, 'Failed to parse function error');
+                        }
+                    }
+                    return resp.destroy(functionError);
+                }
+            })
             .pipe(fs.createWriteStream(zipfile))
             .on('finish', () => {
                 return resolve(zipfile);

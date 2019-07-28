@@ -66,7 +66,9 @@ function downloadImage(location: DownloadFromWeb, callback: IDownloadCallback): 
                 .then((response) => {
                     if (response.statusCode !== 200) {
                         // console.log('runResizeFunction fail', location);
-                        return next(new Error(response.body.error), tmpFilePath);
+                        const errWithLocation: any = new Error(response.body.error) as unknown;
+                        errWithLocation.location = location;
+                        return next(errWithLocation, tmpFilePath);
                     }
                     fs.writeFile(tmpFilePath, response.body, 'base64', (err) => {
                         next(err, tmpFilePath);

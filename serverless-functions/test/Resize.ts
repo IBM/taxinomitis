@@ -81,7 +81,7 @@ describe('Resize function', () => {
 
         it('should report that non-existent hosts cannot be found', () => {
             return checkError('http://this-is-not-actually-a-real-address.co.uk/testing.png',
-                              { error : 'Website this-is-not-actually-a-real-address.co.uk could not be found' },
+                              { error : 'Unable to download image from this-is-not-actually-a-real-address.co.uk' },
                               400);
         });
 
