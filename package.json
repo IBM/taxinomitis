@@ -91,7 +91,7 @@
     "unzip2": "0.2.5"
   },
   "dependencies": {
-    "@slack/webhook": "^5.0.0",
+    "@slack/webhook": "^5.0.1",
     "archiver": "3.0.3",
     "async": "2.6.3",
     "body-parser": "1.19.0",
