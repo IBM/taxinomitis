@@ -1,10 +1,3 @@
-// local dependencies
-// import loggerSetup from './logger';
-
-// const log = loggerSetup();
-// log.info({ deployment : process.env.DEPLOYMENT }, 'Deployment location');
-
-
 /**
  * @returns {Boolean} true if the site is a production deployment
  *              running at machinelearningforkids.co.uk
