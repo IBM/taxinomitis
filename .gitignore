@@ -18,6 +18,7 @@ ops/rollback.sh
 ops/*.sql
 ops/us-routes.sh
 ops/de-routes.sh
+ops/scaling-*.json
 archive
 .DS_Store
 ops/.lastconv
