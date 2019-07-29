@@ -27,7 +27,11 @@ export default function main(params: CreateZipParams): Promise<HttpResponse> {
             if (err.location) {
                 errorPayload.location = err.location;
             }
-            return new HttpResponse(errorPayload, ERROR, {
+            let status = ERROR;
+            if (err.statusCode) {
+                status = err.statusCode;
+            }
+            return new HttpResponse(errorPayload, status, {
                 'X-MachineLearningForKids-Error' : JSON.stringify(errorPayload),
             });
         });

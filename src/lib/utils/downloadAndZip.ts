@@ -366,7 +366,7 @@ export async function runInServerless(locations: ImageDownload[]): Promise<strin
             const url = openwhisk.getUrl(openwhisk.FUNCTIONS.CREATE_ZIP);
             const headers = openwhisk.getHeaders();
 
-            request.post({
+            const serverlessRequest = {
                 url,
                 method : 'POST',
                 json : true,
@@ -379,13 +379,20 @@ export async function runInServerless(locations: ImageDownload[]): Promise<strin
                     locations,
                     imagestore : imagestore.getCredentials(),
                 },
-            })
+            };
+
+            request.post(serverlessRequest)
             .on('error', (err) => {
                 log.error({ err }, 'Failed to run function');
                 return reject(err);
             })
             .on('response', (resp) => {
                 if (resp.statusCode !== 200) {
+                    log.error({
+                        status : resp.statusCode,
+                        errorobj : resp.headers['x-machinelearningforkids-error'],
+                    }, 'Error response from OpenWhisk');
+
                     let functionError = new Error('Failed to create zip') as any;
                     const hdrs = resp.headers['x-machinelearningforkids-error'];
                     if (hdrs && typeof hdrs === 'string') {

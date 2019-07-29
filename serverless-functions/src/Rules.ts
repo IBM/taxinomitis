@@ -2,6 +2,7 @@
 // internal dependencies
 import { IncomingHttpHeaders } from 'http';
 import { IErrCallback } from './Callbacks';
+import { BAD_REQUEST } from './StatusCodes';
 
 /**
  * Confirms that the size of the created zip file doesn't exceed
@@ -12,7 +13,9 @@ import { IErrCallback } from './Callbacks';
  */
 export function validateZip(filesize: number, callback: IErrCallback): void {
     if (filesize > 100000000) {
-        return callback(new Error('Training data exceeds maximum limit (100 mb)'));
+        const badRequest = new Error('Training data exceeds maximum limit (100 mb)') as any;
+        badRequest.statusCode = BAD_REQUEST;
+        return callback(badRequest);
     }
     return callback(undefined);
 }
