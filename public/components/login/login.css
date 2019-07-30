@@ -1,3 +1,8 @@
+.md-dialog-content .outofoffice {
+    max-width: 400px;
+    margin-bottom: 1em;
+}
+
 .loginPage {
     margin: 0 auto 3em auto;
     background: #dcdce0;
