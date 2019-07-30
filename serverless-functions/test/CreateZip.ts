@@ -214,7 +214,7 @@ describe('Create image training zip function', () => {
 
             return CreateZip(params)
                 .then((resp) => {
-                    assert.strictEqual(resp.statusCode, 500);
+                    assert.strictEqual(resp.statusCode, 400);
                     assert.strictEqual(resp.body.error, 'Unable to download image from upload.wikimedia.org');
                 });
         });
@@ -234,7 +234,7 @@ describe('Create image training zip function', () => {
 
             return CreateZip(params)
                 .then((resp) => {
-                    assert.strictEqual(resp.statusCode, 500);
+                    assert.strictEqual(resp.statusCode, 400);
                     assert.strictEqual(resp.body.error,
                                        'Unable to download image from this-website-does-not-actually-exist.co.uk');
                     assert.deepStrictEqual(resp.body.location, params.locations[0]);
@@ -256,9 +256,32 @@ describe('Create image training zip function', () => {
 
             return CreateZip(params)
                 .then((resp) => {
-                    assert.strictEqual(resp.statusCode, 500);
+                    assert.strictEqual(resp.statusCode, 400);
                     assert.strictEqual(resp.body.error,
                                        'Unsupported image file type');
+                });
+        });
+
+
+        it('should handle requests for authenticated Google images', () => {
+            const params: CreateZipParams = {
+                locations : [
+                    { type : 'download', imageid : '1',
+                        // tslint:disable-next-line:max-line-length
+                        url : 'https://lh3.googleusercontent.com/2BgR7pTHkztneArHKFJC8PU2gJJjlQxbeREvdDfGRhy977XERW5INOPPATbkIwGk7LXMoSJJuHfaMKptAobG5Nftc4BC0mk0_PACy4-BhZlp20rr6iwflqDA9q9nFBSPlNGp8UG4YpZryiKGK4g4XARblMy6KV2zpHWHUUQfQzeThOTjNexgw5IGulkel-fQCZQhxORPAHmHQPleRSlGxTZhQo0vrg1O5K33UUZ5bYa8_fwCAsYPg_UoRK3UZQdNrmQEFDqC1WtbSAnlYn8OX_WrJ4l1Fj-Tn4UXoNI7AEunfAZEQZYnB5oiFewnWfltg4gorz__xDizUGaifusPd3mE1nwoT24gKB9zjmA-jXKnMTxsVPvzouFiOGWwMHDnw6NuIrCr-rsfhD-vYNBB8BejcxjUrRf0XfA4iDBW6pgIICrkjaHWxIu5dOUzVIqJcWhzoBNBIAmJ3cP6VqMDWK4mKpU5IQRhRnPEX3mpqEQW3hovFkJTFk6JdZ7YZrgamF9CaUkQ6Er2Sg90Ua1XgoXWYWJk1mEI1Um-VaodCIg9vHr7zUKRQgnPzDi9MmeYQnZTIJUhWN5MKLUKXfCrF96KqXz6lFsG4ghPG1Kq1pF8td1ohGqjunIMhWyRWxrFBDeTTVPJXjpACOC8RTDX_Xvw7uJJ3Cwl=w649-h486-no' },
+                ],
+                imagestore : {
+                    bucketid : process.env.OBJECT_STORE_BUCKET,
+                    credentials : JSON.parse(process.env.OBJECT_STORE_CREDS),
+                },
+            };
+
+            return CreateZip(params)
+                .then((resp) => {
+                    assert.strictEqual(resp.statusCode, 400);
+                    assert.strictEqual(resp.body.error,
+                                       'Google would not allow "Machine Learning for Kids" to use that image');
+                    assert.deepStrictEqual(resp.body.location, params.locations[0]);
                 });
         });
     });

@@ -11,6 +11,7 @@ import * as MimeTypes from './MimeTypes';
 
 // standard options for downloading images
 const REQUEST_OPTIONS = {
+    followRedirect : true,
     timeout : 10000,
     rejectUnauthorized : false,
     strictSSL : false,
@@ -49,18 +50,9 @@ export default function main(params: ResizeParams): Promise<HttpResponse> {
                 return resolve(handleError(err));
             })
             .on('response', (downloadStream) => {
-                if (downloadStream.statusCode >= 400) {
-                    resolve(handleErrorResponse(downloadStream));
-
-                    return downloadStream.destroy();
-                }
-                if (downloadTooBig(downloadStream.headers))
-                {
-                    resolve(new HttpResponse({
-                        'error' : 'Image size exceeds maximum limit',
-                        'content-length' : downloadStream.headers['content-length'],
-                    }, BAD_REQUEST));
-
+                const commonProblem = recognizeCommonProblems(downloadStream);
+                if (commonProblem) {
+                    resolve(commonProblem);
                     return downloadStream.destroy();
                 }
 
@@ -105,6 +97,30 @@ function handleError(err: any): HttpResponse {
     }
     console.log('resize handleError', err);
     return new HttpResponse({ error : err.message }, ERROR);
+}
+
+
+
+function recognizeCommonProblems(response: request.Response): HttpResponse | undefined {
+
+    if (response.statusCode >= 400) {
+        return handleErrorResponse(response);
+    }
+
+    if (downloadTooBig(response.headers)) {
+        return new HttpResponse({
+            'error' : 'Image size exceeds maximum limit',
+            'content-length' : response.headers['content-length'],
+        }, BAD_REQUEST);
+    }
+
+    if (response.headers['content-type'].startsWith('text/html') &&
+        response.request.uri.href.startsWith('https://accounts.google.com/ServiceLogin?continue='))
+    {
+        return new HttpResponse({
+            error : 'Google would not allow "Machine Learning for Kids" to use that image',
+        }, BAD_REQUEST);
+    }
 }
 
 
