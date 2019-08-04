@@ -1104,7 +1104,7 @@ export function createSiteAlert(
     }
 
     if (message === undefined || typeof message !== 'string' || message === '' ||
-        url === undefined || typeof url !== 'string' || url === '')
+        typeof url !== 'string')
     {
         throw new Error('Missing required attributes');
     }

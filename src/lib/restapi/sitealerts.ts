@@ -19,9 +19,8 @@ const log = loggerSetup();
 
 function createSiteAlert(req: Express.Request, res: Express.Response) {
     if (!req.body ||
-        !req.body.message || !req.body.url ||
-        !req.body.audience || !req.body.severity ||
-        !req.body.expiry)
+        !req.body.message || !req.body.audience ||
+        !req.body.severity || !req.body.expiry)
     {
         return res.status(httpstatus.BAD_REQUEST)
                   .send({ error : 'Missing required field' });
