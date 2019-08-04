@@ -91,6 +91,9 @@
         "AIINABOX": {
             "BODY1": "AI-in-a-Box is a bundle of robots, accessories and teaching resources. The kit can be used to teach projects that cover topics like visual recognition, facial recognition, speech generation and speech recognition."
         },
+        "GOOGLEEXPERIMENTS": {
+            "BODY1": "Simple online experiments to start exploring machine learning, through pictures, drawings, language, and music."
+        },
         "VIDEOS": {
             "TITLE": "Videos",
             "INTRO": "I've also found these videos useful when introducing AI concepts:"
