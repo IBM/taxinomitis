@@ -6,11 +6,10 @@
 
     LoginController.$inject = [
         'authService', '$location', '$stateParams',
-        '$document', '$scope', '$timeout', '$state',
-        '$mdDialog'
+        '$document', '$scope', '$timeout', '$state'
     ];
 
-    function LoginController(authService, $location, $stateParams, $document, $scope, $timeout, $state, $mdDialog) {
+    function LoginController(authService, $location, $stateParams, $document, $scope, $timeout, $state) {
         var vm = this;
         vm.authService = authService;
 
@@ -22,33 +21,6 @@
         };
 
         vm.deployment = $stateParams.DEPLOYMENT;
-
-
-
-        vm.outOfOffice = function (ev) {
-            var confirm = $mdDialog.confirm()
-                            .title('Out of Office (31 July)')
-                            .htmlContent('<div class="outofoffice">I am on vacation. </div>' +
-                                '<div class="outofoffice">Please still feel free to email me with a request for a new class, ' +
-                                'but <strong>it might be a week before I see your email</strong>, ' +
-                                'so I hope you wont be offended if you don\'t get a reply quickly.</div>' +
-                                '<div class="outofoffice">If you can\'t wait, remember that you can create an (unmanaged) class ' +
-                                'yourself without needing to wait for me to do anything. </div>' +
-                                '<div class="outofoffice">Alternatively, you can use "<strong>Try it now</strong>" to use the site ' +
-                                'without needing any registration at all</div>')
-                            .targetEvent(ev)
-                            .ok('Understood. Send an email anyway.')
-                            .cancel('Cancel');
-            $mdDialog.show(confirm)
-                .then(
-                    function () {
-                        vm.sendEmail();
-                    },
-                    function () {}
-                );
-        };
-
-
 
         vm.startTryItNowSession = function (ev) {
             $scope.failure = null;

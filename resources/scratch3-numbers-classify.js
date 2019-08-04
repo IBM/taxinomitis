@@ -117,6 +117,26 @@ class MachineLearningNumbers {
                         }
                     }
                 },
+                {
+                    opcode: 'addTrainingFreeLabel',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'add training data {{#fields}} {{name}}[FIELD{{idx}}] {{/fields}} is [LABEL]',
+                    arguments: {
+                        {{#fields}}
+                        FIELD{{idx}}: {
+                            {{#multichoice}}
+                            type: Scratch.ArgumentType.STRING,
+                            {{/multichoice}}
+                            {{^multichoice}}
+                            type: Scratch.ArgumentType.NUMBER,
+                            {{/multichoice}}
+                        },
+                        {{/fields}}
+                        LABEL: {
+                            type: Scratch.ArgumentType.STRING
+                        }
+                    }
+                },
 
                 // train a new machine learning model
                 {
@@ -164,6 +184,13 @@ class MachineLearningNumbers {
     }
     {{/choices}}
 
+
+
+    addTrainingFreeLabel(args) {
+        if (args.LABEL !== '') {
+            return this.addTraining(args);
+        }
+    }
 
     addTraining(args) {
         var numbers = getFieldValues(args);

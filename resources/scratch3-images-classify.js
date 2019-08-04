@@ -88,6 +88,23 @@ class MachineLearningImages {
                             menu: 'labels'
                         }
                     }
+                },
+                {
+                    opcode: 'addTrainingFreeLabel',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: {
+                        default: 'add training data [TEXT] [LABEL]',
+                        id: 'mlforkids.images.addTraining'
+                    },
+                    arguments: {
+                        TEXT: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'image'
+                        },
+                        LABEL: {
+                            type: Scratch.ArgumentType.STRING
+                        }
+                    }
                 }
             ],
 
@@ -112,6 +129,13 @@ class MachineLearningImages {
     }
     {{/labels}}
 
+
+
+    addTrainingFreeLabel(args) {
+        if (args.LABEL !== '') {
+            return this.addTraining(args);
+        }
+    }
 
     addTraining({ TEXT, LABEL }) {
         if (TEXT === '' || TEXT === 'image') {
