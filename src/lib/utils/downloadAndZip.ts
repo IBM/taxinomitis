@@ -391,6 +391,7 @@ export async function runInServerless(locations: ImageDownload[]): Promise<strin
                     log.error({
                         status : resp.statusCode,
                         errorobj : resp.headers['x-machinelearningforkids-error'],
+                        body : resp.body,
                     }, 'Error response from OpenWhisk');
 
                     let functionError = new Error('Failed to create zip') as any;

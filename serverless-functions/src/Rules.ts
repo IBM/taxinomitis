@@ -1,8 +1,9 @@
-/* tslint:disable:no-console */
 // internal dependencies
 import { IncomingHttpHeaders } from 'http';
 import { IErrCallback } from './Callbacks';
 import { BAD_REQUEST } from './StatusCodes';
+import { log } from './Debug';
+
 
 /**
  * Confirms that the size of the created zip file doesn't exceed
@@ -12,6 +13,7 @@ import { BAD_REQUEST } from './StatusCodes';
  * @param callback
  */
 export function validateZip(filesize: number, callback: IErrCallback): void {
+    log('zip size', filesize);
     if (filesize > 100000000) {
         const badRequest = new Error('Training data exceeds maximum limit (100 mb)') as any;
         badRequest.statusCode = BAD_REQUEST;
@@ -30,6 +32,7 @@ export function validateZip(filesize: number, callback: IErrCallback): void {
 export function downloadTooBig(headers: IncomingHttpHeaders): boolean {
     if (headers['content-length']) {
         const sizeStr = headers['content-length'];
+        log('download size', sizeStr);
         try {
             const sizeInt = parseInt(sizeStr, 10);
             if (sizeInt > 52428800) {
@@ -37,8 +40,8 @@ export function downloadTooBig(headers: IncomingHttpHeaders): boolean {
             }
         }
         catch (err) {
-            console.log('Unable to parse content-length header', sizeStr);
-            console.log('downloadTooBig', err);
+            log('Unable to parse content-length header', sizeStr);
+            log('downloadTooBig', err);
         }
     }
 

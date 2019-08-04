@@ -5,6 +5,7 @@ import { HttpResponse } from './Responses';
 import { CreateZipParams, validate } from './Requests';
 import { OK, BAD_REQUEST, ERROR } from './StatusCodes';
 import * as MimeTypes from './MimeTypes';
+import { log } from './Debug';
 
 
 
@@ -12,6 +13,7 @@ export default function main(params: CreateZipParams): Promise<HttpResponse> {
     // check the request is safe to use
     const isValid = validate(params);
     if (!isValid) {
+        log('invalid request', params);
         return Promise.resolve(new HttpResponse({ error : 'Invalid request payload' }, BAD_REQUEST));
     }
 
@@ -20,9 +22,13 @@ export default function main(params: CreateZipParams): Promise<HttpResponse> {
     store.connect();
     return downloader.run(store, params.locations)
         .then((zipFileData) => {
+            log('SUCCESS - returning zip data');
             return new HttpResponse(zipFileData, OK, MimeTypes.ZipData);
         })
         .catch((err) => {
+            log('FAILURE');
+            log(err);
+
             const errorPayload = { error : err.message } as any;
             if (err.location) {
                 errorPayload.location = err.location;

@@ -1,4 +1,3 @@
-/* tslint:disable:no-console */
 // external dependencies
 import * as fs from 'fs';
 import * as path from 'path';
@@ -12,6 +11,7 @@ import ImageInfo from './ImageInfo';
 import { runResizeFunction } from './OpenWhisk';
 import { IFileTypeCallback } from './ImageInfo';
 import { validateZip } from './Rules';
+import { log } from './Debug';
 import { IErrCallback, IRenameCallback, IDownloadAllCallback,
          IDownloadCallback, IZipCallback, ICreateZipCallback,
          IZipDataCallback } from './Callbacks';
@@ -25,7 +25,7 @@ let imagestore: ImageStore;
 
 function logError(err?: Error | null) {
     if (err) {
-        console.log('Failed to delete file', err);
+        log('Failed to delete file', err);
     }
 }
 
@@ -75,7 +75,7 @@ function downloadImage(location: DownloadFromWeb, callback: IDownloadCallback): 
                         next(err, tmpFilePath);
                     });
                 }).catch((err) => {
-                    console.log('downloadImage fail', err);
+                    log('downloadImage fail', err);
                     next(err, tmpFilePath);
                 });
         },
@@ -137,7 +137,7 @@ function createZip(filepaths: string[], callback: IZipCallback): void {
 
     tmp.file({ keep : true, postfix : '.zip' }, (err, zipfilename) => {
         if (err) {
-            console.log('Failure to create zip file', err, filepaths);
+            log('Failure to create zip file', err, filepaths);
             return callback(err);
         }
 
@@ -150,11 +150,11 @@ function createZip(filepaths: string[], callback: IZipCallback): void {
         });
 
         outputStream.on('warning', (warning) => {
-            console.log('Unexpected warning event from writable filestream', warning);
+            log('Unexpected warning event from writable filestream', warning);
         });
 
         outputStream.on('error', (ziperr) => {
-            console.log('Failed to write to zip file', ziperr);
+            log('Failed to write to zip file', ziperr);
             callback(ziperr);
         });
 
@@ -189,6 +189,7 @@ export function run(store: ImageStore, locations: ImageDownload[]): Promise<stri
             //  to local disk
             //
             (next: IDownloadAllCallback) => {
+                log('fetching images');
                 fetchAllImages(locations, next);
             },
             //
@@ -196,6 +197,7 @@ export function run(store: ImageStore, locations: ImageDownload[]): Promise<stri
             //  of all of the local downloaded files
             //
             (downloadedFilePaths: string[], next: IZipCallback) => {
+                log('creating zip');
                 createZip(downloadedFilePaths, (err?: Error | null, zippath?: string, zipsize?: number) => {
                     next(err, zippath, zipsize);
                 });
@@ -204,6 +206,7 @@ export function run(store: ImageStore, locations: ImageDownload[]): Promise<stri
             // check the zip file is fit for use
             //
             (zipFilePath: string, zipFileSize: number, next: ICreateZipCallback) => {
+                log('checking zip');
                 validateZip(zipFileSize, (err) => {
                     next(err, zipFilePath);
                 });
@@ -214,6 +217,7 @@ export function run(store: ImageStore, locations: ImageDownload[]): Promise<stri
             //  be returned
             //
             (zipFilePath: string, next: IZipDataCallback) => {
+                log('reading zip');
                 fs.readFile(zipFilePath, 'base64', (err?: Error | null, zipdata?: string) => {
                     next(err, zipFilePath, zipdata);
                 });
@@ -221,6 +225,7 @@ export function run(store: ImageStore, locations: ImageDownload[]): Promise<stri
         ],
         // @ts-ignore
         (err, zippath, zipdata) => {
+            log('DONE', zippath);
             if (err) {
                 return reject(err);
             }

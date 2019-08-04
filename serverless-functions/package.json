@@ -6,7 +6,7 @@
     "bundle": "webpack --config webpack.config.js",
     "deploy": "ibmcloud fn deploy -m manifest.yaml",
     "push": "npm run build && npm run bundle && npm run deploy",
-    "test": "mocha --no-timeouts -r ts-node/register test/*.ts"
+    "test": "LOGGING=off mocha --no-timeouts -r ts-node/register test/*.ts"
   },
   "author": "dale.lane@uk.ibm.com",
   "devDependencies": {

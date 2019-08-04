@@ -1,4 +1,3 @@
-/* tslint:disable:no-console */
 // external dependencies
 import * as gm from 'gm';
 import * as request from 'request';
@@ -8,6 +7,8 @@ import { HttpResponse } from './Responses';
 import { downloadTooBig } from './Rules';
 import { OK, BAD_REQUEST, ERROR } from './StatusCodes';
 import * as MimeTypes from './MimeTypes';
+import { log } from './Debug';
+
 
 // standard options for downloading images
 const REQUEST_OPTIONS = {
@@ -39,14 +40,17 @@ export default function main(params: ResizeParams): Promise<HttpResponse> {
         // check the request is safe to use
         const isValid = isANonEmptyString(params.url);
         if (!isValid) {
+            log('invalid request', params);
             return resolve(new HttpResponse({ error : 'url is a required parameter' },
                                             BAD_REQUEST));
         }
 
         // resize image
         const url = params.url;
+        log('url', url);
         request.get({ ...REQUEST_OPTIONS, url })
             .on('error', (err) => {
+                log('resize error', err);
                 return resolve(handleError(err));
             })
             .on('response', (downloadStream) => {
@@ -71,6 +75,7 @@ export default function main(params: ResizeParams): Promise<HttpResponse> {
 
 
 function handleErrorResponse(err: request.Response): HttpResponse {
+    log('ERROR response : ' + err.statusCode);
     if (err.statusCode === 404) {
         return new HttpResponse({ error : 'Unable to download image from ' + err.request.host }, BAD_REQUEST);
     }
@@ -79,23 +84,23 @@ function handleErrorResponse(err: request.Response): HttpResponse {
                                           ' would not allow "Machine Learning for Kids" to use that image' },
                                 BAD_REQUEST);
     }
+    log('resize handleErrorResponse', err);
     if (err.statusCode === 500) {
         return new HttpResponse({ error : 'Unable to download image from ' + err.request.host }, BAD_REQUEST);
     }
 
-    console.log('resize handleErrorResponse', err);
     return new HttpResponse({ error : 'Unable to download image from ' + err.request.host }, ERROR);
 }
 
 
 function handleError(err: any): HttpResponse {
+    log('resize handleError', err);
     if (err.message === 'Stream yields empty buffer') {
         return new HttpResponse({ error : 'Unsupported image file type' }, BAD_REQUEST);
     }
     if (err.errno === 'ENOTFOUND') {
         return new HttpResponse({ error : 'Unable to download image from ' + err.hostname }, BAD_REQUEST);
     }
-    console.log('resize handleError', err);
     return new HttpResponse({ error : err.message }, ERROR);
 }
 
@@ -114,7 +119,9 @@ function recognizeCommonProblems(response: request.Response): HttpResponse | und
         }, BAD_REQUEST);
     }
 
-    if (response.headers['content-type'].startsWith('text/html') &&
+    if (response.headers &&
+        response.headers['content-type'] &&
+        response.headers['content-type'].startsWith('text/html') &&
         response.request.uri.href.startsWith('https://accounts.google.com/ServiceLogin?continue='))
     {
         return new HttpResponse({

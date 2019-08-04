@@ -4,6 +4,7 @@ import * as openwhisk from 'openwhisk';
 import Resize from './Resize';
 import { ResizeParams } from './Requests';
 import { HttpResponse } from './Responses';
+import { log } from './Debug';
 
 
 const STATES = {
@@ -33,6 +34,7 @@ export function runResizeFunction(params: ResizeParams): Promise<HttpResponse> {
             state = STATES.RUN_OPENWHISK;
         }
         catch (err) {
+            log('failed to init ow', err);
             state = STATES.RUN_LOCAL;
         }
     }

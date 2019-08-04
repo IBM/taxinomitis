@@ -1,9 +1,9 @@
-/* tslint:disable:no-console */
 // external dependencies
 import * as fs from 'fs';
 import * as IBMCosSDK from 'ibm-cos-sdk';
 // internal dependencies
 import * as Requests from './Requests';
+import { log } from './Debug';
 
 
 const SUPPORTED_IMAGE_MIMETYPES = [
@@ -31,7 +31,7 @@ export default class ImageStore {
             this.cos = new IBMCosSDK.S3(this.credentials);
         }
         catch (err) {
-            console.log('imagestore connect', err);
+            log('imagestore connect', err);
             throw err;
         }
     }
@@ -62,7 +62,7 @@ export default class ImageStore {
                     cause = 'auth';
                 }
                 else {
-                    console.log('imagestore download', err);
+                    log('imagestore download', err);
                     cause = 'unknown';
                 }
                 throw new Error('Unable to download image from store (' + cause + ')');
@@ -97,12 +97,12 @@ export default class ImageStore {
                 return response.Metadata.filetype as Requests.ImageFileType;
             }
             else {
-                console.log('Invalid filetype metadata. Setting to empty. ', key, response.Metadata.filetype);
+                log('Invalid filetype metadata. Setting to empty. ', key, response.Metadata.filetype);
                 return '';
             }
         }
         else {
-            console.log('Missing filetype metadata. Setting to empty. ', key);
+            log('Missing filetype metadata. Setting to empty. ', key);
             return '';
         }
     }

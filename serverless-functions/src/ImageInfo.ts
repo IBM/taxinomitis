@@ -1,7 +1,7 @@
-/* tslint:disable:no-console */
 // external dependencies
 import readChunk from 'read-chunk';
 import * as fileType from 'file-type';
+import { log } from './Debug';
 
 
 export type IFileTypeCallback = (err?: Error | null, filetype?: string) => void;
@@ -20,7 +20,7 @@ export default function main(filepath: string, callback: IFileTypeCallback): voi
             callback(undefined, type ? type.ext : 'unknown');
         })
         .catch((err) => {
-            console.log('imageinfo', err);
+            log('imageinfo', err);
             callback(undefined, 'png');
         });
 }
