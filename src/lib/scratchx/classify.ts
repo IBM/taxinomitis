@@ -105,7 +105,7 @@ function safeParseFloat(str: string): any {
 
 
 async function classifyNumbers(key: Types.ScratchKey, numbers: string[]): Promise<TrainingTypes.Classification[]> {
-    if (!numbers || numbers.length === 0) {
+    if (!numbers || numbers.length === 0 || !Array.isArray(numbers)) {
         throw new Error('Missing data');
     }
     const project = await store.getProject(key.projectid);

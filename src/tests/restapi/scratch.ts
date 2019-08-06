@@ -284,6 +284,48 @@ describe('REST API - scratch keys', () => {
                 });
         });
 
+        it('should check the data type when classifying', async () => {
+            const projectid = uuid();
+
+            const project: DbTypes.Project = {
+                id : projectid,
+                name : 'Test Project',
+                userid : 'userid',
+                classid : TESTCLASS,
+                type : 'numbers',
+                language : 'en',
+                labels : [],
+                numfields : 3,
+                isCrowdSourced : false,
+            };
+
+            const key = await store.storeUntrainedScratchKey(project);
+
+            const callbackFunctionName = 'mycb';
+            return request(testServer)
+                .get('/api/scratch/' + key + '/classify')
+                .query({ callback : callbackFunctionName, data : 'I am not an array of numbers' })
+                // this is a JSONP API
+                .expect('Content-Type', /javascript/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then(async (res) => {
+                    await store.deleteEntireProject('userid', TESTCLASS, project);
+
+                    const text = res.text;
+
+                    const expectedStart = '/**/ typeof ' +
+                                        callbackFunctionName +
+                                        ' === \'function\' && ' +
+                                        callbackFunctionName + '(';
+
+                    assert(text.startsWith(expectedStart));
+
+                    const classificationRespStr: string = text.substring(expectedStart.length, text.length - 2);
+                    const payload = JSON.parse(classificationRespStr);
+                    assert.deepStrictEqual(payload, { error : 'Missing data' });
+                });
+        });
+
 
         it('should check for existence of projects when creating ML models', async () => {
             const projectid = uuid();
