@@ -1,7 +1,10 @@
 class MachineLearningText {
 
     constructor() {
-        this._labels = [ {{#labels}} '{{name}}', {{/labels}} ];
+        this._labels = {
+            items : [ {{#labels}} '{{name}}', {{/labels}} ],
+            acceptReporters: true
+        };
 
         this._statuses = [
             { value : 'Ready', text : 'ready to use' },
@@ -91,25 +94,8 @@ class MachineLearningText {
                         },
                         LABEL: {
                             type: Scratch.ArgumentType.STRING,
-                            defaultValue: this._labels[0],
+                            defaultValue: this._labels.items[0],
                             menu: 'labels'
-                        }
-                    }
-                },
-                {
-                    opcode: 'addTrainingFreeLabel',
-                    blockType: Scratch.BlockType.COMMAND,
-                    text: {
-                        default: 'add training data [TEXT] [LABEL]',
-                        id: 'mlforkids.text.addTraining'
-                    },
-                    arguments: {
-                        TEXT: {
-                            type: Scratch.ArgumentType.STRING,
-                            defaultValue: 'text'
-                        },
-                        LABEL: {
-                            type: Scratch.ArgumentType.STRING
                         }
                     }
                 },
@@ -164,12 +150,6 @@ class MachineLearningText {
     }
     {{/labels}}
 
-
-    addTrainingFreeLabel(args) {
-        if (args.LABEL !== '') {
-            return this.addTraining(args);
-        }
-    }
 
     addTraining({ TEXT, LABEL }) {
         var txt = cleanUpText(TEXT, 1024);
