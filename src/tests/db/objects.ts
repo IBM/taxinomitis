@@ -1405,21 +1405,6 @@ describe('DB objects', () => {
             }
         });
 
-        it('should reject empty URLs', () => {
-            try {
-                dbobjects.createSiteAlert(
-                    'This is my message.',
-                    '',
-                    'supervisor',
-                    'error',
-                    constants.ONE_HOUR);
-                assert.fail('should not get here');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required attributes');
-            }
-        });
-
         it('should reject invalid audiences', () => {
             try {
                 dbobjects.createSiteAlert(
