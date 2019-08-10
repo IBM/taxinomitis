@@ -13,7 +13,7 @@ import { log } from './Debug';
 // standard options for downloading images
 const REQUEST_OPTIONS = {
     followRedirect : true,
-    timeout : 10000,
+    timeout : 8000,
     rejectUnauthorized : false,
     strictSSL : false,
     gzip : true,
@@ -48,30 +48,48 @@ export default function main(params: ResizeParams): Promise<HttpResponse> {
         // resize image
         const url = params.url;
         log('url', url);
-        request.get({ ...REQUEST_OPTIONS, url })
-            .on('error', (err) => {
-                log('resize error', err);
-                return resolve(handleError(err));
-            })
-            .on('response', (downloadStream) => {
-                const commonProblem = recognizeCommonProblems(downloadStream);
-                if (commonProblem) {
-                    resolve(commonProblem);
-                    return downloadStream.destroy();
-                }
+        requestAndResize(url, (resp) => {
+            if (resp.statusCode === OK) {
+                return resolve(resp);
+            }
 
-                gm(downloadStream)
-                    .resize(224, 224, IGNORE_ASPECT_RATIO)
-                    .toBuffer('png', (err, buffer) => {
-                        if (err) {
-                            return resolve(handleError(err));
-                        }
-                        return resolve(new HttpResponse(buffer.toString('base64'),
-                                                        OK, MimeTypes.ImagePng));
-                    });
-            });
+            log('retrying', url);
+            requestAndResize(url, resolve);
+        });
     });
 }
+
+
+
+function requestAndResize(url: string, callback: (resp: HttpResponse) => void): void {
+    request.get({ ...REQUEST_OPTIONS, url })
+        .on('error', (err) => {
+            log('resize error', err);
+            return callback(handleError(err));
+        })
+        .on('response', (downloadStream) => {
+            const commonProblem = recognizeCommonProblems(downloadStream);
+            if (commonProblem) {
+                log('recognized problem', commonProblem);
+                callback(commonProblem);
+                return downloadStream.destroy();
+            }
+
+            gm(downloadStream)
+                .resize(224, 224, IGNORE_ASPECT_RATIO)
+                .toBuffer('png', (err, buffer) => {
+                    if (err) {
+                        log('resize problem', err);
+                        return callback(handleError(err));
+                    }
+
+                    log('success');
+                    callback(new HttpResponse(buffer.toString('base64'),
+                                              OK, MimeTypes.ImagePng));
+                });
+        });
+}
+
 
 
 function handleErrorResponse(err: request.Response): HttpResponse {
@@ -98,8 +116,14 @@ function handleError(err: any): HttpResponse {
     if (err.message === 'Stream yields empty buffer') {
         return new HttpResponse({ error : 'Unsupported image file type' }, BAD_REQUEST);
     }
+    if (err.message === 'ESOCKETTIMEDOUT' || err.message === 'ETIMEDOUT') {
+        return new HttpResponse({ error : 'Unable to download image from the website' }, BAD_REQUEST);
+    }
     if (err.errno === 'ENOTFOUND') {
         return new HttpResponse({ error : 'Unable to download image from ' + err.hostname }, BAD_REQUEST);
+    }
+    if (err.code === 'ECONNRESET') {
+        return new HttpResponse({ error : 'Unable to download image from ' + err.host }, BAD_REQUEST);
     }
     return new HttpResponse({ error : err.message }, ERROR);
 }

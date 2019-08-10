@@ -388,7 +388,7 @@
             return err &&
                    err.status === 409 &&
                    err.data && err.data.code &&
-                   err.data.code === 'MLMOD12' &&
+                   (err.data.code === 'MLMOD12' || err.data.code === 'MLMOD13') &&
                    err.data.location && err.data.location.imageid && err.data.location.url &&
                    err.data.location.type === 'download';
         }

@@ -174,6 +174,14 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
                             location : err.location,
                         });
             }
+            else if (err.message === download.ERRORS.DOWNLOAD_FILETYPE_UNSUPPORTED) {
+                return res.status(httpstatus.CONFLICT)
+                        .send({
+                            code : 'MLMOD13',
+                            error : 'One of your training images is a type that cannot be used',
+                            location : err.location,
+                        });
+            }
             else {
                 return errors.unknownError(res, err);
             }

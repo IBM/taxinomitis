@@ -233,6 +233,7 @@ function safeGetHost(url: string): string {
 
 export const ERRORS = {
     DOWNLOAD_FAIL : 'Unable to download image from ',
+    DOWNLOAD_FILETYPE_UNSUPPORTED : 'Unsupported image file type',
     DOWNLOAD_FORBIDDEN : ' would not allow "Machine Learning for Kids" to use that image',
     DOWNLOAD_TOO_BIG : 'The image is too big to use. Please choose a different image.',
 };
