@@ -70,7 +70,7 @@ describe('Scratchx - status', () => {
             const extension = await extensions.getScratchxExtension(key, proj, 3);
 
             assert(extension.indexOf('class MachineLearningText') === 0);
-            assert(extension.indexOf('this._labels = [  \'LABEL NUMBER ONE\',  \'SECOND LABEL\',  ];') > 0);
+            assert(extension.indexOf('items : [  \'LABEL NUMBER ONE\',  \'SECOND LABEL\',  ]') > 0);
             assert(extension.indexOf('name: \'TEST\',') > 0);
             assert(extension.indexOf('return_label_0 () {') > 0);
             assert(extension.indexOf('return_label_1 () {') > 0);

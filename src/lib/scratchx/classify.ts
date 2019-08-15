@@ -128,7 +128,7 @@ async function classifyNumbers(key: Types.ScratchKey, numbers: string[]): Promis
         }
     }
     catch (err) {
-        log.error({ err }, 'Failed to test numbers classifier');
+        log.error({ err, numbers }, 'Failed to test numbers classifier');
     }
 
     // we don't have a trained functional decision tree,
