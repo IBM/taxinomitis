@@ -284,11 +284,11 @@ async function getVisualisationFromOpenWhisk(project: Objects.Project): Promise<
             'User-Agent': 'machinelearningforkids.co.uk',
             'Accept' : 'application/json',
         },
-        body : {
+        body : compress({
             examples,
             labels,
             formats : [ 'dot', 'svg' ],
-        },
+        }),
     };
 
     try {
@@ -329,6 +329,80 @@ export function getModelVisualisation(project: Objects.Project): Promise<Numbers
         return getVisualisationFromModelServer(project);
     }
 }
+
+
+
+
+
+
+// ---------------------------------------
+// OpenWhisk has a 128k limit on request payloads
+//
+//  This is causing requests to the describe-model function (which has to include
+//  a copy of the training data) to fail with larger training data sets.
+//
+//  These functions are a quick and dirty compression algorithm to flatten some of
+//  the duplicate data in the request.
+//
+//  I think this will get most student projects under the limit but I need a better
+//  long-term plan for large projects.
+
+export interface UncompressedTrainingData {
+    examples: any[];
+    labels: string[];
+    formats: string[];
+}
+
+export interface CompressedTrainingData {
+    examples: any[][];
+    examplesKey: string[];
+    labels: number[];
+    labelsKey: string[];
+    formats: string[];
+}
+
+export function compress(obj: UncompressedTrainingData): CompressedTrainingData {
+    const compressed: CompressedTrainingData = {
+        examplesKey : Object.keys(obj.examples[0]),
+        examples : obj.examples.map((example) => {
+            return Object.values(example);
+        }),
+        labelsKey : [],
+        formats : obj.formats,
+        labels : [],
+    };
+    compressed.labels = obj.labels.map((label) => {
+        let idx = compressed.labelsKey.indexOf(label);
+        if (idx === -1) {
+            idx = (compressed.labelsKey.push(label)) - 1;
+        }
+        return idx;
+    });
+
+    return compressed;
+}
+
+// this function is only needed for testing, as it's the Python implementation of
+//  the OpenWhisk action that actually needs to do the decompress
+export function decompress(obj: CompressedTrainingData): UncompressedTrainingData {
+    return {
+        examples : obj.examples.map((examplekey) => {
+            const example: any = {};
+            for (let idx = 0; idx < obj.examplesKey.length; idx++) {
+                const key = obj.examplesKey[idx];
+                example[key] = examplekey[idx];
+            }
+            return example;
+        }),
+        labels : obj.labels.map((labelkey) => {
+            return obj.labelsKey[labelkey];
+        }),
+        formats : obj.formats,
+    };
+}
+
+// ---------------------------------------
+
 
 
 

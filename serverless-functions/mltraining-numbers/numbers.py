@@ -13,15 +13,35 @@ from io import BytesIO
 from base64 import b64encode
 
 
+
 def main():
     # processing parameters
     params = json.loads(sys.argv[1])
     outputformats = params.get('formats', [])
-    examples = params.get('examples', [])
-    labels = params.get('labels', [])
-    vec = DictVectorizer(sparse=False)
+
+    # decompress the training data
+    examplesCompressionKey = params.get('examplesKey', [])
+    compressedexamples = params.get('examples', [])
+    examples = []
+    for compressedexample in compressedexamples:
+        example = {}
+        for idx, key in enumerate(examplesCompressionKey):
+            example[key] = compressedexample[idx]
+        examples.append(example)
+    del compressedexamples
+    del examplesCompressionKey
+
+    # decompress the output labels
+    labelsCompressionKey = params.get('labelsKey', [])
+    compressedlabels = params.get('labels', [])
+    labels = []
+    for compressedlabel in compressedlabels:
+        labels.append(labelsCompressionKey[compressedlabel])
+    del compressedlabels
+    del labelsCompressionKey
 
     # building decision tree classifier
+    vec = DictVectorizer(sparse=False)
     dt = tree.DecisionTreeClassifier()
     dt.fit(vec.fit_transform(examples), labels)
 
