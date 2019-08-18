@@ -35,7 +35,7 @@ def main():
     graph = graph_from_dot_data(dot_data)
     graph.set_size('"70"')
 
-    response = { 'vocabulary' : vec.vocabulary_ }
+    response = { 'vocabulary' : list(vec.vocabulary_) }
 
     # generating output in requested formats
     if 'png' in outputformats:

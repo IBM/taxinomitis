@@ -7,11 +7,17 @@ import loggerSetup from './logger';
 
 const log = loggerSetup();
 
+export type Execution = 'openwhisk' | 'local' | 'unknown';
+
+
+let executionType: Execution = 'unknown';
+
 
 export const FUNCTIONS = {
     TEST : '/api/auth-check',
     RESIZE_IMAGE : '/api/resize-image',
     CREATE_ZIP : '/api/create-zip',
+    DESCRIBE_MODEL : '/api/describe-model',
 };
 
 
@@ -38,7 +44,7 @@ export function getHeaders(): { [key: string]: string | undefined } {
  *         false - if there are no environment variables, or
  *                  the environment variables did not work
  */
-export async function isOpenWhiskConfigured(): Promise<boolean> {
+async function pingOpenWhisk(): Promise<boolean> {
     if (process.env[env.SERVERLESS_OPENWHISK_KEY] &&
         process.env[env.SERVERLESS_OPENWHISK_URL])
     {
@@ -71,4 +77,15 @@ export async function isOpenWhiskConfigured(): Promise<boolean> {
 
     log.info('Running all functions locally');
     return Promise.resolve(false);
+}
+
+
+
+export async function isOpenWhiskConfigured(): Promise<boolean> {
+    if (executionType === 'unknown') {
+        const useOpenwhisk = await pingOpenWhisk();
+        executionType = useOpenwhisk ? 'openwhisk' : 'local';
+        return executionType === 'openwhisk';
+    }
+    return Promise.resolve(executionType === 'openwhisk');
 }

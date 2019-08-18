@@ -3,7 +3,7 @@ packages:
     version: 0.12
     actions:
       DescribeModel:
-        docker: dalelane/mlforkids-numbers:0.0.2
+        docker: dalelane/mlforkids-numbers:0.0.3
         runtime: python
         web-export: true
     apis:

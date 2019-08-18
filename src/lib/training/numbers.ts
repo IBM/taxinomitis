@@ -5,6 +5,7 @@ import * as httpStatus from 'http-status';
 import * as store from '../db/store';
 import * as Objects from '../db/db-types';
 import * as TrainingObjects from './training-types';
+import * as openwhisk from '../utils/openwhisk';
 import * as env from '../utils/env';
 import loggerSetup from '../utils/logger';
 
@@ -223,6 +224,134 @@ async function fetchTraining(project: Objects.Project): Promise<any[][]> {
 }
 
 
+
+async function getVisualisationFromModelServer(project: Objects.Project): Promise<NumbersModelDescriptionResponse> {
+    const req: NumbersModelDescriptionRequest = {
+        auth : {
+            user : process.env[env.NUMBERS_SERVICE_USER],
+            pass : process.env[env.NUMBERS_SERVICE_PASS],
+        },
+        qs : {
+            tenantid : project.classid,
+            studentid : project.userid,
+            projectid : project.id,
+            formats : 'dot,svg',
+        },
+        json : true,
+    };
+
+    const url = process.env[env.NUMBERS_SERVICE] + '/api/models';
+
+    let response: NumbersModelDescriptionResponse;
+    try {
+        response = await request.get(url, req);
+    }
+    catch (err) {
+        if (err.statusCode === httpStatus.NOT_FOUND) {
+            const classifier = await trainClassifier(project);
+            if (classifier.status === 'Available') {
+                response = await request.get(url, req);
+            }
+            else {
+                throw new Error('Failed to create classifier');
+            }
+        }
+        else {
+            throw err;
+        }
+    }
+    return response;
+}
+
+async function getVisualisationFromOpenWhisk(project: Objects.Project): Promise<NumbersModelDescriptionResponse> {
+    const rawTraining = await fetchTraining(project);
+    const examples = [];
+    const labels: string[] = [];
+    for (const trainingItem of rawTraining) {
+        examples.push(trainingItem[0]);
+        labels.push(trainingItem[1]);
+    }
+
+    const url = openwhisk.getUrl(openwhisk.FUNCTIONS.DESCRIBE_MODEL);
+    const headers = openwhisk.getHeaders();
+
+    const serverlessRequest = {
+        url,
+        method : 'POST',
+        json : true,
+        headers : {
+            ...headers,
+            'User-Agent': 'machinelearningforkids.co.uk',
+            'Accept' : 'application/json',
+        },
+        body : {
+            examples,
+            labels,
+            formats : [ 'dot', 'svg' ],
+        },
+    };
+
+    try {
+        const response = await request.post(serverlessRequest);
+
+        return response;
+    }
+    catch (err) {
+        log.error({ err, url }, 'Failed to submit OpenWhisk request');
+        throw err;
+        // return getVisualisationFromModelServer(project);
+    }
+}
+
+
+let execution: openwhisk.Execution = 'local';
+
+function chooseExecutionEnvironment() {
+    openwhisk.isOpenWhiskConfigured()
+        .then((okayToUseOpenWhisk) => {
+            if (okayToUseOpenWhisk) {
+                execution = 'openwhisk';
+            }
+        });
+}
+
+chooseExecutionEnvironment();
+
+
+
+
+
+export function getModelVisualisation(project: Objects.Project): Promise<NumbersModelDescriptionResponse> {
+    if (execution === 'openwhisk') {
+        return getVisualisationFromOpenWhisk(project);
+    }
+    else {
+        return getVisualisationFromModelServer(project);
+    }
+}
+
+
+
+export interface NumbersModelDescriptionRequest {
+    readonly auth: {
+        readonly user: string | undefined;
+        readonly pass: string | undefined;
+    };
+    readonly qs: {
+        readonly tenantid: string;
+        readonly studentid: string;
+        readonly projectid: string;
+        readonly formats: string;
+    };
+    readonly json: true;
+}
+
+export interface NumbersModelDescriptionResponse {
+    readonly vocabulary: { [fieldname: string]: number };
+    readonly svg?: string;
+    readonly png?: string;
+    readonly dot?: string;
+}
 
 
 
