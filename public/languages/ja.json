@@ -4,6 +4,7 @@
 
         "BACK": "戻る",
         "BACKTOPROJECT": "&lt; プロジェクトに戻る",
+        "BACKTOMODEL": "&lt; Back to model",
         "ERROR": "エラー:",
         "WARNING": "注意:",
         "INFO": "情報:",
@@ -13,6 +14,7 @@
         "DELETE": "Delete",
         "EDIT": "Edit",
         "TEST": "Test",
+        "RESET": "Reset",
 
         "ABOUT": "本サイトについて",
         "TEACHER": "先生",
@@ -530,6 +532,21 @@
             "CORRECT_ANSWER": "その通り！",
             "INCORRECT_ANSWER": "いいえ。正しい答えは上ｎ通りです。",
             "NEXT_QUESTION": "次の質問"
+        }
+    },
+    "DESCRIBEMODEL": {
+        "TITLE": "Understand your machine learning model",
+        "TRYITOUT": "Try out your machine learning model to see how it uses the decision tree to make predictions",
+        "EXPLANATION": {
+            "EXPL_1": "The technique used to create your machine learning model is called a <a target='_blank' href='https://wikipedia.org/wiki/Decision_tree_learning'>Decision Tree Classifier</a>.",
+            "EXPL_2": "This is not the only way to train a machine learning model. We're using it because it's very quick and easy to train, and it is one of the easiest techniques to understand. This page shows you the decision tree that was created based on the training examples that you have collected.",
+            "EXPL_3": "When you test your model, the computer starts at the top of the tree, and follows a path until it reaches the bottom. The <strong>class</strong> at the bottom of the tree is the prediction that the machine learning model makes.",
+            "EXPL_4": "At each box in the tree, it reads the test described at the top of the box. If your test values pass the test described in the box, it follows the arrow to the left. If it doesn't pass the test, it follows the arrow to the right.",
+            "EXPL_5": "The <strong>samples</strong> shown in each box tells you how many examples in your training data matches that part of the decision tree.",
+            "EXPL_6": "The <strong>value</strong> shown in each box tells you how many examples in your training data passed the test shown at the top (following the left arrow) and how many examples didn't pass the test at the top (following the right arrow)."
+        },
+        "ERRORS": {
+            "NUMBERSONLY": "Only machine learning models for numbers projects can be described"
         }
     },
     "MAKES": {

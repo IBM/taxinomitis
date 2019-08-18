@@ -1,0 +1,52 @@
+.describemlmodel .describeintro {
+    padding: 2em;
+}
+
+.describemlmodel .decisiontreeexplanation {
+    padding-bottom: 1em;
+    font-size: 1.1em;
+}
+
+.describemlmodel .decisiontreeexplanation a {
+    font-weight: bold;
+}
+
+.describemlmodel .visualisationpage {
+    display: flex;
+    flex-direction: row;
+    height: 1000px;
+}
+
+.describemlmodel .visualisationimagehost {
+    flex: 1;
+    border: thin #eeeeee solid;
+    overflow-x: scroll;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 10px;
+    background-color: #eeeef2;
+}
+
+.describemlmodel .visualisationpage .sidepanel {
+    display: flex;
+    flex-direction: column;
+
+    width: 250px;
+    overflow-x: hidden;
+    padding: 10px;
+}
+
+.describemlmodel .visualisationpage .sidepanel .btn-group {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.describemlmodel .describeintro img {
+    float: right;
+    margin: 8px;
+    width: 35%;
+    max-width: 500px;
+    min-width: 300px;
+}

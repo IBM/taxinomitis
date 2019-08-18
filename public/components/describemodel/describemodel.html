@@ -1,0 +1,92 @@
+<div ng-if="!isAuthenticated">
+    <div class="alert alert-warning pageheadermsg">
+        <strong translate="ERRORS.NOTLOGGEDIN"></strong>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" ng-click="vm.authService.login()" translate="APP.LOGIN"></button>
+    </div>
+</div>
+<div ng-if="isAuthenticated && !projectId" class="alert alert-danger pageheadermsg">
+    <strong translate="APP.ERROR"></strong> <span translate="ERRORS.MISSINGPROJECTID"></span> <a ui-sref="projects" translate="APP.PROJECTS"></a>
+</div>
+<div ng-if="isAuthenticated && projectId" class="describemlmodel">
+    <div class="jumbotron">
+        <h2 class="text-center" translate="DESCRIBEMODEL.TITLE"></h2>
+    </div>
+    <div class="backbutton">
+        <a ui-sref="mlproject_models({ projectId : projectId, userId : userId })" translate="APP.BACKTOMODEL"></a>
+    </div>
+
+    <div ng-repeat="error in vm.errors"
+         class="alert alert-danger alert-dismissible pageheadermsg" role="alert"
+         ng-click="vm.dismissAlert('errors', $index)"
+         id="errors{{error.alertid}}">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Sorry! This is a new page and I still have some bits left to fix...</strong><br/><br/>
+        <strong translate="APP.ERROR"></strong> {{ error.message }}<br/>
+        <em ng-if="error.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
+    </div>
+    <div ng-repeat="warning in vm.warnings" class="alert alert-warning alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('warnings', $index)">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong translate="APP.WARNING"></strong> {{ warning.message }}
+    </div>
+
+    <div class="describeintro">
+        <img src="static/images/decisiontree.png">
+        <div class="decisiontreeexplanation" translate="DESCRIBEMODEL.EXPLANATION.EXPL_1"></div>
+        <div class="decisiontreeexplanation" translate="DESCRIBEMODEL.EXPLANATION.EXPL_2"></div>
+        <div class="decisiontreeexplanation" translate="DESCRIBEMODEL.EXPLANATION.EXPL_3"></div>
+        <div class="decisiontreeexplanation" translate="DESCRIBEMODEL.EXPLANATION.EXPL_4"></div>
+        <div class="decisiontreeexplanation" translate="DESCRIBEMODEL.EXPLANATION.EXPL_5"></div>
+        <div class="decisiontreeexplanation" translate="DESCRIBEMODEL.EXPLANATION.EXPL_6"></div>
+    </div>
+
+    <div ng-if="loading" class="loading"> </div>
+
+    <div ng-if="!loading && modelinfo">
+        <div class="visualisationpage">
+            <div id="mlforkidsmodelvizimghost" class="visualisationimagehost"></div>
+            <div class="sidepanel">
+                <div class="btn-group btn-group-lg" role="group">
+                    <div type="button" class="btn btn-default glyphicon glyphicon-zoom-out" ng-mousedown="vm.shrink()" ng-mouseup="vm.stop()" ng-mouseleave="vm.stop()"></div>
+                    <div type="button" class="btn btn-default glyphicon glyphicon-zoom-in" ng-mousedown="vm.grow()" ng-mouseup="vm.stop()" ng-mouseleave="vm.stop()"></div>
+                </div>
+
+                <div class="btn-group btn-group-lg" role="group">
+                    <div class="btn btn-default glyphicon glyphicon-arrow-left" ng-mousedown="vm.goleft()" ng-mouseup="vm.stop()" ng-mouseleave="vm.stop()"></div>
+                    <div class="btn btn-default glyphicon glyphicon-arrow-up" ng-mousedown="vm.goup()" ng-mouseup="vm.stop()" ng-mouseleave="vm.stop()"></div>
+                    <div class="btn btn-default glyphicon glyphicon-arrow-down" ng-mousedown="vm.godown()" ng-mouseup="vm.stop()" ng-mouseleave="vm.stop()"></div>
+                    <div class="btn btn-default glyphicon glyphicon-arrow-right" ng-mousedown="vm.goright()" ng-mouseup="vm.stop()" ng-mouseleave="vm.stop()"></div>
+                </div>
+
+                <div style="margin-top: 40px; margin-bottom: 5px;" translate="DESCRIBEMODEL.TRYITOUT"></div>
+
+                <form ng-if="project.fields" name="treetestform" ng-submit="vm.highlight(testformData)">
+                    <table style="font-size: 0.9em; margin-bottom: 5px;">
+                        <tr ng-repeat="field in project.fields">
+                            <td style="padding-right: 1em; font-size: 0.9em;">{{ field.name }}</td>
+                            <td>
+                                <input type="text"
+                                        ng-if="field.type === 'number'"
+                                        ng-pattern="/^-?[0-9]+(?:\.[0-9]*)?$/"
+                                        ng-model="testformData[field.name]"
+                                        ng-required="true">
+                                <select ng-if="field.type === 'multichoice'"
+                                        ng-required="true"
+                                        ng-model="testformData[field.name]"
+                                        ng-init="testformData[field.name] = field.choices[0]">
+                                    <option ng-repeat="choice in field.choices track by $index"
+                                            value="{{choice}}">{{choice}}</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="submit" class="btn btn-primary" value="{{ 'APP.TEST' | translate }}" ng-disabled="treetestform.$invalid" style="margin: 5px;">
+                    <div class="btn btn-default" style="margin: 5px;" ng-click="vm.resetTree()" translate="APP.RESET"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div ng-if="!loading && project.type!=='numbers'" translate="DESCRIBEMODEL.ERRORS.NUMBERSONLY"></div>
+</div>
+

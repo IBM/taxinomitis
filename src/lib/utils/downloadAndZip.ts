@@ -325,7 +325,7 @@ function downloadAllIntoZip(locations: ImageDownload[], callback: ICreateZipCall
 }
 
 
-let execution: 'openwhisk' | 'local' = 'local';
+let execution: openwhisk.Execution = 'local';
 
 function chooseExecutionEnvironment() {
     openwhisk.isOpenWhiskConfigured()

@@ -151,6 +151,15 @@
                     VERSION : <%= VERSION %>
                 }
             })
+            .state('mlproject_model_describe', {
+                url: '/mlproject/:userId/:projectId/models/:modelId',
+                controller: 'ModelDescribeController',
+                templateUrl: 'static/components-<%= VERSION %>/describemodel/describemodel.html',
+                controllerAs: 'vm',
+                params: {
+                    VERSION : <%= VERSION %>
+                }
+            })
             .state('mlproject_makes', {
                 url: '/mlproject/:userId/:projectId/makes',
                 controller: 'MakesController',

@@ -5,6 +5,7 @@ import * as httpStatus from 'http-status';
 import * as store from '../db/store';
 import * as Objects from '../db/db-types';
 import * as TrainingObjects from './training-types';
+import * as openwhisk from '../utils/openwhisk';
 import * as env from '../utils/env';
 import loggerSetup from '../utils/logger';
 
@@ -223,6 +224,212 @@ async function fetchTraining(project: Objects.Project): Promise<any[][]> {
 }
 
 
+
+async function getVisualisationFromModelServer(project: Objects.Project): Promise<NumbersModelDescriptionResponse> {
+    const req: NumbersModelDescriptionRequest = {
+        auth : {
+            user : process.env[env.NUMBERS_SERVICE_USER],
+            pass : process.env[env.NUMBERS_SERVICE_PASS],
+        },
+        qs : {
+            tenantid : project.classid,
+            studentid : project.userid,
+            projectid : project.id,
+            formats : 'dot,svg',
+        },
+        json : true,
+    };
+
+    const url = process.env[env.NUMBERS_SERVICE] + '/api/models';
+
+    let response: NumbersModelDescriptionResponse;
+    try {
+        response = await request.get(url, req);
+    }
+    catch (err) {
+        if (err.statusCode === httpStatus.NOT_FOUND) {
+            const classifier = await trainClassifier(project);
+            if (classifier.status === 'Available') {
+                response = await request.get(url, req);
+            }
+            else {
+                throw new Error('Failed to create classifier');
+            }
+        }
+        else {
+            throw err;
+        }
+    }
+    return response;
+}
+
+async function getVisualisationFromOpenWhisk(project: Objects.Project): Promise<NumbersModelDescriptionResponse> {
+    const rawTraining = await fetchTraining(project);
+    const examples = [];
+    const labels: string[] = [];
+    for (const trainingItem of rawTraining) {
+        examples.push(trainingItem[0]);
+        labels.push(trainingItem[1]);
+    }
+
+    const url = openwhisk.getUrl(openwhisk.FUNCTIONS.DESCRIBE_MODEL);
+    const headers = openwhisk.getHeaders();
+
+    const serverlessRequest = {
+        url,
+        method : 'POST',
+        json : true,
+        headers : {
+            ...headers,
+            'User-Agent': 'machinelearningforkids.co.uk',
+            'Accept' : 'application/json',
+        },
+        body : compress({
+            examples,
+            labels,
+            formats : [ 'dot', 'svg' ],
+        }),
+    };
+
+    try {
+        const response = await request.post(serverlessRequest);
+
+        return response;
+    }
+    catch (err) {
+        log.error({ err, url }, 'Failed to submit OpenWhisk request');
+
+        // could fall back to sending it to taxinomitis-numbers if
+        //  there is an OpenWhisk-specific problem?
+        // return getVisualisationFromModelServer(project);
+
+        throw err;
+    }
+}
+
+
+let execution: openwhisk.Execution = 'local';
+
+function chooseExecutionEnvironment() {
+    openwhisk.isOpenWhiskConfigured()
+        .then((okayToUseOpenWhisk) => {
+            if (okayToUseOpenWhisk) {
+                execution = 'openwhisk';
+            }
+        });
+}
+
+chooseExecutionEnvironment();
+
+
+
+
+
+export function getModelVisualisation(project: Objects.Project): Promise<NumbersModelDescriptionResponse> {
+    if (execution === 'openwhisk') {
+        return getVisualisationFromOpenWhisk(project);
+    }
+    else {
+        return getVisualisationFromModelServer(project);
+    }
+}
+
+
+
+
+
+
+// ---------------------------------------
+// OpenWhisk has a 128k limit on request payloads
+//
+//  This is causing requests to the describe-model function (which has to include
+//  a copy of the training data) to fail with larger training data sets.
+//
+//  These functions are a quick and dirty compression algorithm to flatten some of
+//  the duplicate data in the request.
+//
+//  I think this will get most student projects under the limit but I need a better
+//  long-term plan for large projects.
+
+export interface UncompressedTrainingData {
+    examples: any[];
+    labels: string[];
+    formats: string[];
+}
+
+export interface CompressedTrainingData {
+    examples: any[][];
+    examplesKey: string[];
+    labels: number[];
+    labelsKey: string[];
+    formats: string[];
+}
+
+export function compress(obj: UncompressedTrainingData): CompressedTrainingData {
+    const compressed: CompressedTrainingData = {
+        examplesKey : Object.keys(obj.examples[0]),
+        examples : obj.examples.map((example) => {
+            return Object.values(example);
+        }),
+        labelsKey : [],
+        formats : obj.formats,
+        labels : [],
+    };
+    compressed.labels = obj.labels.map((label) => {
+        let idx = compressed.labelsKey.indexOf(label);
+        if (idx === -1) {
+            idx = (compressed.labelsKey.push(label)) - 1;
+        }
+        return idx;
+    });
+
+    return compressed;
+}
+
+// this function is only needed for testing, as it's the Python implementation of
+//  the OpenWhisk action that actually needs to do the decompress
+export function decompress(obj: CompressedTrainingData): UncompressedTrainingData {
+    return {
+        examples : obj.examples.map((examplekey) => {
+            const example: any = {};
+            for (let idx = 0; idx < obj.examplesKey.length; idx++) {
+                const key = obj.examplesKey[idx];
+                example[key] = examplekey[idx];
+            }
+            return example;
+        }),
+        labels : obj.labels.map((labelkey) => {
+            return obj.labelsKey[labelkey];
+        }),
+        formats : obj.formats,
+    };
+}
+
+// ---------------------------------------
+
+
+
+
+export interface NumbersModelDescriptionRequest {
+    readonly auth: {
+        readonly user: string | undefined;
+        readonly pass: string | undefined;
+    };
+    readonly qs: {
+        readonly tenantid: string;
+        readonly studentid: string;
+        readonly projectid: string;
+        readonly formats: string;
+    };
+    readonly json: true;
+}
+
+export interface NumbersModelDescriptionResponse {
+    readonly vocabulary: { [fieldname: string]: number };
+    readonly svg?: string;
+    readonly png?: string;
+    readonly dot?: string;
+}
 
 
 

@@ -23,5 +23,6 @@ archive
 .DS_Store
 ops/.lastconv
 ops/.lastvisrec
-serverless-functions/dist
-serverless-functions/node_modules
+serverless-functions/mltraining-images/dist
+serverless-functions/mltraining-images/node_modules
+serverless-functions/mltraining-numbers/__pycache__
