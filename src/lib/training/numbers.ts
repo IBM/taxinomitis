@@ -298,8 +298,12 @@ async function getVisualisationFromOpenWhisk(project: Objects.Project): Promise<
     }
     catch (err) {
         log.error({ err, url }, 'Failed to submit OpenWhisk request');
-        throw err;
+
+        // could fall back to sending it to taxinomitis-numbers if
+        //  there is an OpenWhisk-specific problem?
         // return getVisualisationFromModelServer(project);
+
+        throw err;
     }
 }
 
