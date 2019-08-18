@@ -383,7 +383,7 @@
                     </td>
                 </tr>
             </table>
-            <input ng-if="project.type === 'text' || project.type === 'numbers'" type="submit" class="btn btn-primary" value="Test" ng-disabled="testform.$invalid" style="margin-left: 1em;" >
+            <input ng-if="project.type === 'text' || project.type === 'numbers'" type="submit" class="btn btn-primary" value="{{ 'APP.TEST' | translate }}" ng-disabled="testform.$invalid" style="margin-left: 1em;" >
             <div class="btn btn-default" style="margin-left: 50px;" ui-sref="mlproject_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model! <span class="badge">beta</span></div>
             <div ng-if="project.type === 'sounds'" style="margin: 1em">
                 <button ng-disabled="listening"  ng-click="vm.startListening()" class="btn btn-primary" translate="MODELS.TESTING.STARTLISTENING"></button>

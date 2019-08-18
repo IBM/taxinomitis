@@ -7,6 +7,10 @@
     font-size: 1.1em;
 }
 
+.describemlmodel .decisiontreeexplanation a {
+    font-weight: bold;
+}
+
 .describemlmodel .visualisationpage {
     display: flex;
     flex-direction: row;
@@ -39,4 +43,10 @@
     margin-right: auto;
 }
 
-
+.describemlmodel .describeintro img {
+    float: right;
+    margin: 8px;
+    width: 35%;
+    max-width: 500px;
+    min-width: 300px;
+}

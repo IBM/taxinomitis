@@ -11,10 +11,10 @@
 </div>
 <div ng-if="isAuthenticated && projectId" class="describemlmodel">
     <div class="jumbotron">
-        <h2 class="text-center">Understand your machine learning model <sup>(beta)</sup></h2>
+        <h2 class="text-center" translate="DESCRIBEMODEL.TITLE"></h2>
     </div>
     <div class="backbutton">
-        <a ui-sref="mlproject_models({ projectId : projectId, userId : userId })">&lt; Back to your model</a>
+        <a ui-sref="mlproject_models({ projectId : projectId, userId : userId })" translate="APP.BACKTOMODEL"></a>
     </div>
 
     <div ng-repeat="error in vm.errors"
@@ -22,7 +22,7 @@
          ng-click="vm.dismissAlert('errors', $index)"
          id="errors{{error.alertid}}">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Sorry! This is a new page and I still have some bits left to fix...</strong> it doesn't work well with larger models.<br/><br/>
+        <strong>Sorry! This is a new page and I still have some bits left to fix...</strong><br/><br/>
         <strong translate="APP.ERROR"></strong> {{ error.message }}<br/>
         <em ng-if="error.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
     </div>
@@ -32,12 +32,13 @@
     </div>
 
     <div class="describeintro">
-        <div class="decisiontreeexplanation">The technique used to create your machine learning model is called a <strong>Decision Tree Classifier</strong>.</div>
-        <div class="decisiontreeexplanation">This is not the only way to train a machine learning model. We're using it because it's very quick and easy to train, and it is one of the easiest to understand. This page shows you the decision tree that was created based on the training examples that you have collected. </div>
-        <div class="decisiontreeexplanation">When you test your model, the computer starts at the top of the tree, and follows a route until it reaches the bottom. The class at the bottom of the tree is the prediction that the machine learning model makes.</div>
-        <div class="decisiontreeexplanation">At each box in the tree, it reads the test described at the top of the box. If your test values pass the test described in the box, it follows the arrow to the left. If it doesn't pass the test, it follows the arrow to the right. </div>
-        <div class="decisiontreeexplanation">The <strong>samples</strong> shown in each box tells you how many examples in your training data matches that part of the decision tree.</div>
-        <div class="decisiontreeexplanation">The <strong>value</strong> shown in each box tells you how many examples in your training data passed the test shown at the top (following the left arrow) and how many examples didn't pass the test at the top (following the right arrow).</div>
+        <img src="static/images/decisiontree.png">
+        <div class="decisiontreeexplanation" translate="DESCRIBEMODEL.EXPLANATION.EXPL_1"></div>
+        <div class="decisiontreeexplanation" translate="DESCRIBEMODEL.EXPLANATION.EXPL_2"></div>
+        <div class="decisiontreeexplanation" translate="DESCRIBEMODEL.EXPLANATION.EXPL_3"></div>
+        <div class="decisiontreeexplanation" translate="DESCRIBEMODEL.EXPLANATION.EXPL_4"></div>
+        <div class="decisiontreeexplanation" translate="DESCRIBEMODEL.EXPLANATION.EXPL_5"></div>
+        <div class="decisiontreeexplanation" translate="DESCRIBEMODEL.EXPLANATION.EXPL_6"></div>
     </div>
 
     <div ng-if="loading" class="loading"> </div>
@@ -58,10 +59,7 @@
                     <div class="btn btn-default glyphicon glyphicon-arrow-right" ng-mousedown="vm.goright()" ng-mouseup="vm.stop()" ng-mouseleave="vm.stop()"></div>
                 </div>
 
-                <div style="margin-top: 40px; margin-bottom: 5px;">
-                    Try out your machine learning model to see how it uses the decision tree
-                    to predict a label.
-                </div>
+                <div style="margin-top: 40px; margin-bottom: 5px;" translate="DESCRIBEMODEL.TRYITOUT"></div>
 
                 <form ng-if="project.fields" name="treetestform" ng-submit="vm.highlight(testformData)">
                     <table style="font-size: 0.9em; margin-bottom: 5px;">
@@ -83,14 +81,12 @@
                             </td>
                         </tr>
                     </table>
-                    <input type="submit" class="btn btn-primary" value="Test" ng-disabled="treetestform.$invalid" style="margin: 5px;">
-                    <div class="btn btn-default" style="margin: 5px;" ng-click="vm.resetTree()">Reset</div>
+                    <input type="submit" class="btn btn-primary" value="{{ 'APP.TEST' | translate }}" ng-disabled="treetestform.$invalid" style="margin: 5px;">
+                    <div class="btn btn-default" style="margin: 5px;" ng-click="vm.resetTree()" translate="APP.RESET"></div>
                 </form>
             </div>
         </div>
     </div>
-    <div ng-if="!loading && project.type!=='numbers'">
-        Only numbers ML models can be described.
-    </div>
+    <div ng-if="!loading && project.type!=='numbers'" translate="DESCRIBEMODEL.ERRORS.NUMBERSONLY"></div>
 </div>
 
