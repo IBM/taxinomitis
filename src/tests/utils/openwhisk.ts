@@ -3,7 +3,7 @@ import * as assert from 'assert';
 import * as fs from 'fs';
 import * as async from 'async';
 import * as tmp from 'tmp';
-import * as unzip from 'unzip2';
+import * as unzip from 'unzipper';
 import * as filecompare from 'filecompare';
 import * as imagestore from '../../lib/imagestore';
 import * as downloadAndZip from '../../lib/utils/downloadAndZip';
