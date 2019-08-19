@@ -42,7 +42,7 @@ def main():
 
     # building decision tree classifier
     vec = DictVectorizer(sparse=False)
-    dt = tree.DecisionTreeClassifier()
+    dt = tree.DecisionTreeClassifier(random_state=42)
     dt.fit(vec.fit_transform(examples), labels)
 
     # creating decision tree visualization
