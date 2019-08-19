@@ -4,7 +4,7 @@
 
         "BACK": "뒤로",
         "BACKTOPROJECT": "&lt; 프로젝트로 돌아가기",
-        "BACKTOMODEL": "&lt; Back to model",
+        "BACKTOMODEL": "&lt; 모델로 돌아가기",
         "ERROR": "에러:",
         "WARNING": "경고:",
         "INFO": "정보:",
@@ -155,7 +155,7 @@
         },
         "UNMANAGED": {
             "TITLE": "<strong>등록되지 않는</strong> 교실 계정을 만들기",
-            "INTRO": "수업 계정을 직접 설정하고 관리하는 것이 더 좋다면 지금바로 시작 할 수 있습니다",
+            "INTRO": "수업 계정을 직접 설정하고 관리하는 것이 더 좋다면 지금 바로 시작 할 수 있습니다",
             "LISTINTRO": "다음과 같이 해야합니다:",
             "LIST_CREATEACCOUNT": "IBM Cloud에서 계정 만들기",
             "LIST_CREATEAPIKEYS": "머신러닝 모델을 학습하는 데 필요한 Watson 클라우드 서비스 용 API키 만들기",
@@ -163,7 +163,7 @@
             "HELP": "이 모든 것에 대한 단계별 지침(스크린 샷 포함)을 사용할 수 있습니다."
         },
         "MANAGED": {
-            "TITLE": "<strong>관리되는 </ strong> 교실 계정 만들기",
+            "TITLE": "<strong>관리되는</ strong> 교실 계정 만들기",
             "INTRO": "Dale이 계정을 개설하는 것을 도와주길 원한다면, 아래 버튼을 사용하여 다음 정보가 포함된 전자 메일을 보내십시오:",
             "LIST_NUMBEROFSTUDENTS": "대략 얼마나 많은 학생 계정이 필요한지 알려주세요",
             "LIST_NAMEOFSCHOOL": "학교 또는 코딩 그룹의 이름",
@@ -190,7 +190,7 @@
         },
         "TYPES": {
             "LABEL": "인식방법",
-            "NOTES_1": "컴퓨터가 어떤 방식으로 인식하도록 할지 선택해봅시다.?",
+            "NOTES_1": "컴퓨터가 어떤 방식으로 인식하도록 할지 선택해봅시다",
             "NOTES_2": "글자, 문장을 인식하도록 한다면 \"문자(text)\"를 선택하세요",
             "NOTES_3": "사진, 다이어그램 등을 인식하도록 원한다면 \"이미지(images)\"를 선택하세요",
             "NOTES_4": "숫자 등을 인식하도록 원한다면 \"숫자(numbers)\"를 선택하세요",
@@ -614,7 +614,7 @@
             "TEXT": "텍스트",
             "IMAGES": "이미지",
             "NUMBERS": "숫자",
-            "SOUNDS": "sounds"
+            "SOUNDS": "소리"
         },
 
         "LEVELS": {
@@ -887,7 +887,7 @@
         "RESTRICTIONS": {
             "TITLE": "관리자 : 제한사항",
 
-            "ASK_FOR_CHANGES": "만약 여러분의 교실에서 아래의 제한 사항이 생긴다면 <strong><a href='/help'>연락</a></strong>해주세요.",
+            "ASK_FOR_CHANGES": "만약 여러분의 교실의 제한 사항을 수정해야 한다면 <strong><a href='/help'>연락</a></strong>해 세요.",
 
             "CLASS_LIMITS": {
                 "TITLE": "여러분 학급의 제한 사항",
@@ -945,7 +945,7 @@
             "NOT_AUTHORIZED": "학생 관리에 접근할 권한이 없습니다.",
 
             "ADD_MULTIPLE": {
-                "BUTTON" : "Multiple students",
+                "BUTTON" : "여러 학생 추가",
 
                 "TITLE" : "새로운 학생 추가",
                 "INTRO" : "여려명의 학생 계정을 추가할 때 사용할 수 있습니다.",
