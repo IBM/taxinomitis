@@ -2,7 +2,7 @@
 import * as assert from 'assert';
 import * as filecompare from 'filecompare';
 import * as fs from 'fs';
-import * as unzip from 'unzip2';
+import * as unzip from 'unzipper';
 import * as tmp from 'tmp';
 import * as async from 'async';
 
