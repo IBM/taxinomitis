@@ -16,7 +16,7 @@ services:
 
 before_install:
 - mysql -u root --password="" -e 'DROP DATABASE IF EXISTS mlforkidsdb;'
-- mysql -u root --password="" -e 'CREATE DATABASE mlforkidsdb;'
+- mysql -u root --password="" -e 'CREATE DATABASE mlforkidsdb CHARACTER SET latin1 COLLATE latin1_swedish_ci;'
 - mysql -u root --password="" < sql/tables.sql
 
 script:
