@@ -4,7 +4,7 @@ import * as request from 'supertest';
 import * as fs from 'fs';
 import * as Express from 'express';
 import * as httpstatus from 'http-status';
-import * as unzip from 'unzip2';
+import * as unzip from 'unzipper';
 import * as tmp from 'tmp';
 
 import testapiserver from './testserver';

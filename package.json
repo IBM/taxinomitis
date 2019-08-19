@@ -44,6 +44,7 @@
     "@types/supertest": "2.0.8",
     "@types/tmp": "0.1.0",
     "@types/unzip": "^0.1.1",
+    "@types/unzipper": "^0.10.0",
     "@types/uuid": "3.4.5",
     "autoprefixer": "9.6.1",
     "clone": "2.1.2",
@@ -88,7 +89,7 @@
     "tslint-eslint-rules": "5.4.0",
     "typescript": "3.5.3",
     "typescript-require": "0.2.10",
-    "unzip2": "0.2.5"
+    "unzipper": "0.10.3"
   },
   "dependencies": {
     "@slack/webhook": "^5.0.1",
