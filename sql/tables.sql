@@ -1,3 +1,7 @@
+-- CREATE DATABASE mlforkidsdb CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+
+-- ------------------------------------------------------------------
+
 use mlforkidsdb;
 
 -- ------------------------------------------------------------------
