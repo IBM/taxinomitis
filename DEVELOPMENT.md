@@ -28,7 +28,7 @@ The site stores information in a MySQL database. An SQL script is provided in `s
 You can use it like this:
 ```
 mysql -u YOUR-MYSQL-USERNAME --password=YOUR-MYSQL-PASSWORD -e 'DROP DATABASE IF EXISTS mlforkidsdb;'
-mysql -u YOUR-MYSQL-USERNAME --password=YOUR-MYSQL-PASSWORD -e 'CREATE DATABASE mlforkidsdb;'
+mysql -u YOUR-MYSQL-USERNAME --password=YOUR-MYSQL-PASSWORD -e 'CREATE DATABASE mlforkidsdb CHARACTER SET latin1 COLLATE latin1_swedish_ci;'
 mysql -u YOUR-MYSQL-USERNAME --password=YOUR-MYSQL-PASSWORD < sql/tables.sql
 ```
 

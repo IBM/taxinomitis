@@ -172,7 +172,7 @@ describe('REST API - Auth', () => {
                     classid : 'test',
                     projectid : 'tutorial',
                 },
-            } as Express.Request;
+            } as unknown as Express.Request;
             const res = {
             } as Express.Response;
 

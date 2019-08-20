@@ -1,3 +1,7 @@
+-- CREATE DATABASE mlforkidsdb CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+
+-- ------------------------------------------------------------------
+
 use mlforkidsdb;
 
 -- ------------------------------------------------------------------
@@ -64,7 +68,7 @@ CREATE TABLE imagetraining (
     isstored BOOLEAN DEFAULT false
 );
 
-CREATE INDEX imagetraining_getImageTraining on imagetraining(projectid, label, imageurl);
+CREATE INDEX imagetraining_getImageTraining on imagetraining(projectid, label, imageurl(250));
 CREATE INDEX imagetraining_getTrainingLabels on imagetraining(projectid);
 
 
