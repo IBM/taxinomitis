@@ -1,8 +1,8 @@
 // local dependencies
-import * as imagestore from '../imagestore';
+import * as objectstore from '../objectstore';
 import loggerSetup from '../utils/logger';
 import * as Types from '../db/db-types';
-import * as ImageTypes from '../imagestore/types';
+import * as ObjectTypes from '../objectstore/types';
 
 
 const log = loggerSetup();
@@ -15,12 +15,12 @@ function fail(spec: Types.PendingJobData, expected: string): Error {
 }
 
 
-function getImageSpec(spec: Types.PendingJobData): ImageTypes.ImageSpec {
-    const check = spec as ImageTypes.ImageSpec;
+function getObjectSpec(spec: Types.PendingJobData): ObjectTypes.ObjectSpec {
+    const check = spec as ObjectTypes.ObjectSpec;
     if (check.classid &&
         check.userid &&
         check.projectid &&
-        check.imageid)
+        check.objectid)
     {
         return check;
     }
@@ -28,8 +28,8 @@ function getImageSpec(spec: Types.PendingJobData): ImageTypes.ImageSpec {
     throw fail(spec, 'ImageSpec');
 }
 
-function getProjectSpec(spec: Types.PendingJobData): ImageTypes.ProjectSpec {
-    const check = spec as ImageTypes.ProjectSpec;
+function getProjectSpec(spec: Types.PendingJobData): ObjectTypes.ProjectSpec {
+    const check = spec as ObjectTypes.ProjectSpec;
     if (check.classid &&
         check.userid &&
         check.projectid)
@@ -40,8 +40,8 @@ function getProjectSpec(spec: Types.PendingJobData): ImageTypes.ProjectSpec {
     throw fail(spec, 'ProjectSpec');
 }
 
-function getUserSpec(spec: Types.PendingJobData): ImageTypes.UserSpec {
-    const check = spec as ImageTypes.UserSpec;
+function getUserSpec(spec: Types.PendingJobData): ObjectTypes.UserSpec {
+    const check = spec as ObjectTypes.UserSpec;
     if (check.classid &&
         check.userid)
     {
@@ -51,8 +51,8 @@ function getUserSpec(spec: Types.PendingJobData): ImageTypes.UserSpec {
     throw fail(spec, 'UserSpec');
 }
 
-function getClassSpec(spec: Types.PendingJobData): ImageTypes.ClassSpec {
-    const check = spec as ImageTypes.ClassSpec;
+function getClassSpec(spec: Types.PendingJobData): ObjectTypes.ClassSpec {
+    const check = spec as ObjectTypes.ClassSpec;
     if (check.classid)
     {
         return check;
@@ -66,14 +66,14 @@ function getClassSpec(spec: Types.PendingJobData): ImageTypes.ClassSpec {
 export function processJob(job: Types.PendingJob): Promise<void> {
 
     switch (job.jobtype) {
-    case Types.PendingJobType.DeleteOneImageFromObjectStorage:
-        return imagestore.deleteImage(getImageSpec(job.jobdata));
-    case Types.PendingJobType.DeleteProjectImagesFromObjectStorage:
-        return imagestore.deleteProject(getProjectSpec(job.jobdata));
-    case Types.PendingJobType.DeleteUserImagesFromObjectStorage:
-        return imagestore.deleteUser(getUserSpec(job.jobdata));
-    case Types.PendingJobType.DeleteClassImagesFromObjectStorage:
-        return imagestore.deleteClass(getClassSpec(job.jobdata));
+    case Types.PendingJobType.DeleteOneObjectFromObjectStorage:
+        return objectstore.deleteObject(getObjectSpec(job.jobdata));
+    case Types.PendingJobType.DeleteProjectObjectsFromObjectStorage:
+        return objectstore.deleteProject(getProjectSpec(job.jobdata));
+    case Types.PendingJobType.DeleteUserObjectsFromObjectStorage:
+        return objectstore.deleteUser(getUserSpec(job.jobdata));
+    case Types.PendingJobType.DeleteClassObjectsFromObjectStorage:
+        return objectstore.deleteClass(getClassSpec(job.jobdata));
     default:
         log.error({ job }, 'Unrecognised pending job type');
         throw new Error('Unrecognised pending job type');

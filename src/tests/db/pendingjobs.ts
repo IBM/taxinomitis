@@ -26,11 +26,11 @@ describe('DB store - pending jobs', () => {
             const classid = uuid();
             const userid = uuid();
             const projectid = uuid();
-            const imageid = uuid();
+            const objectid = uuid();
 
-            const job = await store.storeDeleteImageJob(classid, userid, projectid, imageid);
+            const job = await store.storeDeleteObjectJob(classid, userid, projectid, objectid);
             const expectedSpec = {
-                classid, userid, projectid, imageid,
+                classid, userid, projectid, objectid,
             };
             assert.deepStrictEqual(job.jobdata, expectedSpec);
 
@@ -44,7 +44,7 @@ describe('DB store - pending jobs', () => {
             const userid = uuid();
             const projectid = uuid();
 
-            const job = await store.storeDeleteProjectImagesJob(classid, userid, projectid);
+            const job = await store.storeDeleteProjectObjectsJob(classid, userid, projectid);
             const expectedSpec = {
                 classid, userid, projectid,
             };
@@ -59,7 +59,7 @@ describe('DB store - pending jobs', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const job = await store.storeDeleteUserImagesJob(classid, userid);
+            const job = await store.storeDeleteUserObjectsJob(classid, userid);
             const expectedSpec = {
                 classid, userid,
             };
@@ -73,7 +73,7 @@ describe('DB store - pending jobs', () => {
         it('should store a job to delete classes', async () => {
             const classid = uuid();
 
-            const job = await store.storeDeleteClassImagesJob(classid);
+            const job = await store.storeDeleteClassObjectsJob(classid);
             const expectedSpec = {
                 classid,
             };
@@ -94,7 +94,7 @@ describe('DB store - pending jobs', () => {
             const projectid = uuid();
             const imageid = uuid();
 
-            const job = await store.storeDeleteImageJob(classid, userid, projectid, imageid);
+            const job = await store.storeDeleteObjectJob(classid, userid, projectid, imageid);
 
             const fetch = await store.getNextPendingJob();
             assert.deepStrictEqual(fetch, job);
@@ -105,7 +105,7 @@ describe('DB store - pending jobs', () => {
             const userid = uuid();
             const projectid = uuid();
 
-            const job = await store.storeDeleteProjectImagesJob(classid, userid, projectid);
+            const job = await store.storeDeleteProjectObjectsJob(classid, userid, projectid);
 
             const fetch = await store.getNextPendingJob();
             assert.deepStrictEqual(fetch, job);
@@ -115,7 +115,7 @@ describe('DB store - pending jobs', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const job = await store.storeDeleteUserImagesJob(classid, userid);
+            const job = await store.storeDeleteUserObjectsJob(classid, userid);
 
             const fetch = await store.getNextPendingJob();
             assert.deepStrictEqual(fetch, job);
@@ -124,7 +124,7 @@ describe('DB store - pending jobs', () => {
         it('should retrieve a job to delete classes', async () => {
             const classid = uuid();
 
-            const job = await store.storeDeleteClassImagesJob(classid);
+            const job = await store.storeDeleteClassObjectsJob(classid);
 
             const fetch = await store.getNextPendingJob();
             assert.deepStrictEqual(fetch, job);
@@ -138,9 +138,9 @@ describe('DB store - pending jobs', () => {
             const imageid = uuid();
 
             const allJobs: any = {};
-            allJobs.image = await store.storeDeleteImageJob(classid, userid, projectid, imageid);
-            allJobs.project = await store.storeDeleteProjectImagesJob(classid, userid, projectid);
-            allJobs.user = await store.storeDeleteUserImagesJob(classid, userid);
+            allJobs.image = await store.storeDeleteObjectJob(classid, userid, projectid, imageid);
+            allJobs.project = await store.storeDeleteProjectObjectsJob(classid, userid, projectid);
+            allJobs.user = await store.storeDeleteUserObjectsJob(classid, userid);
 
             assert.strictEqual(Object.keys(allJobs).length, 3);
 
@@ -180,7 +180,7 @@ describe('DB store - pending jobs', () => {
             const projectid = uuid();
             const imageid = uuid();
 
-            const job = await store.storeDeleteImageJob(classid, userid, projectid, imageid);
+            const job = await store.storeDeleteObjectJob(classid, userid, projectid, imageid);
 
             const retrieveBefore = await store.getNextPendingJob();
             assert.deepStrictEqual(job, retrieveBefore);
@@ -198,7 +198,7 @@ describe('DB store - pending jobs', () => {
             const projectid = uuid();
             const imageid = uuid();
 
-            const job = await store.storeDeleteImageJob(classid, userid, projectid, imageid);
+            const job = await store.storeDeleteObjectJob(classid, userid, projectid, imageid);
             await store.recordUnsuccessfulPendingJobExecution(job);
 
             const retrieveBefore = await store.getNextPendingJob();
@@ -223,7 +223,7 @@ describe('DB store - pending jobs', () => {
             const userid = uuid();
             const projectid = uuid();
 
-            const job = await store.storeDeleteProjectImagesJob(classid, userid, projectid);
+            const job = await store.storeDeleteProjectObjectsJob(classid, userid, projectid);
             const expectedSpec = {
                 classid, userid, projectid,
             };
@@ -258,7 +258,7 @@ describe('DB store - pending jobs', () => {
             const classid = uuid();
             const userid = uuid();
 
-            const job = await store.storeDeleteUserImagesJob(classid, userid);
+            const job = await store.storeDeleteUserObjectsJob(classid, userid);
 
             let current = job;
             for (let i = 0; i < 8; i++) {

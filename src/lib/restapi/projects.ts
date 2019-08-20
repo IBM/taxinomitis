@@ -228,7 +228,7 @@ async function deleteProject(req: auth.RequestWithProject, res: Express.Response
         // if this is an images project, schedule a job to clean up
         //  any usage of the S3 Object Store by the training images
         if (project.type === 'images') {
-            await store.storeDeleteProjectImagesJob(classid, userid, projectid);
+            await store.storeDeleteProjectObjectsJob(classid, userid, projectid);
         }
 
         await store.deleteEntireProject(userid, classid, project);
@@ -306,7 +306,7 @@ function getProjectPatch(req: Express.Request) {
 async function deleteImages(classid: string, userid: string, projectid: string, label: string): Promise<void> {
     const imagesToDelete = await store.getStoredImageTraining(projectid, label);
     for (const imageToDelete of imagesToDelete) {
-        await store.storeDeleteImageJob(classid, userid, projectid, imageToDelete.id);
+        await store.storeDeleteObjectJob(classid, userid, projectid, imageToDelete.id);
     }
 }
 

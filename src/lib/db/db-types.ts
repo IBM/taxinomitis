@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 import * as TrainingObjects from '../training/training-types';
-import * as ObjectStoreTypes from '../imagestore/types';
+import * as ObjectStoreTypes from '../objectstore/types';
 
 export interface Project {
     readonly id: string;
@@ -176,10 +176,10 @@ export interface PendingJobDbRow {
 }
 
 export enum PendingJobType {
-    DeleteOneImageFromObjectStorage      = 1,
-    DeleteProjectImagesFromObjectStorage = 2,
-    DeleteUserImagesFromObjectStorage    = 3,
-    DeleteClassImagesFromObjectStorage   = 4,
+    DeleteOneObjectFromObjectStorage      = 1,
+    DeleteProjectObjectsFromObjectStorage = 2,
+    DeleteUserObjectsFromObjectStorage    = 3,
+    DeleteClassObjectsFromObjectStorage   = 4,
 }
 
 export type PendingJobData = ObjectStoreTypes.ObjectStoreSpec;

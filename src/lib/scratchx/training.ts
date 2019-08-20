@@ -3,9 +3,9 @@ import * as uuid from 'uuid/v4';
 // local dependencies
 import * as store from '../db/store';
 import * as Types from '../db/db-types';
-import * as imagestore from '../imagestore';
+import * as objectstore from '../objectstore';
 import * as urlparse from '../restapi/images/urlparse';
-import * as ImageTypes from '../imagestore/types';
+import * as ObjectTypes from '../objectstore/types';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -110,21 +110,21 @@ async function storeImages(key: Types.ScratchKey, label: string, base64imagedata
 
     // All looks good!
 
-    const imageSpec: ImageTypes.ImageSpec = {
+    const imageSpec: ObjectTypes.ObjectSpec = {
         classid : project.classid,
         userid : project.userid,
         projectid : project.id,
-        imageid : uuid(),
+        objectid : uuid(),
     };
 
-    await imagestore.storeImage(imageSpec, 'image/jpeg', Buffer.from(base64imagedata, 'base64'));
+    await objectstore.storeImage(imageSpec, 'image/jpeg', Buffer.from(base64imagedata, 'base64'));
 
     return store.storeImageTraining(
         imageSpec.projectid,
         urlparse.createImageUrl(imageSpec),
         label,
         true,
-        imageSpec.imageid);
+        imageSpec.objectid);
 }
 
 

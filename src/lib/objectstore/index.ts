@@ -55,7 +55,7 @@ export function getCredentials() {
 
 
 export async function storeImage(
-    spec: Types.ImageSpec,
+    spec: Types.ObjectSpec,
     type: Types.ImageFileType,
     contents: Buffer,
 ): Promise<string | undefined>
@@ -73,7 +73,7 @@ export async function storeImage(
 }
 
 
-export async function getImage(spec: Types.ImageSpec): Promise<Types.Image> {
+export async function getImage(spec: Types.ObjectSpec): Promise<Types.Image> {
     const objectDefinition: IBMCosSDK.S3.GetObjectRequest = {
         Bucket: BUCKET,
         Key: keys.get(spec),
@@ -83,7 +83,7 @@ export async function getImage(spec: Types.ImageSpec): Promise<Types.Image> {
     return getImageObject(objectDefinition.Key, response);
 }
 
-export async function deleteImage(spec: Types.ImageSpec): Promise<void> {
+export async function deleteObject(spec: Types.ObjectSpec): Promise<void> {
     const objectDefinition: IBMCosSDK.S3.DeleteObjectRequest = {
         Bucket: BUCKET,
         Key: keys.get(spec),

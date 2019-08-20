@@ -124,10 +124,10 @@ async function deleteTraining(req: auth.RequestWithProject, res: Express.Respons
     if (req.project.type === 'images') {
         const inImageStore = await store.isImageStored(trainingid);
         if (inImageStore) {
-            store.storeDeleteImageJob(req.params.classid,
-                                      req.params.studentid,
-                                      req.params.projectid,
-                                      trainingid);
+            store.storeDeleteObjectJob(req.params.classid,
+                                       req.params.studentid,
+                                       req.params.projectid,
+                                       trainingid);
         }
     }
 

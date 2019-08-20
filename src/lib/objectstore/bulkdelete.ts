@@ -25,11 +25,11 @@ export async function deleteProject(
         Delimiter: keys.SEPARATOR,
     };
 
-    let imageKeys = await getImageKeys(cos, req);
+    let imageKeys = await getObjectKeys(cos, req);
     do {
         await bulkDelete(cos, bucket, imageKeys);
 
-        imageKeys = await getImageKeys(cos, req);
+        imageKeys = await getObjectKeys(cos, req);
     } while (imageKeys.length > 0);
 }
 
@@ -130,7 +130,7 @@ function bulkDelete(
 
 
 
-function getImageKeys(cos: IBMCosSDK.S3, req: IBMCosSDK.S3.ListObjectsRequest): Promise<string[]> {
+function getObjectKeys(cos: IBMCosSDK.S3, req: IBMCosSDK.S3.ListObjectsRequest): Promise<string[]> {
     return cos.listObjects(req).promise()
         .then((response: IBMCosSDK.S3.ListObjectsOutput) => {
             return response.Contents;

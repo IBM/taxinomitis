@@ -11,7 +11,7 @@ import * as httpStatus from 'http-status';
 
 import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
-import * as imagestore from '../../lib/imagestore';
+import * as imagestore from '../../lib/objectstore';
 import * as mock from '../imagestore/mockStore';
 import testapiserver from './testserver';
 

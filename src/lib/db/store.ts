@@ -1767,34 +1767,34 @@ async function storePendingJob(job: Objects.PendingJob): Promise<Objects.Pending
     return job;
 }
 
-export function storeDeleteImageJob(
+export function storeDeleteObjectJob(
     classid: string, userid: string, projectid: string,
-    imageid: string,
+    objectid: string,
 ): Promise<Objects.PendingJob>
 {
-    const obj = dbobjects.createDeleteImageJob({ classid, userid, projectid, imageid });
+    const obj = dbobjects.createDeleteObjectStoreJob({ classid, userid, projectid, objectid });
     return storePendingJob(obj);
 }
 
-export function storeDeleteProjectImagesJob(
+export function storeDeleteProjectObjectsJob(
     classid: string, userid: string, projectid: string,
 ): Promise<Objects.PendingJob>
 {
-    const obj = dbobjects.createDeleteProjectImagesJob({ classid, userid, projectid });
+    const obj = dbobjects.createDeleteProjectObjectsJob({ classid, userid, projectid });
     return storePendingJob(obj);
 }
 
-export function storeDeleteUserImagesJob(
+export function storeDeleteUserObjectsJob(
     classid: string, userid: string,
 ): Promise<Objects.PendingJob>
 {
-    const obj = dbobjects.createDeleteUserImagesJob({ classid, userid });
+    const obj = dbobjects.createDeleteUserObjectsJob({ classid, userid });
     return storePendingJob(obj);
 }
 
-export function storeDeleteClassImagesJob(classid: string): Promise<Objects.PendingJob>
+export function storeDeleteClassObjectsJob(classid: string): Promise<Objects.PendingJob>
 {
-    const obj = dbobjects.createDeleteClassImagesJob({ classid });
+    const obj = dbobjects.createDeleteClassObjectsJob({ classid });
     return storePendingJob(obj);
 }
 

@@ -3,7 +3,7 @@ import * as Express from 'express';
 import * as httpStatus from 'http-status';
 // local dependencies
 import * as auth from '../auth';
-import * as store from '../../imagestore';
+import * as store from '../../objectstore';
 import * as parse from './urlparse';
 import * as urls from '../urls';
 import * as headers from '../headers';

@@ -226,7 +226,7 @@ async function deleteStudent(req: Express.Request, res: Express.Response) {
     }
 
     try {
-        await store.storeDeleteUserImagesJob(tenant, userid);
+        await store.storeDeleteUserObjectsJob(tenant, userid);
     }
     catch (err) {
         log.error({ err }, 'Failed to clean up image store for deleted user');

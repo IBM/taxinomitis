@@ -6,7 +6,7 @@ import * as projects from './projects';
 import * as sitealerts from './site-alerts';
 import * as Objects from './db-types';
 import * as TrainingObjects from '../training/training-types';
-import * as ObjectStoreTypes from '../imagestore/types';
+import * as ObjectStoreTypes from '../objectstore/types';
 
 
 
@@ -858,7 +858,7 @@ export function createKnownError(
 //
 // -----------------------------------------------------------------------------
 
-export function createDeleteImageJob(spec: ObjectStoreTypes.ImageSpec): Objects.PendingJob
+export function createDeleteObjectStoreJob(spec: ObjectStoreTypes.ObjectSpec): Objects.PendingJob
 {
     if (!spec.classid) {
         throw new Error('Missing required class id');
@@ -869,19 +869,19 @@ export function createDeleteImageJob(spec: ObjectStoreTypes.ImageSpec): Objects.
     if (!spec.projectid) {
         throw new Error('Missing required project id');
     }
-    if (!spec.imageid) {
-        throw new Error('Missing required image id');
+    if (!spec.objectid) {
+        throw new Error('Missing required object id');
     }
 
     return {
         id : uuid(),
-        jobtype : Objects.PendingJobType.DeleteOneImageFromObjectStorage,
+        jobtype : Objects.PendingJobType.DeleteOneObjectFromObjectStorage,
         jobdata : spec,
         attempts : 0,
     };
 }
 
-export function createDeleteProjectImagesJob(spec: ObjectStoreTypes.ProjectSpec): Objects.PendingJob
+export function createDeleteProjectObjectsJob(spec: ObjectStoreTypes.ProjectSpec): Objects.PendingJob
 {
     if (!spec.classid) {
         throw new Error('Missing required class id');
@@ -895,13 +895,13 @@ export function createDeleteProjectImagesJob(spec: ObjectStoreTypes.ProjectSpec)
 
     return {
         id : uuid(),
-        jobtype : Objects.PendingJobType.DeleteProjectImagesFromObjectStorage,
+        jobtype : Objects.PendingJobType.DeleteProjectObjectsFromObjectStorage,
         jobdata : spec,
         attempts : 0,
     };
 }
 
-export function createDeleteUserImagesJob(spec: ObjectStoreTypes.UserSpec): Objects.PendingJob
+export function createDeleteUserObjectsJob(spec: ObjectStoreTypes.UserSpec): Objects.PendingJob
 {
     if (!spec.classid) {
         throw new Error('Missing required class id');
@@ -912,13 +912,13 @@ export function createDeleteUserImagesJob(spec: ObjectStoreTypes.UserSpec): Obje
 
     return {
         id : uuid(),
-        jobtype : Objects.PendingJobType.DeleteUserImagesFromObjectStorage,
+        jobtype : Objects.PendingJobType.DeleteUserObjectsFromObjectStorage,
         jobdata : spec,
         attempts : 0,
     };
 }
 
-export function createDeleteClassImagesJob(spec: ObjectStoreTypes.ClassSpec): Objects.PendingJob
+export function createDeleteClassObjectsJob(spec: ObjectStoreTypes.ClassSpec): Objects.PendingJob
 {
     if (!spec.classid) {
         throw new Error('Missing required class id');
@@ -926,7 +926,7 @@ export function createDeleteClassImagesJob(spec: ObjectStoreTypes.ClassSpec): Ob
 
     return {
         id : uuid(),
-        jobtype : Objects.PendingJobType.DeleteClassImagesFromObjectStorage,
+        jobtype : Objects.PendingJobType.DeleteClassObjectsFromObjectStorage,
         jobdata : spec,
         attempts : 0,
     };

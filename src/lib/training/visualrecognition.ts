@@ -282,7 +282,7 @@ async function getTraining(project: DbObjects.Project): Promise<{ [label: string
                     const fromStorage: downloadAndZip.ImageDownload = {
                         type : 'retrieve',
                         spec : {
-                            imageid : trainingitem.id,
+                            objectid : trainingitem.id,
                             projectid : project.id,
                             userid : project.userid,
                             classid : project.classid,

@@ -1,15 +1,15 @@
 // local dependency
-import { ImageSpec, ProjectSpec, UserSpec, ClassSpec } from './types';
+import { ObjectSpec, ProjectSpec, UserSpec, ClassSpec } from './types';
 
 export const SEPARATOR = '/';
 
 
-export function get(spec: ImageSpec): string {
+export function get(spec: ObjectSpec): string {
     return [
         spec.classid,
         spec.userid,
         spec.projectid,
-        spec.imageid,
+        spec.objectid,
     ].join(SEPARATOR);
 }
 

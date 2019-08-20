@@ -5,14 +5,14 @@ import * as async from 'async';
 import * as tmp from 'tmp';
 import * as unzip from 'unzipper';
 import * as filecompare from 'filecompare';
-import * as imagestore from '../../lib/imagestore';
+import * as objectstore from '../../lib/objectstore';
 import * as downloadAndZip from '../../lib/utils/downloadAndZip';
 
 
 describe.skip('Request image training zip from OpenWhisk', () => {
 
     before(() => {
-        imagestore.init();
+        objectstore.init();
     });
 
     describe('Zip', () => {

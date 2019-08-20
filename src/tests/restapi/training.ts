@@ -1381,7 +1381,7 @@ describe('REST API - training', () => {
                         assert.strictEqual(job.attempts, 0);
                         assert.deepStrictEqual(job.jobdata, {
                             projectid, userid, classid,
-                            imageid : trainingOne.id,
+                            objectid : trainingOne.id,
                         });
 
                         await store.deletePendingJob(job);
