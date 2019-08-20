@@ -503,8 +503,12 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-noughtsandcrosses.pdf',
                     downloads : [
                         {
-                            description : 'Classroom version, where each student makes the game themselves',
+                            description : 'Classroom version, in Scratch, where each student makes the game themselves',
                             worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses.pdf'
+                        },
+                        {
+                            description : 'Classroom version, using Python, where each student makes the game themselves',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-python.pdf'
                         },
                         {
                             description : 'Demo version, for events like Science Fairs where each child has a minute or two to try something',
