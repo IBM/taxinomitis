@@ -377,7 +377,9 @@ export function createImageTraining(
     }
 
     if (imageurl.length > MAX_CONTENTS_LENGTH) {
-        throw new Error('Image URL exceeds maximum allowed length (1024 characters)');
+        throw new Error('Image URL exceeds maximum allowed length (' +
+                        MAX_CONTENTS_LENGTH +
+                        ' characters)');
     }
 
     const object: any = {
@@ -411,32 +413,19 @@ export function getImageTrainingFromDbRow(row: Objects.ImageTrainingDbRow): Obje
 }
 
 
-export const MAX_AUDIO_POINTS = 20000;
 
-export function createSoundTraining(projectid: string, data: any[], label: string): Objects.SoundTraining {
+export function createSoundTraining(projectid: string, label: string, audiodataid: string): Objects.SoundTraining {
     if (projectid === undefined || projectid === '' ||
-        label === undefined || label === '' ||
-        data === undefined || typeof data !== 'object' || !Array.isArray(data))
+        label === undefined || label === '' || typeof label !== 'string' ||
+        audiodataid === undefined || audiodataid === '' || typeof audiodataid !== 'string')
     {
         throw new Error('Missing required attributes');
-    }
-
-    if (data.length === 0) {
-        throw new Error('Empty audio is not allowed');
-    }
-    if (data.length > MAX_AUDIO_POINTS) {
-        throw new Error('Audio exceeds maximum allowed length');
-    }
-
-    const invalidAudio = data.some((item) => isNaN(parseFloat(item)));
-    if (invalidAudio) {
-        throw new Error('Invalid audio input');
     }
 
     return {
         id : uuid(),
         projectid,
-        audiodata : data,
+        audiodataid,
         label,
     };
 }
@@ -444,22 +433,20 @@ export function createSoundTraining(projectid: string, data: any[], label: strin
 export function getSoundTrainingFromDbRow(row: Objects.SoundTrainingDbRow): Objects.SoundTraining {
     const obj: any = {
         id : row.id,
-        audiodata : row.audiodata.split(',').map(parseFloat),
         label : row.label,
+        audiodataid : row.audiodataid,
     };
-
     if (row.projectid) {
         obj.projectid = row.projectid;
     }
-
     return obj;
 }
 
 export function createSoundTrainingDbRow(obj: Objects.SoundTraining): Objects.SoundTrainingDbRow {
     return {
         id : obj.id,
-        audiodata : obj.audiodata.join(','),
         label : obj.label,
+        audiodataid : obj.audiodataid,
         projectid : obj.projectid,
     };
 }

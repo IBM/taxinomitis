@@ -82,6 +82,19 @@ CREATE TABLE soundtraining (
 CREATE INDEX soundtraining_getSoundTraining on soundtraining(projectid, label);
 CREATE INDEX soundtraining_getTrainingLabels on soundtraining(projectid);
 
+
+
+CREATE TABLE soundtrainingnew (
+    id CHAR(36) NOT NULL PRIMARY KEY,
+    projectid CHAR(36) NOT NULL,
+    audiodataid CHAR(150),
+    label VARCHAR(100)
+);
+
+CREATE INDEX soundtrainingnew_getSoundTraining on soundtrainingnew(projectid, label);
+CREATE INDEX soundtrainingnew_getTrainingLabels on soundtrainingnew(projectid);
+
+
 -- ------------------------------------------------------------------
 
 CREATE TABLE bluemixcredentials (

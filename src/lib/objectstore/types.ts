@@ -25,5 +25,8 @@ export interface Image {
 }
 
 export interface Sound {
-    readonly body: string;
+    readonly size: number;
+    readonly body: number[];
+    readonly modified?: string;
+    readonly etag?: string;
 }

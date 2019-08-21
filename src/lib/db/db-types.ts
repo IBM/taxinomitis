@@ -119,16 +119,16 @@ export interface ImageTrainingDbRow {
 
 export interface SoundTraining {
     readonly id: string;
-    readonly audiodata: number[];
     readonly label: string;
-    readonly projectid?: string;
+    readonly projectid: string;
+    readonly audiodataid: string;
 }
 
 export interface SoundTrainingDbRow {
     readonly id: string;
-    readonly audiodata: string;
     readonly label: string;
-    readonly projectid?: string;
+    readonly projectid: string;
+    readonly audiodataid: string;
 }
 
 

@@ -361,7 +361,7 @@ function getDbTable(type: Objects.ProjectTypeLabel): string {
     case 'images':
         return 'imagetraining';
     case 'sounds':
-        return 'soundtraining';
+        return 'soundtrainingnew';
     }
 }
 
@@ -865,21 +865,20 @@ export async function getNumberTraining(
 
 
 export async function storeSoundTraining(
-    projectid: string, data: number[], label: string,
+    projectid: string, label: string, audiodataid: string,
 ): Promise<Objects.SoundTraining>
 {
     let outcome: InsertTrainingOutcome;
 
     // prepare the data to be stored
-    const obj = dbobjects.createSoundTraining(projectid, data, label);
-    const row = dbobjects.createSoundTrainingDbRow(obj);
+    const obj = dbobjects.createSoundTraining(projectid, label, audiodataid);
 
     // prepare the DB queries
-    const countQry = 'SELECT COUNT(*) AS `trainingcount` from `soundtraining` WHERE `projectid` = ?';
+    const countQry = 'SELECT COUNT(*) AS `trainingcount` from `soundtrainingnew` WHERE `projectid` = ?';
     const countValues = [ projectid ];
 
-    const insertQry = 'INSERT INTO `soundtraining` (`id`, `projectid`, `audiodata`, `label`) VALUES (?, ?, ?, ?)';
-    const insertValues = [ row.id, row.projectid, row.audiodata, row.label ];
+    const insertQry = 'INSERT INTO `soundtrainingnew` (`id`, `projectid`, `audiodataid`, `label`) VALUES (?, ?, ?, ?)';
+    const insertValues = [ obj.id, obj.projectid, obj.audiodataid, obj.label ];
 
     // connect to the DB
     const dbConn = await dbConnPool.getConnection();
@@ -932,7 +931,7 @@ export async function getSoundTraining(
     projectid: string, options: Objects.PagingOptions,
 ): Promise<Objects.SoundTraining[]>
 {
-    const queryString = 'SELECT `id`, `audiodata`, `label` FROM `soundtraining` ' +
+    const queryString = 'SELECT `id`, `audiodataid`, `label` FROM `soundtrainingnew` ' +
                         'WHERE `projectid` = ? ' +
                         'ORDER BY `label`, `id` ' +
                         'LIMIT ? OFFSET ?';
@@ -2206,7 +2205,7 @@ export async function deleteEntireProject(userid: string, classid: string, proje
         'DELETE FROM `texttraining` WHERE `projectid` = ?',
         'DELETE FROM `numbertraining` WHERE `projectid` = ?',
         'DELETE FROM `imagetraining` WHERE `projectid` = ?',
-        'DELETE FROM `soundtraining` WHERE `projectid` = ?',
+        'DELETE FROM `soundtrainingnew` WHERE `projectid` = ?',
         'DELETE FROM `bluemixclassifiers` WHERE `projectid` = ?',
         'DELETE FROM `taxinoclassifiers` WHERE `projectid` = ?',
         'DELETE FROM `scratchkeys` WHERE `projectid` = ?',

@@ -9,6 +9,7 @@ import registerUserApis from './users';
 import registerProjectApis from './projects';
 import registerTrainingApis from './training';
 import registerImageApis from './images';
+import registerSoundApis from './sounds';
 import registerModelApis from './models';
 import registerScratchApis from './scratch';
 import registerAppInventorApis from './appinventor';
@@ -44,6 +45,7 @@ export default function setup(app: Express.Application): void {
 
     // body types
     app.use(URLS.SCRATCHKEY_CLASSIFY, bodyParser.json({ limit : '3mb' }));
+    app.use(URLS.SOUNDS, bodyParser.json({ limit : '400kb' }));
     app.use(URLS.TRAININGITEMS, bodyParser.json({ limit : '400kb' }));
     app.use(URLS.ROOT, bodyParser.json({ limit : '100kb' }));
 
@@ -53,6 +55,7 @@ export default function setup(app: Express.Application): void {
     registerProjectApis(app);
     registerTrainingApis(app);
     registerImageApis(app);
+    registerSoundApis(app);
     registerModelApis(app);
     registerScratchApis(app);
     registerAppInventorApis(app);

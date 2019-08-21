@@ -72,6 +72,21 @@ export async function storeImage(
     return stored.ETag;
 }
 
+export async function storeSound(
+    spec: Types.ObjectSpec,
+    contents: number[],
+): Promise<string | undefined>
+{
+    const objectDefinition: IBMCosSDK.S3.PutObjectRequest = {
+        Bucket: BUCKET,
+        Key: keys.get(spec),
+        Body: contents.join(','),
+    };
+    const stored = await cos.putObject(objectDefinition).promise();
+    return stored.ETag;
+}
+
+
 
 export async function getImage(spec: Types.ObjectSpec): Promise<Types.Image> {
     const objectDefinition: IBMCosSDK.S3.GetObjectRequest = {
@@ -82,6 +97,20 @@ export async function getImage(spec: Types.ObjectSpec): Promise<Types.Image> {
     const response = await cos.getObject(objectDefinition).promise();
     return getImageObject(objectDefinition.Key, response);
 }
+
+export async function getSound(spec: Types.ObjectSpec): Promise<Types.Sound> {
+    const objectDefinition: IBMCosSDK.S3.GetObjectRequest = {
+        Bucket: BUCKET,
+        Key: keys.get(spec),
+    };
+
+    const response = await cos.getObject(objectDefinition).promise();
+    return getSoundObject(objectDefinition.Key, response);
+}
+
+
+
+
 
 export async function deleteObject(spec: Types.ObjectSpec): Promise<void> {
     const objectDefinition: IBMCosSDK.S3.DeleteObjectRequest = {
@@ -129,6 +158,25 @@ function getImageObject(key: string, response: IBMCosSDK.S3.GetObjectOutput): Ty
         etag : response.ETag,
         filetype : getImageType(key, response),
     };
+}
+
+function getSoundObject(key: string, response: IBMCosSDK.S3.GetObjectOutput): Types.Sound {
+    return {
+        size : response.ContentLength ? response.ContentLength : -1,
+        body : getSoundData(response.Body as string),
+        modified : response.LastModified ? response.LastModified.toString() : '',
+        etag : response.ETag,
+    };
+}
+
+
+function getSoundData(raw: string | undefined): number[] {
+    if (raw) {
+        return raw.split(',').map((itemstr: string) => {
+            return Number(itemstr);
+        });
+    }
+    return [];
 }
 
 

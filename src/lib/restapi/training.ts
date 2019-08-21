@@ -130,6 +130,12 @@ async function deleteTraining(req: auth.RequestWithProject, res: Express.Respons
                                        trainingid);
         }
     }
+    else if (req.project.type === 'sounds') {
+        store.storeDeleteObjectJob(req.params.classid,
+                                   req.params.studentid,
+                                   req.params.projectid,
+                                   trainingid);
+    }
 
     return store.deleteTraining(req.project.type, req.project.id, trainingid)
         .then(() => {
@@ -167,8 +173,8 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
             training = await store.storeImageTraining(req.project.id, data, label, false);
             break;
         case 'sounds':
-            training = await store.storeSoundTraining(req.project.id, data, label);
-            break;
+            // should be uploaded via the object store URL
+            return errors.notImplemented(res);
         }
 
         res.status(httpstatus.CREATED).json(training);
@@ -186,10 +192,7 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
             err.message.startsWith(imageCheck.ERROR_PREFIXES.BAD_TYPE) ||
             err.message.startsWith('Unable to download image from ') ||
             err.message.startsWith(imageCheck.ERROR_PREFIXES.TOO_BIG) ||
-            err.message.includes(imageDownload.ERRORS.DOWNLOAD_FORBIDDEN) ||
-            err.message === 'Empty audio is not allowed' ||
-            err.message === 'Audio exceeds maximum allowed length' ||
-            err.message === 'Invalid audio input'
+            err.message.includes(imageDownload.ERRORS.DOWNLOAD_FORBIDDEN)
             ))
         {
             return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
