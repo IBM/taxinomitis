@@ -17,7 +17,6 @@ import registerWatsonApis from './watsonapis';
 import registerClassifierApis from './classifiers';
 import registerSessionUserApis from './sessionusers';
 import registerSiteAlertApis from './sitealerts';
-import registerAdminApis from './siteadmin';
 import * as URLS from './urls';
 import * as serverConfig from './config';
 import * as errors from './errors';
@@ -63,7 +62,6 @@ export default function setup(app: Express.Application): void {
     registerClassifierApis(app);
     registerSessionUserApis(app);
     registerSiteAlertApis(app);
-    registerAdminApis(app);
 
     // error handling
     errors.registerErrorHandling(app);

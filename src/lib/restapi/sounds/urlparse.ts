@@ -25,28 +25,28 @@ export function soundsUrl(req: Express.Request): Types.ObjectSpec {
     };
 }
 
-export function projectUrl(req: Express.Request): Types.ProjectSpec {
-    return {
-        classid : req.params.classid,
-        userid : req.params.studentid,
-        projectid : req.params.projectid,
-    };
-}
+// export function projectUrl(req: Express.Request): Types.ProjectSpec {
+//     return {
+//         classid : req.params.classid,
+//         userid : req.params.studentid,
+//         projectid : req.params.projectid,
+//     };
+// }
 
-export function userUrl(req: Express.Request): Types.UserSpec {
-    return {
-        classid : req.params.classid,
-        userid : req.params.studentid,
-    };
-}
+// export function userUrl(req: Express.Request): Types.UserSpec {
+//     return {
+//         classid : req.params.classid,
+//         userid : req.params.studentid,
+//     };
+// }
 
-export function classUrl(req: Express.Request): Types.ClassSpec {
-    return {
-        classid : req.params.classid,
-    };
-}
+// export function classUrl(req: Express.Request): Types.ClassSpec {
+//     return {
+//         classid : req.params.classid,
+//     };
+// }
 
-export function createImageUrl(params: Types.ObjectSpec): string {
+export function createSoundUrl(params: Types.ObjectSpec): string {
     return urls.SOUND
             .replace(':classid', params.classid)
             .replace(':studentid', params.userid)

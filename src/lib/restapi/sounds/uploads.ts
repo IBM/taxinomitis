@@ -97,6 +97,7 @@ async function handleUpload(req: auth.RequestWithProject, res: Express.Response)
 
         const training = await db.storeSoundTraining(
             soundSpec.projectid,
+            parse.createSoundUrl(soundSpec),
             soundLabel,
             soundSpec.objectid);
 

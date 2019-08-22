@@ -1,7 +1,6 @@
 /*eslint-env mocha */
 
 import * as assert from 'assert';
-import * as fs from 'fs';
 import * as uuid from 'uuid/v1';
 import * as express from 'express';
 import * as sinon from 'sinon';
@@ -173,38 +172,40 @@ describe('REST API - sound uploads', () => {
 
 
     describe('valid uploads', () => {
-        it('should upload a file', async () => {
+        it('should upload test data', async () => {
             const USER = 'TESTSTUDENT';
             const LABEL = 'testlabel';
-            const project = await store.storeProject(USER, TESTCLASS, 'images', 'test uploads', 'en', [], false);
+            const project = await store.storeProject(USER, TESTCLASS, 'sounds', 'test uploads', 'en', [], false);
             await store.addLabelToProject(USER, TESTCLASS, project.id, LABEL);
 
-            const IMAGESURL = '/api/classes/' + TESTCLASS +
+            const SOUNDSURL = '/api/classes/' + TESTCLASS +
                                 '/students/' + USER +
                                 '/projects/' + project.id +
-                                '/images';
+                                '/sounds';
 
             NEXT_USERID = USER;
 
+            const numbers: number[] = [];
+            for (let i = 0; i < 10000; i++) {
+                numbers.push(Math.random());
+            }
+
             return request(testServer)
-                .post(IMAGESURL)
-                .attach('image', './src/tests/utils/resources/test-01.jpg')
-                .field('label', LABEL)
+                .post(SOUNDSURL)
+                .send({ label : LABEL, data : numbers })
                 .expect(httpStatus.CREATED)
                 .then((res) => {
                     assert(res.body.id);
 
-                    assert.strictEqual(res.body.isstored, true);
                     assert.strictEqual(res.body.label, LABEL);
                     assert.strictEqual(res.body.projectid, project.id);
 
-                    assert(res.body.imageurl.startsWith(IMAGESURL));
 
-                    assert.strictEqual(res.body.imageurl, IMAGESURL + '/' + res.body.id);
+                    assert.strictEqual(res.body.audiourl, SOUNDSURL + '/' + res.body.id);
 
                     assert(res.header.etag);
 
-                    return store.deleteTraining('images', 'TESTPROJECT', res.body.id);
+                    return store.deleteTraining('sounds', 'TESTPROJECT', res.body.id);
                 });
         });
 
@@ -217,7 +218,7 @@ describe('REST API - sound uploads', () => {
         let projectid = '';
 
         before(() => {
-            return store.storeProject('studentid', TESTCLASS, 'images', 'invalids', 'en', [], false)
+            return store.storeProject('studentid', TESTCLASS, 'sounds', 'invalids', 'en', [], false)
                 .then((proj) => {
                     projectid = proj.id;
                 });
@@ -225,7 +226,7 @@ describe('REST API - sound uploads', () => {
 
         it('should handle non-existent images', () => {
             return request(testServer)
-                .get('/api/classes/' + TESTCLASS + '/students/studentid/projects/' + projectid + '/images/someimageid')
+                .get('/api/classes/' + TESTCLASS + '/students/studentid/projects/' + projectid + '/sounds/anaudioid')
                 .expect(httpStatus.NOT_FOUND)
                 .then((res) => {
                     assert.deepStrictEqual(res.body, { error : 'File not found' });
@@ -237,25 +238,17 @@ describe('REST API - sound uploads', () => {
 
     describe('valid downloads', () => {
 
-        function readFileToBuffer(path: string) {
-            return new Promise((resolve, reject) => {
-                fs.readFile(path, (err, data) => {
-                    if (err) {
-                        return reject(err);
-                    }
-                    return resolve(data);
-                });
-            });
-        }
 
         it('should download a file', async () => {
             let id;
-            const filepath = './src/tests/utils/resources/test-01.jpg';
-            const contents = await readFileToBuffer(filepath);
-
             const userid = uuid();
 
-            const project = await store.storeProject(userid, TESTCLASS, 'images', 'valid', 'en', [], false);
+            const testdata: number[] = [];
+            for (let i = 0; i < 19000; i++) {
+                testdata.push(Math.random());
+            }
+
+            const project = await store.storeProject(userid, TESTCLASS, 'sounds', 'valid', 'en', [], false);
             const projectid = project.id;
 
             const label = 'testlabel';
@@ -263,34 +256,34 @@ describe('REST API - sound uploads', () => {
 
             NEXT_USERID = userid;
 
-            const imagesurl = '/api/classes/' + TESTCLASS +
+            const soundsurl = '/api/classes/' + TESTCLASS +
                                 '/students/' + userid +
                                 '/projects/' + projectid +
-                                '/images';
+                                '/sounds';
 
             await request(testServer)
-                .post(imagesurl)
-                .attach('image', filepath)
-                .field('label', label)
+                .post(soundsurl)
+                .send({ label, data : testdata })
                 .expect(httpStatus.CREATED)
                 .then((res) => {
                     assert(res.body.id);
                     id = res.body.id;
 
                     assert.strictEqual(res.body.projectid, projectid);
+                    assert.strictEqual(res.body.audiourl, soundsurl + '/' + id);
                 });
 
             await request(testServer)
-                .get(imagesurl + '/' + id)
+                .get(soundsurl + '/' + id)
                 .expect(httpStatus.OK)
+                .expect('Content-Type', /json/)
                 .then((res) => {
-                    assert.deepStrictEqual(res.body, contents);
-                    assert.strictEqual(res.header['content-type'], 'image/jpeg');
+                    assert.deepStrictEqual(res.body, testdata);
                     assert.strictEqual(res.header['cache-control'], 'max-age=31536000');
                 });
 
             if (id) {
-                return store.deleteTraining('images', projectid, id);
+                return store.deleteTraining('sounds', projectid, id);
             }
         });
 

@@ -151,12 +151,12 @@ describe('REST API - sound training', () => {
             await store.addLabelToProject(USERID, CLASSID, projectid, 'third');
             await store.addLabelToProject(USERID, CLASSID, projectid, 'fourth');
 
-            await store.storeSoundTraining(projectid, 'first', uuid());
-            await store.storeSoundTraining(projectid, 'first', uuid());
-            await store.storeSoundTraining(projectid, 'first', uuid());
-            await store.storeSoundTraining(projectid, 'second', uuid());
-            await store.storeSoundTraining(projectid, 'second', uuid());
-            await store.storeSoundTraining(projectid, 'third', uuid());
+            await store.storeSoundTraining(projectid, 'url', 'first', uuid());
+            await store.storeSoundTraining(projectid, 'url', 'first', uuid());
+            await store.storeSoundTraining(projectid, 'url', 'first', uuid());
+            await store.storeSoundTraining(projectid, 'url', 'second', uuid());
+            await store.storeSoundTraining(projectid, 'url', 'second', uuid());
+            await store.storeSoundTraining(projectid, 'url', 'third', uuid());
 
             nextUser = AUTH_USERS.STUDENT;
 
@@ -430,8 +430,8 @@ describe('REST API - sound training', () => {
 
             nextUser = AUTH_USERS.STUDENT;
 
-            await store.storeSoundTraining(projectid, 'label', 'placeholder');
-            await store.storeSoundTraining(projectid, 'label', 'placeholder');
+            await store.storeSoundTraining(projectid, 'url', 'label', uuid());
+            await store.storeSoundTraining(projectid, 'url', 'label', uuid());
 
             const limitsStub = sinon.stub(limits, 'getStoreLimits');
             limitsStub.returns({
@@ -528,7 +528,7 @@ describe('REST API - sound training', () => {
                 const label = uuid();
 
                 for (let text = 0; text < 3; text++) {
-                    await store.storeSoundTraining(projectid, label, uuid());
+                    await store.storeSoundTraining(projectid, 'url', label, uuid());
                 }
             }
 
@@ -539,13 +539,13 @@ describe('REST API - sound training', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK)
                 .then((res) => {
-                    const body: Array<{ id: string, label: string, audiodataid: number[] }> = res.body;
+                    const body: Array<{ id: string, label: string, audiourl: number[] }> = res.body;
                     assert.strictEqual(body.length, 6);
 
                     body.forEach((item) => {
                         assert(item.id);
                         assert(item.label);
-                        assert(item.audiodataid);
+                        assert(item.audiourl);
                     });
 
                     return store.deleteEntireProject(USERID, CLASSID, project);
@@ -561,7 +561,7 @@ describe('REST API - sound training', () => {
                 const label = uuid();
 
                 for (let text = 0; text < 5; text++) {
-                    await store.storeSoundTraining(projectid, label, uuid());
+                    await store.storeSoundTraining(projectid, 'url', label, uuid());
                 }
             }
 
@@ -573,13 +573,13 @@ describe('REST API - sound training', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK)
                 .then((res) => {
-                    const body: Array<{ id: string, label: string, audiodataid: number[] }> = res.body;
+                    const body: Array<{ id: string, label: string, audiourl: number[] }> = res.body;
                     assert.strictEqual(body.length, 10);
 
                     body.forEach((item) => {
                         assert(item.id);
                         assert(item.label);
-                        assert(item.audiodataid);
+                        assert(item.audiourl);
                     });
 
                     assert.strictEqual(res.header['content-range'], 'items 0-9/20');
@@ -603,8 +603,8 @@ describe('REST API - sound training', () => {
 
             nextUser = AUTH_USERS.STUDENT;
 
-            const first = await store.storeSoundTraining(projectid, 'label', uuid());
-            const second = await store.storeSoundTraining(projectid, 'label', uuid());
+            const first = await store.storeSoundTraining(projectid, 'url', 'label', uuid());
+            const second = await store.storeSoundTraining(projectid, 'url', 'label', uuid());
 
 
             return request(testServer)
@@ -662,7 +662,7 @@ describe('REST API - sound training', () => {
                         .then((res) => {
                             const body = res.body;
                             assert.strictEqual(body.length, 1);
-                            assert.deepStrictEqual(body[0].audiodataid, first.audiodataid);
+                            assert.deepStrictEqual(body[0].audiourl, first.audiourl);
                             assert.strictEqual(res.header['content-range'], 'items 0-0/1');
                         });
                 })
@@ -686,9 +686,9 @@ describe('REST API - sound training', () => {
             await store.addLabelToProject(USERID, CLASSID, projectid, 'vegetable');
             await store.addLabelToProject(USERID, CLASSID, projectid, 'mineral');
 
-            await store.storeSoundTraining(projectid, 'vegetable', uuid());
-            await store.storeSoundTraining(projectid, 'animal', uuid());
-            await store.storeSoundTraining(projectid, 'animal', uuid());
+            await store.storeSoundTraining(projectid, 'url', 'vegetable', uuid());
+            await store.storeSoundTraining(projectid, 'url', 'animal', uuid());
+            await store.storeSoundTraining(projectid, 'url', 'animal', uuid());
 
             const projecturl = '/api/classes/' + CLASSID +
                                '/students/' + USERID +

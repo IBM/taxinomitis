@@ -413,19 +413,26 @@ export function getImageTrainingFromDbRow(row: Objects.ImageTrainingDbRow): Obje
 }
 
 
+function isNotValidString(str: string): boolean {
+    return str === undefined ||
+           str === '' ||
+           typeof str !== 'string' ||
+           str.trim().length === 0;
+}
 
-export function createSoundTraining(projectid: string, label: string, audiodataid: string): Objects.SoundTraining {
-    if (projectid === undefined || projectid === '' ||
-        label === undefined || label === '' || typeof label !== 'string' ||
-        audiodataid === undefined || audiodataid === '' || typeof audiodataid !== 'string')
+export function createSoundTraining(projectid: string, audiourl: string,
+                                    label: string, audiodataid: string): Objects.SoundTraining
+{
+    if (isNotValidString(projectid) || isNotValidString(audiourl) ||
+        isNotValidString(label) || isNotValidString(audiodataid))
     {
         throw new Error('Missing required attributes');
     }
 
     return {
-        id : uuid(),
+        id : audiodataid,
         projectid,
-        audiodataid,
+        audiourl,
         label,
     };
 }
@@ -434,7 +441,7 @@ export function getSoundTrainingFromDbRow(row: Objects.SoundTrainingDbRow): Obje
     const obj: any = {
         id : row.id,
         label : row.label,
-        audiodataid : row.audiodataid,
+        audiourl : row.audiourl,
     };
     if (row.projectid) {
         obj.projectid = row.projectid;
@@ -446,7 +453,7 @@ export function createSoundTrainingDbRow(obj: Objects.SoundTraining): Objects.So
     return {
         id : obj.id,
         label : obj.label,
-        audiodataid : obj.audiodataid,
+        audiourl : obj.audiourl,
         projectid : obj.projectid,
     };
 }

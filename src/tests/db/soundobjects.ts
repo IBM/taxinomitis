@@ -12,8 +12,10 @@ describe('DB objects - sound', () => {
 
     // @ts-ignore need to check for values that might be undefined at runtime
     const UNDEFINED_STRING: string = undefined;
+    // @ts-ignore need to check for values that might be invalid at runtime
+    const INVALID_STRING: string = 123;
 
-    const EXPECTED_KEYS = ['id', 'label', 'audiodataid', 'projectid'].sort();
+    const EXPECTED_KEYS = ['id', 'label', 'audiourl', 'projectid'].sort();
 
 
     describe('getSoundTrainingFromDbRow', () => {
@@ -22,7 +24,7 @@ describe('DB objects - sound', () => {
             const dbrow: Objects.SoundTrainingDbRow = {
                 id : uuid(),
                 label : randomstring.generate(),
-                audiodataid : uuid(),
+                audiourl : uuid(),
                 projectid : uuid(),
             };
             const obj = dbobjects.getSoundTrainingFromDbRow(dbrow);
@@ -30,7 +32,7 @@ describe('DB objects - sound', () => {
             assert.strictEqual(obj.id, dbrow.id);
             assert.strictEqual(obj.label, dbrow.label);
             assert.strictEqual(obj.projectid, dbrow.projectid);
-            assert.deepStrictEqual(obj.audiodataid, dbrow.audiodataid);
+            assert.deepStrictEqual(obj.audiourl, dbrow.audiourl);
         });
 
         it('should process DB contents', () => {
@@ -38,13 +40,13 @@ describe('DB objects - sound', () => {
                 id : uuid(),
                 label : randomstring.generate(),
                 projectid : uuid(),
-                audiodataid : uuid(),
+                audiourl : uuid(),
             };
             const obj = dbobjects.getSoundTrainingFromDbRow(dbrow);
             assert.deepStrictEqual(EXPECTED_KEYS, Object.keys(obj).sort());
             assert.strictEqual(obj.id, dbrow.id);
             assert.strictEqual(obj.label, dbrow.label);
-            assert.deepStrictEqual(obj.audiodataid, dbrow.audiodataid);
+            assert.deepStrictEqual(obj.audiourl, dbrow.audiourl);
         });
     });
 
@@ -55,7 +57,7 @@ describe('DB objects - sound', () => {
             const obj: Objects.SoundTraining = {
                 id : uuid(),
                 label : randomstring.generate(),
-                audiodataid : uuid(),
+                audiourl : uuid(),
                 projectid : uuid(),
             };
             const row = dbobjects.createSoundTrainingDbRow(obj);
@@ -63,7 +65,7 @@ describe('DB objects - sound', () => {
             assert.strictEqual(row.id, obj.id);
             assert.strictEqual(row.label, obj.label);
             assert.strictEqual(row.projectid, obj.projectid);
-            assert.strictEqual(row.audiodataid, obj.audiodataid);
+            assert.strictEqual(row.audiourl, obj.audiourl);
         });
     });
 
@@ -71,11 +73,12 @@ describe('DB objects - sound', () => {
     describe('createSoundTraining', () => {
 
         it('should create an object given valid input', () => {
+            const id = uuid();
             const projectid = uuid();
             const data = uuid();
             const label = randomstring.generate();
 
-            const obj = dbobjects.createSoundTraining(projectid, label, data);
+            const obj = dbobjects.createSoundTraining(projectid, data, label, id);
 
             assert.deepStrictEqual(EXPECTED_KEYS, Object.keys(obj).sort());
             assert(obj.id);
@@ -83,12 +86,21 @@ describe('DB objects - sound', () => {
             assert.strictEqual(obj.id.length, 36);
             assert.strictEqual(obj.projectid, projectid);
             assert.strictEqual(obj.label, label);
-            assert.deepStrictEqual(obj.audiodataid, data);
+            assert.deepStrictEqual(obj.audiourl, data);
         });
 
         it('should handle missing project IDs', () => {
             try {
-                dbobjects.createSoundTraining(UNDEFINED_STRING, 'audiodataid', 'label');
+                dbobjects.createSoundTraining(UNDEFINED_STRING, 'audiourl', 'label', 'id');
+                assert.fail('Should not have reached here');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Missing required attributes');
+            }
+        });
+        it('should handle invalid project IDs', () => {
+            try {
+                dbobjects.createSoundTraining(INVALID_STRING, 'audiourl', 'label', 'id');
                 assert.fail('Should not have reached here');
             }
             catch (err) {
@@ -97,25 +109,7 @@ describe('DB objects - sound', () => {
         });
         it('should handle empty project IDs', () => {
             try {
-                dbobjects.createSoundTraining('', 'label', '');
-                assert.fail('Should not have reached here');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required attributes');
-            }
-        });
-        it('should handle missing labels', () => {
-            try {
-                dbobjects.createSoundTraining('projectid', 'audiodataid', UNDEFINED_STRING);
-                assert.fail('Should not have reached here');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Missing required attributes');
-            }
-        });
-        it('should handle empty labels', () => {
-            try {
-                dbobjects.createSoundTraining('projectid', 'audiodataid', '');
+                dbobjects.createSoundTraining('', 'audiourl', 'label', 'id');
                 assert.fail('Should not have reached here');
             }
             catch (err) {
@@ -123,14 +117,89 @@ describe('DB objects - sound', () => {
             }
         });
 
-        it('should handle missing data', () => {
+        it('should handle missing audio data', () => {
             try {
-                dbobjects.createSoundTraining('projectid', UNDEFINED_STRING, 'label');
+                dbobjects.createSoundTraining('projectid', UNDEFINED_STRING, 'label', 'id');
                 assert.fail('Should not have reached here');
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Missing required attributes');
             }
         });
+        it('should handle invalid audio data', () => {
+            try {
+                dbobjects.createSoundTraining('projectid', INVALID_STRING, 'label', 'id');
+                assert.fail('Should not have reached here');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Missing required attributes');
+            }
+        });
+        it('should handle empty audio data', () => {
+            try {
+                dbobjects.createSoundTraining('projectid', '', 'label', 'id');
+                assert.fail('Should not have reached here');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Missing required attributes');
+            }
+        });
+
+        it('should handle missing label', () => {
+            try {
+                dbobjects.createSoundTraining('projectid', 'audiourl', UNDEFINED_STRING, 'id');
+                assert.fail('Should not have reached here');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Missing required attributes');
+            }
+        });
+        it('should handle invalid label', () => {
+            try {
+                dbobjects.createSoundTraining('projectid', 'audiourl', INVALID_STRING, 'id');
+                assert.fail('Should not have reached here');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Missing required attributes');
+            }
+        });
+        it('should handle empty label', () => {
+            try {
+                dbobjects.createSoundTraining('projectid', 'audiourl', '', 'id');
+                assert.fail('Should not have reached here');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Missing required attributes');
+            }
+        });
+
+        it('should handle missing id', () => {
+            try {
+                dbobjects.createSoundTraining('projectid', 'audiourl', 'label', UNDEFINED_STRING);
+                assert.fail('Should not have reached here');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Missing required attributes');
+            }
+        });
+        it('should handle invalid id', () => {
+            try {
+                dbobjects.createSoundTraining('projectid', 'audiourl', 'label', INVALID_STRING);
+                assert.fail('Should not have reached here');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Missing required attributes');
+            }
+        });
+        it('should handle empty id', () => {
+            try {
+                dbobjects.createSoundTraining('projectid', 'audiourl', 'label', '');
+                assert.fail('Should not have reached here');
+            }
+            catch (err) {
+                assert.strictEqual(err.message, 'Missing required attributes');
+            }
+        });
+
     });
 });

@@ -865,20 +865,20 @@ export async function getNumberTraining(
 
 
 export async function storeSoundTraining(
-    projectid: string, label: string, audiodataid: string,
+    projectid: string, audiourl: string, label: string, audioid: string,
 ): Promise<Objects.SoundTraining>
 {
     let outcome: InsertTrainingOutcome;
 
     // prepare the data to be stored
-    const obj = dbobjects.createSoundTraining(projectid, label, audiodataid);
+    const obj = dbobjects.createSoundTraining(projectid, audiourl, label, audioid);
 
     // prepare the DB queries
     const countQry = 'SELECT COUNT(*) AS `trainingcount` from `soundtrainingnew` WHERE `projectid` = ?';
     const countValues = [ projectid ];
 
-    const insertQry = 'INSERT INTO `soundtrainingnew` (`id`, `projectid`, `audiodataid`, `label`) VALUES (?, ?, ?, ?)';
-    const insertValues = [ obj.id, obj.projectid, obj.audiodataid, obj.label ];
+    const insertQry = 'INSERT INTO `soundtrainingnew` (`id`, `projectid`, `audiourl`, `label`) VALUES (?, ?, ?, ?)';
+    const insertValues = [ obj.id, obj.projectid, obj.audiourl, obj.label ];
 
     // connect to the DB
     const dbConn = await dbConnPool.getConnection();
@@ -931,7 +931,7 @@ export async function getSoundTraining(
     projectid: string, options: Objects.PagingOptions,
 ): Promise<Objects.SoundTraining[]>
 {
-    const queryString = 'SELECT `id`, `audiodataid`, `label` FROM `soundtrainingnew` ' +
+    const queryString = 'SELECT `id`, `audiourl`, `label` FROM `soundtrainingnew` ' +
                         'WHERE `projectid` = ? ' +
                         'ORDER BY `label`, `id` ' +
                         'LIMIT ? OFFSET ?';
@@ -1883,21 +1883,6 @@ export async function getClassTenant(classid: string): Promise<Objects.ClassTena
         return dbobjects.getClassFromDbRow(rows[0]);
     }
 }
-
-
-export async function getClassTenants(): Promise<Objects.ClassTenant[]> {
-    const queryString = 'SELECT `id`, `projecttypes`, `maxusers`, ' +
-                            '`maxprojectsperuser`, ' +
-                            '`textclassifiersexpiry`, `imageclassifiersexpiry`, ' +
-                            '`ismanaged` ' +
-                        'FROM `tenants` ' +
-                        'LIMIT 1000';
-
-    const rows = await dbExecute(queryString, []);
-
-    return rows.map(dbobjects.getClassFromDbRow);
-}
-
 
 
 export async function modifyClassTenantExpiries(

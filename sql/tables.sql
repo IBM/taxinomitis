@@ -87,7 +87,7 @@ CREATE INDEX soundtraining_getTrainingLabels on soundtraining(projectid);
 CREATE TABLE soundtrainingnew (
     id CHAR(36) NOT NULL PRIMARY KEY,
     projectid CHAR(36) NOT NULL,
-    audiodataid CHAR(150),
+    audiourl VARCHAR(185),
     label VARCHAR(100)
 );
 
