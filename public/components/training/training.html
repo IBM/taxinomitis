@@ -112,7 +112,8 @@
                         <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true"
                               ng-click="vm.deleteText(label, item, $index)"
                               ng-if="!item.isPlaceholder"></span>
-                        <mlsoundvis spectogram="item.audiodata" modelinfo="soundModelInfo" datatype="'sounds'"></mlsoundvis>
+                        <mlsoundvis ng-if="item.audiodata" spectogram="item.audiodata" modelinfo="soundModelInfo" datatype="'sounds'"></mlsoundvis>
+                        <div class="loadingtraining" ng-hide="item.audiodata" style="height: 100px; width: 150px; margin-top: 0;"></div>
                     </div>
                 </div>
                 <div style="text-align: center; height: 45px;">
