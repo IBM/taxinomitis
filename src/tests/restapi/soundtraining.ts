@@ -7,9 +7,7 @@ import * as sinon from 'sinon';
 import * as express from 'express';
 
 import * as store from '../../lib/db/store';
-import * as objectstore from '../../lib/objectstore';
 import * as limits from '../../lib/db/limits';
-import { MAX_AUDIO_POINTS } from '../../lib/restapi/sounds/uploads';
 import * as auth from '../../lib/restapi/auth';
 import testapiserver from './testserver';
 
@@ -65,7 +63,6 @@ describe('REST API - sound training', () => {
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
 
         await store.init();
-        objectstore.init();
 
         testServer = testapiserver();
     });
@@ -333,61 +330,6 @@ describe('REST API - sound training', () => {
         });
 
 
-        it('should store audio training', async () => {
-            const project = await store.storeProject(USERID, CLASSID, 'sounds', 'demo', 'en', [], false);
-            await store.addLabelToProject(USERID, CLASSID, project.id, 'FIRST');
-            await store.addLabelToProject(USERID, CLASSID, project.id, 'SECOND');
-            const projectid = project.id;
-
-            const trainingurl = '/api/classes/' + CLASSID +
-                                '/students/' + USERID +
-                                '/projects/' + projectid +
-                                '/sounds';
-
-            nextUser = AUTH_USERS.STUDENT;
-
-            return request(testServer)
-                .post(trainingurl)
-                .send({
-                    data : createTraining(MAX_AUDIO_POINTS),
-                    label : 'FIRST',
-                })
-                .expect(httpstatus.CREATED)
-                .then(() => {
-                    return store.deleteEntireUser(USERID, CLASSID);
-                });
-        });
-
-
-        it('should store large audio training', async () => {
-            const project = await store.storeProject(USERID, CLASSID, 'sounds', 'demo', 'en', [], false);
-            await store.addLabelToProject(USERID, CLASSID, project.id, 'fruit');
-            await store.addLabelToProject(USERID, CLASSID, project.id, 'SECOND');
-            const projectid = project.id;
-
-            const trainingurl = '/api/classes/' + CLASSID +
-                                '/students/' + USERID +
-                                '/projects/' + projectid +
-                                '/sounds';
-
-            nextUser = AUTH_USERS.STUDENT;
-
-            const numbers: number[] = [];
-            for (let i = 0; i < MAX_AUDIO_POINTS; i++) {
-                numbers.push(1234567890.01234567890123456789);
-            }
-
-            return request(testServer)
-                .post(trainingurl)
-                .send({
-                    data : numbers,
-                    label : 'fruit',
-                })
-                .expect(httpstatus.CREATED)
-                .then(() => {
-                    return store.deleteEntireUser(USERID, CLASSID);
-                });
-        });
 
         it('should reject missing audio training', async () => {
             const project = await store.storeProject(USERID, CLASSID, 'sounds', 'demo', 'en', [], false);

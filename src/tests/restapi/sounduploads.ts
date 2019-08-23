@@ -11,6 +11,7 @@ import * as httpStatus from 'http-status';
 import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
 import * as objectstore from '../../lib/objectstore';
+import { MAX_AUDIO_POINTS } from '../../lib/restapi/sounds/uploads';
 import * as mock from '../imagestore/mockStore';
 import testapiserver from './testserver';
 
@@ -206,6 +207,38 @@ describe('REST API - sound uploads', () => {
                     assert(res.header.etag);
 
                     return store.deleteTraining('sounds', 'TESTPROJECT', res.body.id);
+                });
+        });
+
+
+        it('should store very large audio training', async () => {
+            const USER = 'TESTSTUDENT';
+            const project = await store.storeProject(USER, TESTCLASS, 'sounds', 'demo', 'en', [], false);
+            await store.addLabelToProject(USER, TESTCLASS, project.id, 'fruit');
+            await store.addLabelToProject(USER, TESTCLASS, project.id, 'SECOND');
+            const projectid = project.id;
+
+            const trainingurl = '/api/classes/' + TESTCLASS +
+                                '/students/' + USER +
+                                '/projects/' + projectid +
+                                '/sounds';
+
+            NEXT_USERID = USER;
+
+            const numbers: number[] = [];
+            for (let i = 0; i < MAX_AUDIO_POINTS; i++) {
+                numbers.push(1234567890.01234567890123456789);
+            }
+
+            return request(testServer)
+                .post(trainingurl)
+                .send({
+                    data : numbers,
+                    label : 'fruit',
+                })
+                .expect(httpStatus.CREATED)
+                .then(() => {
+                    return store.deleteEntireUser(USER, TESTCLASS);
                 });
         });
 
