@@ -55,7 +55,7 @@ async function handleDbException(err: NodeJS.ErrnoException) {
 }
 
 
-async function dbExecute(query: string, params: any[]) {
+export async function dbExecute(query: string, params: any[]) {
     const dbConn = await dbConnPool.getConnection();
     try {
         const [response] = await dbConn.execute(query, params);
@@ -361,7 +361,7 @@ function getDbTable(type: Objects.ProjectTypeLabel): string {
     case 'images':
         return 'imagetraining';
     case 'sounds':
-        return 'soundtrainingnew';
+        return 'soundtraining';
     }
 }
 
@@ -874,10 +874,10 @@ export async function storeSoundTraining(
     const obj = dbobjects.createSoundTraining(projectid, audiourl, label, audioid);
 
     // prepare the DB queries
-    const countQry = 'SELECT COUNT(*) AS `trainingcount` from `soundtrainingnew` WHERE `projectid` = ?';
+    const countQry = 'SELECT COUNT(*) AS `trainingcount` from `soundtraining` WHERE `projectid` = ?';
     const countValues = [ projectid ];
 
-    const insertQry = 'INSERT INTO `soundtrainingnew` (`id`, `projectid`, `audiourl`, `label`) VALUES (?, ?, ?, ?)';
+    const insertQry = 'INSERT INTO `soundtraining` (`id`, `projectid`, `audiourl`, `label`) VALUES (?, ?, ?, ?)';
     const insertValues = [ obj.id, obj.projectid, obj.audiourl, obj.label ];
 
     // connect to the DB
@@ -931,7 +931,7 @@ export async function getSoundTraining(
     projectid: string, options: Objects.PagingOptions,
 ): Promise<Objects.SoundTraining[]>
 {
-    const queryString = 'SELECT `id`, `audiourl`, `label` FROM `soundtrainingnew` ' +
+    const queryString = 'SELECT `id`, `audiourl`, `label` FROM `soundtraining` ' +
                         'WHERE `projectid` = ? ' +
                         'ORDER BY `label`, `id` ' +
                         'LIMIT ? OFFSET ?';
@@ -2190,7 +2190,7 @@ export async function deleteEntireProject(userid: string, classid: string, proje
         'DELETE FROM `texttraining` WHERE `projectid` = ?',
         'DELETE FROM `numbertraining` WHERE `projectid` = ?',
         'DELETE FROM `imagetraining` WHERE `projectid` = ?',
-        'DELETE FROM `soundtrainingnew` WHERE `projectid` = ?',
+        'DELETE FROM `soundtraining` WHERE `projectid` = ?',
         'DELETE FROM `bluemixclassifiers` WHERE `projectid` = ?',
         'DELETE FROM `taxinoclassifiers` WHERE `projectid` = ?',
         'DELETE FROM `scratchkeys` WHERE `projectid` = ?',

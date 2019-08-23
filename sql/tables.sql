@@ -79,6 +79,9 @@ CREATE TABLE soundtraining (
     label VARCHAR(100)
 );
 
+ALTER TABLE soundtraining
+    ADD COLUMN audiourl VARCHAR(185);
+
 CREATE INDEX soundtraining_getSoundTraining on soundtraining(projectid, label);
 CREATE INDEX soundtraining_getTrainingLabels on soundtraining(projectid);
 
