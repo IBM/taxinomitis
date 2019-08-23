@@ -89,6 +89,8 @@
                 return trainingService.getTraining($scope.projectId, $scope.userId, vm.profile.tenant);
             })
             .then(function (training) {
+                var soundFetchingPromises = [];
+
                 for (var trainingitemIdx in training) {
                     var trainingitem = training[trainingitemIdx];
 
@@ -100,9 +102,23 @@
                         // TODO need to update the project with this missing label
                     }
 
-                    $scope.training[label].push(trainingitem);
+
+                    if ($scope.project.type === 'sounds') {
+                        // loading??
+                        var soundFetch = trainingService.getSoundData(trainingitem)
+                            .then((function (data) {
+                                $scope.training[data.label].push(data);
+                            }));
+                        soundFetchingPromises.push(soundFetch);
+                    }
+                    else {
+                        $scope.training[label].push(trainingitem);
+                    }
                 }
 
+                return $q.all(soundFetchingPromises);
+            })
+            .then(function () {
                 $scope.loadingtraining = false;
             })
             .catch(function (err) {
@@ -599,6 +615,99 @@
                     $scope.training[label].push(placeholder);
 
                     trainingService.uploadImage($scope.project.id, $scope.userId, vm.profile.tenant, resp, label)
+                        .then(function (newitem) {
+                            placeholder.isPlaceholder = false;
+                            placeholder.id = newitem.id;
+
+                            scrollToNewItem(newitem.id);
+                        })
+                        .catch(function (err) {
+                            displayAlert('errors', err.status, err.data);
+
+                            var idxToRemove = findTrainingIndex(label, placeholder.id);
+                            if (idxToRemove !== -1) {
+                                $scope.training[label].splice(idxToRemove, 1);
+                            }
+                        });
+                },
+                function() {
+                    // cancelled. do nothing
+                }
+            );
+        };
+
+
+
+        vm.useMicrophone = function (ev, label) {
+            $mdDialog.show({
+                locals : {
+                    label : label,
+                    project : $scope.project,
+                    soundModelInfo : soundTrainingService.getModelInfo(),
+                },
+                controller : function ($scope, locals) {
+                    $scope.label = locals.label;
+                    $scope.project = locals.project;
+                    $scope.soundModelInfo = locals.soundModelInfo;
+                    $scope.values = {};
+
+                    $scope.hide = function() {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function() {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function(resp) {
+                        $mdDialog.hide(resp);
+                    };
+
+                    $scope.recordSound = function(label) {
+                        delete $scope.example;
+                        $scope.recording = true;
+
+                        $scope.recordingprogress = 0;
+                        var progressInterval = setInterval(function () {
+                            $scope.$apply(
+                                function() {
+                                    $scope.recordingprogress += 10;
+                                });
+                        }, 1000 / 10);
+
+                        soundTrainingService.collectExample(label)
+                            .then(function (spectogram) {
+                                clearInterval(progressInterval);
+                                $scope.$apply(
+                                    function() {
+                                        $scope.recordingprogress = 100;
+                                        if (spectogram && spectogram.data && spectogram.data.length > 0) {
+                                            $scope.example = spectogram.data;
+                                        }
+                                        $scope.recording = false;
+                                    });
+                            })
+                            .catch(function () {
+                                clearInterval(progressInterval);
+                                $scope.recording = false;
+                            });
+                    };
+                },
+                templateUrl : 'static/components-' + $stateParams.VERSION + '/training/trainingdata.tmpl.html',
+                targetEvent : ev,
+                clickOutsideToClose : true
+            })
+            .then(
+                function (resp) {
+                    var placeholder = {
+                        id : placeholderId++,
+                        label : label,
+                        projectid: $scope.projectId,
+                        audiodata : resp,
+                        isPlaceholder : true
+                    };
+
+                    $scope.training[label].push(placeholder);
+
+                    trainingService.uploadSound($scope.project.id, $scope.userId, vm.profile.tenant, Array.prototype.slice.call(resp), label)
                         .then(function (newitem) {
                             placeholder.isPlaceholder = false;
                             placeholder.id = newitem.id;

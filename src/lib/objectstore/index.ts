@@ -163,16 +163,16 @@ function getImageObject(key: string, response: IBMCosSDK.S3.GetObjectOutput): Ty
 function getSoundObject(key: string, response: IBMCosSDK.S3.GetObjectOutput): Types.Sound {
     return {
         size : response.ContentLength ? response.ContentLength : -1,
-        body : getSoundData(response.Body as string),
+        body : getSoundData(response.Body as Buffer),
         modified : response.LastModified ? response.LastModified.toString() : '',
         etag : response.ETag,
     };
 }
 
 
-function getSoundData(raw: string | undefined): number[] {
+function getSoundData(raw: Buffer | undefined): number[] {
     if (raw) {
-        return raw.split(',').map((itemstr: string) => {
+        return raw.toString().split(',').map((itemstr: string) => {
             return Number(itemstr);
         });
     }

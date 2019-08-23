@@ -108,7 +108,7 @@
                 <div class="trainingbucketitems" ng-if="project.type === 'sounds'">
                     <div ng-if="label === '_background_noise_'" style="text-align: center; padding: 0.5em;" translate="TRAINING.BACKGROUNDNOISE"></div>
                     <div class="loadingtraining" ng-if="loadingtraining"> </div>
-                    <div class="trainingbucketitem" ng-repeat="item in training[label]" ng-class="{ placeholder : item.isPlaceholder }" id="{{item.id}}">
+                    <div class="trainingbucketitem" ng-repeat="item in training[label] track by item.id" ng-class="{ placeholder : item.isPlaceholder }" id="{{item.id}}">
                         <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true"
                               ng-click="vm.deleteText(label, item, $index)"
                               ng-if="!item.isPlaceholder"></span>
@@ -141,7 +141,7 @@
                             {{ 'TRAINING.ADDDRAWING' | translate }}
                         </div>
                     </div>
-                    <div class="btn newexamplebutton" ng-click="vm.addTrainingData($event, label)" ng-if="project.type === 'sounds'" ng-disabled="loadingtraining">
+                    <div class="btn newexamplebutton" ng-click="vm.useMicrophone($event, label)" ng-if="project.type === 'sounds'" ng-disabled="loadingtraining">
                         <div class="newexampleicon">+</div>
                         <div class="newexamplelabel" translate="TRAINING.ADDEXAMPLE"></div>
                     </div>
