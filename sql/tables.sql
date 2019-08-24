@@ -75,27 +75,12 @@ CREATE INDEX imagetraining_getTrainingLabels on imagetraining(projectid);
 CREATE TABLE soundtraining (
     id CHAR(36) NOT NULL PRIMARY KEY,
     projectid CHAR(36) NOT NULL,
-    audiodata MEDIUMTEXT,
-    label VARCHAR(100)
+    label VARCHAR(100),
+    audiourl VARCHAR(185)
 );
-
-ALTER TABLE soundtraining
-    ADD COLUMN audiourl VARCHAR(185);
 
 CREATE INDEX soundtraining_getSoundTraining on soundtraining(projectid, label);
 CREATE INDEX soundtraining_getTrainingLabels on soundtraining(projectid);
-
-
-
-CREATE TABLE soundtrainingnew (
-    id CHAR(36) NOT NULL PRIMARY KEY,
-    projectid CHAR(36) NOT NULL,
-    audiourl VARCHAR(185),
-    label VARCHAR(100)
-);
-
-CREATE INDEX soundtrainingnew_getSoundTraining on soundtrainingnew(projectid, label);
-CREATE INDEX soundtrainingnew_getTrainingLabels on soundtrainingnew(projectid);
 
 
 -- ------------------------------------------------------------------
