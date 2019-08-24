@@ -8,11 +8,11 @@ export interface UserSpec extends ClassSpec {
 export interface ProjectSpec extends UserSpec {
     readonly projectid: string;
 }
-export interface ImageSpec extends ProjectSpec {
-    readonly imageid: string;
+export interface ObjectSpec extends ProjectSpec {
+    readonly objectid: string;
 }
 
-export type ObjectStoreSpec = ClassSpec | UserSpec | ProjectSpec | ImageSpec;
+export type ObjectStoreSpec = ClassSpec | UserSpec | ProjectSpec | ObjectSpec;
 
 export type ImageFileType = 'image/png' | 'image/jpg' | 'image/jpeg' | '';
 
@@ -22,4 +22,11 @@ export interface Image {
     readonly modified?: string;
     readonly etag?: string;
     readonly filetype: ImageFileType;
+}
+
+export interface Sound {
+    readonly size: number;
+    readonly body: number[];
+    readonly modified?: string;
+    readonly etag?: string;
 }

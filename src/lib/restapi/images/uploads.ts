@@ -4,15 +4,15 @@ import * as multer from 'multer';
 import * as httpStatus from 'http-status';
 // local dependencies
 import * as auth from '../auth';
-import * as config from '../../imagestore/config';
-import * as store from '../../imagestore';
+import * as config from '../../objectstore/config';
+import * as store from '../../objectstore';
 import * as db from '../../db/store';
 import * as urls from '../urls';
 import * as parse from './urlparse';
 import loggerSetup from '../../utils/logger';
 // type definitions
 import * as Types from './types';
-import * as StoreTypes from '../../imagestore/types';
+import * as StoreTypes from '../../objectstore/types';
 
 
 const log = loggerSetup();
@@ -82,7 +82,7 @@ function handleUpload(req: auth.RequestWithProject, res: Express.Response) {
         }
 
 
-        let imageSpec: StoreTypes.ImageSpec | undefined;
+        let imageSpec: StoreTypes.ObjectSpec | undefined;
         let etag: string | undefined;
 
         try {
@@ -97,7 +97,7 @@ function handleUpload(req: auth.RequestWithProject, res: Express.Response) {
                 parse.createImageUrl(imageSpec),
                 imageLabel,
                 true,
-                imageSpec.imageid);
+                imageSpec.objectid);
 
             if (etag) {
                 res.setHeader('ETag', etag);
@@ -198,8 +198,8 @@ function returnUploadError(res: Express.Response, err: Error) {
 
 
 
-function removeStoredImage(image: StoreTypes.ImageSpec): void {
-    db.storeDeleteImageJob(image.classid, image.userid, image.projectid, image.imageid)
+function removeStoredImage(image: StoreTypes.ObjectSpec): void {
+    db.storeDeleteObjectJob(image.classid, image.userid, image.projectid, image.objectid)
         .catch((err) => {
             log.error({ err, image }, 'Failed to clean-up image');
         });

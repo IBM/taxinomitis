@@ -8,7 +8,6 @@ import * as express from 'express';
 
 import * as store from '../../lib/db/store';
 import * as limits from '../../lib/db/limits';
-import * as dbobjects from '../../lib/db/objects';
 import * as auth from '../../lib/restapi/auth';
 import testapiserver from './testserver';
 
@@ -149,12 +148,12 @@ describe('REST API - sound training', () => {
             await store.addLabelToProject(USERID, CLASSID, projectid, 'third');
             await store.addLabelToProject(USERID, CLASSID, projectid, 'fourth');
 
-            await store.storeSoundTraining(projectid, createTraining(), 'first');
-            await store.storeSoundTraining(projectid, createTraining(), 'first');
-            await store.storeSoundTraining(projectid, createTraining(), 'first');
-            await store.storeSoundTraining(projectid, createTraining(), 'second');
-            await store.storeSoundTraining(projectid, createTraining(), 'second');
-            await store.storeSoundTraining(projectid, createTraining(), 'third');
+            await store.storeSoundTraining(projectid, 'url', 'first', uuid());
+            await store.storeSoundTraining(projectid, 'url', 'first', uuid());
+            await store.storeSoundTraining(projectid, 'url', 'first', uuid());
+            await store.storeSoundTraining(projectid, 'url', 'second', uuid());
+            await store.storeSoundTraining(projectid, 'url', 'second', uuid());
+            await store.storeSoundTraining(projectid, 'url', 'third', uuid());
 
             nextUser = AUTH_USERS.STUDENT;
 
@@ -182,7 +181,7 @@ describe('REST API - sound training', () => {
             nextUser = AUTH_USERS.STUDENT;
 
             return request(testServer)
-                .post('/api/classes/' + CLASSID + '/students/' + USERID + '/projects/' + projectid + '/training')
+                .post('/api/classes/' + CLASSID + '/students/' + USERID + '/projects/' + projectid + '/sounds')
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.NOT_FOUND)
                 .then((res) => {
@@ -198,7 +197,7 @@ describe('REST API - sound training', () => {
             nextUser = AUTH_USERS.OTHERSTUDENT;
 
             return request(testServer)
-                .post('/api/classes/' + CLASSID + '/students/' + USERID + '/projects/' + projectid + '/training')
+                .post('/api/classes/' + CLASSID + '/students/' + USERID + '/projects/' + projectid + '/sounds')
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.FORBIDDEN)
                 .then(() => {
@@ -208,19 +207,22 @@ describe('REST API - sound training', () => {
 
         it('should require audio data in training', async () => {
             const project = await store.storeProject(USERID, CLASSID, 'sounds', 'demo', 'en', [], false);
+            await store.addLabelToProject(USERID, CLASSID, project.id, 'FIRST');
+            await store.addLabelToProject(USERID, CLASSID, project.id, 'SECOND');
+
             const projectid = project.id;
 
             const trainingurl = '/api/classes/' + CLASSID +
                                 '/students/' + USERID +
                                 '/projects/' + projectid +
-                                '/training';
+                                '/sounds';
 
             nextUser = AUTH_USERS.STUDENT;
 
             return request(testServer)
                 .post(trainingurl)
                 .send({
-                    label : 'nothing-to-label',
+                    label : 'FIRST',
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
@@ -235,19 +237,21 @@ describe('REST API - sound training', () => {
 
         it('should reject empty audio data in training', async () => {
             const project = await store.storeProject(USERID, CLASSID, 'sounds', 'demo', 'en', [], false);
+            await store.addLabelToProject(USERID, CLASSID, project.id, 'FIRST');
+            await store.addLabelToProject(USERID, CLASSID, project.id, 'SECOND');
             const projectid = project.id;
 
             const trainingurl = '/api/classes/' + CLASSID +
                                 '/students/' + USERID +
                                 '/projects/' + projectid +
-                                '/training';
+                                '/sounds';
 
             nextUser = AUTH_USERS.STUDENT;
 
             return request(testServer)
                 .post(trainingurl)
                 .send({
-                    label : 'nothing-to-label',
+                    label : 'FIRST',
                     data : [],
                 })
                 .expect('Content-Type', /json/)
@@ -263,19 +267,21 @@ describe('REST API - sound training', () => {
 
         it('should require audio data in training', async () => {
             const project = await store.storeProject(USERID, CLASSID, 'sounds', 'demo', 'en', [], false);
+            await store.addLabelToProject(USERID, CLASSID, project.id, 'FIRST');
+            await store.addLabelToProject(USERID, CLASSID, project.id, 'SECOND');
             const projectid = project.id;
 
             const trainingurl = '/api/classes/' + CLASSID +
                                 '/students/' + USERID +
                                 '/projects/' + projectid +
-                                '/training';
+                                '/sounds';
 
             nextUser = AUTH_USERS.STUDENT;
 
             return request(testServer)
                 .post(trainingurl)
                 .send({
-                    label : 'nothing-to-label',
+                    label : 'FIRST',
                     data : [ 'abc' ],
                 })
                 .expect('Content-Type', /json/)
@@ -290,20 +296,27 @@ describe('REST API - sound training', () => {
 
         it('should limit maximum length of audio training data', async () => {
             const project = await store.storeProject(USERID, CLASSID, 'sounds', 'demo', 'en', [], false);
+            await store.addLabelToProject(USERID, CLASSID, project.id, 'FIRST');
+            await store.addLabelToProject(USERID, CLASSID, project.id, 'SECOND');
             const projectid = project.id;
 
             const trainingurl = '/api/classes/' + CLASSID +
                                 '/students/' + USERID +
                                 '/projects/' + projectid +
-                                '/training';
+                                '/sounds';
 
             nextUser = AUTH_USERS.STUDENT;
+
+            const numbers: number[] = [];
+            for (let i = 0; i < 20010; i++) {
+                numbers.push(0);
+            }
 
             return request(testServer)
                 .post(trainingurl)
                 .send({
-                    data : createTraining(20010),
-                    label : 'something',
+                    data : numbers,
+                    label : 'FIRST',
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
@@ -317,66 +330,17 @@ describe('REST API - sound training', () => {
         });
 
 
-        it('should store audio training', async () => {
-            const project = await store.storeProject(USERID, CLASSID, 'sounds', 'demo', 'en', [], false);
-            const projectid = project.id;
-
-            const trainingurl = '/api/classes/' + CLASSID +
-                                '/students/' + USERID +
-                                '/projects/' + projectid +
-                                '/training';
-
-            nextUser = AUTH_USERS.STUDENT;
-
-            return request(testServer)
-                .post(trainingurl)
-                .send({
-                    data : createTraining(dbobjects.MAX_AUDIO_POINTS),
-                    label : 'fruit',
-                })
-                .expect(httpstatus.CREATED)
-                .then(() => {
-                    return store.deleteEntireUser(USERID, CLASSID);
-                });
-        });
-
-
-        it('should store large audio training', async () => {
-            const project = await store.storeProject(USERID, CLASSID, 'sounds', 'demo', 'en', [], false);
-            const projectid = project.id;
-
-            const trainingurl = '/api/classes/' + CLASSID +
-                                '/students/' + USERID +
-                                '/projects/' + projectid +
-                                '/training';
-
-            nextUser = AUTH_USERS.STUDENT;
-
-            const numbers: number[] = [];
-            for (let i = 0; i < dbobjects.MAX_AUDIO_POINTS; i++) {
-                numbers.push(1234567890.01234567890123456789);
-            }
-
-            return request(testServer)
-                .post(trainingurl)
-                .send({
-                    data : numbers,
-                    label : 'fruit',
-                })
-                .expect(httpstatus.CREATED)
-                .then(() => {
-                    return store.deleteEntireUser(USERID, CLASSID);
-                });
-        });
 
         it('should reject missing audio training', async () => {
             const project = await store.storeProject(USERID, CLASSID, 'sounds', 'demo', 'en', [], false);
+            await store.addLabelToProject(USERID, CLASSID, project.id, 'fruit');
+            await store.addLabelToProject(USERID, CLASSID, project.id, 'SECOND');
             const projectid = project.id;
 
             const trainingurl = '/api/classes/' + CLASSID +
                                 '/students/' + USERID +
                                 '/projects/' + projectid +
-                                '/training';
+                                '/sounds';
 
             nextUser = AUTH_USERS.STUDENT;
 
@@ -397,17 +361,19 @@ describe('REST API - sound training', () => {
 
         it('should enforce limits', async () => {
             const project = await store.storeProject(USERID, CLASSID, 'sounds', 'demo', 'en', [], false);
+            await store.addLabelToProject(USERID, CLASSID, project.id, 'label');
+            await store.addLabelToProject(USERID, CLASSID, project.id, 'SECOND');
             const projectid = project.id;
 
             const trainingurl = '/api/classes/' + CLASSID +
                                 '/students/' + USERID +
                                 '/projects/' + projectid +
-                                '/training';
+                                '/sounds';
 
             nextUser = AUTH_USERS.STUDENT;
 
-            await store.storeSoundTraining(projectid, createTraining(), 'label');
-            await store.storeSoundTraining(projectid, createTraining(), 'label');
+            await store.storeSoundTraining(projectid, 'url', 'label', uuid());
+            await store.storeSoundTraining(projectid, 'url', 'label', uuid());
 
             const limitsStub = sinon.stub(limits, 'getStoreLimits');
             limitsStub.returns({
@@ -422,7 +388,7 @@ describe('REST API - sound training', () => {
                 .post(trainingurl)
                 .send({
                     data : createTraining(),
-                    label : 'fruit',
+                    label : 'label',
                 })
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CONFLICT)
@@ -504,7 +470,7 @@ describe('REST API - sound training', () => {
                 const label = uuid();
 
                 for (let text = 0; text < 3; text++) {
-                    await store.storeSoundTraining(projectid, createTraining(), label);
+                    await store.storeSoundTraining(projectid, 'url', label, uuid());
                 }
             }
 
@@ -515,14 +481,13 @@ describe('REST API - sound training', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK)
                 .then((res) => {
-                    const body: Array<{ id: string, label: string, audiodata: number[] }> = res.body;
+                    const body: Array<{ id: string, label: string, audiourl: number[] }> = res.body;
                     assert.strictEqual(body.length, 6);
 
                     body.forEach((item) => {
                         assert(item.id);
                         assert(item.label);
-                        assert(item.audiodata);
-                        assert(Array.isArray(item.audiodata));
+                        assert(item.audiourl);
                     });
 
                     return store.deleteEntireProject(USERID, CLASSID, project);
@@ -538,7 +503,7 @@ describe('REST API - sound training', () => {
                 const label = uuid();
 
                 for (let text = 0; text < 5; text++) {
-                    await store.storeSoundTraining(projectid, createTraining(), label);
+                    await store.storeSoundTraining(projectid, 'url', label, uuid());
                 }
             }
 
@@ -550,13 +515,13 @@ describe('REST API - sound training', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK)
                 .then((res) => {
-                    const body: Array<{ id: string, label: string, audiodata: number[] }> = res.body;
+                    const body: Array<{ id: string, label: string, audiourl: number[] }> = res.body;
                     assert.strictEqual(body.length, 10);
 
                     body.forEach((item) => {
                         assert(item.id);
                         assert(item.label);
-                        assert(item.audiodata);
+                        assert(item.audiourl);
                     });
 
                     assert.strictEqual(res.header['content-range'], 'items 0-9/20');
@@ -580,8 +545,8 @@ describe('REST API - sound training', () => {
 
             nextUser = AUTH_USERS.STUDENT;
 
-            const first = await store.storeSoundTraining(projectid, createTraining(), 'label');
-            const second = await store.storeSoundTraining(projectid, createTraining(), 'label');
+            const first = await store.storeSoundTraining(projectid, 'url', 'label', uuid());
+            const second = await store.storeSoundTraining(projectid, 'url', 'label', uuid());
 
 
             return request(testServer)
@@ -639,7 +604,7 @@ describe('REST API - sound training', () => {
                         .then((res) => {
                             const body = res.body;
                             assert.strictEqual(body.length, 1);
-                            assert.deepStrictEqual(body[0].audiodata, first.audiodata);
+                            assert.deepStrictEqual(body[0].audiourl, first.audiourl);
                             assert.strictEqual(res.header['content-range'], 'items 0-0/1');
                         });
                 })
@@ -663,9 +628,9 @@ describe('REST API - sound training', () => {
             await store.addLabelToProject(USERID, CLASSID, projectid, 'vegetable');
             await store.addLabelToProject(USERID, CLASSID, projectid, 'mineral');
 
-            await store.storeSoundTraining(projectid, createTraining(), 'vegetable');
-            await store.storeSoundTraining(projectid, createTraining(), 'animal');
-            await store.storeSoundTraining(projectid, createTraining(), 'animal');
+            await store.storeSoundTraining(projectid, 'url', 'vegetable', uuid());
+            await store.storeSoundTraining(projectid, 'url', 'animal', uuid());
+            await store.storeSoundTraining(projectid, 'url', 'animal', uuid());
 
             const projecturl = '/api/classes/' + CLASSID +
                                '/students/' + USERID +

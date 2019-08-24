@@ -40,9 +40,11 @@ export const MODELTEST             = '/api/classes/:classid/students/:studentid/
 export const SCRATCHKEYS           = '/api/classes/:classid/students/:studentid/projects/:projectid/scratchkeys';
 
 //
-// URLs about image hosting
+// URLs about training data hosting
 export const IMAGES                = '/api/classes/:classid/students/:studentid/projects/:projectid/images';
 export const IMAGE                 = '/api/classes/:classid/students/:studentid/projects/:projectid/images/:imageid';
+export const SOUNDS                = '/api/classes/:classid/students/:studentid/projects/:projectid/sounds';
+export const SOUND                 = '/api/classes/:classid/students/:studentid/projects/:projectid/sounds/:soundid';
 
 //
 // URLs about Scratch Keys

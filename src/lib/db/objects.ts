@@ -6,7 +6,7 @@ import * as projects from './projects';
 import * as sitealerts from './site-alerts';
 import * as Objects from './db-types';
 import * as TrainingObjects from '../training/training-types';
-import * as ObjectStoreTypes from '../imagestore/types';
+import * as ObjectStoreTypes from '../objectstore/types';
 
 
 
@@ -377,7 +377,9 @@ export function createImageTraining(
     }
 
     if (imageurl.length > MAX_CONTENTS_LENGTH) {
-        throw new Error('Image URL exceeds maximum allowed length (1024 characters)');
+        throw new Error('Image URL exceeds maximum allowed length (' +
+                        MAX_CONTENTS_LENGTH +
+                        ' characters)');
     }
 
     const object: any = {
@@ -411,32 +413,26 @@ export function getImageTrainingFromDbRow(row: Objects.ImageTrainingDbRow): Obje
 }
 
 
-export const MAX_AUDIO_POINTS = 20000;
+function isNotValidString(str: string): boolean {
+    return str === undefined ||
+           str === '' ||
+           typeof str !== 'string' ||
+           str.trim().length === 0;
+}
 
-export function createSoundTraining(projectid: string, data: any[], label: string): Objects.SoundTraining {
-    if (projectid === undefined || projectid === '' ||
-        label === undefined || label === '' ||
-        data === undefined || typeof data !== 'object' || !Array.isArray(data))
+export function createSoundTraining(projectid: string, audiourl: string,
+                                    label: string, audiodataid: string): Objects.SoundTraining
+{
+    if (isNotValidString(projectid) || isNotValidString(audiourl) ||
+        isNotValidString(label) || isNotValidString(audiodataid))
     {
         throw new Error('Missing required attributes');
     }
 
-    if (data.length === 0) {
-        throw new Error('Empty audio is not allowed');
-    }
-    if (data.length > MAX_AUDIO_POINTS) {
-        throw new Error('Audio exceeds maximum allowed length');
-    }
-
-    const invalidAudio = data.some((item) => isNaN(parseFloat(item)));
-    if (invalidAudio) {
-        throw new Error('Invalid audio input');
-    }
-
     return {
-        id : uuid(),
+        id : audiodataid,
         projectid,
-        audiodata : data,
+        audiourl,
         label,
     };
 }
@@ -444,22 +440,20 @@ export function createSoundTraining(projectid: string, data: any[], label: strin
 export function getSoundTrainingFromDbRow(row: Objects.SoundTrainingDbRow): Objects.SoundTraining {
     const obj: any = {
         id : row.id,
-        audiodata : row.audiodata.split(',').map(parseFloat),
         label : row.label,
+        audiourl : row.audiourl,
     };
-
     if (row.projectid) {
         obj.projectid = row.projectid;
     }
-
     return obj;
 }
 
 export function createSoundTrainingDbRow(obj: Objects.SoundTraining): Objects.SoundTrainingDbRow {
     return {
         id : obj.id,
-        audiodata : obj.audiodata.join(','),
         label : obj.label,
+        audiourl : obj.audiourl,
         projectid : obj.projectid,
     };
 }
@@ -858,7 +852,7 @@ export function createKnownError(
 //
 // -----------------------------------------------------------------------------
 
-export function createDeleteImageJob(spec: ObjectStoreTypes.ImageSpec): Objects.PendingJob
+export function createDeleteObjectStoreJob(spec: ObjectStoreTypes.ObjectSpec): Objects.PendingJob
 {
     if (!spec.classid) {
         throw new Error('Missing required class id');
@@ -869,19 +863,19 @@ export function createDeleteImageJob(spec: ObjectStoreTypes.ImageSpec): Objects.
     if (!spec.projectid) {
         throw new Error('Missing required project id');
     }
-    if (!spec.imageid) {
-        throw new Error('Missing required image id');
+    if (!spec.objectid) {
+        throw new Error('Missing required object id');
     }
 
     return {
         id : uuid(),
-        jobtype : Objects.PendingJobType.DeleteOneImageFromObjectStorage,
+        jobtype : Objects.PendingJobType.DeleteOneObjectFromObjectStorage,
         jobdata : spec,
         attempts : 0,
     };
 }
 
-export function createDeleteProjectImagesJob(spec: ObjectStoreTypes.ProjectSpec): Objects.PendingJob
+export function createDeleteProjectObjectsJob(spec: ObjectStoreTypes.ProjectSpec): Objects.PendingJob
 {
     if (!spec.classid) {
         throw new Error('Missing required class id');
@@ -895,13 +889,13 @@ export function createDeleteProjectImagesJob(spec: ObjectStoreTypes.ProjectSpec)
 
     return {
         id : uuid(),
-        jobtype : Objects.PendingJobType.DeleteProjectImagesFromObjectStorage,
+        jobtype : Objects.PendingJobType.DeleteProjectObjectsFromObjectStorage,
         jobdata : spec,
         attempts : 0,
     };
 }
 
-export function createDeleteUserImagesJob(spec: ObjectStoreTypes.UserSpec): Objects.PendingJob
+export function createDeleteUserObjectsJob(spec: ObjectStoreTypes.UserSpec): Objects.PendingJob
 {
     if (!spec.classid) {
         throw new Error('Missing required class id');
@@ -912,13 +906,13 @@ export function createDeleteUserImagesJob(spec: ObjectStoreTypes.UserSpec): Obje
 
     return {
         id : uuid(),
-        jobtype : Objects.PendingJobType.DeleteUserImagesFromObjectStorage,
+        jobtype : Objects.PendingJobType.DeleteUserObjectsFromObjectStorage,
         jobdata : spec,
         attempts : 0,
     };
 }
 
-export function createDeleteClassImagesJob(spec: ObjectStoreTypes.ClassSpec): Objects.PendingJob
+export function createDeleteClassObjectsJob(spec: ObjectStoreTypes.ClassSpec): Objects.PendingJob
 {
     if (!spec.classid) {
         throw new Error('Missing required class id');
@@ -926,7 +920,7 @@ export function createDeleteClassImagesJob(spec: ObjectStoreTypes.ClassSpec): Ob
 
     return {
         id : uuid(),
-        jobtype : Objects.PendingJobType.DeleteClassImagesFromObjectStorage,
+        jobtype : Objects.PendingJobType.DeleteClassObjectsFromObjectStorage,
         jobdata : spec,
         attempts : 0,
     };

@@ -2,26 +2,26 @@
 import * as Express from 'express';
 import * as uuid from 'uuid/v4';
 // local dependencies
-import * as Types from '../../imagestore/types';
+import * as Types from '../../objectstore/types';
 import * as urls from '../../restapi/urls';
 
 
 
-export function imageUrl(req: Express.Request): Types.ImageSpec {
+export function imageUrl(req: Express.Request): Types.ObjectSpec {
     return {
         classid : req.params.classid,
         userid : req.params.studentid,
         projectid : req.params.projectid,
-        imageid : req.params.imageid,
+        objectid : req.params.imageid,
     };
 }
 
-export function imagesUrl(req: Express.Request): Types.ImageSpec {
+export function imagesUrl(req: Express.Request): Types.ObjectSpec {
     return {
         classid : req.params.classid,
         userid : req.params.studentid,
         projectid : req.params.projectid,
-        imageid : uuid(),
+        objectid : uuid(),
     };
 }
 
@@ -46,10 +46,10 @@ export function classUrl(req: Express.Request): Types.ClassSpec {
     };
 }
 
-export function createImageUrl(params: Types.ImageSpec): string {
+export function createImageUrl(params: Types.ObjectSpec): string {
     return urls.IMAGE
             .replace(':classid', params.classid)
             .replace(':studentid', params.userid)
             .replace(':projectid', params.projectid)
-            .replace(':imageid', params.imageid);
+            .replace(':imageid', params.objectid);
 }

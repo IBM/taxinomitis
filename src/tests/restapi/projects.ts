@@ -11,7 +11,7 @@ import * as auth0objects from '../../lib/auth0/auth-types';
 import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
 import * as auth0users from '../../lib/auth0/users';
-import * as Types from '../../lib/imagestore/types';
+import * as Types from '../../lib/objectstore/types';
 import testapiserver from './testserver';
 
 
@@ -1275,11 +1275,11 @@ describe('REST API - projects', () => {
             let job = await store.getNextPendingJob();
             while (job) {
                 assert.strictEqual(job.jobtype, 1);
-                const jobdata: Types.ImageSpec = job.jobdata as Types.ImageSpec;
+                const jobdata: Types.ObjectSpec = job.jobdata as Types.ObjectSpec;
                 assert.strictEqual(jobdata.projectid, projectId);
                 assert.strictEqual(jobdata.userid, studentId);
                 assert.strictEqual(jobdata.classid, TESTCLASS);
-                assert(imageIds.includes(jobdata.imageid));
+                assert(imageIds.includes(jobdata.objectid));
 
                 jobCount += 1;
 

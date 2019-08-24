@@ -2,7 +2,7 @@
 import * as express from 'express';
 // local dependencies
 import * as store from './db/store';
-import * as imagestore from './imagestore';
+import * as objectstore from './objectstore';
 import * as iamcache from './iam';
 import * as sitealerts from './sitealerts';
 import restapi from './restapi';
@@ -31,8 +31,8 @@ slack.init();
 // prepare SMTP pool for sending notification emails
 email.init();
 
-// connect to S3 object storage used to store images
-imagestore.init();
+// connect to S3 object storage used to store images and sounds
+objectstore.init();
 
 // initialise the cache for tokens from Bluemix IAM
 iamcache.init();

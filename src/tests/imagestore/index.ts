@@ -5,7 +5,7 @@ import * as sinon from 'sinon';
 import * as randomstring from 'randomstring';
 import * as IBMCosSDK from 'ibm-cos-sdk';
 
-import * as imagestore from '../../lib/imagestore';
+import * as objectstore from '../../lib/objectstore';
 import * as mock from './mockStore';
 
 
@@ -39,7 +39,7 @@ describe('Object Store', () => {
         mock.reset();
         cosStub = sinon.stub(IBMCosSDK, 'S3');
         cosStub.returns(mock.mockS3);
-        imagestore.init();
+        objectstore.init();
     });
     afterEach(() => {
         cosStub.restore();
@@ -54,9 +54,9 @@ describe('Object Store', () => {
                 classid : 'INVALIDCLASS',
                 userid : 'INVALIDUSER',
                 projectid : 'INVALIDPROJECT',
-                imageid : 'MISSINGMETADATA',
+                objectid : 'MISSINGMETADATA',
             };
-            const retrieved = await imagestore.getImage(spec);
+            const retrieved = await objectstore.getImage(spec);
             assert.strictEqual(retrieved.filetype, '');
         });
 
@@ -65,9 +65,9 @@ describe('Object Store', () => {
                 classid : 'INVALIDCLASS',
                 userid : 'INVALIDUSER',
                 projectid : 'INVALIDPROJECT',
-                imageid : 'INVALIDMETADATA',
+                objectid : 'INVALIDMETADATA',
             };
-            const retrieved = await imagestore.getImage(spec);
+            const retrieved = await objectstore.getImage(spec);
             assert.strictEqual(retrieved.filetype, '');
         });
 
@@ -76,9 +76,9 @@ describe('Object Store', () => {
                 classid : 'INVALIDCLASS',
                 userid : 'INVALIDUSER',
                 projectid : 'INVALIDPROJECT',
-                imageid : 'INVALIDIMAGETYPE',
+                objectid : 'INVALIDIMAGETYPE',
             };
-            const retrieved = await imagestore.getImage(spec);
+            const retrieved = await objectstore.getImage(spec);
             assert.strictEqual(retrieved.filetype, '');
         });
     });
@@ -91,14 +91,14 @@ describe('Object Store', () => {
                 classid : 'MYCLASS',
                 userid : 'MYUSER',
                 projectid : 'MYPROJECT',
-                imageid : 'MYPNGIMAGE',
+                objectid : 'MYPNGIMAGE',
             };
             const image = Buffer.from('ABCDEF');
             const imageType = 'image/png';
 
-            const stored = await imagestore.storeImage(spec, imageType, image);
+            const stored = await objectstore.storeImage(spec, imageType, image);
 
-            const retrieved = await imagestore.getImage(spec);
+            const retrieved = await objectstore.getImage(spec);
 
             assert.deepStrictEqual(retrieved, {
                 size : image.byteLength,
@@ -115,14 +115,14 @@ describe('Object Store', () => {
                 classid : 'MYCLASS',
                 userid : 'MYUSER',
                 projectid : 'MYPROJECT',
-                imageid : 'MYJPEGIMAGE',
+                objectid : 'MYJPEGIMAGE',
             };
             const image = Buffer.from('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
             const imageType = 'image/jpeg';
 
-            const stored = await imagestore.storeImage(spec, imageType, image);
+            const stored = await objectstore.storeImage(spec, imageType, image);
 
-            const retrieved = await imagestore.getImage(spec);
+            const retrieved = await objectstore.getImage(spec);
 
             assert.deepStrictEqual(retrieved, {
                 size : image.byteLength,
@@ -142,14 +142,14 @@ describe('Object Store', () => {
                 classid : 'MYCLASS',
                 userid : 'MYUSER',
                 projectid : 'MYPROJECT',
-                imageid : 'MYPNGIMAGE',
+                objectid : 'MYPNGIMAGE',
             };
             const image = Buffer.from('ABCDEFGHIJK');
             const imageType = 'image/png';
 
-            const stored = await imagestore.storeImage(spec, imageType, image);
+            const stored = await objectstore.storeImage(spec, imageType, image);
 
-            const retrieved = await imagestore.getImage(spec);
+            const retrieved = await objectstore.getImage(spec);
 
             assert.deepStrictEqual(retrieved, {
                 size : image.byteLength,
@@ -159,10 +159,10 @@ describe('Object Store', () => {
                 filetype : imageType,
             });
 
-            await imagestore.deleteImage(spec);
+            await objectstore.deleteObject(spec);
 
             try {
-                await imagestore.getImage(spec);
+                await objectstore.getImage(spec);
                 assert.fail('should not reach here');
             }
             catch (err) {
@@ -182,33 +182,33 @@ describe('Object Store', () => {
                     classid : 'MYTESTCLASS',
                     userid : 'MYTESTUSER',
                     projectid : 'MYTESTPROJECT',
-                    imageid : 'MYTESTPNGIMAGE' + i,
+                    objectid : 'MYTESTPNGIMAGE' + i,
                 };
                 const image = Buffer.from(randomstring.generate({ length : 100 }));
                 const imageType = 'image/png';
 
-                await imagestore.storeImage(spec, imageType, image);
+                await objectstore.storeImage(spec, imageType, image);
             }
 
-            await imagestore.getImage({
+            await objectstore.getImage({
                 classid : 'MYTESTCLASS',
                 userid : 'MYTESTUSER',
                 projectid : 'MYTESTPROJECT',
-                imageid : 'MYTESTPNGIMAGE7',
+                objectid : 'MYTESTPNGIMAGE7',
             });
 
-            await imagestore.deleteProject({
+            await objectstore.deleteProject({
                 classid : 'MYTESTCLASS',
                 userid : 'MYTESTUSER',
                 projectid : 'MYTESTPROJECT',
             });
 
             try {
-                await imagestore.getImage({
+                await objectstore.getImage({
                     classid : 'MYTESTCLASS',
                     userid : 'MYTESTUSER',
                     projectid : 'MYTESTPROJECT',
-                    imageid : 'MYTESTPNGIMAGE7',
+                    objectid : 'MYTESTPNGIMAGE7',
                 });
                 assert.fail('should not reach here');
             }
@@ -220,7 +220,7 @@ describe('Object Store', () => {
         });
 
         it('delete unknown projects', async () => {
-            await imagestore.deleteProject({
+            await objectstore.deleteProject({
                 classid : 'MYUNKNOWNTESTCLASS',
                 userid : 'MYUNKNOWNTESTUSER',
                 projectid : 'MYUNKNOWNTESTPROJECT',
@@ -238,33 +238,33 @@ describe('Object Store', () => {
                         classid : 'MYTESTCLASS',
                         userid : 'MYTESTUSER',
                         projectid : 'MYTESTPROJECT' + proj,
-                        imageid : 'MYTESTJPGIMAGE' + img,
+                        objectid : 'MYTESTJPGIMAGE' + img,
                     };
                     const image = Buffer.from(randomstring.generate({ length : 100 }));
                     const imageType = 'image/jpeg';
 
-                    await imagestore.storeImage(spec, imageType, image);
+                    await objectstore.storeImage(spec, imageType, image);
                 }
             }
 
-            await imagestore.getImage({
+            await objectstore.getImage({
                 classid : 'MYTESTCLASS',
                 userid : 'MYTESTUSER',
                 projectid : 'MYTESTPROJECT3',
-                imageid : 'MYTESTJPGIMAGE6',
+                objectid : 'MYTESTJPGIMAGE6',
             });
 
-            await imagestore.deleteUser({
+            await objectstore.deleteUser({
                 classid : 'MYTESTCLASS',
                 userid : 'MYTESTUSER',
             });
 
             try {
-                await imagestore.getImage({
+                await objectstore.getImage({
                     classid : 'MYTESTCLASS',
                     userid : 'MYTESTUSER',
                     projectid : 'MYTESTPROJECT3',
-                    imageid : 'MYTESTJPGIMAGE6',
+                    objectid : 'MYTESTJPGIMAGE6',
                 });
                 assert.fail('should not reach here');
             }
@@ -276,7 +276,7 @@ describe('Object Store', () => {
         });
 
         it('delete unknown users', async () => {
-            await imagestore.deleteUser({
+            await objectstore.deleteUser({
                 classid : 'MYVERYUNKNOWNTESTCLASS',
                 userid : 'MYVERYUNKNOWNTESTUSER',
             });
@@ -294,33 +294,33 @@ describe('Object Store', () => {
                             classid : 'ATESTCLASS',
                             userid : 'ATESTUSER' + user,
                             projectid : 'ATESTPROJECT' + proj,
-                            imageid : 'ATESTPNGIMAGE' + img,
+                            objectid : 'ATESTPNGIMAGE' + img,
                         };
                         const image = Buffer.from(randomstring.generate({ length : 100 }));
                         const imageType = 'image/png';
 
-                        await imagestore.storeImage(spec, imageType, image);
+                        await objectstore.storeImage(spec, imageType, image);
                     }
                 }
             }
 
-            await imagestore.getImage({
+            await objectstore.getImage({
                 classid : 'ATESTCLASS',
                 userid : 'ATESTUSER11',
                 projectid : 'ATESTPROJECT3',
-                imageid : 'ATESTPNGIMAGE6',
+                objectid : 'ATESTPNGIMAGE6',
             });
 
-            await imagestore.deleteClass({
+            await objectstore.deleteClass({
                 classid : 'ATESTCLASS',
             });
 
             try {
-                await imagestore.getImage({
+                await objectstore.getImage({
                     classid : 'ATESTCLASS',
                     userid : 'ATESTUSER11',
                     projectid : 'ATESTPROJECT3',
-                    imageid : 'ATESTPNGIMAGE6',
+                    objectid : 'ATESTPNGIMAGE6',
                 });
                 assert.fail('should not reach here');
             }
@@ -332,7 +332,7 @@ describe('Object Store', () => {
         });
 
         it('delete unknown classes', async () => {
-            await imagestore.deleteClass({
+            await objectstore.deleteClass({
                 classid : 'SOMEVERYUNKNOWNTESTCLASS',
             });
         });

@@ -9,6 +9,7 @@ import registerUserApis from './users';
 import registerProjectApis from './projects';
 import registerTrainingApis from './training';
 import registerImageApis from './images';
+import registerSoundApis from './sounds';
 import registerModelApis from './models';
 import registerScratchApis from './scratch';
 import registerAppInventorApis from './appinventor';
@@ -16,7 +17,6 @@ import registerWatsonApis from './watsonapis';
 import registerClassifierApis from './classifiers';
 import registerSessionUserApis from './sessionusers';
 import registerSiteAlertApis from './sitealerts';
-import registerAdminApis from './siteadmin';
 import * as URLS from './urls';
 import * as serverConfig from './config';
 import * as errors from './errors';
@@ -44,6 +44,7 @@ export default function setup(app: Express.Application): void {
 
     // body types
     app.use(URLS.SCRATCHKEY_CLASSIFY, bodyParser.json({ limit : '3mb' }));
+    app.use(URLS.SOUNDS, bodyParser.json({ limit : '400kb' }));
     app.use(URLS.TRAININGITEMS, bodyParser.json({ limit : '400kb' }));
     app.use(URLS.ROOT, bodyParser.json({ limit : '100kb' }));
 
@@ -53,6 +54,7 @@ export default function setup(app: Express.Application): void {
     registerProjectApis(app);
     registerTrainingApis(app);
     registerImageApis(app);
+    registerSoundApis(app);
     registerModelApis(app);
     registerScratchApis(app);
     registerAppInventorApis(app);
@@ -60,7 +62,6 @@ export default function setup(app: Express.Application): void {
     registerClassifierApis(app);
     registerSessionUserApis(app);
     registerSiteAlertApis(app);
-    registerAdminApis(app);
 
     // error handling
     errors.registerErrorHandling(app);

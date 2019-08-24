@@ -16,7 +16,7 @@ import * as headers from '../headers';
 export default function registerApis(app: Express.Application) {
 
     // register route handler
-    app.get(urls.IMAGE,
+    app.get(urls.SOUND,
             auth.authenticate,
             auth.checkValidUser,
             auth.verifyProjectAccess, // makes sure that the project exists
@@ -24,32 +24,25 @@ export default function registerApis(app: Express.Application) {
 }
 
 
-
 async function handleDownload(req: Express.Request, res: Express.Response) {
     try {
-        const image = await store.getImage(parse.imageUrl(req));
+        const sound = await store.getSound(parse.soundUrl(req));
 
-        //
-        // set headers dynamically based on the image we've fetched
-        //
-
-        res.setHeader('Content-Type', image.filetype);
-
-        if (image.modified) {
-            res.setHeader('Last-Modified', image.modified);
+        if (sound.modified) {
+            res.setHeader('Last-Modified', sound.modified);
         }
-        if (image.etag) {
-            res.setHeader('ETag', image.etag);
+        if (sound.etag) {
+            res.setHeader('ETag', sound.etag);
         }
 
         // This is slow, so encourage browsers to aggressively
-        //  cache the images rather than repeatedly download them
-        // (This is safe as we don't allow images to be modified,
+        //  cache the spectrograms rather than repeatedly download them
+        // (This is safe as we don't allow sound data to be modified,
         //  so it's okay to treat them as immutable).
         res.set(headers.CACHE_1YEAR);
 
 
-        res.send(image.body);
+        res.json(sound.body);
     }
     catch (err) {
         return returnDownloadError(res, err);

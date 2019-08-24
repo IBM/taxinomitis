@@ -52,55 +52,95 @@
 
 
 
-
+        // check that they're authenticated before doing anything else
         authService.getProfileDeferred()
             .then(function (profile) {
                 vm.profile = profile;
 
+                // get the project that we're going to be training
                 return projectsService.getProject($scope.projectId, $scope.userId, profile.tenant);
             })
             .then(function (project) {
                 $scope.project = project;
 
+                // if the user doesn't own the project (it's been shared with them by a teacher
+                //  using the "crowd-sourced" mode) then we need to hide some of the controls
                 $scope.crowdSourced = project.isCrowdSourced &&
                                       (vm.profile.user_id !== project.userid);
 
+                // for some projects we need to fetch some more things...
+
                 if (project.type === 'numbers') {
-                    return projectsService.getFields($scope.projectId, $scope.userId, vm.profile.tenant);
+                    // for numbers projects we need the fields to populate the drop-downs for new values
+                    return projectsService.getFields($scope.projectId, $scope.userId, vm.profile.tenant)
+                        .then(function (fields) {
+                            $scope.project.fields = fields;
+                        });
                 }
                 else if (project.type === 'sounds') {
-                    return soundTrainingService.initSoundSupport(project.id);
+                    // for sounds projects we need to download the TensorFlow.js libraries if we don't
+                    //  already have them in the page
+                    return soundTrainingService.initSoundSupport(project.id)
+                        .then(function () {
+                            $scope.soundModelInfo = soundTrainingService.getModelInfo();
+                        });
                 }
             })
-            .then(function (fields) {
-                if ($scope.project.type === 'sounds') {
-                    $scope.soundModelInfo = soundTrainingService.getModelInfo();
-                }
-
-                $scope.project.fields = fields;
-
+            .then(function () {
+                // we should have everything we need to prepare the page header now
                 refreshLabelsSummary();
 
+                // prepare the empty training buckets for the project
                 for (var labelIdx in $scope.project.labels) {
                     var label = $scope.project.labels[labelIdx];
                     $scope.training[label] = [];
                 }
 
+                // fetch the training data to populate the buckets with
                 return trainingService.getTraining($scope.projectId, $scope.userId, vm.profile.tenant);
             })
             .then(function (training) {
+                // all the training data items will be returned in one list
+                //  so they need to be sorted into the different buckets now
                 for (var trainingitemIdx in training) {
                     var trainingitem = training[trainingitemIdx];
 
                     var label = trainingitem.label;
 
                     if (label in $scope.training === false) {
+                        // This shouldn't happen - it means that we got some training data
+                        //  for a label that isn't known to the project.
+                        //
+                        // It means the page state is out of date (e.g. the label was created
+                        //  after the page was first loaded from another instance of the page)
+                        //  which is a super unlikely race condition, but we avoid the possible
+                        //  error by creating a new bucket with this new label
                         $scope.training[label] = [];
-
-                        // TODO need to update the project with this missing label
                     }
 
                     $scope.training[label].push(trainingitem);
+
+                    // if this is a text project...
+                    //          trainingitem has the complete data - nothing left to do
+                    // if this is a numbers project...
+                    //          trainingitem has the complete data - nothing left to do
+                    // if this is an images project...
+                    //          trainingitem has the URL for the image, but the browser will fetch it
+                    //              for us automatically when we put it in the img src attribute
+                    //              so nothing left to do in code here, but there will be another
+                    //              network request before the image appears in the UI
+                    // if this is a sounds project...
+                    //          trainingitem has the URL for the sound spectogram, but we need to
+                    //              explicitly fetch it now (the page will display a loading icon
+                    //              until we get it)
+
+
+
+                    if ($scope.project.type === 'sounds') {
+                        // this will modify 'trainingitem' to add a 'audiodata' attribute
+                        //  (but not immediately as it'll need to make an XHR request to get it)
+                        trainingService.getSoundData(trainingitem);
+                    }
                 }
 
                 $scope.loadingtraining = false;
@@ -155,15 +195,11 @@
             $mdDialog.show({
                 locals : {
                     label : label,
-                    project : $scope.project,
-
-                    // only used for sound projects
-                    soundModelInfo : soundTrainingService.getModelInfo(),
+                    project : $scope.project
                 },
                 controller : function ($scope, locals) {
                     $scope.label = locals.label;
                     $scope.project = locals.project;
-                    $scope.soundModelInfo = locals.soundModelInfo;
                     $scope.values = {};
 
                     $scope.hide = function() {
@@ -183,43 +219,11 @@
                         }
                     };
 
-                    $scope.recordSound = function(label) {
-                        delete $scope.example;
-                        $scope.recording = true;
-
-                        $scope.recordingprogress = 0;
-                        var progressInterval = setInterval(function () {
-                            $scope.$apply(
-                                function() {
-                                    $scope.recordingprogress += 10;
-                                });
-                        }, 1000 / 10);
-
-                        soundTrainingService.collectExample(label)
-                            .then(function (spectogram) {
-                                clearInterval(progressInterval);
-                                $scope.$apply(
-                                    function() {
-                                        $scope.recordingprogress = 100;
-                                        if (spectogram && spectogram.data && spectogram.data.length > 0) {
-                                            $scope.example = spectogram.data;
-                                        }
-                                        $scope.recording = false;
-                                    });
-                            })
-                            .catch(function () {
-                                clearInterval(progressInterval);
-                                $scope.recording = false;
-                            });
-                    };
-
-                    if (locals.project.type !== 'sounds') {
-                        $scope.$watch('example', function (newval, oldval) {
-                            if ($scope && $scope.example && newval !== oldval) {
-                                $scope.example = newval.replace(/[\r\n\t]/g, ' ');
-                            }
-                        }, true);
-                    }
+                    $scope.$watch('example', function (newval, oldval) {
+                        if ($scope && $scope.example && newval !== oldval) {
+                            $scope.example = newval.replace(/[\r\n\t]/g, ' ');
+                        }
+                    }, true);
                 },
                 templateUrl : 'static/components-' + $stateParams.VERSION + '/training/trainingdata.tmpl.html',
                 targetEvent : ev,
@@ -242,6 +246,8 @@
             var placeholder;
 
             var duplicate = false;
+
+            var storeTrainingDataFn = trainingService.newTrainingData;
 
             if ($scope.project.type === 'text') {
                 data = resp;
@@ -285,7 +291,13 @@
                 };
             }
             else if ($scope.project.type === 'sounds') {
+                // convert the Float32Array we get from the dialog
+                //  into a regular old JavaScript array
+                // (could use Array.from(resp) but IE doesnt like it)
                 data = Array.prototype.slice.call(resp);
+
+                // duplicates are super unlikely so we're not going to
+                //  waste time checking
 
                 placeholder = {
                     id : placeholderId++,
@@ -294,6 +306,9 @@
                     audiodata : data,
                     isPlaceholder : true
                 };
+
+                // IMPORTANT - we use a different API for uploading sound
+                storeTrainingDataFn = trainingService.uploadSound;
             }
 
             if (duplicate) {
@@ -304,7 +319,7 @@
 
             $scope.training[label].push(placeholder);
 
-            trainingService.newTrainingData($scope.projectId, $scope.userId, vm.profile.tenant, data, label)
+            storeTrainingDataFn($scope.projectId, $scope.userId, vm.profile.tenant, data, label)
                 .then(function (newitem) {
                     placeholder.isPlaceholder = false;
                     placeholder.id = newitem.id;
@@ -621,6 +636,75 @@
         };
 
 
+
+        vm.useMicrophone = function (ev, label) {
+            $mdDialog.show({
+                locals : {
+                    label : label,
+                    project : $scope.project,
+                    soundModelInfo : soundTrainingService.getModelInfo(),
+                },
+                controller : function ($scope, locals) {
+                    $scope.label = locals.label;
+                    $scope.project = locals.project;
+                    $scope.soundModelInfo = locals.soundModelInfo;
+                    $scope.values = {};
+
+                    $scope.hide = function() {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function() {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function(resp) {
+                        $mdDialog.hide(resp);
+                    };
+
+                    $scope.recordSound = function(label) {
+                        delete $scope.example;
+                        $scope.recording = true;
+
+                        $scope.recordingprogress = 0;
+                        var progressInterval = setInterval(function () {
+                            $scope.$apply(
+                                function() {
+                                    $scope.recordingprogress += 10;
+                                });
+                        }, 1000 / 10);
+
+                        soundTrainingService.collectExample(label)
+                            .then(function (spectogram) {
+                                clearInterval(progressInterval);
+                                $scope.$apply(
+                                    function() {
+                                        $scope.recordingprogress = 100;
+                                        if (spectogram && spectogram.data && spectogram.data.length > 0) {
+                                            $scope.example = spectogram.data;
+                                        }
+                                        $scope.recording = false;
+                                    });
+                            })
+                            .catch(function () {
+                                clearInterval(progressInterval);
+                                $scope.recording = false;
+                            });
+                    };
+                },
+                templateUrl : 'static/components-' + $stateParams.VERSION + '/training/trainingdata.tmpl.html',
+                targetEvent : ev,
+                clickOutsideToClose : true
+            })
+            .then(
+                function (resp) {
+                    vm.addConfirmedTrainingData(resp, label);
+                },
+                function() {
+                    // cancelled. do nothing
+                }
+            );
+        };
+
+
         function scrollToNewItem(itemId) {
             $timeout(function () {
                 var newItem = document.getElementById(itemId);
@@ -640,13 +724,6 @@
             }
             return -1;
         }
-
-
-
-
-
-
-
 
 
         $scope.getController = function() {

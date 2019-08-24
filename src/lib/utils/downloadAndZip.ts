@@ -10,7 +10,7 @@ import readChunk from 'read-chunk';
 import * as request from 'request';
 // local dependencies
 import * as download from './download';
-import * as imagestore from '../imagestore';
+import * as objectstore from '../objectstore';
 import * as visrec from '../training/visualrecognition';
 import * as notifications from '../notifications/slack';
 import * as openwhisk from './openwhisk';
@@ -25,7 +25,7 @@ export interface RetrieveFromStorage {
     readonly spec: ObjectStorageSpec;
 }
 interface ObjectStorageSpec {
-    readonly imageid: string;
+    readonly objectid: string;
     readonly projectid: string;
     readonly userid: string;
     readonly classid: string;
@@ -70,7 +70,7 @@ function summary(location: ImageDownload): string {
         return location.url;
     }
     else if (location.type === 'retrieve') {
-        return location.spec.imageid;
+        return location.spec.objectid;
     }
     else {
         return 'unknown';
@@ -119,7 +119,7 @@ function logError(err?: Error | null) {
  * @param targetFilePath - writes to
  */
 function retrieve(spec: ObjectStorageSpec, targetFilePath: string, callback: IErrCallback): void {
-    imagestore.getImage(spec)
+    objectstore.getImage(spec)
         .then((imagedata) => {
             fs.writeFile(targetFilePath, imagedata.body, callback);
         })
@@ -377,7 +377,7 @@ export async function runInServerless(locations: ImageDownload[]): Promise<strin
                 },
                 body : {
                     locations,
-                    imagestore : imagestore.getCredentials(),
+                    imagestore : objectstore.getCredentials(),
                 },
             };
 
