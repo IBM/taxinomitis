@@ -3,7 +3,7 @@ export interface RetrieveFromStorage {
     readonly spec: ObjectStorageSpec;
 }
 export interface ObjectStorageSpec {
-    readonly imageid: string;
+    readonly objectid: string;
     readonly projectid: string;
     readonly userid: string;
     readonly classid: string;
@@ -67,7 +67,7 @@ function isAValidRetrieve(retrieveInfo: RetrieveFromStorage): boolean {
            // the spec has valid storage properties
            retrieveInfo.spec &&
            typeof retrieveInfo.spec === 'object' &&
-           isANonEmptyString(retrieveInfo.spec.imageid) &&
+           isANonEmptyString(retrieveInfo.spec.objectid) &&
            isANonEmptyString(retrieveInfo.spec.projectid) &&
            isANonEmptyString(retrieveInfo.spec.userid) &&
            isANonEmptyString(retrieveInfo.spec.classid);

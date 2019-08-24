@@ -4,7 +4,7 @@ import * as assert from 'assert';
 import * as fs from 'fs';
 import * as async from 'async';
 import * as tmp from 'tmp';
-import * as unzip from 'unzip2';
+import * as unzip from 'unzipper';
 import * as filecompare from 'filecompare';
 import CreateZip from '../src/CreateZip';
 import { CreateZipParams } from '../src/Requests';
@@ -35,7 +35,7 @@ describe('Create image training zip function', () => {
                         classid: 'banana',
                         userid: 'auth0|5b296bce04e0e30bf72a6f0c',
                         projectid: 'f905f940-a4cd-11e9-b9e1-c157290d5ed7',
-                        imageid: 'db680cbe-f45d-4813-b94e-aa6c49b2d529',
+                        objectid: 'db759615-c4a7-4d40-a0d6-5bab30283753',
                     }},
                     { type : 'download', imageid : '3',
                         url : wm + 'thumb/7/7e/Thomas_J_Watson_Sr.jpg/148px-Thomas_J_Watson_Sr.jpg' },
@@ -47,7 +47,7 @@ describe('Create image training zip function', () => {
                         classid: 'banana',
                         userid: 'auth0|5b296bce04e0e30bf72a6f0c',
                         projectid: 'ea7409e0-a59a-11e8-9360-b17a0413da8c',
-                        imageid: '2ce72fe7-3675-44b2-91fb-266bdb3c187c',
+                        objectid: '2ce72fe7-3675-44b2-91fb-266bdb3c187c',
                     }},
                     { type : 'download', imageid : '6',
                         url : wm + 'd/df/IBMThinkpad760ED.gif?download' },
@@ -164,6 +164,14 @@ describe('Create image training zip function', () => {
                                             unzippedFile.location,
                                             (isEq: boolean) => {
                                                 assert(isEq, './test/resources/small-dog.png');
+                                                nextFile();
+                                            });
+                                break;
+                            case 9897:
+                                filecompare('./test/resources/small-dog-2.png',
+                                            unzippedFile.location,
+                                            (isEq: boolean) => {
+                                                assert(isEq, './test/resources/small-dog-2.png');
                                                 nextFile();
                                             });
                                 break;
@@ -295,7 +303,7 @@ describe('Create image training zip function', () => {
                 locations : [
                     { type : 'retrieve', spec : {
                         classid : 'myclass',
-                        imageid : 'myimage',
+                        objectid : 'myimage',
                         projectid : 'myproject',
                         userid : 'myuser',
                     }},

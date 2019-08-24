@@ -1,4 +1,5 @@
 // internal dependencies
+import * as util from 'util';
 import * as downloader from './Downloader';
 import ImageStore from './ImageStore';
 import { HttpResponse } from './Responses';
@@ -13,7 +14,7 @@ export default function main(params: CreateZipParams): Promise<HttpResponse> {
     // check the request is safe to use
     const isValid = validate(params);
     if (!isValid) {
-        log('invalid request', params);
+        log('invalid request', util.inspect(params, { depth : null }));
         return Promise.resolve(new HttpResponse({ error : 'Invalid request payload' }, BAD_REQUEST));
     }
 

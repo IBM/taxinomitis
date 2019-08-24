@@ -71,12 +71,14 @@ export default class ImageStore {
 
 
     private generateKey(spec: Requests.ObjectStorageSpec): string {
-        return [
+        const key = [
             spec.classid,
             spec.userid,
             spec.projectid,
-            spec.imageid,
+            spec.objectid,
         ].join('/');
+        // log('key', key);
+        return key;
     }
 
 

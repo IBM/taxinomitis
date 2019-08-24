@@ -39,7 +39,8 @@ function renameFileFromContents(filepath: string, source: RetrieveFromStorage, c
             if (filetype === 'jpg' || filetype === 'png') {
                 return next(undefined, filetype);
             }
-            next(new Error('Training data (' + source.spec.imageid + ') has unsupported file type (' + filetype + ')'));
+            next(new Error('Training data (' + source.spec.objectid +
+                           ') has unsupported file type (' + filetype + ')'));
         },
         (filetype: string, next: IRenameCallback) => {
             const newFilePath = filepath + '.' + filetype;
