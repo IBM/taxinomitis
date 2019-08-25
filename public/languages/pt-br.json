@@ -566,9 +566,7 @@
         "TITLE": "Usando aprendizado de máquina no App Inventor",
 
         "NOTREADY": "Seu projeto ainda não está pronto para ser usado no App Inventor.",
-        "NOMODEL": "Você ainda não treinou um modelo de aprendizado de máquina.",
-
-        "BETAWARNING": "Este é um early beta. O suporte para o App Inventor ainda não está concluído e provavelmente terá alguns bugs e problemas."
+        "NOMODEL": "Você ainda não treinou um modelo de aprendizado de máquina."
     },
     "SCRATCH": {
         "TITLE": "Usando aprendizado de máquina no Scratch",

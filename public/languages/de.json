@@ -566,9 +566,7 @@
         "TITLE": "Verwende Machine Learning im App Inventor",
 
         "NOTREADY": "Dein Projekt kann noch nicht im App Inventor verwendet werden.",
-        "NOMODEL": "Du hast noch kein Machine Learning Model trainiert.",
-
-        "BETAWARNING": "Dies ist eine frühe Beta-Version. Die Unterstützung für den App Inventor ist noch nicht abgeschlossen. Möglicherweise kommt es zu einigen Bugs und Problemen."
+        "NOMODEL": "Du hast noch kein Machine Learning Model trainiert."
     },
     "SCRATCH": {
         "TITLE": "Nutze Machine Learning in Scratch",

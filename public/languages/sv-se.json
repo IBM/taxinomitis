@@ -566,9 +566,7 @@
         "TITLE": "Att använda maskininlärning i App-uppfinnaren",
 
         "NOTREADY": "Ditt projekt är inte klart att användas i App-uppfinnaren än.",
-        "NOMODEL": "Du har inte tränat en maskininlärningsmodell än.",
-
-        "BETAWARNING": "Det här är tidig beta. Support för App-uppfinnaren är inte klar, och kommer antagligen ha en del buggar och problem."
+        "NOMODEL": "Du har inte tränat en maskininlärningsmodell än."
     },
     "SCRATCH": {
         "TITLE": "Att använda maskininlärning i Scratch",

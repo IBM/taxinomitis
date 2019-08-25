@@ -566,9 +566,7 @@
         "TITLE": "App Inventorで機械学習を使う",
 
         "NOTREADY": "あなたのプレジェクトはまだ、App Inventorで使う準備ができていません。",
-        "NOMODEL": "まだ、機械学習モデルをトレーニングしていません。",
-
-        "BETAWARNING": "この版はまだベータ版で、App Inventorのサポートが完了していません。いくつか、バグや問題があると思います。"
+        "NOMODEL": "まだ、機械学習モデルをトレーニングしていません。"
     },
     "SCRATCH": {
         "TITLE": "Scratchで機械学習を使う",

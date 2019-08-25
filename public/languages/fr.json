@@ -566,9 +566,7 @@
         "TITLE": "Utilisation de l'apprentissage automatique dans App Inventor",
 
         "NOTREADY": "Votre projet n'est pas encore prêt à être utilisé dans App Inventor.",
-        "NOMODEL": "Vous n'avez pas encore entraîné un modèle d'apprentissage machine.",
-
-        "BETAWARNING": "Il s'agit d'une première version bêta. Le support pour App Inventor n'est pas terminé, et aura probablement quelques bugs et problèmes."
+        "NOMODEL": "Vous n'avez pas encore entraîné un modèle d'apprentissage machine."
     },
     "SCRATCH": {
         "TITLE": "Utilisation de l'apprentissage machine dans Scratch",

@@ -566,9 +566,7 @@
         "TITLE": "Gebruik machine learning in App Inventor",
 
         "NOTREADY": "Je project is nog niet klaar om in App Inventor te worden gebruikt.",
-        "NOMODEL": " Je hebt nog geen machine learning model getraind.",
-
-        "BETAWARNING": "Dit is een beta-versie. Ondersteuning voor App Inventor is nog niet klaar, dus er kunnen nog een paar bugs of problemen zijn. "
+        "NOMODEL": " Je hebt nog geen machine learning model getraind."
     },
     "SCRATCH": {
         "TITLE": "Gebruik machine learning in Scratch",

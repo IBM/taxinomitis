@@ -559,8 +559,7 @@
     "APPINVENTOR": {
         "TITLE": "Uygulama Yaratıcısı'nda makine öğrenimini kullanma",
         "NOTREADY": "Projeniz henüz Uygulama Yaratıcısı’nda kullanılmaya hazır değil.",
-        "NOMODEL": " Henüz bir makine öğrenimi modelini eğitmediniz.",
-        "BETAWARNING": "Bu, erken bir beta sürümüdür. Uygulama Yaratıcısı desteği henüz tamamlanmadığından bazı sorunlar ve hatalar oluşabilir."
+        "NOMODEL": " Henüz bir makine öğrenimi modelini eğitmediniz."
     },
     "SCRATCH": {
         "TITLE": "Scratch'de makine öğrenimini kullanma",

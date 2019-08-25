@@ -2,7 +2,7 @@
 import * as cf from '../utils/cf';
 import * as conversation from '../training/conversation';
 import * as visualrec from '../training/visualrecognition';
-import * as credentials from '../training/credentials';
+// import * as credentials from '../training/credentials';
 import * as sessionusers from '../sessionusers';
 import * as pendingjobs from '../pendingjobs/runner';
 import * as constants from '../utils/constants';
@@ -53,9 +53,9 @@ export function run(): void {
         log.info('Scheduling check of Bluemix credentials to run every day');
         // check that the Bluemix credentials stored in
         //   the tool are still valid
-        setInterval(() => {
-            credentials.checkBluemixCredentials();
-        }, constants.ONE_DAY_PLUS_A_BIT);
+        // setInterval(() => {
+        //     credentials.checkBluemixCredentials();
+        // }, constants.ONE_DAY_PLUS_A_BIT);
 
 
 

@@ -566,9 +566,7 @@
         "TITLE": "在App Inventor中使用机器学习",
 
         "NOTREADY": "您的项目尚未准备好在App Inventor中使用。",
-        "NOMODEL": "你还没有训练过机器学习模型。",
-
-        "BETAWARNING": "这是一个早期测试版。对App Inventor的支持尚未完成,可能会有一些错误和问题。"
+        "NOMODEL": "你还没有训练过机器学习模型。"
     },
     "SCRATCH": {
         "TITLE": "在Scratch中使用机器学习",
