@@ -1404,7 +1404,7 @@ export async function getClassifierByBluemixId(classifierid: string):
     const queryString = 'SELECT `id`, `credentialsid`, `projectid`, `servicetype`,' +
                             ' `classifierid`, `url`, `name`, `language`, `created`, `expiry` ' +
                             'FROM `bluemixclassifiers` ' +
-                            'WHERE `classifierid` = ?';
+                            'WHERE `classifierid` = CONVERT(? USING latin1)';
 
     const rows = await dbExecute(queryString, [ classifierid ]);
     if (rows.length === 0) {
