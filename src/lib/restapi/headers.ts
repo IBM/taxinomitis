@@ -11,6 +11,10 @@ export const CACHE_1MINUTE = {
     'Cache-Control' : 'max-age=60',
 };
 
+export const CACHE_2MINUTES = {
+    'Cache-Control' : 'max-age=120',
+};
+
 export const CACHE_1HOUR = {
     'Cache-Control' : 'max-age=3600',
 };
