@@ -60,6 +60,13 @@
             });
         }
 
+        function getTrainingData(projectid, userid, tenantid) {
+            return trainingService.getTraining(projectid, userid, tenantid)
+                .then(function (traininginfo) {
+                    return $q.all(traininginfo.map(trainingService.getSoundData));
+                });
+        }
+
         function newModel(projectid, userid, tenantid) {
             modelStatus = {
                 classifierid : projectid,
@@ -68,7 +75,7 @@
                 updated : new Date()
             };
 
-            return trainingService.getTraining(projectid, userid, tenantid)
+            return getTrainingData(projectid, userid, tenantid)
                 .then(function (trainingdata) {
                     // reset
                     transferRecognizer.dataset.clear();

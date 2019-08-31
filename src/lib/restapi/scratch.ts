@@ -3,6 +3,8 @@ import * as Express from 'express';
 import * as httpstatus from 'http-status';
 // local dependencies
 import * as store from '../db/store';
+import * as Types from '../db/db-types';
+import * as objectstore from '../objectstore';
 import * as errors from './errors';
 import * as auth from './auth';
 import * as extensions from '../scratchx/extensions';
@@ -161,6 +163,25 @@ async function postClassifyWithScratchKey(req: Express.Request, res: Express.Res
 
 
 
+function getSoundTrainingItem(info: Types.SoundTraining): Promise<any> {
+    const urlSegments = info.audiourl.split('/');
+    if (urlSegments.length < 10) {
+        throw new Error('Unexpected audio url');
+    }
+    const soundSpec = {
+        classid : urlSegments[3],
+        userid : urlSegments[5],
+        projectid : urlSegments[7],
+        objectid : urlSegments[9],
+    };
+    return objectstore.getSound(soundSpec)
+        .then((audiodata) => {
+            const soundTraining: any = info as any;
+            soundTraining.audiodata = audiodata.body;
+            return soundTraining;
+        });
+}
+
 
 async function getTrainingData(req: Express.Request, res: Express.Response) {
     const apikey = req.params.scratchkey;
@@ -175,10 +196,14 @@ async function getTrainingData(req: Express.Request, res: Express.Response) {
                 });
         }
 
-        const trainingData = await store.getSoundTraining(scratchKey.projectid, {
+        const trainingInfo = await store.getSoundTraining(scratchKey.projectid, {
             start : 0,
-            limit : 500,
+            limit : 100,
         });
+
+        const trainingData = await Promise.all(trainingInfo.map(getSoundTrainingItem));
+
+        res.set(headers.CACHE_2MINUTES);
 
         return res.json(trainingData);
     }
