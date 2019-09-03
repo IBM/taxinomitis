@@ -315,6 +315,9 @@
                 else if (lang.indexOf('el') === 0) {
                     lang = 'el';
                 }
+                else if (lang.indexOf('it') === 0) {
+                    lang = 'it';
+                }
 
                 return lang;
             })
