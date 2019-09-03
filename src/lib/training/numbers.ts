@@ -108,6 +108,7 @@ export async function testClassifier(
                 body = await request.post(url, req);
             }
             else {
+                log.error({ classifier, projectid }, 'Failed to create missing classifier for test');
                 throw new Error('Failed to create classifier');
             }
         }
@@ -253,6 +254,7 @@ async function getVisualisationFromModelServer(project: Objects.Project): Promis
                 response = await request.get(url, req);
             }
             else {
+                log.error({ classifier, projectid : project.id }, 'Failed to create missing classifier for viz');
                 throw new Error('Failed to create classifier');
             }
         }

@@ -497,14 +497,18 @@
                     description : translations['WORKSHEETS.NOUGHTSANDCROSSES.DESCRIPTION'],
                     difficulty : 'Advanced',
                     type : 'numbers',
-                    maketypes : [ 'scratch2' ],
+                    maketypes : [ 'scratch2', 'python' ],
                     image : 'static/images/project-noughtsandcrosses.png',
                     tags : [ 'decision tree learning', 'reinforcement learning', 'categorical data' ],
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-noughtsandcrosses.pdf',
                     downloads : [
                         {
-                            description : 'Classroom version, where each student makes the game themselves',
+                            description : 'Classroom version, where each student makes the game themselves in Scratch',
                             worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses.pdf'
+                        },
+                        {
+                            description : 'Classroom version, where each student makes the game themselves in Python',
+                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-python.pdf'
                         },
                         {
                             description : 'Demo version, for events like Science Fairs where each child has a minute or two to try something',

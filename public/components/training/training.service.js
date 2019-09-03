@@ -70,6 +70,18 @@
             });
         }
 
+        function getModel(projectid, userid, tenant, modelid, timestamp) {
+            var url = '/api/classes/' + tenant +
+                        '/students/' + userid +
+                        '/projects/' + projectid +
+                        '/models/' + modelid +
+                        '?ts=' + timestamp;
+
+             return $http.get(url).then(function (resp) {
+                return resp.data;
+            });
+        }
+
         function newModel(projectid, userid, tenant) {
             var url = '/api/classes/' + tenant +
                         '/students/' + userid +
@@ -172,6 +184,7 @@
             getTraining : getTraining,
             deleteTrainingData : deleteTrainingData,
             getModels : getModels,
+            getModel : getModel,
             newModel : newModel,
             testModel : testModel,
             deleteModel : deleteModel,
