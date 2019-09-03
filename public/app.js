@@ -312,6 +312,9 @@
                 else if (lang.indexOf('ja') === 0) {
                     lang = 'ja';
                 }
+                else if (lang.indexOf('el') === 0) {
+                    lang = 'el';
+                }
 
                 return lang;
             })

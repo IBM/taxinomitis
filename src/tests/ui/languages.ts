@@ -17,6 +17,7 @@ describe('UI - NLS', () => {
     let si: any;
     let nl: any;
     let ja: any;
+    let el: any;
 
     before(() => {
         en = JSON.parse(fs.readFileSync('./public/languages/en.json', 'utf8'));
@@ -31,6 +32,7 @@ describe('UI - NLS', () => {
         si = JSON.parse(fs.readFileSync('./public/languages/si-lk.json', 'utf8'));
         nl = JSON.parse(fs.readFileSync('./public/languages/nl-be.json', 'utf8'));
         ja = JSON.parse(fs.readFileSync('./public/languages/ja.json', 'utf8'));
+        el = JSON.parse(fs.readFileSync('./public/languages/el.json', 'utf8'));
     });
 
 
@@ -83,5 +85,8 @@ describe('UI - NLS', () => {
     });
     it('Japanese', () => {
         compareKeys(en, ja, 'ja');
+    });
+    it('Greek', () => {
+        compareKeys(en, el, 'el');
     });
 });
