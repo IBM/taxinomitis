@@ -318,6 +318,9 @@
                 else if (lang.indexOf('it') === 0) {
                     lang = 'it';
                 }
+                else if (lang.indexOf('cs') === 0) {
+                    lang = 'cs';
+                }
 
                 return lang;
             })
