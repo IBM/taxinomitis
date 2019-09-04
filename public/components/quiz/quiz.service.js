@@ -11,176 +11,176 @@
 
         var allQuestions = [
             {
-                question : 'In general, what will help machines to learn better?',
+                question : 'Waarmee help je een machine warschijnlijk het meest om beter te leren?',
                 attempted : false,
                 answers : [
-                    { text : 'More examples', correct : true },
-                    { text : 'Fewer examples', correct : false }
+                    { text : 'Meer voorbeelden', correct : true },
+                    { text : 'Minder voorbeelden', correct : false }
                 ],
                 notes : [
-                    'That isn\'t the only thing that has an effect. But in general, the more examples it has to learn from, the better it should learn.'
+                    'Dat is niet het enige dat effect heeft. Maar in het algemeen: hoe meer voorbeelden, hoe beter de machine leert.'
                 ]
             },
             {
-                question : 'Which of these would probably be best for training a computer to recognise a photo of an apple?',
+                question : 'Waarmee kan je een computer waarschijnlijk het beste trainen om een foto van een appel te herkennen?',
                 attempted : false,
                 answers : [
-                    { text : 'Photos of dogs', correct : false },
-                    { text : 'Varied photos of different types of apples in different places', correct : true },
-                    { text : 'Identical photos of an apple', correct : false },
-                    { text : 'Very, very similar photos of the same apple in the same place', correct : false }
+                    { text : 'Foto\'s van honden', correct : false },
+                    { text : 'Foto\'s van appels op verschillende plaatsen', correct : true },
+                    { text : 'Foto\'s van dezelfde appel op verschillende plaatsen', correct : false },
+                    { text : 'Foto\'s van dezelfde appel vanuit verschillende standpunten', correct : false }
                 ],
                 notes : [
-                    'The more varied the examples you can collect, the more the system can learn about how to recognise different pictures of an apple.',
-                    'If every example you give it is the same apple on the same brown wooden table, it might learn that something is only an apple if it\'s on a brown wooden table.'
+                    'Hoe meer verschillende voorbeelden je verzameld, hoe beter het systeem ze kan leren herkennen.',
+                    'Als je bijvoorbeeld steeds een appel op een bruine tafel laat zien, dan is er een kans dat het systeem leert dat iets alleen een appel is als deze op een bruine tafel ligt.'
                 ]
             },
             {
-                question : 'Which of these would be a good use of machine learning?',
+                question : 'Wat is een goed voorbeeld van machine learning?',
                 attempted : false,
                 answers : [
-                    { text : 'Adding big numbers together', correct : false },
-                    { text : 'Recognising if an email is spam', correct : true },
-                    { text : 'Counting the number of times a button is pressed', correct : false }
+                    { text : 'Grote getallen bij elkaar optellen', correct : false },
+                    { text : 'Spam-berichten herkennen', correct : true },
+                    { text : 'Tellen hoe vaak een knop is ingedrukt', correct : false }
                 ],
                 notes : [
-                    'Spam filters are a good example of machine learning.',
-                    'With enough examples of legitimate emails, and enough examples of spam emails, a computer can start to learn how to recognise a spam email.'
+                    'Een spamfilter is een goed voorbeeld van machine learning.',
+                    'Met voldoende voorbeelden van legitieme e-mails en spam-e-mails, kan een leren om spam-berichten te herkennen.'
                 ]
             },
             {
-                question : 'Which of these is NOT a good use of machine learning?',
+                question : 'Wat is GEEN goed voorbeeld van machine learning?',
                 attempted : false,
                 answers : [
-                    { text : 'Sentiment analysis - recognising the mood, tone or emotion in text', correct : false },
-                    { text : 'Translating text from one language to another', correct : false },
-                    { text : 'Face recognition - recognising a face in a photo and identifying who it is', correct : false },
-                    { text : 'Self-driving cars', correct : false },
-                    { text : 'Calculating the cost of something in different countries based on exchange rates', correct : true },
-                    { text : 'Recommending a movie based on films you\'ve watched before', correct : false }
+                    { text : 'Tekstanalyse - herkennen of een tekst vrolijk of droevig is', correct : false },
+                    { text : 'Tekst vertalen naar een andere taal', correct : false },
+                    { text : 'Gezichtsherkenning - herkennen wie er op een foto staat', correct : false },
+                    { text : 'Zelfrijdende auto\'s', correct : false },
+                    { text : 'Prijsbepaling van producten in verschillende landen op basis van financiële wisselkoersen', correct : true },
+                    { text : 'Aanbeveling voor bepaalde films op basis van films die je eerder hebt bekeken', correct : false }
                 ],
                 notes : [
-                    'Tasks that involve following rules which can be worked out are not a good use for machine learning.',
-                    'A computer isn\'t going to learn how to apply an exchange rate from examples - we can just tell it what to do.'
+                    'Taken die op een vooraf beschreven manier worden gedaan zijn niet echt geschit voor machine learning',
+                    'De computer zal niet zelf leren hoe wisselkoersen werken, je moet de computer gewoon vertellen wat deze moet doen.'
                 ]
             },
             {
                 question : 'Which of these would be more likely to be successful?',
                 attempted : false,
                 answers : [
-                    { text : 'Collect a small set of examples, train a system, test to see how good it is. Add more examples, train again, and then test again. Repeat until it gets good enough.', correct : true },
-                    { text : 'More examples is better, so decide you must need millions of examples. Start collecting a massive set of examples, and spend months collecting more and more and more.', correct : false }
+                    { text : 'Verzamel een paar voorbeelden, train een systeem, test om te zien hoe goed het is. Voeg meer voorbeelden toe, train opnieuw en test opnieuw. Herhaal dit totdat het goed genoeg is.', correct : true },
+                    { text : 'Hoe meer voorbeelden, hoe beter. Begin met het verzamelen van miljoenen voorbeelden en besteed dan maanden om de computer te leren wat ieder voorbeeld is.', correct : false }
                 ],
                 notes : [
-                    'More examples is generally better, but be practical.',
-                    'Pragmatism is important. Regular testing is useful to let you know how things are going, and help you know when you\'ve done enough.',
-                    'When you\'ve only got ten examples, another ten examples will probably make a huge difference.',
-                    'When you\'ve got 100,000 examples, another ten examples probably won\'t have a noticeable impact.'
+                    'Meer voorbeelden zijn inderdaad beter, maar het moet ook praktisch zijn.',
+                    'Door telkens te testen bepaal je of de computer genoeg heeft geleerd.',
+                    'Als je maar 10 voorbeelden hebt, dan maken tien aextra voorbeelden een groot verschil.',
+                    'Als je al 100.000 voorbeelden hebt, dan maken 10 extra voorbeelden waarschijnlijk weinig verschil.'
                 ]
             },
             {
-                question : 'Which of these statements is correct?',
+                question : 'Welke stelling is correct?',
                 attempted : false,
                 answers : [
-                    { text : 'Machine learning is a technique where computers can be trained to perform tasks instead of needing to be given an explicit set of steps to follow', correct : true },
-                    { text : 'Machine learning is magic', correct : false },
-                    { text : 'Machine learning means we don\'t need to think about problems any more because computers will think for us', correct : false },
-                    { text : 'Machine learning has replaced the need for us to learn how to code', correct : false },
-                    { text : 'Machine learning can only be done on massive supercomputers', correct : false }
+                    { text : 'Machine learning is een techniek waarbij computers worden getraind om taken uit te voeren in plaats van een voorgeschreven reeks stappen te moeten volgen.', correct : true },
+                    { text : 'Machine learning is magisch', correct : false },
+                    { text : 'Machine learning betekent dat we niet meer hoeven na te denken, dat doet de computer voor ons.', correct : false },
+                    { text : 'Dankzij machine learning hoef je niet meer te leren programmeren', correct : false },
+                    { text : 'Machine learning kan alleen met hele grote krachtige supercomputers', correct : false }
                 ]
             },
             {
-                question : 'A machine learning system trained to recognise pictures with a tree in should be good at which of the following tasks:',
+                question : 'Een machine-leersysteem dat is getraind om afbeeldingen met een boom te herkennen, moet goed zijn in het herkennen van:',
                 attempted : false,
                 answers : [
-                    { text : 'Identifying pictures of fruit', correct : false },
-                    { text : 'Recognising the emotion in a piece of writing', correct : false },
-                    { text : 'Recognising pictures of trees', correct : true }
+                    { text : 'foto\'s met fruit'., correct : false },
+                    { text : 'vrolijke en droevige teksten.', correct : false },
+                    { text : 'foto\'s van bomen.', correct : true }
                 ],
                 notes : [
-                    'Machine learning does not mean computers magically learn to do everything.',
-                    'It means they learn how to do a specific task by being shown examples of that specific task.',
-                    'If you want it to do something else, you need to train it to do that as well, by giving it examples of that.'
+                    'Machine learning betekent niet dat computers op een magische manier van alles kunnen leren.',
+                    'Het betekent dat ze leren hoe ze een specifieke taak kunnen uitvoeren door voorbeelden van die specifieke taak te zien.',
+                    'Als je wilt dat de machine iets anders doet, moet je deze ook trainen om dat te doen, door daarvan voorbeelden te geven.'
                 ]
             },
             {
-                question : 'Alice and Bob both want to train a machine learning system to recognise if text is happy/positive or sad/negative. Which of them will probably train the best system?',
+                question : 'Alice and Bob willen een computer leren om vrolijke/positieve em droevige/negatieve teksten te herkennen. Wie van hun zal waarschijnlijk het beste resultaat opleveren?',
                 attempted : false,
                 answers : [
-                    { text : 'Alice. She has collected 10 varied examples of happy text, and 10 varied examples of sad text', correct : true },
-                    { text : 'Bob. He has collected 1000 examples of happy writing and 10 examples of sad writing', correct : false }
+                    { text : 'Alice. Zij heeft 10 verschillende voorbeelden van positieve en 10 verschillende voorbeelden van negatieve teksten verzameld', correct : true },
+                    { text : 'Bob. Hij heeft 1000 voorbeelden van positieve teksten en 10 voorbeelden van negatieve teksten verzameld.', correct : false }
                 ],
                 notes : [
-                    'Collecting a roughly similar number of examples for each label is a useful technique.',
-                    'If nearly every example of writing you train a system with is happy, you might end up training the system to assume that sad writing is very unlikely, and that it should assume happy more often.',
+                    'Het verzamelen van een ongeveer gelijk aantal voorbeelden voor elk label is een goede techniek.',
+                    'Als bijna elk tekstvoorbeeld positief is, zou je uiteindelijk het systeem kunnen leren dat negatieve teksten zeer onwaarschijnlijk is, en dat teksten dus vaker positief zijn.',
                     '',
-                    'But, you might want it to do this.',
-                    'If you\'re training a system to recognise text where text is happy 98% of the time, training it with that realistic experience might be worth a try.'
+                    'Maar misschien is dit juist de bedoeling.',
+                    'Als je een systeem traint om tekst te herkennen die in 98% van de gevallen positief is, kan het de moeite waard zijn om het systeem te trainen met minder voorbeelden van negatieve teksten.'
                 ]
             },
             {
-                question : 'Advanced machine learning technology will always give correct answers. Incorrect answers mean the machine learning technology isn\'t very good',
+                question : 'Geavanceerde machine learning-technologie geeft altijd juiste antwoorden. Onjuiste antwoorden betekenen dat de technologie niet erg goed is',
                 attempted : false,
                 answers : [
-                    { text : 'True', correct : false },
-                    { text : 'False', correct : true }
+                    { text : 'Waar', correct : false },
+                    { text : 'Niet waar', correct : true }
                 ],
                 notes : [
-                    'Not necessarily.',
+                    'Niet altijd.',
                     '',
-                    'The technology and algorithms are important. BUT machine learning systems are only as accurate and reliable as the training they are given.',
-                    'Simple machine learning algorithms with a lot of high quality training can do better than the most advanced machine learning algorithms with a small amount of poor quality training.'
+                    'De technologie en algoritmes zijn belangrijk. MAAR machine learning systemen zijn net zo nauwkeurig en betrouwbaar als de training die ze hebben gehad.',
+                    'Eenvoudige algoritmen en een goede training kunnen beter zijn dan de meest geavanceerde machine learning-algoritmen met weinig of slechte training.'
                 ]
             },
             {
-                question : 'How can you make sure your collection of animal pictures is good quality for training a machine and doesn\'t contain human mistakes?',
+                question : 'Hoe zorg je ervoor dat jouw verzameling dierenfoto\'s geschikt is voor het trainen van een machine zonder menselijke fouten?',
                 attempted : false,
                 answers : [
-                    { text : 'Manually inspect all of the pictures of animals yourself and make sure you agree with all of the labels', correct : false },
-                    { text : 'Ask lots of people to label all the images and keep the training labels that people generally agree on', correct : true },
-                    { text : 'Trick question! Humans are always right - machines make mistakes!', correct : false }
+                    { text : 'Controleer zelf alle foto\'s en bepaal zelf de labels.', correct : false },
+                    { text : 'Vraag verschillende mensen om de foto\'s te labelen en houd hierbij labels aan die algemeen worden herkend.', correct : true },
+                    { text : 'Ja duhh! Mensen hebben altijd gelijk - machines maken de fouten!', correct : false }
                 ],
                 notes : [
-                    'Even humans make mistakes and you won\'t always have time to double check all the training data!',
-                    'If the task is tricky it can be a good idea to get more than one person to label each image and keep the label that the most humans agree is the right one.'
+                    'Zelfs mensen maken fouten en je zal niet altijd de tijd hebben om alle voorbeelden te controleren!',
+                    'Als een klus lastig is, kan het een goed idee zijn om meer dan één persoon elke afbeelding te laten labelen en het label aan te houden dat door de meeste mensen wordt gekozen.'
                 ]
             },
             {
-                question : 'A machine trained to identify pictures of "food" or "not food" gives inconsistent results for sandwiches, often putting them in the "not food" class. Which of the following could explain that?',
+                question : 'Machines die getraind zijn om foto\'s van "voedsel" of "geen voedsel" te identificeren, geven vaak inconsistente resultaten voor sandwiches, waardoor ze onder het label "geen voedsel" worden ingedeeld. Hoe zou dat kunnen komen?',
                 attempted : false,
                 answers : [
-                    { text : 'The human who trained the system doesn\'t like sandwiches and didn\'t put any in the training data', correct : true },
-                    { text : 'The machine has to be in the right mood for a sandwich so it changes its mind a lot', correct : false },
-                    { text : 'Sandwiches are not food. The system is right to be unsure', correct : false }
+                    { text : 'De mens die het systeem heeft getraind, hield niet van sandwiches en heeft deze ook niet in de trainingsgegevens opgenomen.', correct : true },
+                    { text : 'De machine moet in de juiste stemming zijn voor een sandwich.', correct : false },
+                    { text : 'Sandwiches zijn geen eten. Het systeem heeft dus gelijk.', correct : false }
                 ],
                 notes : [
-                    'Machine learning models can only learn from the examples we show them.',
-                    'It is very easy for humans to accidentally introduce their likes and dislikes into machine learning models so we should be very careful about what training data we use.'
+                    'Machine learning modellen leren alleen van de voorbeelden die we ze geven.',
+                    'Het is heel gemakkelijk voor mensen om per ongeluk hun voorkeuren en antipathieën in modellen voor machine learning te introduceren, dus we moeten heel voorzichtig zijn met welke trainingsgegevens we gebruiken.'
                 ]
             },
             {
-                question : 'Which of the following best describes unsupervised learning?',
+                question : 'Wat is zelfstandig (unsupervised) learning?',
                 attempted : false,
                 answers : [
-                    { text : 'Writing a program that contains lots of if/else statements to determine the result', correct : false },
-                    { text : 'A machine learning algorithm that uses unlabelled data and classifies it based on how similar one dataset is to another', correct : true },
-                    { text : 'A machine learning algorithm that uses labelled data and classifies it based on training from example input-output pairs', correct : false }
+                    { text : 'Een computer programma met heel veel als/dan opdrachten om het juiste resultaat te bepalen.', correct : false },
+                    { text : 'Een machine learning algoritme dat nog niet gelabelde data gebruikt en deze classificeert op basis van een andere set data.', correct : true },
+                    { text : 'Een machine learning algoritme dat gelabelde dat gebruikt en deze classificeert op basis van de training van voorbeeld data.', correct : false }
                 ],
                 notes : [
-                    'Unsupervised learning is a type of machine learning, whereas only using if/else statements is not.',
-                    'Unsupervised learning algorithms are still trained, but the inputs that are given to it are not labelled or classified.',
-                    'If the data is labelled then this is what\'s known as supervised learning.'
+                    'Zelfstandig (unsupervised) learning is een vorm van machine learning, het uitsluitend gebruiken van als/dan opdrachten is dit niet.',
+                    'Zelfstandige leeralgoritmen werken nog steeds op basis van training, maar de ingevoerde gegevens zijn niet gelabeld of geclassificeerd.',
+                    'Als de gegevens zijn gelabeld, noemen we dit begeleid leren.'
                 ]
             },
             {
-                question : 'Without machine learning, it would be impossible for search engines such as Google to exist.',
+                question : 'Zonder machine learning zouden zoekmachines als Google niet kunnen bestaan.',
                 attempted : false,
                 answers : [
-                    { text : 'True', correct : false },
-                    { text : 'False', correct : true }
+                    { text : 'Waar', correct : false },
+                    { text : 'Niet waar', correct : true }
                 ],
                 notes : [
-                    'Whilst many modern search engines do use machine learning, it is possible to create one without it. A basic search engine will just look for documents (web pages) that include the words the user searches for.',
+                    'Hoewel veel moderne zoekmachines machine learning gebruiken, is het mogelijk om ook zonder machine learning een zoekmachine te maken. Een eenvoudige zoekmachine zoekt alleen naar documenten (webpagina\'s) met de woorden waarnaar de gebruiker zoekt.',
                 ]
             }
         ];
