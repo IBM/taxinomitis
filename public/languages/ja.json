@@ -93,6 +93,9 @@
         "AIINABOX": {
             "BODY1": "AI-in-a-Box は、ロボット、アクセサリーと教育用リソースの組み合わせです。そのキットは、画像認識、顔認識、音声認識、音声生成といったトピックに関するプロジェクトを教えるのに使うことができます。 "
         },
+        "GOOGLEEXPERIMENTS": {
+            "BODY1": "Simple online experiments to start exploring machine learning, through pictures, drawings, language, and music."
+        },
         "VIDEOS": {
             "TITLE": "ビデオ",
             "INTRO": "これらのビデオはAIを教えるのに有効だと思います:"
@@ -1159,5 +1162,15 @@
             "Q5-A-4": "画像プロジェクトのための機械学習モデルは、 <a href='https://www.ibm.com/watson/services/visual-recognition/'>IBM Visual Recognition</a>　クラウドサービスを用いて作成されており、 生徒がモデルをトレーニングする際に、生徒が入力したトレーニングデータのコピーは、 <a href='https://cloud.ibm.com/apidocs/visual-recognition#create-a-classifier'>IBM Watsonにアップロードされます。</a> IBM Watsonは、これらのトレーニングデータを他目的には利用しません。これは、本サイト(Machine Learning for Kids)が、IBMがサービス改善のために生徒が入力したトレーニングデータを利用することから <a href='https://cloud.ibm.com/apidocs/visual-recognition#data-collection'>オプトアプト</a> しているからです。 詳細は、<a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>Watsonのドキュメント</a>を参照ください。",
             "Q5-A-5": "IBM Watsonは、<a href='https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security-gdpr-wa'>かれらのサービスとトレーニングデータを共有する一般的なガイダンス</a>を提供しています。それらは、本サイトで生成・収集されたトレーニングデータにも適用されます。特に、生徒には個人が特定できるような情報を彼らが収集するトレーニングデータに含めないようにアドバイスしてください。"
         }
+    },
+    "APIKEYSGUIDE": {
+        "TITLE": "Guide to IBM Cloud",
+        "INTRO": {
+            "INTRO_1": "Teachers / parents / code club-leaders with unmanaged class accounts need to provide '<strong>API Keys</strong>' from IBM Cloud. These are secret codes that provide access to the artificial intelligence technology that will power student projects.",
+            "INTRO_2": "Text projects need a 'Watson Assistant' API Key. Image projects need a 'Visual Recognition' API Key. (Numbers and Sound projects don't require API Keys).",
+            "INTRO_3": "You will need to create an account on IBM Cloud to be able to create these codes. It is free to create an account, and there are no charges for 'Lite' API Keys. "
+        },
+        "LINK": "How to create API Keys",
+        "EXPLANATION": "Download a step-by-step guide for how to create API Keys on IBM Cloud"
     }
 }
