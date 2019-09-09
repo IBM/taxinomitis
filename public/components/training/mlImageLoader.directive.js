@@ -62,8 +62,11 @@
         }
 
 
+        // is it an image search result from Google?
         var GOOG_IMG_REGEX = /^https:\/\/www\.google\.co[a-z.]+\/imgres\?(imgurl=.*)/;
 
+        // is it a URL ending with .png or .jpg ?
+        var IMG_URL_REGEX = /^https?:\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)(\.jpg|\.png)\??.*$/;
 
         function getType(types, type) {
             if (types && types.indexOf && types.indexOf(type) !== -1) {
@@ -130,6 +133,12 @@
                     var img = parsed.querySelector('img');
                     if (img) {
                         data = img.src;
+                    }
+                    else {
+                        var imageUrlCheck = src.match(IMG_URL_REGEX);
+                        if (imageUrlCheck) {
+                            data = src;
+                        }
                     }
                 }
             }
