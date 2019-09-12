@@ -676,8 +676,12 @@
     "APPINVENTOR": {
         "TITLE": "Χρησιμοποιώντας μηχανική μάθηση στο App Inventor",
 
+        "LAUNCH_APPINVENTOR_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>App Inventor by itself</a> if you want.)",
+
         "NOTREADY": "Το έργο σου δεν είναι ακόμα έτοιμο για χρήση στο App Inventor.",
-        "NOMODEL": "Δεν έχεις εκπαιδεύσει ακόμα ένα μοντέλο μηχανικής μάθησης."
+        "NOMODEL": "Δεν έχεις εκπαιδεύσει ακόμα ένα μοντέλο μηχανικής μάθησης.",
+
+        "LAUNCH": "Open App Inventor"
     },
     "SCRATCH": {
         "TITLE": "Χρησιμοποιώντας μηχανική μάθηση στο Scratch",

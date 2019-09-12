@@ -676,8 +676,12 @@
     "APPINVENTOR": {
         "TITLE": "在App Inventor中使用机器学习",
 
+        "LAUNCH_APPINVENTOR_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>App Inventor by itself</a> if you want.)",
+
         "NOTREADY": "您的项目尚未准备好在App Inventor中使用。",
-        "NOMODEL": "你还没有训练过机器学习模型。"
+        "NOMODEL": "你还没有训练过机器学习模型。",
+
+        "LAUNCH": "Open App Inventor"
     },
     "SCRATCH": {
         "TITLE": "在Scratch中使用机器学习",
