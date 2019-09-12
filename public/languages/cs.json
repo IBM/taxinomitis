@@ -565,8 +565,12 @@
     "APPINVENTOR": {
         "TITLE": "Using machine learning in App Inventor",
 
+        "LAUNCH_APPINVENTOR_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>App Inventor by itself</a> if you want.)",
+
         "NOTREADY": "Your project isn't ready to be used in App Inventor yet.",
-        "NOMODEL": "You haven't trained a machine learning model yet."
+        "NOMODEL": "You haven't trained a machine learning model yet.",
+
+        "LAUNCH": "Open App Inventor"
     },
     "SCRATCH": {
         "TITLE": "Using machine learning in Scratch",

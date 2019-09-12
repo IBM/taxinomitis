@@ -565,8 +565,12 @@
     "APPINVENTOR": {
         "TITLE": "Utilisation de l'apprentissage automatique dans App Inventor",
 
+        "LAUNCH_APPINVENTOR_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>App Inventor by itself</a> if you want.)",
+
         "NOTREADY": "Votre projet n'est pas encore prêt à être utilisé dans App Inventor.",
-        "NOMODEL": "Vous n'avez pas encore entraîné un modèle d'apprentissage machine."
+        "NOMODEL": "Vous n'avez pas encore entraîné un modèle d'apprentissage machine.",
+
+        "LAUNCH": "Open App Inventor"
     },
     "SCRATCH": {
         "TITLE": "Utilisation de l'apprentissage machine dans Scratch",
