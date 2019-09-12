@@ -78,7 +78,9 @@
                     return utilService.loadScript('https://unpkg.com/@tensorflow-models/speech-commands@0.3.9');
                 })
                 .then(function () {
-                    tf.enableProdMode();
+                    if (tf && tf.enableProdMode) {
+                        tf.enableProdMode();
+                    }
                 });
         }
 
