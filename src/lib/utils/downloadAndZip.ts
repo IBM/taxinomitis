@@ -389,6 +389,7 @@ export async function runInServerless(locations: ImageDownload[]): Promise<strin
             .on('response', (resp) => {
                 if (resp.statusCode !== 200) {
                     log.error({
+                        numlocations : locations.length,
                         status : resp.statusCode,
                         errorobj : resp.headers['x-machinelearningforkids-error'],
                         body : resp.body,

@@ -131,8 +131,6 @@
         $scope.minimumExamples = 'five';
         $scope.testformData = {};
 
-        $scope.quizQuestion = quizService.getQuestion();
-
 
         authService.getProfileDeferred()
             .then(function (profile) {
@@ -314,6 +312,10 @@
 
 
         vm.createModel = function (ev, project) {
+            // prepare the first question for displaying while
+            //  the training is running
+            $scope.quizQuestion = quizService.getQuestion();
+
             $scope.submittingTrainingRequest = true;
 
             if ($scope.project.type === 'sounds') {
