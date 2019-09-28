@@ -91,6 +91,9 @@ async function storeNumbers(key: Types.ScratchKey, label: string, numbersStr: st
 async function storeImages(key: Types.ScratchKey, label: string, base64imagedata: string): Promise<Types.ImageTraining>
 {
     // check image data to store
+    if (typeof base64imagedata !== 'string') {
+        throw new Error('Invalid data');
+    }
     if (!base64imagedata || base64imagedata.trim().length === 0) {
         throw new Error('Missing data');
     }
