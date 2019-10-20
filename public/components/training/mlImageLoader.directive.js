@@ -96,7 +96,7 @@
 
 
         function handleDrop(evt, label, scope) {
-            if (!evt.dataTransfer) {
+            if (!evt || !evt.dataTransfer) {
                 return false;
             }
 
