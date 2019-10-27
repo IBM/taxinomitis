@@ -65,6 +65,9 @@
         // is it an image search result from Google?
         var GOOG_IMG_REGEX = /^https:\/\/www\.google\.co[a-z.]+\/imgres\?(imgurl=.*)/;
 
+        // is it an image search result from Baidu?
+        var BAIDU_IMG_REGEX = /^https:\/\/timgsa.baidu.com\/timg\?.*/;
+
         // is it a URL ending with .png or .jpg ?
         var IMG_URL_REGEX = /^https?:\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)(\.jpg|\.png)\??.*$/;
 
@@ -121,10 +124,24 @@
                     return reportInvalidImageType(scope);
                 }
                 var googleImagesCheck = src.match(GOOG_IMG_REGEX);
+                var baiduImagesCheck = src.match(BAIDU_IMG_REGEX);
                 if (googleImagesCheck) {
                     var googleImagesUrl = googleImagesCheck[1];
                     var googleImgsUrlParms = parseUrl(googleImagesUrl);
                     data = googleImgsUrlParms.imgurl;
+                }
+                else if (baiduImagesCheck) {
+                    var baiduUrl = new URL(src);
+                    if (baiduUrl &&
+                        baiduUrl.searchParams &&
+                        baiduUrl.searchParams.has &&
+                        baiduUrl.searchParams.has('src'))
+                    {
+                        data = baiduUrl.searchParams.get('src');
+                    }
+                    else {
+                        data = src;
+                    }
                 }
                 else {
                     var htmltype = getType(evt.dataTransfer.types, 'text/html');

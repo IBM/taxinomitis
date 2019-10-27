@@ -3,7 +3,7 @@ import * as url from 'url';
 // external dependencies
 import * as request from 'request-promise';
 // local dependencies
-import loggerSetup from '../utils/logger';
+import loggerSetup from './logger';
 
 
 

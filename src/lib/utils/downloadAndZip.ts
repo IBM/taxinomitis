@@ -346,6 +346,9 @@ function runLocally(locations: ImageDownload[]): Promise<string> {
                 if (!err.message.startsWith(download.ERRORS.DOWNLOAD_FAIL)) {
                     log.error({ err }, 'Failed to create training zip');
                 }
+                if (zippath && typeof zippath === 'string') {
+                    deleteFailedTrainingFile(zippath);
+                }
                 return reject(err);
             }
             return resolve(zippath);
@@ -383,6 +386,8 @@ export async function runInServerless(locations: ImageDownload[]): Promise<strin
 
             request.post(serverlessRequest)
             .on('error', (err) => {
+                deleteFailedTrainingFile(zipfile);
+
                 const customError = err as any;
                 if (customError.rerun) {
                     log.error({ err, numlocations : locations.length },
@@ -446,7 +451,6 @@ export async function runInServerless(locations: ImageDownload[]): Promise<strin
                         functionError.rerun = true;
                     }
 
-                    log.error(functionError, 'Failed to run CreateZip');
                     return resp.destroy(functionError);
                 }
             })
@@ -457,6 +461,16 @@ export async function runInServerless(locations: ImageDownload[]): Promise<strin
         });
     });
 }
+
+
+function deleteFailedTrainingFile(location: string): void {
+    fs.unlink(location, (err?: Error | null) => {
+        if (err) {
+            log.error({ err, location }, 'Failed to delete failed training file');
+        }
+    });
+}
+
 
 
 chooseExecutionEnvironment();
