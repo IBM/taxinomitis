@@ -318,7 +318,7 @@
 
             $scope.submittingTrainingRequest = true;
 
-            if ($scope.project.type === 'sounds') {
+            if (project.type === 'sounds') {
                 soundTrainingService.newModel(project.id, $scope.userId, vm.profile.tenant)
                     .then(function (newmodel) {
                         $scope.models = [ newmodel ];
@@ -327,6 +327,10 @@
                         $scope.submittingTrainingRequest = false;
 
                         refreshModels();
+                    })
+                    .catch(function (err) {
+                        var errId = displayAlert('errors', err.status, err.data);
+                        scrollToNewItem('errors' + errId);
                     });
             }
             else {
@@ -422,6 +426,9 @@
                     }
                     return $scope.testformData[field.name];
                 });
+            }
+            else if (project.type === 'sounds') {
+                return;
             }
 
             $scope.testoutput = "please wait...";
@@ -647,6 +654,7 @@
 
 
         vm.startListening = function () {
+            console.log('startListening');
             if (!$scope.listening) {
                 $scope.listening = true;
                 soundTrainingService.startTest(function (resp) {
