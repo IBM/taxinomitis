@@ -535,13 +535,13 @@
 
             "QUESTION_1": {
                 "QUESTION": "In general, what will help machines to learn better?",
-                "ANSWER_1": "More examples", 
+                "ANSWER_1": "More examples",
                 "ANSWER_2": "Fewer examples",
                 "NOTES_1": "That isn't the only thing that has an effect. But in general, the more examples it has to learn from, the better it should learn."
             },
             "QUESTION_2": {
                 "QUESTION": "Which of these would probably be best for training a computer to recognise a photo of an apple?",
-                "ANSWER_1": "Photos of dogs", 
+                "ANSWER_1": "Photos of dogs",
                 "ANSWER_2": "Varied photos of different types of apples in different places",
                 "ANSWER_3": "Identical photos of an apple",
                 "ANSWER_4": "Very, very similar photos of the same apple in the same place",
@@ -579,7 +579,7 @@
             "QUESTION_6": {
                 "QUESTION": "Which of these statements is correct?",
                 "ANSWER_1": "Machine learning is a technique where computers can be trained to perform tasks instead of needing to be given an explicit set of steps to follow",
-                "ANSWER_2": "Machine learning is magic",    
+                "ANSWER_2": "Machine learning is magic",
                 "ANSWER_3": "Machine learning means we don't need to think about problems any more because computers will think for us",
                 "ANSWER_4": "Machine learning has replaced the need for us to learn how to code",
                 "ANSWER_5": "Machine learning can only be done on massive supercomputers"
@@ -605,8 +605,8 @@
             },
             "QUESTION_9": {
                 "QUESTION": "Advanced machine learning technology will always give correct answers. Incorrect answers mean the machine learning technology isn't very good",
-                "ANSWER_1": "True", 
-                "ANSWER_2": "False", 
+                "ANSWER_1": "True",
+                "ANSWER_2": "False",
                 "NOTES_1": "Not necessarily.",
                 "NOTES_2": "",
                 "NOTES_3": "The technology and algorithms are important. BUT machine learning systems are only as accurate and reliable as the training they are given.",
@@ -639,8 +639,8 @@
             },
             "QUESTION_13": {
                 "QUESTION": "Without machine learning, it would be impossible for search engines such as Google to exist.",
-                "ANSWER_1": "True", 
-                "ANSWER_2": "False", 
+                "ANSWER_1": "True",
+                "ANSWER_2": "False",
                 "NOTES_1": "Whilst many modern search engines do use machine learning, it is possible to create one without it. A basic search engine will just look for documents (web pages) that include the words the user searches for."
             }
         }
@@ -695,10 +695,14 @@
         "GO_TO_LEARNANDTEST": "或者转到<strong>学习和测试</strong>页面，了解有关下一步操作的一些提示。",
 
         "MORE_BLOCKS": "您的项目会将这些块添加到脚本中 <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> .",
+        "MORE_BLOCKS_3": "Your project will add these blocks to Scratch.",
         "EXPLAIN_RECOGNISE_LABEL": "将{{type}}放入此输入中，它将返回您的机器学习模型识别为的标签。",
         "EXPLAIN_RECOGNISE_CONFIDENCE": "这将返回您的机器学习模型对于识别{{type}}类型的信心。（作为0到100之间的数字）。",
         "EXPLAIN_LABELS": "这些块代表您在项目中创建的标签，因此您可以在脚本中使用它们的名称。",
         "EXPLAIN_COSTUMEIMAGE": "此块位于Sprites的Looks调色板中，并将返回当前所选主题的图像。",
+        "EXPLAIN_ADD_TRAINING": "Use this to add a new example to your training data. (Training data has an effect after you train a machine learning model with it)",
+        "EXPLAIN_TRAIN_MODEL": "Use this to train a new machine learning model",
+        "EXPLAIN_IS_MODEL_READY": "The machine learning model will take a minute before it's ready for use. You can use these blocks to wait until it is ready.",
         "SAMPLE_SCRIPT": "这意味着你可以这样做：",
         "SAMPLE_SCREENSHOT": "它看起来像这样 - 除了你的项目名称。",
         "EXPLAIN_STATUS": "项目名称旁边的彩色圆圈告诉您机器学习模型是否正常。",

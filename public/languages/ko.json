@@ -535,13 +535,13 @@
 
             "QUESTION_1": {
                 "QUESTION": "In general, what will help machines to learn better?",
-                "ANSWER_1": "More examples", 
+                "ANSWER_1": "More examples",
                 "ANSWER_2": "Fewer examples",
                 "NOTES_1": "That isn't the only thing that has an effect. But in general, the more examples it has to learn from, the better it should learn."
             },
             "QUESTION_2": {
                 "QUESTION": "Which of these would probably be best for training a computer to recognise a photo of an apple?",
-                "ANSWER_1": "Photos of dogs", 
+                "ANSWER_1": "Photos of dogs",
                 "ANSWER_2": "Varied photos of different types of apples in different places",
                 "ANSWER_3": "Identical photos of an apple",
                 "ANSWER_4": "Very, very similar photos of the same apple in the same place",
@@ -579,7 +579,7 @@
             "QUESTION_6": {
                 "QUESTION": "Which of these statements is correct?",
                 "ANSWER_1": "Machine learning is a technique where computers can be trained to perform tasks instead of needing to be given an explicit set of steps to follow",
-                "ANSWER_2": "Machine learning is magic",    
+                "ANSWER_2": "Machine learning is magic",
                 "ANSWER_3": "Machine learning means we don't need to think about problems any more because computers will think for us",
                 "ANSWER_4": "Machine learning has replaced the need for us to learn how to code",
                 "ANSWER_5": "Machine learning can only be done on massive supercomputers"
@@ -605,8 +605,8 @@
             },
             "QUESTION_9": {
                 "QUESTION": "Advanced machine learning technology will always give correct answers. Incorrect answers mean the machine learning technology isn't very good",
-                "ANSWER_1": "True", 
-                "ANSWER_2": "False", 
+                "ANSWER_1": "True",
+                "ANSWER_2": "False",
                 "NOTES_1": "Not necessarily.",
                 "NOTES_2": "",
                 "NOTES_3": "The technology and algorithms are important. BUT machine learning systems are only as accurate and reliable as the training they are given.",
@@ -639,8 +639,8 @@
             },
             "QUESTION_13": {
                 "QUESTION": "Without machine learning, it would be impossible for search engines such as Google to exist.",
-                "ANSWER_1": "True", 
-                "ANSWER_2": "False", 
+                "ANSWER_1": "True",
+                "ANSWER_2": "False",
                 "NOTES_1": "Whilst many modern search engines do use machine learning, it is possible to create one without it. A basic search engine will just look for documents (web pages) that include the words the user searches for."
             }
         }
@@ -695,10 +695,14 @@
         "GO_TO_LEARNANDTEST": "혹은 <strong>학습 &amp; 테스트</strong> 페이지로 이동하여 다음에 무엇을 해야하는지에 대한 팁을 얻어보세요.",
 
         "MORE_BLOCKS": "<span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> 탭에 다음의 블록이 추가됩니다.",
+        "MORE_BLOCKS_3": "Your project will add these blocks to Scratch.",
         "EXPLAIN_RECOGNISE_LABEL": "{{ type }} 칸에 값을 입력하면 여러분의 머신러닝 모델이 무엇을 인식하였는지를 알려줍니다.",
         "EXPLAIN_RECOGNISE_CONFIDENCE": "여러분의 머신러닝 모델이 {{ type }}를 인식한 값의 정확도를 알려줍니다(0 - 100 사이의 값으로 나타냅니다).",
         "EXPLAIN_LABELS": "여러분이 프로젝트에서 만든 레이블을 나타냅니다. 여러분은 스크래치에서 이 블록을 사용할 수 있습니다.",
         "EXPLAIN_COSTUMEIMAGE": "이 블록은 모양 팔레트에 있으며, 현재 실행창에 나타난 모양을 가져옵니다.",
+        "EXPLAIN_ADD_TRAINING": "Use this to add a new example to your training data. (Training data has an effect after you train a machine learning model with it)",
+        "EXPLAIN_TRAIN_MODEL": "Use this to train a new machine learning model",
+        "EXPLAIN_IS_MODEL_READY": "The machine learning model will take a minute before it's ready for use. You can use these blocks to wait until it is ready.",
         "SAMPLE_SCRIPT": "다음과 같이 스크립트를 만들 수 있습니다.:",
         "SAMPLE_SCREENSHOT": "블록들은 다음과 같이 여러분이 만든 프로젝트 이름과 함께 나타납니다.",
         "EXPLAIN_STATUS": "동그라미의 색깔은 여러분의 머신러닝 모델이 어떠한 상태인지 나타냅니다.",

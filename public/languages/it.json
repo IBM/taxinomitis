@@ -535,13 +535,13 @@
 
             "QUESTION_1": {
                 "QUESTION": "In general, what will help machines to learn better?",
-                "ANSWER_1": "More examples", 
+                "ANSWER_1": "More examples",
                 "ANSWER_2": "Fewer examples",
                 "NOTES_1": "That isn't the only thing that has an effect. But in general, the more examples it has to learn from, the better it should learn."
             },
             "QUESTION_2": {
                 "QUESTION": "Which of these would probably be best for training a computer to recognise a photo of an apple?",
-                "ANSWER_1": "Photos of dogs", 
+                "ANSWER_1": "Photos of dogs",
                 "ANSWER_2": "Varied photos of different types of apples in different places",
                 "ANSWER_3": "Identical photos of an apple",
                 "ANSWER_4": "Very, very similar photos of the same apple in the same place",
@@ -579,7 +579,7 @@
             "QUESTION_6": {
                 "QUESTION": "Which of these statements is correct?",
                 "ANSWER_1": "Machine learning is a technique where computers can be trained to perform tasks instead of needing to be given an explicit set of steps to follow",
-                "ANSWER_2": "Machine learning is magic",    
+                "ANSWER_2": "Machine learning is magic",
                 "ANSWER_3": "Machine learning means we don't need to think about problems any more because computers will think for us",
                 "ANSWER_4": "Machine learning has replaced the need for us to learn how to code",
                 "ANSWER_5": "Machine learning can only be done on massive supercomputers"
@@ -605,8 +605,8 @@
             },
             "QUESTION_9": {
                 "QUESTION": "Advanced machine learning technology will always give correct answers. Incorrect answers mean the machine learning technology isn't very good",
-                "ANSWER_1": "True", 
-                "ANSWER_2": "False", 
+                "ANSWER_1": "True",
+                "ANSWER_2": "False",
                 "NOTES_1": "Not necessarily.",
                 "NOTES_2": "",
                 "NOTES_3": "The technology and algorithms are important. BUT machine learning systems are only as accurate and reliable as the training they are given.",
@@ -639,8 +639,8 @@
             },
             "QUESTION_13": {
                 "QUESTION": "Without machine learning, it would be impossible for search engines such as Google to exist.",
-                "ANSWER_1": "True", 
-                "ANSWER_2": "False", 
+                "ANSWER_1": "True",
+                "ANSWER_2": "False",
                 "NOTES_1": "Whilst many modern search engines do use machine learning, it is possible to create one without it. A basic search engine will just look for documents (web pages) that include the words the user searches for."
             }
         }
@@ -695,10 +695,14 @@
         "GO_TO_LEARNANDTEST": "Oppure vai alla pagina <a href='{{ urls.learnandtest }}'>Impara e Prova</a> per alcuni suggerimenti su cosa fare dopo.",
 
         "MORE_BLOCKS": "Il progetto aggiungerà questi blocchi alla scheda <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>Altri Blocchi</span> in Script.",
+        "MORE_BLOCKS_3": "Your project will add these blocks to Scratch.",
         "EXPLAIN_RECOGNISE_LABEL": "Inserire {{ type }} nell'input e restituirà l'etichetta con cui il modello di apprendimento automatico lo riconosce.",
         "EXPLAIN_RECOGNISE_CONFIDENCE": "Ciò restituirà la sicurezza del modello di apprendimento automatico che riconosce il tipo di {{ type }}. (Come un numero compreso tra 0 e 100).",
         "EXPLAIN_LABELS": "Questi blocchi rappresentano le etichette che hai creato nel tuo progetto, quindi puoi usare i loro nomi negli script.",
         "EXPLAIN_COSTUMEIMAGE": "Questo blocco si trova nella scheda Aspetto per gli Sprite e restituirà l'immagine del costume attualmente selezionato.",
+        "EXPLAIN_ADD_TRAINING": "Use this to add a new example to your training data. (Training data has an effect after you train a machine learning model with it)",
+        "EXPLAIN_TRAIN_MODEL": "Use this to train a new machine learning model",
+        "EXPLAIN_IS_MODEL_READY": "The machine learning model will take a minute before it's ready for use. You can use these blocks to wait until it is ready.",
         "SAMPLE_SCRIPT": "Ciò significa che puoi fare qualcosa del genere:",
         "SAMPLE_SCREENSHOT": "Assomiglierà a qualcosa del genere - tranne per il nome del tuo progetto.",
         "EXPLAIN_STATUS": "Il cerchio colorato accanto al nome del tuo progetto ti dice se il tuo modello di apprendimento automatico è funzionante.",
