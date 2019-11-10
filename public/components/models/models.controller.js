@@ -676,6 +676,9 @@
                                 delete $scope.testoutput;
                                 delete $scope.testoutput_explanation;
                             });
+                    })
+                    .catch(function (err) {
+                        console.log('Unable to stop listening', err);
                     });
             }
         };
