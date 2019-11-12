@@ -1,18 +1,21 @@
 {
     "APP": {
         "TITLE": "Çocuklar İçin Makine Öğrenimi",
+
         "BACK": "Geri",
         "BACKTOPROJECT": "&lt; Projeye dön",
         "BACKTOMODEL": "&lt; Back to model",
         "ERROR": "Hata:",
         "WARNING": "Uyarı:",
         "INFO": "Bilgi:",
+
         "ADD": "Ekle",
         "CANCEL": "İptal",
         "DELETE": "Delete",
         "EDIT": "Edit",
         "TEST": "Test",
         "RESET": "Reset",
+
         "ABOUT": "Hakkında",
         "TEACHER": "Öğretmen",
         "PROJECTS": "Projeler",
@@ -101,8 +104,10 @@
     "ERRORS": {
         "PAGENOTFOUND": "Sayfa bulunamadı",
         "NOTLOGGEDIN": "Oturum açılmadı",
+
         "MISSINGPROJECTID": "Proje tanıtıcısı eksik. Şuraya dönün: ",
         "IFPERSISTENT": "Bu devam ederse lütfen ",
+
         "LETMEKNOW": "bana bildirin"
     },
     "WELCOME": {
@@ -664,12 +669,15 @@
     },
     "PYTHON": {
         "TITLE": "Python'da makine öğrenimini kullanma",
+
         "NOTREADY": "Projeniz henüz Python'da kullanılmaya hazır değil.",
         "NOMODEL": "Henüz bir makine öğrenimi modelini eğitmediniz."
     },
     "APPINVENTOR": {
         "TITLE": "Uygulama Yaratıcısı'nda makine öğrenimini kullanma",
+
         "LAUNCH_APPINVENTOR_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>App Inventor by itself</a> if you want.)",
+
         "NOTREADY": "Projeniz henüz Uygulama Yaratıcısı’nda kullanılmaya hazır değil.",
         "NOMODEL": " Henüz bir makine öğrenimi modelini eğitmediniz.",
 
@@ -677,8 +685,10 @@
     },
     "SCRATCH": {
         "TITLE": "Scratch'de makine öğrenimini kullanma",
+
         "NOTREADY": "Projeniz henüz Scratch'de kullanılmaya hazır değil.",
         "NOMODEL": " Henüz bir makine öğrenimi modelini eğitmediniz.",
+
         "LAUNCH": "Scratch'de aç",
 
         "LAUNCH_SCRATCH_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch by itself</a> if you want.)",
@@ -702,22 +712,28 @@
     },
     "SCRATCH3": {
         "TITLE": "Scratch 3'te makine öğrenimini kullanma",
+
         "LAUNCH": "Open in Scratch 3"
     },
     "WORKSHEETS": {
         "TITLE": "Makine öğrenimi projeleri",
+
         "INTRO_1": "Bu projeler, öğrencilerin takip edebileceği açıklamalar ve renkli ekran görüntülerini içeren, karşıdan yükleyebileceğiniz adım adım yönergeli kılavuzlardır.",
         "INTRO_2": "Her bir proje, tek bir ders boyunca sürecek şekilde yazılmış, bağımsız bir etkinliktir. Yapay zeka ve makine öğreniminin gerçek dünyada kullanımını gösteren, etkileşimli bir proje veya bir oyun yaratmak için öğrencilere yardımcı olur.",
         "INTRO_3": "Yeni çalışma sayfaları için öneriler, çalışma sayfalarının herhangi birine ilişkin iyileştirme önerileri, yeni proje çalışma sayfası katkıları her zaman memnuniyetle kabul edilir.",
+
         "TYPES": {
             "TITLE": "Tanıma:",
             "ALL": "Tüm proje türleri",
+
             "PREFIX": "Bir bilgisayarı şunu/şunları tanıması için eğitin:",
+
             "TEXT": "metin",
             "IMAGES": "fotoğraflar",
             "NUMBERS": "sayılar",
             "SOUNDS": "sounds"
         },
+
         "LEVELS": {
             "TITLE": "Zorluk:",
             "ALL": "Tüm zorluklar",
@@ -725,7 +741,9 @@
             "INTERMEDIATE": "Orta düzey",
             "ADVANCED": "İleri düzey"
         },
+
         "DOWNLOAD": "Karşıdan Yükle",
+
         "MAKETYPES": {
             "ALL": "All make types",
 
@@ -737,11 +755,14 @@
             "PYTHON_WORKSHEET": "Worksheet for making project in Python",
             "APPINVENTOR_WORKSHEET": "Worksheet for making project in App Inventor"
         },
+
         "NO_WORKSHEETS": {
             "NO_MATCHES": "There aren't any project worksheets that match those filters.",
             "MAKE_YOUR_OWN": "You could adapt some of the existing worksheets or come up with a new one.",
             "CONTRIBUTE": "If you do, please consider <a href='https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions'>contributing it for others to use</a>."
         },
+
+
         "SMARTCLASSROOM": {
             "TITLE": "Akıllı Sınıf",
             "SUMMARY": "Bir bilgisayara komutlarınızın anlamını çözmesini öğretin",
@@ -896,6 +917,7 @@
     "TEACHER": {
         "MENU": {
             "TITLE": "Yönetim",
+
             "RESTRICTIONS": {
                 "TITLE": "Kısıtlamalar",
                 "DESCRIPTION": "Sınıfınız için geçerli olan sınırları ve kısıtlamaları inceleyin"
@@ -914,24 +936,31 @@
                 "TITLE": "Denetim",
                 "DESCRIPTION": "Öğrencilerinizin yarattığı projeleri inceleyin"
             },
+
             "ADVANCEDOPTIONS": "Gelişmiş seçenekler",
+
             "DELETECLASS": {
                 "TITLE": "Sınıfı sil",
                 "DESCRIPTION": "Bu, sizin hesabınızı ve sınıfınızdaki tüm öğrencilerin hesaplarını siler"
             },
+
             "CANYOUHELP": {
                 "TITLE": "Yardımcı olur musunuz?",
                 "DESCRIPTION": "Lütfen aracın iyileştirilmesi için deneyimlerinizi ve fikirlerinizi paylaşın"
             },
+
             "NOTAUTHORISED": "Sınıfınız için öğretmen sayfasına erişim yetkiniz yok."
         },
         "APIKEYS": {
             "TITLE": "Yönetim: IBM Watson API Anahtarları",
+
             "ADDNEWCREDENTIALS": "Yeni kimlik bilgileri ekle",
             "ADDAPIKEY": "Yeni API anahtarı ekle",
             "REMOVE": "Remove",
+
             "NO_TEXT_CREDENTIALS": "Asistan kimlik bilginiz yok. Bu da <strong>metin</strong> projeleri için model eğitiminin mümkün olmayacağı anlamına gelir.",
             "NO_IMAGE_CREDENTIALS": "Visual Recognition API anahtarınız yok. Bu da <strong>fotoğraflar</strong> projeleri için model eğitiminin mümkün olmayacağı anlamına gelir.",
+
             "NOTAUTHORISED": "Sınıfınızın kullandığı Watson API anahtarlarına erişim yetkiniz yok.",
             "MANAGEDCLASS": "Sınıfınızın kullandığı API Anahtarları sizin için yönetiliyor.",
 
@@ -1095,20 +1124,25 @@
             "INTRO2": "Aşağıdaki listede en çok duyduğum sorular ve sorunlar yer alıyor. Sizin yaşadığınıza benzer bir sorun görürseniz ayrıntılı bilgi için özeti tıklatın.",
             "INTRO3": "Hala zor durumdaysanız veya listeye eklemediğim bir sorunla karşı karşıyaysanız, üzgünüm! Lütfen <a href='mailto:dale.lane@uk.ibm.com'>bana e-posta gönderin</a> veya size yardımcı olabilmem için <a href='https://github.com/IBM/taxinomitis/issues'>bir sorun raporu oluşturun</a>."
         },
+
         "SCRATCH": {
             "TITLE": "Scratch sorunları",
+
             "Q1": "Scratch'i nasıl çalıştıracağımı bilmiyorum",
             "Q1-A-1": "Çocuklar İçin Makine Öğrenimi, Scratch 2'yi kullanır. Scratch'in çalışması için Adobe Flash gereklidir, bu nedenle Flash ile çalışabilen bir işletim sistemi ve web tarayıcısı kullanılabiliyor olmanız gerekir (üzgünüz ama bu, şimdilik iPad’lerin kullanılamayacağı anlamına geliyor).",
             "Q1-A-2": "Flash'ı nasıl etkinleştireceğinizden emin değilseniz, <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>Scratch'i çalıştırmaya yönelik bazı ipuçlarının yer aldığı bir belgeyi karşıdan yükleyebilirsiniz</a>.",
+
             "Q2": "Scratch'teki \"Proje Yükle\" ve \"Projeyi Kaydet\" menüleri çalışmıyor",
             "Q2-A-1": "macOS'de Safari'yi kullanıyorsanız ve Scratch menüleri \"Dosya -&gt; Proje Yükle\" ve \"Dosya -&gt; Projeyi Kaydet\" çalışmıyorsa, bunun nedeni Güvenli Mod'da çalıştırmanız olabilir.",
             "Q2-A-2": "Nasıl kontrol edebileceğiniz ve düzeltebileceğiniz hakkında bilgi için <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>buradaki yönergeleri izleyin</a>.",
+
             "Q3": "Scratch'teki makine öğrenimi sınıflandırma blokları çalışmıyor",
             "Q3-A-1": "Makine öğrenimi modeliniz için Scratch blokları ile sunucu bağlantısı bazen kopabilir. Bu durumda sonuç getirmeyi durdurur.",
             "Q3-A-2": "\"Diğer bloklar\" bölmesindeki renkli durum ışığını kullanarak bunu kontrol edebilirsiniz.",
             "Q3-A-3": "Makine öğrenimi Scratch bloklarınızın yanındaki durum ışığı kırmızı yanıyorsa, genellikle yolunda gitmeyen bir şeyler olduğu anlamına gelir. Bu geçici bir sorun olabilir. Projeyi kaydetmeyi deneyin ('Dosya' -&gt; 'Projeyi Kaydet' menüsünü kullanarak), ardından tarayıcı sayfasını yenileyin. Sayfa yeniden yüklendikten sonra durum ışığı yeşile dönerse, bıraktığınız yerden devam etmek için projenizi yükleyebilirsiniz ('Dosya' -&gt; 'Proje Yükle' menüsünü kullanarak).",
             "Q3-A-4": "Sayfa yeniden yüklendikten sonra durum ışığı hala kırmızıysa, muhtemelen makine öğrenimi modeliyle ilgili bir hata vardır. Proje için \"Öğrenme ve Test\" sayfasına gidin, burada modeliniz hakkında hata iletilerini bulabilirsiniz.",
             "Q3-A-5": "Makine öğrenimi Scratch blokları yanındaki durum ışığı yeşilse, bloklar çalışıyor demektir. Beklediğiniz yanıtları almıyorsanız, \"Öğrenme ve Test\" sayfasına gitmeyi ve modelinizin getirdiği sonuçları kontrol etmeyi deneyin.",
+
             "Q5": "Herhangi bir Scratch sürümü kullanabilir miyim?",
             "Q5-A-1": "Çocuklar İçin Makine Öğrenimi sitesinin sağladığı Scratch sürümünü kullanmanız gerekir. Proje sayfanızdan Scratch (veya 'Scratch 3') düğmesini tıklatarak başlatabilirsiniz.",
 
@@ -1117,12 +1151,15 @@
             "Q6-A-2": "Some teachers reported a problem that this saved to the Downloads folder, on a computer where students don't have access in Windows to the Downloads folder. The result was that students were not able to access their saved projects.",
             "Q6-A-3": "If you have this problem, you need to look in your web browser settings for a setting like 'Ask where to save each file before downloading'. If you enable that, your students will be able to choose where their projects are saved."
         },
+
         "TRAININGUI": {
             "TITLE": "Eğitim Kullanıcı Arabirimi sorunları",
+
             "Q1": "Fotoğrafları eğitim paketlerine sürükleme (fotoğraf projeleri için) işlevi çalışmıyor",
             "Q1-A-1": "Safari veya Internet Explorer'ı kullanıyorsanız fotoğrafları eğitim paketlerine sürükleme işlevi çalışmaz.",
             "Q1-A-2": "Bu durum için üzgünüm. Firefox veya Chrome gibi başka bir tarayıcı kullanabiliyorsanız, lütfen kullanın. Kullanamıyorsanız, bunun yerine \"www\" düğmesini tıklatıp eğitim fotoğrafların URL'sini yapıştırabilirsiniz."
         },
+
         "MODELS": {
             "TITLE": "Makine öğrenimi modellerinin eğitimiyle ilgili hatalar",
 
@@ -1168,6 +1205,7 @@
             "Q6-A-3": "Birkaç dakikadan uzun sürdüyse, sayfayı yenilenerek/yeniden yüklenerek kontrol etmek yararlı olabilir.",
             "Q6-A-4": "10 dakikadan uzun sürdüyse, yeniden başlatma düşünülebilir (İptal düğmesini tııklatın ve yeni bir makine öğrenimi modelini yeniden eğitmek için düğmeyi tıklatın)."
         },
+
         "TEACHERUI": {
             "TITLE": "Öğretmen / Yönetim Kullanıcı Arabirimi sorunları",
 
@@ -1185,12 +1223,15 @@
             "Q4-A-4": "Sınıfınıza ilişkin süre sınırını kontrol etmek için <a href='https://machinelearningforkids.co.uk/#!/teacher/restrictions'>Öğretmen sayfanızın Kısıtlamalar bölümünü</a> ziyaret edebilirsiniz.",
             "Q4-A-6": "<em>Not: Kullanılan eğitim verileri değil, yalnızca makine öğrenimi modelleri otomatik olarak silinir. Bir öğrencinin üzerinde hala çalıştığı bir proje için bir model otomatik olarak silinirse, her zaman modelin yeniden oluşturulması için \"Eğit\" düğmesi tıklatılabilir.</em>"
         },
+
         "ACCOUNTISSUES": {
             "TITLE": "Hesap sorunları",
+
             "Q1": "Hesap oluşturma veya \"Hemen deneyin\" seçeneği arasındaki fark nedir?",
             "Q1-A-1": "\"Hemen deneyin\" seçeneğinin kullanılması, oturum açma veya bir hesap oluşturma zorunluluğunun olmadığı anlamına gelir. Öğrencilerin hatırlaması gereken herhangi bir parola bulunmaz, öğretmenlerin kişisel bilgileri sağlama zorunluluğu olmaz. Ayrıca öğretmenlere öğrenci hesaplarının yönetimi için gereken zamanı kazandırır.",
             "Q1-A-2": "Ancak bir hesap oluşturmak da ek özellikler sağlar. Öğrenciler, çalışmalarını kaydedip sonraki bir derste buna dönebilirler. Sınıftaki diğer öğrencilerle birlikte bir proje üzerinde çalışabilirler. Evlerinden oturum açabilir ve ailelerine yaptıklarını gösterebilirler.",
             "Q1-A-3": "Aradaki farkların bir özeti aşağıda gösterilir:",
+
             "CREATE_ACCOUNT": "Hesap oluştur",
             "TRAINMODELS": "Makine öğrenimi modellerine şunları tanımayı öğret...",
             "USE_SCRATCH": "Scratch'teki makine öğrenimi modellerini kullan",
@@ -1205,11 +1246,13 @@
             "ONLINE": " çevrimiçi her yerden ",
             "BY_YOURSELF": " kendiniz ",
             "WITH_CLASSMATES": "sınıf arkadaşlarıyla",
+
             "Q2": "Bir sınıf hesabı oluşturdum, ancak öğretmen girişi yapamıyorum",
             "Q2-A-1": "Oturum açabilmek için e-posta adresinizi doğrulamanız gerekir.",
             "Q2-A-2": "Sınıf hesabı oluşturduğunuzda, sağladığınız e-posta adresine tıklatılacak bir bağlantı içeren bir e-posta gönderilir. Bu bağlantıyı tıklatırsanız, e-posta adresiniz doğrulanır ve sınıf hesabı etkinleştirilir. Artık oturum açabilmeniz gerekir.",
             "Q2-A-3": "Doğrulama e-postasını henüz görmediyseniz, istenmeyen posta klasörünüze gitmediğinden emin olun. ",
             "Q2-A-4": "Yine de bulamıyorsanız <a href='mailto:dale.lane@uk.ibm.com'>benimle iletişime geçin</a>, size yardımcı olmaya çalışacağım.",
+
             "Q3": "Hesapları silme",
             "Q3-A-1": "Öğrenci hesapları",
             "Q3-A-2": "Öğrenciler, kendi hesaplarını silemezler.",
@@ -1219,6 +1262,7 @@
             "Q3-A-6": "Öğretmen hesapları",
             "Q3-A-7": "Bir öğretmen hesabı silindiğinde, tüm sınıf ve içindeki öğrenci hesaplarının tamamı da silinir. Bu işlem geri alınamaz.",
             "Q3-A-8": "Bu, <a href='https://machinelearningforkids.co.uk/teacher'>Öğretmen sayfanızın</a> Gelişmiş seçenekler bölümündeki \"Sınıfı Sil\" düğmesi tıklatılarak yapılabilir. ",
+
             "Q4": "Kullanıcılar hakkında hangi bilgiler saklanır?",
             "Q4-A-1": "Teacher accounts",
             "Q4-A-2": "I store the username and email address that you provide when you create the account, so that I can keep in touch with you.",
@@ -1232,9 +1276,9 @@
 
             "Q5": "What happens to training data created by students?",
             "Q5-A-1": "A step in all machine learning projects that students make using this site is to create or collect training examples. For text projects, this can mean typing in short text passages. For image projects, this can means drawing pictures onto an on-screen canvas or taking photos using the webcam. For numbers projects, this means typing in sets of numbers",
-            "Q5-A-2": "All of these training examples are stored in a <a href='https://www.ibm.com/cloud/compose/mysql'>MySQL database hosted on IBM Cloud</a>. As the database administrator, I have access to all of these training examples for all student projects, however I do not use it for any other purposes other than enabling students to access and work on their own projects. I do not publish the training data (either publicly or to individuals or third parties) or otherwise share it, with the two exceptions of submitting it to IBM Watson APIs described below.",
-            "Q5-A-3": "Machine learning models for text projects are created using the <a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a> cloud service, which means when students train a model, a copy of the training examples that they have entered will be <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>submitted to IBM Watson</a>. IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
-            "Q5-A-4": "Machine learning models for images projects are created using the <a href='https://www.ibm.com/watson/services/visual-recognition/'>IBM Visual Recognition</a> cloud service, which means when students train a model, a copy of their training images will be <a href='https://cloud.ibm.com/apidocs/visual-recognition#create-a-classifier'>uploaded to IBM Watson</a>. IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/visual-recognition#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
+            "Q5-A-2": "All of these training examples are stored in a <a href='https://www.ibm.com/cloud/compose/mysql'>MySQL database hosted on IBM Cloud</a>, in Dallas in the United States. As the database administrator, I have access to all of these training examples for all student projects, however I do not use it for any other purposes other than enabling students to access and work on their own projects. I do not publish the training data (either publicly or to individuals or third parties) or otherwise share it, with the two exceptions of submitting it to IBM Watson APIs described below.",
+            "Q5-A-3": "Machine learning models for text projects are created using the <a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a> cloud service, which means when students train a model, a copy of the training examples that they have entered will be <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>submitted to IBM Watson</a>. (The location of this cloud service is something that teachers choose when <a href='https://machinelearningforkids.co.uk/apikeys-guide'>creating API keys</a>.) IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
+            "Q5-A-4": "Machine learning models for images projects are created using the <a href='https://www.ibm.com/watson/services/visual-recognition/'>IBM Visual Recognition</a> cloud service, which means when students train a model, a copy of their training images will be <a href='https://cloud.ibm.com/apidocs/visual-recognition#create-a-classifier'>uploaded to IBM Watson</a>. (The location of this cloud service is something that teachers choose when <a href='https://machinelearningforkids.co.uk/apikeys-guide'>creating API keys</a>.) IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/visual-recognition#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
             "Q5-A-5": "IBM Watson provides some <a href='https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security-gdpr-wa'>general guidance for sharing training data with their services</a>, which also apply to training data created and collected in Machine Learning for Kids. Specifically, students should be advised not to include personally identifiable information in the examples that they collect."
         }
     },

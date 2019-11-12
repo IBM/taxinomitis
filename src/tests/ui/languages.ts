@@ -20,6 +20,11 @@ describe('UI - NLS', () => {
     let ja: any;
     let el: any;
     let cs: any;
+    let ar: any;
+    let hr: any;
+    let pl: any;
+    let ru: any;
+
 
     before(() => {
         en = JSON.parse(fs.readFileSync('./public/languages/en.json', 'utf8'));
@@ -37,6 +42,10 @@ describe('UI - NLS', () => {
         ja = JSON.parse(fs.readFileSync('./public/languages/ja.json', 'utf8'));
         el = JSON.parse(fs.readFileSync('./public/languages/el.json', 'utf8'));
         cs = JSON.parse(fs.readFileSync('./public/languages/cs.json', 'utf8'));
+        ar = JSON.parse(fs.readFileSync('./public/languages/ar.json', 'utf8'));
+        hr = JSON.parse(fs.readFileSync('./public/languages/hr.json', 'utf8'));
+        pl = JSON.parse(fs.readFileSync('./public/languages/pl.json', 'utf8'));
+        ru = JSON.parse(fs.readFileSync('./public/languages/ru.json', 'utf8'));
     });
 
 
@@ -99,4 +108,18 @@ describe('UI - NLS', () => {
     it('Czech', () => {
         compareKeys(en, cs, 'cs');
     });
+
+    it('Arabic', () => {
+        compareKeys(en, ar, 'ar');
+    });
+    it('Croatian', () => {
+        compareKeys(en, hr, 'hr');
+    });
+    it('Polish', () => {
+        compareKeys(en, pl, 'pl');
+    });
+    it('Russian', () => {
+        compareKeys(en, ru, 'ru');
+    });
+
 });

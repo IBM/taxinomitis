@@ -297,14 +297,14 @@
                 else if (lang.indexOf('es') === 0) {
                     lang = 'es';
                 }
+                else if (lang.indexOf('zh') === 0) {
+                    lang = 'zh-cn';
+                }
                 else if (lang.indexOf('fr') === 0) {
                     lang = 'fr';
                 }
                 else if (lang.indexOf('ko') === 0) {
                     lang = 'ko';
-                }
-                else if (lang.indexOf('zh') === 0) {
-                    lang = 'zh-cn';
                 }
                 else if (lang.indexOf('nl') === 0) {
                     lang = 'nl-be';
@@ -320,6 +320,18 @@
                 }
                 else if (lang.indexOf('cs') === 0) {
                     lang = 'cs';
+                }
+                else if (lang.indexOf('ar') === 0) {
+                    lang = 'ar';
+                }
+                else if (lang.indexOf('hr') === 0) {
+                    lang = 'hr';
+                }
+                else if (lang.indexOf('pl') === 0) {
+                    lang = 'pl';
+                }
+                else if (lang.indexOf('ru') === 0) {
+                    lang = 'ru';
                 }
 
                 return lang;

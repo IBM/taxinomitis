@@ -704,7 +704,7 @@
         "EXPLAIN_TRAIN_MODEL": "Use this to train a new machine learning model",
         "EXPLAIN_IS_MODEL_READY": "The machine learning model will take a minute before it's ready for use. You can use these blocks to wait until it is ready.",
         "SAMPLE_SCRIPT": "ということは、こんなことができます:",
-        "SAMPLE_SCREENSHOT": "機械学習に関するブロックはこんな風に見えます。",
+        "SAMPLE_SCREENSHOT": "あなたのプロジェクトの名前以外は、こんな風にみえます。",
         "EXPLAIN_STATUS": "あなたのプロジェクト名のとなりの色付きの円が、あなたの機械学習モデルが正常だと示しています。",
         "STATUS_GREEN": "これは、あなたのモデルは、トレイニングされ利用可能であることを示しています。",
         "STATUS_YELLOW": "これは、あなたのモデルはまだトレーニングが終わっていないことを示しています。",
