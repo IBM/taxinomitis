@@ -97,6 +97,13 @@
             if (!errObj) {
                 errObj = {};
             }
+            else {
+                // record the error
+                console.log(errObj);
+                if (status === 500 && Sentry && Sentry.captureException) {
+                    Sentry.captureException({ error : errObj, errortype : typeof (errObj) });
+                }
+            }
 
             // create alert and display it
             var newId = alertId++;
