@@ -107,6 +107,8 @@ export interface ImageTraining {
     label?: string;
     projectid?: string;
     isstored: boolean;
+    // only expected if isstored is true
+    readonly userid?: string;
 }
 
 export interface ImageTrainingDbRow {
