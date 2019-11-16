@@ -766,152 +766,295 @@
         "SMARTCLASSROOM": {
             "TITLE": "スマート クラスルーム",
             "SUMMARY": "あなたの指示が分かるようにコンピュータに教えよう。",
-            "DESCRIPTION": "あなたが画面上の機器を制御できるように賢いアシスタントを Scratchで作ります。"
+            "DESCRIPTION": "あなたが画面上の機器を制御できるように賢いアシスタントを Scratchで作ります。",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where the students make a non-machine learning version first",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Shorter version of the project, where the students only make a machine learning version of the assistant",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-easy.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "Quick simplified version of the project, ideal for use as a first introduction to the tool",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-tryitnow.pdf"
+            }
         },
         "MAKEMEHAPPY": {
             "TITLE": "私を幸せにして",
             "SUMMARY": "誉め言葉と意地悪な言葉が認識できるようにコンピュータに教えよう。",
-            "DESCRIPTION": "Scratchで易しい言葉には微笑み、意地悪な言葉には泣く人物を作ります。"
+            "DESCRIPTION": "Scratchで易しい言葉には微笑み、意地悪な言葉には泣く人物を作ります。",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where the students make a non-machine learning version first",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-ja.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Shorter version of the project, where the students only make a machine learning version",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-easy.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "Python project - for making the project using Python",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-python.pdf"
+            }
         },
         "SNAP": {
             "TITLE": "スナップ!",
             "SUMMARY": "アイコンがどのように見えるのか認識できるようにコンピュータに教えよう。",
-            "DESCRIPTION": "あなたのカードが認識できるように学習するカードゲームを製作します。"
+            "DESCRIPTION": "あなたのカードが認識できるように学習するカードゲームを製作します。",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where the students make their own cards that they will train the computer to recognise",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Shorter version of the project, providing children with pre-made cards that you will need to print out, to save the students time having to make them",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap-easy.pdf",
+                "RESOURCES": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/resources-snap-easy.pdf"
+            }
         },
         "CHAMELEON": {
             "TITLE": "カメレオン",
             "SUMMARY": "色を認識できるよにコンピュータに教えよう。",
-            "DESCRIPTION": "背景に合わせて色を変えるカメレオンをScratchを使って作ります。"
+            "DESCRIPTION": "背景に合わせて色を変えるカメレオンをScratchを使って作ります。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf"
+            }
         },
         "MAILMANMAX": {
             "TITLE": "郵便屋さん Max",
             "SUMMARY": "コンピュータに手書き文字の認識を教えよう。",
-            "DESCRIPTION": "封筒の上の手書き郵便番号を認識する郵便の仕分け所をScratchを使って作ります。"
+            "DESCRIPTION": "封筒の上の手書き郵便番号を認識する郵便の仕分け所をScratchを使って作ります。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mailmanmax-ja.pdf"
+            }
         },
         "CARORCUP": {
             "TITLE": "車 又は カップ",
             "SUMMARY": "物体の絵を認識できるようにコンピュータに教えよう。",
-            "DESCRIPTION": "写真をグループに分類できるようにコンピュータをトレーニングします。"
+            "DESCRIPTION": "写真をグループに分類できるようにコンピュータをトレーニングします。",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Individual version of the project, where each student trains their own machine learning model independently",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Group version of the project, where students in the class work together to train a shared machine learning model",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup-crowd.pdf"
+            }
         },
         "FACELOCK": {
             "TITLE": "顔認証",
             "SUMMARY": "顔を認識できるようにコンピュータをトレーニングしよう。",
-            "DESCRIPTION": "あなたの顔を認識したら、Scratchの中の携帯のロックを外すようにします。"
+            "DESCRIPTION": "あなたの顔を認識したら、Scratchの中の携帯のロックを外すようにします。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facelock.pdf"
+            }
         },
         "JOURNEYTOSCHOOL": {
             "TITLE": "学校への道",
             "SUMMARY": "予想をするようにコンピュータに教えよう。",
-            "DESCRIPTION": "朝、学校にどのように行くかコンピュータが予想できるようにトレーニングします。"
+            "DESCRIPTION": "朝、学校にどのように行くかコンピュータが予想できるようにトレーニングします。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-journeytoschool.pdf"
+            }
         },
         "SHYPANDA": {
             "TITLE": "恥ずかしがりやのパンダ",
             "SUMMARY": "写真を認識できるようにコンピュータに教えよう。",
-            "DESCRIPTION": "もしあなたが見ているのに気づいたら踊るのをやる、恥ずかしがりやのパンダをつくります。"
+            "DESCRIPTION": "もしあなたが見ているのに気づいたら踊るのをやる、恥ずかしがりやのパンダをつくります。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda.pdf"
+            }
         },
         "VIRTUALPET": {
             "TITLE": "仮想ペット",
             "SUMMARY": "写真を認識できるようにコンピュータに教えよう。",
-            "DESCRIPTION": "仮想ペットの世話ができりょうに、あなたの動作をコンピュータが認識できるようにトレーニングします。"
+            "DESCRIPTION": "仮想ペットの世話ができりょうに、あなたの動作をコンピュータが認識できるようにトレーニングします。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-virtualpet.pdf"
+            }
         },
         "PACMAN": {
             "TITLE": "パックマン",
             "SUMMARY": "ゲームの遊び方をコンピュータに教えよう。",
-            "DESCRIPTION": "幽霊のよけ方を学習するパックマンゲームをScratchで作ります。"
+            "DESCRIPTION": "幽霊のよけ方を学習するパックマンゲームをScratchで作ります。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pacman.pdf"
+            }
         },
         "CHATBOTS": {
             "TITLE": "チャットボット",
             "SUMMARY": "質問が分かるようにコンピュータに教えよう。",
-            "DESCRIPTION": "あなたが選んだ話題に関する質問に答えられるチャットボットをつくります。"
+            "DESCRIPTION": "あなたが選んだ話題に関する質問に答えられるチャットボットをつくります。",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Scratch project - for making a chat bot in Scratch",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Python project - for making a chat bot using Python",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots-python.pdf"
+            }
         },
         "TOURISTINFO": {
             "TITLE": "訪問先",
             "SUMMARY": "推奨ができるようにコンピュータに教えよう。",
-            "DESCRIPTION": "旅行者の興味にあったアトラクションを推奨できる携帯アプリをScratchでつくります。"
+            "DESCRIPTION": "旅行者の興味にあったアトラクションを推奨できる携帯アプリをScratchでつくります。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-touristinfo.pdf"
+            }
         },
         "SORTINGHAT": {
             "TITLE": "組分け帽子",
             "SUMMARY": "言葉の使い方をコンピュータが認識できるようにトレーニングしよう。",
-            "DESCRIPTION": "あなたの言ったことに基づいて、あなたを寄宿舎に入れるハリーポッターの組分け帽子をつくります。"
+            "DESCRIPTION": "あなたの言ったことに基づいて、あなたを寄宿舎に入れるハリーポッターの組分け帽子をつくります。",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Individual version of the project, where each student trains their own machine learning model independently",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Group version of the project, where students in the class work together to train a shared machine learning model",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat-crowd.pdf"
+            }
         },
         "ROCKPAPERSCISSORS": {
             "TITLE": "グー、チョキ、パー",
             "SUMMARY": "コンピュータに形を認識できるように教えよう。",
-            "DESCRIPTION": "手の形を学習するグー・チョキ・パーのゲームをScratchでつくります。"
+            "DESCRIPTION": "手の形を学習するグー・チョキ・パーのゲームをScratchでつくります。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-rockpaperscissors.pdf"
+            }
         },
         "JUDGEABOOK": {
             "TITLE": "本の判別",
             "SUMMARY": "コンピュータが見た目で判別できるように教えよう。",
-            "DESCRIPTION": "表紙から本の種類を判別できるかテストするゲームをScratchで制作します。"
+            "DESCRIPTION": "表紙から本の種類を判別できるかテストするゲームをScratchで制作します。",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where children make a game to compete against the computer to recognise books",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Simplified version of the project, where children get the computer to recognise books",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf"
+            }
         },
         "LOCATELARRY": {
             "TITLE": "ラリーを見つけろ",
             "SUMMARY": "写真の中の物を見つけるようにコンピュータに教えよう。",
-            "DESCRIPTION": "ウォーリーを探せのようにあなたのキャラクターを見つけるようにコンピュータに教えるタイプのゲームをScratchでつくります。"
+            "DESCRIPTION": "ウォーリーを探せのようにあなたのキャラクターを見つけるようにコンピュータに教えるタイプのゲームをScratchでつくります。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf"
+            }
         },
         "CONFUSED": {
             "TITLE": "混乱",
             "SUMMARY": "果物を認識できるようにコンピュータに教えよう。",
-            "DESCRIPTION": "上手くトレーニングされないとコンピュータがどのように混乱して、間違えるか試してみます。"
+            "DESCRIPTION": "上手くトレーニングされないとコンピュータがどのように混乱して、間違えるか試してみます。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-confused.pdf"
+            }
         },
         "SCHOOLLIBRARY": {
             "TITLE": "学校の図書館",
             "SUMMARY": "コンピュータに推薦することを教えよう。",
-            "DESCRIPTION": "ある本がどのレベルの子に合うかアドバイスする図書館員をScratchでつくります。"
+            "DESCRIPTION": "ある本がどのレベルの子に合うかアドバイスする図書館員をScratchでつくります。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf"
+            }
         },
         "WHATTWITTERTHINKS": {
             "TITLE": "Twitterの考えは？",
             "SUMMARY": "コンピュータに世論を推察することを教えよう。",
-            "DESCRIPTION": "Twitter上の議論を分析してセンチメント分析するツールをScratchで作ります。"
+            "DESCRIPTION": "Twitter上の議論を分析してセンチメント分析するツールをScratchで作ります。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
+            }
         },
         "NOUGHTSANDCROSSES": {
             "TITLE": "ナッツ＆クロス",
             "SUMMARY": "ゲームの遊び方をコンピュータに教えよう。",
-            "DESCRIPTION": "あなたの負かし方を学習するナッツ＆クロスをScratchで作ります。"
+            "DESCRIPTION": "あなたの負かし方を学習するナッツ＆クロスをScratchで作ります。",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Classroom version, where each student makes the game themselves in Scratch",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Classroom version, where each student makes the game themselves in Python",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-python.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "Demo version, for events like Science Fairs where each child has a minute or two to try something",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-event.pdf"
+            }
         },
         "TOPTRUMPS": {
             "TITLE": "トップトランプ",
             "SUMMARY": "ゲームの遊び方をコンピュータに教えよう。",
-            "DESCRIPTION": "Scratchで作ったトップトランプのゲームを遊べるようにコンピュータをトレーニングします。"
+            "DESCRIPTION": "Scratchで作ったトップトランプのゲームを遊べるようにコンピュータをトレーニングします。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-toptrumps.pdf"
+            }
         },
         "HEADLINES": {
             "TITLE": "見出し",
             "SUMMARY": "言葉の使い方を認識するコンピュータの能力をテストしよう。",
-            "DESCRIPTION": "全国紙の見出しを認識できるようにコンピュータをトレーニングします。"
+            "DESCRIPTION": "全国紙の見出しを認識できるようにコンピュータをトレーニングします。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
+            }
         },
         "NEWSPAPERSHELVES": {
             "TITLE": "Newspaper shelves",
             "SUMMARY": "Test the computer's ability to recognise use of language",
-            "DESCRIPTION": "Train a computer to recognise headlines from national newspapers."
+            "DESCRIPTION": "Train a computer to recognise headlines from national newspapers.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-easy.pdf"
+            }
         },
         "HEADLINETESTING": {
             "TITLE": "Headline testing",
             "SUMMARY": "Test the computer's ability to recognise use of language",
-            "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is"
+            "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
+            }
         },
         "FINDIT": {
             "TITLE": "見つけた!",
             "SUMMARY": "画像を認識できるようにコンピューターに教えよう。",
-            "DESCRIPTION": "あなたの携帯ようにかくれんぼゲームを作ります。"
+            "DESCRIPTION": "あなたの携帯ようにかくれんぼゲームを作ります。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-findit.pdf"
+            }
         },
         "ALIENLANGUAGE": {
             "TITLE": "エイリアンの言葉",
             "SUMMARY": "音が理解できるようにコンピューターに教えよう。",
-            "DESCRIPTION": "エイリアンの言葉を認識すうるエイリアンをScratchを使って作ります。"
+            "DESCRIPTION": "エイリアンの言葉を認識すうるエイリアンをScratchを使って作ります。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-alienlanguage.pdf"
+            }
         },
         "SECRETCODE": {
             "TITLE": "秘密のコード",
             "SUMMARY": "言葉が理解できるようにコンピューターに教えよう。",
-            "DESCRIPTION": "スパイを誘導するために、秘密のコードを理解できるようにコンピューターに教えます。"
+            "DESCRIPTION": "スパイを誘導するために、秘密のコードを理解できるようにコンピューターに教えます。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-secretcode.pdf"
+            }
         },
         "JARGONBUSTER": {
             "TITLE": "専門語 バスター",
             "SUMMARY": "単語を聞くようにコンピューターに教えよう。",
-            "DESCRIPTION": "あなたの言った言葉の意味を表示するプロジェクトをScratchで制作します。"
+            "DESCRIPTION": "あなたの言った言葉の意味を表示するプロジェクトをScratchで制作します。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-jargonbuster.pdf"
+            }
         },
         "TITANIC": {
             "TITLE": "Titanic",
             "SUMMARY": "Teach a computer to predict outcomes",
-            "DESCRIPTION": "Create a Python program that can predict who survived the sinking of the Titanic."
+            "DESCRIPTION": "Create a Python program that can predict who survived the sinking of the Titanic.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
+            }
         }
     },
     "TEACHER": {

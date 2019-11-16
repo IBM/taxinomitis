@@ -17,34 +17,102 @@
         vm.worksheets = [];
         $translate([
             'WORKSHEETS.SMARTCLASSROOM.TITLE', 'WORKSHEETS.SMARTCLASSROOM.SUMMARY', 'WORKSHEETS.SMARTCLASSROOM.DESCRIPTION',
+            'WORKSHEETS.SMARTCLASSROOM.WORKSHEET_1.DESCRIPTION', 'WORKSHEETS.SMARTCLASSROOM.WORKSHEET_1.URL',
+            'WORKSHEETS.SMARTCLASSROOM.WORKSHEET_2.DESCRIPTION', 'WORKSHEETS.SMARTCLASSROOM.WORKSHEET_2.URL',
+            'WORKSHEETS.SMARTCLASSROOM.WORKSHEET_3.DESCRIPTION', 'WORKSHEETS.SMARTCLASSROOM.WORKSHEET_3.URL',
+
             'WORKSHEETS.MAKEMEHAPPY.TITLE', 'WORKSHEETS.MAKEMEHAPPY.SUMMARY', 'WORKSHEETS.MAKEMEHAPPY.DESCRIPTION',
+            'WORKSHEETS.MAKEMEHAPPY.WORKSHEET_1.DESCRIPTION', 'WORKSHEETS.MAKEMEHAPPY.WORKSHEET_1.URL',
+            'WORKSHEETS.MAKEMEHAPPY.WORKSHEET_2.DESCRIPTION', 'WORKSHEETS.MAKEMEHAPPY.WORKSHEET_2.URL',
+            'WORKSHEETS.MAKEMEHAPPY.WORKSHEET_3.DESCRIPTION', 'WORKSHEETS.MAKEMEHAPPY.WORKSHEET_3.URL',
+
             'WORKSHEETS.SNAP.TITLE', 'WORKSHEETS.SNAP.SUMMARY', 'WORKSHEETS.SNAP.DESCRIPTION',
+            'WORKSHEETS.SNAP.WORKSHEET_1.DESCRIPTION', 'WORKSHEETS.SNAP.WORKSHEET_1.URL',
+            'WORKSHEETS.SNAP.WORKSHEET_2.DESCRIPTION', 'WORKSHEETS.SNAP.WORKSHEET_2.URL', 'WORKSHEETS.SNAP.WORKSHEET_2.RESOURCES',
+
             'WORKSHEETS.CHAMELEON.TITLE', 'WORKSHEETS.CHAMELEON.SUMMARY', 'WORKSHEETS.CHAMELEON.DESCRIPTION',
+            'WORKSHEETS.CHAMELEON.WORKSHEET_1.URL',
+
             'WORKSHEETS.MAILMANMAX.TITLE', 'WORKSHEETS.MAILMANMAX.SUMMARY', 'WORKSHEETS.MAILMANMAX.DESCRIPTION',
+            'WORKSHEETS.MAILMANMAX.WORKSHEET_1.URL',
+
             'WORKSHEETS.CARORCUP.TITLE', 'WORKSHEETS.CARORCUP.SUMMARY', 'WORKSHEETS.CARORCUP.DESCRIPTION',
+            'WORKSHEETS.CARORCUP.WORKSHEET_1.DESCRIPTION', 'WORKSHEETS.CARORCUP.WORKSHEET_1.URL',
+            'WORKSHEETS.CARORCUP.WORKSHEET_2.DESCRIPTION', 'WORKSHEETS.CARORCUP.WORKSHEET_2.URL',
+
             'WORKSHEETS.FACELOCK.TITLE', 'WORKSHEETS.FACELOCK.SUMMARY', 'WORKSHEETS.FACELOCK.DESCRIPTION',
+            'WORKSHEETS.FACELOCK.WORKSHEET_1.URL',
+
             'WORKSHEETS.JOURNEYTOSCHOOL.TITLE', 'WORKSHEETS.JOURNEYTOSCHOOL.SUMMARY', 'WORKSHEETS.JOURNEYTOSCHOOL.DESCRIPTION',
+            'WORKSHEETS.JOURNEYTOSCHOOL.WORKSHEET_1.URL',
+
             'WORKSHEETS.SHYPANDA.TITLE', 'WORKSHEETS.SHYPANDA.SUMMARY', 'WORKSHEETS.SHYPANDA.DESCRIPTION',
+            'WORKSHEETS.SHYPANDA.WORKSHEET_1.URL',
+
             'WORKSHEETS.ALIENLANGUAGE.TITLE', 'WORKSHEETS.ALIENLANGUAGE.SUMMARY', 'WORKSHEETS.ALIENLANGUAGE.DESCRIPTION',
+            'WORKSHEETS.ALIENLANGUAGE.WORKSHEET_1.URL',
+
             'WORKSHEETS.SECRETCODE.TITLE', 'WORKSHEETS.SECRETCODE.SUMMARY', 'WORKSHEETS.SECRETCODE.DESCRIPTION',
+            'WORKSHEETS.SECRETCODE.WORKSHEET_1.URL',
+
             'WORKSHEETS.VIRTUALPET.TITLE', 'WORKSHEETS.VIRTUALPET.SUMMARY', 'WORKSHEETS.VIRTUALPET.DESCRIPTION',
+            'WORKSHEETS.VIRTUALPET.WORKSHEET_1.URL',
+
             'WORKSHEETS.PACMAN.TITLE', 'WORKSHEETS.PACMAN.SUMMARY', 'WORKSHEETS.PACMAN.DESCRIPTION',
+            'WORKSHEETS.PACMAN.WORKSHEET_1.URL',
+
             'WORKSHEETS.CHATBOTS.TITLE', 'WORKSHEETS.CHATBOTS.SUMMARY', 'WORKSHEETS.CHATBOTS.DESCRIPTION',
+            'WORKSHEETS.CHATBOTS.WORKSHEET_1.DESCRIPTION', 'WORKSHEETS.CHATBOTS.WORKSHEET_1.URL',
+            'WORKSHEETS.CHATBOTS.WORKSHEET_2.DESCRIPTION', 'WORKSHEETS.CHATBOTS.WORKSHEET_2.URL',
+
             'WORKSHEETS.TOURISTINFO.TITLE', 'WORKSHEETS.TOURISTINFO.SUMMARY', 'WORKSHEETS.TOURISTINFO.DESCRIPTION',
+            'WORKSHEETS.TOURISTINFO.WORKSHEET_1.URL',
+
             'WORKSHEETS.SORTINGHAT.TITLE', 'WORKSHEETS.SORTINGHAT.SUMMARY', 'WORKSHEETS.SORTINGHAT.DESCRIPTION',
+            'WORKSHEETS.SORTINGHAT.WORKSHEET_1.DESCRIPTION', 'WORKSHEETS.SORTINGHAT.WORKSHEET_1.URL',
+            'WORKSHEETS.SORTINGHAT.WORKSHEET_2.DESCRIPTION', 'WORKSHEETS.SORTINGHAT.WORKSHEET_2.URL',
+
             'WORKSHEETS.ROCKPAPERSCISSORS.TITLE', 'WORKSHEETS.ROCKPAPERSCISSORS.SUMMARY', 'WORKSHEETS.ROCKPAPERSCISSORS.DESCRIPTION',
+            'WORKSHEETS.ROCKPAPERSCISSORS.WORKSHEET_1.URL',
+
             'WORKSHEETS.JUDGEABOOK.TITLE', 'WORKSHEETS.JUDGEABOOK.SUMMARY', 'WORKSHEETS.JUDGEABOOK.DESCRIPTION',
+            'WORKSHEETS.JUDGEABOOK.WORKSHEET_1.DESCRIPTION', 'WORKSHEETS.JUDGEABOOK.WORKSHEET_1.URL',
+            'WORKSHEETS.JUDGEABOOK.WORKSHEET_2.DESCRIPTION', 'WORKSHEETS.JUDGEABOOK.WORKSHEET_2.URL',
+
             'WORKSHEETS.LOCATELARRY.TITLE', 'WORKSHEETS.LOCATELARRY.SUMMARY', 'WORKSHEETS.LOCATELARRY.DESCRIPTION',
+            'WORKSHEETS.LOCATELARRY.WORKSHEET_1.URL',
+
             'WORKSHEETS.CONFUSED.TITLE', 'WORKSHEETS.CONFUSED.SUMMARY', 'WORKSHEETS.CONFUSED.DESCRIPTION',
+            'WORKSHEETS.CONFUSED.WORKSHEET_1.URL',
+
             'WORKSHEETS.SCHOOLLIBRARY.TITLE', 'WORKSHEETS.SCHOOLLIBRARY.SUMMARY', 'WORKSHEETS.SCHOOLLIBRARY.DESCRIPTION',
+            'WORKSHEETS.SCHOOLLIBRARY.WORKSHEET_1.URL',
+
             'WORKSHEETS.WHATTWITTERTHINKS.TITLE', 'WORKSHEETS.WHATTWITTERTHINKS.SUMMARY', 'WORKSHEETS.WHATTWITTERTHINKS.DESCRIPTION',
+            'WORKSHEETS.WHATTWITTERTHINKS.WORKSHEET_1.URL',
+
             'WORKSHEETS.NOUGHTSANDCROSSES.TITLE', 'WORKSHEETS.NOUGHTSANDCROSSES.SUMMARY', 'WORKSHEETS.NOUGHTSANDCROSSES.DESCRIPTION',
+            'WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_1.DESCRIPTION', 'WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_1.URL',
+            'WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_2.DESCRIPTION', 'WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_2.URL',
+            'WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_3.DESCRIPTION', 'WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_3.URL',
+
             'WORKSHEETS.TOPTRUMPS.TITLE', 'WORKSHEETS.TOPTRUMPS.SUMMARY', 'WORKSHEETS.TOPTRUMPS.DESCRIPTION',
+            'WORKSHEETS.TOPTRUMPS.WORKSHEET_1.URL',
+
             'WORKSHEETS.NEWSPAPERSHELVES.TITLE', 'WORKSHEETS.NEWSPAPERSHELVES.SUMMARY', 'WORKSHEETS.NEWSPAPERSHELVES.DESCRIPTION',
+            'WORKSHEETS.NEWSPAPERSHELVES.WORKSHEET_1.URL',
+
             'WORKSHEETS.HEADLINETESTING.TITLE', 'WORKSHEETS.HEADLINETESTING.SUMMARY', 'WORKSHEETS.HEADLINETESTING.DESCRIPTION',
+            'WORKSHEETS.HEADLINETESTING.WORKSHEET_1.URL',
+
             'WORKSHEETS.FINDIT.TITLE', 'WORKSHEETS.FINDIT.SUMMARY', 'WORKSHEETS.FINDIT.DESCRIPTION',
+            'WORKSHEETS.FINDIT.WORKSHEET_1.URL',
+
             'WORKSHEETS.JARGONBUSTER.TITLE', 'WORKSHEETS.JARGONBUSTER.SUMMARY', 'WORKSHEETS.JARGONBUSTER.DESCRIPTION',
-            'WORKSHEETS.TITANIC.TITLE', 'WORKSHEETS.TITANIC.SUMMARY', 'WORKSHEETS.TITANIC.DESCRIPTION'
+            'WORKSHEETS.JARGONBUSTER.WORKSHEET_1.URL',
+
+            'WORKSHEETS.TITANIC.TITLE', 'WORKSHEETS.TITANIC.SUMMARY', 'WORKSHEETS.TITANIC.DESCRIPTION',
+            'WORKSHEETS.TITANIC.WORKSHEET_1.URL'
         ]).then(function (translations) {
             vm.worksheets = [
                 {
@@ -59,16 +127,16 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-smartclassroom.pdf',
                     downloads : [
                         {
-                            description : 'Full version of the project, where the students make a non-machine learning version first',
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom.pdf'
+                            description : translations['WORKSHEETS.SMARTCLASSROOM.WORKSHEET_1.DESCRIPTION'],
+                            worksheet : translations['WORKSHEETS.SMARTCLASSROOM.WORKSHEET_1.URL']
                         },
                         {
-                            description : 'Shorter version of the project, where the students only make a machine learning version of the assistant',
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-easy.pdf'
+                            description : translations['WORKSHEETS.SMARTCLASSROOM.WORKSHEET_2.DESCRIPTION'],
+                            worksheet : translations['WORKSHEETS.SMARTCLASSROOM.WORKSHEET_2.URL']
                         },
                         {
-                            description : 'Quick simplified version of the project, ideal for use as a first introduction to the tool',
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-tryitnow.pdf'
+                            description : translations['WORKSHEETS.SMARTCLASSROOM.WORKSHEET_3.DESCRIPTION'],
+                            worksheet : translations['WORKSHEETS.SMARTCLASSROOM.WORKSHEET_3.URL']
                         }
                     ]
                 },
@@ -84,16 +152,16 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-makemehappy.pdf',
                     downloads : [
                         {
-                            description : 'Full version of the project, where the students make a non-machine learning version of the project first',
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy.pdf'
+                            description : translations['WORKSHEETS.MAKEMEHAPPY.WORKSHEET_1.DESCRIPTION'],
+                            worksheet : translations['WORKSHEETS.MAKEMEHAPPY.WORKSHEET_1.URL']
                         },
                         {
-                            description : 'Shorter version of the project, where the students only make a machine learning version of the assistant',
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-easy.pdf'
+                            description : translations['WORKSHEETS.MAKEMEHAPPY.WORKSHEET_2.DESCRIPTION'],
+                            worksheet : translations['WORKSHEETS.MAKEMEHAPPY.WORKSHEET_2.URL']
                         },
                         {
-                            description : 'Python project - for making the project using Python',
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-python.pdf'
+                            description : translations['WORKSHEETS.MAKEMEHAPPY.WORKSHEET_3.DESCRIPTION'],
+                            worksheet : translations['WORKSHEETS.MAKEMEHAPPY.WORKSHEET_3.URL']
                         }
                     ]
                 },
@@ -109,13 +177,13 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-snap.pdf',
                     downloads : [
                         {
-                            description : 'Full version of the project, where the students make their own cards that they will train the computer to recognise',
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap.pdf'
+                            description : translations['WORKSHEETS.SNAP.WORKSHEET_1.DESCRIPTION'],
+                            worksheet : translations['WORKSHEETS.SNAP.WORKSHEET_1.URL']
                         },
                         {
-                            description : 'Shorter version of the project, providing children with pre-made cards that you will need to print out, to save the students time having to make them',
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap-easy.pdf',
-                            resources : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/resources-snap-easy.pdf'
+                            description : translations['WORKSHEETS.SNAP.WORKSHEET_2.DESCRIPTION'],
+                            worksheet : translations['WORKSHEETS.SNAP.WORKSHEET_2.URL'],
+                            resources : translations['WORKSHEETS.SNAP.WORKSHEET_2.RESOURCES']
                         }
                     ]
                 },
@@ -131,7 +199,7 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chameleon.pdf',
                     downloads : [
                         {
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf'
+                            worksheet : translations['WORKSHEETS.CHAMELEON.WORKSHEET_1.URL']
                         }
                     ]
                 },
@@ -147,7 +215,7 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-titanic.pdf',
                     downloads : [
                         {
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf'
+                            worksheet : translations['WORKSHEETS.TITANIC.WORKSHEET_1.URL']
                         }
                     ]
                 },
@@ -163,7 +231,7 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-mailmanmax.pdf',
                     downloads : [
                         {
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mailmanmax.pdf'
+                            worksheet : translations['WORKSHEETS.MAILMANMAX.WORKSHEET_1.URL']
                         }
                     ]
                 },
@@ -179,12 +247,12 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-carorcup.pdf',
                     downloads : [
                         {
-                            description : 'Individual version of the project, where each student trains their own machine learning model independently',
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup.pdf'
+                            description : translations['WORKSHEETS.CARORCUP.WORKSHEET_1.DESCRIPTION'],
+                            worksheet : translations['WORKSHEETS.CARORCUP.WORKSHEET_1.URL']
                         },
                         {
-                            description : 'Group version of the project, where all students in the class work together to train a shared machine learning model',
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup-crowd.pdf'
+                            description : translations['WORKSHEETS.CARORCUP.WORKSHEET_2.DESCRIPTION'],
+                            worksheet : translations['WORKSHEETS.CARORCUP.WORKSHEET_2.URL']
                         }
                     ]
                 },
@@ -200,7 +268,7 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-facelock.pdf',
                     downloads : [
                         {
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facelock.pdf'
+                            worksheet : translations['WORKSHEETS.FACELOCK.WORKSHEET_1.URL']
                         }
                     ]
                 },
@@ -216,7 +284,7 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-journeytoschool.pdf',
                     downloads : [
                         {
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-journeytoschool.pdf'
+                            worksheet : translations['WORKSHEETS.JOURNEYTOSCHOOL.WORKSHEET_1.URL']
                         }
                     ]
                 },
@@ -232,7 +300,7 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shypanda.pdf',
                     downloads : [
                         {
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda.pdf'
+                            worksheet : translations['WORKSHEETS.SHYPANDA.WORKSHEET_1.URL']
                         }
                     ]
                 },
@@ -248,7 +316,7 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-alienlanguage.pdf',
                     downloads : [
                         {
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-alienlanguage.pdf'
+                            worksheet : translations['WORKSHEETS.ALIENLANGUAGE.WORKSHEET_1.URL']
                         }
                     ]
                 },
@@ -264,7 +332,7 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-pacman.pdf',
                     downloads : [
                         {
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pacman.pdf'
+                            worksheet : translations['WORKSHEETS.PACMAN.WORKSHEET_1.URL']
                         }
                     ]
                 },
@@ -280,12 +348,12 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chatbots.pdf',
                     downloads : [
                         {
-                            description : 'Scratch project - for making a chat bot in Scratch',
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots.pdf'
+                            description : translations['WORKSHEETS.CHATBOTS.WORKSHEET_1.DESCRIPTION'],
+                            worksheet : translations['WORKSHEETS.CHATBOTS.WORKSHEET_1.URL']
                         },
                         {
-                            description : 'Python project - for making a chat bot using Python',
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots-python.pdf'
+                            description : translations['WORKSHEETS.CHATBOTS.WORKSHEET_2.DESCRIPTION'],
+                            worksheet : translations['WORKSHEETS.CHATBOTS.WORKSHEET_2.URL']
                         }
                     ]
                 },
@@ -301,7 +369,7 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-virtualpet.pdf',
                     downloads : [
                         {
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-virtualpet.pdf'
+                            worksheet : translations['WORKSHEETS.VIRTUALPET.WORKSHEET_1.URL']
                         }
                     ]
                 },
@@ -317,7 +385,7 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-touristinfo.pdf',
                     downloads : [
                         {
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-touristinfo.pdf'
+                            worksheet : translations['WORKSHEETS.TOURISTINFO.WORKSHEET_1.URL']
                         }
                     ]
                 },
@@ -333,7 +401,7 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-secretcode.pdf',
                     downloads : [
                         {
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-secretcode.pdf'
+                            worksheet : translations['WORKSHEETS.SECRETCODE.WORKSHEET_1.URL']
                         }
                     ]
                 },
@@ -349,12 +417,12 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-sortinghat.pdf',
                     downloads : [
                         {
-                            description : 'Individual version of the project, where each student trains their own machine learning model independently',
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat.pdf'
+                            description : translations['WORKSHEETS.SORTINGHAT.WORKSHEET_1.DESCRIPTION'],
+                            worksheet : translations['WORKSHEETS.SORTINGHAT.WORKSHEET_1.URL']
                         },
                         {
-                            description : 'Group version of the project, where all students in the class work together to train a shared machine learning model',
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat-crowd.pdf'
+                            description : translations['WORKSHEETS.SORTINGHAT.WORKSHEET_2.DESCRIPTION'],
+                            worksheet : translations['WORKSHEETS.SORTINGHAT.WORKSHEET_2.URL']
                         }
                     ]
                 },
@@ -370,7 +438,7 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-rockpaperscissors.pdf',
                     downloads : [
                         {
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-rockpaperscissors.pdf'
+                            worksheet : translations['WORKSHEETS.ROCKPAPERSCISSORS.WORKSHEET_1.URL']
                         }
                     ]
                 },
@@ -386,7 +454,7 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines-easy.pdf',
                     downloads : [
                         {
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-easy.pdf'
+                            worksheet : translations['WORKSHEETS.NEWSPAPERSHELVES.WORKSHEET_1.URL']
                         }
                     ]
                 },
@@ -402,12 +470,12 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook.pdf',
                     downloads : [
                         {
-                            description : 'Full version of the project, where children make a game to compete against the computer to recognise books',
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf'
+                            description : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_1.DESCRIPTION'],
+                            worksheet : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_1.URL']
                         },
                         {
-                            description : 'Simplified version of the project, where children get the computer to recognise books',
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf'
+                            description : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_2.DESCRIPTION'],
+                            worksheet : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_2.URL']
                         }
                     ]
                 },
@@ -423,7 +491,7 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-locatelarry.pdf',
                     downloads : [
                         {
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf'
+                            worksheet : translations['WORKSHEETS.LOCATELARRY.WORKSHEET_1.URL']
                         }
                     ]
                 },
@@ -439,7 +507,7 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-confused.pdf',
                     downloads : [
                         {
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-confused.pdf'
+                            worksheet : translations['WORKSHEETS.CONFUSED.WORKSHEET_1.URL']
                         }
                     ]
                 },
@@ -455,7 +523,7 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-schoollibrary.pdf',
                     downloads : [
                         {
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf'
+                            worksheet : translations['WORKSHEETS.SCHOOLLIBRARY.WORKSHEET_1.URL']
                         }
                     ]
                 },
@@ -471,7 +539,7 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-jargonbuster.pdf',
                     downloads : [
                         {
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-jargonbuster.pdf'
+                            worksheet : translations['WORKSHEETS.JARGONBUSTER.WORKSHEET_1.URL']
                         }
                     ]
                 },
@@ -487,7 +555,7 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-whattwitterthinks.pdf',
                     downloads : [
                         {
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf'
+                            worksheet : translations['WORKSHEETS.WHATTWITTERTHINKS.WORKSHEET_1.URL']
                         }
                     ]
                 },
@@ -503,16 +571,16 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-noughtsandcrosses.pdf',
                     downloads : [
                         {
-                            description : 'Classroom version, where each student makes the game themselves in Scratch',
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses.pdf'
+                            description : translations['WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_1.DESCRIPTION'],
+                            worksheet : translations['WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_1.URL']
                         },
                         {
-                            description : 'Classroom version, where each student makes the game themselves in Python',
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-python.pdf'
+                            description : translations['WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_2.DESCRIPTION'],
+                            worksheet : translations['WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_2.URL']
                         },
                         {
-                            description : 'Demo version, for events like Science Fairs where each child has a minute or two to try something',
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-event.pdf'
+                            description : translations['WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_3.DESCRIPTION'],
+                            worksheet : translations['WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_3.URL']
                         }
                     ]
                 },
@@ -528,7 +596,7 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-toptrumps.pdf',
                     downloads : [
                         {
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-toptrumps.pdf'
+                            worksheet : translations['WORKSHEETS.TOPTRUMPS.WORKSHEET_1.URL']
                         }
                     ]
                 },
@@ -544,7 +612,7 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines.pdf',
                     downloads : [
                         {
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf'
+                            worksheet : translations['WORKSHEETS.HEADLINETESTING.WORKSHEET_1.URL']
                         }
                     ]
                 },
@@ -560,7 +628,7 @@
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-findit.pdf',
                     downloads : [
                         {
-                            worksheet : 'https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-findit.pdf'
+                            worksheet : translations['WORKSHEETS.FINDIT.WORKSHEET_1.URL']
                         }
                     ]
                 }

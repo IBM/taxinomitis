@@ -766,152 +766,295 @@
         "SMARTCLASSROOM": {
             "TITLE": "Έξυπνη Αίθουσα",
             "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει το νόημα των εντολών σου",
-            "DESCRIPTION": "Φτιάξε στο Scratch έναν έξυπνο βοηθό που θα σου επιτρέπει να ελέγχεις εικονικές συσκευές."
+            "DESCRIPTION": "Φτιάξε στο Scratch έναν έξυπνο βοηθό που θα σου επιτρέπει να ελέγχεις εικονικές συσκευές.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where the students make a non-machine learning version first",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Shorter version of the project, where the students only make a machine learning version of the assistant",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-easy.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "Quick simplified version of the project, ideal for use as a first introduction to the tool",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-tryitnow.pdf"
+            }
         },
         "MAKEMEHAPPY": {
             "TITLE": "Κάνε με χαρούμενο",
             "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει φιλοφρονήσεις και προσβολές",
-            "DESCRIPTION": "Φτιάξε στο Scratch ένα χαρακτήρα που χαμογελάει αν του λες ωραία λόγια και κλαίει αν του μιλάς άσχημα."
+            "DESCRIPTION": "Φτιάξε στο Scratch ένα χαρακτήρα που χαμογελάει αν του λες ωραία λόγια και κλαίει αν του μιλάς άσχημα.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where the students make a non-machine learning version first",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Shorter version of the project, where the students only make a machine learning version",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-easy.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "Python project - for making the project using Python",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-python.pdf"
+            }
         },
         "SNAP": {
             "TITLE": "Σναπ!",
             "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει εικονίδια",
-            "DESCRIPTION": "Φτιάξε στο Scratch ένα παιχνίδι τράπουλας που μαθαίνει να αναγνωρίζει τα φύλλα σου."
+            "DESCRIPTION": "Φτιάξε στο Scratch ένα παιχνίδι τράπουλας που μαθαίνει να αναγνωρίζει τα φύλλα σου.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where the students make their own cards that they will train the computer to recognise",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Shorter version of the project, providing children with pre-made cards that you will need to print out, to save the students time having to make them",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap-easy.pdf",
+                "RESOURCES": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/resources-snap-easy.pdf"
+            }
         },
         "CHAMELEON": {
             "TITLE": "Χαμαιλέων",
             "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει χρώματα",
-            "DESCRIPTION": "Φτιάξε στο Scratch ένα χαμαιλέοντα που αλλάζει χρώμα ώστε να ταιριάζει με το φόντο του"
+            "DESCRIPTION": "Φτιάξε στο Scratch ένα χαμαιλέοντα που αλλάζει χρώμα ώστε να ταιριάζει με το φόντο του",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf"
+            }
         },
         "MAILMANMAX": {
             "TITLE": "Ταχυδρόμος Μαξ",
             "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει χειρόγραφα",
-            "DESCRIPTION": "Φτιάξε στο Scratch ένα ταχυδρομικό γραφείο διαλογής που μπορεί να αναγνωρίζει τους χειρόγραφους ταχυδρομικούς κώδικες πάνω σε φακέλους."
+            "DESCRIPTION": "Φτιάξε στο Scratch ένα ταχυδρομικό γραφείο διαλογής που μπορεί να αναγνωρίζει τους χειρόγραφους ταχυδρομικούς κώδικες πάνω σε φακέλους.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mailmanmax.pdf"
+            }
         },
         "CARORCUP": {
             "TITLE": "Αμάξι ή φλυτζάνι",
             "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει εικόνες αντικειμένων",
-            "DESCRIPTION": "Εκπαίδευσε τον υπολογιστή να μπορεί να ταξινομεί τις φωτογραφίες σε ομάδες."
+            "DESCRIPTION": "Εκπαίδευσε τον υπολογιστή να μπορεί να ταξινομεί τις φωτογραφίες σε ομάδες.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Individual version of the project, where each student trains their own machine learning model independently",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Group version of the project, where students in the class work together to train a shared machine learning model",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup-crowd.pdf"
+            }
         },
         "FACELOCK": {
             "TITLE": "Κλειδαριά Προσώπου",
             "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει πρόσωπα",
-            "DESCRIPTION": "Φτιάξε στο Scratch ένα τηλέφωνο που ξεκλειδώνει όταν αναγνωρίζει το πρόσωπό σου"
+            "DESCRIPTION": "Φτιάξε στο Scratch ένα τηλέφωνο που ξεκλειδώνει όταν αναγνωρίζει το πρόσωπό σου",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facelock.pdf"
+            }
         },
         "JOURNEYTOSCHOOL": {
             "TITLE": "Πηγαίνοντας στο σχολείο",
             "SUMMARY": "Μάθε στον υπολογιστή να κάνει προβλέψεις",
-            "DESCRIPTION": "Εκπαίδευσε τον υπολογιστή να μπορεί να προβλέπει πώς θα πας στο σχολείο το πρωί"
+            "DESCRIPTION": "Εκπαίδευσε τον υπολογιστή να μπορεί να προβλέπει πώς θα πας στο σχολείο το πρωί",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-journeytoschool.pdf"
+            }
         },
         "SHYPANDA": {
             "TITLE": "Ντροπαλό Πάντα",
             "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει εικόνες",
-            "DESCRIPTION": "Φτιάξε ένα πάντα που ντρέπεται και σταματά να χορεύει αν σε δει να το κοιτάς."
+            "DESCRIPTION": "Φτιάξε ένα πάντα που ντρέπεται και σταματά να χορεύει αν σε δει να το κοιτάς.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda.pdf"
+            }
         },
         "VIRTUALPET": {
             "TITLE": "Εικονικό Κατοικίδιο",
             "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει εικόνες",
-            "DESCRIPTION": "Εκπαίδευσε τον υπολογιστή να αναγνωρίζει τι κάνεις, ώστε να μπορείς να φροντίσεις ένα εικονικό κατοικίδιο ζωάκι."
+            "DESCRIPTION": "Εκπαίδευσε τον υπολογιστή να αναγνωρίζει τι κάνεις, ώστε να μπορείς να φροντίσεις ένα εικονικό κατοικίδιο ζωάκι.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-virtualpet.pdf"
+            }
         },
         "PACMAN": {
             "TITLE": "Πάκμαν",
             "SUMMARY": "Μάθε στον υπολογιστή να παίζει ένα παιχνίδι",
-            "DESCRIPTION": "Δημιούργησε στο Scratch ένα παιχνίδι Pac-Man που μαθαίνει πώς να αποφεύγει το φάντασμα."
+            "DESCRIPTION": "Δημιούργησε στο Scratch ένα παιχνίδι Pac-Man που μαθαίνει πώς να αποφεύγει το φάντασμα.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pacman.pdf"
+            }
         },
         "CHATBOTS": {
             "TITLE": "Συνομιλητές",
             "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει ερωτήσεις",
-            "DESCRIPTION": "Δημιούργησε ένα chatbot, ένα συνομιλητή ρομπότ, που μπορεί να απαντά ερωτήσεις σχετικές με κάποιο θέμα της επιλογής σου"
+            "DESCRIPTION": "Δημιούργησε ένα chatbot, ένα συνομιλητή ρομπότ, που μπορεί να απαντά ερωτήσεις σχετικές με κάποιο θέμα της επιλογής σου",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Scratch project - for making a chat bot in Scratch",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Python project - for making a chat bot using Python",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots-python.pdf"
+            }
         },
         "TOURISTINFO": {
             "TITLE": "Τουριστικές Πληροφορίες",
             "SUMMARY": "Μάθε στον υπολογιστή να προτείνει",
-            "DESCRIPTION": "Δημιούργησε στο Scratch μια εφαρμογή για κινητά που προτείνει τουριστικά αξιοθέατα βάσει των ενδιαφερόντων των ανθρώπων."
+            "DESCRIPTION": "Δημιούργησε στο Scratch μια εφαρμογή για κινητά που προτείνει τουριστικά αξιοθέατα βάσει των ενδιαφερόντων των ανθρώπων.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-touristinfo.pdf"
+            }
         },
         "SORTINGHAT": {
             "TITLE": "Το Καπέλο της Επιλογής",
             "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει τη χρήση της γλώσσας",
-            "DESCRIPTION": "Δημιούργησε ένα καπέλο διαλογής όπως στον Χάρι Πότερ, που θα σε κατατάσσει σε κάποιον κοιτώνα της σχολής, ανάλογα με αυτό που λες."
+            "DESCRIPTION": "Δημιούργησε ένα καπέλο διαλογής όπως στον Χάρι Πότερ, που θα σε κατατάσσει σε κάποιον κοιτώνα της σχολής, ανάλογα με αυτό που λες.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Individual version of the project, where each student trains their own machine learning model independently",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Group version of the project, where students in the class work together to train a shared machine learning model",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat-crowd.pdf"
+            }
         },
         "ROCKPAPERSCISSORS": {
             "TITLE": "Πέτρα, Ψαλίδι, Χαρτί",
             "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει σχήματα",
-            "DESCRIPTION": "Φτιάξε στο Scratch ένα παιχνίδι Πέτρα-Ψαλίδι-Χαρτί που μαθαίνει να αναγνωρίζει σχήματα χεριών"
+            "DESCRIPTION": "Φτιάξε στο Scratch ένα παιχνίδι Πέτρα-Ψαλίδι-Χαρτί που μαθαίνει να αναγνωρίζει σχήματα χεριών",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-rockpaperscissors.pdf"
+            }
         },
         "JUDGEABOOK": {
             "TITLE": "Κριτική βιβλίου",
             "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει το στυλ εμφάνισης",
-            "DESCRIPTION": "Φτιάξε ένα παιχνίδι στο Scratch για να ελέγξεις αν όντως είναι δυνατόν να κρίνουμε ένα βιβλίο από το εξώφυλλό του."
+            "DESCRIPTION": "Φτιάξε ένα παιχνίδι στο Scratch για να ελέγξεις αν όντως είναι δυνατόν να κρίνουμε ένα βιβλίο από το εξώφυλλό του.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where children make a game to compete against the computer to recognise books",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Simplified version of the project, where children get the computer to recognise books",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf"
+            }
         },
         "LOCATELARRY": {
             "TITLE": "Εντόπισε τον Λάρι",
             "SUMMARY": "Μάθε στον υπολογιστή να εντοπίζει κάτι μέσα σε μια εικόνα",
-            "DESCRIPTION": "Φτιάξε στο Scratch ένα παιχνίδι τύπου \"Πού είναι ο Γουόλι;\" και μάθε στον υπολογιστή να βρίσκει το χαρακτήρα σου."
+            "DESCRIPTION": "Φτιάξε στο Scratch ένα παιχνίδι τύπου \"Πού είναι ο Γουόλι;\" και μάθε στον υπολογιστή να βρίσκει το χαρακτήρα σου.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf"
+            }
         },
         "CONFUSED": {
             "TITLE": "Μπερδεύτηκε",
             "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει φρούτα",
-            "DESCRIPTION": "Μάθε για το πώς οι υπολογιστές μπορούν να μπερδευτούν και να κάνουν λάθη, αν είναι κακά εκπαιδευμένοι."
+            "DESCRIPTION": "Μάθε για το πώς οι υπολογιστές μπορούν να μπερδευτούν και να κάνουν λάθη, αν είναι κακά εκπαιδευμένοι.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-confused.pdf"
+            }
         },
         "SCHOOLLIBRARY": {
             "TITLE": "Σχολική Βιβλιοθήκη",
             "SUMMARY": "Μάθε στον υπολογιστή να προτείνει",
-            "DESCRIPTION": "Δημιούργησε στο Scratch ένα σχολικό βιβλιοθηκάριο που προτείνει για ποιον μπορεί να είναι κατάλληλο ένα βιβλίο."
+            "DESCRIPTION": "Δημιούργησε στο Scratch ένα σχολικό βιβλιοθηκάριο που προτείνει για ποιον μπορεί να είναι κατάλληλο ένα βιβλίο.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf"
+            }
         },
         "WHATTWITTERTHINKS": {
             "TITLE": "Τι σκέφτεται το Twitter;",
             "SUMMARY": "Μάθε στον υπολογιστή να μετράει την κοινή γνώμη",
-            "DESCRIPTION": "Δημιούργησε στο Scratch ένα εργαλείο ανάλυσης συναισθήματος που αναλύει συζήτηση στο Twitter"
+            "DESCRIPTION": "Δημιούργησε στο Scratch ένα εργαλείο ανάλυσης συναισθήματος που αναλύει συζήτηση στο Twitter",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
+            }
         },
         "NOUGHTSANDCROSSES": {
             "TITLE": "Τρίλιζα",
             "SUMMARY": "Μάθε στον υπολογιστή να παίζει ένα παιχνίδι",
-            "DESCRIPTION": "Δημιούργησε στο Scratch ένα παιχνίδι τρίλιζας που μαθαίνει πώς να σε κερδίζει."
+            "DESCRIPTION": "Δημιούργησε στο Scratch ένα παιχνίδι τρίλιζας που μαθαίνει πώς να σε κερδίζει.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Classroom version, where each student makes the game themselves in Scratch",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Classroom version, where each student makes the game themselves in Python",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-python.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "Demo version, for events like Science Fairs where each child has a minute or two to try something",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-event.pdf"
+            }
         },
         "TOPTRUMPS": {
             "TITLE": "Υπερατού",
             "SUMMARY": "Μάθε στον υπολογιστή να παίζει ένα παιχνίδι",
-            "DESCRIPTION": "Εκπαίδευσε τον υπολογιστή ώστε να μπορεί να παίζει το παιχνίδι Υπερατού στο Scratch."
+            "DESCRIPTION": "Εκπαίδευσε τον υπολογιστή ώστε να μπορεί να παίζει το παιχνίδι Υπερατού στο Scratch.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-toptrumps.pdf"
+            }
         },
         "HEADLINES": {
             "TITLE": "Τίτλοι Εφημερίδων",
             "SUMMARY": "Έλεγξε την ικανότητα του υπολογιστή να αναγνωρίζει τη χρήση της γλώσσας",
-            "DESCRIPTION": "Εκπαίδευσε τον υπολογιστή να αναγνωρίζει τίτλους από βρετανικές εφημερίδες."
+            "DESCRIPTION": "Εκπαίδευσε τον υπολογιστή να αναγνωρίζει τίτλους από βρετανικές εφημερίδες.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
+            }
         },
         "NEWSPAPERSHELVES": {
             "TITLE": "Ράφια εφημερίδων",
             "SUMMARY": "Έλεγξε την ικανότητα του υπολογιστή να αναγνωρίζει τη χρήση της γλώσσας",
-            "DESCRIPTION": "Εκπαίδευσε τον υπολογιστή να αναγνωρίζει τίτλους από βρετανικές εφημερίδες."
+            "DESCRIPTION": "Εκπαίδευσε τον υπολογιστή να αναγνωρίζει τίτλους από βρετανικές εφημερίδες.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-easy.pdf"
+            }
         },
         "HEADLINETESTING": {
             "TITLE": "Έλεγχος τίτλων",
             "SUMMARY": "Δοκίμασε την ικανότητα του υπολογιστή να αναγνωρίζει τη χρήση της γλώσσας",
-            "DESCRIPTION": "Δημιούργησε στο Scratch ένα εργαλείο δοκιμών που μετράει πόσο καλό είναι ένα μοντέλο μηχανικής μάθησης"
+            "DESCRIPTION": "Δημιούργησε στο Scratch ένα εργαλείο δοκιμών που μετράει πόσο καλό είναι ένα μοντέλο μηχανικής μάθησης",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
+            }
         },
         "FINDIT": {
             "TITLE": "Βρες το!",
             "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει εικόνες",
-            "DESCRIPTION": "Φτιάξε ένα παιχνίδι κρυφτού για το κινητό σου τηλέφωνο."
+            "DESCRIPTION": "Φτιάξε ένα παιχνίδι κρυφτού για το κινητό σου τηλέφωνο.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-findit.pdf"
+            }
         },
         "ALIENLANGUAGE": {
             "TITLE": "Εξωγήινη Γλώσσα",
             "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει ήχους",
-            "DESCRIPTION": "Φτιάξε στο Scratch έναν εξωγήινο που μαθαίνει να αναγνωρίζει μια εξωγήινη γλώσσα."
+            "DESCRIPTION": "Φτιάξε στο Scratch έναν εξωγήινο που μαθαίνει να αναγνωρίζει μια εξωγήινη γλώσσα.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-alienlanguage.pdf"
+            }
         },
         "SECRETCODE": {
             "TITLE": "Μυστικός Κώδικας",
             "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει ομιλία",
-            "DESCRIPTION": "Εκπαίδευσε τον υπολογιστή να καταλαβαίνει μυστικές κωδικοποιημένες λέξεις για να καθοδηγήσει έναν κατάσκοπο."
+            "DESCRIPTION": "Εκπαίδευσε τον υπολογιστή να καταλαβαίνει μυστικές κωδικοποιημένες λέξεις για να καθοδηγήσει έναν κατάσκοπο.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-secretcode.pdf"
+            }
         },
         "JARGONBUSTER": {
             "TITLE": "Κατατροπώνω την Αργκό",
             "SUMMARY": "Μάθε στον υπολογιστή να ακούει λέξεις",
-            "DESCRIPTION": "Φτιάξε στο Scratch ένα έργο που εμφανίζει το νόημα των λέξεων που λες."
+            "DESCRIPTION": "Φτιάξε στο Scratch ένα έργο που εμφανίζει το νόημα των λέξεων που λες.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-jargonbuster.pdf"
+            }
         },
         "TITANIC": {
             "TITLE": "Τιτανικός",
             "SUMMARY": "Μάθε στον υπολογιστή να προβλέπει αποτελέσματα",
-            "DESCRIPTION": "Δημιούργησε ένα πρόγραμμα Python που μπορεί να προβλέπει ποιος επέζησε από το ναυάγιο του Τιτανικού."
+            "DESCRIPTION": "Δημιούργησε ένα πρόγραμμα Python που μπορεί να προβλέπει ποιος επέζησε από το ναυάγιο του Τιτανικού.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
+            }
         }
     },
     "TEACHER": {

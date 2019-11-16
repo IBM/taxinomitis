@@ -766,152 +766,295 @@
         "SMARTCLASSROOM": {
             "TITLE": "智能教室",
             "SUMMARY": "教一台计算机识别命令的含义",
-            "DESCRIPTION": "在Scratch中创建一个智能助手,可让您控制虚拟设备。"
+            "DESCRIPTION": "在Scratch中创建一个智能助手,可让您控制虚拟设备。",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where the students make a non-machine learning version first",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Shorter version of the project, where the students only make a machine learning version of the assistant",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-easy.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "Quick simplified version of the project, ideal for use as a first introduction to the tool",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-tryitnow.pdf"
+            }
         },
         "MAKEMEHAPPY": {
             "TITLE": "让我开心",
             "SUMMARY": "教电脑认识恭维和侮辱",
-            "DESCRIPTION": "在Scratch中创造一个角色,如果你对它说好话就会微笑,如果你说出有意义的东西就会哭泣。"
+            "DESCRIPTION": "在Scratch中创造一个角色,如果你对它说好话就会微笑,如果你说出有意义的东西就会哭泣。",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where the students make a non-machine learning version first",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-zhcn.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Shorter version of the project, where the students only make a machine learning version",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-easy.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "Python project - for making the project using Python",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-python.pdf"
+            }
         },
         "SNAP": {
             "TITLE": " Snap！",
             "SUMMARY": "教一台计算机识别图标的样子",
-            "DESCRIPTION": "在Scratch中制作纸牌游戏,学习识别卡片的图片。"
+            "DESCRIPTION": "在Scratch中制作纸牌游戏,学习识别卡片的图片。",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where the students make their own cards that they will train the computer to recognise",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Shorter version of the project, providing children with pre-made cards that you will need to print out, to save the students time having to make them",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap-easy.pdf",
+                "RESOURCES": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/resources-snap-easy.pdf"
+            }
         },
         "CHAMELEON": {
             "TITLE": "变色龙",
             "SUMMARY": "教一台计算机识别颜色",
-            "DESCRIPTION": "在Scratch制作变色龙,改变颜色以匹配其背景"
+            "DESCRIPTION": "在Scratch制作变色龙,改变颜色以匹配其背景",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf"
+            }
         },
         "MAILMANMAX": {
             "TITLE": " Mailman Max ",
             "SUMMARY": "教电脑识别手写",
-            "DESCRIPTION": "在Scratch中建立一个邮政分拣办公室,可以识别信封上的手写邮政编码。"
+            "DESCRIPTION": "在Scratch中建立一个邮政分拣办公室,可以识别信封上的手写邮政编码。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mailmanmax-zhcn.pdf"
+            }
         },
         "CARORCUP": {
             "TITLE": "汽车或杯子",
             "SUMMARY": "教一台计算机识别物体的图片",
-            "DESCRIPTION": "训练计算机,以便能够将照片分组。"
+            "DESCRIPTION": "训练计算机,以便能够将照片分组。",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Individual version of the project, where each student trains their own machine learning model independently",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Group version of the project, where students in the class work together to train a shared machine learning model",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup-crowd.pdf"
+            }
         },
         "FACELOCK": {
             "TITLE": "面部锁定",
             "SUMMARY": "教电脑识别面孔",
-            "DESCRIPTION": "如果它能够识别你的脸,那么在Scratch中制作一个可解锁的手机。"
+            "DESCRIPTION": "如果它能够识别你的脸,那么在Scratch中制作一个可解锁的手机。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facelock.pdf"
+            }
         },
         "JOURNEYTOSCHOOL": {
             "TITLE": "学校之旅",
             "SUMMARY": "教一台计算机进行预测",
-            "DESCRIPTION": "训练计算机,以便能够预测你早上如何前往学校。"
+            "DESCRIPTION": "训练计算机,以便能够预测你早上如何前往学校。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-journeytoschool.pdf"
+            }
         },
         "SHYPANDA": {
             "TITLE": "害羞的熊猫",
             "SUMMARY": "教电脑识别图片",
-            "DESCRIPTION": "让一只跳舞的熊猫变得害羞,如果它看到你的样子就停止跳舞。"
+            "DESCRIPTION": "让一只跳舞的熊猫变得害羞,如果它看到你的样子就停止跳舞。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda.pdf"
+            }
         },
         "VIRTUALPET": {
             "TITLE": "Virtual Pet",
             "SUMMARY": "Teach a computer to recognise pictures",
-            "DESCRIPTION": "Train the computer to recognise what you're doing so you can look after a virtual pet."
+            "DESCRIPTION": "Train the computer to recognise what you're doing so you can look after a virtual pet.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-virtualpet.pdf"
+            }
         },
         "PACMAN": {
             "TITLE": "吃豆人",
             "SUMMARY": "教电脑玩游戏",
-            "DESCRIPTION": "在Scratch中创建一个吃豆人游戏,学习如何避免鬼魂。"
+            "DESCRIPTION": "在Scratch中创建一个吃豆人游戏,学习如何避免鬼魂。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pacman.pdf"
+            }
         },
         "CHATBOTS": {
             "TITLE": "聊天机器人",
             "SUMMARY": "教电脑识别问题",
-            "DESCRIPTION": "创建一个聊天机器人,可以回答有关您选择的主题的问题。"
+            "DESCRIPTION": "创建一个聊天机器人,可以回答有关您选择的主题的问题。",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Scratch project - for making a chat bot in Scratch",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Python project - for making a chat bot using Python",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots-python.pdf"
+            }
         },
         "TOURISTINFO": {
             "TITLE": "旅游信息",
             "SUMMARY": "教电脑提出建议",
-            "DESCRIPTION": "在Scratch中创建一个移动应用程序,根据人们的兴趣推荐旅游景点。"
+            "DESCRIPTION": "在Scratch中创建一个移动应用程序,根据人们的兴趣推荐旅游景点。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-touristinfo.pdf"
+            }
         },
         "SORTINGHAT": {
             "TITLE": "排序帽子",
             "SUMMARY": "教电脑识别语言的使用",
-            "DESCRIPTION": "创建一个像哈利波特一样的分类帽子,根据你的说法将你带入学校。"
+            "DESCRIPTION": "创建一个像哈利波特一样的分类帽子,根据你的说法将你带入学校。",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Individual version of the project, where each student trains their own machine learning model independently",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Group version of the project, where students in the class work together to train a shared machine learning model",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat-crowd.pdf"
+            }
         },
         "ROCKPAPERSCISSORS": {
             "TITLE": "摇滚,纸,剪刀",
             "SUMMARY": "教一台计算机识别形状",
-            "DESCRIPTION": "在Scratch中制作一个岩石,纸张,剪刀游戏,学习识别手形。"
+            "DESCRIPTION": "在Scratch中制作一个岩石,纸张,剪刀游戏,学习识别手形。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-rockpaperscissors.pdf"
+            }
         },
         "JUDGEABOOK": {
             "TITLE": "判断一本书",
             "SUMMARY": "教电脑识别视觉风格",
-            "DESCRIPTION": "用Scratch制作游戏,以测试是否真的可以通过封面判断一本书。"
+            "DESCRIPTION": "用Scratch制作游戏,以测试是否真的可以通过封面判断一本书。",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where children make a game to compete against the computer to recognise books",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Simplified version of the project, where children get the computer to recognise books",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf"
+            }
         },
         "LOCATELARRY": {
             "TITLE": "找到拉里",
             "SUMMARY": "教电脑查找图片中的内容",
-            "DESCRIPTION": "制作一个\"哪里的Wally？\" Scratch中的风格游戏,并教电脑找到你的角色。"
+            "DESCRIPTION": "制作一个\"哪里的Wally？\" Scratch中的风格游戏,并教电脑找到你的角色。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf"
+            }
         },
         "CONFUSED": {
             "TITLE": "困惑",
             "SUMMARY": "教电脑识别水果",
-            "DESCRIPTION": "了解计算机如何被混淆,如果受到严重训练,就会犯错误。"
+            "DESCRIPTION": "了解计算机如何被混淆,如果受到严重训练,就会犯错误。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-confused.pdf"
+            }
         },
         "SCHOOLLIBRARY": {
             "TITLE": "学校图书馆",
             "SUMMARY": "教电脑提出建议",
-            "DESCRIPTION": "在Scratch中创建一个学校图书馆员,建议读者可能适合阅读。"
+            "DESCRIPTION": "在Scratch中创建一个学校图书馆员,建议读者可能适合阅读。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf"
+            }
         },
         "WHATTWITTERTHINKS": {
             "TITLE": "What does Twitter think?",
             "SUMMARY": "Teach a computer to measure public opinion",
-            "DESCRIPTION": "Create a sentiment analysis tool in Scratch to analyze discussion on Twitter"
+            "DESCRIPTION": "Create a sentiment analysis tool in Scratch to analyze discussion on Twitter",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
+            }
         },
         "NOUGHTSANDCROSSES": {
             "TITLE": " Noughts＆Crosses ",
             "SUMMARY": "教电脑玩游戏",
-            "DESCRIPTION": "在Scratch中创造一个没有的东西并穿过游戏来学习如何击败你。"
+            "DESCRIPTION": "在Scratch中创造一个没有的东西并穿过游戏来学习如何击败你。",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Classroom version, where each student makes the game themselves in Scratch",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Classroom version, where each student makes the game themselves in Python",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-python.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "Demo version, for events like Science Fairs where each child has a minute or two to try something",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-event.pdf"
+            }
         },
         "TOPTRUMPS": {
             "TITLE": "顶级特朗普",
             "SUMMARY": "教电脑玩游戏",
-            "DESCRIPTION": "训练一台计算机,以便能够在Scratch中玩顶级特朗普纸牌游戏。"
+            "DESCRIPTION": "训练一台计算机,以便能够在Scratch中玩顶级特朗普纸牌游戏。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-toptrumps.pdf"
+            }
         },
         "HEADLINES": {
             "TITLE": "头条新闻",
             "SUMMARY": "测试计算机识别语言使用的能力",
-            "DESCRIPTION": "训练计算机识别全国性报纸的头条新闻。"
+            "DESCRIPTION": "训练计算机识别全国性报纸的头条新闻。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
+            }
         },
         "NEWSPAPERSHELVES": {
             "TITLE": "Newspaper shelves",
             "SUMMARY": "Test the computer's ability to recognise use of language",
-            "DESCRIPTION": "Train a computer to recognise headlines from national newspapers."
+            "DESCRIPTION": "Train a computer to recognise headlines from national newspapers.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-easy.pdf"
+            }
         },
         "HEADLINETESTING": {
             "TITLE": "Headline testing",
             "SUMMARY": "Test the computer's ability to recognise use of language",
-            "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is"
+            "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
+            }
         },
         "FINDIT": {
             "TITLE": "Find It!",
             "SUMMARY": "Teach a computer to recognise pictures",
-            "DESCRIPTION": "Make a hide-and-seek game for your mobile phone"
+            "DESCRIPTION": "Make a hide-and-seek game for your mobile phone",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-findit.pdf"
+            }
         },
         "ALIENLANGUAGE": {
             "TITLE": "Alien Language",
             "SUMMARY": "Teach a computer to recognize sounds",
-            "DESCRIPTION": "Make an alien in Scratch that learns to recognize an alien language"
+            "DESCRIPTION": "Make an alien in Scratch that learns to recognize an alien language",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-alienlanguage.pdf"
+            }
         },
         "SECRETCODE": {
             "TITLE": "Secret Code",
             "SUMMARY": "Teach a computer to recognize speech",
-            "DESCRIPTION": "Train a computer to understand secret code words to guide a spy."
+            "DESCRIPTION": "Train a computer to understand secret code words to guide a spy.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-secretcode.pdf"
+            }
         },
         "JARGONBUSTER": {
             "TITLE": "Jargon Buster",
             "SUMMARY": "Teach a computer to listen for words",
-            "DESCRIPTION": "Make a project in Scratch that displays the meaning of words you say."
+            "DESCRIPTION": "Make a project in Scratch that displays the meaning of words you say.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-jargonbuster.pdf"
+            }
         },
         "TITANIC": {
             "TITLE": "Titanic",
             "SUMMARY": "Teach a computer to predict outcomes",
-            "DESCRIPTION": "Create a Python program that can predict who survived the sinking of the Titanic."
+            "DESCRIPTION": "Create a Python program that can predict who survived the sinking of the Titanic.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
+            }
         }
     },
     "TEACHER": {
