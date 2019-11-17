@@ -179,7 +179,7 @@
                 $scope.loading = false;
             })
             .catch(function (err) {
-                var errId = displayAlert('errors', err.status, err.data);
+                var errId = displayAlert('errors', err.status, err.data ? err.data : err);
                 scrollToNewItem('errors' + errId);
             });
 

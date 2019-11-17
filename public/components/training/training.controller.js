@@ -154,7 +154,7 @@
                 $scope.loadingtraining = false;
             })
             .catch(function (err) {
-                displayAlert('errors', err.status, err.data);
+                displayAlert('errors', err.status, err.data ? err.data : err);
             });
 
 
