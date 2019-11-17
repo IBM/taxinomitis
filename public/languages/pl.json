@@ -69,6 +69,14 @@
             "BODY2": "Podczas gdy ja skupiłem się na wyjaśnieniu, w jaki sposób systemy AI są szkolone i zachowują się (i rzeczywistym użytkowaniu), eCraft2Learn posiada fantastyczne zasoby, które głęboko nurkują w to, jak działają systemy ML (Machine Learning, czyli Uczenia Maszynowego).",
             "BODY3": "Szczególnie fascynujący jest <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>projekt sieci neuronowej Tic Tac Toe</a>, który pozwala studentom eksperymentować z hiperparametrami z Snap."
         },
+        "STEMLEARNING": {
+            "BODY1": "STEM Learning and the UK Department for Business, Energy and Industrial Strategy have created resources for teaching the principles of artificial intelligence.",
+            "BODY2": "These resources include <em>Machine Learning for Kids</em> projects, supplemented with teaching notes, presentation materials, prompt cards, and practical “unplugged” activities"
+        },
+        "RASPBERRYPI": {
+            "BODY1": "The Raspberry Pi Foundation provides resources for Code Clubs, with step-by-step instructions for a variety of creative projects.",
+            "BODY2": "Their machine learning pathway includes a variety of projects from <em>Machine Learning for Kids</em>."
+        },
         "APPSFORGOOD": {
             "BODY1": "Apps for Good to brytyjska organizacja non-profit, która tworzy zasoby do nauczania przedmiotów technicznych, które udostępnia bezpłatnie szkołom.",
             "BODY2": "Ich kurs Machine Learning wykorzystuje <em>Machine Learning for Kids</em> i uzupełnia go o szereg dodatkowych materiałów, takich jak schematy pracy, plany lekcji, podręczniki dla studentów, prezentacje i wiele innych. Ułatwia to szkołom dostarczanie lekcji ML, które umieszczają ćwiczenia kodowania w kontekście."
@@ -76,6 +84,9 @@
         "AIFAMILYCHALLENGE": {
             "BODY1": "AI Family Challenge to bezpłatny, praktyczny program edukacyjny dla rodzin. Korzystają z <em>Machine Learning for Kids</em> i uzupełniają go dodatkowym wsparciem, takim jak trenerzy techniczni i mentorzy, ustrukturyzowany plan lekcji i filmy pomocnicze.",
             "BODY2": "Program opiera się na konkursie, w którym dzieci muszą zastanowić się nad własnymi pomysłami na projekt Sztucznej Inteligencji, przy wsparciu rodzin i mentorów technicznych."
+        },
+        "MAGENTADEMOS": {
+            "BODY1": "Online toys that demonstrate different aspects of machine learning, using TensorFlow.js"
         },
         "AIINSCHOOLS": {
             "BODY1": "Program AIinSchools zapewnia nauczycielom bezpłatny plan lekcji objaśniający AI dla 9 klasy (wieku 13-14 lat).",

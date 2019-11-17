@@ -69,6 +69,14 @@
             "BODY2": "Ενώ εγώ έχω επικεντρωθεί στην επεξήγηση του πώς τα συστήματα AI εκπαιδεύονται και συμπεριφέρονται (και τις συνέπειες στον πραγματικό κόσμο), το eCraft2Learn έχει φανταστικούς πόρους που βουτούν βαθιά στο πώς λειτουργούν τα συστήματα Μηχανικής Μάθησης.",
             "BODY3": "Το <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>neural net Tic Tac Toe project</a> είναι ιδιαίτερα συναρπαστικό, καθώς επιτρέπει στους μαθητές να πειραματιστούν με υπερπαραμέτρους από το Snap."
         },
+        "STEMLEARNING": {
+            "BODY1": "STEM Learning and the UK Department for Business, Energy and Industrial Strategy have created resources for teaching the principles of artificial intelligence.",
+            "BODY2": "These resources include <em>Machine Learning for Kids</em> projects, supplemented with teaching notes, presentation materials, prompt cards, and practical “unplugged” activities"
+        },
+        "RASPBERRYPI": {
+            "BODY1": "The Raspberry Pi Foundation provides resources for Code Clubs, with step-by-step instructions for a variety of creative projects.",
+            "BODY2": "Their machine learning pathway includes a variety of projects from <em>Machine Learning for Kids</em>."
+        },
         "APPSFORGOOD": {
             "BODY1": "Το Apps for Good είναι ένας μη κερδοσκοπικός οργανισμός στο Ηνωμένο Βασίλειο που αναπτύσσει εκπαιδευτικούς πόρους για τη διδασκαλία τεχνολογικών αντικειμένων και τους διαθέτει δωρεάν σε σχολεία.",
             "BODY2": "Το μάθημά τους για τη Μηχανική Μάθηση χρησιμοποιεί τη <em>Μηχανική μάθηση για παιδιά</em> και το συμπληρώνει με μια γκάμα επιπρόσθετου υλικού όπως προγράμματα εργασίας, σχέδια μαθημάτων, βιβλία εργασιών, παρουσιάσεις και πολλά άλλα. Διευκολύνει τα σχολεία να παραδίδουν μαθήματα ΜΜ που τοποθετούν τις ασκήσεις προγραμματισμού σε ένα σχετικό πλαίσιο."
@@ -76,6 +84,9 @@
         "AIFAMILYCHALLENGE": {
             "BODY1": "Το AI Family Challenge είναι ένα δωρεάν εκπαιδευτικό πρόγραμμα πρακτικής στην Τεχνητή Νοημοσύνη για οικογένειες. Χρησιμοποιεί τη <em>Μηχανική μάθηση για παιδιά</em>, συμπληρώνοντάς την με πολλή πρόσθετη υποστήριξη, όπως τεχνικούς προπονητές και συμβούλους, ένα δομημένο σχέδιο μαθήματος, και υποστηρικτικά βίντεο.",
             "BODY2": "Το πρόγραμμα βασίζεται σε έναν διαγωνισμό που καλεί τα παιδιά να σκεφτούν δικές τους ιδέες έργων Τεχνητής Νοημοσύνης, με την υποστήριξη των οικογενειών τους και τεχνικών συμβούλων."
+        },
+        "MAGENTADEMOS": {
+            "BODY1": "Online toys that demonstrate different aspects of machine learning, using TensorFlow.js"
         },
         "AIINSCHOOLS": {
             "BODY1": "Το πρόγραμμα AIinSchools παρέχει στους εκπαιδευτικούς ένα δωρεάν σχέδιο μαθημάτων για να εξηγήσουν την Τεχνητή Νοημοσύνη σε παιδιά του 9ου σχολικού έτους (ηλικίας 13-14).",

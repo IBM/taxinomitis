@@ -69,6 +69,14 @@
             "BODY2": "Enquanto eu tenho focado em explicar como os sistemas de I.A são treinados e se comportam (e suas aplicações para o dia-a-dia), eCraft2Learn têm recursos fantásticos que aprofundam em como sistemas de Aprendizagem de Máquina realmente funcionam.",
             "BODY3": "O <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>projeto de jogo-da-velha com redes neurais</a> é particularmente fascinante, permitindo estudantes experimentar com hiperparâmetros do Snap!"
         },
+        "STEMLEARNING": {
+            "BODY1": "STEM Learning and the UK Department for Business, Energy and Industrial Strategy have created resources for teaching the principles of artificial intelligence.",
+            "BODY2": "These resources include <em>Machine Learning for Kids</em> projects, supplemented with teaching notes, presentation materials, prompt cards, and practical “unplugged” activities"
+        },
+        "RASPBERRYPI": {
+            "BODY1": "The Raspberry Pi Foundation provides resources for Code Clubs, with step-by-step instructions for a variety of creative projects.",
+            "BODY2": "Their machine learning pathway includes a variety of projects from <em>Machine Learning for Kids</em>."
+        },
         "APPSFORGOOD": {
             "BODY1": "Apps for Good(Aplicativos para o Bem) são uma organização sem fins lucrativos baseada no Reino Unido que cria recursos para ensinar assuntos ligados a tecnologia, que são disponibilizados gratuitamente para escolas.",
             "BODY2": "Os cursos que eles têm em Aprendizagem de máquina usam o <em>Machine Learning for Kids</em>, e o suplementam com uma variedade de materiais adicionais como esquemas de trabalho, planos de aula, materiais para estudantes, apresentações e mais. Facilitando para as escolas incluir planos de aula de Aprendizagem de Máquina que colocam exercícios code em um melhor contexto.."
@@ -76,6 +84,9 @@
         "AIFAMILYCHALLENGE": {
             "BODY1": "O AI Family Challenge é um programa gratuito e mão na massa para ensinar I.A. para famílias. Eles usam o  <em>Machine Learning for Kids</em>, e também o suplementam com suporte, como coaches e mentores técnicos, planos de aula estruturados e vídeos de suporte.",
             "BODY2": "O programa é baseado em competições que desafiam as crianças a pensar em seus próprios projetos de I.A., com suporte de suas famílias e técnicos que agem como mentores."
+        },
+        "MAGENTADEMOS": {
+            "BODY1": "Online toys that demonstrate different aspects of machine learning, using TensorFlow.js"
         },
         "AIINSCHOOLS": {
             "BODY1": "O programa AIinSchools fornece gratuitamente planos de aula para explicar I.A. para crianças do Oitavo ano (13-14 anos).",

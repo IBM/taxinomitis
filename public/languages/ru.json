@@ -69,6 +69,14 @@
             "BODY2": "В то время как я сосредоточился на объяснении того, как ИИ системы обучаются и ведут себя (а также на реальных примерах), у eCraft2Learn есть фантастические ресурсы, которые углубляются в то, как на самом деле работают системы МО.",
             "BODY3": "<a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>Нейросетевой проект Tic Tac Toe</a> особенно увлекателен, позволяя студентам экспериментировать с гиперпараметрами из Snap."
         },
+        "STEMLEARNING": {
+            "BODY1": "STEM Learning and the UK Department for Business, Energy and Industrial Strategy have created resources for teaching the principles of artificial intelligence.",
+            "BODY2": "These resources include <em>Machine Learning for Kids</em> projects, supplemented with teaching notes, presentation materials, prompt cards, and practical “unplugged” activities"
+        },
+        "RASPBERRYPI": {
+            "BODY1": "The Raspberry Pi Foundation provides resources for Code Clubs, with step-by-step instructions for a variety of creative projects.",
+            "BODY2": "Their machine learning pathway includes a variety of projects from <em>Machine Learning for Kids</em>."
+        },
         "APPSFORGOOD": {
             "BODY1": "Apps for Good - это некоммерческая организация, базирующаяся в Великобритании, которая создает ресурсы для преподавания технических предметов, которые они бесплатно предоставляют школам.",
             "BODY2": "Их курс машинного обучения использует <em>Машинное обучение для детей</em> и дополняет его рядом дополнительных материалов, таких как схемы работы, планы уроков, рабочие тетради для учащихся, презентации и многое другое. Это облегчает школам проведение уроков по МО, которые добавляют упражнения по программированию в контекст урока."
@@ -76,6 +84,9 @@
         "AIFAMILYCHALLENGE": {
             "BODY1": "AI Family Challenge - это бесплатная, практическая образовательная программа по ИИ для семей. Они используют <em>Машинное обучение для детей</em> и дополняют его множеством дополнительных средств поддержки, таких как технические тренеры и наставники, структурированный план урока и вспомогательные видеоролики.",
             "BODY2": "Программа основана на конкурсе, который побуждает детей придумывать свои собственные ИИ-проекты при поддержке их семей и технических наставников."
+        },
+        "MAGENTADEMOS": {
+            "BODY1": "Online toys that demonstrate different aspects of machine learning, using TensorFlow.js"
         },
         "AIINSCHOOLS": {
             "BODY1": "Программа AIinSchools предоставляет бесплатный план уроков для учителей по преподаванию ИИ до 9-го класса ( 13-14 лет).",

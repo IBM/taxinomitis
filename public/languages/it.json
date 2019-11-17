@@ -69,6 +69,14 @@
             "BODY2": "Mentre mi sono concentrato sulla spiegazione di come i sistemi di intelligenza artificiale sono addestrati e si comportano (e le implicazioni del mondo reale), eCraft2Learn ha risorse fantastiche che si immergono profondamente nel modo in cui funzionano effettivamente i sistemi ML.",
             "BODY3": "Il progetto <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>della rete neurale Tic Tac Toe</a> è particolarmente affascinante, consentendo agli studenti di sperimentare con gli iperparametri di Snap."
         },
+        "STEMLEARNING": {
+            "BODY1": "STEM Learning and the UK Department for Business, Energy and Industrial Strategy have created resources for teaching the principles of artificial intelligence.",
+            "BODY2": "These resources include <em>Machine Learning for Kids</em> projects, supplemented with teaching notes, presentation materials, prompt cards, and practical “unplugged” activities"
+        },
+        "RASPBERRYPI": {
+            "BODY1": "The Raspberry Pi Foundation provides resources for Code Clubs, with step-by-step instructions for a variety of creative projects.",
+            "BODY2": "Their machine learning pathway includes a variety of projects from <em>Machine Learning for Kids</em>."
+        },
         "APPSFORGOOD": {
             "BODY1": "Apps for Good è una associazione no-profit con sede nel Regno Unito che crea risorse per insegnare materie tecnologiche, che poi rendono disponibili gratuitamente alle scuole.",
             "BODY2": "Il loro corso di Machine Learning utilizza <em>Machine Learning for Kids</em>, e lo integra con una serie di materiali aggiuntivi come schemi, lezioni, libri degli studenti, presentazioni e altro ancora. Rende facile per le scuole tenere lezioni di ML che contestualizzano gli esercizi di programmazione."
@@ -76,6 +84,9 @@
         "AIFAMILYCHALLENGE": {
             "BODY1": "The AI Family Challenge è un programma educativo gratuito per famiglie basato sulla pratica. Usano <em>Machine Learning for Kids</em>, e lo integrano con un sacco di supporto aggiuntivo, come tutor e mentor tecnici, un piano strutturato di lezioni e video di supporto.",
             "BODY2": "Il programma si basa su una competizione che sfida i bambini a pensare al proprio progetto di AI, con il supporto delle loro famiglie e tutor tecnici."
+        },
+        "MAGENTADEMOS": {
+            "BODY1": "Online toys that demonstrate different aspects of machine learning, using TensorFlow.js"
         },
         "AIINSCHOOLS": {
             "BODY1": "Il programma AIinSchools fornisce un piano di lezioni gratuito per gli insegnanti per spiegare l'AI ai ragazzi con età tra 13 e 14 anni.",

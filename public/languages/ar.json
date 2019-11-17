@@ -69,6 +69,14 @@
             "BODY2": "While I've focused on explaining how AI systems are trained and behave (and the real-world implications), eCraft2Learn has fantastic resources that dive deep into how ML systems actually work.",
             "BODY3": "The <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>neural net Tic Tac Toe project</a> is particularly fascinating, allowing students to experiment with hyperparameters from Snap."
         },
+        "STEMLEARNING": {
+            "BODY1": "STEM Learning and the UK Department for Business, Energy and Industrial Strategy have created resources for teaching the principles of artificial intelligence.",
+            "BODY2": "These resources include <em>Machine Learning for Kids</em> projects, supplemented with teaching notes, presentation materials, prompt cards, and practical “unplugged” activities"
+        },
+        "RASPBERRYPI": {
+            "BODY1": "The Raspberry Pi Foundation provides resources for Code Clubs, with step-by-step instructions for a variety of creative projects.",
+            "BODY2": "Their machine learning pathway includes a variety of projects from <em>Machine Learning for Kids</em>."
+        },
         "APPSFORGOOD": {
             "BODY1": "Apps for Good are a UK-based not-for-profit that creates resources for teaching technology subjects, that they make freely available to schools.",
             "BODY2": "Their Machine Learning course uses <em>Machine Learning for Kids</em>, and supplements it with a range of additional materials like schemes of work, lesson plans, student workbooks, presentations and more. It makes it easy for schools to deliver ML lessons that put the coding exercises in context."
@@ -76,6 +84,9 @@
         "AIFAMILYCHALLENGE": {
             "BODY1": "The AI Family Challenge is a free, hands-on AI education program for families. They use <em>Machine Learning for Kids</em>, and supplement it with a lot of additional support, such as technical coaches and mentors, a structured lesson plan and supporting videos.",
             "BODY2": "The program is based around a competition that challenges children to think of their own AI project ideas, with the support of their families and technical mentors."
+        },
+        "MAGENTADEMOS": {
+            "BODY1": "Online toys that demonstrate different aspects of machine learning, using TensorFlow.js"
         },
         "AIINSCHOOLS": {
             "BODY1": "The AIinSchools programme provides a free lesson plan for teachers to explain AI to Year 9 (aged 13-14).",

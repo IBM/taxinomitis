@@ -69,6 +69,14 @@
             "BODY2": "私がAIシステムがどのようにトレーニングされ、（実世界に関連して）動作するかにフォーカスしたのに対し、eCraft2Learn は、機械学習システムがどのように機能しているのか深く追求した素晴らしいリソースです。",
             "BODY3": "<a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>ニューラルネット Tic Tac Toe プロジェクト</a> は、生徒にSnap!からハイパーパラメタについて経験できるようにしてあり、特別に素晴らしいです。 "
         },
+        "STEMLEARNING": {
+            "BODY1": "STEM Learning and the UK Department for Business, Energy and Industrial Strategy have created resources for teaching the principles of artificial intelligence.",
+            "BODY2": "These resources include <em>Machine Learning for Kids</em> projects, supplemented with teaching notes, presentation materials, prompt cards, and practical “unplugged” activities"
+        },
+        "RASPBERRYPI": {
+            "BODY1": "The Raspberry Pi Foundation provides resources for Code Clubs, with step-by-step instructions for a variety of creative projects.",
+            "BODY2": "Their machine learning pathway includes a variety of projects from <em>Machine Learning for Kids</em>."
+        },
         "APPSFORGOOD": {
             "BODY1": "イギリスベースの非営利団体 Apps for Good はテクノロジーについて教えるリソース（学校向けには無償）を作成しています。",
             "BODY2": "かれらの機械学習コースは<em>Machine Learning for Kids</em>を利用しており, レッスンプラン、スキーム、ワークブック、プレゼンテーション等の補完的な教材を提供しており、学校が機械学習に関するレッスンとコーディングを全体の中で捉えやすくしています。"
@@ -76,6 +84,9 @@
         "AIFAMILYCHALLENGE": {
             "BODY1": "AI Family Challenge は無償の実プロジェクトを通した家族向けのAIプログラムです。 彼らは <em>Machine Learning for Kids</em> を利用しており、技術コーチ、メンター、構造化したレッスンプラン、サポートビデオ等で補完しています。",
             "BODY2": "そのプログラムは、家族や技術メンターの支援を得て、子供たちが彼ら独自のAIプロジェクトのアイデアを作る競争を中心につくられています。"
+        },
+        "MAGENTADEMOS": {
+            "BODY1": "Online toys that demonstrate different aspects of machine learning, using TensorFlow.js"
         },
         "AIINSCHOOLS": {
             "BODY1": "AIinSchools のプログラムは、第9学年(13歳から14歳）向けにAIを教えるレッスンプランを提供しています。",
