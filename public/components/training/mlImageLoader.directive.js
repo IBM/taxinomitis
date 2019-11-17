@@ -67,6 +67,7 @@
 
         // is it an image search result from Baidu?
         var BAIDU_IMG_REGEX = /^https:\/\/timgsa.baidu.com\/timg\?.*/;
+        var BAIDU_IMG_SRCH_REGEX = /^https:\/\/image.baidu.com\/search\/detail.*/;
 
         // is it a URL ending with .png or .jpg ?
         var IMG_URL_REGEX = /^https?:\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)(\.jpg|\.png)\??.*$/;
@@ -107,7 +108,9 @@
                 evt.preventDefault();
             }
 
-            if (evt.dataTransfer.files && evt.dataTransfer.files.length > 0) {
+            if (evt.dataTransfer &&
+                evt.dataTransfer.types && evt.dataTransfer.types.length === 1 && evt.dataTransfer.types[0] === 'Files')
+            {
                 scope.getController().displayAlert('warnings', 400, {
                     message : 'You can\'t upload pictures from your computer. Use pictures that are already online, by dragging them from another web page'
                 });
@@ -124,26 +127,38 @@
                     return reportInvalidImageType(scope);
                 }
                 var googleImagesCheck = src.match(GOOG_IMG_REGEX);
-                var baiduImagesCheck = src.match(BAIDU_IMG_REGEX);
                 if (googleImagesCheck) {
                     var googleImagesUrl = googleImagesCheck[1];
                     var googleImgsUrlParms = parseUrl(googleImagesUrl);
                     data = googleImgsUrlParms.imgurl;
                 }
-                else if (baiduImagesCheck) {
-                    var baiduUrl = new URL(src);
-                    if (baiduUrl &&
-                        baiduUrl.searchParams &&
-                        baiduUrl.searchParams.has &&
-                        baiduUrl.searchParams.has('src'))
-                    {
-                        data = baiduUrl.searchParams.get('src');
-                    }
-                    else {
-                        data = src;
+                if (!data) {
+                    var baiduImagesCheck = src.match(BAIDU_IMG_REGEX);
+                    if (baiduImagesCheck) {
+                        var baiduUrl = new URL(src);
+                        if (baiduUrl &&
+                            baiduUrl.searchParams &&
+                            baiduUrl.searchParams.has &&
+                            baiduUrl.searchParams.has('src'))
+                        {
+                            data = baiduUrl.searchParams.get('src');
+                        }
                     }
                 }
-                else {
+                if (!data) {
+                    var baiduImageSearchCheck = src.match(BAIDU_IMG_SRCH_REGEX);
+                    if (baiduImageSearchCheck) {
+                        var baiduSearchUrl = new URL(src);
+                        if (baiduSearchUrl &&
+                            baiduSearchUrl.searchParams &&
+                            baiduSearchUrl.searchParams.has &&
+                            baiduSearchUrl.searchParams.has('objurl'))
+                        {
+                            data = baiduSearchUrl.searchParams.get('objurl');
+                        }
+                    }
+                }
+                if (!data) {
                     var htmltype = getType(evt.dataTransfer.types, 'text/html');
                     var linksrc = evt.dataTransfer.getData(htmltype);
                     var parsed = parseHTML(linksrc);
@@ -151,15 +166,15 @@
                     if (img) {
                         data = img.src;
                     }
-                    else {
-                        var imageUrlCheck = src.match(IMG_URL_REGEX);
-                        if (imageUrlCheck) {
-                            data = src;
-                        }
+                }
+                if (!data) {
+                    var imageUrlCheck = src.match(IMG_URL_REGEX);
+                    if (imageUrlCheck) {
+                        data = src;
                     }
                 }
             }
-            else {
+            if (!data) {
                 data = evt.dataTransfer.getData('Text');
             }
 
@@ -174,9 +189,7 @@
             }
             else {
                 scope.getController().displayAlert('warnings', 400, {
-                    message : isSafari() ?
-                        'Dragging pictures does not work in Safari. Use a different browser, or use the "www" button instead.' :
-                        'Drag a picture from another web page into one of the training buckets'
+                    message : 'Drag a picture from another web page into one of the training buckets'
                 });
                 scope.$apply();
             }
@@ -216,10 +229,6 @@
                     return handleDrop(evt, label, scope);
                 }
             });
-        }
-
-        function isSafari() {
-            return navigator.userAgent.indexOf('Safari') >= 0;
         }
 
         return {
