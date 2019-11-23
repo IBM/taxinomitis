@@ -112,7 +112,11 @@
             'WORKSHEETS.JARGONBUSTER.WORKSHEET_1.URL',
 
             'WORKSHEETS.TITANIC.TITLE', 'WORKSHEETS.TITANIC.SUMMARY', 'WORKSHEETS.TITANIC.DESCRIPTION',
-            'WORKSHEETS.TITANIC.WORKSHEET_1.URL'
+            'WORKSHEETS.TITANIC.WORKSHEET_1.URL',
+
+            'WORKSHEETS.ZOMBIEESCAPE.TITLE', 'WORKSHEETS.ZOMBIEESCAPE.SUMMARY', 'WORKSHEETS.ZOMBIEESCAPE.DESCRIPTION',
+            'WORKSHEETS.ZOMBIEESCAPE.WORKSHEET_1.URL'
+
         ]).then(function (translations) {
             vm.worksheets = [
                 {
@@ -354,6 +358,22 @@
                         {
                             description : translations['WORKSHEETS.CHATBOTS.WORKSHEET_2.DESCRIPTION'],
                             worksheet : translations['WORKSHEETS.CHATBOTS.WORKSHEET_2.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.ZOMBIEESCAPE.TITLE'],
+                    summary : translations['WORKSHEETS.ZOMBIEESCAPE.SUMMARY'],
+                    description : translations['WORKSHEETS.ZOMBIEESCAPE.DESCRIPTION'],
+                    difficulty : 'Intermediate',
+                    type : 'numbers',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-zombieescape.png',
+                    tags : [ 'supervised learning', 'feature selection', 'decision tree learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-zombieescape.pdf',
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.ZOMBIEESCAPE.WORKSHEET_1.URL']
                         }
                     ]
                 },
