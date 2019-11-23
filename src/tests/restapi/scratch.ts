@@ -1010,7 +1010,7 @@ describe('REST API - scratch keys', () => {
             return request(testServer)
                 .post('/api/scratch/' + keyId + '/train')
                 .send({
-                    data : ['123', '45', ''],
+                    data : ['123', '45', 'x'],
                     label : 'animal',
                 })
                 .expect('Content-Type', /json/)
