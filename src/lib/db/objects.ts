@@ -500,7 +500,7 @@ export function getCredentialsFromDbRow(
 export function getCredentialsAsDbRow(obj: TrainingObjects.BluemixCredentials,
 ): TrainingObjects.BluemixCredentialsDbRow
 {
-    return {
+    const creds: TrainingObjects.BluemixCredentialsDbRow = {
         id : obj.id,
         servicetype : obj.servicetype,
         url : obj.url,
@@ -511,6 +511,10 @@ export function getCredentialsAsDbRow(obj: TrainingObjects.BluemixCredentials,
                         projects.credsTypesByLabel[obj.credstype].id :
                         projects.credsTypesByLabel.unknown.id,
     };
+    if (obj.notes) {
+        creds.notes = obj.notes;
+    }
+    return creds;
 }
 
 function validateVisrecApiKey(apikey?: string): string {

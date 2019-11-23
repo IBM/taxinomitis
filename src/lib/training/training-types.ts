@@ -13,6 +13,7 @@ export interface BluemixCredentials {
     readonly classid: string;
     // not readonly, because users can modify this
     credstype: BluemixCredentialsTypeLabel;
+    notes?: string | null;
 }
 export interface BluemixCredentialsDbRow {
     readonly id: string;
@@ -24,6 +25,7 @@ export interface BluemixCredentialsDbRow {
     readonly password: string;
     readonly classid: string;
     readonly credstypeid?: number;
+    notes?: string | null;
 }
 
 export type BluemixServiceType = 'conv' | 'visrec' | 'num' | 'sounds';

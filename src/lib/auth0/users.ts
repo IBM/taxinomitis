@@ -186,6 +186,21 @@ export function createTeacher(tenant: string, username: string, email: string): 
     });
 }
 
+export function createVerifiedTeacher(tenant: string, username: string, email: string): Promise<Objects.UserCreds> {
+    return createUser({
+        email,
+        username,
+        password : randomstring.generate({ length : 12, readable : true }),
+        verify_email : true,
+        email_verified : true,
+        connection : process.env[env.AUTH0_CONNECTION] as string,
+        app_metadata : {
+            role : 'supervisor',
+            tenant,
+        },
+    });
+}
+
 
 
 export async function deleteStudent(tenant: string, userid: string) {
