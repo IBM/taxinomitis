@@ -298,7 +298,12 @@
                     lang = 'es';
                 }
                 else if (lang.indexOf('zh') === 0) {
-                    lang = 'zh-cn';
+                    if (lang.indexOf('zh-tw') === 0) {
+                        lang = 'zh-tw';
+                    }
+                    else {
+                        lang = 'zh-cn';
+                    }
                 }
                 else if (lang.indexOf('fr') === 0) {
                     lang = 'fr';

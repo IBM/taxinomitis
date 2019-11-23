@@ -15,6 +15,7 @@ describe('UI - NLS', () => {
     let se: any;
     let tr: any;
     let cn: any;
+    let tw: any;
     let si: any;
     let nl: any;
     let ja: any;
@@ -37,6 +38,7 @@ describe('UI - NLS', () => {
         se = JSON.parse(fs.readFileSync('./public/languages/sv-se.json', 'utf8'));
         tr = JSON.parse(fs.readFileSync('./public/languages/tr.json', 'utf8'));
         cn = JSON.parse(fs.readFileSync('./public/languages/zh-cn.json', 'utf8'));
+        tw = JSON.parse(fs.readFileSync('./public/languages/zh-tw.json', 'utf8'));
         si = JSON.parse(fs.readFileSync('./public/languages/si-lk.json', 'utf8'));
         nl = JSON.parse(fs.readFileSync('./public/languages/nl-be.json', 'utf8'));
         ja = JSON.parse(fs.readFileSync('./public/languages/ja.json', 'utf8'));
@@ -90,8 +92,11 @@ describe('UI - NLS', () => {
     it('Turkish', () => {
         compareKeys(en, tr, 'tr');
     });
-    it('Chinese', () => {
+    it('Chinese (simplified)', () => {
         compareKeys(en, cn, 'cn');
+    });
+    it('Chinese (traditional)', () => {
+        compareKeys(en, tw, 'tw');
     });
     it('Sinhalese', () => {
         compareKeys(en, si, 'si');
