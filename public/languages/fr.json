@@ -1066,6 +1066,14 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
             }
+        },
+        "ZOMBIEESCAPE": {
+            "TITLE": "Zombie Escape!",
+            "SUMMARY": "Teach a computer to make predictions",
+            "DESCRIPTION": "Train a computer to help you escape from the zombies",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -1310,7 +1318,7 @@
             "TITLE": "Problème avec l'interface d'entraînement",
 
             "Q1": "Glisser des images dans les dossiers d'entraînement (pour les projets d'images) ne fonctionne pas.",
-            "Q1-A-1": "Glisser des images dans les dossiers d'entraînement ne fonctionne pas si vous utilisez Safari ou Internet Explorer.",
+            "Q1-A-1": "Glisser des images dans les dossiers d'entraînement ne fonctionne pas si vous utilisez Internet Explorer.",
             "Q1-A-2": "Désolé pour tout ça. Si vous pouvez utiliser un autre navigateur comme Firefox ou Chrome, veuillez le faire. Sinon, vous pouvez cliquer sur le bouton \"www\" et coller l'URL des images d'entraînement à la place."
         },
 

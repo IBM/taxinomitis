@@ -1066,6 +1066,14 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
             }
+        },
+        "ZOMBIEESCAPE": {
+            "TITLE": "Zombie Escape!",
+            "SUMMARY": "Teach a computer to make predictions",
+            "DESCRIPTION": "Train a computer to help you escape from the zombies",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -1310,7 +1318,7 @@
             "TITLE": "Problemas con UI de Entrenamiento",
 
             "Q1": "No funciona el arrastrar y soltar imágenes en los contenedores de entrenamiento ",
-            "Q1-A-1": "Si usas Safari o Internet Explorer no funciona arrastrar imágenes en los contenedores de entrenamiento .",
+            "Q1-A-1": "Si usas Internet Explorer no funciona arrastrar imágenes en los contenedores de entrenamiento .",
             "Q1-A-2": "Lo sentimos. Puedes usar otros navegadores como Firefox o Chrome.. Si no puedes hacerlo, haz click en el botón \"www\" y pega la URL de las imágenes de entrenamiento. ."
         },
 

@@ -1066,6 +1066,14 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
             }
+        },
+        "ZOMBIEESCAPE": {
+            "TITLE": "Zombie Escape!",
+            "SUMMARY": "Teach a computer to make predictions",
+            "DESCRIPTION": "Train a computer to help you escape from the zombies",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -1310,7 +1318,7 @@
             "TITLE": "Problemas na interface de Treinamento",
 
             "Q1": "Arrastar imagens para grupos de treinamento (para projetos de imagem) não funciona",
-            "Q1-A-1": "Arrastar imagens para os grupos de treinamento não funciona se você estiver usando o Safari ou o Internet Explorer.",
+            "Q1-A-1": "Arrastar imagens para os grupos de treinamento não funciona se você estiver usando o Internet Explorer.",
             "Q1-A-2": "Me desculpe por isso. Se você pode usar outro navegador como Firefox ou Chrome, use-os, por favor . Caso contrário, você pode clicar no botão \"www\" e colar o URL das fotos de treinamento."
         },
 

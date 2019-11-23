@@ -1066,6 +1066,14 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
             }
+        },
+        "ZOMBIEESCAPE": {
+            "TITLE": "Zombie Escape!",
+            "SUMMARY": "Teach a computer to make predictions",
+            "DESCRIPTION": "Train a computer to help you escape from the zombies",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -1310,7 +1318,7 @@
             "TITLE": "トレーニングのUI関連",
 
             "Q1": "画像プロジェクトで画像をトレーニング グループにドラッグすることができません。",
-            "Q1-A-1": "画像をトレーニンググループにドラッグする機能は、Safari と Internet Explorerでは機能しません。",
+            "Q1-A-1": "画像をトレーニンググループにドラッグする機能は、Internet Explorerでは機能しません。",
             "Q1-A-2": "もし、FirefoxやChromeが使えるなら、これらのブラウザを利用してください。それが出来ない場合は、代わりに \"www\" ボタンをクリックしトレーニングしたい画像のURLを張り付けてください。"
         },
 

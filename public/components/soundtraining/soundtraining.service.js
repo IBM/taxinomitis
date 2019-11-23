@@ -48,7 +48,12 @@
                         }};
                     }
                     else {
+                        // record the error
                         console.log(err);
+                        if (err && Sentry && Sentry.captureException) {
+                            Sentry.captureException(err);
+                        }
+
                         throw { status : 500, data : err };
                     }
                 });
@@ -64,7 +69,7 @@
                 }
                 else {
                     throw ({
-                        status : 500,
+                        status : 400,
                         data : { message : 'Sorry! Machine Learning for Kids could not find a microphone to use' }
                     });
                 }

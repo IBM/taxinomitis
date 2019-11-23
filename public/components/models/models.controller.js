@@ -101,7 +101,11 @@
                 // record the error
                 console.log(errObj);
                 if (status === 500 && Sentry && Sentry.captureException) {
-                    Sentry.captureException({ error : errObj, errortype : typeof (errObj) });
+                    Sentry.captureException({
+                        error : errObj,
+                        errortype : typeof (errObj),
+                        projectid : $scope.projectId
+                    });
                 }
             }
 

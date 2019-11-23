@@ -1066,6 +1066,14 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
             }
+        },
+        "ZOMBIEESCAPE": {
+            "TITLE": "Zombie Escape!",
+            "SUMMARY": "Teach a computer to make predictions",
+            "DESCRIPTION": "Train a computer to help you escape from the zombies",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -1310,7 +1318,7 @@
             "TITLE": "Problemi dell'interfaccia utente di addestramento",
 
             "Q1": "Il trascinamento di immagini in un bucket di addestramento (per progetti di immagini) non funziona",
-            "Q1-A-1": "Il trascinamento delle immagini nei bucket di allenamento non funziona se si utilizza Safari o Internet Explorer.",
+            "Q1-A-1": "Il trascinamento delle immagini nei bucket di allenamento non funziona se si utilizza Internet Explorer.",
             "Q1-A-2": "Ci scusiamo per l'inconveniente. Se è possibile utilizzare un altro browser come Firefox o Chrome, si prega di farlo. Altrimenti, puoi fare clic sul pulsante \"www\" e incollare invece l'URL delle immagini di allenamento."
         },
 

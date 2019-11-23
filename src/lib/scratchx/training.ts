@@ -74,7 +74,7 @@ async function storeNumbers(key: Types.ScratchKey, label: string, numbersStr: st
             return asNum;
         }
         else { // if (field.type === 'number') {
-            const asNum = parseFloat(numbersStr[idx]);
+            const asNum = Number(numbersStr[idx]);
             if (isNaN(asNum)) {
                 throw new Error('Invalid data');
             }

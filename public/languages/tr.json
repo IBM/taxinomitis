@@ -1066,6 +1066,14 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
             }
+        },
+        "ZOMBIEESCAPE": {
+            "TITLE": "Zombie Escape!",
+            "SUMMARY": "Teach a computer to make predictions",
+            "DESCRIPTION": "Train a computer to help you escape from the zombies",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -1310,7 +1318,7 @@
             "TITLE": "Eğitim Kullanıcı Arabirimi sorunları",
 
             "Q1": "Fotoğrafları eğitim paketlerine sürükleme (fotoğraf projeleri için) işlevi çalışmıyor",
-            "Q1-A-1": "Safari veya Internet Explorer'ı kullanıyorsanız fotoğrafları eğitim paketlerine sürükleme işlevi çalışmaz.",
+            "Q1-A-1": "Internet Explorer'ı kullanıyorsanız fotoğrafları eğitim paketlerine sürükleme işlevi çalışmaz.",
             "Q1-A-2": "Bu durum için üzgünüm. Firefox veya Chrome gibi başka bir tarayıcı kullanabiliyorsanız, lütfen kullanın. Kullanamıyorsanız, bunun yerine \"www\" düğmesini tıklatıp eğitim fotoğrafların URL'sini yapıştırabilirsiniz."
         },
 

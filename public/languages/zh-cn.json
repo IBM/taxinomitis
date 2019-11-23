@@ -1066,6 +1066,14 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
             }
+        },
+        "ZOMBIEESCAPE": {
+            "TITLE": "Zombie Escape!",
+            "SUMMARY": "Teach a computer to make predictions",
+            "DESCRIPTION": "Train a computer to help you escape from the zombies",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -1310,7 +1318,7 @@
             "TITLE": "培训UI问题",
 
             "Q1": "将图像拖入训练桶（用于图像项目）不起作用",
-            "Q1-A-1": "如果您使用的是Safari或Internet Explorer,则将图像拖入训练桶中将无效。",
+            "Q1-A-1": "如果您使用的是Internet Explorer,则将图像拖入训练桶中将无效。",
             "Q1-A-2": "对此感到抱歉。如果您可以使用其他浏览器,如Firefox或Chrome,请执行此操作。否则,您可以单击\"www\"按钮并粘贴培训图片的URL。"
         },
 

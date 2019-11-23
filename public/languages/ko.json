@@ -1066,6 +1066,14 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
             }
+        },
+        "ZOMBIEESCAPE": {
+            "TITLE": "Zombie Escape!",
+            "SUMMARY": "Teach a computer to make predictions",
+            "DESCRIPTION": "Train a computer to help you escape from the zombies",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -1310,7 +1318,7 @@
             "TITLE": "트레이닝 UI 문제",
 
             "Q1": "이미지를 트레이닝 버킷으로 드래그(이미지 프로젝트용)할 수 없습니다.",
-            "Q1-A-1": "Safari 또는 Internet Explorer를 사용하는 경우 트레이닝 버킷으로 이미지를 드래그하면 작동하지 않습니다.",
+            "Q1-A-1": "Internet Explorer를 사용하는 경우 트레이닝 버킷으로 이미지를 드래그하면 작동하지 않습니다.",
             "Q1-A-2": "죄송합니다. Firefox나 Chrome과 같은 다른 브라우저를 사용할 수 있다면 그렇게 하십시오. 그렇지 않으면 \"www \"버튼을 클릭하여 트레이닝 사진의 URL을 붙여 넣으세요."
         },
 

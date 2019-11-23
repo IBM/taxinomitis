@@ -1066,6 +1066,14 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
             }
+        },
+        "ZOMBIEESCAPE": {
+            "TITLE": "Zombie Escape!",
+            "SUMMARY": "Teach a computer to make predictions",
+            "DESCRIPTION": "Train a computer to help you escape from the zombies",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -1259,7 +1267,7 @@
         },
         "GUI": {
             "gui.menuBar.mlforkidsLibrary": "Project templates",
-            "gui.mlforkidsLibrary.templates": "Machine Learning for Kids modelos de projeto"
+            "gui.mlforkidsLibrary.templates": "Machine Learning for Kids project templates"
         }
     },
     "HELP": {
@@ -1290,7 +1298,7 @@
             "Q2-A-1": "If you're using Safari on macOS and the Scratch menus \"File -&gt; Load Project\" and \"File -&gt; Save Project\" menus aren't working, it might be that you're running in Safe Mode.",
             "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>Follow the instructions here</a> for how to check and fix this.",
 
-            "Q3": "Machine learning classifier blocks in Scratch don't work",
+            "Q3": "Machine learning classifier blocks in Scratch 2 stopped working",
             "Q3-A-1": "Occassionally, the Scratch blocks for your machine learning model can lose the connection to the server. When this happens, they will stop returning results.",
             "Q3-A-2": "You can check whether this has happened using the coloured status light in the \"More Blocks\" palette.",
             "Q3-A-3": "If the status light next to your machine learning Scratch blocks is red, that normally means something is wrong. It might be a temporary problem. Try saving your project (using 'File' -&gt; 'Save Project'), then refresh the browser page. If the status light goes green after the page reloads, you can load your project (using 'File' -&gt; 'Load Project') to pick up where you left off.",
@@ -1310,7 +1318,7 @@
             "TITLE": "Training UI issues",
 
             "Q1": "Dragging images into training buckets (for image projects) doesn't work",
-            "Q1-A-1": "Dragging images into the training buckets doesn't work if you're using Safari or Internet Explorer.",
+            "Q1-A-1": "Dragging images into the training buckets doesn't work if you're using Internet Explorer.",
             "Q1-A-2": "Sorry about this. If you can use another browser like Firefox or Chrome, please do that. Otherwise, you can click the \"www\" button and paste in the URL of training pictures instead."
         },
 

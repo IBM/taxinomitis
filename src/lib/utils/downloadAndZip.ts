@@ -403,7 +403,9 @@ export async function runInServerless(locations: ImageDownload[]): Promise<strin
                         });
                 }
                 else {
-                    log.error({ err, numlocations : locations.length }, 'CreateZip failed');
+                    if (!customError.logged) {
+                        log.error({ err, numlocations : locations.length }, 'CreateZip failed');
+                    }
                     return reject(err);
                 }
             })
@@ -433,6 +435,7 @@ export async function runInServerless(locations: ImageDownload[]): Promise<strin
                             const functionErrorInfo = JSON.parse(hdrs);
                             functionError = new Error(functionErrorInfo.error) as any;
                             functionError.location = functionErrorInfo.location;
+                            functionError.logged = true;
                         }
                         catch (err) {
                             log.error({ err, hdrs }, 'Failed to parse function error');

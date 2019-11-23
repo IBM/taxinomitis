@@ -1066,6 +1066,14 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
             }
+        },
+        "ZOMBIEESCAPE": {
+            "TITLE": "Zombie Escape!",
+            "SUMMARY": "Teach a computer to make predictions",
+            "DESCRIPTION": "Train a computer to help you escape from the zombies",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -1310,7 +1318,7 @@
             "TITLE": "Θέματα με το περιβάλλον διεπαφής Εκπαίδευσης",
 
             "Q1": "Η μεταφορά -με σύρε κι άφησε- εικόνων σε συλλογές παραδειγμάτων εκπαίδευσης (για έργα εικόνας) δεν λειτουργεί",
-            "Q1-A-1": "Η μεταφορά -με σύρε κι άφησε- εικόνων στις συλλογές παραδειγμάτων εκπαίδευσης δεν λειτουργεί αν χρησιμοποιείς Safari ή Internet Explorer.",
+            "Q1-A-1": "Η μεταφορά -με σύρε κι άφησε- εικόνων στις συλλογές παραδειγμάτων εκπαίδευσης δεν λειτουργεί αν χρησιμοποιείς Internet Explorer.",
             "Q1-A-2": "Συγγνώμη γι' αυτό. Αν έχεις τη δυνατότητα, παρακαλώ χρησιμοποίησε ένα άλλο πρόγραμμα περιήγησης, όπως το Firefox ή το Chrome. Διαφορετικά, μπορείς να κάνεις κλικ στο κουμπί \"www\" και να επικολλήσεις τη διεύθυνση URL των εικόνων εκπαίδευσης."
         },
 

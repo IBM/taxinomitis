@@ -1066,6 +1066,14 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
             }
+        },
+        "ZOMBIEESCAPE": {
+            "TITLE": "Zombie Escape!",
+            "SUMMARY": "Teach a computer to make predictions",
+            "DESCRIPTION": "Train a computer to help you escape from the zombies",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -1310,7 +1318,7 @@
             "TITLE": "Probleme mit der Trainings-Benutzeroberfläche",
 
             "Q1": "Bei Bilderkennungsprojekten funktioniert Drag-and-Drop von Bildern in die Trainingskategorien nicht.",
-            "Q1-A-1": "Drag-and-Drop von Bildern in die Trainingskategorien funktioniert nicht mit Safari oder dem Internet Explorer.",
+            "Q1-A-1": "Drag-and-Drop von Bildern in die Trainingskategorien funktioniert nicht mit Internet Explorer.",
             "Q1-A-2": "Tut uns leid. Wenn du einen anderen Browser wie Firefox oder Chrome verwenden kannst, mach das bitte. Andernfalls kannst du den \"www\"-Button verwenden und die URLs einzeln hineinkopieren."
         },
 

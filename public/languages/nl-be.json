@@ -1066,6 +1066,14 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
             }
+        },
+        "ZOMBIEESCAPE": {
+            "TITLE": "Zombie Escape!",
+            "SUMMARY": "Teach a computer to make predictions",
+            "DESCRIPTION": "Train a computer to help you escape from the zombies",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -1310,7 +1318,7 @@
             "TITLE": "Training interface problemen",
 
             "Q1": "Het slepen van afbeeldingen naar de training emmers (voor afbeeldingprojecten) werkt niet",
-            "Q1-A-1": "Slepen van afbeeldingen naar de training emmers werkt niet wanneer je Safari of Internet Explorer gebruikt.",
+            "Q1-A-1": "Slepen van afbeeldingen naar de training emmers werkt niet wanneer je Internet Explorer gebruikt.",
             "Q1-A-2": "Sorry hiervoor. Als je een andere browser zoals Firefox of Chrome kan gebruiken, doe dit dan. Anders klik je op de \"www\" knop in de plaats en plak je hier de URL van de trainingsafbeeldingen."
         },
 
