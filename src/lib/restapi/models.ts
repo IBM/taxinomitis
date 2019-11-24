@@ -182,6 +182,14 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
                             location : err.location,
                         });
             }
+            else if (err.message && err.message.includes(download.ERRORS.DOWNLOAD_FORBIDDEN)) {
+                return res.status(httpstatus.CONFLICT)
+                        .send({
+                            code: 'MLMOD14',
+                            error: err.message,
+                            location: err.location,
+                        });
+            }
             else {
                 return errors.unknownError(res, err);
             }
