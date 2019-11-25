@@ -1271,7 +1271,7 @@
         }
     },
     "HELP": {
-        "CONTACT": "In caso di problemi o domande, inviare un'email a Dale.Lane@uk.ibm.com",
+        "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
         "GETTINGSTARTED": {
             "TITLE": "Come cominciare?",
             "INTRO": "Scarica un PDF con una breve guida introduttiva:",
@@ -1284,7 +1284,7 @@
             "TITLE": "Voglio sapere di più?",
             "INTRO1": "Qualcosa non funziona?",
             "INTRO2": "L'elenco che segue contiene le domande e i problemi che sento di più spesso. Se vedi qualcosa che assomiglia al tuo problema, clicca sul sommario per maggiori informazioni.",
-            "INTRO3": "Se sei ancora bloccato o hai riscontrato un problema che non ho incluso nell'elenco, scusa! Per favore <a href='mailto:dale.lane@uk.ibm.com'> inviami un'email </a> o <a href='https://github.com/IBM/taxinomitis/issues'> crea una issue su GitHub </a> in modo che possa aiutarti."
+            "INTRO3": "Se sei ancora bloccato o hai riscontrato un problema che non ho incluso nell'elenco, scusa! Please <a href='https://groups.google.com/d/forum/mlforkids'>ask a question in the mlforkids Google Group</a> so that I can help."
         },
 
         "SCRATCH": {
@@ -1413,7 +1413,7 @@
             "Q2-A-1": "Devi verificare il tuo indirizzo email prima di poter accedere.",
             "Q2-A-2": "Quando hai creato l'account di classe, verrà inviata un'email all'indirizzo di posta elettronica che hai fornito, con un link da cliccare. Se fai clic su quel link, il tuo indirizzo email verrà verificato e l'account della classe verrà attivato. Fatto ciò dovresti essere in grado di accedere.",
             "Q2-A-3": "Se non hai ancora visto l'email di verifica, assicurati che non sia andata nella cartella spam.",
-            "Q2-A-4": "Se ancora non riesci a trovarla, <a href='mailto:dale.lane@uk.ibm.com'> fammi sapere </a> e cercherò di aiutarti.",
+            "Q2-A-4": "Se ancora non riesci a trovarla, <a href='https://groups.google.com/d/forum/mlforkids'> fammi sapere </a> e cercherò di aiutarti.",
 
             "Q3": "Eliminazione degli account",
             "Q3-A-1": "Account studente",

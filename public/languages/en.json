@@ -1271,7 +1271,7 @@
         }
     },
     "HELP": {
-        "CONTACT": "If you have any problems or questions, please email Dale.Lane@uk.ibm.com",
+        "CONTACT": "If you have any problems or questions, please ask in <a target='_blank' href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
         "GETTINGSTARTED": {
             "TITLE": "Getting started?",
             "INTRO": "Download a PDF with a short getting started guide:",
@@ -1284,7 +1284,7 @@
             "TITLE": "Want to know more?",
             "INTRO1": "Is something not working?",
             "INTRO2": "The list below contains the questions and issues that I hear about most often. If you see something that looks similar to your problem, click on the summary for more info.",
-            "INTRO3": "If you're still stuck, or you've run into a problem I've not included in the list, sorry! Please <a href='mailto:dale.lane@uk.ibm.com'>email me</a> or <a href='https://github.com/IBM/taxinomitis/issues'>create an issue report</a> so that I can help."
+            "INTRO3": "If you're still stuck, or you've run into a problem I've not included in the list, sorry! Please <a href='https://groups.google.com/d/forum/mlforkids'>ask a question in the mlforkids Google Group</a> so that I can help."
         },
 
         "SCRATCH": {
@@ -1413,7 +1413,7 @@
             "Q2-A-1": "You need to verify your email address before you'll be able to log on.",
             "Q2-A-2": "When you created the class account, an email will be sent to the email address you provided, with a link to click on. If you click on that link, your email address will be verified and the class account will be activated. You should be able to log on now.",
             "Q2-A-3": "If you haven't seen the verify email yet, make sure it's not gone into your spam folder.",
-            "Q2-A-4": "If you still can't find it, <a href='mailto:dale.lane@uk.ibm.com'>let me know</a> and I'll try and help.",
+            "Q2-A-4": "If you still can't find it, <a href='https://groups.google.com/d/forum/mlforkids'>let me know</a> and I'll try and help.",
 
             "Q3": "Deleting accounts",
             "Q3-A-1": "Student accounts",

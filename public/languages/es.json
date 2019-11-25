@@ -1271,7 +1271,7 @@
         }
     },
     "HELP": {
-        "CONTACT": "Si tienes cualquier duda o problema, por favor escribe a Dale.Lane@uk.ibm.com",
+        "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
         "GETTINGSTARTED": {
             "TITLE": "¿Primera vez?",
             "INTRO": "Descarga un PDF con una breve guía de inicio. :",
@@ -1284,7 +1284,7 @@
             "TITLE": "¿Quieres saber más?",
             "INTRO1": "¿Algo no funciona? ",
             "INTRO2": "En la lista de abajo puedes encontrar la preguntas y problemas que surgen más a amenduo. Si alguna de ellas se parece a tu problema, haz click sobre el resumen para obtener más información. ",
-            "INTRO3": "Si sigues atascado, o te ha surgido un problema que no está en la lista, por favor, <a href='mailto:dale.lane@uk.ibm.com'> envía un correo a </a> or <a href='https://github.com/IBM/taxinomitis/issues'>y reporta el error</a> para que pueda ayudarte."
+            "INTRO3": "Si sigues atascado, o te ha surgido un problema que no está en la lista, por favor, <a href='https://groups.google.com/d/forum/mlforkids'> envía un correo a </a> or <a href='https://github.com/IBM/taxinomitis/issues'>y reporta el error</a> para que pueda ayudarte."
         },
 
         "SCRATCH": {
@@ -1413,7 +1413,7 @@
             "Q2-A-1": "Verifica tu dirección de correo para poder de iniciar sesión.",
             "Q2-A-2": "Cuando creas la cuenta de la clase, se envía un correo a la dirección facilitada con un enlace. Al hacer click sobre él, tu dirección de correo se verifica y la cuenta de clase se active. Entonces, podrás iniciar session..",
             "Q2-A-3": "Si todavía no has visto el correo de verificación, revista la carpeta de correo no deseado. r.",
-            "Q2-A-4": "Si todavía no aparece, , <a href='mailto:dale.lane@uk.ibm.com'>avísame</a> e intentaré ayudarte.",
+            "Q2-A-4": "Si todavía no aparece, , <a href='https://groups.google.com/d/forum/mlforkids'>avísame</a> e intentaré ayudarte.",
 
             "Q3": "Borrar cuentas",
             "Q3-A-1": "Cuentas de alumnos",

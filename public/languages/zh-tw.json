@@ -1271,7 +1271,7 @@
         }
     },
     "HELP": {
-        "CONTACT": "如果你有任何問題或疑問，請來信Dale.Lane@uk.ibm.com",
+        "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
         "GETTINGSTARTED": {
             "TITLE": "第一次使用？",
             "INTRO": "下載PDF裡面有簡短的入門指南：",
@@ -1284,7 +1284,7 @@
             "TITLE": "想知道更多嗎？",
             "INTRO1": "發生錯誤了嗎？",
             "INTRO2": "以下清單包含我們最常聽見的問題。如果你看到與你問題相似的內容，請點擊摘要文字來取得更多資訊",
-            "INTRO3": "如果你仍然發生錯誤，或是遇到了我沒有包含在清單中的問題，很抱歉造成你的不便！請<a href='mailto:dale.lane@uk.ibm.com'>來信給我</a>或<a href='https://github.com/IBM/taxinomitis/issues'>建立一個問題回報</a>讓我可以提供幫助"
+            "INTRO3": "如果你仍然發生錯誤，或是遇到了我沒有包含在清單中的問題，很抱歉造成你的不便！請<a href='https://groups.google.com/d/forum/mlforkids'>來信給我</a>或<a href='https://github.com/IBM/taxinomitis/issues'>建立一個問題回報</a>讓我可以提供幫助"
         },
 
         "SCRATCH": {
@@ -1413,7 +1413,7 @@
             "Q2-A-1": "你需要先驗證電子郵件地址，然後才能登錄",
             "Q2-A-2": "建立班級帳戶時，會向您提供的電子郵件地址發送一封電子郵件，並帶有點擊連結。 如果您點擊該連結，將驗證您的電子郵件地址並啟用班級帳戶。 您現在應該可以登錄了。",
             "Q2-A-3": "如果您還沒有看到驗證電子郵件，請確定它沒有進入垃圾郵件文件夾。",
-            "Q2-A-4": "如果您仍然找不到它，<a href='mailto:dale.lane@uk.ibm.com'>請告訴我</a>，我會盡力幫助。",
+            "Q2-A-4": "如果您仍然找不到它，<a href='https://groups.google.com/d/forum/mlforkids'>請告訴我</a>，我會盡力幫助。",
 
             "Q3": "刪除帳戶",
             "Q3-A-1": "學生帳戶",

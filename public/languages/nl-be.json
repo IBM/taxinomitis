@@ -1271,7 +1271,7 @@
         }
     },
     "HELP": {
-        "CONTACT": "Als je een probleem of vraag hebt, mail naar Dale.Lane@uk.ibm.com",
+        "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
         "GETTINGSTARTED": {
             "TITLE": "Klaar om te beginnen?",
             "INTRO": "Download een PDF met een korte ‘Aan de slag’ gids:",
@@ -1284,7 +1284,7 @@
             "TITLE": "Wil je meer weten?",
             "INTRO1": "Werkt er iets niet?",
             "INTRO2": "De lijst hieronder bevat de vragen en problemen die ik het meest hoorde. Als je iets ziet dat lijkt op je probleem, klik dan op de samenvatting voor meer info.",
-            "INTRO3": "Als je nog steeds vast zit of je hebt een probleem dat niet voorkomt in de lijst, sorry! Stuur dan een <a href='mailto:dale.lane@uk.ibm.com'>e-mail</a> of <a href='https://github.com/IBM/taxinomitis/issues'>maak een probleem rapport</a> aan zodat ik je kan verder helpen."
+            "INTRO3": "Als je nog steeds vast zit of je hebt een probleem dat niet voorkomt in de lijst, sorry! Please <a href='https://groups.google.com/d/forum/mlforkids'>ask a question in the mlforkids Google Group</a> so that I can help."
         },
 
         "SCRATCH": {
@@ -1413,7 +1413,7 @@
             "Q2-A-1": "Je moet je e-mailadres verifiëren alvorens je kan inloggen.",
             "Q2-A-2": "Als je een klasaccount hebt aangemaakt, wordt er een e-mail verzonden naar het e-mailadres dat je hebt opgegeven met een hyperlink. Als je op deze link klikt, wordt je e-mailadres geverifieerd en wordt je klasaccount geactiveerd. Vanaf nu kan je inloggen.",
             "Q2-A-3": "Als je de verificatiemail niet ziet, kijk dan ook even in je spamfolder.",
-            "Q2-A-4": "Als je hem nog steeds niet kan vinden, <a href='mailto:dale.lane@uk.ibm.com'>laat het me weten</a> dan probeer ik te helpen.",
+            "Q2-A-4": "Als je hem nog steeds niet kan vinden, <a href='https://groups.google.com/d/forum/mlforkids'>laat het me weten</a> dan probeer ik te helpen.",
 
             "Q3": "Verwijder accounts",
             "Q3-A-1": "Studenten accounts",

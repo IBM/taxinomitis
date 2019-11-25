@@ -1271,7 +1271,7 @@
         }
     },
     "HELP": {
-        "CONTACT": "Se você tiver algum problema ou dúvida, por favor envie um e-mail para Dale.Lane@uk.ibm.com",
+        "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
         "GETTINGSTARTED": {
             "TITLE": "Começando?",
             "INTRO": "Faça o download de um PDF com um guia breve de primeiros passos:",
@@ -1284,7 +1284,7 @@
             "TITLE": "Quer saber mais?",
             "INTRO1": "Alguma coisa não está funcionando?",
             "INTRO2": "A lista abaixo contém as perguntas e problemas que eu ouço mais frequentemente. Se você ver algo parecido com o seu problema, clique no resumo para mais informações.",
-            "INTRO3": "Se você ainda está preso ou se deparou com um problema que não incluí na lista, desculpe! Por favor, <a href='mailto:dale.lane@uk.ibm.com'> me mande um e-mail</a> ou <a href='https://github.com/IBM/taxinomitis/issues'>crie um relatório de problemas</a> para que eu possa ajudar."
+            "INTRO3": "Se você ainda está preso ou se deparou com um problema que não incluí na lista, desculpe! Please <a href='https://groups.google.com/d/forum/mlforkids'>ask a question in the mlforkids Google Group</a> so that I can help."
         },
 
         "SCRATCH": {
@@ -1413,7 +1413,7 @@
             "Q2-A-1": "Você precisa verificar seu endereço de e-mail antes de poder fazer o login.",
             "Q2-A-2": "Quando você criou a conta da turma, um e-mail será enviado para o endereço de e-mail que você forneceu, com um link para clicar. Se você clicar nesse link, seu endereço de e-mail será verificado e conta de turma será ativada. Após ativado, você deverá conseguir fazer o login.",
             "Q2-A-3": "Se você ainda não viu o e-mail de verificação, verifique se ele não entrou na sua pasta de spam.",
-            "Q2-A-4": "Se você ainda não consegue encontrá-lo, <a href='mailto:dale.lane@uk.ibm.com'>me avise</a> e eu tentarei ajudar.",
+            "Q2-A-4": "Se você ainda não consegue encontrá-lo, <a href='https://groups.google.com/d/forum/mlforkids'>me avise</a> e eu tentarei ajudar.",
 
             "Q3": "Excluindo contas",
             "Q3-A-1": "Contas de estudantes",

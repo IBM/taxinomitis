@@ -1271,7 +1271,7 @@
         }
     },
     "HELP": {
-        "CONTACT": "문제가 있거나 궁금한 사항이 있으면 이메일 Dale.Lane@uk.ibm.com로 연락주세요",
+        "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
         "GETTINGSTARTED": {
             "TITLE": "시작하기",
             "INTRO": "한번에 시작하기 PDF 다운로드:",
@@ -1284,7 +1284,7 @@
             "TITLE": "더 알고 싶나요?",
             "INTRO1": "뭔가 작동하지 않나요?",
             "INTRO2": "아래 목록에는 가장 자주 듣는 질문과 문제가 포함되어 있습니다. 문제와 비슷한 것으로 보이는 것이 있으면 요약 정보를 클릭하세요.",
-            "INTRO3": "아직 해결이 안되거나, 목록에 포함되지 않은 문제가 발생하였나요? 죄송합니다! <a href='mailto:dale.lane@uk.ibm.com'>로 이메일을 보내주세요. </a> 또는 <a href='https://github.com/IBM/taxinomitis/issues'> 문제 보고서</a>를 작성해주세요."
+            "INTRO3": "아직 해결이 안되거나, 목록에 포함되지 않은 문제가 발생하였나요? 죄송합니다! <a href='https://groups.google.com/d/forum/mlforkids'>로 이메일을 보내주세요. </a> 또는 <a href='https://github.com/IBM/taxinomitis/issues'> 문제 보고서</a>를 작성해주세요."
         },
 
         "SCRATCH": {
@@ -1413,7 +1413,7 @@
             "Q2-A-1": "로그온하려면 이메일 주소를 확인해야 합니다.",
             "Q2-A-2": "수업 계정을 만들면 입력하신 이메일 주소로 클릭할 수 있는 링크가 있는 이메일이 전송됩니다. 링크를 클릭하면 이메일 주소가 확인되고 현재 계정에 로그인 할 수 있습니다.",
             "Q2-A-3": "확인 이메일을 아직 보지 않았다면 스팸 폴더에 저장되지 않았는지 확인하십시오.",
-            "Q2-A-4": "여전히 찾치 못한다며, <a href='mailto:dale.lane@uk.ibm.com'>알려주세요</a>. 도움을 드리겠습니다.",
+            "Q2-A-4": "여전히 찾치 못한다며, <a href='https://groups.google.com/d/forum/mlforkids'>알려주세요</a>. 도움을 드리겠습니다.",
 
             "Q3": "계정 삭제",
             "Q3-A-1": "학생 계정",

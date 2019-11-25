@@ -1271,7 +1271,7 @@
         }
     },
     "HELP": {
-        "CONTACT": "Soru veya sorunlarınız için lütfen Dale.Lane@uk.ibm.com adresine e-posta gönderin",
+        "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
         "GETTINGSTARTED": {
             "TITLE": "Kullanmaya yeni mi başlıyorsunuz?",
             "INTRO": "Kısa bir başlangıç kılavuzunu içeren PDF dosyasını karşıdan yükleyin:",
@@ -1284,7 +1284,7 @@
             "TITLE": "Daha fazla bilgi edinmek mi istiyorsunuz?",
             "INTRO1": "Yolunda gitmeyen bir şeyler mi var?",
             "INTRO2": "Aşağıdaki listede en çok duyduğum sorular ve sorunlar yer alıyor. Sizin yaşadığınıza benzer bir sorun görürseniz ayrıntılı bilgi için özeti tıklatın.",
-            "INTRO3": "Hala zor durumdaysanız veya listeye eklemediğim bir sorunla karşı karşıyaysanız, üzgünüm! Lütfen <a href='mailto:dale.lane@uk.ibm.com'>bana e-posta gönderin</a> veya size yardımcı olabilmem için <a href='https://github.com/IBM/taxinomitis/issues'>bir sorun raporu oluşturun</a>."
+            "INTRO3": "Hala zor durumdaysanız veya listeye eklemediğim bir sorunla karşı karşıyaysanız, üzgünüm! Please <a href='https://groups.google.com/d/forum/mlforkids'>ask a question in the mlforkids Google Group</a> so that I can help."
         },
 
         "SCRATCH": {
@@ -1413,7 +1413,7 @@
             "Q2-A-1": "Oturum açabilmek için e-posta adresinizi doğrulamanız gerekir.",
             "Q2-A-2": "Sınıf hesabı oluşturduğunuzda, sağladığınız e-posta adresine tıklatılacak bir bağlantı içeren bir e-posta gönderilir. Bu bağlantıyı tıklatırsanız, e-posta adresiniz doğrulanır ve sınıf hesabı etkinleştirilir. Artık oturum açabilmeniz gerekir.",
             "Q2-A-3": "Doğrulama e-postasını henüz görmediyseniz, istenmeyen posta klasörünüze gitmediğinden emin olun. ",
-            "Q2-A-4": "Yine de bulamıyorsanız <a href='mailto:dale.lane@uk.ibm.com'>benimle iletişime geçin</a>, size yardımcı olmaya çalışacağım.",
+            "Q2-A-4": "Yine de bulamıyorsanız <a href='https://groups.google.com/d/forum/mlforkids'>benimle iletişime geçin</a>, size yardımcı olmaya çalışacağım.",
 
             "Q3": "Hesapları silme",
             "Q3-A-1": "Öğrenci hesapları",
