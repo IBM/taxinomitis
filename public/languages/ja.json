@@ -1271,7 +1271,7 @@
         }
     },
     "HELP": {
-        "CONTACT": "もし、問題や質問がある場合は、emailで Dale.Lane@uk.ibm.comまで英語でご連絡ください。",
+        "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
         "GETTINGSTARTED": {
             "TITLE": "さあ、始めましょう",
             "INTRO": "入門（簡易版）のPDFをダウンロードしてください。:",
@@ -1284,7 +1284,7 @@
             "TITLE": "もっと知る?",
             "INTRO1": "何か上手く動作しないですか？",
             "INTRO2": "よくある問題や質問を以下のリストにまとめています。もし、類似の問題に直面したら、まとめの文章をクリックして詳細を参照ください。",
-            "INTRO3": "それでも問題が解決できない場合や、リストにない問題に遭遇した場合は、お手数でも <a href='mailto:dale.lane@uk.ibm.com'>私に</a>英語でメールをするか、<a href='https://github.com/IBM/taxinomitis/issues'>このリンクから問題を報告</a>して頂ければ、問題解決を支援します。"
+            "INTRO3": "それでも問題が解決できない場合や、リストにない問題に遭遇した場合は、お手数でも <a href='https://groups.google.com/d/forum/mlforkids'>私に</a>英語でメールをするか、<a href='https://github.com/IBM/taxinomitis/issues'>このリンクから問題を報告</a>して頂ければ、問題解決を支援します。"
         },
 
         "SCRATCH": {
@@ -1413,7 +1413,7 @@
             "Q2-A-1": "ログオンできるようになる前に、あなたは、あなたのEmailアドレスを確認する必要があります。",
             "Q2-A-2": "クラスアカウントを作成時、あなたが提供したEmailアドレスに確認用のリンクを含むメールを送信します。このリンクをクリックすることでEmailアドレスが確認され、クラスアカウントが利用可能になり、ログインできるようになります。",
             "Q2-A-3": "もし、確認用のメールをまだ見ていないのであれば、スパムフォルダーに入っていないか確認してください。",
-            "Q2-A-4": "見つけられない場合は、<a href='mailto:dale.lane@uk.ibm.com'>私に英語でお知らせください。</a> 問題解決できるよう支援します。",
+            "Q2-A-4": "見つけられない場合は、<a href='https://groups.google.com/d/forum/mlforkids'>私に英語でお知らせください。</a> 問題解決できるよう支援します。",
 
             "Q3": "アカウントの削除",
             "Q3-A-1": "生徒用アカウント",

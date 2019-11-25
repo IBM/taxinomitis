@@ -1271,7 +1271,7 @@
         }
     },
     "HELP": {
-        "CONTACT": "Mejla gärna Dale.Lane@uk.ibm.com om du har några problem eller frågor",
+        "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
         "GETTINGSTARTED": {
             "TITLE": "Precis börjat?",
             "INTRO": "Ladda ner en PDF med en kort nybörjarguide:",
@@ -1284,7 +1284,7 @@
             "TITLE": "Vill du veta mer?",
             "INTRO1": "Är det nåt som inte funkar?",
             "INTRO2": "Listan nedan innehåller de frågor och problem som jag oftast får. Om du ser något som liknar problemet du har, klicka på sammanfattningen för mer information.",
-            "INTRO3": "Om du fortfarande sitter fast, eller om du stöter på ett problem som jag inte har tagit med i listan, ber jag om ursäkt för det! Vänligen <a href='mailto:dale.lane@uk.ibm.com'>mejla mig</a> eller <a href='https://github.com/IBM/taxinomitis/issues'>skapa en felanmälan</a> (på engelska) så att jag kan hjälpa till."
+            "INTRO3": "Om du fortfarande sitter fast, eller om du stöter på ett problem som jag inte har tagit med i listan, ber jag om ursäkt för det! Please <a href='https://groups.google.com/d/forum/mlforkids'>ask a question in the mlforkids Google Group</a> so that I can help."
         },
 
         "SCRATCH": {
@@ -1413,7 +1413,7 @@
             "Q2-A-1": "Du måste verifiera din e-postadress innan du kan logga in.",
             "Q2-A-2": "När du skapade ditt klasskonto, skickades ett mejl till e-postadressen du angav, med en länk att klicka på. Om du klickar på den länken kommer din e-postadress att verifieras och klasskontot kommer att aktiveras. Du bör kunna logga in nu.",
             "Q2-A-3": "Om du inte har sett verifieringsmejlet än, kontrollera att det inte hamnat i din skräpkorg.",
-            "Q2-A-4": "Om du fortfarande inte kan hitta det, <a href='mailto:dale.lane@uk.ibm.com'>informera mig (på engelska)</a> så ska jag försöka hjälpa dig.",
+            "Q2-A-4": "Om du fortfarande inte kan hitta det, <a href='https://groups.google.com/d/forum/mlforkids'>informera mig (på engelska)</a> så ska jag försöka hjälpa dig.",
 
             "Q3": "Radering av konto",
             "Q3-A-1": "Elevkonton",

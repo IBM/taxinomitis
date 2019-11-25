@@ -1271,7 +1271,7 @@
         }
     },
     "HELP": {
-        "CONTACT": "Wenn du Probleme oder Fragen hast, kontaktiere bitte Dale.Lane@uk.ibm.com (auf Englisch)",
+        "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
         "GETTINGSTARTED": {
             "TITLE": "Vorbereitung?",
             "INTRO": "Lade eine PDF mit Infos zur Vorbereitung (auf Englisch) herunter:",
@@ -1284,7 +1284,7 @@
             "TITLE": "Willst du mehr erfahren?",
             "INTRO1": "Funktioniert etwas nicht?",
             "INTRO2": "Die folgende Liste enthält häufige Fragen. Wenn du etwas findest, das deinem Problem ähnelt, klicke auf die Zusammenfassung für mehr Infos.",
-            "INTRO3": "Wenn du trotzdem nicht weiterkommst, oder ein Problem hast, das hier nicht aufgelistet ist, sorry! Bitte <a href='mailto:dale.lane@uk.ibm.com'>kontaktiere Dale (auf Englisch)</a> oder <a href='https://github.com/IBM/taxinomitis/issues'>erstelle eine Fehlermeldung (ebenfalls auf Englisch)</a>, sodass Dale helfen kann."
+            "INTRO3": "Wenn du trotzdem nicht weiterkommst, oder ein Problem hast, das hier nicht aufgelistet ist, sorry! Please <a href='https://groups.google.com/d/forum/mlforkids'>ask a question in the mlforkids Google Group</a> so that I can help."
         },
 
         "SCRATCH": {
@@ -1413,7 +1413,7 @@
             "Q2-A-1": "Du musst deine E-Mail Adresse bestätigen (Verifizieren), bevor du dich einloggen kannst.",
             "Q2-A-2": "Wenn du einen Account erstellst, wird automatisch eine E-Mail mit einem Link an die von dir angegebene E-Mail Adresse versendet. Wenn du auf den Link klickst, bestätigst du deine E-Mail Adresse und dein Klassenaccount wird freigeschaltet. Jetzt solltest du dich einloggen können.",
             "Q2-A-3": "Wenn du bisher keine E-Mail gesehen hast, überprüfe deinen Spam-Ordner.",
-            "Q2-A-4": "Wenn du die Mail immer noch nicht finden kannst, <a href='mailto:dale.lane@uk.ibm.com'>schreibe Dale (auf Englisch)</a> und er versucht zu helfen.",
+            "Q2-A-4": "Wenn du die Mail immer noch nicht finden kannst, <a href='https://groups.google.com/d/forum/mlforkids'>schreibe Dale (auf Englisch)</a> und er versucht zu helfen.",
 
             "Q3": "Accounts löschen",
             "Q3-A-1": "Schüleraccounts",

@@ -1271,7 +1271,7 @@
         }
     },
     "HELP": {
-        "CONTACT": "Si vous avez des problèmes ou des questions, veuillez envoyer un courriel à Dale.Lane@uk.ibm.com",
+        "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
         "GETTINGSTARTED": {
             "TITLE": "Pour commencer ?",
             "INTRO": "Téléchargez un PDF avec un petit guide de démarrage :",
@@ -1284,7 +1284,7 @@
             "TITLE": "Vous voulez en savoir plus ?",
             "INTRO1": "Quelque chose ne fonctionne pas ?",
             "INTRO2": "La liste ci-dessous contient les questions et les problèmes dont j'entends parler le plus souvent. Si vous voyez quelque chose qui ressemble à votre problème, cliquez sur le résumé pour plus d'informations.",
-            "INTRO3": "Si vous êtes toujours coincé, ou si vous avez rencontré un problème que je n'ai pas inclus dans la liste, désolé ! Veuillez <a href='mailto:dale.lane@uk.ibm.com'>m'envoyer un courriel</a> ou <a href='https://github.com/IBM/taxinomitis/issues'>créer un rapport de problème </a> pour que je puisse aider."
+            "INTRO3": "Si vous êtes toujours coincé, ou si vous avez rencontré un problème que je n'ai pas inclus dans la liste, désolé ! Veuillez <a href='https://groups.google.com/d/forum/mlforkids'>m'envoyer un courriel</a> ou <a href='https://github.com/IBM/taxinomitis/issues'>créer un rapport de problème </a> pour que je puisse aider."
         },
 
         "SCRATCH": {
@@ -1413,7 +1413,7 @@
             "Q2-A-1": "Vous devez vérifier votre adresse e-mail avant de pouvoir vous connecter.",
             "Q2-A-2": "Lorsque vous avez créé le compte de classe, un courriel vous sera envoyé à l'adresse électronique que vous avez fournie, avec un lien sur lequel cliquer. Si vous cliquez sur ce lien, votre adresse électronique sera vérifiée et le compte de la classe sera activé. Vous devriez pouvoir vous connecter maintenant.",
             "Q2-A-3": "Si vous n'avez pas encore vu le courriel de vérification, assurez-vous qu'il n'a pas été placé dans votre dossier de pourriels.",
-            "Q2-A-4": "Si vous ne le trouvez toujours pas, <a href='mailto:dale.lane@uk.ibm.com'>faites le moi savoir</a> et j'essaierai de vous aider.",
+            "Q2-A-4": "Si vous ne le trouvez toujours pas, <a href='https://groups.google.com/d/forum/mlforkids'>faites le moi savoir</a> et j'essaierai de vous aider.",
 
             "Q3": "Suppression de comptes",
             "Q3-A-1": "Comptes pour élèves",
