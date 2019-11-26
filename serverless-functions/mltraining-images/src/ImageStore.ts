@@ -1,6 +1,8 @@
 // external dependencies
 import * as fs from 'fs';
 import * as IBMCosSDK from 'ibm-cos-sdk';
+import * as tmp from 'tmp';
+import * as gm from 'gm';
 // internal dependencies
 import * as Requests from './Requests';
 import { log } from './Debug';
@@ -37,6 +39,7 @@ export default class ImageStore {
     }
 
 
+
     /**
      * Download an image from cloud object storage
      *
@@ -49,15 +52,25 @@ export default class ImageStore {
             Key: this.generateKey(imagespec),
         };
 
-        return this.cos.getObject(objectDefinition).promise()
+        let tempFile: string;
+
+        return this.getTmpFileLocation()
+            .then((location) => {
+                tempFile = location;
+                return this.cos.getObject(objectDefinition).promise();
+            })
             .then((response) => {
                 return this.getImageObject(objectDefinition.Key, response);
             })
             .then((image) => {
-                return fs.promises.writeFile(targetFile, image.body);
+                return fs.promises.writeFile(tempFile, image.body);
+            })
+            .then(() => {
+                return this.resizeImage(tempFile, targetFile);
             })
             .catch((err) => {
                 let cause;
+                log('Failed to download image from store', imagespec, this.generateKey(imagespec), objectDefinition);
                 if (err.message === 'Missing credentials in config') {
                     cause = 'auth';
                 }
@@ -69,6 +82,33 @@ export default class ImageStore {
             });
     }
 
+
+    private getTmpFileLocation(): Promise<string> {
+        return new Promise((resolve, reject) => {
+            tmp.file((err, location) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(location);
+            });
+        });
+    }
+
+    private resizeImage(src: string, dest: string): Promise<void> {
+        // imagemagick option
+        const IGNORE_ASPECT_RATIO = '!';
+
+        return new Promise((resolve, reject) => {
+            gm(src)
+                .resize(224, 224, IGNORE_ASPECT_RATIO)
+                .write(dest, (err) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    return resolve();
+                });
+        });
+    }
 
     private generateKey(spec: Requests.ObjectStorageSpec): string {
         const key = [

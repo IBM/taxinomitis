@@ -119,6 +119,13 @@ async function createWorkspace(
                 //  creds in the pool
                 finalError = ERROR_MESSAGES.API_KEY_RATE_LIMIT;
             }
+            else if (err.statusCode === httpStatus.UNAUTHORIZED || err.statusCode === httpStatus.FORBIDDEN)
+            {
+                // The API credentials were rejected.
+                // The teacher/group leader needs to fix this.
+                log.warn({ err, project, credentials }, 'Watson Assistant credentials rejected');
+                throw err;
+            }
             else {
                 // Otherwise - rethrow it so we can bug out.
                 log.error({ err, project, credentials : credentials.id }, 'Unhandled Conversation exception');

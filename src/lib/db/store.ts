@@ -955,11 +955,13 @@ export async function storeBluemixCredentials(
 ): Promise<TrainingObjects.BluemixCredentials>
 {
     const queryString = 'INSERT INTO `bluemixcredentials` ' +
-                        '(`id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid`) ' +
-                        'VALUES (?, ?, ?, ?, ?, ?, ?)';
+                        '(`id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid`, `notes`) ' +
+                        'VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
 
     const values = [ credentials.id, classid,
-        credentials.servicetype, credentials.url, credentials.username, credentials.password, credentials.credstypeid ];
+        credentials.servicetype, credentials.url, credentials.username, credentials.password,
+        credentials.credstypeid,
+        credentials.notes ? credentials.notes : null ];
 
     const response = await dbExecute(queryString, values);
     if (response.affectedRows === 1) {
@@ -1861,6 +1863,44 @@ export async function getNextPendingJob(): Promise<Objects.PendingJob | undefine
 // TENANT INFO
 //
 // -----------------------------------------------------------------------------
+
+
+export async function storeManagedClassTenant(classid: string, numstudents: number): Promise<Objects.ClassTenant>
+{
+    const obj = dbobjects.createClassTenant(classid);
+    const IS_MANAGED = true;
+    const NUM_USERS = numstudents + 1;
+
+    const queryString = 'INSERT INTO `tenants` ' +
+                        '(`id`, `projecttypes`, `ismanaged`, ' +
+                        '`maxusers`, `maxprojectsperuser`, ' +
+                        '`textclassifiersexpiry`, `imageclassifiersexpiry`) ' +
+                        'VALUES (?, ?, ?, ?, ?, ?, ?)';
+
+    const values = [
+        obj.id, obj.projecttypes,
+        IS_MANAGED, NUM_USERS,
+        obj.maxprojectsperuser,
+        obj.textclassifiersexpiry, obj.imageclassifiersexpiry,
+    ];
+
+    const response = await dbExecute(queryString, values);
+    if (response.affectedRows !== 1) {
+        log.error({ response, values }, 'Failed to store managed tenant');
+        throw new Error('Failed to store managed tenant');
+    }
+    const created = {
+        id : obj.id,
+        supportedProjectTypes : obj.projecttypes.split(',') as Objects.ProjectTypeLabel[],
+        isManaged : IS_MANAGED,
+        maxUsers : NUM_USERS,
+        maxProjectsPerUser : obj.maxprojectsperuser,
+        textClassifierExpiry : obj.textclassifiersexpiry,
+        imageClassifierExpiry : obj.imageclassifiersexpiry,
+    };
+    return created;
+}
+
 
 export async function getClassTenant(classid: string): Promise<Objects.ClassTenant> {
     const queryString = 'SELECT `id`, `projecttypes`, `maxusers`, ' +

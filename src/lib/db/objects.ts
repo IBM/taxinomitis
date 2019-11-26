@@ -397,12 +397,28 @@ export function createImageTraining(
     return object;
 }
 
+
+const IMAGEURL_USERID_REGEX = /\/api\/classes\/[0-9a-f-]{36}\/students\/(auth0\|[0-9a-f]*)\/projects\/[0-9a-f-]{36}\/images\/[0-9a-f-]{36}/;
+
+// For references to images in the imagestore, it's not safe to assume
+//  that the userid associated with a project is the user who stored
+//  an image so we extract that from the URL
+function getUserIdFromImageUrl(imageurl: string): string | undefined {
+    const check = IMAGEURL_USERID_REGEX.exec(imageurl);
+    if (check) {
+        return check[1];
+    }
+}
+
 export function getImageTrainingFromDbRow(row: Objects.ImageTrainingDbRow): Objects.ImageTraining {
     const obj: any = {
         id : row.id,
         imageurl : row.imageurl,
         isstored : row.isstored ? true : false,
     };
+    if (obj.isstored) {
+        obj.userid = getUserIdFromImageUrl(obj.imageurl);
+    }
     if (row.label) {
         obj.label = row.label;
     }
@@ -484,7 +500,7 @@ export function getCredentialsFromDbRow(
 export function getCredentialsAsDbRow(obj: TrainingObjects.BluemixCredentials,
 ): TrainingObjects.BluemixCredentialsDbRow
 {
-    return {
+    const creds: TrainingObjects.BluemixCredentialsDbRow = {
         id : obj.id,
         servicetype : obj.servicetype,
         url : obj.url,
@@ -495,6 +511,10 @@ export function getCredentialsAsDbRow(obj: TrainingObjects.BluemixCredentials,
                         projects.credsTypesByLabel[obj.credstype].id :
                         projects.credsTypesByLabel.unknown.id,
     };
+    if (obj.notes) {
+        creds.notes = obj.notes;
+    }
+    return creds;
 }
 
 function validateVisrecApiKey(apikey?: string): string {

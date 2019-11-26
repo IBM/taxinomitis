@@ -69,6 +69,14 @@
             "BODY2": "While I've focused on explaining how AI systems are trained and behave (and the real-world implications), eCraft2Learn has fantastic resources that dive deep into how ML systems actually work.",
             "BODY3": "The <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>neural net Tic Tac Toe project</a> is particularly fascinating, allowing students to experiment with hyperparameters from Snap."
         },
+        "STEMLEARNING": {
+            "BODY1": "STEM Learning and the UK Department for Business, Energy and Industrial Strategy have created resources for teaching the principles of artificial intelligence.",
+            "BODY2": "These resources include <em>Machine Learning for Kids</em> projects, supplemented with teaching notes, presentation materials, prompt cards, and practical “unplugged” activities"
+        },
+        "RASPBERRYPI": {
+            "BODY1": "The Raspberry Pi Foundation provides resources for Code Clubs, with step-by-step instructions for a variety of creative projects.",
+            "BODY2": "Their machine learning pathway includes a variety of projects from <em>Machine Learning for Kids</em>."
+        },
         "APPSFORGOOD": {
             "BODY1": "Apps for Good are a UK-based not-for-profit that creates resources for teaching technology subjects, that they make freely available to schools.",
             "BODY2": "Their Machine Learning course uses <em>Machine Learning for Kids</em>, and supplements it with a range of additional materials like schemes of work, lesson plans, student workbooks, presentations and more. It makes it easy for schools to deliver ML lessons that put the coding exercises in context."
@@ -76,6 +84,9 @@
         "AIFAMILYCHALLENGE": {
             "BODY1": "The AI Family Challenge is a free, hands-on AI education program for families. They use <em>Machine Learning for Kids</em>, and supplement it with a lot of additional support, such as technical coaches and mentors, a structured lesson plan and supporting videos.",
             "BODY2": "The program is based around a competition that challenges children to think of their own AI project ideas, with the support of their families and technical mentors."
+        },
+        "MAGENTADEMOS": {
+            "BODY1": "Online toys that demonstrate different aspects of machine learning, using TensorFlow.js"
         },
         "AIINSCHOOLS": {
             "BODY1": "The AIinSchools programme provides a free lesson plan for teachers to explain AI to Year 9 (aged 13-14).",
@@ -531,7 +542,118 @@
             "PREVIOUSLY_ATTEMPTED": "Vous l'avez déjà vu - voyons si vous vous souvenez de la bonne réponse cette fois-ci !",
             "CORRECT_ANSWER": "C'est ça !",
             "INCORRECT_ANSWER": "Non, désolé. La bonne réponse est indiquée ci-dessus.",
-            "NEXT_QUESTION": "Question suivante"
+            "NEXT_QUESTION": "Question suivante",
+
+            "QUESTION_1": {
+                "QUESTION": "In general, what will help machines to learn better?",
+                "ANSWER_1": "More examples",
+                "ANSWER_2": "Fewer examples",
+                "NOTES_1": "That isn't the only thing that has an effect. But in general, the more examples it has to learn from, the better it should learn."
+            },
+            "QUESTION_2": {
+                "QUESTION": "Which of these would probably be best for training a computer to recognise a photo of an apple?",
+                "ANSWER_1": "Photos of dogs",
+                "ANSWER_2": "Varied photos of different types of apples in different places",
+                "ANSWER_3": "Identical photos of an apple",
+                "ANSWER_4": "Very, very similar photos of the same apple in the same place",
+                "NOTES_1": "The more varied the examples you can collect, the more the system can learn about how to recognise different pictures of an apple.",
+                "NOTES_2": "If every example you give it is the same apple on the same brown wooden table, it might learn that something is only an apple if it's on a brown wooden table."
+            },
+            "QUESTION_3": {
+                "QUESTION": "Which of these would be a good use of machine learning?",
+                "ANSWER_1": "Adding big numbers together",
+                "ANSWER_2": "Recognising if an email is spam",
+                "ANSWER_3": "Counting the number of times a button is pressed",
+                "NOTES_1": "Spam filters are a good example of machine learning.",
+                "NOTES_2": "With enough examples of legitimate emails, and enough examples of spam emails, a computer can start to learn how to recognise a spam email."
+            },
+            "QUESTION_4": {
+                "QUESTION": "Which of these is NOT a good use of machine learning?",
+                "ANSWER_1": "Sentiment analysis - recognising the mood, tone or emotion in text",
+                "ANSWER_2": "Translating text from one language to another",
+                "ANSWER_3": "Face recognition - recognising a face in a photo and identifying who it is",
+                "ANSWER_4": "Self-driving cars",
+                "ANSWER_5": "Calculating the cost of something in different countries based on exchange rates",
+                "ANSWER_6": "Recommending a movie based on films you've watched before",
+                "NOTES_1": "Tasks that involve following rules which can be worked out are not a good use for machine learning.",
+                "NOTES_2": "A computer isn't going to learn how to apply an exchange rate from examples - we can just tell it what to do."
+            },
+            "QUESTION_5": {
+                "QUESTION": "Which of these would be more likely to be successful?",
+                "ANSWER_1": "Collect a small set of examples, train a system, test to see how good it is. Add more examples, train again, and then test again. Repeat until it gets good enough.",
+                "ANSWER_2": "More examples is better, so decide you must need millions of examples. Start collecting a massive set of examples, and spend months collecting more and more and more.",
+                "NOTES_1": "More examples is generally better, but be practical.",
+                "NOTES_2": "Pragmatism is important. Regular testing is useful to let you know how things are going, and help you know when you've done enough.",
+                "NOTES_3": "When you've only got ten examples, another ten examples will probably make a huge difference.",
+                "NOTES_4": "When you've got 100,000 examples, another ten examples probably won't have a noticeable impact."
+            },
+            "QUESTION_6": {
+                "QUESTION": "Which of these statements is correct?",
+                "ANSWER_1": "Machine learning is a technique where computers can be trained to perform tasks instead of needing to be given an explicit set of steps to follow",
+                "ANSWER_2": "Machine learning is magic",
+                "ANSWER_3": "Machine learning means we don't need to think about problems any more because computers will think for us",
+                "ANSWER_4": "Machine learning has replaced the need for us to learn how to code",
+                "ANSWER_5": "Machine learning can only be done on massive supercomputers"
+            },
+            "QUESTION_7": {
+                "QUESTION": "A machine learning system trained to recognise pictures with a tree in should be good at which of the following tasks:",
+                "ANSWER_1": "Identifying pictures of fruit",
+                "ANSWER_2": "Recognising the emotion in a piece of writing",
+                "ANSWER_3": "Recognising pictures of trees",
+                "NOTES_1": "Machine learning does not mean computers magically learn to do everything.",
+                "NOTES_2": "It means they learn how to do a specific task by being shown examples of that specific task.",
+                "NOTES_3": "If you want it to do something else, you need to train it to do that as well, by giving it examples of that."
+            },
+            "QUESTION_8": {
+                "QUESTION": "Alice and Bob both want to train a machine learning system to recognise if text is happy/positive or sad/negative. Which of them will probably train the best system?",
+                "ANSWER_1": "Alice. She has collected 10 varied examples of happy text, and 10 varied examples of sad text",
+                "ANSWER_2": "Bob. He has collected 1000 examples of happy writing and 10 examples of sad writing",
+                "NOTES_1": "Collecting a roughly similar number of examples for each label is a useful technique.",
+                "NOTES_2": "If nearly every example of writing you train a system with is happy, you might end up training the system to assume that sad writing is very unlikely, and that it should assume happy more often.",
+                "NOTES_3": "",
+                "NOTES_4": "But, you might want it to do this.",
+                "NOTES_5": "If you're training a system to recognise text where text is happy 98% of the time, training it with that realistic experience might be worth a try."
+            },
+            "QUESTION_9": {
+                "QUESTION": "Advanced machine learning technology will always give correct answers. Incorrect answers mean the machine learning technology isn't very good",
+                "ANSWER_1": "True",
+                "ANSWER_2": "False",
+                "NOTES_1": "Not necessarily.",
+                "NOTES_2": "",
+                "NOTES_3": "The technology and algorithms are important. BUT machine learning systems are only as accurate and reliable as the training they are given.",
+                "NOTES_4": "Simple machine learning algorithms with a lot of high quality training can do better than the most advanced machine learning algorithms with a small amount of poor quality training."
+            },
+            "QUESTION_10": {
+                "QUESTION": "How can you make sure your collection of animal pictures is good quality for training a machine and doesn't contain human mistakes?",
+                "ANSWER_1": "Manually inspect all of the pictures of animals yourself and make sure you agree with all of the labels",
+                "ANSWER_2": "Ask lots of people to label all the images and keep the training labels that people generally agree on",
+                "ANSWER_3": "Trick question! Humans are always right - machines make mistakes!",
+                "NOTES_1": "Even humans make mistakes and you won't always have time to double check all the training data!",
+                "NOTES_2": "If the task is tricky it can be a good idea to get more than one person to label each image and keep the label that the most humans agree is the right one."
+            },
+            "QUESTION_11": {
+                "QUESTION": "A machine trained to identify pictures of \"food\" or \"not food\" gives inconsistent results for sandwiches, often putting them in the \"not food\" class. Which of the following could explain that?",
+                "ANSWER_1": "The human who trained the system doesn't like sandwiches and didn't put any in the training data",
+                "ANSWER_2": "The machine has to be in the right mood for a sandwich so it changes its mind a lot",
+                "ANSWER_3": "Sandwiches are not food. The system is right to be unsure",
+                "NOTES_1": "Machine learning models can only learn from the examples we show them.",
+                "NOTES_2": "It is very easy for humans to accidentally introduce their likes and dislikes into machine learning models so we should be very careful about what training data we use."
+            },
+            "QUESTION_12": {
+                "QUESTION": "Which of the following best describes unsupervised learning?",
+                "ANSWER_1": "Writing a program that contains lots of if/else statements to determine the result",
+                "ANSWER_2": "A machine learning algorithm that uses unlabelled data and classifies it based on how similar one dataset is to another",
+                "ANSWER_3": "A machine learning algorithm that uses labelled data and classifies it based on training from example input-output pairs",
+                "NOTES_1": "Unsupervised learning is a type of machine learning, whereas only using if/else statements is not.",
+                "NOTES_2": "Unsupervised learning algorithms are still trained, but the inputs that are given to it are not labelled or classified.",
+                "NOTES_3": "If the data is labelled then this is what's known as supervised learning."
+            },
+            "QUESTION_13": {
+                "QUESTION": "Without machine learning, it would be impossible for search engines such as Google to exist.",
+                "ANSWER_1": "True",
+                "ANSWER_2": "False",
+                "NOTES_1": "Whilst many modern search engines do use machine learning, it is possible to create one without it. A basic search engine will just look for documents (web pages) that include the words the user searches for."
+            }
         }
     },
     "DESCRIBEMODEL": {
@@ -565,8 +687,12 @@
     "APPINVENTOR": {
         "TITLE": "Utilisation de l'apprentissage automatique dans App Inventor",
 
+        "LAUNCH_APPINVENTOR_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>App Inventor by itself</a> if you want.)",
+
         "NOTREADY": "Votre projet n'est pas encore prêt à être utilisé dans App Inventor.",
-        "NOMODEL": "Vous n'avez pas encore entraîné un modèle d'apprentissage machine."
+        "NOMODEL": "Vous n'avez pas encore entraîné un modèle d'apprentissage machine.",
+
+        "LAUNCH": "Open App Inventor"
     },
     "SCRATCH": {
         "TITLE": "Utilisation de l'apprentissage machine dans Scratch",
@@ -580,10 +706,14 @@
         "GO_TO_LEARNANDTEST": "Ou aller à la page <a href='{{ urls.learnandtest }}'>Entrainer &amp; Tester</a>  pour quelques conseils sur ce qu'il faut faire ensuite.",
 
         "MORE_BLOCKS": "Votre projet ajoutera ces blocs à l'onglet <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>Plus de blocs</span> dans Scripts.",
+        "MORE_BLOCKS_3": "Your project will add these blocks to Scratch.",
         "EXPLAIN_RECOGNISE_LABEL": "Placer {{ type }} dans l'entrée prévue à cet effet, et il retournera l'étiquette de ce que votre modèle d'apprentissage machine reconnaît.",
         "EXPLAIN_RECOGNISE_CONFIDENCE": "Cela retournera une indice de confiance de la machine pour la reconnaissance proposée de {{ type }}. (un nombre entre 0 - 100).",
         "EXPLAIN_LABELS": "Ces blocs représentent les étiquettes que vous avez créées dans votre projet, vous pouvez donc utiliser leurs noms dans vos scripts.",
         "EXPLAIN_COSTUMEIMAGE": "Ce bloc se trouve dans la palette Recherches pour Sprites et renvoie l'image du costume actuellement sélectionné.",
+        "EXPLAIN_ADD_TRAINING": "Use this to add a new example to your training data. (Training data has an effect after you train a machine learning model with it)",
+        "EXPLAIN_TRAIN_MODEL": "Use this to train a new machine learning model",
+        "EXPLAIN_IS_MODEL_READY": "The machine learning model will take a minute before it's ready for use. You can use these blocks to wait until it is ready.",
         "SAMPLE_SCRIPT": "Cela signifie que vous pouvez faire quelque chose comme ça :",
         "SAMPLE_SCREENSHOT": "Cela devrait ressembler à quelque chose comme ceci - sauf avec le nom de votre projet.",
         "EXPLAIN_STATUS": "Le cercle coloré à côté du nom de votre projet vous indique si votre modèle d'apprentissage machine est correct.",
@@ -647,152 +777,303 @@
         "SMARTCLASSROOM": {
             "TITLE": "Salle de classe intelligente",
             "SUMMARY": "Apprenez à un ordinateur à reconnaître vos commandes",
-            "DESCRIPTION": "Créez un assistant intelligent dans Scratch qui vous permet de contrôler les périphériques virtuels."
+            "DESCRIPTION": "Créez un assistant intelligent dans Scratch qui vous permet de contrôler les périphériques virtuels.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where the students make a non-machine learning version first",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Shorter version of the project, where the students only make a machine learning version of the assistant",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-easy.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "Quick simplified version of the project, ideal for use as a first introduction to the tool",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-tryitnow.pdf"
+            }
         },
         "MAKEMEHAPPY": {
             "TITLE": "Rends-moi heureux",
             "SUMMARY": "Apprenez à un ordinateur à reconnaître les compliments et les insultes.",
-            "DESCRIPTION": "Créez un personnage dans Scratch qui sourit si vous lui dites des choses gentilles et pleure si vous lui dites des choses méchantes."
+            "DESCRIPTION": "Créez un personnage dans Scratch qui sourit si vous lui dites des choses gentilles et pleure si vous lui dites des choses méchantes.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where the students make a non-machine learning version first",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Shorter version of the project, where the students only make a machine learning version",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-easy.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "Python project - for making the project using Python",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-python.pdf"
+            }
         },
         "SNAP": {
             "TITLE": "Snap!",
             "SUMMARY": "Apprenez à un ordinateur à reconnaître à quoi ressemblent les icônes",
-            "DESCRIPTION": "Faites un jeu de cartes dans Scratch qui apprend à reconnaître les images de votre carte."
+            "DESCRIPTION": "Faites un jeu de cartes dans Scratch qui apprend à reconnaître les images de votre carte.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where the students make their own cards that they will train the computer to recognise",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Shorter version of the project, providing children with pre-made cards that you will need to print out, to save the students time having to make them",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap-easy.pdf",
+                "RESOURCES": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/resources-snap-easy.pdf"
+            }
         },
         "CHAMELEON": {
             "TITLE": "Caméléon",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître les couleurs",
-            "DESCRIPTION": "Faites un caméléon dans Scratch qui change de couleur pour correspondre à son arrière-plan."
+            "DESCRIPTION": "Faites un caméléon dans Scratch qui change de couleur pour correspondre à son arrière-plan.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf"
+            }
         },
         "MAILMANMAX": {
             "TITLE": "Le facteur Max",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître l'écriture manuscrite",
-            "DESCRIPTION": "Faites un bureau de tri postal dans Scratch qui peut reconnaître les codes postaux manuscrits sur les enveloppes."
+            "DESCRIPTION": "Faites un bureau de tri postal dans Scratch qui peut reconnaître les codes postaux manuscrits sur les enveloppes.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mailmanmax.pdf"
+            }
         },
         "CARORCUP": {
             "TITLE": "Voiture ou tasse",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître les images d'objets",
-            "DESCRIPTION": "Entraînez l'ordinateur pour qu'il soit capable de trier les photos en groupes."
+            "DESCRIPTION": "Entraînez l'ordinateur pour qu'il soit capable de trier les photos en groupes.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Individual version of the project, where each student trains their own machine learning model independently",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Group version of the project, where students in the class work together to train a shared machine learning model",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup-crowd.pdf"
+            }
         },
         "FACELOCK": {
             "TITLE": "Débloquer son téléphone avec son visage",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître les visages",
-            "DESCRIPTION": "Faites un téléphone dans Scratch qui se déverrouille s'il reconnaît votre visage."
+            "DESCRIPTION": "Faites un téléphone dans Scratch qui se déverrouille s'il reconnaît votre visage.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facelock.pdf"
+            }
         },
         "JOURNEYTOSCHOOL": {
             "TITLE": "Aller à l'école",
             "SUMMARY": "Apprendre à un ordinateur à faire des prédictions",
-            "DESCRIPTION": "Entraînez l'ordinateur pour être capable de prédire comment vous vous rendrez à l'école le matin."
+            "DESCRIPTION": "Entraînez l'ordinateur pour être capable de prédire comment vous vous rendrez à l'école le matin.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-journeytoschool.pdf"
+            }
         },
         "SHYPANDA": {
             "TITLE": "Panda timide",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître les images",
-            "DESCRIPTION": "Faites un panda dansant qui devient timide et arrête de danser si vous le regardez."
+            "DESCRIPTION": "Faites un panda dansant qui devient timide et arrête de danser si vous le regardez.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda.pdf"
+            }
         },
         "VIRTUALPET": {
             "TITLE": "Animal de compagnie virtuel",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître les images",
-            "DESCRIPTION": "Apprenez à l'ordinateur à reconnaître ce que vous faites afin de pouvoir prendre soin d'un animal de compagnie virtuel."
+            "DESCRIPTION": "Apprenez à l'ordinateur à reconnaître ce que vous faites afin de pouvoir prendre soin d'un animal de compagnie virtuel.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-virtualpet.pdf"
+            }
         },
         "PACMAN": {
             "TITLE": "Pac-Man",
             "SUMMARY": "Apprendre à un ordinateur à jouer à un jeu",
-            "DESCRIPTION": "Créer un jeu Pac-Man dans Scratch qui apprend comment éviter le fantôme."
+            "DESCRIPTION": "Créer un jeu Pac-Man dans Scratch qui apprend comment éviter le fantôme.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pacman.pdf"
+            }
         },
         "CHATBOTS": {
             "TITLE": "Agent conversationnel",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître les questions",
-            "DESCRIPTION": "Créez un agent conversationnel qui peut répondre à des questions sur un sujet de votre choix."
+            "DESCRIPTION": "Créez un agent conversationnel qui peut répondre à des questions sur un sujet de votre choix.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Scratch project - for making a chat bot in Scratch",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Python project - for making a chat bot using Python",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots-python.pdf"
+            }
         },
         "TOURISTINFO": {
             "TITLE": "Information pour les touristes",
             "SUMMARY": "Apprendre à un ordinateur à faire des recommandations",
-            "DESCRIPTION": "Créez une application mobile dans Scratch qui recommande des attractions touristiques en fonction des intérêts des gens."
+            "DESCRIPTION": "Créez une application mobile dans Scratch qui recommande des attractions touristiques en fonction des intérêts des gens.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-touristinfo.pdf"
+            }
         },
         "SORTINGHAT": {
             "TITLE": "Choixpeau",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître l'usage du langage",
-            "DESCRIPTION": "Créez un 'chapeau de tri' comme dans Harry Potter, qui vous place dans une école en fonction de ce que vous dites."
+            "DESCRIPTION": "Créez un 'chapeau de tri' comme dans Harry Potter, qui vous place dans une école en fonction de ce que vous dites.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Individual version of the project, where each student trains their own machine learning model independently",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Group version of the project, where students in the class work together to train a shared machine learning model",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat-crowd.pdf"
+            }
         },
         "ROCKPAPERSCISSORS": {
             "TITLE": "Pierre, Papier, Ciseaux",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître les formes.",
-            "DESCRIPTION": "Réalisez un jeu de Pierre, Papier, Ciseaux dans Scratch qui apprend à reconnaître les formes des mains."
+            "DESCRIPTION": "Réalisez un jeu de Pierre, Papier, Ciseaux dans Scratch qui apprend à reconnaître les formes des mains.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-rockpaperscissors.pdf"
+            }
         },
         "JUDGEABOOK": {
             "TITLE": "Juger un livre",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître le style visuel",
-            "DESCRIPTION": "Faites un jeu dans Scratch pour tester s'il est vraiment possible de juger un livre par sa couverture."
+            "DESCRIPTION": "Faites un jeu dans Scratch pour tester s'il est vraiment possible de juger un livre par sa couverture.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where children make a game to compete against the computer to recognise books",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Simplified version of the project, where children get the computer to recognise books",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf"
+            }
         },
         "LOCATELARRY": {
             "TITLE": "Où est Larry ?",
             "SUMMARY": "Apprendre à un ordinateur à trouver quelque chose dans une image",
-            "DESCRIPTION": "Programmer un jeu dans le style \"Où est Charlie?\"- dans Scratch, et apprenez à l'ordinateur à trouver votre personnage."
+            "DESCRIPTION": "Programmer un jeu dans le style \"Où est Charlie?\"- dans Scratch, et apprenez à l'ordinateur à trouver votre personnage.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf"
+            }
         },
         "CONFUSED": {
             "TITLE": "Confus",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître les fruits",
-            "DESCRIPTION": "Apprenez comment les ordinateurs peuvent être confus et peuvent faire des erreurs s'ils sont mal entraînés.."
+            "DESCRIPTION": "Apprenez comment les ordinateurs peuvent être confus et peuvent faire des erreurs s'ils sont mal entraînés..",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-confused.pdf"
+            }
         },
         "SCHOOLLIBRARY": {
             "TITLE": "Bibliothèque scolaire",
             "SUMMARY": "Apprendre à un ordinateur à faire des recommandations",
-            "DESCRIPTION": "Créer un bibliothécaire scolaire avec Scratch qui suggère à qui pourrait convenir un livre."
+            "DESCRIPTION": "Créer un bibliothécaire scolaire avec Scratch qui suggère à qui pourrait convenir un livre.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf"
+            }
         },
         "WHATTWITTERTHINKS": {
             "TITLE": "Qu'en pense Twitter ?",
             "SUMMARY": "Enseigner à un ordinateur à mesurer l'opinion publique",
-            "DESCRIPTION": "Créer un outil d'analyse de sentiment avec Scratch pour analyser les discussions sur Twitter"
+            "DESCRIPTION": "Créer un outil d'analyse de sentiment avec Scratch pour analyser les discussions sur Twitter",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
+            }
         },
         "NOUGHTSANDCROSSES": {
             "TITLE": "Jeu de morpions",
             "SUMMARY": "Apprendre à un ordinateur à jouer à un jeu",
-            "DESCRIPTION": "Créez un jeu de morpions avec Scratch qui apprend à vous battre."
+            "DESCRIPTION": "Créez un jeu de morpions avec Scratch qui apprend à vous battre.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Classroom version, where each student makes the game themselves in Scratch",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Classroom version, where each student makes the game themselves in Python",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-python.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "Demo version, for events like Science Fairs where each child has a minute or two to try something",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-event.pdf"
+            }
         },
         "TOPTRUMPS": {
             "TITLE": "Meilleurs atouts",
             "SUMMARY": "Apprendre à un ordinateur à jouer à un jeu",
-            "DESCRIPTION": "Entraînez un ordinateur pour pouvoir jouer au jeu de cartes Meilleurs Atouts avec Scratch."
+            "DESCRIPTION": "Entraînez un ordinateur pour pouvoir jouer au jeu de cartes Meilleurs Atouts avec Scratch.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-toptrumps.pdf"
+            }
         },
         "HEADLINES": {
             "TITLE": "A la une",
             "SUMMARY": "Tester la capacité de l'ordinateur à reconnaître l'utilisation de la langue",
-            "DESCRIPTION": "Entrainer un ordinateur à reconnaître les titres des journaux nationaux."
+            "DESCRIPTION": "Entrainer un ordinateur à reconnaître les titres des journaux nationaux.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
+            }
         },
         "NEWSPAPERSHELVES": {
             "TITLE": "Newspaper shelves",
             "SUMMARY": "Test the computer's ability to recognise use of language",
-            "DESCRIPTION": "Train a computer to recognise headlines from national newspapers."
+            "DESCRIPTION": "Train a computer to recognise headlines from national newspapers.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-easy.pdf"
+            }
         },
         "HEADLINETESTING": {
             "TITLE": "Headline testing",
             "SUMMARY": "Test the computer's ability to recognise use of language",
-            "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is"
+            "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
+            }
         },
         "FINDIT": {
             "TITLE": "Trouve-le !",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître les images",
-            "DESCRIPTION": "Créez un jeu de cache-cache pour votre téléphone portable"
+            "DESCRIPTION": "Créez un jeu de cache-cache pour votre téléphone portable",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-findit.pdf"
+            }
         },
         "ALIENLANGUAGE": {
             "TITLE": "Communique avec un Alien",
             "SUMMARY": "Entraine un ordinateur à reconnaître des sons",
-            "DESCRIPTION": "Crée un Alien dans Scratch qui apprend comment reconnaître des sons d'un langage alien"
+            "DESCRIPTION": "Crée un Alien dans Scratch qui apprend comment reconnaître des sons d'un langage alien",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-alienlanguage.pdf"
+            }
         },
         "SECRETCODE": {
             "TITLE": "Secret Code",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître la parole",
-            "DESCRIPTION": "Entraînez un ordinateur à comprendre les mots de code secret pour guider un espion."
+            "DESCRIPTION": "Entraînez un ordinateur à comprendre les mots de code secret pour guider un espion.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-secretcode.pdf"
+            }
         },
         "JARGONBUSTER": {
             "TITLE": "Jargon Buster",
             "SUMMARY": "Apprendre à un ordinateur à écouter les mots",
-            "DESCRIPTION": "Créez un projet dans Scratch qui affiche le sens des mots que vous dites."
+            "DESCRIPTION": "Créez un projet dans Scratch qui affiche le sens des mots que vous dites.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-jargonbuster.pdf"
+            }
         },
         "TITANIC": {
             "TITLE": "Titanic",
             "SUMMARY": "Teach a computer to predict outcomes",
-            "DESCRIPTION": "Create a Python program that can predict who survived the sinking of the Titanic."
+            "DESCRIPTION": "Create a Python program that can predict who survived the sinking of the Titanic.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
+            }
+        },
+        "ZOMBIEESCAPE": {
+            "TITLE": "Zombie Escape!",
+            "SUMMARY": "Teach a computer to make predictions",
+            "DESCRIPTION": "Train a computer to help you escape from the zombies",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -990,7 +1271,7 @@
         }
     },
     "HELP": {
-        "CONTACT": "Si vous avez des problèmes ou des questions, veuillez envoyer un courriel à Dale.Lane@uk.ibm.com",
+        "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
         "GETTINGSTARTED": {
             "TITLE": "Pour commencer ?",
             "INTRO": "Téléchargez un PDF avec un petit guide de démarrage :",
@@ -1003,7 +1284,7 @@
             "TITLE": "Vous voulez en savoir plus ?",
             "INTRO1": "Quelque chose ne fonctionne pas ?",
             "INTRO2": "La liste ci-dessous contient les questions et les problèmes dont j'entends parler le plus souvent. Si vous voyez quelque chose qui ressemble à votre problème, cliquez sur le résumé pour plus d'informations.",
-            "INTRO3": "Si vous êtes toujours coincé, ou si vous avez rencontré un problème que je n'ai pas inclus dans la liste, désolé ! Veuillez <a href='mailto:dale.lane@uk.ibm.com'>m'envoyer un courriel</a> ou <a href='https://github.com/IBM/taxinomitis/issues'>créer un rapport de problème </a> pour que je puisse aider."
+            "INTRO3": "Si vous êtes toujours coincé, ou si vous avez rencontré un problème que je n'ai pas inclus dans la liste, désolé ! Veuillez <a href='https://groups.google.com/d/forum/mlforkids'>m'envoyer un courriel</a> ou <a href='https://github.com/IBM/taxinomitis/issues'>créer un rapport de problème </a> pour que je puisse aider."
         },
 
         "SCRATCH": {
@@ -1037,7 +1318,7 @@
             "TITLE": "Problème avec l'interface d'entraînement",
 
             "Q1": "Glisser des images dans les dossiers d'entraînement (pour les projets d'images) ne fonctionne pas.",
-            "Q1-A-1": "Glisser des images dans les dossiers d'entraînement ne fonctionne pas si vous utilisez Safari ou Internet Explorer.",
+            "Q1-A-1": "Glisser des images dans les dossiers d'entraînement ne fonctionne pas si vous utilisez Internet Explorer.",
             "Q1-A-2": "Désolé pour tout ça. Si vous pouvez utiliser un autre navigateur comme Firefox ou Chrome, veuillez le faire. Sinon, vous pouvez cliquer sur le bouton \"www\" et coller l'URL des images d'entraînement à la place."
         },
 
@@ -1132,7 +1413,7 @@
             "Q2-A-1": "Vous devez vérifier votre adresse e-mail avant de pouvoir vous connecter.",
             "Q2-A-2": "Lorsque vous avez créé le compte de classe, un courriel vous sera envoyé à l'adresse électronique que vous avez fournie, avec un lien sur lequel cliquer. Si vous cliquez sur ce lien, votre adresse électronique sera vérifiée et le compte de la classe sera activé. Vous devriez pouvoir vous connecter maintenant.",
             "Q2-A-3": "Si vous n'avez pas encore vu le courriel de vérification, assurez-vous qu'il n'a pas été placé dans votre dossier de pourriels.",
-            "Q2-A-4": "Si vous ne le trouvez toujours pas, <a href='mailto:dale.lane@uk.ibm.com'>faites le moi savoir</a> et j'essaierai de vous aider.",
+            "Q2-A-4": "Si vous ne le trouvez toujours pas, <a href='https://groups.google.com/d/forum/mlforkids'>faites le moi savoir</a> et j'essaierai de vous aider.",
 
             "Q3": "Suppression de comptes",
             "Q3-A-1": "Comptes pour élèves",

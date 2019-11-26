@@ -92,7 +92,8 @@ CREATE TABLE bluemixcredentials (
     url VARCHAR(200) NOT NULL,
     username VARCHAR(36),
     password VARCHAR(36),
-    credstypeid TINYINT NOT NULL DEFAULT 0
+    credstypeid TINYINT NOT NULL DEFAULT 0,
+    notes VARCHAR(50)
 );
 
 CREATE INDEX bluemixcredentials_getBluemixCredentials on bluemixcredentials(classid, servicetype);

@@ -52,6 +52,16 @@ function renameFileFromContents(filepath: string, source: RetrieveFromStorage, c
 }
 
 
+function getHostFromUrl(urlstr: string): string {
+    try {
+        const urlobj = new URL(urlstr);
+        return urlobj.host;
+    }
+    catch (err) {
+        log(err);
+        return urlstr;
+    }
+}
 
 
 function downloadImage(location: DownloadFromWeb, callback: IDownloadCallback): void {
@@ -66,7 +76,6 @@ function downloadImage(location: DownloadFromWeb, callback: IDownloadCallback): 
             runResizeFunction({ url : location.url })
                 .then((response) => {
                     if (response.statusCode !== 200) {
-                        // console.log('runResizeFunction fail', location);
                         const errWithLocation: any = new Error(response.body.error) as unknown;
                         errWithLocation.location = location;
                         errWithLocation.statusCode = response.statusCode;
@@ -76,8 +85,11 @@ function downloadImage(location: DownloadFromWeb, callback: IDownloadCallback): 
                         next(err, tmpFilePath);
                     });
                 }).catch((err) => {
-                    log('downloadImage fail', err);
-                    next(err, tmpFilePath);
+                    const errWithLocation: any = new Error('Unable to download image from ' +
+                                                           getHostFromUrl(location.url)) as unknown;
+                    errWithLocation.location = location;
+                    errWithLocation.statusCode = 500;
+                    return next(errWithLocation, tmpFilePath);
                 });
         },
     ], (err?: Error | null, downloadedPath?: string) => {

@@ -223,7 +223,7 @@ describe('DB objects', () => {
         it('should return stored training data', () => {
             const testRow: Objects.ImageTrainingDbRow = {
                 id : uuid(),
-                imageurl : 'http://images.com/example/image1.jpg',
+                imageurl : '/api/classes/1234564c-d9b7-840c-31fa-9482e1d22f79/students/auth0|2a1bbf3ab125e11dcfd65d52/projects/123bc7d2-f14a-22e9-9a84-c911211cd225/images/11223344-24e1-8844-2c24-1232711a93a9',
                 projectid : 'testproject',
                 isstored : 1,
             };
@@ -232,6 +232,7 @@ describe('DB objects', () => {
                 imageurl : testRow.imageurl,
                 projectid : 'testproject',
                 isstored : true,
+                userid : 'auth0|2a1bbf3ab125e11dcfd65d52',
             };
 
             assert.deepStrictEqual(dbobjects.getImageTrainingFromDbRow(testRow), expectedTraining);

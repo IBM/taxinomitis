@@ -39,8 +39,6 @@
 
             <div class="adminrestriction" ng-if="vm.policy.isManaged && vm.policy.supportedProjectTypes.indexOf('text') >= 0"
                                           translate="TEACHER.RESTRICTIONS.CLASS_LIMITS.NUM_TEXT_MODELS" translate-values="{ num : vm.policy.maxTextModels }"></div>
-            <div class="adminrestriction" ng-if="vm.policy.isManaged && vm.policy.supportedProjectTypes.indexOf('images') >= 0"
-                                          translate="TEACHER.RESTRICTIONS.CLASS_LIMITS.NUM_IMAGE_MODELS" translate-values="{ num : vm.policy.maxImageModels }"></div>
         </div>
 
         <div class="helpsection">

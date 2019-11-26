@@ -1,73 +1,73 @@
 {
     "APP": {
-        "TITLE": "පොඩ්ඩන්ට Machine Learning",
+        "TITLE": "Машинное обучение для детей",
 
-        "BACK": "ආපසු",
-        "BACKTOPROJECT": "&lt; ආපසු ව්‍යාපෘතියට",
-        "BACKTOMODEL": "&lt; Back to model",
-        "ERROR": "දෝෂය:",
-        "WARNING": "අවවාදයයි:",
-        "INFO": "තොරතුරු:",
+        "BACK": "Назад",
+        "BACKTOPROJECT": "&lt;  Назад к проекту",
+        "BACKTOMODEL": "&lt;  Назад к модели",
+        "ERROR": "Ошибка:",
+        "WARNING": "Предупреждение:",
+        "INFO": "Информация:",
 
-        "ADD": "එකතු කරන්න",
-        "CANCEL": "අවලංගු කරන්න",
-        "DELETE": "Delete",
-        "EDIT": "Edit",
-        "TEST": "Test",
-        "RESET": "Reset",
+        "ADD": "Добавить",
+        "CANCEL": "Отмена",
+        "DELETE": "Удалить",
+        "EDIT": "Править",
+        "TEST": "Тест",
+        "RESET": "Сброс",
 
-        "ABOUT": "පිළිබඳව",
-        "TEACHER": "ගුරුවරයා",
-        "PROJECTS": "ව්‍යාපෘති",
-        "WORKSHEETS": "කාර්යය පත්‍රිකා",
-        "NEWS": "පුවත්",
-        "HELP": "උදව්",
-        "LOGIN": "ඇතුල් වෙන්න",
-        "LOGOUT": "පිට වෙන්න",
+        "ABOUT": "О проекте",
+        "TEACHER": "Учитель",
+        "PROJECTS": "Проекты",
+        "WORKSHEETS": "Рабочие листы",
+        "NEWS": "Новости",
+        "HELP": "Помощь",
+        "LOGIN": "Войти",
+        "LOGOUT": "Выйти",
 
-        "BETA": "Beta",
-        "INCOMPLETE": "අසම්පූර්ණයි!"
+        "BETA": "Бета",
+        "INCOMPLETE": "Незавершенный!"
     },
     "ABOUT": {
-        "TITLE": "පොඩ්ඩන්ට Machine Learning",
-        "IN6SECS": "තත්පර 6 යෙන් ...",
-        "IN20MINS": "විනාඩි 20 න්...",
+        "TITLE": "Машинное обучение для детей",
+        "IN6SECS": "За 6 секунд...",
+        "IN20MINS": "За 20 минут...",
         "WHAT": {
-            "TITLE": "කුමක්ද?",
-            "BODY" : "මේ tool එක machine learning පද්ධති පුහුණු කිරීම හා ඒවා භාවිතයෙන් නොයෙකුත් දේ තැනිමට අවස්ථාව ලබාදී ඒ අත්දැකීම් මගින් මැශින් ලර්නිං හඳුන්වා දෙයි. <br/><br/>එය text, numbers හා image recognition මගින් classify කිරීම සඳහා machine learning ආකෘති පුහුණු කිරීමට, භාවිතයට පහසු මගපෙන්වූ පරිසරයක් සපයාදෙයි. <br/><br/>මෙය තනා තිබෙන්නේ දැනටමත් ළමයින්ට කෝඩිං හඳුන්වාදීමට හා ඉගැන්වීමට ක්‍රියාකරන  <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a>(බහුලව භාවිතවන අධ්‍යාපනික coding platform එක), වෙත මෙම ආකෘති එක් කිරීමෙන්, ළමුන්ට ඔවුන් පුහුණු කළ මැශින් ලර්නිං ආකෘති සමග ව්‍යාපෘති නිර්මාණය කිරීමට හා ක්‍රීඩා තැනීමට අවකාශය ලබා දෙමිනි. <br/><br/>වැඩිදුර අධ්‍යනයට, පිවිසෙන්න:"
+            "TITLE": "Что?",
+            "BODY" : "Этот бесплатный инструмент знакомит с машинным обучением, предоставляя практический опыт для обучения систем машинного обучения и создания проектов с его помощью. <br/><br/>Он предоставляет простую в использовании управляемую среду для обучения моделей машинного обучения для распознавания текста, цифр, изображений или звука. <br/><br/> Это опирается на обучение детей программированию путем добавления этих моделей в образовательные платформы <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> и <a href='http://appinventor.mit.edu/' target='_blank'>App Inventor</a>,  помогая детям создавать проекты и игры с помощью моделей машинного обучения, которые они обучают. <br/><br/> Впервые этот инструмент стал доступен в 2017 году, и в настоящее время его <a href='https://wakelet.com/wake/4d3680cb-2a11-49ab-9180-fcfeced48393' target='_blank'>используют тысячи школ, клубов программирования и семей по всему миру</a>. <br/><br/>Более подробную информацию найдете на:"
         },
         "WHY": {
-            "TITLE": "ඇයි?",
-            "BODY": "Machine learning is all around us. We all use machine learning systems every day - such as spam filters, recommendation engines, language translation services, chatbots and digital assistants, search engines, and fraud detection systems.<br/><br/>It will soon be normal for machine learning systems to drive our cars, and help doctors to diagnose and treat our illnesses. <br/><br/>It's important that kids are aware of how our world works. The best way to understand the capabilities and implications is to be able to build with this technology for themselves. <br/><br/>To learn more, read: <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'Introducing Machine Learning to kids'</a>"
+            "TITLE": "Почему?",
+            "BODY": "Машинное обучение вокруг нас. Мы все используем системы машинного обучения каждый день - например, спам-фильтры, рекомендательные системы, сервисы перевода с одного языка на другой, чат-боты и цифровые помощники, поисковые системы и системы обнаружения мошенничества. <br/>Скоро станет нормой, когда система машинного обучения будет водить наши автомобили и помогать врачам диагностировать и лечить наши болезни. <br/><br/> Важно, чтобы дети знали, как работает наш мир. Лучший способ понять возможности и последствия - это иметь возможность создавать эти технологии. <br/><br/> Чтобы узнать больше, прочитайте: <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>«Введение в машинное обучение для детей»</a>"
         },
         "TECH": {
-            "TITLE": "තාක්ෂණය",
-            "BODY": "මෙම මෙවලම සම්පූර්ණයෙන්ම වෙබ් පාදක වන අතර සංකීර්ණ ස්ථාපනයක් අවශ්‍ය නොවේ. <br/><br/>එය පාසල්වල පන්ති කාමර වල හා ළමයින්ට coding උගන්වන ස්වේච්ඡා කණ්ඩායම් වල භාවිතය සඳහා නිර්මාණය කර ඇත, එසේම ගුරුවරුන්ට හා කණ්ඩායම් නායකයන්ට ඔවුන්ගේ ශිෂ්‍යයන් කළමනාකරණයට හා පරිපාලක ප්‍රවේශය ලබාදෙන admin page සපසයි.<br/><br/>එය නිර්මාණය කරන ලද්දේ <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> විසින්  <a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a> හි API භාවිතයෙනි.",
-            "LOGIN": "වෙන්න වැඩ අරඹන්න : "
+            "TITLE": "Технология",
+            "BODY": "Инструмент основан на веб-технологии и не требует установки или сложной настройки для использования. <br/><br/>Он был разработан для использования в классе школами и клубами программирования для детей и предоставляет страницу администратора для учителей или руководителей групп, чтобы иметь возможность управлять доступом для своих учеников. <br/><br/>Он был создан <a target='_blank' href='http://dalelane.co.uk/'>Дейлом Лейном</a> с использованием API от <a target='_blank' href='https://www.ibm.com/watson/developer/'>IBM Watson</a>. <br/><br/> Для получения более подробной информации о проекте вы можете посмотреть <a target='_blank' href='https://github.com/IBM/taxinomitis/'>исходный код на GitHub</a> или прочитать  в <a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>блоге о данной технологии</a>.",
+            "LOGIN": "Для начала:"
         },
         "FURTHER": {
-            "TITLE": "Further learning",
-            "BODY": "Machine Learning for Kids is a useful tool for introducing children to how ML systems are trained, how they are used, and some of the real-world implications of AI applications. <br/><br/>For additional teaching and learning resources, including teaching the internals of ML systems, please see: "
+            "TITLE": "Дальнейшее изучение",
+            "BODY": "Машинное обучение для детей - полезный инструмент для ознакомления детей с тем, как обучаются системы МО, как они используются, а также с некоторыми практическими кейсами применения ИИ. <br/><br/>Дополнительные материалы для преподавания и обучения, в том числе материалы по системам МО, можно найти на:"
         }
     },
     "NEWS": {
-        "TITLE": "පුවත්",
+        "TITLE": "Новости",
         "UPDATES": {
-            "TITLE": "පුවත් සහ යාවත්කාලීන වීම්",
-            "DESCRIPTION": "පොඩ්ඩන්ට Machine Learning වෙතින් පුවත් සහ යාවත්කාලීන වීම්"
+            "TITLE": "Новости и Обновления",
+            "DESCRIPTION": "Новости и обновления от @MLforKids"
         },
         "MENTIONS": {
-            "TITLE": "සඳහන් කිරීම් සහ මාධ්‍යය",
-            "DESCRIPTION": "loading Mentions &amp; Media from wakelet.com"
+            "TITLE": "Упоминания и СМИ",
+            "DESCRIPTION": "загрузка Упоминаний &amp; СМИ с wakelet.com"
         }
     },
     "LINKS": {
-        "TITLE": "Educational AI resources for children",
-        "INTRO": "This page is a list of further tools and resources for introducing children to artificial intelligence.",
+        "TITLE": "Образовательные ИИ ресурсы для детей",
+        "INTRO": "Эта страница содержит список дополнительных инструментов и ресурсов для объяснения принципов искусственного интеллекта детям.",
         "ECRAFT2LEARN": {
-            "BODY1": "<a href='http://users.ox.ac.uk/~oucs0030/' target='_blank'>Ken Kahn</a> has created resources to allow beginners to create AI programs in Snap! (a visual programming environment similar to Scratch).",
-            "BODY2": "While I've focused on explaining how AI systems are trained and behave (and the real-world implications), eCraft2Learn has fantastic resources that dive deep into how ML systems actually work.",
-            "BODY3": "The <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>neural net Tic Tac Toe project</a> is particularly fascinating, allowing students to experiment with hyperparameters from Snap."
+            "BODY1": "<a href='http://users.ox.ac.uk/~oucs0030/' target='_blank'>Кен Кан</a> создал ресурсы, позволяющие новичкам создавать программы ИИ в Snap! (среда визуального программирования, похожая на Scratch).",
+            "BODY2": "В то время как я сосредоточился на объяснении того, как ИИ системы обучаются и ведут себя (а также на реальных примерах), у eCraft2Learn есть фантастические ресурсы, которые углубляются в то, как на самом деле работают системы МО.",
+            "BODY3": "<a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>Нейросетевой проект Tic Tac Toe</a> особенно увлекателен, позволяя студентам экспериментировать с гиперпараметрами из Snap."
         },
         "STEMLEARNING": {
             "BODY1": "STEM Learning and the UK Department for Business, Energy and Industrial Strategy have created resources for teaching the principles of artificial intelligence.",
@@ -78,302 +78,302 @@
             "BODY2": "Their machine learning pathway includes a variety of projects from <em>Machine Learning for Kids</em>."
         },
         "APPSFORGOOD": {
-            "BODY1": "Apps for Good are a UK-based not-for-profit that creates resources for teaching technology subjects, that they make freely available to schools.",
-            "BODY2": "Their Machine Learning course uses <em>Machine Learning for Kids</em>, and supplements it with a range of additional materials like schemes of work, lesson plans, student workbooks, presentations and more. It makes it easy for schools to deliver ML lessons that put the coding exercises in context."
+            "BODY1": "Apps for Good - это некоммерческая организация, базирующаяся в Великобритании, которая создает ресурсы для преподавания технических предметов, которые они бесплатно предоставляют школам.",
+            "BODY2": "Их курс машинного обучения использует <em>Машинное обучение для детей</em> и дополняет его рядом дополнительных материалов, таких как схемы работы, планы уроков, рабочие тетради для учащихся, презентации и многое другое. Это облегчает школам проведение уроков по МО, которые добавляют упражнения по программированию в контекст урока."
         },
         "AIFAMILYCHALLENGE": {
-            "BODY1": "The AI Family Challenge is a free, hands-on AI education program for families. They use <em>Machine Learning for Kids</em>, and supplement it with a lot of additional support, such as technical coaches and mentors, a structured lesson plan and supporting videos.",
-            "BODY2": "The program is based around a competition that challenges children to think of their own AI project ideas, with the support of their families and technical mentors."
+            "BODY1": "AI Family Challenge - это бесплатная, практическая образовательная программа по ИИ для семей. Они используют <em>Машинное обучение для детей</em> и дополняют его множеством дополнительных средств поддержки, таких как технические тренеры и наставники, структурированный план урока и вспомогательные видеоролики.",
+            "BODY2": "Программа основана на конкурсе, который побуждает детей придумывать свои собственные ИИ-проекты при поддержке их семей и технических наставников."
         },
         "MAGENTADEMOS": {
             "BODY1": "Online toys that demonstrate different aspects of machine learning, using TensorFlow.js"
         },
         "AIINSCHOOLS": {
-            "BODY1": "The AIinSchools programme provides a free lesson plan for teachers to explain AI to Year 9 (aged 13-14).",
-            "BODY2": "It includes both unplugged classroom activities, and programming activities for training neural networks on GPUs running on AWS."
+            "BODY1": "Программа AIinSchools предоставляет бесплатный план уроков для учителей по преподаванию ИИ до 9-го класса ( 13-14 лет).",
+            "BODY2": "Это включает в себя как занятия в классе, так и программирование для обучения нейронных сетей на графических процессорах, работающих на AWS."
         },
         "TEENSINAI": {
-            "BODY1": "Teens in AI use a combination of hackathons, accelerators and bootcamps to support young people aged 12-18 to explore AI."
+            "BODY1": "Teens in AI используют комбинацию хакатонов, акселераторов и буткемпов для изучения ИИ молодежью в возрасте 12-18 лет."
         },
         "AI4ALL": {
-            "BODY1": "AI4ALL run summer camps for high school students in the US that give a detailed technical introduction to AI."
+            "BODY1": "AI4ALL организует летние лагеря для старшеклассников в США, которые дают подробное техническое введение в ИИ."
         },
         "CALYPSO": {
-            "BODY1": "Students with programmable Cozmo robots can use the Calypso programming framework to get a hands-on way to experience AI by experimenting with techniques like computer vision and speech recognition."
+            "BODY1": "Учащиеся с программируемыми роботами Cozmo могут использовать среду программирования Calypso, чтобы получить практический опыт знакомства с ИИ, экспериментируя с такими методами, как компьютерное зрение и распознавание речи."
         },
         "AIINABOX": {
-            "BODY1": "AI-in-a-Box is a bundle of robots, accessories and teaching resources. The kit can be used to teach projects that cover topics like visual recognition, facial recognition, speech generation and speech recognition."
+            "BODY1": "AI-in-a-Box - это набор роботов, аксессуаров и учебных ресурсов. Этот комплект можно использовать для обучения проектам, охватывающим такие темы, как распознавание образов, распознавание лиц, генерация речи и распознавание речи."
         },
         "GOOGLEEXPERIMENTS": {
-            "BODY1": "Simple online experiments to start exploring machine learning, through pictures, drawings, language, and music."
+            "BODY1": "Простые онлайн-эксперименты, чтобы начать изучать машинное обучение, используя картинки, рисунки, язык и музыку."
         },
         "VIDEOS": {
-            "TITLE": "Videos",
-            "INTRO": "I've also found these videos useful when introducing AI concepts:"
+            "TITLE": "Видео",
+            "INTRO": "Я также считаю эти видео полезными при объяснении концепций ИИ:"
         }
     },
     "ERRORS": {
-        "PAGENOTFOUND": "පිටුව හමු නොවිණි",
-        "NOTLOGGEDIN": "ඇතුළු වී නොමැත",
+        "PAGENOTFOUND": "Страница не найдена",
+        "NOTLOGGEDIN": "Не авторизованы",
 
-        "MISSINGPROJECTID": "Project id එක හමු නොවේ. ආපසු යන්න ",
-        "IFPERSISTENT": "මෙය නැවත නැවත සිදුවන්නේ නම්, කරුණාකර ",
+        "MISSINGPROJECTID": "Отсутствует id проекта. Вернитесь к",
+        "IFPERSISTENT": "Если это продолжается, пожалуйста",
 
-        "LETMEKNOW": "මට දැනුම් දෙන්න"
+        "LETMEKNOW": "дайте мне знать"
     },
     "WELCOME": {
-        "TITLE": "computer එකට game එකක් ගහන්න උගන්නමු",
-        "GET_STARTED": "පටන් ගමු",
-        "LEARN_MORE": "තවත් උගනිමු",
-        "ADMIN_LABEL": "<strong>පරිපාලක පිටුව</strong> වෙත යන්න",
-        "PROJECT_LABEL": "<strong>ව්‍යාපෘති </strong> වෙත යන්න",
-        "STEP_1_TEXT": "ඔබට හඳුනාගැනීමට අවශ්‍ය දේවල් වලට උදාහරණ එකතු කරන්න",
-        "STEP_2_TEXT": "ඒ උදාහරණ භාවිතයෙන් පරිගණකයට ඒවා හඳුනාගන්න පුරුදු කරන්න",
-        "STEP_3_TEXT": "ඒවා හඳුනාගැනීමට පරිගණකයට ඇති හැකියාව පාවිච්චි කර Scratch වල ක්‍රීඩාවක් හදන්න"
+        "TITLE": "Научите компьютер играть в игру",
+        "GET_STARTED": "Начать",
+        "LEARN_MORE": "Узнать больше",
+        "ADMIN_LABEL": "Перейти на свою <strong>страницу администратора</strong>",
+        "PROJECT_LABEL": "Перейти на <strong>Проекты</strong>",
+        "STEP_1_TEXT": "Соберите примеры предметов, которые вы хотите распознать",
+        "STEP_2_TEXT": "Используйте эти примеры, чтобы научить компьютер распознавать их",
+        "STEP_3_TEXT": "Создайте игру в Scratch, которая использует возможности компьютера распознавать предметы"
     },
     "LOGIN": {
-        "TITLE": "Machine learning වෙත පිවිසෙමු",
-        "WELCOME": "සාදරයෙන් පිළිගනිමු! පොඩ්ඩන්ට Machine learning වෙතට log in වීමට ගිණුමක් සාදාගැනීමට ඔබේ ඇති උනන්දුව අගය කර සිටිමු.",
-        "ALREADY_LOGGEDIN": "<strong>Info: </strong> දැනටමත් log in වී ඇත",
-        "ERROR": "<strong>Error:</strong> {{ message }}",
-        "ERROR_HELP": "මෙය නැවත නැවත සිදුවන්නේ නම්, කරුණාකර අපේ help page එකට යන්න",
-        "FIRST_TIME": "මෙතැනට අළුත්ද?",
-        "SIGN_UP": "Sing up වෙන්න",
-        "WHY_REGISTER": "ඇයි register වෙන්නෙ?",
-        "WHY_REGISTER_INTRO_1": "පොඩ්ඩන්ට machine learning භාවිතයට <strong> ලියාපදිංචි වීමට හෝ ගිණුම් සෑදීමට අවශ්‍ය නොවේ </strong> නමුත් ඔබ ලියාපදිංචි වුවහොත් මෙවලමට අමතර විශේෂාංග කිහිපයක් එක්වෙයි.",
-        "WHY_REGISTER_INTRO_2": "පහත වගුව මගින් ඔබට ලියාපදිංචි නොවී \"Try it now\" click කිරීම හා ඔබ ගිණුමක් සකස් කළ විට කළ හැකි දේවල් අතර වෙනස පැහැදිලි කරයි.",
-        "ALREADY_REGISTERED": "කලින්ම ලියාපදිංචි වී සිටීද?",
-        "LOGIN": "Log in වෙන්න",
-        "FORGOT_DETAILS": "ඔබේ තොරතුරු අමතක ද?",
-        "TRY_TITLE": "ලියාපදිංචි නොවී උත්සාහ කරන්න",
-        "TRY_NOW": "දැන්ම Try කරල බලන්න",
-        "WHO_YOU": "ඔබ කවුද?",
-        "TEACHER": "ගුරුවරයෙකු හෝ coding club එකක නායකයෙක්",
-        "STUDENT": "ශිෂ්‍යයෙක්",
-        "FORGOT_TEXT": "ඔයාගෙ username එක හරි password එක හරි අමතකද? ඒකට කමක් නෑ - අපි හැමෝටම සමහර වෙලාවට දේවල් අමතක වෙනව.",
-        "ARE_YOU_A_STUDENT": "Are you a student?",
-        "ARE_YOU_A_STUDENT_INTRO_1": "If your class is already using this tool, ask your teacher or coding group leader to create you an account.",
-        "ARE_YOU_A_STUDENT_INTRO_2": "If your class isn't already using the tool, ask your teacher or coding group leader to get in touch.",
-        "RESET_STUDENT_PASSWORD_1": "If you're a student, we don't have your email address to be able to send you a password-reset email.",
-        "RESET_STUDENT_PASSWORD_2": "That's no problem, though!",
-        "RESET_STUDENT_PASSWORD_3": "Just ask your teacher or group leader who first signed you up. They will be able to reset your password from their Admin page."
+        "TITLE": "Начать с машинного обучения",
+        "WELCOME": "Добро пожаловать! Это здорово, что вы захотели зарегистрироваться, чтобы войти в систему Машинного обучения для детей.",
+        "ALREADY_LOGGEDIN": "<strong>Информация: </strong> Уже авторизованы",
+        "ERROR": "<strong>Ошибка: </strong> {{ message }}",
+        "ERROR_HELP": "Если это продолжается, пожалуйста, посетите наш раздел с Помощью",
+        "FIRST_TIME": "Первый раз здесь?",
+        "SIGN_UP": "Зарегистрироваться",
+        "WHY_REGISTER": "Зачем нужна регистрация?",
+        "WHY_REGISTER_INTRO_1": "<strong>Вам не нужно регистрироваться или создавать учетную запись</strong>, чтобы использовать Машинное обучение для детей, но если вы это сделаете, это разблокирует некоторые функции сервиса.",
+        "WHY_REGISTER_INTRO_2": "Сетка ниже объясняет разницу в том, что вы можете сделать, если вы нажали «Попробовать сейчас» без регистрации, и ваши возможности, если создадите учетную запись для входа в систему.",
+        "ALREADY_REGISTERED": "Уже зарегистрированы?",
+        "LOGIN": "Войти",
+        "FORGOT_DETAILS": "Забыли свои данные?",
+        "TRY_TITLE": "Попробовать без регистрации",
+        "TRY_NOW": "Попробовать сейчас",
+        "WHO_YOU": "Кто Вы?",
+        "TEACHER": "Родитель, учитель или лидер клуба программирования",
+        "STUDENT": "Студент",
+        "FORGOT_TEXT": "Забыли свой логин и пароль? Ничего страшного - мы все иногда что-то забываем.",
+        "ARE_YOU_A_STUDENT": "Вы студент?",
+        "ARE_YOU_A_STUDENT_INTRO_1": "Если ваш класс уже использует этот инструмент, попросите своего учителя или руководителя группы создать учетную запись.",
+        "ARE_YOU_A_STUDENT_INTRO_2": "Если ваш класс еще не использует этот инструмент, попросите своего учителя или руководителя группы связаться с нами.",
+        "RESET_STUDENT_PASSWORD_1": "Если вы обучающийся, у нас нет вашего адреса электронной почты, чтобы вы могли отправить вам письмо со сбросом пароля.",
+        "RESET_STUDENT_PASSWORD_2": "Хотя, это не проблема!",
+        "RESET_STUDENT_PASSWORD_3": "Просто попросите своего учителя или руководителя группы, который зарегистрировал вас. Они смогут сбросить ваш пароль со своей страницы администратора."
     },
     "SIGNUP": {
         "TEACHER": {
-            "TITLE": "ඔබ ගුරුවරයෙක්ද නැත්තම් coding club එකක නායකයෙකුද?",
-            "INFO1": "ඔබ ඔබේ ශිෂ්‍යයන් වෙත access කිරීමට අවශ්‍ය නම්, කරුණාකර පහතින් class account එකක් සාදා ගන්න.",
-            "INFO2": "සකස් කරන්නා අනුව - මෙහි class account වර්ග දෙකක් ඇත."
+            "TITLE": "Вы преподаватель или руководитель группы по программированию?",
+            "INFO1": "Если вы хотите получить доступ для своих студентов, создайте учетную запись ниже.",
+            "INFO2": "Существует два типа учетных записей класса - в зависимости от того, кто его настраивает."
         },
         "UNMANAGED": {
-            "TITLE": "<strong>Unmanaged</strong> පන්ති ගිණුමක් සකසන්න",
-            "INTRO": "ඔබ විසින්ම පන්ති ගිණුම සකසා කළමනාකරණය කර ගැනීමට කැමතිනම්,ඔබට දැන් එය සිදුකළ හැක!",
-            "LISTINTRO": "ඔබ කළයුතු දේ:",
-            "LIST_CREATEACCOUNT": "IBM Cloud හි ගිණුමක් සෑදීම",
-            "LIST_CREATEAPIKEYS": "Machine learning ආකෘති පුහුණු කිරීමට Watson cloud සේවා සඳහා API key නිර්මාණය කර ගැනීම",
-            "LIST_ENTERAPIKEYS": "පොඩ්ඩන්ට machine learning මෙවලමට ඒ API key ඇතුලත් කිරීම",
-            "HELP": "මේ සියල්ල සඳහා පියවරෙන්-පියවරට උපදෙස් (screenshots සමගින්) ඇත."
+            "TITLE": "Создать <strong>неконтролируемую</strong>учетную запись класса",
+            "INTRO": "Если вы готовы настроить и управлять учетной записью класса самостоятельно, вы можете сделать это сейчас!",
+            "LISTINTRO": "Вам будет нужно:",
+            "LIST_CREATEACCOUNT": "Создайте бесплатный аккаунт на IBM Cloud",
+            "LIST_CREATEAPIKEYS": "Создайте API ключ(и) для облачного сервиса Watson, который будет нужен для обучения моделей машинного обучения",
+            "LIST_ENTERAPIKEYS": "Введите API ключи в Машинное обучения для детей",
+            "HELP": "Для всего этого доступны пошаговые инструкции (со скриншотами)."
         },
         "MANAGED": {
-            "TITLE": "<strong>Managed</strong> පන්ති ගිණුමක් සකසන්න",
-            "INTRO": "Dale ට කියල පන්ති ගිණුමක් සාදාගැනීමට කැමතිනම්, මේ විස්තර සමග ඊ-මේල් පණීවිඩයක් යැවීමට පහත බොත්තම ඔබන්න:",
-            "LIST_NUMBEROFSTUDENTS": "දළ වශයෙන් කොපමණ ශිෂ්‍ය ගිණුම් ප්‍රමාණයක් ඔබට අවශ්‍යද",
-            "LIST_NAMEOFSCHOOL": "ගිණුම අවශ්‍ය පාසලේ හෝ කෝඩිං කණ්ඩායමේ නම",
-            "EMAIL": "Email කරන්න"
+            "TITLE": "Создать <strong>управляемую</strong> учетную запись класса",
+            "INTRO": "Если вы хотите, чтобы Дейл создал учетную запись класса, используйте кнопку ниже, чтобы отправить email со следующей информацией:",
+            "LIST_NUMBEROFSTUDENTS": "Примерно, сколько учетных записей вам понадобится",
+            "LIST_NAMEOFSCHOOL": "Название школы или группы по программированию, для которой предназначена учетная запись",
+            "EMAIL": "Email"
         }
     },
     "PROJECTS": {
-        "TITLE": "ඔබේ machine learning ව්‍යාපෘති",
-        "ADDNEWPROJECT": "අලුත් ව්‍යාපෘතියක් එක් කරන්න",
-        "CREATEFIRSTPROJECT": "Click on the 'plus' button on the right to create your first project.",
-        "RECOGNISING": "Recognising",
-        "AS": "as"
+        "TITLE": "Ваши проекты машинного обучения",
+        "ADDNEWPROJECT": "Добавить новый проект",
+        "CREATEFIRSTPROJECT": "Нажмите кнопку «плюс» справа, чтобы создать свой первый проект.",
+        "RECOGNISING": "Распознавание",
+        "AS": "как"
     },
     "NEWPROJECT": {
-        "TITLE": "අලුත් machine learning ව්‍යාපෘතියක් අරඹන්න",
+        "TITLE": "Начать новый проект машинного обучения",
         "PROJECT_NAME": {
-            "TITLE": "ව්‍යාපෘතියේ නම",
-            "NOTES": "ඔබ පරිගණකයට හඳුන්වාදීමට උත්සාහ කරන දේවල් විස්තර කරන නමක් ලබාදෙන්න."
+            "TITLE": "Название проекта",
+            "NOTES": "Дайте вашему проекту имя, чтобы было понятно, что вы будете делать, чтобы научить компьютер распознавать."
         },
         "WHOLE_CLASS_PROJECT": {
-            "TITLE": "පන්තියම එක්ව කරන ව්‍යාපෘතියක්?",
-            "NOTES_1": "ඔබේ මුලු පන්තියටම මෙම ව්‍යාපෘතියේ කටයුතු කිරීමට අවශ්‍ය නම් මෙය Tick කරන්න.",
-            "NOTES_2": "machine learning ‍ව්‍යාපෘති පුහුණු කිරීමේ ක්‍රමයක් ලෙස crowd-sourcing උගන්වන ව්‍යාපෘති සදහා මෙය වැදගත් වේ."
+            "TITLE": "Проект всего класса?",
+            "NOTES_1": "Отметьте здесь, если вы хотите, чтобы весь ваш класс мог работать над этим проектом совместно.",
+            "NOTES_2": "Это полезно для проектов, которые преподают краудсорсинг в качестве подхода к обучению проектов машинного обучения."
         },
         "TYPES": {
-            "LABEL": "හදුනාගැනීම",
-            "NOTES_1": "ඔබට පරිගණකය පුහුණු කළ යුත්තේ කුමන ආකාරයේ දේවල් හදුනාගැනීමටද?",
-            "NOTES_2": "වචන, වාක්‍ය හෝ ඡේද සදහා \"text\" තෝරන්න",
-            "NOTES_3": "ඡායාරූප, රූපසටහන් හා පින්තූර සදහා \"images\" තෝරන්න",
-            "NOTES_4": "ඉලක්කම් වල එකතූන් හෝ බහුවරණ සදහා \"numbers\" තෝරන්න",
-            "NOTES_5": "For voices and sounds, choose \"sounds\""
+            "LABEL": "Распознавание",
+            "NOTES_1": "Какие типы данных вы хотите научить компьютер распознавать?",
+            "NOTES_2": "Для слов, предложений или абзацев выберите «текст»",
+            "NOTES_3": "Для фотографий, диаграмм и картинок выберите «картинки»",
+            "NOTES_4": "Для набора чисел или множественного выбора выберите «числа»",
+            "NOTES_5": "Для голосов и звуков выберите «звуки»"
         },
         "LANGUAGE": {
-            "LABEL": "භාෂාව",
-            "NOTES": "ඔබේ ව්‍යාපෘතියේ text තිබෙන්නේ කුමන භාෂාවෙන්ද?"
+            "LABEL": "Язык",
+            "NOTES": "На каком языке будет текст в этом проекте?"
         },
         "FIELDS": {
             "TYPE": {
-                "TITLE": "Value වල වර්ගය",
-                "NUMBER": "ඉලක්කම්",
-                "MULTIPLE_CHOICE": "බහුවරණ"
+                "TITLE": "Тип значения",
+                "NUMBER": "число",
+                "MULTIPLE_CHOICE": "множественный выбор"
             },
             "CHOICES": {
-                "TITLE": "තේරීම්:",
-                "LABEL": "තේරීමක් එකතු කරන්න"
+                "TITLE": "Варианты:",
+                "LABEL": "добавить вариант"
             },
             "NEWFIELD": {
-                "DESCRIBE_FIELD": "අගය (value) විස්තර කිරීමට ක්ෂේත්‍ර නාමයක් ලබාදෙන්න",
-                "MULTICHOICE": "එය අගයන් කීපයක් අතරින් එක් අගයක් තේරීමක් නම්, \"බහුවරණ\" තෝරන්න.",
-                "ADD_FIRST_FIELD": "තේරීමක Type කර ඔබේ බහුවරණ ලැයිස්තුවේ භාවිත කරන්න, අනතුරුව Enter ඔබන්න.",
-                "ADD_ANOTHER_FIELD": "තවත් තේරීමක Type කර ඔබේ බහුවරණ ලැයිස්තුවේ භාවිත කරන්න අනතුරුව Enter ඔබන්න."
+                "DESCRIBE_FIELD": "Дайте этому полю имя, чтобы описать его значение",
+                "MULTICHOICE": "Если это можно описать как выбор из нескольких вариантов, выберите «множественный выбор».",
+                "ADD_FIRST_FIELD": "Введите вариант для использования в вашем списке с множественным выбором, затем нажмите Enter.",
+                "ADD_ANOTHER_FIELD": "Введите другой вариант для использования в списке с множественным выбором, затем нажмите Enter."
             },
             "NEWVALUE": {
-                "ADD_FIRST_VALUE": "'Add a value' බොත්තම මත එබීම මගින්, පරිගණකට පුහුණු කිරීමට එක්කිරීමට යන එක් එක් උදාහරණයේ values විස්තර කිරීම අරඹන්න",
-                "VALUES_LIMIT": "ව්‍යාප්‍රුතියකදී ඔබට values 10 කට වඩා ඉඩ ලබාදෙනු නොලැබේ."
+                "ADD_FIRST_VALUE": "Начните описывать значения, которые вы будете включать в каждый пример для обучения компьютера, нажав кнопку «Добавить значение».",
+                "VALUES_LIMIT": "Вам не разрешено более 10 значений в проекте."
             }
         },
-        "CREATE": "හදන්න",
+        "CREATE": "Создать",
         "ERRORS": {
-            "REQUIRED": "This is required!",
-            "TOOLONG": "That's too long!"
+            "REQUIRED": "Обязательное поле!",
+            "TOOLONG": "Слишком длинное!"
         }
     },
     "DATASETS": {
-        "TITLE": "Copy a machine learning project template",
+        "TITLE": "Скопировать шаблон проекта машинного обучения",
         "INTRO": {
-            "INTRO_1": "You can create new machine learning project based on one of these templates.",
-            "INTRO_2": "Each one includes a set of training data that has been collected for you to help you get started quickly. ",
-            "INTRO_3": "You will be able to make changes to the training data if you like, or you can go straight to training a machine learning model with it. "
+            "INTRO_1": "Вы можете создать новый проект машинного обучения на основе одного из этих шаблонов.",
+            "INTRO_2": "Каждый из них содержит набор обучающих данных, которые были собраны для вас, чтобы помочь вам быстро начать работу.",
+            "INTRO_3": "Вы сможете вносить изменения в обучающую выборку, если хотите, или можете сразу перейти к обучению модели машинного обучения."
         },
-        "IMPORT": "Import",
+        "IMPORT": "Импортировать",
         "MORE": {
-            "TITLE": "Other data sets",
-            "SUMMARY": "What other data sets would you like to see?",
-            "DESCRIPTION": "Have you got an idea for a data set you'd like to see available here? Or do you have a data set that you'd like to contribute? Please get in touch!",
-            "MOREINFO": "More..."
+            "TITLE": "Другие наборы данных",
+            "SUMMARY": "Какие другие наборы данных вы хотели бы видеть?",
+            "DESCRIPTION": "У вас есть идея для набора данных, который вы хотели бы видеть среди доступных здесь? Или у вас уже есть набор данных, который вы хотели бы добавить? Пожалуйста, свяжитесь с нами!",
+            "MOREINFO": "Подробнее..."
         },
         "DATA": {
             "TITANIC": {
-                "TITLE": "Titanic survivors",
-                "SUMMARY": "Predict survival on the Titanic",
-                "DESCRIPTION": "On 15th April 1912, the RMS Titanic hit an iceberg and sank, killing over 1500 of the passengers and crew. This project includes personal data about hundreds of the passengers. You can use this to train a machine learning model that, if you give it a description of a passenger, can learn to predict the likelihood that they would have survived. ",
-                "DETAILS": "The 'ticket class' field is a number indicating the type of ticket for the passenger: first class (1), second class (2), or third class (3). \nThe 'gender' field is whether the passenger was 'male' or 'female'. \nThe 'age' field is the age of the passenger. \nThe 'sibl. sp.' is the number of brothers or sisters (siblings) the passenger had on board if they were a child, or the number of husbands or wives (spouses) the passenger had on board if they were an adult. \nThe 'par. ch.' field is the number of parents the passenger had on board if they were a child, or the number of children the passenger had on board if they were an adult. \nThe 'ticket fare' field is how much they paid for their ticket. \nThe 'embarked' field is where they got on board the Titanic, either Cherbourg, Queenstown or Southampton."
+                "TITLE": "Выжившие на Титанике",
+                "SUMMARY": "Предсказать выживание на Титанике",
+                "DESCRIPTION": "15 апреля 1912 года Титаник врезался в айсберг и затонул, погибло более 1500 пассажиров и членов экипажа. Данный проект включает в себя личные данные о сотнях пассажиров. Вы можете использовать его для обучения модели машинного обучения, которая может научиться предсказывать вероятность того, выжил бы пассажир или нет, если вы дадите ей описание пассажира.",
+                "DETAILS": "Поле «ticket class» - это число, указывающее тип билета для пассажира: первый класс (1), второй класс (2) или третий класс (3).\nПоле «gender» указывает, был ли пассажир «мужчиной» или «женщиной».\nПоле 'age' - это возраст пассажира.\n'sibl. sp.' - это число братьев или сестер (родственники), которые были с пассажиром на борту, если они были детьми, или число мужей или жен (супругов), которые находились на борту пассажира, если они были взрослыми.\nПоле 'par. ch.' - это количество родителей, которых были с пассажиром на борту, если они были детьми, или количество детей, которых были с пассажиром на борту, если они были взрослыми.\nПоле 'ticket fare'  означает, сколько они заплатили за билет.\nПоле 'embarked'  - это место, где они сели на борт «Титаника» - это Шербур, Квинстаун или Саутгемптон."
             },
             "CATSANDDOGS": {
-                "TITLE": "Cats and Dogs",
-                "SUMMARY": "Recognize photos of cats vs dogs",
-                "DESCRIPTION": "Training a machine learning model to recognise photos of cats and dogs is a good simple introduction to image recognition.",
-                "DETAILS": "This training dataset of photos from Wikimedia Commons is a good starting set for building your own training data of animal photos"
+                "TITLE": "Кошки и Собаки",
+                "SUMMARY": "Распознайте изображения кошек и собак",
+                "DESCRIPTION": "Обучение модели машинного обучения распознаванию фотографий кошек и собак - хорошее простое введение в распознавание изображений.",
+                "DETAILS": "Этот обучающий набор фотографий из Wikimedia Commons является хорошим стартовым набором для создания собственных обучающих данных фотографий животных"
             },
             "UKNEWSPAPERS": {
-                "TITLE": "UK Newspaper Headlines",
-                "SUMMARY": "Recognize the use of language in newspaper headlines",
-                "DESCRIPTION": "Different newspapers use language in different ways. This project includes the main front page headline from four UK newspapers. You can use this to train a machine learning model that can learn to predict the most likely newspaper that a new headline is probably from. ",
-                "DETAILS": "This training dataset includes headlines from the Daily Mail, the Daily Telegraph, the Independent, and The Guardian"
+                "TITLE": "Заголовки газет Великобритании",
+                "SUMMARY": "Распознать использование языка в заголовках газет",
+                "DESCRIPTION": "Разные газеты используют язык по-разному. Этот проект включает заголовоки главной страницы из четырех британских газет. Вы можете использовать его для обучения модели машинного обучения, которая может научиться предсказывать наиболее вероятную газету, из которой взят новый заголовок.",
+                "DETAILS": "Этот обучающий набор данных включает заголовки из Daily Mail, Daily Telegraph, Independent и The Guardian."
             }
         }
     },
     "PROJECT": {
         "TRAIN": {
-            "TITLE": "Train කරන්න",
-            "BODY": "ඔබට පරිගණකයට හදුනා ගැනීමට අවශ්‍ය දේවල්වල උදාහරණ එකතු කරන්න."
+            "TITLE": "Обучить",
+            "BODY": "Соберите примеры/образцы того, что вы хотите, чтобы компьютер распознал"
         },
         "LEARNANDTEST": {
-            "TITLE": "ඉගෙනගැනීම හා Test කිරීම",
-            "BODY": "පරිගණකයට හදුනාගැනීමට පුහුණු කිරීමට ඒ උදාහරණ භාවිත කරන්න"
+            "TITLE": "Узнать &amp; Проверить",
+            "BODY": "Используйте примеры, чтобы обучить компьютер распознавать"
         },
         "MAKES": {
-            "TITLE": "හදන්න",
-            "BODY": "Scratch හෝ පයිතන් වල, app එකක් හෝ game එකක් හදන්න ඔබ පුහුණු කළ machine learning ආක්‍රුතිය භාවිත කරන්න"
+            "TITLE": "Создать",
+            "BODY": "Используйте модель машинного обучения, которую вы обучили, для создания игры или приложения, на Scratch или на Python"
         },
         "SCRATCH": {
             "TITLE": "Scratch",
-            "BODY": "Scratch වලදී game එකක් හදන්න ඔබ පුහුණු කළ machine learning ආක්‍රුතිය භාවිත කරන්න."
+            "BODY": "Использовать модель машинного обучения, которую вы обучили, чтобы сделать игру на Scratch"
         },
         "PYTHON": {
-            "TITLE": "පයිතන්",
-            "BODY": "පයිතන් වැඩසටහනකදී ඔබ පුහුණු කළ machine learning ආක්‍රුතිය භාවිත කරන්න."
+            "TITLE": "Python",
+            "BODY": "Использовать модель машинного обучения, которую вы обучили, в программе Python"
         },
         "APPINVENTOR": {
             "TITLE": "App Inventor",
-            "BODY": "ඔබේ machine learning ආක්‍රුතිය භාවිත කරන mobile app එකක් හදන්න"
+            "BODY": "Создать мобильное приложение, которое использует вашу модель машинного обучения"
         },
         "SCRATCH3": {
             "TITLE": "Scratch 3",
-            "BODY": "Scratch වල අලුත් සංස්කරණයේ ඔබේ machine learning ආක්‍රුතිය භාවිත කරන්න"
+            "BODY": "Использовать свою модель машинного обучения в новой версии Scratch"
         }
     },
     "TRAINING": {
-        "TITLE": "Training",
-        "ADDLABEL": "අලුත් label එකක් එකතු කරන්න",
-        "CREATEFIRSTLABEL": "Click on the 'ධන' බොත්තම මත ඔබා ඔබේ පළමු bucket එක add කරන්න.",
-        "CROWDSOURCEDEMPTY": "ඔබේ ගුරුවරයා training bucket සෑදීමෙන් අනතුරුව මෙම පිටුව refresh කරන්න.",
-        "ADDEXAMPLE": "උදාහරණයක් එක්කරන්න",
+        "TITLE": "Обучение",
+        "ADDLABEL": "Добавить новую метку",
+        "CREATEFIRSTLABEL": "Нажмите на кнопку «плюс» справа, чтобы добавить свою первую коллекцию.",
+        "CROWDSOURCEDEMPTY": "Обновите эту страницу после того, как ваш учитель создал обучающую коллекцию.",
+        "ADDEXAMPLE": "Добавить пример",
         "ADDURL": "www",
-        "ADDWEBCAM": "වෙබ් කැමරා",
-        "ADDDRAWING": "අදින්න",
-        "DRAGIMAGES": "වෙනත් browser window එකකින් පින්තූර drag කරගෙන විත් මෙහි drop කරන්න",
+        "ADDWEBCAM": "веб-камера",
+        "ADDDRAWING": "нарисовать",
+        "DRAGIMAGES": "Перетащите картинки из других окон и поместите их сюда",
         "NEWLABEL": {
-            "INTRO": "හදුනාගැනීමට අලුත් label එකක් එක්කරන්න",
-            "ERROR": "lable එකක අකුරු සහ ඉලක්කම් පමණක් භාවිත කරන්න"
+            "INTRO": "Введите новую метку для распознавания",
+            "ERROR": "Используйте только буквы и цифры в метках"
         },
         "NEWEXAMPLE": {
-            "INTRO": "උදාහරණයක් එක්කරන්න ",
-            "INTROURL": "උදාහරණයක් වන පින්තූරයක URL ලිපිනය එක්කරන්න",
-            "INTRODRAWING": "අලුත් උදාහරණයක් අදින්න",
-            "INTROWEBCAM": "අලුත් උදාහරණයක් එක් කරන්න",
-            "ERROR": "ඔබට tabs හෝ newlines භාවිතයට නොහැක.",
-            "REQUIRED": "උදාහරණයකදී ඔබ සියලූම ක්ෂේත්‍ර සදහා අගයන් ඇතුලත් කළ යුතුය",
-            "PATTERNNUMBER": "මෙය අංකයක් ලෙස නොපෙන්වයි",
-            "PATTERNURL": "මෙය පින්තූරයක වෙබ් ලිපිනයක් වියයුතුය",
-            "WEBCAMFAIL": "සමාවන්න! ඔබවෙනුවෙන් කටයුතු කළහැකි වෙබ් කැමරාවක් අපට සොයාගත නොහැක.",
-            "WEBCAMERROR": "ඔබේ වෙබ් කැමරාවෙන් අපට ලැබුනු පණිවිඩය වනුයේ:"
+            "INTRO": "Введите пример ",
+            "INTROURL": "Введите URL-адрес изображения, которое является примером",
+            "INTRODRAWING": "Нарисовать новый пример ",
+            "INTROWEBCAM": "Добавить новый пример ",
+            "ERROR": "Вы не можете использовать вкладки или новые строки.",
+            "REQUIRED": "Вы должны добавить значения для всех полей в примере",
+            "PATTERNNUMBER": "Это не похоже на число",
+            "PATTERNURL": "Это должен быть веб-адрес картинки",
+            "WEBCAMFAIL": "Сожалею! Нам не удалось заставить веб-камеру работать.",
+            "WEBCAMERROR": "Сообщение, которое мы получили от вашего веб-браузера:"
         },
-        "BACKGROUNDNOISE": "Collecting examples of background noise will help the computer to learn to recognize your sounds"
+        "BACKGROUNDNOISE": "Сбор примеров фонового шума поможет компьютеру научиться распознавать ваши звуки"
     },
     "MODELS": {
-        "TITLE": "Machine learning ආක්‍රුතු",
-        "TRAIN": "නව Machine learning ආක්‍රුතියක් train කරන්න",
-        "CANCEL": "train කිරීම අවලංගුකරන්න",
-        "DELETE": "ආක්‍රැතිය මකා දමන්න",
-        "TEST_CANVAS": "Draw something to test your model with",
-        "TEST_WEBCAM": "Take a photo to test your model with",
+        "TITLE": "Модели машинного обучения",
+        "TRAIN": "Обучить новую модель машинного обучения",
+        "CANCEL": "Отменить обучение",
+        "DELETE": "Удалить эту модель",
+        "TEST_CANVAS": "Нарисуйте что-нибудь для тестирования своей модели",
+        "TEST_WEBCAM": "Сделайте фото, чтобы протестировать модель",
         "WHATHAVEYOUDONE": {
-            "TITLE": "ඔබ කුමක්ද කළේ?",
-            "PLEASEWAIT": "සාමාන්‍යයෙන් මෙයට මිනිත්තු කීපයක් ගතවේ, නමුත් පුහුණු පරිගණකය ඉතා කාර්යය බහුලනම් කාලය මදක් වැඩිවිය හැක.",
-            "FAIL": "අවාසනාවන්ත ලෙස යම් ගැටලුවක් ඇතිවිය.",
+            "TITLE": "Что Вы сделали?",
+            "PLEASEWAIT": "Обычно это занимает несколько минут, но может занять немного больше времени, если компьютер очень загружен.",
+            "FAIL": "К сожалению, что-то пошло не так.",
 
             "TRAINING" : {
                 "CROWDSOURCED" : {
-                    "TEXT" : "ඔබේ පන්තිය ඔබ විසින් රැස්කරන ලද උදාහරණ ඡේද (text) භාවිතයෙන් machine learning ආක්‍රුතියක් පුහුණු කරයි.",
-                    "IMAGES" : "ඔබ විසින් රැස් කරන ලද පින්තූර උදාහරණ භාවිතයෙන් ඔබේ පන්තිය machine learning ආක්‍රුතියක් පුහුණු කරයි.",
-                    "NUMBERS" : "ඔබ විසින් රැස් කරන ලද ඉලක්කම් උදාහරණ භාවිතයෙන් ඔබේ පන්තිය machine learning ආක්‍රුතියක් පුහුණු කරයි.",
+                    "TEXT" : "Your class is training a machine learning model using the examples of text that you all collected.",
+                    "IMAGES" : "Your class is training a machine learning model using the examples of images that you all collected.",
+                    "NUMBERS" : "Your class is training a machine learning model using the examples of numbers that you all collected.",
                     "SOUNDS" : "Your class is training a machine learning model using the examples of sounds that you all collected."
                 },
                 "INDIVIDUAL" : {
-                    "TEXT" : "ඔබ ‍රැස් කළ text ඇසුරින් machine learning ආකෘතියක් පුහුණු කිරීම ආරම්භ කරන ලදි.",
-                    "IMAGES" : "ඔබ ‍රැස් කළ images ඇසුරින් machine learning ආකෘතියක් පුහුණු කිරීම ආරම්භ කරන ලදි..",
-                    "NUMBERS" : "ඔබ ‍රැස් කළ ඉලක්කම් ඇසුරින් machine learning ආකෘතියක් පුහුණු කිරීම ආරම්භ කරන ලදි..",
+                    "TEXT" : "You've started training a machine learning model using the examples of text that you collected.",
+                    "IMAGES" : "You've started training a machine learning model using the examples of images that you collected.",
+                    "NUMBERS" : "You've started training a machine learning model using the examples of numbers that you collected.",
                     "SOUNDS" : "You've started training a machine learning model using the examples of sounds that you collected."
                 },
-                "SINCE": "එය මෙතරම් කාලයක සිට පුහුණු කරමින් පවතී"
+                "SINCE": "It's been training since"
             },
             "READY" : {
                 "CROWDSOURCED" : {
-                    "TEXT" : "text පහත ආකාර වූ විට හඳුනාගැනීමට ඔබේ පන්තිය  machine learning ආකෘතියක් පුහුණු කර ඇත ",
-                    "IMAGES" : "images පහත ආකාර වූ විට හඳුනාගැනීමට ඔබේ පන්තිය  machine learning ආකෘතියක් පුහුණු කර ඇත ",
-                    "NUMBERS" : "numbers පහත ආකාර වූ විට හඳුනාගැනීමට ඔබේ පන්තිය  machine learning ආකෘතියක් පුහුණු කර ඇත ",
+                    "TEXT" : "Your class has trained a machine learning model to recognise when text is ",
+                    "IMAGES" : "Your class has trained a machine learning model to recognise when images are ",
+                    "NUMBERS" : "Your class has trained a machine learning model to recognise when numbers are ",
                     "SOUNDS" : "Your class has trained a machine learning model to recognise when sounds are "
                 },
                 "INDIVIDUAL" : {
-                    "TEXT" : "text පහත ආකාර වූ විට හඳුනාගැනීමට ඔබ machine learning ආකෘතියක් පුහුණු කර ඇත ",
-                    "IMAGES" : "images පහත ආකාර වූ විට හඳුනාගැනීමට ඔබ machine learning ආකෘතියක් පුහුණු කර ඇත ",
-                    "NUMBERS" : "ඉලක්කම් පහත ආකාර වූ විට හඳුනාගැනීමට ඔබ machine learning ආකෘතියක් පුහුණු කර ඇත ",
+                    "TEXT" : "You have trained a machine learning model to recognise when text is ",
+                    "IMAGES" : "You have trained a machine learning model to recognise when images are ",
+                    "NUMBERS" : "You have trained a machine learning model to recognise when numbers are ",
                     "SOUNDS" : "You have trained a machine learning model to recognise when sounds are "
                 },
                 "CREATED" : {
-                    "TEACHER" : "ඔබේ ගුරුවරයා තැනූ ආකෘතිය වනුයේ ",
-                    "YOU" : "ඔබ ආකෘතිය තනා ඇත්තේ මේ මතයි "
+                    "TEACHER" : "Your teacher created the model on ",
+                    "YOU" : "You created the model on "
                 },
                 "TRAINING" : {
                     "CLASS" : "Your class has collected: ",
@@ -405,35 +405,35 @@
             "IDLE" : {
                 "NOLABELS" : {
                     "CROWDSOURCED" : {
-                        "TEXT" : "ඔබට text උදාහරණ එකතු කිරීමට අවශ්‍ය බව ඔබේ පන්තිය පවසා ඇත.",
-                        "IMAGES" : "ඔබට image උදාහරණ එකතු කිරීමට අවශ්‍ය බව ඔබේ පන්තිය පවසා ඇත.",
-                        "NUMBERS" : "ඔබට numbers උදාහරණ එකතු කිරීමට අවශ්‍ය බව ඔබේ පන්තිය පවසා ඇත.",
+                        "TEXT" : "Your class said you want to collect examples of text.",
+                        "IMAGES" : "Your class said you want to collect examples of images.",
+                        "NUMBERS" : "Your class said you want to collect examples of numbers.",
                         "SOUNDS" : "Your class said you want to collect examples of sounds."
                     },
                     "INDIVIDUAL" : {
-                        "TEXT" : "ඔබට text උදාහරණ එකතු කිරීමට අවශ්‍ය බව ඔබ පවසා ඇත.",
-                        "IMAGES" : "ඔබට image උදාහරණ එකතු කිරීමට අවශ්‍ය බව ඔබ පවසා ඇත..",
-                        "NUMBERS" : "ඔබට number උදාහරණ එකතු කිරීමට අවශ්‍ය බව ඔබ පවසා ඇත.",
+                        "TEXT" : "You've said you want to collect examples of text.",
+                        "IMAGES" : "You've said you want to collect examples of images.",
+                        "NUMBERS" : "You've said you want to collect examples of numbers.",
                         "SOUNDS" : "You've said you want to collect examples of sounds."
                     }
                 },
                 "NODATA" : {
                     "CROWDSOURCED" : {
-                        "TEXT" : "Text මේ ආකාර වූවිට පරිගණකයට හදුනාගැනීමට අවශ්‍ය text උදාහරණ රැස් කිරීමට ඔබට අවශ්‍ය බව ඔබේ පන්තිය පවසන ලදි ",
-                        "IMAGES" : "Images මේ ආකාර වූවිට පරිගණකයට හදුනාගැනීමට අවශ්‍ය images උදාහරණ රැස් කිරීමට ඔබට අවශ්‍ය බව ඔබේ පන්තිය පවසන ලදි ",
-                        "NUMBERS" : "Numbers මේ ආකාර වූවිට පරිගණකයට හදුනාගැනීමට අවශ්‍ය numbers උදාහරණ රැස් කිරීමට ඔබට අවශ්‍ය බව ඔබේ පන්තිය පවසන ලදි ",
+                        "TEXT" : "Your class said that you want to collect examples of text for a computer to recognise when text is ",
+                        "IMAGES" : "Your class said that you want to collect examples of images for a computer to recognise when images are ",
+                        "NUMBERS" : "Your class said that you want to collect examples of numbers for a computer to recognise when numbers are ",
                         "SOUNDS" : "Your class said that you want to collect examples of sounds for a computer to recognise when sounds are "
                     },
                     "INDIVIDUAL" : {
-                        "TEXT" : "ඔබ පවසා ඇත්තේ text පහත ආකාර වූ විට පරිගණකයට හදුනා ගැනීම සදහා උදාහරණ අවශ්‍යව ඇති බවය ",
-                        "IMAGES" : "ඔබ පවසා ඇත්තේ images පහත ආකාර වූ විට පරිගණකයට හදුනා ගැනීම සදහා උදාහරණ අවශ්‍යව ඇති බවය ",
-                        "NUMBERS" : "ඔබ පවසා ඇත්තේ numbers පහත ආකාර වූ විට පරිගණකයට හදුනා ගැනීම සදහා උදාහරණ අවශ්‍යව ඇති බවය  ",
+                        "TEXT" : "You said that you want to collect examples of text for a computer to recognise when text is ",
+                        "IMAGES" : "You said that you want to collect examples of images for a computer to recognise when images are ",
+                        "NUMBERS" : "You said that you want to collect examples of numbers for a computer to recognise when numbers are ",
                         "SOUNDS" : "You said that you want to collect examples of sounds for a computer to recognise when sounds are "
                     }
                 },
                 "NOEXAMPLES" : {
-                    "CLASS" : "මෙතෙක්, ඔබේ පන්තිය කිසිදු උදාහරණයක් රැස් කර නොමැත.",
-                    "YOU" : "මෙතෙක්, ඔබ කිසිදු උදාහරණයක් රැස් කර නොමැත."
+                    "CLASS" : "So far, your class haven't collected any examples yet.",
+                    "YOU" : "So far, you haven't collected any examples yet."
                 },
                 "DATA" : {
                     "CROWDSOURCED" : {
@@ -449,38 +449,38 @@
                         "SOUNDS" : "You have collected examples of sounds for a computer to use to recognise when sounds are "
                     },
                     "COLLECTED" : {
-                        "CLASS" : "ඔවුන් එකතු කර ඇත්තේ: ",
-                        "YOU" : "ඔබ එකතු කර ඇත්තේ: "
+                        "CLASS" : "Они собрали:",
+                        "YOU" : "Вы собрали:"
                     }
                 }
             }
         },
         "WHATSNEXT": {
-            "TITLE": "මීළගට කුමක්ද?",
-            "PLEASEWAIT": "ඔබට matchine learning ආක්‍රුතිය පුහුණු කිරීම අවසන් වන තෙක් ඉවසා සිටීමට සිදුවේ.",
-            "OFFERQUIZ": "නැතිනම්, ඔබට පහතින් දැක්වෙන machine learning ප්‍රශ්නාවලියට මුහුණදී, ඔබ ඉගෙනගත් දේ පරීක්ෂාකර ගන්න.",
-            "FAIL": "පුහුණු කිරීමේ පරිගණකය විසින් එවන ලද error message එක පහතින් දැක්වේ, ඔබට එහි යම් දෝෂයක් හදුනාගත හැකිනම් එය නිවැරදි කර, උත්සාහ කරන්න. එසේ හදුනාගත නොහැකි නම්, එය retry කිරීම වඩා සුදුසු වන්නේ එය අහඹු දෝෂයක් වියහැකි බැවිනි.",
+            "TITLE": "Что дальше?",
+            "PLEASEWAIT": "Вы можете подождать окончания обучения модели машинного обучения.",
+            "OFFERQUIZ": "Или Вы можете попробовать пройти тест по машинному обучению ниже, чтобы проверить, что Вы узнали.",
+            "FAIL": "The error message from the training computer is shown below. If that makes sense to you, try and fix the problem. Otherwise, it might be worth trying again in case it was just a random error.",
 
             "IDLE": {
-                "NOLABELS" : "මීළග පියවර වන්නේ <a href='{{ urls.train }}'> පුහුණු</a> පිටුවට යාමයි. ඔබට පරිගණකයට හඳුනාගැනීමට ඉගැන්වියයුතු එක් එක්  දෑ සඳහා lable කිහිපයක් එක් කරන්න.",
+                "NOLABELS" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add some labels for each of the things that you want to teach the computer to be able to recognise.",
                 "ONELABEL" : {
-                    "EXPLANATION": "පරිගණකය හඳුනා ගතයුත්තේ එක් දෙයක් ලෙස පමණක් ලෙස ඔබ පවසා ඇත: {{ label }}",
-                    "ISTHATALL": "ඔබට පරිගණකයට හඳුනා ගැනීමට පුහුණු කළ යුත්තේ එය පමණද?",
-                    "NO": "<strong>නැහැ?</strong><br/>ආපසු  <a href='{{ urls.train }}'>පුහුණු  පි‍ටුව </a> වෙත ආපසු යන්න.<br/>ඔබට පරිගණකයට හඳුනා ගැනීමට අවශ්‍ය එක් එක් දෙයක් සඳහා lable එක බැගින් එක් කරන්න.<br/><br/>",
-                    "YES": "<strong>ඔව්?</strong><br/>මුලින්ම ඔබ තවත් පොඩි වැඩක් කළ යුතුය.<br/>පරිගණකයට \"{{ label }}\" හඳුනා ගැනීමට ඉගෙන ගැනීමට ,  {{ label }} නොවන දේවල් වල උදාහරණ කීපයක් අවශ්‍ය වේ.<br/>ආපසු <a href='{{ urls.train }}'>පුහුණු</a> පිටුවට ගොස් {{ label }} නොවන දේවල් ඇතුලත් කර නව lable එකක් සාදන්න . ඔබට එය \"not-{{ label }}\" ලෙස නම් කළ හැක."
+                    "EXPLANATION": "You've only said one thing that you want the computer to be able to recognise: {{ label }}",
+                    "ISTHATALL": "Is that the only thing you want the computer to be able to recognise?",
+                    "NO": "<strong>No?</strong><br/>Go back to the <a href='{{ urls.train }}'>Train</a> page.<br/>Add more labels for each of the things that you want to teach the computer to be able to recognise.<br/><br/>",
+                    "YES": "<strong>Yes?</strong><br/>You need to do a little more work first.<br/>For the computer to be able to learn how to recognise \"{{ label }}\", you need to give it some examples of things that aren't {{ label }}.<br/>Go back to the <a href='{{ urls.train }}'>Train</a> page and create a new label for examples of things that aren't {{ label }}. You could call it \"not-{{ label }}\"."
                 },
                 "LABELS" : {
-                    "NO_DATA" : "මීළඟ පියවර වන්නේ  <a href='{{ urls.train }}'>පුහුණු පිටුවට</a> ගොස් . එක් එක් ලේබලය සඳහා උදාහරණ එක් කිරීමයි.",
+                    "NO_DATA" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples for each of the labels.",
                     "MORE_DATA" : {
-                        "KEEP_GOING": "තවත් ඉදිරියටම යන්න!",
+                        "KEEP_GOING": "Продолжайте!",
                         "MORE_EXAMPLES" : {
-                            "YOU": "ආපසු <a href='{{ urls.train }}'>පුහුණු පිටුව</a> වෙතගොස් එක් එක් ලේබලය සඳහා තවත් උදාහරණ එක් කරන්න.",
-                            "CLASS": "ඔබේ පන්තියට ආපසු <a href='{{ urls.train }}'>පුහුණු පිටුව</a> වෙත ගොස් එක් එක් ලේබලය සඳහා තවත් උදාහරණ එක් කිරීමට උපදෙස් දෙන්න."
+                            "YOU": "Go back to the <a href='{{ urls.train }}'>Train</a> page and collect more examples for each of the labels.",
+                            "CLASS": "Ask your class to go back to the <a href='{{ urls.train }}'>Train</a> page and collect more examples for each of the labels."
                         },
                         "MORE_IS_BETTER" : "The more you can get, the better it should learn, but you need at least {{ minimumExamples }} examples of each as an absolute minimum."
                     },
                     "ENOUGH_DATA" : {
-                        "READY_TO_START" : "Ready to start the computer's training?",
+                        "READY_TO_START" : "Готовы начать обучение компьютера?",
                         "START_TRAINING" : {
                             "CROWDSOURCED" : "Click the button below to start training a machine learning model using the examples your class have collected so far",
                             "INDIVIDUAL" : "Click the button below to start training a machine learning model using the examples you have collected so far"
@@ -489,7 +489,7 @@
                             "CROWDSOURCED" : "(Or ask your class to go back to the <a href='{{ urls.train }}'>Train</a> page if you want them to collect more examples first.)",
                             "INDIVIDUAL" : "(Or go back to the <a href='{{ urls.train }}'>Train</a> page if you want to collect some more examples first.)"
                         },
-                        "WAITING_FOR_TEACHER" : "Waiting for your teacher to start the computer's training."
+                        "WAITING_FOR_TEACHER" : "Ожидаем Вашего учителя, чтобы начать обучение компьютера."
                     }
                 }
             },
@@ -516,10 +516,10 @@
         "TRAINING": {
             "TITLE": "Info from training computer:",
             "STARTED": "Model started training at:",
-            "STATUS": "Current model status:",
-            "DETAIL": "Detail:",
-            "DELETION": "Model will automatically be deleted after:",
-            "LASTCHECK": "Model last checked:",
+            "STATUS": "Текущий статус модели:",
+            "DETAIL": "Детали:",
+            "DELETION": "Модель будет автоматически удалена после: ",
+            "LASTCHECK": "Последняя проверка модели:",
             "PROMPTREFRESH": "If this is more than a minute, you should refresh the page to get an up-to-date status"
         },
         "TESTING": {
@@ -533,26 +533,26 @@
             "DRAWING": "Test by <strong>drawing</strong>",
             "WWW": "Test with <strong>www</strong>",
             "RECOGNISED": "Recognised as  <strong>{{ testoutput }}</strong>",
-            "STARTLISTENING": "Start listening",
-            "STOPLISTENING": "Stop listening"
+            "STARTLISTENING": "Начать слушать",
+            "STOPLISTENING": "Закончить слушать"
         },
         "QUIZ": {
-            "TITLE": "Quiz time!",
-            "INTROQUESTION": "While you are waiting for the model to finish training, try answering this question.",
+            "TITLE": "Время проверки знаний!",
+            "INTROQUESTION": "Пока Вы ждете, когда модель закончит обучаться, попробуйте ответить на следующий вопрос.",
             "PREVIOUSLY_ATTEMPTED": "You've seen this one before - let's see if you remember what the right answer is this time!",
-            "CORRECT_ANSWER": "That's right!",
-            "INCORRECT_ANSWER": "No, sorry. The correct answer is shown above.",
-            "NEXT_QUESTION": "Next question",
+            "CORRECT_ANSWER": "Верно!",
+            "INCORRECT_ANSWER": "К сожалению, нет. Верный ответ показан выше.",
+            "NEXT_QUESTION": "Следующий вопрос",
 
             "QUESTION_1": {
                 "QUESTION": "In general, what will help machines to learn better?",
-                "ANSWER_1": "More examples",
-                "ANSWER_2": "Fewer examples",
+                "ANSWER_1": "Больше примеров",
+                "ANSWER_2": "Меньше примеров",
                 "NOTES_1": "That isn't the only thing that has an effect. But in general, the more examples it has to learn from, the better it should learn."
             },
             "QUESTION_2": {
                 "QUESTION": "Which of these would probably be best for training a computer to recognise a photo of an apple?",
-                "ANSWER_1": "Photos of dogs",
+                "ANSWER_1": "Фото собак",
                 "ANSWER_2": "Varied photos of different types of apples in different places",
                 "ANSWER_3": "Identical photos of an apple",
                 "ANSWER_4": "Very, very similar photos of the same apple in the same place",
@@ -572,7 +572,7 @@
                 "ANSWER_1": "Sentiment analysis - recognising the mood, tone or emotion in text",
                 "ANSWER_2": "Translating text from one language to another",
                 "ANSWER_3": "Face recognition - recognising a face in a photo and identifying who it is",
-                "ANSWER_4": "Self-driving cars",
+                "ANSWER_4": "Беспилотные автомобили",
                 "ANSWER_5": "Calculating the cost of something in different countries based on exchange rates",
                 "ANSWER_6": "Recommending a movie based on films you've watched before",
                 "NOTES_1": "Tasks that involve following rules which can be worked out are not a good use for machine learning.",
@@ -590,16 +590,16 @@
             "QUESTION_6": {
                 "QUESTION": "Which of these statements is correct?",
                 "ANSWER_1": "Machine learning is a technique where computers can be trained to perform tasks instead of needing to be given an explicit set of steps to follow",
-                "ANSWER_2": "Machine learning is magic",
+                "ANSWER_2": "Машинное обучение - это магия",
                 "ANSWER_3": "Machine learning means we don't need to think about problems any more because computers will think for us",
                 "ANSWER_4": "Machine learning has replaced the need for us to learn how to code",
                 "ANSWER_5": "Machine learning can only be done on massive supercomputers"
             },
             "QUESTION_7": {
                 "QUESTION": "A machine learning system trained to recognise pictures with a tree in should be good at which of the following tasks:",
-                "ANSWER_1": "Identifying pictures of fruit",
+                "ANSWER_1": "Определение изображений фруктов",
                 "ANSWER_2": "Recognising the emotion in a piece of writing",
-                "ANSWER_3": "Recognising pictures of trees",
+                "ANSWER_3": "Распознавание картинок деревьев",
                 "NOTES_1": "Machine learning does not mean computers magically learn to do everything.",
                 "NOTES_2": "It means they learn how to do a specific task by being shown examples of that specific task.",
                 "NOTES_3": "If you want it to do something else, you need to train it to do that as well, by giving it examples of that."
@@ -636,7 +636,7 @@
                 "ANSWER_1": "The human who trained the system doesn't like sandwiches and didn't put any in the training data",
                 "ANSWER_2": "The machine has to be in the right mood for a sandwich so it changes its mind a lot",
                 "ANSWER_3": "Sandwiches are not food. The system is right to be unsure",
-                "NOTES_1": "Machine learning models can only learn from the examples we show them.",
+                "NOTES_1": "Модели машинного обучения могут обучаться только на тех примерах, которые мы им показывали.",
                 "NOTES_2": "It is very easy for humans to accidentally introduce their likes and dislikes into machine learning models so we should be very careful about what training data we use."
             },
             "QUESTION_12": {
@@ -673,8 +673,8 @@
     },
     "MAKES": {
         "TITLE": "Make something with your machine learning model",
-        "SCRATCH2": "Make a project in the current version of Scratch",
-        "SCRATCH3": "Use the new (beta) version of Scratch",
+        "SCRATCH2": "Make a project in the old version of Scratch",
+        "SCRATCH3": "Use the new version of Scratch",
         "PYTHON": "Write Python code to use your machine learning model",
         "APPINVENTOR": "Make a mobile app for your phone or tablet"
     },
@@ -724,25 +724,25 @@
     "SCRATCH3": {
         "TITLE": "Using machine learning in Scratch 3",
 
-        "LAUNCH": "Open in Scratch 3"
+        "LAUNCH": "Открыть в Scratch 3"
     },
     "WORKSHEETS": {
-        "TITLE": "Machine learning projects",
+        "TITLE": "Проекты машинного обучения",
 
         "INTRO_1": "These projects are downloadable step-by-step guides, with explanations and colour screenshots for students to follow.",
         "INTRO_2": "Each project is a stand-alone activity, written to last for a single lesson, and will guide children to create a game or interactive project that demonstrates a real-world use of artificial intelligence and machine learning.",
         "INTRO_3": "Suggestions for new worksheets, suggestions of improvements to any of the worksheets, or contributions of new project worksheets, are all very welcome.",
 
         "TYPES": {
-            "TITLE": "Recognising:",
-            "ALL": "All project types",
+            "TITLE": "Распознавание:",
+            "ALL": "Все типы проектов",
 
-            "PREFIX": "Train a computer to recognise ",
+            "PREFIX": "Обучите компьютер распознавать",
 
-            "TEXT": "text",
-            "IMAGES": "images",
-            "NUMBERS": "numbers",
-            "SOUNDS": "sounds"
+            "TEXT": "текст",
+            "IMAGES": "изображения",
+            "NUMBERS": "числа",
+            "SOUNDS": "звуки"
         },
 
         "LEVELS": {
@@ -885,7 +885,7 @@
         },
         "PACMAN": {
             "TITLE": "Pac-Man",
-            "SUMMARY": "Teach a computer to play a game",
+            "SUMMARY": "Научите компьютер играть в игру",
             "DESCRIPTION": "Create a Pac-Man game in Scratch that learns how to avoid the ghost.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pacman.pdf"
@@ -980,7 +980,7 @@
         },
         "NOUGHTSANDCROSSES": {
             "TITLE": "Noughts & Crosses",
-            "SUMMARY": "Teach a computer to play a game",
+            "SUMMARY": "Научите компьютер играть в игру",
             "DESCRIPTION": "Create a noughts and crosses game in Scratch that learns how to beat you.",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Classroom version, where each student makes the game themselves in Scratch",
@@ -997,7 +997,7 @@
         },
         "TOPTRUMPS": {
             "TITLE": "Top Trumps",
-            "SUMMARY": "Teach a computer to play a game",
+            "SUMMARY": "Научите компьютер играть в игру",
             "DESCRIPTION": "Train a computer to be able to play the Top Trumps card game in Scratch.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-toptrumps.pdf"
@@ -1030,7 +1030,7 @@
         "FINDIT": {
             "TITLE": "Find It!",
             "SUMMARY": "Teach a computer to recognise pictures",
-            "DESCRIPTION": "Make a hide-and-seek game for your mobile phone",
+            "DESCRIPTION": "Make a hide-and-seek game for your mobile phone.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-findit.pdf"
             }
@@ -1038,7 +1038,7 @@
         "ALIENLANGUAGE": {
             "TITLE": "Alien Language",
             "SUMMARY": "Teach a computer to recognize sounds",
-            "DESCRIPTION": "Make an alien in Scratch that learns to recognize an alien language",
+            "DESCRIPTION": "Make an alien in Scratch that learns to recognize an alien language.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-alienlanguage.pdf"
             }
@@ -1128,88 +1128,88 @@
 
             "HELP_STEPBYSTEP_GUIDE": "If you're not sure what to do here, please follow the <a href='/apikeys-guide'> step-by-step guide </a>. If you'd like any help, please <strong><a style='cursor: pointer;' href='/help'>get in touch</a></strong>.",
 
-            "INTRO_WATSONASSISTANT": "Training machine learning models for <span class='mlprojecttype'>text</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/conversation/'>Watson Assistant</a>",
+            "INTRO_WATSONASSISTANT": "Training machine learning models for <span class='mlprojecttype'>text</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a>",
             "INTRO_VISUALRECOGNITION": "Training machine learning models for <span class='mlprojecttype'>images</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
             "INTRO_NUMBERS": "Training machine learning models for <span class='mlprojecttype'>numbers</span> projects does <strong>not</strong> require any API keys",
             "INTRO_SOUNDS": "Training machine learning models for <span class='mlprojecttype'>sound</span> projects does <strong>not</strong> require any API keys",
 
-            "ERROR_FETCHING_WATSONASSISTANT": "Failed to get your Watson Assistant passwords",
-            "ERROR_FETCHING_VISUALRECOG": "Failed to get your Visual Recognition API keys",
+            "ERROR_FETCHING_WATSONASSISTANT": "Не удалось получить пароли Watson Assistant",
+            "ERROR_FETCHING_VISUALRECOG": "Не удалось получить ключи API визуального распознавания",
 
-            "USERNAME": "Username",
-            "PASSWORD": "Password",
-            "APIKEY": "API key",
+            "USERNAME": "Имя пользователя",
+            "PASSWORD": "Пароль",
+            "APIKEY": "API ключ",
 
-            "NUMBER_OF_ML_MODELS": "Number of ML models",
-            "UNKNOWN": "unknown",
-            "UNLIMITED": "unlimited",
+            "NUMBER_OF_ML_MODELS": "Число моделей МО",
+            "UNKNOWN": "неизвестно",
+            "UNLIMITED": "безлимитно",
 
-            "LIMIT_TEXT_PROJECTS": "Number of text machine learning models your students can have:",
-            "LIMIT_IMAGE_PROJECTS": "Number of images machine learning models your students can have:",
+            "LIMIT_TEXT_PROJECTS": "Количество текстовых моделей машинного обучения, которые могут иметь ваши ученики:",
+            "LIMIT_IMAGE_PROJECTS": "Количество моделей машинного обучения для изображений, которые могут иметь ваши ученики:",
 
             "ADD_API_KEYS": {
-                "ASSISTANT_TITLE": "Add Watson Assistant credentials",
-                "VISUAL_RECOGNITION_TITLE": "Add Visual Recognition API key",
+                "ASSISTANT_TITLE": "Добавить учетные данные Watson Assistant",
+                "VISUAL_RECOGNITION_TITLE": "Добавить ключ API визуального распознавания",
 
-                "USED_FOR_TEXT_PROJECTS": "These will be used when your students train models in text projects.",
-                "USED_FOR_IMAGE_PROJECTS": "These will be used when your students train models in images projects.",
+                "USED_FOR_TEXT_PROJECTS": "Они будут использоваться, когда ваши студенты обучают модели в проектах с текстами.",
+                "USED_FOR_IMAGE_PROJECTS": "Они будут использоваться, когда ваши студенты будут обучать модели в проектах с изображениями.",
 
-                "HIDDEN_FROM_STUDENTS": "This will not be shown to students in your group.",
+                "HIDDEN_FROM_STUDENTS": "Это не будет показано ученикам в вашей группе.",
 
-                "PRICING_PLAN": "Which Pricing Plan did you use?",
-                "ENTER_APIKEY": "Please enter the API key below",
-                "ENTER_PASSWORD": "Please enter the username and password below",
+                "PRICING_PLAN": "Какой тарифный план вы использовали?",
+                "ENTER_APIKEY": "Пожалуйста, введите ключ API ниже",
+                "ENTER_PASSWORD": "Пожалуйста, введите имя пользователя и пароль ниже",
 
-                "CREDENTIALS_TYPE": "What did you create in Watson Assistant?"
+                "CREDENTIALS_TYPE": "Что вы создали в Watson Assistant?"
             }
         },
         "RESTRICTIONS": {
-            "TITLE": "Administration : Restrictions",
+            "TITLE": "Администрирование : Ограничения",
 
             "ASK_FOR_CHANGES": "If any of these restrictions cause a problem for your group, please <strong><a href='/help'>get in touch</a></strong>.",
 
             "CLASS_LIMITS": {
-                "TITLE": "Limits for your class",
+                "TITLE": "Ограничения для вашего класса",
                 "NUM_USERS": "You can have up to <span class='mlprojecttype'>{{ num }}</span> users (including students and teachers) in your group.",
                 "NUM_TEXT_MODELS": "Your class is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> machine learning models in total across all their <span class='mlprojecttype'>text</span> projects.",
                 "NUM_IMAGE_MODELS": "Your class is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> machine learning models in total across all their <span class='mlprojecttype'>images</span> projects.</div>"
             },
             "PROJECT_LIMITS": {
-                "TITLE": "Limits for projects created by your students",
+                "TITLE": "Лимиты на проекты, созданные вашими учениками",
                 "NUM_PROJECTS": "Each of your students is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> projects.",
                 "TYPES": "Your students can create projects to recognise <span class='mlprojecttype'>{{ types }}</span>.",
                 "TRAINING_DATA": "Each <span class='mlprojecttype'>{{ type }}</span> project can have up to <span class='mlprojecttype'>{{ num }}</span> training data examples. "
             },
             "EXPIRY": {
-                "TITLE": "To help you avoid the limits for number of machine learning models:",
+                "TITLE": "Чтобы помочь вам избежать ограничений на количество моделей машинного обучения:",
                 "TIME_LIMIT": "Machine learning models created for <span class='mlprojecttype'>{{ type }}</span> projects will automatically be deleted after <span class='mlprojecttype'>{{ num }}</span> hours.",
                 "DONT_WORRY": "(Don't worry! Training data will not be deleted, so students can always train a new machine learning model again if they still need it after this.)"
             },
 
-            "NOT_AUTHORIZED": "You are not authorized to access the restrictions in place for your class."
+            "NOT_AUTHORIZED": "Вы не авторизованы для доступа к ограничениям для вашего класса."
         },
         "SUPERVISION": {
-            "TITLE": "Administration : Student projects",
+            "TITLE": "Администрирование : Проекты учеников",
 
             "INTRO_1": "This page displays a list of all of the projects that your class currently has. You can use it to review what they're working on.",
             "INTRO_2": "If you've hit the limit for the number of machine learning models that your class can create, you can use this to see which projects currently have a machine learning model, and delete any that you think are no longer needed.",
 
-            "NO_PROJECTS_1": "None of the students in your class currently have any projects.",
-            "NO_PROJECTS_2": "Once your students start creating projects, come back here to see an overview of their work.",
+            "NO_PROJECTS_1": "Ни один из учеников в вашем классе в настоящее время не имеет никаких проектов.",
+            "NO_PROJECTS_2": "Как только ваши студенты начнут создавать проекты, вернитесь сюда, чтобы увидеть обзор их работы.",
 
-            "NAME": "Name",
-            "TYPE": "Type",
-            "STUDENT": "Student",
-            "MODELS": "ML models",
+            "NAME": "Имя",
+            "TYPE": "Тип",
+            "STUDENT": "Ученик",
+            "MODELS": "Модель МО",
 
-            "DELETE": "Click the icon to delete",
+            "DELETE": "Нажмите на значок, чтобы удалить",
 
-            "NOT_AUTHORIZED": "You are not authorized to access the list of projects for all students in your class."
+            "NOT_AUTHORIZED": "У вас нет прав доступа к списку проектов для всех учащихся вашего класса."
         },
         "STUDENTMANAGEMENT": {
             "TITLE": "Administration : Student management",
 
-            "CREATE_FIRST_STUDENT": "Click on the 'plus' button on the right to create the first student",
+            "CREATE_FIRST_STUDENT": "Click on a 'plus' button on the right to create the first student",
             "ADD": "Add new student",
             "NEW_USERNAME": "Choose a unique username",
             "ALPHANUMERIC": "Only use letters and numbers",
@@ -1266,119 +1266,119 @@
             "mlforkids.imageblocks.saveScreenshotToCostume": "save screenshot to costume"
         },
         "GUI": {
-            "gui.menuBar.mlforkidsLibrary": "Project templates",
-            "gui.mlforkidsLibrary.templates": "Machine Learning for Kids modelos de projeto"
+            "gui.menuBar.mlforkidsLibrary": "Шаблоны проектов",
+            "gui.mlforkidsLibrary.templates": "Машинное обучение для детей - шаблоны проектов"
         }
     },
     "HELP": {
         "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
         "GETTINGSTARTED": {
-            "TITLE": "Getting started?",
-            "INTRO": "Download a PDF with a short getting started guide:",
-            "MANAGED": "Managed class accounts",
-            "MANAGEDEXPL": "For school teachers, coding group leaders, or other volunteers",
-            "UNMANAGED": "Unmanaged class accounts",
+            "TITLE": "Начинаем?",
+            "INTRO": "Скачать PDF-файл с кратким руководством по началу работы:",
+            "MANAGED": "Учетные записи контролируемого класса",
+            "MANAGEDEXPL": "Для школьных учителей, руководителей групп по программированию или других добровольцев",
+            "UNMANAGED": "Учетные записи неконтролируемого класса",
             "UNMANAGEDEXPL": "For IBM employees, or teachers and coding group leaders who manage their own class accounts"
         },
         "FAQS": {
-            "TITLE": "Want to know more?",
-            "INTRO1": "Is something not working?",
+            "TITLE": "Хотите узнать больше?",
+            "INTRO1": "Что-то не работает?",
             "INTRO2": "The list below contains the questions and issues that I hear about most often. If you see something that looks similar to your problem, click on the summary for more info.",
             "INTRO3": "If you're still stuck, or you've run into a problem I've not included in the list, sorry! Please <a href='https://groups.google.com/d/forum/mlforkids'>ask a question in the mlforkids Google Group</a> so that I can help."
         },
 
         "SCRATCH": {
-            "TITLE": "Scratch issues",
+            "TITLE": "Проблемы со Scratch",
 
-            "Q1": "I don't know how to get Scratch working",
-            "Q1-A-1": "Machine Learning for Kids uses Scratch 2. Scratch needs Adobe Flash to work, so you need to be using an operating system and a web browser that can work with Flash (so that means no iPads for now, sorry).",
-            "Q1-A-2": "If you're not sure about how to enable Flash, you can            <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>download a document with some tips for getting Scratch working</a>.",
+            "Q1": "Я не знаю, как заставить Scratch 2 работать",
+            "Q1-A-1": "The old version of Scratch, Scratch 2, needs Adobe Flash to work, so you need to be using an operating system and a web browser that can work with Flash.",
+            "Q1-A-2": "If you're not sure about how to enable Flash, you can            <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>download a document with some tips for getting Scratch working</a>. Or you can use the new version of Scratch, Scratch 3, instead.",
 
-            "Q2": "The \"Load Project\" and \"Save Project\" menus in Scratch don't work",
+            "Q2": "Меню «Загрузить проект» и «Сохранить проект» в Scratch не работают",
             "Q2-A-1": "If you're using Safari on macOS and the Scratch menus \"File -&gt; Load Project\" and \"File -&gt; Save Project\" menus aren't working, it might be that you're running in Safe Mode.",
             "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>Follow the instructions here</a> for how to check and fix this.",
 
-            "Q3": "Machine learning classifier blocks in Scratch 2 stopped working",
+            "Q3": "Блоки машинного обучения классификатора в Scratch не работают",
             "Q3-A-1": "Occassionally, the Scratch blocks for your machine learning model can lose the connection to the server. When this happens, they will stop returning results.",
-            "Q3-A-2": "You can check whether this has happened using the coloured status light in the \"More Blocks\" palette.",
+            "Q3-A-2": "Вы можете проверить, произошло ли это, используя цветной индикатор состояния в палитре «Больше блоков».",
             "Q3-A-3": "If the status light next to your machine learning Scratch blocks is red, that normally means something is wrong. It might be a temporary problem. Try saving your project (using 'File' -&gt; 'Save Project'), then refresh the browser page. If the status light goes green after the page reloads, you can load your project (using 'File' -&gt; 'Load Project') to pick up where you left off.",
             "Q3-A-4": "If the status light is still red after reloading the page, then there is probably something wrong with the machine learning model. Try going to the \"Learn &amp; Test\" page for the project, which is where any error messages about your model can be found.",
             "Q3-A-5": "If the status light next to your machine learning Scratch blocks is green, then the blocks should be working. If you're not getting the responses you expect from them, try going to the \"Learn &amp; Test\" page and checking what results your model returns.",
 
-            "Q5": "Can I use any version of Scratch?",
+            "Q5": "Могу ли я использовать любую версию Scratch?",
             "Q5-A-1": "You need to use the versions of Scratch that are provided by the Machine Learning for Kids site. They can be launched by clicking the Scratch, or 'Scratch 3', buttons from your project page.",
 
-            "Q6": "Scratch 3 is only saving projects to the 'Downloads' folder",
-            "Q6-A-1": "When you click 'File' -> 'Save to your computer' in Scratch 3, your Scratch project is saved to your computer.",
+            "Q6": "Scratch 3 сохраняет проекты только в папку «Загрузки»",
+            "Q6-A-1": "Когда вы нажимаете «Файл» -> «Сохранить на вашем компьютере» в Scratch 3, ваш проект Scratch сохраняется на вашем компьютере.",
             "Q6-A-2": "Some teachers reported a problem that this saved to the Downloads folder, on a computer where students don't have access in Windows to the Downloads folder. The result was that students were not able to access their saved projects.",
             "Q6-A-3": "If you have this problem, you need to look in your web browser settings for a setting like 'Ask where to save each file before downloading'. If you enable that, your students will be able to choose where their projects are saved."
         },
 
         "TRAININGUI": {
-            "TITLE": "Training UI issues",
+            "TITLE": "Вопросы обучения пользовательского интерфейса",
 
-            "Q1": "Dragging images into training buckets (for image projects) doesn't work",
+            "Q1": "Перетаскивание изображений в обучающие коллекции (для проектов с изображениями) не работает",
             "Q1-A-1": "Dragging images into the training buckets doesn't work if you're using Internet Explorer.",
             "Q1-A-2": "Sorry about this. If you can use another browser like Firefox or Chrome, please do that. Otherwise, you can click the \"www\" button and paste in the URL of training pictures instead."
         },
 
         "MODELS": {
-            "TITLE": "Errors training machine learning models",
+            "TITLE": "Ошибки обучения моделей машинного обучения",
 
-            "Q1": "\"No Watson credentials have been set up\"",
-            "Q1-A-1": "Machine learning models in the tool are created using IBM Watson APIs.",
+            "Q1": "«Учетные данные Watson не настроены»",
+            "Q1-A-1": "Модели машинного обучения в данном сервисе создаются с использованием API-интерфейсов IBM Watson.",
             "Q1-A-2": "If you have an \"unmanaged\" class account, then your teacher or group leader will need to provide Watson API credentials from IBM Cloud for this to work. Step-by-step instructions for how they can do this are in the \"Getting Started\" document at the top of this page.",
 
-            "Q2": "\"Watson credentials being used by your class were rejected\"",
-            "Q2-A-1": "Machine learning models in the tool are created using IBM Watson APIs.",
+            "Q2": "«Учетные данные Watson, используемые вашим классом, были отклонены»",
+            "Q2-A-1": "Модели машинного обучения в данном сервисе создаются с использованием API-интерфейсов IBM Watson.",
             "Q2-A-2": "If you have an \"unmanaged\" class account, then your teacher or group leader will have provided Watson API credentials from IBM Cloud for this to work (as described in the \"Getting Started\" document at the top of this page).",
             "Q2-A-3": "However, the credentials that were provided are currently not working. The most likely reason is that the credentials were deleted from IBM Cloud since they were originally provided. If that isn't the case, the teacher or group leader who provided the Watson credentials needs to go back to the IBM Cloud dashboard to check the status of the Watson Assistant or Visual Recognition service that they created.",
 
-            "Q3": "\"Watson Assistant API keys have no more workspaces available\"",
-            "Q3-A-1": "Machine learning models in the tool are created using IBM Watson APIs.",
-            "Q3-A-2": "Watson Assistant (formerly Watson Conversation) credentials created by teachers have a limit on the number of machine learning models that they can be used to create. This is displayed in the IBM Cloud UI where the credentials were created, where they are called \"workspaces\".",
-            "Q3-A-3": "If this limit is exceeded, attempts to train new machine learning models will fail, and this message will be displayed:",
+            "Q3": "«У ключей API Watson Assistant больше нет доступных рабочих областей»",
+            "Q3-A-1": "Модели машинного обучения в данном сервисе создаются с использованием API-интерфейсов IBM Watson.",
+            "Q3-A-2": "Watson Assistant credentials created by teachers have a limit on the number of machine learning models that they can be used to create. This is displayed in the IBM Cloud UI where the credentials were created, where they are called \"workspaces\".",
+            "Q3-A-3": "Если этот предел превышен, попытки обучить новые модели машинного обучения провалятся, и будет показано это сообщение:",
             "Q3-A-4": "Your class already has created their maximum allowed number of models. Please let your teacher or group leader know that their \"Watson Assistant API keys have no more workspaces available\".",
             "Q3-A-5": "If a student who has a successfully trained model then deletes their model, this will free up a workspace for use by another student.",
-            "Q3-A-6": "One way to avoid this error in future would be smaller class sizes. If there are fewer students than the number of workspaces supported by the Watson Assistant (formerly Conversation) credentials, then the limits will not be hit.",
+            "Q3-A-6": "One way to avoid this error in future would be smaller class sizes. If there are fewer students than the number of workspaces supported by the Watson Assistant credentials, then the limits will not be hit.",
             "Q3-A-7": "Another way to avoid this error is to add additional Watson Assistant API keys to the class, or to use a Watson Assistant instance \"plan\" that has higher limits.",
 
             "Q4": "\"Watson Visual Recognition API keys have no more classifiers available\"",
-            "Q4-A-1": "Machine learning models in the tool are created using IBM Watson APIs.",
+            "Q4-A-1": "Модели машинного обучения в данном сервисе создаются с использованием API-интерфейсов IBM Watson.",
             "Q4-A-2": "Watson Visual Recognition credentials created by teachers have a limit on the number of machine learning models that they can be used to create. This is displayed in the IBM Cloud UI where the credentials were created, where they are called \"custom classifiers\".",
-            "Q4-A-3": "If this limit is exceeded, attempts to train new machine learning models will fail, and this message will be displayed:",
+            "Q4-A-3": "Если этот предел превышен, попытки обучить новые модели машинного обучения провалятся, и будет показано это сообщение:",
             "Q4-A-4": "Your class already has created their maximum allowed number of models. Please let your teacher or group leader know that their \"Watson Visual Recognition API keys have no more classifiers available\".",
             "Q4-A-5": "If a student who has a successfully trained model then deletes their model, this will free up a custom classifier for use by another student.",
             "Q4-A-6": "One way to avoid this error in future would be smaller class sizes. If there are fewer students than the number of custom classifiers supported by the Watson Visual Recognition credentials, then the limits will not be hit.",
             "Q4-A-7": "Another way to avoid this error is to add additional Watson Visual Recognition API keys to the class, or to use a Watson Visual Recognition instance \"plan\" that has higher limits.",
 
-            "Q5": "\"Watson ... is currently rate limiting their API key\"",
-            "Q5-A-1": "Machine learning models in the tool are created using IBM Watson APIs.",
+            "Q5": "\"Watson ... в настоящее время ограничивает скорость своего API-ключа\"",
+            "Q5-A-1": "Модели машинного обучения в данном сервисе создаются с использованием API-интерфейсов IBM Watson.",
             "Q5-A-2": "If you have an \"unmanaged\" class account, then your teacher or group leader will need to provide Watson API credentials from IBM Cloud for this to work.",
             "Q5-A-3": "If free accounts are created, they will apply a limit on the rate of requests for new machine learning models. In normal usage, this will not impact the class. However, if students get a \"no more workspaces available\" or \"no more classifiers available\" error (as described above) but then continue to click the \"Train new Machine Learning model\" button multiple times per second, for several minutes, then the rate limiting will apply.",
-            "Q5-A-4": "A message like this will be displayed to students in this case:",
+            "Q5-A-4": "Сообщение, подобное этому, будет показано студентам в этом случае:",
             "Q5-A-5": "Your class is making too many requests to create machine learning models at too fast a rate. Please stop now and let your teacher or group leader know that \"the Watson Assistant service is currently rate limiting their API key\"",
             "Q5-A-6": "The rate limiting isn't applied by, or under the control of, the Machine Learning for Kids site. It is usually temporary, and is best resolved by waiting for a short time.",
             "Q5-A-7": "If students are clicking the \"Train new Machine Learning model\" button and getting \"no more workspaces available\" or \"no more classifiers available\" errors (as described above), then they should be aware that repeatedly clicking the button will not resolve the issue, and will in fact make the situation worse for the rest of the class.",
 
-            "Q6": "I've been waiting for a model to train for ages!",
-            "Q6-A-1": "Try refreshing the page.",
+            "Q6": "Я ждать целую вечность, пока модель натренируется!",
+            "Q6-A-1": "Попробуйте обновить страницу.",
             "Q6-A-2": "The page should check on the status of the machine learning model every 30 seconds, but very occassionally it stops checking, so you might be waiting for the model when it is actually ready for you.",
-            "Q6-A-3": "If it's been more than a few minutes, it's worth checking by refreshing / reloading the page.",
+            "Q6-A-3": "Если прошло более нескольких минут, стоит проверить снова, обновив / перезагрузив страницу.",
             "Q6-A-4": "If it's been more than ten minutes, it might be worth considering restarting (click the Cancel button and then click the button to train a new machine learning model again)."
         },
 
         "TEACHERUI": {
-            "TITLE": "Teacher / Admin UI issues",
+            "TITLE": "Проблемы с интерфейсом учителя / администратора",
 
-            "Q2": "Missing student account from the list in the teacher's page",
+            "Q2": "Отсутствует учетная запись учащегося из списка на странице учителя",
             "Q2-A-1": "User management for Machine Learning for Kids is implemented using the third party service, <a href=\"https://auth0.com/\">Auth0</a>.",
             "Q2-A-2": "Occassionally, the list of students that Auth0 returns can get a little out of date, and fail to reflect students that have recently been created (or similarly, still show students that have been recently deleted).",
             "Q2-A-3": "In these instances, the students have normally been successfully created (or deleted) and it is just that the list of students being displayed doesn't reflect recent updates.",
             "Q2-A-4": "Auth0 will normally report such incidents on their status page as <a href='https://status.auth0.com/incidents/0sk1d3hjlw0m'>user indexing delays</a> or <a href='https://status.auth0.com/incidents/t8995b9jggx5'>problems with their Search API</a>.",
-            "Q2-A-5": "The best thing to do in these cases is to wait for the Auth0 indexing to catch up.",
+            "Q2-A-5": "В этих случаях лучше всего подождать, пока индексирование Auth0 наверстает упущенное.",
 
-            "Q4": "Why are machine learning models automatically deleted?",
+            "Q4": "Почему модели машинного обучения автоматически удаляются?",
             "Q4-A-1": "This was a feature requested by schools when Machine Learning for Kids was first developed. It came from the fact that there is a limit for how many machine learning models a class can have at any given time, and a need to make it easy to manage this limit.",
             "Q4-A-2": "Rather than requiring kids to have to clean up after a lesson and delete their models (in order to allow the next class to be able to create models), the tool can automatically clean up by deleting the models after the lesson is over. This makes it easy to run the next lesson, and the next lesson after that, without manual clean-ups in between.",
             "Q4-A-3": "The time limit before models are deleted is configurable. In a school, where lessons are 1 or 2 hours long, deleting models after two hours might be sensible. For a weekly coding club, six days might be a better fit to make sure that models are cleared up before each new club session.",
@@ -1387,56 +1387,56 @@
         },
 
         "ACCOUNTISSUES": {
-            "TITLE": "Account issues",
+            "TITLE": "Проблемы с учетной записью",
 
-            "Q1": "What is the difference between creating accounts or using \"Try it now\"?",
+            "Q1": "В чем разница между созданием учетных записей или выбором \"Попробуйте сейчас\"?",
             "Q1-A-1": "Using \"Try it now\" to means there is no need to log on or create an account. There are no passwords for students to have to remember, and no need for teachers to have to provide personal information. It also saves teachers the time needed to manage student accounts.",
             "Q1-A-2": "However, creating an account does enable additional features. Students can save their work and come back to it in a later lesson. They can work on a project together with other students in their class. They can log on from home and show their family what they've made.",
-            "Q1-A-3": "A summary of the differences is shown below:",
+            "Q1-A-3": "Кратко про различия рассказано ниже:",
 
-            "CREATE_ACCOUNT": "Create an account",
-            "TRAINMODELS": "Train machine learning models to recognise...",
-            "USE_SCRATCH": "Use machine learning models from Scratch",
-            "CREATE_PROJECTS": "Create projects",
-            "ONE_PROJECT": " 1 project ",
-            "MULTIPLE_PROJECTS": " Multiple projects ",
-            "SAVE_PROJECTS": "Save and load projects",
-            "WORK_ON_PROJECTS": "Work on machine learning projects...",
-            "FEW_HOURS": " for a few hours ",
-            "UNTIL_DELETION": " until you delete them ",
-            "ONE_COMPUTER": " from one computer ",
-            "ONLINE": " anywhere online ",
-            "BY_YOURSELF": " by yourself ",
-            "WITH_CLASSMATES": "with classmates",
+            "CREATE_ACCOUNT": "Создать учетную запись",
+            "TRAINMODELS": "Обучить модели машинного обучения распознаванию ...",
+            "USE_SCRATCH": "Использовать модель машинного обучения со Scratch",
+            "CREATE_PROJECTS": "Создать проекты",
+            "ONE_PROJECT": "1 проект",
+            "MULTIPLE_PROJECTS": "Несколько проектов",
+            "SAVE_PROJECTS": "Сохранить и загрузить проекты",
+            "WORK_ON_PROJECTS": "Работа над проектами машинного обучения ...",
+            "FEW_HOURS": "в течение нескольких часов",
+            "UNTIL_DELETION": "пока вы не удалите их",
+            "ONE_COMPUTER": "с одного компьютера",
+            "ONLINE": "где угодно онлайн",
+            "BY_YOURSELF": "самостоятельно",
+            "WITH_CLASSMATES": "с одноклассниками",
 
-            "Q2": "I've created a class account but my teacher's logon isn't working",
-            "Q2-A-1": "You need to verify your email address before you'll be able to log on.",
+            "Q2": "Я создал учетную запись для класса, но мой преподавательский вход не работает",
+            "Q2-A-1": "Вам необходимо подтвердить свой адрес электронной почты, прежде чем вы сможете войти в систему.",
             "Q2-A-2": "When you created the class account, an email will be sent to the email address you provided, with a link to click on. If you click on that link, your email address will be verified and the class account will be activated. You should be able to log on now.",
-            "Q2-A-3": "If you haven't seen the verify email yet, make sure it's not gone into your spam folder.",
+            "Q2-A-3": "Если вы еще не получили подтверждающее письмо, убедитесь, что оно не попало в папку со спамом.",
             "Q2-A-4": "If you still can't find it, <a href='https://groups.google.com/d/forum/mlforkids'>let me know</a> and I'll try and help.",
 
-            "Q3": "Deleting accounts",
-            "Q3-A-1": "Student accounts",
-            "Q3-A-2": "Students cannot delete their own accounts.",
+            "Q3": "Удаление учетных записей",
+            "Q3-A-1": "Учетные записи учеников",
+            "Q3-A-2": "Обучающиеся не могут удалять свои собственные учетные записи.",
             "Q3-A-3": "A teacher can delete a student account at any time by visiting the \"Teacher\" page  and clicking the \"Delete student account\" button next to the student account you want to delete.",
             "Q3-A-4": "This will delete all information stored about that student and all of their projects and machine learning models.",
-            "Q3-A-5": "It cannot be undone.",
-            "Q3-A-6": "Teacher accounts",
+            "Q3-A-5": "Это не может быть отменено.",
+            "Q3-A-6": "Учетные записи преподавателей",
             "Q3-A-7": "Deleting a teacher account will delete the entire class and all of the student accounts in it. It cannot be undone.",
             "Q3-A-8": "This can be done by clicking the \"Delete Class\" button in the Advanced options section of <a href='https://machinelearningforkids.co.uk/teacher'>your Teacher page</a>",
 
-            "Q4": "What information is stored about users?",
-            "Q4-A-1": "Teacher accounts",
+            "Q4": "Какая информация хранится о пользователях?",
+            "Q4-A-1": "Учетные записи преподавателей",
             "Q4-A-2": "I store the username and email address that you provide when you create the account, so that I can keep in touch with you.",
-            "Q4-A-3": "Student accounts",
+            "Q4-A-3": "Учетные записи учеников",
             "Q4-A-4": "I store the usernames for student accounts, so that I can let them log in. I have no email addresses or contact details for students. I have no other personally identifying information about students.",
             "Q4-A-5": "I also <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-schools.pdf'>recommend that students are given generic usernames</a> (e.g. student1) so that students are not identifiable outside of their school or coding group.",
-            "Q4-A-6": "General information stored about all accounts",
+            "Q4-A-6": "Общая информация о всех учетных записях",
             "Q4-A-7": "User management for Machine Learning for Kids is implemented using the third party service, <a href='https://auth0.com/'>Auth0</a>. They store the IP address that you last logged into Machine Learning for Kids from, and the type of browser you used. I've never found a reason to use that, but it is stored if I did want to go and look for it.",
             "Q4-A-8": "Errors that happen in the web browser are captured using the third party service, <a href='https://sentry.io/'>Sentry</a>. If something goes wrong, it will capture information about the error, including your username, IP address, type of browser you were using, and a technical description of what went wrong.",
             "Q4-A-9": "I use <a href='https://www.google.com/analytics/'>Google Analytics</a> so that I know how many users visit Machine Learning for Kids each day. Although it captures information such as geographic location and browser type, this is only ever displayed to me in an anonymised aggregate way.",
 
-            "Q5": "What happens to training data created by students?",
+            "Q5": "Что происходит с обучающими данными, созданными учениками?",
             "Q5-A-1": "A step in all machine learning projects that students make using this site is to create or collect training examples. For text projects, this can mean typing in short text passages. For image projects, this can means drawing pictures onto an on-screen canvas or taking photos using the webcam. For numbers projects, this means typing in sets of numbers",
             "Q5-A-2": "All of these training examples are stored in a <a href='https://www.ibm.com/cloud/compose/mysql'>MySQL database hosted on IBM Cloud</a>, in Dallas in the United States. As the database administrator, I have access to all of these training examples for all student projects, however I do not use it for any other purposes other than enabling students to access and work on their own projects. I do not publish the training data (either publicly or to individuals or third parties) or otherwise share it, with the two exceptions of submitting it to IBM Watson APIs described below.",
             "Q5-A-3": "Machine learning models for text projects are created using the <a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a> cloud service, which means when students train a model, a copy of the training examples that they have entered will be <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>submitted to IBM Watson</a>. (The location of this cloud service is something that teachers choose when <a href='https://machinelearningforkids.co.uk/apikeys-guide'>creating API keys</a>.) IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
@@ -1445,13 +1445,13 @@
         }
     },
     "APIKEYSGUIDE": {
-        "TITLE": "Guide to IBM Cloud",
+        "TITLE": "Руководство по IBM Cloud",
         "INTRO": {
             "INTRO_1": "Teachers / parents / code club-leaders with unmanaged class accounts need to provide '<strong>API Keys</strong>' from IBM Cloud. These are secret codes that provide access to the artificial intelligence technology that will power student projects.",
             "INTRO_2": "Text projects need a 'Watson Assistant' API Key. Image projects need a 'Visual Recognition' API Key. (Numbers and Sound projects don't require API Keys).",
             "INTRO_3": "You will need to create an account on IBM Cloud to be able to create these codes. It is free to create an account, and there are no charges for 'Lite' API Keys. "
         },
-        "LINK": "How to create API Keys",
-        "EXPLANATION": "Download a step-by-step guide for how to create API Keys on IBM Cloud"
+        "LINK": "Как создать API-ключи",
+        "EXPLANATION": "Скачать пошаговое руководство по созданию ключей API в IBM Cloud"
     }
 }

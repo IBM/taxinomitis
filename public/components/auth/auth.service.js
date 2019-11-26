@@ -106,7 +106,7 @@
 
 
         function scheduleTokenRenewal(timeToRefreshMs) {
-            var refreshTime = new Date(Date.now() + timeToRefreshMs);
+            // var refreshTime = new Date(Date.now() + timeToRefreshMs);
             // console.log('scheduling token renewal in ' +
             //             Math.round(timeToRefreshMs / 1000 / 60) + ' minutes (' +
             //             refreshTime.toString());

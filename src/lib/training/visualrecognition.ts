@@ -284,7 +284,7 @@ async function getTraining(project: DbObjects.Project): Promise<{ [label: string
                         spec : {
                             objectid : trainingitem.id,
                             projectid : project.id,
-                            userid : project.userid,
+                            userid : trainingitem.userid ? trainingitem.userid : project.userid,
                             classid : project.classid,
                         },
                     };

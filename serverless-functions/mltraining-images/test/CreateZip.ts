@@ -167,7 +167,7 @@ describe('Create image training zip function', () => {
                                                 nextFile();
                                             });
                                 break;
-                            case 9897:
+                            case 6089:
                                 filecompare('./test/resources/small-dog-2.png',
                                             unzippedFile.location,
                                             (isEq: boolean) => {
@@ -175,7 +175,7 @@ describe('Create image training zip function', () => {
                                                 nextFile();
                                             });
                                 break;
-                            case 13631:
+                            case 3415:
                                 filecompare('./test/resources/test-circle.jpeg',
                                             unzippedFile.location,
                                             (isEq: boolean) => {

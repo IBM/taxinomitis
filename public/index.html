@@ -77,6 +77,7 @@
                                     <li><a href="?lang=en">🇬🇧 English</a></li>
                                     <li><a href="?lang=cs">🇨🇿 Čeština</a></li>
                                     <li><a href="?lang=zh-cn">🇨🇳 简体中文</a></li>
+                                    <li><a href="?lang=zh-tw">🇹🇼 繁体中文</a></li>
                                     <li><a href="?lang=de">🇩🇪 Deutsch</a></li>
                                     <li><a href="?lang=el">🇬🇷 Ελληνικά</a></li>
                                     <li><a href="?lang=fr">🇫🇷 Français</a></li>
@@ -85,6 +86,7 @@
                                     <li><a href="?lang=ko">🇰🇷 한국어</a></li>
                                     <li><a href="?lang=nl-be">🇳🇱 Nederlands</a></li>
                                     <li><a href="?lang=pt-br">🇧🇷 Português do Brasil</a></li>
+                                    <li><a href="?lang=ru">🇷🇺 Русский</a></li>
                                     <li><a href="?lang=si-lk">🇱🇰 සිංහල</a></li>
                                     <li><a href="?lang=es">🇪🇸 Español</a></li>
                                     <li><a href="?lang=sv-se">🇸🇪 Svenska</a></li>
@@ -142,7 +144,7 @@
 
         <script type="text/javascript">var Sentry = null;</script>
         <%= USE_IN_PROD_ONLY %>
-        <script src="https://browser.sentry-cdn.com/5.5.0/bundle.min.js" crossorigin="anonymous"></script>
+        <script src="https://browser.sentry-cdn.com/5.9.0/bundle.min.js" crossorigin="anonymous"></script>
         <script type="text/javascript">Sentry.init({
             dsn: 'https://b4bbe1a8fbce473cb9eb089652848a1e@sentry.io/202347',
             release: '<%= VERSION %>'
@@ -152,6 +154,6 @@
         <script type="text/javascript" src="/static/app-<%= VERSION %>.js"></script>
         <script type="text/javascript" src="/static/mlapp-<%= VERSION %>.min.js"></script>
 
-        <script src="//scratchblocks.github.io/js/scratchblocks-v3.1-min.js"></script>
+        <script async src="//scratchblocks.github.io/js/scratchblocks-v3.1-min.js"></script>
     </body>
 </html>

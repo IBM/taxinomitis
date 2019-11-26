@@ -1,69 +1,69 @@
 {
     "APP": {
-        "TITLE": "පොඩ්ඩන්ට Machine Learning",
+        "TITLE": "Strojno učenje za djecu",
 
-        "BACK": "ආපසු",
-        "BACKTOPROJECT": "&lt; ආපසු ව්‍යාපෘතියට",
-        "BACKTOMODEL": "&lt; Back to model",
-        "ERROR": "දෝෂය:",
-        "WARNING": "අවවාදයයි:",
-        "INFO": "තොරතුරු:",
+        "BACK": "Natrag",
+        "BACKTOPROJECT": "&lt; Povratak u projekt",
+        "BACKTOMODEL": "&lt; Povratak u model",
+        "ERROR": "Greška:",
+        "WARNING": "Upozorenje:",
+        "INFO": "Informacija:",
 
-        "ADD": "එකතු කරන්න",
-        "CANCEL": "අවලංගු කරන්න",
-        "DELETE": "Delete",
-        "EDIT": "Edit",
-        "TEST": "Test",
-        "RESET": "Reset",
+        "ADD": "Dodaj",
+        "CANCEL": "Prekini",
+        "DELETE": "Obriši",
+        "EDIT": "Uredi",
+        "TEST": "Isprobaj",
+        "RESET": "Poništi",
 
-        "ABOUT": "පිළිබඳව",
-        "TEACHER": "ගුරුවරයා",
-        "PROJECTS": "ව්‍යාපෘති",
-        "WORKSHEETS": "කාර්යය පත්‍රිකා",
-        "NEWS": "පුවත්",
-        "HELP": "උදව්",
-        "LOGIN": "ඇතුල් වෙන්න",
-        "LOGOUT": "පිට වෙන්න",
+        "ABOUT": "O programu",
+        "TEACHER": "Učitelj",
+        "PROJECTS": "Projekti",
+        "WORKSHEETS": "Radni list",
+        "NEWS": "Novosti",
+        "HELP": "Pomoć",
+        "LOGIN": "Prijava",
+        "LOGOUT": "Odjava",
 
-        "BETA": "Beta",
-        "INCOMPLETE": "අසම්පූර්ණයි!"
+        "BETA": "Eksperimentalno",
+        "INCOMPLETE": "Nekompletno!"
     },
     "ABOUT": {
-        "TITLE": "පොඩ්ඩන්ට Machine Learning",
-        "IN6SECS": "තත්පර 6 යෙන් ...",
-        "IN20MINS": "විනාඩි 20 න්...",
+        "TITLE": "Strojno učenje za djecu",
+        "IN6SECS": "Za 6 sekundi...",
+        "IN20MINS": "Za 20 minuta,,,",
         "WHAT": {
-            "TITLE": "කුමක්ද?",
-            "BODY" : "මේ tool එක machine learning පද්ධති පුහුණු කිරීම හා ඒවා භාවිතයෙන් නොයෙකුත් දේ තැනිමට අවස්ථාව ලබාදී ඒ අත්දැකීම් මගින් මැශින් ලර්නිං හඳුන්වා දෙයි. <br/><br/>එය text, numbers හා image recognition මගින් classify කිරීම සඳහා machine learning ආකෘති පුහුණු කිරීමට, භාවිතයට පහසු මගපෙන්වූ පරිසරයක් සපයාදෙයි. <br/><br/>මෙය තනා තිබෙන්නේ දැනටමත් ළමයින්ට කෝඩිං හඳුන්වාදීමට හා ඉගැන්වීමට ක්‍රියාකරන  <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a>(බහුලව භාවිතවන අධ්‍යාපනික coding platform එක), වෙත මෙම ආකෘති එක් කිරීමෙන්, ළමුන්ට ඔවුන් පුහුණු කළ මැශින් ලර්නිං ආකෘති සමග ව්‍යාපෘති නිර්මාණය කිරීමට හා ක්‍රීඩා තැනීමට අවකාශය ලබා දෙමිනි. <br/><br/>වැඩිදුර අධ්‍යනයට, පිවිසෙන්න:"
+            "TITLE": "Što?",
+            "BODY" : "Ovaj besplatni alat uvodi nas u strojno učenje pružajući praktična iskustva za obuku sustava za strojno učenje i izgradnju stvari s njima. <br/><br/> Pruža jednostavno okruženje za korištenje modela strojnog učenja u cilju prepoznavanja teksta, brojeva, slika ili zvukova. <br/><br/>To se temelji na postojećim programima uvođenja i podučavanja kodiranja djece dodavanjem ovih modela na obrazovne platforme za kodiranje<a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> i <a href='http://appinventor.mit.edu/' target='_blank'>App Inventor</a>, pomaganju djeci u kreiranju projekata i izgradnji igara s modelima strojnog učenja koje treniraju. <br/><br/>Alat je prvi put dostupan 2017. godine,  <a href='https://wakelet.com/wake/4d3680cb-2a11-49ab-9180-fcfeced48393' target='_blank'>a sada ga koriste tisuće škola, programerskih klubova i obitelji širom svijeta.</a>. <br/><br/>Da biste saznali više, pogledajte:"
         },
         "WHY": {
-            "TITLE": "ඇයි?",
-            "BODY": "Machine learning is all around us. We all use machine learning systems every day - such as spam filters, recommendation engines, language translation services, chatbots and digital assistants, search engines, and fraud detection systems.<br/><br/>It will soon be normal for machine learning systems to drive our cars, and help doctors to diagnose and treat our illnesses. <br/><br/>It's important that kids are aware of how our world works. The best way to understand the capabilities and implications is to be able to build with this technology for themselves. <br/><br/>To learn more, read: <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'Introducing Machine Learning to kids'</a>"
+            "TITLE": "Zašto?",
+            "BODY": "Svi svakodnevno koristimo sustave strojnog učenja - kao što su filteri za neželjenu poštu, sustavi za preporuke, usluge prevođenja jezika, chatbotovi i digitalni pomoćnici, pretraživači i sustavi otkrivanja prevara. <br/><br/>Uskoro će biti normalno da sustavi strojnog učenja voze automobile i pomažu liječnici ma koji dijagnosticiraju i liječe naše bolesti. <br/><br/>Važno je da djeca budu svjesna kako funkcionira naš svijet. Najbolji način za razumijevanje mogućnosti i implikacija je biti u mogućnosti graditi pomoću ove tehnologije za sebe. <br/><br/>Da biste saznali više, pročitajte:<a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'Uvođenje strojnog učenja za djecu'</a>"
         },
         "TECH": {
-            "TITLE": "තාක්ෂණය",
-            "BODY": "මෙම මෙවලම සම්පූර්ණයෙන්ම වෙබ් පාදක වන අතර සංකීර්ණ ස්ථාපනයක් අවශ්‍ය නොවේ. <br/><br/>එය පාසල්වල පන්ති කාමර වල හා ළමයින්ට coding උගන්වන ස්වේච්ඡා කණ්ඩායම් වල භාවිතය සඳහා නිර්මාණය කර ඇත, එසේම ගුරුවරුන්ට හා කණ්ඩායම් නායකයන්ට ඔවුන්ගේ ශිෂ්‍යයන් කළමනාකරණයට හා පරිපාලක ප්‍රවේශය ලබාදෙන admin page සපසයි.<br/><br/>එය නිර්මාණය කරන ලද්දේ <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> විසින්  <a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a> හි API භාවිතයෙනි.",
-            "LOGIN": "වෙන්න වැඩ අරඹන්න : "
+            "TITLE": "Tech",
+            "BODY": "The tool is entirely web-based and requires no installs or complicated setup to be able to use. <br/><br/>It was designed for use in the classroom by schools and volunteer-run coding groups for children, and provides an admin page for teachers or group leaders to be able to manage and administer access for their students.<br/><br/>It is being built by <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> using APIs from <a target='_blank' href='https://www.ibm.com/watson/developer/'>IBM Watson</a>.<br/><br/>For more details about the implementation, you can see the <a target='_blank' href='https://github.com/IBM/taxinomitis/'>source code on GitHub</a>, or read some of the <a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>blog posts about the tech</a>. ",
+            "LOGIN": "To get started: "
         },
         "FURTHER": {
-            "TITLE": "Further learning",
+            "TITLE": "Daljnje učenje",
             "BODY": "Machine Learning for Kids is a useful tool for introducing children to how ML systems are trained, how they are used, and some of the real-world implications of AI applications. <br/><br/>For additional teaching and learning resources, including teaching the internals of ML systems, please see: "
         }
     },
     "NEWS": {
-        "TITLE": "පුවත්",
+        "TITLE": "Novosti",
         "UPDATES": {
-            "TITLE": "පුවත් සහ යාවත්කාලීන වීම්",
-            "DESCRIPTION": "පොඩ්ඩන්ට Machine Learning වෙතින් පුවත් සහ යාවත්කාලීන වීම්"
+            "TITLE": "Novosti i nadopune",
+            "DESCRIPTION": "Novosti i nadopune od @MLforKins"
         },
         "MENTIONS": {
-            "TITLE": "සඳහන් කිරීම් සහ මාධ්‍යය",
+            "TITLE": "Navodi i mediji",
             "DESCRIPTION": "loading Mentions &amp; Media from wakelet.com"
         }
     },
     "LINKS": {
         "TITLE": "Educational AI resources for children",
-        "INTRO": "This page is a list of further tools and resources for introducing children to artificial intelligence.",
+        "INTRO": "This page is a list of further tools and resources for explaining artificial intelligence to children.",
         "ECRAFT2LEARN": {
             "BODY1": "<a href='http://users.ox.ac.uk/~oucs0030/' target='_blank'>Ken Kahn</a> has created resources to allow beginners to create AI programs in Snap! (a visual programming environment similar to Scratch).",
             "BODY2": "While I've focused on explaining how AI systems are trained and behave (and the real-world implications), eCraft2Learn has fantastic resources that dive deep into how ML systems actually work.",
@@ -113,44 +113,44 @@
         }
     },
     "ERRORS": {
-        "PAGENOTFOUND": "පිටුව හමු නොවිණි",
-        "NOTLOGGEDIN": "ඇතුළු වී නොමැත",
+        "PAGENOTFOUND": "Page not found",
+        "NOTLOGGEDIN": "Not logged in",
 
-        "MISSINGPROJECTID": "Project id එක හමු නොවේ. ආපසු යන්න ",
-        "IFPERSISTENT": "මෙය නැවත නැවත සිදුවන්නේ නම්, කරුණාකර ",
+        "MISSINGPROJECTID": "Missing project id. Go back to ",
+        "IFPERSISTENT": "If this keeps happening, please ",
 
-        "LETMEKNOW": "මට දැනුම් දෙන්න"
+        "LETMEKNOW": "let me know"
     },
     "WELCOME": {
-        "TITLE": "computer එකට game එකක් ගහන්න උගන්නමු",
-        "GET_STARTED": "පටන් ගමු",
-        "LEARN_MORE": "තවත් උගනිමු",
-        "ADMIN_LABEL": "<strong>පරිපාලක පිටුව</strong> වෙත යන්න",
-        "PROJECT_LABEL": "<strong>ව්‍යාපෘති </strong> වෙත යන්න",
-        "STEP_1_TEXT": "ඔබට හඳුනාගැනීමට අවශ්‍ය දේවල් වලට උදාහරණ එකතු කරන්න",
-        "STEP_2_TEXT": "ඒ උදාහරණ භාවිතයෙන් පරිගණකයට ඒවා හඳුනාගන්න පුරුදු කරන්න",
-        "STEP_3_TEXT": "ඒවා හඳුනාගැනීමට පරිගණකයට ඇති හැකියාව පාවිච්චි කර Scratch වල ක්‍රීඩාවක් හදන්න"
+        "TITLE": "Teach a computer to play a game",
+        "GET_STARTED": "Get started",
+        "LEARN_MORE": "Learn more",
+        "ADMIN_LABEL": "Go to your <strong>Admin Page</strong>",
+        "PROJECT_LABEL": "Go to your <strong>Projects</strong>",
+        "STEP_1_TEXT": "Collect examples of things you want to be able to recognise",
+        "STEP_2_TEXT": "Use the examples to train a computer to be able to recognise them",
+        "STEP_3_TEXT": "Make a game in Scratch that uses the computer's ability to recognise them"
     },
     "LOGIN": {
-        "TITLE": "Machine learning වෙත පිවිසෙමු",
-        "WELCOME": "සාදරයෙන් පිළිගනිමු! පොඩ්ඩන්ට Machine learning වෙතට log in වීමට ගිණුමක් සාදාගැනීමට ඔබේ ඇති උනන්දුව අගය කර සිටිමු.",
-        "ALREADY_LOGGEDIN": "<strong>Info: </strong> දැනටමත් log in වී ඇත",
+        "TITLE": "Get started with machine learning",
+        "WELCOME": "Welcome!  It's great that you're interested in having an account to log in to Machine Learning for Kids.",
+        "ALREADY_LOGGEDIN": "<strong>Info: </strong> Already logged in",
         "ERROR": "<strong>Error:</strong> {{ message }}",
-        "ERROR_HELP": "මෙය නැවත නැවත සිදුවන්නේ නම්, කරුණාකර අපේ help page එකට යන්න",
-        "FIRST_TIME": "මෙතැනට අළුත්ද?",
-        "SIGN_UP": "Sing up වෙන්න",
-        "WHY_REGISTER": "ඇයි register වෙන්නෙ?",
-        "WHY_REGISTER_INTRO_1": "පොඩ්ඩන්ට machine learning භාවිතයට <strong> ලියාපදිංචි වීමට හෝ ගිණුම් සෑදීමට අවශ්‍ය නොවේ </strong> නමුත් ඔබ ලියාපදිංචි වුවහොත් මෙවලමට අමතර විශේෂාංග කිහිපයක් එක්වෙයි.",
-        "WHY_REGISTER_INTRO_2": "පහත වගුව මගින් ඔබට ලියාපදිංචි නොවී \"Try it now\" click කිරීම හා ඔබ ගිණුමක් සකස් කළ විට කළ හැකි දේවල් අතර වෙනස පැහැදිලි කරයි.",
-        "ALREADY_REGISTERED": "කලින්ම ලියාපදිංචි වී සිටීද?",
-        "LOGIN": "Log in වෙන්න",
-        "FORGOT_DETAILS": "ඔබේ තොරතුරු අමතක ද?",
-        "TRY_TITLE": "ලියාපදිංචි නොවී උත්සාහ කරන්න",
-        "TRY_NOW": "දැන්ම Try කරල බලන්න",
-        "WHO_YOU": "ඔබ කවුද?",
-        "TEACHER": "ගුරුවරයෙකු හෝ coding club එකක නායකයෙක්",
-        "STUDENT": "ශිෂ්‍යයෙක්",
-        "FORGOT_TEXT": "ඔයාගෙ username එක හරි password එක හරි අමතකද? ඒකට කමක් නෑ - අපි හැමෝටම සමහර වෙලාවට දේවල් අමතක වෙනව.",
+        "ERROR_HELP": "If this keeps happening, please visit our help section",
+        "FIRST_TIME": "First time here?",
+        "SIGN_UP": "Sign up",
+        "WHY_REGISTER": "Why register?",
+        "WHY_REGISTER_INTRO_1": "<strong>You don't have to register or create an account</strong> to use Machine Learning for Kids, but if you do, it does unlock a few features of the tool.",
+        "WHY_REGISTER_INTRO_2": "The grid below explains the difference in what you can do if you click \"Try it now\" without registering, and what you can do if you create an account to log in with.",
+        "ALREADY_REGISTERED": "Already registered?",
+        "LOGIN": "Log in",
+        "FORGOT_DETAILS": "Forgot your details?",
+        "TRY_TITLE": "Try without registering",
+        "TRY_NOW": "Try it now",
+        "WHO_YOU": "Who are you?",
+        "TEACHER": "A parent, teacher or leader of a coding club",
+        "STUDENT": "A student",
+        "FORGOT_TEXT": "Forgot your username or password? That's okay - we all forget things sometimes.",
         "ARE_YOU_A_STUDENT": "Are you a student?",
         "ARE_YOU_A_STUDENT_INTRO_1": "If your class is already using this tool, ask your teacher or coding group leader to create you an account.",
         "ARE_YOU_A_STUDENT_INTRO_2": "If your class isn't already using the tool, ask your teacher or coding group leader to get in touch.",
@@ -160,79 +160,79 @@
     },
     "SIGNUP": {
         "TEACHER": {
-            "TITLE": "ඔබ ගුරුවරයෙක්ද නැත්තම් coding club එකක නායකයෙකුද?",
-            "INFO1": "ඔබ ඔබේ ශිෂ්‍යයන් වෙත access කිරීමට අවශ්‍ය නම්, කරුණාකර පහතින් class account එකක් සාදා ගන්න.",
-            "INFO2": "සකස් කරන්නා අනුව - මෙහි class account වර්ග දෙකක් ඇත."
+            "TITLE": "Are you a teacher or leader of a coding club?",
+            "INFO1": "If you would like access for your students, please create a class account below.",
+            "INFO2": "There are two types of class account - depending on who sets it up."
         },
         "UNMANAGED": {
-            "TITLE": "<strong>Unmanaged</strong> පන්ති ගිණුමක් සකසන්න",
-            "INTRO": "ඔබ විසින්ම පන්ති ගිණුම සකසා කළමනාකරණය කර ගැනීමට කැමතිනම්,ඔබට දැන් එය සිදුකළ හැක!",
-            "LISTINTRO": "ඔබ කළයුතු දේ:",
-            "LIST_CREATEACCOUNT": "IBM Cloud හි ගිණුමක් සෑදීම",
-            "LIST_CREATEAPIKEYS": "Machine learning ආකෘති පුහුණු කිරීමට Watson cloud සේවා සඳහා API key නිර්මාණය කර ගැනීම",
-            "LIST_ENTERAPIKEYS": "පොඩ්ඩන්ට machine learning මෙවලමට ඒ API key ඇතුලත් කිරීම",
-            "HELP": "මේ සියල්ල සඳහා පියවරෙන්-පියවරට උපදෙස් (screenshots සමගින්) ඇත."
+            "TITLE": "Create an <strong>unmanaged</strong> class account",
+            "INTRO": "If you are happy to set up and manage the class account yourself, you can do it now!",
+            "LISTINTRO": "You will need to:",
+            "LIST_CREATEACCOUNT": "Create a free account on IBM Cloud",
+            "LIST_CREATEAPIKEYS": "Create API key(s) for Watson cloud services needed to train machine learning models",
+            "LIST_ENTERAPIKEYS": "Enter the API keys into this Machine Learning for Kids tool",
+            "HELP": "Step-by-step instructions (with screenshots) are available for all of this."
         },
         "MANAGED": {
-            "TITLE": "<strong>Managed</strong> පන්ති ගිණුමක් සකසන්න",
-            "INTRO": "Dale ට කියල පන්ති ගිණුමක් සාදාගැනීමට කැමතිනම්, මේ විස්තර සමග ඊ-මේල් පණීවිඩයක් යැවීමට පහත බොත්තම ඔබන්න:",
-            "LIST_NUMBEROFSTUDENTS": "දළ වශයෙන් කොපමණ ශිෂ්‍ය ගිණුම් ප්‍රමාණයක් ඔබට අවශ්‍යද",
-            "LIST_NAMEOFSCHOOL": "ගිණුම අවශ්‍ය පාසලේ හෝ කෝඩිං කණ්ඩායමේ නම",
-            "EMAIL": "Email කරන්න"
+            "TITLE": "Create a <strong>managed</strong> class account",
+            "INTRO": "If you would like Dale to set up the class account, use the button below to send an email with the following information:",
+            "LIST_NUMBEROFSTUDENTS": "Roughly how many student accounts you will need",
+            "LIST_NAMEOFSCHOOL": "The name of the school or coding group the account is for",
+            "EMAIL": "Email"
         }
     },
     "PROJECTS": {
-        "TITLE": "ඔබේ machine learning ව්‍යාපෘති",
-        "ADDNEWPROJECT": "අලුත් ව්‍යාපෘතියක් එක් කරන්න",
+        "TITLE": "Your machine learning projects",
+        "ADDNEWPROJECT": "Add a new project",
         "CREATEFIRSTPROJECT": "Click on the 'plus' button on the right to create your first project.",
         "RECOGNISING": "Recognising",
         "AS": "as"
     },
     "NEWPROJECT": {
-        "TITLE": "අලුත් machine learning ව්‍යාපෘතියක් අරඹන්න",
+        "TITLE": "Start a new machine learning project",
         "PROJECT_NAME": {
-            "TITLE": "ව්‍යාපෘතියේ නම",
-            "NOTES": "ඔබ පරිගණකයට හඳුන්වාදීමට උත්සාහ කරන දේවල් විස්තර කරන නමක් ලබාදෙන්න."
+            "TITLE": "Project Name",
+            "NOTES": "Give your project a name to describe what sort of thing you'll try to teach the computer to recognise."
         },
         "WHOLE_CLASS_PROJECT": {
-            "TITLE": "පන්තියම එක්ව කරන ව්‍යාපෘතියක්?",
-            "NOTES_1": "ඔබේ මුලු පන්තියටම මෙම ව්‍යාපෘතියේ කටයුතු කිරීමට අවශ්‍ය නම් මෙය Tick කරන්න.",
-            "NOTES_2": "machine learning ‍ව්‍යාපෘති පුහුණු කිරීමේ ක්‍රමයක් ලෙස crowd-sourcing උගන්වන ව්‍යාපෘති සදහා මෙය වැදගත් වේ."
+            "TITLE": "Whole-class project?",
+            "NOTES_1": "Tick this if you want your whole class to be able to work on this project together.",
+            "NOTES_2": "This is useful for projects that teach crowd-sourcing as an approach to training machine learning projects."
         },
         "TYPES": {
-            "LABEL": "හදුනාගැනීම",
-            "NOTES_1": "ඔබට පරිගණකය පුහුණු කළ යුත්තේ කුමන ආකාරයේ දේවල් හදුනාගැනීමටද?",
-            "NOTES_2": "වචන, වාක්‍ය හෝ ඡේද සදහා \"text\" තෝරන්න",
-            "NOTES_3": "ඡායාරූප, රූපසටහන් හා පින්තූර සදහා \"images\" තෝරන්න",
-            "NOTES_4": "ඉලක්කම් වල එකතූන් හෝ බහුවරණ සදහා \"numbers\" තෝරන්න",
+            "LABEL": "Recognising",
+            "NOTES_1": "What type of thing do you want to teach the computer to recognise?",
+            "NOTES_2": "For words, sentences or paragraphs, choose \"text\"",
+            "NOTES_3": "For photos, diagrams and pictures, choose \"images\"",
+            "NOTES_4": "For sets of numbers or multiple choices, choose \"numbers\"",
             "NOTES_5": "For voices and sounds, choose \"sounds\""
         },
         "LANGUAGE": {
-            "LABEL": "භාෂාව",
-            "NOTES": "ඔබේ ව්‍යාපෘතියේ text තිබෙන්නේ කුමන භාෂාවෙන්ද?"
+            "LABEL": "Language",
+            "NOTES": "What language will the text in this project be?"
         },
         "FIELDS": {
             "TYPE": {
-                "TITLE": "Value වල වර්ගය",
-                "NUMBER": "ඉලක්කම්",
-                "MULTIPLE_CHOICE": "බහුවරණ"
+                "TITLE": "Type of value",
+                "NUMBER": "number",
+                "MULTIPLE_CHOICE": "multiple-choice"
             },
             "CHOICES": {
-                "TITLE": "තේරීම්:",
-                "LABEL": "තේරීමක් එකතු කරන්න"
+                "TITLE": "Choices:",
+                "LABEL": "add a choice"
             },
             "NEWFIELD": {
-                "DESCRIBE_FIELD": "අගය (value) විස්තර කිරීමට ක්ෂේත්‍ර නාමයක් ලබාදෙන්න",
-                "MULTICHOICE": "එය අගයන් කීපයක් අතරින් එක් අගයක් තේරීමක් නම්, \"බහුවරණ\" තෝරන්න.",
-                "ADD_FIRST_FIELD": "තේරීමක Type කර ඔබේ බහුවරණ ලැයිස්තුවේ භාවිත කරන්න, අනතුරුව Enter ඔබන්න.",
-                "ADD_ANOTHER_FIELD": "තවත් තේරීමක Type කර ඔබේ බහුවරණ ලැයිස්තුවේ භාවිත කරන්න අනතුරුව Enter ඔබන්න."
+                "DESCRIBE_FIELD": "Give this field a name to describe the value",
+                "MULTICHOICE": "If it can be described as choosing from a few options, choose \"multiple-choice\".",
+                "ADD_FIRST_FIELD": "Type in a choice to use in your multiple-choice list, then press Enter.",
+                "ADD_ANOTHER_FIELD": "Type in another choice to use in your multiple-choice list, then press Enter."
             },
             "NEWVALUE": {
-                "ADD_FIRST_VALUE": "'Add a value' බොත්තම මත එබීම මගින්, පරිගණකට පුහුණු කිරීමට එක්කිරීමට යන එක් එක් උදාහරණයේ values විස්තර කිරීම අරඹන්න",
-                "VALUES_LIMIT": "ව්‍යාප්‍රුතියකදී ඔබට values 10 කට වඩා ඉඩ ලබාදෙනු නොලැබේ."
+                "ADD_FIRST_VALUE": "Start to describe the values that you'll include with each example to train the computer with by clicking the 'Add a value' button.",
+                "VALUES_LIMIT": "You are not allowed more than 10 values in a project."
             }
         },
-        "CREATE": "හදන්න",
+        "CREATE": "Create",
         "ERRORS": {
             "REQUIRED": "This is required!",
             "TOOLONG": "That's too long!"
@@ -275,105 +275,105 @@
     },
     "PROJECT": {
         "TRAIN": {
-            "TITLE": "Train කරන්න",
-            "BODY": "ඔබට පරිගණකයට හදුනා ගැනීමට අවශ්‍ය දේවල්වල උදාහරණ එකතු කරන්න."
+            "TITLE": "Train",
+            "BODY": "Collect examples of what you want the computer to recognise"
         },
         "LEARNANDTEST": {
-            "TITLE": "ඉගෙනගැනීම හා Test කිරීම",
-            "BODY": "පරිගණකයට හදුනාගැනීමට පුහුණු කිරීමට ඒ උදාහරණ භාවිත කරන්න"
+            "TITLE": "Learn &amp; Test",
+            "BODY": "Use the examples to train the computer to recognise"
         },
         "MAKES": {
-            "TITLE": "හදන්න",
-            "BODY": "Scratch හෝ පයිතන් වල, app එකක් හෝ game එකක් හදන්න ඔබ පුහුණු කළ machine learning ආක්‍රුතිය භාවිත කරන්න"
+            "TITLE": "Make",
+            "BODY": "Use the machine learning model you've trained to make a game or app, in Scratch or in Python"
         },
         "SCRATCH": {
             "TITLE": "Scratch",
-            "BODY": "Scratch වලදී game එකක් හදන්න ඔබ පුහුණු කළ machine learning ආක්‍රුතිය භාවිත කරන්න."
+            "BODY": "Use the machine learning model you've trained to make a game in Scratch"
         },
         "PYTHON": {
-            "TITLE": "පයිතන්",
-            "BODY": "පයිතන් වැඩසටහනකදී ඔබ පුහුණු කළ machine learning ආක්‍රුතිය භාවිත කරන්න."
+            "TITLE": "Python",
+            "BODY": "Use the machine learning model you've trained in a Python program"
         },
         "APPINVENTOR": {
             "TITLE": "App Inventor",
-            "BODY": "ඔබේ machine learning ආක්‍රුතිය භාවිත කරන mobile app එකක් හදන්න"
+            "BODY": "Make a mobile app that uses your machine learning model"
         },
         "SCRATCH3": {
             "TITLE": "Scratch 3",
-            "BODY": "Scratch වල අලුත් සංස්කරණයේ ඔබේ machine learning ආක්‍රුතිය භාවිත කරන්න"
+            "BODY": "Use your machine learning model in new version of Scratch"
         }
     },
     "TRAINING": {
         "TITLE": "Training",
-        "ADDLABEL": "අලුත් label එකක් එකතු කරන්න",
-        "CREATEFIRSTLABEL": "Click on the 'ධන' බොත්තම මත ඔබා ඔබේ පළමු bucket එක add කරන්න.",
-        "CROWDSOURCEDEMPTY": "ඔබේ ගුරුවරයා training bucket සෑදීමෙන් අනතුරුව මෙම පිටුව refresh කරන්න.",
-        "ADDEXAMPLE": "උදාහරණයක් එක්කරන්න",
+        "ADDLABEL": "Add new label",
+        "CREATEFIRSTLABEL": "Click on the 'plus' button on the right to add your first bucket.",
+        "CROWDSOURCEDEMPTY": "Refresh this page after your teacher has created the training buckets.",
+        "ADDEXAMPLE": "Add example",
         "ADDURL": "www",
-        "ADDWEBCAM": "වෙබ් කැමරා",
-        "ADDDRAWING": "අදින්න",
-        "DRAGIMAGES": "වෙනත් browser window එකකින් පින්තූර drag කරගෙන විත් මෙහි drop කරන්න",
+        "ADDWEBCAM": "webcam",
+        "ADDDRAWING": "draw",
+        "DRAGIMAGES": "Drag pictures from other browser windows and drop them here",
         "NEWLABEL": {
-            "INTRO": "හදුනාගැනීමට අලුත් label එකක් එක්කරන්න",
-            "ERROR": "lable එකක අකුරු සහ ඉලක්කම් පමණක් භාවිත කරන්න"
+            "INTRO": "Enter new label to recognise",
+            "ERROR": "Only use letters and numbers in labels"
         },
         "NEWEXAMPLE": {
-            "INTRO": "උදාහරණයක් එක්කරන්න ",
-            "INTROURL": "උදාහරණයක් වන පින්තූරයක URL ලිපිනය එක්කරන්න",
-            "INTRODRAWING": "අලුත් උදාහරණයක් අදින්න",
-            "INTROWEBCAM": "අලුත් උදාහරණයක් එක් කරන්න",
-            "ERROR": "ඔබට tabs හෝ newlines භාවිතයට නොහැක.",
-            "REQUIRED": "උදාහරණයකදී ඔබ සියලූම ක්ෂේත්‍ර සදහා අගයන් ඇතුලත් කළ යුතුය",
-            "PATTERNNUMBER": "මෙය අංකයක් ලෙස නොපෙන්වයි",
-            "PATTERNURL": "මෙය පින්තූරයක වෙබ් ලිපිනයක් වියයුතුය",
-            "WEBCAMFAIL": "සමාවන්න! ඔබවෙනුවෙන් කටයුතු කළහැකි වෙබ් කැමරාවක් අපට සොයාගත නොහැක.",
-            "WEBCAMERROR": "ඔබේ වෙබ් කැමරාවෙන් අපට ලැබුනු පණිවිඩය වනුයේ:"
+            "INTRO": "Enter an example of ",
+            "INTROURL": "Enter the URL of a picture that is an example of",
+            "INTRODRAWING": "Draw a new example of",
+            "INTROWEBCAM": "Add new example of",
+            "ERROR": "You're not allowed to use tabs or newlines.",
+            "REQUIRED": "You have to include values for all fields in an example",
+            "PATTERNNUMBER": "This doesn't look like a number",
+            "PATTERNURL": "This needs to be the web address of a picture",
+            "WEBCAMFAIL": "Sorry! We weren't able to get a webcam to work for you.",
+            "WEBCAMERROR": "The message we got from your web browser was:"
         },
         "BACKGROUNDNOISE": "Collecting examples of background noise will help the computer to learn to recognize your sounds"
     },
     "MODELS": {
-        "TITLE": "Machine learning ආක්‍රුතු",
-        "TRAIN": "නව Machine learning ආක්‍රුතියක් train කරන්න",
-        "CANCEL": "train කිරීම අවලංගුකරන්න",
-        "DELETE": "ආක්‍රැතිය මකා දමන්න",
+        "TITLE": "Machine learning models",
+        "TRAIN": "Train new machine learning model",
+        "CANCEL": "Cancel training",
+        "DELETE": "Delete this model",
         "TEST_CANVAS": "Draw something to test your model with",
         "TEST_WEBCAM": "Take a photo to test your model with",
         "WHATHAVEYOUDONE": {
-            "TITLE": "ඔබ කුමක්ද කළේ?",
-            "PLEASEWAIT": "සාමාන්‍යයෙන් මෙයට මිනිත්තු කීපයක් ගතවේ, නමුත් පුහුණු පරිගණකය ඉතා කාර්යය බහුලනම් කාලය මදක් වැඩිවිය හැක.",
-            "FAIL": "අවාසනාවන්ත ලෙස යම් ගැටලුවක් ඇතිවිය.",
+            "TITLE": "What have you done?",
+            "PLEASEWAIT": "This normally takes a few minutes, but can take a little longer if the training computer is very busy.",
+            "FAIL": "Unfortunately, something went wrong.",
 
             "TRAINING" : {
                 "CROWDSOURCED" : {
-                    "TEXT" : "ඔබේ පන්තිය ඔබ විසින් රැස්කරන ලද උදාහරණ ඡේද (text) භාවිතයෙන් machine learning ආක්‍රුතියක් පුහුණු කරයි.",
-                    "IMAGES" : "ඔබ විසින් රැස් කරන ලද පින්තූර උදාහරණ භාවිතයෙන් ඔබේ පන්තිය machine learning ආක්‍රුතියක් පුහුණු කරයි.",
-                    "NUMBERS" : "ඔබ විසින් රැස් කරන ලද ඉලක්කම් උදාහරණ භාවිතයෙන් ඔබේ පන්තිය machine learning ආක්‍රුතියක් පුහුණු කරයි.",
+                    "TEXT" : "Your class is training a machine learning model using the examples of text that you all collected.",
+                    "IMAGES" : "Your class is training a machine learning model using the examples of images that you all collected.",
+                    "NUMBERS" : "Your class is training a machine learning model using the examples of numbers that you all collected.",
                     "SOUNDS" : "Your class is training a machine learning model using the examples of sounds that you all collected."
                 },
                 "INDIVIDUAL" : {
-                    "TEXT" : "ඔබ ‍රැස් කළ text ඇසුරින් machine learning ආකෘතියක් පුහුණු කිරීම ආරම්භ කරන ලදි.",
-                    "IMAGES" : "ඔබ ‍රැස් කළ images ඇසුරින් machine learning ආකෘතියක් පුහුණු කිරීම ආරම්භ කරන ලදි..",
-                    "NUMBERS" : "ඔබ ‍රැස් කළ ඉලක්කම් ඇසුරින් machine learning ආකෘතියක් පුහුණු කිරීම ආරම්භ කරන ලදි..",
+                    "TEXT" : "You've started training a machine learning model using the examples of text that you collected.",
+                    "IMAGES" : "You've started training a machine learning model using the examples of images that you collected.",
+                    "NUMBERS" : "You've started training a machine learning model using the examples of numbers that you collected.",
                     "SOUNDS" : "You've started training a machine learning model using the examples of sounds that you collected."
                 },
-                "SINCE": "එය මෙතරම් කාලයක සිට පුහුණු කරමින් පවතී"
+                "SINCE": "It's been training since"
             },
             "READY" : {
                 "CROWDSOURCED" : {
-                    "TEXT" : "text පහත ආකාර වූ විට හඳුනාගැනීමට ඔබේ පන්තිය  machine learning ආකෘතියක් පුහුණු කර ඇත ",
-                    "IMAGES" : "images පහත ආකාර වූ විට හඳුනාගැනීමට ඔබේ පන්තිය  machine learning ආකෘතියක් පුහුණු කර ඇත ",
-                    "NUMBERS" : "numbers පහත ආකාර වූ විට හඳුනාගැනීමට ඔබේ පන්තිය  machine learning ආකෘතියක් පුහුණු කර ඇත ",
+                    "TEXT" : "Your class has trained a machine learning model to recognise when text is ",
+                    "IMAGES" : "Your class has trained a machine learning model to recognise when images are ",
+                    "NUMBERS" : "Your class has trained a machine learning model to recognise when numbers are ",
                     "SOUNDS" : "Your class has trained a machine learning model to recognise when sounds are "
                 },
                 "INDIVIDUAL" : {
-                    "TEXT" : "text පහත ආකාර වූ විට හඳුනාගැනීමට ඔබ machine learning ආකෘතියක් පුහුණු කර ඇත ",
-                    "IMAGES" : "images පහත ආකාර වූ විට හඳුනාගැනීමට ඔබ machine learning ආකෘතියක් පුහුණු කර ඇත ",
-                    "NUMBERS" : "ඉලක්කම් පහත ආකාර වූ විට හඳුනාගැනීමට ඔබ machine learning ආකෘතියක් පුහුණු කර ඇත ",
+                    "TEXT" : "You have trained a machine learning model to recognise when text is ",
+                    "IMAGES" : "You have trained a machine learning model to recognise when images are ",
+                    "NUMBERS" : "You have trained a machine learning model to recognise when numbers are ",
                     "SOUNDS" : "You have trained a machine learning model to recognise when sounds are "
                 },
                 "CREATED" : {
-                    "TEACHER" : "ඔබේ ගුරුවරයා තැනූ ආකෘතිය වනුයේ ",
-                    "YOU" : "ඔබ ආකෘතිය තනා ඇත්තේ මේ මතයි "
+                    "TEACHER" : "Your teacher created the model on ",
+                    "YOU" : "You created the model on "
                 },
                 "TRAINING" : {
                     "CLASS" : "Your class has collected: ",
@@ -405,35 +405,35 @@
             "IDLE" : {
                 "NOLABELS" : {
                     "CROWDSOURCED" : {
-                        "TEXT" : "ඔබට text උදාහරණ එකතු කිරීමට අවශ්‍ය බව ඔබේ පන්තිය පවසා ඇත.",
-                        "IMAGES" : "ඔබට image උදාහරණ එකතු කිරීමට අවශ්‍ය බව ඔබේ පන්තිය පවසා ඇත.",
-                        "NUMBERS" : "ඔබට numbers උදාහරණ එකතු කිරීමට අවශ්‍ය බව ඔබේ පන්තිය පවසා ඇත.",
+                        "TEXT" : "Your class said you want to collect examples of text.",
+                        "IMAGES" : "Your class said you want to collect examples of images.",
+                        "NUMBERS" : "Your class said you want to collect examples of numbers.",
                         "SOUNDS" : "Your class said you want to collect examples of sounds."
                     },
                     "INDIVIDUAL" : {
-                        "TEXT" : "ඔබට text උදාහරණ එකතු කිරීමට අවශ්‍ය බව ඔබ පවසා ඇත.",
-                        "IMAGES" : "ඔබට image උදාහරණ එකතු කිරීමට අවශ්‍ය බව ඔබ පවසා ඇත..",
-                        "NUMBERS" : "ඔබට number උදාහරණ එකතු කිරීමට අවශ්‍ය බව ඔබ පවසා ඇත.",
+                        "TEXT" : "You've said you want to collect examples of text.",
+                        "IMAGES" : "You've said you want to collect examples of images.",
+                        "NUMBERS" : "You've said you want to collect examples of numbers.",
                         "SOUNDS" : "You've said you want to collect examples of sounds."
                     }
                 },
                 "NODATA" : {
                     "CROWDSOURCED" : {
-                        "TEXT" : "Text මේ ආකාර වූවිට පරිගණකයට හදුනාගැනීමට අවශ්‍ය text උදාහරණ රැස් කිරීමට ඔබට අවශ්‍ය බව ඔබේ පන්තිය පවසන ලදි ",
-                        "IMAGES" : "Images මේ ආකාර වූවිට පරිගණකයට හදුනාගැනීමට අවශ්‍ය images උදාහරණ රැස් කිරීමට ඔබට අවශ්‍ය බව ඔබේ පන්තිය පවසන ලදි ",
-                        "NUMBERS" : "Numbers මේ ආකාර වූවිට පරිගණකයට හදුනාගැනීමට අවශ්‍ය numbers උදාහරණ රැස් කිරීමට ඔබට අවශ්‍ය බව ඔබේ පන්තිය පවසන ලදි ",
+                        "TEXT" : "Your class said that you want to collect examples of text for a computer to recognise when text is ",
+                        "IMAGES" : "Your class said that you want to collect examples of images for a computer to recognise when images are ",
+                        "NUMBERS" : "Your class said that you want to collect examples of numbers for a computer to recognise when numbers are ",
                         "SOUNDS" : "Your class said that you want to collect examples of sounds for a computer to recognise when sounds are "
                     },
                     "INDIVIDUAL" : {
-                        "TEXT" : "ඔබ පවසා ඇත්තේ text පහත ආකාර වූ විට පරිගණකයට හදුනා ගැනීම සදහා උදාහරණ අවශ්‍යව ඇති බවය ",
-                        "IMAGES" : "ඔබ පවසා ඇත්තේ images පහත ආකාර වූ විට පරිගණකයට හදුනා ගැනීම සදහා උදාහරණ අවශ්‍යව ඇති බවය ",
-                        "NUMBERS" : "ඔබ පවසා ඇත්තේ numbers පහත ආකාර වූ විට පරිගණකයට හදුනා ගැනීම සදහා උදාහරණ අවශ්‍යව ඇති බවය  ",
+                        "TEXT" : "You said that you want to collect examples of text for a computer to recognise when text is ",
+                        "IMAGES" : "You said that you want to collect examples of images for a computer to recognise when images are ",
+                        "NUMBERS" : "You said that you want to collect examples of numbers for a computer to recognise when numbers are ",
                         "SOUNDS" : "You said that you want to collect examples of sounds for a computer to recognise when sounds are "
                     }
                 },
                 "NOEXAMPLES" : {
-                    "CLASS" : "මෙතෙක්, ඔබේ පන්තිය කිසිදු උදාහරණයක් රැස් කර නොමැත.",
-                    "YOU" : "මෙතෙක්, ඔබ කිසිදු උදාහරණයක් රැස් කර නොමැත."
+                    "CLASS" : "So far, your class haven't collected any examples yet.",
+                    "YOU" : "So far, you haven't collected any examples yet."
                 },
                 "DATA" : {
                     "CROWDSOURCED" : {
@@ -449,33 +449,33 @@
                         "SOUNDS" : "You have collected examples of sounds for a computer to use to recognise when sounds are "
                     },
                     "COLLECTED" : {
-                        "CLASS" : "ඔවුන් එකතු කර ඇත්තේ: ",
-                        "YOU" : "ඔබ එකතු කර ඇත්තේ: "
+                        "CLASS" : "They've collected: ",
+                        "YOU" : "You've collected: "
                     }
                 }
             }
         },
         "WHATSNEXT": {
-            "TITLE": "මීළගට කුමක්ද?",
-            "PLEASEWAIT": "ඔබට matchine learning ආක්‍රුතිය පුහුණු කිරීම අවසන් වන තෙක් ඉවසා සිටීමට සිදුවේ.",
-            "OFFERQUIZ": "නැතිනම්, ඔබට පහතින් දැක්වෙන machine learning ප්‍රශ්නාවලියට මුහුණදී, ඔබ ඉගෙනගත් දේ පරීක්ෂාකර ගන්න.",
-            "FAIL": "පුහුණු කිරීමේ පරිගණකය විසින් එවන ලද error message එක පහතින් දැක්වේ, ඔබට එහි යම් දෝෂයක් හදුනාගත හැකිනම් එය නිවැරදි කර, උත්සාහ කරන්න. එසේ හදුනාගත නොහැකි නම්, එය retry කිරීම වඩා සුදුසු වන්නේ එය අහඹු දෝෂයක් වියහැකි බැවිනි.",
+            "TITLE": "What's next?",
+            "PLEASEWAIT": "You could wait for the machine learning model to finish being trained.",
+            "OFFERQUIZ": "Or, you could try the machine learning quiz below, to check what you've learned.",
+            "FAIL": "The error message from the training computer is shown below. If that makes sense to you, try and fix the problem. Otherwise, it might be worth trying again in case it was just a random error.",
 
             "IDLE": {
-                "NOLABELS" : "මීළග පියවර වන්නේ <a href='{{ urls.train }}'> පුහුණු</a> පිටුවට යාමයි. ඔබට පරිගණකයට හඳුනාගැනීමට ඉගැන්වියයුතු එක් එක්  දෑ සඳහා lable කිහිපයක් එක් කරන්න.",
+                "NOLABELS" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add some labels for each of the things that you want to teach the computer to be able to recognise.",
                 "ONELABEL" : {
-                    "EXPLANATION": "පරිගණකය හඳුනා ගතයුත්තේ එක් දෙයක් ලෙස පමණක් ලෙස ඔබ පවසා ඇත: {{ label }}",
-                    "ISTHATALL": "ඔබට පරිගණකයට හඳුනා ගැනීමට පුහුණු කළ යුත්තේ එය පමණද?",
-                    "NO": "<strong>නැහැ?</strong><br/>ආපසු  <a href='{{ urls.train }}'>පුහුණු  පි‍ටුව </a> වෙත ආපසු යන්න.<br/>ඔබට පරිගණකයට හඳුනා ගැනීමට අවශ්‍ය එක් එක් දෙයක් සඳහා lable එක බැගින් එක් කරන්න.<br/><br/>",
-                    "YES": "<strong>ඔව්?</strong><br/>මුලින්ම ඔබ තවත් පොඩි වැඩක් කළ යුතුය.<br/>පරිගණකයට \"{{ label }}\" හඳුනා ගැනීමට ඉගෙන ගැනීමට ,  {{ label }} නොවන දේවල් වල උදාහරණ කීපයක් අවශ්‍ය වේ.<br/>ආපසු <a href='{{ urls.train }}'>පුහුණු</a> පිටුවට ගොස් {{ label }} නොවන දේවල් ඇතුලත් කර නව lable එකක් සාදන්න . ඔබට එය \"not-{{ label }}\" ලෙස නම් කළ හැක."
+                    "EXPLANATION": "You've only said one thing that you want the computer to be able to recognise: {{ label }}",
+                    "ISTHATALL": "Is that the only thing you want the computer to be able to recognise?",
+                    "NO": "<strong>No?</strong><br/>Go back to the <a href='{{ urls.train }}'>Train</a> page.<br/>Add more labels for each of the things that you want to teach the computer to be able to recognise.<br/><br/>",
+                    "YES": "<strong>Yes?</strong><br/>You need to do a little more work first.<br/>For the computer to be able to learn how to recognise \"{{ label }}\", you need to give it some examples of things that aren't {{ label }}.<br/>Go back to the <a href='{{ urls.train }}'>Train</a> page and create a new label for examples of things that aren't {{ label }}. You could call it \"not-{{ label }}\"."
                 },
                 "LABELS" : {
-                    "NO_DATA" : "මීළඟ පියවර වන්නේ  <a href='{{ urls.train }}'>පුහුණු පිටුවට</a> ගොස් . එක් එක් ලේබලය සඳහා උදාහරණ එක් කිරීමයි.",
+                    "NO_DATA" : "The next step is to go to the <a href='{{ urls.train }}'>Train</a> page. Add examples for each of the labels.",
                     "MORE_DATA" : {
-                        "KEEP_GOING": "තවත් ඉදිරියටම යන්න!",
+                        "KEEP_GOING": "Keep going!",
                         "MORE_EXAMPLES" : {
-                            "YOU": "ආපසු <a href='{{ urls.train }}'>පුහුණු පිටුව</a> වෙතගොස් එක් එක් ලේබලය සඳහා තවත් උදාහරණ එක් කරන්න.",
-                            "CLASS": "ඔබේ පන්තියට ආපසු <a href='{{ urls.train }}'>පුහුණු පිටුව</a> වෙත ගොස් එක් එක් ලේබලය සඳහා තවත් උදාහරණ එක් කිරීමට උපදෙස් දෙන්න."
+                            "YOU": "Go back to the <a href='{{ urls.train }}'>Train</a> page and collect more examples for each of the labels.",
+                            "CLASS": "Ask your class to go back to the <a href='{{ urls.train }}'>Train</a> page and collect more examples for each of the labels."
                         },
                         "MORE_IS_BETTER" : "The more you can get, the better it should learn, but you need at least {{ minimumExamples }} examples of each as an absolute minimum."
                     },
@@ -673,8 +673,8 @@
     },
     "MAKES": {
         "TITLE": "Make something with your machine learning model",
-        "SCRATCH2": "Make a project in the current version of Scratch",
-        "SCRATCH3": "Use the new (beta) version of Scratch",
+        "SCRATCH2": "Make a project in the old version of Scratch",
+        "SCRATCH3": "Use the new version of Scratch",
         "PYTHON": "Write Python code to use your machine learning model",
         "APPINVENTOR": "Make a mobile app for your phone or tablet"
     },
@@ -1030,7 +1030,7 @@
         "FINDIT": {
             "TITLE": "Find It!",
             "SUMMARY": "Teach a computer to recognise pictures",
-            "DESCRIPTION": "Make a hide-and-seek game for your mobile phone",
+            "DESCRIPTION": "Make a hide-and-seek game for your mobile phone.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-findit.pdf"
             }
@@ -1038,7 +1038,7 @@
         "ALIENLANGUAGE": {
             "TITLE": "Alien Language",
             "SUMMARY": "Teach a computer to recognize sounds",
-            "DESCRIPTION": "Make an alien in Scratch that learns to recognize an alien language",
+            "DESCRIPTION": "Make an alien in Scratch that learns to recognize an alien language.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-alienlanguage.pdf"
             }
@@ -1128,7 +1128,7 @@
 
             "HELP_STEPBYSTEP_GUIDE": "If you're not sure what to do here, please follow the <a href='/apikeys-guide'> step-by-step guide </a>. If you'd like any help, please <strong><a style='cursor: pointer;' href='/help'>get in touch</a></strong>.",
 
-            "INTRO_WATSONASSISTANT": "Training machine learning models for <span class='mlprojecttype'>text</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/conversation/'>Watson Assistant</a>",
+            "INTRO_WATSONASSISTANT": "Training machine learning models for <span class='mlprojecttype'>text</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a>",
             "INTRO_VISUALRECOGNITION": "Training machine learning models for <span class='mlprojecttype'>images</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
             "INTRO_NUMBERS": "Training machine learning models for <span class='mlprojecttype'>numbers</span> projects does <strong>not</strong> require any API keys",
             "INTRO_SOUNDS": "Training machine learning models for <span class='mlprojecttype'>sound</span> projects does <strong>not</strong> require any API keys",
@@ -1197,52 +1197,52 @@
             "NO_PROJECTS_1": "None of the students in your class currently have any projects.",
             "NO_PROJECTS_2": "Once your students start creating projects, come back here to see an overview of their work.",
 
-            "NAME": "Name",
-            "TYPE": "Type",
-            "STUDENT": "Student",
-            "MODELS": "ML models",
+            "NAME": "Naziv",
+            "TYPE": "Tip",
+            "STUDENT": "Učenik",
+            "MODELS": "Modeli za strojno učenje",
 
-            "DELETE": "Click the icon to delete",
+            "DELETE": "Klikni na ikonu za brisanje",
 
-            "NOT_AUTHORIZED": "You are not authorized to access the list of projects for all students in your class."
+            "NOT_AUTHORIZED": "Niste ovlašteni pristupiti listi projekata za sve studente u vašoj učionici."
         },
         "STUDENTMANAGEMENT": {
-            "TITLE": "Administration : Student management",
+            "TITLE": "Administracija: Upravljanje učenicima",
 
-            "CREATE_FIRST_STUDENT": "Click on the 'plus' button on the right to create the first student",
-            "ADD": "Add new student",
-            "NEW_USERNAME": "Choose a unique username",
-            "ALPHANUMERIC": "Only use letters and numbers",
+            "CREATE_FIRST_STUDENT": "Klikni na 'plus' dugme na desno za kreiranje prvog učenika",
+            "ADD": "Dodaj novog učenika",
+            "NEW_USERNAME": "Odaberi jedinstveno korisničko ime",
+            "ALPHANUMERIC": "Koristi isključivo brojeve i slova",
 
-            "NOT_LOGGED_IN": "Not logged in yet",
+            "NOT_LOGGED_IN": "Niste prijavljeni na sustav",
 
-            "RESET_PASSWORD": "Reset password",
-            "RESET_ALL_PASSWORDS": "Reset password for all students",
+            "RESET_PASSWORD": "Promijeni zaporku",
+            "RESET_ALL_PASSWORDS": "Promijeni zaporke za sve učenike",
 
-            "DELETE_STUDENT": "Delete student account",
+            "DELETE_STUDENT": "Obriši učenikov korisnički račun",
 
-            "NOT_AUTHORIZED": "You are not authorized to access the list of students in your class.",
+            "NOT_AUTHORIZED": "Niste ovlašteni pristupiti popisu učenika u vašem razredu",
 
             "ADD_MULTIPLE": {
-                "BUTTON" : "Multiple students",
+                "BUTTON" : "Višestruki učenici",
 
-                "TITLE" : "Add new students",
-                "INTRO" : "You can use this to create more than one student account at the same time.",
-                "USERNAME" : "What do you want each username to start with?",
-                "USERNAME_REQUIRED" : "Please choose the prefix for the usernames",
-                "USERNAME_TOOLONG" : "That is too long",
-                "USERNAME_INVALID" : "Invalid characters",
-                "NUMBER" : "How many student accounts do you want?",
-                "NUMBER_REQUIRED" : "Please enter the number of students to create",
-                "NUMBER_TOOMANY" : "Your class has a limit of {{userslimit}} students.",
-                "PASSWORD" : "The password to give them:",
-                "PASSWORD_TOOSHORT" : "Too short"
+                "TITLE" : "Dodaj nove učenike",
+                "INTRO" : "Možete iskoristiti ovu funkciju za istovremeno dodavanje više učenika",
+                "USERNAME" : "Ša čime želite da započne svaki korisnički račun?",
+                "USERNAME_REQUIRED" : "Molim odaberite prefiks za svako korisničko ime",
+                "USERNAME_TOOLONG" : "To je predugo",
+                "USERNAME_INVALID" : "Nedozvoljeni znakovi",
+                "NUMBER" : "Koliko učeničkih računa želite?",
+                "NUMBER_REQUIRED" : "Molim unesite broj učenika koje želite kreirati",
+                "NUMBER_TOOMANY" : "Vaš razred ima ograničenje na {{userslimit}} učenika.",
+                "PASSWORD" : "Zaporka koju možete podijeliti:",
+                "PASSWORD_TOOSHORT" : "Previše kratko"
             }
         }
     },
     "SCRATCHBLOCKS": {
         "TEXT_PROJECTS": {
-            "mlforkids.text.recogniseLabel": "recognise text [TEXT] (label)",
+            "mlforkids.text.recogniseLabel": "Prepoznaj tekst [TEXT] (label)",
             "mlforkids.text.recogniseConfidence": "recognise text [TEXT] (confidence)",
             "mlforkids.text.addTraining": "add training data [TEXT] [LABEL]",
             "mlforkids.text.trainNewModel": "train new machine learning model",
@@ -1290,9 +1290,9 @@
         "SCRATCH": {
             "TITLE": "Scratch issues",
 
-            "Q1": "I don't know how to get Scratch working",
-            "Q1-A-1": "Machine Learning for Kids uses Scratch 2. Scratch needs Adobe Flash to work, so you need to be using an operating system and a web browser that can work with Flash (so that means no iPads for now, sorry).",
-            "Q1-A-2": "If you're not sure about how to enable Flash, you can            <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>download a document with some tips for getting Scratch working</a>.",
+            "Q1": "I don't know how to get Scratch 2 working",
+            "Q1-A-1": "The old version of Scratch, Scratch 2, needs Adobe Flash to work, so you need to be using an operating system and a web browser that can work with Flash.",
+            "Q1-A-2": "If you're not sure about how to enable Flash, you can            <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>download a document with some tips for getting Scratch working</a>. Or you can use the new version of Scratch, Scratch 3, instead.",
 
             "Q2": "The \"Load Project\" and \"Save Project\" menus in Scratch don't work",
             "Q2-A-1": "If you're using Safari on macOS and the Scratch menus \"File -&gt; Load Project\" and \"File -&gt; Save Project\" menus aren't working, it might be that you're running in Safe Mode.",
@@ -1306,12 +1306,12 @@
             "Q3-A-5": "If the status light next to your machine learning Scratch blocks is green, then the blocks should be working. If you're not getting the responses you expect from them, try going to the \"Learn &amp; Test\" page and checking what results your model returns.",
 
             "Q5": "Can I use any version of Scratch?",
-            "Q5-A-1": "You need to use the versions of Scratch that are provided by the Machine Learning for Kids site. They can be launched by clicking the Scratch, or 'Scratch 3', buttons from your project page.",
+            "Q5-A-1": "Morate koristiti verzije programa Scratch koje pruža stranica Strojno učenje za djecu. Oni se mogu pokrenuti klikom na gumbe Scratch ili \"Scratch 3\" sa stranice vašeg projekta.",
 
             "Q6": "Scratch 3 is only saving projects to the 'Downloads' folder",
             "Q6-A-1": "When you click 'File' -> 'Save to your computer' in Scratch 3, your Scratch project is saved to your computer.",
-            "Q6-A-2": "Some teachers reported a problem that this saved to the Downloads folder, on a computer where students don't have access in Windows to the Downloads folder. The result was that students were not able to access their saved projects.",
-            "Q6-A-3": "If you have this problem, you need to look in your web browser settings for a setting like 'Ask where to save each file before downloading'. If you enable that, your students will be able to choose where their projects are saved."
+            "Q6-A-2": "Neki učitelji izvijestili su o problemu zbog toga što je to spremljeno u mapu Downloads na računalu gdje učenici nemaju pristup u sustavu Windows u mapu Downloads. Rezultat toga je bio da studenti nisu mogli pristupiti svojim spremljenim projektima.",
+            "Q6-A-3": "Ako imate ovaj problem, morate pogledati postavke web preglednika za postavku poput \"Pitajte gdje spremiti svaku datoteku prije preuzimanja\". Ako to omogućite, vaši će učenici moći birati gdje će se njihovi projekti spremati."
         },
 
         "TRAININGUI": {
@@ -1336,11 +1336,11 @@
 
             "Q3": "\"Watson Assistant API keys have no more workspaces available\"",
             "Q3-A-1": "Machine learning models in the tool are created using IBM Watson APIs.",
-            "Q3-A-2": "Watson Assistant (formerly Watson Conversation) credentials created by teachers have a limit on the number of machine learning models that they can be used to create. This is displayed in the IBM Cloud UI where the credentials were created, where they are called \"workspaces\".",
+            "Q3-A-2": "Watson Assistant credentials created by teachers have a limit on the number of machine learning models that they can be used to create. This is displayed in the IBM Cloud UI where the credentials were created, where they are called \"workspaces\".",
             "Q3-A-3": "If this limit is exceeded, attempts to train new machine learning models will fail, and this message will be displayed:",
             "Q3-A-4": "Your class already has created their maximum allowed number of models. Please let your teacher or group leader know that their \"Watson Assistant API keys have no more workspaces available\".",
             "Q3-A-5": "If a student who has a successfully trained model then deletes their model, this will free up a workspace for use by another student.",
-            "Q3-A-6": "One way to avoid this error in future would be smaller class sizes. If there are fewer students than the number of workspaces supported by the Watson Assistant (formerly Conversation) credentials, then the limits will not be hit.",
+            "Q3-A-6": "One way to avoid this error in future would be smaller class sizes. If there are fewer students than the number of workspaces supported by the Watson Assistant credentials, then the limits will not be hit.",
             "Q3-A-7": "Another way to avoid this error is to add additional Watson Assistant API keys to the class, or to use a Watson Assistant instance \"plan\" that has higher limits.",
 
             "Q4": "\"Watson Visual Recognition API keys have no more classifiers available\"",

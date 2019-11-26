@@ -97,6 +97,17 @@
             if (!errObj) {
                 errObj = {};
             }
+            else {
+                // record the error
+                console.log(errObj);
+                if (status === 500 && Sentry && Sentry.captureException) {
+                    Sentry.captureException({
+                        error : errObj,
+                        errortype : typeof (errObj),
+                        projectid : $scope.projectId
+                    });
+                }
+            }
 
             // create alert and display it
             var newId = alertId++;
@@ -130,8 +141,6 @@
 
         $scope.minimumExamples = 'five';
         $scope.testformData = {};
-
-        $scope.quizQuestion = quizService.getQuestion();
 
 
         authService.getProfileDeferred()
@@ -174,7 +183,7 @@
                 $scope.loading = false;
             })
             .catch(function (err) {
-                var errId = displayAlert('errors', err.status, err.data);
+                var errId = displayAlert('errors', err.status, err.data ? err.data : err);
                 scrollToNewItem('errors' + errId);
             });
 
@@ -314,9 +323,13 @@
 
 
         vm.createModel = function (ev, project) {
+            // prepare the first question for displaying while
+            //  the training is running
+            $scope.quizQuestion = quizService.getQuestion();
+
             $scope.submittingTrainingRequest = true;
 
-            if ($scope.project.type === 'sounds') {
+            if (project.type === 'sounds') {
                 soundTrainingService.newModel(project.id, $scope.userId, vm.profile.tenant)
                     .then(function (newmodel) {
                         $scope.models = [ newmodel ];
@@ -325,6 +338,10 @@
                         $scope.submittingTrainingRequest = false;
 
                         refreshModels();
+                    })
+                    .catch(function (err) {
+                        var errId = displayAlert('errors', err.status, err.data);
+                        scrollToNewItem('errors' + errId);
                     });
             }
             else {
@@ -388,7 +405,7 @@
             return err &&
                    err.status === 409 &&
                    err.data && err.data.code &&
-                   (err.data.code === 'MLMOD12' || err.data.code === 'MLMOD13') &&
+                   (err.data.code === 'MLMOD12' || err.data.code === 'MLMOD13' || err.data.code === 'MLMOD14') &&
                    err.data.location && err.data.location.imageid && err.data.location.url &&
                    err.data.location.type === 'download';
         }
@@ -420,6 +437,9 @@
                     }
                     return $scope.testformData[field.name];
                 });
+            }
+            else if (project.type === 'sounds') {
+                return;
             }
 
             $scope.testoutput = "please wait...";
@@ -645,6 +665,7 @@
 
 
         vm.startListening = function () {
+            console.log('startListening');
             if (!$scope.listening) {
                 $scope.listening = true;
                 soundTrainingService.startTest(function (resp) {
@@ -666,6 +687,9 @@
                                 delete $scope.testoutput;
                                 delete $scope.testoutput_explanation;
                             });
+                    })
+                    .catch(function (err) {
+                        console.log('Unable to stop listening', err);
                     });
             }
         };

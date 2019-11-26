@@ -346,6 +346,9 @@ function runLocally(locations: ImageDownload[]): Promise<string> {
                 if (!err.message.startsWith(download.ERRORS.DOWNLOAD_FAIL)) {
                     log.error({ err }, 'Failed to create training zip');
                 }
+                if (zippath && typeof zippath === 'string') {
+                    deleteFailedTrainingFile(zippath);
+                }
                 return reject(err);
             }
             return resolve(zippath);
@@ -383,29 +386,74 @@ export async function runInServerless(locations: ImageDownload[]): Promise<strin
 
             request.post(serverlessRequest)
             .on('error', (err) => {
-                log.error({ err }, 'Failed to run function');
-                return reject(err);
+                deleteFailedTrainingFile(zipfile);
+
+                const customError = err as any;
+                if (customError.rerun) {
+                    log.error({ err, numlocations : locations.length },
+                              'Unexpected failure to run CreateZip - running again locally');
+
+                    return runLocally(locations)
+                        .then((zippath) => {
+                            return resolve(zippath);
+                        })
+                        .catch((localerr) => {
+                            log.error({ localerr }, 'Failed to re-run locally');
+                            return reject(localerr);
+                        });
+                }
+                else {
+                    if (!customError.logged) {
+                        log.error({ err, numlocations : locations.length }, 'CreateZip failed');
+                    }
+                    return reject(err);
+                }
             })
             .on('response', (resp) => {
                 if (resp.statusCode !== 200) {
-                    log.error({
+                    const errorInfo = {
+                        numlocations : locations.length,
                         status : resp.statusCode,
                         errorobj : resp.headers['x-machinelearningforkids-error'],
                         body : resp.body,
-                    }, 'Error response from OpenWhisk');
+                    };
+
+                    log.error(errorInfo, 'Error response from OpenWhisk');
 
                     let functionError = new Error('Failed to create zip') as any;
                     const hdrs = resp.headers['x-machinelearningforkids-error'];
                     if (hdrs && typeof hdrs === 'string') {
+                        // The serverless function CreateZip failed to create a zip
+                        //  file, but this wasn't an expected failure - it has
+                        //  returned an explanation for why. (e.g. one of the sites
+                        //  hosting an image requested refused to allow it to be
+                        //  downloaded).
+                        //
+                        // This means there is nothing left to do except to inform
+                        //  the user that we can't create the training zip.
                         try {
                             const functionErrorInfo = JSON.parse(hdrs);
                             functionError = new Error(functionErrorInfo.error) as any;
                             functionError.location = functionErrorInfo.location;
+                            functionError.logged = true;
                         }
                         catch (err) {
-                            log.error({ err }, 'Failed to parse function error');
+                            log.error({ err, hdrs }, 'Failed to parse function error');
                         }
                     }
+                    else {
+                        // An unexpected and unexplained failure to create a zip file.
+                        //
+                        // The most common reason for getting here is that the serverless function
+                        //  CreateZip created a zip file that is larger than the 5mb response
+                        //  payload limit that IBM Cloud Functions allows.
+                        //
+                        // This needs some significant redesign/restructuring to handle it, but
+                        //  for now, we'll just workaround the problem by handling these
+                        //  (fortunately rare) edge cases by building the zip outside of OpenWhisk.
+                        functionError.rerun = true;
+                    }
+
                     return resp.destroy(functionError);
                 }
             })
@@ -416,6 +464,16 @@ export async function runInServerless(locations: ImageDownload[]): Promise<strin
         });
     });
 }
+
+
+function deleteFailedTrainingFile(location: string): void {
+    fs.unlink(location, (err?: Error | null) => {
+        if (err) {
+            log.error({ err, location }, 'Failed to delete failed training file');
+        }
+    });
+}
+
 
 
 chooseExecutionEnvironment();

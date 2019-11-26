@@ -29,12 +29,12 @@
         "INCOMPLETE": "Ημιτελές!"
     },
     "ABOUT": {
-        "TITLE": "Μηχανική Μάθηση για Παιδιά",
+        "TITLE": "Μηχανική μάθηση για παιδιά",
         "IN6SECS": "Σε 6 δευτερόλεπτα...",
         "IN20MINS": "Σε 20 λεπτά...",
         "WHAT": {
             "TITLE": "Τι είναι;",
-            "BODY" : "Αυτό το δωρεάν εργαλείο παρουσιάζει τη μηχανική μάθηση παρέχοντας πρακτικές εμπειρίες για την εκπαίδευση συστημάτων μηχανικής μάθησης και την ανάπτυξη έργων με αυτά. <br/>Παρέχει ένα εύχρηστο καθοδηγητικό περιβάλλον για την εκπαίδευση μοντέλων μηχανικής μάθησης πάνω στην αναγνώριση κειμένου, αριθμών, εικόνων ή ήχων. Βασίζεται σε υπάρχουσες προσπάθειες εισαγωγής και διδασκαλίας του προγραμματισμού σε παιδιά, προσθέτοντας αυτά τα μοντέλα στις εκπαιδευτικές πλατφόρμες προγραμματισμού <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> και <a href='http://appinventor.mit.edu/' target='_blank'>App Inventor</a>, και βοηθά τα παιδιά να δημιουργήσουν έργα και να φτιάξουν παιχνίδια με τα μοντέλα μηχανικής μάθησης που εκπαιδεύουν. <br/><br/>Το εργαλείο διατέθηκε για πρώτη φορά το 2017 και σήμερα <a href='https://wakelet.com/wake/4d3680cb-2a11-49ab-9180-fcfeced48393' target='_blank'> χρησιμοποιείται από χιλιάδες σχολεία, λέσχες κώδικα και οικογένειες, σε όλο τον κόσμο</a>.<br/> Για να μάθεις περισσότερα, επισκεφθτείτε το:"
+            "BODY" : "Ένα δωρεάν εργαλείο που παρουσιάζει τη Μηχανική Μάθηση μέσω πρακτικών εμπειριών εκπαίδευσης συστημάτων μηχανικής μάθησης και ανάπτυξης έργων με αυτά. <br/><br/>Παρέχει ένα εύχρηστο καθοδηγητικό περιβάλλον για την εκπαίδευση μοντέλων μηχανικής μάθησης πάνω στην αναγνώριση κειμένου, αριθμών, εικόνων ή ήχων. <br/>Βασίζεται πάνω σε υπάρχουσες προσπάθειες εισαγωγής και διδασκαλίας του προγραμματισμού σε παιδιά, προσθέτοντας αυτά τα μοντέλα στις εκπαιδευτικές πλατφόρμες προγραμματισμού <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> και <a href='http://appinventor.mit.edu/' target='_blank'>App Inventor</a>, και βοηθά τα παιδιά να δημιουργήσουν έργα και να φτιάξουν παιχνίδια με τα μοντέλα μηχανικής μάθησης που εκπαιδεύουν. <br/><br/>Το εργαλείο διατέθηκε για πρώτη φορά το 2017 και σήμερα <a href='https://wakelet.com/wake/4d3680cb-2a11-49ab-9180-fcfeced48393' target='_blank'> χρησιμοποιείται από χιλιάδες σχολεία, ομάδες προγραμματισμού και οικογένειες, σε όλο τον κόσμο</a>. Για να μάθεις περισσότερα, δες το:"
         },
         "WHY": {
             "TITLE": "Γιατί;",
@@ -42,12 +42,12 @@
         },
         "TECH": {
             "TITLE": "Τεχνολογία",
-            "BODY": "Το εργαλείο είναι εξ᾽ ολοκλήρου διαδικτυακό και δεν απαιτεί εγκατάσταση ή περίπλοκες ρυθμίσεις για να χρησιμοποιηθεί. <br/><br/>Σχεδιάστηκε για χρήση στην τάξη από σχολεία και εθελοντικές ομάδες προγραμματισμού για παιδιά, και παρέχει μια σελίδα διαχείρισης για εκπαιδευτικούς ή επικεφαλής ομάδων, ώστε να μπορούν να επιβλέπουν και να διαχειρίζονται την πρόσβαση για τους μαθητές τους.<br/><br/> Αναπτύχθηκε από τον <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> χρησιμοποιώντας το API της <a target='_blank' href='https://www.ibm.com/watson/developer/'>IBM Watson</a>. <br/><br/> Για περισσότερες λεπτομέρειες σχετικά με την υλοποίηση, μπορείτε να επισκεφτείτε τον <a target='_blank' href='https://github.com/IBM/taxinomitis/'>πηγαίο κώδικα στο GitHub</a> ή να διαβάσετε μερικές από τις <a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>δημοσιεύσεις του blog σχετικά με τα τεχνικά χαρακτηριστικά</a>.",
+            "BODY": "Το εργαλείο είναι εξ᾽ ολοκλήρου διαδικτυακό και δεν απαιτεί εγκατάσταση ή περίπλοκες ρυθμίσεις για να χρησιμοποιηθεί. <br/><br/>Σχεδιάστηκε για χρήση στην τάξη από σχολεία και εθελοντικές ομάδες προγραμματισμού για παιδιά, και παρέχει σελίδα διαχείρισης για εκπαιδευτικούς ή επικεφαλής ομάδων, ώστε να μπορούν να επιβλέπουν και να διαχειρίζονται την πρόσβαση για τους μαθητές τους.<br/><br/> Αναπτύχθηκε από τον <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> χρησιμοποιώντας τα API της <a target='_blank' href='https://www.ibm.com/watson/developer/'>IBM Watson</a>. <br/><br/> Για περισσότερες λεπτομέρειες σχετικά με την υλοποίηση, μπορείς να επισκεφτείς τον <a target='_blank' href='https://github.com/IBM/taxinomitis/'>πηγαίο κώδικα στο GitHub</a> ή να διαβάσεις μερικές από τις <a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>δημοσιεύσεις του blog σχετικά με τα τεχνικά χαρακτηριστικά</a>.",
             "LOGIN": "Για να ξεκινήσεις:"
         },
         "FURTHER": {
-            "TITLE": "Περαιτέρω μάθηση",
-            "BODY": "Η 'Μηχανική Μάθηση για Παιδιά' είναι ένα χρήσιμο εργαλείο για την πρώτη επαφή με τον τρόπο εκπαίδευσης και χρήσης συστημάτων MΜ, και κάποιες από τις επιπτώσεις των εφαρμογών Τεχνητής Νοημοσύνης στον πραγματικό κόσμο. <br/><br/>Για επιπλέον εκπαιδευτικό υλικό, συμπεριλαμβανομένης και της διδασκαλίας για τα εσώτερα της MΜ, παρακαλώ δείτε:"
+            "TITLE": "Περαιτέρω μελέτη",
+            "BODY": "Η 'Μηχανική μάθηση για παιδιά' είναι ένα χρήσιμο εργαλείο για την πρώτη επαφή με τον τρόπο εκπαίδευσης και χρήσης συστημάτων MΜ, και κάποιες από τις επιπτώσεις των εφαρμογών Τεχνητής Νοημοσύνης στον πραγματικό κόσμο. <br/><br/>Για επιπλέον εκπαιδευτικό υλικό, συμπεριλαμβανομένης και διδασκαλίας για τα εσώτερα των συστημάτων MΜ, παρακαλώ δες:"
         }
     },
     "NEWS": {
@@ -69,13 +69,24 @@
             "BODY2": "Ενώ εγώ έχω επικεντρωθεί στην επεξήγηση του πώς τα συστήματα AI εκπαιδεύονται και συμπεριφέρονται (και τις συνέπειες στον πραγματικό κόσμο), το eCraft2Learn έχει φανταστικούς πόρους που βουτούν βαθιά στο πώς λειτουργούν τα συστήματα Μηχανικής Μάθησης.",
             "BODY3": "Το <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>neural net Tic Tac Toe project</a> είναι ιδιαίτερα συναρπαστικό, καθώς επιτρέπει στους μαθητές να πειραματιστούν με υπερπαραμέτρους από το Snap."
         },
+        "STEMLEARNING": {
+            "BODY1": "STEM Learning and the UK Department for Business, Energy and Industrial Strategy have created resources for teaching the principles of artificial intelligence.",
+            "BODY2": "These resources include <em>Machine Learning for Kids</em> projects, supplemented with teaching notes, presentation materials, prompt cards, and practical “unplugged” activities"
+        },
+        "RASPBERRYPI": {
+            "BODY1": "The Raspberry Pi Foundation provides resources for Code Clubs, with step-by-step instructions for a variety of creative projects.",
+            "BODY2": "Their machine learning pathway includes a variety of projects from <em>Machine Learning for Kids</em>."
+        },
         "APPSFORGOOD": {
             "BODY1": "Το Apps for Good είναι ένας μη κερδοσκοπικός οργανισμός στο Ηνωμένο Βασίλειο που αναπτύσσει εκπαιδευτικούς πόρους για τη διδασκαλία τεχνολογικών αντικειμένων και τους διαθέτει δωρεάν σε σχολεία.",
-            "BODY2": "Το μάθημά τους για τη Μηχανική Μάθηση χρησιμοποιεί τη <em>Μηχανική Μάθηση για Παιδιά</em> και το συμπληρώνει με μια γκάμα επιπρόσθετου υλικού όπως προγράμματα εργασίας, σχέδια μαθημάτων, βιβλία εργασιών, παρουσιάσεις και πολλά άλλα. Διευκολύνει τα σχολεία να παραδίδουν μαθήματα ΜΜ που τοποθετούν τις ασκήσεις προγραμματισμού σε ένα σχετικό πλαίσιο."
+            "BODY2": "Το μάθημά τους για τη Μηχανική Μάθηση χρησιμοποιεί τη <em>Μηχανική μάθηση για παιδιά</em> και το συμπληρώνει με μια γκάμα επιπρόσθετου υλικού όπως προγράμματα εργασίας, σχέδια μαθημάτων, βιβλία εργασιών, παρουσιάσεις και πολλά άλλα. Διευκολύνει τα σχολεία να παραδίδουν μαθήματα ΜΜ που τοποθετούν τις ασκήσεις προγραμματισμού σε ένα σχετικό πλαίσιο."
         },
         "AIFAMILYCHALLENGE": {
-            "BODY1": "Το AI Family Challenge είναι ένα δωρεάν εκπαιδευτικό πρόγραμμα πρακτικής στην Τεχνητή Νοημοσύνη για οικογένειες. Χρησιμοποιεί τη <em>Μηχανική Μάθηση για Παιδιά</em>, συμπληρώνοντάς το με πολλή επιπλέον υποστήριξη, όπως τεχνικούς προπονητές και συμβούλους, ένα δομημένο σχέδιο μαθήματος, και υποστηρικτικά βίντεο.",
+            "BODY1": "Το AI Family Challenge είναι ένα δωρεάν εκπαιδευτικό πρόγραμμα πρακτικής στην Τεχνητή Νοημοσύνη για οικογένειες. Χρησιμοποιεί τη <em>Μηχανική μάθηση για παιδιά</em>, συμπληρώνοντάς την με πολλή πρόσθετη υποστήριξη, όπως τεχνικούς προπονητές και συμβούλους, ένα δομημένο σχέδιο μαθήματος, και υποστηρικτικά βίντεο.",
             "BODY2": "Το πρόγραμμα βασίζεται σε έναν διαγωνισμό που καλεί τα παιδιά να σκεφτούν δικές τους ιδέες έργων Τεχνητής Νοημοσύνης, με την υποστήριξη των οικογενειών τους και τεχνικών συμβούλων."
+        },
+        "MAGENTADEMOS": {
+            "BODY1": "Online toys that demonstrate different aspects of machine learning, using TensorFlow.js"
         },
         "AIINSCHOOLS": {
             "BODY1": "Το πρόγραμμα AIinSchools παρέχει στους εκπαιδευτικούς ένα δωρεάν σχέδιο μαθημάτων για να εξηγήσουν την Τεχνητή Νοημοσύνη σε παιδιά του 9ου σχολικού έτους (ηλικίας 13-14).",
@@ -91,7 +102,7 @@
             "BODY1": "Μαθητές με προγραμματιζόμενα ρομπότ Cozmo μπορούν να χρησιμοποιήσουν το προγραμματιστικό πλαίσιο Calypso για να αποκτήσουν πρακτική εμπειρία στην Τεχνητή Νοημοσύνη, πειραματιζόμενοι με τεχνικές όπως τη μηχανική όραση και την αναγνώριση ομιλίας."
         },
         "AIINABOX": {
-            "BODY1": "Το AI-in-a-Box είναι ένα σετ από ρομπότ, αξεσουάρ και εκπαιδευτικό υλικό. Το κιτ μπορεί να χρησιμοποιηθεί για τη διδασκαλία διαφόρων πρότζεκτ που καλύπτουν θέματα όπως η οπτική αναγνώριση, η αναγνώριση προσώπων, η παραγωγή ομιλίας και η αναγνώριση ομιλίας."
+            "BODY1": "Το AI-in-a-Box είναι ένα σετ από ρομπότ, αξεσουάρ και εκπαιδευτικό υλικό. Το κιτ μπορεί να χρησιμοποιηθεί για τη διδασκαλία διαφόρων έργων που καλύπτουν θέματα όπως η οπτική αναγνώριση, η αναγνώριση προσώπων, η παραγωγή ομιλίας και η αναγνώριση ομιλίας."
         },
         "GOOGLEEXPERIMENTS": {
             "BODY1": "Απλά online πειράματα για να ξεκινήσεις την εξερεύνηση της μηχανικής μάθησης, μέσω εικόνων, σχεδίων, γλώσσας και μουσικής."
@@ -106,41 +117,41 @@
         "NOTLOGGEDIN": "Δεν έχει γίνει σύνδεση",
 
         "MISSINGPROJECTID": "Λείπει το id του έργου. Επίστρεψε στο ",
-        "IFPERSISTENT": "Εάν αυτό εξακολουθεί να συμβαίνει, παρακαλώ",
+        "IFPERSISTENT": "Εάν αυτό εξακολουθεί να συμβαίνει, παρακαλώ ",
 
         "LETMEKNOW": "ενημερώσέ με"
     },
     "WELCOME": {
-        "TITLE": "Μάθε σε έναν υπολογιστή να παίζει ένα παιχνίδι",
+        "TITLE": "Μάθε στον υπολογιστή να παίζει ένα παιχνίδι",
         "GET_STARTED": "Ξεκίνα",
         "LEARN_MORE": "Μάθε περισσότερα",
         "ADMIN_LABEL": "Πήγαινε στη <strong>Σελίδα Διαχείρισης</strong>",
         "PROJECT_LABEL": "Πήγαινε στα <strong>Έργα</strong> σου",
-        "STEP_1_TEXT": "Συγκέντρωσε παραδείγματα για αυτά που θέλεις να αναγνωρίζει ο υπολογιστής",
-        "STEP_2_TEXT": "Χρησιμοποίησε τα παραδείγματα για να εκπαιδεύσεις τον υπολογιστή να τα αναγνωρίζει",
-        "STEP_3_TEXT": "Φτιάξτε ένα παιχνίδι στο Scratch που χρησιμοποιεί την ικανότητα του υπολογιστή να τα αναγνωρίζει"
+        "STEP_1_TEXT": "Συγκέντρωσε παραδείγματα για αυτό που θέλεις να αναγνωρίζει ο υπολογιστής",
+        "STEP_2_TEXT": "Χρησιμοποίησε τα παραδείγματα για να εκπαιδεύσεις τον υπολογιστή να το αναγνωρίζει",
+        "STEP_3_TEXT": "Φτιάξτε ένα παιχνίδι στο Scratch που χρησιμοποιεί την ικανότητα του υπολογιστή να το αναγνωρίζει"
     },
     "LOGIN": {
         "TITLE": "Ξεκίνησε με τη μηχανική μάθηση",
-        "WELCOME": "Καλώς ήλθες! Είναι υπέροχο που ενδιαφέρεσαι να αποκτήσεις έναν  λογαριασμό για να συνδεθείς στη Μηχανική Μάθηση για Παιδιά",
+        "WELCOME": "Καλώς ήλθες! Είναι υπέροχο που ενδιαφέρεσαι να αποκτήσεις λογαριασμό για να συνδεθείς στη 'Μηχανική μάθηση για παιδιά'.",
         "ALREADY_LOGGEDIN": "</strong>Πληροφορία: </strong>Έχει γίνει ήδη σύνδεση",
         "ERROR": "<strong>Σφάλμα:</strong>{{ message }}",
         "ERROR_HELP": "Εάν αυτό εξακολουθήσει να συμβαίνει, παρακαλώ επισκέψου την ενότητα βοήθειας",
         "FIRST_TIME": "Πρώτη φορά εδώ;",
         "SIGN_UP": "Εγγραφή",
         "WHY_REGISTER": "Γιατί να εγγραφείς;",
-        "WHY_REGISTER_INTRO_1": "<strong>Δεν χρειάζεται να εγγραφείς ή να δημιουργήσεις λογαριασμό</strong> για να χρησιμοποιήσεις τη Μηχανική Μάθηση για Παιδιά, αλλά αν το κάνεις, ξεκλειδώνουν μερικές δυνατότητες του εργαλείου.",
+        "WHY_REGISTER_INTRO_1": "<strong>Δεν χρειάζεται να εγγραφείς ή να δημιουργήσεις λογαριασμό</strong> για να χρησιμοποιήσεις τη 'Μηχανική μάθηση για παιδιά', αλλά αν το κάνεις, ξεκλειδώνουν μερικές δυνατότητες του εργαλείου.",
         "WHY_REGISTER_INTRO_2": "Το παρακάτω πλαίσιο εξηγεί τη διαφορά του τι μπορείς να κάνεις εάν επιλέξεις \"Δοκιμή τώρα\" χωρίς να εγγραφείς, από αυτά που μπορείς να κάνεις αν δημιουργήσεις λογαριασμό για να συνδεθείς.",
         "ALREADY_REGISTERED": "Έχεις ήδη εγγραφεί;",
         "LOGIN": "Σύνδεση",
         "FORGOT_DETAILS": "Ξέχασες τα στοιχεία σου;",
         "TRY_TITLE": "Δοκιμή χωρίς εγγραφή",
         "TRY_NOW": "Δοκιμή τώρα",
-        "WHO_YOU": "Ποιος είσαι;",
+        "WHO_YOU": "Είσαι...",
         "TEACHER": "Γονέας, εκπαιδευτικός ή επικεφαλής ομάδας προγραμματισμού",
-        "STUDENT": "Μαθητής/Μαθήτρια",
+        "STUDENT": "Μαθητής / Μαθήτρια",
         "FORGOT_TEXT": "Ξέχασες το όνομα χρήστη ή τον κωδικό πρόσβασής σου; Δεν πειράζει, όλοι ξεχνάμε πράγματα κάποιες φορές.",
-        "ARE_YOU_A_STUDENT": "Είστε μαθητής/μαθήτρια;",
+        "ARE_YOU_A_STUDENT": "Είσαι μαθητής/μαθήτρια;",
         "ARE_YOU_A_STUDENT_INTRO_1": "Αν η τάξη σου χρησιμοποιεί ήδη αυτό το εργαλείο, ζήτησε από τον εκπαιδευτικό σου ή τον επικεφαλής της ομάδας προγραμματισμού να σου δημιουργήσει έναν λογαριασμό.",
         "ARE_YOU_A_STUDENT_INTRO_2": "Αν η τάξη σου δεν χρησιμοποιεί ήδη το εργαλείο, ζήτησε από τον εκπαιδευτικό ή τον επικεφαλής της ομάδας προγραμματισμού να επικοινωνήσει.",
         "RESET_STUDENT_PASSWORD_1": "Εάν είσαι μαθητής/μαθήτρια, δεν έχουμε τη διεύθυνση ηλεκτρονικού ταχυδρομείου σου για να μπορέσουμε να σου στείλουμε ένα μήνυμα επαναφοράς κωδικού πρόσβασης.",
@@ -156,10 +167,10 @@
         "UNMANAGED": {
             "TITLE": "Δημιουργία <strong>μη διαχειριζόμενου</strong> λογαριασμού τάξης",
             "INTRO": "Εάν θέλεις να ρυθμίσεις και να διαχειρίζεσαι εσύ το λογαριασμό της τάξης σου, μπορείς να το κάνεις αμέσως!",
-            "LISTINTRO": "Θα χρειαστεί να:",
-            "LIST_CREATEACCOUNT": "Δημιουργήσεις ένα δωρεάν λογαριασμό στο IBM Cloud",
-            "LIST_CREATEAPIKEYS": "Δημιουργήσεις το κλειδί (ή τα κλειδιά) API των Watson υπηρεσιών cloud που απαιτούνται για την εκπαίδευση των μοντέλων μηχανικής μάθησης",
-            "LIST_ENTERAPIKEYS": "Δώσεις τα κλειδιά API σε αυτό το εργαλείο του Machine Learning for Kids",
+            "LISTINTRO": "Θα χρειαστεί:",
+            "LIST_CREATEACCOUNT": "Να δημιουργήσεις ένα δωρεάν λογαριασμό στο IBM Cloud",
+            "LIST_CREATEAPIKEYS": "Να δημιουργήσεις το κλειδί (ή τα κλειδιά) API των υπηρεσιών Watson cloud που απαιτούνται για την εκπαίδευση των μοντέλων μηχανικής μάθησης",
+            "LIST_ENTERAPIKEYS": "Να δώσεις τα κλειδιά API σε αυτό το εργαλείο του 'Μηχανική μάθηση για παιδιά'",
             "HELP": "Οι οδηγίες βήμα προς βήμα (με στιγμιότυπα οθόνης) για όλα αυτά είναι πλέον διαθέσιμες."
         },
         "MANAGED": {
@@ -171,30 +182,30 @@
         }
     },
     "PROJECTS": {
-        "TITLE": "Τα έργα σου",
+        "TITLE": "Τα έργα σου στη μηχανική μάθηση",
         "ADDNEWPROJECT": "Προσθήκη νέου έργου",
         "CREATEFIRSTPROJECT": "Κάνε κλικ στο κουμπί \"συν\", στα δεξιά, για να δημιουργήσεις το πρώτο σου έργο.",
-        "RECOGNISING": "Αναγνώριση",
+        "RECOGNISING": "Αναγνωρίζει",
         "AS": "ως"
     },
     "NEWPROJECT": {
-        "TITLE": "Ξεκίνησε ένα νέο έργο μηχανικής μάθησης",
+        "TITLE": "Ξεκίνα ένα νέο έργο μηχανικής μάθησης",
         "PROJECT_NAME": {
             "TITLE": "Όνομα Έργου",
-            "NOTES": "Δώσε στο έργο σου ένα όνομα για να περιγράψεις τι θα προσπαθήσεις να μάθεις στον υπολογιστή να αναγνωρίζει."
+            "NOTES": "Δώσε στο έργο σου ένα όνομα, για να περιγράψεις τι θα προσπαθήσεις να μάθεις στον υπολογιστή να αναγνωρίζει."
         },
         "WHOLE_CLASS_PROJECT": {
             "TITLE": "Έργο για όλη την τάξη;",
-            "NOTES_1": "Επίλεξε αυτό, αν θέλεις όλη η τάξη μαζί να έχει τη δυνατότητα να εργαστεί πάνω σε αυτό το έργο.",
+            "NOTES_1": "Επίλεξέ το, αν θέλεις όλη η τάξη να έχει τη δυνατότητα να εργαστεί μαζί πάνω σε αυτό το έργο.",
             "NOTES_2": "Αυτή η δυνατότητα είναι χρήσιμη στα έργα που διδάσκουν την προσέγγιση crowd-sourcing για την εκπαίδευση μοντέλων μηχανικής μάθησης."
         },
         "TYPES": {
-            "LABEL": "Αναγνώριση",
+            "LABEL": "Αναγνωρίζει",
             "NOTES_1": "Τι είδους πράγματα θέλεις να διδάξεις τον υπολογιστή να αναγνωρίζει;",
             "NOTES_2": "Για λέξεις, προτάσεις ή παραγράφους, επίλεξε \"κείμενο\"",
-            "NOTES_3": "Για φωτογραφίες, διαγράμματα και εικόνες, επιλέξτε \"εικόνες\"",
-            "NOTES_4": "Για σύνολα αριθμών ή πολλαπλές επιλογές, επιλέξτε \"αριθμοί\"",
-            "NOTES_5": "Για φωνές και ήχους, επιλέξτε \"ήχοι\""
+            "NOTES_3": "Για φωτογραφίες, διαγράμματα και εικόνες, επίλεξε \"εικόνες\"",
+            "NOTES_4": "Για σύνολα αριθμών ή πολλαπλές επιλογές, επίλεξε \"αριθμοί\"",
+            "NOTES_5": "Για φωνές και ήχους, επίλεξε \"ήχοι\""
         },
         "LANGUAGE": {
             "LABEL": "Γλώσσα",
@@ -213,11 +224,11 @@
             "NEWFIELD": {
                 "DESCRIBE_FIELD": "Δώσε σε αυτό το πεδίο ένα όνομα για να περιγράψεις την τιμή",
                 "MULTICHOICE": "Αν μπορεί να περιγραφεί ως εκλογή μίας από μερικές επιλογές, διάλεξε \"πολλαπλής επιλογής\".",
-                "ADD_FIRST_FIELD": "Πληκτρολόγησε μια επιλογή που θέλεις να χρησιμοποιήσετε στη λίστα πολλαπλών επιλογών και πάτησε Enter.",
-                "ADD_ANOTHER_FIELD": "Πληκτρολόγησε άλλη μια επιλογή που θέλεις να χρησιμοποιήσετε στη λίστα πολλαπλών επιλογών και πάτησε Enter."
+                "ADD_FIRST_FIELD": "Πληκτρολόγησε μια επιλογή που θέλεις να χρησιμοποιήσεις στη λίστα πολλαπλών επιλογών και πάτησε Enter.",
+                "ADD_ANOTHER_FIELD": "Πληκτρολόγησε άλλη μια επιλογή που θέλεις να χρησιμοποιήσεις στη λίστα πολλαπλών επιλογών και πάτησε Enter."
             },
             "NEWVALUE": {
-                "ADD_FIRST_VALUE": "Ξεκίνα να περιγράφεις τις τιμές που θα συμπεριλάβεις σε κάθε παράδειγμα για να εκπαιδεύσεις τον υπολογιστή, κάνοντας κλικ στο κουμπί \"Προσθήκη τιμής\".",
+                "ADD_FIRST_VALUE": "Ξεκίνα να περιγράφεις τις τιμές που θα συμπεριλάβεις σε κάθε παράδειγμα για να εκπαιδεύσεις τον υπολογιστή, κάνοντας κλικ στο κουμπί \"Add a value\".",
                 "VALUES_LIMIT": "Δεν επιτρέπονται περισσότερες από 10 τιμές σε ένα έργο."
             }
         },
@@ -246,7 +257,7 @@
                 "TITLE": "Επιζώντες του Τιτανικού",
                 "SUMMARY": "Πρόβλεψε την επιβίωση στον Τιτανικό",
                 "DESCRIPTION": "Στις 15 Απριλίου 1912, το RMS Titanic χτύπησε σε ένα παγόβουνο και βυθίστηκε, σκοτώνοντας πάνω από 1500 επιβάτες και πλήρωμα. Αυτό το έργο περιλαμβάνει προσωπικά δεδομένα για εκατοντάδες επιβάτες. Μπορείς να το χρησιμοποιήσεις για να εκπαιδεύσεις ένα μοντέλο μηχανικής μάθησης που, αν του δίνεις την περιγραφή κάποιου επιβάτη, μπορεί να μάθει να προβλέπει τις πιθανότητες να είχε επιβιώσει.",
-                "DETAILS": "Το πεδίο 'ticket class' είναι ένας αριθμός που υποδεικνύει τον τύπο εισιτηρίου για τον επιβάτη: πρώτης (1), δεύτερης (2) ή τρίτης κατηγορίας (3).\nΤο πεδίο 'gender' προσδιορίζει αν ο επιβάτης ήταν 'άνδρας' ή 'γυναίκα'.\nΤο πεδίο 'age' αντιστοιχεί στην ηλικία του επιβάτη.\nΤο 'sibl. sp.' δηλώνει πόσα αδέλφια πάνω στο πλοίο είχε ο επιβάτης,  αν ήταν παιδί, ή το πλήθος των συζύγων πάνω στο πλοίο που είχε ο επιβάτης, αν ήταν ενήλικας.\nΤο πεδίο 'par. ch.' είναι ο αριθμός των γονιών που είχε πάνω στο πλοίο ο επιβάτης, αν ήταν παιδί, ή ο αριθμός των παιδιών που είχε ο επιβάτης πάνω στο πλοίο, αν ήταν ενήλικας.\nΤο πεδίο 'ticket fare' είναι το ποσό που καταβλήθηκε για το εισιτήριο.\nΤο πεδίο 'embarked' είναι το μέρος απ' όπου επιβιβάστηκαν στον Τιτανικό, δηλαδή το Cherbourg, το Queenstown ή το Southampton."
+                "DETAILS": "Το πεδίο 'ticket class' είναι ένας αριθμός που υποδεικνύει τον τύπο εισιτηρίου για τον επιβάτη: πρώτης (1), δεύτερης (2) ή τρίτης κατηγορίας (3).\nΤο πεδίο 'gender' προσδιορίζει αν ο επιβάτης ήταν 'άνδρας' ή 'γυναίκα'.\nΤο πεδίο 'age' αντιστοιχεί στην ηλικία του επιβάτη.\nΤο 'sibl. sp.' δηλώνει πόσα αδέλφια (αδελφούς ή αδελφές) πάνω στο πλοίο είχε ο επιβάτης, αν ήταν παιδί, ή το πλήθος των συζύγων (άντρες ή γυναίκες) πάνω στο πλοίο που είχε ο επιβάτης, αν ήταν ενήλικας.\nΤο πεδίο 'par. ch.' είναι ο αριθμός των γονιών που είχε πάνω στο πλοίο ο επιβάτης, αν ήταν παιδί, ή ο αριθμός των παιδιών που είχε ο επιβάτης πάνω στο πλοίο, αν ήταν ενήλικας.\nΤο πεδίο 'ticket fare' είναι το ποσό που καταβλήθηκε για το εισιτήριο.\nΤο πεδίο 'embarked' είναι το μέρος απ' όπου επιβιβάστηκαν στον Τιτανικό, δηλαδή το Cherbourg, το Queenstown ή το Southampton."
             },
             "CATSANDDOGS": {
                 "TITLE": "Γάτες και Σκύλοι",
@@ -318,7 +329,7 @@
             "WEBCAMFAIL": "Συγγνώμη! Δεν ήταν δυνατή η ενεργοποίηση της web κάμερας.",
             "WEBCAMERROR": "Το μήνυμα που λάβαμε από το πρόγραμμα περιήγησης ιστού ήταν:"
         },
-        "BACKGROUNDNOISE": "Η συλλογή παραδειγμάτων θορύβου υποβάθρου θα βοηθήσει τον υπολογιστή να μάθει να αναγνωρίζει τους ήχους σου"
+        "BACKGROUNDNOISE": "Η συλλογή παραδειγμάτων θορύβου του περιβάλλοντος θα βοηθήσει τον υπολογιστή να μάθει να αναγνωρίζει τους ήχους σου"
     },
     "MODELS": {
         "TITLE": "Μοντέλα μηχανικής μάθησης",
@@ -484,10 +495,10 @@
             },
             "READY" : {
                 "TEST" : {
-                    "TEXT" : "Δοκίμασε να τεστάρεις το μοντέλο μηχανικής μάθησης. Δώσε παρακάτω ένα παράδειγμα κειμένου που δεν συμπεριέλαβες στα παραδείγματα εκπαίδευσης. Θα σου πει ως τι το αναγνωρίζει, και πόσο σίγουρο είναι γι' αυτό.",
-                    "IMAGES" : "Δοκίμασε να τεστάρεις το μοντέλο μηχανικής μάθησης. Δώσε παρακάτω ένα παράδειγμα εικόνας που δεν συμπεριέλαβες στα παραδείγματα εκπαίδευσης. Θα σου πει ως τι το αναγνωρίζει, και πόσο σίγουρο είναι γι' αυτό.",
-                    "NUMBERS" : "Δοκίμασε να τεστάρεις το μοντέλο μηχανικής μάθησης. Δώσε παρακάτω ένα παράδειγμα αριθμών που δεν συμπεριέλαβες στα παραδείγματα εκπαίδευσης. Θα σου πει ως τι το αναγνωρίζει, και πόσο σίγουρο είναι γι' αυτό.",
-                    "SOUNDS" : "Δοκίμασε να τεστάρεις το μοντέλο μηχανικής μάθησης. Κάνε κλικ στο κουμπί 'Εκκίνηση ακρόασης'. Αν το μοντέλο σου αναγνωρίσει ήχους, θα σου πει τι αναγνωρίζει, και πόσο σίγουρο είναι γι' αυτό."
+                    "TEXT" : "Δοκίμασε να τεστάρεις το μοντέλο μηχανικής μάθησης. Δώσε παρακάτω ένα παράδειγμα κειμένου που δεν συμπεριέλαβες στα παραδείγματα εκπαίδευσης. Θα σου πει ως τι το αναγνωρίζει, και πόσο σίγουρο είναι για αυτό.",
+                    "IMAGES" : "Δοκίμασε να τεστάρεις το μοντέλο μηχανικής μάθησης. Δώσε παρακάτω ένα παράδειγμα εικόνας που δεν συμπεριέλαβες στα παραδείγματα εκπαίδευσης. Θα σου πει ως τι το αναγνωρίζει, και πόσο σίγουρο είναι για αυτό.",
+                    "NUMBERS" : "Δοκίμασε να τεστάρεις το μοντέλο μηχανικής μάθησης. Δώσε παρακάτω ένα παράδειγμα αριθμών που δεν συμπεριέλαβες στα παραδείγματα εκπαίδευσης. Θα σου πει ως τι το αναγνωρίζει, και πόσο σίγουρο είναι για αυτό.",
+                    "SOUNDS" : "Δοκίμασε να τεστάρεις το μοντέλο μηχανικής μάθησης. Κάνε κλικ στο κουμπί 'Εκκίνηση ακρόασης'. Αν το μοντέλο σου αναγνωρίσει ήχους, θα σου πει τι αναγνωρίζει, και πόσο σίγουρο είναι για αυτό."
                 },
                 "SCRATCH" : "Εάν ο υπολογιστής φαίνεται να έχει μάθει να αναγνωρίζει τα πράγματα σωστά, τότε μπορείς να πας στο Scratch και να χρησιμοποιήσεις ό,τι έχει μάθει ο υπολογιστής για να φτιάξεις ένα παιχνίδι!",
                 "ADDITIONAL_TRAINING" : {
@@ -531,7 +542,118 @@
             "PREVIOUSLY_ATTEMPTED": "Αυτήν την έχεις ξαναδεί - για να δούμε αν θα θυμηθείς τη σωστή απάντηση αυτή τη φορά!",
             "CORRECT_ANSWER": "Σωστά!",
             "INCORRECT_ANSWER": "Όχι, λυπάμαι. Η σωστή απάντηση φαίνεται παραπάνω.",
-            "NEXT_QUESTION": "Επόμενη ερώτηση"
+            "NEXT_QUESTION": "Επόμενη ερώτηση",
+
+            "QUESTION_1": {
+                "QUESTION": "In general, what will help machines to learn better?",
+                "ANSWER_1": "More examples",
+                "ANSWER_2": "Fewer examples",
+                "NOTES_1": "That isn't the only thing that has an effect. But in general, the more examples it has to learn from, the better it should learn."
+            },
+            "QUESTION_2": {
+                "QUESTION": "Which of these would probably be best for training a computer to recognise a photo of an apple?",
+                "ANSWER_1": "Photos of dogs",
+                "ANSWER_2": "Varied photos of different types of apples in different places",
+                "ANSWER_3": "Identical photos of an apple",
+                "ANSWER_4": "Very, very similar photos of the same apple in the same place",
+                "NOTES_1": "The more varied the examples you can collect, the more the system can learn about how to recognise different pictures of an apple.",
+                "NOTES_2": "If every example you give it is the same apple on the same brown wooden table, it might learn that something is only an apple if it's on a brown wooden table."
+            },
+            "QUESTION_3": {
+                "QUESTION": "Which of these would be a good use of machine learning?",
+                "ANSWER_1": "Adding big numbers together",
+                "ANSWER_2": "Recognising if an email is spam",
+                "ANSWER_3": "Counting the number of times a button is pressed",
+                "NOTES_1": "Spam filters are a good example of machine learning.",
+                "NOTES_2": "With enough examples of legitimate emails, and enough examples of spam emails, a computer can start to learn how to recognise a spam email."
+            },
+            "QUESTION_4": {
+                "QUESTION": "Which of these is NOT a good use of machine learning?",
+                "ANSWER_1": "Sentiment analysis - recognising the mood, tone or emotion in text",
+                "ANSWER_2": "Translating text from one language to another",
+                "ANSWER_3": "Face recognition - recognising a face in a photo and identifying who it is",
+                "ANSWER_4": "Self-driving cars",
+                "ANSWER_5": "Calculating the cost of something in different countries based on exchange rates",
+                "ANSWER_6": "Recommending a movie based on films you've watched before",
+                "NOTES_1": "Tasks that involve following rules which can be worked out are not a good use for machine learning.",
+                "NOTES_2": "A computer isn't going to learn how to apply an exchange rate from examples - we can just tell it what to do."
+            },
+            "QUESTION_5": {
+                "QUESTION": "Which of these would be more likely to be successful?",
+                "ANSWER_1": "Collect a small set of examples, train a system, test to see how good it is. Add more examples, train again, and then test again. Repeat until it gets good enough.",
+                "ANSWER_2": "More examples is better, so decide you must need millions of examples. Start collecting a massive set of examples, and spend months collecting more and more and more.",
+                "NOTES_1": "More examples is generally better, but be practical.",
+                "NOTES_2": "Pragmatism is important. Regular testing is useful to let you know how things are going, and help you know when you've done enough.",
+                "NOTES_3": "When you've only got ten examples, another ten examples will probably make a huge difference.",
+                "NOTES_4": "When you've got 100,000 examples, another ten examples probably won't have a noticeable impact."
+            },
+            "QUESTION_6": {
+                "QUESTION": "Which of these statements is correct?",
+                "ANSWER_1": "Machine learning is a technique where computers can be trained to perform tasks instead of needing to be given an explicit set of steps to follow",
+                "ANSWER_2": "Machine learning is magic",
+                "ANSWER_3": "Machine learning means we don't need to think about problems any more because computers will think for us",
+                "ANSWER_4": "Machine learning has replaced the need for us to learn how to code",
+                "ANSWER_5": "Machine learning can only be done on massive supercomputers"
+            },
+            "QUESTION_7": {
+                "QUESTION": "A machine learning system trained to recognise pictures with a tree in should be good at which of the following tasks:",
+                "ANSWER_1": "Identifying pictures of fruit",
+                "ANSWER_2": "Recognising the emotion in a piece of writing",
+                "ANSWER_3": "Recognising pictures of trees",
+                "NOTES_1": "Machine learning does not mean computers magically learn to do everything.",
+                "NOTES_2": "It means they learn how to do a specific task by being shown examples of that specific task.",
+                "NOTES_3": "If you want it to do something else, you need to train it to do that as well, by giving it examples of that."
+            },
+            "QUESTION_8": {
+                "QUESTION": "Alice and Bob both want to train a machine learning system to recognise if text is happy/positive or sad/negative. Which of them will probably train the best system?",
+                "ANSWER_1": "Alice. She has collected 10 varied examples of happy text, and 10 varied examples of sad text",
+                "ANSWER_2": "Bob. He has collected 1000 examples of happy writing and 10 examples of sad writing",
+                "NOTES_1": "Collecting a roughly similar number of examples for each label is a useful technique.",
+                "NOTES_2": "If nearly every example of writing you train a system with is happy, you might end up training the system to assume that sad writing is very unlikely, and that it should assume happy more often.",
+                "NOTES_3": "",
+                "NOTES_4": "But, you might want it to do this.",
+                "NOTES_5": "If you're training a system to recognise text where text is happy 98% of the time, training it with that realistic experience might be worth a try."
+            },
+            "QUESTION_9": {
+                "QUESTION": "Advanced machine learning technology will always give correct answers. Incorrect answers mean the machine learning technology isn't very good",
+                "ANSWER_1": "True",
+                "ANSWER_2": "False",
+                "NOTES_1": "Not necessarily.",
+                "NOTES_2": "",
+                "NOTES_3": "The technology and algorithms are important. BUT machine learning systems are only as accurate and reliable as the training they are given.",
+                "NOTES_4": "Simple machine learning algorithms with a lot of high quality training can do better than the most advanced machine learning algorithms with a small amount of poor quality training."
+            },
+            "QUESTION_10": {
+                "QUESTION": "How can you make sure your collection of animal pictures is good quality for training a machine and doesn't contain human mistakes?",
+                "ANSWER_1": "Manually inspect all of the pictures of animals yourself and make sure you agree with all of the labels",
+                "ANSWER_2": "Ask lots of people to label all the images and keep the training labels that people generally agree on",
+                "ANSWER_3": "Trick question! Humans are always right - machines make mistakes!",
+                "NOTES_1": "Even humans make mistakes and you won't always have time to double check all the training data!",
+                "NOTES_2": "If the task is tricky it can be a good idea to get more than one person to label each image and keep the label that the most humans agree is the right one."
+            },
+            "QUESTION_11": {
+                "QUESTION": "A machine trained to identify pictures of \"food\" or \"not food\" gives inconsistent results for sandwiches, often putting them in the \"not food\" class. Which of the following could explain that?",
+                "ANSWER_1": "The human who trained the system doesn't like sandwiches and didn't put any in the training data",
+                "ANSWER_2": "The machine has to be in the right mood for a sandwich so it changes its mind a lot",
+                "ANSWER_3": "Sandwiches are not food. The system is right to be unsure",
+                "NOTES_1": "Machine learning models can only learn from the examples we show them.",
+                "NOTES_2": "It is very easy for humans to accidentally introduce their likes and dislikes into machine learning models so we should be very careful about what training data we use."
+            },
+            "QUESTION_12": {
+                "QUESTION": "Which of the following best describes unsupervised learning?",
+                "ANSWER_1": "Writing a program that contains lots of if/else statements to determine the result",
+                "ANSWER_2": "A machine learning algorithm that uses unlabelled data and classifies it based on how similar one dataset is to another",
+                "ANSWER_3": "A machine learning algorithm that uses labelled data and classifies it based on training from example input-output pairs",
+                "NOTES_1": "Unsupervised learning is a type of machine learning, whereas only using if/else statements is not.",
+                "NOTES_2": "Unsupervised learning algorithms are still trained, but the inputs that are given to it are not labelled or classified.",
+                "NOTES_3": "If the data is labelled then this is what's known as supervised learning."
+            },
+            "QUESTION_13": {
+                "QUESTION": "Without machine learning, it would be impossible for search engines such as Google to exist.",
+                "ANSWER_1": "True",
+                "ANSWER_2": "False",
+                "NOTES_1": "Whilst many modern search engines do use machine learning, it is possible to create one without it. A basic search engine will just look for documents (web pages) that include the words the user searches for."
+            }
         }
     },
     "DESCRIBEMODEL": {
@@ -539,7 +661,7 @@
         "TRYITOUT": "Δοκίμασε το μοντέλο σου για να δεις πώς χρησιμοποιεί το δέντρο αποφάσεων για να κάνει προβλέψεις.",
         "EXPLANATION": {
             "EXPL_1": "Η τεχνική που χρησιμοποιείται για τη δημιουργία του μοντέλου μηχανικής μάθησης λέγεται <a target='_blank' href='https://wikipedia.org/wiki/Decision_tree_learning'>Decision Tree Classifier</a>, Ταξινομητής Δέντρων Αποφάσεων.",
-            "EXPL_2": "Αυτός δεν είναι ο μόνος τρόπος για να εκπαιδευτεί ένα μοντέλο μηχανικής μάθησης. Τον χρησιμοποιούμε επειδή είναι πολύ γρήγορος και εύκολος, και είναι μία από τις πιο απλές στην κατανόηση τεχνικές . Αυτή η σελίδα σού δείχνει το δέντρο αποφάσεων που δημιουργήθηκε με βάση τα παραδείγματα εκπαίδευσης που έχεις συλλέξει.",
+            "EXPL_2": "Αυτός δεν είναι ο μόνος τρόπος για να εκπαιδευτεί ένα μοντέλο μηχανικής μάθησης. Τον χρησιμοποιούμε επειδή είναι πολύ γρήγορος και εύκολος, και είναι μία από τις πιο απλές στην κατανόηση τεχνικές. Αυτή η σελίδα σού δείχνει το δέντρο αποφάσεων που δημιουργήθηκε με βάση τα παραδείγματα εκπαίδευσης που έχεις συλλέξει.",
             "EXPL_3": "Όταν δοκιμάζεις το μοντέλο σου, ο υπολογιστής ξεκινά από την κορυφή του δέντρου και ακολουθεί μια διαδρομή μέχρι να φτάσει στο κάτω μέρος. Η <strong>κλάση</strong> στο κάτω μέρος του δέντρου είναι η πρόβλεψη που κάνει το μοντέλο μηχανικής μάθησης.",
             "EXPL_4": "Σε κάθε πλαίσιο του δέντρου, διαβάζει τον έλεγχο που περιγράφεται στην κορυφή του πλαισίου. Εάν οι δοκιμαστικές σου τιμές περάσουν τον έλεγχο που περιγράφεται στο πλαίσιο, ακολουθεί το βέλος προς τα αριστερά. Διαφορετικά, ακολουθεί το βέλος προς τα δεξιά.",
             "EXPL_5": "Τα <strong>δείγματα</strong> που εμφανίζονται σε κάθε πλαίσιο σού δείχνουν πόσα παραδείγματα από τα δεδομένα εκπαίδευσης ταιριάζουν με αυτό το τμήμα του δέντρου αποφάσεων.",
@@ -565,8 +687,12 @@
     "APPINVENTOR": {
         "TITLE": "Χρησιμοποιώντας μηχανική μάθηση στο App Inventor",
 
+        "LAUNCH_APPINVENTOR_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>App Inventor by itself</a> if you want.)",
+
         "NOTREADY": "Το έργο σου δεν είναι ακόμα έτοιμο για χρήση στο App Inventor.",
-        "NOMODEL": "Δεν έχεις εκπαιδεύσει ακόμα ένα μοντέλο μηχανικής μάθησης."
+        "NOMODEL": "Δεν έχεις εκπαιδεύσει ακόμα ένα μοντέλο μηχανικής μάθησης.",
+
+        "LAUNCH": "Open App Inventor"
     },
     "SCRATCH": {
         "TITLE": "Χρησιμοποιώντας μηχανική μάθηση στο Scratch",
@@ -580,10 +706,14 @@
         "GO_TO_LEARNANDTEST": "Ή πήγαινε στη σελίδα <a href='{{ urls.learnandtest }}'>Εκμάθηση &amp; Δοκιμή</a> για μερικές συμβουλές σχετικά με το τι πρέπει να κάνεις στη συνέχεια.",
 
         "MORE_BLOCKS": "Το έργο σου θα προσθέσει αυτά τα πλακίδια στην κατηγορία <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>Άλλες Εντολές</span> της καρτέλας Σενάρια.",
-        "EXPLAIN_RECOGNISE_LABEL": "Δώσε {{ type }} στην είσοδο για αυτό, και θα επιστρέψει την ετικέτα με την οποία αναγνωρίζεται από το μοντέλο μηχανικής μάθησης.",
-        "EXPLAIN_RECOGNISE_CONFIDENCE": "Αυτό θα επιστρέψει πόσο σίγουρο είναι το μοντέλο μηχανικής μάθησης ότι αναγνωρίζει τον τύπο του {{ type }}. (Ως αριθμό από 0 έως 100.)",
+        "MORE_BLOCKS_3": "Your project will add these blocks to Scratch.",
+        "EXPLAIN_RECOGNISE_LABEL": "Δώσε {{ type }} στην είσοδο για αυτό, και θα επιστρέψει την ετικέτα με την οποία γίνεται αναγνώριση από το μοντέλο μηχανικής μάθησης.",
+        "EXPLAIN_RECOGNISE_CONFIDENCE": "Αυτό θα επιστρέψει πόσο σίγουρο είναι το μοντέλο μηχανικής μάθησης στην αναγνώριση για {{ type }}. (Ως αριθμό από 0 έως 100.)",
         "EXPLAIN_LABELS": "Αυτά τα πλακίδια αντιπροσωπεύουν τις ετικέτες που έχεις δημιουργήσει στο έργο σου, ώστε να μπορείς να χρησιμοποιείς τα ονόματά τους στα σενάρια σου.",
-        "EXPLAIN_COSTUMEIMAGE": "Αυτό το πλακίδιο βρίσκεται στην παλέτα Looks για τα Sprites και θα επιστρέψει την εικόνα της τρέχουσας επιλεγμένης ενδυμασίας.",
+        "EXPLAIN_COSTUMEIMAGE": "Αυτό το πλακίδιο βρίσκεται στην παλέτα Όψεις για τα Αντικείμενα, και θα επιστρέψει την εικόνα της τρέχουσας επιλεγμένης ενδυμασίας.",
+        "EXPLAIN_ADD_TRAINING": "Use this to add a new example to your training data. (Training data has an effect after you train a machine learning model with it)",
+        "EXPLAIN_TRAIN_MODEL": "Use this to train a new machine learning model",
+        "EXPLAIN_IS_MODEL_READY": "The machine learning model will take a minute before it's ready for use. You can use these blocks to wait until it is ready.",
         "SAMPLE_SCRIPT": "Αυτό σημαίνει ότι μπορείς να κάνεις κάτι τέτοιο:",
         "SAMPLE_SCREENSHOT": "Θα φαίνεται κάπως έτσι - εκτός από το όνομα του έργου σου.",
         "EXPLAIN_STATUS": "Ο χρωματιστός κύκλος δίπλα στο όνομα του έργου σου δηλώνει εάν το μοντέλο μηχανικής μάθησης είναι εντάξει.",
@@ -597,17 +727,17 @@
         "LAUNCH": "Άνοιγμα στο Scratch 3"
     },
     "WORKSHEETS": {
-        "TITLE": "Έργα μηχανικής μάθησης",
+        "TITLE": "Δραστηριότητες μηχανικής μάθησης",
 
-        "INTRO_1": "Αυτά τα πρότζεκτ είναι βήμα προς βήμα οδηγοί για λήψη, με επεξηγήσεις και έγχρωμες εικόνες που μπορούν να ακολουθήσουν οι μαθητές.",
-        "INTRO_2": "Κάθε πρότζεκτ είναι μια αυτόνομη δραστηριότητα, γραμμένη για να διαρκέσει ένα μόνο μάθημα, και θα καθοδηγήσει τα παιδιά να δημιουργήσουν ένα παιχνίδι ή ένα διαδραστικό έργο που παρουσιάζει την χρήση της τεχνητής νοημοσύνης και της μηχανικής μάθησης στον πραγματικό κόσμο.",
-        "INTRO_3": "Προτάσεις για νέα φύλλα εργασίας, προτάσεις βελτίωσης σε οποιοδήποτε από τα φύλλα εργασίας ή συμβολές φύλλων εργασίας για κάποιο νέο πρότζεκτ, είναι πολύ ευπρόσδεκτες.",
+        "INTRO_1": "Αυτές οι δραστηριότητες συνοδεύονται από βήμα προς βήμα οδηγούς για λήψη, με επεξηγήσεις και έγχρωμες εικόνες που μπορούν να ακολουθήσουν οι μαθητές.",
+        "INTRO_2": "Κάθε δραστηριότητα είναι αυτόνομη, γραμμένη για να διαρκέσει ένα μόνο μάθημα, και θα καθοδηγήσει τα παιδιά να δημιουργήσουν ένα παιχνίδι ή ένα διαδραστικό έργο που παρουσιάζει την χρήση της τεχνητής νοημοσύνης και της μηχανικής μάθησης στον πραγματικό κόσμο.",
+        "INTRO_3": "Προτάσεις για νέα φύλλα εργασίας, προτάσεις βελτίωσης σε οποιοδήποτε από τα φύλλα εργασίας ή συνεισφορές φύλλων εργασίας για κάποια νέα δραστηριότητα, είναι πολύ ευπρόσδεκτες.",
 
         "TYPES": {
-            "TITLE": "Αναγνώριση:",
-            "ALL": "Όλοι οι τύποι έργων",
+            "TITLE": "Αναγνωρίζει:",
+            "ALL": "Όλα τα είδη έργων",
 
-            "PREFIX": "Εκπαίδευσε έναν υπολογιστή να αναγνωρίζει ",
+            "PREFIX": "Εκπαίδευσε τον υπολογιστή να αναγνωρίζει ",
 
             "TEXT": "κείμενο",
             "IMAGES": "εικόνες",
@@ -626,7 +756,7 @@
         "DOWNLOAD": "Λήψη",
 
         "MAKETYPES": {
-            "ALL": "Όλα τα διαθέσιμα περιβάλλοντα προγραμματισμού",
+            "ALL": "Όλα τα περιβάλλοντα υλοποίησης",
 
             "SCRATCH": "Έργα Scratch",
             "PYTHON": "Έργα Python",
@@ -646,153 +776,304 @@
 
         "SMARTCLASSROOM": {
             "TITLE": "Έξυπνη Αίθουσα",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να αναγνωρίζει το νόημα των εντολών σου",
-            "DESCRIPTION": "Φτιάξε στο Scratch έναν έξυπνο βοηθό που θα σου επιτρέπει να ελέγχεις εικονικές συσκευές."
+            "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει το νόημα των εντολών σου",
+            "DESCRIPTION": "Φτιάξε στο Scratch έναν έξυπνο βοηθό που θα σου επιτρέπει να ελέγχεις εικονικές συσκευές.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where the students make a non-machine learning version first",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Shorter version of the project, where the students only make a machine learning version of the assistant",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-easy.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "Quick simplified version of the project, ideal for use as a first introduction to the tool",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-tryitnow.pdf"
+            }
         },
         "MAKEMEHAPPY": {
             "TITLE": "Κάνε με χαρούμενο",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να αναγνωρίζει φιλοφρονήσεις και προσβολές",
-            "DESCRIPTION": "Φτιάξε στο Scratch ένα χαρακτήρα που χαμογελάει αν τους λες ωραία λόγια και κλαίει αν του μιλάς άσχημα."
+            "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει φιλοφρονήσεις και προσβολές",
+            "DESCRIPTION": "Φτιάξε στο Scratch ένα χαρακτήρα που χαμογελάει αν του λες ωραία λόγια και κλαίει αν του μιλάς άσχημα.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where the students make a non-machine learning version first",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Shorter version of the project, where the students only make a machine learning version",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-easy.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "Python project - for making the project using Python",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-python.pdf"
+            }
         },
         "SNAP": {
             "TITLE": "Σναπ!",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να αναγνωρίζει εικονίδια",
-            "DESCRIPTION": "Φτιάξε στο Scratch ένα παιχνίδι τράπουλας που μαθαίνει να αναγνωρίζει τα φύλλα σου."
+            "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει εικονίδια",
+            "DESCRIPTION": "Φτιάξε στο Scratch ένα παιχνίδι τράπουλας που μαθαίνει να αναγνωρίζει τα φύλλα σου.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where the students make their own cards that they will train the computer to recognise",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Shorter version of the project, providing children with pre-made cards that you will need to print out, to save the students time having to make them",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap-easy.pdf",
+                "RESOURCES": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/resources-snap-easy.pdf"
+            }
         },
         "CHAMELEON": {
             "TITLE": "Χαμαιλέων",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να αναγνωρίζει χρώματα",
-            "DESCRIPTION": "Φτιάξε στο Scratch ένα χαμαιλέοντα που αλλάζει χρώμα ώστε να ταιριάζει με το φόντο του"
+            "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει χρώματα",
+            "DESCRIPTION": "Φτιάξε στο Scratch ένα χαμαιλέοντα που αλλάζει χρώμα ώστε να ταιριάζει με το φόντο του",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf"
+            }
         },
         "MAILMANMAX": {
             "TITLE": "Ταχυδρόμος Μαξ",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να αναγνωρίζει χειρόγραφα",
-            "DESCRIPTION": "Φτιάξε στο Scratch ένα ταχυδρομικό γραφείο ταξινόμησης που μπορεί να αναγνωρίσει χειρόγραφους ταχυδρομικούς κώδικες πάνω σε φακέλους."
+            "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει χειρόγραφα",
+            "DESCRIPTION": "Φτιάξε στο Scratch ένα ταχυδρομικό γραφείο διαλογής που μπορεί να αναγνωρίζει τους χειρόγραφους ταχυδρομικούς κώδικες πάνω σε φακέλους.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mailmanmax.pdf"
+            }
         },
         "CARORCUP": {
             "TITLE": "Αμάξι ή φλυτζάνι",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να αναγνωρίζει εικόνες αντικειμένων",
-            "DESCRIPTION": "Εκπαίδευσε τον υπολογιστή να μπορεί να ταξινομεί τις φωτογραφίες σε ομάδες."
+            "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει εικόνες αντικειμένων",
+            "DESCRIPTION": "Εκπαίδευσε τον υπολογιστή να μπορεί να ταξινομεί τις φωτογραφίες σε ομάδες.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Individual version of the project, where each student trains their own machine learning model independently",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Group version of the project, where students in the class work together to train a shared machine learning model",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup-crowd.pdf"
+            }
         },
         "FACELOCK": {
             "TITLE": "Κλειδαριά Προσώπου",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να αναγνωρίζει πρόσωπα",
-            "DESCRIPTION": "Φτιάξε στο Scratch ένα τηλέφωνο που ξεκλειδώνει όταν αναγνωρίζει το πρόσωπό σου"
+            "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει πρόσωπα",
+            "DESCRIPTION": "Φτιάξε στο Scratch ένα τηλέφωνο που ξεκλειδώνει όταν αναγνωρίζει το πρόσωπό σου",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facelock.pdf"
+            }
         },
         "JOURNEYTOSCHOOL": {
             "TITLE": "Πηγαίνοντας στο σχολείο",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να κάνει προβλέψεις",
-            "DESCRIPTION": "Εκπαίδευσε τον υπολογιστή να μπορεί να προβλέπει πώς θα πας στο σχολείο το πρωί"
+            "SUMMARY": "Μάθε στον υπολογιστή να κάνει προβλέψεις",
+            "DESCRIPTION": "Εκπαίδευσε τον υπολογιστή να μπορεί να προβλέπει πώς θα πας στο σχολείο το πρωί",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-journeytoschool.pdf"
+            }
         },
         "SHYPANDA": {
             "TITLE": "Ντροπαλό Πάντα",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να αναγνωρίζει εικόνες",
-            "DESCRIPTION": "Φτιάξε ένα πάντα που ντρέπεται και σταματά να χορεύει αν σε δει να το κοιτάς."
+            "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει εικόνες",
+            "DESCRIPTION": "Φτιάξε ένα πάντα που ντρέπεται και σταματά να χορεύει αν σε δει να το κοιτάς.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda.pdf"
+            }
         },
         "VIRTUALPET": {
             "TITLE": "Εικονικό Κατοικίδιο",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να αναγνωρίζει εικόνες",
-            "DESCRIPTION": "Εκπαίδευσε τον υπολογιστή να αναγνωρίζει τι κάνεις, ώστε να μπορείς να φροντίσεις ένα εικονικό κατοικίδιο ζωάκι."
+            "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει εικόνες",
+            "DESCRIPTION": "Εκπαίδευσε τον υπολογιστή να αναγνωρίζει τι κάνεις, ώστε να μπορείς να φροντίσεις ένα εικονικό κατοικίδιο ζωάκι.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-virtualpet.pdf"
+            }
         },
         "PACMAN": {
             "TITLE": "Πάκμαν",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να παίζει ένα παιχνίδι",
-            "DESCRIPTION": "Δημιούργησε στο Scratch ένα παιχνίδι Pac-Man που μαθαίνει πώς να αποφεύγει το φάντασμα."
+            "SUMMARY": "Μάθε στον υπολογιστή να παίζει ένα παιχνίδι",
+            "DESCRIPTION": "Δημιούργησε στο Scratch ένα παιχνίδι Pac-Man που μαθαίνει πώς να αποφεύγει το φάντασμα.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pacman.pdf"
+            }
         },
         "CHATBOTS": {
             "TITLE": "Συνομιλητές",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να αναγνωρίζει ερωτήσεις",
-            "DESCRIPTION": "Δημιούργησε ένα chatbot, ένα συνομιλητή ρομπότ, που μπορεί να απαντά ερωτήσεις σχετικές με κάποιο θέμα της επιλογής σου"
+            "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει ερωτήσεις",
+            "DESCRIPTION": "Δημιούργησε ένα chatbot, ένα συνομιλητή ρομπότ, που μπορεί να απαντά ερωτήσεις σχετικές με κάποιο θέμα της επιλογής σου",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Scratch project - for making a chat bot in Scratch",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Python project - for making a chat bot using Python",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots-python.pdf"
+            }
         },
         "TOURISTINFO": {
             "TITLE": "Τουριστικές Πληροφορίες",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να προτείνει",
-            "DESCRIPTION": "Δημιούργησε στο Scratch μια εφαρμογή για κινητά που προτείνει τουριστικά αξιοθέατα βάσει των ενδιαφερόντων των ανθρώπων."
+            "SUMMARY": "Μάθε στον υπολογιστή να προτείνει",
+            "DESCRIPTION": "Δημιούργησε στο Scratch μια εφαρμογή για κινητά που προτείνει τουριστικά αξιοθέατα βάσει των ενδιαφερόντων των ανθρώπων.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-touristinfo.pdf"
+            }
         },
         "SORTINGHAT": {
             "TITLE": "Το Καπέλο της Επιλογής",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να αναγνωρίζει τη χρήση της γλώσσας",
-            "DESCRIPTION": "Δημιούργησε ένα καπέλο διαλογής όπως στον Χάρι Πότερ, που θα σε κατατάσσει σε κάποιον κοιτώνα της σχολής, ανάλογα με αυτό που λες."
+            "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει τη χρήση της γλώσσας",
+            "DESCRIPTION": "Δημιούργησε ένα καπέλο διαλογής όπως στον Χάρι Πότερ, που θα σε κατατάσσει σε κάποιον κοιτώνα της σχολής, ανάλογα με αυτό που λες.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Individual version of the project, where each student trains their own machine learning model independently",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Group version of the project, where students in the class work together to train a shared machine learning model",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat-crowd.pdf"
+            }
         },
         "ROCKPAPERSCISSORS": {
             "TITLE": "Πέτρα, Ψαλίδι, Χαρτί",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να αναγνωρίζει σχήματα",
-            "DESCRIPTION": "Φτιάξε στο Scratch ένα παιχνίδι Πέτρα-Ψαλίδι-Χαρτί που μαθαίνει να αναγνωρίζει σχήματα χεριών"
+            "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει σχήματα",
+            "DESCRIPTION": "Φτιάξε στο Scratch ένα παιχνίδι Πέτρα-Ψαλίδι-Χαρτί που μαθαίνει να αναγνωρίζει σχήματα χεριών",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-rockpaperscissors.pdf"
+            }
         },
         "JUDGEABOOK": {
             "TITLE": "Κριτική βιβλίου",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να αναγνωρίζει το στυλ εμφάνισης",
-            "DESCRIPTION": "Φτιάξε ένα παιχνίδι στο Scratch για να ελέγξεις αν όντως είναι δυνατόν να κρίνουμε ένα βιβλίο από το εξώφυλλό του."
+            "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει το στυλ εμφάνισης",
+            "DESCRIPTION": "Φτιάξε ένα παιχνίδι στο Scratch για να ελέγξεις αν όντως είναι δυνατόν να κρίνουμε ένα βιβλίο από το εξώφυλλό του.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where children make a game to compete against the computer to recognise books",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Simplified version of the project, where children get the computer to recognise books",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf"
+            }
         },
         "LOCATELARRY": {
             "TITLE": "Εντόπισε τον Λάρι",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή για να βρίσκει κάτι μέσα σε μια εικόνα",
-            "DESCRIPTION": "Φτιάξε στο Scratch ένα παιχνίδι τύπου \"Πού είναι ο Γουόλι;\" και μάθε στον υπολογιστή για να βρίσκει το χαρακτήρα σου."
+            "SUMMARY": "Μάθε στον υπολογιστή να εντοπίζει κάτι μέσα σε μια εικόνα",
+            "DESCRIPTION": "Φτιάξε στο Scratch ένα παιχνίδι τύπου \"Πού είναι ο Γουόλι;\" και μάθε στον υπολογιστή να βρίσκει το χαρακτήρα σου.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf"
+            }
         },
         "CONFUSED": {
             "TITLE": "Μπερδεύτηκε",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να αναγνωρίζει φρούτα",
-            "DESCRIPTION": "Μάθε για το πώς οι υπολογιστές μπορούν να μπερδευτούν και να κάνουν λάθη, αν είναι κακά εκπαιδευμένοι."
+            "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει φρούτα",
+            "DESCRIPTION": "Μάθε για το πώς οι υπολογιστές μπορούν να μπερδευτούν και να κάνουν λάθη, αν είναι κακά εκπαιδευμένοι.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-confused.pdf"
+            }
         },
         "SCHOOLLIBRARY": {
             "TITLE": "Σχολική Βιβλιοθήκη",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να προτείνει",
-            "DESCRIPTION": "Δημιούργησε στο Scratch ένα σχολικό βιβλιοθηκάριο που προτείνει για ποιον μπορεί να είναι κατάλληλο ένα βιβλίο."
+            "SUMMARY": "Μάθε στον υπολογιστή να προτείνει",
+            "DESCRIPTION": "Δημιούργησε στο Scratch ένα σχολικό βιβλιοθηκάριο που προτείνει για ποιον μπορεί να είναι κατάλληλο ένα βιβλίο.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf"
+            }
         },
         "WHATTWITTERTHINKS": {
             "TITLE": "Τι σκέφτεται το Twitter;",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να μετράει την κοινή γνώμη",
-            "DESCRIPTION": "Δημιούργησε στο Scratch ένα εργαλείο ανάλυσης συναισθήματος που αναλύει συζήτηση στο Twitter"
+            "SUMMARY": "Μάθε στον υπολογιστή να μετράει την κοινή γνώμη",
+            "DESCRIPTION": "Δημιούργησε στο Scratch ένα εργαλείο ανάλυσης συναισθήματος που αναλύει συζήτηση στο Twitter",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
+            }
         },
         "NOUGHTSANDCROSSES": {
             "TITLE": "Τρίλιζα",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να παίζει ένα παιχνίδι",
-            "DESCRIPTION": "Δημιούργησε στο Scratch ένα παιχνίδι τρίλιζας που μαθαίνει πώς να σε κερδίζει."
+            "SUMMARY": "Μάθε στον υπολογιστή να παίζει ένα παιχνίδι",
+            "DESCRIPTION": "Δημιούργησε στο Scratch ένα παιχνίδι τρίλιζας που μαθαίνει πώς να σε κερδίζει.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Classroom version, where each student makes the game themselves in Scratch",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Classroom version, where each student makes the game themselves in Python",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-python.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "Demo version, for events like Science Fairs where each child has a minute or two to try something",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-event.pdf"
+            }
         },
         "TOPTRUMPS": {
             "TITLE": "Υπερατού",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να παίζει ένα παιχνίδι",
-            "DESCRIPTION": "Εκπαίδευσε έναν υπολογιστή να μπορεί να παίζει το παιχνίδι Υπερατού στο Scratch."
+            "SUMMARY": "Μάθε στον υπολογιστή να παίζει ένα παιχνίδι",
+            "DESCRIPTION": "Εκπαίδευσε τον υπολογιστή ώστε να μπορεί να παίζει το παιχνίδι Υπερατού στο Scratch.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-toptrumps.pdf"
+            }
         },
         "HEADLINES": {
             "TITLE": "Τίτλοι Εφημερίδων",
             "SUMMARY": "Έλεγξε την ικανότητα του υπολογιστή να αναγνωρίζει τη χρήση της γλώσσας",
-            "DESCRIPTION": "Εκπαίδευσε έναν υπολογιστή να αναγνωρίζει τίτλους από βρετανικές εφημερίδες."
+            "DESCRIPTION": "Εκπαίδευσε τον υπολογιστή να αναγνωρίζει τίτλους από βρετανικές εφημερίδες.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
+            }
         },
         "NEWSPAPERSHELVES": {
             "TITLE": "Ράφια εφημερίδων",
             "SUMMARY": "Έλεγξε την ικανότητα του υπολογιστή να αναγνωρίζει τη χρήση της γλώσσας",
-            "DESCRIPTION": "Εκπαίδευσε έναν υπολογιστή να αναγνωρίζει τίτλους από βρετανικές εφημερίδες."
+            "DESCRIPTION": "Εκπαίδευσε τον υπολογιστή να αναγνωρίζει τίτλους από βρετανικές εφημερίδες.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-easy.pdf"
+            }
         },
         "HEADLINETESTING": {
             "TITLE": "Έλεγχος τίτλων",
             "SUMMARY": "Δοκίμασε την ικανότητα του υπολογιστή να αναγνωρίζει τη χρήση της γλώσσας",
-            "DESCRIPTION": "Δημιούργησε στο Scratch ένα εργαλείο δοκιμών που μετράει πόσο καλό είναι ένα μοντέλο μηχανικής μάθησης"
+            "DESCRIPTION": "Δημιούργησε στο Scratch ένα εργαλείο δοκιμών που μετράει πόσο καλό είναι ένα μοντέλο μηχανικής μάθησης",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
+            }
         },
         "FINDIT": {
             "TITLE": "Βρες το!",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να αναγνωρίζει εικόνες",
-            "DESCRIPTION": "Φτιάξε ένα παιχνίδι κρυφτού για το κινητό σου τηλέφωνο."
+            "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει εικόνες",
+            "DESCRIPTION": "Φτιάξε ένα παιχνίδι κρυφτού για το κινητό σου τηλέφωνο.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-findit.pdf"
+            }
         },
         "ALIENLANGUAGE": {
             "TITLE": "Εξωγήινη Γλώσσα",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να αναγνωρίζει ήχους",
-            "DESCRIPTION": "Φτιάξε στο Scratch έναν εξωγήινο που μαθαίνει να αναγνωρίζει μαι εξωγήινη γλώσσα."
+            "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει ήχους",
+            "DESCRIPTION": "Φτιάξε στο Scratch έναν εξωγήινο που μαθαίνει να αναγνωρίζει μια εξωγήινη γλώσσα.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-alienlanguage.pdf"
+            }
         },
         "SECRETCODE": {
             "TITLE": "Μυστικός Κώδικας",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να αναγνωρίζει ομιλία",
-            "DESCRIPTION": "Εκπαίδευσε έναν υπολογιστή να καταλαβαίνει μυστικές κωδικοποιημένες λέξεις για να καθοδηγήσει έναν κατάσκοπο."
+            "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει ομιλία",
+            "DESCRIPTION": "Εκπαίδευσε τον υπολογιστή να καταλαβαίνει μυστικές κωδικοποιημένες λέξεις για να καθοδηγήσει έναν κατάσκοπο.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-secretcode.pdf"
+            }
         },
         "JARGONBUSTER": {
             "TITLE": "Κατατροπώνω την Αργκό",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να ακούει λέξεις",
-            "DESCRIPTION": "Φτιάξε στο Scratch ένα έργο που εμφανίζει το νόημα των λέξεων που λες."
+            "SUMMARY": "Μάθε στον υπολογιστή να ακούει λέξεις",
+            "DESCRIPTION": "Φτιάξε στο Scratch ένα έργο που εμφανίζει το νόημα των λέξεων που λες.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-jargonbuster.pdf"
+            }
         },
         "TITANIC": {
             "TITLE": "Τιτανικός",
-            "SUMMARY": "Μάθε σε έναν υπολογιστή να προβλέπει αποτελέσματα",
-            "DESCRIPTION": "Δημιούργησε ένα πρόγραμμα Python που μπορεί να προβλέπει ποιος επέζησε από το ναυάγιο του Τιτανικού."
+            "SUMMARY": "Μάθε στον υπολογιστή να προβλέπει αποτελέσματα",
+            "DESCRIPTION": "Δημιούργησε ένα πρόγραμμα Python που μπορεί να προβλέπει ποιος επέζησε από το ναυάγιο του Τιτανικού.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
+            }
+        },
+        "ZOMBIEESCAPE": {
+            "TITLE": "Zombie Escape!",
+            "SUMMARY": "Teach a computer to make predictions",
+            "DESCRIPTION": "Train a computer to help you escape from the zombies",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -801,7 +1082,7 @@
 
             "RESTRICTIONS": {
                 "TITLE": "Περιορισμοί",
-                "DESCRIPTION": "Επανεξετάστε το όρια και τους περιορισμούς αναφορικά με την τάξη σας"
+                "DESCRIPTION": "Έλεγξε το όρια και τους περιορισμούς που ισχύουν για την τάξη σου"
             },
             "APIKEYS": {
                 "TITLE": "κλειδιά API",
@@ -810,7 +1091,7 @@
             },
             "STUDENTS": {
                 "TITLE": "Μαθητές",
-                "TITLELONG": "Διαχείρηση μαθητών",
+                "TITLELONG": "Διαχείριση μαθητών",
                 "DESCRIPTION": "Δημιουργία, επαναφορά, και διαγραφή λογαριασμών μαθητών της τάξης σου"
             },
             "SUPERVISION": {
@@ -833,14 +1114,14 @@
             "NOTAUTHORISED": "Δεν έχεις εξουσιοδότηση πρόσβασης στη σελίδα εκπαιδευτικού για την τάξη σου."
         },
         "APIKEYS": {
-            "TITLE": "Διαχείριση: κλειδιά API της IBM Watson",
+            "TITLE": "Διαχείριση : κλειδιά API της IBM Watson",
 
             "ADDNEWCREDENTIALS": "Προσθήκη νέων διαπιστευτηρίων",
             "ADDAPIKEY": "Προσθήκη νέων κλειδιών API",
             "REMOVE": "Κατάργηση",
 
             "NO_TEXT_CREDENTIALS": "Δεν έχεις διαπιστευτήρια Assistant. Αυτό σημαίνει ότι δεν θα είναι δυνατή η εκπαίδευση μοντέλων για έργα <strong>κειμένου</strong> .",
-            "NO_IMAGE_CREDENTIALS": "Δεν διαθέτεις API κλειδιά για Οπτική Αναγνώριση. Αυτό σημαίνει ότι δεν θα είναι δυνατό να εκπαιδεύσεις μοντέλα για έργα με <strong>εικόνες</strong>.",
+            "NO_IMAGE_CREDENTIALS": "Δεν διαθέτεις API κλειδιά για Οπτική Αναγνώριση. Αυτό σημαίνει ότι δεν θα είναι δυνατό να εκπαιδεύσεις μοντέλα για έργα <strong>εικόνων</strong>.",
 
             "NOTAUTHORISED": "Δεν έχεις εξουσιοδότηση πρόσβασης στα κλειδιά API του Watson που χρησιμοποιούνται από την τάξη σου.",
             "MANAGEDCLASS": "Τα κλειδιά API που χρησιμοποιούνται από την τάξη σου είναι υπό διαχείριση  για σένα.",
@@ -848,7 +1129,7 @@
             "HELP_STEPBYSTEP_GUIDE": "Αν δε νιώθεις σιγουριά για το τι πρέπει να κάνεις εδώ, ακολούθησε τον <a href='/apikeys-guide'>βήμα-προς-βήμα οδηγό</a>. Αν θέλεις βοήθεια, παρακαλώ <strong><a style='cursor: pointer;' href='/help'>επικοινώνησε</a></strong>.",
 
             "INTRO_WATSONASSISTANT": "Η εκπαίδευση μοντέλων μηχανικής μάθησης για έργα <span class='mlprojecttype'>κειμένου</span> χρησιμοποιεί την <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a>",
-            "INTRO_VISUALRECOGNITION": "Η εκπαίδευση μοντέλων μηχανικής για έργα με <span class='mlprojecttype'>εικόνες</span> χρησιμοποιεί την <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
+            "INTRO_VISUALRECOGNITION": "Η εκπαίδευση μοντέλων μηχανικής μάθησης για <span class='mlprojecttype'>έργα εικόνων</span> χρησιμοποιεί την <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
             "INTRO_NUMBERS": "Η εκπαίδευση μοντέλων μηχανικής μάθησης για έργα <span class='mlprojecttype'>αριθμών</span> <strong>δεν</strong> απαιτεί κλειδιά API",
             "INTRO_SOUNDS": "Η εκπαίδευση μοντέλων μηχανικής μάθησης για έργα <span class='mlprojecttype'>ήχου</span> δεν απαιτεί κανένα κλειδί API",
 
@@ -875,7 +1156,7 @@
 
                 "HIDDEN_FROM_STUDENTS": "Αυτό δεν θα εμφανιστεί στους μαθητές της ομάδας σου.",
 
-                "PRICING_PLAN": "Ποιο Σχέδιο Τιμολόγησης χρησιμοποίησες;",
+                "PRICING_PLAN": "Ποιο μοντέλο τιμολόγησης χρησιμοποίησες;",
                 "ENTER_APIKEY": "Παρακαλώ δώσε το κλειδί API παρακάτω",
                 "ENTER_PASSWORD": "Παρακαλώ δώσε το όνομα χρήστη και τον κωδικό πρόσβασης παρακάτω",
 
@@ -889,7 +1170,7 @@
 
             "CLASS_LIMITS": {
                 "TITLE": "Περιορισμοί για την τάξη σου",
-                "NUM_USERS": "Μπορείς να έχεις έως και <span class='mlprojecttype'>{{ num}}</span> χρήστες (συμπεριλαμβανομένων μαθητών και εκπαιδευτικών) στην ομάδα σου.",
+                "NUM_USERS": "Μπορείς να έχεις έως και <span class='mlprojecttype'>{{ num }}</span> χρήστες (συμπεριλαμβανομένων μαθητών και εκπαιδευτικών) στην ομάδα σου.",
                 "NUM_TEXT_MODELS": "Η τάξη σου επιτρέπεται να έχει έως και <span class='mlprojecttype'>{{ num }}</span> μοντέλα μηχανικής μάθησης συνολικά σε όλα τα έργα <span class='mlprojecttype'>κειμένου</span>.",
                 "NUM_IMAGE_MODELS": "Η τάξη σου επιτρέπεται να έχει έως και <span class='mlprojecttype'>{{ num }}</span> μοντέλα μηχανικής μάθησης συνολικά σε όλα τα έργα <span class='mlprojecttype'>εικόνων</span>."
             },
@@ -901,7 +1182,7 @@
             },
             "EXPIRY": {
                 "TITLE": "Για να διευκολυνθείς στην αποφυγή των ορίων στο πλήθος μοντέλων μηχανικής μάθησης:",
-                "TIME_LIMIT": "Τα μοντέλα μηχανικής μάθησης που δημιουργήθηκαν για έργα <span class='mlprojecttype'>{{ type }}</span>θα διαγραφούν αυτόματα μετά από το <span class='mlprojecttype'>{{ num }}</span> ώρες.",
+                "TIME_LIMIT": "Τα μοντέλα μηχανικής μάθησης που δημιουργήθηκαν για έργα με <span class='mlprojecttype'>{{ type }}</span>θα διαγραφούν αυτόματα μετά από το <span class='mlprojecttype'>{{ num }}</span> ώρες.",
                 "DONT_WORRY": "(Μην ανησυχείς! Τα δεδομένα εκπαίδευσης δεν θα διαγραφούν, κι έτσι οι μαθητές θα μπορούν πάντα να εκπαιδεύσουν ξανά ένα νέο μοντέλο μηχανικής μάθησης, αν το χρειαστούν αργότερα.)"
             },
 
@@ -917,7 +1198,7 @@
             "NO_PROJECTS_2": "Μόλις οι μαθητές σου αρχίσουν να δημιουργούν έργα, επίστρεψε εδώ για να δεις μια επισκόπηση της εργασίας τους.",
 
             "NAME": "Όνομα",
-            "TYPE": "Τύπος",
+            "TYPE": "Είδος",
             "STUDENT": "Μαθητής",
             "MODELS": "μοντέλα ΜΜ",
 
@@ -986,13 +1267,13 @@
         },
         "GUI": {
             "gui.menuBar.mlforkidsLibrary": "Πρότυπα έργων",
-            "gui.mlforkidsLibrary.templates": "Πρότυπα έργων Machine Learning for Kids"
+            "gui.mlforkidsLibrary.templates": "Πρότυπα έργων από τη 'Μηχανική μάθηση για παιδιά'"
         }
     },
     "HELP": {
-        "CONTACT": "Εάν έχεις οποιαδήποτε προβλήματα ή ερωτήσεις, παρακαλώ στείλε email  στη διεύθυνση Dale.Lane@uk.ibm.com",
+        "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
         "GETTINGSTARTED": {
-            "TITLE": "Στο ξεκίνημα;",
+            "TITLE": "Ξεκινώντας",
             "INTRO": "Κατέβασε ένα PDF με ένα σύντομο οδηγό εκκίνησης:",
             "MANAGED": "Διαχειριζόμενοι λογαριασμοί τάξης",
             "MANAGEDEXPL": "Για εκπαιδευτικούς σχολείων, επικεφαλής ομάδων προγραμματισμού ή άλλους εθελοντές",
@@ -1003,164 +1284,164 @@
             "TITLE": "Θέλεις να μάθεις περισσότερα;",
             "INTRO1": "Μήπως κάτι δε λειτουργεί;",
             "INTRO2": "Η παρακάτω λίστα περιέχει ερωτήσεις και θέματα που ακούω συχνότερα. Αν δεις κάτι που μοιάζει με το πρόβλημά σου, κάνε κλικ στην περίληψη για περισσότερες πληροφορίες.",
-            "INTRO3": "Αν εξακολουθείς να έχεις κολλήσει ή αντιμετωπίζεις κάποιο πρόβλημα που δεν συμπεριλαμβάνεται στη λίστα, ζητώ συγγνώμη! <a href='mailto:dale.lane@uk.ibm.com'>Στείλε μου email</a> ή <a href='https://github.com/IBM/taxinomitis/issues'>δημιούργησε μια αναφορά προβλήματος</a> για να μπορέσω να σε βοηθήσω."
+            "INTRO3": "Αν εξακολουθείς να έχεις κολλήσει ή αντιμετωπίζεις κάποιο πρόβλημα που δεν συμπεριλαμβάνεται στη λίστα, ζητώ συγγνώμη! Please <a href='https://groups.google.com/d/forum/mlforkids'>ask a question in the mlforkids Google Group</a> so that I can help."
         },
 
         "SCRATCH": {
-            "TITLE": "Προβλήματα με το Scratch",
+            "TITLE": "Θέματα με το Scratch",
 
             "Q1": "Δεν ξέρω πώς να κάνω το Scratch 2 να δουλέψει",
             "Q1-A-1": "Η παλιά έκδοση του Scratch, η Scratch 2, χρειάζεται το Adobe Flash για να λειτουργήσει, επομένως θα πρέπει να χρησιμοποιείς λειτουργικό σύστημα και πρόγραμμα περιήγησης ιστού που να μπορούν να λειτουργήσουν με το Flash.",
             "Q1-A-2": "Αν δε νιώθεις σιγουριά για το πώς θα ενεργοποιήσεις το Flash, μπορείς να <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>κατεβάσεις ένα έγγραφο με μερικές συμβουλές για να θέσεις σε λειτουργία το Scratch</a>. Ή διαφορετικά, μπορείς να χρησιμοποιήσεις τη νέα έκδοση του Scratch, την Scratch 3.",
 
             "Q2": "Τα μενού \"Load Project\" και \"Save Project\" στο Scratch δεν λειτουργούν",
-            "Q2-A-1": "Εάν χρησιμοποιείς το Safari σε macOS και τα μενού \"File -&gt; Load Project\" και \"File -&gt; Save Project\" δεν λειτουργούν, μπορεί να δουλεύεις σε Ασφαλή Λειτουργία - Safe Mode.",
+            "Q2-A-1": "Εάν χρησιμοποιείς το Safari σε macOS και τα μενού \"Αρχείο -&gt; Load Project\" και \"Αρχείο -&gt; Save Project\" δεν λειτουργούν, μπορεί να δουλεύεις σε Ασφαλή Λειτουργία - Safe Mode.",
             "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>Ακολούθησε τις οδηγίες εδώ</a> για το πώς να το ελέγξεις και να το διορθώσεις.",
 
             "Q3": "Τα πλακίδια του ταξινομητή μηχανικής μάθησης στο Scratch δεν λειτουργούν",
             "Q3-A-1": "Περιστασιακά, τα πλακίδια του Scratch για το μοντέλο μηχανικής μάθησης μπορεί να χάσουν τη σύνδεση με το διακομιστή. Όταν συμβεί αυτό, θα σταματήσουν να επιστρέφουν αποτελέσματα.",
             "Q3-A-2": "Μπορείς να ελέγξεις αν αυτό έχει συμβεί χρησιμοποιώντας τη χρωματιστή κουκκίδα κατάστασης στην παλέτα \"Άλλες Εντολές\".",
-            "Q3-A-3": "Αν η κουκκίδα κατάστασης δίπλα στα πλακίδια του μοντέλου μηχανικής μάθησης είναι κόκκινη, αυτό συνήθως σημαίνει ότι κάτι δεν πάει καλά. Μπορεί να πρόκειται για κάποιο προσωρινό πρόβλημα. Δοκίμασε να αποθηκεύσεις το έργο σου  ( 'File' -&gt; 'Save Project') και μετά να ανανεώσεις τη σελίδα του προγράμματος περιήγησης. Εάν η κουκκίδα κατάστασης γίνει πράσινη μετά την επαναφόρτωση της σελίδας, μπορείς να φορτώσεις το έργο σου ('File' -&gt; 'Load Project') για να συνεχίσεις από εκεί που σταμάτησες.",
+            "Q3-A-3": "Αν η κουκκίδα κατάστασης δίπλα στα πλακίδια του μοντέλου μηχανικής μάθησης είναι κόκκινη, αυτό συνήθως σημαίνει ότι κάτι δεν πάει καλά. Μπορεί να πρόκειται για κάποιο προσωρινό πρόβλημα. Δοκίμασε να αποθηκεύσεις το έργο σου  ( 'Αρχείο' -&gt; 'Save Project') και μετά να ανανεώσεις τη σελίδα του προγράμματος περιήγησης. Εάν η κουκκίδα κατάστασης γίνει πράσινη μετά την επαναφόρτωση της σελίδας, μπορείς να φορτώσεις το έργο σου ('Αρχείο' -&gt; 'Load Project') για να συνεχίσεις από εκεί που σταμάτησες.",
             "Q3-A-4": "Αν η ένδειξη κατάστασης εξακολουθεί να είναι κόκκινη μετά την επαναφόρτωση της σελίδας, τότε πιθανώς υπάρχει κάποιο πρόβλημα με το μοντέλο μηχανικής μάθησης. Δοκίμασε να μεταβείς στη σελίδα \"Εκμάθηση &amp; Δοκιμή\" του έργου, όπου μπορείς να βρεις τυχόν μηνύματα σφάλματος σχετικά με το μοντέλο σου.",
             "Q3-A-5": "Αν η ένδειξη κατάστασης δίπλα στα πλακίδια μηχανικής μάθησης του Scratch είναι πράσινη, τότε τα πλακίδια θα πρέπει να λειτουργούν. Εάν δεν λαμβάνεις από αυτά τα αναμενόμενα αποτελέσματα, δοκίμασε να μεταβείς στη σελίδα \"Εκμάθηση &amp; Δοκιμή\" και να ελέγξεις τι αποτελέσματα επιστρέφει το μοντέλο σου.",
 
             "Q5": "Μπορώ να χρησιμοποιήσω οποιαδήποτε έκδοση του Scratch;",
-            "Q5-A-1": "Θα πρέπει να χρησιμοποιήσεις τις εκδόσεις του Scratch που παρέχονται από το site του Machine Learning for Kids. Μπορούν να ξεκινήσουν με κλικ στα κουμπιά 'Scratch' ή 'Scratch 3', από τη σελίδα του έργου σου.",
+            "Q5-A-1": "Θα πρέπει να χρησιμοποιήσεις τις εκδόσεις του Scratch που παρέχονται από τον ιστότοπο 'Μηχανική μάθηση για παιδιά'. Μπορούν να ξεκινήσουν με κλικ στα κουμπιά 'Scratch' ή 'Scratch 3', από τη σελίδα του έργου σου.",
 
             "Q6": "Το Scratch 3 αποθηκεύει έργα μόνο στο φάκελο 'Λήψεις'",
-            "Q6-A-1": "Όταν κάνεις κλικ στο  'File' -> 'Save to your computer' στο Scratch 3, το  έργο σου αποθηκεύεται στον υπολογιστή σου.",
+            "Q6-A-1": "Όταν κάνεις κλικ στο  'Αρχείο' -> 'Αποθήκευση στον υπολογιστή σου' στο Scratch 3, το έργο σου αποθηκεύεται στον υπολογιστή σου.",
             "Q6-A-2": "Ορισμένοι εκπαιδευτικοί ανέφεραν το πρόβλημα ότι αυτό αποθήκευσε στο φάκελο \"Λήψεις\", σε υπολογιστή που οι μαθητές δεν είχαν πρόσβαση από τα Windows στο φάκελο \"Λήψεις\". Το αποτέλεσμα ήταν ότι οι μαθητές δεν είχαν δυνατότητα πρόσβασης στα αποθηκευμένα έργα τους.",
             "Q6-A-3": "Εάν αντιμετωπίζεις αυτό το πρόβλημα, χρειάζεται να ψάξεις στις ρυθμίσεις του προγράμματος περιήγησης ιστού για μια ρύθμιση όπως \"Ερώτηση για τη θέση αποθήκευσης κάθε αρχείου πριν από τη λήψη\". Αν την ενεργοποιήσεις, οι μαθητές σου θα μπορούν να επιλέγουν πού αποθηκεύονται τα έργα τους."
         },
 
         "TRAININGUI": {
-            "TITLE": "Θέματα περιβάλλοντος διεπαφής για την Εκπαίδευση",
+            "TITLE": "Θέματα με το περιβάλλον διεπαφής Εκπαίδευσης",
 
             "Q1": "Η μεταφορά -με σύρε κι άφησε- εικόνων σε συλλογές παραδειγμάτων εκπαίδευσης (για έργα εικόνας) δεν λειτουργεί",
-            "Q1-A-1": "Η μεταφορά -με σύρε κι άφησε- εικόνων στις συλλογές παραδειγμάτων εκπαίδευσης δεν λειτουργεί αν χρησιμοποιείς Safari ή Internet Explorer.",
-            "Q1-A-2": "Sorry about this. If you can use another browser like Firefox or Chrome, please do that. Otherwise, you can click the \"www\" button and paste in the URL of training pictures instead."
+            "Q1-A-1": "Η μεταφορά -με σύρε κι άφησε- εικόνων στις συλλογές παραδειγμάτων εκπαίδευσης δεν λειτουργεί αν χρησιμοποιείς Internet Explorer.",
+            "Q1-A-2": "Συγγνώμη γι' αυτό. Αν έχεις τη δυνατότητα, παρακαλώ χρησιμοποίησε ένα άλλο πρόγραμμα περιήγησης, όπως το Firefox ή το Chrome. Διαφορετικά, μπορείς να κάνεις κλικ στο κουμπί \"www\" και να επικολλήσεις τη διεύθυνση URL των εικόνων εκπαίδευσης."
         },
 
         "MODELS": {
-            "TITLE": "Errors training machine learning models",
+            "TITLE": "Σφάλματα στην εκπαίδευση των μοντέλων μηχανικής μάθησης",
 
-            "Q1": "\"No Watson credentials have been set up\"",
+            "Q1": "\"Δεν έχουν δημιουργηθεί διαπιστευτήρια Watson\"",
             "Q1-A-1": "Τα μοντέλα μηχανικής μάθησης στο εργαλείο δημιουργούνται με χρήση API της IBM Watson.",
-            "Q1-A-2": "Εάν έχεις έναν \"μη διαχειριζόμενο\" λογαριασμό τάξης, τότε ο εκπαιδευτικός ή ο επικεφαλής της ομάδας σου θα πρέπει να παρέχει Watson API διαπιστευτήρια από το IBM Cloud, για να λειτουργήσει αυτό. Οι οδηγίες βήμα προς βήμα για το πώς μπορεί να το κάνει αυτό βρίσκονται στο έγγραφο \"Getting Started\" στο επάνω μέρος αυτής της σελίδας.",
+            "Q1-A-2": "Εάν έχεις έναν \"μη διαχειριζόμενο\" λογαριασμό τάξης, τότε ο εκπαιδευτικός ή ο επικεφαλής της ομάδας σου θα πρέπει να παρέχει Watson API διαπιστευτήρια από το IBM Cloud, για να λειτουργήσει αυτό. Οι οδηγίες βήμα προς βήμα για το πώς μπορεί να το κάνει αυτό βρίσκονται στο έγγραφο \"Ξεκινώντας\" στο επάνω μέρος αυτής της σελίδας.",
 
-            "Q2": "\"Watson credentials being used by your class were rejected\"",
+            "Q2": "\"Τα διαπιστευτήρια Watson που χρησιμοποιούνται από την τάξη σου απορρίφθηκαν\"",
             "Q2-A-1": "Τα μοντέλα μηχανικής μάθησης στο εργαλείο δημιουργούνται με χρήση API της IBM Watson.",
-            "Q2-A-2": "Εάν έχεις ένα \"μη διαχειριζόμενο\" λογαριασμό τάξης, τότε ο εκπαιδευτικός ή ο επικεφαλής της ομάδας σου θα έχει δώσει τα API Watson διαπιστευτήρια από το IBM Cloud για να λειτουργήσει αυτό (όπως περιγράφεται στο έγγραφο \"Getting Started\" στο επάνω μέρος αυτής της σελίδας).",
+            "Q2-A-2": "Εάν έχεις ένα \"μη διαχειριζόμενο\" λογαριασμό τάξης, τότε ο εκπαιδευτικός ή ο επικεφαλής της ομάδας σου θα έχει δώσει τα API Watson διαπιστευτήρια από το IBM Cloud για να λειτουργήσει αυτό (όπως περιγράφεται στο έγγραφο \"Ξεκινώντας\" στο επάνω μέρος αυτής της σελίδας).",
             "Q2-A-3": "Ωστόσο, τα διαπιστευτήρια που παρασχέθηκαν δεν λειτουργούν αυτήν τη στιγμή. Ο πιο πιθανός λόγος είναι ότι τα διαπιστευτήρια διαγράφηκαν από το IBM Cloud από τότε που είχαν αρχικά δοθεί. Εάν δεν συμβαίνει αυτό, ο εκπαιδευτικός ή ο αρχηγός ομάδας που παρείχε τα Watson διαπιστευτήρια πρέπει να επιστρέψει στον πίνακα εργαλείων του IBM Cloud για να ελέγξει την κατάσταση της υπηρεσίας Watson Assistant ή Visual Recognition που δημιούργησε.",
 
-            "Q3": "\"Watson Assistant API keys have no more workspaces available\"",
+            "Q3": "\"Τα κλειδιά API του Watson Assistant δεν έχουν άλλα διαθέσιμα workspaces\"",
             "Q3-A-1": "Τα μοντέλα μηχανικής μάθησης στο εργαλείο δημιουργούνται με χρήση API της IBM Watson.",
             "Q3-A-2": "Τα διαπιστευτήρια Watson Assistant που δημιουργούνται από εκπαιδευτικούς έχουν ένα όριο στον αριθμό των μοντέλων μηχανικής εκμάθησης που μπορούν να δημιουργηθούν με χρήση τους. Αυτό εμφανίζεται στο UI του IBM Cloud που δημιουργήθηκαν τα διαπιστευτήρια, όπου ονομάζονται \"workspaces\".",
-            "Q3-A-3": "If this limit is exceeded, attempts to train new machine learning models will fail, and this message will be displayed:",
-            "Q3-A-4": "Η τάξη σου έχει ήδη δημιουργήσει τον μέγιστο επιτρεπόμενο αριθμό μοντέλων. Παρακαλώ, ενημέρωσε τον εκπαιδευτικό σου ή τον επικεφαλής της ομάδας σου ότι \"Watson Assistant API keys have no more workspaces available\".",
-            "Q3-A-5": "If a student who has a successfully trained model then deletes their model, this will free up a workspace for use by another student.",
-            "Q3-A-6": "One way to avoid this error in future would be smaller class sizes. If there are fewer students than the number of workspaces supported by the Watson Assistant credentials, then the limits will not be hit.",
-            "Q3-A-7": "Another way to avoid this error is to add additional Watson Assistant API keys to the class, or to use a Watson Assistant instance \"plan\" that has higher limits.",
+            "Q3-A-3": "Εάν ξεπεραστεί αυτό το όριο, οι προσπάθειες για εκπαίδευση νέων μοντέλων μηχανικής μάθησης θα αποτύχουν, και θα εμφανιστεί αυτό το μήνυμα:",
+            "Q3-A-4": "Η τάξη σου έχει ήδη δημιουργήσει τον μέγιστο επιτρεπόμενο αριθμό μοντέλων. Παρακαλώ, ενημέρωσε τον εκπαιδευτικό σου ή τον επικεφαλής της ομάδας σου ότι \"Τα κλειδιά API του Watson Assistant δεν έχουν άλλα διαθέσιμα workspaces\".",
+            "Q3-A-5": "Εάν κάποιος μαθητής που έχει ένα επιτυχώς εκπαιδευμένο μοντέλο το  διαγράψει μετά, θα απελευθερώσει ένα workspace για χρήση από άλλο μαθητή.",
+            "Q3-A-6": "Ένας τρόπος να αποφευχθεί αυτό το σφάλμα στο μέλλον θα ήταν μικρότερα μεγέθη τάξης. Εάν υπάρχουν λιγότεροι μαθητές από τον αριθμό των workspaces που υποστηρίζονται από τα διαπιστευτήρια του Watson Assistant, τότε τα όρια δε θα δημιουργήσουν πρόβλημα.",
+            "Q3-A-7": "Ένας άλλος τρόπος για να αποφύγεις αυτό το σφάλμα είναι να προσθέσεις επιπλέον κλειδιά API της Watson Assistant στην τάξη ή να χρησιμοποιήσεις ένα Watson Assistant instance \"plan\" που έχει υψηλότερα όρια.",
 
-            "Q4": "\"Watson Visual Recognition API keys have no more classifiers available\"",
+            "Q4": "\"Τα κλειδιά API της Οπτικής Αναγνώρισης Watson δεν έχουν πλέον διαθέσιμους classifiers\"",
             "Q4-A-1": "Τα μοντέλα μηχανικής μάθησης στο εργαλείο δημιουργούνται με χρήση API της IBM Watson.",
-            "Q4-A-2": "Τα διαπιστευτήρια Watson Visual Recognition που δημιουργούνται από τους εκπαιδευτικούς έχουν ένα όριο στον αριθμό των μοντέλων μηχανικής μάθησης που μπορούν να δημιουργηθούν με χρήση τους. Αυτό εμφανίζεται στο UI του IBM Cloud που δημιουργήθηκαν τα διαπιστευτήρια, όπου ονομάζονται \"custom classifiers\".",
-            "Q4-A-3": "If this limit is exceeded, attempts to train new machine learning models will fail, and this message will be displayed:",
-            "Q4-A-4": "Η τάξη σου έχει ήδη δημιουργήσει τον μέγιστο επιτρεπόμενο αριθμό μοντέλων. Παρακαλώ, ενημέρωσε τον εκπαιδευτικό σου ή τον επικεφαλής της ομάδας σου ότι \"Watson Visual Recognition API keys have no more classifiers available\".",
-            "Q4-A-5": "If a student who has a successfully trained model then deletes their model, this will free up a custom classifier for use by another student.",
-            "Q4-A-6": "One way to avoid this error in future would be smaller class sizes. If there are fewer students than the number of custom classifiers supported by the Watson Visual Recognition credentials, then the limits will not be hit.",
-            "Q4-A-7": "Another way to avoid this error is to add additional Watson Visual Recognition API keys to the class, or to use a Watson Visual Recognition instance \"plan\" that has higher limits.",
+            "Q4-A-2": "Τα διαπιστευτήρια Watson Visual Recognition που δημιουργούνται από τους εκπαιδευτικούς έχουν ένα όριο στον αριθμό των μοντέλων μηχανικής μάθησης που μπορούν να δημιουργηθούν με χρήση τους. Αυτό εμφανίζεται στο περιβάλλον διεπαφής του IBM Cloud που δημιουργήθηκαν τα διαπιστευτήρια, όπου ονομάζονται \"custom classifiers\".",
+            "Q4-A-3": "Εάν ξεπεραστεί αυτό το όριο, οι προσπάθειες για την εκπαίδευση νέων μοντέλων μηχανικής μάθησης θα αποτύχουν, και θα εμφανιστεί αυτό το μήνυμα:",
+            "Q4-A-4": "Η τάξη σου έχει ήδη δημιουργήσει τον μέγιστο επιτρεπόμενο αριθμό μοντέλων. Παρακαλώ, ενημέρωσε τον εκπαιδευτικό σου ή τον επικεφαλής της ομάδας σου ότι \"Τα κλειδιά API της Οπτικής Αναγνώρισης Watson δεν έχουν πλέον διαθέσιμους classifiers\".",
+            "Q4-A-5": "Εάν κάποιος μαθητής που έχει ένα επιτυχώς εκπαιδευμένο μοντέλο το διαγράψει μετά, θα ελευθερώσει έναν custom classifier για χρήση από άλλο μαθητή.",
+            "Q4-A-6": "Ένας τρόπος να αποφευχθεί αυτό το σφάλμα στο μέλλον θα ήταν μικρότερα μεγέθη τάξης. Εάν υπάρχουν λιγότεροι μαθητές από τον αριθμό των custom classifiers που υποστηρίζονται από τα διαπιστευτήρια της Οπτικής Αναγνώρισης Watson, τότε τα όρια δε θα δημιουργήσουν πρόβλημα.",
+            "Q4-A-7": "Ένας άλλος τρόπος για να αποφύγεις αυτό το σφάλμα είναι να προσθέσεις επιπλέον κλειδιά API της Watson Visual Recognition στην τάξη ή να χρησιμοποιήσεις ένα Watson Visual Recognition instance \"plan\" που έχει υψηλότερα όρια.",
 
-            "Q5": "\"Watson ... is currently rate limiting their API key\"",
-            "Q5-A-1": "Τα μοντέλα μηχανικής μάθησης στο εργαλείο δημιουργούνται με χρήση API της IBM Watson.",
+            "Q5": "\"Η υπηρεσία Watson ... αυτή τη στιγμή εφαρμόζει περιορισμό στο ρυθμό του API κλειδιού της\"",
+            "Q5-A-1": "Τα μοντέλα μηχανικής μάθησης στο εργαλείο δημιουργούνται με χρήση των API της IBM Watson.",
             "Q5-A-2": "Εάν έχεις ένα \"μη διαχειριζόμενο\" λογαριασμό τάξης, τότε ο εκπαιδευτικός ή ο επικεφαλής της ομάδας σου θα χρειαστεί να δώσει Watson API  διαπιστευτήρια από το IBM Cloud για να λειτουργήσει αυτό.",
-            "Q5-A-3": "Αν δημιουργηθούν δωρεάν λογαριασμοί, θα εφαρμοστεί ένα όριο στο ρυθμό αιτημάτων για νέα μοντέλα μηχανικής μάθησης. Κατά την κανονική χρήση, αυτό δεν θα επηρεάσει την τάξη. Ωστόσο, εάν οι μαθητές λάβουν το μήνυμα σφάλματος \"no more workspaces available\" ή \"no more classifiers available\" (όπως περιγράφεται παραπάνω) και συνεχίσουν να κάνουν κλικ στο κουμπί \"Εκπαίδευση νέου μοντέλου Μηχανικής Μάθησης\" πολλές φορές το δευτερόλεπτο, για αρκετά λεπτά, τότε θα εφαρμοστεί ο περιορισμός του ρυθμού.",
-            "Q5-A-4": "A message like this will be displayed to students in this case:",
-            "Q5-A-5": "Η τάξη σου κάνει πάρα πολλά αιτήματα για δημιουργίας μοντέλων μηχανικής μάθησης με πολύ γρήγορο ρυθμό. Παρακαλώ σταμάτησε τώρα και ενημέρωσε τον εκπαιδευτικό ή τον επικεφαλής της ομάδας σου ότι \"η υπηρεσία Watson Assistant αυτή τη στιγμή εφαρμόζει περιορισμό στο ρυθμό του API κλειδιού της\"",
-            "Q5-A-6": "The rate limiting isn't applied by, or under the control of, the Machine Learning for Kids site. It is usually temporary, and is best resolved by waiting for a short time.",
-            "Q5-A-7": "If students are clicking the \"Train new Machine Learning model\" button and getting \"no more workspaces available\" or \"no more classifiers available\" errors (as described above), then they should be aware that repeatedly clicking the button will not resolve the issue, and will in fact make the situation worse for the rest of the class.",
+            "Q5-A-3": "Αν δημιουργηθούν δωρεάν λογαριασμοί, θα εφαρμοστεί ένα όριο στο ρυθμό αιτημάτων για νέα μοντέλα μηχανικής μάθησης. Κατά την κανονική χρήση, αυτό δεν θα επηρεάσει την τάξη. Ωστόσο, εάν οι μαθητές λάβουν μήνυμα σφάλματος \"δεν υπάρχουν άλλα διαθέσιμα workspaces\" ή \"δεν υπάρχουν άλλοι διαθέσιμοι classifiers\" (όπως περιγράφεται παραπάνω) και συνεχίσουν να κάνουν κλικ στο κουμπί \"Εκπαίδευση νέου μοντέλου Μηχανικής Μάθησης\" πολλές φορές το δευτερόλεπτο, για αρκετά λεπτά, τότε θα εφαρμοστεί ο περιορισμός του ρυθμού.",
+            "Q5-A-4": "Ένα τέτοιο μήνυμα θα εμφανιστεί στους μαθητές σε αυτή την περίπτωση:",
+            "Q5-A-5": "Η τάξη σου κάνει πάρα πολλά αιτήματα δημιουργίας μοντέλων μηχανικής μάθησης με υπερβολικά γρήγορο ρυθμό. Παρακαλώ σταμάτησε τώρα και ενημέρωσε τον εκπαιδευτικό ή τον επικεφαλής της ομάδας σου ότι \"η υπηρεσία Watson Assistant αυτή τη στιγμή εφαρμόζει περιορισμό στο ρυθμό του API κλειδιού της\"",
+            "Q5-A-6": "Ο περιορισμός ρυθμού δεν εφαρμόζεται από - ή υπό τον έλεγχο του - ιστοτόπου 'Μηχανική μάθηση για παιδιά'. Είναι συνήθως προσωρινός και επιλύεται καλύτερα με αναμονή για σύντομο χρονικό διάστημα.",
+            "Q5-A-7": "Αν οι μαθητές κάνουν κλικ στο κουμπί \"Εκπαίδευση νέου μοντέλου Μηχανικής Μάθησης\" και παίρνουν τα σφάλματα \"δεν υπάρχουν πλέον διαθέσιμα workspaces \" ή \"δεν υπάρχουν πλέον διαθέσιμοι classifiers\" (όπως περιγράφεται παραπάνω), τότε θα πρέπει να ενημερωθούν ότι τα επαναλαμβανόμενα κλικ στο κουμπί δε θα λύσουν το πρόβλημα, αλλά αντιθέτως θα χειροτερέψουν την κατάσταση για την υπόλοιπη τάξη.",
 
             "Q6": "Περιμένω ένα μοντέλο να εκπαιδευτεί εδώ και χρόνια!",
             "Q6-A-1": "Δοκίμασε να ανανεώσεις τη σελίδα.",
-            "Q6-A-2": "The page should check on the status of the machine learning model every 30 seconds, but very occassionally it stops checking, so you might be waiting for the model when it is actually ready for you.",
-            "Q6-A-3": "If it's been more than a few minutes, it's worth checking by refreshing / reloading the page.",
-            "Q6-A-4": "If it's been more than ten minutes, it might be worth considering restarting (click the Cancel button and then click the button to train a new machine learning model again)."
+            "Q6-A-2": "Η σελίδα θα πρέπει να ελέγχει την κατάσταση του μοντέλου μηχανικής μάθησης κάθε 30 δευτερόλεπτα αλλά περιστασιακά σταματά να το κάνει, οπότε μπορεί να περιμένεις το μοντέλο ενώ στην πραγματικότητα είναι έτοιμο.",
+            "Q6-A-3": "Αν έχουν περάσει περισσότερα από μερικά λεπτά, αξίζει να το ελέγξεις με ανανέωση / επαναφόρτωση της σελίδας.",
+            "Q6-A-4": "Αν έχουν περάσει πάνω από δέκα λεπτά, ίσως αξίζει  να σκεφτείς την επανεκκίνηση (κάνε κλικ στο κουμπί Άκυρο και, στη συνέχεια, κάνε κλικ στο κουμπί για να εκπαιδεύσεις ξανά ένα νέο μοντέλο μηχανικής εκμάθησης)."
         },
 
         "TEACHERUI": {
-            "TITLE": "Θέματα περιβάλλοντος διεπαφής UI Εκπαιδευτικού / Διαχειριστή",
+            "TITLE": "Θέματα με το περιβάλλον διεπαφής Εκπαιδευτικού / Διαχειριστή",
 
-            "Q2": "Missing student account from the list in the teacher's page",
-            "Q2-A-1": "User management for Machine Learning for Kids is implemented using the third party service, <a href=\"https://auth0.com/\">Auth0</a>.",
-            "Q2-A-2": "Occassionally, the list of students that Auth0 returns can get a little out of date, and fail to reflect students that have recently been created (or similarly, still show students that have been recently deleted).",
-            "Q2-A-3": "In these instances, the students have normally been successfully created (or deleted) and it is just that the list of students being displayed doesn't reflect recent updates.",
-            "Q2-A-4": "Auth0 will normally report such incidents on their status page as <a href='https://status.auth0.com/incidents/0sk1d3hjlw0m'>user indexing delays</a> or <a href='https://status.auth0.com/incidents/t8995b9jggx5'>problems with their Search API</a>.",
-            "Q2-A-5": "The best thing to do in these cases is to wait for the Auth0 indexing to catch up.",
+            "Q2": "Λείπει ο λογαριασμός μαθητή από τη λίστα στη σελίδα του εκπαιδευτικού",
+            "Q2-A-1": "Η διαχείριση χρηστών για τον ιστότοπο 'Μηχανική μάθηση για παιδιά' υλοποιείται χρησιμοποιώντας της υπηρεσίας τρίτου μέρους, <a href=\"https://auth0.com/\">Auth0</a>.",
+            "Q2-A-2": "Κατά καιρούς, η λίστα μαθητών που επιστρέφει η Auth0 μπορεί να είναι λίγο ξεπερασμένη, και να μην εμφανίζει μαθητές που έχουν προστεθεί πρόσφατα (ή αντίστοιχα, να εξακολουθεί να δείχνει μαθητές που έχουν διαγραφεί πρόσφατα).",
+            "Q2-A-3": "Σε αυτές τις περιπτώσεις, οι μαθητές έχουν συνήθως δημιουργηθεί (ή διαγραφεί) επιτυχώς και απλά η λίστα των μαθητών που εμφανίζονται δεν αντικατοπτρίζει τις πρόσφατες ενημερώσεις.",
+            "Q2-A-4": "Η Auth0 συνήθως αναφέρει αυτά τα συμβάντα στη σελίδα κατάστασής της ως <a href='https://status.auth0.com/incidents/0sk1d3hjlw0m'>user indexing delays</a> ή <a href='https://status.auth0.com/incidents/t8995b9jggx5'>problems with their Search API</a>.",
+            "Q2-A-5": "Το καλύτερο πράγμα να κάνεις σε αυτές τις περιπτώσεις είναι να περιμένεις το ευρετήριο της Auth0 να ενημερωθεί.",
 
             "Q4": "Γιατί διαγράφονται αυτόματα τα μοντέλα μηχανικής μάθησης;",
-            "Q4-A-1": "This was a feature requested by schools when Machine Learning for Kids was first developed. It came from the fact that there is a limit for how many machine learning models a class can have at any given time, and a need to make it easy to manage this limit.",
-            "Q4-A-2": "Rather than requiring kids to have to clean up after a lesson and delete their models (in order to allow the next class to be able to create models), the tool can automatically clean up by deleting the models after the lesson is over. This makes it easy to run the next lesson, and the next lesson after that, without manual clean-ups in between.",
-            "Q4-A-3": "The time limit before models are deleted is configurable. In a school, where lessons are 1 or 2 hours long, deleting models after two hours might be sensible. For a weekly coding club, six days might be a better fit to make sure that models are cleared up before each new club session.",
-            "Q4-A-4": "Για να καθορίσεις το χρονικό όριο για την τάξη σου, επισκέψου την <a href='https://machinelearningforkids.co.uk/#!/teacher/restrictions'>ενότητα Περιορισμοί της σελίδας Εκπαιδευτικός</a>\".",
+            "Q4-A-1": "Αυτό ήταν ένα χαρακτηριστικό που ζητήθηκε από τα σχολεία όταν η 'Μηχανική μάθηση για παιδιά' αναπτύχθηκε για πρώτη φορά. Προήλθε από το γεγονός ότι υπάρχει ένα όριο στο πλήθος μοντέλων μηχανικής μάθησης που μπορεί να έχει η τάξη κάθε στιγμή, και την ανάγκη να διευκολυνθεί η διαχείριση αυτού του ορίου.",
+            "Q4-A-2": "Αντί να απαιτείται από τα παιδιά να καθαρίσουν μετά από ένα μάθημα και να διαγράψουν τα μοντέλα τους (ώστε να επιτρέψουν στην επόμενη τάξη να δημιουργήσει τα δικά της), το εργαλείο μπορεί να καθαρίζει αυτόματα, διαγράφοντας τα μοντέλα μετά το τέλος του μαθήματος. Αυτό διευκολύνει το επόμενο μάθημα, και το επόμενο μάθημα μετά από αυτό, χωρίς χειροκίνητες εκκαθαρίσεις στο ενδιάμεσο.",
+            "Q4-A-3": "Το χρονικό όριο για τη διαγραφή των μοντέλων μπορεί να ρυθμιστεί. Σε ένα σχολείο, όπου τα μαθήματα διαρκούν 1 ή 2 ώρες, η διαγραφή μοντέλων μετά από δύο ώρες μπορεί να είναι λογική. Για μια ομάδα προγραμματισμού που λειτουργεί εβδομαδιαία, έξι ημέρες μπορεί να ταιριάζουν καλύτερα για να εξασφαλιστεί ότι τα μοντέλα έχουν διαγραφεί πριν από κάθε νέα συνάντηση της ομάδας.",
+            "Q4-A-4": "Για να ορίσεις το χρονικό όριο για την τάξη σου, επισκέψου την <a href='https://machinelearningforkids.co.uk/#!/teacher/restrictions'>ενότητα Περιορισμοί της σελίδας Εκπαιδευτικός</a>.",
             "Q4-A-6": "<em>Σημείωση: Μόνο τα μοντέλα μηχανικής μάθησης διαγράφονται αυτόματα, όχι τα δεδομένα εκπαίδευσης που χρησιμοποιήθηκαν για τη δημιουργία τους. Έτσι, εάν ένα μοντέλο διαγραφεί αυτόματα για ένα έργο στο οποίο ακόμα εργάζεται κάποιος μαθητής, μπορεί πάντα να κάνει απλά κλικ στο κουμπί \"Εκπαίδευση\" για να δημιουργήσει ξανά το μοντέλο.</em>"
         },
 
         "ACCOUNTISSUES": {
-            "TITLE": "Account issues",
+            "TITLE": "Θέματα με τους Λογαριασμούς",
 
-            "Q1": "What is the difference between creating accounts or using \"Try it now\"?",
-            "Q1-A-1": "Using \"Try it now\" to means there is no need to log on or create an account. There are no passwords for students to have to remember, and no need for teachers to have to provide personal information. It also saves teachers the time needed to manage student accounts.",
+            "Q1": "Ποια είναι η διαφορά μεταξύ της δημιουργίας λογαριασμών και της χρήσης του \"Δοκιμή τώρα\";",
+            "Q1-A-1": "Χρησιμοποιώντας το \"Δοκιμή τώρα\" σημαίνει ότι δεν χρειάζεται να συνδεθείς ή να δημιουργήσεις λογαριασμό. Δεν υπάρχουν κωδικοί πρόσβασης που πρέπει να θυμούνται οι μαθητές και δε χρειάζεται οι εκπαιδευτικοί να παρέχουν προσωπικές πληροφορίες. Επίσης, εξοικονομεί για τους εκπαιδευτικούς το χρόνο που απαιτεί η διαχείριση των μαθητικών λογαριασμών.",
             "Q1-A-2": "Ωστόσο, η δημιουργία ενός λογαριασμού ενεργοποιεί πρόσθετες δυνατότητες. Οι μαθητές μπορούν να αποθηκεύσουν τη δουλειά τους και να επιστρέψουν σε αυτήν σε επόμενο μάθημα. Μπορούν να εργαστούν σε ένα έργο μαζί με άλλους μαθητές της τάξη τους. Μπορούν να συνδεθούν από το σπίτι και να δείξουν την οικογένειά τους τι έχουν φτιάξει.",
-            "Q1-A-3": "A summary of the differences is shown below:",
+            "Q1-A-3": "Μια σύνοψη των διαφορών φαίνεται παρακάτω:",
 
-            "CREATE_ACCOUNT": "Δημιουργείστε έναν λογαριασμό",
-            "TRAINMODELS": "Train machine learning models to recognise...",
-            "USE_SCRATCH": "Use machine learning models from Scratch",
-            "CREATE_PROJECTS": "Create projects",
-            "ONE_PROJECT": " 1 project ",
-            "MULTIPLE_PROJECTS": " Multiple projects ",
-            "SAVE_PROJECTS": "Save and load projects",
-            "WORK_ON_PROJECTS": "Work on machine learning projects...",
+            "CREATE_ACCOUNT": "Δημιουργία λογαριασμού",
+            "TRAINMODELS": "Εκπαιδεύεις μοντέλα μηχανικής μάθησης να αναγνωρίζουν...",
+            "USE_SCRATCH": "Χρησιμοποιείς τα μοντέλα μηχανικής μάθησης από το Scratch",
+            "CREATE_PROJECTS": "Δημιουργείς έργα",
+            "ONE_PROJECT": "1 έργο",
+            "MULTIPLE_PROJECTS": "Πολλά έργα",
+            "SAVE_PROJECTS": "Αποθηκεύεις και φορτώνεις έργα",
+            "WORK_ON_PROJECTS": "Δουλεύεις πάνω σε έργα μηχανικής μάθησης...",
             "FEW_HOURS": "για μερικές ώρες",
-            "UNTIL_DELETION": " until you delete them ",
+            "UNTIL_DELETION": "μέχρι να τα διαγράψεις",
             "ONE_COMPUTER": "από έναν υπολογιστή",
-            "ONLINE": " anywhere online ",
-            "BY_YOURSELF": "μόνος σας",
-            "WITH_CLASSMATES": "με συμμαθητές",
+            "ONLINE": "οπουδήποτε στο διαδίκτυο",
+            "BY_YOURSELF": "μόνο εσύ",
+            "WITH_CLASSMATES": "μαζί με συμμαθητές σου",
 
             "Q2": "Έχω δημιουργήσει ένα λογαριασμό τάξης, αλλά η σύνδεσή μου ως εκπαιδευτικός δε λειτουργεί",
-            "Q2-A-1": "You need to verify your email address before you'll be able to log on.",
+            "Q2-A-1": "Για να μπορέσεις να συνδεθείς, χρειάζεται να επαληθεύσεις τη διεύθυνση του ηλεκτρονικού ταχυδρομείου σου.",
             "Q2-A-2": "Όταν δημιουργήσεις τον λογαριασμό τάξης, θα σταλεί στη διεύθυνση που έδωσες μήνυμα ηλεκτρονικού ταχυδρομείου με ένα σύνδεσμο. Εάν κάνεις κλικ σε αυτόν το σύνδεσμο, η διεύθυνση ηλεκτρονικού ταχυδρομείου σου θα επαληθευτεί και ο λογαριασμός της τάξης θα ενεργοποιηθεί. Πλέον, θα πρέπει να έχεις δυνατότητα σύνδεσης.",
-            "Q2-A-3": "If you haven't seen the verify email yet, make sure it's not gone into your spam folder.",
-            "Q2-A-4": "If you still can't find it, <a href='mailto:dale.lane@uk.ibm.com'>let me know</a> and I'll try and help.",
+            "Q2-A-3": "Αν δεν έχεις δει ακόμα το email επαλήθευσης, βεβαιώσου ότι δεν έχει μεταφερθεί στο φάκελο ανεπιθύμητης αλληλογραφίας.",
+            "Q2-A-4": "Αν εξακολουθείς να μην το βρίσκεις, <a href='https://groups.google.com/d/forum/mlforkids'>ενημέρωσέ με</a> και θα προσπαθήσω να βοηθήσω.",
 
             "Q3": "Διαγραφή λογαριασμών",
             "Q3-A-1": "Λογαριασμοί μαθητών",
-            "Q3-A-2": "Students cannot delete their own accounts.",
-            "Q3-A-3": "A teacher can delete a student account at any time by visiting the \"Teacher\" page  and clicking the \"Delete student account\" button next to the student account you want to delete.",
-            "Q3-A-4": "This will delete all information stored about that student and all of their projects and machine learning models.",
-            "Q3-A-5": "Δε μπορεί να αναιρεθεί.",
+            "Q3-A-2": "Οι μαθητές δεν μπορούν να διαγράψουν τους λογαριασμούς τους.",
+            "Q3-A-3": "Ο εκπαιδευτικός μπορεί να διαγράψει ένα μαθητικό λογαριασμό ανά πάσα στιγμή, μεταβαίνοντας στη σελίδα \"Εκπαιδευτικός\" και κάνοντας κλικ στο κουμπί \"Διαγραφή λογαριασμού μαθητή\" δίπλα στο λογαριασμό του μαθητή που θέλει να διαγράψει.",
+            "Q3-A-4": "Θα διαγραφούν όλες οι πληροφορίες που είναι αποθηκευμένες για αυτόν τον μαθητή, και όλα τα έργα του και τα μοντέλα μηχανικής μάθησης.",
+            "Q3-A-5": "Δεν μπορεί να αναιρεθεί.",
             "Q3-A-6": "Λογαριασμοί εκπαιδευτικών",
             "Q3-A-7": "Η διαγραφή ενός λογαριασμού εκπαιδευτικού θα διαγράψει ολόκληρη την τάξη και όλους τους λογαριασμούς μαθητών σε αυτήν. Δεν μπορεί να αναιρεθεί.",
-            "Q3-A-8": "Αυτό μπορεί να γίνει κάνοντας κλικ στο κουμπί \"Διαγραφή Τάξης\" στην ενότητα Προχωρημένες επιλογές στη <a href='https://machinelearningforkids.co.uk/teacher'>σελίδα Εκπαιδευτικού</a>",
+            "Q3-A-8": "Αυτό μπορεί να γίνει κάνοντας κλικ στο κουμπί \"Διαγραφή Τάξης\" στην ενότητα Προχωρημένες επιλογές της <a href='https://machinelearningforkids.co.uk/teacher'>σελίδας Εκπαιδευτικού</a>",
 
             "Q4": "Ποιες πληροφορίες αποθηκεύονται για τους χρήστες;",
             "Q4-A-1": "Λογαριασμοί εκπαιδευτικών",
             "Q4-A-2": "Αποθηκεύω το όνομα χρήστη και τη διεύθυνση ηλεκτρονικού ταχυδρομείου που δίνεις όταν δημιουργείς το λογαριασμό, έτσι ώστε να μπορώ να επικοινωνώ μαζί σου.",
             "Q4-A-3": "Λογαριασμοί μαθητών",
-            "Q4-A-4": "I store the usernames for student accounts, so that I can let them log in. I have no email addresses or contact details for students. I have no other personally identifying information about students.",
-            "Q4-A-5": "I also <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-schools.pdf'>recommend that students are given generic usernames</a> (e.g. student1) so that students are not identifiable outside of their school or coding group.",
-            "Q4-A-6": "General information stored about all accounts",
-            "Q4-A-7": "User management for Machine Learning for Kids is implemented using the third party service, <a href='https://auth0.com/'>Auth0</a>. They store the IP address that you last logged into Machine Learning for Kids from, and the type of browser you used. I've never found a reason to use that, but it is stored if I did want to go and look for it.",
-            "Q4-A-8": "Errors that happen in the web browser are captured using the third party service, <a href='https://sentry.io/'>Sentry</a>. If something goes wrong, it will capture information about the error, including your username, IP address, type of browser you were using, and a technical description of what went wrong.",
-            "Q4-A-9": "I use <a href='https://www.google.com/analytics/'>Google Analytics</a> so that I know how many users visit Machine Learning for Kids each day. Although it captures information such as geographic location and browser type, this is only ever displayed to me in an anonymised aggregate way.",
+            "Q4-A-4": "Αποθηκεύω τα ονόματα χρήστη για τους λογαριασμούς των μαθητών, ώστε να μπορώ να τους επιτρέψω τη σύνδεση. Δεν έχω διευθύνσεις ηλεκτρονικού ταχυδρομείου ή στοιχεία επικοινωνίας μαθητών. Δεν έχω καμία άλλη προσωπική πληροφορία για τους μαθητές.",
+            "Q4-A-5": "Επίσης, <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-schools.pdf'>συστήνω να δίνονται στους μαθητές γενικά ονόματα χρηστών</a> (π.χ. student1), έτσι ώστε οι μαθητές να μην είναι αναγνωρίσιμοι εκτός του σχολείου τους ή της ομάδας προγραμματισμού.",
+            "Q4-A-6": "Γενικές πληροφορίες που αποθηκεύονται για όλους τους λογαριασμούς",
+            "Q4-A-7": "Η διαχείριση χρηστών για την 'Μηχανική μάθηση για παιδιά' υλοποιείται με χρήση της υπηρεσίας τρίτου μέρους, <a href='https://auth0.com/'>Auth0</a>. Αποθηκεύουν τη διεύθυνση IP από την οποία συνδέθηκες τελευταία φορά στη 'Μηχανική μάθηση για παιδιά' και το είδος του προγράμματος περιήγησης που χρησιμοποίησες. Δεν έχω βρει ποτέ λόγο να το χρησιμοποιήσω, αλλά είναι αποθηκευμένο αν ήθελα να πάω και να το ψάξω.",
+            "Q4-A-8": "Τα σφάλματα που συμβαίνουν στο πρόγραμμα περιήγησης ιστού καταγράφονται με χρήση της υπηρεσίας τρίτου μέρους, <a href='https://sentry.io/'>Sentry</a>. Αν κάτι πάει στραβά, θα κρατήσει πληροφορίες σχετικές με το σφάλμα, συμπεριλαμβανομένου του ονόματος χρήστη, της διεύθυνσης IP, του προγράμματος περιήγησης που χρησιμοποιούσε, και μια τεχνική περιγραφή του τι πήγε στραβά.",
+            "Q4-A-9": "Χρησιμοποιώ <a href='https://www.google.com/analytics/'>Google Analytics</a>, ώστε να γνωρίζω πόσοι χρήστες επισκέπτονται τη 'Μηχανική μάθηση για παιδιά' κάθε μέρα. Παρόλο που καταγράφονται πληροφορίες όπως η γεωγραφική θέση και το είδος του προγράμματος περιήγησης, εμφανίζονται σε μένα μόνο ανώνυμα και συγκεντρωτικά.",
 
             "Q5": "Τι συμβαίνει με τα δεδομένα εκπαίδευσης που δημιουργούνται από μαθητές;",
             "Q5-A-1": "Ένα από τα βήματα σε όλα τα έργα μηχανικής μάθησης που κάνουν οι μαθητές χρησιμοποιώντας αυτό το site είναι η δημιουργία ή η συλλογή παραδειγμάτων εκπαίδευσης. Για τα έργα κειμένου, αυτό μπορεί να σημαίνει πληκτρολόγηση σύντομων παραγράφων. Για τα έργα εικόνας, αυτό μπορεί να σημαίνει σχεδίαση εικόνων σε έναν καμβά στην οθόνη ή λήψη φωτογραφιών με τη web την κάμερα. Για τα έργα αριθμών, αυτό σημαίνει την πληκτρολόγηση συνόλων από αριθμούς",
             "Q5-A-2": "Όλα αυτά τα παραδείγματα εκπαίδευσης αποθηκεύονται σε μια <a href='https://www.ibm.com/cloud/compose/mysql'>βάση δεδομένων MySQL που φιλοξενείται στο IBM cloud</a>. Ως διαχειριστής της βάσης δεδομένων, έχω πρόσβαση σε όλα τα παραδείγματα εκπαίδευσης για όλα τα έργα μαθητών, ωστόσο δεν τα χρησιμοποιώ για άλλους σκοπούς εκτός από το να επιτρέπω στους μαθητές να έχουν πρόσβαση και να εργάζονται στα δικά τους έργα. Δεν κοινοποιώ τα δεδομένα εκπαίδευσης (ούτε δημοσίως, ούτε σε ιδιώτες ή τρίτα μέρη) και δεν τα μοιράζομαι με άλλο τρόπο, με τις δύο εξαιρέσεις υποβολής τους στα API της IBM Watson που περιγράφονται παρακάτω.",
-            "Q5-A-3": "Τα μοντέλα μηχανικής εκμάθησης για έργα κειμένου δημιουργούνται με τη χρήση της υπηρεσίας cloud <a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a>, πράγμα που σημαίνει πως, όταν οι μαθητές εκπαιδεύουν ένα μοντέλο, ένα αντίγραφο των παραδειγμάτων εκπαίδευσης που έχουν εισαγάγει θα <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>υποβληθεί στην IBM Watson</a>. Η IBM Watson δεν χρησιμοποιεί αυτά τα παραδείγματα εκπαίδευσης για κανένα άλλο σκοπό. Αυτό συμβαίνει επειδή το Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>ζητά μια εξαίρεση</a> για τα παραδείγματα εκπαίδευσης μαθητών που χρησιμοποιούνται από την IBM για τη βελτίωση της υπηρεσίας, όπως <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>περιγράφεται στην τεκμηρίωση του Watson</a>.",
-            "Q5-A-4": "Τα μοντέλα μηχανικής μάθησης για έργα εικόνων δημιουργούνται με τη χρήση της υπηρεσίας cloud <a href='https://www.ibm.com/watson/services/visual-recognition/'>IBM Visual Recognition</a>, πράγμα που σημαίνει πως, όταν οι μαθητές εκπαιδεύουν ένα μοντέλο, ένα αντίγραφο των εικόνων εκπαίδευσης που έχουν εισαγάγει θα <a href='https://cloud.ibm.com/apidocs/visual-recognition#create-a-classifier'>αποσταλεί στην IBM Watson</a>. Η IBM Watson δεν χρησιμοποιεί αυτά τα παραδείγματα εκπαίδευσης για κανένα άλλο σκοπό. Αυτό συμβαίνει επειδή το Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/visual-recognition#data-collection'>ζητά μια εξαίρεση</a> για τα παραδείγματα εκπαίδευσης μαθητών που χρησιμοποιούνται από την IBM για τη βελτίωση της υπηρεσίας, όπως <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>περιγράφεται στην τεκμηρίωση Watson</a>.",
-            "Q5-A-5": "Η IBM Watson παρέχει ορισμένες <a href='https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security-gdpr-wa'>γενικές οδηγίες για την ανταλλαγή δεδομένων εκπαίδευσης με τις υπηρεσίες της</a>, οι οποίες ισχύουν και για τα δεδομένα εκπαίδευσης που δημιουργούνται και συλλέγονται στο Machine Learning for Kids. Συγκεκριμένα, οι μαθητές θα πρέπει να ενημερώνονται να μη συμπεριλαμβάνουν πληροφορίες προσωπικής ταυτοποίησης στα παραδείγματα που συλλέγουν."
+            "Q5-A-3": "Τα μοντέλα μηχανικής εκμάθησης για έργα κειμένου δημιουργούνται με τη χρήση της υπηρεσίας cloud <a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a>, πράγμα που σημαίνει πως, όταν οι μαθητές εκπαιδεύουν ένα μοντέλο, ένα αντίγραφο των παραδειγμάτων εκπαίδευσης που έχουν εισαγάγει θα <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>υποβληθεί στην IBM Watson</a>. Η IBM Watson δεν χρησιμοποιεί αυτά τα παραδείγματα εκπαίδευσης για κανένα άλλο σκοπό. Αυτό συμβαίνει επειδή η 'Μηχανική μάθηση για παιδιά' <a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>ζητά μια εξαίρεση</a> για τα παραδείγματα εκπαίδευσης μαθητών που χρησιμοποιούνται από την IBM για τη βελτίωση της υπηρεσίας, όπως <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>περιγράφεται στην τεκμηρίωση του Watson</a>.",
+            "Q5-A-4": "Τα μοντέλα μηχανικής μάθησης για έργα εικόνων δημιουργούνται με τη χρήση της υπηρεσίας cloud <a href='https://www.ibm.com/watson/services/visual-recognition/'>IBM Visual Recognition</a>, πράγμα που σημαίνει πως, όταν οι μαθητές εκπαιδεύουν ένα μοντέλο, ένα αντίγραφο των εικόνων εκπαίδευσης που έχουν εισαγάγει θα <a href='https://cloud.ibm.com/apidocs/visual-recognition#create-a-classifier'>αποσταλεί στην IBM Watson</a>. Η IBM Watson δεν χρησιμοποιεί αυτά τα παραδείγματα εκπαίδευσης για κανένα άλλο σκοπό. Αυτό συμβαίνει επειδή η 'Μηχανική μάθηση για παιδιά' <a href='https://cloud.ibm.com/apidocs/visual-recognition#data-collection'>ζητά μια εξαίρεση</a> για τα παραδείγματα εκπαίδευσης μαθητών που χρησιμοποιούνται από την IBM για τη βελτίωση της υπηρεσίας, όπως <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>περιγράφεται στην τεκμηρίωση Watson</a>.",
+            "Q5-A-5": "Η IBM Watson παρέχει ορισμένες <a href='https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security-gdpr-wa'>γενικές οδηγίες για την ανταλλαγή δεδομένων εκπαίδευσης με τις υπηρεσίες της</a>, οι οποίες ισχύουν και για τα δεδομένα εκπαίδευσης που δημιουργούνται και συλλέγονται στη 'Μηχανική μάθηση για παιδιά'. Συγκεκριμένα, οι μαθητές θα πρέπει να συμβουλεύονται ώστε να μη συμπεριλαμβάνουν πληροφορίες προσωπικής ταυτοποίησης στα παραδείγματα που συλλέγουν."
         }
     },
     "APIKEYSGUIDE": {

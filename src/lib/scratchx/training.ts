@@ -74,7 +74,7 @@ async function storeNumbers(key: Types.ScratchKey, label: string, numbersStr: st
             return asNum;
         }
         else { // if (field.type === 'number') {
-            const asNum = parseFloat(numbersStr[idx]);
+            const asNum = Number(numbersStr[idx]);
             if (isNaN(asNum)) {
                 throw new Error('Invalid data');
             }
@@ -91,6 +91,9 @@ async function storeNumbers(key: Types.ScratchKey, label: string, numbersStr: st
 async function storeImages(key: Types.ScratchKey, label: string, base64imagedata: string): Promise<Types.ImageTraining>
 {
     // check image data to store
+    if (typeof base64imagedata !== 'string') {
+        throw new Error('Invalid data');
+    }
     if (!base64imagedata || base64imagedata.trim().length === 0) {
         throw new Error('Missing data');
     }

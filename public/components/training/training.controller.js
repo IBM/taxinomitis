@@ -34,6 +34,14 @@
             if (!errObj) {
                 errObj = {};
             }
+            else {
+                // record the error
+                console.log(errObj);
+                if (status === 500 && Sentry && Sentry.captureException) {
+                    Sentry.captureException({ error : errObj, errortype : typeof (errObj) });
+                }
+            }
+
             vm[type].push({
                 alertid : alertId++,
                 message : errObj.message || errObj.error || 'Unknown error',
@@ -146,7 +154,7 @@
                 $scope.loadingtraining = false;
             })
             .catch(function (err) {
-                displayAlert('errors', err.status, err.data);
+                displayAlert('errors', err.status, err.data ? err.data : err);
             });
 
 

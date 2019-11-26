@@ -61,7 +61,7 @@ async function getModels(req: auth.RequestWithProject, res: Express.Response) {
     const classid = req.params.classid;
     const projectid = req.params.projectid;
 
-    let classifiers;
+    let classifiers: any[];
     switch (req.project.type) {
     case 'text':
         classifiers = await store.getConversationWorkspaces(projectid);
@@ -180,6 +180,14 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
                             code : 'MLMOD13',
                             error : 'One of your training images is a type that cannot be used',
                             location : err.location,
+                        });
+            }
+            else if (err.message && err.message.includes(download.ERRORS.DOWNLOAD_FORBIDDEN)) {
+                return res.status(httpstatus.CONFLICT)
+                        .send({
+                            code: 'MLMOD14',
+                            error: err.message,
+                            location: err.location,
                         });
             }
             else {
@@ -337,7 +345,7 @@ async function testModel(req: Express.Request, res: Express.Response) {
             return res.status(httpstatus.BAD_REQUEST).send({ error : err.message });
         }
 
-        log.error({ err }, 'Test error');
+        log.error({ err, body : req.body }, 'Test error');
         return errors.unknownError(res, err);
     }
 }

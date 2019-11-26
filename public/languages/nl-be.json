@@ -69,6 +69,14 @@
             "BODY2": "While I've focused on explaining how AI systems are trained and behave (and the real-world implications), eCraft2Learn has fantastic resources that dive deep into how ML systems actually work.",
             "BODY3": "The <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>neural net Tic Tac Toe project</a> is particularly fascinating, allowing students to experiment with hyperparameters from Snap."
         },
+        "STEMLEARNING": {
+            "BODY1": "STEM Learning and the UK Department for Business, Energy and Industrial Strategy have created resources for teaching the principles of artificial intelligence.",
+            "BODY2": "These resources include <em>Machine Learning for Kids</em> projects, supplemented with teaching notes, presentation materials, prompt cards, and practical “unplugged” activities"
+        },
+        "RASPBERRYPI": {
+            "BODY1": "The Raspberry Pi Foundation provides resources for Code Clubs, with step-by-step instructions for a variety of creative projects.",
+            "BODY2": "Their machine learning pathway includes a variety of projects from <em>Machine Learning for Kids</em>."
+        },
         "APPSFORGOOD": {
             "BODY1": "Apps for Good are a UK-based not-for-profit that creates resources for teaching technology subjects, that they make freely available to schools.",
             "BODY2": "Their Machine Learning course uses <em>Machine Learning for Kids</em>, and supplements it with a range of additional materials like schemes of work, lesson plans, student workbooks, presentations and more. It makes it easy for schools to deliver ML lessons that put the coding exercises in context."
@@ -76,6 +84,9 @@
         "AIFAMILYCHALLENGE": {
             "BODY1": "The AI Family Challenge is a free, hands-on AI education program for families. They use <em>Machine Learning for Kids</em>, and supplement it with a lot of additional support, such as technical coaches and mentors, a structured lesson plan and supporting videos.",
             "BODY2": "The program is based around a competition that challenges children to think of their own AI project ideas, with the support of their families and technical mentors."
+        },
+        "MAGENTADEMOS": {
+            "BODY1": "Online toys that demonstrate different aspects of machine learning, using TensorFlow.js"
         },
         "AIINSCHOOLS": {
             "BODY1": "The AIinSchools programme provides a free lesson plan for teachers to explain AI to Year 9 (aged 13-14).",
@@ -531,7 +542,118 @@
             "PREVIOUSLY_ATTEMPTED": "Je hebt deze al eerder geprobeerd – laten we kijken of je dit keer het juiste antwoord weet!",
             "CORRECT_ANSWER": "Dat is juist!",
             "INCORRECT_ANSWER": "Nee, sorry. Het juiste antwoord is hierboven gegeven.",
-            "NEXT_QUESTION": "Volgende vraag"
+            "NEXT_QUESTION": "Volgende vraag",
+
+            "QUESTION_1": {
+                "QUESTION": "Waarmee help je een machine warschijnlijk het meest om beter te leren?",
+                "ANSWER_1": "Meer voorbeelden",
+                "ANSWER_2": "Minder voorbeelden",
+                "NOTES_1": "Dat is niet het enige dat effect heeft. Maar in het algemeen: hoe meer voorbeelden, hoe beter de machine leert."
+            },
+            "QUESTION_2": {
+                "QUESTION": "Waarmee kan je een computer waarschijnlijk het beste trainen om een foto van een appel te herkennen?",
+                "ANSWER_1": "Foto's van honden",
+                "ANSWER_2": "Foto's van appels op verschillende plaatsen",
+                "ANSWER_3": "Foto's van dezelfde appel op verschillende plaatsen",
+                "ANSWER_4": "Foto's van dezelfde appel vanuit verschillende standpunten",
+                "NOTES_1": "Hoe meer verschillende voorbeelden je verzameld, hoe beter het systeem ze kan leren herkennen.",
+                "NOTES_2": "Als je bijvoorbeeld steeds een appel op een bruine tafel laat zien, dan is er een kans dat het systeem leert dat iets alleen een appel is als deze op een bruine tafel ligt."
+            },
+            "QUESTION_3": {
+                "QUESTION": "Wat is een goed voorbeeld van machine learning?",
+                "ANSWER_1": "Grote getallen bij elkaar optellen",
+                "ANSWER_2": "Spam-berichten herkennen",
+                "ANSWER_3": "Tellen hoe vaak een knop is ingedrukt",
+                "NOTES_1": "Een spamfilter is een goed voorbeeld van machine learning.",
+                "NOTES_2": "Met voldoende voorbeelden van legitieme e-mails en spam-e-mails, kan een leren om spam-berichten te herkennen."
+            },
+            "QUESTION_4": {
+                "QUESTION": "Wat is GEEN goed voorbeeld van machine learning?",
+                "ANSWER_1": "Tekstanalyse - herkennen of een tekst vrolijk of droevig is",
+                "ANSWER_2": "Tekst vertalen naar een andere taal",
+                "ANSWER_3": "Gezichtsherkenning - herkennen wie er op een foto staat",
+                "ANSWER_4": "Zelfrijdende auto's",
+                "ANSWER_5": "Prijsbepaling van producten in verschillende landen op basis van financiële wisselkoersen",
+                "ANSWER_6": "Aanbeveling voor bepaalde films op basis van films die je eerder hebt bekeken",
+                "NOTES_1": "Taken die op een vooraf beschreven manier worden gedaan zijn niet echt geschit voor machine learning",
+                "NOTES_2": "De computer zal niet zelf leren hoe wisselkoersen werken, je moet de computer gewoon vertellen wat deze moet doen."
+            },
+            "QUESTION_5": {
+                "QUESTION": "Which of these would be more likely to be successful?",
+                "ANSWER_1": "Verzamel een paar voorbeelden, train een systeem, test om te zien hoe goed het is. Voeg meer voorbeelden toe, train opnieuw en test opnieuw. Herhaal dit totdat het goed genoeg is.",
+                "ANSWER_2": "Hoe meer voorbeelden, hoe beter. Begin met het verzamelen van miljoenen voorbeelden en besteed dan maanden om de computer te leren wat ieder voorbeeld is.",
+                "NOTES_1": "Meer voorbeelden zijn inderdaad beter, maar het moet ook praktisch zijn.",
+                "NOTES_2": "Door telkens te testen bepaal je of de computer genoeg heeft geleerd.",
+                "NOTES_3": "Als je maar 10 voorbeelden hebt, dan maken tien aextra voorbeelden een groot verschil.",
+                "NOTES_4": "Als je al 100.000 voorbeelden hebt, dan maken 10 extra voorbeelden waarschijnlijk weinig verschil."
+            },
+            "QUESTION_6": {
+                "QUESTION": "Welke stelling is correct?",
+                "ANSWER_1": "Machine learning is een techniek waarbij computers worden getraind om taken uit te voeren in plaats van een voorgeschreven reeks stappen te moeten volgen.",
+                "ANSWER_2": "Machine learning is magisch",
+                "ANSWER_3": "Machine learning betekent dat we niet meer hoeven na te denken, dat doet de computer voor ons.",
+                "ANSWER_4": "Dankzij machine learning hoef je niet meer te leren programmeren",
+                "ANSWER_5": "Machine learning kan alleen met hele grote krachtige supercomputers"
+            },
+            "QUESTION_7": {
+                "QUESTION": "Een machine-leersysteem dat is getraind om afbeeldingen met een boom te herkennen, moet goed zijn in het herkennen van:",
+                "ANSWER_1": "foto's met fruit",
+                "ANSWER_2": "vrolijke en droevige teksten",
+                "ANSWER_3": "foto's van bomen",
+                "NOTES_1": "Machine learning betekent niet dat computers op een magische manier van alles kunnen leren.",
+                "NOTES_2": "Het betekent dat ze leren hoe ze een specifieke taak kunnen uitvoeren door voorbeelden van die specifieke taak te zien.",
+                "NOTES_3": "Als je wilt dat de machine iets anders doet, moet je deze ook trainen om dat te doen, door daarvan voorbeelden te geven."
+            },
+            "QUESTION_8": {
+                "QUESTION": "Alice and Bob willen een computer leren om vrolijke/positieve em droevige/negatieve teksten te herkennen. Wie van hun zal waarschijnlijk het beste resultaat opleveren?",
+                "ANSWER_1": "Alice. Zij heeft 10 verschillende voorbeelden van positieve en 10 verschillende voorbeelden van negatieve teksten verzameld",
+                "ANSWER_2": "Bob. Hij heeft 1000 voorbeelden van positieve teksten en 10 voorbeelden van negatieve teksten verzameld",
+                "NOTES_1": "Het verzamelen van een ongeveer gelijk aantal voorbeelden voor elk label is een goede techniek.",
+                "NOTES_2": "Als bijna elk tekstvoorbeeld positief is, zou je uiteindelijk het systeem kunnen leren dat negatieve teksten zeer onwaarschijnlijk is, en dat teksten dus vaker positief zijn.",
+                "NOTES_3": "",
+                "NOTES_4": "Maar misschien is dit juist de bedoeling.",
+                "NOTES_5": "Als je een systeem traint om tekst te herkennen die in 98% van de gevallen positief is, kan het de moeite waard zijn om het systeem te trainen met minder voorbeelden van negatieve teksten."
+            },
+            "QUESTION_9": {
+                "QUESTION": "Geavanceerde machine learning-technologie geeft altijd juiste antwoorden. Onjuiste antwoorden betekenen dat de technologie niet erg goed is",
+                "ANSWER_1": "Waar",
+                "ANSWER_2": "Niet waar",
+                "NOTES_1": "Niet altijd.",
+                "NOTES_2": "",
+                "NOTES_3": "De technologie en algoritmes zijn belangrijk. MAAR machine learning systemen zijn net zo nauwkeurig en betrouwbaar als de training die ze hebben gehad.",
+                "NOTES_4": "Eenvoudige algoritmen en een goede training kunnen beter zijn dan de meest geavanceerde machine learning-algoritmen met weinig of slechte training."
+            },
+            "QUESTION_10": {
+                "QUESTION": "Hoe zorg je ervoor dat jouw verzameling dierenfoto's geschikt is voor het trainen van een machine zonder menselijke fouten?",
+                "ANSWER_1": "Controleer zelf alle foto's en bepaal zelf de labels.",
+                "ANSWER_2": "Vraag verschillende mensen om de foto's te labelen en houd hierbij labels aan die algemeen worden herkend.",
+                "ANSWER_3": "Ja duhh! Mensen hebben altijd gelijk - machines maken de fouten!",
+                "NOTES_1": "Zelfs mensen maken fouten en je zal niet altijd de tijd hebben om alle voorbeelden te controleren!",
+                "NOTES_2": "Als een klus lastig is, kan het een goed idee zijn om meer dan één persoon elke afbeelding te laten labelen en het label aan te houden dat door de meeste mensen wordt gekozen."
+            },
+            "QUESTION_11": {
+                "QUESTION": "Machines die getraind zijn om foto's van \"voedsel\" of \"geen voedsel\" te identificeren, geven vaak inconsistente resultaten voor sandwiches, waardoor ze onder het label \"geen voedsel\" worden ingedeeld. Hoe zou dat kunnen komen?",
+                "ANSWER_1": "De mens die het systeem heeft getraind, hield niet van sandwiches en heeft deze ook niet in de trainingsgegevens opgenomen.",
+                "ANSWER_2": "De machine moet in de juiste stemming zijn voor een sandwich.",
+                "ANSWER_3": "Sandwiches zijn geen eten. Het systeem heeft dus gelijk.",
+                "NOTES_1": "Machine learning modellen leren alleen van de voorbeelden die we ze geven.",
+                "NOTES_2": "Het is heel gemakkelijk voor mensen om per ongeluk hun voorkeuren en antipathieën in modellen voor machine learning te introduceren, dus we moeten heel voorzichtig zijn met welke trainingsgegevens we gebruiken."
+            },
+            "QUESTION_12": {
+                "QUESTION": "Wat is zelfstandig (unsupervised) learning?",
+                "ANSWER_1": "Een computer programma met heel veel als/dan opdrachten om het juiste resultaat te bepalen.",
+                "ANSWER_2": "Een machine learning algoritme dat nog niet gelabelde data gebruikt en deze classificeert op basis van een andere set data.",
+                "ANSWER_3": "Een machine learning algoritme dat gelabelde dat gebruikt en deze classificeert op basis van de training van voorbeeld data.",
+                "NOTES_1": "Zelfstandig (unsupervised) learning is een vorm van machine learning, het uitsluitend gebruiken van als/dan opdrachten is dit niet.",
+                "NOTES_2": "Zelfstandige leeralgoritmen werken nog steeds op basis van training, maar de ingevoerde gegevens zijn niet gelabeld of geclassificeerd.",
+                "NOTES_3": "Als de gegevens zijn gelabeld, noemen we dit begeleid leren."
+            },
+            "QUESTION_13": {
+                "QUESTION": "Zonder machine learning zouden zoekmachines als Google niet kunnen bestaan.",
+                "ANSWER_1": "Waar",
+                "ANSWER_2": "Niet waar",
+                "NOTES_1": "Hoewel veel moderne zoekmachines machine learning gebruiken, is het mogelijk om ook zonder machine learning een zoekmachine te maken. Een eenvoudige zoekmachine zoekt alleen naar documenten (webpagina's) met de woorden waarnaar de gebruiker zoekt."
+            }
         }
     },
     "DESCRIBEMODEL": {
@@ -565,8 +687,12 @@
     "APPINVENTOR": {
         "TITLE": "Gebruik machine learning in App Inventor",
 
+        "LAUNCH_APPINVENTOR_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>App Inventor by itself</a> if you want.)",
+
         "NOTREADY": "Je project is nog niet klaar om in App Inventor te worden gebruikt.",
-        "NOMODEL": " Je hebt nog geen machine learning model getraind."
+        "NOMODEL": " Je hebt nog geen machine learning model getraind.",
+
+        "LAUNCH": "Open App Inventor"
     },
     "SCRATCH": {
         "TITLE": "Gebruik machine learning in Scratch",
@@ -580,10 +706,14 @@
         "GO_TO_LEARNANDTEST": "Of ga naar de <a href='{{ urls.learnandtest }}'>Leer &amp; Test</a> pagina’s voor enkele tips over wat je nu moet doen.",
 
         "MORE_BLOCKS": "Je project zal deze blokken toevoegen aan de <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>Meer blokken</span> sectie in Scripts.",
+        "MORE_BLOCKS_3": "Your project will add these blocks to Scratch.",
         "EXPLAIN_RECOGNISE_LABEL": "Plaats een {{ type }} in de input van deze blok en het zal een label teruggeven hoe het machine learning model deze input herkent.",
         "EXPLAIN_RECOGNISE_CONFIDENCE": "Deze blok zal teruggeven hoe zeker het machine learning model is dat het de {{ type }} juist herkend. (een getal tussen 0 - 100).",
         "EXPLAIN_LABELS": "Deze blokken stellen de labels voor die je in je project hebt aangemaakt, zodat je hun naam kan gebruiken in je scripts.",
         "EXPLAIN_COSTUMEIMAGE": "Deze blok bevindt zich in het Uiterlijk palet voor Sprites en geeft de afbeelding van het momenteel geselecteerde kostuum terug.",
+        "EXPLAIN_ADD_TRAINING": "Use this to add a new example to your training data. (Training data has an effect after you train a machine learning model with it)",
+        "EXPLAIN_TRAIN_MODEL": "Use this to train a new machine learning model",
+        "EXPLAIN_IS_MODEL_READY": "The machine learning model will take a minute before it's ready for use. You can use these blocks to wait until it is ready.",
         "SAMPLE_SCRIPT": "Dit betekent dat je iets kan doen als dit:",
         "SAMPLE_SCREENSHOT": "Het zal er ongeveer zo uitzien, met uitzondering van de naam van het project.",
         "EXPLAIN_STATUS": "De gekleurde cirkel naast je projectnaam vertelt of het machine learning model in orde is.",
@@ -647,152 +777,303 @@
         "SMARTCLASSROOM": {
             "TITLE": "Slim Klaslokaal",
             "SUMMARY": "Leer de computer de betekenis van commando’s te herkennen",
-            "DESCRIPTION": " Creëer een slimme assistant in Scratch die virtuele apparaten kan aansturen."
+            "DESCRIPTION": " Creëer een slimme assistant in Scratch die virtuele apparaten kan aansturen.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where the students make a non-machine learning version first",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Shorter version of the project, where the students only make a machine learning version of the assistant",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-easy.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "Quick simplified version of the project, ideal for use as a first introduction to the tool",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-tryitnow.pdf"
+            }
         },
         "MAKEMEHAPPY": {
             "TITLE": "Maak me blij",
             "SUMMARY": "Leer een computer om complimenten en beledigingen te herkennen",
-            "DESCRIPTION": "Maak een personage in Scratch die lacht als je iets liefs zegt en weent wanneer je iets lelijks zegt."
+            "DESCRIPTION": "Maak een personage in Scratch die lacht als je iets liefs zegt en weent wanneer je iets lelijks zegt.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where the students make a non-machine learning version first",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Shorter version of the project, where the students only make a machine learning version",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-easy.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "Python project - for making the project using Python",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-python.pdf"
+            }
         },
         "SNAP": {
             "TITLE": "Snap!",
             "SUMMARY": "Leer een computer om pictogrammen te herkennen",
-            "DESCRIPTION": "Maak een kaartspel in Scratch en leer de computer om de kaarten te herkennen."
+            "DESCRIPTION": "Maak een kaartspel in Scratch en leer de computer om de kaarten te herkennen.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where the students make their own cards that they will train the computer to recognise",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Shorter version of the project, providing children with pre-made cards that you will need to print out, to save the students time having to make them",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap-easy.pdf",
+                "RESOURCES": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/resources-snap-easy.pdf"
+            }
         },
         "CHAMELEON": {
             "TITLE": "Kameleon",
             "SUMMARY": "Leer een computer om kleuren te herkennen",
-            "DESCRIPTION": "Maak een kameleon in Scratch die van kleur verandert op basis van de achtergrond"
+            "DESCRIPTION": "Maak een kameleon in Scratch die van kleur verandert op basis van de achtergrond",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf"
+            }
         },
         "MAILMANMAX": {
             "TITLE": "Postbode Max",
             "SUMMARY": "Leer een computer om handgeschreven tekst te herkennen",
-            "DESCRIPTION": "Maak een postsorteercentrum in Scratch dat handgeschreven postcodes op enveloppen kan herkennen."
+            "DESCRIPTION": "Maak een postsorteercentrum in Scratch dat handgeschreven postcodes op enveloppen kan herkennen.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mailmanmax.pdf"
+            }
         },
         "CARORCUP": {
             "TITLE": "Appel of peer",
             "SUMMARY": "Leer een computer om afbeeldingen van objecten te herkennen",
-            "DESCRIPTION": "Leer een computer om foto’s te verdelen in bepaalde groepen."
+            "DESCRIPTION": "Leer een computer om foto’s te verdelen in bepaalde groepen.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Individual version of the project, where each student trains their own machine learning model independently",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Group version of the project, where students in the class work together to train a shared machine learning model",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup-crowd.pdf"
+            }
         },
         "FACELOCK": {
             "TITLE": "Gezichtsslot",
             "SUMMARY": "Leer een computer gezichten herkennen",
-            "DESCRIPTION": "Maak een smartphone in Scratch die je gezicht kan herkennen om te ontgrendelen."
+            "DESCRIPTION": "Maak een smartphone in Scratch die je gezicht kan herkennen om te ontgrendelen.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facelock.pdf"
+            }
         },
         "JOURNEYTOSCHOOL": {
             "TITLE": "Weg naar school",
             "SUMMARY": "Leer een computer voorspellingen maken",
-            "DESCRIPTION": "Leer een computer te voorspellen hoe je naar school gaat gaan’s ochtends."
+            "DESCRIPTION": "Leer een computer te voorspellen hoe je naar school gaat gaan’s ochtends.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-journeytoschool.pdf"
+            }
         },
         "SHYPANDA": {
             "TITLE": "Verlegen Panda",
             "SUMMARY": "Leer een computer afbeeldingen herkennen",
-            "DESCRIPTION": "Maak een dansende panda die verlegen wordt en stopt met dansen als hij ziet dat je naar hem kijkt."
+            "DESCRIPTION": "Maak een dansende panda die verlegen wordt en stopt met dansen als hij ziet dat je naar hem kijkt.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda.pdf"
+            }
         },
         "VIRTUALPET": {
             "TITLE": "Virtueel Huisdier",
             "SUMMARY": "Leer een computer afbeeldingen herkennen",
-            "DESCRIPTION": "Leer een computer om te herkennen wat je aan het doen bent zodat je kan zorgen voor een virtueel huisdier."
+            "DESCRIPTION": "Leer een computer om te herkennen wat je aan het doen bent zodat je kan zorgen voor een virtueel huisdier.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-virtualpet.pdf"
+            }
         },
         "PACMAN": {
             "TITLE": "Pac-Man",
             "SUMMARY": "Leer een computer een spel spelen",
-            "DESCRIPTION": "Maak een Pac-Man spel in Scratch en zorgt dat de computer leert om de geesten te vermijden."
+            "DESCRIPTION": "Maak een Pac-Man spel in Scratch en zorgt dat de computer leert om de geesten te vermijden.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pacman.pdf"
+            }
         },
         "CHATBOTS": {
             "TITLE": "Chatbots",
             "SUMMARY": "Leer een computer vragen herkennen",
-            "DESCRIPTION": "Maak een chatbot die vragen kan herkennen over een onderwerp naar keuze."
+            "DESCRIPTION": "Maak een chatbot die vragen kan herkennen over een onderwerp naar keuze.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Scratch project - for making a chat bot in Scratch",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Python project - for making a chat bot using Python",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots-python.pdf"
+            }
         },
         "TOURISTINFO": {
             "TITLE": "Info voor toeristen",
             "SUMMARY": "Leer een computer aanbevelingen maken",
-            "DESCRIPTION": "Maak een mobiele app in Scratch die toeristenattracties aanraadt op basis van persoonlijke interesses."
+            "DESCRIPTION": "Maak een mobiele app in Scratch die toeristenattracties aanraadt op basis van persoonlijke interesses.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-touristinfo.pdf"
+            }
         },
         "SORTINGHAT": {
             "TITLE": "Sorteerhoed",
             "SUMMARY": "Leer een computer taalgebruik herkennen",
-            "DESCRIPTION": "Maak een sorteerhoed zoals in Harry Potter, die je in een afdeling van de school plaatst afhankelijk van wat je zegt."
+            "DESCRIPTION": "Maak een sorteerhoed zoals in Harry Potter, die je in een afdeling van de school plaatst afhankelijk van wat je zegt.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Individual version of the project, where each student trains their own machine learning model independently",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Group version of the project, where students in the class work together to train a shared machine learning model",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat-crowd.pdf"
+            }
         },
         "ROCKPAPERSCISSORS": {
             "TITLE": "Blad, steen, schaar",
             "SUMMARY": "Leer een computer vormen herkennen",
-            "DESCRIPTION": "Maak een blad, steen, schaar spel in Scratch dat leert om handbewegingen te herkennen."
+            "DESCRIPTION": "Maak een blad, steen, schaar spel in Scratch dat leert om handbewegingen te herkennen.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-rockpaperscissors.pdf"
+            }
         },
         "JUDGEABOOK": {
             "TITLE": "Beoordeel een boek",
             "SUMMARY": "Leer een computer een visuele stijl te herkennen",
-            "DESCRIPTION": "Maak een spel in Scratch om te testen of het mogelijk is om een boek te beoordelen op basis van zijn kaft."
+            "DESCRIPTION": "Maak een spel in Scratch om te testen of het mogelijk is om een boek te beoordelen op basis van zijn kaft.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where children make a game to compete against the computer to recognise books",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Simplified version of the project, where children get the computer to recognise books",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf"
+            }
         },
         "LOCATELARRY": {
             "TITLE": "Waar is Wally",
             "SUMMARY": "Leer een computer om iets te vinden in een afbeelding",
-            "DESCRIPTION": "Maak een \"Waar is Wally?\"-achtig spel in Scratch, en leer de computer om een karakter te herkennen."
+            "DESCRIPTION": "Maak een \"Waar is Wally?\"-achtig spel in Scratch, en leer de computer om een karakter te herkennen.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf"
+            }
         },
         "CONFUSED": {
             "TITLE": "Verward",
             "SUMMARY": "Leer een computer fruit te herkennen",
-            "DESCRIPTION": "Leer hoe computers verward kunnen zijn wanneer ze niet goed worden getraind."
+            "DESCRIPTION": "Leer hoe computers verward kunnen zijn wanneer ze niet goed worden getraind.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-confused.pdf"
+            }
         },
         "SCHOOLLIBRARY": {
             "TITLE": "Schoolbibliotheek",
             "SUMMARY": "Leer een computer aanbevelingen maken",
-            "DESCRIPTION": "Maak een schoolbibliothecaris in Scratch die aanraadt welk boek je moet lezen."
+            "DESCRIPTION": "Maak een schoolbibliothecaris in Scratch die aanraadt welk boek je moet lezen.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf"
+            }
         },
         "WHATTWITTERTHINKS": {
             "TITLE": "Wat denkt Twitter?",
             "SUMMARY": "Leer een computer de publieke opinie herkennen",
-            "DESCRIPTION": "Maak een gevoelensanalyse tool in Scratch om discussies op Twitter te analyseren"
+            "DESCRIPTION": "Maak een gevoelensanalyse tool in Scratch om discussies op Twitter te analyseren",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
+            }
         },
         "NOUGHTSANDCROSSES": {
             "TITLE": "OXO",
             "SUMMARY": "Leer een computer een spel spelen",
-            "DESCRIPTION": "Maak een OXO-spel in Scratch dat leert om je te verslaan."
+            "DESCRIPTION": "Maak een OXO-spel in Scratch dat leert om je te verslaan.",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Classroom version, where each student makes the game themselves in Scratch",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Classroom version, where each student makes the game themselves in Python",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-python.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "Demo version, for events like Science Fairs where each child has a minute or two to try something",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-event.pdf"
+            }
         },
         "TOPTRUMPS": {
             "TITLE": "Top Trumps",
             "SUMMARY": "Leer een computer een spel spelen",
-            "DESCRIPTION": "Train een computer om een Top Trumps kaartspel te spelen in Scratch."
+            "DESCRIPTION": "Train een computer om een Top Trumps kaartspel te spelen in Scratch.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-toptrumps.pdf"
+            }
         },
         "HEADLINES": {
             "TITLE": "Titels",
             "SUMMARY": "Leer een computer taalgebruik herkennen",
-            "DESCRIPTION": "Train een computer om titels van nieuwsberichten te herkennen."
+            "DESCRIPTION": "Train een computer om titels van nieuwsberichten te herkennen.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
+            }
         },
         "NEWSPAPERSHELVES": {
             "TITLE": "Newspaper shelves",
             "SUMMARY": "Test the computer's ability to recognise use of language",
-            "DESCRIPTION": "Train a computer to recognise headlines from national newspapers."
+            "DESCRIPTION": "Train a computer to recognise headlines from national newspapers.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-easy.pdf"
+            }
         },
         "HEADLINETESTING": {
             "TITLE": "Headline testing",
             "SUMMARY": "Test the computer's ability to recognise use of language",
-            "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is"
+            "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
+            }
         },
         "FINDIT": {
             "TITLE": "Zoek het!",
             "SUMMARY": "Leer een computer afbeeldingen herkennen",
-            "DESCRIPTION": "Maak een verstoppertjes spel voor je smartphone"
+            "DESCRIPTION": "Maak een verstoppertjes spel voor je smartphone",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-findit.pdf"
+            }
         },
         "ALIENLANGUAGE": {
             "TITLE": "Alien Language",
             "SUMMARY": "Teach a computer to recognize sounds",
-            "DESCRIPTION": "Make an alien in Scratch that learns to recognize an alien language"
+            "DESCRIPTION": "Make an alien in Scratch that learns to recognize an alien language",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-alienlanguage.pdf"
+            }
         },
         "SECRETCODE": {
             "TITLE": "Secret Code",
             "SUMMARY": "Teach a computer to recognize speech",
-            "DESCRIPTION": "Train a computer to understand secret code words to guide a spy."
+            "DESCRIPTION": "Train a computer to understand secret code words to guide a spy.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-secretcode.pdf"
+            }
         },
         "JARGONBUSTER": {
             "TITLE": "Jargon Buster",
             "SUMMARY": "Teach a computer to listen for words",
-            "DESCRIPTION": "Make a project in Scratch that displays the meaning of words you say."
+            "DESCRIPTION": "Make a project in Scratch that displays the meaning of words you say.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-jargonbuster.pdf"
+            }
         },
         "TITANIC": {
             "TITLE": "Titanic",
             "SUMMARY": "Teach a computer to predict outcomes",
-            "DESCRIPTION": "Create a Python program that can predict who survived the sinking of the Titanic."
+            "DESCRIPTION": "Create a Python program that can predict who survived the sinking of the Titanic.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
+            }
+        },
+        "ZOMBIEESCAPE": {
+            "TITLE": "Zombie Escape!",
+            "SUMMARY": "Teach a computer to make predictions",
+            "DESCRIPTION": "Train a computer to help you escape from the zombies",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -990,7 +1271,7 @@
         }
     },
     "HELP": {
-        "CONTACT": "Als je een probleem of vraag hebt, mail naar Dale.Lane@uk.ibm.com",
+        "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
         "GETTINGSTARTED": {
             "TITLE": "Klaar om te beginnen?",
             "INTRO": "Download een PDF met een korte ‘Aan de slag’ gids:",
@@ -1003,7 +1284,7 @@
             "TITLE": "Wil je meer weten?",
             "INTRO1": "Werkt er iets niet?",
             "INTRO2": "De lijst hieronder bevat de vragen en problemen die ik het meest hoorde. Als je iets ziet dat lijkt op je probleem, klik dan op de samenvatting voor meer info.",
-            "INTRO3": "Als je nog steeds vast zit of je hebt een probleem dat niet voorkomt in de lijst, sorry! Stuur dan een <a href='mailto:dale.lane@uk.ibm.com'>e-mail</a> of <a href='https://github.com/IBM/taxinomitis/issues'>maak een probleem rapport</a> aan zodat ik je kan verder helpen."
+            "INTRO3": "Als je nog steeds vast zit of je hebt een probleem dat niet voorkomt in de lijst, sorry! Please <a href='https://groups.google.com/d/forum/mlforkids'>ask a question in the mlforkids Google Group</a> so that I can help."
         },
 
         "SCRATCH": {
@@ -1037,7 +1318,7 @@
             "TITLE": "Training interface problemen",
 
             "Q1": "Het slepen van afbeeldingen naar de training emmers (voor afbeeldingprojecten) werkt niet",
-            "Q1-A-1": "Slepen van afbeeldingen naar de training emmers werkt niet wanneer je Safari of Internet Explorer gebruikt.",
+            "Q1-A-1": "Slepen van afbeeldingen naar de training emmers werkt niet wanneer je Internet Explorer gebruikt.",
             "Q1-A-2": "Sorry hiervoor. Als je een andere browser zoals Firefox of Chrome kan gebruiken, doe dit dan. Anders klik je op de \"www\" knop in de plaats en plak je hier de URL van de trainingsafbeeldingen."
         },
 
@@ -1132,7 +1413,7 @@
             "Q2-A-1": "Je moet je e-mailadres verifiëren alvorens je kan inloggen.",
             "Q2-A-2": "Als je een klasaccount hebt aangemaakt, wordt er een e-mail verzonden naar het e-mailadres dat je hebt opgegeven met een hyperlink. Als je op deze link klikt, wordt je e-mailadres geverifieerd en wordt je klasaccount geactiveerd. Vanaf nu kan je inloggen.",
             "Q2-A-3": "Als je de verificatiemail niet ziet, kijk dan ook even in je spamfolder.",
-            "Q2-A-4": "Als je hem nog steeds niet kan vinden, <a href='mailto:dale.lane@uk.ibm.com'>laat het me weten</a> dan probeer ik te helpen.",
+            "Q2-A-4": "Als je hem nog steeds niet kan vinden, <a href='https://groups.google.com/d/forum/mlforkids'>laat het me weten</a> dan probeer ik te helpen.",
 
             "Q3": "Verwijder accounts",
             "Q3-A-1": "Studenten accounts",
@@ -1157,9 +1438,9 @@
 
             "Q5": "What happens to training data created by students?",
             "Q5-A-1": "A step in all machine learning projects that students make using this site is to create or collect training examples. For text projects, this can mean typing in short text passages. For image projects, this can means drawing pictures onto an on-screen canvas or taking photos using the webcam. For numbers projects, this means typing in sets of numbers",
-            "Q5-A-2": "All of these training examples are stored in a <a href='https://www.ibm.com/cloud/compose/mysql'>MySQL database hosted on IBM Cloud</a>. As the database administrator, I have access to all of these training examples for all student projects, however I do not use it for any other purposes other than enabling students to access and work on their own projects. I do not publish the training data (either publicly or to individuals or third parties) or otherwise share it, with the two exceptions of submitting it to IBM Watson APIs described below.",
-            "Q5-A-3": "Machine learning models for text projects are created using the <a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a> cloud service, which means when students train a model, a copy of the training examples that they have entered will be <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>submitted to IBM Watson</a>. IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
-            "Q5-A-4": "Machine learning models for images projects are created using the <a href='https://www.ibm.com/watson/services/visual-recognition/'>IBM Visual Recognition</a> cloud service, which means when students train a model, a copy of their training images will be <a href='https://cloud.ibm.com/apidocs/visual-recognition#create-a-classifier'>uploaded to IBM Watson</a>. IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/visual-recognition#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
+            "Q5-A-2": "All of these training examples are stored in a <a href='https://www.ibm.com/cloud/compose/mysql'>MySQL database hosted on IBM Cloud</a>, in Dallas in the United States. As the database administrator, I have access to all of these training examples for all student projects, however I do not use it for any other purposes other than enabling students to access and work on their own projects. I do not publish the training data (either publicly or to individuals or third parties) or otherwise share it, with the two exceptions of submitting it to IBM Watson APIs described below.",
+            "Q5-A-3": "Machine learning models for text projects are created using the <a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a> cloud service, which means when students train a model, a copy of the training examples that they have entered will be <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>submitted to IBM Watson</a>. (The location of this cloud service is something that teachers choose when <a href='https://machinelearningforkids.co.uk/apikeys-guide'>creating API keys</a>.) IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
+            "Q5-A-4": "Machine learning models for images projects are created using the <a href='https://www.ibm.com/watson/services/visual-recognition/'>IBM Visual Recognition</a> cloud service, which means when students train a model, a copy of their training images will be <a href='https://cloud.ibm.com/apidocs/visual-recognition#create-a-classifier'>uploaded to IBM Watson</a>. (The location of this cloud service is something that teachers choose when <a href='https://machinelearningforkids.co.uk/apikeys-guide'>creating API keys</a>.) IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/visual-recognition#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
             "Q5-A-5": "IBM Watson provides some <a href='https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security-gdpr-wa'>general guidance for sharing training data with their services</a>, which also apply to training data created and collected in Machine Learning for Kids. Specifically, students should be advised not to include personally identifiable information in the examples that they collect."
         }
     },

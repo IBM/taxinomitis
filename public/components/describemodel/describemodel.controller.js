@@ -131,7 +131,7 @@
         //-------------------------------------------------------------------------------
 
         // parse the description of the test that graphviz puts into each node in the tree
-        var SEGMENT_REGEX = /^(.*) ([<=]{1,2}) ([0-9.]+)$/;
+        var SEGMENT_REGEX = /^(.*) ([<=]{1,2}) (-?[0-9.]+)$/;
         function getTestInfo(test) {
             var segmentChunks = SEGMENT_REGEX.exec(test);
             if (segmentChunks) {

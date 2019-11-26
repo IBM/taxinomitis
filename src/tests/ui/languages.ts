@@ -15,11 +15,17 @@ describe('UI - NLS', () => {
     let se: any;
     let tr: any;
     let cn: any;
+    let tw: any;
     let si: any;
     let nl: any;
     let ja: any;
     let el: any;
     let cs: any;
+    let ar: any;
+    let hr: any;
+    let pl: any;
+    let ru: any;
+
 
     before(() => {
         en = JSON.parse(fs.readFileSync('./public/languages/en.json', 'utf8'));
@@ -32,11 +38,16 @@ describe('UI - NLS', () => {
         se = JSON.parse(fs.readFileSync('./public/languages/sv-se.json', 'utf8'));
         tr = JSON.parse(fs.readFileSync('./public/languages/tr.json', 'utf8'));
         cn = JSON.parse(fs.readFileSync('./public/languages/zh-cn.json', 'utf8'));
+        tw = JSON.parse(fs.readFileSync('./public/languages/zh-tw.json', 'utf8'));
         si = JSON.parse(fs.readFileSync('./public/languages/si-lk.json', 'utf8'));
         nl = JSON.parse(fs.readFileSync('./public/languages/nl-be.json', 'utf8'));
         ja = JSON.parse(fs.readFileSync('./public/languages/ja.json', 'utf8'));
         el = JSON.parse(fs.readFileSync('./public/languages/el.json', 'utf8'));
         cs = JSON.parse(fs.readFileSync('./public/languages/cs.json', 'utf8'));
+        ar = JSON.parse(fs.readFileSync('./public/languages/ar.json', 'utf8'));
+        hr = JSON.parse(fs.readFileSync('./public/languages/hr.json', 'utf8'));
+        pl = JSON.parse(fs.readFileSync('./public/languages/pl.json', 'utf8'));
+        ru = JSON.parse(fs.readFileSync('./public/languages/ru.json', 'utf8'));
     });
 
 
@@ -81,8 +92,11 @@ describe('UI - NLS', () => {
     it('Turkish', () => {
         compareKeys(en, tr, 'tr');
     });
-    it('Chinese', () => {
+    it('Chinese (simplified)', () => {
         compareKeys(en, cn, 'cn');
+    });
+    it('Chinese (traditional)', () => {
+        compareKeys(en, tw, 'tw');
     });
     it('Sinhalese', () => {
         compareKeys(en, si, 'si');
@@ -99,4 +113,18 @@ describe('UI - NLS', () => {
     it('Czech', () => {
         compareKeys(en, cs, 'cs');
     });
+
+    it('Arabic', () => {
+        compareKeys(en, ar, 'ar');
+    });
+    it('Croatian', () => {
+        compareKeys(en, hr, 'hr');
+    });
+    it('Polish', () => {
+        compareKeys(en, pl, 'pl');
+    });
+    it('Russian', () => {
+        compareKeys(en, ru, 'ru');
+    });
+
 });

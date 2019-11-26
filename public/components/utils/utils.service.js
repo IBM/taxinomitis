@@ -31,10 +31,17 @@
             });
         }
 
+        function isInternetExplorer() {
+            var userAgent = navigator.userAgent;
+            return userAgent &&
+                   (userAgent.indexOf('MSIE') >= 0 || userAgent.indexOf('Trident') >= 0);
+        }
+
 
 
         return {
-            loadScript : loadScript
+            loadScript : loadScript,
+            isInternetExplorer : isInternetExplorer
         };
     }
 

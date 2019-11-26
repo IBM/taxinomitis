@@ -62,43 +62,54 @@
         }
     },
     "LINKS": {
-        "TITLE": "Educational AI resources for children",
-        "INTRO": "This page is a list of further tools and resources for explaining artificial intelligence to children.",
+        "TITLE": "子供向けAI教育リソース",
+        "INTRO": "子供にAIについて説明するのに役立つツールやリソースをリストしています。",
         "ECRAFT2LEARN": {
-            "BODY1": "<a href='http://users.ox.ac.uk/~oucs0030/' target='_blank'>Ken Kahn</a> has created resources to allow beginners to create AI programs in Snap! (a visual programming environment similar to Scratch).",
-            "BODY2": "While I've focused on explaining how AI systems are trained and behave (and the real-world implications), eCraft2Learn has fantastic resources that dive deep into how ML systems actually work.",
-            "BODY3": "The <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>neural net Tic Tac Toe project</a> is particularly fascinating, allowing students to experiment with hyperparameters from Snap."
+            "BODY1": "<a href='http://users.ox.ac.uk/~oucs0030/' target='_blank'>Ken Kahn</a> は、Snap!(Scratchと似たビジュアルプログラミング環境）を使って初心者がAIプログラムを作成するためのリソースを作成しました。",
+            "BODY2": "私がAIシステムがどのようにトレーニングされ、（実世界に関連して）動作するかにフォーカスしたのに対し、eCraft2Learn は、機械学習システムがどのように機能しているのか深く追求した素晴らしいリソースです。",
+            "BODY3": "<a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>ニューラルネット Tic Tac Toe プロジェクト</a> は、生徒にSnap!からハイパーパラメタについて経験できるようにしてあり、特別に素晴らしいです。 "
+        },
+        "STEMLEARNING": {
+            "BODY1": "STEM Learning and the UK Department for Business, Energy and Industrial Strategy have created resources for teaching the principles of artificial intelligence.",
+            "BODY2": "These resources include <em>Machine Learning for Kids</em> projects, supplemented with teaching notes, presentation materials, prompt cards, and practical “unplugged” activities"
+        },
+        "RASPBERRYPI": {
+            "BODY1": "The Raspberry Pi Foundation provides resources for Code Clubs, with step-by-step instructions for a variety of creative projects.",
+            "BODY2": "Their machine learning pathway includes a variety of projects from <em>Machine Learning for Kids</em>."
         },
         "APPSFORGOOD": {
-            "BODY1": "Apps for Good are a UK-based not-for-profit that creates resources for teaching technology subjects, that they make freely available to schools.",
-            "BODY2": "Their Machine Learning course uses <em>Machine Learning for Kids</em>, and supplements it with a range of additional materials like schemes of work, lesson plans, student workbooks, presentations and more. It makes it easy for schools to deliver ML lessons that put the coding exercises in context."
+            "BODY1": "イギリスベースの非営利団体 Apps for Good はテクノロジーについて教えるリソース（学校向けには無償）を作成しています。",
+            "BODY2": "かれらの機械学習コースは<em>Machine Learning for Kids</em>を利用しており, レッスンプラン、スキーム、ワークブック、プレゼンテーション等の補完的な教材を提供しており、学校が機械学習に関するレッスンとコーディングを全体の中で捉えやすくしています。"
         },
         "AIFAMILYCHALLENGE": {
-            "BODY1": "The AI Family Challenge is a free, hands-on AI education program for families. They use <em>Machine Learning for Kids</em>, and supplement it with a lot of additional support, such as technical coaches and mentors, a structured lesson plan and supporting videos.",
-            "BODY2": "The program is based around a competition that challenges children to think of their own AI project ideas, with the support of their families and technical mentors."
+            "BODY1": "AI Family Challenge は無償の実プロジェクトを通した家族向けのAIプログラムです。 彼らは <em>Machine Learning for Kids</em> を利用しており、技術コーチ、メンター、構造化したレッスンプラン、サポートビデオ等で補完しています。",
+            "BODY2": "そのプログラムは、家族や技術メンターの支援を得て、子供たちが彼ら独自のAIプロジェクトのアイデアを作る競争を中心につくられています。"
+        },
+        "MAGENTADEMOS": {
+            "BODY1": "Online toys that demonstrate different aspects of machine learning, using TensorFlow.js"
         },
         "AIINSCHOOLS": {
-            "BODY1": "The AIinSchools programme provides a free lesson plan for teachers to explain AI to Year 9 (aged 13-14).",
-            "BODY2": "It includes both unplugged classroom activities, and programming activities for training neural networks on GPUs running on AWS."
+            "BODY1": "AIinSchools のプログラムは、第9学年(13歳から14歳）向けにAIを教えるレッスンプランを提供しています。",
+            "BODY2": "Internetを使わないアクティビティとAWS上のGPUを使ってニューラルネットワークをトレーニングするためのプログラミングの両方を含んでいます。"
         },
         "TEENSINAI": {
-            "BODY1": "Teens in AI use a combination of hackathons, accelerators and bootcamps to support young people aged 12-18 to explore AI."
+            "BODY1": "Teens in AI は、ハッカソン、ブートキャンプ、アクセラレータの組み合わで12から18歳の若者がAIを探求するのを支援しています。"
         },
         "AI4ALL": {
-            "BODY1": "AI4ALL run summer camps for high school students in the US that give a detailed technical introduction to AI."
+            "BODY1": "AI4ALL は、高校生向けに米国でAIに関する技術的な詳細を学ぶサマーキャンプを提供しています。"
         },
         "CALYPSO": {
-            "BODY1": "Students with programmable Cozmo robots can use the Calypso programming framework to get a hands-on way to experience AI by experimenting with techniques like computer vision and speech recognition."
+            "BODY1": "プログラム可能な Cozmo ロボットを持っている生徒は、Calypso プログラミング フレームワークを用いて、画像認識や音声認識をつかったAIの経験を実地にすることが可能です。"
         },
         "AIINABOX": {
-            "BODY1": "AI-in-a-Box is a bundle of robots, accessories and teaching resources. The kit can be used to teach projects that cover topics like visual recognition, facial recognition, speech generation and speech recognition."
+            "BODY1": "AI-in-a-Box は、ロボット、アクセサリーと教育用リソースの組み合わせです。そのキットは、画像認識、顔認識、音声認識、音声生成といったトピックに関するプロジェクトを教えるのに使うことができます。 "
         },
         "GOOGLEEXPERIMENTS": {
             "BODY1": "Simple online experiments to start exploring machine learning, through pictures, drawings, language, and music."
         },
         "VIDEOS": {
-            "TITLE": "Videos",
-            "INTRO": "I've also found these videos useful when introducing AI concepts:"
+            "TITLE": "ビデオ",
+            "INTRO": "これらのビデオはAIを教えるのに有効だと思います:"
         }
     },
     "ERRORS": {
@@ -531,7 +542,118 @@
             "PREVIOUSLY_ATTEMPTED": "一つ前にみていますね。 - 正しい答えがなにだったか思い出せるか見てみましょう。",
             "CORRECT_ANSWER": "その通り！",
             "INCORRECT_ANSWER": "いいえ。正しい答えは上ｎ通りです。",
-            "NEXT_QUESTION": "次の質問"
+            "NEXT_QUESTION": "次の質問",
+
+            "QUESTION_1": {
+                "QUESTION": "In general, what will help machines to learn better?",
+                "ANSWER_1": "More examples",
+                "ANSWER_2": "Fewer examples",
+                "NOTES_1": "That isn't the only thing that has an effect. But in general, the more examples it has to learn from, the better it should learn."
+            },
+            "QUESTION_2": {
+                "QUESTION": "Which of these would probably be best for training a computer to recognise a photo of an apple?",
+                "ANSWER_1": "Photos of dogs",
+                "ANSWER_2": "Varied photos of different types of apples in different places",
+                "ANSWER_3": "Identical photos of an apple",
+                "ANSWER_4": "Very, very similar photos of the same apple in the same place",
+                "NOTES_1": "The more varied the examples you can collect, the more the system can learn about how to recognise different pictures of an apple.",
+                "NOTES_2": "If every example you give it is the same apple on the same brown wooden table, it might learn that something is only an apple if it's on a brown wooden table."
+            },
+            "QUESTION_3": {
+                "QUESTION": "Which of these would be a good use of machine learning?",
+                "ANSWER_1": "Adding big numbers together",
+                "ANSWER_2": "Recognising if an email is spam",
+                "ANSWER_3": "Counting the number of times a button is pressed",
+                "NOTES_1": "Spam filters are a good example of machine learning.",
+                "NOTES_2": "With enough examples of legitimate emails, and enough examples of spam emails, a computer can start to learn how to recognise a spam email."
+            },
+            "QUESTION_4": {
+                "QUESTION": "Which of these is NOT a good use of machine learning?",
+                "ANSWER_1": "Sentiment analysis - recognising the mood, tone or emotion in text",
+                "ANSWER_2": "Translating text from one language to another",
+                "ANSWER_3": "Face recognition - recognising a face in a photo and identifying who it is",
+                "ANSWER_4": "Self-driving cars",
+                "ANSWER_5": "Calculating the cost of something in different countries based on exchange rates",
+                "ANSWER_6": "Recommending a movie based on films you've watched before",
+                "NOTES_1": "Tasks that involve following rules which can be worked out are not a good use for machine learning.",
+                "NOTES_2": "A computer isn't going to learn how to apply an exchange rate from examples - we can just tell it what to do."
+            },
+            "QUESTION_5": {
+                "QUESTION": "Which of these would be more likely to be successful?",
+                "ANSWER_1": "Collect a small set of examples, train a system, test to see how good it is. Add more examples, train again, and then test again. Repeat until it gets good enough.",
+                "ANSWER_2": "More examples is better, so decide you must need millions of examples. Start collecting a massive set of examples, and spend months collecting more and more and more.",
+                "NOTES_1": "More examples is generally better, but be practical.",
+                "NOTES_2": "Pragmatism is important. Regular testing is useful to let you know how things are going, and help you know when you've done enough.",
+                "NOTES_3": "When you've only got ten examples, another ten examples will probably make a huge difference.",
+                "NOTES_4": "When you've got 100,000 examples, another ten examples probably won't have a noticeable impact."
+            },
+            "QUESTION_6": {
+                "QUESTION": "Which of these statements is correct?",
+                "ANSWER_1": "Machine learning is a technique where computers can be trained to perform tasks instead of needing to be given an explicit set of steps to follow",
+                "ANSWER_2": "Machine learning is magic",
+                "ANSWER_3": "Machine learning means we don't need to think about problems any more because computers will think for us",
+                "ANSWER_4": "Machine learning has replaced the need for us to learn how to code",
+                "ANSWER_5": "Machine learning can only be done on massive supercomputers"
+            },
+            "QUESTION_7": {
+                "QUESTION": "A machine learning system trained to recognise pictures with a tree in should be good at which of the following tasks:",
+                "ANSWER_1": "Identifying pictures of fruit",
+                "ANSWER_2": "Recognising the emotion in a piece of writing",
+                "ANSWER_3": "Recognising pictures of trees",
+                "NOTES_1": "Machine learning does not mean computers magically learn to do everything.",
+                "NOTES_2": "It means they learn how to do a specific task by being shown examples of that specific task.",
+                "NOTES_3": "If you want it to do something else, you need to train it to do that as well, by giving it examples of that."
+            },
+            "QUESTION_8": {
+                "QUESTION": "Alice and Bob both want to train a machine learning system to recognise if text is happy/positive or sad/negative. Which of them will probably train the best system?",
+                "ANSWER_1": "Alice. She has collected 10 varied examples of happy text, and 10 varied examples of sad text",
+                "ANSWER_2": "Bob. He has collected 1000 examples of happy writing and 10 examples of sad writing",
+                "NOTES_1": "Collecting a roughly similar number of examples for each label is a useful technique.",
+                "NOTES_2": "If nearly every example of writing you train a system with is happy, you might end up training the system to assume that sad writing is very unlikely, and that it should assume happy more often.",
+                "NOTES_3": "",
+                "NOTES_4": "But, you might want it to do this.",
+                "NOTES_5": "If you're training a system to recognise text where text is happy 98% of the time, training it with that realistic experience might be worth a try."
+            },
+            "QUESTION_9": {
+                "QUESTION": "Advanced machine learning technology will always give correct answers. Incorrect answers mean the machine learning technology isn't very good",
+                "ANSWER_1": "True",
+                "ANSWER_2": "False",
+                "NOTES_1": "Not necessarily.",
+                "NOTES_2": "",
+                "NOTES_3": "The technology and algorithms are important. BUT machine learning systems are only as accurate and reliable as the training they are given.",
+                "NOTES_4": "Simple machine learning algorithms with a lot of high quality training can do better than the most advanced machine learning algorithms with a small amount of poor quality training."
+            },
+            "QUESTION_10": {
+                "QUESTION": "How can you make sure your collection of animal pictures is good quality for training a machine and doesn't contain human mistakes?",
+                "ANSWER_1": "Manually inspect all of the pictures of animals yourself and make sure you agree with all of the labels",
+                "ANSWER_2": "Ask lots of people to label all the images and keep the training labels that people generally agree on",
+                "ANSWER_3": "Trick question! Humans are always right - machines make mistakes!",
+                "NOTES_1": "Even humans make mistakes and you won't always have time to double check all the training data!",
+                "NOTES_2": "If the task is tricky it can be a good idea to get more than one person to label each image and keep the label that the most humans agree is the right one."
+            },
+            "QUESTION_11": {
+                "QUESTION": "A machine trained to identify pictures of \"food\" or \"not food\" gives inconsistent results for sandwiches, often putting them in the \"not food\" class. Which of the following could explain that?",
+                "ANSWER_1": "The human who trained the system doesn't like sandwiches and didn't put any in the training data",
+                "ANSWER_2": "The machine has to be in the right mood for a sandwich so it changes its mind a lot",
+                "ANSWER_3": "Sandwiches are not food. The system is right to be unsure",
+                "NOTES_1": "Machine learning models can only learn from the examples we show them.",
+                "NOTES_2": "It is very easy for humans to accidentally introduce their likes and dislikes into machine learning models so we should be very careful about what training data we use."
+            },
+            "QUESTION_12": {
+                "QUESTION": "Which of the following best describes unsupervised learning?",
+                "ANSWER_1": "Writing a program that contains lots of if/else statements to determine the result",
+                "ANSWER_2": "A machine learning algorithm that uses unlabelled data and classifies it based on how similar one dataset is to another",
+                "ANSWER_3": "A machine learning algorithm that uses labelled data and classifies it based on training from example input-output pairs",
+                "NOTES_1": "Unsupervised learning is a type of machine learning, whereas only using if/else statements is not.",
+                "NOTES_2": "Unsupervised learning algorithms are still trained, but the inputs that are given to it are not labelled or classified.",
+                "NOTES_3": "If the data is labelled then this is what's known as supervised learning."
+            },
+            "QUESTION_13": {
+                "QUESTION": "Without machine learning, it would be impossible for search engines such as Google to exist.",
+                "ANSWER_1": "True",
+                "ANSWER_2": "False",
+                "NOTES_1": "Whilst many modern search engines do use machine learning, it is possible to create one without it. A basic search engine will just look for documents (web pages) that include the words the user searches for."
+            }
         }
     },
     "DESCRIBEMODEL": {
@@ -565,8 +687,12 @@
     "APPINVENTOR": {
         "TITLE": "App Inventorで機械学習を使う",
 
+        "LAUNCH_APPINVENTOR_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>App Inventor by itself</a> if you want.)",
+
         "NOTREADY": "あなたのプレジェクトはまだ、App Inventorで使う準備ができていません。",
-        "NOMODEL": "まだ、機械学習モデルをトレーニングしていません。"
+        "NOMODEL": "まだ、機械学習モデルをトレーニングしていません。",
+
+        "LAUNCH": "Open App Inventor"
     },
     "SCRATCH": {
         "TITLE": "Scratchで機械学習を使う",
@@ -580,10 +706,14 @@
         "GO_TO_LEARNANDTEST": "又は、<a href='{{ urls.learnandtest }}'>学習とテスト</a> のページに行って次に何をするのかのアイデアを得るのはどうでしょうか。",
 
         "MORE_BLOCKS": "あなたのプロジェクトのスクリプトの<span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> タブにこれらのブロックが追加されます。",
+        "MORE_BLOCKS_3": "Your project will add these blocks to Scratch.",
         "EXPLAIN_RECOGNISE_LABEL": "{{ type }} を入力してください。機械学習モデルが認識したラベルを返します。",
         "EXPLAIN_RECOGNISE_CONFIDENCE": "機械学習モデルが 認識した{{ type }}のタイプにどの程度確信をもっているかも(0から100の数字で）返します。",
         "EXPLAIN_LABELS": "これらのブロックは、あなたがプロジェクトの中で作成したラベルをあなたがスクリプトの中で使えるように示します。",
         "EXPLAIN_COSTUMEIMAGE": "このブロックは、スクリプトのための「見た目」パレットに入っており、現在選択されているコスチュームの画像を返します。",
+        "EXPLAIN_ADD_TRAINING": "Use this to add a new example to your training data. (Training data has an effect after you train a machine learning model with it)",
+        "EXPLAIN_TRAIN_MODEL": "Use this to train a new machine learning model",
+        "EXPLAIN_IS_MODEL_READY": "The machine learning model will take a minute before it's ready for use. You can use these blocks to wait until it is ready.",
         "SAMPLE_SCRIPT": "ということは、こんなことができます:",
         "SAMPLE_SCREENSHOT": "あなたのプロジェクトの名前以外は、こんな風にみえます。",
         "EXPLAIN_STATUS": "あなたのプロジェクト名のとなりの色付きの円が、あなたの機械学習モデルが正常だと示しています。",
@@ -647,152 +777,303 @@
         "SMARTCLASSROOM": {
             "TITLE": "スマート クラスルーム",
             "SUMMARY": "あなたの指示が分かるようにコンピュータに教えよう。",
-            "DESCRIPTION": "あなたが画面上の機器を制御できるように賢いアシスタントを Scratchで作ります。"
+            "DESCRIPTION": "あなたが画面上の機器を制御できるように賢いアシスタントを Scratchで作ります。",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where the students make a non-machine learning version first",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Shorter version of the project, where the students only make a machine learning version of the assistant",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-easy.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "Quick simplified version of the project, ideal for use as a first introduction to the tool",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-tryitnow.pdf"
+            }
         },
         "MAKEMEHAPPY": {
             "TITLE": "私を幸せにして",
             "SUMMARY": "誉め言葉と意地悪な言葉が認識できるようにコンピュータに教えよう。",
-            "DESCRIPTION": "Scratchで易しい言葉には微笑み、意地悪な言葉には泣く人物を作ります。"
+            "DESCRIPTION": "Scratchで易しい言葉には微笑み、意地悪な言葉には泣く人物を作ります。",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where the students make a non-machine learning version first",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-ja.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Shorter version of the project, where the students only make a machine learning version",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-easy.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "Python project - for making the project using Python",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-python.pdf"
+            }
         },
         "SNAP": {
             "TITLE": "スナップ!",
             "SUMMARY": "アイコンがどのように見えるのか認識できるようにコンピュータに教えよう。",
-            "DESCRIPTION": "あなたのカードが認識できるように学習するカードゲームを製作します。"
+            "DESCRIPTION": "あなたのカードが認識できるように学習するカードゲームを製作します。",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where the students make their own cards that they will train the computer to recognise",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Shorter version of the project, providing children with pre-made cards that you will need to print out, to save the students time having to make them",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap-easy.pdf",
+                "RESOURCES": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/resources-snap-easy.pdf"
+            }
         },
         "CHAMELEON": {
             "TITLE": "カメレオン",
             "SUMMARY": "色を認識できるよにコンピュータに教えよう。",
-            "DESCRIPTION": "背景に合わせて色を変えるカメレオンをScratchを使って作ります。"
+            "DESCRIPTION": "背景に合わせて色を変えるカメレオンをScratchを使って作ります。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf"
+            }
         },
         "MAILMANMAX": {
             "TITLE": "郵便屋さん Max",
             "SUMMARY": "コンピュータに手書き文字の認識を教えよう。",
-            "DESCRIPTION": "封筒の上の手書き郵便番号を認識する郵便の仕分け所をScratchを使って作ります。"
+            "DESCRIPTION": "封筒の上の手書き郵便番号を認識する郵便の仕分け所をScratchを使って作ります。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mailmanmax-ja.pdf"
+            }
         },
         "CARORCUP": {
             "TITLE": "車 又は カップ",
             "SUMMARY": "物体の絵を認識できるようにコンピュータに教えよう。",
-            "DESCRIPTION": "写真をグループに分類できるようにコンピュータをトレーニングします。"
+            "DESCRIPTION": "写真をグループに分類できるようにコンピュータをトレーニングします。",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Individual version of the project, where each student trains their own machine learning model independently",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Group version of the project, where students in the class work together to train a shared machine learning model",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup-crowd.pdf"
+            }
         },
         "FACELOCK": {
             "TITLE": "顔認証",
             "SUMMARY": "顔を認識できるようにコンピュータをトレーニングしよう。",
-            "DESCRIPTION": "あなたの顔を認識したら、Scratchの中の携帯のロックを外すようにします。"
+            "DESCRIPTION": "あなたの顔を認識したら、Scratchの中の携帯のロックを外すようにします。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facelock.pdf"
+            }
         },
         "JOURNEYTOSCHOOL": {
             "TITLE": "学校への道",
             "SUMMARY": "予想をするようにコンピュータに教えよう。",
-            "DESCRIPTION": "朝、学校にどのように行くかコンピュータが予想できるようにトレーニングします。"
+            "DESCRIPTION": "朝、学校にどのように行くかコンピュータが予想できるようにトレーニングします。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-journeytoschool.pdf"
+            }
         },
         "SHYPANDA": {
             "TITLE": "恥ずかしがりやのパンダ",
             "SUMMARY": "写真を認識できるようにコンピュータに教えよう。",
-            "DESCRIPTION": "もしあなたが見ているのに気づいたら踊るのをやる、恥ずかしがりやのパンダをつくります。"
+            "DESCRIPTION": "もしあなたが見ているのに気づいたら踊るのをやる、恥ずかしがりやのパンダをつくります。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda.pdf"
+            }
         },
         "VIRTUALPET": {
             "TITLE": "仮想ペット",
             "SUMMARY": "写真を認識できるようにコンピュータに教えよう。",
-            "DESCRIPTION": "仮想ペットの世話ができりょうに、あなたの動作をコンピュータが認識できるようにトレーニングします。"
+            "DESCRIPTION": "仮想ペットの世話ができりょうに、あなたの動作をコンピュータが認識できるようにトレーニングします。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-virtualpet.pdf"
+            }
         },
         "PACMAN": {
             "TITLE": "パックマン",
             "SUMMARY": "ゲームの遊び方をコンピュータに教えよう。",
-            "DESCRIPTION": "幽霊のよけ方を学習するパックマンゲームをScratchで作ります。"
+            "DESCRIPTION": "幽霊のよけ方を学習するパックマンゲームをScratchで作ります。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pacman.pdf"
+            }
         },
         "CHATBOTS": {
             "TITLE": "チャットボット",
             "SUMMARY": "質問が分かるようにコンピュータに教えよう。",
-            "DESCRIPTION": "あなたが選んだ話題に関する質問に答えられるチャットボットをつくります。"
+            "DESCRIPTION": "あなたが選んだ話題に関する質問に答えられるチャットボットをつくります。",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Scratch project - for making a chat bot in Scratch",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Python project - for making a chat bot using Python",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots-python.pdf"
+            }
         },
         "TOURISTINFO": {
             "TITLE": "訪問先",
             "SUMMARY": "推奨ができるようにコンピュータに教えよう。",
-            "DESCRIPTION": "旅行者の興味にあったアトラクションを推奨できる携帯アプリをScratchでつくります。"
+            "DESCRIPTION": "旅行者の興味にあったアトラクションを推奨できる携帯アプリをScratchでつくります。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-touristinfo.pdf"
+            }
         },
         "SORTINGHAT": {
             "TITLE": "組分け帽子",
             "SUMMARY": "言葉の使い方をコンピュータが認識できるようにトレーニングしよう。",
-            "DESCRIPTION": "あなたの言ったことに基づいて、あなたを寄宿舎に入れるハリーポッターの組分け帽子をつくります。"
+            "DESCRIPTION": "あなたの言ったことに基づいて、あなたを寄宿舎に入れるハリーポッターの組分け帽子をつくります。",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Individual version of the project, where each student trains their own machine learning model independently",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Group version of the project, where students in the class work together to train a shared machine learning model",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat-crowd.pdf"
+            }
         },
         "ROCKPAPERSCISSORS": {
             "TITLE": "グー、チョキ、パー",
             "SUMMARY": "コンピュータに形を認識できるように教えよう。",
-            "DESCRIPTION": "手の形を学習するグー・チョキ・パーのゲームをScratchでつくります。"
+            "DESCRIPTION": "手の形を学習するグー・チョキ・パーのゲームをScratchでつくります。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-rockpaperscissors.pdf"
+            }
         },
         "JUDGEABOOK": {
             "TITLE": "本の判別",
             "SUMMARY": "コンピュータが見た目で判別できるように教えよう。",
-            "DESCRIPTION": "表紙から本の種類を判別できるかテストするゲームをScratchで制作します。"
+            "DESCRIPTION": "表紙から本の種類を判別できるかテストするゲームをScratchで制作します。",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Full version of the project, where children make a game to compete against the computer to recognise books",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Simplified version of the project, where children get the computer to recognise books",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf"
+            }
         },
         "LOCATELARRY": {
             "TITLE": "ラリーを見つけろ",
             "SUMMARY": "写真の中の物を見つけるようにコンピュータに教えよう。",
-            "DESCRIPTION": "ウォーリーを探せのようにあなたのキャラクターを見つけるようにコンピュータに教えるタイプのゲームをScratchでつくります。"
+            "DESCRIPTION": "ウォーリーを探せのようにあなたのキャラクターを見つけるようにコンピュータに教えるタイプのゲームをScratchでつくります。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf"
+            }
         },
         "CONFUSED": {
             "TITLE": "混乱",
             "SUMMARY": "果物を認識できるようにコンピュータに教えよう。",
-            "DESCRIPTION": "上手くトレーニングされないとコンピュータがどのように混乱して、間違えるか試してみます。"
+            "DESCRIPTION": "上手くトレーニングされないとコンピュータがどのように混乱して、間違えるか試してみます。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-confused.pdf"
+            }
         },
         "SCHOOLLIBRARY": {
             "TITLE": "学校の図書館",
             "SUMMARY": "コンピュータに推薦することを教えよう。",
-            "DESCRIPTION": "ある本がどのレベルの子に合うかアドバイスする図書館員をScratchでつくります。"
+            "DESCRIPTION": "ある本がどのレベルの子に合うかアドバイスする図書館員をScratchでつくります。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf"
+            }
         },
         "WHATTWITTERTHINKS": {
             "TITLE": "Twitterの考えは？",
             "SUMMARY": "コンピュータに世論を推察することを教えよう。",
-            "DESCRIPTION": "Twitter上の議論を分析してセンチメント分析するツールをScratchで作ります。"
+            "DESCRIPTION": "Twitter上の議論を分析してセンチメント分析するツールをScratchで作ります。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
+            }
         },
         "NOUGHTSANDCROSSES": {
             "TITLE": "ナッツ＆クロス",
             "SUMMARY": "ゲームの遊び方をコンピュータに教えよう。",
-            "DESCRIPTION": "あなたの負かし方を学習するナッツ＆クロスをScratchで作ります。"
+            "DESCRIPTION": "あなたの負かし方を学習するナッツ＆クロスをScratchで作ります。",
+            "WORKSHEET_1": {
+                "DESCRIPTION": "Classroom version, where each student makes the game themselves in Scratch",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses.pdf"
+            },
+            "WORKSHEET_2": {
+                "DESCRIPTION": "Classroom version, where each student makes the game themselves in Python",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-python.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "Demo version, for events like Science Fairs where each child has a minute or two to try something",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-event.pdf"
+            }
         },
         "TOPTRUMPS": {
             "TITLE": "トップトランプ",
             "SUMMARY": "ゲームの遊び方をコンピュータに教えよう。",
-            "DESCRIPTION": "Scratchで作ったトップトランプのゲームを遊べるようにコンピュータをトレーニングします。"
+            "DESCRIPTION": "Scratchで作ったトップトランプのゲームを遊べるようにコンピュータをトレーニングします。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-toptrumps.pdf"
+            }
         },
         "HEADLINES": {
             "TITLE": "見出し",
             "SUMMARY": "言葉の使い方を認識するコンピュータの能力をテストしよう。",
-            "DESCRIPTION": "全国紙の見出しを認識できるようにコンピュータをトレーニングします。"
+            "DESCRIPTION": "全国紙の見出しを認識できるようにコンピュータをトレーニングします。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
+            }
         },
         "NEWSPAPERSHELVES": {
             "TITLE": "Newspaper shelves",
             "SUMMARY": "Test the computer's ability to recognise use of language",
-            "DESCRIPTION": "Train a computer to recognise headlines from national newspapers."
+            "DESCRIPTION": "Train a computer to recognise headlines from national newspapers.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-easy.pdf"
+            }
         },
         "HEADLINETESTING": {
             "TITLE": "Headline testing",
             "SUMMARY": "Test the computer's ability to recognise use of language",
-            "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is"
+            "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
+            }
         },
         "FINDIT": {
             "TITLE": "見つけた!",
             "SUMMARY": "画像を認識できるようにコンピューターに教えよう。",
-            "DESCRIPTION": "あなたの携帯ようにかくれんぼゲームを作ります。"
+            "DESCRIPTION": "あなたの携帯ようにかくれんぼゲームを作ります。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-findit.pdf"
+            }
         },
         "ALIENLANGUAGE": {
             "TITLE": "エイリアンの言葉",
             "SUMMARY": "音が理解できるようにコンピューターに教えよう。",
-            "DESCRIPTION": "エイリアンの言葉を認識すうるエイリアンをScratchを使って作ります。"
+            "DESCRIPTION": "エイリアンの言葉を認識すうるエイリアンをScratchを使って作ります。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-alienlanguage.pdf"
+            }
         },
         "SECRETCODE": {
             "TITLE": "秘密のコード",
             "SUMMARY": "言葉が理解できるようにコンピューターに教えよう。",
-            "DESCRIPTION": "スパイを誘導するために、秘密のコードを理解できるようにコンピューターに教えます。"
+            "DESCRIPTION": "スパイを誘導するために、秘密のコードを理解できるようにコンピューターに教えます。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-secretcode.pdf"
+            }
         },
         "JARGONBUSTER": {
             "TITLE": "専門語 バスター",
             "SUMMARY": "単語を聞くようにコンピューターに教えよう。",
-            "DESCRIPTION": "あなたの言った言葉の意味を表示するプロジェクトをScratchで制作します。"
+            "DESCRIPTION": "あなたの言った言葉の意味を表示するプロジェクトをScratchで制作します。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-jargonbuster.pdf"
+            }
         },
         "TITANIC": {
             "TITLE": "Titanic",
             "SUMMARY": "Teach a computer to predict outcomes",
-            "DESCRIPTION": "Create a Python program that can predict who survived the sinking of the Titanic."
+            "DESCRIPTION": "Create a Python program that can predict who survived the sinking of the Titanic.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
+            }
+        },
+        "ZOMBIEESCAPE": {
+            "TITLE": "Zombie Escape!",
+            "SUMMARY": "Teach a computer to make predictions",
+            "DESCRIPTION": "Train a computer to help you escape from the zombies",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -845,7 +1126,7 @@
             "NOTAUTHORISED": "あなたのクラスで使われる Watson API キーにアクセスする権限をあなたは持っていません。",
             "MANAGEDCLASS": "あなたのクラスで使われる API キーはあなたのために管理されています。",
 
-            "HELP_STEPBYSTEP_GUIDE": "このページで何をしたら良いのか確信が無い場合は、この <a href='/apikeys-guide'> step-by-step guide </a>を参照ください。 助けが必要であれば、<strong><a style='cursor: pointer;' href='/help'>get in touch</a></strong>で連絡ください。",
+            "HELP_STEPBYSTEP_GUIDE": "このページで何をしたら良いのか確信が無い場合は、この<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> step-by-step guide </a>を参照ください。 助けが必要であれば、<strong><a style='cursor: pointer;' ui-sref='help'>get in touch</a></strong>で連絡ください。",
 
             "INTRO_WATSONASSISTANT": "機械学習モデルを <span class='mlprojecttype'>文字列</span>プロジェクトのためにトレーニングする際には、<a class='mlprojecttype' href='https://www.ibm.com/watson/services/conversation/'>Watson Assistant</a>を利用します。",
             "INTRO_VISUALRECOGNITION": "機械学習モデルを <span class='mlprojecttype'>画像</span>プロジェクトのためにトレーニングする際には、<a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>を利用します。",
@@ -867,130 +1148,130 @@
             "LIMIT_IMAGE_PROJECTS": "あなたの生徒が使える画像機械学習モデルの数:",
 
             "ADD_API_KEYS": {
-                "ASSISTANT_TITLE": "Add Watson Assistant credentials",
-                "VISUAL_RECOGNITION_TITLE": "Add Visual Recognition API key",
+                "ASSISTANT_TITLE": "Watson Assistant credentialsの追加",
+                "VISUAL_RECOGNITION_TITLE": "Visual Recognition API keyの追加",
 
-                "USED_FOR_TEXT_PROJECTS": "These will be used when your students train models in text projects.",
-                "USED_FOR_IMAGE_PROJECTS": "These will be used when your students train models in images projects.",
+                "USED_FOR_TEXT_PROJECTS": "これらは、生徒が文字列認識プロジェクト用にモデルをトレーニングする際に使用されます。",
+                "USED_FOR_IMAGE_PROJECTS": "これらは、生徒が画像認識プロジェクト用にモデルをトレーニングする際に使用されます。",
 
-                "HIDDEN_FROM_STUDENTS": "This will not be shown to students in your group.",
+                "HIDDEN_FROM_STUDENTS": "この情報は、あなたのグループの生徒には表示されません。",
 
-                "PRICING_PLAN": "Which Pricing Plan did you use?",
-                "ENTER_APIKEY": "Please enter the API key below",
-                "ENTER_PASSWORD": "Please enter the username and password below",
+                "PRICING_PLAN": "どの利用料金プランを使いましたか？",
+                "ENTER_APIKEY": "以下にAPI Keyを入力してください。",
+                "ENTER_PASSWORD": "ユーザ名とパスワードを以下に入力してください。",
 
-                "CREDENTIALS_TYPE": "What did you create in Watson Assistant?"
+                "CREDENTIALS_TYPE": "Watson Assistantで何を作成しましたか?"
             }
         },
         "RESTRICTIONS": {
-            "TITLE": "Administration : Restrictions",
+            "TITLE": "管理 : 制限事項",
 
-            "ASK_FOR_CHANGES": "If any of these restrictions cause a problem for your group, please <strong><a href='/help'>get in touch</a></strong>.",
+            "ASK_FOR_CHANGES": "もし、これらの制限事項があたなのグループで問題となる場合は、<strong><a href='/help'>ヘルプ</a></strong>まで英語でご連絡ください。",
 
             "CLASS_LIMITS": {
-                "TITLE": "Limits for your class",
-                "NUM_USERS": "You can have up to <span class='mlprojecttype'>{{ num }}</span> users (including students and teachers) in your group.",
-                "NUM_TEXT_MODELS": "Your class is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> machine learning models in total across all their <span class='mlprojecttype'>text</span> projects.",
-                "NUM_IMAGE_MODELS": "Your class is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> machine learning models in total across all their <span class='mlprojecttype'>images</span> projects.</div>"
+                "TITLE": "あなたのクラスの制限",
+                "NUM_USERS": "あなたのグループ内のユーザ数（生徒と先生を含む）の上限は<span class='mlprojecttype'>{{ num }}</span> 名です。",
+                "NUM_TEXT_MODELS": "あなたのクラスは、クラス全体で合計<span class='mlprojecttype'>{{ num }}</span> つの機械学習モデルを<span class='mlprojecttype'>文字列</span> プロジェクトで利用できます。",
+                "NUM_IMAGE_MODELS": "あなたのクラスは、クラス全体で合計<span class='mlprojecttype'>{{ num }}</span> つの機械学習モデルを<span class='mlprojecttype'>画像</span>  プロジェクトで利用できます。</div>"
             },
             "PROJECT_LIMITS": {
-                "TITLE": "Limits for projects created by your students",
-                "NUM_PROJECTS": "Each of your students is allowed to have up to <span class='mlprojecttype'>{{ num }}</span> projects.",
-                "TYPES": "Your students can create projects to recognise <span class='mlprojecttype'>{{ types }}</span>.",
-                "TRAINING_DATA": "Each <span class='mlprojecttype'>{{ type }}</span> project can have up to <span class='mlprojecttype'>{{ num }}</span> training data examples. "
+                "TITLE": "生徒によって作られるプロジェクトに関する制限",
+                "NUM_PROJECTS": "あなたの生徒一人一人は、 最大で<span class='mlprojecttype'>{{ num }}</span> つののプロジェクトを作成できます。",
+                "TYPES": "あなたの生徒たちは、<span class='mlprojecttype'>{{ types }}</span> を認識するプロジェクトを作成できます。",
+                "TRAINING_DATA": "各々の <span class='mlprojecttype'>{{ type }}</span> 認識プロジェクトは、最大<span class='mlprojecttype'>{{ num }}</span> つのトレーニングデータを使えます。"
             },
             "EXPIRY": {
-                "TITLE": "To help you avoid the limits for number of machine learning models:",
-                "TIME_LIMIT": "Machine learning models created for <span class='mlprojecttype'>{{ type }}</span> projects will automatically be deleted after <span class='mlprojecttype'>{{ num }}</span> hours.",
-                "DONT_WORRY": "(Don't worry! Training data will not be deleted, so students can always train a new machine learning model again if they still need it after this.)"
+                "TITLE": "機械学習モデル数の制限を回避するために",
+                "TIME_LIMIT": "<span class='mlprojecttype'>{{ type }}</span> プロジェクトのために作成された機械学習モデルは、<span class='mlprojecttype'>{{ num }}</span> 時間後に自動的に削除されます。",
+                "DONT_WORRY": "(心配無用です。トレーニングデータは削除されないので、必要であれば、生徒は再度機械学習モデルをトレーニングできます。)"
             },
 
-            "NOT_AUTHORIZED": "You are not authorized to access the restrictions in place for your class."
+            "NOT_AUTHORIZED": "あなたのクラスの制限を超えてアクセスすることは許されていません。"
         },
         "SUPERVISION": {
-            "TITLE": "Administration : Student projects",
+            "TITLE": "管理: 生徒のプロジェクト管理",
 
-            "INTRO_1": "This page displays a list of all of the projects that your class currently has. You can use it to review what they're working on.",
-            "INTRO_2": "If you've hit the limit for the number of machine learning models that your class can create, you can use this to see which projects currently have a machine learning model, and delete any that you think are no longer needed.",
+            "INTRO_1": "本ページにはあなたのクラスで現在作成されている全プロジェクトを表示しています。生徒の作業状況把握に利用できます。",
+            "INTRO_2": "もし、あなたのクラスが機械学習モデル数の制限に達した際には、どのプロジェクトが機械学習モデルを利用しているのか確認でき、不要と思われるものを削除できます。 ",
 
-            "NO_PROJECTS_1": "None of the students in your class currently have any projects.",
-            "NO_PROJECTS_2": "Once your students start creating projects, come back here to see an overview of their work.",
+            "NO_PROJECTS_1": "あなたのクラスでは誰もプロジェクトを利用していません。",
+            "NO_PROJECTS_2": "あなたの生徒がプロジェクトを作成しだしたら、このページに戻り状況を確認してください。",
 
-            "NAME": "Name",
-            "TYPE": "Type",
-            "STUDENT": "Student",
-            "MODELS": "ML models",
+            "NAME": "名前",
+            "TYPE": "タイプ",
+            "STUDENT": "生徒",
+            "MODELS": "機械学習モデル",
 
-            "DELETE": "Click the icon to delete",
+            "DELETE": "削除するにはアイコンをクリックしてください。",
 
-            "NOT_AUTHORIZED": "You are not authorized to access the list of projects for all students in your class."
+            "NOT_AUTHORIZED": "あなたは、あなたのクラスの全ての生徒のプロジェクトにアクセスする権限がありません。"
         },
         "STUDENTMANAGEMENT": {
-            "TITLE": "Administration : Student management",
+            "TITLE": "管理: 生徒の管理",
 
-            "CREATE_FIRST_STUDENT": "Click on the 'plus' button on the right to create the first student",
-            "ADD": "Add new student",
-            "NEW_USERNAME": "Choose a unique username",
-            "ALPHANUMERIC": "Only use letters and numbers",
+            "CREATE_FIRST_STUDENT": "最初の生徒を追加するには右側のプラスのボタンをクリックしてください。",
+            "ADD": "新しい生徒の追加",
+            "NEW_USERNAME": "ユニークなユーザ名を設定して下さい。",
+            "ALPHANUMERIC": "英数字のみ利用可能です。",
 
-            "NOT_LOGGED_IN": "Not logged in yet",
+            "NOT_LOGGED_IN": "まだログインされていません。",
 
-            "RESET_PASSWORD": "Reset password",
-            "RESET_ALL_PASSWORDS": "Reset password for all students",
+            "RESET_PASSWORD": "パスワードのリセット",
+            "RESET_ALL_PASSWORDS": "全ての生徒のパスワードリセット",
 
-            "DELETE_STUDENT": "Delete student account",
+            "DELETE_STUDENT": "生徒アカウントの削除",
 
-            "NOT_AUTHORIZED": "You are not authorized to access the list of students in your class.",
+            "NOT_AUTHORIZED": "あなたのクラスの生徒の一覧へのアクセス権限がありません。",
 
             "ADD_MULTIPLE": {
-                "BUTTON" : "Multiple students",
+                "BUTTON" : "複数生徒",
 
-                "TITLE" : "Add new students",
-                "INTRO" : "You can use this to create more than one student account at the same time.",
-                "USERNAME" : "What do you want each username to start with?",
-                "USERNAME_REQUIRED" : "Please choose the prefix for the usernames",
-                "USERNAME_TOOLONG" : "That is too long",
-                "USERNAME_INVALID" : "Invalid characters",
-                "NUMBER" : "How many student accounts do you want?",
-                "NUMBER_REQUIRED" : "Please enter the number of students to create",
-                "NUMBER_TOOMANY" : "Your class has a limit of {{userslimit}} students.",
-                "PASSWORD" : "The password to give them:",
-                "PASSWORD_TOOSHORT" : "Too short"
+                "TITLE" : "新しい生徒の追加",
+                "INTRO" : "複数の生徒アカウントを同時に作成できます。",
+                "USERNAME" : "ユーザ名の先頭部分は何で始まりたいですか？",
+                "USERNAME_REQUIRED" : "ユーザ名の先頭部分を指定してください。",
+                "USERNAME_TOOLONG" : "長すぎます",
+                "USERNAME_INVALID" : "英数字のみ利用可能です",
+                "NUMBER" : "何人分の生徒アカウントを作成しますか？",
+                "NUMBER_REQUIRED" : "作成する生徒アカウントの数を入力してください。",
+                "NUMBER_TOOMANY" : "あなたのクラスの生徒数は最大{{userslimit}} 人です。",
+                "PASSWORD" : "かれらのパスワード:",
+                "PASSWORD_TOOSHORT" : "短かすぎます"
             }
         }
     },
     "SCRATCHBLOCKS": {
         "TEXT_PROJECTS": {
-            "mlforkids.text.recogniseLabel": "recognise text [TEXT] (label)",
-            "mlforkids.text.recogniseConfidence": "recognise text [TEXT] (confidence)",
-            "mlforkids.text.addTraining": "add training data [TEXT] [LABEL]",
-            "mlforkids.text.trainNewModel": "train new machine learning model",
-            "mlforkids.text.checkModelStatus": "Is the machine learning model [STATUS] ?"
+            "mlforkids.text.recogniseLabel": "文字列を認識 [TEXT] (ラベル)",
+            "mlforkids.text.recogniseConfidence": "文字列を認識 [TEXT] (確信度)",
+            "mlforkids.text.addTraining": "トレーニングデータを追加 [TEXT] [LABEL]",
+            "mlforkids.text.trainNewModel": "新しい機械学習モデルをトレーニング",
+            "mlforkids.text.checkModelStatus": "機械学習モデルは [STATUS] ?"
         },
         "IMAGES_PROJECTS": {
-            "mlforkids.images.recogniseLabel": "recognise image [IMAGE] (label)",
-            "mlforkids.images.recogniseConfidence": "recognise image [IMAGE] (confidence)",
-            "mlforkids.images.addTraining": "add training data [TEXT] [LABEL]"
+            "mlforkids.images.recogniseLabel": "画像を認識 [IMAGE] (ラベル)",
+            "mlforkids.images.recogniseConfidence": "画像を認識 [IMAGE] (確信度)",
+            "mlforkids.images.addTraining": "トレーニングデータを追加 [TEXT] [LABEL]"
         },
         "NUMBER_PROJECTS": {
-            "mlforkids.numbers.trainNewModel": "train new machine learning model"
+            "mlforkids.numbers.trainNewModel": "新しい機械学習モデルをトレーニング"
         },
         "TWITTER": {
-            "mlforkids.twitter.getrecenttweet": "get the [INDEX] most recent tweet about [TOPIC]"
+            "mlforkids.twitter.getrecenttweet": "最新の [TOPIC] に関する [INDEX] を取得"
         },
         "IMAGE_BLOCKS": {
-            "mlforkids.imageblocks.getCostumeImage": "costume image",
-            "mlforkids.imageblocks.getBackdropCostumeImage": "backdrop image",
-            "mlforkids.imageblocks.getBackdropImage": "backdrop image",
-            "mlforkids.imageblocks.saveScreenshotToCostume": "save screenshot to costume"
+            "mlforkids.imageblocks.getCostumeImage": "コスチューム　イメージ",
+            "mlforkids.imageblocks.getBackdropCostumeImage": "バックドロップ イメージ",
+            "mlforkids.imageblocks.getBackdropImage": "バックドロップ イメージ",
+            "mlforkids.imageblocks.saveScreenshotToCostume": "スクリーンショットをコスチュームに保存"
         },
         "GUI": {
-            "gui.menuBar.mlforkidsLibrary": "Project templates",
+            "gui.menuBar.mlforkidsLibrary": "プロジェクト テンプレート",
             "gui.mlforkidsLibrary.templates": "Machine Learning for Kids modelos de projeto"
         }
     },
     "HELP": {
-        "CONTACT": "もし、問題や質問がある場合は、emailで Dale.Lane@uk.ibm.comまで英語でご連絡ください。",
+        "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
         "GETTINGSTARTED": {
             "TITLE": "さあ、始めましょう",
             "INTRO": "入門（簡易版）のPDFをダウンロードしてください。:",
@@ -1003,7 +1284,7 @@
             "TITLE": "もっと知る?",
             "INTRO1": "何か上手く動作しないですか？",
             "INTRO2": "よくある問題や質問を以下のリストにまとめています。もし、類似の問題に直面したら、まとめの文章をクリックして詳細を参照ください。",
-            "INTRO3": "それでも問題が解決できない場合や、リストにない問題に遭遇した場合は、お手数でも <a href='mailto:dale.lane@uk.ibm.com'>私に</a>英語でメールをするか、<a href='https://github.com/IBM/taxinomitis/issues'>このリンクから問題を報告</a>して頂ければ、問題解決を支援します。"
+            "INTRO3": "それでも問題が解決できない場合や、リストにない問題に遭遇した場合は、お手数でも <a href='https://groups.google.com/d/forum/mlforkids'>私に</a>英語でメールをするか、<a href='https://github.com/IBM/taxinomitis/issues'>このリンクから問題を報告</a>して頂ければ、問題解決を支援します。"
         },
 
         "SCRATCH": {
@@ -1037,7 +1318,7 @@
             "TITLE": "トレーニングのUI関連",
 
             "Q1": "画像プロジェクトで画像をトレーニング グループにドラッグすることができません。",
-            "Q1-A-1": "画像をトレーニンググループにドラッグする機能は、Safari と Internet Explorerでは機能しません。",
+            "Q1-A-1": "画像をトレーニンググループにドラッグする機能は、Internet Explorerでは機能しません。",
             "Q1-A-2": "もし、FirefoxやChromeが使えるなら、これらのブラウザを利用してください。それが出来ない場合は、代わりに \"www\" ボタンをクリックしトレーニングしたい画像のURLを張り付けてください。"
         },
 
@@ -1132,7 +1413,7 @@
             "Q2-A-1": "ログオンできるようになる前に、あなたは、あなたのEmailアドレスを確認する必要があります。",
             "Q2-A-2": "クラスアカウントを作成時、あなたが提供したEmailアドレスに確認用のリンクを含むメールを送信します。このリンクをクリックすることでEmailアドレスが確認され、クラスアカウントが利用可能になり、ログインできるようになります。",
             "Q2-A-3": "もし、確認用のメールをまだ見ていないのであれば、スパムフォルダーに入っていないか確認してください。",
-            "Q2-A-4": "見つけられない場合は、<a href='mailto:dale.lane@uk.ibm.com'>私に英語でお知らせください。</a> 問題解決できるよう支援します。",
+            "Q2-A-4": "見つけられない場合は、<a href='https://groups.google.com/d/forum/mlforkids'>私に英語でお知らせください。</a> 問題解決できるよう支援します。",
 
             "Q3": "アカウントの削除",
             "Q3-A-1": "生徒用アカウント",
@@ -1145,22 +1426,22 @@
             "Q3-A-8": "先生アカウントの削除は<a href='https://machinelearningforkids.co.uk/teacher'>your Teacher page</a>にあるAdvanced optioins sections内の \"Delete Class\" ボタンをクリックすると削除されます。",
 
             "Q4": "利用者に関してどのような情報が保存されますか?",
-            "Q4-A-1": "Teacher accounts",
-            "Q4-A-2": "I store the username and email address that you provide when you create the account, so that I can keep in touch with you.",
-            "Q4-A-3": "Student accounts",
-            "Q4-A-4": "I store the usernames for student accounts, so that I can let them log in. I have no email addresses or contact details for students. I have no other personally identifying information about students.",
-            "Q4-A-5": "I also <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-schools.pdf'>recommend that students are given generic usernames</a> (e.g. student1) so that students are not identifiable outside of their school or coding group.",
-            "Q4-A-6": "General information stored about all accounts",
-            "Q4-A-7": "User management for Machine Learning for Kids is implemented using the third party service, <a href='https://auth0.com/'>Auth0</a>. They store the IP address that you last logged into Machine Learning for Kids from, and the type of browser you used. I've never found a reason to use that, but it is stored if I did want to go and look for it.",
-            "Q4-A-8": "Errors that happen in the web browser are captured using the third party service, <a href='https://sentry.io/'>Sentry</a>. If something goes wrong, it will capture information about the error, including your username, IP address, type of browser you were using, and a technical description of what went wrong.",
-            "Q4-A-9": "I use <a href='https://www.google.com/analytics/'>Google Analytics</a> so that I know how many users visit Machine Learning for Kids each day. Although it captures information such as geographic location and browser type, this is only ever displayed to me in an anonymised aggregate way.",
+            "Q4-A-1": "先生用アカウント",
+            "Q4-A-2": "アカウント作成時に入力されたユーザ名とemailアドレスは、今後の連絡用に保存されています。",
+            "Q4-A-3": "生徒アカウント",
+            "Q4-A-4": "生徒アカウント用のユーザ名は、ログイン用に保存されています。本サイトは、生徒のEmailアドレスや連絡情報は保持していません。また、生徒を特定できるその他の情報も保持していません。",
+            "Q4-A-5": "本サイトは、 <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-schools.pdf'>生徒にstudent1のような一般的なユーザ名を付与することを推奨しています。</a> そうすることで学校やコーディンググループ外で特定されることを防げます。",
+            "Q4-A-6": "全てのアカウントについて保存される一般的な情報",
+            "Q4-A-7": "本サイトの利用者管理は、サードパーティ<a href='https://auth0.com/'>Auth0</a>のサービスを利用して実装されており、あなたが本サイトにアクセスした最後の　IP アドレス、ブラウザのタイプを保存しています。",
+            "Q4-A-8": "Webブラウザで発生したエラーは、サードパーティのサービス<a href='https://sentry.io/'>Sentry</a>を用いて取得されます。もし不都合が発生したら、エラーに関する情報（ユーザ名、IPアドレス、ブラウザタイプ、不都合に関する技術的な説明）を取得します。 ",
+            "Q4-A-9": "本サイトでは <a href='https://www.google.com/analytics/'>Google Analytics</a> を利用状況を把握するのに利用しています。このツールは地理的な情報やブラウザのタイプ等の情報を収集しますが、集約した情報のみを表示します。",
 
-            "Q5": "What happens to training data created by students?",
-            "Q5-A-1": "A step in all machine learning projects that students make using this site is to create or collect training examples. For text projects, this can mean typing in short text passages. For image projects, this can means drawing pictures onto an on-screen canvas or taking photos using the webcam. For numbers projects, this means typing in sets of numbers",
-            "Q5-A-2": "All of these training examples are stored in a <a href='https://www.ibm.com/cloud/compose/mysql'>MySQL database hosted on IBM Cloud</a>. As the database administrator, I have access to all of these training examples for all student projects, however I do not use it for any other purposes other than enabling students to access and work on their own projects. I do not publish the training data (either publicly or to individuals or third parties) or otherwise share it, with the two exceptions of submitting it to IBM Watson APIs described below.",
-            "Q5-A-3": "Machine learning models for text projects are created using the <a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a> cloud service, which means when students train a model, a copy of the training examples that they have entered will be <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>submitted to IBM Watson</a>. IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
-            "Q5-A-4": "Machine learning models for images projects are created using the <a href='https://www.ibm.com/watson/services/visual-recognition/'>IBM Visual Recognition</a> cloud service, which means when students train a model, a copy of their training images will be <a href='https://cloud.ibm.com/apidocs/visual-recognition#create-a-classifier'>uploaded to IBM Watson</a>. IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/visual-recognition#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
-            "Q5-A-5": "IBM Watson provides some <a href='https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security-gdpr-wa'>general guidance for sharing training data with their services</a>, which also apply to training data created and collected in Machine Learning for Kids. Specifically, students should be advised not to include personally identifiable information in the examples that they collect."
+            "Q5": "生徒が作成したトレーニングデータはどうなりますか?",
+            "Q5-A-1": "本サイトで生徒が作成する機械学習プロジェクトはトレーニングデータを作成・収集します。文字列プレジェクトでは, 短い文字列をタイプすることを意味しますし、画像プロジェクトでは、Webcamで写真を撮ったり、スクリーン上のキャンバスに絵を描いたりすることを意味し、数値プロジェクトでは、数値のセットを入力することを意味します。",
+            "Q5-A-2": "これらの全てのトレーニングデータは、<a href='https://www.ibm.com/cloud/compose/mysql'>IBMにホストされている MySQL データベース Cloud</a>に格納されます。本サイトのデータベースの管理者は、生徒が作成した全てのトレーニング例にアクセスできます。 しかし、本サイトでは生徒が彼らのプロジェクトのためにアクセスし、作業する以外の目的で利用しません。本サイトは、トレーニングデータを（公にも、個人にも、第三者にも）公開しません。２つの例外は、以下に説明されている２つのIBM Watson APIを用いるために送信することです。 ",
+            "Q5-A-3": "文字列プロジェクトのための機械学習モデルは、<a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a> クラウドサービスを用いて作られており、生徒がモデルをトレーニングする際に、生徒が入力したトレーニングデータのコピーは、 <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>IBM Watsonに送信されます。</a> IBM Watsonは、これらのトレーニングデータを他目的には利用しません。これは、本サイト(Machine Learning for Kids)が、IBMがサービス改善のために生徒が入力したトレーニングデータを利用することから<a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>オプトアウト</a> しているからです。詳細は、<a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>Watsonのドキュメント</a>を参照ください。",
+            "Q5-A-4": "画像プロジェクトのための機械学習モデルは、 <a href='https://www.ibm.com/watson/services/visual-recognition/'>IBM Visual Recognition</a>　クラウドサービスを用いて作成されており、 生徒がモデルをトレーニングする際に、生徒が入力したトレーニングデータのコピーは、 <a href='https://cloud.ibm.com/apidocs/visual-recognition#create-a-classifier'>IBM Watsonにアップロードされます。</a> IBM Watsonは、これらのトレーニングデータを他目的には利用しません。これは、本サイト(Machine Learning for Kids)が、IBMがサービス改善のために生徒が入力したトレーニングデータを利用することから <a href='https://cloud.ibm.com/apidocs/visual-recognition#data-collection'>オプトアプト</a> しているからです。 詳細は、<a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>Watsonのドキュメント</a>を参照ください。",
+            "Q5-A-5": "IBM Watsonは、<a href='https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security-gdpr-wa'>かれらのサービスとトレーニングデータを共有する一般的なガイダンス</a>を提供しています。それらは、本サイトで生成・収集されたトレーニングデータにも適用されます。特に、生徒には個人が特定できるような情報を彼らが収集するトレーニングデータに含めないようにアドバイスしてください。"
         }
     },
     "APIKEYSGUIDE": {

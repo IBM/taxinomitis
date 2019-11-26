@@ -15,10 +15,77 @@
 
         var modelStatus;
 
+        function isUserMediaSupported() {
+            return navigator &&
+                   navigator.mediaDevices &&
+                   navigator.mediaDevices.getUserMedia;
+        }
+
+
+        // easiest way to see if we're allowed to access the microphone
+        //  is to try and access the microphone   ¯\_(ツ)_/¯
+        function permissionsCheck() {
+            return navigator.mediaDevices.getUserMedia({ audio : true, video : false })
+                .then(function (stream) {
+                    stream.getTracks().forEach(function (track) {
+                        track.stop();
+                    });
+                })
+                .catch(function (err) {
+                    if (err.name === 'NotAllowedError' || err.name === 'SecurityError') {
+                        throw { status : 400, data : {
+                            message : 'Sorry! Machine Learning for Kids was not allowed to use your microphone'
+                        }};
+                    }
+                    else if (err.name === 'NotFoundError' || err.name === 'TypeError') {
+                        throw { status : 400, data : {
+                            message : 'Sorry! Machine Learning for Kids could not find a microphone to use'
+                        }};
+                    }
+                    else if (err.name === 'NotReadableError') {
+                        throw { status : 400, data : {
+                            message : 'Sorry! There was a problem with your microphone'
+                        }};
+                    }
+                    else {
+                        // record the error
+                        console.log(err);
+                        if (err && Sentry && Sentry.captureException) {
+                            Sentry.captureException(err);
+                        }
+
+                        throw { status : 500, data : err };
+                    }
+                });
+        }
+
         function loadTensorFlow() {
-            return utilService.loadScript('https://unpkg.com/@tensorflow/tfjs@1.0.2/dist/tf.js')
+            if (!isUserMediaSupported()) {
+                if (utilService.isInternetExplorer()) {
+                    throw ({
+                        status : 400,
+                        data : { message : 'Sorry! Internet Explorer cannot be used for sounds projects' }
+                    });
+                }
+                else {
+                    throw ({
+                        status : 400,
+                        data : { message : 'Sorry! Machine Learning for Kids could not find a microphone to use' }
+                    });
+                }
+            }
+
+            return permissionsCheck()
                 .then(function () {
-                    return utilService.loadScript('https://unpkg.com/@tensorflow-models/speech-commands@0.3.0');
+                    return utilService.loadScript('https://unpkg.com/@tensorflow/tfjs@1.3.1/dist/tf.js');
+                })
+                .then(function () {
+                    return utilService.loadScript('https://unpkg.com/@tensorflow-models/speech-commands@0.4.0');
+                })
+                .then(function () {
+                    if (tf && tf.enableProdMode) {
+                        tf.enableProdMode();
+                    }
                 });
         }
 
