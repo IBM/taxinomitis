@@ -819,6 +819,52 @@ export async function getImageClassifiers(
 
 
 
+/**
+ * An admin user has provided the credentials for a Visual Recognition service instance,
+ *  but we don't know which IBM Cloud region the service instance is from. This function
+ *  identifies the region (by trying the credentials in all known regions, and returning
+ *  the URL for the region that the credentials were not rejected in).
+ *
+ * @returns url - Promise that resolves to the URL that accepted the credentials
+ */
+export async function identifyRegion(credentials: TrainingObjects.BluemixCredentials): Promise<string>
+{
+    if (getType(credentials) === 'legacy') {
+        // legacy credentials only ever supported a single region, so
+        //  just check what we've been given
+        await getImageClassifiers(credentials);
+        return credentials.url;
+    }
+    else {
+        const POSSIBLE_URLS = [
+            'https://gateway.watsonplatform.net/visual-recognition/api',
+            'https://gateway-seo.watsonplatform.net/visual-recognition/api',
+        ];
+
+        const testRequest = await createBaseRequest(credentials);
+        testRequest.timeout = 10000;
+
+        let lastErr: Error = new Error('Failed to verify credentials');
+
+        for (const url of POSSIBLE_URLS) {
+            try {
+                log.debug({ url }, 'Testing Visual Recognition credentials');
+                await request.get(url + '/v3/classifiers', testRequest);
+
+                // if we're here, the credentials were accepted
+                return url;
+            }
+            catch (err) {
+                log.debug({ url, err }, 'Credentials rejected');
+                lastErr = err;
+            }
+        }
+
+        // if we're here, all URLs rejected the credentials
+        throw lastErr;
+    }
+}
+
 
 
 export async function cleanupExpiredClassifiers(): Promise<void[]>
