@@ -1,6 +1,6 @@
 {
     "APP": {
-        "TITLE": "Machine Learning voor Kids",
+        "TITLE": "Machine Learning for Kids",
 
         "BACK": "Terug",
         "BACKTOPROJECT": "&lt; Terug naar project",
@@ -29,7 +29,7 @@
         "INCOMPLETE": "Niet volledig!"
     },
     "ABOUT": {
-        "TITLE": "Machine Learning voor Kids",
+        "TITLE": "Machine Learning for Kids",
         "IN6SECS": "Binnen 6 seconden...",
         "IN20MINS": "Binnen 20 minuten...",
         "WHAT": {
@@ -38,16 +38,16 @@
         },
         "WHY": {
             "TITLE": "Waarom?",
-            "BODY": "Machine learning is overal rondom ons. We gebruiken allemaal elke dag machine learning systemen – zoals spam filters, aanbevelingsrobots, vertalingservices, chatbots, digitale assistenten, zoekrobots en fraude detectiesystemen. <br/><br/>Binnenkort zal het normaal zijn dat machine learning systemen onze auto’s besturen en onze dokters helpen om een diagnose te stellen of een ziekte te behandelen. <br/><br/>Het is belangrijk dat kinderen bewust zijn van hoe onze wereld werkt. De beste manier om de mogelijkheden en implicaties van machine learning te begrijpen is zelf dingen te bouwen met deze technologie. <br/><br/>Om meer te leren, lees: <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'Machine Learning introduceren aan kinderen'</a>"
+            "BODY": "Machine learning is overal. Iedere dag gebruiken we machine learning systemen – zoals spam filters, keuzehulpen, vertaalprogramma's, chatbots, digitale assistenten, zoekrobots en fraude detectiesystemen. <br/><br/>Binnenkort zal het normaal zijn dat machine learning systemen onze auto’s besturen en dokters helpen om een diagnose te stellen of een ziekte te behandelen. <br/><br/>Het is belangrijk dat kinderen weten hoe onze wereld werkt. De beste manier om de mogelijkheden en implicaties van machine learning te begrijpen is zelf dingen met deze technologie te bouwen. <br/><br/>Verder lezen: <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'Machine Learning introduceren aan kinderen'</a>"
         },
         "TECH": {
             "TITLE": "Technologie",
-            "BODY": "Deze tool is volledig webgebaseerd en er is geen nood aan een installatie of complexe setup om hem te gebruiken. <br/><br/> Het is ontwikkeld om te gebruiken in scholen of codeerclubs voor kinderen en omvat een administratorpagina voor hun leerkracht of begeleider zodat deze een overzicht kan hebben over de verschillende studenten.<br/><br/>De tool is gebouwd door <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> gebruik makend van APIs van <a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a>.",
+            "BODY": "Machine Learning for kids is 100% web based. Je hoeft dus niets te installeren. <br/><br/> Het is ontwikkeld voor gebruik door kinderen op scholen of bij codeerclubs. Voor leerkrachten en begeleiders is er een beheerderspagina met een overzicht van  de leerlingen.<br/><br/>Machine Learning for Kids is gebouwd door <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a>. Er wordt gebruik gemaakt van APIs van <a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a>.",
             "LOGIN": "Om te beginnen: "
         },
         "FURTHER": {
-            "TITLE": "Further learning",
-            "BODY": "Machine Learning for Kids is a useful tool for introducing children to how ML systems are trained, how they are used, and some of the real-world implications of AI applications. <br/><br/>For additional teaching and learning resources, including teaching the internals of ML systems, please see: "
+            "TITLE": "Meer leren",
+            "BODY": "Machine Learning for Kids is een handig hulpmiddel om kinderen kennis te laten maken met ML systemen en hoe deze worden getraind en gebruikt en wat de invloed is van AI-systemen in het dagelijkse leven. <br/><br/>Voor aanvullende leermiddelen, onder andere over de interne opbouw van ML-systemen, kan je terecht op: "
         }
     },
     "NEWS": {
