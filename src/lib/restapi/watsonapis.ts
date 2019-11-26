@@ -126,18 +126,22 @@ async function addCredentials(req: Express.Request, res: Express.Response) {
     //
     try {
         if (newCredentials.servicetype === 'conv') {
-            const workingUrl = await conversation.identifyRegion(newCredentials.username, newCredentials.password);
+            const workingUrl = await conversation.identifyRegion(newCredentials.username,
+                                                                 newCredentials.password);
             newCredentials.url = workingUrl;
         }
         else if (newCredentials.servicetype === 'visrec') {
-            await visualRecognition.getImageClassifiers(newCredentials);
+            const workingUrl = await visualRecognition.identifyRegion(newCredentials);
+            newCredentials.url = workingUrl;
         }
     }
     catch (err) {
         if (err.statusCode === httpstatus.UNAUTHORIZED ||
             err.statusCode === httpstatus.FORBIDDEN)
         {
-            return res.status(httpstatus.BAD_REQUEST).json({ error : 'Watson credentials could not be verified' });
+            return res.status(httpstatus.BAD_REQUEST).json({
+                error : 'Watson credentials could not be verified',
+            });
         }
         log.error({ err }, 'Failed to validate credentials');
         return errors.unknownError(res, err);

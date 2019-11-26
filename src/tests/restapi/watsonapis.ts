@@ -28,7 +28,7 @@ describe('REST API - Bluemix credentials', () => {
     let getClassStub: sinon.SinonStub<[string], Promise<Types.ClassTenant>>;
     let getTextClassifiersStub: sinon.SinonStub<[string, string], Promise<string>>;
     let getImageClassifiersStub: sinon.SinonStub<[TrainingTypes.BluemixCredentials],
-                                                 Promise<TrainingTypes.ClassifierSummary[]>>;
+                                                 Promise<string>>;
 
     function authNoOp(
         req: express.Request,
@@ -81,11 +81,10 @@ describe('REST API - Bluemix credentials', () => {
                 });
             });
         getImageClassifiersStub = sinon
-            .stub(visualrecognition, 'getImageClassifiers')
+            .stub(visualrecognition, 'identifyRegion')
             .callsFake((creds: TrainingTypes.BluemixCredentials) => {
                 if (creds.username + creds.password === VALID_APIKEY) {
-                    const placeholder: TrainingTypes.ClassifierSummary[] = [];
-                    return Promise.resolve(placeholder);
+                    return Promise.resolve(creds.url);
                 }
                 return Promise.reject({
                     statusCode : 403,
