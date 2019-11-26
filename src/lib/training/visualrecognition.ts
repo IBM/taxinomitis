@@ -556,6 +556,15 @@ export async function testClassifierFile(
                 externalError.statusCode = 400;
                 throw externalError;
             }
+            else if (errorInfo.code === 500 &&
+                     errorInfo.description === 'Internal error performing classification')
+            {
+                const externalError: any = new Error('The IBM Watson Visual Recognition service ' +
+                                                     'was unable to classify your image, and reported ' +
+                                                     'an unexpected internal error. ');
+                externalError.statusCode = 500;
+                throw externalError;
+            }
         }
         else if (err.error && err.error.error &&
                  err.error.error.code === 400 &&
