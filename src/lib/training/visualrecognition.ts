@@ -227,7 +227,16 @@ export async function getStatus(
     classifier: TrainingObjects.VisualClassifier,
 ): Promise<TrainingObjects.VisualClassifier>
 {
-    const req = await createBaseRequest(credentials);
+    let req: NewVisRecRequest | LegacyVisRecRequest;
+    try {
+        req = await createBaseRequest(credentials);
+    }
+    catch (err) {
+        log.error({ err }, 'Failed to get auth token for querying model');
+        classifier.status = 'Non Existent';
+        return classifier;
+    }
+
     // GETs don't need as long a timeout as POSTs
     req.timeout = 30000;
     return request.get(classifier.url, req)

@@ -140,6 +140,9 @@ async function postClassifyWithScratchKey(req: Express.Request, res: Express.Res
         if (err.statusCode === httpstatus.BAD_REQUEST) {
             return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
         }
+        if (err.statusCode === httpstatus.FORBIDDEN || err.statusCode === httpstatus.UNAUTHORIZED) {
+            return res.status(httpstatus.CONFLICT).json({ error : 'The Watson credentials being used by your class were rejected.' });
+        }
 
         const safeDataDebug = typeof req.body.data === 'string' ?
                                  req.body.data.substr(0, 100) :

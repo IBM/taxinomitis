@@ -225,7 +225,7 @@ function classifyImage(imagedata, cacheKey, lastmodified, callback) {
                 // reuse the value we got last time
                 callback(resultsCache[cacheKey]);
             }
-            else if (response.status === 200 || response.status === 400) {
+            else if (response.status === 200 || response.status === 400 || response.status === 409) {
                 response.json().then((responseJson) => {
                     if (response.status === 200 && responseJson && responseJson.length > 0) {
                         // we got a result from the classifier
@@ -239,6 +239,11 @@ function classifyImage(imagedata, cacheKey, lastmodified, callback) {
                     }
                     else if (response.status === 400 && responseJson &&
                         responseJson.error === 'Your machine learning model could not be found. Has it been deleted?')
+                    {
+                        postMessage({ mlforkids : 'mlforkids-recogniseimage-nomodel' });
+                    }
+                    else if (response.status === 409 && responseJson &&
+                        responseJson.error === 'The Watson credentials being used by your class were rejected.')
                     {
                         postMessage({ mlforkids : 'mlforkids-recogniseimage-nomodel' });
                     }

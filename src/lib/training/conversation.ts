@@ -310,7 +310,15 @@ export async function getStatus(
     workspace: TrainingObjects.ConversationWorkspace,
 ): Promise<TrainingObjects.ConversationWorkspace>
 {
-    const req = await createBaseRequest(credentials);
+    let req: NewConvRequest | LegacyConvRequest;
+    try {
+        req = await createBaseRequest(credentials);
+    }
+    catch (err) {
+        log.error({ err }, 'Failed to get auth token for querying model');
+        workspace.status = 'Non Existent';
+        return workspace;
+    }
 
     return request.get(workspace.url, req)
         .then((body) => {
