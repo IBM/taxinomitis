@@ -112,6 +112,12 @@ export async function testClassifier(
                 throw new Error('Failed to create classifier');
             }
         }
+        else if (err.statusCode === httpStatus.INTERNAL_SERVER_ERROR &&
+                 err.message.includes("Input contains NaN, infinity or a value too large for dtype('float32')"))
+        {
+            log.error({ err, data }, 'Value provided outside of valid range?');
+            throw err;
+        }
         else {
             throw err;
         }
@@ -198,6 +204,16 @@ function prepareDataObject(
             trainingObj[field.name] = field.choices[num];
         }
         else {
+            if (num < -3.4028235e+38) {
+                const tooSmall = new Error('Value (' + num + ') is too small') as any;
+                tooSmall.statusCode = httpStatus.BAD_REQUEST;
+                throw tooSmall;
+            }
+            if (num > 3.4028235e+38) {
+                const tooBig = new Error('Value (' + num + ') is too big') as any;
+                tooBig.statusCode = httpStatus.BAD_REQUEST;
+                throw tooBig;
+            }
             trainingObj[field.name] = num;
         }
     });

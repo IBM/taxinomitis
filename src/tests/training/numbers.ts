@@ -45,6 +45,33 @@ describe('Training - numbers service', () => {
             });
     });
 
+    describe('test classifier', () => {
+
+        it('should check the range of numbers for the numbers service', async () => {
+            const fields: dbtypes.NumbersProjectFieldSummary[] = [
+                { name : 'cats', type : 'number' }, { name : 'dogs', type : 'number' },
+                { name : 'fraction', type : 'number' },
+            ];
+
+            const project = await store.storeProject(USERID, CLASSID, 'numbers', 'good project', 'en', fields, false);
+            await store.addLabelToProject(USERID, CLASSID, project.id, 'likes_animals');
+            await store.addLabelToProject(USERID, CLASSID, project.id, 'hates_animals');
+            project.labels = ['likes_animals', 'hates_animals'];
+
+            try {
+                await numbers.testClassifier(USERID, CLASSID, new Date(), project.id,
+                    [1, 204040404040404040404040404040404040404040404040404040404040404040404040404040000000000000, 3]);
+                assert.fail('should not have allowed this');
+            }
+            catch (err) {
+                assert(err.message.startsWith('Value ('));
+                assert(err.message.endsWith(') is too big'));
+                assert.equal(err.statusCode, 400);
+            }
+
+            await store.deleteEntireProject(USERID, CLASSID, project);
+        });
+    });
 
     describe('create classifier', () => {
 
