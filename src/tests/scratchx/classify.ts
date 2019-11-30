@@ -97,7 +97,7 @@ describe('Scratchx - classify', () => {
         let requestPostStub: sinon.SinonStub<any, any>;
         before((done) => {
             requestPostStub = sinon.stub(request, 'post');
-            requestPostStub.callsFake(() => {
+            requestPostStub.callsFake((url, requestBody) => {
                 log.debug('Calling the mock conversation API');
                 return Promise.resolve({
                     intents : [
@@ -112,7 +112,7 @@ describe('Scratchx - classify', () => {
                     ],
                     entities : [],
                     input : {
-                        text : 'question text',
+                        text : requestBody.body.input.text,
                     },
                     output : {
                         text : [],
@@ -257,6 +257,58 @@ describe('Scratchx - classify', () => {
             };
 
             const classifications = await stubbedClassifier.classify(key, 'text to be classified');
+            log.info({ classifications }, 'classifications');
+
+            assert.deepStrictEqual(classifications, [
+                { class_name: 'BETA', confidence: 84, classifierTimestamp : ts },
+                { class_name: 'ALPHA', confidence: 16, classifierTimestamp : ts },
+            ]);
+        });
+
+
+        it('should remove common characters that would be rejected by Watson Assistant', async () => {
+            const userid = uuid();
+            const project = await store.storeProject(userid, TESTCLASS, 'text', 'test project', 'en', [], false);
+            await store.addLabelToProject(userid, TESTCLASS, project.id, 'ALPHA');
+            await store.addLabelToProject(userid, TESTCLASS, project.id, 'BETA');
+
+            const created = await store.getProject(project.id);
+            log.debug({ project, created, userid }, 'created project');
+
+            const ts = new Date();
+            ts.setMilliseconds(0);
+
+            const key: Types.ScratchKey = {
+                id : uuid(),
+                name : 'TEST',
+                type : 'text',
+                projectid : project.id,
+                classifierid : 'good',
+                credentials : {
+                    id : uuid(),
+                    username : 'useruseruseruseruseruseruseruseruser',
+                    password : 'passpasspass',
+                    servicetype : 'conv',
+                    url : 'url',
+                    classid : TESTCLASS,
+                    credstype : 'unknown',
+                },
+                updated : ts,
+            };
+
+            const textWithInvalidChars = 'This is\ninvalid and would break Watson Assistant\n\tif it was not fixed';
+
+            const classifications = await stubbedClassifier.classify(key, textWithInvalidChars);
+
+            assert(requestPostStub.calledWith(sinon.match.string, {
+                qs: { version: '2017-05-26' },
+                auth: { user: 'useruseruseruseruseruseruseruseruser', pass: 'passpasspass' },
+                headers : { 'user-agent': 'machinelearningforkids', 'X-Watson-Learning-Opt-Out': 'true' },
+                json: true, gzip: true, timeout: 30000,
+                body: {
+                    input : { text : 'This is invalid and would break Watson Assistant  if it was not fixed' },
+                    alternate_intents : true }}));
+
             log.info({ classifications }, 'classifications');
 
             assert.deepStrictEqual(classifications, [

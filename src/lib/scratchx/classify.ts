@@ -28,12 +28,21 @@ function chooseLabelsAtRandom(project: Types.Project): TrainingTypes.Classificat
 }
 
 
+const TABS_OR_NEWLINES = /\r?\n|\r|\t/gm;
+
 async function classifyText(key: Types.ScratchKey, text: string): Promise<TrainingTypes.Classification[]> {
     if (!text || typeof text !== 'string' || text.trim().length === 0) {
         throw new Error('Missing data');
     }
 
     if (key.classifierid && key.credentials) {
+        // text coming from Scratch sometimes includes new lines
+        //  (mainly when retrieved from the Twitter extension)
+        //  so to make life easier for those students we'll clean
+        //  up the text for them
+        text = text.replace(TABS_OR_NEWLINES, ' ');
+
+        // submit the text to the classifier
         const resp = await conversation.testClassifier(
             key.credentials, key.classifierid, key.updated,
             key.projectid, text);
