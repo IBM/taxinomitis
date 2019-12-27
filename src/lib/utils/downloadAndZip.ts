@@ -398,7 +398,7 @@ export async function runInServerless(locations: ImageDownload[]): Promise<strin
                             return resolve(zippath);
                         })
                         .catch((localerr) => {
-                            log.error({ localerr }, 'Failed to re-run locally');
+                            log.error({ err : localerr }, 'Failed to re-run locally');
                             return reject(localerr);
                         });
                 }

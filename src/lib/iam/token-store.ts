@@ -11,6 +11,8 @@ let accessTokensCache: any;
 export function init() {
     accessTokensCache = new LRU({
         max: 500,
+        // according to https://cloud.ibm.com/docs/iam?topic=iam-iamtoken_from_apikey#iamtoken_from_apikey
+        //  tokens are only valid for 1 hour
         maxAge: constants.ONE_HOUR,
     });
 }

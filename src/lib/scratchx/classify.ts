@@ -1,6 +1,7 @@
 // external dependencies
 import * as _ from 'lodash';
 import * as fs from 'fs';
+import * as httpStatus from 'http-status';
 // local dependencies
 import * as store from '../db/store';
 import * as conversation from '../training/conversation';
@@ -137,7 +138,12 @@ async function classifyNumbers(key: Types.ScratchKey, numbers: string[]): Promis
         }
     }
     catch (err) {
-        log.error({ err, numbers }, 'Failed to test numbers classifier');
+        if (err.statusCode === httpStatus.BAD_REQUEST) {
+            log.warn({ err, numbers }, 'Failed to test numbers classifier');
+        }
+        else {
+            log.error({ err, numbers }, 'Failed to test numbers classifier');
+        }
     }
 
     // we don't have a trained functional decision tree,

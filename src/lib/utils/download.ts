@@ -27,7 +27,7 @@ sharp.concurrency(1);
 
 // standard options for downloading images
 const REQUEST_OPTIONS = {
-    timeout : 10000,
+    timeout : 20000,
     rejectUnauthorized : false,
     strictSSL : false,
     gzip : true,
