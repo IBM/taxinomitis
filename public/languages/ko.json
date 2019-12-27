@@ -1123,6 +1123,8 @@
             "NO_TEXT_CREDENTIALS": "여러분은 텍스트 인식 인증서(Assistant credentials)를 가지고 있지 않습니다. 그렇기 때문에 <strong>text</strong> 프로젝트를 만들 수 없습니다.",
             "NO_IMAGE_CREDENTIALS": "여러분은 이미지 인식 인증키(Visual Recognition API keys)를 가지고 있지 않습니다. 그렇기 때문에  <strong>images</strong> 프로젝트를 만들 수 없습니다.",
 
+            "LINK_TO_APIKEYS_GUIDE": "If you're not sure where to get them, download the <a href='/apikeys-guide'>step-by-step guide</a>",
+
             "NOTAUTHORISED": "여러분의 교실에서 Watson API keys에 접근할 수 있는 권한이 없습니다.",
             "MANAGEDCLASS": "API Keys가 여러분의 교실에서 관리되고 있습니다.",
 

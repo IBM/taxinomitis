@@ -1123,6 +1123,8 @@
             "NO_TEXT_CREDENTIALS": "Vous n'avez pas d'accréditation d'Assistant. Cela signifie qu'il ne sera pas possible d'entraîner des modèles pour des projets à base de <strong>texte</strong>.",
             "NO_IMAGE_CREDENTIALS": "Vous n'avez pas de clés API de reconnaissance visuelle. Cela signifie qu'il ne sera pas possible d'entraîner des modèles pour des projets à base d'<strong>images</strong>.",
 
+            "LINK_TO_APIKEYS_GUIDE": "If you're not sure where to get them, download the <a href='/apikeys-guide'>step-by-step guide</a>",
+
             "NOTAUTHORISED": "Vous n'êtes pas autorisé à accéder aux clés API Watson utilisées par votre classe.",
             "MANAGEDCLASS": "Les clés API utilisées par votre classe sont gérées pour vous.",
 

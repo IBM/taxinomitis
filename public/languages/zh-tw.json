@@ -1123,6 +1123,8 @@
             "NO_TEXT_CREDENTIALS": "你沒有任何Watson Assistant權限。這代表你無法訓練模型在<strong>文字</strong>專案中使用",
             "NO_IMAGE_CREDENTIALS": "你沒有任何Watson Visual Recognition的API密鑰。這代表你無法訓練模型在<strong>圖片</strong>專案中使用",
 
+            "LINK_TO_APIKEYS_GUIDE": "If you're not sure where to get them, download the <a href='/apikeys-guide'>step-by-step guide</a>",
+
             "NOTAUTHORISED": "你無權訪問你的班級使用的Watson API密鑰",
             "MANAGEDCLASS": "你正在管理班級使用的API密鑰",
 

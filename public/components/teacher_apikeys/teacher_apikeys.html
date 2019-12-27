@@ -88,7 +88,10 @@
                 <span style="font-size: 1.15em; font-style: italic" ng-if="vm.credentials.totals.conv === vm.CONSTANTS.UNKNOWN" translate="TEACHER.APIKEYS.UNKNOWN"></span>
                 <span style="font-size: 1.15em; font-weight: bold;" ng-if="vm.credentials.totals.conv >= 0">{{ vm.credentials.totals.conv }}</span>
             </div>
-            <div class="credserror" ng-if="vm.credentials.conv && vm.credentials.conv.length === 0" translate="TEACHER.APIKEYS.NO_TEXT_CREDENTIALS"></div>
+            <div class="credserror" ng-if="vm.credentials.conv && vm.credentials.conv.length === 0">
+                <div translate="TEACHER.APIKEYS.NO_TEXT_CREDENTIALS"></div>
+                <div class="errormsg" translate="TEACHER.APIKEYS.LINK_TO_APIKEYS_GUIDE"></div>
+            </div>
         </div>
 
 
@@ -133,7 +136,10 @@
                 <span style="font-size: 1.15em;" ng-if="vm.credentials.totals.visrec === vm.CONSTANTS.UNLIMITED" translate="TEACHER.APIKEYS.UNLIMITED"></span>
                 <span style="font-size: 1.15em; font-weight: bold;" ng-if="vm.credentials.totals.visrec >= 0">{{ vm.credentials.totals.visrec }}</span>
             </div>
-            <div class="credserror" ng-if="vm.credentials.visrec && vm.credentials.visrec.length === 0" translate="TEACHER.APIKEYS.NO_IMAGE_CREDENTIALS"></div>
+            <div class="credserror" ng-if="vm.credentials.visrec && vm.credentials.visrec.length === 0">
+                <div translate="TEACHER.APIKEYS.NO_IMAGE_CREDENTIALS"></div>
+                <div class="errormsg" translate="TEACHER.APIKEYS.LINK_TO_APIKEYS_GUIDE"></div>
+            </div>
         </div>
 
         <div style="border-top: thin #444 solid; padding-top: 1em; margin-bottom: 2em;">

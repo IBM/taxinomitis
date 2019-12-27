@@ -1123,6 +1123,8 @@
             "NO_TEXT_CREDENTIALS": "Asistan kimlik bilginiz yok. Bu da <strong>metin</strong> projeleri için model eğitiminin mümkün olmayacağı anlamına gelir.",
             "NO_IMAGE_CREDENTIALS": "Visual Recognition API anahtarınız yok. Bu da <strong>fotoğraflar</strong> projeleri için model eğitiminin mümkün olmayacağı anlamına gelir.",
 
+            "LINK_TO_APIKEYS_GUIDE": "If you're not sure where to get them, download the <a href='/apikeys-guide'>step-by-step guide</a>",
+
             "NOTAUTHORISED": "Sınıfınızın kullandığı Watson API anahtarlarına erişim yetkiniz yok.",
             "MANAGEDCLASS": "Sınıfınızın kullandığı API Anahtarları sizin için yönetiliyor.",
 

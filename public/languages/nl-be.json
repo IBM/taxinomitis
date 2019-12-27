@@ -1123,6 +1123,8 @@
             "NO_TEXT_CREDENTIALS": "Je hebt geen Watson Assistant inloggegevens. Dit betekent dat je geen modellen kan trainen voor <strong>tekstherkenning</strong> projecten.",
             "NO_IMAGE_CREDENTIALS": "Je hebt geen Visual Recognition API keys. Dit betekent dat je geen modellen kan trainen voor <strong>afbeeldingsherkenning</strong> projecten.",
 
+            "LINK_TO_APIKEYS_GUIDE": "If you're not sure where to get them, download the <a href='/apikeys-guide'>step-by-step guide</a>",
+
             "NOTAUTHORISED": "Je bent niet gemachtigd om de Watson API keys gebruikt door je klas te bekijken.",
             "MANAGEDCLASS": "API Keys gebruikt voor je klas worden voor jou gemanaged.",
 

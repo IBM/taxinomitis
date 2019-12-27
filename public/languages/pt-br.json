@@ -1123,6 +1123,8 @@
             "NO_TEXT_CREDENTIALS": "Você não tem credenciais do Assistente. Isso significa que não será possível treinar modelos para projetos de <strong>texto</strong>.",
             "NO_IMAGE_CREDENTIALS": "Você não tem nenhuma chave de API de Reconhecimento Visual. Isso significa que não será possível treinar modelos para projetos de <strong>imagem</strong>.",
 
+            "LINK_TO_APIKEYS_GUIDE": "If you're not sure where to get them, download the <a href='/apikeys-guide'>step-by-step guide</a>",
+
             "NOTAUTHORISED": "Você não está autorizado a acessar as chaves de API do Watson usadas por sua turma.",
             "MANAGEDCLASS": "As chaves de API usadas por sua turma estão sendo gerenciadas para você.",
 

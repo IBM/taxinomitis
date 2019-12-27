@@ -1123,6 +1123,8 @@
             "NO_TEXT_CREDENTIALS": "あなたは、Assistant credentialsを指定していません。これは、 <strong>文字列</strong> プロジェクト用のモデルをトレーニングできないことを意味します。",
             "NO_IMAGE_CREDENTIALS": "あなたは、Visual Recognition API keysを指定していません。 これは、<strong>画像</strong> プロジェクト用のモデルをトレーニングできないことを意味します。",
 
+            "LINK_TO_APIKEYS_GUIDE": "If you're not sure where to get them, download the <a href='/apikeys-guide'>step-by-step guide</a>",
+
             "NOTAUTHORISED": "あなたのクラスで使われる Watson API キーにアクセスする権限をあなたは持っていません。",
             "MANAGEDCLASS": "あなたのクラスで使われる API キーはあなたのために管理されています。",
 

@@ -1123,6 +1123,8 @@
             "NO_TEXT_CREDENTIALS": "Non hai credenziali Watson Assistant. Ciò significa che non sarà possibile formare modelli per progetti di <strong>testo</strong> .",
             "NO_IMAGE_CREDENTIALS": "Non hai Visual Recognition API keys. Ciò significa che non sarà possibile formare modelli per progetti di <strong>immagini</strong> .",
 
+            "LINK_TO_APIKEYS_GUIDE": "If you're not sure where to get them, download the <a href='/apikeys-guide'>step-by-step guide</a>",
+
             "NOTAUTHORISED": "Non sei autorizzato ad accedere alle Watson API keys utilizzate dalla tua classe.",
             "MANAGEDCLASS": "Le API Keys utilizzate dalla tua classe vengono gestite per te.",
 

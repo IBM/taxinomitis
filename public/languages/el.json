@@ -1123,6 +1123,8 @@
             "NO_TEXT_CREDENTIALS": "Δεν έχεις διαπιστευτήρια Assistant. Αυτό σημαίνει ότι δεν θα είναι δυνατή η εκπαίδευση μοντέλων για έργα <strong>κειμένου</strong> .",
             "NO_IMAGE_CREDENTIALS": "Δεν διαθέτεις API κλειδιά για Οπτική Αναγνώριση. Αυτό σημαίνει ότι δεν θα είναι δυνατό να εκπαιδεύσεις μοντέλα για έργα <strong>εικόνων</strong>.",
 
+            "LINK_TO_APIKEYS_GUIDE": "If you're not sure where to get them, download the <a href='/apikeys-guide'>step-by-step guide</a>",
+
             "NOTAUTHORISED": "Δεν έχεις εξουσιοδότηση πρόσβασης στα κλειδιά API του Watson που χρησιμοποιούνται από την τάξη σου.",
             "MANAGEDCLASS": "Τα κλειδιά API που χρησιμοποιούνται από την τάξη σου είναι υπό διαχείριση  για σένα.",
 

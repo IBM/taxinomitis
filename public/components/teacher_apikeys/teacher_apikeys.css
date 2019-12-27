@@ -6,6 +6,10 @@
     text-align: center;
     margin-bottom: 6em;
 }
+.credserror .errormsg {
+    font-size: 1.1em;
+    margin-top: 0.3em;
+}
 
 .studentslistdetail .listheading {
     font-size: 0.6em;
