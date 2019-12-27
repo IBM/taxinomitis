@@ -58,7 +58,8 @@
                 $translate([
                     'DATASETS.DATA.TITANIC.TITLE', 'DATASETS.DATA.TITANIC.SUMMARY', 'DATASETS.DATA.TITANIC.DESCRIPTION', 'DATASETS.DATA.TITANIC.DETAILS',
                     'DATASETS.DATA.UKNEWSPAPERS.TITLE', 'DATASETS.DATA.UKNEWSPAPERS.SUMMARY', 'DATASETS.DATA.UKNEWSPAPERS.DESCRIPTION', 'DATASETS.DATA.UKNEWSPAPERS.DETAILS',
-                    'DATASETS.DATA.CATSANDDOGS.TITLE', 'DATASETS.DATA.CATSANDDOGS.SUMMARY', 'DATASETS.DATA.CATSANDDOGS.DESCRIPTION', 'DATASETS.DATA.CATSANDDOGS.DETAILS'
+                    'DATASETS.DATA.CATSANDDOGS.TITLE', 'DATASETS.DATA.CATSANDDOGS.SUMMARY', 'DATASETS.DATA.CATSANDDOGS.DESCRIPTION', 'DATASETS.DATA.CATSANDDOGS.DETAILS',
+                    'DATASETS.DATA.PHISHING.TITLE', 'DATASETS.DATA.PHISHING.SUMMARY', 'DATASETS.DATA.PHISHING.DESCRIPTION', 'DATASETS.DATA.PHISHING.DETAILS'
                 ]).then(function (translations) {
                     vm.datasets = [
                         {
@@ -86,6 +87,15 @@
                             description: translations['DATASETS.DATA.CATSANDDOGS.DESCRIPTION'],
                             details: translations['DATASETS.DATA.CATSANDDOGS.DETAILS'],
                             type: 'images',
+                            image: 'static/images/dataset-catsanddogs.png'
+                        },
+                        {
+                            id: 'phishing',
+                            title: translations['DATASETS.DATA.PHISHING.TITLE'],
+                            summary: translations['DATASETS.DATA.PHISHING.SUMMARY'],
+                            description: translations['DATASETS.DATA.PHISHING.DESCRIPTION'],
+                            details: translations['DATASETS.DATA.PHISHING.DETAILS'],
+                            type: 'numbers',
                             image: 'static/images/dataset-catsanddogs.png'
                         }
                     ];

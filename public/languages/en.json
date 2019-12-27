@@ -270,6 +270,12 @@
                 "SUMMARY": "Recognize the use of language in newspaper headlines",
                 "DESCRIPTION": "Different newspapers use language in different ways. This project includes the main front page headline from four UK newspapers. You can use this to train a machine learning model that can learn to predict the most likely newspaper that a new headline is probably from. ",
                 "DETAILS": "This training dataset includes headlines from the Daily Mail, the Daily Telegraph, the Independent, and The Guardian"
+            },
+            "PHISHING": {
+                "TITLE": "Phishing",
+                "SUMMARY": "PLACEHOLDER Recognize phishing links",
+                "DESCRIPTION": "PLACEHOLDER for summary",
+                "DETAILS": "PLACEHOLDER Documentation for the dataset"
             }
         }
     },
@@ -796,11 +802,11 @@
             "SUMMARY": "Teach a computer to recognise compliments and insults",
             "DESCRIPTION": "Create a character in Scratch that smiles if you say nice things to it and cries if you say mean things to it.",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Full version of the project, where the students make a non-machine learning version first",
+                "DESCRIPTION": "Full version of the Scratch project, where the students make a non-machine learning version first",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Shorter version of the project, where the students only make a machine learning version",
+                "DESCRIPTION": "Shorter version of the Scratch project, where the students only make a machine learning version",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-easy.pdf"
             },
             "WORKSHEET_3": {
