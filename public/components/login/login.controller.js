@@ -23,23 +23,30 @@
 
         vm.outOfOffice = function (ev) {
             var confirm = $mdDialog.confirm()
-                            .title('I need a bit of a break, sorry!')
-                            .htmlContent('<div class="outofoffice">I originally added this idea of a "Managed" class ' +
-                                                                    'to help teachers who found the signup process too ' +
-                                                                    'complicated or time-consuming. It means teachers have ' +
-                                                                    'been able to send me an email to ask me to do it for ' +
-                                                                    'them, and for the last couple of years I\'ve been ' +
-                                                                    'happy to do it to help many schools get started.</div>' +
-                                         '<div class="outofoffice">However, in recent months, this has increased ' +
-                                                                    'so much that I\'m spending hours doing this ' +
-                                                                    'every day. It\'s the main reason why I haven\'t been ' +
-                                                                    'able to add any significant new features or fixes to this ' +
-                                                                    'site recently.</div>' +
-                                         '<div class="outofoffice">I need to take a break from this. You are free to create yourself ' +
-                                                                    'a class account during this time - the only thing that is ' +
-                                                                    'pausing is my offer to email me to ask me to do it for you.</div>' +
-                                         '<div class="outofoffice">Sorry for any difficulty this causes.</div>' +
-                                         '<div class="outofoffice">-- Dale</div>')
+                                .title('Happy Holidays!')
+                                .htmlContent('<div class="outofoffice">I am on vacation, so I won\'t be available to set up ' +
+                                                                        'classes until I get back in the New Year. </div>' +
+                                             '<div class="outofoffice">You can set up your own class while I\'m away if you ' +
+                                                                        'can\'t wait until I get back, or use "Try it now" to ' +
+                                                                        'use the site without registering in the meantime.</div>' +
+                                             '<div class="outofoffice">-- Dale</div>')
+                            // .title('I need a bit of a break, sorry!')
+                            // .htmlContent('<div class="outofoffice">I originally added this idea of a "Managed" class ' +
+                            //                                         'to help teachers who found the signup process too ' +
+                            //                                         'complicated or time-consuming. It means teachers have ' +
+                            //                                         'been able to send me an email to ask me to do it for ' +
+                            //                                         'them, and for the last couple of years I\'ve been ' +
+                            //                                         'happy to do it to help many schools get started.</div>' +
+                            //              '<div class="outofoffice">However, in recent months, this has increased ' +
+                            //                                         'so much that I\'m spending hours doing this ' +
+                            //                                         'every day. It\'s the main reason why I haven\'t been ' +
+                            //                                         'able to add any significant new features or fixes to this ' +
+                            //                                         'site recently.</div>' +
+                            //              '<div class="outofoffice">I need to take a break from this. You are free to create yourself ' +
+                            //                                         'a class account during this time - the only thing that is ' +
+                            //                                         'pausing is my offer to email me to ask me to do it for you.</div>' +
+                            //              '<div class="outofoffice">Sorry for any difficulty this causes.</div>' +
+                            //              '<div class="outofoffice">-- Dale</div>')
                             .targetEvent(ev)
                             .ok('OK');
             $mdDialog.show(confirm)
