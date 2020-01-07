@@ -96,7 +96,7 @@
                             description: translations['DATASETS.DATA.PHISHING.DESCRIPTION'],
                             details: translations['DATASETS.DATA.PHISHING.DETAILS'],
                             type: 'numbers',
-                            image: 'static/images/dataset-catsanddogs.png'
+                            image: 'static/images/dataset-phishing.png'
                         }
                     ];
 
