@@ -132,7 +132,8 @@ async function createClassifier(
                 //  creds in the pool
                 finalError = ERROR_MESSAGES.API_KEY_RATE_LIMIT;
             }
-            else if (err.error && err.error.code === 401 && err.error.error === 'Unauthorized')
+            else if ((err.error && err.error.code === 401 && err.error.error === 'Unauthorized') ||
+                     (err.error && err.error.code === 403 && err.error.error === 'Forbidden'))
             {
                 // there is a problem with their API key
                 log.warn({ err, project, credentials : credentials.id },
@@ -780,6 +781,31 @@ async function submitTrainingToVisualRecognition(
     }
     catch (err) {
         log.warn({ url, req, project, err }, ERROR_MESSAGES.UNKNOWN);
+
+
+        // Visual Recognition will sometimes return an HTTP 413 (Request Entity Too Large)
+        //  response in the event of an auth problem - because only authorised users can
+        //  post large payloads
+        // So if we get an HTTP 413, before returning that, we check the credentials
+        //  (by using them to fetch a list of classifiers) to see if that might be the
+        //  root cause of the error.
+        if (err.statusCode === httpStatus.REQUEST_ENTITY_TOO_LARGE) {
+            try {
+                await getImageClassifiers(credentials);
+                // if we get here, the credentials are fine - the request
+                //  was legitimately too large, so we'll return that error
+                //  below
+            }
+            catch (credserr) {
+                // if we are here, we couldn't use the credentials, so that
+                //  was likely the root cause of the training error
+                // we'll throw that instead
+                const credsCheckError: any = new Error(ERROR_MESSAGES.UNKNOWN);
+                credsCheckError.error = credserr.error;
+                credsCheckError.statusCode = credserr.statusCode;
+                throw credsCheckError;
+            }
+        }
 
         // The full error object will include the classifier request with the
         //  URL and credentials we used for it. So we don't want to return
