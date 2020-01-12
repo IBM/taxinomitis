@@ -115,7 +115,10 @@
             'WORKSHEETS.TITANIC.WORKSHEET_1.URL',
 
             'WORKSHEETS.ZOMBIEESCAPE.TITLE', 'WORKSHEETS.ZOMBIEESCAPE.SUMMARY', 'WORKSHEETS.ZOMBIEESCAPE.DESCRIPTION',
-            'WORKSHEETS.ZOMBIEESCAPE.WORKSHEET_1.URL'
+            'WORKSHEETS.ZOMBIEESCAPE.WORKSHEET_1.URL',
+
+            'WORKSHEETS.PHISHING.TITLE', 'WORKSHEETS.PHISHING.SUMMARY', 'WORKSHEETS.PHISHING.DESCRIPTION',
+            'WORKSHEETS.PHISHING.WORKSHEET_1.URL'
 
         ]).then(function (translations) {
             vm.worksheets = [
@@ -649,6 +652,22 @@
                     downloads : [
                         {
                             worksheet : translations['WORKSHEETS.FINDIT.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.PHISHING.TITLE'],
+                    summary : translations['WORKSHEETS.PHISHING.SUMMARY'],
+                    description : translations['WORKSHEETS.PHISHING.DESCRIPTION'],
+                    difficulty : 'Advanced',
+                    type : 'numbers',
+                    maketypes : [ 'python' ],
+                    image : 'static/images/dataset-phishing.png',
+                    tags : [ 'decision tree learning', 'supervised learning', 'categorical data' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-phishing.pdf',
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.PHISHING.WORKSHEET_1.URL']
                         }
                     ]
                 }
