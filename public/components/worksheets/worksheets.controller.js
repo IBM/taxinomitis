@@ -333,7 +333,7 @@
                     description : translations['WORKSHEETS.PACMAN.DESCRIPTION'],
                     difficulty : 'Intermediate',
                     type : 'numbers',
-                    maketypes : [ 'scratch2' ],
+                    maketypes : [ 'scratch3' ],
                     image : 'static/images/project-pacman.png',
                     tags : [ 'decision tree learning' ],
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-pacman.pdf',
