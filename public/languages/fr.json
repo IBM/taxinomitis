@@ -184,6 +184,7 @@
     "PROJECTS": {
         "TITLE": "Vos projets d'apprentissage machine",
         "ADDNEWPROJECT": "Ajouter un nouveau projet",
+        "COPYTEMPLATE": "Copy template",
         "CREATEFIRSTPROJECT": "Cliquez sur le bouton 'plus' à droite pour créer votre premier projet.",
         "RECOGNISING": "Reconnaissance",
         "AS": "comme"

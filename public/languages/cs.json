@@ -184,6 +184,7 @@
     "PROJECTS": {
         "TITLE": "Tvé projekty strojového učení",
         "ADDNEWPROJECT": "Přidat nový projekt",
+        "COPYTEMPLATE": "Copy template",
         "CREATEFIRSTPROJECT": "Klikni na tlačítko 'plus' na pravé straně, abys vytvořil svůj první projekt.",
         "RECOGNISING": "Rozpoznávání",
         "AS": "jako"

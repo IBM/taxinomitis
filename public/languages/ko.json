@@ -184,6 +184,7 @@
     "PROJECTS": {
         "TITLE": "당신의 머신러닝 프로젝트",
         "ADDNEWPROJECT": "프로젝트 추가",
+        "COPYTEMPLATE": "Copy template",
         "CREATEFIRSTPROJECT": "'추가' 버튼을 클릭하여 여러분의 첫 번째 프로젝트를 만들어 보세요",
         "RECOGNISING": "인식",
         "AS": "as"

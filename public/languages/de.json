@@ -46,8 +46,8 @@
             "LOGIN": "Los geht‘s: "
         },
         "FURTHER": {
-            "TITLE": "Further learning",
-            "BODY": "Machine Learning for Kids is a useful tool for introducing children to how ML systems are trained, how they are used, and some of the real-world implications of AI applications. <br/><br/>For additional teaching and learning resources, including teaching the internals of ML systems, please see: "
+            "TITLE": "Weiteres Lernen",
+            "BODY": "Machine Learning für Kinder ist ein nützliches Werkzeug um Kinder an das Trainieren und Nutzen von ML Systemen heranzuführen und ihnen ein paar reale AI Anwendungen näher zu bringen. <br/><br/>Für weiteres Lehr- und Lernmaterial, wie die Kernbausteine eines ML Systems, bitte hier schauen:"
         }
     },
     "NEWS": {
@@ -184,6 +184,7 @@
     "PROJECTS": {
         "TITLE": "Deine Machine Learning Projekte",
         "ADDNEWPROJECT": "Erstelle ein neues Projekt",
+        "COPYTEMPLATE": "Vorlage kopieren",
         "CREATEFIRSTPROJECT": "Klicke rechts auf den 'plus'-Button, um dein erstes Projekt zu erstellen.",
         "RECOGNISING": "Erkennen",
         "AS": "als"
@@ -239,42 +240,42 @@
         }
     },
     "DATASETS": {
-        "TITLE": "Copy a machine learning project template",
+        "TITLE": "Kopiere eine Machine Learning Projekt vorlage",
         "INTRO": {
-            "INTRO_1": "You can create new machine learning project based on one of these templates.",
-            "INTRO_2": "Each one includes a set of training data that has been collected for you to help you get started quickly. ",
-            "INTRO_3": "You will be able to make changes to the training data if you like, or you can go straight to training a machine learning model with it. "
+            "INTRO_1": "Du kannst ein neues Machine Learning Projekt mit Hilfe von einer dieser Vorlagen erstellen. ",
+            "INTRO_2": "Jede Vorlage beinhaltet gesammelte Trainingsdaten für dich, sodass du schnell starten kannst. ",
+            "INTRO_3": "Du kannst deine Trainingsdaten ändern, wenn du möchtest, oder du kannst direkt dein Machine Learning Modell mit ihnen trainieren. "
         },
         "IMPORT": "Import",
         "MORE": {
-            "TITLE": "Other data sets",
-            "SUMMARY": "What other data sets would you like to see?",
-            "DESCRIPTION": "Have you got an idea for a data set you'd like to see available here? Or do you have a data set that you'd like to contribute? Please get in touch!",
+            "TITLE": "Andere Datensätze",
+            "SUMMARY": "Welche anderen Datensätze würdest du gerne sehen?",
+            "DESCRIPTION": "Hast du eine Idee für einen Datensatz auf den du hier gerne zugreifen würdest? Oder hast du einen eigenen Datensatz den du gerne beitragen möchtest? Bitte melde dich!",
             "MOREINFO": "More..."
         },
         "DATA": {
             "TITANIC": {
-                "TITLE": "Titanic survivors",
-                "SUMMARY": "Predict survival on the Titanic",
-                "DESCRIPTION": "On 15th April 1912, the RMS Titanic hit an iceberg and sank, killing over 1500 of the passengers and crew. This project includes personal data about hundreds of the passengers. You can use this to train a machine learning model that, if you give it a description of a passenger, can learn to predict the likelihood that they would have survived. ",
+                "TITLE": "Titanic Überlebende",
+                "SUMMARY": "Sage die Überlebenswahrscheinlichkeit auf der Titanic voraus",
+                "DESCRIPTION": "Am 15. April 1912 traf die RMS Titanic einen Eisberg und sank. Dabei starben über 1500 Menschen – Passagiere und Besatzung. Dieses Projekt beinhaltet Daten über hunderte Passagiere. Du kannst dies nutzen um dein Machine Learning Modell zu trainieren. Gibst du dem Modell eine Passagierbeschreibung, kann es lernen die Wahrscheinlichkeit, dass dieser Passagier überlebt hätte, vorherzusagen. ",
                 "DETAILS": "The 'ticket class' field is a number indicating the type of ticket for the passenger: first class (1), second class (2), or third class (3). \nThe 'gender' field is whether the passenger was 'male' or 'female'. \nThe 'age' field is the age of the passenger. \nThe 'sibl. sp.' is the number of brothers or sisters (siblings) the passenger had on board if they were a child, or the number of husbands or wives (spouses) the passenger had on board if they were an adult. \nThe 'par. ch.' field is the number of parents the passenger had on board if they were a child, or the number of children the passenger had on board if they were an adult. \nThe 'ticket fare' field is how much they paid for their ticket. \nThe 'embarked' field is where they got on board the Titanic, either Cherbourg, Queenstown or Southampton."
             },
             "CATSANDDOGS": {
-                "TITLE": "Cats and Dogs",
-                "SUMMARY": "Recognize photos of cats vs dogs",
-                "DESCRIPTION": "Training a machine learning model to recognise photos of cats and dogs is a good simple introduction to image recognition.",
+                "TITLE": "Hunde und Katzen",
+                "SUMMARY": "Erkenne Fotos von Hunden und Katzen",
+                "DESCRIPTION": "Das Trainieren eines Machine Learning Modells um Fotos von Hunden und Katzen zu erkennen ist eine gute Einführung in Bilderkennung.",
                 "DETAILS": "This training dataset of photos from Wikimedia Commons is a good starting set for building your own training data of animal photos"
             },
             "UKNEWSPAPERS": {
-                "TITLE": "UK Newspaper Headlines",
-                "SUMMARY": "Recognize the use of language in newspaper headlines",
-                "DESCRIPTION": "Different newspapers use language in different ways. This project includes the main front page headline from four UK newspapers. You can use this to train a machine learning model that can learn to predict the most likely newspaper that a new headline is probably from. ",
+                "TITLE": "Schlagzeilen von Zeitungen aus dem Vereinigten Königreich",
+                "SUMMARY": "Erkenne den Gebrauch von Sprache in Schlagzeilen",
+                "DESCRIPTION": "Unterschiedliche Zeitungen benutzen Sprache unterschiedlich. Dieses Projekt beinhaltet jeweils eine Schlagzeile der ersten Seite von vier Zeitungen aus dem Vereinigten Königreich. Diese kannst du nutzen um dein Machine Learning Modell zu trainieren vorherzusagen, von welcher Zeitung eine neue Schlagzeile mit der größten Wahrscheinlichkeit kommt. ",
                 "DETAILS": "This training dataset includes headlines from the Daily Mail, the Daily Telegraph, the Independent, and The Guardian"
             },
             "PHISHING": {
                 "TITLE": "Phishing",
-                "SUMMARY": "Predict if a link is a phishing link",
-                "DESCRIPTION": "Phishing is when a website tries to trick you into giving up sensitive information, by sending you a link to a fake website disguised like a trustworthy one. You can use this to train a machine learning model that can predict if a web address is a real link, or a phishing link to a fake website.",
+                "SUMMARY": "Sage voraus ob ein Link ein phishing Link ist",
+                "DESCRIPTION": "Unter phishing versteht man, dass eine Website versucht dich auszutricksen damit du private Informationen freigibst. Dies passiert indem dir ein Link zugeschickt wird, der dich auf eine scheinbar vertrauenswürdige Website weiterleitet. Du kannst dies nutzen um ein Machine Learning Modell zu trainieren dir vorauszusagen, ob es sich um einen realen Link oder einen phishing Link zu einer falschen Website handelt.",
                 "DETAILS": "This training dataset includes attributes of five hundred legitimate web addresses, and five hundred phishing links.\n\nThe 'address type' field is 'IP addr' if the link has a numeric IP address like '104.20.74.246' or 'DNS name' if the link has a name-based address like 'machinelearningforkids.co.uk'. \nThe 'url length' field groups the training addresses by how long they are. \nThe 'shortening' field is 'yes' if the web address uses a shortening service like TinyURL or bit.ly, or 'no' if it doesn't. \nThe 'includes @' field is 'yes' if the web address includes an @ symbol, or 'no' if it doesn't. \nThe 'port number' field is 'standard' if the web address uses a standard port number like 80 or 443, or 'non-std' if it uses something different. \nThe 'domain age' field groups addresses by how long ago the web address in the address was registered. \nThe 'redirects' field groups the training addresses by the number of times a web browser is sent to a different address before reaching a final page. \nThe 'domain reg' field is 'expiring' if the registration for the web address domain name expires within a year."
             }
         }
@@ -1018,17 +1019,17 @@
             }
         },
         "NEWSPAPERSHELVES": {
-            "TITLE": "Newspaper shelves",
-            "SUMMARY": "Test the computer's ability to recognise use of language",
-            "DESCRIPTION": "Train a computer to recognise headlines from national newspapers.",
+            "TITLE": "Zeitungsregale",
+            "SUMMARY": "Teste die Fähigkeiten des Computers Sprachgebrauch zu erkennen",
+            "DESCRIPTION": "Bringe einem Computer bei, Schlagzeilen von nationalen Zeitungen zu erkennen.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-easy.pdf"
             }
         },
         "HEADLINETESTING": {
-            "TITLE": "Headline testing",
-            "SUMMARY": "Test the computer's ability to recognise use of language",
-            "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is",
+            "TITLE": "Überschriften testen",
+            "SUMMARY": "Teste die Fähigkeiten des Computers Sprachgebrauch zu erkennen",
+            "DESCRIPTION": "Erstelle ein Testwerkzeug in Scratch um zu messen wie gut ein Machine Learning Modell ist",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
             }
@@ -1042,49 +1043,49 @@
             }
         },
         "ALIENLANGUAGE": {
-            "TITLE": "Alien Language",
-            "SUMMARY": "Teach a computer to recognize sounds",
-            "DESCRIPTION": "Make an alien in Scratch that learns to recognize an alien language",
+            "TITLE": "Aliensprache",
+            "SUMMARY": "Bringe einem Computer bei Laute zu erkennen",
+            "DESCRIPTION": "Erstelle einen Alien in Scratch, der lernt Aliensprache zu erkennen.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-alienlanguage.pdf"
             }
         },
         "SECRETCODE": {
-            "TITLE": "Secret Code",
-            "SUMMARY": "Teach a computer to recognize speech",
-            "DESCRIPTION": "Train a computer to understand secret code words to guide a spy.",
+            "TITLE": "Geheimcode",
+            "SUMMARY": "Bringe einem Computer Spracherkennung bei",
+            "DESCRIPTION": "Trainiere einen Computer Geheimsprache zu verstehen um einen Spion zu leiten.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-secretcode.pdf"
             }
         },
         "JARGONBUSTER": {
             "TITLE": "Jargon Buster",
-            "SUMMARY": "Teach a computer to listen for words",
-            "DESCRIPTION": "Make a project in Scratch that displays the meaning of words you say.",
+            "SUMMARY": "Bringe einem Computer bei, Wörter zu hören und zu erkennen",
+            "DESCRIPTION": "Erstelle ein Projekt in Scratch, das die Bedeutung von Wörtern, die du sagst, ausgibt.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-jargonbuster.pdf"
             }
         },
         "TITANIC": {
             "TITLE": "Titanic",
-            "SUMMARY": "Teach a computer to predict outcomes",
-            "DESCRIPTION": "Create a Python program that can predict who survived the sinking of the Titanic.",
+            "SUMMARY": "Bringe einem Computer bei, die Ergebnisse vorherzusagen",
+            "DESCRIPTION": "Erstelle ein Python Programm, das vorhersagen kann wer das Sinken der Titanic überlebt hat.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
             }
         },
         "ZOMBIEESCAPE": {
-            "TITLE": "Zombie Escape!",
-            "SUMMARY": "Teach a computer to make predictions",
-            "DESCRIPTION": "Train a computer to help you escape from the zombies",
+            "TITLE": "Zombieausbruch!",
+            "SUMMARY": "Bringe einem Computer bei Vorhersagen zu machen",
+            "DESCRIPTION": "Trainiere einen Computer dir zu helfen vor Zombies zu fliehen.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
             }
         },
         "PHISHING": {
             "TITLE": "Phishing",
-            "SUMMARY": "Teach a computer to recognize phishing web links",
-            "DESCRIPTION": "Create a Python program that can predict if a URL is legitimate",
+            "SUMMARY": "Bringe einem Computer bei phishing Weblinks zu erkennen",
+            "DESCRIPTION": "Erstelle ein Python Programm, das vorhersagen kann, ob es sich um einen realen URL handelt",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-phishing.pdf"
             }
@@ -1452,12 +1453,12 @@
             "Q4-A-8": "Um Fehler im Webbrowser festzustellen, nutzt Machine Learning for Kids den Service <a href='https://sentry.io/'>Sentry</a>. Wenn ein Fehler auftritt, werde der Benutzername, die IP Adresse, die Browserart und eine technische Beschreibung des Fehlers, gesammelt.",
             "Q4-A-9": "Wir nutzen <a href='https://www.google.com/analytics/'>Google Analytics</a>, um einen Überblick darüber zu erhalten, wie viele Nutzer unsere Plattform - Machine Learning for Kids - jeden Tag besuchen. Getrackte geographische Informationen sowie Informationen über den genutzten Browser werden nur in anonymisierter Form angezeigt.",
 
-            "Q5": "What happens to training data created by students?",
-            "Q5-A-1": "A step in all machine learning projects that students make using this site is to create or collect training examples. For text projects, this can mean typing in short text passages. For image projects, this can means drawing pictures onto an on-screen canvas or taking photos using the webcam. For numbers projects, this means typing in sets of numbers",
-            "Q5-A-2": "All of these training examples are stored in a <a href='https://www.ibm.com/cloud/compose/mysql'>MySQL database hosted on IBM Cloud</a>, in Dallas in the United States. As the database administrator, I have access to all of these training examples for all student projects, however I do not use it for any other purposes other than enabling students to access and work on their own projects. I do not publish the training data (either publicly or to individuals or third parties) or otherwise share it, with the two exceptions of submitting it to IBM Watson APIs described below.",
-            "Q5-A-3": "Machine learning models for text projects are created using the <a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a> cloud service, which means when students train a model, a copy of the training examples that they have entered will be <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>submitted to IBM Watson</a>. (The location of this cloud service is something that teachers choose when <a href='https://machinelearningforkids.co.uk/apikeys-guide'>creating API keys</a>.) IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
-            "Q5-A-4": "Machine learning models for images projects are created using the <a href='https://www.ibm.com/watson/services/visual-recognition/'>IBM Visual Recognition</a> cloud service, which means when students train a model, a copy of their training images will be <a href='https://cloud.ibm.com/apidocs/visual-recognition#create-a-classifier'>uploaded to IBM Watson</a>. (The location of this cloud service is something that teachers choose when <a href='https://machinelearningforkids.co.uk/apikeys-guide'>creating API keys</a>.) IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/visual-recognition#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
-            "Q5-A-5": "IBM Watson provides some <a href='https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security-gdpr-wa'>general guidance for sharing training data with their services</a>, which also apply to training data created and collected in Machine Learning for Kids. Specifically, students should be advised not to include personally identifiable information in the examples that they collect."
+            "Q5": "Was passiert mit Trainingsdaten, die Schüler erstellt haben?",
+            "Q5-A-1": "Einen Schritt, den jeder Schüler in allen Machine Learning Projekten macht, wenn er diese Seite benutzt, ist, Trainingsbeispiele zu erstellen oder zu sammeln. Für Textprojekte kann es bedeuten kurze Textpassagen einzutippen. Für Bildprojekte kann es bedeuten Bilder auf einer Bildschirmzeichenfläche zu malen oder Fotos über die Webcam aufzunehmen. Für Zahlenprojekte bedeutet es Zahlensets einzutippen.",
+            "Q5-A-2": "All diese Trainingsdaten werden in einer <a href='https://www.ibm.com/cloud/compose/mysql'>MySQL Datenbank in einer IBM Cloud</a> in Dallas in den Vereinigten Staaten aufbewahrt. Da ich der Datenbankadministrator bin, habe ich Zugriff auf all diese Trainingsdaten für alle Schülerprojekte, jedoch benutze ich es nicht für einen anderen Zweck als Schülern zu ermöglichen Zugriff auf ihr eigenes Projekt zu haben und an ihrem Projekt arbeiten zu können. Ich veröffentlich keine Trainingsdaten (weder an die Öffentlichkeit, an Individuen, noch an Dritte) oder teile sie anderweitig, mit den zwei Ausnahmen es an IBM Watson APIs zu senden, wie unten beschrieben wird.",
+            "Q5-A-3": "Machine Learning Modelle für Textprojekte werden erstellt mit Hilfe des <a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a> Cloud Service, was bedeutet, dass wenn Schüler ein Modell trainieren, eine Kopie von den Trainingsdaten, die sie eingetragen haben, an <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>den IBM Watson Assistenten Cloud Service gesendet werden</a>. (Der Ort des Cloud Services ist etwas, das die Lehrer wählen, wenn sie API-Schlüssel erstellen.) IBM Watson benutzt diese Trainingsdaten nicht für anderweitige Zwecke. Der Grund dafür ist, dass Machine Learning für Kinder eine Auswahl von Trainingsdaten von Schülern, die von IBM benutzt werden, benötigt, um den Service zu verbessern, <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>wie in der Watson Dokumentation beschrieben wird</a>.",
+            "Q5-A-4": "Machine Learning Modelle für Bilderprojekte werden erstellt, indem man die IBM Visualerkennung nutzt. Dies bedeutet, dass, wenn Schüler ein Modell trainieren, eine Kopie von ihren Trainingsbildern zu IBM Watson hochgeladen wird. (Der Ort des Cloud Services ist etwas, das die Lehrer wählen, wenn sie API-Schlüssel erstellen.) IBM Watson benutzt diese Trainingsdaten für keine anderen Zwecke. Der Grund dafür ist, dass Machine Learning für Kinder eine Auswahl von Trainingsdaten von Schülern, die von IBM benutzt werden, benötigt, um den Service zu verbessern, <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>wie in der Watson Dokumentation beschrieben wird</a>.",
+            "Q5-A-5": "IBM Watson bietet <a href='https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security-gdpr-wa'>eine allgemeine Anleitung wie Trainingsdaten mit ihrem Service geteilt werden</a>, was auch für die Trainingsdaten, die von Machine Learning für Kinder erstellt und gesammelt werden, gilt. Insbesondere sollte Schüler geraten werden nicht persönliche Details von Wiedererkennungswert in den Beispielen, die sie sammeln, preiszugeben."
         }
     },
     "APIKEYSGUIDE": {

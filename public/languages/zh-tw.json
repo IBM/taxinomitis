@@ -184,6 +184,7 @@
     "PROJECTS": {
         "TITLE": "你的機器學習專案",
         "ADDNEWPROJECT": "新增一個專案",
+        "COPYTEMPLATE": "Copy template",
         "CREATEFIRSTPROJECT": "點擊右方「＋」按鈕，建立你的第一個專案",
         "RECOGNISING": "辨識中",
         "AS": "當作"

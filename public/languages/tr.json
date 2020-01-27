@@ -184,6 +184,7 @@
     "PROJECTS": {
         "TITLE": "Makine öğrenimi projeleriniz",
         "ADDNEWPROJECT": "Yeni proje ekle",
+        "COPYTEMPLATE": "Copy template",
         "CREATEFIRSTPROJECT": "İlk projenizi oluşturmak için sağdaki 'artı' düğmesini tıklatın.",
         "RECOGNISING": "Tanıma",
         "AS": "şu şekilde:"

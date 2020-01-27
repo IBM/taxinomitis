@@ -184,6 +184,7 @@
     "PROJECTS": {
         "TITLE": "Ваши проекты машинного обучения",
         "ADDNEWPROJECT": "Добавить новый проект",
+        "COPYTEMPLATE": "Copy template",
         "CREATEFIRSTPROJECT": "Нажмите кнопку «плюс» справа, чтобы создать свой первый проект.",
         "RECOGNISING": "Распознавание",
         "AS": "как"

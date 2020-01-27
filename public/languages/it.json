@@ -184,6 +184,7 @@
     "PROJECTS": {
         "TITLE": "I tuoi progetti di machine learning",
         "ADDNEWPROJECT": "Aggiungi un nuovo progetto",
+        "COPYTEMPLATE": "Copy template",
         "CREATEFIRSTPROJECT": "Fai clic sul pulsante \"più\" sulla destra per creare il tuo primo progetto.",
         "RECOGNISING": "Riconoscendo",
         "AS": "come"

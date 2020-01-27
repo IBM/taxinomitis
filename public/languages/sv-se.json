@@ -184,6 +184,7 @@
     "PROJECTS": {
         "TITLE": "Dina maskininlärninsprojekt",
         "ADDNEWPROJECT": "Lägg till ett nytt projekt",
+        "COPYTEMPLATE": "Copy template",
         "CREATEFIRSTPROJECT": "Klicka på 'plus'-knappen till höger för att skapa ditt första projekt.",
         "RECOGNISING": "Känna igen",
         "AS": "som"

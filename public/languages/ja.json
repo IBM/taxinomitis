@@ -184,6 +184,7 @@
     "PROJECTS": {
         "TITLE": "あなたの機械学習プロジェクト",
         "ADDNEWPROJECT": "新しいプロジェクトの追加",
+        "COPYTEMPLATE": "Copy template",
         "CREATEFIRSTPROJECT": "最初のプロジェクトを作成するには右の 'プラス' ボタンをクリックしてください。",
         "RECOGNISING": "認識対象:",
         "AS": "として"

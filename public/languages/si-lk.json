@@ -184,6 +184,7 @@
     "PROJECTS": {
         "TITLE": "ඔබේ machine learning ව්‍යාපෘති",
         "ADDNEWPROJECT": "අලුත් ව්‍යාපෘතියක් එක් කරන්න",
+        "COPYTEMPLATE": "Copy template",
         "CREATEFIRSTPROJECT": "Click on the 'plus' button on the right to create your first project.",
         "RECOGNISING": "Recognising",
         "AS": "as"

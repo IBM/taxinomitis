@@ -184,6 +184,7 @@
     "PROJECTS": {
         "TITLE": "Τα έργα σου στη μηχανική μάθηση",
         "ADDNEWPROJECT": "Προσθήκη νέου έργου",
+        "COPYTEMPLATE": "Copy template",
         "CREATEFIRSTPROJECT": "Κάνε κλικ στο κουμπί \"συν\", στα δεξιά, για να δημιουργήσεις το πρώτο σου έργο.",
         "RECOGNISING": "Αναγνωρίζει",
         "AS": "ως"

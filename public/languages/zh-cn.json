@@ -184,6 +184,7 @@
     "PROJECTS": {
         "TITLE": "你的机器学习项目",
         "ADDNEWPROJECT": "添加一个新项目",
+        "COPYTEMPLATE": "Copy template",
         "CREATEFIRSTPROJECT": "点击右边的'加号'按钮创建你的第一个项目。",
         "RECOGNISING": "识别",
         "AS": "as"
