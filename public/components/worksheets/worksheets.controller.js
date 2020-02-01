@@ -118,8 +118,10 @@
             'WORKSHEETS.ZOMBIEESCAPE.WORKSHEET_1.URL',
 
             'WORKSHEETS.PHISHING.TITLE', 'WORKSHEETS.PHISHING.SUMMARY', 'WORKSHEETS.PHISHING.DESCRIPTION',
-            'WORKSHEETS.PHISHING.WORKSHEET_1.URL'
+            'WORKSHEETS.PHISHING.WORKSHEET_1.URL',
 
+            'WORKSHEETS.KIWIORSTOAT.TITLE', 'WORKSHEETS.KIWIORSTOAT.SUMMARY', 'WORKSHEETS.KIWIORSTOAT.DESCRIPTION',
+            'WORKSHEETS.KIWIORSTOAT.WORKSHEET_1.URL'
         ]).then(function (translations) {
             vm.worksheets = [
                 {
@@ -324,6 +326,21 @@
                     downloads : [
                         {
                             worksheet : translations['WORKSHEETS.ALIENLANGUAGE.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.KIWIORSTOAT.TITLE'],
+                    summary : translations['WORKSHEETS.KIWIORSTOAT.SUMMARY'],
+                    description : translations['WORKSHEETS.KIWIORSTOAT.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-kiwiorstoat.png',
+                    tags : [ 'image classification', 'supervised learning' ],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.KIWIORSTOAT.WORKSHEET_1.URL']
                         }
                     ]
                 },
