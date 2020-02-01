@@ -25,6 +25,12 @@
     font-style: italic
 }
 
+.studentslistdetail .listmain .apikeywarning {
+    margin-left: 8px;
+    font-size: 0.9em;
+    color: #1864ab;
+}
+
 .additionalDialogInfo {
     max-width: 520px;
 }

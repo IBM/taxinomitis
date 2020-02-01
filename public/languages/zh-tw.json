@@ -1135,6 +1135,8 @@
             "ADDAPIKEY": "加入新API密鑰",
             "REMOVE": "移除",
 
+            "LITE_30_DAYS_EXPIRE": "IBM Cloud may deactivate 'Lite' plan Watson API keys if they're not used for 30 days",
+
             "NO_TEXT_CREDENTIALS": "你沒有任何Watson Assistant權限。這代表你無法訓練模型在<strong>文字</strong>專案中使用",
             "NO_IMAGE_CREDENTIALS": "你沒有任何Watson Visual Recognition的API密鑰。這代表你無法訓練模型在<strong>圖片</strong>專案中使用",
 

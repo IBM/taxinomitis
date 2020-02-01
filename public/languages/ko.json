@@ -1135,6 +1135,8 @@
             "ADDAPIKEY": "새로운 API key 추가",
             "REMOVE": "삭제",
 
+            "LITE_30_DAYS_EXPIRE": "IBM Cloud may deactivate 'Lite' plan Watson API keys if they're not used for 30 days",
+
             "NO_TEXT_CREDENTIALS": "여러분은 텍스트 인식 인증서(Assistant credentials)를 가지고 있지 않습니다. 그렇기 때문에 <strong>text</strong> 프로젝트를 만들 수 없습니다.",
             "NO_IMAGE_CREDENTIALS": "여러분은 이미지 인식 인증키(Visual Recognition API keys)를 가지고 있지 않습니다. 그렇기 때문에  <strong>images</strong> 프로젝트를 만들 수 없습니다.",
 

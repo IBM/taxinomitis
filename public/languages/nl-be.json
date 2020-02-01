@@ -1135,6 +1135,8 @@
             "ADDAPIKEY": "Voeg API key toe",
             "REMOVE": "Verwijder",
 
+            "LITE_30_DAYS_EXPIRE": "IBM Cloud may deactivate 'Lite' plan Watson API keys if they're not used for 30 days",
+
             "NO_TEXT_CREDENTIALS": "Je hebt geen Watson Assistant inloggegevens. Dit betekent dat je geen modellen kan trainen voor <strong>tekstherkenning</strong> projecten.",
             "NO_IMAGE_CREDENTIALS": "Je hebt geen Visual Recognition API keys. Dit betekent dat je geen modellen kan trainen voor <strong>afbeeldingsherkenning</strong> projecten.",
 

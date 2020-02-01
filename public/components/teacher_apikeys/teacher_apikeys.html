@@ -72,6 +72,9 @@
                         <div class="listheading" translate="TEACHER.APIKEYS.NUMBER_OF_ML_MODELS"></div>
                         <div class="listmain" ng-switch="creds.credstype">
                             <span style="font-size: 1.2em;" ng-switch-when="conv_lite">5</span>
+                            <span class="glyphicon glyphicon-alert apikeywarning" ng-if="creds.credstype === 'conv_lite'">
+                                <md-tooltip style="font-size: 1.2em;">{{ 'TEACHER.APIKEYS.LITE_30_DAYS_EXPIRE' | translate }}</md-tooltip>
+                            </span>
                             <span style="font-size: 1.2em;" ng-switch-when="conv_standard">20</span>
                             <span style="font-size: 1.4em; font-style: italic" ng-switch-default translate="TEACHER.APIKEYS.UNKNOWN"></span>
                         </div>
@@ -119,6 +122,9 @@
                         <div class="listheading" translate="TEACHER.APIKEYS.NUMBER_OF_ML_MODELS"></div>
                         <div class="listmain" ng-switch="creds.credstype">
                             <span style="font-size: 1.2em;" ng-switch-when="visrec_lite">2</span>
+                            <span class="glyphicon glyphicon-alert apikeywarning" ng-if="creds.credstype === 'visrec_lite'">
+                                <md-tooltip style="font-size: 1.2em;">{{ 'TEACHER.APIKEYS.LITE_30_DAYS_EXPIRE' | translate }}</md-tooltip>
+                            </span>
                             <span style="font-size: 1.2em;" ng-switch-when="visrec_standard" translate="TEACHER.APIKEYS.UNLIMITED"></span>
                             <span style="font-size: 1.4em; font-style: italic" ng-switch-default translate="TEACHER.APIKEYS.UNKNOWN"></span>
                         </div>

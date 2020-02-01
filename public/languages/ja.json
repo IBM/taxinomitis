@@ -1135,6 +1135,8 @@
             "ADDAPIKEY": "新しい API キーの追加",
             "REMOVE": "削除",
 
+            "LITE_30_DAYS_EXPIRE": "IBM Cloud may deactivate 'Lite' plan Watson API keys if they're not used for 30 days",
+
             "NO_TEXT_CREDENTIALS": "あなたは、Assistant credentialsを指定していません。これは、 <strong>文字列</strong> プロジェクト用のモデルをトレーニングできないことを意味します。",
             "NO_IMAGE_CREDENTIALS": "あなたは、Visual Recognition API keysを指定していません。 これは、<strong>画像</strong> プロジェクト用のモデルをトレーニングできないことを意味します。",
 
