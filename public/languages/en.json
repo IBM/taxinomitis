@@ -1077,7 +1077,7 @@
         "ZOMBIEESCAPE": {
             "TITLE": "Zombie Escape!",
             "SUMMARY": "Teach a computer to make predictions",
-            "DESCRIPTION": "Train a computer to help you escape from the zombies",
+            "DESCRIPTION": "Train a computer to help you escape from the zombies.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
             }
@@ -1085,7 +1085,7 @@
         "PHISHING": {
             "TITLE": "Phishing",
             "SUMMARY": "Teach a computer to recognize phishing web links",
-            "DESCRIPTION": "Create a Python program that can predict if a URL is legitimate",
+            "DESCRIPTION": "Create a Python program that can predict if a URL is legitimate.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-phishing.pdf"
             }
@@ -1093,9 +1093,17 @@
         "KIWIORSTOAT": {
             "TITLE": "Kiwi or Stoat",
             "SUMMARY": "Teach a computer to recognize photos of animals",
-            "DESCRIPTION": "Make a project in Scratch that can recognize the animals in photos from conservation sites",
+            "DESCRIPTION": "Make a project in Scratch that can recognize the animals in photos from conservation sites.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-kiwiorstoat.pdf"
+            }
+        },
+        "INKBLOTS": {
+            "TITLE": "Ink blots",
+            "SUMMARY": "Teach a computer to recognize photos of objects",
+            "DESCRIPTION": "Recreate an MIT AI research project and learn what it says about how AI systems are described",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-inkblots.pdf"
             }
         }
     },

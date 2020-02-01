@@ -121,7 +121,11 @@
             'WORKSHEETS.PHISHING.WORKSHEET_1.URL',
 
             'WORKSHEETS.KIWIORSTOAT.TITLE', 'WORKSHEETS.KIWIORSTOAT.SUMMARY', 'WORKSHEETS.KIWIORSTOAT.DESCRIPTION',
-            'WORKSHEETS.KIWIORSTOAT.WORKSHEET_1.URL'
+            'WORKSHEETS.KIWIORSTOAT.WORKSHEET_1.URL',
+
+            'WORKSHEETS.INKBLOTS.TITLE', 'WORKSHEETS.INKBLOTS.SUMMARY', 'WORKSHEETS.INKBLOTS.DESCRIPTION',
+            'WORKSHEETS.INKBLOTS.WORKSHEET_1.URL'
+
         ]).then(function (translations) {
             vm.worksheets = [
                 {
@@ -426,6 +430,22 @@
                     downloads : [
                         {
                             worksheet : translations['WORKSHEETS.TOURISTINFO.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.INKBLOTS.TITLE'],
+                    summary : translations['WORKSHEETS.INKBLOTS.SUMMARY'],
+                    description : translations['WORKSHEETS.INKBLOTS.DESCRIPTION'],
+                    difficulty : 'Intermediate',
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-inkblots.png',
+                    tags : [ 'image classification', 'supervised learning', 'training bias' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-inkblots.pdf',
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.INKBLOTS.WORKSHEET_1.URL']
                         }
                     ]
                 },
