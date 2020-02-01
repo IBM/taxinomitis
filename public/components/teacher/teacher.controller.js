@@ -91,9 +91,5 @@
                     function () { /* cancelled */ }
                 );
         }
-
-
-
-
     }
 }());

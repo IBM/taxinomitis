@@ -80,6 +80,11 @@
                         </div>
                     </td>
                     <td class="studentslistactions" ng-hide="creds.isPlaceholder">
+                        <button class="btn btn-default" ng-click="vm.verifyCredentials($event, creds)" ng-disabled="creds.verifying || creds.verified">
+                            <md-progress-circular ng-if="creds.verifying" style="display: inline" class="md-hue-2" md-diameter="12px"></md-progress-circular>
+                            <span class="verifybutton" ng-hide="creds.verified" translate="TEACHER.APIKEYS.VERIFY">Verify</span>
+                            <span class="glyphicon glyphicon-ok" ng-if="creds.verified"></span>
+                        </button>
                         <button class="btn btn-default" ng-click="vm.deleteCredentials($event, creds, 'conv')" translate="TEACHER.APIKEYS.REMOVE"></button>
                     </td>
                 </tr>
@@ -130,6 +135,11 @@
                         </div>
                     </td>
                     <td class="studentslistactions" ng-hide="creds.isPlaceholder">
+                        <button class="btn btn-default" ng-click="vm.verifyCredentials($event, creds)" ng-disabled="creds.verifying || creds.verified">
+                            <md-progress-circular ng-if="creds.verifying" style="display: inline" class="md-hue-2" md-diameter="12px"></md-progress-circular>
+                            <span class="verifybutton" ng-hide="creds.verified" translate="TEACHER.APIKEYS.VERIFY">Verify</span>
+                            <span class="glyphicon glyphicon-ok" ng-if="creds.verified"></span>
+                        </button>
                         <button class="btn btn-default" ng-click="vm.deleteCredentials($event, creds, 'visrec')" translate="TEACHER.APIKEYS.REMOVE"></button>
                     </td>
                 </tr>

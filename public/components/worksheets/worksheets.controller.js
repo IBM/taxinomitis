@@ -441,7 +441,7 @@
                     type : 'images',
                     maketypes : [ 'scratch3' ],
                     image : 'static/images/project-inkblots.png',
-                    tags : [ 'image classification', 'supervised learning', 'training bias' ],
+                    tags : [ 'image classification', 'supervised learning', 'AI research' ],
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-inkblots.pdf',
                     downloads : [
                         {
@@ -700,7 +700,7 @@
                     type : 'numbers',
                     maketypes : [ 'python' ],
                     image : 'static/images/dataset-phishing.png',
-                    tags : [ 'decision tree learning', 'supervised learning', 'categorical data' ],
+                    tags : [ 'decision tree learning', 'AI research', 'categorical data' ],
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-phishing.pdf',
                     downloads : [
                         {

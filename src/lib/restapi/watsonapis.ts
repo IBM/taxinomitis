@@ -9,6 +9,7 @@ import * as TrainingTypes from '../training/training-types';
 import * as conversation from '../training/conversation';
 import * as visualRecognition from '../training/visualrecognition';
 import * as credentialsmgr from '../training/credentials';
+import * as headers from './headers';
 import * as urls from './urls';
 import * as errors from './errors';
 import loggerSetup from '../utils/logger';
@@ -74,6 +75,39 @@ async function getCredentials(req: Express.Request, res: Express.Response) {
         errors.unknownError(res, err);
     }
 }
+
+
+
+async function verifyCredentials(req: Express.Request, res: Express.Response) {
+    const tenant = req.params.classid;
+    const credsid = req.params.credentialsid;
+
+    try {
+        const credentials = await store.getBluemixCredentialsById(credsid);
+        if (credentials.classid !== tenant) {
+            return errors.notFound(res);
+        }
+
+        if (credentials.servicetype === 'conv') {
+            await conversation.getTextClassifiers(credentials);
+        }
+        else if (credentials.servicetype === 'visrec') {
+            await visualRecognition.getImageClassifiers(credentials);
+        }
+
+        return res.header(headers.CACHE_1HOUR)
+                  .sendStatus(httpstatus.NO_CONTENT);
+    }
+    catch (err){
+        if (err.message === 'Unexpected response when retrieving the service credentials') {
+            return errors.notFound(res);
+        }
+
+        log.error({ err }, 'Failed to verify credentials');
+        errors.unknownError(res, err);
+    }
+}
+
 
 
 async function deleteCredentials(req: Express.Request, res: Express.Response) {
@@ -266,6 +300,13 @@ export default function registerApis(app: Express.Application) {
         auth.requireSupervisor,
         auth.ensureUnmanaged,
         getCredentials);
+
+    app.get(urls.BLUEMIX_CREDENTIAL,
+        auth.authenticate,
+        auth.checkValidUser,
+        auth.requireSupervisor,
+        auth.ensureUnmanaged,
+        verifyCredentials);
 
     app.delete(urls.BLUEMIX_CREDENTIAL,
         auth.authenticate,

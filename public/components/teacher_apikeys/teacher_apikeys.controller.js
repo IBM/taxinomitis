@@ -128,6 +128,35 @@
             });
 
 
+        vm.verifyCredentials = function (ev, creds) {
+            creds.verifying = true;
+
+            usersService.verifyCredentials(vm.profile, creds)
+                .then(function () {
+                    creds.verified = true;
+                    creds.verifying = false;
+                })
+                .catch(function (err) {
+                    console.log(err);
+                    creds.verified = false;
+                    creds.verifying = false;
+
+                    var errMessage = '';
+                    if (err && err.data && err.data.error) {
+                        errMessage = err.data.error;
+                    }
+
+                    var details = $mdDialog.alert()
+                            .title('IBM Watson rejected your API key')
+                            .htmlContent('<div class="confirmdialogsmall">' +
+                                creds.apikey + ' was rejected by IBM. ' +
+                                (errMessage ? '<div>The response was : ' + errMessage + '</div>' : '') +
+                                '</div>')
+                            .ok('OK');
+                    $mdDialog.show(details);
+                });
+        };
+
         vm.deleteCredentials = function (ev, creds, type) {
             var confirm = $mdDialog.confirm()
                 .title('Are you sure?')
@@ -259,7 +288,7 @@
                                          'their maximum allowed number of models. See the "Help" page for suggestions for ' +
                                          'how to avoid this')
                             .ok('OK');
-            $mdDialog.show(alert)
+            $mdDialog.show(alert);
         };
 
 

@@ -102,6 +102,9 @@
             return $http.get('/api/classes/' + profile.tenant + '/credentials?servicetype=' + type)
                 .then(returnData);
         }
+        function verifyCredentials(profile, credentials) {
+            return $http.get('/api/classes/' + profile.tenant + '/credentials/' + credentials.id);
+        }
         function deleteCredentials(profile, credentials) {
             return $http.delete('/api/classes/' + profile.tenant + '/credentials/' + credentials.id);
         }
@@ -131,6 +134,7 @@
             addCredentials : addCredentials,
             getCredentials : getCredentials,
             modifyCredentials : modifyCredentials,
+            verifyCredentials : verifyCredentials,
             deleteCredentials : deleteCredentials,
 
             getGeneratedPassword : getGeneratedPassword,

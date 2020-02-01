@@ -1101,7 +1101,7 @@
         "INKBLOTS": {
             "TITLE": "Ink blots",
             "SUMMARY": "Teach a computer to recognize photos of objects",
-            "DESCRIPTION": "Recreate an MIT AI research project and learn what it says about how AI systems are described",
+            "DESCRIPTION": "Recreate an MIT research project and learn about how AI systems are described in the news.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-inkblots.pdf"
             }
@@ -1150,6 +1150,7 @@
             "ADDNEWCREDENTIALS": "Lägg till nya uppgifter",
             "ADDAPIKEY": "Lägg till ny API-nyckel",
             "REMOVE": "Remove",
+            "VERIFY": "Verify",
 
             "LITE_30_DAYS_EXPIRE": "IBM Cloud may deactivate 'Lite' plan Watson API keys if they're not used for 30 days",
 
