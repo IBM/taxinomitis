@@ -10,7 +10,7 @@
     </md-toolbar>
     <md-dialog-content>
         <div class="md-dialog-content" style="min-width: 300px; max-width: 1000px;">
-            <md-card-content>
+            <div>
                 <h4 ng-if="worksheet.teachersnotes">For teachers:</h4>
                 <div ng-if="worksheet.teachersnotes"
                     style="border-radius: 1em; background-color: #eeeeee; padding: 1em; margin-bottom: 1em;">
@@ -54,15 +54,22 @@
                         </div>
                     </div>
                     <div ng-if="download.resources" style="margin-top: 1em">
-                            <a class="btn btn-primary" href="{{download.resources}}">
-                                <span class="glyphicon glyphicon-print"> </span>
-                                Additional project resources
-                            </a>
-                            <div style="padding-bottom: 1em; margin-top: 0.5em;">
-                                You will also need to provide students with a printed copy of this file.
-                            </div>
+                        <a class="btn btn-primary" href="{{download.resources}}">
+                            <span class="glyphicon glyphicon-print"> </span>
+                            Additional project resources
+                        </a>
+                        <div style="padding-bottom: 1em; margin-top: 0.5em;">
+                            You will also need to provide students with a printed copy of this file.
                         </div>
                     </div>
+                </div>
+                <div ng-if="worksheet.providedby" style="margin: 1em">
+                    <strong>Worksheet provided by:</strong>
+                    <a target="_blank" href="{{ worksheet.providedby.url }}">{{ worksheet.providedby.name }}</a>
+                </div>
+                <div ng-if="worksheet.providedby && worksheet.providedby.embed" style="margin: 1em">
+                    <div ng-bind-html="worksheet.providedby.embed" style="min-width: 400px;">loading...</div>
+                </div>
             </md-card-content>
         </div>
     </md-dialog-content>

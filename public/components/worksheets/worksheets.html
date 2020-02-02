@@ -68,7 +68,8 @@
                      alt="{{ 'WORKSHEETS.MAKETYPES.APPINVENTOR' | translate }}"
                      title="{{ 'WORKSHEETS.MAKETYPES.APPINVENTOR' | translate }}"/>
             </div>
-            <div class="tags"><span class="heading">Tags:</span> {{ worksheet.tags.join(', ') }}</div>
+            <div class="tags" ng-hide="worksheet.providedby"><span class="heading">Tags:</span> {{ worksheet.tags.join(', ') }}</div>
+            <div class="tags" ng-if="worksheet.providedby"><span class="heading">Provided by:</span> <a target="_blank" href="{{ worksheet.providedby.url }}">{{ worksheet.providedby.name }}</a></div>
             <div class="download">
                 <a ng-click="vm.downloadWorksheet($event, worksheet)" class="btn btn-primary">
                     <span class="glyphicon glyphicon-download-alt"> </span> {{ 'WORKSHEETS.DOWNLOAD' | translate }}

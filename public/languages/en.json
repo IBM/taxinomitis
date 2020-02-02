@@ -832,7 +832,7 @@
         "CHAMELEON": {
             "TITLE": "Chameleon",
             "SUMMARY": "Teach a computer to recognise colours",
-            "DESCRIPTION": "Make a chameleon in Scratch that changes colour to match its background",
+            "DESCRIPTION": "Make a chameleon in Scratch that changes colour to match its background.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf"
             }
@@ -876,7 +876,7 @@
         },
         "SHYPANDA": {
             "TITLE": "Shy Panda",
-            "SUMMARY": "Teach a computer to recognise pictures",
+            "SUMMARY": "Teach a computer to recognise webcam pictures",
             "DESCRIPTION": "Make a dancing panda that gets shy and stops dancing if it sees you looking.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda.pdf"
@@ -884,7 +884,7 @@
         },
         "VIRTUALPET": {
             "TITLE": "Virtual Pet",
-            "SUMMARY": "Teach a computer to recognise pictures",
+            "SUMMARY": "Teach a computer to recognise webcam pictures",
             "DESCRIPTION": "Train the computer to recognise what you're doing so you can look after a virtual pet.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-virtualpet.pdf"
@@ -980,7 +980,7 @@
         "WHATTWITTERTHINKS": {
             "TITLE": "What does Twitter think?",
             "SUMMARY": "Teach a computer to measure public opinion",
-            "DESCRIPTION": "Create a sentiment analysis tool in Scratch to analyze discussion on Twitter",
+            "DESCRIPTION": "Create a sentiment analysis tool in Scratch to analyze discussion on Twitter.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
             }
@@ -1029,7 +1029,7 @@
         "HEADLINETESTING": {
             "TITLE": "Headline testing",
             "SUMMARY": "Test the computer's ability to recognise use of language",
-            "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is",
+            "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
             }
@@ -1077,7 +1077,7 @@
         "ZOMBIEESCAPE": {
             "TITLE": "Zombie Escape!",
             "SUMMARY": "Teach a computer to make predictions",
-            "DESCRIPTION": "Train a computer to help you escape from the zombies.",
+            "DESCRIPTION": "Train a computer to help you escape from the zombie horde.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
             }
@@ -1093,7 +1093,7 @@
         "KIWIORSTOAT": {
             "TITLE": "Kiwi or Stoat",
             "SUMMARY": "Teach a computer to recognize photos of animals",
-            "DESCRIPTION": "Make a project in Scratch that can recognize the animals in photos from conservation sites.",
+            "DESCRIPTION": "Make a project in Scratch that can recognize animals in photos from conservation sites.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-kiwiorstoat.pdf"
             }
