@@ -184,9 +184,9 @@
     "PROJECTS": {
         "TITLE": "你的機器學習專案",
         "ADDNEWPROJECT": "新增一個專案",
-        "COPYTEMPLATE": "Copy template",
+        "COPYTEMPLATE": "複製範本",
         "CREATEFIRSTPROJECT": "點擊右方「＋」按鈕，建立你的第一個專案",
-        "RECOGNISING": "辨識中",
+        "RECOGNISING": "辨識",
         "AS": "當作"
     },
     "NEWPROJECT": {
@@ -201,7 +201,7 @@
             "NOTES_2": "這對於需要群眾分工的專案非常有幫助"
         },
         "TYPES": {
-            "LABEL": "辨識中",
+            "LABEL": "辨識",
             "NOTES_1": "你想要教電腦辨識什麼類型的東西呢？",
             "NOTES_2": "文字、句子或短文，請選擇「文件」",
             "NOTES_3": "照片、圖表與圖片，請選擇「圖片」",
@@ -273,10 +273,10 @@
                 "DETAILS": "訓練的資料包含來自《每日郵報》，《每日電訊報》，《獨立報》和《衛報》的標題"
             },
             "PHISHING": {
-                "TITLE": "Phishing",
-                "SUMMARY": "Predict if a link is a phishing link",
-                "DESCRIPTION": "Phishing is when a website tries to trick you into giving up sensitive information, by sending you a link to a fake website disguised like a trustworthy one. You can use this to train a machine learning model that can predict if a web address is a real link, or a phishing link to a fake website.",
-                "DETAILS": "This training dataset includes attributes of five hundred legitimate web addresses, and five hundred phishing links.\n\nThe 'address type' field is 'IP addr' if the link has a numeric IP address like '104.20.74.246' or 'DNS name' if the link has a name-based address like 'machinelearningforkids.co.uk'. \nThe 'url length' field groups the training addresses by how long they are. \nThe 'shortening' field is 'yes' if the web address uses a shortening service like TinyURL or bit.ly, or 'no' if it doesn't. \nThe 'includes @' field is 'yes' if the web address includes an @ symbol, or 'no' if it doesn't. \nThe 'port number' field is 'standard' if the web address uses a standard port number like 80 or 443, or 'non-std' if it uses something different. \nThe 'domain age' field groups addresses by how long ago the web address in the address was registered. \nThe 'redirects' field groups the training addresses by the number of times a web browser is sent to a different address before reaching a final page. \nThe 'domain reg' field is 'expiring' if the registration for the web address domain name expires within a year."
+                "TITLE": "惡意網路釣魚",
+                "SUMMARY": "預測連結是否為惡意的釣魚網站連結",
+                "DESCRIPTION": "惡意網絡釣魚是指網站透過向你傳送偽裝成可信任的偽造網站的連結，試圖誘拐你提供敏感資訊。 你可以使用它來訓練機器學習模型，此模型可以預測網址是真實連結或是盜版網站的網絡釣魚連結。",
+                "DETAILS": "此訓練資料集包含500個合法網址與500個惡意網絡釣魚連結的特性。\n\n如果連結具有數字IP地址（例如「 104.20.74.246」），則「網址類型」為「IP地址」；如果連結具有基於名稱的網址（例如「 machinelearningforkids.co.uk」），則「地址類型」為“「DNS名稱」。\n「URL長度」表示以網址長度來訓練網址並進行分組。\n「短網址」表示網址是否為短網址，例如TinyURL或bit.ly。如果是短網址，則顯示「Yes」否則顯示「No」\n「引用＠」表示網址中是否包含「＠」符號。如果有包含則顯示「Yes」否則顯示「No」\n「接口編號」表示網址使用標準的接口編號，例如（80或443）。如果網址使用其他名稱，則顯示「non-std」\n「網域使用時間」表示網域註冊時間的長短進行分組。\n「重新導向」表示網址連接到最終頁面前需要重新導向幾次，以次數進行分組。\n「網域註冊」表示網域在一年內到期，則顯示「過期」"
             }
         }
     },
@@ -741,7 +741,7 @@
         "INTRO_3": "非常歡迎您提出新作品清單的建議，包含對任何作品清單進行改善的建議或貢獻。",
 
         "TYPES": {
-            "TITLE": "辨識中：",
+            "TITLE": "辨識：",
             "ALL": "全部類型的專案",
 
             "PREFIX": "訓練電腦來辨識",
@@ -803,7 +803,7 @@
             "SUMMARY": "教電腦辨識稱讚和責罵",
             "DESCRIPTION": "在Scratch中建立一個角色，如果你稱讚它，它就會微笑；如果你罵他，它就會哭。",
             "WORKSHEET_1": {
-                "DESCRIPTION": "完整版的專案，學生需要先製作非機器學習版本的專案",
+                "DESCRIPTION": "完整版的專案，學生製作非機器學習版本的專案",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy.pdf"
             },
             "WORKSHEET_2": {
@@ -876,7 +876,7 @@
         },
         "SHYPANDA": {
             "TITLE": "害羞的熊貓",
-            "SUMMARY": "教電腦辨識圖片",
+            "SUMMARY": "教電腦辨識視訊鏡頭的畫面",
             "DESCRIPTION": "製作一個會跳舞的熊貓，如果他發現你在看他，他就會停止跳舞",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda.pdf"
@@ -884,7 +884,7 @@
         },
         "VIRTUALPET": {
             "TITLE": "虛擬小寵物",
-            "SUMMARY": "教電腦辨識圖片",
+            "SUMMARY": "教電腦辨識視訊鏡頭的畫面",
             "DESCRIPTION": "教電腦辨識你在做什麼，這樣你才能照顧虛擬小寵物",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-virtualpet.pdf"
@@ -980,7 +980,7 @@
         "WHATTWITTERTHINKS": {
             "TITLE": "推特的討論話題\b",
             "SUMMARY": "教電腦來測量大家的想法",
-            "DESCRIPTION": "在Scratch中建立情緒分析工具，來分析在推特上的討論",
+            "DESCRIPTION": "在Scratch中建立情緒分析工具來分析Twitter上的討論內容。",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
             }
@@ -1029,7 +1029,7 @@
         "HEADLINETESTING": {
             "TITLE": "誰寫的新聞",
             "SUMMARY": "測試電腦能否辨識使用的語言",
-            "DESCRIPTION": "在Scratch中建立一個測試工具來測量機器學習模型的良好程度",
+            "DESCRIPTION": "在Scratch中建立一個測試工具來衡量機器學習模型的良好程度。",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
             }
@@ -1075,33 +1075,33 @@
             }
         },
         "ZOMBIEESCAPE": {
-            "TITLE": "Zombie Escape!",
-            "SUMMARY": "Teach a computer to make predictions",
-            "DESCRIPTION": "Train a computer to help you escape from the zombies",
+            "TITLE": "殭屍大逃亡",
+            "SUMMARY": "教電腦學習預測",
+            "DESCRIPTION": "訓練電腦來幫助你逃離殭屍部落",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
             }
         },
         "PHISHING": {
-            "TITLE": "Phishing",
-            "SUMMARY": "Teach a computer to recognize phishing web links",
-            "DESCRIPTION": "Create a Python program that can predict if a URL is legitimate",
+            "TITLE": "惡意網路釣魚",
+            "SUMMARY": "教電腦辨識惡意釣魚網站的連結",
+            "DESCRIPTION": "製作一個python程式來預測網站連結是否合法",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-phishing.pdf"
             }
         },
         "KIWIORSTOAT": {
-            "TITLE": "Kiwi or Stoat",
-            "SUMMARY": "Teach a computer to recognize photos of animals",
-            "DESCRIPTION": "Make a project in Scratch that can recognize the animals in photos from conservation sites",
+            "TITLE": "奇異鳥或白鼬",
+            "SUMMARY": "教電腦辨識照片裡的動物",
+            "DESCRIPTION": "在Scratch中製作可以辨識來自保護區照片裡動物的專案",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-kiwiorstoat.pdf"
             }
         },
         "INKBLOTS": {
-            "TITLE": "Ink blots",
-            "SUMMARY": "Teach a computer to recognize photos of objects",
-            "DESCRIPTION": "Recreate an MIT research project and learn about how AI systems are described in the news.",
+            "TITLE": "墨水痕跡",
+            "SUMMARY": "教電腦辨識圖片的物件",
+            "DESCRIPTION": "重新建立一個MIT研究項目，並了解新聞中如何描述AI系統。",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-inkblots.pdf"
             }
@@ -1150,14 +1150,14 @@
             "ADDNEWCREDENTIALS": "新增新的權限",
             "ADDAPIKEY": "加入新API密鑰",
             "REMOVE": "移除",
-            "VERIFY": "Verify",
+            "VERIFY": "審核",
 
-            "LITE_30_DAYS_EXPIRE": "IBM Cloud may deactivate 'Lite' plan Watson API keys if they're not used for 30 days",
+            "LITE_30_DAYS_EXPIRE": "如果30天內未使用IBM Cloud可能會停用「精簡版」方案的Watson API密鑰",
 
-            "NO_TEXT_CREDENTIALS": "你沒有任何Watson Assistant權限。這代表你無法訓練模型在<strong>文字</strong>專案中使用",
-            "NO_IMAGE_CREDENTIALS": "你沒有任何Watson Visual Recognition的API密鑰。這代表你無法訓練模型在<strong>圖片</strong>專案中使用",
+            "NO_TEXT_CREDENTIALS": "你沒有任何Watson Assistant權限。<br/>這代表你無法訓練模型在<strong>文字</strong>專案中使用",
+            "NO_IMAGE_CREDENTIALS": "你沒有任何Watson Visual Recognition的API密鑰。<br/>這代表你無法訓練模型在<strong>圖片</strong>專案中使用",
 
-            "LINK_TO_APIKEYS_GUIDE": "If you're not sure where to get them, download the <a href='/apikeys-guide'>step-by-step guide</a>",
+            "LINK_TO_APIKEYS_GUIDE": "如果你不確定從哪裡獲得這些內容，請下載<a href='/apikeys-guide'>完整步驟引導</a>",
 
             "NOTAUTHORISED": "你無權訪問你的班級使用的Watson API密鑰",
             "MANAGEDCLASS": "你正在管理班級使用的API密鑰",
@@ -1303,11 +1303,11 @@
         },
         "GUI": {
             "gui.menuBar.mlforkidsLibrary": "專案範本",
-            "gui.mlforkidsLibrary.templates": "兒童機器學習的專案範本"
+            "gui.mlforkidsLibrary.templates": "兒童機器學習專案的範本"
         }
     },
     "HELP": {
-        "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
+        "CONTACT": "如果你有任何問題或疑問，請洽詢<a target='_blank' href='https://groups.google.com/d/forum/mlforkids'>兒童機器學習群組</a>",
         "GETTINGSTARTED": {
             "TITLE": "第一次使用？",
             "INTRO": "下載PDF裡面有簡短的入門指南：",
@@ -1320,7 +1320,7 @@
             "TITLE": "想知道更多嗎？",
             "INTRO1": "發生錯誤了嗎？",
             "INTRO2": "以下清單包含我們最常聽見的問題。如果你看到與你問題相似的內容，請點擊摘要文字來取得更多資訊",
-            "INTRO3": "如果你仍然發生錯誤，或是遇到了我沒有包含在清單中的問題，很抱歉造成你的不便！請<a href='https://groups.google.com/d/forum/mlforkids'>來信給我</a>或<a href='https://github.com/IBM/taxinomitis/issues'>建立一個問題回報</a>讓我可以提供幫助"
+            "INTRO3": "如果你仍然發生錯誤，或是遇到了我沒有包含在清單中的問題，很抱歉造成你的不便！請<a href='https://groups.google.com/d/forum/mlforkids'>洽詢兒童機器學習群組</a>讓我們可以提供協助"
         },
 
         "SCRATCH": {
@@ -1334,7 +1334,7 @@
             "Q2-A-1": "如果你在macOS上使用Safari，並且Scratch選單的「檔案  -&gt; 載入專案」和「檔案 -&gt; 儲存專案」選單無法正常運作，則可能是你在安全模式下運行。",
             "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>請依照這裡的指示操作</a>，來檢查與解決這問題",
 
-            "Q3": "Scratch中的機器學習積木無法運作",
+            "Q3": "Scratch2中的機器學習分類器積木已無法使用",
             "Q3-A-1": "有時候，你的機器學習模型的Scratch積木可能會失去與伺服器的連線。 發生這種情況時，他們將停止回傳執行結果。",
             "Q3-A-2": "您可以透過「擴充積木」面板中的彩色狀態燈檢查是否發生了這種情況。",
             "Q3-A-3": "如果Scratch機器學習積木旁邊的狀態指示燈為紅色，則通常表示有問題。 它可能是暫時性的問題， 嘗試儲存你的專案（使用「檔案」-&gt; 「儲存專案」），然後重新整理瀏覽器頁面。 如果頁面重新整理後狀態指示燈變為綠色，則可以載入專案（使用「檔案」-&gt; 「載入專案」）以從上次中斷的地方繼續使用。",
