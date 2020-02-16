@@ -969,6 +969,14 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-confused.pdf"
             }
         },
+        "FOOLED": {
+            "TITLE": "Fooled",
+            "SUMMARY": "Enseña a una computadora a identificar una frutafruit",
+            "DESCRIPTION": "Aprende cómo se puede confundir una computadora si no está bien entrenada.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-fooled.pdf"
+            }
+        },
         "SCHOOLLIBRARY": {
             "TITLE": "Biblioteca escolar",
             "SUMMARY": "Enseña a una computadora a hacer recomendaciones",

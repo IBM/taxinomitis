@@ -82,8 +82,8 @@
             'WORKSHEETS.LOCATELARRY.TITLE', 'WORKSHEETS.LOCATELARRY.SUMMARY', 'WORKSHEETS.LOCATELARRY.DESCRIPTION',
             'WORKSHEETS.LOCATELARRY.WORKSHEET_1.URL',
 
-            'WORKSHEETS.CONFUSED.TITLE', 'WORKSHEETS.CONFUSED.SUMMARY', 'WORKSHEETS.CONFUSED.DESCRIPTION',
-            'WORKSHEETS.CONFUSED.WORKSHEET_1.URL',
+            'WORKSHEETS.FOOLED.TITLE', 'WORKSHEETS.FOOLED.SUMMARY', 'WORKSHEETS.FOOLED.DESCRIPTION',
+            'WORKSHEETS.FOOLED.WORKSHEET_1.URL',
 
             'WORKSHEETS.SCHOOLLIBRARY.TITLE', 'WORKSHEETS.SCHOOLLIBRARY.SUMMARY', 'WORKSHEETS.SCHOOLLIBRARY.DESCRIPTION',
             'WORKSHEETS.SCHOOLLIBRARY.WORKSHEET_1.URL',
@@ -561,18 +561,18 @@
                     ]
                 },
                 {
-                    title : translations['WORKSHEETS.CONFUSED.TITLE'],
-                    summary : translations['WORKSHEETS.CONFUSED.SUMMARY'],
-                    description : translations['WORKSHEETS.CONFUSED.DESCRIPTION'],
+                    title : translations['WORKSHEETS.FOOLED.TITLE'],
+                    summary : translations['WORKSHEETS.FOOLED.SUMMARY'],
+                    description : translations['WORKSHEETS.FOOLED.DESCRIPTION'],
                     difficulty : 'Intermediate',
                     type : 'images',
                     maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-confused.png',
+                    image : 'static/images/project-fooled.png',
                     tags : [ 'image classification', 'supervised learning', 'overfitting' ],
-                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-confused.pdf',
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-fooled.pdf',
                     downloads : [
                         {
-                            worksheet : translations['WORKSHEETS.CONFUSED.WORKSHEET_1.URL']
+                            worksheet : translations['WORKSHEETS.FOOLED.WORKSHEET_1.URL']
                         }
                     ]
                 },

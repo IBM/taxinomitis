@@ -969,6 +969,14 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-confused.pdf"
             }
         },
+        "FOOLED": {
+            "TITLE": "Fooled",
+            "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει φρούτα",
+            "DESCRIPTION": "Μάθε για το πώς οι υπολογιστές μπορούν να μπερδευτούν και να κάνουν λάθη, αν είναι κακά εκπαιδευμένοι.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-fooled.pdf"
+            }
+        },
         "SCHOOLLIBRARY": {
             "TITLE": "Σχολική Βιβλιοθήκη",
             "SUMMARY": "Μάθε στον υπολογιστή να προτείνει",

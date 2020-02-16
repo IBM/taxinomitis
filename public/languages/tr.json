@@ -969,6 +969,14 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-confused.pdf"
             }
         },
+        "FOOLED": {
+            "TITLE": "Fooled",
+            "SUMMARY": "Bir bilgisayara meyveleri tanımayı öğretin",
+            "DESCRIPTION": "Bir bilgisayarın kafasının nasıl karışabileceği ve kötü eğitilirse nasıl hatalar yapabileceği hakkında bilgi edinin.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-fooled.pdf"
+            }
+        },
         "SCHOOLLIBRARY": {
             "TITLE": "Okul Kütüphanesi",
             "SUMMARY": "Bir bilgisayara önerilerde bulunmayı öğretin",

@@ -969,6 +969,14 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-confused.pdf"
             }
         },
+        "FOOLED": {
+            "TITLE": "Fooled",
+            "SUMMARY": "Apprendre à un ordinateur à reconnaître les fruits",
+            "DESCRIPTION": "Apprenez comment les ordinateurs peuvent être confus et peuvent faire des erreurs s'ils sont mal entraînés..",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-fooled.pdf"
+            }
+        },
         "SCHOOLLIBRARY": {
             "TITLE": "Bibliothèque scolaire",
             "SUMMARY": "Apprendre à un ordinateur à faire des recommandations",

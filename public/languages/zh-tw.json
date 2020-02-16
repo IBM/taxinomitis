@@ -969,6 +969,14 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-confused.pdf"
             }
         },
+        "FOOLED": {
+            "TITLE": "Fooled",
+            "SUMMARY": "教電腦辨識水果",
+            "DESCRIPTION": "學習有關電腦如果經過糟糕的訓練，就會出現疑惑而犯錯",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-fooled.pdf"
+            }
+        },
         "SCHOOLLIBRARY": {
             "TITLE": "學校的圖書館",
             "SUMMARY": "教電腦如何進行推薦",
