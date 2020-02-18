@@ -16,10 +16,10 @@
   "devDependencies": {
     "@types/archiver": "3.0.0",
     "@types/async": "2.4.2",
-    "@types/body-parser": "1.17.1",
+    "@types/body-parser": "1.19.0",
     "@types/bunyan": "1.8.6",
     "@types/clone": "0.1.30",
-    "@types/compression": "1.0.1",
+    "@types/compression": "1.7.0",
     "@types/express": "4.17.2",
     "@types/express-jwt": "0.0.42",
     "@types/filesize": "5.0.0",
@@ -31,7 +31,7 @@
     "@types/jwt-decode": "2.2.1",
     "@types/lodash": "4.14.149",
     "@types/mocha": "5.2.7",
-    "@types/multer": "1.4.0",
+    "@types/multer": "1.4.2",
     "@types/mustache": "0.8.32",
     "@types/node": "10.x",
     "@types/nodemailer": "^6.4.0",
@@ -44,7 +44,7 @@
     "@types/supertest": "2.0.8",
     "@types/tmp": "0.1.0",
     "@types/unzip": "^0.1.1",
-    "@types/unzipper": "^0.10.1",
+    "@types/unzipper": "^0.10.2",
     "@types/uuid": "3.4.7",
     "autoprefixer": "9.7.4",
     "clone": "2.1.2",
@@ -85,11 +85,11 @@
     "sinon": "7.5.0",
     "sinon-express-mock": "2.2.1",
     "supertest": "4.0.2",
-    "tslint": "5.20.1",
+    "tslint": "6.0.0",
     "tslint-eslint-rules": "5.4.0",
     "typescript": "3.7.5",
     "typescript-require": "0.2.10",
-    "unzipper": "0.10.7"
+    "unzipper": "0.10.8"
   },
   "dependencies": {
     "@slack/webhook": "^5.0.2",
@@ -124,9 +124,9 @@
     "probe-image-size": "5.0.0",
     "randomstring": "1.1.5",
     "read-chunk": "3.2.0",
-    "request": "2.88.0",
+    "request": "2.88.2",
     "request-promise": "4.2.5",
-    "sharp": "0.24.0",
+    "sharp": "0.24.1",
     "tmp": "0.1.0",
     "uuid": "3.4.0"
   }

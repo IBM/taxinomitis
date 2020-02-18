@@ -77,10 +77,10 @@
 
             return permissionsCheck()
                 .then(function () {
-                    return utilService.loadScript('https://unpkg.com/@tensorflow/tfjs@1.3.1/dist/tf.js');
+                    return utilService.loadScript('https://unpkg.com/@tensorflow/tfjs@1.5.2/dist/tf.js');
                 })
                 .then(function () {
-                    return utilService.loadScript('https://unpkg.com/@tensorflow-models/speech-commands@0.4.0');
+                    return utilService.loadScript('https://unpkg.com/@tensorflow-models/speech-commands@0.4.2');
                 })
                 .then(function () {
                     if (tf && tf.enableProdMode) {

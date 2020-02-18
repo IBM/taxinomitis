@@ -147,10 +147,11 @@ function getImageType(mimetype: string): StoreTypes.ImageFileType {
 function imageTypesFilter(
     req: Express.Request,
     file: Types.MulterFile,
-    cb: (err: Error | null, accept: boolean) => void)
+    cb: (err: Error, accept: boolean) => void)
 {
     if (config.SUPPORTED_IMAGE_MIMETYPES.includes(file.mimetype)) {
-        cb(null, true);
+        const noError: unknown = null;
+        cb(noError as Error, true);
     }
     else {
         cb(new Error('Unsupported file type ' + file.mimetype), false);
