@@ -10,6 +10,9 @@
     </md-toolbar>
     <md-dialog-content>
         <div class="md-dialog-content" style="min-width: 300px; max-width: 1000px;">
+            <div style="border-radius: 0.4em; background-color: #84cbcc; padding: 0.6em; margin-bottom: 1em; text-align: center;">
+                <img ng-src="{{worksheet.image}}">
+            </div>
             <div>
                 <h4 ng-if="worksheet.teachersnotes">For teachers:</h4>
                 <div ng-if="worksheet.teachersnotes"
