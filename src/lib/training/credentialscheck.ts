@@ -5,6 +5,7 @@ import * as Types from '../db/db-types';
 import * as TrainingTypes from './training-types';
 import * as constants from '../utils/constants';
 import * as store from '../db/store';
+import * as sessionusers from '../sessionusers';
 import * as conversation from './conversation';
 import * as visualRecognition from './visualrecognition';
 
@@ -30,6 +31,11 @@ const OK: TrainingTypes.CredentialsSupportResponse = {
 
 export async function checkClass(tenant: string, type: Types.ProjectTypeLabel): Promise<TrainingTypes.CredentialsSupportResponse>
 {
+    // don't test session-users
+    if (tenant === sessionusers.CLASS_NAME) {
+        return OK;
+    }
+
     const cacheCheck = getCachedOutcome(tenant, type);
     if (cacheCheck) {
         return cacheCheck;

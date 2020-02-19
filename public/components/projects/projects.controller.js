@@ -59,7 +59,9 @@
 
 
         function checkApiKeys(profile, checkingProject) {
-            if (checkingProject.type === 'text' || checkingProject.type === 'images') {
+            if (profile.tenant !== 'session-users' &&
+                (checkingProject.type === 'text' || checkingProject.type === 'images'))
+            {
                 checkingProject.isPlaceholder = true;
 
                 projectsService.checkProjectCredentials(profile.tenant, checkingProject.type)
