@@ -82,6 +82,16 @@
                 });
         }
 
+        function checkProjectCredentials(tenant, type) {
+            return $http.get('/api/classes/' + tenant + '/modelsupport/' + type)
+                .then(function (resp) {
+                    return resp.data;
+                })
+                .catch(function (errresp) {
+                    return errresp.data;
+                });
+        }
+
 
         return {
             getProject : getProject,
@@ -95,7 +105,9 @@
             getLabels : getLabels,
 
             addLabelToProject : addLabelToProject,
-            removeLabelFromProject : removeLabelFromProject
+            removeLabelFromProject : removeLabelFromProject,
+
+            checkProjectCredentials : checkProjectCredentials
         };
     }
 })();

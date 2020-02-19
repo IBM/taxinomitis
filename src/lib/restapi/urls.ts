@@ -10,6 +10,7 @@ export const CLASSES               = '/api/classes';
 export const CLASS                 = '/api/classes/:classid';
 export const BLUEMIX_CREDENTIALS   = '/api/classes/:classid/credentials';
 export const BLUEMIX_CREDENTIAL    = '/api/classes/:classid/credentials/:credentialsid';
+export const BLUEMIX_SUPPORT       = '/api/classes/:classid/modelsupport/:type';
 export const TENANT_POLICY         = '/api/classes/:classid/policy';
 export const ALL_CLASS_PROJECTS    = '/api/classes/:classid/projects';
 export const BLUEMIX_CLASSIFIERS   = '/api/classes/:classid/classifiers';

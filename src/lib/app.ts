@@ -6,6 +6,7 @@ import * as objectstore from './objectstore';
 import * as iamcache from './iam';
 import * as sitealerts from './sitealerts';
 import restapi from './restapi';
+import * as credentialscheck from './training/credentialscheck';
 import * as slack from './notifications/slack';
 import * as email from './notifications/email';
 import * as scheduledtasks from './scheduledtasks';
@@ -36,6 +37,9 @@ objectstore.init();
 
 // initialise the cache for tokens from Bluemix IAM
 iamcache.init();
+
+// initialise the cache for checking API key requirements
+credentialscheck.init();
 
 // connect to MySQL DB
 store.init()

@@ -125,7 +125,10 @@
                 url: '/projects',
                 controller: 'ProjectsController',
                 templateUrl: 'static/components-<%= VERSION %>/projects/projects.html',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                params: {
+                    id: null
+                }
             })
             .state('mlproject', {
                 url: '/mlproject/:userId/:projectId',

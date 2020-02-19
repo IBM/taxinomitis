@@ -629,6 +629,21 @@ export async function getTextClassifiers(
 
 
 
+export async function testMultipleCredentials(creds: TrainingObjects.BluemixCredentials[]): Promise<boolean>
+{
+    let atLeastOneValidCredential = false;
+    for (const nextcred of creds) {
+        try {
+            await getTextClassifiers(nextcred);
+            atLeastOneValidCredential = true;
+        }
+        catch (err) {
+            log.error({ nextcred, err }, 'Credentials test failed');
+        }
+    }
+    return atLeastOneValidCredential;
+}
+
 
 
 export async function cleanupExpiredClassifiers(): Promise<void[]>

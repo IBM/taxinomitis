@@ -5,6 +5,10 @@
     margin-right: auto;
 }
 
+.mlprojecthighlight {
+    border: thin #1864ab solid;
+}
+
 .mlprojectdetails {
     margin-bottom: 1em;
     padding: 1em 1.5em;

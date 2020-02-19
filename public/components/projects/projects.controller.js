@@ -7,13 +7,15 @@
     ProjectsController.$inject = [
         'authService',
         'projectsService',
-        '$mdDialog'
+        '$stateParams', '$translate', '$mdDialog'
     ];
 
-    function ProjectsController(authService, projectsService, $mdDialog) {
+    function ProjectsController(authService, projectsService, $stateParams, $translate, $mdDialog) {
 
         var vm = this;
         vm.authService = authService;
+
+        vm.highlightId = $stateParams.id;
 
         var alertId = 1;
         vm.errors = [];
@@ -30,6 +32,46 @@
                 message : errObj.message || errObj.error || 'Unknown error',
                 status : status
             });
+        }
+
+
+        var warningStrings = {};
+        $translate([
+            'NEWPROJECT.WARNINGS.MLCRED-TEXT-NOKEYS',
+            'NEWPROJECT.WARNINGS.MLCRED-TEXT-INVALID',
+            'NEWPROJECT.WARNINGS.MLCRED-IMG-NOKEYS',
+            'NEWPROJECT.WARNINGS.MLCRED-IMG-INVALID'
+        ]).then(function (translations) {
+            warningStrings = translations;
+        });
+
+
+        function displayApiKeyCheckWarning(warning) {
+            console.log(warning);
+
+            if (warningStrings['NEWPROJECT.WARNINGS.' + warning.code]) {
+                displayAlert('warnings', 409, {
+                    message : warningStrings['NEWPROJECT.WARNINGS.' + warning.code]
+                });
+            }
+        }
+
+
+
+        function checkApiKeys(profile, checkingProject) {
+            if (checkingProject.type === 'text' || checkingProject.type === 'images') {
+                checkingProject.isPlaceholder = true;
+
+                projectsService.checkProjectCredentials(profile.tenant, checkingProject.type)
+                    .then(function (support) {
+                        checkingProject.isPlaceholder = false;
+                        displayApiKeyCheckWarning(support);
+                    })
+                    .catch(function (supporterr) {
+                        checkingProject.isPlaceholder = false;
+                        displayApiKeyCheckWarning(supporterr);
+                    });
+            }
         }
 
 
@@ -68,6 +110,10 @@
                                     break;
                             }
                             project.labelsSummary = summary;
+                        }
+
+                        if (vm.highlightId === project.id) {
+                            checkApiKeys(profile, project);
                         }
                     }
                 })

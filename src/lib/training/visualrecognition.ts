@@ -854,6 +854,23 @@ export async function getImageClassifiers(
 
 
 
+export async function testMultipleCredentials(creds: TrainingObjects.BluemixCredentials[]): Promise<boolean>
+{
+    let atLeastOneValidCredential = false;
+    for (const nextcred of creds) {
+        try {
+            await getImageClassifiers(nextcred);
+            atLeastOneValidCredential = true;
+        }
+        catch (err) {
+            log.error({ nextcred, err }, 'Credentials test failed');
+        }
+    }
+    return atLeastOneValidCredential;
+}
+
+
+
 /**
  * An admin user has provided the credentials for a Visual Recognition service instance,
  *  but we don't know which IBM Cloud region the service instance is from. This function

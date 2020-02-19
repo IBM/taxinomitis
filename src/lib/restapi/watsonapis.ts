@@ -4,11 +4,13 @@ import * as Express from 'express';
 // local dependencies
 import * as auth from './auth';
 import * as store from '../db/store';
+import * as Types from '../db/db-types';
 import * as dbobjects from '../db/objects';
 import * as TrainingTypes from '../training/training-types';
 import * as conversation from '../training/conversation';
 import * as visualRecognition from '../training/visualrecognition';
 import * as credentialsmgr from '../training/credentials';
+import * as credentialscheck from '../training/credentialscheck';
 import * as headers from './headers';
 import * as urls from './urls';
 import * as errors from './errors';
@@ -105,6 +107,49 @@ async function verifyCredentials(req: Express.Request, res: Express.Response) {
 
         log.error({ err }, 'Failed to verify credentials');
         errors.unknownError(res, err);
+    }
+}
+
+
+
+async function checkAvailableCredentials(req: Express.Request, res: Express.Response) {
+    const tenant = req.params.classid;
+    const type = req.params.type as Types.ProjectTypeLabel;
+
+    try {
+        const response = await credentialscheck.checkClass(tenant, type);
+
+        let status: number = httpstatus.OK;
+        let header = headers.CACHE_1HOUR;
+
+        switch (response.code) {
+        case 'MLCRED-OK':
+        case 'MLCRED-MANAGED':
+        case 'MLCRED-NUM':
+        case 'MLCRED-SOUND':
+        case 'MLCRED-TYPEUNK':
+            status = httpstatus.OK;
+            header = headers.CACHE_1YEAR;
+            break;
+        case 'MLCRED-TEXT-NOKEYS':
+        case 'MLCRED-TEXT-INVALID':
+        case 'MLCRED-IMG-NOKEYS':
+        case 'MLCRED-IMG-INVALID':
+            status = httpstatus.CONFLICT;
+            header = headers.CACHE_1MINUTE;
+            break;
+        }
+
+        return res.status(status).header(header).json(response);
+    }
+    catch (err){
+        log.error({ err }, 'Failed to check available class credentials');
+        return res.status(httpstatus.INTERNAL_SERVER_ERROR)
+                .header(headers.CACHE_1MINUTE)
+                .json({
+                    code : 'MLCRED.FAIL',
+                    message : err.message,
+                });
     }
 }
 
@@ -328,4 +373,9 @@ export default function registerApis(app: Express.Application) {
         auth.requireSupervisor,
         auth.ensureUnmanaged,
         addCredentials);
+
+    app.get(urls.BLUEMIX_SUPPORT,
+        auth.authenticate,
+        auth.checkValidUser,
+        checkAvailableCredentials);
 }

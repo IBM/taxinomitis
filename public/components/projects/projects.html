@@ -42,7 +42,9 @@
             <div class="mlprojectdetails placeholder" ng-if="project.isPlaceholder">
                 <div class="mlprojecttitle">{{ project.name }}</div>
             </div>
-            <div class="mlprojectdetails" ng-if="!project.isPlaceholder" ui-sref="mlproject({ projectId : project.id, userId : project.userid })">
+            <div class="mlprojectdetails" ng-if="!project.isPlaceholder"
+                 ui-sref="mlproject({ projectId : project.id, userId : project.userid })"
+                 ng-class="{ 'mlprojecthighlight' : vm.highlightId === project.id }">
                 <div class="mlprojecttitle">{{ project.name }}</div>
                 <div class="mlprojectdescription">
                     {{ 'PROJECTS.RECOGNISING' | translate }}

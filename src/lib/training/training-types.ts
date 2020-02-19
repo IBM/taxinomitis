@@ -183,3 +183,20 @@ export interface KnownError {
     readonly objid: string;
 }
 
+
+
+export type CredentialsSupportCode = 'MLCRED-OK' |           // everything okay
+                                     'MLCRED-NUM' |          // no need for credentials for numbers projects
+                                     'MLCRED-SOUND' |        // no need for credentials for sound projects
+                                     'MLCRED-TYPEUNK' |      // request to check unknown project type
+                                     'MLCRED-MANAGED' |      // user is in a managed class
+                                     'MLCRED-TEXT-NOKEYS' |  // no available text credentials
+                                     'MLCRED-TEXT-INVALID' | // all text credentials rejected
+                                     'MLCRED-IMG-NOKEYS' |   // no available images credentials
+                                     'MLCRED-IMG-INVALID' |  // all images credentials rejected
+                                     'MLCRED-FAIL';          // attempt to check credentials failed
+
+export interface CredentialsSupportResponse {
+    readonly code: CredentialsSupportCode;
+    readonly message: string;
+}
