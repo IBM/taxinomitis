@@ -157,7 +157,7 @@ async function createStudents(req: Express.Request, res: Express.Response) {
 
     log.info({ prefix, tenant, number : req.body.number }, 'Creating multiple students');
 
-    const successes: Array<{ id: string, username: string }> = [];
+    const successes: { id: string, username: string }[] = [];
     const duplicates: string[] = [];
     const failures: string[] = [];
 

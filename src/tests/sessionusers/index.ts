@@ -38,7 +38,7 @@ describe('session users', () => {
 
             const TEST_CLASS_LIMIT = 900;
 
-            const setupPromises: Array<Promise<Objects.TemporaryUser>> = [];
+            const setupPromises: Promise<Objects.TemporaryUser>[] = [];
             for (let i = 0; i < TEST_CLASS_LIMIT; i++) {
                 setupPromises.push(sessionusers.createSessionUser());
             }

@@ -1090,7 +1090,7 @@ describe('REST API - training', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK)
                 .then((res) => {
-                    const body: Array<{ id: string, label: string, textdata: string }> = res.body;
+                    const body: { id: string, label: string, textdata: string }[] = res.body;
                     assert.strictEqual(body.length, 6);
 
                     body.forEach((item) => {
@@ -1134,7 +1134,7 @@ describe('REST API - training', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK)
                 .then((res) => {
-                    const body: Array<{ id: string, label: string, textdata: string }> = res.body;
+                    const body: { id: string, label: string, textdata: string }[] = res.body;
                     assert.strictEqual(body.length, 10);
 
                     body.forEach((item) => {
@@ -1186,7 +1186,7 @@ describe('REST API - training', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.OK)
                 .then((res) => {
-                    const body: Array<{ id: string, label: string, numberdata: number[] }> = res.body;
+                    const body: { id: string, label: string, numberdata: number[] }[] = res.body;
                     assert.strictEqual(body.length, 10);
 
                     body.forEach((item) => {

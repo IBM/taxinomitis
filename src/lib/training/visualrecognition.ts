@@ -1080,7 +1080,7 @@ export interface VisualRecogApiResponsePayloadClassifier {
     readonly owner: string;
     readonly status: string;
     readonly created: string;
-    readonly classes: Array<{ class: string }>;
+    readonly classes: { class: string }[];
 }
 
 
@@ -1090,32 +1090,32 @@ interface TrainingData {
 }
 
 export interface VisualRecogApiResponsePayloadClassification {
-    readonly images: Array<{
-        readonly classifiers: Array<{
-            readonly classes: Array<{
+    readonly images: {
+        readonly classifiers: {
+            readonly classes: {
                 readonly class: string;
                 readonly score: number;
-            }>;
+            }[];
             readonly classifier_id: string;
             readonly name: string;
-        }>;
+        }[];
         readonly resolved_url: string;
         readonly source_url: string;
-    }>;
+    }[];
     readonly images_processed: number;
 }
 
 export interface VisualRecogApiResponsePayloadClassifyFile {
-    readonly images: Array<{
-        readonly classifiers: Array<{
-            readonly classes: Array<{
+    readonly images: {
+        readonly classifiers: {
+            readonly classes: {
                 readonly class: string;
                 readonly score: number;
-            }>;
+            }[];
             readonly classifier_id: string;
             readonly name: string;
-        }>;
+        }[];
         readonly image: string;
-    }>;
+    }[];
     readonly images_processed: number;
 }

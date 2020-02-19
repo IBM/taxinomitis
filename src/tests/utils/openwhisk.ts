@@ -83,7 +83,7 @@ describe.skip('Request image training zip from OpenWhisk', () => {
                         });
                 },
                 (unzippedFiles: string[], next: (err?: Error | undefined | null,
-                                                 files?: Array<TestFile | undefined>) => void) => {
+                                                 files?: (TestFile | undefined)[]) => void) => {
                     async.map(unzippedFiles,
                                 (unzippedFile: string, nextFile: (err?: Error | null, file?: TestFile) => void) =>
                                 {

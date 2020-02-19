@@ -150,8 +150,8 @@ function importDataIntoProject(project: dbobjects.Project,
 
 
 /** Restructure the dataset into a flat list of text items to store. */
-function getTextDataToImport(dataset: Types.TextDataset): Array<{textdata: string, label: string}> {
-    const training: Array<{textdata: string, label: string}> = [];
+function getTextDataToImport(dataset: Types.TextDataset): {textdata: string, label: string}[] {
+    const training: {textdata: string, label: string}[] = [];
 
     const labels = Object.keys(dataset.data);
     for (const label of labels) {
@@ -169,8 +169,8 @@ function getTextDataToImport(dataset: Types.TextDataset): Array<{textdata: strin
 
 
 /** Restructure the dataset into a flat list of number items to store. */
-function getNumbersDataToImport(dataset: Types.NumbersDataset): Array<{numberdata: number[], label: string}> {
-    const training: Array<{numberdata: number[], label: string}> = [];
+function getNumbersDataToImport(dataset: Types.NumbersDataset): {numberdata: number[], label: string}[] {
+    const training: {numberdata: number[], label: string}[] = [];
 
     const key = dataset.metadata.fields.map((field) => {
         if (field.type === 'multichoice' && field.choices) {
@@ -208,8 +208,8 @@ function getNumbersDataToImport(dataset: Types.NumbersDataset): Array<{numberdat
 }
 
 /** Restructure the dataset into a flat list of image url items to store. */
-function getImageDataToImport(dataset: Types.ImagesDataset): Array<{imageurl: string, label: string}> {
-    const training: Array<{imageurl: string, label: string}> = [];
+function getImageDataToImport(dataset: Types.ImagesDataset): {imageurl: string, label: string}[] {
+    const training: {imageurl: string, label: string}[] = [];
 
     const labels = Object.keys(dataset.data);
     for (const label of labels) {

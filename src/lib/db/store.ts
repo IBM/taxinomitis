@@ -528,7 +528,7 @@ export async function storeTextTraining(
 
 
 export async function bulkStoreTextTraining(
-    projectid: string, training: Array<{textdata: string, label: string}>,
+    projectid: string, training: {textdata: string, label: string}[],
 ): Promise<void>
 {
     const objects = training.map((item) => {
@@ -588,7 +588,7 @@ export async function getUniqueTrainingTextsByLabel(
 
     const queryParams = [ projectid, label, options.limit, options.start ];
 
-    const rows: Array<{ textdata: string }> = await dbExecute(queryString, queryParams);
+    const rows: { textdata: string }[] = await dbExecute(queryString, queryParams);
     return rows.map((row) => row.textdata);
 }
 
@@ -669,7 +669,7 @@ export async function storeImageTraining(
 
 
 export async function bulkStoreImageTraining(
-    projectid: string, training: Array<{imageurl: string, label: string}>,
+    projectid: string, training: {imageurl: string, label: string}[],
 ): Promise<void>
 {
     const objects = training.map((item) => {
@@ -825,7 +825,7 @@ export async function storeNumberTraining(
 }
 
 export async function bulkStoreNumberTraining(
-    projectid: string, training: Array<{numberdata: number[], label: string}>,
+    projectid: string, training: {numberdata: number[], label: string}[],
 ): Promise<void>
 {
     const objects = training.map((item) => {

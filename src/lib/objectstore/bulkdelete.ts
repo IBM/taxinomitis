@@ -145,7 +145,7 @@ function getObjectKeys(cos: IBMCosSDK.S3, req: IBMCosSDK.S3.ListObjectsRequest):
                 return [];
             }
         })
-        .then((imageKeys: Array<string | undefined>) => {
+        .then((imageKeys: (string | undefined)[]) => {
             return imageKeys.filter(notEmpty);
         });
 }

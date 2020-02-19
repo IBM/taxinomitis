@@ -1171,7 +1171,7 @@ describe('DB objects', () => {
         const stringNum: number = stringVal as number;
         const tenant = dbobjects.getDefaultClassTenant(uuid());
 
-        const tests: Array<[ Objects.ClassTenant, number, number, string ]> = [
+        const tests: [ Objects.ClassTenant, number, number, string ][] = [
             [ emptyTenant, 34, 45, 'Missing tenant info to update' ],
             //
             [ tenant, emptyNum, 12, 'Missing required expiry value' ],

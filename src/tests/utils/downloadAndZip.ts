@@ -67,7 +67,7 @@ describe('Utils - download and zip', () => {
                     });
             },
             (unzippedFiles: string[], next: (err?: Error | undefined | null,
-                                             files?: Array<TestFile | undefined>) => void) => {
+                                             files?: (TestFile | undefined)[]) => void) => {
                 async.map(unzippedFiles,
                           (unzippedFile: string, nextFile: (err?: Error | null, file?: TestFile) => void) =>
                           {
