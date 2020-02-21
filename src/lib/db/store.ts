@@ -162,6 +162,38 @@ export async function storeProject(
 }
 
 
+export async function updateProjectCrowdSourced(
+    userid: string, classid: string, projectid: string,
+    isCrowdSourced: boolean,
+): Promise<void>
+{
+    const queryString = 'UPDATE `projects` ' +
+                        'SET `iscrowdsourced` = ? ' +
+                        'WHERE `userid` = ? AND `classid` = ? AND `id` = ?';
+    const values = [
+        isCrowdSourced ? 1 : 0,
+        userid, classid, projectid,
+    ];
+    const response = await dbExecute(queryString, values);
+    if (response.affectedRows === 1) {
+        // success
+        return;
+    }
+    else if (response.affectedRows === 0) {
+        log.warn({ userid, classid, projectid, func : 'updateProjectCrowdSourced' },
+                 'Project not found');
+        throw new Error('Project not found');
+    }
+    else {
+        log.error({
+            func : 'updateProjectCrowdSourced',
+            userid, classid, projectid,
+            response,
+        }, 'Unexpected response');
+        throw new Error('Unexpected response when updating project status');
+    }
+}
+
 
 export async function getNumberProjectFields(
     userid: string, classid: string, projectid: string,

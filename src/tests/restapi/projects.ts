@@ -1430,7 +1430,7 @@ describe('REST API - projects', () => {
                 .then((res) => {
                     const body = res.body;
                     assert.deepStrictEqual(body, {
-                        error: 'Only modifications to project labels are supported',
+                        error: 'PATCH requests must include an op',
                     });
 
                     return request(testServer)
