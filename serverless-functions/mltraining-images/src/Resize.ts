@@ -17,6 +17,7 @@ const REQUEST_OPTIONS = {
     rejectUnauthorized : false,
     strictSSL : false,
     gzip : true,
+    insecureHTTPParser : true,
     headers : {
         // identify source of the request
         //  partly as it's polite and good practice,
