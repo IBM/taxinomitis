@@ -85,6 +85,8 @@ function downloadImage(location: DownloadFromWeb, callback: IDownloadCallback): 
                         next(err, tmpFilePath);
                     });
                 }).catch((err) => {
+                    log('Failed to resize image', err, location);
+
                     const errWithLocation: any = new Error('Unable to download image from ' +
                                                            getHostFromUrl(location.url)) as unknown;
                     errWithLocation.location = location;

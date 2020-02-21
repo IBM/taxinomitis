@@ -87,9 +87,9 @@
     "supertest": "4.0.2",
     "tslint": "6.0.0",
     "tslint-eslint-rules": "5.4.0",
-    "typescript": "3.7.5",
+    "typescript": "3.8.2",
     "typescript-require": "0.2.10",
-    "unzipper": "0.10.8"
+    "unzipper": "0.10.9"
   },
   "dependencies": {
     "@slack/webhook": "^5.0.2",
@@ -113,7 +113,7 @@
     "ibm-cos-sdk": "1.6.0",
     "jsonwebtoken": "8.5.1",
     "jszip": "3.2.2",
-    "jwks-rsa": "1.6.2",
+    "jwks-rsa": "1.7.0",
     "jwt-decode": "2.2.0",
     "lodash": "4.17.15",
     "lru": "3.1.0",
