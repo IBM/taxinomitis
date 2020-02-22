@@ -187,7 +187,11 @@
         "COPYTEMPLATE": "Copy template",
         "CREATEFIRSTPROJECT": "点击右边的'加号'按钮创建你的第一个项目。",
         "RECOGNISING": "识别",
-        "AS": "as"
+        "AS": "as",
+        "SHARE": "Share",
+        "UNSHARE": "Un-share",
+        "WHOLE_CLASS_TITLE": "Crowd-sourced project",
+        "WHOLE_CLASS_NOTES": "This is a whole-class project. All students in your class can use it and add to the training data."
     },
     "NEWPROJECT": {
         "TITLE": "开始一个新的机器学习项目",

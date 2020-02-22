@@ -187,7 +187,11 @@
         "COPYTEMPLATE": "複製範本",
         "CREATEFIRSTPROJECT": "點擊右方「＋」按鈕，建立你的第一個專案",
         "RECOGNISING": "辨識",
-        "AS": "當作"
+        "AS": "當作",
+        "SHARE": "Share",
+        "UNSHARE": "Un-share",
+        "WHOLE_CLASS_TITLE": "Crowd-sourced project",
+        "WHOLE_CLASS_NOTES": "This is a whole-class project. All students in your class can use it and add to the training data."
     },
     "NEWPROJECT": {
         "TITLE": "開始一個新的機器學習專案",
@@ -992,7 +996,7 @@
             }
         },
         "WHATTWITTERTHINKS": {
-            "TITLE": "推特的討論話題\b",
+            "TITLE": "推特的討論話題",
             "SUMMARY": "教電腦來測量大家的想法",
             "DESCRIPTION": "在Scratch中建立情緒分析工具來分析Twitter上的討論內容。",
             "WORKSHEET_1": {

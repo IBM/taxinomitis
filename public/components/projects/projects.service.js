@@ -92,6 +92,25 @@
                 });
         }
 
+        function shareProject(project, userid, tenant, shareState) {
+            return $http.patch('/api/classes/' + tenant + '/students/' + userid + '/projects/' + project.id + '/iscrowdsourced', [
+                    {
+                        op : 'replace',
+                        path : '/isCrowdSourced',
+                        value : shareState
+                    }
+                ])
+                .then(function () {
+                    return shareState;
+                })
+                .catch(function (err) {
+                    if (err.status === 409) {
+                        return shareState;
+                    }
+                    throw err;
+                });
+        }
+
 
         return {
             getProject : getProject,
@@ -107,7 +126,9 @@
             addLabelToProject : addLabelToProject,
             removeLabelFromProject : removeLabelFromProject,
 
-            checkProjectCredentials : checkProjectCredentials
+            checkProjectCredentials : checkProjectCredentials,
+
+            shareProject : shareProject
         };
     }
 })();
