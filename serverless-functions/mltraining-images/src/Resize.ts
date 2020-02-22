@@ -93,13 +93,22 @@ function requestAndResize(url: string, callback: (resp: HttpResponse) => void): 
 
 
 
+function getHostName(req: request.Request): string {
+    if (req.host === 'lh3.googleusercontent.com') {
+        return 'Google';
+    }
+    return req.host;
+}
+
+
+
 function handleErrorResponse(err: request.Response): HttpResponse {
     log('ERROR response : ' + err.statusCode);
     if (err.statusCode === 404) {
         return new HttpResponse({ error : 'Unable to download image from ' + err.request.host }, BAD_REQUEST);
     }
     if (err.statusCode === 401 || err.statusCode === 403) {
-        return new HttpResponse({ error : err.request.host +
+        return new HttpResponse({ error : getHostName(err.request) +
                                           ' would not allow "Machine Learning for Kids" to use that image' },
                                 BAD_REQUEST);
     }
@@ -110,6 +119,7 @@ function handleErrorResponse(err: request.Response): HttpResponse {
 
     return new HttpResponse({ error : 'Unable to download image from ' + err.request.host }, ERROR);
 }
+
 
 
 function handleError(err: any): HttpResponse {
