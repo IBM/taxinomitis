@@ -59,12 +59,26 @@
                 </div>
                 <div class="mlprojectcrowd" ng-if="project.isCrowdSourced" ng-click="vm.displayCrowdSourcedInfo($event)"> </div>
             </div>
-            <img class="mlprojectdelete"
-                 src="static/images/trash.png"
-                 ng-if="!project.isPlaceholder"
-                 ng-hide="project.isCrowdSourced && !isTeacher"
-                 ng-click="vm.deleteProject($event, project)"
-                 alt="Delete project" />
+            <div class="mlprojectdelete">
+                <button type="button"
+                        ng-if="isTeacher && !project.isCrowdSourced && !project.isPlaceholder"
+                        style="margin: 4px; font-size: 0.8em; padding: 4px;"
+                        class="btn btn-info"
+                        ng-click="vm.shareProject($event, project, true)"
+                        translate="PROJECTS.SHARE"></button>
+                <button type="button"
+                        ng-if="isTeacher && project.isCrowdSourced && !project.isPlaceholder"
+                        style="margin: 4px; font-size: 0.8em; padding: 4px;"
+                        class="btn btn-info"
+                        ng-click="vm.shareProject($event, project, false)"
+                        translate="PROJECTS.UNSHARE"></button>
+                <br ng-if="isTeacher"/>
+                <img src="static/images/trash.png"
+                    ng-if="!project.isPlaceholder"
+                    ng-hide="project.isCrowdSourced && !isTeacher"
+                    ng-click="vm.deleteProject($event, project)"
+                    alt="Delete project" />
+            </div>
         </div>
     </div>
 </div>

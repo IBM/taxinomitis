@@ -244,7 +244,7 @@ async function deleteProject(req: auth.RequestWithProject, res: Express.Response
 
 
 
-function getProjectPatch(req: Express.Request) {
+function getProjectPatch(req: Express.Request, expected: 'labels' | 'isCrowdSourced') {
     const patchRequests = req.body;
 
     if (Array.isArray(patchRequests) === false) {
@@ -257,49 +257,60 @@ function getProjectPatch(req: Express.Request) {
 
     const patchRequest = patchRequests[0];
 
-    if (patchRequest.path !== '/labels') {
-        throw new Error('Only modifications to project labels are supported');
-    }
-
     if (!patchRequest.op) {
         throw new Error('PATCH requests must include an op');
     }
     const op: string = patchRequest.op;
 
-    if (!patchRequest.value) {
+    if (!('value' in patchRequest)) {
         throw new Error('PATCH requests must include a value');
     }
     let value = patchRequest.value;
-    if (op === 'add' || op === 'remove') {
-        if (typeof value !== 'string') {
-            throw new Error('PATCH requests to add or remove a label should specify a string');
-        }
-        value = value.trim();
-        if (value.length === 0) {
-            throw new Error('Cannot add an empty label');
-        }
-        if (value.length > Objects.MAX_LABEL_LENGTH) {
-            throw new Error('Label exceeds max length');
-        }
-    }
-    else if (op === 'replace') {
-        if (Array.isArray(value) === false) {
-            throw new Error('PATCH requests to replace labels should specify an array');
-        }
-        value = value.map((item: any) => item.toString().trim())
-                     .filter((item: any) => item);
 
-        for (const item of value) {
-            if (item.length > Objects.MAX_LABEL_LENGTH) {
+    if (patchRequest.path === '/labels' && expected === 'labels') {
+        if (op === 'add' || op === 'remove') {
+            if (typeof value !== 'string') {
+                throw new Error('PATCH requests to add or remove a label should specify a string');
+            }
+            value = value.trim();
+            if (value.length === 0) {
+                throw new Error('Cannot add an empty label');
+            }
+            if (value.length > Objects.MAX_LABEL_LENGTH) {
                 throw new Error('Label exceeds max length');
             }
         }
+        else if (op === 'replace') {
+            if (Array.isArray(value) === false) {
+                throw new Error('PATCH requests to replace labels should specify an array');
+            }
+            value = value.map((item: any) => item.toString().trim())
+                        .filter((item: any) => item);
+
+            for (const item of value) {
+                if (item.length > Objects.MAX_LABEL_LENGTH) {
+                    throw new Error('Label exceeds max length');
+                }
+            }
+        }
+        else {
+            throw new Error('Invalid PATCH op');
+        }
+
+        return { op, value };
+    }
+    else if (patchRequest.path === '/isCrowdSourced' && expected === 'isCrowdSourced') {
+        log.error({ value, 'type' : typeof value }, '???');
+        if (op === 'replace' && typeof value === 'boolean') {
+            return { op, value };
+        }
+        else {
+            throw new Error('Invalid PATCH op');
+        }
     }
     else {
-        throw new Error('Invalid PATCH op');
+        throw new Error('Only modifications to project ' + expected + ' are supported');
     }
-
-    return { op, value };
 }
 
 
@@ -318,7 +329,7 @@ async function modifyProject(req: Express.Request, res: Express.Response) {
 
     let patch;
     try {
-        patch = getProjectPatch(req);
+        patch = getProjectPatch(req, 'labels');
     }
     catch (err) {
         return res.status(httpstatus.BAD_REQUEST)
@@ -354,6 +365,39 @@ async function modifyProject(req: Express.Request, res: Express.Response) {
             return res.status(httpstatus.BAD_REQUEST).json({ error : err.message });
         }
         log.error({ err, func : 'modifyProject' }, 'Server error');
+        return errors.unknownError(res, err);
+    }
+}
+
+
+async function shareProject(req: auth.RequestWithProject, res: Express.Response) {
+    const classid = req.params.classid;
+    const userid = req.params.studentid;
+    const projectid = req.params.projectid;
+
+    try {
+        const project: Objects.Project = req.project;
+
+        let patch;
+        try {
+            patch = getProjectPatch(req, 'isCrowdSourced');
+        }
+        catch (err) {
+            return res.status(httpstatus.BAD_REQUEST)
+                      .json({
+                          error : err.message,
+                      });
+        }
+
+        if (project.isCrowdSourced === patch.value) {
+            return res.status(httpstatus.CONFLICT).json({ error : 'isCrowdSourced already set' });
+        }
+
+        await store.updateProjectCrowdSourced(userid, classid, projectid, patch.value);
+        return res.sendStatus(httpstatus.NO_CONTENT);
+    }
+    catch (err) {
+        log.error({ err, func : 'shareProject' }, 'Server error');
         return errors.unknownError(res, err);
     }
 }
@@ -403,4 +447,12 @@ export default function registerApis(app: Express.Application) {
             auth.checkValidUser,
             auth.verifyProjectOwner,
             modifyProject);
+
+    app.patch(urls.PROJECT_CROWDSOURCED,
+            auth.authenticate,
+            auth.checkValidUser,
+            auth.requireSupervisor,
+            auth.verifyProjectOwner,
+            // @ts-ignore
+            shareProject);
 }

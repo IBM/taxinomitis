@@ -187,7 +187,11 @@
         "COPYTEMPLATE": "Copy template",
         "CREATEFIRSTPROJECT": "最初のプロジェクトを作成するには右の 'プラス' ボタンをクリックしてください。",
         "RECOGNISING": "認識対象:",
-        "AS": "として"
+        "AS": "として",
+        "SHARE": "Share",
+        "UNSHARE": "Un-share",
+        "WHOLE_CLASS_TITLE": "Crowd-sourced project",
+        "WHOLE_CLASS_NOTES": "This is a whole-class project. All students in your class can use it and add to the training data."
     },
     "NEWPROJECT": {
         "TITLE": "新しい機械学習プロジェクトの開始",

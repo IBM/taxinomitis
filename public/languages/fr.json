@@ -187,7 +187,11 @@
         "COPYTEMPLATE": "Copy template",
         "CREATEFIRSTPROJECT": "Cliquez sur le bouton 'plus' à droite pour créer votre premier projet.",
         "RECOGNISING": "Reconnaissance",
-        "AS": "comme"
+        "AS": "comme",
+        "SHARE": "Share",
+        "UNSHARE": "Un-share",
+        "WHOLE_CLASS_TITLE": "Crowd-sourced project",
+        "WHOLE_CLASS_NOTES": "This is a whole-class project. All students in your class can use it and add to the training data."
     },
     "NEWPROJECT": {
         "TITLE": "Démarrer un nouveau projet d'apprentissage machine",

@@ -187,7 +187,11 @@
         "COPYTEMPLATE": "Copy template",
         "CREATEFIRSTPROJECT": "'추가' 버튼을 클릭하여 여러분의 첫 번째 프로젝트를 만들어 보세요",
         "RECOGNISING": "인식",
-        "AS": "as"
+        "AS": "as",
+        "SHARE": "Share",
+        "UNSHARE": "Un-share",
+        "WHOLE_CLASS_TITLE": "Crowd-sourced project",
+        "WHOLE_CLASS_NOTES": "This is a whole-class project. All students in your class can use it and add to the training data."
     },
     "NEWPROJECT": {
         "TITLE": "새로운 머신러닝 프로젝트를 시작해봅시다",

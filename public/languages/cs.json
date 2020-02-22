@@ -187,7 +187,11 @@
         "COPYTEMPLATE": "Copy template",
         "CREATEFIRSTPROJECT": "Klikni na tlačítko 'plus' na pravé straně, abys vytvořil svůj první projekt.",
         "RECOGNISING": "Rozpoznávání",
-        "AS": "jako"
+        "AS": "jako",
+        "SHARE": "Share",
+        "UNSHARE": "Un-share",
+        "WHOLE_CLASS_TITLE": "Crowd-sourced project",
+        "WHOLE_CLASS_NOTES": "This is a whole-class project. All students in your class can use it and add to the training data."
     },
     "NEWPROJECT": {
         "TITLE": "Začít nový projekt strojového učení",

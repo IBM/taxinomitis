@@ -1,5 +1,30 @@
+@media(max-width: 540px) {
+    .mlproject {
+        width: 95%;
+    }
+}
+@media(min-width: 540px) and (max-width: 650px) {
+    .mlproject {
+        width: 90%;
+    }
+}
+@media(min-width: 650px) and (max-width: 800px) {
+    .mlproject {
+        width: 80%;
+    }
+}
+@media(min-width: 800px) and (max-width: 940px) {
+    .mlproject {
+        width: 75%;
+    }
+}
+@media(min-width: 940px) {
+    .mlproject {
+        width: 70%;
+    }
+}
+
 .mlproject {
-    width: 70%;
     clear: both;
     margin-left: auto;
     margin-right: auto;
@@ -9,6 +34,17 @@
     border: thin #1864ab solid;
 }
 
+
+@media(min-width: 900px) {
+    .mlprojectdetails {
+        width: 90%;
+    }
+}
+@media(max-width: 900px) {
+    .mlprojectdetails {
+        width: 85%;
+    }
+}
 .mlprojectdetails {
     margin-bottom: 1em;
     padding: 1em 1.5em;
@@ -16,7 +52,6 @@
     border-radius: 2em;
     text-align: left;
     cursor: pointer;
-    width: 90%;
     float: left;
 }
 

@@ -187,7 +187,11 @@
         "COPYTEMPLATE": "Copy template",
         "CREATEFIRSTPROJECT": "Klicka på 'plus'-knappen till höger för att skapa ditt första projekt.",
         "RECOGNISING": "Känna igen",
-        "AS": "som"
+        "AS": "som",
+        "SHARE": "Share",
+        "UNSHARE": "Un-share",
+        "WHOLE_CLASS_TITLE": "Crowd-sourced project",
+        "WHOLE_CLASS_NOTES": "This is a whole-class project. All students in your class can use it and add to the training data."
     },
     "NEWPROJECT": {
         "TITLE": "Starta ett nytt maskininlärningsprojekt",

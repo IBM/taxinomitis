@@ -35,23 +35,24 @@
         }
 
 
-        var warningStrings = {};
+        var translatedStrings = {};
         $translate([
             'NEWPROJECT.WARNINGS.MLCRED-TEXT-NOKEYS',
             'NEWPROJECT.WARNINGS.MLCRED-TEXT-INVALID',
             'NEWPROJECT.WARNINGS.MLCRED-IMG-NOKEYS',
-            'NEWPROJECT.WARNINGS.MLCRED-IMG-INVALID'
+            'NEWPROJECT.WARNINGS.MLCRED-IMG-INVALID',
+            'PROJECTS.WHOLE_CLASS_TITLE', 'PROJECTS.WHOLE_CLASS_NOTES'
         ]).then(function (translations) {
-            warningStrings = translations;
+            translatedStrings = translations;
         });
 
 
         function displayApiKeyCheckWarning(warning) {
             console.log(warning);
 
-            if (warningStrings['NEWPROJECT.WARNINGS.' + warning.code]) {
+            if (translatedStrings['NEWPROJECT.WARNINGS.' + warning.code]) {
                 displayAlert('warnings', 409, {
-                    message : warningStrings['NEWPROJECT.WARNINGS.' + warning.code]
+                    message : translatedStrings['NEWPROJECT.WARNINGS.' + warning.code]
                 });
             }
         }
@@ -169,6 +170,19 @@
         };
 
 
+        vm.shareProject = function (ev, project, state) {
+            project.isPlaceholder = true;
+            projectsService.shareProject(project, vm.profile.user_id, vm.profile.tenant, state)
+                .then(function (newstate) {
+                    project.isCrowdSourced = newstate;
+                    project.isPlaceholder = false;
+                })
+                .catch(function (err) {
+                    project.isPlaceholder = false;
+                    displayAlert('errors', err.status, err.data);
+                });
+        };
+
         vm.displayCrowdSourcedInfo = function (ev) {
             ev.stopPropagation();
             ev.preventDefault();
@@ -176,10 +190,10 @@
             $mdDialog.show(
                 $mdDialog.alert()
                   .clickOutsideToClose(true)
-                  .title('Crowd-sourced project')
-                  .textContent('This is a whole-class project. All the students in your class are able to access it and contribute training data to it.')
-                  .ariaLabel('Crowd-sourced project')
-                  .ok('Got it!')
+                  .title(translatedStrings['PROJECTS.WHOLE_CLASS_TITLE'])
+                  .textContent(translatedStrings['PROJECTS.WHOLE_CLASS_NOTES'])
+                  .ariaLabel(translatedStrings['PROJECTS.WHOLE_CLASS_TITLE'])
+                  .ok('OK')
                   .targetEvent(ev)
               );
         };

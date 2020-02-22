@@ -37,6 +37,8 @@ export const TRAININGITEM          = '/api/classes/:classid/students/:studentid/
 export const MODELS                = '/api/classes/:classid/students/:studentid/projects/:projectid/models';
 export const MODEL                 = '/api/classes/:classid/students/:studentid/projects/:projectid/models/:modelid';
 export const MODELTEST             = '/api/classes/:classid/students/:studentid/projects/:projectid/models/:modelid/label';
+// Crowd-sourced flag for a project
+export const PROJECT_CROWDSOURCED  = '/api/classes/:classid/students/:studentid/projects/:projectid/iscrowdsourced';
 // Scratch key for a project
 export const SCRATCHKEYS           = '/api/classes/:classid/students/:studentid/projects/:projectid/scratchkeys';
 
