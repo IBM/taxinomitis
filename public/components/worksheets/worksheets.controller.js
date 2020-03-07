@@ -630,7 +630,7 @@
                     description : translations['WORKSHEETS.NOUGHTSANDCROSSES.DESCRIPTION'],
                     difficulty : 'Advanced',
                     type : 'numbers',
-                    maketypes : [ 'scratch2', 'python' ],
+                    maketypes : [ 'scratch3', 'python' ],
                     image : 'static/images/project-noughtsandcrosses.png',
                     tags : [ 'decision tree learning', 'reinforcement learning', 'categorical data' ],
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-noughtsandcrosses.pdf',

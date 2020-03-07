@@ -129,7 +129,12 @@ function importDataIntoProject(project: dbobjects.Project,
     }
     else if (project.type === 'numbers') {
         const training = getNumbersDataToImport(dataset as Types.NumbersDataset);
-        return store.bulkStoreNumberTraining(project.id, training);
+        if (training.length > 0) {
+            return store.bulkStoreNumberTraining(project.id, training);
+        }
+        else {
+            return Promise.resolve();
+        }
     }
     else if (project.type === 'images') {
         const training = getImageDataToImport(dataset as Types.ImagesDataset);

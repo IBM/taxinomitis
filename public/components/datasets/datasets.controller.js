@@ -59,7 +59,8 @@
                     'DATASETS.DATA.TITANIC.TITLE', 'DATASETS.DATA.TITANIC.SUMMARY', 'DATASETS.DATA.TITANIC.DESCRIPTION', 'DATASETS.DATA.TITANIC.DETAILS',
                     'DATASETS.DATA.UKNEWSPAPERS.TITLE', 'DATASETS.DATA.UKNEWSPAPERS.SUMMARY', 'DATASETS.DATA.UKNEWSPAPERS.DESCRIPTION', 'DATASETS.DATA.UKNEWSPAPERS.DETAILS',
                     'DATASETS.DATA.CATSANDDOGS.TITLE', 'DATASETS.DATA.CATSANDDOGS.SUMMARY', 'DATASETS.DATA.CATSANDDOGS.DESCRIPTION', 'DATASETS.DATA.CATSANDDOGS.DETAILS',
-                    'DATASETS.DATA.PHISHING.TITLE', 'DATASETS.DATA.PHISHING.SUMMARY', 'DATASETS.DATA.PHISHING.DESCRIPTION', 'DATASETS.DATA.PHISHING.DETAILS'
+                    'DATASETS.DATA.PHISHING.TITLE', 'DATASETS.DATA.PHISHING.SUMMARY', 'DATASETS.DATA.PHISHING.DESCRIPTION', 'DATASETS.DATA.PHISHING.DETAILS',
+                    'WORKSHEETS.NOUGHTSANDCROSSES.TITLE', 'DATASETS.DATA.NOUGHTSANDCROSSES.SUMMARY', 'DATASETS.DATA.NOUGHTSANDCROSSES.DESCRIPTION', 'DATASETS.DATA.NOUGHTSANDCROSSES.DETAILS'
                 ]).then(function (translations) {
                     vm.datasets = [
                         {
@@ -97,6 +98,15 @@
                             details: translations['DATASETS.DATA.PHISHING.DETAILS'],
                             type: 'numbers',
                             image: 'static/images/dataset-phishing.png'
+                        },
+                        {
+                            id: 'noughts-and-crosses',
+                            title: translations['WORKSHEETS.NOUGHTSANDCROSSES.TITLE'],
+                            summary: translations['DATASETS.DATA.NOUGHTSANDCROSSES.SUMMARY'],
+                            description: translations['DATASETS.DATA.NOUGHTSANDCROSSES.DESCRIPTION'],
+                            details: translations['DATASETS.DATA.NOUGHTSANDCROSSES.DETAILS'],
+                            type: 'numbers',
+                            image: 'static/images/dataset-noughtsandcrosses.png'
                         }
                     ];
 

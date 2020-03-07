@@ -287,6 +287,11 @@
                 "SUMMARY": "預測連結是否為惡意的釣魚網站連結",
                 "DESCRIPTION": "惡意網絡釣魚是指網站透過向你傳送偽裝成可信任的偽造網站的連結，試圖誘拐你提供敏感資訊。 你可以使用它來訓練機器學習模型，此模型可以預測網址是真實連結或是盜版網站的網絡釣魚連結。",
                 "DETAILS": "此訓練資料集包含500個合法網址與500個惡意網絡釣魚連結的特性。\n\n如果連結具有數字IP地址（例如「 104.20.74.246」），則「網址類型」為「IP地址」；如果連結具有基於名稱的網址（例如「 machinelearningforkids.co.uk」），則「地址類型」為“「DNS名稱」。\n「URL長度」表示以網址長度來訓練網址並進行分組。\n「短網址」表示網址是否為短網址，例如TinyURL或bit.ly。如果是短網址，則顯示「Yes」否則顯示「No」\n「引用＠」表示網址中是否包含「＠」符號。如果有包含則顯示「Yes」否則顯示「No」\n「接口編號」表示網址使用標準的接口編號，例如（80或443）。如果網址使用其他名稱，則顯示「non-std」\n「網域使用時間」表示網域註冊時間的長短進行分組。\n「重新導向」表示網址連接到最終頁面前需要重新導向幾次，以次數進行分組。\n「網域註冊」表示網域在一年內到期，則顯示「過期」"
+            },
+            "NOUGHTSANDCROSSES": {
+                "SUMMARY": "Learn how to play a game",
+                "DESCRIPTION": "Train a machine learning model to play noughts and crosses, by collecting examples of moves that the computer can use to learn how to predict the best move to make next.",
+                "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'Noughts and Crosses' from Worksheets"
             }
         }
     },

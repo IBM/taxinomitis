@@ -1,0 +1,27 @@
+{
+    "metadata": {
+        "name": "Noughts and Crosses",
+        "fields": [
+            { "name": "TopLeft", "type": "multichoice", "choices": [ "EMPTY", "PLAYER", "OPPONENT" ] },
+            { "name": "TopMiddle", "type": "multichoice", "choices": [ "EMPTY", "PLAYER", "OPPONENT" ] },
+            { "name": "TopRight", "type": "multichoice", "choices": [ "EMPTY", "PLAYER", "OPPONENT" ] },
+            { "name": "MiddleLeft", "type": "multichoice", "choices": [ "EMPTY", "PLAYER", "OPPONENT" ] },
+            { "name": "MiddleMiddle", "type": "multichoice", "choices": [ "EMPTY", "PLAYER", "OPPONENT" ] },
+            { "name": "MiddleRight", "type": "multichoice", "choices": [ "EMPTY", "PLAYER", "OPPONENT" ] },
+            { "name": "BottomLeft", "type": "multichoice", "choices": [ "EMPTY", "PLAYER", "OPPONENT" ] },
+            { "name": "BottomMiddle", "type": "multichoice", "choices": [ "EMPTY", "PLAYER", "OPPONENT" ] },
+            { "name": "BottomRight", "type": "multichoice", "choices": [ "EMPTY", "PLAYER", "OPPONENT" ] }
+        ]
+    },
+    "data": {
+        "top_left": [],
+        "top_middle": [],
+        "top_right": [],
+        "middle_left": [],
+        "middle_middle": [],
+        "middle_right": [],
+        "bottom_left": [],
+        "bottom_middle": [],
+        "bottom_right": []
+    }
+}
