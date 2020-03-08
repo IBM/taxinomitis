@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 import * as randomstring from 'randomstring';
-import * as uuid from 'uuid/v1';
+import { v1 as uuid } from 'uuid';
 import * as tmp from 'tmp';
 import * as coreReq from 'request';
 

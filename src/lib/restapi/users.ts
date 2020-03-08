@@ -1,7 +1,7 @@
 // external dependencies
 import * as httpstatus from 'http-status';
 import * as Express from 'express';
-import * as uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 // local dependencies
 import * as auth0 from '../auth0/users';
 import * as auth from './auth';

@@ -1,5 +1,5 @@
 // external dependencies
-import * as uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 // local dependencies
 import * as env from '../utils/env';
 

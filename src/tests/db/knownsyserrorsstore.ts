@@ -1,8 +1,8 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
+import { v1 as uuid } from 'uuid';
 import * as store from '../../lib/db/store';
 import * as Types from '../../lib/training/training-types';
-import * as uuid from 'uuid/v1';
 
 
 describe('DB store - known sys errors', () => {

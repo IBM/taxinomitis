@@ -1,5 +1,5 @@
 /*eslint-env mocha */
-import * as uuid from 'uuid/v1';
+import { v1 as uuid } from 'uuid';
 import * as assert from 'assert';
 import * as request from 'supertest';
 import * as httpstatus from 'http-status';
@@ -246,7 +246,8 @@ describe('REST API - scratch keys', () => {
                 .then(async (res) => {
                     await store.deleteScratchKey(key);
 
-                    assert.strictEqual(res.error.text,
+                    const errorPayload = res.error as any;
+                    assert.strictEqual(errorPayload.text,
                         '/**/ typeof ' + callbackFunctionName +
                         ' === \'function\' && mycb({"error":"Missing data"});');
                 });
@@ -278,7 +279,8 @@ describe('REST API - scratch keys', () => {
                 .then(async (res) => {
                     await store.deleteScratchKey(key);
 
-                    assert.strictEqual(res.error.text,
+                    const errorPayload = res.error as any;
+                    assert.strictEqual(errorPayload.text,
                         '/**/ typeof ' + callbackFunctionName +
                         ' === \'function\' && mycb({"error":"Missing data"});');
                 });
@@ -555,7 +557,8 @@ describe('REST API - scratch keys', () => {
                 .then(async (res) => {
                     await store.deleteEntireProject(userid, TESTCLASS, project);
 
-                    assert.strictEqual(res.error.text,
+                    const errorPayload = res.error as any;
+                    assert.strictEqual(errorPayload.text,
                         '/**/ typeof ' + callbackFunctionName + ' === \'function\' && ' +
                         callbackFunctionName + '({"error":"Missing data"});');
                 });

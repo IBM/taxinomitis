@@ -2,7 +2,7 @@
 import * as assert from 'assert';
 import * as randomstring from 'randomstring';
 import * as sinon from 'sinon';
-import * as uuid from 'uuid/v1';
+import { v1 as uuid } from 'uuid';
 
 import * as store from '../../lib/db/store';
 import * as projectObjects from '../../lib/db/projects';

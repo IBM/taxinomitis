@@ -1,6 +1,6 @@
 // external dependencies
-import * as uuid from 'uuid/v1';
-import * as uuidv4 from 'uuid/v4';
+import { v1 as uuid } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 // local dependencies
 import * as projects from './projects';
 import * as sitealerts from './site-alerts';

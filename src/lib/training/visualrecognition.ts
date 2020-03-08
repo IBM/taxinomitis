@@ -2,7 +2,7 @@
 import * as fs from 'fs';
 import * as request from 'request-promise';
 import * as httpStatus from 'http-status';
-import * as uuid from 'uuid/v1';
+import { v1 as uuid } from 'uuid';
 // local dependencies
 import * as store from '../db/store';
 import * as DbObjects from '../db/db-types';

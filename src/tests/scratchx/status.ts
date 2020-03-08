@@ -1,6 +1,6 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
-import * as uuid from 'uuid/v1';
+import { v1 as uuid } from 'uuid';
 import * as sinon from 'sinon';
 import * as conversation from '../../lib/training/conversation';
 import * as visualrecog from '../../lib/training/visualrecognition';

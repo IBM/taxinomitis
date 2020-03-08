@@ -2,7 +2,6 @@
 import * as fs from 'fs';
 // external dependencies
 import * as fileType from 'file-type';
-import readChunk from 'read-chunk';
 import * as tmp from 'tmp';
 import * as async from 'async';
 import * as filesize from 'filesize';
@@ -106,9 +105,8 @@ export function verifyImage(url: string, maxAllowedSizeBytes: number): Promise<v
  * Returns the type of the file at the specified location.
  */
 function getFileTypeFromContents(filepath: string, callback: IFileTypeCallback): void {
-    readChunk(filepath, 0, 4100)
-        .then((buffer) => {
-            const type = fileType(buffer);
+    fileType.fromFile(filepath)
+        .then((type) => {
             callback(undefined, type ? type.ext : 'unknown');
         })
         .catch(callback);

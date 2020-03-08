@@ -1,7 +1,7 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
 import * as sinon from 'sinon';
-import * as uuid from 'uuid/v1';
+import { v1 as uuid } from 'uuid';
 import * as requestPromise from 'request-promise';
 import * as Types from '../../lib/db/db-types';
 import * as store from '../../lib/db/store';

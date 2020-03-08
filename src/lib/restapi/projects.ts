@@ -300,7 +300,6 @@ function getProjectPatch(req: Express.Request, expected: 'labels' | 'isCrowdSour
         return { op, value };
     }
     else if (patchRequest.path === '/isCrowdSourced' && expected === 'isCrowdSourced') {
-        log.error({ value, 'type' : typeof value }, '???');
         if (op === 'replace' && typeof value === 'boolean') {
             return { op, value };
         }

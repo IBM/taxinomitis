@@ -1,6 +1,6 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
-import * as uuid from 'uuid/v1';
+import { v1 as uuid } from 'uuid';
 import * as extensions from '../../lib/scratchx/extensions';
 import * as Types from '../../lib/db/db-types';
 

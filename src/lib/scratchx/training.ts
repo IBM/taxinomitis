@@ -1,5 +1,5 @@
 // external dependencies
-import * as uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 // local dependencies
 import * as store from '../db/store';
 import * as Types from '../db/db-types';

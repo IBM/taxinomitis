@@ -4,7 +4,7 @@
 
 // tslint:disable:max-line-length
 
-import * as uuid from 'uuid/v1';
+import { v1 as uuid } from 'uuid';
 import * as fs from 'fs';
 import * as assert from 'assert';
 import * as sinon from 'sinon';

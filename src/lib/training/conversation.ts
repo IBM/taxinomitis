@@ -1,7 +1,7 @@
 // external dependencies
 import * as request from 'request-promise';
 import * as httpStatus from 'http-status';
-import * as uuid from 'uuid/v1';
+import { v1 as uuid } from 'uuid';
 import * as _ from 'lodash';
 // local dependencies
 import * as store from '../db/store';

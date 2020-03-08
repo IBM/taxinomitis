@@ -2,7 +2,7 @@
 
 import * as assert from 'assert';
 import * as fs from 'fs';
-import * as uuid from 'uuid/v1';
+import { v1 as uuid } from 'uuid';
 import * as express from 'express';
 import * as sinon from 'sinon';
 import * as IBMCosSDK from 'ibm-cos-sdk';

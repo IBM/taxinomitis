@@ -1,6 +1,6 @@
 /*eslint-env mocha */
 // import * as assert from 'assert';
-// import * as uuid from 'uuid/v1';
+// import { v1 as uuid } from 'uuid';
 // import * as Objects from '../../lib/db/db-types';
 import * as store from '../../lib/db/store';
 // import { MAX_AUDIO_POINTS } from '../../lib/restapi/sounds/uploads';

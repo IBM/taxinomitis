@@ -1,7 +1,7 @@
 import * as IBMCosSDK from 'ibm-cos-sdk';
 import * as randomstring from 'randomstring';
 import * as assert from 'assert';
-import * as uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 
 
 let bucketStructured: ClassStore = { };

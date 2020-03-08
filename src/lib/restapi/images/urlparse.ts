@@ -1,6 +1,6 @@
 // external dependencies
 import * as Express from 'express';
-import * as uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 // local dependencies
 import * as Types from '../../objectstore/types';
 import * as urls from '../../restapi/urls';

@@ -2,7 +2,7 @@
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as requestPromise from 'request-promise';
-import * as uuid from 'uuid/v1';
+import { v1 as uuid } from 'uuid';
 import * as store from '../../lib/db/store';
 import * as datasets from '../../lib/datasets';
 import * as dbtypes from '../../lib/db/db-types';
