@@ -655,7 +655,7 @@
                     description : translations['WORKSHEETS.TOPTRUMPS.DESCRIPTION'],
                     difficulty : 'Advanced',
                     type : 'numbers',
-                    maketypes : [ 'scratch2' ],
+                    maketypes : [ 'scratch3' ],
                     image : 'static/images/project-toptrumps.png',
                     tags : [ 'decision tree learning', 'reinforcement learning', 'categorical data' ],
                     teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-toptrumps.pdf',

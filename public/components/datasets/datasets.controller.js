@@ -116,7 +116,7 @@
                             description: translations['DATASETS.DATA.TOPTRUMPS.DESCRIPTION'],
                             details: translations['DATASETS.DATA.TOPTRUMPS.DETAILS'],
                             type: 'numbers',
-                            image: ''
+                            image: 'static/images/dataset-toptrumps.png'
                         }
                     ];
 

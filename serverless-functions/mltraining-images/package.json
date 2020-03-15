@@ -18,19 +18,18 @@
     "mocha": "6.2.2",
     "ts-loader": "6.2.1",
     "ts-node": "8.6.2",
-    "typescript": "3.8.2",
-    "unzipper": "^0.10.9",
-    "webpack": "4.41.6",
+    "typescript": "3.8.3",
+    "unzipper": "0.10.10",
+    "webpack": "4.42.0",
     "webpack-cli": "3.3.11"
   },
   "dependencies": {
     "archiver": "3.1.1",
     "async": "2.6.3",
-    "file-type": "12.4.0",
+    "file-type": "14.1.4",
     "gm": "1.23.1",
     "ibm-cos-sdk": "1.6.0",
     "openwhisk": "3.21.1",
-    "read-chunk": "3.2.0",
     "request": "2.88.2",
     "tmp": "0.1.0"
   }

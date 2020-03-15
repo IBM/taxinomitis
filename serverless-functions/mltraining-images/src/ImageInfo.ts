@@ -1,5 +1,4 @@
 // external dependencies
-import readChunk from 'read-chunk';
 import * as fileType from 'file-type';
 import { log } from './Debug';
 
@@ -14,9 +13,8 @@ export type IFileTypeCallback = (err?: Error | null, filetype?: string) => void;
  * @param callback
  */
 export default function main(filepath: string, callback: IFileTypeCallback): void {
-    readChunk(filepath, 0, 4100)
-        .then((buffer) => {
-            const type = fileType(buffer);
+    fileType.fromFile(filepath)
+        .then((type) => {
             callback(undefined, type ? type.ext : 'unknown');
         })
         .catch((err) => {
