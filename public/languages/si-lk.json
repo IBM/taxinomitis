@@ -292,6 +292,12 @@
                 "SUMMARY": "Learn how to play a game",
                 "DESCRIPTION": "Train a machine learning model to play noughts and crosses, by collecting examples of moves that the computer can use to learn how to predict the best move to make next.",
                 "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'Noughts and Crosses' from Worksheets"
+            },
+            "TOPTRUMPS": {
+                "TITLE": "Kings & Queens Top Trumps",
+                "SUMMARY": "Learn how to play a game",
+                "DESCRIPTION": "Train a machine learning model to play a Top Trumps game based on English Kings and Queens, by collecting examples of moves that the computer can use to learn how to predict which value to choose.",
+                "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'Top Trumps' from Worksheets."
             }
         }
     },

@@ -1,6 +1,5 @@
 // external dependencies
 import * as Mustache from 'mustache';
-import * as he from 'he';
 // local dependencies
 import * as Types from '../db/db-types';
 import * as fileutils from '../utils/fileutils';
@@ -15,7 +14,7 @@ function escapeProjectName(name: string, version: 2 | 3): string {
         // Scratch 3 needs HTML encoding (e.g. '&lt;') as special
         //  characters (e.g. '<') will prevent extensions from
         //  loading
-        return he.encode(name);
+        return name.replace(/[&<>]/g, ' ');
     }
     else {
         // Scratch 2 displays the string as-is

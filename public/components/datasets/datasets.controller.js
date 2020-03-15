@@ -60,7 +60,8 @@
                     'DATASETS.DATA.UKNEWSPAPERS.TITLE', 'DATASETS.DATA.UKNEWSPAPERS.SUMMARY', 'DATASETS.DATA.UKNEWSPAPERS.DESCRIPTION', 'DATASETS.DATA.UKNEWSPAPERS.DETAILS',
                     'DATASETS.DATA.CATSANDDOGS.TITLE', 'DATASETS.DATA.CATSANDDOGS.SUMMARY', 'DATASETS.DATA.CATSANDDOGS.DESCRIPTION', 'DATASETS.DATA.CATSANDDOGS.DETAILS',
                     'DATASETS.DATA.PHISHING.TITLE', 'DATASETS.DATA.PHISHING.SUMMARY', 'DATASETS.DATA.PHISHING.DESCRIPTION', 'DATASETS.DATA.PHISHING.DETAILS',
-                    'WORKSHEETS.NOUGHTSANDCROSSES.TITLE', 'DATASETS.DATA.NOUGHTSANDCROSSES.SUMMARY', 'DATASETS.DATA.NOUGHTSANDCROSSES.DESCRIPTION', 'DATASETS.DATA.NOUGHTSANDCROSSES.DETAILS'
+                    'WORKSHEETS.NOUGHTSANDCROSSES.TITLE', 'DATASETS.DATA.NOUGHTSANDCROSSES.SUMMARY', 'DATASETS.DATA.NOUGHTSANDCROSSES.DESCRIPTION', 'DATASETS.DATA.NOUGHTSANDCROSSES.DETAILS',
+                    'DATASETS.DATA.TOPTRUMPS.TITLE', 'DATASETS.DATA.TOPTRUMPS.SUMMARY', 'DATASETS.DATA.TOPTRUMPS.DESCRIPTION', 'DATASETS.DATA.TOPTRUMPS.DETAILS'
                 ]).then(function (translations) {
                     vm.datasets = [
                         {
@@ -107,6 +108,15 @@
                             details: translations['DATASETS.DATA.NOUGHTSANDCROSSES.DETAILS'],
                             type: 'numbers',
                             image: 'static/images/dataset-noughtsandcrosses.png'
+                        },
+                        {
+                            id: 'top-trumps',
+                            title: translations['DATASETS.DATA.TOPTRUMPS.TITLE'],
+                            summary: translations['DATASETS.DATA.TOPTRUMPS.SUMMARY'],
+                            description: translations['DATASETS.DATA.TOPTRUMPS.DESCRIPTION'],
+                            details: translations['DATASETS.DATA.TOPTRUMPS.DETAILS'],
+                            type: 'numbers',
+                            image: ''
                         }
                     ];
 
@@ -166,8 +176,8 @@
             projectsService.createProject({ type : dataset.type, dataset : dataset.id },
                                           vm.profile.user_id,
                                           vm.profile.tenant)
-                .then(function () {
-                    $state.go('projects');
+                .then(function (created) {
+                    $state.go('projects', { id : created.id });
                 })
                 .catch(function (err) {
                     displayAlert('errors', err.status, err.data);

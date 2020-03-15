@@ -1,0 +1,19 @@
+{
+    "metadata": {
+        "name": "English Kings & Queens Top Trumps",
+        "fields": [
+            { "name": "reign", "type": "number" },
+            { "name": "ascension", "type": "number" },
+            { "name": "death", "type": "number" },
+            { "name": "spouses", "type": "number" },
+            { "name": "children", "type": "number" }
+        ]
+    },
+    "data": {
+        "reign": [],
+        "ascension": [],
+        "death": [],
+        "spouses": [],
+        "children": []
+    }
+}

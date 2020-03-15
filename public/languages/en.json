@@ -185,7 +185,7 @@
         "TITLE": "Your machine learning projects",
         "ADDNEWPROJECT": "Add a new project",
         "COPYTEMPLATE": "Copy template",
-        "CREATEFIRSTPROJECT": "Click on the 'plus' button on the right to create your first project.",
+        "CREATEFIRSTPROJECT": "Click the 'plus' button on the right to create your first project.",
         "RECOGNISING": "Recognising",
         "AS": "as",
         "SHARE": "Share",
@@ -278,7 +278,7 @@
             },
             "UKNEWSPAPERS": {
                 "TITLE": "UK Newspaper Headlines",
-                "SUMMARY": "Recognize the use of language in newspaper headlines",
+                "SUMMARY": "Recognize the use of language in headlines",
                 "DESCRIPTION": "Different newspapers use language in different ways. This project includes the main front page headline from four UK newspapers. You can use this to train a machine learning model that can learn to predict the most likely newspaper that a new headline is probably from. ",
                 "DETAILS": "This training dataset includes headlines from the Daily Mail, the Daily Telegraph, the Independent, and The Guardian"
             },
@@ -291,7 +291,13 @@
             "NOUGHTSANDCROSSES": {
                 "SUMMARY": "Learn how to play a game",
                 "DESCRIPTION": "Train a machine learning model to play noughts and crosses, by collecting examples of moves that the computer can use to learn how to predict the best move to make next.",
-                "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'Noughts and Crosses' from Worksheets"
+                "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'Noughts and Crosses' from Worksheets."
+            },
+            "TOPTRUMPS": {
+                "TITLE": "Kings & Queens Top Trumps",
+                "SUMMARY": "Learn how to play a game",
+                "DESCRIPTION": "Train a machine learning model to play a Top Trumps game based on English Kings and Queens, by collecting examples of moves that the computer can use to learn how to predict which value to choose.",
+                "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'Top Trumps' from Worksheets."
             }
         }
     },

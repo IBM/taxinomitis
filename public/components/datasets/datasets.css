@@ -57,6 +57,8 @@
     margin-right: 8px;
 }
 
+
+
 /* *************************************/
 /*     ONE column     (vertical cards) */
 /* *************************************/
@@ -122,11 +124,6 @@
     color: #555555;
 }
 
-.datasetcard .cardfooter .difficulty {
-    text-align: left;
-    margin-right: auto;
-    margin-left: 2px;
-}
 .datasetcard .cardfooter .projecttype {
     text-align: right;
     margin-left: auto;
@@ -140,6 +137,8 @@
 
 .datasetcard .download .btn {
     font-size: 0.8em;
+    padding-left: 1em;
+    padding-right: 1em;
 }
 
 .datasetcard .cardfooter .tags {
@@ -148,8 +147,6 @@
     margin-bottom: auto;
     margin-right: auto;
     max-width: 250px;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 .datasettype {
     color: #00008b;
