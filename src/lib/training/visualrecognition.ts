@@ -892,6 +892,7 @@ export async function identifyRegion(credentials: TrainingObjects.BluemixCredent
     else {
         const POSSIBLE_URLS = [
             'https://gateway.watsonplatform.net/visual-recognition/api',
+            'https://api.eu-de.visual-recognition.watson.cloud.ibm.com',
             'https://gateway-seo.watsonplatform.net/visual-recognition/api',
         ];
 
