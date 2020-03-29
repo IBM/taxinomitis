@@ -188,10 +188,10 @@
         "CREATEFIRSTPROJECT": "點擊右方「＋」按鈕，建立你的第一個專案",
         "RECOGNISING": "辨識",
         "AS": "當作",
-        "SHARE": "Share",
-        "UNSHARE": "Un-share",
-        "WHOLE_CLASS_TITLE": "Crowd-sourced project",
-        "WHOLE_CLASS_NOTES": "This is a whole-class project. All students in your class can use it and add to the training data."
+        "SHARE": "分享",
+        "UNSHARE": "未分享",
+        "WHOLE_CLASS_TITLE": "集體參與的專案",
+        "WHOLE_CLASS_NOTES": "這是可以全班一起使用的專案。所有你班級裡的學生皆可使用並新增訓練資料集"
     },
     "NEWPROJECT": {
         "TITLE": "開始一個新的機器學習專案",
@@ -289,9 +289,9 @@
                 "DETAILS": "此訓練資料集包含500個合法網址與500個惡意網絡釣魚連結的特性。\n\n如果連結具有數字IP地址（例如「 104.20.74.246」），則「網址類型」為「IP地址」；如果連結具有基於名稱的網址（例如「 machinelearningforkids.co.uk」），則「地址類型」為“「DNS名稱」。\n「URL長度」表示以網址長度來訓練網址並進行分組。\n「短網址」表示網址是否為短網址，例如TinyURL或bit.ly。如果是短網址，則顯示「Yes」否則顯示「No」\n「引用＠」表示網址中是否包含「＠」符號。如果有包含則顯示「Yes」否則顯示「No」\n「接口編號」表示網址使用標準的接口編號，例如（80或443）。如果網址使用其他名稱，則顯示「non-std」\n「網域使用時間」表示網域註冊時間的長短進行分組。\n「重新導向」表示網址連接到最終頁面前需要重新導向幾次，以次數進行分組。\n「網域註冊」表示網域在一年內到期，則顯示「過期」"
             },
             "NOUGHTSANDCROSSES": {
-                "SUMMARY": "Learn how to play a game",
-                "DESCRIPTION": "Train a machine learning model to play noughts and crosses, by collecting examples of moves that the computer can use to learn how to predict the best move to make next.",
-                "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'Noughts and Crosses' from Worksheets"
+                "SUMMARY": "如何學會玩遊戲",
+                "DESCRIPTION": "訓練機器學習模型來玩井字棋遊戲，透過蒐集電腦移動的範例進行預測下一步的最佳走法。",
+                "DETAILS": "這是一個空的範本來幫助你蒐集你自己的訓練資料。有關如何使用的教學，可以從作品清單中的「戰無不勝」下載"
             },
             "TOPTRUMPS": {
                 "TITLE": "Kings & Queens Top Trumps",
