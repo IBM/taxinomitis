@@ -103,7 +103,7 @@ describe('Utils - download and zip', () => {
                                             nextFile();
                                         });
                             break;
-                        case 15039:
+                        case 15327:
                             filecompare('./src/tests/utils/resources/ibm.png',
                                         unzippedFile.location,
                                         (isEq: boolean) => {
