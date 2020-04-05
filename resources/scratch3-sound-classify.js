@@ -209,6 +209,9 @@ class MachineLearningSound {
 
             this.listening = true;
         }
+        else if (!this.modelReady) {
+            postMessage({ mlforkids : 'mlforkids-recognisesound-nomodel' });
+        }
     }
 
     stopListening () {
