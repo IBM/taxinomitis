@@ -6,13 +6,17 @@ lastvisrec=`cat $numfile`
 nextvisrec=`expr $lastvisrec + 1`
 echo $nextvisrec > $numfile
 
+region=us-south
+# region=
+
+
 sid=$nextvisrec
 
 servicename=mlforkids-managed-vr-$sid
 
-ibmcloud resource service-instance-create $servicename watson-vision-combined standard-rc us-south >> $DIR/../logs/create-visrec.log
+ibmcloud resource service-instance-create $servicename watson-vision-combined standard-rc $region >> $DIR/../logs/create-visrec.log
 
-visrecserviceid=`ibmcloud resource service-instance --location us-south --output json $servicename  | jq --raw-output .[0].id`
+visrecserviceid=`ibmcloud resource service-instance --location $region --output json $servicename  | jq --raw-output .[0].id`
 
 ibmcloud resource service-key-create mlforkidsapikey Manager --instance-id "$visrecserviceid" >> $DIR/../logs/create-visrec.log
 

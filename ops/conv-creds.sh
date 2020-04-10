@@ -8,11 +8,14 @@ echo $nextconv > $numfile
 
 sid=$nextconv
 
+region=us-south
+# region=eu-gb
+
 servicename=mlforkids-managed-$sid
 
-ibmcloud resource service-instance-create $servicename conversation standard us-south >> $DIR/../logs/create-conv.log
+ibmcloud resource service-instance-create $servicename conversation standard $region >> $DIR/../logs/create-conv.log
 
-convserviceid=`ibmcloud resource service-instance --location us-south --output json $servicename  | jq --raw-output .[0].id`
+convserviceid=`ibmcloud resource service-instance --location $region --output json $servicename  | jq --raw-output .[0].id`
 
 ibmcloud resource service-key-create mlforkidsapikey Manager --instance-id "$convserviceid" >> $DIR/../logs/create-conv.log
 
