@@ -43,7 +43,7 @@ function filterClassifierInfo(complete: Types.ClassifierSummary) {
 async function getUnmanagedClassifiers(req: Express.Request, res: Express.Response) {
     const classid: string = req.params.classid;
 
-    const type: string = req.query.type;
+    const type: string = req.query.type as string;
     if (!type || type !== 'unmanaged') {
         return errors.missingData(res);
     }
@@ -83,12 +83,12 @@ async function deleteBluemixClassifier(req: Express.Request, res: Express.Respon
     const classid: string = req.params.classid;
     const classifierid: string = req.params.classifierid;
 
-    const credentialsid: string = req.query.credentialsid;
+    const credentialsid: string = req.query.credentialsid as string;
     if (!credentialsid || credentialsid.trim().length === 0) {
         return errors.missingData(res);
     }
 
-    const type: string = req.query.type;
+    const type: string = req.query.type as string;
     if (!type || (type !== 'conv' && type !== 'visrec')) {
         return errors.missingData(res);
     }

@@ -49,7 +49,7 @@ function returnConversationCredentials(credentials: TrainingTypes.BluemixCredent
 
 async function getCredentials(req: Express.Request, res: Express.Response) {
     const tenant = req.params.classid;
-    const servicetype: TrainingTypes.BluemixServiceType = req.query.servicetype;
+    const servicetype: TrainingTypes.BluemixServiceType = req.query.servicetype as TrainingTypes.BluemixServiceType;
 
     if (!servicetype) {
         return res.status(httpstatus.BAD_REQUEST)
