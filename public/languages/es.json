@@ -14,7 +14,7 @@
         "DELETE": "Borrar",
         "EDIT": "Editar",
         "TEST": "Probar",
-        "RESET": "Reset",
+        "RESET": "Restablecer",
 
         "ABOUT": "Acerca de",
         "TEACHER": "Profesor",
@@ -38,7 +38,7 @@
         },
         "WHY": {
             "TITLE": "¿Por qué?",
-            "BODY": "El aprendizaje automático está por todos lados. Usamos sistemas de aprendizaje automático todos los días, por ejemplo,   los filtros de detección de correo basura, sistemas de recomendación, servicios de traducciones  de idiomas, chatbots y asistentes digitales, motores de búsqueda, y sistemas de detección de fraude.<br/><br/>Pronto será normal que los sistemas de aprendizaje automático manejen nuestros automóviles, y ayuden a los médicos a diagnosticar y tratar nuestras enfermedades. <br/><br/>Es importante que los niños conozcan cómos funciona el mundo. La mejor manera de comprender las capacidades e implicaciones del aprendizaje automático,  es usar esta tecnología para poder construir  algo ellos mismos. <br/><br/>Para aprender más, leer: <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'Introducción a Aprendizaje Automático para niños'</a>"
+            "BODY": "El aprendizaje automático está por todos lados. Usamos sistemas de aprendizaje automático todos los días, por ejemplo, los filtros de detección de correo basura, sistemas de recomendación, servicios de traducciones de idiomas, chatbots y asistentes digitales, motores de búsqueda, y sistemas de detección de fraude.<br/><br/>Pronto será normal que los sistemas de aprendizaje automático manejen nuestros automóviles, y ayuden a los médicos a diagnosticar y tratar nuestras enfermedades. <br/><br/>Es importante que los niños conozcan cómos funciona el mundo. La mejor manera de comprender las capacidades e implicaciones del aprendizaje automático, es usar esta tecnología para poder construir algo ellos mismos. <br/><br/>Para aprender más, leer: <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'Introducción a Aprendizaje Automático para niños'</a>"
         },
         "TECH": {
             "TITLE": "Tecnología",
@@ -128,7 +128,7 @@
         "ADMIN_LABEL": "Ir a tu <strong>Página de Administración</strong>",
         "PROJECT_LABEL": "Ir a tus <strong>Proyectos</strong>",
         "STEP_1_TEXT": "Agrega ejemplos de cosas que quieres que la computadora reconozca/identifique automáticamenta",
-        "STEP_2_TEXT": "Usa los ejemplos para entrenar una computadora y así aprenda a reconocer este tipo de objetos (texto/imágenes/números) automáticamente",
+        "STEP_2_TEXT": "Usa los ejemplos para entrenar una computadora y así aprende a reconocer este tipo de objetos (texto/imágenes/números) automáticamente",
         "STEP_3_TEXT": "Crea un juego en Scratch que use la habilidad de la computadora para reconocerlos"
     },
     "LOGIN": {
@@ -152,11 +152,11 @@
         "STUDENT": "Un estudiante",
         "FORGOT_TEXT": "¿Haz olvidado tu nombre de usuario o contraseña? No hay problema, todos olvidamos cosas a veces.",
         "ARE_YOU_A_STUDENT": "¿Eres un estudiante?",
-        "ARE_YOU_A_STUDENT_INTRO_1": "Si tu clase ya está usando esta herramienta, , pide a tu profesor o responsable del club de programación que te cree una cuenta .",
-        "ARE_YOU_A_STUDENT_INTRO_2": "Si tu clase todavía no está usando la herramienta, pídele a tu profesor que contacte con nosotros.",
-        "RESET_STUDENT_PASSWORD_1": "Si eres estudiante, no tenemos una dirección a la que enviarte un mensaje de recuperación de contraseña .",
+        "ARE_YOU_A_STUDENT_INTRO_1": "Si tu clase ya está usando esta herramienta, pide a tu profesor o responsable del club de programación que te cree una cuenta.",
+        "ARE_YOU_A_STUDENT_INTRO_2": "Si tu clase todavía no está usando la herramienta, pídele a tu profesor que se contacte con nosotros.",
+        "RESET_STUDENT_PASSWORD_1": "Si eres estudiante, no tenemos una dirección a la que enviarte un mensaje de recuperación de contraseña.",
         "RESET_STUDENT_PASSWORD_2": "¡Pero no hay problema!",
-        "RESET_STUDENT_PASSWORD_3": "Sólo tienes que pedirle a tu profesor que resetee ty contraseña desde la página de administración.."
+        "RESET_STUDENT_PASSWORD_3": "Sólo tienes que pedirle a tu profesor que restablezca tu contraseña desde la página de administración."
     },
     "SIGNUP": {
         "TEACHER": {
@@ -177,21 +177,21 @@
             "TITLE": "Crea una cuenta de clase <strong> administrada</strong>",
             "INTRO": "Si deseas que Dale configure la cuenta de la clase, usa el botón a continuación para enviar un correo electrónico con la siguiente información:",
             "LIST_NUMBEROFSTUDENTS": "Aproximadamente, ¿Cuántas cuentas de estudiante necesitarás?",
-            "LIST_NAMEOFSCHOOL": "Nombre de la escuela o grupo de programación para el que es la cuenta.",
-            "EMAIL": "Email"
+            "LIST_NAMEOFSCHOOL": "Nombre de la escuela o grupo de programación para quién o quiénes será la cuenta.",
+            "EMAIL": "Correo electrónico"
         }
     },
     "PROJECTS": {
         "TITLE": "Tus proyectos de aprendizaje automático",
         "ADDNEWPROJECT": "Añadir un nuevo proyecto",
-        "COPYTEMPLATE": "Copy template",
+        "COPYTEMPLATE": "Copiar plantilla",
         "CREATEFIRSTPROJECT": "Haz clic en el botón 'más' a la izquierda para crear tu primer proyecto.",
         "RECOGNISING": "Reconociendo",
         "AS": "como",
-        "SHARE": "Share",
-        "UNSHARE": "Un-share",
-        "WHOLE_CLASS_TITLE": "Crowd-sourced project",
-        "WHOLE_CLASS_NOTES": "This is a whole-class project. All students in your class can use it and add to the training data."
+        "SHARE": "Compartir",
+        "UNSHARE": "Dejar de compartir",
+        "WHOLE_CLASS_TITLE": "Proyecto comunitario",
+        "WHOLE_CLASS_NOTES": "Este es un proyecto de tipo completo. Todos los estudiantes de tu clase pueden usarlo y agregarlo a los datos de entrenamiento."
     },
     "NEWPROJECT": {
         "TITLE": "Iniciar un nuevo proyecto de aprendizaje automático",
@@ -202,7 +202,7 @@
         "WHOLE_CLASS_PROJECT": {
             "TITLE": "¿Proyecto de toda la clase?",
             "NOTES_1": "Marca esto si deseas que toda tu clase pueda trabajar en este proyecto juntos.",
-            "NOTES_2": "Esto es útil para los proyectos que  que usan el trabajo en equipo como un enfoque para entrenar proyectos de aprendizaje automático."
+            "NOTES_2": "Esto es útil para los proyectos que usan el trabajo en equipo como un enfoque para entrenar proyectos de aprendizaje automático."
         },
         "TYPES": {
             "LABEL": "Reconociendo",
@@ -210,7 +210,7 @@
             "NOTES_2": "Para palabras, oraciones o párrafos, elige \"texto\"",
             "NOTES_3": "Para fotos, diagramas e imágenes, elige \"imágenes\"",
             "NOTES_4": "Para conjuntos de números u opciones múltiples, elija \"números\"",
-            "NOTES_5": "For voices and sounds, choose \"sounds\""
+            "NOTES_5": "Para voces y sonidos, choose \"sonidos\""
         },
         "LANGUAGE": {
             "LABEL": "Idioma",
@@ -490,7 +490,7 @@
             "FAIL": "Mensaje de error. Si tiene sentido para tí, intenta arreglarlo. Si no, puede tratarse de un error aleatorio y lo mejor es empezar de nuevo.",
 
             "IDLE": {
-                "NOLABELS": "El siguiente paso consiste en ir a la página  <a href='{{ urls.train }}'>Entrenar</a>. Añade etiquetas para cada una de las cosas que quieres que la computadora aprenda a reconocer.  .",
+                "NOLABELS": "El siguiente paso consiste en ir a la página  <a href='{{ urls.train }}'>Entrenar</a>. Añade etiquetas para cada una de las cosas que quieres que la computadora aprenda a reconocer.",
                 "ONELABEL": {
                     "EXPLANATION": "Sólo has dicho una cosa {{ label }}",
                     "ISTHATALL": "¿Es lo único que quieres que la computadora pueda identificar? ",
@@ -1466,7 +1466,7 @@
             "ONE_PROJECT": "1 proyecto  ",
             "MULTIPLE_PROJECTS": "Varios proyectos ",
             "SAVE_PROJECTS": "Guardar y cargar proyectos",
-            "WORK_ON_PROJECTS": "Trabajar con proyectos de aparndizaje automático..",
+            "WORK_ON_PROJECTS": "Trabajar con proyectos de aprendizaje automático..",
             "FEW_HOURS": "por unas pocas horas ",
             "UNTIL_DELETION": "hasta que los borres ",
             "ONE_COMPUTER": "de una computadora ",
