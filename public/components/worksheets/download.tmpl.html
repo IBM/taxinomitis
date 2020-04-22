@@ -1,7 +1,7 @@
 <md-dialog aria-label="Download project">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>"{{worksheet.title}}" downloads</h2>
+            <h2>"{{worksheet.title}}"</h2>
             <span flex></span>
             <md-button class="md-icon-button" ng-click="cancel()">
               <md-icon class="glyphicon glyphicon-remove" aria-label="Close dialog"></md-icon>
@@ -14,26 +14,23 @@
                 <img ng-src="{{worksheet.image}}">
             </div>
             <div>
-                <h4 ng-if="worksheet.teachersnotes">For teachers:</h4>
+                <h4 ng-if="worksheet.teachersnotes" translate="WORKSHEETS.DOWNLOADS.AUDIENCE.TEACHERS"></h4>
                 <div ng-if="worksheet.teachersnotes"
                     style="border-radius: 1em; background-color: #eeeeee; padding: 1em; margin-bottom: 1em;">
                     <a class="btn btn-primary" href="{{worksheet.teachersnotes}}" style="max-width: 100%; white-space: normal;">
                         <span class="glyphicon glyphicon-check"> </span>
-                        Download guidance for teachers on "{{worksheet.title}}"
+                        <span translate="WORKSHEETS.DOWNLOADS.GUIDANCE.TITLE"></span>
                     </a>
-                    <div style="margin-top: 1em;">
-                        This sheet contains information for teachers or coding group leaders to help them
-                        prepare, setup and supervise this project.
-                    </div>
+                    <div style="margin-top: 1em;" translate="WORKSHEETS.DOWNLOADS.GUIDANCE.DETAIL"></div>
                 </div>
                 <div ng-if="worksheet.notes && worksheet.notes.length > 0" style="margin-bottom: 1em">
-                    <h4>Notes:</h4>
+                    <h4 translate="WORKSHEETS.DOWNLOADS.GUIDANCE.NOTES"></h4>
                     <div ng-repeat="note in worksheet.notes" style="margin-bottom: 0.5em">
                         <span class="glyphicon glyphicon-warning-sign"> </span> {{note}}
                     </div>
                     <hr ng-if="worksheet.downloads.length > 1" style="border-top: 3px double #8c8b8b;"/>
                 </div>
-                <h4 style="padding-top: 0.5em" ng-if="worksheet.teachersnotes">For students:</h4>
+                <h4 style="padding-top: 0.5em" ng-if="worksheet.teachersnotes" translate="WORKSHEETS.DOWNLOADS.AUDIENCE.STUDENTS"></h4>
                 <div ng-repeat="download in worksheet.downloads"
                     style="border-radius: 1em; background-color: #eeeeee; padding: 1em; margin-bottom: 1em; ">
                     <div ng-if="download.description" style="margin-bottom: 1em;">
@@ -42,32 +39,18 @@
                     <div style="margin: 1em 0;">
                         <a class="btn btn-primary" href="{{download.worksheet}}">
                             <span class="glyphicon glyphicon-print"> </span>
-                            Download project worksheet
-                        </a>
-                    </div>
-                    <div ng-if="download.starter"
-                        style="border-top: thin grey solid; padding-top: 1em; margin-top: 1em;">
-                        <a class="btn btn-primary" href="{{download.starter}}">
-                            <span class="glyphicon glyphicon-floppy-disk"> </span>
-                            Starter Scratch project file
-                        </a>
-                        <div style="margin-top: 0.5em;">
-                            You will also need to provide students with a copy of this Scratch project file to
-                            help get them started.
-                        </div>
+                            <span translate="WORKSHEETS.DOWNLOADS.WORKSHEET.TITLE"></span>                        </a>
                     </div>
                     <div ng-if="download.resources" style="margin-top: 1em">
                         <a class="btn btn-primary" href="{{download.resources}}">
                             <span class="glyphicon glyphicon-print"> </span>
-                            Additional project resources
+                            <span translate="WORKSHEETS.DOWNLOADS.RESOURCES.TITLE"></span>
                         </a>
-                        <div style="padding-bottom: 1em; margin-top: 0.5em;">
-                            You will also need to provide students with a printed copy of this file.
-                        </div>
+                        <div style="padding-bottom: 1em; margin-top: 0.5em;" translate="WORKSHEETS.DOWNLOADS.RESOURCES.DETAIL"></div>
                     </div>
                 </div>
                 <div ng-if="worksheet.providedby" style="margin: 1em">
-                    <strong>Worksheet provided by:</strong>
+                    <strong translate="WORKSHEETS.DOWNLOADS.WORKSHEET.AUTHOR"></strong>
                     <a target="_blank" href="{{ worksheet.providedby.url }}">{{ worksheet.providedby.name }}</a>
                 </div>
                 <div ng-if="worksheet.providedby && worksheet.providedby.embed" style="margin: 1em">

@@ -783,6 +783,26 @@
 
         "DOWNLOAD": "Download",
 
+        "DOWNLOADS": {
+            "AUDIENCE": {
+                "TEACHERS": "For teachers:",
+                "STUDENTS": "For students:"
+            },
+            "GUIDANCE": {
+                "TITLE": "Download guidance for teachers",
+                "DETAIL": "This sheet contains information for teachers or coding group leaders to help them prepare, setup and supervise this project.",
+                "NOTES": "Notes:"
+            },
+            "WORKSHEET": {
+                "TITLE": "Download project worksheet",
+                "AUTHOR": "Worksheet provided by:"
+            },
+            "RESOURCES": {
+                "TITLE": "Additional project resources",
+                "DETAIL": "You will also need to provide students with a printed copy of this file."
+            }
+        },
+
         "MAKETYPES": {
             "ALL": "Todos os tipos",
 
