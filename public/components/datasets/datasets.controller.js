@@ -61,7 +61,8 @@
                     'DATASETS.DATA.CATSANDDOGS.TITLE', 'DATASETS.DATA.CATSANDDOGS.SUMMARY', 'DATASETS.DATA.CATSANDDOGS.DESCRIPTION', 'DATASETS.DATA.CATSANDDOGS.DETAILS',
                     'DATASETS.DATA.PHISHING.TITLE', 'DATASETS.DATA.PHISHING.SUMMARY', 'DATASETS.DATA.PHISHING.DESCRIPTION', 'DATASETS.DATA.PHISHING.DETAILS',
                     'WORKSHEETS.NOUGHTSANDCROSSES.TITLE', 'DATASETS.DATA.NOUGHTSANDCROSSES.SUMMARY', 'DATASETS.DATA.NOUGHTSANDCROSSES.DESCRIPTION', 'DATASETS.DATA.NOUGHTSANDCROSSES.DETAILS',
-                    'DATASETS.DATA.TOPTRUMPS.TITLE', 'DATASETS.DATA.TOPTRUMPS.SUMMARY', 'DATASETS.DATA.TOPTRUMPS.DESCRIPTION', 'DATASETS.DATA.TOPTRUMPS.DETAILS'
+                    'DATASETS.DATA.TOPTRUMPS.TITLE', 'DATASETS.DATA.TOPTRUMPS.SUMMARY', 'DATASETS.DATA.TOPTRUMPS.DESCRIPTION', 'DATASETS.DATA.TOPTRUMPS.DETAILS',
+                    'DATASETS.DATA.SONGLYRICS.TITLE', 'DATASETS.DATA.SONGLYRICS.SUMMARY', 'DATASETS.DATA.SONGLYRICS.DESCRIPTION', 'DATASETS.DATA.SONGLYRICS.DETAILS'
                 ]).then(function (translations) {
                     vm.datasets = [
                         {
@@ -117,6 +118,15 @@
                             details: translations['DATASETS.DATA.TOPTRUMPS.DETAILS'],
                             type: 'numbers',
                             image: 'static/images/dataset-toptrumps.png'
+                        },
+                        {
+                            id: 'song-lyrics',
+                            title: translations['DATASETS.DATA.SONGLYRICS.TITLE'],
+                            summary: translations['DATASETS.DATA.SONGLYRICS.SUMMARY'],
+                            description: translations['DATASETS.DATA.SONGLYRICS.DESCRIPTION'],
+                            details: translations['DATASETS.DATA.SONGLYRICS.DETAILS'],
+                            type: 'text',
+                            image: 'static/images/dataset-songlyrics.png'
                         }
                     ];
 

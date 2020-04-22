@@ -298,6 +298,12 @@
                 "SUMMARY": "Learn how to play a game",
                 "DESCRIPTION": "Train a machine learning model to play a Top Trumps game based on English Kings and Queens, by collecting examples of moves that the computer can use to learn how to predict which value to choose.",
                 "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'Top Trumps' from Worksheets."
+            },
+            "SONGLYRICS": {
+                "TITLE": "Song lyrics",
+                "SUMMARY": "Recognize types of songs",
+                "DESCRIPTION": "Train a machine learning model to recognize the type of song based on it's lyrics",
+                "DETAILS": "This training dataset includes 140 lines from song lyrics - half from children's songs and half from Top 40 songs. It is a good starting set for training a machine learning model to recognize different uses of language."
             }
         }
     },
