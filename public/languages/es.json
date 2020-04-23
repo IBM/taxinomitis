@@ -776,7 +776,7 @@
             "TEXT": "texto",
             "IMAGES": "imágenes",
             "NUMBERS": "números",
-            "SOUNDS": "sounds"
+            "SOUNDS": "sonidos"
         },
 
         "LEVELS": {
@@ -791,21 +791,21 @@
 
         "DOWNLOADS": {
             "AUDIENCE": {
-                "TEACHERS": "For teachers:",
-                "STUDENTS": "For students:"
+                "TEACHERS": "Para profesores:",
+                "STUDENTS": "Para estudiantes:"
             },
             "GUIDANCE": {
-                "TITLE": "Download guidance for teachers",
-                "DETAIL": "This sheet contains information for teachers or coding group leaders to help them prepare, setup and supervise this project.",
-                "NOTES": "Notes:"
+                "TITLE": "Descarga la guía para profesores",
+                "DETAIL": "Esta hoja contiene información para profesores o líderes de grupos de codificación para ayudarlos a preparar, configurar y supervisar este proyecto.",
+                "NOTES": "Notas:"
             },
             "WORKSHEET": {
-                "TITLE": "Download project worksheet",
-                "AUTHOR": "Worksheet provided by:"
+                "TITLE": "Descargar la hoja de trabajo del proyecto",
+                "AUTHOR": "Hoja de trabajo proporcionada por:"
             },
             "RESOURCES": {
-                "TITLE": "Additional project resources",
-                "DETAIL": "You will also need to provide students with a printed copy of this file."
+                "TITLE": "Recursos adicionales para el proyecto",
+                "DETAIL": "También se deberá dar a los estudiantes una copia impresa de este archivo."
             }
         },
 
@@ -823,7 +823,7 @@
 
         "NO_WORKSHEETS": {
             "NO_MATCHES": "No hay ninguna ficha de Proyecto para estos filtros.",
-            "MAKE_YOUR_OWN": "Puedes adapatar alguna de las fichas existentes o crear una nueva.",
+            "MAKE_YOUR_OWN": "Puedes adaptar alguna de las fichas existentes o crear una nueva.",
             "CONTRIBUTE": "Si lo consideras oportuno <a href='https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions'>puedes compartirlo con los demás</a>."
         },
 
