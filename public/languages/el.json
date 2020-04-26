@@ -1544,5 +1544,36 @@
         },
         "LINK": "Πώς να δημιουργήσεις κλειδιά API",
         "EXPLANATION": "Κατέβασε ένα βήμα προς βήμα οδηγό για τον τρόπο δημιουργίας κλειδιών API στο IBM Cloud"
+    },
+    "PRETRAINED": {
+        "TITLE": "Pre-trained models",
+        "INTRO": {
+            "INTRO_1": "<strong>Machine Learning for Kids</strong> provides pre-trained models you can use in your projects. Real-world machine learning projects often use models already trained by other people. There are lots of well-trained models that are freely available, and these are useful when you don't have time to collect the amount of training data needed to train your own."
+        },
+        "HOWTO": {
+            "TITLE": "How to use",
+            "INTRO": "Click on the button to go to Scratch.",
+            "HOW_1": "Go to the version of <a href='https://machinelearningforkids.co.uk/scratch3'>Scratch 3</a> available from Machine Learning for Kids.",
+            "HOW_2": "Pre-trained models are available from the Extensions panel. Click on the blue extensions button in the bottom-left of the Scratch window to find them, then click on the one you want to add to your project.",
+            "HOW_3": "The blocks for the pre-trained model will be added to the Scratch toolbox."
+        },
+        "SPEECHTOTEXT": {
+            "TITLE": "Speech to text",
+            "SPEECH_1": "This model can be used to recognize speech recorded through your microphone.",
+            "SPEECH_2": "It gives you a block you can use to record some audio and then give you the text that it recognized, and a block that you can tell it to listen out for a particular word or phrase.",
+            "SPEECH_3": "It uses the speech recognition capability that comes with Google Chrome, so the ML model that you'll be using comes from Google. (It also means that you can only use this model if you're using the Google Chrome web browser, sorry!)"
+        },
+        "FACEAPI": {
+            "TITLE": "Face detection",
+            "FACE_1": "This model can be used to recognize your face in the video feed from your webcam.",
+            "FACE_2": "It gives you blocks that will find the x,y coordinates of your eyes, nose and mouth.",
+            "FACE_3": "The technique this uses is called an SSD (which stands for Single Shot Multibox Detector) and is based on MobileNet (a ML model designed for mobile devices, so it doesn't need much computing power).",
+            "FACE_4": "The training data used for this model came from a set known as <a href='http://shuoyang1213.me/WIDERFACE/' target='_blank'>WIDER FACE</a>."
+        },
+        "IDEAS": {
+            "TITLE": "What else?",
+            "IDEAS_1": "Are there other machine learning models you would like to be able to use in your Scratch projects?",
+            "IDEAS_2": "Let me know by asking in the <a href='https://groups.google.com/d/forum/mlforkids'>ML for Kids forum</a>."
+        }
     }
 }
