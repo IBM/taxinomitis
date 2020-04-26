@@ -197,6 +197,10 @@
                 url: '/links',
                 templateUrl: 'static/components-<%= VERSION %>/links/links.html#top'
             })
+            .state('pretrained', {
+                url: '/pretrained',
+                templateUrl: 'static/components-<%= VERSION %>/pretrained/pretrained.html'
+            })
             .state('404', {
                 url: '/404',
                 templateUrl: 'static/components-<%= VERSION %>/404/404.html'
