@@ -834,15 +834,15 @@
             "DESCRIPTION": "Crea un asistente inteligente en Scratch que te permita controlar dispositivos virtuales.",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Full version of the project, where the students make a non-machine learning version first",
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-es.pdf"
             },
             "WORKSHEET_2": {
                 "DESCRIPTION": "Shorter version of the project, where the students only make a machine learning version of the assistant",
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-easy.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-easy-es.pdf"
             },
             "WORKSHEET_3": {
                 "DESCRIPTION": "Quick simplified version of the project, ideal for use as a first introduction to the tool",
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-tryitnow.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-tryitnow-es.pdf"
             }
         },
         "MAKEMEHAPPY": {
@@ -868,7 +868,7 @@
             "DESCRIPTION": "Crea un juego de cartas en  Scratch que aprenda a identificar las figuras en las cartas.",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Full version of the project, where the students make their own cards that they will train the computer to recognise",
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap-es.pdf"
             },
             "WORKSHEET_2": {
                 "DESCRIPTION": "Shorter version of the project, providing children with pre-made cards that you will need to print out, to save the students time having to make them",
@@ -881,7 +881,7 @@
             "SUMMARY": "Enseña a una computadora a  identificar colores",
             "DESCRIPTION": "Crea un camaleón en Scratch que cambie de colón para mimetizarse con el fondo. ",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon-es.pdf"
             }
         },
         "MAILMANMAX": {
@@ -898,7 +898,7 @@
             "DESCRIPTION": "Entrena a una computadora para que sea capaz de clasificar imágenes en grupos.",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Individual version of the project, where each student trains their own machine learning model independently",
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup-es.pdf"
             },
             "WORKSHEET_2": {
                 "DESCRIPTION": "Group version of the project, where students in the class work together to train a shared machine learning model",
@@ -910,7 +910,7 @@
             "SUMMARY": "Enseña a una computadora a  identificar caras",
             "DESCRIPTION": "Crea un teléfono en  Scratch que se desbloquea si reconoce tu cara.",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facelock.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facelock-es.pdf"
             }
         },
         "JOURNEYTOSCHOOL": {
@@ -918,7 +918,7 @@
             "SUMMARY": "Enseña a una computadora a hacer predicciones",
             "DESCRIPTION": "Enseña a una computadora a predecir cómo vas al colegio por las mañana .",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-journeytoschool.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-journeytoschool-es.pdf"
             }
         },
         "SHYPANDA": {
@@ -926,7 +926,7 @@
             "SUMMARY": "Enseña a una computadora a identificar imágenes",
             "DESCRIPTION": "Crea un panda bailarín que se vuelve tímido y deja de bailar cuando se da cuenta de que le estás mirando..",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda-es.pdf"
             }
         },
         "VIRTUALPET": {
@@ -934,7 +934,7 @@
             "SUMMARY": "Enseña a una computadora a identificar imágenes",
             "DESCRIPTION": "Enseña a una computadora a identificar lo que haces para cuidar a tu mascota virtual",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-virtualpet.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-virtualpet-es.pdf"
             }
         },
         "PACMAN": {
