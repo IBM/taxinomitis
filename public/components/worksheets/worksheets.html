@@ -13,6 +13,7 @@
         <md-option value="images">{{ 'WORKSHEETS.TYPES.PREFIX' | translate }} <strong translate="WORKSHEETS.TYPES.IMAGES"></strong></md-option>
         <md-option value="numbers">{{ 'WORKSHEETS.TYPES.PREFIX' | translate }} <strong translate="WORKSHEETS.TYPES.NUMBERS"></strong></md-option>
         <md-option value="sounds">{{ 'WORKSHEETS.TYPES.PREFIX' | translate }} <strong translate="WORKSHEETS.TYPES.SOUNDS"></strong></md-option>
+        <md-option value="faces">{{ 'WORKSHEETS.TYPES.PREFIX' | translate }} <strong translate="WORKSHEETS.TYPES.FACES"></strong></md-option>
     </md-select>
     <md-select ng-model="projectdifficulty" class="filter">
         <md-option value="ALL" translate="WORKSHEETS.LEVELS.ALL"></md-option>
@@ -47,6 +48,7 @@
                 <span class="worksheettype" ng-if="worksheet.type === 'images'" translate="WORKSHEETS.TYPES.IMAGES"></span>
                 <span class="worksheettype" ng-if="worksheet.type === 'numbers'" translate="WORKSHEETS.TYPES.NUMBERS"></span>
                 <span class="worksheettype" ng-if="worksheet.type === 'sounds'" translate="WORKSHEETS.TYPES.SOUNDS"></span>
+                <span class="worksheettype" ng-if="worksheet.type === 'faces'" translate="WORKSHEETS.TYPES.FACES"></span>
             </div>
         </div>
         <div class="cardfooter">

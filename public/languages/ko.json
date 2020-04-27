@@ -776,7 +776,8 @@
             "TEXT": "텍스트",
             "IMAGES": "이미지",
             "NUMBERS": "숫자",
-            "SOUNDS": "소리"
+            "SOUNDS": "소리",
+            "FACES": "faces"
         },
 
         "LEVELS": {
@@ -1159,6 +1160,22 @@
             "DESCRIPTION": "Recreate an MIT research project and learn about how AI systems are described in the news.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-inkblots.pdf"
+            }
+        },
+        "FACEFINDER": {
+            "TITLE": "Face Finder",
+            "SUMMARY": "Use a computer that has been trained to recognize faces",
+            "DESCRIPTION": "Make a video filter in Scratch to turn your face into a cartoon.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facefinder.pdf"
+            }
+        },
+        "EMOJIMASK": {
+            "TITLE": "Emoji Mask",
+            "SUMMARY": "Use a computer that has been trained to recognize faces",
+            "DESCRIPTION": "Make a video filter in Scratch to add an emoji mask to your face.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-emojimask.pdf"
             }
         }
     },

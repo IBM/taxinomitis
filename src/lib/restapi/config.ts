@@ -65,6 +65,7 @@ export function setupUI(app: express.Application): void {
     app.get('/signup', (req, res) => { res.redirect('/#!/signup'); });
     app.get('/login', (req, res) => { res.redirect('/#!/login'); });
     app.get('/apikeys-guide', (req, res) => { res.redirect('/#!/apikeys-guide'); });
+    app.get('/pretrained', (req, res) => { res.redirect('/#!/pretrained'); });
 
     const indexHtml: string = path.join(__dirname, '/../../../web/dynamic');
     app.use('/', express.static(indexHtml, { maxAge : 0 }));

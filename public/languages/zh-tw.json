@@ -776,7 +776,8 @@
             "TEXT": "文字",
             "IMAGES": "圖片",
             "NUMBERS": "數字",
-            "SOUNDS": "聲音"
+            "SOUNDS": "聲音",
+            "FACES": "faces"
         },
 
         "LEVELS": {
@@ -1159,6 +1160,22 @@
             "DESCRIPTION": "重新建立一個MIT研究項目，並了解新聞中如何描述AI系統。",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-inkblots.pdf"
+            }
+        },
+        "FACEFINDER": {
+            "TITLE": "Face Finder",
+            "SUMMARY": "Use a computer that has been trained to recognize faces",
+            "DESCRIPTION": "Make a video filter in Scratch to turn your face into a cartoon.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facefinder.pdf"
+            }
+        },
+        "EMOJIMASK": {
+            "TITLE": "Emoji Mask",
+            "SUMMARY": "Use a computer that has been trained to recognize faces",
+            "DESCRIPTION": "Make a video filter in Scratch to add an emoji mask to your face.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-emojimask.pdf"
             }
         }
     },

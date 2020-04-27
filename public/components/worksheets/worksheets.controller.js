@@ -124,7 +124,13 @@
             'WORKSHEETS.KIWIORSTOAT.WORKSHEET_1.URL',
 
             'WORKSHEETS.INKBLOTS.TITLE', 'WORKSHEETS.INKBLOTS.SUMMARY', 'WORKSHEETS.INKBLOTS.DESCRIPTION',
-            'WORKSHEETS.INKBLOTS.WORKSHEET_1.URL'
+            'WORKSHEETS.INKBLOTS.WORKSHEET_1.URL',
+
+            'WORKSHEETS.FACEFINDER.TITLE', 'WORKSHEETS.FACEFINDER.SUMMARY', 'WORKSHEETS.FACEFINDER.DESCRIPTION',
+            'WORKSHEETS.FACEFINDER.WORKSHEET_1.URL',
+
+            'WORKSHEETS.EMOJIMASK.TITLE', 'WORKSHEETS.EMOJIMASK.SUMMARY', 'WORKSHEETS.EMOJIMASK.DESCRIPTION',
+            'WORKSHEETS.EMOJIMASK.WORKSHEET_1.URL'
 
         ]).then(function (translations) {
             vm.worksheets = [
@@ -710,6 +716,38 @@
                     downloads : [
                         {
                             worksheet : translations['WORKSHEETS.PHISHING.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.FACEFINDER.TITLE'],
+                    summary : translations['WORKSHEETS.FACEFINDER.SUMMARY'],
+                    description : translations['WORKSHEETS.FACEFINDER.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'faces',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-facefinder.png',
+                    tags : [ 'face detection' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-facefinder.pdf',
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.FACEFINDER.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.EMOJIMASK.TITLE'],
+                    summary : translations['WORKSHEETS.EMOJIMASK.SUMMARY'],
+                    description : translations['WORKSHEETS.EMOJIMASK.DESCRIPTION'],
+                    difficulty : 'Intermediate',
+                    type : 'faces',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-emojimask.png',
+                    tags : [ 'face detection' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-emojimask.pdf',
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.EMOJIMASK.WORKSHEET_1.URL']
                         }
                     ]
                 }
