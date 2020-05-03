@@ -67,7 +67,7 @@
         "ECRAFT2LEARN": {
             "BODY1": "<a href='http://users.ox.ac.uk/~oucs0030/' target='_blank'>Ken Kahn</a> a créé des ressources pour permettre aux débutants de créer des programmes d'IA dans Snap ! (un environnement de programmation visuel similaire à Scratch).",
             "BODY2": "Alors que je me suis attaché à expliquer comment les systèmes d'IA sont entrainés et se comportent (et les implications que cela peut avoir dans le monde réel), eCraft2Learn dispose de ressources fantastiques qui plongent dans le fonctionnement réel des systèmes de ML.",
-            "BODY3": "Le <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>Le projet de réseau neuronal Tic Tac Toe</a> est particulièrement fascinant, car il permet aux élèves d'expérimenter avec les hyperparamètres de Snap!."
+            "BODY3": "Le <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>projet de réseau neuronal Tic Tac Toe</a> est particulièrement fascinant, car il permet aux élèves d'expérimenter avec les hyperparamètres de Snap!."
         },
         "STEMLEARNING": {
             "BODY1": "STEM Learning et le ministère britannique du commerce, de l'énergie et de la stratégie industrielle ont créé des ressources pour enseigner les principes de l'intelligence artificielle.",
@@ -99,7 +99,7 @@
             "BODY1": "AI4ALL organise des camps d'été pour les lycéens aux États-Unis qui donnent une introduction technique détaillée à l'IA."
         },
         "CALYPSO": {
-            "BODY1": "Les étudiants équipés de robots Cozmo programmables peuvent utiliser le cadre de programmation Calypso pour expérimenter concrètement l'IA en utilisant des techniques comme la vision par ordinateur et la reconnaissance vocale."
+            "BODY1": "Les étudiants équipés de robots Cozmo programmables peuvent utiliser l'environnement de programmation Calypso pour expérimenter concrètement l'IA en utilisant des techniques comme la vision par ordinateur et la reconnaissance vocale."
         },
         "AIINABOX": {
             "BODY1": "AI-in-a-Box est un ensemble de robots, d'accessoires et de ressources pédagogiques. Le kit peut être utilisé pour enseigner des projets qui couvrent des sujets comme la reconnaissance visuelle, la reconnaissance faciale, la génération de la parole et la reconnaissance vocale."
@@ -184,14 +184,14 @@
     "PROJECTS": {
         "TITLE": "Vos projets d'apprentissage machine",
         "ADDNEWPROJECT": "Ajouter un nouveau projet",
-        "COPYTEMPLATE": "Copy template",
+        "COPYTEMPLATE": "Copier le modèle",
         "CREATEFIRSTPROJECT": "Cliquez sur le bouton 'plus' à droite pour créer votre premier projet.",
         "RECOGNISING": "Reconnaissance",
         "AS": "comme",
-        "SHARE": "Share",
-        "UNSHARE": "Un-share",
-        "WHOLE_CLASS_TITLE": "Crowd-sourced project",
-        "WHOLE_CLASS_NOTES": "This is a whole-class project. All students in your class can use it and add to the training data."
+        "SHARE": "Partager",
+        "UNSHARE": "Ne pas partager",
+        "WHOLE_CLASS_TITLE": "Projet réalisé par un groupe",
+        "WHOLE_CLASS_NOTES": "Il s'agit d'un projet de grande envergure. Tous les élèves de votre classe peuvent l'utiliser et compléter les données d'entraînement."
     },
     "NEWPROJECT": {
         "TITLE": "Démarrer un nouveau projet d'apprentissage machine",
@@ -550,7 +550,7 @@
         "TRAINING": {
             "TITLE": "Informations provenant de l'ordinateur d'entraînement :",
             "STARTED": "Le modèle a commencé l'entraînement à :",
-            "STATUS": "Current model status:",
+            "STATUS": "Situation actuelle du modèle:",
             "DETAIL": "Détail:",
             "DELETION": "Le modèle sera automatiquement supprimé après :",
             "LASTCHECK": "Dernière vérification du modèle :",
@@ -737,7 +737,7 @@
         "LAUNCH": "Ouvrir dans Scratch",
 
         "LAUNCH_SCRATCH_BY_ITSELF": "(Vous pouvez utiliser <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch lui même </a> si vous voulez.)",
-        "GO_TO_LEARNANDTEST": "Ou aller à la page <a href='{{ urls.learnandtest }}'>Entrainer &amp; Tester</a>  pour quelques conseils sur ce qu'il faut faire ensuite.",
+        "GO_TO_LEARNANDTEST": "Ou aller à la page <a href='{{ urls.learnandtest }}'>Entrainer &amp; Tester</a> pour quelques conseils sur ce qu'il faut faire ensuite.",
 
         "MORE_BLOCKS": "Votre projet ajoutera ces blocs à l'onglet <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>Plus de blocs</span> dans Scripts.",
         "MORE_BLOCKS_3": "Your project will add these blocks to Scratch.",
@@ -1149,7 +1149,7 @@
         "KIWIORSTOAT": {
             "TITLE": "Kiwi ou hermine",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître des photos d'animaux",
-            "DESCRIPTION": "Réaliser un projet à Scratch permettant de reconnaître les animaux sur les photos des sites de conservation",
+            "DESCRIPTION": "Réaliser un projet à Scratch permettant de reconnaître les animaux sur les photos des sites de conservation de la faune",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-kiwiorstoat.pdf"
             }
@@ -1179,9 +1179,9 @@
             }
         },
         "LASEREYES": {
-            "TITLE": "Laser Eyes",
-            "SUMMARY": "Teach a computer to recognize speech and faces",
-            "DESCRIPTION": "Make a voice-activated laser eyes game in Scratch.",
+            "TITLE": "Les yeux laser",
+            "SUMMARY": "Apprendre à un ordinateur à reconnaître la parole et les visages",
+            "DESCRIPTION": "Faites un jeu avec des yeux laser à commande vocale dans Scratch.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-lasereyes.pdf"
             }
@@ -1392,7 +1392,7 @@
             "TITLE": "Pour commencer ?",
             "INTRO": "Téléchargez un PDF avec un petit guide de démarrage :",
             "MANAGED": "Comptes de classe gérés",
-            "MANAGEDEXPL": "Pour les enseignant.e.s des écoles, les responsables des groupes de codage ou d'autres bénévoles",
+            "MANAGEDEXPL": "Pour les enseignantes et enseignants des écoles, les responsables des groupes de codage ou d'autres bénévoles",
             "UNMANAGED": "Comptes de classe non gérés",
             "UNMANAGEDEXPL": "Pour les employés d'IBM ou les enseignants et les responsables de groupes de codage qui gèrent leurs propres comptes de classe."
         },
@@ -1514,8 +1514,8 @@
             "TRAINMODELS": "Entraîner les modèles d'apprentissage machine pour reconnaître...",
             "USE_SCRATCH": "Utiliser des modèles d'apprentissage machine avec Scratch",
             "CREATE_PROJECTS": "Créer des projets",
-            "ONE_PROJECT": " 1 projet ",
-            "MULTIPLE_PROJECTS": " Multiple projets ",
+            "ONE_PROJECT": " Projet unique ",
+            "MULTIPLE_PROJECTS": " Projets multiples ",
             "SAVE_PROJECTS": "Enregistrer et charger des projets",
             "WORK_ON_PROJECTS": "Travailler sur des projets d'apprentissage machine...",
             "FEW_HOURS": " pendant quelques heures ",
@@ -1526,7 +1526,7 @@
             "WITH_CLASSMATES": "avec des camarades de classe",
 
             "Q2": "J'ai créé un compte de classe mais la connexion en tant que professeur ne fonctionne pas.",
-            "Q2-A-1": "Vous devez vérifier votre adresse e-mail avant de pouvoir vous connecter.",
+            "Q2-A-1": "Vous devez vérifier votre adresse de courriel avant de pouvoir vous connecter.",
             "Q2-A-2": "Lorsque vous avez créé le compte de classe, un courriel vous sera envoyé à l'adresse électronique que vous avez fournie, avec un lien sur lequel cliquer. Si vous cliquez sur ce lien, votre adresse électronique sera vérifiée et le compte de la classe sera activé. Vous devriez pouvoir vous connecter maintenant.",
             "Q2-A-3": "Si vous n'avez pas encore vu le courriel de vérification, assurez-vous qu'il n'a pas été placé dans votre dossier de pourriels.",
             "Q2-A-4": "Si vous ne le trouvez toujours pas, <a href='https://groups.google.com/d/forum/mlforkids'>faites le moi savoir</a> et j'essaierai de vous aider.",
