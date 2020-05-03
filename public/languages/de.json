@@ -197,7 +197,7 @@
         "TITLE": "Starte ein neues Machine-Learning-Projekt",
         "PROJECT_NAME": {
             "TITLE": "Projektname",
-            "NOTES": "Gebe dem Projekt einen ausssagekräftigen Namen, der beschreibt, was du dem Computer beibringen möchtest."
+            "NOTES": "Gib dem Projekt einen ausssagekräftigen Namen, der beschreibt, was du dem Computer beibringen möchtest."
         },
         "WHOLE_CLASS_PROJECT": {
             "TITLE": "Klassenprojekt?",
@@ -243,10 +243,10 @@
             "TOOLONG": "Das ist zu lang!"
         },
         "WARNINGS": {
-            "MLCRED-TEXT-NOKEYS": "Please let your teacher know that they will need to add a \"Watson Assistant API key\" to your class to let you train the machine learning model for your new project",
-            "MLCRED-IMG-NOKEYS": "Please let your teacher know that they will need to add a \"Visual Recognition API key\" to your class to let you train the machine learning model for your new project",
-            "MLCRED-TEXT-INVALID": "There might be a problem with the IBM Cloud API keys you will need to train a machine learning model for your new project. Please ask your teacher to try verifying the \"Watson Assistant API keys\" in your class.",
-            "MLCRED-IMG-INVALID": "There might be a problem with the IBM Cloud API keys you will need to train a machine learning model for your new project. Please ask your teacher to try verifying the \"Visual Recognition API keys\" in your class."
+            "MLCRED-TEXT-NOKEYS": "Bitte lass deinen Lehrer wissen, dass ihr einen \"Watson Assistant API key\" für eure Klasse benötigt um das Machine-Learning-Modell für euer Projekt zu trainieren",
+            "MLCRED-IMG-NOKEYS": "Bitte lass deinen Lehrer wissen, dass ihr einen \"Visual Recognition API key\" für eure Klasse benötigt um das Machine-Learning-Modell für euer Projekt zu trainieren",
+            "MLCRED-TEXT-INVALID": "Es gibt ein Problem mit den IBM Cloud API keys die ihr für euer Projekt benötigt. Bittet euren Lehrer den \"Watson Assistant API keys\" in eurer Klasse zu prüfen.",
+            "MLCRED-IMG-INVALID": "Es gibt ein Problem mit den IBM Cloud API keys die ihr für euer Projekt benötigt. Bittet euren Lehrer den \"Visual Recognition API keys\" in eurer Klasse zu prüfen."
         }
     },
     "DATASETS": {
@@ -289,21 +289,21 @@
                 "DETAILS": "Dieser Trainings-Datensatz beinhaltet Attribute von fünfhundert zulässigen Phishing-Links. \n\nDas Feld Adresstyp ('address type') ist 'IP addr', sofern der Link eine numerische IP-Adresse wie '104.20.74.246' hat, oder 'DNS name', falls der Link eine namensbasierte Adresse hat wie 'machinelearningforkids.co.uk'. \nDas Feld URL-Länge ('url length') groupiert die Trainingsadressen nach ihrer Länge. \nDas Feld 'shortening' (Englisch für 'abkürzend') ist auf ja ('yes') gesetzt, falls die Webadresse einen Abkürzungsservice wie TinyURL oder bit.ly nutzt oder nein ('no'), falls sie das nicht tut. Das Feld 'includes @' ist auf ja ('yes') gesetzt, falls die Webadresse ein @-Symbol beinhaltet, bzw. nein ('no'), wenn sie das nicht tut. \n Das Feld Portnummer ('port number') ist auf 'standard' gesetzt, wenn die Webadresse eine Standardportnummer wie 80 oder 443 verwendet, bzw. auf 'non-std', falls sie etwas anderes nutzt. \nDas Feld 'domain age' groupiert die Adressen nach dem Datum, wann die Webadressen in der Adresse registriert wurden. Das Feld 'redirects' groupiert die Trainingsadresse nach der Anzahl, wie häufig ein Webbrowser zu einer anderen Adresse gesendet wird, bevor er die endgültige Seite erreicht. \nDas Feld 'domain reg' enthält den Wert 'expiring', wenn die Registrierung für die Webadressendomäne innerhalb eines Jahres ausläuft."
             },
             "NOUGHTSANDCROSSES": {
-                "SUMMARY": "Learn how to play a game",
-                "DESCRIPTION": "Train a machine learning model to play noughts and crosses, by collecting examples of moves that the computer can use to learn how to predict the best move to make next.",
-                "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'Noughts and Crosses' from Worksheets"
+                "SUMMARY": "Lerne ein Spiel zu spielen",
+                "DESCRIPTION": "Trainiere ein Machine-Learning-Modell Tic-Tac-Toe zu spielen, indem du Beispiele für Züge sammelst die der Computer verwenden kann um den bestmöglichen nächsten Zug vorherzusagen.",
+                "DETAILS": "Die Vorlage hilft dir deine Daten zu Sammaln. Für weitere Anweisungen lade 'Noughts and Crosses' aus den Worksheets herunter."
             },
             "TOPTRUMPS": {
                 "TITLE": "Kings & Queens Top Trumps",
-                "SUMMARY": "Learn how to play a game",
+                "SUMMARY": "Lerne ein Spiel zu spielen",
                 "DESCRIPTION": "Train a machine learning model to play a Top Trumps game based on English Kings and Queens, by collecting examples of moves that the computer can use to learn how to predict which value to choose.",
                 "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'Top Trumps' from Worksheets."
             },
             "SONGLYRICS": {
-                "TITLE": "Song lyrics",
-                "SUMMARY": "Recognize types of songs",
-                "DESCRIPTION": "Train a machine learning model to recognize the type of song based on it's lyrics",
-                "DETAILS": "This training dataset includes 140 lines from song lyrics - half from children's songs and half from Top 40 songs. It is a good starting set for training a machine learning model to recognize different uses of language."
+                "TITLE": "Songtexte",
+                "SUMMARY": "Erkenne verschiedene Lieder",
+                "DESCRIPTION": "Trainiere ein Machine-Learning-Modell um die Art des Liedes anhand des Textes zu erkennen",
+                "DETAILS": "Der Datensatz beinhaltet 140 Zeilen aus Lieder - die eine Hälfte Kinderlieder, die andere aus den TOP 40 Liedern. It is a good starting set for training a machine learning model to recognize different uses of language."
             }
         }
     },
@@ -322,19 +322,19 @@
         },
         "SCRATCH": {
             "TITLE": "Scratch",
-            "BODY": "Verwende das maschinelle Lernmodell, das du trainiert hast, um ein Spiel in Scratch zu erstellen"
+            "BODY": "Verwende das Machine-Learning-Modell, das du trainiert hast, um ein Spiel in Scratch zu erstellen"
         },
         "PYTHON": {
             "TITLE": "Python",
-            "BODY": "Verwende das maschinelle Lernmodell, das du trainiert hast, in einem Python-Programm"
+            "BODY": "Verwende das Machine-Learning-Modell, das du trainiert hast, in einem Python-Programm"
         },
         "APPINVENTOR": {
             "TITLE": "App Inventor",
-            "BODY": "Erstelle eine mobile App, die dein maschinelles Lernmodell verwendet"
+            "BODY": "Erstelle eine mobile App, die dein Machine-Learning-Modell verwendet"
         },
         "SCRATCH3": {
             "TITLE": "Scratch 3",
-            "BODY": "Verwende dein maschinelles Lernmodell im neuen Scratch 3.0"
+            "BODY": "Verwende dein Machine-Learning-Modell im neuen Scratch 3.0"
         }
     },
     "TRAINING": {
@@ -420,20 +420,20 @@
                         "TEXT" : "Deine Lehrkraft hat versucht, ein Machine-Learning-Modell mit den von euch gesammelten Textbeispielen zu trainieren.",
                         "IMAGES" : "Deine Lehrkraft hat versucht, ein Machine-Learning-Modell mit den von euch gesammelten Beispielbildern zu trainieren.",
                         "NUMBERS" : "Deine Lehrkraft hat versucht, ein Machine-Learning-Modell mit den von euch gesammelten Beispieldaten zu trainieren.",
-                        "SOUNDS" : "Your teacher tried training a machine learning model using the examples of sounds that your class collected."
+                        "SOUNDS" : "Deine Lehrkraft hat versucht, ein Machine-Learning-Modell mit den von euch gesammelten Beispieldaten zu trainieren."
                     },
                     "YOU" : {
                         "TEXT" : "Du hast versucht, ein Machine-Learning-Modell mit den von euch gesammelten Textbeispielen zu trainieren.",
                         "IMAGES" : "Du hast versucht, ein Machine-Learning-Modell mit den von euch gesammelten Beispielbildern zu trainieren.",
                         "NUMBERS" : "Du hast versucht, ein Machine-Learning-Modell mit den von euch gesammelten Beispieldaten zu trainieren.",
-                        "SOUNDS" : "You tried training a machine learning model using the examples of sounds that your class collected."
+                        "SOUNDS" : "Du hast versucht, ein Machine-Learning-Modell mit den von euch gesammelten Beispieldaten zu trainieren."
                     }
                 },
                 "INDIVIDUAL" : {
                     "TEXT" : "Du hast versucht, ein Machine-Learning-Modell mit den von dir gesammelten Textbeispielen zu trainieren.",
                     "IMAGES" : "Du hast versucht, ein Machine-Learning-Modell mit den von dir gesammelten Beispielbildern zu trainieren.",
                     "NUMBERS" : "Du hast versucht, ein Machine-Learning-Modell mit den von dir gesammelten Beispieldaten zu trainieren.",
-                    "SOUNDS" : "You tried training a machine learning model using the examples of sounds that you collected."
+                    "SOUNDS" : "Du hast versucht, ein Machine-Learning-Modell mit den von dir gesammelten Beispieldaten zu trainieren."
                 }
             },
             "IDLE" : {
@@ -442,13 +442,13 @@
                         "TEXT" : "Deine Klasse hat entschieden, dass ihr Textbeispiele sammeln wollt.",
                         "IMAGES" : "Deine Klasse hat entschieden, dass ihr Beispielbilder sammeln wollt.",
                         "NUMBERS" : "Deine Klasse hat entschieden, dass ihr Beispieldaten sammeln wollt.",
-                        "SOUNDS" : "Your class said you want to collect examples of sounds."
+                        "SOUNDS" : "Deine Klasse hat entschieden, dass ihr Beispiellieder sammeln wollt."
                     },
                     "INDIVIDUAL" : {
                         "TEXT" : "Du hast gesagt, dass du Textbeispiele sammeln möchtest.",
                         "IMAGES" : "Du hast gesagt, dass du Beispielbilder sammeln möchtest.",
                         "NUMBERS" : "Du hast gesagt, dass du Beispieldaten (Zahlen) sammeln möchtest.",
-                        "SOUNDS" : "You've said you want to collect examples of sounds."
+                        "SOUNDS" : "Du hast gesagt, dass du Beispiellieder sammeln möchtests."
                     }
                 },
                 "NODATA" : {
@@ -456,13 +456,13 @@
                         "TEXT" : "Deine Klasse hat entschieden, dass ihr Textbeispiele sammeln wollt, damit der Computer folgende Kategorien unterscheidet: ",
                         "IMAGES" : "Deine Klasse hat entschieden, dass ihr Beispielbilder sammeln wollt, damit der Computer folgende Kategorien unterscheidet: ",
                         "NUMBERS" : "Deine Klasse hat entschieden, dass ihr Beispieldaten sammeln wollt, damit der Computer folgende Kategorien unterscheidet: ",
-                        "SOUNDS" : "Your class said that you want to collect examples of sounds for a computer to recognise when sounds are "
+                        "SOUNDS" : "Deine Klasse hat entschieden, dass ihr Beispiellieder sammeln wollt, damit der Computer folgende Kategorien unterscheidet: "
                     },
                     "INDIVIDUAL" : {
                         "TEXT" : "Du hast gesagt, dass du Textbeispiele sammeln möchtest, damit der Computer folgende Kategorien unterscheidet: ",
                         "IMAGES" : "Du hast gesagt, dass du Beispielbilder sammeln möchtest, damit der Computer folgende Kategorien unterscheidet: ",
                         "NUMBERS" : "Du hast gesagt, dass du Beispieldaten sammeln möchtest, damit der Computer folgende Kategorien unterscheidet: ",
-                        "SOUNDS" : "You said that you want to collect examples of sounds for a computer to recognise when sounds are "
+                        "SOUNDS" : "Du hast gesagt, dass du Beispiellileder sammeln möchtest, damit der Computer folgende Kategorien unterscheidete "
                     }
                 },
                 "NOEXAMPLES" : {
@@ -474,13 +474,13 @@
                         "TEXT" : "Deine Klasse hat Textbeispiele gesammelt, damit der Computer folgende Kategorien unterscheiden kann: ",
                         "IMAGES" : "Deine Klasse hat Beispielbilder gesammelt, damit der Computer folgende Kategorien unterscheiden kann: ",
                         "NUMBERS" : "Deine Klasse hat Beispieldaten gesammelt, damit der Computer folgende Kategorien unterscheiden kann: ",
-                        "SOUNDS" : "Your class has collected examples of sounds for a computer to use to recognise when sounds are "
+                        "SOUNDS" : "Deine Klasse hat Beispieldaten gesammelt, damit der Computer folgende Kategorien unterscheiden kann: "
                     },
                     "INDIVIDUAL" : {
                         "TEXT" : "Du hast Textbeispiele gesammelt, damit der Computer folgende Kategorien unterscheiden kann: ",
                         "IMAGES" : "Du hast Beispielbilder gesammelt, damit der Computer folgende Kategorien unterscheiden kann: ",
                         "NUMBERS" : "Du hast Beispieldaten gesammelt, damit der Computer folgende Kategorien unterscheiden kann: ",
-                        "SOUNDS" : "You have collected examples of sounds for a computer to use to recognise when sounds are "
+                        "SOUNDS" : "Du hast Beispiellieder gesammelt, damit der Computer folgende Kategorien unterscheiden kann: "
                     },
                     "COLLECTED" : {
                         "CLASS" : "Ihr habt Folgendes gesammelt: ",
@@ -532,7 +532,7 @@
                     "TEXT" : "Teste das Machine Learning Model. Gib unten ein Textbeispiel ein, dass du nicht für das Training verwendet hast. Der Computer sagt dir, welcher Kategorie er dein Beispiel zuordnet und mit welcher Sicherheit (confidence).",
                     "IMAGES" : "Teste das Machine Learning Model. Füge unten ein Beispielbild hinzu, dass du nicht für das Training verwendet hast. Der Computer sagt dir, welcher Kategorie er dein Beispiel zuordnet und mit welcher Sicherheit (confidence).",
                     "NUMBERS" : "Teste das Machine Learning Model. Gib unten ein Beispiel ein, dass du nicht für das Training verwendet hast. Der Computer sagt dir, welcher Kategorie er dein Beispiel zuordnet und mit welcher Sicherheit (confidence).",
-                    "SOUNDS" : "Try testing the machine learning model below. Click the 'Start listening' button. If your machine learning model recognises any sounds, it will tell you what it recognises it as, and how confident it is in that."
+                    "SOUNDS" : "Teste das Machine Learning Model. Gib unten ein Beispiel ein, dass du nicht für das Training verwendet hast. Der Computer sagt dir, welcher Kategorie er dein Beispiel zuordnet und mit welcher Sicherheit (confidence)."
                 },
                 "SCRATCH" : "Wenn es so aussieht, dass der Computer gelernt hat, Dinge richtig zu erkennen, kannst jetzt du eine Anwendung - zum Beispiel ein Spiel in Scratch - programmieren!",
                 "ADDITIONAL_TRAINING" : {
@@ -746,7 +746,7 @@
         "EXPLAIN_LABELS": "Diese Blöcke repräsentieren die Kategorien, die du in deinem Projekt erstellt hast. Du kannst sie in deinem Programm verwenden.",
         "EXPLAIN_COSTUMEIMAGE": "Diesen Block findest du unter Skripte im Bereich Aussehen. Er wählt das aktuelle Kostüm als Bild aus.",
         "EXPLAIN_ADD_TRAINING": "Use this to add a new example to your training data. (Training data has an effect after you train a machine learning model with it)",
-        "EXPLAIN_TRAIN_MODEL": "Use this to train a new machine learning model",
+        "EXPLAIN_TRAIN_MODEL": "Verwende das um ein Machine Learning Model zu trainieren",
         "EXPLAIN_IS_MODEL_READY": "The machine learning model will take a minute before it's ready for use. You can use these blocks to wait until it is ready.",
         "SAMPLE_SCRIPT": "Das bedeuetet, du kanns so etwas machen:",
         "SAMPLE_SCREENSHOT": "Das sieht dann so aus. (Außer der Projektname.)",
@@ -1307,7 +1307,7 @@
         "SUPERVISION": {
             "TITLE": "Administration : Schülerprojekte",
 
-            "INTRO_1": "Auf dieser Seite werden alle Projekte deiner SchülerInnen aufgelistet. Du kannst die Projekte öffnen und sehen, woran deine SchülerInnen momentan arbeiten.",
+            "INTRO_1": "Auf dieser Seite werden alle Projekte deiner SchülerInnen aufgelistet. Du kannst sehen, woran deine SchülerInnen momentan arbeiten.",
             "INTRO_2": "Wenn deine Gruppe das Limit für die Anzahl der Machine Learning Models erreicht hat, kannst du hier einsehen, welche Projekte aktuell ein Machine Learning Model haben und gegebenenfalls löschen, falls du denkst, dass die Models nicht länger benötigt werden.",
 
             "NO_PROJECTS_1": "Keine deiner SchülerInnen hat aktuell ein Projekt.",
