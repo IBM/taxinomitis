@@ -130,7 +130,10 @@
             'WORKSHEETS.FACEFINDER.WORKSHEET_1.URL',
 
             'WORKSHEETS.EMOJIMASK.TITLE', 'WORKSHEETS.EMOJIMASK.SUMMARY', 'WORKSHEETS.EMOJIMASK.DESCRIPTION',
-            'WORKSHEETS.EMOJIMASK.WORKSHEET_1.URL'
+            'WORKSHEETS.EMOJIMASK.WORKSHEET_1.URL',
+
+            'WORKSHEETS.LASEREYES.TITLE', 'WORKSHEETS.LASEREYES.SUMMARY', 'WORKSHEETS.LASEREYES.DESCRIPTION',
+            'WORKSHEETS.LASEREYES.WORKSHEET_1.URL'
 
         ]).then(function (translations) {
             vm.worksheets = [
@@ -748,6 +751,22 @@
                     downloads : [
                         {
                             worksheet : translations['WORKSHEETS.EMOJIMASK.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.LASEREYES.TITLE'],
+                    summary : translations['WORKSHEETS.LASEREYES.SUMMARY'],
+                    description : translations['WORKSHEETS.LASEREYES.DESCRIPTION'],
+                    difficulty : 'Intermediate',
+                    type : 'sounds',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-lasereyes.png',
+                    tags : [ 'speech recognition', 'face detection' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-lasereyes.pdf',
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.LASEREYES.WORKSHEET_1.URL']
                         }
                     ]
                 }
