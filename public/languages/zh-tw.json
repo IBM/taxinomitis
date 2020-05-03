@@ -34,7 +34,7 @@
         "IN20MINS": "在20分鐘內...",
         "WHAT": {
             "TITLE": "這是什麼?",
-            "BODY" : "這個免費網站提供學習者親自動手的經驗來訓練機器學習系統，並創造擁有機器學習功能的作品<br/><br/>它提供了簡單且容易使用的操作環境來訓練機器學習的模型，可以應用在辨識文字、數字、圖片或聲音上<br/><br/>這是建立在現有教育孩子學程式的平台上，把建立的模型加入學習程式的平台中（例如<a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a>與<a href='http://appinventor.mit.edu/' target='_blank'>App Inventor），讓孩子可以使用他們訓練過的機器學習模型來建立專案與創造遊戲<br/><br/>這個工具在2017年開始釋出，目前已經被<a href='https://wakelet.com/wake/4d3680cb-2a11-49ab-9180-fcfeced48393' target='_blank'>成千上萬的學校、程式俱樂部、家庭使用</a><br/><br/>想了解更多嗎? 請看:"
+            "BODY" : "這個免費網站提供學習者親自動手的經驗來訓練機器學習系統，並創造擁有機器學習功能的作品<br/><br/>它提供了簡單且容易使用的操作環境來訓練機器學習的模型，可以應用在辨識文字、數字、圖片或聲音上<br/><br/>這是建立在現有教育孩子學程式的平台上，把建立的模型加入學習程式的平台中（例如<a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a>與<a href='http://appinventor.mit.edu/' target='_blank'>App Inventor</a>），讓孩子可以使用他們訓練過的機器學習模型來建立專案與創造遊戲<br/><br/>這個工具在2017年開始釋出，目前已經被<a href='https://wakelet.com/wake/4d3680cb-2a11-49ab-9180-fcfeced48393' target='_blank'>成千上萬的學校、程式俱樂部、家庭使用</a><br/><br/>想了解更多嗎? 請看:"
         },
         "WHY": {
             "TITLE": "為什麼要學?",
@@ -294,16 +294,16 @@
                 "DETAILS": "這是一個空的範本來幫助你蒐集你自己的訓練資料。有關如何使用的教學，可以從作品清單中的「戰無不勝」下載"
             },
             "TOPTRUMPS": {
-                "TITLE": "Kings & Queens Top Trumps",
-                "SUMMARY": "Learn how to play a game",
-                "DESCRIPTION": "Train a machine learning model to play a Top Trumps game based on English Kings and Queens, by collecting examples of moves that the computer can use to learn how to predict which value to choose.",
-                "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'Top Trumps' from Worksheets."
+                "TITLE": "國王與皇后的卡牌遊戲",
+                "SUMMARY": "如何學會玩遊戲",
+                "DESCRIPTION": "訓練機器學習模型來玩Top Trumps卡牌遊戲，透過蒐集電腦移動的範例進行預測下一步的最適合牌面。",
+                "DETAILS": "這是一個空的範本來幫助你蒐集你自己的訓練資料。有關如何使用的教學，可以從作品清單中的「Top Trumps卡牌遊戲」下載"
             },
             "SONGLYRICS": {
-                "TITLE": "Song lyrics",
-                "SUMMARY": "Recognize types of songs",
-                "DESCRIPTION": "Train a machine learning model to recognize the type of song based on it's lyrics",
-                "DETAILS": "This training dataset includes 140 lines from song lyrics - half from children's songs and half from Top 40 songs. It is a good starting set for training a machine learning model to recognize different uses of language."
+                "TITLE": "歌曲的歌詞",
+                "SUMMARY": "辨識歌曲的類型",
+                "DESCRIPTION": "訓練機器學習模型以歌詞來辨識歌曲的類型",
+                "DETAILS": "這個訓練資料集包括來自歌曲的140行歌詞 - 其中一半來自兒童歌曲，另一半來自前40首歌曲。 這是訓練機器學習模型以識別語言的不同用法的良好起點。"
             }
         }
     },
@@ -653,7 +653,7 @@
                 "ANSWER_1": "正確",
                 "ANSWER_2": "錯誤",
                 "NOTES_1": "不一定",
-                "NOTES_2": "",
+                 "NOTES_2": "",
                 "NOTES_3": "技術跟演算法都很重要。但是！機器學習系統的準確性和可靠度取決於訓練時給他們什麼內容",
                 "NOTES_4": "一個簡單的機器學習演算法但是擁有大量高品質的訓練過程，比起一個最先進的機器學習演算法但只有少量不良的訓練過程來得好"
             },
@@ -777,7 +777,7 @@
             "IMAGES": "圖片",
             "NUMBERS": "數字",
             "SOUNDS": "聲音",
-            "FACES": "faces"
+            "FACES": "臉部"
         },
 
         "LEVELS": {
@@ -792,21 +792,21 @@
 
         "DOWNLOADS": {
             "AUDIENCE": {
-                "TEACHERS": "For teachers:",
-                "STUDENTS": "For students:"
+                "TEACHERS": "給老師：",
+                "STUDENTS": "給學生："
             },
             "GUIDANCE": {
-                "TITLE": "Download guidance for teachers",
-                "DETAIL": "This sheet contains information for teachers or coding group leaders to help them prepare, setup and supervise this project.",
-                "NOTES": "Notes:"
+                "TITLE": "下載教師用的教學指南",
+                "DETAIL": "這份表格包含給老師與程式教學團體領導者的資訊以協助預習、備課、管理此專案。",
+                "NOTES": "筆記："
             },
             "WORKSHEET": {
-                "TITLE": "Download project worksheet",
-                "AUTHOR": "Worksheet provided by:"
+                "TITLE": "下載此專案的作品教學",
+                "AUTHOR": "作品教學的提拱者："
             },
             "RESOURCES": {
-                "TITLE": "Additional project resources",
-                "DETAIL": "You will also need to provide students with a printed copy of this file."
+                "TITLE": "額外的清單資源",
+                "DETAIL": "你還需要向學生提供此文件的影印版本"
             }
         },
 
@@ -1034,7 +1034,7 @@
             }
         },
         "WHATTWITTERTHINKS": {
-            "TITLE": "推特的討論話題",
+            "TITLE": "推特的討論話題\b",
             "SUMMARY": "教電腦來測量大家的想法",
             "DESCRIPTION": "在Scratch中建立情緒分析工具來分析Twitter上的討論內容。",
             "WORKSHEET_1": {
@@ -1163,19 +1163,27 @@
             }
         },
         "FACEFINDER": {
-            "TITLE": "Face Finder",
-            "SUMMARY": "Use a computer that has been trained to recognize faces",
-            "DESCRIPTION": "Make a video filter in Scratch to turn your face into a cartoon.",
+            "TITLE": "臉部搜尋",
+            "SUMMARY": "使用已訓練過的電腦來辨識人臉",
+            "DESCRIPTION": "在Scratch中製作一個影像轉換器讓你的人臉變成卡通人物",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facefinder.pdf"
             }
         },
         "EMOJIMASK": {
-            "TITLE": "Emoji Mask",
-            "SUMMARY": "Use a computer that has been trained to recognize faces",
-            "DESCRIPTION": "Make a video filter in Scratch to add an emoji mask to your face.",
+            "TITLE": "Emoji人臉表情替換",
+            "SUMMARY": "使用已訓練過的電腦來辨識人臉",
+            "DESCRIPTION": "在Scratch中製作一個影像轉換器讓你的人臉變成表情符號",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-emojimask.pdf"
+            }
+        },
+        "LASEREYES": {
+            "TITLE": "Laser Eyes",
+            "SUMMARY": "Teach a computer to recognize speech and faces",
+            "DESCRIPTION": "Make a voice-activated laser eyes game in Scratch.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-lasereyes.pdf"
             }
         }
     },
@@ -1379,7 +1387,7 @@
         }
     },
     "HELP": {
-        "CONTACT": "如果你有任何問題或疑問，請洽詢<a target='_blank' href='https://groups.google.com/d/forum/mlforkids'>兒童機器學習群組</a>",
+        "CONTACT": "如果你有任何問題或疑問，請洽詢<a target='_blank' href='https://groups.google.com/d/forum/mlforkids'>兒童機器學習論壇</a>",
         "GETTINGSTARTED": {
             "TITLE": "第一次使用？",
             "INTRO": "下載PDF裡面有簡短的入門指南：",
@@ -1563,34 +1571,34 @@
         "EXPLANATION": "下載詳細指引有關如何建立IBM Cloud上的API密鑰"
     },
     "PRETRAINED": {
-        "TITLE": "Pre-trained models",
+        "TITLE": "預先訓練好的模型",
         "INTRO": {
-            "INTRO_1": "<strong>Machine Learning for Kids</strong> provides pre-trained models you can use in your projects. Real-world machine learning projects often use models already trained by other people. There are lots of well-trained models that are freely available, and these are useful when you don't have time to collect the amount of training data needed to train your own."
+            "INTRO_1": "<strong>兒童機器學習</strong>提供可以在專案中使用的預先訓練模型。 現實世界中的機器學習專案通常使用已由他人訓練好的模型。有許多訓練有素的模型可以免費獲得，當您沒有時間收集訓練自己的訓練資料時，這些模型會很有用。"
         },
         "HOWTO": {
-            "TITLE": "How to use",
-            "INTRO": "Click on the button to go to Scratch.",
-            "HOW_1": "Go to the version of <a href='https://machinelearningforkids.co.uk/scratch3'>Scratch 3</a> available from Machine Learning for Kids.",
-            "HOW_2": "Pre-trained models are available from the Extensions panel. Click on the blue extensions button in the bottom-left of the Scratch window to find them, then click on the one you want to add to your project.",
-            "HOW_3": "The blocks for the pre-trained model will be added to the Scratch toolbox."
+            "TITLE": "如何使用",
+            "INTRO": "點擊按鈕進入Scratch",
+            "HOW_1": "選擇兒童機器學習可使用的版本<a href='https://machinelearningforkids.co.uk/scratch3'>Scratch 3</a>",
+            "HOW_2": "在「擴充功能」面板中可以取得預先訓練好的模型。 點擊Scratch視窗左下角的藍色擴展按鈕並找到它們，然後點擊要添加到專案中的擴充功能。",
+            "HOW_3": "預先訓練模型的積木將會添加到Scratch工具箱中。"
         },
         "SPEECHTOTEXT": {
-            "TITLE": "Speech to text",
-            "SPEECH_1": "This model can be used to recognize speech recorded through your microphone.",
-            "SPEECH_2": "It gives you a block you can use to record some audio and then give you the text that it recognized, and a block that you can tell it to listen out for a particular word or phrase.",
-            "SPEECH_3": "It uses the speech recognition capability that comes with Google Chrome, so the ML model that you'll be using comes from Google. (It also means that you can only use this model if you're using the Google Chrome web browser, sorry!)"
+            "TITLE": "語音轉文字",
+            "SPEECH_1": "這個模型可以透過麥克風來辨識語音",
+            "SPEECH_2": "此功能提供了一個積木可以用來錄製一些聲音檔，然後為你提供它可以識別的文字，還可以提供一個積木，讓你告訴它聆聽特定的單詞或片語。",
+            "SPEECH_3": "此功能使用了Google Chrome瀏覽器的語音識別功能，因此你使用的ML模型來自Google。（這也代表只有使用Google Chrome瀏覽器你才能使用此模型，不好意思！）"
         },
         "FACEAPI": {
-            "TITLE": "Face detection",
-            "FACE_1": "This model can be used to recognize your face in the video feed from your webcam.",
-            "FACE_2": "It gives you blocks that will find the x,y coordinates of your eyes, nose and mouth.",
-            "FACE_3": "The technique this uses is called an SSD (which stands for Single Shot Multibox Detector) and is based on MobileNet (a ML model designed for mobile devices, so it doesn't need much computing power).",
-            "FACE_4": "The training data used for this model came from a set known as <a href='http://shuoyang1213.me/WIDERFACE/' target='_blank'>WIDER FACE</a>."
+            "TITLE": "臉部偵測",
+            "FACE_1": "這個模型可以用來辨識網路攝影機的\b臉部影像資訊",
+            "FACE_2": "此功能提供積木讓你找到你臉上的眼睛、鼻子與嘴巴的x與y座標。",
+            "FACE_3": "此技術稱為SSD（代表單一照片多框辨識），而且建立在MobileNet上（為行動裝置設計的ML模型，因此它不需要太多的計算能力）",
+            "FACE_4": "這個模型的訓練資料來自於<a href='http://shuoyang1213.me/WIDERFACE/' target='_blank'>WIDER FACE</a>"
         },
         "IDEAS": {
-            "TITLE": "What else?",
-            "IDEAS_1": "Are there other machine learning models you would like to be able to use in your Scratch projects?",
-            "IDEAS_2": "Let me know by asking in the <a href='https://groups.google.com/d/forum/mlforkids'>ML for Kids forum</a>."
+            "TITLE": "還有什麼？",
+            "IDEAS_1": "您是否希望在Scratch專案中使用其他機器學習模型？",
+            "IDEAS_2": "透過<a href='https://groups.google.com/d/forum/mlforkids'>兒童機器學習論壇</a>讓我知道吧！"
         }
     }
 }

@@ -163,6 +163,9 @@
                 if (values.project.type === 'images') {
                     $scope.minimumExamples = 'ten';
                 }
+                else if (values.project.type === 'sounds') {
+                    $scope.minimumExamples = 'eight';
+                }
                 $scope.models = values.models;
                 $scope.projectSummary = generateProjectSummary();
 
