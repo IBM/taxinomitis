@@ -532,7 +532,7 @@
                     "TEXT" : "Teste das Machine Learning Model. Gib unten ein Textbeispiel ein, dass du nicht für das Training verwendet hast. Der Computer sagt dir, welcher Kategorie er dein Beispiel zuordnet und mit welcher Sicherheit (confidence).",
                     "IMAGES" : "Teste das Machine Learning Model. Füge unten ein Beispielbild hinzu, dass du nicht für das Training verwendet hast. Der Computer sagt dir, welcher Kategorie er dein Beispiel zuordnet und mit welcher Sicherheit (confidence).",
                     "NUMBERS" : "Teste das Machine Learning Model. Gib unten ein Beispiel ein, dass du nicht für das Training verwendet hast. Der Computer sagt dir, welcher Kategorie er dein Beispiel zuordnet und mit welcher Sicherheit (confidence).",
-                    "SOUNDS" : "Teste das Machine Learning Model. Gib unten ein Beispiel ein, dass du nicht für das Training verwendet hast. Der Computer sagt dir, welcher Kategorie er dein Beispiel zuordnet und mit welcher Sicherheit (confidence).
+                    "SOUNDS" : "Teste das Machine Learning Model. Gib unten ein Beispiel ein, dass du nicht für das Training verwendet hast. Der Computer sagt dir, welcher Kategorie er dein Beispiel zuordnet und mit welcher Sicherheit (confidence)."
                 },
                 "SCRATCH" : "Wenn es so aussieht, dass der Computer gelernt hat, Dinge richtig zu erkennen, kannst jetzt du eine Anwendung - zum Beispiel ein Spiel in Scratch - programmieren!",
                 "ADDITIONAL_TRAINING" : {
