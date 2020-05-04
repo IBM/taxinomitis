@@ -1387,7 +1387,7 @@
         }
     },
     "HELP": {
-        "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
+        "CONTACT": "If you have any problems or questions, please ask in <a target='_blank' href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids forum</a>",
         "GETTINGSTARTED": {
             "TITLE": "¿Primera vez?",
             "INTRO": "Descarga un PDF con una breve guía de inicio. :",
