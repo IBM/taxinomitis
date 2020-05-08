@@ -834,15 +834,15 @@
             "SUMMARY": "Enseña a una computadora a reconocer el significado de tus commandos ",
             "DESCRIPTION": "Crea un asistente inteligente en Scratch que te permita controlar dispositivos virtuales.",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Full version of the project, where the students make a non-machine learning version first",
+                "DESCRIPTION": "Versión completa del proyecto, donde los estudiantes hacen primero una versión sin aprendizaje automático",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-es.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Shorter version of the project, where the students only make a machine learning version of the assistant",
+                "DESCRIPTION": "Versión más corta del proyecto, donde los estudiantes solo hacen una versión de aprendizaje automático del asistente",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-easy-es.pdf"
             },
             "WORKSHEET_3": {
-                "DESCRIPTION": "Quick simplified version of the project, ideal for use as a first introduction to the tool",
+                "DESCRIPTION": "Versión simplificada rápida del proyecto, ideal para usar como primera introducción a la herramienta",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-tryitnow-es.pdf"
             }
         },
