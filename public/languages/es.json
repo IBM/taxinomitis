@@ -1157,9 +1157,7 @@
         "INKBLOTS": {
             "TITLE": "Manchas de Tinta",
             "SUMMARY": "Enseñe a una computadora a reconocer fotos de objetos",
-            "DESCRIPTION": "Recrea un proyecto de investigación del MIT y aprenda cómo se describen los sistemas de IA en las noticias
-
-.",
+            "DESCRIPTION": "Recrea un proyecto de investigación del MIT y aprenda cómo se describen los sistemas de IA en las noticias.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-inkblots.pdf"
             }
