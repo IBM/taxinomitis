@@ -851,15 +851,15 @@
             "SUMMARY": "Enseña a una computadora a distinguir entre insultos y halagos. ",
             "DESCRIPTION": "Crea un asistente inteligente en Scratch que sonría si le dices algo bonito y llore si le insultas .",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Full version of the project, where the students make a non-machine learning version first",
+                "DESCRIPTION": "Versión completa del proyecto, donde los estudiantes hacen primero una versión sin aprendizaje automático",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Shorter version of the project, where the students only make a machine learning version",
+                "DESCRIPTION": "Versión más corta del proyecto, donde los estudiantes solo hacen una versión de aprendizaje automático del asistente",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-easy.pdf"
             },
             "WORKSHEET_3": {
-                "DESCRIPTION": "Python project - for making the project using Python",
+                "DESCRIPTION": "Proyecto Python: para hacer el proyecto usando Python",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-python.pdf"
             }
         },
@@ -868,11 +868,11 @@
             "SUMMARY": "Enseña a una computadora a  identificar iconos",
             "DESCRIPTION": "Crea un juego de cartas en  Scratch que aprenda a identificar las figuras en las cartas.",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Full version of the project, where the students make their own cards that they will train the computer to recognise",
+                "DESCRIPTION": "Versión completa del proyecto, donde los estudiantes hacen sus propias tarjetas que entrenarán a la computadora para reconocer",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap-es.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Shorter version of the project, providing children with pre-made cards that you will need to print out, to save the students time having to make them",
+                "DESCRIPTION": "Versión más corta del proyecto, que proporciona a los niños tarjetas prefabricadas que necesitarán imprimir, para ahorrarles a los estudiantes el tiempo necesario para hacerlas",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap-easy.pdf",
                 "RESOURCES": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/resources-snap-easy.pdf"
             }
@@ -898,11 +898,11 @@
             "SUMMARY": "Enseña a una computadora a  identificar imágenes de objetos",
             "DESCRIPTION": "Entrena a una computadora para que sea capaz de clasificar imágenes en grupos.",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Individual version of the project, where each student trains their own machine learning model independently",
+                "DESCRIPTION": "Versión individual del proyecto, donde cada estudiante entrena su propio modelo de aprendizaje automático de forma independiente",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup-es.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Group version of the project, where students in the class work together to train a shared machine learning model",
+                "DESCRIPTION": "Versión grupal del proyecto, donde los estudiantes de la clase trabajan juntos para entrenar un modelo de aprendizaje automático compartido",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup-crowd.pdf"
             }
         },
@@ -951,11 +951,11 @@
             "SUMMARY": "Enseña a una computadora a identificar preguntas",
             "DESCRIPTION": "Crea un  chatbot que responda preguntas sobre el tema que elijas.",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Scratch project - for making a chat bot in Scratch",
+                "DESCRIPTION": "Proyecto Scratch: para hacer un chatbot en Scratch",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots-es.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Python project - for making a chat bot using Python",
+                "DESCRIPTION": "Proyecto Python: para hacer un chatbot usando Python",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots-python.pdf"
             }
         },
@@ -972,11 +972,11 @@
             "SUMMARY": "Enseña a una computadora a identificar lo que dices",
             "DESCRIPTION": "Crea un sombrero seleccionador como el de Harry Potterque te asigne una escuela según lo que le digas.",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Individual version of the project, where each student trains their own machine learning model independently",
+                "DESCRIPTION": "Versión individual del proyecto, donde cada estudiante entrena su propio modelo de aprendizaje automático de forma independiente",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Group version of the project, where students in the class work together to train a shared machine learning model",
+                "DESCRIPTION": "Versión grupal del proyecto, donde los estudiantes de la clase trabajan juntos para entrenar un modelo de aprendizaje automático compartido",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat-crowd.pdf"
             }
         },
@@ -993,11 +993,11 @@
             "SUMMARY": "Enseña a una computadora a reconocer estilos visuales",
             "DESCRIPTION": "Crea un juego en  Scratch para probar si se puede valorar un libro por su portada.",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Full version of the project, where children make a game to compete against the computer to recognise books",
+                "DESCRIPTION": "Versión completa del proyecto, donde los niños hacen un juego para competir contra la computadora para reconocer libros",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Simplified version of the project, where children get the computer to recognise books",
+                "DESCRIPTION": "Versión simplificada del proyecto, donde los niños hacen que la computadora reconozca libros",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf"
             }
         },
@@ -1046,15 +1046,15 @@
             "SUMMARY": "Enseña a una computadora a jugar a un juego ",
             "DESCRIPTION": "Crea un juego cara o cruz en  Scratch que aprenda cómo ganarte.",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Classroom version, where each student makes the game themselves in Scratch",
+                "DESCRIPTION": "Versión de clase, donde cada alumno hace el juego en Scratch",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Classroom version, where each student makes the game themselves in Python",
+                "DESCRIPTION": "Versión para el aula, donde cada alumno hace el juego en Python",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-python.pdf"
             },
             "WORKSHEET_3": {
-                "DESCRIPTION": "Demo version, for events like Science Fairs where each child has a minute or two to try something",
+                "DESCRIPTION": "Versión demo, para eventos como las ferias de ciencias donde cada niño tiene un minuto o dos para probar algo",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-event.pdf"
             }
         },
@@ -1075,16 +1075,16 @@
             }
         },
         "NEWSPAPERSHELVES": {
-            "TITLE": "Newspaper shelves",
-            "SUMMARY": "Test the computer's ability to recognise use of language",
-            "DESCRIPTION": "Train a computer to recognise headlines from national newspapers.",
+            "TITLE": "Estantes de periodicos",
+            "SUMMARY": "Probar la capacidad de la computadora para reconocer el uso del lenguaje",
+            "DESCRIPTION": "Entrenar una computadora para reconocer los titulares de los periódicos nacionales.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-easy.pdf"
             }
         },
         "HEADLINETESTING": {
-            "TITLE": "Headline testing",
-            "SUMMARY": "Test the computer's ability to recognise use of language",
+            "TITLE": "Prueba de Titulares",
+            "SUMMARY": "Probar la capacidad de la computadora para reconocer el uso del lenguaje",
             "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
@@ -1099,89 +1099,89 @@
             }
         },
         "ALIENLANGUAGE": {
-            "TITLE": "Alien Language",
-            "SUMMARY": "Teach a computer to recognize sounds",
-            "DESCRIPTION": "Make an alien in Scratch that learns to recognize an alien language",
+            "TITLE": "Idiona Alienigena",
+            "SUMMARY": "Enseñar a una computadora a reconocer sonidos",
+            "DESCRIPTION": "Haz un extraterrestre en Scratch que aprenda a reconocer un idioma extraño",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-alienlanguage-es.pdf"
             }
         },
         "SECRETCODE": {
-            "TITLE": "Secret Code",
-            "SUMMARY": "Teach a computer to recognize speech",
-            "DESCRIPTION": "Train a computer to understand secret code words to guide a spy.",
+            "TITLE": "Código Secreto",
+            "SUMMARY": "Enseñar a una computadora a reconocer el habla",
+            "DESCRIPTION": "Entrenar a una computadora para que comprenda palabras de código secreto para guiar a un espía.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-secretcode-es.pdf"
             }
         },
         "JARGONBUSTER": {
             "TITLE": "Jargon Buster",
-            "SUMMARY": "Teach a computer to listen for words",
-            "DESCRIPTION": "Make a project in Scratch that displays the meaning of words you say.",
+            "SUMMARY": "Enseñe a una computadora a escuchar palabras",
+            "DESCRIPTION": "Haz un proyecto en Scratch que muestre el significado de las palabras que dices.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-jargonbuster.pdf"
             }
         },
         "TITANIC": {
             "TITLE": "Titanic",
-            "SUMMARY": "Teach a computer to predict outcomes",
-            "DESCRIPTION": "Create a Python program that can predict who survived the sinking of the Titanic.",
+            "SUMMARY": "Enseñe a una computadora a predecir resultados",
+            "DESCRIPTION": "Crea un programa de Python que pueda predecir quién sobrevivió al hundimiento del Titanic.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python-es.pdf"
             }
         },
         "ZOMBIEESCAPE": {
             "TITLE": "Zombie Escape!",
-            "SUMMARY": "Teach a computer to make predictions",
-            "DESCRIPTION": "Train a computer to help you escape from the zombies",
+            "SUMMARY": "Enseñar a una computadora a hacer predicciones",
+            "DESCRIPTION": "Entrena una computadora para ayudarte a escapar de los zombies",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape-es.pdf"
             }
         },
         "PHISHING": {
             "TITLE": "Phishing",
-            "SUMMARY": "Teach a computer to recognize phishing web links",
-            "DESCRIPTION": "Create a Python program that can predict if a URL is legitimate",
+            "SUMMARY": "Enseñe a una computadora a reconocer enlaces web de phishing",
+            "DESCRIPTION": "Crea un programa Python que pueda predecir si una URL es legítima",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-phishing.pdf"
             }
         },
         "KIWIORSTOAT": {
-            "TITLE": "Kiwi or Stoat",
-            "SUMMARY": "Teach a computer to recognize photos of animals",
-            "DESCRIPTION": "Make a project in Scratch that can recognize the animals in photos from conservation sites",
+            "TITLE": "Kiwi or Armiño",
+            "SUMMARY": "Enseñe a una computadora a reconocer fotos de animales",
+            "DESCRIPTION": "Haz un proyecto en Scratch que pueda reconocer a los animales en fotos de sitios de conservación",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-kiwiorstoat.pdf"
             }
         },
         "INKBLOTS": {
-            "TITLE": "Ink blots",
-            "SUMMARY": "Teach a computer to recognize photos of objects",
-            "DESCRIPTION": "Recreate an MIT research project and learn about how AI systems are described in the news.",
+            "TITLE": "Manchas de Tinta",
+            "SUMMARY": "Enseñe a una computadora a reconocer fotos de objetos",
+            "DESCRIPTION": "Recrea un proyecto de investigación del MIT y aprenda cómo se describen los sistemas de IA en las noticias.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-inkblots.pdf"
             }
         },
         "FACEFINDER": {
-            "TITLE": "Face Finder",
-            "SUMMARY": "Use a computer that has been trained to recognize faces",
-            "DESCRIPTION": "Make a video filter in Scratch to turn your face into a cartoon.",
+            "TITLE": "Buscador de Caras",
+            "SUMMARY": "Use una computadora que haya sido entrenada para reconocer caras",
+            "DESCRIPTION": "Haz un filtro de video en Scratch para convertir tu cara en una caricatura.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facefinder.pdf"
             }
         },
         "EMOJIMASK": {
-            "TITLE": "Emoji Mask",
-            "SUMMARY": "Use a computer that has been trained to recognize faces",
-            "DESCRIPTION": "Make a video filter in Scratch to add an emoji mask to your face.",
+            "TITLE": "Máscara Emoji",
+            "SUMMARY": "Usa una computadora que haya sido entrenada para reconocer caras",
+            "DESCRIPTION": "Haz un filtro de video en Scratch para agregar una máscara de emoji a tu cara.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-emojimask.pdf"
             }
         },
         "LASEREYES": {
-            "TITLE": "Laser Eyes",
-            "SUMMARY": "Teach a computer to recognize speech and faces",
-            "DESCRIPTION": "Make a voice-activated laser eyes game in Scratch.",
+            "TITLE": "Ojos láser",
+            "SUMMARY": "Enseña a una computadora a reconocer el habla y las caras",
+            "DESCRIPTION": "Haz un juego de ojos láser activado por voz en Scratch.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-lasereyes.pdf"
             }
