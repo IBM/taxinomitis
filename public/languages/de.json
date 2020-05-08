@@ -1372,8 +1372,17 @@
         "NUMBER_PROJECTS": {
             "mlforkids.numbers.trainNewModel": "trainiere ein neues Machine Learning Model"
         },
+        "SOUND_PROJECTS": {
+            "mlforkids.sounds.startListening": "start listening",
+            "mlforkids.sounds.stopListening": "stop listening"
+        },
         "TWITTER": {
-            "mlforkids.twitter.getrecenttweet": "such den [INDEX] letzten Tweet über [THEMA]"
+            "mlforkids.twitter.getrecenttweet": "such den [INDEX] letzten Tweet über [TOPIC]"
+        },
+        "FACE": {
+            "mlforkids.face.size": "size of [LANDMARK]",
+            "mlforkids.face.xlocation": "x coord of [LANDMARK]",
+            "mlforkids.face.ylocation": "y coord of [LANDMARK]"
         },
         "IMAGE_BLOCKS": {
             "mlforkids.imageblocks.getCostumeImage": "Kostümbild",

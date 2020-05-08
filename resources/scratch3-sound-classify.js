@@ -59,7 +59,10 @@ class MachineLearningSound {
                 {
                     opcode: 'trainNewModel',
                     blockType: Scratch.BlockType.COMMAND,
-                    text: 'train new machine learning model'
+                    text: {
+                        default: 'train new machine learning model',
+                        id: 'mlforkids.text.trainNewModel'
+                    }
                 },
                 {
                     opcode: 'checkModelStatus',
@@ -79,12 +82,18 @@ class MachineLearningSound {
                 {
                     opcode: 'startListening',
                     blockType: Scratch.BlockType.COMMAND,
-                    text: 'start listening'
+                    text: {
+                        default: 'start listening',
+                        id: 'mlforkids.sounds.startListening'
+                    }
                 },
                 {
                     opcode: 'stopListening',
                     blockType: Scratch.BlockType.COMMAND,
-                    text: 'stop listening'
+                    text: {
+                        default: 'stop listening',
+                        id: 'mlforkids.sounds.stopListening'
+                    }
                 }
             ],
 

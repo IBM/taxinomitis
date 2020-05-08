@@ -127,7 +127,7 @@
         "LEARN_MORE": "學習更多",
         "ADMIN_LABEL": "切換到<strong>管理頁面</strong>",
         "PROJECT_LABEL": "切換到<strong>專案</strong>",
-        "STEP_1_TEXT": "收集你希望能夠辨識的事物的各種範例",
+        "STEP_1_TEXT": "收集你想要辨識事物的各種範例",
         "STEP_2_TEXT": "使用這些範例來訓練電腦，讓電腦可以辨識他們",
         "STEP_3_TEXT": "製作Scratch遊戲，而且擁有電腦的辨識能力"
     },
@@ -169,8 +169,8 @@
             "INTRO": "如果你喜歡自己設定與管理班級帳戶，你可以立即進行！",
             "LISTINTRO": "你將會需要：",
             "LIST_CREATEACCOUNT": "建立一個「IBM Cloud」的免費帳戶",
-            "LIST_CREATEAPIKEYS": "建立「Watson服務」的API密鑰，我們在訓練機器學習模型的時候需要使用它",
-            "LIST_ENTERAPIKEYS": "在「兒童機器學習」網站中輸入你的API密鑰",
+            "LIST_CREATEAPIKEYS": "建立「Watson服務」的API密碼，我們在訓練機器學習模型的時候需要使用它",
+            "LIST_ENTERAPIKEYS": "在「兒童機器學習」網站中輸入你的API密碼",
             "HELP": "這些流程我們都有提供一步一步的教學文件(包含螢幕截圖)"
         },
         "MANAGED": {
@@ -243,10 +243,10 @@
             "TOOLONG": "太久了！"
         },
         "WARNINGS": {
-            "MLCRED-TEXT-NOKEYS": "請告知您的老師，他們將需要在課程中加入「 Watson Assistant API密鑰」，才能為新專案訓練機器學習模型",
-            "MLCRED-IMG-NOKEYS": "請告知您的老師，他們將需要在課程中加入「 影像辨識 API密鑰」，才能為新專案訓練機器學習模型",
-            "MLCRED-TEXT-INVALID": "IBM Cloud API密鑰可能出現問題，你需要再次幫你的新專案訓練機器學習模型。 請讓你的老師嘗試驗證你課堂上的「 Watson Assistant API密鑰。」",
-            "MLCRED-IMG-INVALID": "IBM Cloud API密鑰可能出現問題，你需要再次幫你的新專案訓練機器學習模型。 請讓你的老師嘗試驗證你課堂上的「 影像辨識 API密鑰。」"
+            "MLCRED-TEXT-NOKEYS": "請告知您的老師，他們將需要在課程中加入「 Watson Assistant API密碼」，才能為新專案訓練機器學習模型",
+            "MLCRED-IMG-NOKEYS": "請告知您的老師，他們將需要在課程中加入「 影像辨識 API密碼」，才能為新專案訓練機器學習模型",
+            "MLCRED-TEXT-INVALID": "IBM Cloud API密鑰可能出現問題，你需要再次幫你的新專案訓練機器學習模型。 請讓你的老師嘗試驗證你課堂上的「 Watson Assistant API密碼。」",
+            "MLCRED-IMG-INVALID": "IBM Cloud API密鑰可能出現問題，你需要再次幫你的新專案訓練機器學習模型。 請讓你的老師嘗試驗證你課堂上的「 影像辨識 API密碼。」"
         }
     },
     "DATASETS": {
@@ -309,15 +309,15 @@
     },
     "PROJECT": {
         "TRAIN": {
-            "TITLE": "訓練",
+            "TITLE": "建立資料模型",
             "BODY": "收集你希望電腦可以辨識的範例"
         },
         "LEARNANDTEST": {
-            "TITLE": "學習 &amp; 測試",
+            "TITLE": "訓練 &amp; 測試",
             "BODY": "使用範例來訓練電腦學會辨識"
         },
         "MAKES": {
-            "TITLE": "製作",
+            "TITLE": "成果應用",
             "BODY": "在Scratch或Python中使用你訓練好的機器學習模型來製作遊戲或應用程式"
         },
         "SCRATCH": {
@@ -1171,7 +1171,7 @@
             }
         },
         "EMOJIMASK": {
-            "TITLE": "Emoji人臉表情替換",
+            "TITLE": "Emoji人臉替換",
             "SUMMARY": "使用已訓練過的電腦來辨識人臉",
             "DESCRIPTION": "在Scratch中製作一個影像轉換器讓你的人臉變成表情符號",
             "WORKSHEET_1": {
@@ -1179,9 +1179,9 @@
             }
         },
         "LASEREYES": {
-            "TITLE": "Laser Eyes",
-            "SUMMARY": "Teach a computer to recognize speech and faces",
-            "DESCRIPTION": "Make a voice-activated laser eyes game in Scratch.",
+            "TITLE": "眼睛射出雷射光",
+            "SUMMARY": "教電腦辨識語音與人臉",
+            "DESCRIPTION": "在Scratch中製作聲控的雷射光束遊戲",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-lasereyes.pdf"
             }
@@ -1189,24 +1189,24 @@
     },
     "TEACHER": {
         "MENU": {
-            "TITLE": "管理",
+            "TITLE": "教師管理",
 
             "RESTRICTIONS": {
-                "TITLE": "上限",
-                "DESCRIPTION": "查看適用於你的班級的服務上限"
+                "TITLE": "使用上限",
+                "DESCRIPTION": "查看適用於你班級的人數與專案限制"
             },
             "APIKEYS": {
-                "TITLE": "API密鑰",
-                "TITLELONG": "Watson密鑰",
+                "TITLE": "API密碼",
+                "TITLELONG": "Watson密碼",
                 "DESCRIPTION": "設定IBM Watson的權限讓你的班級能夠建立機器學習模型 "
             },
             "STUDENTS": {
-                "TITLE": "學生",
+                "TITLE": "學生管理",
                 "TITLELONG": "學生管理",
                 "DESCRIPTION": "建立、重置和刪除你班級的學生登入資訊"
             },
             "SUPERVISION": {
-                "TITLE": "監督",
+                "TITLE": "作品管理",
                 "DESCRIPTION": "檢視你的學生建立的專案"
             },
 
@@ -1225,36 +1225,36 @@
             "NOTAUTHORISED": "你沒有權限可以進入班級裡的教師頁面"
         },
         "APIKEYS": {
-            "TITLE": "管理：IBM Watson API 密鑰",
+            "TITLE": "教師管理：IBM Watson API 密碼",
 
             "ADDNEWCREDENTIALS": "新增新的權限",
-            "ADDAPIKEY": "加入新API密鑰",
+            "ADDAPIKEY": "加入新API密碼",
             "REMOVE": "移除",
             "VERIFY": "審核",
 
-            "LITE_30_DAYS_EXPIRE": "如果30天內未使用IBM Cloud可能會停用「精簡版」方案的Watson API密鑰",
+            "LITE_30_DAYS_EXPIRE": "如果30天內未使用IBM Cloud可能會停用「精簡版」方案的Watson API密碼",
 
             "NO_TEXT_CREDENTIALS": "你沒有任何Watson Assistant權限。<br/>這代表你無法訓練模型在<strong>文字</strong>專案中使用",
-            "NO_IMAGE_CREDENTIALS": "你沒有任何Watson Visual Recognition的API密鑰。<br/>這代表你無法訓練模型在<strong>圖片</strong>專案中使用",
+            "NO_IMAGE_CREDENTIALS": "你沒有任何Watson Visual Recognition的API密碼。<br/>這代表你無法訓練模型在<strong>圖片</strong>專案中使用",
 
             "LINK_TO_APIKEYS_GUIDE": "如果你不確定從哪裡獲得這些內容，請下載<a href='/apikeys-guide'>完整步驟引導</a>",
 
-            "NOTAUTHORISED": "你無權訪問你的班級使用的Watson API密鑰",
-            "MANAGEDCLASS": "你正在管理班級使用的API密鑰",
+            "NOTAUTHORISED": "你無權訪問你的班級使用的Watson API密碼",
+            "MANAGEDCLASS": "你正在管理班級使用的API密碼",
 
             "HELP_STEPBYSTEP_GUIDE": "如果你不確定在這裡要做什麼，請參考<a href='/apikeys-guide'>一步一步的引導教學</a>。如果你需要任何協助，請<strong><a style='cursor: pointer;' href='/help'>與我們聯繫</a></strong>。",
 
             "INTRO_WATSONASSISTANT": "使用<a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a>來訓練<span class='mlprojecttype'>文字</span>專案的機器學習模型",
             "INTRO_VISUALRECOGNITION": "使用<a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>來訓練<span class='mlprojecttype'>圖片</span>專案的機器學習模型",
-            "INTRO_NUMBERS": "<strong>不需要</strong>任何API密鑰即可訓練<span class='mlprojecttype'>數字</span>專案的機器學習模型",
-            "INTRO_SOUNDS": "<strong>不需要</strong>任何API密鑰即可訓練<span class='mlprojecttype'>聲音</span>專案的機器學習模型",
+            "INTRO_NUMBERS": "<strong>不需要</strong>任何API密碼即可訓練<span class='mlprojecttype'>數字</span>專案的機器學習模型",
+            "INTRO_SOUNDS": "<strong>不需要</strong>任何API密碼即可訓練<span class='mlprojecttype'>聲音</span>專案的機器學習模型",
 
             "ERROR_FETCHING_WATSONASSISTANT": "無法取得你的Watson Assistant密碼",
-            "ERROR_FETCHING_VISUALRECOG": "無法取得你的Visual Recognition的API密鑰",
+            "ERROR_FETCHING_VISUALRECOG": "無法取得你的Visual Recognition的API密碼",
 
             "USERNAME": "使用者名稱",
             "PASSWORD": "密碼",
-            "APIKEY": "API密鑰",
+            "APIKEY": "API密碼",
 
             "NUMBER_OF_ML_MODELS": "機器學習模型的數量",
             "UNKNOWN": "未知",
@@ -1265,7 +1265,7 @@
 
             "ADD_API_KEYS": {
                 "ASSISTANT_TITLE": "加入Watson Assistant權限",
-                "VISUAL_RECOGNITION_TITLE": "加入Visual Recognition的API密鑰",
+                "VISUAL_RECOGNITION_TITLE": "加入Visual Recognition的API密碼",
 
                 "USED_FOR_TEXT_PROJECTS": "這些內容將在你的學生訓練「文件」專案中的模型時使用",
                 "USED_FOR_IMAGE_PROJECTS": "這些內容將在你的學生訓練「圖片」專案中的模型時使用",
@@ -1273,14 +1273,14 @@
                 "HIDDEN_FROM_STUDENTS": "這些內容不會顯示給你群組中的學生看見",
 
                 "PRICING_PLAN": "你使用了哪種價格套餐呢？",
-                "ENTER_APIKEY": "請在下方輸入API密鑰",
+                "ENTER_APIKEY": "請在下方輸入API密碼",
                 "ENTER_PASSWORD": "請在下方輸入使用者名稱與密碼",
 
                 "CREDENTIALS_TYPE": "你在Watson Assistant中建立了什麼呢？"
             }
         },
         "RESTRICTIONS": {
-            "TITLE": "管理：上限",
+            "TITLE": "教師管理：使用上限",
 
             "ASK_FOR_CHANGES": "如果這些限制中的任何一項對你的小組造成問題，請<strong><a href='/help'>與我們聯繫</a></strong>",
 
@@ -1305,7 +1305,7 @@
             "NOT_AUTHORIZED": "你沒有權限可以進入班級的上限頁面"
         },
         "SUPERVISION": {
-            "TITLE": "管理：學生專案",
+            "TITLE": "教師管理：學生專案",
 
             "INTRO_1": "此頁面會列表顯示你的班級目前擁有的所有專案。你可以透過這份清單來看他們正在製作的內容",
             "INTRO_2": "如果你已經達到班級可建立的機器學習模型數量上限，則可以透過這份清單查看全部專案擁有的機器學習模型，並刪除你認為在專案中不再需要的模型",
@@ -1323,7 +1323,7 @@
             "NOT_AUTHORIZED": "你沒有權限進入班級的全部學生專案清單"
         },
         "STUDENTMANAGEMENT": {
-            "TITLE": "管理：學生管理",
+            "TITLE": "教師管理：學生管理",
 
             "CREATE_FIRST_STUDENT": "點擊右方「＋」按鈕，建立你的第一個學生",
             "ADD": "新增新的學生",
@@ -1372,8 +1372,17 @@
         "NUMBER_PROJECTS": {
             "mlforkids.numbers.trainNewModel": "訓練新的機器學習模型"
         },
+        "SOUND_PROJECTS": {
+            "mlforkids.sounds.startListening": "start listening",
+            "mlforkids.sounds.stopListening": "stop listening"
+        },
         "TWITTER": {
             "mlforkids.twitter.getrecenttweet": "取得有關[TOPIC]的[INDEX]最新推文"
+        },
+        "FACE": {
+            "mlforkids.face.size": "size of [LANDMARK]",
+            "mlforkids.face.xlocation": "x coord of [LANDMARK]",
+            "mlforkids.face.ylocation": "y coord of [LANDMARK]"
         },
         "IMAGE_BLOCKS": {
             "mlforkids.imageblocks.getCostumeImage": "角色的畫面",
@@ -1450,30 +1459,30 @@
             "Q2-A-2": "如果您有一個「沒有班級管理」的帳戶，那麼你的老師或小組負責人將提供IBM Cloud的Watson API認證以使其正常工作（如本頁頂部的「第一次使用」文檔中所述）。",
             "Q2-A-3": "但是，提供的認證當前沒有運作最有可能的原因是，因為最初提供了認證，因此已從IBM Cloud中刪除了認證。 如果不是這種情況，提供Watson認證的老師或小組負責人需要回到到IBM Cloud儀表板，以檢查他們建立的Watson Assistant或Visual Recognition服務的狀態",
 
-            "Q3": "「Watson Assistant API密鑰沒有可用的運作空間」",
+            "Q3": "「Watson Assistant API密碼沒有可用的運作空間」",
             "Q3-A-1": "此工具中的機器學習模型是使用IBM Watson API建立的。",
             "Q3-A-2": "老師建立的Watson Assistant認證限制了可以建立機器學習模型的數量。 這顯示在建立認證的IBM Cloud UI中，這些認證稱為「工作區」。",
             "Q3-A-3": "如果超過此限制，則嘗試訓練新的機器學習模型都會失敗，並且將顯示以下消息：",
-            "Q3-A-4": "你的班級已經超過了可建立模型的最大數量上限。 請讓你的老師或小組負責人知道他們的「Watson Assistant API密鑰不再有可用的工作空間」。",
+            "Q3-A-4": "你的班級已經超過了可建立模型的最大數量上限。 請讓你的老師或小組負責人知道他們的「Watson Assistant API密碼不再有可用的工作空間」。",
             "Q3-A-5": "如果具有成功訓練過模型的學生刪除了他們的模型，這將釋放一個工作空間供其他學生使用。",
             "Q3-A-6": "將來避免這種錯誤的一種方法是減少班級人數。 如果學生人數少於Watson Assistant認證支援的工作區數量，則不會達到限制。",
-            "Q3-A-7": "避免此錯誤的另一種方法是增加其他Watson Assistant API密鑰，或使用具有更高上限的Watson Assistant「方案」。",
+            "Q3-A-7": "避免此錯誤的另一種方法是增加其他Watson Assistant API密碼，或使用具有更高上限的Watson Assistant「方案」。",
 
-            "Q4": "「Watson Visual Recognition API密鑰不再有可用的分類器」",
+            "Q4": "「Watson Visual Recognition API密碼不再有可用的分類器」",
             "Q4-A-1": "此工具中的機器學習模型是使用IBM Watson API建立的。",
             "Q4-A-2": "教師創建的Watson Visual Recognition認證對可用於創建的機器學習模型的數量有所限制。 這顯示在創建認證的IBM Cloud UI中，這些認證稱為「客製分類器」。",
             "Q4-A-3": "如果超過此限制，則嘗試訓練新的機器學習模型都會失敗，並且將顯示以下消息：",
-            "Q4-A-4": "您的班級已經超過了可建立模型的最大數量上限。 請讓你的老師或小組負責人知道他們的「Watson Visual Recognition API密鑰沒有更多可用的分類器」。",
+            "Q4-A-4": "您的班級已經超過了可建立模型的最大數量上限。 請讓你的老師或小組負責人知道他們的「Watson Visual Recognition API密碼沒有更多可用的分類器」。",
             "Q4-A-5": "如果具有成功訓練過模型的學生刪除了他們的模型，這將釋放一個客製分類器供其他學生使用。",
             "Q4-A-6": "將來避免這種錯誤的一種方法是減少班級人數。 如果學生人數少於Watson Assistant認證支援的客製分類器數量，則不會達到限制。",
-            "Q4-A-7": "避免此錯誤的另一種方法是增加其他的Watson Visual Recognition API密鑰，或使用具有更高上限的Watson Visual Recognition實例「方案」。",
+            "Q4-A-7": "避免此錯誤的另一種方法是增加其他的Watson Visual Recognition API密碼，或使用具有更高上限的Watson Visual Recognition實例「方案」。",
 
-            "Q5": "「Watson ...目前正在限制其API密鑰的速率」",
+            "Q5": "「Watson ...目前正在限制其API密碼的速率」",
             "Q5-A-1": "此工具中的機器學習模型是使用IBM Watson API建立的。",
             "Q5-A-2": "如果您擁有「沒有班級管理」的帳戶，則你的老師或小組負責人將需要提供IBM Cloud的Watson API認證才能使其正常工作。",
             "Q5-A-3": "如果建立了免費帳戶，它們將對新的機器學習模型的請求速率施加限制。 在正常使用中，這不會影響。 但是，如果學生遇到「沒有更多的工作空間」或「沒有更多的分類器」錯誤（如上所述），而且繼續每秒多次單擊「訓練新的機器學習模型」按鈕持續幾分鐘，則會開始速率限制。",
             "Q5-A-4": "在這種情況下，將向學生顯示以下消息：",
-            "Q5-A-5": "你的班級提出了太多的要求與太快的速度建立機器學習模型。 請立即停止，並讓您的老師或小組負責人知道「Watson Assistant服務當前正在限制其API密鑰的速率」",
+            "Q5-A-5": "你的班級提出了太多的要求與太快的速度建立機器學習模型。 請立即停止，並讓您的老師或小組負責人知道「Watson Assistant服務當前正在限制其API密碼的速率」",
             "Q5-A-6": "速率限制不適用於「兒童機器學習」網站，也不受我們控制。 它通常是臨時的，需要等待一會兒才能解決。",
             "Q5-A-7": "如果學生點擊「訓練新的機器學習模型」按鈕並且遇到「沒有更多的工作空間可用」或「沒有更多的分類器可用」錯誤（如上所述），那麼他們應該意識到，重複點擊該按鈕將無法解決問題。 ，實際上會使其他班級的情況更加惡化。",
 
@@ -1555,20 +1564,20 @@
             "Q5": "學生建立的訓練資料會發生什麼事？",
             "Q5-A-1": "學生使用此網站進行的所有機器學習項目中的一個步驟是建立或收集訓練範例。 對於文字專案，這可能代表著輸入簡短的文字段落。 對於圖片專案，這可能代表著將圖片繪製到螢幕畫布上或使用網絡攝像頭拍照。 對於數字專案，這意味著輸入數字集合",
             "Q5-A-2": "所有這些訓練範例都儲存在位於美國達拉斯的<a href='https://www.ibm.com/cloud/compose/mysql'>IBM Cloud上託管的MySQL數據庫中</a>。 作為數據庫管理員，我可以訪問所有學生項目的所有這些訓練範例，但是除了使學生能夠進入和使用自己的專案之外，我沒有將其用於其他任何目的。 除了將數據提交給下面描述的兩個IBM Watson之外，我不會公開（公開地或個人或第三方）訓練數據。",
-            "Q5-A-3": "文字專案的機器學習模型是使用<a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a>雲端服務建立的，這意味著當學生訓練模型時，他們輸入的訓練範例的副本將<a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>提交給IBM Watson</a>。 （此雲端服務的位置是教師在<a href='https://machinelearningforkids.co.uk/apikeys-guide'>建立API密鑰</a>時選擇的位置。）IBM Watson不會將這些訓練範例用於任何其他目的。 這是因為如<a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>Watson文件</a>中所述，「兒童機器學習」<a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>要求退出</a>IBM正在用於改進服務的學生訓練範例。",
-            "Q5-A-4": "文字專案的機器學習模型是使用<a href='https://www.ibm.com/watson/services/visual-recognition/'>IBM Visual Recognition</a>雲端服務建立的，這意味著當學生訓練模型時，他們輸入的訓練範例的副本將<a href='https://cloud.ibm.com/apidocs/visual-recognition#create-a-classifier'>提交給IBM Watson</a>。 （此雲端服務的位置是教師在<a href='https://machinelearningforkids.co.uk/apikeys-guide'>建立API密鑰</a>時選擇的位置。）IBM Watson不會將這些訓練範例用於任何其他目的。 這是因為如<a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>Watson文件</a>中所述，「兒童機器學習」<a href='https://cloud.ibm.com/apidocs/visual-recognition#data-collection'>要求退出</a>IBM正在用於改進服務的學生訓練範例。",
+            "Q5-A-3": "文字專案的機器學習模型是使用<a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a>雲端服務建立的，這意味著當學生訓練模型時，他們輸入的訓練範例的副本將<a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>提交給IBM Watson</a>。 （此雲端服務的位置是教師在<a href='https://machinelearningforkids.co.uk/apikeys-guide'>建立API密碼</a>時選擇的位置。）IBM Watson不會將這些訓練範例用於任何其他目的。 這是因為如<a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>Watson文件</a>中所述，「兒童機器學習」<a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>要求退出</a>IBM正在用於改進服務的學生訓練範例。",
+            "Q5-A-4": "文字專案的機器學習模型是使用<a href='https://www.ibm.com/watson/services/visual-recognition/'>IBM Visual Recognition</a>雲端服務建立的，這意味著當學生訓練模型時，他們輸入的訓練範例的副本將<a href='https://cloud.ibm.com/apidocs/visual-recognition#create-a-classifier'>提交給IBM Watson</a>。 （此雲端服務的位置是教師在<a href='https://machinelearningforkids.co.uk/apikeys-guide'>建立API密碼</a>時選擇的位置。）IBM Watson不會將這些訓練範例用於任何其他目的。 這是因為如<a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>Watson文件</a>中所述，「兒童機器學習」<a href='https://cloud.ibm.com/apidocs/visual-recognition#data-collection'>要求退出</a>IBM正在用於改進服務的學生訓練範例。",
             "Q5-A-5": "IBM Watson提供了一些<a href='https://cloud.ibm.com/docs/services/assistant?topic=assistant-information-security#information-security-gdpr-wa'>與其服務共享訓練數據的通用規範</a>，這些規範也適用於在「機器學習為兒童」中建立和收集的訓練數據。 具體來說，應勸告學生不要在收集的示例中使用包括個人身份的訊息。"
         }
     },
     "APIKEYSGUIDE": {
         "TITLE": "IBM Cloud指南",
         "INTRO": {
-            "INTRO_1": "使用沒有班級功能帳戶的教師/家長/程設組織負責人需要提供IBM Cloud的「API密鑰」。 這些是秘密代碼，可用於訪問將為學生專案提供資源的人工智慧技術。",
-            "INTRO_2": "文字專案需要一個「Watson Assistant」 API密鑰。 圖片專案需要一個「Visual Recognition」API密鑰。 （數字和聲音專案不需要API密鑰）。",
-            "INTRO_3": "您將需要在IBM Cloud上建立一個帳戶才能建立這些密鑰。 建立帳戶是免費的，使用服務選擇「Lite」方案的 API密鑰不用收費。"
+            "INTRO_1": "使用沒有班級功能帳戶的教師/家長/程設組織負責人需要提供IBM Cloud的「API密碼」。 這些是秘密代碼，可用於訪問將為學生專案提供資源的人工智慧技術。",
+            "INTRO_2": "文字專案需要一個「Watson Assistant」 API密碼。 圖片專案需要一個「Visual Recognition」API密碼。 （數字和聲音專案不需要API密鑰）。",
+            "INTRO_3": "您將需要在IBM Cloud上建立一個帳戶才能建立這些密鑰。 建立帳戶是免費的，使用服務選擇「Lite」方案的 API密碼不用收費。"
         },
-        "LINK": "如何建立API密鑰？",
-        "EXPLANATION": "下載詳細指引有關如何建立IBM Cloud上的API密鑰"
+        "LINK": "如何建立API密碼？",
+        "EXPLANATION": "下載詳細指引有關如何建立IBM Cloud上的API密碼"
     },
     "PRETRAINED": {
         "TITLE": "預先訓練好的模型",
