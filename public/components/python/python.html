@@ -27,9 +27,7 @@
     <div ng-if="projectId && !project" class="loading"> </div>
 
     <div ng-if="project && project.type === 'sounds'" class="modelguidancecontainer">
-        <div class="modelguidance">
-            Python cannot be used with sounds projects.
-        </div>
+        <div class="modelguidance" translate="PYTHON.NOSOUND"></div>
     </div>
 
     <div ng-if="project && project.labels.length <= 1 && project.type !== 'sounds'" class="modelguidancecontainer">
@@ -42,47 +40,85 @@
         </div>
     </div>
 
-    <div ng-if="project && project.labels.length > 1 && scratchkey && !scratchkey.model && project.type !== 'sounds'" style="margin: 2em;">
-        <div class="alert alert-info" role="alert" translate="PYTHON.NOMODEL"></div>
-        <div ng-if="project.type !== 'text'">
-            You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId, userId : userId })">train one now</a></strong> and then come back to start your Python project.
+    <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1 && project.type !== 'sounds'">
+        <div class="modelguidance">
+            <div class="modelstatusdetail" translate="PYTHON.INTRO"></div>
+            <div class="modelstatusdetail" ng-if="scratchkey && project">
+                <a ng-if="project.type === 'text'"
+                    target="_blank" class="btn btn-primary"
+                    href="https://repl.it/@mlforkids/TextMLTemplate"
+                    translate="PYTHON.LAUNCH"></a>
+                <a ng-if="project.type === 'images'"
+                    target="_blank" class="btn btn-primary"
+                    href="https://repl.it/@mlforkids/ImagesMLTemplate"
+                    translate="PYTHON.LAUNCH"></a>
+                <a ng-if="project.type === 'numbers'"
+                    target="_blank" class="btn btn-primary"
+                    href="https://repl.it/@mlforkids/NumbersMLTemplate"
+                    translate="PYTHON.LAUNCH"></a>
+            </div>
         </div>
     </div>
 
+
+    <!-- ************************************************* -->
+    <!--  Add API key to template                          -->
+    <!-- ************************************************* -->
+
     <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1 && project.type !== 'sounds'">
-        <div class="modelguidance" ng-if="scratchkey.model || project.type === 'text' && functionType === 'store'" >
+        <div class="modelguidance">
+            <div class="modelstatusdetail" translate="PYTHON.APIKEY_INSTRUCTION"></div>
+            <div class="modelstatusdetail"><em translate="PYTHON.APIKEY_WARNING"></em></div>
+        </div>
+        <div class="modelguidance" style="flex: 2">
+            <div translate="PYTHON.REPLACE_THIS"></div>
+            <div class="pythoncodebox"><pre class="pythoncode">API_KEY <span class="pythonop">=</span> &quot;<b>CHANGE THIS TO YOUR PROJECT API KEY</b>&quot;</pre></div>
+            <div translate="PYTHON.WITH_THIS"></div>
+            <div class="pythoncodebox"><pre class="pythoncode">API_KEY <span class="pythonop">=</span> &quot;<b>{{ scratchkey.id }}</b>&quot;</pre></div>
+        </div>
+    </div>
+
+
+    <!-- ************************************************* -->
+    <!--  Classify test data                               -->
+    <!-- ************************************************* -->
+
+    <!-- text -->
+    <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1 && project.type === 'text'">
+        <div class="modelguidance">
+            <div class="modelstatusdetail" translate="PYTHON.RECOGNIZE.TEXT.INTRO"></div>
+            <div class="modelstatusdetail" translate="PYTHON.RECOGNIZE.INSTRUCTION"></div>
+        </div>
+        <div class="modelguidance" style="flex: 2">
+            <div translate="PYTHON.RECOGNIZE.TEXT.REPLACE"></div>
+            <div class="pythoncodebox"><pre class="pythoncode">test_text <span class="pythonop">=</span> &quot;<b>The text that you want to test</b>&quot;</pre></div>
+        </div>
+    </div>
+
+    <!-- images -->
+    <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1 && project.type === 'images'">
+        <div class="modelguidance">
+            <div class="modelstatusdetail" translate="PYTHON.RECOGNIZE.IMAGES.INTRO"></div>
+            <div class="modelstatusdetail" translate="PYTHON.RECOGNIZE.INSTRUCTION"></div>
+        </div>
+        <div class="modelguidance" style="flex: 2">
+            <div translate="PYTHON.RECOGNIZE.IMAGES.REPLACE"></div>
+            <div class="pythoncodebox"><pre class="pythoncode">imageurl <span class="pythonop">=</span> &quot;<b>https://upload.wikimedia.org/wikipedia/commons/f/f8/This_is_the_photo_of_Arthur_Samuel.jpg?download</b>&quot;</pre></div>
+        </div>
+    </div>
+
+    <!-- numbers -->
+    <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1 && project.type === 'numbers'">
+        <div class="modelguidance">
+            <div class="modelstatusdetail" translate="PYTHON.RECOGNIZE.NUMBERS.INTRO"></div>
+            <div class="modelstatusdetail" translate="PYTHON.RECOGNIZE.INSTRUCTION"></div>
             <div class="modelstatusdetail">
-                You can use this code to
-                <span ng-if="project.type === 'text' && functionType === 'classify'">submit text</span>
-                <span ng-if="project.type === 'numbers'">submit numbers</span>
-                <span ng-if="project.type === 'images' && testsource === 'local'">submit an image file that you have on your computer</span>
-                <span ng-if="project.type === 'images' && testsource === 'webcam'">submit a photo from your webcam</span>
-                <span ng-if="project.type === 'images' && testsource === 'web'">submit an image file from the Internet</span>
-                <span ng-if="functionType === 'classify'">to the machine learning model that you've trained.</span>
-                <span ng-if="project.type === 'text' && functionType === 'store'">add text examples to your training data.</span>
-            </div>
-            <div class="modelstatusdetail" ng-if="project.type==='text' && functionType === 'classify'">
-                Enter the text: <input style="padding-left: 1em; padding-right: 1em; width: 80%;" ng-model="testdata.text"></input>
-            </div>
-            <div class="modelstatusdetail" ng-if="project.type==='text' && functionType === 'store'">
-                Enter the text: <input style="padding-left: 1em; padding-right: 1em; width: 80%;" ng-model="testdata.storetext"></input>
-            </div>
-            <div class="modelstatusdetail" ng-if="project.type==='text' && functionType === 'store'">
-                Enter the label:
-                <select ng-model="testdata.label">
-                    <option ng-repeat="label in project.labels" value="{{ label }}">{{label}}</option>
-                </select>
-            </div>
-            <div class="modelstatusdetail" ng-if="project.type==='numbers'">
-                Enter the numbers below:
-            </div>
-            <div class="modelstatusdetail" ng-if="project.type==='numbers'">
                 <div ng-repeat="field in fields track by $index">
                     {{ field.name }} :
                     <input ng-if="field.type === 'number'"
-                           type="number"
-                           ng-model="testdata.fields[$index]"
-                           ng-init="testdata.fields[$index] = 0"></input>
+                        type="number"
+                        ng-model="testdata.fields[$index]"
+                        ng-init="testdata.fields[$index] = 0"></input>
                     <select ng-if="field.type === 'multichoice'"
                             ng-model="testdata.fields[$index]"
                             ng-options="value for value in field.choices"
@@ -91,280 +127,120 @@
                     </select>
                 </div>
             </div>
-            <div class="modelstatusdetail" ng-if="project.type==='images' && testsource === 'local'">
-                Enter the name of your image file: <input style="padding-left: 1em; padding-right: 1em; width: 80%;" ng-model="testdata.imagefile"></input>
-            </div>
-            <div class="modelstatusdetail" ng-if="project.type==='images' && testsource === 'web'">
-                Enter the web address for the image: <input style="padding-left: 1em; padding-right: 1em; width: 90%;" ng-model="testdata.imageurl"></input>
-            </div>
-            <div class="modelstatusdetail" ng-hide="functionType === 'store'">
-                Running this code will print something like:
-            </div>
-            <div class="modelstatusdetail" ng-hide="functionType === 'store'"><pre>$ python yourscript.py
-result: '{{ project.labels[0] }}' with 81% confidence</pre></div>
-            <div class="modelstatusdetail" ng-if="project.type==='text' && functionType !== 'classify' && scratchkey.model">
-                <a href="" ng-click="setFunctionType('classify')">Click here for Python for recognising text</a>
-            </div>
-            <div class="modelstatusdetail" ng-if="project.type==='text' && functionType !== 'store'">
-                <a href="" ng-click="setFunctionType('store')">Click here for Python for adding a training example</a>
-            </div>
-            <div class="modelstatusdetail" ng-if="project.type==='images' && testsource !== 'web'">
-                <a href="" ng-click="setSource('web')">Click here for Python for submitting an image from the Internet</a>
-            </div>
-            <div class="modelstatusdetail" ng-if="project.type==='images' && testsource !== 'webcam'">
-                <a href="" ng-click="setSource('webcam')">Click here for Python for submitting a photo from your webcam</a>
-            </div>
-            <div class="modelstatusdetail" ng-if="project.type==='images' && testsource !== 'local'">
-                <a href="" ng-click="setSource('local')">Click here for Python for submitting an image file</a>
-            </div>
-            <div class="modelstatusdetail">
-                If you've never used <a href="http://docs.python-requests.org"><code>requests</code></a>
-                <span ng-hide="project.type==='images' && testsource === 'webcam'">
-                     before, you might need to <a href="http://docs.python-requests.org/en/master/user/install/#install">install it first</a>.
-                </span>
-                <span ng-if="project.type==='images' && testsource === 'webcam'">
-                    or <a href="https://pypi.org/project/opencv-python/"><code>OpenCV</code></a> libraries before, you might need to
-                    install them first.
-                </span>
-                <br/>
-                Ask your teacher for help if you're not sure how to do that.
-            </div>
         </div>
-        <div class="modelguidance" ng-if="project.type === 'text'" style="flex: 2">
-<div class="pythoncodebox" ng-if="scratchkey.model && functionType === 'classify'"><pre class="pythoncode"><span class="pythonfunc">import</span> <span class="pythonimport">requests</span>
-
-<span class="pythoncomments"># This function will pass your text to the machine learning model</span>
-<span class="pythoncomments"># and return the top result with the highest confidence</span>
-<span class="pythonfunc">def</span> <span class="pythonfuncname">classify</span>(text):
-    key <span class="pythonop">=</span> &quot;{{ scratchkey.id }}&quot;
-    url <span class="pythonop">=</span> &quot;https://machinelearningforkids.co.uk/api/scratch/&quot;+ key + &quot;/classify&quot;
-
-    response <span class="pythonop">=</span> requests<span class="pythonop">.</span>get(url, params<span class="pythonop">=</span>{ &quot;data&quot; : text })
-
-    <span class="pythonfunc">if</span> response<span class="pythonop">.</span>ok:
-        responseData <span class="pythonop">=</span> response<span class="pythonop">.</span>json()
-        topMatch <span class="pythonop">=</span> responseData[<span class="pythonint">0</span>]
-        <span class="pythonfunc">return</span> topMatch
-    <span class="pythonfunc">else</span>:
-        response<span class="pythonop">.</span>raise_for_status()
-
-
-<span class="pythoncomments"># <strong>CHANGE THIS</strong> to something you want your machine learning model to classify</span>
-demo <span class="pythonop">=</span> classify(<span style="background-color: #fff0f0">&quot;<strong>{{ testdata.text }}</strong>&quot;</span>)
-
-label <span class="pythonop">=</span> demo[&quot;class_name&quot;]
-confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
-
-
-<span class="pythoncomments"># <strong>CHANGE THIS</strong> to do something different with the result</span>
-<span class="pythonfunc">print</span> (&quot;result: &#39;%s&#39; with %d%% confidence&quot; <span class="pythonop">%</span> (label, confidence))
-</pre></div>
-<div class="pythoncodebox" ng-if="functionType === 'store'"><pre class="pythoncode"><span class="pythonfunc">import</span> <span class="pythonimport">requests</span>
-
-<span class="pythoncomments"># This function will store your text in one of the training</span>
-<span class="pythoncomments"># buckets in your machine learning project</span>
-<span class="pythonfunc">def</span> <span class="pythonfuncname">storeTraining</span>(text, label):
-    key <span class="pythonop">=</span> &quot;{{ scratchkey.id }}&quot;
-    url <span class="pythonop">=</span> &quot;https://machinelearningforkids.co.uk/api/scratch/&quot;+ key + &quot;/train&quot;
-
-    response <span class="pythonop">=</span> requests<span class="pythonop">.</span>post(url, json<span class="pythonop">=</span>{ &quot;data&quot; : text, &quot;label&quot; : label })
-
-    <span class="pythonfunc">if</span> response<span class="pythonop">.</span>ok == <span class="pythonint">False</span>:
-        <span class="pythoncomments"># if something went wrong, display the error</span>
-        <span class="pythonfunc">print</span> response<span class="pythonop">.</span>json()
-
-
-<span class="pythoncomments"># <strong>CHANGE THIS</strong> to the text that you want to store</span>
-training <span class="pythonop">=</span> <span style="background-color: #fff0f0">&quot;<strong>{{ testdata.storetext }}</strong>&quot;</span>
-
-<span class="pythoncomments"># <strong>CHANGE THIS</strong> to the training bucket to store it in</span>
-label <span class="pythonop">=</span> <span style="background-color: #fff0f0">&quot;<strong>{{ testdata.label }}</strong>&quot;</span>
-
-storeTraining(training, label)
-</pre></div>
-
-        </div>
-        <div class="modelguidance" ng-if="scratchkey.model && project.type === 'numbers'"  style="flex: 2">
-<div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">import</span> <span class="pythonimport">requests</span>
-
-<span class="pythoncomments"># This function will pass your numbers to the machine learning model</span>
-<span class="pythoncomments"># and return the top result with the highest confidence</span>
-<span class="pythonfunc">def</span> <span class="pythonfuncname">classify</span>(numbers):
-    key <span class="pythonop">=</span> &quot;{{ scratchkey.id }}&quot;
-    url <span class="pythonop">=</span> &quot;https://machinelearningforkids.co.uk/api/scratch/&quot;+ key + &quot;/classify&quot;
-
-    response <span class="pythonop">=</span> requests<span class="pythonop">.</span>post(url, json<span class="pythonop">=</span>{ &quot;data&quot; : numbers })
-
-    <span class="pythonfunc">if</span> response<span class="pythonop">.</span>ok:
-        responseData <span class="pythonop">=</span> response<span class="pythonop">.</span>json()
-        topMatch <span class="pythonop">=</span> responseData[<span class="pythonint">0</span>]
-        <span class="pythonfunc">return</span> topMatch
-    <span class="pythonfunc">else</span>:
-        response<span class="pythonop">.</span>raise_for_status()
-
-
-<span class="pythoncomments"># CHANGE THIS to something you want your machine learning model to classify</span>
+        <div class="modelguidance" style="flex: 2">
+            <div translate="PYTHON.REPLACE_THIS"></div>
+            <div class="pythoncodebox" style="margin-bottom: 10px;"><pre class="pythoncode"><span class="pythoncomments"># CHANGE THIS to the data that you want your </span>
+<span class="pythoncomments"># machine learning model to classify</span>
+test_data <span class="pythonop">=</span> <b>[ ]</b></pre></div>
+            <div translate="PYTHON.WITH_THIS"></div>
+            <div class="pythoncodebox" style="margin-bottom: 10px;"><pre class="pythoncode"><span class="pythoncomments"># CHANGE THIS to the data that you want your </span>
+<span class="pythoncomments"># machine learning model to classify</span>
 <div ng-repeat="field in testdata.fields track by $index">data{{ $index + 1 }} <span class="pythonop">=</span> <span style="background-color: #fff0f0"><strong><span ng-if="fields[$index].type === 'multichoice'">"</span>{{ field ? field : 0 }}<span ng-if="fields[$index].type === 'multichoice'">"</span></strong></span></div>
-demo <span class="pythonop">=</span> classify([ <span ng-repeat="field in testdata.fields track by $index">data{{ $index + 1 }}<span ng-show="!$last">,</span> </span> ])
-
-label <span class="pythonop">=</span> demo[&quot;class_name&quot;]
-confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
-
-
-<span class="pythoncomments"># CHANGE THIS to do something different with the result</span>
-<span class="pythonfunc">print</span> (&quot;result: &#39;%s&#39; with %d%% confidence&quot; <span class="pythonop">%</span> (label, confidence))
-</pre></div>
+test_data <span class="pythonop">=</span> [ <span ng-repeat="field in testdata.fields track by $index">data{{ $index + 1 }}<span ng-show="!$last">,</span> </span>]</pre></div>
         </div>
-        <div class="modelguidance" ng-if="scratchkey.model && project.type === 'images' && testsource === 'local'" style="flex: 2">
-<div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">import</span> <span class="pythonimport">requests</span>, <span class="pythonimport">sys</span>
-
-<span class="pythoncomments"># Gets the contents of an image file to be sent to the</span>
-<span class="pythoncomments"># machine learning model for classifying</span>
-<span class="pythonfunc">def</span> <span class="pythonfuncname">getImageFileData</span>(locationOfImageFile):
-    <span class="pythonfunc">with</span> <span style="color: #007020">open</span>(locationOfImageFile, &quot;rb&quot;) <span class="pythonfunc">as</span> f:
-        data <span class="pythonop">=</span> f<span class="pythonop">.</span>read()
-        <span class="pythonfunc">if</span> sys.version_info[<span class="pythonint">0</span>] <span class="pythonop">&lt;</span> <span class="pythonint">3</span>:
-            <span class="pythoncomments"># Python 2 approach to handling bytes</span>
-            <span class="pythonfunc">return</span> data.encode("base64")
-        <span class="pythonfunc">else</span>:
-            <span class="pythoncomments"># Python 3 approach to handling bytes</span>
-            <span class="pythonfunc">import</span> <span class="pythonimport">base64</span>
-            <span class="pythonfunc">return</span> base64<span class="pythonop">.</span>b64encode(data)<span class="pythonop">.</span>decode()
+    </div>
 
 
-<span class="pythoncomments"># This function will pass your image to the machine learning model</span>
-<span class="pythoncomments"># and return the top result with the highest confidence</span>
-<span class="pythonfunc">def</span> <span class="pythonfuncname">classify</span>(imagefile):
-    key <span class="pythonop">=</span> &quot;{{ scratchkey.id }}&quot;
-    url <span class="pythonop">=</span> &quot;https://machinelearningforkids.co.uk/api/scratch/&quot;<span class="pythonop">+</span> key <span class="pythonop">+</span> &quot;/classify&quot;
+    <!-- ************************************************* -->
+    <!--  Store training data                              -->
+    <!-- ************************************************* -->
 
-    response <span class="pythonop">=</span> requests<span class="pythonop">.</span>post(url, json<span class="pythonop">=</span>{ &quot;data&quot; : getImageFileData(imagefile) })
-
-    <span class="pythonfunc">if</span> response<span class="pythonop">.</span>ok:
-        responseData <span class="pythonop">=</span> response<span class="pythonop">.</span>json()
-        topMatch <span class="pythonop">=</span> responseData[<span class="pythonint">0</span>]
-        <span class="pythonfunc">return</span> topMatch
-    <span class="pythonfunc">else</span>:
-        response<span class="pythonop">.</span>raise_for_status()
-
-
-<span class="pythoncomments"># CHANGE THIS to the name of the image file you want to classify</span>
-demo <span class="pythonop">=</span> classify(<span style="background-color: #fff0f0;">&quot;<strong>{{ testdata.imagefile }}</strong>&quot;</span>)
-
-label <span class="pythonop">=</span> demo[&quot;class_name&quot;]
-confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
-
-
-<span class="pythoncomments"># CHANGE THIS to do something different with the result</span>
-<span class="pythonfunc">print</span> (&quot;result: &#39;<span style="background-color: #eeeeee">%s</span>&#39; with <span style="background-color: #eeeeee">%d%%</span> confidence&quot; <span class="pythonop">%</span> (label, confidence))
-</pre></div>
-        </div>
-        <div class="modelguidance" ng-if="scratchkey.model && project.type === 'images' && testsource === 'webcam'" style="flex: 2">
-<div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">import</span> <span class="pythonimport">cv2</span>, <span class="pythonimport">requests</span>, <span class="pythonimport">sys</span>
-
-<span class="pythoncomments"># Gets an image from the webcam</span>
-<span class="pythonfunc">def</span> <span class="pythonfuncname">getWebcamImageData</span>():
-    cam <span style="color: #333333">=</span> cv2<span style="color: #333333">.</span>VideoCapture(<span style="color: #0000DD; font-weight: bold">0</span>)
-    <span style="color: #008800; font-weight: bold">try</span>:
-        ok, image <span style="color: #333333">=</span> cam<span style="color: #333333">.</span>read()
-        <span style="color: #008800; font-weight: bold">if</span> ok <span style="color: #333333">!=</span> <span style="color: #007020">True</span>:
-            <span style="color: #008800; font-weight: bold">raise</span> <span style="color: #FF0000; font-weight: bold">ValueError</span>(<span style="background-color: #fff0f0">&quot;Problem using the webcam&quot;</span>)
-        ok, data <span style="color: #333333">=</span> cv2<span style="color: #333333">.</span>imencode(<span style="background-color: #fff0f0">&#39;.jpg&#39;</span>, image)
-        <span style="color: #008800; font-weight: bold">if</span> ok <span style="color: #333333">!=</span> <span style="color: #007020">True</span>:
-            <span style="color: #008800; font-weight: bold">raise</span> <span style="color: #FF0000; font-weight: bold">ValueError</span>(<span style="background-color: #fff0f0">&quot;Problem getting image data&quot;</span>)
-        <span class="pythonfunc">if</span> sys.version_info[<span class="pythonint">0</span>] <span class="pythonop">&lt;</span> <span class="pythonint">3</span>:
-            <span class="pythoncomments"># Python 2 approach to handling bytes</span>
-            <span class="pythonfunc">return</span> data.encode("base64")
-        <span class="pythonfunc">else</span>:
-            <span class="pythoncomments"># Python 3 approach to handling bytes</span>
-            <span class="pythonfunc">import</span> <span class="pythonimport">base64</span>
-            <span class="pythonfunc">return</span> base64<span class="pythonop">.</span>b64encode(data)<span class="pythonop">.</span>decode()
-    <span style="color: #008800; font-weight: bold">finally</span>:
-        cam<span style="color: #333333">.</span>release()
-
-
-<span class="pythoncomments"># This function will pass your image to the machine learning model</span>
-<span class="pythoncomments"># and return the top result with the highest confidence</span>
-<span class="pythonfunc">def</span> <span class="pythonfuncname">classify</span>():
-    key <span class="pythonop">=</span> &quot;{{ scratchkey.id }}&quot;
-    url <span class="pythonop">=</span> &quot;https://machinelearningforkids.co.uk/api/scratch/&quot;<span class="pythonop">+</span> key <span class="pythonop">+</span> &quot;/classify&quot;
-
-    response <span class="pythonop">=</span> requests<span class="pythonop">.</span>post(url, json<span class="pythonop">=</span>{ &quot;data&quot; : getWebcamImageData() })
-
-    <span class="pythonfunc">if</span> response<span class="pythonop">.</span>ok:
-        responseData <span class="pythonop">=</span> response<span class="pythonop">.</span>json()
-        topMatch <span class="pythonop">=</span> responseData[<span class="pythonint">0</span>]
-        <span class="pythonfunc">return</span> topMatch
-    <span class="pythonfunc">else</span>:
-        response<span class="pythonop">.</span>raise_for_status()
-
-
-demo <span class="pythonop">=</span> classify()
-
-label <span class="pythonop">=</span> demo[&quot;class_name&quot;]
-confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
-
-
-<span class="pythoncomments"># CHANGE THIS to do something different with the result</span>
-<span class="pythonfunc">print</span> (&quot;result: &#39;<span style="background-color: #eeeeee">%s</span>&#39; with <span style="background-color: #eeeeee">%d%%</span> confidence&quot; <span class="pythonop">%</span> (label, confidence))
-            </pre></div>
-        </div>
-        <div class="modelguidance" ng-if="scratchkey.model && project.type === 'images' && testsource === 'web'" style="flex: 2">
-<div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">import</span> <span class="pythonimport">requests</span><span class="pythonop">,</span> <span class="pythonimport">sys</span>
-
-<span class="pythoncomments"># Gets the contents of an image on the Internet to be</span>
-<span class="pythoncomments"># sent to the machine learning model for classifying</span>
-<span class="pythonfunc">def</span> <span class="pythonfuncname">getImageUrlData</span>(wwwLocationOfImage):
-    data = requests<span class="pythonop">.</span>get(wwwLocationOfImage)<span class="pythonop">.</span>content
-    <span class="pythonfunc">if</span> sys.version_info[<span class="pythonint">0</span>] <span class="pythonop">&lt;</span> <span class="pythonint">3</span>:
-        <span class="pythoncomments"># Python 2 approach to handling bytes</span>
-        <span class="pythonfunc">return</span> data.encode("base64")
-    <span class="pythonfunc">else</span>:
-        <span class="pythoncomments"># Python 3 approach to handling bytes</span>
-        <span class="pythonfunc">import</span> <span class="pythonimport">base64</span>
-        <span class="pythonfunc">return</span> base64<span class="pythonop">.</span>b64encode(data)<span class="pythonop">.</span>decode()
-
-
-
-<span class="pythoncomments"># This function will pass your image to the machine learning model</span>
-<span class="pythoncomments"># and return the top result with the highest confidence</span>
-<span class="pythonfunc">def</span> <span class="pythonfuncname">classify</span>(imageurl):
-    key <span class="pythonop">=</span> &quot;{{ scratchkey.id }}&quot;
-    url <span class="pythonop">=</span> &quot;https://machinelearningforkids.co.uk/api/scratch/&quot;<span class="pythonop">+</span> key <span class="pythonop">+</span> &quot;/classify&quot;
-
-    response <span class="pythonop">=</span> requests<span class="pythonop">.</span>post(url, json<span class="pythonop">=</span>{ &quot;data&quot; : getImageUrlData(imageurl) })
-
-    <span class="pythonfunc">if</span> response<span class="pythonop">.</span>ok:
-        responseData <span class="pythonop">=</span> response<span class="pythonop">.</span>json()
-        topMatch <span class="pythonop">=</span> responseData[<span class="pythonint">0</span>]
-        <span class="pythonfunc">return</span> topMatch
-    <span class="pythonfunc">else</span>:
-        response<span class="pythonop">.</span>raise_for_status()
-
-
-<span class="pythoncomments"># CHANGE THIS to the URL of the image you want to classify</span>
-demo <span class="pythonop">=</span> classify(<span style="background-color: #fff0f0">&quot;<strong>{{ testdata.imageurl }}</strong>&quot;</span>)
-
-label <span class="pythonop">=</span> demo[&quot;class_name&quot;]
-confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
-
-
-<span class="pythoncomments"># CHANGE THIS to do something different with the result</span>
-<span class="pythonfunc">print</span> (&quot;result: &#39;<span style="background-color: #eeeeee">%s</span>&#39; with <span style="background-color: #eeeeee">%d%%</span> confidence&quot; <span class="pythonop">%</span> (label, confidence))
-</pre></div>
-        </div>
-
-        <div class="modelguidance" style="flex-basis: 100%" ng-if="project.type !== 'images'">
+    <!-- text -->
+    <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1 && project.type === 'text'">
+        <div class="modelguidance">
+            <div class="modelstatusdetail" translate="PYTHON.STORE.TEXT.INTRO"></div>
+            <div class="modelstatusdetail" translate="PYTHON.STORE.INSTRUCTION"></div>
             <div class="modelstatusdetail">
-                If you know how to use it, your API key for this project is:
+                Text you want to add: <input style="padding-left: 1em; padding-right: 1em; width: 80%;" ng-model="testdata.storetext"></input>
             </div>
             <div class="modelstatusdetail">
-                <div class="pythoncodebox"><pre class="pythoncode">{{ scratchkey.id }}</pre></div>
+                Label for the text:
+                <select ng-model="testdata.label" style="padding-left: 1em; padding-right: 1em; width: 80%;" >
+                    <option ng-repeat="label in project.labels" value="{{ label }}">{{label}}</option>
+                </select>
+            </div>
+            <div class="modelstatusdetail"><em translate="PYTHON.UNCOMMENT"></em></div>
+        </div>
+        <div class="modelguidance" style="flex: 2">
+            <div translate="PYTHON.REPLACE_THIS"></div>
+            <div class="pythoncodebox" style="margin-bottom: 10px;"><pre class="pythoncode"><span class="pythoncomments"># CHANGE THIS to the text that you want to add </span>
+<span class="pythoncomments"># to your project training data</span>
+training_text <span class="pythonop">=</span> &quot;<b>Training Example From Python</b>&quot;
+
+<span class="pythoncomments"># CHANGE THIS to the training bucket to add the</span>
+<span class="pythoncomments"># training example to</span>
+training_label <span class="pythonop">=</span> &quot;<b>Label</b>&quot;
+
+<span class="pythoncomments"># remove the comment on the next line to use this </span>
+<span class="pythoncomments"># storeText(API_KEY, training_text, training_label)</span></pre></div>
+            <div translate="PYTHON.WITH_THIS"></div>
+            <div class="pythoncodebox"><pre class="pythoncode"><span class="pythoncomments"># CHANGE THIS to the text that you want to add </span>
+<span class="pythoncomments"># to your project training data</span>
+training_text <span class="pythonop">=</span> &quot;<b>{{ testdata.storetext }}</b>&quot;
+
+<span class="pythoncomments"># CHANGE THIS to the training bucket to add the</span>
+<span class="pythoncomments"># training example to</span>
+training_label <span class="pythonop">=</span> &quot;<b>{{ testdata.label }}</b>&quot;
+
+<span class="pythoncomments"># remove the comment on the next line to use this </span>
+<span class="pythonfunc">storeText</span>(API_KEY, training_text, training_label)</pre></div>
+        </div>
+    </div>
+
+    <!-- numbers -->
+    <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1 && project.type === 'numbers'">
+        <div class="modelguidance">
+            <div class="modelstatusdetail" translate="PYTHON.STORE.NUMBERS.INTRO"></div>
+            <div class="modelstatusdetail" translate="PYTHON.STORE.INSTRUCTION"></div>
+            <div class="modelstatusdetail" translate="PYTHON.STORE.ADD"></div>
+            <div class="modelstatusdetail">
+                <div ng-repeat="field in fields track by $index">
+                    {{ field.name }} :
+                    <input ng-if="field.type === 'number'"
+                        type="number"
+                        ng-model="testdata.storefields[$index]"
+                        ng-init="testdata.storefields[$index] = 0"></input>
+                    <select ng-if="field.type === 'multichoice'"
+                            ng-model="testdata.storefields[$index]"
+                            ng-options="value for value in field.choices"
+                            ng-init="testdata.storefields[$index] = field.choices[0]"
+                            style="height: 24px">
+                    </select>
+                </div>
             </div>
             <div class="modelstatusdetail">
-                <em>Treat it like a password and make sure that you keep it secret!</em>
+                Label for the data:
+                <select ng-model="testdata.label" style="padding-left: 1em; padding-right: 1em; width: 80%;" >
+                    <option ng-repeat="label in project.labels" value="{{ label }}">{{label}}</option>
+                </select>
             </div>
+            <div class="modelstatusdetail"><em translate="PYTHON.UNCOMMENT"></em></div>
+        </div>
+        <div class="modelguidance" style="flex: 2">
+            <div translate="PYTHON.REPLACE_THIS"></div>
+            <div class="pythoncodebox" style="margin-bottom: 10px;"><pre class="pythoncode"><span class="pythoncomments"># CHANGE THIS to the data that you want to add </span>
+<span class="pythoncomments"># to your project training data</span>
+training_data <span class="pythonop">=</span> <b>[ ]</b>
+
+<span class="pythoncomments"># CHANGE THIS to the training bucket to add the</span>
+<span class="pythoncomments"># training example to</span>
+training_label <span class="pythonop">=</span> &quot;<b>Label</b>&quot;
+
+<span class="pythoncomments"># remove the comment on the next line to use this </span>
+<span class="pythoncomments"># storeNumbers(API_KEY, training_data, training_label)</span></pre></div>
+            <div translate="PYTHON.WITH_THIS"></div>
+            <div class="pythoncodebox"><pre class="pythoncode"><span class="pythoncomments"># CHANGE THIS to the data that you want to add </span>
+<span class="pythoncomments"># to your project training data</span>
+<div ng-repeat="field in testdata.storefields track by $index">data{{ $index + 1 }} <span class="pythonop">=</span> <span style="background-color: #fff0f0"><strong><span ng-if="fields[$index].type === 'multichoice'">"</span>{{ field ? field : 0 }}<span ng-if="fields[$index].type === 'multichoice'">"</span></strong></span></div>
+training_data <span class="pythonop">=</span> [ <span ng-repeat="field in testdata.storefields track by $index">data{{ $index + 1 }}<span ng-show="!$last">,</span> </span>]
+
+<span class="pythoncomments"># CHANGE THIS to the training bucket to add the</span>
+<span class="pythoncomments"># training example to</span>
+training_label <span class="pythonop">=</span> &quot;<b>{{ testdata.label }}</b>&quot;
+
+<span class="pythoncomments"># remove the comment on the next line to use this </span>
+<span class="pythonfunc">storeNumbers</span>(API_KEY, training_data, training_label)</pre></div>
         </div>
     </div>
 </div>
-

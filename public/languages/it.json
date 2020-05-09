@@ -716,7 +716,45 @@
         "TITLE": "Utilizzare l'apprendimento automatico in Python",
 
         "NOTREADY": "Il tuo progetto non è ancora pronto per essere usato in Python.",
-        "NOMODEL": "Non hai ancora addestrato un modello di apprendimento automatico."
+        "NOMODEL": "Non hai ancora addestrato un modello di apprendimento automatico.",
+
+        "NOSOUND": "Python cannot be used with sounds projects.",
+
+        "LAUNCH": "Use your machine learning model in Python",
+        "INTRO": "Click on the button to open template Python code to get you started. This page has some suggestions for how you can start modifying the template to work with your project.",
+
+        "APIKEY_INSTRUCTION": "You need to <span class='strongemphasis'>add your API key</span> to the project. Do that on line 6 of the template.",
+        "APIKEY_WARNING": "Treat this code like a password and make sure that you keep it secret!",
+
+        "REPLACE_THIS": "Replace this:",
+        "WITH_THIS": "with this:",
+
+        "UNCOMMENT": "You will need to remove a comment # character in the template to use the function.",
+
+        "RECOGNIZE": {
+            "INSTRUCTION": "Try updating the example on line 28 of the template.",
+            "TEXT": {
+                "INTRO": "If you want to use your machine learning model to <span class='strongemphasis'>recognize text</span>, you can use the <code>classifyText</code> function.",
+                "REPLACE": "Update this with the text you want your machine learning model to recognize:"
+            },
+            "IMAGES": {
+                "INTRO": "If you want to use your machine learning model to <span class='strongemphasis'>recognize images</span>, you can use the <code>classifyImages</code> function.",
+                "REPLACE": "Update this with the web address for a picture you want your machine learning model to recognize:"
+            },
+            "NUMBERS": {
+                "INTRO": "If you want to use your machine learning model to <span class='strongemphasis'>recognize numbers</span>, you can use the <code>classifyNumbers</code> function."
+            }
+        },
+        "STORE": {
+            "ADD": "Data you want to add:",
+            "INSTRUCTION": "Try updating the example on line 45 of the template.",
+            "TEXT": {
+                "INTRO": "If you want to <span class='strongemphasis'>add training examples</span> to your machine learning project, you can use the <code>storeText</code> function."
+            },
+            "NUMBERS": {
+                "INTRO": "If you want to <span class='strongemphasis'>add training examples</span> to your machine learning project, you can use the <code>storeNumbers</code> function."
+            }
+        }
     },
     "APPINVENTOR": {
         "TITLE": "Utilizzo dell'apprendimento automatico in App Inventor",
