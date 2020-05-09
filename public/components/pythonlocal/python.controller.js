@@ -2,18 +2,24 @@
 
         angular
             .module('app')
-            .controller('PythonController', PythonController);
+            .controller('PythonLocalController', PythonLocalController);
 
-        PythonController.$inject = [
+        PythonLocalController.$inject = [
             'authService', 'projectsService', 'scratchkeysService',
             '$stateParams', '$scope'
         ];
 
-        function PythonController(authService, projectsService, scratchkeysService, $stateParams, $scope) {
+        function PythonLocalController(authService, projectsService, scratchkeysService, $stateParams, $scope) {
 
             var vm = this;
             vm.authService = authService;
 
+            $scope.projectId = $stateParams.projectId;
+            $scope.userId = $stateParams.userId;
+
+            $scope.functionType = 'classify';
+
+            $scope.testsource = 'local';
             $scope.testdata = {
                 text      : 'The text that you want to test',
                 storetext : 'The text that you want to store',
@@ -23,9 +29,12 @@
                 label     : 'label'
             };
 
-
-            $scope.projectId = $stateParams.projectId;
-            $scope.userId = $stateParams.userId;
+            $scope.setSource = function (source) {
+                $scope.testsource = source;
+            };
+            $scope.setFunctionType = function (type) {
+                $scope.functionType = type;
+            };
 
             authService.getProfileDeferred()
                 .then(function (profile) {
@@ -54,6 +63,10 @@
                 .then(function (resp) {
                     if (resp) {
                         $scope.scratchkey = resp[0];
+
+                        if (!$scope.scratchkey.model && $scope.project.type === 'text') {
+                            $scope.functionType = 'store';
+                        }
                     }
                 })
                 .catch(function (err) {
@@ -62,6 +75,5 @@
                         status : err.status
                     };
                 });
-
         }
     }());
