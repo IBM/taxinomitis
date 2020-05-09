@@ -41,9 +41,13 @@
     </div>
 
     <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1 && project.type !== 'sounds'">
+        <div class="modelguidance" style="flex: 2">
+            <div class="modelstatusdetail" translate="PYTHON.MODE.INTRO"></div>
+            <div class="modelstatusdetail" translate="PYTHON.MODE.BROWSER"></div>
+            <div class="modelstatusdetail" translate="PYTHON.MODE.LOCAL"></div>
+        </div>
         <div class="modelguidance">
-            <div class="modelstatusdetail" translate="PYTHON.INTRO"></div>
-            <div class="modelstatusdetail" ng-if="scratchkey && project">
+            <div class="modelstatusdetail">
                 <a ng-if="project.type === 'text'"
                     target="_blank" class="btn btn-primary"
                     href="https://repl.it/@mlforkids/TextMLTemplate"
@@ -56,6 +60,11 @@
                     target="_blank" class="btn btn-primary"
                     href="https://repl.it/@mlforkids/NumbersMLTemplate"
                     translate="PYTHON.LAUNCH"></a>
+            </div>
+            <div class="modelstatusdetail">
+                <button type="button" class="btn btn-default"
+                    ui-sref="mlproject_python_local({ projectId : projectId, userId : userId })"
+                    translate="PYTHON.LOCAL"></button>
             </div>
         </div>
     </div>

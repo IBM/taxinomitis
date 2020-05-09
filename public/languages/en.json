@@ -720,8 +720,14 @@
 
         "NOSOUND": "Python cannot be used with sounds projects.",
 
-        "LAUNCH": "Use your machine learning model in Python",
-        "INTRO": "Click on the button to open template Python code to get you started. This page has some suggestions for how you can start modifying the template to work with your project.",
+        "LAUNCH": "Run Python in the browser",
+        "LOCAL": "Copy code to run on your computer",
+
+        "MODE": {
+            "INTRO": "Where would you like to write and run your Python code?",
+            "BROWSER": "You can do everything in the web browser, which means you don't need to worry about installing or setting up Python, or any of the third-party Python modules you will need.",
+            "LOCAL": "Or you can copy the code to run on your own computer. This is useful if there are local files, or devices like a webcam or speaker, that you want to use in your Python program."
+        },
 
         "APIKEY_INSTRUCTION": "You need to <span class='strongemphasis'>add your API key</span> to the project. Do that on line 6 of the template.",
         "APIKEY_WARNING": "Treat this code like a password and make sure that you keep it secret!",
