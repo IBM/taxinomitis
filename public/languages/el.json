@@ -1565,7 +1565,8 @@
 
             "CREATE_ACCOUNT": "Δημιουργία λογαριασμού",
             "TRAINMODELS": "Εκπαιδεύεις μοντέλα μηχανικής μάθησης να αναγνωρίζουν...",
-            "USE_SCRATCH": "Χρησιμοποιείς τα μοντέλα μηχανικής μάθησης από το Scratch",
+            "PRETRAINED_MODELS": "Use pre-trained machine learning models",
+            "USE": "Χρησιμοποιείς τα μοντέλα μηχανικής μάθησης από το",
             "CREATE_PROJECTS": "Δημιουργείς έργα",
             "ONE_PROJECT": "1 έργο",
             "MULTIPLE_PROJECTS": "Πολλά έργα",

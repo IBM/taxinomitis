@@ -1565,7 +1565,8 @@
 
             "CREATE_ACCOUNT": "Criar uma conta",
             "TRAINMODELS": "Treine modelos de Aprendizado de Máquina para reconhecer… ",
-            "USE_SCRATCH": "Use modelos de aprendizado de máquina no Scratch",
+            "PRETRAINED_MODELS": "Use pre-trained machine learning models",
+            "USE": "Use modelos de aprendizado de máquina no",
             "CREATE_PROJECTS": "Criar projetos",
             "ONE_PROJECT": " 1 projeto ",
             "MULTIPLE_PROJECTS": " Múltiplos projetos ",

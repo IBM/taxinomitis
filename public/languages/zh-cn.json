@@ -1565,7 +1565,8 @@
 
             "CREATE_ACCOUNT": "创建一个帐户",
             "TRAINMODELS": "训练机器学习模型以识别...... ",
-            "USE_SCRATCH": "使用Scratch的机器学习模型",
+            "PRETRAINED_MODELS": "Use pre-trained machine learning models",
+            "USE": "Use machine learning models from...",
             "CREATE_PROJECTS": "创建项目",
             "ONE_PROJECT": " 1个项目",
             "MULTIPLE_PROJECTS": "多个项目",

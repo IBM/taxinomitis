@@ -1565,7 +1565,8 @@
 
             "CREATE_ACCOUNT": "建立帳戶",
             "TRAINMODELS": "訓練機器學習模型來辨識...",
-            "USE_SCRATCH": "在Scratch中使用機器學習模型",
+            "PRETRAINED_MODELS": "Use pre-trained machine learning models",
+            "USE": "Use machine learning models from...",
             "CREATE_PROJECTS": "建立專案",
             "ONE_PROJECT": "1個專案",
             "MULTIPLE_PROJECTS": "多個專案",

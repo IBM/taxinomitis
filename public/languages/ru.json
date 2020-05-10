@@ -1565,7 +1565,8 @@
 
             "CREATE_ACCOUNT": "Создать учетную запись",
             "TRAINMODELS": "Обучить модели машинного обучения распознаванию ...",
-            "USE_SCRATCH": "Использовать модель машинного обучения со Scratch",
+            "PRETRAINED_MODELS": "Use pre-trained machine learning models",
+            "USE": "Использовать модель машинного обучения со",
             "CREATE_PROJECTS": "Создать проекты",
             "ONE_PROJECT": "1 проект",
             "MULTIPLE_PROJECTS": "Несколько проектов",

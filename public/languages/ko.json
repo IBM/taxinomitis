@@ -1565,7 +1565,8 @@
 
             "CREATE_ACCOUNT": "계정 만들기",
             "TRAINMODELS": "인식을 위한 머신러닝 모델 훈련시키기",
-            "USE_SCRATCH": "스크래치에서 머신러닝 모델 사용하기",
+            "PRETRAINED_MODELS": "Use pre-trained machine learning models",
+            "USE": "Use machine learning models from...",
             "CREATE_PROJECTS": "프로젝트 만들기",
             "ONE_PROJECT": " 프로젝트 하나 ",
             "MULTIPLE_PROJECTS": " 여러 프로젝트 ",

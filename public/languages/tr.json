@@ -1565,7 +1565,8 @@
 
             "CREATE_ACCOUNT": "Hesap oluştur",
             "TRAINMODELS": "Makine öğrenimi modellerine şunları tanımayı öğret...",
-            "USE_SCRATCH": "Scratch'teki makine öğrenimi modellerini kullan",
+            "PRETRAINED_MODELS": "Use pre-trained machine learning models",
+            "USE": "Use machine learning models from...",
             "CREATE_PROJECTS": "Proje oluştur",
             "ONE_PROJECT": " 1 proje ",
             "MULTIPLE_PROJECTS": " Birden çok proje ",

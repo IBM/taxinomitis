@@ -1565,7 +1565,8 @@
 
             "CREATE_ACCOUNT": "アカウントの作成",
             "TRAINMODELS": "機械学習モデルを以下を認識するためにトレーニング",
-            "USE_SCRATCH": "Scratchから機械学習モデルを利用",
+            "PRETRAINED_MODELS": "Use pre-trained machine learning models",
+            "USE": "Use machine learning models from...",
             "CREATE_PROJECTS": "プロジェクト作成",
             "ONE_PROJECT": " 一つのプロジェクト",
             "MULTIPLE_PROJECTS": " 複数プロジェクト ",
