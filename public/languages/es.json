@@ -809,13 +809,13 @@
 
         "INTRO_1": "Estos proyectos son tutoriales descargables, con instrucciones paso a paso, explicaciones, y capturas de pantalla en color para que los puedan seguir los estudiantes..",
         "INTRO_2": "Cada Proyecto es una actividad independiente, diseñado como lección única, y  enseña a los niños cóm crear un juego o un Proyecto interactivo como ejemplo de un uso real de la inteligencia artificial y el aprendizaje automático. .",
-        "INTRO_3": "Se aceptan sugerencias de nuevas fichas, de mejora de las actuales, o welcomed nuevos proyectos.",
+        "INTRO_3": "Se aceptan sugerencias de nuevas fichas, mejora de las actuales o nuevos proyectos.",
 
         "TYPES": {
-            "TITLE": "Reconociento:",
+            "TITLE": "Reconocimiento:",
             "ALL": "Todos los proyectos",
 
-            "PREFIX": "Entrena una computadora para reconocer ",
+            "PREFIX": "Entrena a una computadora para reconocer ",
 
             "TEXT": "texto",
             "IMAGES": "imágenes",
@@ -874,7 +874,7 @@
 
 
         "SMARTCLASSROOM": {
-            "TITLE": "Smart Classroom",
+            "TITLE": "Aula Inteligente",
             "SUMMARY": "Enseña a una computadora a reconocer el significado de tus commandos ",
             "DESCRIPTION": "Crea un asistente inteligente en Scratch que te permita controlar dispositivos virtuales.",
             "WORKSHEET_1": {
@@ -1062,8 +1062,8 @@
             }
         },
         "FOOLED": {
-            "TITLE": "Fooled",
-            "SUMMARY": "Enseña a una computadora a identificar una frutafruit",
+            "TITLE": "Engañada",
+            "SUMMARY": "Enseña a una computadora a identificar una fruta",
             "DESCRIPTION": "Aprende cómo se puede confundir una computadora si no está bien entrenada.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-fooled.pdf"
@@ -1086,7 +1086,7 @@
             }
         },
         "NOUGHTSANDCROSSES": {
-            "TITLE": "Cara y criz",
+            "TITLE": "Cara o cruz",
             "SUMMARY": "Enseña a una computadora a jugar a un juego ",
             "DESCRIPTION": "Crea un juego cara o cruz en  Scratch que aprenda cómo ganarte.",
             "WORKSHEET_1": {
@@ -1103,7 +1103,7 @@
             }
         },
         "TOPTRUMPS": {
-            "TITLE": "Top Trumps",
+            "TITLE": "Juego Top Trumps",
             "SUMMARY": "Enseña a una computadora a jugar a un juego ",
             "DESCRIPTION": "Enseña a una computadora a jugar a Top Trumps en Scratch.",
             "WORKSHEET_1": {
@@ -1127,9 +1127,9 @@
             }
         },
         "HEADLINETESTING": {
-            "TITLE": "Prueba de Titulares",
+            "TITLE": "Prueba de",
             "SUMMARY": "Probar la capacidad de la computadora para reconocer el uso del lenguaje",
-            "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is",
+            "DESCRIPTION": "Cree una herramienta de prueba en Scratch para medir la calidad de un modelo de aprendizaje automático",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
             }
@@ -1143,7 +1143,7 @@
             }
         },
         "ALIENLANGUAGE": {
-            "TITLE": "Idiona Alienigena",
+            "TITLE": "Idioma Alienígena",
             "SUMMARY": "Enseñar a una computadora a reconocer sonidos",
             "DESCRIPTION": "Haz un extraterrestre en Scratch que aprenda a reconocer un idioma extraño",
             "WORKSHEET_1": {
@@ -1175,7 +1175,7 @@
             }
         },
         "ZOMBIEESCAPE": {
-            "TITLE": "Zombie Escape!",
+            "TITLE": "¡Zombie Escape!",
             "SUMMARY": "Enseñar a una computadora a hacer predicciones",
             "DESCRIPTION": "Entrena una computadora para ayudarte a escapar de los zombies",
             "WORKSHEET_1": {
@@ -1274,7 +1274,7 @@
             "ADDNEWCREDENTIALS": "Añadir nuevas credenciales",
             "ADDAPIKEY": "Añadir nueva  API key",
             "REMOVE": "Eliminar",
-            "VERIFY": "Verify",
+            "VERIFY": "Verificar",
 
             "LITE_30_DAYS_EXPIRE": "IBM Cloud may deactivate 'Lite' plan Watson API keys if they're not used for 30 days",
 
@@ -1318,7 +1318,7 @@
 
                 "PRICING_PLAN": "¿Qué plan de precios has usado?",
                 "ENTER_APIKEY": "Por favor, introduce la API key abajo",
-                "ENTER_PASSWORD": "Por favor, introduce el nombre de usuarios y la clava abajo",
+                "ENTER_PASSWORD": "Por favor, introduce el nombre de usuarios y la clave abajo",
 
                 "CREDENTIALS_TYPE": "¿Qué has creado en Watson Assistant?"
             }
@@ -1384,19 +1384,19 @@
             "NOT_AUTHORIZED": "No tiene permisos para acceder a la lista de proyectos de los alumnos de la clase.",
 
             "ADD_MULTIPLE": {
-                "BUTTON": "Multiple students",
+                "BUTTON": "Multiple estudiantes",
 
-                "TITLE": "Add new students",
-                "INTRO": "You can use this to create more than one student account at the same time.",
-                "USERNAME": "What do you want each username to start with?",
-                "USERNAME_REQUIRED": "Please choose the prefix for the usernames",
-                "USERNAME_TOOLONG": "That is too long",
-                "USERNAME_INVALID": "Invalid characters",
-                "NUMBER": "How many student accounts do you want?",
-                "NUMBER_REQUIRED": "Please enter the number of students to create",
-                "NUMBER_TOOMANY": "Your class has a limit of {{userslimit}} students.",
-                "PASSWORD": "The password to give them:",
-                "PASSWORD_TOOSHORT": "Too short"
+                "TITLE": "Añade nuevo estudiante",
+                "INTRO": "Puede usar esto para crear más de una cuenta de estudiante al mismo tiempo.",
+                "USERNAME": "¿Con qué quieres que comience cada nombre de usuario?",
+                "USERNAME_REQUIRED": "Por favor, elige prefijo para los nombres de usuario",
+                "USERNAME_TOOLONG": "Es demasiado largo,
+                "USERNAME_INVALID": "Caracteres inválidos",
+                "NUMBER": "¿Cuántas cuentas de estudiantes quieres?",
+                "NUMBER_REQUIRED": "Por favor, introduce el número de estudiantes a crear",
+                "NUMBER_TOOMANY": "Tu clase tiene un límite de {{userslimit}} estudiantes.",
+                "PASSWORD": "La contraseña a darles:",
+                "PASSWORD_TOOSHORT": "Demasiada corta"
             }
         }
     },
@@ -1444,16 +1444,16 @@
         "GETTINGSTARTED": {
             "TITLE": "¿Primera vez?",
             "INTRO": "Descarga un PDF con una breve guía de inicio. :",
-            "MANAGED": "Cuentas de clase gestionadas ",
+            "MANAGED": "Cuentas gestionadas ",
             "MANAGEDEXPL": "Para profesores, líderes de grupos de programación o voluntarios",
-            "UNMANAGED": "Cuentas de clase no gestionada ",
-            "UNMANAGEDEXPL": "Para empleados de IBM, porfesores o líderes de clubs de programación que gestionan sus propias cuentas de clase"
+            "UNMANAGED": "Cuentas no gestionadas ",
+            "UNMANAGEDEXPL": "Para empleados de IBM, profesores o líderes de clubs de programación que gestionan sus propias cuentas de clase"
         },
         "FAQS": {
             "TITLE": "¿Quieres saber más?",
             "INTRO1": "¿Algo no funciona? ",
-            "INTRO2": "En la lista de abajo puedes encontrar la preguntas y problemas que surgen más a amenduo. Si alguna de ellas se parece a tu problema, haz click sobre el resumen para obtener más información. ",
-            "INTRO3": "Si sigues atascado, o te ha surgido un problema que no está en la lista, por favor, <a href='https://groups.google.com/d/forum/mlforkids'> envía un correo a </a> or <a href='https://github.com/IBM/taxinomitis/issues'>y reporta el error</a> para que pueda ayudarte."
+            "INTRO2": "En la siguiente lista puedes encontrar las preguntas y problemas más frecuentes. Si ninguna resuelve tu problema, haz click sobre el resumen para obtener más información. ",
+            "INTRO3": "Si sigues atascado o tu problema no está en la lista, por favor, <a href='https://groups.google.com/d/forum/mlforkids'> envía un correo a </a> or <a href='https://github.com/IBM/taxinomitis/issues'>y reporta el error</a> para que pueda ayudarte."
         },
 
         "SCRATCH": {
@@ -1461,13 +1461,13 @@
 
             "Q1": "No se cómo empezar a trabajar con  Scratch",
             "Q1-A-1": "Machine Learning for Kids usa Scratch 2. Scratch necesita Adobe Flash para funcionar, por tanto, necesitas un Sistema operativo y un navegador web que permita trabjar con Flasht (por tanto, y ¡lo sentimos!, no funciona en iPads).",
-            "Q1-A-2": "Si no sabes cómo habitlitar Flash, puedes descargar <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>un document con instrucciones para hacerlo en</a>.",
+            "Q1-A-2": "Si no sabes cómo habilitar Flash, puedes descargar <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>un document con instrucciones para hacerlo en</a>.",
 
             "Q2": "Los menús de Scratch\"Cargar proyecto\" y  \"Guardar proyecto\" no funcionan",
             "Q2-A-1": "Si estás usando Safari en  macOS y no funcionan los menús\"File -&gt; Cargar Proyecto \" y\"File -&gt; Guardar proyecto\" puede que lo estés ejecutanto en modo seguro..",
             "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>Aquí tienes las instruccionesFollow the instructions here</a> para comprobar y arreglar este problema.",
 
-            "Q3": "Los bloques de clasificación de aprendizaje automático no funcionen n Scratch ",
+            "Q3": "Los bloques de clasificación de aprendizaje automático no funcionen en Scratch ",
             "Q3-A-1": "En ocasiones, los bloques de Scratch para un modelo de aprendizaje automático pueden perder la conexión con el servidor. Cuando ocurre ésto, dejarán de ofrecer resultados. .",
             "Q3-A-2": "Puedes comprobar si ésto está ocurriendo con la luz de estatus de la paleta \"Más bloques\".",
             "Q3-A-3": "Si la luz de estatus está en rojo, significa que algo está mal. Puede tratarse de un problema temporal. Prueba a guardar tu proyecto t (Usando 'Archivo' -&gt; 'Guardar proyecto'),y después refresca la página del navegador. Si la luz de estatus está en verde cuando se vuelva a cagar la página, puedes volver a cargar tu (usando 'Archivo' -&gt; 'Cargar proyecto') para continuar donde lo habías dejado. .",
@@ -1492,7 +1492,7 @@
         },
 
         "MODELS": {
-            "TITLE": "Errores de entrenamiento de modelos de aprendizaje automático",
+            "TITLE": "Errores de entrenamiento en modelos de aprendizaje automático",
 
             "Q1": "\"No se han establecido credenciales Watson \"",
             "Q1-A-1": "Los modelos de aprendizaje automático en esta herramienta usan APIs de  IBM Watson.",
@@ -1503,7 +1503,7 @@
             "Q2-A-2": "Si tienes una cuenta de clase \"no gestionada\" tu profesor habrá obteinido de IBM Cloud las credenciales de Watson API necesarias,   ( como se indica en el documento \"Primeros pasos\" que está en la parte superior de la página).",
             "Q2-A-3": "Sin embargo, las credenciales aportadas no funciona. Lo más probable es que hayan sido borradas de IBM Cloud  En este caso, el profesor deb evolver al panel de IBM Cloud para comprobar el estatus de Watson Assistant del servicio de reconocimento de imágenes que han creado. ",
 
-            "Q3": "\"Las API keys de Watson Assistant no tienen más espacioes de trabajo disponibles. \"",
+            "Q3": "\"Las API keys de Watson Assistant no tienen más espacio de trabajo disponible. \"",
             "Q3-A-1": "Los modelos de aprendizaje automático en esta herramienta usan APIs de IBM Watson.",
             "Q3-A-2": "Las credenciales de Watson Assistant creada por el profesor tienen limitado el número de modelos de aprendizaje automático que se pueden crear con ellas. Esto se muestra en la interfaz de IBM Cloud donde se crearon\"workspaces\".",
             "Q3-A-3": "Si se excede este límite, no se podran entrenar nuevos modelos y se mostrará este mensaje:",
@@ -1606,7 +1606,7 @@
             "Q4-A-8": "Los errors del navegador se recogen mediante un servicio de tercerosa <a href='https://sentry.io/'>Sentry</a>. Si algo falla, recogerá la información del error, incluyendo nombre de usurio, dirección IP, tipo de navegador y una descripción técnica de lo que ha fallado.",
             "Q4-A-9": "Uso <a href='https://www.google.com/analytics/'>Google Analytics</a> para saber cuántos usuarios visitan visit Machine Learning for Kids cada día. Aunque también recoge información geográfica o tipo de navegador, esto solo puedo verlo de forma agregada y anonimizada.",
 
-            "Q5": "What happens to training data created by students?",
+            "Q5": "¿Qué sucede con los datos de capacitación creados por los estudiantes?",
             "Q5-A-1": "A step in all machine learning projects that students make using this site is to create or collect training examples. For text projects, this can mean typing in short text passages. For image projects, this can means drawing pictures onto an on-screen canvas or taking photos using the webcam. For numbers projects, this means typing in sets of numbers",
             "Q5-A-2": "All of these training examples are stored in a <a href='https://www.ibm.com/cloud/compose/mysql'>MySQL database hosted on IBM Cloud</a>, in Dallas in the United States. As the database administrator, I have access to all of these training examples for all student projects, however I do not use it for any other purposes other than enabling students to access and work on their own projects. I do not publish the training data (either publicly or to individuals or third parties) or otherwise share it, with the two exceptions of submitting it to IBM Watson APIs described below.",
             "Q5-A-3": "Machine learning models for text projects are created using the <a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a> cloud service, which means when students train a model, a copy of the training examples that they have entered will be <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>submitted to IBM Watson</a>. (The location of this cloud service is something that teachers choose when <a href='https://machinelearningforkids.co.uk/apikeys-guide'>creating API keys</a>.) IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
@@ -1615,22 +1615,22 @@
         }
     },
     "APIKEYSGUIDE": {
-        "TITLE": "Guide to IBM Cloud",
+        "TITLE": "Guia de IBM Cloud",
         "INTRO": {
             "INTRO_1": "Teachers / parents / code club-leaders with unmanaged class accounts need to provide '<strong>API Keys</strong>' from IBM Cloud. These are secret codes that provide access to the artificial intelligence technology that will power student projects.",
             "INTRO_2": "Text projects need a 'Watson Assistant' API Key. Image projects need a 'Visual Recognition' API Key. (Numbers and Sound projects don't require API Keys).",
             "INTRO_3": "You will need to create an account on IBM Cloud to be able to create these codes. It is free to create an account, and there are no charges for 'Lite' API Keys. "
         },
-        "LINK": "How to create API Keys",
+        "LINK": "Cómo crear API Keys",
         "EXPLANATION": "Download a step-by-step guide for how to create API Keys on IBM Cloud"
     },
     "PRETRAINED": {
-        "TITLE": "Pre-trained models",
+        "TITLE": "Modelos Pre-entrenados",
         "INTRO": {
             "INTRO_1": "<strong>Machine Learning for Kids</strong> provides pre-trained models you can use in your projects. Real-world machine learning projects often use models already trained by other people. There are lots of well-trained models that are freely available, and these are useful when you don't have time to collect the amount of training data needed to train your own."
         },
         "HOWTO": {
-            "TITLE": "How to use",
+            "TITLE": "Cómo usar",
             "INTRO": "Click on the button to go to Scratch.",
             "HOW_1": "Go to the version of <a href='https://machinelearningforkids.co.uk/scratch3'>Scratch 3</a> available from Machine Learning for Kids.",
             "HOW_2": "Pre-trained models are available from the Extensions panel. Click on the blue extensions button in the bottom-left of the Scratch window to find them, then click on the one you want to add to your project.",
@@ -1643,14 +1643,14 @@
             "SPEECH_3": "It uses the speech recognition capability that comes with Google Chrome, so the ML model that you'll be using comes from Google. (It also means that you can only use this model if you're using the Google Chrome web browser, sorry!)"
         },
         "FACEAPI": {
-            "TITLE": "Face detection",
+            "TITLE": "Reconocimiento facial",
             "FACE_1": "This model can be used to recognize your face in the video feed from your webcam.",
             "FACE_2": "It gives you blocks that will find the x,y coordinates of your eyes, nose and mouth.",
             "FACE_3": "The technique this uses is called an SSD (which stands for Single Shot Multibox Detector) and is based on MobileNet (a ML model designed for mobile devices, so it doesn't need much computing power).",
             "FACE_4": "The training data used for this model came from a set known as <a href='http://shuoyang1213.me/WIDERFACE/' target='_blank'>WIDER FACE</a>."
         },
         "IDEAS": {
-            "TITLE": "What else?",
+            "TITLE": "¿Qué más",
             "IDEAS_1": "Are there other machine learning models you would like to be able to use in your Scratch projects?",
             "IDEAS_2": "Let me know by asking in the <a href='https://groups.google.com/d/forum/mlforkids'>ML for Kids forum</a>."
         }
