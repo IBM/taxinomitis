@@ -1390,7 +1390,7 @@
                 "INTRO": "Puede usar esto para crear más de una cuenta de estudiante al mismo tiempo.",
                 "USERNAME": "¿Con qué quieres que comience cada nombre de usuario?",
                 "USERNAME_REQUIRED": "Por favor, elige prefijo para los nombres de usuario",
-                "USERNAME_TOOLONG": "Es demasiado largo,
+                "USERNAME_TOOLONG": "Es demasiado largo",
                 "USERNAME_INVALID": "Caracteres inválidos",
                 "NUMBER": "¿Cuántas cuentas de estudiantes quieres?",
                 "NUMBER_REQUIRED": "Por favor, introduce el número de estudiantes a crear",
