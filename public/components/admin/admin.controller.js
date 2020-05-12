@@ -5,14 +5,10 @@
        .controller('AdminController', AdminController);
 
     AdminController.$inject = [
-        'authService', 'sitealertsService', '$scope'
+        'authService', 'sitealertsService', '$scope', '$log'
     ];
 
-    function AdminController(authService, sitealertsService, $scope) {
-
-        function logError(err) {
-            console.log(err);
-        }
+    function AdminController(authService, sitealertsService, $scope, $log) {
 
         var vm = this;
         vm.authService = authService;
@@ -24,7 +20,7 @@
                 $scope.expiry = 1;
                 $scope.url = 'https://cloud.ibm.com/status?query=EVENTID&selected=status';
             })
-            .catch(logError);
+            .catch($log.error);
 
         vm.confirm = function (newAlert) {
             newAlert.expiry = parseFloat(newAlert.expiry) * 3600000;
@@ -32,11 +28,11 @@
                 .then(function () {
                     alert('done');
                 })
-                .catch(logError);
+                .catch($log.error);
         };
 
         vm.refresh = function () {
-            sitealertsService.refreshServer().catch(logError);
+            sitealertsService.refreshServer().catch($log.error);
         };
     }
 }());
