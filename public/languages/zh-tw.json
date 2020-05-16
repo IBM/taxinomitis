@@ -183,8 +183,8 @@
     },
     "PROJECTS": {
         "TITLE": "你的機器學習專案",
-        "ADDNEWPROJECT": "新增一個專案",
-        "COPYTEMPLATE": "複製範本",
+        "ADDNEWPROJECT": "新增專案",
+        "COPYTEMPLATE": "使用範本",
         "CREATEFIRSTPROJECT": "點擊右方「＋」按鈕，建立你的第一個專案",
         "RECOGNISING": "辨識",
         "AS": "當作",
@@ -718,47 +718,47 @@
         "NOTREADY": "你的專案尚未準備好在Python使用",
         "NOMODEL": "你還沒有訓練機器學習模型",
 
-        "NOSOUND": "Python cannot be used with sounds projects.",
+        "NOSOUND": "Python無法在辨識聲音的專案中使用",
 
-        "LAUNCH": "Run Python in the browser",
-        "LOCAL": "Copy code to run on your computer",
+        "LAUNCH": "在瀏覽器中執行Python",
+        "LOCAL": "複製程式碼到你的電腦上執行",
 
         "MODE": {
-            "INTRO": "Where would you like to write and run your Python code?",
-            "BROWSER": "You can do everything in the web browser, which means you don't need to worry about installing or setting up Python, or any of the third-party Python modules you will need.",
-            "LOCAL": "Or you can copy the code to run on your own computer. This is useful if there are local files, or devices like a webcam or speaker, that you want to use in your Python program."
+            "INTRO": "你想要在哪裡編寫和執行Python程式碼？",
+            "BROWSER": "你可以在瀏覽器中進行所有操作！這代表你不需要擔心安裝或設定Python，包含任何第三方的Python模組。",
+            "LOCAL": "或是你可以複製程式碼到你的電腦上執行。 如果你要在Python程式中使用電腦裡的文件或設備，例如網絡攝影機或音響時，這會非常有幫助。"
         },
 
-        "APIKEY_INSTRUCTION": "You need to <span class='strongemphasis'>add your API key</span> to the project. Do that on line 6 of the template.",
-        "APIKEY_WARNING": "Treat this code like a password and make sure that you keep it secret!",
+        "APIKEY_INSTRUCTION": "你需要<span class='strongemphasis'>加入你的API密碼</span>到專案中。請加入在範例中的第6行。",
+        "APIKEY_WARNING": "將這些程式碼當成密碼來保護，不要隨意告訴其他人哦！",
 
-        "REPLACE_THIS": "Replace this:",
-        "WITH_THIS": "with this:",
+        "REPLACE_THIS": "將這行程式：",
+        "WITH_THIS": "替換成這行程式：",
 
-        "UNCOMMENT": "You will need to remove a comment # character in the template to use the function.",
+        "UNCOMMENT": "你需要將範例中的一個符號#刪除，才能使用這項函式。",
 
         "RECOGNIZE": {
-            "INSTRUCTION": "Try updating the example on line 28 of the template.",
+            "INSTRUCTION": "試著更新範例中的第28行程式",
             "TEXT": {
-                "INTRO": "If you want to use your machine learning model to <span class='strongemphasis'>recognize text</span>, you can use the <code>classifyText</code> function.",
-                "REPLACE": "Update this with the text you want your machine learning model to recognize:"
+                "INTRO": "如果你想要使用你的機器學習模型來<span class='strongemphasis'>辨識文字</span>，你可以使用<code>classifyText</code>函式。",
+                "REPLACE": "將這行程式的文字換成你希望機器學習模型辨識的文字："
             },
             "IMAGES": {
-                "INTRO": "If you want to use your machine learning model to <span class='strongemphasis'>recognize images</span>, you can use the <code>classifyImages</code> function.",
-                "REPLACE": "Update this with the web address for a picture you want your machine learning model to recognize:"
+                "INTRO": "如果你想要使用你的機器學習模型來<span class='strongemphasis'>辨識圖片</span>，你可以使用<code>classifyImages</code>函式。",
+                "REPLACE": "將這行程式的圖片網址換成你希望機器學習模型辨識的圖片網址："
             },
             "NUMBERS": {
-                "INTRO": "If you want to use your machine learning model to <span class='strongemphasis'>recognize numbers</span>, you can use the <code>classifyNumbers</code> function."
+                "INTRO": "如果你想要使用你的機器學習模型來<span class='strongemphasis'>辨識數字</span>，你可以使用<code>classifyNumbers</code>函式。"
             }
         },
         "STORE": {
-            "ADD": "Data you want to add:",
-            "INSTRUCTION": "Try updating the example on line 45 of the template.",
+            "ADD": "你想要新增的資料：",
+            "INSTRUCTION": "試著更新範例中的第45行程式",
             "TEXT": {
-                "INTRO": "If you want to <span class='strongemphasis'>add training examples</span> to your machine learning project, you can use the <code>storeText</code> function."
+                "INTRO": "如果你想要<span class='strongemphasis'>新增訓練的資料</span>到你的機器學習專案中，你可以使用<code>storeText</code>函式"
             },
             "NUMBERS": {
-                "INTRO": "If you want to <span class='strongemphasis'>add training examples</span> to your machine learning project, you can use the <code>storeNumbers</code> function."
+                "INTRO": "如果你想要<span class='strongemphasis'>新增訓練的資料</span>到你的機器學習專案中，你可以使用<code>storeNumbers</code>函式"
             }
         }
     },
@@ -938,7 +938,7 @@
             }
         },
         "CARORCUP": {
-            "TITLE": "車子or杯子 ",
+            "TITLE": "車子或杯子 ",
             "SUMMARY": "教電腦辨識圖片的物件",
             "DESCRIPTION": "訓練電腦讓它可以將圖片進行分類",
             "WORKSHEET_1": {
@@ -1223,7 +1223,7 @@
             }
         },
         "LASEREYES": {
-            "TITLE": "眼睛射出雷射光",
+            "TITLE": "發射雷射光",
             "SUMMARY": "教電腦辨識語音與人臉",
             "DESCRIPTION": "在Scratch中製作聲控的雷射光束遊戲",
             "WORKSHEET_1": {
@@ -1370,7 +1370,7 @@
             "TITLE": "教師管理：學生管理",
 
             "CREATE_FIRST_STUDENT": "點擊右方「＋」按鈕，建立你的第一個學生",
-            "ADD": "新增新的學生",
+            "ADD": "新增學生",
             "NEW_USERNAME": "選擇一個唯一的使用者名稱",
             "ALPHANUMERIC": "只能使用數字跟文字",
 
@@ -1386,7 +1386,7 @@
             "ADD_MULTIPLE": {
                 "BUTTON" : "多名學生",
 
-                "TITLE" : "新增新的多名學生",
+                "TITLE" : "新增多名學生",
                 "INTRO" : "你可以使用它來一次建立多個學生帳戶",
                 "USERNAME" : "你希望每個使用者名稱以什麼開頭？",
                 "USERNAME_REQUIRED" : "請選擇用戶名稱的字首",
@@ -1417,16 +1417,16 @@
             "mlforkids.numbers.trainNewModel": "訓練新的機器學習模型"
         },
         "SOUND_PROJECTS": {
-            "mlforkids.sounds.startListening": "start listening",
-            "mlforkids.sounds.stopListening": "stop listening"
+            "mlforkids.sounds.startListening": "開始錄音",
+            "mlforkids.sounds.stopListening": "停止錄音"
         },
         "TWITTER": {
             "mlforkids.twitter.getrecenttweet": "取得有關[TOPIC]的[INDEX]最新推文"
         },
         "FACE": {
-            "mlforkids.face.size": "size of [LANDMARK]",
-            "mlforkids.face.xlocation": "x coord of [LANDMARK]",
-            "mlforkids.face.ylocation": "y coord of [LANDMARK]"
+            "mlforkids.face.size": "[LANDMARK] 的尺寸",
+            "mlforkids.face.xlocation": "[LANDMARK] 的x座標",
+            "mlforkids.face.ylocation": "[LANDMARK] 的y座標"
         },
         "IMAGE_BLOCKS": {
             "mlforkids.imageblocks.getCostumeImage": "角色的畫面",
@@ -1565,8 +1565,8 @@
 
             "CREATE_ACCOUNT": "建立帳戶",
             "TRAINMODELS": "訓練機器學習模型來辨識...",
-            "PRETRAINED_MODELS": "Use pre-trained machine learning models",
-            "USE": "Use machine learning models from...",
+            "PRETRAINED_MODELS": "使用預先訓練好的機器學習模型",
+            "USE": "使用機器學習模型來自...",
             "CREATE_PROJECTS": "建立專案",
             "ONE_PROJECT": "1個專案",
             "MULTIPLE_PROJECTS": "多個專案",
