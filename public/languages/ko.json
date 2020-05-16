@@ -1426,7 +1426,7 @@
         "FACE": {
             "mlforkids.face.size": "[LANDMARK]의 크기",
             "mlforkids.face.xlocation": "[LANDMARK]의 x좌표",
-            "mlforkids.face.ylocation": "[LANDMARK]의 y"
+            "mlforkids.face.ylocation": "[LANDMARK]의 y좌표"
         },
         "IMAGE_BLOCKS": {
             "mlforkids.imageblocks.getCostumeImage": "모양",
