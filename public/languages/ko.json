@@ -14,7 +14,7 @@
         "DELETE": "삭제",
         "EDIT": "수정",
         "TEST": "테스트",
-        "RESET": "Reset",
+        "RESET": "",
 
         "ABOUT": "소개",
         "TEACHER": "선생님",
@@ -62,8 +62,8 @@
         }
     },
     "LINKS": {
-        "TITLE": "Educational AI resources for children",
-        "INTRO": "This page is a list of further tools and resources for introducing children to artificial intelligence.",
+        "TITLE": "아이들을 위한 인공지능 교육 자료",
+        "INTRO": "이 페이지는 어린이에게 인공 지능을 소개하기 위한 추가 도구 및 리소스 목록입니다.",
         "ECRAFT2LEARN": {
             "BODY1": "<a href='http://users.ox.ac.uk/~oucs0030/' target='_blank'>Ken Kahn</a> has created resources to allow beginners to create AI programs in Snap! (a visual programming environment similar to Scratch).",
             "BODY2": "While I've focused on explaining how AI systems are trained and behave (and the real-world implications), eCraft2Learn has fantastic resources that dive deep into how ML systems actually work.",
@@ -1417,16 +1417,16 @@
             "mlforkids.numbers.trainNewModel": "새로운 머신 러닝 모델 훈련하기"
         },
         "SOUND_PROJECTS": {
-            "mlforkids.sounds.startListening": "start listening",
-            "mlforkids.sounds.stopListening": "stop listening"
+            "mlforkids.sounds.startListening": "듣기 시작",
+            "mlforkids.sounds.stopListening": "듣기 멈춤"
         },
         "TWITTER": {
             "mlforkids.twitter.getrecenttweet": "[TOPIC](와)과 관련된 가장 최근 트윗 [INDEX]개 가져오기"
         },
         "FACE": {
-            "mlforkids.face.size": "size of [LANDMARK]",
-            "mlforkids.face.xlocation": "x coord of [LANDMARK]",
-            "mlforkids.face.ylocation": "y coord of [LANDMARK]"
+            "mlforkids.face.size": "[LANDMARK]의 크기",
+            "mlforkids.face.xlocation": "[LANDMARK]의 x좌표",
+            "mlforkids.face.ylocation": "[LANDMARK]의 y좌표"
         },
         "IMAGE_BLOCKS": {
             "mlforkids.imageblocks.getCostumeImage": "모양",
