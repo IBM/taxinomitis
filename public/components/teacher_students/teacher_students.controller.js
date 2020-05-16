@@ -7,10 +7,10 @@
     TeacherStudentsController.$inject = [
         'authService',
         'usersService',
-        '$stateParams', '$mdDialog', '$document', '$timeout'
+        '$stateParams', '$mdDialog', '$document', '$timeout', '$log'
     ];
 
-    function TeacherStudentsController(authService, usersService, $stateParams, $mdDialog, $document, $timeout) {
+    function TeacherStudentsController(authService, usersService, $stateParams, $mdDialog, $document, $timeout, $log) {
 
         var vm = this;
         vm.authService = authService;
@@ -40,11 +40,15 @@
 
 
         function refreshStudentsList(profile) {
+            $log.debug('[ml4kuser] refreshing students list');
+
             usersService.getStudentList(profile)
                 .then(function (students) {
+                    $log.debug('[ml4kuser] got new students list');
                     vm.students = students;
                 })
                 .catch(function (err) {
+                    $log.error('[ml4kuser] failed to get students list');
                     displayAlert('errors', err.status, err.data);
                 });
         }
@@ -89,6 +93,8 @@
 
 
         vm.deleteUser = function (ev, student) {
+            $log.debug('[ml4kuser] deleting student');
+
             var confirm = $mdDialog.confirm()
                 .title('Are you sure?')
                 .textContent('Do you want to delete ' + student.username + ' and all of their work? (This cannot be undone)')
@@ -101,13 +107,19 @@
                 function() {
                     student.isPlaceholder = true;
 
+                    $log.debug('[ml4kuser] submitting user delete');
                     usersService.deleteStudent(student, vm.profile.tenant)
                         .then(function () {
+                            $log.debug('[ml4kuser] user deleted');
+
                             vm.students = vm.students.filter(function (itm) {
                                 return itm.username !== student.username;
                             });
                         })
                         .catch(function (err) {
+                            $log.error('[ml4kuser] failed to delete');
+                            $log.error(err);
+
                             student.isPlaceholder = false;
                             displayAlert('errors', err.status, err.data);
                         });
@@ -121,6 +133,8 @@
 
 
         vm.createMultipleUsers = function (ev) {
+            $log.debug('[ml4kuser] creating multiple students');
+
             $mdDialog.show({
                 controller : function ($scope, $mdDialog) {
                     $scope.remaining = vm.policy.maxUsers - vm.students.length - 1;
@@ -146,7 +160,7 @@
                                 $scope.password = resp.password;
                             })
                             .catch(function (err) {
-                                console.log(err);
+                                $log.error(err);
                             });
                     };
 
@@ -167,8 +181,11 @@
                         vm.students.push(newUserObj);
                     }
 
+                    $log.debug('[ml4kuser] submitting new students request');
                     usersService.createStudents(vm.profile.tenant, dialogResp.prefix, dialogResp.number, dialogResp.password)
                         .then(function (apiResp) {
+                            $log.debug('[ml4kuser] created multiple students');
+
                             vm.students = vm.students.filter(function (student) {
                                 return !student.isPlaceholder;
                             });
@@ -182,6 +199,9 @@
                             displayCreateFailures(ev, apiResp, dialogResp.password);
                         })
                         .catch(function (err) {
+                            $log.error('[ml4kuser] failed to create multiple students');
+                            $log.error(err);
+
                             vm.students = vm.students.filter(function (student) {
                                 return !student.isPlaceholder;
                             });
@@ -198,6 +218,8 @@
 
 
         vm.createUser = function (ev) {
+            $log.debug('[ml4kuser] creating individual student');
+
             $mdDialog.show({
                 controller : function ($scope, $mdDialog) {
                     $scope.hide = function () {
@@ -223,14 +245,21 @@
                     };
                     vm.students.push(newUserObj);
 
+                    $log.debug('[ml4kuser] submitting individual student creation request');
+
                     usersService.createStudent(username, vm.profile.tenant)
                         .then(function (newUser) {
+                            $log.debug('[ml4kuser] created student');
+
                             newUserObj.id = newUser.id;
                             newUserObj.isPlaceholder = false;
 
                             displayPassword(ev, newUser);
                         })
                         .catch(function (err) {
+                            $log.error('[ml4kuser] failed to create student');
+                            $log.error(err);
+
                             var errId = displayAlert('errors', err.status, err.data);
                             scrollToNewItem('errors' + errId);
 
@@ -246,20 +275,29 @@
         };
 
         vm.resetUserPassword = function (ev, student) {
+            $log.debug('[ml4kuser] reset student password');
+
             student.isPlaceholder = true;
 
             usersService.resetStudentPassword(student, vm.profile.tenant)
                 .then(function (updatedUser) {
+                    $log.debug('[ml4kuser] password reset');
+
                     student.isPlaceholder = false;
                     displayPassword(ev, updatedUser);
                 })
                 .catch(function (err) {
+                    $log.error('[ml4kuser] failed to reset password');
+                    $log.error(err);
+
                     student.isPlaceholder = false;
                     displayAlert('errors', err.status, err.data);
                 });
         };
 
         vm.resetUsersPassword = function (ev) {
+            $log.debug('[ml4kuser] resetting all student passwords');
+
             var confirm = $mdDialog.confirm()
                 .title('Are you sure?')
                 .textContent('Do you want to reset the passwords for all your students (so they all have the same password)?')
@@ -276,8 +314,12 @@
                         student.isPlaceholder = true;
                     });
 
+                    $log.debug('[ml4kuser] submitting class reset request');
+
                     usersService.resetStudentsPassword(vm.students, vm.profile.tenant)
                         .then(function (resp) {
+                            $log.debug('[ml4kuser] reset request submitted successfully');
+
                             vm.students.forEach(function (student) {
                                 student.isPlaceholder = false;
                             });
@@ -287,6 +329,9 @@
                             }, vm.students.length > 40);
                         })
                         .catch(function (err) {
+                            $log.error('[ml4kuser] failed to submit reset request');
+                            $log.error(err);
+
                             vm.students.forEach(function (student) {
                                 student.isPlaceholder = false;
                             });

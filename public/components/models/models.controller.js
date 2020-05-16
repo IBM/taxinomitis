@@ -8,10 +8,10 @@
         'authService',
         'projectsService', 'trainingService', 'quizService', 'soundTrainingService',
         '$stateParams',
-        '$scope', '$mdDialog', '$timeout', '$interval', '$q', '$document', '$state'
+        '$scope', '$mdDialog', '$timeout', '$interval', '$q', '$document', '$state', '$log'
     ];
 
-    function ModelsController(authService, projectsService, trainingService, quizService, soundTrainingService, $stateParams, $scope, $mdDialog, $timeout, $interval, $q, $document, $state) {
+    function ModelsController(authService, projectsService, trainingService, quizService, soundTrainingService, $stateParams, $scope, $mdDialog, $timeout, $interval, $q, $document, $state, $log) {
 
         var vm = this;
         vm.authService = authService;
@@ -99,7 +99,7 @@
             }
             else {
                 // record the error
-                console.log(errObj);
+                $log.error(errObj);
                 if (status === 500 && Sentry && Sentry.captureException) {
                     Sentry.captureException({
                         error : errObj,
@@ -193,6 +193,8 @@
 
 
         function reviewTrainingData (labels) {
+            $log.debug('[ml4kmodels] reviewing training data');
+
             var no_data = true;
             var insufficient_data = 0;
             var MIN = 5;
@@ -533,6 +535,9 @@
                     };
 
                     function displayWebcamError(err) {
+                        $log.error('[ml4kmodels] display webcam error');
+                        $log.error(err);
+
                         $scope.webcamerror = err;
                         if (err && err.message) {
                             if (err.name === 'NotAllowedError') {
@@ -545,6 +550,9 @@
                     }
 
                     $scope.onWebcamError = function(err) {
+                        $log.error('[ml4kmodels] on webcam error');
+                        $log.error(err);
+
                         $scope.webcamInitComplete = true;
 
                         try {
@@ -668,10 +676,12 @@
 
 
         vm.startListening = function () {
-            console.log('startListening');
+            $log.debug('[ml4kmodels] start listening');
             if (!$scope.listening) {
                 $scope.listening = true;
                 soundTrainingService.startTest(function (resp) {
+                    $log.debug('[ml4kmodels] sound test callback');
+                    $log.debug(resp);
                     $scope.$apply(
                         function() {
                             $scope.testoutput = resp[0].class_name;
@@ -681,10 +691,12 @@
             }
         };
         vm.stopListening = function () {
+            $log.debug('[ml4kmodels] stop listening');
             if ($scope.listening) {
                 $scope.listening = false;
                 soundTrainingService.stopTest()
                     .then(function () {
+                        $log.debug('[ml4kmodels] stop test callback');
                         $scope.$apply(
                             function() {
                                 delete $scope.testoutput;
@@ -692,7 +704,8 @@
                             });
                     })
                     .catch(function (err) {
-                        console.log('Unable to stop listening', err);
+                        $log.error('[ml4kmodels] Failed to stop listening');
+                        $log.error(err);
                     });
             }
         };

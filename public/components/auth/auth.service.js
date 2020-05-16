@@ -198,7 +198,7 @@
 
             deferredProfile = $q.defer();
 
-            $log.debug('Clearing stored token');
+            $log.debug('[ml4kauth] Clearing stored token');
             $window.localStorageObj.removeItem('access_token');
             $window.localStorageObj.removeItem('id_token');
             $window.localStorageObj.removeItem('expires_at');

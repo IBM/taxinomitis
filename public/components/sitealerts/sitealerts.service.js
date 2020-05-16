@@ -5,14 +5,14 @@
         .service('sitealertsService', sitealertsService);
 
     sitealertsService.$inject = [
-        '$http', '$rootScope', '$interval',
+        '$http', '$rootScope', '$interval', '$log',
         'authService'
     ];
 
-    function sitealertsService($http, $rootScope, $interval, authService) {
+    function sitealertsService($http, $rootScope, $interval, $log, authService) {
 
         function logError(err) {
-            console.log(err);
+            $log.error(err);
             delete $rootScope.siteAlert;
         }
 
@@ -51,7 +51,6 @@
         }
 
         function fetchSiteAlert(evtObj, evt) {
-            // console.log('fetchSiteAlert', evt);
             if ($rootScope.isAuthenticated) {
                 return authService.getProfileDeferred()
                     .then(function (profile) {

@@ -7,10 +7,10 @@
     TeacherApiKeysController.$inject = [
         'authService',
         'usersService',
-        '$stateParams', '$mdDialog', '$document', '$timeout'
+        '$stateParams', '$mdDialog', '$document', '$timeout', '$log'
     ];
 
-    function TeacherApiKeysController(authService, usersService, $stateParams, $mdDialog, $document, $timeout) {
+    function TeacherApiKeysController(authService, usersService, $stateParams, $mdDialog, $document, $timeout, $log) {
 
         var vm = this;
         vm.authService = authService;
@@ -68,14 +68,20 @@
         }
 
         function getCredentials(profile, type) {
+            $log.debug('[ml4kapi] retrieving IBM credentials (' + type + ')');
             usersService.getCredentials(profile, type)
                 .then(function (creds) {
+                    $log.debug('[ml4kapi] got IBM credentials (' + type + ')');
+
                     vm.credentials[type] = creds;
                     vm.credentials.loading[type] = false;
 
                     computeLimit(type);
                 })
                 .catch(function (err) {
+                    $log.error('[ml4kapi] failed to get credentials (' + type + ')');
+                    $log.error(err);
+
                     vm.credentials.failed[type] = true;
                     vm.credentials.loading[type] = false;
                     displayAlert('errors', err.status, err.data);
@@ -129,15 +135,19 @@
 
 
         vm.verifyCredentials = function (ev, creds) {
+            $log.debug('[ml4kapi] verifying IBM credentials');
             creds.verifying = true;
 
             usersService.verifyCredentials(vm.profile, creds)
                 .then(function () {
+                    $log.debug('[ml4kapi] verified');
                     creds.verified = true;
                     creds.verifying = false;
                 })
                 .catch(function (err) {
-                    console.log(err);
+                    $log.error('[ml4kapi] check failed');
+                    $log.error(err);
+
                     creds.verified = false;
                     creds.verifying = false;
 
@@ -158,6 +168,8 @@
         };
 
         vm.deleteCredentials = function (ev, creds, type) {
+            $log.debug('[ml4kapi] deleting IBM credentials');
+
             var confirm = $mdDialog.confirm()
                 .title('Are you sure?')
                 .textContent('Do you want to remove these credentials from machinelearningforkids.co.uk?')
@@ -170,12 +182,17 @@
                 function() {
                     usersService.deleteCredentials(vm.profile, creds)
                         .then(function () {
+                            $log.debug('[ml4kapi] deleted');
+
                             vm.credentials[type] = vm.credentials[type].filter(function (itm) {
                                 return itm.id !== creds.id;
                             });
                             computeLimit(type);
                         })
                         .catch(function (err) {
+                            $log.error('[ml4kapi] failed to delete');
+                            $log.error(err);
+
                             displayAlert('errors', err.status, err.data);
                         });
 
@@ -187,6 +204,8 @@
 
 
         vm.addCredentials = function (ev, type) {
+            $log.debug('[ml4kapi] adding new IBM credentials');
+
             $mdDialog.show({
                 controller : function ($scope, $mdDialog) {
                     $scope.type = 'apikey';
@@ -216,8 +235,12 @@
 
                     vm.credentials[type].push(credentialsToAdd);
 
+                    $log.debug('[ml4kapi] storing IBM credentials');
+
                     usersService.addCredentials(credentialsToAdd, vm.profile.tenant)
                         .then(function (newcreds) {
+                            $log.debug('[ml4kapi] stored');
+
                             vm.credentials[type] = vm.credentials[type].filter(function (c) {
                                 return c.uniq !== placeholder;
                             });
@@ -226,6 +249,9 @@
                             computeLimit(type);
                         })
                         .catch(function (err) {
+                            $log.error('[ml4kapi] failed to store');
+                            $log.error(err);
+
                             var errId = displayAlert('errors', err.status, err.data);
                             scrollToNewItem('errors' + errId);
 
@@ -241,6 +267,8 @@
         };
 
         vm.modifyCredentials = function (ev, creds, type) {
+            $log.debug('[ml4kapi] modifying IBM credentials');
+
             $mdDialog.show({
                 controller : function ($scope, $mdDialog) {
                     $scope.credstype = creds.credstype;
@@ -262,12 +290,19 @@
             })
             .then(
                 function(modifyRequest) {
+                    $log.debug('[ml4kapi] updating IBM credentials');
+
                     usersService.modifyCredentials(creds, type, modifyRequest.credstype, vm.profile.tenant)
                         .then(function () {
+                            $log.debug('[ml4kapi] updated');
+
                             creds.credstype = modifyRequest.credstype;
                             computeLimit(type);
                         })
                         .catch(function (err) {
+                            $log.error('[ml4kapi] failed to update');
+                            $log.error(err);
+
                             var errId = displayAlert('errors', err.status, err.data);
                             scrollToNewItem('errors' + errId);
                         });
