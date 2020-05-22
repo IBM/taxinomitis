@@ -1428,6 +1428,9 @@
             "mlforkids.face.xlocation": "x coord of [LANDMARK]",
             "mlforkids.face.ylocation": "y coord of [LANDMARK]"
         },
+        "POSENET": {
+            "mlforkids.posenet.getposition": "find [POSITION] of [LANDMARK]"
+        },
         "IMAGE_BLOCKS": {
             "mlforkids.imageblocks.getCostumeImage": "imagem da fantasia",
             "mlforkids.imageblocks.getBackdropCostumeImage": "imagem do pano de fundo",
@@ -1646,11 +1649,17 @@
             "TITLE": "Face detection",
             "FACE_1": "This model can be used to recognize your face in the video feed from your webcam.",
             "FACE_2": "It gives you blocks that will find the x,y coordinates of your eyes, nose and mouth.",
-            "FACE_3": "The technique this uses is called an SSD (which stands for Single Shot Multibox Detector) and is based on MobileNet (a ML model designed for mobile devices, so it doesn't need much computing power).",
+            "FACE_3": "This uses a top-down technique - it starts by looking for something that looks like a face in the picture. Once it has found that, it tries to identify facial features in that area. The machine learning model is based on MobileNet (a ML model designed for mobile devices, so it doesn't need much computing power).",
             "FACE_4": "The training data used for this model came from a set known as <a href='http://shuoyang1213.me/WIDERFACE/' target='_blank'>WIDER FACE</a>."
         },
+        "POSENET": {
+            "TITLE": "Pose detection",
+            "POSE_1": "This model can be used to recognize your pose in the video feed from your webcam.",
+            "POSE_2": "It gives you blocks that will find the x,y coordinates of different parts of your body, like shoulders, elbows, wrists, knees, and ankles.",
+            "POSE_3": "This uses a bottom-up technique - looking for human body key points (like shoulders, elbows, knees, etc.) and then grouping them to identify a person and the pose that they're in. The technique is based on MobileNet (a ML model designed for mobile devices, so it doesn't need much computing power).",
+            "POSE_4": "The training data used for this model came from a set known as <a href='http://cocodataset.org/index.htm#keypoints-2019' target='_blank'>Common Objects in Context (COCO)</a>."
+        },
         "IDEAS": {
-            "TITLE": "What else?",
             "IDEAS_1": "Are there other machine learning models you would like to be able to use in your Scratch projects?",
             "IDEAS_2": "Let me know by asking in the <a href='https://groups.google.com/d/forum/mlforkids'>ML for Kids forum</a>."
         }

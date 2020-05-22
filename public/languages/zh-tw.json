@@ -1428,6 +1428,9 @@
             "mlforkids.face.xlocation": "[LANDMARK] 的x座標",
             "mlforkids.face.ylocation": "[LANDMARK] 的y座標"
         },
+        "POSENET": {
+            "mlforkids.posenet.getposition": "find [POSITION] of [LANDMARK]"
+        },
         "IMAGE_BLOCKS": {
             "mlforkids.imageblocks.getCostumeImage": "角色的畫面",
             "mlforkids.imageblocks.getBackdropCostumeImage": "背景的畫面",
@@ -1649,8 +1652,14 @@
             "FACE_3": "此技術稱為SSD（代表單一照片多框辨識），而且建立在MobileNet上（為行動裝置設計的ML模型，因此它不需要太多的計算能力）",
             "FACE_4": "這個模型的訓練資料來自於<a href='http://shuoyang1213.me/WIDERFACE/' target='_blank'>WIDER FACE</a>"
         },
+        "POSENET": {
+            "TITLE": "Pose detection",
+            "POSE_1": "This model can be used to recognize your pose in the video feed from your webcam.",
+            "POSE_2": "It gives you blocks that will find the x,y coordinates of different parts of your body, like shoulders, elbows, wrists, knees, and ankles.",
+            "POSE_3": "This uses a bottom-up technique - looking for human body key points (like shoulders, elbows, knees, etc.) and then grouping them to identify a person and the pose that they're in. The technique is based on MobileNet (a ML model designed for mobile devices, so it doesn't need much computing power).",
+            "POSE_4": "The training data used for this model came from a set known as <a href='http://cocodataset.org/index.htm#keypoints-2019' target='_blank'>Common Objects in Context (COCO)</a>."
+        },
         "IDEAS": {
-            "TITLE": "還有什麼？",
             "IDEAS_1": "您是否希望在Scratch專案中使用其他機器學習模型？",
             "IDEAS_2": "透過<a href='https://groups.google.com/d/forum/mlforkids'>兒童機器學習論壇</a>讓我知道吧！"
         }

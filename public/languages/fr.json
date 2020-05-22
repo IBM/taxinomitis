@@ -1428,6 +1428,9 @@
             "mlforkids.face.xlocation": "x coord of [LANDMARK]",
             "mlforkids.face.ylocation": "y coord of [LANDMARK]"
         },
+        "POSENET": {
+            "mlforkids.posenet.getposition": "find [POSITION] of [LANDMARK]"
+        },
         "IMAGE_BLOCKS": {
             "mlforkids.imageblocks.getCostumeImage": "image costume",
             "mlforkids.imageblocks.getBackdropCostumeImage": "image arrière-plan",
@@ -1649,8 +1652,14 @@
             "FACE_3": "La technique utilisée est appelée SSD (Single Shot Multibox Detector). Elle est basée sur MobileNet (un modèle de ML conçu pour les appareils mobiles, elle ne nécessite donc pas beaucoup de puissance de calcul).",
             "FACE_4": "Les données d'entraînement utilisées pour ce modèle proviennent d'un ensemble connu sous le nom <a href='http://shuoyang1213.me/WIDERFACE/' target='_blank'>WIDER FACE</a>."
         },
+        "POSENET": {
+            "TITLE": "Pose detection",
+            "POSE_1": "This model can be used to recognize your pose in the video feed from your webcam.",
+            "POSE_2": "It gives you blocks that will find the x,y coordinates of different parts of your body, like shoulders, elbows, wrists, knees, and ankles.",
+            "POSE_3": "This uses a bottom-up technique - looking for human body key points (like shoulders, elbows, knees, etc.) and then grouping them to identify a person and the pose that they're in. The technique is based on MobileNet (a ML model designed for mobile devices, so it doesn't need much computing power).",
+            "POSE_4": "The training data used for this model came from a set known as <a href='http://cocodataset.org/index.htm#keypoints-2019' target='_blank'>Common Objects in Context (COCO)</a>."
+        },
         "IDEAS": {
-            "TITLE": "Quoi d'autre ?",
             "IDEAS_1": "Y a-t-il d'autres modèles d'apprentissage machine que vous aimeriez pouvoir utiliser dans vos projets Scratch ?",
             "IDEAS_2": "Faites-le moi savoir en demandant dans le <a href='https://groups.google.com/d/forum/mlforkids'>forum ML for Kids </a>."
         }
