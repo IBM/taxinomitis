@@ -48,7 +48,7 @@ describe('Utils - download and zip', () => {
                     })
                     .catch(next);
             },
-            (zipfile: string, next: (err?: Error, path?: string, downloadedZip?: string) => void) => {
+            (zipfile: string, next: (err?: Error | null, path?: string, downloadedZip?: string) => void) => {
                 tmp.dir({ keep : true }, (err, path) => {
                     next(err, path, zipfile);
                 });
