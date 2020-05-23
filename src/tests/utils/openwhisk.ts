@@ -63,7 +63,7 @@ describe.skip('Request image training zip from OpenWhisk', () => {
                             next(err);
                         });
                 },
-                (zipfile: string, next: (err?: Error, unzipTarget?: string, zipFile?: string) => void) => {
+                (zipfile: string, next: (err?: Error | null, unzipTarget?: string, zipFile?: string) => void) => {
                     tmp.dir((err, dir) => {
                         next(err, dir, zipfile);
                     });

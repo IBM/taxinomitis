@@ -37,7 +37,7 @@ export interface DownloadFromWeb {
 
 export type ImageDownload = RetrieveFromStorage | DownloadFromWeb;
 
-type PossibleError = Error | null;
+type PossibleError = Error | undefined | null;
 
 
 type IFileTypeCallback = (err?: PossibleError, filetype?: string) => void;
@@ -358,7 +358,7 @@ function runLocally(locations: ImageDownload[]): Promise<string> {
 
 export async function runInServerless(locations: ImageDownload[]): Promise<string> {
     return new Promise((resolve, reject) => {
-        tmp.file({ keep : true, postfix : '.zip' }, (tmperr?: Error, zipfile?: string) => {
+        tmp.file({ keep : true, postfix : '.zip' }, (tmperr: Error | null, zipfile?: string) => {
             if (tmperr || !zipfile) {
                 log.error({ err : tmperr }, 'Failed to get tmp file');
                 return reject(tmperr);
