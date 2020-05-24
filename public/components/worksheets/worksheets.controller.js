@@ -133,7 +133,10 @@
             'WORKSHEETS.EMOJIMASK.WORKSHEET_1.URL',
 
             'WORKSHEETS.LASEREYES.TITLE', 'WORKSHEETS.LASEREYES.SUMMARY', 'WORKSHEETS.LASEREYES.DESCRIPTION',
-            'WORKSHEETS.LASEREYES.WORKSHEET_1.URL'
+            'WORKSHEETS.LASEREYES.WORKSHEET_1.URL',
+
+            'WORKSHEETS.SEMAPHORES.TITLE', 'WORKSHEETS.SEMAPHORES.SUMMARY', 'WORKSHEETS.SEMAPHORES.DESCRIPTION',
+            'WORKSHEETS.SEMAPHORES.WORKSHEET_1.URL'
 
         ]).then(function (translations) {
             vm.worksheets = [
@@ -767,6 +770,22 @@
                     downloads : [
                         {
                             worksheet : translations['WORKSHEETS.LASEREYES.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.SEMAPHORES.TITLE'],
+                    summary : translations['WORKSHEETS.SEMAPHORES.SUMMARY'],
+                    description : translations['WORKSHEETS.SEMAPHORES.DESCRIPTION'],
+                    difficulty : 'Advanced',
+                    type : 'sounds',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-semaphores.png',
+                    tags : [ 'speech recognition', 'pose detection' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-semaphores.pdf',
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.SEMAPHORES.WORKSHEET_1.URL']
                         }
                     ]
                 }
