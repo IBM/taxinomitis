@@ -59,6 +59,33 @@ describe('DB store', () => {
             assert.strictEqual(projects.length, 0);
         });
 
+        it('should not delete shared projects when a student is deleted', async () => {
+            const classid = uuid();
+
+            const student = uuid();
+            const teacher = uuid();
+
+            const studentproject1 = 'student proj 1';
+            const studentproject2 = 'student proj 2';
+            const teacherproject = 'class proj';
+
+            await store.storeProject(student, classid, 'text', studentproject1, 'en', [], false);
+            await store.storeProject(student, classid, 'text', studentproject2, 'en', [], false);
+            await store.storeProject(teacher, classid, 'text', teacherproject, 'en', [], true);
+
+            let projects = await store.getProjectsByClassId(classid);
+            assert.strictEqual(projects.length, 3);
+            assert.deepStrictEqual(projects.map(p => p.name).sort(), [teacherproject, studentproject1, studentproject2]);
+
+            await store.deleteEntireUser(student, classid);
+
+            projects = await store.getProjectsByClassId(classid);
+            assert.strictEqual(projects.length, 1);
+            assert.deepStrictEqual(projects.map(p => p.name), [teacherproject]);
+
+            await store.deleteProjectsByClassId(classid);
+        });
+
     });
 
 

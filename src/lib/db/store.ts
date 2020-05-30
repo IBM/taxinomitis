@@ -325,6 +325,23 @@ export async function getProject(id: string): Promise<Objects.Project | undefine
 
 
 /**
+ * Fetches projects that the specified user owns.
+ *
+ * This list should only include projects created by the specified user
+ */
+export async function getProjectsOwnedByUserId(userid: string, classid: string): Promise<Objects.Project[]> {
+    const queryString = 'SELECT `id`, `userid`, `classid`, ' +
+                            '`typeid`, `name`, `language`, ' +
+                            '`labels`, ' +
+                            '`iscrowdsourced` ' +
+                        'FROM `projects` ' +
+                        'WHERE `classid` = ? AND `userid` = ?';
+
+    const rows = await dbExecute(queryString, [ classid, userid ]);
+    return rows.map(dbobjects.getProjectFromDbRow);
+}
+
+/**
  * Fetches projects that the specified user is entitled to access.
  *
  * This list should include:
@@ -2277,7 +2294,7 @@ export async function deleteEntireProject(userid: string, classid: string, proje
 
 
 export async function deleteEntireUser(userid: string, classid: string): Promise<void> {
-    const projects = await getProjectsByUserId(userid, classid);
+    const projects = await getProjectsOwnedByUserId(userid, classid);
     for (const project of projects) {
         await deleteEntireProject(userid, classid, project);
     }
