@@ -148,7 +148,7 @@
         "TRY_TITLE": "試試看不註冊吧",
         "TRY_NOW": "立即使用",
         "WHO_YOU": "你是誰呢？",
-        "TEACHER": "父母、老師或是程設組織的領導者",
+        "TEACHER": "父母、老師或是程式教育者",
         "STUDENT": "學生",
         "FORGOT_TEXT": "忘記你的用戶名稱或密碼嗎？沒事的，是人難免會忘東忘西～",
         "ARE_YOU_A_STUDENT": "你是學生嗎？",
@@ -160,12 +160,12 @@
     },
     "SIGNUP": {
         "TEACHER": {
-            "TITLE": "你是老師或是程設組織的領導者嗎？",
+            "TITLE": "你是老師或是程式教育者嗎？",
             "INFO1": "如果你想要擁有管理學生的權限，請在下方建立班級帳戶",
             "INFO2": "有兩種不同類型的班級帳戶。不同點取決於誰可以設定它"
         },
         "UNMANAGED": {
-            "TITLE": "建立一個<strong>沒有管理權限</strong>的班級帳戶",
+            "TITLE": "建立班級帳戶",
             "INTRO": "如果你喜歡自己設定與管理班級帳戶，你可以立即進行！",
             "LISTINTRO": "你將會需要：",
             "LIST_CREATEACCOUNT": "建立一個「IBM Cloud」的免費帳戶",
@@ -1231,9 +1231,9 @@
             }
         },
         "SEMAPHORES": {
-            "TITLE": "Semaphores",
-            "SUMMARY": "Teach a computer to recognize speech and poses",
-            "DESCRIPTION": "Make a voice-activated semaphores game you play by moving your arms.",
+            "TITLE": "旗幟傳訊息",
+            "SUMMARY": "教電腦辨識語音與姿勢",
+            "DESCRIPTION": "製作一個聲控的旗幟傳訊息遊戲，你可以藉由移動手臂來控制它",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-semaphores.pdf"
             }
@@ -1432,12 +1432,12 @@
             "mlforkids.twitter.getrecenttweet": "取得有關[TOPIC]的[INDEX]最新推文"
         },
         "FACE": {
-            "mlforkids.face.size": "[LANDMARK] 的尺寸",
-            "mlforkids.face.xlocation": "[LANDMARK] 的x座標",
-            "mlforkids.face.ylocation": "[LANDMARK] 的y座標"
+            "mlforkids.face.size": "[LANDMARK] 尺寸",
+            "mlforkids.face.xlocation": "[LANDMARK] x座標",
+            "mlforkids.face.ylocation": "[LANDMARK] y座標"
         },
         "POSENET": {
-            "mlforkids.posenet.getposition": "find [POSITION] of [LANDMARK]"
+            "mlforkids.posenet.getposition": "[LANDMARK] 的位置 [POSITION] "
         },
         "IMAGE_BLOCKS": {
             "mlforkids.imageblocks.getCostumeImage": "角色的畫面",
@@ -1628,7 +1628,7 @@
     "APIKEYSGUIDE": {
         "TITLE": "IBM Cloud指南",
         "INTRO": {
-            "INTRO_1": "使用沒有班級功能帳戶的教師/家長/程設組織負責人需要提供IBM Cloud的「API密碼」。 這些是秘密代碼，可用於訪問將為學生專案提供資源的人工智慧技術。",
+            "INTRO_1": "使用沒有班級功能帳戶的教師/家長/程式教育者需要提供IBM Cloud的「API密碼」。 這些是秘密代碼，可用於訪問將為學生專案提供資源的人工智慧技術。",
             "INTRO_2": "文字專案需要一個「Watson Assistant」 API密碼。 圖片專案需要一個「Visual Recognition」API密碼。 （數字和聲音專案不需要API密鑰）。",
             "INTRO_3": "您將需要在IBM Cloud上建立一個帳戶才能建立這些密鑰。 建立帳戶是免費的，使用服務選擇「Lite」方案的 API密碼不用收費。"
         },
@@ -1657,15 +1657,15 @@
             "TITLE": "臉部偵測",
             "FACE_1": "這個模型可以用來辨識網路攝影機的\b臉部影像資訊",
             "FACE_2": "此功能提供積木讓你找到你臉上的眼睛、鼻子與嘴巴的x與y座標。",
-            "FACE_3": "此技術稱為SSD（代表單一照片多框辨識），而且建立在MobileNet上（為行動裝置設計的ML模型，因此它不需要太多的計算能力）",
+            "FACE_3": "這是一項top-down的技術。從尋找圖片中看起來像臉的東西開始。 一旦發現就會嘗試辨識此區域的臉部特徵。 此機器學習模型建立在MobileNet上（為行動裝置設計的ML模型，因此它不需要太多的計算能力）",
             "FACE_4": "這個模型的訓練資料來自於<a href='http://shuoyang1213.me/WIDERFACE/' target='_blank'>WIDER FACE</a>"
         },
         "POSENET": {
-            "TITLE": "Pose detection",
-            "POSE_1": "This model can be used to recognize your pose in the video feed from your webcam.",
-            "POSE_2": "It gives you blocks that will find the x,y coordinates of different parts of your body, like shoulders, elbows, wrists, knees, and ankles.",
-            "POSE_3": "This uses a bottom-up technique - looking for human body key points (like shoulders, elbows, knees, etc.) and then grouping them to identify a person and the pose that they're in. The technique is based on MobileNet (a ML model designed for mobile devices, so it doesn't need much computing power).",
-            "POSE_4": "The training data used for this model came from a set known as <a href='http://cocodataset.org/index.htm#keypoints-2019' target='_blank'>Common Objects in Context (COCO)</a>."
+            "TITLE": "姿態辨識",
+            "POSE_1": "這個模型可以用來辨識網路攝影機的\b人體姿態影像資訊",
+            "POSE_2": "此功能提供積木讓你找到身體四肢的x與y座標，包含肩膀、手肘、手腕、膝蓋與腳踝。",
+            "POSE_3": "這是一項bottom-up的技術。尋找人身體的關鍵點（例如肩膀、手肘、膝蓋等），然後將它們分組並標識人和他們所處的姿勢。此技術建立在MobileNet上（ ML模型是為行動裝置設計的，因此不需要太多的計算能力）",
+            "POSE_4": "這個模型的訓練資料來自於<a href='http://cocodataset.org/index.htm#keypoints-2019' target='_blank'>Common Objects in Context (COCO)</a>"
         },
         "IDEAS": {
             "IDEAS_1": "您是否希望在Scratch專案中使用其他機器學習模型？",
