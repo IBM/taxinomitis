@@ -113,7 +113,6 @@ describe('UI - NLS', () => {
     it('Czech', () => {
         compareKeys(en, cs, 'cs');
     });
-
     it('Arabic', () => {
         compareKeys(en, ar, 'ar');
     });

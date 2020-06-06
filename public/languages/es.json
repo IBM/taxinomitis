@@ -1008,7 +1008,7 @@
             "SUMMARY": "Enseña a una computadora a hacer recomendaciones",
             "DESCRIPTION": "Crea una app móvil en  Scratch que recomiende atracciones turísticas según los intereses de las personas.",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-touristinfo.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-touristinfo-es.pdf"
             }
         },
         "SORTINGHAT": {
@@ -1021,7 +1021,7 @@
             },
             "WORKSHEET_2": {
                 "DESCRIPTION": "Versión grupal del proyecto, donde los estudiantes de la clase trabajan juntos para entrenar un modelo de aprendizaje automático compartido",
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat-crowd.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat-crowd-es.pdf"
             }
         },
         "ROCKPAPERSCISSORS": {
@@ -1038,7 +1038,7 @@
             "DESCRIPTION": "Crea un juego en  Scratch para probar si se puede valorar un libro por su portada.",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Versión completa del proyecto, donde los niños hacen un juego para competir contra la computadora para reconocer libros",
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-es.pdf"
             },
             "WORKSHEET_2": {
                 "DESCRIPTION": "Versión simplificada del proyecto, donde los niños hacen que la computadora reconozca libros",
@@ -1050,7 +1050,7 @@
             "SUMMARY": "Enseña a una computadora a encontrar algo en una imagen",
             "DESCRIPTION": "Crea un juego tipo  \"¿Dónde está Wally?\"- en  Scratch, y enseña a la computadora a encontrar al personaje.",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry-es.pdf"
             }
         },
         "CONFUSED": {
@@ -1066,7 +1066,7 @@
             "SUMMARY": "Enseña a una computadora a identificar una fruta",
             "DESCRIPTION": "Aprende cómo se puede confundir una computadora si no está bien entrenada.",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-fooled.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-fooled-es.pdf"
             }
         },
         "SCHOOLLIBRARY": {
@@ -1074,7 +1074,7 @@
             "SUMMARY": "Enseña a una computadora a hacer recomendaciones",
             "DESCRIPTION": "Crea un bibliotecario escolar en  Scratch que te recomiende un libro adecuado para tí.",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary-es.pdf"
             }
         },
         "WHATTWITTERTHINKS": {
@@ -1082,7 +1082,7 @@
             "SUMMARY": "Enseña a una computadora a medir la opiniónpública ",
             "DESCRIPTION": "Crea una herramienta de análisis de sentieminto en  Scratch para analizar conversaciones en Twitter",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks-es.pdf"
             }
         },
         "NOUGHTSANDCROSSES": {
@@ -1091,7 +1091,7 @@
             "DESCRIPTION": "Crea un juego cara o cruz en  Scratch que aprenda cómo ganarte.",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Versión de clase, donde cada alumno hace el juego en Scratch",
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-es.pdf"
             },
             "WORKSHEET_2": {
                 "DESCRIPTION": "Versión para el aula, donde cada alumno hace el juego en Python",
@@ -1107,7 +1107,7 @@
             "SUMMARY": "Enseña a una computadora a jugar a un juego ",
             "DESCRIPTION": "Enseña a una computadora a jugar a Top Trumps en Scratch.",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-toptrumps.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-toptrumps-es.pdf"
             }
         },
         "HEADLINES": {
@@ -1115,7 +1115,7 @@
             "SUMMARY": "Enseña a una computadora a comprender un texto",
             "DESCRIPTION": "Enseña a una computadora a interpretar titulares de los principales periódicos.",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-es.pdf"
             }
         },
         "NEWSPAPERSHELVES": {
@@ -1123,7 +1123,7 @@
             "SUMMARY": "Probar la capacidad de la computadora para reconocer el uso del lenguaje",
             "DESCRIPTION": "Entrenar una computadora para reconocer los titulares de los periódicos nacionales.",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-easy.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-easy-es.pdf"
             }
         },
         "HEADLINETESTING": {
@@ -1139,7 +1139,7 @@
             "SUMMARY": "Enseña a una computadora a identificar imágenes ",
             "DESCRIPTION": "Crea un juego de escondite para el móvil",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-findit.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-findit-es.pdf"
             }
         },
         "ALIENLANGUAGE": {
@@ -1187,7 +1187,7 @@
             "SUMMARY": "Enseñe a una computadora a reconocer enlaces web de phishing",
             "DESCRIPTION": "Crea un programa Python que pueda predecir si una URL es legítima",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-phishing.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-phishing-es.pdf"
             }
         },
         "KIWIORSTOAT": {
