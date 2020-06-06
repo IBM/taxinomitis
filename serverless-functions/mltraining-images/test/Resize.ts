@@ -12,7 +12,7 @@ describe('Resize function', () => {
             // tslint:disable-next-line:max-line-length
             return runResize('https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/IBM_logo.svg/320px-IBM_logo.svg.png',
                             './test/resources/small-ibm.png',
-                            12252);
+                            12440);
         });
 
         it('should work with large png images', () => {

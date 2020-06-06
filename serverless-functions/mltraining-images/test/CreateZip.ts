@@ -111,7 +111,7 @@ describe('Create image training zip function', () => {
                     async.each(unzippedFilesInfo,
                         (unzippedFile: any, nextFile) => {
                             switch (unzippedFile.size) {
-                            case 9189:
+                            case 9328:
                                 filecompare('./test/resources/small-ibm.png',
                                             unzippedFile.location,
                                             (isEq: boolean) => {
@@ -185,8 +185,9 @@ describe('Create image training zip function', () => {
                                 break;
                             default:
                                 console.log(unzippedFile);
-                                assert.fail(0, 1, 'Unexpected file size ' + unzippedFile.size + ' ' +
-                                                    unzippedFile.location);
+                                assert.strictEqual(0, 1,
+                                    'Unexpected file size ' + unzippedFile.size + ' ' +
+                                    unzippedFile.location);
                                 break;
                             }
                         },

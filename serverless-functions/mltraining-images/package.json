@@ -12,25 +12,25 @@
   "devDependencies": {
     "@types/async": "2.4.2",
     "@types/node": "^10",
-    "@types/request": "2.48.4",
-    "@types/swagger-schema-official": "2.0.20",
+    "@types/request": "2.48.5",
+    "@types/swagger-schema-official": "2.0.21",
     "filecompare": "1.0.4",
     "mocha": "6.2.2",
-    "ts-loader": "6.2.1",
-    "ts-node": "8.6.2",
-    "typescript": "3.8.3",
-    "unzipper": "0.10.10",
-    "webpack": "4.42.0",
+    "ts-loader": "7.0.5",
+    "ts-node": "8.10.2",
+    "typescript": "3.9.5",
+    "unzipper": "0.10.11",
+    "webpack": "4.43.0",
     "webpack-cli": "3.3.11"
   },
   "dependencies": {
-    "archiver": "3.1.1",
+    "archiver": "4.0.1",
     "async": "2.6.3",
-    "file-type": "14.1.4",
+    "file-type": "14.6.0",
     "gm": "1.23.1",
-    "ibm-cos-sdk": "1.6.0",
-    "openwhisk": "3.21.1",
+    "ibm-cos-sdk": "1.6.1",
+    "openwhisk": "3.21.2",
     "request": "2.88.2",
-    "tmp": "0.1.0"
+    "tmp": "0.2.1"
   }
 }
