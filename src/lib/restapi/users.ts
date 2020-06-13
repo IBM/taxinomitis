@@ -60,7 +60,7 @@ async function createTeacher(req: Express.Request, res: Express.Response) {
     }
     catch (err) {
         if (userAlreadyExists(err)) {
-            return res.status(httpstatus.CONFLICT).json({ error : 'There is already a user with that username' });
+            return res.status(httpstatus.CONFLICT).json({ error : 'There is already a user with that username or email address' });
         }
 
         log.error({ err }, 'Failed to create class account');
