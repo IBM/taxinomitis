@@ -102,7 +102,7 @@ describe('REST API - users', () => {
         it('should return unique passwords', async () => {
             nextUser = AUTH_USERS.TEACHER;
 
-            const passwords = [];
+            const passwords: string[] = [];
 
             for (let i = 0; i < 100; i++) {
                 const res = await request(testServer)

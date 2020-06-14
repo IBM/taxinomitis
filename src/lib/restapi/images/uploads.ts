@@ -57,7 +57,7 @@ function handleUpload(req: auth.RequestWithProject, res: Express.Response) {
         });
     }
 
-    uploadHandler(req, res, async (err?: Error) => {
+    uploadHandler(req, res, async (err?: Error | any) => {
         if (err) {
             return returnUploadError(res, err);
         }
