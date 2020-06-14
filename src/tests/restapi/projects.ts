@@ -227,6 +227,69 @@ describe('REST API - projects', () => {
                 });
         });
 
+        it('should allow teachers to fetch non-crowd-sourced project for review', () => {
+            const studentId = uuid();
+            const teacherId = uuid();
+
+            nextAuth0UserTenant = TESTCLASS;
+
+            nextAuth0UserId = teacherId;
+            nextAuth0UserRole = 'student';
+
+            return request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects')
+                .send({ name : uuid(), type : 'text', language : 'en', isCrowdSourced : false })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED)
+                .then((res) => {
+                    const body = res.body;
+                    assert(body.id);
+                    const projectId = body.id;
+
+                    nextAuth0UserId = teacherId;
+                    nextAuth0UserRole = 'supervisor';
+
+                    return request(testServer)
+                        .get('/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects/' + projectId)
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.OK);
+                });
+        });
+
+        it('should prevent students fetching non-crowd-sourced project for review', () => {
+            const studentId = uuid();
+            const teacherId = uuid();
+
+            nextAuth0UserTenant = TESTCLASS;
+
+            nextAuth0UserId = teacherId;
+            nextAuth0UserRole = 'student';
+
+            return request(testServer)
+                .post('/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects')
+                .send({ name : uuid(), type : 'text', language : 'en', isCrowdSourced : false })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CREATED)
+                .then((res) => {
+                    const body = res.body;
+                    assert(body.id);
+                    const projectId = body.id;
+
+                    nextAuth0UserId = teacherId;
+                    nextAuth0UserRole = 'student';
+
+                    return request(testServer)
+                        .get('/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects/' + projectId)
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.FORBIDDEN);
+                })
+                .then((res) => {
+                    const body = res.body;
+                    assert.deepStrictEqual(body, {
+                        error : 'Invalid access',
+                    });
+                });
+        });
     });
 
 
