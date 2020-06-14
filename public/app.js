@@ -106,6 +106,16 @@
                 templateUrl: 'static/components-<%= VERSION %>/teacher_supervision/teacher_supervision.html',
                 controllerAs: 'vm'
             })
+            .state('teacher_review_training', {
+                url: '/teacher/projects/:userId/:projectId/training',
+                controller: 'TrainingController',
+                templateUrl: 'static/components-<%= VERSION %>/training/training.html',
+                controllerAs: 'vm',
+                params: {
+                    review: true,
+                    VERSION : <%= VERSION %>
+                }
+            })
             .state('newproject', {
                 url: '/newproject',
                 controller: 'NewProjectController',
@@ -142,6 +152,7 @@
                 templateUrl: 'static/components-<%= VERSION %>/training/training.html',
                 controllerAs: 'vm',
                 params: {
+                    review: false,
                     VERSION : <%= VERSION %>
                 }
             })

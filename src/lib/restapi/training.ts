@@ -211,14 +211,14 @@ export default function registerApis(app: Express.Application) {
     app.get(urls.TRAININGITEMS,
             auth.authenticate,
             auth.checkValidUser,
-            auth.verifyProjectAccess,
+            auth.verifyProjectOwnerOrTeacher,
             // @ts-ignore
             getTraining);
 
     app.get(urls.LABELS,
             auth.authenticate,
             auth.checkValidUser,
-            auth.verifyProjectAccess,
+            auth.verifyProjectOwnerOrTeacher,
             // @ts-ignore
             getLabels);
 

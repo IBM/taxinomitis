@@ -19,7 +19,7 @@
         </div>
     </div>
     <div style="margin: 5px;">
-        <a ui-sref="mlproject({ projectId : projectId, userId : userId })" translate="APP.BACKTOPROJECT"></a>
+        <a ui-sref="mlproject({ projectId : projectId, userId : userId })" translate="APP.BACKTOPROJECT" ng-hide="reviewing"></a>
     </div>
 
     <div ng-repeat="error in vm.errors" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
@@ -35,7 +35,7 @@
     <div ng-if="projectId && !project" class="loading"> </div>
 
     <div ng-if="project">
-        <div class="newlabelbuttons">
+        <div class="newlabelbuttons" ng-hide="reviewing">
             <div class="newlabelbutton" ng-click="vm.addLabel($event)" ng-hide="crowdSourced">
                 <div class="newlabelicon">+</div>
                 <div class="newlabellabel" translate="TRAINING.ADDLABEL"></div>
@@ -59,13 +59,14 @@
                 </div>
                 <span class="glyphicon glyphicon-remove-circle deletelabel"
                       aria-hidden="true"
-                      ng-hide="crowdSourced || label === '_background_noise_'"
+                      ng-hide="reviewing || crowdSourced || label === '_background_noise_'"
                       ng-click="vm.deleteLabel($event, label, $index)"></span>
                 <div class="trainingbucketitems" ng-if="project.type === 'text'">
                     <div class="loadingtraining" ng-if="loadingtraining"> </div>
                     <div class="trainingbucketitem" ng-repeat="item in training[label]" ng-class="{ placeholder : item.isPlaceholder }" id="{{item.id}}">
                         <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true"
                               ng-click="vm.deleteText(label, item, $index)"
+                              ng-hide="reviewing"
                               ng-if="!item.isPlaceholder"></span>
                         {{ item.textdata }}
                     </div>
@@ -75,6 +76,7 @@
                     <div class="trainingbucketitem" ng-repeat="item in training[label]" ng-class="{ placeholder : item.isPlaceholder }"  id="{{item.id}}">
                         <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true"
                               ng-click="vm.deleteText(label, item, $index)"
+                              ng-hide="reviewing"
                               ng-if="!item.isPlaceholder"></span>
                         <table>
                             <tr ng-repeat="field in project.fields">
@@ -90,6 +92,7 @@
                     <div class="dragprompt" ng-hide="loadingtraining || training[label].length > 0" translate="TRAINING.DRAGIMAGES"></div>
                     <div class="trainingbucketitem" ng-repeat="item in training[label]" id="{{item.id}}" ng-class="{ error : item.loadingFailed }">
                         <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true"
+                              ng-hide="reviewing"
                               ng-click="vm.deleteText(label, item, $index)"></span>
                         <!-- hosted images need to be fetched using the httpSrc directive so that an auth header is included -->
                         <img ng-if="item.imageurl && item.imageurl.substring(0, 4) === '/api'"
@@ -111,12 +114,13 @@
                     <div class="trainingbucketitem" ng-repeat="item in training[label] track by item.id" ng-class="{ placeholder : item.isPlaceholder }" id="{{item.id}}">
                         <span class="glyphicon glyphicon-remove-circle deletetext" aria-hidden="true"
                               ng-click="vm.deleteText(label, item, $index)"
+                              ng-hide="reviewing"
                               ng-if="!item.isPlaceholder"></span>
                         <mlsoundvis ng-if="item.audiodata" spectogram="item.audiodata" modelinfo="soundModelInfo" datatype="'sounds'"></mlsoundvis>
                         <div class="loadingtraining" ng-hide="item.audiodata" style="height: 100px; width: 150px; margin-top: 0;"></div>
                     </div>
                 </div>
-                <div style="text-align: center; height: 45px;">
+                <div style="text-align: center; height: 45px;" ng-hide="reviewing">
                     <div class="btn newexamplebutton" ng-click="vm.addTrainingData($event, label)" ng-if="project.type === 'text' || project.type === 'numbers'">
                         <div class="newexampleicon">+</div>
                         <div class="newexamplelabel" translate="TRAINING.ADDEXAMPLE"></div>

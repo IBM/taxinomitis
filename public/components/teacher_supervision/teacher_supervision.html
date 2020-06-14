@@ -105,7 +105,6 @@
             <p translate>TEACHER.SUPERVISION.NO_PROJECTS_1</p>
             <p translate>TEACHER.SUPERVISION.NO_PROJECTS_2</p>
         </div>
-
         <table class="studentslist wide" ng-if="vm.projects.length > 0">
             <tr>
                 <th title="Name of the project">
@@ -134,7 +133,12 @@
             </tr>
             <tr ng-repeat="project in vm.projects | orderBy : vm.orderBy" ng-class-even="'even'" ng-class-odd="'odd'">
                 <!-- Project name -->
-                <td class="projectslistname"> {{ project.name }} </td>
+                <td class="projectslistname" ng-hide="project.owner">{{ project.name }}</td>
+                <td class="projectslistname" ng-if="project.owner">
+                    <a style="cursor: pointer" ui-sref="teacher_review_training({ projectId : project.id, userId : project.owner.id })">
+                        {{ project.name }}
+                    </a>
+                </td>
                 <!-- Project type  (text/images/numbers) -->
                 <td class="studentslistdetail projecttype"> {{ project.type }} </td>
                 <!-- Classes / Labels -->

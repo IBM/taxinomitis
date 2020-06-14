@@ -425,7 +425,7 @@ export default function registerApis(app: Express.Application) {
     app.get(urls.PROJECT,
             auth.authenticate,
             auth.checkValidUser,
-            auth.verifyProjectAccess,
+            auth.verifyProjectOwnerOrTeacher,
             // @ts-ignore
             getProject);
 

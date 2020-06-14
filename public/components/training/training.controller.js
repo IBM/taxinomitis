@@ -54,6 +54,7 @@
         $scope.loadingtraining = true;
 
         $scope.crowdSourced = false;
+        $scope.reviewing = $stateParams.review;
 
         $scope.projectId = $stateParams.projectId;
         $scope.userId = $stateParams.userId;
@@ -418,7 +419,10 @@
 
         vm.deleteText = function (label, item, idx) {
             $scope.training[label].splice(idx, 1);
-            trainingService.deleteTrainingData($scope.projectId, $scope.userId, vm.profile.tenant, item.id);
+            trainingService.deleteTrainingData($scope.projectId, $scope.userId, vm.profile.tenant, item.id)
+                .catch(function (err) {
+                    displayAlert('errors', err.status, err.data);
+                });
         };
 
         vm.deleteLabel = function (ev, label, idx) {

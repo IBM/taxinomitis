@@ -11,7 +11,7 @@ import * as headers from '../headers';
 
 
 /**
- * Sets up API required to allow image downloads.
+ * Sets up API required to allow sound downloads.
  */
 export default function registerApis(app: Express.Application) {
 
@@ -19,7 +19,7 @@ export default function registerApis(app: Express.Application) {
     app.get(urls.SOUND,
             auth.authenticate,
             auth.checkValidUser,
-            auth.verifyProjectAccess, // makes sure that the project exists
+            auth.verifyProjectOwnerOrTeacher,
             handleDownload);
 }
 

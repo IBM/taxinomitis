@@ -1103,6 +1103,100 @@ describe('REST API - training', () => {
                 });
         });
 
+        it('should ensure access is prevented to other students', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
+            const projectid = project.id;
+
+            const data = [];
+
+            for (let labelIdx = 0; labelIdx < 2; labelIdx++) {
+                const label = uuid();
+
+                for (let text = 0; text < 3; text++) {
+                    const textdata = uuid();
+
+                    data.push({ textdata, label });
+                }
+            }
+
+            await store.bulkStoreTextTraining(projectid, data);
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
+
+            const trainingurl = '/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/training';
+
+            return request(testServer)
+                .get(trainingurl)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK)
+                .then((res) => {
+                    const body: { id: string, label: string, textdata: string }[] = res.body;
+                    assert.strictEqual(body.length, 6);
+
+                    nextAuth0UserId = 'a-different-user';
+
+                    return request(testServer)
+                        .get(trainingurl)
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.FORBIDDEN);
+                })
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, { error : 'Invalid access' });
+
+                    return store.deleteEntireProject(userid, classid, project);
+                });
+        });
+
+        it('should ensure allow teachers to have read-only access to training data', async () => {
+            const classid = uuid();
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'text', 'demo', 'en', [], false);
+            const projectid = project.id;
+
+            const data = [];
+
+            for (let labelIdx = 0; labelIdx < 2; labelIdx++) {
+                const label = uuid();
+
+                for (let text = 0; text < 3; text++) {
+                    const textdata = uuid();
+
+                    data.push({ textdata, label });
+                }
+            }
+
+            await store.bulkStoreTextTraining(projectid, data);
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
+
+            const trainingurl = '/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/training';
+
+            return request(testServer)
+                .get(trainingurl)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK)
+                .then(() => {
+                    nextAuth0UserId = 'yet-another-different-user';
+                    nextAuth0UserRole = 'supervisor';
+
+                    return request(testServer)
+                        .get(trainingurl)
+                        .expect('Content-Type', /json/)
+                        .expect(httpstatus.OK);
+                })
+                .then((res) => {
+                    const body: { id: string, label: string, textdata: string }[] = res.body;
+                    assert.strictEqual(body.length, 6);
+
+                    return store.deleteEntireProject(userid, classid, project);
+                });
+        });
 
         it('should get a page of training', async () => {
             const classid = uuid();
