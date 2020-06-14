@@ -19,7 +19,7 @@ export default function registerApis(app: Express.Application) {
     app.get(urls.SOUND,
             auth.authenticate,
             auth.checkValidUser,
-            auth.verifyProjectOwnerOrTeacher,
+            auth.verifyProjectAccessOrTeacher,
             handleDownload);
 }
 

@@ -219,6 +219,9 @@ enum ACCESS_TYPE {
                    //   as long as the resource has been flagged as "crowd-sourced"
     teacheraccess, // access is allowed to the user who created the resource being accessed OR
                    //         their teacher
+    review,        // access is allowed to users in the same class as the creator of the resource being accessed
+                   //   as long as the resource has been flagged as "crowd-sourced", OR
+                   //   the teacher of the project owner
 }
 
 
@@ -261,15 +264,28 @@ async function verifyProjectAuth(
             //
             // That might be okay under some circumstances...
 
-            if (// owneronly : if they're not the owner, this access isn't allowed
-                (allowedAccessTypes === ACCESS_TYPE.owneronly) ||
-                // crowdsourced : if the project isn't crowd-sourced, this access isn't allowed
-                (allowedAccessTypes === ACCESS_TYPE.crowdsourced && !project.isCrowdSourced) ||
-                // teacheraccess : if the user isn't a teacher, this access isn't allowed
-                (allowedAccessTypes === ACCESS_TYPE.teacheraccess &&
-                 reqWithUser.user.app_metadata.role !== 'supervisor'))
-            {
+            // owneronly : if they're not the owner, this access isn't allowed
+            if (allowedAccessTypes === ACCESS_TYPE.owneronly) {
                 return errors.forbidden(res);
+            }
+            // crowdsourced : if the project isn't crowd-sourced, this access isn't allowed
+            if (allowedAccessTypes === ACCESS_TYPE.crowdsourced) {
+                if (!project.isCrowdSourced) {
+                    return errors.forbidden(res);
+                }
+            }
+            // teacheraccess : if the user isn't a teacher, this access isn't allowed
+            if (allowedAccessTypes === ACCESS_TYPE.teacheraccess) {
+                if (reqWithUser.user.app_metadata.role !== 'supervisor') {
+                    return errors.forbidden(res);
+                }
+            }
+            // review : if the project isn't crowd-sourced or the user isn't a teacher, this access isn't allowed
+            if (allowedAccessTypes === ACCESS_TYPE.review) {
+                if (reqWithUser.user.app_metadata.role !== 'supervisor' && !project.isCrowdSourced)
+                {
+                    return errors.forbidden(res);
+                }
             }
 
             // otherwise, carry on - it's okay
@@ -327,4 +343,19 @@ export async function verifyProjectOwnerOrTeacher(
     next: (e?: Error) => void)
 {
     verifyProjectAuth(req, res, next, ACCESS_TYPE.teacheraccess);
+}
+
+/**
+ * API Auth middleware.
+ *
+ * Ensures that the user is accessing a project that they
+ *  have at least read access to, or they are the teacher of
+ *  the owner of the project.
+ */
+export async function verifyProjectAccessOrTeacher(
+    req: Express.Request,
+    res: Express.Response,
+    next: (e?: Error) => void)
+{
+    verifyProjectAuth(req, res, next, ACCESS_TYPE.review);
 }
