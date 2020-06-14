@@ -187,6 +187,8 @@ CREATE TABLE notificationoptouts (
     id CHAR(36) NOT NULL PRIMARY KEY
 );
 
+INSERT INTO notificationoptouts (id) VALUES ('do-not-notify-me');
+
 CREATE TABLE disruptivetenants (
     id CHAR(36) NOT NULL PRIMARY KEY
 );

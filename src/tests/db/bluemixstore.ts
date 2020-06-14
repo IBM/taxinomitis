@@ -112,6 +112,29 @@ describe('DB store', () => {
             await store.deleteBluemixCredentials(creds.id);
         });
 
+        it('should store Bluemix credentials with notes', async () => {
+            const classid = uuid();
+
+            const creds: Types.BluemixCredentialsDbRow = {
+                id : uuid(),
+                username : randomstring.generate({ length : 8 }),
+                password : randomstring.generate({ length : 20 }),
+                servicetype : 'conv',
+                url : 'http://conversation.service/api/classifiers',
+                classid,
+                notes : uuid(),
+                credstypeid : projectObjects.credsTypesByLabel.conv_standard.id,
+            };
+
+            await store.storeBluemixCredentials(classid, creds);
+
+            const retrievedList = await store.getBluemixCredentials(classid, 'conv');
+            const retrieved = retrievedList[0];
+            assert.strictEqual(retrieved.id, creds.id);
+
+            await store.deleteBluemixCredentials(creds.id);
+        });
+
         it('should count the number of models from Bluemix credentials', async () => {
             const classid = uuid();
 
@@ -675,6 +698,56 @@ describe('DB store', () => {
             assert.deepStrictEqual(retrieve.expiry, updatedDate);
         });
 
+        it('should default to English if no language is stored', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projectid = uuid();
+
+            const name = 'testname';
+
+            const project: DbTypes.Project = {
+                id : projectid,
+                userid,
+                classid,
+                type : 'text',
+                name,
+                labels : ['a'],
+                numfields : 0,
+                isCrowdSourced : false,
+            } as DbTypes.Project;
+
+            const credentials: Types.BluemixCredentials = {
+                id : uuid(),
+                username : randomstring.generate(36),
+                password : randomstring.generate(12),
+                servicetype : 'conv',
+                url : uuid(),
+                classid,
+                credstype : 'conv_lite',
+            };
+
+            const created = new Date();
+            created.setMilliseconds(0);
+
+            const language = '' as DbTypes.TextProjectLanguage;
+            const classifierInfo: Types.ConversationWorkspace = {
+                id : uuid(),
+                workspace_id : randomstring.generate({ length : 32 }),
+                credentialsid : credentials.id,
+                language,
+                created,
+                expiry : created,
+                name,
+                url : uuid(),
+            } as Types.ConversationWorkspace;
+
+            await store.storeConversationWorkspace(credentials, project, classifierInfo);
+
+            const retrieved = await store.getConversationWorkspace(projectid, classifierInfo.workspace_id);
+            assert.strictEqual(retrieved.language, 'en');
+
+            await store.deleteConversationWorkspace(classifierInfo.id);
+        });
 
         it('should store and retrieve Conversation classifiers', async () => {
             const classid = uuid();

@@ -133,4 +133,12 @@ describe('DB store - tenants', () => {
         });
     });
 
+    it('should verify if tenants have requested notifications', async () => {
+        const optout = await store.hasTenantOptedOutOfNotifications('do-not-notify-me');
+        const optin = await store.hasTenantOptedOutOfNotifications(uuid());
+
+        assert.strictEqual(optout, true);
+        assert.strictEqual(optin, false);
+    });
+
 });

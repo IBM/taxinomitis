@@ -611,6 +611,19 @@ describe('DB store', () => {
     });
 
 
+    describe('updateProjectCrowdSourced', () => {
+
+        it('should handle updates to known projects', () => {
+            return store.updateProjectCrowdSourced(uuid(), uuid(), uuid(), false)
+                .then(() => {
+                    assert.fail('should have reported an error');
+                })
+                .catch((err) => {
+                    assert.strictEqual(err.message, 'Project not found');
+                });
+        });
+    });
+
 
     describe('deleteEntireUser()', () => {
 
