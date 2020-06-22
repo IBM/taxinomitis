@@ -79,6 +79,12 @@ describe('DB store - image training', () => {
             return store.deleteTrainingByProjectId('images', projectid);
         });
 
+        it('should recognize non-existent images are not stored', () => {
+            return store.isImageStored(uuid())
+                .then((resp) => {
+                    assert.strictEqual(resp, false);
+                });
+        });
 
         it('should store image data', async () => {
             const projectid = uuid();

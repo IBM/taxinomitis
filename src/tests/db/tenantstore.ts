@@ -141,4 +141,33 @@ describe('DB store - tenants', () => {
         assert.strictEqual(optin, false);
     });
 
+    it('should store a managed class tenant', async () => {
+        const id = 'thisisthemanagedclasstenantid';
+        const tenant = await store.storeManagedClassTenant(id, 123);
+        assert.deepStrictEqual(tenant, {
+            id,
+            maxProjectsPerUser : 3,
+            textClassifierExpiry : 24,
+            imageClassifierExpiry : 24,
+            maxUsers : 124,
+            isManaged : true,
+            supportedProjectTypes : [ 'text', 'images', 'numbers', 'sounds' ],
+        });
+        return store.deleteClassTenant(id);
+    });
+
+    it('should recognize disruptive tenants', () => {
+        return store.isTenantDisruptive('ignore-errors-for-me')
+            .then((resp) => {
+                assert.strictEqual(resp, true);
+            });
+    });
+
+    it('should recognize regular tenants', () => {
+        return store.isTenantDisruptive(uuid())
+            .then((resp) => {
+                assert.strictEqual(resp, false);
+            });
+    });
+
 });

@@ -55,6 +55,25 @@ describe('ScratchKeys store', () => {
     });
 
 
+    it('should tolerate storing keys with missing values', async () => {
+        const mockProject: DbTypes.Project = {
+            id : uuid(),
+            userid : uuid(),
+            classid : uuid(),
+            type : 'text',
+            name : uuid(),
+            labels : [],
+            language : 'en',
+            numfields : 0,
+            isCrowdSourced : false,
+        };
+        const creds: Types.BluemixCredentials = {} as Types.BluemixCredentials;
+        const keyid = await store.storeScratchKey(mockProject, creds, uuid(), new Date());
+
+        assert(keyid);
+    });
+
+
     it('should update an empty scratch key', async () => {
         const keyid = await store.storeUntrainedScratchKey(project);
 

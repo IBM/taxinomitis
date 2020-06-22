@@ -1228,6 +1228,7 @@ export async function countConversationWorkspaces(classid: string): Promise<numb
 
     const rows = await dbExecute(queryString, [ classid ]);
     if (rows.length !== 1) {
+        log.error({ rows, func: 'countConversationWorkspaces' }, 'Unexpected response from DB');
         return 0;
     }
 
@@ -1600,9 +1601,9 @@ export async function storeScratchKey(
                         'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     const values = [
         obj.id, project.name, project.type,
-        obj.credentials ? obj.credentials.url : undefined,
-        obj.credentials ? obj.credentials.username : undefined,
-        obj.credentials ? obj.credentials.password : undefined,
+        obj.credentials && obj.credentials.url ? obj.credentials.url : '',
+        obj.credentials && obj.credentials.username ? obj.credentials.username : '',
+        obj.credentials && obj.credentials.password ? obj.credentials.password : '',
         obj.classifierid,
         obj.projectid, project.userid, project.classid,
         obj.updated,
