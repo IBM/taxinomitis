@@ -65,10 +65,15 @@ export async function trainClassifier(
             await deleteClassifier(tenant, existingClassifier);
         }
 
-        const credentials = await store.getBluemixCredentials(tenant, 'visrec');
-        const classifier = await createClassifier(project, credentials, training);
+        let credentials;
+        if (tenant.tenantType === DbObjects.ClassTenantType.ManagedPool) {
+            credentials = await store.getBluemixCredentialsPoolBatch('visrec');
+        }
+        else {
+            credentials = await store.getBluemixCredentials(tenant, 'visrec');
+        }
 
-        return classifier;
+        return createClassifier(tenant, project, credentials, training);
     }
     finally {
         deleteTrainingFiles(training);
@@ -80,16 +85,13 @@ export async function trainClassifier(
 
 
 async function createClassifier(
+    tenantPolicy: DbObjects.ClassTenant,
     project: DbObjects.Project,
     credentialsPool: TrainingObjects.BluemixCredentials[],
     training: { [label: string]: string },
 ): Promise<TrainingObjects.VisualClassifier>
 {
     let classifier: TrainingObjects.VisualClassifier | undefined;
-
-
-    const tenantPolicy = await store.getClassTenant(project.classid);
-
 
     // Unless we see a different error, if this doesn't work, the reason
     //  will be that we don't have room for any new classifiers with the
@@ -803,6 +805,9 @@ async function submitTrainingToVisualRecognition(
     catch (err) {
         log.warn({ url, req, project, err }, ERROR_MESSAGES.UNKNOWN);
 
+        if (tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool) {
+            await store.recordBluemixCredentialsPoolFailure(credentials as TrainingObjects.BluemixCredentialsPool);
+        }
 
         // Visual Recognition will sometimes return an HTTP 413 (Request Entity Too Large)
         //  response in the event of an auth problem - because only authorised users can

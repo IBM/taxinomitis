@@ -48,7 +48,13 @@ export async function trainClassifier(
         workspace = await updateWorkspace(project, credentials, workspace, training, tenantPolicy);
     }
     else {
-        const credentials = await store.getBluemixCredentials(tenantPolicy, 'conv');
+        let credentials;
+        if (tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool) {
+            credentials = await store.getBluemixCredentialsPoolBatch('conv');
+        }
+        else {
+            credentials = await store.getBluemixCredentials(tenantPolicy, 'conv');
+        }
 
         workspace = await createWorkspace(project, credentials, training, tenantPolicy);
     }
@@ -451,6 +457,10 @@ async function submitTrainingToConversation(
     }
     catch (err) {
         log.warn({ req, err, project : project.id, credentials : credentials.id }, ERROR_MESSAGES.UNKNOWN);
+
+        if (tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool) {
+            await store.recordBluemixCredentialsPoolFailure(credentials as TrainingObjects.BluemixCredentialsPool);
+        }
 
         const ignoreErr = await store.isTenantDisruptive(project.classid);
         if (ignoreErr === false) {

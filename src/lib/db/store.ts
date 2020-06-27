@@ -1112,6 +1112,43 @@ export async function getBluemixCredentials(
     return rows.map(dbobjects.getCredentialsFromDbRow);
 }
 
+export async function getBluemixCredentialsPoolBatch(
+    service: TrainingObjects.BluemixServiceType,
+): Promise<TrainingObjects.BluemixCredentials[]>
+{
+    const queryString = 'SELECT `id`, `servicetype`, `url`, `username`, `password`, `credstypeid`, `lastfail` ' +
+                        'FROM `bluemixcredentialspool` ' +
+                        'WHERE `servicetype` = ? ' +
+                        'ORDER BY `lastfail` ' +
+                        'LIMIT 50';
+
+    const rows = await dbExecute(queryString, [ service ]);
+    if (rows.length === 0) {
+        log.warn({ rows, func : 'getBluemixCredentialsPoolBatch' }, 'Unexpected response from DB');
+        throw new Error('Unexpected response when retrieving service credentials');
+    }
+    return rows.map(dbobjects.getCredentialsPoolFromDbRow);
+}
+
+export async function recordBluemixCredentialsPoolFailure(credentials: TrainingObjects.BluemixCredentialsPool): Promise<TrainingObjects.BluemixCredentialsPool>
+{
+    credentials.lastfail = new Date();
+
+    const queryString: string = 'UPDATE `bluemixcredentialspool` ' +
+                                'SET `lastfail` = ? ' +
+                                'WHERE `id` = ?';
+    const values = [ credentials.lastfail, credentials.id ];
+
+    const response = await dbExecute(queryString, values);
+    if (response.affectedRows !== 1) {
+        log.error({
+            credentials, queryString, values, response,
+        }, 'Failed to update failure date');
+    }
+
+    return credentials;
+}
+
 export async function getCombinedBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.BluemixCredentials>
 {
     const credsQuery = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid` ' +
