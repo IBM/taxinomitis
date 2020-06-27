@@ -143,7 +143,7 @@ describe('DB store - tenants', () => {
 
     it('should store a managed class tenant', async () => {
         const id = 'thisisthemanagedclasstenantid';
-        const tenant = await store.storeManagedClassTenant(id, 123);
+        const tenant = await store.storeManagedClassTenant(id, 123, Types.ClassTenantType.Managed);
         assert.deepStrictEqual(tenant, {
             id,
             maxProjectsPerUser : 3,

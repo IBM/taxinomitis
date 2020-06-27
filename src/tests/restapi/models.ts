@@ -45,20 +45,20 @@ describe('REST API - models', () => {
         next();
     }
 
-    const conversationStubGetClassifiersStub = sinon.stub(conversation, 'getClassifierStatuses');
-    const conversationStubTrainClassifierStub = sinon.stub(conversation, 'trainClassifier');
-    const conversationStubTestClassifierStub = sinon.stub(conversation, 'testClassifier');
-    const conversationStubDeleteClassifierStub = sinon.stub(conversation, 'deleteClassifier');
+    let conversationStubGetClassifiersStub: sinon.SinonStub<any, any>;
+    let conversationStubTrainClassifierStub: sinon.SinonStub<any, any>;
+    let conversationStubTestClassifierStub: sinon.SinonStub<any, any>;
+    let conversationStubDeleteClassifierStub: sinon.SinonStub<any, any>;
 
-    const numbersStubTrainClassifierStub = sinon.stub(numbers, 'trainClassifier');
-    const numbersStubTestClassifierStub = sinon.stub(numbers, 'testClassifier');
-    const numbersStubDeleteClassifierStub = sinon.stub(numbers, 'deleteClassifier');
+    let numbersStubTrainClassifierStub: sinon.SinonStub<any, any>;
+    let numbersStubTestClassifierStub: sinon.SinonStub<any, any>;
+    let numbersStubDeleteClassifierStub: sinon.SinonStub<any, any>;
 
-    const imagesStubGetClassifiersStub = sinon.stub(visualrecog, 'getClassifierStatuses');
-    const imagesStubTrainClassifierStub = sinon.stub(visualrecog, 'trainClassifier');
-    const imagesStubDeleteClassifierStub = sinon.stub(visualrecog, 'deleteClassifier');
-    const imagesStubTestClassifierUrlStub = sinon.stub(visualrecog, 'testClassifierURL');
-    const imagesStubTestClassifierFileStub = sinon.stub(visualrecog, 'testClassifierFile');
+    let imagesStubGetClassifiersStub: sinon.SinonStub<any, any>;
+    let imagesStubTrainClassifierStub: sinon.SinonStub<any, any>;
+    let imagesStubDeleteClassifierStub: sinon.SinonStub<any, any>;
+    let imagesStubTestClassifierUrlStub: sinon.SinonStub<any, any>;
+    let imagesStubTestClassifierFileStub: sinon.SinonStub<any, any>;
 
     const updated = new Date();
     updated.setMilliseconds(0);
@@ -67,7 +67,22 @@ describe('REST API - models', () => {
     before(async () => {
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
 
-        conversationStubGetClassifiersStub.callsFake((classid, classifiers) =>  {
+        conversationStubGetClassifiersStub = sinon.stub(conversation, 'getClassifierStatuses');
+        conversationStubTrainClassifierStub = sinon.stub(conversation, 'trainClassifier');
+        conversationStubTestClassifierStub = sinon.stub(conversation, 'testClassifier');
+        conversationStubDeleteClassifierStub = sinon.stub(conversation, 'deleteClassifier');
+
+        numbersStubTrainClassifierStub = sinon.stub(numbers, 'trainClassifier');
+        numbersStubTestClassifierStub = sinon.stub(numbers, 'testClassifier');
+        numbersStubDeleteClassifierStub = sinon.stub(numbers, 'deleteClassifier');
+
+        imagesStubGetClassifiersStub = sinon.stub(visualrecog, 'getClassifierStatuses');
+        imagesStubTrainClassifierStub = sinon.stub(visualrecog, 'trainClassifier');
+        imagesStubDeleteClassifierStub = sinon.stub(visualrecog, 'deleteClassifier');
+        imagesStubTestClassifierUrlStub = sinon.stub(visualrecog, 'testClassifierURL');
+        imagesStubTestClassifierFileStub = sinon.stub(visualrecog, 'testClassifierFile');
+
+        conversationStubGetClassifiersStub.callsFake((tenant, classifiers: Types.ConversationWorkspace[]) =>  {
             return new Promise((resolve) => {
                 let output: Types.ConversationWorkspace[] = [];
 

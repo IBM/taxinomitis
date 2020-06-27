@@ -119,14 +119,6 @@ CREATE TABLE bluemixcredentialspool (
 
 CREATE INDEX bluemixcredentialspool_getBluemixCredentials on bluemixcredentialspool(servicetype, lastfail);
 
-INSERT INTO bluemixcredentialspool (id, servicetype, url, username, password, notes, lastfail)
-    VALUES
-    ('c91199ce-00b7-4c3d-a100-3a45e5d6116f', 'conv', 'https://gateway.watsonplatform.net/conversation/api', '11111111-1111-2222-3333-444444444444', '56789abcdef0', 'pool-conv-1', '2020-01-01 00:00:00'),
-    ('55e2540a-b036-4017-b6fe-9352f476d457', 'conv', 'https://gateway.watsonplatform.net/conversation/api', '22222222-1111-2222-3333-444444444444', '56789abcdef0', 'pool-conv-2', '2020-01-01 00:00:00'),
-    ('69cc9432-1ef8-460c-a2c0-ca1f0b7e5e61', 'conv', 'https://gateway.watsonplatform.net/conversation/api', '33333333-1111-2222-3333-444444444444', '56789abcdef0', 'pool-conv-3', '2020-01-01 00:00:00'),
-    ('eae68a30-6193-4a54-b23a-614b05d7d1f5', 'conv', 'https://gateway.watsonplatform.net/conversation/api', '44444444-1111-2222-3333-444444444444', '56789abcdef0', 'pool-conv-4', '2020-01-01 00:00:00'),
-    ('53fd0777-d791-4748-951b-8466f6301006', 'visrec', 'https://gateway.watsonplatform.net/visual-recognition/api', 'XxXxXxXxXxKlMnOpQrStUv', 'WxYz0123456789AbCdEfGh', 'pool-visrec-1', '2020-01-01 00:00:00');
-
 
 -- ------------------------------------------------------------------
 

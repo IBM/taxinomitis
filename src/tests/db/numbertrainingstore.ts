@@ -1,17 +1,31 @@
 /*eslint-env mocha */
 import * as assert from 'assert';
 import { v1 as uuid } from 'uuid';
+import * as sinon from 'sinon';
 
 import * as Objects from '../../lib/db/db-types';
 import * as store from '../../lib/db/store';
+import * as numbers from '../../lib/training/numbers';
 
 
 describe('DB store - numbers training', () => {
 
+    let numbersStubDeleteClassifierStub: sinon.SinonStub<any, any>;
+
     before(() => {
+        numbersStubDeleteClassifierStub = sinon.stub(numbers, 'deleteClassifier')
+            .callsFake((user: string, classid: string, project: string) => {
+                assert(user);
+                assert(classid);
+                assert(project);
+                return Promise.resolve();
+            });
+
         return store.init();
     });
     after(() => {
+        numbersStubDeleteClassifierStub.restore();
+
         return store.disconnect();
     });
 

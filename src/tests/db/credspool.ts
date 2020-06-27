@@ -11,33 +11,52 @@ import * as DbTypes from '../../lib/db/db-types';
 
 describe('DB credentials pool store', () => {
 
+    let credsId: string;
+    const credsSvc = 'conv';
+    const credsApi = undefined;
+    const credsUser = '33333333-1111-2222-3333-444444444444';
+    const credsPass = '56789abcdef0';
+    const credsType = 'conv_lite';
+    const credsNote = 'test creds';
+
     before(() => {
-        return store.init();
+        return store.init()
+            .then(() => {
+                const creds = dbObjects.createBluemixCredentialsPool(credsSvc, credsApi,
+                    credsUser, credsPass, credsType);
+                creds.notes = credsNote;
+                credsId = creds.id;
+
+                return store.storeBluemixCredentialsPool(dbObjects.getCredentialsPoolAsDbRow(creds));
+            });
     });
     after(() => {
-        return store.disconnect();
+        return store.deleteBluemixCredentialsPool(credsId)
+            .then(() => {
+                return store.disconnect();
+            });
     });
 
 
     describe('Bluemix credentials', () => {
 
         it('should retrieve a pooled credential', async () => {
-            const creds = await store.getBluemixCredentialsById(DbTypes.ClassTenantType.ManagedPool, '69cc9432-1ef8-460c-a2c0-ca1f0b7e5e61');
+            const creds = await store.getBluemixCredentialsById(DbTypes.ClassTenantType.ManagedPool, credsId);
             assert.deepStrictEqual(creds, {
-                id: '69cc9432-1ef8-460c-a2c0-ca1f0b7e5e61',
-                servicetype: 'conv',
+                id: credsId,
+                servicetype: credsSvc,
                 url: 'https://gateway.watsonplatform.net/conversation/api',
-                username: '33333333-1111-2222-3333-444444444444',
-                password: '56789abcdef0',
+                username: credsUser,
+                password: credsPass,
                 classid: 'managedpooluse',
-                credstype: 'unknown',
-                lastfail: new Date('2020-01-01T00:00:00.000Z'),
+                credstype: credsType,
+                lastfail: new Date('1970-01-01T00:00:00.000Z'),
             });
         });
 
         it('should not retrieve pooled credentials for unmanaged classes', async () => {
             try {
-                await store.getBluemixCredentialsById(DbTypes.ClassTenantType.UnManaged, '69cc9432-1ef8-460c-a2c0-ca1f0b7e5e61');
+                await store.getBluemixCredentialsById(DbTypes.ClassTenantType.UnManaged, credsId);
                 assert.fail('should not have found this');
             }
             catch (err) {
@@ -46,15 +65,15 @@ describe('DB credentials pool store', () => {
         });
 
         it('should retrieved pooled credentials if source is unknown', async () => {
-            const creds = await store.getCombinedBluemixCredentialsById('69cc9432-1ef8-460c-a2c0-ca1f0b7e5e61');
+            const creds = await store.getCombinedBluemixCredentialsById(credsId);
             assert.deepStrictEqual(creds, {
-                id: '69cc9432-1ef8-460c-a2c0-ca1f0b7e5e61',
-                servicetype: 'conv',
+                id: credsId,
+                servicetype: credsSvc,
                 url: 'https://gateway.watsonplatform.net/conversation/api',
-                username: '33333333-1111-2222-3333-444444444444',
-                password: '56789abcdef0',
+                username: credsUser,
+                password: credsPass,
                 classid: 'managedpooluse',
-                credstype: 'unknown',
+                credstype: credsType,
             });
         });
 
@@ -70,24 +89,24 @@ describe('DB credentials pool store', () => {
 
         it('should recognize credentials stored in both stores', async () => {
             const duplicate = await store.storeBluemixCredentials('duplicate', {
-                id: '69cc9432-1ef8-460c-a2c0-ca1f0b7e5e61',
-                servicetype: 'conv',
+                id: credsId,
+                servicetype: credsSvc,
                 url: 'https://gateway.watsonplatform.net/conversation/api',
-                username: '33333333-1111-2222-3333-444444444444',
-                password: '56789abcdef0',
+                username: credsUser,
+                password: credsPass,
                 classid: 'managedpooluse',
-                credstypeid: 0,
+                credstypeid: 1,
             });
 
-            const retrieved = await store.getCombinedBluemixCredentialsById('69cc9432-1ef8-460c-a2c0-ca1f0b7e5e61');
+            const retrieved = await store.getCombinedBluemixCredentialsById(credsId);
             assert.deepStrictEqual(retrieved, {
-                id: '69cc9432-1ef8-460c-a2c0-ca1f0b7e5e61',
-                servicetype: 'conv',
+                id: credsId,
+                servicetype: credsSvc,
                 url: 'https://gateway.watsonplatform.net/conversation/api',
-                username: '33333333-1111-2222-3333-444444444444',
-                password: '56789abcdef0',
+                username: credsUser,
+                password: credsPass,
                 classid: 'duplicate',
-                credstype: 'unknown',
+                credstype: credsType,
             });
 
             await store.deleteBluemixCredentials(duplicate.id);

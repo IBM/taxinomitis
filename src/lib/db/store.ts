@@ -1322,6 +1322,19 @@ export async function deleteBluemixCredentialsPool(credentialsid: string): Promi
     }
 }
 
+export function deleteBluemixCredentialsPoolForTests(): Promise<void> {
+    // ensure this function is only used in tests, so we don't
+    //  accidentally trash a production database table
+    if (process.env.MYSQLHOST === 'localhost') {
+        const queryString = 'DELETE FROM `bluemixcredentialspool`';
+        return dbExecute(queryString, [ ]);
+    }
+    else {
+        log.error('deleteBluemixCredentialsPoolForTests called on production system');
+        return Promise.resolve();
+    }
+}
+
 
 export async function deleteClassifiersByCredentials(credentials: TrainingObjects.BluemixCredentials): Promise<void> {
     const queryString = 'DELETE FROM `bluemixclassifiers` WHERE `credentialsid` = ?';
@@ -2081,10 +2094,9 @@ export async function getNextPendingJob(): Promise<Objects.PendingJob | undefine
 // -----------------------------------------------------------------------------
 
 
-export async function storeManagedClassTenant(classid: string, numstudents: number): Promise<Objects.ClassTenant>
+export async function storeManagedClassTenant(classid: string, numstudents: number, type: Objects.ClassTenantType): Promise<Objects.ClassTenant>
 {
     const obj = dbobjects.createClassTenant(classid);
-    const IS_MANAGED = Objects.ClassTenantType.Managed;
     const NUM_USERS = numstudents + 1;
 
     const queryString = 'INSERT INTO `tenants` ' +
@@ -2095,7 +2107,7 @@ export async function storeManagedClassTenant(classid: string, numstudents: numb
 
     const values = [
         obj.id, obj.projecttypes,
-        IS_MANAGED, NUM_USERS,
+        type, NUM_USERS,
         obj.maxprojectsperuser,
         obj.textclassifiersexpiry, obj.imageclassifiersexpiry,
     ];
@@ -2108,7 +2120,7 @@ export async function storeManagedClassTenant(classid: string, numstudents: numb
     const created = {
         id : obj.id,
         supportedProjectTypes : obj.projecttypes.split(',') as Objects.ProjectTypeLabel[],
-        tenantType : IS_MANAGED,
+        tenantType : type,
         maxUsers : NUM_USERS,
         maxProjectsPerUser : obj.maxprojectsperuser,
         textClassifierExpiry : obj.textclassifiersexpiry,

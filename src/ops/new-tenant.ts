@@ -4,6 +4,7 @@ import * as util from 'util';
 import * as child_process from 'child_process';
 import * as store from '../lib/db/store';
 import * as dbobjects from '../lib/db/objects';
+import * as dbtypes from '../lib/db/db-types';
 import * as trainingtypes from '../lib/training/training-types';
 import * as auth0 from '../lib/auth0/users';
 
@@ -116,7 +117,7 @@ console.log('');
 console.log('connecting to DB...');
 store.init()
     .then(() => {
-        return store.storeManagedClassTenant(tenantid, maxusers);
+        return store.storeManagedClassTenant(tenantid, maxusers, dbtypes.ClassTenantType.ManagedPool);
     })
     .then((newtenant) => {
         console.log('created:', newtenant);
