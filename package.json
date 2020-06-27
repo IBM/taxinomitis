@@ -27,7 +27,7 @@
     "@types/jsonwebtoken": "8.5.0",
     "@types/jszip": "3.4.1",
     "@types/jwt-decode": "2.2.1",
-    "@types/lodash": "4.14.156",
+    "@types/lodash": "4.14.157",
     "@types/mocha": "5.2.7",
     "@types/multer": "1.4.3",
     "@types/mustache": "4.0.1",
@@ -47,7 +47,7 @@
     "autoprefixer": "9.8.2",
     "clone": "2.1.2",
     "del": "5.1.0",
-    "eslint": "7.3.0",
+    "eslint": "7.3.1",
     "eslint-plugin-node": "11.1.0",
     "filecompare": "1.0.4",
     "grunt": "1.1.0",
@@ -95,7 +95,7 @@
     "archiver": "4.0.1",
     "async": "2.6.3",
     "body-parser": "1.19.0",
-    "bunyan": "1.8.12",
+    "bunyan": "1.8.13",
     "bunyan-slack": "0.0.10",
     "cfenv": "1.2.2",
     "compression": "1.7.4",
@@ -105,7 +105,7 @@
     "express-jwt": "5.3.3",
     "file-type": "14.6.2",
     "filesize": "6.1.0",
-    "helmet": "3.23.1",
+    "helmet": "3.23.3",
     "http-range-parse": "1.0.0",
     "http-status": "1.4.2",
     "ibm-cos-sdk": "1.6.1",
@@ -126,6 +126,6 @@
     "request-promise": "4.2.5",
     "sharp": "0.25.4",
     "tmp": "0.2.1",
-    "uuid": "8.1.0"
+    "uuid": "8.2.0"
   }
 }
