@@ -25,6 +25,12 @@ describe('DB store', () => {
     });
 
 
+    describe('init', () => {
+        it('should cope with multiple init calls', () => {
+            return store.init();
+        });
+    });
+
     describe('deleteProjects', () => {
 
         it('should delete projects by userid', async () => {
