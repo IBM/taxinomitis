@@ -14,6 +14,7 @@ import * as urls from './urls';
 import * as headers from './headers';
 import * as notifications from '../notifications/slack';
 import loggerSetup from '../utils/logger';
+import { ClassTenantType } from '../db/db-types';
 
 const log = loggerSetup();
 
@@ -345,7 +346,8 @@ async function getPolicy(req: Express.Request, res: Express.Response) {
         const availableImageCredentials = availableCredentials.visrec;
 
         return res.json({
-            isManaged : policy.isManaged,
+            isManaged : policy.tenantType !== ClassTenantType.UnManaged,
+            tenantType : policy.tenantType,
 
             maxTextModels : availableTextCredentials,
             maxImageModels : availableImageCredentials,

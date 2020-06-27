@@ -482,6 +482,8 @@ export function createSoundTrainingDbRow(obj: Objects.SoundTraining): Objects.So
 //
 // -----------------------------------------------------------------------------
 
+const CLASS_MANAGEDPOOL_PLACEHOLDER = 'managedpooluse';
+
 export function getCredentialsFromDbRow(
     row: TrainingObjects.BluemixCredentialsDbRow,
 ): TrainingObjects.BluemixCredentials
@@ -515,6 +517,40 @@ export function getCredentialsAsDbRow(obj: TrainingObjects.BluemixCredentials,
         creds.notes = obj.notes;
     }
     return creds;
+}
+
+export function getCredentialsPoolFromDbRow(
+    row: TrainingObjects.BluemixCredentialsPoolDbRow,
+): TrainingObjects.BluemixCredentialsPool
+{
+    return {
+        id : row.id,
+        servicetype : row.servicetype as TrainingObjects.BluemixServiceType,
+        url : row.url,
+        username : row.username,
+        password : row.password,
+        classid : CLASS_MANAGEDPOOL_PLACEHOLDER,
+        credstype : row.credstypeid ? projects.credsTypesById[row.credstypeid].label : 'unknown',
+        lastfail : row.lastfail
+    };
+}
+
+export function getCredentialsPoolAsDbRow(obj: TrainingObjects.BluemixCredentialsPool,
+): TrainingObjects.BluemixCredentialsPoolDbRow
+{
+    return {
+        id : obj.id,
+        servicetype : obj.servicetype,
+        url : obj.url,
+        username : obj.username,
+        password : obj.password,
+        classid : obj.classid,
+        credstypeid : obj.credstype ?
+                        projects.credsTypesByLabel[obj.credstype].id :
+                        projects.credsTypesByLabel.unknown.id,
+        notes : obj.notes,
+        lastfail : obj.lastfail,
+    };
 }
 
 function validateVisrecApiKey(apikey?: string): string {
@@ -627,6 +663,20 @@ export function createBluemixCredentials(
         throw new Error('Invalid service type');
     }
 }
+
+export function createBluemixCredentialsPool(
+    servicetype: string,
+    apikey?: string,
+    username?: string, password?: string,
+    credstype?: string,
+): TrainingObjects.BluemixCredentialsPool
+{
+    const creds = createBluemixCredentials(servicetype, CLASS_MANAGEDPOOL_PLACEHOLDER,
+        apikey, username, password, credstype);
+
+    return { ...creds, lastfail : new Date(0) };
+}
+
 
 
 
@@ -998,7 +1048,7 @@ export function getClassFromDbRow(row: Objects.ClassDbRow): Objects.ClassTenant 
     return {
         id : row.id,
         supportedProjectTypes : row.projecttypes.split(',') as Objects.ProjectTypeLabel[],
-        isManaged : row.ismanaged === 1,
+        tenantType : row.ismanaged,
         maxUsers : row.maxusers,
         maxProjectsPerUser : row.maxprojectsperuser,
         textClassifierExpiry : row.textclassifiersexpiry,
@@ -1014,7 +1064,7 @@ export function getClassDbRow(tenant: Objects.ClassTenant): Objects.ClassDbRow {
         maxprojectsperuser : tenant.maxProjectsPerUser,
         textclassifiersexpiry : tenant.textClassifierExpiry,
         imageclassifiersexpiry : tenant.imageClassifierExpiry,
-        ismanaged : tenant.isManaged ? 1 : 0,
+        ismanaged : tenant.tenantType,
     };
 }
 
@@ -1022,7 +1072,7 @@ export function getDefaultClassTenant(classid: string): Objects.ClassTenant {
     return {
         id : classid,
         supportedProjectTypes : [ 'text', 'images', 'numbers', 'sounds' ],
-        isManaged : false,
+        tenantType : Objects.ClassTenantType.UnManaged,
         maxUsers : 30,
         maxProjectsPerUser : 3,
         textClassifierExpiry : 24,

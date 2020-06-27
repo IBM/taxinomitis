@@ -43,7 +43,7 @@ export async function trainClassifier(
     if (existingWorkspaces.length > 0) {
         workspace = existingWorkspaces[0];
 
-        const credentials = await store.getBluemixCredentialsById(workspace.credentialsid);
+        const credentials = await store.getBluemixCredentialsById(tenantPolicy.tenantType, workspace.credentialsid);
 
         workspace = await updateWorkspace(project, credentials, workspace, training, tenantPolicy);
     }
@@ -223,6 +223,33 @@ async function updateWorkspace(
     }
 }
 
+async function deleteClassifierUsingCredentials(classifier: TrainingObjects.ConversationWorkspace, credentials?: TrainingObjects.BluemixCredentials)
+{
+    if (credentials) {
+        try {
+            await deleteClassifierFromBluemix(credentials, classifier.workspace_id);
+        }
+        catch (err) {
+            log.error({ err, classifier }, 'Unable to delete Conversation workspace');
+        }
+    }
+
+    await store.deleteConversationWorkspace(classifier.id);
+    await store.resetExpiredScratchKey(classifier.workspace_id, 'text');
+}
+
+
+async function deleteClassifierUnknownClass(classifier: TrainingObjects.ConversationWorkspace): Promise<void>
+{
+    return store.getCombinedBluemixCredentialsById(classifier.credentialsid)
+        .then((creds) => {
+            return deleteClassifierUsingCredentials(classifier, creds);
+        })
+        .catch((err) => {
+            log.error({ err, classifier }, 'Could not find credentials to delete classifier from Bluemix');
+            return deleteClassifierUsingCredentials(classifier);
+        });
+}
 
 
 
@@ -231,18 +258,12 @@ async function updateWorkspace(
  *  This deletes both the classifier from Bluemix, and the record of it
  *  stored in the app's database.
  */
-export async function deleteClassifier(classifier: TrainingObjects.ConversationWorkspace): Promise<void>
+export function deleteClassifier(tenant: DbObjects.ClassTenant, classifier: TrainingObjects.ConversationWorkspace): Promise<void>
 {
-    try {
-        const credentials = await store.getBluemixCredentialsById(classifier.credentialsid);
-        await deleteClassifierFromBluemix(credentials, classifier.workspace_id);
-    }
-    catch (err) {
-        log.error({ err, classifier }, 'Unable to delete Conversation workspace');
-    }
-
-    await store.deleteConversationWorkspace(classifier.id);
-    await store.resetExpiredScratchKey(classifier.workspace_id, 'text');
+    return store.getBluemixCredentialsById(tenant.tenantType, classifier.credentialsid)
+        .then((creds) => {
+            return deleteClassifierUsingCredentials(classifier, creds);
+        });
 }
 
 
@@ -279,7 +300,7 @@ export async function deleteClassifierFromBluemix(
  *  properties set using responses from the Bluemix REST API
  */
 export function getClassifierStatuses(
-    classid: string,
+    tenant: DbObjects.ClassTenant,
     workspaces: TrainingObjects.ConversationWorkspace[],
 ): Promise<TrainingObjects.ConversationWorkspace[]>
 {
@@ -289,7 +310,7 @@ export function getClassifierStatuses(
         workspaces.map(async (workspace) => {
             if (workspace.credentialsid in credentialsCacheById === false) {
                 try {
-                    const creds = await store.getBluemixCredentialsById(workspace.credentialsid);
+                    const creds = await store.getBluemixCredentialsById(tenant.tenantType, workspace.credentialsid);
                     credentialsCacheById[workspace.credentialsid] = creds;
                 }
                 catch (err) {
@@ -649,9 +670,8 @@ export async function testMultipleCredentials(creds: TrainingObjects.BluemixCred
 export async function cleanupExpiredClassifiers(): Promise<void[]>
 {
     log.info('Cleaning up expired Conversation workspaces');
-
     const expired: TrainingObjects.ConversationWorkspace[] = await store.getExpiredConversationWorkspaces();
-    return Promise.all(expired.map(deleteClassifier));
+    return Promise.all(expired.map(deleteClassifierUnknownClass));
 }
 
 

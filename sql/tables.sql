@@ -105,6 +105,21 @@ INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, passwor
     -- This is a placeholder row used for unit tests - it's obviously not a real API key.
     ('3a9a71ab-de77-4912-b0b0-f0c9698d9245', 'testing', 'visrec', 'https://gateway.watsonplatform.net/visual-recognition/api', 'AbCdEfGhIjKlMnOpQrStUv', 'WxYz0123456789AbCdEfGh');
 
+
+CREATE TABLE bluemixcredentialspool (
+    id CHAR(36) NOT NULL PRIMARY KEY,
+    servicetype VARCHAR(8) NOT NULL,
+    url VARCHAR(200) NOT NULL,
+    username VARCHAR(36),
+    password VARCHAR(36),
+    credstypeid TINYINT NOT NULL DEFAULT 0,
+    notes VARCHAR(50) NOT NULL,
+    lastfail DATETIME NOT NULL
+);
+
+CREATE INDEX bluemixcredentialspool_getBluemixCredentials on bluemixcredentialspool(servicetype, lastfail);
+
+
 -- ------------------------------------------------------------------
 
 CREATE TABLE bluemixclassifiers (
@@ -204,14 +219,16 @@ CREATE TABLE tenants (
     maxprojectsperuser TINYINT UNSIGNED NOT NULL DEFAULT 3,
     textclassifiersexpiry TINYINT UNSIGNED NOT NULL DEFAULT 2,
     imageclassifiersexpiry TINYINT UNSIGNED NOT NULL DEFAULT 1,
-    ismanaged BOOLEAN DEFAULT true
+    ismanaged TINYINT DEFAULT 0
 );
+
+-- ALTER TABLE tenants MODIFY ismanaged TINYINT;
 
 INSERT INTO tenants (id, projecttypes, maxusers, maxprojectsperuser, textclassifiersexpiry, ismanaged)
     VALUES
-        ('TESTTENANT', 'text,images,numbers,sounds', 8, 3, 2, true),
-        ('UNIQUECLASSID', 'text,numbers', 8, 3, 2, true),
-        ('session-users', 'text,numbers,sounds', 5, 1, 4, true);
+        ('TESTTENANT', 'text,images,numbers,sounds', 8, 3, 2, 1),
+        ('UNIQUECLASSID', 'text,numbers', 8, 3, 2, 1),
+        ('session-users', 'text,numbers,sounds', 5, 1, 4, 1);
 
 -- ------------------------------------------------------------------
 

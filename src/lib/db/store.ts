@@ -12,6 +12,7 @@ import * as TrainingObjects from '../training/training-types';
 import * as limits from './limits';
 import loggerSetup from '../utils/logger';
 
+
 const log = loggerSetup();
 
 let dbConnPool: mysql.ConnectionPool;
@@ -1019,6 +1020,27 @@ export async function storeBluemixCredentials(
     throw new Error('Failed to store credentials');
 }
 
+export async function storeBluemixCredentialsPool(
+    credentials: TrainingObjects.BluemixCredentialsPoolDbRow,
+): Promise<TrainingObjects.BluemixCredentials>
+{
+    const queryString = 'INSERT INTO `bluemixcredentialspool` ' +
+                        '(`id`, `servicetype`, `url`, `username`, `password`, `credstypeid`, `notes`, `lastfail`) ' +
+                        'VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+
+    const values = [ credentials.id,
+        credentials.servicetype, credentials.url, credentials.username, credentials.password,
+        credentials.credstypeid, credentials.notes,
+        credentials.lastfail,
+    ];
+
+    const response = await dbExecute(queryString, values);
+    if (response.affectedRows === 1) {
+        return dbobjects.getCredentialsPoolFromDbRow(credentials);
+    }
+    throw new Error('Failed to store credentials');
+}
+
 
 export async function setBluemixCredentialsType(
     classid: string, credentialsid: string,
@@ -1075,9 +1097,46 @@ export async function getBluemixCredentials(
     return rows.map(dbobjects.getCredentialsFromDbRow);
 }
 
-
-export async function getBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.BluemixCredentials>
+export async function getCombinedBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.BluemixCredentials>
 {
+    const credsQuery = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid` ' +
+                       'FROM `bluemixcredentials` ' +
+                       'WHERE `id` = ? ' +
+                       'UNION ' +
+                       'SELECT `id`, "managedpooluse" as classid, `servicetype`, `url`, `username`, `password`, `credstypeid` ' +
+                       'FROM `bluemixcredentialspool` ' +
+                       'WHERE `id` = ?';
+    const rows = await dbExecute(credsQuery, [ credentialsid, credentialsid ]);
+
+    if (rows.length === 1) {
+        return dbobjects.getCredentialsFromDbRow(rows[0]);
+    }
+    else if (rows.length === 0) {
+        log.warn({
+            credentialsid, credsQuery, rows,
+            func : 'getCombinedBluemixCredentialsById',
+        }, 'Credentials not found');
+    }
+    else {
+        log.error({
+            credentialsid, credsQuery, rows,
+            func : 'getCombinedBluemixCredentialsById',
+        }, 'Unexpected response from DB');
+    }
+    throw new Error('Unexpected response when retrieving the service credentials');
+}
+
+export async function getBluemixCredentialsById(classType: Objects.ClassTenantType, credentialsid: string): Promise<TrainingObjects.BluemixCredentials>
+{
+    if (classType === Objects.ClassTenantType.ManagedPool) {
+        return getPoolBluemixCredentialsById(credentialsid);
+    }
+    else {
+        return getClassBluemixCredentialsById(credentialsid);
+    }
+}
+
+async function getClassBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.BluemixCredentials> {
     const credsQuery = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid` ' +
                        'FROM `bluemixcredentials` ' +
                        'WHERE `id` = ?';
@@ -1089,18 +1148,41 @@ export async function getBluemixCredentialsById(credentialsid: string): Promise<
     else if (rows.length === 0) {
         log.warn({
             credentialsid, credsQuery, rows,
-            func : 'getBluemixCredentialsById',
+            func : 'getClassBluemixCredentialsById',
         }, 'Credentials not found');
     }
     else {
         log.error({
             credentialsid, credsQuery, rows,
-            func : 'getBluemixCredentialsById',
+            func : 'getClassBluemixCredentialsById',
         }, 'Unexpected response from DB');
     }
     throw new Error('Unexpected response when retrieving the service credentials');
 }
 
+async function getPoolBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.BluemixCredentials> {
+    const credsQuery = 'SELECT `id`, `servicetype`, `url`, `username`, `password`, `credstypeid`, `lastfail` ' +
+                       'FROM `bluemixcredentialspool` ' +
+                       'WHERE `id` = ?';
+    const rows = await dbExecute(credsQuery, [ credentialsid ]);
+
+    if (rows.length === 1) {
+        return dbobjects.getCredentialsPoolFromDbRow(rows[0]);
+    }
+    else if (rows.length === 0) {
+        log.warn({
+            credentialsid, credsQuery, rows,
+            func : 'getPoolBluemixCredentialsById',
+        }, 'Credentials not found');
+    }
+    else {
+        log.error({
+            credentialsid, credsQuery, rows,
+            func : 'getPoolBluemixCredentialsById',
+        }, 'Unexpected response from DB');
+    }
+    throw new Error('Unexpected response when retrieving service credentials');
+}
 
 
 export async function countBluemixCredentialsByType(classid: string): Promise<{ conv: number, visrec: number }>
@@ -1918,7 +2000,7 @@ export async function getNextPendingJob(): Promise<Objects.PendingJob | undefine
 export async function storeManagedClassTenant(classid: string, numstudents: number): Promise<Objects.ClassTenant>
 {
     const obj = dbobjects.createClassTenant(classid);
-    const IS_MANAGED = true;
+    const IS_MANAGED = Objects.ClassTenantType.Managed;
     const NUM_USERS = numstudents + 1;
 
     const queryString = 'INSERT INTO `tenants` ' +
@@ -1942,7 +2024,7 @@ export async function storeManagedClassTenant(classid: string, numstudents: numb
     const created = {
         id : obj.id,
         supportedProjectTypes : obj.projecttypes.split(',') as Objects.ProjectTypeLabel[],
-        isManaged : IS_MANAGED,
+        tenantType : IS_MANAGED,
         maxUsers : NUM_USERS,
         maxProjectsPerUser : obj.maxprojectsperuser,
         textClassifierExpiry : obj.textclassifiersexpiry,
@@ -2253,15 +2335,17 @@ export async function deleteEntireProject(userid: string, classid: string, proje
     switch (project.type) {
     case 'text': {
         const classifiers = await getConversationWorkspaces(project.id);
+        const tenant = await getClassTenant(classid);
         for (const classifier of classifiers) {
-            await conversation.deleteClassifier(classifier);
+            await conversation.deleteClassifier(tenant, classifier);
         }
         break;
     }
     case 'images': {
         const classifiers = await getImageClassifiers(project.id);
+        const tenant = await getClassTenant(classid);
         for (const classifier of classifiers) {
-            await visualrec.deleteClassifier(classifier);
+            await visualrec.deleteClassifier(tenant, classifier);
         }
         break;
     }

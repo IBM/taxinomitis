@@ -5,6 +5,7 @@ import * as httpstatus from 'http-status';
 // local dependencies
 import * as auth from './auth';
 import * as store from '../db/store';
+import * as DbTypes from '../db/db-types';
 import * as Types from '../training/training-types';
 import * as conversation from '../training/conversation';
 import * as visualrec from '../training/visualrecognition';
@@ -62,15 +63,18 @@ async function getModels(req: auth.RequestWithProject, res: Express.Response) {
     const projectid = req.params.projectid;
 
     let classifiers: any[];
+    let tenant: DbTypes.ClassTenant;
     switch (req.project.type) {
     case 'text':
+        tenant = await store.getClassTenant(classid);
         classifiers = await store.getConversationWorkspaces(projectid);
-        classifiers = await conversation.getClassifierStatuses(classid, classifiers);
+        classifiers = await conversation.getClassifierStatuses(tenant, classifiers);
         classifiers = classifiers.map(returnConversationWorkspace);
         break;
     case 'images':
+        tenant = await store.getClassTenant(classid);
         classifiers = await store.getImageClassifiers(projectid);
-        classifiers = await visualrec.getClassifierStatuses(classid, classifiers);
+        classifiers = await visualrec.getClassifierStatuses(tenant, classifiers);
         classifiers = classifiers.map(returnVisualRecognition);
         break;
     case 'numbers':
@@ -219,13 +223,15 @@ async function deleteModel(req: auth.RequestWithProject, res: Express.Response) 
     try {
         switch (req.project.type) {
         case 'text': {
+            const tenant = await store.getClassTenant(classid);
             const workspace = await store.getConversationWorkspace(projectid, modelid);
-            await conversation.deleteClassifier(workspace);
+            await conversation.deleteClassifier(tenant, workspace);
             return res.sendStatus(httpstatus.NO_CONTENT);
         }
         case 'images': {
+            const tenant = await store.getClassTenant(classid);
             const classifier = await store.getImageClassifier(projectid, modelid);
-            await visualrec.deleteClassifier(classifier);
+            await visualrec.deleteClassifier(tenant, classifier);
             return res.sendStatus(httpstatus.NO_CONTENT);
         }
         case 'numbers': {
@@ -285,7 +291,8 @@ async function testModel(req: Express.Request, res: Express.Response) {
                 return errors.missingData(res);
             }
 
-            const creds = await store.getBluemixCredentialsById(credsid);
+            const tenant = await store.getClassTenant(classid);
+            const creds = await store.getBluemixCredentialsById(tenant.tenantType, credsid);
 
             const classes = await conversation.testClassifier(creds, modelid, requestTimestamp, projectid, text);
             return res.json(classes);
@@ -298,7 +305,8 @@ async function testModel(req: Express.Request, res: Express.Response) {
                 return errors.missingData(res);
             }
 
-            const creds = await store.getBluemixCredentialsById(credsid);
+            const tenant = await store.getClassTenant(classid);
+            const creds = await store.getBluemixCredentialsById(tenant.tenantType, credsid);
 
             let classes: Types.Classification[];
             if (imageurl) {

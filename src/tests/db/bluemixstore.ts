@@ -279,7 +279,7 @@ describe('DB store', () => {
 
             await store.storeConversationWorkspace(storedcreds, project, classifierInfo);
 
-            const retrievedCreds = await store.getBluemixCredentialsById(creds.id);
+            const retrievedCreds = await store.getBluemixCredentialsById(DbTypes.ClassTenantType.UnManaged, creds.id);
             assert.deepStrictEqual(retrievedCreds, {
                 ...credsinfo,
                 credstype : 'conv_standard',
@@ -313,11 +313,11 @@ describe('DB store', () => {
 
             await store.storeBluemixCredentials(classid, creds);
 
-            const verifyBefore = await store.getBluemixCredentialsById(creds.id);
+            const verifyBefore = await store.getBluemixCredentialsById(DbTypes.ClassTenantType.UnManaged, creds.id);
 
             await store.setBluemixCredentialsType(classid, credsinfo.id, 'conv', after.label);
 
-            const verifyAfter = await store.getBluemixCredentialsById(creds.id);
+            const verifyAfter = await store.getBluemixCredentialsById(DbTypes.ClassTenantType.UnManaged, creds.id);
 
             await store.deleteBluemixCredentials(creds.id);
 
@@ -348,11 +348,11 @@ describe('DB store', () => {
 
             await store.storeBluemixCredentials(classid, creds);
 
-            const verifyBefore = await store.getBluemixCredentialsById(creds.id);
+            const verifyBefore = await store.getBluemixCredentialsById(DbTypes.ClassTenantType.UnManaged, creds.id);
 
             await store.setBluemixCredentialsType(classid, credsinfo.id, 'visrec', after.label);
 
-            const verifyAfter = await store.getBluemixCredentialsById(creds.id);
+            const verifyAfter = await store.getBluemixCredentialsById(DbTypes.ClassTenantType.UnManaged, creds.id);
 
             await store.deleteBluemixCredentials(creds.id);
 
@@ -436,7 +436,7 @@ describe('DB store', () => {
             assert(scratchkey.credentials);
             const timestamp = scratchkey.updated;
 
-            const verify = await store.getBluemixCredentialsById(credentials.id);
+            const verify = await store.getBluemixCredentialsById(DbTypes.ClassTenantType.UnManaged, credentials.id);
             assert(verify);
             assert.deepStrictEqual(verify, credentials);
 
@@ -456,7 +456,7 @@ describe('DB store', () => {
             assert(scratchkey.updated.getTime() > timestamp.getTime());
 
             try {
-                await store.getBluemixCredentialsById(credentials.id);
+                await store.getBluemixCredentialsById(DbTypes.ClassTenantType.UnManaged, credentials.id);
                 assert.fail('should not have reached here');
             }
             catch (err) {

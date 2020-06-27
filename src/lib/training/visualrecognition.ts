@@ -59,9 +59,10 @@ export async function trainClassifier(
     const training = await getTraining(project);
 
     try {
+        const tenant = await store.getClassTenant(project.classid);
         const existingClassifiers = await store.getImageClassifiers(project.id);
         for (const existingClassifier of existingClassifiers) {
-            await deleteClassifier(existingClassifier);
+            await deleteClassifier(tenant, existingClassifier);
         }
 
         const credentials = await store.getBluemixCredentials(project.classid, 'visrec');
@@ -198,14 +199,14 @@ async function createClassifier(
  * Updates the provided set of image classifiers with the current status from
  *  Bluemix.
  *
- * @param classid - the tenant that the user is a member of
+ * @param tenant - the tenant that the user is a member of
  * @param classifiers - set of classifiers to get status info for
  *
  * @returns the same set of classifiers, with the status
  *  properties set using responses from the Bluemix REST API
  */
 export function getClassifierStatuses(
-    classid: string,
+    tenant: DbObjects.ClassTenant,
     classifiers: TrainingObjects.VisualClassifier[],
 ): Promise<TrainingObjects.VisualClassifier[]>
 {
@@ -214,7 +215,8 @@ export function getClassifierStatuses(
     return Promise.all(
         classifiers.map(async (classifier) => {
             if (classifier.credentialsid in credentialsCacheById === false) {
-                const creds = await store.getBluemixCredentialsById(classifier.credentialsid);
+                const creds = await store.getBluemixCredentialsById(tenant.tenantType,
+                                                                    classifier.credentialsid);
                 credentialsCacheById[classifier.credentialsid] = creds;
             }
             return getStatus(credentialsCacheById[classifier.credentialsid], classifier);
@@ -371,8 +373,35 @@ function deleteTrainingFiles(training: { [label: string]: string }): void {
     }
 }
 
+async function deleteClassifierUsingCredentials(classifier: TrainingObjects.VisualClassifier, credentials?: TrainingObjects.BluemixCredentials)
+{
+    if (credentials) {
+        try {
+            await deleteClassifierFromBluemix(credentials, classifier.classifierid);
 
+            // in case it reappears later...
+            deleteClassifierFromBluemixAgain(credentials, classifier.classifierid);
+        }
+        catch (err) {
+            log.error({ err, classifier }, 'Unable to delete image classifier');
+        }
+    }
 
+    await store.deleteImageClassifier(classifier.id);
+    await store.resetExpiredScratchKey(classifier.classifierid, 'images');
+}
+
+function deleteClassifierUnknownClass(classifier: TrainingObjects.VisualClassifier): Promise<void>
+{
+    return store.getCombinedBluemixCredentialsById(classifier.credentialsid)
+        .then((creds) => {
+            return deleteClassifierUsingCredentials(classifier, creds);
+        })
+        .catch((err) => {
+            log.error({ err, classifier }, 'Could not find credentials to delete classifier from Bluemix');
+            return deleteClassifierUsingCredentials(classifier);
+        });
+}
 
 
 /**
@@ -380,22 +409,12 @@ function deleteTrainingFiles(training: { [label: string]: string }): void {
  *  This deletes both the classifier from Bluemix, and the record of it
  *  stored in the app's database.
  */
-export async function deleteClassifier(classifier: TrainingObjects.VisualClassifier)
+export function deleteClassifier(tenant: DbObjects.ClassTenant, classifier: TrainingObjects.VisualClassifier): Promise<void>
 {
-    try {
-        const credentials = await store.getBluemixCredentialsById(classifier.credentialsid);
-        await deleteClassifierFromBluemix(credentials, classifier.classifierid);
-
-        // in case it reappears later...
-        deleteClassifierFromBluemixAgain(credentials, classifier.classifierid);
-    }
-    catch (err) {
-        log.error({ err, classifier }, 'Unable to delete image classifier');
-    }
-
-    await store.deleteImageClassifier(classifier.id);
-    await store.resetExpiredScratchKey(classifier.classifierid, 'images');
-
+    return store.getBluemixCredentialsById(tenant.tenantType, classifier.credentialsid)
+        .then((creds) => {
+            return deleteClassifierUsingCredentials(classifier, creds);
+        });
 }
 
 
@@ -925,9 +944,8 @@ export async function identifyRegion(credentials: TrainingObjects.BluemixCredent
 export async function cleanupExpiredClassifiers(): Promise<void[]>
 {
     log.info('Cleaning up expired Visual Recognition classifiers');
-
     const expired: TrainingObjects.VisualClassifier[] = await store.getExpiredImageClassifiers();
-    return Promise.all(expired.map(deleteClassifier));
+    return Promise.all(expired.map(deleteClassifierUnknownClass));
 }
 
 

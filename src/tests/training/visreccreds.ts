@@ -39,7 +39,7 @@ describe('Training - Visual Recognition - IAM/API keys', () => {
                                                      Promise<DbTypes.ImageTraining[]>>;
     let countTrainingByLabelStub: sinon.SinonStub<[DbTypes.Project], Promise<{ [label: string]: number; }>>;
     let getImageClassifiersStub: sinon.SinonStub<[string], Promise<TrainingTypes.VisualClassifier[]>>;
-    let getBluemixCredentialsByIdStub: sinon.SinonStub<[string], Promise<TrainingTypes.BluemixCredentials>>;
+    let getBluemixCredentialsByIdStub: sinon.SinonStub<[DbTypes.ClassTenantType, string], Promise<TrainingTypes.BluemixCredentials>>;
     let getBluemixCredentialsStub: sinon.SinonStub<[string, TrainingTypes.BluemixServiceType],
                                                    Promise<TrainingTypes.BluemixCredentials[]>>;
     let storeImageClassifierStub: sinon.SinonStub<[TrainingTypes.BluemixCredentials,
@@ -167,12 +167,21 @@ describe('Training - Visual Recognition - IAM/API keys', () => {
                 credentialsid : mockVisRec.CREDENTIALS_LEGACY.id,
                 url : mockVisRec.CREDENTIALS_LEGACY.url + '/v3/classifiers/' + classifierinfo.id,
             };
+            const tenant: DbTypes.ClassTenant = {
+                id: 'TESTTENANT',
+                maxUsers : 10,
+                tenantType : DbTypes.ClassTenantType.UnManaged,
+                supportedProjectTypes : [ 'text', 'images', 'numbers', 'sounds' ],
+                textClassifierExpiry : 1,
+                imageClassifierExpiry : 1,
+                maxProjectsPerUser : 10,
+            };
 
             assert(deleteImageClassifierStub.notCalled);
             assert(resetExpiredScratchKeyStub.notCalled);
             assert(deleteStub.notCalled);
 
-            await visrec.deleteClassifier(classifier);
+            await visrec.deleteClassifier(tenant, classifier);
 
             assert(deleteImageClassifierStub.called);
             assert(resetExpiredScratchKeyStub.called);
@@ -233,12 +242,21 @@ describe('Training - Visual Recognition - IAM/API keys', () => {
                 credentialsid : mockVisRec.CREDENTIALS_NEW.id,
                 url : mockVisRec.CREDENTIALS_NEW.url + '/v3/classifiers/' + classifierinfo.id,
             };
+            const tenant: DbTypes.ClassTenant = {
+                id: 'TESTTENANT',
+                maxUsers : 10,
+                tenantType : DbTypes.ClassTenantType.UnManaged,
+                supportedProjectTypes : [ 'text', 'images', 'numbers', 'sounds' ],
+                textClassifierExpiry : 1,
+                imageClassifierExpiry : 1,
+                maxProjectsPerUser : 10,
+            };
 
             assert(deleteImageClassifierStub.notCalled);
             assert(resetExpiredScratchKeyStub.notCalled);
             assert(deleteStub.notCalled);
 
-            await visrec.deleteClassifier(classifier);
+            await visrec.deleteClassifier(tenant, classifier);
 
             assert(deleteImageClassifierStub.called);
             assert(resetExpiredScratchKeyStub.called);

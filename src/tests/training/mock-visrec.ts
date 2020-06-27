@@ -229,7 +229,7 @@ export const store = {
             return Promise.resolve([]);
         }
     },
-    getBluemixCredentialsById : (credentialsid: string): Promise<TrainingTypes.BluemixCredentials> => {
+    getBluemixCredentialsById : (classtype: DbTypes.ClassTenantType, credentialsid: string): Promise<TrainingTypes.BluemixCredentials> => {
         switch (credentialsid) {
         case CREDENTIALS_LEGACY.id:
             return Promise.resolve(CREDENTIALS_LEGACY);
@@ -247,7 +247,7 @@ export const store = {
             maxProjectsPerUser : 3,
             textClassifierExpiry : 2,
             imageClassifierExpiry : 3,
-            isManaged: false,
+            tenantType: DbTypes.ClassTenantType.UnManaged,
         };
         return Promise.resolve(placeholder);
     },

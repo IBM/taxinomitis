@@ -38,7 +38,7 @@ describe('Training - Visual Recognition', () => {
         (requestLegacy.RequestCallback | undefined)?], requestPromise.RequestPromise>;
     let getProjectStub: sinon.SinonStub<[string], Promise<DbTypes.Project | undefined>>;
     let authStoreStub: sinon.SinonStub<[string, TrainingTypes.BluemixServiceType], Promise<TrainingTypes.BluemixCredentials[]>>;
-    let authByIdStoreStub: sinon.SinonStub<[string], Promise<TrainingTypes.BluemixCredentials>>;
+    let authByIdStoreStub: sinon.SinonStub<[DbTypes.ClassTenantType, string], Promise<TrainingTypes.BluemixCredentials>>;
     let countStoreStub: sinon.SinonStub<[DbTypes.Project], Promise<{ [label: string]: number; }>>;
     let getImageClassifiers: sinon.SinonStub<[string], Promise<TrainingTypes.VisualClassifier[]>>;
     let getStoreStub: sinon.SinonStub<[string, string, DbTypes.PagingOptions], Promise<DbTypes.ImageTraining[]>>;
@@ -50,6 +50,25 @@ describe('Training - Visual Recognition', () => {
     let setTimeoutStub: sinon.SinonStub;
 
     let downloadStub: sinon.SinonStub<[downloadAndZip.ImageDownload[]], Promise<string>>;
+
+    const TESTTENANT: DbTypes.ClassTenant = {
+        id: 'TESTTENANT',
+        maxUsers : 10,
+        tenantType : DbTypes.ClassTenantType.UnManaged,
+        supportedProjectTypes : [ 'text', 'images', 'numbers', 'sounds' ],
+        textClassifierExpiry : 1,
+        imageClassifierExpiry : 1,
+        maxProjectsPerUser : 10,
+    };
+    const CLASS: DbTypes.ClassTenant = {
+        id: 'CLASSID',
+        maxUsers : 6,
+        tenantType : DbTypes.ClassTenantType.UnManaged,
+        supportedProjectTypes : [ 'text', 'images', 'numbers' ],
+        textClassifierExpiry : 1,
+        imageClassifierExpiry : 1,
+        maxProjectsPerUser : 10,
+    };
 
 
     before(() => {
@@ -116,7 +135,7 @@ describe('Training - Visual Recognition', () => {
         it('should create a classifier', async () => {
             storeScratchKeyStub.reset();
 
-            const classid = 'TESTTENANT';
+            const classid = TESTTENANT.id;
             const userid = 'bob';
             const projectid = 'projectbobvis';
             const projectname = 'Bob\'s images proj';
@@ -154,7 +173,7 @@ describe('Training - Visual Recognition', () => {
         it('should not try to create a classifier without enough training data', async () => {
             storeScratchKeyStub.reset();
 
-            const classid = 'TESTTENANT';
+            const classid = TESTTENANT.id;
             const userid = 'bob';
             const projectid = 'tinyvis';
             const projectname = 'Bob\'s small images proj';
@@ -184,7 +203,7 @@ describe('Training - Visual Recognition', () => {
         it('should not try to create a classifier with too much training data', async () => {
             storeScratchKeyStub.reset();
 
-            const classid = 'TESTTENANT';
+            const classid = TESTTENANT.id;
             const userid = 'bob';
             const projectid = 'massivevis';
             const projectname = 'Bob\'s huge images proj';
@@ -214,7 +233,7 @@ describe('Training - Visual Recognition', () => {
         it('should handle hitting limits on API keys', async () => {
             storeScratchKeyStub.reset();
 
-            const classid = 'TESTTENANT';
+            const classid = TESTTENANT.id;
             const userid = 'bob';
             const projectid = 'projectbobvislim';
             const projectname = 'Bob\'s other images proj';
@@ -292,7 +311,7 @@ describe('Training - Visual Recognition', () => {
             assert.strictEqual(deleteStoreStub.called, false);
             assert.strictEqual(setTimeoutStub.called, false);
 
-            await visrec.deleteClassifier(goodClassifier);
+            await visrec.deleteClassifier(TESTTENANT, goodClassifier);
 
             assert(deleteStub.calledOnce);
             assert(deleteStoreStub.calledOnce);
@@ -317,7 +336,7 @@ describe('Training - Visual Recognition', () => {
             assert.strictEqual(deleteStub.called, false);
             assert.strictEqual(deleteStoreStub.called, false);
 
-            await visrec.deleteClassifier(unknownClassifier);
+            await visrec.deleteClassifier(TESTTENANT, unknownClassifier);
 
             assert(deleteStub.calledOnce);
             assert(deleteStoreStub.calledOnce);
@@ -339,7 +358,7 @@ describe('Training - Visual Recognition', () => {
 
         it('should get info for a ready classifier', async () => {
             const reqClone = clone([ goodClassifier ]);
-            const one = await visrec.getClassifierStatuses('CLASSID', reqClone);
+            const one = await visrec.getClassifierStatuses(CLASS, reqClone);
 
             assert.deepStrictEqual(one, [ goodClassifierWithStatus ]);
         });
@@ -349,7 +368,7 @@ describe('Training - Visual Recognition', () => {
                 unknownClassifier,
                 goodClassifier,
             ]);
-            const three = await visrec.getClassifierStatuses('CLASSID', reqClone);
+            const three = await visrec.getClassifierStatuses(CLASS, reqClone);
 
             assert.deepStrictEqual(three, [
                 unknownClassifierWithStatus,

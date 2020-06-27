@@ -66,7 +66,7 @@ export async function checkClass(tenant: string, type: Types.ProjectTypeLabel): 
 
 
     const classInfo = await store.getClassTenant(tenant);
-    if (classInfo.isManaged) {
+    if (classInfo.tenantType !== Types.ClassTenantType.UnManaged) {
         // classes rarely change from managed/unmanaged so it
         //  should be safe to cache this
         return addOutcomeToCache(tenant, type, {

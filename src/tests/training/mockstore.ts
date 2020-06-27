@@ -33,7 +33,7 @@ export function getBluemixCredentials(classid: string, service: TrainingTypes.Bl
     }
     return new Promise((resolve) => resolve([ ]));
 }
-export function getBluemixCredentialsById(id: string): Promise<TrainingTypes.BluemixCredentials> {
+export function getBluemixCredentialsById(classid: DbTypes.ClassTenantType, id: string): Promise<TrainingTypes.BluemixCredentials> {
     return new Promise((resolve, reject) => {
         if (id === '123') {
             return resolve(creds);
@@ -216,7 +216,7 @@ export function getClassTenant(classid: string): Promise<DbTypes.ClassTenant>
         maxProjectsPerUser : 3,
         textClassifierExpiry : 2,
         imageClassifierExpiry : 3,
-        isManaged : false,
+        tenantType : DbTypes.ClassTenantType.UnManaged,
     };
     return Promise.resolve(placeholder);
 }

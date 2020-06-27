@@ -55,13 +55,13 @@ describe('REST API - Bluemix credentials', () => {
         getClassStub = sinon.stub(store, 'getClassTenant').callsFake((id: string): Promise<Types.ClassTenant> => {
             if (id === 'TESTTENANT' || id === 'DIFFERENT') {
                 const placeholder: Types.ClassTenant = {
-                    isManaged : false,
+                    tenantType : Types.ClassTenantType.UnManaged,
                 } as Types.ClassTenant;
                 return Promise.resolve(placeholder);
             }
             else {
                 const placeholder: Types.ClassTenant = {
-                    isManaged : true,
+                    tenantType : Types.ClassTenantType.Managed,
                 } as Types.ClassTenant;
                 return Promise.resolve(placeholder);
             }
@@ -613,7 +613,7 @@ describe('REST API - Bluemix credentials', () => {
                     assert.strictEqual(body[0].credstype, 'conv_lite');
 
                     // check that the correct region was identified
-                    const verify = await store.getBluemixCredentialsById(credsid);
+                    const verify = await store.getBluemixCredentialsById(Types.ClassTenantType.UnManaged, credsid);
                     assert.strictEqual(verify.url, 'https://gateway.watsonplatform.net/conversation/api');
 
                     return request(testServer)
@@ -672,7 +672,7 @@ describe('REST API - Bluemix credentials', () => {
                     assert.strictEqual(body[0].credstype, 'conv_standard');
 
                     // check that the correct region was identified
-                    const verify = await store.getBluemixCredentialsById(credsid);
+                    const verify = await store.getBluemixCredentialsById(Types.ClassTenantType.UnManaged, credsid);
                     assert.strictEqual(verify.url, 'https://gateway-fra.watsonplatform.net/assistant/api');
 
                     return request(testServer)
