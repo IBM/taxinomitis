@@ -40,7 +40,7 @@ describe('Training - Visual Recognition - IAM/API keys', () => {
     let countTrainingByLabelStub: sinon.SinonStub<[DbTypes.Project], Promise<{ [label: string]: number; }>>;
     let getImageClassifiersStub: sinon.SinonStub<[string], Promise<TrainingTypes.VisualClassifier[]>>;
     let getBluemixCredentialsByIdStub: sinon.SinonStub<[DbTypes.ClassTenantType, string], Promise<TrainingTypes.BluemixCredentials>>;
-    let getBluemixCredentialsStub: sinon.SinonStub<[string, TrainingTypes.BluemixServiceType],
+    let getBluemixCredentialsStub: sinon.SinonStub<[DbTypes.ClassTenant, TrainingTypes.BluemixServiceType],
                                                    Promise<TrainingTypes.BluemixCredentials[]>>;
     let storeImageClassifierStub: sinon.SinonStub<[TrainingTypes.BluemixCredentials,
         DbTypes.Project, TrainingTypes.VisualClassifier],

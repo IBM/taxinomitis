@@ -55,13 +55,13 @@ describe('REST API - Bluemix credentials', () => {
         getClassStub = sinon.stub(store, 'getClassTenant').callsFake((id: string): Promise<Types.ClassTenant> => {
             if (id === 'TESTTENANT' || id === 'DIFFERENT') {
                 const placeholder: Types.ClassTenant = {
-                    tenantType : Types.ClassTenantType.UnManaged,
+                    id, tenantType : Types.ClassTenantType.UnManaged,
                 } as Types.ClassTenant;
                 return Promise.resolve(placeholder);
             }
             else {
                 const placeholder: Types.ClassTenant = {
-                    tenantType : Types.ClassTenantType.Managed,
+                    id, tenantType : Types.ClassTenantType.Managed,
                 } as Types.ClassTenant;
                 return Promise.resolve(placeholder);
             }

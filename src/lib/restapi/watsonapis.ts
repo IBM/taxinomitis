@@ -47,9 +47,8 @@ function returnConversationCredentials(credentials: TrainingTypes.BluemixCredent
 
 
 
-async function getCredentials(req: Express.Request, res: Express.Response) {
-    const tenant = req.params.classid;
-    const servicetype: TrainingTypes.BluemixServiceType = req.query.servicetype as TrainingTypes.BluemixServiceType;
+async function getCredentials(reqWithTenant: auth.RequestWithTenant, res: Express.Response) {
+    const servicetype: TrainingTypes.BluemixServiceType = reqWithTenant.query.servicetype as TrainingTypes.BluemixServiceType;
 
     if (!servicetype) {
         return res.status(httpstatus.BAD_REQUEST)
@@ -61,7 +60,7 @@ async function getCredentials(req: Express.Request, res: Express.Response) {
     }
 
     try {
-        const credentials = await store.getBluemixCredentials(tenant, servicetype);
+        const credentials = await store.getBluemixCredentials(reqWithTenant.tenant, servicetype);
         switch (servicetype) {
         case 'conv':
             return res.json(credentials.map(returnConversationCredentials));
@@ -346,6 +345,7 @@ export default function registerApis(app: Express.Application) {
         auth.checkValidUser,
         auth.requireSupervisor,
         auth.ensureUnmanagedTenant,
+        // @ts-ignore
         getCredentials);
 
     app.get(urls.BLUEMIX_CREDENTIAL,

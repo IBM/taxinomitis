@@ -40,18 +40,16 @@ function filterClassifierInfo(complete: Types.ClassifierSummary) {
  * These are classifiers that were created outside of the tool, or that were
  * supposed to be deleted but accidentally left in Bluemix.
  */
-async function getUnmanagedClassifiers(req: Express.Request, res: Express.Response) {
-    const classid: string = req.params.classid;
-
-    const type: string = req.query.type as string;
+async function getUnmanagedClassifiers(reqWithTenant: auth.RequestWithTenant, res: Express.Response) {
+    const type: string = reqWithTenant.query.type as string;
     if (!type || type !== 'unmanaged') {
         return errors.missingData(res);
     }
 
     // fetch the two lists of problem classifiers in parallel
     const responsePromises = [
-        classifiers.getUnknownTextClassifiers(classid),
-        classifiers.getUnknownImageClassifiers(classid),
+        classifiers.getUnknownTextClassifiers(reqWithTenant.tenant),
+        classifiers.getUnknownImageClassifiers(reqWithTenant.tenant),
     ];
 
     Promise.all(responsePromises)
@@ -147,6 +145,7 @@ export default function registerApis(app: Express.Application) {
             //  they're automatically deleted by scheduled jobs. So they shouldn't
             //  need to call this.
             auth.ensureUnmanagedTenant,
+            // @ts-ignore
             getUnmanagedClassifiers);
 
     app.delete(urls.BLUEMIX_CLASSIFIER,

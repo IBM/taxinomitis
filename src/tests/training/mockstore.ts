@@ -22,7 +22,7 @@ export const credsForVisRec: TrainingTypes.BluemixCredentials = {
     credstype : 'visrec_lite',
 };
 
-export function getBluemixCredentials(classid: string, service: TrainingTypes.BluemixServiceType)
+export function getBluemixCredentials(tenant: DbTypes.ClassTenant, service: TrainingTypes.BluemixServiceType)
     : Promise<TrainingTypes.BluemixCredentials[]>
 {
     if (service === 'conv'){

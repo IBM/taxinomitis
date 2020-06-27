@@ -1097,14 +1097,14 @@ export async function getAllBluemixCredentials(
 
 
 export async function getBluemixCredentials(
-    classid: string, service: TrainingObjects.BluemixServiceType,
+    tenant: Objects.ClassTenant, service: TrainingObjects.BluemixServiceType,
 ): Promise<TrainingObjects.BluemixCredentials[]>
 {
     const queryString = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid` ' +
                         'FROM `bluemixcredentials` ' +
                         'WHERE `classid` = ? AND `servicetype` = ?';
 
-    const rows = await dbExecute(queryString, [ classid, service ]);
+    const rows = await dbExecute(queryString, [ tenant.id, service ]);
     if (rows.length === 0) {
         log.warn({ rows, func : 'getBluemixCredentials' }, 'Unexpected response from DB');
         throw new Error('Unexpected response when retrieving service credentials');

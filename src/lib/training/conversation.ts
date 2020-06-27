@@ -48,7 +48,7 @@ export async function trainClassifier(
         workspace = await updateWorkspace(project, credentials, workspace, training, tenantPolicy);
     }
     else {
-        const credentials = await store.getBluemixCredentials(project.classid, 'conv');
+        const credentials = await store.getBluemixCredentials(tenantPolicy, 'conv');
 
         workspace = await createWorkspace(project, credentials, training, tenantPolicy);
     }

@@ -86,7 +86,7 @@ export async function checkClass(tenant: string, type: Types.ProjectTypeLabel): 
 
     let credentials: TrainingTypes.BluemixCredentials[] = [];
     try {
-        credentials = await store.getBluemixCredentials(tenant, servicetype);
+        credentials = await store.getBluemixCredentials(classInfo, servicetype);
     }
     catch (err) {
         // no credentials in the DB surfaces as an "Unexpected response..." so

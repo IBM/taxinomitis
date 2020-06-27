@@ -28,7 +28,7 @@ describe('Training - Conversation', () => {
     let createStub: sinon.SinonStub<[string, (requestPromise.RequestPromiseOptions | undefined)?, (requestLegacy.RequestCallback | undefined)?], requestPromise.RequestPromise>;
     let deleteStub: sinon.SinonStub<[string, (requestPromise.RequestPromiseOptions | undefined)?, (requestLegacy.RequestCallback | undefined)?], requestPromise.RequestPromise>;
     let getProjectStub: sinon.SinonStub<[string], Promise<DbTypes.Project | undefined>>;
-    let authStoreStub: sinon.SinonStub<[string, TrainingTypes.BluemixServiceType], Promise<TrainingTypes.BluemixCredentials[]>>;
+    let authStoreStub: sinon.SinonStub<[DbTypes.ClassTenant, TrainingTypes.BluemixServiceType], Promise<TrainingTypes.BluemixCredentials[]>>;
     let authByIdStoreStub: sinon.SinonStub<[DbTypes.ClassTenantType, string], Promise<TrainingTypes.BluemixCredentials>>;
     let countStoreStub: sinon.SinonStub<[DbTypes.Project], Promise<{ [label: string]: number; }>>;
     let getConversationWorkspacesStub: sinon.SinonStub<[string], Promise<TrainingTypes.ConversationWorkspace[]>>;

@@ -215,14 +215,14 @@ export const store = {
     countTrainingByLabel : (project: DbTypes.Project) => {
         return Promise.resolve(PROJECTS[project.name].training);
     },
-    getBluemixCredentials : (classid: string, service: TrainingTypes.BluemixServiceType)
+    getBluemixCredentials : (tenant: DbTypes.ClassTenant, service: TrainingTypes.BluemixServiceType)
         : Promise<TrainingTypes.BluemixCredentials[]> =>
     {
         assert.strictEqual(service, 'visrec');
-        if (classid === CLASSIDS.LEGACY) {
+        if (tenant.id === CLASSIDS.LEGACY) {
             return Promise.resolve([ CREDENTIALS_LEGACY ]);
         }
-        else if (classid === CLASSIDS.NEW) {
+        else if (tenant.id === CLASSIDS.NEW) {
             return Promise.resolve([ CREDENTIALS_NEW ]);
         }
         else {

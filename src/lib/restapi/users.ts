@@ -341,7 +341,13 @@ async function getPolicy(req: Express.Request, res: Express.Response) {
     try {
         const policy = await store.getClassTenant(tenant);
         const storelimits = await dblimits.getStoreLimits();
-        const availableCredentials = await store.countBluemixCredentialsByType(tenant);
+        let availableCredentials;
+        if (policy.tenantType === ClassTenantType.ManagedPool) {
+            availableCredentials = { conv : 0, visrec : 0 };
+        }
+        else {
+            availableCredentials = await store.countBluemixCredentialsByType(tenant);
+        }
         const availableTextCredentials = availableCredentials.conv;
         const availableImageCredentials = availableCredentials.visrec;
 

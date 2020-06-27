@@ -65,7 +65,7 @@ export async function trainClassifier(
             await deleteClassifier(tenant, existingClassifier);
         }
 
-        const credentials = await store.getBluemixCredentials(project.classid, 'visrec');
+        const credentials = await store.getBluemixCredentials(tenant, 'visrec');
         const classifier = await createClassifier(project, credentials, training);
 
         return classifier;

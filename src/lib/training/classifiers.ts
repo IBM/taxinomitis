@@ -2,12 +2,13 @@
 import * as store from '../db/store';
 import * as visrec from './visualrecognition';
 import * as conv from './conversation';
+import { ClassTenant } from '../db/db-types';
 import { ClassifierSummary, BluemixServiceType, BluemixCredentials } from './training-types';
 
 
 
 
-export async function getUnknownTextClassifiers(classid: string): Promise<ClassifierSummary[]>
+export async function getUnknownTextClassifiers(tenant: ClassTenant): Promise<ClassifierSummary[]>
 {
     const unknownTextClassifiers: ClassifierSummary[] = [];
 
@@ -15,7 +16,7 @@ export async function getUnknownTextClassifiers(classid: string): Promise<Classi
 
     // get all of the Bluemix credentials in the class
     try {
-        credentialsPool = await store.getBluemixCredentials(classid, 'conv');
+        credentialsPool = await store.getBluemixCredentials(tenant, 'conv');
     }
     catch (err) {
         if (err.message === 'Unexpected response when retrieving service credentials') {
@@ -50,7 +51,7 @@ export async function getUnknownTextClassifiers(classid: string): Promise<Classi
 
 
 
-export async function getUnknownImageClassifiers(classid: string): Promise<ClassifierSummary[]>
+export async function getUnknownImageClassifiers(tenant: ClassTenant): Promise<ClassifierSummary[]>
 {
     const unknownImageClassifiers: ClassifierSummary[] = [];
 
@@ -58,7 +59,7 @@ export async function getUnknownImageClassifiers(classid: string): Promise<Class
 
     // get all of the Bluemix credentials in the class
     try {
-        credentialsPool = await store.getBluemixCredentials(classid, 'visrec');
+        credentialsPool = await store.getBluemixCredentials(tenant, 'visrec');
     }
     catch (err) {
         if (err.message === 'Unexpected response when retrieving service credentials') {
