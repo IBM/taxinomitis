@@ -237,7 +237,8 @@ async function updateWorkspace(
     }
 }
 
-async function deleteClassifierUsingCredentials(classifier: TrainingObjects.ConversationWorkspace, credentials?: TrainingObjects.BluemixCredentials)
+async function deleteClassifierUsingCredentials(classifier: TrainingObjects.ConversationWorkspace,
+                                                credentials?: TrainingObjects.BluemixCredentials)
 {
     if (credentials) {
         try {
@@ -274,9 +275,20 @@ async function deleteClassifierUnknownClass(classifier: TrainingObjects.Conversa
  */
 export function deleteClassifier(tenant: DbObjects.ClassTenant, classifier: TrainingObjects.ConversationWorkspace): Promise<void>
 {
+    let credentials: TrainingObjects.BluemixCredentials;
+
     return store.getBluemixCredentialsById(tenant.tenantType, classifier.credentialsid)
         .then((creds) => {
-            return deleteClassifierUsingCredentials(classifier, creds);
+            credentials = creds;
+            return deleteClassifierUsingCredentials(classifier, credentials);
+        })
+        .then(async () => {
+            if (tenant.tenantType === DbObjects.ClassTenantType.ManagedPool) {
+                // if this classifier was using credentials from the managed pool, then
+                //  we move the last-fail timestamp back an hour to prioritse reusing
+                //  these credentials for future model training requests
+                await store.recordBluemixCredentialsPoolModelDeletion(credentials as TrainingObjects.BluemixCredentialsPool);
+            }
         });
 }
 

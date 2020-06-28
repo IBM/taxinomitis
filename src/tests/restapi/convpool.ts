@@ -15,6 +15,7 @@ import * as dbobjects from '../../lib/db/objects';
 import * as auth from '../../lib/restapi/auth';
 import * as conversation from '../../lib/training/conversation';
 import * as trainingtypes from '../../lib/training/training-types';
+import { FIFTY_MINUTES } from '../../lib/utils/constants';
 import testapiserver from './testserver';
 
 
@@ -312,7 +313,12 @@ describe('REST API - text training for managed pool classes', () => {
         });
 
 
-        it('should delete a model', () => {
+        it('should delete a model', async () => {
+            const models = await store.getConversationWorkspaces(secondProject.id);
+            const credentialsUsedId = models[0].credentialsid;
+            const credentialsUsed = await store.getBluemixCredentialsById(types.ClassTenantType.ManagedPool, credentialsUsedId);
+            const credentialsTimestamp = (credentialsUsed as trainingtypes.BluemixCredentialsPool).lastfail.getTime();
+
             return request(testServer)
                 .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + secondProject.id + '/models')
                 .expect('Content-Type', /json/)
@@ -331,6 +337,13 @@ describe('REST API - text training for managed pool classes', () => {
                 })
                 .then((res) => {
                     assert.strictEqual(res.body.length, 0);
+                    return store.getBluemixCredentialsById(types.ClassTenantType.ManagedPool, credentialsUsedId);
+                })
+                .then((updatedCreds) => {
+                    // check that the timestamp for the credentials was updated to reflect the credentials
+                    //  have freed up space for another model now
+                    const newTimestamp = (updatedCreds as trainingtypes.BluemixCredentialsPool).lastfail.getTime();
+                    assert(newTimestamp < (credentialsTimestamp - FIFTY_MINUTES));
                 });
         });
 

@@ -6,6 +6,7 @@ import { v4 as uuid } from 'uuid';
 import * as store from '../../lib/db/store';
 import * as dbObjects from '../../lib/db/objects';
 import * as DbTypes from '../../lib/db/db-types';
+import * as TrainingTypes from '../../lib/training/training-types';
 
 
 
@@ -18,6 +19,8 @@ describe('DB credentials pool store', () => {
     const credsPass = '56789abcdef0';
     const credsType = 'conv_lite';
     const credsNote = 'test creds';
+    const beforeTime = new Date();
+    beforeTime.setMilliseconds(0);
 
     before(() => {
         return store.init()
@@ -50,8 +53,9 @@ describe('DB credentials pool store', () => {
                 password: credsPass,
                 classid: 'managedpooluse',
                 credstype: credsType,
-                lastfail: new Date('1970-01-01T00:00:00.000Z'),
+                lastfail: (creds as TrainingTypes.BluemixCredentialsPool).lastfail,
             });
+            assert((creds as TrainingTypes.BluemixCredentialsPool).lastfail.getTime() >= beforeTime.getTime());
         });
 
         it('should not retrieve pooled credentials for unmanaged classes', async () => {

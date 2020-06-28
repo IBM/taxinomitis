@@ -674,7 +674,7 @@ export function createBluemixCredentialsPool(
     const creds = createBluemixCredentials(servicetype, CLASS_MANAGEDPOOL_PLACEHOLDER,
         apikey, username, password, credstype);
 
-    return { ...creds, lastfail : new Date(0) };
+    return { ...creds, lastfail : new Date() };
 }
 
 

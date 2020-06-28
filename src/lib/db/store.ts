@@ -10,6 +10,7 @@ import * as conversation from '../training/conversation';
 import * as visualrec from '../training/visualrecognition';
 import * as TrainingObjects from '../training/training-types';
 import * as limits from './limits';
+import { ONE_HOUR } from '../utils/constants';
 import loggerSetup from '../utils/logger';
 
 
@@ -1130,9 +1131,26 @@ export async function getBluemixCredentialsPoolBatch(
     return rows.map(dbobjects.getCredentialsPoolFromDbRow);
 }
 
-export async function recordBluemixCredentialsPoolFailure(credentials: TrainingObjects.BluemixCredentialsPool): Promise<TrainingObjects.BluemixCredentialsPool>
+export function recordBluemixCredentialsPoolFailure(credentials: TrainingObjects.BluemixCredentialsPool): Promise<TrainingObjects.BluemixCredentialsPool>
 {
-    credentials.lastfail = new Date();
+    return updateBluemixCredentialsPoolTimestamp(credentials, new Date());
+}
+export function recordBluemixCredentialsPoolModelDeletion(credentials: TrainingObjects.BluemixCredentialsPool): Promise<TrainingObjects.BluemixCredentialsPool>
+{
+    let updatedTimestamp: Date;
+    if (credentials.lastfail) {
+        updatedTimestamp = new Date(credentials.lastfail.getTime() - ONE_HOUR);
+    }
+    else {
+        log.error({ credentials }, 'Missing timestamp for credentials, defaulting to now');
+        updatedTimestamp = new Date(Date.now() - ONE_HOUR);
+    }
+    return updateBluemixCredentialsPoolTimestamp(credentials, updatedTimestamp);
+}
+
+async function updateBluemixCredentialsPoolTimestamp(credentials: TrainingObjects.BluemixCredentialsPool, newlastfail: Date): Promise<TrainingObjects.BluemixCredentialsPool>
+{
+    credentials.lastfail = newlastfail;
 
     const queryString: string = 'UPDATE `bluemixcredentialspool` ' +
                                 'SET `lastfail` = ? ' +
