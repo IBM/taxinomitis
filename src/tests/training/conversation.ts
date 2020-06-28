@@ -28,8 +28,8 @@ describe('Training - Conversation', () => {
     let createStub: sinon.SinonStub<[string, (requestPromise.RequestPromiseOptions | undefined)?, (requestLegacy.RequestCallback | undefined)?], requestPromise.RequestPromise>;
     let deleteStub: sinon.SinonStub<[string, (requestPromise.RequestPromiseOptions | undefined)?, (requestLegacy.RequestCallback | undefined)?], requestPromise.RequestPromise>;
     let getProjectStub: sinon.SinonStub<[string], Promise<DbTypes.Project | undefined>>;
-    let authStoreStub: sinon.SinonStub<[string, TrainingTypes.BluemixServiceType], Promise<TrainingTypes.BluemixCredentials[]>>;
-    let authByIdStoreStub: sinon.SinonStub<[string], Promise<TrainingTypes.BluemixCredentials>>;
+    let authStoreStub: sinon.SinonStub<[DbTypes.ClassTenant, TrainingTypes.BluemixServiceType], Promise<TrainingTypes.BluemixCredentials[]>>;
+    let authByIdStoreStub: sinon.SinonStub<[DbTypes.ClassTenantType, string], Promise<TrainingTypes.BluemixCredentials>>;
     let countStoreStub: sinon.SinonStub<[DbTypes.Project], Promise<{ [label: string]: number; }>>;
     let getConversationWorkspacesStub: sinon.SinonStub<[string], Promise<TrainingTypes.ConversationWorkspace[]>>;
     let getStoreStub: sinon.SinonStub<[string, string, DbTypes.PagingOptions], Promise<string[]>>;
@@ -91,15 +91,31 @@ describe('Training - Conversation', () => {
     });
 
 
-
-
+    const TESTTENANT: DbTypes.ClassTenant = {
+        id: 'TESTTENANT',
+        maxUsers : 10,
+        tenantType : DbTypes.ClassTenantType.UnManaged,
+        supportedProjectTypes : [ 'text', 'images', 'numbers', 'sounds' ],
+        textClassifierExpiry : 1,
+        imageClassifierExpiry : 1,
+        maxProjectsPerUser : 10,
+    };
+    const CLASS: DbTypes.ClassTenant = {
+        id: 'CLASSID',
+        maxUsers : 6,
+        tenantType : DbTypes.ClassTenantType.UnManaged,
+        supportedProjectTypes : [ 'text', 'images', 'numbers' ],
+        textClassifierExpiry : 1,
+        imageClassifierExpiry : 1,
+        maxProjectsPerUser : 10,
+    };
 
     describe('create classifier', () => {
 
         it('should create a classifier', async () => {
             storeScratchKeyStub.reset();
 
-            const classid = 'TESTTENANT';
+            const classid = TESTTENANT.id;
             const userid = 'bob';
             const projectid = 'projectbob';
             const projectname = 'Bob\'s text project';
@@ -140,7 +156,7 @@ describe('Training - Conversation', () => {
         it('should handle failures to create a classifier', async () => {
             storeScratchKeyStub.reset();
 
-            const classid = 'TESTTENANT';
+            const classid = TESTTENANT.id;
             const userid = 'unluckybob';
             const projectid = 'projectbob';
             const projectname = 'Bob\'s broken project';
@@ -169,7 +185,7 @@ describe('Training - Conversation', () => {
         it('should handle model limit failures to create a classifier', async () => {
             storeScratchKeyStub.reset();
 
-            const classid = 'TESTTENANT';
+            const classid = TESTTENANT.id;
             const userid = 'unluckybob';
             const projectid = 'projectbob';
             const projectname = 'Too Many Models';
@@ -198,7 +214,7 @@ describe('Training - Conversation', () => {
         it('should handle rate limit failures to create a classifier', async () => {
             storeScratchKeyStub.reset();
 
-            const classid = 'TESTTENANT';
+            const classid = TESTTENANT.id;
             const userid = 'unluckybob';
             const projectid = 'projectbob';
             const projectname = 'Coming Too Fast';
@@ -320,7 +336,7 @@ describe('Training - Conversation', () => {
             assert.strictEqual(deleteStub.called, false);
             assert.strictEqual(deleteStoreStub.called, false);
 
-            await conversation.deleteClassifier(goodClassifier);
+            await conversation.deleteClassifier(TESTTENANT, goodClassifier);
 
             assert(deleteStub.calledOnce);
             assert(deleteStoreStub.calledOnce);
@@ -353,7 +369,7 @@ describe('Training - Conversation', () => {
 
             const workspaceid = uuid();
 
-            await conversation.deleteClassifier({
+            await conversation.deleteClassifier(TESTTENANT, {
                 id : workspaceid,
                 workspace_id : 'doesnotactuallyexist',
                 credentialsid : '123',
@@ -383,7 +399,7 @@ describe('Training - Conversation', () => {
 
         it('should get info for a ready classifier', async () => {
             const reqClone = clone([ goodClassifier ]);
-            const one = await conversation.getClassifierStatuses('CLASSID', reqClone);
+            const one = await conversation.getClassifierStatuses(CLASS, reqClone);
 
             assert.deepStrictEqual(one, [ goodClassifierWithStatus ]);
         });
@@ -391,7 +407,7 @@ describe('Training - Conversation', () => {
 
         it('should get info for a broken classifier', async () => {
             const reqClone = clone([ brokenClassifier ]);
-            const one = await conversation.getClassifierStatuses('CLASSID', reqClone);
+            const one = await conversation.getClassifierStatuses(CLASS, reqClone);
 
             assert.deepStrictEqual(one, [ brokenClassifierWithStatus ]);
         });
@@ -402,7 +418,7 @@ describe('Training - Conversation', () => {
                 brokenClassifier,
                 trainingClassifier,
             ]);
-            const three = await conversation.getClassifierStatuses('CLASSID', reqClone);
+            const three = await conversation.getClassifierStatuses(CLASS, reqClone);
 
             assert.deepStrictEqual(three, [
                 goodClassifierWithStatus,
@@ -413,7 +429,7 @@ describe('Training - Conversation', () => {
 
         it('should get info for no classifiers', async () => {
             const reqClone: TrainingTypes.ConversationWorkspace[] = [ ];
-            const none = await conversation.getClassifierStatuses('CLASSID', reqClone);
+            const none = await conversation.getClassifierStatuses(CLASS, reqClone);
 
             assert.deepStrictEqual(none, []);
         });
@@ -426,7 +442,7 @@ describe('Training - Conversation', () => {
                 trainingClassifier,
                 goodClassifier,
             ]);
-            const three = await conversation.getClassifierStatuses('CLASSID', reqClone);
+            const three = await conversation.getClassifierStatuses(CLASS, reqClone);
 
             assert.deepStrictEqual(three, [
                 brokenClassifierWithStatus,

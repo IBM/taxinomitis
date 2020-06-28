@@ -347,7 +347,7 @@ describe('REST API - classifiers', () => {
             const placeholder: Types.ClassTenant = {
                 id : classid,
                 supportedProjectTypes : [ 'text', 'images', 'numbers' ],
-                isManaged : classid === 'managed',
+                tenantType : classid === 'managed' ? Types.ClassTenantType.Managed : Types.ClassTenantType.UnManaged,
                 maxUsers : 15,
                 maxProjectsPerUser : 3,
                 textClassifierExpiry : 24,

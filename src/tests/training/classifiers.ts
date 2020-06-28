@@ -106,12 +106,14 @@ describe('Training - Unmanaged classifiers', () => {
 
 
         it('should return unknown text classifiers for new classes', async () => {
-            const unknowns = await classifiers.getUnknownTextClassifiers(uuid.v4());
+            const tenant = await store.getClassTenant(uuid.v4());
+            const unknowns = await classifiers.getUnknownTextClassifiers(tenant);
             assert.deepStrictEqual(unknowns, []);
         });
 
         it('should get a list of unknown text classifiers', async () => {
-            const unknowns = await classifiers.getUnknownTextClassifiers(CLASSID);
+            const tenant = await store.getClassTenant(CLASSID);
+            const unknowns = await classifiers.getUnknownTextClassifiers(tenant);
             assert.strictEqual(unknowns.length, 3);
             assert(unknowns.some((unknown) => unknown.name === 'First API test'));
             assert(unknowns.some((unknown) => unknown.name === 'Second API test'));
@@ -119,14 +121,16 @@ describe('Training - Unmanaged classifiers', () => {
         });
 
         it('should get a list of unknown image classifiers', async () => {
-            const unknowns = await classifiers.getUnknownImageClassifiers(CLASSID);
+            const tenant = await store.getClassTenant(CLASSID);
+            const unknowns = await classifiers.getUnknownImageClassifiers(tenant);
             assert.strictEqual(unknowns.length, 2);
             assert(unknowns.some((unknown) => unknown.name === 'dogs'));
             assert(unknowns.some((unknown) => unknown.name === 'Cars vs Trucks'));
         });
 
         it('should return unknown image classifiers for new classes', async () => {
-            const unknowns = await classifiers.getUnknownImageClassifiers(uuid.v4());
+            const tenant = await store.getClassTenant(uuid.v4());
+            const unknowns = await classifiers.getUnknownImageClassifiers(tenant);
             assert.deepStrictEqual(unknowns, []);
         });
 

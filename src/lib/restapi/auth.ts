@@ -16,6 +16,9 @@ import * as Objects from '../db/db-types';
 export interface RequestWithProject extends Express.Request {
     project: Objects.Project;
 }
+export interface RequestWithTenant extends Express.Request {
+    tenant: Objects.ClassTenant;
+}
 export interface RequestWithUser extends Express.Request {
     user: {
         readonly sub: string;
@@ -29,7 +32,6 @@ export interface RequestWithUser extends Express.Request {
         readonly 'https://machinelearningforkids.co.uk/api/tenant'?: string;
     };
 }
-
 
 const JWT_SECRET: string = authvalues.CLIENT_SECRET as string;
 
@@ -189,7 +191,8 @@ export function requireSiteAdmin(req: Express.Request, res: Express.Response, ne
 }
 
 
-export async function ensureUnmanaged(
+
+export async function ensureUnmanagedTenant(
     req: Express.Request, res: Express.Response,
     next: (err?: Error) => void)
 {
@@ -197,11 +200,14 @@ export async function ensureUnmanaged(
 
     try {
         const policy = await store.getClassTenant(tenant);
-        if (policy.isManaged) {
+        if (policy.tenantType !== Objects.ClassTenantType.UnManaged) {
             res.status(httpstatus.FORBIDDEN)
                .json({ error : 'Access to API keys is forbidden for managed tenants' });
             return;
         }
+
+        const reqWithTenant = req as RequestWithTenant;
+        reqWithTenant.tenant = policy;
 
         next();
     }

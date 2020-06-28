@@ -47,9 +47,8 @@ function returnConversationCredentials(credentials: TrainingTypes.BluemixCredent
 
 
 
-async function getCredentials(req: Express.Request, res: Express.Response) {
-    const tenant = req.params.classid;
-    const servicetype: TrainingTypes.BluemixServiceType = req.query.servicetype as TrainingTypes.BluemixServiceType;
+async function getCredentials(reqWithTenant: auth.RequestWithTenant, res: Express.Response) {
+    const servicetype: TrainingTypes.BluemixServiceType = reqWithTenant.query.servicetype as TrainingTypes.BluemixServiceType;
 
     if (!servicetype) {
         return res.status(httpstatus.BAD_REQUEST)
@@ -61,7 +60,7 @@ async function getCredentials(req: Express.Request, res: Express.Response) {
     }
 
     try {
-        const credentials = await store.getBluemixCredentials(tenant, servicetype);
+        const credentials = await store.getBluemixCredentials(reqWithTenant.tenant, servicetype);
         switch (servicetype) {
         case 'conv':
             return res.json(credentials.map(returnConversationCredentials));
@@ -80,12 +79,13 @@ async function getCredentials(req: Express.Request, res: Express.Response) {
 
 
 
-async function verifyCredentials(req: Express.Request, res: Express.Response) {
-    const tenant = req.params.classid;
-    const credsid = req.params.credentialsid;
+async function verifyCredentials(reqWithTenant: auth.RequestWithTenant, res: Express.Response) {
+    const tenant = reqWithTenant.params.classid;
+    const credsid = reqWithTenant.params.credentialsid;
 
     try {
-        const credentials = await store.getBluemixCredentialsById(credsid);
+        const credentials = await store.getBluemixCredentialsById(reqWithTenant.tenant.tenantType,
+                                                                  credsid);
         if (credentials.classid !== tenant) {
             return errors.notFound(res);
         }
@@ -155,12 +155,13 @@ async function checkAvailableCredentials(req: Express.Request, res: Express.Resp
 
 
 
-async function deleteCredentials(req: Express.Request, res: Express.Response) {
-    const tenant = req.params.classid;
-    const credsid = req.params.credentialsid;
+async function deleteCredentials(reqWithTenant: auth.RequestWithTenant, res: Express.Response) {
+    const tenant = reqWithTenant.params.classid;
+    const credsid = reqWithTenant.params.credentialsid;
 
     try {
-        const credentials = await store.getBluemixCredentialsById(credsid);
+        const credentials = await store.getBluemixCredentialsById(reqWithTenant.tenant.tenantType,
+                                                                  credsid);
         if (credentials.classid !== tenant) {
             return errors.notFound(res);
         }
@@ -343,35 +344,38 @@ export default function registerApis(app: Express.Application) {
         auth.authenticate,
         auth.checkValidUser,
         auth.requireSupervisor,
-        auth.ensureUnmanaged,
+        auth.ensureUnmanagedTenant,
+        // @ts-ignore
         getCredentials);
 
     app.get(urls.BLUEMIX_CREDENTIAL,
         auth.authenticate,
         auth.checkValidUser,
         auth.requireSupervisor,
-        auth.ensureUnmanaged,
+        auth.ensureUnmanagedTenant,
+        // @ts-ignore
         verifyCredentials);
 
     app.delete(urls.BLUEMIX_CREDENTIAL,
         auth.authenticate,
         auth.checkValidUser,
         auth.requireSupervisor,
-        auth.ensureUnmanaged,
+        auth.ensureUnmanagedTenant,
+        // @ts-ignore
         deleteCredentials);
 
     app.patch(urls.BLUEMIX_CREDENTIAL,
         auth.authenticate,
         auth.checkValidUser,
         auth.requireSupervisor,
-        auth.ensureUnmanaged,
+        auth.ensureUnmanagedTenant,
         modifyCredentials);
 
     app.post(urls.BLUEMIX_CREDENTIALS,
         auth.authenticate,
         auth.checkValidUser,
         auth.requireSupervisor,
-        auth.ensureUnmanaged,
+        auth.ensureUnmanagedTenant,
         addCredentials);
 
     app.get(urls.BLUEMIX_SUPPORT,

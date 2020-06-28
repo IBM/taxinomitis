@@ -178,6 +178,7 @@
             "INTRO": "如果你希望Dale設置班級帳戶，請按下方的按鈕傳送包含你的電子信箱與以下訊息的電子信件",
             "LIST_NUMBEROFSTUDENTS": "你大約需要多少個學生帳戶",
             "LIST_NAMEOFSCHOOL": "帳戶所屬學校或程設組織的名稱",
+            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs",
             "EMAIL": "電子信箱"
         }
     },
@@ -1545,7 +1546,16 @@
             "Q6-A-1": "嘗試重新整理頁面",
             "Q6-A-2": "該頁面應該每30秒檢查一次機器學習模型的狀態，但是有時它會停止檢查，因此您可能一直在等待模型，但實際上已經準備完成。",
             "Q6-A-3": "如果超過好幾分鐘，則值得重新整理頁面進行檢查。",
-            "Q6-A-4": "如果已超過十分鐘，則可能值得考慮重新啟動（點擊「取消」按鈕，然後點擊該按鈕以再次訓練新的機器學習模型）。"
+            "Q6-A-4": "如果已超過十分鐘，則可能值得考慮重新啟動（點擊「取消」按鈕，然後點擊該按鈕以再次訓練新的機器學習模型）。",
+
+            "Q7": "\"Your class is sharing Watson API keys ... there are currently none available\"",
+            "Q7-A-1": "Machine learning models in the tool are created using IBM Watson APIs.",
+            "Q7-A-2": "If you have a \"managed\" class account, this means your class is sharing these keys with many other schools. ",
+            "Q7-A-3": "There are normally enough for all schools, but if it is very busy and all of the available API keys are currently in use, attempts to train new machine learning models will fail, and this message will be displayed:",
+            "Q7-A-4": "Your class is sharing Watson Assistant / Visual Recognition \"API keys\" with many other schools, and unfortunately there are currently none available. Please let your teacher or group leader know that you will have to train your machine learning model later",
+            "Q7-A-5": "If a student who has a successfully trained model then deletes their model, this will free up a workspace for use by another student.",
+            "Q7-A-6": "The best thing to do is to try again later, after other students have deleted their machine learning models and API keys are available again. Your training data will still be safe until then.",
+            "Q7-A-7": "Another way to avoid this error is for your class to create an \"unmanaged\" class account, which is where a teacher creates their own Watson \"API keys\" that can be dedicated only for use by their own class."
         },
 
         "TEACHERUI": {

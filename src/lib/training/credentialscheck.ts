@@ -66,7 +66,7 @@ export async function checkClass(tenant: string, type: Types.ProjectTypeLabel): 
 
 
     const classInfo = await store.getClassTenant(tenant);
-    if (classInfo.isManaged) {
+    if (classInfo.tenantType !== Types.ClassTenantType.UnManaged) {
         // classes rarely change from managed/unmanaged so it
         //  should be safe to cache this
         return addOutcomeToCache(tenant, type, {
@@ -86,7 +86,7 @@ export async function checkClass(tenant: string, type: Types.ProjectTypeLabel): 
 
     let credentials: TrainingTypes.BluemixCredentials[] = [];
     try {
-        credentials = await store.getBluemixCredentials(tenant, servicetype);
+        credentials = await store.getBluemixCredentials(classInfo, servicetype);
     }
     catch (err) {
         // no credentials in the DB surfaces as an "Unexpected response..." so

@@ -130,7 +130,7 @@ describe('DB objects', () => {
         const expectedPolicy: Objects.ClassTenant = {
             id : testRow.id,
             supportedProjectTypes : ['text', 'numbers'],
-            isManaged : false,
+            tenantType : Objects.ClassTenantType.UnManaged,
             maxUsers : 3,
             maxProjectsPerUser : 4,
             textClassifierExpiry : 9,
@@ -138,18 +138,22 @@ describe('DB objects', () => {
         };
 
         it('should return tenant policy info', () => {
-            assert.deepStrictEqual(dbobjects.getClassFromDbRow(testRow), expectedPolicy);
+            assert.deepStrictEqual(dbobjects.getClassFromDbRow(testRow),
+                                   expectedPolicy);
             assert.deepStrictEqual(dbobjects.getClassFromDbRow({ ...testRow, ismanaged : 1 }),
-                                   { ...expectedPolicy, isManaged : true });
+                                   { ...expectedPolicy, tenantType : Objects.ClassTenantType.Managed });
+            assert.deepStrictEqual(dbobjects.getClassFromDbRow({ ...testRow, ismanaged : 2 }),
+                                   { ...expectedPolicy, tenantType : Objects.ClassTenantType.ManagedPool });
+
         });
 
         it('should get tenant data as DB row', () => {
             assert.deepStrictEqual(testRow, dbobjects.getClassDbRow(expectedPolicy));
             assert.deepStrictEqual({ ...testRow, ismanaged : 1 },
-                                   dbobjects.getClassDbRow({ ...expectedPolicy, isManaged : true }));
+                                     dbobjects.getClassDbRow({ ...expectedPolicy, tenantType : Objects.ClassTenantType.Managed }));
+            assert.deepStrictEqual({ ...testRow, ismanaged : 2 },
+                                     dbobjects.getClassDbRow({ ...expectedPolicy, tenantType : Objects.ClassTenantType.ManagedPool }));
         });
-
-
     });
 
 
@@ -1208,7 +1212,7 @@ describe('DB objects', () => {
             assert.strictEqual(tenant.id, updated.id);
             assert.strictEqual(tenant.maxUsers, updated.maxUsers);
             assert.strictEqual(tenant.maxProjectsPerUser, updated.maxProjectsPerUser);
-            assert.strictEqual(tenant.isManaged, updated.isManaged);
+            assert.strictEqual(tenant.tenantType, updated.tenantType);
             assert.strictEqual(123, updated.textClassifierExpiry);
             assert.strictEqual(234, updated.imageClassifierExpiry);
         });

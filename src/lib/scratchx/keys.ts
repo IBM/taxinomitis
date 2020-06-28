@@ -18,8 +18,10 @@ async function createTextKey(project: Types.Project): Promise<ScratchTypes.Key> 
     else {
         const classifier = textClassifiers[0];
         const model = classifier.workspace_id;
+        const tenant = await store.getClassTenant(project.classid);
 
-        const credentials = await store.getBluemixCredentialsById(classifier.credentialsid);
+        const credentials = await store.getBluemixCredentialsById(tenant.tenantType,
+                                                                  classifier.credentialsid);
 
         const id = await store.storeOrUpdateScratchKey(project,
             credentials, classifier.workspace_id, classifier.created);
@@ -39,8 +41,10 @@ async function createImagesKey(project: Types.Project): Promise<ScratchTypes.Key
     else {
         const classifier = imageClassifiers[0];
         const model = classifier.classifierid;
+        const tenant = await store.getClassTenant(project.classid);
 
-        const credentials = await store.getBluemixCredentialsById(classifier.credentialsid);
+        const credentials = await store.getBluemixCredentialsById(tenant.tenantType,
+                                                                  classifier.credentialsid);
 
         const id = await store.storeOrUpdateScratchKey(project,
             credentials, classifier.classifierid, classifier.created);

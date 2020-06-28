@@ -17,11 +17,22 @@ import * as request from 'request-promise';
 
 describe('DB store', () => {
 
+    let testTenant: DbTypes.ClassTenant;
+
     before(() => {
-        return store.init();
+        return store.init()
+            .then(() => {
+                return store.getClassTenant(uuid());
+            })
+            .then((tenant) => {
+                testTenant = tenant;
+            });
     });
     after(() => {
-        return store.disconnect();
+        return store.deleteClassTenant(testTenant.id)
+            .then(() => {
+                return store.disconnect();
+            });
     });
 
 
@@ -45,15 +56,13 @@ describe('DB store', () => {
 
 
         it('should store and retrieve lite Bluemix credentials', async () => {
-            const classid = uuid();
-
             const credsinfo = {
                 id : uuid(),
                 username : randomstring.generate({ length : 8 }),
                 password : randomstring.generate({ length : 20 }),
                 servicetype : 'conv',
                 url : 'http://conversation.service/api/classifiers',
-                classid,
+                classid : testTenant.id,
             };
 
             const creds: Types.BluemixCredentialsDbRow = {
@@ -61,27 +70,25 @@ describe('DB store', () => {
                 credstypeid : 1,
             };
 
-            await store.storeBluemixCredentials(classid, creds);
+            await store.storeBluemixCredentials(testTenant.id, creds);
 
-            const retrieved = await store.getBluemixCredentials(classid, 'conv');
+            const retrieved = await store.getBluemixCredentials(testTenant, 'conv');
             assert.deepStrictEqual(retrieved, [ {
                 ...credsinfo,
                 credstype : 'conv_lite',
             } ]);
 
             const counts = await store.countGlobalBluemixCredentials();
-            assert.deepStrictEqual(counts[classid], { conv : 1, visrec : 0, total : 1 });
+            assert.deepStrictEqual(counts[testTenant.id], { conv : 1, visrec : 0, total : 1 });
 
             await store.deleteBluemixCredentials(creds.id);
 
             const countsAfter = await store.countGlobalBluemixCredentials();
-            assert.strictEqual(countsAfter[classid], undefined);
+            assert.strictEqual(countsAfter[testTenant.id], undefined);
         });
 
         it('should store and retrieve standard Bluemix credentials', async () => {
-            const classid = uuid();
-
-            const countBefore = await store.countBluemixCredentialsByType(classid);
+            const countBefore = await store.countBluemixCredentialsByType(testTenant.id);
             assert.deepStrictEqual(countBefore, { conv : 0, visrec : 0 });
 
             const credsinfo = {
@@ -90,7 +97,7 @@ describe('DB store', () => {
                 password : randomstring.generate({ length : 20 }),
                 servicetype : 'conv',
                 url : 'http://conversation.service/api/classifiers',
-                classid,
+                classid : testTenant.id,
             };
 
             const creds: Types.BluemixCredentialsDbRow = {
@@ -98,12 +105,12 @@ describe('DB store', () => {
                 credstypeid : projectObjects.credsTypesByLabel.conv_standard.id,
             };
 
-            await store.storeBluemixCredentials(classid, creds);
+            await store.storeBluemixCredentials(testTenant.id, creds);
 
-            const countAfter = await store.countBluemixCredentialsByType(classid);
+            const countAfter = await store.countBluemixCredentialsByType(testTenant.id);
             assert.deepStrictEqual(countAfter, { conv : 20, visrec : 0 });
 
-            const retrieved = await store.getBluemixCredentials(classid, 'conv');
+            const retrieved = await store.getBluemixCredentials(testTenant, 'conv');
             assert.deepStrictEqual(retrieved, [ {
                 ...credsinfo,
                 credstype : 'conv_standard',
@@ -113,22 +120,20 @@ describe('DB store', () => {
         });
 
         it('should store Bluemix credentials with notes', async () => {
-            const classid = uuid();
-
             const creds: Types.BluemixCredentialsDbRow = {
                 id : uuid(),
                 username : randomstring.generate({ length : 8 }),
                 password : randomstring.generate({ length : 20 }),
                 servicetype : 'conv',
                 url : 'http://conversation.service/api/classifiers',
-                classid,
+                classid : testTenant.id,
                 notes : uuid(),
                 credstypeid : projectObjects.credsTypesByLabel.conv_standard.id,
             };
 
-            await store.storeBluemixCredentials(classid, creds);
+            await store.storeBluemixCredentials(testTenant.id, creds);
 
-            const retrievedList = await store.getBluemixCredentials(classid, 'conv');
+            const retrievedList = await store.getBluemixCredentials(testTenant, 'conv');
             const retrieved = retrievedList[0];
             assert.strictEqual(retrieved.id, creds.id);
 
@@ -195,15 +200,13 @@ describe('DB store', () => {
         });
 
         it('should throw an error when fetching non-existent credentials', async () => {
-            const classid = uuid();
-
             const credsinfo = {
                 id : uuid(),
                 username : randomstring.generate({ length : 8 }),
                 password : randomstring.generate({ length : 20 }),
                 servicetype : 'conv',
                 url : 'http://conversation.service/api/classifiers',
-                classid,
+                classid : testTenant.id,
             };
 
             const creds: Types.BluemixCredentialsDbRow = {
@@ -211,9 +214,9 @@ describe('DB store', () => {
                 credstypeid : 2,
             };
 
-            await store.storeBluemixCredentials(classid, creds);
+            await store.storeBluemixCredentials(testTenant.id, creds);
 
-            const retrieved = await store.getBluemixCredentials(classid, 'conv');
+            const retrieved = await store.getBluemixCredentials(testTenant, 'conv');
             assert.deepStrictEqual(retrieved, [ {
                 ...credsinfo,
                 credstype : 'conv_standard',
@@ -221,7 +224,7 @@ describe('DB store', () => {
 
             await store.deleteBluemixCredentials(creds.id);
 
-            return store.getBluemixCredentials(classid, 'conv')
+            return store.getBluemixCredentials(testTenant, 'conv')
                 .then(() => {
                     assert.fail('Should not reach here');
                 })
@@ -279,7 +282,7 @@ describe('DB store', () => {
 
             await store.storeConversationWorkspace(storedcreds, project, classifierInfo);
 
-            const retrievedCreds = await store.getBluemixCredentialsById(creds.id);
+            const retrievedCreds = await store.getBluemixCredentialsById(DbTypes.ClassTenantType.UnManaged, creds.id);
             assert.deepStrictEqual(retrievedCreds, {
                 ...credsinfo,
                 credstype : 'conv_standard',
@@ -313,11 +316,11 @@ describe('DB store', () => {
 
             await store.storeBluemixCredentials(classid, creds);
 
-            const verifyBefore = await store.getBluemixCredentialsById(creds.id);
+            const verifyBefore = await store.getBluemixCredentialsById(DbTypes.ClassTenantType.UnManaged, creds.id);
 
             await store.setBluemixCredentialsType(classid, credsinfo.id, 'conv', after.label);
 
-            const verifyAfter = await store.getBluemixCredentialsById(creds.id);
+            const verifyAfter = await store.getBluemixCredentialsById(DbTypes.ClassTenantType.UnManaged, creds.id);
 
             await store.deleteBluemixCredentials(creds.id);
 
@@ -348,11 +351,11 @@ describe('DB store', () => {
 
             await store.storeBluemixCredentials(classid, creds);
 
-            const verifyBefore = await store.getBluemixCredentialsById(creds.id);
+            const verifyBefore = await store.getBluemixCredentialsById(DbTypes.ClassTenantType.UnManaged, creds.id);
 
             await store.setBluemixCredentialsType(classid, credsinfo.id, 'visrec', after.label);
 
-            const verifyAfter = await store.getBluemixCredentialsById(creds.id);
+            const verifyAfter = await store.getBluemixCredentialsById(DbTypes.ClassTenantType.UnManaged, creds.id);
 
             await store.deleteBluemixCredentials(creds.id);
 
@@ -436,7 +439,7 @@ describe('DB store', () => {
             assert(scratchkey.credentials);
             const timestamp = scratchkey.updated;
 
-            const verify = await store.getBluemixCredentialsById(credentials.id);
+            const verify = await store.getBluemixCredentialsById(DbTypes.ClassTenantType.UnManaged, credentials.id);
             assert(verify);
             assert.deepStrictEqual(verify, credentials);
 
@@ -456,7 +459,7 @@ describe('DB store', () => {
             assert(scratchkey.updated.getTime() > timestamp.getTime());
 
             try {
-                await store.getBluemixCredentialsById(credentials.id);
+                await store.getBluemixCredentialsById(DbTypes.ClassTenantType.UnManaged, credentials.id);
                 assert.fail('should not have reached here');
             }
             catch (err) {

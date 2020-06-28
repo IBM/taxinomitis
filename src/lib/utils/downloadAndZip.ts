@@ -289,6 +289,9 @@ function validateZip(filesize: number, callback: IErrCallback): void {
     if (filesize > 100000000) {
         return callback(new Error('Training data exceeds maximum limit (100 mb)'));
     }
+    if (filesize === 0) {
+        return callback(new Error('Empty training data'));
+    }
     return callback(undefined);
 }
 

@@ -21,7 +21,7 @@ describe('DB store - tenants', () => {
         const expected: Types.ClassTenant = {
             id : 'TESTTENANT',
             supportedProjectTypes : ['text', 'images', 'numbers', 'sounds'],
-            isManaged : true,
+            tenantType : Types.ClassTenantType.Managed,
             maxUsers : 8,
             maxProjectsPerUser : 3,
             textClassifierExpiry : 2,
@@ -60,7 +60,7 @@ describe('DB store - tenants', () => {
         assert.deepStrictEqual(newclass, {
             id,
             supportedProjectTypes : ['text', 'images', 'numbers', 'sounds'],
-            isManaged : false,
+            tenantType : Types.ClassTenantType.UnManaged,
             maxUsers : 30,
             maxProjectsPerUser : 3,
             textClassifierExpiry : 100,
@@ -79,7 +79,7 @@ describe('DB store - tenants', () => {
         assert.deepStrictEqual(newclass, {
             id,
             supportedProjectTypes : ['text', 'images', 'numbers', 'sounds'],
-            isManaged : false,
+            tenantType : Types.ClassTenantType.UnManaged,
             maxUsers : 30,
             maxProjectsPerUser : 3,
             textClassifierExpiry : 6,
@@ -90,7 +90,7 @@ describe('DB store - tenants', () => {
         assert.deepStrictEqual(fetched, {
             id,
             supportedProjectTypes : ['text', 'images', 'numbers', 'sounds'],
-            isManaged : false,
+            tenantType : Types.ClassTenantType.UnManaged,
             maxUsers : 30,
             maxProjectsPerUser : 3,
             textClassifierExpiry : 6,
@@ -101,7 +101,7 @@ describe('DB store - tenants', () => {
         assert.deepStrictEqual(updated, {
             id,
             supportedProjectTypes : ['text', 'images', 'numbers', 'sounds'],
-            isManaged : false,
+            tenantType : Types.ClassTenantType.UnManaged,
             maxUsers : 30,
             maxProjectsPerUser : 3,
             textClassifierExpiry : 12,
@@ -112,7 +112,7 @@ describe('DB store - tenants', () => {
         assert.deepStrictEqual(fetched, {
             id,
             supportedProjectTypes : ['text', 'images', 'numbers', 'sounds'],
-            isManaged : false,
+            tenantType : Types.ClassTenantType.UnManaged,
             maxUsers : 30,
             maxProjectsPerUser : 3,
             textClassifierExpiry : 12,
@@ -125,7 +125,7 @@ describe('DB store - tenants', () => {
         assert.deepStrictEqual(fetched, {
             id,
             supportedProjectTypes : ['text', 'images', 'numbers', 'sounds'],
-            isManaged : false,
+            tenantType : Types.ClassTenantType.UnManaged,
             maxUsers : 30,
             maxProjectsPerUser : 3,
             textClassifierExpiry : 24,
@@ -143,14 +143,14 @@ describe('DB store - tenants', () => {
 
     it('should store a managed class tenant', async () => {
         const id = 'thisisthemanagedclasstenantid';
-        const tenant = await store.storeManagedClassTenant(id, 123);
+        const tenant = await store.storeManagedClassTenant(id, 123, Types.ClassTenantType.Managed);
         assert.deepStrictEqual(tenant, {
             id,
             maxProjectsPerUser : 3,
             textClassifierExpiry : 24,
             imageClassifierExpiry : 24,
             maxUsers : 124,
-            isManaged : true,
+            tenantType : Types.ClassTenantType.Managed,
             supportedProjectTypes : [ 'text', 'images', 'numbers', 'sounds' ],
         });
         return store.deleteClassTenant(id);

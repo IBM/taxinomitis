@@ -215,21 +215,21 @@ export const store = {
     countTrainingByLabel : (project: DbTypes.Project) => {
         return Promise.resolve(PROJECTS[project.name].training);
     },
-    getBluemixCredentials : (classid: string, service: TrainingTypes.BluemixServiceType)
+    getBluemixCredentials : (tenant: DbTypes.ClassTenant, service: TrainingTypes.BluemixServiceType)
         : Promise<TrainingTypes.BluemixCredentials[]> =>
     {
         assert.strictEqual(service, 'visrec');
-        if (classid === CLASSIDS.LEGACY) {
+        if (tenant.id === CLASSIDS.LEGACY) {
             return Promise.resolve([ CREDENTIALS_LEGACY ]);
         }
-        else if (classid === CLASSIDS.NEW) {
+        else if (tenant.id === CLASSIDS.NEW) {
             return Promise.resolve([ CREDENTIALS_NEW ]);
         }
         else {
             return Promise.resolve([]);
         }
     },
-    getBluemixCredentialsById : (credentialsid: string): Promise<TrainingTypes.BluemixCredentials> => {
+    getBluemixCredentialsById : (classtype: DbTypes.ClassTenantType, credentialsid: string): Promise<TrainingTypes.BluemixCredentials> => {
         switch (credentialsid) {
         case CREDENTIALS_LEGACY.id:
             return Promise.resolve(CREDENTIALS_LEGACY);
@@ -247,7 +247,7 @@ export const store = {
             maxProjectsPerUser : 3,
             textClassifierExpiry : 2,
             imageClassifierExpiry : 3,
-            isManaged: false,
+            tenantType: DbTypes.ClassTenantType.UnManaged,
         };
         return Promise.resolve(placeholder);
     },

@@ -28,6 +28,17 @@ export interface BluemixCredentialsDbRow {
     notes?: string | null;
 }
 
+export interface BluemixCredentialsPool extends BluemixCredentials {
+    // the last time that the credentials couldn't be used
+    //  to create a ML model
+    lastfail: Date;
+}
+export interface BluemixCredentialsPoolDbRow extends BluemixCredentialsDbRow {
+    lastfail: Date;
+}
+
+
+
 export type BluemixServiceType = 'conv' | 'visrec' | 'num' | 'sounds';
 export type BluemixCredentialsTypeLabel = 'unknown' | ConversationCredentialsTypeLabel | VisualRecCredentialsTypeLabel;
 

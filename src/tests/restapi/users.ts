@@ -8,6 +8,7 @@ import * as randomstring from 'randomstring';
 import * as express from 'express';
 
 import * as store from '../../lib/db/store';
+import * as Types from '../../lib/db/db-types';
 import * as auth from '../../lib/restapi/auth';
 import * as auth0 from '../../lib/auth0/requests';
 import * as mocks from '../auth0/requestmocks';
@@ -77,6 +78,7 @@ describe('REST API - users', () => {
                         maxImageModels : 0,
                         maxUsers: 30,
                         supportedProjectTypes: [ 'text', 'images', 'numbers', 'sounds' ],
+                        tenantType : Types.ClassTenantType.UnManaged,
                         isManaged : false,
                         maxProjectsPerUser: 3,
                         textClassifierExpiry: 24,

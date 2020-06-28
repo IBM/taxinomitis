@@ -10,7 +10,9 @@ import * as conversation from '../training/conversation';
 import * as visualrec from '../training/visualrecognition';
 import * as TrainingObjects from '../training/training-types';
 import * as limits from './limits';
+import { ONE_HOUR } from '../utils/constants';
 import loggerSetup from '../utils/logger';
+
 
 const log = loggerSetup();
 
@@ -41,6 +43,7 @@ async function restartConnection() {
         await init();
     }
     catch (err) {
+        /* istanbul ignore next */
         log.error({ err }, 'Probably-irrecoverable-failure while trying to restart the DB connection');
     }
 }
@@ -179,12 +182,15 @@ export async function updateProjectCrowdSourced(
         // success
         return;
     }
-    else if (response.affectedRows === 0) {
+
+    /* istanbul ignore else */
+    if (response.affectedRows === 0) {
         log.warn({ userid, classid, projectid, func : 'updateProjectCrowdSourced' },
                  'Project not found');
         throw new Error('Project not found');
     }
     else {
+        // id is a primary key, so an update can only affect 0 or 1 rows
         log.error({
             func : 'updateProjectCrowdSourced',
             userid, classid, projectid,
@@ -223,10 +229,13 @@ async function getCurrentLabels(userid: string, classid: string, projectid: stri
     if (rows.length === 1) {
         return dbobjects.getLabelsFromList(rows[0].labels);
     }
-    else if (rows.length === 0) {
+
+    /* istanbul ignore else */
+    if (rows.length === 0) {
         log.warn({ projectid, classid, func : 'getCurrentLabels' }, 'Project not found in request for labels');
     }
     else {
+        // id is a PRIMARY key, so the DB should only ever return 0 or 1 rows
         log.error({ projectid, classid, rows, func : 'getCurrentLabels' }, 'Unexpected number of project rows');
     }
     throw new Error('Project not found');
@@ -314,10 +323,14 @@ export async function getProject(id: string): Promise<Objects.Project | undefine
     if (rows.length === 1) {
         return dbobjects.getProjectFromDbRow(rows[0]);
     }
-    else if (rows.length === 0) {
+
+    /* istanbul ignore else */
+    if (rows.length === 0) {
         log.warn({ id, func : 'getProject' }, 'Project not found');
     }
     else {
+        /* istanbul ignore next */
+        // id is a PRIMARY key, so the DB should only ever return 0 or 1 rows
         log.error({ rows, id, func : 'getProject' }, 'Project not found');
     }
     return;
@@ -367,7 +380,11 @@ export async function countProjectsByUserId(userid: string, classid: string): Pr
                         'WHERE `userid` = ? AND `classid` = ?';
 
     const rows = await dbExecute(queryString, [ userid, classid ]);
+    /* istanbul ignore if */
+    // even if there are none, a SELECT COUNT(*) should return 0
+    //  so we should never pass this if, but paranoia for the win
     if (rows.length !== 1) {
+        log.error({ rows, func: 'countProjectsByUserId' }, 'Unexpected response from DB');
         return 0;
     }
 
@@ -1019,6 +1036,27 @@ export async function storeBluemixCredentials(
     throw new Error('Failed to store credentials');
 }
 
+export async function storeBluemixCredentialsPool(
+    credentials: TrainingObjects.BluemixCredentialsPoolDbRow,
+): Promise<TrainingObjects.BluemixCredentials>
+{
+    const queryString = 'INSERT INTO `bluemixcredentialspool` ' +
+                        '(`id`, `servicetype`, `url`, `username`, `password`, `credstypeid`, `notes`, `lastfail`) ' +
+                        'VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+
+    const values = [ credentials.id,
+        credentials.servicetype, credentials.url, credentials.username, credentials.password,
+        credentials.credstypeid, credentials.notes,
+        credentials.lastfail,
+    ];
+
+    const response = await dbExecute(queryString, values);
+    if (response.affectedRows === 1) {
+        return dbobjects.getCredentialsPoolFromDbRow(credentials);
+    }
+    throw new Error('Failed to store credentials');
+}
+
 
 export async function setBluemixCredentialsType(
     classid: string, credentialsid: string,
@@ -1060,14 +1098,14 @@ export async function getAllBluemixCredentials(
 
 
 export async function getBluemixCredentials(
-    classid: string, service: TrainingObjects.BluemixServiceType,
+    tenant: Objects.ClassTenant, service: TrainingObjects.BluemixServiceType,
 ): Promise<TrainingObjects.BluemixCredentials[]>
 {
     const queryString = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid` ' +
                         'FROM `bluemixcredentials` ' +
                         'WHERE `classid` = ? AND `servicetype` = ?';
 
-    const rows = await dbExecute(queryString, [ classid, service ]);
+    const rows = await dbExecute(queryString, [ tenant.id, service ]);
     if (rows.length === 0) {
         log.warn({ rows, func : 'getBluemixCredentials' }, 'Unexpected response from DB');
         throw new Error('Unexpected response when retrieving service credentials');
@@ -1075,9 +1113,110 @@ export async function getBluemixCredentials(
     return rows.map(dbobjects.getCredentialsFromDbRow);
 }
 
-
-export async function getBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.BluemixCredentials>
+export async function getBluemixCredentialsPoolBatch(
+    service: TrainingObjects.BluemixServiceType,
+): Promise<TrainingObjects.BluemixCredentials[]>
 {
+    const queryString = 'SELECT `id`, `servicetype`, `url`, `username`, `password`, `credstypeid`, `lastfail` ' +
+                        'FROM `bluemixcredentialspool` ' +
+                        'WHERE `servicetype` = ? ' +
+                        'ORDER BY `lastfail` ' +
+                        'LIMIT 100';
+
+    const rows = await dbExecute(queryString, [ service ]);
+    if (rows.length === 0) {
+        log.warn({ rows, func : 'getBluemixCredentialsPoolBatch' }, 'Unexpected response from DB');
+        throw new Error('Unexpected response when retrieving service credentials');
+    }
+    return rows.map(dbobjects.getCredentialsPoolFromDbRow);
+}
+
+export function recordBluemixCredentialsPoolFailure(credentials: TrainingObjects.BluemixCredentialsPool): Promise<TrainingObjects.BluemixCredentialsPool>
+{
+    return updateBluemixCredentialsPoolTimestamp(credentials, new Date());
+}
+export function recordBluemixCredentialsPoolModelDeletion(credentials: TrainingObjects.BluemixCredentialsPool): Promise<TrainingObjects.BluemixCredentialsPool>
+{
+    let updatedTimestamp: Date;
+    if (credentials.lastfail) {
+        updatedTimestamp = new Date(credentials.lastfail.getTime() - ONE_HOUR);
+    }
+    else {
+        log.error({ credentials }, 'Missing timestamp for credentials, defaulting to now');
+        updatedTimestamp = new Date(Date.now() - ONE_HOUR);
+    }
+    return updateBluemixCredentialsPoolTimestamp(credentials, updatedTimestamp);
+}
+
+async function updateBluemixCredentialsPoolTimestamp(credentials: TrainingObjects.BluemixCredentialsPool, newlastfail: Date): Promise<TrainingObjects.BluemixCredentialsPool>
+{
+    credentials.lastfail = newlastfail;
+
+    const queryString: string = 'UPDATE `bluemixcredentialspool` ' +
+                                'SET `lastfail` = ? ' +
+                                'WHERE `id` = ?';
+    const values = [ credentials.lastfail, credentials.id ];
+
+    const response = await dbExecute(queryString, values);
+    if (response.affectedRows !== 1) {
+        log.error({
+            credentials, queryString, values, response,
+        }, 'Failed to update failure date');
+    }
+
+    return credentials;
+}
+
+export async function getCombinedBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.BluemixCredentials>
+{
+    const credsQuery = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid` ' +
+                       'FROM `bluemixcredentials` ' +
+                       'WHERE `id` = ? ' +
+                       'UNION ' +
+                       'SELECT `id`, "managedpooluse" as classid, `servicetype`, `url`, `username`, `password`, `credstypeid` ' +
+                       'FROM `bluemixcredentialspool` ' +
+                       'WHERE `id` = ?';
+    const rows = await dbExecute(credsQuery, [ credentialsid, credentialsid ]);
+
+    if (rows.length === 1) {
+        return dbobjects.getCredentialsFromDbRow(rows[0]);
+    }
+    if (rows.length === 2) {
+        log.error({
+            credentialsid, credsQuery, rows,
+            func : 'getCombinedBluemixCredentialsById',
+        }, 'Credentials stored in multiple tables');
+        return dbobjects.getCredentialsFromDbRow(rows[0]);
+    }
+
+    /* istanbul ignore else */
+    if (rows.length === 0) {
+        log.warn({
+            credentialsid, credsQuery, rows,
+            func : 'getCombinedBluemixCredentialsById',
+        }, 'Credentials not found');
+    }
+    else {
+        // id is a PRIMARY key, so the DB shouldn't be able to return a different number of rows
+        log.error({
+            credentialsid, credsQuery, rows,
+            func : 'getCombinedBluemixCredentialsById',
+        }, 'Unexpected response from DB');
+    }
+    throw new Error('Unexpected response when retrieving the service credentials');
+}
+
+export async function getBluemixCredentialsById(classType: Objects.ClassTenantType, credentialsid: string): Promise<TrainingObjects.BluemixCredentials>
+{
+    if (classType === Objects.ClassTenantType.ManagedPool) {
+        return getPoolBluemixCredentialsById(credentialsid);
+    }
+    else {
+        return getClassBluemixCredentialsById(credentialsid);
+    }
+}
+
+async function getClassBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.BluemixCredentials> {
     const credsQuery = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid` ' +
                        'FROM `bluemixcredentials` ' +
                        'WHERE `id` = ?';
@@ -1086,21 +1225,50 @@ export async function getBluemixCredentialsById(credentialsid: string): Promise<
     if (rows.length === 1) {
         return dbobjects.getCredentialsFromDbRow(rows[0]);
     }
-    else if (rows.length === 0) {
+
+    /* istanbul ignore else */
+    if (rows.length === 0) {
         log.warn({
             credentialsid, credsQuery, rows,
-            func : 'getBluemixCredentialsById',
+            func : 'getClassBluemixCredentialsById',
         }, 'Credentials not found');
     }
     else {
+        // id is a PRIMARY key, so the DB should only return 0 or 1 rows
         log.error({
             credentialsid, credsQuery, rows,
-            func : 'getBluemixCredentialsById',
+            func : 'getClassBluemixCredentialsById',
         }, 'Unexpected response from DB');
     }
     throw new Error('Unexpected response when retrieving the service credentials');
 }
 
+async function getPoolBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.BluemixCredentials> {
+    const credsQuery = 'SELECT `id`, `servicetype`, `url`, `username`, `password`, `credstypeid`, `lastfail` ' +
+                       'FROM `bluemixcredentialspool` ' +
+                       'WHERE `id` = ?';
+    const rows = await dbExecute(credsQuery, [ credentialsid ]);
+
+    if (rows.length === 1) {
+        return dbobjects.getCredentialsPoolFromDbRow(rows[0]);
+    }
+
+    /* istanbul ignore else */
+    if (rows.length === 0) {
+        log.warn({
+            credentialsid, credsQuery, rows,
+            func : 'getPoolBluemixCredentialsById',
+        }, 'Credentials not found');
+    }
+    else {
+        // id is a PRIMARY key, so the DB should only return 0 or 1 rows
+        log.error({
+            credentialsid, credsQuery, rows,
+            func : 'getPoolBluemixCredentialsById',
+        }, 'Unexpected response from DB');
+    }
+    throw new Error('Unexpected response when retrieving service credentials');
+}
 
 
 export async function countBluemixCredentialsByType(classid: string): Promise<{ conv: number, visrec: number }>
@@ -1160,6 +1328,28 @@ export async function deleteBluemixCredentials(credentialsid: string): Promise<v
     const response = await dbExecute(queryString, [ credentialsid ]);
     if (response.warningStatus !== 0) {
         throw new Error('Failed to delete credentials info');
+    }
+}
+
+export async function deleteBluemixCredentialsPool(credentialsid: string): Promise<void> {
+    const queryString = 'DELETE FROM `bluemixcredentialspool` WHERE `id` = ?';
+
+    const response = await dbExecute(queryString, [ credentialsid ]);
+    if (response.warningStatus !== 0) {
+        throw new Error('Failed to delete credentials info');
+    }
+}
+
+export function deleteBluemixCredentialsPoolForTests(): Promise<void> {
+    // ensure this function is only used in tests, so we don't
+    //  accidentally trash a production database table
+    if (process.env.MYSQLHOST === 'localhost') {
+        const queryString = 'DELETE FROM `bluemixcredentialspool`';
+        return dbExecute(queryString, [ ]);
+    }
+    else {
+        log.error('deleteBluemixCredentialsPoolForTests called on production system');
+        return Promise.resolve();
     }
 }
 
@@ -1227,6 +1417,9 @@ export async function countConversationWorkspaces(classid: string): Promise<numb
                         'WHERE `classid` = ?';
 
     const rows = await dbExecute(queryString, [ classid ]);
+    /* istanbul ignore if */
+    // even if there are none, a SELECT COUNT(*) should return 0
+    //  so we should never pass this if, but paranoia for the win
     if (rows.length !== 1) {
         log.error({ rows, func: 'countConversationWorkspaces' }, 'Unexpected response from DB');
         return 0;
@@ -1696,6 +1889,8 @@ export async function getScratchKey(key: string): Promise<Objects.ScratchKey> {
         log.warn({ key, func : 'getScratchKey' }, 'Scratch key not found');
     }
     else if (rows.length > 1) {
+        /* istanbul ignore next */
+        // id is a PRIMARY key, so the DB should only return 0 or 1 rows
         log.error({ rows, key, func : 'getScratchKey' }, 'Unexpected response from DB');
     }
     throw new Error('Unexpected response when retrieving credentials for Scratch');
@@ -1896,12 +2091,14 @@ export async function getNextPendingJob(): Promise<Objects.PendingJob | undefine
         // no more jobs to do - yay
         return undefined;
     }
-    else if (rows.length === 1) {
+
+    /* istanbul ignore else */
+    // should never go into the else.... because the SQL says LIMIT 1!
+    if (rows.length === 1) {
         // found a job to do - that's okay
         return dbobjects.getPendingJobFromDbRow(rows[0]);
     }
     else {
-        // should never get here.... because the SQL says LIMIT 1!
         log.error({ rows, func : 'getNextPendingJob' }, 'Unexpected response from DB');
         throw new Error('Unexpected response when retrieving pending job from DB');
     }
@@ -1915,10 +2112,9 @@ export async function getNextPendingJob(): Promise<Objects.PendingJob | undefine
 // -----------------------------------------------------------------------------
 
 
-export async function storeManagedClassTenant(classid: string, numstudents: number): Promise<Objects.ClassTenant>
+export async function storeManagedClassTenant(classid: string, numstudents: number, type: Objects.ClassTenantType): Promise<Objects.ClassTenant>
 {
     const obj = dbobjects.createClassTenant(classid);
-    const IS_MANAGED = true;
     const NUM_USERS = numstudents + 1;
 
     const queryString = 'INSERT INTO `tenants` ' +
@@ -1929,7 +2125,7 @@ export async function storeManagedClassTenant(classid: string, numstudents: numb
 
     const values = [
         obj.id, obj.projecttypes,
-        IS_MANAGED, NUM_USERS,
+        type, NUM_USERS,
         obj.maxprojectsperuser,
         obj.textclassifiersexpiry, obj.imageclassifiersexpiry,
     ];
@@ -1942,7 +2138,7 @@ export async function storeManagedClassTenant(classid: string, numstudents: numb
     const created = {
         id : obj.id,
         supportedProjectTypes : obj.projecttypes.split(',') as Objects.ProjectTypeLabel[],
-        isManaged : IS_MANAGED,
+        tenantType : type,
         maxUsers : NUM_USERS,
         maxProjectsPerUser : obj.maxprojectsperuser,
         textClassifierExpiry : obj.textclassifiersexpiry,
@@ -1961,16 +2157,18 @@ export async function getClassTenant(classid: string): Promise<Objects.ClassTena
                         'WHERE `id` = ?';
 
     const rows = await dbExecute(queryString, [ classid ]);
+    /* istanbul ignore else */
     if (rows.length === 0) {
         log.debug({ rows, func : 'getClassTenant' }, 'Empty response from DB');
         return dbobjects.getDefaultClassTenant(classid);
     }
-    else if (rows.length > 1) {
-        log.error({ rows, func : 'getClassTenant' }, 'Unexpected response from DB');
-        return dbobjects.getDefaultClassTenant(classid);
+    else if (rows.length === 1) {
+        return dbobjects.getClassFromDbRow(rows[0]);
     }
     else {
-        return dbobjects.getClassFromDbRow(rows[0]);
+        // id is a primary key, so it shouldn't be possible to end up here
+        log.error({ rows, func : 'getClassTenant' }, 'Unexpected response from DB');
+        return dbobjects.getDefaultClassTenant(classid);
     }
 }
 
@@ -2138,7 +2336,11 @@ export async function countTemporaryUsers(): Promise<number>
     const queryString = 'SELECT COUNT(*) AS count FROM `sessionusers`';
 
     const rows = await dbExecute(queryString, [ ]);
+    /* istanbul ignore if */
+    // even if there are none, a SELECT COUNT(*) should return 0
+    //  so we should never pass this if, but paranoia for the win
     if (rows.length !== 1) {
+        log.error({ rows, func: 'countTemporaryUsers' }, 'Unexpected response from DB');
         return 0;
     }
 
@@ -2228,6 +2430,7 @@ export async function getLatestSiteAlert(): Promise<Objects.SiteAlert | undefine
                         'ORDER BY `timestamp` DESC ' +
                         'LIMIT 1';
     const rows = await dbExecute(queryString, []);
+    /* istanbul ignore else */
     if (rows.length === 1) {
         return dbobjects.getSiteAlertFromDbRow(rows[0]);
     }
@@ -2235,6 +2438,7 @@ export async function getLatestSiteAlert(): Promise<Objects.SiteAlert | undefine
         return;
     }
     else {
+        // LIMIT 1 in query means it shouldn't be possible to end up here
         log.error({ rows, num : rows.length, func : 'getLatestSiteAlert' }, 'Unexpected response from DB');
         return;
     }
@@ -2253,15 +2457,17 @@ export async function deleteEntireProject(userid: string, classid: string, proje
     switch (project.type) {
     case 'text': {
         const classifiers = await getConversationWorkspaces(project.id);
+        const tenant = await getClassTenant(classid);
         for (const classifier of classifiers) {
-            await conversation.deleteClassifier(classifier);
+            await conversation.deleteClassifier(tenant, classifier);
         }
         break;
     }
     case 'images': {
         const classifiers = await getImageClassifiers(project.id);
+        const tenant = await getClassTenant(classid);
         for (const classifier of classifiers) {
-            await visualrec.deleteClassifier(classifier);
+            await visualrec.deleteClassifier(tenant, classifier);
         }
         break;
     }

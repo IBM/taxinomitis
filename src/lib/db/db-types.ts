@@ -195,10 +195,19 @@ export interface PagingOptions {
 
 
 
+export enum ClassTenantType {
+    // teacher provides and manages their own Watson credentials
+    UnManaged        = 0,
+    // dedicated private Watson credentials provided by site-administrator
+    Managed          = 1,
+    // using shared pool of Watson credentials
+    ManagedPool      = 2,
+}
+
 export interface ClassTenant {
     readonly id: string;
     readonly supportedProjectTypes: ProjectTypeLabel[];
-    readonly isManaged: boolean;
+    readonly tenantType: ClassTenantType;
     //
     readonly maxUsers: number;
     readonly maxProjectsPerUser: number;
@@ -214,7 +223,7 @@ export interface ClassDbRow {
     readonly maxprojectsperuser: number;
     readonly textclassifiersexpiry: number;
     readonly imageclassifiersexpiry: number;
-    readonly ismanaged: number;
+    readonly ismanaged: ClassTenantType;
 }
 
 

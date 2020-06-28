@@ -1,5 +1,6 @@
 // local dependencies
 import * as store from '../db/store';
+import * as Types from '../db/db-types';
 import * as visrec from './visualrecognition';
 import * as conv from './conversation';
 import * as bluemixclassifiers from './classifiers';
@@ -461,7 +462,7 @@ async function isClassifierKnown(
 async function handleUnknownClassifier(credentials: BluemixCredentials, classifier: ClassifierSummary): Promise<void> {
     const classPolicy = await store.getClassTenant(credentials.classid);
 
-    if (classPolicy.isManaged) {
+    if (classPolicy.tenantType !== Types.ClassTenantType.UnManaged) {
         // no good reason for this - delete it
 
         slack.notify('DELETING UNKNOWN ' + classifier.type + ' classifier ' +

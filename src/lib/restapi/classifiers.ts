@@ -40,18 +40,16 @@ function filterClassifierInfo(complete: Types.ClassifierSummary) {
  * These are classifiers that were created outside of the tool, or that were
  * supposed to be deleted but accidentally left in Bluemix.
  */
-async function getUnmanagedClassifiers(req: Express.Request, res: Express.Response) {
-    const classid: string = req.params.classid;
-
-    const type: string = req.query.type as string;
+async function getUnmanagedClassifiers(reqWithTenant: auth.RequestWithTenant, res: Express.Response) {
+    const type: string = reqWithTenant.query.type as string;
     if (!type || type !== 'unmanaged') {
         return errors.missingData(res);
     }
 
     // fetch the two lists of problem classifiers in parallel
     const responsePromises = [
-        classifiers.getUnknownTextClassifiers(classid),
-        classifiers.getUnknownImageClassifiers(classid),
+        classifiers.getUnknownTextClassifiers(reqWithTenant.tenant),
+        classifiers.getUnknownImageClassifiers(reqWithTenant.tenant),
     ];
 
     Promise.all(responsePromises)
@@ -74,21 +72,21 @@ async function getUnmanagedClassifiers(req: Express.Request, res: Express.Respon
 
 
 
-async function deleteBluemixClassifier(req: Express.Request, res: Express.Response) {
+async function deleteBluemixClassifier(reqWithTenant: auth.RequestWithTenant, res: Express.Response) {
 
     //
     // get the request attributes
     //
 
-    const classid: string = req.params.classid;
-    const classifierid: string = req.params.classifierid;
+    const classid: string = reqWithTenant.params.classid;
+    const classifierid: string = reqWithTenant.params.classifierid;
 
-    const credentialsid: string = req.query.credentialsid as string;
+    const credentialsid: string = reqWithTenant.query.credentialsid as string;
     if (!credentialsid || credentialsid.trim().length === 0) {
         return errors.missingData(res);
     }
 
-    const type: string = req.query.type as string;
+    const type: string = reqWithTenant.query.type as string;
     if (!type || (type !== 'conv' && type !== 'visrec')) {
         return errors.missingData(res);
     }
@@ -99,7 +97,8 @@ async function deleteBluemixClassifier(req: Express.Request, res: Express.Respon
 
     let creds;
     try {
-        creds = await store.getBluemixCredentialsById(credentialsid);
+        creds = await store.getBluemixCredentialsById(reqWithTenant.tenant.tenantType,
+                                                      credentialsid);
     }
     catch (err) {
         log.error({ err, classid, classifierid, credentialsid },
@@ -145,7 +144,8 @@ export default function registerApis(app: Express.Application) {
             //  to be able to do that. And if any are accidentally left behind,
             //  they're automatically deleted by scheduled jobs. So they shouldn't
             //  need to call this.
-            auth.ensureUnmanaged,
+            auth.ensureUnmanagedTenant,
+            // @ts-ignore
             getUnmanagedClassifiers);
 
     app.delete(urls.BLUEMIX_CLASSIFIER,
@@ -160,6 +160,7 @@ export default function registerApis(app: Express.Application) {
                // managed tenants should never have classifiers created outside of the
                //  tool, as they don't have access to the Bluemix credentials / API keys
                //  to be able to do that.
-               auth.ensureUnmanaged,
+               auth.ensureUnmanagedTenant,
+               // @ts-ignore
                deleteBluemixClassifier);
 }

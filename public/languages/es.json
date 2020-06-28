@@ -178,6 +178,7 @@
             "INTRO": "Si deseas que Dale configure la cuenta de la clase, usa el botón a continuación para enviar un correo electrónico con la siguiente información:",
             "LIST_NUMBEROFSTUDENTS": "Aproximadamente, ¿Cuántas cuentas de estudiante necesitarás?",
             "LIST_NAMEOFSCHOOL": "Nombre de la escuela o grupo de programación para quién o quiénes será la cuenta.",
+            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs",
             "EMAIL": "Correo electrónico"
         }
     },
@@ -1545,7 +1546,16 @@
             "Q6-A-1": "Prueba a refrescar la página.",
             "Q6-A-2": "La página debe mostrar el estatus del modelo cada 30 segundos, por a veces deja de hacer esta comprobación. Es posible que sigas esperando a que el modelo acabe de entrenar aunque el modelo ya esté listo..",
             "Q6-A-3": "Si ha pasado mucho más que “unos pocos minutos”, conviene refrescar o volver a cargar la página..",
-            "Q6-A-4": "Si han pasado más de 10 minutos, lo recommendable es reiniciarl  (Haz click en el botón Cancelar y después en el botón entrenar nuevo modelo.)."
+            "Q6-A-4": "Si han pasado más de 10 minutos, lo recommendable es reiniciarl  (Haz click en el botón Cancelar y después en el botón entrenar nuevo modelo.).",
+
+            "Q7": "\"Your class is sharing Watson API keys ... there are currently none available\"",
+            "Q7-A-1": "Machine learning models in the tool are created using IBM Watson APIs.",
+            "Q7-A-2": "If you have a \"managed\" class account, this means your class is sharing these keys with many other schools. ",
+            "Q7-A-3": "There are normally enough for all schools, but if it is very busy and all of the available API keys are currently in use, attempts to train new machine learning models will fail, and this message will be displayed:",
+            "Q7-A-4": "Your class is sharing Watson Assistant / Visual Recognition \"API keys\" with many other schools, and unfortunately there are currently none available. Please let your teacher or group leader know that you will have to train your machine learning model later",
+            "Q7-A-5": "If a student who has a successfully trained model then deletes their model, this will free up a workspace for use by another student.",
+            "Q7-A-6": "The best thing to do is to try again later, after other students have deleted their machine learning models and API keys are available again. Your training data will still be safe until then.",
+            "Q7-A-7": "Another way to avoid this error is for your class to create an \"unmanaged\" class account, which is where a teacher creates their own Watson \"API keys\" that can be dedicated only for use by their own class."
         },
 
         "TEACHERUI": {

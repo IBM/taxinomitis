@@ -19,6 +19,10 @@ export const ERROR_MESSAGES = {
     INSUFFICIENT_API_KEYS : 'Your class already has created their maximum allowed number of models. ' +
                             'Please let your teacher or group leader know that ' +
                             'their "Watson Assistant API keys have no more workspaces available"',
+    POOL_EXHAUSTED : 'Your class is sharing Watson Assistant "API keys" with many other schools, and ' +
+                            'unfortunately there are currently none available. ' +
+                            'Please let your teacher or group leader know that you will have to train ' +
+                            'your machine learning model later',
     API_KEY_RATE_LIMIT : 'Your class is making too many requests to create machine learning models ' +
                          'at too fast a rate. ' +
                          'Please stop now and let your teacher or group leader know that ' +
@@ -43,12 +47,18 @@ export async function trainClassifier(
     if (existingWorkspaces.length > 0) {
         workspace = existingWorkspaces[0];
 
-        const credentials = await store.getBluemixCredentialsById(workspace.credentialsid);
+        const credentials = await store.getBluemixCredentialsById(tenantPolicy.tenantType, workspace.credentialsid);
 
         workspace = await updateWorkspace(project, credentials, workspace, training, tenantPolicy);
     }
     else {
-        const credentials = await store.getBluemixCredentials(project.classid, 'conv');
+        let credentials;
+        if (tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool) {
+            credentials = await store.getBluemixCredentialsPoolBatch('conv');
+        }
+        else {
+            credentials = await store.getBluemixCredentials(tenantPolicy, 'conv');
+        }
 
         workspace = await createWorkspace(project, credentials, training, tenantPolicy);
     }
@@ -74,7 +84,9 @@ async function createWorkspace(
     // Unless we see a different error, if this doesn't work, the reason
     //  will be that we don't have room for any new workspaces with the
     //  available credentials
-    let finalError = ERROR_MESSAGES.INSUFFICIENT_API_KEYS;
+    let finalError = tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool ?
+        ERROR_MESSAGES.POOL_EXHAUSTED :
+        ERROR_MESSAGES.INSUFFICIENT_API_KEYS;
 
     // shuffle the pool of credentials so the usage will be distributed
     //  across the set, rather than always directing training requests to
@@ -107,7 +119,9 @@ async function createWorkspace(
                 //  number of workspaces allowed with these creds.
                 // So we'll swallow the error so we can try the next set of
                 //  creds in the pool
-                finalError = ERROR_MESSAGES.INSUFFICIENT_API_KEYS;
+                finalError = tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool ?
+                    ERROR_MESSAGES.POOL_EXHAUSTED :
+                    ERROR_MESSAGES.INSUFFICIENT_API_KEYS;
             }
             else if (err.error &&
                      err.error.error &&
@@ -223,6 +237,34 @@ async function updateWorkspace(
     }
 }
 
+async function deleteClassifierUsingCredentials(classifier: TrainingObjects.ConversationWorkspace,
+                                                credentials?: TrainingObjects.BluemixCredentials)
+{
+    if (credentials) {
+        try {
+            await deleteClassifierFromBluemix(credentials, classifier.workspace_id);
+        }
+        catch (err) {
+            log.error({ err, classifier }, 'Unable to delete Conversation workspace');
+        }
+    }
+
+    await store.deleteConversationWorkspace(classifier.id);
+    await store.resetExpiredScratchKey(classifier.workspace_id, 'text');
+}
+
+
+async function deleteClassifierUnknownClass(classifier: TrainingObjects.ConversationWorkspace): Promise<void>
+{
+    return store.getCombinedBluemixCredentialsById(classifier.credentialsid)
+        .then((creds) => {
+            return deleteClassifierUsingCredentials(classifier, creds);
+        })
+        .catch((err) => {
+            log.error({ err, classifier }, 'Could not find credentials to delete classifier from Bluemix');
+            return deleteClassifierUsingCredentials(classifier);
+        });
+}
 
 
 
@@ -231,18 +273,23 @@ async function updateWorkspace(
  *  This deletes both the classifier from Bluemix, and the record of it
  *  stored in the app's database.
  */
-export async function deleteClassifier(classifier: TrainingObjects.ConversationWorkspace): Promise<void>
+export function deleteClassifier(tenant: DbObjects.ClassTenant, classifier: TrainingObjects.ConversationWorkspace): Promise<void>
 {
-    try {
-        const credentials = await store.getBluemixCredentialsById(classifier.credentialsid);
-        await deleteClassifierFromBluemix(credentials, classifier.workspace_id);
-    }
-    catch (err) {
-        log.error({ err, classifier }, 'Unable to delete Conversation workspace');
-    }
+    let credentials: TrainingObjects.BluemixCredentials;
 
-    await store.deleteConversationWorkspace(classifier.id);
-    await store.resetExpiredScratchKey(classifier.workspace_id, 'text');
+    return store.getBluemixCredentialsById(tenant.tenantType, classifier.credentialsid)
+        .then((creds) => {
+            credentials = creds;
+            return deleteClassifierUsingCredentials(classifier, credentials);
+        })
+        .then(async () => {
+            if (tenant.tenantType === DbObjects.ClassTenantType.ManagedPool) {
+                // if this classifier was using credentials from the managed pool, then
+                //  we move the last-fail timestamp back an hour to prioritse reusing
+                //  these credentials for future model training requests
+                await store.recordBluemixCredentialsPoolModelDeletion(credentials as TrainingObjects.BluemixCredentialsPool);
+            }
+        });
 }
 
 
@@ -279,7 +326,7 @@ export async function deleteClassifierFromBluemix(
  *  properties set using responses from the Bluemix REST API
  */
 export function getClassifierStatuses(
-    classid: string,
+    tenant: DbObjects.ClassTenant,
     workspaces: TrainingObjects.ConversationWorkspace[],
 ): Promise<TrainingObjects.ConversationWorkspace[]>
 {
@@ -289,7 +336,7 @@ export function getClassifierStatuses(
         workspaces.map(async (workspace) => {
             if (workspace.credentialsid in credentialsCacheById === false) {
                 try {
-                    const creds = await store.getBluemixCredentialsById(workspace.credentialsid);
+                    const creds = await store.getBluemixCredentialsById(tenant.tenantType, workspace.credentialsid);
                     credentialsCacheById[workspace.credentialsid] = creds;
                 }
                 catch (err) {
@@ -430,6 +477,10 @@ async function submitTrainingToConversation(
     }
     catch (err) {
         log.warn({ req, err, project : project.id, credentials : credentials.id }, ERROR_MESSAGES.UNKNOWN);
+
+        if (tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool) {
+            await store.recordBluemixCredentialsPoolFailure(credentials as TrainingObjects.BluemixCredentialsPool);
+        }
 
         const ignoreErr = await store.isTenantDisruptive(project.classid);
         if (ignoreErr === false) {
@@ -649,9 +700,8 @@ export async function testMultipleCredentials(creds: TrainingObjects.BluemixCred
 export async function cleanupExpiredClassifiers(): Promise<void[]>
 {
     log.info('Cleaning up expired Conversation workspaces');
-
     const expired: TrainingObjects.ConversationWorkspace[] = await store.getExpiredConversationWorkspaces();
-    return Promise.all(expired.map(deleteClassifier));
+    return Promise.all(expired.map(deleteClassifierUnknownClass));
 }
 
 

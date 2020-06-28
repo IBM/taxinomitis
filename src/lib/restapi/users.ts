@@ -14,6 +14,7 @@ import * as urls from './urls';
 import * as headers from './headers';
 import * as notifications from '../notifications/slack';
 import loggerSetup from '../utils/logger';
+import { ClassTenantType } from '../db/db-types';
 
 const log = loggerSetup();
 
@@ -340,12 +341,19 @@ async function getPolicy(req: Express.Request, res: Express.Response) {
     try {
         const policy = await store.getClassTenant(tenant);
         const storelimits = await dblimits.getStoreLimits();
-        const availableCredentials = await store.countBluemixCredentialsByType(tenant);
+        let availableCredentials;
+        if (policy.tenantType === ClassTenantType.ManagedPool) {
+            availableCredentials = { conv : 0, visrec : 0 };
+        }
+        else {
+            availableCredentials = await store.countBluemixCredentialsByType(tenant);
+        }
         const availableTextCredentials = availableCredentials.conv;
         const availableImageCredentials = availableCredentials.visrec;
 
         return res.json({
-            isManaged : policy.isManaged,
+            isManaged : policy.tenantType !== ClassTenantType.UnManaged,
+            tenantType : policy.tenantType,
 
             maxTextModels : availableTextCredentials,
             maxImageModels : availableImageCredentials,

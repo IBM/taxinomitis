@@ -178,6 +178,7 @@
             "INTRO": "Dale이 계정을 개설하는 것을 도와주길 원한다면, 아래 버튼을 사용하여 다음 정보가 포함된 전자 메일을 보내십시오:",
             "LIST_NUMBEROFSTUDENTS": "대략 얼마나 많은 학생 계정이 필요한지 알려주세요",
             "LIST_NAMEOFSCHOOL": "학교 또는 코딩 그룹의 이름",
+            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs",
             "EMAIL": "이메일"
         }
     },
@@ -1545,7 +1546,16 @@
             "Q6-A-1": "페이지를 새로고침해 보세.",
             "Q6-A-2": "페이지는 30 초마다 기계 학습 모델의 상태를 확인하지만 매우 가끔 검사를 중단할 수 있습니다. 그렇기 때문에 실제로 모델이 준비된 상태일 수도 있습니다.",
             "Q6-A-3": "몇 분이 지났 으면 페이지를 새로 고침하여 확인해보세요.",
-            "Q6-A-4": "10분 이상이 지난 경우 다시 학습을 시작하기를 권유합니다(취소 버튼을 클릭 한 다음 버튼을 클릭하여 새로운 기계 학습 모델을 다시 교육하십시오)."
+            "Q6-A-4": "10분 이상이 지난 경우 다시 학습을 시작하기를 권유합니다(취소 버튼을 클릭 한 다음 버튼을 클릭하여 새로운 기계 학습 모델을 다시 교육하십시오).",
+
+            "Q7": "\"Your class is sharing Watson API keys ... there are currently none available\"",
+            "Q7-A-1": "Machine learning models in the tool are created using IBM Watson APIs.",
+            "Q7-A-2": "If you have a \"managed\" class account, this means your class is sharing these keys with many other schools. ",
+            "Q7-A-3": "There are normally enough for all schools, but if it is very busy and all of the available API keys are currently in use, attempts to train new machine learning models will fail, and this message will be displayed:",
+            "Q7-A-4": "Your class is sharing Watson Assistant / Visual Recognition \"API keys\" with many other schools, and unfortunately there are currently none available. Please let your teacher or group leader know that you will have to train your machine learning model later",
+            "Q7-A-5": "If a student who has a successfully trained model then deletes their model, this will free up a workspace for use by another student.",
+            "Q7-A-6": "The best thing to do is to try again later, after other students have deleted their machine learning models and API keys are available again. Your training data will still be safe until then.",
+            "Q7-A-7": "Another way to avoid this error is for your class to create an \"unmanaged\" class account, which is where a teacher creates their own Watson \"API keys\" that can be dedicated only for use by their own class."
         },
 
         "TEACHERUI": {
