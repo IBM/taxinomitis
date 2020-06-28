@@ -73,10 +73,13 @@ export async function trainClassifier(
             credentials = await store.getBluemixCredentials(tenant, 'visrec');
         }
 
-        return createClassifier(tenant, project, credentials, training);
-    }
-    finally {
+        const model = await createClassifier(tenant, project, credentials, training);
         deleteTrainingFiles(training);
+        return model;
+    }
+    catch (err) {
+        deleteTrainingFiles(training);
+        throw err;
     }
 }
 
@@ -610,6 +613,9 @@ export async function testClassifierFile(
 
         throw err;
     }
+    finally {
+        testreq.formData.images_file.destroy();
+    }
 }
 
 
@@ -745,6 +751,16 @@ function sortByConfidence(item1: TrainingObjects.Classification, item2: Training
 }
 
 
+function checkFileReadable(filepath: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+        fs.access(filepath, fs.constants.R_OK, (err) => {
+            if (err) {
+                return reject(err);
+            }
+            resolve();
+        });
+    });
+}
 
 
 async function submitTrainingToVisualRecognition(
@@ -758,10 +774,21 @@ async function submitTrainingToVisualRecognition(
     const trainingData: { name: string, [label: string]: fs.ReadStream | string } = {
         name : project.name,
     };
-    for (const label of project.labels) {
-        if (label in training) {
-            trainingData[label + '_positive_examples'] = fs.createReadStream(training[label]);
+
+    try {
+        for (const label of project.labels) {
+            if (label in training) {
+                await checkFileReadable(training[label]);
+                trainingData[label + '_positive_examples'] = fs.createReadStream(training[label]);
+            }
         }
+    }
+    catch (fserr) {
+        log.error({ err : fserr }, 'Failed to create training zip');
+        const trainingError: any = new Error(ERROR_MESSAGES.UNKNOWN);
+        trainingError.error = fserr.error;
+        trainingError.statusCode = fserr.statusCode;
+        throw trainingError;
     }
 
     const basereq = await createBaseRequest(credentials);
@@ -842,6 +869,19 @@ async function submitTrainingToVisualRecognition(
         trainingError.statusCode = err.statusCode;
 
         throw trainingError;
+    }
+    finally {
+        for (const label of project.labels) {
+            if (label in training) {
+                const stream = trainingData[label + '_positive_examples'] as fs.ReadStream;
+                try {
+                    stream.destroy();
+                }
+                catch (err) {
+                    log.error({ err, project, label }, 'Unable to close training file handle');
+                }
+            }
+        }
     }
 }
 

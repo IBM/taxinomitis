@@ -13,16 +13,14 @@ import * as store from '../../lib/db/store';
 import * as types from '../../lib/db/db-types';
 import * as dbobjects from '../../lib/db/objects';
 import * as auth from '../../lib/restapi/auth';
-import * as conversation from '../../lib/training/conversation';
+import * as visrec from '../../lib/training/visualrecognition';
 import * as trainingtypes from '../../lib/training/training-types';
 import testapiserver from './testserver';
-
-
 
 let testServer: express.Express;
 
 
-describe('REST API - text training for managed pool classes', () => {
+describe('REST API - image training for managed pool classes', () => {
 
     const userid = uuid();
     const classid = randomstring({ charset: 'alphabetic', length: 30 }).toLowerCase();
@@ -32,9 +30,9 @@ describe('REST API - text training for managed pool classes', () => {
     let requireSupervisorStub: sinon.SinonStub<any, any>;
     let getStub: sinon.SinonStub<[string, (requestPromise.RequestPromiseOptions | undefined)?, (requestLegacy.RequestCallback | undefined)?], requestPromise.RequestPromise>;
     let createStub: sinon.SinonStub<[string, (requestPromise.RequestPromiseOptions | undefined)?, (requestLegacy.RequestCallback | undefined)?], requestPromise.RequestPromise>;
-    let deleteStub: sinon.SinonStub<[string, (requestPromise.RequestPromiseOptions | undefined)?, (requestLegacy.RequestCallback | undefined)?], requestPromise.RequestPromise>;
-
-
+    let deleteStub: sinon.SinonStub<[string,
+        (requestPromise.RequestPromiseOptions | undefined)?,
+        (requestLegacy.RequestCallback | undefined)?], requestPromise.RequestPromise>;
 
     function authNoOp(
         req: Express.Request, res: Express.Response,
@@ -51,8 +49,10 @@ describe('REST API - text training for managed pool classes', () => {
         next();
     }
 
-    const firstCredsUser = '33333333-1111-2222-3333-444444444444';
-    const secondCredsUser = '11111111-2222-3333-4444-555566667777';
+    const firstCredsApi = '1234567890123456789012345678901234567890';
+    const secondCredsApi = '0123456789012345678901234567890123456789';
+
+    let failCredsId: string;
 
     let firstCredsId: string;
     let secondCredsId: string;
@@ -62,17 +62,17 @@ describe('REST API - text training for managed pool classes', () => {
     let workspaceId: string;
 
     function setupPoolCreds() {
-        const firstCredsSvc = 'conv';
-        const firstCredsApi = undefined;
-        const firstCredsPass = '56789abcdef0';
-        const firstCredsType = 'conv_lite';
-        const firstCredsNote = 'test creds';
+        const firstCredsSvc = 'visrec';
+        const firstCredsUser = undefined;
+        const firstCredsPass = undefined;
+        const firstCredsType = 'visrec_lite';
+        const firstCredsNote = 'test img creds';
 
-        const secondCredsSvc = 'conv';
-        const secondCredsApi = undefined;
-        const secondCredsPass = '89abcdef0123';
-        const secondCredsType = 'conv_lite';
-        const secondCredsNote = 'additional creds';
+        const secondCredsSvc = 'visrec';
+        const secondCredsUser = undefined;
+        const secondCredsPass = undefined;
+        const secondCredsType = 'visrec_lite';
+        const secondCredsNote = 'additional img creds';
 
         const firstCreds = dbobjects.createBluemixCredentialsPool(firstCredsSvc, firstCredsApi, firstCredsUser, firstCredsPass, firstCredsType);
         firstCreds.notes = firstCredsNote;
@@ -94,7 +94,7 @@ describe('REST API - text training for managed pool classes', () => {
         const firstProjectName = 'my project';
         const secondProjectName = 'my other project';
         const thirdProjectName = 'my final project';
-        const projType = 'text';
+        const projType = 'images';
 
         return store.storeProject(userid, classid, projType, firstProjectName, 'en', [], false)
             .then((proj) => {
@@ -111,15 +111,31 @@ describe('REST API - text training for managed pool classes', () => {
     }
 
     function setupTrainingData() {
-        const firstLabel = randomstring(8);
-        const secondLabel = randomstring(6);
+        const firstLabel = 'spider';
+        const secondLabel = 'fly';
 
-        const data: { textdata: string, label: string}[] = [];
-
-        for (let text = 0; text < 10; text++) {
-            data.push({ textdata : randomstring(30), label : firstLabel });
-            data.push({ textdata : randomstring(30), label : secondLabel });
-        }
+        const data: { imageurl: string, label: string}[] = [
+            { label : firstLabel, imageurl : 'https://upload.wikimedia.org/wikipedia/commons/0/04/2016.09.02.-11-Kaefertaler_Wald-Mannheim--Gartenkreuzspinne-Weibchen.jpg' },
+            { label : firstLabel, imageurl : 'https://upload.wikimedia.org/wikipedia/commons/6/6c/Wet_Spider_01_%28MK%29.jpg' },
+            { label : firstLabel, imageurl : 'https://upload.wikimedia.org/wikipedia/commons/0/08/2013.07.01-14-Wustrow-Neu_Drosedow-Erdbeerspinne-Maennchen.jpg' },
+            { label : firstLabel, imageurl : 'https://upload.wikimedia.org/wikipedia/commons/5/59/Araneus_diadematus_qtl1.jpg' },
+            { label : firstLabel, imageurl : 'https://upload.wikimedia.org/wikipedia/commons/f/f3/Araneus_diadematus_%28Clerck%2C_1757%29.JPG' },
+            { label : firstLabel, imageurl : 'https://upload.wikimedia.org/wikipedia/commons/6/67/Araneus_trifolium_and_its_web_with_fog_droplets_at_Twin_Peaks_in_San_Francisco.jpg' },
+            { label : firstLabel, imageurl : 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Argiope_bruennichi_08Oct10.jpg' },
+            { label : firstLabel, imageurl : 'https://upload.wikimedia.org/wikipedia/commons/7/77/Argiope_bruennichi_QXGA.jpg' },
+            { label : firstLabel, imageurl : 'https://upload.wikimedia.org/wikipedia/commons/5/54/Argiope_lobata%2C_female._Villeveyrac_01.jpg' },
+            { label : firstLabel, imageurl : 'https://upload.wikimedia.org/wikipedia/commons/e/e2/Argiope_July_2012-3.jpg' },
+            { label : secondLabel, imageurl : 'https://upload.wikimedia.org/wikipedia/commons/e/e4/2017.07.11.-04-Lindenberg_%28Tauche%29--Barbarossa-Fliege-Maennchen.jpg' },
+            { label : secondLabel, imageurl : 'https://upload.wikimedia.org/wikipedia/commons/d/d0/2017.06.18.-20-Viernheim--Barbarossa-Fliege-Weibchen.jpg' },
+            { label : secondLabel, imageurl : 'https://upload.wikimedia.org/wikipedia/commons/5/54/2015.07.16.-16-Viernheim--Grosse_Wolfsfliege-Weibchen.jpg' },
+            { label : secondLabel, imageurl : 'https://upload.wikimedia.org/wikipedia/commons/4/40/Schwarze_Habichtsfliege_Dioctria_atricapilla.jpg' },
+            { label : secondLabel, imageurl : 'https://upload.wikimedia.org/wikipedia/commons/4/46/2015.07.16.-02-Viernheim--Barbarossa-Fliege-Maennchen.jpg' },
+            { label : secondLabel, imageurl : 'https://upload.wikimedia.org/wikipedia/commons/c/ce/2015.07.16.-01-Viernheim--Barbarossa-Fliege-Maennchen.jpg' },
+            { label : secondLabel, imageurl : 'https://upload.wikimedia.org/wikipedia/commons/f/fb/Asilidae_by_kadavoor.jpg' },
+            { label : secondLabel, imageurl : 'https://upload.wikimedia.org/wikipedia/commons/2/2b/Asilidae_2_by_kadavoor.jpg' },
+            { label : secondLabel, imageurl : 'https://upload.wikimedia.org/wikipedia/commons/d/dc/Calliphora_hilli.jpg' },
+            { label : secondLabel, imageurl : 'https://upload.wikimedia.org/wikipedia/commons/b/bb/Unid_Brachycera_diagonal_20070604.jpg' },
+        ];
 
         return store.addLabelToProject(userid, classid, firstProject.id, firstLabel)
             .then(() => {
@@ -138,18 +154,24 @@ describe('REST API - text training for managed pool classes', () => {
                 return store.addLabelToProject(userid, classid, thirdProject.id, secondLabel);
             })
             .then(() => {
-                return store.bulkStoreTextTraining(firstProject.id, data);
+                return store.bulkStoreImageTraining(firstProject.id, data);
             })
             .then(() => {
-                return store.bulkStoreTextTraining(secondProject.id, data);
+                return store.bulkStoreImageTraining(secondProject.id, data);
             })
             .then(() => {
-                return store.bulkStoreTextTraining(thirdProject.id, data);
+                return store.bulkStoreImageTraining(thirdProject.id, data);
             });
     }
 
+    let fakeTimer: sinon.SinonFakeTimers;
 
     before(async () => {
+        fakeTimer = sinon.useFakeTimers({
+            now : Date.now(),
+            shouldAdvanceTime : true,
+        });
+
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
         checkUserStub = sinon.stub(auth, 'checkValidUser').callsFake(authNoOp);
         requireSupervisorStub = sinon.stub(auth, 'requireSupervisor').callsFake(authNoOp);
@@ -157,13 +179,13 @@ describe('REST API - text training for managed pool classes', () => {
         // @ts-ignore
         getStub = sinon.stub(requestPromise, 'get');
         // @ts-ignore
-        getStub.withArgs(sinon.match(/https:\/\/gateway.watsonplatform.net\/conversation\/api\/v1\/workspaces\/.*/), sinon.match.any).callsFake(getClassifier);
+        getStub.withArgs(sinon.match(/https:\/\/gateway-a.watsonplatform.net\/visual-recognition\/api\/v3\/classifiers\/.*/), sinon.match.any).callsFake(getClassifier);
         getStub.callThrough();
 
         // @ts-ignore
         createStub = sinon.stub(requestPromise, 'post');
         // @ts-ignore
-        createStub.withArgs(sinon.match('https://gateway.watsonplatform.net/conversation/api/v1/workspaces'), sinon.match.any).callsFake(createClassifier);
+        createStub.withArgs(sinon.match('https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers'), sinon.match.any).callsFake(createClassifier);
 
         // @ts-ignore
         deleteStub = sinon.stub(requestPromise, 'delete').callsFake(deleteClassifier);
@@ -188,6 +210,12 @@ describe('REST API - text training for managed pool classes', () => {
     });
 
     after(async () => {
+        // deleting a visual rec model will automatically retry
+        //  after 20 minutes, so to stop mocha waiting 20 minutes
+        //  for this, we skip the clock forward 30 minutes before
+        //  ending the test
+        fakeTimer.tick(1000 * 60 * 30);
+
         authStub.restore();
         checkUserStub.restore();
         requireSupervisorStub.restore();
@@ -202,13 +230,15 @@ describe('REST API - text training for managed pool classes', () => {
         getStub.restore();
         createStub.restore();
         deleteStub.restore();
+        fakeTimer.restore();
 
         return store.disconnect();
     });
 
 
 
-    describe('conversation', () => {
+
+    describe('visualrecognition', () => {
 
         it('should train a model', () => {
             return request(testServer)
@@ -221,7 +251,7 @@ describe('REST API - text training for managed pool classes', () => {
                     assert(res.body.expiry);
                     assert(new Date(res.body.updated).getTime() < new Date(res.body.expiry).getTime());
                     assert(res.body.credentialsid === firstCredsId || res.body.credentialsid === secondCredsId);
-                    assert.strictEqual(res.body.name, 'my project');
+                    assert.strictEqual(res.body.name, 'my_project_model');
                     assert.strictEqual(res.body.status, 'Training');
                 });
         });
@@ -237,7 +267,7 @@ describe('REST API - text training for managed pool classes', () => {
                     assert(res.body[0].updated);
                     assert(res.body[0].expiry);
                     assert(res.body[0].credentialsid === firstCredsId || res.body[0].credentialsid === secondCredsId);
-                    assert.strictEqual(res.body[0].name, 'my project');
+                    assert.strictEqual(res.body[0].name, 'my_project_model');
                     assert.strictEqual(res.body[0].status, 'Available');
                 });
         });
@@ -253,7 +283,7 @@ describe('REST API - text training for managed pool classes', () => {
                     assert(res.body.expiry);
                     assert(new Date(res.body.updated).getTime() < new Date(res.body.expiry).getTime());
                     assert(res.body.credentialsid === firstCredsId || res.body.credentialsid === secondCredsId);
-                    assert.strictEqual(res.body.name, 'my project');
+                    assert.strictEqual(res.body.name, 'my_project_model');
                     assert.strictEqual(res.body.status, 'Training');
                 });
         });
@@ -288,7 +318,7 @@ describe('REST API - text training for managed pool classes', () => {
                     assert(new Date(res.body.updated).getTime() < new Date(res.body.expiry).getTime());
                     assert(res.body.credentialsid === firstCredsId || res.body.credentialsid === secondCredsId);
                     assert(res.body.credentialsid !== failCredsId);
-                    assert.strictEqual(res.body.name, 'my other project');
+                    assert.strictEqual(res.body.name, 'my_project_model');
                     assert.strictEqual(res.body.status, 'Training');
 
                     first = await store.getBluemixCredentialsById(types.ClassTenantType.ManagedPool, firstCredsId);
@@ -359,10 +389,10 @@ describe('REST API - text training for managed pool classes', () => {
                 .expect(httpstatus.CONFLICT)
                 .then(async (res) => {
                     assert.deepStrictEqual(res.body, {
-                        code: 'MLMOD01',
+                        code: 'MLMOD06',
                         error: 'Your class already has created their maximum allowed number of models. ' +
-                               'Please let your teacher or group leader know that their "Watson Assistant ' +
-                               'API keys have no more workspaces available"',
+                               'Please let your teacher or group leader know that their "Watson Visual Recognition ' +
+                               'API keys have no more classifiers available"',
                     });
 
                     first = await store.getBluemixCredentialsById(types.ClassTenantType.ManagedPool, firstCredsId);
@@ -375,18 +405,9 @@ describe('REST API - text training for managed pool classes', () => {
                     assert(secondCredsCheck.lastfail.getTime() > timestamp);
                 });
         });
+
     });
 
-
-
-    const wait = () => {
-        return new Promise((resolve) => {
-            setTimeout(resolve, 500);
-        });
-    };
-
-
-    let failCredsId = '';
 
     const getClassifier = (url: string/*, options: express.Request */) => {
         assert(url.endsWith(workspaceId), url + ' should end with ' + workspaceId);
@@ -396,36 +417,43 @@ describe('REST API - text training for managed pool classes', () => {
 
         return new Promise((resolve) => {
             resolve({
-                name : 'name',
-                language : 'en',
-                metadata : null,
-                description : null,
-                workspace_id : workspaceId,
-                status : 'Available',
+                classifier_id : 'good',
+                name : 'my_project_model',
+                owner : 'bob',
+                status : 'ready',
                 created : classifierDate.toISOString(),
-                updated : classifierDate.toISOString(),
+                classes : [
+                    { class : 'rock' },
+                    { class : 'paper' },
+                ],
             });
         });
     };
 
-    const createClassifier = (url: string, options: conversation.LegacyTrainingRequest) => {
+    const createClassifier = (url: string, options: visrec.LegacyTrainingRequest) => {
         return new Promise((resolve, reject) => {
+            assert(url);
+            assert(options.formData);
+
             if (failCredsId === 'all') {
                 return reject({
                     error : {
-                        error : 'Maximum workspaces limit exceeded. Limit = 5',
-                        code : 400,
+                        error :  {
+                            description : 'Cannot execute learning task. : this plan instance can have only 1 custom classifier(s), and 1 already exist.',
+                            code : 400,
+                            error_id : 'input_error',
+                        },
                     },
+                    statusCode : 400,
+                    status : 400,
                 });
             }
-
-            if (options.body.name === 'my other project')
-            {
+            if (options.formData.name === 'my other project') {
                 if (failCredsId === 'neither') {
-                    if (options.auth.user === firstCredsUser) {
+                    if (options.qs.api_key === firstCredsApi) {
                         failCredsId = firstCredsId;
                     }
-                    else if (options.auth.user === secondCredsUser) {
+                    else if (options.qs.api_key === secondCredsApi) {
                         failCredsId = secondCredsId;
                     }
                     else {
@@ -433,16 +461,21 @@ describe('REST API - text training for managed pool classes', () => {
                     }
                     return reject({
                         error : {
-                            error : 'Maximum workspaces limit exceeded. Limit = 5',
-                            code : 400,
+                            error :  {
+                                description : 'Cannot execute learning task. : this plan instance can have only 1 custom classifier(s), and 1 already exist.',
+                                code : 400,
+                                error_id : 'input_error',
+                            },
                         },
+                        statusCode : 400,
+                        status : 400,
                     });
                 }
                 else {
-                    if (options.auth.user === firstCredsUser) {
+                    if (options.qs.api_key === firstCredsApi) {
                         assert.strictEqual(failCredsId, secondCredsId);
                     }
-                    else if (options.auth.user === secondCredsUser) {
+                    else if (options.qs.api_key === secondCredsApi) {
                         assert.strictEqual(failCredsId, firstCredsId);
                     }
                     else {
@@ -453,13 +486,15 @@ describe('REST API - text training for managed pool classes', () => {
                     classifierDate.setMilliseconds(0);
                     workspaceId = uuid();
                     return resolve({
-                        name : options.body.name,
+                        classifier_id : workspaceId,
+                        name : 'my_project_model',
+                        owner : 'bob',
+                        status : 'training',
                         created : classifierDate.toISOString(),
-                        updated : classifierDate.toISOString(),
-                        language : options.body.language,
-                        metadata : null,
-                        description : null,
-                        workspace_id : workspaceId,
+                        classes : [
+                            { class : 'spider' },
+                            { class : 'fly' },
+                        ],
                     });
                 }
             }
@@ -467,18 +502,29 @@ describe('REST API - text training for managed pool classes', () => {
             const newClassifierDate = new Date();
             newClassifierDate.setMilliseconds(0);
             workspaceId = uuid();
+
             resolve({
-                name : options.body.name,
+                classifier_id : workspaceId,
+                name : 'my_project_model',
+                owner : 'bob',
+                status : 'training',
                 created : newClassifierDate.toISOString(),
-                updated : newClassifierDate.toISOString(),
-                language : options.body.language,
-                metadata : null,
-                description : null,
-                workspace_id : workspaceId,
+                classes : [
+                    { class : 'spider' },
+                    { class : 'fly' },
+                ],
             });
         });
     };
-    const deleteClassifier = (/*url: string*/) => {
+    const deleteClassifier = (url: string) => {
+        assert(url);
         return Promise.resolve();
+    };
+
+
+    const wait = () => {
+        return new Promise((resolve) => {
+            setTimeout(resolve, 500);
+        });
     };
 });
