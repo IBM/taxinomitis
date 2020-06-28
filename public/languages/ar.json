@@ -178,7 +178,7 @@
             "INTRO": "إذا كنت ترغب في أن يقوم Dale بإعداد حساب الصف ، استخدم الزر في الأسفل لإرسال بريد إلكتروني بالمعلومات التالية:",
             "LIST_NUMBEROFSTUDENTS": "تقريبًا كم عدد حسابات الطلاب التي ستحتاجها",
             "LIST_NAMEOFSCHOOL": "اسم المدرسة أو نادي الأكواد التي تم تخصيص الحساب لها",
-            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs",
+            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs.",
             "EMAIL": "البريد الإلكتروني"
         }
     },

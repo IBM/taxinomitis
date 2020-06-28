@@ -178,7 +178,7 @@
             "INTRO": "Als je wilt dat Dale het klasaccount aanmaakt, gebruik onderstaande knop om een e-mail te verzenden met de volgende informatie:",
             "LIST_NUMBEROFSTUDENTS": "Schatting van het aantal studentenaccounts dat je nodig hebt",
             "LIST_NAMEOFSCHOOL": "De naam van de school of de codeerclub waar het account voor is",
-            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs",
+            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs.",
             "EMAIL": "E-mailadres"
         }
     },

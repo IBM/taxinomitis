@@ -178,7 +178,7 @@
             "INTRO": "Dale'in sınıf hesabı oluşturmasını istiyorsanız, aşağıdaki bilgileri içeren bir e-posta göndermek için aşağıdaki düğmeyi kullanın:",
             "LIST_NUMBEROFSTUDENTS": "Yaklaşık olarak gerekli olacak öğrenci hesabı sayısı",
             "LIST_NAMEOFSCHOOL": "Hesabın sahibi okulun veya kodlama grubunun adı",
-            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs",
+            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs.",
             "EMAIL": "E-posta"
         }
     },

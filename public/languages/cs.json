@@ -178,7 +178,7 @@
             "INTRO": "If you would like Dale to set up the class account, use the button below to send an email with the following information:",
             "LIST_NUMBEROFSTUDENTS": "Roughly how many student accounts you will need",
             "LIST_NAMEOFSCHOOL": "The name of the school or coding group the account is for",
-            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs",
+            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs.",
             "EMAIL": "Email"
         }
     },

@@ -178,7 +178,7 @@
             "INTRO": "Εάν επιθυμείς να ρυθμίσει ο Dale το λογαριασμό τάξης, χρησιμοποίησε  το παρακάτω κουμπί για να στείλεις ένα μήνυμα ηλεκτρονικού ταχυδρομείου με τις ακόλουθες πληροφορίες:",
             "LIST_NUMBEROFSTUDENTS": "Πόσους περίπου λογαριασμούς μαθητών θα χρειαστείς",
             "LIST_NAMEOFSCHOOL": "Το όνομα της σχολικής μονάδας ή της ομάδας προγραμματισμού για την οποία προορίζεται ο λογαριασμός",
-            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs",
+            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs.",
             "EMAIL": "Ηλεκτρονικό Ταχυδρομείο"
         }
     },

@@ -178,7 +178,7 @@
             "INTRO": "Si vous souhaitez que Dale configure le compte de classe, utilisez le bouton ci-dessous pour envoyer un courrier électronique en anglais avec les informations suivantes :",
             "LIST_NUMBEROFSTUDENTS": "De combien de comptes étudiants aurez vous besoin approximativement",
             "LIST_NAMEOFSCHOOL": "Le nom de l'école ou du groupe de codage auquel le compte est destiné",
-            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs",
+            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs.",
             "EMAIL": "Votre adresse de courriel"
         }
     },

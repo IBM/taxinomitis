@@ -178,7 +178,7 @@
             "INTRO": "Dale이 계정을 개설하는 것을 도와주길 원한다면, 아래 버튼을 사용하여 다음 정보가 포함된 전자 메일을 보내십시오:",
             "LIST_NUMBEROFSTUDENTS": "대략 얼마나 많은 학생 계정이 필요한지 알려주세요",
             "LIST_NAMEOFSCHOOL": "학교 또는 코딩 그룹의 이름",
-            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs",
+            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs.",
             "EMAIL": "이메일"
         }
     },
