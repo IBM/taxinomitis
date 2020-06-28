@@ -19,6 +19,10 @@ export const ERROR_MESSAGES = {
     INSUFFICIENT_API_KEYS : 'Your class already has created their maximum allowed number of models. ' +
                             'Please let your teacher or group leader know that ' +
                             'their "Watson Assistant API keys have no more workspaces available"',
+    POOL_EXHAUSTED : 'Your class is sharing Watson Assistant "API keys" with many other schools, and ' +
+                            'unfortunately there are currently none available. ' +
+                            'Please let your teacher or group leader know that you will have to train ' +
+                            'your machine learning model later',
     API_KEY_RATE_LIMIT : 'Your class is making too many requests to create machine learning models ' +
                          'at too fast a rate. ' +
                          'Please stop now and let your teacher or group leader know that ' +
@@ -80,7 +84,9 @@ async function createWorkspace(
     // Unless we see a different error, if this doesn't work, the reason
     //  will be that we don't have room for any new workspaces with the
     //  available credentials
-    let finalError = ERROR_MESSAGES.INSUFFICIENT_API_KEYS;
+    let finalError = tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool ?
+        ERROR_MESSAGES.POOL_EXHAUSTED :
+        ERROR_MESSAGES.INSUFFICIENT_API_KEYS;
 
     // shuffle the pool of credentials so the usage will be distributed
     //  across the set, rather than always directing training requests to
@@ -113,7 +119,9 @@ async function createWorkspace(
                 //  number of workspaces allowed with these creds.
                 // So we'll swallow the error so we can try the next set of
                 //  creds in the pool
-                finalError = ERROR_MESSAGES.INSUFFICIENT_API_KEYS;
+                finalError = tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool ?
+                    ERROR_MESSAGES.POOL_EXHAUSTED :
+                    ERROR_MESSAGES.INSUFFICIENT_API_KEYS;
             }
             else if (err.error &&
                      err.error.error &&

@@ -389,10 +389,11 @@ describe('REST API - image training for managed pool classes', () => {
                 .expect(httpstatus.CONFLICT)
                 .then(async (res) => {
                     assert.deepStrictEqual(res.body, {
-                        code: 'MLMOD06',
-                        error: 'Your class already has created their maximum allowed number of models. ' +
-                               'Please let your teacher or group leader know that their "Watson Visual Recognition ' +
-                               'API keys have no more classifiers available"',
+                        code: 'MLMOD16',
+                        error: 'Your class is sharing Watson Visual Recognition "API keys" with many other schools, and ' +
+                                'unfortunately there are currently none available. ' +
+                                'Please let your teacher or group leader know that you will have to train ' +
+                                'your machine learning model later',
                     });
 
                     first = await store.getBluemixCredentialsById(types.ClassTenantType.ManagedPool, firstCredsId);

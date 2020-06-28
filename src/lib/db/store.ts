@@ -1120,7 +1120,7 @@ export async function getBluemixCredentialsPoolBatch(
                         'FROM `bluemixcredentialspool` ' +
                         'WHERE `servicetype` = ? ' +
                         'ORDER BY `lastfail` ' +
-                        'LIMIT 50';
+                        'LIMIT 100';
 
     const rows = await dbExecute(queryString, [ service ]);
     if (rows.length === 0) {

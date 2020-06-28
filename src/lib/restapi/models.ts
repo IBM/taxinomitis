@@ -100,6 +100,9 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
             if (err.message === conversation.ERROR_MESSAGES.INSUFFICIENT_API_KEYS) {
                 return res.status(httpstatus.CONFLICT).send({ code : 'MLMOD01', error : err.message });
             }
+            else if (err.message === conversation.ERROR_MESSAGES.POOL_EXHAUSTED) {
+                return res.status(httpstatus.CONFLICT).send({ code : 'MLMOD15', error : err.message });
+            }
             else if (err.message === conversation.ERROR_MESSAGES.API_KEY_RATE_LIMIT) {
                 return res.status(httpstatus.TOO_MANY_REQUESTS).send({ code : 'MLMOD02', error : err.message });
             }
@@ -136,6 +139,9 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
         catch (err) {
             if (err.message === visualrec.ERROR_MESSAGES.INSUFFICIENT_API_KEYS) {
                 return res.status(httpstatus.CONFLICT).send({ code : 'MLMOD06', error : err.message });
+            }
+            else if (err.message === visualrec.ERROR_MESSAGES.POOL_EXHAUSTED) {
+                return res.status(httpstatus.CONFLICT).send({ code : 'MLMOD16', error : err.message });
             }
             else if (err.message === visualrec.ERROR_MESSAGES.API_KEY_RATE_LIMIT) {
                 return res.status(httpstatus.TOO_MANY_REQUESTS).send({ code : 'MLMOD07', error : err.message });

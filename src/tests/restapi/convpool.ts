@@ -359,10 +359,11 @@ describe('REST API - text training for managed pool classes', () => {
                 .expect(httpstatus.CONFLICT)
                 .then(async (res) => {
                     assert.deepStrictEqual(res.body, {
-                        code: 'MLMOD01',
-                        error: 'Your class already has created their maximum allowed number of models. ' +
-                               'Please let your teacher or group leader know that their "Watson Assistant ' +
-                               'API keys have no more workspaces available"',
+                        code: 'MLMOD15',
+                        error: 'Your class is sharing Watson Assistant "API keys" with many other schools, and ' +
+                                'unfortunately there are currently none available. ' +
+                                'Please let your teacher or group leader know that you will have to train ' +
+                                'your machine learning model later',
                     });
 
                     first = await store.getBluemixCredentialsById(types.ClassTenantType.ManagedPool, firstCredsId);
