@@ -178,6 +178,7 @@
             "INTRO": "Om du vill att Dale sätter upp klasskontot, använd knappen nedan för att skicka e-post med följande instruktioner:",
             "LIST_NUMBEROFSTUDENTS": "Ungefär hur många elevkonton du kommer att behöva",
             "LIST_NAMEOFSCHOOL": "Namnet på skolan eller kodningsgruppen kontot är för",
+            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs",
             "EMAIL": "E-post"
         }
     },

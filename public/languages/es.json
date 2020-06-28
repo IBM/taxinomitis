@@ -178,6 +178,7 @@
             "INTRO": "Si deseas que Dale configure la cuenta de la clase, usa el botón a continuación para enviar un correo electrónico con la siguiente información:",
             "LIST_NUMBEROFSTUDENTS": "Aproximadamente, ¿Cuántas cuentas de estudiante necesitarás?",
             "LIST_NAMEOFSCHOOL": "Nombre de la escuela o grupo de programación para quién o quiénes será la cuenta.",
+            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs",
             "EMAIL": "Correo electrónico"
         }
     },

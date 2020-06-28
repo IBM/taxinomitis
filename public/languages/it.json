@@ -178,6 +178,7 @@
             "INTRO": "Se desideri che Dale configuri l'account della classe, utilizza il pulsante in basso per inviare un'email con le seguenti informazioni:",
             "LIST_NUMBEROFSTUDENTS": "Indicativamente, quanti account studenti ti serviranno",
             "LIST_NAMEOFSCHOOL": "Il nome della scuola o del gruppo di coding per cui crei l'account",
+            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs",
             "EMAIL": "Email"
         }
     },

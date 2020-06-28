@@ -178,6 +178,7 @@
             "INTRO": "如果您希望Dale设置班级帐户,请使用下面的按钮发送包含以下信息的电子邮件: ",
             "LIST_NUMBEROFSTUDENTS": "大概需要多少学生账户",
             "LIST_NAMEOFSCHOOL": "帐户所在的学校或编码组的名称",
+            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs",
             "EMAIL": "电子邮件"
         }
     },

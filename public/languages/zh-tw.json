@@ -178,6 +178,7 @@
             "INTRO": "如果你希望Dale設置班級帳戶，請按下方的按鈕傳送包含你的電子信箱與以下訊息的電子信件",
             "LIST_NUMBEROFSTUDENTS": "你大約需要多少個學生帳戶",
             "LIST_NAMEOFSCHOOL": "帳戶所屬學校或程設組織的名稱",
+            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs",
             "EMAIL": "電子信箱"
         }
     },

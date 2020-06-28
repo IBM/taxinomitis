@@ -178,6 +178,7 @@
             "INTRO": "Если вы хотите, чтобы Дейл создал учетную запись класса, используйте кнопку ниже, чтобы отправить email со следующей информацией:",
             "LIST_NUMBEROFSTUDENTS": "Примерно, сколько учетных записей вам понадобится",
             "LIST_NAMEOFSCHOOL": "Название школы или группы по программированию, для которой предназначена учетная запись",
+            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs",
             "EMAIL": "Email"
         }
     },

@@ -37,7 +37,7 @@
 
             <div class="adminrestriction" translate="TEACHER.RESTRICTIONS.CLASS_LIMITS.NUM_USERS" translate-values="{ num : vm.policy.maxUsers }"></div>
 
-            <div class="adminrestriction" ng-if="vm.policy.isManaged && vm.policy.supportedProjectTypes.indexOf('text') >= 0"
+            <div class="adminrestriction" ng-if="vm.policy.tenantType === 1 && vm.policy.supportedProjectTypes.indexOf('text') >= 0"
                                           translate="TEACHER.RESTRICTIONS.CLASS_LIMITS.NUM_TEXT_MODELS" translate-values="{ num : vm.policy.maxTextModels }"></div>
         </div>
 
@@ -59,7 +59,7 @@
         </div>
 
         <div class="helpsection">
-            <button class="btn btn-default restrictionedit" translate="APP.EDIT" ng-click="vm.modifyExpiry($event)"></button>
+            <button ng-hide="vm.policy.tenantType === 2" class="btn btn-default restrictionedit" translate="APP.EDIT" ng-click="vm.modifyExpiry($event)"></button>
             <h4 translate>TEACHER.RESTRICTIONS.EXPIRY.TITLE</h4>
 
             <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('text') >= 0">

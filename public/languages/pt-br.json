@@ -178,6 +178,7 @@
             "INTRO": "Se você quiser que o Dale configure a conta da turma, use o botão abaixo para enviar um email com as seguintes informações:",
             "LIST_NUMBEROFSTUDENTS": "Aproximadamente quantas contas de estudantes você precisará",
             "LIST_NAMEOFSCHOOL": "O nome da escola ou clube de programação que usará a conta",
+            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs",
             "EMAIL": "Email"
         }
     },

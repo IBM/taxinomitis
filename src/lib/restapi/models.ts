@@ -101,6 +101,7 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
                 return res.status(httpstatus.CONFLICT).send({ code : 'MLMOD01', error : err.message });
             }
             else if (err.message === conversation.ERROR_MESSAGES.POOL_EXHAUSTED) {
+                log.error({ err }, 'Managed classes have exhausted the pool of Watson Assistant keys');
                 return res.status(httpstatus.CONFLICT).send({ code : 'MLMOD15', error : err.message });
             }
             else if (err.message === conversation.ERROR_MESSAGES.API_KEY_RATE_LIMIT) {
@@ -141,6 +142,7 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
                 return res.status(httpstatus.CONFLICT).send({ code : 'MLMOD06', error : err.message });
             }
             else if (err.message === visualrec.ERROR_MESSAGES.POOL_EXHAUSTED) {
+                log.error({ err }, 'Managed classes have exhausted the pool of Visual Recognition keys');
                 return res.status(httpstatus.CONFLICT).send({ code : 'MLMOD16', error : err.message });
             }
             else if (err.message === visualrec.ERROR_MESSAGES.API_KEY_RATE_LIMIT) {

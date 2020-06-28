@@ -178,6 +178,7 @@
             "INTRO": "もし、Daleにクラスアカウントの設定をして欲しい場合は、以下のボタンを使て以下の情報をemailで送信してください。",
             "LIST_NUMBEROFSTUDENTS": "必要となる生徒用アカウントの大凡の数",
             "LIST_NAMEOFSCHOOL": "アカウントを設定する学校、又はコーディンググループの名前",
+            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs",
             "EMAIL": "Email"
         }
     },
