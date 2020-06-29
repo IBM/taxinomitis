@@ -34,7 +34,7 @@
         "IN20MINS": "En 20 minutos...",
         "WHAT": {
             "TITLE": "¿Qué?",
-            "BODY": "Esta herramienta ofrece una introducción al aprendizaje automático a través de experiencias prácticas para entrenar sistemas de aprendizaje automático y construir cosas con ellos. <br/><br/> Consiste en un sencillo entorno de aprendizaje guiado para entrenar modelos de aprendizaje automático capaces de identificar texto, números o imágenes. <br/><br/>Esto complementa los esfuerzos existentes para introducir y enseñar a programar a los niños, agregando estos modelos a <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> (la plataforma educativa de programación usada en todo el mundo), permitiendo a los niños crear proyectos y construir juegos con los modelos de aprendizaje automático que ellos mismos han entrenado. <br/><br/>Para aprender más, ver:"
+            "BODY" : "Esta herramienta ofrece una introducción al aprendizaje automático a través de experiencias prácticas para entrenar sistemas de aprendizaje automático y construir cosas con ellos. <br/><br/> Consiste en un sencillo entorno de aprendizaje guiado para entrenar modelos de aprendizaje automático capaces de identificar texto, números o imágenes. <br/><br/>Esto complementa los esfuerzos existentes para introducir y enseñar a programar a los niños, agregando estos modelos a <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> (la plataforma educativa de programación usada en todo el mundo), permitiendo a los niños crear proyectos y construir juegos con los modelos de aprendizaje automático que ellos mismos han entrenado. <br/><br/>Para aprender más, ver:"
         },
         "WHY": {
             "TITLE": "¿Por qué?",
@@ -378,114 +378,114 @@
             "PLEASEWAIT": "Normalmente, tarda unos minutos, pero puede ser un poco más si la computadora está muy ocupada.",
             "FAIL": "Mala suerte, algo ha salido mal. ",
 
-            "TRAINING": {
-                "CROWDSOURCED": {
-                    "TEXT": "La clase está entrenando un modelo de aprendizaje automático usando los ejemplos de texto agregados.",
-                    "IMAGES": "La clase está entrenando un modelo de aprendizaje automático usando los ejemplos de imágenes agregados.",
-                    "NUMBERS": "La clase está entrenando un modelo de aprendizaje automático usando los ejemplos de números agregados.",
-                    "SOUNDS": "Your class is training a machine learning model using the examples of sounds that you all collected."
+            "TRAINING" : {
+                "CROWDSOURCED" : {
+                    "TEXT" : "La clase está entrenando un modelo de aprendizaje automático usando los ejemplos de texto agregados.",
+                    "IMAGES" : "La clase está entrenando un modelo de aprendizaje automático usando los ejemplos de imágenes agregados.",
+                    "NUMBERS" : "La clase está entrenando un modelo de aprendizaje automático usando los ejemplos de números agregados.",
+                    "SOUNDS" : "Your class is training a machine learning model using the examples of sounds that you all collected."
                 },
-                "INDIVIDUAL": {
-                    "TEXT": "Estás entrenando un modelo de aprendizaje automático usando los ejemplos de texto agregados .",
-                    "IMAGES": "Estás entrenando un modelo de aprendizaje automático usando los ejemplos de imágenes agregados.",
-                    "NUMBERS": "Estás entrenando un modelo de aprendizaje automático usando los ejemplos de números agregados .",
-                    "SOUNDS": "You've started training a machine learning model using the examples of sounds that you collected."
+                "INDIVIDUAL" : {
+                    "TEXT" : "Estás entrenando un modelo de aprendizaje automático usando los ejemplos de texto agregados .",
+                    "IMAGES" : "Estás entrenando un modelo de aprendizaje automático usando los ejemplos de imágenes agregados.",
+                    "NUMBERS" : "Estás entrenando un modelo de aprendizaje automático usando los ejemplos de números agregados .",
+                    "SOUNDS" : "You've started training a machine learning model using the examples of sounds that you collected."
                 },
                 "SINCE": "Entrenando desde"
             },
-            "READY": {
-                "CROWDSOURCED": {
-                    "TEXT": "La clase ha entrenado un modelo de aprendizaje automático para reconocer cuando un texto es ",
-                    "IMAGES": "La clase ha entrenado un modelo de aprendizaje automático para reconocer cuando una imagen es ",
-                    "NUMBERS": "La clase ha entrenado un modelo de aprendizaje automático para reconocer cuando un número es ",
-                    "SOUNDS": "Your class has trained a machine learning model to recognise when sounds are "
+            "READY" : {
+                "CROWDSOURCED" : {
+                    "TEXT" : "La clase ha entrenado un modelo de aprendizaje automático para reconocer cuando un texto es ",
+                    "IMAGES" : "La clase ha entrenado un modelo de aprendizaje automático para reconocer cuando una imagen es ",
+                    "NUMBERS" : "La clase ha entrenado un modelo de aprendizaje automático para reconocer cuando un número es ",
+                    "SOUNDS" : "Your class has trained a machine learning model to recognise when sounds are "
                 },
-                "INDIVIDUAL": {
-                    "TEXT": "Has entrenado un modelo de aprendizaje automático para reconocer cuando un texto es ",
-                    "IMAGES": "Has entrenado un modelo de aprendizaje automático para reconocer cuando una imagen es ",
-                    "NUMBERS": "Has entrenado un modelo de aprendizaje automático para reconocer cuando un número es ",
-                    "SOUNDS": "You have trained a machine learning model to recognise when sounds are "
+                "INDIVIDUAL" : {
+                    "TEXT" : "Has entrenado un modelo de aprendizaje automático para reconocer cuando un texto es ",
+                    "IMAGES" : "Has entrenado un modelo de aprendizaje automático para reconocer cuando una imagen es ",
+                    "NUMBERS" : "Has entrenado un modelo de aprendizaje automático para reconocer cuando un número es ",
+                    "SOUNDS" : "You have trained a machine learning model to recognise when sounds are "
                 },
-                "CREATED": {
-                    "TEACHER": "Tu profesor ha creado el modelo el  ",
-                    "YOU": "Has creado el modelo el "
+                "CREATED" : {
+                    "TEACHER" : "Tu profesor ha creado el modelo el  ",
+                    "YOU" : "Has creado el modelo el "
                 },
-                "TRAINING": {
-                    "CLASS": "La clase ha añadido: ",
-                    "YOU": "Has añadido: "
+                "TRAINING" : {
+                    "CLASS" : "La clase ha añadido: ",
+                    "YOU" : "Has añadido: "
                 }
             },
             "ERROR": {
-                "CROWDSOURCED": {
-                    "CLASS": {
-                        "TEXT": "El profesor intentó entrenar un modelo de aprendizaje automático usando los ejemplos de texto añadidos por la clase.",
-                        "IMAGES": "El profesor intentó entrenar un modelo de aprendizaje automático usando los ejemplos de imágenes añadidos por la clase.",
-                        "NUMBERS": "El profesor intentó entrenar un modelo de aprendizaje automático usando los ejemplos de números añadidos por la clase.",
-                        "SOUNDS": "Your teacher tried training a machine learning model using the examples of sounds that your class collected."
+                "CROWDSOURCED" : {
+                    "CLASS" : {
+                        "TEXT" : "El profesor intentó entrenar un modelo de aprendizaje automático usando los ejemplos de texto añadidos por la clase.",
+                        "IMAGES" : "El profesor intentó entrenar un modelo de aprendizaje automático usando los ejemplos de imágenes añadidos por la clase.",
+                        "NUMBERS" : "El profesor intentó entrenar un modelo de aprendizaje automático usando los ejemplos de números añadidos por la clase.",
+                        "SOUNDS" : "Your teacher tried training a machine learning model using the examples of sounds that your class collected."
                     },
-                    "YOU": {
-                        "TEXT": "Has intentado entrenar un modelo de aprendizaje automático usando los ejemplos de texto añadidos por la clase.",
-                        "IMAGES": "Has intentado entrenar un modelo de aprendizaje automático usando los ejemplos de imágenes añadidos por la clase.",
-                        "NUMBERS": "Has intentado entrenar un modelo de aprendizaje automático usando los ejemplos de números añadidos por la clase.",
-                        "SOUNDS": "You tried training a machine learning model using the examples of sounds that your class collected."
+                    "YOU" : {
+                        "TEXT" : "Has intentado entrenar un modelo de aprendizaje automático usando los ejemplos de texto añadidos por la clase.",
+                        "IMAGES" : "Has intentado entrenar un modelo de aprendizaje automático usando los ejemplos de imágenes añadidos por la clase.",
+                        "NUMBERS" : "Has intentado entrenar un modelo de aprendizaje automático usando los ejemplos de números añadidos por la clase.",
+                        "SOUNDS" : "You tried training a machine learning model using the examples of sounds that your class collected."
                     }
                 },
-                "INDIVIDUAL": {
-                    "TEXT": "Has intentado entrenar un modelo de aprendizaje automático usando los ejemplos de imágenes que has añadido.",
-                    "IMAGES": "Has intentado entrenar un modelo de aprendizaje automático usando los ejemplos de imágenes que has añadido.",
-                    "NUMBERS": "Has intentado entrenar un modelo de aprendizaje automático usando los ejemplos de números que has añadido.",
-                    "SOUNDS": "You tried training a machine learning model using the examples of sounds that you collected."
+                "INDIVIDUAL" : {
+                    "TEXT" : "Has intentado entrenar un modelo de aprendizaje automático usando los ejemplos de imágenes que has añadido.",
+                    "IMAGES" : "Has intentado entrenar un modelo de aprendizaje automático usando los ejemplos de imágenes que has añadido.",
+                    "NUMBERS" : "Has intentado entrenar un modelo de aprendizaje automático usando los ejemplos de números que has añadido.",
+                    "SOUNDS" : "You tried training a machine learning model using the examples of sounds that you collected."
                 }
             },
-            "IDLE": {
-                "NOLABELS": {
-                    "CROWDSOURCED": {
-                        "TEXT": "La clase ha elegido añadir ejemplos de texto.",
-                        "IMAGES": "La clase ha elegido añadir ejemplos de imágenes.",
-                        "NUMBERS": "La clase ha elegido añadir ejemplos de números.",
-                        "SOUNDS": "Your class said you want to collect examples of sounds."
+            "IDLE" : {
+                "NOLABELS" : {
+                    "CROWDSOURCED" : {
+                        "TEXT" : "La clase ha elegido añadir ejemplos de texto.",
+                        "IMAGES" : "La clase ha elegido añadir ejemplos de imágenes.",
+                        "NUMBERS" : "La clase ha elegido añadir ejemplos de números.",
+                        "SOUNDS" : "Your class said you want to collect examples of sounds."
                     },
-                    "INDIVIDUAL": {
-                        "TEXT": "Has elegido añadir ejemplos de texto.",
-                        "IMAGES": "Has elegido añadir ejemplos de imágenes.",
-                        "NUMBERS": "Has elegido añadir ejemplos de números.",
-                        "SOUNDS": "You've said you want to collect examples of sounds."
+                    "INDIVIDUAL" : {
+                        "TEXT" : "Has elegido añadir ejemplos de texto.",
+                        "IMAGES" : "Has elegido añadir ejemplos de imágenes.",
+                        "NUMBERS" : "Has elegido añadir ejemplos de números.",
+                        "SOUNDS" : "You've said you want to collect examples of sounds."
                     }
                 },
-                "NODATA": {
-                    "CROWDSOURCED": {
-                        "TEXT": "La clase ha elegido añadir ejemplos de texto para que la computadora reconozca cuando un texto es ",
-                        "IMAGES": "La clase ha elegido añadir ejemplos de texto para que la computadora reconozca cuando una imagen es ",
-                        "NUMBERS": "La clase ha elegido añadir ejemplos de texto para que la computadora reconozca cuando un número  es ",
-                        "SOUNDS": "Your class said that you want to collect examples of sounds for a computer to recognise when sounds are "
+                "NODATA" : {
+                    "CROWDSOURCED" : {
+                        "TEXT" : "La clase ha elegido añadir ejemplos de texto para que la computadora reconozca cuando un texto es ",
+                        "IMAGES" : "La clase ha elegido añadir ejemplos de texto para que la computadora reconozca cuando una imagen es ",
+                        "NUMBERS" : "La clase ha elegido añadir ejemplos de texto para que la computadora reconozca cuando un número  es ",
+                        "SOUNDS" : "Your class said that you want to collect examples of sounds for a computer to recognise when sounds are "
                     },
-                    "INDIVIDUAL": {
-                        "TEXT": "Has elegido añadir ejemplos de texto para que la computadora reconozca cuando un texto es ",
-                        "IMAGES": "Has elegido añadir ejemplos de imágenes para que la computadora reconozca cuando un texto es ",
-                        "NUMBERS": "Has elegido añadir ejemplos de números para que la computadora reconozca cuando un texto es ",
-                        "SOUNDS": "You said that you want to collect examples of sounds for a computer to recognise when sounds are "
+                    "INDIVIDUAL" : {
+                        "TEXT" : "Has elegido añadir ejemplos de texto para que la computadora reconozca cuando un texto es ",
+                        "IMAGES" : "Has elegido añadir ejemplos de imágenes para que la computadora reconozca cuando un texto es ",
+                        "NUMBERS" : "Has elegido añadir ejemplos de números para que la computadora reconozca cuando un texto es ",
+                        "SOUNDS" : "You said that you want to collect examples of sounds for a computer to recognise when sounds are "
                     }
                 },
-                "NOEXAMPLES": {
-                    "CLASS": "La clase todavía no ha añadido ningún ejemplo. ",
-                    "YOU": "Todavía no has añadido ningún ejemplo."
+                "NOEXAMPLES" : {
+                    "CLASS" : "La clase todavía no ha añadido ningún ejemplo. ",
+                    "YOU" : "Todavía no has añadido ningún ejemplo."
                 },
-                "DATA": {
-                    "CROWDSOURCED": {
-                        "TEXT": "La clase ha añadido ejemplos de texto para que la computadora aprenda a reconocer cuando un texto es ",
-                        "IMAGES": "La clase ha añadido ejemplos de imágenes para que la computadora aprenda a reconocer cuando una imagen es ",
-                        "NUMBERS": "La clase ha añadido ejemplos de números para que la computadora aprenda a reconocer cuando un número es ",
-                        "SOUNDS": "Your class has collected examples of sounds for a computer to use to recognise when sounds are "
+                "DATA" : {
+                    "CROWDSOURCED" : {
+                        "TEXT" : "La clase ha añadido ejemplos de texto para que la computadora aprenda a reconocer cuando un texto es ",
+                        "IMAGES" : "La clase ha añadido ejemplos de imágenes para que la computadora aprenda a reconocer cuando una imagen es ",
+                        "NUMBERS" : "La clase ha añadido ejemplos de números para que la computadora aprenda a reconocer cuando un número es ",
+                        "SOUNDS" : "Your class has collected examples of sounds for a computer to use to recognise when sounds are "
                     },
-                    "INDIVIDUAL": {
-                        "TEXT": "Has añadido ejemplos de texto para que la computadora aprenda a reconocer cuando un texto es ",
-                        "IMAGES": "Has añadido ejemplos de imágenes para que la computadora aprenda a reconocer cuando una imagen es ",
-                        "NUMBERS": "Has añadido ejemplos de números para que la computadora aprenda a reconocer cuando un número es ",
-                        "SOUNDS": "You have collected examples of sounds for a computer to use to recognise when sounds are "
+                    "INDIVIDUAL" : {
+                        "TEXT" : "Has añadido ejemplos de texto para que la computadora aprenda a reconocer cuando un texto es ",
+                        "IMAGES" : "Has añadido ejemplos de imágenes para que la computadora aprenda a reconocer cuando una imagen es ",
+                        "NUMBERS" : "Has añadido ejemplos de números para que la computadora aprenda a reconocer cuando un número es ",
+                        "SOUNDS" : "You have collected examples of sounds for a computer to use to recognise when sounds are "
                     },
-                    "COLLECTED": {
-                        "CLASS": "Han agregado: ",
-                        "YOU": "Has agregado: "
+                    "COLLECTED" : {
+                        "CLASS" : "Han agregado: ",
+                        "YOU" : "Has agregado: "
                     }
                 }
             }
@@ -497,53 +497,53 @@
             "FAIL": "Mensaje de error. Si tiene sentido para tí, intenta arreglarlo. Si no, puede tratarse de un error aleatorio y lo mejor es empezar de nuevo.",
 
             "IDLE": {
-                "NOLABELS": "El siguiente paso consiste en ir a la página  <a href='{{ urls.train }}'>Entrenar</a>. Añade etiquetas para cada una de las cosas que quieres que la computadora aprenda a reconocer.",
-                "ONELABEL": {
+                "NOLABELS" : "El siguiente paso consiste en ir a la página  <a href='{{ urls.train }}'>Entrenar</a>. Añade etiquetas para cada una de las cosas que quieres que la computadora aprenda a reconocer.",
+                "ONELABEL" : {
                     "EXPLANATION": "Sólo has dicho una cosa {{ label }}",
                     "ISTHATALL": "¿Es lo único que quieres que la computadora pueda identificar? ",
                     "NO": "<strong>No?</strong><br/>Vuelve a la página <a href='{{ urls.train }}'>Entrenar</a> .<br/>Añade más etiquetas para cada una de las cosas sobre las que quieres que la computadora aprenda.<br/><br/>",
                     "YES": "<strong>¿Si??</strong><br/>Entonces tienes que trabajar un poco más.<br/>Para que la computadora aprenda a identificar  \"{{ label }}\", tienes que darle ejemplos de cosas que no son  {{ label }}.<br/>Vuelve a la página <a href='{{ urls.train }}'>Entrenar</a> page y crea una nueva etiqueta para ejemplos de cosas que no son  {{ label }}. Puedes llamarlo \"Esto no es-{{ label }}\"."
                 },
-                "LABELS": {
-                    "NO_DATA": "A continuación va a la página  <a href='{{ urls.train }}'>Entrenar</a>. Añade ejemplos para cada etiqueta. .",
-                    "MORE_DATA": {
+                "LABELS" : {
+                    "NO_DATA" : "A continuación va a la página  <a href='{{ urls.train }}'>Entrenar</a>. Añade ejemplos para cada etiqueta. .",
+                    "MORE_DATA" : {
                         "KEEP_GOING": "¡Seguimos!",
-                        "MORE_EXAMPLES": {
+                        "MORE_EXAMPLES" : {
                             "YOU": "Vuelve a la página <a href='{{ urls.train }}'>Entrenar</a> y añade  más ejemplos para cada etiqueta .",
                             "CLASS": "Dile a la clase que vuelva a la página  <a href='{{ urls.train }}'>Train</a> y añada  más ejemplos para cada etiqueta."
                         },
-                        "MORE_IS_BETTER": "Cuantos más añadas, mejor aprenderá, pero como mínimo, necesitas {{ minimumExamples }}   ejemplos."
+                        "MORE_IS_BETTER" : "Cuantos más añadas, mejor aprenderá, pero como mínimo, necesitas {{ minimumExamples }}   ejemplos."
                     },
-                    "ENOUGH_DATA": {
-                        "READY_TO_START": "¿Lista para empezar con el entrenamiento ? ",
-                        "START_TRAINING": {
-                            "CROWDSOURCED": "Haz click en el botón de abajo para empezar a entrenar el modelo de aprendizaje automático con los ejemplos que ha añadido la clase hasta ahora.  ",
-                            "INDIVIDUAL": "Haz click en el botón de abajo para empezar a entrenar el modelo de aprendizaje automático con los ejemplos que has añadido hasta ahora."
+                    "ENOUGH_DATA" : {
+                        "READY_TO_START" : "¿Lista para empezar con el entrenamiento ? ",
+                        "START_TRAINING" : {
+                            "CROWDSOURCED" : "Haz click en el botón de abajo para empezar a entrenar el modelo de aprendizaje automático con los ejemplos que ha añadido la clase hasta ahora.  ",
+                            "INDIVIDUAL" : "Haz click en el botón de abajo para empezar a entrenar el modelo de aprendizaje automático con los ejemplos que has añadido hasta ahora."
                         },
-                        "MORE_EXAMPLES": {
-                            "CROWDSOURCED": "(O pide a la clase que vuelva a la página <a href='{{ urls.train }}'>Entrenar</a> si quieres que antes añadan más ejemplos.)",
-                            "INDIVIDUAL": "(O vuelve a la página <a href='{{ urls.train }}'>Entrenar</a> si quieres añadir antes más ejemplos.)"
+                        "MORE_EXAMPLES" : {
+                            "CROWDSOURCED" : "(O pide a la clase que vuelva a la página <a href='{{ urls.train }}'>Entrenar</a> si quieres que antes añadan más ejemplos.)",
+                            "INDIVIDUAL" : "(O vuelve a la página <a href='{{ urls.train }}'>Entrenar</a> si quieres añadir antes más ejemplos.)"
                         },
-                        "WAITING_FOR_TEACHER": "Espera a que el profesor inicie el entrenamiento."
+                        "WAITING_FOR_TEACHER" : "Espera a que el profesor inicie el entrenamiento."
                     }
                 }
             },
-            "READY": {
-                "TEST": {
-                    "TEXT": "Comprueba cómo funciona el modelo. Introduce un texto que no hayas usado en el entrenamiento. Te indicará cómo lo identifica y la fiabilidad de la respuesta. ",
-                    "IMAGES": "Comprueba cómo funciona el modelo. Introduce una imagen que no hayas usado en el entrenamiento. Te indicará cómo lo identifica y la fiabilidad de la respuesta..",
-                    "NUMBERS": "Comprueba cómo funciona el modelo. Introduce un número que no hayas usado en el entrenamiento. Te indicará cómo lo identifica y la fiabilidad de la respuesta..",
-                    "SOUNDS": "Try testing the machine learning model below. Click the 'Start listening' button. If your machine learning model recognises any sounds, it will tell you what it recognises it as, and how confident it is in that."
+            "READY" : {
+                "TEST" : {
+                    "TEXT" : "Comprueba cómo funciona el modelo. Introduce un texto que no hayas usado en el entrenamiento. Te indicará cómo lo identifica y la fiabilidad de la respuesta. ",
+                    "IMAGES" : "Comprueba cómo funciona el modelo. Introduce una imagen que no hayas usado en el entrenamiento. Te indicará cómo lo identifica y la fiabilidad de la respuesta..",
+                    "NUMBERS" : "Comprueba cómo funciona el modelo. Introduce un número que no hayas usado en el entrenamiento. Te indicará cómo lo identifica y la fiabilidad de la respuesta..",
+                    "SOUNDS" : "Try testing the machine learning model below. Click the 'Start listening' button. If your machine learning model recognises any sounds, it will tell you what it recognises it as, and how confident it is in that."
                 },
-                "SCRATCH": "Si la computadora ha aprendido correctamente, puedes ir Scratch  y usar lo que ha aprendido para crear un juego.!",
-                "ADDITIONAL_TRAINING": {
-                    "MORE_EXAMPLES": {
-                        "CROWDSOURCED": "Si la computadora falla demasiado, la clase debería volver a la página <a href='{{ urls.train }}'>Entrenar</a> y añadir más ejemplos.",
-                        "INDIVIDUAL": "Si la computadora falla demasiado, deberías volver a la página <a href='{{ urls.train }}'>Entrenar</a> y añadir más ejemplos "
+                "SCRATCH" : "Si la computadora ha aprendido correctamente, puedes ir Scratch  y usar lo que ha aprendido para crear un juego.!",
+                "ADDITIONAL_TRAINING" : {
+                    "MORE_EXAMPLES" : {
+                        "CROWDSOURCED" : "Si la computadora falla demasiado, la clase debería volver a la página <a href='{{ urls.train }}'>Entrenar</a> y añadir más ejemplos.",
+                        "INDIVIDUAL" : "Si la computadora falla demasiado, deberías volver a la página <a href='{{ urls.train }}'>Entrenar</a> y añadir más ejemplos "
                     },
-                    "RETRAIN": {
-                        "YOU": "Cuando lo hayas hecho, haz click en el botón de abajo para entrenar un modelo nuevo y podrás ver cómo mejora al añadir más ejemplos.",
-                        "CLASS": "Cuando hayáis terminado, pedid al profesor que entrene un nuevo modelo.  ."
+                    "RETRAIN" : {
+                        "YOU" : "Cuando lo hayas hecho, haz click en el botón de abajo para entrenar un modelo nuevo y podrás ver cómo mejora al añadir más ejemplos.",
+                        "CLASS" : "Cuando hayáis terminado, pedid al profesor que entrene un nuevo modelo.  ."
                     }
                 }
             }
@@ -1391,19 +1391,19 @@
             "NOT_AUTHORIZED": "No tiene permisos para acceder a la lista de proyectos de los alumnos de la clase.",
 
             "ADD_MULTIPLE": {
-                "BUTTON": "Multiple estudiantes",
+                "BUTTON" : "Multiple estudiantes",
 
-                "TITLE": "Añade nuevo estudiante",
-                "INTRO": "Puede usar esto para crear más de una cuenta de estudiante al mismo tiempo.",
-                "USERNAME": "¿Con qué quieres que comience cada nombre de usuario?",
-                "USERNAME_REQUIRED": "Por favor, elige prefijo para los nombres de usuario",
-                "USERNAME_TOOLONG": "Es demasiado largo",
-                "USERNAME_INVALID": "Caracteres inválidos",
-                "NUMBER": "¿Cuántas cuentas de estudiantes quieres?",
-                "NUMBER_REQUIRED": "Por favor, introduce el número de estudiantes a crear",
-                "NUMBER_TOOMANY": "Tu clase tiene un límite de {{userslimit}} estudiantes.",
-                "PASSWORD": "La contraseña a darles:",
-                "PASSWORD_TOOSHORT": "Demasiada corta"
+                "TITLE" : "Añade nuevo estudiante",
+                "INTRO" : "Puede usar esto para crear más de una cuenta de estudiante al mismo tiempo.",
+                "USERNAME" : "¿Con qué quieres que comience cada nombre de usuario?",
+                "USERNAME_REQUIRED" : "Por favor, elige prefijo para los nombres de usuario",
+                "USERNAME_TOOLONG" : "Es demasiado largo",
+                "USERNAME_INVALID" : "Caracteres inválidos",
+                "NUMBER" : "¿Cuántas cuentas de estudiantes quieres?",
+                "NUMBER_REQUIRED" : "Por favor, introduce el número de estudiantes a crear",
+                "NUMBER_TOOMANY" : "Tu clase tiene un límite de {{userslimit}} estudiantes.",
+                "PASSWORD" : "La contraseña a darles:",
+                "PASSWORD_TOOSHORT" : "Demasiada corta"
             }
         }
     },
