@@ -34,7 +34,7 @@
         "IN20MINS": "20 dakikada...",
         "WHAT": {
             "TITLE": "Nedir?",
-            "BODY": "Bu araç, makine öğrenimi sistemlerinin eğitilmesi ve bunlarla bir şeyler oluşturulması için uygulamalı deneyimler sağlayarak makine öğrenimini tanıtır. <br/><br/>Metin ve rakamların sınıflandırılması ya da fotoğrafların tanınmasına yönelik makine öğrenimi modellerinin eğitilmesi için kullanımı kolay, kılavuzlu bir ortam sağlar. <br/><br/>Burada çocukların eğittikleri makine öğrenimi modelleriyle projeler oluşturmalarını ve oyunlar tasarlamalarını sağlayan, <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> (yaygın bir biçimde kullanılan eğitim amaçlı kodlama platformu) platformuna bu modellerin eklenmesiyle çocuklara kodlamanın tanıtılması ve öğretilmesi için mevcut çalışmalardan yararlanılır. <br/><br/>Daha fazla bilgi edinmek için şuraya bakın:"
+            "BODY" : "Bu araç, makine öğrenimi sistemlerinin eğitilmesi ve bunlarla bir şeyler oluşturulması için uygulamalı deneyimler sağlayarak makine öğrenimini tanıtır. <br/><br/>Metin ve rakamların sınıflandırılması ya da fotoğrafların tanınmasına yönelik makine öğrenimi modellerinin eğitilmesi için kullanımı kolay, kılavuzlu bir ortam sağlar. <br/><br/>Burada çocukların eğittikleri makine öğrenimi modelleriyle projeler oluşturmalarını ve oyunlar tasarlamalarını sağlayan, <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> (yaygın bir biçimde kullanılan eğitim amaçlı kodlama platformu) platformuna bu modellerin eklenmesiyle çocuklara kodlamanın tanıtılması ve öğretilmesi için mevcut çalışmalardan yararlanılır. <br/><br/>Daha fazla bilgi edinmek için şuraya bakın:"
         },
         "WHY": {
             "TITLE": "Neden?",
