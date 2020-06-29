@@ -40,7 +40,7 @@ store.init()
                 servicetype: cred.servicetype,
                 url: cred.url,
                 credstypeid: cred.credstypeid,
-                notes: cred.notes,
+                notes: cred.notes ? cred.notes : 'UNKNOWN',
             };
             console.log('-------------------------------------');
             console.log('Moving...');

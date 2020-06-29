@@ -33,7 +33,7 @@
         "IN6SECS": "خلال 6 ثواني...",
         "IN20MINS": "خلال 20 دقيقة...",
         "WHAT": {
-            "TITLE": "ماذا؟",
+            "TITLE": "ما هي؟",
             "BODY" : "هذه الأداة تعطي مدخلا لتعلم الآلة من خلال تقديم تجارب عملية لتدريب أنظمة تعلم الآلة وبناء أشياء من خلال ذلك.<br/><br/>وتقدم بيئة عمل موجهة وسهلة الأستخدام لتدريب نماذج تعلم الآلة لتعرف على النصوص، الأرقام،  الصور، أو الأصوات.<br/><br/>وهذه الأداة تبني على المجهودات الموجودة حالياً التي تهدف لتعريف الأطفال وتعليمهم البرمجة، وذلك من خلال إضافة نماذج تعلم الآلة إلى <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> و<a href='http://appinventor.mit.edu/' target='_blank'>App Inventor</a>، مما يتيح للأطفال إنشاء مشروعات وبناء ألعاب تعتمد على نماذج تعلم الآلة التي قاموا بتدريبها.<br/><br/>تم توفير الأداة لأول مرة في عام 2017، ويتم استخدامها الآن من قبل آلاف المدارس، ونوادي الأكواد، والعائلات حول العالم <a href='https://wakelet.com/wake/4d3680cb-2a11-49ab-9180-fcfeced48393' target='_blank'>. <br/><br/>لمزيد من المعلومات، أنظر إلى:"
         },
         "WHY": {
@@ -155,7 +155,7 @@
         "ARE_YOU_A_STUDENT_INTRO_1": "إذا كان صفك يستخدم هذه الأداة بالفعل ، فاطلب من معلمك أو رئيس نادي الأكواد إنشاء حساب لك.",
         "ARE_YOU_A_STUDENT_INTRO_2": "إذا لم يكن صفك يستخدم الأداة بالفعل، فاطلب من معلمك أو رئيس نادي الأكواد التواصل معنا.",
         "RESET_STUDENT_PASSWORD_1": "إذا كنت طالبًا، لا يوجد لدينا عنوان بريدك الإلكتروني حتى نتمكن من إرسال بريد إلكتروني لإعادة تعيين كلمة المرور.",
-        "RESET_STUDENT_PASSWORD_2": "هذه ليست مشكلة، على الرغم!",
+        "RESET_STUDENT_PASSWORD_2": "هذه ليست مشكلة!",
         "RESET_STUDENT_PASSWORD_3": "ما عليك سوى سؤال معلمك أو قائد المجموعة الذي سجل اشتراكك لأول مرة. سيتمكنون من إعادة تعيين كلمة المرور الخاصة بك من خلال صفحة الإدارة الخاصة بهم."
     },
     "SIGNUP": {
@@ -314,7 +314,7 @@
             "BODY": "اجمع أمثلة على ما تريد للكمبيوتر أن يتعرف عليه "
         },
         "LEARNANDTEST": {
-            "TITLE": "Learn &amp; Test",
+            "TITLE": "تعلم وamp; اختبر  ",
             "BODY": "استخدم الأمثلة لتدريب الكمبيوتر على التعرف"
         },
         "MAKES": {
@@ -782,7 +782,7 @@
         "LAUNCH": "فتح في Scratch",
 
         "LAUNCH_SCRATCH_BY_ITSELF": "(يمكنك استخدام <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch من تلقاء نفسه</a> إذا أردت.)",
-        "GO_TO_LEARNANDTEST": "اذهب إلى صفحة <a href='{{ urls.learnandtest }}'>Learn &amp; Test </a>للحصول على بعض اللإرشادات حول ما يجب فعله لاحقا.",
+        "GO_TO_LEARNANDTEST": "اذهب إلى صفحة <a href='{{ urls.learnandtest }}'>تعلم وamp; اختبر </a>للحصول على بعض اللإرشادات حول ما يجب فعله لاحقا.",
 
         "MORE_BLOCKS": "سيضيف مشروعك هذه لبنات إلى علامة التبويب<span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>لبنات إضافية</span>في المقاطع البرمجية.",
         "MORE_BLOCKS_3": "سيضيف مشروعك هذه لبنات إلى Scratch.",
@@ -798,7 +798,7 @@
         "EXPLAIN_STATUS": "تخبرك الدائرة الملونة بجوار اسم مشروعك إذا كان نموذج تعلم الآلة الخاص بك على ما يرام.",
         "STATUS_GREEN": "يعني أن النموذج الخاص بك مُدرب وجاهز للعمل",
         "STATUS_YELLOW": "يعني أن النموذج الخاص بك لم ينته بعد من التدريب",
-        "STATUS_RED": "يعني أن هناك خطأ ما. عد إلى<a href='{{ urls.learnandtest }}'> Learn &amp; Test1</a> لمعرفة الخطأ الذي حدث في التدريب."
+        "STATUS_RED": "يعني أن هناك خطأ ما. عد إلى <a href='{{ urls.learnandtest }}'>تعلم وamp; اختبر </a> لمعرفة الخطأ الذي حدث في التدريب."
     },
     "SCRATCH3": {
         "TITLE": "استخدام تعلم الآلة في Scratch 3",
@@ -826,11 +826,11 @@
         },
 
         "LEVELS": {
-            "TITLE": "الصعوبة:",
-            "ALL": "كل الصعوبات",
+            "TITLE": "المستوى:",
+            "ALL": "جميع المستويات",
             "BEGINNER": "مشاريع مبتدئة",
             "INTERMEDIATE": "مشاريع متوسطة",
-            "ADVANCED": "مشاريع متطورة"
+            "ADVANCED": "مشاريع متقدمة"
         },
 
         "DOWNLOAD": "تحميل",
@@ -856,7 +856,7 @@
         },
 
         "MAKETYPES": {
-            "ALL": "جميع أنواع",
+            "ALL": "جميع أنواع البرامج",
 
             "SCRATCH": "مشاريع Scratch",
             "PYTHON": "مشاريع Python",
@@ -925,7 +925,7 @@
         "CHAMELEON": {
             "TITLE": "حرباء",
             "SUMMARY": "تعليم الكمبيوتر كيفية التعرف على الألوان",
-            "DESCRIPTION": "اصنع حرباء في Scratch يتغير لونها ليتناسب مع خلفيتها.",
+            "DESCRIPTION": "اصنع حرباء في Scratch يتغير لونها ليتناسب مع الخلفية.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf"
             }
@@ -1049,7 +1049,7 @@
         "LOCATELARRY": {
             "TITLE": "حدد موقع Larry",
             "SUMMARY": "تعليم الكمبيوتر كيفية العثور على شيء ما في الصورة",
-            "DESCRIPTION": "اصنع لعبة \"أين والي Wally؟\" في Scratch ، وعلّم الكمبيوتر كيف يجد شخصيتك.",
+            "DESCRIPTION": "اصنع لعبة \"أين والي؟\" في Scratch ، وعلّم الكمبيوتر كيف يجد شخصيتك.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf"
             }
@@ -1483,8 +1483,8 @@
             "Q3-A-1": "من حين لآخر ، يمكن أن تفقد لبنات Scratch لنموذج تعلم الآلة الخاص بك الاتصال بالخادم. عندما يحدث هذا ، سيتوقفون عن إرجاع النتائج.",
             "Q3-A-2": "يمكنك التحقق مما إذا حدث هذا باستخدام ضوء الحالة الملون في لوحة \"لبنات إضافية\".",
             "Q3-A-3": "إذا كان ضوء الحالة بجوار لبنات Scratch تعلم الآلة الخاص بك باللون الأحمر ، فهذا يعني عادةً أن هناك خطأ ما. قد تكون مشكلة مؤقتة.حاول حفظ مشروعك (باستخدام 'File' -&gt; 'حفظ المشروع')، ثم قم بتحديث صفحة المتصفح. إذا تحول ضوء الحالة إلى اللون الأخضر بعد إعادة تحميل الصفحة ، فيمكنك تحميل مشروعك (باستخدام 'File' -&gt; 'تحميل المشروع')  لالتقاط المكان الذي تركته.",
-            "Q3-A-4": "إذا كان ضوء الحالة لا يزال أحمر بعد إعادة تحميل الصفحة ، فربما يكون هناك خطأ في نموذج تعلم الآلة. حاول الانتقال إلى صفحة \"Learn &amp; Test\" للمشروع ، حيث يمكن العثور على أي رسائل خطأ حول نموذجك.",
-            "Q3-A-5": "إذا كان ضوء الحالة الموجود بجوار لبنات Scratch  تعلم الآلة الخاصة بك باللون الأخضر ، فيجب أن تعمل لبنات. إذا لم تحصل على الردود التي تتوقعها منهم ، فجرّب الانتقال إلى صفحة \"Learn &amp; Test\" والتحقق من النتائج التي يرجعها نموذجك.",
+            "Q3-A-4": "إذا كان ضوء الحالة لا يزال أحمر بعد إعادة تحميل الصفحة ، فربما يكون هناك خطأ في نموذج تعلم الآلة. حاول الانتقال إلى صفحة \"تعلم وamp; اختبر \" للمشروع ، حيث يمكن العثور على أي رسائل خطأ حول نموذجك.",
+            "Q3-A-5": "إذا كان ضوء الحالة الموجود بجوار لبنات Scratch  تعلم الآلة الخاصة بك باللون الأخضر ، فيجب أن تعمل لبنات. إذا لم تحصل على الردود التي تتوقعها منهم ، فجرّب الانتقال إلى صفحة \"تعلم وamp; اختبر \" والتحقق من النتائج التي يرجعها نموذجك.",
 
             "Q5": "هل يمكنني استخدام أي إصدار من Scratch؟",
             "Q5-A-1": "تحتاج إلى استخدام إصدارات Scratch التي يوفرها موقع تعلم الآلة للأطفال. يمكن إطلاقها بالنقر فوق زر Scratch أو \"Scratch 3\" من صفحة مشروعك.",
@@ -1549,11 +1549,11 @@
             "Q6-A-4": "إذا مرت أكثر من عشر دقائق ، فقد يكون من المفيد التفكير في إعادة التشغيل (انقر فوق زر إلغاء ثم انقر فوق زر لتدريب نموذج جديد لتعلم الآلة مرة أخرى).",
 
             "Q7": "\"Your class is sharing Watson API keys ... there are currently none available\"",
-            "Q7-A-1": "Machine learning models in the tool are created using IBM Watson APIs.",
+            "Q7-A-1": "يتم إنشاء نماذج تعلم الآلة في الأداة باستخدام IBM Watson APIs.",
             "Q7-A-2": "If you have a \"managed\" class account, this means your class is sharing these keys with many other schools. ",
             "Q7-A-3": "There are normally enough for all schools, but if it is very busy and all of the available API keys are currently in use, attempts to train new machine learning models will fail, and this message will be displayed:",
             "Q7-A-4": "Your class is sharing Watson Assistant / Visual Recognition \"API keys\" with many other schools, and unfortunately there are currently none available. Please let your teacher or group leader know that you will have to train your machine learning model later",
-            "Q7-A-5": "If a student who has a successfully trained model then deletes their model, this will free up a workspace for use by another student.",
+            "Q7-A-5": "إذا قام طالب لديه نموذج مدرب ناجح ثم حذف نموذجه ، فسيؤدي ذلك إلى تحرير مساحة عمل لاستخدامها من قبل طالب آخر.",
             "Q7-A-6": "The best thing to do is to try again later, after other students have deleted their machine learning models and API keys are available again. Your training data will still be safe until then.",
             "Q7-A-7": "Another way to avoid this error is for your class to create an \"unmanaged\" class account, which is where a teacher creates their own Watson \"API keys\" that can be dedicated only for use by their own class."
         },

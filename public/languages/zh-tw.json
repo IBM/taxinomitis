@@ -42,7 +42,7 @@
         },
         "TECH": {
             "TITLE": "技術資源",
-            "BODY": "這個工具完全建立在網路上，不需要安裝軟體或複雜的設定才能開始使用<br/><br/>它是專為學校與程式志工組織在課堂中使用而設計，並且為老師或組織負責人提供管理介面，方便管理與控制學生的權限<br/><br/>此工具由<a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a>所建立，使用的API來自<a target='_blank' href='https://www.ibm.com/watson/developer/'>IBM Waston</a><br/><br/>想了解更多詳細資訊，請參考<a target='_blank' href='https://github.com/IBM/taxinomitis/'>GitHub原始碼</a>或是作者的<a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>技術資源部落格</a>",
+            "BODY": "這個工具完全建立在網路上，不需要安裝軟體或複雜的設定才能開始使用<br/><br/>它是專為學校與程式志工組織在課堂中使用而設計，並且為老師或程式教育者提供管理介面，方便管理與控制學生的權限<br/><br/>此工具由<a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a>所建立，使用的API來自<a target='_blank' href='https://www.ibm.com/watson/developer/'>IBM Waston</a><br/><br/>想了解更多詳細資訊，請參考<a target='_blank' href='https://github.com/IBM/taxinomitis/'>GitHub原始碼</a>或是作者的<a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>技術資源部落格</a>",
             "LOGIN": "開始使用:"
         },
         "FURTHER": {
@@ -153,10 +153,10 @@
         "FORGOT_TEXT": "忘記你的用戶名稱或密碼嗎？沒事的，是人難免會忘東忘西～",
         "ARE_YOU_A_STUDENT": "你是學生嗎？",
         "ARE_YOU_A_STUDENT_INTRO_1": "如果你的班級已經在使用這個網站，請詢問你的老師或引導者協助你註冊帳戶",
-        "ARE_YOU_A_STUDENT_INTRO_2": "如果你的班級還沒開始使用這個網站，可以請你的老師或領導者與我們取得聯繫",
+        "ARE_YOU_A_STUDENT_INTRO_2": "如果你的班級還沒開始使用這個網站，可以請你的老師或引導者與我們取得聯繫",
         "RESET_STUDENT_PASSWORD_1": "如果你是學生，我們沒有你的電子信箱，所以無法寄送重置密碼的電子信件給你",
         "RESET_STUDENT_PASSWORD_2": "不過沒關係！",
-        "RESET_STUDENT_PASSWORD_3": "你可以詢問一開始幫你註冊的老師或領導者，他們可以在管理頁面中幫你重置密碼哦"
+        "RESET_STUDENT_PASSWORD_3": "你可以詢問一開始幫你註冊的老師或引導者，他們可以在管理頁面中幫你重置密碼哦"
     },
     "SIGNUP": {
         "TEACHER": {
@@ -165,7 +165,7 @@
             "INFO2": "有兩種不同類型的班級帳戶。不同點取決於誰可以設定它"
         },
         "UNMANAGED": {
-            "TITLE": "建立班級帳戶",
+            "TITLE": "建立一個<strong>沒有管理權限</strong>的班級帳戶",
             "INTRO": "如果你喜歡自己設定與管理班級帳戶，你可以立即進行！",
             "LISTINTRO": "你將會需要：",
             "LIST_CREATEACCOUNT": "建立一個「IBM Cloud」的免費帳戶",
@@ -187,11 +187,11 @@
         "ADDNEWPROJECT": "新增專案",
         "COPYTEMPLATE": "使用範本",
         "CREATEFIRSTPROJECT": "點擊右方「＋」按鈕，建立你的第一個專案",
-        "RECOGNISING": "辨識",
-        "AS": "當作",
+        "RECOGNISING": "使用",
+        "AS": "辨識為",
         "SHARE": "分享",
         "UNSHARE": "未分享",
-        "WHOLE_CLASS_TITLE": "集體參與的專案",
+        "WHOLE_CLASS_TITLE": "團體合作的專案",
         "WHOLE_CLASS_NOTES": "這是可以全班一起使用的專案。所有你班級裡的學生皆可使用並新增訓練資料集"
     },
     "NEWPROJECT": {
@@ -225,7 +225,7 @@
             },
             "CHOICES": {
                 "TITLE": "選項：",
-                "LABEL": "新增一個選項"
+                "LABEL": "新增選項"
             },
             "NEWFIELD": {
                 "DESCRIBE_FIELD": "幫這個段落取一個名稱來描述數值",
@@ -315,7 +315,7 @@
         },
         "LEARNANDTEST": {
             "TITLE": "訓練 &amp; 測試",
-            "BODY": "使用範例來訓練電腦學會辨識"
+            "BODY": "使用資料模型訓練電腦學習辨識"
         },
         "MAKES": {
             "TITLE": "成果應用",
@@ -340,11 +340,11 @@
     },
     "TRAINING": {
         "TITLE": "訓練",
-        "ADDLABEL": "新增一個標籤",
+        "ADDLABEL": "新增標籤",
         "CREATEFIRSTLABEL": "點擊右方「＋」按鈕，建立你的第一個資料類別",
         "CROWDSOURCEDEMPTY": "你的老師新增訓練用的資料類別後，請重新整理這個頁面",
         "ADDEXAMPLE": "加入測試範例",
-        "ADDURL": "www",
+        "ADDURL": "網址",
         "ADDWEBCAM": "視訊攝影機",
         "ADDDRAWING": "繪畫",
         "DRAGIMAGES": "將圖片從其他瀏覽器頁面拖移至此處",
@@ -472,16 +472,16 @@
                 },
                 "DATA" : {
                     "CROWDSOURCED" : {
-                        "TEXT" : "你的班級已經收集了一些「文字範例」讓電腦辨識，當文字是",
-                        "IMAGES" : "你的班級已經收集了一些「圖片範例」讓電腦辨識，當圖片是",
-                        "NUMBERS" : "你的班級已經收集了一些「數字範例」讓電腦辨識，當數字是",
-                        "SOUNDS" : "你的班級已經收集了一些「聲音範例」讓電腦辨識，當聲音是"
+                        "TEXT" : "你的班級已經收集了一些「文字」範例，電腦會將文字辨識為",
+                        "IMAGES" : "你的班級已經收集了一些「圖片」範例，電腦會將圖片辨識為",
+                        "NUMBERS" : "你的班級已經收集了一些「數字」範例，電腦會將數字辨識為",
+                        "SOUNDS" : "你的班級已經收集了一些「聲音」範例，電腦會將聲音辨識為"
                     },
                     "INDIVIDUAL" : {
-                        "TEXT" : "你已經收集了一些「文字範例」讓電腦辨識，當文字是",
-                        "IMAGES" : "你已經收集了一些「圖片範例」讓電腦辨識，當圖片是",
-                        "NUMBERS" : "你已經收集了一些「數字範例」讓電腦辨識，當數字是",
-                        "SOUNDS" : "你已經收集了一些「聲音範例」讓電腦辨識，當聲音是"
+                        "TEXT" : "你已經收集了一些「文字」範例，電腦會將文字辨識為",
+                        "IMAGES" : "你已經收集了一些「圖片」範例，電腦會將圖片辨識為",
+                        "NUMBERS" : "你已經收集了一些「數字」範例，電腦會將數字辨識為",
+                        "SOUNDS" : "你已經收集了一些「聲音」範例，電腦會將聲音辨識為"
                     },
                     "COLLECTED" : {
                         "CLASS" : "他們收集了：",
@@ -566,7 +566,7 @@
             },
             "WEBCAM": "使用<strong>視訊攝影機</strong>來測試",
             "DRAWING": "使用<strong>繪圖</strong>來測試",
-            "WWW": "使用<strong>網址www</strong>來測試",
+            "WWW": "使用<strong>網址</strong>來測試",
             "RECOGNISED": "辨識的結果是<strong>{{ testoutput }}</strong>",
             "STARTLISTENING": "開始錄音",
             "STOPLISTENING": "停止錄音"
@@ -842,7 +842,7 @@
             },
             "GUIDANCE": {
                 "TITLE": "下載教師用的教學指南",
-                "DETAIL": "這份表格包含給老師與程式教學團體領導者的資訊以協助預習、備課、管理此專案。",
+                "DETAIL": "這份表格包含給老師與程式教育者的資訊，以協助預習、備課、管理此專案。",
                 "NOTES": "筆記："
             },
             "WORKSHEET": {
@@ -896,7 +896,7 @@
             "SUMMARY": "教電腦辨識稱讚和責罵",
             "DESCRIPTION": "在Scratch中建立一個角色，如果你稱讚它，它就會微笑；如果你罵他，它就會哭。",
             "WORKSHEET_1": {
-                "DESCRIPTION": "完整版的專案，學生製作非機器學習版本的專案",
+                "DESCRIPTION": "完整版的專案，學生需要先製作非機器學習版本的專案",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy.pdf"
             },
             "WORKSHEET_2": {
@@ -1457,9 +1457,9 @@
             "TITLE": "第一次使用？",
             "INTRO": "下載PDF裡面有簡短的入門指南：",
             "MANAGED": "有班級管理的帳戶",
-            "MANAGEDEXPL": "適合學校老師、程設組織領導人或其他志工",
+            "MANAGEDEXPL": "適合學校老師、程式教育者或其他志工",
             "UNMANAGED": "沒有班級管理的帳戶",
-            "UNMANAGEDEXPL": "適合IBM員工或已經自行管理班級帳戶的老師與程設組織領導人"
+            "UNMANAGEDEXPL": "適合IBM員工或已經自行管理班級帳戶的老師與程式教育者"
         },
         "FAQS": {
             "TITLE": "想知道更多嗎？",
@@ -1549,11 +1549,11 @@
             "Q6-A-4": "如果已超過十分鐘，則可能值得考慮重新啟動（點擊「取消」按鈕，然後點擊該按鈕以再次訓練新的機器學習模型）。",
 
             "Q7": "\"Your class is sharing Watson API keys ... there are currently none available\"",
-            "Q7-A-1": "Machine learning models in the tool are created using IBM Watson APIs.",
+            "Q7-A-1": "此工具中的機器學習模型是使用IBM Watson API建立的。",
             "Q7-A-2": "If you have a \"managed\" class account, this means your class is sharing these keys with many other schools. ",
             "Q7-A-3": "There are normally enough for all schools, but if it is very busy and all of the available API keys are currently in use, attempts to train new machine learning models will fail, and this message will be displayed:",
             "Q7-A-4": "Your class is sharing Watson Assistant / Visual Recognition \"API keys\" with many other schools, and unfortunately there are currently none available. Please let your teacher or group leader know that you will have to train your machine learning model later",
-            "Q7-A-5": "If a student who has a successfully trained model then deletes their model, this will free up a workspace for use by another student.",
+            "Q7-A-5": "如果具有成功訓練過模型的學生刪除了他們的模型，這將釋放一個工作空間供其他學生使用。",
             "Q7-A-6": "The best thing to do is to try again later, after other students have deleted their machine learning models and API keys are available again. Your training data will still be safe until then.",
             "Q7-A-7": "Another way to avoid this error is for your class to create an \"unmanaged\" class account, which is where a teacher creates their own Watson \"API keys\" that can be dedicated only for use by their own class."
         },

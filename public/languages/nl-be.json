@@ -1,6 +1,6 @@
 {
     "APP": {
-        "TITLE": "Machine Learning for Kids",
+        "TITLE": "Machine Learning voor Kids",
 
         "BACK": "Terug",
         "BACKTOPROJECT": "&lt; Terug naar project",
@@ -29,7 +29,7 @@
         "INCOMPLETE": "Niet volledig!"
     },
     "ABOUT": {
-        "TITLE": "Machine Learning for Kids",
+        "TITLE": "Machine Learning voor Kids",
         "IN6SECS": "Binnen 6 seconden...",
         "IN20MINS": "Binnen 20 minuten...",
         "WHAT": {
@@ -38,11 +38,11 @@
         },
         "WHY": {
             "TITLE": "Waarom?",
-            "BODY": "Machine learning is overal. Iedere dag gebruiken we machine learning systemen – zoals spam filters, keuzehulpen, vertaalprogramma's, chatbots, digitale assistenten, zoekrobots en fraude detectiesystemen. <br/><br/>Binnenkort zal het normaal zijn dat machine learning systemen onze auto’s besturen en dokters helpen om een diagnose te stellen of een ziekte te behandelen. <br/><br/>Het is belangrijk dat kinderen weten hoe onze wereld werkt. De beste manier om de mogelijkheden en implicaties van machine learning te begrijpen is zelf dingen met deze technologie te bouwen. <br/><br/>Verder lezen: <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'Machine Learning introduceren aan kinderen'</a>"
+            "BODY": "Machine learning is overal rondom ons. We gebruiken allemaal elke dag machine learning systemen – zoals spam filters, aanbevelingsrobots, vertalingservices, chatbots, digitale assistenten, zoekrobots en fraude detectiesystemen. <br/><br/>Binnenkort zal het normaal zijn dat machine learning systemen onze auto’s besturen en onze dokters helpen om een diagnose te stellen of een ziekte te behandelen. <br/><br/>Het is belangrijk dat kinderen bewust zijn van hoe onze wereld werkt. De beste manier om de mogelijkheden en implicaties van machine learning te begrijpen is zelf dingen te bouwen met deze technologie. <br/><br/>Om meer te leren, lees: <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'Machine Learning introduceren aan kinderen'</a>"
         },
         "TECH": {
             "TITLE": "Technologie",
-            "BODY": "Machine Learning for kids is 100% web based. Je hoeft dus niets te installeren. <br/><br/> Het is ontwikkeld voor gebruik door kinderen op scholen of bij codeerclubs. Voor leerkrachten en begeleiders is er een beheerderspagina met een overzicht van  de leerlingen.<br/><br/>Machine Learning for Kids is gebouwd door <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a>. Er wordt gebruik gemaakt van APIs van <a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a>.",
+            "BODY": "Deze tool is volledig webgebaseerd en er is geen nood aan een installatie of complexe setup om hem te gebruiken. <br/><br/> Het is ontwikkeld om te gebruiken in scholen of codeerclubs voor kinderen en omvat een administratorpagina voor hun leerkracht of begeleider zodat deze een overzicht kan hebben over de verschillende studenten.<br/><br/>De tool is gebouwd door <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> gebruik makend van APIs van <a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a>.",
             "LOGIN": "Om te beginnen: "
         },
         "FURTHER": {
@@ -279,7 +279,7 @@
             },
             "UKNEWSPAPERS": {
                 "TITLE": "UK Newspaper Headlines",
-                "SUMMARY": "Recognize the use of language in newspaper headlines",
+                "SUMMARY": "Recognize the use of language in headlines",
                 "DESCRIPTION": "Different newspapers use language in different ways. This project includes the main front page headline from four UK newspapers. You can use this to train a machine learning model that can learn to predict the most likely newspaper that a new headline is probably from. ",
                 "DETAILS": "This training dataset includes headlines from the Daily Mail, the Daily Telegraph, the Independent, and The Guardian"
             },
@@ -292,7 +292,7 @@
             "NOUGHTSANDCROSSES": {
                 "SUMMARY": "Learn how to play a game",
                 "DESCRIPTION": "Train a machine learning model to play noughts and crosses, by collecting examples of moves that the computer can use to learn how to predict the best move to make next.",
-                "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'Noughts and Crosses' from Worksheets"
+                "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'Noughts and Crosses' from Worksheets."
             },
             "TOPTRUMPS": {
                 "TITLE": "Kings & Queens Top Trumps",
@@ -896,11 +896,11 @@
             "SUMMARY": "Leer een computer om complimenten en beledigingen te herkennen",
             "DESCRIPTION": "Maak een personage in Scratch die lacht als je iets liefs zegt en weent wanneer je iets lelijks zegt.",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Full version of the project, where the students make a non-machine learning version first",
+                "DESCRIPTION": "Full version of the Scratch project, where the students make a non-machine learning version first",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Shorter version of the project, where the students only make a machine learning version",
+                "DESCRIPTION": "Shorter version of the Scratch project, where the students only make a machine learning version",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-easy.pdf"
             },
             "WORKSHEET_3": {
@@ -1130,7 +1130,7 @@
         "HEADLINETESTING": {
             "TITLE": "Headline testing",
             "SUMMARY": "Test the computer's ability to recognise use of language",
-            "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is",
+            "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
             }
@@ -1177,8 +1177,8 @@
         },
         "ZOMBIEESCAPE": {
             "TITLE": "Zombie Escape!",
-            "SUMMARY": "Teach a computer to make predictions",
-            "DESCRIPTION": "Train a computer to help you escape from the zombies",
+            "SUMMARY": "Leer een computer voorspellingen maken",
+            "DESCRIPTION": "Train a computer to help you escape from the zombie horde.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
             }
@@ -1186,7 +1186,7 @@
         "PHISHING": {
             "TITLE": "Phishing",
             "SUMMARY": "Teach a computer to recognize phishing web links",
-            "DESCRIPTION": "Create a Python program that can predict if a URL is legitimate",
+            "DESCRIPTION": "Create a Python program that can predict if a URL is legitimate.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-phishing.pdf"
             }
@@ -1194,7 +1194,7 @@
         "KIWIORSTOAT": {
             "TITLE": "Kiwi or Stoat",
             "SUMMARY": "Teach a computer to recognize photos of animals",
-            "DESCRIPTION": "Make a project in Scratch that can recognize the animals in photos from conservation sites",
+            "DESCRIPTION": "Make a project in Scratch that can recognize animals in photos from conservation sites.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-kiwiorstoat.pdf"
             }
@@ -1287,8 +1287,8 @@
 
             "LITE_30_DAYS_EXPIRE": "IBM Cloud may deactivate 'Lite' plan Watson API keys if they're not used for 30 days",
 
-            "NO_TEXT_CREDENTIALS": "Je hebt geen Watson Assistant inloggegevens. Dit betekent dat je geen modellen kan trainen voor <strong>tekstherkenning</strong> projecten.",
-            "NO_IMAGE_CREDENTIALS": "Je hebt geen Visual Recognition API keys. Dit betekent dat je geen modellen kan trainen voor <strong>afbeeldingsherkenning</strong> projecten.",
+            "NO_TEXT_CREDENTIALS": "Je hebt geen Watson Assistant inloggegevens. <br/>Dit betekent dat je geen modellen kan trainen voor <strong>tekstherkenning</strong> projecten.",
+            "NO_IMAGE_CREDENTIALS": "Je hebt geen Visual Recognition API keys. <br/>Dit betekent dat je geen modellen kan trainen voor <strong>afbeeldingsherkenning</strong> projecten.",
 
             "LINK_TO_APIKEYS_GUIDE": "If you're not sure where to get them, download the <a href='/apikeys-guide'>step-by-step guide</a>",
 
@@ -1452,7 +1452,7 @@
         }
     },
     "HELP": {
-        "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
+        "CONTACT": "If you have any problems or questions, please ask in <a target='_blank' href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids forum</a>",
         "GETTINGSTARTED": {
             "TITLE": "Klaar om te beginnen?",
             "INTRO": "Download een PDF met een korte ‘Aan de slag’ gids:",
@@ -1549,11 +1549,11 @@
             "Q6-A-4": "Als je meer dan tien minuten aan het wachten bent, herstart dan het hele process (klik op de Annuleer knop en klik dan opnieuw op Train een nieuw machine learning model).",
 
             "Q7": "\"Your class is sharing Watson API keys ... there are currently none available\"",
-            "Q7-A-1": "Machine learning models in the tool are created using IBM Watson APIs.",
+            "Q7-A-1": "Machine learning modellen in de tool worden gegenereerd via IBM Watson APIs.",
             "Q7-A-2": "If you have a \"managed\" class account, this means your class is sharing these keys with many other schools. ",
             "Q7-A-3": "There are normally enough for all schools, but if it is very busy and all of the available API keys are currently in use, attempts to train new machine learning models will fail, and this message will be displayed:",
             "Q7-A-4": "Your class is sharing Watson Assistant / Visual Recognition \"API keys\" with many other schools, and unfortunately there are currently none available. Please let your teacher or group leader know that you will have to train your machine learning model later",
-            "Q7-A-5": "If a student who has a successfully trained model then deletes their model, this will free up a workspace for use by another student.",
+            "Q7-A-5": "Als een student zijn succesvol getraind model dan verwijdert, komt er weer plaats vrij voor een model van een andere student.",
             "Q7-A-6": "The best thing to do is to try again later, after other students have deleted their machine learning models and API keys are available again. Your training data will still be safe until then.",
             "Q7-A-7": "Another way to avoid this error is for your class to create an \"unmanaged\" class account, which is where a teacher creates their own Watson \"API keys\" that can be dedicated only for use by their own class."
         },

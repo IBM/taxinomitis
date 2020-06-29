@@ -4,17 +4,17 @@
 
         "BACK": "ආපසු",
         "BACKTOPROJECT": "&lt; ආපසු ව්‍යාපෘතියට",
-        "BACKTOMODEL": "&lt; Back to model",
+        "BACKTOMODEL": "&lt; ආපසු මොඩලයට ",
         "ERROR": "දෝෂය:",
         "WARNING": "අවවාදයයි:",
         "INFO": "තොරතුරු:",
 
         "ADD": "එකතු කරන්න",
         "CANCEL": "අවලංගු කරන්න",
-        "DELETE": "Delete",
-        "EDIT": "Edit",
-        "TEST": "Test",
-        "RESET": "Reset",
+        "DELETE": "මකන්න",
+        "EDIT": "සංස්කරණය කරන්න",
+        "TEST": "පරික්ෂා කරන්න",
+        "RESET": "යළි පිහිටුවන්න",
 
         "ABOUT": "පිළිබඳව",
         "TEACHER": "ගුරුවරයා",
@@ -25,7 +25,7 @@
         "LOGIN": "ඇතුල් වෙන්න",
         "LOGOUT": "පිට වෙන්න",
 
-        "BETA": "Beta",
+        "BETA": "බීටා",
         "INCOMPLETE": "අසම්පූර්ණයි!"
     },
     "ABOUT": {
@@ -43,10 +43,10 @@
         "TECH": {
             "TITLE": "තාක්ෂණය",
             "BODY": "මෙම මෙවලම සම්පූර්ණයෙන්ම වෙබ් පාදක වන අතර සංකීර්ණ ස්ථාපනයක් අවශ්‍ය නොවේ. <br/><br/>එය පාසල්වල පන්ති කාමර වල හා ළමයින්ට coding උගන්වන ස්වේච්ඡා කණ්ඩායම් වල භාවිතය සඳහා නිර්මාණය කර ඇත, එසේම ගුරුවරුන්ට හා කණ්ඩායම් නායකයන්ට ඔවුන්ගේ ශිෂ්‍යයන් කළමනාකරණයට හා පරිපාලක ප්‍රවේශය ලබාදෙන admin page සපසයි.<br/><br/>එය නිර්මාණය කරන ලද්දේ <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> විසින්  <a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a> හි API භාවිතයෙනි.",
-            "LOGIN": "වෙන්න වැඩ අරඹන්න : "
+            "LOGIN": "ආරම්භ කරන්න: "
         },
         "FURTHER": {
-            "TITLE": "Further learning",
+            "TITLE": "වැඩි දුර අධ්‍යනය",
             "BODY": "Machine Learning for Kids is a useful tool for introducing children to how ML systems are trained, how they are used, and some of the real-world implications of AI applications. <br/><br/>For additional teaching and learning resources, including teaching the internals of ML systems, please see: "
         }
     },
@@ -62,7 +62,7 @@
         }
     },
     "LINKS": {
-        "TITLE": "Educational AI resources for children",
+        "TITLE": "ළමුන් සඳහා කෘතිම බුද්ධිය ආශ්‍රිත අධ්‍යාපනික සම්පත්",
         "INTRO": "This page is a list of further tools and resources for introducing children to artificial intelligence.",
         "ECRAFT2LEARN": {
             "BODY1": "<a href='http://users.ox.ac.uk/~oucs0030/' target='_blank'>Ken Kahn</a> has created resources to allow beginners to create AI programs in Snap! (a visual programming environment similar to Scratch).",
@@ -116,7 +116,7 @@
         "PAGENOTFOUND": "පිටුව හමු නොවිණි",
         "NOTLOGGEDIN": "ඇතුළු වී නොමැත",
 
-        "MISSINGPROJECTID": "Project id එක හමු නොවේ. ආපසු යන්න ",
+        "MISSINGPROJECTID": "ව්‍යාපෘති හැදුනුම් කේතය හමු නොවේ. ආපසු යන්න ",
         "IFPERSISTENT": "මෙය නැවත නැවත සිදුවන්නේ නම්, කරුණාකර ",
 
         "LETMEKNOW": "මට දැනුම් දෙන්න"
@@ -136,22 +136,22 @@
         "WELCOME": "සාදරයෙන් පිළිගනිමු! පොඩ්ඩන්ට Machine learning වෙතට log in වීමට ගිණුමක් සාදාගැනීමට ඔබේ ඇති උනන්දුව අගය කර සිටිමු.",
         "ALREADY_LOGGEDIN": "<strong>Info: </strong> දැනටමත් log in වී ඇත",
         "ERROR": "<strong>Error:</strong> {{ message }}",
-        "ERROR_HELP": "මෙය නැවත නැවත සිදුවන්නේ නම්, කරුණාකර අපේ help page එකට යන්න",
+        "ERROR_HELP": "මෙය නැවත නැවත සිදුවන්නේ නම්, කරුණාකර අපේ  උදව් පිටුවට යන්න",
         "FIRST_TIME": "මෙතැනට අළුත්ද?",
-        "SIGN_UP": "Sing up වෙන්න",
-        "WHY_REGISTER": "ඇයි register වෙන්නෙ?",
+        "SIGN_UP": "ලියාපදිංචි වෙන්න",
+        "WHY_REGISTER": "ඇයි ලියාපදිංචි වෙන්නෙ?",
         "WHY_REGISTER_INTRO_1": "පොඩ්ඩන්ට machine learning භාවිතයට <strong> ලියාපදිංචි වීමට හෝ ගිණුම් සෑදීමට අවශ්‍ය නොවේ </strong> නමුත් ඔබ ලියාපදිංචි වුවහොත් මෙවලමට අමතර විශේෂාංග කිහිපයක් එක්වෙයි.",
         "WHY_REGISTER_INTRO_2": "පහත වගුව මගින් ඔබට ලියාපදිංචි නොවී \"Try it now\" click කිරීම හා ඔබ ගිණුමක් සකස් කළ විට කළ හැකි දේවල් අතර වෙනස පැහැදිලි කරයි.",
         "ALREADY_REGISTERED": "කලින්ම ලියාපදිංචි වී සිටීද?",
-        "LOGIN": "Log in වෙන්න",
+        "LOGIN": "ඇතුළු වෙන්න",
         "FORGOT_DETAILS": "ඔබේ තොරතුරු අමතක ද?",
         "TRY_TITLE": "ලියාපදිංචි නොවී උත්සාහ කරන්න",
-        "TRY_NOW": "දැන්ම Try කරල බලන්න",
+        "TRY_NOW": "දැන්ම උත්සහ  කරල බලන්න",
         "WHO_YOU": "ඔබ කවුද?",
         "TEACHER": "ගුරුවරයෙකු හෝ coding club එකක නායකයෙක්",
         "STUDENT": "ශිෂ්‍යයෙක්",
         "FORGOT_TEXT": "ඔයාගෙ username එක හරි password එක හරි අමතකද? ඒකට කමක් නෑ - අපි හැමෝටම සමහර වෙලාවට දේවල් අමතක වෙනව.",
-        "ARE_YOU_A_STUDENT": "Are you a student?",
+        "ARE_YOU_A_STUDENT": "ඔබ සිසුවෙක්ද?",
         "ARE_YOU_A_STUDENT_INTRO_1": "If your class is already using this tool, ask your teacher or coding group leader to create you an account.",
         "ARE_YOU_A_STUDENT_INTRO_2": "If your class isn't already using the tool, ask your teacher or coding group leader to get in touch.",
         "RESET_STUDENT_PASSWORD_1": "If you're a student, we don't have your email address to be able to send you a password-reset email.",
@@ -179,17 +179,17 @@
             "LIST_NUMBEROFSTUDENTS": "දළ වශයෙන් කොපමණ ශිෂ්‍ය ගිණුම් ප්‍රමාණයක් ඔබට අවශ්‍යද",
             "LIST_NAMEOFSCHOOL": "ගිණුම අවශ්‍ය පාසලේ හෝ කෝඩිං කණ්ඩායමේ නම",
             "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs.",
-            "EMAIL": "Email කරන්න"
+            "EMAIL": "ඊ මේල් කරන්න"
         }
     },
     "PROJECTS": {
         "TITLE": "ඔබේ machine learning ව්‍යාපෘති",
         "ADDNEWPROJECT": "අලුත් ව්‍යාපෘතියක් එක් කරන්න",
         "COPYTEMPLATE": "Copy template",
-        "CREATEFIRSTPROJECT": "Click on the 'plus' button on the right to create your first project.",
-        "RECOGNISING": "Recognising",
+        "CREATEFIRSTPROJECT": "Click the 'plus' button on the right to create your first project.",
+        "RECOGNISING": "හඳුනාගැනීම",
         "AS": "as",
-        "SHARE": "Share",
+        "SHARE": "බෙදා ගන්න",
         "UNSHARE": "Un-share",
         "WHOLE_CLASS_TITLE": "Crowd-sourced project",
         "WHOLE_CLASS_NOTES": "This is a whole-class project. All students in your class can use it and add to the training data."
@@ -219,7 +219,7 @@
         },
         "FIELDS": {
             "TYPE": {
-                "TITLE": "Value වල වර්ගය",
+                "TITLE": "අගය වර්ගය",
                 "NUMBER": "ඉලක්කම්",
                 "MULTIPLE_CHOICE": "බහුවරණ"
             },
@@ -240,8 +240,8 @@
         },
         "CREATE": "හදන්න",
         "ERRORS": {
-            "REQUIRED": "This is required!",
-            "TOOLONG": "That's too long!"
+            "REQUIRED": "මෙය අත්‍යවශ්‍යයි!",
+            "TOOLONG": "එය දිගු වැඩිය!"
         },
         "WARNINGS": {
             "MLCRED-TEXT-NOKEYS": "Please let your teacher know that they will need to add a \"Watson Assistant API key\" to your class to let you train the machine learning model for your new project",
@@ -257,12 +257,12 @@
             "INTRO_2": "Each one includes a set of training data that has been collected for you to help you get started quickly. ",
             "INTRO_3": "You will be able to make changes to the training data if you like, or you can go straight to training a machine learning model with it. "
         },
-        "IMPORT": "Import",
+        "IMPORT": "ආනයනය",
         "MORE": {
-            "TITLE": "Other data sets",
+            "TITLE": "වෙනත් දත්ත කට්ටල",
             "SUMMARY": "What other data sets would you like to see?",
             "DESCRIPTION": "Have you got an idea for a data set you'd like to see available here? Or do you have a data set that you'd like to contribute? Please get in touch!",
-            "MOREINFO": "More..."
+            "MOREINFO": "තව..."
         },
         "DATA": {
             "TITANIC": {
@@ -279,7 +279,7 @@
             },
             "UKNEWSPAPERS": {
                 "TITLE": "UK Newspaper Headlines",
-                "SUMMARY": "Recognize the use of language in newspaper headlines",
+                "SUMMARY": "Recognize the use of language in headlines",
                 "DESCRIPTION": "Different newspapers use language in different ways. This project includes the main front page headline from four UK newspapers. You can use this to train a machine learning model that can learn to predict the most likely newspaper that a new headline is probably from. ",
                 "DETAILS": "This training dataset includes headlines from the Daily Mail, the Daily Telegraph, the Independent, and The Guardian"
             },
@@ -292,7 +292,7 @@
             "NOUGHTSANDCROSSES": {
                 "SUMMARY": "Learn how to play a game",
                 "DESCRIPTION": "Train a machine learning model to play noughts and crosses, by collecting examples of moves that the computer can use to learn how to predict the best move to make next.",
-                "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'Noughts and Crosses' from Worksheets"
+                "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'Noughts and Crosses' from Worksheets."
             },
             "TOPTRUMPS": {
                 "TITLE": "Kings & Queens Top Trumps",
@@ -310,11 +310,11 @@
     },
     "PROJECT": {
         "TRAIN": {
-            "TITLE": "Train කරන්න",
+            "TITLE": "පුරුදු කරවන්න",
             "BODY": "ඔබට පරිගණකයට හදුනා ගැනීමට අවශ්‍ය දේවල්වල උදාහරණ එකතු කරන්න."
         },
         "LEARNANDTEST": {
-            "TITLE": "ඉගෙනගැනීම හා Test කිරීම",
+            "TITLE": "ඉගෙනගැනීම හා පරික්ෂා කිරීම",
             "BODY": "පරිගණකයට හදුනාගැනීමට පුහුණු කිරීමට ඒ උදාහරණ භාවිත කරන්න"
         },
         "MAKES": {
@@ -339,7 +339,7 @@
         }
     },
     "TRAINING": {
-        "TITLE": "Training",
+        "TITLE": "පුහුණුව",
         "ADDLABEL": "අලුත් label එකක් එකතු කරන්න",
         "CREATEFIRSTLABEL": "Click on the 'ධන' බොත්තම මත ඔබා ඔබේ පළමු bucket එක add කරන්න.",
         "CROWDSOURCEDEMPTY": "ඔබේ ගුරුවරයා training bucket සෑදීමෙන් අනතුරුව මෙම පිටුව refresh කරන්න.",
@@ -369,8 +369,8 @@
     "MODELS": {
         "TITLE": "Machine learning ආක්‍රුතු",
         "TRAIN": "නව Machine learning ආක්‍රුතියක් train කරන්න",
-        "CANCEL": "train කිරීම අවලංගුකරන්න",
-        "DELETE": "ආක්‍රැතිය මකා දමන්න",
+        "CANCEL": "පුරුදු කරවීම අවලංගු කරන්න",
+        "DELETE": "මොඩලය මකා දමන්න",
         "TEST_CANVAS": "Draw something to test your model with",
         "TEST_WEBCAM": "Take a photo to test your model with",
         "WHATHAVEYOUDONE": {
@@ -896,11 +896,11 @@
             "SUMMARY": "Teach a computer to recognise compliments and insults",
             "DESCRIPTION": "Create a character in Scratch that smiles if you say nice things to it and cries if you say mean things to it.",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Full version of the project, where the students make a non-machine learning version first",
+                "DESCRIPTION": "Full version of the Scratch project, where the students make a non-machine learning version first",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Shorter version of the project, where the students only make a machine learning version",
+                "DESCRIPTION": "Shorter version of the Scratch project, where the students only make a machine learning version",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-easy.pdf"
             },
             "WORKSHEET_3": {
@@ -925,7 +925,7 @@
         "CHAMELEON": {
             "TITLE": "Chameleon",
             "SUMMARY": "Teach a computer to recognise colours",
-            "DESCRIPTION": "Make a chameleon in Scratch that changes colour to match its background",
+            "DESCRIPTION": "Make a chameleon in Scratch that changes colour to match its background.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf"
             }
@@ -969,7 +969,7 @@
         },
         "SHYPANDA": {
             "TITLE": "Shy Panda",
-            "SUMMARY": "Teach a computer to recognise pictures",
+            "SUMMARY": "Teach a computer to recognise webcam pictures",
             "DESCRIPTION": "Make a dancing panda that gets shy and stops dancing if it sees you looking.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda.pdf"
@@ -977,7 +977,7 @@
         },
         "VIRTUALPET": {
             "TITLE": "Virtual Pet",
-            "SUMMARY": "Teach a computer to recognise pictures",
+            "SUMMARY": "Teach a computer to recognise webcam pictures",
             "DESCRIPTION": "Train the computer to recognise what you're doing so you can look after a virtual pet.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-virtualpet.pdf"
@@ -1081,7 +1081,7 @@
         "WHATTWITTERTHINKS": {
             "TITLE": "What does Twitter think?",
             "SUMMARY": "Teach a computer to measure public opinion",
-            "DESCRIPTION": "Create a sentiment analysis tool in Scratch to analyze discussion on Twitter",
+            "DESCRIPTION": "Create a sentiment analysis tool in Scratch to analyze discussion on Twitter.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
             }
@@ -1130,7 +1130,7 @@
         "HEADLINETESTING": {
             "TITLE": "Headline testing",
             "SUMMARY": "Test the computer's ability to recognise use of language",
-            "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is",
+            "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
             }
@@ -1178,7 +1178,7 @@
         "ZOMBIEESCAPE": {
             "TITLE": "Zombie Escape!",
             "SUMMARY": "Teach a computer to make predictions",
-            "DESCRIPTION": "Train a computer to help you escape from the zombies",
+            "DESCRIPTION": "Train a computer to help you escape from the zombie horde.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
             }
@@ -1186,7 +1186,7 @@
         "PHISHING": {
             "TITLE": "Phishing",
             "SUMMARY": "Teach a computer to recognize phishing web links",
-            "DESCRIPTION": "Create a Python program that can predict if a URL is legitimate",
+            "DESCRIPTION": "Create a Python program that can predict if a URL is legitimate.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-phishing.pdf"
             }
@@ -1194,7 +1194,7 @@
         "KIWIORSTOAT": {
             "TITLE": "Kiwi or Stoat",
             "SUMMARY": "Teach a computer to recognize photos of animals",
-            "DESCRIPTION": "Make a project in Scratch that can recognize the animals in photos from conservation sites",
+            "DESCRIPTION": "Make a project in Scratch that can recognize animals in photos from conservation sites.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-kiwiorstoat.pdf"
             }
@@ -1287,8 +1287,8 @@
 
             "LITE_30_DAYS_EXPIRE": "IBM Cloud may deactivate 'Lite' plan Watson API keys if they're not used for 30 days",
 
-            "NO_TEXT_CREDENTIALS": "You don't have any Assistant credentials. This means that it will not be possible to train models for <strong>text</strong> projects.",
-            "NO_IMAGE_CREDENTIALS": "You don't have any Visual Recognition API keys. This means that it will not be possible to train models for <strong>images</strong> projects.",
+            "NO_TEXT_CREDENTIALS": "You don't have any Assistant credentials. <br/>This means that it will not be possible to train models for <strong>text</strong> projects.",
+            "NO_IMAGE_CREDENTIALS": "You don't have any Visual Recognition API keys. <br/>This means that it will not be possible to train models for <strong>images</strong> projects.",
 
             "LINK_TO_APIKEYS_GUIDE": "If you're not sure where to get them, download the <a href='/apikeys-guide'>step-by-step guide</a>",
 
@@ -1452,7 +1452,7 @@
         }
     },
     "HELP": {
-        "CONTACT": "If you have any problems or questions, please ask in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids Google Group</a>",
+        "CONTACT": "If you have any problems or questions, please ask in <a target='_blank' href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids forum</a>",
         "GETTINGSTARTED": {
             "TITLE": "Getting started?",
             "INTRO": "Download a PDF with a short getting started guide:",
@@ -1628,7 +1628,7 @@
             "Q4-A-9": "I use <a href='https://www.google.com/analytics/'>Google Analytics</a> so that I know how many users visit Machine Learning for Kids each day. Although it captures information such as geographic location and browser type, this is only ever displayed to me in an anonymised aggregate way.",
 
             "Q5": "What happens to training data created by students?",
-            "Q5-A-1": "A step in all machine learning projects that students make using this site is to create or collect training examples. For text projects, this can mean typing in short text passages. For image projects, this can means drawing pictures onto an on-screen canvas or taking photos using the webcam. For numbers projects, this means typing in sets of numbers",
+            "Q5-A-1": "A step in all machine learning projects that students make using this site is to create or collect training examples. For text projects, this can mean typing in short text passages. For image projects, this can means drawing pictures onto an on-screen canvas or taking photos using the webcam. For numbers projects, this means typing in sets of numbers.",
             "Q5-A-2": "All of these training examples are stored in a <a href='https://www.ibm.com/cloud/compose/mysql'>MySQL database hosted on IBM Cloud</a>, in Dallas in the United States. As the database administrator, I have access to all of these training examples for all student projects, however I do not use it for any other purposes other than enabling students to access and work on their own projects. I do not publish the training data (either publicly or to individuals or third parties) or otherwise share it, with the two exceptions of submitting it to IBM Watson APIs described below.",
             "Q5-A-3": "Machine learning models for text projects are created using the <a href='https://www.ibm.com/cloud/watson-assistant/'>IBM Watson Assistant</a> cloud service, which means when students train a model, a copy of the training examples that they have entered will be <a href='https://cloud.ibm.com/apidocs/assistant#create-workspace'>submitted to IBM Watson</a>. (The location of this cloud service is something that teachers choose when <a href='https://machinelearningforkids.co.uk/apikeys-guide'>creating API keys</a>.) IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/assistant#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
             "Q5-A-4": "Machine learning models for images projects are created using the <a href='https://www.ibm.com/watson/services/visual-recognition/'>IBM Visual Recognition</a> cloud service, which means when students train a model, a copy of their training images will be <a href='https://cloud.ibm.com/apidocs/visual-recognition#create-a-classifier'>uploaded to IBM Watson</a>. (The location of this cloud service is something that teachers choose when <a href='https://machinelearningforkids.co.uk/apikeys-guide'>creating API keys</a>.) IBM Watson does not use these training examples for any other purposes. This is because Machine Learning for Kids <a href='https://cloud.ibm.com/apidocs/visual-recognition#data-collection'>requests an opt-out</a> for student training examples being used by IBM to improve the service, as <a href='https://cloud.ibm.com/docs/services/watson?topic=watson-gs-logging-overview'>described in the Watson documentation</a>.",
