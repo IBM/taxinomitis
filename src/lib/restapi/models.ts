@@ -10,6 +10,7 @@ import * as Types from '../training/training-types';
 import * as conversation from '../training/conversation';
 import * as visualrec from '../training/visualrecognition';
 import * as numbers from '../training/numbers';
+import * as notifications from '../notifications/slack';
 import * as base64decode from '../utils/base64decode';
 import * as download from '../utils/download';
 import * as urls from './urls';
@@ -102,6 +103,8 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
             }
             else if (err.message === conversation.ERROR_MESSAGES.POOL_EXHAUSTED) {
                 log.error({ err }, 'Managed classes have exhausted the pool of Watson Assistant keys');
+                notifications.notify('Exhausted managed pool of Watson Assistant keys',
+                                     notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
                 return res.status(httpstatus.CONFLICT).send({ code : 'MLMOD15', error : err.message });
             }
             else if (err.message === conversation.ERROR_MESSAGES.API_KEY_RATE_LIMIT) {
@@ -143,6 +146,8 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
             }
             else if (err.message === visualrec.ERROR_MESSAGES.POOL_EXHAUSTED) {
                 log.error({ err }, 'Managed classes have exhausted the pool of Visual Recognition keys');
+                notifications.notify('Exhausted managed pool of Visual Recognition keys',
+                                     notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
                 return res.status(httpstatus.CONFLICT).send({ code : 'MLMOD16', error : err.message });
             }
             else if (err.message === visualrec.ERROR_MESSAGES.API_KEY_RATE_LIMIT) {

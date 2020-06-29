@@ -196,7 +196,7 @@ describe('REST API - image training for managed pool classes', () => {
 
         return store.deleteBluemixCredentialsPoolForTests()
             .then(() => {
-                return store.storeManagedClassTenant(classid, 10, types.ClassTenantType.ManagedPool);
+                return store.storeManagedClassTenant(classid, 10, 3, types.ClassTenantType.ManagedPool);
             })
             .then(() => {
                 return setupPoolCreds();

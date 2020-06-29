@@ -1096,7 +1096,6 @@ export async function getAllBluemixCredentials(
 }
 
 
-
 export async function getBluemixCredentials(
     tenant: Objects.ClassTenant, service: TrainingObjects.BluemixServiceType,
 ): Promise<TrainingObjects.BluemixCredentials[]>
@@ -2112,7 +2111,7 @@ export async function getNextPendingJob(): Promise<Objects.PendingJob | undefine
 // -----------------------------------------------------------------------------
 
 
-export async function storeManagedClassTenant(classid: string, numstudents: number, type: Objects.ClassTenantType): Promise<Objects.ClassTenant>
+export async function storeManagedClassTenant(classid: string, numstudents: number, maxprojects: number, type: Objects.ClassTenantType): Promise<Objects.ClassTenant>
 {
     const obj = dbobjects.createClassTenant(classid);
     const NUM_USERS = numstudents + 1;
@@ -2126,7 +2125,7 @@ export async function storeManagedClassTenant(classid: string, numstudents: numb
     const values = [
         obj.id, obj.projecttypes,
         type, NUM_USERS,
-        obj.maxprojectsperuser,
+        maxprojects,
         obj.textclassifiersexpiry, obj.imageclassifiersexpiry,
     ];
 
@@ -2140,7 +2139,7 @@ export async function storeManagedClassTenant(classid: string, numstudents: numb
         supportedProjectTypes : obj.projecttypes.split(',') as Objects.ProjectTypeLabel[],
         tenantType : type,
         maxUsers : NUM_USERS,
-        maxProjectsPerUser : obj.maxprojectsperuser,
+        maxProjectsPerUser : maxprojects,
         textClassifierExpiry : obj.textclassifiersexpiry,
         imageClassifierExpiry : obj.imageclassifiersexpiry,
     };
@@ -2531,4 +2530,36 @@ export async function deleteClassResources(classid: string): Promise<void> {
         await dbConn.execute(deleteQuery, [ classid ]);
     }
     dbConn.release();
+}
+
+
+
+
+// -----------------------------------------------------------------------------
+// TEST AND OPS ONLY
+// -----------------------------------------------------------------------------
+
+/* istanbul ignore next */
+export function getDetailedBluemixCredentialsForClass(tenantid: string): Promise<TrainingObjects.BluemixCredentialsDbRow[]>
+{
+    const queryString = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid`, `notes` ' +
+                        'FROM `bluemixcredentials` ' +
+                        'WHERE `classid` = ?';
+    return dbExecute(queryString, [ tenantid ]);
+}
+
+/* istanbul ignore next */
+export function moveToPool(tenantid: string): Promise<void>
+{
+    const queryString = 'UPDATE `tenants` SET `ismanaged` = 2 WHERE `id` = ?';
+    return dbExecute(queryString, [ tenantid ])
+        .then((resp) => {
+            if (resp.affectedRows === 1) {
+                return;
+            }
+            else {
+                log.error({ resp, tenantid }, 'Update failed');
+                throw new Error('Something went wrong');
+            }
+        });
 }
