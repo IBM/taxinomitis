@@ -34,7 +34,7 @@
         "IN20MINS": " 20分钟...... ",
         "WHAT": {
             "TITLE": "什么？",
-            "BODY": "该工具通过提供培训机器学习系统和用它们构建物品的实践经验来介绍机器学习。<br/> <br/>它为培训机器学习模型提供了一个易于使用的指导环境用于分类文本,数字或识别图像。<br/> <br/>这是建立在现有的向儿童介绍和教授编码的努力的基础上,将这些模型添加到<a href ='https://scratch.mit.edu/关于' target ='_blank'> Scratch </a>（一种广泛使用的教育编码平台）,允许孩子们用他们训练过的机器学习模型创建项目和构建游戏。<br/> <br/>到了解更多,看看: "
+            "BODY" : "该工具通过提供培训机器学习系统和用它们构建物品的实践经验来介绍机器学习。<br/> <br/>它为培训机器学习模型提供了一个易于使用的指导环境用于分类文本,数字或识别图像。<br/> <br/>这是建立在现有的向儿童介绍和教授编码的努力的基础上,将这些模型添加到<a href ='https://scratch.mit.edu/关于' target ='_blank'> Scratch </a>（一种广泛使用的教育编码平台）,允许孩子们用他们训练过的机器学习模型创建项目和构建游戏。<br/> <br/>到了解更多,看看: "
         },
         "WHY": {
             "TITLE": "为什么？",
@@ -378,114 +378,114 @@
             "PLEASEWAIT": "这通常需要几分钟,但如果训练计算机非常繁忙,可能需要更长的时间。",
             "FAIL": "不幸的是,出了点问题。",
 
-            "TRAINING": {
-                "CROWDSOURCED": {
-                    "TEXT": "您的班级正在使用您收集的文本示例来训练机器学习模型。",
-                    "IMAGES": "您的班级正在使用您收集的图像示例来训练机器学习模型。",
-                    "NUMBERS": "您的班级正在使用您收集的数字示例来训练机器学习模型。",
+            "TRAINING" : {
+                "CROWDSOURCED" : {
+                    "TEXT" : "您的班级正在使用您收集的文本示例来训练机器学习模型。",
+                    "IMAGES" : "您的班级正在使用您收集的图像示例来训练机器学习模型。",
+                    "NUMBERS" : "您的班级正在使用您收集的数字示例来训练机器学习模型。",
                     "SOUNDS" : "Your class is training a machine learning model using the examples of sounds that you all collected."
                 },
-                "INDIVIDUAL": {
-                    "TEXT": "您已经开始使用您收集的文本示例来训练机器学习模型。",
-                    "IMAGES": "您已经开始使用您收集的图像示例来训练机器学习模型。",
-                    "NUMBERS": "您已经开始使用您收集的数字示例来训练机器学习模型。",
+                "INDIVIDUAL" : {
+                    "TEXT" : "您已经开始使用您收集的文本示例来训练机器学习模型。",
+                    "IMAGES" : "您已经开始使用您收集的图像示例来训练机器学习模型。",
+                    "NUMBERS" : "您已经开始使用您收集的数字示例来训练机器学习模型。",
                     "SOUNDS" : "You've started training a machine learning model using the examples of sounds that you collected."
                 },
                 "SINCE": "由于这是在训练"
             },
-            "READY": {
-                "CROWDSOURCED": {
-                    "TEXT": "您的班级已培训机器学习模型,以识别文本何时",
-                    "IMAGES": "你的班级已经培训了一种机器学习模型来识别图像是什么时候",
-                    "NUMBERS": "您的班级已培训机器学习模型,以识别数字何时",
+            "READY" : {
+                "CROWDSOURCED" : {
+                    "TEXT" : "您的班级已培训机器学习模型,以识别文本何时",
+                    "IMAGES" : "你的班级已经培训了一种机器学习模型来识别图像是什么时候",
+                    "NUMBERS" : "您的班级已培训机器学习模型,以识别数字何时",
                     "SOUNDS" : "Your class has trained a machine learning model to recognise when sounds are "
                 },
-                "INDIVIDUAL": {
-                    "TEXT": "您已经培训了一种机器学习模型来识别文本的时间",
-                    "IMAGES": "你已经训练了一个机器学习模型来识别图像是什么时候",
-                    "NUMBERS": "您已经培训了一种机器学习模型来识别数字是什么时候",
+                "INDIVIDUAL" : {
+                    "TEXT" : "您已经培训了一种机器学习模型来识别文本的时间",
+                    "IMAGES" : "你已经训练了一个机器学习模型来识别图像是什么时候",
+                    "NUMBERS" : "您已经培训了一种机器学习模型来识别数字是什么时候",
                     "SOUNDS" : "You have trained a machine learning model to recognise when sounds are "
                 },
-                "CREATED": {
-                    "TEACHER": "你的老师创造了模型",
-                    "YOU": "你创造了模型"
+                "CREATED" : {
+                    "TEACHER" : "你的老师创造了模型",
+                    "YOU" : "你创造了模型"
                 },
-                "TRAINING": {
-                    "CLASS": "你的班级收集了: ",
-                    "YOU": "你收集了: "
+                "TRAINING" : {
+                    "CLASS" : "你的班级收集了: ",
+                    "YOU" : "你收集了: "
                 }
             },
             "ERROR": {
-                "CROWDSOURCED": {
-                    "CLASS": {
-                        "TEXT": "您的老师尝试使用您班级收集的文本示例来训练机器学习模型。",
-                        "IMAGES": "您的老师尝试使用您班级收集的图像示例来训练机器学习模型。",
-                        "NUMBERS": "您的老师尝试使用您班级收集的数字示例来训练机器学习模型。",
+                "CROWDSOURCED" : {
+                    "CLASS" : {
+                        "TEXT" : "您的老师尝试使用您班级收集的文本示例来训练机器学习模型。",
+                        "IMAGES" : "您的老师尝试使用您班级收集的图像示例来训练机器学习模型。",
+                        "NUMBERS" : "您的老师尝试使用您班级收集的数字示例来训练机器学习模型。",
                         "SOUNDS" : "Your teacher tried training a machine learning model using the examples of sounds that your class collected."
                     },
-                    "YOU": {
-                        "TEXT": "您尝试使用班级收集的文本示例来训练机器学习模型。",
-                        "IMAGES": "您尝试使用您的班级收集的图像示例来训练机器学习模型。",
-                        "NUMBERS": "您尝试使用班级收集的数字示例来训练机器学习模型。",
+                    "YOU" : {
+                        "TEXT" : "您尝试使用班级收集的文本示例来训练机器学习模型。",
+                        "IMAGES" : "您尝试使用您的班级收集的图像示例来训练机器学习模型。",
+                        "NUMBERS" : "您尝试使用班级收集的数字示例来训练机器学习模型。",
                         "SOUNDS" : "You tried training a machine learning model using the examples of sounds that your class collected."
                     }
                 },
-                "INDIVIDUAL": {
-                    "TEXT": "您尝试使用您收集的文本示例来训练机器学习模型。",
-                    "IMAGES": "您尝试使用您收集的图像示例来训练机器学习模型。",
-                    "NUMBERS": "您尝试使用收集的数字示例来训练机器学习模型。",
+                "INDIVIDUAL" : {
+                    "TEXT" : "您尝试使用您收集的文本示例来训练机器学习模型。",
+                    "IMAGES" : "您尝试使用您收集的图像示例来训练机器学习模型。",
+                    "NUMBERS" : "您尝试使用收集的数字示例来训练机器学习模型。",
                     "SOUNDS" : "You tried training a machine learning model using the examples of sounds that you collected."
                 }
             },
-            "IDLE": {
-                "NOLABELS": {
-                    "CROWDSOURCED": {
-                        "TEXT": "你的班级说你想收集文字的例子。",
-                        "IMAGES": "你的班级说你想收集图像的例子。",
-                        "NUMBERS": "你的班级说你想收集数字的例子。",
+            "IDLE" : {
+                "NOLABELS" : {
+                    "CROWDSOURCED" : {
+                        "TEXT" : "你的班级说你想收集文字的例子。",
+                        "IMAGES" : "你的班级说你想收集图像的例子。",
+                        "NUMBERS" : "你的班级说你想收集数字的例子。",
                         "SOUNDS" : "Your class said you want to collect examples of sounds."
                     },
-                    "INDIVIDUAL": {
-                        "TEXT": "你说你想收集文字的例子。",
-                        "IMAGES": "你说你想要收集图像的例子。",
-                        "NUMBERS": "你说你想收集数字的例子。",
+                    "INDIVIDUAL" : {
+                        "TEXT" : "你说你想收集文字的例子。",
+                        "IMAGES" : "你说你想要收集图像的例子。",
+                        "NUMBERS" : "你说你想收集数字的例子。",
                         "SOUNDS" : "You've said you want to collect examples of sounds."
                     }
                 },
-                "NODATA": {
-                    "CROWDSOURCED": {
-                        "TEXT": "您的班级表示您希望收集计算机文本的示例,以便识别文本的时间",
-                        "IMAGES": "你的班级说你要收集图像的例子,以便计算机识别出图像的时间",
-                        "NUMBERS": "您的班级表示您希望收集计算机的数字示例以识别数字何时",
+                "NODATA" : {
+                    "CROWDSOURCED" : {
+                        "TEXT" : "您的班级表示您希望收集计算机文本的示例,以便识别文本的时间",
+                        "IMAGES" : "你的班级说你要收集图像的例子,以便计算机识别出图像的时间",
+                        "NUMBERS" : "您的班级表示您希望收集计算机的数字示例以识别数字何时",
                         "SOUNDS" : "Your class said that you want to collect examples of sounds for a computer to recognise when sounds are "
                     },
-                    "INDIVIDUAL": {
-                        "TEXT": "您说要收集计算机文本的示例,以便识别文本的时间",
-                        "IMAGES": "你说你要收集图像的例子,让计算机识别图像的时间",
-                        "NUMBERS": "你说你要收集计算机数字的例子来识别数字是什么时候",
+                    "INDIVIDUAL" : {
+                        "TEXT" : "您说要收集计算机文本的示例,以便识别文本的时间",
+                        "IMAGES" : "你说你要收集图像的例子,让计算机识别图像的时间",
+                        "NUMBERS" : "你说你要收集计算机数字的例子来识别数字是什么时候",
                         "SOUNDS" : "You said that you want to collect examples of sounds for a computer to recognise when sounds are "
                     }
                 },
-                "NOEXAMPLES": {
-                    "CLASS": "到目前为止,您的班级尚未收集任何示例。",
-                    "YOU": "到目前为止,你尚未收集任何例子。"
+                "NOEXAMPLES" : {
+                    "CLASS" : "到目前为止,您的班级尚未收集任何示例。",
+                    "YOU" : "到目前为止,你尚未收集任何例子。"
                 },
-                "DATA": {
-                    "CROWDSOURCED": {
-                        "TEXT": "您的班级已经收集了计算机用于识别文本的文本示例",
-                        "IMAGES": "您的班级已经收集了计算机用于识别图像的图像示例",
-                        "NUMBERS": "您的班级已收集计算机的数字示例,用于识别数字何时",
+                "DATA" : {
+                    "CROWDSOURCED" : {
+                        "TEXT" : "您的班级已经收集了计算机用于识别文本的文本示例",
+                        "IMAGES" : "您的班级已经收集了计算机用于识别图像的图像示例",
+                        "NUMBERS" : "您的班级已收集计算机的数字示例,用于识别数字何时",
                         "SOUNDS" : "Your class has collected examples of sounds for a computer to use to recognise when sounds are "
                     },
-                    "INDIVIDUAL": {
-                        "TEXT": "您收集了计算机用于识别文本的文本示例",
-                        "IMAGES": "您已经收集了计算机用于识别图像的图像示例",
-                        "NUMBERS": "您已收集计算机的数字示例,用于识别数字何时",
+                    "INDIVIDUAL" : {
+                        "TEXT" : "您收集了计算机用于识别文本的文本示例",
+                        "IMAGES" : "您已经收集了计算机用于识别图像的图像示例",
+                        "NUMBERS" : "您已收集计算机的数字示例,用于识别数字何时",
                         "SOUNDS" : "You have collected examples of sounds for a computer to use to recognise when sounds are "
                     },
-                    "COLLECTED": {
-                        "CLASS": "他们收集了: ",
-                        "YOU": "你收集了: "
+                    "COLLECTED" : {
+                        "CLASS" : "他们收集了: ",
+                        "YOU" : "你收集了: "
                     }
                 }
             }
@@ -497,53 +497,53 @@
             "FAIL": "来自训练计算机的错误信息如下所示。如果这对您有意义,请尝试解决问题。否则,如果它只是一个随机错误,可能值得再次尝试。",
 
             "IDLE": {
-                "NOLABELS": "下一步是转到<strong>培训</strong>页面。为您希望教授计算机能够识别的每一项内容添加一些标签。",
-                "ONELABEL": {
+                "NOLABELS" : "下一步是转到<strong>培训</strong>页面。为您希望教授计算机能够识别的每一项内容添加一些标签。",
+                "ONELABEL" : {
                     "EXPLANATION": "你只说了一件你希望计算机能够识别的东西: {{label}} ",
                     "ISTHATALL": "这是您希望计算机能够识别的唯一内容吗？",
                     "NO": " <strong>否？</strong> <br/>返回<strong>训练</strong>页面。<br/>为每个要教授的内容添加更多标签计算机能够识别。<br/> <br/> ",
                     "YES": " <strong>是吗？</strong>您需要先做一些工作。<br/>为了让计算机能够学会如何识别\" {{label}} \",你需要给它一些不是{{label}}的东西的例子。<br/>回到<strong>训练</strong>页面并为不存在的事物的例子创建一个新的标签。\"{{label}}你可以称之为\"不- {{label}}\" 。"
                 },
-                "LABELS": {
-                    "NO_DATA": "下一步是转到<strong>训练</strong>页面。为每个标签添加示例。",
-                    "MORE_DATA": {
+                "LABELS" : {
+                    "NO_DATA" : "下一步是转到<strong>训练</strong>页面。为每个标签添加示例。",
+                    "MORE_DATA" : {
                         "KEEP_GOING": "继续！",
-                        "MORE_EXAMPLES": {
+                        "MORE_EXAMPLES" : {
                             "YOU": "返回<strong>训练</strong>页面,为每个标签收集更多示例。",
                             "CLASS": "让您的班级返回<strong>培训</strong>页面,并为每个标签收集更多示例。"
                         },
-                        "MORE_IS_BETTER": "你获得的越多,它应该学得越好,但你至少需要{{minimumExamples}}个例子作为绝对最小值。"
+                        "MORE_IS_BETTER" : "你获得的越多,它应该学得越好,但你至少需要{{minimumExamples}}个例子作为绝对最小值。"
                     },
-                    "ENOUGH_DATA": {
-                        "READY_TO_START": "准备开始计算机培训了吗？",
-                        "START_TRAINING": {
-                            "CROWDSOURCED": "点击下面的按钮,开始使用您班级目前收集的示例来训练机器学习模型",
-                            "INDIVIDUAL": "点击下面的按钮,开始使用您目前收集的示例训练机器学习模型"
+                    "ENOUGH_DATA" : {
+                        "READY_TO_START" : "准备开始计算机培训了吗？",
+                        "START_TRAINING" : {
+                            "CROWDSOURCED" : "点击下面的按钮,开始使用您班级目前收集的示例来训练机器学习模型",
+                            "INDIVIDUAL" : "点击下面的按钮,开始使用您目前收集的示例训练机器学习模型"
                         },
-                        "MORE_EXAMPLES": {
-                            "CROWDSOURCED": "（或者,如果您希望他们先收集更多示例,请让您的班级返回<strong>培训</strong>页面。）",
-                            "INDIVIDUAL": "（或者,如果您想先收集更多示例,请返回<strong>训练</strong>页面。）"
+                        "MORE_EXAMPLES" : {
+                            "CROWDSOURCED" : "（或者,如果您希望他们先收集更多示例,请让您的班级返回<strong>培训</strong>页面。）",
+                            "INDIVIDUAL" : "（或者,如果您想先收集更多示例,请返回<strong>训练</strong>页面。）"
                         },
-                        "WAITING_FOR_TEACHER": "等待老师开始计算机培训。"
+                        "WAITING_FOR_TEACHER" : "等待老师开始计算机培训。"
                     }
                 }
             },
-            "READY": {
-                "TEST": {
-                    "TEXT": "尝试测试下面的机器学习模型。输入一个下面的文本示例,您没有在用于训练它的示例中包含这些文本。它会告诉您它识别它的内容,以及它对这个文本识别的信心",
-                    "IMAGES": "尝试测试下面的机器学习模型。在下面输入一个示例图片,您没有在用于训练它的示例中包含这些图片。它会告诉您它识别它的内容,以及它对这个图片识别的信心。",
-                    "NUMBERS": "尝试测试下面的机器学习模型。输入一个下面的数字示例,您没有在用于训练它的示例中包含这些数字。它会告诉您它识别它的内容,以及它对这个数字识别的信心",
+            "READY" : {
+                "TEST" : {
+                    "TEXT" : "尝试测试下面的机器学习模型。输入一个下面的文本示例,您没有在用于训练它的示例中包含这些文本。它会告诉您它识别它的内容,以及它对这个文本识别的信心",
+                    "IMAGES" : "尝试测试下面的机器学习模型。在下面输入一个示例图片,您没有在用于训练它的示例中包含这些图片。它会告诉您它识别它的内容,以及它对这个图片识别的信心。",
+                    "NUMBERS" : "尝试测试下面的机器学习模型。输入一个下面的数字示例,您没有在用于训练它的示例中包含这些数字。它会告诉您它识别它的内容,以及它对这个数字识别的信心",
                     "SOUNDS" : "Try testing the machine learning model below. Click the 'Start listening' button. If your machine learning model recognises any sounds, it will tell you what it recognises it as, and how confident it is in that."
                 },
-                "SCRATCH": "如果计算机似乎已经学会正确识别事物,那么你可以去Scratch并使用计算机学到的东西制作游戏！",
-                "ADDITIONAL_TRAINING": {
-                    "MORE_EXAMPLES": {
-                        "CROWDSOURCED": "如果计算机出现太多问题,您的班级可能会想回到<strong>培训</strong>页面并收集更多示例。",
-                        "INDIVIDUAL": "如果计算机出现太多错误,您可能需要返回<strong>训练</strong>页面并收集更多示例"
+                "SCRATCH" : "如果计算机似乎已经学会正确识别事物,那么你可以去Scratch并使用计算机学到的东西制作游戏！",
+                "ADDITIONAL_TRAINING" : {
+                    "MORE_EXAMPLES" : {
+                        "CROWDSOURCED" : "如果计算机出现太多问题,您的班级可能会想回到<strong>培训</strong>页面并收集更多示例。",
+                        "INDIVIDUAL" : "如果计算机出现太多错误,您可能需要返回<strong>训练</strong>页面并收集更多示例"
                     },
-                    "RETRAIN": {
-                        "YOU": "完成后,点击下面的按钮来训练一个新的机器学习模型,看看额外的例子会有什么不同！",
-                        "CLASS": "一旦你完成了这项工作,你的老师就需要培养一种新的机器学习模式。"
+                    "RETRAIN" : {
+                        "YOU" : "完成后,点击下面的按钮来训练一个新的机器学习模型,看看额外的例子会有什么不同！",
+                        "CLASS" : "一旦你完成了这项工作,你的老师就需要培养一种新的机器学习模式。"
                     }
                 }
             }
