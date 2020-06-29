@@ -645,7 +645,6 @@
                 "ANSWER_2": "Bob. He has collected 1000 examples of happy writing and 10 examples of sad writing",
                 "NOTES_1": "Collecting a roughly similar number of examples for each label is a useful technique.",
                 "NOTES_2": "If nearly every example of writing you train a system with is happy, you might end up training the system to assume that sad writing is very unlikely, and that it should assume happy more often.",
-                "NOTES_3": " ",
                 "NOTES_4": "But, you might want it to do this.",
                 "NOTES_5": "If you're training a system to recognise text where text is happy 98% of the time, training it with that realistic experience might be worth a try."
             },
@@ -654,7 +653,6 @@
                 "ANSWER_1": "True",
                 "ANSWER_2": "False",
                 "NOTES_1": "Not necessarily.",
-                "NOTES_2": " ",
                 "NOTES_3": "The technology and algorithms are important. BUT machine learning systems are only as accurate and reliable as the training they are given.",
                 "NOTES_4": "Simple machine learning algorithms with a lot of high quality training can do better than the most advanced machine learning algorithms with a small amount of poor quality training."
             },

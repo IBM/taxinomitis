@@ -645,7 +645,6 @@
                 "ANSWER_2": "Bob. Hij heeft 1000 voorbeelden van positieve teksten en 10 voorbeelden van negatieve teksten verzameld",
                 "NOTES_1": "Het verzamelen van een ongeveer gelijk aantal voorbeelden voor elk label is een goede techniek.",
                 "NOTES_2": "Als bijna elk tekstvoorbeeld positief is, zou je uiteindelijk het systeem kunnen leren dat negatieve teksten zeer onwaarschijnlijk is, en dat teksten dus vaker positief zijn.",
-                "NOTES_3": " ",
                 "NOTES_4": "Maar misschien is dit juist de bedoeling.",
                 "NOTES_5": "Als je een systeem traint om tekst te herkennen die in 98% van de gevallen positief is, kan het de moeite waard zijn om het systeem te trainen met minder voorbeelden van negatieve teksten."
             },
@@ -654,7 +653,6 @@
                 "ANSWER_1": "Waar",
                 "ANSWER_2": "Niet waar",
                 "NOTES_1": "Niet altijd.",
-                "NOTES_2": " ",
                 "NOTES_3": "De technologie en algoritmes zijn belangrijk. MAAR machine learning systemen zijn net zo nauwkeurig en betrouwbaar als de training die ze hebben gehad.",
                 "NOTES_4": "Eenvoudige algoritmen en een goede training kunnen beter zijn dan de meest geavanceerde machine learning-algoritmen met weinig of slechte training."
             },

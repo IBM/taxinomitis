@@ -33,10 +33,10 @@
                 'MODELS.QUIZ.QUESTION_7.NOTES_1', 'MODELS.QUIZ.QUESTION_7.NOTES_2', 'MODELS.QUIZ.QUESTION_7.NOTES_3',
             'MODELS.QUIZ.QUESTION_8.QUESTION',
                 'MODELS.QUIZ.QUESTION_8.ANSWER_1', 'MODELS.QUIZ.QUESTION_8.ANSWER_2',
-                'MODELS.QUIZ.QUESTION_8.NOTES_1', 'MODELS.QUIZ.QUESTION_8.NOTES_2', 'MODELS.QUIZ.QUESTION_8.NOTES_3', 'MODELS.QUIZ.QUESTION_8.NOTES_4', 'MODELS.QUIZ.QUESTION_8.NOTES_5',
+                'MODELS.QUIZ.QUESTION_8.NOTES_1', 'MODELS.QUIZ.QUESTION_8.NOTES_2', 'MODELS.QUIZ.QUESTION_8.NOTES_4', 'MODELS.QUIZ.QUESTION_8.NOTES_5',
             'MODELS.QUIZ.QUESTION_9.QUESTION',
                 'MODELS.QUIZ.QUESTION_9.ANSWER_1', 'MODELS.QUIZ.QUESTION_9.ANSWER_2',
-                'MODELS.QUIZ.QUESTION_9.NOTES_1', 'MODELS.QUIZ.QUESTION_9.NOTES_2', 'MODELS.QUIZ.QUESTION_9.NOTES_3', 'MODELS.QUIZ.QUESTION_9.NOTES_4',
+                'MODELS.QUIZ.QUESTION_9.NOTES_1', 'MODELS.QUIZ.QUESTION_9.NOTES_3', 'MODELS.QUIZ.QUESTION_9.NOTES_4',
             'MODELS.QUIZ.QUESTION_10.QUESTION',
                 'MODELS.QUIZ.QUESTION_10.ANSWER_1', 'MODELS.QUIZ.QUESTION_10.ANSWER_2', 'MODELS.QUIZ.QUESTION_10.ANSWER_3', 'MODELS.QUIZ.QUESTION_10.ANSWER_4',
                 'MODELS.QUIZ.QUESTION_10.NOTES_1', 'MODELS.QUIZ.QUESTION_10.NOTES_2',
@@ -154,7 +154,7 @@
                     notes : [
                         translations['MODELS.QUIZ.QUESTION_8.NOTES_1'],
                         translations['MODELS.QUIZ.QUESTION_8.NOTES_2'],
-                        translations['MODELS.QUIZ.QUESTION_8.NOTES_3'],
+                        ' ',
                         translations['MODELS.QUIZ.QUESTION_8.NOTES_4'],
                         translations['MODELS.QUIZ.QUESTION_8.NOTES_5']
                     ]
@@ -168,7 +168,7 @@
                     ],
                     notes : [
                         translations['MODELS.QUIZ.QUESTION_9.NOTES_1'],
-                        translations['MODELS.QUIZ.QUESTION_9.NOTES_2'],
+                        ' ',
                         translations['MODELS.QUIZ.QUESTION_9.NOTES_3'],
                         translations['MODELS.QUIZ.QUESTION_9.NOTES_4']
                     ]

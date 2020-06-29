@@ -645,7 +645,6 @@
                 "ANSWER_2": "Bob. Il a rassemblé 1000 exemples d'écriture heureuse et 10 exemples d'écriture triste",
                 "NOTES_1": "Rassembler un nombre à peu près similaire d'exemples pour chaque étiquette est une technique utile.",
                 "NOTES_2": "Si presque tous les exemples d'écriture avec lesquels vous entraînez un système sont heureux, vous pourriez finir par entraîner le système à supposer qu'une écriture triste est très peu probable, et qu'il devrait supposer qu’il est heureux le plus souvent.",
-                "NOTES_3": " ",
                 "NOTES_4": "Mais, vous pourriez vouloir qu'il le fasse.",
                 "NOTES_5": "Si vous entraînez un système à reconnaître un texte où le texte est heureux 98% du temps, l'entraîner avec cette expérience réaliste pourrait valoir la peine d'être essayé."
             },
@@ -654,7 +653,6 @@
                 "ANSWER_1": "Vrai",
                 "ANSWER_2": "Faux",
                 "NOTES_1": "Pas nécessairement.",
-                "NOTES_2": " ",
                 "NOTES_3": "La technologie et les algorithmes sont importants. MAIS les systèmes d'apprentissage machine ne sont précis et fiables que dans la mesure où l'entraînement qui leur est donné l'est aussi.",
                 "NOTES_4": "Les algorithmes d'apprentissage machine simples avec beaucoup d'entraînement de haute qualité peuvent faire mieux que les algorithmes d'apprentissage machine les plus avancés avec une petite quantité de données d'entraînement de mauvaise qualité."
             },
