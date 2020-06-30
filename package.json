@@ -102,7 +102,7 @@
     "connect-query": "1.0.0",
     "content-range": "1.1.0",
     "express": "4.17.1",
-    "express-jwt": "5.3.3",
+    "express-jwt": "6.0.0",
     "file-type": "14.6.2",
     "filesize": "6.1.0",
     "helmet": "3.23.3",
