@@ -81,17 +81,30 @@ async function createWorkspace(
 
     const id: string = uuid();
 
-    // Unless we see a different error, if this doesn't work, the reason
-    //  will be that we don't have room for any new workspaces with the
-    //  available credentials
-    let finalError = tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool ?
-        ERROR_MESSAGES.POOL_EXHAUSTED :
-        ERROR_MESSAGES.INSUFFICIENT_API_KEYS;
+    let finalError:string;
+    let shuffledCredentialsPool: TrainingObjects.BluemixCredentials[];
 
-    // shuffle the pool of credentials so the usage will be distributed
-    //  across the set, rather than always directing training requests to
-    //  the first creds in the pool
-    const shuffledCredentialsPool = _.shuffle(credentialsPool);
+    if (tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool) {
+        // Unless we see a different error, if this doesn't work, the reason
+        //  will be that we don't have room for any new workspaces with the
+        //  available credentials
+        finalError = ERROR_MESSAGES.POOL_EXHAUSTED;
+
+        // don't shuffle the pool for managed requests, as this helps to
+        //  reduce the number of service instances used
+        shuffledCredentialsPool = credentialsPool;
+    }
+    else {
+        // Unless we see a different error, if this doesn't work, the reason
+        //  will be that we don't have room for any new workspaces with the
+        //  available credentials
+        finalError = ERROR_MESSAGES.INSUFFICIENT_API_KEYS;
+
+        // shuffle the pool of credentials so the usage will be distributed
+        //  across the set, rather than always directing training requests to
+        //  the first creds in the pool
+        shuffledCredentialsPool = _.shuffle(credentialsPool);
+    }
 
 
     for (const credentials of shuffledCredentialsPool) {
