@@ -67,7 +67,7 @@
                             <li><a ui-sref="news" data-toggle="collapse" data-target=".navbar-collapse.in" translate="APP.NEWS"></a></li>
                             <li><a ui-sref="help" data-toggle="collapse" data-target=".navbar-collapse.in" translate="APP.HELP"></a></li>
 
-                            <li ng-if="!isAuthenticated"><a ui-sref="login" data-toggle="collapse" data-target=".navbar-collapse.in" translate="APP.LOGIN"></a></li>
+                            <li ng-if="!isAuthenticated" ng-hide="inMaintenanceMode"><a ui-sref="login" data-toggle="collapse" data-target=".navbar-collapse.in" translate="APP.LOGIN"></a></li>
                             <li ng-if="isAuthenticated"><a ui-sref="welcome" ng-click="authService.logout()" data-toggle="collapse" data-target=".navbar-collapse.in" translate="APP.LOGOUT"></a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">

@@ -2,6 +2,8 @@
 
 export const ROOT                  = '/';
 
+export const ALL_APIS              = '/api/*';
+
 export const TEACHERS              = '/api/teachers';
 export const CLASSES               = '/api/classes';
 

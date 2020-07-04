@@ -6,6 +6,7 @@
             <div class="getstartedaction">
                 <button
                     ng-if="!isAuthenticated"
+                    ng-hide="inMaintenanceMode"
                     ui-sref="login"
                     class="btn btn-primary" translate>WELCOME.GET_STARTED</button>
                 <button

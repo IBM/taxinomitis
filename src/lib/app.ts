@@ -12,6 +12,7 @@ import * as email from './notifications/email';
 import * as scheduledtasks from './scheduledtasks';
 import { confirmRequiredEnvironment } from './utils/env';
 import * as shutdown from './utils/shutdown';
+import * as env from './utils/env';
 import portNumber from './utils/port';
 import loggerSetup from './utils/logger';
 
@@ -26,6 +27,11 @@ process.on('uncaughtException', shutdown.crash);
 // terminate quickly if Cloud Foundry sends a SIGTERM signal
 process.on('SIGTERM', shutdown.now);
 process.on('SIGINT', shutdown.now);
+
+// check if the site is running in read-only mode
+if (env.inMaintenanceMode()) {
+    log.error('Site is running in maintenance mode');
+}
 
 // prepare Slack API for reporting alerts
 slack.init();

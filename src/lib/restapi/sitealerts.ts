@@ -8,6 +8,7 @@ import * as auth from './auth';
 import * as store from '../db/store';
 import * as sitealerts from '../sitealerts';
 import * as headers from './headers';
+import * as env from '../utils/env';
 import * as Types from '../db/db-types';
 import loggerSetup from '../utils/logger';
 
@@ -80,33 +81,48 @@ function getStudentSiteAlerts(req: Express.Request, res: Express.Response) {
 function getTeacherSiteAlerts(req: Express.Request, res: Express.Response) {
     getSiteAlert('supervisor', req, res);
 }
+function getMaintenanceModeSiteAlert(req: Express.Request, res: Express.Response) {
+    return res.json([{
+        timestamp: new Date(),
+        severity: 'error',
+        audience: 'public',
+        message: 'Machine Learning for Kids is temporarily unavailable for scheduled maintenance',
+    }]);
+}
 
 
 export default function registerApis(app: Express.Application) {
 
-    app.post(urls.SITEALERTS,
-             auth.authenticate,
-             auth.checkValidUser,
-             auth.requireSiteAdmin,
-             createSiteAlert);
+    if (env.inMaintenanceMode()) {
+        app.get(urls.SITEALERTS_PUBLIC, getMaintenanceModeSiteAlert);
+        app.get(urls.SITEALERTS_STUDENT, getMaintenanceModeSiteAlert);
+        app.get(urls.SITEALERTS_TEACHER, getMaintenanceModeSiteAlert);
+    }
+    else {
+        app.post(urls.SITEALERTS,
+                auth.authenticate,
+                auth.checkValidUser,
+                auth.requireSiteAdmin,
+                createSiteAlert);
 
-    app.put(urls.SITEALERTS_REFRESH,
-            auth.authenticate,
-            auth.checkValidUser,
-            auth.requireSiteAdmin,
-            refreshSiteAlertCache);
+        app.put(urls.SITEALERTS_REFRESH,
+                auth.authenticate,
+                auth.checkValidUser,
+                auth.requireSiteAdmin,
+                refreshSiteAlertCache);
 
-    app.get(urls.SITEALERTS_PUBLIC,
-            getPublicSiteAlerts);
+        app.get(urls.SITEALERTS_PUBLIC,
+                getPublicSiteAlerts);
 
-    app.get(urls.SITEALERTS_STUDENT,
-            auth.authenticate,
-            auth.checkValidUser,
-            getStudentSiteAlerts);
+        app.get(urls.SITEALERTS_STUDENT,
+                auth.authenticate,
+                auth.checkValidUser,
+                getStudentSiteAlerts);
 
-    app.get(urls.SITEALERTS_TEACHER,
-            auth.authenticate,
-            auth.checkValidUser,
-            auth.requireSupervisor,
-            getTeacherSiteAlerts);
+        app.get(urls.SITEALERTS_TEACHER,
+                auth.authenticate,
+                auth.checkValidUser,
+                auth.requireSupervisor,
+                getTeacherSiteAlerts);
+    }
 }

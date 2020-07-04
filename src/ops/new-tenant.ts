@@ -3,6 +3,7 @@
 import * as store from '../lib/db/store';
 import * as dbtypes from '../lib/db/db-types';
 import * as auth0 from '../lib/auth0/users';
+import * as authtypes from '../lib/auth0/auth-types';
 
 const opsArgs = process.argv.slice(2);
 
@@ -22,26 +23,31 @@ console.log('teacher username :', username);
 console.log('teacher email    :', emailadd);
 console.log('class students   :', maxusers);
 
+let teacherobj: authtypes.UserCreds;
 
 console.log('');
 console.log('connecting to DB...');
 store.init()
     .then(() => {
-        return store.storeManagedClassTenant(tenantid, maxusers, maxprojects, dbtypes.ClassTenantType.ManagedPool);
-    })
-    .then((newtenant) => {
-        console.log('created:', newtenant);
+        console.log('creating teacher credentials...');
         return auth0.createVerifiedTeacher(tenantid, username, emailadd);
     })
     .then((newteacher) => {
         console.log('created:', newteacher);
+        teacherobj = newteacher;
+
+        console.log('creating tenant record...');
+        return store.storeManagedClassTenant(tenantid, maxusers, maxprojects, dbtypes.ClassTenantType.ManagedPool);
+    })
+    .then((newtenant) => {
+        console.log('created:', newtenant);
         console.log('');
         console.log('--------------------------------------------------------------------');
         console.log('Thanks very much for getting in touch. ');
         console.log(' ');
         console.log('I\'ve set up a class account you can access using: ');
         console.log('    username:  ' + username + ' ');
-        console.log('    password:  ' + newteacher.password + ' ');
+        console.log('    password:  ' + teacherobj.password + ' ');
         console.log(' ');
         console.log('You can download a PDF which describes how you can get started at ');
         console.log('https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-schools.pdf ');

@@ -28,6 +28,7 @@ export const SMTP_PASS = 'SMTP_PASS';
 export const SMTP_REPLY_TO = 'SMTP_REPLY_TO';
 export const SERVERLESS_OPENWHISK_URL = 'SERVERLESS_OPENWHISK_URL';
 export const SERVERLESS_OPENWHISK_KEY = 'SERVERLESS_OPENWHISK_KEY';
+const MAINTENANCE_MODE = 'MAINTENANCE_MODE';
 
 
 const DEFAULT = [
@@ -45,7 +46,8 @@ const PROD = [
     // optional - not required for prod
     // SLACK_WEBHOOK_URL,
     // PRIMARY_INSTANCE,
-    // SERVERLESS_OPENWHISK_URL, SERVERLESS_OPENWHISK_KEY
+    // SERVERLESS_OPENWHISK_URL, SERVERLESS_OPENWHISK_KEY,
+    // MAINTENANCE_MODE
 ];
 
 export function confirmRequiredEnvironment() {
@@ -62,4 +64,8 @@ function checkEnv(env: string) {
     if (!process.env[env]) {
         throw new Error('Missing required environment variable ' + env);
     }
+}
+
+export function inMaintenanceMode() {
+    return process.env[MAINTENANCE_MODE] === 'true';
 }

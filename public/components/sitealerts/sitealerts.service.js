@@ -42,6 +42,9 @@
                         msgs[0].message && msgs[0].severity)
                     {
                         $rootScope.siteAlert = msgs[0];
+
+                        $rootScope.inMaintenanceMode = ($rootScope.siteAlert &&
+                            $rootScope.siteAlert.message === 'Machine Learning for Kids is temporarily unavailable for scheduled maintenance');
                     }
                     else {
                         delete $rootScope.siteAlert;

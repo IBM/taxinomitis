@@ -27,6 +27,9 @@ export function requestTooLarge(res: Express.Response) {
 export function notImplemented(res: Express.Response) {
     return res.status(httpstatus.NOT_IMPLEMENTED).json({ error : 'Not implemented' });
 }
+export function siteInMaintenanceMode(req: Express.Request, res: Express.Response) {
+    return res.status(httpstatus.SERVICE_UNAVAILABLE).json({ error : 'Site is temporarily down for maintenance' });
+}
 export function unknownError(res: Express.Response, err: NodeJS.ErrnoException | any) {
     if (err && err.sqlState) {
         err = {

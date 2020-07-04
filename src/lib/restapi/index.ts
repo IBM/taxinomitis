@@ -20,6 +20,7 @@ import registerSiteAlertApis from './sitealerts';
 import * as URLS from './urls';
 import * as serverConfig from './config';
 import * as errors from './errors';
+import * as env from '../utils/env';
 import loggerSetup from '../utils/logger';
 
 
@@ -48,20 +49,31 @@ export default function setup(app: Express.Application): void {
     app.use(URLS.TRAININGITEMS, bodyParser.json({ limit : '400kb' }));
     app.use(URLS.ROOT, bodyParser.json({ limit : '100kb' }));
 
-    // API route handlers
-    registerBluemixApis(app);
-    registerUserApis(app);
-    registerProjectApis(app);
-    registerTrainingApis(app);
-    registerImageApis(app);
-    registerSoundApis(app);
-    registerModelApis(app);
-    registerScratchApis(app);
-    registerAppInventorApis(app);
-    registerWatsonApis(app);
-    registerClassifierApis(app);
-    registerSessionUserApis(app);
+    // site alerts are used even if the site is in maintenance mode
     registerSiteAlertApis(app);
+
+    if (env.inMaintenanceMode()) {
+        // return an error for all APIs
+        app.get(URLS.ALL_APIS, errors.siteInMaintenanceMode);
+        app.post(URLS.ALL_APIS, errors.siteInMaintenanceMode);
+        app.patch(URLS.ALL_APIS, errors.siteInMaintenanceMode);
+        app.delete(URLS.ALL_APIS, errors.siteInMaintenanceMode);
+    }
+    else {
+        // API route handlers
+        registerBluemixApis(app);
+        registerUserApis(app);
+        registerProjectApis(app);
+        registerTrainingApis(app);
+        registerImageApis(app);
+        registerSoundApis(app);
+        registerModelApis(app);
+        registerScratchApis(app);
+        registerAppInventorApis(app);
+        registerWatsonApis(app);
+        registerClassifierApis(app);
+        registerSessionUserApis(app);
+    }
 
     // error handling
     errors.registerErrorHandling(app);
