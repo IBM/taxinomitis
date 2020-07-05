@@ -12,7 +12,7 @@ env:
     - DEPLOYMENT=travis
 
 services:
-- mysql
+- postgresql
 
 before_install:
 - mysql -u root --password="" -e 'DROP DATABASE IF EXISTS mlforkidsdb;'
