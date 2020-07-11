@@ -337,6 +337,9 @@
         "SCRATCH3": {
             "TITLE": "Scratch 3",
             "BODY": "Χρησιμοποίησε το μοντέλο σου μηχανικής μάθησης στη νέα έκδοση του Scratch"
+        },
+        "EDUBLOCKS": {
+            "TITLE": "EduBlocks"
         }
     },
     "TRAINING": {
@@ -868,7 +871,8 @@
         "SCRATCH2": "Φτιάξε ένα έργο στην παλιά έκδοση του Scratch",
         "SCRATCH3": "Χρησιμοποίησε τη νέα έκδοση του Scratch",
         "PYTHON": "Γράψε κώδικα Python για να χρησιμοποιήσεις το μοντέλο σου",
-        "APPINVENTOR": "Φτιάξε μια εφαρμογή για το κινητό σου τηλέφωνο ή το tablet"
+        "APPINVENTOR": "Φτιάξε μια εφαρμογή για το κινητό σου τηλέφωνο ή το tablet",
+        "EDUBLOCKS": "Write Python using a drag and drop coding tool"
     },
     "PYTHON": {
         "TITLE": "Χρησιμοποιώντας μηχανική μάθηση στην Python",
@@ -929,6 +933,16 @@
         "NOMODEL": "Δεν έχεις εκπαιδεύσει ακόμα ένα μοντέλο μηχανικής μάθησης.",
 
         "LAUNCH": "Open App Inventor"
+    },
+    "EDUBLOCKS": {
+        "TITLE": "Using machine learning in EduBlocks",
+
+        "LAUNCH_EDUBLOCKS_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>EduBlocks by itself</a> if you want.)",
+
+        "NOTREADY": "Your project isn't ready to be used in EduBlocks yet.",
+        "NOMODEL": "You haven't trained a machine learning model yet.",
+
+        "LAUNCH": "Open EduBlocks"
     },
     "SCRATCH": {
         "TITLE": "Χρησιμοποιώντας μηχανική μάθηση στο Scratch",

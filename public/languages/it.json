@@ -337,6 +337,9 @@
         "SCRATCH3": {
             "TITLE": "Scratch 3",
             "BODY": "Usa il tuo modello di machine learning nella nuova versione di Scratch"
+        },
+        "EDUBLOCKS": {
+            "TITLE": "EduBlocks"
         }
     },
     "TRAINING": {
@@ -868,7 +871,8 @@
         "SCRATCH2": "Crea un progetto nella vecchia versione di Scratch",
         "SCRATCH3": "Usa la nuova versione di Scratch",
         "PYTHON": "Scrivi il codice Python per utilizzare il tuo modello di apprendimento automatico",
-        "APPINVENTOR": "Crea un'applicazione mobile per il tuo telefono o tablet"
+        "APPINVENTOR": "Crea un'applicazione mobile per il tuo telefono o tablet",
+        "EDUBLOCKS": "Write Python using a drag and drop coding tool"
     },
     "PYTHON": {
         "TITLE": "Utilizzare l'apprendimento automatico in Python",
@@ -929,6 +933,16 @@
         "NOMODEL": "Non hai ancora addestrato un modello di apprendimento automatico.",
 
         "LAUNCH": "Open App Inventor"
+    },
+    "EDUBLOCKS": {
+        "TITLE": "Using machine learning in EduBlocks",
+
+        "LAUNCH_EDUBLOCKS_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>EduBlocks by itself</a> if you want.)",
+
+        "NOTREADY": "Your project isn't ready to be used in EduBlocks yet.",
+        "NOMODEL": "You haven't trained a machine learning model yet.",
+
+        "LAUNCH": "Open EduBlocks"
     },
     "SCRATCH": {
         "TITLE": "Utilizzo dell'apprendimento automatico in Scratch",

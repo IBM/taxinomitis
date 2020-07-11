@@ -337,6 +337,9 @@
         "SCRATCH3": {
             "TITLE": "Scratch 3",
             "BODY": "استخدم نموذج تعلم الآلة الخاص بك في الإصدار الجديد من Scratch"
+        },
+        "EDUBLOCKS": {
+            "TITLE": "EduBlocks"
         }
     },
     "TRAINING": {
@@ -868,7 +871,8 @@
         "SCRATCH2": "قم بعمل مشروع في الإصدار القديم من Scratch",
         "SCRATCH3": "استخدم الإصدار الجديد من  Scratch",
         "PYTHON": "اكتب رمز Python لاستخدام نموذج تعلم الآلة",
-        "APPINVENTOR": "إنشاء تطبيق  لهاتفك الجوال أو جهازك اللوحي"
+        "APPINVENTOR": "إنشاء تطبيق  لهاتفك الجوال أو جهازك اللوحي",
+        "EDUBLOCKS": "Write Python using a drag and drop coding tool"
     },
     "PYTHON": {
         "TITLE": "استخدام تعلم الآلة في Python",
@@ -929,6 +933,16 @@
         "NOMODEL": "لم تُدرّب نموذج تعلم الآلة بعد.",
 
         "LAUNCH": "افتح App Inventor"
+    },
+    "EDUBLOCKS": {
+        "TITLE": "Using machine learning in EduBlocks",
+
+        "LAUNCH_EDUBLOCKS_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>EduBlocks by itself</a> if you want.)",
+
+        "NOTREADY": "Your project isn't ready to be used in EduBlocks yet.",
+        "NOMODEL": "You haven't trained a machine learning model yet.",
+
+        "LAUNCH": "Open EduBlocks"
     },
     "SCRATCH": {
         "TITLE": "استخدام تعلم الآلة في Scratch ",

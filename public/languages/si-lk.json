@@ -337,6 +337,9 @@
         "SCRATCH3": {
             "TITLE": "Scratch 3",
             "BODY": "Scratch වල අලුත් සංස්කරණයේ ඔබේ machine learning ආක්‍රුතිය භාවිත කරන්න"
+        },
+        "EDUBLOCKS": {
+            "TITLE": "EduBlocks"
         }
     },
     "TRAINING": {
@@ -868,7 +871,8 @@
         "SCRATCH2": "Make a project in the current version of Scratch",
         "SCRATCH3": "Use the new (beta) version of Scratch",
         "PYTHON": "Write Python code to use your machine learning model",
-        "APPINVENTOR": "Make a mobile app for your phone or tablet"
+        "APPINVENTOR": "Make a mobile app for your phone or tablet",
+        "EDUBLOCKS": "Write Python using a drag and drop coding tool"
     },
     "PYTHON": {
         "TITLE": "Using machine learning in Python",
@@ -929,6 +933,16 @@
         "NOMODEL": "You haven't trained a machine learning model yet.",
 
         "LAUNCH": "Open App Inventor"
+    },
+    "EDUBLOCKS": {
+        "TITLE": "Using machine learning in EduBlocks",
+
+        "LAUNCH_EDUBLOCKS_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>EduBlocks by itself</a> if you want.)",
+
+        "NOTREADY": "Your project isn't ready to be used in EduBlocks yet.",
+        "NOMODEL": "You haven't trained a machine learning model yet.",
+
+        "LAUNCH": "Open EduBlocks"
     },
     "SCRATCH": {
         "TITLE": "Using machine learning in Scratch",

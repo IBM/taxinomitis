@@ -337,6 +337,9 @@
         "SCRATCH3": {
             "TITLE": "Scratch 3",
             "BODY": "Defnyddiwch eich model dysgu peiriant mewn fersiwn newydd o Scratch"
+        },
+        "EDUBLOCKS": {
+            "TITLE": "EduBlocks"
         }
     },
     "TRAINING": {
@@ -868,7 +871,8 @@
         "SCRATCH2": "Creu brosiect yn yr hen fersiwn o Scratch",
         "SCRATCH3": "Defnyddio fersiwn newydd o Scratch",
         "PYTHON": "Ysgrifennwch god Python i ddefnyddio'ch model dysgu peiriant",
-        "APPINVENTOR": "Creu ap symudol ar gyfer eich ffôn neu dabled"
+        "APPINVENTOR": "Creu ap symudol ar gyfer eich ffôn neu dabled",
+        "EDUBLOCKS": "Write Python using a drag and drop coding tool"
     },
     "PYTHON": {
         "TITLE": "Defnyddio dysgu peiriant yn Python",
@@ -929,6 +933,16 @@
         "NOMODEL": "Nid ydych wedi hyfforddi model dysgu peiriant eto.",
 
         "LAUNCH": "Agor App Inventor"
+    },
+    "EDUBLOCKS": {
+        "TITLE": "Using machine learning in EduBlocks",
+
+        "LAUNCH_EDUBLOCKS_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>EduBlocks by itself</a> if you want.)",
+
+        "NOTREADY": "Your project isn't ready to be used in EduBlocks yet.",
+        "NOMODEL": "You haven't trained a machine learning model yet.",
+
+        "LAUNCH": "Open EduBlocks"
     },
     "SCRATCH": {
         "TITLE": "Defnyddio dysgu peiriant yn Scratch",

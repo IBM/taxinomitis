@@ -337,6 +337,9 @@
         "SCRATCH3": {
             "TITLE": "Scratch 3",
             "BODY": "在新版本的Scratch中使用你的機器學習模型"
+        },
+        "EDUBLOCKS": {
+            "TITLE": "EduBlocks"
         }
     },
     "TRAINING": {
@@ -868,7 +871,8 @@
         "SCRATCH2": "使用舊版本的Scratch進行創作",
         "SCRATCH3": "使用新版的Scratch進行創作",
         "PYTHON": "寫一些Python程式碼來使用你的機器學習模型",
-        "APPINVENTOR": "製作一個手機APP給你的手機或平板使用"
+        "APPINVENTOR": "製作一個手機APP給你的手機或平板使用",
+        "EDUBLOCKS": "Write Python using a drag and drop coding tool"
     },
     "PYTHON": {
         "TITLE": "在Python中使用機器學習",
@@ -929,6 +933,16 @@
         "NOMODEL": "你還沒有訓練機器學習模型",
 
         "LAUNCH": "開啟 App Inventor "
+    },
+    "EDUBLOCKS": {
+        "TITLE": "Using machine learning in EduBlocks",
+
+        "LAUNCH_EDUBLOCKS_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>EduBlocks by itself</a> if you want.)",
+
+        "NOTREADY": "Your project isn't ready to be used in EduBlocks yet.",
+        "NOMODEL": "You haven't trained a machine learning model yet.",
+
+        "LAUNCH": "Open EduBlocks"
     },
     "SCRATCH": {
         "TITLE": "在Scratch中使用機器學習",
