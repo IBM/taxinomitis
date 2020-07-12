@@ -1,7 +1,7 @@
 // external dependencies
-import * as mysql from 'mysql2/promise';
+import * as pg from 'pg';
 // local dependencies
-import * as mysqldb from './mysqldb';
+import * as postgresql from './postgresqldb';
 import * as dbobjects from './objects';
 import * as projectObjects from './projects';
 import * as Objects from './db-types';
@@ -16,23 +16,23 @@ import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
 
-let dbConnPool: mysql.ConnectionPool;
+let dbConnPool: pg.Pool;
 
 export async function init() {
     if (!dbConnPool) {
-        dbConnPool = await mysqldb.connect();
+        dbConnPool = await postgresql.connect();
     }
 }
 
 export async function disconnect() {
     if (dbConnPool) {
-        await mysqldb.disconnect();
+        await postgresql.disconnect();
         // @ts-ignore
         dbConnPool = undefined;
     }
 }
 
-export function replaceDbConnPoolForTest(testDbConnPool: mysql.ConnectionPool) {
+export function replaceDbConnPoolForTest(testDbConnPool: pg.Pool) {
     dbConnPool = testDbConnPool;
 }
 
@@ -59,9 +59,9 @@ async function handleDbException(err: NodeJS.ErrnoException) {
 
 
 async function dbExecute(query: string, params: any[]) {
-    const dbConn = await dbConnPool.getConnection();
+    // const dbConn = await dbConnPool.getConnection();
     try {
-        const [response] = await dbConn.execute(query, params);
+        const response = await dbConnPool.query(query, params);
         return response;
     }
     catch (err) {
@@ -69,9 +69,9 @@ async function dbExecute(query: string, params: any[]) {
         await handleDbException(err);
         throw err;
     }
-    finally {
-        dbConn.release();
-    }
+    // finally {
+    //     dbConn.release();
+    // }
 }
 
 
@@ -100,9 +100,9 @@ export async function storeProject(
         throw err;
     }
 
-    const insertProjectQry: string = 'INSERT INTO `projects` ' +
-        '(`id`, `userid`, `classid`, `typeid`, `name`, `language`, `labels`, `numfields`, `iscrowdsourced`) ' +
-        'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    const insertProjectQry: string = 'INSERT INTO projects ' +
+        '(id, userid, classid, typeid, name, language, labels, numfields, iscrowdsourced) ' +
+        'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)';
     const insertProjectValues = [
         obj.id,
         obj.userid, obj.classid,
@@ -112,9 +112,9 @@ export async function storeProject(
         obj.iscrowdsourced,
     ];
 
-    const insertFieldsQry: string = 'INSERT INTO `numbersprojectsfields` ' +
-        '(`id`, `userid`, `classid`, `projectid`, `name`, `fieldtype`, `choices`) ' +
-        'VALUES ?';
+    const insertFieldsQry: string = 'INSERT INTO numbersprojectsfields ' +
+        '(id, userid, classid, projectid, name, fieldtype, choices) ' +
+        'VALUES $1';
     const insertFieldsValues = obj.fields.map((field: Objects.NumbersProjectFieldDbRow) => {
         return [
             field.id, field.userid, field.classid, field.projectid, field.name, field.fieldtype, field.choices,
@@ -124,19 +124,19 @@ export async function storeProject(
 
     let outcome = InsertTrainingOutcome.StoredOk;
 
-    const dbConn = await dbConnPool.getConnection();
+    // const dbConn = await dbConnPool.getConnection();
     try {
         // store the project info
-        const [insertResponse] = await dbConn.execute(insertProjectQry, insertProjectValues);
-        if (insertResponse.affectedRows !== 1) {
+        const insertResponse = await dbExecute(insertProjectQry, insertProjectValues);
+        if (insertResponse.rowCount !== 1) {
             log.error({ insertResponse }, 'Failed to store project info');
             outcome = InsertTrainingOutcome.NotStored_UnknownFailure;
         }
 
         // store the fields for the project if we have any
         if (outcome === InsertTrainingOutcome.StoredOk && insertFieldsValues.length > 0) {
-            const [insertFieldsResponse] = await dbConn.query(insertFieldsQry, [ insertFieldsValues ]);
-            if (insertFieldsResponse.affectedRows !== insertFieldsValues.length) {
+            const insertFieldsResponse = await dbConnPool.query(insertFieldsQry, [ insertFieldsValues ]);
+            if (insertFieldsResponse.rowCount !== insertFieldsValues.length) {
                 log.error({ insertFieldsResponse }, 'Failed to store project fields');
                 outcome = InsertTrainingOutcome.NotStored_UnknownFailure;
             }
@@ -152,9 +152,9 @@ export async function storeProject(
         handleDbException(err);
         throw err;
     }
-    finally {
-        dbConn.release();
-    }
+    // finally {
+    //     dbConn.release();
+    // }
 
 
     if (outcome === InsertTrainingOutcome.StoredOk) {
@@ -170,21 +170,21 @@ export async function updateProjectCrowdSourced(
     isCrowdSourced: boolean,
 ): Promise<void>
 {
-    const queryString = 'UPDATE `projects` ' +
-                        'SET `iscrowdsourced` = ? ' +
-                        'WHERE `userid` = ? AND `classid` = ? AND `id` = ?';
+    const queryString = 'UPDATE projects ' +
+                        'SET iscrowdsourced = $1 ' +
+                        'WHERE userid = $2 AND classid = $3 AND id = $4';
     const values = [
         isCrowdSourced ? 1 : 0,
         userid, classid, projectid,
     ];
     const response = await dbExecute(queryString, values);
-    if (response.affectedRows === 1) {
+    if (response.rowCount === 1) {
         // success
         return;
     }
 
     /* istanbul ignore else */
-    if (response.affectedRows === 0) {
+    if (response.rowCount === 0) {
         log.warn({ userid, classid, projectid, func : 'updateProjectCrowdSourced' },
                  'Project not found');
         throw new Error('Project not found');
@@ -205,27 +205,28 @@ export async function getNumberProjectFields(
     userid: string, classid: string, projectid: string,
 ): Promise<Objects.NumbersProjectField[]>
 {
-    const queryString = 'SELECT `id`, `userid`, `classid`, `projectid`, `name`, `fieldtype`, `choices` ' +
-                        'FROM `numbersprojectsfields` ' +
-                        'WHERE `userid` = ? AND `classid` = ? AND `projectid` = ? ' +
-                        'ORDER BY `id`';
+    const queryString = 'SELECT id, userid, classid, projectid, name, fieldtype, choices ' +
+                        'FROM numbersprojectsfields ' +
+                        'WHERE userid = $1 AND classid = $2 AND projectid = $3 ' +
+                        'ORDER BY id';
 
-    const rows = await dbExecute(queryString, [ userid, classid, projectid ]);
+    const resp = await dbExecute(queryString, [ userid, classid, projectid ]);
 
-    return rows.map(dbobjects.getNumbersProjectFieldFromDbRow);
+    return resp.rows.map(dbobjects.getNumbersProjectFieldFromDbRow);
 }
 
 
 async function getCurrentLabels(userid: string, classid: string, projectid: string): Promise<string[]> {
-    const queryString = 'SELECT `id`, `labels` ' +
-                        'FROM `projects` ' +
-                        'WHERE `id` = ? AND `userid` = ? AND `classid` = ?';
+    const queryString = 'SELECT id, labels ' +
+                        'FROM projects ' +
+                        'WHERE id = $1 AND userid = $2 AND classid = $3';
     const values = [
         projectid,
         userid,
         classid,
     ];
-    const rows = await dbExecute(queryString, values);
+    const resp = await dbExecute(queryString, values);
+    const rows = resp.rows;
     if (rows.length === 1) {
         return dbobjects.getLabelsFromList(rows[0].labels);
     }
@@ -241,9 +242,9 @@ async function getCurrentLabels(userid: string, classid: string, projectid: stri
     throw new Error('Project not found');
 }
 async function updateLabels(userid: string, classid: string, projectid: string, labels: string[]): Promise<any> {
-    const queryString = 'UPDATE `projects` ' +
-                        'SET `labels` = ? ' +
-                        'WHERE `id` = ? AND `userid` = ? AND `classid` = ?';
+    const queryString = 'UPDATE projects ' +
+                        'SET labels = $1 ' +
+                        'WHERE id = $2 AND userid = $3 AND classid = $4';
     const values = [
         dbobjects.getLabelListFromArray(labels),
         projectid,
@@ -251,7 +252,7 @@ async function updateLabels(userid: string, classid: string, projectid: string, 
         classid,
     ];
     const response = await dbExecute(queryString, values);
-    if (response.affectedRows !== 1) {
+    if (response.rowCount !== 1) {
         log.error({ projectid }, 'Failed to update project');
         throw new Error('Project not updated');
     }
@@ -312,14 +313,15 @@ export async function replaceLabelsForProject(
 
 
 export async function getProject(id: string): Promise<Objects.Project | undefined> {
-    const queryString = 'SELECT `id`, `userid`, `classid`, ' +
-                            '`typeid`, `name`, `language`, ' +
-                            '`labels`, `numfields`, ' +
-                            '`iscrowdsourced` ' +
-                        'FROM `projects` ' +
-                        'WHERE `id` = ?';
+    const queryString = 'SELECT id, userid, classid, ' +
+                            'typeid, name, language, ' +
+                            'labels, numfields, ' +
+                            'iscrowdsourced ' +
+                        'FROM projects ' +
+                        'WHERE id = $1';
 
-    const rows = await dbExecute(queryString, [ id ]);
+    const resp = await dbExecute(queryString, [ id ]);
+    const rows = resp.rows;
     if (rows.length === 1) {
         return dbobjects.getProjectFromDbRow(rows[0]);
     }
@@ -343,14 +345,15 @@ export async function getProject(id: string): Promise<Objects.Project | undefine
  * This list should only include projects created by the specified user
  */
 export async function getProjectsOwnedByUserId(userid: string, classid: string): Promise<Objects.Project[]> {
-    const queryString = 'SELECT `id`, `userid`, `classid`, ' +
-                            '`typeid`, `name`, `language`, ' +
-                            '`labels`, ' +
-                            '`iscrowdsourced` ' +
-                        'FROM `projects` ' +
-                        'WHERE `classid` = ? AND `userid` = ?';
+    const queryString = 'SELECT id, userid, classid, ' +
+                            'typeid, name, language, ' +
+                            'labels, ' +
+                            'iscrowdsourced ' +
+                        'FROM projects ' +
+                        'WHERE classid = $1 AND userid = $2';
 
-    const rows = await dbExecute(queryString, [ classid, userid ]);
+    const resp = await dbExecute(queryString, [ classid, userid ]);
+    const rows = resp.rows;
     return rows.map(dbobjects.getProjectFromDbRow);
 }
 
@@ -362,24 +365,26 @@ export async function getProjectsOwnedByUserId(userid: string, classid: string):
  *  Any crowd-sourced projects owned by the user the class is in.
  */
 export async function getProjectsByUserId(userid: string, classid: string): Promise<Objects.Project[]> {
-    const queryString = 'SELECT `id`, `userid`, `classid`, ' +
-                            '`typeid`, `name`, `language`, ' +
-                            '`labels`, ' +
-                            '`iscrowdsourced` ' +
-                        'FROM `projects` ' +
-                        'WHERE `classid` = ? AND (`userid` = ? OR `iscrowdsourced` = True)';
+    const queryString = 'SELECT id, userid, classid, ' +
+                            'typeid, name, language, ' +
+                            'labels, ' +
+                            'iscrowdsourced ' +
+                        'FROM projects ' +
+                        'WHERE classid = $1 AND (userid = $2 OR iscrowdsourced = True)';
 
-    const rows = await dbExecute(queryString, [ classid, userid ]);
+    const resp = await dbExecute(queryString, [ classid, userid ]);
+    const rows = resp.rows;
     return rows.map(dbobjects.getProjectFromDbRow);
 }
 
 
 export async function countProjectsByUserId(userid: string, classid: string): Promise<number> {
     const queryString = 'SELECT COUNT(*) AS count ' +
-                        'FROM `projects` ' +
-                        'WHERE `userid` = ? AND `classid` = ?';
+                        'FROM projects ' +
+                        'WHERE userid = $1 AND classid = $2';
 
-    const rows = await dbExecute(queryString, [ userid, classid ]);
+    const resp = await dbExecute(queryString, [ userid, classid ]);
+    const rows = resp.rows;
     /* istanbul ignore if */
     // even if there are none, a SELECT COUNT(*) should return 0
     //  so we should never pass this if, but paranoia for the win
@@ -393,22 +398,23 @@ export async function countProjectsByUserId(userid: string, classid: string): Pr
 
 
 export async function getProjectsByClassId(classid: string): Promise<Objects.Project[]> {
-    const queryString = 'SELECT `id`, `userid`, `classid`, `typeid`, `name`, `labels`, `language`, `iscrowdsourced` ' +
-                        'FROM `projects` ' +
-                        'WHERE `classid` = ?';
+    const queryString = 'SELECT id, userid, classid, typeid, name, labels, language, iscrowdsourced ' +
+                        'FROM projects ' +
+                        'WHERE classid = $1';
 
-    const rows = await dbExecute(queryString, [ classid ]);
+    const resp = await dbExecute(queryString, [ classid ]);
+    const rows = resp.rows;
     return rows.map(dbobjects.getProjectFromDbRow);
 }
 
 
 export async function deleteProjectsByClassId(classid: string): Promise<void> {
-    const queryString = 'DELETE FROM `projects` WHERE `classid` = ?';
+    const queryString = 'DELETE FROM projects WHERE classid = $1';
 
-    const response = await dbExecute(queryString, [ classid ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete projects');
-    }
+    /*const response =*/ await dbExecute(queryString, [ classid ]);
+    // if (response.warningStatus !== 0) {
+    //     throw new Error('Failed to delete projects');
+    // }
 }
 
 
@@ -434,9 +440,9 @@ function getDbTable(type: Objects.ProjectTypeLabel): string {
 
 export async function countTraining(type: Objects.ProjectTypeLabel, projectid: string): Promise<number> {
     const dbTable = getDbTable(type);
-    const queryString = 'SELECT COUNT(*) AS `trainingcount` FROM `' + dbTable + '` WHERE `projectid` = ?';
+    const queryString = 'SELECT COUNT(*) AS trainingcount FROM ' + dbTable + ' WHERE projectid = $1';
     const response = await dbExecute(queryString, [projectid]);
-    return response[0].trainingcount;
+    return response.rows[0].trainingcount;
 }
 
 
@@ -445,12 +451,13 @@ export async function countTrainingByLabel(project: Objects.Project)
 {
     const dbTable = getDbTable(project.type);
 
-    const queryString = 'SELECT `label`, COUNT(*) AS `trainingcount` FROM `' + dbTable + '` ' +
-                        'WHERE `projectid` = ? ' +
-                        'GROUP BY `label`';
+    const queryString = 'SELECT label, COUNT(*) AS trainingcount FROM ' + dbTable + ' ' +
+                        'WHERE projectid = $1 ' +
+                        'GROUP BY label';
     const response = await dbExecute(queryString, [project.id]);
+    const rows = response.rows;
     const counts: { [label: string]: number } = {};
-    for (const count of response) {
+    for (const count of rows) {
         counts[count.label] = count.trainingcount;
     }
     return counts;
@@ -463,12 +470,12 @@ export async function renameTrainingLabel(
 ): Promise<void>
 {
     const dbTable = getDbTable(type);
-    const queryString = 'UPDATE `' + dbTable + '` ' +
-                        'SET `label` = ? ' +
-                        'WHERE `projectid` = ? AND `label` = ?';
-    const dbConn = await dbConnPool.getConnection();
-    await dbConn.query(queryString, [ labelAfter, projectid, labelBefore ]);
-    dbConn.release();
+    const queryString = 'UPDATE ' + dbTable + ' ' +
+                        'SET label = $1 ' +
+                        'WHERE projectid = $1 AND label = $2';
+    // const dbConn = await dbConnPool.getConnection();
+    await dbConnPool.query(queryString, [ labelAfter, projectid, labelBefore ]);
+    // dbConn.release();
 }
 
 
@@ -478,12 +485,12 @@ export async function deleteTraining(
 ): Promise<void>
 {
     const dbTable = getDbTable(type);
-    const queryString = 'DELETE FROM `' + dbTable + '` WHERE `id` = ? AND `projectid` = ?';
+    const queryString = 'DELETE FROM ' + dbTable + ' WHERE id = $1 AND projectid = $2';
 
-    const response = await dbExecute(queryString, [ trainingid, projectid ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete training');
-    }
+    /*const response =*/ await dbExecute(queryString, [ trainingid, projectid ]);
+    // if (response.warningStatus !== 0) {
+    //     throw new Error('Failed to delete training');
+    // }
 }
 
 
@@ -493,23 +500,23 @@ async function deleteTrainingLabel(
 ): Promise<void>
 {
     const dbTable = getDbTable(type);
-    const queryString = 'DELETE FROM `' + dbTable + '` WHERE `projectid` = ? AND `label` = ?';
+    const queryString = 'DELETE FROM ' + dbTable + ' WHERE projectid = $1 AND label = $2';
 
-    const response = await dbExecute(queryString, [ projectid, label ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete label');
-    }
+    /*const response =*/ await dbExecute(queryString, [ projectid, label ]);
+    // if (response.warningStatus !== 0) {
+    //     throw new Error('Failed to delete label');
+    // }
 }
 
 
 export async function deleteTrainingByProjectId(type: Objects.ProjectTypeLabel, projectid: string): Promise<void> {
     const dbTable = getDbTable(type);
-    const queryString = 'DELETE FROM `' + dbTable + '` WHERE `projectid` = ?';
+    const queryString = 'DELETE FROM ' + dbTable + ' WHERE projectid = $1';
 
-    const response = await dbExecute(queryString, [ projectid ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete training');
-    }
+    /*const response =*/ await dbExecute(queryString, [ projectid ]);
+    // if (response.warningStatus !== 0) {
+    //     throw new Error('Failed to delete training');
+    // }
 }
 
 
@@ -533,10 +540,10 @@ export async function storeTextTraining(
     //  get a DB connection from the pool
     //
 
-    const countQry = 'SELECT COUNT(*) AS `trainingcount` FROM `texttraining` WHERE `projectid` = ?';
+    const countQry = 'SELECT COUNT(*) AS trainingcount FROM texttraining WHERE projectid = $1';
     const countValues = [ projectid ];
 
-    const insertQry = 'INSERT INTO `texttraining` (`id`, `projectid`, `textdata`, `label`) VALUES (?, ?, ?, ?)';
+    const insertQry = 'INSERT INTO texttraining (id, projectid, textdata, label) VALUES ($1, $2, $3, $4)';
     const insertValues = [ obj.id, obj.projectid, obj.textdata, obj.label ];
 
 
@@ -544,12 +551,13 @@ export async function storeTextTraining(
     // connect to the DB
     //
 
-    const dbConn = await dbConnPool.getConnection();
+    // const dbConn = await dbConnPool.getConnection();
 
     try {
         // count how much training data they already have
-        const [countResponse] = await dbConn.execute(countQry, countValues);
-        const count = countResponse[0].trainingcount;
+        const countResponse = await dbConnPool.query(countQry, countValues);
+        const countRows = countResponse.rows;
+        const count = countRows[0].trainingcount;
 
         if (count >= limits.getStoreLimits().textTrainingItemsPerProject) {
             // they already have too much data - nothing else to do
@@ -557,8 +565,8 @@ export async function storeTextTraining(
         }
         else {
             // they haven't hit their limit - okay to do the INSERT now
-            const [insertResponse] = await dbConn.execute(insertQry, insertValues);
-            if (insertResponse.affectedRows === 1) {
+            const insertResponse = await dbConnPool.query(insertQry, insertValues);
+            if (insertResponse.rowCount === 1) {
                 outcome = InsertTrainingOutcome.StoredOk;
             }
             else {
@@ -572,9 +580,9 @@ export async function storeTextTraining(
         handleDbException(err);
         throw err;
     }
-    finally {
-        dbConn.release();
-    }
+    // finally {
+    //     dbConn.release();
+    // }
 
 
     //
@@ -602,13 +610,13 @@ export async function bulkStoreTextTraining(
         return [obj.id, obj.projectid, obj.textdata, obj.label];
     });
 
-    const queryString = 'INSERT INTO `texttraining` (`id`, `projectid`, `textdata`, `label`) VALUES ?';
+    const queryString = 'INSERT INTO texttraining (id, projectid, textdata, label) VALUES $1';
 
-    const dbConn = await dbConnPool.getConnection();
-    const [response] = await dbConn.query(queryString, [ objects ]);
-    await dbConn.release();
+    // const dbConn = await dbConnPool.getConnection();
+    const response = await dbConnPool.query(queryString, [ objects ]);
+    // await dbConn.release();
 
-    if (response.affectedRows === training.length) {
+    if (response.rowCount === training.length) {
         return;
     }
     throw new Error('Failed to store training data');
@@ -620,12 +628,13 @@ export async function getTextTraining(
     projectid: string, options: Objects.PagingOptions,
 ): Promise<Objects.TextTraining[]>
 {
-    const queryString = 'SELECT `id`, `textdata`, `label` FROM `texttraining` ' +
-                        'WHERE `projectid` = ? ' +
-                        'ORDER BY `label`, `id` ' +
-                        'LIMIT ? OFFSET ?';
+    const queryString = 'SELECT id, textdata, label FROM texttraining ' +
+                        'WHERE projectid = $1 ' +
+                        'ORDER BY label, id ' +
+                        'LIMIT $2 OFFSET $3';
 
-    const rows = await dbExecute(queryString, [ projectid, options.limit, options.start ]);
+    const response = await dbExecute(queryString, [ projectid, options.limit, options.start ]);
+    const rows = response.rows;
     return rows.map(dbobjects.getTextTrainingFromDbRow);
 }
 
@@ -634,12 +643,13 @@ export async function getTextTrainingByLabel(
     projectid: string, label: string, options: Objects.PagingOptions,
 ): Promise<Objects.TextTraining[]>
 {
-    const queryString = 'SELECT `id`, `textdata`, `label` FROM `texttraining` ' +
-                        'WHERE `projectid` = ? AND `label` = ? ' +
-                        'ORDER BY `textdata` ' +
-                        'LIMIT ? OFFSET ?';
+    const queryString = 'SELECT id, textdata, label FROM texttraining ' +
+                        'WHERE projectid = $1 AND label = $2 ' +
+                        'ORDER BY textdata ' +
+                        'LIMIT $3 OFFSET $4';
 
-    const rows = await dbExecute(queryString, [ projectid, label, options.limit, options.start ]);
+    const response = await dbExecute(queryString, [ projectid, label, options.limit, options.start ]);
+    const rows = response.rows;
     return rows.map(dbobjects.getTextTrainingFromDbRow);
 }
 
@@ -648,13 +658,13 @@ export async function getUniqueTrainingTextsByLabel(
 ): Promise<string[]>
 {
     // Conversation chokes on duplicate texts, so we're using SELECT DISTINCT to avoid that
-    const queryString = 'SELECT DISTINCT `textdata` FROM `texttraining` ' +
-                        'WHERE `projectid` = ? AND `label` = ? ' +
-                        'LIMIT ? OFFSET ?';
+    const queryString = 'SELECT DISTINCT textdata FROM texttraining ' +
+                        'WHERE projectid = $1 AND label = $2 ' +
+                        'LIMIT $3 OFFSET $4';
 
     const queryParams = [ projectid, label, options.limit, options.start ];
-
-    const rows: { textdata: string }[] = await dbExecute(queryString, queryParams);
+    const response = await dbExecute(queryString, queryParams);
+    const rows: { textdata: string }[] = response.rows;
     return rows.map((row) => row.textdata);
 }
 
@@ -674,12 +684,12 @@ export async function storeImageTraining(
     //  get a DB connection from the pool
     //
 
-    const countQry = 'SELECT COUNT(*) AS `trainingcount` FROM `imagetraining` WHERE `projectid` = ?';
+    const countQry = 'SELECT COUNT(*) AS trainingcount FROM imagetraining WHERE projectid = $1';
     const countValues = [ projectid ];
 
-    const insertQry = 'INSERT INTO `imagetraining` ' +
-                        '(`id`, `projectid`, `imageurl`, `label`, `isstored`) ' +
-                        'VALUES (?, ?, ?, ?, ?)';
+    const insertQry = 'INSERT INTO imagetraining ' +
+                        '(id, projectid, imageurl, label, isstored) ' +
+                        'VALUES ($1, $2, $3, $4, $5)';
     const insertValues = [ obj.id, obj.projectid, obj.imageurl, obj.label, obj.isstored ];
 
 
@@ -687,12 +697,13 @@ export async function storeImageTraining(
     // connect to the DB
     //
 
-    const dbConn = await dbConnPool.getConnection();
+    // const dbConn = await dbConnPool.getConnection();
 
     try {
         // count how much training data they already have
-        const [countResponse] = await dbConn.execute(countQry, countValues);
-        const count = countResponse[0].trainingcount;
+        const countResponse = await dbConnPool.query(countQry, countValues);
+        const countRows = countResponse.rows;
+        const count = countRows[0].trainingcount;
 
         if (count >= limits.getStoreLimits().imageTrainingItemsPerProject) {
             // they already have too much data - nothing else to do
@@ -700,8 +711,8 @@ export async function storeImageTraining(
         }
         else {
             // they haven't hit their limit - okay to do the INSERT now
-            const [insertResponse] = await dbConn.execute(insertQry, insertValues);
-            if (insertResponse.affectedRows === 1) {
+            const insertResponse = await dbConnPool.query(insertQry, insertValues);
+            if (insertResponse.rowCount === 1) {
                 outcome = InsertTrainingOutcome.StoredOk;
             }
             else {
@@ -714,9 +725,9 @@ export async function storeImageTraining(
         handleDbException(err);
         throw err;
     }
-    finally {
-        dbConn.release();
-    }
+    // finally {
+    //     dbConn.release();
+    // }
 
 
     //
@@ -743,13 +754,13 @@ export async function bulkStoreImageTraining(
         return [ obj.id, obj.projectid, obj.imageurl, obj.label, obj.isstored ];
     });
 
-    const queryString = 'INSERT INTO `imagetraining` (`id`, `projectid`, `imageurl`, `label`, `isstored`) VALUES ?';
+    const queryString = 'INSERT INTO imagetraining (id, projectid, imageurl, label, isstored) VALUES $1';
 
-    const dbConn = await dbConnPool.getConnection();
-    const [response] = await dbConn.query(queryString, [ objects ]);
-    await dbConn.release();
+    // const dbConn = await dbConnPool.getConnection();
+    const response = await dbConnPool.query(queryString, [ objects ]);
+    // await dbConn.release();
 
-    if (response.affectedRows === training.length) {
+    if (response.rowCount === training.length) {
         return;
     }
     throw new Error('Failed to store training data');
@@ -760,12 +771,13 @@ export async function getImageTraining(
     projectid: string, options: Objects.PagingOptions,
 ): Promise<Objects.ImageTraining[]>
 {
-    const queryString = 'SELECT `id`, `imageurl`, `label`, `isstored` FROM `imagetraining` ' +
-                        'WHERE `projectid` = ? ' +
-                        'ORDER BY `label`, `imageurl` ' +
-                        'LIMIT ? OFFSET ?';
+    const queryString = 'SELECT id, imageurl, label, isstored FROM imagetraining ' +
+                        'WHERE projectid = $1 ' +
+                        'ORDER BY label, imageurl ' +
+                        'LIMIT $2 OFFSET $3';
 
-    const rows = await dbExecute(queryString, [ projectid, options.limit, options.start ]);
+    const response = await dbExecute(queryString, [ projectid, options.limit, options.start ]);
+    const rows = response.rows;
     return rows.map(dbobjects.getImageTrainingFromDbRow);
 }
 
@@ -774,28 +786,31 @@ export async function getImageTrainingByLabel(
     projectid: string, label: string, options: Objects.PagingOptions,
 ): Promise<Objects.ImageTraining[]>
 {
-    const queryString = 'SELECT `id`, `imageurl`, `label`, `isstored` FROM `imagetraining` ' +
-                        'WHERE `projectid` = ? AND `label` = ? ' +
-                        'LIMIT ? OFFSET ?';
+    const queryString = 'SELECT id, imageurl, label, isstored FROM imagetraining ' +
+                        'WHERE projectid = $1 AND label = $2 ' +
+                        'LIMIT $3 OFFSET $4';
 
-    const rows = await dbExecute(queryString, [ projectid, label, options.limit, options.start ]);
+    const response = await dbExecute(queryString, [ projectid, label, options.limit, options.start ]);
+    const rows = response.rows;
     return rows.map(dbobjects.getImageTrainingFromDbRow);
 }
 
 export async function getStoredImageTraining(projectid: string, label: string): Promise<Objects.ImageTraining[]>
 {
-    const queryString = 'SELECT `id`, `imageurl`, `label`, `isstored` FROM `imagetraining` ' +
-                        'WHERE `projectid` = ? AND `label` = ? AND `isstored` = 1 ' +
+    const queryString = 'SELECT id, imageurl, label, isstored FROM imagetraining ' +
+                        'WHERE projectid = $1 AND label = $2 AND isstored = $3 ' +
                         'LIMIT 1000';
 
-    const rows = await dbExecute(queryString, [ projectid, label ]);
+    const response = await dbExecute(queryString, [ projectid, label ]);
+    const rows = response.rows;
     return rows.map(dbobjects.getImageTrainingFromDbRow);
 }
 
 export async function isImageStored(imageid: string): Promise<boolean> {
-    const queryString = 'SELECT `isstored` FROM `imagetraining` WHERE `id` = ?';
+    const queryString = 'SELECT isstored FROM imagetraining WHERE id = $1';
     const values = [ imageid ];
-    const rows = await dbExecute(queryString, values);
+    const response = await dbExecute(queryString, values);
+    const rows = response.rows;
     if (rows.length > 0) {
         return rows[0].isstored === 1;
     }
@@ -827,11 +842,11 @@ export async function storeNumberTraining(
     //  get a DB connection from the pool
     //
 
-    const countQry = 'SELECT COUNT(*) AS `trainingcount` FROM `numbertraining` WHERE `projectid` = ?';
+    const countQry = 'SELECT COUNT(*) AS trainingcount FROM numbertraining WHERE projectid = $1';
     const countValues = [ projectid ];
 
-    const insertQry = 'INSERT INTO `numbertraining` ' +
-                      '(`id`, `projectid`, `numberdata`, `label`) VALUES (?, ?, ?, ?)';
+    const insertQry = 'INSERT INTO numbertraining ' +
+                      '(id, projectid, numberdata, label) VALUES ($1, $2, $3, $4)';
     const insertValues = [ obj.id, obj.projectid, data.join(','), obj.label ];
 
 
@@ -839,12 +854,13 @@ export async function storeNumberTraining(
     // connect to the DB
     //
 
-    const dbConn = await dbConnPool.getConnection();
+    // const dbConn = await dbConnPool.getConnection();
 
     try {
         // count how much training data they already have
-        const [countResponse] = await dbConn.execute(countQry, countValues);
-        const count = countResponse[0].trainingcount;
+        const countResponse = await dbConnPool.query(countQry, countValues);
+        const countRows = countResponse.rows;
+        const count = countRows[0].trainingcount;
 
         // how much training data are they allowed to have
         const classLimits = limits.getStoreLimits();
@@ -857,8 +873,8 @@ export async function storeNumberTraining(
         }
         else {
             // they haven't hit their limit - okay to do the INSERT now
-            const [insertResponse] = await dbConn.execute(insertQry, insertValues);
-            if (insertResponse.affectedRows === 1) {
+            const insertResponse = await dbConnPool.query(insertQry, insertValues);
+            if (insertResponse.rowCount === 1) {
                 outcome = InsertTrainingOutcome.StoredOk;
             }
             else {
@@ -871,9 +887,9 @@ export async function storeNumberTraining(
         handleDbException(err);
         throw err;
     }
-    finally {
-        dbConn.release();
-    }
+    // finally {
+    //     dbConn.release();
+    // }
 
 
     //
@@ -899,13 +915,13 @@ export async function bulkStoreNumberTraining(
         return [obj.id, obj.projectid, obj.numberdata.join(','), obj.label];
     });
 
-    const queryString = 'INSERT INTO `numbertraining` (`id`, `projectid`, `numberdata`, `label`) VALUES ?';
+    const queryString = 'INSERT INTO numbertraining (id, projectid, numberdata, label) VALUES $1';
 
-    const dbConn = await dbConnPool.getConnection();
-    const [response] = await dbConn.query(queryString, [ objects ]);
-    dbConn.release();
+    // const dbConn = await dbConnPool.getConnection();
+    const response = await dbConnPool.query(queryString, [ objects ]);
+    // dbConn.release();
 
-    if (response.affectedRows === training.length) {
+    if (response.rowCount === training.length) {
         return;
     }
     throw new Error('Failed to store training data');
@@ -916,12 +932,13 @@ export async function getNumberTraining(
     projectid: string, options: Objects.PagingOptions,
 ): Promise<Objects.NumberTraining[]>
 {
-    const queryString = 'SELECT `id`, `numberdata`, `label` FROM `numbertraining` ' +
-                        'WHERE `projectid` = ? ' +
-                        'ORDER BY `label` ' +
-                        'LIMIT ? OFFSET ?';
+    const queryString = 'SELECT id, numberdata, label FROM numbertraining ' +
+                        'WHERE projectid = $1 ' +
+                        'ORDER BY label ' +
+                        'LIMIT $2 OFFSET $3';
 
-    const rows = await dbExecute(queryString, [ projectid, options.limit, options.start ]);
+    const response = await dbExecute(queryString, [ projectid, options.limit, options.start ]);
+    const rows = response.rows;
     return rows.map(dbobjects.getNumberTrainingFromDbRow);
 }
 
@@ -940,20 +957,21 @@ export async function storeSoundTraining(
     const obj = dbobjects.createSoundTraining(projectid, audiourl, label, audioid);
 
     // prepare the DB queries
-    const countQry = 'SELECT COUNT(*) AS `trainingcount` from `soundtraining` WHERE `projectid` = ?';
+    const countQry = 'SELECT COUNT(*) AS trainingcount from soundtraining WHERE projectid = $1';
     const countValues = [ projectid ];
 
-    const insertQry = 'INSERT INTO `soundtraining` (`id`, `projectid`, `audiourl`, `label`) VALUES (?, ?, ?, ?)';
+    const insertQry = 'INSERT INTO soundtraining (id, projectid, audiourl, label) VALUES ($1, $2, $3, $4)';
     const insertValues = [ obj.id, obj.projectid, obj.audiourl, obj.label ];
 
     // connect to the DB
-    const dbConn = await dbConnPool.getConnection();
+    // const dbConn = await dbConnPool.getConnection();
 
     // store the data unless the project is already full
     try {
         // count the number of training items already in the project
-        const [countResponse] = await dbConn.execute(countQry, countValues);
-        const count = countResponse[0].trainingcount;
+        const countResponse = await dbConnPool.query(countQry, countValues);
+        const countRows = countResponse.rows;
+        const count = countRows[0].trainingcount;
 
         if (count >= limits.getStoreLimits().soundTrainingItemsPerProject) {
             // they already have too much data - nothing else to do
@@ -961,8 +979,8 @@ export async function storeSoundTraining(
         }
         else {
             // they haven't reached their limit yet - okay to INSERT
-            const [insertResponse] = await dbConn.execute(insertQry, insertValues);
-            if (insertResponse.affectedRows === 1) {
+            const insertResponse = await dbConnPool.query(insertQry, insertValues);
+            if (insertResponse.rowCount === 1) {
                 outcome = InsertTrainingOutcome.StoredOk;
             }
             else {
@@ -975,9 +993,9 @@ export async function storeSoundTraining(
         handleDbException(err);
         throw err;
     }
-    finally {
-        dbConn.release();
-    }
+    // finally {
+    //     dbConn.release();
+    // }
 
 
     // prepare the response
@@ -997,12 +1015,13 @@ export async function getSoundTraining(
     projectid: string, options: Objects.PagingOptions,
 ): Promise<Objects.SoundTraining[]>
 {
-    const queryString = 'SELECT `id`, `audiourl`, `label` FROM `soundtraining` ' +
-                        'WHERE `projectid` = ? ' +
-                        'ORDER BY `label`, `id` ' +
-                        'LIMIT ? OFFSET ?';
+    const queryString = 'SELECT id, audiourl, label FROM soundtraining ' +
+                        'WHERE projectid = $1 ' +
+                        'ORDER BY label, id ' +
+                        'LIMIT $2 OFFSET $3';
 
-    const rows = await dbExecute(queryString, [ projectid, options.limit, options.start ]);
+    const response = await dbExecute(queryString, [ projectid, options.limit, options.start ]);
+    const rows = response.rows;
     return rows.map(dbobjects.getSoundTrainingFromDbRow);
 }
 
@@ -1020,9 +1039,9 @@ export async function storeBluemixCredentials(
     classid: string, credentials: TrainingObjects.BluemixCredentialsDbRow,
 ): Promise<TrainingObjects.BluemixCredentials>
 {
-    const queryString = 'INSERT INTO `bluemixcredentials` ' +
-                        '(`id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid`, `notes`) ' +
-                        'VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+    const queryString = 'INSERT INTO bluemixcredentials ' +
+                        '(id, classid, servicetype, url, username, password, credstypeid, notes) ' +
+                        'VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
 
     const values = [ credentials.id, classid,
         credentials.servicetype, credentials.url, credentials.username, credentials.password,
@@ -1030,7 +1049,7 @@ export async function storeBluemixCredentials(
         credentials.notes ? credentials.notes : null ];
 
     const response = await dbExecute(queryString, values);
-    if (response.affectedRows === 1) {
+    if (response.rowCount === 1) {
         return dbobjects.getCredentialsFromDbRow(credentials);
     }
     throw new Error('Failed to store credentials');
@@ -1040,9 +1059,9 @@ export async function storeBluemixCredentialsPool(
     credentials: TrainingObjects.BluemixCredentialsPoolDbRow,
 ): Promise<TrainingObjects.BluemixCredentials>
 {
-    const queryString = 'INSERT INTO `bluemixcredentialspool` ' +
-                        '(`id`, `servicetype`, `url`, `username`, `password`, `credstypeid`, `notes`, `lastfail`) ' +
-                        'VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+    const queryString = 'INSERT INTO bluemixcredentialspool ' +
+                        '(id, servicetype, url, username, password, credstypeid, notes, lastfail) ' +
+                        'VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
 
     const values = [ credentials.id,
         credentials.servicetype, credentials.url, credentials.username, credentials.password,
@@ -1051,7 +1070,7 @@ export async function storeBluemixCredentialsPool(
     ];
 
     const response = await dbExecute(queryString, values);
-    if (response.affectedRows === 1) {
+    if (response.rowCount === 1) {
         return dbobjects.getCredentialsPoolFromDbRow(credentials);
     }
     throw new Error('Failed to store credentials');
@@ -1069,13 +1088,13 @@ export async function setBluemixCredentialsType(
         throw new Error('Unrecognised credentials type');
     }
 
-    const queryString = 'UPDATE `bluemixcredentials` ' +
-                        'SET `credstypeid` = ? ' +
-                        'WHERE `id` = ? AND `servicetype` = ? AND `classid` = ?';
+    const queryString = 'UPDATE bluemixcredentials ' +
+                        'SET credstypeid = $1 ' +
+                        'WHERE id = $2 AND servicetype = $3 AND classid = $4';
     const queryParameters = [ credstypeObj.id, credentialsid, servicetype, classid ];
 
     const response = await dbExecute(queryString, queryParameters);
-    if (response.affectedRows !== 1) {
+    if (response.rowCount !== 1) {
         log.error({ queryString, queryParameters, response }, 'Failed to update credentials');
         throw new Error('Bluemix credentials not updated');
     }
@@ -1086,12 +1105,13 @@ export async function getAllBluemixCredentials(
     service: TrainingObjects.BluemixServiceType,
 ): Promise<TrainingObjects.BluemixCredentials[]>
 {
-    const queryString = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid` ' +
-                        'FROM `bluemixcredentials` ' +
-                        'WHERE `servicetype` = ? ' +
+    const queryString = 'SELECT id, classid, servicetype, url, username, password, credstypeid ' +
+                        'FROM bluemixcredentials ' +
+                        'WHERE servicetype = $1 ' +
                         'LIMIT 2000';
 
-    const rows = await dbExecute(queryString, [ service ]);
+    const response = await dbExecute(queryString, [ service ]);
+    const rows = response.rows;
     return rows.map(dbobjects.getCredentialsFromDbRow);
 }
 
@@ -1100,11 +1120,12 @@ export async function getBluemixCredentials(
     tenant: Objects.ClassTenant, service: TrainingObjects.BluemixServiceType,
 ): Promise<TrainingObjects.BluemixCredentials[]>
 {
-    const queryString = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid` ' +
-                        'FROM `bluemixcredentials` ' +
-                        'WHERE `classid` = ? AND `servicetype` = ?';
+    const queryString = 'SELECT id, classid, servicetype, url, username, password, credstypeid ' +
+                        'FROM bluemixcredentials ' +
+                        'WHERE classid = $1 AND servicetype = $2';
 
-    const rows = await dbExecute(queryString, [ tenant.id, service ]);
+    const response = await dbExecute(queryString, [ tenant.id, service ]);
+    const rows = response.rows;
     if (rows.length === 0) {
         log.warn({ rows, func : 'getBluemixCredentials' }, 'Unexpected response from DB');
         throw new Error('Unexpected response when retrieving service credentials');
@@ -1116,13 +1137,14 @@ export async function getBluemixCredentialsPoolBatch(
     service: TrainingObjects.BluemixServiceType,
 ): Promise<TrainingObjects.BluemixCredentials[]>
 {
-    const queryString = 'SELECT `id`, `servicetype`, `url`, `username`, `password`, `credstypeid`, `lastfail` ' +
-                        'FROM `bluemixcredentialspool` ' +
-                        'WHERE `servicetype` = ? ' +
-                        'ORDER BY `lastfail` ' +
+    const queryString = 'SELECT id, servicetype, url, username, password, credstypeid, lastfail ' +
+                        'FROM bluemixcredentialspool ' +
+                        'WHERE servicetype = $1 ' +
+                        'ORDER BY lastfail ' +
                         'LIMIT 100';
 
-    const rows = await dbExecute(queryString, [ service ]);
+    const response = await dbExecute(queryString, [ service ]);
+    const rows = response.rows;
     if (rows.length === 0) {
         log.warn({ rows, func : 'getBluemixCredentialsPoolBatch' }, 'Unexpected response from DB');
         throw new Error('Unexpected response when retrieving service credentials');
@@ -1151,13 +1173,13 @@ async function updateBluemixCredentialsPoolTimestamp(credentials: TrainingObject
 {
     credentials.lastfail = newlastfail;
 
-    const queryString: string = 'UPDATE `bluemixcredentialspool` ' +
-                                'SET `lastfail` = ? ' +
-                                'WHERE `id` = ?';
+    const queryString: string = 'UPDATE bluemixcredentialspool ' +
+                                'SET lastfail = $1 ' +
+                                'WHERE id = $2';
     const values = [ credentials.lastfail, credentials.id ];
 
     const response = await dbExecute(queryString, values);
-    if (response.affectedRows !== 1) {
+    if (response.rowCount !== 1) {
         log.error({
             credentials, queryString, values, response,
         }, 'Failed to update failure date');
@@ -1168,14 +1190,15 @@ async function updateBluemixCredentialsPoolTimestamp(credentials: TrainingObject
 
 export async function getCombinedBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.BluemixCredentials>
 {
-    const credsQuery = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid` ' +
-                       'FROM `bluemixcredentials` ' +
-                       'WHERE `id` = ? ' +
+    const credsQuery = 'SELECT id, classid, servicetype, url, username, password, credstypeid ' +
+                       'FROM bluemixcredentials ' +
+                       'WHERE id = $1 ' +
                        'UNION ' +
-                       'SELECT `id`, "managedpooluse" as classid, `servicetype`, `url`, `username`, `password`, `credstypeid` ' +
-                       'FROM `bluemixcredentialspool` ' +
-                       'WHERE `id` = ?';
-    const rows = await dbExecute(credsQuery, [ credentialsid, credentialsid ]);
+                       'SELECT id, "managedpooluse" as classid, servicetype, url, username, password, credstypeid ' +
+                       'FROM bluemixcredentialspool ' +
+                       'WHERE id = $2';
+    const response = await dbExecute(credsQuery, [ credentialsid, credentialsid ]);
+    const rows = response.rows;
 
     if (rows.length === 1) {
         return dbobjects.getCredentialsFromDbRow(rows[0]);
@@ -1216,10 +1239,11 @@ export async function getBluemixCredentialsById(classType: Objects.ClassTenantTy
 }
 
 async function getClassBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.BluemixCredentials> {
-    const credsQuery = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid` ' +
-                       'FROM `bluemixcredentials` ' +
-                       'WHERE `id` = ?';
-    const rows = await dbExecute(credsQuery, [ credentialsid ]);
+    const credsQuery = 'SELECT id, classid, servicetype, url, username, password, credstypeid ' +
+                       'FROM bluemixcredentials ' +
+                       'WHERE id = $1';
+    const response = await dbExecute(credsQuery, [ credentialsid ]);
+    const rows = response.rows;
 
     if (rows.length === 1) {
         return dbobjects.getCredentialsFromDbRow(rows[0]);
@@ -1243,10 +1267,11 @@ async function getClassBluemixCredentialsById(credentialsid: string): Promise<Tr
 }
 
 async function getPoolBluemixCredentialsById(credentialsid: string): Promise<TrainingObjects.BluemixCredentials> {
-    const credsQuery = 'SELECT `id`, `servicetype`, `url`, `username`, `password`, `credstypeid`, `lastfail` ' +
-                       'FROM `bluemixcredentialspool` ' +
-                       'WHERE `id` = ?';
-    const rows = await dbExecute(credsQuery, [ credentialsid ]);
+    const credsQuery = 'SELECT id, servicetype, url, username, password, credstypeid, lastfail ' +
+                       'FROM bluemixcredentialspool ' +
+                       'WHERE id = $1';
+    const response = await dbExecute(credsQuery, [ credentialsid ]);
+    const rows = response.rows;
 
     if (rows.length === 1) {
         return dbobjects.getCredentialsPoolFromDbRow(rows[0]);
@@ -1272,11 +1297,12 @@ async function getPoolBluemixCredentialsById(credentialsid: string): Promise<Tra
 
 export async function countBluemixCredentialsByType(classid: string): Promise<{ conv: number, visrec: number }>
 {
-    const credsQuery = 'SELECT `servicetype`, `credstypeid`, count(*) as count ' +
-                       'FROM `bluemixcredentials` ' +
-                       'WHERE `classid` = ? ' +
-                       'GROUP BY `servicetype`, `credstypeid`';
-    const rows = await dbExecute(credsQuery, [ classid ]);
+    const credsQuery = 'SELECT servicetype, credstypeid, count(*) as count ' +
+                       'FROM bluemixcredentials ' +
+                       'WHERE classid = $1 ' +
+                       'GROUP BY servicetype, credstypeid';
+    const response = await dbExecute(credsQuery, [ classid ]);
+    const rows = response.rows;
 
     const counts = { conv : 0, visrec : 0 };
     for (const row of rows) {
@@ -1303,12 +1329,13 @@ export async function countBluemixCredentialsByType(classid: string): Promise<{ 
 export async function countGlobalBluemixCredentials():
     Promise<{ [classid: string]: { conv: number, visrec: number, total: number } }>
 {
-    const credsQuery = 'SELECT `classid`, ' +
+    const credsQuery = 'SELECT classid, ' +
                            'sum(case when servicetype = "conv" then 1 else 0 end) conv, ' +
                            'sum(case when servicetype = "visrec" then 1 else 0 end) visrec ' +
-                       'FROM `bluemixcredentials` ' +
-                       'GROUP BY `classid`';
-    const rows = await dbExecute(credsQuery, []);
+                       'FROM bluemixcredentials ' +
+                       'GROUP BY classid';
+    const response = await dbExecute(credsQuery, []);
+    const rows = response.rows;
 
     const counts: { [classid: string]: { conv: number, visrec: number, total: number } } = {};
     for (const row of rows) {
@@ -1322,29 +1349,30 @@ export async function countGlobalBluemixCredentials():
 
 
 export async function deleteBluemixCredentials(credentialsid: string): Promise<void> {
-    const queryString = 'DELETE FROM `bluemixcredentials` WHERE `id` = ?';
+    const queryString = 'DELETE FROM bluemixcredentials WHERE id = $1';
 
-    const response = await dbExecute(queryString, [ credentialsid ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete credentials info');
-    }
+    /*const response =*/ await dbExecute(queryString, [ credentialsid ]);
+    // if (response.warningStatus !== 0) {
+    //     throw new Error('Failed to delete credentials info');
+    // }
 }
 
 export async function deleteBluemixCredentialsPool(credentialsid: string): Promise<void> {
-    const queryString = 'DELETE FROM `bluemixcredentialspool` WHERE `id` = ?';
+    const queryString = 'DELETE FROM bluemixcredentialspool WHERE id = $1';
 
-    const response = await dbExecute(queryString, [ credentialsid ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete credentials info');
-    }
+    /*const response =*/ await dbExecute(queryString, [ credentialsid ]);
+    // if (response.warningStatus !== 0) {
+    //     throw new Error('Failed to delete credentials info');
+    // }
 }
 
 export function deleteBluemixCredentialsPoolForTests(): Promise<void> {
     // ensure this function is only used in tests, so we don't
     //  accidentally trash a production database table
     if (process.env.MYSQLHOST === 'localhost') {
-        const queryString = 'DELETE FROM `bluemixcredentialspool`';
-        return dbExecute(queryString, [ ]);
+        const queryString = 'DELETE FROM bluemixcredentialspool';
+        return dbExecute(queryString, [ ])
+            .then(() => { return; });
     }
     else {
         log.error('deleteBluemixCredentialsPoolForTests called on production system');
@@ -1354,23 +1382,24 @@ export function deleteBluemixCredentialsPoolForTests(): Promise<void> {
 
 
 export async function deleteClassifiersByCredentials(credentials: TrainingObjects.BluemixCredentials): Promise<void> {
-    const queryString = 'DELETE FROM `bluemixclassifiers` WHERE `credentialsid` = ?';
+    const queryString = 'DELETE FROM bluemixclassifiers WHERE credentialsid = $1';
 
-    const response = await dbExecute(queryString, [ credentials.id ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete credentials info');
-    }
+    /*const response =*/ await dbExecute(queryString, [ credentials.id ]);
+    // if (response.warningStatus !== 0) {
+    //     throw new Error('Failed to delete credentials info');
+    // }
 }
 
 
 export async function getNumbersClassifiers(projectid: string): Promise<TrainingObjects.NumbersClassifier[]>
 {
-    const queryString = 'SELECT `projectid`, `userid`, `classid`, ' +
-                        '`created`, `status` ' +
-                        'FROM `taxinoclassifiers` ' +
-                        'WHERE `projectid` = ?';
+    const queryString = 'SELECT projectid, userid, classid, ' +
+                        'created, status ' +
+                        'FROM taxinoclassifiers ' +
+                        'WHERE projectid = $1';
 
-    const rows = await dbExecute(queryString, [ projectid ]);
+    const response = await dbExecute(queryString, [ projectid ]);
+    const rows = response.rows;
     return rows.map(dbobjects.getNumbersClassifierFromDbRow);
 }
 
@@ -1378,12 +1407,13 @@ export async function getConversationWorkspaces(
     projectid: string,
 ): Promise<TrainingObjects.ConversationWorkspace[]>
 {
-    const queryString = 'SELECT `id`, `credentialsid`, `projectid`, `servicetype`,' +
-                        ' `classifierid`, `url`, `name`, `language`, `created`, `expiry` ' +
-                        'FROM `bluemixclassifiers` ' +
-                        'WHERE `projectid` = ?';
+    const queryString = 'SELECT id, credentialsid, projectid, servicetype,' +
+                        ' classifierid, url, name, language, created, expiry ' +
+                        'FROM bluemixclassifiers ' +
+                        'WHERE projectid = $1';
 
-    const rows = await dbExecute(queryString, [ projectid ]);
+    const response = await dbExecute(queryString, [ projectid ]);
+    const rows = response.rows;
     return rows.map(dbobjects.getWorkspaceFromDbRow);
 }
 
@@ -1391,12 +1421,13 @@ export async function getConversationWorkspace(
     projectid: string, classifierid: string,
 ): Promise<TrainingObjects.ConversationWorkspace>
 {
-    const queryString = 'SELECT `id`, `credentialsid`, `projectid`, `servicetype`,' +
-                        ' `classifierid`, `url`, `name`, `language`, `created`, `expiry` ' +
-                        'FROM `bluemixclassifiers` ' +
-                        'WHERE `projectid` = ? AND `classifierid` = ?';
+    const queryString = 'SELECT id, credentialsid, projectid, servicetype,' +
+                        ' classifierid, url, name, language, created, expiry ' +
+                        'FROM bluemixclassifiers ' +
+                        'WHERE projectid = $1 AND classifierid = $2';
 
-    const rows = await dbExecute(queryString, [ projectid, classifierid ]);
+    const response = await dbExecute(queryString, [ projectid, classifierid ]);
+    const rows = response.rows;
     if (rows.length === 1) {
         return dbobjects.getWorkspaceFromDbRow(rows[0]);
     }
@@ -1412,10 +1443,11 @@ export async function getConversationWorkspace(
 
 export async function countConversationWorkspaces(classid: string): Promise<number> {
     const queryString = 'SELECT COUNT(*) AS count ' +
-                        'FROM `bluemixclassifiers` ' +
-                        'WHERE `classid` = ?';
+                        'FROM bluemixclassifiers ' +
+                        'WHERE classid = $1';
 
-    const rows = await dbExecute(queryString, [ classid ]);
+    const response = await dbExecute(queryString, [ classid ]);
+    const rows = response.rows;
     /* istanbul ignore if */
     // even if there are none, a SELECT COUNT(*) should return 0
     //  so we should never pass this if, but paranoia for the win
@@ -1437,13 +1469,13 @@ export async function storeConversationWorkspace(
 {
     const obj = dbobjects.createConversationWorkspace(workspace, credentials, project);
 
-    const queryString: string = 'INSERT INTO `bluemixclassifiers` ' +
-                                '(`id`, `credentialsid`, ' +
-                                '`projectid`, `userid`, `classid`, ' +
-                                '`servicetype`, ' +
-                                '`classifierid`, `url`, `name`, `language`, ' +
-                                '`created`, `expiry`) ' +
-                                'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    const queryString: string = 'INSERT INTO bluemixclassifiers ' +
+                                '(id, credentialsid, ' +
+                                'projectid, userid, classid, ' +
+                                'servicetype, ' +
+                                'classifierid, url, name, language, ' +
+                                'created, expiry) ' +
+                                'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)';
 
     const values = [obj.id, obj.credentialsid,
         obj.projectid, obj.userid, obj.classid,
@@ -1452,7 +1484,7 @@ export async function storeConversationWorkspace(
         obj.created, obj.expiry];
 
     const response = await dbExecute(queryString, values);
-    if (response.affectedRows !== 1) {
+    if (response.rowCount !== 1) {
         log.error({ response }, 'Failed to store workspace info');
         throw new Error('Failed to store workspace');
     }
@@ -1465,13 +1497,13 @@ export async function updateConversationWorkspaceExpiry(
     workspace: TrainingObjects.ConversationWorkspace,
 ): Promise<void>
 {
-    const queryString: string = 'UPDATE `bluemixclassifiers` ' +
-                                'SET `created` = ?, `expiry` = ? ' +
-                                'WHERE `id` = ?';
+    const queryString: string = 'UPDATE bluemixclassifiers ' +
+                                'SET created = $1, expiry = $2 ' +
+                                'WHERE id = $3';
     const values = [ workspace.created, workspace.expiry, workspace.id ];
 
     const response = await dbExecute(queryString, values);
-    if (response.affectedRows !== 1) {
+    if (response.rowCount !== 1) {
         log.error({ queryString, values, response }, 'Failed to update expiry date');
         throw new Error('Conversation Workspace expiry not updated');
     }
@@ -1479,12 +1511,13 @@ export async function updateConversationWorkspaceExpiry(
 
 export async function getExpiredConversationWorkspaces(): Promise<TrainingObjects.ConversationWorkspace[]>
 {
-    const queryString = 'SELECT `id`, `credentialsid`, `projectid`, `servicetype`,' +
-                        ' `classifierid`, `url`, `name`, `language`, `created`, `expiry` ' +
-                        'FROM `bluemixclassifiers` ' +
-                        'WHERE `expiry` < ? AND `servicetype` = ?';
+    const queryString = 'SELECT id, credentialsid, projectid, servicetype,' +
+                        ' classifierid, url, name, language, created, expiry ' +
+                        'FROM bluemixclassifiers ' +
+                        'WHERE expiry < $1 AND servicetype = $2';
 
-    const rows = await dbExecute(queryString, [ new Date(), 'conv' ]);
+    const response = await dbExecute(queryString, [ new Date(), 'conv' ]);
+    const rows = response.rows;
     return rows.map(dbobjects.getWorkspaceFromDbRow);
 }
 
@@ -1495,18 +1528,18 @@ export async function storeNumbersClassifier(
 {
     const obj = dbobjects.createNumbersClassifier(userid, classid, projectid, status);
 
-    const queryString: string = 'REPLACE INTO `taxinoclassifiers` ' +
-                                '(`projectid`, `userid`, `classid`, ' +
-                                '`created`, `status`) ' +
-                                'VALUES (?, ?, ?, ?, ?)';
+    const queryString: string = 'REPLACE INTO taxinoclassifiers ' +
+                                '(projectid, userid, classid, ' +
+                                'created, status) ' +
+                                'VALUES ($1, $2, $3, $4, $5)';
 
     const values = [obj.projectid, obj.userid, obj.classid, obj.created, obj.status];
 
-    const response = await dbExecute(queryString, values);
-    if (response.warningStatus !== 0) {
-        log.error({ response }, 'Failed to store classifier info');
-        throw new Error('Failed to store classifier');
-    }
+    /*const response =*/ await dbExecute(queryString, values);
+    // if (response.warningStatus !== 0) {
+    //     log.error({ response }, 'Failed to store classifier info');
+    //     throw new Error('Failed to store classifier');
+    // }
 
     return dbobjects.getNumbersClassifierFromDbRow(obj);
 }
@@ -1515,22 +1548,22 @@ export async function storeNumbersClassifier(
 
 export async function deleteConversationWorkspace(id: string): Promise<void>
 {
-    const queryString = 'DELETE FROM `bluemixclassifiers` WHERE `id` = ? AND `servicetype` = ?';
+    const queryString = 'DELETE FROM bluemixclassifiers WHERE id = $1 AND servicetype = $2';
 
-    const response = await dbExecute(queryString, [ id, 'conv' ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete classifiers info');
-    }
+    /*const response =*/ await dbExecute(queryString, [ id, 'conv' ]);
+    // if (response.warningStatus !== 0) {
+    //     throw new Error('Failed to delete classifiers info');
+    // }
 }
 
 
 export async function deleteConversationWorkspacesByProjectId(projectid: string): Promise<void> {
-    const queryString = 'DELETE FROM `bluemixclassifiers` WHERE `projectid` = ?';
+    const queryString = 'DELETE FROM bluemixclassifiers WHERE projectid = $1';
 
-    const response = await dbExecute(queryString, [ projectid ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete classifiers info');
-    }
+    /*const response =*/ await dbExecute(queryString, [ projectid ]);
+    // if (response.warningStatus !== 0) {
+    //     throw new Error('Failed to delete classifiers info');
+    // }
 }
 
 
@@ -1543,13 +1576,13 @@ export async function storeImageClassifier(
 {
     const obj = dbobjects.createVisualClassifier(classifier, credentials, project);
 
-    const queryString: string = 'INSERT INTO `bluemixclassifiers` ' +
-                                '(`id`, `credentialsid`, ' +
-                                '`projectid`, `userid`, `classid`, ' +
-                                '`servicetype`, ' +
-                                '`classifierid`, `url`, `name`, `language`, ' +
-                                '`created`, `expiry`) ' +
-                                'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    const queryString: string = 'INSERT INTO bluemixclassifiers ' +
+                                '(id, credentialsid, ' +
+                                'projectid, userid, classid, ' +
+                                'servicetype, ' +
+                                'classifierid, url, name, language, ' +
+                                'created, expiry) ' +
+                                'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)';
 
     const values = [obj.id, obj.credentialsid,
         obj.projectid, obj.userid, obj.classid,
@@ -1558,7 +1591,7 @@ export async function storeImageClassifier(
         obj.created, obj.expiry];
 
     const response = await dbExecute(queryString, values);
-    if (response.affectedRows !== 1) {
+    if (response.rowCount !== 1) {
         log.error({ response }, 'Failed to store classifier info');
         throw new Error('Failed to store classifier');
     }
@@ -1571,12 +1604,13 @@ export async function getImageClassifiers(
     projectid: string,
 ): Promise<TrainingObjects.VisualClassifier[]>
 {
-    const queryString = 'SELECT `id`, `credentialsid`, `projectid`, `servicetype`,' +
-                        ' `classifierid`, `url`, `name`, `created`, `expiry` ' +
-                        'FROM `bluemixclassifiers` ' +
-                        'WHERE `projectid` = ?';
+    const queryString = 'SELECT id, credentialsid, projectid, servicetype,' +
+                        ' classifierid, url, name, created, expiry ' +
+                        'FROM bluemixclassifiers ' +
+                        'WHERE projectid = $1';
 
-    const rows = await dbExecute(queryString, [ projectid ]);
+    const response = await dbExecute(queryString, [ projectid ]);
+    const rows = response.rows;
     return rows.map(dbobjects.getVisualClassifierFromDbRow);
 }
 
@@ -1584,12 +1618,13 @@ export async function getImageClassifier(
     projectid: string, classifierid: string,
 ): Promise<TrainingObjects.VisualClassifier>
 {
-    const queryString = 'SELECT `id`, `credentialsid`, `projectid`, `servicetype`,' +
-                        ' `classifierid`, `url`, `name`, `created`, `expiry` ' +
-                        'FROM `bluemixclassifiers` ' +
-                        'WHERE `projectid` = ? AND `classifierid` = ?';
+    const queryString = 'SELECT id, credentialsid, projectid, servicetype,' +
+                        ' classifierid, url, name, created, expiry ' +
+                        'FROM bluemixclassifiers ' +
+                        'WHERE projectid = $1 AND classifierid = $2';
 
-    const rows = await dbExecute(queryString, [ projectid, classifierid ]);
+    const response = await dbExecute(queryString, [ projectid, classifierid ]);
+    const rows = response.rows;
     if (rows.length === 1) {
         return dbobjects.getVisualClassifierFromDbRow(rows[0]);
     }
@@ -1605,33 +1640,35 @@ export async function getImageClassifier(
 
 export async function deleteImageClassifier(id: string): Promise<void> {
 
-    const queryString = 'DELETE FROM `bluemixclassifiers` WHERE `id` = ? AND `servicetype` = ?';
+    const queryString = 'DELETE FROM bluemixclassifiers WHERE id = $1 AND servicetype = $2';
 
-    const response = await dbExecute(queryString, [ id, 'visrec' ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete classifiers info');
-    }
+    /*const response =*/ await dbExecute(queryString, [ id, 'visrec' ]);
+    // if (response.warningStatus !== 0) {
+    //     throw new Error('Failed to delete classifiers info');
+    // }
 }
 
 export async function getExpiredImageClassifiers(): Promise<TrainingObjects.VisualClassifier[]>
 {
-    const queryString = 'SELECT `id`, `credentialsid`, `projectid`, `servicetype`,' +
-                        ' `classifierid`, `url`, `name`, `language`, `created`, `expiry` ' +
-                        'FROM `bluemixclassifiers` ' +
-                        'WHERE `expiry` < ? AND `servicetype` = ?';
+    const queryString = 'SELECT id, credentialsid, projectid, servicetype,' +
+                        ' classifierid, url, name, language, created, expiry ' +
+                        'FROM bluemixclassifiers ' +
+                        'WHERE expiry < $1 AND servicetype = $2';
 
-    const rows = await dbExecute(queryString, [ new Date(), 'visrec' ]);
+    const response = await dbExecute(queryString, [ new Date(), 'visrec' ]);
+    const rows = response.rows;
     return rows.map(dbobjects.getVisualClassifierFromDbRow);
 }
 
 
 
 export async function getProjectsWithBluemixClassifiers(classid: string): Promise<{[projectid: string]: string}> {
-    const queryString = 'SELECT `projectid`, `classifierid` FROM `bluemixclassifiers` WHERE `classid` = ?';
+    const queryString = 'SELECT projectid, classifierid FROM bluemixclassifiers WHERE classid = $1';
 
     const projects: {[projectid: string]: string} = {};
 
-    const rows = await dbExecute(queryString, [ classid ]);
+    const response = await dbExecute(queryString, [ classid ]);
+    const rows = response.rows;
     rows.forEach((row: any) => {
         projects[row.projectid] = row.classifierid;
     });
@@ -1645,12 +1682,13 @@ export async function getProjectsWithBluemixClassifiers(classid: string): Promis
 export async function getClassifierByBluemixId(classifierid: string):
     Promise<TrainingObjects.VisualClassifier|TrainingObjects.ConversationWorkspace|undefined>
 {
-    const queryString = 'SELECT `id`, `credentialsid`, `projectid`, `servicetype`,' +
-                            ' `classifierid`, `url`, `name`, `language`, `created`, `expiry` ' +
-                            'FROM `bluemixclassifiers` ' +
-                            'WHERE `classifierid` = CONVERT(? USING latin1)';
+    const queryString = 'SELECT id, credentialsid, projectid, servicetype,' +
+                            ' classifierid, url, name, language, created, expiry ' +
+                            'FROM bluemixclassifiers ' +
+                            'WHERE classifierid = CONVERT($1 USING latin1)';
 
-    const rows = await dbExecute(queryString, [ classifierid ]);
+    const response = await dbExecute(queryString, [ classifierid ]);
+    const rows = response.rows;
     if (rows.length === 0) {
         return;
     }
@@ -1687,11 +1725,11 @@ export async function storeUntrainedScratchKey(project: Objects.Project): Promis
 {
     const obj = dbobjects.createUntrainedScratchKey(project.name, project.type, project.id);
 
-    const queryString = 'INSERT INTO `scratchkeys` ' +
-                        '(`id`, ' +
-                        '`projectid`, `projectname`, `projecttype`, ' +
-                        '`userid`, `classid`, `updated`) ' +
-                        'VALUES (?, ?, ?, ?, ?, ?, ?)';
+    const queryString = 'INSERT INTO scratchkeys ' +
+                        '(id, ' +
+                        'projectid, projectname, projecttype, ' +
+                        'userid, classid, updated) ' +
+                        'VALUES ($1, $2, $3, $4, $5, $6, $7)';
 
     const values = [
         obj.id,
@@ -1700,7 +1738,7 @@ export async function storeUntrainedScratchKey(project: Objects.Project): Promis
     ];
 
     const response = await dbExecute(queryString, values);
-    if (response.affectedRows !== 1) {
+    if (response.rowCount !== 1) {
         log.error({ response }, 'Failed to store Scratch key');
         throw new Error('Failed to store Scratch key');
     }
@@ -1712,35 +1750,37 @@ export async function storeUntrainedScratchKey(project: Objects.Project): Promis
 
 export function resetExpiredScratchKey(id: string, projecttype: Objects.ProjectTypeLabel): Promise<void>
 {
-    const queryString = 'UPDATE `scratchkeys` ' +
-                        'SET `classifierid` = ? , ' +
-                            '`serviceurl` = ? , `serviceusername` = ? , `servicepassword` = ?, ' +
-                            '`updated` = ? ' +
-                        'WHERE `classifierid` = ? AND `projecttype` = ?';
+    const queryString = 'UPDATE scratchkeys ' +
+                        'SET classifierid = $1 , ' +
+                            'serviceurl = $2 , serviceusername = $3 , servicepassword = $4, ' +
+                            'updated = $5 ' +
+                        'WHERE classifierid = $6 AND projecttype = $7';
     const values = [
         null, null, null, null,
         new Date(),
         id, projecttype,
     ];
 
-    return dbExecute(queryString, values);
+    return dbExecute(queryString, values)
+        .then(() => { return; });
 }
 
 
 export function removeCredentialsFromScratchKeys(credentials: TrainingObjects.BluemixCredentials): Promise<void>
 {
-    const queryString = 'UPDATE `scratchkeys` ' +
-                        'SET `classifierid` = ? , ' +
-                            '`serviceurl` = ? , `serviceusername` = ? , `servicepassword` = ?, ' +
-                            '`updated` = ? ' +
-                        'WHERE `serviceusername` = ? AND `servicepassword` = ? AND `classid` = ?';
+    const queryString = 'UPDATE scratchkeys ' +
+                        'SET classifierid = $1 , ' +
+                            'serviceurl = $2 , serviceusername = $3 , servicepassword = $4, ' +
+                            'updated = $5 ' +
+                        'WHERE serviceusername = $6 AND servicepassword = $7 AND classid = $8';
     const values = [
         null, null, null, null,
         new Date(),
         credentials.username, credentials.password, credentials.classid,
     ];
 
-    return dbExecute(queryString, values);
+    return dbExecute(queryString, values)
+        .then(() => { return; });
 }
 
 
@@ -1785,12 +1825,12 @@ export async function storeScratchKey(
         project.name, project.type, project.id,
         classifierid, timestamp);
 
-    const queryString = 'INSERT INTO `scratchkeys` ' +
-                        '(`id`, `projectname`, `projecttype`, ' +
-                        '`serviceurl`, `serviceusername`, `servicepassword`, ' +
-                        '`classifierid`, ' +
-                        '`projectid`, `userid`, `classid`, `updated`) ' +
-                        'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    const queryString = 'INSERT INTO scratchkeys ' +
+                        '(id, projectname, projecttype, ' +
+                        'serviceurl, serviceusername, servicepassword, ' +
+                        'classifierid, ' +
+                        'projectid, userid, classid, updated) ' +
+                        'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)';
     const values = [
         obj.id, project.name, project.type,
         obj.credentials && obj.credentials.url ? obj.credentials.url : '',
@@ -1802,7 +1842,7 @@ export async function storeScratchKey(
     ];
 
     const response = await dbExecute(queryString, values);
-    if (response.affectedRows !== 1) {
+    if (response.rowCount !== 1) {
         log.error({ response, queryString, values }, 'Failed to store Scratch key');
         throw new Error('Failed to store Scratch key');
     }
@@ -1821,12 +1861,12 @@ async function updateScratchKey(
     classifierid: string, timestamp: Date,
 ): Promise<string>
 {
-    const queryString = 'UPDATE `scratchkeys` ' +
-                        'SET `classifierid` = ? , ' +
-                            '`updated` = ?, ' +
-                            '`serviceurl` = ? , `serviceusername` = ? , `servicepassword` = ? ' +
-                        'WHERE `id` = ? AND ' +
-                            '`userid` = ? AND `projectid` = ? AND `classid` = ?';
+    const queryString = 'UPDATE scratchkeys ' +
+                        'SET classifierid = $1 , ' +
+                            'updated = $2, ' +
+                            'serviceurl = $3 , serviceusername = $4 , servicepassword = $5 ' +
+                        'WHERE id = $6 AND ' +
+                            'userid = $7 AND projectid = $8 AND classid = $9';
     const values = [
         classifierid,
         timestamp,
@@ -1836,7 +1876,7 @@ async function updateScratchKey(
     ];
 
     const response = await dbExecute(queryString, values);
-    if (response.affectedRows !== 1) {
+    if (response.rowCount !== 1) {
         log.error({ queryString, values, response }, 'Failed to update scratchkey');
         throw new Error('Scratch key not updated');
     }
@@ -1852,16 +1892,16 @@ export async function updateScratchKeyTimestamp(
     timestamp: Date,
 ): Promise<void>
 {
-    const queryString = 'UPDATE `scratchkeys` ' +
-                        'SET `updated` = ? ' +
-                        'WHERE `userid` = ? AND `projectid` = ? AND `classid` = ?';
+    const queryString = 'UPDATE scratchkeys ' +
+                        'SET updated = $1 ' +
+                        'WHERE userid = $2 AND projectid = $3 AND classid = $4';
     const values = [
         timestamp,
         project.userid, project.id, project.classid,
     ];
 
     const response = await dbExecute(queryString, values);
-    if (response.affectedRows !== 1) {
+    if (response.rowCount !== 1) {
         log.error({ queryString, values, response }, 'Failed to update scratchkey timestamp');
         throw new Error('Scratch key timestamp not updated');
     }
@@ -1872,14 +1912,15 @@ export async function updateScratchKeyTimestamp(
 
 export async function getScratchKey(key: string): Promise<Objects.ScratchKey> {
     const queryString = 'SELECT ' +
-                            '`id`, `classid`, ' +
-                            '`projectid`, `projectname`, `projecttype`, ' +
-                            '`serviceurl`, `serviceusername`, `servicepassword`, ' +
-                            '`classifierid`, `updated` ' +
-                        'FROM `scratchkeys` ' +
-                        'WHERE `id` = ?';
+                            'id, classid, ' +
+                            'projectid, projectname, projecttype, ' +
+                            'serviceurl, serviceusername, servicepassword, ' +
+                            'classifierid, updated ' +
+                        'FROM scratchkeys ' +
+                        'WHERE id = $1';
 
-    const rows = await dbExecute(queryString, [ key ]);
+    const response = await dbExecute(queryString, [ key ]);
+    const rows = response.rows;
     if (rows.length === 1) {
         return dbobjects.getScratchKeyFromDbRow(rows[0]);
     }
@@ -1902,36 +1943,37 @@ export async function findScratchKeys(
 ): Promise<Objects.ScratchKey[]>
 {
     const queryString = 'SELECT ' +
-                            '`id`, `classid`, `projectid`, `projectname`, `projecttype`, ' +
-                            '`serviceurl`, `serviceusername`, `servicepassword`, ' +
-                            '`classifierid`, `updated` ' +
-                        'FROM `scratchkeys` ' +
-                        'WHERE `projectid` = ? AND `userid` = ? AND `classid` = ?';
+                            'id, classid, projectid, projectname, projecttype, ' +
+                            'serviceurl, serviceusername, servicepassword, ' +
+                            'classifierid, updated ' +
+                        'FROM scratchkeys ' +
+                        'WHERE projectid = $1 AND userid = $2 AND classid = $3';
 
     const values = [ projectid, userid, classid ];
 
-    const rows = await dbExecute(queryString, values);
+    const response = await dbExecute(queryString, values);
+    const rows = response.rows;
     return rows.map(dbobjects.getScratchKeyFromDbRow);
 }
 
 
 export async function deleteScratchKey(id: string): Promise<void> {
-    const queryString = 'DELETE FROM `scratchkeys` WHERE `id` = ?';
+    const queryString = 'DELETE FROM scratchkeys WHERE id = $1';
 
-    const response = await dbExecute(queryString, [ id ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete scratch key info');
-    }
+    /*const response =*/ await dbExecute(queryString, [ id ]);
+    // if (response.warningStatus !== 0) {
+    //     throw new Error('Failed to delete scratch key info');
+    // }
 }
 
 
 export async function deleteScratchKeysByProjectId(projectid: string): Promise<void> {
-    const queryString = 'DELETE FROM `scratchkeys` WHERE `projectid` = ?';
+    const queryString = 'DELETE FROM scratchkeys WHERE projectid = $1';
 
-    const response = await dbExecute(queryString, [ projectid ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete scratch key info');
-    }
+    /*const response =*/ await dbExecute(queryString, [ projectid ]);
+    // if (response.warningStatus !== 0) {
+    //     throw new Error('Failed to delete scratch key info');
+    // }
 }
 
 
@@ -1942,8 +1984,9 @@ export async function deleteScratchKeysByProjectId(projectid: string): Promise<v
 // -----------------------------------------------------------------------------
 
 export async function getAllKnownErrors(): Promise<TrainingObjects.KnownError[]> {
-    const queryString = 'SELECT * FROM `knownsyserrors`';
-    const rows = await dbExecute(queryString, []);
+    const queryString = 'SELECT * FROM knownsyserrors';
+    const response = await dbExecute(queryString, []);
+    const rows = response.rows;
     return rows.map(dbobjects.getKnownErrorFromDbRow);
 }
 
@@ -1955,14 +1998,14 @@ export async function storeNewKnownError(
 {
     const knownError = dbobjects.createKnownError(type, service, objectid);
 
-    const queryString = 'INSERT INTO `knownsyserrors` ' +
-        '(`id`, `type`, `servicetype`, `objid`) ' +
-        'VALUES (?, ?, ?, ?)';
+    const queryString = 'INSERT INTO knownsyserrors ' +
+        '(id, type, servicetype, objid) ' +
+        'VALUES ($1, $2, $3, $4)';
 
     const values = [ knownError.id, knownError.type, knownError.servicetype, knownError.objid ];
 
     const response = await dbExecute(queryString, values);
-    if (response.affectedRows !== 1) {
+    if (response.rowCount !== 1) {
         log.error({ response, values, knownError }, 'Failed to store known error');
         throw new Error('Failed to store known error');
     }
@@ -1974,7 +2017,8 @@ export async function storeNewKnownError(
 // only used for unit tests
 export function deleteAllKnownErrors(): Promise<void>
 {
-    return dbExecute('DELETE FROM `knownsyserrors`', []);
+    return dbExecute('DELETE FROM knownsyserrors', [])
+        .then(() => { return; });
 }
 
 
@@ -1987,14 +2031,15 @@ export function deleteAllKnownErrors(): Promise<void>
 
 export function deleteAllPendingJobs(): Promise<void>
 {
-    return dbExecute('DELETE FROM `pendingjobs`', []);
+    return dbExecute('DELETE FROM pendingjobs', [])
+        .then(() => { return; });
 }
 
 async function storePendingJob(job: Objects.PendingJob): Promise<Objects.PendingJob>
 {
-    const queryString = 'INSERT INTO `pendingjobs` ' +
-        '(`id`, `jobtype`, `jobdata`, `attempts`) ' +
-        'VALUES (?, ?, ?, ?)';
+    const queryString = 'INSERT INTO pendingjobs ' +
+        '(id, jobtype, jobdata, attempts) ' +
+        'VALUES ($1, $2, $3, $4)';
 
     const values = [
         job.id,
@@ -2004,7 +2049,7 @@ async function storePendingJob(job: Objects.PendingJob): Promise<Objects.Pending
     ];
 
     const response = await dbExecute(queryString, values);
-    if (response.affectedRows !== 1) {
+    if (response.rowCount !== 1) {
         log.error({ response, job }, 'Failed to store pending job');
         throw new Error('Failed to store pending job');
     }
@@ -2049,13 +2094,13 @@ export async function recordUnsuccessfulPendingJobExecution(job: Objects.Pending
     const attempts = job.attempts + 1;
     const lastattempt = new Date();
 
-    const queryString = 'UPDATE `pendingjobs` ' +
-                            'SET `attempts` = ?, `lastattempt` = ? ' +
-                            'WHERE `id` = ?';
+    const queryString = 'UPDATE pendingjobs ' +
+                            'SET attempts = $1, lastattempt = $2 ' +
+                            'WHERE id = $3';
     const values = [ attempts, lastattempt, job.id ];
 
     const response = await dbExecute(queryString,  values);
-    if (response.affectedRows !== 1) {
+    if (response.rowCount !== 1) {
         log.error({ queryString, values, job }, 'Failed to update pending job');
         throw new Error('Pending job not updated');
     }
@@ -2071,20 +2116,21 @@ export async function recordUnsuccessfulPendingJobExecution(job: Objects.Pending
 
 export async function deletePendingJob(job: Objects.PendingJob): Promise<void>
 {
-    const queryString = 'DELETE from `pendingjobs` where `id` = ?';
+    const queryString = 'DELETE from pendingjobs where id = $1';
     const values = [ job.id ];
 
-    const response = await dbExecute(queryString, values);
-    if (response.warningStatus !== 0) {
-        log.error({ job, response, values }, 'Failed to delete pending job');
-        throw new Error('Failed to delete pending job');
-    }
+    /*const response =*/ await dbExecute(queryString, values);
+    // if (response.warningStatus !== 0) {
+    //     log.error({ job, response, values }, 'Failed to delete pending job');
+    //     throw new Error('Failed to delete pending job');
+    // }
 }
 
 export async function getNextPendingJob(): Promise<Objects.PendingJob | undefined>
 {
-    const queryString = 'SELECT * from `pendingjobs` ORDER BY `id` LIMIT 1';
-    const rows = await dbExecute(queryString, []);
+    const queryString = 'SELECT * from pendingjobs ORDER BY id LIMIT 1';
+    const response = await dbExecute(queryString, []);
+    const rows = response.rows;
 
     if (rows.length === 0) {
         // no more jobs to do - yay
@@ -2116,11 +2162,11 @@ export async function storeManagedClassTenant(classid: string, numstudents: numb
     const obj = dbobjects.createClassTenant(classid);
     const NUM_USERS = numstudents + 1;
 
-    const queryString = 'INSERT INTO `tenants` ' +
-                        '(`id`, `projecttypes`, `ismanaged`, ' +
-                        '`maxusers`, `maxprojectsperuser`, ' +
-                        '`textclassifiersexpiry`, `imageclassifiersexpiry`) ' +
-                        'VALUES (?, ?, ?, ?, ?, ?, ?)';
+    const queryString = 'INSERT INTO tenants ' +
+                        '(id, projecttypes, ismanaged, ' +
+                        'maxusers, maxprojectsperuser, ' +
+                        'textclassifiersexpiry, imageclassifiersexpiry) ' +
+                        'VALUES ($1, $2, $3, $4, $5, $6, $7)';
 
     const values = [
         obj.id, obj.projecttypes,
@@ -2130,7 +2176,7 @@ export async function storeManagedClassTenant(classid: string, numstudents: numb
     ];
 
     const response = await dbExecute(queryString, values);
-    if (response.affectedRows !== 1) {
+    if (response.rowCount !== 1) {
         log.error({ response, values }, 'Failed to store managed tenant');
         throw new Error('Failed to store managed tenant');
     }
@@ -2148,14 +2194,15 @@ export async function storeManagedClassTenant(classid: string, numstudents: numb
 
 
 export async function getClassTenant(classid: string): Promise<Objects.ClassTenant> {
-    const queryString = 'SELECT `id`, `projecttypes`, `maxusers`, ' +
-                               '`maxprojectsperuser`, ' +
-                               '`textclassifiersexpiry`, `imageclassifiersexpiry`, ' +
-                               '`ismanaged` ' +
-                        'FROM `tenants` ' +
-                        'WHERE `id` = ?';
+    const queryString = 'SELECT id, projecttypes, maxusers, ' +
+                               'maxprojectsperuser, ' +
+                               'textclassifiersexpiry, imageclassifiersexpiry, ' +
+                               'ismanaged ' +
+                        'FROM tenants ' +
+                        'WHERE id = $1';
 
-    const rows = await dbExecute(queryString, [ classid ]);
+    const response = await dbExecute(queryString, [ classid ]);
+    const rows = response.rows;
     /* istanbul ignore else */
     if (rows.length === 0) {
         log.debug({ rows, func : 'getClassTenant' }, 'Empty response from DB');
@@ -2182,14 +2229,14 @@ export async function modifyClassTenantExpiries(
     const modified = dbobjects.setClassTenantExpiries(tenantinfo, textexpiry, imageexpiry);
     const obj = dbobjects.getClassDbRow(modified);
 
-    const queryString = 'INSERT INTO `tenants` ' +
-                            '(`id`, `projecttypes`, ' +
-                                '`maxusers`, `maxprojectsperuser`, ' +
-                                '`textclassifiersexpiry`, `imageclassifiersexpiry`, ' +
-                                '`ismanaged`) ' +
-                            'VALUES (?, ?, ?, ?, ?, ?, ?) ' +
-                            'ON DUPLICATE KEY UPDATE `textclassifiersexpiry` = ?, ' +
-                                                    '`imageclassifiersexpiry` = ?';
+    const queryString = 'INSERT INTO tenants ' +
+                            '(id, projecttypes, ' +
+                                'maxusers, maxprojectsperuser, ' +
+                                'textclassifiersexpiry, imageclassifiersexpiry, ' +
+                                'ismanaged) ' +
+                            'VALUES ($1, $2, $3, $4, $5, $6, $7) ' +
+                            'ON DUPLICATE KEY UPDATE textclassifiersexpiry = $8, ' +
+                                                    'imageclassifiersexpiry = $9';
 
     const values = [
         obj.id, obj.projecttypes,
@@ -2201,8 +2248,8 @@ export async function modifyClassTenantExpiries(
     ];
 
     const response = await dbExecute(queryString, values);
-    if (response.affectedRows !== 1 &&  // row inserted
-        response.affectedRows !== 2)    // row updated
+    if (response.rowCount !== 1 &&  // row inserted
+        response.rowCount !== 2)    // row updated
     {
         log.error({ response, values }, 'Failed to update tenant info');
         throw new Error('Failed to update tenant info');
@@ -2213,11 +2260,11 @@ export async function modifyClassTenantExpiries(
 
 
 export async function deleteClassTenant(classid: string): Promise<void> {
-    const deleteQuery = 'DELETE FROM `tenants` WHERE `id` = ?';
-    const response = await dbExecute(deleteQuery, [ classid ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete class tenant');
-    }
+    const deleteQuery = 'DELETE FROM tenants WHERE id = $1';
+    /*const response =*/ await dbExecute(deleteQuery, [ classid ]);
+    // if (response.warningStatus !== 0) {
+    //     throw new Error('Failed to delete class tenant');
+    // }
 }
 
 
@@ -2264,11 +2311,12 @@ export function hasTenantOptedOutOfNotifications(tenantid: string): Promise<bool
 /** Helper function to see if the provided value is contained in the provided single-column table. */
 async function isStringInListTable(value: string, tablename: string): Promise<boolean> {
     const queryString = 'SELECT exists (' +
-                            'SELECT * from `' + tablename + '` ' +
-                                'WHERE `id` = ? ' +
+                            'SELECT * from ' + tablename + ' ' +
+                                'WHERE id = $1 ' +
                                 'LIMIT 1' +
                         ') as stringinlist';
-    const rows = await dbExecute(queryString, [ value ]);
+    const response = await dbExecute(queryString, [ value ]);
+    const rows = response.rows;
 
     return dbobjects.getAsBoolean(rows[0], 'stringinlist');
 }
@@ -2284,7 +2332,8 @@ async function isStringInListTable(value: string, tablename: string): Promise<bo
 
 export function testonly_resetSessionUsersStore(): Promise<void>
 {
-    return dbExecute('DELETE FROM `sessionusers`', []);
+    return dbExecute('DELETE FROM sessionusers', [])
+        .then(() => { return; });
 }
 
 
@@ -2293,14 +2342,14 @@ export async function storeTemporaryUser(lifespan: number): Promise<Objects.Temp
 {
     const obj = dbobjects.createTemporaryUser(lifespan);
 
-    const insertUserQry = 'INSERT INTO `sessionusers` ' +
-        '(`id`, `token`, `sessionexpiry`) ' +
-        'VALUES (?, ?, ?)';
+    const insertUserQry = 'INSERT INTO sessionusers ' +
+        '(id, token, sessionexpiry) ' +
+        'VALUES ($1, $2, $3)';
 
     const insertUserValues = [ obj.id, obj.token, obj.sessionexpiry ];
 
     const response = await dbExecute(insertUserQry, insertUserValues);
-    if (response.affectedRows === 1) {
+    if (response.rowCount === 1) {
         return dbobjects.getTemporaryUserFromDbRow(obj);
     }
     throw new Error('Failed to store temporary user');
@@ -2308,11 +2357,12 @@ export async function storeTemporaryUser(lifespan: number): Promise<Objects.Temp
 
 export async function getTemporaryUser(id: string): Promise<Objects.TemporaryUser | undefined>
 {
-    const queryString = 'SELECT `id`, `token`, `sessionexpiry` ' +
-                        'FROM `sessionusers` ' +
-                        'WHERE `id` = ?';
+    const queryString = 'SELECT id, token, sessionexpiry ' +
+                        'FROM sessionusers ' +
+                        'WHERE id = $1';
 
-    const rows = await dbExecute(queryString, [ id ]);
+    const response = await dbExecute(queryString, [ id ]);
+    const rows = response.rows;
     if (rows.length !== 1) {
         log.warn({ id }, 'Temporary user not found');
         return;
@@ -2322,19 +2372,20 @@ export async function getTemporaryUser(id: string): Promise<Objects.TemporaryUse
 
 export async function deleteTemporaryUser(user: Objects.TemporaryUser): Promise<void>
 {
-    const queryString = 'DELETE FROM `sessionusers` WHERE `id` = ?';
+    const queryString = 'DELETE FROM sessionusers WHERE id = $1';
 
-    const response = await dbExecute(queryString, [ user.id ]);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete temporary user');
-    }
+    /*const response =*/ await dbExecute(queryString, [ user.id ]);
+    // if (response.warningStatus !== 0) {
+    //     throw new Error('Failed to delete temporary user');
+    // }
 }
 
 export async function countTemporaryUsers(): Promise<number>
 {
-    const queryString = 'SELECT COUNT(*) AS count FROM `sessionusers`';
+    const queryString = 'SELECT COUNT(*) AS count FROM sessionusers';
 
-    const rows = await dbExecute(queryString, [ ]);
+    const response = await dbExecute(queryString, [ ]);
+    const rows = response.rows;
     /* istanbul ignore if */
     // even if there are none, a SELECT COUNT(*) should return 0
     //  so we should never pass this if, but paranoia for the win
@@ -2349,29 +2400,30 @@ export async function countTemporaryUsers(): Promise<number>
 
 export async function getExpiredTemporaryUsers(): Promise<Objects.TemporaryUser[]>
 {
-    const queryString = 'SELECT `id`, `token`, `sessionexpiry` ' +
-                        'FROM `sessionusers` ' +
-                        'WHERE `sessionexpiry` < ? ' +
+    const queryString = 'SELECT id, token, sessionexpiry ' +
+                        'FROM sessionusers ' +
+                        'WHERE sessionexpiry < $1 ' +
                         'LIMIT 50';
 
-    const rows = await dbExecute(queryString, [ new Date() ]);
+    const response = await dbExecute(queryString, [ new Date() ]);
+    const rows = response.rows;
     return rows.map(dbobjects.getTemporaryUserFromDbRow);
 }
 
 export async function bulkDeleteTemporaryUsers(users: Objects.TemporaryUser[]): Promise<void>
 {
     const queryPlaceholders: string[] = [];
-    const ids = users.map((user) => {
-        queryPlaceholders.push('?');
+    const ids = users.map((user, idx) => {
+        queryPlaceholders.push('$' + (idx + 1));
         return user.id;
     });
 
-    const deleteQueryString = 'DELETE FROM `sessionusers` WHERE `id` IN (' + queryPlaceholders.join(',') + ')';
+    const deleteQueryString = 'DELETE FROM sessionusers WHERE id IN (' + queryPlaceholders.join(',') + ')';
 
-    const response = await dbExecute(deleteQueryString, ids);
-    if (response.warningStatus !== 0) {
-        throw new Error('Failed to delete temporary users');
-    }
+    /*const response =*/ await dbExecute(deleteQueryString, ids);
+    // if (response.warningStatus !== 0) {
+    //     throw new Error('Failed to delete temporary users');
+    // }
 }
 
 
@@ -2384,7 +2436,8 @@ export async function bulkDeleteTemporaryUsers(users: Objects.TemporaryUser[]): 
 
 export function testonly_resetSiteAlertsStore(): Promise<void>
 {
-    return dbExecute('DELETE FROM `sitealerts`', []);
+    return dbExecute('DELETE FROM sitealerts', [])
+        .then(() => { return; });
 }
 
 
@@ -2404,9 +2457,9 @@ export async function storeSiteAlert(
         throw err;
     }
 
-    const insertAlertQry: string = 'INSERT INTO `sitealerts` ' +
-        '(`timestamp` , `severityid`, `audienceid`, `message`, `url`, `expiry`) ' +
-        'VALUES (?, ?, ?, ?, ?, ?)';
+    const insertAlertQry: string = 'INSERT INTO sitealerts ' +
+        '(timestamp , severityid, audienceid, message, url, expiry) ' +
+        'VALUES ($1, $2, $3, $4, $5, $6)';
     const insertAlertValues = [
         obj.timestamp,
         obj.severityid, obj.audienceid,
@@ -2415,7 +2468,7 @@ export async function storeSiteAlert(
     ];
 
     const response = await dbExecute(insertAlertQry, insertAlertValues);
-    if (response.affectedRows === 1) {
+    if (response.rowCount === 1) {
         return dbobjects.getSiteAlertFromDbRow(obj);
     }
     throw new Error('Failed to store site alert');
@@ -2424,11 +2477,12 @@ export async function storeSiteAlert(
 
 export async function getLatestSiteAlert(): Promise<Objects.SiteAlert | undefined>
 {
-    const queryString = 'SELECT `timestamp` , `severityid`, `audienceid`, `message`, `url`, `expiry` ' +
-                        'FROM `sitealerts` ' +
-                        'ORDER BY `timestamp` DESC ' +
+    const queryString = 'SELECT timestamp , severityid, audienceid, message, url, expiry ' +
+                        'FROM sitealerts ' +
+                        'ORDER BY timestamp DESC ' +
                         'LIMIT 1';
-    const rows = await dbExecute(queryString, []);
+    const response = await dbExecute(queryString, []);
+    const rows = response.rows;
     /* istanbul ignore else */
     if (rows.length === 1) {
         return dbobjects.getSiteAlertFromDbRow(rows[0]);
@@ -2480,22 +2534,22 @@ export async function deleteEntireProject(userid: string, classid: string, proje
     }
 
     const deleteQueries = [
-        'DELETE FROM `projects` WHERE `id` = ?',
-        'DELETE FROM `numbersprojectsfields` WHERE `projectid` = ?',
-        'DELETE FROM `texttraining` WHERE `projectid` = ?',
-        'DELETE FROM `numbertraining` WHERE `projectid` = ?',
-        'DELETE FROM `imagetraining` WHERE `projectid` = ?',
-        'DELETE FROM `soundtraining` WHERE `projectid` = ?',
-        'DELETE FROM `bluemixclassifiers` WHERE `projectid` = ?',
-        'DELETE FROM `taxinoclassifiers` WHERE `projectid` = ?',
-        'DELETE FROM `scratchkeys` WHERE `projectid` = ?',
+        'DELETE FROM projects WHERE id = $1',
+        'DELETE FROM numbersprojectsfields WHERE projectid = $1',
+        'DELETE FROM texttraining WHERE projectid = $1',
+        'DELETE FROM numbertraining WHERE projectid = $1',
+        'DELETE FROM imagetraining WHERE projectid = $1',
+        'DELETE FROM soundtraining WHERE projectid = $1',
+        'DELETE FROM bluemixclassifiers WHERE projectid = $1',
+        'DELETE FROM taxinoclassifiers WHERE projectid = $1',
+        'DELETE FROM scratchkeys WHERE projectid = $1',
     ];
 
-    const dbConn = await dbConnPool.getConnection();
+    // const dbConn = await dbConnPool.getConnection();
     for (const deleteQuery of deleteQueries) {
-        await dbConn.execute(deleteQuery, [ project.id ]);
+        await dbConnPool.query(deleteQuery, [ project.id ]);
     }
-    dbConn.release();
+    // dbConn.release();
 }
 
 
@@ -2506,30 +2560,30 @@ export async function deleteEntireUser(userid: string, classid: string): Promise
     }
 
     const deleteQueries = [
-        'DELETE FROM `projects` WHERE `userid` = ?',
-        'DELETE FROM `bluemixclassifiers` WHERE `userid` = ?',
-        'DELETE FROM `taxinoclassifiers` WHERE `userid` = ?',
-        'DELETE FROM `scratchkeys` WHERE `userid` = ?',
+        'DELETE FROM projects WHERE userid = $1',
+        'DELETE FROM bluemixclassifiers WHERE userid = $1',
+        'DELETE FROM taxinoclassifiers WHERE userid = $1',
+        'DELETE FROM scratchkeys WHERE userid = $1',
     ];
 
-    const dbConn = await dbConnPool.getConnection();
+    // const dbConn = await dbConnPool.getConnection();
     for (const deleteQuery of deleteQueries) {
-        await dbConn.execute(deleteQuery, [ userid ]);
+        await dbConnPool.query(deleteQuery, [ userid ]);
     }
-    dbConn.release();
+    // dbConn.release();
 }
 
 
 export async function deleteClassResources(classid: string): Promise<void> {
     const deleteQueries = [
-        'DELETE FROM `bluemixcredentials` WHERE `classid` = ?',
+        'DELETE FROM bluemixcredentials WHERE classid = $1',
     ];
 
-    const dbConn = await dbConnPool.getConnection();
+    // const dbConn = await dbConnPool.getConnection();
     for (const deleteQuery of deleteQueries) {
-        await dbConn.execute(deleteQuery, [ classid ]);
+        await dbConnPool.query(deleteQuery, [ classid ]);
     }
-    dbConn.release();
+    // dbConn.release();
 }
 
 
@@ -2542,19 +2596,22 @@ export async function deleteClassResources(classid: string): Promise<void> {
 /* istanbul ignore next */
 export function getDetailedBluemixCredentialsForClass(tenantid: string): Promise<TrainingObjects.BluemixCredentialsDbRow[]>
 {
-    const queryString = 'SELECT `id`, `classid`, `servicetype`, `url`, `username`, `password`, `credstypeid`, `notes` ' +
-                        'FROM `bluemixcredentials` ' +
-                        'WHERE `classid` = ?';
-    return dbExecute(queryString, [ tenantid ]);
+    const queryString = 'SELECT id, classid, servicetype, url, username, password, credstypeid, notes ' +
+                        'FROM bluemixcredentials ' +
+                        'WHERE classid = $1';
+    return dbExecute(queryString, [ tenantid ])
+        .then((resp) => {
+            return resp.rows;
+        });
 }
 
 /* istanbul ignore next */
 export function moveToPool(tenantid: string): Promise<void>
 {
-    const queryString = 'UPDATE `tenants` SET `ismanaged` = 2 WHERE `id` = ?';
+    const queryString = 'UPDATE tenants SET ismanaged = 2 WHERE id = $1';
     return dbExecute(queryString, [ tenantid ])
         .then((resp) => {
-            if (resp.affectedRows === 1) {
+            if (resp.rowCount === 1) {
                 return;
             }
             else {

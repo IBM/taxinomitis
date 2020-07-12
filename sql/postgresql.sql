@@ -1,0 +1,1 @@
+CREATE DATABASE mlforkidsdb ENCODING latin1

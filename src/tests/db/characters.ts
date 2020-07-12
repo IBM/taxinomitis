@@ -40,14 +40,14 @@ describe('DB store - accents and other character types', () => {
             for (const projectname of SUPPORTED) {
                 const proj = await store.storeProject(user, TESTCLASS, 'text', projectname, 'en', [], false);
                 const retrieve = await store.getProject(proj.id);
-                assert.strictEqual(retrieve?.name, projectname);
+                assert.strictEqual(retrieve?.name, projectname, projectname);
             }
         });
         it('should handle unsupported project names', async () => {
             for (const projectname of UNSUPPORTED) {
                 try {
                     await store.storeProject(user, TESTCLASS, 'text', projectname, 'en', [], false);
-                    assert.fail('should not reach here');
+                    assert.fail('should not reach here for ' + projectname);
                 }
                 catch (err) {
                     assert.strictEqual(err.message, 'Sorry, some of those letters can\'t be used in project names');
@@ -75,10 +75,10 @@ describe('DB store - accents and other character types', () => {
                 await store.addLabelToProject(user, TESTCLASS, project.id, labelname);
                 const retrieved = await store.getProject(project.id);
                 if (retrieved) {
-                    assert.deepStrictEqual(retrieved.labels, [ labelname ]);
+                    assert.deepStrictEqual(retrieved.labels, [ labelname ], labelname);
                 }
                 else {
-                    assert.fail('failed to retrieve project');
+                    assert.fail('failed to retrieve project for ' + labelname);
                 }
                 await store.deleteEntireProject(user, TESTCLASS, project);
             }
@@ -90,10 +90,10 @@ describe('DB store - accents and other character types', () => {
                 await store.addLabelToProject(user, TESTCLASS, project.id, labelname);
                 const retrieved = await store.getProject(project.id);
                 if (retrieved) {
-                    assert.deepStrictEqual(retrieved.labels, [ '___________' ]);
+                    assert.deepStrictEqual(retrieved.labels, [ '___________' ], labelname);
                 }
                 else {
-                    assert.fail('failed to retrieve project');
+                    assert.fail('failed to retrieve project for ' + labelname);
                 }
                 await store.deleteEntireProject(user, TESTCLASS, project);
             }
@@ -132,7 +132,7 @@ describe('DB store - accents and other character types', () => {
                 await store.addLabelToProject(user, TESTCLASS, project.id, 'mylabel');
                 await store.storeTextTraining(project.id, training, 'mylabel');
                 const retrieved = await store.getTextTraining(project.id, { limit: 1, start: 0 });
-                assert.deepStrictEqual(retrieved[0].textdata, training);
+                assert.deepStrictEqual(retrieved[0].textdata, training, training);
                 await store.deleteEntireProject(user, TESTCLASS, project);
             }
         });
