@@ -432,7 +432,7 @@ describe('REST API - projects', () => {
 
     describe('createProject()', () => {
 
-        it('should reject names that cannot be stored by MySQL using "utf8"', () => {
+        it.skip('should reject names that cannot be stored by MySQL using "utf8"', () => {
             const studentId = uuid();
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';

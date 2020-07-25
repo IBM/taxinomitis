@@ -25,7 +25,7 @@ export interface ProjectDbRow {
     readonly language: string;
     readonly numfields: number;
     readonly fields: NumbersProjectFieldDbRow[];
-    readonly iscrowdsourced: number;
+    readonly iscrowdsourced: boolean;
 }
 
 export type ProjectTypeLabel = 'text' | 'numbers' | 'images' | 'sounds';

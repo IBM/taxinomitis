@@ -7,7 +7,7 @@ import * as store from '../../lib/db/store';
 const TESTCLASS = 'UNIQUECLASSID';
 
 
-describe('DB store - accents and other character types', () => {
+describe.skip('DB store - accents and other character types', () => {
 
     const user = uuid();
 

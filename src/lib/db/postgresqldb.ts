@@ -5,10 +5,12 @@ let connectionPool: pg.Pool | undefined;
 
 export async function connect(): Promise<any> {
     if (!connectionPool) {
+        pg.types.setTypeParser(20, parseInt);
+
         connectionPool = new pg.Pool({
             host: 'localhost',
             port: 5432,
-            user: 'dale',
+            user: 'dalelane',
             password: 'lO7BforYiu9x',
             database: 'mlforkidsdb',
         });

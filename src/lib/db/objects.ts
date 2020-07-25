@@ -88,7 +88,7 @@ export function createProject(
         language,
         fields : fieldsObjs,
         numfields : fieldsObjs.length,
-        iscrowdsourced : crowdsource ? 1 : 0,
+        iscrowdsourced : crowdsource,
     };
 }
 
@@ -129,7 +129,7 @@ export function getProjectFromDbRow(row: Objects.ProjectDbRow): Objects.Project 
         language,
         numfields : row.numfields ? row.numfields : 0,
         fields : row.fields ? row.fields.map(getNumbersProjectFieldSummaryFromDbRow) : [],
-        isCrowdSourced : row.iscrowdsourced === 1,
+        isCrowdSourced : row.iscrowdsourced,
     };
 }
 
@@ -1214,5 +1214,5 @@ export function getSiteAlertFromDbRow(row: Objects.SiteAlertDbRow): Objects.Site
 // -----------------------------------------------------------------------------
 
 export function getAsBoolean(row: any, field: string): boolean {
-    return row[field] === 1;
+    return row[field];
 }

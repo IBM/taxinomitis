@@ -275,7 +275,7 @@ describe('DB store', () => {
 
     describe('storeProject', () => {
 
-        it('should recognise SQL errors about unsupported characters', () => {
+        it.skip('should recognise SQL errors about unsupported characters', () => {
             return store.storeProject('USERID', 'CLASSID', 'text',
                                       'ğooğle', 'en', [], false)
                         .then(() => {

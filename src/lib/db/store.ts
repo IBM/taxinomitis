@@ -61,7 +61,9 @@ async function handleDbException(err: NodeJS.ErrnoException) {
 async function dbExecute(query: string, params: any[]) {
     // const dbConn = await dbConnPool.getConnection();
     try {
+        log.error({ query, params }, 'dbExecute');
         const response = await dbConnPool.query(query, params);
+        log.error('success');
         return response;
     }
     catch (err) {
@@ -112,15 +114,34 @@ export async function storeProject(
         obj.iscrowdsourced,
     ];
 
-    const insertFieldsQry: string = 'INSERT INTO numbersprojectsfields ' +
-        '(id, userid, classid, projectid, name, fieldtype, choices) ' +
-        'VALUES $1';
-    const insertFieldsValues = obj.fields.map((field: Objects.NumbersProjectFieldDbRow) => {
-        return [
-            field.id, field.userid, field.classid, field.projectid, field.name, field.fieldtype, field.choices,
-        ];
-    });
+    const queryParameterValues = [];
+    let queryIdx = 1;
+    const insertFieldsQryPlaceholders = [];
+    for (const field of obj.fields) {
+        queryParameterValues.push(field.id);
+        queryParameterValues.push(field.userid);
+        queryParameterValues.push(field.classid);
+        queryParameterValues.push(field.projectid);
+        queryParameterValues.push(field.name);
+        queryParameterValues.push(field.fieldtype);
+        queryParameterValues.push(field.choices);
 
+        insertFieldsQryPlaceholders.push('(' +
+            '$' + (queryIdx + 0) + ', ' +
+            '$' + (queryIdx + 1) + ', ' +
+            '$' + (queryIdx + 2) + ', ' +
+            '$' + (queryIdx + 3) + ', ' +
+            '$' + (queryIdx + 4) + ', ' +
+            '$' + (queryIdx + 5) + ', ' +
+            '$' + (queryIdx + 6) +
+        ')');
+
+        queryIdx += 7;
+    }
+    const insertFieldsQry = 'INSERT INTO numbersprojectsfields ' +
+        '(id, userid, classid, projectid, name, fieldtype, choices) ' +
+        'VALUES ' +
+        insertFieldsQryPlaceholders.join(', ');
 
     let outcome = InsertTrainingOutcome.StoredOk;
 
@@ -134,9 +155,9 @@ export async function storeProject(
         }
 
         // store the fields for the project if we have any
-        if (outcome === InsertTrainingOutcome.StoredOk && insertFieldsValues.length > 0) {
-            const insertFieldsResponse = await dbConnPool.query(insertFieldsQry, [ insertFieldsValues ]);
-            if (insertFieldsResponse.rowCount !== insertFieldsValues.length) {
+        if (outcome === InsertTrainingOutcome.StoredOk && obj.fields.length > 0) {
+            const insertFieldsResponse = await dbConnPool.query(insertFieldsQry, queryParameterValues);
+            if (insertFieldsResponse.rowCount !== obj.fields.length) {
                 log.error({ insertFieldsResponse }, 'Failed to store project fields');
                 outcome = InsertTrainingOutcome.NotStored_UnknownFailure;
             }
@@ -472,7 +493,7 @@ export async function renameTrainingLabel(
     const dbTable = getDbTable(type);
     const queryString = 'UPDATE ' + dbTable + ' ' +
                         'SET label = $1 ' +
-                        'WHERE projectid = $1 AND label = $2';
+                        'WHERE projectid = $2 AND label = $3';
     // const dbConn = await dbConnPool.getConnection();
     await dbConnPool.query(queryString, [ labelAfter, projectid, labelBefore ]);
     // dbConn.release();
@@ -605,15 +626,35 @@ export async function bulkStoreTextTraining(
     projectid: string, training: {textdata: string, label: string}[],
 ): Promise<void>
 {
-    const objects = training.map((item) => {
-        const obj = dbobjects.createTextTraining(projectid, item.textdata, item.label);
-        return [obj.id, obj.projectid, obj.textdata, obj.label];
-    });
+    const queryParameterValues = [];
+    let queryIdx = 1;
+    const insertFieldsQryPlaceholders = [];
 
-    const queryString = 'INSERT INTO texttraining (id, projectid, textdata, label) VALUES $1';
+    for (const item of training) {
+        const obj = dbobjects.createTextTraining(projectid, item.textdata, item.label);
+
+        queryParameterValues.push(obj.id);
+        queryParameterValues.push(obj.projectid);
+        queryParameterValues.push(obj.textdata);
+        queryParameterValues.push(obj.label);
+
+        insertFieldsQryPlaceholders.push('(' +
+            '$' + (queryIdx + 0) + ', ' +
+            '$' + (queryIdx + 1) + ', ' +
+            '$' + (queryIdx + 2) + ', ' +
+            '$' + (queryIdx + 3) +
+        ')');
+
+        queryIdx += 4;
+    }
+
+    const queryString = 'INSERT INTO texttraining ' +
+        '(id, projectid, textdata, label) ' +
+        'VALUES ' +
+        insertFieldsQryPlaceholders.join(', ');
 
     // const dbConn = await dbConnPool.getConnection();
-    const response = await dbConnPool.query(queryString, [ objects ]);
+    const response = await dbConnPool.query(queryString, queryParameterValues);
     // await dbConn.release();
 
     if (response.rowCount === training.length) {
@@ -749,15 +790,37 @@ export async function bulkStoreImageTraining(
     projectid: string, training: {imageurl: string, label: string}[],
 ): Promise<void>
 {
-    const objects = training.map((item) => {
-        const obj = dbobjects.createImageTraining(projectid, item.imageurl, item.label, false);
-        return [ obj.id, obj.projectid, obj.imageurl, obj.label, obj.isstored ];
-    });
+    const queryParameterValues = [];
+    let queryIdx = 1;
+    const insertFieldsQryPlaceholders = [];
 
-    const queryString = 'INSERT INTO imagetraining (id, projectid, imageurl, label, isstored) VALUES $1';
+    for (const item of training) {
+        const obj = dbobjects.createImageTraining(projectid, item.imageurl, item.label, false);
+
+        queryParameterValues.push(obj.id);
+        queryParameterValues.push(obj.projectid);
+        queryParameterValues.push(obj.imageurl);
+        queryParameterValues.push(obj.label);
+        queryParameterValues.push(obj.isstored);
+
+        insertFieldsQryPlaceholders.push('(' +
+            '$' + (queryIdx + 0) + ', ' +
+            '$' + (queryIdx + 1) + ', ' +
+            '$' + (queryIdx + 2) + ', ' +
+            '$' + (queryIdx + 3) + ', ' +
+            '$' + (queryIdx + 4) +
+        ')');
+
+        queryIdx += 5;
+    }
+
+    const queryString = 'INSERT INTO imagetraining ' +
+        '(id, projectid, imageurl, label, isstored) ' +
+        'VALUES ' +
+        insertFieldsQryPlaceholders.join(', ');
 
     // const dbConn = await dbConnPool.getConnection();
-    const response = await dbConnPool.query(queryString, [ objects ]);
+    const response = await dbConnPool.query(queryString, queryParameterValues);
     // await dbConn.release();
 
     if (response.rowCount === training.length) {
@@ -801,7 +864,7 @@ export async function getStoredImageTraining(projectid: string, label: string): 
                         'WHERE projectid = $1 AND label = $2 AND isstored = $3 ' +
                         'LIMIT 1000';
 
-    const response = await dbExecute(queryString, [ projectid, label ]);
+    const response = await dbExecute(queryString, [ projectid, label, true ]);
     const rows = response.rows;
     return rows.map(dbobjects.getImageTrainingFromDbRow);
 }
@@ -812,7 +875,7 @@ export async function isImageStored(imageid: string): Promise<boolean> {
     const response = await dbExecute(queryString, values);
     const rows = response.rows;
     if (rows.length > 0) {
-        return rows[0].isstored === 1;
+        return rows[0].isstored;
     }
     return false;
 }
@@ -910,15 +973,35 @@ export async function bulkStoreNumberTraining(
     projectid: string, training: {numberdata: number[], label: string}[],
 ): Promise<void>
 {
-    const objects = training.map((item) => {
-        const obj = dbobjects.createNumberTraining(projectid, item.numberdata, item.label);
-        return [obj.id, obj.projectid, obj.numberdata.join(','), obj.label];
-    });
+    const queryParameterValues = [];
+    let queryIdx = 1;
+    const insertFieldsQryPlaceholders = [];
 
-    const queryString = 'INSERT INTO numbertraining (id, projectid, numberdata, label) VALUES $1';
+    for (const item of training) {
+        const obj = dbobjects.createNumberTraining(projectid, item.numberdata, item.label);
+
+        queryParameterValues.push(obj.id);
+        queryParameterValues.push(obj.projectid);
+        queryParameterValues.push(obj.numberdata.join(','));
+        queryParameterValues.push(obj.label);
+
+        insertFieldsQryPlaceholders.push('(' +
+            '$' + (queryIdx + 0) + ', ' +
+            '$' + (queryIdx + 1) + ', ' +
+            '$' + (queryIdx + 2) + ', ' +
+            '$' + (queryIdx + 3) +
+        ')');
+
+        queryIdx += 4;
+    }
+
+    const queryString = 'INSERT INTO numbertraining ' +
+        '(id, projectid, numberdata, label) ' +
+        'VALUES ' +
+        insertFieldsQryPlaceholders.join(', ');
 
     // const dbConn = await dbConnPool.getConnection();
-    const response = await dbConnPool.query(queryString, [ objects ]);
+    const response = await dbConnPool.query(queryString, queryParameterValues);
     // dbConn.release();
 
     if (response.rowCount === training.length) {
@@ -1194,10 +1277,10 @@ export async function getCombinedBluemixCredentialsById(credentialsid: string): 
                        'FROM bluemixcredentials ' +
                        'WHERE id = $1 ' +
                        'UNION ' +
-                       'SELECT id, "managedpooluse" as classid, servicetype, url, username, password, credstypeid ' +
+                       'SELECT id, \'managedpooluse\' as classid, servicetype, url, username, password, credstypeid ' +
                        'FROM bluemixcredentialspool ' +
-                       'WHERE id = $2';
-    const response = await dbExecute(credsQuery, [ credentialsid, credentialsid ]);
+                       'WHERE id = $1';
+    const response = await dbExecute(credsQuery, [ credentialsid ]);
     const rows = response.rows;
 
     if (rows.length === 1) {
@@ -1330,10 +1413,11 @@ export async function countGlobalBluemixCredentials():
     Promise<{ [classid: string]: { conv: number, visrec: number, total: number } }>
 {
     const credsQuery = 'SELECT classid, ' +
-                           'sum(case when servicetype = "conv" then 1 else 0 end) conv, ' +
-                           'sum(case when servicetype = "visrec" then 1 else 0 end) visrec ' +
+                           'sum(case when servicetype = \'conv\' then 1 else 0 end) conv, ' +
+                           'sum(case when servicetype = \'visrec\' then 1 else 0 end) visrec ' +
                        'FROM bluemixcredentials ' +
                        'GROUP BY classid';
+
     const response = await dbExecute(credsQuery, []);
     const rows = response.rows;
 
@@ -1528,10 +1612,12 @@ export async function storeNumbersClassifier(
 {
     const obj = dbobjects.createNumbersClassifier(userid, classid, projectid, status);
 
-    const queryString: string = 'REPLACE INTO taxinoclassifiers ' +
-                                '(projectid, userid, classid, ' +
-                                'created, status) ' +
-                                'VALUES ($1, $2, $3, $4, $5)';
+    const queryString: string = 'INSERT INTO taxinoclassifiers ' +
+                                    '(projectid, userid, classid, created, status) ' +
+                                'VALUES ' +
+                                    '($1, $2, $3, $4, $5) ' +
+                                'ON CONFLICT (projectid) DO UPDATE SET ' +
+                                    'userid = $2, classid = $3, created = $4, status = $5';
 
     const values = [obj.projectid, obj.userid, obj.classid, obj.created, obj.status];
 
@@ -1685,7 +1771,7 @@ export async function getClassifierByBluemixId(classifierid: string):
     const queryString = 'SELECT id, credentialsid, projectid, servicetype,' +
                             ' classifierid, url, name, language, created, expiry ' +
                             'FROM bluemixclassifiers ' +
-                            'WHERE classifierid = CONVERT($1 USING latin1)';
+                            'WHERE classifierid = $1';
 
     const response = await dbExecute(queryString, [ classifierid ]);
     const rows = response.rows;
@@ -2235,8 +2321,9 @@ export async function modifyClassTenantExpiries(
                                 'textclassifiersexpiry, imageclassifiersexpiry, ' +
                                 'ismanaged) ' +
                             'VALUES ($1, $2, $3, $4, $5, $6, $7) ' +
-                            'ON DUPLICATE KEY UPDATE textclassifiersexpiry = $8, ' +
-                                                    'imageclassifiersexpiry = $9';
+                            'ON CONFLICT(id) DO UPDATE SET ' +
+                                'textclassifiersexpiry = $8, ' +
+                                'imageclassifiersexpiry = $9';
 
     const values = [
         obj.id, obj.projecttypes,
@@ -2311,9 +2398,8 @@ export function hasTenantOptedOutOfNotifications(tenantid: string): Promise<bool
 /** Helper function to see if the provided value is contained in the provided single-column table. */
 async function isStringInListTable(value: string, tablename: string): Promise<boolean> {
     const queryString = 'SELECT exists (' +
-                            'SELECT * from ' + tablename + ' ' +
-                                'WHERE id = $1 ' +
-                                'LIMIT 1' +
+                            'SELECT 1 from ' + tablename + ' ' +
+                                'WHERE id = $1' +
                         ') as stringinlist';
     const response = await dbExecute(queryString, [ value ]);
     const rows = response.rows;
