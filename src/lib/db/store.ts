@@ -36,44 +36,13 @@ export function replaceDbConnPoolForTest(testDbConnPool: pg.Pool) {
     dbConnPool = testDbConnPool;
 }
 
-async function restartConnection() {
-    log.info('Restarting DB connection pool');
-    try {
-        await disconnect();
-        await init();
-    }
-    catch (err) {
-        /* istanbul ignore next */
-        log.error({ err }, 'Probably-irrecoverable-failure while trying to restart the DB connection');
-    }
-}
-
-
-async function handleDbException(err: NodeJS.ErrnoException) {
-    if (err.code === 'ER_OPTION_PREVENTS_STATEMENT' &&  err.errno === 1290)
-    {
-        // for this error, it is worth trying to reconnect to the DB
-        await restartConnection();
-    }
-}
-
-
-async function dbExecute(query: string, params: any[]) {
-    // const dbConn = await dbConnPool.getConnection();
-    try {
-        log.error({ query, params }, 'dbExecute');
-        const response = await dbConnPool.query(query, params);
-        log.error('success');
-        return response;
-    }
-    catch (err) {
-        log.error({ query, params : params.join(','), err }, 'DB error');
-        await handleDbException(err);
-        throw err;
-    }
-    // finally {
-    //     dbConn.release();
-    // }
+function dbExecute(query: string, params: any[]) {
+    log.debug({ query, params }, 'dbExecute');
+    return dbConnPool.query(query, params)
+        .catch((err) => {
+            log.error({ query, params : params.join(','), err }, 'DB error');
+            throw err;
+        });
 }
 
 
@@ -145,38 +114,21 @@ export async function storeProject(
 
     let outcome = InsertTrainingOutcome.StoredOk;
 
-    // const dbConn = await dbConnPool.getConnection();
-    try {
-        // store the project info
-        const insertResponse = await dbExecute(insertProjectQry, insertProjectValues);
-        if (insertResponse.rowCount !== 1) {
-            log.error({ insertResponse }, 'Failed to store project info');
+    // store the project info
+    const insertResponse = await dbExecute(insertProjectQry, insertProjectValues);
+    if (insertResponse.rowCount !== 1) {
+        log.error({ insertResponse }, 'Failed to store project info');
+        outcome = InsertTrainingOutcome.NotStored_UnknownFailure;
+    }
+
+    // store the fields for the project if we have any
+    if (outcome === InsertTrainingOutcome.StoredOk && obj.fields.length > 0) {
+        const insertFieldsResponse = await dbConnPool.query(insertFieldsQry, queryParameterValues);
+        if (insertFieldsResponse.rowCount !== obj.fields.length) {
+            log.error({ insertFieldsResponse }, 'Failed to store project fields');
             outcome = InsertTrainingOutcome.NotStored_UnknownFailure;
         }
-
-        // store the fields for the project if we have any
-        if (outcome === InsertTrainingOutcome.StoredOk && obj.fields.length > 0) {
-            const insertFieldsResponse = await dbConnPool.query(insertFieldsQry, queryParameterValues);
-            if (insertFieldsResponse.rowCount !== obj.fields.length) {
-                log.error({ insertFieldsResponse }, 'Failed to store project fields');
-                outcome = InsertTrainingOutcome.NotStored_UnknownFailure;
-            }
-        }
     }
-    catch (err) {
-        if (err.code === 'ER_TRUNCATED_WRONG_VALUE_FOR_FIELD') {
-            err.statusCode = 400;
-            err.message = 'Sorry, some of those letters can\'t be used in project names';
-            throw err;
-        }
-
-        handleDbException(err);
-        throw err;
-    }
-    // finally {
-    //     dbConn.release();
-    // }
-
 
     if (outcome === InsertTrainingOutcome.StoredOk) {
         return dbobjects.getProjectFromDbRow(obj);
@@ -567,43 +519,27 @@ export async function storeTextTraining(
     const insertQry = 'INSERT INTO texttraining (id, projectid, textdata, label) VALUES ($1, $2, $3, $4)';
     const insertValues = [ obj.id, obj.projectid, obj.textdata, obj.label ];
 
+    // count how much training data they already have
+    const countResponse = await dbConnPool.query(countQry, countValues);
+    const countRows = countResponse.rows;
+    const count = countRows[0].trainingcount;
 
-    //
-    // connect to the DB
-    //
-
-    // const dbConn = await dbConnPool.getConnection();
-
-    try {
-        // count how much training data they already have
-        const countResponse = await dbConnPool.query(countQry, countValues);
-        const countRows = countResponse.rows;
-        const count = countRows[0].trainingcount;
-
-        if (count >= limits.getStoreLimits().textTrainingItemsPerProject) {
-            // they already have too much data - nothing else to do
-            outcome = InsertTrainingOutcome.NotStored_MetLimit;
+    if (count >= limits.getStoreLimits().textTrainingItemsPerProject) {
+        // they already have too much data - nothing else to do
+        outcome = InsertTrainingOutcome.NotStored_MetLimit;
+    }
+    else {
+        // they haven't hit their limit - okay to do the INSERT now
+        const insertResponse = await dbConnPool.query(insertQry, insertValues);
+        if (insertResponse.rowCount === 1) {
+            outcome = InsertTrainingOutcome.StoredOk;
         }
         else {
-            // they haven't hit their limit - okay to do the INSERT now
-            const insertResponse = await dbConnPool.query(insertQry, insertValues);
-            if (insertResponse.rowCount === 1) {
-                outcome = InsertTrainingOutcome.StoredOk;
-            }
-            else {
-                // insert failed for no clear reason
-                log.error({ projectid, data, label, insertQry, insertValues, insertResponse }, 'INSERT text failure');
-                outcome = InsertTrainingOutcome.NotStored_UnknownFailure;
-            }
+            // insert failed for no clear reason
+            log.error({ projectid, data, label, insertQry, insertValues, insertResponse }, 'INSERT text failure');
+            outcome = InsertTrainingOutcome.NotStored_UnknownFailure;
         }
     }
-    catch (err) {
-        handleDbException(err);
-        throw err;
-    }
-    // finally {
-    //     dbConn.release();
-    // }
 
 
     //
@@ -733,43 +669,26 @@ export async function storeImageTraining(
                         'VALUES ($1, $2, $3, $4, $5)';
     const insertValues = [ obj.id, obj.projectid, obj.imageurl, obj.label, obj.isstored ];
 
+    // count how much training data they already have
+    const countResponse = await dbConnPool.query(countQry, countValues);
+    const countRows = countResponse.rows;
+    const count = countRows[0].trainingcount;
 
-    //
-    // connect to the DB
-    //
-
-    // const dbConn = await dbConnPool.getConnection();
-
-    try {
-        // count how much training data they already have
-        const countResponse = await dbConnPool.query(countQry, countValues);
-        const countRows = countResponse.rows;
-        const count = countRows[0].trainingcount;
-
-        if (count >= limits.getStoreLimits().imageTrainingItemsPerProject) {
-            // they already have too much data - nothing else to do
-            outcome = InsertTrainingOutcome.NotStored_MetLimit;
+    if (count >= limits.getStoreLimits().imageTrainingItemsPerProject) {
+        // they already have too much data - nothing else to do
+        outcome = InsertTrainingOutcome.NotStored_MetLimit;
+    }
+    else {
+        // they haven't hit their limit - okay to do the INSERT now
+        const insertResponse = await dbConnPool.query(insertQry, insertValues);
+        if (insertResponse.rowCount === 1) {
+            outcome = InsertTrainingOutcome.StoredOk;
         }
         else {
-            // they haven't hit their limit - okay to do the INSERT now
-            const insertResponse = await dbConnPool.query(insertQry, insertValues);
-            if (insertResponse.rowCount === 1) {
-                outcome = InsertTrainingOutcome.StoredOk;
-            }
-            else {
-                // insert failed for no clear reason
-                outcome = InsertTrainingOutcome.NotStored_UnknownFailure;
-            }
+            // insert failed for no clear reason
+            outcome = InsertTrainingOutcome.NotStored_UnknownFailure;
         }
     }
-    catch (err) {
-        handleDbException(err);
-        throw err;
-    }
-    // finally {
-    //     dbConn.release();
-    // }
-
 
     //
     // prepare the response for the client
@@ -913,47 +832,31 @@ export async function storeNumberTraining(
     const insertValues = [ obj.id, obj.projectid, data.join(','), obj.label ];
 
 
-    //
-    // connect to the DB
-    //
+    // count how much training data they already have
+    const countResponse = await dbConnPool.query(countQry, countValues);
+    const countRows = countResponse.rows;
+    const count = countRows[0].trainingcount;
 
-    // const dbConn = await dbConnPool.getConnection();
+    // how much training data are they allowed to have
+    const classLimits = limits.getStoreLimits();
+    const limit = isClassProject ? classLimits.numberTrainingItemsPerClassProject :
+                                    classLimits.numberTrainingItemsPerProject;
 
-    try {
-        // count how much training data they already have
-        const countResponse = await dbConnPool.query(countQry, countValues);
-        const countRows = countResponse.rows;
-        const count = countRows[0].trainingcount;
-
-        // how much training data are they allowed to have
-        const classLimits = limits.getStoreLimits();
-        const limit = isClassProject ? classLimits.numberTrainingItemsPerClassProject :
-                                       classLimits.numberTrainingItemsPerProject;
-
-        if (count >= limit) {
-            // they already have too much data - nothing else to do
-            outcome = InsertTrainingOutcome.NotStored_MetLimit;
+    if (count >= limit) {
+        // they already have too much data - nothing else to do
+        outcome = InsertTrainingOutcome.NotStored_MetLimit;
+    }
+    else {
+        // they haven't hit their limit - okay to do the INSERT now
+        const insertResponse = await dbConnPool.query(insertQry, insertValues);
+        if (insertResponse.rowCount === 1) {
+            outcome = InsertTrainingOutcome.StoredOk;
         }
         else {
-            // they haven't hit their limit - okay to do the INSERT now
-            const insertResponse = await dbConnPool.query(insertQry, insertValues);
-            if (insertResponse.rowCount === 1) {
-                outcome = InsertTrainingOutcome.StoredOk;
-            }
-            else {
-                // insert failed for no clear reason
-                outcome = InsertTrainingOutcome.NotStored_UnknownFailure;
-            }
+            // insert failed for no clear reason
+            outcome = InsertTrainingOutcome.NotStored_UnknownFailure;
         }
     }
-    catch (err) {
-        handleDbException(err);
-        throw err;
-    }
-    // finally {
-    //     dbConn.release();
-    // }
-
 
     //
     // prepare the response for the client
@@ -1046,40 +949,28 @@ export async function storeSoundTraining(
     const insertQry = 'INSERT INTO soundtraining (id, projectid, audiourl, label) VALUES ($1, $2, $3, $4)';
     const insertValues = [ obj.id, obj.projectid, obj.audiourl, obj.label ];
 
-    // connect to the DB
-    // const dbConn = await dbConnPool.getConnection();
-
     // store the data unless the project is already full
-    try {
-        // count the number of training items already in the project
-        const countResponse = await dbConnPool.query(countQry, countValues);
-        const countRows = countResponse.rows;
-        const count = countRows[0].trainingcount;
 
-        if (count >= limits.getStoreLimits().soundTrainingItemsPerProject) {
-            // they already have too much data - nothing else to do
-            outcome = InsertTrainingOutcome.NotStored_MetLimit;
+    // count the number of training items already in the project
+    const countResponse = await dbConnPool.query(countQry, countValues);
+    const countRows = countResponse.rows;
+    const count = countRows[0].trainingcount;
+
+    if (count >= limits.getStoreLimits().soundTrainingItemsPerProject) {
+        // they already have too much data - nothing else to do
+        outcome = InsertTrainingOutcome.NotStored_MetLimit;
+    }
+    else {
+        // they haven't reached their limit yet - okay to INSERT
+        const insertResponse = await dbConnPool.query(insertQry, insertValues);
+        if (insertResponse.rowCount === 1) {
+            outcome = InsertTrainingOutcome.StoredOk;
         }
         else {
-            // they haven't reached their limit yet - okay to INSERT
-            const insertResponse = await dbConnPool.query(insertQry, insertValues);
-            if (insertResponse.rowCount === 1) {
-                outcome = InsertTrainingOutcome.StoredOk;
-            }
-            else {
-                // insert failed for an unknown reason
-                outcome = InsertTrainingOutcome.NotStored_UnknownFailure;
-            }
+            // insert failed for an unknown reason
+            outcome = InsertTrainingOutcome.NotStored_UnknownFailure;
         }
     }
-    catch (err) {
-        handleDbException(err);
-        throw err;
-    }
-    // finally {
-    //     dbConn.release();
-    // }
-
 
     // prepare the response
 
