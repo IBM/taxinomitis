@@ -76,6 +76,11 @@
                                 <md-tooltip style="font-size: 1.2em;">{{ 'TEACHER.APIKEYS.LITE_30_DAYS_EXPIRE' | translate }}</md-tooltip>
                             </span>
                             <span style="font-size: 1.2em;" ng-switch-when="conv_standard">20</span>
+                            <span style="font-size: 1.2em;" ng-switch-when="conv_plus">50</span>
+                            <span style="font-size: 1.2em;" ng-switch-when="conv_plustrial">50</span>
+                            <span class="glyphicon glyphicon-alert apikeywarning" ng-if="creds.credstype === 'conv_plustrial'">
+                                <md-tooltip style="font-size: 1.2em;">{{ 'TEACHER.APIKEYS.TRIAL_30_DAYS_EXPIRE' | translate }}</md-tooltip>
+                            </span>
                             <span style="font-size: 1.4em; font-style: italic" ng-switch-default translate="TEACHER.APIKEYS.UNKNOWN"></span>
                         </div>
                     </td>

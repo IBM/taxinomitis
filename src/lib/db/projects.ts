@@ -89,6 +89,14 @@ const CREDSTYPES: {[s: string]: CredsTypeInfo} = {
         id : 4,
         label : 'visrec_standard',
     },
+    conv_plus : {
+        id : 5,
+        label : 'conv_plus',
+    },
+    conv_plustrial : {
+        id : 6,
+        label : 'conv_plustrial',
+    },
 };
 
 const credsTypesById: {[id: number]: CredsTypeInfo} = {};

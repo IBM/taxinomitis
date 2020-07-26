@@ -42,7 +42,7 @@ export interface BluemixCredentialsPoolDbRow extends BluemixCredentialsDbRow {
 export type BluemixServiceType = 'conv' | 'visrec' | 'num' | 'sounds';
 export type BluemixCredentialsTypeLabel = 'unknown' | ConversationCredentialsTypeLabel | VisualRecCredentialsTypeLabel;
 
-export type ConversationCredentialsTypeLabel = 'conv_lite' | 'conv_standard';
+export type ConversationCredentialsTypeLabel = 'conv_lite' | 'conv_standard' | 'conv_plus' | 'conv_plustrial';
 export type VisualRecCredentialsTypeLabel = 'visrec_lite' | 'visrec_standard';
 
 export interface ConversationWorkspace {

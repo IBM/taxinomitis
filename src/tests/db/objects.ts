@@ -956,7 +956,7 @@ describe('DB objects', () => {
         });
 
         it('should create conversation credentials', () => {
-            const VALID_TYPES = ['conv_lite', 'conv_standard', 'unknown'];
+            const VALID_TYPES = ['conv_lite', 'conv_standard', 'conv_plus', 'conv_plustrial', 'unknown'];
 
             for (const type of VALID_TYPES) {
                 const creds = dbobjects.createBluemixCredentials('conv', 'class',

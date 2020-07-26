@@ -52,6 +52,9 @@
                 else if (cred.credstype === 'conv_standard') {
                     mlmodels += 20;
                 }
+                else if (cred.credstype === 'conv_plus' || cred.credstype === 'conv_plustrial') {
+                    mlmodels += 50;
+                }
                 else if (cred.credstype === 'visrec_lite') {
                     mlmodels += 2;
                 }

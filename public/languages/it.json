@@ -1284,6 +1284,7 @@
             "VERIFY": "Verify",
 
             "LITE_30_DAYS_EXPIRE": "IBM Cloud may deactivate 'Lite' plan Watson API keys if they're not used for 30 days",
+            "TRIAL_30_DAYS_EXPIRE": "IBM Cloud may deactivate trial plan Watson API keys after 30 days",
 
             "NO_TEXT_CREDENTIALS": "Non hai credenziali Watson Assistant. Ciò significa che non sarà possibile formare modelli per progetti di <strong>testo</strong> .",
             "NO_IMAGE_CREDENTIALS": "Non hai Visual Recognition API keys. Ciò significa che non sarà possibile formare modelli per progetti di <strong>immagini</strong> .",

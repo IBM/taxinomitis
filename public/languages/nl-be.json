@@ -1284,6 +1284,7 @@
             "VERIFY": "Verify",
 
             "LITE_30_DAYS_EXPIRE": "IBM Cloud may deactivate 'Lite' plan Watson API keys if they're not used for 30 days",
+            "TRIAL_30_DAYS_EXPIRE": "IBM Cloud may deactivate trial plan Watson API keys after 30 days",
 
             "NO_TEXT_CREDENTIALS": "Je hebt geen Watson Assistant inloggegevens. <br/>Dit betekent dat je geen modellen kan trainen voor <strong>tekstherkenning</strong> projecten.",
             "NO_IMAGE_CREDENTIALS": "Je hebt geen Visual Recognition API keys. <br/>Dit betekent dat je geen modellen kan trainen voor <strong>afbeeldingsherkenning</strong> projecten.",

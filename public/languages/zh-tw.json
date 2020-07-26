@@ -1284,6 +1284,7 @@
             "VERIFY": "審核",
 
             "LITE_30_DAYS_EXPIRE": "如果30天內未使用IBM Cloud可能會停用「精簡版」方案的Watson API密碼",
+            "TRIAL_30_DAYS_EXPIRE": "IBM Cloud may deactivate trial plan Watson API keys after 30 days",
 
             "NO_TEXT_CREDENTIALS": "你沒有任何Watson Assistant權限。<br/>這代表你無法訓練模型在<strong>文字</strong>專案中使用",
             "NO_IMAGE_CREDENTIALS": "你沒有任何Watson Visual Recognition的API密碼。<br/>這代表你無法訓練模型在<strong>圖片</strong>專案中使用",

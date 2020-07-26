@@ -583,7 +583,8 @@ function getCredentialsType(
 
     switch (servicetype) {
     case 'conv':
-        if (credstype === 'conv_lite' || credstype === 'conv_standard') {
+        if (credstype === 'conv_lite' || credstype === 'conv_standard' ||
+            credstype === 'conv_plus' || credstype === 'conv_plustrial') {
             return credstype;
         }
         throw new Error('Invalid credentials type');
