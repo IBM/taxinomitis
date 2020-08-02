@@ -17,7 +17,7 @@ services:
 addons:
   postgresql: "12"
 
-before_install:
+before_script:
 - psql -c 'CREATE USER ml4k WITH PASSWORD testdbpwd;' -U postgres
 - psql -c 'CREATE DATABASE mlforkidsdb WITH OWNER = ml4k;' -U postgres
 - psql -f sql/postgresql.sql -U postgres
