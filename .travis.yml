@@ -19,8 +19,9 @@ addons:
     - postgresql-client-12
 
 before_script:
-- sudo cat /etc/postgresql/12/main/pg_hba.conf
-- sudo cat /etc/postgresql/10/main/pg_hba.conf
+- sudo cp /etc/postgresql/10/main/pg_hba.conf /etc/postgresql/12/main/pg_hba.conf
+- sudo pg_ctlcluster 12 main restart
+- sh -c 'until pg_isready -p 5433; do echo "Waiting for the postgresql server..."; sleep 2; done'
 - psql -U postgres -p 5433 -c "CREATE USER ml4k WITH PASSWORD 'testdbpwd' LOGIN;"
 - psql -U postgres -p 5433 -c "CREATE DATABASE mlforkidsdb OWNER ml4k;"
 - psql -U ml4k -p 5433 -f sql/postgresql.sql mlforkidsdb
