@@ -25,6 +25,7 @@ before_script:
 - psql -U postgres -p 5433 -c "CREATE USER ml4k WITH PASSWORD 'testdbpwd' LOGIN;"
 - psql -U postgres -p 5433 -c "CREATE DATABASE mlforkidsdb OWNER ml4k;"
 - psql -U ml4k -p 5433 -f sql/postgresql.sql mlforkidsdb
+- psql -U ml4k -p 5433 -f sql/testdata.sql mlforkidsdb
 
 script:
 - npm run build
