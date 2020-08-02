@@ -2149,6 +2149,7 @@ export function deleteAllKnownErrors(): Promise<void>
 {
     // ensure this function is only used in tests, so we don't
     //  accidentally trash a production database table
+    /* istanbul ignore else */
     if (process.env.POSTGRESQLHOST === 'localhost') {
         const queryName = 'dbqn-delete-knownsyserrors-all';
         const queryString = 'DELETE FROM knownsyserrors';
@@ -2176,6 +2177,7 @@ export function deleteAllPendingJobs(): Promise<void>
 {
     // ensure this function is only used in tests, so we don't
     //  accidentally trash a production database table
+    /* istanbul ignore else */
     if (process.env.POSTGRESQLHOST === 'localhost') {
         const queryName = 'dbqn-delete-pendingjobs-all';
         const queryString = 'DELETE FROM pendingjobs';
@@ -2507,6 +2509,7 @@ export function testonly_resetSessionUsersStore(): Promise<void>
 {
     // ensure this function is only used in tests, so we don't
     //  accidentally trash a production database table
+    /* istanbul ignore else */
     if (process.env.POSTGRESQLHOST === 'localhost') {
         const queryName = 'dbqn-delete-sessionusers-all';
         const queryString = 'DELETE FROM sessionusers';
@@ -2635,6 +2638,7 @@ export function testonly_resetSiteAlertsStore(): Promise<void>
 {
     // ensure this function is only used in tests, so we don't
     //  accidentally trash a production database table
+    /* istanbul ignore else */
     if (process.env.POSTGRESQLHOST === 'localhost') {
         const queryName = 'dbqn-delete-sitealerts-all';
         const queryString = 'DELETE FROM sitealerts';
