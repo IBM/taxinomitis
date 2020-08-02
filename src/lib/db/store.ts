@@ -1485,7 +1485,8 @@ export async function getConversationWorkspaces(
     const queryString = 'SELECT id, credentialsid, projectid, servicetype, ' +
                             'classifierid, url, name, language, created, expiry ' +
                         'FROM bluemixclassifiers ' +
-                        'WHERE projectid = $1';
+                        'WHERE projectid = $1 ' +
+                        'ORDER BY created';
     const queryValues = [ projectid ];
 
     const response = await dbExecute(queryName, queryString, queryValues);
@@ -1703,7 +1704,8 @@ export async function getImageClassifiers(
     const queryString = 'SELECT id, credentialsid, projectid, servicetype, ' +
                             'classifierid, url, name, language, created, expiry ' +
                         'FROM bluemixclassifiers ' +
-                        'WHERE projectid = $1';
+                        'WHERE projectid = $1 ' +
+                        'ORDER BY created';
     const queryValues = [ projectid ];
 
     const response = await dbExecute(queryName, queryString, queryValues);

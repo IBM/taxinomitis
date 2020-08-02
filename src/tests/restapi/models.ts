@@ -419,6 +419,7 @@ describe('REST API - models', () => {
 
             const createdB = new Date();
             createdB.setMilliseconds(0);
+            createdB.setSeconds(createdA.getSeconds() + 1);
 
             const classifierBInfo: Types.VisualClassifier = {
                 id : uuid(),
@@ -443,20 +444,20 @@ describe('REST API - models', () => {
 
                     assert.deepStrictEqual(res.body, [
                         {
-                            classifierid : 'busy',
-                            credentialsid : credentials.id,
-                            updated : createdB.toISOString(),
-                            expiry : createdB.toISOString(),
-                            name : 'DUMMY TWO',
-                            status : 'Training',
-                        },
-                        {
                             classifierid : 'good',
                             credentialsid : credentials.id,
                             updated : createdA.toISOString(),
                             expiry : createdA.toISOString(),
                             name : 'DUMMY ONE',
                             status : 'Available',
+                        },
+                        {
+                            classifierid : 'busy',
+                            credentialsid : credentials.id,
+                            updated : createdB.toISOString(),
+                            expiry : createdB.toISOString(),
+                            name : 'DUMMY TWO',
+                            status : 'Training',
                         },
                     ]);
 
@@ -556,6 +557,7 @@ describe('REST API - models', () => {
 
             const createdB = new Date();
             createdB.setMilliseconds(0);
+            createdB.setSeconds(createdA.getSeconds() + 1);
 
             const classifierBInfo: Types.ConversationWorkspace = {
                 id : uuid(),
@@ -581,20 +583,20 @@ describe('REST API - models', () => {
 
                     assert.deepStrictEqual(res.body, [
                         {
-                            classifierid : 'busy',
-                            credentialsid : credentials.id,
-                            updated : updated.toISOString(),
-                            expiry : createdB.toISOString(),
-                            name : 'DUMMY TWO',
-                            status : 'Training',
-                        },
-                        {
                             classifierid : 'good',
                             credentialsid : credentials.id,
                             updated : updated.toISOString(),
                             expiry : createdA.toISOString(),
                             name : 'DUMMY ONE',
                             status : 'Available',
+                        },
+                        {
+                            classifierid : 'busy',
+                            credentialsid : credentials.id,
+                            updated : updated.toISOString(),
+                            expiry : createdB.toISOString(),
+                            name : 'DUMMY TWO',
+                            status : 'Training',
                         },
                     ]);
 
