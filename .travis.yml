@@ -11,9 +11,6 @@ env:
     - POSTGRESQLPORT=5433
     - DEPLOYMENT=travis
 
-services:
-- postgresql
-
 addons:
   postgresql: "12"
   apt:
@@ -22,10 +19,10 @@ addons:
     - postgresql-client-12
 
 before_script:
-- psql -c 'CREATE USER ml4k WITH PASSWORD testdbpwd;' -U postgres -p 5433
-- psql -c 'CREATE DATABASE mlforkidsdb WITH OWNER = ml4k;' -U postgres -p 5433
-- psql -f sql/postgresql.sql -U postgres -p 5433
-- psql -c 'ALTER DATABASE mlforkidsdb SET search_path to mlforkidsdb;' -p 5433
+- psql -U postgres -p 5433 -c "CREATE USER ml4k WITH PASSWORD 'testdbpwd' LOGIN;"
+- psql -U postgres -p 5433 -c "CREATE DATABASE mlforkidsdb OWNER ml4k;"
+- psql -U ml4k -p 5433 -f sql/postgresql.sql mlforkidsdb
+- psql -U ml4k -p 5433 -c "ALTER DATABASE mlforkidsdb SET search_path to mlforkidsdb;"
 
 script:
 - npm run build
