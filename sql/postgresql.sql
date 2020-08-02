@@ -180,9 +180,7 @@ CREATE INDEX soundtraining_gettraininglabels ON mlforkidsdb.soundtraining USING 
 CREATE INDEX texttraining_gettraininglabels ON mlforkidsdb.texttraining USING btree (projectid);
 CREATE INDEX texttraining_renametexttraining ON mlforkidsdb.texttraining USING btree (projectid, label);
 
-
-
-
+ALTER DATABASE mlforkidsdb SET search_path to mlforkidsdb;
 
 
 
