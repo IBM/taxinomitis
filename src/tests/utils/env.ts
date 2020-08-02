@@ -11,29 +11,29 @@ describe('Utils - env', () => {
     let oldMysqlUser: string | undefined;
 
     before(() => {
-        oldMysqlHost = process.env.MYSQLHOST;
-        oldMysqlUser = process.env.MYSQLUSER;
+        oldMysqlHost = process.env.POSTGRESQLHOST;
+        oldMysqlUser = process.env.POSTGRESQLUSER;
     });
     after(() => {
-        process.env.MYSQLHOST = oldMysqlHost;
-        process.env.MYSQLUSER = oldMysqlUser;
+        process.env.POSTGRESQLHOST = oldMysqlHost;
+        process.env.POSTGRESQLUSER = oldMysqlUser;
     });
 
     it('should pass if variables are present', () => {
-        process.env.MYSQLHOST = 'creds';
-        process.env.MYSQLUSER = 'bucket';
+        process.env.POSTGRESQLHOST = 'creds';
+        process.env.POSTGRESQLUSER = 'bucket';
 
         env.confirmRequiredEnvironment();
     });
 
     it('should fail if variables are missing', (done) => {
-        delete process.env.MYSQLUSER;
+        delete process.env.POSTGRESQLUSER;
 
         try {
             env.confirmRequiredEnvironment();
         }
         catch (err) {
-            assert.strictEqual(err.message, 'Missing required environment variable MYSQLUSER');
+            assert.strictEqual(err.message, 'Missing required environment variable POSTGRESQLUSER');
             done();
         }
     });

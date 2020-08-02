@@ -1,5 +1,7 @@
 // external dependencies
 import * as pg from 'pg';
+// local dependencies
+import * as env from '../utils/env';
 
 let connectionPool: pg.Pool | undefined;
 
@@ -8,11 +10,11 @@ export async function connect(): Promise<any> {
         pg.types.setTypeParser(20, parseInt);
 
         connectionPool = new pg.Pool({
-            host: 'localhost',
-            port: 5432,
-            user: 'dalelane',
-            password: 'lO7BforYiu9x',
-            database: 'mlforkidsdb',
+            host: process.env[env.POSTGRESQLHOST],
+            port: parseInt(process.env[env.POSTGRESQLPORT] as string, 10),
+            user: process.env[env.POSTGRESQLUSER],
+            password: process.env[env.POSTGRESQLPASSWORD],
+            database: process.env[env.POSTGRESQLDATABASE],
         });
     }
     return connectionPool;

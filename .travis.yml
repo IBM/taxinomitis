@@ -4,20 +4,24 @@ node_js:
 
 env:
   global:
-    - MYSQLUSER=travis
-    - MYSQLPASSWORD=
-    - MYSQLDATABASE=mlforkidsdb
-    - MYSQLHOST=localhost
-    - MYSQLPORT=3306
+    - POSTGRESQLUSER=ml4k
+    - POSTGRESQLPASSWORD=testdbpwd
+    - POSTGRESQLDATABASE=mlforkidsdb
+    - POSTGRESQLHOST=localhost
+    - POSTGRESQLPORT=5432
     - DEPLOYMENT=travis
 
 services:
 - postgresql
 
+addons:
+  postgresql: "12"
+
 before_install:
-- mysql -u root --password="" -e 'DROP DATABASE IF EXISTS mlforkidsdb;'
-- mysql -u root --password="" -e 'CREATE DATABASE mlforkidsdb CHARACTER SET latin1 COLLATE latin1_swedish_ci;'
-- mysql -u root --password="" < sql/tables.sql
+- psql -c 'CREATE USER ml4k WITH PASSWORD testdbpwd;' -U postgres
+- psql -c 'CREATE DATABASE mlforkidsdb WITH OWNER = ml4k;' -U postgres
+- psql -f sql/postgresql.sql -U postgres
+- psql -c 'ALTER DATABASE mlforkidsdb SET search_path to mlforkidsdb;'
 
 script:
 - npm run build
