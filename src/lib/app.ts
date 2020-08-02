@@ -47,7 +47,7 @@ iamcache.init();
 // initialise the cache for checking API key requirements
 credentialscheck.init();
 
-// connect to MySQL DB
+// connect to DB
 store.init()
     .then(() => {
         // check for current site alerts

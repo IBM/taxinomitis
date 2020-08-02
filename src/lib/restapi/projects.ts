@@ -347,7 +347,7 @@ async function modifyProject(req: Express.Request, res: Express.Response) {
         case 'remove':
             // delete anything with the label from the S3 Object Store
             await deleteImages(classid, userid, projectid, patch.value);
-            // delete anything with the label from the MySQL DB
+            // delete anything with the label from the DB
             response = await store.removeLabelFromProject(userid, classid, projectid, patch.value);
             break;
         case 'replace':

@@ -7,16 +7,16 @@ import * as env from '../../lib/utils/env';
 
 describe('Utils - env', () => {
 
-    let oldMysqlHost: string | undefined;
-    let oldMysqlUser: string | undefined;
+    let oldDBHost: string | undefined;
+    let oldDBUser: string | undefined;
 
     before(() => {
-        oldMysqlHost = process.env.POSTGRESQLHOST;
-        oldMysqlUser = process.env.POSTGRESQLUSER;
+        oldDBHost = process.env.POSTGRESQLHOST;
+        oldDBUser = process.env.POSTGRESQLUSER;
     });
     after(() => {
-        process.env.POSTGRESQLHOST = oldMysqlHost;
-        process.env.POSTGRESQLUSER = oldMysqlUser;
+        process.env.POSTGRESQLHOST = oldDBHost;
+        process.env.POSTGRESQLUSER = oldDBUser;
     });
 
     it('should pass if variables are present', () => {

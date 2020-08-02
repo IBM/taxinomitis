@@ -1,5 +1,0 @@
-LOAD DATABASE
-     FROM      mysql://root:lO7BforYiu9x@localhost:3306/mlforkidsdb
-     INTO postgresql://dale:lO7BforYiu9x@localhost:5432/mlforkidsdblat
-     DECODING TABLE NAMES matching ~/.*/ as CP1252
-;
