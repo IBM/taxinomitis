@@ -16,6 +16,10 @@ services:
 
 addons:
   postgresql: "12"
+  apt:
+    packages:
+    - postgresql-12
+    - postgresql-client-12
 
 before_script:
 - psql -c 'CREATE USER ml4k WITH PASSWORD testdbpwd;' -U postgres -p 5433
