@@ -26,3 +26,4 @@ ops/.lastvisrec
 serverless-functions/mltraining-images/dist
 serverless-functions/mltraining-images/node_modules
 serverless-functions/mltraining-numbers/__pycache__
+sql/ibmcloud-ca.cert
