@@ -15,6 +15,10 @@ export async function connect(): Promise<any> {
             user: process.env[env.POSTGRESQLUSER],
             password: process.env[env.POSTGRESQLPASSWORD],
             database: process.env[env.POSTGRESQLDATABASE],
+
+            ssl: {
+                rejectUnauthorized: false
+            },
         });
     }
     return connectionPool;

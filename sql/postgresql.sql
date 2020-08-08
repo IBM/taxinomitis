@@ -96,7 +96,9 @@ CREATE TABLE mlforkidsdb.projects (
     language character varying(6),
     labels character varying(500) NOT NULL,
     numfields smallint NOT NULL,
-    iscrowdsourced boolean DEFAULT false
+    iscrowdsourced boolean DEFAULT false,
+
+    fields character varying(500)
 );
 
 CREATE TABLE mlforkidsdb.scratchkeys (
@@ -110,7 +112,7 @@ CREATE TABLE mlforkidsdb.scratchkeys (
     projectid character varying(36) NOT NULL,
     userid character varying(36) NOT NULL,
     classid character varying(36) NOT NULL,
-    updated timestamp with time zone NOT NULL
+    updated timestamp with time zone
 );
 
 CREATE TABLE mlforkidsdb.sessionusers (
@@ -180,4 +182,4 @@ CREATE INDEX soundtraining_gettraininglabels ON mlforkidsdb.soundtraining USING 
 CREATE INDEX texttraining_gettraininglabels ON mlforkidsdb.texttraining USING btree (projectid);
 CREATE INDEX texttraining_renametexttraining ON mlforkidsdb.texttraining USING btree (projectid, label);
 
-ALTER DATABASE mlforkidsdb SET search_path to mlforkidsdb;
+ALTER DATABASE ibmclouddb SET search_path to mlforkidsdb;

@@ -687,8 +687,9 @@ export async function getUniqueTrainingTextsByLabel(
 ): Promise<string[]>
 {
     const queryName = 'dbqn-select-texttraining-distinct';
-    // Conversation chokes on duplicate texts, so we're using SELECT DISTINCT to avoid that
-    const queryString = 'SELECT DISTINCT textdata FROM texttraining ' +
+    // Watson Assistant chokes on (case insensitive) duplicate texts, so
+    //  we're using DISTINCT to avoid that
+    const queryString = 'SELECT DISTINCT ON (LOWER(textdata)) textdata FROM texttraining ' +
                         'WHERE projectid = $1 AND label = $2 ' +
                         'LIMIT $3 OFFSET $4';
     const queryValues = [ projectid, label, options.limit, options.start ];
