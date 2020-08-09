@@ -110,7 +110,7 @@ function handleUpload(req: auth.RequestWithProject, res: Express.Response) {
                 storeErr.message === 'Project already has maximum allowed amount of training data')
             {
                 // we've already stored the image data in objectstorage, but
-                //  we failed to store the info about the image in MySQL as
+                //  we failed to store the info about the image in the DB as
                 //  the user has reached the project limit
                 // so we need to delete the image from image data again
                 //  (but we'll do that in the background rather than synchronously)

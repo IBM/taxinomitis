@@ -262,8 +262,9 @@
             if ($scope.project.type === 'text') {
                 data = resp;
 
+                var lc = data.toLowerCase();
                 duplicate = $scope.training[label].some(function (existingitem) {
-                    return existingitem.textdata === data;
+                    return existingitem.textdata.toLowerCase() === lc;
                 });
 
                 placeholder = {

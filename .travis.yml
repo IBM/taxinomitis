@@ -4,20 +4,28 @@ node_js:
 
 env:
   global:
-    - MYSQLUSER=travis
-    - MYSQLPASSWORD=
-    - MYSQLDATABASE=mlforkidsdb
-    - MYSQLHOST=localhost
-    - MYSQLPORT=3306
+    - POSTGRESQLUSER=ml4k
+    - POSTGRESQLPASSWORD=testdbpwd
+    - POSTGRESQLDATABASE=mlforkidsdb
+    - POSTGRESQLHOST=localhost
+    - POSTGRESQLPORT=5433
     - DEPLOYMENT=travis
 
-services:
-- mysql
+addons:
+  postgresql: "12"
+  apt:
+    packages:
+    - postgresql-12
+    - postgresql-client-12
 
-before_install:
-- mysql -u root --password="" -e 'DROP DATABASE IF EXISTS mlforkidsdb;'
-- mysql -u root --password="" -e 'CREATE DATABASE mlforkidsdb CHARACTER SET latin1 COLLATE latin1_swedish_ci;'
-- mysql -u root --password="" < sql/tables.sql
+before_script:
+- sudo cp /etc/postgresql/10/main/pg_hba.conf /etc/postgresql/12/main/pg_hba.conf
+- sudo pg_ctlcluster 12 main restart
+- sh -c 'until pg_isready -p 5433; do echo "Waiting for the postgresql server..."; sleep 2; done'
+- psql -U postgres -p 5433 -c "CREATE USER ml4k WITH PASSWORD 'testdbpwd' LOGIN;"
+- psql -U postgres -p 5433 -c "CREATE DATABASE mlforkidsdb OWNER ml4k;"
+- psql -U ml4k -p 5433 -f sql/postgresql.sql mlforkidsdb
+- psql -U ml4k -p 5433 -f sql/testdata.sql mlforkidsdb
 
 script:
 - npm run build

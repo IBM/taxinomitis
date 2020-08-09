@@ -137,8 +137,8 @@ describe('DB store - tenants', () => {
         const optout = await store.hasTenantOptedOutOfNotifications('do-not-notify-me');
         const optin = await store.hasTenantOptedOutOfNotifications(uuid());
 
-        assert.strictEqual(optout, true);
-        assert.strictEqual(optin, false);
+        assert.strictEqual(optout, true, 'failed to recognize opt-out');
+        assert.strictEqual(optin, false, 'incorrectly identified new id');
     });
 
     it('should store a managed class tenant', async () => {
