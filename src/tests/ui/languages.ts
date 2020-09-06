@@ -6,6 +6,7 @@ import * as fs from 'fs';
 describe('UI - NLS', () => {
 
     let en: any;
+    let cy: any;
     let de: any;
     let es: any;
     let fr: any;
@@ -29,6 +30,7 @@ describe('UI - NLS', () => {
 
     before(() => {
         en = JSON.parse(fs.readFileSync('./public/languages/en.json', 'utf8'));
+        cy = JSON.parse(fs.readFileSync('./public/languages/cy.json', 'utf8'));
         de = JSON.parse(fs.readFileSync('./public/languages/de.json', 'utf8'));
         es = JSON.parse(fs.readFileSync('./public/languages/es.json', 'utf8'));
         fr = JSON.parse(fs.readFileSync('./public/languages/fr.json', 'utf8'));
@@ -124,6 +126,9 @@ describe('UI - NLS', () => {
     });
     it('Russian', () => {
         compareKeys(en, ru, 'ru');
+    });
+    it('Welsh', () => {
+        compareKeys(en, cy, 'cy');
     });
 
 });
