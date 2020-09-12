@@ -87,7 +87,15 @@ describe('Utils - download and zip', () => {
                 async.each(unzippedFilesInfo,
                     (unzippedFile: any, nextFile) => {
                         switch (unzippedFile.size) {
-                        case 22955:
+                        case 16384:
+                            filecompare('./src/tests/utils/resources/map-0.jpg',
+                                        unzippedFile.location,
+                                        (isEq: boolean) => {
+                                            assert(isEq, './src/tests/utils/resources/map-0.jpg');
+                                            nextFile();
+                                        });
+                            break;
+                        case 22943:
                             filecompare('./src/tests/utils/resources/map.jpg',
                                         unzippedFile.location,
                                         (isEq: boolean) => {
@@ -95,7 +103,7 @@ describe('Utils - download and zip', () => {
                                             nextFile();
                                         });
                             break;
-                        case 7519:
+                        case 7521:
                             filecompare('./src/tests/utils/resources/watson.jpg',
                                         unzippedFile.location,
                                         (isEq: boolean) => {
@@ -103,7 +111,15 @@ describe('Utils - download and zip', () => {
                                             nextFile();
                                         });
                             break;
-                        case 15327:
+                        case 17926:
+                            filecompare('./src/tests/utils/resources/ibm-0.png',
+                                        unzippedFile.location,
+                                        (isEq: boolean) => {
+                                            assert(isEq, './src/tests/utils/resources/ibm-0.png');
+                                            nextFile();
+                                        });
+                            break;
+                        case 17928:
                             filecompare('./src/tests/utils/resources/ibm.png',
                                         unzippedFile.location,
                                         (isEq: boolean) => {
@@ -112,8 +128,8 @@ describe('Utils - download and zip', () => {
                                         });
                             break;
                         default:
-                            assert.fail(0, 1, 'Unexpected file size ' + unzippedFile.size + ' ' +
-                                              unzippedFile.location);
+                            assert.fail('Unexpected file size ' + unzippedFile.size + ' ' +
+                                        unzippedFile.location);
                             break;
                         }
                     },

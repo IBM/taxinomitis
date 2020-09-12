@@ -6,13 +6,17 @@
 
     run.$inject = [
         '$rootScope',
-        'authService', 'authManager', 'sitealertsService'
+        'authService', 'authManager', 'sitealertsService', 'loggerService'
     ];
 
-    function run($rootScope, authService, authManager, sitealertsService) {
+    function run($rootScope, authService, authManager, sitealertsService, loggerService) {
         // Put the authService on $rootScope so its methods
         // can be accessed from the nav bar
         $rootScope.authService = authService;
+
+        // Put the loggerService on $rootScope so the nav
+        // bar can download the log
+        $rootScope.loggerService = loggerService;
 
         // register auth listener
         authService.setupAuth();

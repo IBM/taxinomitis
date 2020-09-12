@@ -146,6 +146,10 @@ module.exports = function(grunt) {
                     }
                 }
             },
+            scratchblocks : {
+                src : 'public/third-party/scratchblocks-v3.1-min.js',
+                dest : 'web/static/scratchblocks-v3.1-min.js'
+            },
             apprunner : {
                 expand : true,
                 cwd : 'public/',
@@ -250,7 +254,7 @@ module.exports = function(grunt) {
     // minify the CSS
     grunt.registerTask('css', ['cssmin', 'postcss:dist']);
     // prepare the JavaScript
-    grunt.registerTask('javascript', ['copy:jsapp', 'copy:apprunner', 'copy:languages']);
+    grunt.registerTask('javascript', ['copy:jsapp', 'copy:apprunner', 'copy:languages', 'copy:scratchblocks']);
     // prepare the HTML
     grunt.registerTask('html', ['copy:indexhtml', 'copy:componentshtml']);
     // bring the UI together

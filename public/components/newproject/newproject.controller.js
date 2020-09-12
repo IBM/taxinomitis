@@ -7,11 +7,12 @@
     NewProjectController.$inject = [
         'authService',
         'projectsService',
+        'loggerService',
         '$state', '$rootScope'
     ];
 
 
-    function NewProjectController(authService, projectsService, $state, $rootScope) {
+    function NewProjectController(authService, projectsService, loggerService, $state, $rootScope) {
 
         var vm = this;
         vm.authService = authService;
@@ -117,11 +118,15 @@
                 delete projectSpec.fields;
             }
 
+            loggerService.debug('[ml4kproj] Creating new project', projectSpec);
+
             projectsService.createProject(projectSpec, vm.profile.user_id, vm.profile.tenant)
                 .then(function (created) {
+                    loggerService.debug('[ml4kproj] Created project', created);
                     $state.go('projects', { id : created.id });
                 })
                 .catch(function (err) {
+                    loggerService.error('[ml4kproj] Failed to create project', err);
                     displayAlert('errors', err.status, err.data);
 
                     vm.creating = false;

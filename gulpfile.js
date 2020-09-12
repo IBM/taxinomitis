@@ -10,7 +10,6 @@ const template = require('gulp-template');
 const autoprefixer = require('gulp-autoprefixer');
 const rename = require('gulp-rename');
 const ngAnnotate = require('gulp-ng-annotate');
-const sequence = require('gulp-sequence');
 const sourcemaps = require('gulp-sourcemaps');
 const del = require('del');
 
@@ -58,25 +57,29 @@ gulp.task('twitter', function() {
     return gulp.src('public/twitter-card.html').pipe(gulp.dest('web/dynamic'));
 });
 
+gulp.task('scratchblocks', function() {
+    return gulp.src('public/third-party/scratchblocks-v3.1-min.js').pipe(gulp.dest('web/static'));
+});
+
 gulp.task('crossdomain', function() {
     return gulp.src('public/crossdomain.xml').pipe(gulp.dest('web/dynamic'));
 });
 
-gulp.task('scratchxinstall', ['crossdomain'], function() {
+gulp.task('scratchxinstall', gulp.series('crossdomain', function() {
     return gulp.src([
         'public/scratchx/**',
         'public/components/help/help-scratch2*',
         'public/components/help/help-scratch.css'
     ]).pipe(gulp.dest('web/scratchx'));
-});
+}));
 
-gulp.task('scratch3install', ['crossdomain'], function() {
+gulp.task('scratch3install', gulp.series('crossdomain', function() {
     return gulp.src([
         'public/scratch3/**',
         'public/components/help/help-scratch3*',
         'public/components/help/help-scratch.css'
     ]).pipe(gulp.dest('web/scratch3'));
-});
+}));
 
 gulp.task('datasets', function() {
     return gulp.src('public/datasets/**').pipe(gulp.dest('web/datasets'));
@@ -96,13 +99,39 @@ gulp.task('compile', () => {
         .on('finish', () => { errors && process.exit(1); });
 });
 
-gulp.task('css', ['html'], () => {
+
+
+function prepareHtml (isForProd) {
+    const options = { VERSION, DEPLOYMENT };
+    if (isForProd) {
+        options.USE_IN_PROD_ONLY = '         ';
+        options.AFTER_USE_IN_PROD_ONLY = '          ';
+    }
+    else {
+        options.USE_IN_PROD_ONLY = '<!--';
+        options.AFTER_USE_IN_PROD_ONLY = '-->';
+    }
+
+    return gulp.src('public/index.html')
+            .pipe(template(options))
+            .pipe(gulp.dest('web/dynamic'));
+}
+
+gulp.task('html', () => {
+    return prepareHtml(false);
+});
+gulp.task('prodhtml', gulp.series('twitter', () => {
+    return prepareHtml(true);
+}));
+
+
+gulp.task('css', gulp.series('html', () => {
     return gulp.src(paths.css)
             .pipe(cleanCSS())
             .pipe(autoprefixer())
             .pipe(concat('style-' + VERSION + '.min.css'))
             .pipe(gulp.dest('web/static'));
-});
+}));
 
 gulp.task('jsapp', () => {
     return gulp.src('public/app.js')
@@ -111,12 +140,12 @@ gulp.task('jsapp', () => {
             .pipe(gulp.dest('web/static'));
 });
 
-gulp.task('angularcomponents', ['jsapp'], () => {
+gulp.task('angularcomponents', gulp.series('jsapp', () => {
     return gulp.src('public/components/**')
             .pipe(gulp.dest('web/static/components-' + VERSION));
-});
+}));
 
-gulp.task('languages', [], () => {
+gulp.task('languages', () => {
     return gulp.src('public/languages/**')
             .pipe(gulp.dest('web/static/languages-' + VERSION));
 });
@@ -157,29 +186,6 @@ gulp.task('minifyprodjs', () => {
     return concatAndMinifiyWebJs(true);
 });
 
-function prepareHtml (isForProd) {
-    const options = { VERSION, DEPLOYMENT };
-    if (isForProd) {
-        options.USE_IN_PROD_ONLY = '         ';
-        options.AFTER_USE_IN_PROD_ONLY = '          ';
-    }
-    else {
-        options.USE_IN_PROD_ONLY = '<!--';
-        options.AFTER_USE_IN_PROD_ONLY = '-->';
-    }
-
-    return gulp.src('public/index.html')
-            .pipe(template(options))
-            .pipe(gulp.dest('web/dynamic'));
-}
-
-gulp.task('html', () => {
-    return prepareHtml(false);
-});
-gulp.task('prodhtml', ['twitter'], () => {
-    return prepareHtml(true);
-});
-
 
 gulp.task('tslint', () => {
     const tslintOptions = { formatter : 'verbose' };
@@ -189,7 +195,9 @@ gulp.task('tslint', () => {
         .pipe(tslint.report());
 });
 
-gulp.task('lint', ['tslint']);
+gulp.task('lint', gulp.series('tslint', (done) => {
+    done();
+}));
 
 gulp.task('test', () => {
     const mochaOptions = {
@@ -201,15 +209,18 @@ gulp.task('test', () => {
         .pipe(mocha(mochaOptions));
 });
 
-gulp.task('web', ['css', 'minifyjs', 'images', 'html', 'angularcomponents', 'languages', 'datasets', 'scratchxinstall', 'scratch3install']);
-gulp.task('build', ['web', 'compile']);
+gulp.task('web',
+    gulp.series('css', 'minifyjs', 'images', 'html', 'angularcomponents', 'languages', 'datasets', 'scratchxinstall', 'scratch3install', 'scratchblocks'));
+gulp.task('build',
+    gulp.parallel('web', 'compile'));
 
-gulp.task('default', sequence('build', 'lint', 'test'));
+gulp.task('default', gulp.series('build', 'lint', 'test'));
 
 
-gulp.task('buildprod', sequence(
-    'clean',
-    'bower',
-    ['css', 'minifyprodjs', 'images', 'prodhtml', 'angularcomponents', 'languages', 'datasets', 'scratchxinstall', 'scratch3install'],
-    'compile',
-    'lint'));
+gulp.task('buildprod',
+    gulp.series(
+        'clean',
+        'bower',
+        gulp.parallel('css', 'minifyprodjs', 'images', 'prodhtml', 'angularcomponents', 'languages', 'datasets', 'scratchxinstall', 'scratch3install', 'scratchblocks'),
+        'compile',
+        'lint'));

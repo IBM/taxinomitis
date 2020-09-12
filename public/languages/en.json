@@ -1451,6 +1451,7 @@
         }
     },
     "HELP": {
+        "LOG": "DOWNLOAD LOG",
         "CONTACT": "If you have any problems or questions, please ask in <a target='_blank' href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids forum</a>",
         "GETTINGSTARTED": {
             "TITLE": "Getting started?",

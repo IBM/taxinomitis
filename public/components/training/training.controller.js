@@ -14,10 +14,10 @@
         '$state',
         '$timeout',
         '$q',
-        '$log'
+        'loggerService'
     ];
 
-    function TrainingController(authService, projectsService, trainingService, soundTrainingService, $stateParams, $scope, $mdDialog, $state, $timeout, $q, $log) {
+    function TrainingController(authService, projectsService, trainingService, soundTrainingService, $stateParams, $scope, $mdDialog, $state, $timeout, $q, loggerService) {
 
         var vm = this;
         vm.authService = authService;
@@ -37,7 +37,7 @@
             }
             else {
                 // record the error
-                $log.error(errObj);
+                loggerService.error(errObj);
                 if (status === 500 && Sentry && Sentry.captureException) {
                     Sentry.captureException({ error : errObj, errortype : typeof (errObj) });
                 }
@@ -156,6 +156,7 @@
                 $scope.loadingtraining = false;
             })
             .catch(function (err) {
+                loggerService.error('[ml4ktraining] error', err);
                 displayAlert('errors', err.status, err.data ? err.data : err);
             });
 
@@ -361,8 +362,8 @@
 
 
         vm.onImageLoad = function (image) {
-            $log.debug('[ml4ktraining] onImageLoad');
-            $log.debug(image);
+            loggerService.debug('[ml4ktraining] onImageLoad');
+            loggerService.debug(image);
         };
 
         vm.onImageError = function (image) {

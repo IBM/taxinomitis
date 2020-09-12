@@ -168,8 +168,8 @@ describe.skip('Request image training zip from OpenWhisk', () => {
                                             });
                                 break;
                             default:
-                                assert.fail(0, 1, 'Unexpected file size ' + unzippedFile.size + ' ' +
-                                                    unzippedFile.location);
+                                assert.fail('Unexpected file size ' + unzippedFile.size + ' ' +
+                                            unzippedFile.location);
                                 break;
                             }
                         },

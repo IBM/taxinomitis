@@ -100,15 +100,16 @@ describe('ScratchKeys store', () => {
         await store.storeOrUpdateScratchKey(project, credentials, classifierid, ts);
 
         const retrievedAfter: any = await store.getScratchKey(keyid);
-        delete credentials.id;
-        delete retrievedAfter.credentials.id;
 
         assert.strictEqual(retrievedAfter.id, keyid);
         assert.strictEqual(retrievedAfter.name, project.name);
         assert.strictEqual(retrievedAfter.type, 'text');
-        assert.deepStrictEqual(retrievedAfter.credentials, credentials);
         assert.strictEqual(retrievedAfter.classifierid, classifierid);
         assert.strictEqual(retrievedAfter.updated.getTime(), ts.getTime());
+
+        const credsWithoutId = Object.assign({}, credentials, { id : 'id' });
+        const retrievedCredsWithoutId = Object.assign({}, retrievedAfter.credentials, { id : 'id' });
+        assert.deepStrictEqual(retrievedCredsWithoutId, credsWithoutId);
     });
 
 
@@ -179,15 +180,16 @@ describe('ScratchKeys store', () => {
         );
 
         const retrieved: any = await store.getScratchKey(keyid);
-        delete credentials.id;
-        delete retrieved.credentials.id;
 
         assert.strictEqual(retrieved.id, keyid);
         assert.strictEqual(retrieved.name, project.name);
         assert.strictEqual(retrieved.type, project.type);
-        assert.deepStrictEqual(retrieved.credentials, credentials);
         assert.strictEqual(retrieved.classifierid, classifierid);
         assert.strictEqual(retrieved.updated.getTime(), ts.getTime());
+
+        const credsWithoutId = Object.assign({}, credentials, { id : 'id' });
+        const retrievedCredsWithoutId = Object.assign({}, retrieved.credentials, { id : 'id' });
+        assert.deepStrictEqual(retrievedCredsWithoutId, credsWithoutId);
     });
 
 
@@ -215,15 +217,15 @@ describe('ScratchKeys store', () => {
         assert.strictEqual(response.length, 1);
         const retrieved = response[0];
 
-        delete credentials.id;
-        delete retrieved.credentials.id;
-
         assert.strictEqual(retrieved.id, keyid);
         assert.strictEqual(retrieved.name, project.name);
         assert.strictEqual(retrieved.type, project.type);
-        assert.deepStrictEqual(retrieved.credentials, credentials);
         assert.strictEqual(retrieved.classifierid, classifierid);
         assert.strictEqual(retrieved.updated.getTime(), ts.getTime());
+
+        const credsWithoutId = Object.assign({}, credentials, { id : 'id' });
+        const retrievedCredsWithoutId = Object.assign({}, retrieved.credentials, { id : 'id' });
+        assert.deepStrictEqual(retrievedCredsWithoutId, credsWithoutId);
 
         return store.deleteScratchKey(keyid);
     });
@@ -256,17 +258,20 @@ describe('ScratchKeys store', () => {
         const response: any[] = await store.findScratchKeys(project.userid, project.id, project.classid);
         assert.strictEqual(response.length, classifierIDs.length);
 
-        delete credentials.id;
+        const credsWithoutId = Object.assign({}, credentials, { id : 'id' });
+
 
         for (const retrieved of response) {
             delete retrieved.credentials.id;
 
             assert.strictEqual(retrieved.name, project.name);
             assert.strictEqual(retrieved.type, project.type);
-            assert.deepStrictEqual(retrieved.credentials, credentials);
             assert.strictEqual(retrieved.updated.getTime(), ts.getTime());
 
             assert(classifierIDs.indexOf(retrieved.classifierid) >= 0);
+
+            const retrievedCredsWithoutId = Object.assign({}, retrieved.credentials, { id : 'id' });
+            assert.deepStrictEqual(retrievedCredsWithoutId, credsWithoutId);
         }
     });
 
@@ -306,15 +311,15 @@ describe('ScratchKeys store', () => {
 
         const retrieved: any = await store.getScratchKey(keyid);
 
-        delete credentials.id;
-        delete retrieved.credentials.id;
-
         assert.strictEqual(retrieved.name, project.name);
         assert.strictEqual(retrieved.type, project.type);
-        assert.deepStrictEqual(retrieved.credentials, credentials);
 
         assert.strictEqual(retrieved.classifierid, newClassifierId);
         assert.strictEqual(retrieved.updated.getTime(), after.getTime());
+
+        const credsWithoutId = Object.assign({}, credentials, { id : 'id' });
+        const retrievedCredsWithoutId = Object.assign({}, retrieved.credentials, { id : 'id' });
+        assert.deepStrictEqual(retrievedCredsWithoutId, credsWithoutId);
     });
 
 

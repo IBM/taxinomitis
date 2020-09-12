@@ -40,6 +40,51 @@ export function setupForBluemix(app: express.Application): void {
     }
 }
 
+export const CSP_DIRECTIVES = {
+    defaultSrc: ["'self'", "'unsafe-inline'",
+        'http://cdn.auth0.com',
+        'https://cdn.auth0.com',
+        'https://cdn.eu.auth0.com',
+        'https://unpkg.com',
+        'https://storage.googleapis.com',
+    ],
+    styleSrc: ["'self'", "'unsafe-inline'",
+        'https://ton.twimg.com',
+        'https://platform.twitter.com',
+    ],
+    scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'",
+        'http://cdn.auth0.com',
+        'https://cdn.auth0.com',
+        'https://cdn.eu.auth0.com',
+        'https://unpkg.com',
+        'https://storage.googleapis.com',
+        'http://embed-assets.wakelet.com',
+        'http://platform.twitter.com',
+        'https://cdn.syndication.twimg.com',
+        'https://www.youtube.com',
+        'https://player.vimeo.com',
+        'https://www.google-analytics.com',
+    ],
+    frameSrc: ["'self'",
+        'http://embed.wakelet.com',
+        'https://syndication.twitter.com',
+        'https://platform.twitter.com',
+        'https://www.youtube.com',
+        'https://player.vimeo.com'
+    ],
+    imgSrc: ["'self'",
+        'https://auth0.com',
+        'http://cdn.auth0.com',
+        'https://cdn.auth0.com',
+        'https://cdn.eu.auth0.com',
+        'https://pbs.twimg.com',
+        'https://ton.twimg.com',
+        'https://platform.twitter.com',
+        'https://syndication.twitter.com',
+        'data:',
+    ],
+};
+
 
 
 export function setupUI(app: express.Application): void {
