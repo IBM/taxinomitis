@@ -267,6 +267,7 @@
         var timer = null;
 
         function stopRefreshing() {
+            loggerService.debug('[ml4kmodels] stop refreshing models');
             if (timer) {
                 $interval.cancel(timer);
                 timer = null;
