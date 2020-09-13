@@ -38,7 +38,13 @@ export default function setup(app: Express.Application): void {
 
     // third-party middleware
     app.use(query());
-    app.use(helmet());
+    app.use(helmet({
+        contentSecurityPolicy: {
+            // TODO : remove this after trying it out in prod for a few days
+            reportOnly : true,
+            directives: serverConfig.CSP_DIRECTIVES,
+        },
+    }));
 
     // UI setup
     serverConfig.setupUI(app);

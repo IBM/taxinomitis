@@ -79,9 +79,6 @@
             'WORKSHEETS.JUDGEABOOK.WORKSHEET_1.DESCRIPTION', 'WORKSHEETS.JUDGEABOOK.WORKSHEET_1.URL',
             'WORKSHEETS.JUDGEABOOK.WORKSHEET_2.DESCRIPTION', 'WORKSHEETS.JUDGEABOOK.WORKSHEET_2.URL',
 
-            'WORKSHEETS.LOCATELARRY.TITLE', 'WORKSHEETS.LOCATELARRY.SUMMARY', 'WORKSHEETS.LOCATELARRY.DESCRIPTION',
-            'WORKSHEETS.LOCATELARRY.WORKSHEET_1.URL',
-
             'WORKSHEETS.FOOLED.TITLE', 'WORKSHEETS.FOOLED.SUMMARY', 'WORKSHEETS.FOOLED.DESCRIPTION',
             'WORKSHEETS.FOOLED.WORKSHEET_1.URL',
 
@@ -553,22 +550,6 @@
                         {
                             description : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_2.DESCRIPTION'],
                             worksheet : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_2.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.LOCATELARRY.TITLE'],
-                    summary : translations['WORKSHEETS.LOCATELARRY.SUMMARY'],
-                    description : translations['WORKSHEETS.LOCATELARRY.DESCRIPTION'],
-                    difficulty : 'Intermediate',
-                    type : 'images',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-locatelarry.png',
-                    tags : [ 'image classification', 'supervised learning', 'image pre-processing' ],
-                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-locatelarry.pdf',
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.LOCATELARRY.WORKSHEET_1.URL']
                         }
                     ]
                 },

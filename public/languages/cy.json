@@ -1410,16 +1410,16 @@
     },
     "SCRATCHBLOCKS": {
         "TEXT_PROJECTS": {
-            "mlforkids.text.recogniseLabel": "adnabod testun [TESTUN] (label)",
-            "mlforkids.text.recogniseConfidence": "adnabod testun [TESTUN] (hyder)",
-            "mlforkids.text.addTraining": "ychwanegu data hyfforddi [TESTUN] [LABEL]",
+            "mlforkids.text.recogniseLabel": "adnabod testun [TEXT] (label)",
+            "mlforkids.text.recogniseConfidence": "adnabod testun [TEXT] (hyder)",
+            "mlforkids.text.addTraining": "ychwanegu data hyfforddi [TEXT] [LABEL]",
             "mlforkids.text.trainNewModel": "hyfforddi model dysgu peiriant newydd",
-            "mlforkids.text.checkModelStatus": "A yw'r model dysgu peiriant [STATWS] ?"
+            "mlforkids.text.checkModelStatus": "A yw'r model dysgu peiriant [STATUS] ?"
         },
         "IMAGES_PROJECTS": {
-            "mlforkids.images.recogniseLabel": "adnabod delwedd [DELWEDD] (label)",
-            "mlforkids.images.recogniseConfidence": "adnabod delwedd [DELWEDD] (hyder)",
-            "mlforkids.images.addTraining": "ychwanegu data hyfforddi [TESTUN] [LABEL]"
+            "mlforkids.images.recogniseLabel": "adnabod delwedd [IMAGE] (label)",
+            "mlforkids.images.recogniseConfidence": "adnabod delwedd [IMAGE] (hyder)",
+            "mlforkids.images.addTraining": "ychwanegu data hyfforddi [TEXT] [LABEL]"
         },
         "NUMBER_PROJECTS": {
             "mlforkids.numbers.trainNewModel": "hyfforddi model dysgu peiriant newydd"
@@ -1429,15 +1429,15 @@
             "mlforkids.sounds.stopListening": "stopio gwrando"
         },
         "TWITTER": {
-            "mlforkids.twitter.getrecenttweet": "canfod [INDECS] trydariad mwyaf diweddar am [TOPIG]"
+            "mlforkids.twitter.getrecenttweet": "canfod [INDEX] trydariad mwyaf diweddar am [TOPIC]"
         },
         "FACE": {
-            "mlforkids.face.size": "maint o [TIRNOD]",
-            "mlforkids.face.xlocation": "Cyf. x o [TIRNOD]",
-            "mlforkids.face.ylocation": "Cyf. y o [TIRNOD]"
+            "mlforkids.face.size": "maint o [LANDMARK]",
+            "mlforkids.face.xlocation": "Cyf. x o [LANDMARK]",
+            "mlforkids.face.ylocation": "Cyf. y o [LANDMARK]"
         },
         "POSENET": {
-            "mlforkids.posenet.getposition": "Canfod [LLEOLIAD] o [TIRNOD]"
+            "mlforkids.posenet.getposition": "Canfod [POSITION] o [LANDMARK]"
         },
         "IMAGE_BLOCKS": {
             "mlforkids.imageblocks.getCostumeImage": "delwedd gwisg",

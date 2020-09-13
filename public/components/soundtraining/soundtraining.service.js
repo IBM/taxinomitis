@@ -5,10 +5,10 @@
         .service('soundTrainingService', soundTrainingService);
 
     soundTrainingService.$inject = [
-        'trainingService', 'utilService', '$q', '$log', '$window'
+        'trainingService', 'utilService', '$q', 'loggerService', '$window'
     ];
 
-    function soundTrainingService(trainingService, utilService, $q, $log, $window) {
+    function soundTrainingService(trainingService, utilService, $q, loggerService, $window) {
 
         var transferRecognizer;
         var transferModelInfo;
@@ -19,7 +19,7 @@
             var supported = $window.navigator &&
                             $window.navigator.mediaDevices &&
                             $window.navigator.mediaDevices.getUserMedia;
-            $log.debug('[ml4ksound] isUserMediaSupported ' + supported);
+            loggerService.debug('[ml4ksound] isUserMediaSupported ' + supported);
             return supported;
         }
 
@@ -27,17 +27,17 @@
         // easiest way to see if we're allowed to access the microphone
         //  is to try and access the microphone   ¯\_(ツ)_/¯
         function permissionsCheck() {
-            $log.debug('[ml4ksound] checking permissions');
+            loggerService.debug('[ml4ksound] checking permissions');
             return $window.navigator.mediaDevices.getUserMedia({ audio : true, video : false })
                 .then(function (stream) {
                     stream.getTracks().forEach(function (track) {
                         track.stop();
                     });
-                    $log.debug('[ml4ksound] permissions okay');
+                    loggerService.debug('[ml4ksound] permissions okay');
                 })
                 .catch(function (err) {
-                    $log.error('[ml4ksound] permissions check failed');
-                    $log.error(err);
+                    loggerService.error('[ml4ksound] permissions check failed');
+                    loggerService.error(err);
 
                     if (err.name === 'NotAllowedError' || err.name === 'SecurityError') {
                         throw { status : 400, data : {
@@ -56,7 +56,7 @@
                     }
                     else {
                         // record the error
-                        $log.error('[ml4ksound] Unexpected permissions error');
+                        loggerService.error('[ml4ksound] Unexpected permissions error');
                         if (err && Sentry && Sentry.captureException) {
                             Sentry.captureException(err);
                         }
@@ -67,7 +67,7 @@
         }
 
         function loadTensorFlow() {
-            $log.debug('[ml4ksound] loading tensorflow');
+            loggerService.debug('[ml4ksound] loading tensorflow');
 
             if (!isUserMediaSupported()) {
                 if (utilService.isInternetExplorer()) {
@@ -86,18 +86,23 @@
 
             return permissionsCheck()
                 .then(function () {
-                    $log.debug('[ml4ksound] loading tf');
+                    loggerService.debug('[ml4ksound] loading tf');
                     return utilService.loadScript('https://unpkg.com/@tensorflow/tfjs@1.5.2/dist/tf.js');
                 })
                 .then(function () {
-                    $log.debug('[ml4ksound] loading speech-commands');
+                    loggerService.debug('[ml4ksound] loading speech-commands');
                     return utilService.loadScript('https://unpkg.com/@tensorflow-models/speech-commands@0.4.2');
                 })
                 .then(function () {
-                    $log.debug('[ml4ksound] enabling tf prod mode');
+                    loggerService.debug('[ml4ksound] enabling tf prod mode');
                     if (tf && tf.enableProdMode) {
                         tf.enableProdMode();
                     }
+                })
+                .catch(function (err) {
+                    loggerService.error('[ml4ksound] failed to load tensorflow');
+                    loggerService.error(err);
+                    throw err;
                 });
         }
 
@@ -105,12 +110,12 @@
             var baseRecognizer;
             return loadTensorFlow()
                 .then(function () {
-                    $log.debug('[ml4ksound] browser model');
+                    loggerService.debug('[ml4ksound] browser model');
                     baseRecognizer = speechCommands.create('BROWSER_FFT');
                     return baseRecognizer.ensureModelLoaded();
                 })
                 .then(function () {
-                    $log.debug('[ml4ksound] creating transfer learning recognizer');
+                    loggerService.debug('[ml4ksound] creating transfer learning recognizer');
                     transferRecognizer = baseRecognizer.createTransfer(projectid);
 
                     var modelInfo = transferRecognizer.modelInputShape();
@@ -130,7 +135,7 @@
         }
 
         function getModels() {
-            $log.debug('[ml4ksound] get sound models');
+            loggerService.debug('[ml4ksound] get sound models');
             return $q(function (resolve) {
                 if (modelStatus) {
                     modelStatus.lastPollTime = new Date();
@@ -150,7 +155,7 @@
         }
 
         function newModel(projectid, userid, tenantid) {
-            $log.debug('[ml4ksound] creating new ML model');
+            loggerService.debug('[ml4ksound] creating new ML model');
 
             modelStatus = {
                 classifierid : projectid,
@@ -161,7 +166,7 @@
 
             return getTrainingData(projectid, userid, tenantid)
                 .then(function (trainingdata) {
-                    $log.debug('[ml4ksound] retrieved training data');
+                    loggerService.debug('[ml4ksound] retrieved training data');
 
                     // reset
                     transferRecognizer.dataset.clear();
@@ -187,7 +192,7 @@
                     return tf.nextFrame();
                 })
                 .then(function () {
-                    $log.debug('[ml4ksound] starting transfer learning');
+                    loggerService.debug('[ml4ksound] starting transfer learning');
 
                     transferRecognizer.train({
                         epochs : 100,
@@ -201,12 +206,12 @@
                         modelStatus.progress = 100;
                     });
 
-                    $log.debug('[ml4ksound] returning interim status');
+                    loggerService.debug('[ml4ksound] returning interim status');
                     return modelStatus;
                 })
                 .catch(function (err) {
-                    $log.error('[ml4ksound] model training failure');
-                    $log.error(err);
+                    loggerService.error('[ml4ksound] model training failure');
+                    loggerService.error(err);
 
                     modelStatus.status = 'Failed';
                     modelStatus.updated = new Date();
@@ -217,18 +222,18 @@
 
 
         function startTest(callback) {
-            $log.debug('[ml4ksound] starting to listen');
+            loggerService.debug('[ml4ksound] starting to listen');
             return transferRecognizer.listen(function (result) {
                 var matches = [];
 
                 var labels = transferRecognizer.wordLabels();
                 if (!labels) {
-                    $log.debug('[ml4ksound] labels unavailable');
+                    loggerService.debug('[ml4ksound] labels unavailable');
                     return callback(matches);
                 }
 
                 if (labels.length !== result.scores.length) {
-                    $log.error('Unexpected number of results',
+                    loggerService.error('Unexpected number of results',
                                labels.length,
                                result.scores.length);
                 }
@@ -251,7 +256,7 @@
         }
 
         function stopTest() {
-            $log.debug('[ml4ksound] stopping listening');
+            loggerService.debug('[ml4ksound] stopping listening');
             return transferRecognizer.stopListening();
         }
 

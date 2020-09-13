@@ -7,10 +7,10 @@
         SignupController.$inject = [
             'authService',
             'usersService',
-            '$document', '$timeout', '$log'
+            '$document', '$timeout', 'loggerService'
         ];
 
-        function SignupController(authService, usersService, $document, $timeout, $log) {
+        function SignupController(authService, usersService, $document, $timeout, loggerService) {
             var vm = this;
             vm.authService = authService;
 
@@ -47,13 +47,13 @@
             vm.confirm = function (newClassDetails) {
                 vm.creating = true;
 
-                $log.debug('[ml4ksignup] Creating new class');
-                $log.debug(newClassDetails);
+                loggerService.debug('[ml4ksignup] Creating new class');
+                loggerService.debug(newClassDetails);
 
                 usersService.createTeacher(newClassDetails.username, newClassDetails.email, newClassDetails.intendeduse)
                     .then(function (resp) {
-                        $log.debug('[ml4ksignup] Created class');
-                        $log.debug(resp);
+                        loggerService.debug('[ml4ksignup] Created class');
+                        loggerService.debug(resp);
 
                         var newId = alertId++;
                         vm.infos.push({
@@ -67,8 +67,8 @@
                     .catch(function (err) {
                         vm.creating = false;
 
-                        $log.error('[ml4ksignup] Failed to create class');
-                        $log.error(err);
+                        loggerService.error('[ml4ksignup] Failed to create class');
+                        loggerService.error(err);
 
                         displayAlert('errors', 500, err.data);
                     });

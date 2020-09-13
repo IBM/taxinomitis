@@ -28,7 +28,10 @@ describe('REST API - Security', () => {
                     assert.strictEqual(res.header['x-frame-options'], 'SAMEORIGIN');
                     assert.strictEqual(res.header['x-content-type-options'], 'nosniff');
                     assert.strictEqual(res.header['x-download-options'], 'noopen');
-                    assert.strictEqual(res.header['x-xss-protection'], '1; mode=block');
+
+                    // disabled by default now : https://github.com/helmetjs/helmet/issues/230
+                    // assert.strictEqual(res.header['x-xss-protection'], '1; mode=block');
+                    assert.strictEqual(res.header['x-xss-protection'], '0');
                 });
         });
     });

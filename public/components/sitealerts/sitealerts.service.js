@@ -5,14 +5,14 @@
         .service('sitealertsService', sitealertsService);
 
     sitealertsService.$inject = [
-        '$http', '$rootScope', '$interval', '$log',
+        '$http', '$rootScope', '$interval', 'loggerService',
         'authService'
     ];
 
-    function sitealertsService($http, $rootScope, $interval, $log, authService) {
+    function sitealertsService($http, $rootScope, $interval, loggerService, authService) {
 
         function logError(err) {
-            $log.error(err);
+            loggerService.error(err);
             delete $rootScope.siteAlert;
         }
 

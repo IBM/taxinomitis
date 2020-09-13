@@ -30,7 +30,7 @@ describe('Utils - imageCheck', () => {
     it('should report a gif', (done) => {
         imageCheck.verifyImage(INVALID_GIF, 10000000)
             .then(() => {
-                assert.fail(0, 1, 'Should not accept that');
+                assert.fail('Should not accept that');
             })
             .catch((err) => {
                 assert.strictEqual(err.message, 'Unsupported file type (gif). Only jpg and png images are supported.');
@@ -42,7 +42,7 @@ describe('Utils - imageCheck', () => {
     it('should report bad urls', (done) => {
         imageCheck.verifyImage(NON_EXISTENT, 10000000)
             .then(() => {
-                assert.fail(0, 1, 'Should not accept that');
+                assert.fail('Should not accept that');
             })
             .catch((err) => {
                 assert.strictEqual(err.message, 'Unable to download image from ' + NON_EXISTENT);
@@ -53,7 +53,7 @@ describe('Utils - imageCheck', () => {
     it('should tolerate gibberish without crashing', (done) => {
         imageCheck.verifyImage(GIBBERISH, 10000000)
             .then(() => {
-                assert.fail(0, 1, 'Should not accept that');
+                assert.fail('Should not accept that');
             })
             .catch((err) => {
                 assert.strictEqual(err.message, 'Unable to download image from ' + GIBBERISH);
@@ -64,7 +64,7 @@ describe('Utils - imageCheck', () => {
     it('should tolerate special characters without crashing', (done) => {
         imageCheck.verifyImage(SPECIALCHARS, 10000000)
             .then(() => {
-                assert.fail(0, 1, 'Should not accept that');
+                assert.fail('Should not accept that');
             })
             .catch((err) => {
                 assert.strictEqual(err.message, 'Unable to download image from ' + SPECIALCHARS);
@@ -75,7 +75,7 @@ describe('Utils - imageCheck', () => {
     it('should reject images that exceed size limits', (done) => {
         imageCheck.verifyImage(VALID_JPG, 8000)
             .then(() => {
-                assert.fail(0, 1, 'Should not accept that');
+                assert.fail('Should not accept that');
             })
             .catch((err) => {
                 assert.strictEqual(err.message,

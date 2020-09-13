@@ -52,11 +52,17 @@ describe('UI - NLS', () => {
         ru = JSON.parse(fs.readFileSync('./public/languages/ru.json', 'utf8'));
     });
 
+    const NO_TRANSLATION_REQUIRED = [
+        '.HELP.LOG',
+    ];
 
     function compareKeys(obj1: any, obj2: any, obj2name: string, keypath = '') {
         for (const key of Object.keys(obj1)) {
             if (key in obj2 === false) {
-                assert.fail(keypath + '.' + key + ' missing from ' + obj2name);
+                const location = keypath + '.' + key;
+                if (!NO_TRANSLATION_REQUIRED.includes(location)) {
+                    assert.fail(keypath + '.' + key + ' missing from ' + obj2name);
+                }
             }
 
             if (typeof obj1[key] !== 'string') {

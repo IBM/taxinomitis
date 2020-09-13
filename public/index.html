@@ -66,6 +66,7 @@
                             <li><a ui-sref="worksheets" data-toggle="collapse" data-target=".navbar-collapse.in" translate="APP.WORKSHEETS"></a></li>
                             <li><a ui-sref="news" data-toggle="collapse" data-target=".navbar-collapse.in" translate="APP.NEWS"></a></li>
                             <li><a ui-sref="help" data-toggle="collapse" data-target=".navbar-collapse.in" translate="APP.HELP"></a></li>
+                            <li ng-if="debugLogging"><a href='' data-toggle="collapse" data-target=".navbar-collapse.in" ng-click="loggerService.download()" translate="HELP.LOG"></a></li>
 
                             <li ng-if="!isAuthenticated" ng-hide="inMaintenanceMode"><a ui-sref="login" data-toggle="collapse" data-target=".navbar-collapse.in" translate="APP.LOGIN"></a></li>
                             <li ng-if="isAuthenticated"><a ui-sref="welcome" ng-click="authService.logout()" data-toggle="collapse" data-target=".navbar-collapse.in" translate="APP.LOGOUT"></a></li>
@@ -156,6 +157,6 @@
         <script type="text/javascript" src="/static/app-<%= VERSION %>.js"></script>
         <script type="text/javascript" src="/static/mlapp-<%= VERSION %>.min.js"></script>
 
-        <script async src="//scratchblocks.github.io/js/scratchblocks-v3.1-min.js"></script>
+        <script async src="/static/scratchblocks-v3.1-min.js"></script>
     </body>
 </html>

@@ -6,10 +6,10 @@
 
         ModelDescribeController.$inject = [
             'authService', 'projectsService', 'trainingService',
-            '$stateParams', '$scope', '$timeout', '$interval', '$document', '$log'
+            '$stateParams', '$scope', '$timeout', '$interval', '$document', 'loggerService'
         ];
 
-    function ModelDescribeController(authService, projectsService, trainingService, $stateParams, $scope, $timeout, $interval, $document, $log) {
+    function ModelDescribeController(authService, projectsService, trainingService, $stateParams, $scope, $timeout, $interval, $document, loggerService) {
         var vm = this;
         vm.authService = authService;
 
@@ -142,8 +142,8 @@
                 };
             }
             else {
-                $log.error('[ml4kdescribe] Unexpected test syntax');
-                $log.error(test);
+                loggerService.error('[ml4kdescribe] Unexpected test syntax');
+                loggerService.error(test);
             }
         }
 
