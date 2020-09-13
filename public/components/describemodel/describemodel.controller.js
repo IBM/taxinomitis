@@ -5,11 +5,11 @@
         .controller('ModelDescribeController', ModelDescribeController);
 
         ModelDescribeController.$inject = [
-            'authService', 'projectsService', 'trainingService',
+            'authService', 'projectsService', 'trainingService', 'loggerService',
             '$stateParams', '$scope', '$timeout', '$interval', '$document', 'loggerService'
         ];
 
-    function ModelDescribeController(authService, projectsService, trainingService, $stateParams, $scope, $timeout, $interval, $document, loggerService) {
+    function ModelDescribeController(authService, projectsService, trainingService, loggerService, $stateParams, $scope, $timeout, $interval, $document, loggerService) {
         var vm = this;
         vm.authService = authService;
 
@@ -58,13 +58,17 @@
             .then(function (profile) {
                 vm.profile = profile;
 
+                loggerService.debug('[ml4kdesc] Getting project info');
                 return projectsService.getProject($scope.projectId, $scope.userId, profile.tenant);
             })
             .then(function (project) {
+                loggerService.debug('[ml4kdesc] project', project);
                 $scope.project = project;
+                loggerService.debug('[ml4kdesc] getting ML models');
                 return trainingService.getModels($scope.projectId, $scope.userId, vm.profile.tenant);
             })
             .then(function (models) {
+                loggerService.debug('[ml4kdesc] models', models);
                 if (models && models.length > 0 && models[0].status === 'Available') {
                     return trainingService.getModel($scope.project.id, $scope.userId, vm.profile.tenant, $scope.modelId, models[0].updated);
                 }
@@ -75,6 +79,8 @@
                 }
             })
             .then(function (modelinfo) {
+                loggerService.debug('[ml4kdesc] model info', modelinfo);
+
                 $scope.loading = false;
                 if (modelinfo) {
                     $scope.modelinfo = {
@@ -84,10 +90,12 @@
                     initializeVisualisation(modelinfo.svg);
                     prepareDecisionTreeGraph(modelinfo.dot);
 
+                    loggerService.debug('[ml4kdesc] getting project fields');
                     return projectsService.getFields($scope.projectId, $scope.userId, vm.profile.tenant);
                 }
             })
             .then(function (fields) {
+                loggerService.debug('[ml4kdesc] fields', fields);
                 if (fields) {
                     $scope.project.fields = fields;
                 }
@@ -104,6 +112,7 @@
         //-------------------------------------------------------------------------------
 
         function initializeVisualisation(svgdata) {
+            loggerService.debug('[ml4kdesc] initializing visualization');
             $timeout(function () {
                 // prepare somewhere to put the decision tree graphic
                 var svgcontainer = document.createElement("div");
@@ -151,6 +160,7 @@
         var GRAPHVIZ_NODE_REGEX = /^([0-9]+) \[fillcolor="#[a-z0-9]{6}", label="((.*?)\\n.*)"];$/;
         var GRAPHVIZ_EDGE_REGEX = /^([0-9]+) -> ([0-9]+).*;$/;
         function prepareDecisionTreeGraph(dotfile) {
+            loggerService.debug('[ml4kdesc] preparing decision tree graph');
             var edgeid = 1;
 
             var dotfilelines = dotfile.split('\n');
@@ -186,6 +196,7 @@
 
         // identify edges and nodes in the tree for a given set of input values
         function identifyTreeRoute(rawdata) {
+            loggerService.debug('[ml4kdesc] identifying tree route');
             var answers = {};
 
 			for (var featureidx = 0; featureidx < $scope.modelinfo.vocabulary.length; featureidx++) {
@@ -255,6 +266,8 @@
         $scope.testformData = {};
 
         vm.resetTree = function () {
+            loggerService.debug('[ml4kdesc] resetting decision tree');
+
             // remove custom highlighting classes from all edges and nodes
             var mysvg = document.getElementById('mlforkidsmodelvizimg');
             var things = mysvg.querySelectorAll('.node,.edge');
@@ -266,6 +279,8 @@
         };
 
         vm.highlight = function (rawdata) {
+            loggerService.debug('[ml4kdesc] adding highlight');
+
             // clear any existing highlighting classes
             vm.resetTree();
 

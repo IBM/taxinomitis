@@ -28,6 +28,7 @@
         }
 
         function getAlerts(endpoint, tenant, userid) {
+            loggerService.debug('[ml4kalert] getting alerts', endpoint, tenant, userid);
             var url = '/api/sitealerts/public';
             if (endpoint === 'student') {
                 url = '/api/sitealerts/alerts/' + tenant + '/students/' + userid;

@@ -7,11 +7,12 @@
         DatasetsController.$inject = [
             'authService',
             'projectsService',
+            'loggerService',
             '$state', '$translate', '$mdDialog', '$stateParams'
         ];
 
 
-    function DatasetsController(authService, projectsService, $state, $translate, $mdDialog, $stateParams) {
+    function DatasetsController(authService, projectsService, loggerService, $state, $translate, $mdDialog, $stateParams) {
 
         var vm = this;
         vm.authService = authService;
@@ -139,6 +140,7 @@
 
 
         vm.displayDataset = function (ev, dataset) {
+            loggerService.debug('[ml4kds] Displaying dataset', dataset);
             if (vm.creating) {
                 return;
             }
@@ -168,7 +170,7 @@
                     vm.importProject(datasetToImport);
                 },
                 function() {
-                    // cancelled. do nothing
+                    loggerService.debug('[ml4kds] Import cancelled');
                 }
             );
         };
@@ -177,6 +179,8 @@
 
 
         vm.importProject = function (dataset) {
+            loggerService.debug('[ml4kds] Importing dataset', dataset);
+
             if (vm.creating) {
                 return;
             }
@@ -190,6 +194,8 @@
                     $state.go('projects', { id : created.id });
                 })
                 .catch(function (err) {
+                    loggerService.error('[ml4kds] Import failed', err);
+
                     displayAlert('errors', err.status, err.data);
 
                     vm.creating = false;

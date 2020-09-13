@@ -75,8 +75,7 @@
                         displayApiKeyCheckWarning(support);
                     })
                     .catch(function (supporterr) {
-                        loggerService.error('[ml4kprojects] Failed to check API keys');
-                        loggerService.error(supporterr);
+                        loggerService.error('[ml4kprojects] Failed to check API keys', supporterr);
 
                         checkingProject.isPlaceholder = false;
                         displayApiKeyCheckWarning(supporterr);
@@ -180,8 +179,7 @@
                             }
                         })
                         .catch(function (err) {
-                            loggerService.error('[ml4kprojects] Failed to delete project');
-                            loggerService.error(err);
+                            loggerService.error('[ml4kprojects] Failed to delete project', err);
 
                             displayAlert('errors', err.status, err.data);
                         });
@@ -205,8 +203,7 @@
                     project.isPlaceholder = false;
                 })
                 .catch(function (err) {
-                    loggerService.error('[ml4kprojects] Failed to share project');
-                    loggerService.error(err);
+                    loggerService.error('[ml4kprojects] Failed to share project', err);
 
                     project.isPlaceholder = false;
                     displayAlert('errors', err.status, err.data);

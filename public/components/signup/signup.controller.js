@@ -47,13 +47,11 @@
             vm.confirm = function (newClassDetails) {
                 vm.creating = true;
 
-                loggerService.debug('[ml4ksignup] Creating new class');
-                loggerService.debug(newClassDetails);
+                loggerService.debug('[ml4ksignup] Creating new class', newClassDetails);
 
                 usersService.createTeacher(newClassDetails.username, newClassDetails.email, newClassDetails.intendeduse)
                     .then(function (resp) {
-                        loggerService.debug('[ml4ksignup] Created class');
-                        loggerService.debug(resp);
+                        loggerService.debug('[ml4ksignup] Created class', resp);
 
                         var newId = alertId++;
                         vm.infos.push({
@@ -67,8 +65,7 @@
                     .catch(function (err) {
                         vm.creating = false;
 
-                        loggerService.error('[ml4ksignup] Failed to create class');
-                        loggerService.error(err);
+                        loggerService.error('[ml4ksignup] Failed to create class', err);
 
                         displayAlert('errors', 500, err.data);
                     });

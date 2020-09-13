@@ -41,6 +41,7 @@
 
 
         function computeLimit(type) {
+            loggerService.debug('[ml4kapi] computing limit for ' + type);
             var creds = vm.credentials[type];
 
             var mlmodels = 0;
@@ -148,8 +149,7 @@
                     creds.verifying = false;
                 })
                 .catch(function (err) {
-                    loggerService.error('[ml4kapi] check failed');
-                    loggerService.error(err);
+                    loggerService.error('[ml4kapi] check failed', err);
 
                     creds.verified = false;
                     creds.verifying = false;
@@ -193,8 +193,7 @@
                             computeLimit(type);
                         })
                         .catch(function (err) {
-                            loggerService.error('[ml4kapi] failed to delete');
-                            loggerService.error(err);
+                            loggerService.error('[ml4kapi] failed to delete', err);
 
                             displayAlert('errors', err.status, err.data);
                         });
@@ -252,8 +251,7 @@
                             computeLimit(type);
                         })
                         .catch(function (err) {
-                            loggerService.error('[ml4kapi] failed to store');
-                            loggerService.error(err);
+                            loggerService.error('[ml4kapi] failed to store', err);
 
                             var errId = displayAlert('errors', err.status, err.data);
                             scrollToNewItem('errors' + errId);
@@ -303,8 +301,7 @@
                             computeLimit(type);
                         })
                         .catch(function (err) {
-                            loggerService.error('[ml4kapi] failed to update');
-                            loggerService.error(err);
+                            loggerService.error('[ml4kapi] failed to update', err);
 
                             var errId = displayAlert('errors', err.status, err.data);
                             scrollToNewItem('errors' + errId);

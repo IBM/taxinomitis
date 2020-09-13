@@ -5,11 +5,11 @@
             .controller('PythonController', PythonController);
 
         PythonController.$inject = [
-            'authService', 'projectsService', 'scratchkeysService',
+            'authService', 'projectsService', 'scratchkeysService', 'loggerService',
             '$stateParams', '$scope'
         ];
 
-        function PythonController(authService, projectsService, scratchkeysService, $stateParams, $scope) {
+        function PythonController(authService, projectsService, scratchkeysService, loggerService, $stateParams, $scope) {
 
             var vm = this;
             vm.authService = authService;
@@ -31,6 +31,7 @@
                 .then(function (profile) {
                     vm.profile = profile;
 
+                    loggerService.debug('[ml4kpython] getting project');
                     return projectsService.getProject($scope.projectId, $scope.userId, profile.tenant);
                 })
                 .then(function (project) {
@@ -40,6 +41,7 @@
                     }
 
                     if (project.type === 'numbers') {
+                        loggerService.debug('[ml4kpython] getting project fields');
                         return projectsService.getFields($scope.projectId, $scope.userId, vm.profile.tenant);
                     }
                     else {
@@ -49,6 +51,7 @@
                 .then(function (fields) {
                     $scope.fields = fields;
 
+                    loggerService.debug('[ml4kpython] getting Scratch key');
                     return scratchkeysService.getScratchKeys($scope.project.id, $scope.userId, vm.profile.tenant);
                 })
                 .then(function (resp) {
