@@ -195,9 +195,7 @@ gulp.task('tslint', () => {
         .pipe(tslint.report());
 });
 
-gulp.task('lint', gulp.series('tslint', (done) => {
-    done();
-}));
+gulp.task('lint', gulp.series('tslint'));
 
 gulp.task('test', () => {
     const mochaOptions = {
@@ -211,6 +209,7 @@ gulp.task('test', () => {
 
 gulp.task('web',
     gulp.series('css', 'minifyjs', 'images', 'html', 'angularcomponents', 'languages', 'datasets', 'scratchxinstall', 'scratch3install', 'scratchblocks'));
+
 gulp.task('build',
     gulp.parallel('web', 'compile'));
 

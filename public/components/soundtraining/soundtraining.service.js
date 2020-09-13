@@ -164,6 +164,7 @@
                 updated : new Date()
             };
 
+            loggerService.debug('[ml4ksound] getting training data');
             return getTrainingData(projectid, userid, tenantid)
                 .then(function (trainingdata) {
                     loggerService.debug('[ml4ksound] retrieved training data');
@@ -210,8 +211,7 @@
                     return modelStatus;
                 })
                 .catch(function (err) {
-                    loggerService.error('[ml4ksound] model training failure');
-                    loggerService.error(err);
+                    loggerService.error('[ml4ksound] model training failure', err);
 
                     modelStatus.status = 'Failed';
                     modelStatus.updated = new Date();
@@ -233,7 +233,7 @@
                 }
 
                 if (labels.length !== result.scores.length) {
-                    loggerService.error('Unexpected number of results',
+                    loggerService.error('[ml4ksound] Unexpected number of results',
                                labels.length,
                                result.scores.length);
                 }

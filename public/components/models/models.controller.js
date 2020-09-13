@@ -94,6 +94,8 @@
             vm[type].splice(errIdx, 1);
         };
         function displayAlert(type, status, errObj) {
+            loggerService.error('[ml4kmodels] displaying alert', errObj);
+
             if (!errObj) {
                 errObj = {};
             }
@@ -265,6 +267,7 @@
         var timer = null;
 
         function stopRefreshing() {
+            loggerService.debug('[ml4kmodels] stop refreshing models');
             if (timer) {
                 $interval.cancel(timer);
                 timer = null;
@@ -462,6 +465,8 @@
                                       $scope.models[0].classifierid, $scope.models[0].credentialsid,
                                       testdata)
                 .then(function (resp) {
+                    loggerService.debug('[ml4kmodels] test response', resp);
+
                     if (resp && resp.length > 0) {
                         $scope.testoutput = resp[0].class_name;
                         $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
@@ -518,6 +523,8 @@
 
 
         vm.useWebcam = function (ev, label) {
+            loggerService.debug('[ml4kmodels] useWebcam');
+
             $scope.testformData.testimageurl = '';
 
             $mdDialog.show({
@@ -545,8 +552,7 @@
                     };
 
                     function displayWebcamError(err) {
-                        loggerService.error('[ml4kmodels] display webcam error');
-                        loggerService.error(err);
+                        loggerService.error('[ml4kmodels] display webcam error', err);
 
                         $scope.webcamerror = err;
                         if (err && err.message) {
@@ -560,8 +566,7 @@
                     }
 
                     $scope.onWebcamError = function(err) {
-                        loggerService.error('[ml4kmodels] on webcam error');
-                        loggerService.error(err);
+                        loggerService.error('[ml4kmodels] on webcam error', err);
 
                         $scope.webcamInitComplete = true;
 
@@ -633,6 +638,8 @@
 
 
         vm.useCanvas = function (ev) {
+            loggerService.debug('[ml4kmodels] useCanvas');
+
             $scope.testformData.testimageurl = '';
 
             $mdDialog.show({

@@ -48,7 +48,7 @@
                     vm.students = students;
                 })
                 .catch(function (err) {
-                    loggerService.error('[ml4kuser] failed to get students list');
+                    loggerService.error('[ml4kuser] failed to get students list', err);
                     displayAlert('errors', err.status, err.data);
                 });
         }
@@ -93,7 +93,7 @@
 
 
         vm.deleteUser = function (ev, student) {
-            loggerService.debug('[ml4kuser] deleting student');
+            loggerService.debug('[ml4kuser] deleting student', student);
 
             var confirm = $mdDialog.confirm()
                 .title('Are you sure?')
@@ -117,8 +117,7 @@
                             });
                         })
                         .catch(function (err) {
-                            loggerService.error('[ml4kuser] failed to delete');
-                            loggerService.error(err);
+                            loggerService.error('[ml4kuser] failed to delete', err);
 
                             student.isPlaceholder = false;
                             displayAlert('errors', err.status, err.data);
