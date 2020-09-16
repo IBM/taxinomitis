@@ -324,8 +324,7 @@
                 });
 
                 lock.on('authorization_error', function (err) {
-                    loggerService.warn('[ml4kauth] Authorization error');
-                    loggerService.warn(err);
+                    loggerService.warn('[ml4kauth] Authorization error', err);
 
                     if (err && err.errorDescription) {
                         if (err.errorDescription === 'Please verify your email to activate your class account') {
@@ -340,8 +339,7 @@
 
                 // auth0 looks completely broken so try starting again
                 lock.on('unrecoverable_error', function (err) {
-                    loggerService.error('[ml4kauth] Unrecoverable auth error');
-                    loggerService.error(err);
+                    loggerService.error('[ml4kauth] Unrecoverable auth error', err);
 
                     logout();
                     return $window.location.reload(true);

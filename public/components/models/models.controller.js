@@ -359,6 +359,8 @@
                 loggerService.debug('[ml4kmodels] submitting new model request');
                 trainingService.newModel(project.id, $scope.userId, vm.profile.tenant)
                     .then(function (newmodel) {
+                        loggerService.debug('[ml4kmodels] model training', newmodel);
+
                         $scope.models = [ newmodel ];
                         $scope.status = getStatus();
 
@@ -367,6 +369,7 @@
                         refreshModels();
                     })
                     .catch(function (err) {
+                        loggerService.error('[ml4kmodels] model training failed', err);
                         $scope.submittingTrainingRequest = false;
 
                         if (createModelFailedDueToDownloadFail(err)) {
@@ -586,6 +589,8 @@
 
 
                     function getWebcamData() {
+                        loggerService.debug('[ml4kmodels] getting webcam data');
+
                         var hiddenCanvas = document.createElement('canvas');
                         hiddenCanvas.width = $scope.channel.video.width;
                         hiddenCanvas.height = $scope.channel.video.height;
@@ -697,8 +702,7 @@
             if (!$scope.listening) {
                 $scope.listening = true;
                 soundTrainingService.startTest(function (resp) {
-                    loggerService.debug('[ml4kmodels] sound test callback');
-                    loggerService.debug(resp);
+                    loggerService.debug('[ml4kmodels] sound test callback', resp);
                     $scope.$apply(
                         function() {
                             $scope.testoutput = resp[0].class_name;
@@ -721,8 +725,7 @@
                             });
                     })
                     .catch(function (err) {
-                        loggerService.error('[ml4kmodels] Failed to stop listening');
-                        loggerService.error(err);
+                        loggerService.error('[ml4kmodels] Failed to stop listening', err);
                     });
             }
         };

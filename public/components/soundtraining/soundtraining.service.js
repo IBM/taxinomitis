@@ -70,13 +70,17 @@
             loggerService.debug('[ml4ksound] loading tensorflow');
 
             if (!isUserMediaSupported()) {
+                loggerService.error('[ml4ksound] user media not supported');
+
                 if (utilService.isInternetExplorer()) {
+                    loggerService.debug('[ml4ksound] running on Internet Explorer');
                     throw ({
                         status : 400,
                         data : { message : 'Sorry! Internet Explorer cannot be used for sounds projects' }
                     });
                 }
                 else {
+                    loggerService.debug('[ml4ksound] reporting failure to find microphone');
                     throw ({
                         status : 400,
                         data : { message : 'Sorry! Machine Learning for Kids could not find a microphone to use' }
