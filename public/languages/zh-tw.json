@@ -122,7 +122,7 @@
         "LETMEKNOW": "通知我"
     },
     "WELCOME": {
-        "TITLE": "教電腦如何玩遊戲",
+        "TITLE": "訓練電腦學習玩遊戲",
         "GET_STARTED": "開始進行",
         "LEARN_MORE": "學習更多",
         "ADMIN_LABEL": "切換到<strong>管理頁面</strong>",
@@ -1451,6 +1451,7 @@
         }
     },
     "HELP": {
+        "LOG": "下載紀錄",
         "CONTACT": "如果你有任何問題或疑問，請洽詢<a target='_blank' href='https://groups.google.com/d/forum/mlforkids'>兒童機器學習論壇</a>",
         "GETTINGSTARTED": {
             "TITLE": "第一次使用？",
