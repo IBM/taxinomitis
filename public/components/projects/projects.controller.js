@@ -48,8 +48,7 @@
 
 
         function displayApiKeyCheckWarning(warning) {
-            loggerService.debug('[ml4kprojects] display api key check');
-            loggerService.debug(warning);
+            loggerService.debug('[ml4kprojects] display api key check', warning);
 
             if (translatedStrings['NEWPROJECT.WARNINGS.' + warning.code]) {
                 displayAlert('warnings', 409, {
@@ -131,8 +130,7 @@
                     }
                 })
                 .catch(function (err) {
-                    loggerService.error('[ml4kprojects] Failed to refresh projects list');
-                    loggerService.error(err);
+                    loggerService.error('[ml4kprojects] Failed to refresh projects list', err);
 
                     displayAlert('errors', err.status, err.data);
                 });
