@@ -47,13 +47,13 @@
             var mlmodels = 0;
             for (var i = 0; i < creds.length; i++) {
                 var cred = creds[i];
-                if (cred.credstype === 'conv_lite') {
+                if (cred.credstype === 'conv_lite' || cred.credstype === 'conv_plustrial') {
                     mlmodels += 5;
                 }
                 else if (cred.credstype === 'conv_standard') {
                     mlmodels += 20;
                 }
-                else if (cred.credstype === 'conv_plus' || cred.credstype === 'conv_plustrial') {
+                else if (cred.credstype === 'conv_plus') {
                     mlmodels += 50;
                 }
                 else if (cred.credstype === 'visrec_lite') {
