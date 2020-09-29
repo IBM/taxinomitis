@@ -16,6 +16,10 @@ import * as auth from '../../lib/restapi/auth';
 import * as visrec from '../../lib/training/visualrecognition';
 import * as trainingtypes from '../../lib/training/training-types';
 import testapiserver from './testserver';
+import loggerSetup from '../../lib/utils/logger';
+
+const log = loggerSetup();
+
 
 let testServer: express.Express;
 
@@ -291,10 +295,12 @@ describe('REST API - image training for managed pool classes', () => {
         it('should record failures', async () => {
             failCredsId = 'neither';
 
-            await wait();
             const timestamp = new Date().getTime();
+            log.debug({ timestamp }, 'Created timestamp');
             await wait();
+            log.debug('Waited.');
 
+            log.debug('Getting credentials');
             let first = await store.getBluemixCredentialsById(types.ClassTenantType.ManagedPool, firstCredsId);
             let second = await store.getBluemixCredentialsById(types.ClassTenantType.ManagedPool, secondCredsId);
 
@@ -304,14 +310,19 @@ describe('REST API - image training for managed pool classes', () => {
             const firstCredsCheckTime = firstCredsCheck.lastfail.getTime();
             const secondCredsCheckTime = secondCredsCheck.lastfail.getTime();
 
+            log.debug({ firstCredsCheckTime, secondCredsCheckTime, timestamp }, 'Timestamps');
+
             assert(firstCredsCheckTime < timestamp);
             assert(secondCredsCheckTime < timestamp);
 
+            log.debug('Submitting model training');
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + secondProject.id + '/models')
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.CREATED)
                 .then(async (res) => {
+                    log.debug({ body : res.body }, 'Response');
+
                     assert(res.body.classifierid);
                     assert(res.body.updated);
                     assert(res.body.expiry);

@@ -36,6 +36,9 @@
             'WORKSHEETS.MAILMANMAX.TITLE', 'WORKSHEETS.MAILMANMAX.SUMMARY', 'WORKSHEETS.MAILMANMAX.DESCRIPTION',
             'WORKSHEETS.MAILMANMAX.WORKSHEET_1.URL',
 
+            'WORKSHEETS.SHOOTTHEBUG.TITLE', 'WORKSHEETS.SHOOTTHEBUG.SUMMARY', 'WORKSHEETS.SHOOTTHEBUG.DESCRIPTION',
+            'WORKSHEETS.SHOOTTHEBUG.WORKSHEET_1.URL',
+
             'WORKSHEETS.CARORCUP.TITLE', 'WORKSHEETS.CARORCUP.SUMMARY', 'WORKSHEETS.CARORCUP.DESCRIPTION',
             'WORKSHEETS.CARORCUP.WORKSHEET_1.DESCRIPTION', 'WORKSHEETS.CARORCUP.WORKSHEET_1.URL',
             'WORKSHEETS.CARORCUP.WORKSHEET_2.DESCRIPTION', 'WORKSHEETS.CARORCUP.WORKSHEET_2.URL',
@@ -254,6 +257,22 @@
                     downloads : [
                         {
                             worksheet : translations['WORKSHEETS.MAILMANMAX.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.SHOOTTHEBUG.TITLE'],
+                    summary : translations['WORKSHEETS.SHOOTTHEBUG.SUMMARY'],
+                    description : translations['WORKSHEETS.SHOOTTHEBUG.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'numbers',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-shootthebug.png',
+                    tags : [ 'decision tree learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shootthebug.pdf',
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.SHOOTTHEBUG.WORKSHEET_1.URL']
                         }
                     ]
                 },
