@@ -16,6 +16,9 @@
 
         vm.worksheets = [];
         $translate([
+            'WORKSHEETS.DESCRIBETHEGLASS.TITLE', 'WORKSHEETS.DESCRIBETHEGLASS.SUMMARY', 'WORKSHEETS.DESCRIBETHEGLASS.DESCRIPTION',
+            'WORKSHEETS.DESCRIBETHEGLASS.WORKSHEET_1.URL',
+
             'WORKSHEETS.SMARTCLASSROOM.TITLE', 'WORKSHEETS.SMARTCLASSROOM.SUMMARY', 'WORKSHEETS.SMARTCLASSROOM.DESCRIPTION',
             'WORKSHEETS.SMARTCLASSROOM.WORKSHEET_1.DESCRIPTION', 'WORKSHEETS.SMARTCLASSROOM.WORKSHEET_1.URL',
             'WORKSHEETS.SMARTCLASSROOM.WORKSHEET_2.DESCRIPTION', 'WORKSHEETS.SMARTCLASSROOM.WORKSHEET_2.URL',
@@ -140,6 +143,22 @@
 
         ]).then(function (translations) {
             vm.worksheets = [
+                {
+                    title : translations['WORKSHEETS.DESCRIBETHEGLASS.TITLE'],
+                    summary : translations['WORKSHEETS.DESCRIBETHEGLASS.SUMMARY'],
+                    description : translations['WORKSHEETS.DESCRIBETHEGLASS.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'numbers',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-describetheglass.png',
+                    tags : [ 'decision tree learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-describetheglass.pdf',
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.DESCRIBETHEGLASS.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
                 {
                     title : translations['WORKSHEETS.SMARTCLASSROOM.TITLE'],
                     summary : translations['WORKSHEETS.SMARTCLASSROOM.SUMMARY'],

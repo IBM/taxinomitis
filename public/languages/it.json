@@ -872,6 +872,14 @@
         },
 
 
+        "DESCRIBETHEGLASS": {
+            "TITLE": "Describe the glass",
+            "SUMMARY": "Teach a computer to predict your answers",
+            "DESCRIPTION": "Create a game in Scratch that learns when you describe a glass as half-full or half-empty.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-describetheglass.pdf"
+            }
+        },
         "SMARTCLASSROOM": {
             "TITLE": "Aula Intelligente",
             "SUMMARY": "Insegna a un computer a riconoscere il significato dei tuoi comandi",
