@@ -7,10 +7,10 @@
     ProjectsController.$inject = [
         'authService',
         'projectsService',
-        '$stateParams', '$translate', '$mdDialog', '$log'
+        '$stateParams', '$translate', '$mdDialog', 'loggerService'
     ];
 
-    function ProjectsController(authService, projectsService, $stateParams, $translate, $mdDialog, $log) {
+    function ProjectsController(authService, projectsService, $stateParams, $translate, $mdDialog, loggerService) {
 
         var vm = this;
         vm.authService = authService;
@@ -48,8 +48,7 @@
 
 
         function displayApiKeyCheckWarning(warning) {
-            $log.debug('[ml4kprojects] display api key check');
-            $log.debug(warning);
+            loggerService.debug('[ml4kprojects] display api key check', warning);
 
             if (translatedStrings['NEWPROJECT.WARNINGS.' + warning.code]) {
                 displayAlert('warnings', 409, {
@@ -66,17 +65,16 @@
             {
                 checkingProject.isPlaceholder = true;
 
-                $log.debug('[ml4kprojects] Checking class API keys');
+                loggerService.debug('[ml4kprojects] Checking class API keys');
                 projectsService.checkProjectCredentials(profile.tenant, checkingProject.type)
                     .then(function (support) {
-                        $log.debug('[ml4kprojects] API keys checked');
+                        loggerService.debug('[ml4kprojects] API keys checked');
 
                         checkingProject.isPlaceholder = false;
                         displayApiKeyCheckWarning(support);
                     })
                     .catch(function (supporterr) {
-                        $log.error('[ml4kprojects] Failed to check API keys');
-                        $log.error(supporterr);
+                        loggerService.error('[ml4kprojects] Failed to check API keys', supporterr);
 
                         checkingProject.isPlaceholder = false;
                         displayApiKeyCheckWarning(supporterr);
@@ -86,11 +84,11 @@
 
 
         function refreshProjectsList(profile) {
-            $log.debug('[ml4kprojects] Refreshing projects list');
+            loggerService.debug('[ml4kprojects] Refreshing projects list');
 
             projectsService.getProjects(profile)
                 .then(function (projects) {
-                    $log.debug('[ml4kprojects] Got projects list');
+                    loggerService.debug('[ml4kprojects] Got projects list');
 
                     vm.projects = projects;
 
@@ -132,8 +130,7 @@
                     }
                 })
                 .catch(function (err) {
-                    $log.error('[ml4kprojects] Failed to refresh projects list');
-                    $log.error(err);
+                    loggerService.error('[ml4kprojects] Failed to refresh projects list', err);
 
                     displayAlert('errors', err.status, err.data);
                 });
@@ -152,7 +149,7 @@
 
 
         vm.deleteProject = function (ev, project) {
-            $log.debug('[ml4kprojects] Deleting project');
+            loggerService.debug('[ml4kprojects] Deleting project');
 
             var confirm = $mdDialog.confirm()
                 .title('Are you sure?')
@@ -166,10 +163,10 @@
                 function() {
                     project.isPlaceholder = true;
 
-                    $log.debug('[ml4kprojects] Submitting project delete request');
+                    loggerService.debug('[ml4kprojects] Submitting project delete request');
                     projectsService.deleteProject(project, vm.profile.user_id, vm.profile.tenant)
                         .then(function () {
-                            $log.debug('[ml4kprojects] Project deleted');
+                            loggerService.debug('[ml4kprojects] Project deleted');
 
                             var idx = findProjectIndex(project.id);
                             if (idx !== -1) {
@@ -180,8 +177,7 @@
                             }
                         })
                         .catch(function (err) {
-                            $log.error('[ml4kprojects] Failed to delete project');
-                            $log.error(err);
+                            loggerService.error('[ml4kprojects] Failed to delete project', err);
 
                             displayAlert('errors', err.status, err.data);
                         });
@@ -194,19 +190,18 @@
 
 
         vm.shareProject = function (ev, project, state) {
-            $log.debug('[ml4kprojects] Setting project share flag');
+            loggerService.debug('[ml4kprojects] Setting project share flag');
 
             project.isPlaceholder = true;
             projectsService.shareProject(project, vm.profile.user_id, vm.profile.tenant, state)
                 .then(function (newstate) {
-                    $log.debug('[ml4kprojects] Project share status updated');
+                    loggerService.debug('[ml4kprojects] Project share status updated');
 
                     project.isCrowdSourced = newstate;
                     project.isPlaceholder = false;
                 })
                 .catch(function (err) {
-                    $log.error('[ml4kprojects] Failed to share project');
-                    $log.error(err);
+                    loggerService.error('[ml4kprojects] Failed to share project', err);
 
                     project.isPlaceholder = false;
                     displayAlert('errors', err.status, err.data);

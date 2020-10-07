@@ -8,16 +8,16 @@
         'authService',
         'projectsService', 'trainingService',
         'soundTrainingService',
+        'loggerService',
         '$stateParams',
         '$scope',
         '$mdDialog',
         '$state',
         '$timeout',
-        '$q',
-        '$log'
+        '$q'
     ];
 
-    function TrainingController(authService, projectsService, trainingService, soundTrainingService, $stateParams, $scope, $mdDialog, $state, $timeout, $q, $log) {
+    function TrainingController(authService, projectsService, trainingService, soundTrainingService, loggerService, $stateParams, $scope, $mdDialog, $state, $timeout, $q) {
 
         var vm = this;
         vm.authService = authService;
@@ -37,7 +37,7 @@
             }
             else {
                 // record the error
-                $log.error(errObj);
+                loggerService.error(errObj);
                 if (status === 500 && Sentry && Sentry.captureException) {
                     Sentry.captureException({ error : errObj, errortype : typeof (errObj) });
                 }
@@ -68,9 +68,11 @@
                 vm.profile = profile;
 
                 // get the project that we're going to be training
+                loggerService.debug('[ml4ktraining] getting project info');
                 return projectsService.getProject($scope.projectId, $scope.userId, profile.tenant);
             })
             .then(function (project) {
+                loggerService.debug('[ml4ktraining] project', project);
                 $scope.project = project;
 
                 // if the user doesn't own the project (it's been shared with them by a teacher
@@ -82,6 +84,7 @@
 
                 if (project.type === 'numbers') {
                     // for numbers projects we need the fields to populate the drop-downs for new values
+                    loggerService.debug('[ml4ktraining] getting project fields');
                     return projectsService.getFields($scope.projectId, $scope.userId, vm.profile.tenant)
                         .then(function (fields) {
                             $scope.project.fields = fields;
@@ -90,6 +93,7 @@
                 else if (project.type === 'sounds') {
                     // for sounds projects we need to download the TensorFlow.js libraries if we don't
                     //  already have them in the page
+                    loggerService.debug('[ml4ktraining] setting up sound model support');
                     return soundTrainingService.initSoundSupport(project.id)
                         .then(function () {
                             $scope.soundModelInfo = soundTrainingService.getModelInfo();
@@ -107,6 +111,7 @@
                 }
 
                 // fetch the training data to populate the buckets with
+                loggerService.debug('[ml4ktraining] getting training data');
                 return trainingService.getTraining($scope.projectId, $scope.userId, vm.profile.tenant);
             })
             .then(function (training) {
@@ -156,6 +161,7 @@
                 $scope.loadingtraining = false;
             })
             .catch(function (err) {
+                loggerService.error('[ml4ktraining] error', err);
                 displayAlert('errors', err.status, err.data ? err.data : err);
             });
 
@@ -202,6 +208,7 @@
         }
 
         vm.addTrainingData = function (ev, label) {
+            loggerService.debug('[ml4ktraining] addTrainingData');
             $mdDialog.show({
                 locals : {
                     label : label,
@@ -251,6 +258,7 @@
 
 
         vm.addConfirmedTrainingData = function (resp, label) {
+            loggerService.debug('[ml4ktraining] addConfirmedTrainingData');
 
             var data;
             var placeholder;
@@ -262,8 +270,9 @@
             if ($scope.project.type === 'text') {
                 data = resp;
 
+                var lc = data.toLowerCase();
                 duplicate = $scope.training[label].some(function (existingitem) {
-                    return existingitem.textdata === data;
+                    return existingitem.textdata.toLowerCase() === lc;
                 });
 
                 placeholder = {
@@ -329,6 +338,7 @@
 
             $scope.training[label].push(placeholder);
 
+            loggerService.debug('[ml4ktraining] storing training data');
             storeTrainingDataFn($scope.projectId, $scope.userId, vm.profile.tenant, data, label)
                 .then(function (newitem) {
                     placeholder.isPlaceholder = false;
@@ -360,8 +370,8 @@
 
 
         vm.onImageLoad = function (image) {
-            $log.debug('[ml4ktraining] onImageLoad');
-            $log.debug(image);
+            loggerService.debug('[ml4ktraining] onImageLoad');
+            loggerService.debug(image);
         };
 
         vm.onImageError = function (image) {
@@ -391,6 +401,7 @@
             })
             .then(
                 function (newlabel) {
+                    loggerService.debug('[ml4ktraining] adding a new label', newlabel);
                     projectsService.addLabelToProject($scope.projectId, $scope.userId, vm.profile.tenant, newlabel)
                         .then(function (labels) {
                             $scope.project.labels = labels;

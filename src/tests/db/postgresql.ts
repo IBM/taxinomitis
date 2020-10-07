@@ -1,6 +1,6 @@
 /*eslint-env mocha */
 
-import * as dbpool from '../../lib/db/mysqldb';
+import * as dbpool from '../../lib/db/postgresqldb';
 import * as store from '../../lib/db/store';
 
 

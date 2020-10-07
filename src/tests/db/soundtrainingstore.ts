@@ -1,7 +1,7 @@
 /*eslint-env mocha */
-// import * as assert from 'assert';
-// import { v1 as uuid } from 'uuid';
-// import * as Objects from '../../lib/db/db-types';
+import * as assert from 'assert';
+import { v1 as uuid } from 'uuid';
+import * as Objects from '../../lib/db/db-types';
 import * as store from '../../lib/db/store';
 // import { MAX_AUDIO_POINTS } from '../../lib/restapi/sounds/uploads';
 
@@ -16,10 +16,10 @@ describe('DB store - sound training', () => {
         return store.disconnect();
     });
 
-    // const DEFAULT_PAGING: Objects.PagingOptions = {
-    //     start : 0,
-    //     limit : 50,
-    // };
+    const DEFAULT_PAGING: Objects.PagingOptions = {
+        start : 0,
+        limit : 50,
+    };
 
 
     // function createTraining(num = 19952): number[] {
@@ -30,50 +30,56 @@ describe('DB store - sound training', () => {
     //     return numbers;
     // }
 
-    // function isTrainingData(item: Objects.SoundTraining): boolean {
-    //     return item &&
-    //            typeof item.id === 'string' &&
-    //            item.id.length === 36 &&
-    //            typeof item.label === 'string' &&
-    //            item.label.length > 0 &&
-    //            typeof item.audiodataid === 'string' &&
-    //            item.audiodataid.length > 0;
-    // }
+    function isTrainingData(item: Objects.SoundTraining): boolean {
+        return item &&
+               typeof item.id === 'string' &&
+               item.id.length === 36 &&
+               typeof item.label === 'string' &&
+               item.label.length > 0 &&
+               typeof item.audiourl === 'string' &&
+               item.audiourl.length > 0;
+    }
 
-    // async function createTestData(projectid: string, numItems: number, numLabels: number): Promise<string[]> {
-    //     const labels = [];
+    async function createTestData(projectid: string, numItems: number, numLabels: number): Promise<string[]> {
+        const labels = [];
 
-    //     for (let labelIdx = 0; labelIdx < numLabels; labelIdx++) {
-    //         const label = uuid();
-    //         labels.push(label);
+        for (let labelIdx = 0; labelIdx < numLabels; labelIdx++) {
+            const label = uuid();
+            labels.push(label);
 
-    //         for (let i = 0; i < numItems; i++) {
-    //             await store.storeSoundTraining(projectid, label, uuid());
-    //         }
-    //     }
+            for (let i = 0; i < numItems; i++) {
+                await store.storeSoundTraining(projectid, uuid(), label, uuid());
+            }
+        }
 
-    //     return labels;
-    // }
+        return labels;
+    }
 
 
-    // describe('storeSoundTraining', () => {
+    describe('storeSoundTraining', () => {
 
-    //     it('should store training data', async () => {
-    //         const projectid = uuid();
-    //         const data = createTraining();
-    //         const label = uuid();
+        it('should store training data', async () => {
+            const projectid = uuid();
+            const audioid = uuid();
+            const dataurl = 'test-audio-data-url';
+            const label = uuid();
 
-    //         const training = await store.storeSoundTraining(projectid, data, label);
-    //         assert(training);
-    //         assert(training.id);
-    //         assert.strictEqual(training.projectid, projectid);
-    //         assert.deepStrictEqual(training.audiodata, data);
-    //         assert.strictEqual(training.label, label);
+            const training = await store.storeSoundTraining(projectid, dataurl, label, audioid);
+            assert(training);
+            assert(training.id);
 
-    //         assert(isTrainingData(training));
+            const retrieve = await store.getSoundTraining(projectid, { limit : 10, start : 0 });
+            assert.deepStrictEqual({
+                id : training.id,
+                audiourl : dataurl,
+                label,
+            }, retrieve[0]);
+            assert.strictEqual(training.label, label);
 
-    //         return store.deleteTrainingByProjectId('sounds', projectid);
-    //     });
+            assert(isTrainingData(training));
+
+            return store.deleteTrainingByProjectId('sounds', projectid);
+        });
 
     //     it('should reject empty data', async () => {
     //         const projectid = uuid();
@@ -130,55 +136,56 @@ describe('DB store - sound training', () => {
 
     //         return store.deleteTrainingByProjectId('sounds', projectid);
     //     });
-    // });
+    });
 
 
-    // describe('countTraining', () => {
+    describe('countTraining', () => {
 
-    //     it('should count the number of training examples', async () => {
-    //         const projectid = uuid();
+        it('should count the number of training examples', async () => {
+            const projectid = uuid();
 
-    //         await createTestData(projectid, 17, 5);
+            await createTestData(projectid, 17, 5);
 
-    //         let count = await store.countTraining('sounds', projectid);
-    //         assert.strictEqual(count, 17 * 5);
+            let count = await store.countTraining('sounds', projectid);
+            assert.strictEqual(count, 17 * 5);
 
-    //         const retrieved = await store.getSoundTraining(projectid, { start : 0, limit : 10000 });
-    //         assert.strictEqual(retrieved.length, 17 * 5);
+            const retrieved = await store.getSoundTraining(projectid, { start : 0, limit : 10000 });
+            assert.strictEqual(retrieved.length, 17 * 5);
 
-    //         await store.deleteTrainingByProjectId('sounds', projectid);
+            await store.deleteTrainingByProjectId('sounds', projectid);
 
-    //         count = await store.countTraining('sounds', projectid);
-    //         assert.strictEqual(count, 0);
-    //     });
+            count = await store.countTraining('sounds', projectid);
+            assert.strictEqual(count, 0);
+        });
 
-    // });
-
-
-    // describe('deleteSoundTraining', () => {
-
-    //     it('should delete training data', async () => {
-    //         const projectid = uuid();
-    //         const data = createTraining();
-    //         const label = uuid();
-
-    //         const training = await store.storeSoundTraining(projectid, data, label);
-    //         assert(isTrainingData(training));
-
-    //         let retrieved = await store.getSoundTraining(projectid, DEFAULT_PAGING);
-    //         assert(isTrainingData(retrieved[0]));
-    //         assert.strictEqual(retrieved.length, 1);
-
-    //         await store.deleteTrainingByProjectId('sounds', projectid);
-
-    //         retrieved = await store.getSoundTraining(projectid, DEFAULT_PAGING);
-    //         assert(retrieved);
-    //         assert.strictEqual(retrieved.length, 0);
-    //     });
-    // });
+    });
 
 
-    // describe('getSoundTraining', () => {
+    describe('deleteSoundTraining', () => {
+
+        it('should delete training data', async () => {
+            const projectid = uuid();
+            const audioid = uuid();
+            const dataurl = 'new-test-audio-data-url';
+            const label = uuid();
+
+            const training = await store.storeSoundTraining(projectid, dataurl, label, audioid);
+            assert(isTrainingData(training));
+
+            let retrieved = await store.getSoundTraining(projectid, DEFAULT_PAGING);
+            assert(isTrainingData(retrieved[0]));
+            assert.strictEqual(retrieved.length, 1);
+
+            await store.deleteTrainingByProjectId('sounds', projectid);
+
+            retrieved = await store.getSoundTraining(projectid, DEFAULT_PAGING);
+            assert(retrieved);
+            assert.strictEqual(retrieved.length, 0);
+        });
+    });
+
+
+    describe('getSoundTraining', () => {
 
     //     it('should retrieve training data', async () => {
     //         const projectid = uuid();
@@ -199,49 +206,49 @@ describe('DB store - sound training', () => {
     //     });
 
 
-    //     it('should fetch specific amount of training data', async () => {
-    //         const projectid = uuid();
+        it('should fetch specific amount of training data', async () => {
+            const projectid = uuid();
 
-    //         await createTestData(projectid, 16, 6);
+            await createTestData(projectid, 16, 6);
 
-    //         let retrieved = await store.getSoundTraining(projectid, { start : 0, limit : 2 });
-    //         assert.strictEqual(retrieved.length, 2);
+            let retrieved = await store.getSoundTraining(projectid, { start : 0, limit : 2 });
+            assert.strictEqual(retrieved.length, 2);
 
-    //         retrieved = await store.getSoundTraining(projectid, { start : 0, limit : 6 });
-    //         assert.strictEqual(retrieved.length, 6);
+            retrieved = await store.getSoundTraining(projectid, { start : 0, limit : 6 });
+            assert.strictEqual(retrieved.length, 6);
 
-    //         retrieved = await store.getSoundTraining(projectid, { start : 0, limit : 52 });
-    //         assert.strictEqual(retrieved.length, 52);
+            retrieved = await store.getSoundTraining(projectid, { start : 0, limit : 52 });
+            assert.strictEqual(retrieved.length, 52);
 
-    //         retrieved = await store.getSoundTraining(projectid, DEFAULT_PAGING);
-    //         assert.strictEqual(retrieved.length, 50);
+            retrieved = await store.getSoundTraining(projectid, DEFAULT_PAGING);
+            assert.strictEqual(retrieved.length, 50);
 
-    //         return store.deleteTrainingByProjectId('sounds', projectid);
-    //     });
+            return store.deleteTrainingByProjectId('sounds', projectid);
+        });
 
 
-    //     it('should fetch training data from a specified offset', async () => {
-    //         const projectid = uuid();
+        it('should fetch training data from a specified offset', async () => {
+            const projectid = uuid();
 
-    //         await createTestData(projectid, 20, 4);
+            await createTestData(projectid, 20, 4);
 
-    //         const allData = await store.getSoundTraining(projectid, { limit : 1000, start : 0 });
+            const allData = await store.getSoundTraining(projectid, { limit : 1000, start : 0 });
 
-    //         for (let idx = 0; idx < 20; idx++) {
-    //             const search = { start : idx, limit : 25 - idx };
-    //             const retrieved: Objects.SoundTraining[] = await store.getSoundTraining(projectid, search);
-    //             assert.strictEqual(retrieved.length, 25 - idx);
+            for (let idx = 0; idx < 20; idx++) {
+                const search = { start : idx, limit : 25 - idx };
+                const retrieved: Objects.SoundTraining[] = await store.getSoundTraining(projectid, search);
+                assert.strictEqual(retrieved.length, 25 - idx);
 
-    //             assert(retrieved.every(isTrainingData));
+                assert(retrieved.every(isTrainingData));
 
-    //             assert.deepStrictEqual(retrieved[0], allData[idx]);
-    //             assert.deepStrictEqual(retrieved[1], allData[idx + 1]);
-    //             assert.deepStrictEqual(retrieved[2], allData[idx + 2]);
-    //         }
+                assert.deepStrictEqual(retrieved[0], allData[idx]);
+                assert.deepStrictEqual(retrieved[1], allData[idx + 1]);
+                assert.deepStrictEqual(retrieved[2], allData[idx + 2]);
+            }
 
-    //         return store.deleteTrainingByProjectId('sounds', projectid);
-    //     });
-    // });
+            return store.deleteTrainingByProjectId('sounds', projectid);
+        });
+    });
 
 
     // describe('renameSoundTrainingLabel', () => {

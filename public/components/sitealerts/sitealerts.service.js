@@ -5,14 +5,14 @@
         .service('sitealertsService', sitealertsService);
 
     sitealertsService.$inject = [
-        '$http', '$rootScope', '$interval', '$log',
+        '$http', '$rootScope', '$interval', 'loggerService',
         'authService'
     ];
 
-    function sitealertsService($http, $rootScope, $interval, $log, authService) {
+    function sitealertsService($http, $rootScope, $interval, loggerService, authService) {
 
         function logError(err) {
-            $log.error(err);
+            loggerService.error(err);
             delete $rootScope.siteAlert;
         }
 
@@ -28,6 +28,7 @@
         }
 
         function getAlerts(endpoint, tenant, userid) {
+            loggerService.debug('[ml4kalert] getting alerts', endpoint, tenant, userid);
             var url = '/api/sitealerts/public';
             if (endpoint === 'student') {
                 url = '/api/sitealerts/alerts/' + tenant + '/students/' + userid;

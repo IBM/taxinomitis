@@ -6,13 +6,12 @@
 
     if (AUTH0_CLIENT_ID) {
         authService.$inject = [
-            'authManager',
+            'authManager', 'loggerService',
             '$q', '$http',
             '$mdDialog',
             '$rootScope',
             '$window',
             '$state',
-            '$log',
             '$timeout',
             'lock'
         ];
@@ -25,13 +24,12 @@
             '$rootScope',
             '$window',
             '$state',
-            '$log',
             '$timeout'
         ];
     }
 
 
-    function authService(authManager, $q, $http, $mdDialog, $rootScope, $window, $state, $log, $timeout, lock) {
+    function authService(authManager, loggerService, $q, $http, $mdDialog, $rootScope, $window, $state, $timeout, lock) {
 
         var SESSION_USERS_CLASS = 'session-users';
 
@@ -63,10 +61,10 @@
         var deferredProfile = $q.defer();
 
         if (userProfile) {
-            $log.debug('[ml4kauth] Existing user profile restored');
+            loggerService.debug('[ml4kauth] Existing user profile restored');
 
             if (hasSessionExpired()) {
-                $log.debug('[ml4kauth] Session expired');
+                loggerService.debug('[ml4kauth] Session expired');
 
                 // We found an access token in local storage, but it
                 // has expired, so we'll wipe it and force them to
@@ -74,7 +72,7 @@
                 logout();
             }
             else {
-                $log.debug('[ml4kauth] Setting restored profile to use');
+                loggerService.debug('[ml4kauth] Setting restored profile to use');
 
                 deferredProfile.resolve(userProfile);
 
@@ -101,11 +99,11 @@
                     var refreshTime = expiresAt - TEN_MINUTES_MILLISECS;
                     var timeToRefresh = refreshTime - (new Date().getTime());
                     if (timeToRefresh > 0) {
-                        $log.debug('[ml4kauth] Token valid for longer than 10 minutes');
+                        loggerService.debug('[ml4kauth] Token valid for longer than 10 minutes');
                         scheduleTokenRenewal(timeToRefresh);
                     }
                     else {
-                        $log.debug('[ml4kauth] Token due to renew within 10 minutes');
+                        loggerService.debug('[ml4kauth] Token due to renew within 10 minutes');
 
                         // the session is going to expire within 10 minutes, so
                         // we'll refresh it immediately
@@ -117,23 +115,23 @@
 
 
         function scheduleTokenRenewal(timeToRefreshMs) {
-            $log.debug('[ml4kauth] Scheduling token renewal');
+            loggerService.debug('[ml4kauth] Scheduling token renewal');
             nextRefreshTimer = setTimeout(renewLogin, timeToRefreshMs);
         }
 
 
         function renewLogin() {
-            $log.debug('[ml4kauth] Renewing login');
+            loggerService.debug('[ml4kauth] Renewing login');
 
             if (lock) {
                 lock.checkSession({}, function (err, authres) {
                     if (err) {
-                        $log.error('[ml4kauth] Failed to renew login');
-                        $log.error(err);
+                        loggerService.error('[ml4kauth] Failed to renew login');
+                        loggerService.error(err);
                     }
                     else if (authres) {
-                        $log.debug('[ml4kauth] Renewed login');
-                        $log.debug(authres);
+                        loggerService.debug('[ml4kauth] Renewed login');
+                        loggerService.debug(authres);
 
                         storeToken(authres);
 
@@ -148,13 +146,13 @@
                 });
             }
             else {
-                $log.error('[ml4kauth] Unexpected call to renewLogin');
+                loggerService.error('[ml4kauth] Unexpected call to renewLogin');
             }
         }
 
 
         function login() {
-            $log.debug('[ml4kauth] login');
+            loggerService.debug('[ml4kauth] login');
             if (lock) {
                 lock.show({
                     languageDictionary : {
@@ -163,12 +161,12 @@
                 });
             }
             else {
-                $log.error('[ml4kauth] Unexpected call to login');
+                loggerService.error('[ml4kauth] Unexpected call to login');
             }
         }
 
         function reset() {
-            $log.debug('[ml4kauth] reset');
+            loggerService.debug('[ml4kauth] reset');
             if (lock) {
                 lock.show({
                     languageDictionary : {
@@ -182,23 +180,23 @@
                 });
             }
             else {
-                $log.error('Unexpected call to reset');
+                loggerService.error('Unexpected call to reset');
             }
         }
 
 
         function clearAuthData() {
-            $log.debug('[ml4kauth] Clearing auth data');
+            loggerService.debug('[ml4kauth] Clearing auth data');
 
             if (nextRefreshTimer) {
-                $log.debug('[ml4kauth] Clearing token renewal timer');
+                loggerService.debug('[ml4kauth] Clearing token renewal timer');
                 clearTimeout(nextRefreshTimer);
                 nextRefreshTimer = null;
             }
 
             deferredProfile = $q.defer();
 
-            $log.debug('[ml4kauth] Clearing stored token');
+            loggerService.debug('[ml4kauth] Clearing stored token');
             $window.localStorageObj.removeItem('access_token');
             $window.localStorageObj.removeItem('id_token');
             $window.localStorageObj.removeItem('expires_at');
@@ -215,18 +213,18 @@
         }
 
         function logout() {
-            $log.debug('[ml4kauth] logout');
+            loggerService.debug('[ml4kauth] logout');
 
             if (userProfile && userProfile.tenant === SESSION_USERS_CLASS && authManager.isAuthenticated()) {
-                $log.debug('[ml4kauth] Logging out session user');
+                loggerService.debug('[ml4kauth] Logging out session user');
                 deleteSessionUser(userProfile.user_id)
                     .then(function () {
-                        $log.debug('[ml4kauth] Deleted session user');
+                        loggerService.debug('[ml4kauth] Deleted session user');
                         clearAuthData();
                     })
                     .catch(function (err) {
-                        $log.error('[ml4kauth] Failed to delete session user');
-                        $log.error(err);
+                        loggerService.error('[ml4kauth] Failed to delete session user');
+                        loggerService.error(err);
                     });
             }
             else {
@@ -236,7 +234,7 @@
 
 
         function storeToken(authResult) {
-            $log.debug('[ml4kauth] Storing token');
+            loggerService.debug('[ml4kauth] Storing token');
 
             var expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
 
@@ -251,7 +249,7 @@
         }
 
         function storeProfile(profile) {
-            $log.debug('[ml4kauth] Storing profile');
+            loggerService.debug('[ml4kauth] Storing profile');
 
             $window.localStorageObj.setItem('profile', JSON.stringify(profile));
             deferredProfile.resolve(profile);
@@ -262,7 +260,7 @@
 
 
         function extractAppMetadata(profile) {
-            $log.debug('[ml4kauth] Extracting app metadata from profile data');
+            loggerService.debug('[ml4kauth] Extracting app metadata from profile data');
 
             var tenant = profile['https://machinelearningforkids.co.uk/api/tenant'];
             var role = profile['https://machinelearningforkids.co.uk/api/role'];
@@ -279,29 +277,29 @@
 
 
         function setupAuth() {
-            $log.debug('[ml4kauth] Setting up auth');
+            loggerService.debug('[ml4kauth] Setting up auth');
 
             if (lock) {
-                $log.debug('[ml4kauth] Registering url interceptor');
+                loggerService.debug('[ml4kauth] Registering url interceptor');
                 lock.interceptHash();
 
                 lock.on('authenticated', function (authResult) {
-                    $log.debug('[ml4kauth] Authenticated');
+                    loggerService.debug('[ml4kauth] Authenticated');
 
                     if (authResult && authResult.accessToken && authResult.idToken) {
-                        $log.debug('[ml4kauth] Received expected auth tokens');
+                        loggerService.debug('[ml4kauth] Received expected auth tokens');
 
                         storeToken(authResult);
 
-                        $log.debug('[ml4kauth] Retrieving user info');
+                        loggerService.debug('[ml4kauth] Retrieving user info');
                         lock.getUserInfo(authResult.accessToken, function (err, profile) {
                             if (err) {
-                                $log.error('[ml4kauth] lock auth failure');
-                                $log.error(err);
+                                loggerService.error('[ml4kauth] lock auth failure');
+                                loggerService.error(err);
                                 return logout();
                             }
 
-                            $log.debug('[ml4kauth] Processing retrieved profile');
+                            loggerService.debug('[ml4kauth] Processing retrieved profile');
                             vm.profile = extractAppMetadata(profile);
                             storeProfile(vm.profile);
 
@@ -312,7 +310,7 @@
                             var timeToRefreshLogin = expiresInMillisecs - TEN_MINUTES_MILLISECS;
                             scheduleTokenRenewal(timeToRefreshLogin);
 
-                            $log.debug('[ml4kauth] Redirecting to home page');
+                            loggerService.debug('[ml4kauth] Redirecting to home page');
                             $timeout(function () {
                                 $state.go('welcome');
                                 $rootScope.$broadcast('authStateChange', 'authentication complete');
@@ -320,14 +318,13 @@
                         });
                     }
                     else {
-                        $log.error('[ml4kauth] Authenticated without expected tokens');
-                        $log.error(authResult);
+                        loggerService.error('[ml4kauth] Authenticated without expected tokens');
+                        loggerService.error(authResult);
                     }
                 });
 
                 lock.on('authorization_error', function (err) {
-                    $log.warn('[ml4kauth] Authorization error');
-                    $log.warn(err);
+                    loggerService.warn('[ml4kauth] Authorization error', err);
 
                     if (err && err.errorDescription) {
                         if (err.errorDescription === 'Please verify your email to activate your class account') {
@@ -342,8 +339,7 @@
 
                 // auth0 looks completely broken so try starting again
                 lock.on('unrecoverable_error', function (err) {
-                    $log.error('[ml4kauth] Unrecoverable auth error');
-                    $log.error(err);
+                    loggerService.error('[ml4kauth] Unrecoverable auth error', err);
 
                     logout();
                     return $window.location.reload(true);
@@ -356,7 +352,7 @@
 
 
         function sessionExpired() {
-            $log.debug('[ml4kauth] Session has expired');
+            loggerService.debug('[ml4kauth] Session has expired');
 
             clearAuthData();
 
@@ -371,14 +367,14 @@
 
 
         function handleUnauthenticated() {
-            $log.debug('[ml4kauth] Unauthenticated event');
+            loggerService.debug('[ml4kauth] Unauthenticated event');
 
             if (hasSessionExpired()) {
-                $log.debug('[ml4kauth] Unauthenticated because session has expired');
+                loggerService.debug('[ml4kauth] Unauthenticated because session has expired');
                 sessionExpired();
             }
             else {
-                $log.debug('[ml4kauth] Unexpected unauth event');
+                loggerService.debug('[ml4kauth] Unexpected unauth event');
                 clearAuthData();
                 $state.go('login');
             }
@@ -389,7 +385,7 @@
         }
 
         function isAuthenticated() {
-            $log.debug('[ml4kauth] isAuthenticated');
+            loggerService.debug('[ml4kauth] isAuthenticated');
 
             if (userProfile) {
                 // Check whether the current time is past the
@@ -411,7 +407,7 @@
                 var expiresAt = JSON.parse($window.localStorageObj.getItem('expires_at'));
                 expired = (new Date().getTime() > expiresAt);
             }
-            $log.debug('[ml4kauth] hasSessionExpired : ' + expired);
+            loggerService.debug('[ml4kauth] hasSessionExpired : ' + expired);
             return expired;
         }
 
@@ -419,15 +415,15 @@
 
 
         function confirmLocalStorage() {
-            $log.debug('[ml4kauth] Confirming local storage is available');
+            loggerService.debug('[ml4kauth] Confirming local storage is available');
 
             // some browsers allow localStorage to be disabled
             try {
                 $window.localStorageObj = $window.localStorage || {};
             }
             catch (err) {
-                $log.error('[ml4kauth] Failed to access local storage');
-                $log.error(err);
+                loggerService.error('[ml4kauth] Failed to access local storage');
+                loggerService.error(err);
 
                 $window.localStorageObj = {};
             }
@@ -436,13 +432,13 @@
             // throw QuotaExceededError. If it looks like localStorage isn't working, we use a local object
             if (typeof $window.localStorageObj === 'object') {
                 try {
-                    $log.debug('[ml4kauth] Testing local storage');
+                    loggerService.debug('[ml4kauth] Testing local storage');
                     $window.localStorageObj.setItem('confirmLocalStorage', 1);
                     $window.localStorageObj.removeItem('confirmLocalStorage');
                 }
                 catch (e) {
-                    $log.error('[ml4kauth] Failed local storage verification');
-                    $log.error(e);
+                    loggerService.error('[ml4kauth] Failed local storage verification');
+                    loggerService.error(e);
 
                     $window._tempLocalStorage = {};
                     $window.localStorageObj.setItem = function (key, val) {
@@ -457,8 +453,8 @@
                 }
             }
             else {
-                $log.error('[ml4kauth] storage has unexpected type');
-                $log.error(typeof $window.localStorageObj);
+                loggerService.error('[ml4kauth] storage has unexpected type');
+                loggerService.error(typeof $window.localStorageObj);
             }
         }
 
@@ -469,12 +465,12 @@
 
 
         function switchToSessionUser(userinfo) {
-            $log.debug('[ml4kauth] Switching to session user');
+            loggerService.debug('[ml4kauth] Switching to session user');
 
             // clear out any existing user/auth info
             logout();
 
-            $log.debug('[ml4kauth] Storing profile data');
+            loggerService.debug('[ml4kauth] Storing profile data');
             $window.localStorageObj.setItem('access_token', userinfo.token);
             $window.localStorageObj.setItem('id_token', userinfo.jwt);
 
@@ -501,10 +497,10 @@
 
 
         function createSessionUser() {
-            $log.debug('[ml4kauth] Creating session user');
+            loggerService.debug('[ml4kauth] Creating session user');
             return $http.post('/api/sessionusers')
                 .then(function (resp) {
-                    $log.debug('[ml4kauth] Session user created');
+                    loggerService.debug('[ml4kauth] Session user created');
 
                     var sessionuser = resp.data;
 
@@ -515,11 +511,11 @@
         }
 
         function deleteSessionUser(userid) {
-            $log.debug('[ml4kauth] Deleting session user');
+            loggerService.debug('[ml4kauth] Deleting session user');
             return $http.delete('/api/classes/' + SESSION_USERS_CLASS + '/sessionusers/' + userid)
                 .catch(function (err) {
-                    $log.error('[ml4kauth] Failed to delete session user');
-                    $log.error(err);
+                    loggerService.error('[ml4kauth] Failed to delete session user');
+                    loggerService.error(err);
                 });
         }
 

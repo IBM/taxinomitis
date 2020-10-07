@@ -16,6 +16,9 @@
 
         vm.worksheets = [];
         $translate([
+            'WORKSHEETS.DESCRIBETHEGLASS.TITLE', 'WORKSHEETS.DESCRIBETHEGLASS.SUMMARY', 'WORKSHEETS.DESCRIBETHEGLASS.DESCRIPTION',
+            'WORKSHEETS.DESCRIBETHEGLASS.WORKSHEET_1.URL',
+
             'WORKSHEETS.SMARTCLASSROOM.TITLE', 'WORKSHEETS.SMARTCLASSROOM.SUMMARY', 'WORKSHEETS.SMARTCLASSROOM.DESCRIPTION',
             'WORKSHEETS.SMARTCLASSROOM.WORKSHEET_1.DESCRIPTION', 'WORKSHEETS.SMARTCLASSROOM.WORKSHEET_1.URL',
             'WORKSHEETS.SMARTCLASSROOM.WORKSHEET_2.DESCRIPTION', 'WORKSHEETS.SMARTCLASSROOM.WORKSHEET_2.URL',
@@ -35,6 +38,9 @@
 
             'WORKSHEETS.MAILMANMAX.TITLE', 'WORKSHEETS.MAILMANMAX.SUMMARY', 'WORKSHEETS.MAILMANMAX.DESCRIPTION',
             'WORKSHEETS.MAILMANMAX.WORKSHEET_1.URL',
+
+            'WORKSHEETS.SHOOTTHEBUG.TITLE', 'WORKSHEETS.SHOOTTHEBUG.SUMMARY', 'WORKSHEETS.SHOOTTHEBUG.DESCRIPTION',
+            'WORKSHEETS.SHOOTTHEBUG.WORKSHEET_1.URL',
 
             'WORKSHEETS.CARORCUP.TITLE', 'WORKSHEETS.CARORCUP.SUMMARY', 'WORKSHEETS.CARORCUP.DESCRIPTION',
             'WORKSHEETS.CARORCUP.WORKSHEET_1.DESCRIPTION', 'WORKSHEETS.CARORCUP.WORKSHEET_1.URL',
@@ -78,9 +84,6 @@
             'WORKSHEETS.JUDGEABOOK.TITLE', 'WORKSHEETS.JUDGEABOOK.SUMMARY', 'WORKSHEETS.JUDGEABOOK.DESCRIPTION',
             'WORKSHEETS.JUDGEABOOK.WORKSHEET_1.DESCRIPTION', 'WORKSHEETS.JUDGEABOOK.WORKSHEET_1.URL',
             'WORKSHEETS.JUDGEABOOK.WORKSHEET_2.DESCRIPTION', 'WORKSHEETS.JUDGEABOOK.WORKSHEET_2.URL',
-
-            'WORKSHEETS.LOCATELARRY.TITLE', 'WORKSHEETS.LOCATELARRY.SUMMARY', 'WORKSHEETS.LOCATELARRY.DESCRIPTION',
-            'WORKSHEETS.LOCATELARRY.WORKSHEET_1.URL',
 
             'WORKSHEETS.FOOLED.TITLE', 'WORKSHEETS.FOOLED.SUMMARY', 'WORKSHEETS.FOOLED.DESCRIPTION',
             'WORKSHEETS.FOOLED.WORKSHEET_1.URL',
@@ -140,6 +143,22 @@
 
         ]).then(function (translations) {
             vm.worksheets = [
+                {
+                    title : translations['WORKSHEETS.DESCRIBETHEGLASS.TITLE'],
+                    summary : translations['WORKSHEETS.DESCRIBETHEGLASS.SUMMARY'],
+                    description : translations['WORKSHEETS.DESCRIBETHEGLASS.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'numbers',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-describetheglass.png',
+                    tags : [ 'decision tree learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-describetheglass.pdf',
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.DESCRIBETHEGLASS.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
                 {
                     title : translations['WORKSHEETS.SMARTCLASSROOM.TITLE'],
                     summary : translations['WORKSHEETS.SMARTCLASSROOM.SUMMARY'],
@@ -257,6 +276,22 @@
                     downloads : [
                         {
                             worksheet : translations['WORKSHEETS.MAILMANMAX.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.SHOOTTHEBUG.TITLE'],
+                    summary : translations['WORKSHEETS.SHOOTTHEBUG.SUMMARY'],
+                    description : translations['WORKSHEETS.SHOOTTHEBUG.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'numbers',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-shootthebug.png',
+                    tags : [ 'decision tree learning' ],
+                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shootthebug.pdf',
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.SHOOTTHEBUG.WORKSHEET_1.URL']
                         }
                     ]
                 },
@@ -553,22 +588,6 @@
                         {
                             description : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_2.DESCRIPTION'],
                             worksheet : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_2.URL']
-                        }
-                    ]
-                },
-                {
-                    title : translations['WORKSHEETS.LOCATELARRY.TITLE'],
-                    summary : translations['WORKSHEETS.LOCATELARRY.SUMMARY'],
-                    description : translations['WORKSHEETS.LOCATELARRY.DESCRIPTION'],
-                    difficulty : 'Intermediate',
-                    type : 'images',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-locatelarry.png',
-                    tags : [ 'image classification', 'supervised learning', 'image pre-processing' ],
-                    teachersnotes : 'https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-locatelarry.pdf',
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.LOCATELARRY.WORKSHEET_1.URL']
                         }
                     ]
                 },

@@ -7,10 +7,10 @@
     TeacherProjectsController.$inject = [
         'authService',
         'projectsService', 'trainingService',
-        '$mdDialog', '$scope', '$log'
+        '$mdDialog', '$scope', 'loggerService'
     ];
 
-    function TeacherProjectsController(authService, projectsService, trainingService, $mdDialog, $scope, $log) {
+    function TeacherProjectsController(authService, projectsService, trainingService, $mdDialog, $scope, loggerService) {
 
         var vm = this;
         vm.authService = authService;
@@ -42,11 +42,11 @@
 
 
         function refreshProjectsList(profile) {
-            $log.debug('[ml4ksupervise] refreshing projects list');
+            loggerService.debug('[ml4ksupervise] refreshing projects list');
 
             projectsService.getClassProjects(profile)
                 .then(function (projects) {
-                    $log.debug('[ml4ksupervise] got projects list');
+                    loggerService.debug('[ml4ksupervise] got projects list');
 
                     vm.projects = projects;
 
@@ -78,8 +78,8 @@
                     }
                 })
                 .catch(function (err) {
-                    $log.error('[ml4ksupervise] failed to get projects list');
-                    $log.error(err);
+                    loggerService.error('[ml4ksupervise] failed to get projects list');
+                    loggerService.error(err);
 
                     displayAlert('errors', err.status, err.data);
                 });
@@ -88,16 +88,16 @@
 
 
         function refreshClassifiersList(profile) {
-            $log.debug('[ml4ksupervise] refreshing classifiers list');
+            loggerService.debug('[ml4ksupervise] refreshing classifiers list');
 
             trainingService.getUnmanagedClassifiers(profile.tenant)
                 .then(function (classifiers) {
-                    $log.debug('[ml4ksupervise] got classifiers list');
+                    loggerService.debug('[ml4ksupervise] got classifiers list');
 
                     vm.classifiers = classifiers;
                 })
                 .catch(function (err) {
-                    $log.debug('[ml4ksupervise] failed to get classifiers list');
+                    loggerService.debug('[ml4ksupervise] failed to get classifiers list');
 
                     if (err && err.status && err.status === 403) {
                         // probably a managed tenant - so they're not allowed
@@ -105,7 +105,7 @@
                         //  for them)
                     }
                     else {
-                        $log.error(err);
+                        loggerService.error(err);
                     }
                 });
         }
@@ -129,7 +129,7 @@
 
 
         vm.deleteModel = function (ev, project) {
-            $log.debug('[ml4ksupervise] deleting model');
+            loggerService.debug('[ml4ksupervise] deleting model');
 
             var confirm = $mdDialog.confirm()
                 .title('Are you sure?')
@@ -143,16 +143,16 @@
 
             $mdDialog.show(confirm).then(
                 function() {
-                    $log.debug('[ml4ksupervise] submitting model deletion request');
+                    loggerService.debug('[ml4ksupervise] submitting model deletion request');
 
                     project.hasModel = false;
                     trainingService.deleteModel(project.id, project.userid, project.classid, project.classifierId)
                         .then(function () {
-                            $log.debug('[ml4ksupervise] model deletion successful');
+                            loggerService.debug('[ml4ksupervise] model deletion successful');
                         })
                         .catch(function (err) {
-                            $log.error('[ml4ksupervise] failed to delete model');
-                            $log.error(err);
+                            loggerService.error('[ml4ksupervise] failed to delete model');
+                            loggerService.error(err);
 
                             displayAlert('errors', err.status, err.data);
                         });
@@ -164,7 +164,7 @@
         };
 
         vm.deleteClassifier = function (ev, classifier) {
-            $log.debug('[ml4ksupervise] deleting classifier');
+            loggerService.debug('[ml4ksupervise] deleting classifier');
 
             $scope.submittingDeleteRequest = true;
 
@@ -178,11 +178,11 @@
 
             $mdDialog.show(confirm).then(
                 function() {
-                    $log.debug('[ml4ksupervise] submitting classifier deletion request');
+                    loggerService.debug('[ml4ksupervise] submitting classifier deletion request');
 
                     trainingService.deleteBluemixClassifier(vm.profile.tenant, classifier.id, classifier.credentials.id, classifier.type)
                         .then(function () {
-                            $log.debug('[ml4ksupervise] classifier deletion successful');
+                            loggerService.debug('[ml4ksupervise] classifier deletion successful');
 
                             $scope.submittingDeleteRequest = false;
                             vm.classifiers[classifier.type] = vm.classifiers[classifier.type].filter(function (c) {
@@ -190,8 +190,8 @@
                             });
                         })
                         .catch(function (err) {
-                            $log.error('[ml4ksupervise] failed to delete classifier');
-                            $log.error(err);
+                            loggerService.error('[ml4ksupervise] failed to delete classifier');
+                            loggerService.error(err);
 
                             $scope.submittingDeleteRequest = false;
                             displayAlert('errors', err.status, err.data);

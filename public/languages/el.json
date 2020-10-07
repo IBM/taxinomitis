@@ -872,6 +872,14 @@
         },
 
 
+        "DESCRIBETHEGLASS": {
+            "TITLE": "Describe the glass",
+            "SUMMARY": "Teach a computer to predict your answers",
+            "DESCRIPTION": "Create a game in Scratch that learns when you describe a glass as half-full or half-empty.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-describetheglass.pdf"
+            }
+        },
         "SMARTCLASSROOM": {
             "TITLE": "Έξυπνη Αίθουσα",
             "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει το νόημα των εντολών σου",
@@ -934,6 +942,14 @@
             "DESCRIPTION": "Φτιάξε στο Scratch ένα ταχυδρομικό γραφείο διαλογής που μπορεί να αναγνωρίζει τους χειρόγραφους ταχυδρομικούς κώδικες πάνω σε φακέλους.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mailmanmax.pdf"
+            }
+        },
+        "SHOOTTHEBUG": {
+            "TITLE": "Shoot the bug",
+            "SUMMARY": "Teach a computer to play a game",
+            "DESCRIPTION": "Create a Breakout-style arcade game in Scratch that learns the angle to shoot balls at.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shootthebug.pdf"
             }
         },
         "CARORCUP": {

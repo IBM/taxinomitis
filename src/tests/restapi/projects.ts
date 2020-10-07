@@ -432,27 +432,7 @@ describe('REST API - projects', () => {
 
     describe('createProject()', () => {
 
-        it('should reject names that cannot be stored by MySQL using "utf8"', () => {
-            const studentId = uuid();
-
-            const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';
-
-            nextAuth0UserId = studentId;
-            nextAuth0UserTenant = TESTCLASS;
-
-            return request(testServer)
-                .post(url)
-                .send({ name : 'ğooğle', type : 'text', language : 'en' })
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then((err) => {
-                    assert.deepStrictEqual(err.body, {
-                        error : 'Sorry, some of those letters can\'t be used in project names',
-                    });
-                });
-        });
-
-        it('should reject unicode names that cannot be stored by MySQL using "utf8"', () => {
+        it('should reject unicode names that cannot be stored by in the DB', () => {
             const studentId = uuid();
 
             const url = '/api/classes/' + TESTCLASS + '/students/' + studentId + '/projects';

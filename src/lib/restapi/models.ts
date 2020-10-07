@@ -87,6 +87,10 @@ async function getModels(req: auth.RequestWithProject, res: Express.Response) {
         break;
     }
 
+    if (classifiers.length > 1) {
+        log.error({ classid, projectid, classifiers }, 'Unexpected number of ML models');
+    }
+
     return res.set(headers.NO_CACHE).json(classifiers);
 }
 

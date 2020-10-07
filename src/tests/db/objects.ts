@@ -38,7 +38,7 @@ describe('DB objects', () => {
                     { id : uuid(), userid, classid, projectid, name : 'first', fieldtype : 1, choices : undefined },
                     { id : uuid(), userid, classid, projectid, name : 'second', fieldtype : 1, choices : undefined },
                 ],
-                iscrowdsourced : 0,
+                iscrowdsourced : false,
             };
 
             const testProject: Objects.Project = dbobjects.getProjectFromDbRow(testRow);
@@ -65,7 +65,7 @@ describe('DB objects', () => {
                 labels : '',
                 numfields : 0,
                 fields : [],
-                iscrowdsourced : 0,
+                iscrowdsourced : false,
             };
 
             const testProject: Objects.Project = dbobjects.getProjectFromDbRow(testRow);
@@ -355,7 +355,7 @@ describe('DB objects', () => {
             assert.strictEqual(project.typeid, 1);
             assert.strictEqual(project.userid, 'testuser');
             assert.strictEqual(project.language, 'de');
-            assert.strictEqual(project.iscrowdsourced, 0);
+            assert.strictEqual(project.iscrowdsourced, false);
         });
 
         it('should create a crowdsourced project object', () => {
@@ -366,7 +366,7 @@ describe('DB objects', () => {
             assert.strictEqual(project.typeid, 1);
             assert.strictEqual(project.userid, 'testuser');
             assert.strictEqual(project.language, 'de');
-            assert.strictEqual(project.iscrowdsourced, 1);
+            assert.strictEqual(project.iscrowdsourced, true);
         });
 
         it('should need options for multichoice fields in numbers projects', (done) => {
@@ -537,7 +537,7 @@ describe('DB objects', () => {
             assert.strictEqual(project.fields.length, 4);
             assert.strictEqual(project.typeid, 2);
             assert.strictEqual(project.userid, 'testuser');
-            assert.strictEqual(project.iscrowdsourced, 0);
+            assert.strictEqual(project.iscrowdsourced, false);
             project.fields.forEach((field) => {
                 assert(field.id);
                 assert.strictEqual(field.classid, 'testclass');

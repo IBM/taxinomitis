@@ -34,6 +34,9 @@ describe('Training - numbers service', () => {
 
         return store.init();
     });
+    beforeEach(() => {
+        postStub.resetHistory();
+    });
     after(() => {
         return store.deleteEntireUser(USERID, CLASSID)
             .then(() => {
@@ -203,34 +206,81 @@ describe('Training - numbers service', () => {
             assert(classifier.created instanceof Date);
             assert.strictEqual(classifier.status, 'Available');
 
-            assert(postStub.calledWith(sinon.match.any, {
-                auth : {
-                    user : process.env.NUMBERS_SERVICE_USER,
-                    pass : process.env.NUMBERS_SERVICE_PASS,
-                },
-                body : {
-                    tenantid : CLASSID,
-                    studentid : USERID,
-                    projectid : project.id,
-                    data : [
-                        [ { cats : 0, dogs : 0, fraction : 0.25 },  'hates_animals' ],
-                        [ { cats : 0, dogs : 0, fraction : 0 },  'hates_animals' ],
-                        [ { cats : 0, dogs : 0, fraction : 0 },  'hates_animals' ],
-                        [ { cats : 0, dogs : 1, fraction : 0.1 },  'hates_animals' ],
-                        [ { cats : 0, dogs : 0, fraction : 0 },  'hates_animals' ],
-                        [ { cats : 0, dogs : 0, fraction : 0 },  'hates_animals' ],
-                        [ { cats : 3, dogs : 0, fraction : 0 },  'likes_animals' ],
-                        [ { cats : 1, dogs : 1, fraction : 0 },  'likes_animals' ],
-                        [ { cats : 0, dogs : 1, fraction : 2 },  'likes_animals' ],
-                        [ { cats : 1, dogs : 2, fraction : 0 },  'likes_animals' ],
-                        [ { cats : 0, dogs : 0, fraction : 1.5 },  'likes_animals' ],
-                        [ { cats : 0, dogs : 0, fraction : 0 }, 'likes_animals' ],
-                    ],
-                },
-                json : true,
-                gzip : true,
-            }));
+            const sortFn = (item1: any, item2: any) => {
+                const label1 = item1[1];
+                const label2 = item2[1];
 
+                if (label1 < label2) {
+                    return -1;
+                }
+                if (label1 > label2) {
+                    return 1;
+                }
+
+                const data1 = item1[0];
+                const data2 = item2[0];
+                if (data1.cats < data2.cats) {
+                    return -1;
+                }
+                if (data1.cats > data2.cats) {
+                    return 1;
+                }
+
+                if (data1.dogs < data2.dogs) {
+                    return -1;
+                }
+                if (data1.dogs > data2.dogs) {
+                    return 1;
+                }
+
+                if (data1.fraction < data2.fraction) {
+                    return -1;
+                }
+                if (data1.fraction > data2.fraction) {
+                    return 1;
+                }
+
+                return 0;
+            };
+
+            const expectedCall = sinon.match((call) => {
+                call.body.data = call.body.data.sort(sortFn);
+
+                try {
+                    assert.deepStrictEqual(call, {
+                        auth : {
+                            user : process.env.NUMBERS_SERVICE_USER,
+                            pass : process.env.NUMBERS_SERVICE_PASS,
+                        },
+                        body : {
+                            tenantid : CLASSID,
+                            studentid : USERID,
+                            projectid : project.id,
+                            data : [
+                                [ { cats: 0, dogs: 0, fraction: 0.25 }, 'hates_animals' ],
+                                [ { cats: 0, dogs: 0, fraction: 0 }, 'hates_animals' ],
+                                [ { cats: 0, dogs: 0, fraction: 0 }, 'hates_animals' ],
+                                [ { cats: 0, dogs: 1, fraction: 0.1 }, 'hates_animals' ],
+                                [ { cats: 0, dogs: 0, fraction: 0 }, 'hates_animals' ],
+                                [ { cats: 0, dogs: 0, fraction: 0 }, 'hates_animals' ],
+                                [ { cats: 3, dogs: 0, fraction: 0 }, 'likes_animals' ],
+                                [ { cats: 1, dogs: 1, fraction: 0 }, 'likes_animals' ],
+                                [ { cats: 0, dogs: 1, fraction: 2 }, 'likes_animals' ],
+                                [ { cats: 1, dogs: 2, fraction: 0 }, 'likes_animals' ],
+                                [ { cats: 0, dogs: 0, fraction: 1.5 }, 'likes_animals' ],
+                                [ { cats: 0, dogs: 0, fraction: 0 }, 'likes_animals' ],
+                            ].sort(sortFn),
+                        },
+                        json : true,
+                        gzip : true,
+                    });
+                    return true;
+                }
+                catch (err) {
+                    return false;
+                }
+            });
+            assert(postStub.calledWith(sinon.match.any, expectedCall));
 
             let keys = await store.findScratchKeys(USERID, project.id, CLASSID);
             assert.strictEqual(keys.length, 1);

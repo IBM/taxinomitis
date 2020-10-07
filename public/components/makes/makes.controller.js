@@ -5,10 +5,10 @@
         .controller('MakesController', MakesController);
 
     MakesController.$inject = [
-        'authService', '$stateParams', '$scope', 'projectsService'
+        'authService', 'loggerService', '$stateParams', '$scope', 'projectsService'
     ];
 
-    function MakesController(authService, $stateParams, $scope, projectsService) {
+    function MakesController(authService, loggerService, $stateParams, $scope, projectsService) {
 
         var vm = this;
         vm.authService = authService;
@@ -22,6 +22,7 @@
             .then(function (profile) {
                 vm.profile = profile;
 
+                loggerService.debug('[ml4kmakes] getting project info');
                 return projectsService.getProject($scope.projectId, $scope.userId, profile.tenant);
             })
             .then(function (project) {

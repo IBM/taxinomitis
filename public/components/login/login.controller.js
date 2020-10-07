@@ -5,12 +5,12 @@
         .controller('LoginController', LoginController);
 
     LoginController.$inject = [
-        'authService', '$location', '$stateParams',
+        'authService', 'loggerService', '$location', '$stateParams',
         '$document', '$scope', '$timeout', '$state',
         '$mdDialog'
     ];
 
-    function LoginController(authService, $location, $stateParams, $document, $scope, $timeout, $state, $mdDialog) {
+    function LoginController(authService, loggerService, $location, $stateParams, $document, $scope, $timeout, $state, $mdDialog) {
         var vm = this;
         vm.authService = authService;
 
@@ -59,6 +59,7 @@
         vm.deployment = $stateParams.DEPLOYMENT;
 
         vm.startTryItNowSession = function (ev) {
+            loggerService.debug('[ml4klogin] starting Try It Now');
             $scope.failure = null;
 
             authService.createSessionUser()
@@ -68,8 +69,9 @@
                     });
                 })
                 .catch(function (err) {
-                    var errObj = err.data;
+                    loggerService.error('[ml4klogin] session creation failed', err);
 
+                    var errObj = err.data;
 
                     $scope.failure = {
                         message : getErrorMessage(errObj),

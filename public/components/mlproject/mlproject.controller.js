@@ -5,11 +5,11 @@
         .controller('ProjectController', ProjectController);
 
     ProjectController.$inject = [
-        'authService', 'projectsService',
+        'authService', 'projectsService', 'loggerService',
         '$stateParams', '$scope'
     ];
 
-    function ProjectController(authService, projectsService, $stateParams, $scope) {
+    function ProjectController(authService, projectsService, loggerService, $stateParams, $scope) {
         var vm = this;
         vm.authService = authService;
 
@@ -20,6 +20,7 @@
             .then(function (profile) {
                 vm.profile = profile;
 
+                loggerService.debug('[ml4kproj] getting project info');
                 return projectsService.getProject($scope.projectId, $scope.userId, profile.tenant);
             })
             .then(function (project) {
