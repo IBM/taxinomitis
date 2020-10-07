@@ -873,9 +873,9 @@
 
 
         "DESCRIBETHEGLASS": {
-            "TITLE": "Describe the glass",
-            "SUMMARY": "Teach a computer to predict your answers",
-            "DESCRIPTION": "Create a game in Scratch that learns when you describe a glass as half-full or half-empty.",
+            "TITLE": "水杯猜猜猜",
+            "SUMMARY": "教電腦預測你的答案",
+            "DESCRIPTION": "在Scratch中建立一個水杯遊戲，訓練電腦猜猜看他是半杯水還是空杯子。",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-describetheglass.pdf"
             }
@@ -945,9 +945,9 @@
             }
         },
         "SHOOTTHEBUG": {
-            "TITLE": "Shoot the bug",
-            "SUMMARY": "Teach a computer to play a game",
-            "DESCRIPTION": "Create a Breakout-style arcade game in Scratch that learns the angle to shoot balls at.",
+            "TITLE": "蟲蟲射擊",
+            "SUMMARY": "訓練電腦學習玩遊戲",
+            "DESCRIPTION": "在Scratch中建立一個反射遊戲，訓練電腦學習最佳的反彈角度。",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shootthebug.pdf"
             }
