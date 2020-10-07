@@ -872,6 +872,14 @@
         },
 
 
+        "DESCRIBETHEGLASS": {
+            "TITLE": "水杯猜猜猜",
+            "SUMMARY": "教電腦預測你的答案",
+            "DESCRIPTION": "在Scratch中建立一個水杯遊戲，訓練電腦猜猜看他是半杯水還是空杯子。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-describetheglass.pdf"
+            }
+        },
         "SMARTCLASSROOM": {
             "TITLE": "智慧教室",
             "SUMMARY": "教電腦辨識你的指令含義",
@@ -934,6 +942,14 @@
             "DESCRIPTION": "在Scratch中製作信件分類的辦公室，可以辨識信上手寫的郵遞區號",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mailmanmax.pdf"
+            }
+        },
+        "SHOOTTHEBUG": {
+            "TITLE": "蟲蟲射擊",
+            "SUMMARY": "訓練電腦學習玩遊戲",
+            "DESCRIPTION": "在Scratch中建立一個反射遊戲，訓練電腦學習最佳的反彈角度。",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shootthebug.pdf"
             }
         },
         "CARORCUP": {
