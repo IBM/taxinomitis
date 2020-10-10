@@ -88,6 +88,10 @@
                     return projectsService.getFields($scope.projectId, $scope.userId, vm.profile.tenant)
                         .then(function (fields) {
                             $scope.project.fields = fields;
+                            $scope.projectfieldnames = fields.map(function (field) {
+                                return field.name;
+                            });
+                            loggerService.debug('[ml4ktraining] field names', $scope.projectfieldnames);
                         });
                 }
                 else if (project.type === 'sounds') {
@@ -201,8 +205,9 @@
         }
 
 
-        function getValues(obj) {
-            return Object.keys(obj).map(function (key) {
+        function getNumberValues(obj) {
+            var fields = $scope.projectfieldnames ? $scope.projectfieldnames : Object.keys(obj);
+            return fields.map(function (key) {
                 return obj[key];
             });
         }
@@ -284,7 +289,7 @@
                 };
             }
             else if ($scope.project.type === 'numbers') {
-                data = getValues(resp);
+                data = getNumberValues(resp);
 
                 placeholder = {
                     id : placeholderId++,
