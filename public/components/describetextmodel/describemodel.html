@@ -22,6 +22,7 @@
          ng-click="vm.dismissAlert('errors', $index)"
          id="errors{{error.alertid}}">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Sorry! This is a new page and I still have some bits left to fix...</strong><br/><br/>
         <strong translate="APP.ERROR"></strong> {{ error.message }}<br/>
         <em ng-if="error.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
     </div>
@@ -31,20 +32,18 @@
     </div>
 
     <div class="describeintro">
-        <img src="static/images/decisiontree.png">
-        <div class="decisiontreeexplanation" translate="DESCRIBEMODEL.EXPLANATION.EXPL_1"></div>
-        <div class="decisiontreeexplanation" translate="DESCRIBEMODEL.EXPLANATION.EXPL_2"></div>
-        <div class="decisiontreeexplanation" translate="DESCRIBEMODEL.EXPLANATION.EXPL_3"></div>
-        <div class="decisiontreeexplanation" translate="DESCRIBEMODEL.EXPLANATION.EXPL_4"></div>
-        <div class="decisiontreeexplanation" translate="DESCRIBEMODEL.EXPLANATION.EXPL_5"></div>
-        <div class="decisiontreeexplanation" translate="DESCRIBEMODEL.EXPLANATION.EXPL_6"></div>
+        <div class="decisiontreeexplanation">blurb / explanation</div>
     </div>
 
     <div ng-if="loading" class="loading"> </div>
 
     <div ng-if="!loading && modelinfo">
         <div class="visualisationpage">
-            <div id="mlforkidsmodelvizimghost" class="visualisationimagehost"></div>
+            <div id="mlforkidsmodelvizimghost" class="visualisationimagehost">
+                <div id="mlforkidsmodelvizimg">
+
+                </div>
+            </div>
             <div class="sidepanel">
                 <div class="btn-group btn-group-lg" role="group">
                     <div type="button" class="btn btn-default glyphicon glyphicon-zoom-out" ng-mousedown="vm.shrink()" ng-mouseup="vm.stop()" ng-mouseleave="vm.stop()"></div>
@@ -58,34 +57,10 @@
                     <div class="btn btn-default glyphicon glyphicon-arrow-right" ng-mousedown="vm.goright()" ng-mouseup="vm.stop()" ng-mouseleave="vm.stop()"></div>
                 </div>
 
-                <div style="margin-top: 40px; margin-bottom: 5px;" translate="DESCRIBEMODEL.TRYITOUT"></div>
-
-                <form ng-if="project.fields" name="treetestform" ng-submit="vm.highlight(testformData)">
-                    <table style="font-size: 0.9em; margin-bottom: 5px;">
-                        <tr ng-repeat="field in project.fields">
-                            <td style="padding-right: 1em; font-size: 0.9em;">{{ field.name }}</td>
-                            <td>
-                                <input type="text"
-                                        ng-if="field.type === 'number'"
-                                        ng-pattern="/^-?[0-9]+(?:\.[0-9]*)?$/"
-                                        ng-model="testformData[field.name]"
-                                        ng-required="true">
-                                <select ng-if="field.type === 'multichoice'"
-                                        ng-required="true"
-                                        ng-model="testformData[field.name]"
-                                        ng-init="testformData[field.name] = field.choices[0]">
-                                    <option ng-repeat="choice in field.choices track by $index"
-                                            value="{{choice}}">{{choice}}</option>
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
-                    <input type="submit" class="btn btn-primary" value="{{ 'APP.TEST' | translate }}" ng-disabled="treetestform.$invalid" style="margin: 5px;">
-                    <div class="btn btn-default" style="margin: 5px;" ng-click="vm.resetTree()" translate="APP.RESET"></div>
-                </form>
+                <div style="margin-top: 40px; margin-bottom: 5px;">Use these controls to navigate the model diagram</div>
             </div>
         </div>
     </div>
-    <div ng-if="!loading && project.type!=='numbers'" translate="DESCRIBEMODEL.ERRORS.NUMBERSONLY"></div>
+    <div ng-if="!loading && project.type!=='text'">error placeholder</div>
 </div>
 

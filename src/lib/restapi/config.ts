@@ -67,6 +67,7 @@ export const CSP_DIRECTIVES = {
         'https://www.google-analytics.com',
         'https://www.googletagmanager.com',
         'https://browser.sentry-cdn.com',
+        'https://d3js.org',
     ],
     frameSrc: ["'self'",
         'http://embed.wakelet.com',

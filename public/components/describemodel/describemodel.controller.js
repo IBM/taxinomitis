@@ -6,10 +6,10 @@
 
         ModelDescribeController.$inject = [
             'authService', 'projectsService', 'trainingService', 'loggerService',
-            '$stateParams', '$scope', '$timeout', '$interval', '$document', 'loggerService'
+            '$stateParams', '$scope', '$timeout', '$interval', '$document'
         ];
 
-    function ModelDescribeController(authService, projectsService, trainingService, loggerService, $stateParams, $scope, $timeout, $interval, $document, loggerService) {
+    function ModelDescribeController(authService, projectsService, trainingService, loggerService, $stateParams, $scope, $timeout, $interval, $document) {
         var vm = this;
         vm.authService = authService;
 

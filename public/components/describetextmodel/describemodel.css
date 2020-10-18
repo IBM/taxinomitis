@@ -1,0 +1,25 @@
+.describemlmodel .visualisationimagehost .inputdata {
+    font-size: 11px;
+    text-align: center;
+    background-color: white;
+}
+
+
+.describemlmodel .visualisationimagehost .nodedata {
+    font-size: 11px;
+}
+.describemlmodel .visualisationimagehost .nodevalue {
+    font-size: 16px;
+}
+.describemlmodel .visualisationimagehost .nodeseparator {
+    stroke-width: 0.5;
+    stroke-opacity: 1;
+    stroke: rgb(80, 80, 80);
+}
+
+
+
+.describemlmodel .visualisationimagehost .highlightedlayer {
+    fill: rgb(220, 220, 220) !important;
+    stroke: rgb(255, 51, 51) !important;
+}
