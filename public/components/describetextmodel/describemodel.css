@@ -6,7 +6,7 @@
 
 
 .describemlmodel .visualisationimagehost .nodedata {
-    font-size: 11px;
+    font-size: 12px;
 }
 .describemlmodel .visualisationimagehost .nodevalue {
     font-size: 16px;
@@ -16,7 +16,31 @@
     stroke-opacity: 1;
     stroke: rgb(80, 80, 80);
 }
+.describemlmodel .visualisationimagehost .nodeweight {
+    font-size: 9px;
+}
+.describemlmodel .visualisationimagehost .inputannotation {
+    background-color: #ffebcd;
+    border: thin grey solid;
+    font-size: 9px;
+}
 
+.describemlmodel .visualisationimagehost .hiddenlayerfunction {
+    background-color: #f0f0ff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 10px;
+    padding: 8px;
+    text-align: right;
+}
+
+.describemlmodel .visualisationimagehost .hiddenlayerfunction td {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.describemlmodel .visualisationimagehost .hiddendiagramelement {
+    visibility: hidden;
+}
 
 
 .describemlmodel .visualisationimagehost .highlightedlayer {

@@ -75,28 +75,7 @@
                 if (models && models.length > 0) {
                     $scope.modelinfo = models[0];
 
-                    // number of nodes in each layer
-                    var architecture = [ 1, 9, 7, 9, 2 ];
-                    // pixels between the nodes in each layer
-                    var betweenNodesInLayer = [ 0, 20, 20, 20, 100 ];
-
-                    $timeout(function () {
-                        fcnnVisualisationService.init('mlforkidsmodelvizimg');
-                        fcnnVisualisationService.prepareNN(architecture, betweenNodesInLayer);
-                        fcnnVisualisationService.redraw();
-                        fcnnVisualisationService.redistribute();
-                        fcnnVisualisationService.addLabels();
-
-                        var newvals = { "1_0" : { "value" : 3 }, "1_1" : { "value" : 4 }, "1_2" : { "value" : 8 }, "1_3" : { "value" : 1 }, "1_4" : { "value" : 0.0 }, "1_5" : { "value" : 12 }, "1_6" : { "value" : 78 } };
-                        fcnnVisualisationService.updateLabels(newvals);
-                        newvals = { "4_0" : { "value" : 0.6 }, "4_1" : { "value" : 0.4 } };
-                        fcnnVisualisationService.updateLabels(newvals);
-                        newvals = { "2_0" : { "weight" : 1.3, "bias" : 10 }, "2_1" : { "weight" : 10.4, "bias" : 200 } };
-                        fcnnVisualisationService.updateLabels(newvals);
-                        newvals = { "2_0" : { "value" : 8888 }, "2_3" : { "value" : 7777 } };
-                        fcnnVisualisationService.updateLabels(newvals);
-                        fcnnVisualisationService.updateInputText("Bacon ipsum dolor amet pork chop venison fatback corned beef shoulder boudin swine kevin capicola. Pastrami ground round ribeye, ball tip tri-tip biltong tongue. Tail turkey t-bone venison frankfurter. ");
-                    }, 0);
+                    initializeVisualisation();
                 }
             })
             .catch(function (err) {
@@ -110,25 +89,48 @@
         // Adding the model graphic to the page
         //-------------------------------------------------------------------------------
 
-        function initializeVisualisation(svgdata) {
+        function initializeVisualisation() {
             loggerService.debug('[ml4kdesc] initializing visualization');
+
+            // number of nodes in each layer
+            var architecture = [ 1, 9, 7, 9, 2 ];
+            // pixels between the nodes in each layer
+            var betweenNodesInLayer = [ 0, 20, 20, 20, 100 ];
+
             $timeout(function () {
-                // prepare somewhere to put the decision tree graphic
-                var svgcontainer = document.createElement("div");
-                svgcontainer.id = 'mlforkidsmodelvizimg';
-                svgcontainer.innerHTML = svgdata;
+                fcnnVisualisationService.init('mlforkidsmodelvizimg');
+                fcnnVisualisationService.prepareNN(architecture, betweenNodesInLayer);
+                fcnnVisualisationService.redraw();
+                fcnnVisualisationService.redistribute();
+                fcnnVisualisationService.addLabels();
+                fcnnVisualisationService.addWeights();
 
-                // find where we need to add the visualization in the component
-                var svghost = document.getElementById('mlforkidsmodelvizimghost');
-                svghost.appendChild(svgcontainer);
+                // var newvals = { "1_0" : { "value" : 3 }, "1_1" : { "value" : 4 }, "1_2" : { "value" : 8 }, "1_3" : { "value" : 1 }, "1_4" : { "value" : 0.0 }, "1_5" : { "value" : 12 }, "1_6" : { "value" : 78 } };
+                // fcnnVisualisationService.updateLabels(newvals);
+                // newvals = { "4_0" : { "value" : 0.6 }, "4_1" : { "value" : 0.4 } };
+                // fcnnVisualisationService.updateLabels(newvals);
+                // newvals = { "2_0" : { "weight" : 1.3, "bias" : 10 }, "2_1" : { "weight" : 10.4, "bias" : 200 } };
+                // fcnnVisualisationService.updateLabels(newvals);
+                // newvals = { "2_0" : { "value" : 8888 }, "2_3" : { "value" : 7777 } };
+                // fcnnVisualisationService.updateLabels(newvals);
+                // fcnnVisualisationService.updateInputText("Bacon ipsum dolor amet pork chop venison fatback corned beef shoulder boudin swine kevin capicola. Pastrami ground round ribeye, ball tip tri-tip biltong tongue. Tail turkey t-bone venison frankfurter. ");
 
-                // modify the visualization to add some custom styles needed for highlighting
-                var svgroot = svgcontainer.getElementsByTagName('svg')[0];
-                svgroot.removeAttribute('width');
-                svgroot.removeAttribute('height');
-                var styleElement = document.createElement("style");
-                styleElement.textContent = ".nothighlighted { opacity: 0.25; } .highlighted { opacity: 1; } .highlighted.node path { stroke-width: 3; }";
-                svgroot.insertBefore(styleElement, svgroot.firstChild);
+                fcnnVisualisationService.showAnnotation("1_0", "Number of swear words");
+                fcnnVisualisationService.showAnnotation("1_1", "Number of capital letters");
+                fcnnVisualisationService.showAnnotation("1_2", "Number of punctuation marks");
+                fcnnVisualisationService.showAnnotation("2_4", "<table>" +
+                "<tr><td>  3</td><td>x</td><td>100</td><td></td><td>+</td></tr>" +
+                "<tr><td> 10</td><td>x</td><td> 10</td><td></td><td>+</td></tr>" +
+                "<tr><td> 17</td><td>x</td><td>  1</td><td></td><td>+</td></tr>" +
+                "<tr><td>999</td><td>x</td><td> 12</td><td></td><td>+</td></tr>" +
+                "<tr><td> 10</td><td>x</td><td> 67</td><td></td><td>+</td></tr>" +
+                "<tr><td>  3</td><td>x</td><td>200</td><td></td><td>+</td></tr>" +
+                "<tr><td> 17</td><td>x</td><td> 97</td><td></td><td>+</td></tr>" +
+                "<tr><td> 90</td><td>x</td><td> 45</td><td></td><td>+</td></tr>" +
+                "<tr><td> 42</td><td>x</td><td> 26</td><td></td><td>+</td></tr>" +
+                "<tr><td colspan='5'> </td></tr>" +
+                "<tr><td colspan='5'> = 2467</td></tr>" +
+                "</table");
             }, 0);
         }
 
