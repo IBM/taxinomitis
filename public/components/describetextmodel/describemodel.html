@@ -31,8 +31,63 @@
         <strong translate="APP.WARNING"></strong> {{ warning.message }}
     </div>
 
-    <div class="describeintro">
-        <div class="decisiontreeexplanation">blurb / explanation</div>
+    <div class="describeintro" style="display: flex; padding-bottom: 0" ng-switch="vm.wizardPage">
+        <div class="nnexplanation" ng-switch-when="1">
+            <div class="bodytext">The type of machine learning model that you have trained is called a neural network. </div>
+            <div class="bodytext">This page is an interactive guide to explain how your model was created.</div>
+            <div class="bodytext">The diagrams we'll use aren't an exact description of your model. Your model is much more complicated, but simplified diagrams make it easier to explain the ideas.</div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="2">
+            <div class="bodytext">The model is made up of a series of nodes, arranged in these vertical layers.</div>
+            <div class="bodytext">If you build your own machine learning model, you need to choose how many layers to use, and how many nodes to include in each layer. </div>
+            <div class="bodytext">Models with a lot of layers are described as "deep".</div>
+            <div class="bodytext">Larger models can give better results, but take longer to train. </div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="3">
+            <div class="bodytext">Let's start with one of the training examples used to create your model.</div>
+            <div class="bodytext">For this diagram, the input is shown on the left, and we'll move through the model to the results on the right.</div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="4">
+            <div class="bodytext">To use your training example to train the model, first the text needs to be turned into a series of numbers. </div>
+            <div class="bodytext">There are lots of ways to do this, and if you build your own machine learning model, you have to choose a way that will work well for your particular project.</div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="5">
+            <div class="bodytext">For example, a simple way of turning your text into numbers is to make each number a count of how many times each word is included.</div>
+            <div class="bodytext">This is quick and easy to do, but it's not good for projects where the order of words in the text is important.</div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="6">
+            <div class="bodytext">If the order of words is important, you can... FILL IN THIS</div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="7">
+            <div class="bodytext">If you build your own machine learning model, you need to choose the method to use to turn the input text into numbers. </div>
+            <div class="bodytext">You can do this based on what you know will work best for the type of project you are doing, or you can do it by experimenting with different techniques to see which works the best with your training examples.</div>
+            <div class="bodytext">The encoding method for your model was chosen for you based on what seemed to work best with your training examples.</div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="8">
+            <div class="bodytext">The numbers from the input layer are used in sums to calculate values for the nodes in the next layer along.</div>
+            <div class="bodytext">The lines on the diagram show you which of the input values are used to calculate the value in the next layer. </div>
+        </div>
+
+        <div class="nnsearchbox">
+            <div class="nnsearchprompt">for more detail, try searching for:</div>
+            <div class="nnsearchterm">
+                <a target="_blank" href="{{ vm.searchBoxLinks[vm.wizardPage] }}">
+                    <span ng-switch-when="1">neural networks</span>
+                    <span ng-switch-when="2">deep learning</span>
+                    <span ng-switch-when="3">input layer</span>
+                    <span ng-switch-when="4">encoding</span>
+                    <span ng-switch-when="5">bag of words</span>
+                    <span ng-switch-when="6">word embedding</span>
+                    <span ng-switch-when="7">feature selection</span>
+                    <span ng-switch-when="8">hidden layer</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div ng-hide="loading" class="nnwizardaction">
+        <button class="btn btn-default" ng-disabled="vm.wizardPage < 2" ng-click="vm.previousPage()">&lt; Back</button>
+        <button class="btn btn-primary" ng-disabled="false"             ng-click="vm.nextPage()">Next &gt;</button>
     </div>
 
     <div ng-if="loading" class="loading"> </div>
@@ -57,7 +112,7 @@
                     <div class="btn btn-default glyphicon glyphicon-arrow-right" ng-mousedown="vm.goright()" ng-mouseup="vm.stop()" ng-mouseleave="vm.stop()"></div>
                 </div>
 
-                <div style="margin-top: 40px; margin-bottom: 5px;">Use these controls to navigate the model diagram</div>
+                <div style="margin-top: 40px; margin-bottom: 5px;">Use these controls to navigate the model diagrams</div>
             </div>
         </div>
     </div>

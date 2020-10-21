@@ -1,7 +1,45 @@
+.describemlmodel .describeintro .nnexplanation {
+    flex-grow: 3;
+}
+
+.describemlmodel .nnexplanation .bodytext {
+    margin-bottom: 1em;
+}
+
+.describemlmodel .nnwizardaction {
+    text-align: center;
+}
+
+.describemlmodel .nnsearchbox {
+    margin-right: 0;
+    margin-left: 15px;
+    background-color: #eeeeee;
+    border-radius: 2em;
+    padding: 1em;
+    flex-grow: 1;
+}
+
+.describemlmodel .nnsearchbox .nnsearchprompt {
+    font-size: 0.7em;
+}
+.describemlmodel .nnsearchbox .nnsearchterm {
+    font-size: 1.6em;
+    font-weight: bold;
+    padding-left: 0.3em;
+}
+
+.describemlmodel .nnwizardaction button {
+    width: 180px;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+
 .describemlmodel .visualisationimagehost .inputdata {
     font-size: 11px;
     text-align: center;
     background-color: white;
+    border: thin grey solid;
 }
 
 
@@ -9,7 +47,7 @@
     font-size: 12px;
 }
 .describemlmodel .visualisationimagehost .nodevalue {
-    font-size: 16px;
+    font-size: 17px;
 }
 .describemlmodel .visualisationimagehost .nodeseparator {
     stroke-width: 0.5;
@@ -20,9 +58,10 @@
     font-size: 9px;
 }
 .describemlmodel .visualisationimagehost .inputannotation {
-    background-color: #ffebcd;
-    border: thin grey solid;
+    background-color: #f1feff;
+    border: thin #1864ab solid;
     font-size: 9px;
+    padding: 3px;
 }
 
 .describemlmodel .visualisationimagehost .hiddenlayerfunction {
@@ -44,6 +83,6 @@
 
 
 .describemlmodel .visualisationimagehost .highlightedlayer {
-    fill: rgb(220, 220, 220) !important;
-    stroke: rgb(255, 51, 51) !important;
+    fill: #84cbcc !important;
+    stroke: #1864ab !important;
 }

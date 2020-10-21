@@ -86,6 +86,8 @@
 
         var w, h, svg, g, graph, layer_offsets, link, node;
 
+        var container;
+
         var architecture = [];
         var betweenNodesInLayer = [];
 
@@ -103,6 +105,8 @@
         var betweenLayers = 160;
 
         function init(containerId) {
+            container = document.getElementById(containerId);
+
             w = window.innerWidth;
             h = window.innerHeight;
 
@@ -133,7 +137,7 @@
             graph.nodes = architecture.map(function (layer_width, layer_index) {
                 return range(layer_width).map(function (node_index) {
                     return {
-                        id: ID_PREFIX + getNodeId(layer_index) + getNodeId(node_index),
+                        id: ID_PREFIX + getNodeId(layer_index, node_index),
                         layer: layer_index,
                         node_index: node_index
                     };
@@ -161,7 +165,6 @@
             link = link.enter()
                        .insert('path', '.node')
                        .attr('class', 'link')
-                       // additional ML4K attribute
                        .attr('id', returnId)
                        .merge(link);
 
@@ -236,7 +239,7 @@
         }
 
         function set_focus(d) {
-            d3.event.stopPropagation();
+            // d3.event.stopPropagation();
             node.style('opacity', function(o) { return (d == o || o.layer == d.layer - 1) ? 1 : 0.1; });
             link.style('opacity', function(o) { return (o.target == d.id) ? 1 : 0.02; });
 
@@ -245,7 +248,7 @@
         }
 
         function remove_focus() {
-            d3.event.stopPropagation();
+            // d3.event.stopPropagation();
             node.style('opacity', 1);
             link.style('opacity', function () { return edgeOpacity; });
 
@@ -286,7 +289,7 @@
             var inputLayerX = parseFloat(inputDataNode.getAttribute('cx'));
             var inputLayerY = parseFloat(inputDataNode.getAttribute('cy'));
 
-            var inputDataWidth = 90;
+            var inputDataWidth = 120;
             var inputDataHeight = 70;
 
             var exampleTextX = inputLayerX - (inputDataWidth / 2);
@@ -300,13 +303,13 @@
                 'height': inputDataHeight,
                 'dominant-anchor': 'middle',
                 'text-anchor': 'middle',
-                'fill': nodeColor,
-                'style': 'overflow:visible'
+                'style': 'overflow:visible',
+                'class': 'additionalnndiagramelement'
             }, inputDataNode.parentNode);
 
             var exampleText = createSvgElement(NS_HTML, 'div', {
                 'id': ID_PREFIX + ELEMENT_IDS.INPUT_TEXT,
-                'class': 'inputdata'
+                'class': 'inputdata hiddendiagramelement additionalnndiagramelement'
             }, exampleTextContainer);
 
             exampleText.textContent = 'input text';
@@ -365,7 +368,8 @@
                                      ID_PREFIX + getNodeId(nextLayerIdx, nextIdx);
 
                         var pathText = createSvgElement(NS_SVG, 'text', {
-                            'text-anchor' : 'middle'
+                            'text-anchor' : 'middle',
+                            'class' : 'additionalnndiagramelement'
                         }, parentNode);
 
                         createSvgElement(NS_SVG, 'textPath', {
@@ -400,12 +404,13 @@
                     'width' : 150,
                     'height': 70,
                     'dominant-anchor' : 'text-top',
-                    'text-anchor' : 'start'
+                    'text-anchor' : 'start',
+                    'class' : 'additionalnndiagramelement'
                 }, mynode.parentNode);
 
                 createSvgElement(NS_HTML, 'div', {
                     'id' : ID_PREFIX + ELEMENT_IDS.ANNOTATION + nodeid,
-                    'class' : 'inputannotation hiddendiagramelement'
+                    'class' : 'inputannotation hiddendiagramelement additionalnndiagramelement'
                 }, annotationContainer);
             }
         }
@@ -439,7 +444,7 @@
                 'x2': mynodex + 20,
                 'y1': mynodey - 4,
                 'y2': mynodey - 4,
-                'class': 'nodeseparator'
+                'class': 'nodeseparator hiddendiagramelement'
             }, mynode.parentNode);
 
             createSvgElement(NS_SVG, 'text', {
@@ -458,11 +463,12 @@
                 'height' : 70,
                 'dominant-anchor' : 'text-top',
                 'text-anchor' : 'start',
-                'style' : 'overflow: visible'
+                'style' : 'overflow: visible',
+                'class' : 'additionalnndiagramelement'
             }, mynode.parentNode);
             createSvgElement(NS_HTML, 'div', {
                 'id' : ID_PREFIX + ELEMENT_IDS.ANNOTATION + nodeid,
-                'class' : 'hiddenlayerfunction hiddendiagramelement'
+                'class' : 'hiddenlayerfunction hiddendiagramelement additionalnndiagramelement'
             }, annotationContainer);
         }
 
@@ -474,7 +480,8 @@
                     document.getElementById(ID_PREFIX + ELEMENT_IDS.BIAS + ID_PREFIX + nodename).textContent = 'b=' + values.bias;
                 }
                 if ('value' in values) {
-                    document.getElementById(ID_PREFIX + ELEMENT_IDS.NODE_VALUE + ID_PREFIX + nodename).textContent = values.value;
+                    document.getElementById(ID_PREFIX + nodename).classList.add('highlightedlayer');
+                    document.getElementById(ID_PREFIX + ELEMENT_IDS.NODE_VALUE + nodename).textContent = values.value;
                 }
             }
         }
@@ -482,6 +489,7 @@
         function updateInputText(inputtext) {
             var exampleText = document.getElementById(ID_PREFIX + ELEMENT_IDS.INPUT_TEXT);
             exampleText.textContent = inputtext;
+            exampleText.classList.remove('hiddendiagramelement');
 
             var inputDataNode = getNNNode(LAYER_IDS.INPUT_TEXT, 0);
             var inputLayerY = parseFloat(inputDataNode.getAttribute('cy'));
@@ -504,14 +512,14 @@
         }
 
         function toggleLayerHighlight(layeridx) {
-            var nodesinlayer = document.getElementsByClassName('nnlayer' + layeridx);
+            var nodesinlayer = document.getElementsByClassName('nnlayer' + (layeridx % architecture.length));
             for (var i = 0; i < nodesinlayer.length; i++) {
                 nodesinlayer[i].classList.toggle('highlightedlayer');
             }
         }
 
         function setViewBox(largestLayerIdx) {
-            var left = parseFloat(getNNNode(LAYER_IDS.INPUT_TEXT, 0).getAttribute('cx')) - 50;
+            var left = parseFloat(getNNNode(LAYER_IDS.INPUT_TEXT, 0).getAttribute('cx')) - 80;
             var top = parseFloat(getNNNode(largestLayerIdx.idx, 0).getAttribute('cy')) - 50;
 
             w = window.innerWidth;
@@ -520,7 +528,7 @@
         }
 
         function removeAnnotations() {
-            var elems = document.querySelectorAll('.nodedata, .nodevalue, .nodeseparator');
+            var elems = container.querySelectorAll('.nodedata, .nodevalue, .nodeseparator, .nodeweight, .additionalnndiagramelement');
             for (var i = 0; i < elems.length; i++) {
                 elems[i].remove();
             }
@@ -531,19 +539,19 @@
             var selectedBiasId      = ID_PREFIX + ELEMENT_IDS.BIAS + d.id;
             var selectedValueId     = ID_PREFIX + ELEMENT_IDS.NODE_VALUE + d.id;
 
-            var elems = document.querySelectorAll('.nodeseparator');
+            var elems = container.querySelectorAll('.nodeseparator');
             for (var i = 0; i < elems.length; i++) {
                 var o = elems[i];
                 o.style.opacity = (o.id === selectedSeparatorId) ? 1 : 0.1;
             }
 
-            elems = document.querySelectorAll('.nodedata');
+            elems = container.querySelectorAll('.nodedata');
             for (var j = 0; j < elems.length; j++) {
                 var p = elems[j];
                 p.style.opacity = (p.id === selectedBiasId) ? 1 : 0.1;
             }
 
-            elems = document.querySelectorAll('.nodevalue');
+            elems = container.querySelectorAll('.nodevalue');
             for (var k = 0; k < elems.length; k++) {
                 var q = elems[k];
                 var shouldDisplay = q.id === selectedValueId ||
@@ -563,7 +571,7 @@
 
                 var textId = pathId + ELEMENT_IDS.PATH_TEXT;
 
-                document.getElementById(textId).textContent = "w = 123 >>>";
+                container.getElementById(textId).textContent = "w = 123 >>>";
             }
         }
 
@@ -577,13 +585,22 @@
                 elems[i].textContent = '';
             }
         }
-
+        function addHiddenClass(elems) {
+            for (var i = 0; i < elems.length; i++) {
+                elems[i].classList.add('hiddendiagramelement');
+            }
+        }
         function removeAnnotationsFocus() {
-            restoreOpacity(document.querySelectorAll('.nodeseparator, .nodedata, .nodevalue'));
-            emptyTextContent(document.querySelectorAll('.nodeweight'));
+            restoreOpacity(container.querySelectorAll('.nodeseparator, .nodedata, .nodevalue'));
+            emptyTextContent(container.querySelectorAll('.nodeweight'));
+            addHiddenClass(container.querySelectorAll('.inputannotation'));
+            node.classed('highlightedlayer', false);
         }
 
-
+        function decorate() {
+            addLabels();
+            addWeights();
+        }
 
 
 
@@ -594,8 +611,7 @@
             redraw : redraw,
             redistribute : redistribute,
 
-            addLabels : addLabels,
-            addWeights : addWeights,
+            decorate : decorate,
 
             updateLabels : updateLabels,
             updateInputText : updateInputText,
@@ -603,7 +619,10 @@
             showAnnotation : showAnnotation,
             hideAnnotation : hideAnnotation,
 
-            toggleLayerHighlight : toggleLayerHighlight
+            toggleLayerHighlight : toggleLayerHighlight,
+
+            set_focus : set_focus,
+            remove_focus : remove_focus
         };
     }
 })();

@@ -74,7 +74,6 @@
                 $scope.loading = false;
                 if (models && models.length > 0) {
                     $scope.modelinfo = models[0];
-
                     initializeVisualisation();
                 }
             })
@@ -89,55 +88,280 @@
         // Adding the model graphic to the page
         //-------------------------------------------------------------------------------
 
+        var INITIAL_ARCHITECTURE = [  9,  7,  9,  5,  7,  1 ];
+        var INITIAL_SPACING      = [  20, 20, 20, 20, 20, 20 ];
+
         function initializeVisualisation() {
             loggerService.debug('[ml4kdesc] initializing visualization');
 
-            // number of nodes in each layer
-            var architecture = [ 1, 9, 7, 9, 2 ];
-            // pixels between the nodes in each layer
-            var betweenNodesInLayer = [ 0, 20, 20, 20, 100 ];
-
             $timeout(function () {
                 fcnnVisualisationService.init('mlforkidsmodelvizimg');
-                fcnnVisualisationService.prepareNN(architecture, betweenNodesInLayer);
+                fcnnVisualisationService.prepareNN(INITIAL_ARCHITECTURE, INITIAL_SPACING);
                 fcnnVisualisationService.redraw();
                 fcnnVisualisationService.redistribute();
-                fcnnVisualisationService.addLabels();
-                fcnnVisualisationService.addWeights();
-
-                // var newvals = { "1_0" : { "value" : 3 }, "1_1" : { "value" : 4 }, "1_2" : { "value" : 8 }, "1_3" : { "value" : 1 }, "1_4" : { "value" : 0.0 }, "1_5" : { "value" : 12 }, "1_6" : { "value" : 78 } };
-                // fcnnVisualisationService.updateLabels(newvals);
-                // newvals = { "4_0" : { "value" : 0.6 }, "4_1" : { "value" : 0.4 } };
-                // fcnnVisualisationService.updateLabels(newvals);
-                // newvals = { "2_0" : { "weight" : 1.3, "bias" : 10 }, "2_1" : { "weight" : 10.4, "bias" : 200 } };
-                // fcnnVisualisationService.updateLabels(newvals);
-                // newvals = { "2_0" : { "value" : 8888 }, "2_3" : { "value" : 7777 } };
-                // fcnnVisualisationService.updateLabels(newvals);
-                // fcnnVisualisationService.updateInputText("Bacon ipsum dolor amet pork chop venison fatback corned beef shoulder boudin swine kevin capicola. Pastrami ground round ribeye, ball tip tri-tip biltong tongue. Tail turkey t-bone venison frankfurter. ");
-
-                fcnnVisualisationService.showAnnotation("1_0", "Number of swear words");
-                fcnnVisualisationService.showAnnotation("1_1", "Number of capital letters");
-                fcnnVisualisationService.showAnnotation("1_2", "Number of punctuation marks");
-                fcnnVisualisationService.showAnnotation("2_4", "<table>" +
-                "<tr><td>  3</td><td>x</td><td>100</td><td></td><td>+</td></tr>" +
-                "<tr><td> 10</td><td>x</td><td> 10</td><td></td><td>+</td></tr>" +
-                "<tr><td> 17</td><td>x</td><td>  1</td><td></td><td>+</td></tr>" +
-                "<tr><td>999</td><td>x</td><td> 12</td><td></td><td>+</td></tr>" +
-                "<tr><td> 10</td><td>x</td><td> 67</td><td></td><td>+</td></tr>" +
-                "<tr><td>  3</td><td>x</td><td>200</td><td></td><td>+</td></tr>" +
-                "<tr><td> 17</td><td>x</td><td> 97</td><td></td><td>+</td></tr>" +
-                "<tr><td> 90</td><td>x</td><td> 45</td><td></td><td>+</td></tr>" +
-                "<tr><td> 42</td><td>x</td><td> 26</td><td></td><td>+</td></tr>" +
-                "<tr><td colspan='5'> </td></tr>" +
-                "<tr><td colspan='5'> = 2467</td></tr>" +
-                "</table");
+                fcnnVisualisationService.decorate();
             }, 0);
         }
 
 
+        //-------------------------------------------------------------------------------
+        // Stepping through the wizard
+        //-------------------------------------------------------------------------------
+
+        vm.wizardPage = 1;
+
+        vm.searchBoxLinks = [
+            // 0 :
+            '',
+            // 1 :
+            'https://duckduckgo.com/?q=neural+networks',
+            // 2 :
+            'https://duckduckgo.com/?q=deep+learning',
+            // 3 :
+            'https://duckduckgo.com/?q=input+layer+neural+networks',
+            // 4 :
+            'https://duckduckgo.com/?q=encoding+text+classification',
+            // 5 :
+            'https://duckduckgo.com/?q=bag+of+words',
+            // 6 :
+            'https://duckduckgo.com/?q=word+embedding+neural+network'
+        ];
+
+        var runningAnimations = [];
+
+        vm.previousPage = function () {
+            if (vm.wizardPage > 1) {
+                vm.wizardPage = vm.wizardPage - 1;
+            }
+            if (vm.wizardPage === 2) {
+                restoreDefaultNetwork();
+            }
+            if (vm.wizardPage === 4) {
+                generateCustomModelNetwork();
+                displayTrainingExampleInput();
+            }
+            if (vm.wizardPage === 5) {
+                generateLargeInputLayerNetwork();
+                displayTrainingExampleInput();
+            }
+            displayPage();
+        };
+
+        vm.nextPage = function () {
+            if (vm.wizardPage < 28) {
+                vm.wizardPage = vm.wizardPage + 1;
+            }
+            if (vm.wizardPage === 3) {
+                generateCustomModelNetwork();
+            }
+            if (vm.wizardPage === 5) {
+                generateLargeInputLayerNetwork();
+                displayTrainingExampleInput();
+            }
+            if (vm.wizardPage === 6) {
+                generateCustomModelNetwork();
+                displayTrainingExampleInput();
+            }
+            displayPage();
+        };
+
+        function displayPage() {
+            loggerService.debug('[ml4kdesc] displaying wizard page', vm.wizardPage);
+
+            cancelRunningAnimations();
+
+            switch (vm.wizardPage) {
+                case 1:
+                    // nothing to do
+                    break;
+                case 2:
+                    highlightNetworkLayersInSequence();
+                    break;
+                case 3:
+                    displayTrainingExampleInput();
+                    break;
+                case 4:
+                    populateInputLayerWithRandomNumbers();
+                    break;
+                case 5:
+                    displayBagOfWordsInputLayerAnnotations();
+                    break;
+                case 6:
+                    populateInputLayerWithWord2Vec();
+                    break;
+                case 7:
+                    populateInputLayerWithRandomNumbers();
+                    break;
+            }
+        }
 
         //-------------------------------------------------------------------------------
-        // Moving the decision tree graphic around
+        // Update the model graphic
+        //-------------------------------------------------------------------------------
+
+        function restoreDefaultNetwork() {
+            loggerService.debug('[ml4kdesc] restoring the default initial network diagram');
+
+            fcnnVisualisationService.prepareNN(INITIAL_ARCHITECTURE, INITIAL_SPACING);
+            fcnnVisualisationService.redraw();
+            fcnnVisualisationService.redistribute();
+            fcnnVisualisationService.decorate();
+        }
+
+        function cancelRunningAnimations() {
+            loggerService.debug('[ml4kdesc] stopping previous animations');
+
+            for (var i = 0; i < runningAnimations.length; i++) {
+                $interval.cancel(runningAnimations[i]);
+            }
+            runningAnimations = [];
+            fcnnVisualisationService.remove_focus();
+        }
+
+        function highlightNetworkLayersInSequence() {
+            loggerService.debug('[ml4kdesc] animating network layers');
+
+            var highlightedLayer = 0;
+
+            fcnnVisualisationService.toggleLayerHighlight(highlightedLayer);
+            runningAnimations.push($interval(function () {
+                fcnnVisualisationService.toggleLayerHighlight(highlightedLayer);
+                highlightedLayer += 1;
+                fcnnVisualisationService.toggleLayerHighlight(highlightedLayer);
+            }, 400, 100));
+        }
+
+        var CUSTOM_INPUT_LAYER_SIZE = 7;
+
+        function generateCustomModelNetwork() {
+            loggerService.debug('[ml4kdesc] generating network diagram based on ML project');
+
+            // number of nodes in each layer
+            var architecture = [ 1, CUSTOM_INPUT_LAYER_SIZE, 5, 8, $scope.project.labels.length ];
+            // pixels between the nodes in each layer
+            var betweenNodesInLayer = [ 0, 20, 20, 20, 100 ];
+
+            fcnnVisualisationService.prepareNN(architecture, betweenNodesInLayer);
+            fcnnVisualisationService.redraw();
+            fcnnVisualisationService.redistribute();
+            fcnnVisualisationService.decorate();
+        }
+
+        var BAG_OF_WORDS_INPUT_LAYER_SIZE = 10;
+
+        function generateLargeInputLayerNetwork() {
+            loggerService.debug('[ml4kdesc] restoring the network diagram with larger input layer');
+
+            // number of nodes in each layer
+            var architecture = [ 1, BAG_OF_WORDS_INPUT_LAYER_SIZE, 5, 8, $scope.project.labels.length ];
+            // pixels between the nodes in each layer
+            var betweenNodesInLayer = [ 0, 20, 20, 20, 100 ];
+
+            fcnnVisualisationService.prepareNN(architecture, betweenNodesInLayer);
+            fcnnVisualisationService.redraw();
+            fcnnVisualisationService.redistribute();
+            fcnnVisualisationService.decorate();
+        }
+
+
+
+        function displayTrainingExampleInput() {
+            loggerService.debug('[ml4kdesc] displaying training example in diagram');
+
+            fcnnVisualisationService.updateInputText('SOME GENERIC PLACEHOLDER HEADLINE WILL GO HERE');
+        }
+
+        function populateInputLayerWithRandomNumbers() {
+            loggerService.debug('[ml4kdesc] populating input layer (random)');
+
+            var nodeIdx = 0;
+            var values = {};
+            runningAnimations.push($interval(function () {
+                values['1_' + nodeIdx] = { value : getRandomInt(0, 12) };
+                fcnnVisualisationService.updateLabels(values);
+
+                nodeIdx += 1;
+            }, 400, CUSTOM_INPUT_LAYER_SIZE));
+        }
+
+        function populateInputLayerWithWord2Vec() {
+            loggerService.debug('[ml4kdesc] populating input layer (word2vec)');
+
+            var nodeIdx = 0;
+            var values = {};
+            runningAnimations.push($interval(function () {
+                var nodeid = '1_' + nodeIdx;
+                values[nodeid] = { value : getRandomInt(1, 20) };
+                fcnnVisualisationService.updateLabels(values);
+                fcnnVisualisationService.showAnnotation(nodeid, 'PLACEHOLDER');
+
+                nodeIdx += 1;
+            }, 400, CUSTOM_INPUT_LAYER_SIZE));
+        }
+
+        function displayBagOfWordsInputLayerAnnotations() {
+            loggerService.debug('[ml4kdesc] populating input layer (bag of words)');
+
+            var nodeIdx = 0;
+            var values = {};
+            runningAnimations.push($interval(function () {
+                var nodeid = '1_' + nodeIdx;
+                values[nodeid] = { value : placeholderBagOfWords[nodeid].count };
+                fcnnVisualisationService.updateLabels(values);
+                fcnnVisualisationService.showAnnotation(nodeid, 'number of times that the word "' + placeholderBagOfWords[nodeid].word + '" appears');
+
+                nodeIdx += 1;
+            }, 400, BAG_OF_WORDS_INPUT_LAYER_SIZE));
+        }
+
+        var placeholderBagOfWords = {
+            '1_0' : {
+                word : 'HEADLINE',
+                count : 1
+            },
+            '1_1' : {
+                word : 'FURY',
+                count : 0
+            },
+            '1_2' : {
+                word : 'LONDON',
+                count : 0
+            },
+            '1_3' : {
+                word : 'GO',
+                count : 1
+            },
+            '1_4' : {
+                word : 'WILL',
+                count : 1
+            },
+            '1_5' : {
+                word : 'OPEN',
+                count : 0
+            },
+            '1_6' : {
+                word : 'PLACEHOLDER',
+                count : 1
+            },
+            '1_7' : {
+                word : 'TESTING',
+                count : 0
+            },
+            '1_8' : {
+                word : 'VALUES',
+                count : 0
+            },
+            '1_9' : {
+                word : 'QUEEN',
+                count : 1
+            }
+        };
+
+
+
+
+        //-------------------------------------------------------------------------------
+        // Moving the model graphic around
         //-------------------------------------------------------------------------------
 
         var operation;
@@ -208,5 +432,10 @@
 
         //-------------------------------------------------------------------------------
 
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
     }
 }());
