@@ -15,7 +15,7 @@ function escapeProjectName(name: string, version: 2 | 3): string {
         //  characters (e.g. '<') will prevent extensions from
         //  loading
         return name.replace(/[&<>]/g, ' ')
-                    .replace(/[\']/g, '\\\'');
+                    .replace(/[']/g, '\\\'');
     }
     else {
         // Scratch 2 displays the string as-is

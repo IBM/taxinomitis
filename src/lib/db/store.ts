@@ -10,7 +10,7 @@ import * as conversation from '../training/conversation';
 import * as visualrec from '../training/visualrecognition';
 import * as TrainingObjects from '../training/training-types';
 import * as limits from './limits';
-import { ONE_HOUR } from '../utils/constants';
+import { ONE_HOUR, ONE_DAY_PLUS_A_BIT } from '../utils/constants';
 import loggerSetup from '../utils/logger';
 
 
@@ -1194,7 +1194,15 @@ export async function getBluemixCredentialsPoolBatch(
 
 export function recordBluemixCredentialsPoolFailure(credentials: TrainingObjects.BluemixCredentialsPool): Promise<TrainingObjects.BluemixCredentialsPool>
 {
-    return updateBluemixCredentialsPoolTimestamp(credentials, new Date());
+    let updatedTimestamp: Date;
+    if (credentials.lastfail) {
+        updatedTimestamp = new Date(credentials.lastfail.getTime() + ONE_DAY_PLUS_A_BIT);
+    }
+    else {
+        log.error({ credentials }, 'Missing timestamp for credentials, defaulting to now');
+        updatedTimestamp = new Date();
+    }
+    return updateBluemixCredentialsPoolTimestamp(credentials, updatedTimestamp);
 }
 export function recordBluemixCredentialsPoolModelDeletion(credentials: TrainingObjects.BluemixCredentialsPool): Promise<TrainingObjects.BluemixCredentialsPool>
 {

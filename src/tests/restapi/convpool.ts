@@ -350,10 +350,6 @@ describe('REST API - text training for managed pool classes', () => {
         it('should handle exhausted pool creds', async() => {
             failCredsId = 'all';
 
-            await wait();
-            const timestamp = new Date().getTime();
-            await wait();
-
             let first = await store.getBluemixCredentialsById(types.ClassTenantType.ManagedPool, firstCredsId);
             let second = await store.getBluemixCredentialsById(types.ClassTenantType.ManagedPool, secondCredsId);
 
@@ -362,9 +358,6 @@ describe('REST API - text training for managed pool classes', () => {
 
             const firstCredsCheckTime = firstCredsCheck.lastfail.getTime();
             const secondCredsCheckTime = secondCredsCheck.lastfail.getTime();
-
-            assert(firstCredsCheckTime < timestamp);
-            assert(secondCredsCheckTime < timestamp);
 
             return request(testServer)
                 .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + thirdProject.id + '/models')
@@ -385,8 +378,15 @@ describe('REST API - text training for managed pool classes', () => {
                     firstCredsCheck = first as trainingtypes.BluemixCredentialsPool;
                     secondCredsCheck = second as trainingtypes.BluemixCredentialsPool;
 
-                    assert(firstCredsCheck.lastfail.getTime() > timestamp);
-                    assert(secondCredsCheck.lastfail.getTime() > timestamp);
+                    assert(firstCredsCheck.lastfail.getTime() > firstCredsCheckTime);
+                    assert(secondCredsCheck.lastfail.getTime() > secondCredsCheckTime);
+
+                    // more than one day
+                    assert(firstCredsCheck.lastfail.getTime() > (firstCredsCheckTime + 86400000));
+                    assert(secondCredsCheck.lastfail.getTime() > (secondCredsCheckTime + 86400000));
+                    // less than two days
+                    assert(firstCredsCheck.lastfail.getTime() < (firstCredsCheckTime + 172800000));
+                    assert(secondCredsCheck.lastfail.getTime() < (secondCredsCheckTime + 172800000));
                 });
         });
     });
