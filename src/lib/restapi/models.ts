@@ -13,6 +13,7 @@ import * as numbers from '../training/numbers';
 import * as notifications from '../notifications/slack';
 import * as base64decode from '../utils/base64decode';
 import * as download from '../utils/download';
+import * as random from '../utils/random';
 import * as urls from './urls';
 import * as errors from './errors';
 import * as headers from './headers';
@@ -271,20 +272,80 @@ async function deleteModel(req: auth.RequestWithProject, res: Express.Response) 
 }
 
 
-
 async function describeModel(req: auth.RequestWithProject, res: Express.Response) {
-    if (req.project.type !== 'numbers') {
-        return errors.notImplemented(res);
-    }
-
     try {
-        const classifierInfo = await numbers.getModelVisualisation(req.project);
+        if (req.project.type === 'numbers') {
+            const classifierInfo = await numbers.getModelVisualisation(req.project);
 
-        // computing the visualisation data is super expensive
-        //  so ask browsers to cache it forever
-        res.set(headers.CACHE_1YEAR);
+            // computing the visualisation data is super expensive
+            //  so ask browsers to cache it forever
+            res.set(headers.CACHE_1YEAR);
 
-        return res.json(classifierInfo);
+            return res.json(classifierInfo);
+        }
+        else if (req.project.type === 'text') {
+            return res.json({
+                examples : [
+                    {
+                        text : 'SOME GENERIC PLACEHOLDER HEADLINE WILL GO HERE',
+                        bagofwords : [
+                            { annotation : 'HEADLINE', value : 1 },
+                            { annotation : 'FURY', value : 0 },
+                            { annotation : 'LONDON', value : 0 },
+                            { annotation : 'GO', value : 1 },
+                            { annotation : 'WILL', value : 1 },
+                            { annotation : 'OPEN', value : 0 },
+                            { annotation : 'PLACEHOLDER', value : 1 },
+                            { annotation : 'TESTING', value : 0 },
+                            { annotation : 'VALUES', value : 0 },
+                            { annotation : 'QUEEN', value : 0 },
+                        ],
+                        embeddings : [
+                            { annotation : 'placeholder', value : random.int(0, 15) },
+                            { annotation : 'placeholder', value : random.int(0, 10) },
+                            { annotation : 'placeholder', value : random.int(0, 10) },
+                            { annotation : 'placeholder', value : random.int(0, 12) },
+                            { annotation : 'placeholder', value : random.int(0, 15) },
+                            { annotation : 'placeholder', value : random.int(0, 11) },
+                            { annotation : 'placeholder', value : random.int(0, 10) },
+                            { annotation : 'placeholder', value : random.int(0, 10) },
+                            { annotation : 'placeholder', value : random.int(0, 10) },
+                            { annotation : 'placeholder', value : random.int(0, 10) },
+                        ],
+                        random : [
+                            { annotation : '', value : random.int(0, 15) },
+                            { annotation : '', value : random.int(2, 10) },
+                            { annotation : '', value : random.int(0, 10) },
+                            { annotation : '', value : random.int(0, 12) },
+                            { annotation : '', value : random.int(5, 15) },
+                            { annotation : '', value : random.int(1, 11) },
+                            { annotation : '', value : random.int(2, 8) },
+                            { annotation : '', value : random.int(0, 10) },
+                            { annotation : '', value : random.int(0, 10) },
+                            { annotation : '', value : random.int(0, 10) },
+                        ],
+                        output : {
+                            random : {
+                                Daily_Mail : 0.2,
+                                Daily_Telegraph : 0.1,
+                                Independent : 0.6,
+                                The_Guardian : 0.1,
+                            },
+                            model : {
+                                Daily_Mail : 0.0,
+                                Daily_Telegraph : 0.0,
+                                Independent : 0.3,
+                                The_Guardian : 0.7,
+                            },
+                        }
+                    }
+                ]
+            });
+        }
+        else {
+            // sounds and images not supported yet
+            return errors.notImplemented(res);
+        }
     }
     catch (err) {
         return errors.unknownError(res, err);

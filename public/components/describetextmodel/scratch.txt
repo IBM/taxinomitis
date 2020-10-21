@@ -1,0 +1,28 @@
+fcnnVisualisationService.addWeights();
+
+// var newvals = { "1_0" : { "value" : 3 }, "1_1" : { "value" : 4 }, "1_2" : { "value" : 8 }, "1_3" : { "value" : 1 }, "1_4" : { "value" : 0.0 }, "1_5" : { "value" : 12 }, "1_6" : { "value" : 78 } };
+// fcnnVisualisationService.updateLabels(newvals);
+// newvals = { "4_0" : { "value" : 0.6 }, "4_1" : { "value" : 0.4 } };
+// fcnnVisualisationService.updateLabels(newvals);
+// newvals = { "2_0" : { "weight" : 1.3, "bias" : 10 }, "2_1" : { "weight" : 10.4, "bias" : 200 } };
+// fcnnVisualisationService.updateLabels(newvals);
+// newvals = { "2_0" : { "value" : 8888 }, "2_3" : { "value" : 7777 } };
+// fcnnVisualisationService.updateLabels(newvals);
+// fcnnVisualisationService.updateInputText("Bacon ipsum dolor amet pork chop venison fatback corned beef shoulder boudin swine kevin capicola. Pastrami ground round ribeye, ball tip tri-tip biltong tongue. Tail turkey t-bone venison frankfurter. ");
+
+fcnnVisualisationService.showAnnotation("1_0", "Number of swear words");
+fcnnVisualisationService.showAnnotation("1_1", "Number of capital letters");
+fcnnVisualisationService.showAnnotation("1_2", "Number of punctuation marks");
+fcnnVisualisationService.showAnnotation("2_4", "<table>" +
+"<tr><td>  3</td><td>x</td><td>100</td><td></td><td>+</td></tr>" +
+"<tr><td> 10</td><td>x</td><td> 10</td><td></td><td>+</td></tr>" +
+"<tr><td> 17</td><td>x</td><td>  1</td><td></td><td>+</td></tr>" +
+"<tr><td>999</td><td>x</td><td> 12</td><td></td><td>+</td></tr>" +
+"<tr><td> 10</td><td>x</td><td> 67</td><td></td><td>+</td></tr>" +
+"<tr><td>  3</td><td>x</td><td>200</td><td></td><td>+</td></tr>" +
+"<tr><td> 17</td><td>x</td><td> 97</td><td></td><td>+</td></tr>" +
+"<tr><td> 90</td><td>x</td><td> 45</td><td></td><td>+</td></tr>" +
+"<tr><td> 42</td><td>x</td><td> 26</td><td></td><td>+</td></tr>" +
+"<tr><td colspan='5'> </td></tr>" +
+"<tr><td colspan='5'> = 2467</td></tr>" +
+"</table");

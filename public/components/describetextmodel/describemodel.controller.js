@@ -21,6 +21,7 @@
         $scope.modelId = $stateParams.modelId;
 
         $scope.modelinfo = undefined;
+        $scope.currentExample = undefined;
 
         var alertId = 1;
         vm.errors = [];
@@ -71,11 +72,21 @@
             })
             .then(function (models) {
                 loggerService.debug('[ml4kdesc] models', models);
-                $scope.loading = false;
-                if (models && models.length > 0) {
-                    $scope.modelinfo = models[0];
-                    initializeVisualisation();
+                if (models && models.length > 0 && models[0].status === 'Available') {
+                    return trainingService.getModel($scope.project.id, $scope.userId, vm.profile.tenant, $scope.modelId, models[0].updated);
                 }
+                else {
+                    var errId = displayAlert('errors', 400, { message : 'Model not ready to be described' });
+                    scrollToNewItem('errors' + errId);
+                    $scope.loading = false;
+                }
+            })
+            .then(function (modelinfo) {
+                loggerService.debug('[ml4kdesc] model info', modelinfo);
+
+                $scope.loading = false;
+                $scope.modelinfo = modelinfo;
+                initializeVisualisation();
             })
             .catch(function (err) {
                 var errId = displayAlert('errors', err.status, err.data);
@@ -91,8 +102,12 @@
         var INITIAL_ARCHITECTURE = [  9,  7,  9,  5,  7,  1 ];
         var INITIAL_SPACING      = [  20, 20, 20, 20, 20, 20 ];
 
+        var WEIGHTS = {};
+
         function initializeVisualisation() {
             loggerService.debug('[ml4kdesc] initializing visualization');
+
+            initializeWeights();
 
             $timeout(function () {
                 fcnnVisualisationService.init('mlforkidsmodelvizimg');
@@ -101,6 +116,25 @@
                 fcnnVisualisationService.redistribute();
                 fcnnVisualisationService.decorate();
             }, 0);
+        }
+
+        function initializeWeights() {
+            loggerService.debug('[ml4kdesc] initializing weights and bias values');
+
+            for (var startLayer = 1; startLayer < 8; startLayer++) {
+                var endLayer = startLayer + 1;
+
+                for (var startNode = 0; startNode < 10; startNode++) {
+                    var startNodeId = startLayer + '_' + startNode;
+                    WEIGHTS[startNodeId] = {}
+
+                    for (var endNode = 0; endNode < 10; endNode++) {
+                        var endNodeId = endLayer + '_' + endNode;
+
+                        WEIGHTS[startNodeId][endNodeId] = getRandomInt(1, 9);
+                    }
+                }
+            }
         }
 
 
@@ -118,18 +152,36 @@
             // 2 :
             'https://duckduckgo.com/?q=deep+learning',
             // 3 :
-            'https://duckduckgo.com/?q=input+layer+neural+networks',
+            'https://duckduckgo.com/?q=input+layer+neural+network',
             // 4 :
             'https://duckduckgo.com/?q=encoding+text+classification',
             // 5 :
             'https://duckduckgo.com/?q=bag+of+words',
             // 6 :
-            'https://duckduckgo.com/?q=word+embedding+neural+network'
+            'https://duckduckgo.com/?q=word+embedding+neural+network',
+            // 7 :
+            'https://duckduckgo.com/?q=feature+selection+machine+learning',
+            // 8 :
+            'https://duckduckgo.com/?q=hidden+layer+neural+network',
+            // 9 :
+            'https://duckduckgo.com/?q=activation+function+neural+network',
+            // 10 :
+            'https://duckduckgo.com/?q=weight+bias+neural+network',
+            // 11 :
+            'https://duckduckgo.com/?q=hidden+layer+neural+network',
+            // 12 :
+            'https://duckduckgo.com/?q=output+layer+neural+network',
+            // 13 :
+            'https://duckduckgo.com/?q=loss+function+neural+networks+artificial+intelligence',
+            // 14 :
+            'https://duckduckgo.com/?q=back+propagation+neural+network'
         ];
 
         var runningAnimations = [];
 
         vm.previousPage = function () {
+            loggerService.debug('[ml4kdesc] previousPage');
+
             if (vm.wizardPage > 1) {
                 vm.wizardPage = vm.wizardPage - 1;
             }
@@ -148,6 +200,8 @@
         };
 
         vm.nextPage = function () {
+            loggerService.debug('[ml4kdesc] nextPage');
+
             if (vm.wizardPage < 28) {
                 vm.wizardPage = vm.wizardPage + 1;
             }
@@ -178,6 +232,7 @@
                     highlightNetworkLayersInSequence();
                     break;
                 case 3:
+                    $scope.currentExample = $scope.modelinfo.examples[0];
                     displayTrainingExampleInput();
                     break;
                 case 4:
@@ -192,7 +247,10 @@
                 case 7:
                     populateInputLayerWithRandomNumbers();
                     break;
-            }
+                case 8:
+
+                    break;
+                }
         }
 
         //-------------------------------------------------------------------------------
@@ -268,32 +326,55 @@
         function displayTrainingExampleInput() {
             loggerService.debug('[ml4kdesc] displaying training example in diagram');
 
-            fcnnVisualisationService.updateInputText('SOME GENERIC PLACEHOLDER HEADLINE WILL GO HERE');
+            fcnnVisualisationService.updateInputText($scope.currentExample.text);
+            fcnnVisualisationService.highlightInputText();
         }
 
         function populateInputLayerWithRandomNumbers() {
             loggerService.debug('[ml4kdesc] populating input layer (random)');
 
+            fcnnVisualisationService.clearInputLabels();
+
             var nodeIdx = 0;
             var values = {};
             runningAnimations.push($interval(function () {
-                values['1_' + nodeIdx] = { value : getRandomInt(0, 12) };
+                var example = $scope.currentExample.random[nodeIdx];
+
+                var nodeid = '1_' + nodeIdx;
+                values[nodeid] = { value : example.value };
                 fcnnVisualisationService.updateLabels(values);
 
                 nodeIdx += 1;
             }, 400, CUSTOM_INPUT_LAYER_SIZE));
         }
 
+        function restoreInputLayerWithRandomNumbers() {
+            loggerService.debug('[ml4kdesc] restoring input layer (random)');
+
+            var values = {};
+            for (var nodeIdx = 0; nodeIdx < CUSTOM_INPUT_LAYER_SIZE; nodeIdx++) {
+                var example = $scope.currentExample.random[nodeIdx];
+
+                var nodeid = '1_' + nodeIdx;
+                values[nodeid] = { value : example.value };
+            }
+            fcnnVisualisationService.updateLabels(values);
+        }
+
         function populateInputLayerWithWord2Vec() {
             loggerService.debug('[ml4kdesc] populating input layer (word2vec)');
+
+            fcnnVisualisationService.clearInputLabels();
 
             var nodeIdx = 0;
             var values = {};
             runningAnimations.push($interval(function () {
+                var example = $scope.currentExample.embeddings[nodeIdx];
+
                 var nodeid = '1_' + nodeIdx;
-                values[nodeid] = { value : getRandomInt(1, 20) };
+                values[nodeid] = { value : example.value };
                 fcnnVisualisationService.updateLabels(values);
-                fcnnVisualisationService.showAnnotation(nodeid, 'PLACEHOLDER');
+                fcnnVisualisationService.showAnnotation(nodeid, example.annotation);
 
                 nodeIdx += 1;
             }, 400, CUSTOM_INPUT_LAYER_SIZE));
@@ -305,59 +386,16 @@
             var nodeIdx = 0;
             var values = {};
             runningAnimations.push($interval(function () {
+                var example = $scope.currentExample.bagofwords[nodeIdx];
+
                 var nodeid = '1_' + nodeIdx;
-                values[nodeid] = { value : placeholderBagOfWords[nodeid].count };
+                values[nodeid] = { value : example.value };
                 fcnnVisualisationService.updateLabels(values);
-                fcnnVisualisationService.showAnnotation(nodeid, 'number of times that the word "' + placeholderBagOfWords[nodeid].word + '" appears');
+                fcnnVisualisationService.showAnnotation(nodeid, 'number of times that the word "' + example.annotation + '" appears');
 
                 nodeIdx += 1;
             }, 400, BAG_OF_WORDS_INPUT_LAYER_SIZE));
         }
-
-        var placeholderBagOfWords = {
-            '1_0' : {
-                word : 'HEADLINE',
-                count : 1
-            },
-            '1_1' : {
-                word : 'FURY',
-                count : 0
-            },
-            '1_2' : {
-                word : 'LONDON',
-                count : 0
-            },
-            '1_3' : {
-                word : 'GO',
-                count : 1
-            },
-            '1_4' : {
-                word : 'WILL',
-                count : 1
-            },
-            '1_5' : {
-                word : 'OPEN',
-                count : 0
-            },
-            '1_6' : {
-                word : 'PLACEHOLDER',
-                count : 1
-            },
-            '1_7' : {
-                word : 'TESTING',
-                count : 0
-            },
-            '1_8' : {
-                word : 'VALUES',
-                count : 0
-            },
-            '1_9' : {
-                word : 'QUEEN',
-                count : 1
-            }
-        };
-
-
 
 
         //-------------------------------------------------------------------------------

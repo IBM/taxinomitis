@@ -31,9 +31,10 @@
         .service('fcnnVisualisationService', fcnnVisualisationService);
 
     fcnnVisualisationService.$inject = [
+        'loggerService'
     ];
 
-    function fcnnVisualisationService() {
+    function fcnnVisualisationService(loggerService) {
 
         var ID_PREFIX = 'ml4kids_nn_';
 
@@ -317,6 +318,8 @@
         }
 
         function addLabels() {
+            loggerService.debug('[fcnn] Adding labels');
+
             var largestLayer = {
                 idx : 0,
                 size : 0
@@ -352,6 +355,8 @@
         }
 
         function addWeights() {
+            loggerService.debug('[fcnn] Adding weights');
+
             var parentNode = getNNNode(LAYER_IDS.INPUT_TEXT, 0).parentNode;
 
             for (var layerIdx = LAYER_IDS.INPUT_LAYER; layerIdx < (architecture.length - 2); layerIdx++) {
@@ -486,7 +491,18 @@
             }
         }
 
+        function clearInputLabels() {
+            loggerService.debug('[fcnn] Clear input labels');
+
+            for (var nodeIdx = 0; nodeIdx < architecture[LAYER_IDS.INPUT_LAYER]; nodeIdx++) {
+                getNNNode(LAYER_IDS.INPUT_LAYER, nodeIdx).classList.remove('highlightedlayer');
+                document.getElementById(ID_PREFIX + ELEMENT_IDS.NODE_VALUE + '1_' + nodeIdx).textContent = '';
+            }
+        }
+
         function updateInputText(inputtext) {
+            loggerService.debug('[fcnn] Updating input text', inputtext);
+
             var exampleText = document.getElementById(ID_PREFIX + ELEMENT_IDS.INPUT_TEXT);
             exampleText.textContent = inputtext;
             exampleText.classList.remove('hiddendiagramelement');
@@ -498,6 +514,8 @@
             var exampleTextContainer = document.getElementById(ID_PREFIX + ELEMENT_IDS.INPUT_TEXT_CONTAINER);
             exampleTextContainer.setAttributeNS(null, 'y', exampleTextY - (exampleText.clientHeight / 2));
         }
+
+
 
         function showAnnotation(nodeid, annotation) {
             var annotationId = ID_PREFIX + ELEMENT_IDS.ANNOTATION + nodeid;
@@ -571,8 +589,12 @@
 
                 var textId = pathId + ELEMENT_IDS.PATH_TEXT;
 
-                container.getElementById(textId).textContent = "w = 123 >>>";
+                document.getElementById(textId).textContent = "w = 123 >>>";
             }
+        }
+
+        function highlightInputText() {
+            document.getElementById(ID_PREFIX + ELEMENT_IDS.INPUT_TEXT).classList.add('highlightedlayer');
         }
 
         function restoreOpacity(elems) {
@@ -595,6 +617,7 @@
             emptyTextContent(container.querySelectorAll('.nodeweight'));
             addHiddenClass(container.querySelectorAll('.inputannotation'));
             node.classed('highlightedlayer', false);
+            document.getElementById(ID_PREFIX + ELEMENT_IDS.INPUT_TEXT).classList.remove('highlightedlayer');
         }
 
         function decorate() {
@@ -616,9 +639,12 @@
             updateLabels : updateLabels,
             updateInputText : updateInputText,
 
+            clearInputLabels : clearInputLabels,
+
             showAnnotation : showAnnotation,
             hideAnnotation : hideAnnotation,
 
+            highlightInputText : highlightInputText,
             toggleLayerHighlight : toggleLayerHighlight,
 
             set_focus : set_focus,

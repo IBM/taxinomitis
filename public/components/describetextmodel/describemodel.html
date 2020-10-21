@@ -67,6 +67,33 @@
             <div class="bodytext">The numbers from the input layer are used in sums to calculate values for the nodes in the next layer along.</div>
             <div class="bodytext">The lines on the diagram show you which of the input values are used to calculate the value in the next layer. </div>
         </div>
+        <div class="nnexplanation" ng-switch-when="9">
+            <div class="bodytext">There are lots of different types of calculation you can use. Not every node in the model needs to use the same type.</div>
+            <div class="bodytext">If you build your own machine learning model, you need to choose which equations to use for each node.</div>
+            <div class="bodytext">For example, you could sum all of the input values together, and then add an extra value.</div>
+            <div class="bodytext">The functions to use for each node in your model were chosen for you based on what seemed to work best with your training examples.</div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="10">
+            <div class="bodytext">Each arrow in the diagram has a "weight" number that is also used in the sum.</div>
+            <div class="bodytext">Training the model is how we work out the right number to put on each arrow, as you'll see in a moment.</div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="11">
+            <div class="bodytext">This continues through the rest of the model. </div>
+            <div class="bodytext">Each node in the model has its own equation function. Each arrow has its own weight.</div>
+            <div class="bodytext">If you build your own machine learning model, you need to choose how many nodes to put in each layer, which functions to use in them, and how many layers to use.</div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="12">
+            <div class="bodytext">The final layer gives us the machine learning model's prediction.</div>
+            <div class="bodytext">There is a node for each buckets you added to your training data.</div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="13">
+            <div class="bodytext">Results from the output layer are compared with the correct answer (the training bucket you put this example in).</div>
+            <div class="bodytext">This is used to work out how well the machine learning model did at this. </div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="14">
+            <div class="bodytext">We use this error rate to go backwards through the layers and nudge the numbers associated with each of the arrows.</div>
+            <div class="bodytext">Each weight number is increased a little bit or decreased a little bit, depending on what would've made that error a little smaller.</div>
+        </div>
 
         <div class="nnsearchbox">
             <div class="nnsearchprompt">for more detail, try searching for:</div>
@@ -80,6 +107,12 @@
                     <span ng-switch-when="6">word embedding</span>
                     <span ng-switch-when="7">feature selection</span>
                     <span ng-switch-when="8">hidden layer</span>
+                    <span ng-switch-when="9">activation functions</span>
+                    <span ng-switch-when="10">weight <small>and</small> bias</span>
+                    <span ng-switch-when="11">hidden layer</span>
+                    <span ng-switch-when="12">output layer</span>
+                    <span ng-switch-when="13">loss function</span>
+                    <span ng-switch-when="14">back propagation</span>
                 </a>
             </div>
         </div>
@@ -113,6 +146,8 @@
                 </div>
 
                 <div style="margin-top: 40px; margin-bottom: 5px;">Use these controls to navigate the model diagrams</div>
+
+                <div>DEBUG : {{ vm.wizardPage }}</div>
             </div>
         </div>
     </div>

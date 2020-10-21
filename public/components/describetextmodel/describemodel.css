@@ -43,6 +43,8 @@
 }
 
 
+
+
 .describemlmodel .visualisationimagehost .nodedata {
     font-size: 12px;
 }
@@ -84,5 +86,8 @@
 
 .describemlmodel .visualisationimagehost .highlightedlayer {
     fill: #84cbcc !important;
+    background-color: #84cbcc;
+
     stroke: #1864ab !important;
+    color: #1864ab;
 }
