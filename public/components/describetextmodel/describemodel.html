@@ -60,22 +60,22 @@
         </div>
         <div class="nnexplanation" ng-switch-when="7">
             <div class="bodytext">If you build your own machine learning model, you need to choose the method to use to turn the input text into numbers. </div>
-            <div class="bodytext">You can do this based on what you know will work best for the type of project you are doing, or you can do it by experimenting with different techniques to see which works the best with your training examples.</div>
-            <div class="bodytext">The encoding method for your model was chosen for you based on what seemed to work best with your training examples.</div>
+            <div class="bodytext">You can do this based on what you know will work best for the type of project you are doing. Or you can do it by experimenting with different techniques to see which works the best with your training examples.</div>
+            <div class="bodytext" style="font-style: italic;">The encoding method for your model was chosen for you based on what seemed to work best with your training examples.</div>
         </div>
         <div class="nnexplanation" ng-switch-when="8">
             <div class="bodytext">The numbers from the input layer are used in sums to calculate values for the nodes in the next layer along.</div>
             <div class="bodytext">The lines on the diagram show you which of the input values are used to calculate the value in the next layer. </div>
         </div>
         <div class="nnexplanation" ng-switch-when="9">
+            <div class="bodytext">Each arrow in the diagram has a "weight" number that is also used in the sum.</div>
+            <div class="bodytext">Training the model is how we work out the right number to put on each arrow, as you'll see in a moment.</div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="10">
             <div class="bodytext">There are lots of different types of calculation you can use. Not every node in the model needs to use the same type.</div>
             <div class="bodytext">If you build your own machine learning model, you need to choose which equations to use for each node.</div>
             <div class="bodytext">For example, you could sum all of the input values together, and then add an extra value.</div>
-            <div class="bodytext">The functions to use for each node in your model were chosen for you based on what seemed to work best with your training examples.</div>
-        </div>
-        <div class="nnexplanation" ng-switch-when="10">
-            <div class="bodytext">Each arrow in the diagram has a "weight" number that is also used in the sum.</div>
-            <div class="bodytext">Training the model is how we work out the right number to put on each arrow, as you'll see in a moment.</div>
+            <div class="bodytext" style="font-style: italic;">The functions to use for each node in your model were chosen for you based on what seemed to work best with your training examples.</div>
         </div>
         <div class="nnexplanation" ng-switch-when="11">
             <div class="bodytext">This continues through the rest of the model. </div>
@@ -107,13 +107,19 @@
                     <span ng-switch-when="6">word embedding</span>
                     <span ng-switch-when="7">feature selection</span>
                     <span ng-switch-when="8">hidden layer</span>
-                    <span ng-switch-when="9">activation functions</span>
-                    <span ng-switch-when="10">weight <small>and</small> bias</span>
+                    <span ng-switch-when="9">weight <small>and</small> bias</span>
+                    <span ng-switch-when="10">activation functions</span>
                     <span ng-switch-when="11">hidden layer</span>
                     <span ng-switch-when="12">output layer</span>
                     <span ng-switch-when="13">loss function</span>
                     <span ng-switch-when="14">back propagation</span>
                 </a>
+            </div>
+            <div class="nnsearchgraphic">
+                <svg width="4em" height="4em" viewBox="0 0 16 16" class="bi bi-search" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                    <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                  </svg>
             </div>
         </div>
     </div>
@@ -147,7 +153,7 @@
 
                 <div style="margin-top: 40px; margin-bottom: 5px;">Use these controls to navigate the model diagrams</div>
 
-                <div>DEBUG : {{ vm.wizardPage }}</div>
+                <div><br/><br/><br/>DEBUG : page {{ vm.wizardPage }}</div>
             </div>
         </div>
     </div>

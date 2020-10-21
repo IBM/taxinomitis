@@ -103,11 +103,13 @@
         var INITIAL_SPACING      = [  20, 20, 20, 20, 20, 20 ];
 
         var WEIGHTS = {};
+        var BIAS = {};
+        var VALUES = {};
 
         function initializeVisualisation() {
             loggerService.debug('[ml4kdesc] initializing visualization');
 
-            initializeWeights();
+            initializeModelValues();
 
             $timeout(function () {
                 fcnnVisualisationService.init('mlforkidsmodelvizimg');
@@ -118,7 +120,7 @@
             }, 0);
         }
 
-        function initializeWeights() {
+        function initializeModelValues() {
             loggerService.debug('[ml4kdesc] initializing weights and bias values');
 
             for (var startLayer = 1; startLayer < 8; startLayer++) {
@@ -126,12 +128,15 @@
 
                 for (var startNode = 0; startNode < 10; startNode++) {
                     var startNodeId = startLayer + '_' + startNode;
-                    WEIGHTS[startNodeId] = {}
+
+                    BIAS[startNodeId] = (4 - (startNode % 4));
+                    VALUES[startNodeId] = 0;
+                    WEIGHTS[startNodeId] = {};
 
                     for (var endNode = 0; endNode < 10; endNode++) {
                         var endNodeId = endLayer + '_' + endNode;
 
-                        WEIGHTS[startNodeId][endNodeId] = getRandomInt(1, 9);
+                        WEIGHTS[startNodeId][endNodeId] = getRandomInt(1, 6);
                     }
                 }
             }
@@ -248,7 +253,10 @@
                     populateInputLayerWithRandomNumbers();
                     break;
                 case 8:
-
+                    populateHiddenLayer();
+                    break;
+                case 9:
+                    displayBiasInHiddenLayer();
                     break;
                 }
         }
@@ -348,19 +356,6 @@
             }, 400, CUSTOM_INPUT_LAYER_SIZE));
         }
 
-        function restoreInputLayerWithRandomNumbers() {
-            loggerService.debug('[ml4kdesc] restoring input layer (random)');
-
-            var values = {};
-            for (var nodeIdx = 0; nodeIdx < CUSTOM_INPUT_LAYER_SIZE; nodeIdx++) {
-                var example = $scope.currentExample.random[nodeIdx];
-
-                var nodeid = '1_' + nodeIdx;
-                values[nodeid] = { value : example.value };
-            }
-            fcnnVisualisationService.updateLabels(values);
-        }
-
         function populateInputLayerWithWord2Vec() {
             loggerService.debug('[ml4kdesc] populating input layer (word2vec)');
 
@@ -395,6 +390,55 @@
 
                 nodeIdx += 1;
             }, 400, BAG_OF_WORDS_INPUT_LAYER_SIZE));
+        }
+
+
+        function calculateHiddenLayerValue(layerId, nodeIdx) {
+            var value = 0;
+
+            var endLayerId = layerId;
+            var endNodeId = layerId + '_' + nodeIdx;
+
+            var startLayerId = endLayerId - 1;
+            for (var startNodeIdx = 0; startNodeIdx < CUSTOM_INPUT_LAYER_SIZE; startNodeIdx++) {
+                var startNodeId = startLayerId + '_' + startNodeIdx;
+
+                value += ($scope.currentExample.random[startNodeIdx].value * WEIGHTS[startNodeId][endNodeId]);
+            }
+
+            value += BIAS[endNodeId];
+
+            VALUES[endNodeId] = value;
+
+            return value;
+        }
+
+        function populateHiddenLayer() {
+            loggerService.debug('[ml4kdesc] populating hidden layer');
+
+            var nodeIdx = 0;
+            var values = {};
+            runningAnimations.push($interval(function () {
+                var nodeid = '2_' + nodeIdx;
+                values[nodeid] = { value : calculateHiddenLayerValue(2, nodeIdx) };
+                fcnnVisualisationService.updateLabels(values);
+
+                nodeIdx += 1;
+            }, 400, 5));
+        }
+
+        function displayBiasInHiddenLayer() {
+            loggerService.debug('[ml4kdesc] annotating hidden layer with bias');
+
+            var nodeIdx = 0;
+            var values = {};
+            runningAnimations.push($interval(function () {
+                var nodeid = '2_' + nodeIdx;
+                values[nodeid] = { value : calculateHiddenLayerValue(2, nodeIdx) };
+                fcnnVisualisationService.updateLabels(values);
+
+                nodeIdx += 1;
+            }, 400, 5));
         }
 
 

@@ -482,7 +482,8 @@
                 var values = nodevalues[nodename];
 
                 if ('bias' in values) {
-                    document.getElementById(ID_PREFIX + ELEMENT_IDS.BIAS + ID_PREFIX + nodename).textContent = 'b=' + values.bias;
+                    document.getElementById(ID_PREFIX + ELEMENT_IDS.BIAS + nodename).textContent = 'b=' + values.bias;
+                    document.getElementById(ID_PREFIX + ELEMENT_IDS.SEPARATOR + nodename).classList.remove('hiddendiagramelement');
                 }
                 if ('value' in values) {
                     document.getElementById(ID_PREFIX + nodename).classList.add('highlightedlayer');

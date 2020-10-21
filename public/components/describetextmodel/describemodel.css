@@ -17,6 +17,7 @@
     border-radius: 2em;
     padding: 1em;
     flex-grow: 1;
+    position: relative;
 }
 
 .describemlmodel .nnsearchbox .nnsearchprompt {
@@ -27,6 +28,16 @@
     font-weight: bold;
     padding-left: 0.3em;
 }
+.describemlmodel .nnsearchbox .nnsearchgraphic {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 1em;
+}
+.describemlmodel .nnsearchbox .nnsearchgraphic svg {
+    opacity: 0.1;
+}
+
 
 .describemlmodel .nnwizardaction button {
     width: 180px;
