@@ -117,6 +117,31 @@ describe('Scratchx - status', () => {
 
             assert(extension.indexOf("ScratchExtensions.register('This is Dale\\'s test', descriptor, ext)") > 0);
         });
+
+        it('should handle apostrophes in project names for Scratch 3', async () => {
+            const key: Types.ScratchKey = {
+                id : uuid(),
+                name : "This is Dale's test",
+                type : 'text',
+                projectid : uuid(),
+                classifierid : uuid(),
+                updated : new Date(),
+            };
+            const proj: Types.Project = {
+                id : uuid(),
+                type : 'text',
+                name : "This is Dale's test",
+                language : 'en',
+                userid : uuid(),
+                classid : uuid(),
+                labels : [ 'LABEL NUMBER ONE', 'SECOND LABEL', 'THIRD' ],
+                numfields : 0,
+                isCrowdSourced : false,
+            };
+
+            const extension = await extensions.getScratchxExtension(key, proj, 3);
+            assert(extension.indexOf("name: 'This is Dale\\'s test',") > 0);
+        });
     });
 
 
