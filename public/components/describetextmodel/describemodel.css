@@ -1,5 +1,6 @@
 .describemlmodel .describeintro .nnexplanation {
     flex-grow: 3;
+    min-height: 140px;
 }
 
 .describemlmodel .nnexplanation .bodytext {
@@ -24,7 +25,7 @@
     font-size: 0.7em;
 }
 .describemlmodel .nnsearchbox .nnsearchterm {
-    font-size: 1.6em;
+    font-size: 2em;
     font-weight: bold;
     padding-left: 0.3em;
 }
@@ -51,6 +52,7 @@
     text-align: center;
     background-color: white;
     border: thin grey solid;
+    padding: 2px;
 }
 
 
@@ -68,7 +70,7 @@
     stroke: rgb(80, 80, 80);
 }
 .describemlmodel .visualisationimagehost .nodeweight {
-    font-size: 9px;
+    font-size: 10px;
 }
 .describemlmodel .visualisationimagehost .inputannotation {
     background-color: #f1feff;
@@ -83,6 +85,28 @@
     font-size: 10px;
     padding: 8px;
     text-align: right;
+    border: thin #1864ab solid;
+}
+
+.describemlmodel .visualisationimagehost .outputlayerdetail table {
+    background-color: white;
+}
+
+.describemlmodel .visualisationimagehost .outputlayerdetail {
+    background-color: white;
+    font-size: 10px;
+    padding: 9px;
+    border: thin #1864ab solid;
+}
+
+.describemlmodel .visualisationimagehost .outputlayerdetail th {
+    border-bottom: thin black solid;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+.describemlmodel .visualisationimagehost .outputlayerdetail td {
+    padding: 8px 16px 8px 8px;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .describemlmodel .visualisationimagehost .hiddenlayerfunction td {
@@ -101,4 +125,6 @@
 
     stroke: #1864ab !important;
     color: #1864ab;
+
+    font-weight: bold;
 }

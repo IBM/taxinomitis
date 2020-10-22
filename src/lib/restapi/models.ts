@@ -288,6 +288,7 @@ async function describeModel(req: auth.RequestWithProject, res: Express.Response
                 examples : [
                     {
                         text : 'SOME GENERIC PLACEHOLDER HEADLINE WILL GO HERE',
+                        label : 'Daily_Mail',
                         bagofwords : [
                             { annotation : 'HEADLINE', value : 1 },
                             { annotation : 'FURY', value : 0 },
@@ -313,33 +314,25 @@ async function describeModel(req: auth.RequestWithProject, res: Express.Response
                             { annotation : 'placeholder', value : random.int(0, 16) },
                         ],
                         random : [
-                            { annotation : '', value : random.int(0, 10) },
-                            { annotation : '', value : random.int(2, 10) },
-                            { annotation : '', value : random.int(0, 10) },
-                            { annotation : '', value : random.int(0, 10) },
-                            { annotation : '', value : random.int(5, 10) },
-                            { annotation : '', value : random.int(1, 10) },
-                            { annotation : '', value : random.int(2, 8) },
-                            { annotation : '', value : random.int(0, 10) },
-                            { annotation : '', value : random.int(0, 10) },
-                            { annotation : '', value : random.int(0, 10) },
+                            { annotation : '', value : random.int(1, 6) },
+                            { annotation : '', value : random.int(1, 6) },
+                            { annotation : '', value : random.int(0, 6) },
+                            { annotation : '', value : random.int(1, 6) },
+                            { annotation : '', value : random.int(0, 6) },
+                            { annotation : '', value : random.int(1, 6) },
+                            { annotation : '', value : random.int(0, 6) },
+                            { annotation : '', value : random.int(1, 6) },
+                            { annotation : '', value : random.int(0, 6) },
+                            { annotation : '', value : random.int(1, 6) },
                         ],
                         output : {
-                            random : {
-                                Daily_Mail : 0.2,
-                                Daily_Telegraph : 0.1,
-                                Independent : 0.6,
-                                The_Guardian : 0.1,
-                            },
-                            model : {
-                                Daily_Mail : 0.0,
-                                Daily_Telegraph : 0.0,
-                                Independent : 0.3,
-                                The_Guardian : 0.7,
-                            },
-                        }
-                    }
-                ]
+                            Daily_Mail : 0.2,
+                            Daily_Telegraph : 0.1,
+                            Independent : 0.6,
+                            The_Guardian : 0.1,
+                        },
+                    },
+                ],
             });
         }
         else {
