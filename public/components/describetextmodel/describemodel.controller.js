@@ -193,6 +193,24 @@
             // 17 :
             'https://duckduckgo.com/?q=loss+function+neural+networks+artificial+intelligence',
             // 18 :
+            'https://duckduckgo.com/?q=back+propagation+neural+network',
+            // 19 :
+            'https://duckduckgo.com/?q=neural+networks',
+            // 20:
+            'https://duckduckgo.com/?q=encoding+text+classification',
+            // 21 :
+            'https://duckduckgo.com/?q=hidden+layer+neural+network',
+            // 22 :
+            'https://duckduckgo.com/?q=activation+function+neural+network',
+            // 23 :
+            'https://duckduckgo.com/?q=activation+function+neural+network',
+            // 24 :
+            'https://duckduckgo.com/?q=hidden+layer+neural+network',
+            // 25 :
+            'https://duckduckgo.com/?q=output+layer+neural+network',
+            // 26 :
+            'https://duckduckgo.com/?q=loss+function+neural+networks+artificial+intelligence',
+            // 27 :
             'https://duckduckgo.com/?q=back+propagation+neural+network'
         ];
 
@@ -244,6 +262,15 @@
                 fcnnVisualisationService.hideAnnotation('2_1');
             }
             if (vm.wizardPage === 15) {
+                fcnnVisualisationService.hideAnnotation('2_2');
+            }
+            if (vm.wizardPage === 22) {
+                fcnnVisualisationService.hideAnnotation('2_0');
+            }
+            if (vm.wizardPage === 23) {
+                fcnnVisualisationService.hideAnnotation('2_1');
+            }
+            if (vm.wizardPage === 24) {
                 fcnnVisualisationService.hideAnnotation('2_2');
             }
             displayPage();
@@ -313,6 +340,41 @@
                     break;
                 case 17:
                     displayOutputErrorRate(wizardStepComplete);
+                    break;
+                case 18:
+                    displayBackPropagation(wizardStepComplete);
+                    break;
+                case 19:
+                    hideOutputValues();
+                    $scope.currentExample = $scope.modelinfo.examples[1];
+                    displayTrainingExampleInput(wizardStepComplete);
+                    break;
+                case 20:
+                    populateInputLayerWithRandomNumbers(wizardStepComplete);
+                    break;
+                case 21:
+                    displayWeightsAndBiasAndValueInHiddenLayer();
+                    wizardStepComplete();
+                    break;
+                case 22:
+                    displayWeightsAndBiasAndValueInNextHiddenLayer();
+                    wizardStepComplete();
+                    break;
+                case 23:
+                    displayWeightsAndBiasAndValueInThirdHiddenLayer();
+                    wizardStepComplete();
+                    break;
+                case 24:
+                    displayAllHiddenLayerValues(wizardStepComplete);
+                    break;
+                case 25:
+                    displayOutputValues(wizardStepComplete);
+                    break;
+                case 26:
+                    displayOutputErrorRate(wizardStepComplete);
+                    break;
+                case 27:
+                    displayBackPropagation(wizardStepComplete);
                     break;
             }
         }
@@ -744,6 +806,10 @@
             }, VERY_SLOW, remainingNodes.length + 1));
         }
 
+        function hideOutputValues() {
+            fcnnVisualisationService.updateOutputHtml();
+        }
+
         function displayOutputValues(onComplete) {
             var values = {};
             for (var i = 0; i < $scope.project.labels.length; i++) {
@@ -801,6 +867,94 @@
             }, 800);
         }
 
+
+        function displayBackPropagation(onComplete) {
+            fcnnVisualisationService.removeValues();
+
+            var output = "<table>" +
+                "<tr><th>label</th><th>output</th><th>training</th><th>error</th></tr>";
+            for (var i = 0; i < $scope.project.labels.length; i++) {
+                var label = $scope.project.labels[i];
+                var trainingvalue = (label === $scope.currentExample.label) ? 1 : 0;
+                var errorrate = trainingvalue - $scope.currentExample.output[label];
+                if (errorrate > 0) {
+                    errorrate = "+" + errorrate;
+                }
+                output += ("<tr><td>" + label + "</td><td>"  + $scope.currentExample.output[label] + "</td><td>" + trainingvalue + "</td><td><strong>" + errorrate + "</strong></td></tr>");
+            }
+            output += "</table>";
+
+            fcnnVisualisationService.updateOutputHtml(output);
+
+
+            var architecture = [ 1, CUSTOM_INPUT_LAYER_SIZE, 5, 8, $scope.project.labels.length ];
+
+            var steps = [];
+            for (var layerId = architecture.length - 1; layerId > 1; layerId--) {
+                for (var nodeId = 0; nodeId < architecture[layerId]; nodeId++) {
+                    if (layerId != (architecture.length - 1)) {
+                        steps.push({ layer : layerId, type : 'bias', node : nodeId, action : 'adjust' });
+                        steps.push({ layer : layerId, type : 'bias', node : nodeId, action : 'current' });
+                    }
+                }
+                for (var nodeId = 0; nodeId < architecture[layerId]; nodeId++) {
+                    steps.push({ layer : layerId, type : 'weights', node : nodeId, action : 'current' });
+                    steps.push({ layer : layerId, type : 'weights', node : nodeId, action : 'adjust' });
+                    steps.push({ layer : layerId, type : 'weights', node : nodeId, action : 'hide' });
+                }
+            }
+
+            var stepId = 0;
+            runningAnimations.push($interval(function () {
+                var step = steps[stepId];
+
+                var targetId = step.layer + '_' + step.node;
+
+                if (step.type === 'weights') {
+                    var inputLayer = step.layer - 1;
+                    var numInputNodes = architecture[inputLayer];
+
+                    var weightsToDisplay = [];
+
+                    if (step.action === 'adjust') {
+                        for (var inputNodeId = 0; inputNodeId < numInputNodes; inputNodeId++) {
+                            WEIGHTS[inputLayer + '_' + inputNodeId][targetId] = adjust(WEIGHTS[inputLayer + '_' + inputNodeId][targetId]);
+                        }
+                    }
+                    if (step.action === 'current' || step.action === 'adjust') {
+                        for (var inputNodeId = 0; inputNodeId < numInputNodes; inputNodeId++) {
+                            weightsToDisplay.push('w = ' + WEIGHTS[inputLayer + '_' + inputNodeId][targetId]);
+                        }
+                    }
+                    if (step.action === 'hide') {
+                        for (var inputNodeId = 0; inputNodeId < numInputNodes; inputNodeId++) {
+                            weightsToDisplay.push('');
+                        }
+                    }
+
+                    fcnnVisualisationService.displayWeights(step.layer, step.node, weightsToDisplay, step.action === 'adjust');
+                }
+                if (step.type === 'bias') {
+                    if (step.action === 'adjust') {
+                        BIAS[targetId] = adjust(BIAS[targetId]);
+                    }
+
+                    var values = {};
+                    values[targetId] = { bias : BIAS[targetId] };
+                    fcnnVisualisationService.updateLabels(values, step.action === 'adjust');
+                }
+
+
+                stepId += 1;
+                if (onComplete && stepId === steps.length) {
+                    onComplete();
+                }
+            }, SLOW, steps.length));
+        }
+
+        function adjust(val) {
+            return val + (Math.random() > 0.5 ? 1 : -1);
+        }
 
         function displayBiasInHiddenLayer() {
             loggerService.debug('[ml4kdesc] annotating hidden layer with bias');

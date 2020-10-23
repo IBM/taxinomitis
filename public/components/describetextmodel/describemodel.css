@@ -72,6 +72,12 @@
 .describemlmodel .visualisationimagehost .nodeweight {
     font-size: 10px;
 }
+.describemlmodel .visualisationimagehost .nodeweight.highlighted {
+    font-weight: 900;
+    color: #1864ab;
+}
+
+
 .describemlmodel .visualisationimagehost .inputannotation {
     background-color: #f1feff;
     border: thin #1864ab solid;

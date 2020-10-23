@@ -1,3 +1,4 @@
+
 (function () {
     // angular-ized service implementation of https://github.com/alexlenail/NN-SVG
     //  with some additional functions to add extra annotations and text to the NN visualisation
@@ -394,7 +395,7 @@
 
             var parentNode = getNNNode(LAYER_IDS.INPUT_TEXT, 0).parentNode;
 
-            for (var layerIdx = LAYER_IDS.INPUT_LAYER; layerIdx < (architecture.length - 2); layerIdx++) {
+            for (var layerIdx = LAYER_IDS.INPUT_LAYER; layerIdx < (architecture.length - 1); layerIdx++) {
                 var nextLayerIdx = layerIdx + 1;
                 var nextLayerNumNodes = architecture[nextLayerIdx];
 
@@ -512,11 +513,17 @@
             }, annotationContainer);
         }
 
-        function updateLabels(nodevalues) {
+        function updateLabels(nodevalues, highlight) {
             for (var nodename  in nodevalues) {
                 var values = nodevalues[nodename];
 
                 if ('bias' in values) {
+                    if (highlight) {
+                        document.getElementById(ID_PREFIX + nodename).classList.add('highlightedlayer');
+                    }
+                    else {
+                        document.getElementById(ID_PREFIX + nodename).classList.remove('highlightedlayer');
+                    }
                     document.getElementById(ID_PREFIX + ELEMENT_IDS.BIAS + nodename).textContent = 'b=' + values.bias;
                     document.getElementById(ID_PREFIX + ELEMENT_IDS.SEPARATOR + nodename).classList.remove('hiddendiagramelement');
                 }
@@ -544,21 +551,28 @@
             exampleText.classList.remove('hiddendiagramelement');
 
             var inputDataNode = getNNNode(LAYER_IDS.INPUT_TEXT, 0);
+            inputDataNode.classList.remove('hiddendiagramelement');
             var inputLayerY = parseFloat(inputDataNode.getAttribute('cy'));
             var exampleTextY = inputLayerY;
 
             var exampleTextContainer = document.getElementById(ID_PREFIX + ELEMENT_IDS.INPUT_TEXT_CONTAINER);
             exampleTextContainer.setAttributeNS(null, 'y', exampleTextY - (exampleText.clientHeight / 2));
+            exampleTextContainer.classList.remove('hiddendiagramelement');
         }
 
         function updateOutputHtml(outputhtml) {
             loggerService.debug('[fcnn] Updating output detail');
 
             var exampleText = document.getElementById(ID_PREFIX + ELEMENT_IDS.OUTPUT_LAYER);
-            exampleText.innerHTML = outputhtml;
-            exampleText.classList.remove('hiddendiagramelement');
-        }
 
+            if (outputhtml) {
+                exampleText.innerHTML = outputhtml;
+                exampleText.classList.remove('hiddendiagramelement');
+            }
+            else {
+                exampleText.classList.add('hiddendiagramelement');
+            }
+        }
 
 
         function showAnnotation(nodeid, annotation) {
@@ -627,22 +641,26 @@
             }
         }
 
-        function displayWeights(layerIdx, nodeIdx, weights) {
+        function displayWeights(layerIdx, nodeIdx, weights, highlight) {
             var prevLayerIdx = layerIdx - 1;
             var prevLayerNumNodes = architecture[prevLayerIdx];
 
             for (var idx = 0; idx < prevLayerNumNodes; idx++) {
                 var nodeId = ID_PREFIX + getNodeId(prevLayerIdx, idx);
-
                 var pathId = ID_PREFIX +
                              nodeId + '-' +
                              ID_PREFIX + layerIdx + '_' + nodeIdx;
-                console.log('pathid : ' + pathId);
-
                 var textId = pathId + ELEMENT_IDS.PATH_TEXT;
-                console.log('textid : ' + textId);
 
-                document.getElementById(textId).textContent = weights[idx];
+                var elem = document.getElementById(textId);
+
+                elem.textContent = weights[idx];
+                if (highlight) {
+                    elem.classList.add('highlighted');
+                }
+                else {
+                    elem.classList.remove('highlighted');
+                }
             }
         }
 
@@ -695,6 +713,22 @@
             addWeights();
         }
 
+        function removeValues() {
+            link.style('opacity', function(o) { return (o.source === ID_PREFIX + '0_0') ? 0.02 : 1; });
+            node.style('opacity', function(o) { return (o.layer === 0) ? 0.02 : 1; });
+
+            clearInputLabels();
+
+            document.getElementById(ID_PREFIX + ELEMENT_IDS.INPUT_TEXT).classList.add('hiddendiagramelement');
+            document.getElementById(ID_PREFIX + ELEMENT_IDS.INPUT_TEXT_CONTAINER).classList.add('hiddendiagramelement');
+
+            for (var layerIdx = 1; layerIdx < architecture.length; layerIdx++) {
+                for (var nodeIdx = 0; nodeIdx < architecture[layerIdx]; nodeIdx++) {
+                    document.getElementById(ID_PREFIX + ELEMENT_IDS.NODE_VALUE + layerIdx + '_' + nodeIdx).textContent = '';
+                }
+            }
+        }
+
 
 
         return {
@@ -721,6 +755,8 @@
 
             highlightInputText : highlightInputText,
             toggleLayerHighlight : toggleLayerHighlight,
+
+            removeValues : removeValues,
 
             set_focus : set_focus,
             remove_focus : remove_focus
