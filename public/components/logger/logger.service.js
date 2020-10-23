@@ -14,7 +14,14 @@
         function capture() {
             for (var i = 0; i < arguments.length; i++) {
                 var nextarg = arguments[i];
-                if (typeof nextarg !== 'string') {
+                if (nextarg instanceof Error) {
+                    nextarg = JSON.stringify({
+                        name: nextarg.name,
+                        message: nextarg.message,
+                        stack: nextarg.stack
+                    });
+                }
+                else if (typeof nextarg !== 'string') {
                     nextarg = JSON.stringify(nextarg);
                 }
                 logs.push(Date.now() + ' ' + nextarg + '\n');
