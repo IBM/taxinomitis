@@ -595,12 +595,36 @@
         }
 
         function setViewBox(largestLayerIdx) {
-            var left = parseFloat(getNNNode(LAYER_IDS.INPUT_TEXT, 0).getAttribute('cx')) - 80;
-            var top = parseFloat(getNNNode(largestLayerIdx.idx, 0).getAttribute('cy')) - 50;
+            loggerService.debug('[fcnn] Setting the view box based on the location of nodes in layer', largestLayerIdx);
 
-            w = window.innerWidth;
-            h = window.innerHeight;
-            svg.attr('viewBox', left + ' ' + top + ' ' + w + ' ' + h);
+            var inputElem = getNNNode(LAYER_IDS.INPUT_TEXT, 0);
+            var outputElem = document.getElementById(ID_PREFIX + ELEMENT_IDS.OUTPUT_LAYER_CONTAINER);
+            var topHiddenElem = getNNNode(largestLayerIdx.idx, 0);
+            var bottomHiddenElem = getNNNode(largestLayerIdx.idx, architecture[largestLayerIdx.idx - 1]);
+
+            var left = parseFloat(inputElem.getAttribute('cx')); // - 80;
+            var right = parseFloat(outputElem.getAttribute('x')); // + 500;
+            var top = parseFloat(topHiddenElem.getAttribute('cy')); // - 50;
+            var bottom = parseFloat(bottomHiddenElem.getAttribute('cy')); // + 200;
+
+            if (outputElem) {
+                w = right - left + 600;
+                h = bottom - top + 250;
+
+                console.log('height is ' + h);
+
+                if (h < 400) {
+                    h = 760;
+                }
+            }
+            else {
+                w = window.innerWidth;
+                h = window.innerHeight;
+            }
+
+
+
+            svg.attr('viewBox', (left - 80) + ' ' + (top - 30) + ' ' + w + ' ' + h);
         }
 
         function removeAnnotations() {

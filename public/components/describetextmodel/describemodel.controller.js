@@ -147,7 +147,10 @@
         // Stepping through the wizard
         //-------------------------------------------------------------------------------
 
-        vm.wizardPage = 1;
+        var FIRST_PAGE = 1;
+        var LAST_PAGE = 29;
+
+        vm.wizardPage = FIRST_PAGE;
 
         vm.wizardBusy = false;
 
@@ -211,7 +214,11 @@
             // 26 :
             'https://duckduckgo.com/?q=loss+function+neural+networks+artificial+intelligence',
             // 27 :
-            'https://duckduckgo.com/?q=back+propagation+neural+network'
+            'https://duckduckgo.com/?q=back+propagation+neural+network',
+            // 28 :
+            'https://duckduckgo.com/?q=epochs+neural+network',
+            // 29 :
+            'https://duckduckgo.com/?q=neural+networks'
         ];
 
         var runningAnimations = [];
@@ -220,7 +227,7 @@
             loggerService.debug('[ml4kdesc] previousPage');
             vm.wizardBusy = true;
 
-            if (vm.wizardPage > 1) {
+            if (vm.wizardPage > FIRST_PAGE) {
                 vm.wizardPage = vm.wizardPage - 1;
             }
             if (vm.wizardPage === 2) {
@@ -241,7 +248,7 @@
             loggerService.debug('[ml4kdesc] nextPage');
             vm.wizardBusy = true;
 
-            if (vm.wizardPage < 28) {
+            if (vm.wizardPage < LAST_PAGE) {
                 vm.wizardPage = vm.wizardPage + 1;
             }
             if (vm.wizardPage === 3) {
@@ -273,6 +280,7 @@
             if (vm.wizardPage === 24) {
                 fcnnVisualisationService.hideAnnotation('2_2');
             }
+
             displayPage();
         };
 
@@ -376,6 +384,12 @@
                 case 27:
                     displayBackPropagation(wizardStepComplete);
                     break;
+                case 28:
+                    animateEpoch(wizardStepComplete);
+                    break;
+                case 29:
+                    restoreDefaultNetwork();
+                    break;
             }
         }
 
@@ -386,6 +400,7 @@
         var VERY_SLOW = 600;
         var SLOW = 400;
         var FAST = 200;
+        var VERY_FAST = 150;
 
         function restoreDefaultNetwork() {
             loggerService.debug('[ml4kdesc] restoring the default initial network diagram');
@@ -956,18 +971,286 @@
             return val + (Math.random() > 0.5 ? 1 : -1);
         }
 
-        function displayBiasInHiddenLayer() {
-            loggerService.debug('[ml4kdesc] annotating hidden layer with bias');
 
-            var nodeIdx = 0;
-            var values = {};
+        function animateEpoch(onComplete) {
+            loggerService.debug('[ml4kdesc] animating network layers with real examples');
+
+            var exampleIdx = 1;
+
+            var hiddenNodes = [
+                [ 2, 0 ],
+                [ 2, 1 ],
+                [ 2, 2 ],
+                [ 2, 3 ],
+                [ 2, 4 ],
+                [ 3, 0 ],
+                [ 3, 1 ],
+                [ 3, 2 ],
+                [ 3, 3 ],
+                [ 3, 4 ],
+                [ 3, 5 ],
+                [ 3, 6 ],
+                [ 3, 7 ]
+            ];
+
+            var steps = [];
+            steps.push({ action : 'next-example', node : [ 0, 0 ] });
+            steps.push({ action : 'highlight-example', node : [ 0, 0 ] });
+            for (var i = 0; i < CUSTOM_INPUT_LAYER_SIZE; i++) {
+                steps.push({ action : 'input-layer', node : [ 1, i ] });
+            }
+            steps.push({ action : 'remove-focus', node : [ 0, 0 ] });
+            for (var j = 0; j < hiddenNodes.length; j++) {
+                steps.push({ action : 'hidden-nodes', node : hiddenNodes[j] });
+            }
+            steps.push({ action : 'remove-focus', node : [ 0, 0 ] });
+            for (var k = 0; k < $scope.project.labels.length; k++) {
+                steps.push({ action : 'output-layer', node : [ 4, k ] });
+            }
+            steps.push({ action : 'output-info', node : [ 4, 0 ] });
+            steps.push({ action : 'error-rate', node : [ 4, 0 ] });
+            steps.push({ action : 'hide-example', node : [ 0, 0 ] });
+            steps.push({ action : 'display-weights', node : [ 4, 0 ] });
+            steps.push({ action : 'highlight-weights', node : [ 4, 0 ] });
+            steps.push({ action : 'adjust-weights', node : [ 4, 0 ] });
+            steps.push({ action : 'display-weights', node : [ 4, 0 ] });
+            steps.push({ action : 'hide-weights', node : [ 4, 0 ] });
+
+            steps.push({ action : 'highlight-bias', node : [ 3, 0 ] });
+            steps.push({ action : 'adjust-bias', node : [ 3, 0 ] });
+            steps.push({ action : 'highlight-bias', node : [ 3, 1 ] });
+            steps.push({ action : 'adjust-bias', node : [ 3, 1 ] });
+            steps.push({ action : 'highlight-bias', node : [ 3, 2 ] });
+            steps.push({ action : 'adjust-bias', node : [ 3, 2 ] });
+            steps.push({ action : 'highlight-bias', node : [ 3, 3 ] });
+            steps.push({ action : 'adjust-bias', node : [ 3, 3 ] });
+            steps.push({ action : 'highlight-bias', node : [ 3, 4 ] });
+            steps.push({ action : 'adjust-bias', node : [ 3, 4 ] });
+            steps.push({ action : 'highlight-bias', node : [ 3, 5 ] });
+            steps.push({ action : 'adjust-bias', node : [ 3, 5 ] });
+            steps.push({ action : 'highlight-bias', node : [ 3, 6 ] });
+            steps.push({ action : 'adjust-bias', node : [ 3, 6 ] });
+            steps.push({ action : 'highlight-bias', node : [ 3, 7 ] });
+            steps.push({ action : 'adjust-bias', node : [ 3, 7 ] });
+
+            steps.push({ action : 'remove-bias-highlights', node : [ 3, 0 ] });
+
+            steps.push({ action : 'display-weights', node : [ 3, 0 ] });
+            steps.push({ action : 'highlight-weights', node : [ 3, 0 ] });
+            steps.push({ action : 'adjust-weights', node : [ 3, 0 ] });
+            steps.push({ action : 'display-weights', node : [ 3, 0 ] });
+            steps.push({ action : 'hide-weights', node : [ 3, 0 ] });
+
+            steps.push({ action : 'highlight-bias', node : [ 2, 0 ] });
+            steps.push({ action : 'adjust-bias', node : [ 2, 0 ] });
+            steps.push({ action : 'highlight-bias', node : [ 2, 1 ] });
+            steps.push({ action : 'adjust-bias', node : [ 2, 1 ] });
+            steps.push({ action : 'highlight-bias', node : [ 2, 2 ] });
+            steps.push({ action : 'adjust-bias', node : [ 2, 2 ] });
+            steps.push({ action : 'highlight-bias', node : [ 2, 3 ] });
+            steps.push({ action : 'adjust-bias', node : [ 2, 3 ] });
+            steps.push({ action : 'highlight-bias', node : [ 2, 4 ] });
+            steps.push({ action : 'adjust-bias', node : [ 2, 4 ] });
+
+            steps.push({ action : 'remove-bias-highlights', node : [ 2, 0 ] });
+
+            steps.push({ action : 'display-weights', node : [ 2, 0 ] });
+            steps.push({ action : 'highlight-weights', node : [ 2, 0 ] });
+            steps.push({ action : 'adjust-weights', node : [ 2, 0 ] });
+            steps.push({ action : 'display-weights', node : [ 2, 0 ] });
+            steps.push({ action : 'hide-weights', node : [ 2, 0 ] });
+
+            steps.push({ action : 'complete', node : [ 4, 0 ] });
+
+
+            var stepId = 0;
+
+            // var vals = {};
+            // for (var x = 0; x < hiddenNodes.length; x++) {
+            //     var nxtnode = hiddenNodes[x];
+            //     var nxtnodeid = nxtnode[0] + '_' + nxtnode[1];
+            //     vals[nxtnodeid] = { bias : BIAS[nxtnodeid] };
+            // }
+            // fcnnVisualisationService.updateLabels(vals);
+
+            var architecture = [ 1, CUSTOM_INPUT_LAYER_SIZE, 5, 8, $scope.project.labels.length ];
+
             runningAnimations.push($interval(function () {
-                var nodeid = '2_' + nodeIdx;
-                values[nodeid] = { value : calculateHiddenLayerValue(2, nodeIdx) };
-                fcnnVisualisationService.updateLabels(values);
+                var step = steps[stepId];
+                var action = step.action;
 
-                nodeIdx += 1;
-            }, 400, 5));
+                var node = step.node;
+                var layerId = node[0];
+                var nodeIdx = node[1];
+
+                var nodeid = layerId + '_' + nodeIdx;
+
+                var values = {};
+
+                loggerService.debug('[ml4kdesc] animation', action, node);
+
+                if (action === 'next-example') {
+                    fcnnVisualisationService.remove_focus();
+                    fcnnVisualisationService.updateOutputHtml();
+
+                    $scope.currentExample = $scope.modelinfo.examples[exampleIdx];
+                    fcnnVisualisationService.updateInputText($scope.currentExample.text);
+
+                    exampleIdx = (exampleIdx + 1) % $scope.modelinfo.examples.length;
+                }
+                else if (action === 'highlight-example') {
+                    fcnnVisualisationService.highlightInputText();
+                }
+                else if (action === 'input-layer') {
+                    var example = $scope.currentExample.random[nodeIdx];
+
+                    values[nodeid] = { value : example.value };
+                    fcnnVisualisationService.updateLabels(values);
+                }
+                else if (action === 'hidden-nodes') {
+                    values[nodeid] = { value : calculateHiddenLayerValue(layerId, nodeIdx) };
+                    fcnnVisualisationService.updateLabels(values);
+                }
+                else if (action === 'output-layer') {
+                    for (var i = 0; i < $scope.project.labels.length; i++) {
+                        var label = $scope.project.labels[i];
+                        values[nodeid] = { value : $scope.currentExample.output[label] };
+                    }
+                    fcnnVisualisationService.updateLabels(values);
+                }
+                else if (action === 'output-info') {
+                    var output = "<table>" +
+                        "<tr><th>label</th><th>output</th></tr>";
+                    for (var i = 0; i < $scope.project.labels.length; i++) {
+                        var label = $scope.project.labels[i];
+                        output += ("<tr><td>" + label + "</td><td>"  + $scope.currentExample.output[label] + "</td></tr>");
+                    }
+                    output += "</table>";
+
+                    fcnnVisualisationService.updateOutputHtml(output);
+                }
+                else if (action === 'error-rate') {
+                    fcnnVisualisationService.remove_focus();
+
+                    var output = "<table>" +
+                        "<tr><th>label</th><th>output</th><th>training</th></tr>";
+                    for (var i = 0; i < $scope.project.labels.length; i++) {
+                        var label = $scope.project.labels[i];
+                        var trainingvalue = (label === $scope.currentExample.label) ? 1 : 0;
+                        output += ("<tr><td>" + label + "</td><td>"  + $scope.currentExample.output[label] + "</td><td>" + trainingvalue + "</td></tr>");
+                    }
+                    output += "</table>";
+
+                    fcnnVisualisationService.updateOutputHtml(output);
+                }
+                else if (action === 'hide-example') {
+                    fcnnVisualisationService.removeValues();
+
+
+                    var output = "<table>" +
+                        "<tr><th>label</th><th>output</th><th>training</th><th>error</th></tr>";
+                    for (var i = 0; i < $scope.project.labels.length; i++) {
+                        var label = $scope.project.labels[i];
+                        var trainingvalue = (label === $scope.currentExample.label) ? 1 : 0;
+                        var errorrate = trainingvalue - $scope.currentExample.output[label];
+                        if (errorrate > 0) {
+                            errorrate = "+" + errorrate;
+                        }
+                        output += ("<tr><td>" + label + "</td><td>"  + $scope.currentExample.output[label] + "</td><td>" + trainingvalue + "</td><td><strong>" + errorrate + "</strong></td></tr>");
+                    }
+                    output += "</table>";
+
+                    fcnnVisualisationService.updateOutputHtml(output);
+                }
+                else if (action === 'display-weights') {
+                    var previousLayer = layerId - 1;
+                    var previousLayerNumNodes = architecture[previousLayer];
+
+                    var numNodes = architecture[layerId];
+                    for (var i = 0; i < numNodes; i++) {
+                        var targetId = layerId + '_' + i;
+                        var weights = [];
+                        for (var j = 0; j < previousLayerNumNodes; j++) {
+                            weights.push(WEIGHTS[previousLayer + '_' + j][targetId]);
+                        }
+                        fcnnVisualisationService.displayWeights(layerId, i, weights);
+                    }
+                }
+                else if (action === 'hide-weights') {
+                    fcnnVisualisationService.removeValues();
+
+                    var previousLayer = layerId - 1;
+                    var previousLayerNumNodes = architecture[previousLayer];
+
+                    var numNodes = architecture[layerId];
+                    for (var i = 0; i < numNodes; i++) {
+                        var targetId = layerId + '_' + i;
+                        var weights = [];
+                        for (var j = 0; j < previousLayerNumNodes; j++) {
+                            weights.push('');
+                        }
+                        fcnnVisualisationService.displayWeights(layerId, i, weights);
+                    }
+                }
+                else if (action === 'highlight-weights') {
+                    var previousLayer = layerId - 1;
+                    var previousLayerNumNodes = architecture[previousLayer];
+
+                    var numNodes = architecture[layerId];
+                    for (var i = 0; i < numNodes; i++) {
+                        var targetId = layerId + '_' + i;
+                        var weights = [];
+                        for (var j = 0; j < previousLayerNumNodes; j++) {
+                            weights.push(WEIGHTS[previousLayer + '_' + j][targetId]);
+                        }
+                        fcnnVisualisationService.displayWeights(layerId, i, weights, true);
+                    }
+                }
+                else if (action === 'adjust-weights') {
+                    var previousLayer = layerId - 1;
+                    var previousLayerNumNodes = architecture[previousLayer];
+
+                    var numNodes = architecture[layerId];
+                    for (var i = 0; i < numNodes; i++) {
+                        var targetId = layerId + '_' + i;
+                        var weights = [];
+                        for (var j = 0; j < previousLayerNumNodes; j++) {
+                            WEIGHTS[previousLayer + '_' + j][targetId] = adjust(WEIGHTS[previousLayer + '_' + j][targetId]);
+                            weights.push(WEIGHTS[previousLayer + '_' + j][targetId]);
+                        }
+                        fcnnVisualisationService.displayWeights(layerId, i, weights, true);
+                    }
+                }
+                else if (action === 'highlight-bias') {
+                    var values = {};
+                    values[nodeid] = { bias : BIAS[nodeid] };
+                    fcnnVisualisationService.updateLabels(values, true);
+                }
+                else if (action === 'adjust-bias') {
+                    BIAS[nodeid] = adjust(BIAS[nodeid]);
+
+                    var values = {};
+                    values[nodeid] = { bias : BIAS[nodeid] };
+                    fcnnVisualisationService.updateLabels(values, true);
+                }
+                else if (action === 'remove-bias-highlights') {
+                    var values = {};
+                    var numNodes = architecture[layerId];
+                    for (var i = 0; i < numNodes; i++) {
+                        var targetId = layerId + '_' + i;
+                        values[targetId] = { bias : BIAS[targetId] };
+                    }
+                    fcnnVisualisationService.updateLabels(values);
+                }
+                else if (action === 'remove-focus') {
+                    fcnnVisualisationService.remove_focus();
+                }
+
+
+                stepId = (stepId + 1) % steps.length;
+            }, VERY_FAST, 1000));
+
+            onComplete();
         }
 
 

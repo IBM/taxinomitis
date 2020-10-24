@@ -33,15 +33,15 @@
 
     <div class="describeintro" style="display: flex; padding-bottom: 0" ng-switch="vm.wizardPage">
         <div class="nnexplanation" ng-switch-when="1">
-            <div class="bodytext">The type of machine learning model that you have trained is called a neural network. </div>
+            <div class="bodytext">The type of machine learning model you trained in this project is called a neural network. </div>
             <div class="bodytext">This page is an interactive guide to explain how your model was created.</div>
-            <div class="bodytext">The diagrams we'll use aren't an exact description of your model. Your model is much more complicated, but simplified diagrams make it easier to explain the ideas.</div>
+            <div class="bodytext">The diagrams we'll use aren't an exact description of your model. Your model is much more complicated, but simplified diagrams make it easier to explain.</div>
         </div>
         <div class="nnexplanation" ng-switch-when="2">
-            <div class="bodytext">The model is made up of a series of "nodes", arranged in these vertical layers.</div>
-            <div class="bodytext">If you build your own machine learning model, you need to choose how many layers to use, and how many nodes to include in each layer. </div>
+            <div class="bodytext">The model is made up of "nodes", arranged in vertical layers.</div>
+            <div class="bodytext">If you build your own machine learning model, you need to choose how many layers to use, and how many nodes to put in each layer. </div>
             <div class="bodytext">Models with a lot of layers are described as "deep".</div>
-            <div class="bodytext">Larger models can give better results, but take longer to train. </div>
+            <div class="bodytext">Deep learning models can give better results, but take longer to train. </div>
         </div>
         <div class="nnexplanation" ng-switch-when="3">
             <div class="bodytext">Let's start with one of the training examples used to create your model.</div>
@@ -52,25 +52,25 @@
             <div class="bodytext">There are lots of ways to do this, and if you build your own machine learning model, you have to choose a way that will work well for your particular project.</div>
         </div>
         <div class="nnexplanation" ng-switch-when="5" >
-            <div class="bodytext">For example, a simple way of turning your text into numbers is to make each number a count of how many times each word is included.</div>
-            <div class="bodytext">This is quick and easy to do, but it's not good for projects where the order of words in the text is important.</div>
+            <div class="bodytext">For example, one way of turning your text into numbers is to make each number a count of how many times each word is included.</div>
+            <div class="bodytext">This is quick and easy, but it's not good for projects where the order of words in the text is important.</div>
         </div>
         <div class="nnexplanation" ng-switch-when="6">
             <div class="bodytext">If the order of words is important, you can... FILL IN THIS</div>
         </div>
         <div class="nnexplanation" ng-switch-when="7|20" ng-switch-when-separator="|">
-            <div class="bodytext">If you build your own machine learning model, you need to choose the method to use to turn the input text into numbers. </div>
-            <div class="bodytext">You can do this based on what you know will work best for the type of project you are doing. Or you can do it by experimenting with different techniques to see which works the best with your training examples.</div>
+            <div class="bodytext">If you build your own machine learning model, you need to choose the method for turning the text into numbers. </div>
+            <div class="bodytext">You can do this based on what you know will work best for the type of project you're doing. Or you can do it by experimenting with different techniques to see which works best with your training examples.</div>
             <div class="bodytext" style="font-style: italic;">The encoding method for your model was chosen for you based on what seemed to work best with your training examples.</div>
         </div>
         <div class="nnexplanation" ng-switch-when="8">
-            <div class="bodytext">The numbers from the input layer are used in sums to calculate values for the nodes in the next layer along.</div>
-            <div class="bodytext">The lines on the diagram show you which of the input values are used to calculate the value in the next layer. </div>
+            <div class="bodytext">The numbers from the input layer are used in sums to calculate values for the nodes in the next layer.</div>
+            <div class="bodytext">The lines on the diagram show you which of the input values are used to calculate which values in the next layer. </div>
         </div>
         <div class="nnexplanation" ng-switch-when="9">
-            <div class="bodytext">There are lots of different types of calculation you can use. Not every node in the model needs to use the same type.</div>
+            <div class="bodytext">There are lots of different types of calculation you can use. Not every node in the model has to use the same calculation.</div>
             <div class="bodytext">If you build your own machine learning model, you need to choose which equations to use for each node.</div>
-            <div class="bodytext" style="font-style: italic;">The functions to use for each node in your model were chosen for you based on what seemed to work best with your training examples.</div>
+            <div class="bodytext" style="font-style: italic;">The functions to use for each node in your model were chosen for you.</div>
         </div>
         <div class="nnexplanation" ng-switch-when="10">
             <div class="bodytext">Each arrow in the diagram has a "weight" number that can be used in the sum.</div>
@@ -78,7 +78,7 @@
         </div>
         <div class="nnexplanation" ng-switch-when="11">
             <div class="bodytext">Each node in the diagram has a "bias" number that is used in the sum as well.</div>
-            <div class="bodytext" style="font-style: italic;">Training the model is also how we work out the right number to put on each node, as you'll see in a moment.</div>
+            <div class="bodytext" style="font-style: italic;">Training the model is also how we work out the right bias number, as you'll see in a moment.</div>
         </div>
         <div class="nnexplanation" ng-switch-when="12|21" ng-switch-when-separator="|">
             <div class="bodytext">This is a common function used in neural networks.</div>
@@ -89,27 +89,36 @@
         </div>
         <div class="nnexplanation" ng-switch-when="14|23" ng-switch-when-separator="|">
             <div class="bodytext">Each node in the model can have its own equation function. </div>
-            <div class="bodytext">If you build your own machine learning model, you need to choose how many nodes to put in each layer, which functions to use in them, and how many layers to use.</div>
+            <div class="bodytext">Remember, if you build your own machine learning model, you will choose how many nodes to put in each layer, which functions to use in them, and how many layers to use.</div>
         </div>
         <div class="nnexplanation" ng-switch-when="15|24" ng-switch-when-separator="|">
             <div class="bodytext">This continues through the rest of the model. </div>
-            <div class="bodytext" style="font-style: italic;">The functions to use for each node in your model were chosen for you based on what seemed to work best with your training examples.</div>
+            <div class="bodytext" style="font-style: italic;">The functions to use for each node in your model were chosen for you.</div>
         </div>
         <div class="nnexplanation" ng-switch-when="16|25" ng-switch-when-separator="|">
             <div class="bodytext">The final layer gives the machine learning model's prediction.</div>
-            <div class="bodytext">There is a node for each buckets you added to your training data.</div>
+            <div class="bodytext">There is a node for each bucket you added to your training data.</div>
         </div>
         <div class="nnexplanation" ng-switch-when="17|26" ng-switch-when-separator="|">
             <div class="bodytext">Results from the output layer are compared with the correct answer (the training bucket you put this example in).</div>
-            <div class="bodytext">This is used to work out how well the machine learning model did at this. </div>
+            <div class="bodytext">This is used to work out how well the machine learning model did at this stage of it's training. </div>
         </div>
         <div class="nnexplanation" ng-switch-when="18|27" ng-switch-when-separator="|">
-            <div class="bodytext">The error rate is used to go backwards through the layers and nudge the numbers associated with each of the arrows.</div>
-            <div class="bodytext">Each weight number is increased a little bit or decreased a little bit, depending on what would've made that error a little smaller.</div>
+            <div class="bodytext">The error rate is used to go backwards through the layers and nudge the numbers associated with each of the arrows and nodes.</div>
+            <div class="bodytext">Each weight and bias number is increased a little bit or decreased a little bit, depending on what would've made the error a little smaller.</div>
         </div>
         <div class="nnexplanation" ng-switch-when="19">
             <div class="bodytext">Next, this is all done over again, with another of your training examples.</div>
         </div>
+        <div class="nnexplanation" ng-switch-when="28">
+            <div class="bodytext">One run-through of every training example you collected through the model is called an "epoch".</div>
+            <div class="bodytext">Each time through, the weights for each node are nudged a little more, until hopefully the error rate for predictions are as low as they can be.</div>
+            <div class="bodytext">If you build your own machine learning model, you need to choose how many epochs you want to run.</div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="29">
+            <div class="bodytext">I hope this simplified description gives you an idea what happens when you click on the "Train new machine learning model" button.</div>
+        </div>
+
 
         <div class="nnsearchbox">
             <div class="nnsearchprompt">for more detail, try searching for:</div>
@@ -142,6 +151,8 @@
                     <span ng-switch-when="25">output layer</span>
                     <span ng-switch-when="26">loss function</span>
                     <span ng-switch-when="27">back propagation</span>
+                    <span ng-switch-when="28">epochs</span>
+                    <span ng-switch-when="29">neural networks</span>
                 </a>
             </div>
             <div class="nnsearchgraphic">
@@ -181,8 +192,6 @@
                 </div>
 
                 <div style="margin-top: 40px; margin-bottom: 5px;">Use these controls to navigate the model diagrams</div>
-
-                <div><br/><br/><br/>DEBUG : page {{ vm.wizardPage }}</div>
             </div>
         </div>
     </div>
