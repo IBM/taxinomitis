@@ -10,10 +10,10 @@ import * as Types from '../training/training-types';
 import * as conversation from '../training/conversation';
 import * as visualrec from '../training/visualrecognition';
 import * as numbers from '../training/numbers';
+import * as textmodels from '../training/describetext';
 import * as notifications from '../notifications/slack';
 import * as base64decode from '../utils/base64decode';
 import * as download from '../utils/download';
-import * as random from '../utils/random';
 import * as urls from './urls';
 import * as errors from './errors';
 import * as headers from './headers';
@@ -284,189 +284,13 @@ async function describeModel(req: auth.RequestWithProject, res: Express.Response
             return res.json(classifierInfo);
         }
         else if (req.project.type === 'text') {
-            return res.json({
-                examples : [
-                    {
-                        text : 'SOME GENERIC PLACEHOLDER HEADLINE WILL GO HERE',
-                        label : 'Daily_Mail',
-                        bagofwords : [
-                            { annotation : 'number of times that the word "HEADLINE" appears', value : 1 },
-                            { annotation : 'number of times that the word "FURY" appears', value : 0 },
-                            { annotation : 'LONDON', value : 0 },
-                            { annotation : 'GO', value : 1 },
-                            { annotation : 'WILL', value : 1 },
-                            { annotation : 'OPEN', value : 0 },
-                            { annotation : 'PLACEHOLDER', value : 1 },
-                            { annotation : 'TESTING', value : 0 },
-                            { annotation : 'VALUES', value : 0 },
-                            { annotation : 'QUEEN', value : 0 },
-                        ],
-                        customfeatures : [
-                            { annotation : 'number of letters', value : 46 },
-                            { annotation : 'punctuation marks', value : 0 },
-                            { annotation : 'number of capital letters', value : 46 },
-                            { annotation : 'syllables', value : 12 },
-                            { annotation : 'includes numbers', value : 0 },
-                            { annotation : 'has an email address', value : 0 },
-                            { annotation : 'includes web address', value : 0 },
-                            { annotation : 'includes a question mark', value : 0 },
-                            { annotation : 'starts with a capital letter', value : 1 },
-                        ],
-                        random : [
-                            { annotation : '', value : random.int(1, 5) },
-                            { annotation : '', value : random.int(1, 5) },
-                            { annotation : '', value : random.int(0, 5) },
-                            { annotation : '', value : random.int(1, 5) },
-                            { annotation : '', value : random.int(0, 5) },
-                            { annotation : '', value : random.int(0, 5) },
-                            { annotation : '', value : random.int(0, 5) },
-                            { annotation : '', value : random.int(1, 5) },
-                            { annotation : '', value : random.int(0, 5) },
-                            { annotation : '', value : random.int(1, 5) },
-                        ],
-                        output : {
-                            Daily_Mail : 0.2,
-                            Daily_Telegraph : 0.1,
-                            Independent : 0.6,
-                            The_Guardian : 0.1,
-                        },
-                    },
-                    {
-                        text : 'This is another example that is used for the analysis of the neural network, although unusually long for a newspaper headline is it not? Yes, I think it really is, although examples of a thousand characters are possible. Yes indeed.',
-                        label : 'Independent',
-                        bagofwords : [
-                            { annotation : 'another', value : 1 },
-                            { annotation : 'example', value : 1 },
-                            { annotation : 'LONDON', value : 0 },
-                            { annotation : 'GO', value : 0 },
-                            { annotation : 'WILL', value : 0 },
-                            { annotation : 'OPEN', value : 0 },
-                            { annotation : 'PLACEHOLDER', value : 0 },
-                            { annotation : 'TESTING', value : 0 },
-                            { annotation : 'unusually', value : 1 },
-                            { annotation : 'QUEEN', value : 0 },
-                        ],
-                        embeddings : [
-                            { annotation : 'placeholder', value : random.int(0, 15) },
-                            { annotation : 'placeholder', value : random.int(0, 15) },
-                            { annotation : 'placeholder', value : random.int(0, 16) },
-                            { annotation : 'placeholder', value : random.int(0, 16) },
-                            { annotation : 'placeholder', value : random.int(0, 15) },
-                            { annotation : 'placeholder', value : random.int(0, 15) },
-                            { annotation : 'placeholder', value : random.int(0, 15) },
-                            { annotation : 'placeholder', value : random.int(0, 15) },
-                            { annotation : 'placeholder', value : random.int(0, 16) },
-                            { annotation : 'placeholder', value : random.int(0, 16) },
-                        ],
-                        random : [
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(0, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(0, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(0, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(0, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                        ],
-                        output : {
-                            Daily_Mail : 0.2,
-                            Daily_Telegraph : 0.3,
-                            Independent : 0.3,
-                            The_Guardian : 0.2,
-                        },
-                    },
-                    {
-                        text : 'Another example',
-                        label : 'The_Guardian',
-                        random : [
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(0, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(0, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(0, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(0, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                        ],
-                        output : {
-                            Daily_Mail : 0.1,
-                            Daily_Telegraph : 0.2,
-                            Independent : 0.1,
-                            The_Guardian : 0.6,
-                        },
-                    },
-                    {
-                        text : 'Yet another example',
-                        label : 'Daily_Telegraph',
-                        random : [
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(0, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(0, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(0, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(0, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                        ],
-                        output : {
-                            Daily_Mail : 0.2,
-                            Daily_Telegraph : 0.7,
-                            Independent : 0.05,
-                            The_Guardian : 0.05,
-                        },
-                    },
-                    {
-                        text : 'How many examples are needed?',
-                        label : 'Daily_Mail',
-                        random : [
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(0, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(0, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(0, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(0, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                        ],
-                        output : {
-                            Daily_Mail : 0.6,
-                            Daily_Telegraph : 0.4,
-                            Independent : 0.2,
-                            The_Guardian : 0.2,
-                        },
-                    },
-                    {
-                        text : 'This is the final example',
-                        label : 'Daily_Mail',
-                        random : [
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(0, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(0, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(0, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                            { annotation : '', value : random.int(0, 6) },
-                            { annotation : '', value : random.int(1, 6) },
-                        ],
-                        output : {
-                            Daily_Mail : 0.7,
-                            Daily_Telegraph : 0.15,
-                            Independent : 0.05,
-                            The_Guardian : 0.1,
-                        },
-                    },
-                ],
-            });
+            const classifierInfo = await textmodels.getModelVisualisation(req.project);
+
+            // computing this analysis is quite expensiive, so
+            //  ask browsers to cache it for a while
+            res.set(headers.CACHE_1HOUR);
+
+            return res.json(classifierInfo);
         }
         else {
             // sounds and images not supported yet

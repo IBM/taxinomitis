@@ -713,7 +713,7 @@
                 output += "<td>" + label + "</td><td>"  + $scope.currentExample.output[label] + "</td>";
 
                 if (includes.training) {
-                    var trainingvalue = (label === $scope.currentExample.label) ? 1 : 0;
+                    var trainingvalue = (label === $scope.currentExample.label) ? 100 : 0;
                     output += "<td>" + trainingvalue + "</td>";
 
                     if (includes.error) {
