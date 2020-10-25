@@ -126,11 +126,6 @@
             resize();
         }
 
-        function prepareNN(arch, spacing) {
-            architecture = arch;
-            betweenNodesInLayer = spacing;
-        }
-
         function returnId(item) {
             return item.id;
         }
@@ -611,8 +606,6 @@
                 w = right - left + 600;
                 h = bottom - top + 250;
 
-                console.log('height is ' + h);
-
                 if (h < 400) {
                     h = 760;
                 }
@@ -754,15 +747,20 @@
         }
 
 
+        function create(arch, spacing) {
+            architecture = arch;
+            betweenNodesInLayer = spacing;
+
+            redraw();
+            redistribute();
+            decorate();
+        }
+
+
 
         return {
             init : init,
-            prepareNN : prepareNN,
-
-            redraw : redraw,
-            redistribute : redistribute,
-
-            decorate : decorate,
+            create : create,
 
             updateLabels : updateLabels,
             updateInputText : updateInputText,

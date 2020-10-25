@@ -99,13 +99,6 @@
         // Adding the model graphic to the page
         //-------------------------------------------------------------------------------
 
-        var INITIAL_ARCHITECTURE = [  9,  7,  9,  5,  7,  1 ];
-        var INITIAL_SPACING      = [  20, 20, 20, 20, 20, 20 ];
-
-        var WEIGHTS = {};
-        var BIAS = {};
-        var VALUES = {};
-
         function initializeVisualisation() {
             loggerService.debug('[ml4kdesc] initializing visualization');
 
@@ -113,12 +106,23 @@
 
             $timeout(function () {
                 fcnnVisualisationService.init('mlforkidsmodelvizimg');
-                fcnnVisualisationService.prepareNN(INITIAL_ARCHITECTURE, INITIAL_SPACING);
-                fcnnVisualisationService.redraw();
-                fcnnVisualisationService.redistribute();
-                fcnnVisualisationService.decorate();
+                redrawNeuralNetworkDiagram(ARCHITECTURES.INITIAL);
             }, 0);
         }
+
+
+        //-------------------------------------------------------------------------------
+        // Defining the models
+        //-------------------------------------------------------------------------------
+
+        var modelInfo = {
+            architecture : [],
+            spacing : []
+        };
+
+        var WEIGHTS = {};
+        var BIAS = {};
+        var VALUES = {};
 
         function initializeModelValues() {
             loggerService.debug('[ml4kdesc] initializing weights and bias values');
@@ -141,6 +145,46 @@
                 }
             }
         }
+
+        // randomly increase or decrease by 1
+        function adjust(val) {
+            return val + (Math.random() > 0.5 ? 1 : -1);
+        }
+
+        var ARCHITECTURES = {
+            // represents a large complex model displayed when the wizard starts
+            INITIAL : 'initial',
+            // represents the model used for the full walkthrough
+            CUSTOM : 'custom',
+            // represents a model with a medium size input layer, used to illustrate custom features
+            FEATURE_SELECTION : 'feature',
+            // represents a model with a large input layer, used to illustrate bag-of-words
+            BAG_OF_WORDS : 'bag-of-words',
+        };
+
+        function setModelInfo(modeltype) {
+            if (modeltype === ARCHITECTURES.INITIAL) {
+                modelInfo.architecture = [ 9,  7,  9,  5,  7,  1 ];
+                modelInfo.spacing = [ 20, 20, 20, 20, 20, 20 ];
+            }
+            else if (modeltype === ARCHITECTURES.CUSTOM) {
+                modelInfo.architecture = [ 1,  7, 5, 8, $scope.project.labels.length ];
+                modelInfo.spacing = [ 0, 20, 20, 20, 100 ];
+            }
+            else if (modeltype === ARCHITECTURES.BAG_OF_WORDS) {
+                modelInfo.architecture = [ 1, 10, 5, 8, $scope.project.labels.length ];
+                modelInfo.spacing = [ 0, 20, 20, 20, 100 ];
+            }
+            else if (modeltype === ARCHITECTURES.FEATURE_SELECTION) {
+                modelInfo.architecture = [ 1, 9, 6, 7, $scope.project.labels.length ];
+                modelInfo.spacing = [ 0, 20, 20, 20, 100 ];
+            }
+        }
+        // returns the number of nodes in layer 1
+        function getInputLayerSize() {
+            return modelInfo.architecture[1];
+        }
+
 
 
         //-------------------------------------------------------------------------------
@@ -172,7 +216,7 @@
             // 5 :
             'https://duckduckgo.com/?q=bag+of+words',
             // 6 :
-            'https://duckduckgo.com/?q=word+embedding+neural+network',
+            'https://duckduckgo.com/?q=feature+extraction+text+classification',
             // 7 :
             'https://duckduckgo.com/?q=feature+selection+machine+learning',
             // 8 :
@@ -231,14 +275,14 @@
                 vm.wizardPage = vm.wizardPage - 1;
             }
             if (vm.wizardPage === 2) {
-                restoreDefaultNetwork();
+                redrawNeuralNetworkDiagram(ARCHITECTURES.INITIAL);
             }
             if (vm.wizardPage === 4) {
-                generateCustomModelNetwork();
+                redrawNeuralNetworkDiagram(ARCHITECTURES.CUSTOM);
                 displayTrainingExampleInput();
             }
             if (vm.wizardPage === 5) {
-                generateLargeInputLayerNetwork();
+                redrawNeuralNetworkDiagram(ARCHITECTURES.BAG_OF_WORDS);
                 displayTrainingExampleInput();
             }
             displayPage();
@@ -252,14 +296,18 @@
                 vm.wizardPage = vm.wizardPage + 1;
             }
             if (vm.wizardPage === 3) {
-                generateCustomModelNetwork();
+                redrawNeuralNetworkDiagram(ARCHITECTURES.CUSTOM);
             }
             if (vm.wizardPage === 5) {
-                generateLargeInputLayerNetwork();
+                redrawNeuralNetworkDiagram(ARCHITECTURES.BAG_OF_WORDS);
                 displayTrainingExampleInput();
             }
             if (vm.wizardPage === 6) {
-                generateCustomModelNetwork();
+                redrawNeuralNetworkDiagram(ARCHITECTURES.FEATURE_SELECTION);
+                displayTrainingExampleInput();
+            }
+            if (vm.wizardPage === 7) {
+                redrawNeuralNetworkDiagram(ARCHITECTURES.CUSTOM);
                 displayTrainingExampleInput();
             }
             if (vm.wizardPage === 13) {
@@ -302,42 +350,42 @@
                     displayTrainingExampleInput(wizardStepComplete);
                     break;
                 case 4:
-                    populateInputLayerWithRandomNumbers(wizardStepComplete);
+                    populateInputLayer($scope.currentExample.random, FAST, wizardStepComplete);
                     break;
                 case 5:
-                    displayBagOfWordsInputLayerAnnotations(wizardStepComplete);
+                    populateInputLayer($scope.currentExample.bagofwords, SLOW, wizardStepComplete);
                     break;
                 case 6:
-                    populateInputLayerWithWord2Vec(wizardStepComplete);
+                    populateInputLayer($scope.currentExample.customfeatures, SLOW, wizardStepComplete);
                     break;
                 case 7:
-                    populateInputLayerWithRandomNumbers(wizardStepComplete);
+                    populateInputLayer($scope.currentExample.random, FAST, wizardStepComplete);
                     break;
                 case 8:
-                    populateHiddenLayerWithPlaceholders(wizardStepComplete);
+                    populateHiddenLayerWithPlaceholders(2, wizardStepComplete);
                     break;
                 case 9:
-                    displayHiddenLayerWorking();
+                    displayHiddenLayerValueWithWorking(2, 0, { });
                     wizardStepComplete();
                     break;
                 case 10:
-                    displayWeightsInHiddenLayer();
+                    displayHiddenLayerValueWithWorking(2, 0, { weight : true });
                     wizardStepComplete();
                     break;
                 case 11:
-                    displayWeightsAndBiasInHiddenLayer();
+                    displayHiddenLayerValueWithWorking(2, 0, { weight : true, bias : true });
                     wizardStepComplete();
                     break;
                 case 12:
-                    displayWeightsAndBiasAndValueInHiddenLayer();
+                    displayHiddenLayerValueWithWorking(2, 0, { weight : true, bias : true, finalvalue : true });
                     wizardStepComplete();
                     break;
                 case 13:
-                    displayWeightsAndBiasAndValueInNextHiddenLayer();
+                    displayHiddenLayerValueWithWorking(2, 1, { weight : true, bias : true, finalvalue : true });
                     wizardStepComplete();
                     break;
                 case 14:
-                    displayWeightsAndBiasAndValueInThirdHiddenLayer();
+                    displayHiddenLayerValueWithWorking(2, 2, { weight : true, bias : true, finalvalue : true });
                     wizardStepComplete();
                     break;
                 case 15:
@@ -358,18 +406,18 @@
                     displayTrainingExampleInput(wizardStepComplete);
                     break;
                 case 20:
-                    populateInputLayerWithRandomNumbers(wizardStepComplete);
+                    populateInputLayer($scope.currentExample.random, FAST, wizardStepComplete);
                     break;
                 case 21:
-                    displayWeightsAndBiasAndValueInHiddenLayer();
+                    displayHiddenLayerValueWithWorking(2, 0, { weight : true, bias : true, finalvalue : true });
                     wizardStepComplete();
                     break;
                 case 22:
-                    displayWeightsAndBiasAndValueInNextHiddenLayer();
+                    displayHiddenLayerValueWithWorking(2, 1, { weight : true, bias : true, finalvalue : true });
                     wizardStepComplete();
                     break;
                 case 23:
-                    displayWeightsAndBiasAndValueInThirdHiddenLayer();
+                    displayHiddenLayerValueWithWorking(2, 2, { weight : true, bias : true, finalvalue : true });
                     wizardStepComplete();
                     break;
                 case 24:
@@ -388,7 +436,7 @@
                     animateEpoch(wizardStepComplete);
                     break;
                 case 29:
-                    restoreDefaultNetwork();
+                    redrawNeuralNetworkDiagram(ARCHITECTURES.INITIAL);
                     break;
             }
         }
@@ -397,18 +445,17 @@
         // Update the model graphic
         //-------------------------------------------------------------------------------
 
+        var LOWEST_SPEED = 800;
         var VERY_SLOW = 600;
         var SLOW = 400;
         var FAST = 200;
-        var VERY_FAST = 150;
+        var FASTEST_SPEED = 150;
 
-        function restoreDefaultNetwork() {
-            loggerService.debug('[ml4kdesc] restoring the default initial network diagram');
+        function redrawNeuralNetworkDiagram(modeltype) {
+            loggerService.debug('[ml4kdesc] redrawing the model network diagram', modeltype);
 
-            fcnnVisualisationService.prepareNN(INITIAL_ARCHITECTURE, INITIAL_SPACING);
-            fcnnVisualisationService.redraw();
-            fcnnVisualisationService.redistribute();
-            fcnnVisualisationService.decorate();
+            setModelInfo(modeltype);
+            fcnnVisualisationService.create(modelInfo.architecture, modelInfo.spacing);
         }
 
         function cancelRunningAnimations() {
@@ -434,40 +481,6 @@
             }, SLOW, 100));
         }
 
-        var CUSTOM_INPUT_LAYER_SIZE = 7;
-
-        function generateCustomModelNetwork() {
-            loggerService.debug('[ml4kdesc] generating network diagram based on ML project');
-
-            // number of nodes in each layer
-            var architecture = [ 1, CUSTOM_INPUT_LAYER_SIZE, 5, 8, $scope.project.labels.length ];
-            // pixels between the nodes in each layer
-            var betweenNodesInLayer = [ 0, 20, 20, 20, 100 ];
-
-            fcnnVisualisationService.prepareNN(architecture, betweenNodesInLayer);
-            fcnnVisualisationService.redraw();
-            fcnnVisualisationService.redistribute();
-            fcnnVisualisationService.decorate();
-        }
-
-        var BAG_OF_WORDS_INPUT_LAYER_SIZE = 10;
-
-        function generateLargeInputLayerNetwork() {
-            loggerService.debug('[ml4kdesc] restoring the network diagram with larger input layer');
-
-            // number of nodes in each layer
-            var architecture = [ 1, BAG_OF_WORDS_INPUT_LAYER_SIZE, 5, 8, $scope.project.labels.length ];
-            // pixels between the nodes in each layer
-            var betweenNodesInLayer = [ 0, 20, 20, 20, 100 ];
-
-            fcnnVisualisationService.prepareNN(architecture, betweenNodesInLayer);
-            fcnnVisualisationService.redraw();
-            fcnnVisualisationService.redistribute();
-            fcnnVisualisationService.decorate();
-        }
-
-
-
         function displayTrainingExampleInput(onComplete) {
             loggerService.debug('[ml4kdesc] displaying training example in diagram');
 
@@ -479,81 +492,46 @@
             }
         }
 
-        function populateInputLayerWithRandomNumbers(onComplete) {
-            loggerService.debug('[ml4kdesc] populating input layer (random)');
+        function populateInputLayer(examples, speed, onComplete) {
+            loggerService.debug('[ml4kdesc] populating input layer');
 
             fcnnVisualisationService.clearInputLabels();
 
             var nodeIdx = 0;
             var values = {};
+            var iterations = getInputLayerSize();
             runningAnimations.push($interval(function () {
-                var example = $scope.currentExample.random[nodeIdx];
+                var example = examples[nodeIdx];
 
                 var nodeid = '1_' + nodeIdx;
                 values[nodeid] = { value : example.value };
                 fcnnVisualisationService.updateLabels(values);
 
-                nodeIdx += 1;
-
-                if (onComplete && nodeIdx ===  CUSTOM_INPUT_LAYER_SIZE) {
-                    onComplete();
+                if (example.annotation) {
+                    fcnnVisualisationService.showAnnotation(nodeid, example.annotation);
                 }
-            }, FAST, CUSTOM_INPUT_LAYER_SIZE));
-        }
-
-        function populateInputLayerWithWord2Vec(onComplete) {
-            loggerService.debug('[ml4kdesc] populating input layer (word2vec)');
-
-            fcnnVisualisationService.clearInputLabels();
-
-            var nodeIdx = 0;
-            var values = {};
-            runningAnimations.push($interval(function () {
-                var example = $scope.currentExample.embeddings[nodeIdx];
-
-                var nodeid = '1_' + nodeIdx;
-                values[nodeid] = { value : example.value };
-                fcnnVisualisationService.updateLabels(values);
-                fcnnVisualisationService.showAnnotation(nodeid, example.annotation);
 
                 nodeIdx += 1;
 
-                if (onComplete && nodeIdx ===  CUSTOM_INPUT_LAYER_SIZE) {
+                if (onComplete && nodeIdx === iterations) {
                     onComplete();
                 }
-            }, FAST, CUSTOM_INPUT_LAYER_SIZE));
-        }
-
-        function displayBagOfWordsInputLayerAnnotations(onComplete) {
-            loggerService.debug('[ml4kdesc] populating input layer (bag of words)');
-
-            var nodeIdx = 0;
-            var values = {};
-            runningAnimations.push($interval(function () {
-                var example = $scope.currentExample.bagofwords[nodeIdx];
-
-                var nodeid = '1_' + nodeIdx;
-                values[nodeid] = { value : example.value };
-                fcnnVisualisationService.updateLabels(values);
-                fcnnVisualisationService.showAnnotation(nodeid, 'number of times that the word "' + example.annotation + '" appears');
-
-                nodeIdx += 1;
-
-                if (onComplete && nodeIdx ===  BAG_OF_WORDS_INPUT_LAYER_SIZE) {
-                    onComplete();
-                }
-            }, SLOW, BAG_OF_WORDS_INPUT_LAYER_SIZE));
+            }, speed, iterations));
         }
 
 
         function calculateHiddenLayerValue(layerId, nodeIdx) {
+            loggerService.debug('[ml4kdesc] calculating hidden layer value', layerId, nodeIdx);
+
             var value = 0;
 
             var endLayerId = layerId;
             var endNodeId = layerId + '_' + nodeIdx;
 
+            var numNodes = getInputLayerSize();
+
             var startLayerId = endLayerId - 1;
-            for (var startNodeIdx = 0; startNodeIdx < CUSTOM_INPUT_LAYER_SIZE; startNodeIdx++) {
+            for (var startNodeIdx = 0; startNodeIdx < numNodes; startNodeIdx++) {
                 var startNodeId = startLayerId + '_' + startNodeIdx;
 
                 value += ($scope.currentExample.random[startNodeIdx].value * WEIGHTS[startNodeId][endNodeId]);
@@ -566,219 +544,81 @@
             return value;
         }
 
-        function populateHiddenLayerWithPlaceholders(onComplete) {
-            loggerService.debug('[ml4kdesc] populating hidden layer with placeholders');
+        function populateHiddenLayerWithPlaceholders(layerId, onComplete) {
+            loggerService.debug('[ml4kdesc] populating hidden layer with placeholders', layerId);
 
             var nodeIdx = 0;
             var values = {};
+            var iterations = modelInfo.architecture[layerId];
             runningAnimations.push($interval(function () {
-                var nodeid = '2_' + nodeIdx;
+                var nodeid = layerId + '_' + nodeIdx;
                 values[nodeid] = { value : '?' };
                 fcnnVisualisationService.updateLabels(values);
 
                 nodeIdx += 1;
 
-                if (onComplete && nodeIdx ===  5) {
+                if (onComplete && nodeIdx === iterations) {
                     onComplete();
                 }
-            }, FAST, 5));
+            }, FAST, iterations));
         }
 
-        function displayHiddenLayerWorking() {
-            fcnnVisualisationService.highlightHiddenLayerNode(2, 0);
 
-            var working = "<table>";
-            for (var i = 0; i < (CUSTOM_INPUT_LAYER_SIZE - 1); i++) {
-                working += ("<tr><td>" + $scope.currentExample.random[i].value + "</td><td></td><td>+</td></tr>");
+        function displayHiddenLayerValueWithWorking(layerId, nodeId, includes) {
+            loggerService.debug('[ml4kdesc] displaying hidden layer values', layerId, nodeId, includes);
+
+            fcnnVisualisationService.highlightHiddenLayerNode(layerId, nodeId);
+
+            var inputLayer = layerId - 1;
+            var numInputNodes = modelInfo.architecture[inputLayer];
+            var lastInputNodeIdx = numInputNodes - 1;
+
+            var targetId = layerId + '_' + nodeId;
+
+            if (includes.weight) {
+                var weightsToDisplay = [];
+                for (var inputNodeId = 0; inputNodeId < numInputNodes; inputNodeId++) {
+                    weightsToDisplay.push('w = ' + WEIGHTS[inputLayer + '_' + inputNodeId][targetId]);
+                }
+                fcnnVisualisationService.displayWeights(layerId, nodeId, weightsToDisplay);
             }
-            working += ("<tr><td>" + $scope.currentExample.random[CUSTOM_INPUT_LAYER_SIZE - 1].value + "</td><td></td><td></td></tr>");
-            working += "</table>";
 
-            fcnnVisualisationService.showAnnotation('2_0', working);
-
-            // fcnnVisualisationService.showAnnotation('2_0', "<table>" +
-            // "<tr><td>  3</td><td>x</td><td>100</td><td></td><td>+</td></tr>" +
-            // "<tr><td> 10</td><td>x</td><td> 10</td><td></td><td>+</td></tr>" +
-            // "<tr><td> 17</td><td>x</td><td>  1</td><td></td><td>+</td></tr>" +
-            // "<tr><td>999</td><td>x</td><td> 12</td><td></td><td>+</td></tr>" +
-            // "<tr><td> 10</td><td>x</td><td> 67</td><td></td><td>+</td></tr>" +
-            // "<tr><td>  3</td><td>x</td><td>200</td><td></td><td>+</td></tr>" +
-            // "<tr><td> 17</td><td>x</td><td> 97</td><td></td><td>+</td></tr>" +
-            // "<tr><td> 90</td><td>x</td><td> 45</td><td></td><td>+</td></tr>" +
-            // "<tr><td> 42</td><td>x</td><td> 26</td><td></td><td>+</td></tr>" +
-            // "<tr><td colspan='5'> </td></tr>" +
-            // "<tr><td colspan='5'> = 2467</td></tr>" +
-            // "</table>");
-        }
-
-
-
-        function populateHiddenLayer() {
-            loggerService.debug('[ml4kdesc] populating hidden layer');
-
-            var nodeIdx = 0;
             var values = {};
-            runningAnimations.push($interval(function () {
-                var nodeid = '2_' + nodeIdx;
-                values[nodeid] = { value : calculateHiddenLayerValue(2, nodeIdx) };
+            if (includes.bias || includes.value) {
+                values[targetId] = {};
+                if (includes.bias) {
+                    values[targetId].bias = BIAS[targetId];
+                }
+                if (includes.finalvalue) {
+                    values[targetId].value = calculateHiddenLayerValue(layerId, nodeId);
+                }
                 fcnnVisualisationService.updateLabels(values);
-
-                nodeIdx += 1;
-            }, 400, 5));
-        }
-
-        function displayWeightsInHiddenLayer() {
-            fcnnVisualisationService.highlightHiddenLayerNode(2, 0);
-
-            var inputLayer = 1;
-            var numInputNodes = CUSTOM_INPUT_LAYER_SIZE;
-
-            var targetId = '2_0';
-
-            var weightsToDisplay = [];
-            for (var inputNodeId = 0; inputNodeId < numInputNodes; inputNodeId++) {
-                weightsToDisplay.push('w = ' + WEIGHTS[inputLayer + '_' + inputNodeId][targetId]);
             }
-
-            fcnnVisualisationService.displayWeights(2, 0, weightsToDisplay);
 
             var working = "<table>";
-            for (var i = 0; i < (CUSTOM_INPUT_LAYER_SIZE - 1); i++) {
-                working += ("<tr><td>" + $scope.currentExample.random[i].value + "</td><td>x</td><td>" + WEIGHTS[inputLayer + '_' + i][targetId] + "</td><td></td><td>+</td></tr>");
+            if (includes.bias) {
+                working += ("<tr><td>" + BIAS[targetId] + "</td><td></td><td></td><td></td><td>+</td></tr>");
+                working += ("<tr><td colspan=5 style='font-size: 0.2em;'> &nbsp; </td></tr>");
             }
-            working += ("<tr><td>" + $scope.currentExample.random[CUSTOM_INPUT_LAYER_SIZE - 1].value + "</td><td>x</td><td>" + WEIGHTS[inputLayer + '_' + (CUSTOM_INPUT_LAYER_SIZE - 1)][targetId] + "</td><td></td><td></td></tr>");
+            for (var i = 0; i < numInputNodes; i++) {
+                var tablerow = "<tr>";
+                tablerow += "<td>" + $scope.currentExample.random[i].value + "</td>";
+                if (includes.weight) {
+                    tablerow += "<td>x</td>" +
+                                "<td>" + WEIGHTS[inputLayer + '_' + i][targetId] + "</td>";
+                }
+                tablerow += "<td></td><td>" + (i === lastInputNodeIdx ? "" : "+") + "</td>";
+                tablerow += "</tr>";
+
+                working += tablerow;
+            }
+            if (includes.finalvalue) {
+                working += ("<tr><td colspan=5 style='font-size: 0.25em;'> &nbsp; </td></tr>");
+                working += ("<tr><td colspan=5> = " + values[targetId].value + "</td></tr>");
+            }
             working += "</table>";
 
-            fcnnVisualisationService.showAnnotation('2_0', working);
-        }
-
-        function displayWeightsAndBiasInHiddenLayer() {
-            fcnnVisualisationService.highlightHiddenLayerNode(2, 0);
-
-            var inputLayer = 1;
-            var numInputNodes = CUSTOM_INPUT_LAYER_SIZE;
-
-            var targetId = '2_0';
-
-            var weightsToDisplay = [];
-            for (var inputNodeId = 0; inputNodeId < numInputNodes; inputNodeId++) {
-                weightsToDisplay.push('w = ' + WEIGHTS[inputLayer + '_' + inputNodeId][targetId]);
-            }
-            fcnnVisualisationService.displayWeights(2, 0, weightsToDisplay);
-
-            var values = {};
-            values[targetId] = { bias : BIAS[targetId] };
-            fcnnVisualisationService.updateLabels(values);
-
-            var working = "<table>";
-            working += ("<tr><td>" + BIAS[targetId] + "</td><td></td><td></td><td></td><td>+</td></tr>");
-            working += ("<tr><td colspan=5 style='font-size: 0.2em;'> &nbsp; </td></tr>");
-            for (var i = 0; i < (CUSTOM_INPUT_LAYER_SIZE - 1); i++) {
-                working += ("<tr><td>" + $scope.currentExample.random[i].value + "</td><td>x</td><td>" + WEIGHTS[inputLayer + '_' + i][targetId] + "</td><td></td><td>+</td></tr>");
-            }
-            working += ("<tr><td>" + $scope.currentExample.random[CUSTOM_INPUT_LAYER_SIZE - 1].value + "</td><td>x</td><td>" + WEIGHTS[inputLayer + '_' + (CUSTOM_INPUT_LAYER_SIZE - 1)][targetId] + "</td><td></td><td></td></tr>");
-            working += "</table>";
-
-            fcnnVisualisationService.showAnnotation('2_0', working);
-        }
-
-        function displayWeightsAndBiasAndValueInHiddenLayer() {
-            fcnnVisualisationService.highlightHiddenLayerNode(2, 0);
-
-            var inputLayer = 1;
-            var numInputNodes = CUSTOM_INPUT_LAYER_SIZE;
-
-            var targetId = '2_0';
-
-            var weightsToDisplay = [];
-            for (var inputNodeId = 0; inputNodeId < numInputNodes; inputNodeId++) {
-                weightsToDisplay.push('w = ' + WEIGHTS[inputLayer + '_' + inputNodeId][targetId]);
-            }
-            fcnnVisualisationService.displayWeights(2, 0, weightsToDisplay);
-
-
-            var values = {};
-            values[targetId] = { bias : BIAS[targetId], value : calculateHiddenLayerValue(2, 0) };
-            fcnnVisualisationService.updateLabels(values);
-
-            var working = "<table>";
-            working += ("<tr><td>" + BIAS[targetId] + "</td><td></td><td></td><td></td><td>+</td></tr>");
-            working += ("<tr><td colspan=5 style='font-size: 0.2em;'> &nbsp; </td></tr>");
-            for (var i = 0; i < (CUSTOM_INPUT_LAYER_SIZE - 1); i++) {
-                working += ("<tr><td>" + $scope.currentExample.random[i].value + "</td><td>x</td><td>" + WEIGHTS[inputLayer + '_' + i][targetId] + "</td><td></td><td>+</td></tr>");
-            }
-            working += ("<tr><td>" + $scope.currentExample.random[CUSTOM_INPUT_LAYER_SIZE - 1].value + "</td><td>x</td><td>" + WEIGHTS[inputLayer + '_' + (CUSTOM_INPUT_LAYER_SIZE - 1)][targetId] + "</td><td></td><td></td></tr>");
-            working += ("<tr><td colspan=5 style='font-size: 0.25em;'> &nbsp; </td></tr>");
-            working += ("<tr><td colspan=5> = " + values[targetId].value + "</td></tr>");
-            working += "</table>";
-
-            fcnnVisualisationService.showAnnotation('2_0', working);
-        }
-
-        function displayWeightsAndBiasAndValueInNextHiddenLayer() {
-            fcnnVisualisationService.highlightHiddenLayerNode(2, 1);
-
-            var inputLayer = 1;
-            var numInputNodes = CUSTOM_INPUT_LAYER_SIZE;
-
-            var targetId = '2_1';
-
-            var weightsToDisplay = [];
-            for (var inputNodeId = 0; inputNodeId < numInputNodes; inputNodeId++) {
-                weightsToDisplay.push('w = ' + WEIGHTS[inputLayer + '_' + inputNodeId][targetId]);
-            }
-            fcnnVisualisationService.displayWeights(2, 1, weightsToDisplay);
-
-
-            var values = {};
-            values[targetId] = { bias : BIAS[targetId], value : calculateHiddenLayerValue(2, 1) };
-            fcnnVisualisationService.updateLabels(values);
-
-            var working = "<table>";
-            working += ("<tr><td>" + BIAS[targetId] + "</td><td></td><td></td><td></td><td>+</td></tr>");
-            working += ("<tr><td colspan=5 style='font-size: 0.2em;'> &nbsp; </td></tr>");
-            for (var i = 0; i < (CUSTOM_INPUT_LAYER_SIZE - 1); i++) {
-                working += ("<tr><td>" + $scope.currentExample.random[i].value + "</td><td>x</td><td>" + WEIGHTS[inputLayer + '_' + i][targetId] + "</td><td></td><td>+</td></tr>");
-            }
-            working += ("<tr><td>" + $scope.currentExample.random[CUSTOM_INPUT_LAYER_SIZE - 1].value + "</td><td>x</td><td>" + WEIGHTS[inputLayer + '_' + (CUSTOM_INPUT_LAYER_SIZE - 1)][targetId] + "</td><td></td><td></td></tr>");
-            working += ("<tr><td colspan=5 style='font-size: 0.25em;'> &nbsp; </td></tr>");
-            working += ("<tr><td colspan=5> = " + values[targetId].value + "</td></tr>");
-            working += "</table>";
-
-            fcnnVisualisationService.showAnnotation('2_1', working);
-        }
-
-        function displayWeightsAndBiasAndValueInThirdHiddenLayer() {
-            fcnnVisualisationService.highlightHiddenLayerNode(2, 2);
-
-            var inputLayer = 1;
-            var numInputNodes = CUSTOM_INPUT_LAYER_SIZE;
-
-            var targetId = '2_2';
-
-            var weightsToDisplay = [];
-            for (var inputNodeId = 0; inputNodeId < numInputNodes; inputNodeId++) {
-                weightsToDisplay.push('w = ' + WEIGHTS[inputLayer + '_' + inputNodeId][targetId]);
-            }
-            fcnnVisualisationService.displayWeights(2, 2, weightsToDisplay);
-
-
-            var values = {};
-            values[targetId] = { bias : BIAS[targetId], value : calculateHiddenLayerValue(2, 2) };
-            fcnnVisualisationService.updateLabels(values);
-
-            var working = "<table>";
-            working += ("<tr><td>" + BIAS[targetId] + "</td><td></td><td></td><td></td><td>+</td></tr>");
-            working += ("<tr><td colspan=5 style='font-size: 0.2em;'> &nbsp; </td></tr>");
-            for (var i = 0; i < (CUSTOM_INPUT_LAYER_SIZE - 1); i++) {
-                working += ("<tr><td>" + $scope.currentExample.random[i].value + "</td><td>x</td><td>" + WEIGHTS[inputLayer + '_' + i][targetId] + "</td><td></td><td>+</td></tr>");
-            }
-            working += ("<tr><td>" + $scope.currentExample.random[CUSTOM_INPUT_LAYER_SIZE - 1].value + "</td><td>x</td><td>" + WEIGHTS[inputLayer + '_' + (CUSTOM_INPUT_LAYER_SIZE - 1)][targetId] + "</td><td></td><td></td></tr>");
-            working += ("<tr><td colspan=5 style='font-size: 0.25em;'> &nbsp; </td></tr>");
-            working += ("<tr><td colspan=5> = " + values[targetId].value + "</td></tr>");
-            working += "</table>";
-
-            fcnnVisualisationService.showAnnotation('2_2', working);
+            fcnnVisualisationService.showAnnotation(targetId, working);
         }
 
         function displayAllHiddenLayerValues(onComplete) {
@@ -805,6 +645,7 @@
             fcnnVisualisationService.updateLabels(values);
 
             var nodeIdx = -1;
+            var iterations = remainingNodes.length;
             runningAnimations.push($interval(function () {
                 if (nodeIdx >= 0) {
                     var remainingNode = remainingNodes[nodeIdx];
@@ -815,10 +656,10 @@
 
                 nodeIdx += 1;
 
-                if (onComplete && nodeIdx === remainingNodes.length) {
+                if (onComplete && nodeIdx === iterations) {
                     onComplete();
                 }
-            }, VERY_SLOW, remainingNodes.length + 1));
+            }, VERY_SLOW, iterations + 1));
         }
 
         function hideOutputValues() {
@@ -826,93 +667,115 @@
         }
 
         function displayOutputValues(onComplete) {
-            var values = {};
-            for (var i = 0; i < $scope.project.labels.length; i++) {
-                var label = $scope.project.labels[i];
-                var nodeid = '4_' + i;
-                values[nodeid] = { value : $scope.currentExample.output[label] };
-            }
-            fcnnVisualisationService.updateLabels(values);
+            displayOutputLayerValues();
 
             $timeout(function () {
-                var output = "<table>" +
-                    "<tr><th>label</th><th>output</th></tr>";
-                for (var i = 0; i < $scope.project.labels.length; i++) {
-                    var label = $scope.project.labels[i];
-                    output += ("<tr><td>" + label + "</td><td>"  + $scope.currentExample.output[label] + "</td></tr>");
-                }
-                output += "</table>";
-
-                fcnnVisualisationService.updateOutputHtml(output);
-
+                displayOutputInfoTable({});
                 onComplete();
             }, VERY_SLOW);
         }
 
+        function displayOutputLayerValues() {
+            var layerId = modelInfo.architecture.length - 1;
+            var values = {};
+            for (var nodeIdx = 0; nodeIdx < $scope.project.labels.length; nodeIdx++) {
+                var label = $scope.project.labels[nodeIdx];
+                values[layerId + '_' + nodeIdx] = { value : $scope.currentExample.output[label] };
+            }
+            fcnnVisualisationService.updateLabels(values);
+        }
+
         function displayOutputErrorRate(onComplete) {
-            var output = "<table>" +
-                "<tr><th>label</th><th>output</th><th>training</th></tr>";
+            displayOutputInfoTable({ training : true });
+
+            $timeout(function () {
+                displayOutputInfoTable({ training : true, error : true });
+                onComplete();
+            }, LOWEST_SPEED);
+        }
+
+        function displayOutputInfoTable(includes) {
+            var output = "<table>";
+            output += "<tr><th>label</th><th>output</th>";
+            if (includes.training) {
+                output += "<th>training</th>";
+
+                if (includes.error) {
+                    output += "<th>error</th>";
+                }
+            }
+            output += "</tr>";
+
             for (var i = 0; i < $scope.project.labels.length; i++) {
                 var label = $scope.project.labels[i];
-                var trainingvalue = (label === $scope.currentExample.label) ? 1 : 0;
-                output += ("<tr><td>" + label + "</td><td>"  + $scope.currentExample.output[label] + "</td><td>" + trainingvalue + "</td></tr>");
+
+                output += "<tr>";
+                output += "<td>" + label + "</td><td>"  + $scope.currentExample.output[label] + "</td>";
+
+                if (includes.training) {
+                    var trainingvalue = (label === $scope.currentExample.label) ? 1 : 0;
+                    output += "<td>" + trainingvalue + "</td>";
+
+                    if (includes.error) {
+                        var errorrate = trainingvalue - $scope.currentExample.output[label];
+                        if (errorrate > 0) {
+                            errorrate = "+" + errorrate;
+                        }
+
+                        output += ("<td>" +
+                                   (includes.errorhighlight ? "<strong>" : "") +
+                                   errorrate +
+                                   (includes.errorhighlight ? "</strong>" : "") +
+                                   "</td>");
+                    }
+                }
+
+                output += "</tr>";
             }
             output += "</table>";
 
             fcnnVisualisationService.updateOutputHtml(output);
+        }
 
 
-            $timeout(function () {
-                var output = "<table>" +
-                    "<tr><th>label</th><th>output</th><th>training</th><th>error</th></tr>";
-                for (var i = 0; i < $scope.project.labels.length; i++) {
-                    var label = $scope.project.labels[i];
-                    var trainingvalue = (label === $scope.currentExample.label) ? 1 : 0;
-                    var errorrate = trainingvalue - $scope.currentExample.output[label];
-                    if (errorrate > 0) {
-                        errorrate = "+" + errorrate;
+        function displayLinkWeights(layerId, includes) {
+            var previousLayer = layerId - 1;
+            var previousLayerNumNodes = modelInfo.architecture[previousLayer];
+
+            var numNodes = modelInfo.architecture[layerId];
+            for (var i = 0; i < numNodes; i++) {
+                var targetId = layerId + '_' + i;
+                var weights = [];
+                for (var j = 0; j < previousLayerNumNodes; j++) {
+                    if (includes.hide) {
+                        weights.push('');
                     }
-                    output += ("<tr><td>" + label + "</td><td>"  + $scope.currentExample.output[label] + "</td><td>" + trainingvalue + "</td><td>" + errorrate + "</td></tr>");
+                    else {
+                        if (includes.adjustment) {
+                            WEIGHTS[previousLayer + '_' + j][targetId] = adjust(WEIGHTS[previousLayer + '_' + j][targetId]);
+                        }
+                        weights.push(WEIGHTS[previousLayer + '_' + j][targetId]);
+                    }
                 }
-                output += "</table>";
-
-                fcnnVisualisationService.updateOutputHtml(output);
-
-                onComplete();
-            }, 800);
+                fcnnVisualisationService.displayWeights(layerId, i, weights, includes.highlight);
+            }
         }
 
 
         function displayBackPropagation(onComplete) {
             fcnnVisualisationService.removeValues();
 
-            var output = "<table>" +
-                "<tr><th>label</th><th>output</th><th>training</th><th>error</th></tr>";
-            for (var i = 0; i < $scope.project.labels.length; i++) {
-                var label = $scope.project.labels[i];
-                var trainingvalue = (label === $scope.currentExample.label) ? 1 : 0;
-                var errorrate = trainingvalue - $scope.currentExample.output[label];
-                if (errorrate > 0) {
-                    errorrate = "+" + errorrate;
-                }
-                output += ("<tr><td>" + label + "</td><td>"  + $scope.currentExample.output[label] + "</td><td>" + trainingvalue + "</td><td><strong>" + errorrate + "</strong></td></tr>");
-            }
-            output += "</table>";
-
-            fcnnVisualisationService.updateOutputHtml(output);
-
-
-            var architecture = [ 1, CUSTOM_INPUT_LAYER_SIZE, 5, 8, $scope.project.labels.length ];
+            displayOutputInfoTable({ training : true, error : true, errorhighlight : true });
 
             var steps = [];
-            for (var layerId = architecture.length - 1; layerId > 1; layerId--) {
-                for (var nodeId = 0; nodeId < architecture[layerId]; nodeId++) {
-                    if (layerId != (architecture.length - 1)) {
+            for (var layerId = modelInfo.architecture.length - 1; layerId > 1; layerId--) {
+                for (var nodeId = 0; nodeId < modelInfo.architecture[layerId]; nodeId++) {
+                    if (layerId != (modelInfo.architecture.length - 1)) {
                         steps.push({ layer : layerId, type : 'bias', node : nodeId, action : 'adjust' });
                         steps.push({ layer : layerId, type : 'bias', node : nodeId, action : 'current' });
                     }
                 }
-                for (var nodeId = 0; nodeId < architecture[layerId]; nodeId++) {
+                for (var nodeId = 0; nodeId < modelInfo.architecture[layerId]; nodeId++) {
                     steps.push({ layer : layerId, type : 'weights', node : nodeId, action : 'current' });
                     steps.push({ layer : layerId, type : 'weights', node : nodeId, action : 'adjust' });
                     steps.push({ layer : layerId, type : 'weights', node : nodeId, action : 'hide' });
@@ -927,7 +790,7 @@
 
                 if (step.type === 'weights') {
                     var inputLayer = step.layer - 1;
-                    var numInputNodes = architecture[inputLayer];
+                    var numInputNodes = modelInfo.architecture[inputLayer];
 
                     var weightsToDisplay = [];
 
@@ -959,7 +822,6 @@
                     fcnnVisualisationService.updateLabels(values, step.action === 'adjust');
                 }
 
-
                 stepId += 1;
                 if (onComplete && stepId === steps.length) {
                     onComplete();
@@ -967,42 +829,28 @@
             }, SLOW, steps.length));
         }
 
-        function adjust(val) {
-            return val + (Math.random() > 0.5 ? 1 : -1);
-        }
 
 
         function animateEpoch(onComplete) {
             loggerService.debug('[ml4kdesc] animating network layers with real examples');
 
-            var exampleIdx = 1;
+            var numInputNodes = getInputLayerSize();
 
-            var hiddenNodes = [
-                [ 2, 0 ],
-                [ 2, 1 ],
-                [ 2, 2 ],
-                [ 2, 3 ],
-                [ 2, 4 ],
-                [ 3, 0 ],
-                [ 3, 1 ],
-                [ 3, 2 ],
-                [ 3, 3 ],
-                [ 3, 4 ],
-                [ 3, 5 ],
-                [ 3, 6 ],
-                [ 3, 7 ]
-            ];
+            var exampleIdx = 1;
 
             var steps = [];
             steps.push({ action : 'next-example', node : [ 0, 0 ] });
             steps.push({ action : 'highlight-example', node : [ 0, 0 ] });
-            for (var i = 0; i < CUSTOM_INPUT_LAYER_SIZE; i++) {
+            for (var i = 0; i < numInputNodes; i++) {
                 steps.push({ action : 'input-layer', node : [ 1, i ] });
             }
             steps.push({ action : 'remove-focus', node : [ 0, 0 ] });
-            for (var j = 0; j < hiddenNodes.length; j++) {
-                steps.push({ action : 'hidden-nodes', node : hiddenNodes[j] });
+            for (var hiddenLayer = 2; hiddenLayer < modelInfo.architecture.length; hiddenLayer++) {
+                for (var hiddenLayerNodeIdx = 0; hiddenLayerNodeIdx < modelInfo.architecture[hiddenLayer]; hiddenLayerNodeIdx++) {
+                    steps.push({ action : 'hidden-nodes', node : [ hiddenLayer, hiddenLayerNodeIdx ] });
+                }
             }
+
             steps.push({ action : 'remove-focus', node : [ 0, 0 ] });
             for (var k = 0; k < $scope.project.labels.length; k++) {
                 steps.push({ action : 'output-layer', node : [ 4, k ] });
@@ -1010,70 +858,25 @@
             steps.push({ action : 'output-info', node : [ 4, 0 ] });
             steps.push({ action : 'error-rate', node : [ 4, 0 ] });
             steps.push({ action : 'hide-example', node : [ 0, 0 ] });
-            steps.push({ action : 'display-weights', node : [ 4, 0 ] });
-            steps.push({ action : 'highlight-weights', node : [ 4, 0 ] });
-            steps.push({ action : 'adjust-weights', node : [ 4, 0 ] });
-            steps.push({ action : 'display-weights', node : [ 4, 0 ] });
-            steps.push({ action : 'hide-weights', node : [ 4, 0 ] });
 
-            steps.push({ action : 'highlight-bias', node : [ 3, 0 ] });
-            steps.push({ action : 'adjust-bias', node : [ 3, 0 ] });
-            steps.push({ action : 'highlight-bias', node : [ 3, 1 ] });
-            steps.push({ action : 'adjust-bias', node : [ 3, 1 ] });
-            steps.push({ action : 'highlight-bias', node : [ 3, 2 ] });
-            steps.push({ action : 'adjust-bias', node : [ 3, 2 ] });
-            steps.push({ action : 'highlight-bias', node : [ 3, 3 ] });
-            steps.push({ action : 'adjust-bias', node : [ 3, 3 ] });
-            steps.push({ action : 'highlight-bias', node : [ 3, 4 ] });
-            steps.push({ action : 'adjust-bias', node : [ 3, 4 ] });
-            steps.push({ action : 'highlight-bias', node : [ 3, 5 ] });
-            steps.push({ action : 'adjust-bias', node : [ 3, 5 ] });
-            steps.push({ action : 'highlight-bias', node : [ 3, 6 ] });
-            steps.push({ action : 'adjust-bias', node : [ 3, 6 ] });
-            steps.push({ action : 'highlight-bias', node : [ 3, 7 ] });
-            steps.push({ action : 'adjust-bias', node : [ 3, 7 ] });
+            for (var stepLayer = 4; stepLayer >= 2; stepLayer--) {
+                if (stepLayer < 4) {
+                    for (var x = 0; x < modelInfo.architecture[stepLayer]; x++) {
+                        steps.push({ action : 'highlight-bias', node : [ stepLayer, x ] });
+                        steps.push({ action : 'adjust-bias', node : [ stepLayer, x ] });
+                    }
+                    steps.push({ action : 'remove-bias-highlights', node : [ stepLayer, 0 ] });
+                }
 
-            steps.push({ action : 'remove-bias-highlights', node : [ 3, 0 ] });
-
-            steps.push({ action : 'display-weights', node : [ 3, 0 ] });
-            steps.push({ action : 'highlight-weights', node : [ 3, 0 ] });
-            steps.push({ action : 'adjust-weights', node : [ 3, 0 ] });
-            steps.push({ action : 'display-weights', node : [ 3, 0 ] });
-            steps.push({ action : 'hide-weights', node : [ 3, 0 ] });
-
-            steps.push({ action : 'highlight-bias', node : [ 2, 0 ] });
-            steps.push({ action : 'adjust-bias', node : [ 2, 0 ] });
-            steps.push({ action : 'highlight-bias', node : [ 2, 1 ] });
-            steps.push({ action : 'adjust-bias', node : [ 2, 1 ] });
-            steps.push({ action : 'highlight-bias', node : [ 2, 2 ] });
-            steps.push({ action : 'adjust-bias', node : [ 2, 2 ] });
-            steps.push({ action : 'highlight-bias', node : [ 2, 3 ] });
-            steps.push({ action : 'adjust-bias', node : [ 2, 3 ] });
-            steps.push({ action : 'highlight-bias', node : [ 2, 4 ] });
-            steps.push({ action : 'adjust-bias', node : [ 2, 4 ] });
-
-            steps.push({ action : 'remove-bias-highlights', node : [ 2, 0 ] });
-
-            steps.push({ action : 'display-weights', node : [ 2, 0 ] });
-            steps.push({ action : 'highlight-weights', node : [ 2, 0 ] });
-            steps.push({ action : 'adjust-weights', node : [ 2, 0 ] });
-            steps.push({ action : 'display-weights', node : [ 2, 0 ] });
-            steps.push({ action : 'hide-weights', node : [ 2, 0 ] });
-
-            steps.push({ action : 'complete', node : [ 4, 0 ] });
+                steps.push({ action : 'display-weights', node : [ stepLayer, 0 ] });
+                steps.push({ action : 'highlight-weights', node : [ stepLayer, 0 ] });
+                steps.push({ action : 'adjust-weights', node : [ stepLayer, 0 ] });
+                steps.push({ action : 'display-weights', node : [ stepLayer, 0 ] });
+                steps.push({ action : 'hide-weights', node : [ stepLayer, 0 ] });
+            }
 
 
             var stepId = 0;
-
-            // var vals = {};
-            // for (var x = 0; x < hiddenNodes.length; x++) {
-            //     var nxtnode = hiddenNodes[x];
-            //     var nxtnodeid = nxtnode[0] + '_' + nxtnode[1];
-            //     vals[nxtnodeid] = { bias : BIAS[nxtnodeid] };
-            // }
-            // fcnnVisualisationService.updateLabels(vals);
-
-            var architecture = [ 1, CUSTOM_INPUT_LAYER_SIZE, 5, 8, $scope.project.labels.length ];
 
             runningAnimations.push($interval(function () {
                 var step = steps[stepId];
@@ -1112,130 +915,44 @@
                     fcnnVisualisationService.updateLabels(values);
                 }
                 else if (action === 'output-layer') {
-                    for (var i = 0; i < $scope.project.labels.length; i++) {
-                        var label = $scope.project.labels[i];
-                        values[nodeid] = { value : $scope.currentExample.output[label] };
-                    }
-                    fcnnVisualisationService.updateLabels(values);
+                    displayOutputLayerValues();
                 }
                 else if (action === 'output-info') {
-                    var output = "<table>" +
-                        "<tr><th>label</th><th>output</th></tr>";
-                    for (var i = 0; i < $scope.project.labels.length; i++) {
-                        var label = $scope.project.labels[i];
-                        output += ("<tr><td>" + label + "</td><td>"  + $scope.currentExample.output[label] + "</td></tr>");
-                    }
-                    output += "</table>";
-
-                    fcnnVisualisationService.updateOutputHtml(output);
+                    displayOutputInfoTable({});
                 }
                 else if (action === 'error-rate') {
                     fcnnVisualisationService.remove_focus();
-
-                    var output = "<table>" +
-                        "<tr><th>label</th><th>output</th><th>training</th></tr>";
-                    for (var i = 0; i < $scope.project.labels.length; i++) {
-                        var label = $scope.project.labels[i];
-                        var trainingvalue = (label === $scope.currentExample.label) ? 1 : 0;
-                        output += ("<tr><td>" + label + "</td><td>"  + $scope.currentExample.output[label] + "</td><td>" + trainingvalue + "</td></tr>");
-                    }
-                    output += "</table>";
-
-                    fcnnVisualisationService.updateOutputHtml(output);
+                    displayOutputInfoTable({ training : true });
                 }
                 else if (action === 'hide-example') {
                     fcnnVisualisationService.removeValues();
-
-
-                    var output = "<table>" +
-                        "<tr><th>label</th><th>output</th><th>training</th><th>error</th></tr>";
-                    for (var i = 0; i < $scope.project.labels.length; i++) {
-                        var label = $scope.project.labels[i];
-                        var trainingvalue = (label === $scope.currentExample.label) ? 1 : 0;
-                        var errorrate = trainingvalue - $scope.currentExample.output[label];
-                        if (errorrate > 0) {
-                            errorrate = "+" + errorrate;
-                        }
-                        output += ("<tr><td>" + label + "</td><td>"  + $scope.currentExample.output[label] + "</td><td>" + trainingvalue + "</td><td><strong>" + errorrate + "</strong></td></tr>");
-                    }
-                    output += "</table>";
-
-                    fcnnVisualisationService.updateOutputHtml(output);
+                    displayOutputInfoTable({ training : true, error : true, errorhighlight : true });
                 }
                 else if (action === 'display-weights') {
-                    var previousLayer = layerId - 1;
-                    var previousLayerNumNodes = architecture[previousLayer];
-
-                    var numNodes = architecture[layerId];
-                    for (var i = 0; i < numNodes; i++) {
-                        var targetId = layerId + '_' + i;
-                        var weights = [];
-                        for (var j = 0; j < previousLayerNumNodes; j++) {
-                            weights.push(WEIGHTS[previousLayer + '_' + j][targetId]);
-                        }
-                        fcnnVisualisationService.displayWeights(layerId, i, weights);
-                    }
+                    displayLinkWeights(layerId, {});
                 }
                 else if (action === 'hide-weights') {
                     fcnnVisualisationService.removeValues();
-
-                    var previousLayer = layerId - 1;
-                    var previousLayerNumNodes = architecture[previousLayer];
-
-                    var numNodes = architecture[layerId];
-                    for (var i = 0; i < numNodes; i++) {
-                        var targetId = layerId + '_' + i;
-                        var weights = [];
-                        for (var j = 0; j < previousLayerNumNodes; j++) {
-                            weights.push('');
-                        }
-                        fcnnVisualisationService.displayWeights(layerId, i, weights);
-                    }
+                    displayLinkWeights(layerId, { hide : true });
                 }
                 else if (action === 'highlight-weights') {
-                    var previousLayer = layerId - 1;
-                    var previousLayerNumNodes = architecture[previousLayer];
-
-                    var numNodes = architecture[layerId];
-                    for (var i = 0; i < numNodes; i++) {
-                        var targetId = layerId + '_' + i;
-                        var weights = [];
-                        for (var j = 0; j < previousLayerNumNodes; j++) {
-                            weights.push(WEIGHTS[previousLayer + '_' + j][targetId]);
-                        }
-                        fcnnVisualisationService.displayWeights(layerId, i, weights, true);
-                    }
+                    displayLinkWeights(layerId, { highlight : true });
                 }
                 else if (action === 'adjust-weights') {
-                    var previousLayer = layerId - 1;
-                    var previousLayerNumNodes = architecture[previousLayer];
-
-                    var numNodes = architecture[layerId];
-                    for (var i = 0; i < numNodes; i++) {
-                        var targetId = layerId + '_' + i;
-                        var weights = [];
-                        for (var j = 0; j < previousLayerNumNodes; j++) {
-                            WEIGHTS[previousLayer + '_' + j][targetId] = adjust(WEIGHTS[previousLayer + '_' + j][targetId]);
-                            weights.push(WEIGHTS[previousLayer + '_' + j][targetId]);
-                        }
-                        fcnnVisualisationService.displayWeights(layerId, i, weights, true);
-                    }
+                    displayLinkWeights(layerId, { highlight : true, adjustment : true });
                 }
                 else if (action === 'highlight-bias') {
-                    var values = {};
                     values[nodeid] = { bias : BIAS[nodeid] };
                     fcnnVisualisationService.updateLabels(values, true);
                 }
                 else if (action === 'adjust-bias') {
                     BIAS[nodeid] = adjust(BIAS[nodeid]);
 
-                    var values = {};
                     values[nodeid] = { bias : BIAS[nodeid] };
                     fcnnVisualisationService.updateLabels(values, true);
                 }
                 else if (action === 'remove-bias-highlights') {
-                    var values = {};
-                    var numNodes = architecture[layerId];
+                    var numNodes = modelInfo.architecture[layerId];
                     for (var i = 0; i < numNodes; i++) {
                         var targetId = layerId + '_' + i;
                         values[targetId] = { bias : BIAS[targetId] };
@@ -1248,7 +965,7 @@
 
 
                 stepId = (stepId + 1) % steps.length;
-            }, VERY_FAST, 1000));
+            }, FASTEST_SPEED, 1000));
 
             onComplete();
         }
