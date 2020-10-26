@@ -60,8 +60,8 @@
         </div>
         <div class="nnexplanation" ng-switch-when="7">
             <div class="bodytext">If you build your own machine learning model, you need to choose the method for turning the text into numbers. </div>
-            <div class="bodytext">You can do this based on what you know will work best for the type of project you're doing. Or you can do it by experimenting with different techniques to see which works best with your training examples.</div>
-            <div class="bodytext" style="font-style: italic;">The encoding method for your model was chosen for you based on what seemed to work best with your training examples.</div>
+            <div class="bodytext">You can do this by experimenting with different techniques to see which works best with your training examples.</div>
+            <div class="bodytext" style="font-style: italic;">Your model used a more complicated technique that includes the order of words in the training examples.</div>
         </div>
         <div class="nnexplanation" ng-switch-when="8">
             <div class="bodytext">The numbers from the input layer are used in sums to calculate values for the nodes in the next layer.</div>
@@ -162,7 +162,7 @@
                     <span ng-switch-when="4">encoding</span>
                     <span ng-switch-when="5">bag of words</span>
                     <span ng-switch-when="6">feature extraction</span>
-                    <span ng-switch-when="7">feature selection</span>
+                    <span ng-switch-when="7">word embeddings</span>
                     <span ng-switch-when="8">hidden layer</span>
                     <span ng-switch-when="9">activation functions</span>
                     <span ng-switch-when="10">weight</span>
@@ -224,8 +224,6 @@
                 </div>
 
                 <div style="margin-top: 40px; margin-bottom: 5px;">Use these controls to navigate the model diagrams</div>
-
-                <div> {{ vm.wizardPage }} </div>
             </div>
         </div>
     </div>

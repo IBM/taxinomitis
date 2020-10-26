@@ -323,10 +323,10 @@
             var topOutputLayerY = parseFloat(topOutputDataNode.getAttribute('cy'));
             var bottomOutputLayerY = parseFloat(bottomOutputDataNode.getAttribute('cy'));
 
-            var outputDataWidth = 500;
+            var outputDataWidth = 460;
             var outputDataHeight = 120;
 
-            var detailX = outputLayerX + 100;
+            var detailX = outputLayerX + 40;
             var detailY = topOutputLayerY + ((bottomOutputLayerY - topOutputLayerY) / 2) - 60;
 
             var detailContainer = createSvgElement(NS_SVG, 'foreignObject', {
@@ -546,7 +546,7 @@
             exampleText.classList.remove('hiddendiagramelement');
 
             var inputDataNode = getNNNode(LAYER_IDS.INPUT_TEXT, 0);
-            inputDataNode.classList.remove('hiddendiagramelement');
+            inputDataNode.classList.add('hiddendiagramelement');
             var inputLayerY = parseFloat(inputDataNode.getAttribute('cy'));
             var exampleTextY = inputLayerY;
 
@@ -597,17 +597,19 @@
             var topHiddenElem = getNNNode(largestLayerIdx.idx, 0);
             var bottomHiddenElem = getNNNode(largestLayerIdx.idx, architecture[largestLayerIdx.idx - 1]);
 
-            var left = parseFloat(inputElem.getAttribute('cx')); // - 80;
-            var right = parseFloat(outputElem.getAttribute('x')); // + 500;
-            var top = parseFloat(topHiddenElem.getAttribute('cy')); // - 50;
-            var bottom = parseFloat(bottomHiddenElem.getAttribute('cy')); // + 200;
+            var left = parseFloat(inputElem.getAttribute('cx'));
+            var right = parseFloat(outputElem.getAttribute('x'));
+            var top = parseFloat(topHiddenElem.getAttribute('cy'));
+            var bottom = parseFloat(bottomHiddenElem.getAttribute('cy'));
 
+            console.log('bottom : ' + bottom);
+            console.log('top    : ' + top);
             if (outputElem) {
-                w = right - left + 600;
-                h = bottom - top + 250;
-
-                if (h < 400) {
-                    h = 760;
+                w = right - left + 550;
+                h = bottom - top + 400;
+                console.log(h);
+                if (h < 500) {
+                    h = 900;
                 }
             }
             else {

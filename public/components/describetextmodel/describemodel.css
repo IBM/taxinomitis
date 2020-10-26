@@ -19,6 +19,7 @@
     padding: 1em;
     flex-grow: 1;
     position: relative;
+    min-width: 225px;
 }
 
 .describemlmodel .nnsearchbox .nnsearchprompt {
@@ -48,7 +49,7 @@
 
 
 .describemlmodel .visualisationimagehost .inputdata {
-    font-size: 12px;
+    font-size: 13px;
     text-align: center;
     background-color: white;
     border: thin grey solid;
@@ -81,7 +82,7 @@
 .describemlmodel .visualisationimagehost .inputannotation {
     background-color: #f1feff;
     border: thin #1864ab solid;
-    font-size: 9px;
+    font-size: 12px;
     padding: 3px;
 }
 

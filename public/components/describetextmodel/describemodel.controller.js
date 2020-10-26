@@ -72,7 +72,7 @@
             })
             .then(function (models) {
                 loggerService.debug('[ml4kdesc] models', models);
-                if (models && models.length > 0 && models[0].status === 'Available') {
+                if (models && models.length > 0 && (models[0].status === 'Available') || (models[0].status === 'Training')) {
                     return trainingService.getModel($scope.project.id, $scope.userId, vm.profile.tenant, $scope.modelId, models[0].updated);
                 }
                 else {
@@ -218,7 +218,7 @@
             // 6 :
             'https://duckduckgo.com/?q=feature+extraction+text+classification',
             // 7 :
-            'https://duckduckgo.com/?q=feature+selection+machine+learning',
+            'https://duckduckgo.com/?q=word+embedding+neural+network',
             // 8 :
             'https://duckduckgo.com/?q=hidden+layer+neural+network',
             // 9 :
@@ -389,7 +389,7 @@
                     wizardStepComplete();
                     break;
                 case 15:
-                    displayAllHiddenLayerValues(wizardStepComplete);
+                    displayAllHiddenLayerValues(VERY_SLOW, wizardStepComplete);
                     break;
                 case 16:
                     displayOutputValues(wizardStepComplete);
@@ -398,7 +398,7 @@
                     displayOutputErrorRate(wizardStepComplete);
                     break;
                 case 18:
-                    displayBackPropagation(wizardStepComplete);
+                    displayBackPropagation(SLOW, wizardStepComplete);
                     break;
                 case 19:
                     hideOutputValues();
@@ -421,7 +421,7 @@
                     wizardStepComplete();
                     break;
                 case 24:
-                    displayAllHiddenLayerValues(wizardStepComplete);
+                    displayAllHiddenLayerValues(FAST, wizardStepComplete);
                     break;
                 case 25:
                     displayOutputValues(wizardStepComplete);
@@ -430,7 +430,7 @@
                     displayOutputErrorRate(wizardStepComplete);
                     break;
                 case 27:
-                    displayBackPropagation(wizardStepComplete);
+                    displayBackPropagation(FAST, wizardStepComplete);
                     break;
                 case 28:
                     animateEpoch(wizardStepComplete);
@@ -621,7 +621,9 @@
             fcnnVisualisationService.showAnnotation(targetId, working);
         }
 
-        function displayAllHiddenLayerValues(onComplete) {
+        function displayAllHiddenLayerValues(speed, onComplete) {
+            loggerService.debug('[ml4kdesc] display hidden layer values', speed);
+
             var values = {};
 
             var remainingNodes = [
@@ -659,7 +661,7 @@
                 if (onComplete && nodeIdx === iterations) {
                     onComplete();
                 }
-            }, VERY_SLOW, iterations + 1));
+            }, speed, iterations + 1));
         }
 
         function hideOutputValues() {
@@ -667,7 +669,8 @@
         }
 
         function displayOutputValues(onComplete) {
-            displayOutputLayerValues();
+            loggerService.debug('[ml4kdesc] display output values');
+            displayOutputLayerNodeValues();
 
             $timeout(function () {
                 displayOutputInfoTable({});
@@ -675,7 +678,8 @@
             }, VERY_SLOW);
         }
 
-        function displayOutputLayerValues() {
+        function displayOutputLayerNodeValues() {
+            loggerService.debug('[ml4kdesc] adding output layer node values');
             var layerId = modelInfo.architecture.length - 1;
             var values = {};
             for (var nodeIdx = 0; nodeIdx < $scope.project.labels.length; nodeIdx++) {
@@ -686,6 +690,8 @@
         }
 
         function displayOutputErrorRate(onComplete) {
+            loggerService.debug('[ml4kdesc] displaying output error rate');
+
             displayOutputInfoTable({ training : true });
 
             $timeout(function () {
@@ -695,6 +701,8 @@
         }
 
         function displayOutputInfoTable(includes) {
+            loggerService.debug('[ml4kdesc] generating output info table', includes);
+
             var output = "<table>";
             output += "<tr><th>label</th><th>output</th>";
             if (includes.training) {
@@ -717,7 +725,7 @@
                     output += "<td>" + trainingvalue + "</td>";
 
                     if (includes.error) {
-                        var errorrate = trainingvalue - $scope.currentExample.output[label];
+                        var errorrate = $scope.currentExample.output[label] - trainingvalue;
                         if (errorrate > 0) {
                             errorrate = "+" + errorrate;
                         }
@@ -739,6 +747,8 @@
 
 
         function displayLinkWeights(layerId, includes) {
+            loggerService.debug('[ml4kdesc] displaying link weights', layerId, includes);
+
             var previousLayer = layerId - 1;
             var previousLayerNumNodes = modelInfo.architecture[previousLayer];
 
@@ -762,7 +772,9 @@
         }
 
 
-        function displayBackPropagation(onComplete) {
+        function displayBackPropagation(speed, onComplete) {
+            loggerService.debug('[ml4kdesc] running backprop animation');
+
             fcnnVisualisationService.removeValues();
 
             displayOutputInfoTable({ training : true, error : true, errorhighlight : true });
@@ -826,7 +838,7 @@
                 if (onComplete && stepId === steps.length) {
                     onComplete();
                 }
-            }, SLOW, steps.length));
+            }, speed, steps.length));
         }
 
 
@@ -915,7 +927,7 @@
                     fcnnVisualisationService.updateLabels(values);
                 }
                 else if (action === 'output-layer') {
-                    displayOutputLayerValues();
+                    displayOutputLayerNodeValues();
                 }
                 else if (action === 'output-info') {
                     displayOutputInfoTable({});
@@ -1015,6 +1027,7 @@
             var container = document.getElementById("mlforkidsmodelvizimghost");
             operation = $interval(function () {
                 container.scrollLeft += SCROLL_PIXELS;
+                console.log('left : ' + container.scrollLeft);
             }, REPEAT_INTERVAL);
         };
         vm.goright = function() {
@@ -1022,6 +1035,7 @@
             var container = document.getElementById("mlforkidsmodelvizimghost");
             operation = $interval(function () {
                 container.scrollLeft -= SCROLL_PIXELS;
+                console.log('left : ' + container.scrollLeft);
             }, REPEAT_INTERVAL);
         };
         vm.goup = function() {
@@ -1029,6 +1043,7 @@
             var container = document.getElementById("mlforkidsmodelvizimghost");
             operation = $interval(function () {
                 container.scrollTop -= SCROLL_PIXELS;
+                console.log('top : ' + container.scrollTop);
             }, REPEAT_INTERVAL);
         };
         vm.godown = function() {
@@ -1036,8 +1051,75 @@
             var container = document.getElementById("mlforkidsmodelvizimghost");
             operation = $interval(function () {
                 container.scrollTop += SCROLL_PIXELS;
+                console.log('top : ' + container.scrollTop);
             }, REPEAT_INTERVAL);
         };
+
+        // function zoomToElement(elementId) {
+        //     var image = document.getElementById("mlforkidsmodelvizimg");
+
+        //     var currentWidth = image.style["width"] || "100%";
+        //     var percentIdx = currentWidth.indexOf("%");
+        //     if (percentIdx > 0) {
+        //         currentWidth = currentWidth.substr(0, percentIdx);
+        //     }
+        //     var zoomScaleStep = 20;
+
+        //     var currentZoomLevel = parseInt(currentWidth, 10);
+        //     console.log('zoom level is ' + currentZoomLevel);
+
+        //     currentZoomLevel = currentZoomLevel - (currentZoomLevel % zoomScaleStep);
+
+        //     var targetZoomLevel = 200;
+
+        //     if (currentZoomLevel > targetZoomLevel) {
+        //         var steps = (currentZoomLevel - targetZoomLevel) / zoomScaleStep;
+        //         $interval(function () {
+        //             currentZoomLevel -= zoomScaleStep;
+        //             console.log('setting zoom to ' + currentZoomLevel);
+        //             image.style["width"] = currentZoomLevel + "%";
+        //         }, FASTEST_SPEED, steps);
+        //     }
+        //     else if (currentZoomLevel < targetZoomLevel) {
+        //         var steps = (targetZoomLevel - currentZoomLevel) / zoomScaleStep;
+        //         $interval(function () {
+        //             currentZoomLevel += zoomScaleStep;
+        //             console.log('setting zoom to ' + currentZoomLevel);
+        //             image.style["width"] = currentZoomLevel + "%";
+        //         }, FASTEST_SPEED, steps);
+        //     }
+
+
+        //     var target = getElementById(elementId);
+        //     var location = target.getBoundingClientRect();
+        //     var xLocation = location.x - (location.x % 50);
+
+        //     var container = document.getElementById("mlforkidsmodelvizimghost");
+        //     container.scrollLeft = xLocation;
+        // }
+        // function resetZoom() {
+        //     var image = document.getElementById("mlforkidsmodelvizimg");
+        //     var currentWidth = image.style["width"] || "100%";
+        //     var percentIdx = currentWidth.indexOf("%");
+        //     if (percentIdx > 0) {
+        //         currentWidth = currentWidth.substr(0, percentIdx);
+        //     }
+        //     var zoomScaleStep = 20;
+
+        //     var currentZoomLevel = parseInt(currentWidth, 10);
+        //     console.log('zoom level is ' + currentZoomLevel);
+
+        //     currentZoomLevel = currentZoomLevel - (currentZoomLevel % zoomScaleStep);
+
+        //     if (currentZoomLevel > 100) {
+        //         var steps = (currentZoomLevel - 100) / zoomScaleStep;
+        //         $interval(function () {
+        //             currentZoomLevel -= zoomScaleStep;
+        //             console.log('setting zoom to ' + currentZoomLevel);
+        //             image.style["width"] = currentZoomLevel + "%";
+        //         }, FASTEST_SPEED, steps);
+        //     }
+        // }
 
 
 

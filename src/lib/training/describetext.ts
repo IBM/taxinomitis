@@ -1,42 +1,91 @@
 // external dependencies
 import syllable = require('syllable');
+import nlp = require('compromise');
+import nlpnum = require('compromise-numbers');
 // local dependencies
 import * as store from '../db/store';
 import * as Objects from '../db/db-types';
 import * as random from '../utils/random';
+import * as bagofwords from '../utils/bagofwords';
+import * as emoticons from '../utils/emoticons';
 
 
 
-function getTrainingExample(trainingdata: Objects.TextTraining, label: string, project: Objects.Project): TextModelTrainingExample {
+const nlpFunctions: any = nlp.extend(nlpnum);
+
+
+
+function getTrainingExampleWordCounts(trainingExampleText: string, bowDictionary: string[]): TextModelTrainingAnnotation[] {
+    const trainingExampleWords = bagofwords.tokenize(trainingExampleText);
+
+    const trainingExampleWordCounts: { [word: string]: number } = {};
+    for (const word of trainingExampleWords) {
+        if (bowDictionary.includes(word)) {
+            if (!(word in trainingExampleWordCounts)) {
+                trainingExampleWordCounts[word] = 0;
+            }
+            trainingExampleWordCounts[word] += 1;
+        }
+    }
+
+    if (Object.keys(trainingExampleWordCounts).length < 2) {
+        const wordsToAdd = bagofwords.getMostCommonWords([ trainingExampleText ], 2);
+        for (const wordToAdd of wordsToAdd) {
+            trainingExampleWordCounts[wordToAdd.word] = wordToAdd.count;
+        }
+    }
+
+    let zeroWordIndex = 0;
+    while (Object.keys(trainingExampleWordCounts).length < 10) {
+        if (!(bowDictionary[zeroWordIndex] in trainingExampleWordCounts)) {
+            trainingExampleWordCounts[bowDictionary[zeroWordIndex]] = 0;
+        }
+        zeroWordIndex += 1;
+    }
+
+    return Object.keys(trainingExampleWordCounts).map(word => {
+        return {
+            annotation : 'number of times that the word "' + word.toUpperCase() + '" appears',
+            value : trainingExampleWordCounts[word],
+        };
+    });
+}
+
+
+function getCustomFeatures(trainingExampleText: string, emoticonsDictionary: string[]): TextModelTrainingAnnotation[] {
+    return [
+        // 1
+        { annotation : 'number of letters', value : countLetters(trainingExampleText) },
+        // 2
+        { annotation : 'punctuation marks', value : countRegexMatches(trainingExampleText, PUNCTUATION_REGEX) },
+        // 3
+        { annotation : 'number of capital letters', value : countRegexMatches(trainingExampleText, CAPITALLETTER_REGEX) },
+        // 4
+        { annotation : 'syllables', value : syllable(trainingExampleText) },
+        // 5
+        { annotation : 'includes a question mark', value : containsQuestionMark(trainingExampleText) },
+        // 6
+        { annotation : 'number of verbs', value : nlpFunctions(trainingExampleText).verbs().json().length },
+        // 7
+        { annotation : 'number of emoticons', value : emoticons.countEmoticons(trainingExampleText, emoticonsDictionary) },
+        // 8
+        { annotation : 'mentions of numbers', value : nlpFunctions(trainingExampleText).numbers().json().length },
+        // 9
+        { annotation : 'usages of contractions', value : nlpFunctions(trainingExampleText).contractions().json().length },
+    ];
+}
+
+
+
+function getTrainingExample(trainingdata: Objects.TextTraining, label: string, project: Objects.Project, bowDictionary: string[], emoticonsDictionary: string[]): TextModelTrainingExample {
 
     const trainingOutput: { [id: string]: number } = {};
 
     const example = {
         text: trainingdata.textdata,
         label,
-        bagofwords : [
-            { annotation : 'number of times that the word "HEADLINE" appears', value : 1 },
-            { annotation : 'number of times that the word "FURY" appears', value : 0 },
-            { annotation : 'LONDON', value : 0 },
-            { annotation : 'GO', value : 1 },
-            { annotation : 'WILL', value : 1 },
-            { annotation : 'OPEN', value : 0 },
-            { annotation : 'PLACEHOLDER', value : 1 },
-            { annotation : 'TESTING', value : 0 },
-            { annotation : 'VALUES', value : 0 },
-            { annotation : 'QUEEN', value : 0 },
-        ],
-        customfeatures : [
-            { annotation : 'number of letters', value : countLetters(trainingdata.textdata) },
-            { annotation : 'punctuation marks', value : countRegexMatches(trainingdata.textdata, PUNCTUATION_REGEX) },
-            { annotation : 'number of capital letters', value : countRegexMatches(trainingdata.textdata, CAPITALLETTER_REGEX) },
-            { annotation : 'syllables', value : syllable(trainingdata.textdata) },
-            { annotation : 'includes numbers', value : 0 },
-            { annotation : 'has an email address', value : 0 },
-            { annotation : 'includes web address', value : 0 },
-            { annotation : 'includes a question mark', value : containsQuestionMark(trainingdata.textdata) },
-            { annotation : 'starts with a capital letter', value : isFirstLetterIsCapital(trainingdata.textdata) },
-        ],
+        bagofwords : getTrainingExampleWordCounts(trainingdata.textdata, bowDictionary),
+        customfeatures : getCustomFeatures(trainingdata.textdata, emoticonsDictionary),
         random : [
             { annotation : '', value : random.int(1, 5) },
             { annotation : '', value : random.int(1, 5) },
@@ -62,19 +111,40 @@ function getTrainingExample(trainingdata: Objects.TextTraining, label: string, p
 }
 
 
+async function getTrainingBagOfWords(project: Objects.Project): Promise<string[]> {
+    const allTraining = await store.getTextTraining(project.id, { start : 0, limit : 1000 });
+    const counts = bagofwords.getMostCommonWords(allTraining.map(t => t.textdata), 20);
+    return counts.map(c => c.word);
+}
+
+
 export async function getModelVisualisation(project: Objects.Project): Promise<TextModelDescriptionResponse> {
 
-    const analysis: TextModelDescriptionResponse = {
-        examples: [],
-    };
+    const bagOfWordsDictionary = await getTrainingBagOfWords(project);
+    const emoticonsDictionary = emoticons.getAllKnownEmoticons();
+
+    const EXAMPLES_PER_LABEL = 5;
+
+    const examplesByLabel: { [label: string]: TextModelTrainingExample[] } = {};
 
     const labels = project.labels;
     for (const label of labels) {
-        const examples = await store.getTextTrainingByLabel(project.id, label, { start: 0, limit: 5 });
+        examplesByLabel[label] = [];
+
+        const examples = await store.getTextTrainingByLabel(project.id, label, { start: 0, limit: EXAMPLES_PER_LABEL });
         examples.forEach((example) => {
-            const trainingExample = getTrainingExample(example, label, project);
-            analysis.examples.push(trainingExample);
+            const trainingExample = getTrainingExample(example, label, project, bagOfWordsDictionary, emoticonsDictionary);
+            examplesByLabel[label].push(trainingExample);
         });
+    }
+
+    const analysis: TextModelDescriptionResponse = { examples: [] };
+    for (let i = 0; i < EXAMPLES_PER_LABEL; i++) {
+        for (const label of labels) {
+            if (examplesByLabel[label][i]) {
+                analysis.examples.push(examplesByLabel[label][i]);
+            }
+        }
     }
 
     return analysis;
@@ -98,10 +168,6 @@ function containsQuestionMark(text: string): number {
     return QUESTIONMARK_REGEX.test(text) ? 1 : 0;
 }
 
-
-function isFirstLetterIsCapital(text: string): number {
-    return /[A-Z]/.test(text[0]) ? 1 : 0;
-}
 
 
 
