@@ -7,7 +7,6 @@ import * as bagofwords from '../../lib/utils/bagofwords';
 
 describe('Utils - bag of words', () => {
 
-
     it('should count the number of occurrences of words', () => {
         const input = [
             'This is a test',
@@ -48,7 +47,52 @@ describe('Utils - bag of words', () => {
         assert.deepStrictEqual(counts, [
             { word : 'hello', count : 1 },
             { word : 'world', count : 1 },
+            { word : 'would', count : 0 },
+            { word : 'water', count : 0 },
+            { word : 'first', count : 0 },
+            { word : 'long', count : 0 },
+            { word : 'time', count : 0 },
+            { word : 'made', count : 0 },
+            { word : 'people', count : 0 },
+            { word : 'there', count : 0 },
         ]);
     });
 
+    it('should handle small numbers of words from the padding list', () => {
+        const input = [
+            'would water first',
+        ];
+        const counts = bagofwords.getMostCommonWords(input, 10);
+        assert.deepStrictEqual(counts, [
+            { word : 'would', count : 1 },
+            { word : 'water', count : 1 },
+            { word : 'first', count : 1 },
+            { word : 'long', count : 0 },
+            { word : 'time', count : 0 },
+            { word : 'made', count : 0 },
+            { word : 'people', count : 0 },
+            { word : 'there', count : 0 },
+            { word : 'some', count : 0 },
+            { word : 'word', count : 0 },
+        ]);
+    });
+
+    it('should handle unusually small dictionaries', () => {
+        const bowDictionary = [ 'apple', 'banana', 'tomato', 'melon', 'bottle' ];
+        const testString = 'I would like to drink a smoothie made from apple, Banana, & MELON. Please';
+
+        const counts = bagofwords.getTrainingExampleWordCounts(testString, bowDictionary);
+        assert.deepStrictEqual(counts, [
+            { word: 'apple', count: 1 },
+            { word: 'banana', count: 1 },
+            { word: 'melon', count: 1 },
+            { word: 'tomato', count: 0 },
+            { word: 'bottle', count: 0 },
+            { word: 'i', count: 1 },
+            { word: 'would', count: 1 },
+            { word: 'like', count: 1 },
+            { word: 'to', count: 1 },
+            { word: 'drink', count: 1 },
+        ]);
+    });
 });

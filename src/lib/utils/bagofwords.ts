@@ -73,14 +73,66 @@ export function getMostCommonWords(texts: string[], num: number): SortedWordCoun
 }
 
 
+export function getTrainingExampleWordCounts(trainingExampleText: string, bowDictionary: string[]): WordCount[] {
+    const REQUIRED_MINIMUM = 10;
+
+    const trainingExampleWords = tokenize(trainingExampleText);
+
+    const trainingExampleWordCounts: { [word: string]: number } = {};
+    for (const word of trainingExampleWords) {
+        if (bowDictionary.includes(word)) {
+            if (!(word in trainingExampleWordCounts)) {
+                trainingExampleWordCounts[word] = 0;
+            }
+            trainingExampleWordCounts[word] += 1;
+        }
+    }
+
+    if (Object.keys(trainingExampleWordCounts).length < 2) {
+        const wordsToAdd = getMostCommonWords([ trainingExampleText ], 2);
+        for (const wordToAdd of wordsToAdd) {
+            trainingExampleWordCounts[wordToAdd.word] = wordToAdd.count;
+        }
+    }
+
+    let zeroWordIndex = 0;
+    let dictionarySizeLimit = REQUIRED_MINIMUM;
+    if (bowDictionary.length < dictionarySizeLimit) {
+        dictionarySizeLimit = bowDictionary.length;
+    }
+    while (Object.keys(trainingExampleWordCounts).length < dictionarySizeLimit) { // } && zeroWordIndex < bowDictionary.length) {
+        if (!(bowDictionary[zeroWordIndex] in trainingExampleWordCounts)) {
+            trainingExampleWordCounts[bowDictionary[zeroWordIndex]] = 0;
+        }
+        zeroWordIndex += 1;
+    }
+
+    if (Object.keys(trainingExampleWordCounts).length < REQUIRED_MINIMUM) {
+        zeroWordIndex = 0;
+        const wordsToAdd = getMostCommonWords([ trainingExampleText ], REQUIRED_MINIMUM);
+        while ((Object.keys(trainingExampleWordCounts).length < REQUIRED_MINIMUM) && (zeroWordIndex < wordsToAdd.length)) {
+            const wordToAdd = wordsToAdd[zeroWordIndex];
+            if (!(wordToAdd.word in trainingExampleWordCounts)) {
+                trainingExampleWordCounts[wordToAdd.word] = wordToAdd.count;
+            }
+            zeroWordIndex += 1;
+        }
+    }
+
+    return Object.keys(trainingExampleWordCounts).map(word => {
+        return {
+            word,
+            count : trainingExampleWordCounts[word],
+        };
+    });
+}
 
 
 
 
 
 
-
-interface WordCount {
+export interface WordCount {
     readonly word: string;
     readonly count: number;
 }

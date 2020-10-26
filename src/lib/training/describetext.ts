@@ -15,42 +15,6 @@ const nlpFunctions: any = nlp.extend(nlpnum);
 
 
 
-function getTrainingExampleWordCounts(trainingExampleText: string, bowDictionary: string[]): TextModelTrainingAnnotation[] {
-    const trainingExampleWords = bagofwords.tokenize(trainingExampleText);
-
-    const trainingExampleWordCounts: { [word: string]: number } = {};
-    for (const word of trainingExampleWords) {
-        if (bowDictionary.includes(word)) {
-            if (!(word in trainingExampleWordCounts)) {
-                trainingExampleWordCounts[word] = 0;
-            }
-            trainingExampleWordCounts[word] += 1;
-        }
-    }
-
-    if (Object.keys(trainingExampleWordCounts).length < 2) {
-        const wordsToAdd = bagofwords.getMostCommonWords([ trainingExampleText ], 2);
-        for (const wordToAdd of wordsToAdd) {
-            trainingExampleWordCounts[wordToAdd.word] = wordToAdd.count;
-        }
-    }
-
-    let zeroWordIndex = 0;
-    while (Object.keys(trainingExampleWordCounts).length < 10) {
-        if (!(bowDictionary[zeroWordIndex] in trainingExampleWordCounts)) {
-            trainingExampleWordCounts[bowDictionary[zeroWordIndex]] = 0;
-        }
-        zeroWordIndex += 1;
-    }
-
-    return Object.keys(trainingExampleWordCounts).map(word => {
-        return {
-            annotation : 'number of times that the word "' + word.toUpperCase() + '" appears',
-            value : trainingExampleWordCounts[word],
-        };
-    });
-}
-
 
 function getCustomFeatures(trainingExampleText: string, emoticonsDictionary: string[]): TextModelTrainingAnnotation[] {
     return [
@@ -75,6 +39,32 @@ function getCustomFeatures(trainingExampleText: string, emoticonsDictionary: str
     ];
 }
 
+function getRandomFeatures(): TextModelTrainingAnnotation[] {
+    return [
+        // 1
+        { annotation : '', value : random.int(1, 5) },
+        // 2
+        { annotation : '', value : random.int(1, 5) },
+        // 3
+        { annotation : '', value : random.int(0, 5) },
+        // 4
+        { annotation : '', value : random.int(1, 5) },
+        // 5
+        { annotation : '', value : random.int(0, 5) },
+        // 6
+        { annotation : '', value : random.int(0, 5) },
+        // 7
+        { annotation : '', value : random.int(0, 5) },
+        // 8
+        { annotation : '', value : random.int(1, 5) },
+        // 9
+        { annotation : '', value : random.int(0, 5) },
+        // 10
+        { annotation : '', value : random.int(1, 5) },
+    ];
+}
+
+
 
 
 function getTrainingExample(trainingdata: Objects.TextTraining, label: string, project: Objects.Project, bowDictionary: string[], emoticonsDictionary: string[]): TextModelTrainingExample {
@@ -84,20 +74,15 @@ function getTrainingExample(trainingdata: Objects.TextTraining, label: string, p
     const example = {
         text: trainingdata.textdata,
         label,
-        bagofwords : getTrainingExampleWordCounts(trainingdata.textdata, bowDictionary),
+        bagofwords : bagofwords.getTrainingExampleWordCounts(trainingdata.textdata, bowDictionary)
+                        .map((wc) => {
+                            return {
+                                annotation : 'number of times that the word "' + wc.word.toUpperCase() + '" appears',
+                                value: wc.count,
+                            };
+                        }),
         customfeatures : getCustomFeatures(trainingdata.textdata, emoticonsDictionary),
-        random : [
-            { annotation : '', value : random.int(1, 5) },
-            { annotation : '', value : random.int(1, 5) },
-            { annotation : '', value : random.int(0, 5) },
-            { annotation : '', value : random.int(1, 5) },
-            { annotation : '', value : random.int(0, 5) },
-            { annotation : '', value : random.int(0, 5) },
-            { annotation : '', value : random.int(0, 5) },
-            { annotation : '', value : random.int(1, 5) },
-            { annotation : '', value : random.int(0, 5) },
-            { annotation : '', value : random.int(1, 5) },
-        ],
+        random : getRandomFeatures(),
         output: trainingOutput,
     };
 
