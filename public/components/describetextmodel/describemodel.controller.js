@@ -214,7 +214,7 @@
             // 4 :
             'https://duckduckgo.com/?q=encoding+text+classification',
             // 5 :
-            'https://duckduckgo.com/?q=bag+of+words',
+            'https://duckduckgo.com/?q=bag+of+words+machine+learning',
             // 6 :
             'https://duckduckgo.com/?q=feature+extraction+text+classification',
             // 7 :
@@ -228,11 +228,11 @@
             // 11 :
             'https://duckduckgo.com/?q=weight+bias+neural+network',
             // 12 :
-            'https://duckduckgo.com/?q=hidden+layer+neural+network',
-            // 13 :
-            'https://duckduckgo.com/?q=hidden+layer+neural+network',
-            // 14 :
             'https://duckduckgo.com/?q=activation+function+neural+network',
+            // 13 :
+            'https://duckduckgo.com/?q=activation+function+neural+network',
+            // 14 :
+            'https://duckduckgo.com/?q=hidden+layer+neural+network',
             // 15 :
             'https://duckduckgo.com/?q=hidden+layer+neural+network',
             // 16 :
@@ -277,6 +277,9 @@
             if (vm.wizardPage === 2) {
                 redrawNeuralNetworkDiagram(ARCHITECTURES.INITIAL);
             }
+            if (vm.wizardPage === 3) {
+                fcnnVisualisationService.clearInputLabels();
+            }
             if (vm.wizardPage === 4) {
                 redrawNeuralNetworkDiagram(ARCHITECTURES.CUSTOM);
                 displayTrainingExampleInput();
@@ -285,6 +288,60 @@
                 redrawNeuralNetworkDiagram(ARCHITECTURES.BAG_OF_WORDS);
                 displayTrainingExampleInput();
             }
+            if (vm.wizardPage === 8) {
+                fcnnVisualisationService.hideAnnotation('2_0');
+            }
+            if (vm.wizardPage === 10) {
+                clearBias(2, 0);
+            }
+            if (vm.wizardPage === 11) {
+                populateHiddenLayerNodeWithPlaceholder(2, 0);
+            }
+            if (vm.wizardPage === 12) {
+                clearBias(2, 1);
+                populateHiddenLayerNodeWithPlaceholder(2, 1);
+                fcnnVisualisationService.hideAnnotation('2_1');
+            }
+            if (vm.wizardPage === 13) {
+                clearBias(2, 2);
+                populateHiddenLayerNodeWithPlaceholder(2, 2);
+                fcnnVisualisationService.hideAnnotation('2_2');
+            }
+            if (vm.wizardPage === 14 || vm.wizardPage === 15) {
+                populateHiddenLayerNodeWithPlaceholder(2, 3);
+                populateHiddenLayerNodeWithPlaceholder(2, 4);
+                clearHiddenLayerNodeValues(3);
+            }
+            if (vm.wizardPage === 15) {
+                hideOutputValues();
+                clearOutputLayerNodeValues();
+            }
+            if (vm.wizardPage === 19) {
+                fcnnVisualisationService.clearInputLabels();
+            }
+            if (vm.wizardPage === 20) {
+                populateHiddenLayerNodeWithPlaceholder(2, 0);
+                fcnnVisualisationService.hideAnnotation('2_0');
+            }
+            if (vm.wizardPage === 21) {
+                populateHiddenLayerNodeWithPlaceholder(2, 1);
+                fcnnVisualisationService.hideAnnotation('2_1');
+            }
+            if (vm.wizardPage === 22) {
+                populateHiddenLayerNodeWithPlaceholder(2, 2);
+                fcnnVisualisationService.hideAnnotation('2_2');
+            }
+            if (vm.wizardPage === 23 || vm.wizardPage === 24) {
+                populateHiddenLayerNodeWithPlaceholder(2, 3);
+                populateHiddenLayerNodeWithPlaceholder(2, 4);
+                clearHiddenLayerNodeValues(3);
+            }
+            if (vm.wizardPage === 24) {
+                hideOutputValues();
+                clearOutputLayerNodeValues();
+            }
+
+
             displayPage();
         };
 
@@ -544,16 +601,34 @@
             return value;
         }
 
+        function clearBias(layerId, nodeIdx) {
+            var nodeid = layerId + '_' + nodeIdx;
+            var values = {};
+            values[nodeid] = { bias : undefined };
+            fcnnVisualisationService.updateLabels(values);
+        }
+
+        function populateHiddenLayerNodeWithPlaceholder(layerId, nodeIdx) {
+            var nodeid = layerId + '_' + nodeIdx;
+            var values = {};
+            values[nodeid] = { value : '?' };
+            fcnnVisualisationService.updateLabels(values);
+        }
+
+        function clearHiddenLayerNodeValues(layerId) {
+            for (var nodeId = 0; nodeId < modelInfo.architecture[layerId]; nodeId++) {
+                populateHiddenLayerNodeWithPlaceholder(layerId, nodeId);
+            }
+        }
+
+
         function populateHiddenLayerWithPlaceholders(layerId, onComplete) {
             loggerService.debug('[ml4kdesc] populating hidden layer with placeholders', layerId);
 
             var nodeIdx = 0;
-            var values = {};
             var iterations = modelInfo.architecture[layerId];
             runningAnimations.push($interval(function () {
-                var nodeid = layerId + '_' + nodeIdx;
-                values[nodeid] = { value : '?' };
-                fcnnVisualisationService.updateLabels(values);
+                populateHiddenLayerNodeWithPlaceholder(layerId, nodeIdx);
 
                 nodeIdx += 1;
 
@@ -676,6 +751,15 @@
                 displayOutputInfoTable({});
                 onComplete();
             }, VERY_SLOW);
+        }
+
+        function clearOutputLayerNodeValues() {
+            var layerId = modelInfo.architecture.length - 1;
+            var values = {};
+            for (var nodeIdx = 0; nodeIdx < $scope.project.labels.length; nodeIdx++) {
+                values[layerId + '_' + nodeIdx] = { value : '' };
+            }
+            fcnnVisualisationService.updateLabels(values);
         }
 
         function displayOutputLayerNodeValues() {
@@ -857,7 +941,7 @@
                 steps.push({ action : 'input-layer', node : [ 1, i ] });
             }
             steps.push({ action : 'remove-focus', node : [ 0, 0 ] });
-            for (var hiddenLayer = 2; hiddenLayer < modelInfo.architecture.length; hiddenLayer++) {
+            for (var hiddenLayer = 2; hiddenLayer < (modelInfo.architecture.length - 1); hiddenLayer++) {
                 for (var hiddenLayerNodeIdx = 0; hiddenLayerNodeIdx < modelInfo.architecture[hiddenLayer]; hiddenLayerNodeIdx++) {
                     steps.push({ action : 'hidden-nodes', node : [ hiddenLayer, hiddenLayerNodeIdx ] });
                 }

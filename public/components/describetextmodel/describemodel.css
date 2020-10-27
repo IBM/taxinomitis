@@ -7,6 +7,12 @@
     margin-bottom: 1em;
 }
 
+.describemlmodel .nnexplanation .bodytext em {
+    font-style: italic;
+    font-weight: bold;
+    color: #41515f;
+}
+
 .describemlmodel .nnwizardaction {
     text-align: center;
 }
@@ -40,6 +46,12 @@
     opacity: 0.1;
 }
 
+.describemlmodel .nnwizardaction button.btn-primary {
+    width: 180px;
+}
+.describemlmodel .nnwizardaction button.btn-default {
+    width: 120px;
+}
 
 .describemlmodel .nnwizardaction button {
     width: 180px;

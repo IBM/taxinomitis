@@ -519,7 +519,8 @@
                     else {
                         document.getElementById(ID_PREFIX + nodename).classList.remove('highlightedlayer');
                     }
-                    document.getElementById(ID_PREFIX + ELEMENT_IDS.BIAS + nodename).textContent = 'b=' + values.bias;
+                    var biasDecoration = values.bias === undefined ? '' : 'b=' + values.bias;
+                    document.getElementById(ID_PREFIX + ELEMENT_IDS.BIAS + nodename).textContent = biasDecoration;
                     document.getElementById(ID_PREFIX + ELEMENT_IDS.SEPARATOR + nodename).classList.remove('hiddendiagramelement');
                 }
                 if ('value' in values) {
@@ -602,12 +603,10 @@
             var top = parseFloat(topHiddenElem.getAttribute('cy'));
             var bottom = parseFloat(bottomHiddenElem.getAttribute('cy'));
 
-            console.log('bottom : ' + bottom);
-            console.log('top    : ' + top);
             if (outputElem) {
                 w = right - left + 550;
                 h = bottom - top + 400;
-                console.log(h);
+
                 if (h < 500) {
                     h = 900;
                 }
@@ -730,6 +729,11 @@
         function decorate() {
             addLabels();
             addWeights();
+
+            if (architecture[0] > 1) {
+                var inputDataNode = getNNNode(LAYER_IDS.INPUT_TEXT, 0);
+                inputDataNode.classList.remove('hiddendiagramelement');
+            }
         }
 
         function removeValues() {
