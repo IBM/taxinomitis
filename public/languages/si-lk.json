@@ -3,6 +3,7 @@
         "TITLE": "පොඩ්ඩන්ට Machine Learning",
 
         "BACK": "ආපසු",
+        "NEXT": "Next",
         "BACKTOPROJECT": "&lt; ආපසු ව්‍යාපෘතියට",
         "BACKTOMODEL": "&lt; ආපසු මොඩලයට ",
         "ERROR": "දෝෂය:",
@@ -702,6 +703,164 @@
         },
         "ERRORS": {
             "NUMBERSONLY": "Only machine learning models for numbers projects can be described"
+        }
+    },
+    "DESCRIBETEXTMODEL": {
+        "ZOOM": "Use these controls to zoom in on the diagrams",
+        "ERRORS": {
+            "TEXTONLY": "Only neural networks for text projects can be described"
+        },
+        "MOREINFO": "for more detail, try searching for:",
+        "PAGE1": {
+            "TITLE": "neural networks",
+            "TEXT1": "The type of machine learning model you trained in this project is called a <em>neural network</em>.",
+            "TEXT2": "The next few pages will explain how your model was created.",
+            "TEXT3": "These diagrams aren't an exact description of your model. Your model is larger and more complicated, but these diagrams are easier to explain."
+        },
+        "PAGE2": {
+            "TITLE": "deep learning",
+            "TEXT1": "The model is made of <em>nodes</em>, arranged in vertical <em>layers</em>.",
+            "TEXT2": "Models with a lot of layers are described as <em>deep</em>.",
+            "TEXT3": "Deep models can give better results, but take longer to train."
+        },
+        "PAGE3": {
+            "TITLE": "input layer",
+            "TEXT1": "Let's start with one of the training examples used to create your model.",
+            "TEXT2": "Your training example is shown as <em>input</em> on the left."
+        },
+        "PAGE4": {
+            "TITLE": "encoding",
+            "TEXT1": "To use your training example to train the model, first the text needs to be turned into a series of numbers.",
+            "TEXT2": "There are lots of ways to do this.",
+            "TEXT3": "If you build your own machine learning model, you need to choose a way that works well for your particular project."
+        },
+        "PAGE5": {
+            "TITLE": "bag of words",
+            "TEXT1": "One way of turning your text into numbers is to make each number a count of how many times a word is included."
+        },
+        "PAGE6": {
+            "TITLE": "feature extraction",
+            "TEXT1": "There are other things you can count. Things that are helpful to count depend on the project you are doing, and what you want your model to learn to recognize patterns in.",
+            "TEXT2": "Counting things is quick and simple, but not as good for projects where the order of words is important."
+        },
+        "PAGE7": {
+            "TITLE": "word embeddings",
+            "TEXT1": "If you build your own machine learning model, you need to choose the method for turning text into numbers.",
+            "TEXT2": "Your model used a more complicated technique that does include the order of words in the text."
+        },
+        "PAGE8": {
+            "TITLE": "hidden layer",
+            "TEXT1": "The numbers from the input layer go into sums that calculate values for the nodes in the next layer.",
+            "TEXT2": "The lines on the diagram show which input values are used to calculate which values in the next layer."
+        },
+        "PAGE9": {
+            "TITLE": "activation functions",
+            "TEXT1": "There are lots of different types of calculation you can use. Not every node in the model has to use the same calculation.",
+            "TEXT2": "If you build your own machine learning model, you need to choose which equations to use for each node.",
+            "TEXT3": "The functions to use for each node in your model were chosen for you."
+        },
+        "PAGE10": {
+            "TITLE": "weight",
+            "TEXT1": "Each line in the diagram has a <em>weight</em> number that can be used in the sum.",
+            "TEXT2": "Training the model is how we work out the best number to put on each line, as you'll see in a moment."
+        },
+        "PAGE11": {
+            "TITLE": "bias",
+            "TEXT1": "Each node in the diagram has a <em>bias</em> number that is used in the sum as well.",
+            "TEXT2": "Training the model is also how we work out the right bias number, as you'll see in a moment.",
+            "TEXT3": "Try to work out what you think the value for this node will be."
+        },
+        "PAGE12": {
+            "TITLE": "activation functions",
+            "TEXT1": "This is a common <em>function</em> used in neural networks.",
+            "TEXT2": "Each input value is multiplied by the value for the line that connected it. These are all added together. Then added to the value for the node itself."
+        },
+        "PAGE13": {
+            "TITLE": "activation functions",
+            "TEXT1": "Each node has its own <em>bias</em> value.",
+            "TEXT2": "Each line has its own <em>weight</em> value."
+        },
+        "PAGE14": {
+            "TITLE": "hidden layers",
+            "TEXT1": "Each node in the model can use different equations.",
+            "TEXT2": "If you build your own machine learning model, you need to choose:",
+            "LIST1": "how many layers to have",
+            "LIST2": "how many nodes to put in each layer",
+            "LIST3": "which functions to use for each node"
+        },
+        "PAGE15": {
+            "TITLE": "hidden layer",
+            "TEXT1": "This continues through the rest of the model.",
+            "TEXT2": "The number of layers, the number of nodes in each layer, and the functions to use for each node in your model were all chosen for you."
+        },
+        "PAGE16": {
+            "TITLE": "output layer",
+            "TEXT1": "The final layer gives the machine learning model's prediction.",
+            "TEXT2": "There is a node for each bucket you added to your training data."
+        },
+        "PAGE17": {
+            "TITLE": "loss function",
+            "TEXT1": "The prediction is compared with the correct answer (the training bucket you put this example in).",
+            "TEXT2": "The difference is described as the <em>error rate</em>, and tells us how well the machine learning model is doing at this stage of the training."
+        },
+        "PAGE18": {
+            "TITLE": "back propagation",
+            "TEXT1": "The <em>error rate</em> is used to go backwards through the layers and nudge the numbers for each of the lines and nodes.",
+            "TEXT2": "Each weight and bias number is increased a little bit or decreased a little bit, depending on what would've made the error rate a little smaller."
+        },
+        "PAGE19": {
+            "TITLE": "neural networks",
+            "TEXT1": "Next, this is all done over again, with another of your training examples."
+        },
+        "PAGE20": {
+            "TITLE": "encoding",
+            "TEXT1": "Remember, the first step is turning the example text into numbers.",
+            "TEXT2": "Counting things that are in the text is an easy way to do it, but there are more complicated ways to do it if the order of words is important.",
+            "TEXT3": "The method for your model was chosen for you."
+        },
+        "PAGE21": {
+            "TITLE": "hidden layer",
+            "TEXT1": "Remember, nodes in the middle of the model represent sums that are done using the input numbers.",
+            "TEXT2": "Different calculations can be chosen for each node."
+        },
+        "PAGE22": {
+            "TITLE": "activation functions",
+            "TEXT1": "Remember, the calculations use numbers from the nodes on the left that are connected to it, as well as the numbers for the lines that connect them."
+        },
+        "PAGE23": {
+            "TITLE": "activation functions",
+            "TEXT1": "The calculations also use a <em>bias</em> number for the node itself."
+        },
+        "PAGE24": {
+            "TITLE": "hidden layer",
+            "TEXT1": "This continues through the rest of the model.",
+            "TEXT2": "The functions to use for each node in your model were chosen for you."
+        },
+        "PAGE25": {
+            "TITLE": "output layer",
+            "TEXT1": "Remember, the <em>output layer</em> gives the machine learning model's prediction.",
+            "TEXT2": "Each node gives you the prediction for one of the buckets that you added to your training data."
+        },
+        "PAGE26": {
+            "TITLE": "loss function",
+            "TEXT1": "Remember, results from the <em>output layer</em> are compared with the correct answer, which shows how well the machine learning model is doing."
+        },
+        "PAGE27": {
+            "TITLE": "back propagation",
+            "TEXT1": "Remember that the <em>error rate</em> is used to go backwards through the layers and nudge the numbers associated with each of the lines and nodes.",
+            "TEXT2": "Each <em>weight</em> and <em>bias</em> number is increased a little bit or decreased a little bit, depending on what would've made the error a little smaller.",
+            "TEXT3": "This is how training works out the best numbers to use for each of the nodes and lines."
+        },
+        "PAGE28": {
+            "TITLE": "epochs",
+            "TEXT1": "One run-through of every training example you collected through the model is called an <em>epoch</em>.",
+            "TEXT2": "Each time through, the weights for each node are nudged a little more, until hopefully the error rate for predictions are as low as they can be.",
+            "TEXT3": "If you build your own machine learning model, you need to choose how many epochs you want to run."
+        },
+        "PAGE29": {
+            "TITLE": "neural networks",
+            "TEXT1": "I hope this simplified description gives you an idea what happens when you click on the \"Train new machine learning model\" button.",
+            "TEXT2": "For an explanation of why this process works, try watching \"<a href='https://youtu.be/R9OHn5ZF4Uo'>How Machines Learn</a>\" by CGP Grey."
         }
     },
     "MAKES": {
