@@ -659,7 +659,7 @@
             }
         }
 
-        function displayWeights(layerIdx, nodeIdx, weights, highlight) {
+        function displayWeights(layerIdx, nodeIdx, weights, highlights) {
             var prevLayerIdx = layerIdx - 1;
             var prevLayerNumNodes = architecture[prevLayerIdx];
 
@@ -670,14 +670,21 @@
                              ID_PREFIX + layerIdx + '_' + nodeIdx;
                 var textId = pathId + ELEMENT_IDS.PATH_TEXT;
 
-                var elem = document.getElementById(textId);
-
-                elem.textContent = weights[idx];
-                if (highlight) {
-                    elem.classList.add('highlighted');
+                var linkElem = document.getElementById(pathId);
+                if (highlights.path) {
+                    linkElem.classList.add('highlighted');
                 }
                 else {
-                    elem.classList.remove('highlighted');
+                    linkElem.classList.remove('highlighted');
+                }
+
+                var labelElem = document.getElementById(textId);
+                labelElem.textContent = weights[idx];
+                if (highlights.label) {
+                    labelElem.classList.add('highlighted');
+                }
+                else {
+                    labelElem.classList.remove('highlighted');
                 }
             }
         }

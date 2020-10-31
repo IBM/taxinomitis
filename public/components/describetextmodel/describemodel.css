@@ -90,6 +90,11 @@
     color: #1864ab;
 }
 
+.describemlmodel .visualisationimagehost .link.highlighted {
+    stroke-width: 1.2 !important;
+    stroke: #1864ab !important;
+}
+
 
 .describemlmodel .visualisationimagehost .inputannotation {
     background-color: #f1feff;

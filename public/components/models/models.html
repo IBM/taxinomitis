@@ -326,7 +326,7 @@
         <div style="margin: 1em;" ng-if="project.type === 'sounds'" translate="MODELS.TESTING.INTRO.SOUNDS" ></div>
         <form name="testform" ng-submit="vm.testModel($event, testform, project)">
             <input ng-if="project.type === 'text'"
-                   style="margin-left: 2em; width: 70%"
+                   style="margin-left: 2em; width: 60%"
                    type="text"
                    ng-pattern="/^[^\n\t\r]+$/"
                    ng-model="testformData.testquestion"

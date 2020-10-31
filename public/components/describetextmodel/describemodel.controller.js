@@ -6,10 +6,10 @@
 
         ModelTextDescribeController.$inject = [
             'authService', 'projectsService', 'trainingService', 'fcnnVisualisationService', 'loggerService', 'utilService',
-            '$stateParams', '$scope', '$timeout', '$interval', '$document'
+            '$stateParams', '$scope', '$timeout', '$interval', '$document', '$rootScope'
         ];
 
-    function ModelTextDescribeController(authService, projectsService, trainingService, fcnnVisualisationService, loggerService, utilService, $stateParams, $scope, $timeout, $interval, $document) {
+    function ModelTextDescribeController(authService, projectsService, trainingService, fcnnVisualisationService, loggerService, utilService, $stateParams, $scope, $timeout, $interval, $document, $rootScope) {
         var vm = this;
         vm.authService = authService;
 
@@ -525,6 +525,10 @@
             fcnnVisualisationService.remove_focus();
         }
 
+        $rootScope.$on('$locationChangeStart', function () {
+            cancelRunningAnimations();
+        });
+
         function highlightNetworkLayersInSequence() {
             loggerService.debug('[ml4kdesc] animating network layers');
 
@@ -655,7 +659,7 @@
                 for (var inputNodeId = 0; inputNodeId < numInputNodes; inputNodeId++) {
                     weightsToDisplay.push('w = ' + WEIGHTS[inputLayer + '_' + inputNodeId][targetId]);
                 }
-                fcnnVisualisationService.displayWeights(layerId, nodeId, weightsToDisplay);
+                fcnnVisualisationService.displayWeights(layerId, nodeId, weightsToDisplay, {});
             }
 
             var values = {};
@@ -851,7 +855,7 @@
                         weights.push(WEIGHTS[previousLayer + '_' + j][targetId]);
                     }
                 }
-                fcnnVisualisationService.displayWeights(layerId, i, weights, includes.highlight);
+                fcnnVisualisationService.displayWeights(layerId, i, weights, { label : includes.highlight });
             }
         }
 
@@ -888,6 +892,11 @@
                     var inputLayer = step.layer - 1;
                     var numInputNodes = modelInfo.architecture[inputLayer];
 
+                    var highlights = {
+                        label : step.action === 'adjust',
+                        path : step.action !== 'hide'
+                    };
+
                     var weightsToDisplay = [];
 
                     if (step.action === 'adjust') {
@@ -906,7 +915,7 @@
                         }
                     }
 
-                    fcnnVisualisationService.displayWeights(step.layer, step.node, weightsToDisplay, step.action === 'adjust');
+                    fcnnVisualisationService.displayWeights(step.layer, step.node, weightsToDisplay, highlights);
                 }
                 if (step.type === 'bias') {
                     if (step.action === 'adjust') {
@@ -1061,7 +1070,7 @@
 
 
                 stepId = (stepId + 1) % steps.length;
-            }, FASTEST_SPEED, 1000));
+            }, FASTEST_SPEED, 1500));
 
             onComplete();
         }
