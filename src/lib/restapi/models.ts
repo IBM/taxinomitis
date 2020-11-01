@@ -10,6 +10,7 @@ import * as Types from '../training/training-types';
 import * as conversation from '../training/conversation';
 import * as visualrec from '../training/visualrecognition';
 import * as numbers from '../training/numbers';
+import * as textmodels from '../training/describetext';
 import * as notifications from '../notifications/slack';
 import * as base64decode from '../utils/base64decode';
 import * as download from '../utils/download';
@@ -271,20 +272,30 @@ async function deleteModel(req: auth.RequestWithProject, res: Express.Response) 
 }
 
 
-
 async function describeModel(req: auth.RequestWithProject, res: Express.Response) {
-    if (req.project.type !== 'numbers') {
-        return errors.notImplemented(res);
-    }
-
     try {
-        const classifierInfo = await numbers.getModelVisualisation(req.project);
+        if (req.project.type === 'numbers') {
+            const classifierInfo = await numbers.getModelVisualisation(req.project);
 
-        // computing the visualisation data is super expensive
-        //  so ask browsers to cache it forever
-        res.set(headers.CACHE_1YEAR);
+            // computing the visualisation data is super expensive
+            //  so ask browsers to cache it forever
+            res.set(headers.CACHE_1YEAR);
 
-        return res.json(classifierInfo);
+            return res.json(classifierInfo);
+        }
+        else if (req.project.type === 'text') {
+            const classifierInfo = await textmodels.getModelVisualisation(req.project);
+
+            // computing this analysis is quite expensiive, so
+            //  ask browsers to cache it for a while
+            res.set(headers.CACHE_1HOUR);
+
+            return res.json(classifierInfo);
+        }
+        else {
+            // sounds and images not supported yet
+            return errors.notImplemented(res);
+        }
     }
     catch (err) {
         return errors.unknownError(res, err);

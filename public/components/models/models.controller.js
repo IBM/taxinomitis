@@ -595,6 +595,7 @@
                         hiddenCanvas.width = $scope.channel.video.width;
                         hiddenCanvas.height = $scope.channel.video.height;
 
+                        loggerService.debug('[ml4kmodels] writing to hidden canvas');
                         var ctx = hiddenCanvas.getContext('2d');
                         ctx.drawImage($scope.channel.video,
                             0, 0,

@@ -1,0 +1,244 @@
+<div ng-if="!isAuthenticated">
+    <div class="alert alert-warning pageheadermsg">
+        <strong translate="ERRORS.NOTLOGGEDIN"></strong>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" ng-click="vm.authService.login()" translate="APP.LOGIN"></button>
+    </div>
+</div>
+<div ng-if="isAuthenticated && !projectId" class="alert alert-danger pageheadermsg">
+    <strong translate="APP.ERROR"></strong> <span translate="ERRORS.MISSINGPROJECTID"></span> <a ui-sref="projects" translate="APP.PROJECTS"></a>
+</div>
+<div ng-if="isAuthenticated && projectId" class="describemlmodel">
+    <div class="jumbotron">
+        <h2 class="text-center">{{ 'DESCRIBEMODEL.TITLE' | translate }} <span class="badge">beta</span></h2>
+    </div>
+    <div class="backbutton">
+        <a ui-sref="mlproject_models({ projectId : projectId, userId : userId })" translate="APP.BACKTOMODEL"></a>
+    </div>
+
+    <div ng-repeat="error in vm.errors"
+         class="alert alert-danger alert-dismissible pageheadermsg" role="alert"
+         ng-click="vm.dismissAlert('errors', $index)"
+         id="errors{{error.alertid}}">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Sorry! This is a new page and I still have some bits left to fix...</strong><br/><br/>
+        <strong translate="APP.ERROR"></strong> {{ error.message }}<br/>
+        <em ng-if="error.status >= 500"><span translate="ERRORS.IFPERSISTENT"></span> <a ui-sref="help" translate="ERRORS.LETMEKNOW"></a></em>
+    </div>
+    <div ng-repeat="warning in vm.warnings" class="alert alert-warning alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('warnings', $index)">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong translate="APP.WARNING"></strong> {{ warning.message }}
+    </div>
+
+    <div class="describeintro" style="display: flex; padding-bottom: 0" ng-switch="vm.wizardPage">
+        <div class="nnexplanation" ng-switch-when="1">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE1.TEXT1"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE1.TEXT2"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE1.TEXT3"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="2">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE2.TEXT1"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE2.TEXT2"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE2.TEXT3"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="3">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE3.TEXT1"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE3.TEXT2"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="4">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE4.TEXT1"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE4.TEXT2"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE4.TEXT3"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="5" >
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE5.TEXT1"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="6">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE6.TEXT1"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE6.TEXT2"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="7">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE7.TEXT1"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE7.TEXT2" style="font-style: italic;"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="8">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE8.TEXT1"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE8.TEXT2"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="9">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE9.TEXT1"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE9.TEXT2"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE9.TEXT3" style="font-style: italic;"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="10">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE10.TEXT1"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE10.TEXT2" style="font-style: italic;"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="11">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE11.TEXT1"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE11.TEXT2" style="font-style: italic;"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE11.TEXT3"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="12">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE12.TEXT1"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE12.TEXT2"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="13">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE13.TEXT1"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE13.TEXT2"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="14">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE14.TEXT1"></div>
+            <div class="bodytext">{{ 'DESCRIBETEXTMODEL.PAGE14.TEXT2' | translate }}
+                <ul>
+                    <li translate="DESCRIBETEXTMODEL.PAGE14.LIST1"></li>
+                    <li translate="DESCRIBETEXTMODEL.PAGE14.LIST2"></li>
+                    <li translate="DESCRIBETEXTMODEL.PAGE14.LIST3"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="15">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE15.TEXT1"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE15.TEXT2" style="font-style: italic;"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="16">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE16.TEXT1"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE16.TEXT2"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="17">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE17.TEXT1"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE17.TEXT2"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="18">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE18.TEXT1"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE18.TEXT2"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="19">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE19.TEXT1"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="20">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE20.TEXT1"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE20.TEXT2"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE20.TEXT3" style="font-style: italic;"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="21">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE21.TEXT1"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE21.TEXT2"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="22">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE22.TEXT1"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="23">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE23.TEXT1"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="24">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE24.TEXT1"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE24.TEXT2" style="font-style: italic;"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="25">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE25.TEXT1"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE25.TEXT2"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="26">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE26.TEXT1"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="27">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE27.TEXT1"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE27.TEXT2"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE27.TEXT3"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="28">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE28.TEXT1"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE28.TEXT2"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE28.TEXT3"></div>
+        </div>
+        <div class="nnexplanation" ng-switch-when="29">
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE29.TEXT1"></div>
+            <div class="bodytext" translate="DESCRIBETEXTMODEL.PAGE29.TEXT2"></div>
+        </div>
+
+
+        <div class="nnsearchbox">
+            <div class="nnsearchprompt" translate="DESCRIBETEXTMODEL.MOREINFO"></div>
+            <div class="nnsearchterm">
+                <a target="_blank" href="{{ vm.searchBoxLinks[vm.wizardPage] }}">
+                    <span ng-switch-when="1" translate="DESCRIBETEXTMODEL.PAGE1.TITLE"></span>
+                    <span ng-switch-when="2" translate="DESCRIBETEXTMODEL.PAGE2.TITLE"></span>
+                    <span ng-switch-when="3" translate="DESCRIBETEXTMODEL.PAGE3.TITLE"></span>
+                    <span ng-switch-when="4" translate="DESCRIBETEXTMODEL.PAGE4.TITLE"></span>
+                    <span ng-switch-when="5" translate="DESCRIBETEXTMODEL.PAGE5.TITLE"></span>
+                    <span ng-switch-when="6" translate="DESCRIBETEXTMODEL.PAGE6.TITLE"></span>
+                    <span ng-switch-when="7" translate="DESCRIBETEXTMODEL.PAGE7.TITLE"></span>
+                    <span ng-switch-when="8" translate="DESCRIBETEXTMODEL.PAGE8.TITLE"></span>
+                    <span ng-switch-when="9" translate="DESCRIBETEXTMODEL.PAGE9.TITLE"></span>
+                    <span ng-switch-when="10" translate="DESCRIBETEXTMODEL.PAGE10.TITLE"></span>
+                    <span ng-switch-when="11" translate="DESCRIBETEXTMODEL.PAGE11.TITLE"></span>
+                    <span ng-switch-when="12" translate="DESCRIBETEXTMODEL.PAGE12.TITLE"></span>
+                    <span ng-switch-when="13" translate="DESCRIBETEXTMODEL.PAGE13.TITLE"></span>
+                    <span ng-switch-when="14" translate="DESCRIBETEXTMODEL.PAGE14.TITLE"></span>
+                    <span ng-switch-when="15" translate="DESCRIBETEXTMODEL.PAGE15.TITLE"></span>
+                    <span ng-switch-when="16" translate="DESCRIBETEXTMODEL.PAGE16.TITLE"></span>
+                    <span ng-switch-when="17" translate="DESCRIBETEXTMODEL.PAGE17.TITLE"></span>
+                    <span ng-switch-when="18" translate="DESCRIBETEXTMODEL.PAGE18.TITLE"></span>
+                    <span ng-switch-when="19" translate="DESCRIBETEXTMODEL.PAGE19.TITLE"></span>
+                    <span ng-switch-when="20" translate="DESCRIBETEXTMODEL.PAGE20.TITLE"></span>
+                    <span ng-switch-when="21" translate="DESCRIBETEXTMODEL.PAGE21.TITLE"></span>
+                    <span ng-switch-when="22" translate="DESCRIBETEXTMODEL.PAGE22.TITLE"></span>
+                    <span ng-switch-when="23" translate="DESCRIBETEXTMODEL.PAGE23.TITLE"></span>
+                    <span ng-switch-when="24" translate="DESCRIBETEXTMODEL.PAGE24.TITLE"></span>
+                    <span ng-switch-when="25" translate="DESCRIBETEXTMODEL.PAGE25.TITLE"></span>
+                    <span ng-switch-when="26" translate="DESCRIBETEXTMODEL.PAGE26.TITLE"></span>
+                    <span ng-switch-when="27" translate="DESCRIBETEXTMODEL.PAGE27.TITLE"></span>
+                    <span ng-switch-when="28" translate="DESCRIBETEXTMODEL.PAGE28.TITLE"></span>
+                    <span ng-switch-when="29" translate="DESCRIBETEXTMODEL.PAGE29.TITLE"></span>
+                </a>
+            </div>
+            <div class="nnsearchgraphic">
+                <svg width="4em" height="4em" viewBox="0 0 16 16" class="bi bi-search" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                    <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                  </svg>
+            </div>
+        </div>
+    </div>
+
+    <div ng-hide="loading" class="nnwizardaction">
+        <button class="btn btn-default"
+            ng-disabled="vm.wizardBusy || vm.wizardPage < 2 || vm.wizardPage === 18 || vm.wizardPage === 19 || vm.wizardPage >= 27"
+            ng-click="vm.previousPage()">&lt; {{ 'APP.BACK' | translate }}</button>
+        <button class="btn btn-primary"
+            ng-disabled="vm.wizardBusy || vm.wizardPage > 28"
+            ng-click="vm.nextPage()">{{ 'APP.NEXT' | translate }} &gt;</button>
+    </div>
+
+    <div ng-if="loading" class="loading"> </div>
+
+    <div ng-if="!loading && modelinfo">
+        <div class="visualisationpage">
+            <div id="mlforkidsmodelvizimghost" class="visualisationimagehost">
+                <div id="mlforkidsmodelvizimg">
+
+                </div>
+                <div style="font-size: 0.6em; color: #666;">Diagram based on <a href="https://alexlenail.me/NN-SVG">NN-SVG library by Alexander Lenail</a></div>
+            </div>
+            <div class="sidepanel">
+                <div class="btn-group btn-group-lg" role="group">
+                    <div type="button" class="btn btn-default glyphicon glyphicon-zoom-out" ng-mousedown="vm.shrink()" ng-mouseup="vm.stop()" ng-mouseleave="vm.stop()"></div>
+                    <div type="button" class="btn btn-default glyphicon glyphicon-zoom-in" ng-mousedown="vm.grow()" ng-mouseup="vm.stop()" ng-mouseleave="vm.stop()"></div>
+                </div>
+
+                <div class="btn-group btn-group-lg" role="group">
+                    <div class="btn btn-default glyphicon glyphicon-arrow-left" ng-mousedown="vm.goleft()" ng-mouseup="vm.stop()" ng-mouseleave="vm.stop()"></div>
+                    <div class="btn btn-default glyphicon glyphicon-arrow-up" ng-mousedown="vm.goup()" ng-mouseup="vm.stop()" ng-mouseleave="vm.stop()"></div>
+                    <div class="btn btn-default glyphicon glyphicon-arrow-down" ng-mousedown="vm.godown()" ng-mouseup="vm.stop()" ng-mouseleave="vm.stop()"></div>
+                    <div class="btn btn-default glyphicon glyphicon-arrow-right" ng-mousedown="vm.goright()" ng-mouseup="vm.stop()" ng-mouseleave="vm.stop()"></div>
+                </div>
+
+                <div style="margin-top: 40px; margin-bottom: 5px;" translate="DESCRIBETEXTMODEL.ZOOM"></div>
+            </div>
+        </div>
+    </div>
+    <div ng-if="!loading && project.type!=='text'" translate="DESCRIBETEXTMODEL.ERRORS.TEXTONLY"></div>
+</div>
+

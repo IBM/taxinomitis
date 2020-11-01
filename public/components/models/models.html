@@ -326,7 +326,7 @@
         <div style="margin: 1em;" ng-if="project.type === 'sounds'" translate="MODELS.TESTING.INTRO.SOUNDS" ></div>
         <form name="testform" ng-submit="vm.testModel($event, testform, project)">
             <input ng-if="project.type === 'text'"
-                   style="margin-left: 2em; width: 70%"
+                   style="margin-left: 2em; width: 60%"
                    type="text"
                    ng-pattern="/^[^\n\t\r]+$/"
                    ng-model="testformData.testquestion"
@@ -385,6 +385,7 @@
             </table>
             <input ng-if="project.type === 'text' || project.type === 'numbers'" type="submit" class="btn btn-primary" value="{{ 'APP.TEST' | translate }}" ng-disabled="testform.$invalid" style="margin-left: 1em;" >
             <div ng-if="project.type === 'numbers'" class="btn btn-default" style="margin-left: 50px;" ui-sref="mlproject_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model!</div>
+            <div ng-if="project.type === 'text'" class="btn btn-default" style="margin-left: 50px;" ui-sref="mlproject_text_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model!  <span class="badge">beta</span></div>
             <div ng-if="project.type === 'sounds'" style="margin: 1em">
                 <button ng-disabled="listening"  ng-click="vm.startListening()" class="btn btn-primary" translate="MODELS.TESTING.STARTLISTENING"></button>
                 <button ng-disabled="!listening" ng-click="vm.stopListening()" class="btn btn-primary" translate="MODELS.TESTING.STOPLISTENING"></button>
@@ -439,6 +440,7 @@
                                 ng-disabled="submittingDeleteRequest">
                             {{ (model.status === 'Training' ? 'MODELS.CANCEL' : 'MODELS.DELETE') | translate }}
                         </button>
+                        <div ng-if="project.type === 'text' && model.status === 'Training'" class="btn btn-default" style="margin-left: 50px;" ui-sref="mlproject_text_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model!  <span class="badge">beta</span></div>
 
                         <md-progress-circular style="display: inline" ng-if="submittingDeleteRequest" md-mode="indeterminate"></md-progress-circular>
                     </td>

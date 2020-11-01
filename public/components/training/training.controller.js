@@ -506,6 +506,8 @@
                     };
 
                     function displayWebcamError(err) {
+                        loggerService.error('[ml4ktraining] displaying webcam error', err);
+
                         $scope.webcamerror = err;
                         if (err && err.message) {
                             if (err.name === 'NotAllowedError') {
@@ -518,6 +520,8 @@
                     }
 
                     $scope.onWebcamError = function(err) {
+                        loggerService.error('[ml4ktraining] webcam error', err);
+
                         $scope.webcamInitComplete = true;
 
                         try {
@@ -536,16 +540,20 @@
 
 
                     function getWebcamData() {
+                        loggerService.debug('[ml4ktraining] getting webcam data');
+
                         var hiddenCanvas = document.createElement('canvas');
                         hiddenCanvas.width = $scope.channel.video.width;
                         hiddenCanvas.height = $scope.channel.video.height;
 
+                        loggerService.debug('[ml4ktraining] writing to hidden canvas');
                         var ctx = hiddenCanvas.getContext('2d');
                         ctx.drawImage($scope.channel.video,
                             0, 0,
                             $scope.channel.video.width, $scope.channel.video.height);
 
                         return $q(function(resolve, reject) {
+                            loggerService.debug('[ml4ktraining] extracting blob data');
                             hiddenCanvas.toBlob(function (blob) {
                                 resolve(blob);
                             }, 'image/jpeg');
@@ -569,6 +577,7 @@
 
                     $scope.training[label].push(placeholder);
 
+                    loggerService.debug('[ml4ktraining] uploading webcam data');
                     trainingService.uploadImage($scope.project.id, $scope.userId, vm.profile.tenant, resp, label)
                         .then(function (newitem) {
                             placeholder.isPlaceholder = false;

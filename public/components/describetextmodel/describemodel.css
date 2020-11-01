@@ -1,0 +1,154 @@
+.describemlmodel .describeintro .nnexplanation {
+    flex-grow: 3;
+    min-height: 140px;
+}
+
+.describemlmodel .nnexplanation .bodytext {
+    margin-bottom: 1em;
+}
+
+.describemlmodel .nnexplanation .bodytext em {
+    font-style: italic;
+    font-weight: bold;
+    color: #41515f;
+}
+
+.describemlmodel .nnwizardaction {
+    text-align: center;
+}
+
+.describemlmodel .nnsearchbox {
+    margin-right: 0;
+    margin-left: 15px;
+    background-color: #eeeeee;
+    border-radius: 2em;
+    padding: 1em;
+    flex-grow: 1;
+    position: relative;
+    min-width: 225px;
+}
+
+.describemlmodel .nnsearchbox .nnsearchprompt {
+    font-size: 0.7em;
+}
+.describemlmodel .nnsearchbox .nnsearchterm {
+    font-size: 2em;
+    font-weight: bold;
+    padding-left: 0.3em;
+}
+.describemlmodel .nnsearchbox .nnsearchgraphic {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 1em;
+}
+.describemlmodel .nnsearchbox .nnsearchgraphic svg {
+    opacity: 0.1;
+}
+
+.describemlmodel .nnwizardaction button.btn-primary {
+    width: 180px;
+}
+.describemlmodel .nnwizardaction button.btn-default {
+    width: 120px;
+}
+
+.describemlmodel .nnwizardaction button {
+    width: 180px;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+
+.describemlmodel .visualisationimagehost .inputdata {
+    font-size: 13px;
+    text-align: center;
+    background-color: white;
+    border: thin grey solid;
+    padding: 2px;
+}
+
+
+
+
+.describemlmodel .visualisationimagehost .nodedata {
+    font-size: 12px;
+}
+.describemlmodel .visualisationimagehost .nodevalue {
+    font-size: 17px;
+}
+.describemlmodel .visualisationimagehost .nodeseparator {
+    stroke-width: 0.5;
+    stroke-opacity: 1;
+    stroke: rgb(80, 80, 80);
+}
+.describemlmodel .visualisationimagehost .nodeweight {
+    font-size: 10px;
+}
+.describemlmodel .visualisationimagehost .nodeweight.highlighted {
+    font-weight: 900;
+    color: #1864ab;
+}
+
+.describemlmodel .visualisationimagehost .link.highlighted {
+    stroke-width: 1.2 !important;
+    stroke: #1864ab !important;
+}
+
+
+.describemlmodel .visualisationimagehost .inputannotation {
+    background-color: #f1feff;
+    border: thin #1864ab solid;
+    font-size: 12px;
+    padding: 3px;
+}
+
+.describemlmodel .visualisationimagehost .hiddenlayerfunction {
+    background-color: #f0f0ff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 10px;
+    padding: 8px;
+    text-align: right;
+    border: thin #1864ab solid;
+}
+
+.describemlmodel .visualisationimagehost .outputlayerdetail table {
+    background-color: white;
+}
+
+.describemlmodel .visualisationimagehost .outputlayerdetail {
+    background-color: white;
+    font-size: 10px;
+    padding: 9px;
+    border: thin #1864ab solid;
+}
+
+.describemlmodel .visualisationimagehost .outputlayerdetail th {
+    border-bottom: thin black solid;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+.describemlmodel .visualisationimagehost .outputlayerdetail td {
+    padding: 8px 16px 8px 8px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.describemlmodel .visualisationimagehost .hiddenlayerfunction td {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.describemlmodel .visualisationimagehost .hiddendiagramelement {
+    visibility: hidden;
+}
+
+
+.describemlmodel .visualisationimagehost .highlightedlayer {
+    fill: #84cbcc !important;
+    background-color: #84cbcc;
+
+    stroke: #1864ab !important;
+    color: #1864ab;
+
+    font-weight: bold;
+}
