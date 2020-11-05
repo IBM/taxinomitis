@@ -19,7 +19,7 @@ describe('Utils - bag of words', () => {
             { word : 'test', count : 2 },
             { word : 'that', count : 2 },
             { word : 'works', count : 2 },
-            { word : 'is', count : 1 },
+            { word : 'please', count : 1 },
         ]);
     });
 
