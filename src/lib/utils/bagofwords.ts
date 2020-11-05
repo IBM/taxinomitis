@@ -6,14 +6,17 @@ import * as natural from 'natural';
 
 const tokenizer = new natural.WordTokenizer();
 
+const IGNORE_TOKENS = [
+    't', 'd', 's', 'a', 'the', 'is',
+];
+function notAnIgnoredToken(token: string): boolean {
+    return IGNORE_TOKENS.includes(token) === false;
+}
 
 export function tokenize(text: string): string[] {
     return tokenizer.tokenize(text)
         .map(w => w.toLowerCase())
-        .filter(w => w !== 't' &&
-                     w !== 'd' &&
-                     w !== 's' &&
-                     w !== 'the');
+        .filter(notAnIgnoredToken);
 }
 
 function countAllWords(texts: string[]): { [word: string]: number } {
