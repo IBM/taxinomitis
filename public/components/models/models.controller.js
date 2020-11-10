@@ -8,7 +8,8 @@
         'authService',
         'projectsService', 'trainingService', 'quizService', 'soundTrainingService',
         '$stateParams',
-        '$scope', '$mdDialog', '$timeout', '$interval', '$q', '$document', '$state', 'loggerService'
+        '$scope',
+        '$mdDialog', '$timeout', '$interval', '$q', '$document', '$state', 'loggerService'
     ];
 
     function ModelsController(authService, projectsService, trainingService, quizService, soundTrainingService, $stateParams, $scope, $mdDialog, $timeout, $interval, $q, $document, $state, loggerService) {
@@ -734,7 +735,18 @@
 
 
 
-        $scope.$on("$destroy", stopRefreshing);
+        $scope.$on("$destroy", function () {
+            loggerService.debug('[ml4kmodels] handling page change');
+
+            stopRefreshing();
+
+            if ($scope.project && $scope.project.type === 'sounds' &&
+                $scope.models && $scope.models.length > 0 &&
+                $scope.listening)
+            {
+                soundTrainingService.stopTest();
+            }
+        });
 
 
         function generateProjectSummary() {

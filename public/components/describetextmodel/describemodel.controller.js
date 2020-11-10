@@ -6,10 +6,10 @@
 
         ModelTextDescribeController.$inject = [
             'authService', 'projectsService', 'trainingService', 'fcnnVisualisationService', 'loggerService', 'utilService',
-            '$stateParams', '$scope', '$timeout', '$interval', '$document', '$rootScope'
+            '$stateParams', '$scope', '$timeout', '$interval', '$document'
         ];
 
-    function ModelTextDescribeController(authService, projectsService, trainingService, fcnnVisualisationService, loggerService, utilService, $stateParams, $scope, $timeout, $interval, $document, $rootScope) {
+    function ModelTextDescribeController(authService, projectsService, trainingService, fcnnVisualisationService, loggerService, utilService, $stateParams, $scope, $timeout, $interval, $document) {
         var vm = this;
         vm.authService = authService;
 
@@ -54,7 +54,7 @@
             }, 0);
         }
 
-        utilService.loadScript('https://d3js.org/d3.v5.min.js')
+        utilService.loadScript('/static/bower_components/d3/d3.min.js')
             .then(function () {
                 return authService.getProfileDeferred();
             })
@@ -525,7 +525,8 @@
             fcnnVisualisationService.remove_focus();
         }
 
-        $rootScope.$on('$locationChangeStart', function () {
+        $scope.$on('$destroy', function () {
+            loggerService.debug('[ml4kdesc] handling page change');
             cancelRunningAnimations();
         });
 
