@@ -14,6 +14,7 @@
   "private": true,
   "author": "Dale Lane",
   "devDependencies": {
+    "@tensorflow-models/posenet": "2.2.1",
     "@tensorflow-models/speech-commands": "0.4.2",
     "@tensorflow/tfjs": "2.7.0",
     "@types/archiver": "3.1.1",

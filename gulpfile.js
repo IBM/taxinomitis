@@ -64,6 +64,20 @@ gulp.task('tensorflowjs', function() {
         'node_modules/@tensorflow/tfjs/dist/tf.min.js.map'
     ]).pipe(gulp.dest('web/static/bower_components/tensorflowjs'));
 });
+gulp.task('tensorflowposenet', function() {
+    return gulp.src([
+        'node_modules/@tensorflow-models/posenet/dist/posenet.min.js'
+    ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/posenet'));
+});
+gulp.task('posenetmodel', function() {
+    const files = [
+        { url : 'https://storage.googleapis.com/tfjs-models/savedmodel/posenet/mobilenet/float/075/model-stride16.json', file : 'model-multiplier75-stride16.json' },
+        { url : 'https://storage.googleapis.com/tfjs-models/savedmodel/posenet/mobilenet/float/075/group1-shard1of2.bin', file : 'group1-shard1of2.bin' },
+        { url : 'https://storage.googleapis.com/tfjs-models/savedmodel/posenet/mobilenet/float/075/group1-shard2of2.bin', file : 'group1-shard2of2.bin' }
+    ];
+    return download(files)
+        .pipe(gulp.dest('web/static/bower_components/tensorflow-models/posenet'));
+});
 gulp.task('tensorflowspeechcommands', function() {
     return gulp.src([
         'node_modules/@tensorflow-models/speech-commands/dist/speech-commands.min.js'
@@ -79,7 +93,7 @@ gulp.task('speechcommandsmodel', function() {
     return download(files)
         .pipe(gulp.dest('web/static/bower_components/tensorflow-models/speech-commands'));
 });
-gulp.task('tfjs', gulp.parallel('tensorflowjs', 'tensorflowspeechcommands', 'speechcommandsmodel'));
+gulp.task('tfjs', gulp.parallel('tensorflowjs', 'tensorflowspeechcommands', 'speechcommandsmodel', 'tensorflowposenet', 'posenetmodel'));
 
 gulp.task('scratchblocks', function() {
     return gulp.src('public/third-party/scratchblocks-v3.1-min.js').pipe(gulp.dest('web/static'));
