@@ -5,10 +5,10 @@
         .service('soundTrainingService', soundTrainingService);
 
     soundTrainingService.$inject = [
-        'trainingService', 'utilService', '$q', 'loggerService', '$window'
+        'trainingService', 'utilService', '$q', 'loggerService', '$window', '$location'
     ];
 
-    function soundTrainingService(trainingService, utilService, $q, loggerService, $window) {
+    function soundTrainingService(trainingService, utilService, $q, loggerService, $window, $location) {
 
         var transferRecognizer;
         var transferModelInfo;
@@ -91,11 +91,11 @@
             return permissionsCheck()
                 .then(function () {
                     loggerService.debug('[ml4ksound] loading tf');
-                    return utilService.loadScript('https://unpkg.com/@tensorflow/tfjs@1.5.2/dist/tf.js');
+                    return utilService.loadScript('/static/bower_components/tensorflowjs/tf.min.js');
                 })
                 .then(function () {
                     loggerService.debug('[ml4ksound] loading speech-commands');
-                    return utilService.loadScript('https://unpkg.com/@tensorflow-models/speech-commands@0.4.2');
+                    return utilService.loadScript('/static/bower_components/tensorflow-models/speech-commands/speech-commands.min.js');
                 })
                 .then(function () {
                     loggerService.debug('[ml4ksound] enabling tf prod mode');
@@ -115,7 +115,16 @@
             return loadTensorFlow()
                 .then(function () {
                     loggerService.debug('[ml4ksound] browser model');
-                    baseRecognizer = speechCommands.create('BROWSER_FFT');
+
+                    var siteUrl = $location.protocol() + '://' + $location.host();
+                    if ($location.port()) {
+                        siteUrl = siteUrl + ':' + $location.port();
+                    }
+
+                    var vocab = null;
+                    var modelJson = siteUrl + '/static/bower_components/tensorflow-models/speech-commands/model.json';
+                    var metadataJson = siteUrl + '/static/bower_components/tensorflow-models/speech-commands/metadata.json';
+                    baseRecognizer = speechCommands.create('BROWSER_FFT', vocab, modelJson, metadataJson);
                     return baseRecognizer.ensureModelLoaded();
                 })
                 .then(function () {
