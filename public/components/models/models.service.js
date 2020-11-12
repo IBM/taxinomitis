@@ -62,10 +62,66 @@
 
 
 
+        function getMinimumTrainingItems(projectType) {
+            if (projectType === 'images') {
+                return 10;
+            }
+            else if (projectType === 'sounds') {
+                return 8;
+            }
+            else {
+                return 5;
+            }
+        }
+
+
+        function reviewTrainingData(trainingDataCountsByLabel, projectType) {
+            var no_data = true;
+            var insufficient_data = 0;
+            var MIN = getMinimumTrainingItems(projectType);
+
+            var labelslist = Object.keys(trainingDataCountsByLabel);
+
+            var trainingcounts = labelslist.map(function (label) {
+                var count = trainingDataCountsByLabel[label];
+                if (count > 0) {
+                    no_data = false;
+                }
+                if (count < MIN) {
+                    insufficient_data += 1;
+                }
+                return { label : label, count : count };
+            });
+
+            var trainingdatastatus;
+            if (no_data) {
+                trainingdatastatus = 'no_data';
+            }
+            else {
+                if (insufficient_data > 1 ||
+                    insufficient_data === labelslist.length ||
+                    labelslist.length < 2 ||
+                    (projectType === 'sounds' && insufficient_data > 0))
+                {
+                    trainingdatastatus = 'insufficient_data';
+                }
+                else {
+                    trainingdatastatus = 'data';
+                }
+            }
+
+            return {
+                counts : trainingcounts,
+                status : trainingdatastatus
+            };
+        }
+
+
 
         return {
             getStatus : getStatus,
-            generateProjectSummary : generateProjectSummary
+            generateProjectSummary : generateProjectSummary,
+            reviewTrainingData : reviewTrainingData
         };
     }
 })();

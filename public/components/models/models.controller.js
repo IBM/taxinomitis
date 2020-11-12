@@ -174,7 +174,10 @@
                 $scope.models = values.models;
                 $scope.projectSummary = modelService.generateProjectSummary($scope.project.labels);
 
-                reviewTrainingData(values.labels);
+                var trainingReview = modelService.reviewTrainingData(values.labels, $scope.project.type);
+                $scope.trainingcounts = trainingReview.counts;
+                $scope.trainingdatastatus = trainingReview.status;
+
                 $scope.status = modelService.getStatus($scope.models);
 
                 if ($scope.project.type === 'numbers') {
@@ -205,51 +208,6 @@
             });
 
 
-
-        function reviewTrainingData (labels) {
-            loggerService.debug('[ml4kmodels] reviewing training data');
-
-            var no_data = true;
-            var insufficient_data = 0;
-            var MIN = 5;
-            if ($scope.project.type === 'images') {
-                MIN = 10;
-            }
-            else if ($scope.project.type === 'sounds') {
-                MIN = 8;
-            }
-            var labelslist = Object.keys(labels);
-
-            $scope.trainingcounts = labelslist.map(function (label) {
-                var count = labels[label];
-                if (count > 0) {
-                    no_data = false;
-                }
-                if (count < MIN) {
-                    insufficient_data += 1;
-                }
-                return { label : label, count : count };
-            });
-
-            if (no_data) {
-                $scope.trainingdatastatus = 'no_data';
-            }
-            else {
-                if (insufficient_data > 1 ||
-                    insufficient_data === labelslist.length ||
-                    labelslist.length < 2 ||
-                    ($scope.project.type === 'sounds' && insufficient_data > 0))
-                {
-                    $scope.trainingdatastatus = 'insufficient_data';
-                }
-                else {
-                    $scope.trainingdatastatus = 'data';
-                }
-            }
-        }
-
-
-
         var timer = null;
 
         function stopRefreshing() {
@@ -260,11 +218,23 @@
             }
         }
 
+        function getRefreshInterval() {
+            if ($scope.project.type === 'sounds' || $scope.project.type === 'imgtfjs') {
+                return 2000;
+            }
+            if ($scope.project.type === 'text') {
+                return 20000;
+            }
+            if ($scope.project.type === 'images') {
+                return 30000;
+            }
+            loggerService.error('[ml4kmodels] Unexpected project type');
+            return 60000;
+        }
+
         function refreshModels () {
             loggerService.debug('[ml4kmodels] refresh models');
             if (!timer) {
-                var interval = 1000; // $scope.project.type === 'sounds' ? 2000 : 30000;
-
                 timer = $interval(function () {
                     fetchModels()
                         .then(function () {
@@ -272,7 +242,7 @@
                                 stopRefreshing();
                             }
                         });
-                }, interval);
+                }, getRefreshInterval());
             }
         }
 
@@ -306,11 +276,19 @@
 
 
         function fetchModels() {
-            var modelFunction = imageTrainingService.getModels();
-            // var modelFunction = $scope.project.type === 'sounds' ?
-            //                         soundTrainingService.getModels() :
-            //                         trainingService.getModels($scope.projectId, $scope.userId, vm.profile.tenant);
-            return modelFunction.then(function (models) {
+            loggerService.debug('[ml4kmodels] fetching model info');
+
+            var modelFnPromise;
+            if ($scope.project.type === 'imgtfjs') {
+                modelFnPromise = imageTrainingService.getModels();
+            }
+            else if ($scope.project.type === 'sounds') {
+                modelFnPromise = soundTrainingService.getModels();
+            }
+            else {
+                modelFnPromise = trainingService.getModels($scope.projectId, $scope.userId, vm.profile.tenant);
+            }
+            return modelFnPromise.then(function (models) {
                 $scope.models = models;
                 $scope.status = modelService.getStatus($scope.models);
             });
@@ -327,94 +305,41 @@
 
             $scope.submittingTrainingRequest = true;
 
-            if (project.type === 'sounds') {
-                soundTrainingService.newModel(project.id, $scope.userId, vm.profile.tenant)
-                    .then(function (newmodel) {
-                        $scope.models = [ newmodel ];
-                        $scope.status = modelService.getStatus($scope.models);
-
-                        $scope.submittingTrainingRequest = false;
-
-                        refreshModels();
-                    })
-                    .catch(function (err) {
-                        var errId = displayAlert('errors', err.status, err.data);
-                        scrollToNewItem('errors' + errId);
-                    });
+            var modelFnPromise;
+            if ($scope.project.type === 'imgtfjs') {
+                modelFnPromise = imageTrainingService.newModel(project.id, $scope.userId, vm.profile.tenant);
             }
-            else if (project.type === 'imgtfjs') {
-                imageTrainingService.newModel(project.id, $scope.userId, vm.profile.tenant)
-                    .then(function (newmodel) {
-                        $scope.models = [ newmodel ];
-                        $scope.status = modelService.getStatus($scope.models);
-
-                        $scope.submittingTrainingRequest = false;
-
-                        refreshModels();
-                    })
-                    .catch(function (err) {
-                        var errId = displayAlert('errors', err.status, err.data);
-                        scrollToNewItem('errors' + errId);
-                    });
+            else if ($scope.project.type === 'sounds') {
+                modelFnPromise = soundTrainingService.newModel(project.id, $scope.userId, vm.profile.tenant)
             }
             else {
-                loggerService.debug('[ml4kmodels] submitting new model request');
-                trainingService.newModel(project.id, $scope.userId, vm.profile.tenant)
-                    .then(function (newmodel) {
-                        loggerService.debug('[ml4kmodels] model training', newmodel);
-
-                        $scope.models = [ newmodel ];
-                        $scope.status = modelService.getStatus($scope.models);
-
-                        $scope.submittingTrainingRequest = false;
-
-                        refreshModels();
-                    })
-                    .catch(function (err) {
-                        loggerService.error('[ml4kmodels] model training failed', err);
-                        $scope.submittingTrainingRequest = false;
-
-                        if (createModelFailedDueToDownloadFail(err)) {
-                            return $mdDialog.show({
-                                controller : function ($scope) {
-                                    $scope.location = err.data.location;
-
-                                    $scope.hide = function() {
-                                        $mdDialog.hide();
-                                    };
-                                    $scope.cancel = function() {
-                                        $mdDialog.cancel();
-                                    };
-                                    $scope.confirm = function() {
-                                        $mdDialog.hide(err.data.location);
-                                    };
-                                },
-                                templateUrl : 'static/components-' + $stateParams.VERSION + '/models/downloadfail.tmpl.html'
-                            })
-                            .then(
-                                function (location) {
-                                    if (location) {
-                                        trainingService.deleteTrainingData(project.id, $scope.userId, vm.profile.tenant, location.imageid)
-                                            .then(function() {
-                                                $state.reload();
-                                            })
-                                            .catch(function (e) {
-                                                var errId = displayAlert('errors', e.status, e.data);
-                                                scrollToNewItem('errors' + errId);
-                                            });
-                                    }
-                                },
-                                function() {
-                                    // cancelled. do nothing
-                                }
-                            );
-                        }
-                        else {
-                            var errId = displayAlert('errors', err.status, err.data);
-                            scrollToNewItem('errors' + errId);
-                        }
-                    });
+                modelFnPromise = trainingService.getModels($scope.projectId, $scope.userId, vm.profile.tenant);
             }
+
+            modelFnPromise.then(function (newmodel) {
+                    loggerService.debug('[ml4kmodels] model training', newmodel);
+
+                    $scope.models = [ newmodel ];
+                    $scope.status = modelService.getStatus($scope.models);
+
+                    $scope.submittingTrainingRequest = false;
+
+                    refreshModels();
+                })
+                .catch(function (err) {
+                    loggerService.error('[ml4kmodels] model training failed', err);
+                    $scope.submittingTrainingRequest = false;
+
+                    if (createModelFailedDueToDownloadFail(err)) {
+                        // training error that is because of bad training data
+                        allowUserToDeleteTrainingItemThatCausedTrainingFail(err);
+                    }
+                    else {
+                        // general training error
+                        var errId = displayAlert('errors', err.status, err.data);
+                        scrollToNewItem('errors' + errId);
+                    }
+                });
         };
 
 
@@ -426,6 +351,47 @@
                    err.data.location && err.data.location.imageid && err.data.location.url &&
                    err.data.location.type === 'download';
         }
+
+
+        /**
+         * @param err - error that impacted training
+         */
+        function allowUserToDeleteTrainingItemThatCausedTrainingFail(err) {
+            return $mdDialog.show({
+                controller : function ($scope) {
+                    $scope.location = err.data.location;
+
+                    $scope.hide = function() {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function() {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function() {
+                        $mdDialog.hide(err.data.location);
+                    };
+                },
+                templateUrl : 'static/components-' + $stateParams.VERSION + '/models/downloadfail.tmpl.html'
+            })
+            .then(
+                function (location) {
+                    if (location) {
+                        trainingService.deleteTrainingData($scope.project.id, $scope.userId, vm.profile.tenant, location.imageid)
+                            .then(function() {
+                                $state.reload();
+                            })
+                            .catch(function (e) {
+                                var errId = displayAlert('errors', e.status, e.data);
+                                scrollToNewItem('errors' + errId);
+                            });
+                    }
+                },
+                function() {
+                    // cancelled. do nothing
+                }
+            );
+        }
+
 
 
         vm.testModel = function (ev, form, project) {
