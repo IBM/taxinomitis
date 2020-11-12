@@ -91,6 +91,10 @@ async function createSoundKey(project: Types.Project): Promise<ScratchTypes.Key>
     const id = await store.storeUntrainedScratchKey(project);
     return { id };
 }
+async function createImagesTfjsKey(project: Types.Project): Promise<ScratchTypes.Key> {
+    const id = await store.storeUntrainedScratchKey(project);
+    return { id };
+}
 
 
 
@@ -112,5 +116,7 @@ export async function createKey(projectid: string): Promise<ScratchTypes.Key>
         return createNumbersKey(project);
     case 'sounds':
         return createSoundKey(project);
+    case 'imgtfjs':
+        return createImagesTfjsKey(project);
     }
 }

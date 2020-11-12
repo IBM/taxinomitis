@@ -15,6 +15,7 @@
   "author": "Dale Lane",
   "devDependencies": {
     "@tensorflow-models/face-landmarks-detection": "0.0.2",
+    "@tensorflow-models/mobilenet": "2.0.4",
     "@tensorflow-models/posenet": "2.2.1",
     "@tensorflow-models/speech-commands": "0.4.2",
     "@tensorflow/tfjs": "2.7.0",

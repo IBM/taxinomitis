@@ -168,6 +168,9 @@ export function getScratchxExtension(
         return getTextExtension(scratchkey, project, version);
     case 'images':
         return getImagesExtension(scratchkey, project, version);
+    case 'imgtfjs':
+        // TODO this is wrong - need a new extension - putting this as a placeholder just to get it to compile
+        return getImagesExtension(scratchkey, project, version);
     case 'numbers':
         return getNumbersExtension(scratchkey, project, version);
     case 'sounds':

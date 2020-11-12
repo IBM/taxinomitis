@@ -161,6 +161,12 @@ async function classifySound(key: Types.ScratchKey): Promise<TrainingTypes.Class
     throw err;
 }
 
+async function classifyImageTfjs(key: Types.ScratchKey): Promise<TrainingTypes.Classification[]> {
+    log.error({ key }, 'Unexpected attempt to test browser-hosted model');
+    const err: any = new Error('Classification is only available in the browser');
+    err.statusCode = 400;
+    throw err;
+}
 
 
 
@@ -175,5 +181,7 @@ export function classify(scratchKey: Types.ScratchKey, data: any): Promise<Train
         return classifyNumbers(scratchKey, data as string[]);
     case 'sounds':
         return classifySound(scratchKey);
+    case 'imgtfjs':
+        return classifyImageTfjs(scratchKey);
     }
 }

@@ -57,6 +57,12 @@ export async function checkClass(tenant: string, type: Types.ProjectTypeLabel): 
             message : 'Watson API keys are not required for sounds projects',
         };
     }
+    if (type === 'imgtfjs') {
+        return {
+            code : 'MLCRED-IMGTFJS',
+            message : 'Watson API keys are not required for images projects',
+        };
+    }
     if (type !== 'text' && type !== 'images') {
         return {
             code : 'MLCRED-TYPEUNK',

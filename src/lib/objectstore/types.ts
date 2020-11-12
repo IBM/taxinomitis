@@ -18,7 +18,7 @@ export type ImageFileType = 'image/png' | 'image/jpg' | 'image/jpeg' | '';
 
 export interface Image {
     readonly size: number;
-    readonly body: string | Buffer;
+    readonly body: Buffer;
     readonly modified?: string;
     readonly etag?: string;
     readonly filetype: ImageFileType;

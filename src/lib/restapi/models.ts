@@ -73,6 +73,9 @@ async function getModels(req: auth.RequestWithProject, res: Express.Response) {
         classifiers = await conversation.getClassifierStatuses(tenant, classifiers);
         classifiers = classifiers.map(returnConversationWorkspace);
         break;
+    case 'imgtfjs':
+        classifiers = [];
+        break;
     case 'images':
         tenant = await store.getClassTenant(classid);
         classifiers = await store.getImageClassifiers(projectid);
@@ -226,6 +229,8 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
             return errors.unknownError(res, err);
         }
     }
+    case 'imgtfjs':
+        return errors.notImplemented(res);
     case 'sounds':
         return errors.notImplemented(res);
     }
@@ -257,6 +262,8 @@ async function deleteModel(req: auth.RequestWithProject, res: Express.Response) 
             return res.sendStatus(httpstatus.NO_CONTENT);
         }
         case 'sounds':
+            return errors.notFound(res);
+        case 'imgtfjs':
             return errors.notFound(res);
         }
     }

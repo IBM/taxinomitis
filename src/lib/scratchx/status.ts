@@ -28,6 +28,8 @@ export function getStatus(scratchKey: Types.ScratchKey): Promise<ScratchTypes.St
         return getNumbersClassifierStatus(scratchKey);
     case 'sounds':
         return getSoundClassifierStatus(scratchKey);
+    case 'imgtfjs':
+        return getImageTfjsClassifierStatus(scratchKey);
     }
 }
 
@@ -125,5 +127,9 @@ function getNumbersClassifierStatus(scratchKey: Types.ScratchKey): Promise<Scrat
 
 function getSoundClassifierStatus(scratchKey: Types.ScratchKey): Promise<ScratchTypes.Status> {
     log.error({ scratchKey }, 'Unexpected attempt to get status of sound model');
+    return Promise.resolve({ status : 0, msg : 'Classifier not found' });
+}
+function getImageTfjsClassifierStatus(scratchKey: Types.ScratchKey): Promise<ScratchTypes.Status> {
+    log.error({ scratchKey }, 'Unexpected attempt to get status of browser model');
     return Promise.resolve({ status : 0, msg : 'Classifier not found' });
 }

@@ -51,7 +51,7 @@ function handleUpload(req: auth.RequestWithProject, res: Express.Response) {
     }
 
     // make sure this is an images project before we proceed
-    if (req.project.type !== 'images') {
+    if (req.project.type !== 'images' && req.project.type !== 'imgtfjs') {
         return res.status(httpStatus.BAD_REQUEST).json({
             error : 'Only images projects allow image uploads',
         });

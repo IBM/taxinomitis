@@ -39,7 +39,7 @@ export interface BluemixCredentialsPoolDbRow extends BluemixCredentialsDbRow {
 
 
 
-export type BluemixServiceType = 'conv' | 'visrec' | 'num' | 'sounds';
+export type BluemixServiceType = 'conv' | 'visrec' | 'num' | 'sounds' | 'imgtfjs';
 export type BluemixCredentialsTypeLabel = 'unknown' | ConversationCredentialsTypeLabel | VisualRecCredentialsTypeLabel;
 
 export type ConversationCredentialsTypeLabel = 'conv_lite' | 'conv_standard' | 'conv_plus' | 'conv_plustrial';
@@ -205,7 +205,8 @@ export type CredentialsSupportCode = 'MLCRED-OK' |           // everything okay
                                      'MLCRED-TEXT-INVALID' | // all text credentials rejected
                                      'MLCRED-IMG-NOKEYS' |   // no available images credentials
                                      'MLCRED-IMG-INVALID' |  // all images credentials rejected
-                                     'MLCRED-FAIL';          // attempt to check credentials failed
+                                     'MLCRED-FAIL' |         // attempt to check credentials failed
+                                     'MLCRED-IMGTFJS';       // no need for credentials for TensorFlowJS projects
 
 export interface CredentialsSupportResponse {
     readonly code: CredentialsSupportCode;

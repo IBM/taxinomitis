@@ -6,13 +6,15 @@
 
     ModelsController.$inject = [
         'authService',
-        'projectsService', 'trainingService', 'quizService', 'soundTrainingService',
+        'projectsService', 'trainingService', 'quizService',
+        'soundTrainingService', 'imageTrainingService',
+        'modelService',
         '$stateParams',
         '$scope',
         '$mdDialog', '$timeout', '$interval', '$q', '$document', '$state', 'loggerService'
     ];
 
-    function ModelsController(authService, projectsService, trainingService, quizService, soundTrainingService, $stateParams, $scope, $mdDialog, $timeout, $interval, $q, $document, $state, loggerService) {
+    function ModelsController(authService, projectsService, trainingService, quizService, soundTrainingService, imageTrainingService, modelService, $stateParams, $scope, $mdDialog, $timeout, $interval, $q, $document, $state, loggerService) {
 
         var vm = this;
         vm.authService = authService;
@@ -170,15 +172,15 @@
                     $scope.minimumExamples = 'eight';
                 }
                 $scope.models = values.models;
-                $scope.projectSummary = generateProjectSummary();
+                $scope.projectSummary = modelService.generateProjectSummary($scope.project.labels);
 
                 reviewTrainingData(values.labels);
-                $scope.status = getStatus();
+                $scope.status = modelService.getStatus($scope.models);
 
                 if ($scope.project.type === 'numbers') {
                     return projectsService.getFields($scope.projectId, $scope.userId, vm.profile.tenant);
                 }
-                if ($scope.project.type === 'sounds') {
+                else if ($scope.project.type === 'sounds') {
                     $scope.listening = false;
                     var loadSavedModel = true;
                     return soundTrainingService.initSoundSupport($scope.project.id, $scope.project.labels, loadSavedModel)
@@ -187,6 +189,9 @@
                                 fetchModels();
                             }
                         });
+                }
+                else if ($scope.project.type === 'imgtfjs') {
+                    return imageTrainingService.initImageSupport($scope.project.id, $scope.project.labels);
                 }
             })
             .then(function (fields) {
@@ -245,32 +250,6 @@
 
 
 
-        function getStatus() {
-            if (allModelsAreTraining($scope.models)) {
-                return 'training';
-            }
-            if (allModelsAreGood($scope.models)) {
-                return 'ready';
-            }
-            if ($scope.models.length === 0) {
-                return 'idle';
-            }
-            return 'error';
-        }
-
-
-        function allModelsAreTraining (models) {
-            return models &&
-                   models.length > 0 &&
-                   !(models.some(function (model) { return model.status !== 'Training'; }));
-        }
-        function allModelsAreGood (models) {
-            return models &&
-                   models.length > 0 &&
-                   !(models.some(function (model) { return model.status !== 'Available'; }));
-        }
-
-
         var timer = null;
 
         function stopRefreshing() {
@@ -284,7 +263,7 @@
         function refreshModels () {
             loggerService.debug('[ml4kmodels] refresh models');
             if (!timer) {
-                var interval = $scope.project.type === 'sounds' ? 2000 : 30000;
+                var interval = 1000; // $scope.project.type === 'sounds' ? 2000 : 30000;
 
                 timer = $interval(function () {
                     fetchModels()
@@ -327,12 +306,13 @@
 
 
         function fetchModels() {
-            var modelFunction = $scope.project.type === 'sounds' ?
-                                    soundTrainingService.getModels() :
-                                    trainingService.getModels($scope.projectId, $scope.userId, vm.profile.tenant);
+            var modelFunction = imageTrainingService.getModels();
+            // var modelFunction = $scope.project.type === 'sounds' ?
+            //                         soundTrainingService.getModels() :
+            //                         trainingService.getModels($scope.projectId, $scope.userId, vm.profile.tenant);
             return modelFunction.then(function (models) {
                 $scope.models = models;
-                $scope.status = getStatus();
+                $scope.status = modelService.getStatus($scope.models);
             });
         }
 
@@ -351,7 +331,22 @@
                 soundTrainingService.newModel(project.id, $scope.userId, vm.profile.tenant)
                     .then(function (newmodel) {
                         $scope.models = [ newmodel ];
-                        $scope.status = getStatus();
+                        $scope.status = modelService.getStatus($scope.models);
+
+                        $scope.submittingTrainingRequest = false;
+
+                        refreshModels();
+                    })
+                    .catch(function (err) {
+                        var errId = displayAlert('errors', err.status, err.data);
+                        scrollToNewItem('errors' + errId);
+                    });
+            }
+            else if (project.type === 'imgtfjs') {
+                imageTrainingService.newModel(project.id, $scope.userId, vm.profile.tenant)
+                    .then(function (newmodel) {
+                        $scope.models = [ newmodel ];
+                        $scope.status = modelService.getStatus($scope.models);
 
                         $scope.submittingTrainingRequest = false;
 
@@ -369,7 +364,7 @@
                         loggerService.debug('[ml4kmodels] model training', newmodel);
 
                         $scope.models = [ newmodel ];
-                        $scope.status = getStatus();
+                        $scope.status = modelService.getStatus($scope.models);
 
                         $scope.submittingTrainingRequest = false;
 
@@ -524,7 +519,7 @@
                     $scope.models = $scope.models.filter(function (md) {
                         return md.classifierid !== classifierid;
                     });
-                    $scope.status = getStatus();
+                    $scope.status = modelService.getStatus($scope.models);
 
                     if ($scope.status === 'training') {
                         refreshModels();
@@ -772,41 +767,11 @@
         });
 
 
-        function generateProjectSummary() {
-            if ($scope.project.labels.length > 0) {
-                var summary = '';
-                switch ($scope.project.labels.length) {
-                    case 1:
-                        summary = $scope.project.labels[0];
-                        break;
-                    case 2:
-                        summary = $scope.project.labels[0] + ' or ' + $scope.project.labels[1];
-                        break;
-                    case 3:
-                        summary = $scope.project.labels[0] + ', ' +
-                                    $scope.project.labels[1] + ' or ' +
-                                    $scope.project.labels[2];
-                        break;
-                    default:
-                        summary = $scope.project.labels[0] + ', ' +
-                                    $scope.project.labels[1] + ' or ' +
-                                    ($scope.project.labels.length - 2) + ' other classes';
-                        break;
-                }
-                return summary;
-            }
-        }
-
-
-
         function scrollToNewItem(itemId) {
             $timeout(function () {
                 var newItem = document.getElementById(itemId);
                 $document.duScrollToElementAnimated(angular.element(newItem));
             }, 0);
         }
-
-
     }
-
 }());

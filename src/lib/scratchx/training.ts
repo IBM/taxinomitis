@@ -159,6 +159,8 @@ export function storeTrainingData(scratchKey: Types.ScratchKey, label: string, d
     }
     case 'images':
         return storeImages(scratchKey, label, data as string);
+    case 'imgtfjs':
+        return storeImages(scratchKey, label, data as string);
     case 'sounds':
         return storeSound(scratchKey);
     }

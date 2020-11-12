@@ -5,10 +5,12 @@ import * as httpStatus from 'http-status';
 import { v1 as uuid } from 'uuid';
 // local dependencies
 import * as store from '../db/store';
+import * as objectstore from '../objectstore';
 import * as DbObjects from '../db/db-types';
 import * as TrainingObjects from './training-types';
 import * as iam from '../iam';
 import * as wikimedia from '../utils/wikimedia';
+import * as downloader from '../utils/download';
 import * as downloadAndZip from '../utils/downloadAndZip';
 import * as constants from '../utils/constants';
 import * as notifications from '../notifications/slack';
@@ -284,6 +286,41 @@ function validateRequest(locations: any[]): void {
 
 
 
+/**
+ * Returns image data for a single training item, resized so that it is
+ *  ready for use in training.
+ *
+ * @param project - student project
+ * @param id  - id for the training item
+ */
+export async function getTrainingItemData(project: DbObjects.Project, id: string): Promise<Buffer> {
+    // this will throw an exception if the id is not recognized
+    const trainingitem = await store.getImageTrainingItem(project.id, id);
+    if (trainingitem.isstored) {
+        const trainingImage = await objectstore.getImage(getImageStoreSpec(project, trainingitem).spec);
+        return downloader.resizeBuffer(trainingImage.body, IMAGE_WIDTH_PIXELS, IMAGE_HEIGHT_PIXELS);
+    }
+    else {
+        const trainingImageInfo = await getImageDownloadSpec(id, trainingitem.imageurl);
+        return downloader.resizeUrl(trainingImageInfo.url, IMAGE_WIDTH_PIXELS, IMAGE_HEIGHT_PIXELS);
+    }
+}
+
+
+function getImageStoreSpec(project: DbObjects.Project, trainingitem: DbObjects.ImageTraining): downloadAndZip.RetrieveFromStorage {
+    return {
+        type : 'retrieve',
+        spec : {
+            objectid : trainingitem.id,
+            projectid : project.id,
+            userid : trainingitem.userid ? trainingitem.userid : project.userid,
+            classid : project.classid,
+        },
+    };
+}
+
+
+
 async function getTraining(project: DbObjects.Project): Promise<{ [label: string]: string }> {
     const counts = await store.countTrainingByLabel(project);
 
@@ -303,16 +340,7 @@ async function getTraining(project: DbObjects.Project): Promise<{ [label: string
 
             for (const trainingitem of training) {
                 if (trainingitem.isstored) {
-                    const fromStorage: downloadAndZip.ImageDownload = {
-                        type : 'retrieve',
-                        spec : {
-                            objectid : trainingitem.id,
-                            projectid : project.id,
-                            userid : trainingitem.userid ? trainingitem.userid : project.userid,
-                            classid : project.classid,
-                        },
-                    };
-                    trainingLocations.push(fromStorage);
+                    trainingLocations.push(getImageStoreSpec(project, trainingitem));
                 }
                 else {
                     const fromWeb = await getImageDownloadSpec(trainingitem.id, trainingitem.imageurl);
@@ -341,7 +369,7 @@ async function getTraining(project: DbObjects.Project): Promise<{ [label: string
 }
 
 
-async function getImageDownloadSpec(imageid: string, imageurl: string): Promise<downloadAndZip.ImageDownload> {
+export async function getImageDownloadSpec(imageid: string, imageurl: string): Promise<downloadAndZip.DownloadFromWeb> {
     if (wikimedia.isWikimedia(imageurl)) {
         try {
             const thumb = await wikimedia.getThumbnail(imageurl, 400);

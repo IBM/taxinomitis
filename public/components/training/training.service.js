@@ -44,6 +44,18 @@
                 });
         }
 
+        function getTrainingItem(projectid, userid, tenant, trainingid) {
+            var url = '/api/classes/' + tenant +
+                        '/students/' + userid +
+                        '/projects/' + projectid +
+                        '/training/' + trainingid;
+
+            return $http.get(url, { responseType : 'arraybuffer' })
+                .then(function (resp) {
+                    return resp.data;
+                });
+        }
+
         function getSoundData(soundobj) {
             return $http.get(soundobj.audiourl)
                 .then(function (resp) {
@@ -182,6 +194,7 @@
             getSoundData : getSoundData,
 
             getTraining : getTraining,
+            getTrainingItem : getTrainingItem,
             deleteTrainingData : deleteTrainingData,
             getModels : getModels,
             getModel : getModel,
