@@ -145,7 +145,6 @@
 
                             resolve({ metadata : traininginfo, data : imageData });
 
-                            loggerService.debug('[ml4kimages] cleaning up ', traininginfo.id);
                             URL.revokeObjectURL(imgDataBlob);
                         };
 
@@ -240,10 +239,74 @@
 
 
 
+        function testModel(testdivid) {
+            return $q(function (resolve, reject) {
+                try {
+                    var testImage = document.getElementById(testdivid);
+                    var testImageWidth = testImage.naturalWidth;
+                    var testImageHeight = testImage.naturalHeight;
+
+                    var testCanvas = document.createElement('canvas');
+                    testCanvas.width = 224;
+                    testCanvas.height = 224;
+                    var testContext = testCanvas.getContext('2d');
+
+                    testContext.drawImage(testImage,
+                                        0, 0,
+                                        testImageWidth, testImageHeight,
+                                        0, 0,
+                                        224, 224);
+
+                    var imageData = tf.tidy(function () {
+                        return tf.browser.fromPixels(testCanvas)
+                                    .expandDims(0)
+                                    .toFloat()
+                                    .div(127)
+                                    .sub(1);
+                    });
+                    var baseModelOutput = baseModel.predict(imageData);
+                    var transferModelOutput = transferModel.predict(baseModelOutput);
+
+                    transferModelOutput.data().then(function (output) {
+                        if (output.length !== modelNumClasses) {
+                            console.log('unexpected output', output);
+                            reject(new Error('Unexpected output from model'));
+                        }
+                        else {
+                            var scores = modelClasses.map(function (label, idx) {
+                                return {
+                                    label : label,
+                                    confidence : 100 * output[idx]
+                                };
+                            }).sort(function (a, b) {
+                                if (a.confidence < b.confidence) {
+                                    return 1;
+                                }
+                                else if (a.confidence > b.confidence) {
+                                    return -1;
+                                }
+                                else {
+                                    return 0;
+                                }
+                            });
+                            resolve(scores);
+                        }
+                    });
+                }
+                catch (err) {
+                    loggerService.error('[ml4kimages] failed to run test', err);
+                    return reject(err);
+                }
+            });
+        }
+
+
+
         return {
             initImageSupport : initImageSupport,
             newModel : newModel,
-            getModels : getModels
+            getModels : getModels,
+            testModel : testModel
         };
     }
 })();

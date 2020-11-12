@@ -751,6 +751,12 @@
         };
 
 
+        vm.tempTest = function (divid) {
+            imageTrainingService.testModel(divid)
+                .then(function (output) {
+                    $scope.temptestoutput = output;
+                });
+        };
 
 
         $scope.$on("$destroy", function () {
