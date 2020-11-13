@@ -510,7 +510,120 @@
         };
 
 
-        vm.useWebcam = function (ev, label) {
+        vm.useWebcamTfjs = function (ev) {
+            loggerService.debug('[ml4kmodels] useWebcam');
+
+            $scope.testformData.testimageurl = '';
+
+            $mdDialog.show({
+                controller : function ($scope) {
+                    $scope.channel = {};
+                    $scope.webcamerror = false;
+                    $scope.webcamInitComplete = false;
+
+                    $scope.webcamCanvas = null;
+
+                    $scope.hide = function() {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function() {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function() {
+                        $mdDialog.hide(getWebcamCanvas());
+                    };
+
+                    $scope.onWebcamSuccess = function () {
+                        $scope.$apply(function() {
+                            $scope.webcamInitComplete = true;
+                        });
+                    };
+
+                    function displayWebcamError(err) {
+                        loggerService.error('[ml4kmodels] display webcam error', err);
+
+                        $scope.webcamerror = err;
+                        if (err && err.message) {
+                            if (err.name === 'NotAllowedError') {
+                                $scope.webcamerrordetail = 'Not allowed to use the web-cam';
+                            }
+                            else {
+                                $scope.webcamerrordetail = err.message;
+                            }
+                        }
+                    }
+
+                    $scope.onWebcamError = function(err) {
+                        loggerService.error('[ml4kmodels] on webcam error', err);
+
+                        $scope.webcamInitComplete = true;
+
+                        try {
+                            $scope.$apply(
+                                function() {
+                                    displayWebcamError(err);
+                                }
+                            );
+                        }
+                        catch (applyErr) {
+                            $timeout(function () {
+                                displayWebcamError(err);
+                            }, 0, false);
+                        }
+                    };
+
+
+                    function getWebcamCanvas() {
+                        loggerService.debug('[ml4kmodels] getting webcam canvas');
+
+                        var hiddenCanvas = document.createElement('canvas');
+                        hiddenCanvas.width = 224; // $scope.channel.video.width;
+                        hiddenCanvas.height = 224; // $scope.channel.video.height;
+
+                        loggerService.debug('[ml4ktraining] writing to hidden canvas');
+                        var ctx = hiddenCanvas.getContext('2d');
+                        ctx.drawImage($scope.channel.video,
+                            0, 0,
+                            $scope.channel.video.videoWidth, $scope.channel.video.videoHeight,
+                            0, 0, 224, 224);
+
+                        return hiddenCanvas;
+                    }
+
+                },
+                templateUrl : 'static/components-' + $stateParams.VERSION + '/models/webcam.tmpl.html',
+                targetEvent : ev,
+                clickOutsideToClose : true
+            })
+            .then(
+                function (webcamimagedata) {
+                    $scope.testoutput = "please wait...";
+                    $scope.testoutput_explanation = "";
+
+                    imageTrainingService.testCanvas(webcamimagedata)
+                        .then(function (resp) {
+                            loggerService.debug('[ml4kmodels] prediction', resp);
+                            if (resp && resp.length > 0) {
+                                $scope.testoutput = resp[0].class_name;
+                                $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
+                            }
+                            else {
+                                $scope.testoutput = 'Unknown';
+                                $scope.testoutput_explanation = "Test value could not be recognised";
+                            }
+                        })
+                        .catch(function (err) {
+                            var errId = displayAlert('errors', err.status, err.data);
+                            scrollToNewItem('errors' + errId);
+                        });
+                },
+                function() {
+                    // cancelled. do nothing
+                }
+            );
+        };
+
+        vm.useWebcam = function (ev) {
             loggerService.debug('[ml4kmodels] useWebcam');
 
             $scope.testformData.testimageurl = '';
@@ -577,14 +690,14 @@
                         loggerService.debug('[ml4kmodels] getting webcam data');
 
                         var hiddenCanvas = document.createElement('canvas');
-                        hiddenCanvas.width = $scope.channel.video.width;
-                        hiddenCanvas.height = $scope.channel.video.height;
+                        hiddenCanvas.width = $scope.channel.video.videoWidth;
+                        hiddenCanvas.height = $scope.channel.video.videoHeight;
 
                         loggerService.debug('[ml4kmodels] writing to hidden canvas');
                         var ctx = hiddenCanvas.getContext('2d');
                         ctx.drawImage($scope.channel.video,
                             0, 0,
-                            $scope.channel.video.width, $scope.channel.video.height);
+                            $scope.channel.video.videoWidth, $scope.channel.video.videoHeight);
 
                         var imagedata = hiddenCanvas.toDataURL('image/jpeg');
                         var strippedHeaderData = imagedata.substr(imagedata.indexOf(',') + 1);
@@ -714,14 +827,6 @@
                         loggerService.error('[ml4kmodels] Failed to stop listening', err);
                     });
             }
-        };
-
-
-        vm.tempTest = function (divid) {
-            imageTrainingService.testModel(divid)
-                .then(function (output) {
-                    $scope.temptestoutput = output;
-                });
         };
 
 

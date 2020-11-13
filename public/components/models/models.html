@@ -342,6 +342,14 @@
                     <span translate="MODELS.TESTING.WEBCAM"></span>
                 </div>
             </div>
+            <div ng-if="project.type === 'imgtfjs'" ng-click="vm.useWebcamTfjs($event)"
+                 class="btn newexamplebutton" style="margin: 2em">
+                <div class="newexamplelabel">
+                    &nbsp;
+                    <span class="glyphicon glyphicon-camera"></span>
+                    <span translate="MODELS.TESTING.WEBCAM"></span>
+                </div>
+            </div>
             <div ng-if="project.type === 'images'" ng-click="vm.useCanvas($event)"
                  class="btn newexamplebutton" style="margin: 1em" >
                 <div class="newexamplelabel">
@@ -482,13 +490,5 @@
             </div>
         </div>
     </div>
-
-    <!--
-    <div>{{ temptestoutput }}</div>
-    <img src="static/images/testdog.jpg"  height=244 width=244 id="testdog1" ng-click="vm.tempTest('testdog1')">
-    <img src="static/images/testcat.jpg"  height=244 width=244 id="testcat1" ng-click="vm.tempTest('testcat1')">
-    <img src="static/images/testdog2.jpg" height=244 width=244 id="testdog2" ng-click="vm.tempTest('testdog2')">
-    <img src="static/images/testcat2.jpg" height=244 width=244 id="testcat2" ng-click="vm.tempTest('testcat2')">
-    -->
 
 </div>

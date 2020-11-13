@@ -239,26 +239,12 @@
 
 
 
-        function testModel(testdivid) {
+
+        function testCanvas(canvasToTest) {
             return $q(function (resolve, reject) {
                 try {
-                    var testImage = document.getElementById(testdivid);
-                    var testImageWidth = testImage.naturalWidth;
-                    var testImageHeight = testImage.naturalHeight;
-
-                    var testCanvas = document.createElement('canvas');
-                    testCanvas.width = 224;
-                    testCanvas.height = 224;
-                    var testContext = testCanvas.getContext('2d');
-
-                    testContext.drawImage(testImage,
-                                        0, 0,
-                                        testImageWidth, testImageHeight,
-                                        0, 0,
-                                        224, 224);
-
                     var imageData = tf.tidy(function () {
-                        return tf.browser.fromPixels(testCanvas)
+                        return tf.browser.fromPixels(canvasToTest)
                                     .expandDims(0)
                                     .toFloat()
                                     .div(127)
@@ -275,7 +261,7 @@
                         else {
                             var scores = modelClasses.map(function (label, idx) {
                                 return {
-                                    label : label,
+                                    class_name : label,
                                     confidence : 100 * output[idx]
                                 };
                             }).sort(function (a, b) {
@@ -306,7 +292,7 @@
             initImageSupport : initImageSupport,
             newModel : newModel,
             getModels : getModels,
-            testModel : testModel
+            testCanvas : testCanvas
         };
     }
 })();
