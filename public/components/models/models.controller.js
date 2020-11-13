@@ -577,8 +577,8 @@
                         loggerService.debug('[ml4kmodels] getting webcam canvas');
 
                         var hiddenCanvas = document.createElement('canvas');
-                        hiddenCanvas.width = 224; // $scope.channel.video.width;
-                        hiddenCanvas.height = 224; // $scope.channel.video.height;
+                        hiddenCanvas.width = 224;
+                        hiddenCanvas.height = 224;
 
                         loggerService.debug('[ml4ktraining] writing to hidden canvas');
                         var ctx = hiddenCanvas.getContext('2d');
@@ -596,11 +596,11 @@
                 clickOutsideToClose : true
             })
             .then(
-                function (webcamimagedata) {
+                function (webcamimagecanvas) {
                     $scope.testoutput = "please wait...";
                     $scope.testoutput_explanation = "";
 
-                    imageTrainingService.testCanvas(webcamimagedata)
+                    imageTrainingService.testCanvas(webcamimagecanvas)
                         .then(function (resp) {
                             loggerService.debug('[ml4kmodels] prediction', resp);
                             if (resp && resp.length > 0) {
@@ -775,6 +775,73 @@
                                               $scope.models[0].classifierid, $scope.models[0].credentialsid,
                                               { type : $scope.project.type, data : canvasimagedata })
                         .then(function (resp) {
+                            if (resp && resp.length > 0) {
+                                $scope.testoutput = resp[0].class_name;
+                                $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
+                            }
+                            else {
+                                $scope.testoutput = 'Unknown';
+                                $scope.testoutput_explanation = "Test value could not be recognised";
+                            }
+                        })
+                        .catch(function (err) {
+                            var errId = displayAlert('errors', err.status, err.data);
+                            scrollToNewItem('errors' + errId);
+                        });
+                },
+                function() {
+                    // cancelled. do nothing
+                }
+            );
+        };
+
+
+        vm.useCanvasTfjs = function (ev) {
+            loggerService.debug('[ml4kmodels] useCanvas');
+
+            $scope.testformData.testimageurl = '';
+
+            $mdDialog.show({
+                controller : function ($scope) {
+                    $scope.hide = function() {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function() {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function() {
+                        $mdDialog.hide(resizeCanvas());
+                    };
+
+                    function resizeCanvas() {
+                        loggerService.debug('[ml4kmodels] getting canvas');
+
+                        var hiddenCanvas = document.createElement('canvas');
+                        hiddenCanvas.width = 224;
+                        hiddenCanvas.height = 224;
+
+                        loggerService.debug('[ml4ktraining] writing to hidden canvas');
+                        var ctx = hiddenCanvas.getContext('2d');
+                        ctx.drawImage($scope.canvas,
+                            0, 0,
+                            $scope.canvas.width, $scope.canvas.height,
+                            0, 0, 224, 224);
+
+                        return hiddenCanvas;
+                    }
+                },
+                templateUrl : 'static/components-' + $stateParams.VERSION + '/models/canvas.tmpl.html',
+                targetEvent : ev,
+                clickOutsideToClose : true
+            })
+            .then(
+                function (canvasimagedata) {
+                    $scope.testoutput = "please wait...";
+                    $scope.testoutput_explanation = "";
+
+                    imageTrainingService.testCanvas(canvasimagedata)
+                        .then(function (resp) {
+                            loggerService.debug('[ml4kmodels] prediction', resp);
                             if (resp && resp.length > 0) {
                                 $scope.testoutput = resp[0].class_name;
                                 $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
