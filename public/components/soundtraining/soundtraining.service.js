@@ -98,11 +98,11 @@
             return permissionsCheck()
                 .then(function () {
                     loggerService.debug('[ml4ksound] loading tf');
-                    return utilService.loadScript('/static/bower_components/tensorflowjs/tf.js');
+                    return utilService.loadScript('/static/bower_components/tensorflowjs/tf.min.js');
                 })
                 .then(function () {
                     loggerService.debug('[ml4ksound] loading speech-commands');
-                    return utilService.loadScript('/static/bower_components/tensorflow-models/speech-commands/speech-commands.js');
+                    return utilService.loadScript('/static/bower_components/tensorflow-models/speech-commands/speech-commands.min.js');
                 })
                 .then(function () {
                     loggerService.debug('[ml4ksound] enabling tf prod mode');
