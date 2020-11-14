@@ -5,10 +5,12 @@
         .service('soundTrainingService', soundTrainingService);
 
     soundTrainingService.$inject = [
-        'trainingService', 'utilService', '$q', 'loggerService', '$window', '$location'
+        '$q', '$window', '$location',
+        'trainingService', 'modelService',
+        'utilService', 'loggerService',
     ];
 
-    function soundTrainingService(trainingService, utilService, $q, loggerService, $window, $location) {
+    function soundTrainingService($q, $window, $location, trainingService, modelService, utilService, loggerService) {
 
         var transferRecognizer;
         var transferModelInfo;
@@ -96,11 +98,11 @@
             return permissionsCheck()
                 .then(function () {
                     loggerService.debug('[ml4ksound] loading tf');
-                    return utilService.loadScript('/static/bower_components/tensorflowjs/tf.min.js');
+                    return utilService.loadScript('/static/bower_components/tensorflowjs/tf.js');
                 })
                 .then(function () {
                     loggerService.debug('[ml4ksound] loading speech-commands');
-                    return utilService.loadScript('/static/bower_components/tensorflow-models/speech-commands/speech-commands.min.js');
+                    return utilService.loadScript('/static/bower_components/tensorflow-models/speech-commands/speech-commands.js');
                 })
                 .then(function () {
                     loggerService.debug('[ml4ksound] enabling tf prod mode');
@@ -277,6 +279,9 @@
 
         function startTest(callback) {
             loggerService.debug('[ml4ksound] starting to listen');
+            var predictionOptions = {
+                probabilityThreshold : 0.7
+            };
             return transferRecognizer.listen(function (result) {
                 var matches = [];
 
@@ -299,14 +304,10 @@
                     });
                 }
 
-                matches.sort(function (a, b) {
-                    return b.confidence - a.confidence;
-                });
+                matches.sort(modelService.sortByConfidence);
 
                 callback(matches);
-            }, {
-                probabilityThreshold : 0.7
-            });
+            }, predictionOptions);
         }
 
         function stopTest() {
@@ -315,81 +316,40 @@
         }
 
 
-        function getModelDbLocation(projectid) {
-            return 'indexeddb://ml4k-models-sound-' + projectid.replaceAll('-', '');
-        }
+
+
+        var MODELTYPE = 'sounds';
+
         function deleteModel(projectid) {
-            loggerService.debug('[ml4ksound] deleting stored model');
-            var savelocation = getModelDbLocation(projectid);
-            return tf.io.removeModel(savelocation)
-                .then(function () {
-                    loggerService.debug('[ml4ksound] model deleted');
-                    modelStatus = null;
-                })
-                .catch(function (err) {
-                    loggerService.error('[ml4ksound] model could not be deleted', err);
-                });
+            modelStatus = null;
+            return modelService.deleteModel(MODELTYPE, projectid);
         }
+
         function saveModel(projectid) {
-            loggerService.debug('[ml4ksound] saving model to browser storage');
-            var savelocation = getModelDbLocation(projectid);
-            return transferRecognizer.save(savelocation)
-                .then(function (saveresults) {
-                    loggerService.debug('[ml4ksound] saved model', savelocation, saveresults);
-                    storeModelSavedDate(savelocation);
-                })
-                .catch(function (err) {
-                    loggerService.error('[ml4ksound] failed to save model', err);
-                });
+            return modelService.saveModel(MODELTYPE, projectid, transferRecognizer);
         }
+
         function loadModel(projectid, labels) {
-            loggerService.debug('[ml4ksound] loading model from browser storage');
-            var savelocation = getModelDbLocation(projectid);
-            return transferRecognizer.load(savelocation)
-                .then(function () {
-                    transferRecognizer.words = labels;
-                    modelStatus = {
-                        classifierid : projectid,
-                        status : 'Available',
-                        progress : 100,
-                        updated : getModelSavedDate(savelocation)
-                    };
-                    usingRestoredModel = true;
-                    return modelStatus;
-                })
-                .catch(function (err) {
-                    loggerService.debug('[ml4ksound] Failed to load model', err);
+            return modelService.loadModel(MODELTYPE, projectid, transferRecognizer)
+                .then(function (resp) {
+                    if (resp) {
+                        transferRecognizer.words = labels;
+                        modelStatus = {
+                            classifierid : projectid,
+                            status : 'Available',
+                            progress : 100,
+                            updated : resp.timestamp
+                        };
+                        usingRestoredModel = true;
+
+                        return modelStatus;
+                    }
                 });
         }
 
-        function storeModelSavedDate(modelid) {
-            try {
-                if ($window.localStorageObj) {
-                    $window.localStorageObj.setItem(modelid, Date.now());
-                }
-            }
-            catch (err) {
-                loggerService.error('[ml4ksound] Failed to store metadata');
-            }
+        function reset() {
+            tf.dispose(transferRecognizer);
         }
-        function getModelSavedDate(modelid) {
-            try {
-                if ($window.localStorageObj) {
-                    var timestampStr = $window.localStorageObj.getItem(modelid);
-                    if (timestampStr) {
-                        var timestampInt = parseInt(timestampStr);
-                        var timestamp = new Date(timestampInt);
-                        return timestamp;
-                    }
-                }
-            }
-            catch (err) {
-                loggerService.error('[ml4ksound] Failed to get metadata');
-            }
-            return new Date();
-        }
-
-
 
 
         return {
@@ -400,7 +360,8 @@
             deleteModel : deleteModel,
             getModels : getModels,
             startTest : startTest,
-            stopTest : stopTest
+            stopTest : stopTest,
+            reset : reset
         };
     }
 })();

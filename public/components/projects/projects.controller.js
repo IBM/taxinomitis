@@ -155,6 +155,14 @@
                             else {
                                 refreshProjectsList(vm.profile);
                             }
+
+                            // clear up models stored on the browser
+                            if (project.type === 'sounds') {
+                                modelService.deleteModel('sounds', project.id);
+                            }
+                            else if (project.type === 'imgtjfs') {
+                                modelService.deleteModel('images', project.id);
+                            }
                         })
                         .catch(function (err) {
                             loggerService.error('[ml4kprojects] Failed to delete project', err);

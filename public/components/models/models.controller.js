@@ -194,7 +194,12 @@
                         });
                 }
                 else if ($scope.project.type === 'imgtfjs') {
-                    return imageTrainingService.initImageSupport($scope.project.id, $scope.project.labels);
+                    return imageTrainingService.initImageSupport($scope.project.id, $scope.project.labels)
+                        .then(function (loaded) {
+                            if (loaded) {
+                                fetchModels();
+                            }
+                        });
                 }
             })
             .then(function (fields) {
@@ -304,6 +309,7 @@
             $scope.quizQuestion = quizService.getQuestion();
 
             $scope.submittingTrainingRequest = true;
+            clearTestOutput();
 
             var modelFnPromise;
             if ($scope.project.type === 'imgtfjs') {
@@ -322,9 +328,9 @@
                     $scope.models = [ newmodel ];
                     $scope.status = modelService.getStatus($scope.models);
 
-                    $scope.submittingTrainingRequest = false;
-
                     refreshModels();
+
+                    $scope.submittingTrainingRequest = false;
                 })
                 .catch(function (err) {
                     loggerService.error('[ml4kmodels] model training failed', err);
@@ -392,6 +398,11 @@
             );
         }
 
+
+        function clearTestOutput() {
+            delete $scope.testoutput;
+            delete $scope.testoutput_explanation;
+        }
 
 
         vm.testModel = function (ev, form, project) {
@@ -462,32 +473,25 @@
         vm.deleteModel = function (ev, project, model) {
             loggerService.debug('[ml4kmodels] deleting model');
             $scope.submittingDeleteRequest = true;
+            clearTestOutput();
 
-            if (project.type === 'sounds') {
-                return soundTrainingService.deleteModel(project.id)
-                    .then(function () {
-                        $scope.models = [];
-                        $scope.status = getStatus();
-
-                        $scope.submittingDeleteRequest = false;
-
-                        refreshModels();
-                    })
-                    .catch(function (err) {
-                        var errId = displayAlert('errors', err.status, err.data);
-                        scrollToNewItem('errors' + errId);
-                    });
+            var modelFnPromise;
+            if (project.type === 'imgtfjs') {
+                modelFnPromise = imageTrainingService.deleteModel(project.id);
+            }
+            else if (project.type === 'sounds') {
+                modelFnPromise = soundTrainingService.deleteModel(project.id);
+            }
+            else {
+                var classifierid = model.classifierid;
+                modelFnPromise = trainingService.deleteModel(project.id, $scope.userId, vm.profile.tenant, classifierid);
             }
 
-            var classifierid = model.classifierid;
-            trainingService.deleteModel(project.id, $scope.userId, vm.profile.tenant, classifierid)
-                .then(function () {
-                    $scope.models = $scope.models.filter(function (md) {
-                        return md.classifierid !== classifierid;
-                    });
+            modelFnPromise.then(function () {
+                    $scope.models = [];
                     $scope.status = modelService.getStatus($scope.models);
 
-                    if ($scope.status === 'training') {
+                    if ($scope.status === 'training' || project.type === 'imgtfjs' || project.type === 'sounds') {
                         refreshModels();
                     }
                     else {
@@ -619,6 +623,7 @@
                 },
                 function() {
                     // cancelled. do nothing
+                    clearTestOutput();
                 }
             );
         };
@@ -735,6 +740,7 @@
                 },
                 function() {
                     // cancelled. do nothing
+                    clearTestOutput();
                 }
             );
         };
@@ -791,6 +797,7 @@
                 },
                 function() {
                     // cancelled. do nothing
+                    clearTestOutput();
                 }
             );
         };
@@ -800,6 +807,10 @@
             loggerService.debug('[ml4kmodels] useCanvas');
 
             $scope.testformData.testimageurl = '';
+
+            $scope.testoutput = "please wait...";
+            $scope.testoutput_explanation = "";
+
 
             $mdDialog.show({
                 controller : function ($scope) {
@@ -858,6 +869,7 @@
                 },
                 function() {
                     // cancelled. do nothing
+                    clearTestOutput();
                 }
             );
         };
@@ -884,11 +896,7 @@
                 soundTrainingService.stopTest()
                     .then(function () {
                         loggerService.debug('[ml4kmodels] stop test callback');
-                        $scope.$apply(
-                            function() {
-                                delete $scope.testoutput;
-                                delete $scope.testoutput_explanation;
-                            });
+                        $scope.$apply(clearTestOutput);
                     })
                     .catch(function (err) {
                         loggerService.error('[ml4kmodels] Failed to stop listening', err);
@@ -897,16 +905,20 @@
         };
 
 
+
         $scope.$on("$destroy", function () {
             loggerService.debug('[ml4kmodels] handling page change');
 
             stopRefreshing();
 
-            if ($scope.project && $scope.project.type === 'sounds' &&
-                $scope.models && $scope.models.length > 0 &&
-                $scope.listening)
-            {
-                soundTrainingService.stopTest();
+            if ($scope.project && $scope.project.type === 'sounds'){
+                if ($scope.listening) {
+                    soundTrainingService.stopTest();
+                }
+                soundTrainingService.reset();
+            }
+            else if ($scope.project && $scope.project.type === 'imgtjfs'){
+                imageTrainingService.reset();
             }
         });
 

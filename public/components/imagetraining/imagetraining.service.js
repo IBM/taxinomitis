@@ -6,16 +6,25 @@
 
     imageTrainingService.$inject = [
         '$q',
-        'trainingService', 'utilService', 'loggerService'
+        'trainingService', 'modelService',
+        'utilService', 'loggerService'
     ];
 
-    function imageTrainingService($q, trainingService, utilService, loggerService) {
+    function imageTrainingService($q, trainingService, modelService, utilService, loggerService) {
 
         var transferModel;
         var baseModel;
+
+        var usingRestoredModel = false;
+
         var modelStatus;
         var modelNumClasses;
         var modelClasses;
+
+        var IMG_WIDTH = 224;
+        var IMG_HEIGHT = 224;
+
+
 
         function loadTensorFlow() {
             loggerService.debug('[ml4kimages] loading tensorflow');
@@ -49,8 +58,7 @@
                     });
                 })
                 .catch(function (err) {
-                    loggerService.error('[ml4kimages] failed to prepare mobilenet');
-                    loggerService.error(err);
+                    loggerService.error('[ml4kimages] failed to prepare mobilenet', err);
                     throw err;
                 });
         }
@@ -99,7 +107,17 @@
                 })
                 .then(function (mobilenet) {
                     baseModel = mobilenet;
-                    transferModel = prepareTransferLearningModel(mobilenet, modelNumClasses);
+
+                    return loadModel(projectid);
+                })
+                .then(function (loadedmodel) {
+                    if (loadedmodel) {
+                        transferModel = loadedmodel;
+                        return modelStatus;
+                    }
+                    else {
+                        transferModel = prepareTransferLearningModel(baseModel, modelNumClasses);
+                    }
                 });
         }
 
@@ -117,9 +135,6 @@
             });
         }
 
-
-        var IMG_WIDTH = 224;
-        var IMG_HEIGHT = 224;
 
         function getImageData(projectid, userid, tenantid, traininginfo) {
             return $q(function (resolve, reject) {
@@ -175,6 +190,10 @@
                 updated : new Date()
             };
 
+            if (usingRestoredModel) {
+                transferModel = prepareTransferLearningModel(baseModel, modelNumClasses);
+            }
+
             loggerService.debug('[ml4kimages] getting training data');
             return getTrainingData(projectid, userid, tenantid)
                 .then(function (trainingdata) {
@@ -212,15 +231,17 @@
                         epochs : 10,
                         callbacks : {
                             onEpochEnd : function (epoch, logs) {
-                                console.log('----- epoch end -----');
-                                console.log(epoch);
-                                console.log(logs.loss);
+                                loggerService.debug('[ml4kimages] epoch ' + epoch + ' loss ' + logs.loss);
                                 modelStatus.progress = (epoch + 1) * 10;
                             },
                             onTrainEnd : function () {
-                                console.log('training complete');
-                                modelStatus.status = 'Available';
-                                modelStatus.progress = 100;
+                                return saveModel(projectid)
+                                    .then(function () {
+                                        loggerService.debug('[ml4kimages] training complete');
+                                        modelStatus.status = 'Available';
+                                        modelStatus.progress = 100;
+                                        usingRestoredModel = false;
+                                    });
                             }
                         }
                     });
@@ -255,8 +276,8 @@
 
                     transferModelOutput.data().then(function (output) {
                         if (output.length !== modelNumClasses) {
-                            console.log('unexpected output', output);
-                            reject(new Error('Unexpected output from model'));
+                            loggerService.error('[ml4kimages] unexpected output from model', output);
+                            return reject(new Error('Unexpected output from model'));
                         }
                         else {
                             var scores = modelClasses.map(function (label, idx) {
@@ -264,17 +285,7 @@
                                     class_name : label,
                                     confidence : 100 * output[idx]
                                 };
-                            }).sort(function (a, b) {
-                                if (a.confidence < b.confidence) {
-                                    return 1;
-                                }
-                                else if (a.confidence > b.confidence) {
-                                    return -1;
-                                }
-                                else {
-                                    return 0;
-                                }
-                            });
+                            }).sort(modelService.sortByConfidence);
                             resolve(scores);
                         }
                     });
@@ -287,12 +298,48 @@
         }
 
 
+        var MODELTYPE = 'images';
+
+        function deleteModel(projectid) {
+            modelStatus = null;
+            return modelService.deleteModel(MODELTYPE, projectid);
+        }
+
+        function saveModel(projectid) {
+            return modelService.saveModel(MODELTYPE, projectid, transferModel);
+        }
+
+        function loadModel(projectid) {
+            return modelService.loadModel(MODELTYPE, projectid)
+                .then(function (resp) {
+                    modelStatus = {
+                        classifierid : projectid,
+                        status : 'Available',
+                        progress : 100,
+                        updated : resp.timestamp
+                    };
+                    usingRestoredModel = true;
+                    return resp.output;
+                })
+                .catch(function (err) {
+                    loggerService.error('[ml4kmodels] failed to load model', err);
+                });
+        }
+
+
+        function reset() {
+            tf.dispose(transferModel);
+            tf.dispose(baseModel);
+        }
+
 
         return {
             initImageSupport : initImageSupport,
             newModel : newModel,
+            deleteModel : deleteModel,
             getModels : getModels,
-            testCanvas : testCanvas
+            testCanvas : testCanvas,
+            reset : reset
         };
     }
 })();

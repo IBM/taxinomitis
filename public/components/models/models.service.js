@@ -5,10 +5,24 @@
         .service('modelService', modelService);
 
     modelService.$inject = [
+        'loggerService',
+        '$window'
     ];
 
 
-    function modelService() {
+    function modelService(loggerService, $window) {
+
+        function sortByConfidence(a, b) {
+            if (a.confidence < b.confidence) {
+                return 1;
+            }
+            else if (a.confidence > b.confidence) {
+                return -1;
+            }
+            else {
+                return 0;
+            }
+        }
 
         function allModelsAreTraining (models) {
             return models &&
@@ -117,11 +131,93 @@
         }
 
 
+        function getModelDbLocation(modeltype, projectid) {
+            return 'indexeddb://ml4k-models-' +
+                   modeltype + '-' +
+                   projectid.replaceAll('-', '');
+        }
+
+        function deleteModel(modeltype, projectid) {
+            loggerService.debug('[ml4kmodels] deleting stored model', projectid);
+            var savelocation = getModelDbLocation(modeltype, projectid);
+            return tf.io.removeModel(savelocation)
+                .then(function () {
+                    loggerService.debug('[ml4kmodels] model deleted');
+                })
+                .catch(function (err) {
+                    loggerService.debug('[ml4kmodels] model could not be deleted', err);
+                });
+        }
+
+        function saveModel(modeltype, projectid, transfermodel) {
+            loggerService.debug('[ml4kmodels] saving model to browser storage');
+            var savelocation = getModelDbLocation(modeltype, projectid);
+            return transfermodel.save(savelocation)
+                .then(function (saveresults) {
+                    loggerService.debug('[ml4kmodels] saved model', savelocation, saveresults);
+                    storeModelSavedDate(savelocation);
+                })
+                .catch(function (err) {
+                    loggerService.error('[ml4kmodels] failed to save model', err);
+                });
+        }
+
+        function loadModel(modeltype, projectid, transfermodel) {
+            loggerService.debug('[ml4kmodels] loading model from browser storage');
+            var savelocation = getModelDbLocation(modeltype, projectid);
+            var loadPromise;
+            if (transfermodel) {
+                loadPromise = transfermodel.load(savelocation);
+            }
+            else {
+                loadPromise = tf.loadLayersModel(savelocation);
+            }
+            return loadPromise.then(function (loadoutput) {
+                    return {
+                        output : loadoutput,
+                        timestamp : getModelSavedDate(savelocation)
+                    };
+                })
+                .catch(function (err) {
+                    loggerService.debug('[ml4kmodels] Failed to load model', err);
+                });
+        }
+
+        function storeModelSavedDate(modelid) {
+            try {
+                if ($window.localStorageObj) {
+                    $window.localStorageObj.setItem(modelid, Date.now());
+                }
+            }
+            catch (err) {
+                loggerService.error('[ml4kmodels] Failed to store model timestamp');
+            }
+        }
+
+        function getModelSavedDate(modelid) {
+            try {
+                if ($window.localStorageObj) {
+                    var timestampStr = $window.localStorageObj.getItem(modelid);
+                    if (timestampStr) {
+                        return new Date(parseInt(timestampStr));
+                    }
+                }
+            }
+            catch (err) {
+                loggerService.error('[ml4kmodels] Failed to get metadata');
+            }
+            return new Date();
+        }
+
 
         return {
+            sortByConfidence : sortByConfidence,
             getStatus : getStatus,
             generateProjectSummary : generateProjectSummary,
-            reviewTrainingData : reviewTrainingData
+            reviewTrainingData : reviewTrainingData,
+            saveModel : saveModel,
+            loadModel : loadModel,
+            deleteModel : deleteModel
         };
     }
 })();

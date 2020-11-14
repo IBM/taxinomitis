@@ -732,6 +732,13 @@
             }, 0);
         }
 
+        $scope.$on("$destroy", function () {
+            loggerService.debug('[ml4ktraining] handling page change');
+
+            if ($scope.project && $scope.project.type === 'sounds'){
+                soundTrainingService.reset();
+            }
+        });
 
 
         function findTrainingIndex(label, id) {
