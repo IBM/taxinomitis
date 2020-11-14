@@ -180,7 +180,13 @@
                 }
                 if ($scope.project.type === 'sounds') {
                     $scope.listening = false;
-                    return soundTrainingService.initSoundSupport($scope.project.id);
+                    var loadSavedModel = true;
+                    return soundTrainingService.initSoundSupport($scope.project.id, $scope.project.labels, loadSavedModel)
+                        .then(function (loaded) {
+                            if (loaded) {
+                                fetchModels();
+                            }
+                        });
                 }
             })
             .then(function (fields) {
@@ -495,6 +501,23 @@
         vm.deleteModel = function (ev, project, model) {
             loggerService.debug('[ml4kmodels] deleting model');
             $scope.submittingDeleteRequest = true;
+
+            if (project.type === 'sounds') {
+                return soundTrainingService.deleteModel(project.id)
+                    .then(function () {
+                        $scope.models = [];
+                        $scope.status = getStatus();
+
+                        $scope.submittingDeleteRequest = false;
+
+                        refreshModels();
+                    })
+                    .catch(function (err) {
+                        var errId = displayAlert('errors', err.status, err.data);
+                        scrollToNewItem('errors' + errId);
+                    });
+            }
+
             var classifierid = model.classifierid;
             trainingService.deleteModel(project.id, $scope.userId, vm.profile.tenant, classifierid)
                 .then(function () {

@@ -98,7 +98,8 @@
                     // for sounds projects we need to download the TensorFlow.js libraries if we don't
                     //  already have them in the page
                     loggerService.debug('[ml4ktraining] setting up sound model support');
-                    return soundTrainingService.initSoundSupport(project.id)
+                    var loadSavedModel = false; // only using sound support to collect training examples
+                    return soundTrainingService.initSoundSupport(project.id, project.labels, loadSavedModel)
                         .then(function () {
                             $scope.soundModelInfo = soundTrainingService.getModelInfo();
                         });

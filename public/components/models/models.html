@@ -432,7 +432,7 @@
                     </td>
                 </tr>
                 <tr><td colspan=2> &nbsp; </td></tr>
-                <tr ng-hide="project.type === 'sounds'">
+                <tr ng-hide="project.type === 'sounds' && model.status === 'Training'">
                     <td colspan=2>
                         <button class="btn btn-danger"
                                 ng-if="owner"

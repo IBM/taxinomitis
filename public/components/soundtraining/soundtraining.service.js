@@ -13,6 +13,11 @@
         var transferRecognizer;
         var transferModelInfo;
 
+        var usingRestoredModel = false;
+        var mlprojectid;
+        var mlprojectlabels;
+
+
         var modelStatus;
 
         function isUserMediaSupported() {
@@ -110,7 +115,13 @@
                 });
         }
 
-        function initSoundSupport(projectid) {
+        function initSoundSupport(projectid, labels, loadModelIfAvailable) {
+            if (projectid && !mlprojectid) {
+                // keep values to reuse for future calls
+                mlprojectid = projectid;
+                mlprojectlabels = labels;
+            }
+
             var baseRecognizer;
             return loadTensorFlow()
                 .then(function () {
@@ -129,13 +140,17 @@
                 })
                 .then(function () {
                     loggerService.debug('[ml4ksound] creating transfer learning recognizer');
-                    transferRecognizer = baseRecognizer.createTransfer(projectid);
+                    transferRecognizer = baseRecognizer.createTransfer(mlprojectid);
 
                     var modelInfo = transferRecognizer.modelInputShape();
                     transferModelInfo = {
                         numFrames : modelInfo[1],
                         fftSize : modelInfo[2]
                     };
+
+                    if (loadModelIfAvailable) {
+                        return loadModel(mlprojectid, mlprojectlabels);
+                    }
                 });
         }
 
@@ -160,12 +175,31 @@
             });
         }
 
+        function prepareSoundService() {
+            if (usingRestoredModel) {
+                // models restored from indexeddb don't have the base layers needed
+                //  to train a new model, so we need to start from scratch
+                loggerService.debug('[ml4ksound] Setting up new transfer learning model');
+                return initSoundSupport();
+            }
+            else {
+                // we aren't using a model restored from indexeddb so we should
+                //  have everything we need already in place to train a new model
+                return $q(function (resolve) {
+                    resolve();
+                });
+            }
+        }
+
         function getTrainingData(projectid, userid, tenantid) {
             return trainingService.getTraining(projectid, userid, tenantid)
                 .then(function (traininginfo) {
                     return $q.all(traininginfo.map(trainingService.getSoundData));
                 });
         }
+
+
+
 
         function newModel(projectid, userid, tenantid) {
             loggerService.debug('[ml4ksound] creating new ML model');
@@ -177,8 +211,12 @@
                 updated : new Date()
             };
 
-            loggerService.debug('[ml4ksound] getting training data');
-            return getTrainingData(projectid, userid, tenantid)
+            loggerService.debug('[ml4ksound] preparing sound service');
+            return prepareSoundService()
+                .then(function () {
+                    loggerService.debug('[ml4ksound] getting training data');
+                    return getTrainingData(projectid, userid, tenantid);
+                })
                 .then(function (trainingdata) {
                     loggerService.debug('[ml4ksound] retrieved training data');
 
@@ -218,6 +256,9 @@
                     }).then(function() {
                         modelStatus.status = 'Available';
                         modelStatus.progress = 100;
+                        usingRestoredModel = false;
+
+                        return saveModel(projectid);
                     });
 
                     loggerService.debug('[ml4ksound] returning interim status');
@@ -274,11 +315,89 @@
         }
 
 
+        function getModelDbLocation(projectid) {
+            return 'indexeddb://ml4k-models-sound-' + projectid.replaceAll('-', '');
+        }
+        function deleteModel(projectid) {
+            loggerService.debug('[ml4ksound] deleting stored model');
+            var savelocation = getModelDbLocation(projectid);
+            return tf.io.removeModel(savelocation)
+                .then(function () {
+                    loggerService.debug('[ml4ksound] model deleted');
+                    modelStatus = null;
+                })
+                .catch(function (err) {
+                    loggerService.error('[ml4ksound] model could not be deleted', err);
+                });
+        }
+        function saveModel(projectid) {
+            loggerService.debug('[ml4ksound] saving model to browser storage');
+            var savelocation = getModelDbLocation(projectid);
+            return transferRecognizer.save(savelocation)
+                .then(function (saveresults) {
+                    loggerService.debug('[ml4ksound] saved model', savelocation, saveresults);
+                    storeModelSavedDate(savelocation);
+                })
+                .catch(function (err) {
+                    loggerService.error('[ml4ksound] failed to save model', err);
+                });
+        }
+        function loadModel(projectid, labels) {
+            loggerService.debug('[ml4ksound] loading model from browser storage');
+            var savelocation = getModelDbLocation(projectid);
+            return transferRecognizer.load(savelocation)
+                .then(function () {
+                    transferRecognizer.words = labels;
+                    modelStatus = {
+                        classifierid : projectid,
+                        status : 'Available',
+                        progress : 100,
+                        updated : getModelSavedDate(savelocation)
+                    };
+                    usingRestoredModel = true;
+                    return modelStatus;
+                })
+                .catch(function (err) {
+                    loggerService.debug('[ml4ksound] Failed to load model', err);
+                });
+        }
+
+        function storeModelSavedDate(modelid) {
+            try {
+                if ($window.localStorageObj) {
+                    $window.localStorageObj.setItem(modelid, Date.now());
+                }
+            }
+            catch (err) {
+                loggerService.error('[ml4ksound] Failed to store metadata');
+            }
+        }
+        function getModelSavedDate(modelid) {
+            try {
+                if ($window.localStorageObj) {
+                    var timestampStr = $window.localStorageObj.getItem(modelid);
+                    if (timestampStr) {
+                        var timestampInt = parseInt(timestampStr);
+                        var timestamp = new Date(timestampInt);
+                        return timestamp;
+                    }
+                }
+            }
+            catch (err) {
+                loggerService.error('[ml4ksound] Failed to get metadata');
+            }
+            return new Date();
+        }
+
+
+
+
         return {
             initSoundSupport : initSoundSupport,
             getModelInfo : getModelInfo,
             collectExample : collectExample,
             newModel : newModel,
+            deleteModel : deleteModel,
             getModels : getModels,
             startTest : startTest,
             stopTest : stopTest

@@ -18,11 +18,20 @@ class MachineLearningSound {
 
         mlForKidsListenEvents = {};
 
+        var encodedProjectData = JSON.stringify({
+            // labels needed to unpack saved models
+            labels : this._labels,
+            projectid : '{{{projectid}}}'
+        });
         postMessage({
             mlforkidssound : {
                 command : 'init',
-                data : '{{{projectid}}}'
+                data : encodedProjectData
             }
+        });
+        var that = this;
+        addEventListener('message', function (evt) {
+            that.receiveListenEvents(evt, that);
         });
     }
 
@@ -187,6 +196,10 @@ class MachineLearningSound {
             {
                 that.modelError = true;
                 that.training = false;
+            }
+            else if (that && msg.data.mlforkidssound === 'modelinit')
+            {
+                console.log('sound blocks ready to use');
             }
 
             // if we're not listening for sounds, then we're assuming that
