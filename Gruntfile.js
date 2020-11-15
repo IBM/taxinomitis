@@ -260,6 +260,13 @@ module.exports = function(grunt) {
             dist : {
                 src : 'web/static/style*css'
             }
+        },
+        mkdir : {
+            tfjsmodels : {
+                options : {
+                    create : [ './web/static/bower_components/tensorflow-models/image-recognition' ]
+                }
+            }
         }
     });
 
@@ -270,6 +277,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-simple-nyc');
     grunt.loadNpmTasks('grunt-bower-install-simple');
     grunt.loadNpmTasks('grunt-downloadfile');
+    grunt.loadNpmTasks('grunt-mkdir');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -293,7 +301,7 @@ module.exports = function(grunt) {
     //-----------------------------------
     // fetch UI third-party dependencies
     grunt.registerTask('bower', ['bower-install-simple']);
-    grunt.registerTask('tfjs', ['copy:tensorflowjs', 'copy:tensorflowspeechcommands', 'copy:tensorflowposenet', 'copy:tensorflowfacelandmarks', 'downloadfile']);
+    grunt.registerTask('tfjs', ['mkdir:tfjsmodels', 'copy:tensorflowjs', 'copy:tensorflowspeechcommands', 'copy:tensorflowposenet', 'copy:tensorflowfacelandmarks', 'downloadfile']);
     grunt.registerTask('uidependencies', ['bower', 'tfjs']);
     // install Scratch into the deployment
     grunt.registerTask('scratch2', ['copy:scratchx', 'copy:scratchxhelp', 'copy:crossdomain']);
