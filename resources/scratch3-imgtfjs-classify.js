@@ -1,0 +1,374 @@
+class MachineLearningImagesTfjs {
+
+    constructor() {
+        this._labels = {
+            items : [ {{#labels}} '{{name}}', {{/labels}} ],
+            acceptReporters: true
+        };
+
+        this._statuses = [
+            { value : 'Ready', text : 'ready to use' },
+            { value : 'Training', text : 'still training' },
+            { value : 'Model Failed', text : 'ERROR - broken' }
+        ];
+
+        this._icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4gwIFCspuPG7bgAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAElUlEQVRIx62WW2xUVRSGv73PmTOdmZbS9AYtlEsGW8qlKlqjhhjEK6gxGhJBn3zQBB9QMcREjEaCjRofeBKNkHgJRX3AiNGIpAmKgSYNkIgIba20FAq9wXTazsw5c/byoS1Q2mnHwHrZOefstf6z/rXWv7cigy17fX9ubNjd46VNuZCdKaWwtBqqnpO/5sDbDw1OtsfO5Oz7xooNe8t2v3Lf/GhpLkYgYClCQRsRQaEQhOGUj28MCsWJ9su88UXToDFiZYprZ/5d8I2RqrIZVM/JB+DTX1vY3dDKQMLDGGFmxOG952p4tKYMgMFUGhHMVCzYWbLFhh2HcWxNY93jbN17grKZYTY+dhu1b/7M0eZe3lm3PKs40wJqrfjkl2YsrejoGeKZjw4RcmyOtfXT1NaHbwxfHmrj7mghhXnBmwdUQMPJi9Q9fwcdPUMcae7h4/2n2LR2MauWzqLrchm2VtT/cZZX1yyeFlBPt0GApRUzqdt3ki1fH6OyPJ+XH6mkbzDFSzuPUBstpK17kNqFhRiRW5PhpViS2mgRyysK+KGpk0tXEjxQXcrcwggtF+P8cylOUV4QlUUNs8qwIOwQG3LZtLaKo809hByLYMCiqjyfXQdb2dfYgW+ya75pAY0Rtm+4nd/PdLOroZXK8hnkhQLsPHCG8/3D3F9VzD2Liti+vgY3bW6e0jFbsaCQU+di1FQUYFuKlVUl9MZTXIwlyI84aKWQWzEWY7b12WX8eKyTbd/9CQiptCEvFODddcu5t7I42zCZAdNGo1D0D7n0xVMYEVZWlfDTWw/ijVIXsBWW0qQ8n17PEBtyQYGRzMnamWunyA0F5IUdh9FajevasVXGuuqqFAqOZWGmIFfFG9f9jVJVN/aPQgjZPkpN4iwu7+s6QtpDTTIMnmcm7XZfpNEGM5yz8DV0uCLjWIx7Tg+QPL0NY8ET8xZQEAxmcWxBXzJJfXPLsA2CzilFO8WIpEEplBW+jjxB/ASIjHyzZ4ysQEEwSHEoB4BEOo1SIz6O1mg1PnMjI4UdqaFycDv34PX+Bgih6m3oUMVoRoMkTm5G/BRWbpRgdPPEegvsPn2aVNonEgjw5Px5lEUiUwy+uDjzXkQ5BVi5UbyehmsHcew4yikBhJxFW8C4E4Mo2LhkCUaE9YuiGcFuUBoB4xIoWkW6++DVt+65egLFq8F4iPEyBvJGhTs9jYBPGAvlFKGcQtLdB1HhCsRPoMPzuVU2UUu1Q6BkNW7X97jnvyFQ8jDKDv/vwJ4xHO7qyka8DYFZT2ES7fj9jThz14Pxx099FmZEaI0NZKJUY5IXEONiEufQkSiB0jWIPwRo/EQ7gmCG29GhuZMC9CeTiMCVVAoFpHx/ihrqAF7nXiQdJ9XxFTqvmsDspxEvhnhXSJ39HKU07r87CS35cNJsPvvrFDmWxbctrVfFoiIvNwOgcQlGNzNBM3JmAxC5c9e1XvYGxinIyFgott61YgLl18ueugaoMMkLoLM8qdJxGFWNvmQyq3uMAnqTSTQoG2U3JZo/iCNZXhKUQlthjDHUN7cgIlm6KRWy7eP/AR5T4+fuc4K4AAAAAElFTkSuQmCC';
+
+        this.training = false;
+        this.modelReady = false;
+        this.modelError = false;
+
+        mlForKidsListenEvents = {};
+
+        var encodedProjectData = JSON.stringify({
+            // labels needed to unpack saved models
+            labels : this._labels,
+            projectid : '{{{projectid}}}'
+        });
+        postMessage({
+            mlforkidsimage : {
+                command : 'init',
+                data : encodedProjectData
+            }
+        });
+        var that = this;
+        addEventListener('message', function (evt) {
+            that.receiveListenEvents(evt, that);
+        });
+    }
+
+
+    getInfo() {
+
+        return {
+            // making the id unique to allow multiple instances
+            id: 'mlforkidsimages{{{ projectid }}}',
+            // the name of the student project
+            name: '{{{ projectname }}}',
+
+            // colour for the blocks
+            color1: '#4B4A60',
+            // colour for the menus in the blocks
+            color2: '#707070',
+            // border for blocks and parameter gaps
+            color3: '#4c97ff',
+
+            // Machine Learning for Kids site icon
+            menuIconURI: this._icon,
+            blockIconURI: this._icon,
+
+            // blocks to add to the new section
+            blocks: [
+                // classify the image and return the label
+                {
+                    opcode: 'label',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: {
+                        default: 'recognise image [IMAGE] (label)',
+                        id: 'mlforkids.images.recogniseLabel'
+                    },
+                    arguments: {
+                        IMAGE: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'image'
+                        }
+                    }
+                },
+
+                // classify the image and return the confidence score
+                {
+                    opcode: 'confidence',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: {
+                        default: 'recognise image [IMAGE] (confidence)',
+                        id: 'mlforkids.images.recogniseConfidence'
+                    },
+                    arguments: {
+                        IMAGE: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'image'
+                        }
+                    }
+                },
+
+                // provide blocks representing each of the labels
+                {{#labels}}
+                {
+                    opcode: 'return_label_{{idx}}',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: ' {{name}}'
+                },
+                {{/labels}}
+
+                // add training data to the project
+                {
+                    opcode: 'addTraining',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: {
+                        default: 'add training data [TEXT] [LABEL]',
+                        id: 'mlforkids.images.addTraining'
+                    },
+                    arguments: {
+                        TEXT: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'image'
+                        },
+                        LABEL: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: this._labels.items[0],
+                            menu: 'labels'
+                        }
+                    }
+                },
+
+                {
+                    opcode: 'checkModelStatus',
+                    blockType: Scratch.BlockType.BOOLEAN,
+                    text: {
+                        default: 'Is the machine learning model [STATUS] ?',
+                        id: 'mlforkids.text.checkModelStatus'
+                    },
+                    arguments: {
+                        STATUS: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: this._statuses[0].value,
+                            menu: 'statuses'
+                        }
+                    }
+                }
+            ],
+
+            menus: {
+                labels: this._labels,
+                statuses: this._statuses
+            }
+        };
+    }
+
+
+    label({ IMAGE }) {
+        return new Promise(resolve => getImageClassificationResponse(IMAGE, 'class_name', resolve));
+    }
+    confidence({ IMAGE }) {
+        return new Promise(resolve => getImageClassificationResponse(IMAGE, 'confidence', resolve));
+    }
+
+
+    {{#labels}}
+    return_label_{{idx}} () {
+        return '{{name}}';
+    }
+    {{/labels}}
+
+
+    checkModelStatus({ STATUS }) {
+        switch(STATUS) {
+            case 'Ready':
+                return this.modelReady;
+            case 'Training':
+                return this.training;
+            default:
+                return this.modelError;
+        }
+    }
+
+    addTraining({ TEXT, LABEL }) {
+        if (TEXT === '' || TEXT === 'image') {
+            // The student has left the default text in the image block
+            //  so there is no point in submitting an xhr request
+            return;
+        }
+
+        var url = new URL('{{{ storeurl }}}');
+
+        var options = {
+            headers : {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'X-User-Agent': 'mlforkids-scratch3-images'
+            },
+            method : 'POST',
+            body : JSON.stringify({
+                data : TEXT,
+                label : LABEL
+            })
+        };
+
+        return fetch(url, options)
+            .then(() => {
+                console.log('added');
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
+
+    receiveListenEvents (msg, that) {
+        if (msg && msg.data && msg.data.mlforkidsimage) {
+
+            if (that && msg.data.mlforkidsimage === 'modelready')
+            {
+                that.modelReady = true;
+                that.training = false;
+            }
+            else if (that && msg.data.mlforkidsimage === 'modelfailed')
+            {
+                that.modelError = true;
+                that.training = false;
+            }
+            else if (that && msg.data.mlforkidsimage === 'modelinit')
+            {
+                console.log('image blocks ready to use');
+            }
+
+            // we don't need to listen for any more events
+            if (that) {
+                removeEventListener('message', that.receiveListenEvents);
+            }
+        }
+    }
+}
+
+// the number of times that the 'recognise image' block has been used
+// incorrectly (this will be reset when the Help page is displayed)
+var numIncorrectUses = 0;
+
+// the number of times that the 'recognise image' block should be used
+// incorrectly before the Help page is shown
+var MAX_INCORRECT_USES = 2;
+
+// have we displayed the 'recognise image' help doc?
+var displayedMLforKidsHelp = false;
+
+
+
+// returns the current date in the format that the API uses
+function nowAsString() {
+    return new Date().toISOString();
+}
+// returns true if the provided timestamp is within the last 10 seconds
+function veryRecently(timestamp) {
+    return (timestamp + TEN_SECONDS) > Date.now();
+}
+
+
+
+
+// Submit xhr request to the classify API to get a label for the image
+function classifyImage(imagedata, cacheKey, lastmodified, callback) {
+    var url = new URL('{{{ classifyurl }}}');
+
+    var options = {
+        headers : {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-User-Agent': 'mlforkids-scratch3-images',
+
+            'If-Modified-Since': lastmodified
+        },
+        method : 'POST',
+        body : JSON.stringify({
+            data : imagedata,
+            displayedhelp : displayedMLforKidsHelp
+        })
+    };
+
+    return fetch(url, options)
+        .then((response) => {
+            if (response.status === 304 && resultsCache[cacheKey]) {
+                // the API returned NOT-MODIFIED so we'll
+                // reuse the value we got last time
+                callback(resultsCache[cacheKey]);
+            }
+            else if (response.status === 200 || response.status === 400 || response.status === 409) {
+                response.json().then((responseJson) => {
+                    if (response.status === 200 && responseJson && responseJson.length > 0) {
+                        // we got a result from the classifier
+                        return callback(responseJson[0]);
+                    }
+                    else if (response.status === 400 && responseJson &&
+                        (responseJson.error === 'Missing data' ||
+                         responseJson.error === 'Invalid image data provided. Remember, only jpg and png images are supported.'))
+                    {
+                        registerIncorrectUse();
+                    }
+                    else if (response.status === 400 && responseJson &&
+                        responseJson.error === 'Your machine learning model could not be found. Has it been deleted?')
+                    {
+                        postMessage({ mlforkids : 'mlforkids-recogniseimage-nomodel' });
+                    }
+                    else if (response.status === 409 && responseJson &&
+                        responseJson.error === 'The Watson credentials being used by your class were rejected.')
+                    {
+                        postMessage({ mlforkids : 'mlforkids-recogniseimage-nomodel' });
+                    }
+
+                    callback({
+                        class_name: 'Unknown',
+                        confidence: 0,
+                        classifierTimestamp: nowAsString()
+                    });
+                });
+            }
+            else {
+                console.log(response);
+
+                callback({
+                    class_name: 'Unknown',
+                    confidence: 0,
+                    classifierTimestamp: nowAsString()
+                });
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+
+            callback({
+                class_name: 'Unknown',
+                confidence: 0,
+                classifierTimestamp: nowAsString()
+            });
+        });
+}
+
+
+function registerIncorrectUse() {
+    console.log('recognise image block used incorrectly');
+    numIncorrectUses += 1;
+
+    if (numIncorrectUses >= MAX_INCORRECT_USES) {
+        postMessage({ mlforkids : 'mlforkids-recogniseimage-help' });
+        displayedMLforKidsHelp = true;
+        numIncorrectUses = 0;
+    }
+}
+
+
+function getImageClassificationResponse(imagedata, valueToReturn, callback) {
+    if (imagedata === '' || imagedata === 'image') {
+        // The student has left the default text in the image block
+        //  so there is no point in submitting an xhr request
+        registerIncorrectUse();
+        return callback('You need to put an image block in here');
+    }
+
+    // submit to the classify API
+    // TODO
+    // classifyImage(imagedata, cacheKey, lastmodified, function (result) {
+    //     if (result.random) {
+    //         // We got a randomly selected result (which means we must not
+    //         //  have a working classifier).
+    //         console.log('randomly selected result returned by API');
+
+    //         postMessage({ mlforkids : 'mlforkids-recogniseimage-nomodel' });
+    //     }
+
+    //     // return the requested value from the response
+    //     callback(result[valueToReturn]);
+    // });
+}
+
+var mlForKidsListenEvents = {};
+
+Scratch.extensions.register(new MachineLearningImagesTfjs());

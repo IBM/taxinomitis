@@ -30,10 +30,6 @@
             loggerService.debug('[ml4kimages] loading tensorflow');
             return utilService.loadScript('/static/bower_components/tensorflowjs/tf.min.js')
                 .then(function () {
-                    loggerService.debug('[ml4kimages] loading mobilenet');
-                    return utilService.loadScript('/static/bower_components/tensorflow-models/mobilenet/mobilenet.min.js');
-                })
-                .then(function () {
                     loggerService.debug('[ml4kimages] enabling tf prod mode');
                     if (tf && tf.enableProdMode) {
                         tf.enableProdMode();
@@ -50,10 +46,10 @@
             loggerService.debug('[ml4kimages] preparing mobilenet for transfer learning');
             var BASE_MODEL = 'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_0.25_224/model.json';
             return tf.loadLayersModel(BASE_MODEL)
-                .then(function (mobilenet) {
-                    var activationLayer = mobilenet.getLayer('conv_pw_13_relu');
+                .then(function (pretrainedModel) {
+                    var activationLayer = pretrainedModel.getLayer('conv_pw_13_relu');
                     return tf.model({
-                        inputs : mobilenet.inputs,
+                        inputs : pretrainedModel.inputs,
                         outputs: activationLayer.output
                     });
                 })
@@ -63,12 +59,12 @@
                 });
         }
 
-        function prepareTransferLearningModel(mobilenet, numClasses) {
+        function prepareTransferLearningModel(modifiedMobilenet, numClasses) {
             loggerService.debug('[ml4kimages] creating transfer learning model');
             var model = tf.sequential({
                 layers : [
                     tf.layers.flatten({
-                        inputShape : mobilenet.outputs[0].shape.slice(1)
+                        inputShape : modifiedMobilenet.outputs[0].shape.slice(1)
                     }),
                     tf.layers.dense({
                         units : 100,
@@ -105,8 +101,8 @@
                 .then(function () {
                     return prepareMobilenet();
                 })
-                .then(function (mobilenet) {
-                    baseModel = mobilenet;
+                .then(function (preparedBaseModel) {
+                    baseModel = preparedBaseModel;
 
                     return loadModel(projectid);
                 })
@@ -312,14 +308,16 @@
         function loadModel(projectid) {
             return modelService.loadModel(MODELTYPE, projectid)
                 .then(function (resp) {
-                    modelStatus = {
-                        classifierid : projectid,
-                        status : 'Available',
-                        progress : 100,
-                        updated : resp.timestamp
-                    };
-                    usingRestoredModel = true;
-                    return resp.output;
+                    if (resp) {
+                        modelStatus = {
+                            classifierid : projectid,
+                            status : 'Available',
+                            progress : 100,
+                            updated : resp.timestamp
+                        };
+                        usingRestoredModel = true;
+                        return resp.output;
+                    }
                 })
                 .catch(function (err) {
                     loggerService.error('[ml4kmodels] failed to load model', err);
