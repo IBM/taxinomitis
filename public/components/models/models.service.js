@@ -137,12 +137,28 @@
                    projectid.replaceAll('-', '');
         }
 
+        function isModelSavedInBrowser(modeltype, projectid) {
+            try {
+                if ($window.localStorageObj) {
+                    var modelid = getModelDbLocation(modeltype, projectid);
+                    if ($window.localStorageObj.getItem(modelid)) {
+                        return true;
+                    }
+                }
+            }
+            catch (err) {
+                loggerService.error('[ml4kmodels] Failed to get metadata');
+            }
+            return false;
+        }
+
         function deleteModel(modeltype, projectid) {
             loggerService.debug('[ml4kmodels] deleting stored model', projectid);
             var savelocation = getModelDbLocation(modeltype, projectid);
             return tf.io.removeModel(savelocation)
                 .then(function () {
                     loggerService.debug('[ml4kmodels] model deleted');
+                    clearModelSavedDate(savelocation);
                 })
                 .catch(function (err) {
                     loggerService.debug('[ml4kmodels] model could not be deleted', err);
@@ -194,6 +210,17 @@
             }
         }
 
+        function clearModelSavedDate(modelid) {
+            try {
+                if ($window.localStorageObj) {
+                    $window.localStorageObj.removeItem(modelid);
+                }
+            }
+            catch (err) {
+                loggerService.error('[ml4kmodels] Failed to store model timestamp');
+            }
+        }
+
         function getModelSavedDate(modelid) {
             try {
                 if ($window.localStorageObj) {
@@ -217,7 +244,8 @@
             reviewTrainingData : reviewTrainingData,
             saveModel : saveModel,
             loadModel : loadModel,
-            deleteModel : deleteModel
+            deleteModel : deleteModel,
+            isModelSavedInBrowser : isModelSavedInBrowser
         };
     }
 })();
