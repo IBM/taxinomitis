@@ -275,15 +275,14 @@
                             loggerService.error('[ml4kimages] unexpected output from model', output);
                             return reject(new Error('Unexpected output from model'));
                         }
-                        else {
-                            var scores = modelClasses.map(function (label, idx) {
-                                return {
-                                    class_name : label,
-                                    confidence : 100 * output[idx]
-                                };
-                            }).sort(modelService.sortByConfidence);
-                            resolve(scores);
-                        }
+
+                        var scores = modelClasses.map(function (label, idx) {
+                            return {
+                                class_name : label,
+                                confidence : 100 * output[idx]
+                            };
+                        }).sort(modelService.sortByConfidence);
+                        return resolve(scores);
                     });
                 }
                 catch (err) {
