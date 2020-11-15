@@ -5,12 +5,12 @@
         .service('imageTrainingService', imageTrainingService);
 
     imageTrainingService.$inject = [
-        '$q',
+        '$q', '$location',
         'trainingService', 'modelService',
         'utilService', 'loggerService'
     ];
 
-    function imageTrainingService($q, trainingService, modelService, utilService, loggerService) {
+    function imageTrainingService($q, $location, trainingService, modelService, utilService, loggerService) {
 
         var transferModel;
         var baseModel;
@@ -44,7 +44,11 @@
 
         function prepareMobilenet() {
             loggerService.debug('[ml4kimages] preparing mobilenet for transfer learning');
-            var BASE_MODEL = 'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_0.25_224/model.json';
+            var siteUrl = $location.protocol() + '://' + $location.host();
+            if ($location.port()) {
+                siteUrl = siteUrl + ':' + $location.port();
+            }
+            var BASE_MODEL = siteUrl + '/static/bower_components/tensorflow-models/image-recognition/model.json';
             return tf.loadLayersModel(BASE_MODEL)
                 .then(function (pretrainedModel) {
                     var activationLayer = pretrainedModel.getLayer('conv_pw_13_relu');
