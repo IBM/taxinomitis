@@ -202,12 +202,6 @@ module.exports = function(grunt) {
                 cwd : 'node_modules/@tensorflow-models/face-landmarks-detection/dist',
                 src : [ 'face-landmarks-detection.min.js' ],
                 dest : 'web/static/bower_components/tensorflow-models/face-landmarks-detection'
-            },
-            tensorflowmobilenet : {
-                expand : true,
-                cwd : 'node_modules/@tensorflow-models/mobilenet/dist',
-                src : [ 'mobilenet.min.js' ],
-                dest : 'web/static/bower_components/tensorflow-models/mobilenet'
             }
         },
         downloadfile : {
@@ -288,7 +282,7 @@ module.exports = function(grunt) {
     //-----------------------------------
     // fetch UI third-party dependencies
     grunt.registerTask('bower', ['bower-install-simple']);
-    grunt.registerTask('tfjs', ['copy:tensorflowjs', 'copy:tensorflowspeechcommands', 'copy:tensorflowposenet', 'copy:tensorflowmobilenet', 'copy:tensorflowfacelandmarks', 'downloadfile']);
+    grunt.registerTask('tfjs', ['copy:tensorflowjs', 'copy:tensorflowspeechcommands', 'copy:tensorflowposenet', 'copy:tensorflowfacelandmarks', 'downloadfile']);
     grunt.registerTask('uidependencies', ['bower', 'tfjs']);
     // install Scratch into the deployment
     grunt.registerTask('scratch2', ['copy:scratchx', 'copy:scratchxhelp', 'copy:crossdomain']);

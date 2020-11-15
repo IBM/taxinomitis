@@ -98,17 +98,11 @@ gulp.task('tensorflowfacelandmarks', function() {
         'node_modules/@tensorflow-models/face-landmarks-detection/dist/face-landmarks-detection.min.js'
     ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/face-landmarks-detection'));
 });
-gulp.task('tensorflowmobilenet', function() {
-    return gulp.src([
-        'node_modules/@tensorflow-models/mobilenet/dist/mobilenet.min.js'
-    ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/mobilenet'));
-});
 gulp.task('tfjs',
     gulp.parallel('tensorflowjs',
         'tensorflowspeechcommands', 'speechcommandsmodel',
         'tensorflowposenet', 'posenetmodel',
-        'tensorflowfacelandmarks',
-        'tensorflowmobilenet'));
+        'tensorflowfacelandmarks'));
 
 gulp.task('scratchblocks', function() {
     return gulp.src('public/third-party/scratchblocks-v3.1-min.js').pipe(gulp.dest('web/static'));
