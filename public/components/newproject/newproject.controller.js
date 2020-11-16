@@ -8,11 +8,11 @@
         'authService',
         'projectsService',
         'loggerService',
-        '$state', '$rootScope'
+        '$state', '$rootScope', '$scope', '$location'
     ];
 
 
-    function NewProjectController(authService, projectsService, loggerService, $state, $rootScope) {
+    function NewProjectController(authService, projectsService, loggerService, $state, $rootScope, $scope, $location) {
 
         var vm = this;
         vm.authService = authService;
@@ -54,6 +54,8 @@
         var MAX_CHOICE_LENGTH = 9;
         var MIN_NUM_CHOICES = 2;
         var MAX_NUM_CHOICES = 5;
+
+        $scope.showBeta = $location.search().beta;
 
 
         authService.getProfileDeferred()

@@ -227,7 +227,7 @@ async function deleteProject(req: auth.RequestWithProject, res: Express.Response
 
         // if this is an images or sounds project, schedule a job to
         //  clean up any usage of the S3 Object Store by training data
-        if (project.type === 'images' || project.type === 'sounds') {
+        if (project.type === 'images' || project.type === 'sounds' || project.type === 'imgtfjs') {
             await store.storeDeleteProjectObjectsJob(classid, userid, projectid);
         }
 

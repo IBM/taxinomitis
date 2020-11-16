@@ -72,6 +72,28 @@ async function getImagesExtension(scratchkey: Types.ScratchKey, project: Types.P
     return rendered;
 }
 
+async function getImagesTfjsExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string>
+{
+    const template: string = await fileutils.read('./resources/scratch3-imgtfjs-classify.js');
+
+    Mustache.parse(template);
+    const rendered = Mustache.render(template, {
+        projectid : project.id.replace(/-/g, ''),
+
+        statusurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/status',
+        classifyurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/classify',
+        storeurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/train',
+
+        projectname : escapeProjectName(scratchkey.name, 3),
+        labels : project.labels.map((name, idx) => {
+            return { name, idx };
+        }),
+
+        firstlabel : project.labels.length > 0 ? project.labels[0] : '',
+    });
+    return rendered;
+}
+
 async function getNumbersExtension(scratchkey: Types.ScratchKey, project: Types.Project,
                                    version: 2 | 3): Promise<string>
 {
@@ -168,6 +190,8 @@ export function getScratchxExtension(
         return getTextExtension(scratchkey, project, version);
     case 'images':
         return getImagesExtension(scratchkey, project, version);
+    case 'imgtfjs':
+        return getImagesTfjsExtension(scratchkey, project);
     case 'numbers':
         return getNumbersExtension(scratchkey, project, version);
     case 'sounds':

@@ -430,6 +430,8 @@ function getDbTable(type: Objects.ProjectTypeLabel): string {
         return 'numbertraining';
     case 'images':
         return 'imagetraining';
+    case 'imgtfjs':
+        return 'imagetraining';
     case 'sounds':
         return 'soundtraining';
     }
@@ -816,6 +818,29 @@ export async function getImageTraining(
     const response = await dbExecute(queryName, queryString, queryValues);
     return response.rows.map(dbobjects.getImageTrainingFromDbRow);
 }
+
+export async function getImageTrainingItem(projectid: string, trainingid: string): Promise<Objects.ImageTraining>
+{
+    const queryName = 'dbqn-select-imagetraining-item';
+    const queryString = 'SELECT id, imageurl, label, isstored FROM imagetraining ' +
+                        'WHERE projectid = $1 AND id = $2 ' +
+                        'LIMIT 1000';
+    const queryValues = [ projectid, trainingid ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    const rows = response.rows;
+
+    if (rows.length !== 1) {
+        log.error({
+            projectid, trainingid,
+            func : 'getImageTrainingItem',
+        }, 'Training item not found');
+
+        throw new Error('Training data not found');
+    }
+    return dbobjects.getImageTrainingFromDbRow(response.rows[0]);
+}
+
 
 
 export async function getImageTrainingByLabel(
@@ -2742,6 +2767,9 @@ export async function deleteEntireProject(userid: string, classid: string, proje
         }
         break;
     }
+    case 'imgtfjs':
+        // nothing to do - models all stored client-side
+        break;
     case 'images': {
         const classifiers = await getImageClassifiers(project.id);
         const tenant = await getClassTenant(classid);

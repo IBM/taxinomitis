@@ -833,6 +833,9 @@ export function getScratchKeyFromDbRow(row: Objects.ScratchKeyDbRow): Objects.Sc
     case 'text':
         servicetype = 'conv';
         break;
+    case 'imgtfjs':
+        servicetype = 'imgtfjs';
+        break;
     case 'images':
         servicetype = 'visrec';
         break;

@@ -98,7 +98,26 @@ gulp.task('tensorflowfacelandmarks', function() {
         'node_modules/@tensorflow-models/face-landmarks-detection/dist/face-landmarks-detection.min.js'
     ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/face-landmarks-detection'));
 });
-gulp.task('tfjs', gulp.parallel('tensorflowjs', 'tensorflowspeechcommands', 'speechcommandsmodel', 'tensorflowposenet', 'posenetmodel', 'tensorflowfacelandmarks'));
+gulp.task('imagerecognitionmodel', function() {
+    const files = [
+        { url : 'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_0.25_224/model.json', file : 'model.json' }
+    ];
+    for (var x = 1; x <= 55; x++) {
+        const filename = 'group' + x + '-shard1of1';
+        files.push({
+            url : 'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_0.25_224/' + filename,
+            file : filename
+        });
+    }
+    return download(files)
+        .pipe(gulp.dest('web/static/bower_components/tensorflow-models/image-recognition'));
+});
+gulp.task('tfjs',
+    gulp.parallel('tensorflowjs',
+        'tensorflowspeechcommands', 'speechcommandsmodel',
+        'tensorflowposenet', 'posenetmodel',
+        'tensorflowfacelandmarks',
+        'imagerecognitionmodel'));
 
 gulp.task('scratchblocks', function() {
     return gulp.src('public/third-party/scratchblocks-v3.1-min.js').pipe(gulp.dest('web/static'));

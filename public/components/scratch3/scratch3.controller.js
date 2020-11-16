@@ -6,12 +6,12 @@
 
         Scratch3Controller.$inject = [
             'authService',
-            'projectsService', 'scratchkeysService', 'loggerService',
+            'modelService', 'projectsService', 'scratchkeysService', 'loggerService',
             '$stateParams',
             '$scope'
         ];
 
-        function Scratch3Controller(authService, projectsService, scratchkeysService, loggerService, $stateParams, $scope) {
+        function Scratch3Controller(authService, modelService, projectsService, scratchkeysService, loggerService, $stateParams, $scope) {
 
             var vm = this;
             vm.authService = authService;
@@ -54,7 +54,10 @@
                                               scratchkey.id +
                                               '/extension3.js'
 
-                    if ($scope.project.type === 'sounds') {
+                    if ($scope.project.type === 'sounds' && modelService.isModelSavedInBrowser('sounds', $scope.project.id)) {
+                        scratchkey.model = 'placeholder';
+                    }
+                    else if ($scope.project.type === 'imgtfjs' && modelService.isModelSavedInBrowser('images', $scope.project.id)) {
                         scratchkey.model = 'placeholder';
                     }
 
