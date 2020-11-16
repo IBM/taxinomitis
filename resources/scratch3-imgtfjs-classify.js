@@ -254,8 +254,13 @@ class MachineLearningImagesTfjs {
         this.nextClassifyRequest += 1;
 
         this.classifyRequests[requestId] = function (matches) {
-            // TODO what if there are no returned matches
-            return callback(matches[0]);
+            var response = matches && matches.length > 0 ? matches[0] : {
+                class_name: 'Unknown',
+                confidence: 0,
+                classifierTimestamp: new Date().toISOString(),
+                random: true
+            };
+            return callback(response);
         };
 
         var encodedRequestData = JSON.stringify({
@@ -297,7 +302,7 @@ class MachineLearningImagesTfjs {
     }
 
 
-    registerIncorrectUse() {
+    registerIncorrectUse () {
         console.log('recognise image block used incorrectly');
         this.numIncorrectUses += 1;
 

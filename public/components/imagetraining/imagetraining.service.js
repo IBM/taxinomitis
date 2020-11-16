@@ -253,6 +253,7 @@
 
                     modelStatus.status = 'Failed';
                     modelStatus.updated = new Date();
+                    modelStatus.error = err;
 
                     return modelStatus;
                 });

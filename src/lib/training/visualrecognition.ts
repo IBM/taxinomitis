@@ -302,7 +302,12 @@ export async function getTrainingItemData(project: DbObjects.Project, id: string
     }
     else {
         const trainingImageInfo = await getImageDownloadSpec(id, trainingitem.imageurl);
-        return downloader.resizeUrl(trainingImageInfo.url, IMAGE_WIDTH_PIXELS, IMAGE_HEIGHT_PIXELS);
+        return downloader.resizeUrl(trainingImageInfo.url, IMAGE_WIDTH_PIXELS, IMAGE_HEIGHT_PIXELS)
+            .catch((err) => {
+                const errWithLocation: any = err as unknown;
+                errWithLocation.location = trainingImageInfo;
+                throw errWithLocation;
+            });
     }
 }
 

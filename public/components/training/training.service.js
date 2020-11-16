@@ -53,6 +53,14 @@
             return $http.get(url, { responseType : 'arraybuffer' })
                 .then(function (resp) {
                     return resp.data;
+                })
+                .catch(function (err) {
+                    if (err.status) {
+                        // because we explicitly request an arraybuffer, we need
+                        //  to decode the JSON payload in the event of an error
+                        err.data = JSON.parse(new TextDecoder().decode(err.data));
+                    }
+                    throw err;
                 });
         }
 

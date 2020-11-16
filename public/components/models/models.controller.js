@@ -331,6 +331,10 @@
                     refreshModels();
 
                     $scope.submittingTrainingRequest = false;
+
+                    if (newmodel.error) {
+                        throw newmodel.error;
+                    }
                 })
                 .catch(function (err) {
                     loggerService.error('[ml4kmodels] model training failed', err);

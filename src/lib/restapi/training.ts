@@ -97,7 +97,15 @@ function getTrainingItem(req: auth.RequestWithProject, res: Express.Response) {
             res.send(trainingdata);
         })
         .catch((err) => {
-            if (err.message === 'Training data not found') {
+            if (err.message && err.message.startsWith(imageDownload.ERRORS.DOWNLOAD_FAIL)) {
+                return res.status(httpstatus.CONFLICT)
+                        .send({
+                            code : 'MLMOD12',
+                            error : 'One of your training images could not be downloaded',
+                            location : err.location,
+                        });
+            }
+            else if (err.message === 'Training data not found') {
                 return errors.notFound(res);
             }
 
