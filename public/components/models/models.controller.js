@@ -319,7 +319,7 @@
                 modelFnPromise = soundTrainingService.newModel(project.id, $scope.userId, vm.profile.tenant)
             }
             else {
-                modelFnPromise = trainingService.getModels($scope.projectId, $scope.userId, vm.profile.tenant);
+                modelFnPromise = trainingService.newModel($scope.projectId, $scope.userId, vm.profile.tenant);
             }
 
             modelFnPromise.then(function (newmodel) {
@@ -518,8 +518,139 @@
         };
 
 
-        vm.useWebcamTfjs = function (ev) {
-            loggerService.debug('[ml4kmodels] useWebcam');
+
+        var CANVAS_DATA_TYPES = {
+            BASE64 : 'BASE64',
+            RESIZEDCANVAS : 'RESIZEDCANVAS'
+        };
+        function getCanvasData(canvasElement, canvasDataType) {
+            loggerService.debug('[ml4kmodels] getting canvas data for testing');
+            if (canvasDataType === CANVAS_DATA_TYPES.BASE64) {
+                var imagedata = canvasElement.toDataURL('image/jpeg');
+                var strippedHeaderData = imagedata.substr(imagedata.indexOf(',') + 1);
+                return strippedHeaderData;
+            }
+            else if (canvasDataType === CANVAS_DATA_TYPES.RESIZEDCANVAS) {
+                var hiddenCanvas = document.createElement('canvas');
+                hiddenCanvas.width = 224;
+                hiddenCanvas.height = 224;
+
+                loggerService.debug('[ml4ktraining] writing to hidden canvas');
+                var ctx = hiddenCanvas.getContext('2d');
+                ctx.drawImage(canvasElement,
+                    0, 0,
+                    canvasElement.width, canvasElement.height,
+                    0, 0, 224, 224);
+
+                return hiddenCanvas;
+            }
+        }
+        function getWebcamData(videoElement, canvasDataType) {
+            loggerService.debug('[ml4kmodels] getting webcam data for testing');
+
+            var targetWidth, targetHeight;
+            if (canvasDataType === CANVAS_DATA_TYPES.BASE64) {
+                targetWidth = videoElement.videoWidth;
+                targetHeight = videoElement.videoHeight;
+            }
+            else if (canvasDataType === CANVAS_DATA_TYPES.RESIZEDCANVAS) {
+                targetWidth = 224;
+                targetHeight = 224;
+            }
+
+            var hiddenCanvas = document.createElement('canvas');
+            hiddenCanvas.width = targetWidth;
+            hiddenCanvas.height = targetHeight;
+
+            var ctx = hiddenCanvas.getContext('2d');
+            if (canvasDataType === CANVAS_DATA_TYPES.BASE64) {
+                ctx.drawImage(videoElement,
+                    0, 0, videoElement.videoWidth, videoElement.videoHeight);
+            }
+            else if (canvasDataType === CANVAS_DATA_TYPES.RESIZEDCANVAS) {
+                ctx.drawImage(videoElement,
+                    0, 0, videoElement.videoWidth, videoElement.videoHeight,
+                    0, 0, targetWidth, targetHeight);
+            }
+
+            if (canvasDataType === CANVAS_DATA_TYPES.BASE64) {
+                var imagedata = hiddenCanvas.toDataURL('image/jpeg');
+                var strippedHeaderData = imagedata.substr(imagedata.indexOf(',') + 1);
+                return strippedHeaderData;
+            }
+            else if (canvasDataType === CANVAS_DATA_TYPES.RESIZEDCANVAS) {
+                return hiddenCanvas;
+            }
+        }
+
+        vm.testUsingCanvas = function (ev, isForBrowserUse) {
+            loggerService.debug('[ml4kmodels] testUsingCanvas');
+
+            $scope.testformData.testimageurl = '';
+
+            $scope.testoutput = "please wait...";
+            $scope.testoutput_explanation = "";
+
+            $mdDialog.show({
+                controller : function ($scope) {
+                    $scope.hide = function() {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function() {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function() {
+                        $mdDialog.hide(
+                            getCanvasData(
+                                $scope.canvas,
+                                isForBrowserUse ? CANVAS_DATA_TYPES.RESIZEDCANVAS : CANVAS_DATA_TYPES.BASE64));
+                    };
+                },
+                templateUrl : 'static/components-' + $stateParams.VERSION + '/models/canvas.tmpl.html',
+                targetEvent : ev,
+                clickOutsideToClose : true
+            })
+            .then(
+                function (canvasimagedata) {
+                    $scope.testoutput = "please wait...";
+                    $scope.testoutput_explanation = "";
+
+                    var testPromise;
+                    if (isForBrowserUse) {
+                        testPromise = imageTrainingService.testCanvas(canvasimagedata);
+                    }
+                    else {
+                        testPromise = trainingService.testModel($scope.project.id, $scope.project.type,
+                                                                $scope.userId, vm.profile.tenant,
+                                                                $scope.models[0].classifierid, $scope.models[0].credentialsid,
+                                                                { type : $scope.project.type, data : canvasimagedata });
+                    }
+
+                    testPromise.then(function (resp) {
+                            loggerService.debug('[ml4kmodels] prediction', resp);
+                            if (resp && resp.length > 0) {
+                                $scope.testoutput = resp[0].class_name;
+                                $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
+                            }
+                            else {
+                                $scope.testoutput = 'Unknown';
+                                $scope.testoutput_explanation = "Test value could not be recognised";
+                            }
+                        })
+                        .catch(function (err) {
+                            var errId = displayAlert('errors', err.status, err.data);
+                            scrollToNewItem('errors' + errId);
+                        });
+                },
+                function() {
+                    // cancelled. do nothing
+                    clearTestOutput();
+                }
+            );
+        };
+
+        vm.testUsingWebcam = function (ev, isForBrowserUse) {
+            loggerService.debug('[ml4kmodels] testUsingWebcam');
 
             $scope.testformData.testimageurl = '';
 
@@ -538,7 +669,10 @@
                         $mdDialog.cancel();
                     };
                     $scope.confirm = function() {
-                        $mdDialog.hide(getWebcamCanvas());
+                        $mdDialog.hide(
+                            getWebcamData(
+                                $scope.channel.video,
+                                isForBrowserUse ? CANVAS_DATA_TYPES.RESIZEDCANVAS : CANVAS_DATA_TYPES.BASE64));
                     };
 
                     $scope.onWebcamSuccess = function () {
@@ -579,25 +713,6 @@
                             }, 0, false);
                         }
                     };
-
-
-                    function getWebcamCanvas() {
-                        loggerService.debug('[ml4kmodels] getting webcam canvas');
-
-                        var hiddenCanvas = document.createElement('canvas');
-                        hiddenCanvas.width = 224;
-                        hiddenCanvas.height = 224;
-
-                        loggerService.debug('[ml4ktraining] writing to hidden canvas');
-                        var ctx = hiddenCanvas.getContext('2d');
-                        ctx.drawImage($scope.channel.video,
-                            0, 0,
-                            $scope.channel.video.videoWidth, $scope.channel.video.videoHeight,
-                            0, 0, 224, 224);
-
-                        return hiddenCanvas;
-                    }
-
                 },
                 templateUrl : 'static/components-' + $stateParams.VERSION + '/models/webcam.tmpl.html',
                 targetEvent : ev,
@@ -608,255 +723,18 @@
                     $scope.testoutput = "please wait...";
                     $scope.testoutput_explanation = "";
 
-                    imageTrainingService.testCanvas(webcamimagecanvas)
-                        .then(function (resp) {
-                            loggerService.debug('[ml4kmodels] prediction', resp);
-                            if (resp && resp.length > 0) {
-                                $scope.testoutput = resp[0].class_name;
-                                $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
-                            }
-                            else {
-                                $scope.testoutput = 'Unknown';
-                                $scope.testoutput_explanation = "Test value could not be recognised";
-                            }
-                        })
-                        .catch(function (err) {
-                            var errId = displayAlert('errors', err.status, err.data);
-                            scrollToNewItem('errors' + errId);
-                        });
-                },
-                function() {
-                    // cancelled. do nothing
-                    clearTestOutput();
-                }
-            );
-        };
-
-        vm.useWebcam = function (ev) {
-            loggerService.debug('[ml4kmodels] useWebcam');
-
-            $scope.testformData.testimageurl = '';
-
-            $mdDialog.show({
-                controller : function ($scope) {
-                    $scope.channel = {};
-                    $scope.webcamerror = false;
-                    $scope.webcamInitComplete = false;
-
-                    $scope.webcamCanvas = null;
-
-                    $scope.hide = function() {
-                        $mdDialog.hide();
-                    };
-                    $scope.cancel = function() {
-                        $mdDialog.cancel();
-                    };
-                    $scope.confirm = function() {
-                        $mdDialog.hide(getWebcamData());
-                    };
-
-                    $scope.onWebcamSuccess = function () {
-                        $scope.$apply(function() {
-                            $scope.webcamInitComplete = true;
-                        });
-                    };
-
-                    function displayWebcamError(err) {
-                        loggerService.error('[ml4kmodels] display webcam error', err);
-
-                        $scope.webcamerror = err;
-                        if (err && err.message) {
-                            if (err.name === 'NotAllowedError') {
-                                $scope.webcamerrordetail = 'Not allowed to use the web-cam';
-                            }
-                            else {
-                                $scope.webcamerrordetail = err.message;
-                            }
-                        }
+                    var testPromise;
+                    if (isForBrowserUse) {
+                        testPromise = imageTrainingService.testCanvas(webcamimagecanvas);
+                    }
+                    else {
+                        testPromise = trainingService.testModel($scope.project.id, $scope.project.type,
+                            $scope.userId, vm.profile.tenant,
+                            $scope.models[0].classifierid, $scope.models[0].credentialsid,
+                            { type : $scope.project.type, data : webcamimagecanvas })
                     }
 
-                    $scope.onWebcamError = function(err) {
-                        loggerService.error('[ml4kmodels] on webcam error', err);
-
-                        $scope.webcamInitComplete = true;
-
-                        try {
-                            $scope.$apply(
-                                function() {
-                                    displayWebcamError(err);
-                                }
-                            );
-                        }
-                        catch (applyErr) {
-                            $timeout(function () {
-                                displayWebcamError(err);
-                            }, 0, false);
-                        }
-                    };
-
-
-                    function getWebcamData() {
-                        loggerService.debug('[ml4kmodels] getting webcam data');
-
-                        var hiddenCanvas = document.createElement('canvas');
-                        hiddenCanvas.width = $scope.channel.video.videoWidth;
-                        hiddenCanvas.height = $scope.channel.video.videoHeight;
-
-                        loggerService.debug('[ml4kmodels] writing to hidden canvas');
-                        var ctx = hiddenCanvas.getContext('2d');
-                        ctx.drawImage($scope.channel.video,
-                            0, 0,
-                            $scope.channel.video.videoWidth, $scope.channel.video.videoHeight);
-
-                        var imagedata = hiddenCanvas.toDataURL('image/jpeg');
-                        var strippedHeaderData = imagedata.substr(imagedata.indexOf(',') + 1);
-                        return strippedHeaderData;
-                    };
-
-                },
-                templateUrl : 'static/components-' + $stateParams.VERSION + '/models/webcam.tmpl.html',
-                targetEvent : ev,
-                clickOutsideToClose : true
-            })
-            .then(
-                function (webcamimagedata) {
-                    $scope.testoutput = "please wait...";
-                    $scope.testoutput_explanation = "";
-
-                    trainingService.testModel($scope.project.id, $scope.project.type,
-                                              $scope.userId, vm.profile.tenant,
-                                              $scope.models[0].classifierid, $scope.models[0].credentialsid,
-                                              { type : $scope.project.type, data : webcamimagedata })
-                        .then(function (resp) {
-                            if (resp && resp.length > 0) {
-                                $scope.testoutput = resp[0].class_name;
-                                $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
-                            }
-                            else {
-                                $scope.testoutput = 'Unknown';
-                                $scope.testoutput_explanation = "Test value could not be recognised";
-                            }
-                        })
-                        .catch(function (err) {
-                            var errId = displayAlert('errors', err.status, err.data);
-                            scrollToNewItem('errors' + errId);
-                        });
-                },
-                function() {
-                    // cancelled. do nothing
-                    clearTestOutput();
-                }
-            );
-        };
-
-
-
-        vm.useCanvas = function (ev) {
-            loggerService.debug('[ml4kmodels] useCanvas');
-
-            $scope.testformData.testimageurl = '';
-
-            $mdDialog.show({
-                controller : function ($scope) {
-                    $scope.hide = function() {
-                        $mdDialog.hide();
-                    };
-                    $scope.cancel = function() {
-                        $mdDialog.cancel();
-                    };
-                    $scope.confirm = function() {
-                        var imagedata = $scope.canvas.toDataURL('image/jpeg');
-                        var strippedHeaderData = imagedata.substr(imagedata.indexOf(',') + 1);
-                        $mdDialog.hide(strippedHeaderData);
-                    };
-
-                },
-                templateUrl : 'static/components-' + $stateParams.VERSION + '/models/canvas.tmpl.html',
-                targetEvent : ev,
-                clickOutsideToClose : true
-            })
-            .then(
-                function (canvasimagedata) {
-                    $scope.testoutput = "please wait...";
-                    $scope.testoutput_explanation = "";
-
-                    trainingService.testModel($scope.project.id, $scope.project.type,
-                                              $scope.userId, vm.profile.tenant,
-                                              $scope.models[0].classifierid, $scope.models[0].credentialsid,
-                                              { type : $scope.project.type, data : canvasimagedata })
-                        .then(function (resp) {
-                            if (resp && resp.length > 0) {
-                                $scope.testoutput = resp[0].class_name;
-                                $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
-                            }
-                            else {
-                                $scope.testoutput = 'Unknown';
-                                $scope.testoutput_explanation = "Test value could not be recognised";
-                            }
-                        })
-                        .catch(function (err) {
-                            var errId = displayAlert('errors', err.status, err.data);
-                            scrollToNewItem('errors' + errId);
-                        });
-                },
-                function() {
-                    // cancelled. do nothing
-                    clearTestOutput();
-                }
-            );
-        };
-
-
-        vm.useCanvasTfjs = function (ev) {
-            loggerService.debug('[ml4kmodels] useCanvas');
-
-            $scope.testformData.testimageurl = '';
-
-            $scope.testoutput = "please wait...";
-            $scope.testoutput_explanation = "";
-
-
-            $mdDialog.show({
-                controller : function ($scope) {
-                    $scope.hide = function() {
-                        $mdDialog.hide();
-                    };
-                    $scope.cancel = function() {
-                        $mdDialog.cancel();
-                    };
-                    $scope.confirm = function() {
-                        $mdDialog.hide(resizeCanvas());
-                    };
-
-                    function resizeCanvas() {
-                        loggerService.debug('[ml4kmodels] getting canvas');
-
-                        var hiddenCanvas = document.createElement('canvas');
-                        hiddenCanvas.width = 224;
-                        hiddenCanvas.height = 224;
-
-                        loggerService.debug('[ml4ktraining] writing to hidden canvas');
-                        var ctx = hiddenCanvas.getContext('2d');
-                        ctx.drawImage($scope.canvas,
-                            0, 0,
-                            $scope.canvas.width, $scope.canvas.height,
-                            0, 0, 224, 224);
-
-                        return hiddenCanvas;
-                    }
-                },
-                templateUrl : 'static/components-' + $stateParams.VERSION + '/models/canvas.tmpl.html',
-                targetEvent : ev,
-                clickOutsideToClose : true
-            })
-            .then(
-                function (canvasimagedata) {
-                    $scope.testoutput = "please wait...";
-                    $scope.testoutput_explanation = "";
-
-                    imageTrainingService.testCanvas(canvasimagedata)
-                        .then(function (resp) {
-                            loggerService.debug('[ml4kmodels] prediction', resp);
+                    testPromise.then(function (resp) {
                             if (resp && resp.length > 0) {
                                 $scope.testoutput = resp[0].class_name;
                                 $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";

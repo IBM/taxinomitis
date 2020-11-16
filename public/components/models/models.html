@@ -334,7 +334,8 @@
                    maxlength="2000"
                    ng-maxlength="2000"
                    placeholder="enter a test text here">
-            <div ng-if="project.type === 'images'" ng-click="vm.useWebcam($event)"
+            <div ng-if="project.type === 'images' || project.type === 'imgtfjs'"
+                 ng-click="vm.testUsingWebcam($event, project.type === 'imgtfjs')"
                  class="btn newexamplebutton" style="margin: 2em">
                 <div class="newexamplelabel">
                     &nbsp;
@@ -342,23 +343,8 @@
                     <span translate="MODELS.TESTING.WEBCAM"></span>
                 </div>
             </div>
-            <div ng-if="project.type === 'imgtfjs'" ng-click="vm.useWebcamTfjs($event)"
-                 class="btn newexamplebutton" style="margin: 2em">
-                <div class="newexamplelabel">
-                    &nbsp;
-                    <span class="glyphicon glyphicon-camera"></span>
-                    <span translate="MODELS.TESTING.WEBCAM"></span>
-                </div>
-            </div>
-            <div ng-if="project.type === 'images'" ng-click="vm.useCanvas($event)"
-                 class="btn newexamplebutton" style="margin: 1em" >
-                <div class="newexamplelabel">
-                    &nbsp;
-                    <span class="glyphicon glyphicon-pencil"></span>
-                    <span translate="MODELS.TESTING.DRAWING"></span>
-                </div>
-            </div>
-            <div ng-if="project.type === 'imgtfjs'" ng-click="vm.useCanvasTfjs($event)"
+            <div ng-if="project.type === 'images' || project.type === 'imgtfjs'"
+                 ng-click="vm.testUsingCanvas($event, project.type === 'imgtfjs')"
                  class="btn newexamplebutton" style="margin: 1em" >
                 <div class="newexamplelabel">
                     &nbsp;
