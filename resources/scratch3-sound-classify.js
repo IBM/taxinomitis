@@ -24,7 +24,7 @@ class MachineLearningSound {
             projectid : '{{{projectid}}}'
         });
         postMessage({
-            mlforkidsimage : {
+            mlforkidssound : {
                 command : 'init',
                 data : encodedProjectData
             }
