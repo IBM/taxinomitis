@@ -1,0 +1,40 @@
+<md-dialog aria-label="TensorFlow models" style="min-width: 450px; max-width: 650px;">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Use a pre-trained TensorFlow model in Scratch</h2>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <md-card-content>
+                <div style="padding: 1em;">
+                    This is a new, experimental feature. Not all TensorFlow models work
+                    with Scratch here today, so if you have a model that doesn't work, please
+                    <a href="https://groups.google.com/d/forum/mlforkids">let me know</a>.
+                </div>
+                <div style="padding: 1em;">
+                    <div>Where is the TensorFlow model?</div>
+                    <div style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 20px;">
+                        <input placeholder="URL for where the model is hosted" name="modeljson" ng-model="modeljson" ng-change="generateScratchKey(modeljson, modeltypeid)" style="width: 95%;">
+                        <div ng-if="error" style="color: #bb1b1b"><small>Model could not be found</small></div>
+                    </div>
+                </div>
+                <div style="padding: 1em;">
+                    <div>What type of model is it?</div>
+                    <md-select name="modeltypeid" ng-model="modeltypeid" ng-change="generateScratchKey(modeljson, modeltypeid)" style="padding-left: 20px;">
+                        <md-option value="10">Teachable Machine (image)</md-option>
+                        <md-option value="11">TensorFlow GraphDef (image)</md-option>
+                    </md-select>
+                </div>
+                <!--
+                <div style="white-space: pre-wrap">{{siteurl}}/scratch3?url={{siteurl}}/api/scratch/{{ scratchkey }}/extensiontfjs.js</div>
+                -->
+            </md-card-content>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <span flex></span>
+        <md-button ng-click="confirm()" ng-disabled="validating || modeljson.length === 0 || modeljson.indexOf('http') !== 0" class="md-raised md-primary">Open Scratch</md-button>
+        <md-button ng-click="cancel()"  ng-disabled="validating">Cancel</md-button>
+    </md-dialog-actions>
+</md-dialog>

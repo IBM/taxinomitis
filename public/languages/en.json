@@ -1855,6 +1855,15 @@
         "IDEAS": {
             "IDEAS_1": "Are there other machine learning models you would like to be able to use in your Scratch projects?",
             "IDEAS_2": "Let me know by asking in the <a href='https://groups.google.com/d/forum/mlforkids'>ML for Kids forum</a>."
+        },
+        "TENSORFLOW": {
+            "TITLE": "TensorFlow",
+            "BUTTON": "Open a TensorFlow model",
+            "TF_1": "<a href='https://www.tensorflow.org/'>TensorFlow</a> is toolkit for training and running machine learning models.",
+            "TF_2": "If you know how to create your own machine learning model with TensorFlow, click the button above to use it in Scratch.",
+            "TF_3": "You can <a href='https://www.tensorflow.org/overview/'>build your own model</a>, using programming languages like Python.",
+            "TF_4": "Or you can use tools like <a href='https://teachablemachine.withgoogle.com/'>Teachable Machine</a> to easily train a TensorFlow model, and then make something with it in Scratch here.",
+            "TF_5": "(Only image classifiers are supported today, but support for more types of machine learning model is coming soon!)"
         }
     }
 }

@@ -4,11 +4,9 @@
         .module('app')
         .service('trainingService', trainingService);
 
-    trainingService.$inject = [
-        '$q', '$http'
-    ];
+    trainingService.$inject = [ '$http' ];
 
-    function trainingService($q, $http) {
+    function trainingService($http) {
 
 
         function newTrainingData(projectid, userid, tenant, data, label) {
