@@ -348,7 +348,14 @@
         }
 
         function reset() {
-            tf.dispose(transferRecognizer);
+            try {
+                if (transferRecognizer) {
+                    tf.dispose(transferRecognizer);
+                }
+            }
+            catch (err) {
+                loggerService.debug('[ml4ksound] failed to dispose transfer model', err);
+            }
         }
 
 

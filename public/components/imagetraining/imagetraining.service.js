@@ -324,14 +324,23 @@
                     }
                 })
                 .catch(function (err) {
-                    loggerService.error('[ml4kmodels] failed to load model', err);
+                    loggerService.error('[ml4kimages] failed to load model', err);
                 });
         }
 
 
         function reset() {
-            tf.dispose(transferModel);
-            tf.dispose(baseModel);
+            try {
+                if (transferModel) {
+                    tf.dispose(transferModel);
+                }
+                if (baseModel) {
+                    tf.dispose(baseModel);
+                }
+            }
+            catch (err) {
+                loggerService.debug('[ml4kimages] error when disposing of models', err);
+            }
         }
 
 
