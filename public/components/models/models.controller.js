@@ -795,7 +795,10 @@
 
             if ($scope.project && $scope.project.type === 'sounds'){
                 if ($scope.listening) {
-                    soundTrainingService.stopTest();
+                    soundTrainingService.stopTest()
+                        .catch(function (err) {
+                            loggerService.debug('[ml4kmodels] Failed to stop listening when cleaning up the page', err);
+                        });
                 }
                 soundTrainingService.reset();
             }

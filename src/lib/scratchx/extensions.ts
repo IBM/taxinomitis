@@ -1,6 +1,7 @@
 // external dependencies
 import * as Mustache from 'mustache';
 // local dependencies
+import * as scratchtfjs from './scratchtfjs';
 import * as Types from '../db/db-types';
 import * as fileutils from '../utils/fileutils';
 import * as sound from '../training/sound';
@@ -197,4 +198,26 @@ export function getScratchxExtension(
     case 'sounds':
         return getSoundExtension(scratchkey, project, version);
     }
+}
+
+
+
+
+export async function getScratchTfjsExtension(scratchkey: string): Promise<string> {
+    const modelinfo = await scratchtfjs.getModelInfoFromScratchKey(scratchkey);
+    const metadata = await scratchtfjs.getMetadata(modelinfo);
+
+    const template: string = await fileutils.read('./resources/scratch3-tfjs-classify.js');
+
+    Mustache.parse(template);
+    const rendered = Mustache.render(template, {
+        projectid   : modelinfo.id,
+        projectname : escapeProjectName(metadata.modelName, 3),
+        labels      : metadata.labels.map((name, idx) => {
+            return { name, idx };
+        }),
+        modelurl    : scratchtfjs.getModelJsonUrl(modelinfo),
+        modeltype   : modelinfo.modeltype,
+    });
+    return rendered;
 }
