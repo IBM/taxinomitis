@@ -1280,7 +1280,7 @@ describe('DB objects', () => {
             const created = dbobjects.createClassTenant('testing');
             assert.deepStrictEqual(created, {
                 id : 'testing',
-                projecttypes : 'text,images,numbers,sounds',
+                projecttypes : 'text,images,numbers,sounds,imgtfjs',
                 ismanaged : 0,
                 maxusers : 30,
                 maxprojectsperuser : 3,

@@ -367,6 +367,21 @@ async function testModel(req: Express.Request, res: Express.Response) {
             const classes = await numbers.testClassifier(userid, classid, requestTimestamp, projectid, numberdata);
             return res.json(classes);
         }
+        else if (type === 'imgtfjs') {
+            // this behaves slightly differently - the API endpoint returns data
+            //  ready for testing, rather than the results from testing
+            const imageurl = req.body.image;
+
+            if (!imageurl) {
+                return errors.missingData(res);
+            }
+
+            const downloadSpec = await visualrec.getImageDownloadSpec('placeholder', imageurl);
+            const imageData = await download.resizeUrl(downloadSpec.url,
+                                                       visualrec.IMAGE_WIDTH_PIXELS,
+                                                       visualrec.IMAGE_HEIGHT_PIXELS);
+            return res.send(imageData);
+        }
         else if (type === 'sounds') {
             return errors.notImplemented(res);
         }
@@ -388,6 +403,14 @@ async function testModel(req: Express.Request, res: Express.Response) {
             err.statusCode === 400)
         {
             return res.status(httpstatus.BAD_REQUEST).send({ error : err.message });
+        }
+        if (err.message && err.message.startsWith(download.ERRORS.DOWNLOAD_FAIL)) {
+            return res.status(httpstatus.BAD_REQUEST)
+                    .send({ error : 'The test image could not be downloaded' });
+        }
+        if (err.message === download.ERRORS.DOWNLOAD_FILETYPE_UNSUPPORTED) {
+            return res.status(httpstatus.BAD_REQUEST)
+                    .send({ error : 'The test image is a type that cannot be used' });
         }
 
         log.error({ err, body : req.body }, 'Test error');

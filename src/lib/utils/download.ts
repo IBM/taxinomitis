@@ -225,6 +225,9 @@ export function resizeUrl(url: string, width: number, height: number): Promise<B
                                 .on('error', reject)
                                 .toBuffer((err, buff) => {
                                     if (err) {
+                                        if (err.message === 'Input buffer contains unsupported image format') {
+                                            return reject(new Error(ERRORS.DOWNLOAD_FILETYPE_UNSUPPORTED));
+                                        }
                                         return reject(err);
                                     }
                                     return resolve(buff);

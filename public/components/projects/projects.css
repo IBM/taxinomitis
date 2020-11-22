@@ -141,3 +141,7 @@
     border: thin #333 solid;
     float: right;
 }
+
+.mlprojectslist {
+    padding-bottom: 3em;
+}

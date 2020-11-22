@@ -86,10 +86,14 @@
                            class="newprojecttype">
                     <md-option value="text" translate="WORKSHEETS.TYPES.TEXT"></md-option>
                     <md-option value="images" translate="WORKSHEETS.TYPES.IMAGES"></md-option>
+                    <md-option value="imgtfjs">{{ 'WORKSHEETS.TYPES.IMAGES' | translate }} <span class="badge">beta</span></md-option>
                     <md-option value="numbers" translate="WORKSHEETS.TYPES.NUMBERS"></md-option>
                     <md-option value="sounds" translate="WORKSHEETS.TYPES.SOUNDS"></md-option>
-                    <md-option value="imgtfjs" ng-if="showBeta">images (beta)</md-option>
                 </md-select>
+                <div class="newprojectexplanation"
+                     ng-click="vm.explainimages = !vm.explainimages"
+                     ng-if="projectType === 'images' || projectType === 'imgtfjs'"
+                     translate="NEWPROJECT.EXPLAINTYPES.NOTICE"></div>
             </md-input-container>
             <div class="well newprojecthelp"
                  ng-if="vm.focused === 'type' && projectType !== 'numbers' && !vm.creating">
@@ -99,6 +103,22 @@
                 <div translate="NEWPROJECT.TYPES.NOTES_4"></div>
                 <div translate="NEWPROJECT.TYPES.NOTES_5"></div>
             </div>
+        </div>
+        <div class="well newprojecthelp"
+             ng-if="vm.explainimages && (projectType === 'images' || projectType === 'imgtfjs')">
+            <div style="margin-bottom: 1em" translate="NEWPROJECT.EXPLAINTYPES.NOTES_1"></div>
+            <div style="margin-bottom: 1em" translate="NEWPROJECT.EXPLAINTYPES.NOTES_2"></div>
+            <div style="margin-top: 2em;" translate="NEWPROJECT.EXPLAINTYPES.NOTES_3"></div>
+            <div><ul style="margin-bottom: 0; padding-inline-start: 20px;">
+                <li translate="NEWPROJECT.EXPLAINTYPES.NOTES_4"></li>
+                <li translate="NEWPROJECT.EXPLAINTYPES.NOTES_5"></li>
+            </ul></div>
+            <div style="margin-bottom: 1em" translate="NEWPROJECT.EXPLAINTYPES.NOTES_6"> </div>
+            <div style="margin-top: 2em;" translate="NEWPROJECT.EXPLAINTYPES.NOTES_7"> </div>
+            <div><ul style="margin-bottom: 0; padding-inline-start: 20px;">
+                <li translate="NEWPROJECT.EXPLAINTYPES.NOTES_8"></li>
+            </ul></div>
+            <div translate="NEWPROJECT.EXPLAINTYPES.NOTES_9"></div>
         </div>
 
 

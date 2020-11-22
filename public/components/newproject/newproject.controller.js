@@ -8,11 +8,11 @@
         'authService',
         'projectsService',
         'loggerService',
-        '$state', '$rootScope', '$scope', '$location'
+        '$state', '$rootScope', '$scope'
     ];
 
 
-    function NewProjectController(authService, projectsService, loggerService, $state, $rootScope, $scope, $location) {
+    function NewProjectController(authService, projectsService, loggerService, $state, $rootScope) {
 
         var vm = this;
         vm.authService = authService;
@@ -50,13 +50,12 @@
             });
         }
 
+        vm.explainimages = false;
+
         var MIN_CHOICE_LENGTH = 1;
         var MAX_CHOICE_LENGTH = 9;
         var MIN_NUM_CHOICES = 2;
         var MAX_NUM_CHOICES = 5;
-
-        $scope.showBeta = $location.search().beta;
-
 
         authService.getProfileDeferred()
             .then(function (profile) {

@@ -40,7 +40,7 @@ export default function setup(app: Express.Application): void {
     app.use(query());
     app.use(helmet({
         contentSecurityPolicy: {
-            // TODO : remove this after trying it out in prod for a few days
+            // TODO : https://github.com/IBM/taxinomitis/issues/346 will remove this
             reportOnly : true,
             directives: serverConfig.CSP_DIRECTIVES,
         },

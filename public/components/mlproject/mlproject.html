@@ -26,7 +26,7 @@
         </div>
         <div class="mlprojectmenu">
             <div class="mlprojectmenutitle" translate="PROJECT.LEARNANDTEST.TITLE"></div>
-            <div class="mlprojectmenudescription">{{ 'PROJECT.LEARNANDTEST.BODY' | translate }} {{ project.type }}</div>
+            <div class="mlprojectmenudescription">{{ 'PROJECT.LEARNANDTEST.BODY' | translate }} {{ project.type === 'imgtfjs' ? 'images' : project.type }}</div>
             <div class="mlprojectmenubutton">
                 <button type="button" class="btn btn-primary"
                         ui-sref="mlproject_models({ projectId : projectId, userId : userId })"
@@ -35,7 +35,10 @@
         </div>
         <div class="mlprojectmenuexpanded">
             <div class="mlprojectmenutitle" translate="PROJECT.MAKES.TITLE"></div>
-            <div class="mlprojectmenudescription" translate="PROJECT.MAKES.BODY"></div>
+            <div class="mlprojectmenudescription" translate="PROJECT.MAKES.BODY_SCRATCHONLY"
+                 ng-if="project.type === 'sounds' || project.type === 'imgtfjs'"></div>
+            <div class="mlprojectmenudescription" translate="PROJECT.MAKES.BODY"
+                 ng-if="project.type === 'text' || project.type === 'images'"></div>
             <div class="mlprojectmenubutton">
                 <button type="button" class="btn btn-primary"
                         ui-sref="mlproject_makes({ projectId : projectId, userId : userId })"

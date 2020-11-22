@@ -135,38 +135,41 @@
             });
         }
 
+        function getTensorForImageData(imgdata, imgmetadata) {
+            return $q(function (resolve, reject) {
+                var imgDataBlob = URL.createObjectURL(new Blob([imgdata]));
+
+                var hiddenImg = document.createElement('img');
+                hiddenImg.width = IMG_WIDTH;
+                hiddenImg.height = IMG_HEIGHT;
+                hiddenImg.onerror = function (err) {
+                    loggerService.error('[ml4kimages] Failed to load image', imgmetadata);
+                    return reject(err);
+                };
+                hiddenImg.onload = function () {
+                    var imageData = tf.tidy(function () {
+                        return tf.browser.fromPixels(hiddenImg)
+                                    .expandDims(0)
+                                    .toFloat()
+                                    .div(127)
+                                    .sub(1);
+                    });
+
+                    resolve({ metadata : imgmetadata, data : imageData });
+
+                    URL.revokeObjectURL(imgDataBlob);
+                };
+
+                hiddenImg.src = imgDataBlob;
+            });
+        }
+
 
         function getImageData(projectid, userid, tenantid, traininginfo) {
-            return $q(function (resolve, reject) {
-                trainingService.getTrainingItem(projectid, userid, tenantid, traininginfo.id)
-                    .then(function (imgdata) {
-                        var imgDataBlob = URL.createObjectURL(new Blob([imgdata]));
-
-                        var hiddenImg = document.createElement('img');
-                        hiddenImg.width = IMG_WIDTH;
-                        hiddenImg.height = IMG_HEIGHT;
-                        hiddenImg.onerror = function (err) {
-                            loggerService.error('[ml4kimages] Failed to load image', traininginfo, err);
-                            return reject(err);
-                        };
-                        hiddenImg.onload = function () {
-                            var imageData = tf.tidy(function () {
-                                return tf.browser.fromPixels(hiddenImg)
-                                            .expandDims(0)
-                                            .toFloat()
-                                            .div(127)
-                                            .sub(1);
-                            });
-
-                            resolve({ metadata : traininginfo, data : imageData });
-
-                            URL.revokeObjectURL(imgDataBlob);
-                        };
-
-                        hiddenImg.src = imgDataBlob;
-                    })
-                    .catch(reject);
-            });
+            return trainingService.getTrainingItem(projectid, userid, tenantid, traininginfo.id)
+                .then(function (imgdata) {
+                    return getTensorForImageData(imgdata, traininginfo);
+                });
         }
 
 
@@ -261,40 +264,49 @@
 
 
 
+        function testImageDataTensor(imageData) {
+            var baseModelOutput = baseModel.predict(imageData);
+            var transferModelOutput = transferModel.predict(baseModelOutput);
+
+            return transferModelOutput.data()
+                .then(function (output) {
+                    if (output.length !== modelNumClasses) {
+                        loggerService.error('[ml4kimages] unexpected output from model', output);
+                        throw new Error('Unexpected output from model');
+                    }
+
+                    var scores = modelClasses.map(function (label, idx) {
+                        return {
+                            class_name : label,
+                            confidence : 100 * output[idx]
+                        };
+                    }).sort(modelService.sortByConfidence);
+                    return scores;
+                })
+                .catch(function (err) {
+                    loggerService.error('[ml4kimages] failed to run test', err);
+                    throw err;
+                });
+        }
+
+
+        function testBase64ImageData(imgdata) {
+            return getTensorForImageData(imgdata)
+                .then(function (imageDataObj) {
+                    return testImageDataTensor(imageDataObj.data);
+                });
+        }
+
 
         function testCanvas(canvasToTest) {
-            return $q(function (resolve, reject) {
-                try {
-                    var imageData = tf.tidy(function () {
-                        return tf.browser.fromPixels(canvasToTest)
-                                    .expandDims(0)
-                                    .toFloat()
-                                    .div(127)
-                                    .sub(1);
-                    });
-                    var baseModelOutput = baseModel.predict(imageData);
-                    var transferModelOutput = transferModel.predict(baseModelOutput);
-
-                    transferModelOutput.data().then(function (output) {
-                        if (output.length !== modelNumClasses) {
-                            loggerService.error('[ml4kimages] unexpected output from model', output);
-                            return reject(new Error('Unexpected output from model'));
-                        }
-
-                        var scores = modelClasses.map(function (label, idx) {
-                            return {
-                                class_name : label,
-                                confidence : 100 * output[idx]
-                            };
-                        }).sort(modelService.sortByConfidence);
-                        return resolve(scores);
-                    });
-                }
-                catch (err) {
-                    loggerService.error('[ml4kimages] failed to run test', err);
-                    return reject(err);
-                }
+            var imageData = tf.tidy(function () {
+                return tf.browser.fromPixels(canvasToTest)
+                            .expandDims(0)
+                            .toFloat()
+                            .div(127)
+                            .sub(1);
             });
+            return testImageDataTensor(imageData);
         }
 
 
@@ -350,6 +362,7 @@
             deleteModel : deleteModel,
             getModels : getModels,
             testCanvas : testCanvas,
+            testBase64ImageData : testBase64ImageData,
             reset : reset
         };
     }
