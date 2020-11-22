@@ -113,12 +113,19 @@ function addCorsHeaders(req: express.Request, res: express.Response, next: expre
     }
     next();
 }
+function removeFrameBlockingHeaders(req: express.Request, res: express.Response, next: express.NextFunction): void {
+    res.removeHeader('x-frame-options');
+    next();
+}
 
 
 
 export function setupUI(app: express.Application): void {
     const tfjslocation: string = path.join(__dirname, '/../../../web/static/bower_components/tensorflow-models');
     app.use('/static/bower_components/tensorflow-models', compression(), addCorsHeaders, express.static(tfjslocation, { maxAge : constants.ONE_YEAR }));
+
+    const twittercardlocation: string = path.join(__dirname, '/../../../web/dynamic/twitter-card.html');
+    app.use('/twitter-card.html', compression(), removeFrameBlockingHeaders, express.static(twittercardlocation, { maxAge : constants.ONE_YEAR }));
 
     const uilocation: string = path.join(__dirname, '/../../../web/static');
     app.use('/static', compression(), express.static(uilocation, { maxAge : constants.ONE_YEAR }));
