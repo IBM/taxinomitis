@@ -1,6 +1,8 @@
 /*eslint-env mocha */
 import { v1 as uuid } from 'uuid';
 import * as fs from 'fs';
+import * as filecompare from 'filecompare';
+import * as tmp from 'tmp';
 import * as assert from 'assert';
 import * as request from 'supertest';
 import * as httpstatus from 'http-status';
@@ -1363,6 +1365,110 @@ describe('REST API - models', () => {
         });
 
 
+        it('should return data ready for testing for imgtfjs models', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = uuid();
+            const modelid = randomstring.generate({ length : 10 });
+
+            const project = await store.storeProject(userid, classid, 'imgtfjs', projName, 'en', [], false);
+            const projectid = project.id;
+
+            nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
+
+            return request(testServer)
+                .post('/api/classes/' + classid +
+                      '/students/' + userid +
+                      '/projects/' + projectid +
+                      '/models/' + modelid + '/label')
+                .send({
+                    type : 'imgtfjs',
+                    image : 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/John_McCarthy_%28computer_scientist%29_Stanford_2006_%28272020300%29.jpg/1280px-John_McCarthy_%28computer_scientist%29_Stanford_2006_%28272020300%29.jpg',
+                })
+                .expect('Content-Type', /octet-stream/)
+                .expect(httpstatus.OK)
+                .then((res) => {
+                    return writeDataToTempFile(res.body);
+                })
+                .then((retrievedFile) => {
+                    return filecomparepromise('./src/tests/utils/resources/mccarthy.jpg', retrievedFile);
+                })
+                .then(() => {
+                    return store.deleteEntireUser(userid, classid);
+                });
+        });
+
+        it('should return errors getting unknown images ready for testing for imgtfjs models', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = uuid();
+            const modelid = randomstring.generate({ length : 10 });
+
+            const project = await store.storeProject(userid, classid, 'imgtfjs', projName, 'en', [], false);
+            const projectid = project.id;
+
+            nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
+
+            return request(testServer)
+                .post('/api/classes/' + classid +
+                      '/students/' + userid +
+                      '/projects/' + projectid +
+                      '/models/' + modelid + '/label')
+                .send({
+                    type : 'imgtfjs',
+                    image : 'https://not-a-real-imagehost.com/testimage',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, {
+                        error : 'The test image could not be downloaded',
+                    });
+                })
+                .then(() => {
+                    return store.deleteEntireUser(userid, classid);
+                });
+        });
+
+        it('should return errors getting resources that are not valid images ready for testing for imgtfjs models', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = uuid();
+            const modelid = randomstring.generate({ length : 10 });
+
+            const project = await store.storeProject(userid, classid, 'imgtfjs', projName, 'en', [], false);
+            const projectid = project.id;
+
+            nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
+
+            return request(testServer)
+                .post('/api/classes/' + classid +
+                      '/students/' + userid +
+                      '/projects/' + projectid +
+                      '/models/' + modelid + '/label')
+                .send({
+                    type : 'imgtfjs',
+                    image : 'https://ibm.com',
+                })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, {
+                        error : 'The test image is a type that cannot be used',
+                    });
+                })
+                .then(() => {
+                    return store.deleteEntireUser(userid, classid);
+                });
+        });
+
+
         it('should submit a URL classify request to Visual Recognition', async () => {
 
             const classid = uuid();
@@ -1834,4 +1940,33 @@ describe('REST API - models', () => {
         });
 
     });
+
+
+    function writeDataToTempFile(data: Buffer): Promise<string> {
+        return new Promise((resolve, reject) => {
+            tmp.file((err, path) => {
+                if (err) {
+                    return reject(err);
+                }
+                fs.writeFile(path, data, (fserr) => {
+                    if (fserr) {
+                        return reject(fserr);
+                    }
+                    return resolve(path);
+                });
+            });
+        });
+    }
+
+    function filecomparepromise(filea: string, fileb: string): Promise<void> {
+        return new Promise((resolve, reject) => {
+            filecompare(filea, fileb, (isEq: boolean) => {
+                if (isEq) {
+                    return resolve();
+                }
+                assert(isEq, filea + ' ' + fileb);
+                return reject(new Error('files do not match'));
+            });
+        });
+    }
 });

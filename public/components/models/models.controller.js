@@ -416,7 +416,7 @@
             if (project.type === 'text') {
                 testdata.text = $scope.testformData.testquestion;
             }
-            else if (project.type === 'images') {
+            else if (project.type === 'images' || project.type === 'imgtfjs') {
                 testdata.image = $scope.testformData.testimageurl;
 
                 if (testdata.image &&
@@ -446,11 +446,24 @@
 
             loggerService.debug('[ml4kmodels] submitting model test', testdata);
 
-            trainingService.testModel(project.id, project.type,
-                                      $scope.userId, vm.profile.tenant,
-                                      $scope.models[0].classifierid, $scope.models[0].credentialsid,
-                                      testdata)
-                .then(function (resp) {
+            var testFnPromise;
+            if (project.type === 'imgtfjs') {
+                testFnPromise = trainingService.testModelPrep(project.id,
+                    $scope.userId, vm.profile.tenant,
+                    $scope.models[0].classifierid,
+                    testdata)
+                    .then(function (imgdata) {
+                        return imageTrainingService.testBase64ImageData(imgdata);
+                    });
+            }
+            else {
+                testFnPromise = trainingService.testModel(project.id,
+                    $scope.userId, vm.profile.tenant,
+                    $scope.models[0].classifierid, $scope.models[0].credentialsid,
+                    testdata);
+            }
+
+            testFnPromise.then(function (resp) {
                     loggerService.debug('[ml4kmodels] test response', resp);
 
                     if (resp && resp.length > 0) {
@@ -620,7 +633,7 @@
                         testPromise = imageTrainingService.testCanvas(canvasimagedata);
                     }
                     else {
-                        testPromise = trainingService.testModel($scope.project.id, $scope.project.type,
+                        testPromise = trainingService.testModel($scope.project.id,
                                                                 $scope.userId, vm.profile.tenant,
                                                                 $scope.models[0].classifierid, $scope.models[0].credentialsid,
                                                                 { type : $scope.project.type, data : canvasimagedata });
@@ -628,14 +641,16 @@
 
                     testPromise.then(function (resp) {
                             loggerService.debug('[ml4kmodels] prediction', resp);
-                            if (resp && resp.length > 0) {
-                                $scope.testoutput = resp[0].class_name;
-                                $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
-                            }
-                            else {
-                                $scope.testoutput = 'Unknown';
-                                $scope.testoutput_explanation = "Test value could not be recognised";
-                            }
+                            $timeout(function () {
+                                if (resp && resp.length > 0) {
+                                    $scope.testoutput = resp[0].class_name;
+                                    $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
+                                }
+                                else {
+                                    $scope.testoutput = 'Unknown';
+                                    $scope.testoutput_explanation = "Test value could not be recognised";
+                                }
+                            }, 0);
                         })
                         .catch(function (err) {
                             var errId = displayAlert('errors', err.status, err.data);
@@ -728,21 +743,23 @@
                         testPromise = imageTrainingService.testCanvas(webcamimagecanvas);
                     }
                     else {
-                        testPromise = trainingService.testModel($scope.project.id, $scope.project.type,
+                        testPromise = trainingService.testModel($scope.project.id,
                             $scope.userId, vm.profile.tenant,
                             $scope.models[0].classifierid, $scope.models[0].credentialsid,
                             { type : $scope.project.type, data : webcamimagecanvas })
                     }
 
                     testPromise.then(function (resp) {
-                            if (resp && resp.length > 0) {
-                                $scope.testoutput = resp[0].class_name;
-                                $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
-                            }
-                            else {
-                                $scope.testoutput = 'Unknown';
-                                $scope.testoutput_explanation = "Test value could not be recognised";
-                            }
+                            $timeout(function() {
+                                if (resp && resp.length > 0) {
+                                    $scope.testoutput = resp[0].class_name;
+                                    $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
+                                }
+                                else {
+                                    $scope.testoutput = 'Unknown';
+                                    $scope.testoutput_explanation = "Test value could not be recognised";
+                                }
+                            }, 0);
                         })
                         .catch(function (err) {
                             var errId = displayAlert('errors', err.status, err.data);
@@ -783,6 +800,40 @@
                     .catch(function (err) {
                         loggerService.error('[ml4kmodels] Failed to stop listening', err);
                     });
+            }
+        };
+
+
+
+        vm.changeProjectType = function (newProjectType) {
+            loggerService.debug('[ml4kmodels] changing model type', newProjectType);
+            if ($scope.project &&
+                (($scope.project.type === 'images' && newProjectType === 'imgtfjs') ||
+                 ($scope.project.type === 'imgtfjs' && newProjectType === 'images')))
+            {
+                $scope.loading = true;
+
+                // remove any existing locally created models before switching to cloud-hosted models
+                if ($scope.project.type === 'imgtfjs' && $scope.models && $scope.models.length > 0) {
+                    imageTrainingService.deleteModel($scope.project.id)
+                        .catch(function(err) {
+                            loggerService.debug('[ml4kmodels] Failed to delete existing local model', err);
+                        });
+                }
+
+                // request project type to be changed on the server
+                projectsService.changeProjectType($scope.project.id, $scope.userId, vm.profile.tenant, newProjectType)
+                    .then(function () {
+                        location.reload();
+                    })
+                    .catch(function (err) {
+                        $scope.loading = false;
+                        var errId = displayAlert('errors', err.status, err.data);
+                        scrollToNewItem('errors' + errId);
+                    });
+            }
+            else {
+                loggerService.error('[ml4kmodels] Invalid change request');
             }
         };
 

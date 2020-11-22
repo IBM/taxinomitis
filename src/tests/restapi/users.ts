@@ -77,7 +77,7 @@ describe('REST API - users', () => {
                         maxTextModels : 0,
                         maxImageModels : 0,
                         maxUsers: 30,
-                        supportedProjectTypes: [ 'text', 'images', 'numbers', 'sounds' ],
+                        supportedProjectTypes: [ 'text', 'images', 'numbers', 'sounds', 'imgtfjs' ],
                         tenantType : Types.ClassTenantType.UnManaged,
                         isManaged : false,
                         maxProjectsPerUser: 3,

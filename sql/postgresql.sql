@@ -147,7 +147,7 @@ CREATE TABLE mlforkidsdb.taxinoclassifiers (
 
 CREATE TABLE mlforkidsdb.tenants (
     id character varying(36) NOT NULL PRIMARY KEY,
-    projecttypes character varying(26) DEFAULT 'text,numbers,sounds'::character varying NOT NULL,
+    projecttypes character varying(34) DEFAULT 'text,numbers,sounds,imgtfjs'::character varying NOT NULL,
     maxusers smallint DEFAULT '8'::smallint NOT NULL,
     maxprojectsperuser smallint DEFAULT '3'::smallint NOT NULL,
     textclassifiersexpiry smallint DEFAULT '2'::smallint NOT NULL,

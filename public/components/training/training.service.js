@@ -112,7 +112,7 @@
             });
         }
 
-        function testModel(projectid, projecttype, userid, tenant, modelid, credsid, testdata) {
+        function testModel(projectid, userid, tenant, modelid, credsid, testdata) {
             var url = '/api/classes/' + tenant +
                         '/students/' + userid +
                         '/projects/' + projectid +
@@ -123,6 +123,27 @@
             return $http.post(url, testdata)
                 .then(function (resp) {
                     return resp.data;
+                });
+        }
+
+        function testModelPrep(projectid, userid, tenant, modelid, testdata) {
+            var url = '/api/classes/' + tenant +
+                        '/students/' + userid +
+                        '/projects/' + projectid +
+                        '/models/' + modelid +
+                        '/label';
+
+            return $http.post(url, testdata, { responseType : 'arraybuffer' })
+                .then(function (resp) {
+                    return resp.data;
+                })
+                .catch(function (err) {
+                    if (err.status) {
+                        // because we explicitly request an arraybuffer, we need
+                        //  to decode the JSON payload in the event of an error
+                        err.data = JSON.parse(new TextDecoder().decode(err.data));
+                    }
+                    throw err;
                 });
         }
 
@@ -206,6 +227,7 @@
             getModel : getModel,
             newModel : newModel,
             testModel : testModel,
+            testModelPrep : testModelPrep,
             deleteModel : deleteModel,
 
             getUnmanagedClassifiers : getUnmanagedClassifiers,
