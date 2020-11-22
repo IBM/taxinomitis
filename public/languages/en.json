@@ -1670,7 +1670,7 @@
             "Q1-A-4": "\"<strong>images</strong>\" is good because:",
             "Q1-A-5": "It can be used for projects in Scratch, App Inventor, or Python.",
             "Q1-A-6": "It doesn't matter if your computer is slow, as the model is trained in the cloud.",
-            "Q1-A-7": "It can create models that are more accurate, particularly when using a small number of trainiing examples.",
+            "Q1-A-7": "It can create models that are more accurate, particularly when using a small number of training examples.",
             "Q1-A-8": "But, it takes several minutes to train while you wait for your turn on the cloud server, and (for unmanaged classes) requires a Watson API key from IBM Cloud.",
             "Q1-A-9": "\"<strong style='color:black'>images <span class='mltinybadge badge'>beta</span></strong>\" is good because:",
             "Q1-A-10": "It can be much quicker to train, because it starts training immediately without waiting for a turn on the cloud server.",
