@@ -7,10 +7,11 @@
     ProjectsController.$inject = [
         'authService',
         'projectsService',
+        'modelService',
         '$stateParams', '$translate', '$mdDialog', 'loggerService'
     ];
 
-    function ProjectsController(authService, projectsService, $stateParams, $translate, $mdDialog, loggerService) {
+    function ProjectsController(authService, projectsService, modelService, $stateParams, $translate, $mdDialog, loggerService) {
 
         var vm = this;
         vm.authService = authService;
@@ -101,28 +102,7 @@
                             }) :
                             project.labels;
 
-                        if (labels.length > 0) {
-                            var summary = '';
-                            switch (labels.length) {
-                                case 1:
-                                    summary = labels[0];
-                                    break;
-                                case 2:
-                                    summary = labels[0] + ' or ' + labels[1];
-                                    break;
-                                case 3:
-                                    summary = labels[0] + ', ' +
-                                              labels[1] + ' or ' +
-                                              labels[2];
-                                    break;
-                                default:
-                                    summary = labels[0] + ', ' +
-                                              labels[1] + ' or ' +
-                                              (labels.length - 2) + ' other classes';
-                                    break;
-                            }
-                            project.labelsSummary = summary;
-                        }
+                        project.labelsSummary = modelService.generateProjectSummary(labels);
 
                         if (vm.highlightId === project.id) {
                             checkApiKeys(profile, project);
@@ -174,6 +154,14 @@
                             }
                             else {
                                 refreshProjectsList(vm.profile);
+                            }
+
+                            // clear up models stored on the browser
+                            if (project.type === 'sounds') {
+                                modelService.deleteModel('sounds', project.id);
+                            }
+                            else if (project.type === 'imgtjfs') {
+                                modelService.deleteModel('images', project.id);
                             }
                         })
                         .catch(function (err) {

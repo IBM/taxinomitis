@@ -6,7 +6,7 @@
 
     TrainingController.$inject = [
         'authService',
-        'projectsService', 'trainingService',
+        'projectsService', 'trainingService', 'modelService',
         'soundTrainingService',
         'loggerService',
         '$stateParams',
@@ -17,7 +17,7 @@
         '$q'
     ];
 
-    function TrainingController(authService, projectsService, trainingService, soundTrainingService, loggerService, $stateParams, $scope, $mdDialog, $state, $timeout, $q) {
+    function TrainingController(authService, projectsService, trainingService, modelService, soundTrainingService, loggerService, $stateParams, $scope, $mdDialog, $state, $timeout, $q) {
 
         var vm = this;
         vm.authService = authService;
@@ -98,7 +98,8 @@
                     // for sounds projects we need to download the TensorFlow.js libraries if we don't
                     //  already have them in the page
                     loggerService.debug('[ml4ktraining] setting up sound model support');
-                    return soundTrainingService.initSoundSupport(project.id)
+                    var loadSavedModel = false; // only using sound support to collect training examples
+                    return soundTrainingService.initSoundSupport(project.id, project.labels, loadSavedModel)
                         .then(function () {
                             $scope.soundModelInfo = soundTrainingService.getModelInfo();
                         });
@@ -179,27 +180,7 @@
                     }) :
                     $scope.project.labels;
 
-                switch (labels.length) {
-                    case 0:
-                        summary = '';
-                        break;
-                    case 1:
-                        summary = labels[0];
-                        break;
-                    case 2:
-                        summary = labels[0] + ' or ' + labels[1];
-                        break;
-                    case 3:
-                        summary = labels[0] + ', ' +
-                                  labels[1] + ' or ' +
-                                  labels[2];
-                        break;
-                    default:
-                        summary = labels[0] + ', ' +
-                                  labels[1] + ' or ' +
-                                  (labels.length - 2) + ' other classes';
-                        break;
-                }
+                summary = modelService.generateProjectSummary(labels) || '';
             }
             $scope.project.labelsSummary = summary;
         }
@@ -299,7 +280,7 @@
                     isPlaceholder : true
                 };
             }
-            else if ($scope.project.type === 'images') {
+            else if ($scope.project.type === 'images' || $scope.project.type === 'imgtfjs') {
                 data = resp;
 
                 duplicate = $scope.training[label].some(function (existingitem) {
@@ -751,6 +732,13 @@
             }, 0);
         }
 
+        $scope.$on("$destroy", function () {
+            loggerService.debug('[ml4ktraining] handling page change');
+
+            if ($scope.project && $scope.project.type === 'sounds'){
+                soundTrainingService.reset();
+            }
+        });
 
 
         function findTrainingIndex(label, id) {

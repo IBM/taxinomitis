@@ -214,6 +214,18 @@
             "NOTES_4": "Pro sady čísel nebo více možností odpovědí zvol \"numbers\"",
             "NOTES_5": "Pro hlas nebo zvuky zvol \"sounds\""
         },
+        "EXPLAINTYPES": {
+            "NOTICE": "What is the difference between \"images\" and \"images <span class='mltinybadge badge'>beta</span>\" ?",
+            "NOTES_1": "If you choose \"<strong style='color:black'>images</strong>\" your machine learning model will be trained on cloud servers.",
+            "NOTES_2": "If you choose \"<strong style='color:black'>images <span class='mltinybadge badge'>beta</span></strong>\" your machine learning model will be trained on your own computer.",
+            "NOTES_3": "\"<strong style='color:black'>images</strong>\" is good because:",
+            "NOTES_4": "It can be used for projects in Scratch, App Inventor, or Python.",
+            "NOTES_5": "It doesn't matter if your computer is slow, as the model is trained in the cloud.",
+            "NOTES_6": "But, it takes minutes to train while you wait for your turn on the cloud server.",
+            "NOTES_7": "\"<strong style='color:black'>images <span class='mltinybadge badge'>beta</span></strong>\" is good because:",
+            "NOTES_8": "It can be much quicker to train, because you don't have to wait for your turn on the cloud server.",
+            "NOTES_9": "But, it can only be used for Scratch projects."
+        },
         "LANGUAGE": {
             "LABEL": "Jazyk",
             "NOTES": "Jakým jazykem bude text v tomto projektu?"
@@ -320,7 +332,8 @@
         },
         "MAKES": {
             "TITLE": "Vytvoř",
-            "BODY": "Využij naučený model k tvorbě hry nebo aplikace ve Scratchi nebo Pythonu"
+            "BODY": "Využij naučený model k tvorbě hry nebo aplikace ve Scratchi nebo Pythonu",
+            "BODY_SCRATCHONLY": "Využij naučený model k tvorbě hry nebo aplikace ve Scratchi"
         },
         "SCRATCH": {
             "TITLE": "Scratch",
@@ -377,6 +390,10 @@
         "DELETE": "Delete this model",
         "TEST_CANVAS": "Draw something to test your model with",
         "TEST_WEBCAM": "Take a photo to test your model with",
+        "CHANGETYPE": {
+            "IMAGES": "Change to \"images\" so models will be trained in the cloud",
+            "IMGTFJS": "Change to \"images <span class='badge mltinybadge'>beta</span>\" so models will be trained on your computer"
+        },
         "WHATHAVEYOUDONE": {
             "TITLE": "What have you done?",
             "PLEASEWAIT": "This normally takes a few minutes, but can take a little longer if the training computer is very busy.",
@@ -1656,6 +1673,32 @@
             "INTRO3": "If you're still stuck, or you've run into a problem I've not included in the list, sorry! Please <a href='https://groups.google.com/d/forum/mlforkids'>ask a question in the mlforkids Google Group</a> so that I can help."
         },
 
+        "PROJECTS": {
+            "TITLE": "Project questions",
+
+            "Q1": "What is the difference between \"images\" and \"images <span class='mltinybadge badge'>beta</span>\" projects?",
+            "Q1-A-1": "These can both be used to create the same sort of machine learning projects. The difference is where the models are created and stored.",
+            "Q1-A-2": "In \"<strong>images</strong>\" projects, machine learning models are trained on cloud servers using an online service called Watson Visual Recognition.",
+            "Q1-A-3": "In \"<strong>images <span class='mltinybadge badge'>beta</span></strong>\" projects, machine learning models are trained on the student's own computer, in the web browser.",
+            "Q1-A-4": "\"<strong>images</strong>\" is good because:",
+            "Q1-A-5": "It can be used for projects in Scratch, App Inventor, or Python.",
+            "Q1-A-6": "It doesn't matter if your computer is slow, as the model is trained in the cloud.",
+            "Q1-A-7": "It can create models that are more accurate, particularly when using a small number of training examples.",
+            "Q1-A-8": "But, it takes several minutes to train while you wait for your turn on the cloud server, and (for unmanaged classes) requires a Watson API key from IBM Cloud.",
+            "Q1-A-9": "\"<strong style='color:black'>images <span class='mltinybadge badge'>beta</span></strong>\" is good because:",
+            "Q1-A-10": "It can be much quicker to train, because it starts training immediately without waiting for a turn on the cloud server.",
+            "Q1-A-11": "It doesn't require any IBM Cloud API keys (for unmanaged classes).",
+            "Q1-A-12": "Models do not need to be automatically deleted.",
+            "Q1-A-13": "But, it can only be used for Scratch projects, and requires the student to be using a reasonably fast computer.",
+            "Q1-A-14": "Training in the browser is described as a beta because it is a new feature on the site, and may still have problems with some operating systems or web browsers. If you encounter errors, please report these in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids forum</a>.",
+
+            "Q2": "How can you change an \"images\" project to be an \"images <span class='mltinybadge badge'>beta</span>\" project (and vice versa)?",
+            "Q2-A-1": "You can change between the two modes from the \"Learn & Test\" page for your project.",
+            "Q2-A-2": "The link to do this is in top-right of the page.",
+            "Q2-A-3": "Any existing machine learning models for the project will be deleted if this is done.",
+            "Q2-A-4": "The Scratch blocks for image projects work differently for the two different modes, so if you have a Scratch window open when you do this, you will need to refresh the page so that the Scratch extension can be updated."
+        },
+
         "SCRATCH": {
             "TITLE": "Scratch issues",
 
@@ -1868,6 +1911,15 @@
         "IDEAS": {
             "IDEAS_1": "Are there other machine learning models you would like to be able to use in your Scratch projects?",
             "IDEAS_2": "Let me know by asking in the <a href='https://groups.google.com/d/forum/mlforkids'>ML for Kids forum</a>."
+        },
+        "TENSORFLOW": {
+            "TITLE": "TensorFlow",
+            "BUTTON": "Open a TensorFlow model",
+            "TF_1": "<a href='https://www.tensorflow.org/'>TensorFlow</a> is a toolkit for training and running machine learning models.",
+            "TF_2": "If you know how to create your own machine learning model with TensorFlow, click the button above to use it in Scratch.",
+            "TF_3": "You can <a href='https://www.tensorflow.org/overview/'>build your own model</a>, using programming languages like Python.",
+            "TF_4": "Or you can use tools like <a href='https://teachablemachine.withgoogle.com/'>Teachable Machine</a> to easily train a TensorFlow model, and then make something with it in Scratch here.",
+            "TF_5": "(Only image classifiers are supported today, but support for more types of machine learning model is coming soon!)"
         }
     }
 }

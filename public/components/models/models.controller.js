@@ -6,12 +6,15 @@
 
     ModelsController.$inject = [
         'authService',
-        'projectsService', 'trainingService', 'quizService', 'soundTrainingService',
+        'projectsService', 'trainingService', 'quizService',
+        'soundTrainingService', 'imageTrainingService',
+        'modelService',
         '$stateParams',
-        '$scope', '$mdDialog', '$timeout', '$interval', '$q', '$document', '$state', 'loggerService'
+        '$scope',
+        '$mdDialog', '$timeout', '$interval', '$q', '$document', '$state', 'loggerService'
     ];
 
-    function ModelsController(authService, projectsService, trainingService, quizService, soundTrainingService, $stateParams, $scope, $mdDialog, $timeout, $interval, $q, $document, $state, loggerService) {
+    function ModelsController(authService, projectsService, trainingService, quizService, soundTrainingService, imageTrainingService, modelService, $stateParams, $scope, $mdDialog, $timeout, $interval, $q, $document, $state, loggerService) {
 
         var vm = this;
         vm.authService = authService;
@@ -169,17 +172,34 @@
                     $scope.minimumExamples = 'eight';
                 }
                 $scope.models = values.models;
-                $scope.projectSummary = generateProjectSummary();
+                $scope.projectSummary = modelService.generateProjectSummary($scope.project.labels);
 
-                reviewTrainingData(values.labels);
-                $scope.status = getStatus();
+                var trainingReview = modelService.reviewTrainingData(values.labels, $scope.project.type);
+                $scope.trainingcounts = trainingReview.counts;
+                $scope.trainingdatastatus = trainingReview.status;
+
+                $scope.status = modelService.getStatus($scope.models);
 
                 if ($scope.project.type === 'numbers') {
                     return projectsService.getFields($scope.projectId, $scope.userId, vm.profile.tenant);
                 }
-                if ($scope.project.type === 'sounds') {
+                else if ($scope.project.type === 'sounds') {
                     $scope.listening = false;
-                    return soundTrainingService.initSoundSupport($scope.project.id);
+                    var loadSavedModel = true;
+                    return soundTrainingService.initSoundSupport($scope.project.id, $scope.project.labels, loadSavedModel)
+                        .then(function (loaded) {
+                            if (loaded) {
+                                fetchModels();
+                            }
+                        });
+                }
+                else if ($scope.project.type === 'imgtfjs') {
+                    return imageTrainingService.initImageSupport($scope.project.id, $scope.project.labels)
+                        .then(function (loaded) {
+                            if (loaded) {
+                                fetchModels();
+                            }
+                        });
                 }
             })
             .then(function (fields) {
@@ -193,77 +213,6 @@
             });
 
 
-
-        function reviewTrainingData (labels) {
-            loggerService.debug('[ml4kmodels] reviewing training data');
-
-            var no_data = true;
-            var insufficient_data = 0;
-            var MIN = 5;
-            if ($scope.project.type === 'images') {
-                MIN = 10;
-            }
-            else if ($scope.project.type === 'sounds') {
-                MIN = 8;
-            }
-            var labelslist = Object.keys(labels);
-
-            $scope.trainingcounts = labelslist.map(function (label) {
-                var count = labels[label];
-                if (count > 0) {
-                    no_data = false;
-                }
-                if (count < MIN) {
-                    insufficient_data += 1;
-                }
-                return { label : label, count : count };
-            });
-
-            if (no_data) {
-                $scope.trainingdatastatus = 'no_data';
-            }
-            else {
-                if (insufficient_data > 1 ||
-                    insufficient_data === labelslist.length ||
-                    labelslist.length < 2 ||
-                    ($scope.project.type === 'sounds' && insufficient_data > 0))
-                {
-                    $scope.trainingdatastatus = 'insufficient_data';
-                }
-                else {
-                    $scope.trainingdatastatus = 'data';
-                }
-            }
-        }
-
-
-
-        function getStatus() {
-            if (allModelsAreTraining($scope.models)) {
-                return 'training';
-            }
-            if (allModelsAreGood($scope.models)) {
-                return 'ready';
-            }
-            if ($scope.models.length === 0) {
-                return 'idle';
-            }
-            return 'error';
-        }
-
-
-        function allModelsAreTraining (models) {
-            return models &&
-                   models.length > 0 &&
-                   !(models.some(function (model) { return model.status !== 'Training'; }));
-        }
-        function allModelsAreGood (models) {
-            return models &&
-                   models.length > 0 &&
-                   !(models.some(function (model) { return model.status !== 'Available'; }));
-        }
-
-
         var timer = null;
 
         function stopRefreshing() {
@@ -274,11 +223,23 @@
             }
         }
 
+        function getRefreshInterval() {
+            if ($scope.project.type === 'sounds' || $scope.project.type === 'imgtfjs') {
+                return 2000;
+            }
+            if ($scope.project.type === 'text') {
+                return 20000;
+            }
+            if ($scope.project.type === 'images') {
+                return 30000;
+            }
+            loggerService.error('[ml4kmodels] Unexpected project type');
+            return 60000;
+        }
+
         function refreshModels () {
             loggerService.debug('[ml4kmodels] refresh models');
             if (!timer) {
-                var interval = $scope.project.type === 'sounds' ? 2000 : 30000;
-
                 timer = $interval(function () {
                     fetchModels()
                         .then(function () {
@@ -286,7 +247,7 @@
                                 stopRefreshing();
                             }
                         });
-                }, interval);
+                }, getRefreshInterval());
             }
         }
 
@@ -320,12 +281,21 @@
 
 
         function fetchModels() {
-            var modelFunction = $scope.project.type === 'sounds' ?
-                                    soundTrainingService.getModels() :
-                                    trainingService.getModels($scope.projectId, $scope.userId, vm.profile.tenant);
-            return modelFunction.then(function (models) {
+            loggerService.debug('[ml4kmodels] fetching model info');
+
+            var modelFnPromise;
+            if ($scope.project.type === 'imgtfjs') {
+                modelFnPromise = imageTrainingService.getModels();
+            }
+            else if ($scope.project.type === 'sounds') {
+                modelFnPromise = soundTrainingService.getModels();
+            }
+            else {
+                modelFnPromise = trainingService.getModels($scope.projectId, $scope.userId, vm.profile.tenant);
+            }
+            return modelFnPromise.then(function (models) {
                 $scope.models = models;
-                $scope.status = getStatus();
+                $scope.status = modelService.getStatus($scope.models);
             });
         }
 
@@ -339,80 +309,47 @@
             $scope.quizQuestion = quizService.getQuestion();
 
             $scope.submittingTrainingRequest = true;
+            clearTestOutput();
 
-            if (project.type === 'sounds') {
-                soundTrainingService.newModel(project.id, $scope.userId, vm.profile.tenant)
-                    .then(function (newmodel) {
-                        $scope.models = [ newmodel ];
-                        $scope.status = getStatus();
-
-                        $scope.submittingTrainingRequest = false;
-
-                        refreshModels();
-                    })
-                    .catch(function (err) {
-                        var errId = displayAlert('errors', err.status, err.data);
-                        scrollToNewItem('errors' + errId);
-                    });
+            var modelFnPromise;
+            if ($scope.project.type === 'imgtfjs') {
+                modelFnPromise = imageTrainingService.newModel(project.id, $scope.userId, vm.profile.tenant);
+            }
+            else if ($scope.project.type === 'sounds') {
+                modelFnPromise = soundTrainingService.newModel(project.id, $scope.userId, vm.profile.tenant)
             }
             else {
-                loggerService.debug('[ml4kmodels] submitting new model request');
-                trainingService.newModel(project.id, $scope.userId, vm.profile.tenant)
-                    .then(function (newmodel) {
-                        loggerService.debug('[ml4kmodels] model training', newmodel);
-
-                        $scope.models = [ newmodel ];
-                        $scope.status = getStatus();
-
-                        $scope.submittingTrainingRequest = false;
-
-                        refreshModels();
-                    })
-                    .catch(function (err) {
-                        loggerService.error('[ml4kmodels] model training failed', err);
-                        $scope.submittingTrainingRequest = false;
-
-                        if (createModelFailedDueToDownloadFail(err)) {
-                            return $mdDialog.show({
-                                controller : function ($scope) {
-                                    $scope.location = err.data.location;
-
-                                    $scope.hide = function() {
-                                        $mdDialog.hide();
-                                    };
-                                    $scope.cancel = function() {
-                                        $mdDialog.cancel();
-                                    };
-                                    $scope.confirm = function() {
-                                        $mdDialog.hide(err.data.location);
-                                    };
-                                },
-                                templateUrl : 'static/components-' + $stateParams.VERSION + '/models/downloadfail.tmpl.html'
-                            })
-                            .then(
-                                function (location) {
-                                    if (location) {
-                                        trainingService.deleteTrainingData(project.id, $scope.userId, vm.profile.tenant, location.imageid)
-                                            .then(function() {
-                                                $state.reload();
-                                            })
-                                            .catch(function (e) {
-                                                var errId = displayAlert('errors', e.status, e.data);
-                                                scrollToNewItem('errors' + errId);
-                                            });
-                                    }
-                                },
-                                function() {
-                                    // cancelled. do nothing
-                                }
-                            );
-                        }
-                        else {
-                            var errId = displayAlert('errors', err.status, err.data);
-                            scrollToNewItem('errors' + errId);
-                        }
-                    });
+                modelFnPromise = trainingService.newModel($scope.projectId, $scope.userId, vm.profile.tenant);
             }
+
+            modelFnPromise.then(function (newmodel) {
+                    loggerService.debug('[ml4kmodels] model training', newmodel);
+
+                    $scope.models = [ newmodel ];
+                    $scope.status = modelService.getStatus($scope.models);
+
+                    refreshModels();
+
+                    $scope.submittingTrainingRequest = false;
+
+                    if (newmodel.error) {
+                        throw newmodel.error;
+                    }
+                })
+                .catch(function (err) {
+                    loggerService.error('[ml4kmodels] model training failed', err);
+                    $scope.submittingTrainingRequest = false;
+
+                    if (createModelFailedDueToDownloadFail(err)) {
+                        // training error that is because of bad training data
+                        allowUserToDeleteTrainingItemThatCausedTrainingFail(err);
+                    }
+                    else {
+                        // general training error
+                        var errId = displayAlert('errors', err.status, err.data);
+                        scrollToNewItem('errors' + errId);
+                    }
+                });
         };
 
 
@@ -426,6 +363,52 @@
         }
 
 
+        /**
+         * @param err - error that impacted training
+         */
+        function allowUserToDeleteTrainingItemThatCausedTrainingFail(err) {
+            return $mdDialog.show({
+                controller : function ($scope) {
+                    $scope.location = err.data.location;
+
+                    $scope.hide = function() {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function() {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function() {
+                        $mdDialog.hide(err.data.location);
+                    };
+                },
+                templateUrl : 'static/components-' + $stateParams.VERSION + '/models/downloadfail.tmpl.html'
+            })
+            .then(
+                function (location) {
+                    if (location) {
+                        trainingService.deleteTrainingData($scope.project.id, $scope.userId, vm.profile.tenant, location.imageid)
+                            .then(function() {
+                                $state.reload();
+                            })
+                            .catch(function (e) {
+                                var errId = displayAlert('errors', e.status, e.data);
+                                scrollToNewItem('errors' + errId);
+                            });
+                    }
+                },
+                function() {
+                    // cancelled. do nothing
+                }
+            );
+        }
+
+
+        function clearTestOutput() {
+            delete $scope.testoutput;
+            delete $scope.testoutput_explanation;
+        }
+
+
         vm.testModel = function (ev, form, project) {
             loggerService.debug('[ml4kmodels] testing model');
             var testdata = { type : project.type };
@@ -433,7 +416,7 @@
             if (project.type === 'text') {
                 testdata.text = $scope.testformData.testquestion;
             }
-            else if (project.type === 'images') {
+            else if (project.type === 'images' || project.type === 'imgtfjs') {
                 testdata.image = $scope.testformData.testimageurl;
 
                 if (testdata.image &&
@@ -463,11 +446,24 @@
 
             loggerService.debug('[ml4kmodels] submitting model test', testdata);
 
-            trainingService.testModel(project.id, project.type,
-                                      $scope.userId, vm.profile.tenant,
-                                      $scope.models[0].classifierid, $scope.models[0].credentialsid,
-                                      testdata)
-                .then(function (resp) {
+            var testFnPromise;
+            if (project.type === 'imgtfjs') {
+                testFnPromise = trainingService.testModelPrep(project.id,
+                    $scope.userId, vm.profile.tenant,
+                    $scope.models[0].classifierid,
+                    testdata)
+                    .then(function (imgdata) {
+                        return imageTrainingService.testBase64ImageData(imgdata);
+                    });
+            }
+            else {
+                testFnPromise = trainingService.testModel(project.id,
+                    $scope.userId, vm.profile.tenant,
+                    $scope.models[0].classifierid, $scope.models[0].credentialsid,
+                    testdata);
+            }
+
+            testFnPromise.then(function (resp) {
                     loggerService.debug('[ml4kmodels] test response', resp);
 
                     if (resp && resp.length > 0) {
@@ -494,15 +490,25 @@
         vm.deleteModel = function (ev, project, model) {
             loggerService.debug('[ml4kmodels] deleting model');
             $scope.submittingDeleteRequest = true;
-            var classifierid = model.classifierid;
-            trainingService.deleteModel(project.id, $scope.userId, vm.profile.tenant, classifierid)
-                .then(function () {
-                    $scope.models = $scope.models.filter(function (md) {
-                        return md.classifierid !== classifierid;
-                    });
-                    $scope.status = getStatus();
+            clearTestOutput();
 
-                    if ($scope.status === 'training') {
+            var modelFnPromise;
+            if (project.type === 'imgtfjs') {
+                modelFnPromise = imageTrainingService.deleteModel(project.id);
+            }
+            else if (project.type === 'sounds') {
+                modelFnPromise = soundTrainingService.deleteModel(project.id);
+            }
+            else {
+                var classifierid = model.classifierid;
+                modelFnPromise = trainingService.deleteModel(project.id, $scope.userId, vm.profile.tenant, classifierid);
+            }
+
+            modelFnPromise.then(function () {
+                    $scope.models = [];
+                    $scope.status = modelService.getStatus($scope.models);
+
+                    if ($scope.status === 'training' || project.type === 'imgtfjs' || project.type === 'sounds') {
                         refreshModels();
                     }
                     else {
@@ -525,8 +531,141 @@
         };
 
 
-        vm.useWebcam = function (ev, label) {
-            loggerService.debug('[ml4kmodels] useWebcam');
+
+        var CANVAS_DATA_TYPES = {
+            BASE64 : 'BASE64',
+            RESIZEDCANVAS : 'RESIZEDCANVAS'
+        };
+        function getCanvasData(canvasElement, canvasDataType) {
+            loggerService.debug('[ml4kmodels] getting canvas data for testing');
+            if (canvasDataType === CANVAS_DATA_TYPES.BASE64) {
+                var imagedata = canvasElement.toDataURL('image/jpeg');
+                var strippedHeaderData = imagedata.substr(imagedata.indexOf(',') + 1);
+                return strippedHeaderData;
+            }
+            else if (canvasDataType === CANVAS_DATA_TYPES.RESIZEDCANVAS) {
+                var hiddenCanvas = document.createElement('canvas');
+                hiddenCanvas.width = 224;
+                hiddenCanvas.height = 224;
+
+                loggerService.debug('[ml4ktraining] writing to hidden canvas');
+                var ctx = hiddenCanvas.getContext('2d');
+                ctx.drawImage(canvasElement,
+                    0, 0,
+                    canvasElement.width, canvasElement.height,
+                    0, 0, 224, 224);
+
+                return hiddenCanvas;
+            }
+        }
+        function getWebcamData(videoElement, canvasDataType) {
+            loggerService.debug('[ml4kmodels] getting webcam data for testing');
+
+            var targetWidth, targetHeight;
+            if (canvasDataType === CANVAS_DATA_TYPES.BASE64) {
+                targetWidth = videoElement.videoWidth;
+                targetHeight = videoElement.videoHeight;
+            }
+            else if (canvasDataType === CANVAS_DATA_TYPES.RESIZEDCANVAS) {
+                targetWidth = 224;
+                targetHeight = 224;
+            }
+
+            var hiddenCanvas = document.createElement('canvas');
+            hiddenCanvas.width = targetWidth;
+            hiddenCanvas.height = targetHeight;
+
+            var ctx = hiddenCanvas.getContext('2d');
+            if (canvasDataType === CANVAS_DATA_TYPES.BASE64) {
+                ctx.drawImage(videoElement,
+                    0, 0, videoElement.videoWidth, videoElement.videoHeight);
+            }
+            else if (canvasDataType === CANVAS_DATA_TYPES.RESIZEDCANVAS) {
+                ctx.drawImage(videoElement,
+                    0, 0, videoElement.videoWidth, videoElement.videoHeight,
+                    0, 0, targetWidth, targetHeight);
+            }
+
+            if (canvasDataType === CANVAS_DATA_TYPES.BASE64) {
+                var imagedata = hiddenCanvas.toDataURL('image/jpeg');
+                var strippedHeaderData = imagedata.substr(imagedata.indexOf(',') + 1);
+                return strippedHeaderData;
+            }
+            else if (canvasDataType === CANVAS_DATA_TYPES.RESIZEDCANVAS) {
+                return hiddenCanvas;
+            }
+        }
+
+        vm.testUsingCanvas = function (ev, isForBrowserUse) {
+            loggerService.debug('[ml4kmodels] testUsingCanvas');
+
+            $scope.testformData.testimageurl = '';
+
+            $scope.testoutput = "please wait...";
+            $scope.testoutput_explanation = "";
+
+            $mdDialog.show({
+                controller : function ($scope) {
+                    $scope.hide = function() {
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function() {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function() {
+                        $mdDialog.hide(
+                            getCanvasData(
+                                $scope.canvas,
+                                isForBrowserUse ? CANVAS_DATA_TYPES.RESIZEDCANVAS : CANVAS_DATA_TYPES.BASE64));
+                    };
+                },
+                templateUrl : 'static/components-' + $stateParams.VERSION + '/models/canvas.tmpl.html',
+                targetEvent : ev,
+                clickOutsideToClose : true
+            })
+            .then(
+                function (canvasimagedata) {
+                    $scope.testoutput = "please wait...";
+                    $scope.testoutput_explanation = "";
+
+                    var testPromise;
+                    if (isForBrowserUse) {
+                        testPromise = imageTrainingService.testCanvas(canvasimagedata);
+                    }
+                    else {
+                        testPromise = trainingService.testModel($scope.project.id,
+                                                                $scope.userId, vm.profile.tenant,
+                                                                $scope.models[0].classifierid, $scope.models[0].credentialsid,
+                                                                { type : $scope.project.type, data : canvasimagedata });
+                    }
+
+                    testPromise.then(function (resp) {
+                            loggerService.debug('[ml4kmodels] prediction', resp);
+                            $timeout(function () {
+                                if (resp && resp.length > 0) {
+                                    $scope.testoutput = resp[0].class_name;
+                                    $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
+                                }
+                                else {
+                                    $scope.testoutput = 'Unknown';
+                                    $scope.testoutput_explanation = "Test value could not be recognised";
+                                }
+                            }, 0);
+                        })
+                        .catch(function (err) {
+                            var errId = displayAlert('errors', err.status, err.data);
+                            scrollToNewItem('errors' + errId);
+                        });
+                },
+                function() {
+                    // cancelled. do nothing
+                    clearTestOutput();
+                }
+            );
+        };
+
+        vm.testUsingWebcam = function (ev, isForBrowserUse) {
+            loggerService.debug('[ml4kmodels] testUsingWebcam');
 
             $scope.testformData.testimageurl = '';
 
@@ -545,7 +684,10 @@
                         $mdDialog.cancel();
                     };
                     $scope.confirm = function() {
-                        $mdDialog.hide(getWebcamData());
+                        $mdDialog.hide(
+                            getWebcamData(
+                                $scope.channel.video,
+                                isForBrowserUse ? CANVAS_DATA_TYPES.RESIZEDCANVAS : CANVAS_DATA_TYPES.BASE64));
                     };
 
                     $scope.onWebcamSuccess = function () {
@@ -586,49 +728,38 @@
                             }, 0, false);
                         }
                     };
-
-
-                    function getWebcamData() {
-                        loggerService.debug('[ml4kmodels] getting webcam data');
-
-                        var hiddenCanvas = document.createElement('canvas');
-                        hiddenCanvas.width = $scope.channel.video.width;
-                        hiddenCanvas.height = $scope.channel.video.height;
-
-                        loggerService.debug('[ml4kmodels] writing to hidden canvas');
-                        var ctx = hiddenCanvas.getContext('2d');
-                        ctx.drawImage($scope.channel.video,
-                            0, 0,
-                            $scope.channel.video.width, $scope.channel.video.height);
-
-                        var imagedata = hiddenCanvas.toDataURL('image/jpeg');
-                        var strippedHeaderData = imagedata.substr(imagedata.indexOf(',') + 1);
-                        return strippedHeaderData;
-                    };
-
                 },
                 templateUrl : 'static/components-' + $stateParams.VERSION + '/models/webcam.tmpl.html',
                 targetEvent : ev,
                 clickOutsideToClose : true
             })
             .then(
-                function (webcamimagedata) {
+                function (webcamimagecanvas) {
                     $scope.testoutput = "please wait...";
                     $scope.testoutput_explanation = "";
 
-                    trainingService.testModel($scope.project.id, $scope.project.type,
-                                              $scope.userId, vm.profile.tenant,
-                                              $scope.models[0].classifierid, $scope.models[0].credentialsid,
-                                              { type : $scope.project.type, data : webcamimagedata })
-                        .then(function (resp) {
-                            if (resp && resp.length > 0) {
-                                $scope.testoutput = resp[0].class_name;
-                                $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
-                            }
-                            else {
-                                $scope.testoutput = 'Unknown';
-                                $scope.testoutput_explanation = "Test value could not be recognised";
-                            }
+                    var testPromise;
+                    if (isForBrowserUse) {
+                        testPromise = imageTrainingService.testCanvas(webcamimagecanvas);
+                    }
+                    else {
+                        testPromise = trainingService.testModel($scope.project.id,
+                            $scope.userId, vm.profile.tenant,
+                            $scope.models[0].classifierid, $scope.models[0].credentialsid,
+                            { type : $scope.project.type, data : webcamimagecanvas })
+                    }
+
+                    testPromise.then(function (resp) {
+                            $timeout(function() {
+                                if (resp && resp.length > 0) {
+                                    $scope.testoutput = resp[0].class_name;
+                                    $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
+                                }
+                                else {
+                                    $scope.testoutput = 'Unknown';
+                                    $scope.testoutput_explanation = "Test value could not be recognised";
+                                }
+                            }, 0);
                         })
                         .catch(function (err) {
                             var errId = displayAlert('errors', err.status, err.data);
@@ -637,62 +768,7 @@
                 },
                 function() {
                     // cancelled. do nothing
-                }
-            );
-        };
-
-
-
-        vm.useCanvas = function (ev) {
-            loggerService.debug('[ml4kmodels] useCanvas');
-
-            $scope.testformData.testimageurl = '';
-
-            $mdDialog.show({
-                controller : function ($scope) {
-                    $scope.hide = function() {
-                        $mdDialog.hide();
-                    };
-                    $scope.cancel = function() {
-                        $mdDialog.cancel();
-                    };
-                    $scope.confirm = function() {
-                        var imagedata = $scope.canvas.toDataURL('image/jpeg');
-                        var strippedHeaderData = imagedata.substr(imagedata.indexOf(',') + 1);
-                        $mdDialog.hide(strippedHeaderData);
-                    };
-
-                },
-                templateUrl : 'static/components-' + $stateParams.VERSION + '/models/canvas.tmpl.html',
-                targetEvent : ev,
-                clickOutsideToClose : true
-            })
-            .then(
-                function (canvasimagedata) {
-                    $scope.testoutput = "please wait...";
-                    $scope.testoutput_explanation = "";
-
-                    trainingService.testModel($scope.project.id, $scope.project.type,
-                                              $scope.userId, vm.profile.tenant,
-                                              $scope.models[0].classifierid, $scope.models[0].credentialsid,
-                                              { type : $scope.project.type, data : canvasimagedata })
-                        .then(function (resp) {
-                            if (resp && resp.length > 0) {
-                                $scope.testoutput = resp[0].class_name;
-                                $scope.testoutput_explanation = "with " + Math.round(resp[0].confidence) + "% confidence";
-                            }
-                            else {
-                                $scope.testoutput = 'Unknown';
-                                $scope.testoutput_explanation = "Test value could not be recognised";
-                            }
-                        })
-                        .catch(function (err) {
-                            var errId = displayAlert('errors', err.status, err.data);
-                            scrollToNewItem('errors' + errId);
-                        });
-                },
-                function() {
-                    // cancelled. do nothing
+                    clearTestOutput();
                 }
             );
         };
@@ -719,11 +795,7 @@
                 soundTrainingService.stopTest()
                     .then(function () {
                         loggerService.debug('[ml4kmodels] stop test callback');
-                        $scope.$apply(
-                            function() {
-                                delete $scope.testoutput;
-                                delete $scope.testoutput_explanation;
-                            });
+                        $scope.$apply(clearTestOutput);
                     })
                     .catch(function (err) {
                         loggerService.error('[ml4kmodels] Failed to stop listening', err);
@@ -733,35 +805,58 @@
 
 
 
+        vm.changeProjectType = function (newProjectType) {
+            loggerService.debug('[ml4kmodels] changing model type', newProjectType);
+            if ($scope.project &&
+                (($scope.project.type === 'images' && newProjectType === 'imgtfjs') ||
+                 ($scope.project.type === 'imgtfjs' && newProjectType === 'images')))
+            {
+                $scope.loading = true;
 
-        $scope.$on("$destroy", stopRefreshing);
-
-
-        function generateProjectSummary() {
-            if ($scope.project.labels.length > 0) {
-                var summary = '';
-                switch ($scope.project.labels.length) {
-                    case 1:
-                        summary = $scope.project.labels[0];
-                        break;
-                    case 2:
-                        summary = $scope.project.labels[0] + ' or ' + $scope.project.labels[1];
-                        break;
-                    case 3:
-                        summary = $scope.project.labels[0] + ', ' +
-                                    $scope.project.labels[1] + ' or ' +
-                                    $scope.project.labels[2];
-                        break;
-                    default:
-                        summary = $scope.project.labels[0] + ', ' +
-                                    $scope.project.labels[1] + ' or ' +
-                                    ($scope.project.labels.length - 2) + ' other classes';
-                        break;
+                // remove any existing locally created models before switching to cloud-hosted models
+                if ($scope.project.type === 'imgtfjs' && $scope.models && $scope.models.length > 0) {
+                    imageTrainingService.deleteModel($scope.project.id)
+                        .catch(function(err) {
+                            loggerService.debug('[ml4kmodels] Failed to delete existing local model', err);
+                        });
                 }
-                return summary;
-            }
-        }
 
+                // request project type to be changed on the server
+                projectsService.changeProjectType($scope.project.id, $scope.userId, vm.profile.tenant, newProjectType)
+                    .then(function () {
+                        location.reload();
+                    })
+                    .catch(function (err) {
+                        $scope.loading = false;
+                        var errId = displayAlert('errors', err.status, err.data);
+                        scrollToNewItem('errors' + errId);
+                    });
+            }
+            else {
+                loggerService.error('[ml4kmodels] Invalid change request');
+            }
+        };
+
+
+
+        $scope.$on("$destroy", function () {
+            loggerService.debug('[ml4kmodels] handling page change');
+
+            stopRefreshing();
+
+            if ($scope.project && $scope.project.type === 'sounds'){
+                if ($scope.listening) {
+                    soundTrainingService.stopTest()
+                        .catch(function (err) {
+                            loggerService.debug('[ml4kmodels] Failed to stop listening when cleaning up the page', err);
+                        });
+                }
+                soundTrainingService.reset();
+            }
+            else if ($scope.project && $scope.project.type === 'imgtjfs'){
+                imageTrainingService.reset();
+            }
+        });
 
 
         function scrollToNewItem(itemId) {
@@ -770,8 +865,5 @@
                 $document.duScrollToElementAnimated(angular.element(newItem));
             }, 0);
         }
-
-
     }
-
 }());

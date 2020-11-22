@@ -14,7 +14,7 @@ They are:
 ## Step 1 - Get the dependencies
 
 To run the site, you need:
-- Node.js version 10
+- Node.js version 12
 - PostgreSQL version 12
 
 ## Step 2 - Get the code

@@ -15,6 +15,25 @@ module.exports = function(grunt) {
     }
 
 
+    // ----
+
+    const mlModelFilesToDownload = {
+        './speech-commands/metadata.json' : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.4/browser_fft/18w/metadata.json',
+        './speech-commands/model.json' : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.4/browser_fft/18w/model.json',
+        './speech-commands/group1-shard1of2' : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.4/browser_fft/18w/group1-shard1of2',
+        './speech-commands/group1-shard2of2' : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.4/browser_fft/18w/group1-shard2of2',
+        './posenet/model-multiplier75-stride16.json' : 'https://storage.googleapis.com/tfjs-models/savedmodel/posenet/mobilenet/float/075/model-stride16.json',
+        './posenet/group1-shard1of2.bin' : 'https://storage.googleapis.com/tfjs-models/savedmodel/posenet/mobilenet/float/075/group1-shard1of2.bin',
+        './posenet/group1-shard2of2.bin' : 'https://storage.googleapis.com/tfjs-models/savedmodel/posenet/mobilenet/float/075/group1-shard2of2.bin',
+        './image-recognition/model.json' : 'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_0.25_224/model.json',
+    };
+    for (var x = 1; x <= 55; x++) {
+        const filename = 'group' + x + '-shard1of1';
+        mlModelFilesToDownload['./image-recognition/' + filename] = 'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_0.25_224/' + filename;
+    }
+
+    // ----
+
     grunt.initConfig({
         clean : {
             ts : ['./dist'],
@@ -178,7 +197,38 @@ module.exports = function(grunt) {
                 cwd : 'public/images',
                 src : '**',
                 dest : 'web/static/images'
+            },
+            tensorflowjs : {
+                expand : true,
+                cwd : 'node_modules/@tensorflow/tfjs/dist',
+                src : [ 'tf.min.js', 'tf.min.js.map' ],
+                dest : 'web/static/bower_components/tensorflowjs'
+            },
+            tensorflowspeechcommands : {
+                expand : true,
+                cwd : 'node_modules/@tensorflow-models/speech-commands/dist',
+                src : [ 'speech-commands.min.js' ],
+                dest : 'web/static/bower_components/tensorflow-models/speech-commands'
+            },
+            tensorflowposenet : {
+                expand : true,
+                cwd : 'node_modules/@tensorflow-models/posenet/dist',
+                src : [ 'posenet.min.js' ],
+                dest : 'web/static/bower_components/tensorflow-models/posenet'
+            },
+            tensorflowfacelandmarks : {
+                expand : true,
+                cwd : 'node_modules/@tensorflow-models/face-landmarks-detection/dist',
+                src : [ 'face-landmarks-detection.min.js' ],
+                dest : 'web/static/bower_components/tensorflow-models/face-landmarks-detection'
             }
+        },
+        downloadfile : {
+            options : {
+                dest : './web/static/bower_components/tensorflow-models',
+                overwriteEverytime : false
+            },
+            files: mlModelFilesToDownload
         },
         concat : {
             jsapp : {
@@ -210,6 +260,13 @@ module.exports = function(grunt) {
             dist : {
                 src : 'web/static/style*css'
             }
+        },
+        mkdir : {
+            tfjsmodels : {
+                options : {
+                    create : [ './web/static/bower_components/tensorflow-models/image-recognition' ]
+                }
+            }
         }
     });
 
@@ -219,6 +276,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-simple-nyc');
     grunt.loadNpmTasks('grunt-bower-install-simple');
+    grunt.loadNpmTasks('grunt-downloadfile');
+    grunt.loadNpmTasks('grunt-mkdir');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -242,6 +301,8 @@ module.exports = function(grunt) {
     //-----------------------------------
     // fetch UI third-party dependencies
     grunt.registerTask('bower', ['bower-install-simple']);
+    grunt.registerTask('tfjs', ['mkdir:tfjsmodels', 'copy:tensorflowjs', 'copy:tensorflowspeechcommands', 'copy:tensorflowposenet', 'copy:tensorflowfacelandmarks', 'downloadfile']);
+    grunt.registerTask('uidependencies', ['bower', 'tfjs']);
     // install Scratch into the deployment
     grunt.registerTask('scratch2', ['copy:scratchx', 'copy:scratchxhelp', 'copy:crossdomain']);
     grunt.registerTask('scratch3', ['copy:scratch3', 'copy:scratch3help']);
@@ -260,7 +321,7 @@ module.exports = function(grunt) {
     // bring the UI together
     grunt.registerTask('ui', ['css', 'javascript', 'html', 'concat:jsapp']);
     // prepare the main web app
-    grunt.registerTask('frontend', ['bower', 'scratch', 'staticfiles', 'ui']);
+    grunt.registerTask('frontend', ['uidependencies', 'scratch', 'staticfiles', 'ui']);
 
 
 

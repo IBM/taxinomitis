@@ -1,7 +1,10 @@
 /*eslint-env mocha */
+import * as fs from 'fs';
 import { v1 as uuid } from 'uuid';
 import * as assert from 'assert';
 import * as request from 'supertest';
+import * as filecompare from 'filecompare';
+import * as tmp from 'tmp';
 import * as requestPromise from 'request-promise';
 import * as httpstatus from 'http-status';
 import * as sinon from 'sinon';
@@ -1604,6 +1607,128 @@ describe('REST API - training', () => {
     });
 
 
+
+    describe('getTrainingItem', () => {
+
+        it('should retrieve resized image data ready for training', async () => {
+            const classid = 'BETA';
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'imgtfjs', 'demo', 'en', [], false);
+            const projectid = project.id;
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
+
+            await store.addLabelToProject(userid, classid, projectid, 'testlabel');
+            const trainingitem = await store.storeImageTraining(project.id,
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/John_McCarthy_%28computer_scientist%29_Stanford_2006_%28272020300%29.jpg/1280px-John_McCarthy_%28computer_scientist%29_Stanford_2006_%28272020300%29.jpg',
+                'testlabel',
+                false);
+
+            return request(testServer)
+                .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/training/' + trainingitem.id)
+                .expect('Content-Type', /octet-stream/)
+                .expect(httpstatus.OK)
+                .then((res) => {
+                    return writeDataToTempFile(res.body);
+                })
+                .then((retrievedFile) => {
+                    return filecomparepromise('./src/tests/utils/resources/mccarthy.jpg', retrievedFile);
+                })
+                .then(() => {
+                    return store.deleteEntireProject(userid, classid, project);
+                });
+        });
+
+
+        it('should handle requests to retrieve images that are no longer available', async () => {
+            const classid = 'BETA';
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'imgtfjs', 'demo', 'en', [], false);
+            const projectid = project.id;
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
+
+            await store.addLabelToProject(userid, classid, projectid, 'testlabel');
+            const trainingitem = await store.storeImageTraining(project.id,
+                'https://this-is-not-a-real-web-address/pretend-image.png',
+                'testlabel',
+                false);
+
+            return request(testServer)
+                .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/training/' + trainingitem.id)
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.CONFLICT)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, {
+                        code: 'MLMOD12',
+                        error: 'One of your training images could not be downloaded',
+                        location: {
+                            type: 'download',
+                            imageid: trainingitem.id,
+                            url: 'https://this-is-not-a-real-web-address/pretend-image.png'
+                        }
+                    });
+                    return store.deleteEntireProject(userid, classid, project);
+                });
+        });
+
+
+        it('should handle requests for unknown training items', async () => {
+            const classid = 'BETA';
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, classid, 'imgtfjs', 'demo', 'en', [], false);
+            const projectid = project.id;
+
+            nextAuth0UserId = userid;
+            nextAuth0UserTenant = classid;
+
+            return request(testServer)
+                .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/training/' + uuid())
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.NOT_FOUND)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, {
+                        error : 'Not found',
+                    });
+                    return store.deleteEntireProject(userid, classid, project);
+                });
+        });
+
+    });
+
+
+    function writeDataToTempFile(data: Buffer): Promise<string> {
+        return new Promise((resolve, reject) => {
+            tmp.file((err, path) => {
+                if (err) {
+                    return reject(err);
+                }
+                fs.writeFile(path, data, (fserr) => {
+                    if (fserr) {
+                        return reject(fserr);
+                    }
+                    return resolve(path);
+                });
+            });
+        });
+    }
+
+    function filecomparepromise(filea: string, fileb: string): Promise<void> {
+        return new Promise((resolve, reject) => {
+            filecompare(filea, fileb, (isEq: boolean) => {
+                if (isEq) {
+                    return resolve();
+                }
+                assert(isEq, filea + ' ' + fileb);
+                return reject(new Error('files do not match'));
+            });
+        });
+    }
 
 
 

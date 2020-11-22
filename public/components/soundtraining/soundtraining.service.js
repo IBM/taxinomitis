@@ -5,13 +5,20 @@
         .service('soundTrainingService', soundTrainingService);
 
     soundTrainingService.$inject = [
-        'trainingService', 'utilService', '$q', 'loggerService', '$window'
+        '$q', '$window', '$location',
+        'trainingService', 'modelService',
+        'utilService', 'loggerService',
     ];
 
-    function soundTrainingService(trainingService, utilService, $q, loggerService, $window) {
+    function soundTrainingService($q, $window, $location, trainingService, modelService, utilService, loggerService) {
 
         var transferRecognizer;
         var transferModelInfo;
+
+        var usingRestoredModel = false;
+        var mlprojectid;
+        var mlprojectlabels;
+
 
         var modelStatus;
 
@@ -91,11 +98,11 @@
             return permissionsCheck()
                 .then(function () {
                     loggerService.debug('[ml4ksound] loading tf');
-                    return utilService.loadScript('https://unpkg.com/@tensorflow/tfjs@1.5.2/dist/tf.js');
+                    return utilService.loadScript('/static/bower_components/tensorflowjs/tf.min.js');
                 })
                 .then(function () {
                     loggerService.debug('[ml4ksound] loading speech-commands');
-                    return utilService.loadScript('https://unpkg.com/@tensorflow-models/speech-commands@0.4.2');
+                    return utilService.loadScript('/static/bower_components/tensorflow-models/speech-commands/speech-commands.min.js');
                 })
                 .then(function () {
                     loggerService.debug('[ml4ksound] enabling tf prod mode');
@@ -110,23 +117,42 @@
                 });
         }
 
-        function initSoundSupport(projectid) {
+        function initSoundSupport(projectid, labels, loadModelIfAvailable) {
+            if (projectid && !mlprojectid) {
+                // keep values to reuse for future calls
+                mlprojectid = projectid;
+                mlprojectlabels = labels;
+            }
+
             var baseRecognizer;
             return loadTensorFlow()
                 .then(function () {
                     loggerService.debug('[ml4ksound] browser model');
-                    baseRecognizer = speechCommands.create('BROWSER_FFT');
+
+                    var siteUrl = $location.protocol() + '://' + $location.host();
+                    if ($location.port()) {
+                        siteUrl = siteUrl + ':' + $location.port();
+                    }
+
+                    var vocab = null;
+                    var modelJson = siteUrl + '/static/bower_components/tensorflow-models/speech-commands/model.json';
+                    var metadataJson = siteUrl + '/static/bower_components/tensorflow-models/speech-commands/metadata.json';
+                    baseRecognizer = speechCommands.create('BROWSER_FFT', vocab, modelJson, metadataJson);
                     return baseRecognizer.ensureModelLoaded();
                 })
                 .then(function () {
                     loggerService.debug('[ml4ksound] creating transfer learning recognizer');
-                    transferRecognizer = baseRecognizer.createTransfer(projectid);
+                    transferRecognizer = baseRecognizer.createTransfer(mlprojectid);
 
                     var modelInfo = transferRecognizer.modelInputShape();
                     transferModelInfo = {
                         numFrames : modelInfo[1],
                         fftSize : modelInfo[2]
                     };
+
+                    if (loadModelIfAvailable) {
+                        return loadModel(mlprojectid, mlprojectlabels);
+                    }
                 });
         }
 
@@ -151,12 +177,31 @@
             });
         }
 
+        function prepareSoundService() {
+            if (usingRestoredModel) {
+                // models restored from indexeddb don't have the base layers needed
+                //  to train a new model, so we need to start from scratch
+                loggerService.debug('[ml4ksound] Setting up new transfer learning model');
+                return initSoundSupport();
+            }
+            else {
+                // we aren't using a model restored from indexeddb so we should
+                //  have everything we need already in place to train a new model
+                return $q(function (resolve) {
+                    resolve();
+                });
+            }
+        }
+
         function getTrainingData(projectid, userid, tenantid) {
             return trainingService.getTraining(projectid, userid, tenantid)
                 .then(function (traininginfo) {
                     return $q.all(traininginfo.map(trainingService.getSoundData));
                 });
         }
+
+
+
 
         function newModel(projectid, userid, tenantid) {
             loggerService.debug('[ml4ksound] creating new ML model');
@@ -168,8 +213,12 @@
                 updated : new Date()
             };
 
-            loggerService.debug('[ml4ksound] getting training data');
-            return getTrainingData(projectid, userid, tenantid)
+            loggerService.debug('[ml4ksound] preparing sound service');
+            return prepareSoundService()
+                .then(function () {
+                    loggerService.debug('[ml4ksound] getting training data');
+                    return getTrainingData(projectid, userid, tenantid);
+                })
                 .then(function (trainingdata) {
                     loggerService.debug('[ml4ksound] retrieved training data');
 
@@ -209,6 +258,9 @@
                     }).then(function() {
                         modelStatus.status = 'Available';
                         modelStatus.progress = 100;
+                        usingRestoredModel = false;
+
+                        return saveModel(projectid);
                     });
 
                     loggerService.debug('[ml4ksound] returning interim status');
@@ -227,6 +279,9 @@
 
         function startTest(callback) {
             loggerService.debug('[ml4ksound] starting to listen');
+            var predictionOptions = {
+                probabilityThreshold : 0.7
+            };
             return transferRecognizer.listen(function (result) {
                 var matches = [];
 
@@ -249,14 +304,10 @@
                     });
                 }
 
-                matches.sort(function (a, b) {
-                    return b.confidence - a.confidence;
-                });
+                matches.sort(modelService.sortByConfidence);
 
                 callback(matches);
-            }, {
-                probabilityThreshold : 0.7
-            });
+            }, predictionOptions);
         }
 
         function stopTest() {
@@ -265,14 +316,59 @@
         }
 
 
+
+
+        var MODELTYPE = 'sounds';
+
+        function deleteModel(projectid) {
+            modelStatus = null;
+            return modelService.deleteModel(MODELTYPE, projectid);
+        }
+
+        function saveModel(projectid) {
+            return modelService.saveModel(MODELTYPE, projectid, transferRecognizer);
+        }
+
+        function loadModel(projectid, labels) {
+            return modelService.loadModel(MODELTYPE, projectid, transferRecognizer)
+                .then(function (resp) {
+                    if (resp) {
+                        transferRecognizer.words = labels;
+                        modelStatus = {
+                            classifierid : projectid,
+                            status : 'Available',
+                            progress : 100,
+                            updated : resp.timestamp
+                        };
+                        usingRestoredModel = true;
+
+                        return modelStatus;
+                    }
+                });
+        }
+
+        function reset() {
+            try {
+                if (transferRecognizer) {
+                    tf.dispose(transferRecognizer);
+                }
+            }
+            catch (err) {
+                loggerService.debug('[ml4ksound] failed to dispose transfer model', err);
+            }
+        }
+
+
         return {
             initSoundSupport : initSoundSupport,
             getModelInfo : getModelInfo,
             collectExample : collectExample,
             newModel : newModel,
+            deleteModel : deleteModel,
             getModels : getModels,
             startTest : startTest,
-            stopTest : stopTest
+            stopTest : stopTest,
+            reset : reset
         };
     }
 })();

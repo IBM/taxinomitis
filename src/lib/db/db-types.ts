@@ -28,7 +28,7 @@ export interface ProjectDbRow {
     readonly iscrowdsourced: boolean;
 }
 
-export type ProjectTypeLabel = 'text' | 'numbers' | 'images' | 'sounds';
+export type ProjectTypeLabel = 'text' | 'numbers' | 'images' | 'sounds' | 'imgtfjs';
 
 export const MAX_LABEL_LENGTH = 30;
 

@@ -8,7 +8,7 @@
         'authService',
         'projectsService',
         'loggerService',
-        '$state', '$rootScope'
+        '$state', '$rootScope', '$scope'
     ];
 
 
@@ -50,11 +50,12 @@
             });
         }
 
+        vm.explainimages = false;
+
         var MIN_CHOICE_LENGTH = 1;
         var MAX_CHOICE_LENGTH = 9;
         var MIN_NUM_CHOICES = 2;
         var MAX_NUM_CHOICES = 5;
-
 
         authService.getProfileDeferred()
             .then(function (profile) {

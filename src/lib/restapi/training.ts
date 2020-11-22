@@ -65,6 +65,9 @@ async function getTraining(req: auth.RequestWithProject, res: Express.Response) 
         case 'images':
             training = await store.getImageTraining(req.project.id, options);
             break;
+        case 'imgtfjs':
+            training = await store.getImageTraining(req.project.id, options);
+            break;
         case 'sounds':
             training = await store.getSoundTraining(req.project.id, options);
             break;
@@ -80,6 +83,34 @@ async function getTraining(req: auth.RequestWithProject, res: Express.Response) 
     catch (err) {
         errors.unknownError(res, err);
     }
+}
+
+
+function getTrainingItem(req: auth.RequestWithProject, res: Express.Response) {
+    if (req.project.type !== 'imgtfjs') {
+        return res.status(httpstatus.BAD_REQUEST).json({ error : 'Only supported for image projects' });
+    }
+
+    return visrec.getTrainingItemData(req.project, req.params.trainingid)
+        .then((trainingdata) => {
+            res.set(headers.CACHE_1YEAR);
+            res.send(trainingdata);
+        })
+        .catch((err) => {
+            if (err.message && err.message.startsWith(imageDownload.ERRORS.DOWNLOAD_FAIL)) {
+                return res.status(httpstatus.CONFLICT)
+                        .send({
+                            code : 'MLMOD12',
+                            error : 'One of your training images could not be downloaded',
+                            location : err.location,
+                        });
+            }
+            else if (err.message === 'Training data not found') {
+                return errors.notFound(res);
+            }
+
+            return errors.unknownError(res, err);
+        });
 }
 
 
@@ -121,7 +152,7 @@ function editLabel(req: auth.RequestWithProject, res: Express.Response) {
 async function deleteTraining(req: auth.RequestWithProject, res: Express.Response) {
     const trainingid: string = req.params.trainingid;
 
-    if (req.project.type === 'images') {
+    if (req.project.type === 'images' || req.project.type === 'imgtfjs') {
         const inImageStore = await store.isImageStored(trainingid);
         if (inImageStore) {
             store.storeDeleteObjectJob(req.params.classid,
@@ -169,6 +200,10 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
             training = await store.storeNumberTraining(req.project.id, req.project.isCrowdSourced, data, label);
             break;
         case 'images':
+            await imageCheck.verifyImage(data, visrec.getMaxImageFileSize());
+            training = await store.storeImageTraining(req.project.id, data, label, false);
+            break;
+        case 'imgtfjs':
             await imageCheck.verifyImage(data, visrec.getMaxImageFileSize());
             training = await store.storeImageTraining(req.project.id, data, label, false);
             break;
@@ -228,6 +263,13 @@ export default function registerApis(app: Express.Application) {
             auth.verifyProjectOwner,
             // @ts-ignore
             editLabel);
+
+    app.get(urls.TRAININGITEM,
+            auth.authenticate,
+            auth.checkValidUser,
+            auth.verifyProjectAccess,
+            // @ts-ignore
+            getTrainingItem);
 
     app.delete(urls.TRAININGITEM,
                auth.authenticate,

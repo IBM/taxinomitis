@@ -227,7 +227,7 @@ async function deleteProject(req: auth.RequestWithProject, res: Express.Response
 
         // if this is an images or sounds project, schedule a job to
         //  clean up any usage of the S3 Object Store by training data
-        if (project.type === 'images' || project.type === 'sounds') {
+        if (project.type === 'images' || project.type === 'sounds' || project.type === 'imgtfjs') {
             await store.storeDeleteProjectObjectsJob(classid, userid, projectid);
         }
 
@@ -242,9 +242,11 @@ async function deleteProject(req: auth.RequestWithProject, res: Express.Response
 
 
 
+type ExpectedProjectPatches = 'labels' | 'isCrowdSourced' | 'type';
 
 
-function getProjectPatch(req: Express.Request, expected: 'labels' | 'isCrowdSourced') {
+
+function getProjectPatch(req: Express.Request, expected: ExpectedProjectPatches[]) {
     const patchRequests = req.body;
 
     if (Array.isArray(patchRequests) === false) {
@@ -267,7 +269,9 @@ function getProjectPatch(req: Express.Request, expected: 'labels' | 'isCrowdSour
     }
     let value = patchRequest.value;
 
-    if (patchRequest.path === '/labels' && expected === 'labels') {
+    const path: string = patchRequest.path;
+
+    if (path === '/labels' && expected.includes('labels')) {
         if (op === 'add' || op === 'remove') {
             if (typeof value !== 'string') {
                 throw new Error('PATCH requests to add or remove a label should specify a string');
@@ -297,18 +301,28 @@ function getProjectPatch(req: Express.Request, expected: 'labels' | 'isCrowdSour
             throw new Error('Invalid PATCH op');
         }
 
-        return { op, value };
+        return { op, value, path };
     }
-    else if (patchRequest.path === '/isCrowdSourced' && expected === 'isCrowdSourced') {
+    else if (path === '/type' && expected.includes('type')) {
+        if (op === 'replace' && typeof value === 'string' &&
+            (value === 'images' || value === 'imgtfjs'))
+        {
+            return { op, value, path };
+        }
+        else {
+            throw new Error('Invalid PATCH op');
+        }
+    }
+    else if (path === '/isCrowdSourced' && expected.includes('isCrowdSourced')) {
         if (op === 'replace' && typeof value === 'boolean') {
-            return { op, value };
+            return { op, value, path };
         }
         else {
             throw new Error('Invalid PATCH op');
         }
     }
     else {
-        throw new Error('Only modifications to project ' + expected + ' are supported');
+        throw new Error('Only modifications to project ' + expected.join(' or ') + ' are supported');
     }
 }
 
@@ -328,7 +342,7 @@ async function modifyProject(req: Express.Request, res: Express.Response) {
 
     let patch;
     try {
-        patch = getProjectPatch(req, 'labels');
+        patch = getProjectPatch(req, ['labels', 'type']);
     }
     catch (err) {
         return res.status(httpstatus.BAD_REQUEST)
@@ -340,21 +354,37 @@ async function modifyProject(req: Express.Request, res: Express.Response) {
     try {
         let response: string[];
 
-        switch (patch.op) {
-        case 'add':
-            response = await store.addLabelToProject(userid, classid, projectid, patch.value);
-            break;
-        case 'remove':
-            // delete anything with the label from the S3 Object Store
-            await deleteImages(classid, userid, projectid, patch.value);
-            // delete anything with the label from the DB
-            response = await store.removeLabelFromProject(userid, classid, projectid, patch.value);
-            break;
-        case 'replace':
-            response = await store.replaceLabelsForProject(userid, classid, projectid, patch.value);
-            break;
-        default:
+        if (patch.path === '/labels') {
+            switch (patch.op) {
+            case 'add':
+                response = await store.addLabelToProject(userid, classid, projectid, patch.value);
+                break;
+            case 'remove':
+                // delete anything with the label from the S3 Object Store
+                await deleteImages(classid, userid, projectid, patch.value);
+                // delete anything with the label from the DB
+                response = await store.removeLabelFromProject(userid, classid, projectid, patch.value);
+                break;
+            case 'replace':
+                response = await store.replaceLabelsForProject(userid, classid, projectid, patch.value);
+                break;
+            default:
+                response = [];
+            }
+        }
+        else if (patch.path === '/type') {
+            // the only valid change of project type is between images and imgtfjs, as they
+            //  both store training data in the same place and in the same way
+            const oldtype = patch.value === 'images' ? 'imgtfjs' : 'images';
+            if (oldtype === 'images') {
+                await store.deleteWatsonClassifiers(projectid, classid);
+            }
+
+            await store.updateProjectType(userid, classid, projectid, oldtype, patch.value);
             response = [];
+        }
+        else {
+            return errors.missingData(res);
         }
 
         res.json(response);
@@ -379,7 +409,7 @@ async function shareProject(req: auth.RequestWithProject, res: Express.Response)
 
         let patch;
         try {
-            patch = getProjectPatch(req, 'isCrowdSourced');
+            patch = getProjectPatch(req, ['isCrowdSourced']);
         }
         catch (err) {
             return res.status(httpstatus.BAD_REQUEST)

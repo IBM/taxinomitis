@@ -231,7 +231,12 @@
             })
             .state('pretrained', {
                 url: '/pretrained',
-                templateUrl: 'static/components-<%= VERSION %>/pretrained/pretrained.html'
+                controller: 'PretrainedController',
+                templateUrl: 'static/components-<%= VERSION %>/pretrained/pretrained.html',
+                controllerAs: 'vm',
+                params: {
+                    VERSION : <%= VERSION %>
+                }
             })
             .state('404', {
                 url: '/404',

@@ -4,11 +4,9 @@
         .module('app')
         .service('trainingService', trainingService);
 
-    trainingService.$inject = [
-        '$q', '$http'
-    ];
+    trainingService.$inject = [ '$http' ];
 
-    function trainingService($q, $http) {
+    function trainingService($http) {
 
 
         function newTrainingData(projectid, userid, tenant, data, label) {
@@ -41,6 +39,26 @@
             return $http.get(url, { headers : { Range : 'items=0-3000' } })
                 .then(function (resp) {
                     return resp.data;
+                });
+        }
+
+        function getTrainingItem(projectid, userid, tenant, trainingid) {
+            var url = '/api/classes/' + tenant +
+                        '/students/' + userid +
+                        '/projects/' + projectid +
+                        '/training/' + trainingid;
+
+            return $http.get(url, { responseType : 'arraybuffer' })
+                .then(function (resp) {
+                    return resp.data;
+                })
+                .catch(function (err) {
+                    if (err.status) {
+                        // because we explicitly request an arraybuffer, we need
+                        //  to decode the JSON payload in the event of an error
+                        err.data = JSON.parse(new TextDecoder().decode(err.data));
+                    }
+                    throw err;
                 });
         }
 
@@ -94,7 +112,7 @@
             });
         }
 
-        function testModel(projectid, projecttype, userid, tenant, modelid, credsid, testdata) {
+        function testModel(projectid, userid, tenant, modelid, credsid, testdata) {
             var url = '/api/classes/' + tenant +
                         '/students/' + userid +
                         '/projects/' + projectid +
@@ -105,6 +123,27 @@
             return $http.post(url, testdata)
                 .then(function (resp) {
                     return resp.data;
+                });
+        }
+
+        function testModelPrep(projectid, userid, tenant, modelid, testdata) {
+            var url = '/api/classes/' + tenant +
+                        '/students/' + userid +
+                        '/projects/' + projectid +
+                        '/models/' + modelid +
+                        '/label';
+
+            return $http.post(url, testdata, { responseType : 'arraybuffer' })
+                .then(function (resp) {
+                    return resp.data;
+                })
+                .catch(function (err) {
+                    if (err.status) {
+                        // because we explicitly request an arraybuffer, we need
+                        //  to decode the JSON payload in the event of an error
+                        err.data = JSON.parse(new TextDecoder().decode(err.data));
+                    }
+                    throw err;
                 });
         }
 
@@ -182,11 +221,13 @@
             getSoundData : getSoundData,
 
             getTraining : getTraining,
+            getTrainingItem : getTrainingItem,
             deleteTrainingData : deleteTrainingData,
             getModels : getModels,
             getModel : getModel,
             newModel : newModel,
             testModel : testModel,
+            testModelPrep : testModelPrep,
             deleteModel : deleteModel,
 
             getUnmanagedClassifiers : getUnmanagedClassifiers,

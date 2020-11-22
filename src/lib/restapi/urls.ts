@@ -59,6 +59,8 @@ export const SCRATCHKEY_STATUS     = '/api/scratch/:scratchkey/status';
 export const SCRATCHKEY_MODEL      = '/api/scratch/:scratchkey/models';
 export const SCRATCHKEY_EXTENSION  = '/api/scratch/:scratchkey/extension.js';
 export const SCRATCH3_EXTENSION    = '/api/scratch/:scratchkey/extension3.js';
+export const SCRATCHTFJS_EXTENSION = '/api/scratch/:scratchkey/extensiontfjs.js';
+export const SCRATCHTFJS_EXTENSIONS = '/api/scratchtfjs/extensions';
 
 //
 // URLs about App Inventor

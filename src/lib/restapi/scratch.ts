@@ -8,6 +8,7 @@ import * as objectstore from '../objectstore';
 import * as errors from './errors';
 import * as auth from './auth';
 import * as extensions from '../scratchx/extensions';
+import * as scratchtfjs from '../scratchx/scratchtfjs';
 import * as models from '../scratchx/models';
 import * as status from '../scratchx/status';
 import * as keys from '../scratchx/keys';
@@ -301,6 +302,43 @@ function getScratch3Extension(req: Express.Request, res: Express.Response) {
 }
 
 
+function handleTfjsException(err: any, res: Express.Response) {
+    log.error({ err }, 'TensorFlow.js request exception');
+    if (err.statusCode === httpstatus.NOT_FOUND) {
+        return res.status(httpstatus.BAD_REQUEST)
+                  .json({ error : 'Model not found' });
+    }
+    errors.unknownError(res, err);
+}
+
+
+function getTfjsExtension(req: Express.Request, res: Express.Response) {
+    const scratchkey = req.params.scratchkey;
+
+    return extensions.getScratchTfjsExtension(scratchkey)
+        .then((extension) => {
+            return res.set('Content-Type', 'application/javascript')
+                  .set(headers.CACHE_1YEAR)
+                  .send(extension);
+        })
+        .catch((err) => {
+            handleTfjsException(err, res);
+        });
+}
+
+function generateTfjsExtension(req: Express.Request, res: Express.Response) {
+    return scratchtfjs.generateUrl(req.body)
+        .then((resp) => {
+            return res.status(httpstatus.OK)
+                    .set(headers.CACHE_1YEAR)
+                    .json({ url : resp });
+        })
+        .catch((err) => {
+            handleTfjsException(err, res);
+        });
+}
+
+
 async function getScratchxStatus(req: Express.Request, res: Express.Response) {
     const apikey = req.params.scratchkey;
 
@@ -357,7 +395,10 @@ export default function registerApis(app: Express.Application) {
     app.get(urls.SCRATCHKEY_TRAIN, getTrainingData);
     app.post(urls.SCRATCHKEY_TRAIN, storeTrainingData);
 
+    app.post(urls.SCRATCHTFJS_EXTENSIONS, generateTfjsExtension);
+
     app.get(urls.SCRATCHKEY_EXTENSION, getScratchxExtension);
     app.get(urls.SCRATCH3_EXTENSION, getScratch3Extension);
+    app.get(urls.SCRATCHTFJS_EXTENSION, getTfjsExtension);
     app.get(urls.SCRATCHKEY_STATUS, getScratchxStatus);
 }

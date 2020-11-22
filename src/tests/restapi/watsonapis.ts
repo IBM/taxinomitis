@@ -1,6 +1,7 @@
 /*eslint-env mocha */
 
 import * as assert from 'assert';
+import { v1 as uuid } from 'uuid';
 import * as sinon from 'sinon';
 import * as request from 'supertest';
 import * as httpstatus from 'http-status';
@@ -10,6 +11,7 @@ import * as express from 'express';
 import * as conversation from '../../lib/training/conversation';
 import * as visualrecognition from '../../lib/training/visualrecognition';
 import * as TrainingTypes from '../../lib/training/training-types';
+import * as checker from '../../lib/training/credentialscheck';
 import * as ProjectTypes from '../../lib/db/projects';
 import * as store from '../../lib/db/store';
 import * as Types from '../../lib/db/db-types';
@@ -29,6 +31,8 @@ describe('REST API - Bluemix credentials', () => {
     let getTextClassifiersStub: sinon.SinonStub<[string, string], Promise<string>>;
     let getImageClassifiersStub: sinon.SinonStub<[TrainingTypes.BluemixCredentials],
                                                  Promise<string>>;
+    let testTxtMultipleCredentialsStub: sinon.SinonStub<[TrainingTypes.BluemixCredentials[]], Promise<boolean>>;
+    let testImgMultipleCredentialsStub: sinon.SinonStub<[TrainingTypes.BluemixCredentials[]], Promise<boolean>>;
 
     function authNoOp(
         req: express.Request,
@@ -48,12 +52,14 @@ describe('REST API - Bluemix credentials', () => {
 
 
     before(async () => {
+        checker.init();
+
         authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
         checkUserStub = sinon.stub(auth, 'checkValidUser').callsFake(authNoOp);
         requireSupervisorStub = sinon.stub(auth, 'requireSupervisor').callsFake(authNoOp);
 
         getClassStub = sinon.stub(store, 'getClassTenant').callsFake((id: string): Promise<Types.ClassTenant> => {
-            if (id === 'TESTTENANT' || id === 'DIFFERENT') {
+            if (id === 'TESTTENANT' || id.startsWith('DIFFERENT')) {
                 const placeholder: Types.ClassTenant = {
                     id, tenantType : Types.ClassTenantType.UnManaged,
                 } as Types.ClassTenant;
@@ -80,6 +86,22 @@ describe('REST API - Bluemix credentials', () => {
                     statusCode : 401,
                 });
             });
+        testTxtMultipleCredentialsStub = sinon
+            .stub(conversation, 'testMultipleCredentials')
+            .callsFake((creds: TrainingTypes.BluemixCredentials[]) => {
+                if (creds[0].username === VALID_USERNAME && creds[0].password === VALID_PASSWORD) {
+                    return Promise.resolve(true);
+                }
+                return Promise.resolve(false);
+            });
+        testImgMultipleCredentialsStub = sinon
+            .stub(visualrecognition, 'testMultipleCredentials')
+            .callsFake((creds: TrainingTypes.BluemixCredentials[]) => {
+                if (creds[0].username + creds[0].password === VALID_APIKEY) {
+                    return Promise.resolve(true);
+                }
+                return Promise.resolve(false);
+            });
         getImageClassifiersStub = sinon
             .stub(visualrecognition, 'identifyRegion')
             .callsFake((creds: TrainingTypes.BluemixCredentials) => {
@@ -104,6 +126,8 @@ describe('REST API - Bluemix credentials', () => {
         getClassStub.restore();
         getTextClassifiersStub.restore();
         getImageClassifiersStub.restore();
+        testTxtMultipleCredentialsStub.restore();
+        testImgMultipleCredentialsStub.restore();
 
         return store.disconnect();
     });
@@ -508,6 +532,104 @@ describe('REST API - Bluemix credentials', () => {
         });
     });
 
+
+    describe('checkAllCredentials', () => {
+        const classid = 'DIFFERENT9';
+
+        describe('text credentials', () => {
+            const convid = uuid();
+
+            before(() => {
+                return store.storeBluemixCredentials(classid, {
+                    id : convid,
+                    classid,
+                    username : VALID_USERNAME,
+                    password : VALID_PASSWORD,
+                    servicetype : 'conv',
+                    url : 'https://gateway.watsonplatform.net/assistant/api',
+                    credstypeid : 0,
+                });
+            });
+            after(() => {
+                return store.deleteBluemixCredentials(convid);
+            });
+
+            it('should validate credentials', () => {
+                return request(testServer)
+                    .get('/api/classes/' + classid + '/modelsupport/text')
+                    .expect('Content-Type', /json/)
+                    .expect(httpstatus.OK)
+                    .then((res) => {
+                        assert.strictEqual(res.headers['cache-control'], 'max-age=31536000');
+                        assert.deepStrictEqual(res.body, {
+                            code: 'MLCRED-OK',
+                            message: 'ok',
+                        });
+                    });
+            });
+
+            it('should use the cache for repeated requests', () => {
+                return request(testServer)
+                    .get('/api/classes/' + classid + '/modelsupport/text')
+                    .expect('Content-Type', /json/)
+                    .expect(httpstatus.OK)
+                    .then((res) => {
+                        assert.strictEqual(res.headers['cache-control'], 'max-age=31536000');
+                        assert.deepStrictEqual(res.body, {
+                            code: 'MLCRED-OK',
+                            message: 'ok',
+                        });
+                    });
+            });
+        });
+
+        describe('images credentials', () => {
+            const visrecid = uuid();
+
+            before(() => {
+                return store.storeBluemixCredentials(classid, {
+                    id : visrecid,
+                    classid,
+                    username : VALID_APIKEY.substr(0, 22),
+                    password : VALID_APIKEY.substr(22),
+                    servicetype : 'visrec',
+                    url : 'https://gateway.watsonplatform.net/assistant/api',
+                    credstypeid : 0,
+                });
+            });
+            after(() => {
+                return store.deleteBluemixCredentials(visrecid);
+            });
+
+            it('should validate credentials', () => {
+                return request(testServer)
+                    .get('/api/classes/' + classid + '/modelsupport/images')
+                    .expect('Content-Type', /json/)
+                    .expect(httpstatus.OK)
+                    .then((res) => {
+                        assert.strictEqual(res.headers['cache-control'], 'max-age=31536000');
+                        assert.deepStrictEqual(res.body, {
+                            code: 'MLCRED-OK',
+                            message: 'ok',
+                        });
+                    });
+            });
+
+            it('should use the cache for repeated requests', () => {
+                return request(testServer)
+                    .get('/api/classes/' + classid + '/modelsupport/images')
+                    .expect('Content-Type', /json/)
+                    .expect(httpstatus.OK)
+                    .then((res) => {
+                        assert.strictEqual(res.headers['cache-control'], 'max-age=31536000');
+                        assert.deepStrictEqual(res.body, {
+                            code: 'MLCRED-OK',
+                            message: 'ok',
+                        });
+                    });
+            });
+        });
+    });
 
 
     describe('createCredentials', () => {

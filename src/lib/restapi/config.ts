@@ -42,56 +42,91 @@ export function setupForBluemix(app: express.Application): void {
 
 export const CSP_DIRECTIVES = {
     defaultSrc: ["'self'", "'unsafe-inline'",
+        // used for auth
         'http://cdn.auth0.com',
         'https://cdn.auth0.com',
         'https://cdn.eu.auth0.com',
-        'https://unpkg.com',
-        'https://storage.googleapis.com',
+        // used for analytics
         'https://www.google-analytics.com',
     ],
     styleSrc: ["'self'", "'unsafe-inline'",
+        // used to embed tweets in the News tab
         'https://ton.twimg.com',
         'https://platform.twitter.com',
     ],
     scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'",
+        // used for auth
         'http://cdn.auth0.com',
         'https://cdn.auth0.com',
         'https://cdn.eu.auth0.com',
-        'https://unpkg.com',
-        'https://storage.googleapis.com',
+        // used to embed links in the News tab
         'http://embed-assets.wakelet.com',
+        // used to embed tweets in the News tab
         'http://platform.twitter.com',
         'https://cdn.syndication.twimg.com',
+        // used to embed videos in the News tab
         'https://www.youtube.com',
+        // used to embed video in the Worksheets tab
         'https://player.vimeo.com',
+        // used for analytics
         'https://www.google-analytics.com',
         'https://www.googletagmanager.com',
+        // used for error capturing
         'https://browser.sentry-cdn.com',
-        'https://d3js.org',
     ],
     frameSrc: ["'self'",
+        // used in the News tab
         'http://embed.wakelet.com',
         'https://syndication.twitter.com',
         'https://platform.twitter.com',
         'https://www.youtube.com',
+        // used in the Worksheets tab
         'https://player.vimeo.com'
     ],
     imgSrc: ["'self'",
+        // used for auth
         'https://auth0.com',
         'http://cdn.auth0.com',
         'https://cdn.auth0.com',
         'https://cdn.eu.auth0.com',
+        // used for tweets in the News tab
         'https://pbs.twimg.com',
         'https://ton.twimg.com',
         'https://platform.twitter.com',
         'https://syndication.twitter.com',
+        // used for various things, including training data thumbnails
         'data:',
     ],
 };
 
 
+// to allow easier local development, we want the hosted instance to allow
+//  private/localhost to be able to fetch tfjs models for use in Scratch
+const ALLOWED_CORS_ORIGINS = [
+    'http://ml-for-kids-local.net:3000',
+    'http://ml-for-kids-local.net:9000',
+];
+function addCorsHeaders(req: express.Request, res: express.Response, next: express.NextFunction): void {
+    if (ALLOWED_CORS_ORIGINS.includes(req.headers.origin || '')) {
+        res.header('Access-Control-Allow-Origin', req.headers.origin);
+        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    }
+    next();
+}
+function removeFrameBlockingHeaders(req: express.Request, res: express.Response, next: express.NextFunction): void {
+    res.removeHeader('x-frame-options');
+    next();
+}
+
+
 
 export function setupUI(app: express.Application): void {
+    const tfjslocation: string = path.join(__dirname, '/../../../web/static/bower_components/tensorflow-models');
+    app.use('/static/bower_components/tensorflow-models', compression(), addCorsHeaders, express.static(tfjslocation, { maxAge : constants.ONE_YEAR }));
+
+    const twittercardlocation: string = path.join(__dirname, '/../../../web/dynamic/twitter-card.html');
+    app.use('/twitter-card.html', compression(), removeFrameBlockingHeaders, express.static(twittercardlocation, { maxAge : constants.ONE_YEAR }));
+
     const uilocation: string = path.join(__dirname, '/../../../web/static');
     app.use('/static', compression(), express.static(uilocation, { maxAge : constants.ONE_YEAR }));
 

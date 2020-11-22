@@ -11,6 +11,7 @@ const autoprefixer = require('gulp-autoprefixer');
 const rename = require('gulp-rename');
 const ngAnnotate = require('gulp-ng-annotate');
 const sourcemaps = require('gulp-sourcemaps');
+const download = require('gulp-download2');
 const del = require('del');
 
 
@@ -56,6 +57,67 @@ gulp.task('bower', function() {
 gulp.task('twitter', function() {
     return gulp.src('public/twitter-card.html').pipe(gulp.dest('web/dynamic'));
 });
+
+gulp.task('tensorflowjs', function() {
+    return gulp.src([
+        'node_modules/@tensorflow/tfjs/dist/tf.min.js',
+        'node_modules/@tensorflow/tfjs/dist/tf.min.js.map'
+    ]).pipe(gulp.dest('web/static/bower_components/tensorflowjs'));
+});
+gulp.task('tensorflowposenet', function() {
+    return gulp.src([
+        'node_modules/@tensorflow-models/posenet/dist/posenet.min.js'
+    ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/posenet'));
+});
+gulp.task('posenetmodel', function() {
+    const files = [
+        { url : 'https://storage.googleapis.com/tfjs-models/savedmodel/posenet/mobilenet/float/075/model-stride16.json', file : 'model-multiplier75-stride16.json' },
+        { url : 'https://storage.googleapis.com/tfjs-models/savedmodel/posenet/mobilenet/float/075/group1-shard1of2.bin', file : 'group1-shard1of2.bin' },
+        { url : 'https://storage.googleapis.com/tfjs-models/savedmodel/posenet/mobilenet/float/075/group1-shard2of2.bin', file : 'group1-shard2of2.bin' }
+    ];
+    return download(files)
+        .pipe(gulp.dest('web/static/bower_components/tensorflow-models/posenet'));
+});
+gulp.task('tensorflowspeechcommands', function() {
+    return gulp.src([
+        'node_modules/@tensorflow-models/speech-commands/dist/speech-commands.min.js'
+    ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/speech-commands'));
+});
+gulp.task('speechcommandsmodel', function() {
+    const files = [
+        { url : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.4/browser_fft/18w/metadata.json', file : 'metadata.json' },
+        { url : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.4/browser_fft/18w/model.json', file : 'model.json' },
+        { url : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.4/browser_fft/18w/group1-shard1of2', file : 'group1-shard1of2' },
+        { url : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.4/browser_fft/18w/group1-shard2of2', file : 'group1-shard2of2' }
+    ];
+    return download(files)
+        .pipe(gulp.dest('web/static/bower_components/tensorflow-models/speech-commands'));
+});
+gulp.task('tensorflowfacelandmarks', function() {
+    return gulp.src([
+        'node_modules/@tensorflow-models/face-landmarks-detection/dist/face-landmarks-detection.min.js'
+    ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/face-landmarks-detection'));
+});
+gulp.task('imagerecognitionmodel', function() {
+    const files = [
+        { url : 'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_0.25_224/model.json', file : 'model.json' }
+    ];
+    for (var x = 1; x <= 55; x++) {
+        const filename = 'group' + x + '-shard1of1';
+        files.push({
+            url : 'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_0.25_224/' + filename,
+            file : filename
+        });
+    }
+    return download(files)
+        .pipe(gulp.dest('web/static/bower_components/tensorflow-models/image-recognition'));
+});
+gulp.task('tfjs',
+    gulp.parallel('tensorflowjs',
+        'tensorflowspeechcommands', 'speechcommandsmodel',
+        'tensorflowposenet', 'posenetmodel',
+        'tensorflowfacelandmarks',
+        'imagerecognitionmodel'));
 
 gulp.task('scratchblocks', function() {
     return gulp.src('public/third-party/scratchblocks-v3.1-min.js').pipe(gulp.dest('web/static'));
@@ -210,6 +272,9 @@ gulp.task('test', () => {
 gulp.task('web',
     gulp.series('css', 'minifyjs', 'images', 'html', 'angularcomponents', 'languages', 'datasets', 'scratchxinstall', 'scratch3install', 'scratchblocks'));
 
+gulp.task('uidependencies',
+    gulp.series('bower', 'tfjs'));
+
 gulp.task('build',
     gulp.parallel('web', 'compile'));
 
@@ -219,7 +284,15 @@ gulp.task('default', gulp.series('build', 'lint', 'test'));
 gulp.task('buildprod',
     gulp.series(
         'clean',
-        'bower',
-        gulp.parallel('css', 'minifyprodjs', 'images', 'prodhtml', 'angularcomponents', 'languages', 'datasets', 'scratchxinstall', 'scratch3install', 'scratchblocks'),
+        'uidependencies',
+        gulp.parallel(
+            'css',
+            'minifyprodjs',
+            'images',
+            'prodhtml',
+            'angularcomponents',
+            'languages',
+            'datasets',
+            'scratchxinstall', 'scratch3install', 'scratchblocks'),
         'compile',
         'lint'));

@@ -177,6 +177,45 @@ export async function updateProjectCrowdSourced(
 }
 
 
+export async function updateProjectType(
+    userid: string, classid: string, projectid: string,
+    oldtype: Objects.ProjectTypeLabel, newtype: Objects.ProjectTypeLabel,
+): Promise<void>
+{
+    const queryName = 'dbqn-update-projects-type';
+    const queryString = 'UPDATE projects ' +
+                        'SET typeid = $1 ' +
+                        'WHERE userid = $2 AND classid = $3 AND id = $4 AND typeid = $5';
+    const queryValues = [
+        dbobjects.getProjectTypeId(newtype),
+        userid, classid, projectid,
+        dbobjects.getProjectTypeId(oldtype),
+    ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    if (response.rowCount === 1) {
+        // success
+        return;
+    }
+
+    /* istanbul ignore else */
+    if (response.rowCount === 0) {
+        log.warn({ userid, classid, projectid, func : 'updateProjectType' },
+                 'Project not found');
+        throw new Error('Project not found');
+    }
+    else {
+        // id is a primary key, so an update can only affect 0 or 1 rows
+        log.error({
+            func : 'updateProjectType',
+            userid, classid, projectid,
+            response,
+        }, 'Unexpected response');
+        throw new Error('Unexpected response when updating project status');
+    }
+}
+
+
 export async function getNumberProjectFields(
     userid: string, classid: string, projectid: string,
 ): Promise<Objects.NumbersProjectField[]>
@@ -429,6 +468,8 @@ function getDbTable(type: Objects.ProjectTypeLabel): string {
     case 'numbers':
         return 'numbertraining';
     case 'images':
+        return 'imagetraining';
+    case 'imgtfjs':
         return 'imagetraining';
     case 'sounds':
         return 'soundtraining';
@@ -816,6 +857,29 @@ export async function getImageTraining(
     const response = await dbExecute(queryName, queryString, queryValues);
     return response.rows.map(dbobjects.getImageTrainingFromDbRow);
 }
+
+export async function getImageTrainingItem(projectid: string, trainingid: string): Promise<Objects.ImageTraining>
+{
+    const queryName = 'dbqn-select-imagetraining-item';
+    const queryString = 'SELECT id, imageurl, label, isstored FROM imagetraining ' +
+                        'WHERE projectid = $1 AND id = $2 ' +
+                        'LIMIT 1000';
+    const queryValues = [ projectid, trainingid ];
+
+    const response = await dbExecute(queryName, queryString, queryValues);
+    const rows = response.rows;
+
+    if (rows.length !== 1) {
+        log.error({
+            projectid, trainingid,
+            func : 'getImageTrainingItem',
+        }, 'Training item not found');
+
+        throw new Error('Training data not found');
+    }
+    return dbobjects.getImageTrainingFromDbRow(response.rows[0]);
+}
+
 
 
 export async function getImageTrainingByLabel(
@@ -2732,6 +2796,20 @@ export async function getLatestSiteAlert(): Promise<Objects.SiteAlert | undefine
 // -----------------------------------------------------------------------------
 
 
+export async function deleteWatsonClassifiers(projectid: string, classid: string): Promise<void> {
+    try {
+        const classifiers = await getImageClassifiers(projectid);
+        const tenant = await getClassTenant(classid);
+        for (const classifier of classifiers) {
+            await visualrec.deleteClassifier(tenant, classifier);
+        }
+    }
+    catch (err) {
+        log.error({ err, projectid, classid }, 'Failed to clean up Vis Rec classifiers');
+    }
+}
+
+
 export async function deleteEntireProject(userid: string, classid: string, project: Objects.Project): Promise<void> {
     switch (project.type) {
     case 'text': {
@@ -2742,6 +2820,9 @@ export async function deleteEntireProject(userid: string, classid: string, proje
         }
         break;
     }
+    case 'imgtfjs':
+        // nothing to do - models all stored client-side
+        break;
     case 'images': {
         const classifiers = await getImageClassifiers(project.id);
         const tenant = await getClassTenant(classid);

@@ -16,6 +16,13 @@ import * as ObjectStoreTypes from '../objectstore/types';
 //
 // -----------------------------------------------------------------------------
 
+export function getProjectTypeId(type: string) {
+    if (projects.typeLabels.includes(type)) {
+        return projects.typesByLabel[type].id;
+    }
+    throw new Error('Invalid project type ' + type);
+}
+
 export function createProject(
     userid: string, classid: string,
     type: string,
@@ -82,7 +89,7 @@ export function createProject(
         id : projectid,
         userid,
         classid,
-        typeid : projects.typesByLabel[type].id,
+        typeid : getProjectTypeId(type),
         name,
         labels : '',
         language,
@@ -833,6 +840,9 @@ export function getScratchKeyFromDbRow(row: Objects.ScratchKeyDbRow): Objects.Sc
     case 'text':
         servicetype = 'conv';
         break;
+    case 'imgtfjs':
+        servicetype = 'imgtfjs';
+        break;
     case 'images':
         servicetype = 'visrec';
         break;
@@ -1072,7 +1082,7 @@ export function getClassDbRow(tenant: Objects.ClassTenant): Objects.ClassDbRow {
 export function getDefaultClassTenant(classid: string): Objects.ClassTenant {
     return {
         id : classid,
-        supportedProjectTypes : [ 'text', 'images', 'numbers', 'sounds' ],
+        supportedProjectTypes : [ 'text', 'images', 'numbers', 'sounds', 'imgtfjs' ],
         tenantType : Objects.ClassTenantType.UnManaged,
         maxUsers : 30,
         maxProjectsPerUser : 3,

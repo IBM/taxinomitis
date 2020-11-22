@@ -13,8 +13,22 @@
     <div class="jumbotron">
         <h2 class="text-center" translate="MODELS.TITLE"></h2>
     </div>
-    <div class="backbutton">
-        <a ui-sref="mlproject({ projectId : projectId, userId : userId })" translate="APP.BACKTOPROJECT"></a>
+    <div class="backbutton" style="width: 100%; display: flex;">
+        <div style="">
+            <a ui-sref="mlproject({ projectId : projectId, userId : userId })" translate="APP.BACKTOPROJECT"></a>
+        </div>
+        <div class="modelprojecttypechange"
+             ng-click="vm.changeProjectType('imgtfjs')"
+             ng-if="owner && project && project.type === 'images'"
+             ng-hide="status === 'training' || submittingTrainingRequest || submittingDeleteRequest"
+             translate="MODELS.CHANGETYPE.IMGTFJS">
+        </div>
+        <div class="modelprojecttypechange"
+             ng-click="vm.changeProjectType('images')"
+             ng-if="owner && project && project.type === 'imgtfjs'"
+             ng-hide="status === 'training' || submittingTrainingRequest || submittingDeleteRequest"
+             translate="MODELS.CHANGETYPE.IMAGES">
+        </div>
     </div>
 
     <div ng-repeat="error in vm.errors"
@@ -50,7 +64,7 @@
                 <div ng-switch-when="training">
                     <div class="modelstatusdetail" ng-if="project.isCrowdSourced && project.type === 'text'"
                                                    translate="MODELS.WHATHAVEYOUDONE.TRAINING.CROWDSOURCED.TEXT"></div>
-                    <div class="modelstatusdetail" ng-if="project.isCrowdSourced && project.type === 'images'"
+                    <div class="modelstatusdetail" ng-if="project.isCrowdSourced && (project.type === 'images' || project.type === 'imgtfjs')"
                                                    translate="MODELS.WHATHAVEYOUDONE.TRAINING.CROWDSOURCED.IMAGES"></div>
                     <div class="modelstatusdetail" ng-if="project.isCrowdSourced && project.type === 'numbers'"
                                                    translate="MODELS.WHATHAVEYOUDONE.TRAINING.CROWDSOURCED.NUMBERS"></div>
@@ -58,7 +72,7 @@
                                                    translate="MODELS.WHATHAVEYOUDONE.TRAINING.CROWDSOURCED.SOUNDS"></div>
                     <div class="modelstatusdetail" ng-if="!project.isCrowdSourced && project.type === 'text'"
                                                    translate="MODELS.WHATHAVEYOUDONE.TRAINING.INDIVIDUAL.TEXT"></div>
-                    <div class="modelstatusdetail" ng-if="!project.isCrowdSourced && project.type === 'images'"
+                    <div class="modelstatusdetail" ng-if="!project.isCrowdSourced && (project.type === 'images' || project.type === 'imgtfjs')"
                                                    translate="MODELS.WHATHAVEYOUDONE.TRAINING.INDIVIDUAL.IMAGES"></div>
                     <div class="modelstatusdetail" ng-if="!project.isCrowdSourced && project.type === 'numbers'"
                                                    translate="MODELS.WHATHAVEYOUDONE.TRAINING.INDIVIDUAL.NUMBERS"></div>
@@ -80,7 +94,7 @@
                     <div class="modelstatusdetail">
                         <span ng-if="project.isCrowdSourced && project.type === 'text'"
                               translate="MODELS.WHATHAVEYOUDONE.READY.CROWDSOURCED.TEXT"></span>
-                        <span ng-if="project.isCrowdSourced && project.type === 'images'"
+                        <span ng-if="project.isCrowdSourced && (project.type === 'images' || project.type === 'imgtfjs')"
                               translate="MODELS.WHATHAVEYOUDONE.READY.CROWDSOURCED.IMAGES"></span>
                         <span ng-if="project.isCrowdSourced && project.type === 'numbers'"
                               translate="MODELS.WHATHAVEYOUDONE.READY.CROWDSOURCED.NUMBERS"></span>
@@ -88,7 +102,7 @@
                               translate="MODELS.WHATHAVEYOUDONE.READY.CROWDSOURCED.SOUNDS"></span>
                         <span ng-if="!project.isCrowdSourced && project.type === 'text'"
                               translate="MODELS.WHATHAVEYOUDONE.READY.INDIVIDUAL.TEXT"></span>
-                        <span ng-if="!project.isCrowdSourced && project.type === 'images'"
+                        <span ng-if="!project.isCrowdSourced && (project.type === 'images' || project.type === 'imgtfjs')"
                               translate="MODELS.WHATHAVEYOUDONE.READY.INDIVIDUAL.IMAGES"></span>
                         <span ng-if="!project.isCrowdSourced && project.type === 'numbers'"
                               translate="MODELS.WHATHAVEYOUDONE.READY.INDIVIDUAL.NUMBERS"></span>
@@ -122,7 +136,7 @@
                 <div ng-switch-when="error">
                     <div class="modelstatusdetail" ng-if="project.isCrowdSourced && owner && project.type === 'text'"
                                                    translate="MODELS.WHATHAVEYOUDONE.ERROR.CROWDSOURCED.YOU.TEXT"></div>
-                    <div class="modelstatusdetail" ng-if="project.isCrowdSourced && owner && project.type === 'images'"
+                    <div class="modelstatusdetail" ng-if="project.isCrowdSourced && owner && (project.type === 'images' || project.type === 'imgtfjs')"
                                                    translate="MODELS.WHATHAVEYOUDONE.ERROR.CROWDSOURCED.YOU.IMAGES"></div>
                     <div class="modelstatusdetail" ng-if="project.isCrowdSourced && owner && project.type === 'numbers'"
                                                    translate="MODELS.WHATHAVEYOUDONE.ERROR.CROWDSOURCED.YOU.NUMBERS"></div>
@@ -130,7 +144,7 @@
                                                    translate="MODELS.WHATHAVEYOUDONE.ERROR.CROWDSOURCED.YOU.SOUNDS"></div>
                     <div class="modelstatusdetail" ng-if="project.isCrowdSourced && !owner && project.type === 'text'"
                                                    translate="MODELS.WHATHAVEYOUDONE.ERROR.CROWDSOURCED.CLASS.TEXT"></div>
-                    <div class="modelstatusdetail" ng-if="project.isCrowdSourced && !owner && project.type === 'images'"
+                    <div class="modelstatusdetail" ng-if="project.isCrowdSourced && !owner && (project.type === 'images' || project.type === 'imgtfjs')"
                                                    translate="MODELS.WHATHAVEYOUDONE.ERROR.CROWDSOURCED.CLASS.IMAGES"></div>
                     <div class="modelstatusdetail" ng-if="project.isCrowdSourced && !owner && project.type === 'numbers'"
                                                    translate="MODELS.WHATHAVEYOUDONE.ERROR.CROWDSOURCED.CLASS.NUMBERS"></div>
@@ -138,7 +152,7 @@
                                                    translate="MODELS.WHATHAVEYOUDONE.ERROR.CROWDSOURCED.CLASS.SOUNDS"></div>
                     <div class="modelstatusdetail" ng-if="!project.isCrowdSourced && project.type === 'text'"
                                                    translate="MODELS.WHATHAVEYOUDONE.ERROR.INDIVIDUAL.TEXT"></div>
-                    <div class="modelstatusdetail" ng-if="!project.isCrowdSourced && project.type === 'images'"
+                    <div class="modelstatusdetail" ng-if="!project.isCrowdSourced && (project.type === 'images' || project.type === 'imgtfjs')"
                                                    translate="MODELS.WHATHAVEYOUDONE.ERROR.INDIVIDUAL.IMAGES"></div>
                     <div class="modelstatusdetail" ng-if="!project.isCrowdSourced && project.type === 'numbers'"
                                                    translate="MODELS.WHATHAVEYOUDONE.ERROR.INDIVIDUAL.NUMBERS"></div>
@@ -155,7 +169,7 @@
                     <div ng-if="project.labels.length === 0">
                         <div class="modelstatusdetail" ng-if="project.isCrowdSourced && project.type === 'text'"
                             translate="MODELS.WHATHAVEYOUDONE.IDLE.NOLABELS.CROWDSOURCED.TEXT"></div>
-                        <div class="modelstatusdetail" ng-if="project.isCrowdSourced && project.type === 'images'"
+                        <div class="modelstatusdetail" ng-if="project.isCrowdSourced && (project.type === 'images' || project.type === 'imgtfjs')"
                             translate="MODELS.WHATHAVEYOUDONE.IDLE.NOLABELS.CROWDSOURCED.IMAGES"></div>
                         <div class="modelstatusdetail" ng-if="project.isCrowdSourced && project.type === 'numbers'"
                             translate="MODELS.WHATHAVEYOUDONE.IDLE.NOLABELS.CROWDSOURCED.NUMBERS"></div>
@@ -163,7 +177,7 @@
                             translate="MODELS.WHATHAVEYOUDONE.IDLE.NOLABELS.CROWDSOURCED.SOUNDS"></div>
                         <div class="modelstatusdetail" ng-if="!project.isCrowdSourced && project.type === 'text'"
                             translate="MODELS.WHATHAVEYOUDONE.IDLE.NOLABELS.INDIVIDUAL.TEXT"></div>
-                        <div class="modelstatusdetail" ng-if="!project.isCrowdSourced && project.type === 'images'"
+                        <div class="modelstatusdetail" ng-if="!project.isCrowdSourced && (project.type === 'images' || project.type === 'imgtfjs')"
                             translate="MODELS.WHATHAVEYOUDONE.IDLE.NOLABELS.INDIVIDUAL.IMAGES"></div>
                         <div class="modelstatusdetail" ng-if="!project.isCrowdSourced && project.type === 'numbers'"
                             translate="MODELS.WHATHAVEYOUDONE.IDLE.NOLABELS.INDIVIDUAL.NUMBERS"></div>
@@ -174,7 +188,7 @@
                         <div class="modelstatusdetail">
                             <span ng-if="project.isCrowdSourced && project.type === 'text'"
                                   translate="MODELS.WHATHAVEYOUDONE.IDLE.NODATA.CROWDSOURCED.TEXT"></span>
-                            <span ng-if="project.isCrowdSourced && project.type === 'images'"
+                            <span ng-if="project.isCrowdSourced && (project.type === 'images' || project.type === 'imgtfjs')"
                                   translate="MODELS.WHATHAVEYOUDONE.IDLE.NODATA.CROWDSOURCED.IMAGES"></span>
                             <span ng-if="project.isCrowdSourced && project.type === 'numbers'"
                                   translate="MODELS.WHATHAVEYOUDONE.IDLE.NODATA.CROWDSOURCED.NUMBERS"></span>
@@ -182,7 +196,7 @@
                                   translate="MODELS.WHATHAVEYOUDONE.IDLE.NODATA.CROWDSOURCED.SOUNDS"></span>
                             <span ng-if="!project.isCrowdSourced && project.type === 'text'"
                                   translate="MODELS.WHATHAVEYOUDONE.IDLE.NODATA.INDIVIDUAL.TEXT"></span>
-                            <span ng-if="!project.isCrowdSourced && project.type === 'images'"
+                            <span ng-if="!project.isCrowdSourced && (project.type === 'images' || project.type === 'imgtfjs')"
                                   translate="MODELS.WHATHAVEYOUDONE.IDLE.NODATA.INDIVIDUAL.IMAGES"></span>
                             <span ng-if="!project.isCrowdSourced && project.type === 'numbers'"
                                   translate="MODELS.WHATHAVEYOUDONE.IDLE.NODATA.INDIVIDUAL.NUMBERS"></span>
@@ -199,7 +213,7 @@
                         <div class="modelstatusdetail">
                             <span ng-if="project.isCrowdSourced && project.type === 'text'"
                                   translate="MODELS.WHATHAVEYOUDONE.IDLE.DATA.CROWDSOURCED.TEXT"></span>
-                            <span ng-if="project.isCrowdSourced && project.type === 'images'"
+                            <span ng-if="project.isCrowdSourced && (project.type === 'images' || project.type === 'imgtfjs')"
                                   translate="MODELS.WHATHAVEYOUDONE.IDLE.DATA.CROWDSOURCED.IMAGES"></span>
                             <span ng-if="project.isCrowdSourced && project.type === 'numbers'"
                                   translate="MODELS.WHATHAVEYOUDONE.IDLE.DATA.CROWDSOURCED.NUMBERS"></span>
@@ -207,7 +221,7 @@
                                   translate="MODELS.WHATHAVEYOUDONE.IDLE.DATA.CROWDSOURCED.SOUNDS"></span>
                             <span ng-if="!project.isCrowdSourced && project.type === 'text'"
                                   translate="MODELS.WHATHAVEYOUDONE.IDLE.DATA.INDIVIDUAL.TEXT"></span>
-                            <span ng-if="!project.isCrowdSourced && project.type === 'images'"
+                            <span ng-if="!project.isCrowdSourced && (project.type === 'images' || project.type === 'imgtfjs')"
                                   translate="MODELS.WHATHAVEYOUDONE.IDLE.DATA.INDIVIDUAL.IMAGES"></span>
                             <span ng-if="!project.isCrowdSourced && project.type === 'numbers'"
                                   translate="MODELS.WHATHAVEYOUDONE.IDLE.DATA.INDIVIDUAL.NUMBERS"></span>
@@ -255,7 +269,7 @@
                 <!-- ***** -->
                 <div ng-switch-when="ready">
                     <div class="modelstatusdetail" ng-if="project.type === 'text'" translate="MODELS.WHATSNEXT.READY.TEST.TEXT"></div>
-                    <div class="modelstatusdetail" ng-if="project.type === 'images'" translate="MODELS.WHATSNEXT.READY.TEST.IMAGES"></div>
+                    <div class="modelstatusdetail" ng-if="project.type === 'images' || project.type === 'imgtfjs'" translate="MODELS.WHATSNEXT.READY.TEST.IMAGES"></div>
                     <div class="modelstatusdetail" ng-if="project.type === 'numbers'" translate="MODELS.WHATSNEXT.READY.TEST.NUMBERS"></div>
                     <div class="modelstatusdetail" ng-if="project.type === 'sounds'" translate="MODELS.WHATSNEXT.READY.TEST.SOUNDS"></div>
                     <div class="modelstatusdetail" translate="MODELS.WHATSNEXT.READY.SCRATCH"></div>
@@ -319,9 +333,9 @@
     </div>
 
 
-    <div ng-if="status === 'ready'" class="trainingserversection">
+    <div ng-if="status === 'ready'" ng-hide="loading" class="trainingserversection">
         <div style="margin: 1em;" ng-if="project.type === 'text'" translate="MODELS.TESTING.INTRO.TEXT" ></div>
-        <div style="margin: 1em;" ng-if="project.type === 'images'" translate="MODELS.TESTING.INTRO.IMAGES" ></div>
+        <div style="margin: 1em;" ng-if="project.type === 'images' || project.type === 'imgtfjs'" translate="MODELS.TESTING.INTRO.IMAGES" ></div>
         <div style="margin: 1em;" ng-if="project.type === 'numbers'" translate="MODELS.TESTING.INTRO.NUMBERS" ></div>
         <div style="margin: 1em;" ng-if="project.type === 'sounds'" translate="MODELS.TESTING.INTRO.SOUNDS" ></div>
         <form name="testform" ng-submit="vm.testModel($event, testform, project)">
@@ -334,7 +348,8 @@
                    maxlength="2000"
                    ng-maxlength="2000"
                    placeholder="enter a test text here">
-            <div ng-if="project.type === 'images'" ng-click="vm.useWebcam($event)"
+            <div ng-if="project.type === 'images' || project.type === 'imgtfjs'"
+                 ng-click="vm.testUsingWebcam($event, project.type === 'imgtfjs')"
                  class="btn newexamplebutton" style="margin: 2em">
                 <div class="newexamplelabel">
                     &nbsp;
@@ -342,7 +357,8 @@
                     <span translate="MODELS.TESTING.WEBCAM"></span>
                 </div>
             </div>
-            <div ng-if="project.type === 'images'" ng-click="vm.useCanvas($event)"
+            <div ng-if="project.type === 'images' || project.type === 'imgtfjs'"
+                 ng-click="vm.testUsingCanvas($event, project.type === 'imgtfjs')"
                  class="btn newexamplebutton" style="margin: 1em" >
                 <div class="newexamplelabel">
                     &nbsp;
@@ -350,14 +366,14 @@
                     <span translate="MODELS.TESTING.DRAWING"></span>
                 </div>
             </div>
-            <br ng-if="project.type === 'images'"/>
-            <input ng-if="project.type === 'images'"
+            <br ng-if="project.type === 'images' || project.type === 'imgtfjs'"/>
+            <input ng-if="project.type === 'images' || project.type === 'imgtfjs'"
                    style="margin-left: 2em; width: 70%"
                    type="text"
                    ng-model="testformData.testimageurl"
                    ng-required="true"
                    placeholder="Test with a web address for an image on the Internet">
-            <button ng-if="project.type === 'images'"
+            <button ng-if="project.type === 'images' || project.type === 'imgtfjs'"
                    class="btn btn-default"
                    type="submit"
                    ng-disabled="testform.$invalid"
@@ -432,7 +448,7 @@
                     </td>
                 </tr>
                 <tr><td colspan=2> &nbsp; </td></tr>
-                <tr ng-hide="project.type === 'sounds'">
+                <tr ng-hide="(project.type === 'sounds' || project.type === 'imgtfjs') && model.status === 'Training'">
                     <td colspan=2>
                         <button class="btn btn-danger"
                                 ng-if="owner"
@@ -448,7 +464,7 @@
             </table>
         </div>
 
-        <button ng-if="!loading && status !== 'training' && trainingdatastatus === 'data' && owner"
+        <button ng-if="!loading && status !== 'training' && trainingdatastatus === 'data' && (owner || project.type === 'imgtfjs')"
                 style="margin: 4em;"
                 class="btn btn-primary"
                 ng-click="vm.createModel($event, project)"

@@ -44,6 +44,11 @@ const REQUEST_OPTIONS = {
     },
 };
 
+const RESIZE_OPTIONS = {
+    // skew, don't crop, when resizing
+    fit : 'fill',
+} as sharp.ResizeOptions;
+
 
 /**
  * Downloads a file from the specified URL to the specified location on disk.
@@ -181,12 +186,9 @@ export function resize(
                 throw new Error('Unsupported file type ' + imageinfo.type);
             }
 
-            // skew, don't crop, when resizing
-            const options = { fit : 'fill' } as sharp.ResizeOptions;
-
             const shrinkStream = sharp()
                                     // resize before writing to disk
-                                    .resize(width, height, options)
+                                    .resize(width, height, RESIZE_OPTIONS)
                                     .on('error', resolve)
                                     // write to file using the same image
                                     //  format (i.e. jpg vs png) as the
@@ -214,6 +216,47 @@ export function resize(
             resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
         });
 }
+
+
+export function resizeUrl(url: string, width: number, height: number): Promise<Buffer> {
+    return new Promise((resolve, reject) => {
+        const shrinkStream = sharp()
+                                .resize(width, height, RESIZE_OPTIONS)
+                                .on('error', reject)
+                                .toBuffer((err, buff) => {
+                                    if (err) {
+                                        if (err.message === 'Input buffer contains unsupported image format') {
+                                            return reject(new Error(ERRORS.DOWNLOAD_FILETYPE_UNSUPPORTED));
+                                        }
+                                        return reject(err);
+                                    }
+                                    return resolve(buff);
+                                });
+
+        request.get({ ...REQUEST_OPTIONS, url })
+            .on('error', (err) => {
+                log.warn({ err, url }, 'Download fail');
+                return reject(new Error(ERRORS.DOWNLOAD_FAIL + url));
+            })
+            .pipe(shrinkStream);
+    });
+}
+
+export function resizeBuffer(imagedata: Buffer, width: number, height: number): Promise<Buffer> {
+    return new Promise((resolve, reject) => {
+        sharp(imagedata)
+            .resize(width, height, RESIZE_OPTIONS)
+            .on('error', reject)
+            .toBuffer((err, buff) => {
+                if (err) {
+                    log.error({ err }, 'Resize fail');
+                    return reject(err);
+                }
+                return resolve(buff);
+            });
+    });
+}
+
 
 
 /**

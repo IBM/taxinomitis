@@ -1,6 +1,7 @@
 // external dependencies
 import * as Mustache from 'mustache';
 // local dependencies
+import * as scratchtfjs from './scratchtfjs';
 import * as Types from '../db/db-types';
 import * as fileutils from '../utils/fileutils';
 import * as sound from '../training/sound';
@@ -63,6 +64,28 @@ async function getImagesExtension(scratchkey: Types.ScratchKey, project: Types.P
         storeurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/train',
 
         projectname : escapeProjectName(scratchkey.name, version),
+        labels : project.labels.map((name, idx) => {
+            return { name, idx };
+        }),
+
+        firstlabel : project.labels.length > 0 ? project.labels[0] : '',
+    });
+    return rendered;
+}
+
+async function getImagesTfjsExtension(scratchkey: Types.ScratchKey, project: Types.Project): Promise<string>
+{
+    const template: string = await fileutils.read('./resources/scratch3-imgtfjs-classify.js');
+
+    Mustache.parse(template);
+    const rendered = Mustache.render(template, {
+        projectid : project.id.replace(/-/g, ''),
+
+        statusurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/status',
+        classifyurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/classify',
+        storeurl : ROOT_URL + '/api/scratch/' + scratchkey.id + '/train',
+
+        projectname : escapeProjectName(scratchkey.name, 3),
         labels : project.labels.map((name, idx) => {
             return { name, idx };
         }),
@@ -168,9 +191,33 @@ export function getScratchxExtension(
         return getTextExtension(scratchkey, project, version);
     case 'images':
         return getImagesExtension(scratchkey, project, version);
+    case 'imgtfjs':
+        return getImagesTfjsExtension(scratchkey, project);
     case 'numbers':
         return getNumbersExtension(scratchkey, project, version);
     case 'sounds':
         return getSoundExtension(scratchkey, project, version);
     }
+}
+
+
+
+
+export async function getScratchTfjsExtension(scratchkey: string): Promise<string> {
+    const modelinfo = await scratchtfjs.getModelInfoFromScratchKey(scratchkey);
+    const metadata = await scratchtfjs.getMetadata(modelinfo);
+
+    const template: string = await fileutils.read('./resources/scratch3-tfjs-classify.js');
+
+    Mustache.parse(template);
+    const rendered = Mustache.render(template, {
+        projectid   : modelinfo.id,
+        projectname : escapeProjectName(metadata.modelName, 3),
+        labels      : metadata.labels.map((name, idx) => {
+            return { name, idx };
+        }),
+        modelurl    : scratchtfjs.getModelJsonUrl(modelinfo),
+        modeltype   : modelinfo.modeltype,
+    });
+    return rendered;
 }

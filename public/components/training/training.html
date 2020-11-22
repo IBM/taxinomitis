@@ -87,7 +87,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="trainingbucketitems" ng-if="project.type === 'images'" ml-image-loader>
+                <div class="trainingbucketitems" ng-if="project.type === 'images' || project.type === 'imgtfjs'" ml-image-loader>
                     <div class="loadingtraining" ng-if="loadingtraining"> </div>
                     <div class="dragprompt" ng-hide="loadingtraining || training[label].length > 0" translate="TRAINING.DRAGIMAGES"></div>
                     <div class="trainingbucketitem" ng-repeat="item in training[label]" id="{{item.id}}" ng-class="{ error : item.loadingFailed }">
@@ -125,21 +125,21 @@
                         <div class="newexampleicon">+</div>
                         <div class="newexamplelabel" translate="TRAINING.ADDEXAMPLE"></div>
                     </div>
-                    <div class="btn newexamplebutton" ng-click="vm.addTrainingData($event, label)" ng-if="project.type === 'images'">
+                    <div class="btn newexamplebutton" ng-click="vm.addTrainingData($event, label)" ng-if="project.type === 'images' || project.type === 'imgtfjs'">
                         <div class="newexamplelabel">
                             &nbsp;
                             <span class="glyphicon glyphicon-link"></span>
                             {{ 'TRAINING.ADDURL' | translate }}
                         </div>
                     </div>
-                    <div class="btn newexamplebutton" ng-click="vm.useWebcam($event, label)" ng-if="project.type === 'images'">
+                    <div class="btn newexamplebutton" ng-click="vm.useWebcam($event, label)" ng-if="project.type === 'images' || project.type === 'imgtfjs'">
                         <div class="newexamplelabel">
                             &nbsp;
                             <span class="glyphicon glyphicon-camera"></span>
                             {{ 'TRAINING.ADDWEBCAM' | translate }}
                         </div>
                     </div>
-                    <div class="btn newexamplebutton" ng-click="vm.useCanvas($event, label)" ng-if="project.type === 'images'">
+                    <div class="btn newexamplebutton" ng-click="vm.useCanvas($event, label)" ng-if="project.type === 'images' || project.type === 'imgtfjs'">
                         <div class="newexamplelabel">
                             &nbsp;
                             <span class="glyphicon glyphicon-pencil"></span>
