@@ -136,7 +136,7 @@ function importDataIntoProject(project: dbobjects.Project,
             return Promise.resolve();
         }
     }
-    else if (project.type === 'images') { // TODO : potentially change
+    else if (project.type === 'images' || project.type === 'imgtfjs') {
         const training = getImageDataToImport(dataset as Types.ImagesDataset);
         return store.bulkStoreImageTraining(project.id, training);
     }

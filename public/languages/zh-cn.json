@@ -1804,6 +1804,8 @@
             "CREATE_ACCOUNT": "创建一个帐户",
             "TRAINMODELS": "训练机器学习模型以识别...... ",
             "PRETRAINED_MODELS": "Use pre-trained machine learning models",
+            "TENSORFLOW_MODELS": "Use hosted TensorFlow models",
+            "SCRATCH_ONLY": "(use from Scratch only)",
             "USE": "Use machine learning models from...",
             "CREATE_PROJECTS": "创建项目",
             "ONE_PROJECT": " 1个项目",

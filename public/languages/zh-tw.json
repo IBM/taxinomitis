@@ -1805,6 +1805,8 @@
             "CREATE_ACCOUNT": "建立帳戶",
             "TRAINMODELS": "訓練機器學習模型來辨識...",
             "PRETRAINED_MODELS": "使用預先訓練好的機器學習模型",
+            "TENSORFLOW_MODELS": "Use hosted TensorFlow models",
+            "SCRATCH_ONLY": "(use from Scratch only)",
             "USE": "使用機器學習模型來自...",
             "CREATE_PROJECTS": "建立專案",
             "ONE_PROJECT": "1個專案",

@@ -1804,6 +1804,8 @@
             "CREATE_ACCOUNT": "Creu cyfrif",
             "TRAINMODELS": "Hyfforddi modelau dysgu peiriant i gydnabod ...",
             "PRETRAINED_MODELS": "Defnyddiwch fodelau dysgu peiriant wedi'u hyfforddi ymlaen llaw",
+            "TENSORFLOW_MODELS": "Use hosted TensorFlow models",
+            "SCRATCH_ONLY": "(use from Scratch only)",
             "USE": "Defnyddiwch fodelau dysgu peiriant o ...",
             "CREATE_PROJECTS": "Creu prosiectau",
             "ONE_PROJECT": " 1 prosiect ",

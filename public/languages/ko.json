@@ -1804,6 +1804,8 @@
             "CREATE_ACCOUNT": "계정 만들기",
             "TRAINMODELS": "인식을 위한 머신러닝 모델 훈련시키기",
             "PRETRAINED_MODELS": "Use pre-trained machine learning models",
+            "TENSORFLOW_MODELS": "Use hosted TensorFlow models",
+            "SCRATCH_ONLY": "(use from Scratch only)",
             "USE": "Use machine learning models from...",
             "CREATE_PROJECTS": "프로젝트 만들기",
             "ONE_PROJECT": " 프로젝트 하나 ",

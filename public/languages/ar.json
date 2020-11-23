@@ -1804,6 +1804,8 @@
             "CREATE_ACCOUNT": "إنشاء حساب",
             "TRAINMODELS": "تدريب نماذج تعلم الآلة للتعرف على ...",
             "PRETRAINED_MODELS": "استخدم نماذج تعلم الآلة المدربة مسبقًا",
+            "TENSORFLOW_MODELS": "Use hosted TensorFlow models",
+            "SCRATCH_ONLY": "(use from Scratch only)",
             "USE": "استخدام نماذج تعلُّم الآلة من ...",
             "CREATE_PROJECTS": "إنشاء مشاريع",
             "ONE_PROJECT": "1 مشروع ",

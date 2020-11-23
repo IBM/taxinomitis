@@ -145,6 +145,12 @@ table.loginInfoGrid td {
     background-color: white;
 }
 
+.loginInfoCaveat {
+    margin-top: 6px;
+    margin-bottom: -17px;
+    font-size: 50%;
+}
+
 .glyphicon.glyphicon-ok.greencheck {
     color: green;
 }

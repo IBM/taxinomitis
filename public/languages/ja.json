@@ -1804,6 +1804,8 @@
             "CREATE_ACCOUNT": "アカウントの作成",
             "TRAINMODELS": "機械学習モデルを以下を認識するためにトレーニング",
             "PRETRAINED_MODELS": "Use pre-trained machine learning models",
+            "TENSORFLOW_MODELS": "Use hosted TensorFlow models",
+            "SCRATCH_ONLY": "(use from Scratch only)",
             "USE": "Use machine learning models from...",
             "CREATE_PROJECTS": "プロジェクト作成",
             "ONE_PROJECT": " 一つのプロジェクト",
