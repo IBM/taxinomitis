@@ -175,7 +175,7 @@ describe('REST API - models', () => {
             return Promise.resolve(classifications);
         });
         numbersStubDeleteClassifierStub.callsFake(() => {
-            return new Promise((resolve) => { resolve(); });
+            return new Promise((resolve) => { resolve(''); });
         });
 
         imagesStubGetClassifiersStub.callsFake((classid, classifiers: Types.VisualClassifier[]) => {

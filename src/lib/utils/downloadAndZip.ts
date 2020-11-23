@@ -352,6 +352,10 @@ function runLocally(locations: ImageDownload[]): Promise<string> {
                 }
                 return reject(err);
             }
+            if (!zippath) {
+                log.error('Failed to get training zip');
+                return reject(new Error('Failed to create training zip'));
+            }
             return resolve(zippath);
         });
     });
