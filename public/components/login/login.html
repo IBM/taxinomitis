@@ -271,7 +271,9 @@
 
 </div>
 
-<div class="loginPageFooter" ng-class="{ 'loginPageWide' : vm.loginstate === 'whyregister' || vm.loginstate === 'teachersignup' }">
+<div class="loginPageFooter"
+    ng-if="vm.deployment === 'machinelearningforkids.co.uk'"
+    ng-class="{ 'loginPageWide' : vm.loginstate === 'whyregister' || vm.loginstate === 'teachersignup' }">
     Login provided by: &nbsp; <br/>
     <a width="135" height="45"
         href="https://auth0.com/?utm_source=oss&utm_medium=gp&utm_campaign=oss"
