@@ -8,9 +8,11 @@ module.exports = function(grunt) {
     const DEPLOYMENT = process.env.DEPLOYMENT ? process.env.DEPLOYMENT : '';
     let additionalVariables;
     if (process.env.DEPLOYMENT === 'machinelearningforkids.co.uk') {
+        // uses dev/staging auth0 environment
         additionalVariables = 'auth0-variables.js';
     }
     else {
+        // disables auth0 integration
         additionalVariables = 'auth0-dev-variables.js';
     }
 

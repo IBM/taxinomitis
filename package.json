@@ -4,6 +4,7 @@
   "scripts": {
     "start": "node dist/lib/app.js",
     "build": "./node_modules/.bin/grunt",
+    "build_notest": "./node_modules/.bin/grunt compile frontend",
     "test": "./node_modules/.bin/grunt test",
     "coverage": "grunt compile test"
   },
