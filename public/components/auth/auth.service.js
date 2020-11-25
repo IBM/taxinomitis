@@ -4,30 +4,20 @@
         .module('app')
         .service('authService', authService);
 
+    var angDependencies = [
+        'authManager', 'loggerService',
+        '$q', '$http',
+        '$mdDialog',
+        '$rootScope',
+        '$window',
+        '$state',
+        '$timeout'
+    ];
     if (AUTH0_CLIENT_ID) {
-        authService.$inject = [
-            'authManager', 'loggerService',
-            '$q', '$http',
-            '$mdDialog',
-            '$rootScope',
-            '$window',
-            '$state',
-            '$timeout',
-            'lock'
-        ];
-    }
-    else {
-        authService.$inject = [
-            'authManager',
-            '$q', '$http',
-            '$mdDialog',
-            '$rootScope',
-            '$window',
-            '$state',
-            '$timeout'
-        ];
+        angDependencies.push('lock');
     }
 
+    authService.$inject = angDependencies;
 
     function authService(authManager, loggerService, $q, $http, $mdDialog, $rootScope, $window, $state, $timeout, lock) {
 
