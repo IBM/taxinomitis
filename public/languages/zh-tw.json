@@ -1897,6 +1897,12 @@
             "POSE_3": "這是一項bottom-up的技術。尋找人身體的關鍵點（例如肩膀、手肘、膝蓋等），然後將它們分組並標識人和他們所處的姿勢。此技術建立在MobileNet上（ ML模型是為行動裝置設計的，因此不需要太多的計算能力）",
             "POSE_4": "這個模型的訓練資料來自於<a href='http://cocodataset.org/index.htm#keypoints-2019' target='_blank'>Common Objects in Context (COCO)</a>"
         },
+        "TOXICITY": {
+            "TITLE": "Toxicity",
+            "TOXICITY_1": "This model can be used to recognize whether text contains toxic content.",
+            "TOXICITY_2": "It gives you blocks that will predict the percentage probability that some provided text contains toxic content such as threatening language, insults, obscenities, or identity-based hate.",
+            "TOXICITY_3": "The training data used for <a href='https://medium.com/tensorflow/text-classification-using-tensorflow-js-an-example-of-detecting-offensive-language-in-browser-e2b94e3565ce'>this model</a> came from <a href='https://figshare.com/articles/data_json/7376747' target='_blank'>two-million user-generated comments posted on news articles</a>."
+        },
         "IDEAS": {
             "IDEAS_1": "您是否希望在Scratch專案中使用其他機器學習模型？",
             "IDEAS_2": "透過<a href='https://groups.google.com/d/forum/mlforkids'>兒童機器學習論壇</a>讓我知道吧！"

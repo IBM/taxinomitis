@@ -1896,6 +1896,12 @@
             "POSE_3": "يستخدم هذا الأسلوب من أسفل إلى أعلى - البحث عن النقاط الرئيسية لجسم الإنسان (مثل الكتفين والمرفقين والركبتين ، وما إلى ذلك) ثم تجميعها لتحديد الشخص والوضع الذي يتواجدون فيه. تعتمد التقنية على MobileNet ( نموذج ML مصمم للأجهزة المحمولة ، لذلك لا يحتاج إلى الكثير من طاقة الحوسبة).",
             "POSE_4": "جاءت بيانات التدريب المستخدمة لهذا النموذج من مجموعة تعرف باسم <a href='http://cocodataset.org/index.htm#keypoints-2019' target='_blank'>العناصر الشائعة في السياق (COCO)</a>."
         },
+        "TOXICITY": {
+            "TITLE": "Toxicity",
+            "TOXICITY_1": "This model can be used to recognize whether text contains toxic content.",
+            "TOXICITY_2": "It gives you blocks that will predict the percentage probability that some provided text contains toxic content such as threatening language, insults, obscenities, or identity-based hate.",
+            "TOXICITY_3": "The training data used for <a href='https://medium.com/tensorflow/text-classification-using-tensorflow-js-an-example-of-detecting-offensive-language-in-browser-e2b94e3565ce'>this model</a> came from <a href='https://figshare.com/articles/data_json/7376747' target='_blank'>two-million user-generated comments posted on news articles</a>."
+        },
         "IDEAS": {
             "IDEAS_1": "هل هناك نماذج أخرى لتعلم الآلة ترغب في استخدامها في مشاريع Scratch؟",
             "IDEAS_2": "اسمح لي أن أعرف بالسؤال في <a href='https://groups.google.com/d/forum/mlforkids'>منتدى تعلم الآلة للأطفال</a>."
