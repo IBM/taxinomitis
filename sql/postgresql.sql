@@ -183,3 +183,7 @@ CREATE INDEX texttraining_gettraininglabels ON mlforkidsdb.texttraining USING bt
 CREATE INDEX texttraining_renametexttraining ON mlforkidsdb.texttraining USING btree (projectid, label);
 
 ALTER DATABASE mlforkidsdb SET search_path to mlforkidsdb;
+
+INSERT INTO mlforkidsdb.tenants (id, projecttypes, maxusers, maxprojectsperuser, textclassifiersexpiry, ismanaged)
+    VALUES
+        ('session-users', 'text,numbers,sounds,imgtfjs', 5, 1, 4, 0);

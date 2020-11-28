@@ -103,11 +103,27 @@ describe('Utils - download and zip', () => {
                                             nextFile();
                                         });
                             break;
+                        case 129708:
+                            filecompare('./src/tests/utils/resources/map-1.png',
+                                        unzippedFile.location,
+                                        (isEq: boolean) => {
+                                            assert(isEq, './src/tests/utils/resources/map-1.png');
+                                            nextFile();
+                                        });
+                            break;
                         case 7521:
                             filecompare('./src/tests/utils/resources/watson.jpg',
                                         unzippedFile.location,
                                         (isEq: boolean) => {
                                             assert(isEq, './src/tests/utils/resources/watson.jpg');
+                                            nextFile();
+                                        });
+                            break;
+                        case 23966:
+                            filecompare('./src/tests/utils/resources/watson-0.jpg',
+                                        unzippedFile.location,
+                                        (isEq: boolean) => {
+                                            assert(isEq, './src/tests/utils/resources/watson-0.jpg');
                                             nextFile();
                                         });
                             break;
@@ -127,10 +143,17 @@ describe('Utils - download and zip', () => {
                                             nextFile();
                                         });
                             break;
+                        case 9328:
+                            filecompare('./src/tests/utils/resources/ibm-1.png',
+                                        unzippedFile.location,
+                                        (isEq: boolean) => {
+                                            assert(isEq, './src/tests/utils/resources/ibm-1.png');
+                                            nextFile();
+                                        });
+                            break;
                         default:
                             assert.fail('Unexpected file size ' + unzippedFile.size + ' ' +
                                         unzippedFile.location);
-                            break;
                         }
                     },
                     next);

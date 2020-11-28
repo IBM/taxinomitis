@@ -484,11 +484,11 @@ describe('Training - Conversation', () => {
             const prom: unknown = new Promise((resolve, reject) => {
                 switch (url) {
                 case 'http://conversation.service/v1/workspaces/good':
-                    return resolve();
+                    return resolve('');
                 case 'http://conversation.service/v1/workspaces/bad':
-                    return resolve();
+                    return resolve('');
                 case 'http://conversation.service/v1/workspaces/stillgoing':
-                    return resolve();
+                    return resolve('');
                 default:
                     return reject({ error : 'Resource not found' });
                 }

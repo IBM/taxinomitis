@@ -37,6 +37,10 @@ export function run(base64data: string): Promise<string> {
                 log.error({ err, filepath }, 'Failed to decode data');
                 return reject(err);
             }
+            if (!filepath) {
+                log.error('Failed to receive base64 data');
+                return reject(new Error('Failed to decode image data'));
+            }
             return resolve(filepath);
         });
     });

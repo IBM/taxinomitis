@@ -19,7 +19,7 @@ To run the site, you need:
 
 ## Step 2 - Get the code
 
-`git clone git@github.com:IBM/taxinomitis.git`
+`git clone https://github.com/IBM/taxinomitis.git`
 
 ## Step 3 - Create your database
 
@@ -27,53 +27,70 @@ The site stores information in a PostgreSQL database. An SQL script is provided 
 
 You can use it like this:
 ```
-psql -c "CREATE USER ml4k WITH PASSWORD 'testdbpwd' LOGIN;"
-psql -c "CREATE DATABASE mlforkidsdb OWNER ml4k;"
-psql -U ml4k -f sql/postgresql.sql mlforkidsdb
+psql -c "CREATE USER ml4kdbuser WITH PASSWORD 'ml4kdbpwd' LOGIN;"
+psql -c "CREATE DATABASE mlforkidsdb OWNER ml4kdbuser;"
+psql -U ml4kdbuser -f sql/postgresql.sql -d mlforkidsdb
 ```
 
-Or use your own preferred PostgreSQL client.
+Or use the sql file with your preferred PostgreSQL client.
 
 ## Step 4 - Set up your environment variables
 
 There are a few environment variables required to enable connections to the database.
 
-|                 | Used for | Example |
-| --------------- | -------- | ------- |
-| `POSTGRESQLHOST`     | Hostname/address of the database server | `localhost`     |
-| `POSTGRESQLPORT`     | Port number for the database server     | `3306`          |
-| `POSTGRESQLUSER`     | Username to connect to the database as  | `mlforkidsuser` |
-| `POSTGRESQLPASSWORD` | Password for connecting to the database. Optional. Don't set this if you don't have a password | `mlforkidspassword` |
-| `POSTGRESQLDATABASE` | Name of the database you are using      | `mlforkidsdb` |
+|                      | Used for                                           | Example         |
+| -------------------- | -------------------------------------------------- | --------------- |
+| `POSTGRESQLHOST`     | Hostname/address of the database server            | `localhost`     |
+| `POSTGRESQLPORT`     | Port number for the database server                | `5432`          |
+| `POSTGRESQLUSER`     | Username to connect to the database as             | `ml4kdbuser`    |
+| `POSTGRESQLPASSWORD` | Password for connecting to the database. Optional. | `ml4kdbpwd`     |
+| `POSTGRESQLDATABASE` | Name of the database you are using                 | `mlforkidsdb`   |
 
 There are also a couple of environment variables used by the web server.
 
-|                 | Used for | Example |
-| --------------- | -------- | ------- |
-| `PORT`          | Port number for the web site and admin API | `3000`      |
-| `HOST`          | Hostname / address                         | `localhost` |
+|        | Used for                                   | Example     |
+| ------ | ------------------------------------------ | ----------- |
+| `PORT` | Port number for the web site and admin API | `3000`      |
+| `HOST` | Hostname / address                         | `localhost` |
 
 So, you could do something like this:
 
 ```
 export POSTGRESQLHOST=localhost
 export POSTGRESQLPORT=5432
-export POSTGRESQLUSER=dbuser
-export POSTGRESQLPASSWORD=dbpass
+export POSTGRESQLUSER=ml4kdbuser
+export POSTGRESQLPASSWORD=ml4kdbpwd
 export POSTGRESQLDATABASE=mlforkidsdb
 
 export PORT=3000
 export HOST=localhost
 ```
 
-## Step 5 - Build the code
+## Step 5 (option a) - Build the code
 
 This step will require Internet access.
 
 ```
 npm install
+npm run build_notest
+```
+
+## Step 5 (option b) - Build the code and run the tests
+
+This step will require Internet access.
+
+First, seed the database with test data.
+```
+psql -U ml4kdbuser -d mlforkidsdb -f ./sql/testdata.sql
+```
+
+Then build and run the tests
+```
 npm run build
 ```
+
+(Note: Test data will be visible in the UI if you use the same database for tests and the live site)
+
 
 ## Step 6 - Run the site!
 

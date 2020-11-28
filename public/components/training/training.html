@@ -11,7 +11,18 @@
         <h2 class="text-center" ng-if="!project" translate="TRAINING.TITLE"></h2>
         <div class="mlprojectdescription" ng-if="project">
             {{ 'PROJECTS.RECOGNISING' | translate }}
-            <span class="mlprojecttype">{{ project.type }}</span>
+            <span class="mlprojecttype"
+                  ng-if="project.type === 'text'"
+                  translate="WORKSHEETS.TYPES.TEXT"></span>
+            <span class="mlprojecttype"
+                  ng-if="project.type === 'images' || project.type === 'imgtfjs'"
+                  translate="WORKSHEETS.TYPES.IMAGES"></span>
+            <span class="mlprojecttype"
+                  ng-if="project.type === 'sounds'"
+                  translate="WORKSHEETS.TYPES.SOUNDS"></span>
+            <span class="mlprojecttype"
+                  ng-if="project.type === 'numbers'"
+                  translate="WORKSHEETS.TYPES.NUMBERS"></span>
             <span ng-if="project.labelsSummary">
                 {{ 'PROJECTS.AS' | translate }}
                 <span class="mlprojectlabels">{{ project.labelsSummary }}</span>

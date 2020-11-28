@@ -194,6 +194,11 @@
                     <td class="loginInfoGridCheck"><span class="glyphicon glyphicon-ok greencheck"> </span></td>
                 </tr>
                 <tr>
+                    <td class="loginInfoGridLabel" translate="HELP.ACCOUNTISSUES.TENSORFLOW_MODELS"></td>
+                    <td class="loginInfoGridCheck"><span class="glyphicon glyphicon-ok greencheck"> </span></td>
+                    <td class="loginInfoGridCheck"><span class="glyphicon glyphicon-ok greencheck"> </span></td>
+                </tr>
+                <tr>
                     <td class="loginInfoGridLabel" colspan="3" translate="HELP.ACCOUNTISSUES.TRAINMODELS"></td>
                 </tr>
                 <tr>
@@ -208,12 +213,15 @@
                 </tr>
                 <tr>
                     <td class="loginInfoGridSubItem loginInfoGridLabel" translate="WORKSHEETS.TYPES.SOUNDS"></td>
-                    <td class="loginInfoGridCheck"><span class="glyphicon glyphicon-ok greencheck"> </span></td>
-                    <td class="loginInfoGridCheck"><span class="glyphicon glyphicon-ok greencheck"> </span></td>
+                    <td class="loginInfoGridCheck"><div><span class="glyphicon glyphicon-ok greencheck"> </span></div>
+                        <div class="loginInfoCaveat" translate="HELP.ACCOUNTISSUES.SCRATCH_ONLY"></div></td>
+                    <td class="loginInfoGridCheck"><div><span class="glyphicon glyphicon-ok greencheck"> </span></div>
+                        <div class="loginInfoCaveat" translate="HELP.ACCOUNTISSUES.SCRATCH_ONLY"></div></td>
                 </tr>
                 <tr>
                     <td class="loginInfoGridSubItem loginInfoGridLabel" translate="WORKSHEETS.TYPES.IMAGES"></td>
-                    <td> </td>
+                    <td class="loginInfoGridCheck"><div><span class="glyphicon glyphicon-ok greencheck"> </span></div>
+                        <div class="loginInfoCaveat" translate="HELP.ACCOUNTISSUES.SCRATCH_ONLY"></div></td>
                     <td class="loginInfoGridCheck"><span class="glyphicon glyphicon-ok greencheck"> </span></td>
                 </tr>
                 <tr>
@@ -263,7 +271,9 @@
 
 </div>
 
-<div class="loginPageFooter" ng-class="{ 'loginPageWide' : vm.loginstate === 'whyregister' || vm.loginstate === 'teachersignup' }">
+<div class="loginPageFooter"
+    ng-if="vm.deployment === 'machinelearningforkids.co.uk'"
+    ng-class="{ 'loginPageWide' : vm.loginstate === 'whyregister' || vm.loginstate === 'teachersignup' }">
     Login provided by: &nbsp; <br/>
     <a width="135" height="45"
         href="https://auth0.com/?utm_source=oss&utm_medium=gp&utm_campaign=oss"

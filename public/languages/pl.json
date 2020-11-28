@@ -1804,6 +1804,8 @@
             "CREATE_ACCOUNT": "Create an account",
             "TRAINMODELS": "Train machine learning models to recognise...",
             "PRETRAINED_MODELS": "Use pre-trained machine learning models",
+            "TENSORFLOW_MODELS": "Use hosted TensorFlow models",
+            "SCRATCH_ONLY": "(use from Scratch only)",
             "USE": "Use machine learning models from...",
             "CREATE_PROJECTS": "Create projects",
             "ONE_PROJECT": " 1 project ",

@@ -90,7 +90,7 @@
                             summary: translations['DATASETS.DATA.CATSANDDOGS.SUMMARY'],
                             description: translations['DATASETS.DATA.CATSANDDOGS.DESCRIPTION'],
                             details: translations['DATASETS.DATA.CATSANDDOGS.DETAILS'],
-                            type: 'images',
+                            type: 'imgtfjs',
                             image: 'static/images/dataset-catsanddogs.png'
                         },
                         {

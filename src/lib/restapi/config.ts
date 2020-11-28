@@ -41,7 +41,7 @@ export function setupForBluemix(app: express.Application): void {
 }
 
 export const CSP_DIRECTIVES = {
-    defaultSrc: ["'self'", "'unsafe-inline'",
+    defaultSrc: ["'self'",
         // used for auth
         'http://cdn.auth0.com',
         'https://cdn.auth0.com',
@@ -49,12 +49,17 @@ export const CSP_DIRECTIVES = {
         // used for analytics
         'https://www.google-analytics.com',
     ],
-    styleSrc: ["'self'", "'unsafe-inline'",
+    styleSrc: ["'self'",
+        // TODO : https://github.com/IBM/taxinomitis/issues/346 should remove this
+        "'unsafe-inline'",
         // used to embed tweets in the News tab
         'https://ton.twimg.com',
         'https://platform.twitter.com',
     ],
-    scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'",
+    scriptSrc: ["'self'",
+        // TODO : https://github.com/IBM/taxinomitis/issues/346 should investigate these
+        "'unsafe-eval'",
+        "'unsafe-inline'",
         // used for auth
         'http://cdn.auth0.com',
         'https://cdn.auth0.com',
@@ -73,6 +78,8 @@ export const CSP_DIRECTIVES = {
         'https://www.googletagmanager.com',
         // used for error capturing
         'https://browser.sentry-cdn.com',
+        // useful when running locally
+        'https://machinelearningforkids.co.uk',
     ],
     frameSrc: ["'self'",
         // used in the News tab
@@ -94,7 +101,19 @@ export const CSP_DIRECTIVES = {
         'https://ton.twimg.com',
         'https://platform.twitter.com',
         'https://syndication.twitter.com',
+        // used for analytics
+        'https://www.google-analytics.com',
         // used for various things, including training data thumbnails
+        'data:', 'blob:',
+        // used for training data, which can be used from any site
+        'https://*', 'http://*',
+    ],
+    workerSrc: ["'self'",
+        // used for Scratch extensions
+        'blob:',
+    ],
+    fontSrc: ["'self'",
+        // used in Scratch by Blockly
         'data:',
     ],
 };
@@ -113,12 +132,19 @@ function addCorsHeaders(req: express.Request, res: express.Response, next: expre
     }
     next();
 }
+function removeFrameBlockingHeaders(req: express.Request, res: express.Response, next: express.NextFunction): void {
+    res.removeHeader('x-frame-options');
+    next();
+}
 
 
 
 export function setupUI(app: express.Application): void {
     const tfjslocation: string = path.join(__dirname, '/../../../web/static/bower_components/tensorflow-models');
     app.use('/static/bower_components/tensorflow-models', compression(), addCorsHeaders, express.static(tfjslocation, { maxAge : constants.ONE_YEAR }));
+
+    const twittercardlocation: string = path.join(__dirname, '/../../../web/dynamic/twitter-card.html');
+    app.use('/twitter-card.html', compression(), removeFrameBlockingHeaders, express.static(twittercardlocation, { maxAge : constants.ONE_YEAR }));
 
     const uilocation: string = path.join(__dirname, '/../../../web/static');
     app.use('/static', compression(), express.static(uilocation, { maxAge : constants.ONE_YEAR }));

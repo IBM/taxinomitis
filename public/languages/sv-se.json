@@ -1804,6 +1804,8 @@
             "CREATE_ACCOUNT": "Skapa ett konto",
             "TRAINMODELS": "Träna maskininlärningsmodeller för att känna igen...",
             "PRETRAINED_MODELS": "Use pre-trained machine learning models",
+            "TENSORFLOW_MODELS": "Use hosted TensorFlow models",
+            "SCRATCH_ONLY": "(use from Scratch only)",
             "USE": "Använda maskininlärningsmodeller från",
             "CREATE_PROJECTS": "Skapa projekt",
             "ONE_PROJECT": " 1 projekt ",

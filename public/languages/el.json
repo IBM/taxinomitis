@@ -1804,6 +1804,8 @@
             "CREATE_ACCOUNT": "Δημιουργία λογαριασμού",
             "TRAINMODELS": "Εκπαιδεύεις μοντέλα μηχανικής μάθησης να αναγνωρίζουν...",
             "PRETRAINED_MODELS": "Use pre-trained machine learning models",
+            "TENSORFLOW_MODELS": "Use hosted TensorFlow models",
+            "SCRATCH_ONLY": "(use from Scratch only)",
             "USE": "Χρησιμοποιείς τα μοντέλα μηχανικής μάθησης από το",
             "CREATE_PROJECTS": "Δημιουργείς έργα",
             "ONE_PROJECT": "1 έργο",

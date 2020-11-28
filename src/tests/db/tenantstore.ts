@@ -20,7 +20,7 @@ describe('DB store - tenants', () => {
     it('should retrieve the test tenant policy', async () => {
         const expected: Types.ClassTenant = {
             id : 'TESTTENANT',
-            supportedProjectTypes : ['text', 'images', 'numbers', 'sounds'],
+            supportedProjectTypes : ['text', 'images', 'numbers', 'sounds', 'imgtfjs'],
             tenantType : Types.ClassTenantType.Managed,
             maxUsers : 8,
             maxProjectsPerUser : 3,
