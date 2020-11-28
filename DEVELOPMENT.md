@@ -10,6 +10,7 @@ They are:
 5. Build the code
 6. Run the code
 
+[![Video walkthrough](https://img.youtube.com/vi/Ss3e6yCWOhU/0.jpg)](https://www.youtube.com/watch?v=Ss3e6yCWOhU "Video walkthrough")
 
 ## Step 1 - Get the dependencies
 
