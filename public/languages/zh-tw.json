@@ -3,7 +3,7 @@
         "TITLE": "兒童機器學習",
 
         "BACK": "返回",
-        "NEXT": "Next",
+        "NEXT": "下一步",
         "BACKTOPROJECT": "&lt; 返回到專案",
         "BACKTOMODEL": "&lt; 返回到模型",
         "ERROR": "錯誤:",
@@ -215,16 +215,16 @@
             "NOTES_5": "聲音與音樂，請選擇「聲音」"
         },
         "EXPLAINTYPES": {
-            "NOTICE": "What is the difference between \"images\" and \"images <span class='mltinybadge badge'>beta</span>\" ?",
-            "NOTES_1": "If you choose \"<strong style='color:black'>images</strong>\" your machine learning model will be trained on cloud servers.",
-            "NOTES_2": "If you choose \"<strong style='color:black'>images <span class='mltinybadge badge'>beta</span></strong>\" your machine learning model will be trained on your own computer.",
-            "NOTES_3": "\"<strong style='color:black'>images</strong>\" is good because:",
-            "NOTES_4": "It can be used for projects in Scratch, App Inventor, or Python.",
-            "NOTES_5": "It doesn't matter if your computer is slow, as the model is trained in the cloud.",
-            "NOTES_6": "But, it takes minutes to train while you wait for your turn on the cloud server.",
-            "NOTES_7": "\"<strong style='color:black'>images <span class='mltinybadge badge'>beta</span></strong>\" is good because:",
-            "NOTES_8": "It can be much quicker to train, because you don't have to wait for your turn on the cloud server.",
-            "NOTES_9": "But, it can only be used for Scratch projects."
+            "NOTICE": "「圖片」與「圖片<span class='mltinybadge badge'>beta</span>」有什麼差異？",
+            "NOTES_1": "如果你選擇「<strong style='color:black'>圖片</strong>」，你的機器學習模型將在雲端伺服器上訓練。",
+            "NOTES_2": "如果你選擇「<strong style='color:black'>圖片<span class='mltinybadge badge'>beta</span></strong>」，你的機器學習模型將在你自己的電腦上訓練。",
+            "NOTES_3": "「<strong style='color:black'>圖片</strong>」的優點包含：",
+            "NOTES_4": "成果可以運用在Scratch、App inventor或是Python的專案中",
+            "NOTES_5": "即使你電腦的效能也差也沒關係，因為模型在雲端上訓練。",
+            "NOTES_6": "但是，他會花較多時間等待雲端伺服器開始訓練你的模型。",
+            "NOTES_7": "「<strong style='color:black'>圖片<span class='mltinybadge badge'>beta</span></strong>」的優點包含：",
+            "NOTES_8": "可以更快速的完成模型訓練，因為你不需要等待雲端伺服器開始訓練。",
+            "NOTES_9": "但是，成果只能運用在Scratch的專案中"
         },
         "LANGUAGE": {
             "LABEL": "語言",
@@ -333,7 +333,7 @@
         "MAKES": {
             "TITLE": "成果應用",
             "BODY": "在Scratch或Python中使用你訓練好的機器學習模型來製作遊戲或應用程式",
-            "BODY_SCRATCHONLY": "Use the machine learning model you've trained to make a game or app in Scratch"
+            "BODY_SCRATCHONLY": "使用你訓練好的機器學習模型來製作Scratch的遊戲或應用。"
         },
         "SCRATCH": {
             "TITLE": "Scratch",
@@ -388,8 +388,8 @@
         "TEST_CANVAS": "畫一些東西來測試你的模型",
         "TEST_WEBCAM": "照一張相來訓練你的模型",
         "CHANGETYPE": {
-            "IMAGES": "Change to \"images\" so models will be trained in the cloud",
-            "IMGTFJS": "Change to \"images <span class='badge mltinybadge'>beta</span>\" so models will be trained on your computer"
+            "IMAGES": "切換到「圖片」，如此一來你的模型將在雲端中訓練。",
+            "IMGTFJS": "切換到「圖片<span class='badge mltinybadge'>beta</span>」，如此一來你的模型將在你自己的電腦中訓練。"
         },
         "WHATHAVEYOUDONE": {
             "TITLE": "你完成了什麼？",
@@ -723,161 +723,161 @@
         }
     },
     "DESCRIBETEXTMODEL": {
-        "ZOOM": "Use these controls to zoom in on the diagrams",
+        "ZOOM": "使用這些控制鈕來放大圖表",
         "ERRORS": {
-            "TEXTONLY": "Only neural networks for text projects can be described"
+            "TEXTONLY": "只限於用來描述文字專案的類神經網絡"
         },
-        "MOREINFO": "for more detail, try searching for:",
+        "MOREINFO": "想知道更多內容，請搜尋：",
         "PAGE1": {
-            "TITLE": "neural networks",
-            "TEXT1": "The type of machine learning model you trained in this project is called a <em>neural network</em>.",
-            "TEXT2": "The next few pages will explain how your model was created.",
-            "TEXT3": "These diagrams aren't an exact description of your model. Your model is larger and more complicated, but these diagrams are easier to explain."
+            "TITLE": "類神經網路",
+            "TEXT1": "你在此專案訓練的機器學習模型\b的技術，我們稱為<em>類神經網路</em>",
+            "TEXT2": "接下來幾頁的資訊將解釋你的模型是如何建立出來的",
+            "TEXT3": "這些圖並不是你的模型描述圖。 你的模型描述圖其實更大，更複雜，但我們透過這些簡圖較容易解釋給你聽。"
         },
         "PAGE2": {
-            "TITLE": "deep learning",
-            "TEXT1": "The model is made of <em>nodes</em>, arranged in vertical <em>layers</em>.",
-            "TEXT2": "Models with a lot of layers are described as <em>deep</em>.",
-            "TEXT3": "Deep models can give better results, but take longer to train."
+            "TITLE": "深度學習",
+            "TEXT1": "這類的模型透過垂直<em>層</em>中的<em>節點</em>所組成",
+            "TEXT2": "模型具有很多層我們稱為<em>深度</em>",
+            "TEXT3": "深度模型可以帶來更好的結果，但會消耗更多時間來訓練"
         },
         "PAGE3": {
-            "TITLE": "input layer",
-            "TEXT1": "Let's start with one of the training examples used to create your model.",
-            "TEXT2": "Your training example is shown as <em>input</em> on the left."
+            "TITLE": "輸入層",
+            "TEXT1": "讓我們從其中一個用來建立模型的訓練範例開始。",
+            "TEXT2": "你的訓練範例將表示成位於左方的<em>輸入</em>"
         },
         "PAGE4": {
-            "TITLE": "encoding",
-            "TEXT1": "To use your training example to train the model, first the text needs to be turned into a series of numbers.",
-            "TEXT2": "There are lots of ways to do this.",
-            "TEXT3": "If you build your own machine learning model, you need to choose a way that works well for your particular project."
+            "TITLE": "編碼",
+            "TEXT1": "為了使用你的訓練資料來訓練模型，首先需要將文字轉換成一系列的數字。",
+            "TEXT2": "有很多方法可以達成這件事。",
+            "TEXT3": "假如您想要建立自己的機器學習模型，你需要依據你的專案類型而選擇相對應的方法。"
         },
         "PAGE5": {
-            "TITLE": "bag of words",
-            "TEXT1": "One way of turning your text into numbers is to make each number a count of how many times a word is included."
+            "TITLE": "詞袋",
+            "TEXT1": "將文字轉換為數字的其中一種方法是計算一個單字被涵蓋的次數。"
         },
         "PAGE6": {
-            "TITLE": "feature extraction",
-            "TEXT1": "There are other things you can count. Things that are helpful to count depend on the project you are doing, and what you want your model to learn to recognize patterns in.",
-            "TEXT2": "Counting things is quick and simple, but not as good for projects where the order of words is important."
+            "TITLE": "提取特徵",
+            "TEXT1": "你還可以計算其他事情。 有用的計數取決於您正在執行的項目以及你的模型要學會辨識內容的規律。",
+            "TEXT2": "計算次數是快速且簡單的，但不適合用在單字順序很重要的項目"
         },
         "PAGE7": {
-            "TITLE": "word embeddings",
-            "TEXT1": "If you build your own machine learning model, you need to choose the method for turning text into numbers.",
-            "TEXT2": "Your model used a more complicated technique that does include the order of words in the text."
+            "TITLE": "建立詞語向量",
+            "TEXT1": "如果你建立自己的機器學習模型，則需要選擇將文字轉換為數字的方法。",
+            "TEXT2": "你的模型使用了更複雜的技術，此技術包含了文字中單詞的順序。"
         },
         "PAGE8": {
-            "TITLE": "hidden layer",
-            "TEXT1": "The numbers from the input layer go into sums that calculate values for the nodes in the next layer.",
-            "TEXT2": "The lines on the diagram show which input values are used to calculate which values in the next layer."
+            "TITLE": "隱藏層",
+            "TEXT1": "輸入層中的數字將加總，來計算下一層的節點數值",
+            "TEXT2": "圖上的線表示哪些輸入數值用來計算下一層中的那些輸入數值。"
         },
         "PAGE9": {
-            "TITLE": "activation functions",
-            "TEXT1": "There are lots of different types of calculation you can use. Not every node in the model has to use the same calculation.",
-            "TEXT2": "If you build your own machine learning model, you need to choose which equations to use for each node.",
-            "TEXT3": "The functions to use for each node in your model were chosen for you."
+            "TITLE": "激勵函數",
+            "TEXT1": "有非常多不同類型的計算方式可以使用。不是模型中的每個節點都需要使用相同的計算方式。",
+            "TEXT2": "如果你建立自己的機器學習模型，你需要選擇它每一個節點對應的計算式",
+            "TEXT3": "替你選擇了模型中每個節點要使用的功能。"
         },
         "PAGE10": {
-            "TITLE": "weight",
-            "TEXT1": "Each line in the diagram has a <em>weight</em> number that can be used in the sum.",
-            "TEXT2": "Training the model is how we work out the best number to put on each line, as you'll see in a moment."
+            "TITLE": "權重",
+            "TEXT1": "圖上的每條線包含<em>權重</em>數值，可以用來計算總和。",
+            "TEXT2": "訓練模型就是我們設法將最佳的數值放在每條線上，你稍後可以看見。"
         },
         "PAGE11": {
-            "TITLE": "bias",
-            "TEXT1": "Each node in the diagram has a <em>bias</em> number that is used in the sum as well.",
-            "TEXT2": "Training the model is also how we work out the right bias number, as you'll see in a moment.",
-            "TEXT3": "Try to work out what you think the value for this node will be."
+            "TITLE": "偏差值",
+            "TEXT1": "圖中的每個節點都存在<em>偏差值</em>，此偏差值也被用在總和中。",
+            "TEXT2": "訓練模型也是我們計算出正確偏差值的方式，你稍後可以看見。",
+            "TEXT3": "嘗試計算出你認為該節點的數值應是多少"
         },
         "PAGE12": {
-            "TITLE": "activation functions",
-            "TEXT1": "This is a common <em>function</em> used in neural networks.",
-            "TEXT2": "Each input value is multiplied by the value for the line that connected it. These are all added together. Then added to the value for the node itself."
+            "TITLE": "激勵函數",
+            "TEXT1": "這是很常見的<em>函式</em>被運用在類神經網路中",
+            "TEXT2": "每個輸入數值乘以連接它的線的數值，並將這些全部加總在一起。 然後加入到節點本身的值中。"
         },
         "PAGE13": {
-            "TITLE": "activation functions",
-            "TEXT1": "Each node has its own <em>bias</em> value.",
-            "TEXT2": "Each line has its own <em>weight</em> value."
+            "TITLE": "激勵函數",
+            "TEXT1": "每個節點都存在其對應的<em>偏差值</em>",
+            "TEXT2": "每條線擁有自己的<em>權重</em>。"
         },
         "PAGE14": {
-            "TITLE": "hidden layers",
-            "TEXT1": "Each node in the model can use different equations.",
-            "TEXT2": "If you build your own machine learning model, you need to choose:",
-            "LIST1": "how many layers to have",
-            "LIST2": "how many nodes to put in each layer",
-            "LIST3": "which functions to use for each node"
+            "TITLE": "隱藏層",
+            "TEXT1": "每個模型中的節點可以使用不同的運算方式。",
+            "TEXT2": "假如你要建立自己的機器學習模型，你需要選擇：",
+            "LIST1": "有多少層",
+            "LIST2": "每層要放置多少節點",
+            "LIST3": "每一個節點要各自用哪一個函式"
         },
         "PAGE15": {
-            "TITLE": "hidden layer",
-            "TEXT1": "This continues through the rest of the model.",
-            "TEXT2": "The number of layers, the number of nodes in each layer, and the functions to use for each node in your model were all chosen for you."
+            "TITLE": "隱藏層",
+            "TEXT1": "這將在模型的其他部分中持續進行",
+            "TEXT2": "在你的模型中，需要幾層、每層有多少節點，以及每個節點使用的函式，都需要你自己選擇與決定。"
         },
         "PAGE16": {
-            "TITLE": "output layer",
-            "TEXT1": "The final layer gives the machine learning model's prediction.",
-            "TEXT2": "There is a node for each bucket you added to your training data."
+            "TITLE": "輸出層",
+            "TEXT1": "最後一層將提供機器學習模型的預測結果",
+            "TEXT2": "你加入到訓練數據中的每個值區都有一個節點。"
         },
         "PAGE17": {
-            "TITLE": "loss function",
-            "TEXT1": "The prediction is compared with the correct answer (the training bucket you put this example in).",
-            "TEXT2": "The difference is described as the <em>error rate</em>, and tells us how well the machine learning model is doing at this stage of the training."
+            "TITLE": "損失函數",
+            "TEXT1": "將預測結果與正確答案（你在此專案中放入的訓練值區）進行比較。",
+            "TEXT2": "其中的差異我們稱為<em>錯誤率</em>，我們可以藉此了解在訓練階段的機器學習模型表現如何。"
         },
         "PAGE18": {
-            "TITLE": "back propagation",
-            "TEXT1": "The <em>error rate</em> is used to go backwards through the layers and nudge the numbers for each of the lines and nodes.",
-            "TEXT2": "Each weight and bias number is increased a little bit or decreased a little bit, depending on what would've made the error rate a little smaller."
+            "TITLE": "逆向傳播",
+            "TEXT1": "<em>錯誤率</em>用來表示向後遍歷各積層，並微調每條線和節點的數字",
+            "TEXT2": "每個權重和偏差值會有所增加或減少，主要取決於讓錯誤率降低。"
         },
         "PAGE19": {
-            "TITLE": "neural networks",
-            "TEXT1": "Next, this is all done over again, with another of your training examples."
+            "TITLE": "類神經網路",
+            "TEXT1": "下一步，使用另一組你的訓練資料，再次完成所有步驟。"
         },
         "PAGE20": {
-            "TITLE": "encoding",
-            "TEXT1": "Remember, the first step is turning the example text into numbers.",
-            "TEXT2": "Counting things that are in the text is an easy way to do it, but there are more complicated ways to do it if the order of words is important.",
-            "TEXT3": "The method for your model was chosen for you."
+            "TITLE": "編碼",
+            "TEXT1": "記住，第一步是把範例文字轉換成數字。",
+            "TEXT2": "計算文字內容是一種簡單的方法，但是如果詞語的順序很重要，那還有更複雜的方法。",
+            "TEXT3": "你自己選擇你的模型要使用的方法"
         },
         "PAGE21": {
-            "TITLE": "hidden layer",
-            "TEXT1": "Remember, nodes in the middle of the model represent sums that are done using the input numbers.",
-            "TEXT2": "Different calculations can be chosen for each node."
+            "TITLE": "隱藏層",
+            "TEXT1": "注意，模型中間的節點代表使用輸入數字全部的總合。",
+            "TEXT2": "你可以為每個節點選擇不同的運算。"
         },
         "PAGE22": {
-            "TITLE": "activation functions",
-            "TEXT1": "Remember, the calculations use numbers from the nodes on the left that are connected to it, as well as the numbers for the lines that connect them."
+            "TITLE": "激勵函數",
+            "TEXT1": "請注意，這些運算使用來自節點左側與其相連的數字，以及他們的連接線的數字。"
         },
         "PAGE23": {
-            "TITLE": "activation functions",
-            "TEXT1": "The calculations also use a <em>bias</em> number for the node itself."
+            "TITLE": "激勵函數",
+            "TEXT1": "計算也使用節點本身的<em>偏差值</em>"
         },
         "PAGE24": {
-            "TITLE": "hidden layer",
-            "TEXT1": "This continues through the rest of the model.",
-            "TEXT2": "The functions to use for each node in your model were chosen for you."
+            "TITLE": "隱藏層",
+            "TEXT1": "這將在模型的其他部分中持續進行",
+            "TEXT2": "替你選擇了模型中每個節點要使用的功能。"
         },
         "PAGE25": {
-            "TITLE": "output layer",
-            "TEXT1": "Remember, the <em>output layer</em> gives the machine learning model's prediction.",
-            "TEXT2": "Each node gives you the prediction for one of the buckets that you added to your training data."
+            "TITLE": "輸出層",
+            "TEXT1": "記住，<em>輸出層</em>提供了機器學習模型的預測結果。",
+            "TEXT2": "每個節點都會從你添加到儲存貯體的訓練資料中進行預測"
         },
         "PAGE26": {
-            "TITLE": "loss function",
-            "TEXT1": "Remember, results from the <em>output layer</em> are compared with the correct answer, which shows how well the machine learning model is doing."
+            "TITLE": "損失函數",
+            "TEXT1": "記住，將<em>輸出層</em>的結果與正確答案比較，代表機器學習模型運作的好壞程度。"
         },
         "PAGE27": {
-            "TITLE": "back propagation",
-            "TEXT1": "Remember that the <em>error rate</em> is used to go backwards through the layers and nudge the numbers associated with each of the lines and nodes.",
-            "TEXT2": "Each <em>weight</em> and <em>bias</em> number is increased a little bit or decreased a little bit, depending on what would've made the error a little smaller.",
-            "TEXT3": "This is how training works out the best numbers to use for each of the nodes and lines."
+            "TITLE": "逆向傳播",
+            "TEXT1": "記住，<em>錯誤率</em>用在逆向走訪\b每層，並微調每條線與節點關聯的數值。",
+            "TEXT2": "每個<em>權重</em>和<em>偏差值</em>會稍微增加或減少，取決於我們產生的錯誤大或小。",
+            "TEXT3": "這就是訓練如何找出可用於每個節點和線的最佳數字的方法。"
         },
         "PAGE28": {
             "TITLE": "epochs",
-            "TEXT1": "One run-through of every training example you collected through the model is called an <em>epoch</em>.",
-            "TEXT2": "Each time through, the weights for each node are nudged a little more, until hopefully the error rate for predictions are as low as they can be.",
-            "TEXT3": "If you build your own machine learning model, you need to choose how many epochs you want to run."
+            "TEXT1": "\b通過一次訓練範例中的所有樣本稱為<em>epoch</em>。",
+            "TEXT2": "每次通過時，每個節點的權重都會稍微增加，直到希望預測的錯誤率盡可能降低。",
+            "TEXT3": "假如您想要建立自己的機器學習模型，你需要選擇執行幾個週期（所有訓練範例的一個正傳送與反傳送）"
         },
         "PAGE29": {
-            "TITLE": "neural networks",
-            "TEXT1": "I hope this simplified description gives you an idea what happens when you click on the \"Train new machine learning model\" button.",
-            "TEXT2": "For an explanation of why this process works, try watching \"<a href='https://youtu.be/R9OHn5ZF4Uo'>How Machines Learn</a>\" by CGP Grey."
+            "TITLE": "類神經網路",
+            "TEXT1": "我希望這個簡單的說明可以幫助你了解點擊「訓練新的機器學習模型」按鈕後會發生什麼。",
+            "TEXT2": "有關此過程為何有效的說明，可以閱讀CGP Grey的「<a href='https://youtu.be/R9OHn5ZF4Uo'>機器如何學習</a>」。"
         }
     },
     "MAKES": {
@@ -1661,29 +1661,29 @@
         },
 
         "PROJECTS": {
-            "TITLE": "Project questions",
+            "TITLE": "專案問題",
 
-            "Q1": "What is the difference between \"images\" and \"images <span class='mltinybadge badge'>beta</span>\" projects?",
-            "Q1-A-1": "These can both be used to create the same sort of machine learning projects. The difference is where the models are created and stored.",
-            "Q1-A-2": "In \"<strong>images</strong>\" projects, machine learning models are trained on cloud servers using an online service called Watson Visual Recognition.",
-            "Q1-A-3": "In \"<strong>images <span class='mltinybadge badge'>beta</span></strong>\" projects, machine learning models are trained on the student's own computer, in the web browser.",
-            "Q1-A-4": "\"<strong>images</strong>\" is good because:",
-            "Q1-A-5": "It can be used for projects in Scratch, App Inventor, or Python.",
-            "Q1-A-6": "It doesn't matter if your computer is slow, as the model is trained in the cloud.",
-            "Q1-A-7": "It can create models that are more accurate, particularly when using a small number of training examples.",
-            "Q1-A-8": "But, it takes several minutes to train while you wait for your turn on the cloud server, and (for unmanaged classes) requires a Watson API key from IBM Cloud.",
-            "Q1-A-9": "\"<strong style='color:black'>images <span class='mltinybadge badge'>beta</span></strong>\" is good because:",
-            "Q1-A-10": "It can be much quicker to train, because it starts training immediately without waiting for a turn on the cloud server.",
-            "Q1-A-11": "It doesn't require any IBM Cloud API keys (for unmanaged classes).",
-            "Q1-A-12": "Models do not need to be automatically deleted.",
-            "Q1-A-13": "But, it can only be used for Scratch projects, and requires the student to be using a reasonably fast computer.",
-            "Q1-A-14": "Training in the browser is described as a beta because it is a new feature on the site, and may still have problems with some operating systems or web browsers. If you encounter errors, please report these in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids forum</a>.",
+            "Q1": "圖片專案與圖片<span class='mltinybadge badge'>beta</span>專案有什麼差別？",
+            "Q1-A-1": "這兩種都可以用來建立相同種類的機器學習專案。不同的地方在於在哪裡建立與儲存模型。",
+            "Q1-A-2": "在<strong>圖片</strong>專案中，機器學習模型將在雲端伺服器訓練，透過Watson視覺辨識的線上服務達成。",
+            "Q1-A-3": "在<strong>圖片<span class='mltinybadge badge'>beta</span></strong>專案中，機器學習模型將在你自己電腦的網頁瀏覽器中訓練。",
+            "Q1-A-4": "<strong>圖片</strong>專案的優點是：",
+            "Q1-A-5": "可以運用在Scratch、App inventor或是Python的專案中",
+            "Q1-A-6": "即使你電腦的效能也差也沒關係，因為模型在雲端上訓練。",
+            "Q1-A-7": "它可以建立更準確的模型，尤其是在使用少量訓練範例時。",
+            "Q1-A-8": "但是，等待開始雲端服務器訓練時需要花幾分鐘的時間，並且需要IBM Cloud的Watson API密碼（沒有班級管理的帳戶）",
+            "Q1-A-9": "「<strong style='color:black'>圖片<span class='mltinybadge badge'>beta</span></strong>」的優點包含：",
+            "Q1-A-10": "它可以更快地完成訓練，因為它可以馬上開始，不需等待開啟雲端服務器的時間。",
+            "Q1-A-11": "他不需要任何IBM Cloud的API密碼（對於沒有班級管理的帳戶）",
+            "Q1-A-12": "模型不會被自動刪除",
+            "Q1-A-13": "但是，這只能用在Scratch專案中，而且需要學生使用效能夠快的電腦。",
+            "Q1-A-14": "因為在網頁瀏覽器中訓練是新功能所以我們稱為beta。因此可能仍有一些操作環境或瀏覽器的問題。如果你發生錯誤，請回報問題到<a href='https://groups.google.com/d/forum/mlforkids'>兒童機器學習論壇</a>。",
 
-            "Q2": "How can you change an \"images\" project to be an \"images <span class='mltinybadge badge'>beta</span>\" project (and vice versa)?",
-            "Q2-A-1": "You can change between the two modes from the \"Learn & Test\" page for your project.",
-            "Q2-A-2": "The link to do this is in top-right of the page.",
-            "Q2-A-3": "Any existing machine learning models for the project will be deleted if this is done.",
-            "Q2-A-4": "The Scratch blocks for image projects work differently for the two different modes, so if you have a Scratch window open when you do this, you will need to refresh the page so that the Scratch extension can be updated."
+            "Q2": "如何將「圖片專案」切換成「圖片<span class='mltinybadge badge'>beta</span>專案」？（反之亦同）",
+            "Q2-A-1": "你可以在專案中的訓練頁面切換這兩種模式。",
+            "Q2-A-2": "切換的連結在畫面的右上方。",
+            "Q2-A-3": "完成後將刪除此專案中所有既有的機器學習模型。",
+            "Q2-A-4": "圖片專案的Scratch擴充積木在兩種不同模式下的運作方式不同。因此，如果在執行此操作時開啟了Scratch介面，則需要重新整理頁面以便可以更新Scratch擴充積木名稱。"
         },
 
         "SCRATCH": {
@@ -1805,6 +1805,8 @@
             "CREATE_ACCOUNT": "建立帳戶",
             "TRAINMODELS": "訓練機器學習模型來辨識...",
             "PRETRAINED_MODELS": "使用預先訓練好的機器學習模型",
+            "TENSORFLOW_MODELS": "使用託管的TensorFlow模型",
+            "SCRATCH_ONLY": "(只能在Scratch中使用)",
             "USE": "使用機器學習模型來自...",
             "CREATE_PROJECTS": "建立專案",
             "ONE_PROJECT": "1個專案",
@@ -1901,12 +1903,12 @@
         },
         "TENSORFLOW": {
             "TITLE": "TensorFlow",
-            "BUTTON": "Open a TensorFlow model",
-            "TF_1": "<a href='https://www.tensorflow.org/'>TensorFlow</a> is a toolkit for training and running machine learning models.",
-            "TF_2": "If you know how to create your own machine learning model with TensorFlow, click the button above to use it in Scratch.",
-            "TF_3": "You can <a href='https://www.tensorflow.org/overview/'>build your own model</a>, using programming languages like Python.",
-            "TF_4": "Or you can use tools like <a href='https://teachablemachine.withgoogle.com/'>Teachable Machine</a> to easily train a TensorFlow model, and then make something with it in Scratch here.",
-            "TF_5": "(Only image classifiers are supported today, but support for more types of machine learning model is coming soon!)"
+            "BUTTON": "開啟TensorFlow模型",
+            "TF_1": "<a href='https://www.tensorflow.org/'>TensorFlow</a>是用來訓練與執行機器學習模型的工具。",
+            "TF_2": "如果你知道如何使用TensorFlow,建立你自己的機器學習模型，請點擊下方按鈕到Scratch中創作。",
+            "TF_3": "你可以使用像是python等程式語言<a href='https://www.tensorflow.org/overview/'>創造自己的模型</a>。",
+            "TF_4": "或是你可以使用像是<a href='https://teachablemachine.withgoogle.com/'>Teachable Machine1</a>來輕鬆訓練TensorFlow模型，然後在這裡透過Scratch設計作品。",
+            "TF_5": "(目前只支援圖片分類器，但是即將支援更多類型的機器學習模型！)"
         }
     }
 }
