@@ -312,7 +312,12 @@
 
         function stopTest() {
             loggerService.debug('[ml4ksound] stopping listening');
-            return transferRecognizer.stopListening();
+            try {
+                return transferRecognizer.stopListening();
+            }
+            catch (err) {
+                return $q.reject(err);
+            }
         }
 
 

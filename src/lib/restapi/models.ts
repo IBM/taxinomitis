@@ -412,6 +412,9 @@ async function testModel(req: Express.Request, res: Express.Response) {
             return res.status(httpstatus.BAD_REQUEST)
                     .send({ error : 'The test image is a type that cannot be used' });
         }
+        if (err.message === conversation.ERROR_MESSAGES.SERVICE_ERROR) {
+            return res.status(httpstatus.SERVICE_UNAVAILABLE).send({ error : err.message });
+        }
 
         log.error({ err, body : req.body }, 'Test error');
         return errors.unknownError(res, err);

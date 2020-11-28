@@ -240,7 +240,9 @@
                         callbacks : {
                             onEpochEnd : function (epoch, logs) {
                                 loggerService.debug('[ml4kimages] epoch ' + epoch + ' loss ' + logs.loss);
-                                modelStatus.progress = (epoch + 1) * 10;
+                                if (modelStatus) {
+                                    modelStatus.progress = (epoch + 1) * 10;
+                                }
                             },
                             onTrainEnd : function () {
                                 return saveModel(projectid)
