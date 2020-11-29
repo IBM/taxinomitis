@@ -11,7 +11,6 @@ INSERT INTO disruptivetenants (id) VALUES ('ignore-errors-for-me');
 
 INSERT INTO tenants (id, projecttypes, maxusers, maxprojectsperuser, textclassifiersexpiry, ismanaged)
     VALUES
-        ('TESTTENANT', 'text,images,numbers,sounds', 8, 3, 2, 1),
+        ('TESTTENANT', 'text,images,numbers,sounds,imgtfjs', 8, 3, 2, 1),
         ('UNIQUECLASSID', 'text,numbers', 8, 3, 2, 1),
-        ('session-users', 'text,numbers,sounds', 5, 1, 4, 0),
         ('BETA', 'imgtfjs', 10, 5, 1, 0);

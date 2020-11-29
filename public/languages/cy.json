@@ -21,6 +21,7 @@
         "TEACHER": "Athro",
         "PROJECTS": "Prosiectau",
         "WORKSHEETS": "Taflenni Waith",
+        "PRETRAINED": "Pretrained",
         "NEWS": "Newyddion",
         "HELP": "Cymorth",
         "LOGIN": "Mewngofnodi",
@@ -45,6 +46,9 @@
             "TITLE": "Tech",
             "BODY": "Mae'r adnodd wedi'i seilio'n llwyr ar y we ac nid oes angen unrhyw osodiadau na setup cymhleth i allu ei ddefnyddio.<br/><br/>Fe'i cynlluniwyd i'w ddefnyddio yn yr ystafell ddosbarth gan ysgolion a grwpiau codio a redir gan wirfoddolwyr i blant, ac mae'n darparu tudalen weinyddol i athrawon neu arweinwyr grŵp allu rheoli a gweinyddu mynediad i'w myfyrwyr.<br/><br/>Mae'n cael ei adeiladu gan <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> gan ddefnyddio APIs o <a target='_blank' href='https://www.ibm.com/watson/developer/'>IBM Watson</a>.<br/><br/>Am fwy o fanylion am y gweithredu, gallwch weld y <a target='_blank' href='https://github.com/IBM/taxinomitis/'>cod ffynhonnell ar GitHub</a>, neu ddarllen rhai o'r <a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>postiadau blog am y dechnoleg</a>. ",
             "LOGIN": "I ddechrau: "
+        },
+        "PRETRAINED": {
+            "BODY": "Pre-trained models are also provided for students to use in their projects. These advanced models enable projects that might otherwise be too complex for students to train for themselves, and provide useful hands-on insights into some of the other things that machine learning can do."
         },
         "FURTHER": {
             "TITLE": "Dysgu Pellach",
@@ -1818,6 +1822,8 @@
             "CREATE_ACCOUNT": "Creu cyfrif",
             "TRAINMODELS": "Hyfforddi modelau dysgu peiriant i gydnabod ...",
             "PRETRAINED_MODELS": "Defnyddiwch fodelau dysgu peiriant wedi'u hyfforddi ymlaen llaw",
+            "TENSORFLOW_MODELS": "Use hosted TensorFlow models",
+            "SCRATCH_ONLY": "(use from Scratch only)",
             "USE": "Defnyddiwch fodelau dysgu peiriant o ...",
             "CREATE_PROJECTS": "Creu prosiectau",
             "ONE_PROJECT": " 1 prosiect ",
@@ -1907,6 +1913,12 @@
             "POSE_2": "Mae'n rhoi blociau i chi a fydd yn dod o hyd i gyfesurynnau x, y gwahanol rannau o'ch corff, fel ysgwyddau, penelinoedd, arddyrnau, pengliniau, a fferau.",
             "POSE_3": "Mae hyn yn defnyddio techneg o'r gwaelod i fyny - edrych am bwyntiau allweddol corff dynol (fel ysgwyddau, penelinoedd, pengliniau, ac ati) ac yna eu grwpio i adnabod person a'r ystum y maen nhw ynddo. Mae'r dechneg yn seiliedig ar MobileNet (a Model ML wedi'i gynllunio ar gyfer dyfeisiau symudol, felly nid oes angen llawer o bŵer cyfrifiadurol arno).",
             "POSE_4": "Daeth y data hyfforddi a ddefnyddiwyd ar gyfer y model hwn o set o'r enw <a href='http://cocodataset.org/index.htm#keypoints-2019' target='_blank'>Common Objects in Context (COCO)</a>."
+        },
+        "TOXICITY": {
+            "TITLE": "Toxicity",
+            "TOXICITY_1": "This model can be used to recognize whether text contains toxic content.",
+            "TOXICITY_2": "It gives you blocks that will predict the percentage probability that some provided text contains toxic content such as threatening language, insults, obscenities, or identity-based hate.",
+            "TOXICITY_3": "The training data used for <a href='https://medium.com/tensorflow/text-classification-using-tensorflow-js-an-example-of-detecting-offensive-language-in-browser-e2b94e3565ce'>this model</a> came from <a href='https://figshare.com/articles/data_json/7376747' target='_blank'>two-million user-generated comments posted on news articles</a>."
         },
         "IDEAS": {
             "IDEAS_1": "A oes modelau dysgu peiriant eraill yr hoffech chi allu eu defnyddio yn eich prosiectau Scratch?",

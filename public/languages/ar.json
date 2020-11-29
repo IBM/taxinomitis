@@ -21,6 +21,7 @@
         "TEACHER": "معلم",
         "PROJECTS": "مشاريع",
         "WORKSHEETS": "صحيفة التعليمات",
+        "PRETRAINED": "Pretrained",
         "NEWS": "أخبار",
         "HELP": "مساعدة",
         "LOGIN": "تسجيل الدخول",
@@ -45,6 +46,9 @@
             "TITLE": "تقنية",
             "BODY": "تعتمد الأداة بالكامل على الويب ولا تتطلب أي عمليات تثبيت أو إعداد معقدة حتى تتمكن من استخدامها. <br/><br/>تم تصميمها للاستخدام في الفصول الدراسية من قبل المدارس ومجموعات الأكواد التي يديرها المتطوعون للأطفال ، ويوفر صفحة إدارية للمعلمين أو قادة المجموعة ليكونوا قادرين على تنظيم وإدارة وصول طلابهم. <br/><br/>يتم بناؤه بواسطة <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane </a>باستخدام واجهات برمجة التطبيقات APIs من <a target='_blank' href='https://www.ibm.com/watson/developer/'>IBM Watson</a>. <br/><br/>لمزيد من التفاصيل حول التنفيذ ، يمكنك رؤية <a target='_blank' href='https://github.com/IBM/taxinomitis/'>شفرة المصدر عل GitHub </a>، أو قراءة بعض <a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>منشورات المدونة حول التقنية</a>.",
             "LOGIN": "للبدء:"
+        },
+        "PRETRAINED": {
+            "BODY": "Pre-trained models are also provided for students to use in their projects. These advanced models enable projects that might otherwise be too complex for students to train for themselves, and provide useful hands-on insights into some of the other things that machine learning can do."
         },
         "FURTHER": {
             "TITLE": "لتعلم المزيد",
@@ -1818,6 +1822,8 @@
             "CREATE_ACCOUNT": "إنشاء حساب",
             "TRAINMODELS": "تدريب نماذج تعلم الآلة للتعرف على ...",
             "PRETRAINED_MODELS": "استخدم نماذج تعلم الآلة المدربة مسبقًا",
+            "TENSORFLOW_MODELS": "Use hosted TensorFlow models",
+            "SCRATCH_ONLY": "(use from Scratch only)",
             "USE": "استخدام نماذج تعلُّم الآلة من ...",
             "CREATE_PROJECTS": "إنشاء مشاريع",
             "ONE_PROJECT": "1 مشروع ",
@@ -1907,6 +1913,12 @@
             "POSE_2": "يمنحك لبنات التي ستجد إحداثيات س ، ص لأجزاء مختلفة من الجسم ، مثل الكتفين والمرفقين والمعصمين والركبتين والكاحلين.",
             "POSE_3": "يستخدم هذا الأسلوب من أسفل إلى أعلى - البحث عن النقاط الرئيسية لجسم الإنسان (مثل الكتفين والمرفقين والركبتين ، وما إلى ذلك) ثم تجميعها لتحديد الشخص والوضع الذي يتواجدون فيه. تعتمد التقنية على MobileNet ( نموذج ML مصمم للأجهزة المحمولة ، لذلك لا يحتاج إلى الكثير من طاقة الحوسبة).",
             "POSE_4": "جاءت بيانات التدريب المستخدمة لهذا النموذج من مجموعة تعرف باسم <a href='http://cocodataset.org/index.htm#keypoints-2019' target='_blank'>العناصر الشائعة في السياق (COCO)</a>."
+        },
+        "TOXICITY": {
+            "TITLE": "Toxicity",
+            "TOXICITY_1": "This model can be used to recognize whether text contains toxic content.",
+            "TOXICITY_2": "It gives you blocks that will predict the percentage probability that some provided text contains toxic content such as threatening language, insults, obscenities, or identity-based hate.",
+            "TOXICITY_3": "The training data used for <a href='https://medium.com/tensorflow/text-classification-using-tensorflow-js-an-example-of-detecting-offensive-language-in-browser-e2b94e3565ce'>this model</a> came from <a href='https://figshare.com/articles/data_json/7376747' target='_blank'>two-million user-generated comments posted on news articles</a>."
         },
         "IDEAS": {
             "IDEAS_1": "هل هناك نماذج أخرى لتعلم الآلة ترغب في استخدامها في مشاريع Scratch؟",

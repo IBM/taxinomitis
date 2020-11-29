@@ -1,8 +1,5 @@
 <div class="jumbotron" id="top">
-    <h2 class="text-center">
-        {{ 'PRETRAINED.TITLE' | translate }}
-        <span class='badge'>beta</span>
-    </h2>
+    <h2 class="text-center" translate="PRETRAINED.TITLE"></h2>
 </div>
 <div class="helpsection">
     <p translate="PRETRAINED.INTRO.INTRO_1"></p>
@@ -61,7 +58,18 @@
     </div>
 
     <div class="mlprojectmenu aboutsection aboutnarrow">
-        <div class="mlprojectmenutitle" translate="PRETRAINED.TENSORFLOW.TITLE"></div>
+        <div class="mlprojectmenutitle" translate="PRETRAINED.TOXICITY.TITLE"></div>
+        <div class="aboutdescription" translate="PRETRAINED.TOXICITY.TOXICITY_1"></div>
+        <div class="aboutdescription" translate="PRETRAINED.TOXICITY.TOXICITY_2"></div>
+        <div class="aboutdescription">
+            <img src="static/images/pretrained-toxicity.png" class="screenshot"
+                 alt="screenshot of the toxicity blocks">
+        </div>
+        <div class="aboutdescription" style="font-size: 1em;" translate="PRETRAINED.TOXICITY.TOXICITY_3"></div>
+    </div>
+
+    <div class="mlprojectmenu aboutsection aboutnarrow">
+        <div class="mlprojectmenutitle">{{ 'PRETRAINED.TENSORFLOW.TITLE' | translate }} <span class='badge'>beta</span></div>
         <div class="aboutdescription">
             <a class="btn btn-primary" ng-click="vm.openTensorFlowDialog($event)" translate="PRETRAINED.TENSORFLOW.BUTTON"></a>
         </div>
@@ -69,6 +77,7 @@
         <div class="aboutdescription" translate="PRETRAINED.TENSORFLOW.TF_2"></div>
         <div class="aboutdescription" translate="PRETRAINED.TENSORFLOW.TF_3"></div>
         <div class="aboutdescription" translate="PRETRAINED.TENSORFLOW.TF_4"></div>
+        <div class="aboutdescription"><a href="https://dalelane.co.uk/blog/?p=4201" translate="DATASETS.MORE.MOREINFO"></a></div>
         <div class="aboutdescription emphasis" translate="PRETRAINED.TENSORFLOW.TF_5"></div>
     </div>
 </div>

@@ -220,13 +220,16 @@ function concatAndMinifiyWebJs (isForProd) {
     let additionalVariables;
     if (process.env.DEPLOYMENT === 'machinelearningforkids.co.uk') {
         if (isForProd) {
+            // uses prod auth0 environment
             additionalVariables = ['public/auth0-prod-variables.js'];
         }
         else {
+            // uses dev/staging auth0 environment
             additionalVariables = ['public/auth0-variables.js'];
         }
     }
     else {
+        // disables auth0 integration
         additionalVariables = ['public/auth0-dev-variables.js'];
     }
     const webJsWithAuth = additionalVariables.concat(paths.webjs);

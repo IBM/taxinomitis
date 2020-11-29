@@ -229,13 +229,20 @@
                         }
                     }
 
+                    var epochs = 10;
+                    if (trainingdata.length > 55) {
+                        epochs = 15;
+                    }
+
                     transferModel.fit(xs, ys, {
                         batchSize : 10,
-                        epochs : 10,
+                        epochs : epochs,
                         callbacks : {
                             onEpochEnd : function (epoch, logs) {
                                 loggerService.debug('[ml4kimages] epoch ' + epoch + ' loss ' + logs.loss);
-                                modelStatus.progress = (epoch + 1) * 10;
+                                if (modelStatus) {
+                                    modelStatus.progress = (epoch + 1) * 10;
+                                }
                             },
                             onTrainEnd : function () {
                                 return saveModel(projectid)

@@ -85,7 +85,7 @@
                            ng-focus="vm.focused = 'type'"
                            class="newprojecttype">
                     <md-option value="text" translate="WORKSHEETS.TYPES.TEXT"></md-option>
-                    <md-option value="images" translate="WORKSHEETS.TYPES.IMAGES"></md-option>
+                    <md-option value="images" translate="WORKSHEETS.TYPES.IMAGES" ng-hide="vm.profile && vm.profile.tenant === 'session-users'"></md-option>
                     <md-option value="imgtfjs">{{ 'WORKSHEETS.TYPES.IMAGES' | translate }} <span class="badge">beta</span></md-option>
                     <md-option value="numbers" translate="WORKSHEETS.TYPES.NUMBERS"></md-option>
                     <md-option value="sounds" translate="WORKSHEETS.TYPES.SOUNDS"></md-option>
@@ -93,6 +93,7 @@
                 <div class="newprojectexplanation"
                      ng-click="vm.explainimages = !vm.explainimages"
                      ng-if="projectType === 'images' || projectType === 'imgtfjs'"
+                     ng-hide="vm.profile && vm.profile.tenant === 'session-users'"
                      translate="NEWPROJECT.EXPLAINTYPES.NOTICE"></div>
             </md-input-container>
             <div class="well newprojecthelp"

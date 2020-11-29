@@ -408,11 +408,11 @@ describe('Training - Visual Recognition', () => {
             const prom: unknown = new Promise((resolve, reject) => {
                 switch (url) {
                 case 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/good':
-                    return resolve();
+                    return resolve('');
                 case 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/bad':
-                    return resolve();
+                    return resolve('');
                 case 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/stillgoing':
-                    return resolve();
+                    return resolve('');
                 default:
                     return reject({ error : 'Resource not found' });
                 }

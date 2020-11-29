@@ -192,7 +192,7 @@ describe('REST API - imported projects', () => {
             nextAuth0UserRole = 'student';
             nextAuth0UserTenant = classid;
 
-            const type = 'images';
+            const type = 'imgtfjs';
 
             return request(testServer)
                 .post(url)

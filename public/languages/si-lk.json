@@ -21,6 +21,7 @@
         "TEACHER": "ගුරුවරයා",
         "PROJECTS": "ව්‍යාපෘති",
         "WORKSHEETS": "කාර්යය පත්‍රිකා",
+        "PRETRAINED": "Pretrained",
         "NEWS": "පුවත්",
         "HELP": "උදව්",
         "LOGIN": "ඇතුල් වෙන්න",
@@ -45,6 +46,9 @@
             "TITLE": "තාක්ෂණය",
             "BODY": "මෙම මෙවලම සම්පූර්ණයෙන්ම වෙබ් පාදක වන අතර සංකීර්ණ ස්ථාපනයක් අවශ්‍ය නොවේ. <br/><br/>එය පාසල්වල පන්ති කාමර වල හා ළමයින්ට coding උගන්වන ස්වේච්ඡා කණ්ඩායම් වල භාවිතය සඳහා නිර්මාණය කර ඇත, එසේම ගුරුවරුන්ට හා කණ්ඩායම් නායකයන්ට ඔවුන්ගේ ශිෂ්‍යයන් කළමනාකරණයට හා පරිපාලක ප්‍රවේශය ලබාදෙන admin page සපසයි.<br/><br/>එය නිර්මාණය කරන ලද්දේ <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> විසින්  <a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a> හි API භාවිතයෙනි.",
             "LOGIN": "ආරම්භ කරන්න: "
+        },
+        "PRETRAINED": {
+            "BODY": "Pre-trained models are also provided for students to use in their projects. These advanced models enable projects that might otherwise be too complex for students to train for themselves, and provide useful hands-on insights into some of the other things that machine learning can do."
         },
         "FURTHER": {
             "TITLE": "වැඩි දුර අධ්‍යනය",
@@ -1818,6 +1822,8 @@
             "CREATE_ACCOUNT": "Create an account",
             "TRAINMODELS": "Train machine learning models to recognise...",
             "PRETRAINED_MODELS": "Use pre-trained machine learning models",
+            "TENSORFLOW_MODELS": "Use hosted TensorFlow models",
+            "SCRATCH_ONLY": "(use from Scratch only)",
             "USE": "Use machine learning models from...",
             "CREATE_PROJECTS": "Create projects",
             "ONE_PROJECT": " 1 project ",
@@ -1907,6 +1913,12 @@
             "POSE_2": "It gives you blocks that will find the x,y coordinates of different parts of your body, like shoulders, elbows, wrists, knees, and ankles.",
             "POSE_3": "This uses a bottom-up technique - looking for human body key points (like shoulders, elbows, knees, etc.) and then grouping them to identify a person and the pose that they're in. The technique is based on MobileNet (a ML model designed for mobile devices, so it doesn't need much computing power).",
             "POSE_4": "The training data used for this model came from a set known as <a href='http://cocodataset.org/index.htm#keypoints-2019' target='_blank'>Common Objects in Context (COCO)</a>."
+        },
+        "TOXICITY": {
+            "TITLE": "Toxicity",
+            "TOXICITY_1": "This model can be used to recognize whether text contains toxic content.",
+            "TOXICITY_2": "It gives you blocks that will predict the percentage probability that some provided text contains toxic content such as threatening language, insults, obscenities, or identity-based hate.",
+            "TOXICITY_3": "The training data used for <a href='https://medium.com/tensorflow/text-classification-using-tensorflow-js-an-example-of-detecting-offensive-language-in-browser-e2b94e3565ce'>this model</a> came from <a href='https://figshare.com/articles/data_json/7376747' target='_blank'>two-million user-generated comments posted on news articles</a>."
         },
         "IDEAS": {
             "IDEAS_1": "Are there other machine learning models you would like to be able to use in your Scratch projects?",

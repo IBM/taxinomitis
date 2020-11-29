@@ -84,7 +84,7 @@ describe('Datasets import', () => {
                 text : [
                     'uk-newspaper-headlines',
                 ],
-                images : [
+                imgtfjs : [
                     'cats-and-dogs',
                 ],
             };
@@ -193,7 +193,7 @@ describe('Datasets import', () => {
         it('should import an images dataset', async () => {
             const user = uuid();
 
-            const project = await datasets.importDataset(user, TESTCLASS, false, 'images', 'test-only-img');
+            const project = await datasets.importDataset(user, TESTCLASS, false, 'imgtfjs', 'test-only-img');
 
             await verifyTestImagesProject(project.id);
             await store.deleteEntireProject(user, TESTCLASS, project);

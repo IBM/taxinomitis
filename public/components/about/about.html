@@ -13,7 +13,7 @@
     <div class="mlprojectmenu aboutsection aboutnarrow">
         <div class="mlprojectmenutitle" translate="ABOUT.WHAT.TITLE"></div>
         <div class="aboutdescription" translate="ABOUT.WHAT.BODY"></div>
-        <button type="button" class="btn btn-primary" ui-sref="worksheets" translate="APP.WORKSHEETS"></button>
+        <button type="button" class="btn btn-primary" ui-sref="worksheets({'#':'top'})" translate="APP.WORKSHEETS"></button>
     </div>
     <div class="mlprojectmenu aboutsection aboutnarrow">
         <div class="mlprojectmenutitle" translate="ABOUT.WHY.TITLE"></div>
@@ -25,6 +25,14 @@
         <div class="aboutdescription" ng-if="!isAuthenticated" >
             <span translate="ABOUT.TECH.LOGIN"></span>
             <button type='button' class='btn btn-primary' ui-sref='login' translate="APP.LOGIN"></button>
+        </div>
+    </div>
+    <div class="mlprojectmenu aboutsection aboutnarrow">
+        <div class="mlprojectmenutitle" translate="PRETRAINED.TITLE"></div>
+        <div class="aboutdescription" translate="ABOUT.PRETRAINED.BODY"></div>
+        <div class="aboutdescription">
+            <span translate="ABOUT.TECH.LOGIN"></span>
+            <button type="button" class="btn btn-primary" ui-sref="pretrained({'#':'top'})" translate="PRETRAINED.TITLE"></button>
         </div>
     </div>
     <div class="mlprojectmenu aboutsection aboutnarrow">
