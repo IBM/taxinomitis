@@ -241,6 +241,10 @@
                 controller: 'AdminController',
                 templateUrl: 'static/components-<%= VERSION %>/admin/admin.html',
                 controllerAs: 'vm'
+            })
+            .state('book', {
+                url: '/book',
+                templateUrl: 'static/components-<%= VERSION %>/book/book.html',
             });
 
 
