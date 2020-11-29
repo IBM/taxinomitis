@@ -21,6 +21,7 @@
         "TEACHER": "Leerkracht",
         "PROJECTS": "Projecten",
         "WORKSHEETS": "Werkbladen",
+        "PRETRAINED": "Pretrained",
         "NEWS": "Nieuws",
         "HELP": "Help",
         "LOGIN": "Log In",
@@ -45,6 +46,9 @@
             "TITLE": "Technologie",
             "BODY": "Deze tool is volledig webgebaseerd en er is geen nood aan een installatie of complexe setup om hem te gebruiken. <br/><br/> Het is ontwikkeld om te gebruiken in scholen of codeerclubs voor kinderen en omvat een administratorpagina voor hun leerkracht of begeleider zodat deze een overzicht kan hebben over de verschillende studenten.<br/><br/>De tool is gebouwd door <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> gebruik makend van APIs van <a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a>.",
             "LOGIN": "Om te beginnen: "
+        },
+        "PRETRAINED": {
+            "BODY": "Pre-trained models are also provided for students to use in their projects. These advanced models enable projects that might otherwise be too complex for students to train for themselves, and provide useful hands-on insights into some of the other things that machine learning can do."
         },
         "FURTHER": {
             "TITLE": "Meer leren",

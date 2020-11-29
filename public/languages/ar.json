@@ -21,6 +21,7 @@
         "TEACHER": "معلم",
         "PROJECTS": "مشاريع",
         "WORKSHEETS": "صحيفة التعليمات",
+        "PRETRAINED": "Pretrained",
         "NEWS": "أخبار",
         "HELP": "مساعدة",
         "LOGIN": "تسجيل الدخول",
@@ -45,6 +46,9 @@
             "TITLE": "تقنية",
             "BODY": "تعتمد الأداة بالكامل على الويب ولا تتطلب أي عمليات تثبيت أو إعداد معقدة حتى تتمكن من استخدامها. <br/><br/>تم تصميمها للاستخدام في الفصول الدراسية من قبل المدارس ومجموعات الأكواد التي يديرها المتطوعون للأطفال ، ويوفر صفحة إدارية للمعلمين أو قادة المجموعة ليكونوا قادرين على تنظيم وإدارة وصول طلابهم. <br/><br/>يتم بناؤه بواسطة <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane </a>باستخدام واجهات برمجة التطبيقات APIs من <a target='_blank' href='https://www.ibm.com/watson/developer/'>IBM Watson</a>. <br/><br/>لمزيد من التفاصيل حول التنفيذ ، يمكنك رؤية <a target='_blank' href='https://github.com/IBM/taxinomitis/'>شفرة المصدر عل GitHub </a>، أو قراءة بعض <a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>منشورات المدونة حول التقنية</a>.",
             "LOGIN": "للبدء:"
+        },
+        "PRETRAINED": {
+            "BODY": "Pre-trained models are also provided for students to use in their projects. These advanced models enable projects that might otherwise be too complex for students to train for themselves, and provide useful hands-on insights into some of the other things that machine learning can do."
         },
         "FURTHER": {
             "TITLE": "لتعلم المزيد",

@@ -21,6 +21,7 @@
         "TEACHER": "Öğretmen",
         "PROJECTS": "Projeler",
         "WORKSHEETS": "Çalışma Sayfaları",
+        "PRETRAINED": "Pretrained",
         "NEWS": "Haberler",
         "HELP": "Yardım",
         "LOGIN": "Oturum Aç",
@@ -45,6 +46,9 @@
             "TITLE": "Teknoloji",
             "BODY": "Araç, tamamıyla web tabanlıdır ve kullanmak için herhangi bir kurulum veya karmaşık ayarlar gerektirmez. <br/><br/>Okulllar ve gönüllülerce yönetilen kodlama grupları tarafından kullanılmak üzere çocuklara yönelik olarak tasarlanmıştır ve öğretmenlerin veya grup liderlerinin öğrenci erişimini yönetebilmeleri için bir yönetim sayfası sağlar.<br/><br/><a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> tarafından, <a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a> API'leri kullanılarak oluşturulmaktadır.",
             "LOGIN": "Kullanmaya başlamak için: "
+        },
+        "PRETRAINED": {
+            "BODY": "Pre-trained models are also provided for students to use in their projects. These advanced models enable projects that might otherwise be too complex for students to train for themselves, and provide useful hands-on insights into some of the other things that machine learning can do."
         },
         "FURTHER": {
             "TITLE": "Further learning",

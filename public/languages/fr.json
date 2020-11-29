@@ -21,6 +21,7 @@
         "TEACHER": "Enseignants",
         "PROJECTS": "Projets",
         "WORKSHEETS": "Plan de travail",
+        "PRETRAINED": "Pretrained",
         "NEWS": "Nouvelles",
         "HELP": "Aide",
         "LOGIN": "Connexion",
@@ -45,6 +46,9 @@
             "TITLE": "Technologie",
             "BODY": "Ce service est entièrement basé sur les technologies web et ne requiert aucune installation ou paramétrage compliqué pour être utilisé. <br/><br/>Il a été conçu pour être utilisé en classe ou dans des activités parascolaires avec des enfants ou des adolescents, et il propose une page permettant aux enseignants ou aux responsables de groupe de gérer et d'administrer l'accès des élèves.<br/><br/>Il a été conçu et réalisé par <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> et utilise des API depuis <a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a>.",
             "LOGIN": "Pour démarrer : "
+        },
+        "PRETRAINED": {
+            "BODY": "Pre-trained models are also provided for students to use in their projects. These advanced models enable projects that might otherwise be too complex for students to train for themselves, and provide useful hands-on insights into some of the other things that machine learning can do."
         },
         "FURTHER": {
             "TITLE": "Pour aller plus loin...",

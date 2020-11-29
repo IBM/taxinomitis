@@ -21,6 +21,7 @@
         "TEACHER": "Nauczyciel",
         "PROJECTS": "Projekty",
         "WORKSHEETS": "Arkusze",
+        "PRETRAINED": "Pretrained",
         "NEWS": "Nowiny",
         "HELP": "Pomoc",
         "LOGIN": "Zalogować się",
@@ -45,6 +46,9 @@
             "TITLE": "Technika",
             "BODY": "Narzędzie jest w całości oparte na sieci i nie wymaga żadnych instalacji ani skomplikowanych ustawień, aby móc z niego korzystać. <br/><br/>Zostało ono zaprojektowane do użytku w klasie przez szkoły i grupy kodowania prowadzone przez wolontariuszy dla dzieci, i zapewnia stronę administratora dla nauczycieli lub liderów grup, aby móc zarządzać i administrować dostępem dla swoich uczniów. <br/><br/>Jest budowane przez <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> przy użyciu API z <a target='_blank' href='https://www.ibm.com/watson/developer/'>IBM Watson</a>. <br/><br/>Więcej szczegółów na temat wdrożenia, można zobaczyć <a target='_blank' href='https://github.com/IBM/taxinomitis/'>kod źródłowy na GitHub</a>, lub przeczytać niektóre posty na <a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>blogu na temat technologii</a>. ",
             "LOGIN": "Zaczynamy:"
+        },
+        "PRETRAINED": {
+            "BODY": "Pre-trained models are also provided for students to use in their projects. These advanced models enable projects that might otherwise be too complex for students to train for themselves, and provide useful hands-on insights into some of the other things that machine learning can do."
         },
         "FURTHER": {
             "TITLE": "Dalsza nauka",

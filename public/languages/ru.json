@@ -21,6 +21,7 @@
         "TEACHER": "Учитель",
         "PROJECTS": "Проекты",
         "WORKSHEETS": "Рабочие листы",
+        "PRETRAINED": "Pretrained",
         "NEWS": "Новости",
         "HELP": "Помощь",
         "LOGIN": "Войти",
@@ -45,6 +46,9 @@
             "TITLE": "Технология",
             "BODY": "Инструмент основан на веб-технологии и не требует установки или сложной настройки для использования. <br/><br/>Он был разработан для использования в классе школами и клубами программирования для детей и предоставляет страницу администратора для учителей или руководителей групп, чтобы иметь возможность управлять доступом для своих учеников. <br/><br/>Он был создан <a target='_blank' href='http://dalelane.co.uk/'>Дейлом Лейном</a> с использованием API от <a target='_blank' href='https://www.ibm.com/watson/developer/'>IBM Watson</a>. <br/><br/> Для получения более подробной информации о проекте вы можете посмотреть <a target='_blank' href='https://github.com/IBM/taxinomitis/'>исходный код на GitHub</a> или прочитать  в <a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>блоге о данной технологии</a>.",
             "LOGIN": "Для начала:"
+        },
+        "PRETRAINED": {
+            "BODY": "Pre-trained models are also provided for students to use in their projects. These advanced models enable projects that might otherwise be too complex for students to train for themselves, and provide useful hands-on insights into some of the other things that machine learning can do."
         },
         "FURTHER": {
             "TITLE": "Дальнейшее изучение",

@@ -21,6 +21,7 @@
         "TEACHER": "Učitel",
         "PROJECTS": "Projekty",
         "WORKSHEETS": "Cvičení",
+        "PRETRAINED": "Pretrained",
         "NEWS": "Novinky",
         "HELP": "Nápověda",
         "LOGIN": "Příhlásit",
@@ -45,6 +46,9 @@
             "TITLE": "Tech",
             "BODY": "The tool is entirely web-based and requires no installs or complicated setup to be able to use. <br/><br/>It was designed for use in the classroom by schools and volunteer-run coding groups for children, and provides an admin page for teachers or group leaders to be able to manage and administer access for their students.<br/><br/>It is being built by <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> using APIs from <a target='_blank' href='https://www.ibm.com/watson/developer/'>IBM Watson</a>.<br/><br/>For more details about the implementation, you can see the <a target='_blank' href='https://github.com/IBM/taxinomitis/'>source code on GitHub</a>, or read some of the <a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>blog posts about the tech</a>. ",
             "LOGIN": "To get started: "
+        },
+        "PRETRAINED": {
+            "BODY": "Pre-trained models are also provided for students to use in their projects. These advanced models enable projects that might otherwise be too complex for students to train for themselves, and provide useful hands-on insights into some of the other things that machine learning can do."
         },
         "FURTHER": {
             "TITLE": "Další učení",

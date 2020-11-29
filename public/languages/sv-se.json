@@ -21,6 +21,7 @@
         "TEACHER": "Lärare",
         "PROJECTS": "Projekt",
         "WORKSHEETS": "Arbetsblad",
+        "PRETRAINED": "Pretrained",
         "NEWS": "Nyheter",
         "HELP": "Hjälp",
         "LOGIN": "Logga in",
@@ -45,6 +46,9 @@
             "TITLE": "Teknik",
             "BODY": "Verktyget är helt och hållet webb-baserat och kräver ingen installation eller komplicerad konfiguration för att användas. <br/><br/>Det utformades för att användas i klassrum av skolor och frivilliga kodningsgrupper för barn, och tillhandahåller en admin-sida för lärare eller grupphandledare för att hantera och administrera tillgång för deras elever.<br/><br/> Det utvecklas av <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> och använder API:er från <a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a>.",
             "LOGIN": "För att komma igång: "
+        },
+        "PRETRAINED": {
+            "BODY": "Pre-trained models are also provided for students to use in their projects. These advanced models enable projects that might otherwise be too complex for students to train for themselves, and provide useful hands-on insights into some of the other things that machine learning can do."
         },
         "FURTHER": {
             "TITLE": "Further learning",

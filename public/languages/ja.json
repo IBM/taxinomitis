@@ -21,6 +21,7 @@
         "TEACHER": "先生",
         "PROJECTS": "プロジェクト",
         "WORKSHEETS": "ワークシート",
+        "PRETRAINED": "Pretrained",
         "NEWS": "ニュース",
         "HELP": "ヘルプ",
         "LOGIN": "ログイン",
@@ -45,6 +46,9 @@
             "TITLE": "技術",
             "BODY": "このサイトは全てWebベースで、使うためにソフトウェアのインストールや複雑な設定等は不要です。<br/><br/>学校やボランティアが運営する子ど向けのプログラミンググループで使われるようにデザインしており、先生やグループリーダーが、生徒のアクセスを管理できるように管理者用ページも提供します。<br/><br/>本システムは<a target='_blank' href='https://www.ibm.com/watson/developercloud/'>IBM Watson Developer Cloud</a>のAPIを利用して<a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a>が構築しました。",
             "LOGIN": "始めるために: "
+        },
+        "PRETRAINED": {
+            "BODY": "Pre-trained models are also provided for students to use in their projects. These advanced models enable projects that might otherwise be too complex for students to train for themselves, and provide useful hands-on insights into some of the other things that machine learning can do."
         },
         "FURTHER": {
             "TITLE": "もっと知る",

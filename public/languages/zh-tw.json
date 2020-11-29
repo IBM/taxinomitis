@@ -21,6 +21,7 @@
         "TEACHER": "教師",
         "PROJECTS": "專案",
         "WORKSHEETS": "作品清單",
+        "PRETRAINED": "Pretrained",
         "NEWS": "新聞",
         "HELP": "幫助",
         "LOGIN": "登入",
@@ -45,6 +46,9 @@
             "TITLE": "技術資源",
             "BODY": "這個工具完全建立在網路上，不需要安裝軟體或複雜的設定才能開始使用<br/><br/>它是專為學校與程式志工組織在課堂中使用而設計，並且為老師或程式教育者提供管理介面，方便管理與控制學生的權限<br/><br/>此工具由<a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a>所建立，使用的API來自<a target='_blank' href='https://www.ibm.com/watson/developer/'>IBM Waston</a><br/><br/>想了解更多詳細資訊，請參考<a target='_blank' href='https://github.com/IBM/taxinomitis/'>GitHub原始碼</a>或是作者的<a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>技術資源部落格</a>",
             "LOGIN": "開始使用:"
+        },
+        "PRETRAINED": {
+            "BODY": "Pre-trained models are also provided for students to use in their projects. These advanced models enable projects that might otherwise be too complex for students to train for themselves, and provide useful hands-on insights into some of the other things that machine learning can do."
         },
         "FURTHER": {
             "TITLE": "進階學習",

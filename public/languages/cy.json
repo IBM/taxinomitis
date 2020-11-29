@@ -21,6 +21,7 @@
         "TEACHER": "Athro",
         "PROJECTS": "Prosiectau",
         "WORKSHEETS": "Taflenni Waith",
+        "PRETRAINED": "Pretrained",
         "NEWS": "Newyddion",
         "HELP": "Cymorth",
         "LOGIN": "Mewngofnodi",
@@ -45,6 +46,9 @@
             "TITLE": "Tech",
             "BODY": "Mae'r adnodd wedi'i seilio'n llwyr ar y we ac nid oes angen unrhyw osodiadau na setup cymhleth i allu ei ddefnyddio.<br/><br/>Fe'i cynlluniwyd i'w ddefnyddio yn yr ystafell ddosbarth gan ysgolion a grwpiau codio a redir gan wirfoddolwyr i blant, ac mae'n darparu tudalen weinyddol i athrawon neu arweinwyr grŵp allu rheoli a gweinyddu mynediad i'w myfyrwyr.<br/><br/>Mae'n cael ei adeiladu gan <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> gan ddefnyddio APIs o <a target='_blank' href='https://www.ibm.com/watson/developer/'>IBM Watson</a>.<br/><br/>Am fwy o fanylion am y gweithredu, gallwch weld y <a target='_blank' href='https://github.com/IBM/taxinomitis/'>cod ffynhonnell ar GitHub</a>, neu ddarllen rhai o'r <a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>postiadau blog am y dechnoleg</a>. ",
             "LOGIN": "I ddechrau: "
+        },
+        "PRETRAINED": {
+            "BODY": "Pre-trained models are also provided for students to use in their projects. These advanced models enable projects that might otherwise be too complex for students to train for themselves, and provide useful hands-on insights into some of the other things that machine learning can do."
         },
         "FURTHER": {
             "TITLE": "Dysgu Pellach",

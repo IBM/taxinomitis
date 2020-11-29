@@ -21,6 +21,7 @@
         "TEACHER": "老师",
         "PROJECTS": "项目",
         "WORKSHEETS": "工作表",
+        "PRETRAINED": "Pretrained",
         "NEWS": "新闻",
         "HELP": "帮助",
         "LOGIN": "登录",
@@ -45,6 +46,9 @@
             "TITLE": " 技术 ",
             "BODY": "该工具完全基于网络，无需安装或复杂的设置即可使用。<br/> <br/>它专为学校和志愿者编写的课堂设计而设计儿童，并为教师或小组负责人提供管理页面，以便能够管理和管理学生的访问权限。<br/> <br/>它由<a target ='_blank' href='http://dalelane.co.uk/'>Dale Lane </a>使用来自<a target='_blank' href='https://www.ibm.com/watson/developercloud/'> IBM Watson Developer Cloud的API </ a>。",
             "LOGIN": "开始: "
+        },
+        "PRETRAINED": {
+            "BODY": "Pre-trained models are also provided for students to use in their projects. These advanced models enable projects that might otherwise be too complex for students to train for themselves, and provide useful hands-on insights into some of the other things that machine learning can do."
         },
         "FURTHER": {
             "TITLE": "Further learning",

@@ -21,6 +21,7 @@
         "TEACHER": "Εκπαιδευτικός",
         "PROJECTS": "Έργα",
         "WORKSHEETS": "Φύλλα Εργασίας",
+        "PRETRAINED": "Pretrained",
         "NEWS": "Νέα",
         "HELP": "Βοήθεια",
         "LOGIN": "Σύνδεση",
@@ -45,6 +46,9 @@
             "TITLE": "Τεχνολογία",
             "BODY": "Το εργαλείο είναι εξ᾽ ολοκλήρου διαδικτυακό και δεν απαιτεί εγκατάσταση ή περίπλοκες ρυθμίσεις για να χρησιμοποιηθεί. <br/><br/>Σχεδιάστηκε για χρήση στην τάξη από σχολεία και εθελοντικές ομάδες προγραμματισμού για παιδιά, και παρέχει σελίδα διαχείρισης για εκπαιδευτικούς ή επικεφαλής ομάδων, ώστε να μπορούν να επιβλέπουν και να διαχειρίζονται την πρόσβαση για τους μαθητές τους.<br/><br/> Αναπτύχθηκε από τον <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> χρησιμοποιώντας τα API της <a target='_blank' href='https://www.ibm.com/watson/developer/'>IBM Watson</a>. <br/><br/> Για περισσότερες λεπτομέρειες σχετικά με την υλοποίηση, μπορείς να επισκεφτείς τον <a target='_blank' href='https://github.com/IBM/taxinomitis/'>πηγαίο κώδικα στο GitHub</a> ή να διαβάσεις μερικές από τις <a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>δημοσιεύσεις του blog σχετικά με τα τεχνικά χαρακτηριστικά</a>.",
             "LOGIN": "Για να ξεκινήσεις:"
+        },
+        "PRETRAINED": {
+            "BODY": "Pre-trained models are also provided for students to use in their projects. These advanced models enable projects that might otherwise be too complex for students to train for themselves, and provide useful hands-on insights into some of the other things that machine learning can do."
         },
         "FURTHER": {
             "TITLE": "Περαιτέρω μελέτη",
