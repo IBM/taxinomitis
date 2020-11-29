@@ -14,17 +14,17 @@ services:
         POSTGRES_HOST: ml4knet
         POSTGRES_PORT: 5432
       networks:
-      - ml4knet
+        - ml4knet
     ml4k:
       build: .
       environment:
-        POSTGRESQLHOST: ml4knet
+        POSTGRESQLHOST: postgres
         POSTGRESQLPORT: 5432
         POSTGRESQLUSER: ml4kdbuser
         POSTGRESQLPASSWORD: ml4kdbpwd
         POSTGRESQLDATABASE: mlforkidsdb
         PORT: 3000
-        HOST: localhost
+        HOST: 0.0.0.0
       ports:
         - "8875:3000"
       networks:
