@@ -46,8 +46,6 @@ export const CSP_DIRECTIVES = {
         'http://cdn.auth0.com',
         'https://cdn.auth0.com',
         'https://cdn.eu.auth0.com',
-        // used for analytics
-        'https://www.google-analytics.com',
     ],
     styleSrc: ["'self'",
         // TODO : https://github.com/IBM/taxinomitis/issues/346 should remove this
@@ -115,6 +113,12 @@ export const CSP_DIRECTIVES = {
     fontSrc: ["'self'",
         // used in Scratch by Blockly
         'data:',
+    ],
+    connectSrc: ["'self'",
+        // used for login flows
+        'https://login.machinelearningforkids.co.uk',
+        // used for analytics
+        'https://www.google-analytics.com',
     ],
 };
 
