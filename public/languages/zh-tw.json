@@ -21,7 +21,7 @@
         "TEACHER": "教師",
         "PROJECTS": "專案",
         "WORKSHEETS": "作品清單",
-        "PRETRAINED": "Pretrained",
+        "PRETRAINED": "預訓練模型",
         "NEWS": "新聞",
         "HELP": "幫助",
         "LOGIN": "登入",
@@ -48,7 +48,7 @@
             "LOGIN": "開始使用:"
         },
         "PRETRAINED": {
-            "BODY": "Pre-trained models are also provided for students to use in their projects. These advanced models enable projects that might otherwise be too complex for students to train for themselves, and provide useful hands-on insights into some of the other things that machine learning can do."
+            "BODY": "預訓練模型也可提供學生在他的專案中使用。 這些進階模型如果自己訓練可能太複雜，所以學生無法自己完成。這些模型也提供了有關機器學習可以完成各式各樣事情的實用建議。"
         },
         "FURTHER": {
             "TITLE": "進階學習",
@@ -1902,10 +1902,10 @@
             "POSE_4": "這個模型的訓練資料來自於<a href='http://cocodataset.org/index.htm#keypoints-2019' target='_blank'>Common Objects in Context (COCO)</a>"
         },
         "TOXICITY": {
-            "TITLE": "Toxicity",
-            "TOXICITY_1": "This model can be used to recognize whether text contains toxic content.",
-            "TOXICITY_2": "It gives you blocks that will predict the percentage probability that some provided text contains toxic content such as threatening language, insults, obscenities, or identity-based hate.",
-            "TOXICITY_3": "The training data used for <a href='https://medium.com/tensorflow/text-classification-using-tensorflow-js-an-example-of-detecting-offensive-language-in-browser-e2b94e3565ce'>this model</a> came from <a href='https://figshare.com/articles/data_json/7376747' target='_blank'>two-million user-generated comments posted on news articles</a>."
+            "TITLE": "髒話辨識",
+            "TOXICITY_1": "這個模型可以用來辨識文字是否包含髒話",
+            "TOXICITY_2": "\b此功能提供了可以預測某些文字常見的髒話內容（例如威脅詞彙，侮辱性，淫穢或基於仇恨的仇恨內容）的百分比機率的積木程式。",
+            "TOXICITY_3": "<a href='https://medium.com/tensorflow/text-classification-using-tensorflow-js-an-example-of-detecting-offensive-language-in-browser-e2b94e3565ce'>這個模型</a>的訓練資料來自<a href='https://figshare.com/articles/data_json/7376747' target='_blank'>two-million user-generated comments posted on news articles</a>"
         },
         "IDEAS": {
             "IDEAS_1": "您是否希望在Scratch專案中使用其他機器學習模型？",
