@@ -248,8 +248,10 @@
                                 return saveModel(projectid)
                                     .then(function () {
                                         loggerService.debug('[ml4kimages] training complete');
-                                        modelStatus.status = 'Available';
-                                        modelStatus.progress = 100;
+                                        if (modelStatus) {
+                                            modelStatus.status = 'Available';
+                                            modelStatus.progress = 100;
+                                        }
                                         usingRestoredModel = false;
                                     });
                             }
@@ -261,9 +263,11 @@
                 .catch(function (err) {
                     loggerService.error('[ml4kimages] model training failure', err);
 
-                    modelStatus.status = 'Failed';
-                    modelStatus.updated = new Date();
-                    modelStatus.error = err;
+                    if (modelStatus) {
+                        modelStatus.status = 'Failed';
+                        modelStatus.updated = new Date();
+                        modelStatus.error = err;
+                    }
 
                     return modelStatus;
                 });
