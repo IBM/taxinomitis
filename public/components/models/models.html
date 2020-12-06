@@ -316,14 +316,14 @@
                             <div class="modelstatusdetail" ng-hide="owner" translate="MODELS.WHATSNEXT.IDLE.LABELS.MORE_DATA.MORE_EXAMPLES.CLASS" translate-values='{ urls : projecturls }'></div>
                             <div class="modelstatusdetail" translate="MODELS.WHATSNEXT.IDLE.LABELS.MORE_DATA.MORE_IS_BETTER" translate-values='{ minimumExamples : minimumExamples }'></div>
                         </div>
-                        <div ng-if="trainingdatastatus === 'data' && owner">
+                        <div ng-if="trainingdatastatus === 'data' && (owner || project.type === 'imgtfjs' || project.type === 'sound')">
                             <div class="modelstatusdetail" translate="MODELS.WHATSNEXT.IDLE.LABELS.ENOUGH_DATA.READY_TO_START"></div>
                             <div class="modelstatusdetail" ng-if="project.isCrowdSourced" translate="MODELS.WHATSNEXT.IDLE.LABELS.ENOUGH_DATA.START_TRAINING.CROWDSOURCED"></div>
                             <div class="modelstatusdetail" ng-hide="project.isCrowdSourced" translate="MODELS.WHATSNEXT.IDLE.LABELS.ENOUGH_DATA.START_TRAINING.INDIVIDUAL"></div>
                             <div class="modelstatusdetail" ng-if="project.isCrowdSourced" translate="MODELS.WHATSNEXT.IDLE.LABELS.ENOUGH_DATA.MORE_EXAMPLES.CROWDSOURCED" translate-values='{ urls : projecturls }'></div>
                             <div class="modelstatusdetail" ng-hide="project.isCrowdSourced" translate="MODELS.WHATSNEXT.IDLE.LABELS.ENOUGH_DATA.MORE_EXAMPLES.INDIVIDUAL" translate-values='{ urls : projecturls }'></div>
                         </div>
-                        <div ng-if="trainingdatastatus === 'data' && !owner">
+                        <div ng-if="trainingdatastatus === 'data' && (!owner && project.type !== 'imgtfjs' && project.type !== 'sound')">
                             <div class="modelstatusdetail" translate="MODELS.WHATSNEXT.IDLE.LABELS.ENOUGH_DATA.WAITING_FOR_TEACHER"></div>
                         </div>
                     </div>
@@ -415,7 +415,7 @@
 
 
 
-    <div ng-if="(models && models.length > 0) || trainingdatastatus === 'data'" class="trainingserversection" ng-hide="!owner || loading">
+    <div ng-if="(models && models.length > 0) || trainingdatastatus === 'data'" class="trainingserversection" ng-hide="(!owner && project.type !== 'imgtfjs' && project.type !== 'sound') || loading">
         <div><strong translate="MODELS.TRAINING.TITLE"></strong></div>
         <div ng-repeat="model in models">
             <table class="modelinfo">
