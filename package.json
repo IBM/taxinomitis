@@ -67,7 +67,7 @@
     "grunt-downloadfile": "2.1.1",
     "grunt-mkdir": "1.0.0",
     "grunt-mocha-test": "0.13.3",
-    "grunt-postcss": "0.9.0",
+    "@lodder/grunt-postcss": "3.0.0",
     "grunt-simple-nyc": "3.0.1",
     "grunt-ts": "6.0.0-beta.22",
     "grunt-tslint": "5.0.2",
