@@ -1,7 +1,6 @@
 {
     "APP": {
         "TITLE": "儿童机器学习",
-
         "BACK": " 返回 ",
         "NEXT": "Next",
         "BACKTOPROJECT": "&lt; 返回项目",
@@ -9,14 +8,12 @@
         "ERROR": "错误: ",
         "WARNING": "警告: ",
         "INFO": "信息: ",
-
         "ADD": "添加",
         "CANCEL": "取消",
         "DELETE": "Delete",
         "EDIT": "Edit",
         "TEST": "Test",
         "RESET": "Reset",
-
         "ABOUT": "关于",
         "TEACHER": "老师",
         "PROJECTS": "项目",
@@ -26,7 +23,6 @@
         "HELP": "帮助",
         "LOGIN": "登录",
         "LOGOUT": "注销",
-
         "BETA": " Beta版 ",
         "INCOMPLETE": "不完整！"
     },
@@ -36,7 +32,7 @@
         "IN20MINS": " 20分钟...... ",
         "WHAT": {
             "TITLE": "什么？",
-            "BODY" : "该工具通过提供培训机器学习系统和用它们构建物品的实践经验来介绍机器学习。<br/> <br/>它为培训机器学习模型提供了一个易于使用的指导环境用于分类文本,数字或识别图像。<br/> <br/>这是建立在现有的向儿童介绍和教授编码的努力的基础上,将这些模型添加到<a href ='https://scratch.mit.edu/关于' target ='_blank'> Scratch </a>（一种广泛使用的教育编码平台）,允许孩子们用他们训练过的机器学习模型创建项目和构建游戏。<br/> <br/>到了解更多,看看: "
+            "BODY": "该工具通过提供培训机器学习系统和用它们构建物品的实践经验来介绍机器学习。<br/> <br/>它为培训机器学习模型提供了一个易于使用的指导环境用于分类文本,数字或识别图像。<br/> <br/>这是建立在现有的向儿童介绍和教授编码的努力的基础上,将这些模型添加到<a href ='https://scratch.mit.edu/关于' target ='_blank'> Scratch </a>（一种广泛使用的教育编码平台）,允许孩子们用他们训练过的机器学习模型创建项目和构建游戏。<br/> <br/>到了解更多,看看: "
         },
         "WHY": {
             "TITLE": "为什么？",
@@ -120,10 +116,8 @@
     "ERRORS": {
         "PAGENOTFOUND": "找不到页面",
         "NOTLOGGEDIN": "未登录",
-
         "MISSINGPROJECTID": "缺少项目ID。回到",
         "IFPERSISTENT": "如果这种事情继续发生,请",
-
         "LETMEKNOW": "让我知道"
     },
     "WELCOME": {
@@ -399,115 +393,114 @@
             "TITLE": "你做了什么？",
             "PLEASEWAIT": "这通常需要几分钟,但如果训练计算机非常繁忙,可能需要更长的时间。",
             "FAIL": "不幸的是,出了点问题。",
-
-            "TRAINING" : {
-                "CROWDSOURCED" : {
-                    "TEXT" : "您的班级正在使用您收集的文本示例来训练机器学习模型。",
-                    "IMAGES" : "您的班级正在使用您收集的图像示例来训练机器学习模型。",
-                    "NUMBERS" : "您的班级正在使用您收集的数字示例来训练机器学习模型。",
-                    "SOUNDS" : "Your class is training a machine learning model using the examples of sounds that you all collected."
+            "TRAINING": {
+                "CROWDSOURCED": {
+                    "TEXT": "您的班级正在使用您收集的文本示例来训练机器学习模型。",
+                    "IMAGES": "您的班级正在使用您收集的图像示例来训练机器学习模型。",
+                    "NUMBERS": "您的班级正在使用您收集的数字示例来训练机器学习模型。",
+                    "SOUNDS": "Your class is training a machine learning model using the examples of sounds that you all collected."
                 },
-                "INDIVIDUAL" : {
-                    "TEXT" : "您已经开始使用您收集的文本示例来训练机器学习模型。",
-                    "IMAGES" : "您已经开始使用您收集的图像示例来训练机器学习模型。",
-                    "NUMBERS" : "您已经开始使用您收集的数字示例来训练机器学习模型。",
-                    "SOUNDS" : "You've started training a machine learning model using the examples of sounds that you collected."
+                "INDIVIDUAL": {
+                    "TEXT": "您已经开始使用您收集的文本示例来训练机器学习模型。",
+                    "IMAGES": "您已经开始使用您收集的图像示例来训练机器学习模型。",
+                    "NUMBERS": "您已经开始使用您收集的数字示例来训练机器学习模型。",
+                    "SOUNDS": "You've started training a machine learning model using the examples of sounds that you collected."
                 },
                 "SINCE": "由于这是在训练"
             },
-            "READY" : {
-                "CROWDSOURCED" : {
-                    "TEXT" : "您的班级已培训机器学习模型,以识别文本何时",
-                    "IMAGES" : "你的班级已经培训了一种机器学习模型来识别图像是什么时候",
-                    "NUMBERS" : "您的班级已培训机器学习模型,以识别数字何时",
-                    "SOUNDS" : "Your class has trained a machine learning model to recognise when sounds are "
+            "READY": {
+                "CROWDSOURCED": {
+                    "TEXT": "您的班级已培训机器学习模型,以识别文本何时",
+                    "IMAGES": "你的班级已经培训了一种机器学习模型来识别图像是什么时候",
+                    "NUMBERS": "您的班级已培训机器学习模型,以识别数字何时",
+                    "SOUNDS": "Your class has trained a machine learning model to recognise when sounds are "
                 },
-                "INDIVIDUAL" : {
-                    "TEXT" : "您已经培训了一种机器学习模型来识别文本的时间",
-                    "IMAGES" : "你已经训练了一个机器学习模型来识别图像是什么时候",
-                    "NUMBERS" : "您已经培训了一种机器学习模型来识别数字是什么时候",
-                    "SOUNDS" : "You have trained a machine learning model to recognise when sounds are "
+                "INDIVIDUAL": {
+                    "TEXT": "您已经培训了一种机器学习模型来识别文本的时间",
+                    "IMAGES": "你已经训练了一个机器学习模型来识别图像是什么时候",
+                    "NUMBERS": "您已经培训了一种机器学习模型来识别数字是什么时候",
+                    "SOUNDS": "You have trained a machine learning model to recognise when sounds are "
                 },
-                "CREATED" : {
-                    "TEACHER" : "你的老师创造了模型",
-                    "YOU" : "你创造了模型"
+                "CREATED": {
+                    "TEACHER": "你的老师创造了模型",
+                    "YOU": "你创造了模型"
                 },
-                "TRAINING" : {
-                    "CLASS" : "你的班级收集了: ",
-                    "YOU" : "你收集了: "
+                "TRAINING": {
+                    "CLASS": "你的班级收集了: ",
+                    "YOU": "你收集了: "
                 }
             },
             "ERROR": {
-                "CROWDSOURCED" : {
-                    "CLASS" : {
-                        "TEXT" : "您的老师尝试使用您班级收集的文本示例来训练机器学习模型。",
-                        "IMAGES" : "您的老师尝试使用您班级收集的图像示例来训练机器学习模型。",
-                        "NUMBERS" : "您的老师尝试使用您班级收集的数字示例来训练机器学习模型。",
-                        "SOUNDS" : "Your teacher tried training a machine learning model using the examples of sounds that your class collected."
+                "CROWDSOURCED": {
+                    "CLASS": {
+                        "TEXT": "您的老师尝试使用您班级收集的文本示例来训练机器学习模型。",
+                        "IMAGES": "您的老师尝试使用您班级收集的图像示例来训练机器学习模型。",
+                        "NUMBERS": "您的老师尝试使用您班级收集的数字示例来训练机器学习模型。",
+                        "SOUNDS": "Your teacher tried training a machine learning model using the examples of sounds that your class collected."
                     },
-                    "YOU" : {
-                        "TEXT" : "您尝试使用班级收集的文本示例来训练机器学习模型。",
-                        "IMAGES" : "您尝试使用您的班级收集的图像示例来训练机器学习模型。",
-                        "NUMBERS" : "您尝试使用班级收集的数字示例来训练机器学习模型。",
-                        "SOUNDS" : "You tried training a machine learning model using the examples of sounds that your class collected."
+                    "YOU": {
+                        "TEXT": "您尝试使用班级收集的文本示例来训练机器学习模型。",
+                        "IMAGES": "您尝试使用您的班级收集的图像示例来训练机器学习模型。",
+                        "NUMBERS": "您尝试使用班级收集的数字示例来训练机器学习模型。",
+                        "SOUNDS": "You tried training a machine learning model using the examples of sounds that your class collected."
                     }
                 },
-                "INDIVIDUAL" : {
-                    "TEXT" : "您尝试使用您收集的文本示例来训练机器学习模型。",
-                    "IMAGES" : "您尝试使用您收集的图像示例来训练机器学习模型。",
-                    "NUMBERS" : "您尝试使用收集的数字示例来训练机器学习模型。",
-                    "SOUNDS" : "You tried training a machine learning model using the examples of sounds that you collected."
+                "INDIVIDUAL": {
+                    "TEXT": "您尝试使用您收集的文本示例来训练机器学习模型。",
+                    "IMAGES": "您尝试使用您收集的图像示例来训练机器学习模型。",
+                    "NUMBERS": "您尝试使用收集的数字示例来训练机器学习模型。",
+                    "SOUNDS": "You tried training a machine learning model using the examples of sounds that you collected."
                 }
             },
-            "IDLE" : {
-                "NOLABELS" : {
-                    "CROWDSOURCED" : {
-                        "TEXT" : "你的班级说你想收集文字的例子。",
-                        "IMAGES" : "你的班级说你想收集图像的例子。",
-                        "NUMBERS" : "你的班级说你想收集数字的例子。",
-                        "SOUNDS" : "Your class said you want to collect examples of sounds."
+            "IDLE": {
+                "NOLABELS": {
+                    "CROWDSOURCED": {
+                        "TEXT": "你的班级说你想收集文字的例子。",
+                        "IMAGES": "你的班级说你想收集图像的例子。",
+                        "NUMBERS": "你的班级说你想收集数字的例子。",
+                        "SOUNDS": "Your class said you want to collect examples of sounds."
                     },
-                    "INDIVIDUAL" : {
-                        "TEXT" : "你说你想收集文字的例子。",
-                        "IMAGES" : "你说你想要收集图像的例子。",
-                        "NUMBERS" : "你说你想收集数字的例子。",
-                        "SOUNDS" : "You've said you want to collect examples of sounds."
+                    "INDIVIDUAL": {
+                        "TEXT": "你说你想收集文字的例子。",
+                        "IMAGES": "你说你想要收集图像的例子。",
+                        "NUMBERS": "你说你想收集数字的例子。",
+                        "SOUNDS": "You've said you want to collect examples of sounds."
                     }
                 },
-                "NODATA" : {
-                    "CROWDSOURCED" : {
-                        "TEXT" : "您的班级表示您希望收集计算机文本的示例,以便识别文本的时间",
-                        "IMAGES" : "你的班级说你要收集图像的例子,以便计算机识别出图像的时间",
-                        "NUMBERS" : "您的班级表示您希望收集计算机的数字示例以识别数字何时",
-                        "SOUNDS" : "Your class said that you want to collect examples of sounds for a computer to recognise when sounds are "
+                "NODATA": {
+                    "CROWDSOURCED": {
+                        "TEXT": "您的班级表示您希望收集计算机文本的示例,以便识别文本的时间",
+                        "IMAGES": "你的班级说你要收集图像的例子,以便计算机识别出图像的时间",
+                        "NUMBERS": "您的班级表示您希望收集计算机的数字示例以识别数字何时",
+                        "SOUNDS": "Your class said that you want to collect examples of sounds for a computer to recognise when sounds are "
                     },
-                    "INDIVIDUAL" : {
-                        "TEXT" : "您说要收集计算机文本的示例,以便识别文本的时间",
-                        "IMAGES" : "你说你要收集图像的例子,让计算机识别图像的时间",
-                        "NUMBERS" : "你说你要收集计算机数字的例子来识别数字是什么时候",
-                        "SOUNDS" : "You said that you want to collect examples of sounds for a computer to recognise when sounds are "
+                    "INDIVIDUAL": {
+                        "TEXT": "您说要收集计算机文本的示例,以便识别文本的时间",
+                        "IMAGES": "你说你要收集图像的例子,让计算机识别图像的时间",
+                        "NUMBERS": "你说你要收集计算机数字的例子来识别数字是什么时候",
+                        "SOUNDS": "You said that you want to collect examples of sounds for a computer to recognise when sounds are "
                     }
                 },
-                "NOEXAMPLES" : {
-                    "CLASS" : "到目前为止,您的班级尚未收集任何示例。",
-                    "YOU" : "到目前为止,你尚未收集任何例子。"
+                "NOEXAMPLES": {
+                    "CLASS": "到目前为止,您的班级尚未收集任何示例。",
+                    "YOU": "到目前为止,你尚未收集任何例子。"
                 },
-                "DATA" : {
-                    "CROWDSOURCED" : {
-                        "TEXT" : "您的班级已经收集了计算机用于识别文本的文本示例",
-                        "IMAGES" : "您的班级已经收集了计算机用于识别图像的图像示例",
-                        "NUMBERS" : "您的班级已收集计算机的数字示例,用于识别数字何时",
-                        "SOUNDS" : "Your class has collected examples of sounds for a computer to use to recognise when sounds are "
+                "DATA": {
+                    "CROWDSOURCED": {
+                        "TEXT": "您的班级已经收集了计算机用于识别文本的文本示例",
+                        "IMAGES": "您的班级已经收集了计算机用于识别图像的图像示例",
+                        "NUMBERS": "您的班级已收集计算机的数字示例,用于识别数字何时",
+                        "SOUNDS": "Your class has collected examples of sounds for a computer to use to recognise when sounds are "
                     },
-                    "INDIVIDUAL" : {
-                        "TEXT" : "您收集了计算机用于识别文本的文本示例",
-                        "IMAGES" : "您已经收集了计算机用于识别图像的图像示例",
-                        "NUMBERS" : "您已收集计算机的数字示例,用于识别数字何时",
-                        "SOUNDS" : "You have collected examples of sounds for a computer to use to recognise when sounds are "
+                    "INDIVIDUAL": {
+                        "TEXT": "您收集了计算机用于识别文本的文本示例",
+                        "IMAGES": "您已经收集了计算机用于识别图像的图像示例",
+                        "NUMBERS": "您已收集计算机的数字示例,用于识别数字何时",
+                        "SOUNDS": "You have collected examples of sounds for a computer to use to recognise when sounds are "
                     },
-                    "COLLECTED" : {
-                        "CLASS" : "他们收集了: ",
-                        "YOU" : "你收集了: "
+                    "COLLECTED": {
+                        "CLASS": "他们收集了: ",
+                        "YOU": "你收集了: "
                     }
                 }
             }
@@ -517,55 +510,54 @@
             "PLEASEWAIT": "你可以等待机器学习模型完成训练。",
             "OFFERQUIZ": "或者,你可以尝试下面的机器学习测验,检查你学到了什么。",
             "FAIL": "来自训练计算机的错误信息如下所示。如果这对您有意义,请尝试解决问题。否则,如果它只是一个随机错误,可能值得再次尝试。",
-
             "IDLE": {
-                "NOLABELS" : "下一步是转到<strong>培训</strong>页面。为您希望教授计算机能够识别的每一项内容添加一些标签。",
-                "ONELABEL" : {
+                "NOLABELS": "下一步是转到<strong>培训</strong>页面。为您希望教授计算机能够识别的每一项内容添加一些标签。",
+                "ONELABEL": {
                     "EXPLANATION": "你只说了一件你希望计算机能够识别的东西: {{label}} ",
                     "ISTHATALL": "这是您希望计算机能够识别的唯一内容吗？",
                     "NO": " <strong>否？</strong> <br/>返回<strong>训练</strong>页面。<br/>为每个要教授的内容添加更多标签计算机能够识别。<br/> <br/> ",
                     "YES": " <strong>是吗？</strong>您需要先做一些工作。<br/>为了让计算机能够学会如何识别\" {{label}} \",你需要给它一些不是{{label}}的东西的例子。<br/>回到<strong>训练</strong>页面并为不存在的事物的例子创建一个新的标签。\"{{label}}你可以称之为\"不- {{label}}\" 。"
                 },
-                "LABELS" : {
-                    "NO_DATA" : "下一步是转到<strong>训练</strong>页面。为每个标签添加示例。",
-                    "MORE_DATA" : {
+                "LABELS": {
+                    "NO_DATA": "下一步是转到<strong>训练</strong>页面。为每个标签添加示例。",
+                    "MORE_DATA": {
                         "KEEP_GOING": "继续！",
-                        "MORE_EXAMPLES" : {
+                        "MORE_EXAMPLES": {
                             "YOU": "返回<strong>训练</strong>页面,为每个标签收集更多示例。",
                             "CLASS": "让您的班级返回<strong>培训</strong>页面,并为每个标签收集更多示例。"
                         },
-                        "MORE_IS_BETTER" : "你获得的越多,它应该学得越好,但你至少需要{{minimumExamples}}个例子作为绝对最小值。"
+                        "MORE_IS_BETTER": "你获得的越多,它应该学得越好,但你至少需要{{minimumExamples}}个例子作为绝对最小值。"
                     },
-                    "ENOUGH_DATA" : {
-                        "READY_TO_START" : "准备开始计算机培训了吗？",
-                        "START_TRAINING" : {
-                            "CROWDSOURCED" : "点击下面的按钮,开始使用您班级目前收集的示例来训练机器学习模型",
-                            "INDIVIDUAL" : "点击下面的按钮,开始使用您目前收集的示例训练机器学习模型"
+                    "ENOUGH_DATA": {
+                        "READY_TO_START": "准备开始计算机培训了吗？",
+                        "START_TRAINING": {
+                            "CROWDSOURCED": "点击下面的按钮,开始使用您班级目前收集的示例来训练机器学习模型",
+                            "INDIVIDUAL": "点击下面的按钮,开始使用您目前收集的示例训练机器学习模型"
                         },
-                        "MORE_EXAMPLES" : {
-                            "CROWDSOURCED" : "（或者,如果您希望他们先收集更多示例,请让您的班级返回<strong>培训</strong>页面。）",
-                            "INDIVIDUAL" : "（或者,如果您想先收集更多示例,请返回<strong>训练</strong>页面。）"
+                        "MORE_EXAMPLES": {
+                            "CROWDSOURCED": "（或者,如果您希望他们先收集更多示例,请让您的班级返回<strong>培训</strong>页面。）",
+                            "INDIVIDUAL": "（或者,如果您想先收集更多示例,请返回<strong>训练</strong>页面。）"
                         },
-                        "WAITING_FOR_TEACHER" : "等待老师开始计算机培训。"
+                        "WAITING_FOR_TEACHER": "等待老师开始计算机培训。"
                     }
                 }
             },
-            "READY" : {
-                "TEST" : {
-                    "TEXT" : "尝试测试下面的机器学习模型。输入一个下面的文本示例,您没有在用于训练它的示例中包含这些文本。它会告诉您它识别它的内容,以及它对这个文本识别的信心",
-                    "IMAGES" : "尝试测试下面的机器学习模型。在下面输入一个示例图片,您没有在用于训练它的示例中包含这些图片。它会告诉您它识别它的内容,以及它对这个图片识别的信心。",
-                    "NUMBERS" : "尝试测试下面的机器学习模型。输入一个下面的数字示例,您没有在用于训练它的示例中包含这些数字。它会告诉您它识别它的内容,以及它对这个数字识别的信心",
-                    "SOUNDS" : "Try testing the machine learning model below. Click the 'Start listening' button. If your machine learning model recognises any sounds, it will tell you what it recognises it as, and how confident it is in that."
+            "READY": {
+                "TEST": {
+                    "TEXT": "尝试测试下面的机器学习模型。输入一个下面的文本示例,您没有在用于训练它的示例中包含这些文本。它会告诉您它识别它的内容,以及它对这个文本识别的信心",
+                    "IMAGES": "尝试测试下面的机器学习模型。在下面输入一个示例图片,您没有在用于训练它的示例中包含这些图片。它会告诉您它识别它的内容,以及它对这个图片识别的信心。",
+                    "NUMBERS": "尝试测试下面的机器学习模型。输入一个下面的数字示例,您没有在用于训练它的示例中包含这些数字。它会告诉您它识别它的内容,以及它对这个数字识别的信心",
+                    "SOUNDS": "Try testing the machine learning model below. Click the 'Start listening' button. If your machine learning model recognises any sounds, it will tell you what it recognises it as, and how confident it is in that."
                 },
-                "SCRATCH" : "如果计算机似乎已经学会正确识别事物,那么你可以去Scratch并使用计算机学到的东西制作游戏！",
-                "ADDITIONAL_TRAINING" : {
-                    "MORE_EXAMPLES" : {
-                        "CROWDSOURCED" : "如果计算机出现太多问题,您的班级可能会想回到<strong>培训</strong>页面并收集更多示例。",
-                        "INDIVIDUAL" : "如果计算机出现太多错误,您可能需要返回<strong>训练</strong>页面并收集更多示例"
+                "SCRATCH": "如果计算机似乎已经学会正确识别事物,那么你可以去Scratch并使用计算机学到的东西制作游戏！",
+                "ADDITIONAL_TRAINING": {
+                    "MORE_EXAMPLES": {
+                        "CROWDSOURCED": "如果计算机出现太多问题,您的班级可能会想回到<strong>培训</strong>页面并收集更多示例。",
+                        "INDIVIDUAL": "如果计算机出现太多错误,您可能需要返回<strong>训练</strong>页面并收集更多示例"
                     },
-                    "RETRAIN" : {
-                        "YOU" : "完成后,点击下面的按钮来训练一个新的机器学习模型,看看额外的例子会有什么不同！",
-                        "CLASS" : "一旦你完成了这项工作,你的老师就需要培养一种新的机器学习模式。"
+                    "RETRAIN": {
+                        "YOU": "完成后,点击下面的按钮来训练一个新的机器学习模型,看看额外的例子会有什么不同！",
+                        "CLASS": "一旦你完成了这项工作,你的老师就需要培养一种新的机器学习模式。"
                     }
                 }
             }
@@ -600,7 +592,6 @@
             "CORRECT_ANSWER": "那是对的！",
             "INCORRECT_ANSWER": "不,对不起。正确答案如上所示。",
             "NEXT_QUESTION": "下一个问题",
-
             "QUESTION_1": {
                 "QUESTION": "In general, what will help machines to learn better?",
                 "ANSWER_1": "More examples",
@@ -893,29 +884,21 @@
     },
     "PYTHON": {
         "TITLE": "在Python中使用机器学习",
-
         "NOTREADY": "您的项目尚未准备好在Python中使用。",
         "NOMODEL": "你还没有训练过机器学习模型。",
-
         "NOSOUND": "Python cannot be used with sounds projects.",
-
         "LAUNCH": "Run Python in the browser",
         "LOCAL": "Copy code to run on your computer",
-
         "MODE": {
             "INTRO": "Where would you like to write and run your Python code?",
             "BROWSER": "You can do everything in the web browser, which means you don't need to worry about installing or setting up Python, or any of the third-party Python modules you will need.",
             "LOCAL": "Or you can copy the code to run on your own computer. This is useful if there are local files, or devices like a webcam or speaker, that you want to use in your Python program."
         },
-
         "APIKEY_INSTRUCTION": "You need to <span class='strongemphasis'>add your API key</span> to the project. Do that on line 6 of the template.",
         "APIKEY_WARNING": "Treat this code like a password and make sure that you keep it secret!",
-
         "REPLACE_THIS": "Replace this:",
         "WITH_THIS": "with this:",
-
         "UNCOMMENT": "You will need to remove a comment # character in the template to use the function.",
-
         "RECOGNIZE": {
             "INSTRUCTION": "Try updating the example on line 28 of the template.",
             "TEXT": {
@@ -943,25 +926,18 @@
     },
     "APPINVENTOR": {
         "TITLE": "在App Inventor中使用机器学习",
-
         "LAUNCH_APPINVENTOR_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>App Inventor by itself</a> if you want.)",
-
         "NOTREADY": "您的项目尚未准备好在App Inventor中使用。",
         "NOMODEL": "你还没有训练过机器学习模型。",
-
         "LAUNCH": "Open App Inventor"
     },
     "SCRATCH": {
         "TITLE": "在Scratch中使用机器学习",
-
         "NOTREADY": "您的项目尚未准备好在Scratch中使用。",
         "NOMODEL": "你还没有训练过机器学习模型。",
-
         "LAUNCH": "在Scratch打开",
-
         "LAUNCH_SCRATCH_BY_ITSELF": "(如果你愿意的话，你可以使用 <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch by itself</a>.)",
         "GO_TO_LEARNANDTEST": "或者转到<strong>学习和测试</strong>页面，了解有关下一步操作的一些提示。",
-
         "MORE_BLOCKS": "您的项目会将这些块添加到脚本中 <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> .",
         "MORE_BLOCKS_3": "Your project will add these blocks to Scratch.",
         "EXPLAIN_RECOGNISE_LABEL": "将{{type}}放入此输入中，它将返回您的机器学习模型识别为的标签。",
@@ -980,29 +956,23 @@
     },
     "SCRATCH3": {
         "TITLE": "在Scratch 3中使用机器学习",
-
         "LAUNCH": "Open in Scratch 3"
     },
     "WORKSHEETS": {
         "TITLE": "机器学习项目",
-
         "INTRO_1": "这些项目是可下载的逐步指南,附有解释和彩色屏幕截图供学生遵循。",
         "INTRO_2": "每个项目都是一个独立的活动,写入最后一课,并将引导孩子们创建一个游戏或互动项目,展示人工智能和机器学习的真实使用。",
         "INTRO_3": "对新工作表的建议,对任何工作表的改进建议,或新项目工作表的贡献,都非常受欢迎。",
-
         "TYPES": {
             "TITLE": "认识: ",
             "ALL": "所有项目类型",
-
             "PREFIX": "训练计算机识别",
-
             "TEXT": " 文本 ",
             "IMAGES": "图像",
             "NUMBERS": "数字",
             "SOUNDS": "sounds",
             "FACES": "faces"
         },
-
         "LEVELS": {
             "TITLE": "难度: ",
             "ALL": "所有困难",
@@ -1010,9 +980,7 @@
             "INTERMEDIATE": "中级项目",
             "ADVANCED": "高级项目"
         },
-
         "DOWNLOAD": "下载",
-
         "DOWNLOADS": {
             "AUDIENCE": {
                 "TEACHERS": "For teachers:",
@@ -1032,33 +1000,28 @@
                 "DETAIL": "You will also need to provide students with a printed copy of this file."
             }
         },
-
         "MAKETYPES": {
             "ALL": "All make types",
-
             "SCRATCH": "Scratch projects",
             "PYTHON": "Python projects",
             "APPINVENTOR": "App Inventor projects",
-
             "SCRATCH_WORKSHEET": "Worksheet for making project in Scratch",
             "PYTHON_WORKSHEET": "Worksheet for making project in Python",
             "APPINVENTOR_WORKSHEET": "Worksheet for making project in App Inventor"
         },
-
         "NO_WORKSHEETS": {
             "NO_MATCHES": "There aren't any project worksheets that match those filters.",
             "MAKE_YOUR_OWN": "You could adapt some of the existing worksheets or come up with a new one.",
             "CONTRIBUTE": "If you do, please consider <a href='https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions'>contributing it for others to use</a>."
         },
-
-
         "DESCRIBETHEGLASS": {
             "TITLE": "Describe the glass",
             "SUMMARY": "Teach a computer to predict your answers",
             "DESCRIPTION": "Create a game in Scratch that learns when you describe a glass as half-full or half-empty.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-describetheglass.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-describetheglass.pdf"
         },
         "SMARTCLASSROOM": {
             "TITLE": "智能教室",
@@ -1075,7 +1038,8 @@
             "WORKSHEET_3": {
                 "DESCRIPTION": "Quick simplified version of the project, ideal for use as a first introduction to the tool",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-tryitnow.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-smartclassroom.pdf"
         },
         "MAKEMEHAPPY": {
             "TITLE": "让我开心",
@@ -1092,7 +1056,8 @@
             "WORKSHEET_3": {
                 "DESCRIPTION": "Python project - for making the project using Python",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-python.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-makemehappy.pdf"
         },
         "SNAP": {
             "TITLE": " Snap！",
@@ -1106,7 +1071,8 @@
                 "DESCRIPTION": "Shorter version of the project, providing children with pre-made cards that you will need to print out, to save the students time having to make them",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap-easy.pdf",
                 "RESOURCES": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/resources-snap-easy.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-snap.pdf"
         },
         "CHAMELEON": {
             "TITLE": "变色龙",
@@ -1114,7 +1080,8 @@
             "DESCRIPTION": "在Scratch制作变色龙,改变颜色以匹配其背景",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chameleon.pdf"
         },
         "MAILMANMAX": {
             "TITLE": " Mailman Max ",
@@ -1122,7 +1089,8 @@
             "DESCRIPTION": "在Scratch中建立一个邮政分拣办公室,可以识别信封上的手写邮政编码。",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mailmanmax-zhcn.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-mailmanmax.pdf"
         },
         "SHOOTTHEBUG": {
             "TITLE": "Shoot the bug",
@@ -1130,7 +1098,8 @@
             "DESCRIPTION": "Create a Breakout-style arcade game in Scratch that learns the angle to shoot balls at.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shootthebug.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shootthebug.pdf"
         },
         "CARORCUP": {
             "TITLE": "汽车或杯子",
@@ -1143,7 +1112,8 @@
             "WORKSHEET_2": {
                 "DESCRIPTION": "Group version of the project, where students in the class work together to train a shared machine learning model",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup-crowd.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-carorcup.pdf"
         },
         "FACELOCK": {
             "TITLE": "面部锁定",
@@ -1151,7 +1121,8 @@
             "DESCRIPTION": "如果它能够识别你的脸,那么在Scratch中制作一个可解锁的手机。",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facelock.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-facelock.pdf"
         },
         "JOURNEYTOSCHOOL": {
             "TITLE": "学校之旅",
@@ -1159,7 +1130,8 @@
             "DESCRIPTION": "训练计算机,以便能够预测你早上如何前往学校。",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-journeytoschool.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-journeytoschool.pdf"
         },
         "SHYPANDA": {
             "TITLE": "害羞的熊猫",
@@ -1167,7 +1139,8 @@
             "DESCRIPTION": "让一只跳舞的熊猫变得害羞,如果它看到你的样子就停止跳舞。",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shypanda.pdf"
         },
         "VIRTUALPET": {
             "TITLE": "Virtual Pet",
@@ -1175,7 +1148,8 @@
             "DESCRIPTION": "Train the computer to recognise what you're doing so you can look after a virtual pet.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-virtualpet.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-virtualpet.pdf"
         },
         "PACMAN": {
             "TITLE": "吃豆人",
@@ -1183,7 +1157,8 @@
             "DESCRIPTION": "在Scratch中创建一个吃豆人游戏,学习如何避免鬼魂。",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pacman.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-pacman.pdf"
         },
         "CHATBOTS": {
             "TITLE": "聊天机器人",
@@ -1196,7 +1171,8 @@
             "WORKSHEET_2": {
                 "DESCRIPTION": "Python project - for making a chat bot using Python",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots-python.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chatbots.pdf"
         },
         "TOURISTINFO": {
             "TITLE": "旅游信息",
@@ -1204,7 +1180,8 @@
             "DESCRIPTION": "在Scratch中创建一个移动应用程序,根据人们的兴趣推荐旅游景点。",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-touristinfo.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-touristinfo.pdf"
         },
         "SORTINGHAT": {
             "TITLE": "排序帽子",
@@ -1217,7 +1194,8 @@
             "WORKSHEET_2": {
                 "DESCRIPTION": "Group version of the project, where students in the class work together to train a shared machine learning model",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat-crowd.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-sortinghat.pdf"
         },
         "ROCKPAPERSCISSORS": {
             "TITLE": "摇滚,纸,剪刀",
@@ -1225,7 +1203,8 @@
             "DESCRIPTION": "在Scratch中制作一个岩石,纸张,剪刀游戏,学习识别手形。",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-rockpaperscissors.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-rockpaperscissors.pdf"
         },
         "JUDGEABOOK": {
             "TITLE": "判断一本书",
@@ -1238,7 +1217,8 @@
             "WORKSHEET_2": {
                 "DESCRIPTION": "Simplified version of the project, where children get the computer to recognise books",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook.pdf"
         },
         "LOCATELARRY": {
             "TITLE": "找到拉里",
@@ -1262,7 +1242,8 @@
             "DESCRIPTION": "了解计算机如何被混淆,如果受到严重训练,就会犯错误。",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-fooled.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-fooled.pdf"
         },
         "SCHOOLLIBRARY": {
             "TITLE": "学校图书馆",
@@ -1270,7 +1251,8 @@
             "DESCRIPTION": "在Scratch中创建一个学校图书馆员,建议读者可能适合阅读。",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-schoollibrary.pdf"
         },
         "WHATTWITTERTHINKS": {
             "TITLE": "What does Twitter think?",
@@ -1278,7 +1260,8 @@
             "DESCRIPTION": "Create a sentiment analysis tool in Scratch to analyze discussion on Twitter",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-whattwitterthinks.pdf"
         },
         "NOUGHTSANDCROSSES": {
             "TITLE": " Noughts＆Crosses ",
@@ -1295,7 +1278,8 @@
             "WORKSHEET_3": {
                 "DESCRIPTION": "Demo version, for events like Science Fairs where each child has a minute or two to try something",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-event.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-noughtsandcrosses.pdf"
         },
         "TOPTRUMPS": {
             "TITLE": "顶级特朗普",
@@ -1303,7 +1287,8 @@
             "DESCRIPTION": "训练一台计算机,以便能够在Scratch中玩顶级特朗普纸牌游戏。",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-toptrumps.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-toptrumps.pdf"
         },
         "HEADLINES": {
             "TITLE": "头条新闻",
@@ -1319,7 +1304,8 @@
             "DESCRIPTION": "Train a computer to recognise headlines from national newspapers.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-easy.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines-easy.pdf"
         },
         "HEADLINETESTING": {
             "TITLE": "Headline testing",
@@ -1327,7 +1313,8 @@
             "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines.pdf"
         },
         "FINDIT": {
             "TITLE": "Find It!",
@@ -1335,7 +1322,8 @@
             "DESCRIPTION": "Make a hide-and-seek game for your mobile phone",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-findit.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-findit.pdf"
         },
         "ALIENLANGUAGE": {
             "TITLE": "Alien Language",
@@ -1343,7 +1331,8 @@
             "DESCRIPTION": "Make an alien in Scratch that learns to recognize an alien language",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-alienlanguage.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-alienlanguage.pdf"
         },
         "SECRETCODE": {
             "TITLE": "Secret Code",
@@ -1351,7 +1340,8 @@
             "DESCRIPTION": "Train a computer to understand secret code words to guide a spy.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-secretcode.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-secretcode.pdf"
         },
         "JARGONBUSTER": {
             "TITLE": "Jargon Buster",
@@ -1359,7 +1349,8 @@
             "DESCRIPTION": "Make a project in Scratch that displays the meaning of words you say.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-jargonbuster.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-jargonbuster.pdf"
         },
         "TITANIC": {
             "TITLE": "Titanic",
@@ -1367,7 +1358,8 @@
             "DESCRIPTION": "Create a Python program that can predict who survived the sinking of the Titanic.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-titanic.pdf"
         },
         "ZOMBIEESCAPE": {
             "TITLE": "Zombie Escape!",
@@ -1375,7 +1367,8 @@
             "DESCRIPTION": "Train a computer to help you escape from the zombies",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-zombieescape.pdf"
         },
         "PHISHING": {
             "TITLE": "Phishing",
@@ -1383,7 +1376,8 @@
             "DESCRIPTION": "Create a Python program that can predict if a URL is legitimate",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-phishing.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-phishing.pdf"
         },
         "KIWIORSTOAT": {
             "TITLE": "Kiwi or Stoat",
@@ -1399,7 +1393,8 @@
             "DESCRIPTION": "Recreate an MIT research project and learn about how AI systems are described in the news.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-inkblots.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-inkblots.pdf"
         },
         "FACEFINDER": {
             "TITLE": "Face Finder",
@@ -1407,7 +1402,8 @@
             "DESCRIPTION": "Make a video filter in Scratch to turn your face into a cartoon.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facefinder.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-facefinder.pdf"
         },
         "EMOJIMASK": {
             "TITLE": "Emoji Mask",
@@ -1415,7 +1411,8 @@
             "DESCRIPTION": "Make a video filter in Scratch to add an emoji mask to your face.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-emojimask.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-emojimask.pdf"
         },
         "LASEREYES": {
             "TITLE": "Laser Eyes",
@@ -1423,7 +1420,8 @@
             "DESCRIPTION": "Make a voice-activated laser eyes game in Scratch.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-lasereyes.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-lasereyes.pdf"
         },
         "SEMAPHORES": {
             "TITLE": "Semaphores",
@@ -1431,13 +1429,13 @@
             "DESCRIPTION": "Make a voice-activated semaphores game you play by moving your arms.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-semaphores.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-semaphores.pdf"
         }
     },
     "TEACHER": {
         "MENU": {
             "TITLE": "管理",
-
             "RESTRICTIONS": {
                 "TITLE": "限制",
                 "DESCRIPTION": "审核适用于您班级的限制和限制"
@@ -1456,82 +1454,60 @@
                 "TITLE": "监督",
                 "DESCRIPTION": "审核学生创建的项目"
             },
-
             "ADVANCEDOPTIONS": "高级选项",
-
             "DELETECLASS": {
                 "TITLE": "删除课程",
                 "DESCRIPTION": "这将删除您和您班级中所有学生的帐户"
             },
-
             "CANYOUHELP": {
                 "TITLE": "你能帮忙吗？",
                 "DESCRIPTION": "请分享您如何使工具更好的经验和想法"
             },
-
             "NOTAUTHORISED": "您无权访问您班级的教师页面。"
         },
         "APIKEYS": {
             "TITLE": "管理: IBM Watson API密钥",
-
             "ADDNEWCREDENTIALS": "添加新凭据",
             "ADDAPIKEY": "添加新的API密钥",
             "REMOVE": "删除",
             "VERIFY": "Verify",
-
             "LITE_30_DAYS_EXPIRE": "IBM Cloud may deactivate 'Lite' plan Watson API keys if they're not used for 30 days",
             "TRIAL_30_DAYS_EXPIRE": "IBM Cloud may deactivate trial plan Watson API keys after 30 days",
-
             "NO_TEXT_CREDENTIALS": "您没有任何助理凭据。这意味着无法为<strong>文本</strong>项目培训模型。",
             "NO_IMAGE_CREDENTIALS": "您没有任何Visual Recognition API密钥。这意味着无法为<strong>图像</strong>项目训练模型。",
-
             "LINK_TO_APIKEYS_GUIDE": "If you're not sure where to get them, download the <a href='/apikeys-guide'>step-by-step guide</a>",
-
             "NOTAUTHORISED": "您无权访问您班级使用的Watson API密钥。",
             "MANAGEDCLASS": "您的班级使用的API密钥正在为您管理。",
-
             "HELP_STEPBYSTEP_GUIDE": "如果您不确定该怎么做,请按照 <a href='/apikeys-guide'> 分步指南 </a>。如果您需要任何帮助,请<strong> <a style ='cursor: pointer;' href='/help'>取消联系</a> </strong>。",
-
             "INTRO_WATSONASSISTANT": " <span class ='mlprojecttype'> text </ span>项目的训练机器学习模型使用<a class='mlprojecttype' href ='https://www.ibm.com/watson/services/conversation'> Watson Assistant </a> ",
             "INTRO_VISUALRECOGNITION": " <span class ='mlprojecttype'> images </ span>项目的训练机器学习模型使用<a class ='mlprojecttype' href ='https://www.ibm.com/watson/services/visual-recognition'> Watson Visual Recognition </a> ",
             "INTRO_NUMBERS": "Training machine learning models for <span class='mlprojecttype'>numbers</span> projects does <strong>not</strong> require any API keys",
             "INTRO_SOUNDS": "Training machine learning models for <span class='mlprojecttype'>sound</span> projects does <strong>not</strong> require any API keys",
-
             "ERROR_FETCHING_WATSONASSISTANT": "无法获取您的Watson助手密码",
             "ERROR_FETCHING_VISUALRECOG": "无法获取您的Visual Recognition API密钥",
-
             "USERNAME": "用户名",
             "PASSWORD": "密码",
             "APIKEY": " API密钥",
-
             "NUMBER_OF_ML_MODELS": " ML型号数量",
             "UNKNOWN": "未知",
             "UNLIMITED": "无限",
-
             "LIMIT_TEXT_PROJECTS": "学生可以拥有的文本机器学习模型的数量: ",
             "LIMIT_IMAGE_PROJECTS": "学生可以拥有的机器学习模型数量: ",
-
             "ADD_API_KEYS": {
                 "ASSISTANT_TITLE": "Add Watson Assistant credentials",
                 "VISUAL_RECOGNITION_TITLE": "Add Visual Recognition API key",
-
                 "USED_FOR_TEXT_PROJECTS": "These will be used when your students train models in text projects.",
                 "USED_FOR_IMAGE_PROJECTS": "These will be used when your students train models in images projects.",
-
                 "HIDDEN_FROM_STUDENTS": "This will not be shown to students in your group.",
-
                 "PRICING_PLAN": "Which Pricing Plan did you use?",
                 "ENTER_APIKEY": "Please enter the API key below",
                 "ENTER_PASSWORD": "Please enter the username and password below",
-
                 "CREDENTIALS_TYPE": "What did you create in Watson Assistant?"
             }
         },
         "RESTRICTIONS": {
             "TITLE": "Administration : Restrictions",
-
             "ASK_FOR_CHANGES": "If any of these restrictions cause a problem for your group, please <strong><a href='/help'>get in touch</a></strong>.",
-
             "CLASS_LIMITS": {
                 "TITLE": "Limits for your class",
                 "NUM_USERS": "You can have up to <span class='mlprojecttype'>{{ num }}</span> users (including students and teachers) in your group.",
@@ -1549,58 +1525,45 @@
                 "TIME_LIMIT": "Machine learning models created for <span class='mlprojecttype'>{{ type }}</span> projects will automatically be deleted after <span class='mlprojecttype'>{{ num }}</span> hours.",
                 "DONT_WORRY": "(Don't worry! Training data will not be deleted, so students can always train a new machine learning model again if they still need it after this.)"
             },
-
             "NOT_AUTHORIZED": "You are not authorized to access the restrictions in place for your class."
         },
         "SUPERVISION": {
             "TITLE": "Administration : Student projects",
-
             "INTRO_1": "This page displays a list of all of the projects that your class currently has. You can use it to review what they're working on.",
             "INTRO_2": "If you've hit the limit for the number of machine learning models that your class can create, you can use this to see which projects currently have a machine learning model, and delete any that you think are no longer needed.",
-
             "NO_PROJECTS_1": "None of the students in your class currently have any projects.",
             "NO_PROJECTS_2": "Once your students start creating projects, come back here to see an overview of their work.",
-
             "NAME": "Name",
             "TYPE": "Type",
             "STUDENT": "Student",
             "MODELS": "ML models",
-
             "DELETE": "Click the icon to delete",
-
             "NOT_AUTHORIZED": "You are not authorized to access the list of projects for all students in your class."
         },
         "STUDENTMANAGEMENT": {
             "TITLE": "Administration : Student management",
-
             "CREATE_FIRST_STUDENT": "Click on the 'plus' button on the right to create the first student",
             "ADD": "Add new student",
             "NEW_USERNAME": "Choose a unique username",
             "ALPHANUMERIC": "Only use letters and numbers",
-
             "NOT_LOGGED_IN": "Not logged in yet",
-
             "RESET_PASSWORD": "Reset password",
             "RESET_ALL_PASSWORDS": "Reset password for all students",
-
             "DELETE_STUDENT": "Delete student account",
-
             "NOT_AUTHORIZED": "You are not authorized to access the list of students in your class.",
-
             "ADD_MULTIPLE": {
-                "BUTTON" : "Multiple students",
-
-                "TITLE" : "Add new students",
-                "INTRO" : "You can use this to create more than one student account at the same time.",
-                "USERNAME" : "What do you want each username to start with?",
-                "USERNAME_REQUIRED" : "Please choose the prefix for the usernames",
-                "USERNAME_TOOLONG" : "That is too long",
-                "USERNAME_INVALID" : "Invalid characters",
-                "NUMBER" : "How many student accounts do you want?",
-                "NUMBER_REQUIRED" : "Please enter the number of students to create",
-                "NUMBER_TOOMANY" : "Your class has a limit of {{userslimit}} students.",
-                "PASSWORD" : "The password to give them:",
-                "PASSWORD_TOOSHORT" : "Too short"
+                "BUTTON": "Multiple students",
+                "TITLE": "Add new students",
+                "INTRO": "You can use this to create more than one student account at the same time.",
+                "USERNAME": "What do you want each username to start with?",
+                "USERNAME_REQUIRED": "Please choose the prefix for the usernames",
+                "USERNAME_TOOLONG": "That is too long",
+                "USERNAME_INVALID": "Invalid characters",
+                "NUMBER": "How many student accounts do you want?",
+                "NUMBER_REQUIRED": "Please enter the number of students to create",
+                "NUMBER_TOOMANY": "Your class has a limit of {{userslimit}} students.",
+                "PASSWORD": "The password to give them:",
+                "PASSWORD_TOOSHORT": "Too short"
             }
         }
     },
@@ -1662,10 +1625,8 @@
             "INTRO2": "下面的列表包含我经常听到的问题和问题。如果您看到与您的问题类似的内容,请点击摘要以获取更多信息。",
             "INTRO3": "如果你仍然卡住了,或者你遇到了问题,我还没有列入名单,对不起！请<a href='https://groups.google.com/d/forum/mlforkids'>给我发电子邮件</a>或<a href='https://github.com/IBM/taxinomitis/issues'>创建问题报告</a>,以便我可以提供帮助。"
         },
-
         "PROJECTS": {
             "TITLE": "Project questions",
-
             "Q1": "What is the difference between \"images\" and \"images <span class='mltinybadge badge'>beta</span>\" projects?",
             "Q1-A-1": "These can both be used to create the same sort of machine learning projects. The difference is where the models are created and stored.",
             "Q1-A-2": "In \"<strong>images</strong>\" projects, machine learning models are trained on cloud servers using an online service called Watson Visual Recognition.",
@@ -1681,61 +1642,48 @@
             "Q1-A-12": "Models do not need to be automatically deleted.",
             "Q1-A-13": "But, it can only be used for Scratch projects, and requires the student to be using a reasonably fast computer.",
             "Q1-A-14": "Training in the browser is described as a beta because it is a new feature on the site, and may still have problems with some operating systems or web browsers. If you encounter errors, please report these in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids forum</a>.",
-
             "Q2": "How can you change an \"images\" project to be an \"images <span class='mltinybadge badge'>beta</span>\" project (and vice versa)?",
             "Q2-A-1": "You can change between the two modes from the \"Learn & Test\" page for your project.",
             "Q2-A-2": "The link to do this is in top-right of the page.",
             "Q2-A-3": "Any existing machine learning models for the project will be deleted if this is done.",
             "Q2-A-4": "The Scratch blocks for image projects work differently for the two different modes, so if you have a Scratch window open when you do this, you will need to refresh the page so that the Scratch extension can be updated."
         },
-
         "SCRATCH": {
             "TITLE": "划痕问题",
-
             "Q1": "我不知道如何让Scratch工作",
             "Q1-A-1": "儿童机器学习使用Scratch 2. Scratch需要Adobe Flash才能工作,所以你需要使用可以使用Flash的操作系统和网络浏览器（这意味着现在不需要iPad）对不起）。",
             "Q1-A-2": "如果你不确定如何启用Flash,你可以<a href ='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>下载一份文档,其中包含一些让Scratch正常工作的技巧</a>。",
-
             "Q2": "在\"加载项目\"和\"保存项目\"的耐擦伤菜单不工作",
             "Q2-A-1": "如果你在MacOS使用Safari和划痕菜单\"文件- ＆GT; 加载项目\"和\"文件 - ＆gt; 保存项目\"菜单不起作用,可能是您在安全模式下运行。",
             "Q2-A-2": " <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>按照此处的说明进行操作/ a>如何检查和修复此问题。",
-
             "Q3": " Scratch中的机器学习分类器块不起作用",
             "Q3-A-1": "偶尔,机器学习模型的Scratch块可能会丢失与服务器的连接。当发生这种情况时,它们将停止返回结果。",
             "Q3-A-2": "您可以使用\"更多块\"调色板中的彩色状态指示灯检查是否发生了这种情况。",
             "Q3-A-3": "如果机器学习划痕块旁边的状态指示灯为红色,通常表示出现问题。这可能是暂时性问题。尝试保存项目（使用'文件' - ＆gt;'保存项目'）,然后刷新浏览器页面。如果状态指示灯在页面重新加载后变为绿色,您可以加载项目（使用'文件' - ＆gt;'加载项目'）来拾取您离开的位置。",
             "Q3-A-4": "如果重新加载页面后状态指示灯仍为红色,那么机器学习模型可能出现问题。请尝试进入\"学习与安装\"。测试\"页面的项目,这是在你的模型中的任何错误信息都可以找到。",
             "Q3-A-5": "如果机器学习划痕块旁边的状态指示灯为绿色,那么块应该正常工作。如果您没有得到他们期望的响应,请尝试转到\"学习\" ＆安培; 测试\"页面并检查模型返回的结果。",
-
             "Q5": "我可以使用任何版本的Scratch吗？",
             "Q5-A-1": "您需要使用由儿童机器学习站点提供的Scratch版本。可以通过单击项目页面中的Scratch（或'Scratch 3'）按钮来启动它。",
-
             "Q6": "Scratch 3 is only saving projects to the 'Downloads' folder",
             "Q6-A-1": "When you click 'File' -> 'Save to your computer' in Scratch 3, your Scratch project is saved to your computer.",
             "Q6-A-2": "Some teachers reported a problem that this saved to the Downloads folder, on a computer where students don't have access in Windows to the Downloads folder. The result was that students were not able to access their saved projects.",
             "Q6-A-3": "If you have this problem, you need to look in your web browser settings for a setting like 'Ask where to save each file before downloading'. If you enable that, your students will be able to choose where their projects are saved."
         },
-
         "TRAININGUI": {
             "TITLE": "培训UI问题",
-
             "Q1": "将图像拖入训练桶（用于图像项目）不起作用",
             "Q1-A-1": "如果您使用的是Internet Explorer,则将图像拖入训练桶中将无效。",
             "Q1-A-2": "对此感到抱歉。如果您可以使用其他浏览器,如Firefox或Chrome,请执行此操作。否则,您可以单击\"www\"按钮并粘贴培训图片的URL。"
         },
-
         "MODELS": {
             "TITLE": "错误训练机器学习模型",
-
             "Q1": " \"没有设置Watson凭证\" ",
             "Q1-A-1": "工具中的机器学习模型是使用IBM Watson API创建的。",
             "Q1-A-2": "如果您有一个\"非托管 \"类帐户,那么您的教师或组长需要提供IBM Cloud的Watson API凭据才能实现此目的。有关如何使用的分步说明他们可以这样做是在本页顶部的\"入门\"文档中。",
-
             "Q2": " \"您班级使用的Watson凭证被拒绝了\" ",
             "Q2-A-1": "工具中的机器学习模型是使用IBM Watson API创建的。",
             "Q2-A-2": "如果你有一个\"非托管\"类账户,从IBM的云,然后你的老师或领导小组组长将提供了沃森API凭据这个工作（如描述\"开始\"本页顶部的文档。",
             "Q2-A-3": "但是,提供的凭据目前无法正常工作。最可能的原因是凭据从最初提供的IBM Cloud中删除。如果不是这样,那么教师提供Watson凭据的组或领导者需要返回IBM Cloud仪表板以检查他们创建的Watson Assistant或Visual Recognition服务的状态。",
-
             "Q3": " \" Watson Assistant API键没有更多工作区可用\" ",
             "Q3-A-1": "工具中的机器学习模型是使用IBM Watson API创建的。",
             "Q3-A-2": "由教师创建的Watson Assistant（以前称为Watson Conversation）凭据对可用于创建的机器学习模型的数量有限制。这显示在IBM Cloud UI中,其中凭据是创建,称为\"工作区\"。",
@@ -1744,7 +1692,6 @@
             "Q3-A-5": "如果拥有成功训练模型的学生然后删除他们的模型,这将释放工作空间供其他学生使用。",
             "Q3-A-6": "将来避免此错误的一种方法是缩小班级规模。如果学生数量少于Watson Assistant（以前称为Conversation）证书所支持的工作空间数量,那么限制将不会是打了。",
             "Q3-A-7": "另一种避免此错误的方法是向该类添加其他Watson Assistant API密钥,或使用具有更高限制的Watson Assistant实例\" plan \"。",
-
             "Q4": " \" Watson Visual Recognition API键没有更多可用的分类器\" ",
             "Q4-A-1": "工具中的机器学习模型是使用IBM Watson API创建的。",
             "Q4-A-2": "教师创建的Watson Visual Recognition凭据对可用于创建的机器学习模型的数量有限制。这将显示在创建凭据的IBM Cloud UI中,其中被称为\"自定义分类器\"。",
@@ -1753,7 +1700,6 @@
             "Q4-A-5": "如果拥有成功训练模型的学生然后删除他们的模型,这将释放自定义分类器以供其他学生使用。",
             "Q4-A-6": "将来避免此错误的一种方法是缩小班级规模。如果学生数量少于Watson Visual Recognition凭证支持的自定义分类器数量,则不会达到限制。",
             "Q4-A-7": "避免此错误的另一种方法是向该类添加其他Watson Visual Recognition API密钥,或使用具有更高限制的Watson Visual Recognition实例\" plan \"。",
-
             "Q5": " \" Watson ...目前限制其API密钥\" ",
             "Q5-A-1": "工具中的机器学习模型是使用IBM Watson API创建的。",
             "Q5-A-2": "如果您有一个\"非托管\"类帐户,那么您的教师或组长将需要从IBM Cloud提供Watson API凭据才能实现此目的。",
@@ -1762,13 +1708,11 @@
             "Q5-A-5": "你的班级要求太多,以太快的速度创建机器学习模型。请立即停止并让你的老师或小组负责人知道\" Watson Assistant服务目前限制他们的速度API密钥\" ",
             "Q5-A-6": "限速不是由儿童机器学习网站应用或控制的。它通常是暂时的,最好通过等待一小段时间来解决。",
             "Q5-A-7": "如果学生点击\"训练新机器学习模型\"按钮并获得\"没有更多工作空间可用\"或\"没有更多可用的分类器\"错误（如上所述）,然后他们应该意识到反复点击按钮不会解决问题,实际上会让其他人更糟糕。",
-
             "Q6": "我一直在等待模特训练多年！",
             "Q6-A-1": "尝试刷新页面。",
             "Q6-A-2": "页面应每隔30秒检查一次机器学习模型的状态,但非常偶尔会停止检查,因此您可能正在等待模型实际为您准备好。",
             "Q6-A-3": "如果超过几分钟,则需要通过刷新/重新加载页面进行检查。",
             "Q6-A-4": "如果超过十分钟,可能值得考虑重新启动（单击取消按钮,然后单击按钮再次训练新的机器学习模型）。",
-
             "Q7": "\"Your class is sharing Watson API keys ... there are currently none available\"",
             "Q7-A-1": "Machine learning models in the tool are created using IBM Watson APIs.",
             "Q7-A-2": "If you have a \"managed\" class account, this means your class is sharing these keys with many other schools. ",
@@ -1778,17 +1722,14 @@
             "Q7-A-6": "The best thing to do is to try again later, after other students have deleted their machine learning models and API keys are available again. Your training data will still be safe until then.",
             "Q7-A-7": "Another way to avoid this error is for your class to create an \"unmanaged\" class account, which is where a teacher creates their own Watson \"API keys\" that can be dedicated only for use by their own class."
         },
-
         "TEACHERUI": {
             "TITLE": "教师/管理员用户界面问题",
-
             "Q2": "教师页面列表中缺少学生帐户",
             "Q2-A-1": "用于儿童机器学习的用户管理是使用第三方服务实施的,<a href='https://auth0.com'> Auth0 </a>。",
             "Q2-A-2": "有时,Auth0返回的学生名单可能会过时,并且无法反映最近创建的学生（或类似地,仍然显示最近被删除的学生）。",
             "Q2-A-3": "在这些情况下,学生通常已成功创建（或删除）,只是显示的学生列表不反映最近的更新。",
             "Q2-A-4": " Auth0通常会在其状态页面上报告此类事件为<a href='https://status.auth0.com/incidents/0sk1d3hjlw0m'>用户索引延迟</a>或<a href ='https://status.auth0.com/incidents/t8995b9jggx5'>他们的搜索API问题</a>。",
             "Q2-A-5": "在这些情况下,最好的办法是等待Auth0索引赶上来。",
-
             "Q4": "为什么机器学习模型会自动删除？",
             "Q4-A-1": "这是学校首次开发儿童机器学习时学校要求的功能。它来自于一个班级在任何特定时间可以拥有多少机器学习模型的限制,并且需要使管理这个限制变得容易。",
             "Q4-A-2": "不要求孩子在课后清理并删除他们的模型（为了让下一个课程能够创建模型）,该工具可以通过删除课程结束后的模型。这样可以轻松运行下一课,以及之后的下一课,无需手动清理。",
@@ -1796,15 +1737,12 @@
             "Q4-A-4": "要查看课程的时间限制,请访问教师页面的<a href='https://machinelearningforkids.co.uk/#!/teacher/restrictions'>限制部分< / a>。",
             "Q4-A-6": " <em>注意: 只有机器学习模型会被自动删除,而不是用于创建它们的训练数据。因此,如果某个项目的学生自动删除,学生仍在继续,他们总是可以再次单击\"Train\"按钮再次创建模型。</ em> "
         },
-
         "ACCOUNTISSUES": {
             "TITLE": "帐户问题",
-
             "Q1": "创建帐户或使用\"之间有什么区别\"立即尝试\"\"？",
             "Q1-A-1": "正在使用\"现在尝试\"表示无需登录或创建帐户。学生无需记住密码,也无需教师使用提供个人信息。它还为教师节省了管理学生账户所需的时间。",
             "Q1-A-2": "但是,创建一个帐户确实可以实现其他功能。学生可以保存他们的工作并在以后的课程中回到它。他们可以与班上的其他学生一起工作。他们可以从家里登录并向他们的家人展示他们的成就。",
             "Q1-A-3": "差异摘要如下: ",
-
             "CREATE_ACCOUNT": "创建一个帐户",
             "TRAINMODELS": "训练机器学习模型以识别...... ",
             "PRETRAINED_MODELS": "Use pre-trained machine learning models",
@@ -1822,13 +1760,11 @@
             "ONLINE": "在线任何地方",
             "BY_YOURSELF": "你自己",
             "WITH_CLASSMATES": "与同学们",
-
             "Q2": "我创建了一个班级帐户但我老师的登录不起作用",
             "Q2-A-1": "您需要先验证您的电子邮件地址,然后才能登录。",
             "Q2-A-2": "当您创建班级帐户时,会向您提供的电子邮件地址发送一封电子邮件,并附带一个链接以点击该链接。如果您点击该链接,您的电子邮件地址将被验证并且类帐户将被激活。您应该可以立即登录。",
             "Q2-A-3": "如果您还没有看到验证邮件,请确保它没有进入您的垃圾邮件文件夹。",
             "Q2-A-4": "如果你仍然找不到它,请<a href='https://groups.google.com/d/forum/mlforkids'>让我知道</a>,我会尽力帮助。",
-
             "Q3": "删除帐户",
             "Q3-A-1": "学生账户",
             "Q3-A-2": "学生不能删除自己的帐户。",
@@ -1838,7 +1774,6 @@
             "Q3-A-6": "教师账户",
             "Q3-A-7": "删除教师帐户将删除整个班级及其中的所有学生帐户。它无法撤消。",
             "Q3-A-8": "这可以通过点击<a href='https://machinelearningforkids.co.uk/teacher'>您的教师页面的高级选项部分中的\"删除班级\"按钮来完成</a> ",
-
             "Q4": "关于用户存储了哪些信息？",
             "Q4-A-1": "Teacher accounts",
             "Q4-A-2": "I store the username and email address that you provide when you create the account, so that I can keep in touch with you.",
@@ -1849,7 +1784,6 @@
             "Q4-A-7": "User management for Machine Learning for Kids is implemented using the third party service, <a href='https://auth0.com/'>Auth0</a>. They store the IP address that you last logged into Machine Learning for Kids from, and the type of browser you used. I've never found a reason to use that, but it is stored if I did want to go and look for it.",
             "Q4-A-8": "Errors that happen in the web browser are captured using the third party service, <a href='https://sentry.io/'>Sentry</a>. If something goes wrong, it will capture information about the error, including your username, IP address, type of browser you were using, and a technical description of what went wrong.",
             "Q4-A-9": "I use <a href='https://www.google.com/analytics/'>Google Analytics</a> so that I know how many users visit Machine Learning for Kids each day. Although it captures information such as geographic location and browser type, this is only ever displayed to me in an anonymised aggregate way.",
-
             "Q5": "What happens to training data created by students?",
             "Q5-A-1": "A step in all machine learning projects that students make using this site is to create or collect training examples. For text projects, this can mean typing in short text passages. For image projects, this can means drawing pictures onto an on-screen canvas or taking photos using the webcam. For numbers projects, this means typing in sets of numbers",
             "Q5-A-2": "All of these training examples are stored in a <a href='https://www.ibm.com/cloud/databases-for-postgresql'>PostgreSQL database hosted on IBM Cloud</a>, in Dallas in the United States. As the database administrator, I have access to all of these training examples for all student projects, however I do not use it for any other purposes other than enabling students to access and work on their own projects. I do not publish the training data (either publicly or to individuals or third parties) or otherwise share it, with the two exceptions of submitting it to IBM Watson APIs described below.",
