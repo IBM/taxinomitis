@@ -54,6 +54,7 @@ describe('UI - NLS', () => {
 
     const NO_TRANSLATION_REQUIRED = [
         '.HELP.LOG',
+        '.WORKSHEETS.LOCATELARRY.TEACHERSNOTES_URL',
     ];
 
     function compareKeys(obj1: any, obj2: any, obj2name: string, keypath = '') {

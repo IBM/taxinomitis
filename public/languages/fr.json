@@ -1027,6 +1027,7 @@
             "TITLE": "Salle de classe intelligente",
             "SUMMARY": "Apprenez à un ordinateur à reconnaître vos commandes",
             "DESCRIPTION": "Créez un assistant intelligent dans Scratch qui vous permet de contrôler les périphériques virtuels.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-smartclassroom-fr.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Version complète du projet, dans laquelle les élèves réalisent d'abord une version sans apprentissage automatique",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom.pdf"
@@ -1038,13 +1039,13 @@
             "WORKSHEET_3": {
                 "DESCRIPTION": "Version rapide et simplifiée du projet, idéale pour une première introduction à l'outil",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-tryitnow.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-smartclassroom.pdf"
+            }
         },
         "MAKEMEHAPPY": {
             "TITLE": "Rends-moi heureux",
             "SUMMARY": "Apprenez à un ordinateur à reconnaître les compliments et les insultes.",
             "DESCRIPTION": "Créez un personnage dans Scratch qui sourit si vous lui dites des choses gentilles et pleure si vous lui dites des choses méchantes.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-makemehappy-fr.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Version complète du projet, dans laquelle les élèves réalisent d'abord une version sans apprentissage automatique",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy.pdf"
@@ -1056,13 +1057,13 @@
             "WORKSHEET_3": {
                 "DESCRIPTION": "Projet Python - pour réaliser le projet en utilisant Python",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-python.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-makemehappy.pdf"
+            }
         },
         "SNAP": {
             "TITLE": "Snap!",
             "SUMMARY": "Apprenez à un ordinateur à reconnaître à quoi ressemblent les icônes",
             "DESCRIPTION": "Faites un jeu de cartes dans Scratch qui apprend à reconnaître les images de votre carte.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-snap-fr.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Version complète du projet, où les élèves fabriquent leurs propres cartes qu'ils entraîneront l'ordinateur à reconnaître",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap.pdf"
@@ -1071,26 +1072,25 @@
                 "DESCRIPTION": "Version abrégée du projet, fournissant aux élèves des cartes préfabriquées que vous devrez imprimer, pour leur éviter de devoir les fabriquer",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap-easy.pdf",
                 "RESOURCES": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/resources-snap-easy.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-snap.pdf"
+            }
         },
         "CHAMELEON": {
             "TITLE": "Caméléon",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître les couleurs",
             "DESCRIPTION": "Faites un caméléon dans Scratch qui change de couleur pour correspondre à son arrière-plan.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chameleon-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chameleon.pdf"
+            }
         },
         "MAILMANMAX": {
             "TITLE": "Le facteur Max",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître l'écriture manuscrite",
             "DESCRIPTION": "Faites un bureau de tri postal dans Scratch qui peut reconnaître les codes postaux manuscrits sur les enveloppes.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-mailmanmax-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mailmanmax.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-mailmanmax.pdf"
+            }
         },
         "SHOOTTHEBUG": {
             "TITLE": "Shoot the bug",
@@ -1105,6 +1105,7 @@
             "TITLE": "Voiture ou tasse",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître les images d'objets",
             "DESCRIPTION": "Entraînez l'ordinateur pour qu'il soit capable de trier les photos en groupes.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-carorcup-fr.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Version individuelle du projet, où chaque élève forme son propre modèle d'apprentissage machine de manière indépendante",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup.pdf"
@@ -1112,8 +1113,7 @@
             "WORKSHEET_2": {
                 "DESCRIPTION": "Version de groupe du projet, où les élèves de la classe travaillent ensemble pour entraîner un modèle d'apprentissage machine partagé",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup-crowd.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-carorcup.pdf"
+            }
         },
         "FACELOCK": {
             "TITLE": "Débloquer son téléphone avec son visage",
@@ -1128,42 +1128,43 @@
             "TITLE": "Aller à l'école",
             "SUMMARY": "Apprendre à un ordinateur à faire des prédictions",
             "DESCRIPTION": "Entraînez l'ordinateur pour être capable de prédire comment vous vous rendrez à l'école le matin.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-journeytoschool-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-journeytoschool.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-journeytoschool.pdf"
+            }
         },
         "SHYPANDA": {
             "TITLE": "Panda timide",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître les images",
             "DESCRIPTION": "Faites un panda dansant qui devient timide et arrête de danser si vous le regardez.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shypanda-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shypanda.pdf"
+            }
         },
         "VIRTUALPET": {
             "TITLE": "Animal de compagnie virtuel",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître les images",
             "DESCRIPTION": "Apprenez à l'ordinateur à reconnaître ce que vous faites afin de pouvoir prendre soin d'un animal de compagnie virtuel.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-virtualpet-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-virtualpet.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-virtualpet.pdf"
+            }
         },
         "PACMAN": {
             "TITLE": "Pac-Man",
             "SUMMARY": "Apprendre à un ordinateur à jouer à un jeu",
             "DESCRIPTION": "Créer un jeu Pac-Man dans Scratch qui apprend comment éviter le fantôme.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-pacman-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pacman.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-pacman.pdf"
+            }
         },
         "CHATBOTS": {
             "TITLE": "Agent conversationnel",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître les questions",
             "DESCRIPTION": "Créez un agent conversationnel qui peut répondre à des questions sur un sujet de votre choix.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chatbots-fr.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Projet Scratch - pour la création d'un robot de chat à Scratch",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots.pdf"
@@ -1171,22 +1172,22 @@
             "WORKSHEET_2": {
                 "DESCRIPTION": "Projet Python - pour réaliser un robot de chat en Python",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots-python.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chatbots.pdf"
+            }
         },
         "TOURISTINFO": {
             "TITLE": "Information pour les touristes",
             "SUMMARY": "Apprendre à un ordinateur à faire des recommandations",
             "DESCRIPTION": "Créez une application mobile dans Scratch qui recommande des attractions touristiques en fonction des intérêts des gens.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-touristinfo-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-touristinfo.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-touristinfo.pdf"
+            }
         },
         "SORTINGHAT": {
             "TITLE": "Choixpeau",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître l'usage du langage",
             "DESCRIPTION": "Créez un 'chapeau de tri' comme dans Harry Potter, qui vous place dans une école en fonction de ce que vous dites.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-sortinghat-fr.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Version individuelle du projet, où chaque élève entraîne son propre modèle d'apprentissage machine de manière indépendante",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat.pdf"
@@ -1194,22 +1195,22 @@
             "WORKSHEET_2": {
                 "DESCRIPTION": "Version de groupe du projet, où les élèves de la classe travaillent ensemble pour entraîner un modèle d'apprentissage machine partagé",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat-crowd.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-sortinghat.pdf"
+            }
         },
         "ROCKPAPERSCISSORS": {
             "TITLE": "Pierre, Papier, Ciseaux",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître les formes.",
             "DESCRIPTION": "Réalisez un jeu de Pierre, Papier, Ciseaux dans Scratch qui apprend à reconnaître les formes des mains.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-rockpaperscissors-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-rockpaperscissors.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-rockpaperscissors.pdf"
+            }
         },
         "JUDGEABOOK": {
             "TITLE": "Juger un livre",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître le style visuel",
             "DESCRIPTION": "Faites un jeu dans Scratch pour tester s'il est vraiment possible de juger un livre par sa couverture.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook-fr.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Version complète du projet, où les élèves créent un jeu pour rivaliser avec l'ordinateur afin de reconnaître les livres",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf"
@@ -1217,13 +1218,13 @@
             "WORKSHEET_2": {
                 "DESCRIPTION": "Version simplifiée du projet, où les élèves demandent à l'ordinateur de reconnaître les styles de livres",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook.pdf"
+            }
         },
         "LOCATELARRY": {
             "TITLE": "Où est Larry ?",
             "SUMMARY": "Apprendre à un ordinateur à trouver quelque chose dans une image",
             "DESCRIPTION": "Programmer un jeu dans le style \"Où est Charlie?\"- dans Scratch, et apprenez à l'ordinateur à trouver votre personnage.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-locatelarry-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf"
             }
@@ -1240,33 +1241,34 @@
             "TITLE": "Trompé",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître les fruits",
             "DESCRIPTION": "Apprenez comment les ordinateurs peuvent être confus et peuvent faire des erreurs s'ils sont mal entraînés..",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-fooled-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-fooled.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-fooled.pdf"
+            }
         },
         "SCHOOLLIBRARY": {
             "TITLE": "Bibliothèque scolaire",
             "SUMMARY": "Apprendre à un ordinateur à faire des recommandations",
             "DESCRIPTION": "Créer un bibliothécaire scolaire avec Scratch qui suggère à qui pourrait convenir un livre.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-schoollibrary-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-schoollibrary.pdf"
+            }
         },
         "WHATTWITTERTHINKS": {
             "TITLE": "Qu'en pense Twitter ?",
             "SUMMARY": "Enseigner à un ordinateur à mesurer l'opinion publique",
             "DESCRIPTION": "Créer un outil d'analyse de sentiment avec Scratch pour analyser les discussions sur Twitter",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-whattwitterthinks-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-whattwitterthinks.pdf"
+            }
         },
         "NOUGHTSANDCROSSES": {
             "TITLE": "Jeu de morpions",
             "SUMMARY": "Apprendre à un ordinateur à jouer à un jeu",
             "DESCRIPTION": "Créez un jeu de morpions avec Scratch qui apprend à vous battre.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-noughtsandcrosses-fr.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Version pour la classe, où chaque élève réalise lui-même le jeu en Scratch",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses.pdf"
@@ -1278,17 +1280,16 @@
             "WORKSHEET_3": {
                 "DESCRIPTION": "Version de démonstration, pour des événements comme les manifestations scientifiques où chaque enfant a une minute ou deux pour essayer quelque chose",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-event.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-noughtsandcrosses.pdf"
+            }
         },
         "TOPTRUMPS": {
             "TITLE": "Meilleurs atouts",
             "SUMMARY": "Apprendre à un ordinateur à jouer à un jeu",
             "DESCRIPTION": "Entraînez un ordinateur pour pouvoir jouer au jeu de cartes Meilleurs Atouts avec Scratch.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-toptrumps-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-toptrumps.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-toptrumps.pdf"
+            }
         },
         "HEADLINES": {
             "TITLE": "A la une",
@@ -1302,10 +1303,10 @@
             "TITLE": "Les rayons des journaux",
             "SUMMARY": "Tester la capacité de l'ordinateur à reconnaître l'utilisation de la langue",
             "DESCRIPTION": "Apprendre à un ordinateur à reconnaître les titres des journaux nationaux.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines-easy-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-easy.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines-easy.pdf"
+            }
         },
         "HEADLINETESTING": {
             "TITLE": "Test des titres",
@@ -1320,64 +1321,64 @@
             "TITLE": "Trouve-le !",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître les images",
             "DESCRIPTION": "Créez un jeu de cache-cache pour votre téléphone portable",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-findit-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-findit.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-findit.pdf"
+            }
         },
         "ALIENLANGUAGE": {
             "TITLE": "Communique avec un Alien",
             "SUMMARY": "Entraine un ordinateur à reconnaître des sons",
             "DESCRIPTION": "Crée un Alien dans Scratch qui apprend comment reconnaître des sons d'un langage alien",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-alienlanguage-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-alienlanguage.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-alienlanguage.pdf"
+            }
         },
         "SECRETCODE": {
             "TITLE": "Secret Code",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître la parole",
             "DESCRIPTION": "Entraînez un ordinateur à comprendre les mots de code secret pour guider un espion.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-secretcode-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-secretcode.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-secretcode.pdf"
+            }
         },
         "JARGONBUSTER": {
             "TITLE": "Jargon Buster",
             "SUMMARY": "Apprendre à un ordinateur à écouter les mots",
             "DESCRIPTION": "Créez un projet dans Scratch qui affiche le sens des mots que vous dites.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-jargonbuster-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-jargonbuster.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-jargonbuster.pdf"
+            }
         },
         "TITANIC": {
             "TITLE": "Titanic",
             "SUMMARY": "Apprendre à un ordinateur à prédire des résultats",
             "DESCRIPTION": "Créer un programme Python qui puisse prédire qui a survécu au naufrage du Titanic.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-titanic-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-titanic.pdf"
+            }
         },
         "ZOMBIEESCAPE": {
             "TITLE": "Fuir les zombies !",
             "SUMMARY": "Apprendre à un ordinateur à faire des prédictions",
             "DESCRIPTION": "Former un ordinateur pour vous aider à échapper aux zombies",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-zombieescape-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-zombieescape.pdf"
+            }
         },
         "PHISHING": {
             "TITLE": "Phishing",
             "SUMMARY": "Entraîner un ordinateur à reconnaître les liens web de phishing",
             "DESCRIPTION": "Créer un programme Python qui peut prédire si une URL est légitime",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-phishing-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-phishing.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-phishing.pdf"
+            }
         },
         "KIWIORSTOAT": {
             "TITLE": "Kiwi ou hermine",
@@ -1391,10 +1392,10 @@
             "TITLE": "Les taches d'encre",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître des photos d'objets",
             "DESCRIPTION": "Recréez un projet de recherche du MIT et découvrez comment les systèmes d'IA sont décrits dans l'actualité.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-inkblots-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-inkblots.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-inkblots.pdf"
+            }
         },
         "FACEFINDER": {
             "TITLE": "Recherche de visage",
@@ -1409,19 +1410,19 @@
             "TITLE": "Masque Emoji",
             "SUMMARY": "Utiliser un ordinateur qui a été entraîné à la reconnaissance des visages",
             "DESCRIPTION": "Faites un filtre vidéo dans Scratch pour ajouter un masque d'emoji à votre visage.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-emojimask-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-emojimask.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-emojimask.pdf"
+            }
         },
         "LASEREYES": {
             "TITLE": "Les yeux laser",
             "SUMMARY": "Apprendre à un ordinateur à reconnaître la parole et les visages",
             "DESCRIPTION": "Faites un jeu avec des yeux laser à commande vocale dans Scratch.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-lasereyes-fr.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-lasereyes-fr.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-lasereyes.pdf"
+            }
         },
         "SEMAPHORES": {
             "TITLE": "Semaphores",
