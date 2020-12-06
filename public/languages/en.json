@@ -1056,6 +1056,7 @@
             "TITLE": "Describe the glass",
             "SUMMARY": "Teach a computer to predict your answers",
             "DESCRIPTION": "Create a game in Scratch that learns when you describe a glass as half-full or half-empty.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-describetheglass.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-describetheglass.pdf"
             }
@@ -1064,6 +1065,7 @@
             "TITLE": "Smart Classroom",
             "SUMMARY": "Teach a computer to recognise the meaning of your commands",
             "DESCRIPTION": "Create a smart assistant in Scratch that lets you control virtual devices.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-smartclassroom.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Full version of the project, where the students make a non-machine learning version first",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom.pdf"
@@ -1081,6 +1083,7 @@
             "TITLE": "Make me happy",
             "SUMMARY": "Teach a computer to recognise compliments and insults",
             "DESCRIPTION": "Create a character in Scratch that smiles if you say nice things to it and cries if you say mean things to it.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-makemehappy.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Full version of the Scratch project, where the students make a non-machine learning version first",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy.pdf"
@@ -1098,6 +1101,7 @@
             "TITLE": "Snap!",
             "SUMMARY": "Teach a computer to recognise what icons look like",
             "DESCRIPTION": "Make a card game in Scratch that learns to recognise pictures of your card.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-snap.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Full version of the project, where the students make their own cards that they will train the computer to recognise",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap.pdf"
@@ -1112,6 +1116,7 @@
             "TITLE": "Chameleon",
             "SUMMARY": "Teach a computer to recognise colours",
             "DESCRIPTION": "Make a chameleon in Scratch that changes colour to match its background.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chameleon.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf"
             }
@@ -1120,6 +1125,7 @@
             "TITLE": "Mailman Max",
             "SUMMARY": "Teach a computer to recognise handwriting",
             "DESCRIPTION": "Make a postal sorting office in Scratch that can recognise handwritten postcodes on envelopes.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-mailmanmax.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mailmanmax.pdf"
             }
@@ -1128,6 +1134,7 @@
             "TITLE": "Shoot the bug",
             "SUMMARY": "Teach a computer to play a game",
             "DESCRIPTION": "Create a Breakout-style arcade game in Scratch that learns the angle to shoot balls at.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shootthebug.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shootthebug.pdf"
             }
@@ -1136,6 +1143,7 @@
             "TITLE": "Car or cup",
             "SUMMARY": "Teach a computer to recognise pictures of objects",
             "DESCRIPTION": "Train the computer to be able to sort photos into groups.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-carorcup.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Individual version of the project, where each student trains their own machine learning model independently",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup.pdf"
@@ -1149,6 +1157,7 @@
             "TITLE": "Face Lock",
             "SUMMARY": "Teach a computer to recognise faces",
             "DESCRIPTION": "Make a phone in Scratch that unlocks if it recognises your face.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-facelock.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facelock.pdf"
             }
@@ -1157,6 +1166,7 @@
             "TITLE": "Journey to school",
             "SUMMARY": "Teach a computer to make predictions",
             "DESCRIPTION": "Train the computer to be able to predict how you travel to school in the morning.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-journeytoschool.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-journeytoschool.pdf"
             }
@@ -1165,6 +1175,7 @@
             "TITLE": "Shy Panda",
             "SUMMARY": "Teach a computer to recognise webcam pictures",
             "DESCRIPTION": "Make a dancing panda that gets shy and stops dancing if it sees you looking.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shypanda.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda.pdf"
             }
@@ -1173,6 +1184,7 @@
             "TITLE": "Virtual Pet",
             "SUMMARY": "Teach a computer to recognise webcam pictures",
             "DESCRIPTION": "Train the computer to recognise what you're doing so you can look after a virtual pet.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-virtualpet.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-virtualpet.pdf"
             }
@@ -1181,6 +1193,7 @@
             "TITLE": "Pac-Man",
             "SUMMARY": "Teach a computer to play a game",
             "DESCRIPTION": "Create a Pac-Man game in Scratch that learns how to avoid the ghost.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-pacman.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pacman.pdf"
             }
@@ -1189,6 +1202,7 @@
             "TITLE": "Chatbots",
             "SUMMARY": "Teach a computer to recognise questions",
             "DESCRIPTION": "Create a chatbot that can answer questions about a topic of your choice.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chatbots.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Scratch project - for making a chat bot in Scratch",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots.pdf"
@@ -1202,6 +1216,7 @@
             "TITLE": "Tourist Info",
             "SUMMARY": "Teach a computer to make recommendations",
             "DESCRIPTION": "Create a mobile app in Scratch that recommends tourist attractions based on people's interests.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-touristinfo.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-touristinfo.pdf"
             }
@@ -1210,6 +1225,7 @@
             "TITLE": "Sorting Hat",
             "SUMMARY": "Teach a computer to recognise use of language",
             "DESCRIPTION": "Create a Sorting Hat like in Harry Potter, that puts you in a school House based on what you say.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-sortinghat.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Individual version of the project, where each student trains their own machine learning model independently",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat.pdf"
@@ -1223,6 +1239,7 @@
             "TITLE": "Rock, Paper, Scissors",
             "SUMMARY": "Teach a computer to recognise shapes",
             "DESCRIPTION": "Make a Rock, Paper, Scissors game in Scratch that learns to recognise hand shapes.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-rockpaperscissors.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-rockpaperscissors.pdf"
             }
@@ -1231,6 +1248,7 @@
             "TITLE": "Judge a book",
             "SUMMARY": "Teach a computer to recognise visual style",
             "DESCRIPTION": "Make a game in Scratch to test whether it really is possible to judge a book by its cover.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Full version of the project, where children make a game to compete against the computer to recognise books",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf"
@@ -1260,6 +1278,7 @@
             "TITLE": "Fooled",
             "SUMMARY": "Teach a computer to recognise fruit",
             "DESCRIPTION": "Learn about how computers can be confused and can make mistakes if they're trained badly.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-fooled.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-fooled.pdf"
             }
@@ -1268,6 +1287,7 @@
             "TITLE": "School Library",
             "SUMMARY": "Teach a computer to make recommendations",
             "DESCRIPTION": "Create a school librarian in Scratch that suggests who a reading book might be suitable for.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-schoollibrary.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf"
             }
@@ -1276,6 +1296,7 @@
             "TITLE": "What does Twitter think?",
             "SUMMARY": "Teach a computer to measure public opinion",
             "DESCRIPTION": "Create a sentiment analysis tool in Scratch to analyze discussion on Twitter.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-whattwitterthinks.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
             }
@@ -1284,6 +1305,7 @@
             "TITLE": "Noughts & Crosses",
             "SUMMARY": "Teach a computer to play a game",
             "DESCRIPTION": "Create a noughts and crosses game in Scratch that learns how to beat you.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-noughtsandcrosses.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Classroom version, where each student makes the game themselves in Scratch",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses.pdf"
@@ -1301,6 +1323,7 @@
             "TITLE": "Top Trumps",
             "SUMMARY": "Teach a computer to play a game",
             "DESCRIPTION": "Train a computer to be able to play the Top Trumps card game in Scratch.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-toptrumps.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-toptrumps.pdf"
             }
@@ -1317,6 +1340,7 @@
             "TITLE": "Newspaper shelves",
             "SUMMARY": "Test the computer's ability to recognise use of language",
             "DESCRIPTION": "Train a computer to recognise headlines from national newspapers.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines-easy.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-easy.pdf"
             }
@@ -1325,6 +1349,7 @@
             "TITLE": "Headline testing",
             "SUMMARY": "Test the computer's ability to recognise use of language",
             "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
             }
@@ -1333,6 +1358,7 @@
             "TITLE": "Find It!",
             "SUMMARY": "Teach a computer to recognise pictures",
             "DESCRIPTION": "Make a hide-and-seek game for your mobile phone.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-findit.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-findit.pdf"
             }
@@ -1341,6 +1367,7 @@
             "TITLE": "Alien Language",
             "SUMMARY": "Teach a computer to recognize sounds",
             "DESCRIPTION": "Make an alien in Scratch that learns to recognize an alien language.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-alienlanguage.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-alienlanguage.pdf"
             }
@@ -1349,6 +1376,7 @@
             "TITLE": "Secret Code",
             "SUMMARY": "Teach a computer to recognize speech",
             "DESCRIPTION": "Train a computer to understand secret code words to guide a spy.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-secretcode.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-secretcode.pdf"
             }
@@ -1357,6 +1385,7 @@
             "TITLE": "Jargon Buster",
             "SUMMARY": "Teach a computer to listen for words",
             "DESCRIPTION": "Make a project in Scratch that displays the meaning of words you say.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-jargonbuster.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-jargonbuster.pdf"
             }
@@ -1365,6 +1394,7 @@
             "TITLE": "Titanic",
             "SUMMARY": "Teach a computer to predict outcomes",
             "DESCRIPTION": "Create a Python program that can predict who survived the sinking of the Titanic.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-titanic.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
             }
@@ -1373,6 +1403,7 @@
             "TITLE": "Zombie Escape!",
             "SUMMARY": "Teach a computer to make predictions",
             "DESCRIPTION": "Train a computer to help you escape from the zombie horde.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-zombieescape.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
             }
@@ -1381,6 +1412,7 @@
             "TITLE": "Phishing",
             "SUMMARY": "Teach a computer to recognize phishing web links",
             "DESCRIPTION": "Create a Python program that can predict if a URL is legitimate.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-phishing.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-phishing.pdf"
             }
@@ -1397,6 +1429,7 @@
             "TITLE": "Ink blots",
             "SUMMARY": "Teach a computer to recognize photos of objects",
             "DESCRIPTION": "Recreate an MIT research project and learn about how AI systems are described in the news.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-inkblots.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-inkblots.pdf"
             }
@@ -1405,6 +1438,7 @@
             "TITLE": "Face Finder",
             "SUMMARY": "Use a computer that has been trained to recognize faces",
             "DESCRIPTION": "Make a video filter in Scratch to turn your face into a cartoon.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-facefinder.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facefinder.pdf"
             }
@@ -1413,6 +1447,7 @@
             "TITLE": "Emoji Mask",
             "SUMMARY": "Use a computer that has been trained to recognize faces",
             "DESCRIPTION": "Make a video filter in Scratch to add an emoji mask to your face.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-emojimask.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-emojimask.pdf"
             }
@@ -1421,6 +1456,7 @@
             "TITLE": "Laser Eyes",
             "SUMMARY": "Teach a computer to recognize speech and faces",
             "DESCRIPTION": "Make a voice-activated laser eyes game in Scratch.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-lasereyes.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-lasereyes.pdf"
             }
@@ -1429,6 +1465,7 @@
             "TITLE": "Semaphores",
             "SUMMARY": "Teach a computer to recognize speech and poses",
             "DESCRIPTION": "Make a voice-activated semaphores game you play by moving your arms.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-semaphores.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-semaphores.pdf"
             }

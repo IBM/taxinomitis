@@ -1,7 +1,6 @@
 {
     "APP": {
         "TITLE": "Dysgu Peiriant i Blant",
-
         "BACK": "Yn ôl",
         "NEXT": "Next",
         "BACKTOPROJECT": "&lt; Yn ôl i'r prosiect",
@@ -9,14 +8,12 @@
         "ERROR": "Gwall:",
         "WARNING": "Rhybudd:",
         "INFO": "Gwyb:",
-
         "ADD": "Ychwanegu",
         "CANCEL": "Canslo",
         "DELETE": "Dileu",
         "EDIT": "Golygu",
         "TEST": "Profi",
         "RESET": "Ail-osod",
-
         "ABOUT": "Am",
         "TEACHER": "Athro",
         "PROJECTS": "Prosiectau",
@@ -26,7 +23,6 @@
         "HELP": "Cymorth",
         "LOGIN": "Mewngofnodi",
         "LOGOUT": "Allgofnodi",
-
         "BETA": "Beta",
         "INCOMPLETE": "Anghyflawn!"
     },
@@ -36,7 +32,7 @@
         "IN20MINS": "Mewn 20 munud...",
         "WHAT": {
             "TITLE": "Beth?",
-            "BODY" : "Mae'r adnodd rhad ac am ddim hwn yn cyflwyno dysgu peiriant trwy ddarparu profiadau ymarferol ar gyfer hyfforddi systemau dysgu peiriant ac adeiladu pethau gyda nhw. <br/><br/>Mae'n darparu amgylchedd hawdd ei ddefnyddio ar gyfer hyfforddi modelau dysgu peiriant i adnabod testun, rhifau, delweddau neu synau. <br/><br/>Mae hyn yn adeiladu ar yr ymdrechion presennol i gyflwyno ac addysgu codio i blant, trwy ychwanegu'r modelau hyn at lwyfannau codio addysgol <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> ac <a href='http://appinventor.mit.edu/' target='_blank'>App Inventor</a>, a helpu plant i greu prosiectau ac adeiladu gemau gyda'r modelau dysgu peiriant maen nhw'n eu hyfforddi. <br/><br/> Trefnwyd bod yr offeryn ar gael gyntaf yn 2017, ac mae bellach yn cael ei <a href='https://wakelet.com/wake/4d3680cb-2a11-49ab-9180-fcfeced48393' target='_blank'>ddefnyddio gan filoedd o ysgolion, clybiau cod, a theuluoedd ledled y byd</a>. <br/><br/>I ddysgu mwy, edrychwch ar:"
+            "BODY": "Mae'r adnodd rhad ac am ddim hwn yn cyflwyno dysgu peiriant trwy ddarparu profiadau ymarferol ar gyfer hyfforddi systemau dysgu peiriant ac adeiladu pethau gyda nhw. <br/><br/>Mae'n darparu amgylchedd hawdd ei ddefnyddio ar gyfer hyfforddi modelau dysgu peiriant i adnabod testun, rhifau, delweddau neu synau. <br/><br/>Mae hyn yn adeiladu ar yr ymdrechion presennol i gyflwyno ac addysgu codio i blant, trwy ychwanegu'r modelau hyn at lwyfannau codio addysgol <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> ac <a href='http://appinventor.mit.edu/' target='_blank'>App Inventor</a>, a helpu plant i greu prosiectau ac adeiladu gemau gyda'r modelau dysgu peiriant maen nhw'n eu hyfforddi. <br/><br/> Trefnwyd bod yr offeryn ar gael gyntaf yn 2017, ac mae bellach yn cael ei <a href='https://wakelet.com/wake/4d3680cb-2a11-49ab-9180-fcfeced48393' target='_blank'>ddefnyddio gan filoedd o ysgolion, clybiau cod, a theuluoedd ledled y byd</a>. <br/><br/>I ddysgu mwy, edrychwch ar:"
         },
         "WHY": {
             "TITLE": "Pam?",
@@ -120,10 +116,8 @@
     "ERRORS": {
         "PAGENOTFOUND": "Heb ganfod y tudalen",
         "NOTLOGGEDIN": "Heb fewngofnodi",
-
         "MISSINGPROJECTID": "Id prosiect ar goll. Ewch yn ôl i",
         "IFPERSISTENT": "Os yw hyn yn parhau i ddigwydd, os gwelwch yn dda",
-
         "LETMEKNOW": "gadewch i mi wybod"
     },
     "WELCOME": {
@@ -399,115 +393,114 @@
             "TITLE": "Beth wyt ti wedi gwneud?",
             "PLEASEWAIT": "Mae hyn fel arfer yn cymryd ychydig funudau, ond gall gymryd ychydig mwy o amser os yw'r cyfrifiadur hyfforddi yn brysur iawn.",
             "FAIL": "Yn anffodus, aeth rhywbeth o'i le.",
-
-            "TRAINING" : {
-                "CROWDSOURCED" : {
-                    "TEXT" : "Mae eich dosbarth yn hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o destun y gwnaethoch chi i gyd ei gasglu.",
-                    "IMAGES" : "Mae eich dosbarth yn hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o ddelweddau y gwnaethoch chi i gyd eu casglu.",
-                    "NUMBERS" : "Mae eich dosbarth yn hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o rifau y gwnaethoch chi i gyd eu casglu.",
-                    "SOUNDS" : "Mae eich dosbarth yn hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o synau y gwnaethoch chi i gyd eu casglu."
+            "TRAINING": {
+                "CROWDSOURCED": {
+                    "TEXT": "Mae eich dosbarth yn hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o destun y gwnaethoch chi i gyd ei gasglu.",
+                    "IMAGES": "Mae eich dosbarth yn hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o ddelweddau y gwnaethoch chi i gyd eu casglu.",
+                    "NUMBERS": "Mae eich dosbarth yn hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o rifau y gwnaethoch chi i gyd eu casglu.",
+                    "SOUNDS": "Mae eich dosbarth yn hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o synau y gwnaethoch chi i gyd eu casglu."
                 },
-                "INDIVIDUAL" : {
-                    "TEXT" : "Rydych chi wedi dechrau hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o destun y gwnaethoch chi ei gasglu.",
-                    "IMAGES" : "Rydych chi wedi dechrau hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o ddelweddau a gasglwyd gennych.",
-                    "NUMBERS" : "Rydych chi wedi dechrau hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o rifau y gwnaethoch chi eu casglu.",
-                    "SOUNDS" : "Rydych chi wedi dechrau hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o synau y gwnaethoch chi eu casglu."
+                "INDIVIDUAL": {
+                    "TEXT": "Rydych chi wedi dechrau hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o destun y gwnaethoch chi ei gasglu.",
+                    "IMAGES": "Rydych chi wedi dechrau hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o ddelweddau a gasglwyd gennych.",
+                    "NUMBERS": "Rydych chi wedi dechrau hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o rifau y gwnaethoch chi eu casglu.",
+                    "SOUNDS": "Rydych chi wedi dechrau hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o synau y gwnaethoch chi eu casglu."
                 },
                 "SINCE": "Mae wedi bod yn hyfforddi ers"
             },
-            "READY" : {
-                "CROWDSOURCED" : {
-                    "TEXT" : "Mae eich dosbarth wedi hyfforddi model dysgu peiriant i gydnabod pryd mae testun yn ",
-                    "IMAGES" : "Mae eich dosbarth wedi hyfforddi model dysgu peiriant i gydnabod pryd mae delweddau yn ",
-                    "NUMBERS" : "Mae eich dosbarth wedi hyfforddi model dysgu peiriant i gydnabod pryd mae rhifau yn ",
-                    "SOUNDS" : "Mae eich dosbarth wedi hyfforddi model dysgu peiriant i gydnabod pryd mae synau yn "
+            "READY": {
+                "CROWDSOURCED": {
+                    "TEXT": "Mae eich dosbarth wedi hyfforddi model dysgu peiriant i gydnabod pryd mae testun yn ",
+                    "IMAGES": "Mae eich dosbarth wedi hyfforddi model dysgu peiriant i gydnabod pryd mae delweddau yn ",
+                    "NUMBERS": "Mae eich dosbarth wedi hyfforddi model dysgu peiriant i gydnabod pryd mae rhifau yn ",
+                    "SOUNDS": "Mae eich dosbarth wedi hyfforddi model dysgu peiriant i gydnabod pryd mae synau yn "
                 },
-                "INDIVIDUAL" : {
-                    "TEXT" : "Rydych chi wedi hyfforddi model dysgu peiriant i gydnabod pryd mae testun yn ",
-                    "IMAGES" : "Rydych chi wedi hyfforddi model dysgu peiriant i gydnabod pryd mae delwedd yn  ",
-                    "NUMBERS" : "Rydych chi wedi hyfforddi model dysgu peiriant i gydnabod pryd mae rhifau yn ",
-                    "SOUNDS" : "Rydych chi wedi hyfforddi model dysgu peiriant i gydnabod pryd mae synau yn "
+                "INDIVIDUAL": {
+                    "TEXT": "Rydych chi wedi hyfforddi model dysgu peiriant i gydnabod pryd mae testun yn ",
+                    "IMAGES": "Rydych chi wedi hyfforddi model dysgu peiriant i gydnabod pryd mae delwedd yn  ",
+                    "NUMBERS": "Rydych chi wedi hyfforddi model dysgu peiriant i gydnabod pryd mae rhifau yn ",
+                    "SOUNDS": "Rydych chi wedi hyfforddi model dysgu peiriant i gydnabod pryd mae synau yn "
                 },
-                "CREATED" : {
-                    "TEACHER" : "Creodd eich athro'r model ar ",
-                    "YOU" : "Fe wnaethoch chi greu'r model ar "
+                "CREATED": {
+                    "TEACHER": "Creodd eich athro'r model ar ",
+                    "YOU": "Fe wnaethoch chi greu'r model ar "
                 },
-                "TRAINING" : {
-                    "CLASS" : "Mae eich dosbarth wedi casglu: ",
-                    "YOU" : "Rydych chi wedi casglu: "
+                "TRAINING": {
+                    "CLASS": "Mae eich dosbarth wedi casglu: ",
+                    "YOU": "Rydych chi wedi casglu: "
                 }
             },
             "ERROR": {
-                "CROWDSOURCED" : {
-                    "CLASS" : {
-                        "TEXT" : "Ceisiodd eich athro hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o destun a gasglodd eich dosbarth.",
-                        "IMAGES" : "Ceisiodd eich athro hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o ddelweddau a gasglodd eich dosbarth.",
-                        "NUMBERS" : "Ceisiodd eich athro hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o rifau a gasglodd eich dosbarth.",
-                        "SOUNDS" : "Ceisiodd eich athro hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o synau a gasglodd eich dosbarth."
+                "CROWDSOURCED": {
+                    "CLASS": {
+                        "TEXT": "Ceisiodd eich athro hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o destun a gasglodd eich dosbarth.",
+                        "IMAGES": "Ceisiodd eich athro hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o ddelweddau a gasglodd eich dosbarth.",
+                        "NUMBERS": "Ceisiodd eich athro hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o rifau a gasglodd eich dosbarth.",
+                        "SOUNDS": "Ceisiodd eich athro hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o synau a gasglodd eich dosbarth."
                     },
-                    "YOU" : {
-                        "TEXT" : "Fe wnaethoch geisio hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o destun a gasglodd eich dosbarth.",
-                        "IMAGES" : "Fe wnaethoch geisio hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o ddelweddau a gasglodd eich dosbarth.",
-                        "NUMBERS" : "Fe wnaethoch geisio hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o rifau a gasglodd eich dosbarth.",
-                        "SOUNDS" : "Fe wnaethoch geisio hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o synau a gasglodd eich dosbarth."
+                    "YOU": {
+                        "TEXT": "Fe wnaethoch geisio hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o destun a gasglodd eich dosbarth.",
+                        "IMAGES": "Fe wnaethoch geisio hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o ddelweddau a gasglodd eich dosbarth.",
+                        "NUMBERS": "Fe wnaethoch geisio hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o rifau a gasglodd eich dosbarth.",
+                        "SOUNDS": "Fe wnaethoch geisio hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o synau a gasglodd eich dosbarth."
                     }
                 },
-                "INDIVIDUAL" : {
-                    "TEXT" : "Fe wnaethoch geisio hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o destun a gasglwyd gennych.",
-                    "IMAGES" : "Fe wnaethoch geisio hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o ddelweddau a gasglwyd gennych.",
-                    "NUMBERS" : "Fe wnaethoch geisio hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o rifau a gasglwyd gennych.",
-                    "SOUNDS" : "Fe wnaethoch geisio hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o synau a gasglwyd gennych."
+                "INDIVIDUAL": {
+                    "TEXT": "Fe wnaethoch geisio hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o destun a gasglwyd gennych.",
+                    "IMAGES": "Fe wnaethoch geisio hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o ddelweddau a gasglwyd gennych.",
+                    "NUMBERS": "Fe wnaethoch geisio hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o rifau a gasglwyd gennych.",
+                    "SOUNDS": "Fe wnaethoch geisio hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau o synau a gasglwyd gennych."
                 }
             },
-            "IDLE" : {
-                "NOLABELS" : {
-                    "CROWDSOURCED" : {
-                        "TEXT" : "Dywedodd eich dosbarth eich bod am gasglu enghreifftiau o destun.",
-                        "IMAGES" : "Dywedodd eich dosbarth eich bod am gasglu enghreifftiau o ddelweddau.",
-                        "NUMBERS" : "Dywedodd eich dosbarth eich bod am gasglu enghreifftiau o rifau.",
-                        "SOUNDS" : "Dywedodd eich dosbarth eich bod am gasglu enghreifftiau o synau."
+            "IDLE": {
+                "NOLABELS": {
+                    "CROWDSOURCED": {
+                        "TEXT": "Dywedodd eich dosbarth eich bod am gasglu enghreifftiau o destun.",
+                        "IMAGES": "Dywedodd eich dosbarth eich bod am gasglu enghreifftiau o ddelweddau.",
+                        "NUMBERS": "Dywedodd eich dosbarth eich bod am gasglu enghreifftiau o rifau.",
+                        "SOUNDS": "Dywedodd eich dosbarth eich bod am gasglu enghreifftiau o synau."
                     },
-                    "INDIVIDUAL" : {
-                        "TEXT" : "Rydych chi wedi dweud eich bod chi eisiau casglu enghreifftiau o destun.",
-                        "IMAGES" : "Rydych chi wedi dweud eich bod chi eisiau casglu enghreifftiau o ddelweddau.",
-                        "NUMBERS" : "Rydych chi wedi dweud eich bod chi eisiau casglu enghreifftiau o rifau.",
-                        "SOUNDS" : "Rydych chi wedi dweud eich bod chi eisiau casglu enghreifftiau o synau."
+                    "INDIVIDUAL": {
+                        "TEXT": "Rydych chi wedi dweud eich bod chi eisiau casglu enghreifftiau o destun.",
+                        "IMAGES": "Rydych chi wedi dweud eich bod chi eisiau casglu enghreifftiau o ddelweddau.",
+                        "NUMBERS": "Rydych chi wedi dweud eich bod chi eisiau casglu enghreifftiau o rifau.",
+                        "SOUNDS": "Rydych chi wedi dweud eich bod chi eisiau casglu enghreifftiau o synau."
                     }
                 },
-                "NODATA" : {
-                    "CROWDSOURCED" : {
-                        "TEXT" : "Dywedodd eich dosbarth eich bod am gasglu enghreifftiau o destun i gyfrifiadur ei gydnabod pan fydd testun yn ",
-                        "IMAGES" : "Dywedodd eich dosbarth eich bod am gasglu enghreifftiau o ddelweddau ar gyfer cyfrifiadur er mwyn adnabod pryd mae delweddau yn ",
-                        "NUMBERS" : "Dywedodd eich dosbarth eich bod am gasglu enghreifftiau o rifau ar gyfer cyfrifiadur i gydnabod pryd mae rhifau yn ",
-                        "SOUNDS" : "Dywedodd eich dosbarth eich bod am gasglu enghreifftiau o synau i gyfrifiadur eu hadnabod pan fydd synau yn "
+                "NODATA": {
+                    "CROWDSOURCED": {
+                        "TEXT": "Dywedodd eich dosbarth eich bod am gasglu enghreifftiau o destun i gyfrifiadur ei gydnabod pan fydd testun yn ",
+                        "IMAGES": "Dywedodd eich dosbarth eich bod am gasglu enghreifftiau o ddelweddau ar gyfer cyfrifiadur er mwyn adnabod pryd mae delweddau yn ",
+                        "NUMBERS": "Dywedodd eich dosbarth eich bod am gasglu enghreifftiau o rifau ar gyfer cyfrifiadur i gydnabod pryd mae rhifau yn ",
+                        "SOUNDS": "Dywedodd eich dosbarth eich bod am gasglu enghreifftiau o synau i gyfrifiadur eu hadnabod pan fydd synau yn "
                     },
-                    "INDIVIDUAL" : {
-                        "TEXT" : "Dywedasoch eich bod am gasglu enghreifftiau o destun er mwyn i gyfrifiadur gydnabod pryd mae testun yn ",
-                        "IMAGES" : "Dywedasoch eich bod am gasglu enghreifftiau o ddelweddau ar gyfer cyfrifiadur i'w cydnabod pan fydd delweddau yn ",
-                        "NUMBERS" : "Dywedasoch eich bod am gasglu enghreifftiau o rifau ar gyfer cyfrifiadur i gydnabod pryd mae rhifau yn ",
-                        "SOUNDS" : "Dywedasoch eich bod am gasglu enghreifftiau o synau i gyfrifiadur eu hadnabod pan fydd synau yn "
+                    "INDIVIDUAL": {
+                        "TEXT": "Dywedasoch eich bod am gasglu enghreifftiau o destun er mwyn i gyfrifiadur gydnabod pryd mae testun yn ",
+                        "IMAGES": "Dywedasoch eich bod am gasglu enghreifftiau o ddelweddau ar gyfer cyfrifiadur i'w cydnabod pan fydd delweddau yn ",
+                        "NUMBERS": "Dywedasoch eich bod am gasglu enghreifftiau o rifau ar gyfer cyfrifiadur i gydnabod pryd mae rhifau yn ",
+                        "SOUNDS": "Dywedasoch eich bod am gasglu enghreifftiau o synau i gyfrifiadur eu hadnabod pan fydd synau yn "
                     }
                 },
-                "NOEXAMPLES" : {
-                    "CLASS" : "Hyd yn hyn, nid yw'ch dosbarth wedi casglu unrhyw enghreifftiau eto.",
-                    "YOU" : "Hyd yn hyn, nid ydych wedi casglu unrhyw enghreifftiau eto."
+                "NOEXAMPLES": {
+                    "CLASS": "Hyd yn hyn, nid yw'ch dosbarth wedi casglu unrhyw enghreifftiau eto.",
+                    "YOU": "Hyd yn hyn, nid ydych wedi casglu unrhyw enghreifftiau eto."
                 },
-                "DATA" : {
-                    "CROWDSOURCED" : {
-                        "TEXT" : "Mae eich dosbarth wedi casglu enghreifftiau o destun i gyfrifiadur ei ddefnyddio i adnabod pryd mae testun yn ",
-                        "IMAGES" : "Mae eich dosbarth wedi casglu enghreifftiau o ddelweddau i gyfrifiadur eu defnyddio i adnabod pryd mae delweddau yn ",
-                        "NUMBERS" : "Mae eich dosbarth wedi casglu enghreifftiau o rifau i gyfrifiadur eu defnyddio i adnabod pryd mae rhifau yn ",
-                        "SOUNDS" : "Mae eich dosbarth wedi casglu enghreifftiau o synau i gyfrifiadur eu defnyddio i adnabod pryd mae synau yn "
+                "DATA": {
+                    "CROWDSOURCED": {
+                        "TEXT": "Mae eich dosbarth wedi casglu enghreifftiau o destun i gyfrifiadur ei ddefnyddio i adnabod pryd mae testun yn ",
+                        "IMAGES": "Mae eich dosbarth wedi casglu enghreifftiau o ddelweddau i gyfrifiadur eu defnyddio i adnabod pryd mae delweddau yn ",
+                        "NUMBERS": "Mae eich dosbarth wedi casglu enghreifftiau o rifau i gyfrifiadur eu defnyddio i adnabod pryd mae rhifau yn ",
+                        "SOUNDS": "Mae eich dosbarth wedi casglu enghreifftiau o synau i gyfrifiadur eu defnyddio i adnabod pryd mae synau yn "
                     },
-                    "INDIVIDUAL" : {
-                        "TEXT" : "Rydych wedi casglu enghreifftiau o destun i gyfrifiadur ei ddefnyddio i adnabod pryd mae testun yn ",
-                        "IMAGES" : "Rydych wedi casglu enghreifftiau o ddelweddau i gyfrifiadur eu defnyddio i adnabod pryd mae delweddau yn ",
-                        "NUMBERS" : "Rydych wedi casglu enghreifftiau o rifau i gyfrifiadur eu defnyddio i adnabod pryd mae rhifau yn ",
-                        "SOUNDS" : "Rydych wedi casglu enghreifftiau o synau i gyfrifiadur eu defnyddio i adnabod pryd mae synau yn "
+                    "INDIVIDUAL": {
+                        "TEXT": "Rydych wedi casglu enghreifftiau o destun i gyfrifiadur ei ddefnyddio i adnabod pryd mae testun yn ",
+                        "IMAGES": "Rydych wedi casglu enghreifftiau o ddelweddau i gyfrifiadur eu defnyddio i adnabod pryd mae delweddau yn ",
+                        "NUMBERS": "Rydych wedi casglu enghreifftiau o rifau i gyfrifiadur eu defnyddio i adnabod pryd mae rhifau yn ",
+                        "SOUNDS": "Rydych wedi casglu enghreifftiau o synau i gyfrifiadur eu defnyddio i adnabod pryd mae synau yn "
                     },
-                    "COLLECTED" : {
-                        "CLASS" : "Maent wedi casglu: ",
-                        "YOU" : "Rydych chi wedi casglu: "
+                    "COLLECTED": {
+                        "CLASS": "Maent wedi casglu: ",
+                        "YOU": "Rydych chi wedi casglu: "
                     }
                 }
             }
@@ -517,55 +510,54 @@
             "PLEASEWAIT": "Gallech aros i'r model dysgu peiriant orffen cael eich hyfforddi.",
             "OFFERQUIZ": "Neu, fe allech chi roi cynnig ar y cwis dysgu peiriant isod, i wirio'r hyn rydych chi wedi'i ddysgu.",
             "FAIL": "Dangosir y neges gwall o'r cyfrifiadur hyfforddi isod. Os yw hynny'n gwneud synnwyr i chi, ceisiwch ddatrys y broblem. Fel arall, gallai fod yn werth rhoi cynnig arall arni rhag ofn mai gwall ar hap yn unig ydoedd.",
-
             "IDLE": {
-                "NOLABELS" : "Y cam nesaf yw mynd i'r dudalen <a href='{{ urls.train }}'>Hyfforddi</a>. Ychwanegwch rai labeli ar gyfer pob un o'r pethau rydych chi am eu dysgu i'r cyfrifiadur er mwyn gallu eu hadnabod.",
-                "ONELABEL" : {
+                "NOLABELS": "Y cam nesaf yw mynd i'r dudalen <a href='{{ urls.train }}'>Hyfforddi</a>. Ychwanegwch rai labeli ar gyfer pob un o'r pethau rydych chi am eu dysgu i'r cyfrifiadur er mwyn gallu eu hadnabod.",
+                "ONELABEL": {
                     "EXPLANATION": "Dim ond un peth rydych chi wedi'i ddweud yr ydych chi am i'r cyfrifiadur allu ei adnabod: {{ label }}",
                     "ISTHATALL": "Ai dyna'r unig beth rydych chi am i'r cyfrifiadur allu ei adnabod?",
                     "NO": "<strong>Nac Ydy?</strong><br/>Ewch yn ôl i'r dudalen <a href='{{ urls.train }}'>Hyfforddi</a>.<br/>Ychwanegwch fwy o labeli ar gyfer pob un o'r pethau rydych chi am eu dysgu i'r cyfrifiadur er mwyn gallu eu hadnabod.<br/><br/>",
                     "YES": "<strong>Ydy?</strong><br/>Mae angen i chi wneud ychydig mwy o waith yn gyntaf.<br/>Er mwyn i'r cyfrifiadur allu dysgu sut i adnabod \"{{ label }}\", mae angen i chi roi rhai enghreifftiau iddo o bethau sydd ddim yn {{ label }}.<br/>Ewch yn ôl i'r dudalen <a href='{{ urls.train }}'>Hyfforddi</a> a chreu label newydd ar gyfer enghreifftiau o bethau sydd ddim yn {{ label }}. Fe allech chi ei alw yn  \"nid-{{ label }}\"."
                 },
-                "LABELS" : {
-                    "NO_DATA" : "Y cam nesaf yw mynd i'r dudalen <a href='{{ urls.train }}'>Hyfforddi</a>. Ychwanegwch enghreifftiau ar gyfer pob un o'r labeli.",
-                    "MORE_DATA" : {
+                "LABELS": {
+                    "NO_DATA": "Y cam nesaf yw mynd i'r dudalen <a href='{{ urls.train }}'>Hyfforddi</a>. Ychwanegwch enghreifftiau ar gyfer pob un o'r labeli.",
+                    "MORE_DATA": {
                         "KEEP_GOING": "Dal ati!",
-                        "MORE_EXAMPLES" : {
+                        "MORE_EXAMPLES": {
                             "YOU": "Ewch yn ôl i'r dudalen <a href='{{ urls.train }}'>Hyfforddi</a> a chasglu mwy o enghreifftiau ar gyfer pob un o'r labeli.",
                             "CLASS": "Gofynnwch i'ch dosbarth fynd yn ôl i'r dudalen <a href='{{ urls.train }}'>Hyfforddi</a> a chasglu mwy o enghreifftiau ar gyfer pob un o'r labeli."
                         },
-                        "MORE_IS_BETTER" : "Po fwyaf y gallwch ei gael, y gorau y dylai ei ddysgu, ond mae angen o leiaf {{minimumExamples}} o enghreifftiau o bob un fel lleiafswm."
+                        "MORE_IS_BETTER": "Po fwyaf y gallwch ei gael, y gorau y dylai ei ddysgu, ond mae angen o leiaf {{minimumExamples}} o enghreifftiau o bob un fel lleiafswm."
                     },
-                    "ENOUGH_DATA" : {
-                        "READY_TO_START" : "Yn barod i ddechrau hyfforddiant y cyfrifiadur?",
-                        "START_TRAINING" : {
-                            "CROWDSOURCED" : "Cliciwch y botwm isod i ddechrau hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau y mae eich dosbarth wedi'u casglu hyd yn hyn",
-                            "INDIVIDUAL" : "Cliciwch y botwm isod i ddechrau hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau rydych chi wedi'u casglu hyd yn hyn"
+                    "ENOUGH_DATA": {
+                        "READY_TO_START": "Yn barod i ddechrau hyfforddiant y cyfrifiadur?",
+                        "START_TRAINING": {
+                            "CROWDSOURCED": "Cliciwch y botwm isod i ddechrau hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau y mae eich dosbarth wedi'u casglu hyd yn hyn",
+                            "INDIVIDUAL": "Cliciwch y botwm isod i ddechrau hyfforddi model dysgu peiriant gan ddefnyddio'r enghreifftiau rydych chi wedi'u casglu hyd yn hyn"
                         },
-                        "MORE_EXAMPLES" : {
-                            "CROWDSOURCED" : "(Neu gofynnwch i'ch dosbarth fynd yn ôl i'r dudalen <a href='{{ urls.train }}'>Hyfforddi</a> os ydych chi am iddyn nhw gasglu mwy o enghreifftiau yn gyntaf.)",
-                            "INDIVIDUAL" : "(Neu ewch yn ôl i'r dudalen <a href='{{ urls.train }}'>Hyfforddi</a> os ydych chi am gasglu mwy o enghreifftiau yn gyntaf.)"
+                        "MORE_EXAMPLES": {
+                            "CROWDSOURCED": "(Neu gofynnwch i'ch dosbarth fynd yn ôl i'r dudalen <a href='{{ urls.train }}'>Hyfforddi</a> os ydych chi am iddyn nhw gasglu mwy o enghreifftiau yn gyntaf.)",
+                            "INDIVIDUAL": "(Neu ewch yn ôl i'r dudalen <a href='{{ urls.train }}'>Hyfforddi</a> os ydych chi am gasglu mwy o enghreifftiau yn gyntaf.)"
                         },
-                        "WAITING_FOR_TEACHER" : "Aros i'ch athro ddechrau hyfforddiant y cyfrifiadur."
+                        "WAITING_FOR_TEACHER": "Aros i'ch athro ddechrau hyfforddiant y cyfrifiadur."
                     }
                 }
             },
-            "READY" : {
-                "TEST" : {
-                    "TEXT" : "Rhowch gynnig ar brofi'r model dysgu peiriant isod. Rhowch enghraifft o destun isod, na wnaethoch chi ei gynnwys yn yr enghreifftiau roeddech chi'n eu defnyddio i'w hyfforddi. Bydd yn dweud wrthych beth y mae'n ei gydnabod, a pha mor hyderus ydyw yn hynny.",
-                    "IMAGES" : "Rhowch gynnig ar brofi'r model dysgu peiriant isod. Rhowch ddelwedd enghreifftiol isod, na wnaethoch chi ei chynnwys yn yr enghreifftiau roeddech chi'n eu defnyddio i'w hyfforddi. Bydd yn dweud wrthych beth y mae'n ei gydnabod, a pha mor hyderus ydyw yn hynny.",
-                    "NUMBERS" : "Rhowch gynnig ar brofi'r model dysgu peiriant isod. Rhowch enghraifft o'r rhifau isod, na wnaethoch chi eu cynnwys yn yr enghreifftiau roeddech chi'n arfer eu hyfforddi. Bydd yn dweud wrthych beth y mae'n ei gydnabod, a pha mor hyderus ydyw yn hynny.",
-                    "SOUNDS" : "Rhowch gynnig ar brofi'r model dysgu peiriant isod. Cliciwch y botwm 'Dechreuwch wrando'. Os yw'ch model dysgu peiriant yn cydnabod unrhyw synau, bydd yn dweud wrthych beth mae'n ei gydnabod, a pha mor hyderus ydyw yn hynny."
+            "READY": {
+                "TEST": {
+                    "TEXT": "Rhowch gynnig ar brofi'r model dysgu peiriant isod. Rhowch enghraifft o destun isod, na wnaethoch chi ei gynnwys yn yr enghreifftiau roeddech chi'n eu defnyddio i'w hyfforddi. Bydd yn dweud wrthych beth y mae'n ei gydnabod, a pha mor hyderus ydyw yn hynny.",
+                    "IMAGES": "Rhowch gynnig ar brofi'r model dysgu peiriant isod. Rhowch ddelwedd enghreifftiol isod, na wnaethoch chi ei chynnwys yn yr enghreifftiau roeddech chi'n eu defnyddio i'w hyfforddi. Bydd yn dweud wrthych beth y mae'n ei gydnabod, a pha mor hyderus ydyw yn hynny.",
+                    "NUMBERS": "Rhowch gynnig ar brofi'r model dysgu peiriant isod. Rhowch enghraifft o'r rhifau isod, na wnaethoch chi eu cynnwys yn yr enghreifftiau roeddech chi'n arfer eu hyfforddi. Bydd yn dweud wrthych beth y mae'n ei gydnabod, a pha mor hyderus ydyw yn hynny.",
+                    "SOUNDS": "Rhowch gynnig ar brofi'r model dysgu peiriant isod. Cliciwch y botwm 'Dechreuwch wrando'. Os yw'ch model dysgu peiriant yn cydnabod unrhyw synau, bydd yn dweud wrthych beth mae'n ei gydnabod, a pha mor hyderus ydyw yn hynny."
                 },
-                "SCRATCH" : "Os yw'n ymddangos bod y cyfrifiadur wedi dysgu adnabod pethau'n gywir, yna gallwch fynd i Scratch a defnyddio'r hyn y mae'r cyfrifiadur wedi'i ddysgu i wneud gêm!",
-                "ADDITIONAL_TRAINING" : {
-                    "MORE_EXAMPLES" : {
-                        "CROWDSOURCED" : "Os yw'r cyfrifiadur yn cael gormod o bethau'n anghywir, efallai y bydd eich dosbarth eisiau mynd yn ôl i'r dudalen <a href='{{ urls.train }}'>Hyfforddi</a> a chasglu mwy o enghreifftiau.",
-                        "INDIVIDUAL" : "Os yw'r cyfrifiadur yn cael gormod o bethau'n anghywir, efallai yr hoffech chi fynd yn ôl i'r dudalen <a href='{{ urls.train }}'>Hyfforddi</a> a chasglu mwy o enghreifftiau"
+                "SCRATCH": "Os yw'n ymddangos bod y cyfrifiadur wedi dysgu adnabod pethau'n gywir, yna gallwch fynd i Scratch a defnyddio'r hyn y mae'r cyfrifiadur wedi'i ddysgu i wneud gêm!",
+                "ADDITIONAL_TRAINING": {
+                    "MORE_EXAMPLES": {
+                        "CROWDSOURCED": "Os yw'r cyfrifiadur yn cael gormod o bethau'n anghywir, efallai y bydd eich dosbarth eisiau mynd yn ôl i'r dudalen <a href='{{ urls.train }}'>Hyfforddi</a> a chasglu mwy o enghreifftiau.",
+                        "INDIVIDUAL": "Os yw'r cyfrifiadur yn cael gormod o bethau'n anghywir, efallai yr hoffech chi fynd yn ôl i'r dudalen <a href='{{ urls.train }}'>Hyfforddi</a> a chasglu mwy o enghreifftiau"
                     },
-                    "RETRAIN" : {
-                        "YOU" : "Ar ôl i chi wneud hynny, cliciwch ar y botwm isod i hyfforddi model dysgu peiriant newydd a gweld pa wahaniaeth y bydd yr enghreifftiau ychwanegol yn ei wneud!",
-                        "CLASS" : "Ar ôl i chi wneud hynny, bydd angen i'ch athro hyfforddi model dysgu peiriant newydd."
+                    "RETRAIN": {
+                        "YOU": "Ar ôl i chi wneud hynny, cliciwch ar y botwm isod i hyfforddi model dysgu peiriant newydd a gweld pa wahaniaeth y bydd yr enghreifftiau ychwanegol yn ei wneud!",
+                        "CLASS": "Ar ôl i chi wneud hynny, bydd angen i'ch athro hyfforddi model dysgu peiriant newydd."
                     }
                 }
             }
@@ -600,7 +592,6 @@
             "CORRECT_ANSWER": "Mae hynny'n iawn!",
             "INCORRECT_ANSWER": "Na, mae'n ddrwg gennyf. Dangosir yr ateb cywir uchod.",
             "NEXT_QUESTION": "Cwestiwn nesaf",
-
             "QUESTION_1": {
                 "QUESTION": "Yn gyffredinol, beth fydd yn helpu peiriannau i ddysgu'n well?",
                 "ANSWER_1": "Mwy o enghreifftiau",
@@ -893,29 +884,21 @@
     },
     "PYTHON": {
         "TITLE": "Defnyddio dysgu peiriant yn Python",
-
         "NOTREADY": "Nid yw'ch prosiect yn barod i'w ddefnyddio yn Python eto.",
         "NOMODEL": "Nid ydych wedi hyfforddi model dysgu peiriant eto.",
-
         "NOSOUND": "Ni ellir defnyddio Python gyda phrosiectau synau.",
-
         "LAUNCH": "Rhedeg Python yn y porwr",
         "LOCAL": "Copi cod i'w redeg ar eich cyfrifiadur",
-
         "MODE": {
             "INTRO": "Ble hoffech chi ysgrifennu a rhedeg eich cod Python?",
             "BROWSER": "Gallwch chi wneud popeth yn y porwr gwe, sy'n golygu nad oes angen i chi boeni am osod neu sefydlu Python, neu unrhyw un o'r modiwlau Python trydydd parti y bydd eu hangen arnoch chi.",
             "LOCAL": "Neu gallwch chi gopïo'r cod i redeg ar eich cyfrifiadur eich hun. Mae hyn yn ddefnyddiol os oes ffeiliau lleol, neu ddyfeisiau fel gwe-gamera neu siaradwr, yr ydych am eu defnyddio yn eich rhaglen Python."
         },
-
         "APIKEY_INSTRUCTION": "Mae angen i chi <span class='strongemphasis'>ychwanegu eich allwedd API</span> i'r prosiect. Gwnewch hynny ar linell 6 y templed.",
         "APIKEY_WARNING": "Trin y cod hwn fel cyfrinair a gwnewch yn siŵr eich bod yn ei gadw'n gyfrinachol!",
-
         "REPLACE_THIS": "Amnewid hyn:",
         "WITH_THIS": "gyda hyn:",
-
         "UNCOMMENT": "Bydd angen i chi dynnu symbol # sylwad yn y templed i ddefnyddio'r ffwythiant.",
-
         "RECOGNIZE": {
             "INSTRUCTION": "Ceisiwch ddiweddaru'r enghraifft ar linell 28 o'r templed.",
             "TEXT": {
@@ -943,25 +926,18 @@
     },
     "APPINVENTOR": {
         "TITLE": "Defnyddio dysgu peiriant yn App Inventor",
-
         "LAUNCH_APPINVENTOR_BY_ITSELF": "(Gallwch ddefnyddio <a href='{{ url }}' class='btn btn-default' target='_blank'>App Inventor ar ben ei hun</a> os hoffech chi.)",
-
         "NOTREADY": "Nid yw'ch prosiect yn barod i'w ddefnyddio yn App Inventor eto.",
         "NOMODEL": "Nid ydych wedi hyfforddi model dysgu peiriant eto.",
-
         "LAUNCH": "Agor App Inventor"
     },
     "SCRATCH": {
         "TITLE": "Defnyddio dysgu peiriant yn Scratch",
-
         "NOTREADY": "Nid yw'ch prosiect yn barod i'w ddefnyddio yn Scratch eto.",
         "NOMODEL": "Nid ydych wedi hyfforddi model dysgu peiriant eto.",
-
         "LAUNCH": "Agor yn Scratch",
-
         "LAUNCH_SCRATCH_BY_ITSELF": "(Gallwch ddefnyddio <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch ar ben ei hunf</a> os hoffech chi.)",
         "GO_TO_LEARNANDTEST": "Neu ewch i'r dudalen <a href='{{ urls.learnandtest }}'>Dysgu a phrofi</a>am rai awgrymiadau ar beth i'w wneud nesaf.",
-
         "MORE_BLOCKS": "Bydd eich prosiect yn ychwanegu'r blociau hyn at y tab <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>Mwy o flociau</span> yn Sgriptiau.",
         "MORE_BLOCKS_3": "Bydd eich prosiect yn ychwanegu'r blociau hyn at Scratch.",
         "EXPLAIN_RECOGNISE_LABEL": "Rhowch {{ type }} yn y mewnbwn ar gyfer hyn, a bydd yn dychwelyd y label y mae eich model dysgu peiriant yn ei gydnabod fel.",
@@ -980,29 +956,23 @@
     },
     "SCRATCH3": {
         "TITLE": "Defnyddio dysgu peiriant yn Scratch 3",
-
         "LAUNCH": "Agor yn Scratch 3"
     },
     "WORKSHEETS": {
         "TITLE": "Prosiectau dysgu peiriant",
-
         "INTRO_1": "Mae'r prosiectau hyn yn ganllawiau cam wrth gam y gellir eu lawrlwytho, gydag esboniadau a sgrinluniau lliw i fyfyrwyr eu dilyn.",
         "INTRO_2": "Mae pob prosiect yn weithgaredd ar ei ben ei hun, a ysgrifennwyd i bara am wers sengl, a bydd yn tywys plant i greu gêm neu brosiect rhyngweithiol sy'n dangos defnydd yn y byd go iawn o ddeallusrwydd artiffisial a dysgu â pheiriant.",
         "INTRO_3": "Mae croeso mawr i awgrymiadau ar gyfer taflenni gwaith newydd, awgrymiadau o welliannau i unrhyw un o'r taflenni gwaith, neu gyfraniadau taflenni gwaith prosiect newydd.",
-
         "TYPES": {
             "TITLE": "Cydnabod:",
             "ALL": "Pob math o brosiect",
-
             "PREFIX": "Hyfforddwch gyfrifiadur i adnabod ",
-
             "TEXT": "testun",
             "IMAGES": "delweddau",
             "NUMBERS": "rhifau",
             "SOUNDS": "synau",
             "FACES": "gwynebau"
         },
-
         "LEVELS": {
             "TITLE": "Lefel:",
             "ALL": "Pob Lefel",
@@ -1010,9 +980,7 @@
             "INTERMEDIATE": "Prosiectau canolradd",
             "ADVANCED": "Prosiectau uwch"
         },
-
         "DOWNLOAD": "Lawrlwytho",
-
         "DOWNLOADS": {
             "AUDIENCE": {
                 "TEACHERS": "Ar gyfer athrawon:",
@@ -1032,33 +1000,28 @@
                 "DETAIL": "Bydd angen i chi hefyd ddarparu copi printiedig o'r ffeil hon i fyfyrwyr."
             }
         },
-
         "MAKETYPES": {
             "ALL": "Pob math o brosiect",
-
             "SCRATCH": "Prosiectau Scratch",
             "PYTHON": "Prosiectau Python",
             "APPINVENTOR": "Prosiectau App Inventor",
-
             "SCRATCH_WORKSHEET": "Taflen waith ar gyfer gwneud prosiect yn Scratch",
             "PYTHON_WORKSHEET": "Taflen waith ar gyfer gwneud prosiect yn Python",
             "APPINVENTOR_WORKSHEET": "Taflen waith ar gyfer gwneud prosiect yn App Inventor"
         },
-
         "NO_WORKSHEETS": {
             "NO_MATCHES": "Nid oes unrhyw daflenni gwaith prosiect sy'n cyd-fynd â'r hidlwyr hynny.",
             "MAKE_YOUR_OWN": "Fe allech chi addasu rhai o'r taflenni gwaith presennol neu lunio un newydd.",
             "CONTRIBUTE": "Os gwnewch hynny, ystyriwch <a href='https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions'>ei gyfrannu i eraill ei ddefnyddio</a>."
         },
-
-
         "DESCRIBETHEGLASS": {
             "TITLE": "Describe the glass",
             "SUMMARY": "Teach a computer to predict your answers",
             "DESCRIPTION": "Create a game in Scratch that learns when you describe a glass as half-full or half-empty.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-describetheglass.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-describetheglass.pdf"
         },
         "SMARTCLASSROOM": {
             "TITLE": "Ystafell Ddosbarth Clyfar",
@@ -1075,7 +1038,8 @@
             "WORKSHEET_3": {
                 "DESCRIPTION": "Fersiwn symlach gyflym o'r prosiect, yn ddelfrydol i'w ddefnyddio fel cyflwyniad cyntaf i'r offeryn",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-tryitnow.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-smartclassroom.pdf"
         },
         "MAKEMEHAPPY": {
             "TITLE": "Gwnewch Fi'n Hapus",
@@ -1092,7 +1056,8 @@
             "WORKSHEET_3": {
                 "DESCRIPTION": "Prosiect Python - ar gyfer gwneud y prosiect gan ddefnyddio Python",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-python.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-makemehappy.pdf"
         },
         "SNAP": {
             "TITLE": "Snap!",
@@ -1106,7 +1071,8 @@
                 "DESCRIPTION": "Fersiwn fyrrach o'r prosiect, gan roi cardiau wedi'u gwneud ymlaen llaw i blant y bydd angen i chi eu hargraffu, er mwyn arbed amser i'r myfyrwyr orfod eu gwneud",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap-easy.pdf",
                 "RESOURCES": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/resources-snap-easy.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-snap.pdf"
         },
         "CHAMELEON": {
             "TITLE": "Chameleon",
@@ -1114,7 +1080,8 @@
             "DESCRIPTION": "Gwnewch chameleon yn Scratch sy'n newid lliw i gyd-fynd â'i gefndir.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chameleon.pdf"
         },
         "MAILMANMAX": {
             "TITLE": "Postmon Max",
@@ -1122,7 +1089,8 @@
             "DESCRIPTION": "Gwnewch swyddfa didoli post yn Scratch a all adnabod codau post mewn llawysgrifen ar amlenni.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mailmanmax.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-mailmanmax.pdf"
         },
         "SHOOTTHEBUG": {
             "TITLE": "Shoot the bug",
@@ -1130,7 +1098,8 @@
             "DESCRIPTION": "Create a Breakout-style arcade game in Scratch that learns the angle to shoot balls at.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shootthebug.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shootthebug.pdf"
         },
         "CARORCUP": {
             "TITLE": "Car neu gwpan",
@@ -1143,7 +1112,8 @@
             "WORKSHEET_2": {
                 "DESCRIPTION": "Fersiwn grŵp o'r prosiect, lle mae myfyrwyr yn y dosbarth yn gweithio gyda'i gilydd i hyfforddi model dysgu peiriant a rennir",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup-crowd.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-carorcup.pdf"
         },
         "FACELOCK": {
             "TITLE": "Face Lock",
@@ -1151,7 +1121,8 @@
             "DESCRIPTION": "Gwnewch ffôn yn Scratch sy'n datgloi os yw'n adnabod eich wyneb.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facelock.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-facelock.pdf"
         },
         "JOURNEYTOSCHOOL": {
             "TITLE": "Taith i'r ysgol",
@@ -1159,7 +1130,8 @@
             "DESCRIPTION": "Hyfforddwch y cyfrifiadur i allu rhagweld sut rydych chi'n teithio i'r ysgol yn y bore.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-journeytoschool.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-journeytoschool.pdf"
         },
         "SHYPANDA": {
             "TITLE": "Panda Swil",
@@ -1167,7 +1139,8 @@
             "DESCRIPTION": "Gwnewch panda dawnsio sy'n mynd yn swil ac yn stopio dawnsio os yw'n eich gweld chi'n edrych.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shypanda.pdf"
         },
         "VIRTUALPET": {
             "TITLE": "Anifeiliaid Anwes Rhithwir",
@@ -1175,7 +1148,8 @@
             "DESCRIPTION": "Hyfforddwch y cyfrifiadur i gydnabod yr hyn rydych chi'n ei wneud er mwyn i chi allu gofalu am anifail anwes rhithwir.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-virtualpet.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-virtualpet.pdf"
         },
         "PACMAN": {
             "TITLE": "Pac-Man",
@@ -1183,7 +1157,8 @@
             "DESCRIPTION": "Creu gêm Pac-Man yn Scratch sy'n dysgu sut i osgoi'r ysbryd.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pacman.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-pacman.pdf"
         },
         "CHATBOTS": {
             "TITLE": "Chatbots",
@@ -1196,7 +1171,8 @@
             "WORKSHEET_2": {
                 "DESCRIPTION": "Prosiect Python - ar gyfer gwneud bot sgwrsio gan ddefnyddio Python",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots-python.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chatbots.pdf"
         },
         "TOURISTINFO": {
             "TITLE": "Gwybodaeth i Dwristiaid",
@@ -1204,7 +1180,8 @@
             "DESCRIPTION": "Creu ap symudol yn Scratch sy'n argymell atyniadau i dwristiaid yn seiliedig ar ddiddordebau pobl.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-touristinfo.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-touristinfo.pdf"
         },
         "SORTINGHAT": {
             "TITLE": "Het Sortio",
@@ -1217,7 +1194,8 @@
             "WORKSHEET_2": {
                 "DESCRIPTION": "Fersiwn grŵp o'r prosiect, lle mae myfyrwyr yn y dosbarth yn gweithio gyda'i gilydd i hyfforddi model dysgu peiriant a rennir",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat-crowd.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-sortinghat.pdf"
         },
         "ROCKPAPERSCISSORS": {
             "TITLE": "Carreg, Papur, Siswrn",
@@ -1225,7 +1203,8 @@
             "DESCRIPTION": "Gwneud gêm Carreg, Papur, Siswrn yn Scratch sy'n dysgu adnabod siapiau llaw.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-rockpaperscissors.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-rockpaperscissors.pdf"
         },
         "JUDGEABOOK": {
             "TITLE": "Beirniadu Llyfr",
@@ -1238,7 +1217,8 @@
             "WORKSHEET_2": {
                 "DESCRIPTION": "Fersiwn symlach o'r prosiect, lle mae plant yn cael y cyfrifiadur i adnabod llyfrau",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook.pdf"
         },
         "LOCATELARRY": {
             "TITLE": "Locate Larry",
@@ -1262,7 +1242,8 @@
             "DESCRIPTION": "Dysgwch am sut y gellir drysu cyfrifiaduron a gallant wneud camgymeriadau os ydynt wedi'u hyfforddi'n wael.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-fooled.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-fooled.pdf"
         },
         "SCHOOLLIBRARY": {
             "TITLE": "Llyfrgell yr Ysgol",
@@ -1270,7 +1251,8 @@
             "DESCRIPTION": "Creu llyfrgellydd ysgol yn Scratch sy'n awgrymu i bwy y gallai llyfr darllen fod yn addas.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-schoollibrary.pdf"
         },
         "WHATTWITTERTHINKS": {
             "TITLE": "Beth yw barn Twitter?",
@@ -1278,7 +1260,8 @@
             "DESCRIPTION": "Creu teclyn dadansoddi teimladau yn Scratch i ddadansoddi trafodaeth ar Twitter.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-whattwitterthinks.pdf"
         },
         "NOUGHTSANDCROSSES": {
             "TITLE": "Cylchoedd a Chroesau",
@@ -1295,7 +1278,8 @@
             "WORKSHEET_3": {
                 "DESCRIPTION": "Fersiwn arddangos, ar gyfer digwyddiadau fel Ffeiriau Gwyddoniaeth lle mae gan bob plentyn funud neu ddwy i roi cynnig ar rywbeth",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-event.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-noughtsandcrosses.pdf"
         },
         "TOPTRUMPS": {
             "TITLE": "Top Trumps",
@@ -1303,7 +1287,8 @@
             "DESCRIPTION": "Hyfforddwch gyfrifiadur i allu chwarae'r gêm gardiau Top Trumps yn Scratch.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-toptrumps.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-toptrumps.pdf"
         },
         "HEADLINES": {
             "TITLE": "Penawdau",
@@ -1319,7 +1304,8 @@
             "DESCRIPTION": "Hyfforddi cyfrifiadur i adnabod penawdau papurau newydd cenedlaethol.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-easy.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines-easy.pdf"
         },
         "HEADLINETESTING": {
             "TITLE": "Profi pennawd",
@@ -1327,7 +1313,8 @@
             "DESCRIPTION": "Creu teclyn profi yn Scratch i fesur pa mor dda yw model dysgu peiriant.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines.pdf"
         },
         "FINDIT": {
             "TITLE": "Dewch o Hyd iddo!",
@@ -1335,7 +1322,8 @@
             "DESCRIPTION": "Gwnewch gêm cuddio ar gyfer eich ffôn symudol.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-findit.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-findit.pdf"
         },
         "ALIENLANGUAGE": {
             "TITLE": "Iaith Estron",
@@ -1343,7 +1331,8 @@
             "DESCRIPTION": "Gwnewch estron yn Scratch sy'n dysgu adnabod iaith estron.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-alienlanguage.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-alienlanguage.pdf"
         },
         "SECRETCODE": {
             "TITLE": "Cod Cyfrinachol",
@@ -1351,7 +1340,8 @@
             "DESCRIPTION": "Hyfforddwch gyfrifiadur i ddeall geiriau cod cyfrinachol i arwain ysbïwr.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-secretcode.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-secretcode.pdf"
         },
         "JARGONBUSTER": {
             "TITLE": "Datrysydd Jargon",
@@ -1359,7 +1349,8 @@
             "DESCRIPTION": "Gwnewch brosiect yn Scratch sy'n dangos ystyr geiriau rydych chi'n eu dweud.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-jargonbuster.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-jargonbuster.pdf"
         },
         "TITANIC": {
             "TITLE": "Titanic",
@@ -1367,7 +1358,8 @@
             "DESCRIPTION": "Creu rhaglen Python a all ragweld pwy oroesodd suddo'r Titanic.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-titanic.pdf"
         },
         "ZOMBIEESCAPE": {
             "TITLE": "Dianc o Zombie!",
@@ -1375,7 +1367,8 @@
             "DESCRIPTION": "Hyfforddwch gyfrifiadur i'ch helpu chi i ddianc o'r horde zombie.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-zombieescape.pdf"
         },
         "PHISHING": {
             "TITLE": "Gwe-rwydo",
@@ -1383,7 +1376,8 @@
             "DESCRIPTION": "Creu rhaglen Python a all ragweld a yw URL yn gyfreithlon.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-phishing.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-phishing.pdf"
         },
         "KIWIORSTOAT": {
             "TITLE": "Kiwi neu Stoat",
@@ -1399,7 +1393,8 @@
             "DESCRIPTION": "Ail-greu prosiect ymchwil MIT a dysgu am sut mae systemau AI yn cael eu disgrifio yn y newyddion.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-inkblots.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-inkblots.pdf"
         },
         "FACEFINDER": {
             "TITLE": "Gweld Gwynebau",
@@ -1407,7 +1402,8 @@
             "DESCRIPTION": "Gwnewch hidlydd fideo yn Scratch i droi eich wyneb yn gartwn.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facefinder.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-facefinder.pdf"
         },
         "EMOJIMASK": {
             "TITLE": "Mwgwd Emoji",
@@ -1415,7 +1411,8 @@
             "DESCRIPTION": "Gwnewch hidlydd fideo yn Scratch i ychwanegu mwgwd emoji i'ch wyneb.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-emojimask.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-emojimask.pdf"
         },
         "LASEREYES": {
             "TITLE": "Llygaid Laser",
@@ -1423,7 +1420,8 @@
             "DESCRIPTION": "Gwnewch gêm llygaid laser wedi'i actifadu gan lais yn Scratch.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-lasereyes.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-lasereyes.pdf"
         },
         "SEMAPHORES": {
             "TITLE": "Semaphores",
@@ -1431,13 +1429,13 @@
             "DESCRIPTION": "Gwnewch gêm semaphores wedi'i actifadu gan lais rydych chi'n ei chwarae trwy symud eich breichiau.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-semaphores.pdf"
-            }
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-semaphores.pdf"
         }
     },
     "TEACHER": {
         "MENU": {
             "TITLE": "Gweinyddiaeth",
-
             "RESTRICTIONS": {
                 "TITLE": "Cyfyngiadau",
                 "DESCRIPTION": "Adolygu'r cyfyngiadau a'r cyfyngiadau sy'n berthnasol i'ch dosbarth"
@@ -1456,82 +1454,60 @@
                 "TITLE": "Goruchwyliaeth",
                 "DESCRIPTION": "Adolygwch brosiectau y mae eich myfyrwyr wedi'u creu"
             },
-
             "ADVANCEDOPTIONS": "Opsiynau uwch",
-
             "DELETECLASS": {
                 "TITLE": "Dileu dosbarth",
                 "DESCRIPTION": "Bydd hyn yn dileu'r cyfrifon i chi a phob un o'r myfyrwyr yn eich dosbarth"
             },
-
             "CANYOUHELP": {
                 "TITLE": "Gallwch chi helpu?",
                 "DESCRIPTION": "Rhannwch eich profiadau a'ch syniadau ar sut i wella'r offeryn"
             },
-
             "NOTAUTHORISED": "Nid oes gennych awdurdod i gyrchu'r dudalen athro ar gyfer eich dosbarth."
         },
         "APIKEYS": {
             "TITLE": "Gweinyddiaeth: Allweddi API IBM Watson",
-
             "ADDNEWCREDENTIALS": "Ychwanegwch gymwysterau newydd",
             "ADDAPIKEY": "Ychwanegu allwedd API newydd",
             "REMOVE": "Tynnu",
             "VERIFY": "Gwirio",
-
             "LITE_30_DAYS_EXPIRE": "Gall IBM Cloud ddadactifadu allweddi API cynllun 'Lite' Watson os nad ydyn nhw'n cael eu defnyddio am 30 diwrnod",
             "TRIAL_30_DAYS_EXPIRE": "Gall IBM Cloud ddadactifadu allweddi API cynllun treialu Watson ar ôl 30 diwrnod",
-
             "NO_TEXT_CREDENTIALS": "Nid oes gennych unrhyw gymwysterau Assistant. <br/> Mae hyn yn golygu na fydd yn bosibl hyfforddi modelau ar gyfer prosiectau <strong>testun</strong>.",
             "NO_IMAGE_CREDENTIALS": "Nid oes gennych unrhyw allweddi API Visual Recognition. <br/> Mae hyn yn golygu na fydd yn bosibl hyfforddi modelau ar gyfer prosiectau <strong>delweddau</strong>.",
-
             "LINK_TO_APIKEYS_GUIDE": "Os nad ydych yn siŵr ble i'w cael, lawrlwythwch y <a href='/apikeys-guide'> canllaw cam wrth gam </a>",
-
             "NOTAUTHORISED": "Nid oes gennych awdurdod i gael mynediad at yr allweddi API Watson a ddefnyddir gan eich dosbarth.",
             "MANAGEDCLASS": "Mae Allweddi API a ddefnyddir gan eich dosbarth yn cael eu rheoli ar eich rhan.",
-
             "HELP_STEPBYSTEP_GUIDE": "Os nad ydych yn siŵr beth i'w wneud yma, dilynwch y <a href='/apikeys-guide'> canllaw cam wrth gam </a>. Os hoffech chi unrhyw help, os gwelwch yn dda <strong><a style='cursor: pointer;' href='/help'>cysylltwch</a></strong>.",
-
             "INTRO_WATSONASSISTANT": "Mae hyfforddi modelau dysgu peiriant ar gyfer prosiectau <span class='mlprojecttype'>testun</span> yn defnyddio <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a>",
             "INTRO_VISUALRECOGNITION": "Mae hyfforddi modelau dysgu peiriant ar gyfer prosiectau <span class='mlprojecttype'>delweddau</span> yn defnyddio <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
             "INTRO_NUMBERS": "<strong>Nid</strong> oes angen allweddi API ar gyfer hyfforddi modelau dysgu peiriant ar gyfer prosiectau <span class='mlprojecttype'>rhifau</span>",
             "INTRO_SOUNDS": "<strong>Nid</strong> oes angen allweddi API ar gyfer hyfforddi modelau dysgu peiriant ar gyfer prosiectau <span class='mlprojecttype'>sain</span> ",
-
             "ERROR_FETCHING_WATSONASSISTANT": "Wedi methu cael eich cyfrineiriau Watson Assistant",
             "ERROR_FETCHING_VISUALRECOG": "Wedi methu cael eich bysellau API Visual Recognition",
-
             "USERNAME": "Enw defnyddiwr",
             "PASSWORD": "Cyfrinair",
             "APIKEY": "Allwedd API ",
-
             "NUMBER_OF_ML_MODELS": "Nifer y modelau DP",
             "UNKNOWN": "anhysbys",
             "UNLIMITED": "diderfyn",
-
             "LIMIT_TEXT_PROJECTS": "Nifer y modelau dysgu peiriant testun y gall eich myfyrwyr eu cael:",
             "LIMIT_IMAGE_PROJECTS": "Nifer y modelau dysgu peiriant delweddau y gall eich myfyrwyr eu cael:",
-
             "ADD_API_KEYS": {
                 "ASSISTANT_TITLE": "Ychwanegu cymwysterau Watson Assistant",
                 "VISUAL_RECOGNITION_TITLE": "Ychwanegu allwedd API Visual Recognition",
-
                 "USED_FOR_TEXT_PROJECTS": "Defnyddir y rhain pan fydd eich myfyrwyr yn hyfforddi modelau mewn prosiectau testun.",
                 "USED_FOR_IMAGE_PROJECTS": "Defnyddir y rhain pan fydd eich myfyrwyr yn hyfforddi modelau mewn prosiectau delweddau.",
-
                 "HIDDEN_FROM_STUDENTS": "Ni fydd hyn yn cael ei ddangos i fyfyrwyr yn eich grŵp.",
-
                 "PRICING_PLAN": "Pa Gynllun Prisio wnaethoch chi ei ddefnyddio?",
                 "ENTER_APIKEY": "Rhowch yr allwedd API isod",
                 "ENTER_PASSWORD": "Rhowch yr enw defnyddiwr a'r cyfrinair isod",
-
                 "CREDENTIALS_TYPE": "Beth wnaethoch chi ei greu yn Watson Assistant?"
             }
         },
         "RESTRICTIONS": {
             "TITLE": "Gweinyddiaeth: Cyfyngiadau",
-
             "ASK_FOR_CHANGES": "Os yw unrhyw un o'r cyfyngiadau hyn yn achosi problem i'ch grŵp, os gwelwch yn dda <strong><a href='/help'>cysylltwch</a></strong>.",
-
             "CLASS_LIMITS": {
                 "TITLE": "Terfynau ar gyfer eich dosbarth",
                 "NUM_USERS": "Gallwch chi gael hyd at <span class='mlprojecttype'>{{ num }}</span> defnyddiwr (gan gynnwys myfyrwyr ac athrawon) yn eich grŵp.",
@@ -1549,58 +1525,45 @@
                 "TIME_LIMIT": "Bydd modelau dysgu peiriant wedi'u creu ar gyfer prosiectau <span class='mlprojecttype'>{{ type }}</span> yn cael ei dileu yn awtomatig ar ôl <span class='mlprojecttype'>{{ num }}</span> awr.",
                 "DONT_WORRY": "(Peidiwch â phoeni! Ni fydd data hyfforddi yn cael ei ddileu, felly gall myfyrwyr bob amser hyfforddi model dysgu peiriant newydd eto os ydyn nhw ei angen o hyd ar ôl hyn.)"
             },
-
             "NOT_AUTHORIZED": "Nid oes gennych awdurdod i gael mynediad at y cyfyngiadau sydd ar waith ar gyfer eich dosbarth."
         },
         "SUPERVISION": {
             "TITLE": "Gweinyddiaeth: Prosiectau myfyrwyr",
-
             "INTRO_1": "Mae'r dudalen hon yn dangos rhestr o'r holl brosiectau sydd gan eich dosbarth ar hyn o bryd. Gallwch ei ddefnyddio i adolygu'r hyn maen nhw'n gweithio arno.",
             "INTRO_2": "Os ydych chi wedi cyrraedd y terfyn ar gyfer nifer y modelau dysgu peiriant y gall eich dosbarth eu creu, gallwch ddefnyddio hwn i weld pa brosiectau sydd â model dysgu peiriant ar hyn o bryd, a dileu unrhyw rai nad ydych chi eu hangen mwyach.",
-
             "NO_PROJECTS_1": "Nid oes gan unrhyw un o'r myfyrwyr yn eich dosbarth unrhyw brosiectau ar hyn o bryd.",
             "NO_PROJECTS_2": "Unwaith y bydd eich myfyrwyr yn dechrau creu prosiectau, dewch yn ôl yma i weld trosolwg o'u gwaith.",
-
             "NAME": "Enw",
             "TYPE": "Math",
             "STUDENT": "Myfyriwr",
             "MODELS": "Modelau DP",
-
             "DELETE": "Cliciwch yr eicon i'w ddileu",
-
             "NOT_AUTHORIZED": "Nid oes gennych awdurdod i gyrchu'r rhestr o brosiectau ar gyfer pob myfyriwr yn eich dosbarth."
         },
         "STUDENTMANAGEMENT": {
             "TITLE": "Gweinyddiaeth: Rheoli myfyrwyr",
-
             "CREATE_FIRST_STUDENT": "Cliciwch ar fotwm 'plws' ar y dde i greu'r myfyriwr cyntaf",
             "ADD": "Ychwanegu myfyriwr newydd",
             "NEW_USERNAME": "Dewiswch enw defnyddiwr unigryw",
             "ALPHANUMERIC": "Defnyddiwch lythrennau a rhifau yn unig",
-
             "NOT_LOGGED_IN": "Heb fewngofnodi eto",
-
             "RESET_PASSWORD": "Ailosod cyfrinair",
             "RESET_ALL_PASSWORDS": "Ailosod cyfrinair ar gyfer pob myfyriwr",
-
             "DELETE_STUDENT": "Dileu cyfrif myfyriwr",
-
             "NOT_AUTHORIZED": "Nid oes gennych awdurdod i gyrchu'r rhestr o fyfyrwyr yn eich dosbarth.",
-
             "ADD_MULTIPLE": {
-                "BUTTON" : "Myfyrwyr lluosog",
-
-                "TITLE" : "Ychwanegwch fyfyrwyr newydd",
-                "INTRO" : "Gallwch ddefnyddio hwn i greu mwy nag un cyfrif myfyriwr ar yr un pryd.",
-                "USERNAME" : "Beth ydych chi am i bob enw defnyddiwr ddechrau?",
-                "USERNAME_REQUIRED" : "Dewiswch y rhagddodiad ar gyfer yr enwau defnyddwyr",
-                "USERNAME_TOOLONG" : "Mae hynny'n rhy hir",
-                "USERNAME_INVALID" : "Symbolau annilys",
-                "NUMBER" : "Faint o gyfrifon myfyrwyr ydych chi eu heisiau?",
-                "NUMBER_REQUIRED" : "Rhowch nifer y myfyrwyr i'w creu",
-                "NUMBER_TOOMANY" : "Mae gan eich dosbarth derfyn o {{userslimit}} myfyriwr.",
-                "PASSWORD" : "Y cyfrinair i'w roi iddyn nhw:",
-                "PASSWORD_TOOSHORT" : "Rhy fyr"
+                "BUTTON": "Myfyrwyr lluosog",
+                "TITLE": "Ychwanegwch fyfyrwyr newydd",
+                "INTRO": "Gallwch ddefnyddio hwn i greu mwy nag un cyfrif myfyriwr ar yr un pryd.",
+                "USERNAME": "Beth ydych chi am i bob enw defnyddiwr ddechrau?",
+                "USERNAME_REQUIRED": "Dewiswch y rhagddodiad ar gyfer yr enwau defnyddwyr",
+                "USERNAME_TOOLONG": "Mae hynny'n rhy hir",
+                "USERNAME_INVALID": "Symbolau annilys",
+                "NUMBER": "Faint o gyfrifon myfyrwyr ydych chi eu heisiau?",
+                "NUMBER_REQUIRED": "Rhowch nifer y myfyrwyr i'w creu",
+                "NUMBER_TOOMANY": "Mae gan eich dosbarth derfyn o {{userslimit}} myfyriwr.",
+                "PASSWORD": "Y cyfrinair i'w roi iddyn nhw:",
+                "PASSWORD_TOOSHORT": "Rhy fyr"
             }
         }
     },
@@ -1662,10 +1625,8 @@
             "INTRO2": "Mae'r rhestr isod yn cynnwys y cwestiynau a'r materion y clywaf amdanynt amlaf. Os gwelwch rywbeth sy'n edrych yn debyg i'ch problem, cliciwch ar y crynodeb i gael mwy o wybodaeth.",
             "INTRO3": "Os ydych chi'n dal i fod yn sownd, neu os ydych chi wedi dod i broblem nad ydw i wedi'i chynnwys ar y rhestr, mae'n ddrwg gen i! <a href='https://groups.google.com/d/forum/mlforkids'>Gofynnwch gwestiwn yn y mlforkids Google Group</a> er mwyn i mi allu helpu."
         },
-
         "PROJECTS": {
             "TITLE": "Project questions",
-
             "Q1": "What is the difference between \"images\" and \"images <span class='mltinybadge badge'>beta</span>\" projects?",
             "Q1-A-1": "These can both be used to create the same sort of machine learning projects. The difference is where the models are created and stored.",
             "Q1-A-2": "In \"<strong>images</strong>\" projects, machine learning models are trained on cloud servers using an online service called Watson Visual Recognition.",
@@ -1681,61 +1642,48 @@
             "Q1-A-12": "Models do not need to be automatically deleted.",
             "Q1-A-13": "But, it can only be used for Scratch projects, and requires the student to be using a reasonably fast computer.",
             "Q1-A-14": "Training in the browser is described as a beta because it is a new feature on the site, and may still have problems with some operating systems or web browsers. If you encounter errors, please report these in <a href='https://groups.google.com/d/forum/mlforkids'>the ML for Kids forum</a>.",
-
             "Q2": "How can you change an \"images\" project to be an \"images <span class='mltinybadge badge'>beta</span>\" project (and vice versa)?",
             "Q2-A-1": "You can change between the two modes from the \"Learn & Test\" page for your project.",
             "Q2-A-2": "The link to do this is in top-right of the page.",
             "Q2-A-3": "Any existing machine learning models for the project will be deleted if this is done.",
             "Q2-A-4": "The Scratch blocks for image projects work differently for the two different modes, so if you have a Scratch window open when you do this, you will need to refresh the page so that the Scratch extension can be updated."
         },
-
         "SCRATCH": {
             "TITLE": "Problemau Scratch",
-
             "Q1": "Nid wyf yn gwybod sut i gael Scratch 2 i weithio",
             "Q1-A-1": "Mae angen Adobe Flash ar yr hen fersiwn o Scratch, Scratch 2, felly mae'n rhaid i chi fod yn defnyddio system weithredu a porwr gwe a all weithio gyda Flash.",
             "Q1-A-2": "Os nad ydych yn siŵr sut i alluogi Flash, gallwch            <a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>lawrlwytho dogfen gyda rhai awgrymiadau ar gyfer cael Scratch i weithio</a>. Neu gallwch ddefnyddio'r fersiwn newydd o Scratch, Scratch 3, yn lle.",
-
             "Q2": "Nid yw'r dewislenni \"Llwytho Prosiect\" a \"Cadw Prosiect\" yn Scratch yn gweithio",
             "Q2-A-1": "Os ydych chi'n defnyddio Safari ar macOS a nid yw'r dewislenni \"Ffeil -&gt; Llwytho Prosiect\" a \"Ffeil -&gt; Cadw Prosiect\" yn gweithio, efallai eich bod yn rhedeg yn Safe Mode.",
             "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>Dilynwch y cyfarwyddiadau yma</a> am sut i wirio a thrwsio hyn.",
-
             "Q3": "Stopiodd blociau dosbarthwyr dysgu peiriant yn Scratch 2 weithio",
             "Q3-A-1": "Weithiau, gall y blociau Scratch ar gyfer eich model dysgu peiriant golli'r cysylltiad â'r gweinydd. Pan fydd hyn yn digwydd, byddant yn rhoi'r gorau i ddychwelyd canlyniadau.",
             "Q3-A-2": "Gallwch wirio a yw hyn wedi digwydd gan ddefnyddio'r golau statws lliw yn y palet \"Mwy o flociau\".",
             "Q3-A-3": "Os yw'r golau statws wrth ymyl eich peiriant yn dysgu blociau Scratch yn goch, mae hynny fel arfer yn golygu bod rhywbeth o'i le. Efallai ei bod yn broblem dros dro. Ceisiwch arbed eich prosiect (gan ddefnyddio 'Ffeil' -&gt; 'Cadw Prosiect'), yna adnewyddwch dudalen y porwr. Os yw'r golau statws yn mynd yn wyrdd ar ôl i'r dudalen ail-lwytho, gallwch chi lwytho'ch prosiect (gan ddefnyddio 'Ffeil' -&gt; 'Llwytho Prosiect') i barhau o le wnaethoch chi adael.",
             "Q3-A-4": "Os yw'r golau statws yn dal yn goch ar ôl ail-lwytho'r dudalen, yna mae'n debyg bod rhywbeth o'i le ar y model dysgu peiriant. Ceisiwch fynd i'r dudalen \"Dysgu a Phrofi\" ar gyfer y prosiect, a dyna lle gellir dod o hyd i unrhyw negeseuon gwall am eich model.",
             "Q3-A-5": "Os yw'r golau statws wrth ymyl eich peiriant yn dysgu blociau Scratch yn wyrdd, yna dylai'r blociau fod yn gweithio. Os nad ydych chi'n cael yr ymatebion rydych chi'n eu disgwyl ganddyn nhw, ceisiwch fynd i'r dudalen \"Dysgu a Phrofi\" a gwirio pa ganlyniadau y mae eich model yn eu dychwelyd.",
-
             "Q5": "A allaf ddefnyddio unrhyw fersiwn o Scratch?",
             "Q5-A-1": "Mae angen i chi ddefnyddio'r fersiynau o Scratch a ddarperir gan y wefan Machine Learning for Kids. Gellir eu lansio trwy glicio ar y botymau Scratch, neu 'Scratch 3', o'ch tudalen prosiect.",
-
             "Q6": "Nid yw Scratch 3 ond yn arbed prosiectau i'r ffolder 'Lawrlwytho'",
             "Q6-A-1": "Pan gliciwch 'Ffeil' -> 'Cadw i'ch cyfrifiadur' yn Scratch 3, arbedir eich prosiect Scratch i'ch cyfrifiadur.",
             "Q6-A-2": "Adroddodd rhai athrawon am broblem bod hyn wedi'i harbed i'r ffolder Lawrlwytho, ar gyfrifiadur lle nad oes gan fyfyrwyr fynediad yn Windows i'r ffolder Lawrlwytho. Canlyniad hyn oedd nad oedd myfyrwyr yn gallu cyrchu eu prosiectau a arbedwyd.",
             "Q6-A-3": "Os oes gennych y broblem hon, mae angen ichi edrych yn eich gosodiadau porwr gwe am osodiad fel 'Gofynnwch ble i arbed pob ffeil cyn ei lawrlwytho'. Os ydych chi'n galluogi hynny, bydd eich myfyrwyr yn gallu dewis ble mae eu prosiectau'n cael eu cadw."
         },
-
         "TRAININGUI": {
             "TITLE": "Problemau UI Hyfforddi",
-
             "Q1": "Nid yw llusgo delweddau i fwcedi hyfforddi (ar gyfer prosiectau delwedd) yn gweithio",
             "Q1-A-1": "Nid yw llusgo delweddau i'r bwcedi hyfforddi yn gweithio os ydych chi'n defnyddio Internet Explorer.",
             "Q1-A-2": "Mae'n ddrwg gennym am hyn. Os gallwch ddefnyddio porwr arall fel Firefox neu Chrome, gwnewch hynny. Fel arall, gallwch glicio ar y botwm \"www\" a gludo yn yr URL o luniau hyfforddi yn lle."
         },
-
         "MODELS": {
             "TITLE": "Modelau dysgu peiriant hyfforddi gwallau",
-
             "Q1": "\"Nid oes unrhyw gymwysterau Watson wedi'u sefydlu\"",
             "Q1-A-1": "Mae modelau dysgu peiriant yn yr offeryn yn cael eu creu gan ddefnyddio APIs IBM Watson.",
             "Q1-A-2": "Os oes gennych gyfrif dosbarth \"heb ei reoli\", yna bydd angen i'ch athro neu arweinydd grŵp ddarparu tystlythyrau API Watson gan IBM Cloud er mwyn i hyn weithio. Mae cyfarwyddiadau cam wrth gam ar sut y gallant wneud hyn yn y ddogfen \"Dechrau Arni\" ar frig y dudalen hon.",
-
             "Q2": "\"Gwrthodwyd tystlythyrau Watson sy'n cael eu defnyddio gan eich dosbarth\"",
             "Q2-A-1": "Mae modelau dysgu peiriant yn yr offeryn yn cael eu creu gan ddefnyddio APIs IBM Watson.",
             "Q2-A-2": "Os oes gennych gyfrif dosbarth \"heb ei reoli\", yna bydd eich athro neu arweinydd grŵp wedi darparu tystlythyrau API Watson gan IBM Cloud i hyn weithio (fel y disgrifir yn y ddogfen \"Dechrau Arni\" ar frig y dudalen hon) .",
             "Q2-A-3": "Fodd bynnag, nid yw'r tystlythyrau a ddarparwyd yn gweithio ar hyn o bryd. Y rheswm mwyaf tebygol yw bod y tystlythyrau wedi'u dileu o IBM Cloud ers iddynt gael eu darparu'n wreiddiol. Os nad yw hynny'n wir, mae angen i'r athro neu'r arweinydd grŵp a ddarparodd gymwysterau Watson fynd yn ôl i ddangosfwrdd IBM Cloud i wirio statws y  Watson Assistant neu'r gwasanaeth Visual Recognition a grewyd ganddynt.",
-
             "Q3": "\"Nid oes mwy o leoedd gwaith ar gael yn allweddi API Watson Assistant\"",
             "Q3-A-1": "Mae modelau dysgu peiriant yn yr offeryn yn cael eu creu gan ddefnyddio APIs IBM Watson.",
             "Q3-A-2": "Mae gan gymwysterau Watson Assistant a grëwyd gan athrawon gyfyngiad ar nifer y modelau dysgu peiriant y gellir eu defnyddio i'w creu. Mae hyn yn cael ei arddangos yn UI IBM Cloud lle crëwyd y tystlythyrau, lle maen nhw'n cael eu galw'n \"workspaces\".",
@@ -1744,7 +1692,6 @@
             "Q3-A-5": "Os yw myfyriwr sydd â model wedi'i hyfforddi'n llwyddiannus yna'n dileu ei fodel, bydd hyn yn rhyddhau man gwaith i'w ddefnyddio gan fyfyriwr arall.",
             "Q3-A-6": "Un ffordd o osgoi'r gwall hwn yn y dyfodol fyddai maint dosbarthiadau llai. Os oes llai o fyfyrwyr na nifer y lleoedd gwaith a gefnogir gan gymwysterau Cynorthwyol Watson, yna ni fydd y terfynau'n cael eu taro.",
             "Q3-A-7": "Ffordd arall o osgoi'r gwall hwn yw ychwanegu allweddi API Watson Assistant ychwanegol i'r dosbarth, neu ddefnyddio \"plan\" Watson Assistant sydd â therfynau uwch.",
-
             "Q4": "\"Nid oes gan allweddi API Watson Visual Assistant fwy o ddosbarthwyr ar gael\"",
             "Q4-A-1": "Mae modelau dysgu peiriant yn yr offeryn yn cael eu creu gan ddefnyddio APIs IBM Watson.",
             "Q4-A-2": "Mae gan gymwysterau Watson Visual Assistant a grëwyd gan athrawon gyfyngiad ar nifer y modelau dysgu peiriant y gellir eu defnyddio i'w creu. Mae hyn yn cael ei arddangos yn UI IBM Cloud lle cafodd y tystlythyrau eu creu, lle maen nhw'n cael eu galw'n \"custom classifiers\".",
@@ -1753,7 +1700,6 @@
             "Q4-A-5": "Os yw myfyriwr sydd â model wedi'i hyfforddi'n llwyddiannus yna'n dileu ei fodel, bydd hyn yn rhyddhau dosbarthwr personol i'w ddefnyddio gan fyfyriwr arall.",
             "Q4-A-6": "Un ffordd o osgoi'r gwall hwn yn y dyfodol fyddai maint dosbarthiadau llai. Os oes llai o fyfyrwyr na nifer y dosbarthwyr arfer a gefnogir gan gymwysterau Watson Visual Recognition, yna ni fydd y terfynau'n cael eu cyrraedd.",
             "Q4-A-7": "Ffordd arall o osgoi'r gwall hwn yw ychwanegu allweddi API Watson Visual Recognition ychwanegol i'r dosbarth, neu ddefnyddio \"plan\" Watson Visual Recognition sydd â therfynau uwch.",
-
             "Q5": "\"Ar hyn o bryd mae Watson ... yn cyfyngu ar eu allweddi API\"",
             "Q5-A-1": "Mae modelau dysgu peiriant yn yr offeryn yn cael eu creu gan ddefnyddio APIs IBM Watson.",
             "Q5-A-2": "Os oes gennych gyfrif dosbarth \"heb ei reoli\", yna bydd angen i'ch athro neu arweinydd grŵp ddarparu tystlythyrau API Watson gan IBM Cloud er mwyn i hyn weithio.",
@@ -1762,13 +1708,11 @@
             "Q5-A-5": "Mae eich dosbarth yn gwneud gormod o geisiadau i greu modelau dysgu peiriant ar gyfradd rhy gyflym. Arhoswch nawr a gadewch i'ch athro neu arweinydd grŵp wybod bod \"gwasanaeth Watson Assistant ar hyn o bryd yn cyfyngu ar ei allwedd API \"",
             "Q5-A-6": "Nid yw'r cyfyngiad cyfradd yn cael ei gymhwyso gan, neu o dan reolaeth, y safle Dysgu Peiriant i Blant. Mae'n dros dro fel arfer, ac mae'n well ei ddatrys trwy aros am gyfnod byr.",
             "Q5-A-7": "Os yw myfyrwyr yn clicio ar y botwm \"Hyfforddi model Dysgu Peiriant newydd\" ac yn sicrhau nad oes gwallau \"mwy o leoedd gwaith ar gael\" neu \"dim mwy o ddosbarthwyr ar gael\" (fel y disgrifir uchod), yna dylent fod yn ymwybodol eu bod yn clicio dro ar ôl tro ni fydd y botwm yn datrys y mater, a bydd mewn gwirionedd yn gwaethygu'r sefyllfa i weddill y dosbarth. ",
-
             "Q6": "Rydw i wedi bod yn aros am fodel i hyfforddi ers oesoedd!",
             "Q6-A-1": "Ceisiwch adnewyddu'r dudalen.",
             "Q6-A-2": "Dylai'r dudalen wirio statws y model dysgu peiriant bob 30 eiliad, ond yn achlysurol iawn mae'n stopio gwirio, felly efallai eich bod chi'n aros am y model pan fydd yn barod ar eich cyfer chi mewn gwirionedd.",
             "Q6-A-3": "Os yw wedi bod yn fwy nag ychydig funudau, mae'n werth gwirio trwy adnewyddu / ail-lwytho'r dudalen.",
             "Q6-A-4": "Os yw wedi bod yn fwy na deng munud, efallai y byddai'n werth ystyried ailgychwyn (cliciwch y botwm Canslo ac yna cliciwch y botwm i hyfforddi model dysgu peiriant newydd eto).",
-
             "Q7": "\"Mae eich dosbarth yn rhannu allweddi API Watson ... nid oes unrhyw rai ar gael ar hyn o bryd\"",
             "Q7-A-1": "Mae modelau dysgu peiriant yn yr offeryn yn cael eu creu gan ddefnyddio APIs IBM Watson.",
             "Q7-A-2": "Os oes gennych gyfrif dosbarth \"wedi'i reoli\", mae hyn yn golygu bod eich dosbarth yn rhannu'r allweddi hyn â llawer o ysgolion eraill. ",
@@ -1778,17 +1722,14 @@
             "Q7-A-6": "Y peth gorau i'w wneud yw rhoi cynnig arall arni yn nes ymlaen, ar ôl i fyfyrwyr eraill ddileu eu modelau dysgu peiriant ac mae allweddi API ar gael eto. Bydd eich data hyfforddi yn dal i fod yn ddiogel tan hynny.",
             "Q7-A-7": "Ffordd arall o osgoi'r gwall hwn yw i'ch dosbarth greu cyfrif dosbarth \"heb ei reoli\", a dyna lle mae athro'n creu eu \"allweddi API\" Watson eu hunain y gellir eu dynodi i'w defnyddio gan eu dosbarth eu hunain yn unig."
         },
-
         "TEACHERUI": {
             "TITLE": "Problemau UI Athro / Gweinyddol",
-
             "Q2": "Cyfrif myfyriwr ar goll o'r rhestr ar dudalen yr athro",
             "Q2-A-1": "Gweithredir rheolaeth defnyddwyr ar gyfer Dysgu Peiriant i Blant gan ddefnyddio'r gwasanaeth trydydd parti, <a href=\"https://auth0.com/\">Auth0</a>.",
             "Q2-A-2": "Weithiau, gall y rhestr o fyfyrwyr y mae Auth0 yn ei dychwelyd fynd yn hen, a methu ag adlewyrchu myfyrwyr a gafodd eu creu yn ddiweddar (neu yn yr un modd, yn dal i ddangos myfyrwyr sydd wedi'u dileu yn ddiweddar).",
             "Q2-A-3": "Yn yr achosion hyn, mae'r myfyrwyr fel arfer wedi cael eu creu (neu eu dileu) yn llwyddiannus a dim ond nad yw'r rhestr o fyfyrwyr sy'n cael eu harddangos yn adlewyrchu'r diweddariadau diweddar.",
             "Q2-A-4": "Bydd Auth0 fel arfer yn riportio digwyddiadau o'r fath ar eu tudalen statws fel <a href='https://status.auth0.com/incidents/0sk1d3hjlw0m'>oedi indecsio defnyddwyr</a> neu <a href='https://status.auth0.com/incidents/t8995b9jggx5'>problemau gyda'u API Chwilio</a>.",
             "Q2-A-5": "Y peth gorau i'w wneud yn yr achosion hyn yw aros i indecsio Auth0 ddal i fyny.",
-
             "Q4": "Pam mae modelau dysgu peiriant yn cael eu dileu yn awtomatig?",
             "Q4-A-1": "Roedd hon yn nodwedd y gofynnodd ysgolion amdani pan ddatblygwyd Machine Learning for Kids gyntaf. Daeth o'r ffaith bod terfyn ar gyfer faint o fodelau dysgu peiriant y gall dosbarth eu cael ar unrhyw adeg benodol, ac angen ei gwneud hi'n hawdd rheoli'r terfyn hwn.",
             "Q4-A-2": "Yn hytrach na mynnu bod plant yn gorfod glanhau ar ôl gwers a dileu eu modelau (er mwyn caniatáu i'r dosbarth nesaf allu creu modelau), gall yr offeryn lanhau'n awtomatig trwy ddileu'r modelau ar ôl i'r wers ddod i ben. Mae hyn yn ei gwneud hi'n hawdd rhedeg y wers nesaf, a'r wers nesaf ar ôl hynny, heb lanhau â llaw rhyngddynt.",
@@ -1796,15 +1737,12 @@
             "Q4-A-4": "I nodi'r terfyn amser ar gyfer eich dosbarth, ewch i <a href='https://machinelearningforkids.co.uk/#!/teacher/restrictions'>Adran cyfyngiadau eich tudalen Athro</a>.",
             "Q4-A-6": "<em>Sylwer:Dim ond modelau dysgu peiriant sy'n cael eu dileu yn awtomatig, nid y data hyfforddi a ddefnyddiwyd i'w creu. Felly os yw model yn cael ei ddileu yn awtomatig ar gyfer prosiect y mae myfyriwr yn dal i weithio arno, gallant bob amser glicio ar y botwm \"Hyfforddi\" eto i greu'r model eto.</em>"
         },
-
         "ACCOUNTISSUES": {
             "TITLE": "Problemau Cyfrifon",
-
             "Q1": "Beth yw'r gwahaniaeth rhwng creu cyfrifon neu ddefnyddio \"Rhowch gynnig arni nawr\"?",
             "Q1-A-1": "Mae defnyddio \"Rhowch gynnig arni nawr\" yn golygu nad oes angen mewngofnodi na chreu cyfrif. Nid oes unrhyw gyfrineiriau i fyfyrwyr orfod cofio, ac nid oes angen i athrawon orfod darparu gwybodaeth bersonol. Mae hefyd yn arbed amser i athrawon reoli cyfrifon myfyrwyr.",
             "Q1-A-2": "Fodd bynnag, mae creu cyfrif yn galluogi nodweddion ychwanegol. Gall myfyrwyr arbed eu gwaith a dod yn ôl ato mewn gwers ddiweddarach. Gallant weithio ar brosiect ynghyd â myfyrwyr eraill yn eu dosbarth. Gallant fewngofnodi o'u cartref a dangos i'w teulu yr hyn y maent wedi'i wneud.",
             "Q1-A-3": "Dangosir crynodeb o'r gwahaniaethau isod:",
-
             "CREATE_ACCOUNT": "Creu cyfrif",
             "TRAINMODELS": "Hyfforddi modelau dysgu peiriant i gydnabod ...",
             "PRETRAINED_MODELS": "Defnyddiwch fodelau dysgu peiriant wedi'u hyfforddi ymlaen llaw",
@@ -1822,13 +1760,11 @@
             "ONLINE": " unrhyw le ar-lein ",
             "BY_YOURSELF": " gennych chi'ch hun ",
             "WITH_CLASSMATES": "gyda chyd-ddisgyblion",
-
             "Q2": "Rydw i wedi creu cyfrif dosbarth ond nid yw mewngofnodi fy athro yn gweithio",
             "Q2-A-1": "Mae angen i chi wirio'ch cyfeiriad e-bost cyn y byddwch chi'n gallu mewngofnodi.",
             "Q2-A-2": "Pan greoch y cyfrif dosbarth, anfonir e-bost i'r cyfeiriad e-bost a ddarparwyd gennych, gyda dolen i glicio arno. Os cliciwch ar y ddolen honno, bydd eich cyfeiriad e-bost yn cael ei wirio a bydd y cyfrif dosbarth yn cael ei actifadu. Fe ddylech chi allu mewngofnodi nawr.",
             "Q2-A-3": "Os nad ydych wedi gweld y gwir e-bost eto, gwnewch yn siŵr nad yw wedi mynd i'ch ffolder sbam.",
             "Q2-A-4": "Os na allwch ddod o hyd iddo o hyd, <a href='https://groups.google.com/d/forum/mlforkids'>gadewch i mi wybod</a> a byddaf yn ceisio helpu.",
-
             "Q3": "Dileu cyfrifon",
             "Q3-A-1": "Cyfrifon myfyrwyr",
             "Q3-A-2": "Ni all myfyrwyr ddileu eu cyfrifon eu hunain.",
@@ -1838,7 +1774,6 @@
             "Q3-A-6": "Cyfrifon athrawon",
             "Q3-A-7": "Bydd dileu cyfrif athro yn dileu'r dosbarth cyfan a holl gyfrifon y myfyrwyr ynddo. Ni ellir ei ddadwneud.",
             "Q3-A-8": "Gellir gwneud hyn trwy glicio ar y botwm \"Delete Class\" yn adran opsiynau Uwch <a href='https://machinelearningforkids.co.uk/teacher'>eich tudalen Athro</a>",
-
             "Q4": "Pa wybodaeth sy'n cael ei storio am ddefnyddwyr?",
             "Q4-A-1": "Cyfrifon athrawon",
             "Q4-A-2": "Rwy'n storio'r enw defnyddiwr a'r cyfeiriad e-bost rydych chi'n eu darparu pan fyddwch chi'n creu'r cyfrif, er mwyn i mi allu cadw mewn cysylltiad â chi.",
@@ -1849,7 +1784,6 @@
             "Q4-A-7": "Gweithredir rheolaeth defnyddwyr ar gyfer Dysgu Peiriant i Blant gan ddefnyddio'r gwasanaeth trydydd parti, <a href='https://auth0.com/'>Auth0</a>. Maen nhw'n storio'r cyfeiriad IP y gwnaethoch chi fewngofnodi ddiwethaf i Dysgu Peiriant i Blant ohono, a'r math o borwr y gwnaethoch chi ei ddefnyddio. Nid wyf erioed wedi dod o hyd i reswm i ddefnyddio hynny, ond mae'n cael ei storio pe bawn i eisiau mynd i chwilio amdano.",
             "Q4-A-8": "Mae gwallau sy'n digwydd yn y porwr gwe yn cael eu dal gan ddefnyddio'r gwasanaeth trydydd parti, <a href='https://sentry.io/'>Sentry</a>. Os aiff rhywbeth o'i le, bydd yn casglu gwybodaeth am y gwall, gan gynnwys eich enw defnyddiwr, cyfeiriad IP, y math o borwr yr oeddech yn ei ddefnyddio, a disgrifiad technegol o'r hyn a aeth o'i le.",
             "Q4-A-9": "Rydw i'n defnyddio <a href='https://www.google.com/analytics/'>Google Analytics</a> fel fy mod i'n gwybod faint o ddefnyddwyr sy'n ymweld â Dysgu Peiriant i Blant bob dydd. Er ei fod yn casglu gwybodaeth fel lleoliad daearyddol a math o borwr, dim ond mewn ffordd gyfanredol anhysbys y mae hyn yn cael ei arddangos i mi.",
-
             "Q5": "Beth sy'n digwydd i ddata hyfforddi a grëir gan fyfyrwyr?",
             "Q5-A-1": "Cam ym mhob prosiect dysgu peiriant y mae myfyrwyr yn ei wneud gan ddefnyddio'r wefan hon yw creu neu gasglu enghreifftiau hyfforddi. Ar gyfer prosiectau testun, gall hyn olygu teipio darnau testun byr. Ar gyfer prosiectau delwedd, gall hyn olygu tynnu lluniau ar gynfas ar y sgrin neu dynnu lluniau gan ddefnyddio'r we-gamera. Ar gyfer prosiectau rhifau, mae hyn yn golygu teipio setiau o rifau.",
             "Q5-A-2": "Mae'r holl enghreifftiau hyfforddi hyn yn cael eu storio mewn <a href='https://www.ibm.com/cloud/databases-for-postgresql'>cronfa data PostgreSQL ar IBM Cloud</a>, yn Dallas yn yr Unol Daleithiau. Fel gweinyddwr y gronfa ddata, mae gen i fynediad at yr holl enghreifftiau hyfforddi hyn ar gyfer pob prosiect myfyriwr, fodd bynnag, nid wyf yn ei ddefnyddio at unrhyw ddibenion eraill heblaw galluogi myfyrwyr i gyrchu a gweithio ar eu prosiectau eu hunain. Nid wyf yn cyhoeddi'r data hyfforddi (naill ai'n gyhoeddus nac i unigolion na thrydydd partïon) nac yn ei rannu fel arall, gyda'r ddau eithriad o'i gyflwyno i IBM Watson APIs a ddisgrifir isod.",
