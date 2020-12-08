@@ -18,7 +18,7 @@
         "TEACHER": "教師",
         "PROJECTS": "專案",
         "WORKSHEETS": "作品清單",
-        "PRETRAINED": "預訓練模型",
+        "PRETRAINED": "免訓練模型",
         "NEWS": "新聞",
         "HELP": "幫助",
         "LOGIN": "登入",
@@ -751,9 +751,9 @@
             "TEXT1": "將文字轉換為數字的其中一種方法是計算一個單字被涵蓋的次數。"
         },
         "PAGE6": {
-            "TITLE": "特徵提取",
+            "TITLE": "提取特徵",
             "TEXT1": "你還可以計算其他事情。 有用的計數取決於您正在執行的項目以及你的模型要學會辨識內容的規律。",
-            "TEXT2": "計算次數是快速且簡單的，但不適合用在詞語順序很重要的項目"
+            "TEXT2": "計算次數是快速且簡單的，但不適合用在單字順序很重要的項目"
         },
         "PAGE7": {
             "TITLE": "建立詞語向量",
@@ -790,7 +790,7 @@
         "PAGE13": {
             "TITLE": "激勵函數",
             "TEXT1": "每個節點都存在其對應的<em>偏差值</em>",
-            "TEXT2": "每條線包含自己的<em>權重</em>。"
+            "TEXT2": "每條線擁有自己的<em>權重</em>。"
         },
         "PAGE14": {
             "TITLE": "隱藏層",
@@ -822,7 +822,7 @@
         },
         "PAGE19": {
             "TITLE": "類神經網路",
-            "TEXT1": "接下來，使用另一組你的訓練資料，再次完成所有步驟。"
+            "TEXT1": "下一步，使用另一組你的訓練資料，再次完成所有步驟。"
         },
         "PAGE20": {
             "TITLE": "編碼",
@@ -851,7 +851,7 @@
         "PAGE25": {
             "TITLE": "輸出層",
             "TEXT1": "記住，<em>輸出層</em>提供了機器學習模型的預測結果。",
-            "TEXT2": "每個節點都會從你添加到值區的訓練資料中進行預測"
+            "TEXT2": "每個節點都會從你添加到儲存貯體的訓練資料中進行預測"
         },
         "PAGE26": {
             "TITLE": "損失函數",
@@ -1018,6 +1018,7 @@
             "TITLE": "水杯猜猜猜",
             "SUMMARY": "教電腦預測你的答案",
             "DESCRIPTION": "在Scratch中建立一個水杯遊戲，訓練電腦猜猜看他是半杯水還是空杯子。",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-describetheglass.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-describetheglass.pdf"
             },
@@ -1027,6 +1028,7 @@
             "TITLE": "智慧教室",
             "SUMMARY": "教電腦辨識你的指令含義",
             "DESCRIPTION": "在Scratch中建立一個智慧助理，讓你可以控制虛擬設備",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-smartclassroom.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "完整版的專案，學生需要先製作非機器學習版本的專案",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom.pdf"
@@ -1045,6 +1047,7 @@
             "TITLE": "逗我開心",
             "SUMMARY": "教電腦辨識稱讚和責罵",
             "DESCRIPTION": "在Scratch中建立一個角色，如果你稱讚它，它就會微笑；如果你罵他，它就會哭。",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-makemehappy.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "完整版的專案，學生需要先製作非機器學習版本的專案",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy.pdf"
@@ -1063,6 +1066,7 @@
             "TITLE": "抽卡！",
             "SUMMARY": "教電腦辨識圖案像什麼",
             "DESCRIPTION": "製作Scratch的卡牌遊戲，而且電腦會學習辨識你卡牌上的圖案",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-snap.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "完整版的專案，學生會製作自己的牌組並且訓練電腦辨識",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap.pdf"
@@ -1078,6 +1082,7 @@
             "TITLE": "神奇變色龍",
             "SUMMARY": "教電腦辨識不同的顏色",
             "DESCRIPTION": "在Scratch中製作一隻變色龍會改變顏色融入在背景",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chameleon.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf"
             },
@@ -1087,6 +1092,7 @@
             "TITLE": "郵差員 Max",
             "SUMMARY": "教電腦辨識手寫的文字",
             "DESCRIPTION": "在Scratch中製作信件分類的辦公室，可以辨識信上手寫的郵遞區號",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-mailmanmax.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mailmanmax.pdf"
             },
@@ -1096,6 +1102,7 @@
             "TITLE": "蟲蟲射擊",
             "SUMMARY": "訓練電腦學習玩遊戲",
             "DESCRIPTION": "在Scratch中建立一個反射遊戲，訓練電腦學習最佳的反彈角度。",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shootthebug.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shootthebug.pdf"
             },
@@ -1105,6 +1112,7 @@
             "TITLE": "車子或杯子 ",
             "SUMMARY": "教電腦辨識圖片的物件",
             "DESCRIPTION": "訓練電腦讓它可以將圖片進行分類",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-carorcup.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "個人版的專案，每個學生各自訓練他們自己獨立的機器學習模型",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup.pdf"
@@ -1119,6 +1127,7 @@
             "TITLE": "臉部辨識解鎖",
             "SUMMARY": "教電腦辨識人臉",
             "DESCRIPTION": "在Scratch中製作辨識出你的臉可以解鎖的作品",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-facelock.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facelock.pdf"
             },
@@ -1128,6 +1137,7 @@
             "TITLE": "上學的路程",
             "SUMMARY": "教電腦學習預測",
             "DESCRIPTION": "訓練電腦讓它可以預測你每天是如何去上學的",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-journeytoschool.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-journeytoschool.pdf"
             },
@@ -1137,6 +1147,7 @@
             "TITLE": "害羞的熊貓",
             "SUMMARY": "教電腦辨識視訊鏡頭的畫面",
             "DESCRIPTION": "製作一個會跳舞的熊貓，如果他發現你在看他，他就會停止跳舞",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shypanda.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda.pdf"
             },
@@ -1146,6 +1157,7 @@
             "TITLE": "虛擬小寵物",
             "SUMMARY": "教電腦辨識視訊鏡頭的畫面",
             "DESCRIPTION": "教電腦辨識你在做什麼，這樣你才能照顧虛擬小寵物",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-virtualpet.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-virtualpet.pdf"
             },
@@ -1155,6 +1167,7 @@
             "TITLE": "小精靈 Pac-Man",
             "SUMMARY": "教電腦如何玩遊戲",
             "DESCRIPTION": "在Scratch中建立小精靈遊戲，讓他學會如何避開鬼魂",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-pacman.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pacman.pdf"
             },
@@ -1164,6 +1177,7 @@
             "TITLE": "聊天機器人",
             "SUMMARY": "教電腦辨識問題",
             "DESCRIPTION": "製作一個聊天機器人，可以回答有關你選擇的主題的問題",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chatbots.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Scratch專案—使用Scratch製作聊天機器人",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots.pdf"
@@ -1178,6 +1192,7 @@
             "TITLE": "旅遊資訊推薦",
             "SUMMARY": "教電腦如何進行推薦",
             "DESCRIPTION": "在Scratch中製作手機APP，它可以根據使用者的興趣推薦旅遊景點",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-touristinfo.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-touristinfo.pdf"
             },
@@ -1187,6 +1202,7 @@
             "TITLE": "哈利波特的分類帽",
             "SUMMARY": "教電腦辨識文字使用的語言",
             "DESCRIPTION": "創造一個像哈利波特中的分類帽作品，它可以根據你所說的內容把你放到對應的學校房子內",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-sortinghat.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "個人版的專案，每個學生各自訓練他們自己獨立的機器學習模型",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat.pdf"
@@ -1201,6 +1217,7 @@
             "TITLE": "剪刀、石頭、布",
             "SUMMARY": "教電腦辨識形狀",
             "DESCRIPTION": "在Scratch中製作剪刀石頭布的遊戲，可以辨識你手的形狀",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-rockpaperscissors.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-rockpaperscissors.pdf"
             },
@@ -1210,6 +1227,7 @@
             "TITLE": "書籍評論",
             "SUMMARY": "教電腦辨識視覺的風格",
             "DESCRIPTION": "在Scratch中製作遊戲，來測試是否真的可以透過封面來判斷一本書",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "完整版的專案，學生製作遊戲與電腦比賽辨識書籍",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf"
@@ -1224,6 +1242,7 @@
             "TITLE": "Larry在哪兒",
             "SUMMARY": "教電腦從照片中找出特定內容",
             "DESCRIPTION": "在Scratch中製作像「威利在哪裡」的遊戲，然後教電腦找出你的角色",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-locatelarry.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf"
             }
@@ -1240,6 +1259,7 @@
             "TITLE": "傻傻分不清楚",
             "SUMMARY": "教電腦辨識水果",
             "DESCRIPTION": "學習有關電腦如果經過糟糕的訓練，就會出現疑惑而犯錯",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-fooled.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-fooled.pdf"
             },
@@ -1249,6 +1269,7 @@
             "TITLE": "學校的圖書館",
             "SUMMARY": "教電腦如何進行推薦",
             "DESCRIPTION": "在Scratch中製作一個圖書管理員，他會推薦你適合閱讀的書",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-schoollibrary.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf"
             },
@@ -1258,6 +1279,7 @@
             "TITLE": "推特的討論話題\b",
             "SUMMARY": "教電腦來測量大家的想法",
             "DESCRIPTION": "在Scratch中建立情緒分析工具來分析Twitter上的討論內容。",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-whattwitterthinks.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
             },
@@ -1267,6 +1289,7 @@
             "TITLE": "戰無不勝",
             "SUMMARY": "教電腦如何玩遊戲",
             "DESCRIPTION": "在Scratch中建立一個戰無不勝的遊戲，他會學習如何打敗你",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-noughtsandcrosses.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Scratch專案，學生在Scratch中製作遊戲",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses.pdf"
@@ -1285,6 +1308,7 @@
             "TITLE": "Top Trumps卡牌遊戲",
             "SUMMARY": "教電腦如何玩遊戲",
             "DESCRIPTION": "訓練電腦可以在Scratch中玩Top Trumps卡牌遊戲",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-toptrumps.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-toptrumps.pdf"
             },
@@ -1302,6 +1326,7 @@
             "TITLE": "新聞大集合",
             "SUMMARY": "測試電腦能否辨識使用的語言",
             "DESCRIPTION": "訓練電腦辨識官方報紙的頭條新聞",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines-easy.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-easy.pdf"
             },
@@ -1311,6 +1336,7 @@
             "TITLE": "誰寫的新聞",
             "SUMMARY": "測試電腦能否辨識使用的語言",
             "DESCRIPTION": "在Scratch中建立一個測試工具來衡量機器學習模型的良好程度。",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
             },
@@ -1320,6 +1346,7 @@
             "TITLE": "躲貓貓",
             "SUMMARY": "教電腦辨識圖片",
             "DESCRIPTION": "製作一個手機版的躲貓貓遊戲",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-findit.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-findit.pdf"
             },
@@ -1329,6 +1356,7 @@
             "TITLE": "外星人的語言",
             "SUMMARY": "教電腦辨識聲音",
             "DESCRIPTION": "在Scratch中製作外星人他會學習辨識外星人的聲音",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-alienlanguage.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-alienlanguage.pdf"
             },
@@ -1338,6 +1366,7 @@
             "TITLE": "神秘的密碼",
             "SUMMARY": "教電腦辨識語音",
             "DESCRIPTION": "訓練電腦可以辨識神秘的密碼來引導間諜",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-secretcode.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-secretcode.pdf"
             },
@@ -1347,6 +1376,7 @@
             "TITLE": "術語剋星",
             "SUMMARY": "教電腦學習聽單字",
             "DESCRIPTION": "在Scratch中製作專案，它可以顯示你說的文字的含義",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-jargonbuster.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-jargonbuster.pdf"
             },
@@ -1356,6 +1386,7 @@
             "TITLE": "鐵達尼號",
             "SUMMARY": "教電腦預測結果",
             "DESCRIPTION": "在Python中製作程式，可以用來預測下沉中的鐵達尼號誰可以倖存",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-titanic.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
             },
@@ -1365,6 +1396,7 @@
             "TITLE": "殭屍大逃亡",
             "SUMMARY": "教電腦學習預測",
             "DESCRIPTION": "訓練電腦來幫助你逃離殭屍部落",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-zombieescape.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
             },
@@ -1374,6 +1406,7 @@
             "TITLE": "惡意網路釣魚",
             "SUMMARY": "教電腦辨識惡意釣魚網站的連結",
             "DESCRIPTION": "製作一個python程式來預測網站連結是否合法",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-phishing.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-phishing.pdf"
             },
@@ -1391,6 +1424,7 @@
             "TITLE": "墨水痕跡",
             "SUMMARY": "教電腦辨識圖片的物件",
             "DESCRIPTION": "重新建立一個MIT研究項目，並了解新聞中如何描述AI系統。",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-inkblots.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-inkblots.pdf"
             },
@@ -1400,6 +1434,7 @@
             "TITLE": "臉部搜尋",
             "SUMMARY": "使用已訓練過的電腦來辨識人臉",
             "DESCRIPTION": "在Scratch中製作一個影像轉換器讓你的人臉變成卡通人物",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-facefinder.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facefinder.pdf"
             },
@@ -1409,6 +1444,7 @@
             "TITLE": "Emoji人臉替換",
             "SUMMARY": "使用已訓練過的電腦來辨識人臉",
             "DESCRIPTION": "在Scratch中製作一個影像轉換器讓你的人臉變成表情符號",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-emojimask.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-emojimask.pdf"
             },
@@ -1418,6 +1454,7 @@
             "TITLE": "發射雷射光",
             "SUMMARY": "教電腦辨識語音與人臉",
             "DESCRIPTION": "在Scratch中製作聲控的雷射光束遊戲",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-lasereyes.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-lasereyes.pdf"
             },
@@ -1427,6 +1464,7 @@
             "TITLE": "旗幟傳訊息",
             "SUMMARY": "教電腦辨識語音與姿勢",
             "DESCRIPTION": "製作一個聲控的旗幟傳訊息遊戲，你可以藉由移動手臂來控制它",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-semaphores.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-semaphores.pdf"
             },
@@ -1627,23 +1665,25 @@
             "INTRO3": "如果你仍然發生錯誤，或是遇到了我沒有包含在清單中的問題，很抱歉造成你的不便！請<a href='https://groups.google.com/d/forum/mlforkids'>洽詢兒童機器學習群組</a>讓我們可以提供協助"
         },
         "PROJECTS": {
-            "TITLE": "專案的問題",
+            "TITLE": "專案問題",
+
             "Q1": "圖片專案與圖片<span class='mltinybadge badge'>beta</span>專案有什麼差別？",
             "Q1-A-1": "這兩種都可以用來建立相同種類的機器學習專案。不同的地方在於在哪裡建立與儲存模型。",
             "Q1-A-2": "在<strong>圖片</strong>專案中，機器學習模型將在雲端伺服器訓練，透過Watson視覺辨識的線上服務達成。",
             "Q1-A-3": "在<strong>圖片<span class='mltinybadge badge'>beta</span></strong>專案中，機器學習模型將在你自己電腦的網頁瀏覽器中訓練。",
             "Q1-A-4": "<strong>圖片</strong>專案的優點是：",
-            "Q1-A-5": "成果可以運用在Scratch、App inventor或是Python的專案中",
+            "Q1-A-5": "可以運用在Scratch、App inventor或是Python的專案中",
             "Q1-A-6": "即使你電腦的效能也差也沒關係，因為模型在雲端上訓練。",
             "Q1-A-7": "它可以建立更準確的模型，尤其是在使用少量訓練範例時。",
-            "Q1-A-8": "但是，等待開始雲端服務器訓練時需要花幾分鐘的時間，並且需要IBM Cloud的Watson API密碼（對於沒有班級管理的帳戶）",
+            "Q1-A-8": "但是，等待開始雲端服務器訓練時需要花幾分鐘的時間，並且需要IBM Cloud的Watson API密碼（沒有班級管理的帳戶）",
             "Q1-A-9": "「<strong style='color:black'>圖片<span class='mltinybadge badge'>beta</span></strong>」的優點包含：",
             "Q1-A-10": "它可以更快地完成訓練，因為它可以馬上開始，不需等待開啟雲端服務器的時間。",
             "Q1-A-11": "他不需要任何IBM Cloud的API密碼（對於沒有班級管理的帳戶）",
             "Q1-A-12": "模型不會被自動刪除",
             "Q1-A-13": "但是，這只能用在Scratch專案中，而且需要學生使用效能夠快的電腦。",
             "Q1-A-14": "因為在網頁瀏覽器中訓練是新功能所以我們稱為beta。因此可能仍有一些操作環境或瀏覽器的問題。如果你發生錯誤，請回報問題到<a href='https://groups.google.com/d/forum/mlforkids'>兒童機器學習論壇</a>。",
-            "Q2": "如何將「圖片專案」切換成「圖片<span class='mltinybadge badge'>beta</span>專案」？（反之也相同）",
+
+            "Q2": "如何將「圖片專案」切換成「圖片<span class='mltinybadge badge'>beta</span>專案」？（反之亦同）",
             "Q2-A-1": "你可以在專案中的訓練頁面切換這兩種模式。",
             "Q2-A-2": "切換的連結在畫面的右上方。",
             "Q2-A-3": "完成後將刪除此專案中所有既有的機器學習模型。",
