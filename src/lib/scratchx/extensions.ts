@@ -213,9 +213,9 @@ export async function getScratchTfjsExtension(scratchkey: string): Promise<strin
     const rendered = Mustache.render(template, {
         projectid   : modelinfo.id,
         projectname : escapeProjectName(metadata.modelName, 3),
-        labels      : metadata.labels.map((name, idx) => {
+        labels      : metadata.labels ? metadata.labels.map((name, idx) => {
             return { name, idx };
-        }),
+        }) : [],
         modelurl    : scratchtfjs.getModelJsonUrl(modelinfo),
         modeltype   : modelinfo.modeltype,
     });

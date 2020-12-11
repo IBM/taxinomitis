@@ -45,7 +45,7 @@ describe('Resize function', () => {
 
 
         it('should work with gif images', () => {
-            return runResize('https://upload.wikimedia.org/wikipedia/commons/d/df/IBMThinkpad760ED.gif?download',
+            return runResize('https://upload.wikimedia.org/wikipedia/commons/3/39/IBM_Thinkpad_760ED.gif?download',
                             './test/resources/small-thinkpad.png',
                             100196);
         });

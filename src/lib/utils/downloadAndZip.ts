@@ -438,7 +438,8 @@ export async function runInServerless(locations: ImageDownload[]): Promise<strin
                         //  the user that we can't create the training zip.
                         try {
                             const functionErrorInfo = JSON.parse(hdrs);
-                            functionError = new Error(functionErrorInfo.error) as any;
+                            const locationUrl = functionErrorInfo.location ? functionErrorInfo.location.url : '';
+                            functionError = new Error(download.ERRORS.DOWNLOAD_FAIL + locationUrl) as any;
                             functionError.location = functionErrorInfo.location;
                             functionError.logged = true;
                         }

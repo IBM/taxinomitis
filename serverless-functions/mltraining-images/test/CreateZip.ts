@@ -23,6 +23,33 @@ describe('Create image training zip function', () => {
         }
 
 
+        it.only('dale', () => {
+            const wm = 'https://upload.wikimedia.org/wikipedia/commons/';
+            const params: CreateZipParams = {
+                locations : [
+                    { type : 'download', imageid : '1',
+                        url : wm + 'thumb/5/51/IBM_logo.svg/320px-IBM_logo.svg.png' },
+                    { type : 'download', imageid : '2',
+                        url : 'https://png.pngitem.com/pimgs/s/568-5688317_white-rectangle-outline-png-parallel-transparent-png.png' },
+                    { type : 'download', imageid : '6',
+                        url : wm + '3/39/IBM_Thinkpad_760ED.gif?download' },
+                ],
+                imagestore : {
+                    bucketid : process.env.OBJECT_STORE_BUCKET,
+                    credentials : JSON.parse(process.env.OBJECT_STORE_CREDS),
+                },
+            };
+
+            return CreateZip(params)
+                        .then((resp) => {
+                            console.log(resp);
+                        })
+                        .catch((err) => {
+                            console.error(err);
+                        });
+        });
+
+
         it('should create a zip of downloaded and retrieved images', (done) => {
             const wm = 'https://upload.wikimedia.org/wikipedia/commons/';
             const params: CreateZipParams = {
@@ -50,7 +77,7 @@ describe('Create image training zip function', () => {
                         objectid: '2ce72fe7-3675-44b2-91fb-266bdb3c187c',
                     }},
                     { type : 'download', imageid : '6',
-                        url : wm + 'd/df/IBMThinkpad760ED.gif?download' },
+                        url : wm + '3/39/IBM_Thinkpad_760ED.gif?download' },
                 ],
                 imagestore : {
                     bucketid : process.env.OBJECT_STORE_BUCKET,
