@@ -376,6 +376,9 @@
                 else if (lang.indexOf('ru') === 0) {
                     lang = 'ru';
                 }
+                else if (lang.trim() === '') {
+                    lang = 'en';
+                }
 
                 return lang;
             })
