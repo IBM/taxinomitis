@@ -37,6 +37,7 @@ const paths = {
     jstest : ['dist/tests/**/*.js'],
     css : ['public/app.css', 'public/components/**/*.css'],
     webjs : [
+        'public/init.js',
         'public/app.run.js',
         'public/components/**/*.js',
     ]
@@ -220,8 +221,14 @@ function concatAndMinifiyWebJs (isForProd) {
     let additionalVariables;
     if (process.env.DEPLOYMENT === 'machinelearningforkids.co.uk') {
         if (isForProd) {
-            // uses prod auth0 environment
-            additionalVariables = ['public/auth0-prod-variables.js'];
+            additionalVariables = [
+                // google analytics support
+                'public/prod-analytics.js',
+                // sentry alerting support
+                'public/prod-sentry.js',
+                // uses prod auth0 environment
+                'public/auth0-prod-variables.js'
+            ];
         }
         else {
             // uses dev/staging auth0 environment

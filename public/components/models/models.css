@@ -11,11 +11,17 @@
     }
 }
 
+.backbutton.modelspage {
+    width: 100%;
+    display: flex;
+}
+
 .modelguidancecontainer {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
+
 
 .modelguidance {
     flex: 1;
@@ -70,6 +76,48 @@
     }
 }
 
+.trainingserversection .trainbuttons {
+    margin: 4em;
+}
+
+.trainingserversection .modelinfotext {
+    margin: 1em;
+}
+
+.trainingserversection .testtext {
+    margin-left: 2em;
+    width: 60%;
+}
+
+.trainingserversection .testwebcambutton {
+    margin: 2em;
+}
+.trainingserversection .testcanvasbutton {
+    margin: 1em;
+}
+.trainingserversection .testurlbutton {
+    margin-left: 2em;
+    width: 70%;
+}
+.trainingserversection .testnumbers {
+    margin-left: 2em;
+    margin-bottom: 1em;
+}
+.trainingserversection .testnumberfield {
+    padding-right: 2em;
+}
+.trainingserversection .describetextmodelbutton {
+    margin-left: 1em;
+}
+.trainingserversection .describemodelbuttons {
+    margin-left: 50px;
+}
+.trainingserversection .testoutput {
+    margin: 2em;
+}
+.trainingserversection .progressindicator {
+    display: inline;
+}
 
 .quizintro {
     font-size: 1.3em;

@@ -18,12 +18,6 @@
 
         <%= USE_IN_PROD_ONLY %>
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-293441-6"></script>
-        <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-293441-6');
-        </script>
         <%= AFTER_USE_IN_PROD_ONLY %>
 
 
@@ -45,7 +39,7 @@
         <meta property="og:video" content="https://machinelearningforkids.co.uk/static/images/machinelearningforkids.gif" />
 
     </head>
-    <body>
+    <body ng-csp="no-unsafe-eval">
         <div ng-app="app">
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
@@ -146,13 +140,8 @@
 
         <script type="text/javascript" src="/static/bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.min.js"></script>
 
-        <script type="text/javascript">var Sentry = null;</script>
         <%= USE_IN_PROD_ONLY %>
-        <script src="https://browser.sentry-cdn.com/5.27.4/bundle.min.js" crossorigin="anonymous"></script>
-        <script type="text/javascript">Sentry.init({
-            dsn: 'https://b4bbe1a8fbce473cb9eb089652848a1e@sentry.io/202347',
-            release: '<%= VERSION %>'
-        });</script>
+        <script src="https://browser.sentry-cdn.com/5.29.0/bundle.min.js" crossorigin="anonymous"></script>
         <%= AFTER_USE_IN_PROD_ONLY %>
 
         <script type="text/javascript" src="/static/app-<%= VERSION %>.js"></script>

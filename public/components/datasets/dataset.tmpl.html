@@ -8,12 +8,12 @@
             </md-button>
         </div>
     </md-toolbar>
-    <form ng-submit="confirm(dataset)">
+    <form ng-submit="confirm(dataset)" class="datasetdialog">
         <md-dialog-content>
-            <div class="md-dialog-content" style="min-width: 300px; max-width: 1000px;">
+            <div class="md-dialog-content" class="datasetdialog">
                 <md-card-content>
-                    <div style="font-weight: bold; padding-bottom: 1em">{{dataset.description}}</div>
-                    <div style="white-space: pre-line;">{{dataset.details}}</div>
+                    <div class="datasetdescription">{{dataset.description}}</div>
+                    <div class="datasetdetails">{{dataset.details}}</div>
                 </md-card-content>
             </div>
         </md-dialog-content>

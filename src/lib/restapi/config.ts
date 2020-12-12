@@ -55,7 +55,7 @@ export const CSP_DIRECTIVES = {
         'https://platform.twitter.com',
     ],
     scriptSrc: ["'self'",
-        // TODO : https://github.com/IBM/taxinomitis/issues/346 should investigate these
+        // TODO : https://github.com/IBM/taxinomitis/issues/346 should remove this
         "'unsafe-eval'",
         "'unsafe-inline'",
         // used for auth
@@ -86,7 +86,7 @@ export const CSP_DIRECTIVES = {
         'https://platform.twitter.com',
         'https://www.youtube.com',
         // used in the Worksheets tab
-        'https://player.vimeo.com'
+        'https://player.vimeo.com',
     ],
     imgSrc: ["'self'",
         // used for auth
@@ -115,12 +115,17 @@ export const CSP_DIRECTIVES = {
         'data:',
     ],
     connectSrc: ["'self'",
-        // used for login flows
-        'https://login.machinelearningforkids.co.uk',
         // used for analytics
         'https://www.google-analytics.com',
     ],
 };
+
+if (process.env.AUTH0_CUSTOM_DOMAIN) {
+    const auth0CustomDomain = 'https://' + process.env.AUTH0_CUSTOM_DOMAIN;
+    CSP_DIRECTIVES.connectSrc.push(auth0CustomDomain);
+    CSP_DIRECTIVES.frameSrc.push(auth0CustomDomain);
+}
+
 
 
 // to allow easier local development, we want the hosted instance to allow

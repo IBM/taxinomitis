@@ -3,6 +3,10 @@
     margin: 1em 3em;
 }
 
+.worksheetsintro .small {
+    font-size: 0.9em;
+}
+
 .worksheetfilters {
     padding: 2em;
     display: flex;
@@ -70,6 +74,18 @@
 
 .worksheetcard .cardmain .info {
     margin-right: 8px;
+}
+
+.worksheetcardembeddiv {
+    padding: 56.25% 0 0 0;
+    position: relative;
+}
+.worksheetcardembeddiv iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 /* *************************************/

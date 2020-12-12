@@ -24,7 +24,7 @@
     <p translate="DATASETS.INTRO.INTRO_3"></p>
 </div>
 <div ng-if="vm.loading" class="loading"></div>
-<div ng-if="isAuthenticated" style="padding: 2em">
+<div ng-if="isAuthenticated" >
     <div class="datasets">
         <div ng-hide="vm.loading" ng-repeat="dataset in vm.datasets" class="datasetcard">
             <div class="cardmain">
@@ -54,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <div class="datasetcard" style="height: 100%;">
+        <div class="datasetcard fullheightcard">
             <div class="cardmain">
                 <div class="info">
                     <div class="title" translate="DATASETS.MORE.TITLE"></div>

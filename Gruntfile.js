@@ -235,6 +235,7 @@ module.exports = function(grunt) {
         concat : {
             jsapp : {
                 src : [
+                    'public/init.js',
                     'public/app.run.js',
                     'public/' + additionalVariables,
                     'public/components/**/*.js'

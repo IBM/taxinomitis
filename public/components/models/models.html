@@ -13,7 +13,7 @@
     <div class="jumbotron">
         <h2 class="text-center" translate="MODELS.TITLE"></h2>
     </div>
-    <div class="backbutton" style="width: 100%; display: flex;">
+    <div class="backbutton modelspage">
         <div>
             <a ui-sref="mlproject({ projectId : projectId, userId : userId })" translate="APP.BACKTOPROJECT"></a>
         </div>
@@ -334,13 +334,13 @@
 
 
     <div ng-if="status === 'ready'" ng-hide="loading" class="trainingserversection">
-        <div style="margin: 1em;" ng-if="project.type === 'text'" translate="MODELS.TESTING.INTRO.TEXT" ></div>
-        <div style="margin: 1em;" ng-if="project.type === 'images' || project.type === 'imgtfjs'" translate="MODELS.TESTING.INTRO.IMAGES" ></div>
-        <div style="margin: 1em;" ng-if="project.type === 'numbers'" translate="MODELS.TESTING.INTRO.NUMBERS" ></div>
-        <div style="margin: 1em;" ng-if="project.type === 'sounds'" translate="MODELS.TESTING.INTRO.SOUNDS" ></div>
+        <div class="modelinfotext" ng-if="project.type === 'text'" translate="MODELS.TESTING.INTRO.TEXT" ></div>
+        <div class="modelinfotext" ng-if="project.type === 'images' || project.type === 'imgtfjs'" translate="MODELS.TESTING.INTRO.IMAGES" ></div>
+        <div class="modelinfotext" ng-if="project.type === 'numbers'" translate="MODELS.TESTING.INTRO.NUMBERS" ></div>
+        <div class="modelinfotext" ng-if="project.type === 'sounds'" translate="MODELS.TESTING.INTRO.SOUNDS" ></div>
         <form name="testform" ng-submit="vm.testModel($event, testform, project)">
             <input ng-if="project.type === 'text'"
-                   style="margin-left: 2em; width: 60%"
+                   class="testtext"
                    type="text"
                    ng-pattern="/^[^\n\t\r]+$/"
                    ng-model="testformData.testquestion"
@@ -350,7 +350,7 @@
                    placeholder="enter a test text here">
             <div ng-if="project.type === 'images' || project.type === 'imgtfjs'"
                  ng-click="vm.testUsingWebcam($event, project.type === 'imgtfjs')"
-                 class="btn newexamplebutton" style="margin: 2em">
+                 class="btn newexamplebutton testwebcambutton">
                 <div class="newexamplelabel">
                     &nbsp;
                     <span class="glyphicon glyphicon-camera"></span>
@@ -359,7 +359,7 @@
             </div>
             <div ng-if="project.type === 'images' || project.type === 'imgtfjs'"
                  ng-click="vm.testUsingCanvas($event, project.type === 'imgtfjs')"
-                 class="btn newexamplebutton" style="margin: 1em" >
+                 class="btn newexamplebutton testcanvasbutton">
                 <div class="newexamplelabel">
                     &nbsp;
                     <span class="glyphicon glyphicon-pencil"></span>
@@ -368,7 +368,7 @@
             </div>
             <br ng-if="project.type === 'images' || project.type === 'imgtfjs'"/>
             <input ng-if="project.type === 'images' || project.type === 'imgtfjs'"
-                   style="margin-left: 2em; width: 70%"
+                   class="testurlbutton"
                    type="text"
                    ng-model="testformData.testimageurl"
                    ng-required="true"
@@ -381,9 +381,9 @@
 
 
 
-            <table ng-if="project.type === 'numbers'" style="margin-left: 2em; margin-bottom: 1em;">
+            <table ng-if="project.type === 'numbers'" class="testnumbers">
                 <tr ng-repeat="field in project.fields">
-                    <td style="padding-right: 2em;">{{ field.name }}</td>
+                    <td class="testnumberfield">{{ field.name }}</td>
                     <td>
                         <input type="text"
                                ng-if="field.type === 'number'"
@@ -399,23 +399,23 @@
                     </td>
                 </tr>
             </table>
-            <input ng-if="project.type === 'text' || project.type === 'numbers'" type="submit" class="btn btn-primary" value="{{ 'APP.TEST' | translate }}" ng-disabled="testform.$invalid" style="margin-left: 1em;" >
-            <div ng-if="project.type === 'numbers'" class="btn btn-default" style="margin-left: 50px;" ui-sref="mlproject_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model!</div>
-            <div ng-if="project.type === 'text'" class="btn btn-default" style="margin-left: 50px;" ui-sref="mlproject_text_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model!  <span class="badge">beta</span></div>
-            <div ng-if="project.type === 'sounds'" style="margin: 1em">
+            <input ng-if="project.type === 'text' || project.type === 'numbers'" type="submit" class="btn btn-primary describetextmodelbutton" value="{{ 'APP.TEST' | translate }}" ng-disabled="testform.$invalid">
+            <div ng-if="project.type === 'numbers'" class="btn btn-default describemodelbuttons" ui-sref="mlproject_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model!</div>
+            <div ng-if="project.type === 'text'" class="btn btn-default describemodelbuttons" ui-sref="mlproject_text_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model!  <span class="badge">beta</span></div>
+            <div ng-if="project.type === 'sounds'" class="describetextmodelbutton">
                 <button ng-disabled="listening"  ng-click="vm.startListening()" class="btn btn-primary" translate="MODELS.TESTING.STARTLISTENING"></button>
                 <button ng-disabled="!listening" ng-click="vm.stopListening()" class="btn btn-primary" translate="MODELS.TESTING.STOPLISTENING"></button>
             </div>
         </form>
-        <div style="margin: 2em;" ng-if="testoutput">
+        <div class="testoutput" ng-if="testoutput">
             <div translate="MODELS.TESTING.RECOGNISED" translate-values='{ testoutput : testoutput }'></div>
             <div> {{ testoutput_explanation }} </div>
         </div>
     </div>
 
-
-
-    <div ng-if="(models && models.length > 0) || trainingdatastatus === 'data'" class="trainingserversection" ng-hide="(!owner && project.type !== 'imgtfjs' && project.type !== 'sound') || loading">
+    <div ng-if="(models && models.length > 0) || trainingdatastatus === 'data'"
+         ng-hide="(!owner && project.type !== 'imgtfjs' && project.type !== 'sound') || loading"
+         class="trainingserversection">
         <div><strong translate="MODELS.TRAINING.TITLE"></strong></div>
         <div ng-repeat="model in models">
             <table class="modelinfo">
@@ -456,22 +456,21 @@
                                 ng-disabled="submittingDeleteRequest">
                             {{ (model.status === 'Training' ? 'MODELS.CANCEL' : 'MODELS.DELETE') | translate }}
                         </button>
-                        <div ng-if="project.type === 'text' && model.status === 'Training'" class="btn btn-default" style="margin-left: 50px;" ui-sref="mlproject_text_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model!  <span class="badge">beta</span></div>
+                        <div ng-if="project.type === 'text' && model.status === 'Training'" class="btn btn-default describemodelbuttons" ui-sref="mlproject_text_model_describe({ projectId : projectId, userId : userId, modelId : projectId })">Describe your model!  <span class="badge">beta</span></div>
 
-                        <md-progress-circular style="display: inline" ng-if="submittingDeleteRequest" md-mode="indeterminate"></md-progress-circular>
+                        <md-progress-circular class="progressindicator" ng-if="submittingDeleteRequest" md-mode="indeterminate"></md-progress-circular>
                     </td>
                 </tr>
             </table>
         </div>
 
         <button ng-if="!loading && status !== 'training' && trainingdatastatus === 'data' && (owner || project.type === 'imgtfjs')"
-                style="margin: 4em;"
-                class="btn btn-primary"
+                class="btn btn-primary trainbuttons"
                 ng-click="vm.createModel($event, project)"
                 ng-disabled="submittingTrainingRequest || submittingDeleteRequest"
                 translate="MODELS.TRAIN"></button>
 
-        <md-progress-circular style="display: inline" ng-if="submittingTrainingRequest" md-mode="indeterminate"></md-progress-circular>
+        <md-progress-circular class="progressindicator" ng-if="submittingTrainingRequest" md-mode="indeterminate"></md-progress-circular>
     </div>
 
 

@@ -10,10 +10,10 @@
     </div>
 </div>
 <div ng-if="isAuthenticated && vm.profile.role === 'siteadmin'" class="adminpage">
-    <form name="newAlert" style="width: 80%">
+    <form name="newAlert" class="siteadminform">
         <md-dialog-content>
             <div>
-                <md-input-container style="width: 80%">
+                <md-input-container class="siteadminform">
                     <label>message</label>
                     <input ng-minlength="1" ng-maxlength="280"
                         ng-required="true"
@@ -22,7 +22,7 @@
                 </md-input-container>
             </div>
             <div>
-                <md-input-container style="width: 80%">
+                <md-input-container class="siteadminform">
                     <label>url</label>
                     <input ng-minlength="1" ng-maxlength="280"
                         name="url"

@@ -10,6 +10,7 @@
 
     margin-left: auto;
     margin-right: auto;
+    padding: 2em;
 }
 
 .datasetcard {
@@ -20,6 +21,10 @@
 
     display: flex;
     flex-direction: column;
+}
+
+.datasetcard.fullheightcard {
+    height: 100%;
 }
 
 .datasetcard .title {
@@ -57,6 +62,18 @@
     margin-right: 8px;
 }
 
+.datasetdialog {
+    min-width: 300px;
+    max-width: 1000px;
+}
+
+.datasetdialog .datasetdescription {
+    font-weight: bold;
+    padding-bottom: 1em;
+}
+.datasetdialog .datasetdetails {
+    white-space: pre-line;
+}
 
 
 /* *************************************/
