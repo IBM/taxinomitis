@@ -3,6 +3,10 @@
     font-size: 1.1em;
 }
 
+.mlprojectmenu.aboutsection .aboutdescription.smalldescription {
+    font-size: 1em;
+}
+
 .mlprojectmenu.aboutsection .screenshot {
     max-width: 95%;
     border: thin black solid;

@@ -1881,6 +1881,13 @@
             "TOXICITY_2": "\b此功能提供了可以預測某些文字常見的髒話內容（例如威脅詞彙，侮辱性，淫穢或基於仇恨的仇恨內容）的百分比機率的積木程式。",
             "TOXICITY_3": "<a href='https://medium.com/tensorflow/text-classification-using-tensorflow-js-an-example-of-detecting-offensive-language-in-browser-e2b94e3565ce'>這個模型</a>的訓練資料來自<a href='https://figshare.com/articles/data_json/7376747' target='_blank'>two-million user-generated comments posted on news articles</a>"
         },
+        "IMAGENET": {
+            "TITLE": "Imagenet",
+            "IMAGENET_1": "This model can be used to recognize objects in a costume.",
+            "IMAGENET_2": "It gives you blocks that will predict the main object shown in a sprite.",
+            "IMAGENET_3": "It has been trained to recognize photos of <a href='https://storage.googleapis.com/download.tensorflow.org/data/ImageNetLabels.txt'>one-thousand common objects</a>. The machine learning model is based on MobileNet (a ML model designed for mobile devices, so it doesn't need much computing power).",
+            "IMAGENET_4": "It has been trained to recognize photos, and won't recognize cartoons or drawings very well."
+        },
         "IDEAS": {
             "IDEAS_1": "您是否希望在Scratch專案中使用其他機器學習模型？",
             "IDEAS_2": "透過<a href='https://groups.google.com/d/forum/mlforkids'>兒童機器學習論壇</a>讓我知道吧！"
