@@ -1,5 +1,6 @@
 // external dependencies
 import * as express from 'express';
+import { Server } from 'http';
 // local dependencies
 import * as store from './db/store';
 import * as objectstore from './objectstore';
@@ -17,6 +18,7 @@ import portNumber from './utils/port';
 import loggerSetup from './utils/logger';
 
 const log = loggerSetup();
+let server: Server;
 
 // do this before doing anything!
 confirmRequiredEnvironment();
@@ -25,8 +27,8 @@ confirmRequiredEnvironment();
 process.on('uncaughtException', shutdown.crash);
 
 // terminate quickly if Cloud Foundry sends a SIGTERM signal
-process.on('SIGTERM', shutdown.now);
-process.on('SIGINT', shutdown.now);
+process.on('SIGTERM', () => { shutdown.now('SIGTERM', server); });
+process.on('SIGINT', () => { shutdown.now('SIGINT', server); });
 
 // check if the site is running in read-only mode
 if (env.inMaintenanceMode()) {
@@ -60,7 +62,7 @@ store.init()
 
         // setup server and run
         restapi(app);
-        app.listen(port, host, () => {
+        server = app.listen(port, host, () => {
             log.info({ host, port }, 'Running');
         });
 

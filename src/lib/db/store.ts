@@ -25,6 +25,7 @@ export async function init() {
 }
 
 export async function disconnect() {
+    log.info('Disconnecting client from DB');
     if (dbConnPool) {
         await postgresql.disconnect();
         // @ts-ignore
