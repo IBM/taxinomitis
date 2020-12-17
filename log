@@ -1,3 +1,0 @@
-2020-08-04T22:17:44.012000+01:00 LOG pgloader version "3.6.f5139cb"
-2020-08-04T22:17:44.014000+01:00 LOG Data errors in '/private/tmp/pgloader/'
-2020-08-04T22:17:44.014000+01:00 LOG Parsing commands from file #P"/Users/dalelane/dev/machinelearningforkids/taxinomitis/pgloaderopts"

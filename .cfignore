@@ -3,6 +3,7 @@ coverage
 sql/*.sql
 test
 logs/ml*
+logs/create*log
 public
 archive
 .git
@@ -19,3 +20,8 @@ ops
 web/scratch3
 web/scratchx
 dist/ops
+serverless-functions
+test-resources
+docker-compose.yml
+Dockerfile
+LICENSE
