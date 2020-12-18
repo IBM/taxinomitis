@@ -3,7 +3,7 @@ applications:
   memory: 128M
   disk_quota: 256M
   instances: 3
-  command: node --max-old-space-size=96 dist/lib/app.js
+  command: node dist/lib/app.js
 
   name: machinelearningforkids-region
   routes:
@@ -42,3 +42,4 @@ applications:
     SMTP_REPLY_TO: admin@myhost.com
     SERVERLESS_OPENWHISK_URL: "https://openwhisk.api.server"
     SERVERLESS_OPENWHISK_KEY: OPENWHISK_API_KEY
+    OPTIMIZE_MEMORY: true
