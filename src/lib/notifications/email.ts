@@ -12,6 +12,12 @@ import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
 
+// mustache has an unbounded cache which appears like a memory leak
+//  as all emails ever generated are kept in memory
+// doing this disables the cache to avoid the memory leak
+// cf. https://github.com/janl/mustache.js/blob/master/CHANGELOG.md#400--16-january-2020
+// @ts-ignore
+Mustache.templateCache = undefined;
 
 
 let transporter: nodemailer.Transporter | undefined;
