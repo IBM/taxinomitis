@@ -440,7 +440,7 @@
                 <tr ng-if="model.status === 'Training' && model.lastPollTime">
                     <td><strong translate="MODELS.TRAINING.LASTCHECK"></strong></td>
                     <td>
-                        <span title="{{ model.lastPollTime | amDateFormat: 'h:mm:ss a' }}" am-time-ago="model.lastPollTime"></span>
+                        <span>{{ model.lastPollTime | timeAgo: 'h:mm:ss a' }}</span>
                         <md-button class="md-icon-button test-tooltip">
                             <md-tooltip md-direction="bottom" class="tooltipBody">{{ "MODELS.TRAINING.PROMPTREFRESH" | translate }}</md-tooltip>
                             <span class="glyphicon glyphicon-question-sign"></span>
