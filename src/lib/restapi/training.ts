@@ -105,6 +105,14 @@ function getTrainingItem(req: auth.RequestWithProject, res: Express.Response) {
                             location : err.location,
                         });
             }
+            else if (err.message === imageDownload.ERRORS.DOWNLOAD_FILETYPE_UNSUPPORTED) {
+                return res.status(httpstatus.CONFLICT)
+                        .send({
+                            code : 'MLMOD13',
+                            error : 'One of your training images is a type that cannot be used',
+                            location : err.location,
+                        });
+            }
             else if (err.message === 'Training data not found') {
                 return errors.notFound(res);
             }
