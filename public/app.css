@@ -45,3 +45,15 @@ md-dialog.md-transition-in,md-dialog.md-transition-out {
 .sitealert a {
     padding-left: 2em;
 }
+
+@media (max-width: 650px) {
+    .navbarextended {
+        display: block;
+    }
+}
+@media (min-width: 650px) and (max-width: 920px) {
+    .navbarextended {
+        display: none !important;
+    }
+}
+

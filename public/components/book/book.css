@@ -1,0 +1,14 @@
+.noabouttitle {
+    padding-top: 0;
+    font-size: 1.3em;
+}
+
+.bookcover {
+    width: 100%;
+}
+
+@media (max-width: 1000px) {
+    .bookpage .aboutnarrow {
+        max-width: 260px;
+    }
+}
