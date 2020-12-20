@@ -17,6 +17,7 @@ const nlpFunctions: any = nlp.extend(nlpnum);
 
 
 function getCustomFeatures(trainingExampleText: string, emoticonsDictionary: string[]): TextModelTrainingAnnotation[] {
+    const analyzedTrainingText = nlpFunctions(trainingExampleText);
     return [
         // 1
         { annotation : 'number of letters', value : countLetters(trainingExampleText) },
@@ -29,13 +30,13 @@ function getCustomFeatures(trainingExampleText: string, emoticonsDictionary: str
         // 5
         { annotation : 'includes a question mark', value : containsQuestionMark(trainingExampleText) },
         // 6
-        { annotation : 'number of verbs', value : nlpFunctions(trainingExampleText).verbs().json().length },
+        { annotation : 'number of verbs', value : analyzedTrainingText.verbs().json().length },
         // 7
         { annotation : 'number of emoticons', value : emoticons.countEmoticons(trainingExampleText, emoticonsDictionary) },
         // 8
-        { annotation : 'mentions of numbers', value : nlpFunctions(trainingExampleText).numbers().json().length },
+        { annotation : 'mentions of numbers', value : analyzedTrainingText.numbers().json().length },
         // 9
-        { annotation : 'usages of contractions', value : nlpFunctions(trainingExampleText).contractions().json().length },
+        { annotation : 'usages of contractions', value : analyzedTrainingText.contractions().json().length },
     ];
 }
 
