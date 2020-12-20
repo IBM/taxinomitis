@@ -66,6 +66,56 @@ describe('REST API - tenants', () => {
     });
 
 
+    describe('get policy', () => {
+
+        it('should only allow students to query project types', () => {
+            const tenant = uuid();
+            const url = '/api/classes/' + tenant + '/policy';
+            nextAuth0UserTenant = tenant;
+            nextAuth0UserRole = 'student';
+            return request(testServer)
+                .get(url)
+                .expect(httpstatus.OK)
+                .then((res) => {
+                    assert.deepStrictEqual(Object.keys(res.body),
+                        [ 'supportedProjectTypes' ]);
+                    assert.deepStrictEqual(res.body.supportedProjectTypes,
+                        [ 'text', 'images', 'numbers', 'sounds', 'imgtfjs' ]);
+                });
+        });
+
+        it('should allow teachers to query detailed policy info', () => {
+            const tenant = uuid();
+            const url = '/api/classes/' + tenant + '/policy';
+            nextAuth0UserTenant = tenant;
+            nextAuth0UserRole = 'supervisor';
+            return request(testServer)
+                .get(url)
+                .expect(httpstatus.OK)
+                .then((res) => {
+                    assert.deepStrictEqual(Object.keys(res.body),
+                        [
+                            'isManaged',
+                            'tenantType',
+                            'maxTextModels',
+                            'maxImageModels',
+                            'maxUsers',
+                            'supportedProjectTypes',
+                            'maxProjectsPerUser',
+                            'textClassifierExpiry',
+                            'imageClassifierExpiry',
+                            'textTrainingItemsPerProject',
+                            'numberTrainingItemsPerProject',
+                            'numberTrainingItemsPerClassProject',
+                            'imageTrainingItemsPerProject',
+                            'soundTrainingItemsPerProject',
+                        ]);
+                    assert.deepStrictEqual(res.body.supportedProjectTypes,
+                        [ 'text', 'images', 'numbers', 'sounds', 'imgtfjs' ]);
+                });
+        });
+    });
+
 
     describe('set policy', () => {
 

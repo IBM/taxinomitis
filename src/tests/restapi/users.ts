@@ -25,11 +25,23 @@ describe('REST API - users', () => {
         incorrect : 'different',
     };
 
+    let tenantId: string;
 
     let authStub: sinon.SinonStub<[express.Request, express.Response, express.NextFunction], void>;
-    let checkUserStub: sinon.SinonStub<[express.Request, express.Response, express.NextFunction], void>;
     let requireSupervisorStub: sinon.SinonStub<[express.Request, express.Response, express.NextFunction], void>;
 
+    function authMock(
+        req: Express.Request, res: Express.Response,
+        next: (err?: Error) => void)
+    {
+        // @ts-ignore
+        req.user = {
+            'sub' : 'userid',
+            'https://machinelearningforkids.co.uk/api/role' : 'supervisor',
+            'https://machinelearningforkids.co.uk/api/tenant' : tenantId,
+        };
+        next();
+    }
     function authNoOp(
         req: Express.Request, res: Express.Response,
         next: (err?: Error) => void)
@@ -39,8 +51,7 @@ describe('REST API - users', () => {
 
 
     before(() => {
-        authStub = sinon.stub(auth, 'authenticate').callsFake(authNoOp);
-        checkUserStub = sinon.stub(auth, 'checkValidUser').callsFake(authNoOp);
+        authStub = sinon.stub(auth, 'authenticate').callsFake(authMock);
         requireSupervisorStub = sinon.stub(auth, 'requireSupervisor').callsFake(authNoOp);
 
         testServer = testapiserver();
@@ -48,7 +59,6 @@ describe('REST API - users', () => {
 
     after(() => {
         authStub.restore();
-        checkUserStub.restore();
         requireSupervisorStub.restore();
     });
 
@@ -62,6 +72,7 @@ describe('REST API - users', () => {
                 createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
                 getUserCounts : sinon.stub(auth0, 'getUserCounts').callsFake(mocks.getUserCounts),
             };
+            tenantId = 'AN_UNKNOWN_TENANT_ID';
 
             return store.init()
                 .then(() => {
@@ -111,6 +122,7 @@ describe('REST API - users', () => {
                 getUser : sinon.stub(auth0, 'getUser').callsFake(mocks.getUser.johndoe),
                 deleteUser : sinon.stub(auth0, 'deleteUser').callsFake(mocks.deleteUser.good),
             };
+            tenantId = TENANTS.correct;
 
             const userid = 'auth0|58dd72d0b2e87002695249b6';
 
@@ -155,6 +167,7 @@ describe('REST API - users', () => {
                 getUser : sinon.stub(auth0, 'getUser').callsFake(mocks.getUser.johndoe),
                 deleteUser : sinon.stub(auth0, 'deleteUser').callsFake(mocks.deleteUser.good),
             };
+            tenantId = TENANTS.incorrect;
 
             return request(testServer)
                 .del('/api/classes/' + TENANTS.incorrect + '/students/auth0|58dd72d0b2e87002695249b6')
@@ -309,6 +322,7 @@ describe('REST API - users', () => {
                 createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
                 getUserCounts : sinon.stub(auth0, 'getUserCounts').callsFake(mocks.getUserCounts),
             };
+            tenantId = 'mytesttenant';
 
             const username = 'R129' + randomstring.generate({ length : 9, readable : true });
 
@@ -340,6 +354,7 @@ describe('REST API - users', () => {
                 getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
                 createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
             };
+            tenantId = 'mytesttenant';
 
             return request(testServer)
                 .post('/api/classes/mytesttenant/students')
@@ -361,6 +376,7 @@ describe('REST API - users', () => {
                 getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
                 createUser : sinon.stub(auth0, 'createUser').callsFake(mocks.createUser.good),
             };
+            tenantId = 'mytesttenant';
 
             return request(testServer)
                 .post('/api/classes/mytesttenant/students')
@@ -386,6 +402,7 @@ describe('REST API - users', () => {
                 getUserCounts : sinon.stub(auth0, 'getUserCounts').resolves({
                     users: [], total : 30, start : 0, limit : 30, length : 30 }),
             };
+            tenantId = 'mytesttenant';
 
             return store.init()
                 .then(() => {
@@ -416,6 +433,7 @@ describe('REST API - users', () => {
                 getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
                 getUsers : sinon.stub(auth0, 'getUsers').callsFake(mocks.getUsers.empty),
             };
+            tenantId = 'empty';
 
             return request(testServer)
                 .get('/api/classes/empty/students')
@@ -437,6 +455,7 @@ describe('REST API - users', () => {
                 getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
                 getUsers : sinon.stub(auth0, 'getUsers').callsFake(mocks.getUsers.single),
             };
+            tenantId = 'single';
 
             return request(testServer)
                 .get('/api/classes/single/students')
@@ -458,6 +477,7 @@ describe('REST API - users', () => {
                 getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
                 getUsers : sinon.stub(auth0, 'getUsers').callsFake(mocks.getUsers.error),
             };
+            tenantId = 'single';
 
             return request(testServer)
                 .get('/api/classes/single/students')
@@ -482,6 +502,7 @@ describe('REST API - users', () => {
                 getUser : sinon.stub(auth0, 'getUser').callsFake(mocks.getUser.johndoe),
                 modifyUser : sinon.stub(auth0, 'modifyUser').callsFake(mocks.modifyUser.good),
             };
+            tenantId = TENANTS.correct;
 
             const userid = 'auth0|58dd72d0b2e87002695249b6';
 
@@ -508,6 +529,7 @@ describe('REST API - users', () => {
                 getUser : sinon.stub(auth0, 'getUser').callsFake(mocks.getUser.johndoe),
                 modifyUser : sinon.stub(auth0, 'modifyUser').callsFake(mocks.modifyUser.good),
             };
+            tenantId = TENANTS.incorrect;
 
             return request(testServer)
                 .post('/api/classes/' + TENANTS.incorrect + '/students/auth0|58dd72d0b2e87002695249b6/password')

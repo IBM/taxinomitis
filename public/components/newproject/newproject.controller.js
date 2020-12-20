@@ -5,19 +5,43 @@
         .controller('NewProjectController', NewProjectController);
 
     NewProjectController.$inject = [
-        'authService',
-        'projectsService',
+        'authService', 'projectsService', 'usersService',
         'loggerService',
         '$state', '$rootScope', '$scope'
     ];
 
 
-    function NewProjectController(authService, projectsService, loggerService, $state, $rootScope) {
+    function NewProjectController(authService, projectsService, usersService, loggerService, $state, $rootScope, $scope) {
 
         var vm = this;
         vm.authService = authService;
 
-        vm.creating = false;
+        $scope.creating = false;
+
+        // default assuming 'Try it now' user
+        var supportedProjectTypes = [ 'text', 'imgtfjs', 'sounds', 'numbers' ];
+        function refreshSupportedImageProjectTypes() {
+            $scope.supportsCloudImageProjects = supportedProjectTypes.indexOf('images') >= 0;
+            $scope.supportsLocalImageProjects = supportedProjectTypes.indexOf('imgtfjs') >= 0;
+            $scope.canChooseImageModelType = $scope.supportsCloudImageProjects &&
+                                             $scope.supportsLocalImageProjects;
+        }
+        refreshSupportedImageProjectTypes();
+
+        $scope.getProjectType = function (projectType, imageProjectType) {
+            if (projectType === 'IMAGES') {
+                if (imageProjectType) {
+                    return imageProjectType;
+                }
+                else if (supportedProjectTypes.indexOf('imgtfjs') >= 0) {
+                    return 'imgtfjs';
+                }
+                else {
+                    return 'images';
+                }
+            }
+            return projectType;
+        };
 
         vm.fields = [];
         vm.focused = $rootScope.isTeacher ? 'crowdsourced' : 'name';
@@ -33,24 +57,12 @@
                 errObj = {};
             }
 
-            if (errObj &&
-                status === 403 &&
-                errObj.error === 'Support for images projects is not enabled for your class' &&
-                vm.profile.tenant === 'session-users')
-            {
-                errObj.message = 'You can\'t train machine learning models to recognise images with "Try it now". ' +
-                                 'You will be able to create images projects if you login with a regular account. ' +
-                                 'See the "Help" page for more details about the differences between creating an account and using "Try it now".';
-            }
-
             vm[type].push({
                 alertid : alertId++,
                 message : errObj.message || errObj.error || 'Unknown error',
                 status : status
             });
         }
-
-        vm.explainimages = false;
 
         var MIN_CHOICE_LENGTH = 1;
         var MAX_CHOICE_LENGTH = 9;
@@ -60,6 +72,16 @@
         authService.getProfileDeferred()
             .then(function (profile) {
                 vm.profile = profile;
+
+                if (vm.profile.tenant !== 'session-users') {
+                    return usersService.getClassPolicy(profile);
+                }
+            })
+            .then(function (policy) {
+                if (policy && policy.supportedProjectTypes) {
+                    supportedProjectTypes = policy.supportedProjectTypes;
+                    refreshSupportedImageProjectTypes();
+                }
             })
             .catch(function (err) {
                 displayAlert('errors', err.status, err.data);
@@ -75,7 +97,7 @@
             });
         }
 
-        vm.isInvalid = function (type) {
+        $scope.isInvalid = function (type) {
             if (type === 'numbers') {
                 if (vm.fields.length < 1 || vm.fields.length > 10) {
                     return true;
@@ -113,7 +135,7 @@
         };
 
         vm.confirm = function (projectSpec) {
-            vm.creating = true;
+            $scope.creating = true;
 
             if (projectSpec.type !== 'numbers') {
                 delete projectSpec.fields;
@@ -130,7 +152,7 @@
                     loggerService.error('[ml4kproj] Failed to create project', err);
                     displayAlert('errors', err.status, err.data);
 
-                    vm.creating = false;
+                    $scope.creating = false;
                 });
         };
     }

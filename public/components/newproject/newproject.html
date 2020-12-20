@@ -9,7 +9,7 @@
         <button class="btn btn-primary" ng-click="vm.authService.login()" translate="APP.LOGIN"></button>
     </div>
 </div>
-<div ng-if="isAuthenticated" style="padding: 2em">
+<div ng-if="isAuthenticated" class="newprojectpage">
     <div ng-repeat="error in vm.errors" class="alert alert-danger alert-dismissible pageheadermsg" role="alert" ng-click="vm.dismissAlert('errors', $index)">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <strong translate="APP.ERROR"></strong> {{ error.message }}<br/>
@@ -32,13 +32,12 @@
                 <md-checkbox
                        ng-model="crowdSourced"
                        ng-focus="vm.focused = 'crowdsourced'"
-                       ng-disabled="vm.creating"
-                       class="newprojectname"
-                       style="font-size: 1.7em">
+                       ng-disabled="creating"
+                       class="newprojectname newcrowdsourced">
                        {{ 'NEWPROJECT.WHOLE_CLASS_PROJECT.TITLE' | translate }}
                 </md-checkbox>
             </md-input-container>
-            <div class="well newprojecthelp" ng-if="vm.focused === 'crowdsourced' && !vm.creating">
+            <div class="well newprojecthelp" ng-if="vm.focused === 'crowdsourced' && !creating">
                 <div style="margin-bottom: 1em" translate="NEWPROJECT.WHOLE_CLASS_PROJECT.NOTES_1"></div>
                 <div translate="NEWPROJECT.WHOLE_CLASS_PROJECT.NOTES_2"></div>
             </div>
@@ -57,7 +56,7 @@
                        ng-required="true"
                        name="projectName"
                        ng-model="projectName"
-                       ng-disabled="vm.creating"
+                       ng-disabled="creating"
                        ng-focus="vm.focused = 'name'"
                        class="newprojectname"/>
                 <div ng-messages="newProject.projectName.$error" ng-show="newProject.projectName.$dirty">
@@ -66,7 +65,7 @@
                 </div>
             </md-input-container>
             <div class="well newprojecthelp"
-                 ng-if="vm.focused === 'name' && !vm.creating"
+                 ng-if="vm.focused === 'name' && !creating"
                  translate="NEWPROJECT.PROJECT_NAME.NOTES"></div>
         </div>
 
@@ -81,45 +80,52 @@
                 <label translate="NEWPROJECT.TYPES.LABEL"></label>
                 <md-select ng-required="true"
                            ng-model="projectType"
-                           ng-disabled="vm.creating"
+                           ng-disabled="creating"
                            ng-focus="vm.focused = 'type'"
                            class="newprojecttype">
                     <md-option value="text" translate="WORKSHEETS.TYPES.TEXT"></md-option>
-                    <md-option value="images" translate="WORKSHEETS.TYPES.IMAGES" ng-hide="vm.profile && vm.profile.tenant === 'session-users'"></md-option>
-                    <md-option value="imgtfjs">{{ 'WORKSHEETS.TYPES.IMAGES' | translate }} <span class="badge">beta</span></md-option>
+                    <md-option value="IMAGES" translate="WORKSHEETS.TYPES.IMAGES"></md-option>
                     <md-option value="numbers" translate="WORKSHEETS.TYPES.NUMBERS"></md-option>
                     <md-option value="sounds" translate="WORKSHEETS.TYPES.SOUNDS"></md-option>
                 </md-select>
                 <div class="newprojectexplanation"
-                     ng-click="vm.explainimages = !vm.explainimages"
                      ng-if="projectType === 'images' || projectType === 'imgtfjs'"
                      ng-hide="vm.profile && vm.profile.tenant === 'session-users'"
                      translate="NEWPROJECT.EXPLAINTYPES.NOTICE"></div>
             </md-input-container>
             <div class="well newprojecthelp"
-                 ng-if="vm.focused === 'type' && projectType !== 'numbers' && !vm.creating">
-                <div style="margin-bottom: 1em" translate="NEWPROJECT.TYPES.NOTES_1"></div>
+                 ng-if="vm.focused === 'type' && projectType !== 'numbers' && !creating">
+                <div class="helpfirstline" translate="NEWPROJECT.TYPES.NOTES_1"></div>
                 <div translate="NEWPROJECT.TYPES.NOTES_2"></div>
                 <div translate="NEWPROJECT.TYPES.NOTES_3"></div>
                 <div translate="NEWPROJECT.TYPES.NOTES_4"></div>
                 <div translate="NEWPROJECT.TYPES.NOTES_5"></div>
             </div>
         </div>
-        <div class="well newprojecthelp"
-             ng-if="vm.explainimages && (projectType === 'images' || projectType === 'imgtfjs')">
-            <div style="margin-bottom: 1em" translate="NEWPROJECT.EXPLAINTYPES.NOTES_1"></div>
-            <div style="margin-bottom: 1em" translate="NEWPROJECT.EXPLAINTYPES.NOTES_2"></div>
-            <div style="margin-top: 2em;" translate="NEWPROJECT.EXPLAINTYPES.NOTES_3"></div>
-            <div><ul style="margin-bottom: 0; padding-inline-start: 20px;">
-                <li translate="NEWPROJECT.EXPLAINTYPES.NOTES_4"></li>
-                <li translate="NEWPROJECT.EXPLAINTYPES.NOTES_5"></li>
-            </ul></div>
-            <div style="margin-bottom: 1em" translate="NEWPROJECT.EXPLAINTYPES.NOTES_6"> </div>
-            <div style="margin-top: 2em;" translate="NEWPROJECT.EXPLAINTYPES.NOTES_7"> </div>
-            <div><ul style="margin-bottom: 0; padding-inline-start: 20px;">
-                <li translate="NEWPROJECT.EXPLAINTYPES.NOTES_8"></li>
-            </ul></div>
-            <div translate="NEWPROJECT.EXPLAINTYPES.NOTES_9"></div>
+
+
+        <!-- ---------------------------------------- -->
+        <!--   MODEL LOCATION                         -->
+        <!--                                          -->
+        <!-- displayed only for image projects        -->
+        <!-- ---------------------------------------- -->
+        <div class="newprojectfields newprojectlanguage" ng-show="projectType === 'IMAGES' && canChooseImageModelType">
+            <md-input-container class="newprojectform">
+                <label translate="NEWPROJECT.IMAGEPROJECTS.LABEL"></label>
+                <md-select ng-model="imagesmodeltype"
+                           ng-focus="vm.focused = 'imageprojects'"
+                           ng-disabled="creating"
+                           class="newprojecttype">
+                    <md-option value="imgtfjs" ng-selected="supportsLocalImageProjects" translate="NEWPROJECT.IMAGEPROJECTS.TYPES.IMGTFJS"></md-option>
+                    <md-option value="images" ng-selected="!supportsLocalImageProjects" translate="NEWPROJECT.IMAGEPROJECTS.TYPES.IMAGES"></md-option>
+                </md-select>
+            </md-input-container>
+            <div class="well newprojecthelp"
+                    ng-if="vm.focused === 'imageprojects' && projectType === 'IMAGES' && !creating">
+                <div translate="NEWPROJECT.IMAGEPROJECTS.NOTES_1" class="helpfirstline"></div>
+                <div translate="NEWPROJECT.IMAGEPROJECTS.NOTES_2" class="helpfirstline"></div>
+                <div translate="NEWPROJECT.IMAGEPROJECTS.NOTES_3"></div>
+            </div>
         </div>
 
 
@@ -133,7 +139,7 @@
                 <label translate="NEWPROJECT.LANGUAGE.LABEL"></label>
                 <md-select ng-model="language"
                            ng-focus="vm.focused = 'language'"
-                           ng-disabled="vm.creating"
+                           ng-disabled="creating"
                            class="newprojecttype">
                     <md-option value="en" ng-selected="true">English</md-option>
                     <md-option value="ar">Arabic</md-option>
@@ -151,7 +157,7 @@
                 </md-select>
             </md-input-container>
             <div class="well newprojecthelp"
-                    ng-if="vm.focused === 'language' && projectType === 'text' && !vm.creating"
+                    ng-if="vm.focused === 'language' && projectType === 'text' && !creating"
                     translate="NEWPROJECT.LANGUAGE.NOTES"></div>
         </div>
 
@@ -175,7 +181,7 @@
                            name="numfield_{{$index}}"
                            ng-required="true"
                            ng-model="field.name"
-                           ng-disabled="vm.creating"
+                           ng-disabled="creating"
                            ng-focus="vm.focused = 'fieldname' + $index"
                            class="newprojectfieldname"/>
                     <div ng-messages="newProject['numfield_' + $index].$error" ng-show="newProject['numfield_' + $index].$dirty">
@@ -191,7 +197,7 @@
                     <label translate="NEWPROJECT.FIELDS.TYPE.TITLE"></label>
                     <md-select ng-required="true"
                                ng-model="field.type"
-                               ng-disabled="vm.creating"
+                               ng-disabled="creating"
                                ng-focus="vm.focused = 'fieldtype' + $index"
                                class="newprojectfieldtype">
                         <md-option value="number" translate="NEWPROJECT.FIELDS.TYPE.NUMBER"></md-option>
@@ -285,8 +291,8 @@
             <span flex></span>
             <md-button
                 class="md-raised md-primary"
-                ng-disabled="vm.creating || newProject.$invalid || vm.isInvalid(projectType)"
-                ng-click="vm.confirm({ name : projectName, type : projectType, fields : vm.fields, language : language, isCrowdSourced : (isTeacher && crowdSourced) ? true : false })"
+                ng-disabled="creating || newProject.$invalid || isInvalid(projectType)"
+                ng-click="vm.confirm({ name : projectName, type : getProjectType(projectType, imagesmodeltype), fields : vm.fields, language : language, isCrowdSourced : (isTeacher && crowdSourced) ? true : false })"
                 translate="NEWPROJECT.CREATE">
             </md-button>
             <md-button ui-sref="projects" translate="APP.CANCEL"></md-button>
