@@ -20,6 +20,8 @@
             UNLIMITED : -2
         };
 
+        vm.hideVisualRecognition = false;
+
         var alertId = 1;
         vm.errors = [];
         vm.warnings = [];
@@ -126,6 +128,9 @@
 
                             if (vm.policy.isManaged === false) {
                                 getAllCredentials(profile);
+                            }
+                            if (vm.policy.supportedProjectTypes.indexOf('images') === -1) {
+                                vm.hideVisualRecognition = true;
                             }
                         })
                         .catch(function (err) {

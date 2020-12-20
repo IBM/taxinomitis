@@ -2,8 +2,16 @@
     font-size: 2.5em;
 }
 
+.newprojectpage {
+    padding: 2em;
+}
+
 md-input-container .md-input.newprojectname {
     height: 1.5em;
+}
+
+.newprojectname.newcrowdsourced {
+    font-size: 1.7em;
 }
 
 .newprojectrow {
@@ -20,6 +28,10 @@ md-input-container .md-input.newprojectname {
     color: #666699;
     vertical-align: middle;
     margin-right: 5px;
+}
+
+.newprojecthelp .helpfirstline {
+    margin-bottom: 1em;
 }
 
 .newprojecttype {

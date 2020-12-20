@@ -336,10 +336,25 @@ function deleteClass(req: Express.Request, res: Express.Response) {
 
 
 async function getPolicy(req: Express.Request, res: Express.Response) {
+    const reqWithUser = req as auth.RequestWithUser;
+
     const tenant = req.params.classid;
 
     try {
         const policy = await store.getClassTenant(tenant);
+
+        // students can only see what type of projects they can create
+        if (!reqWithUser.user ||
+            !reqWithUser.user.app_metadata ||
+            reqWithUser.user.app_metadata.role !== 'supervisor')
+        {
+            return res.set(headers.CACHE_1HOUR).json({
+                supportedProjectTypes : policy.supportedProjectTypes,
+            });
+        }
+
+        // teachers can also see other limitations,
+        //  including restrictions that they can modify
         const storelimits = await dblimits.getStoreLimits();
         let availableCredentials;
         if (policy.tenantType === ClassTenantType.ManagedPool) {
@@ -449,7 +464,6 @@ export default function registerApis(app: Express.Application) {
     app.get(urls.TENANT_POLICY,
         auth.authenticate,
         auth.checkValidUser,
-        auth.requireSupervisor,
         getPolicy);
 
     app.patch(urls.TENANT_POLICY,

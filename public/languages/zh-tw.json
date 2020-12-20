@@ -212,17 +212,15 @@
             "NOTES_4": "一系列的數字或多個選項，請選擇「數字」",
             "NOTES_5": "聲音與音樂，請選擇「聲音」"
         },
-        "EXPLAINTYPES": {
-            "NOTICE": "「圖片」與「圖片<span class='mltinybadge badge'>beta</span>」有什麼差異？",
-            "NOTES_1": "如果你選擇「<strong style='color:black'>圖片</strong>」，你的機器學習模型將在雲端伺服器上訓練。",
-            "NOTES_2": "如果你選擇「<strong style='color:black'>圖片<span class='mltinybadge badge'>beta</span></strong>」，你的機器學習模型將在你自己的電腦上訓練。",
-            "NOTES_3": "「<strong style='color:black'>圖片</strong>」的優點包含：",
-            "NOTES_4": "成果可以運用在Scratch、App inventor或是Python的專案中",
-            "NOTES_5": "即使你電腦的效能也差也沒關係，因為模型在雲端上訓練。",
-            "NOTES_6": "但是，他會花較多時間等待雲端伺服器開始訓練你的模型。",
-            "NOTES_7": "「<strong style='color:black'>圖片<span class='mltinybadge badge'>beta</span></strong>」的優點包含：",
-            "NOTES_8": "可以更快速的完成模型訓練，因為你不需要等待雲端伺服器開始訓練。",
-            "NOTES_9": "但是，成果只能運用在Scratch的專案中"
+        "IMAGEPROJECTS": {
+            "LABEL": "Where to train the model",
+            "TYPES": {
+                "IMAGES": "in the cloud",
+                "IMGTFJS": "on your computer"
+            },
+            "NOTES_1": "If you choose \"on your computer\" you can only use the model in Scratch.",
+            "NOTES_2": "If you choose \"in the cloud\" you can use the model in Scratch, Python, or App Inventor.",
+            "NOTES_3": "You can change your mind about this at any time."
         },
         "LANGUAGE": {
             "LABEL": "語言",
@@ -1521,6 +1519,7 @@
             "INTRO_VISUALRECOGNITION": "使用<a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>來訓練<span class='mlprojecttype'>圖片</span>專案的機器學習模型",
             "INTRO_NUMBERS": "<strong>不需要</strong>任何API密碼即可訓練<span class='mlprojecttype'>數字</span>專案的機器學習模型",
             "INTRO_SOUNDS": "<strong>不需要</strong>任何API密碼即可訓練<span class='mlprojecttype'>聲音</span>專案的機器學習模型",
+            "INTRO_IMAGES": "Training machine learning models for <span class='mlprojecttype'>images</span> projects does <strong>not</strong> require any API keys",
             "ERROR_FETCHING_WATSONASSISTANT": "無法取得你的Watson Assistant密碼",
             "ERROR_FETCHING_VISUALRECOG": "無法取得你的Visual Recognition的API密碼",
             "USERNAME": "使用者名稱",
@@ -1667,23 +1666,20 @@
         "PROJECTS": {
             "TITLE": "專案問題",
 
-            "Q1": "圖片專案與圖片<span class='mltinybadge badge'>beta</span>專案有什麼差別？",
+            "Q1": "What is the difference between training image models \"on your computer\" or \"in the cloud\"?",
             "Q1-A-1": "這兩種都可以用來建立相同種類的機器學習專案。不同的地方在於在哪裡建立與儲存模型。",
-            "Q1-A-2": "在<strong>圖片</strong>專案中，機器學習模型將在雲端伺服器訓練，透過Watson視覺辨識的線上服務達成。",
-            "Q1-A-3": "在<strong>圖片<span class='mltinybadge badge'>beta</span></strong>專案中，機器學習模型將在你自己電腦的網頁瀏覽器中訓練。",
-            "Q1-A-4": "<strong>圖片</strong>專案的優點是：",
+            "Q1-A-2": "If you choose \"<strong>in the cloud</strong>\" machine learning models are trained on cloud servers using an online service called Watson Visual Recognition.",
+            "Q1-A-3": "If you choose \"<strong>on your computer</strong>\" machine learning models are trained on the student's own computer, in the web browser.",
+            "Q1-A-4": "\"<strong>in the cloud</strong>\" is good because:",
             "Q1-A-5": "可以運用在Scratch、App inventor或是Python的專案中",
-            "Q1-A-6": "即使你電腦的效能也差也沒關係，因為模型在雲端上訓練。",
             "Q1-A-7": "它可以建立更準確的模型，尤其是在使用少量訓練範例時。",
-            "Q1-A-8": "但是，等待開始雲端服務器訓練時需要花幾分鐘的時間，並且需要IBM Cloud的Watson API密碼（沒有班級管理的帳戶）",
-            "Q1-A-9": "「<strong style='color:black'>圖片<span class='mltinybadge badge'>beta</span></strong>」的優點包含：",
+            "Q1-A-8": "But, it takes several minutes to train while you wait for your turn on the cloud server.",
+            "Q1-A-9": "\"<strong>on your computer</strong>\" is good because:",
             "Q1-A-10": "它可以更快地完成訓練，因為它可以馬上開始，不需等待開啟雲端服務器的時間。",
-            "Q1-A-11": "他不需要任何IBM Cloud的API密碼（對於沒有班級管理的帳戶）",
             "Q1-A-12": "模型不會被自動刪除",
-            "Q1-A-13": "但是，這只能用在Scratch專案中，而且需要學生使用效能夠快的電腦。",
-            "Q1-A-14": "因為在網頁瀏覽器中訓練是新功能所以我們稱為beta。因此可能仍有一些操作環境或瀏覽器的問題。如果你發生錯誤，請回報問題到<a href='https://groups.google.com/d/forum/mlforkids'>兒童機器學習論壇</a>。",
+            "Q1-A-13": "But, it can only be used for Scratch projects.",
 
-            "Q2": "如何將「圖片專案」切換成「圖片<span class='mltinybadge badge'>beta</span>專案」？（反之亦同）",
+            "Q2": "How can you change an \"images\" project to train in the cloud, or to train on your computer?",
             "Q2-A-1": "你可以在專案中的訓練頁面切換這兩種模式。",
             "Q2-A-2": "切換的連結在畫面的右上方。",
             "Q2-A-3": "完成後將刪除此專案中所有既有的機器學習模型。",
