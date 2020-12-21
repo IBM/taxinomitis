@@ -1,0 +1,10 @@
+Sitemap: https://machinelearningforkids.co.uk/sitemap.xml
+
+User-agent: *
+Disallow: /projects
+Disallow: /teacher
+Disallow: /scratchx
+Disallow: /scratch3
+Disallow: /datasets
+Disallow: /apikeys-guide
+

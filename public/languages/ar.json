@@ -1226,14 +1226,6 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf"
             }
         },
-        "CONFUSED": {
-            "TITLE": "مشوش",
-            "SUMMARY": "تعليم الكمبيوتر كيفية التعرف على الفاكهة",
-            "DESCRIPTION": "تعرف على كيف لأجهزة الكمبيوتر أن تكون مشوشة ويمكن أن ترتكب أخطاء إذا تم تدريبها بشكل سيئ.",
-            "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-confused.pdf"
-            }
-        },
         "FOOLED": {
             "TITLE": "خداع",
             "SUMMARY": "تعليم الكمبيوتر كيفية التعرف على الفاكهة",

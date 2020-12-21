@@ -56,7 +56,7 @@ gulp.task('bower', function() {
 });
 
 gulp.task('twitter', function() {
-    return gulp.src('public/twitter-card.html').pipe(gulp.dest('web/dynamic'));
+    return gulp.src('public/static-files/twitter-card.html').pipe(gulp.dest('web/dynamic'));
 });
 
 gulp.task('tensorflowjs', function() {
@@ -125,7 +125,14 @@ gulp.task('scratchblocks', function() {
 });
 
 gulp.task('crossdomain', function() {
-    return gulp.src('public/crossdomain.xml').pipe(gulp.dest('web/dynamic'));
+    return gulp.src('public/static-files/crossdomain.xml').pipe(gulp.dest('web/dynamic'));
+});
+
+gulp.task('robotstxt', function() {
+    return gulp.src([
+        'public/static-files/robots.txt',
+        'public/static-files/sitemap.xml'
+    ]).pipe(gulp.dest('web/dynamic'));
 });
 
 gulp.task('scratchxinstall', gulp.series('crossdomain', function() {
@@ -143,10 +150,6 @@ gulp.task('scratch3install', gulp.series('crossdomain', function() {
         'public/components/help/help-scratch.css'
     ]).pipe(gulp.dest('web/scratch3'));
 }));
-
-gulp.task('datasets', function() {
-    return gulp.src('public/datasets/**').pipe(gulp.dest('web/datasets'));
-});
 
 gulp.task('compile', () => {
     let errors = false;
@@ -280,7 +283,7 @@ gulp.task('test', () => {
 });
 
 gulp.task('web',
-    gulp.series('css', 'minifyjs', 'images', 'html', 'angularcomponents', 'languages', 'datasets', 'scratchxinstall', 'scratch3install', 'scratchblocks'));
+    gulp.series('css', 'minifyjs', 'images', 'html', 'angularcomponents', 'languages', 'scratchxinstall', 'scratch3install', 'scratchblocks'));
 
 gulp.task('uidependencies',
     gulp.series('bower', 'tfjs'));
@@ -296,13 +299,13 @@ gulp.task('buildprod',
         'clean',
         'uidependencies',
         gulp.parallel(
+            'robotstxt',
             'css',
             'minifyprodjs',
             'images',
             'prodhtml',
             'angularcomponents',
             'languages',
-            'datasets',
             'scratchxinstall', 'scratch3install', 'scratchblocks'),
         'compile',
         'lint'));

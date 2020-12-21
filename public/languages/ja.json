@@ -1226,14 +1226,6 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf"
             }
         },
-        "CONFUSED": {
-            "TITLE": "混乱",
-            "SUMMARY": "果物を認識できるようにコンピュータに教えよう。",
-            "DESCRIPTION": "上手くトレーニングされないとコンピュータがどのように混乱して、間違えるか試してみます。",
-            "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-confused.pdf"
-            }
-        },
         "FOOLED": {
             "TITLE": "Fooled",
             "SUMMARY": "果物を認識できるようにコンピュータに教えよう。",

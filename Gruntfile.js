@@ -107,12 +107,17 @@ module.exports = function(grunt) {
         },
         copy : {
             twittercard : {
-                src : 'public/twitter-card.html',
+                src : 'public/static-files/twitter-card.html',
                 dest : 'web/dynamic/twitter-card.html'
             },
             crossdomain : {
-                src : 'public/crossdomain.xml',
+                src : 'public/static-files/crossdomain.xml',
                 dest : 'web/dynamic/crossdomain.xml'
+            },
+            robotstxt : {
+                src : ['public/static-files/robots.txt',
+                       'public/static-files/sitemap.xml' ],
+                dest : 'web/dynamic'
             },
             scratchx : {
                 expand : true,
@@ -139,12 +144,6 @@ module.exports = function(grunt) {
                 src : ['help-scratch3*',
                        'help-scratch.css'],
                 dest : 'web/scratch3'
-            },
-            datasets : {
-                expand : true,
-                cwd : 'public/datasets',
-                src : '**',
-                dest : 'web/datasets'
             },
             indexhtml : {
                 src : 'public/index.html',
@@ -311,10 +310,10 @@ module.exports = function(grunt) {
     grunt.registerTask('scratch3', ['copy:scratch3', 'copy:scratch3help']);
     grunt.registerTask('scratch', ['scratch2', 'scratch3']);
     // copy static resources into the deployment
-    grunt.registerTask('datasets', ['copy:datasets']);
     grunt.registerTask('twitter', ['copy:twittercard']);
     grunt.registerTask('images', ['copy:images']);
-    grunt.registerTask('staticfiles', ['datasets', 'twitter', 'images']);
+    grunt.registerTask('robotstxt', ['copy:robotstxt']);
+    grunt.registerTask('staticfiles', ['twitter', 'images', 'robotstxt']);
     // minify the CSS
     grunt.registerTask('css', ['cssmin', 'postcss:dist']);
     // prepare the JavaScript

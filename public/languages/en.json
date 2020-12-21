@@ -1265,14 +1265,6 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf"
             }
         },
-        "CONFUSED": {
-            "TITLE": "Confused",
-            "SUMMARY": "Teach a computer to recognise fruit",
-            "DESCRIPTION": "Learn about how computers can be confused and can make mistakes if they're trained badly.",
-            "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-confused.pdf"
-            }
-        },
         "FOOLED": {
             "TITLE": "Fooled",
             "SUMMARY": "Teach a computer to recognise fruit",

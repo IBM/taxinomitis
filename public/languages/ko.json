@@ -1226,14 +1226,6 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf"
             }
         },
-        "CONFUSED": {
-            "TITLE": "맨붕",
-            "SUMMARY": "과일을 인식하도록 컴퓨터를 가르쳐봐요.",
-            "DESCRIPTION": "잘못 훈련된 경우 컴퓨터가 얼마나 혼란스러워하고 실수를 저지르는지 살펴봐요.",
-            "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-confused.pdf"
-            }
-        },
         "FOOLED": {
             "TITLE": "Fooled",
             "SUMMARY": "과일을 인식하도록 컴퓨터를 가르쳐봐요.",

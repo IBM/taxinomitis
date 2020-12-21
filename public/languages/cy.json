@@ -1226,14 +1226,6 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf"
             }
         },
-        "CONFUSED": {
-            "TITLE": "Dryslyd",
-            "SUMMARY": "Dysgu cyfrifiadur i adnabod ffrwythau",
-            "DESCRIPTION": "Dysgwch am sut y gellir drysu cyfrifiaduron a gallant wneud camgymeriadau os ydynt wedi'u hyfforddi'n wael.",
-            "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-confused.pdf"
-            }
-        },
         "FOOLED": {
             "TITLE": "Wedi'i Twyllo",
             "SUMMARY": "Dysgu cyfrifiadur i adnabod ffrwythau",

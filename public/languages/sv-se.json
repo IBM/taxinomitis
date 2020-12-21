@@ -1226,14 +1226,6 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf"
             }
         },
-        "CONFUSED": {
-            "TITLE": "Förvirrad",
-            "SUMMARY": "Lär en dator att känna igen frukt",
-            "DESCRIPTION": "Lär dig om hur datorer kan bli förvirrade och göra misstag om de tränas dåligt.",
-            "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-confused.pdf"
-            }
-        },
         "FOOLED": {
             "TITLE": "Fooled",
             "SUMMARY": "Lär en dator att känna igen frukt",

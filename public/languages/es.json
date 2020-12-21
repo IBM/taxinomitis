@@ -1226,14 +1226,6 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry-es.pdf"
             }
         },
-        "CONFUSED": {
-            "TITLE": "Confundido",
-            "SUMMARY": "Enseña a una computadora a identificar una frutafruit",
-            "DESCRIPTION": "Aprende cómo se puede confundir una computadora si no está bien entrenada.",
-            "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-confused.pdf"
-            }
-        },
         "FOOLED": {
             "TITLE": "Engañada",
             "SUMMARY": "Enseña a una computadora a identificar una fruta",

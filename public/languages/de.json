@@ -1226,14 +1226,6 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf"
             }
         },
-        "CONFUSED": {
-            "TITLE": "Verwirrt",
-            "SUMMARY": "Bringe einem Computer bei, Früchte zu erkennen",
-            "DESCRIPTION": "Lerne, wie ein Computer in die Irre geführt werden kann und Fehler macht, wenn er schlecht trainiert ist.",
-            "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-confused-de.pdf"
-            }
-        },
         "FOOLED": {
             "TITLE": "Fooled",
             "SUMMARY": "Bringe einem Computer bei, Früchte zu erkennen",
