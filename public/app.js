@@ -1,7 +1,7 @@
 (function () {
 
     angular
-        .module('app', ['ngMaterial', 'ngAnimate', 'ngMessages', 'ngSanitize', 'auth0.lock', 'angular-jwt', 'ui.router', 'duScroll', 'webcam', 'pascalprecht.translate', 'yaru22.angular-timeago'])
+        .module('app', ['ngMaterial', 'ngMessages', 'ngSanitize', 'auth0.lock', 'angular-jwt', 'ui.router', 'duScroll', 'webcam', 'pascalprecht.translate', 'yaru22.angular-timeago'])
         .config(config);
 
     config.$inject = [
@@ -10,10 +10,16 @@
         '$urlRouterProvider',
         'jwtOptionsProvider',
         '$httpProvider',
-        '$translateProvider'
+        '$translateProvider',
+        '$mdThemingProvider'
     ];
 
-    function config($stateProvider, lockProvider, $urlRouterProvider, jwtOptionsProvider, $httpProvider, $translateProvider) {
+    function config($stateProvider, lockProvider, $urlRouterProvider, jwtOptionsProvider, $httpProvider, $translateProvider, $mdThemingProvider) {
+
+        // theme has been hard-coded in the angular-material folder, so
+        //  no need to dynamically generate the theme CSS and add it to
+        //  the page head
+        $mdThemingProvider.disableTheming();
 
         $stateProvider
             .state('home', {

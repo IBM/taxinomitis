@@ -6,13 +6,17 @@
         <button class="btn btn-primary" ng-click="vm.authService.login()" translate="APP.LOGIN"></button>
     </div>
 </div>
+
 <div ng-if="isAuthenticated && !projectId" class="alert alert-danger pageheadermsg">
     <strong translate="APP.ERROR"></strong> <span translate="ERRORS.MISSINGPROJECTID"></span> <a ui-sref="projects" translate="APP.PROJECTS"></a>
 </div>
-<div ng-if="isAuthenticated && projectId">
+
+<div ng-if="isAuthenticated && projectId" class="mlpagecontents">
+
     <div class="jumbotron">
         <h2 class="text-center" translate="MODELS.TITLE"></h2>
     </div>
+
     <div class="backbutton modelspage">
         <div>
             <a ui-sref="mlproject({ projectId : projectId, userId : userId })" translate="APP.BACKTOPROJECT"></a>

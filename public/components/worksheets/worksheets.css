@@ -264,39 +264,3 @@
     color: #00008b;
     font-weight: bold;
 }
-
-
-
-td.worksheetname {
-    margin: 1em;
-    font-size: 1.1em;
-    font-weight: bold;
-    background-color: #e0e0ff;
-}
-
-td.worksheetinfo {
-    font-size: 0.9em;
-}
-
-.worksheetslist {
-    width: 100%;
-    margin: auto;
-}
-
-.worksheetslist td {
-    padding: 1em;
-}
-
-
-.worksheetslist small {
-    font-size: 0.7em;
-}
-
-.worksheetslist a {
-    white-space: nowrap;
-    font-size: 0.9em;
-}
-
-.worksheetdownloads {
-    text-align: center;
-}

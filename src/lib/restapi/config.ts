@@ -117,6 +117,8 @@ export const CSP_DIRECTIVES = {
     connectSrc: ["'self'",
         // used for analytics
         'https://www.google-analytics.com',
+        // used for error capturing
+        '*.sentry.io',
     ],
 };
 
@@ -182,5 +184,5 @@ export function setupUI(app: express.Application): void {
     app.get('/book', (req, res) => { res.redirect('/#!/book'); });
 
     const indexHtml: string = path.join(__dirname, '/../../../web/dynamic');
-    app.use('/', express.static(indexHtml, { maxAge : constants.ONE_HOUR }));
+    app.use('/', compression(), express.static(indexHtml, { maxAge : constants.ONE_HOUR }));
 }

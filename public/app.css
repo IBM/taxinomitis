@@ -1,3 +1,13 @@
+body,
+body.md-default-theme {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+}
+
+.mlpagecontents {
+    padding-bottom: 3em;
+}
+
 .jumbotron {
     padding-top: 20px;
     padding-bottom: 20px;
@@ -25,8 +35,17 @@
     border-radius: 0;
 }
 
+a.navbar-brand {
+    padding-top: 5px;
+}
+
+.navbar-brand img {
+    width: 40px;
+    height: 40px;
+}
+
 .backbutton {
-    margin-left: 5px;
+    margin: 5px;
 }
 
 /* override for angular material speed which feels too slow */
@@ -57,3 +76,8 @@ md-dialog.md-transition-in,md-dialog.md-transition-out {
     }
 }
 
+.page-header-alert-info {
+    flex-grow: 1;
+    text-align: center;
+    margin-bottom: 8px;
+}

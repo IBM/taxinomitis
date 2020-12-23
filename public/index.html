@@ -2,15 +2,13 @@
 <html lang="en">
     <head>
         <title>Machine Learning for Kids</title>
-        <meta charset="UTF-8">
+
         <meta name="description" content="An educational tool for teaching kids about machine learning, by letting them train a computer to recognise text, pictures, numbers, or sounds, and then make things with it in tools like Scratch."/>
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
         <link href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link href="/static/bower_components/angular-material/angular-material.min.css" rel="stylesheet" />
-
-        <link href="/static/style-<%= VERSION %>.min.css" rel="stylesheet" />
 
         <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon"/>
 
@@ -20,7 +18,6 @@
         <%= USE_IN_PROD_ONLY %>
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-293441-6"></script>
         <%= AFTER_USE_IN_PROD_ONLY %>
-
 
         <meta name="twitter:card" content="player" />
         <meta name="twitter:site" content="@MLforKids" />
@@ -44,8 +41,9 @@
         <div ng-app="app">
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
+
                     <div class="navbar-header">
-                        <a class="navbar-brand" ui-sref="welcome" style="padding-top: 5px"><img src="static/images/mlforkids-logo.svg" style="width: 40px; height: 40px;"></a>
+                        <a class="navbar-brand" ui-sref="welcome"><img src="static/images/mlforkids-logo.svg"></a>
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
@@ -53,6 +51,7 @@
                             <span class="icon-bar"></span>
                         </button>
                     </div>
+
                     <div id="navbar" class="navbar-collapse collapse" role="navigation">
                         <ul class="nav navbar-nav">
                             <li><a ui-sref="about" data-toggle="collapse" data-target=".navbar-collapse.in" translate="APP.ABOUT"></a></li>
@@ -68,6 +67,7 @@
                             <li ng-if="!isAuthenticated" ng-hide="inMaintenanceMode"><a ui-sref="login" data-toggle="collapse" data-target=".navbar-collapse.in" translate="APP.LOGIN"></a></li>
                             <li ng-if="isAuthenticated"><a ui-sref="welcome" ng-click="authService.logout()" data-toggle="collapse" data-target=".navbar-collapse.in" translate="APP.LOGOUT"></a></li>
                         </ul>
+
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Language</a>
@@ -97,8 +97,10 @@
                             </li>
                         </ul>
                     </div>
+
                 </div>
             </nav>
+
             <div ng-if="siteAlert" class="sitealert ng-cloak">
                 <div class="alert alert-dismissible" role="alert" ng-class="{ 'alert-danger' : siteAlert.severity === 'error', 'alert-warning' : siteAlert.severity === 'warning', 'alert-info' : siteAlert.severity === 'info' }">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="clearSiteAlert && clearSiteAlert()"><span aria-hidden="true">X</span></button>
@@ -106,22 +108,18 @@
                     <a ng-if="siteAlert.url" href="{{siteAlert.url}}" target="_blank">More...</a>
                 </div>
             </div>
+
             <div ui-view></div>
         </div>
 
         <script type="text/javascript" src="/static/bower_components/jquery/dist/jquery.min.js"></script>
-        <script type="text/javascript" src="/static/bower_components/bootstrap/js/alert.js"></script>
-        <script type="text/javascript" src="/static/bower_components/bootstrap/js/transition.js"></script>
-        <script type="text/javascript" src="/static/bower_components/bootstrap/js/collapse.js"></script>
-        <script type="text/javascript" src="/static/bower_components/bootstrap/js/dropdown.js"></script>
-        <script type="text/javascript" src="/static/bower_components/bootstrap/js/tab.js"></script>
-        <script type="text/javascript" src="/static/bower_components/bootstrap/js/tooltip.js"></script>
-        <script type="text/javascript" src="/static/bower_components/bootstrap/js/popover.js"></script>
+
+        <script type="text/javascript" src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
         <script type="text/javascript" src="/static/bower_components/angular/angular.min.js"></script>
         <script type="text/javascript" src="/static/bower_components/angular-translate/angular-translate.min.js"></script>
         <script type="text/javascript" src="/static/bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
-	    <script type="text/javascript" src="/static/bower_components/angular-animate/angular-animate.min.js"></script>
+        <script type="text/javascript" src="/static/bower_components/angular-animate/angular-animate.min.js"></script>
         <script type="text/javascript" src="/static/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
         <script type="text/javascript" src="/static/bower_components/angular-aria/angular-aria.min.js"></script>
 	    <script type="text/javascript" src="/static/bower_components/angular-material/angular-material.min.js"></script>
@@ -131,6 +129,7 @@
         <script type="text/javascript" src="/static/bower_components/angular-timeago/dist/angular-timeago.min.js"></script>
 
         <!-- the minified version doesn't close the webcam properly -->
+        <!-- can't be added dynamically as the angular component that depends on it needs it there at load time -->
         <script type="text/javascript" src="/static/bower_components/webcam/app/scripts/webcam.js"></script>
 
         <script type="text/javascript" src="/static/bower_components/auth0-lock/build/lock.min.js"></script>
@@ -138,7 +137,8 @@
         <script type="text/javascript" src="/static/bower_components/auth0.js/build/auth0.min.js"></script>
         <script type="text/javascript" src="/static/bower_components/angular-jwt/dist/angular-jwt.min.js"></script>
 
-        <script type="text/javascript" src="/static/bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.min.js"></script>
+        <!-- now added dynamically when needed using public/components/utils/utils.service.js -->
+        <!-- <script type="text/javascript" src="/static/bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.min.js"></script> -->
 
         <%= USE_IN_PROD_ONLY %>
         <script src="https://browser.sentry-cdn.com/5.29.0/bundle.min.js" crossorigin="anonymous"></script>
@@ -147,6 +147,13 @@
         <script type="text/javascript" src="/static/app-<%= VERSION %>.js"></script>
         <script type="text/javascript" src="/static/mlapp-<%= VERSION %>.min.js"></script>
 
-        <script async src="/static/scratchblocks-v3.1-min.js"></script>
+        <link href="/static/style-<%= VERSION %>.min.css" rel="stylesheet" />
+
+        <!-- pregenerated default theme to avoid browsers having to generate it on every page load -->
+        <!--  cf. https://material.angularjs.org/latest/performance/internet-explorer              -->
+        <link href="/static/bower_components/angular-material/angular-material.theme.min.css" rel="stylesheet" media="print" onload="this.media='all'; this.onload=null;">
+
+        <!-- now added dynamically when needed using public/components/utils/utils.service.js -->
+        <!-- <script async src="/static/scratchblocks-v3.1-min.js"></script> -->
     </body>
 </html>
