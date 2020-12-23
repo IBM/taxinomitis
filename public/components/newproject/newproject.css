@@ -54,20 +54,6 @@ md-input-container .md-input.newprojectname {
     flex-wrap: wrap;
 }
 
-.newprojectexplanation {
-    font-size: 0.85em;
-    margin: 10px;
-    text-decoration: underline;
-    color: #304ab4;
-    cursor: pointer;
-}
-
-.badge.mltinybadge {
-    font-size: 9px;
-    padding: 1.5px 5px;
-    border-radius: 8px;
-}
-
 .newprojectfield {
     border: thin grey solid;
     padding: 1em;

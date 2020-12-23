@@ -53,14 +53,15 @@
 }
 
 .loadingtraining {
-    background-image: url('./../../static/images/loading.gif');
-    background-repeat: no-repeat;
     background-size: 150px 150px;
     width: 150px;
     height: 150px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 2em;
+}
+
+.loadingsoundstraining {
+    height: 100px;
+    width: 150px;
+    margin-top: 0;
 }
 
 .trainingbucketheader {
@@ -132,6 +133,11 @@
     display: none;
 }
 
+.newexamplesbuttonbar {
+    text-align: center;
+    height: 45px;
+    padding-bottom: 5px;
+}
 
 .newexamplebutton {
     clear: both;

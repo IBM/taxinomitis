@@ -6,12 +6,12 @@
 
         ScratchController.$inject = [
             'authService',
-            'projectsService', 'scratchkeysService',
+            'projectsService', 'scratchkeysService', 'utilService',
             '$stateParams',
             '$scope', '$timeout'
         ];
 
-        function ScratchController(authService, projectsService, scratchkeysService, $stateParams, $scope, $timeout) {
+        function ScratchController(authService, projectsService, scratchkeysService, utilService, $stateParams, $scope, $timeout) {
 
             var vm = this;
             vm.authService = authService;
@@ -49,7 +49,10 @@
                 .then(function (profile) {
                     vm.profile = profile;
 
-                    return projectsService.getProject($scope.projectId, $scope.userId, profile.tenant);
+                    return utilService.loadScript('/static/scratchblocks-v3.1-min.js');
+                })
+                .then(function () {
+                    return projectsService.getProject($scope.projectId, $scope.userId, vm.profile.tenant);
                 })
                 .then(function (project) {
                     $scope.project = project;

@@ -105,6 +105,9 @@
     margin-right: 5em;
     margin-bottom: 2em;
 }
+.newprojectbuttons .page-header-alert-info {
+    margin-bottom: initial;
+}
 .newprojectbutton {
     border: 1px solid #ddd;
     border-right-width: 2px;
@@ -127,6 +130,9 @@
     margin-right: 10px;
     color: black;
 }
+.newprojecticon.glyphicon.glyphicon-import {
+    font-size: 2em;
+}
 .newprojectlabel {
     float: right;
     width: 80px;
@@ -142,6 +148,8 @@
     float: right;
 }
 
-.mlprojectslist {
-    padding-bottom: 3em;
+.mlprojectssharebutton {
+    margin: 4px;
+    font-size: 0.8em;
+    padding: 4px;
 }

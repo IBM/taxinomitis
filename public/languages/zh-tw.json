@@ -385,7 +385,7 @@
         "TEST_WEBCAM": "照一張相來訓練你的模型",
         "CHANGETYPE": {
             "IMAGES": "切換到「圖片」，如此一來你的模型將在雲端中訓練。",
-            "IMGTFJS": "切換到「圖片<span class='badge mltinybadge'>beta</span>」，如此一來你的模型將在你自己的電腦中訓練。"
+            "IMGTFJS": "切換到「圖片」，如此一來你的模型將在你自己的電腦中訓練。"
         },
         "WHATHAVEYOUDONE": {
             "TITLE": "你完成了什麼？",

@@ -22,14 +22,14 @@
 
     <div class="newprojectbuttons">
         <div class="newprojectbutton" ui-sref="importdataset">
-            <div class="newprojecticon glyphicon glyphicon-import" style="font-size: 2em;"></div>
+            <div class="newprojecticon glyphicon glyphicon-import"></div>
             <div class="newprojectlabel" translate="PROJECTS.COPYTEMPLATE"></div>
         </div>
         <div class="newprojectbutton" ui-sref="newproject">
             <div class="newprojecticon">+</div>
             <div class="newprojectlabel" translate="PROJECTS.ADDNEWPROJECT"></div>
         </div>
-        <div style="flex-grow: 1; text-align: center; margin-bottom: initial;" class="alert alert-info pageheadermsg" ng-if="vm.projects && vm.projects.length === 0">
+        <div class="alert alert-info pageheadermsg page-header-alert-info" ng-if="vm.projects && vm.projects.length === 0">
             {{ 'PROJECTS.CREATEFIRSTPROJECT' | translate }}
             <span class="glyphicon glyphicon-arrow-right"></span>
         </div>
@@ -37,7 +37,7 @@
 
     <div ng-if="!vm.projects" class="loading"> </div>
 
-    <div class="text-center mlprojectslist">
+    <div class="text-center mlpagecontents">
         <div class="mlproject" ng-repeat="project in vm.projects" id="{{project.id}}">
             <div class="mlprojectdetails placeholder" ng-if="project.isPlaceholder">
                 <div class="mlprojecttitle">{{ project.name }}</div>
@@ -62,14 +62,12 @@
             <div class="mlprojectdelete">
                 <button type="button"
                         ng-if="isTeacher && !project.isCrowdSourced && !project.isPlaceholder"
-                        style="margin: 4px; font-size: 0.8em; padding: 4px;"
-                        class="btn btn-info"
+                        class="btn btn-info mlprojectssharebutton"
                         ng-click="vm.shareProject($event, project, true)"
                         translate="PROJECTS.SHARE"></button>
                 <button type="button"
                         ng-if="isTeacher && project.isCrowdSourced && !project.isPlaceholder"
-                        style="margin: 4px; font-size: 0.8em; padding: 4px;"
-                        class="btn btn-info"
+                        class="btn btn-info mlprojectssharebutton"
                         ng-click="vm.shareProject($event, project, false)"
                         translate="PROJECTS.UNSHARE"></button>
                 <br ng-if="isTeacher"/>

@@ -125,17 +125,6 @@
     margin-top: 0.6em;
 }
 
-.datasetcard .cardfooter .maketype {
-    padding-left: 2px;
-    padding-right: 5px;
-}
-
-.datasetcard .cardfooter .maketype img {
-    border: thin #555555 solid;
-    width: 32px;
-    height: 32px;
-}
-
 .datasetcard .cardfooter span.heading {
     font-size: 0.8em;
     color: #555555;
@@ -168,40 +157,4 @@
 .datasettype {
     color: #00008b;
     font-weight: bold;
-}
-
-
-
-td.datasetname {
-    margin: 1em;
-    font-size: 1.1em;
-    font-weight: bold;
-    background-color: #e0e0ff;
-}
-
-td.datasetinfo {
-    font-size: 0.9em;
-}
-
-.datasetslist {
-    width: 100%;
-    margin: auto;
-}
-
-.datasetslist td {
-    padding: 1em;
-}
-
-
-.datasetslist small {
-    font-size: 0.7em;
-}
-
-.datasetslist a {
-    white-space: nowrap;
-    font-size: 0.9em;
-}
-
-.datasetdownloads {
-    text-align: center;
 }

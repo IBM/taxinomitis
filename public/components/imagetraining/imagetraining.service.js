@@ -28,7 +28,7 @@
 
         function loadTensorFlow() {
             loggerService.debug('[ml4kimages] loading tensorflow');
-            return utilService.loadScript('/static/bower_components/tensorflowjs/tf.min.js')
+            return utilService.loadTensorFlow()
                 .then(function () {
                     loggerService.debug('[ml4kimages] enabling tf prod mode');
                     if (tf && tf.enableProdMode) {

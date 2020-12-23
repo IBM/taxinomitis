@@ -8,13 +8,13 @@
         'authService',
         'projectsService', 'trainingService', 'quizService',
         'soundTrainingService', 'imageTrainingService',
-        'modelService',
+        'modelService', 'utilService',
         '$stateParams',
         '$scope',
         '$mdDialog', '$timeout', '$interval', '$q', '$document', '$state', 'loggerService'
     ];
 
-    function ModelsController(authService, projectsService, trainingService, quizService, soundTrainingService, imageTrainingService, modelService, $stateParams, $scope, $mdDialog, $timeout, $interval, $q, $document, $state, loggerService) {
+    function ModelsController(authService, projectsService, trainingService, quizService, soundTrainingService, imageTrainingService, modelService, utilService, $stateParams, $scope, $mdDialog, $timeout, $interval, $q, $document, $state, loggerService) {
 
         var vm = this;
         vm.authService = authService;
@@ -205,6 +205,14 @@
             .then(function (fields) {
                 $scope.project.fields = fields;
 
+                if ($scope.project.type === 'images' || $scope.project.type === 'imgtfjs') {
+                    // for image projects, we need to inject the dependencies for the
+                    //  webcam and canvas controls
+                    loggerService.debug('[ml4kmodels] fetching image project dependencies');
+                    return utilService.loadImageProjectSupport();
+                }
+            })
+            .then(function () {
                 $scope.loading = false;
             })
             .catch(function (err) {

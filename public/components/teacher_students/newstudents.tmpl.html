@@ -21,7 +21,7 @@
                                    ng-minlength="1"
                                    md-maxlength="15"
                                    ng-maxlength="15"></input>
-                            <div class="ng-animate" ng-messages="newStudents.text.$error" ng-show="newStudents.text.$touched">
+                            <div ng-messages="newStudents.text.$error" ng-show="newStudents.text.$touched">
                                 <div ng-message-exp="['required','minlength']" translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.USERNAME_REQUIRED"></div>
                                 <div ng-message="maxlength" translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.USERNAME_TOOLONG"></div>
                                 <div ng-message="pattern" translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.USERNAME_INVALID"></div>
@@ -34,7 +34,7 @@
                                    ng-model="numstudents"
                                    placeholder=0
                                    min=1 max="{{remaining}}"></input>
-                            <div class="ng-animate" ng-messages="newStudents.number.$error" ng-show="newStudents.number.$touched">
+                            <div ng-messages="newStudents.number.$error" ng-show="newStudents.number.$touched">
                                 <div ng-message="required" translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.NUMBER_REQUIRED"></div>
                                 <div ng-message="max" translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.NUMBER_TOOMANY"
                                                       translate-values="{ userslimit : userslimit }"></div>
@@ -51,7 +51,7 @@
                                     placeholder="password"
                                     style="font-family: monospace"
                                     md-minlength="8"></input>
-                            <div class="ng-animate" ng-messages="newStudents.password.$error" ng-show="newStudents.password.$touched">
+                            <div ng-messages="newStudents.password.$error" ng-show="newStudents.password.$touched">
                                 <div ng-message="minlength" translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.PASSWORD_TOOSHORT"></div>
                             </div>
                         </md-input-container>

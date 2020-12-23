@@ -8,6 +8,7 @@
         'authService',
         'projectsService', 'trainingService', 'modelService',
         'soundTrainingService',
+        'utilService',
         'loggerService',
         '$stateParams',
         '$scope',
@@ -17,7 +18,7 @@
         '$q'
     ];
 
-    function TrainingController(authService, projectsService, trainingService, modelService, soundTrainingService, loggerService, $stateParams, $scope, $mdDialog, $state, $timeout, $q) {
+    function TrainingController(authService, projectsService, trainingService, modelService, soundTrainingService, utilService, loggerService, $stateParams, $scope, $mdDialog, $state, $timeout, $q) {
 
         var vm = this;
         vm.authService = authService;
@@ -80,7 +81,7 @@
                 $scope.crowdSourced = project.isCrowdSourced &&
                                       (vm.profile.user_id !== project.userid);
 
-                // for some projects we need to fetch some more things...
+                // for non-text projects we need to fetch some more things...
 
                 if (project.type === 'numbers') {
                     // for numbers projects we need the fields to populate the drop-downs for new values
@@ -103,6 +104,12 @@
                         .then(function () {
                             $scope.soundModelInfo = soundTrainingService.getModelInfo();
                         });
+                }
+                else if (project.type === 'images' || project.type === 'imgtfjs') {
+                    // for image projects, we need to inject the dependencies for the
+                    //  webcam and canvas controls
+                    loggerService.debug('[ml4ktraining] fetching image project dependencies');
+                    return utilService.loadImageProjectSupport();
                 }
             })
             .then(function () {

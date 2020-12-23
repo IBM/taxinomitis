@@ -18,7 +18,7 @@
                                    ng-model="newstudent"
                                    placeholder="username"
                                    md-maxlength="15"></input>
-                            <div class="ng-animate" ng-messages="newStudent.text.$error" ng-show="newStudent.text.$touched">
+                            <div ng-messages="newStudent.text.$error" ng-show="newStudent.text.$touched">
                                 <div ng-message="pattern" translate="TEACHER.STUDENTMANAGEMENT.ALPHANUMERIC"></div>
                             </div>
                         </md-input-container>

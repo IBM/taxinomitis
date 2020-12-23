@@ -12,6 +12,8 @@ const rename = require('gulp-rename');
 const ngAnnotate = require('gulp-ng-annotate');
 const sourcemaps = require('gulp-sourcemaps');
 const download = require('gulp-download2');
+const jsonminify = require('gulp-jsonminify');
+const htmlminify = require('gulp-htmlmin');
 const del = require('del');
 
 
@@ -36,6 +38,7 @@ const paths = {
     ],
     jstest : ['dist/tests/**/*.js'],
     css : ['public/app.css', 'public/components/**/*.css'],
+    html : ['public/components/**/*.html'],
     webjs : [
         'public/init.js',
         'public/app.run.js',
@@ -43,6 +46,11 @@ const paths = {
     ]
 };
 
+const htmlMinifyOptions = {
+    collapseWhitespace: true,
+    conservativeCollapse: true,
+    removeComments : true
+};
 
 
 gulp.task('clean', () => {
@@ -54,6 +62,16 @@ gulp.task('clean', () => {
 gulp.task('bower', function() {
     return bower({ cwd : './public', directory : '../web/static/bower_components' });
 });
+gulp.task('custombootstrap', function() {
+    return gulp.src('public/third-party/bootstrap/**')
+                .pipe(gulp.dest('web/static/bower_components/bootstrap/dist'));
+});
+gulp.task('customangularmaterial', function() {
+    return gulp.src('public/third-party/angular-material/*.css')
+                .pipe(cleanCSS())
+                .pipe(gulp.dest('web/static/bower_components/angular-material'));
+});
+gulp.task('boweroverrides', gulp.parallel('custombootstrap', 'customangularmaterial'));
 
 gulp.task('twitter', function() {
     return gulp.src('public/static-files/twitter-card.html').pipe(gulp.dest('web/dynamic'));
@@ -138,16 +156,16 @@ gulp.task('robotstxt', function() {
 gulp.task('scratchxinstall', gulp.series('crossdomain', function() {
     return gulp.src([
         'public/scratchx/**',
-        'public/components/help/help-scratch2*',
-        'public/components/help/help-scratch.css'
+        'public/scratch-components/help-scratch2*',
+        'public/scratch-components/help-scratch.css'
     ]).pipe(gulp.dest('web/scratchx'));
 }));
 
 gulp.task('scratch3install', gulp.series('crossdomain', function() {
     return gulp.src([
         'public/scratch3/**',
-        'public/components/help/help-scratch3*',
-        'public/components/help/help-scratch.css'
+        'public/scratch-components/help-scratch3*',
+        'public/scratch-components/help-scratch.css'
     ]).pipe(gulp.dest('web/scratch3'));
 }));
 
@@ -180,6 +198,7 @@ function prepareHtml (isForProd) {
 
     return gulp.src('public/index.html')
             .pipe(template(options))
+            .pipe(htmlminify(htmlMinifyOptions))
             .pipe(gulp.dest('web/dynamic'));
 }
 
@@ -207,13 +226,20 @@ gulp.task('jsapp', () => {
 });
 
 gulp.task('angularcomponents', gulp.series('jsapp', () => {
-    return gulp.src('public/components/**')
+    return gulp.src(paths.html)
+            .pipe(htmlminify(htmlMinifyOptions))
             .pipe(gulp.dest('web/static/components-' + VERSION));
 }));
 
 gulp.task('languages', () => {
     return gulp.src('public/languages/**')
-            .pipe(gulp.dest('web/static/languages-' + VERSION));
+        .pipe(gulp.dest('web/static/languages-' + VERSION));
+});
+
+gulp.task('prodlanguages', () => {
+    return gulp.src('public/languages/**')
+        .pipe(jsonminify())
+        .pipe(gulp.dest('web/static/languages-' + VERSION));
 });
 
 gulp.task('images', () => {
@@ -282,11 +308,19 @@ gulp.task('test', () => {
         .pipe(mocha(mochaOptions));
 });
 
+gulp.task('scratch', gulp.parallel('scratchxinstall', 'scratch3install', 'scratchblocks'));
+
 gulp.task('web',
-    gulp.series('css', 'minifyjs', 'images', 'html', 'angularcomponents', 'languages', 'scratchxinstall', 'scratch3install', 'scratchblocks'));
+    gulp.series(
+        'css',
+        'minifyjs',
+        'images',
+        'html',
+        'angularcomponents',
+        'prodlanguages'));
 
 gulp.task('uidependencies',
-    gulp.series('bower', 'tfjs'));
+    gulp.series('bower', 'tfjs', 'boweroverrides'));
 
 gulp.task('build',
     gulp.parallel('web', 'compile'));
@@ -305,7 +339,7 @@ gulp.task('buildprod',
             'images',
             'prodhtml',
             'angularcomponents',
-            'languages',
-            'scratchxinstall', 'scratch3install', 'scratchblocks'),
+            'prodlanguages',
+            'scratch'),
         'compile',
         'lint'));

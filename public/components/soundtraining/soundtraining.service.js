@@ -98,7 +98,7 @@
             return permissionsCheck()
                 .then(function () {
                     loggerService.debug('[ml4ksound] loading tf');
-                    return utilService.loadScript('/static/bower_components/tensorflowjs/tf.min.js');
+                    return utilService.loadTensorFlow();
                 })
                 .then(function () {
                     loggerService.debug('[ml4ksound] loading speech-commands');

@@ -119,6 +119,11 @@
     display: inline;
 }
 
+.trainingserversection form {
+    padding-bottom: 1em;
+}
+
+
 .quizintro {
     font-size: 1.3em;
     margin: 1em;

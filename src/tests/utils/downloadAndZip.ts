@@ -95,7 +95,7 @@ describe('Utils - download and zip', () => {
                                             nextFile();
                                         });
                             break;
-                        case 22943:
+                        case 22955:
                             filecompare('./src/tests/utils/resources/map.jpg',
                                         unzippedFile.location,
                                         (isEq: boolean) => {
@@ -111,7 +111,7 @@ describe('Utils - download and zip', () => {
                                             nextFile();
                                         });
                             break;
-                        case 7521:
+                        case 7519:
                             filecompare('./src/tests/utils/resources/watson.jpg',
                                         unzippedFile.location,
                                         (isEq: boolean) => {
@@ -127,7 +127,7 @@ describe('Utils - download and zip', () => {
                                             nextFile();
                                         });
                             break;
-                        case 17926:
+                        case 17830:
                             filecompare('./src/tests/utils/resources/ibm-0.png',
                                         unzippedFile.location,
                                         (isEq: boolean) => {

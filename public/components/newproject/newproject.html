@@ -88,10 +88,6 @@
                     <md-option value="numbers" translate="WORKSHEETS.TYPES.NUMBERS"></md-option>
                     <md-option value="sounds" translate="WORKSHEETS.TYPES.SOUNDS"></md-option>
                 </md-select>
-                <div class="newprojectexplanation"
-                     ng-if="projectType === 'images' || projectType === 'imgtfjs'"
-                     ng-hide="vm.profile && vm.profile.tenant === 'session-users'"
-                     translate="NEWPROJECT.EXPLAINTYPES.NOTICE"></div>
             </md-input-container>
             <div class="well newprojecthelp"
                  ng-if="vm.focused === 'type' && projectType !== 'numbers' && !creating">

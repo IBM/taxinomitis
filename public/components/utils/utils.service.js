@@ -31,16 +31,25 @@
             });
         }
 
+        function loadImageProjectSupport() {
+            return loadScript('/static/bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.min.js');
+        }
+
         function isInternetExplorer() {
             var userAgent = navigator.userAgent;
             return userAgent &&
                    (userAgent.indexOf('MSIE') >= 0 || userAgent.indexOf('Trident') >= 0);
         }
 
+        function loadTensorFlow() {
+            return loadScript('/static/bower_components/tensorflowjs/tf.min.js');
+        }
 
 
         return {
             loadScript : loadScript,
+            loadTensorFlow : loadTensorFlow,
+            loadImageProjectSupport : loadImageProjectSupport,
             isInternetExplorer : isInternetExplorer
         };
     }
