@@ -1,4 +1,4 @@
-FROM node:12-buster-slim
+FROM node:14-buster-slim
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y git && apt-get clean && rm -rf /var/lib/apt/lists/*
 
