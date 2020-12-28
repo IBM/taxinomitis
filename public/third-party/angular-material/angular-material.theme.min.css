@@ -27,6 +27,26 @@ md-progress-circular.md-default-theme path, md-progress-circular path {
     stroke: rgb(63,81,181)
 }
 
+md-progress-linear.md-default-theme .md-container,
+md-progress-linear .md-container {
+    background-color: rgb(197, 202, 233)
+}
+
+md-progress-linear.md-default-theme .md-bar,
+md-progress-linear .md-bar {
+    background-color: rgb(63, 81, 181)
+}
+
+md-progress-linear.md-default-theme[md-mode=buffer].md-primary .md-bar1,
+md-progress-linear[md-mode=buffer].md-primary .md-bar1 {
+    background-color: rgb(197, 202, 233)
+}
+
+md-progress-linear.md-default-theme[md-mode=buffer].md-primary .md-dashed:before,
+md-progress-linear[md-mode=buffer].md-primary .md-dashed:before {
+    background: radial-gradient(rgb(197, 202, 233) 0, rgb(197, 202, 233) 16%, transparent 42%)
+}
+
 md-radio-button.md-default-theme .md-off, md-radio-button .md-off {
     border-color: rgba(0,0,0,0.54)
 }
