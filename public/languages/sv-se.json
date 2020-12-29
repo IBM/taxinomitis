@@ -1414,7 +1414,7 @@
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-lasereyes.pdf"
         },
         "SEMAPHORES": {
-            "TITLE": "Semaphores",
+            "TITLE": "Semaphore Quiz",
             "SUMMARY": "Teach a computer to recognize speech and poses",
             "DESCRIPTION": "Make a voice-activated semaphores game you play by moving your arms.",
             "WORKSHEET_1": {

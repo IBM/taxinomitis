@@ -1414,7 +1414,7 @@
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-lasereyes.pdf"
         },
         "SEMAPHORES": {
-            "TITLE": "Semaphores",
+            "TITLE": "Semaphore Quiz",
             "SUMMARY": "Dysgu cyfrifiadur i adnabod lleferydd ac ystumiau",
             "DESCRIPTION": "Gwnewch gêm semaphores wedi'i actifadu gan lais rydych chi'n ei chwarae trwy symud eich breichiau.",
             "WORKSHEET_1": {

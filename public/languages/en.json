@@ -1453,7 +1453,7 @@
             }
         },
         "SEMAPHORES": {
-            "TITLE": "Semaphores",
+            "TITLE": "Semaphore Quiz",
             "SUMMARY": "Teach a computer to recognize speech and poses",
             "DESCRIPTION": "Make a voice-activated semaphores game you play by moving your arms.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-semaphores.pdf",
