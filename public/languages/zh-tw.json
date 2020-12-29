@@ -1,6 +1,7 @@
 {
     "APP": {
         "TITLE": "兒童機器學習",
+
         "BACK": "返回",
         "NEXT": "下一步",
         "BACKTOPROJECT": "&lt; 返回到專案",
@@ -8,12 +9,14 @@
         "ERROR": "錯誤:",
         "WARNING": "警告:",
         "INFO": "提醒:",
+
         "ADD": "新增",
         "CANCEL": "取消",
         "DELETE": "刪除",
         "EDIT": "編輯",
         "TEST": "測試",
         "RESET": "重置",
+
         "ABOUT": "關於",
         "TEACHER": "教師",
         "PROJECTS": "專案",
@@ -23,6 +26,7 @@
         "HELP": "幫助",
         "LOGIN": "登入",
         "LOGOUT": " 登出",
+
         "BETA": "測試版",
         "INCOMPLETE": "尚未完成!"
     },
@@ -32,7 +36,7 @@
         "IN20MINS": "在20分鐘內...",
         "WHAT": {
             "TITLE": "這是什麼?",
-            "BODY": "這個免費網站提供學習者親自動手的經驗來訓練機器學習系統，並創造擁有機器學習功能的作品<br/><br/>它提供了簡單且容易使用的操作環境來訓練機器學習的模型，可以應用在辨識文字、數字、圖片或聲音上<br/><br/>這是建立在現有教育孩子學程式的平台上，把建立的模型加入學習程式的平台中（例如<a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a>與<a href='http://appinventor.mit.edu/' target='_blank'>App Inventor</a>），讓孩子可以使用他們訓練過的機器學習模型來建立專案與創造遊戲<br/><br/>這個工具在2017年開始釋出，目前已經被<a href='https://wakelet.com/wake/4d3680cb-2a11-49ab-9180-fcfeced48393' target='_blank'>成千上萬的學校、程式俱樂部、家庭使用</a><br/><br/>想了解更多嗎? 請看:"
+            "BODY" : "這個免費網站提供學習者親自動手的經驗來訓練機器學習系統，並創造擁有機器學習功能的作品<br/><br/>它提供了簡單且容易使用的操作環境來訓練機器學習的模型，可以應用在辨識文字、數字、圖片或聲音上<br/><br/>這是建立在現有教育孩子學程式的平台上，把建立的模型加入學習程式的平台中（例如<a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a>與<a href='http://appinventor.mit.edu/' target='_blank'>App Inventor</a>），讓孩子可以使用他們訓練過的機器學習模型來建立專案與創造遊戲<br/><br/>這個工具在2017年開始釋出，目前已經被<a href='https://wakelet.com/wake/4d3680cb-2a11-49ab-9180-fcfeced48393' target='_blank'>成千上萬的學校、程式俱樂部、家庭使用</a><br/><br/>想了解更多嗎? 請看:"
         },
         "WHY": {
             "TITLE": "為什麼要學?",
@@ -116,8 +120,10 @@
     "ERRORS": {
         "PAGENOTFOUND": "找不到頁面",
         "NOTLOGGEDIN": "尚未登入",
+
         "MISSINGPROJECTID": "找不到專案代碼。請返回",
         "IFPERSISTENT": "如果這個狀況持續發生，請",
+
         "LETMEKNOW": "通知我"
     },
     "WELCOME": {
@@ -213,14 +219,14 @@
             "NOTES_5": "聲音與音樂，請選擇「聲音」"
         },
         "IMAGEPROJECTS": {
-            "LABEL": "Where to train the model",
+            "LABEL": "在哪裡訓練模型？",
             "TYPES": {
-                "IMAGES": "in the cloud",
-                "IMGTFJS": "on your computer"
+                "IMAGES": "使用雲端服務",
+                "IMGTFJS": "使用你的電腦"
             },
-            "NOTES_1": "If you choose \"on your computer\" you can only use the model in Scratch.",
-            "NOTES_2": "If you choose \"in the cloud\" you can use the model in Scratch, Python, or App Inventor.",
-            "NOTES_3": "You can change your mind about this at any time."
+            "NOTES_1": "如果你選擇「使用你的電腦」，你只能將模型運用在Scratch中。",
+            "NOTES_2": "如果你選擇「使用雲端服務」，你能將模型運用在Scratch、Python與Appinventor中",
+            "NOTES_3": "你可以隨時切換這兩種模式。"
         },
         "LANGUAGE": {
             "LABEL": "語言",
@@ -384,121 +390,122 @@
         "TEST_CANVAS": "畫一些東西來測試你的模型",
         "TEST_WEBCAM": "照一張相來訓練你的模型",
         "CHANGETYPE": {
-            "IMAGES": "切換到「圖片」，如此一來你的模型將在雲端中訓練。",
-            "IMGTFJS": "切換到「圖片」，如此一來你的模型將在你自己的電腦中訓練。"
+            "IMAGES": "切換模式成「使用雲端服務」",
+            "IMGTFJS": "切換模式成使用你的電腦訓練模型"
         },
         "WHATHAVEYOUDONE": {
             "TITLE": "你完成了什麼？",
             "PLEASEWAIT": "這通常需要花費幾分鐘的時間。但如果伺服器忙碌中會需要花更長的時間",
             "FAIL": "很不幸的，發生了一些問題",
-            "TRAINING": {
-                "CROWDSOURCED": {
-                    "TEXT": "你的班級正在使用你收集的「文字範例」來訓練機器學習模型",
-                    "IMAGES": "你的班級正在使用你收集的「圖片範例」來訓練機器學習模型",
-                    "NUMBERS": "你的班級正在使用你收集的「數字範例」來訓練機器學習模型",
-                    "SOUNDS": "你的班級正在使用你收集的「聲音範例」來訓練機器學習模型"
+
+            "TRAINING" : {
+                "CROWDSOURCED" : {
+                    "TEXT" : "你的班級正在使用你收集的「文字範例」來訓練機器學習模型",
+                    "IMAGES" : "你的班級正在使用你收集的「圖片範例」來訓練機器學習模型",
+                    "NUMBERS" : "你的班級正在使用你收集的「數字範例」來訓練機器學習模型",
+                    "SOUNDS" : "你的班級正在使用你收集的「聲音範例」來訓練機器學習模型"
                 },
-                "INDIVIDUAL": {
-                    "TEXT": "已經開始使用你收集的「文字範例」來訓練機器學習模型",
-                    "IMAGES": "已經開始使用你收集的「圖片範例」來訓練機器學習模型",
-                    "NUMBERS": "已經開始使用你收集的「數字範例」來訓練機器學習模型",
-                    "SOUNDS": "已經開始使用你收集的「聲音範例」來訓練機器學習模型"
+                "INDIVIDUAL" : {
+                    "TEXT" : "已經開始使用你收集的「文字範例」來訓練機器學習模型",
+                    "IMAGES" : "已經開始使用你收集的「圖片範例」來訓練機器學習模型",
+                    "NUMBERS" : "已經開始使用你收集的「數字範例」來訓練機器學習模型",
+                    "SOUNDS" : "已經開始使用你收集的「聲音範例」來訓練機器學習模型"
                 },
                 "SINCE": "自從開始訓練"
             },
-            "READY": {
-                "CROWDSOURCED": {
-                    "TEXT": "你的班級已經訓練好可以辨識「文字」的機器學習模型",
-                    "IMAGES": "你的班級已經訓練好可以辨識「圖片」的機器學習模型",
-                    "NUMBERS": "你的班級已經訓練好可以辨識「數字」的機器學習模型",
-                    "SOUNDS": "你的班級已經訓練好可以辨識「聲音」的機器學習模型"
+            "READY" : {
+                "CROWDSOURCED" : {
+                    "TEXT" : "你的班級已經訓練好可以辨識「文字」的機器學習模型",
+                    "IMAGES" : "你的班級已經訓練好可以辨識「圖片」的機器學習模型",
+                    "NUMBERS" : "你的班級已經訓練好可以辨識「數字」的機器學習模型",
+                    "SOUNDS" : "你的班級已經訓練好可以辨識「聲音」的機器學習模型"
                 },
-                "INDIVIDUAL": {
-                    "TEXT": "你已經訓練好可以辨識「文字」的機器學習模型",
-                    "IMAGES": "你已經訓練好可以辨識「圖片」的機器學習模型",
-                    "NUMBERS": "你已經訓練好可以辨識「數字」的機器學習模型",
-                    "SOUNDS": "你已經訓練好可以辨識「聲音」的機器學習模型"
+                "INDIVIDUAL" : {
+                    "TEXT" : "你已經訓練好可以辨識「文字」的機器學習模型",
+                    "IMAGES" : "你已經訓練好可以辨識「圖片」的機器學習模型",
+                    "NUMBERS" : "你已經訓練好可以辨識「數字」的機器學習模型",
+                    "SOUNDS" : "你已經訓練好可以辨識「聲音」的機器學習模型"
                 },
-                "CREATED": {
-                    "TEACHER": "你的老師建立了模型在",
-                    "YOU": "你建立了模型在"
+                "CREATED" : {
+                    "TEACHER" : "你的老師建立了模型在",
+                    "YOU" : "你建立了模型在"
                 },
-                "TRAINING": {
-                    "CLASS": "你的班級已經收集了：",
-                    "YOU": "你已經收集了："
+                "TRAINING" : {
+                    "CLASS" : "你的班級已經收集了：",
+                    "YOU" : "你已經收集了："
                 }
             },
             "ERROR": {
-                "CROWDSOURCED": {
-                    "CLASS": {
-                        "TEXT": "你的老師嘗試使用班級收集的「文字範例」來訓練機器學習模型",
-                        "IMAGES": "你的老師嘗試使用班級收集的「圖片範例」來訓練機器學習模型",
-                        "NUMBERS": "你的老師嘗試使用班級收集的「數字範例」來訓練機器學習模型",
-                        "SOUNDS": "你的老師嘗試使用班級收集的「聲音範例」來訓練機器學習模型"
+                "CROWDSOURCED" : {
+                    "CLASS" : {
+                        "TEXT" : "你的老師嘗試使用班級收集的「文字範例」來訓練機器學習模型",
+                        "IMAGES" : "你的老師嘗試使用班級收集的「圖片範例」來訓練機器學習模型",
+                        "NUMBERS" : "你的老師嘗試使用班級收集的「數字範例」來訓練機器學習模型",
+                        "SOUNDS" : "你的老師嘗試使用班級收集的「聲音範例」來訓練機器學習模型"
                     },
-                    "YOU": {
-                        "TEXT": "你嘗試使用班級收集的「文字範例」來訓練機器學習模型",
-                        "IMAGES": "你嘗試使用班級收集的「圖片範例」來訓練機器學習模型",
-                        "NUMBERS": "你嘗試使用班級收集的「數字範例」來訓練機器學習模型",
-                        "SOUNDS": "你嘗試使用班級收集的「聲音範例」來訓練機器學習模型"
+                    "YOU" : {
+                        "TEXT" : "你嘗試使用班級收集的「文字範例」來訓練機器學習模型",
+                        "IMAGES" : "你嘗試使用班級收集的「圖片範例」來訓練機器學習模型",
+                        "NUMBERS" : "你嘗試使用班級收集的「數字範例」來訓練機器學習模型",
+                        "SOUNDS" : "你嘗試使用班級收集的「聲音範例」來訓練機器學習模型"
                     }
                 },
-                "INDIVIDUAL": {
-                    "TEXT": "你嘗試使用你收集的「文字範例」來訓練機器學習模型",
-                    "IMAGES": "你嘗試使用你收集的「圖片範例」來訓練機器學習模型",
-                    "NUMBERS": "你嘗試使用你收集的「數字範例」來訓練機器學習模型",
-                    "SOUNDS": "你嘗試使用你收集的「聲音範例」來訓練機器學習模型"
+                "INDIVIDUAL" : {
+                    "TEXT" : "你嘗試使用你收集的「文字範例」來訓練機器學習模型",
+                    "IMAGES" : "你嘗試使用你收集的「圖片範例」來訓練機器學習模型",
+                    "NUMBERS" : "你嘗試使用你收集的「數字範例」來訓練機器學習模型",
+                    "SOUNDS" : "你嘗試使用你收集的「聲音範例」來訓練機器學習模型"
                 }
             },
-            "IDLE": {
-                "NOLABELS": {
-                    "CROWDSOURCED": {
-                        "TEXT": "你的班級指派你收集「文字範例」",
-                        "IMAGES": "你的班級指派你收集「圖片範例」",
-                        "NUMBERS": "你的班級指派你收集「數字範例」",
-                        "SOUNDS": "你的班級指派你收集「聲音範例」"
+            "IDLE" : {
+                "NOLABELS" : {
+                    "CROWDSOURCED" : {
+                        "TEXT" : "你的班級指派你收集「文字範例」",
+                        "IMAGES" : "你的班級指派你收集「圖片範例」",
+                        "NUMBERS" : "你的班級指派你收集「數字範例」",
+                        "SOUNDS" : "你的班級指派你收集「聲音範例」"
                     },
-                    "INDIVIDUAL": {
-                        "TEXT": "你已經表示你想要收集「文字範例」",
-                        "IMAGES": "你已經表示你想要收集「圖片範例」",
-                        "NUMBERS": "你已經表示你想要收集「數字範例」",
-                        "SOUNDS": "你已經表示你想要收集「聲音範例」"
+                    "INDIVIDUAL" : {
+                        "TEXT" : "你已經表示你想要收集「文字範例」",
+                        "IMAGES" : "你已經表示你想要收集「圖片範例」",
+                        "NUMBERS" : "你已經表示你想要收集「數字範例」",
+                        "SOUNDS" : "你已經表示你想要收集「聲音範例」"
                     }
                 },
-                "NODATA": {
-                    "CROWDSOURCED": {
-                        "TEXT": "你的班級指派你收集「文字範例」給電腦辨識，當文字是",
-                        "IMAGES": "你的班級指派你收集「圖片範例」給電腦辨識，當圖片是",
-                        "NUMBERS": "你的班級指派你收集「數字範例」給電腦辨識，當數字是",
-                        "SOUNDS": "你的班級指派你收集「聲音範例」給電腦辨識，當聲音是"
+                "NODATA" : {
+                    "CROWDSOURCED" : {
+                        "TEXT" : "你的班級指派你收集「文字範例」給電腦辨識，當文字是",
+                        "IMAGES" : "你的班級指派你收集「圖片範例」給電腦辨識，當圖片是",
+                        "NUMBERS" : "你的班級指派你收集「數字範例」給電腦辨識，當數字是",
+                        "SOUNDS" : "你的班級指派你收集「聲音範例」給電腦辨識，當聲音是"
                     },
-                    "INDIVIDUAL": {
-                        "TEXT": "你表示你想要收集「文字範例」給電腦辨識，當文字是",
-                        "IMAGES": "你表示你想要收集「圖片範例」給電腦辨識，當圖片是",
-                        "NUMBERS": "你表示你想要收集「數字範例」給電腦辨識，當數字是",
-                        "SOUNDS": "你表示你想要收集「聲音範例」給電腦辨識，當聲音是"
+                    "INDIVIDUAL" : {
+                        "TEXT" : "你表示你想要收集「文字範例」給電腦辨識，當文字是",
+                        "IMAGES" : "你表示你想要收集「圖片範例」給電腦辨識，當圖片是",
+                        "NUMBERS" : "你表示你想要收集「數字範例」給電腦辨識，當數字是",
+                        "SOUNDS" : "你表示你想要收集「聲音範例」給電腦辨識，當聲音是"
                     }
                 },
-                "NOEXAMPLES": {
-                    "CLASS": "到目前為止，你的班級尚未收集任何範例",
-                    "YOU": "到目前為止，你尚未收集任何範例"
+                "NOEXAMPLES" : {
+                    "CLASS" : "到目前為止，你的班級尚未收集任何範例",
+                    "YOU" : "到目前為止，你尚未收集任何範例"
                 },
-                "DATA": {
-                    "CROWDSOURCED": {
-                        "TEXT": "你的班級已經收集了一些「文字」範例，電腦會將文字辨識為",
-                        "IMAGES": "你的班級已經收集了一些「圖片」範例，電腦會將圖片辨識為",
-                        "NUMBERS": "你的班級已經收集了一些「數字」範例，電腦會將數字辨識為",
-                        "SOUNDS": "你的班級已經收集了一些「聲音」範例，電腦會將聲音辨識為"
+                "DATA" : {
+                    "CROWDSOURCED" : {
+                        "TEXT" : "你的班級已經收集了一些「文字」範例，電腦會將文字辨識為",
+                        "IMAGES" : "你的班級已經收集了一些「圖片」範例，電腦會將圖片辨識為",
+                        "NUMBERS" : "你的班級已經收集了一些「數字」範例，電腦會將數字辨識為",
+                        "SOUNDS" : "你的班級已經收集了一些「聲音」範例，電腦會將聲音辨識為"
                     },
-                    "INDIVIDUAL": {
-                        "TEXT": "你已經收集了一些「文字」範例，電腦會將文字辨識為",
-                        "IMAGES": "你已經收集了一些「圖片」範例，電腦會將圖片辨識為",
-                        "NUMBERS": "你已經收集了一些「數字」範例，電腦會將數字辨識為",
-                        "SOUNDS": "你已經收集了一些「聲音」範例，電腦會將聲音辨識為"
+                    "INDIVIDUAL" : {
+                        "TEXT" : "你已經收集了一些「文字」範例，電腦會將文字辨識為",
+                        "IMAGES" : "你已經收集了一些「圖片」範例，電腦會將圖片辨識為",
+                        "NUMBERS" : "你已經收集了一些「數字」範例，電腦會將數字辨識為",
+                        "SOUNDS" : "你已經收集了一些「聲音」範例，電腦會將聲音辨識為"
                     },
-                    "COLLECTED": {
-                        "CLASS": "他們收集了：",
-                        "YOU": "你收集了："
+                    "COLLECTED" : {
+                        "CLASS" : "他們收集了：",
+                        "YOU" : "你收集了："
                     }
                 }
             }
@@ -508,54 +515,55 @@
             "PLEASEWAIT": "你需要等待機器學習模型完成訓練",
             "OFFERQUIZ": "或是，你可以練習下方的機器學習測驗來確認你學到的知識",
             "FAIL": "來自伺服器的錯誤訊息如下。如果這對你有幫助，請嘗試解決此問題。或者，他可能是一個隨機錯誤，你可以再試一次",
+
             "IDLE": {
-                "NOLABELS": "下一步是前往<a href='{{ urls.train }}'>訓練</a>頁面。新增一些標籤給每一組你希望電腦可以辨識的資料集",
-                "ONELABEL": {
+                "NOLABELS" : "下一步是前往<a href='{{ urls.train }}'>訓練</a>頁面。新增一些標籤給每一組你希望電腦可以辨識的資料集",
+                "ONELABEL" : {
                     "EXPLANATION": "你只紀錄一件事，你希望電腦可以辨識：{{ label }}",
                     "ISTHATALL": "請確認這是你希望電腦可以辨識的唯一東西嗎？",
                     "NO": "<strong>不是嗎？</strong><br/>請回到<a href='{{ urls.train }}'>訓練</a>頁面。<br/>新增更多的標籤給每一組你希望電腦可以辨識的資料集<br/><br/>",
                     "YES": "<strong>是？</strong><br/>你需要先完成一些內容。<br/>為了讓電腦學會辨識「{{ label }}」，你需要給他一些不屬於{{ label }}的範例。<br/>請回到<a href='{{ urls.train }}'>訓練</a>頁面然後建立一個新標籤包含不屬於{{ label }}的內容。你可以把這個標籤稱為「不屬於{{ label }}」"
                 },
-                "LABELS": {
-                    "NO_DATA": "下一步是前往<a href='{{ urls.train }}'>訓練</a>頁面。加入範例給每一個標籤",
-                    "MORE_DATA": {
+                "LABELS" : {
+                    "NO_DATA" : "下一步是前往<a href='{{ urls.train }}'>訓練</a>頁面。加入範例給每一個標籤",
+                    "MORE_DATA" : {
                         "KEEP_GOING": "加油，繼續完成！",
-                        "MORE_EXAMPLES": {
+                        "MORE_EXAMPLES" : {
                             "YOU": "請回到<a href='{{ urls.train }}'>訓練</a>頁面，然後收集更多範例給每一個標籤",
                             "CLASS": "讓你的班級回到<a href='{{ urls.train }}'>訓練</a>頁面，並把每一個標籤收集更多的範例"
                         },
-                        "MORE_IS_BETTER": "取得越多的範例通常會有越好的學習效果，但每個範例需要有至少{{ minimumExamples }}的最少數量。"
+                        "MORE_IS_BETTER" : "取得越多的範例通常會有越好的學習效果，但每個範例需要有至少{{ minimumExamples }}的最少數量。"
                     },
-                    "ENOUGH_DATA": {
-                        "READY_TO_START": "準備開始訓練電腦了嗎？",
-                        "START_TRAINING": {
-                            "CROWDSOURCED": "點擊下方按鈕，開始使用你的班級到目前收集的範例來訓練你的機器學習模型。",
-                            "INDIVIDUAL": "點擊下方按鈕，開始使用你到目前收集的範例來訓練你的機器學習模型。"
+                    "ENOUGH_DATA" : {
+                        "READY_TO_START" : "準備開始訓練電腦了嗎？",
+                        "START_TRAINING" : {
+                            "CROWDSOURCED" : "點擊下方按鈕，開始使用你的班級到目前收集的範例來訓練你的機器學習模型。",
+                            "INDIVIDUAL" : "點擊下方按鈕，開始使用你到目前收集的範例來訓練你的機器學習模型。"
                         },
-                        "MORE_EXAMPLES": {
-                            "CROWDSOURCED": "(或是讓你的班級回到<a href='{{ urls.train }}'>訓練</a>頁面，如果你希望學生先收集更多的範例)",
-                            "INDIVIDUAL": "(或是回到<a href='{{ urls.train }}'>訓練</a>頁面，如果你希望先收集更多的範例)"
+                        "MORE_EXAMPLES" : {
+                            "CROWDSOURCED" : "(或是讓你的班級回到<a href='{{ urls.train }}'>訓練</a>頁面，如果你希望學生先收集更多的範例)",
+                            "INDIVIDUAL" : "(或是回到<a href='{{ urls.train }}'>訓練</a>頁面，如果你希望先收集更多的範例)"
                         },
-                        "WAITING_FOR_TEACHER": "等待你的老師開始訓練電腦"
+                        "WAITING_FOR_TEACHER" : "等待你的老師開始訓練電腦"
                     }
                 }
             },
-            "READY": {
-                "TEST": {
-                    "TEXT": "嘗試使用下方的機器學習模型，輸入一組不包含在你範例中的「文字」測試數據，它會告訴你辨識的結果以及對於這個結果有多少信心是正確的。",
-                    "IMAGES": "嘗試使用下方的機器學習模型，輸入一組不包含在你範例中的「圖片」測試數據，它會告訴你辨識的結果以及對於這個結果有多少信心是正確的。",
-                    "NUMBERS": "嘗試使用下方的機器學習模型，輸入一組不包含在你範例中的「數字」測試數據，它會告訴你辨識的結果以及對於這個結果有多少信心是正確的。",
-                    "SOUNDS": "嘗試使用下方的機器學習模型，點擊「開始錄音」按鈕，如果你的機器學習模型辨識到任何聲音，他會告訴你辨識的結果以及對於這個結果有多少信心是正確的"
+            "READY" : {
+                "TEST" : {
+                    "TEXT" : "嘗試使用下方的機器學習模型，輸入一組不包含在你範例中的「文字」測試數據，它會告訴你辨識的結果以及對於這個結果有多少信心是正確的。",
+                    "IMAGES" : "嘗試使用下方的機器學習模型，輸入一組不包含在你範例中的「圖片」測試數據，它會告訴你辨識的結果以及對於這個結果有多少信心是正確的。",
+                    "NUMBERS" : "嘗試使用下方的機器學習模型，輸入一組不包含在你範例中的「數字」測試數據，它會告訴你辨識的結果以及對於這個結果有多少信心是正確的。",
+                    "SOUNDS" : "嘗試使用下方的機器學習模型，點擊「開始錄音」按鈕，如果你的機器學習模型辨識到任何聲音，他會告訴你辨識的結果以及對於這個結果有多少信心是正確的"
                 },
-                "SCRATCH": "如果電腦看起來學會正確的辨識東西，接下來你可以到Scratch使用電腦學習的成果製作遊戲。",
-                "ADDITIONAL_TRAINING": {
-                    "MORE_EXAMPLES": {
-                        "CROWDSOURCED": "如果電腦出現太多錯誤，你的班級可以考慮回到<a href='{{ urls.train }}'>訓練</a>頁面並收集一些正確的範例",
-                        "INDIVIDUAL": "如果電腦出現太多錯誤，你可以考慮回到<a href='{{ urls.train }}'>訓練</a>頁面並收集一些正確的範例"
+                "SCRATCH" : "如果電腦看起來學會正確的辨識東西，接下來你可以到Scratch使用電腦學習的成果製作遊戲。",
+                "ADDITIONAL_TRAINING" : {
+                    "MORE_EXAMPLES" : {
+                        "CROWDSOURCED" : "如果電腦出現太多錯誤，你的班級可以考慮回到<a href='{{ urls.train }}'>訓練</a>頁面並收集一些正確的範例",
+                        "INDIVIDUAL" : "如果電腦出現太多錯誤，你可以考慮回到<a href='{{ urls.train }}'>訓練</a>頁面並收集一些正確的範例"
                     },
-                    "RETRAIN": {
-                        "YOU": "完成此操作之後，點擊下方的按鈕來訓練新的機器學習模型，並觀察額外範例會產生哪些差異",
-                        "CLASS": "完成此操作之後，你的老師需要訓練新的機器學習模型"
+                    "RETRAIN" : {
+                        "YOU" : "完成此操作之後，點擊下方的按鈕來訓練新的機器學習模型，並觀察額外範例會產生哪些差異",
+                        "CLASS" : "完成此操作之後，你的老師需要訓練新的機器學習模型"
                     }
                 }
             }
@@ -590,6 +598,7 @@
             "CORRECT_ANSWER": "你答對囉！",
             "INCORRECT_ANSWER": "可惜答錯了...正確的答案公佈在下面。",
             "NEXT_QUESTION": "下一題",
+
             "QUESTION_1": {
                 "QUESTION": "正常來說，什麼東西可以幫助機器學得更好？",
                 "ANSWER_1": "更多的範例",
@@ -749,9 +758,9 @@
             "TEXT1": "將文字轉換為數字的其中一種方法是計算一個單字被涵蓋的次數。"
         },
         "PAGE6": {
-            "TITLE": "提取特徵",
+            "TITLE": "特徵提取",
             "TEXT1": "你還可以計算其他事情。 有用的計數取決於您正在執行的項目以及你的模型要學會辨識內容的規律。",
-            "TEXT2": "計算次數是快速且簡單的，但不適合用在單字順序很重要的項目"
+            "TEXT2": "計算次數是快速且簡單的，但不適合用在詞語順序很重要的項目"
         },
         "PAGE7": {
             "TITLE": "建立詞語向量",
@@ -788,7 +797,7 @@
         "PAGE13": {
             "TITLE": "激勵函數",
             "TEXT1": "每個節點都存在其對應的<em>偏差值</em>",
-            "TEXT2": "每條線擁有自己的<em>權重</em>。"
+            "TEXT2": "每條線包含自己的<em>權重</em>。"
         },
         "PAGE14": {
             "TITLE": "隱藏層",
@@ -820,7 +829,7 @@
         },
         "PAGE19": {
             "TITLE": "類神經網路",
-            "TEXT1": "下一步，使用另一組你的訓練資料，再次完成所有步驟。"
+            "TEXT1": "接下來，使用另一組你的訓練資料，再次完成所有步驟。"
         },
         "PAGE20": {
             "TITLE": "編碼",
@@ -849,7 +858,7 @@
         "PAGE25": {
             "TITLE": "輸出層",
             "TEXT1": "記住，<em>輸出層</em>提供了機器學習模型的預測結果。",
-            "TEXT2": "每個節點都會從你添加到儲存貯體的訓練資料中進行預測"
+            "TEXT2": "每個節點都會從你添加到值區的訓練資料中進行預測"
         },
         "PAGE26": {
             "TITLE": "損失函數",
@@ -882,21 +891,29 @@
     },
     "PYTHON": {
         "TITLE": "在Python中使用機器學習",
+
         "NOTREADY": "你的專案尚未準備好在Python使用",
         "NOMODEL": "你還沒有訓練機器學習模型",
+
         "NOSOUND": "Python無法在辨識聲音的專案中使用",
+
         "LAUNCH": "在瀏覽器中執行Python",
         "LOCAL": "複製程式碼到你的電腦上執行",
+
         "MODE": {
             "INTRO": "你想要在哪裡編寫和執行Python程式碼？",
             "BROWSER": "你可以在瀏覽器中進行所有操作！這代表你不需要擔心安裝或設定Python，包含任何第三方的Python模組。",
             "LOCAL": "或是你可以複製程式碼到你的電腦上執行。 如果你要在Python程式中使用電腦裡的文件或設備，例如網絡攝影機或音響時，這會非常有幫助。"
         },
+
         "APIKEY_INSTRUCTION": "你需要<span class='strongemphasis'>加入你的API密碼</span>到專案中。請加入在範例中的第6行。",
         "APIKEY_WARNING": "將這些程式碼當成密碼來保護，不要隨意告訴其他人哦！",
+
         "REPLACE_THIS": "將這行程式：",
         "WITH_THIS": "替換成這行程式：",
+
         "UNCOMMENT": "你需要將範例中的一個符號#刪除，才能使用這項函式。",
+
         "RECOGNIZE": {
             "INSTRUCTION": "試著更新範例中的第28行程式",
             "TEXT": {
@@ -924,18 +941,25 @@
     },
     "APPINVENTOR": {
         "TITLE": "在App Inventor中使用機器學習",
+
         "LAUNCH_APPINVENTOR_BY_ITSELF": "(你可以根據需求單獨使用<a href='{{ url }}' class='btn btn-default' target='_blank'>App Inventor </a>)",
+
         "NOTREADY": "你的專案尚未準備好在App Inventor中使用",
         "NOMODEL": "你還沒有訓練機器學習模型",
+
         "LAUNCH": "開啟 App Inventor "
     },
     "SCRATCH": {
         "TITLE": "在Scratch中使用機器學習",
+
         "NOTREADY": "你的專案尚未準備好在Scratch中使用",
         "NOMODEL": "你還沒有訓練機器學習模型",
+
         "LAUNCH": "開啟 Scratch",
+
         "LAUNCH_SCRATCH_BY_ITSELF": "(你可以根據需求單獨使用<a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch</a>)",
         "GO_TO_LEARNANDTEST": "或是回到<a href='{{ urls.learnandtest }}'>學習&amp; 測試</a>頁面獲得如何進行下一步的提示",
+
         "MORE_BLOCKS": "你的專案將把這些積木加入到<span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>更多積木</span>選項中",
         "MORE_BLOCKS_3": "你的專案將把這些積木加入到Scratch中",
         "EXPLAIN_RECOGNISE_LABEL": "將{{ type }} 放在輸入欄位中，他將回傳你的機器學習模型辨識後的標籤",
@@ -954,23 +978,29 @@
     },
     "SCRATCH3": {
         "TITLE": "在Scratch3中使用機器學習",
+
         "LAUNCH": "開啟 Scratch3"
     },
     "WORKSHEETS": {
         "TITLE": "機器學習專案",
+
         "INTRO_1": "這些專案是可以下載的一步一步教學指引，包含說明與彩色的螢幕截圖讓學生可以跟著學習",
         "INTRO_2": "每個專案都是一個獨立的活動為一堂課的時間而製作，這堂課將指導孩子們創造一個遊戲或互動式專案，以展示真實世界中人工智慧和機器學習的運用。",
         "INTRO_3": "非常歡迎您提出新作品清單的建議，包含對任何作品清單進行改善的建議或貢獻。",
+
         "TYPES": {
             "TITLE": "辨識：",
             "ALL": "全部類型的專案",
+
             "PREFIX": "訓練電腦來辨識",
+
             "TEXT": "文字",
             "IMAGES": "圖片",
             "NUMBERS": "數字",
             "SOUNDS": "聲音",
             "FACES": "臉部"
         },
+
         "LEVELS": {
             "TITLE": "困難度：",
             "ALL": "全部的困難度：",
@@ -978,7 +1008,9 @@
             "INTERMEDIATE": "中階專案",
             "ADVANCED": "進階專案"
         },
+
         "DOWNLOAD": "下載",
+
         "DOWNLOADS": {
             "AUDIENCE": {
                 "TEACHERS": "給老師：",
@@ -998,33 +1030,40 @@
                 "DETAIL": "你還需要向學生提供此文件的影印版本"
             }
         },
+
         "MAKETYPES": {
             "ALL": "全部的製作平台",
+
             "SCRATCH": "Scratch專案",
             "PYTHON": "Python專案",
             "APPINVENTOR": "App Inventor專案",
+
             "SCRATCH_WORKSHEET": "在Scratch中製作專案的作品清單",
             "PYTHON_WORKSHEET": "在Python中製作專案的作品清單",
             "APPINVENTOR_WORKSHEET": "在App Inventor中製作專案的作品清單"
         },
+
         "NO_WORKSHEETS": {
             "NO_MATCHES": "沒有符合收尋條件的作品清單",
             "MAKE_YOUR_OWN": "你可以調整一些既有的作品清單或提出一個新的作品清單",
             "CONTRIBUTE": "如果這樣做，請考慮<a href='https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions'>貢獻給其他人使用</a>"
         },
+
+
         "DESCRIBETHEGLASS": {
             "TITLE": "水杯猜猜猜",
             "SUMMARY": "教電腦預測你的答案",
             "DESCRIPTION": "在Scratch中建立一個水杯遊戲，訓練電腦猜猜看他是半杯水還是空杯子。",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-describetheglass.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-describetheglass.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-describetheglass.pdf"
+            }
         },
         "SMARTCLASSROOM": {
             "TITLE": "智慧教室",
             "SUMMARY": "教電腦辨識你的指令含義",
             "DESCRIPTION": "在Scratch中建立一個智慧助理，讓你可以控制虛擬設備",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-smartclassroom.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "完整版的專案，學生需要先製作非機器學習版本的專案",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom.pdf"
@@ -1036,13 +1075,13 @@
             "WORKSHEET_3": {
                 "DESCRIPTION": "快速入門的專案，非常適合用來做此工具的第一次介紹",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-tryitnow.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-smartclassroom.pdf"
+            }
         },
         "MAKEMEHAPPY": {
             "TITLE": "逗我開心",
             "SUMMARY": "教電腦辨識稱讚和責罵",
             "DESCRIPTION": "在Scratch中建立一個角色，如果你稱讚它，它就會微笑；如果你罵他，它就會哭。",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-makemehappy.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "完整版的專案，學生需要先製作非機器學習版本的專案",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy.pdf"
@@ -1054,13 +1093,13 @@
             "WORKSHEET_3": {
                 "DESCRIPTION": "Python專案—使用Python製作此專案",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-python.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-makemehappy.pdf"
+            }
         },
         "SNAP": {
             "TITLE": "抽卡！",
             "SUMMARY": "教電腦辨識圖案像什麼",
             "DESCRIPTION": "製作Scratch的卡牌遊戲，而且電腦會學習辨識你卡牌上的圖案",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-snap.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "完整版的專案，學生會製作自己的牌組並且訓練電腦辨識",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap.pdf"
@@ -1069,40 +1108,40 @@
                 "DESCRIPTION": "簡易版的專案，提供孩子製作好的牌組，老師只需要印出來即可節省學生製作牌組的時間",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap-easy.pdf",
                 "RESOURCES": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/resources-snap-easy.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-snap.pdf"
+            }
         },
         "CHAMELEON": {
             "TITLE": "神奇變色龍",
             "SUMMARY": "教電腦辨識不同的顏色",
             "DESCRIPTION": "在Scratch中製作一隻變色龍會改變顏色融入在背景",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chameleon.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chameleon.pdf"
+            }
         },
         "MAILMANMAX": {
             "TITLE": "郵差員 Max",
             "SUMMARY": "教電腦辨識手寫的文字",
             "DESCRIPTION": "在Scratch中製作信件分類的辦公室，可以辨識信上手寫的郵遞區號",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-mailmanmax.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mailmanmax.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-mailmanmax.pdf"
+            }
         },
         "SHOOTTHEBUG": {
             "TITLE": "蟲蟲射擊",
             "SUMMARY": "訓練電腦學習玩遊戲",
             "DESCRIPTION": "在Scratch中建立一個反射遊戲，訓練電腦學習最佳的反彈角度。",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shootthebug.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shootthebug.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shootthebug.pdf"
+            }
         },
         "CARORCUP": {
             "TITLE": "車子或杯子 ",
             "SUMMARY": "教電腦辨識圖片的物件",
             "DESCRIPTION": "訓練電腦讓它可以將圖片進行分類",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-carorcup.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "個人版的專案，每個學生各自訓練他們自己獨立的機器學習模型",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup.pdf"
@@ -1110,58 +1149,58 @@
             "WORKSHEET_2": {
                 "DESCRIPTION": "合作版的專案，班上的學生一起訓練共享的機器學習模型",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup-crowd.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-carorcup.pdf"
+            }
         },
         "FACELOCK": {
             "TITLE": "臉部辨識解鎖",
             "SUMMARY": "教電腦辨識人臉",
             "DESCRIPTION": "在Scratch中製作辨識出你的臉可以解鎖的作品",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-facelock.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facelock.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-facelock.pdf"
+            }
         },
         "JOURNEYTOSCHOOL": {
             "TITLE": "上學的路程",
             "SUMMARY": "教電腦學習預測",
             "DESCRIPTION": "訓練電腦讓它可以預測你每天是如何去上學的",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-journeytoschool.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-journeytoschool.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-journeytoschool.pdf"
+            }
         },
         "SHYPANDA": {
             "TITLE": "害羞的熊貓",
             "SUMMARY": "教電腦辨識視訊鏡頭的畫面",
             "DESCRIPTION": "製作一個會跳舞的熊貓，如果他發現你在看他，他就會停止跳舞",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shypanda.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shypanda.pdf"
+            }
         },
         "VIRTUALPET": {
             "TITLE": "虛擬小寵物",
             "SUMMARY": "教電腦辨識視訊鏡頭的畫面",
             "DESCRIPTION": "教電腦辨識你在做什麼，這樣你才能照顧虛擬小寵物",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-virtualpet.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-virtualpet.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-virtualpet.pdf"
+            }
         },
         "PACMAN": {
             "TITLE": "小精靈 Pac-Man",
             "SUMMARY": "教電腦如何玩遊戲",
             "DESCRIPTION": "在Scratch中建立小精靈遊戲，讓他學會如何避開鬼魂",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-pacman.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pacman.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-pacman.pdf"
+            }
         },
         "CHATBOTS": {
             "TITLE": "聊天機器人",
             "SUMMARY": "教電腦辨識問題",
             "DESCRIPTION": "製作一個聊天機器人，可以回答有關你選擇的主題的問題",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chatbots.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Scratch專案—使用Scratch製作聊天機器人",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots.pdf"
@@ -1169,22 +1208,22 @@
             "WORKSHEET_2": {
                 "DESCRIPTION": "Python專案—使用Python製作聊天機器人",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots-python.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chatbots.pdf"
+            }
         },
         "TOURISTINFO": {
             "TITLE": "旅遊資訊推薦",
             "SUMMARY": "教電腦如何進行推薦",
             "DESCRIPTION": "在Scratch中製作手機APP，它可以根據使用者的興趣推薦旅遊景點",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-touristinfo.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-touristinfo.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-touristinfo.pdf"
+            }
         },
         "SORTINGHAT": {
             "TITLE": "哈利波特的分類帽",
             "SUMMARY": "教電腦辨識文字使用的語言",
             "DESCRIPTION": "創造一個像哈利波特中的分類帽作品，它可以根據你所說的內容把你放到對應的學校房子內",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-sortinghat.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "個人版的專案，每個學生各自訓練他們自己獨立的機器學習模型",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat.pdf"
@@ -1192,22 +1231,22 @@
             "WORKSHEET_2": {
                 "DESCRIPTION": "合作版的專案，班上的學生一起訓練共享的機器學習模型",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat-crowd.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-sortinghat.pdf"
+            }
         },
         "ROCKPAPERSCISSORS": {
             "TITLE": "剪刀、石頭、布",
             "SUMMARY": "教電腦辨識形狀",
             "DESCRIPTION": "在Scratch中製作剪刀石頭布的遊戲，可以辨識你手的形狀",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-rockpaperscissors.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-rockpaperscissors.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-rockpaperscissors.pdf"
+            }
         },
         "JUDGEABOOK": {
             "TITLE": "書籍評論",
             "SUMMARY": "教電腦辨識視覺的風格",
             "DESCRIPTION": "在Scratch中製作遊戲，來測試是否真的可以透過封面來判斷一本書",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "完整版的專案，學生製作遊戲與電腦比賽辨識書籍",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf"
@@ -1215,8 +1254,7 @@
             "WORKSHEET_2": {
                 "DESCRIPTION": "簡易版的專案，學生讓電腦可以辨識書籍",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook.pdf"
+            }
         },
         "LOCATELARRY": {
             "TITLE": "Larry在哪兒",
@@ -1231,33 +1269,34 @@
             "TITLE": "傻傻分不清楚",
             "SUMMARY": "教電腦辨識水果",
             "DESCRIPTION": "學習有關電腦如果經過糟糕的訓練，就會出現疑惑而犯錯",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-fooled.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-fooled.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-fooled.pdf"
+            }
         },
         "SCHOOLLIBRARY": {
             "TITLE": "學校的圖書館",
             "SUMMARY": "教電腦如何進行推薦",
             "DESCRIPTION": "在Scratch中製作一個圖書管理員，他會推薦你適合閱讀的書",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-schoollibrary.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-schoollibrary.pdf"
+            }
         },
         "WHATTWITTERTHINKS": {
             "TITLE": "推特的討論話題\b",
             "SUMMARY": "教電腦來測量大家的想法",
             "DESCRIPTION": "在Scratch中建立情緒分析工具來分析Twitter上的討論內容。",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-whattwitterthinks.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-whattwitterthinks.pdf"
+            }
         },
         "NOUGHTSANDCROSSES": {
             "TITLE": "戰無不勝",
             "SUMMARY": "教電腦如何玩遊戲",
             "DESCRIPTION": "在Scratch中建立一個戰無不勝的遊戲，他會學習如何打敗你",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-noughtsandcrosses.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Scratch專案，學生在Scratch中製作遊戲",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses.pdf"
@@ -1269,17 +1308,16 @@
             "WORKSHEET_3": {
                 "DESCRIPTION": "體驗版，適用於像是科學博覽會的活動。每個孩子有1~2分鐘的時間可以練習嘗試\b\b",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-event.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-noughtsandcrosses.pdf"
+            }
         },
         "TOPTRUMPS": {
             "TITLE": "Top Trumps卡牌遊戲",
             "SUMMARY": "教電腦如何玩遊戲",
             "DESCRIPTION": "訓練電腦可以在Scratch中玩Top Trumps卡牌遊戲",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-toptrumps.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-toptrumps.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-toptrumps.pdf"
+            }
         },
         "HEADLINES": {
             "TITLE": "頭條新聞",
@@ -1293,82 +1331,82 @@
             "TITLE": "新聞大集合",
             "SUMMARY": "測試電腦能否辨識使用的語言",
             "DESCRIPTION": "訓練電腦辨識官方報紙的頭條新聞",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines-easy.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-easy.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines-easy.pdf"
+            }
         },
         "HEADLINETESTING": {
             "TITLE": "誰寫的新聞",
             "SUMMARY": "測試電腦能否辨識使用的語言",
             "DESCRIPTION": "在Scratch中建立一個測試工具來衡量機器學習模型的良好程度。",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines.pdf"
+            }
         },
         "FINDIT": {
             "TITLE": "躲貓貓",
             "SUMMARY": "教電腦辨識圖片",
             "DESCRIPTION": "製作一個手機版的躲貓貓遊戲",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-findit.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-findit.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-findit.pdf"
+            }
         },
         "ALIENLANGUAGE": {
             "TITLE": "外星人的語言",
             "SUMMARY": "教電腦辨識聲音",
             "DESCRIPTION": "在Scratch中製作外星人他會學習辨識外星人的聲音",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-alienlanguage.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-alienlanguage.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-alienlanguage.pdf"
+            }
         },
         "SECRETCODE": {
             "TITLE": "神秘的密碼",
             "SUMMARY": "教電腦辨識語音",
             "DESCRIPTION": "訓練電腦可以辨識神秘的密碼來引導間諜",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-secretcode.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-secretcode.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-secretcode.pdf"
+            }
         },
         "JARGONBUSTER": {
             "TITLE": "術語剋星",
             "SUMMARY": "教電腦學習聽單字",
             "DESCRIPTION": "在Scratch中製作專案，它可以顯示你說的文字的含義",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-jargonbuster.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-jargonbuster.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-jargonbuster.pdf"
+            }
         },
         "TITANIC": {
             "TITLE": "鐵達尼號",
             "SUMMARY": "教電腦預測結果",
             "DESCRIPTION": "在Python中製作程式，可以用來預測下沉中的鐵達尼號誰可以倖存",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-titanic.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-titanic.pdf"
+            }
         },
         "ZOMBIEESCAPE": {
             "TITLE": "殭屍大逃亡",
             "SUMMARY": "教電腦學習預測",
             "DESCRIPTION": "訓練電腦來幫助你逃離殭屍部落",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-zombieescape.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-zombieescape.pdf"
+            }
         },
         "PHISHING": {
             "TITLE": "惡意網路釣魚",
             "SUMMARY": "教電腦辨識惡意釣魚網站的連結",
             "DESCRIPTION": "製作一個python程式來預測網站連結是否合法",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-phishing.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-phishing.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-phishing.pdf"
+            }
         },
         "KIWIORSTOAT": {
             "TITLE": "奇異鳥或白鼬",
@@ -1382,51 +1420,52 @@
             "TITLE": "墨水痕跡",
             "SUMMARY": "教電腦辨識圖片的物件",
             "DESCRIPTION": "重新建立一個MIT研究項目，並了解新聞中如何描述AI系統。",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-inkblots.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-inkblots.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-inkblots.pdf"
+            }
         },
         "FACEFINDER": {
             "TITLE": "臉部搜尋",
             "SUMMARY": "使用已訓練過的電腦來辨識人臉",
             "DESCRIPTION": "在Scratch中製作一個影像轉換器讓你的人臉變成卡通人物",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-facefinder.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facefinder.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-facefinder.pdf"
+            }
         },
         "EMOJIMASK": {
             "TITLE": "Emoji人臉替換",
             "SUMMARY": "使用已訓練過的電腦來辨識人臉",
             "DESCRIPTION": "在Scratch中製作一個影像轉換器讓你的人臉變成表情符號",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-emojimask.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-emojimask.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-emojimask.pdf"
+            }
         },
         "LASEREYES": {
             "TITLE": "發射雷射光",
             "SUMMARY": "教電腦辨識語音與人臉",
             "DESCRIPTION": "在Scratch中製作聲控的雷射光束遊戲",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-lasereyes.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-lasereyes.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-lasereyes.pdf"
+            }
         },
         "SEMAPHORES": {
             "TITLE": "旗幟傳訊息",
             "SUMMARY": "教電腦辨識語音與姿勢",
             "DESCRIPTION": "製作一個聲控的旗幟傳訊息遊戲，你可以藉由移動手臂來控制它",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-semaphores.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-semaphores.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-semaphores.pdf"
+            }
         }
     },
     "TEACHER": {
         "MENU": {
             "TITLE": "教師管理",
+
             "RESTRICTIONS": {
                 "TITLE": "使用上限",
                 "DESCRIPTION": "查看適用於你班級的人數與專案限制"
@@ -1445,61 +1484,83 @@
                 "TITLE": "作品管理",
                 "DESCRIPTION": "檢視你的學生建立的專案"
             },
+
             "ADVANCEDOPTIONS": "進階選項",
+
             "DELETECLASS": {
                 "TITLE": "刪除班級",
                 "DESCRIPTION": "這會刪除你和班上所有學生的帳戶"
             },
+
             "CANYOUHELP": {
                 "TITLE": "協助我們？",
                 "DESCRIPTION": "請分享你的經驗與想法讓我們的工具可以更好"
             },
+
             "NOTAUTHORISED": "你沒有權限可以進入班級裡的教師頁面"
         },
         "APIKEYS": {
             "TITLE": "教師管理：IBM Watson API 密碼",
+
             "ADDNEWCREDENTIALS": "新增新的權限",
             "ADDAPIKEY": "加入新API密碼",
             "REMOVE": "移除",
             "VERIFY": "審核",
+
             "LITE_30_DAYS_EXPIRE": "如果30天內未使用IBM Cloud可能會停用「精簡版」方案的Watson API密碼",
             "TRIAL_30_DAYS_EXPIRE": "30天後，IBM Cloud可能會停用試用方案的Watson API密碼",
+
             "NO_TEXT_CREDENTIALS": "你沒有任何Watson Assistant權限。<br/>這代表你無法訓練模型在<strong>文字</strong>專案中使用",
             "NO_IMAGE_CREDENTIALS": "你沒有任何Watson Visual Recognition的API密碼。<br/>這代表你無法訓練模型在<strong>圖片</strong>專案中使用",
+
             "LINK_TO_APIKEYS_GUIDE": "如果你不確定從哪裡獲得這些內容，請下載<a href='/apikeys-guide'>完整步驟引導</a>",
+
             "NOTAUTHORISED": "你無權訪問你的班級使用的Watson API密碼",
             "MANAGEDCLASS": "你正在管理班級使用的API密碼",
+
             "HELP_STEPBYSTEP_GUIDE": "如果你不確定在這裡要做什麼，請參考<a href='/apikeys-guide'>一步一步的引導教學</a>。如果你需要任何協助，請<strong><a style='cursor: pointer;' href='/help'>與我們聯繫</a></strong>。",
+
             "INTRO_WATSONASSISTANT": "使用<a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a>來訓練<span class='mlprojecttype'>文字</span>專案的機器學習模型",
-            "INTRO_VISUALRECOGNITION": "使用<a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>來訓練<span class='mlprojecttype'>圖片</span>專案的機器學習模型",
+            "INTRO_VISUALRECOGNITION": "使用雲端服務<a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>來訓練<span class='mlprojecttype'>圖片</span>專案的機器學習模型",
             "INTRO_NUMBERS": "<strong>不需要</strong>任何API密碼即可訓練<span class='mlprojecttype'>數字</span>專案的機器學習模型",
             "INTRO_SOUNDS": "<strong>不需要</strong>任何API密碼即可訓練<span class='mlprojecttype'>聲音</span>專案的機器學習模型",
-            "INTRO_IMAGES": "Training machine learning models for <span class='mlprojecttype'>images</span> projects does <strong>not</strong> require any API keys",
+            "INTRO_IMAGES": "訓練<span class='mlprojecttype'>圖片</span>專案的機器學習模型，<strong>不需要</strong>任何API密碼。",
+
             "ERROR_FETCHING_WATSONASSISTANT": "無法取得你的Watson Assistant密碼",
             "ERROR_FETCHING_VISUALRECOG": "無法取得你的Visual Recognition的API密碼",
+
             "USERNAME": "使用者名稱",
             "PASSWORD": "密碼",
             "APIKEY": "API密碼",
+
             "NUMBER_OF_ML_MODELS": "機器學習模型的數量",
             "UNKNOWN": "未知",
             "UNLIMITED": "無限",
+
             "LIMIT_TEXT_PROJECTS": "你的學生可以擁有的文字機器學習模型數量：",
             "LIMIT_IMAGE_PROJECTS": "你的學生可以擁有的圖片機器學習模型數量：",
+
             "ADD_API_KEYS": {
                 "ASSISTANT_TITLE": "加入Watson Assistant權限",
                 "VISUAL_RECOGNITION_TITLE": "加入Visual Recognition的API密碼",
+
                 "USED_FOR_TEXT_PROJECTS": "這些內容將在你的學生訓練「文件」專案中的模型時使用",
                 "USED_FOR_IMAGE_PROJECTS": "這些內容將在你的學生訓練「圖片」專案中的模型時使用",
+
                 "HIDDEN_FROM_STUDENTS": "這些內容不會顯示給你群組中的學生看見",
+
                 "PRICING_PLAN": "你使用了哪種價格套餐呢？",
                 "ENTER_APIKEY": "請在下方輸入API密碼",
                 "ENTER_PASSWORD": "請在下方輸入使用者名稱與密碼",
+
                 "CREDENTIALS_TYPE": "你在Watson Assistant中建立了什麼呢？"
             }
         },
         "RESTRICTIONS": {
             "TITLE": "教師管理：使用上限",
+
             "ASK_FOR_CHANGES": "如果這些限制中的任何一項對你的小組造成問題，請<strong><a href='/help'>與我們聯繫</a></strong>",
+
             "CLASS_LIMITS": {
                 "TITLE": "班級限制",
                 "NUM_USERS": "你的群組中最多可以有<span class='mlprojecttype'>{{ num }}</span>個用戶（包含學生與老師）",
@@ -1517,45 +1578,58 @@
                 "TIME_LIMIT": "<span class='mlprojecttype'>{{ type }}</span>專案中的機器學習模型將在<span class='mlprojecttype'>{{ num }}</span>小時候自動刪除",
                 "DONT_WORRY": "（別擔心！訓練的資料範例不會刪除。所以你的學生如果需要再次使用，可以再次訓練新的模型即可使用）"
             },
+
             "NOT_AUTHORIZED": "你沒有權限可以進入班級的上限頁面"
         },
         "SUPERVISION": {
             "TITLE": "教師管理：學生專案",
+
             "INTRO_1": "此頁面會列表顯示你的班級目前擁有的所有專案。你可以透過這份清單來看他們正在製作的內容",
             "INTRO_2": "如果你已經達到班級可建立的機器學習模型數量上限，則可以透過這份清單查看全部專案擁有的機器學習模型，並刪除你認為在專案中不再需要的模型",
+
             "NO_PROJECTS_1": "你班上的學生目前沒有任何專案",
             "NO_PROJECTS_2": "你的學生開始建立專案後，你可以回到這裡查看他們內容的總覽",
+
             "NAME": "名稱",
             "TYPE": "類型",
             "STUDENT": "學生",
             "MODELS": "機器學習模型",
+
             "DELETE": "點擊圖示可以刪除",
+
             "NOT_AUTHORIZED": "你沒有權限進入班級的全部學生專案清單"
         },
         "STUDENTMANAGEMENT": {
             "TITLE": "教師管理：學生管理",
+
             "CREATE_FIRST_STUDENT": "點擊右方「＋」按鈕，建立你的第一個學生",
             "ADD": "新增學生",
             "NEW_USERNAME": "選擇一個唯一的使用者名稱",
             "ALPHANUMERIC": "只能使用數字跟文字",
+
             "NOT_LOGGED_IN": "尚未登入",
+
             "RESET_PASSWORD": "重置密碼",
             "RESET_ALL_PASSWORDS": "重置全部學生的密碼",
+
             "DELETE_STUDENT": "刪除學生帳戶",
+
             "NOT_AUTHORIZED": "你沒有權限進入班級的全部學生清單",
+
             "ADD_MULTIPLE": {
-                "BUTTON": "多名學生",
-                "TITLE": "新增多名學生",
-                "INTRO": "你可以使用它來一次建立多個學生帳戶",
-                "USERNAME": "你希望每個使用者名稱以什麼開頭？",
-                "USERNAME_REQUIRED": "請選擇用戶名稱的字首",
-                "USERNAME_TOOLONG": "太長了",
-                "USERNAME_INVALID": "無效的文字",
-                "NUMBER": "你想要多少個學生帳戶？",
-                "NUMBER_REQUIRED": "請輸入要建立的學生數量",
-                "NUMBER_TOOMANY": "你的班級上限最多{{userslimit}} 個學生",
-                "PASSWORD": "給他們的密碼：",
-                "PASSWORD_TOOSHORT": "太短了"
+                "BUTTON" : "多名學生",
+
+                "TITLE" : "新增多名學生",
+                "INTRO" : "你可以使用它來一次建立多個學生帳戶",
+                "USERNAME" : "你希望每個使用者名稱以什麼開頭？",
+                "USERNAME_REQUIRED" : "請選擇用戶名稱的字首",
+                "USERNAME_TOOLONG" : "太長了",
+                "USERNAME_INVALID" : "無效的文字",
+                "NUMBER" : "你想要多少個學生帳戶？",
+                "NUMBER_REQUIRED" : "請輸入要建立的學生數量",
+                "NUMBER_TOOMANY" : "你的班級上限最多{{userslimit}} 個學生",
+                "PASSWORD" : "給他們的密碼：",
+                "PASSWORD_TOOSHORT" : "太短了"
             }
         }
     },
@@ -1618,64 +1692,77 @@
             "INTRO2": "以下清單包含我們最常聽見的問題。如果你看到與你問題相似的內容，請點擊摘要文字來取得更多資訊",
             "INTRO3": "如果你仍然發生錯誤，或是遇到了我沒有包含在清單中的問題，很抱歉造成你的不便！請<a href='https://groups.google.com/d/forum/mlforkids'>洽詢兒童機器學習群組</a>讓我們可以提供協助"
         },
-        "PROJECTS": {
-            "TITLE": "專案問題",
 
-            "Q1": "What is the difference between training image models \"on your computer\" or \"in the cloud\"?",
+        "PROJECTS": {
+            "TITLE": "專案的問題",
+
+            "Q1": "「使用你的電腦」或是「使用雲端服務」訓練圖片模型有什麼差別？\b",
             "Q1-A-1": "這兩種都可以用來建立相同種類的機器學習專案。不同的地方在於在哪裡建立與儲存模型。",
-            "Q1-A-2": "If you choose \"<strong>in the cloud</strong>\" machine learning models are trained on cloud servers using an online service called Watson Visual Recognition.",
-            "Q1-A-3": "If you choose \"<strong>on your computer</strong>\" machine learning models are trained on the student's own computer, in the web browser.",
-            "Q1-A-4": "\"<strong>in the cloud</strong>\" is good because:",
-            "Q1-A-5": "可以運用在Scratch、App inventor或是Python的專案中",
+            "Q1-A-2": "如果選擇「<strong>使用雲端服務</strong>」，機器學習模型將在雲端伺服器中以Watson影像辨識的線上服務進行訓練。",
+            "Q1-A-3": "如果選擇「<strong>使用你的電腦</strong>」，機器學習模型將透過學生電腦中的網頁瀏覽器中進行訓練",
+            "Q1-A-4": "「使用雲端服務」的優點是：",
+            "Q1-A-5": "成果可以運用在Scratch、App inventor或是Python的專案中",
             "Q1-A-7": "它可以建立更準確的模型，尤其是在使用少量訓練範例時。",
-            "Q1-A-8": "But, it takes several minutes to train while you wait for your turn on the cloud server.",
-            "Q1-A-9": "\"<strong>on your computer</strong>\" is good because:",
+            "Q1-A-8": "但是，這需要耗費幾分鐘的時間來等待雲端伺服器開始啟動",
+            "Q1-A-9": "「使用你的電腦」的優點是：",
             "Q1-A-10": "它可以更快地完成訓練，因為它可以馬上開始，不需等待開啟雲端服務器的時間。",
             "Q1-A-12": "模型不會被自動刪除",
-            "Q1-A-13": "But, it can only be used for Scratch projects.",
+            "Q1-A-13": "但是，成果只能運用在Scratch的專案中",
 
-            "Q2": "How can you change an \"images\" project to train in the cloud, or to train on your computer?",
+            "Q2": "如何將「圖片專案」切換成使用雲端服務訓練，或是使用你的電腦訓練？",
             "Q2-A-1": "你可以在專案中的訓練頁面切換這兩種模式。",
             "Q2-A-2": "切換的連結在畫面的右上方。",
             "Q2-A-3": "完成後將刪除此專案中所有既有的機器學習模型。",
             "Q2-A-4": "圖片專案的Scratch擴充積木在兩種不同模式下的運作方式不同。因此，如果在執行此操作時開啟了Scratch介面，則需要重新整理頁面以便可以更新Scratch擴充積木名稱。"
         },
+
         "SCRATCH": {
             "TITLE": "Scratch的常見問題",
+
             "Q1": "我不知道如何讓Scratch2正常運作",
             "Q1-A-1": "Scratch2與更舊的版本需要Adobe Flash才能執行，因此你需要使用可以和Flash一起使用的作業系統與網路瀏覽器。",
             "Q1-A-2": "如果你不確定如何啟用Flash，那麼可以<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-scratchx.pdf'>下載文件說明，其中包含一些讓Scratch正常運作的提示</a>。 或者，您可以改用新版的Scratch3。",
+
             "Q2": "Scratch中的「載入專案」與「儲存專案」選單無法運作",
             "Q2-A-1": "如果你在macOS上使用Safari，並且Scratch選單的「檔案  -&gt; 載入專案」和「檔案 -&gt; 儲存專案」選單無法正常運作，則可能是你在安全模式下運行。",
             "Q2-A-2": "<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/safari-scratch-safemode.pdf'>請依照這裡的指示操作</a>，來檢查與解決這問題",
+
             "Q3": "Scratch2中的機器學習分類器積木已無法使用",
             "Q3-A-1": "有時候，你的機器學習模型的Scratch積木可能會失去與伺服器的連線。 發生這種情況時，他們將停止回傳執行結果。",
             "Q3-A-2": "您可以透過「擴充積木」面板中的彩色狀態燈檢查是否發生了這種情況。",
             "Q3-A-3": "如果Scratch機器學習積木旁邊的狀態指示燈為紅色，則通常表示有問題。 它可能是暫時性的問題， 嘗試儲存你的專案（使用「檔案」-&gt; 「儲存專案」），然後重新整理瀏覽器頁面。 如果頁面重新整理後狀態指示燈變為綠色，則可以載入專案（使用「檔案」-&gt; 「載入專案」）以從上次中斷的地方繼續使用。",
             "Q3-A-4": "重新整理頁面後，如果狀態指示燈仍然為紅色，則代表機器學習模型可能存在問題。 嘗試前往專案的「學習 &amp; 測試」頁面，在該頁面上可以找到有關模型的任何錯誤消息。",
             "Q3-A-5": "如果Scratch的機器學習積木旁邊的狀態指示燈為綠色，則代表積木正在運作。 如果沒有收到預期的響應，請嘗試前往「學習 &amp; 測試」頁面，並檢查模型回傳的結果。",
+
             "Q5": "我可以使用任何版本的Scratch嗎？",
             "Q5-A-1": "你需要使用兒童機器學習網站提供的Scratch版本。 您可以透過點擊專案頁面上的Scratch或Scratch 3按鈕來開啟它們。",
+
             "Q6": "Scratch 3只能將專案儲存到「下載」文件夾中",
             "Q6-A-1": "當您在Scratch 3中點擊「檔案->下載到你的電腦」時，Scratch專案將下載到你的電腦。",
             "Q6-A-2": "有一些老師回報了一個問題，這問題是已下載到電腦的「下載」文件夾中，學生無法在Windows電腦中進入「下載」文件夾。 結果是學生無法存取他們下載的專案。",
             "Q6-A-3": "如果遇到此問題，則需要在網路瀏覽器設定中尋找例如「在下載之前詢問保存每個文件的位置」之類的設定。 如果啟用了該選項，你的學生將可以選擇下載專案的位置。"
         },
+
         "TRAININGUI": {
             "TITLE": "訓練介面的問題",
+
             "Q1": "將圖片拖移到訓練空間中（適用於圖片專案）無法運作",
             "Q1-A-1": "如果您使用的瀏覽器是Internet Explorer，則將圖片拖到訓練空間中將無法運作。",
             "Q1-A-2": "很抱歉。 如果您可以使用其他瀏覽器例如Firefox或Chrome，請執行此操作。 否則，您可以點擊「 www」按鈕，然後貼上訓練圖片的URL。"
         },
+
         "MODELS": {
             "TITLE": "訓練機器學習模型的常見錯誤",
+
             "Q1": "「尚未設定Watson認證」",
             "Q1-A-1": "此工具中的機器學習模型是使用IBM Watson API建立的。",
             "Q1-A-2": "如果您擁有「沒有班級管理」的帳戶，則你的老師或小組負責人將需要提供IBM Cloud的Watson API認證才能使其正常運作。 有關如何執行此操作的詳細說明，請參閱此頁頂部的「第一次使用」文檔。",
+
             "Q2": "「班級正在使用的Watson認證被拒絕」",
             "Q2-A-1": "此工具中的機器學習模型是使用IBM Watson API建立的。",
             "Q2-A-2": "如果您有一個「沒有班級管理」的帳戶，那麼你的老師或小組負責人將提供IBM Cloud的Watson API認證以使其正常工作（如本頁頂部的「第一次使用」文檔中所述）。",
             "Q2-A-3": "但是，提供的認證當前沒有運作最有可能的原因是，因為最初提供了認證，因此已從IBM Cloud中刪除了認證。 如果不是這種情況，提供Watson認證的老師或小組負責人需要回到到IBM Cloud儀表板，以檢查他們建立的Watson Assistant或Visual Recognition服務的狀態",
+
             "Q3": "「Watson Assistant API密碼沒有可用的運作空間」",
             "Q3-A-1": "此工具中的機器學習模型是使用IBM Watson API建立的。",
             "Q3-A-2": "老師建立的Watson Assistant認證限制了可以建立機器學習模型的數量。 這顯示在建立認證的IBM Cloud UI中，這些認證稱為「工作區」。",
@@ -1684,6 +1771,7 @@
             "Q3-A-5": "如果具有成功訓練過模型的學生刪除了他們的模型，這將釋放一個工作空間供其他學生使用。",
             "Q3-A-6": "將來避免這種錯誤的一種方法是減少班級人數。 如果學生人數少於Watson Assistant認證支援的工作區數量，則不會達到限制。",
             "Q3-A-7": "避免此錯誤的另一種方法是增加其他Watson Assistant API密碼，或使用具有更高上限的Watson Assistant「方案」。",
+
             "Q4": "「Watson Visual Recognition API密碼不再有可用的分類器」",
             "Q4-A-1": "此工具中的機器學習模型是使用IBM Watson API建立的。",
             "Q4-A-2": "教師創建的Watson Visual Recognition認證對可用於創建的機器學習模型的數量有所限制。 這顯示在創建認證的IBM Cloud UI中，這些認證稱為「客製分類器」。",
@@ -1692,6 +1780,7 @@
             "Q4-A-5": "如果具有成功訓練過模型的學生刪除了他們的模型，這將釋放一個客製分類器供其他學生使用。",
             "Q4-A-6": "將來避免這種錯誤的一種方法是減少班級人數。 如果學生人數少於Watson Assistant認證支援的客製分類器數量，則不會達到限制。",
             "Q4-A-7": "避免此錯誤的另一種方法是增加其他的Watson Visual Recognition API密碼，或使用具有更高上限的Watson Visual Recognition實例「方案」。",
+
             "Q5": "「Watson ...目前正在限制其API密碼的速率」",
             "Q5-A-1": "此工具中的機器學習模型是使用IBM Watson API建立的。",
             "Q5-A-2": "如果您擁有「沒有班級管理」的帳戶，則你的老師或小組負責人將需要提供IBM Cloud的Watson API認證才能使其正常工作。",
@@ -1700,11 +1789,13 @@
             "Q5-A-5": "你的班級提出了太多的要求與太快的速度建立機器學習模型。 請立即停止，並讓您的老師或小組負責人知道「Watson Assistant服務當前正在限制其API密碼的速率」",
             "Q5-A-6": "速率限制不適用於「兒童機器學習」網站，也不受我們控制。 它通常是臨時的，需要等待一會兒才能解決。",
             "Q5-A-7": "如果學生點擊「訓練新的機器學習模型」按鈕並且遇到「沒有更多的工作空間可用」或「沒有更多的分類器可用」錯誤（如上所述），那麼他們應該意識到，重複點擊該按鈕將無法解決問題。 ，實際上會使其他班級的情況更加惡化。",
+
             "Q6": "我一直在等訓練模型等到天荒地老",
             "Q6-A-1": "嘗試重新整理頁面",
             "Q6-A-2": "該頁面應該每30秒檢查一次機器學習模型的狀態，但是有時它會停止檢查，因此您可能一直在等待模型，但實際上已經準備完成。",
             "Q6-A-3": "如果超過好幾分鐘，則值得重新整理頁面進行檢查。",
             "Q6-A-4": "如果已超過十分鐘，則可能值得考慮重新啟動（點擊「取消」按鈕，然後點擊該按鈕以再次訓練新的機器學習模型）。",
+
             "Q7": "你的班級使用共享的Watson Keys，目前已無可使用的空間。",
             "Q7-A-1": "此工具中的機器學習模型是使用IBM Watson API建立的。",
             "Q7-A-2": "如果你使用「有班級管理」功能的帳號，代表你的班級將與其他學校共用API密碼。",
@@ -1714,14 +1805,17 @@
             "Q7-A-6": "最好的解決方法是等其他學生刪除他們的機器學習模型後再測試一次。即便還沒完成訓練，你的訓練資料也會安全保存著。",
             "Q7-A-7": "避免此錯誤的另一種方法是建立一個「沒有班級管理」的帳號，如此一來老師需要建立自己的Watson API Keys，而這組密碼就是班級專用的。"
         },
+
         "TEACHERUI": {
             "TITLE": "教師/管理員的界面問題",
+
             "Q2": "老師頁面中的列表裡缺少學生帳戶",
             "Q2-A-1": "我們使用第三方針對兒童機器學習的用戶管理服務，<a href=\"https://auth0.com/\">Auth0</a>。",
             "Q2-A-2": "有時候，Auth0回傳的學生列表可能會有些過時，並且無法反映最新建立的學生（同理，它可能仍顯示最新被刪除的學生）。",
             "Q2-A-3": "在這些情況下，通常已經成功創建（或刪除）了學生，只會顯示的學生列表並不會顯示最新的更新。",
             "Q2-A-4": "Auth0通常會在其狀態頁上報告此類事件，例如<a href='https://status.auth0.com/incidents/0sk1d3hjlw0m'>用戶收尋延遲</a>或其<a href='https://status.auth0.com/incidents/t8995b9jggx5'>Search API問題</a>。",
             "Q2-A-5": "在這些情況下，最好的辦法是等待Auth0傳回內容。",
+
             "Q4": "為什麼機器學習模型會自動刪除？",
             "Q4-A-1": "最初開發兒童機器學習時，這是學校要求的功能。 這是由於一個專案在任何給定時間可以擁有多少個機器學習模型而存在一個限制，並且需要簡化該限制。",
             "Q4-A-2": "該工具可以在課程結束後通過刪除模型來自動清理，而不是要求孩子們在課程結束後必須清理並刪除他們的模型（以便允許下一堂課創建模型）。 這樣可以輕鬆地進行下一課以及此後的下一課，而無需在其間進行手動清理。",
@@ -1729,12 +1823,15 @@
             "Q4-A-4": "了解更多關於你班級的時間限制，請前往<a href='https://machinelearningforkids.co.uk/#!/teacher/restrictions'>你的教師頁面中的上限頁面</a>",
             "Q4-A-6": "<em>注意：只會自動刪除機器學習模型，而不是用於建立模型的訓練資料。 因此，如果學生仍在使用的專案模型被自動刪除，他們仍然可以再次點擊「訓練」按鈕來再次創建模型</em>"
         },
+
         "ACCOUNTISSUES": {
             "TITLE": "帳戶問題",
+
             "Q1": "建立帳戶或使用「立即嘗試」有什麼區別？",
             "Q1-A-1": "使用「立即嘗試」表示無需登入或建立帳戶。沒有密碼供學生記住，也無需老師提供個人訊息。 它還可以節省教師管理學生帳戶所需的時間。",
             "Q1-A-2": "但是，建立帳戶可以啟用其他功能。 學生可以儲存他們的作品，並在以後的課程中重新使用。 他們可以與班上的其他學生一起合作一個專案。 他們可以在家中登入並向家人展示他們完成的內容。",
             "Q1-A-3": "總結一下差異，如下所示：",
+
             "CREATE_ACCOUNT": "建立帳戶",
             "TRAINMODELS": "訓練機器學習模型來辨識...",
             "PRETRAINED_MODELS": "使用預先訓練好的機器學習模型",
@@ -1752,11 +1849,13 @@
             "ONLINE": "任何網路來源皆可",
             "BY_YOURSELF": "自行使用",
             "WITH_CLASSMATES": "與同學合作",
+
             "Q2": "我已經建立了一個班級帳戶，但我的老師登入無法正常運行",
             "Q2-A-1": "你需要先驗證電子郵件地址，然後才能登錄",
             "Q2-A-2": "建立班級帳戶時，會向您提供的電子郵件地址發送一封電子郵件，並帶有點擊連結。 如果您點擊該連結，將驗證您的電子郵件地址並啟用班級帳戶。 您現在應該可以登錄了。",
             "Q2-A-3": "如果您還沒有看到驗證電子郵件，請確定它沒有進入垃圾郵件文件夾。",
             "Q2-A-4": "如果您仍然找不到它，<a href='https://groups.google.com/d/forum/mlforkids'>請告訴我</a>，我會盡力幫助。",
+
             "Q3": "刪除帳戶",
             "Q3-A-1": "學生帳戶",
             "Q3-A-2": "學生無法自行刪除他們的帳戶",
@@ -1766,6 +1865,7 @@
             "Q3-A-6": "教師帳戶",
             "Q3-A-7": "刪除教師帳戶將刪除整個班級以及班級中的所有學生帳戶。 這無法復原。",
             "Q3-A-8": "這可以透過點擊<a href='https://machinelearningforkids.co.uk/teacher'>教師頁面</a>的「進階選項」部分中的「刪除班級」按鈕來完成。",
+
             "Q4": "會儲存有關用戶的哪些資訊？",
             "Q4-A-1": "教師帳戶",
             "Q4-A-2": "我會儲存你在建立帳戶時提供的帳戶名稱和電子郵件地址，以便我與您保持聯繫。",
@@ -1776,6 +1876,7 @@
             "Q4-A-7": "使用第三方服務<a href='https://auth0.com/'>Auth0</a>實現針對兒童機器學習的用戶管理。 它們儲存您上次從其登錄到兒童機器學習的IP地址以及您使用的瀏覽器類型。 我從來沒有找到使用它的理由，但是它確實被儲存起來如果我想去尋找它。",
             "Q4-A-8": "使用第三方服務<a href='https://sentry.io/'>Sentry</a>蒐集網路瀏覽器中發生的錯誤。 如果出現問題，它將蒐集有關該錯誤的訊息，包括您的帳戶名稱，IP地址，使用的瀏覽器類型以及發生問題的技術描述。",
             "Q4-A-9": "我使用<a href='https://www.google.com/analytics/'>Google Analytics</a>，以便知道每天有多少用戶訪問「兒童機器學習」。 儘管它蒐集了例如地理位置和瀏覽器類型之類的信息，但這僅以匿名統整的方式顯示給我。",
+
             "Q5": "學生建立的訓練資料會發生什麼事？",
             "Q5-A-1": "學生使用此網站進行的所有機器學習項目中的一個步驟是建立或收集訓練範例。 對於文字專案，這可能代表著輸入簡短的文字段落。 對於圖片專案，這可能代表著將圖片繪製到螢幕畫布上或使用網絡攝像頭拍照。 對於數字專案，這意味著輸入數字集合",
             "Q5-A-2": "所有這些訓練範例都儲存在位於美國達拉斯的<a href='https://www.ibm.com/cloud/databases-for-postgresql'>IBM Cloud上託管的MySQL數據庫中</a>。 身為數據庫管理員，我可以訪問全部學生專案中所有訓練範例，但是除了讓學生能夠進入和使用自己的專案之外，我沒有將其用於其他任何目的。 我不會公開（公開地或個人或第三方）訓練數據，除了將數據提交給下面描述的兩個IBM Watson之外。",
@@ -1834,10 +1935,10 @@
         },
         "IMAGENET": {
             "TITLE": "Imagenet",
-            "IMAGENET_1": "This model can be used to recognize objects in a costume.",
-            "IMAGENET_2": "It gives you blocks that will predict the main object shown in a sprite.",
-            "IMAGENET_3": "It has been trained to recognize photos of <a href='https://storage.googleapis.com/download.tensorflow.org/data/ImageNetLabels.txt'>one-thousand common objects</a>. The machine learning model is based on MobileNet (a ML model designed for mobile devices, so it doesn't need much computing power).",
-            "IMAGENET_4": "It has been trained to recognize photos, and won't recognize cartoons or drawings very well."
+            "IMAGENET_1": "這個模型可以用來辨識角色造型中的物件",
+            "IMAGENET_2": "此功能提供了可以用來預測角色造型中主要的物件是什麼的積木程式",
+            "IMAGENET_3": "此模型已經過<a href='https://storage.googleapis.com/download.tensorflow.org/data/ImageNetLabels.txt'>一千多個常見物品</a>的辨識訓練。模型雛形建立於MobileNet（一種為了移動裝置設計的機器學習模型服務，不需要大量的運算）",
+            "IMAGENET_4": "這被設計用來辨識照片，因此無法很好的辨識卡通或繪畫的影像"
         },
         "IDEAS": {
             "IDEAS_1": "您是否希望在Scratch專案中使用其他機器學習模型？",
@@ -1854,14 +1955,14 @@
         }
     },
     "BOOK": {
-        "TITLE": "Book",
-        "NOTES_1": "<strong>Machine Learning for Kids : A Project-Based Introduction to Artificial Intelligence</strong> is a new book to accompany the site.",
-        "NOTES_2": "The book is a guided hands-on and practical introduction to how artificial intelligence impacts our lives. It includes step-by-step instructions for making a variety of machine learning-powered projects in Scratch, and explains how they each relate to real-world AI applications.",
-        "NOTES_3": "Several projects dive deeper into particular aspects of how machine learning is applied, including recreating some of the most common mistakes made in AI, and learning about the different ways that the performance of machine learning systems can be measured and described.",
-        "NOTES_4": "Finally, the book ends by recreating examples of biased machine learning systems, and discusses the AI ethics issues that they raise.",
+        "TITLE": "參考書",
+        "NOTES_1": "<strong>Machine Learning for Kids : A Project-Based Introduction to Artificial Intelligence</strong>是一本搭配此網站的新書。",
+        "NOTES_2": "這本書是有關人工智慧如何影響我們生活的實際操作說明。 包括在Scratch中製作各種使用機器學習技術的作品與教學步驟，而且說明它們與現實世界AI應用程式的關聯性。",
+        "NOTES_3": "一些專案將延伸探討如何應用機器學習，包括重新建立了AI中最常見的一些錯誤，以及學習可以用來衡量和描述機器學習系統性能的各式方法。",
+        "NOTES_4": "這本書以重新建立有偏誤的機器學習系統的範例為結尾，並討論了這些模型引發的AI倫理問題。",
         "UPDATES": {
-            "TITLE": "Updates and corrections",
-            "NOTES": "Any updates or corrections will be posted here. For more help, please see the <a ui-sref='help'>Help</a> page."
+            "TITLE": "更新與修正",
+            "NOTES": "任何更新或修正會紀錄在這裡。如果需要更多協助，請參考<a ui-sref='help'>幫助</a>頁面。"
         }
     }
 }
