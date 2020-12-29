@@ -208,11 +208,23 @@ class MachineLearningImagesTfjs {
         };
 
         return fetch(url, options)
-            .then(() => {
-                console.log('added');
+            .then((response) => {
+                if (response.status !== 200) {
+                    return response.json();
+                }
+                else {
+                    console.log('added');
+                }
             })
-            .catch((err) => {
-                console.log(err);
+            .then((responseJson) => {
+                if (responseJson) {
+                    if (responseJson.error === 'Project already has maximum allowed amount of training data') {
+                        postMessage({ mlforkids : 'mlforkids-addtraininglimit-help' });
+                    }
+                    else {
+                        console.log(responseJson);
+                    }
+                }
             });
     }
 

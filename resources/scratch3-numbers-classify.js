@@ -196,10 +196,18 @@ class MachineLearningNumbers {
                 if (response.status !== 200) {
                     return response.json();
                 }
+                else {
+                    console.log('added');
+                }
             })
             .then((responseJson) => {
                 if (responseJson) {
-                    console.log(responseJson);
+                    if (responseJson.error === 'Project already has maximum allowed amount of training data') {
+                        postMessage({ mlforkids : 'mlforkids-addtraininglimit-help' });
+                    }
+                    else {
+                        console.log(responseJson);
+                    }
                 }
             });
     }
