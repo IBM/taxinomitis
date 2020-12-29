@@ -143,7 +143,8 @@ module.exports = function(grunt) {
                 expand : true,
                 cwd : 'public/scratch-components',
                 src : ['help-scratch3*',
-                       'help-scratch.css'],
+                       'help-scratch.css',
+                       'teachablemachinepose.html'],
                 dest : 'web/scratch3'
             },
             indexhtml : {

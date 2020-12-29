@@ -61,6 +61,8 @@ function getModelTypeAsId(type: ScratchTypes.ScratchTfjsModelType): ScratchTypes
         return 10;
     case 'graphdefimage':
         return 11;
+    case 'teachablemachinepose':
+        return 12;
     default:
         return 99;
     }
@@ -71,6 +73,9 @@ function getModelTypeFromId(id: ScratchTypes.ScratchTfjsModelTypeId): ScratchTyp
     }
     else if (id === 11) {
         return 'graphdefimage';
+    }
+    else if (id === 12) {
+        return 'teachablemachinepose';
     }
     else {
         return 'unknown';

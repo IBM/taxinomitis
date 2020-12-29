@@ -9,9 +9,10 @@ export interface Key {
 }
 
 export type ScratchTfjsModelType = 'teachablemachineimage' |
+                                   'teachablemachinepose' |
                                    'graphdefimage' |
                                    'unknown';
-export type ScratchTfjsModelTypeId = 10 | 11 | 99;
+export type ScratchTfjsModelTypeId = 10 | 11 | 12 | 99;
 
 
 export interface ScratchTfjsExtensionEncoded {
@@ -21,7 +22,7 @@ export interface ScratchTfjsExtensionEncoded {
 
 export interface ScratchTfjsExtension {
     readonly modelurl: string;
-    readonly modeltype: ScratchTfjsModelType;
+    modeltype: ScratchTfjsModelType;
 }
 
 export interface ScratchTfjsExtensionWithId extends ScratchTfjsExtension {

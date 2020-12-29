@@ -165,7 +165,8 @@ gulp.task('scratch3install', gulp.series('crossdomain', function() {
     return gulp.src([
         'public/scratch3/**',
         'public/scratch-components/help-scratch3*',
-        'public/scratch-components/help-scratch.css'
+        'public/scratch-components/help-scratch.css',
+        'public/scratch-components/teachablemachinepose.html'
     ]).pipe(gulp.dest('web/scratch3'));
 }));
 

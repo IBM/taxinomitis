@@ -215,6 +215,10 @@ export async function getScratchTfjsExtension(scratchkey: string): Promise<strin
     const modelinfo = await scratchtfjs.getModelInfoFromScratchKey(scratchkey);
     const metadata = await scratchtfjs.getMetadata(modelinfo);
 
+    if (metadata.packageName === '@teachablemachine/pose') {
+        modelinfo.modeltype = 'teachablemachinepose';
+    }
+
     const template: string = await fileutils.read('./resources/scratch3-tfjs-classify.js');
 
     Mustache.parse(template);
