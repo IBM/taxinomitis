@@ -253,7 +253,7 @@
                     description : translations['WORKSHEETS.SNAP.DESCRIPTION'],
                     difficulty : 'Beginner',
                     type : 'images',
-                    maketypes : [ 'scratch2' ],
+                    maketypes : [ 'scratch3' ],
                     image : 'static/images/project-snap.png',
                     tags : [ 'image classification', 'supervised learning' ],
                     teachersnotes : translations['WORKSHEETS.SNAP.TEACHERSNOTES_URL'],
