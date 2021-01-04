@@ -80,7 +80,7 @@ describe('REST API - tenants', () => {
                     assert.deepStrictEqual(Object.keys(res.body),
                         [ 'supportedProjectTypes' ]);
                     assert.deepStrictEqual(res.body.supportedProjectTypes,
-                        [ 'text', 'images', 'numbers', 'sounds', 'imgtfjs' ]);
+                        [ 'text', 'imgtfjs', 'numbers', 'sounds' ]);
                 });
         });
 
@@ -111,7 +111,7 @@ describe('REST API - tenants', () => {
                             'soundTrainingItemsPerProject',
                         ]);
                     assert.deepStrictEqual(res.body.supportedProjectTypes,
-                        [ 'text', 'images', 'numbers', 'sounds', 'imgtfjs' ]);
+                        [ 'text', 'imgtfjs', 'numbers', 'sounds' ]);
                 });
         });
     });

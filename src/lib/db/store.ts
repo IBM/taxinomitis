@@ -2397,7 +2397,7 @@ export async function getNextPendingJob(): Promise<Objects.PendingJob | undefine
 
 export async function storeManagedClassTenant(classid: string, numstudents: number, maxprojects: number, type: Objects.ClassTenantType): Promise<Objects.ClassTenant>
 {
-    const obj = dbobjects.createClassTenant(classid);
+    const obj = dbobjects.createClassTenant(classid, [ 'text', 'images', 'numbers', 'sounds', 'imgtfjs' ]);
     const NUM_USERS = numstudents + 1;
 
     const queryName = 'dbqn-insert-tenants';

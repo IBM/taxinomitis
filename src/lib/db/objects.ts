@@ -1041,7 +1041,7 @@ export function getPendingJobFromDbRow(row: Objects.PendingJobDbRow): Objects.Pe
 const VALID_CLASSID = /^[a-z]{4,36}$/;
 
 export function createClassTenant(
-    classid: string,
+    classid: string, projectTypes?: Objects.ProjectTypeLabel[],
 ): Objects.ClassDbRow
 {
     if (!classid) {
@@ -1051,7 +1051,7 @@ export function createClassTenant(
         throw new Error('Not a valid class id');
     }
 
-    return getClassDbRow(getDefaultClassTenant(classid));
+    return getClassDbRow(getDefaultClassTenant(classid, projectTypes));
 }
 
 
@@ -1079,10 +1079,10 @@ export function getClassDbRow(tenant: Objects.ClassTenant): Objects.ClassDbRow {
     };
 }
 
-export function getDefaultClassTenant(classid: string): Objects.ClassTenant {
+export function getDefaultClassTenant(classid: string, projectTypes?: Objects.ProjectTypeLabel[]): Objects.ClassTenant {
     return {
         id : classid,
-        supportedProjectTypes : [ 'text', 'images', 'numbers', 'sounds', 'imgtfjs' ],
+        supportedProjectTypes : projectTypes ? projectTypes : [ 'text', 'imgtfjs', 'numbers', 'sounds' ],
         tenantType : Objects.ClassTenantType.UnManaged,
         maxUsers : 30,
         maxProjectsPerUser : 3,
