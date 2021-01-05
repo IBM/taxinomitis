@@ -699,22 +699,13 @@
                     description : translations['WORKSHEETS.NOUGHTSANDCROSSES.DESCRIPTION'],
                     difficulty : 'Advanced',
                     type : 'numbers',
-                    maketypes : [ 'scratch3', 'python' ],
+                    maketypes : [ 'python' ],
                     image : 'static/images/project-noughtsandcrosses.png',
                     tags : [ 'decision tree learning', 'reinforcement learning', 'categorical data' ],
                     teachersnotes : translations['WORKSHEETS.NOUGHTSANDCROSSES.TEACHERSNOTES_URL'],
                     downloads : [
                         {
-                            description : translations['WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_1.DESCRIPTION'],
-                            worksheet : translations['WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_1.URL']
-                        },
-                        {
-                            description : translations['WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_2.DESCRIPTION'],
                             worksheet : translations['WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_2.URL']
-                        },
-                        {
-                            description : translations['WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_3.DESCRIPTION'],
-                            worksheet : translations['WORKSHEETS.NOUGHTSANDCROSSES.WORKSHEET_3.URL']
                         }
                     ]
                 },

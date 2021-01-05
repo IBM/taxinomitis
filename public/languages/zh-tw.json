@@ -1295,7 +1295,7 @@
         "NOUGHTSANDCROSSES": {
             "TITLE": "戰無不勝",
             "SUMMARY": "教電腦如何玩遊戲",
-            "DESCRIPTION": "在Scratch中建立一個戰無不勝的遊戲，他會學習如何打敗你",
+            "DESCRIPTION": "在Python中建立一個戰無不勝的遊戲，他會學習如何打敗你",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-noughtsandcrosses.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Scratch專案，學生在Scratch中製作遊戲",

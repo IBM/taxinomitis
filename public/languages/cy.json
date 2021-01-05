@@ -1256,7 +1256,7 @@
         "NOUGHTSANDCROSSES": {
             "TITLE": "Cylchoedd a Chroesau",
             "SUMMARY": "Dysgu cyfrifiadur i chwarae gêm",
-            "DESCRIPTION": "Creu gêm noughts and crosses yn Scratch sy'n dysgu sut i'ch curo.",
+            "DESCRIPTION": "Creu gêm noughts and crosses yn Python sy'n dysgu sut i'ch curo.",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Fersiwn ystafell ddosbarth, lle mae pob myfyriwr yn gwneud y gêm ei hun yn Scratch",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses.pdf"

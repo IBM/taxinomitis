@@ -1256,7 +1256,7 @@
         "NOUGHTSANDCROSSES": {
             "TITLE": "إكس-أو",
             "SUMMARY": "تعليم الكمبيوتر كيفية لعب لعبة",
-            "DESCRIPTION": "إنشاء لعبة إكس-أو في Scratch التي تتعلم كيفية التغلب عليك.",
+            "DESCRIPTION": "إنشاء لعبة إكس-أو في Python التي تتعلم كيفية التغلب عليك.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-noughtsandcrosses.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "إصدار فصل دراسي ، حيث يصنع كل طالب اللعبة بأنفسهم في Scratch",

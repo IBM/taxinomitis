@@ -1295,7 +1295,7 @@
         "NOUGHTSANDCROSSES": {
             "TITLE": "Noughts & Crosses",
             "SUMMARY": "Teach a computer to play a game",
-            "DESCRIPTION": "Create a noughts and crosses game in Scratch that learns how to beat you.",
+            "DESCRIPTION": "Create a noughts and crosses game in Python that learns how to beat you.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-noughtsandcrosses.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Classroom version, where each student makes the game themselves in Scratch",
@@ -1889,7 +1889,7 @@
         "TITLE": "Guide to IBM Cloud",
         "INTRO": {
             "INTRO_1": "Teachers / parents / code club-leaders with unmanaged class accounts need to provide '<strong>API Keys</strong>' from IBM Cloud. These are secret codes that provide access to the artificial intelligence technology that will power student projects.",
-            "INTRO_2": "Text projects need a 'Watson Assistant' API Key. Image projects need a 'Visual Recognition' API Key. (Numbers and Sound projects don't require API Keys).",
+            "INTRO_2": "Text projects need a 'Watson Assistant' API Key. (Images, numbers and sound projects don't require API Keys).",
             "INTRO_3": "You will need to create an account on IBM Cloud to be able to create these codes. It is free to create an account, and there are no charges for 'Lite' API Keys. "
         },
         "LINK": "How to create API Keys",

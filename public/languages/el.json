@@ -1256,7 +1256,7 @@
         "NOUGHTSANDCROSSES": {
             "TITLE": "Τρίλιζα",
             "SUMMARY": "Μάθε στον υπολογιστή να παίζει ένα παιχνίδι",
-            "DESCRIPTION": "Δημιούργησε στο Scratch ένα παιχνίδι τρίλιζας που μαθαίνει πώς να σε κερδίζει.",
+            "DESCRIPTION": "Δημιούργησε στο Python ένα παιχνίδι τρίλιζας που μαθαίνει πώς να σε κερδίζει.",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Classroom version, where each student makes the game themselves in Scratch",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses.pdf"

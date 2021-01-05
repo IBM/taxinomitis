@@ -1257,7 +1257,7 @@
         "NOUGHTSANDCROSSES": {
             "TITLE": "Jeu de morpions",
             "SUMMARY": "Apprendre à un ordinateur à jouer à un jeu",
-            "DESCRIPTION": "Créez un jeu de morpions avec Scratch qui apprend à vous battre.",
+            "DESCRIPTION": "Créez un jeu de morpions avec Python qui apprend à vous battre.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-noughtsandcrosses-fr.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Version pour la classe, où chaque élève réalise lui-même le jeu en Scratch",
