@@ -1634,7 +1634,26 @@
             "Q2-A-1": "You can change between the two modes from the \"Learn & Test\" page for your project.",
             "Q2-A-2": "The link to do this is in top-right of the page.",
             "Q2-A-3": "Any existing machine learning models for the project will be deleted if this is done.",
-            "Q2-A-4": "The Scratch blocks for image projects work differently for the two different modes, so if you have a Scratch window open when you do this, you will need to refresh the page so that the Scratch extension can be updated."
+            "Q2-A-4": "The Scratch blocks for image projects work differently for the two different modes, so if you have a Scratch window open when you do this, you will need to refresh the page so that the Scratch extension can be updated.",
+
+            "Q3": "Why can I only make something with Scratch for my machine learning project?",
+            "Q3-A-1": "Machine learning models that are trained on your own computer can only be accessed from Scratch (which has been updated so that it can access machine learning models stored in your web browser).",
+            "Q3-A-2": "Machine learning models that are trained in the cloud can be accessed from Scratch, Python, or App Inventor - as all of these are able to access machine learning models stored in the cloud.",
+            "Q3-A-3": "If you only see 'Scratch 3' as an option when you make something with your machine learning project, it means your machine learning model is being stored in your web browser.",
+
+            "Q4": "Which machine learning models are trained on your computer, and which are trained in the cloud?",
+            "Q4-A-1": "<strong>text</strong> projects can only be trained in the cloud.",
+            "Q4-A-2": "<strong>numbers</strong> projects can only be trained in the cloud.",
+            "Q4-A-3": "<strong>sounds</strong> projects can only be trained on your computer.",
+            "Q4-A-4": "<strong>images</strong> projects can be trained on your computer, or (if you have access to Watson Visual Recognition) in the cloud.",
+
+            "Q5": "Which students can train images machine learning projects in the cloud?",
+            "Q5-A-1": "<strong>images</strong> projects can be trained on your computer, or (if you have access to Watson Visual Recognition) in the cloud.",
+            "Q5-A-2": "Training machine learning models for <strong>images</strong> projects uses the Watson Visual Recognition service. IBM <a href='https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-getting-started-tutorial'>discontinued the Watson Visual Recognition service</a> on 7th January 2021, which means access to this is now limited. The Visual Recognition service is being withdrawn completely on 1st December 2021.",
+            "Q5-A-3": "Students in managed classes will continue to be able to choose whether to train image machine learning models on their computer or in the cloud until 1st December 2021.",
+            "Q5-A-4": "Students in unmanaged classes with Visual Recognition API keys set up before 7th January 2021 will continue to be able to train image machine learning models on their computer or in the cloud, until 1st December 2021.",
+            "Q5-A-5": "Students in unmanaged classes created after 7th January 2021 can only train image machine learning models on their computer.",
+            "Q5-A-6": "Students using 'Try it now' can only train image machine learning models on their computer."
         },
         "SCRATCH": {
             "TITLE": "划痕问题",
