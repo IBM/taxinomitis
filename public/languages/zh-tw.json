@@ -129,7 +129,7 @@
     "WELCOME": {
         "TITLE": "訓練電腦學習玩遊戲",
         "GET_STARTED": "開始進行",
-        "LEARN_MORE": "學習更多",
+        "LEARN_MORE": "了解更多",
         "ADMIN_LABEL": "切換到<strong>管理頁面</strong>",
         "PROJECT_LABEL": "切換到<strong>專案</strong>",
         "STEP_1_TEXT": "收集你想要辨識事物的各種範例",
@@ -225,7 +225,7 @@
                 "IMGTFJS": "使用你的電腦"
             },
             "NOTES_1": "如果你選擇「使用你的電腦」，你只能將模型運用在Scratch中。",
-            "NOTES_2": "如果你選擇「使用雲端服務」，你能將模型運用在Scratch、Python與Appinventor中",
+            "NOTES_2": "如果你選擇「使用雲端服務」，你能將模型運用在Scratch、Python與Appinventor中。",
             "NOTES_3": "你可以隨時切換這兩種模式。"
         },
         "LANGUAGE": {
@@ -390,8 +390,8 @@
         "TEST_CANVAS": "畫一些東西來測試你的模型",
         "TEST_WEBCAM": "照一張相來訓練你的模型",
         "CHANGETYPE": {
-            "IMAGES": "切換模式成「使用雲端服務」",
-            "IMGTFJS": "切換模式成使用你的電腦訓練模型"
+            "IMAGES": "切換模式成「使用雲端服務」訓練模型",
+            "IMGTFJS": "切換模式成「使用你的電腦」訓練模型"
         },
         "WHATHAVEYOUDONE": {
             "TITLE": "你完成了什麼？",
@@ -732,14 +732,14 @@
         "MOREINFO": "想知道更多內容，請搜尋：",
         "PAGE1": {
             "TITLE": "類神經網路",
-            "TEXT1": "你在此專案訓練的機器學習模型\b的技術，我們稱為<em>類神經網路</em>",
+            "TEXT1": "你在此專案訓練機器學習模型\b的技術，我們稱為<em>類神經網路</em>",
             "TEXT2": "接下來幾頁的資訊將解釋你的模型是如何建立出來的",
-            "TEXT3": "這些圖並不是你的模型描述圖。 你的模型描述圖其實更大，更複雜，但我們透過這些簡圖較容易解釋給你聽。"
+            "TEXT3": "這些圖並不是你模型實際的說明圖。 你的模型說明圖其實更巨大更複雜，但我們透過簡化的說明圖較容易解釋給你聽。"
         },
         "PAGE2": {
             "TITLE": "深度學習",
-            "TEXT1": "這類的模型透過垂直<em>層</em>中的<em>節點</em>所組成",
-            "TEXT2": "模型具有很多層我們稱為<em>深度</em>",
+            "TEXT1": "這類模型由<em>節點</em>組成，並放置在<em>垂直層</em>中。",
+            "TEXT2": "你會看見模型中有好多層，我們將它稱為<em>深度</em>",
             "TEXT3": "深度模型可以帶來更好的結果，但會消耗更多時間來訓練"
         },
         "PAGE3": {
@@ -758,9 +758,9 @@
             "TEXT1": "將文字轉換為數字的其中一種方法是計算一個單字被涵蓋的次數。"
         },
         "PAGE6": {
-            "TITLE": "特徵提取",
+            "TITLE": "提取特徵",
             "TEXT1": "你還可以計算其他事情。 有用的計數取決於您正在執行的項目以及你的模型要學會辨識內容的規律。",
-            "TEXT2": "計算次數是快速且簡單的，但不適合用在詞語順序很重要的項目"
+            "TEXT2": "計算次數是快速且簡單的，但不適合用在單字順序很重要的項目"
         },
         "PAGE7": {
             "TITLE": "建立詞語向量",
@@ -797,7 +797,7 @@
         "PAGE13": {
             "TITLE": "激勵函數",
             "TEXT1": "每個節點都存在其對應的<em>偏差值</em>",
-            "TEXT2": "每條線包含自己的<em>權重</em>。"
+            "TEXT2": "每條線擁有自己的<em>權重</em>。"
         },
         "PAGE14": {
             "TITLE": "隱藏層",
@@ -829,7 +829,7 @@
         },
         "PAGE19": {
             "TITLE": "類神經網路",
-            "TEXT1": "接下來，使用另一組你的訓練資料，再次完成所有步驟。"
+            "TEXT1": "下一步，使用另一組你的訓練資料，再次完成所有步驟。"
         },
         "PAGE20": {
             "TITLE": "編碼",
@@ -858,7 +858,7 @@
         "PAGE25": {
             "TITLE": "輸出層",
             "TEXT1": "記住，<em>輸出層</em>提供了機器學習模型的預測結果。",
-            "TEXT2": "每個節點都會從你添加到值區的訓練資料中進行預測"
+            "TEXT2": "每個節點都會從你添加到儲存貯體的訓練資料中進行預測"
         },
         "PAGE26": {
             "TITLE": "損失函數",
@@ -1295,7 +1295,7 @@
         "NOUGHTSANDCROSSES": {
             "TITLE": "戰無不勝",
             "SUMMARY": "教電腦如何玩遊戲",
-            "DESCRIPTION": "在Python中建立一個戰無不勝的遊戲，他會學習如何打敗你",
+            "DESCRIPTION": "在Python中建立一個井字棋遊戲，而且他會學習如何打敗你哦",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-noughtsandcrosses.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Scratch專案，學生在Scratch中製作遊戲",
@@ -1453,7 +1453,7 @@
             }
         },
         "SEMAPHORES": {
-            "TITLE": "旗幟傳訊息",
+            "TITLE": "旗幟訊號測驗",
             "SUMMARY": "教電腦辨識語音與姿勢",
             "DESCRIPTION": "製作一個聲控的旗幟傳訊息遊戲，你可以藉由移動手臂來控制它",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-semaphores.pdf",
@@ -1521,7 +1521,7 @@
             "HELP_STEPBYSTEP_GUIDE": "如果你不確定在這裡要做什麼，請參考<a href='/apikeys-guide'>一步一步的引導教學</a>。如果你需要任何協助，請<strong><a style='cursor: pointer;' href='/help'>與我們聯繫</a></strong>。",
 
             "INTRO_WATSONASSISTANT": "使用<a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a>來訓練<span class='mlprojecttype'>文字</span>專案的機器學習模型",
-            "INTRO_VISUALRECOGNITION": "使用雲端服務<a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>來訓練<span class='mlprojecttype'>圖片</span>專案的機器學習模型",
+            "INTRO_VISUALRECOGNITION": "使用雲端服務<a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson影像辨識</a>來訓練<span class='mlprojecttype'>圖片</span>專案的機器學習模型",
             "INTRO_NUMBERS": "<strong>不需要</strong>任何API密碼即可訓練<span class='mlprojecttype'>數字</span>專案的機器學習模型",
             "INTRO_SOUNDS": "<strong>不需要</strong>任何API密碼即可訓練<span class='mlprojecttype'>聲音</span>專案的機器學習模型",
             "INTRO_IMAGES": "訓練<span class='mlprojecttype'>圖片</span>專案的機器學習模型，<strong>不需要</strong>任何API密碼。",
@@ -1694,14 +1694,14 @@
         },
 
         "PROJECTS": {
-            "TITLE": "專案的問題",
+            "TITLE": "專案問題",
 
             "Q1": "「使用你的電腦」或是「使用雲端服務」訓練圖片模型有什麼差別？\b",
             "Q1-A-1": "這兩種都可以用來建立相同種類的機器學習專案。不同的地方在於在哪裡建立與儲存模型。",
             "Q1-A-2": "如果選擇「<strong>使用雲端服務</strong>」，機器學習模型將在雲端伺服器中以Watson影像辨識的線上服務進行訓練。",
             "Q1-A-3": "如果選擇「<strong>使用你的電腦</strong>」，機器學習模型將透過學生電腦中的網頁瀏覽器中進行訓練",
             "Q1-A-4": "「使用雲端服務」的優點是：",
-            "Q1-A-5": "成果可以運用在Scratch、App inventor或是Python的專案中",
+            "Q1-A-5": "可以運用在Scratch、App inventor或是Python的專案中",
             "Q1-A-7": "它可以建立更準確的模型，尤其是在使用少量訓練範例時。",
             "Q1-A-8": "但是，這需要耗費幾分鐘的時間來等待雲端伺服器開始啟動",
             "Q1-A-9": "「使用你的電腦」的優點是：",
@@ -1889,7 +1889,7 @@
         "TITLE": "IBM Cloud指南",
         "INTRO": {
             "INTRO_1": "使用沒有班級功能帳戶的教師/家長/程式教育者需要提供IBM Cloud的「API密碼」。 這些是秘密代碼，可用於訪問將為學生專案提供資源的人工智慧技術。",
-            "INTRO_2": "文字專案需要一個「Watson Assistant」 API密碼。 圖片專案需要一個「Visual Recognition」API密碼。 （數字和聲音專案不需要API密鑰）。",
+            "INTRO_2": "文字專案需要使用「Watson Assistant」API密碼。（圖片、數字與聲音專案不需要API密碼）",
             "INTRO_3": "您將需要在IBM Cloud上建立一個帳戶才能建立這些密鑰。 建立帳戶是免費的，使用服務選擇「Lite」方案的 API密碼不用收費。"
         },
         "LINK": "如何建立API密碼？",
@@ -1958,7 +1958,7 @@
         "TITLE": "參考書",
         "NOTES_1": "<strong>Machine Learning for Kids : A Project-Based Introduction to Artificial Intelligence</strong>是一本搭配此網站的新書。",
         "NOTES_2": "這本書是有關人工智慧如何影響我們生活的實際操作說明。 包括在Scratch中製作各種使用機器學習技術的作品與教學步驟，而且說明它們與現實世界AI應用程式的關聯性。",
-        "NOTES_3": "一些專案將延伸探討如何應用機器學習，包括重新建立了AI中最常見的一些錯誤，以及學習可以用來衡量和描述機器學習系統性能的各式方法。",
+        "NOTES_3": "一些專案將延伸探討如何應用機器學習，包括重新建立AI中最常見的一些錯誤，以及學習可以用來衡量和描述機器學習系統性能的各式方法。",
         "NOTES_4": "這本書以重新建立有偏誤的機器學習系統的範例為結尾，並討論了這些模型引發的AI倫理問題。",
         "UPDATES": {
             "TITLE": "更新與修正",
