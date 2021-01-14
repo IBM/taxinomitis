@@ -194,12 +194,14 @@
                         });
                 }
                 else if ($scope.project.type === 'imgtfjs') {
-                    return imageTrainingService.initImageSupport($scope.project.id, $scope.project.labels)
-                        .then(function (loaded) {
-                            if (loaded) {
-                                fetchModels();
-                            }
-                        });
+                    if ($scope.project.labels.length > 0) {
+                        return imageTrainingService.initImageSupport($scope.project.id, $scope.project.labels)
+                            .then(function (loaded) {
+                                if (loaded) {
+                                    fetchModels();
+                                }
+                            });
+                    }
                 }
             })
             .then(function (fields) {

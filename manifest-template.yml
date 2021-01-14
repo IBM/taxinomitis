@@ -31,6 +31,7 @@ applications:
     NUMBERS_SERVICE: https://taxinomitis-numbers-service.mybluemix.net
     NUMBERS_SERVICE_USER: numbers-service-username
     NUMBERS_SERVICE_PASS: numbers-service-password
+    SITE_HOST_URL: https://machinelearningforkids.co.uk
     SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/MY/SLACK/CREDS"
     OBJECT_STORE_CREDS: '{"creds":"here"}'
     OBJECT_STORE_BUCKET: MY_IMAGESTORE_BUCKET

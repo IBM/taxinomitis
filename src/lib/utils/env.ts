@@ -1,5 +1,6 @@
 // local dependencies
 import * as deployment from './deployment';
+import portNumber from './port';
 
 export const OBJECT_STORE_CREDS = 'OBJECT_STORE_CREDS';
 export const OBJECT_STORE_BUCKET = 'OBJECT_STORE_BUCKET';
@@ -22,6 +23,7 @@ export const NUMBERS_SERVICE_USER = 'NUMBERS_SERVICE_USER';
 export const NUMBERS_SERVICE_PASS = 'NUMBERS_SERVICE_PASS';
 export const SLACK_WEBHOOK_URL = 'SLACK_WEBHOOK_URL';
 export const PRIMARY_INSTANCE = 'PRIMARY_INSTANCE';
+export const SITE_HOST_URL = 'SITE_HOST_URL';
 export const SMTP_HOST = 'SMTP_HOST';
 export const SMTP_PORT = 'SMTP_PORT';
 export const SMTP_USER = 'SMTP_USER';
@@ -69,4 +71,15 @@ function checkEnv(env: string) {
 
 export function inMaintenanceMode() {
     return process.env[MAINTENANCE_MODE] === 'true';
+}
+
+export function getSiteHostUrl() {
+    if (process.env[SITE_HOST_URL]) {
+        return process.env[SITE_HOST_URL];
+    }
+    return 'http://localhost:' + getPortNumber();
+}
+
+export function getPortNumber(): number {
+    return portNumber(process.env.PORT, 8000);
 }

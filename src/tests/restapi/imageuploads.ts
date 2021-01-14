@@ -295,6 +295,185 @@ describe('REST API - image uploads', () => {
             }
         });
 
+        it('should download a resized version of a file ready for client-side training', async () => {
+            let id;
+            const filepath = './src/tests/utils/resources/test-01.jpg';
+            const expectedResizedContents = await readFileToBuffer('./src/tests/utils/resources/book-small.jpg');
+
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, TESTCLASS, 'imgtfjs', 'valid', 'en', [], false);
+            const projectid = project.id;
+
+            const label = 'testlabel';
+            await store.addLabelToProject(userid, TESTCLASS, projectid, label);
+
+            NEXT_USERID = userid;
+
+            const imagesurl = '/api/classes/' + TESTCLASS +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/images';
+
+            await request(testServer)
+                .post(imagesurl)
+                .attach('image', filepath)
+                .field('label', label)
+                .expect(httpStatus.CREATED)
+                .then((res) => {
+                    assert(res.body.id);
+                    id = res.body.id;
+
+                    assert.strictEqual(res.body.projectid, projectid);
+                });
+
+            await request(testServer)
+                .get('/api/classes/' + TESTCLASS + '/students/' + userid + '/projects/' + projectid + '/training/' + id)
+                .expect(httpStatus.OK)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, expectedResizedContents);
+                    assert.strictEqual(res.header['content-type'], 'application/octet-stream');
+                    assert.strictEqual(res.header['cache-control'], 'max-age=31536000');
+                });
+
+            if (id) {
+                return store.deleteTraining('images', projectid, id);
+            }
+        });
+
+
+        it('should handle requests for training data with invalid image ids', async () => {
+            const userid = uuid();
+            const name = uuid();
+
+            const testProject = await store.storeProject(userid, TESTCLASS, 'imgtfjs', name, 'en', [], false);
+            const scratchKey = await store.storeUntrainedScratchKey(testProject);
+
+            const fakeImageUrl = '/api/scratch/' + scratchKey +
+                                    '/images' +
+                                    '/api/classes/' + TESTCLASS +
+                                    '/students/' + userid +
+                                    '/projects/' + testProject.id +
+                                    '/images/' + uuid();
+
+            await request(testServer)
+                .get(fakeImageUrl)
+                .expect('Content-Type', /json/)
+                .expect(httpStatus.NOT_FOUND)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, { error : 'File not found' })
+                });
+
+            await store.deleteEntireProject(userid, TESTCLASS, testProject);
+        });
+
+
+        it('should download a file using a Scratch key', async () => {
+            let id;
+            const filepath = './src/tests/utils/resources/test-01.jpg';
+            const contents = await readFileToBuffer(filepath);
+
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, TESTCLASS, 'imgtfjs', 'valid', 'en', [], false);
+            const projectid = project.id;
+
+            const label = 'testlabel';
+            await store.addLabelToProject(userid, TESTCLASS, projectid, label);
+
+            NEXT_USERID = userid;
+
+            const imagesurl = '/api/classes/' + TESTCLASS +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/images';
+
+            await request(testServer)
+                .post(imagesurl)
+                .attach('image', filepath)
+                .field('label', label)
+                .expect(httpStatus.CREATED)
+                .then((res) => {
+                    assert(res.body.id);
+                    id = res.body.id;
+
+                    assert.strictEqual(res.body.projectid, projectid);
+                });
+
+            const scratchKey = await store.storeUntrainedScratchKey(project);
+
+            const expectedUrl = '/api/scratch/' + scratchKey + '/images' + imagesurl + '/' + id;
+
+            await request(testServer)
+                .get('/api/scratch/' + scratchKey + '/train')
+                .expect('Content-Type', /json/)
+                .expect(httpStatus.OK)
+                .then((res) => {
+                    assert(res.body[0].imageurl.includes(expectedUrl));
+                });
+
+            await request(testServer)
+                .get(expectedUrl)
+                .expect(httpStatus.OK)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, contents);
+                    assert.strictEqual(res.header['content-type'], 'image/jpeg');
+                    assert.strictEqual(res.header['cache-control'], 'max-age=31536000');
+                });
+
+            if (id) {
+                return store.deleteTraining('images', projectid, id);
+            }
+        });
+
+
+        it('should reject requests for images from other projects', async () => {
+            let id;
+            const filepath = './src/tests/utils/resources/test-01.jpg';
+
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, TESTCLASS, 'imgtfjs', 'valid', 'en', [], false);
+            const projectid = project.id;
+
+            const label = 'testlabel';
+            await store.addLabelToProject(userid, TESTCLASS, projectid, label);
+
+            NEXT_USERID = userid;
+
+            const imagesurl = '/api/classes/' + TESTCLASS +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/images';
+
+            await request(testServer)
+                .post(imagesurl)
+                .attach('image', filepath)
+                .field('label', label)
+                .expect(httpStatus.CREATED)
+                .then((res) => {
+                    assert(res.body.id);
+                    id = res.body.id;
+
+                    assert.strictEqual(res.body.projectid, projectid);
+                });
+
+            const secondProject = await store.storeProject(userid, TESTCLASS, 'imgtfjs', uuid(), 'en', [], false);
+            const scratchKey = await store.storeUntrainedScratchKey(secondProject);
+
+            const expectedUrl = '/api/scratch/' + scratchKey + '/images' + imagesurl + '/' + id;
+
+            await request(testServer)
+                .get(expectedUrl)
+                .expect(httpStatus.FORBIDDEN)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, { error : 'Invalid access' });
+                });
+
+            if (id) {
+                return store.deleteTraining('images', projectid, id);
+            }
+        });
     });
 
 });

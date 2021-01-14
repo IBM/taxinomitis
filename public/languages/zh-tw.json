@@ -335,7 +335,8 @@
         "MAKES": {
             "TITLE": "成果應用",
             "BODY": "在Scratch或Python中使用你訓練好的機器學習模型來製作遊戲或應用程式",
-            "BODY_SCRATCHONLY": "使用你訓練好的機器學習模型來製作Scratch的遊戲或應用。"
+            "BODY_SCRATCHONLY": "使用你訓練好的機器學習模型來製作Scratch的遊戲或應用。",
+            "BODY_SCRATCHPYTHON": "Use the machine learning model you've trained to make a game or app in Scratch or Python"
         },
         "SCRATCH": {
             "TITLE": "Scratch",
@@ -1715,8 +1716,8 @@
             "Q2-A-3": "完成後將刪除此專案中所有既有的機器學習模型。",
             "Q2-A-4": "圖片專案的Scratch擴充積木在兩種不同模式下的運作方式不同。因此，如果在執行此操作時開啟了Scratch介面，則需要重新整理頁面以便可以更新Scratch擴充積木名稱。",
 
-            "Q3": "Why can I only make something with Scratch for my machine learning project?",
-            "Q3-A-1": "Machine learning models that are trained on your own computer can only be accessed from Scratch (which has been updated so that it can access machine learning models stored in your web browser).",
+            "Q3": "Why can I only make something with Scratch or Python for my machine learning project?",
+            "Q3-A-1": "Machine learning models that are trained on your own computer can only be accessed from Scratch (which has been updated so that it can access machine learning models stored in your web browser) and Python (for images projects only).",
             "Q3-A-2": "Machine learning models that are trained in the cloud can be accessed from Scratch, Python, or App Inventor - as all of these are able to access machine learning models stored in the cloud.",
             "Q3-A-3": "If you only see 'Scratch 3' as an option when you make something with your machine learning project, it means your machine learning model is being stored in your web browser.",
 

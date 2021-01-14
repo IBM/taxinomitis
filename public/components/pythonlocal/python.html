@@ -42,7 +42,7 @@
         </div>
     </div>
 
-    <div ng-if="project && project.labels.length > 1 && scratchkey && !scratchkey.model && project.type !== 'sounds'" style="margin: 2em;">
+    <div ng-if="project && project.labels.length > 1 && scratchkey && !scratchkey.model && project.type !== 'sounds' && project.type !== 'imgtfjs'" style="margin: 2em;">
         <div class="alert alert-info" role="alert" translate="PYTHON.NOMODEL"></div>
         <div ng-if="project.type !== 'text'">
             You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId, userId : userId })">train one now</a></strong> and then come back to start your Python project.
@@ -50,12 +50,12 @@
     </div>
 
     <div class="modelguidancecontainer" ng-if="scratchkey && project && project.labels.length > 1 && project.type !== 'sounds'">
-        <div class="modelguidance" ng-if="scratchkey.model || project.type === 'text' && functionType === 'store'" >
+        <div class="modelguidance" ng-if="scratchkey.model || project.type === 'imgtfjs' || project.type === 'text' && functionType === 'store'" >
             <div class="modelstatusdetail">
                 You can use this code to
                 <span ng-if="project.type === 'text' && functionType === 'classify'">submit text</span>
                 <span ng-if="project.type === 'numbers'">submit numbers</span>
-                <span ng-if="project.type === 'images' && testsource === 'local'">submit an image file that you have on your computer</span>
+                <span ng-if="(project.type === 'images' || project.type === 'imgtfjs') && testsource === 'local'">submit an image file that you have on your computer</span>
                 <span ng-if="project.type === 'images' && testsource === 'webcam'">submit a photo from your webcam</span>
                 <span ng-if="project.type === 'images' && testsource === 'web'">submit an image file from the Internet</span>
                 <span ng-if="functionType === 'classify'">to the machine learning model that you've trained.</span>
@@ -91,14 +91,14 @@
                     </select>
                 </div>
             </div>
-            <div class="modelstatusdetail" ng-if="project.type==='images' && testsource === 'local'">
+            <div class="modelstatusdetail" ng-if="(project.type==='images' || project.type === 'imgtfjs') && testsource === 'local'">
                 Enter the name of your image file: <input style="padding-left: 1em; padding-right: 1em; width: 80%;" ng-model="testdata.imagefile"></input>
             </div>
             <div class="modelstatusdetail" ng-if="project.type==='images' && testsource === 'web'">
                 Enter the web address for the image: <input style="padding-left: 1em; padding-right: 1em; width: 90%;" ng-model="testdata.imageurl"></input>
             </div>
             <div class="modelstatusdetail" ng-hide="functionType === 'store'">
-                Running this code will print something like:
+                Running this will print something like:
             </div>
             <div class="modelstatusdetail" ng-hide="functionType === 'store'"><pre>$ python yourscript.py
 result: '{{ project.labels[0] }}' with 81% confidence</pre></div>
@@ -117,7 +117,7 @@ result: '{{ project.labels[0] }}' with 81% confidence</pre></div>
             <div class="modelstatusdetail" ng-if="project.type==='images' && testsource !== 'local'">
                 <a href="" ng-click="setSource('local')">Click here for Python for submitting an image file</a>
             </div>
-            <div class="modelstatusdetail">
+            <div class="modelstatusdetail" ng-hide="project.type === 'imgtfjs'">
                 If you've never used <a href="http://docs.python-requests.org"><code>requests</code></a>
                 <span ng-hide="project.type==='images' && testsource === 'webcam'">
                      before, you might need to <a href="http://docs.python-requests.org/en/master/user/install/#install">install it first</a>.
@@ -214,6 +214,38 @@ confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
 <span class="pythoncomments"># CHANGE THIS to do something different with the result</span>
 <span class="pythonfunc">print</span> (&quot;result: &#39;%s&#39; with %d%% confidence&quot; <span class="pythonop">%</span> (label, confidence))
 </pre></div>
+        </div>
+        <div class="modelguidance" ng-if="project.type === 'imgtfjs'" style="flex: 2">
+            <div class="pythoncodebox" style="min-width: 350px;">
+<pre class="pythoncode"><span class="pythonfunc">from</span> mlforkids <span class="pythonfunc">import</span> <span class="pythonimport">MLforKidsImageProject</span>
+
+<span class="pythoncomments"># treat this key like a password and keep it secret!</span>
+key <span class="pythonop">=</span> &quot;{{ scratchkey.id }}&quot;
+
+<span class="pythoncomments"># this will train your model and might take a little while</span>
+myproject <span class="pythonop">=</span> <span class="pythonfunc">MLforKidsImageProject</span>(key)
+myproject.train_model()
+
+<span class="pythoncomments"># CHANGE THIS to the image file you want to recognize</span>
+demo <span class="pythonop">=</span> myproject.prediction(<span style="background-color: #fff0f0;">&quot;<strong>{{ testdata.imagefile }}</strong>&quot;</span>)
+
+label <span class="pythonop">=</span> demo[&quot;class_name&quot;]
+confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
+
+<span class="pythoncomments"># CHANGE THIS to do something different with the result</span>
+<span class="pythonfunc">print</span> (&quot;result: &#39;<span style="background-color: #eeeeee">%s</span>&#39; with <span style="background-color: #eeeeee">%d%%</span> confidence&quot; <span class="pythonop">%</span> (label, confidence))</pre>
+            </div>
+        </div>
+        <div class="modelguidance" ng-if="project.type === 'imgtfjs'">
+            <div class="modelstatusdetail" style="font-size: 1em; padding-bottom: 0;">
+                To use this code, you need to:
+                <ul style="margin-bottom: 0;">
+                    <li>Use Python 3</li>
+                    <li>Download this <a href="https://raw.githubusercontent.com/IBM/taxinomitis/master/resources/mlforkids-requirements.txt">list of other Python modules you need</a></li>
+                    <li>Install the other Python modules by running <br/><code>pip install -r mlforkids-requirements.txt</code></li>
+                    <li>Download <a href="https://raw.githubusercontent.com/IBM/taxinomitis/master/resources/mlforkids.py">mlforkids.py</a> to the folder where you will run your Python code</li>
+                </ul>
+            </div>
         </div>
         <div class="modelguidance" ng-if="scratchkey.model && project.type === 'images' && testsource === 'local'" style="flex: 2">
 <div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">import</span> <span class="pythonimport">requests</span>, <span class="pythonimport">sys</span>

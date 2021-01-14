@@ -329,7 +329,8 @@
         "MAKES": {
             "TITLE": "Maak",
             "BODY": "Gebruik het machine learning model dat je hebt getraind om een spel of applicatie te maken, in Scratch of Python",
-            "BODY_SCRATCHONLY": "Gebruik het machine learning model dat je hebt getraind om een spel of applicatie te maken, in Scratch"
+            "BODY_SCRATCHONLY": "Gebruik het machine learning model dat je hebt getraind om een spel of applicatie te maken, in Scratch",
+            "BODY_SCRATCHPYTHON": "Use the machine learning model you've trained to make a game or app in Scratch or Python"
         },
         "SCRATCH": {
             "TITLE": "Scratch",
@@ -1629,14 +1630,14 @@
             "Q1-A-9": "\"<strong>on your computer</strong>\" is good because:",
             "Q1-A-10": "It can be much quicker to train, because it starts training immediately without waiting for a turn on the cloud server.",
             "Q1-A-12": "Models do not need to be automatically deleted.",
-            "Q1-A-13": "But, it can only be used for Scratch projects.",
+            "Q1-A-13": "But, it can only be used for Scratch and Python projects.",
             "Q2": "How can you change an \"images\" project to train in the cloud, or to train on your computer?",
             "Q2-A-1": "You can change between the two modes from the \"Learn & Test\" page for your project.",
             "Q2-A-2": "The link to do this is in top-right of the page.",
             "Q2-A-3": "Any existing machine learning models for the project will be deleted if this is done.",
             "Q2-A-4": "The Scratch blocks for image projects work differently for the two different modes, so if you have a Scratch window open when you do this, you will need to refresh the page so that the Scratch extension can be updated.",
-            "Q3": "Why can I only make something with Scratch for my machine learning project?",
-            "Q3-A-1": "Machine learning models that are trained on your own computer can only be accessed from Scratch (which has been updated so that it can access machine learning models stored in your web browser).",
+            "Q3": "Why can I only make something with Scratch or Python for my machine learning project?",
+            "Q3-A-1": "Machine learning models that are trained on your own computer can only be accessed from Scratch (which has been updated so that it can access machine learning models stored in your web browser) and Python (for images projects only).",
             "Q3-A-2": "Machine learning models that are trained in the cloud can be accessed from Scratch, Python, or App Inventor - as all of these are able to access machine learning models stored in the cloud.",
             "Q3-A-3": "If you only see 'Scratch 3' as an option when you make something with your machine learning project, it means your machine learning model is being stored in your web browser.",
             "Q4": "Which machine learning models are trained on your computer, and which are trained in the cloud?",

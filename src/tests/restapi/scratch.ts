@@ -1421,4 +1421,119 @@ describe('REST API - scratch keys', () => {
 
 
     });
+
+
+    describe('training data', () => {
+
+        it('should not work for text projects', async () => {
+            const userid = uuid();
+            const name = uuid();
+
+            const testProject = await store.storeProject(userid, TESTCLASS, 'text', name, 'en', [], false);
+
+            const scratchKey = await store.storeUntrainedScratchKey(testProject);
+
+            await request(testServer)
+                .get('/api/scratch/' + scratchKey + '/train')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.METHOD_NOT_ALLOWED)
+                .then((res) => {
+                    const body = res.body;
+                    assert.deepStrictEqual(body, { error : 'Method not allowed' });
+                });
+
+            await store.deleteEntireProject(userid, TESTCLASS, testProject);
+        });
+
+        it('should not work for VR image projects', async () => {
+            const userid = uuid();
+            const name = uuid();
+
+            const testProject = await store.storeProject(userid, TESTCLASS, 'images', name, 'en', [], false);
+
+            const scratchKey = await store.storeUntrainedScratchKey(testProject);
+
+            await request(testServer)
+                .get('/api/scratch/' + scratchKey + '/train')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.METHOD_NOT_ALLOWED)
+                .then((res) => {
+                    const body = res.body;
+                    assert.deepStrictEqual(body, { error : 'Method not allowed' });
+                });
+
+            await store.deleteEntireProject(userid, TESTCLASS, testProject);
+        });
+
+
+        it('should retrieve empty training lists', async () => {
+            const userid = uuid();
+            const name = uuid();
+
+            const testProject = await store.storeProject(userid, TESTCLASS, 'imgtfjs', name, 'en', [], false);
+
+            const scratchKey = await store.storeUntrainedScratchKey(testProject);
+
+            await request(testServer)
+                .get('/api/scratch/' + scratchKey + '/train')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK)
+                .then((res) => {
+                    const body = res.body;
+                    assert.deepStrictEqual(body, []);
+                });
+
+            await store.deleteEntireProject(userid, TESTCLASS, testProject);
+        });
+
+        it('should retrieve image training lists', async () => {
+            const userid = uuid();
+            const name = uuid();
+
+            const testProject = await store.storeProject(userid, TESTCLASS, 'imgtfjs', name, 'en', [], false);
+            await store.addLabelToProject(userid, TESTCLASS, testProject.id, 'test');
+            const urls = [
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/IBM_logo.svg/320px-IBM_logo.svg.png',
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Thomas_J_Watson_Sr.jpg/148px-Thomas_J_Watson_Sr.jpg',
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Old_Map_Hursley_1607.jpg/218px-Old_Map_Hursley_1607.jpg?download',
+            ];
+            await Promise.all(urls.map((url) => {
+                return store.storeImageTraining(testProject.id, url, 'test', false);
+            }));
+            await store.storeImageTraining(testProject.id, 'somethinginternal', 'test', true, uuid());
+
+            const scratchKey = await store.storeUntrainedScratchKey(testProject);
+
+            await request(testServer)
+                .get('/api/scratch/' + scratchKey + '/train')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK)
+                .then((res) => {
+                    const body = res.body;
+                    assert(Array.isArray(body));
+                    assert.strictEqual(body.length, 4);
+                    assert(body.every((item) => {
+                        return Object.keys(item).length === 3 &&
+                               item.id && item.imageurl &&
+                               item.label === 'test';
+                    }));
+                    for (const url of urls) {
+                        assert.strictEqual(body.filter((item) => { return item.imageurl === url; }).length, 1);
+                    }
+                });
+
+            await store.deleteEntireProject(userid, TESTCLASS, testProject);
+        });
+
+
+        it('should handle requests for training data with invalid scratch keys', () => {
+            return request(testServer)
+                .get('/api/scratch/' + uuid() + '/train')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.NOT_FOUND)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, { error : 'Scratch key not found' });
+                });
+        });
+    });
 });
