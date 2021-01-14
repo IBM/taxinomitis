@@ -329,7 +329,8 @@
         "MAKES": {
             "TITLE": "හදන්න",
             "BODY": "Scratch හෝ පයිතන් වල, app එකක් හෝ game එකක් හදන්න ඔබ පුහුණු කළ machine learning ආක්‍රුතිය භාවිත කරන්න",
-            "BODY_SCRATCHONLY": "Use the machine learning model you've trained to make a game or app in Scratch"
+            "BODY_SCRATCHONLY": "Use the machine learning model you've trained to make a game or app in Scratch",
+            "BODY_SCRATCHPYTHON": "Use the machine learning model you've trained to make a game or app in Scratch or Python"
         },
         "SCRATCH": {
             "TITLE": "Scratch",

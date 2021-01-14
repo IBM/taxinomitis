@@ -329,7 +329,8 @@
         "MAKES": {
             "TITLE": "Creu",
             "BODY": "Defnyddiwch y model dysgu peiriant rydych chi wedi'i hyfforddi i wneud gêm neu ap, yn Scratch neu yn Python",
-            "BODY_SCRATCHONLY": "Defnyddiwch y model dysgu peiriant rydych chi wedi'i hyfforddi i wneud gêm neu ap, yn Scratch"
+            "BODY_SCRATCHONLY": "Defnyddiwch y model dysgu peiriant rydych chi wedi'i hyfforddi i wneud gêm neu ap, yn Scratch",
+            "BODY_SCRATCHPYTHON": "Use the machine learning model you've trained to make a game or app in Scratch or Python"
         },
         "SCRATCH": {
             "TITLE": "Scratch",

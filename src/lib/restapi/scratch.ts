@@ -4,6 +4,7 @@ import * as httpstatus from 'http-status';
 // local dependencies
 import * as store from '../db/store';
 import * as Types from '../db/db-types';
+import * as limits from '../db/limits';
 import * as objectstore from '../objectstore';
 import * as errors from './errors';
 import * as auth from './auth';
@@ -17,6 +18,7 @@ import * as training from '../scratchx/training';
 import * as conversation from '../training/conversation';
 import * as urls from './urls';
 import * as headers from './headers';
+import * as env from '../utils/env';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -185,6 +187,17 @@ function getSoundTrainingItem(info: Types.SoundTraining): Promise<any> {
             return soundTraining;
         });
 }
+function getImageTrainingItem(scratchKey: Types.ScratchKey, info: Types.ImageTraining): any {
+    return {
+        id : info.id,
+        imageurl : info.isstored ?
+            // if it's stored, provide a URL to download the image from the ML for Kids server
+            env.getSiteHostUrl() + '/api/scratch/' + scratchKey.id + '/images' + info.imageurl :
+            // otherwise, provide the canonical source URL
+            info.imageurl,
+        label : info.label,
+    };
+}
 
 
 async function getTrainingData(req: Express.Request, res: Express.Response) {
@@ -193,23 +206,36 @@ async function getTrainingData(req: Express.Request, res: Express.Response) {
     try {
         const scratchKey = await store.getScratchKey(apikey);
 
-        if (scratchKey.type !== 'sounds') {
+        if (scratchKey.type === 'sounds') {
+            const trainingInfo = await store.getSoundTraining(scratchKey.projectid, {
+                start : 0,
+                limit : limits.getStoreLimits().soundTrainingItemsPerProject,
+            });
+
+            const trainingData = await Promise.all(trainingInfo.map(getSoundTrainingItem));
+
+            res.set(headers.CACHE_2MINUTES);
+
+            return res.json(trainingData);
+        }
+        else if (scratchKey.type === 'imgtfjs') {
+            const trainingInfo = await store.getImageTraining(scratchKey.projectid, {
+                start : 0,
+                limit : limits.getStoreLimits().imageTrainingItemsPerProject,
+            });
+
+            const trainingData = trainingInfo.map((item) => getImageTrainingItem(scratchKey, item));
+
+            res.set(headers.CACHE_2MINUTES);
+
+            return res.json(trainingData);
+        }
+        else {
             return res.status(httpstatus.METHOD_NOT_ALLOWED)
                 .json({
                     error : 'Method not allowed',
                 });
         }
-
-        const trainingInfo = await store.getSoundTraining(scratchKey.projectid, {
-            start : 0,
-            limit : 100,
-        });
-
-        const trainingData = await Promise.all(trainingInfo.map(getSoundTrainingItem));
-
-        res.set(headers.CACHE_2MINUTES);
-
-        return res.json(trainingData);
     }
     catch (err) {
         if (err.message === 'Unexpected response when retrieving credentials for Scratch') {
@@ -220,6 +246,61 @@ async function getTrainingData(req: Express.Request, res: Express.Response) {
         return res.status(httpstatus.INTERNAL_SERVER_ERROR).jsonp(err);
     }
 }
+
+
+async function getImageTrainingDataItem(req: Express.Request, res: Express.Response) {
+    const apikey = req.params.scratchkey;
+
+    try {
+        const scratchKey = await store.getScratchKey(apikey);
+
+        const imageKey = {
+            classid : req.params.classid,
+            userid : req.params.studentid,
+            projectid : req.params.projectid,
+            objectid : req.params.imageid,
+        };
+        if (scratchKey.projectid !== imageKey.projectid) {
+            return errors.forbidden(res);
+        }
+
+        const image = await objectstore.getImage(imageKey);
+
+        //
+        // set headers dynamically based on the image we've fetched
+        //
+
+        res.setHeader('Content-Type', image.filetype);
+
+        if (image.modified) {
+            res.setHeader('Last-Modified', image.modified);
+        }
+        if (image.etag) {
+            res.setHeader('ETag', image.etag);
+        }
+
+        // This is slow, so encourage browsers to aggressively
+        //  cache the images rather than repeatedly download them
+        // (This is safe as we don't allow images to be modified,
+        //  so it's okay to treat them as immutable).
+        res.set(headers.CACHE_1YEAR);
+
+
+        res.send(image.body);
+    }
+    catch (err) {
+        if (err.message === 'Unexpected response when retrieving credentials for Scratch') {
+            return res.status(httpstatus.NOT_FOUND).json({ error : 'Scratch key not found' });
+        }
+        if (err.message === 'The specified key does not exist.') {
+            return res.status(httpstatus.NOT_FOUND).json({ error : 'File not found' });
+        }
+
+        return res.status(httpstatus.INTERNAL_SERVER_ERROR).json({ error : err.message });
+    }
+}
+
+
 
 
 async function storeTrainingData(req: Express.Request, res: Express.Response) {
@@ -393,6 +474,7 @@ export default function registerApis(app: Express.Application) {
     app.post(urls.SCRATCHKEY_MODEL, trainNewClassifier);
 
     app.get(urls.SCRATCHKEY_TRAIN, getTrainingData);
+    app.get(urls.SCRATCHKEY_IMAGE, getImageTrainingDataItem);
     app.post(urls.SCRATCHKEY_TRAIN, storeTrainingData);
 
     app.post(urls.SCRATCHTFJS_EXTENSIONS, generateTfjsExtension);

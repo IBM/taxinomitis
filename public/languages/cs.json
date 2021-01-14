@@ -329,7 +329,8 @@
         "MAKES": {
             "TITLE": "Vytvoř",
             "BODY": "Využij naučený model k tvorbě hry nebo aplikace ve Scratchi nebo Pythonu",
-            "BODY_SCRATCHONLY": "Využij naučený model k tvorbě hry nebo aplikace ve Scratchi"
+            "BODY_SCRATCHONLY": "Využij naučený model k tvorbě hry nebo aplikace ve Scratchi",
+            "BODY_SCRATCHPYTHON": "Use the machine learning model you've trained to make a game or app in Scratch or Python"
         },
         "SCRATCH": {
             "TITLE": "Scratch",

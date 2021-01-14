@@ -54,6 +54,7 @@ export const SOUND                 = '/api/classes/:classid/students/:studentid/
 //
 // URLs about Scratch Keys
 export const SCRATCHKEY_TRAIN      = '/api/scratch/:scratchkey/train';
+export const SCRATCHKEY_IMAGE      = '/api/scratch/:scratchkey/images/api/classes/:classid/students/:studentid/projects/:projectid/images/:imageid';
 export const SCRATCHKEY_CLASSIFY   = '/api/scratch/:scratchkey/classify';
 export const SCRATCHKEY_STATUS     = '/api/scratch/:scratchkey/status';
 export const SCRATCHKEY_MODEL      = '/api/scratch/:scratchkey/models';

@@ -329,7 +329,8 @@
         "MAKES": {
             "TITLE": "Programma",
             "BODY": "Utilizza il modello di machine learning che hai addestrato per realizzare un gioco o un'app, in Scratch o in Python",
-            "BODY_SCRATCHONLY": "Utilizza il modello di machine learning che hai addestrato per realizzare un gioco o un'app, in Scratch"
+            "BODY_SCRATCHONLY": "Utilizza il modello di machine learning che hai addestrato per realizzare un gioco o un'app, in Scratch",
+            "BODY_SCRATCHPYTHON": "Use the machine learning model you've trained to make a game or app in Scratch or Python"
         },
         "SCRATCH": {
             "TITLE": "Scratch",

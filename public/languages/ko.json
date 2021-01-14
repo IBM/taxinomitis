@@ -329,7 +329,8 @@
         "MAKES": {
             "TITLE": "만들기",
             "BODY": "스크래치나 파이썬을 사용하여 여러분이 만든 머신러닝 모델로 게임이나 프로그램을 만들어보세요.",
-            "BODY_SCRATCHONLY": "Use the machine learning model you've trained to make a game or app in Scratch"
+            "BODY_SCRATCHONLY": "Use the machine learning model you've trained to make a game or app in Scratch",
+            "BODY_SCRATCHPYTHON": "Use the machine learning model you've trained to make a game or app in Scratch or Python"
         },
         "SCRATCH": {
             "TITLE": "스크래치 2",

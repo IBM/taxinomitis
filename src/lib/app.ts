@@ -14,7 +14,6 @@ import * as scheduledtasks from './scheduledtasks';
 import { confirmRequiredEnvironment } from './utils/env';
 import * as shutdown from './utils/shutdown';
 import * as env from './utils/env';
-import portNumber from './utils/port';
 import loggerSetup from './utils/logger';
 
 const log = loggerSetup();
@@ -58,7 +57,7 @@ store.init()
         // create server
         const app = express();
         const host: string = process.env.HOST || '0.0.0.0';
-        const port: number = portNumber(process.env.PORT, 8000);
+        const port: number = env.getPortNumber();
 
         // setup server and run
         restapi(app);

@@ -335,7 +335,8 @@
         "MAKES": {
             "TITLE": "成果應用",
             "BODY": "在Scratch或Python中使用你訓練好的機器學習模型來製作遊戲或應用程式",
-            "BODY_SCRATCHONLY": "使用你訓練好的機器學習模型來製作Scratch的遊戲或應用。"
+            "BODY_SCRATCHONLY": "使用你訓練好的機器學習模型來製作Scratch的遊戲或應用。",
+            "BODY_SCRATCHPYTHON": "Use the machine learning model you've trained to make a game or app in Scratch or Python"
         },
         "SCRATCH": {
             "TITLE": "Scratch",
