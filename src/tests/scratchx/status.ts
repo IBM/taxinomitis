@@ -13,6 +13,76 @@ describe('Scratchx - status', () => {
 
     const credstype = 'unknown';
 
+
+    describe('unsupported project types', () => {
+
+        it('should reject status calls for sound projects with classifier ids', async () => {
+            const key: Types.ScratchKey = {
+                id : uuid(),
+                name : 'TEST',
+                type : 'sounds',
+                projectid : uuid(),
+                updated : new Date(),
+                classifierid : 'x',
+            };
+
+            const statusObj = await status.getStatus(key);
+            assert.deepStrictEqual(statusObj, {
+                status : 0,
+                msg : 'Classifier not found',
+            });
+        });
+        it('should reject status calls for sound projects', async () => {
+            const key: Types.ScratchKey = {
+                id : uuid(),
+                name : 'TEST',
+                type : 'sounds',
+                projectid : uuid(),
+                updated : new Date(),
+            };
+
+            const statusObj = await status.getStatus(key);
+            assert.deepStrictEqual(statusObj, {
+                status : 0,
+                msg : 'No models trained yet - only random answers can be chosen',
+            });
+        });
+
+        it('should reject status calls for imgtfjs projects with classifier ids', async () => {
+            const key: Types.ScratchKey = {
+                id : uuid(),
+                name : 'TEST',
+                type : 'imgtfjs',
+                projectid : uuid(),
+                updated : new Date(),
+                classifierid : 'x',
+            };
+
+            const statusObj = await status.getStatus(key);
+            assert.deepStrictEqual(statusObj, {
+                status : 0,
+                msg : 'Classifier not found',
+            });
+        });
+        it('should reject status calls for imgtfjs projects', async () => {
+            const key: Types.ScratchKey = {
+                id : uuid(),
+                name : 'TEST',
+                type : 'imgtfjs',
+                projectid : uuid(),
+                updated : new Date(),
+            };
+
+            const statusObj = await status.getStatus(key);
+            assert.deepStrictEqual(statusObj, {
+                status : 0,
+                msg : 'No models trained yet - only random answers can be chosen',
+            });
+        });
+
+    });
+
+
     describe('text projects', () => {
 
         const testStatus: TrainingTypes.ConversationWorkspace = {

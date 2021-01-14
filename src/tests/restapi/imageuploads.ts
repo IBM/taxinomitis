@@ -295,6 +295,52 @@ describe('REST API - image uploads', () => {
             }
         });
 
+        it('should download a resized version of a file ready for client-side training', async () => {
+            let id;
+            const filepath = './src/tests/utils/resources/test-01.jpg';
+            const expectedResizedContents = await readFileToBuffer('./src/tests/utils/resources/book-small.jpg');
+
+            const userid = uuid();
+
+            const project = await store.storeProject(userid, TESTCLASS, 'imgtfjs', 'valid', 'en', [], false);
+            const projectid = project.id;
+
+            const label = 'testlabel';
+            await store.addLabelToProject(userid, TESTCLASS, projectid, label);
+
+            NEXT_USERID = userid;
+
+            const imagesurl = '/api/classes/' + TESTCLASS +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/images';
+
+            await request(testServer)
+                .post(imagesurl)
+                .attach('image', filepath)
+                .field('label', label)
+                .expect(httpStatus.CREATED)
+                .then((res) => {
+                    assert(res.body.id);
+                    id = res.body.id;
+
+                    assert.strictEqual(res.body.projectid, projectid);
+                });
+
+            await request(testServer)
+                .get('/api/classes/' + TESTCLASS + '/students/' + userid + '/projects/' + projectid + '/training/' + id)
+                .expect(httpStatus.OK)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, expectedResizedContents);
+                    assert.strictEqual(res.header['content-type'], 'application/octet-stream');
+                    assert.strictEqual(res.header['cache-control'], 'max-age=31536000');
+                });
+
+            if (id) {
+                return store.deleteTraining('images', projectid, id);
+            }
+        });
+
 
         it('should handle requests for training data with invalid image ids', async () => {
             const userid = uuid();

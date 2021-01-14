@@ -271,7 +271,6 @@ describe('REST API - sound uploads', () => {
 
     describe('valid downloads', () => {
 
-
         it('should download a file', async () => {
             let id;
             const userid = uuid();
@@ -318,6 +317,61 @@ describe('REST API - sound uploads', () => {
             if (id) {
                 return store.deleteTraining('sounds', projectid, id);
             }
+        });
+
+
+        it('should download sound training details using a Scratch key', async () => {
+            let id = 'placeholder';
+            const userid = uuid();
+
+            const testdata: number[] = [];
+            for (let i = 0; i < 19000; i++) {
+                testdata.push(Math.random());
+            }
+
+            const project = await store.storeProject(userid, TESTCLASS, 'sounds', 'valid', 'en', [], false);
+            const projectid = project.id;
+
+            const label = 'testlabel';
+            await store.addLabelToProject(userid, TESTCLASS, projectid, label);
+
+            NEXT_USERID = userid;
+
+            const soundsurl = '/api/classes/' + TESTCLASS +
+                                '/students/' + userid +
+                                '/projects/' + projectid +
+                                '/sounds';
+
+            await request(testServer)
+                .post(soundsurl)
+                .send({ label, data : testdata })
+                .expect(httpStatus.CREATED)
+                .then((res) => {
+                    assert(res.body.id);
+                    id = res.body.id;
+
+                    assert.strictEqual(res.body.projectid, projectid);
+                    assert.strictEqual(res.body.audiourl, soundsurl + '/' + id);
+                });
+
+            const scratchKey = await store.storeUntrainedScratchKey(project);
+
+            await request(testServer)
+                .get('/api/scratch/' + scratchKey + '/train')
+                .expect(httpStatus.OK)
+                .expect('Content-Type', /json/)
+                .then((res) => {
+                    const body = res.body;
+                    assert(Array.isArray(body));
+                    assert.strictEqual(body.length, 1);
+                    assert.strictEqual(body[0].id, id);
+                    assert.strictEqual(body[0].label, label);
+                    assert.strictEqual(body[0].audiourl, soundsurl + '/' + id);
+                    assert.deepStrictEqual(body[0].audiodata, testdata);
+                    assert.strictEqual(res.header['cache-control'], 'max-age=120');
+                });
+
+            return store.deleteTraining('sounds', projectid, id);
         });
 
     });
