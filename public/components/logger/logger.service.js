@@ -21,6 +21,13 @@
                         stack: nextarg.stack
                     });
                 }
+                else if (nextarg instanceof PromiseRejectionEvent && nextarg.reason) {
+                    nextarg = JSON.stringify({
+                        name: nextarg.reason.name,
+                        message: nextarg.reason.message,
+                        stack: nextarg.reason.stack
+                    });
+                }
                 else if (typeof nextarg !== 'string') {
                     nextarg = JSON.stringify(nextarg);
                 }
@@ -44,6 +51,9 @@
         }
 
         $log.debug('[ml4klog] Initialising logger service');
+
+        window.addEventListener('error', capture);
+        window.addEventListener('unhandledrejection', capture);
 
         var urlParms = $location.search();
         $log.debug('[ml4klog] url parameters', urlParms);
