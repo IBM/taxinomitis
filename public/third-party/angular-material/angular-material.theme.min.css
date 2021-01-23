@@ -11,6 +11,10 @@
     background-color: rgb(57,73,171)
 }
 
+.md-button.md-default-theme.md-primary.md-fab:not([disabled]).md-focused,.md-button.md-default-theme.md-primary.md-raised:not([disabled]).md-focused,.md-button.md-primary.md-fab:not([disabled]).md-focused,.md-button.md-primary.md-raised:not([disabled]).md-focused {
+    background-color: #3949ab
+}
+
 md-icon.md-default-theme, md-icon {
     color: rgba(0,0,0,0.54)
 }
@@ -279,10 +283,3 @@ md-slider.md-default-theme .md-disabled-thumb, md-slider .md-disabled-thumb {
 md-backdrop {
     background-color: rgba(33,33,33,0.0)
 }
-
-
-
-
-
-
-
