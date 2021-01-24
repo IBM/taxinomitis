@@ -118,6 +118,10 @@
         }
 
         function initSoundSupport(projectid, labels, loadModelIfAvailable) {
+            loggerService.debug('[ml4ksound] initializing sound model support', {
+                projectid : projectid, labels : labels, load : loadModelIfAvailable
+            });
+
             if (projectid && !mlprojectid) {
                 // keep values to reuse for future calls
                 mlprojectid = projectid;
@@ -127,7 +131,7 @@
             var baseRecognizer;
             return loadTensorFlow()
                 .then(function () {
-                    loggerService.debug('[ml4ksound] browser model');
+                    loggerService.debug('[ml4ksound] loaded tensorflow. loading base model');
 
                     var siteUrl = $location.protocol() + '://' + $location.host();
                     if ($location.port()) {
@@ -145,6 +149,8 @@
                     transferRecognizer = baseRecognizer.createTransfer(mlprojectid);
 
                     var modelInfo = transferRecognizer.modelInputShape();
+                    loggerService.debug('[ml4ksound] model info', modelInfo);
+
                     transferModelInfo = {
                         numFrames : modelInfo[1],
                         fftSize : modelInfo[2]
@@ -194,6 +200,7 @@
         }
 
         function getTrainingData(projectid, userid, tenantid) {
+            loggerService.debug('[ml4ksound] getting training data', projectid);
             return trainingService.getTraining(projectid, userid, tenantid)
                 .then(function (traininginfo) {
                     return $q.all(traininginfo.map(trainingService.getSoundData));
@@ -335,6 +342,7 @@
         }
 
         function loadModel(projectid, labels) {
+            loggerService.debug('[ml4ksound] loading model from storage', projectid);
             return modelService.loadModel(MODELTYPE, projectid, transferRecognizer)
                 .then(function (resp) {
                     if (resp) {
@@ -353,6 +361,7 @@
         }
 
         function reset() {
+            loggerService.debug('[ml4ksound] reset');
             try {
                 if (transferRecognizer) {
                     tf.dispose(transferRecognizer);

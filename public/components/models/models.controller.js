@@ -304,8 +304,12 @@
                 modelFnPromise = trainingService.getModels($scope.projectId, $scope.userId, vm.profile.tenant);
             }
             return modelFnPromise.then(function (models) {
+                loggerService.debug('[ml4kmodels] models info', models);
+
                 $scope.models = models;
                 $scope.status = modelService.getStatus($scope.models);
+
+                loggerService.debug('[ml4kmodels] model status', $scope.status);
             });
         }
 
@@ -337,6 +341,7 @@
 
                     $scope.models = [ newmodel ];
                     $scope.status = modelService.getStatus($scope.models);
+                    loggerService.debug('[ml4kmodels] initial status', $scope.status);
 
                     refreshModels();
 
