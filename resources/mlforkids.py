@@ -51,7 +51,7 @@ class MLforKidsImageProject:
                                         cache_dir=cachedir,
                                         cache_subdir=os.path.join(cachelocation, trainingitem["label"]),
                                         fname=self.__get_fname(trainingitem))
-            except Error as downloaderr:
+            except Exception as downloaderr:
                 print("ERROR: Unable to download training image from", trainingitem["imageurl"])
                 print(downloaderr)
         return ImageDataGenerator().flow_from_directory(str(projectcachedir),
