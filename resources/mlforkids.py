@@ -46,10 +46,14 @@ class MLforKidsImageProject:
         cachelocation = os.path.join("datasets", "mlforkids", self.scratchkey)
         projectcachedir = str(os.path.expanduser(os.path.join(cachedir, cachelocation)))
         for trainingitem in self.__downloaded_training_images_list:
-            tf.keras.utils.get_file(origin=trainingitem["imageurl"],
-                                    cache_dir=cachedir,
-                                    cache_subdir=os.path.join(cachelocation, trainingitem["label"]),
-                                    fname=self.__get_fname(trainingitem))
+            try:
+                tf.keras.utils.get_file(origin=trainingitem["imageurl"],
+                                        cache_dir=cachedir,
+                                        cache_subdir=os.path.join(cachelocation, trainingitem["label"]),
+                                        fname=self.__get_fname(trainingitem))
+            except Error as downloaderr:
+                print("ERROR: Unable to download training image from", trainingitem["imageurl"])
+                print(downloaderr)
         return ImageDataGenerator().flow_from_directory(str(projectcachedir),
                                                         target_size=MLforKidsImageProject.IMAGESIZE)
 
