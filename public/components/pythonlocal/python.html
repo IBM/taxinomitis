@@ -236,10 +236,10 @@ confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
 <span class="pythonfunc">print</span> (&quot;result: &#39;<span style="background-color: #eeeeee">%s</span>&#39; with <span style="background-color: #eeeeee">%d%%</span> confidence&quot; <span class="pythonop">%</span> (label, confidence))</pre>
             </div>
         </div>
-        <div class="modelguidance" ng-if="project.type === 'imgtfjs'">
+        <div class="modelguidance" style="min-width: 300px" ng-if="project.type === 'imgtfjs'">
             <div class="modelstatusdetail" style="font-size: 1em; padding-bottom: 0;">
                 To use this code, you need to:
-                <ul style="margin-bottom: 0;">
+                <ul style="margin-bottom: 0; padding-left: 20px;">
                     <li>Use Python 3</li>
                     <li>Download this <a href="https://raw.githubusercontent.com/IBM/taxinomitis/master/resources/mlforkids-requirements.txt">list of other Python modules you need</a></li>
                     <li>Install the other Python modules by running <br/><code>pip install -r mlforkids-requirements.txt</code></li>

@@ -25,6 +25,7 @@ class MLforKidsImageProject:
     # scratchkey is the secret API key that allows access to training
     #  data from a single project on the MLforKids website
     def __init__(self, scratchkey: str):
+        print("MLFORKIDS: Downloading information about your machine learning project")
         self.scratchkey = scratchkey
         try:
             with urllib.request.urlopen("https://machinelearningforkids.co.uk/api/scratch/" + scratchkey + "/train") as url:
@@ -42,6 +43,7 @@ class MLforKidsImageProject:
     # Downloads all of the training images for this project, and sets up an
     #  ImageDataGenerator against the folder where they have been downloaded
     def __get_training_images_generator(self):
+        print("MLFORKIDS: Getting your training images to use to train your machine learning model")
         cachedir = "~/.keras/"
         cachelocation = os.path.join("datasets", "mlforkids", self.scratchkey)
         projectcachedir = str(os.path.expanduser(os.path.join(cachedir, cachelocation)))
@@ -54,6 +56,7 @@ class MLforKidsImageProject:
             except Exception as downloaderr:
                 print("ERROR: Unable to download training image from", trainingitem["imageurl"])
                 print(downloaderr)
+                print("ERROR: Skipping training image and continuing without it", trainingitem["imageurl"])
         return ImageDataGenerator().flow_from_directory(str(projectcachedir),
                                                         target_size=MLforKidsImageProject.IMAGESIZE)
 
@@ -69,6 +72,7 @@ class MLforKidsImageProject:
 
     # Defines a simple image classifier based on a mobilenet model from TensorFlow hub
     def __define_model(self):
+        print("MLFORKIDS: Defining the layers to include in your neural network")
         model = Sequential([
             # input layer is resizing all images to save having to do that in a manual pre-processing step
             Rescaling(1/127, input_shape=MLforKidsImageProject.INPUTLAYERSIZE),
@@ -91,6 +95,7 @@ class MLforKidsImageProject:
 
     # Runs the model fit function to train the tl model
     def __train_model(self, trainingimagesdata):
+        print("MLFORKIDS: Starting the training of your machine learning model")
         if trainingimagesdata.batch_size > trainingimagesdata.samples:
             trainingimagesdata.batch_size = trainingimagesdata.samples
         steps_per_epoch = trainingimagesdata.samples // trainingimagesdata.batch_size
@@ -98,6 +103,7 @@ class MLforKidsImageProject:
         if trainingimagesdata.samples > 55:
             epochs = 15
         self.ml_model.fit(trainingimagesdata, epochs=epochs, steps_per_epoch=steps_per_epoch, verbose=0)
+        print("MLFORKIDS: Model training complete")
 
     #
     # public methods
