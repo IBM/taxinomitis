@@ -195,8 +195,8 @@ export async function updateProjectType(
 
     const response = await dbExecute(queryName, queryString, queryValues);
     if (response.rowCount === 1) {
-        // success
-        return;
+        // success - update any related Scratch keys (if they exist)
+        return updateScratchKeyType(userid, classid, projectid, oldtype, newtype);
     }
 
     /* istanbul ignore else */
@@ -214,6 +214,25 @@ export async function updateProjectType(
         }, 'Unexpected response');
         throw new Error('Unexpected response when updating project status');
     }
+}
+
+function updateScratchKeyType(
+    userid: string, classid: string, projectid: string,
+    oldtype: Objects.ProjectTypeLabel, newtype: Objects.ProjectTypeLabel,
+): Promise<void>
+{
+    const queryName = 'dbqn-update-scratchkey-type';
+    const queryString = 'UPDATE scratchkeys ' +
+                        'SET projecttype = $1, updated = $2 ' +
+                        'WHERE userid = $3 AND classid = $4 AND projectid = $5 AND projecttype = $6';
+    const queryValues = [
+        newtype, new Date(),
+        userid, classid, projectid,
+        oldtype,
+    ];
+
+    return dbExecute(queryName, queryString, queryValues)
+        .then(() => { return; });
 }
 
 

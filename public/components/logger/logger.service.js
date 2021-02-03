@@ -21,7 +21,7 @@
                         stack: nextarg.stack
                     });
                 }
-                else if (nextarg instanceof PromiseRejectionEvent && nextarg.reason) {
+                else if (nextarg && nextarg.reason && nextarg.reason.name && nextarg.reason.message) {
                     nextarg = JSON.stringify({
                         name: nextarg.reason.name,
                         message: nextarg.reason.message,
