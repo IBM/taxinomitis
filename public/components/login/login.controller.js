@@ -56,7 +56,7 @@
         function getErrorMessage (errObj) {
             if (errObj && errObj.error) {
                 if (errObj.error === 'Class full') {
-                    return 'There are too many people currently using this feature. Sorry, but I\'m limiting numbers for now. Please try later - or create yourself an account and log on now!';
+                    return 'There are too many students trying the site. Sorry, but there is a limit for how many students can use "Try it now" at once. Please do try later - or create yourself an account and log on now!';
                 }
                 else {
                     return errObj.error;
