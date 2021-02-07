@@ -6,10 +6,10 @@
 
         PythonController.$inject = [
             'authService', 'projectsService', 'scratchkeysService', 'loggerService',
-            '$stateParams', '$scope'
+            '$mdDialog', '$stateParams', '$scope'
         ];
 
-        function PythonController(authService, projectsService, scratchkeysService, loggerService, $stateParams, $scope) {
+        function PythonController(authService, projectsService, scratchkeysService, loggerService, $mdDialog, $stateParams, $scope) {
 
             var vm = this;
             vm.authService = authService;
@@ -66,5 +66,12 @@
                     };
                 });
 
+            $scope.openReplLink = function (ev) {
+                $mdDialog.show($mdDialog.alert()
+                    .title('How to use repl.it')
+                    .textContent('Tip: Click on "Fork" to start editing your copy of the code')
+                    .targetEvent(ev)
+                    .ok('OK'));
+            };
         }
     }());
