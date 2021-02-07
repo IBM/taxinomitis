@@ -124,6 +124,11 @@ export async function getTeacherByClassId(tenant: string): Promise<Objects.Super
     return auth0requests.getSupervisor(token, tenant);
 }
 
+export async function getTeacherByEmail(email: string): Promise<Objects.SupervisorInfo | undefined> {
+    const token = await getBearerToken();
+
+    return auth0requests.getSupervisorByEmail(token, email);
+}
 
 export async function countUsers(tenant: string): Promise<number> {
     const token = await getBearerToken();
