@@ -131,11 +131,17 @@ gulp.task('imagerecognitionmodel', function() {
     return download(files)
         .pipe(gulp.dest('web/static/bower_components/tensorflow-models/image-recognition'));
 });
+gulp.task('tensorflowhandposemodel', function() {
+    return gulp.src([
+        'node_modules/@tensorflow-models/handpose/dist/handpose.min.js'
+    ]).pipe(gulp.dest('web/static/bower_components/tensorflow-models/handpose'));
+});
 gulp.task('tfjs',
     gulp.parallel('tensorflowjs',
         'tensorflowspeechcommands', 'speechcommandsmodel',
         'tensorflowposenet', 'posenetmodel',
         'tensorflowfacelandmarks',
+        'tensorflowhandposemodel',
         'imagerecognitionmodel'));
 
 gulp.task('scratchblocks', function() {

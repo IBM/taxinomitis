@@ -314,6 +314,12 @@
                 "SUMMARY": "Recognize types of songs",
                 "DESCRIPTION": "Train a machine learning model to recognize the type of song based on it's lyrics",
                 "DETAILS": "This training dataset includes 140 lines from song lyrics - half from children's songs and half from Top 40 songs. It is a good starting set for training a machine learning model to recognize different uses of language."
+            },
+            "HANDGESTURES": {
+                "TITLE": "Hand gestures",
+                "SUMMARY": "Recognize hand gestures from finger positions",
+                "DESCRIPTION": "Train a machine learning model to recognize different hand gestures, by collecting examples of the positions of your fingers.",
+                "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'Hand gestures' from Worksheets."
             }
         }
     },
@@ -1422,6 +1428,15 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-semaphores.pdf"
             },
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-semaphores.pdf"
+        },
+        "HANDGESTURES": {
+            "TITLE": "Hand Gestures",
+            "SUMMARY": "Teach a computer to recognize shapes",
+            "DESCRIPTION": "Make a webcam project in Scratch that can recognize shapes you make with your hands.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-handgestures.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-handgestures.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -1590,6 +1605,9 @@
         "POSENET": {
             "mlforkids.posenet.getposition": "find [POSITION] of [LANDMARK]"
         },
+        "HANDPOSE": {
+            "mlforkids.handpose.getposition": "find [POSITION] of [LANDMARK]"
+        },
         "IMAGE_BLOCKS": {
             "mlforkids.imageblocks.getCostumeImage": "costume image",
             "mlforkids.imageblocks.getBackdropCostumeImage": "backdrop image",
@@ -1598,7 +1616,7 @@
         },
         "GUI": {
             "gui.menuBar.mlforkidsLibrary": "Project templates",
-            "gui.mlforkidsLibrary.templates": "Machine Learning for Kids modelos de projeto"
+            "gui.mlforkidsLibrary.templates": "Machine Learning for Kids project templates"
         }
     },
     "HELP": {
@@ -1839,8 +1857,16 @@
             "TITLE": "Pose detection",
             "POSE_1": "This model can be used to recognize your pose in the video feed from your webcam.",
             "POSE_2": "It gives you blocks that will find the x,y coordinates of different parts of your body, like shoulders, elbows, wrists, knees, and ankles.",
-            "POSE_3": "This uses a bottom-up technique - looking for human body key points (like shoulders, elbows, knees, etc.) and then grouping them to identify a person and the pose that they're in. The technique is based on MobileNet (a ML model designed for mobile devices, so it doesn't need much computing power).",
-            "POSE_4": "The training data used for this model came from a set known as <a href='http://cocodataset.org/index.htm#keypoints-2019' target='_blank'>Common Objects in Context (COCO)</a>."
+            "POSE_3": "This uses a bottom-up technique - looking for human body key points (like shoulders, elbows, knees, etc.) and then grouping them to identify a person and the pose that they're in. ",
+            "POSE_4": "The training data used for this model came from a set known as <a href='http://cocodataset.org/index.htm#keypoints-2019' target='_blank'>Common Objects in Context (COCO)</a>.",
+            "POSE_5": "For more information, including a description of some of the challenges and potential issues with the model, see the <a href='https://drive.google.com/file/d/1VFC_wIpw4O7xBOiTgUldl79d9LA-LsnA/view'>model card</a>."
+        },
+        "HANDPOSE": {
+            "TITLE": "Hand detection",
+            "POSE_1": "This model can be used to recognize your hand in the video feed from your webcam.",
+            "POSE_2": "It gives you blocks that will find the x,y coordinates of different parts of your hand: the tips of each of your fingers, and your wrist.",
+            "POSE_3": "It can only return information about one hand in the view.",
+            "POSE_4": "For more information, including a description of some of the challenges and potential issues with the model, see the <a href='https://drive.google.com/file/d/1sv4sSb9BSNVZhLzxXJ0jBv9DqD-4jnAz/view'>model card</a>."
         },
         "TOXICITY": {
             "TITLE": "Toxicity",

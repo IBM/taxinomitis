@@ -320,6 +320,12 @@
                 "SUMMARY": "辨識歌曲的類型",
                 "DESCRIPTION": "訓練機器學習模型以歌詞來辨識歌曲的類型",
                 "DETAILS": "這個訓練資料集包括來自歌曲的140行歌詞 - 其中一半來自兒童歌曲，另一半來自前40首歌曲。 這是訓練機器學習模型以識別語言的不同用法的良好起點。"
+            },
+            "HANDGESTURES": {
+                "TITLE": "Hand gestures",
+                "SUMMARY": "Recognize hand gestures from finger positions",
+                "DESCRIPTION": "Train a machine learning model to recognize different hand gestures, by collecting examples of the positions of your fingers.",
+                "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'Hand gestures' from Worksheets."
             }
         }
     },
@@ -1461,6 +1467,15 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-semaphores.pdf"
             }
+        },
+        "HANDGESTURES": {
+            "TITLE": "Hand Gestures",
+            "SUMMARY": "Teach a computer to recognize shapes",
+            "DESCRIPTION": "Make a webcam project in Scratch that can recognize shapes you make with your hands.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-handgestures.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-handgestures.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -1664,6 +1679,9 @@
         },
         "POSENET": {
             "mlforkids.posenet.getposition": "[LANDMARK] 的位置 [POSITION] "
+        },
+        "HANDPOSE": {
+            "mlforkids.handpose.getposition": "find [POSITION] of [LANDMARK]"
         },
         "IMAGE_BLOCKS": {
             "mlforkids.imageblocks.getCostumeImage": "角色的畫面",
@@ -1945,7 +1963,15 @@
             "POSE_1": "這個模型可以用來辨識網路攝影機的\b人體姿態影像資訊",
             "POSE_2": "此功能提供積木讓你找到身體四肢的x與y座標，包含肩膀、手肘、手腕、膝蓋與腳踝。",
             "POSE_3": "這是一項bottom-up的技術。尋找人身體的關鍵點（例如肩膀、手肘、膝蓋等），然後將它們分組並標識人和他們所處的姿勢。此技術建立在MobileNet上（ ML模型是為行動裝置設計的，因此不需要太多的計算能力）",
-            "POSE_4": "這個模型的訓練資料來自於<a href='http://cocodataset.org/index.htm#keypoints-2019' target='_blank'>Common Objects in Context (COCO)</a>"
+            "POSE_4": "這個模型的訓練資料來自於<a href='http://cocodataset.org/index.htm#keypoints-2019' target='_blank'>Common Objects in Context (COCO)</a>",
+            "POSE_5": "For more information, including a description of some of the challenges and potential issues with the model, see the <a href='https://drive.google.com/file/d/1VFC_wIpw4O7xBOiTgUldl79d9LA-LsnA/view'>model card</a>."
+        },
+        "HANDPOSE": {
+            "TITLE": "Hand detection",
+            "POSE_1": "This model can be used to recognize your hand in the video feed from your webcam.",
+            "POSE_2": "It gives you blocks that will find the x,y coordinates of different parts of your hand: the tips of each of your fingers, and your wrist.",
+            "POSE_3": "It can only return information about one hand in the view.",
+            "POSE_4": "For more information, including a description of some of the challenges and potential issues with the model, see the <a href='https://drive.google.com/file/d/1sv4sSb9BSNVZhLzxXJ0jBv9DqD-4jnAz/view'>model card</a>."
         },
         "TOXICITY": {
             "TITLE": "髒話辨識",

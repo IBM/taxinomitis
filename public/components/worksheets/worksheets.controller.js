@@ -177,8 +177,11 @@
 
             'WORKSHEETS.SEMAPHORES.TITLE', 'WORKSHEETS.SEMAPHORES.SUMMARY', 'WORKSHEETS.SEMAPHORES.DESCRIPTION',
             'WORKSHEETS.SEMAPHORES.WORKSHEET_1.URL',
-            'WORKSHEETS.SEMAPHORES.TEACHERSNOTES_URL'
+            'WORKSHEETS.SEMAPHORES.TEACHERSNOTES_URL',
 
+            'WORKSHEETS.HANDGESTURES.TITLE', 'WORKSHEETS.HANDGESTURES.SUMMARY', 'WORKSHEETS.HANDGESTURES.DESCRIPTION',
+            'WORKSHEETS.HANDGESTURES.WORKSHEET_1.URL',
+            'WORKSHEETS.HANDGESTURES.TEACHERSNOTES_URL'
         ]).then(function (translations) {
             vm.worksheets = [
                 {
@@ -834,6 +837,22 @@
                     downloads : [
                         {
                             worksheet : translations['WORKSHEETS.SEMAPHORES.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.HANDGESTURES.TITLE'],
+                    summary : translations['WORKSHEETS.HANDGESTURES.SUMMARY'],
+                    description : translations['WORKSHEETS.HANDGESTURES.DESCRIPTION'],
+                    difficulty : 'Advanced',
+                    type : 'numbers',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-handgestures.png',
+                    tags : [ 'image recognition', 'pretrained models' ],
+                    teachersnotes : translations['WORKSHEETS.HANDGESTURES.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.HANDGESTURES.WORKSHEET_1.URL']
                         }
                     ]
                 }

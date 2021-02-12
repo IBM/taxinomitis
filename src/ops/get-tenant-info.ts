@@ -1,4 +1,5 @@
 /* eslint no-console: 0 */
+/* tslint:disable: no-console quotemark */
 import * as store from '../lib/db/store';
 import * as auth0 from '../lib/auth0/users';
 

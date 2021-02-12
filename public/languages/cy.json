@@ -314,6 +314,12 @@
                 "SUMMARY": "Cydnabod mathau o ganeuon",
                 "DESCRIPTION": "Hyfforddwch fodel dysgu peiriant i adnabod y math o gân yn seiliedig ar ei geiriau",
                 "DETAILS": "Mae'r set ddata hyfforddi hon yn cynnwys 140 llinell o eiriau caneuon - hanner o ganeuon plant a hanner o'r 40 cân Uchaf. Mae'n set gychwyn dda ar gyfer hyfforddi model dysgu peiriant i gydnabod gwahanol ddefnyddiau o iaith."
+            },
+            "HANDGESTURES": {
+                "TITLE": "Hand gestures",
+                "SUMMARY": "Recognize hand gestures from finger positions",
+                "DESCRIPTION": "Train a machine learning model to recognize different hand gestures, by collecting examples of the positions of your fingers.",
+                "DETAILS": "This is an empty template to help you collect your own training data. For instructions on how to use it, download 'Hand gestures' from Worksheets."
             }
         }
     },
@@ -1422,6 +1428,15 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-semaphores.pdf"
             },
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-semaphores.pdf"
+        },
+        "HANDGESTURES": {
+            "TITLE": "Hand Gestures",
+            "SUMMARY": "Teach a computer to recognize shapes",
+            "DESCRIPTION": "Make a webcam project in Scratch that can recognize shapes you make with your hands.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-handgestures.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-handgestures.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -1589,6 +1604,9 @@
         },
         "POSENET": {
             "mlforkids.posenet.getposition": "Canfod [POSITION] o [LANDMARK]"
+        },
+        "HANDPOSE": {
+            "mlforkids.handpose.getposition": "find [POSITION] of [LANDMARK]"
         },
         "IMAGE_BLOCKS": {
             "mlforkids.imageblocks.getCostumeImage": "delwedd gwisg",
@@ -1837,7 +1855,15 @@
             "POSE_1": "Gellir defnyddio'r model hwn i adnabod eich ystum yn y porthiant fideo o'ch gwe-gamera.",
             "POSE_2": "Mae'n rhoi blociau i chi a fydd yn dod o hyd i gyfesurynnau x, y gwahanol rannau o'ch corff, fel ysgwyddau, penelinoedd, arddyrnau, pengliniau, a fferau.",
             "POSE_3": "Mae hyn yn defnyddio techneg o'r gwaelod i fyny - edrych am bwyntiau allweddol corff dynol (fel ysgwyddau, penelinoedd, pengliniau, ac ati) ac yna eu grwpio i adnabod person a'r ystum y maen nhw ynddo. Mae'r dechneg yn seiliedig ar MobileNet (a Model ML wedi'i gynllunio ar gyfer dyfeisiau symudol, felly nid oes angen llawer o bŵer cyfrifiadurol arno).",
-            "POSE_4": "Daeth y data hyfforddi a ddefnyddiwyd ar gyfer y model hwn o set o'r enw <a href='http://cocodataset.org/index.htm#keypoints-2019' target='_blank'>Common Objects in Context (COCO)</a>."
+            "POSE_4": "Daeth y data hyfforddi a ddefnyddiwyd ar gyfer y model hwn o set o'r enw <a href='http://cocodataset.org/index.htm#keypoints-2019' target='_blank'>Common Objects in Context (COCO)</a>.",
+            "POSE_5": "For more information, including a description of some of the challenges and potential issues with the model, see the <a href='https://drive.google.com/file/d/1VFC_wIpw4O7xBOiTgUldl79d9LA-LsnA/view'>model card</a>."
+        },
+        "HANDPOSE": {
+            "TITLE": "Hand detection",
+            "POSE_1": "This model can be used to recognize your hand in the video feed from your webcam.",
+            "POSE_2": "It gives you blocks that will find the x,y coordinates of different parts of your hand: the tips of each of your fingers, and your wrist.",
+            "POSE_3": "It can only return information about one hand in the view.",
+            "POSE_4": "For more information, including a description of some of the challenges and potential issues with the model, see the <a href='https://drive.google.com/file/d/1sv4sSb9BSNVZhLzxXJ0jBv9DqD-4jnAz/view'>model card</a>."
         },
         "TOXICITY": {
             "TITLE": "Toxicity",

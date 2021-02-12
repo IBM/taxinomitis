@@ -219,6 +219,12 @@ module.exports = function(grunt) {
                 src : [ 'posenet.min.js' ],
                 dest : 'web/static/bower_components/tensorflow-models/posenet'
             },
+            tensorflowhandpose : {
+                expand : true,
+                cwd : 'node_modules/@tensorflow-models/handpose/dist',
+                src : [ 'handpose.min.js' ],
+                dest : 'web/static/bower_components/tensorflow-models/handpose'
+            },
             tensorflowfacelandmarks : {
                 expand : true,
                 cwd : 'node_modules/@tensorflow-models/face-landmarks-detection/dist',
@@ -311,7 +317,7 @@ module.exports = function(grunt) {
     //-----------------------------------
     // fetch UI third-party dependencies
     grunt.registerTask('bower', ['bower-install-simple']);
-    grunt.registerTask('tfjs', ['mkdir:tfjsmodels', 'copy:tensorflowjs', 'copy:tensorflowspeechcommands', 'copy:tensorflowposenet', 'copy:tensorflowfacelandmarks', 'downloadfile']);
+    grunt.registerTask('tfjs', ['mkdir:tfjsmodels', 'copy:tensorflowjs', 'copy:tensorflowspeechcommands', 'copy:tensorflowposenet', 'copy:tensorflowhandpose', 'copy:tensorflowfacelandmarks', 'downloadfile']);
     grunt.registerTask('boweroverrides', ['copy:angularmaterial']);
     grunt.registerTask('uidependencies', ['bower', 'tfjs', 'boweroverrides']);
     // install Scratch into the deployment
