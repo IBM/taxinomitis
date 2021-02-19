@@ -251,6 +251,10 @@
             .state('book', {
                 url: '/book',
                 templateUrl: 'static/components-<%= VERSION %>/book/book.html',
+            })
+            .state('debug', {
+                url: '/debug',
+                templateUrl: 'static/components-<%= VERSION %>/debug/debug.html',
             });
 
 
