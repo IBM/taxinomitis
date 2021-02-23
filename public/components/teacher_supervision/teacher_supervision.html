@@ -140,7 +140,9 @@
                     </a>
                 </td>
                 <!-- Project type  (text/images/numbers) -->
-                <td class="studentslistdetail projecttype"> {{ project.type }} </td>
+                <td class="studentslistdetail projecttype">
+                    {{ project.type === 'imgtfjs' ? 'images' : project.type }}
+                </td>
                 <!-- Classes / Labels -->
                 <td class="studentslistdetail detail"> {{ project.labelsSummary }} </td>
                 <!-- Who owns the project -->

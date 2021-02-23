@@ -30,6 +30,8 @@ export const ERROR_MESSAGES = {
     MODEL_NOT_FOUND : 'Your machine learning model could not be found on the training server.',
     TEXT_TOO_LONG : 'text cannot be longer than 2048 characters',
     SERVICE_ERROR : 'The Watson Assistant service that runs your machine learning model reported an expected error',
+    SKILL_IN_USE : 'Machine Learning for Kids is not allowed to delete this Watson Assistant workspace because ' +
+                   'it is being used. Please delete it from IBM Cloud.',
 };
 
 
@@ -322,6 +324,18 @@ export async function deleteClassifierFromBluemix(
         if (err.statusCode === httpStatus.NOT_FOUND) {
             log.debug({ classifierId }, 'Attempted to delete non-existent workspace');
             return;
+        }
+        if (err.statusCode === httpStatus.BAD_REQUEST &&
+            err.error.error &&
+            err.error.error.includes('Cannot delete skill') &&
+            err.error.error.includes('it is referenced by assistant'))
+        {
+            log.debug({ classifierId, err }, 'Attempted to delete workspace that is in use');
+
+            const deletionError: any = new Error(ERROR_MESSAGES.SKILL_IN_USE);
+            deletionError.error = err.error;
+            deletionError.statusCode = err.statusCode;
+            throw deletionError;
         }
         throw err;
     }

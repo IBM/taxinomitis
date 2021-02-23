@@ -122,6 +122,11 @@ async function deleteBluemixClassifier(reqWithTenant: auth.RequestWithTenant, re
         await classifiers.deleteClassifier(type, creds, classifierid);
     }
     catch (err) {
+        if (err.statusCode === httpstatus.BAD_REQUEST && err.message) {
+            return res.status(httpstatus.BAD_REQUEST)
+                .send({ error : err.message });
+        }
+
         log.error({ err, classid, classifierid, credentialsid },
                   'Failed to delete classifier');
         return errors.unknownError(res, err);
