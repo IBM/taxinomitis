@@ -105,6 +105,8 @@
                     return utilService.loadScript('/static/bower_components/tensorflow-models/speech-commands/speech-commands.min.js');
                 })
                 .then(function () {
+                    loggerService.debug('[ml4ksound] loaded speech-commands', speechCommands.version);
+
                     loggerService.debug('[ml4ksound] enabling tf prod mode');
                     if (tf && tf.enableProdMode) {
                         tf.enableProdMode();
