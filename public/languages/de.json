@@ -1084,7 +1084,7 @@
             "SUMMARY": "Bringe einem Computer bei, Farben zu erkennen",
             "DESCRIPTION": "Erstelle ein Chamäleon in Scratch, dass seine Farbe dem Hintergrund anpasst.",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon-de.pdf"
             },
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chameleon.pdf"
         },
@@ -1102,7 +1102,7 @@
             "SUMMARY": "Teach a computer to play a game",
             "DESCRIPTION": "Create a Breakout-style arcade game in Scratch that learns the angle to shoot balls at.",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shootthebug.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shootthebug-de.pdf"
             },
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shootthebug.pdf"
         },
@@ -1161,7 +1161,7 @@
             "SUMMARY": "Bringe einem Computer bei, ein Spiel zu spielen",
             "DESCRIPTION": "Erstelle ein Pac-Man Spiel in Scatch, in dem Pac-Man lernt, vor den Geistern wegzulaufen.",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pacman.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pacman-de.pdf"
             },
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-pacman.pdf"
         },
@@ -1363,7 +1363,7 @@
             "SUMMARY": "Bringe einem Computer bei Vorhersagen zu machen",
             "DESCRIPTION": "Trainiere einen Computer dir zu helfen vor Zombies zu fliehen.",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape-de.pdf"
             },
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-zombieescape.pdf"
         },
