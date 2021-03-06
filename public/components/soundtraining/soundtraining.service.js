@@ -261,7 +261,8 @@
                         epochs : 100,
                         callback: {
                             onEpochEnd: function (epoch) {
-                                modelStatus.progress = epoch;
+                                // epochs are zero-indexed
+                                modelStatus.progress = epoch + 1;
                             }
                         }
                     }).then(function() {

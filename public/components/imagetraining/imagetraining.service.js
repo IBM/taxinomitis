@@ -241,7 +241,12 @@
                             onEpochEnd : function (epoch, logs) {
                                 loggerService.debug('[ml4kimages] epoch ' + epoch + ' loss ' + logs.loss);
                                 if (modelStatus) {
-                                    modelStatus.progress = (epoch + 1) * 10;
+                                    if (epochs === 15) {
+                                        modelStatus.progress = (epoch + 1) * 7;
+                                    }
+                                    else {
+                                        modelStatus.progress = (epoch + 1) * 10;
+                                    }
                                 }
                             },
                             onTrainEnd : function () {

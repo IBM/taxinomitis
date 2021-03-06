@@ -320,14 +320,14 @@
                             <div class="modelstatusdetail" ng-hide="owner" translate="MODELS.WHATSNEXT.IDLE.LABELS.MORE_DATA.MORE_EXAMPLES.CLASS" translate-values='{ urls : projecturls }'></div>
                             <div class="modelstatusdetail" translate="MODELS.WHATSNEXT.IDLE.LABELS.MORE_DATA.MORE_IS_BETTER" translate-values='{ minimumExamples : minimumExamples }'></div>
                         </div>
-                        <div ng-if="trainingdatastatus === 'data' && (owner || project.type === 'imgtfjs' || project.type === 'sound')">
+                        <div ng-if="trainingdatastatus === 'data' && (owner || project.type === 'imgtfjs' || project.type === 'sounds')">
                             <div class="modelstatusdetail" translate="MODELS.WHATSNEXT.IDLE.LABELS.ENOUGH_DATA.READY_TO_START"></div>
                             <div class="modelstatusdetail" ng-if="project.isCrowdSourced" translate="MODELS.WHATSNEXT.IDLE.LABELS.ENOUGH_DATA.START_TRAINING.CROWDSOURCED"></div>
                             <div class="modelstatusdetail" ng-hide="project.isCrowdSourced" translate="MODELS.WHATSNEXT.IDLE.LABELS.ENOUGH_DATA.START_TRAINING.INDIVIDUAL"></div>
                             <div class="modelstatusdetail" ng-if="project.isCrowdSourced" translate="MODELS.WHATSNEXT.IDLE.LABELS.ENOUGH_DATA.MORE_EXAMPLES.CROWDSOURCED" translate-values='{ urls : projecturls }'></div>
                             <div class="modelstatusdetail" ng-hide="project.isCrowdSourced" translate="MODELS.WHATSNEXT.IDLE.LABELS.ENOUGH_DATA.MORE_EXAMPLES.INDIVIDUAL" translate-values='{ urls : projecturls }'></div>
                         </div>
-                        <div ng-if="trainingdatastatus === 'data' && (!owner && project.type !== 'imgtfjs' && project.type !== 'sound')">
+                        <div ng-if="trainingdatastatus === 'data' && (!owner && project.type !== 'imgtfjs' && project.type !== 'sounds')">
                             <div class="modelstatusdetail" translate="MODELS.WHATSNEXT.IDLE.LABELS.ENOUGH_DATA.WAITING_FOR_TEACHER"></div>
                         </div>
                     </div>
@@ -418,7 +418,7 @@
     </div>
 
     <div ng-if="(models && models.length > 0) || trainingdatastatus === 'data'"
-         ng-hide="(!owner && project.type !== 'imgtfjs' && project.type !== 'sound') || loading"
+         ng-hide="(!owner && project.type !== 'imgtfjs' && project.type !== 'sounds') || loading"
          class="trainingserversection">
         <div><strong translate="MODELS.TRAINING.TITLE"></strong></div>
         <div ng-repeat="model in models">
@@ -432,7 +432,12 @@
                 </tr>
                 <tr>
                     <td><strong translate="MODELS.TRAINING.STATUS"></strong></td>
-                    <td> {{ model.status }} </td>
+                    <td>
+                        {{ model.status }}
+                        <md-progress-linear ng-if="(project.type === 'sounds' || project.type === 'imgtfjs') && model.status === 'Training'"
+                            md-mode="determinate"
+                            value={{model.progress}}></md-progress-linear>
+                    </td>
                 </tr>
                 <tr ng-if="model.expiry && model.status !== 'Training'">
                     <td><strong translate="MODELS.TRAINING.DELETION"></strong></td>
@@ -441,7 +446,8 @@
                         {{ model.expiry | date : 'shortTime' }}
                     </td>
                 </tr>
-                <tr ng-if="model.status === 'Training' && model.lastPollTime">
+                <tr ng-if="model.status === 'Training' && model.lastPollTime"
+                    ng-hide="project.type === 'sounds' || project.type === 'imgtfjs'">
                     <td><strong translate="MODELS.TRAINING.LASTCHECK"></strong></td>
                     <td>
                         <span>{{ model.lastPollTime | timeAgo: 'h:mm:ss a' }}</span>
