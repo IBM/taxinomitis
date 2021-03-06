@@ -283,3 +283,8 @@ md-slider.md-default-theme .md-disabled-thumb, md-slider .md-disabled-thumb {
 md-backdrop {
     background-color: rgba(33,33,33,0.0)
 }
+
+.md-panel.md-tooltip.md-default-theme, .md-panel.md-tooltip{
+    color:rgba(255,255,255,0.87);
+    background-color:rgb(97,97,97)
+}
