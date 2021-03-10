@@ -67,7 +67,7 @@
 
         // is it an image search result from Baidu?
         var BAIDU_IMG_REGEX = /^https:\/\/timgsa.baidu.com\/timg\?.*/;
-        var BAIDU_IMG_SRCH_REGEX = /^https:\/\/image.baidu.com\/search\/detail.*/;
+        var BAIDU_IMG_SRCH_REGEX = /^https:\/\/images?.baidu.com\/search\/detail.*/;
 
         // is it a URL ending with .png or .jpg ?
         var IMG_URL_REGEX = /^https?:\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)(\.jpg|\.png)\??.*$/;
@@ -155,6 +155,21 @@
                             baiduSearchUrl.searchParams.has('objurl'))
                         {
                             data = baiduSearchUrl.searchParams.get('objurl');
+
+                            // special case - weird URL encoding in some baidu search responses
+                            if (data.indexOf('https://gimg2.baidu.com/image_search/src=') === 0) {
+                                data = data.replace('https://gimg2.baidu.com/image_search/src=',
+                                                    'https://gimg2.baidu.com/image_search?src=');
+                            }
+
+                            baiduSearchUrl = new URL(data);
+                            if (baiduSearchUrl &&
+                                baiduSearchUrl.searchParams &&
+                                baiduSearchUrl.searchParams.has &&
+                                baiduSearchUrl.searchParams.has('src'))
+                            {
+                                data = baiduSearchUrl.searchParams.get('src');
+                            }
                         }
                     }
                 }
