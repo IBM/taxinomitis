@@ -853,6 +853,11 @@
         };
 
 
+        // an image has been dropped onto the test textbox for images
+        vm.addConfirmedTrainingData = function (urlToTest) {
+            $scope.testformData.testimageurl = urlToTest;
+        };
+
 
         $scope.$on("$destroy", function () {
             loggerService.debug('[ml4kmodels] handling page change');
@@ -880,5 +885,11 @@
                 $document.duScrollToElementAnimated(angular.element(newItem));
             }, 0);
         }
+
+
+
+        $scope.getController = function() {
+            return vm;
+        };
     }
 }());
