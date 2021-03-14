@@ -83,10 +83,7 @@
 
 
         function reportInvalidImageType(scope) {
-            scope.getController().displayAlert('warnings', 400, {
-                message : 'Sorry, that type of image is not supported. You can only use jpg or png pictures'
-            });
-            scope.$apply();
+            maybeReportError(scope, 'Sorry, that type of image is not supported. You can only use jpg or png pictures');
             return false;
         }
 
@@ -111,10 +108,7 @@
             if (evt.dataTransfer &&
                 evt.dataTransfer.types && evt.dataTransfer.types.length === 1 && evt.dataTransfer.types[0] === 'Files')
             {
-                scope.getController().displayAlert('warnings', 400, {
-                    message : 'You can\'t upload pictures from your computer. Use pictures that are already online, by dragging them from another web page'
-                });
-                scope.$apply();
+                maybeReportError(scope, 'You can\'t upload pictures from your computer. Use pictures that are already online, by dragging them from another web page');
                 return false;
             }
 
@@ -203,13 +197,18 @@
                 scope.$apply();
             }
             else {
-                scope.getController().displayAlert('warnings', 400, {
-                    message : 'Drag a picture from another web page into one of the training buckets'
-                });
-                scope.$apply();
+                maybeReportError(scope, 'Drag a picture from another web page into one of the training buckets');
             }
 
             return false;
+        }
+
+
+        function maybeReportError(scope, message) {
+            if (scope.getController().displayAlert) {
+                scope.getController().displayAlert('warnings', 400, { message : message });
+                scope.$apply();
+            }
         }
 
 
