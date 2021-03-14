@@ -78,6 +78,7 @@ export function createProject(
         case 'ko':
         case 'pt-br':
         case 'es':
+        case 'xx':
             language = textlanguage;
             break;
         default:

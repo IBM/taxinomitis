@@ -39,7 +39,7 @@ export interface ProjectType {
 
 export type TextProjectLanguage = 'en' | 'ar' | 'zh-tw' | 'zh-cn' |
                                   'cs' | 'nl' | 'fr' | 'de' | 'it' |
-                                  'ja' | 'ko' | 'pt-br' | 'es';
+                                  'ja' | 'ko' | 'pt-br' | 'es' | 'xx';
 
 export interface NumbersProjectFieldSummary {
     readonly name: string;

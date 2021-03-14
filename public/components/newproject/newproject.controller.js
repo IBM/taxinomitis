@@ -7,16 +7,42 @@
     NewProjectController.$inject = [
         'authService', 'projectsService', 'usersService',
         'loggerService',
-        '$state', '$rootScope', '$scope'
+        '$state', '$rootScope', '$scope', '$translate'
     ];
 
 
-    function NewProjectController(authService, projectsService, usersService, loggerService, $state, $rootScope, $scope) {
+    function NewProjectController(authService, projectsService, usersService, loggerService, $state, $rootScope, $scope, $translate) {
 
         var vm = this;
         vm.authService = authService;
 
         $scope.creating = false;
+
+        // use the language that the site is running in
+        //  as the default language for text projects
+        //  (if supported) otherwise use the universal
+        //  language support
+        switch ($translate.use()) {
+            case 'en':
+            case 'ar':
+            case 'cs':
+            case 'zh-cn':
+            case 'zh-tw':
+            case 'de':
+            case 'fr':
+            case 'it':
+            case 'ja':
+            case 'ko':
+            case 'pt-br':
+            case 'es':
+                $scope.language = $translate.use();
+                break;
+            case 'nl-be':
+                $scope.language = 'nl';
+                break;
+            default:
+                $scope.language = 'xx';
+        }
 
         // default assuming 'Try it now' user
         var supportedProjectTypes = [ 'text', 'imgtfjs', 'sounds', 'numbers' ];
