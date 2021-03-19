@@ -120,66 +120,75 @@
                 if (urlIsImageData(src)) {
                     return reportInvalidImageType(scope);
                 }
-                var googleImagesCheck = src.match(GOOG_IMG_REGEX);
-                if (googleImagesCheck) {
-                    var googleImagesUrl = googleImagesCheck[1];
-                    var googleImgsUrlParms = parseUrl(googleImagesUrl);
-                    data = googleImgsUrlParms.imgurl;
-                }
-                if (!data) {
-                    var baiduImagesCheck = src.match(BAIDU_IMG_REGEX);
-                    if (baiduImagesCheck) {
-                        var baiduUrl = new URL(src);
-                        if (baiduUrl &&
-                            baiduUrl.searchParams &&
-                            baiduUrl.searchParams.has &&
-                            baiduUrl.searchParams.has('src'))
-                        {
-                            data = baiduUrl.searchParams.get('src');
-                        }
+
+                if (src) {
+                    var googleImagesCheck = src.match(GOOG_IMG_REGEX);
+                    if (googleImagesCheck) {
+                        var googleImagesUrl = googleImagesCheck[1];
+                        var googleImgsUrlParms = parseUrl(googleImagesUrl);
+                        data = googleImgsUrlParms.imgurl;
                     }
-                }
-                if (!data) {
-                    var baiduImageSearchCheck = src.match(BAIDU_IMG_SRCH_REGEX);
-                    if (baiduImageSearchCheck) {
-                        var baiduSearchUrl = new URL(src);
-                        if (baiduSearchUrl &&
-                            baiduSearchUrl.searchParams &&
-                            baiduSearchUrl.searchParams.has &&
-                            baiduSearchUrl.searchParams.has('objurl'))
-                        {
-                            data = baiduSearchUrl.searchParams.get('objurl');
-
-                            // special case - weird URL encoding in some baidu search responses
-                            if (data.indexOf('https://gimg2.baidu.com/image_search/src=') === 0) {
-                                data = data.replace('https://gimg2.baidu.com/image_search/src=',
-                                                    'https://gimg2.baidu.com/image_search?src=');
-                            }
-
-                            baiduSearchUrl = new URL(data);
-                            if (baiduSearchUrl &&
-                                baiduSearchUrl.searchParams &&
-                                baiduSearchUrl.searchParams.has &&
-                                baiduSearchUrl.searchParams.has('src'))
-                            {
-                                data = baiduSearchUrl.searchParams.get('src');
+                    try {
+                        if (!data) {
+                            var baiduImagesCheck = src.match(BAIDU_IMG_REGEX);
+                            if (baiduImagesCheck) {
+                                var baiduUrl = new URL(src);
+                                if (baiduUrl &&
+                                    baiduUrl.searchParams &&
+                                    baiduUrl.searchParams.has &&
+                                    baiduUrl.searchParams.has('src'))
+                                {
+                                    data = baiduUrl.searchParams.get('src');
+                                }
                             }
                         }
+                        if (!data) {
+                            var baiduImageSearchCheck = src.match(BAIDU_IMG_SRCH_REGEX);
+                            if (baiduImageSearchCheck) {
+                                var baiduSearchUrl = new URL(src);
+                                if (baiduSearchUrl &&
+                                    baiduSearchUrl.searchParams &&
+                                    baiduSearchUrl.searchParams.has &&
+                                    baiduSearchUrl.searchParams.has('objurl'))
+                                {
+                                    data = baiduSearchUrl.searchParams.get('objurl');
+
+                                    // special case - weird URL encoding in some baidu search responses
+                                    if (data.indexOf('https://gimg2.baidu.com/image_search/src=') === 0) {
+                                        data = data.replace('https://gimg2.baidu.com/image_search/src=',
+                                                            'https://gimg2.baidu.com/image_search?src=');
+                                    }
+
+                                    baiduSearchUrl = new URL(data);
+                                    if (baiduSearchUrl &&
+                                        baiduSearchUrl.searchParams &&
+                                        baiduSearchUrl.searchParams.has &&
+                                        baiduSearchUrl.searchParams.has('src'))
+                                    {
+                                        data = baiduSearchUrl.searchParams.get('src');
+                                    }
+                                }
+                            }
+                        }
                     }
-                }
-                if (!data) {
-                    var htmltype = getType(evt.dataTransfer.types, 'text/html');
-                    var linksrc = evt.dataTransfer.getData(htmltype);
-                    var parsed = parseHTML(linksrc);
-                    var img = parsed.querySelector('img');
-                    if (img) {
-                        data = img.src;
+                    catch (e) {
+                        // new URL() is not supported on IE11
+                        console.log(e);
                     }
-                }
-                if (!data) {
-                    var imageUrlCheck = src.match(IMG_URL_REGEX);
-                    if (imageUrlCheck) {
-                        data = src;
+                    if (!data) {
+                        var htmltype = getType(evt.dataTransfer.types, 'text/html');
+                        var linksrc = evt.dataTransfer.getData(htmltype);
+                        var parsed = parseHTML(linksrc);
+                        var img = parsed.querySelector('img');
+                        if (img) {
+                            data = img.src;
+                        }
+                    }
+                    if (!data) {
+                        var imageUrlCheck = src.match(IMG_URL_REGEX);
+                        if (imageUrlCheck) {
+                            data = src;
+                        }
                     }
                 }
             }
