@@ -5,7 +5,6 @@ import * as Mailer from 'nodemailer/lib/mailer';
 import * as Mustache from 'mustache';
 // local dependencies
 import * as fileutils from '../utils/fileutils';
-import * as auth0 from '../auth0/users';
 import { SupervisorInfo } from '../auth0/auth-types';
 import * as env from '../utils/env';
 import loggerSetup from '../utils/logger';
@@ -71,77 +70,22 @@ export function close() {
 }
 
 
-export async function invalidCredentials(tenant: string, failure: InvalidCredentialsEmail): Promise<void> {
-    return sendEmail(tenant, EMAILS.invalidcredentials, failure, false);
-}
-export async function unknownConvClassifier(tenant: string, details: UnmanagedConvClassifier): Promise<void> {
-    return sendEmail(tenant, EMAILS.unmanagedconv, details, false);
-}
-export async function unknownVisrecClassifier(tenant: string, details: UnmanagedVisRecClassifier): Promise<void> {
-    return sendEmail(tenant, EMAILS.unmanagedvisrec, details, false);
-}
 export async function deletedClass(tenant: string, teachers: SupervisorInfo[]): Promise<void> {
     return sendEmailToUser(teachers[0], tenant, EMAILS.deletedclass, { classid: tenant }, true);
 }
 
-export interface InvalidCredentialsEmail {
-    readonly errormessage: string;
-    readonly userid: string;
-    readonly servicename: 'Watson Assistant' | 'Visual Recognition';
-}
-export interface UnmanagedConvClassifier {
-    readonly workspace: string;
-}
-export interface UnmanagedVisRecClassifier {
-    readonly classifier: string;
-}
 export interface DeletedClass {
     readonly classid: string;
 }
 
 
 const EMAILS: { [key: string]: EmailTemplate } = {
-    invalidcredentials : {
-        root : './resources/email-invalid-ibmcloud-creds.',
-        subject : 'Invalid IBM Cloud credentials',
-    },
-    unmanagedconv : {
-        root : './resources/email-unmanaged-conv-classifier.',
-        subject : 'Unknown Watson Assistant workspace',
-    },
-    unmanagedvisrec : {
-        root : './resources/email-unmanaged-visrec-classifier.',
-        subject : 'Unknown Visual Recognition classifier',
-    },
     deletedclass : {
         root : './resources/email-deleted-class.',
         subject : 'Goodbye',
     },
 };
 
-
-
-
-
-
-
-
-async function sendEmail(
-    tenant: string, templateinfo: EmailTemplate, values: EmailValues, copyAdmin: boolean): Promise<void>
-{
-    if (!transporter) {
-        log.error('Skipping sending email as sender not initialized');
-        return;
-    }
-
-    const teacher = await auth0.getTeacherByClassId(tenant);
-    if (!teacher || !teacher.email) {
-        log.error({ tenant }, 'Failed to retrieve email address to notify teacher');
-        return;
-    }
-
-    return sendEmailToUser(teacher, tenant, templateinfo, values, copyAdmin);
-}
 
 
 async function sendEmailToUser(
@@ -178,10 +122,4 @@ interface EmailTemplate {
     readonly subject: string;
 }
 
-type EmailValues = InvalidCredentialsEmail |
-                   UnmanagedConvClassifier |
-                   UnmanagedVisRecClassifier |
-                   DeletedClass;
-
-
-
+type EmailValues = DeletedClass;

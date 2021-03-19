@@ -5,10 +5,6 @@ INSERT INTO bluemixcredentials (id, classid, servicetype, url, username, passwor
     -- This is a placeholder row used for unit tests - it's obviously not a real API key.
     ('3a9a71ab-de77-4912-b0b0-f0c9698d9245', 'testing', 'visrec', 'https://gateway.watsonplatform.net/visual-recognition/api', 'AbCdEfGhIjKlMnOpQrStUv', 'WxYz0123456789AbCdEfGh', 0);
 
-INSERT INTO notificationoptouts (id) VALUES ('do-not-notify-me');
-
-INSERT INTO disruptivetenants (id) VALUES ('ignore-errors-for-me');
-
 INSERT INTO tenants (id, projecttypes, maxusers, maxprojectsperuser, textclassifiersexpiry, ismanaged)
     VALUES
         ('TESTTENANT', 'text,images,numbers,sounds,imgtfjs', 8, 3, 2, 1),

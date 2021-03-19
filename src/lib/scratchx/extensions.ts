@@ -224,7 +224,7 @@ export async function getScratchTfjsExtension(scratchkey: string): Promise<strin
     Mustache.parse(template);
     const rendered = Mustache.render(template, {
         projectid   : modelinfo.id,
-        projectname : escapeProjectName(metadata.modelName, 3),
+        projectname : metadata.modelName ? escapeProjectName(metadata.modelName, 3) : 'ML model',
         labels      : metadata.labels ? metadata.labels.map((name, idx) => {
             return { name, idx };
         }) : [],

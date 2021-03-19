@@ -162,13 +162,10 @@ async function createWorkspace(
 
                 // This shouldn't happen.
                 // It probably needs more immediate attention, so notify the Slack bot
-                const ignore = await store.isTenantDisruptive(project.classid);
-                if (ignore === false) {
-                    notifications.notify('Unexpected failure to train text classifier' +
-                                        ' for project : ' + project.id +
-                                        ' in class : ' + project.classid + ' : ' +
-                                        err.message, notifications.SLACK_CHANNELS.TRAINING_ERRORS);
-                }
+                notifications.notify('Unexpected failure to train text classifier' +
+                                    ' for project : ' + project.id +
+                                    ' in class : ' + project.classid + ' : ' +
+                                    err.message, notifications.SLACK_CHANNELS.TRAINING_ERRORS);
 
                 throw err;
             }
@@ -184,16 +181,34 @@ async function createWorkspace(
     //      above, with finalError being set with the reason
     //
 
-    // This is a user-error, not indicative of an MLforKids failure.
-    //  But notify the Slack bot anyway, as for now it is useful to be able to
-    //  keep track of how frequently users are running into these resource limits.
-    const ignoreErr = await store.isTenantDisruptive(project.classid);
-    if (ignoreErr === false) {
+    // is it worth notifying the Slack bot of this failure?
+    let notifySlackBot = false;
+    switch (finalError) {
+    case ERROR_MESSAGES.POOL_EXHAUSTED:
+        // managedpool is full - that should never happen!
+        notifySlackBot = true;
+        break;
+    case ERROR_MESSAGES.API_KEY_RATE_LIMIT:
+        // teacher is probably exceeding Lite plan limits - user error
+        if (tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool) {
+            // shouldn't be possible with Plus plans used in the pool
+            notifySlackBot = true;
+        }
+        break;
+    case ERROR_MESSAGES.INSUFFICIENT_API_KEYS:
+        // teacher hasn't provided API keys - user error
+        break;
+    default:
+        // unexpected error type
+        notifySlackBot = true;
+    }
+
+    if (notifySlackBot) {
         notifications.notify('Failed to train text classifier' +
-                             ' for project : ' + project.id +
-                             ' in class : ' + project.classid +
-                             ' because:\n' + finalError,
-                             notifications.SLACK_CHANNELS.TRAINING_ERRORS);
+                                ' for project : ' + project.id +
+                                ' in class : ' + project.classid +
+                                ' because:\n' + finalError,
+                                notifications.SLACK_CHANNELS.TRAINING_ERRORS);
     }
 
     throw new Error(finalError);
@@ -337,6 +352,13 @@ export async function deleteClassifierFromBluemix(
             deletionError.statusCode = err.statusCode;
             throw deletionError;
         }
+
+        log.error({ err, credentials, classifierId }, 'Failed to delete model from Watson Assistant');
+        notifications.notify('Unexpected failure to delete text classifier' +
+                            ' with id : ' + classifierId +
+                            ' using creds : ' + credentials.id + ' : ' +
+                            err.message, notifications.SLACK_CHANNELS.TRAINING_ERRORS);
+
         throw err;
     }
 }
@@ -493,14 +515,6 @@ async function submitTrainingToConversation(
             url : credentials.url + '/v1/workspaces/' + body.workspace_id,
         };
 
-        // record info about the new workspace
-        // log.info({
-        //     response : body,
-        //     policy : tenantPolicy,
-        //     expiry : modelAutoExpiryTime,
-        //     workspace,
-        // }, 'Trained Conversation workspace');
-
         return workspace;
     }
     catch (err) {
@@ -508,16 +522,6 @@ async function submitTrainingToConversation(
 
         if (tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool) {
             await store.recordBluemixCredentialsPoolFailure(credentials as TrainingObjects.BluemixCredentialsPool);
-        }
-
-        const ignoreErr = await store.isTenantDisruptive(project.classid);
-        if (ignoreErr === false) {
-            notifications.notify('Failed to train text classifier' +
-                                 ' for project : ' + project.id +
-                                 ' in class : ' + project.classid +
-                                 ' using creds : ' + credentials.id +
-                                 ' : ' + err.message,
-                                 notifications.SLACK_CHANNELS.TRAINING_ERRORS);
         }
 
         // The full error object will include the Conversation request with the

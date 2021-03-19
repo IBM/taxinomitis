@@ -39,10 +39,6 @@ CREATE TABLE mlforkidsdb.bluemixcredentialspool (
     lastfail timestamp with time zone NOT NULL
 );
 
-CREATE TABLE mlforkidsdb.disruptivetenants (
-    id character varying(36) NOT NULL PRIMARY KEY
-);
-
 CREATE TABLE mlforkidsdb.imagetraining (
     id character(36) NOT NULL PRIMARY KEY,
     projectid character varying(36) NOT NULL,
@@ -56,10 +52,6 @@ CREATE TABLE mlforkidsdb.knownsyserrors (
     type smallint NOT NULL,
     servicetype character varying(8) NOT NULL,
     objid character varying(50) NOT NULL
-);
-
-CREATE TABLE mlforkidsdb.notificationoptouts (
-    id character varying(36) NOT NULL PRIMARY KEY
 );
 
 CREATE TABLE mlforkidsdb.numbersprojectsfields (

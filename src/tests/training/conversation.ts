@@ -40,7 +40,6 @@ describe('Training - Conversation', () => {
     let resetExpiredScratchKeyStub: sinon.SinonStub<[string, DbTypes.ProjectTypeLabel], Promise<void>>;
     let updateScratchKeyTimestampStub: sinon.SinonStub<[DbTypes.Project, Date], Promise<void>>;
     let getClassStub: sinon.SinonStub<[string], Promise<DbTypes.ClassTenant>>;
-    let isTenantDisruptiveStub: sinon.SinonStub<[string], Promise<boolean>>;
 
 
     before(() => {
@@ -68,7 +67,6 @@ describe('Training - Conversation', () => {
         updateScratchKeyTimestampStub = sinon.stub(store, 'updateScratchKeyTimestamp').callsFake(mockstore.updateScratchKeyTimestamp);
         resetExpiredScratchKeyStub = sinon.stub(store, 'resetExpiredScratchKey').callsFake(mockstore.resetExpiredScratchKey);
         getClassStub = sinon.stub(store, 'getClassTenant').callsFake(mockstore.getClassTenant);
-        isTenantDisruptiveStub = sinon.stub(store, 'isTenantDisruptive').resolves(false);
     });
     after(() => {
         getStub.restore();
@@ -87,7 +85,6 @@ describe('Training - Conversation', () => {
         updateScratchKeyTimestampStub.restore();
         resetExpiredScratchKeyStub.restore();
         getClassStub.restore();
-        isTenantDisruptiveStub.restore();
     });
 
 

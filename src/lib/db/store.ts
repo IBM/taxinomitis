@@ -2535,62 +2535,6 @@ export async function deleteClassTenant(classid: string): Promise<void>
 }
 
 
-
-
-/**
- * Checks the list of disruptive tenants to see if the provided class id
- * is on the list.
- *
- * "Disruptive" tenants are classes that have caused thousands of
- * notifications about training failures, who consistently ignore
- * warnings of insufficient API keys, and consistently ignore UI
- * requests to stop training new models even after rate limiting is
- * introduced.
- *
- * With the current implementation, where I receive a notification
- * to my mobile phone in the event of a training failure, this
- * is, at best, disruptive. Thousands of alert notifications in
- * an evening, aside from flattening my mobile phone battery,
- * makes it impossible for me to monitor or support other classes.
- *
- * For such classes, all errors are ignored.
- *
- * @returns true if the tenant ID is on the disruptive list
- */
-export function isTenantDisruptive(tenantid: string): Promise<boolean> {
-    return isStringInListTable(tenantid, 'disruptivetenants');
-}
-
-/**
- * Checks the list of notification opt-outs to see if the provided class id
- * is on the list.
- *
- * Most of these are tenants run by users who make regular usage of Bluemix
- * API keys and do not need to be notified of usage outside of ML for Kids.
- *
- * @returns true if the tenant ID is on the opt-out list
- */
-export function hasTenantOptedOutOfNotifications(tenantid: string): Promise<boolean> {
-    return isStringInListTable(tenantid, 'notificationoptouts');
-}
-
-
-/** Helper function to see if the provided value is contained in the provided single-column table. */
-async function isStringInListTable(value: string, tablename: string): Promise<boolean>
-{
-    const queryName = 'dbqn-select-exists-' + tablename;
-    const queryString = 'SELECT exists (' +
-                            'SELECT 1 from ' + tablename + ' ' +
-                                'WHERE id = $1' +
-                        ') as stringinlist';
-    const queryValues = [ value ];
-
-    const response = await dbExecute(queryName, queryString, queryValues);
-    return dbobjects.getAsBoolean(response.rows[0], 'stringinlist');
-}
-
-
-
 // -----------------------------------------------------------------------------
 //
 // TEMPORARY SESSION USERS

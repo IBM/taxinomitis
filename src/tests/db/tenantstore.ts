@@ -133,14 +133,6 @@ describe('DB store - tenants', () => {
         });
     });
 
-    it('should verify if tenants have requested notifications', async () => {
-        const optout = await store.hasTenantOptedOutOfNotifications('do-not-notify-me');
-        const optin = await store.hasTenantOptedOutOfNotifications(uuid());
-
-        assert.strictEqual(optout, true, 'failed to recognize opt-out');
-        assert.strictEqual(optin, false, 'incorrectly identified new id');
-    });
-
     it('should store a managed class tenant', async () => {
         const id = 'thisisthemanagedclasstenantid';
         const tenant = await store.storeManagedClassTenant(id, 123, 6, Types.ClassTenantType.Managed);
@@ -154,20 +146,6 @@ describe('DB store - tenants', () => {
             supportedProjectTypes : [ 'text', 'images', 'numbers', 'sounds', 'imgtfjs' ],
         });
         return store.deleteClassTenant(id);
-    });
-
-    it('should recognize disruptive tenants', () => {
-        return store.isTenantDisruptive('ignore-errors-for-me')
-            .then((resp) => {
-                assert.strictEqual(resp, true);
-            });
-    });
-
-    it('should recognize regular tenants', () => {
-        return store.isTenantDisruptive(uuid())
-            .then((resp) => {
-                assert.strictEqual(resp, false);
-            });
     });
 
 });
