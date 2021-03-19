@@ -18,7 +18,7 @@ export const ERROR_MESSAGES = {
     UNKNOWN : 'Failed to train machine learning model',
     INSUFFICIENT_API_KEYS : 'Your class already has created their maximum allowed number of models. ' +
                             'Please let your teacher or group leader know that ' +
-                            'their "Watson Assistant API keys have no more workspaces available"',
+                            'their "Watson Assistant API keys have no more skills available"',
     POOL_EXHAUSTED : 'Your class is sharing Watson Assistant "API keys" with many other schools, and ' +
                             'unfortunately there are currently none available. ' +
                             'Please let your teacher or group leader know that you will have to train ' +

@@ -1709,7 +1709,7 @@
             "Q2-A-3": "Fodd bynnag, nid yw'r tystlythyrau a ddarparwyd yn gweithio ar hyn o bryd. Y rheswm mwyaf tebygol yw bod y tystlythyrau wedi'u dileu o IBM Cloud ers iddynt gael eu darparu'n wreiddiol. Os nad yw hynny'n wir, mae angen i'r athro neu'r arweinydd grŵp a ddarparodd gymwysterau Watson fynd yn ôl i ddangosfwrdd IBM Cloud i wirio statws y  Watson Assistant neu'r gwasanaeth Visual Recognition a grewyd ganddynt.",
             "Q3": "\"Nid oes mwy o leoedd gwaith ar gael yn allweddi API Watson Assistant\"",
             "Q3-A-1": "Mae modelau dysgu peiriant yn yr offeryn yn cael eu creu gan ddefnyddio APIs IBM Watson.",
-            "Q3-A-2": "Mae gan gymwysterau Watson Assistant a grëwyd gan athrawon gyfyngiad ar nifer y modelau dysgu peiriant y gellir eu defnyddio i'w creu. Mae hyn yn cael ei arddangos yn UI IBM Cloud lle crëwyd y tystlythyrau, lle maen nhw'n cael eu galw'n \"workspaces\".",
+            "Q3-A-2": "Mae gan gymwysterau Watson Assistant a grëwyd gan athrawon gyfyngiad ar nifer y modelau dysgu peiriant y gellir eu defnyddio i'w creu. Mae hyn yn cael ei arddangos yn UI IBM Cloud lle crëwyd y tystlythyrau, lle maen nhw'n cael eu galw'n \"skills\".",
             "Q3-A-3": "Os eir y tu hwnt i'r terfyn hwn, bydd ymdrechion i hyfforddi modelau dysgu peiriant newydd yn methu, a bydd y neges hon yn cael ei harddangos:",
             "Q3-A-4": "Mae eich dosbarth eisoes wedi creu eu nifer uchaf o fodelau a ganiateir. Rhowch wybod i'ch athro neu arweinydd grŵp fod eu \"Nid oes mwy o leoedd gwaith ar gael yn allweddi API Watson Assistant\".",
             "Q3-A-5": "Os yw myfyriwr sydd â model wedi'i hyfforddi'n llwyddiannus yna'n dileu ei fodel, bydd hyn yn rhyddhau man gwaith i'w ddefnyddio gan fyfyriwr arall.",
