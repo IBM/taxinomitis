@@ -155,9 +155,9 @@
             'WORKSHEETS.PHISHING.WORKSHEET_1.URL',
             'WORKSHEETS.PHISHING.TEACHERSNOTES_URL',
 
-            'WORKSHEETS.KIWIORSTOAT.TITLE', 'WORKSHEETS.KIWIORSTOAT.SUMMARY', 'WORKSHEETS.KIWIORSTOAT.DESCRIPTION',
-            'WORKSHEETS.KIWIORSTOAT.WORKSHEET_1.URL',
-            'WORKSHEETS.KIWIORSTOAT.TEACHERSNOTES_URL',
+            // 'WORKSHEETS.KIWIORSTOAT.TITLE', 'WORKSHEETS.KIWIORSTOAT.SUMMARY', 'WORKSHEETS.KIWIORSTOAT.DESCRIPTION',
+            // 'WORKSHEETS.KIWIORSTOAT.WORKSHEET_1.URL',
+            // 'WORKSHEETS.KIWIORSTOAT.TEACHERSNOTES_URL',
 
             'WORKSHEETS.INKBLOTS.TITLE', 'WORKSHEETS.INKBLOTS.SUMMARY', 'WORKSHEETS.INKBLOTS.DESCRIPTION',
             'WORKSHEETS.INKBLOTS.WORKSHEET_1.URL',
@@ -421,26 +421,26 @@
                         }
                     ]
                 },
-                {
-                    title : translations['WORKSHEETS.KIWIORSTOAT.TITLE'],
-                    summary : translations['WORKSHEETS.KIWIORSTOAT.SUMMARY'],
-                    description : translations['WORKSHEETS.KIWIORSTOAT.DESCRIPTION'],
-                    difficulty : 'Beginner',
-                    type : 'images',
-                    maketypes : [ 'scratch3' ],
-                    image : 'static/images/project-kiwiorstoat.png',
-                    tags : [ 'image classification', 'supervised learning' ],
-                    downloads : [
-                        {
-                            worksheet : translations['WORKSHEETS.KIWIORSTOAT.WORKSHEET_1.URL']
-                        }
-                    ],
-                    providedby : {
-                        name: 'Wildlife.ai',
-                        url: 'https://www.wildlife.ai/about-us/',
-                        embed: $sce.trustAsHtml('<div class="worksheetcardembeddiv"><iframe src="https://player.vimeo.com/video/378414131?byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>')
-                    }
-                },
+                // {
+                //     title : translations['WORKSHEETS.KIWIORSTOAT.TITLE'],
+                //     summary : translations['WORKSHEETS.KIWIORSTOAT.SUMMARY'],
+                //     description : translations['WORKSHEETS.KIWIORSTOAT.DESCRIPTION'],
+                //     difficulty : 'Beginner',
+                //     type : 'images',
+                //     maketypes : [ 'scratch3' ],
+                //     image : 'static/images/project-kiwiorstoat.png',
+                //     tags : [ 'image classification', 'supervised learning' ],
+                //     downloads : [
+                //         {
+                //             worksheet : translations['WORKSHEETS.KIWIORSTOAT.WORKSHEET_1.URL']
+                //         }
+                //     ],
+                //     providedby : {
+                //         name: 'Wildlife.ai',
+                //         url: 'https://www.wildlife.ai/about-us/',
+                //         embed: $sce.trustAsHtml('<div class="worksheetcardembeddiv"><iframe src="https://player.vimeo.com/video/378414131?byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>')
+                //     }
+                // },
                 {
                     title : translations['WORKSHEETS.PACMAN.TITLE'],
                     summary : translations['WORKSHEETS.PACMAN.SUMMARY'],
