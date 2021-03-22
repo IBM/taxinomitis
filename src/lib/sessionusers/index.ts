@@ -70,6 +70,7 @@ export async function checkSessionToken(id: string, token: string): Promise<bool
 export async function deleteSessionUser(user: Objects.TemporaryUser): Promise<void>
 {
     await store.deleteEntireUser(user.id, CLASS_NAME);
+    await store.storeDeleteUserObjectsJob(CLASS_NAME, user.id);
     await store.deleteTemporaryUser(user);
 }
 
@@ -84,6 +85,7 @@ export async function cleanupExpiredSessionUsers(): Promise<void>
         // delete resources for each expired user
         for (const expiredUser of expiredUsers) {
             await store.deleteEntireUser(expiredUser.id, CLASS_NAME);
+            await store.storeDeleteUserObjectsJob(expiredUser.id, CLASS_NAME);
         }
 
         // delete the expired users
