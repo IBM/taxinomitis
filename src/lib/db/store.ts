@@ -308,7 +308,10 @@ export async function addLabelToProject(
 
     const newlabel = dbobjects.createLabel(label);
 
-    if (labels.includes(newlabel) === false) {
+    // case-insentive check to see if the label is already
+    //  in use, because Watson Assistant chokes on projects
+    //  with labels that differ only in case
+    if (labels.map(l => l.toLowerCase()).includes(newlabel.toLowerCase()) === false) {
         labels.push(newlabel);
     }
 

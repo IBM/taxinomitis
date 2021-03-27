@@ -442,6 +442,25 @@ describe('DB store', () => {
                 });
         });
 
+        it('should ignore (case-insensitive) duplicate labels', async () => {
+            const userid = uuid();
+            const project = await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', [], false);
+
+            let labels = await store.addLabelToProject(userid, TESTCLASS, project.id, 'NEW_LABEL');
+            assert.deepStrictEqual(labels, [ 'NEW_LABEL' ]);
+
+            labels = await store.addLabelToProject(userid, TESTCLASS, project.id, 'second');
+            assert.deepStrictEqual(labels, [ 'NEW_LABEL', 'second' ]);
+
+            labels = await store.addLabelToProject(userid, TESTCLASS, project.id, 'new_label');
+            assert.deepStrictEqual(labels, [ 'NEW_LABEL', 'second' ]);
+
+            labels = await store.addLabelToProject(userid, TESTCLASS, project.id, 'New_Label');
+            assert.deepStrictEqual(labels, [ 'NEW_LABEL', 'second' ]);
+
+            await store.deleteEntireProject(userid, TESTCLASS, project);
+        });
+
         it('should add a label to a project', async () => {
             const userid = uuid();
             const project = await store.storeProject(userid, TESTCLASS, 'text', uuid(), 'en', [], false);
