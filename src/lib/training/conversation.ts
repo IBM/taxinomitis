@@ -1,6 +1,7 @@
 // external dependencies
 import * as request from 'request-promise';
 import * as httpStatus from 'http-status';
+import * as Agent from 'agentkeepalive';
 import { v1 as uuid } from 'uuid';
 import * as _ from 'lodash';
 // local dependencies
@@ -12,6 +13,8 @@ import * as notifications from '../notifications/slack';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
+
+const agentKeepAlive = new Agent.HttpsAgent();
 
 
 export const ERROR_MESSAGES = {
@@ -776,6 +779,7 @@ async function createBaseRequest(credentials: TrainingObjects.BluemixCredentials
             json : true,
             gzip : true,
             timeout : 30000,
+            agent : agentKeepAlive,
         };
         return Promise.resolve(req);
     }
@@ -795,6 +799,7 @@ async function createBaseRequest(credentials: TrainingObjects.BluemixCredentials
             json : true,
             gzip : true,
             timeout : 30000,
+            agent : agentKeepAlive,
         };
         return req;
     }
@@ -828,6 +833,7 @@ interface ConversationRequestBase {
     readonly json: true;
     readonly gzip: true;
     readonly timeout: number;
+    readonly agent: Agent;
 }
 
 interface LegacyConvRequest extends ConversationRequestBase {

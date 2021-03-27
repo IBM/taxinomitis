@@ -3,6 +3,7 @@
 // tslint:disable:max-line-length
 
 import { v1 as uuid } from 'uuid';
+import { Agent } from 'http';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import * as request from 'request-promise';
@@ -40,6 +41,8 @@ describe('Training - Conversation', () => {
     let resetExpiredScratchKeyStub: sinon.SinonStub<[string, DbTypes.ProjectTypeLabel], Promise<void>>;
     let updateScratchKeyTimestampStub: sinon.SinonStub<[DbTypes.Project, Date], Promise<void>>;
     let getClassStub: sinon.SinonStub<[string], Promise<DbTypes.ClassTenant>>;
+
+    const fakeAgent = sinon.match.any as unknown;
 
 
     before(() => {
@@ -343,6 +346,7 @@ describe('Training - Conversation', () => {
                 qs : { version : '2017-05-26' },
                 headers : { 'user-agent' : 'machinelearningforkids', 'X-Watson-Learning-Opt-Out': 'true' },
                 json: true, gzip: true, timeout: 30000,
+                agent: fakeAgent as Agent,
             }));
             assert(deleteStoreStub.calledWith(goodClassifier.id));
             assert(resetExpiredScratchKeyStub.called);
@@ -385,6 +389,7 @@ describe('Training - Conversation', () => {
                 qs : { version : '2017-05-26' },
                 headers : { 'user-agent' : 'machinelearningforkids', 'X-Watson-Learning-Opt-Out': 'true' },
                 json: true, gzip: true, timeout: 30000,
+                agent : fakeAgent as Agent,
             }));
             assert(deleteStoreStub.calledWith(workspaceid));
             assert(resetExpiredScratchKeyStub.called);

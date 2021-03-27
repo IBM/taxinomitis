@@ -151,8 +151,14 @@ async function createClassifier(
                      (err.error && err.error.code === 403 && err.error.error === 'Forbidden'))
             {
                 // there is a problem with their API key
-                log.warn({ err, project, credentials : credentials.id },
-                         'Credentials rejected');
+                if (tenantPolicy.tenantType === DbObjects.ClassTenantType.ManagedPool) {
+                    log.error({ err, project, credentials : credentials.id },
+                              'Auth error on pool API key');
+                }
+                else {
+                    log.warn({ err, project, credentials : credentials.id },
+                             'Credentials rejected');
+                }
                 throw err;
             }
             else {

@@ -305,6 +305,7 @@ describe('Scratchx - classify', () => {
                 auth: { user: 'useruseruseruseruseruseruseruseruser', pass: 'passpasspass' },
                 headers : { 'user-agent': 'machinelearningforkids', 'X-Watson-Learning-Opt-Out': 'true' },
                 json: true, gzip: true, timeout: 30000,
+                agent: sinon.match.any,
                 body: {
                     input : { text : 'This is invalid and would break Watson Assistant  if it was not fixed' },
                     alternate_intents : true }}));
