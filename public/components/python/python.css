@@ -45,3 +45,12 @@
     color: #0000DD;
     font-weight: bold;
 }
+
+.pythonreplhighlight {
+    font-weight: bold;
+    background-color: #337ab7;
+    color: white;
+    font-size: larger;
+    padding-left: 4px;
+    padding-right: 4px;
+}

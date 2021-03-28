@@ -894,6 +894,11 @@
         "NOSOUND": "Python ne peut pas être utilisé avec des projets sonores.",
         "LAUNCH": "Lancer Python dans le navigateur",
         "LOCAL": "Copiez le code à exécuter sur votre ordinateur",
+        "REPLIT": {
+            "TITLE": "Coding in replit",
+            "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Fork</span> to start editing your own copy of the code",
+            "GO": "Go to replit.com"
+        },
         "MODE": {
             "INTRO": "Où souhaitez-vous écrire et exécuter votre code Python ?",
             "BROWSER": "Vous pouvez tout faire dans le navigateur web, ce qui signifie que vous n'avez pas à vous soucier de l'installation ou de la configuration de Python, ou de tout autre module Python tiers dont vous aurez besoin.",

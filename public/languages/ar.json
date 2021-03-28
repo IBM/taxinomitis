@@ -894,6 +894,11 @@
         "NOSOUND": "لا يمكن استخدام Python مع مشاريع الأصوات.",
         "LAUNCH": "شغّل Python في المتصفح",
         "LOCAL": "انسخ الرمز لتشغيله على جهاز الكمبيوتر الخاص بك",
+        "REPLIT": {
+            "TITLE": "Coding in replit",
+            "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Fork</span> to start editing your own copy of the code",
+            "GO": "Go to replit.com"
+        },
         "MODE": {
             "INTRO": "أين تريد كتابة وتشغيل رمز Python الخاص بك؟",
             "BROWSER": "يمكنك القيام بكل شيء في متصفح الويب ، مما يعني أنه لا داعي للقلق بشأن تثبيت أو إعداد Python ، أو أي من وحدات Python الخارجية التي ستحتاجها.",

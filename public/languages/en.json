@@ -907,6 +907,12 @@
         "LAUNCH": "Run Python in the browser",
         "LOCAL": "Copy code to run on your computer",
 
+        "REPLIT": {
+            "TITLE": "Coding in replit",
+            "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Fork</span> to start editing your own copy of the code",
+            "GO": "Go to replit.com"
+        },
+
         "MODE": {
             "INTRO": "Where would you like to write and run your Python code?",
             "BROWSER": "You can do everything in the web browser, which means you don't need to worry about installing or setting up Python, or any of the third-party Python modules you will need.",

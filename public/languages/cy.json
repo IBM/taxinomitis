@@ -894,6 +894,11 @@
         "NOSOUND": "Ni ellir defnyddio Python gyda phrosiectau synau.",
         "LAUNCH": "Rhedeg Python yn y porwr",
         "LOCAL": "Copi cod i'w redeg ar eich cyfrifiadur",
+        "REPLIT": {
+            "TITLE": "Coding in replit",
+            "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Fork</span> to start editing your own copy of the code",
+            "GO": "Go to replit.com"
+        },
         "MODE": {
             "INTRO": "Ble hoffech chi ysgrifennu a rhedeg eich cod Python?",
             "BROWSER": "Gallwch chi wneud popeth yn y porwr gwe, sy'n golygu nad oes angen i chi boeni am osod neu sefydlu Python, neu unrhyw un o'r modiwlau Python trydydd parti y bydd eu hangen arnoch chi.",

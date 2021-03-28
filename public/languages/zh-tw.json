@@ -907,6 +907,12 @@
         "LAUNCH": "在瀏覽器中執行Python",
         "LOCAL": "複製程式碼到你的電腦上執行",
 
+        "REPLIT": {
+            "TITLE": "Coding in replit",
+            "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Fork</span> to start editing your own copy of the code",
+            "GO": "Go to replit.com"
+        },
+
         "MODE": {
             "INTRO": "你想要在哪裡編寫和執行Python程式碼？",
             "BROWSER": "你可以在瀏覽器中進行所有操作！這代表你不需要擔心安裝或設定Python，包含任何第三方的Python模組。",

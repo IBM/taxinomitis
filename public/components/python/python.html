@@ -50,18 +50,15 @@
             <div class="modelstatusdetail">
                 <a ng-if="project.type === 'text'"
                     target="_blank" class="btn btn-primary"
-                    ng-click="openReplLink($event)"
-                    href="https://repl.it/@mlforkids/TextMLTemplate"
+                    ng-click="openReplLink('https://repl.it/@mlforkids/TextMLTemplate', $event)"
                     translate="PYTHON.LAUNCH"></a>
                 <a ng-if="project.type === 'images'"
                     target="_blank" class="btn btn-primary"
-                    ng-click="openReplLink($event)"
-                    href="https://repl.it/@mlforkids/ImagesMLTemplate"
+                    ng-click="openReplLink('https://repl.it/@mlforkids/ImagesMLTemplate', $event)"
                     translate="PYTHON.LAUNCH"></a>
                 <a ng-if="project.type === 'numbers'"
                     target="_blank" class="btn btn-primary"
-                    ng-click="openReplLink($event)"
-                    href="https://repl.it/@mlforkids/NumbersMLTemplate"
+                    ng-click="openReplLink('https://repl.it/@mlforkids/NumbersMLTemplate', $event)"
                     translate="PYTHON.LAUNCH"></a>
             </div>
             <div class="modelstatusdetail">
