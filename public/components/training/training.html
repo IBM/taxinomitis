@@ -125,7 +125,7 @@
                               ng-click="vm.deleteText(label, item, $index)"
                               ng-hide="reviewing"
                               ng-if="!item.isPlaceholder"></span>
-                        <mlsoundvis ng-if="item.audiodata" spectogram="item.audiodata" modelinfo="soundModelInfo" datatype="'sounds'"></mlsoundvis>
+                        <mlsoundvis ng-if="project.type === 'sounds' && item.audiodata" spectogram="item.audiodata" modelinfo="soundModelInfo" datatype="'sounds'"></mlsoundvis>
                         <div class="loading loadingtraining loadingsoundstraining" ng-hide="item.audiodata"></div>
                     </div>
                 </div>

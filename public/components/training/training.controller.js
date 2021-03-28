@@ -241,6 +241,15 @@
             })
             .then(
                 function (resp) {
+                    if ($scope.project.type === 'images' || $scope.project.type === 'imgtfjs') {
+                        try {
+                            // do this to encode any URL characters that might need it
+                            resp = new URL(resp).toString();
+                        }
+                        catch (err) {
+                            loggerService.debug('[ml4ktraining] unable to escape URL characters, using raw string', err);
+                        }
+                    }
                     vm.addConfirmedTrainingData(resp, label);
                 },
                 function() {

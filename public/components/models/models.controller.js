@@ -443,6 +443,14 @@
                     });
                     return scrollToNewItem('errors' + errId);
                 }
+
+                try {
+                    // do this to encode any URL characters that might need it
+                    testdata.image = new URL(testdata.image).toString();
+                }
+                catch (err) {
+                    loggerService.debug('[ml4kmodels] unable to escape URL characters, using raw string', err);
+                }
             }
             else if (project.type === 'numbers') {
                 testdata.numbers = project.fields.map(function (field) {

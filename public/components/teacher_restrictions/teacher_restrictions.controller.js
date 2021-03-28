@@ -46,6 +46,20 @@
                     usersService.getClassPolicy(profile)
                         .then(function (policy) {
                             vm.policy = policy;
+
+                            if (policy.supportedProjectTypes) {
+                                vm.policy.supportedProjectTypes = policy.supportedProjectTypes.map(function (typ) {
+                                    if (typ === 'imgtfjs') {
+                                        return 'images';
+                                    }
+                                    else if (typ === 'images') {
+                                        return 'images (cloud)';
+                                    }
+                                    else {
+                                        return typ;
+                                    }
+                                });
+                            }
                         })
                         .catch(function (err) {
                             displayAlert('errors', err.status, err.data);
