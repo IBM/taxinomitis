@@ -36,6 +36,11 @@
         }
 
         function downloadLog() {
+            logs.push('[ml4klog] site host ');
+            logs.push($window.location.href);
+            logs.push('\n[ml4klog] url parameters ');
+            logs.push(JSON.stringify(urlParms));
+
             var blob = new Blob(logs, { type: 'text/plain' });
             if ($window.navigator.msSaveOrOpenBlob) {
                 $window.navigator.msSaveBlob(blob, 'mlforkids.log');
@@ -56,6 +61,7 @@
         window.addEventListener('unhandledrejection', capture);
 
         var urlParms = $location.search();
+        $log.debug('[ml4klog] site host', $window.location.href);
         $log.debug('[ml4klog] url parameters', urlParms);
 
         if (urlParms && urlParms.debug) {
