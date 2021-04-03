@@ -27,6 +27,14 @@ describe('Utils - imageCheck', () => {
         imageCheck.verifyImage(VALID_PNG, 10000000).then(done);
     });
 
+    it('should verify a jpg on an http server', (done) => {
+        imageCheck.verifyImage(HTTP_ADDRESS, 10000000).then(done);
+    });
+
+    it('should verify a jpg on an http server with a redirect from https', (done) => {
+        imageCheck.verifyImage(HTTPS_REDIR_TO_HTTP, 10000000).then(done);
+    });
+
     it('should report a gif', (done) => {
         imageCheck.verifyImage(INVALID_GIF, 10000000)
             .then(() => {
@@ -99,3 +107,5 @@ const INVALID_GIF = 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/M
 const NON_EXISTENT = 'http://this.does.not.exist.com/mypic.jpg';
 const GIBBERISH = '12345';
 const SPECIALCHARS = '*';
+const HTTP_ADDRESS = 'http://image-net.org/static_files/index_files/logo.jpg';
+const HTTPS_REDIR_TO_HTTP = 'https://ibm.biz/Bdf2Bu';

@@ -37,6 +37,7 @@
             loggerService.debug('[ml4ksound] checking permissions');
             return $window.navigator.mediaDevices.getUserMedia({ audio : true, video : false })
                 .then(function (stream) {
+                    loggerService.debug('[ml4ksound] stopping each of the audio tracks');
                     stream.getTracks().forEach(function (track) {
                         track.stop();
                     });

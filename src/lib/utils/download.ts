@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import { IncomingHttpHeaders } from 'http';
 // external dependencies
 import * as request from 'request';
+import * as Agent from 'agentkeepalive';
 import * as httpstatus from 'http-status';
 import * as sharp from 'sharp';
 import * as probe from 'probe-image-size';
@@ -10,6 +11,11 @@ import * as probe from 'probe-image-size';
 import loggerSetup from './logger';
 
 const log = loggerSetup();
+
+
+const httpsAgentKeepAlive = new Agent.HttpsAgent();
+const httpAgentKeepAlive = new Agent();
+
 
 // number of times an image download has been attempted
 let numDownloads = 0;
@@ -50,6 +56,15 @@ const RESIZE_OPTIONS = {
 } as sharp.ResizeOptions;
 
 
+function getRequestOptions(url: string) {
+    return {
+        ...REQUEST_OPTIONS,
+        url,
+        agent : url.startsWith('https') ? httpsAgentKeepAlive : httpAgentKeepAlive,
+    };
+}
+
+
 /**
  * Downloads a file from the specified URL to the specified location on disk.
  *
@@ -74,7 +89,7 @@ export function file(url: string, targetFilePath: string, callback: IErrCallback
     try {
         numDownloads += 1;
 
-        request.get({ ...REQUEST_OPTIONS, url })
+        request.get(getRequestOptions(url))
             .on('response', (r) => {
                 // request doesn't emit errors for unsuccessful status codes
                 //  so we check for status codes that look like errors here
@@ -195,7 +210,7 @@ export function resize(
                                     //  original
                                     .toFile(targetFilePath, resolve);
 
-            request.get({ ...REQUEST_OPTIONS, url })
+            request.get(getRequestOptions(url))
                 .on('error', (err) => {
                     log.warn({ err, url }, 'Download fail (request)');
                     resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
