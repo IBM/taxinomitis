@@ -60,6 +60,8 @@ export async function storeImage(
     contents: Buffer,
 ): Promise<string | undefined>
 {
+    verifyCosClient();
+
     const objectDefinition: IBMCosSDK.S3.PutObjectRequest = {
         Bucket: BUCKET,
         Key: keys.get(spec),
@@ -77,6 +79,8 @@ export async function storeSound(
     contents: number[],
 ): Promise<string | undefined>
 {
+    verifyCosClient();
+
     const objectDefinition: IBMCosSDK.S3.PutObjectRequest = {
         Bucket: BUCKET,
         Key: keys.get(spec),
@@ -89,6 +93,8 @@ export async function storeSound(
 
 
 export async function getImage(spec: Types.ObjectSpec): Promise<Types.Image> {
+    verifyCosClient();
+
     const objectDefinition: IBMCosSDK.S3.GetObjectRequest = {
         Bucket: BUCKET,
         Key: keys.get(spec),
@@ -99,6 +105,8 @@ export async function getImage(spec: Types.ObjectSpec): Promise<Types.Image> {
 }
 
 export async function getSound(spec: Types.ObjectSpec): Promise<Types.Sound> {
+    verifyCosClient();
+
     const objectDefinition: IBMCosSDK.S3.GetObjectRequest = {
         Bucket: BUCKET,
         Key: keys.get(spec),
@@ -131,6 +139,12 @@ export function deleteClass(spec: Types.ClassSpec): Promise<void> {
 }
 
 
+
+function verifyCosClient() {
+    if (!cos) {
+        throw new Error('Cloud object storage is currently unavailable for training data');
+    }
+}
 
 
 
