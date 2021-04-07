@@ -390,6 +390,9 @@
                 else if (lang.indexOf('ru') === 0) {
                     lang = 'ru';
                 }
+                else if (lang.indexOf('ro') === 0) {
+                    lang = 'ro';
+                }
                 else if (lang.trim() === '') {
                     lang = 'en';
                 }
