@@ -152,21 +152,6 @@
                                     baiduSearchUrl.searchParams.has('objurl'))
                                 {
                                     data = baiduSearchUrl.searchParams.get('objurl');
-
-                                    // special case - weird URL encoding in some baidu search responses
-                                    if (data.indexOf('https://gimg2.baidu.com/image_search/src=') === 0) {
-                                        data = data.replace('https://gimg2.baidu.com/image_search/src=',
-                                                            'https://gimg2.baidu.com/image_search?src=');
-                                    }
-
-                                    baiduSearchUrl = new URL(data);
-                                    if (baiduSearchUrl &&
-                                        baiduSearchUrl.searchParams &&
-                                        baiduSearchUrl.searchParams.has &&
-                                        baiduSearchUrl.searchParams.has('src'))
-                                    {
-                                        data = baiduSearchUrl.searchParams.get('src');
-                                    }
                                 }
                             }
                         }
@@ -188,6 +173,22 @@
                         var imageUrlCheck = src.match(IMG_URL_REGEX);
                         if (imageUrlCheck) {
                             data = src;
+                        }
+                    }
+                    if (data) {
+                        // special case - weird URL encoding in some baidu search responses
+                        if (data.indexOf('https://gimg2.baidu.com/image_search/src=') === 0) {
+                            data = data.replace('https://gimg2.baidu.com/image_search/src=',
+                                                'https://gimg2.baidu.com/image_search?src=');
+                        }
+
+                        var baiduImageSearchUrl = new URL(data);
+                        if (baiduImageSearchUrl &&
+                            baiduImageSearchUrl.searchParams &&
+                            baiduImageSearchUrl.searchParams.has &&
+                            baiduImageSearchUrl.searchParams.has('src'))
+                        {
+                            data = baiduImageSearchUrl.searchParams.get('src');
                         }
                     }
                 }
