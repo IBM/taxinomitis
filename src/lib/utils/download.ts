@@ -2,19 +2,16 @@
 import * as fs from 'fs';
 import { IncomingHttpHeaders } from 'http';
 // external dependencies
-import * as request from 'request';
-import * as Agent from 'agentkeepalive';
+import * as requestcore from 'request';
 import * as httpstatus from 'http-status';
 import * as sharp from 'sharp';
 import * as probe from 'probe-image-size';
 // local dependencies
+import * as request from './request';
 import loggerSetup from './logger';
 
 const log = loggerSetup();
 
-
-const httpsAgentKeepAlive = new Agent.HttpsAgent();
-const httpAgentKeepAlive = new Agent();
 
 
 // number of times an image download has been attempted
@@ -56,12 +53,10 @@ const RESIZE_OPTIONS = {
 } as sharp.ResizeOptions;
 
 
-function getRequestOptions(url: string) {
-    return {
-        ...REQUEST_OPTIONS,
-        url,
-        agent : url.startsWith('https') ? httpsAgentKeepAlive : httpAgentKeepAlive,
-    };
+
+interface CustomError extends Error {
+    canReturn?: boolean;
+    code?: string;
 }
 
 
@@ -72,6 +67,54 @@ function getRequestOptions(url: string) {
  * @param targetFilePath  - writes to
  */
 export function file(url: string, targetFilePath: string, callback: IErrCallback): void {
+    // first attempt
+    performFileDownload(url, targetFilePath, (err) => {
+        if (err) {
+            const reqError = err as CustomError;
+
+            // something went wrong - check if the problem is retriable
+            if (err.message && request.isTimeoutErrorCode(reqError.code || err.message)) {
+
+                // will retry after brief pause
+                log.error({ url, code : err.message, numDownloads, numErrors }, 'Retrying download');
+                return setTimeout(() => {
+
+                    // second attempt
+                    performFileDownload(url, targetFilePath, (retryErr) => {
+                        if (retryErr) {
+                            // failed after second attempt
+                            return reportDownloadFailure(url, retryErr, callback);
+                        }
+
+                        // second attempt was successful
+                        log.error({ url }, 'retrying seemed to help');
+                        callback();
+                    });
+                }, 500);
+            }
+
+            // problem does not look retriable - report failure immediately
+            return reportDownloadFailure(url, reqError, callback);
+        }
+        else {
+            // first attempt successful
+            callback();
+        }
+    });
+}
+
+function reportDownloadFailure(url: string, err: CustomError, callback: IErrCallback): void {
+    if (err.canReturn) {
+        log.debug({ err, url, numDownloads, numErrors }, 'download failure (for recognized reason)');
+        callback(err);
+    }
+    else {
+        log.error({ err, url, numDownloads, numErrors }, 'download failure');
+        callback(new Error(ERRORS.DOWNLOAD_FAIL + url));
+    }
+}
+
+function performFileDownload(url: string, targetFilePath: string, callback: IErrCallback): void {
 
     // local inner function used to avoid calling callback multiple times
     let resolved = false;
@@ -89,39 +132,46 @@ export function file(url: string, targetFilePath: string, callback: IErrCallback
     try {
         numDownloads += 1;
 
-        request.get(getRequestOptions(url))
+        const opts = { ...REQUEST_OPTIONS, url };
+        request.getStreaming(opts)
             .on('response', (r) => {
                 // request doesn't emit errors for unsuccessful status codes
                 //  so we check for status codes that look like errors here
                 const problem = recognizeCommonProblems(r, url);
                 if (problem) {
-                    resolve(problem);
+                    const customErr = problem as CustomError;
+                    customErr.canReturn = true;
+
+                    resolve(customErr);
                     return r.destroy();
                 }
             })
             .on('error', (err) => {
                 numErrors += 1;
-
-                log.error({ err, url, numDownloads, numErrors }, 'request get fail');
-                resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
+                log.debug({ err, url }, 'request get fail');
+                resolve(err);
             })
             .pipe(writeStream);
     }
     catch (err) {
-        log.error({ err, url }, 'Failed to download file');
-        resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
+        log.debug({ err, url }, 'Failed to download file');
+        resolve(err);
     }
 }
 
 
 
-function recognizeCommonProblems(response: request.Response, url: string): Error | undefined
+function recognizeCommonProblems(response: requestcore.Response, url: string): Error | undefined
 {
     if (response.statusCode >= 400) {
         if (response.statusCode === httpstatus.FORBIDDEN ||
             response.statusCode === httpstatus.UNAUTHORIZED)
         {
             return new Error(safeGetHost(url) + ERRORS.DOWNLOAD_FORBIDDEN);
+        }
+        else if (response.statusCode === httpstatus.NOT_FOUND)
+        {
+            return new Error(ERRORS.DOWNLOAD_FAIL + url);
         }
 
         numErrors += 1;
@@ -210,7 +260,7 @@ export function resize(
                                     //  original
                                     .toFile(targetFilePath, resolve);
 
-            request.get(getRequestOptions(url))
+            request.getStreaming({ ...REQUEST_OPTIONS, url })
                 .on('error', (err) => {
                     log.warn({ err, url }, 'Download fail (request)');
                     resolve(new Error(ERRORS.DOWNLOAD_FAIL + url));
@@ -248,7 +298,7 @@ export function resizeUrl(url: string, width: number, height: number): Promise<B
                                     return resolve(buff);
                                 });
 
-        request.get({ ...REQUEST_OPTIONS, url })
+        request.getStreaming({ ...REQUEST_OPTIONS, url })
             .on('error', (err) => {
                 log.warn({ err, url }, 'Download fail');
                 return reject(new Error(ERRORS.DOWNLOAD_FAIL + url));

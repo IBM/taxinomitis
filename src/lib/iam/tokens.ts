@@ -1,15 +1,12 @@
 // external dependencies
-import * as request from 'request-promise';
 import * as httpStatus from 'http-status';
-import * as Agent from 'agentkeepalive';
 // local dependencies
 import * as Types from './iam-types';
+import * as request from '../utils/request';
 import * as constants from '../utils/constants';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
-
-const agentKeepAlive = new Agent.HttpsAgent();
 
 
 
@@ -24,11 +21,10 @@ export async function getAccessToken(apikey: string): Promise<Types.BluemixToken
             apikey,
         },
         json : true,
-        agent : agentKeepAlive,
     };
 
     try {
-        const body = await request.post('https://iam.bluemix.net/identity/token', req);
+        const body = await request.post('https://iam.bluemix.net/identity/token', req, true);
 
         const expirySeconds = body.expires_in;
         const expiryMs = expirySeconds * 1000;

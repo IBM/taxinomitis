@@ -1,7 +1,5 @@
 // external dependencies
-import * as request from 'request-promise';
 import * as httpStatus from 'http-status';
-import * as Agent from 'agentkeepalive';
 import { v1 as uuid } from 'uuid';
 import * as _ from 'lodash';
 // local dependencies
@@ -10,11 +8,11 @@ import * as iam from '../iam';
 import * as DbObjects from '../db/db-types';
 import * as TrainingObjects from './training-types';
 import * as notifications from '../notifications/slack';
+import * as request from '../utils/request';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
 
-const agentKeepAlive = new Agent.HttpsAgent();
 
 
 export const ERROR_MESSAGES = {
@@ -336,7 +334,7 @@ export async function deleteClassifierFromBluemix(
 
     try {
         const url = credentials.url + '/v1/workspaces/' + classifierId;
-        await request.delete(url, req);
+        await request.del(url, req);
     }
     catch (err) {
         if (err.statusCode === httpStatus.NOT_FOUND) {
@@ -494,7 +492,7 @@ async function submitTrainingToConversation(
             body : training,
         };
 
-        const body = await request.post(url, req);
+        const body = await request.post(url, req, false);
 
         // check that we have timestamps, or create our own otherwise
         const created = body.created ? new Date(body.created) : new Date();
@@ -561,7 +559,7 @@ export async function testClassifier(
     };
 
     try {
-        const body = await request.post(credentials.url + '/v1/workspaces/' + classifierId + '/message', req);
+        const body = await request.post(credentials.url + '/v1/workspaces/' + classifierId + '/message', req, true);
         if (body.intents.length === 0) {
             const project = await store.getProject(projectid);
             if (project) {
@@ -789,7 +787,6 @@ async function createBaseRequest(credentials: TrainingObjects.BluemixCredentials
             json : true,
             gzip : true,
             timeout : 30000,
-            agent : agentKeepAlive,
         };
         return Promise.resolve(req);
     }
@@ -809,7 +806,6 @@ async function createBaseRequest(credentials: TrainingObjects.BluemixCredentials
             json : true,
             gzip : true,
             timeout : 30000,
-            agent : agentKeepAlive,
         };
         return req;
     }
@@ -843,7 +839,6 @@ interface ConversationRequestBase {
     readonly json: true;
     readonly gzip: true;
     readonly timeout: number;
-    readonly agent: Agent;
 }
 
 interface LegacyConvRequest extends ConversationRequestBase {

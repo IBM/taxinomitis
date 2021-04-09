@@ -1,11 +1,11 @@
 // external dependencies
-import * as request from 'request-promise';
 import * as httpStatus from 'http-status';
 // local dependencies
 import * as store from '../db/store';
 import * as Objects from '../db/db-types';
 import * as TrainingObjects from './training-types';
 import * as openwhisk from '../utils/openwhisk';
+import * as request from '../utils/request';
 import * as env from '../utils/env';
 import loggerSetup from '../utils/logger';
 
@@ -92,7 +92,7 @@ export async function testClassifier(
 
     let body: { [classname: string]: number };
     try {
-        body = await request.post(url, req);
+        body = await request.post(url, req, true);
     }
     catch (err) {
         if (err.statusCode === httpStatus.NOT_FOUND) {
@@ -105,7 +105,7 @@ export async function testClassifier(
 
             const classifier = await trainClassifier(project);
             if (classifier.status === 'Available') {
-                body = await request.post(url, req);
+                body = await request.post(url, req, true);
             }
             else {
                 log.error({ classifier, projectid }, 'Failed to create missing classifier for test');
@@ -147,7 +147,7 @@ export async function deleteClassifier(studentid: string, tenantid: string, proj
     };
 
     const url = process.env[env.NUMBERS_SERVICE] + '/api/models';
-    await request.delete(url, req);
+    await request.del(url, req);
 }
 
 
@@ -178,7 +178,7 @@ async function submitTraining(
     const url = process.env[env.NUMBERS_SERVICE] + '/api/models';
 
     try {
-        await request.post(url, req);
+        await request.post(url, req, true);
     }
     catch (err) {
         log.error({ req, err, tenantid, projectid }, 'Failed to train numbers classifier');
@@ -310,7 +310,7 @@ async function getVisualisationFromOpenWhisk(project: Objects.Project): Promise<
     };
 
     try {
-        const response = await request.post(serverlessRequest);
+        const response = await request.post(url, serverlessRequest, true);
 
         return response;
     }

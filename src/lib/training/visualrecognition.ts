@@ -1,6 +1,5 @@
 // external dependencies
 import * as fs from 'fs';
-import * as request from 'request-promise';
 import * as httpStatus from 'http-status';
 import { v1 as uuid } from 'uuid';
 // local dependencies
@@ -14,6 +13,7 @@ import * as downloader from '../utils/download';
 import * as downloadAndZip from '../utils/downloadAndZip';
 import * as constants from '../utils/constants';
 import * as notifications from '../notifications/slack';
+import * as request from '../utils/request';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -543,7 +543,7 @@ export async function deleteClassifierFromBluemix(
 
     try {
         const url = credentials.url + '/v3/classifiers/' + encodeURIComponent(classifierId);
-        await request.delete(url, req);
+        await request.del(url, req);
     }
     catch (err) {
         if (err.statusCode === httpStatus.NOT_FOUND) {
@@ -585,7 +585,7 @@ export async function testClassifierFile(
     const url = credentials.url + '/v3/classify';
 
     try {
-        const body: VisualRecogApiResponsePayloadClassifyFile = await request.post(url, req);
+        const body: VisualRecogApiResponsePayloadClassifyFile = await request.post(url, req, true);
         if (body.images &&
             body.images.length > 0 &&
             body.images[0].classifiers &&
@@ -844,7 +844,7 @@ async function submitTrainingToVisualRecognition(
     };
 
     try {
-        const body = await request.post(url, req);
+        const body = await request.post(url, req, false);
 
         log.info({ body }, 'Response from creating visual recognition classifier');
 

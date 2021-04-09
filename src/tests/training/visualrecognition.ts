@@ -5,6 +5,7 @@
 // tslint:disable:max-line-length
 
 import { v1 as uuid } from 'uuid';
+import { Agent } from 'http';
 import * as fs from 'fs';
 import * as assert from 'assert';
 import * as sinon from 'sinon';
@@ -50,6 +51,8 @@ describe('Training - Visual Recognition', () => {
     let setTimeoutStub: sinon.SinonStub;
 
     let downloadStub: sinon.SinonStub<[downloadAndZip.ImageDownload[]], Promise<string>>;
+
+    const fakeAgent = sinon.match.any as unknown;
 
     const TESTTENANT: DbTypes.ClassTenant = {
         id: 'TESTTENANT',
@@ -320,6 +323,7 @@ describe('Training - Visual Recognition', () => {
                 qs : { version : '2016-05-20', api_key : 'userpass' },
                 headers : { 'user-agent' : 'machinelearningforkids', 'X-Watson-Learning-Opt-Out': 'true' },
                 timeout : 120000, gzip : true, json : true,
+                agent: fakeAgent as Agent,
             }));
             assert(deleteStoreStub.calledWith(goodClassifier.id));
             assert(resetExpiredScratchKeyStub.called);
@@ -346,6 +350,7 @@ describe('Training - Visual Recognition', () => {
                 qs : { version : '2016-05-20', api_key : 'userpass' },
                 headers : { 'user-agent' : 'machinelearningforkids', 'X-Watson-Learning-Opt-Out': 'true' },
                 timeout : 120000, gzip : true, json : true,
+                agent: fakeAgent as Agent,
             }));
             assert(deleteStoreStub.calledWith(unknownClassifier.id));
             assert(resetExpiredScratchKeyStub.called);

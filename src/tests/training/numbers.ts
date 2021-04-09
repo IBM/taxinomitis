@@ -1,6 +1,7 @@
 /*eslint-env mocha */
 
 import * as assert from 'assert';
+import { Agent } from 'http';
 import * as sinon from 'sinon';
 import * as coreReq from 'request';
 import * as request from 'request-promise';
@@ -24,6 +25,8 @@ describe('Training - numbers service', () => {
 
     let goodProject: string;
     let missingProject: string;
+
+    const fakeAgent = sinon.match.any as unknown;
 
     before(() => {
         postStub = sinon.stub(request, 'post');
@@ -119,6 +122,7 @@ describe('Training - numbers service', () => {
                     projectid : project.id,
                 },
                 json : true,
+                agent: fakeAgent as Agent,
             }));
 
             keys = await store.findScratchKeys(USERID, project.id, CLASSID);
@@ -245,6 +249,8 @@ describe('Training - numbers service', () => {
 
             const expectedCall = sinon.match((call) => {
                 call.body.data = call.body.data.sort(sortFn);
+                assert(call.agent);
+                delete call.agent;
 
                 try {
                     assert.deepStrictEqual(call, {
@@ -280,7 +286,7 @@ describe('Training - numbers service', () => {
                     return false;
                 }
             });
-            assert(postStub.calledWith(sinon.match.any, expectedCall));
+            assert(postStub.calledWith(sinon.match.string, expectedCall));
 
             let keys = await store.findScratchKeys(USERID, project.id, CLASSID);
             assert.strictEqual(keys.length, 1);
@@ -322,6 +328,7 @@ describe('Training - numbers service', () => {
                 },
                 json : true,
                 gzip : true,
+                agent: fakeAgent as Agent,
             }));
 
             await store.deleteEntireProject(USERID, CLASSID, project);
@@ -337,6 +344,7 @@ describe('Training - numbers service', () => {
                     projectid : project.id,
                 },
                 json : true,
+                agent: fakeAgent as Agent,
             }));
 
             keys = await store.findScratchKeys(USERID, project.id, CLASSID);
