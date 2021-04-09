@@ -1,9 +1,9 @@
 // external dependencies
-import * as request from 'request-promise';
 import * as md5 from 'crypto-js/md5';
 // local dependencies
 import * as ScratchTypes from './scratchx-types';
 import * as urls from '../restapi/urls';
+import * as request from '../utils/request';
 
 
 // ---
@@ -21,22 +21,36 @@ function getBaseUrl(url: string): string {
     return url;
 }
 
+function checkUrlExists(url: string): Promise<void> {
+    return request.head(url, {})
+        .then(() => {
+            return;
+        });
+}
+
 function fetchMetadata(baseurl: string): Promise<ScratchTypes.TensorFlowJsMetadata> {
+    const url = baseurl + '/metadata.json';
     const options = {
-        uri: baseurl + '/metadata.json',
         qs: {
             'tfjs-format' : 'file'
         },
         json: true,
     };
-    return request(options)
+    return request.get(url, options)
         .then((resp) => {
             return resp;
+        })
+        .catch((err) => {
+            return {};
         });
 }
 
 export function getModelJsonUrl(modelinfo: ScratchTypes.ScratchTfjsExtension): string {
     return getBaseUrl(modelinfo.modelurl) + '/model.json';
+}
+
+function verifyModelJsonExists(modelinfo: ScratchTypes.ScratchTfjsExtension): Promise<void> {
+    return checkUrlExists(getModelJsonUrl(modelinfo));
 }
 
 export function getMetadata(modelinfo: ScratchTypes.ScratchTfjsExtension): Promise<ScratchTypes.TensorFlowJsMetadata> {
@@ -114,7 +128,7 @@ export function generateUrl(modelinfo: ScratchTypes.ScratchTfjsExtension): Promi
         modelinfo.modelurl && typeof modelinfo.modelurl === 'string' && modelinfo.modelurl.startsWith('http') &&
         modelinfo.modeltype && typeof modelinfo.modeltype === 'string')
     {
-        return getMetadata(modelinfo)
+        return verifyModelJsonExists(modelinfo)
             .then(() => {
                 return urls.SCRATCHTFJS_EXTENSION.replace(':scratchkey', encode(modelinfo));
             });

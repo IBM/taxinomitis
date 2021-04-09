@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <link href="help-scratch.css" rel="stylesheet">
+        <title>Using TensorFlow.js models</title>
+    </head>
+    <body>
+        <div class="help-section">
+            <img class="help-block" valign="middle" src="../../static/images/scratch3-recognise-label-nolabelnames.png" alt="no label names">
+        </div>
+        <div class="help-section">
+            The recognise label block lets you use TensorFlow.js models in your Scratch projects. TensorFlow.js models often
+            include a file called <code>metadata.json</code> that has extra information about the model
+            (such as <a target="_blank" href="https://storage.googleapis.com/tm-model/ZvFOSdrzb/metadata.json">this one</a>).
+        </div>
+        <div class="help-section">
+            The model you are using doesn't seem to have a metadata.json file. That means <strong>the Scratch
+            blocks don't know the names of the labels the model has been trained to recognise</strong>.
+        </div>
+        <div class="help-section">
+            That means the <code>recognise (label)</code> block will return values like <code>label 10</code>, referring to
+            position of the label in the list of labels the model was trained to recognise. You will need to look up what
+            this means in the documentation for the model you are using.
+        </div>
+    </body>
+</html>

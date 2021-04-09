@@ -215,7 +215,7 @@ export async function getScratchTfjsExtension(scratchkey: string): Promise<strin
     const modelinfo = await scratchtfjs.getModelInfoFromScratchKey(scratchkey);
     const metadata = await scratchtfjs.getMetadata(modelinfo);
 
-    if (metadata.packageName === '@teachablemachine/pose') {
+    if (metadata && metadata.packageName === '@teachablemachine/pose') {
         modelinfo.modeltype = 'teachablemachinepose';
     }
 
@@ -224,10 +224,11 @@ export async function getScratchTfjsExtension(scratchkey: string): Promise<strin
     Mustache.parse(template);
     const rendered = Mustache.render(template, {
         projectid   : modelinfo.id,
-        projectname : metadata.modelName ? escapeProjectName(metadata.modelName, 3) : 'ML model',
-        labels      : metadata.labels ? metadata.labels.map((name, idx) => {
+        projectname : metadata && metadata.modelName ? escapeProjectName(metadata.modelName, 3) : 'ML model',
+        labels      : metadata && metadata.labels ? metadata.labels.map((name, idx) => {
             return { name, idx };
         }) : [],
+        haslabels   : metadata && metadata.labels && metadata.labels.length > 0,
         modelurl    : scratchtfjs.getModelJsonUrl(modelinfo),
         modeltype   : modelinfo.modeltype,
     });

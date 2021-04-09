@@ -36,6 +36,12 @@ class MachineLearningTfjs {
 
         this.nextClassifyRequest = 1;
         this.classifyRequests = {};
+
+        {{^haslabels}}
+        postMessage({
+            mlforkids: 'mlforkids-tfjs-nolabelnames-help'
+        });
+        {{/haslabels}}
     }
 
 
@@ -105,9 +111,10 @@ class MachineLearningTfjs {
                             menu: 'statuses'
                         }
                     }
-                },
+                }
 
-                {
+                {{#haslabels}}
+                ,{
                     opcode: 'labelname',
                     blockType: Scratch.BlockType.REPORTER,
                     text: '[LABEL]',
@@ -119,6 +126,7 @@ class MachineLearningTfjs {
                         }
                     }
                 }
+                {{/haslabels}}
             ],
 
             menus: {
