@@ -1992,6 +1992,14 @@
             "IMAGENET_3": "It has been trained to recognize photos of <a href='https://storage.googleapis.com/download.tensorflow.org/data/ImageNetLabels.txt'>one-thousand common objects</a>. The machine learning model is based on MobileNet (a ML model designed for mobile devices, so it doesn't need much computing power).",
             "IMAGENET_4": "It has been trained to recognize photos, and won't recognize cartoons or drawings very well."
         },
+        "QNA": {
+            "TITLE": "Question Answering",
+            "QNA_1": "This model can be used to find answers to questions.",
+            "QNA_2": "It gives you a block that will look for the answer to a question in some text that you give it.",
+            "QNA_3": "It is a type of machine learning model called <a href='https://github.com/google-research/bert'>BERT</a> which is useful for projects with text.",
+            "QNA_4": "It has been trained using a set of questions and answers from Wikipedia articles collected by Stanford University called '<a href='https://rajpurkar.github.io/SQuAD-explorer'>SQuAD</a>'.",
+            "QNA_5": "This is a complex model, so you might find that it is slow and needs a lot of memory on your computer!"
+        },
         "IDEAS": {
             "IDEAS_1": "Are there other machine learning models you would like to be able to use in your Scratch projects?",
             "IDEAS_2": "Let me know by asking in the <a href='https://groups.google.com/d/forum/mlforkids'>ML for Kids forum</a>."

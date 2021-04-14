@@ -30,7 +30,7 @@ export const ERROR_MESSAGES = {
                          '"the Watson Assistant service is currently rate limiting their API key"',
     MODEL_NOT_FOUND : 'Your machine learning model could not be found on the training server.',
     TEXT_TOO_LONG : 'text cannot be longer than 2048 characters',
-    SERVICE_ERROR : 'The Watson Assistant service that runs your machine learning model reported an expected error',
+    SERVICE_ERROR : 'The Watson Assistant service that runs your machine learning model reported an unexpected error',
     SKILL_IN_USE : 'Machine Learning for Kids is not allowed to delete this Watson Assistant workspace because ' +
                    'it is being used. Please delete it from IBM Cloud.',
 };

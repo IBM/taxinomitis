@@ -1992,6 +1992,14 @@
             "IMAGENET_3": "此模型已經過<a href='https://storage.googleapis.com/download.tensorflow.org/data/ImageNetLabels.txt'>一千多個常見物品</a>的辨識訓練。模型雛形建立於MobileNet（一種為了移動裝置設計的機器學習模型服務，不需要大量的運算）",
             "IMAGENET_4": "這被設計用來辨識照片，因此無法很好的辨識卡通或繪畫的影像"
         },
+        "QNA": {
+            "TITLE": "Question Answering",
+            "QNA_1": "This model can be used to find answers to questions.",
+            "QNA_2": "It gives you a block that will look for the answer to a question in some text that you give it.",
+            "QNA_3": "It is a type of machine learning model called <a href='https://github.com/google-research/bert'>BERT</a> which is useful for projects with text.",
+            "QNA_4": "It has been trained using a set of questions and answers from Wikipedia articles collected by Stanford University called '<a href='https://rajpurkar.github.io/SQuAD-explorer'>SQuAD</a>'.",
+            "QNA_5": "This is a complex model, so you might find that it is slow and needs a lot of memory on your computer!"
+        },
         "IDEAS": {
             "IDEAS_1": "您是否希望在Scratch專案中使用其他機器學習模型？",
             "IDEAS_2": "透過<a href='https://groups.google.com/d/forum/mlforkids'>兒童機器學習論壇</a>讓我知道吧！"
