@@ -40,7 +40,7 @@ function fetchMetadata(baseurl: string): Promise<ScratchTypes.TensorFlowJsMetada
         .then((resp) => {
             return resp;
         })
-        .catch((err) => {
+        .catch(() => {
             return {};
         });
 }
