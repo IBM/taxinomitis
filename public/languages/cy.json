@@ -1093,6 +1093,15 @@
             },
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chameleon.pdf"
         },
+        "QUIZSHOW": {
+            "TITLE": "Quiz Show",
+            "SUMMARY": "Make a game show player that can answer questions on a topic of your choice",
+            "DESCRIPTION": "Use a computer that has been trained to find answers to questions in documents.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-quizshow.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-quizshow.pdf"
+            }
+        },
         "MAILMANMAX": {
             "TITLE": "Postmon Max",
             "SUMMARY": "Dysgu cyfrifiadur i gydnabod llawysgrifen",

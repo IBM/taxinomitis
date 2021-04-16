@@ -41,6 +41,10 @@
             'WORKSHEETS.CHAMELEON.WORKSHEET_1.URL',
             'WORKSHEETS.CHAMELEON.TEACHERSNOTES_URL',
 
+            'WORKSHEETS.QUIZSHOW.TITLE', 'WORKSHEETS.QUIZSHOW.SUMMARY', 'WORKSHEETS.QUIZSHOW.DESCRIPTION',
+            'WORKSHEETS.QUIZSHOW.WORKSHEET_1.URL',
+            'WORKSHEETS.QUIZSHOW.TEACHERSNOTES_URL',
+
             'WORKSHEETS.MAILMANMAX.TITLE', 'WORKSHEETS.MAILMANMAX.SUMMARY', 'WORKSHEETS.MAILMANMAX.DESCRIPTION',
             'WORKSHEETS.MAILMANMAX.WORKSHEET_1.URL',
             'WORKSHEETS.MAILMANMAX.TEACHERSNOTES_URL',
@@ -269,6 +273,22 @@
                             description : translations['WORKSHEETS.SNAP.WORKSHEET_2.DESCRIPTION'],
                             worksheet : translations['WORKSHEETS.SNAP.WORKSHEET_2.URL'],
                             resources : translations['WORKSHEETS.SNAP.WORKSHEET_2.RESOURCES']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.QUIZSHOW.TITLE'],
+                    summary : translations['WORKSHEETS.QUIZSHOW.SUMMARY'],
+                    description : translations['WORKSHEETS.QUIZSHOW.DESCRIPTION'],
+                    difficulty : 'Beginner',
+                    type : 'text',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-quizshow.png',
+                    tags : [ 'question answering' ],
+                    teachersnotes : translations['WORKSHEETS.QUIZSHOW.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.QUIZSHOW.WORKSHEET_1.URL']
                         }
                     ]
                 },
