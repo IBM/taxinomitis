@@ -1281,7 +1281,7 @@
         "LOCATELARRY": {
             "TITLE": "Localizează-l pe Larry",
             "SUMMARY": "Învățați un computer să găsească ceva într-o imagine",
-            "DESCRIPTION": "Creați un joc în stilul \„ Unde este Wally? \” în Scratch și învățați computerul să vă găsească personajul.",
+            "DESCRIPTION": "Creați un joc în stilul \"Unde este Wally?\" în Scratch și învățați computerul să vă găsească personajul.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-locatelarry.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf"
