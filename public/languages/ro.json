@@ -995,78 +995,78 @@
         "LAUNCH": "Open in Scratch 3"
     },
     "WORKSHEETS": {
-        "TITLE": "Machine learning projects",
+        "TITLE": "Proiecte de învățare automată",
 
-        "INTRO_1": "These projects are downloadable step-by-step guides, with explanations and colour screenshots for students to follow.",
-        "INTRO_2": "Each project is a stand-alone activity, written to last for a single lesson, and will guide children to create a game or interactive project that demonstrates a real-world use of artificial intelligence and machine learning.",
-        "INTRO_3": "Suggestions for new worksheets, suggestions of improvements to any of the worksheets, or contributions of new project worksheets, are all very welcome.",
+        "INTRO_1": "Aceste proiecte sunt ghiduri descărcabile pas cu pas, cu explicații și capturi de ecran color pe care elevii trebuie să le urmeze.",
+        "INTRO_2": "Fiecare proiect este o activitate autonomă, scrisă pentru a dura o singură lecție și îi va îndruma pe copii să creeze un joc sau un proiect interactiv care să demonstreze o utilizare reală a inteligenței artificiale și a învățării automate.",
+         "INTRO_3": "Sugestii pentru noi foi de lucru, sugestii de îmbunătățire a oricăreia dintre foile de lucru sau contribuții de noi foi de lucru pentru proiecte, toate sunt foarte binevenite.",
 
         "TYPES": {
-            "TITLE": "Recognising:",
-            "ALL": "All project types",
+            "TITLE": "Recunoașterea:",
+            "ALL": "Toate tipurile de proiecte",
 
-            "PREFIX": "Train a computer to recognise ",
+            "PREFIX": "Antrenează un computer pentru a recunoaște ",
 
             "TEXT": "text",
-            "IMAGES": "images",
-            "NUMBERS": "numbers",
-            "SOUNDS": "sounds",
-            "FACES": "faces"
+            "IMAGES": "imagini",
+            "NUMBERS": "numere",
+            "SOUNDS": "sunete",
+            "FACES": "fete"
         },
 
         "LEVELS": {
-            "TITLE": "Difficulty:",
-            "ALL": "All difficulties",
-            "BEGINNER": "Beginner projects",
-            "INTERMEDIATE": "Intermediate projects",
-            "ADVANCED": "Advanced projects"
+            "TITLE": "Dificultate:",
+            "ALL": "Toate dificultățile",
+            "BEGINNER": "Proiecte pentru începători",
+            "INTERMEDIATE": "Proiecte intermediare",
+            "ADVANCED": "Proiecte avansate"
         },
 
-        "DOWNLOAD": "Download",
+        "DOWNLOAD": "Descarca",
 
         "DOWNLOADS": {
             "AUDIENCE": {
-                "TEACHERS": "For teachers:",
-                "STUDENTS": "For students:"
+                "TEACHERS": "Pentru profesori:",
+                "STUDENTS": "Pentru studenti:"
             },
             "GUIDANCE": {
-                "TITLE": "Download guidance for teachers",
-                "DETAIL": "This sheet contains information for teachers or coding group leaders to help them prepare, setup and supervise this project.",
-                "NOTES": "Notes:"
+                "TITLE": "Descărcați ghidul pentru profesori",
+                "DETAIL": "Această fișă conține informații pentru profesori sau liderii grupurilor de codificare pentru a-i ajuta să pregătească, să configureze și să supravegheze acest proiect.",
+                "NOTES": "Note:"
             },
             "WORKSHEET": {
-                "TITLE": "Download project worksheet",
-                "AUTHOR": "Worksheet provided by:"
+                "TITLE": "Descărcați foaia de lucru a proiectului",
+                "AUTHOR": "Foaie de lucru furnizată de:"
             },
             "RESOURCES": {
-                "TITLE": "Additional project resources",
-                "DETAIL": "You will also need to provide students with a printed copy of this file."
+                "TITLE": "Resurse suplimentare pentru proiect",
+                "DETAIL": "De asemenea, va trebui să oferiți studenților o copie tipărită a acestui fișier."
             }
         },
 
         "MAKETYPES": {
-            "ALL": "All make types",
+            "ALL": "Toate tipurile de limbaj de programare",
 
-            "SCRATCH": "Scratch projects",
-            "PYTHON": "Python projects",
-            "APPINVENTOR": "App Inventor projects",
+            "SCRATCH": "Proiect Scratch",
+            "PYTHON": "Proiect Python",
+            "APPINVENTOR": "Proiect App Inventor",
 
-            "SCRATCH_WORKSHEET": "Worksheet for making project in Scratch",
-            "PYTHON_WORKSHEET": "Worksheet for making project in Python",
-            "APPINVENTOR_WORKSHEET": "Worksheet for making project in App Inventor"
+            "SCRATCH_WORKSHEET": "Foaie de lucru pentru realizarea proiectuluiin Scratch",
+            "PYTHON_WORKSHEET": "Foaie de lucru pentru realizarea proiectului in Python",
+            "APPINVENTOR_WORKSHEET": "Foaie de lucru pentru realizarea proiectului in App Inventor"
         },
 
         "NO_WORKSHEETS": {
-            "NO_MATCHES": "There aren't any project worksheets that match those filters.",
-            "MAKE_YOUR_OWN": "You could adapt some of the existing worksheets or come up with a new one.",
-            "CONTRIBUTE": "If you do, please consider <a href='https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions'>contributing it for others to use</a>."
+            "NO_MATCHES": "Nu există foi de lucru pentru proiecte care să corespundă acestor filtre.",
+            "MAKE_YOUR_OWN": "Puteți adapta unele dintre foile de lucru existente sau puteți veni cu una nouă.",
+            "CONTRIBUTE": "Dacă faceți acest lucru, vă rugăm să luați în considerare <a href='https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions'> contribuind la utilizarea acestuia de către alții </a>."
         },
 
 
         "DESCRIBETHEGLASS": {
-            "TITLE": "Describe the glass",
-            "SUMMARY": "Teach a computer to predict your answers",
-            "DESCRIPTION": "Create a game in Scratch that learns when you describe a glass as half-full or half-empty.",
+            "TITLE": "Descrieți paharul",
+            "SUMMARY": "Învățați un computer să vă prezică răspunsurile",
+            "DESCRIPTION": "Creați un joc în Scratch care învață când descrieți un pahar pe jumătate plin sau pe jumătate gol.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-describetheglass.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-describetheglass.pdf"
@@ -1074,59 +1074,59 @@
         },
         "SMARTCLASSROOM": {
             "TITLE": "Smart Classroom",
-            "SUMMARY": "Teach a computer to recognise the meaning of your commands",
-            "DESCRIPTION": "Create a smart assistant in Scratch that lets you control virtual devices.",
+            "SUMMARY": "Învață un computer să recunoască semnificația comenzilor tale",
+            "DESCRIPTION": "Creați un asistent inteligent în Scratch care vă permite să controlați dispozitivele virtuale.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-smartclassroom.pdf",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Full version of the project, where the students make a non-machine learning version first",
+                "DESCRIPTION": "Versiunea completă a proiectului, în care elevii realizează mai întâi o versiune non-machine learning",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Shorter version of the project, where the students only make a machine learning version of the assistant",
+                "DESCRIPTION": "Versiune mai scurtă a proiectului, în care elevii realizează doar o versiune de învățare automată a asistentului",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-easy.pdf"
             },
             "WORKSHEET_3": {
-                "DESCRIPTION": "Quick simplified version of the project, ideal for use as a first introduction to the tool",
+                "DESCRIPTION": "Versiune simplificată rapidă a proiectului, ideală pentru utilizare ca primă introducere a instrumentului",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-tryitnow.pdf"
             }
         },
         "MAKEMEHAPPY": {
-            "TITLE": "Make me happy",
-            "SUMMARY": "Teach a computer to recognise compliments and insults",
-            "DESCRIPTION": "Create a character in Scratch that smiles if you say nice things to it and cries if you say mean things to it.",
+            "TITLE": "Fa-ma fericit",
+            "SUMMARY": "Învățați un computer să recunoască complimente și insulte",
+            "DESCRIPTION": "Creați un personaj în Scratch care zâmbește dacă îi spuneți lucruri drăguțe și plânge dacă spuneți lucruri rele.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-makemehappy.pdf",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Full version of the Scratch project, where the students make a non-machine learning version first",
+                "DESCRIPTION": "Versiunea completă a proiectului Scratch, unde elevii realizează mai întâi o versiune non-machine learning",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Shorter version of the Scratch project, where the students only make a machine learning version",
+                "DESCRIPTION": "Versiune mai scurtă a proiectului Scratch, în care elevii realizează doar o versiune de învățare automată",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-easy.pdf"
             },
             "WORKSHEET_3": {
-                "DESCRIPTION": "Python project - for making the project using Python",
+                "DESCRIPTION": "Proiect Python - pentru realizarea proiectului folosind Python",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-makemehappy-python.pdf"
             }
         },
         "SNAP": {
             "TITLE": "Snap!",
-            "SUMMARY": "Teach a computer to recognise what icons look like",
-            "DESCRIPTION": "Make a card game in Scratch that learns to recognise pictures of your card.",
+            "SUMMARY": "Învățați un computer să recunoască aspectul pictogramelor",
+            "DESCRIPTION": "Faceți un joc de cărți în Scratch care învață să recunoască imaginile cărții dvs.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-snap.pdf",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Full version of the project, where the students make their own cards that they will train the computer to recognise",
+                "DESCRIPTION": "Versiunea completă a proiectului, în care elevii își fac propriile cărți pe care vor instrui computerul să le recunoască",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Shorter version of the project, providing children with pre-made cards that you will need to print out, to save the students time having to make them",
+                "DESCRIPTION": "Versiune mai scurtă a proiectului, oferind copiilor carduri prefabricate pe care va trebui să le imprimați, pentru a economisi timp studenților care trebuie să le facă",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-snap-easy.pdf",
                 "RESOURCES": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/resources-snap-easy.pdf"
             }
         },
         "CHAMELEON": {
-            "TITLE": "Chameleon",
-            "SUMMARY": "Teach a computer to recognise colours",
-            "DESCRIPTION": "Make a chameleon in Scratch that changes colour to match its background.",
+            "TITLE": "Cameleon",
+            "SUMMARY": "Învățați un computer să recunoască culorile",
+            "DESCRIPTION": "Faceți un cameleon în Scratch care schimbă culoarea pentru a se potrivi cu fundalul său.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chameleon.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf"
@@ -1134,8 +1134,8 @@
         },
         "QUIZSHOW": {
             "TITLE": "Quiz Show",
-            "SUMMARY": "Make a game show player that can answer questions on a topic of your choice",
-            "DESCRIPTION": "Use a computer that has been trained to find answers to questions in documents.",
+            "SUMMARY": "Creați un jucător intr-un joc tip spectacol care poate răspunde la întrebări pe un subiect la alegere",
+            "DESCRIPTION": "Folosiți un computer care a fost instruit pentru a găsi răspunsuri la întrebări în documente.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-quizshow.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-quizshow.pdf"
@@ -1143,8 +1143,8 @@
         },
         "MAILMANMAX": {
             "TITLE": "Mailman Max",
-            "SUMMARY": "Teach a computer to recognise handwriting",
-            "DESCRIPTION": "Make a postal sorting office in Scratch that can recognise handwritten postcodes on envelopes.",
+            "SUMMARY": "Învățați un computer să recunoască scrierea de mână",
+            "DESCRIPTION": "Creați un birou de sortare poștală în Scratch care poate recunoaște coduri poștale scrise de mână pe plicuri.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-mailmanmax.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mailmanmax.pdf"
@@ -1160,50 +1160,50 @@
             }
         },
         "CARORCUP": {
-            "TITLE": "Car or cup",
-            "SUMMARY": "Teach a computer to recognise pictures of objects",
-            "DESCRIPTION": "Train the computer to be able to sort photos into groups.",
+            "TITLE": "Mașină sau cupă",
+            "SUMMARY": "Învățați un computer să recunoască imagini de obiecte",
+            "DESCRIPTION": "Instruiți computerul pentru a putea sorta fotografiile în grupuri.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-carorcup.pdf",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Individual version of the project, where each student trains their own machine learning model independently",
+                "DESCRIPTION": "Versiune individuală a proiectului, în care fiecare student își formează propriul model de învățare automată în mod independent",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Group version of the project, where students in the class work together to train a shared machine learning model",
+                "DESCRIPTION": "Versiunea de grup a proiectului, în care elevii din clasă lucrează împreună pentru a instrui un model comun de învățare automată",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-carorcup-crowd.pdf"
             }
         },
         "FACELOCK": {
-            "TITLE": "Face Lock",
-            "SUMMARY": "Teach a computer to recognise faces",
-            "DESCRIPTION": "Make a phone in Scratch that unlocks if it recognises your face.",
+            "TITLE": "Blocare facială",
+            "SUMMARY": "Învățați un computer să recunoască fețele",
+            "DESCRIPTION": "Creați un telefon în Scratch care se deblochează dacă vă recunoaște fața.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-facelock.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facelock.pdf"
             }
         },
         "JOURNEYTOSCHOOL": {
-            "TITLE": "Journey to school",
-            "SUMMARY": "Teach a computer to make predictions",
-            "DESCRIPTION": "Train the computer to be able to predict how you travel to school in the morning.",
+            "TITLE": "Călătorie la școală",
+            "SUMMARY": "Învățați un computer să facă predicții",
+            "DESCRIPTION": "Instruiți computerul pentru a putea prezice modul în care călătoriți la școală dimineața.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-journeytoschool.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-journeytoschool.pdf"
             }
         },
         "SHYPANDA": {
-            "TITLE": "Shy Panda",
-            "SUMMARY": "Teach a computer to recognise webcam pictures",
-            "DESCRIPTION": "Make a dancing panda that gets shy and stops dancing if it sees you looking.",
+            "TITLE": "Panda cel timid",
+            "SUMMARY": "Învățați un computer să recunoască imaginile cu webcam",
+            "DESCRIPTION": "Faceți un panda dansator care devine timid și nu mai dansează dacă vă vede că vă utați la el.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shypanda.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda.pdf"
             }
         },
         "VIRTUALPET": {
-            "TITLE": "Virtual Pet",
-            "SUMMARY": "Teach a computer to recognise webcam pictures",
-            "DESCRIPTION": "Train the computer to recognise what you're doing so you can look after a virtual pet.",
+            "TITLE": "Animal de companie virtual",
+            "SUMMARY": "Învățați un computer să recunoască imaginile cu webcam",
+            "DESCRIPTION": "Antrenează computerul să recunoască ceea ce faci, astfel încât să poți avea grijă de un animal de companie virtual.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-virtualpet.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-virtualpet.pdf"
@@ -1211,8 +1211,8 @@
         },
         "PACMAN": {
             "TITLE": "Pac-Man",
-            "SUMMARY": "Teach a computer to play a game",
-            "DESCRIPTION": "Create a Pac-Man game in Scratch that learns how to avoid the ghost.",
+            "SUMMARY": "Învață un computer să joace un joc",
+            "DESCRIPTION": "Creați un joc Pac-Man în Scratch care învață cum să evitați fantoma.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-pacman.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pacman.pdf"
@@ -1220,175 +1220,175 @@
         },
         "CHATBOTS": {
             "TITLE": "Chatbots",
-            "SUMMARY": "Teach a computer to recognise questions",
-            "DESCRIPTION": "Create a chatbot that can answer questions about a topic of your choice.",
+            "SUMMARY": "Învățați un computer să recunoască întrebările",
+            "DESCRIPTION": "Creați un chatbot care poate răspunde la întrebări despre un subiect la alegere.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chatbots.pdf",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Scratch project - for making a chat bot in Scratch",
+                "DESCRIPTION": "Proiect Scratch - pentru crearea unui bot de chat în Scratch",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Python project - for making a chat bot using Python",
+                "DESCRIPTION": "Proiect Python - pentru crearea unui bot de chat folosind Python",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chatbots-python.pdf"
             }
         },
         "TOURISTINFO": {
             "TITLE": "Tourist Info",
-            "SUMMARY": "Teach a computer to make recommendations",
-            "DESCRIPTION": "Create a mobile app in Scratch that recommends tourist attractions based on people's interests.",
+            "SUMMARY": "Învățați un computer să facă recomandări",
+            "DESCRIPTION": "Creați o aplicație mobilă în Scratch care recomandă atracții turistice pe baza intereselor oamenilor.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-touristinfo.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-touristinfo.pdf"
             }
         },
         "SORTINGHAT": {
-            "TITLE": "Sorting Hat",
-            "SUMMARY": "Teach a computer to recognise use of language",
-            "DESCRIPTION": "Create a Sorting Hat like in Harry Potter, that puts you in a school House based on what you say.",
+            "TITLE": "Sortare pălărie",
+            "SUMMARY": "Învață un computer să recunoască utilizarea limbajului",
+            "DESCRIPTION": "Creați o pălărie de sortare ca în Harry Potter, care să vă plaseze într-o casă școlară pe baza a ceea ce spuneți.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-sortinghat.pdf",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Individual version of the project, where each student trains their own machine learning model independently",
+                "DESCRIPTION": "Versiune individuală a proiectului, în care fiecare student își formează propriul model de învățare automată în mod independent",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Group version of the project, where students in the class work together to train a shared machine learning model",
+                "DESCRIPTION": "Versiunea de grup a proiectului, în care elevii din clasă lucrează împreună pentru a instrui un model comun de învățare automată",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat-crowd.pdf"
             }
         },
         "ROCKPAPERSCISSORS": {
-            "TITLE": "Rock, Paper, Scissors",
-            "SUMMARY": "Teach a computer to recognise shapes",
-            "DESCRIPTION": "Make a Rock, Paper, Scissors game in Scratch that learns to recognise hand shapes.",
+            "TITLE": "Piatră, hârtie, foarfece",
+            "SUMMARY": "Învață un computer să recunoască formele",
+            "DESCRIPTION": "Faceți un joc Piatră, hârtie, foarfece în Scratch care învață să recunoască formele mâinilor.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-rockpaperscissors.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-rockpaperscissors.pdf"
             }
         },
         "JUDGEABOOK": {
-            "TITLE": "Judge a book",
-            "SUMMARY": "Teach a computer to recognise visual style",
-            "DESCRIPTION": "Make a game in Scratch to test whether it really is possible to judge a book by its cover.",
+            "TITLE": "Judecă o carte",
+            "SUMMARY": "Învățați un computer să recunoască stilul vizual",
+            "DESCRIPTION": "Faceți un joc în Scratch pentru a testa dacă este cu adevărat posibil să judecați o carte după coperta sa.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook.pdf",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Full version of the project, where children make a game to compete against the computer to recognise books",
+                "DESCRIPTION": "Versiunea completă a proiectului, unde copiii fac un joc pentru a concura împotriva computerului pentru a recunoaște cărțile",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Simplified version of the project, where children get the computer to recognise books",
+                "DESCRIPTION": "Versiune simplificată a proiectului, unde copiii obțin computerul pentru a recunoaște cărțile",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf"
             }
         },
         "LOCATELARRY": {
-            "TITLE": "Locate Larry",
-            "SUMMARY": "Teach a computer to find something in a picture",
-            "DESCRIPTION": "Make a \"Where's Wally?\"-style game in Scratch, and teach the computer to find your character.",
+            "TITLE": "Localizează-l pe Larry",
+            "SUMMARY": "Învățați un computer să găsească ceva într-o imagine",
+            "DESCRIPTION": "Creați un joc în stilul \„ Unde este Wally? \” în Scratch și învățați computerul să vă găsească personajul.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-locatelarry.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf"
             }
         },
         "FOOLED": {
-            "TITLE": "Fooled",
-            "SUMMARY": "Teach a computer to recognise fruit",
-            "DESCRIPTION": "Learn about how computers can be confused and can make mistakes if they're trained badly.",
+            "TITLE": "Prostul",
+            "SUMMARY": "Învățați un computer să recunoască fructele",
+            "DESCRIPTION": "Aflați despre modul în care computerele pot fi prostite și pot face greșeli dacă sunt instruite prost.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-fooled.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-fooled.pdf"
             }
         },
         "SCHOOLLIBRARY": {
-            "TITLE": "School Library",
-            "SUMMARY": "Teach a computer to make recommendations",
-            "DESCRIPTION": "Create a school librarian in Scratch that suggests who a reading book might be suitable for.",
+            "TITLE": "Biblioteca scolii",
+            "SUMMARY": "Învățați un computer să facă recomandări",
+            "DESCRIPTION": "Creați un bibliotecar școlar în Scratch care să sugereze pentru cine ar putea fi potrivită o carte de lectură.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-schoollibrary.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf"
             }
         },
         "WHATTWITTERTHINKS": {
-            "TITLE": "What does Twitter think?",
-            "SUMMARY": "Teach a computer to measure public opinion",
-            "DESCRIPTION": "Create a sentiment analysis tool in Scratch to analyze discussion on Twitter.",
+            "TITLE": "Ce crede Twitter?",
+            "SUMMARY": "Învață un computer să măsoare opinia publică",
+            "DESCRIPTION": "Creați un instrument de analiză a sentimentelor în Scratch pentru a analiza discuțiile pe Twitter.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-whattwitterthinks.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
             }
         },
         "NOUGHTSANDCROSSES": {
-            "TITLE": "Noughts & Crosses",
-            "SUMMARY": "Teach a computer to play a game",
-            "DESCRIPTION": "Create a noughts and crosses game in Python that learns how to beat you.",
+            "TITLE": "Noughts & Crosses (X si 0)",
+            "SUMMARY": "Învață un computer să joace un joc",
+            "DESCRIPTION": "Creați un joc ICS și ZERO în Python care învață cum să vă învingă.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-noughtsandcrosses.pdf",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Classroom version, where each student makes the game themselves in Scratch",
+                "DESCRIPTION": "Versiune în clasă, în care fiecare elev face jocul în Scratch",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Classroom version, where each student makes the game themselves in Python",
+                "DESCRIPTION": "Versiune în clasă, în care fiecare elev face jocul în Python",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-python.pdf"
             },
             "WORKSHEET_3": {
-                "DESCRIPTION": "Demo version, for events like Science Fairs where each child has a minute or two to try something",
+                "DESCRIPTION": "Versiune demonstrativă, pentru evenimente precum Târgurile științifice în care fiecare copil are un minut sau două pentru a încerca ceva",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-noughtsandcrosses-event.pdf"
             }
         },
         "TOPTRUMPS": {
             "TITLE": "Top Trumps",
-            "SUMMARY": "Teach a computer to play a game",
-            "DESCRIPTION": "Train a computer to be able to play the Top Trumps card game in Scratch.",
+            "SUMMARY": "Învață un computer să joace un joc",
+            "DESCRIPTION": "Antrenează un computer pentru a putea juca jocul de cărți Top Trumps în Scratch.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-toptrumps.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-toptrumps.pdf"
             }
         },
         "HEADLINES": {
-            "TITLE": "Headlines",
-            "SUMMARY": "Test the computer's ability to recognise use of language",
-            "DESCRIPTION": "Train a computer to recognise headlines from national newspapers.",
+            "TITLE": "Titluri",
+            "SUMMARY": "Testați capacitatea computerului de a recunoaște utilizarea limbajului",
+            "DESCRIPTION": "Instruiți un computer pentru a recunoaște titlurile din ziarele naționale.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
             }
         },
         "NEWSPAPERSHELVES": {
-            "TITLE": "Newspaper shelves",
-            "SUMMARY": "Test the computer's ability to recognise use of language",
-            "DESCRIPTION": "Train a computer to recognise headlines from national newspapers.",
+            "TITLE": "Rafturi pentru ziare",
+            "SUMMARY": "Testați capacitatea computerului de a recunoaște utilizarea limbajului",
+            "DESCRIPTION": "Instruiți un computer pentru a recunoaște titlurile din ziarele naționale.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines-easy.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-easy.pdf"
             }
         },
         "HEADLINETESTING": {
-            "TITLE": "Headline testing",
-            "SUMMARY": "Test the computer's ability to recognise use of language",
-            "DESCRIPTION": "Create a testing tool in Scratch to measure how good a machine learning model is.",
+            "TITLE": "Testarea titlului",
+            "SUMMARY": "Testați capacitatea computerului de a recunoaște utilizarea limbajului",
+            "DESCRIPTION": "Creați un instrument de testare în Scratch pentru a măsura cât de bun este un model de învățare automată.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
             }
         },
         "FINDIT": {
-            "TITLE": "Find It!",
-            "SUMMARY": "Teach a computer to recognise pictures",
-            "DESCRIPTION": "Make a hide-and-seek game for your mobile phone.",
+            "TITLE": "Gaseste-l!",
+            "SUMMARY": "Învățați un computer să recunoască imagini",
+            "DESCRIPTION": "Faceți un joc De-a v-ați ascunselea pentru telefonul dvs. mobil.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-findit.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-findit.pdf"
             }
         },
         "ALIENLANGUAGE": {
-            "TITLE": "Alien Language",
-            "SUMMARY": "Teach a computer to recognize sounds",
-            "DESCRIPTION": "Make an alien in Scratch that learns to recognize an alien language.",
+            "TITLE": "Limbaj marțian",
+            "SUMMARY": "Învățați un computer să recunoască sunetele",
+            "DESCRIPTION": "Creați un marțian în Scratch care învață să recunoască un limbaj străin.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-alienlanguage.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-alienlanguage.pdf"
             }
         },
         "SECRETCODE": {
-            "TITLE": "Secret Code",
-            "SUMMARY": "Teach a computer to recognize speech",
-            "DESCRIPTION": "Train a computer to understand secret code words to guide a spy.",
+            "TITLE": "Cod secret",
+            "SUMMARY": "Învățați un computer să recunoască vorbirea",
+            "DESCRIPTION": "Instruiți un computer pentru a înțelege cuvintele codului secret pentru a ghida un spion.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-secretcode.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-secretcode.pdf"
@@ -1396,8 +1396,8 @@
         },
         "JARGONBUSTER": {
             "TITLE": "Jargon Buster",
-            "SUMMARY": "Teach a computer to listen for words",
-            "DESCRIPTION": "Make a project in Scratch that displays the meaning of words you say.",
+            "SUMMARY": "Învață un computer să asculte cuvinte",
+            "DESCRIPTION": "Faceți un proiect în Scratch care afișează semnificația cuvintelor pe care le spuneți.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-jargonbuster.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-jargonbuster.pdf"
@@ -1405,8 +1405,8 @@
         },
         "TITANIC": {
             "TITLE": "Titanic",
-            "SUMMARY": "Teach a computer to predict outcomes",
-            "DESCRIPTION": "Create a Python program that can predict who survived the sinking of the Titanic.",
+            "SUMMARY": "Învățați un computer să prezică rezultatele",
+            "DESCRIPTION": "Creați un program Python care poate prezice cine a supraviețuit scufundării Titanicului.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-titanic.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
@@ -1414,8 +1414,8 @@
         },
         "ZOMBIEESCAPE": {
             "TITLE": "Zombie Escape!",
-            "SUMMARY": "Teach a computer to make predictions",
-            "DESCRIPTION": "Train a computer to help you escape from the zombie horde.",
+            "SUMMARY": "Învățați un computer să facă predicții",
+            "DESCRIPTION": "Antrenează un computer pentru a te ajuta să scapi de hoarda de zombi.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-zombieescape.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-zombieescape.pdf"
@@ -1423,8 +1423,8 @@
         },
         "PHISHING": {
             "TITLE": "Phishing",
-            "SUMMARY": "Teach a computer to recognize phishing web links",
-            "DESCRIPTION": "Create a Python program that can predict if a URL is legitimate.",
+            "SUMMARY": "Învățați un computer să recunoască legăturile web de phishing",
+            "DESCRIPTION": "Creați un program Python care poate prezice dacă o adresă URL este legitimă.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-phishing.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-phishing.pdf"
@@ -1432,16 +1432,16 @@
         },
         "KIWIORSTOAT": {
             "TITLE": "Kiwi or Stoat",
-            "SUMMARY": "Teach a computer to recognize photos of animals",
-            "DESCRIPTION": "Make a project in Scratch that can recognize animals in photos from conservation sites.",
+            "SUMMARY": "Învățați un computer să recunoască fotografii cu animale",
+            "DESCRIPTION": "Realizați un proiect în Scratch care poate recunoaște animalele din fotografiile de pe siturile de conservare.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-kiwiorstoat.pdf"
             }
         },
         "INKBLOTS": {
-            "TITLE": "Ink blots",
-            "SUMMARY": "Teach a computer to recognize photos of objects",
-            "DESCRIPTION": "Recreate an MIT research project and learn about how AI systems are described in the news.",
+            "TITLE": "Pete de cerneală",
+            "SUMMARY": "Învățați un computer să recunoască fotografiile obiectelor",
+            "DESCRIPTION": "Recreați un proiect de cercetare MIT și aflați cum sunt descrise sistemele de IA în știri.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-inkblots.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-inkblots.pdf"
@@ -1449,44 +1449,44 @@
         },
         "FACEFINDER": {
             "TITLE": "Face Finder",
-            "SUMMARY": "Use a computer that has been trained to recognize faces",
-            "DESCRIPTION": "Make a video filter in Scratch to turn your face into a cartoon.",
+            "SUMMARY": "Folosiți un computer care a fost instruit pentru a recunoaște fețele",
+            "DESCRIPTION": "Creați un filtru video în Scratch pentru a vă transforma fața într-un desen animat.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-facefinder.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facefinder.pdf"
             }
         },
         "EMOJIMASK": {
-            "TITLE": "Emoji Mask",
-            "SUMMARY": "Use a computer that has been trained to recognize faces",
-            "DESCRIPTION": "Make a video filter in Scratch to add an emoji mask to your face.",
+            "TITLE": "Mască Emoji",
+            "SUMMARY": "Folosiți un computer care a fost instruit pentru a recunoaște fețele",
+            "DESCRIPTION": "Creați un filtru video în Scratch pentru a adăuga o mască emoji pe față.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-emojimask.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-emojimask.pdf"
             }
         },
         "LASEREYES": {
-            "TITLE": "Laser Eyes",
-            "SUMMARY": "Teach a computer to recognize speech and faces",
-            "DESCRIPTION": "Make a voice-activated laser eyes game in Scratch.",
+            "TITLE": "Ochi cu laser",
+            "SUMMARY": "Învățați un computer să recunoască vorbirea și fețele",
+            "DESCRIPTION": "Creați un joc cu ochi cu laser activat prin voce în Scratch.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-lasereyes.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-lasereyes.pdf"
             }
         },
         "SEMAPHORES": {
-            "TITLE": "Semaphore Quiz",
-            "SUMMARY": "Teach a computer to recognize speech and poses",
-            "DESCRIPTION": "Make a voice-activated semaphores game you play by moving your arms.",
+            "TITLE": "Quiz de semafor",
+            "SUMMARY": "Învățați un computer să recunoască vorbirea și poza",
+            "DESCRIPTION": "Creați un joc de semafor cu voce activat pe care îl jucați mișcând brațele.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-semaphores.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-semaphores.pdf"
             }
         },
         "HANDGESTURES": {
-            "TITLE": "Hand Gestures",
-            "SUMMARY": "Teach a computer to recognize shapes",
-            "DESCRIPTION": "Make a webcam project in Scratch that can recognize shapes you make with your hands.",
+            "TITLE": "Gesturi cu mâna",
+            "SUMMARY": "Învățați un computer să recunoască formele",
+            "DESCRIPTION": "Realizați un proiect de cameră web în Scratch care poate recunoaște formele pe care le faceți cu mâinile.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-handgestures.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-handgestures.pdf"
