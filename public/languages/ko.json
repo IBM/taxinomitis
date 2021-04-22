@@ -1622,6 +1622,16 @@
         "HANDPOSE": {
             "mlforkids.handpose.getposition": "find [POSITION] of [LANDMARK]"
         },
+        "QNA": {
+            "mlforkids.qna.getTopAnswer": "find answer to [QUESTION] in [PASSAGE]"
+        },
+        "TOXICITY": {
+            "mlforkids.toxicity.confidencetrue": "probability that [TEXT] is [LABEL]",
+            "mlforkids.toxicity.confidencefalse": "probability that [TEXT] is NOT [LABEL]"
+        },
+        "WIKIPEDIA": {
+            "mlforkids.wikipedia.getpagetext": "Wikipedia text about [TOPIC]"
+        },
         "IMAGE_BLOCKS": {
             "mlforkids.imageblocks.getCostumeImage": "모양",
             "mlforkids.imageblocks.getBackdropCostumeImage": "배경",
