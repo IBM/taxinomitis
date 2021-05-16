@@ -24,7 +24,7 @@
             fetchSiteAlert({}, 'init');
 
             $rootScope.$on('authStateChange', fetchSiteAlert);
-            $interval(fetchSiteAlert, 600000, 0, true, 'timer');
+            $interval(fetchSiteAlert, 1800000, 0, true, 'timer');
         }
 
         function getAlerts(endpoint, tenant, userid) {

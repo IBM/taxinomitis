@@ -415,6 +415,10 @@ async function testModel(req: Express.Request, res: Express.Response) {
         if (err.message === conversation.ERROR_MESSAGES.SERVICE_ERROR) {
             return res.status(httpstatus.SERVICE_UNAVAILABLE).send({ error : err.message });
         }
+        if (err.message === visualrec.ERROR_MESSAGES.INVALID_URL) {
+            return res.status(httpstatus.BAD_REQUEST)
+                    .send({ error : 'The test image address is not a valid web address' });
+        }
 
         log.error({ err, body : req.body }, 'Test error');
         return errors.unknownError(res, err);

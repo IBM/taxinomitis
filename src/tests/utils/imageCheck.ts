@@ -64,7 +64,7 @@ describe('Utils - imageCheck', () => {
                 assert.fail('Should not accept that');
             })
             .catch((err) => {
-                assert.strictEqual(err.message, 'Unable to download image from ' + GIBBERISH);
+                assert.strictEqual(err.message, 'Not a valid web address');
                 done();
             });
     });
@@ -75,7 +75,7 @@ describe('Utils - imageCheck', () => {
                 assert.fail('Should not accept that');
             })
             .catch((err) => {
-                assert.strictEqual(err.message, 'Unable to download image from ' + SPECIALCHARS);
+                assert.strictEqual(err.message, 'Not a valid web address');
                 done();
             });
     });

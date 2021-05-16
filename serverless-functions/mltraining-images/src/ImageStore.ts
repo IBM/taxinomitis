@@ -71,7 +71,7 @@ export default class ImageStore {
             .catch((err) => {
                 let cause;
                 log('Failed to download image from store', imagespec, this.generateKey(imagespec), objectDefinition);
-                if (err.message === 'Missing credentials in config') {
+                if (err.message.indexOf('Missing credentials in config') >= 0) {
                     cause = 'auth';
                 }
                 else {

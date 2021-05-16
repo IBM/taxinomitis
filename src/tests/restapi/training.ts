@@ -611,7 +611,7 @@ describe('REST API - training', () => {
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.BAD_REQUEST)
                 .then((res) => {
-                    assert.deepStrictEqual(res.body, { error: 'Unable to download image from not a valid url' });
+                    assert.deepStrictEqual(res.body, { error: 'Not a valid web address' });
 
                     return store.deleteEntireProject(userid, classid, project);
                 });

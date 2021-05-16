@@ -76,7 +76,7 @@ export function file(url: string, targetFilePath: string, callback: IErrCallback
             if (err.message && request.isTimeoutErrorCode(reqError.code || err.message)) {
 
                 // will retry after brief pause
-                log.error({ url, code : err.message, numDownloads, numErrors }, 'Retrying download');
+                log.debug({ url, code : err.message, numDownloads, numErrors }, 'Retrying download');
                 return setTimeout(() => {
 
                     // second attempt
@@ -87,7 +87,7 @@ export function file(url: string, targetFilePath: string, callback: IErrCallback
                         }
 
                         // second attempt was successful
-                        log.error({ url }, 'retrying seemed to help');
+                        log.debug({ url }, 'retrying seemed to help');
                         callback();
                     });
                 }, 500);
@@ -169,7 +169,7 @@ function recognizeCommonProblems(response: requestcore.Response, url: string): E
         {
             return new Error(safeGetHost(url) + ERRORS.DOWNLOAD_FORBIDDEN);
         }
-        else if (response.statusCode === httpstatus.NOT_FOUND)
+        else if (response.statusCode === httpstatus.NOT_FOUND || response.statusCode === httpstatus.INTERNAL_SERVER_ERROR)
         {
             return new Error(ERRORS.DOWNLOAD_FAIL + url);
         }

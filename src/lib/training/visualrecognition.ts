@@ -14,6 +14,7 @@ import * as downloadAndZip from '../utils/downloadAndZip';
 import * as constants from '../utils/constants';
 import * as notifications from '../notifications/slack';
 import * as request from '../utils/request';
+import * as urlchecker from '../utils/urlchecker';
 import loggerSetup from '../utils/logger';
 
 const log = loggerSetup();
@@ -33,6 +34,7 @@ export const ERROR_MESSAGES = {
                          'Please stop now and let your teacher or group leader know that ' +
                          '"the Watson Visual Recognition service is currently rate limiting their API key"',
     NO_MODEL : 'Your machine learning model could not be found. Has it been deleted?',
+    INVALID_URL : 'Invalid URL for a test image'
 };
 
 
@@ -400,12 +402,18 @@ export async function getImageDownloadSpec(imageid: string, imageurl: string): P
         }
     }
     else {
-        const fromWeb: downloadAndZip.DownloadFromWeb = {
-            type : 'download',
-            imageid,
-            url : imageurl,
-        };
-        return Promise.resolve(fromWeb);
+        try {
+            const fromWeb: downloadAndZip.DownloadFromWeb = {
+                type : 'download',
+                imageid,
+                url : urlchecker.check(imageurl),
+            };
+            return Promise.resolve(fromWeb);
+        }
+        catch (err) {
+            log.debug({ err, imageurl }, 'Invalid URL received');
+            throw new Error(ERROR_MESSAGES.INVALID_URL);
+        }
     }
 }
 

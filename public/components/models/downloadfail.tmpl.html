@@ -9,7 +9,7 @@
             <md-card-content>
                 <div class="errdetail">
                     One of the images from your training data could not be downloaded, which
-                    prevented a machine learning model being created.
+                    prevented your machine learning model being created.
                 </div>
                 <div class="errdetail">
                     <img style="max-width: 100%" src="{{ location.url }}">
@@ -18,12 +18,10 @@
                     {{ location.url }}
                 </div>
                 <div class="errdetail">
-                    This might be a temporary problem, so you could try again if you like.
+                    {{ errordetails }}
                 </div>
                 <div class="errdetail">
-                    But if it keeps happening, and is stopping you from training a machine
-                    learning model, you could delete this image from your training data and
-                    carry on without it.
+                    {{ recommendation }}
                 </div>
                 <div class="errdetail" style="font-size: 1.1em;">
                     <strong>Would you like to delete this image?</strong>

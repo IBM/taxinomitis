@@ -23,7 +23,7 @@ describe('Create image training zip function', () => {
         }
 
 
-        it.only('dale', () => {
+        it('dale', () => {
             const wm = 'https://upload.wikimedia.org/wikipedia/commons/';
             const params: CreateZipParams = {
                 locations : [

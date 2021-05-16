@@ -14,7 +14,7 @@ const log = loggerSetup();
 /**
  * Cleanly shut down the application.
  */
-export function now(signal: 'SIGINT' | 'SIGTERM', server?: Server): void {
+export function now(signal: 'SIGINT' | 'SIGTERM' | 'TIMED', server?: Server): void {
     log.info({ signal }, 'Handling shutdown signal');
     gracefulServerShutdown(server)
         .then(() => {

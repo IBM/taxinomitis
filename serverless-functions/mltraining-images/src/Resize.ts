@@ -130,7 +130,7 @@ function handleError(err: any): HttpResponse {
     if (err.message === 'ESOCKETTIMEDOUT' || err.message === 'ETIMEDOUT') {
         return new HttpResponse({ error : 'Unable to download image from the website' }, BAD_REQUEST);
     }
-    if (err.errno === 'ENOTFOUND') {
+    if (err.code === 'ENOTFOUND') {
         return new HttpResponse({ error : 'Unable to download image from ' + err.hostname }, BAD_REQUEST);
     }
     if (err.code === 'ECONNRESET') {

@@ -386,6 +386,17 @@
                 controller : function ($scope) {
                     $scope.location = err.data.location;
 
+                    if (err.data.location.url.indexOf('https://lh3.googleusercontent.com/') === 0) {
+                        $scope.errordetails = 'Google has removed access to this image at this URL.';
+                        $scope.recommendation = 'You should delete this image from your training.';
+                    }
+                    else {
+                        $scope.errordetails = 'This might be a temporary problem, so you could try again if you like.';
+                        $scope.recommendation = 'But if it keeps happening, and is stopping you from training a machine ' +
+                                                'learning model, you could delete this image from your training data and ' +
+                                                'carry on without it.';
+                    }
+
                     $scope.hide = function() {
                         $mdDialog.hide();
                     };

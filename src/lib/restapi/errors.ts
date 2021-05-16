@@ -66,6 +66,10 @@ export function registerErrorHandling(app: Express.Application) {
             if (err.name === 'PayloadTooLargeError') {
                 return requestTooLarge(res);
             }
+            const expressErr = err as any;
+            if (expressErr.status === httpstatus.BAD_REQUEST) {
+                return missingData(res);
+            }
 
             log.error({ err, url : req.url }, 'Unhandled exception');
         }

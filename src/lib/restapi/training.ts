@@ -232,6 +232,7 @@ async function storeTraining(req: auth.RequestWithProject, res: Express.Response
             err.message === 'Number is too small' ||
             err.message === 'Number is too big' ||
             err.message === 'Missing required attributes' ||
+            err.message === imageCheck.ERROR_PREFIXES.INVALID_URL ||
             err.message.startsWith(imageCheck.ERROR_PREFIXES.BAD_TYPE) ||
             err.message.startsWith('Unable to download image from ') ||
             err.message.startsWith(imageCheck.ERROR_PREFIXES.TOO_BIG) ||

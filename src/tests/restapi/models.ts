@@ -1434,6 +1434,53 @@ describe('REST API - models', () => {
                 });
         });
 
+        it('should return errors getting invalid URLs ready for testing for imgtfjs models', async () => {
+            const classid = uuid();
+            const userid = uuid();
+            const projName = uuid();
+            const modelid = randomstring.generate({ length : 10 });
+
+            const project = await store.storeProject(userid, classid, 'imgtfjs', projName, 'en', [], false);
+            const projectid = project.id;
+
+            nextAuth0Userid = userid;
+            nextAuth0Role = 'student';
+            nextAuth0Class = classid;
+
+            function verifyInvalidURL(invalidurl: string) {
+                return request(testServer)
+                    .post('/api/classes/' + classid +
+                        '/students/' + userid +
+                        '/projects/' + projectid +
+                        '/models/' + modelid + '/label')
+                    .send({
+                        type : 'imgtfjs',
+                        image : invalidurl,
+                    })
+                    .expect('Content-Type', /json/)
+                    .expect(httpstatus.BAD_REQUEST)
+                    .then((res) => {
+                        assert.deepStrictEqual(res.body, {
+                            error : 'The test image address is not a valid web address',
+                        });
+                    });
+            }
+
+            return verifyInvalidURL('file:///C:/temp/images.jpg')
+                .then(() => {
+                    return verifyInvalidURL('This is not a URL');
+                })
+                .then(() => {
+                    return verifyInvalidURL('www.sorry.com');
+                })
+                .then(() => {
+                    return verifyInvalidURL('dhttps://something.com/image.png');
+                })
+                .then(() => {
+                    return store.deleteEntireUser(userid, classid);
+                });
+        });
+
         it('should return errors getting resources that are not valid images ready for testing for imgtfjs models', async () => {
             const classid = uuid();
             const userid = uuid();

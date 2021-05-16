@@ -66,8 +66,5 @@ store.init()
         });
 
         // start scheduled cleanup tasks
-        scheduledtasks.run();
+        scheduledtasks.run(server);
     });
-
-
-
