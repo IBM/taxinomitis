@@ -35,11 +35,8 @@ function verifyRole(student: Objects.UserMetadata, role: Objects.UserRole) {
     }
 }
 
-
-export async function getStudent(tenant: string, userid: string): Promise<Objects.Student> {
+export async function getStudentUsingToken(token: string, tenant: string, userid: string): Promise<Objects.Student> {
     try {
-        const token = await getBearerToken();
-
         const response: Objects.User = await auth0requests.getUser(token, userid);
 
         const student = response.app_metadata;
@@ -62,11 +59,16 @@ export async function getStudent(tenant: string, userid: string): Promise<Object
     }
 }
 
+export function getStudent(tenant: string, userid: string): Promise<Objects.Student> {
+    return getBearerToken()
+        .then((token) => {
+            return getStudentUsingToken(token, tenant, userid);
+        });
+}
 
-async function getStudents(tenant: string, page: number): Promise<Objects.Student[]> {
-    const token = await getBearerToken();
 
-    const students: Objects.User[] = await auth0requests.getUsers(token, tenant, page);
+async function getStudents(token: string, tenant: string, studentgroup: string | undefined, page: number): Promise<Objects.Student[]> {
+    const students: Objects.User[] = await auth0requests.getUsers(token, tenant, studentgroup, page);
 
     return students
         .filter((student) => {
@@ -82,21 +84,23 @@ async function getStudents(tenant: string, page: number): Promise<Objects.Studen
 }
 
 
-export async function getAllStudents(tenant: string): Promise<Objects.Student[]> {
+export async function getAllStudents(tenant: string, studentgroup: string | undefined): Promise<Objects.Student[]> {
     let page: number = 0;
     let allstudents: Objects.Student[] = [];
     let students: Objects.Student[] = [];
+
+    const token = await getBearerToken();
 
     // the maximum size of a class is 255 students, so the most times
     //  this will ever loop is 3 times. plus each student is very small,
     //  so the overall memory implication of this loop isn't as bad
     //  as it looks
 
-    students = await getStudents(tenant, page++);
+    students = await getStudents(token, tenant, studentgroup, page++);
 
     while (students.length === auth0requests.PAGE_SIZE) {
         allstudents = allstudents.concat(students);
-        students = await getStudents(tenant, page++);
+        students = await getStudents(token, tenant, studentgroup, page++);
     }
     allstudents = allstudents.concat(students);
 
@@ -106,7 +110,7 @@ export async function getAllStudents(tenant: string): Promise<Objects.Student[]>
 
 
 export async function getStudentsByUserId(tenant: string): Promise<{ [id: string]: Objects.Student }> {
-    const students = await getAllStudents(tenant);
+    const students = await getAllStudents(tenant, Objects.ALL_STUDENTS);
 
     const studentsIndexedById: {[id: string]: Objects.Student } = {};
 
@@ -147,7 +151,7 @@ async function createUser(newUserDetails: Objects.NewUser): Promise<Objects.User
     };
 }
 
-export function createStudent(tenant: string, username: string): Promise<Objects.UserCreds> {
+export function createStudent(tenant: string, username: string, studentgroup?: string): Promise<Objects.UserCreds> {
     return createUser({
         email : username + '@do-not-require-emailaddresses-for-students.com',
         username,
@@ -158,11 +162,12 @@ export function createStudent(tenant: string, username: string): Promise<Objects
         app_metadata : {
             role : 'student',
             tenant,
+            group : studentgroup,
         },
     });
 }
 
-export function createStudentWithPwd(tenant: string, username: string, password: string): Promise<Objects.UserCreds> {
+export function createStudentWithPwd(tenant: string, username: string, password: string, studentgroup?: string): Promise<Objects.UserCreds> {
     return createUser({
         email : username + '@do-not-require-emailaddresses-for-students.com',
         username, password,
@@ -172,6 +177,7 @@ export function createStudentWithPwd(tenant: string, username: string, password:
         app_metadata : {
             role : 'student',
             tenant,
+            group : studentgroup,
         },
     });
 }
@@ -209,11 +215,11 @@ export function createVerifiedTeacher(tenant: string, username: string, email: s
 
 
 export async function deleteStudent(tenant: string, userid: string) {
+    const token = await getBearerToken();
+
     // will verify the tenant matches the student
     //   throwing an exception if there is a problem
-    await getStudent(tenant, userid);
-
-    const token = await getBearerToken();
+    await getStudentUsingToken(token, tenant, userid);
 
     return auth0requests.deleteUser(token, userid);
 }
@@ -232,7 +238,7 @@ async function resetPassword(
 {
     // will verify the tenant matches the student
     //   throwing an exception if there is a problem
-    await getStudent(tenant, userid);
+    await getStudentUsingToken(token, tenant, userid);
 
     const user = await auth0requests.modifyUser(token, userid, { password });
 
@@ -313,13 +319,13 @@ function pause(delay: number): Promise<void> {
 
 
 export async function resetStudentPassword(tenant: string, userid: string): Promise<Objects.UserCreds> {
+    const token = await getBearerToken();
+
     const password = passphrases.generate();
 
     // will verify the tenant matches the student
     //   throwing an exception if there is a problem
-    await getStudent(tenant, userid);
-
-    const token = await getBearerToken();
+    await getStudentUsingToken(token, tenant, userid);
 
     const modifications = { password };
 
@@ -330,4 +336,97 @@ export async function resetStudentPassword(tenant: string, userid: string): Prom
         username : user.username,
         password,
     };
+}
+
+export async function addStudentsToGroup(tenant: string, userids: string[], studentgroup: string | undefined): Promise<Objects.User[]> {
+    const token = await getBearerToken();
+
+    return Promise.all(userids.map((userid) => {
+        return addStudentToGroup(token, tenant, userid, studentgroup);
+    }));
+}
+
+export async function addStudentToGroup(token: string, tenant: string, userid: string, studentgroup: string | undefined): Promise<Objects.User> {
+    // will verify the tenant matches the student
+    //   throwing an exception if there is a problem
+    await getStudentUsingToken(token, tenant, userid);
+
+    const modifications = {
+        app_metadata : {
+            group : studentgroup ? studentgroup : null,
+        },
+    };
+
+    const user = await auth0requests.modifyUser(token, userid, modifications);
+
+    return {
+        user_id : user.user_id,
+        username : user.username,
+        email : user.email,
+
+        logins_count : user.logins_count,
+        created_at : user.created_at,
+        app_metadata : user.app_metadata,
+    };
+}
+
+function teacherGroups(teacher: Objects.SupervisorInfo): string[] {
+    if (teacher &&
+        teacher.app_metadata &&
+        teacher.app_metadata.role === 'supervisor' &&
+        teacher.app_metadata.groups &&
+        Array.isArray(teacher.app_metadata.groups))
+    {
+        return teacher.app_metadata.groups;
+    }
+    return [];
+}
+
+export async function addGroupToClass(tenant: string, newgroup: string): Promise<void> {
+    if (newgroup !== Objects.ALL_STUDENTS && newgroup !== 'ungrouped') {
+        const token = await getBearerToken();
+
+        const teachers = await auth0requests.getClassSupervisors(token, tenant);
+        const groups: Set<string> = new Set();
+        for (const teacheruser of teachers) {
+            teacherGroups(teacheruser).forEach((existinggroup: string) => groups.add(existinggroup));
+        }
+
+        groups.add(newgroup);
+
+        const updateGroups: Objects.ClassGroupsModifications = {
+            app_metadata : {
+                groups : Array.from(groups),
+            },
+        };
+        for (const teacheruser of teachers) {
+            await auth0requests.modifyUser(token, teacheruser.user_id, updateGroups);
+        }
+    }
+}
+
+export async function removeGroupFromClass(tenant: string, grouptodelete: string): Promise<void> {
+    const token = await getBearerToken();
+
+    const students = await getStudents(token, tenant, grouptodelete, 0);
+    if (students.length > 0) {
+        throw new Error('Groups cannot be deleted while they still have students');
+    }
+
+    const teachers = await auth0requests.getClassSupervisors(token, tenant);
+    const groups: Set<string> = new Set();
+    for (const teacheruser of teachers) {
+        teacherGroups(teacheruser).forEach((existinggroup: string) => groups.add(existinggroup));
+    }
+
+    groups.delete(grouptodelete);
+
+    const updateGroups: Objects.ClassGroupsModifications = {
+        app_metadata : {
+            groups : Array.from(groups),
+        },
+    };
+    for (const teacheruser of teachers) {
+        await auth0requests.modifyUser(token, teacheruser.user_id, updateGroups);
+    }
 }

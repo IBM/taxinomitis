@@ -29,7 +29,6 @@
                 .then(returnData);
         }
 
-
         function createTeacher(username, email, notes) {
             var newteacher = {
                 username : username,
@@ -46,8 +45,8 @@
             return $http.delete('/api/classes/' + profile.tenant + '?confirm=true');
         }
 
-        function getStudentList(profile) {
-            return $http.get('/api/classes/' + profile.tenant + '/students')
+        function getStudentList(profile, group) {
+            return $http.get('/api/classes/' + profile.tenant + '/students?group=' + group)
                 .then(returnData);
         }
 
@@ -55,20 +54,22 @@
             return $http.delete('/api/classes/' + tenant + '/students/' + profile.id);
         }
 
-        function createStudent(username, tenant) {
+        function createStudent(userattrs, tenant) {
             var newstudent = {
-                username : username
+                username : userattrs.username,
+                group : userattrs.group
             };
 
             return $http.post('/api/classes/' + tenant + '/students', newstudent)
                 .then(returnData);
         }
 
-        function createStudents(tenant, prefix, number, password) {
+        function createStudents(tenant, prefix, number, password, group) {
             var bulkCreate = {
                 prefix : prefix,
                 number : number,
-                password : password
+                password : password,
+                group : group
             };
             return $http.put('/api/classes/' + tenant + '/students', bulkCreate)
                 .then(returnData);
@@ -90,6 +91,55 @@
                 .then(returnData);
         }
 
+        function addStudentsToGroup(userids, tenant, group) {
+            var students = userids.map(function (userid) {
+                return {
+                    op : 'replace',
+                    path : '/group',
+                    value : { group : group, user : userid }
+                };
+            });
+            return $http.patch('/api/classes/' + tenant + '/students', students)
+                .then(returnData);
+        }
+        function removeStudentsFromGroup(userids, tenant) {
+            var students = userids.map(function (userid) {
+                return {
+                    op : 'remove',
+                    path : '/group',
+                    value : { user : userid }
+                };
+            });
+            return $http.patch('/api/classes/' + tenant + '/students', students)
+                .then(returnData);
+        }
+
+        function deleteStudents(userids, tenant) {
+            var students = userids.map(function (userid) {
+                return {
+                    op : 'remove',
+                    path : '/students',
+                    value : { user : userid }
+                };
+            });
+            return $http.patch('/api/classes/' + tenant, students)
+                .then(returnData);
+        }
+
+        function createClassGroup(profile, groupname) {
+            var modification = [
+                { op : 'add', path : '/groups', value : groupname }
+            ];
+            return $http.patch('/api/classes/' + profile.tenant, modification)
+                .then(returnData);
+        }
+        function deleteClassGroup(profile, groupname) {
+            var modification = [
+                { op : 'remove', path : '/groups', value : groupname }
+            ];
+            return $http.patch('/api/classes/' + profile.tenant, modification)
+                .then(returnData);
+        }
 
         function getGeneratedPassword(tenant) {
             return $http.get('/api/classes/' + tenant + '/passwords')
@@ -147,10 +197,16 @@
             createStudent : createStudent,
             createStudents : createStudents,
             deleteStudent : deleteStudent,
+            deleteStudents : deleteStudents,
 
             resetStudentPassword : resetStudentPassword,
             resetStudentsPassword : resetStudentsPassword,
 
+            addStudentsToGroup : addStudentsToGroup,
+            removeStudentsFromGroup : removeStudentsFromGroup,
+
+            createClassGroup : createClassGroup,
+            deleteClassGroup : deleteClassGroup,
 
             deleteClass : deleteClass
         };

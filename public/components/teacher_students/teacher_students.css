@@ -2,7 +2,6 @@
     margin-left: auto;
     margin-right: auto;
     min-width: 80%;
-    margin-bottom: 4em;
 }
 
 .studentslist .odd {
@@ -37,7 +36,19 @@
     text-align: right;
 }
 
+.studentslist.studentslistcontrols {
+    border: thin #1864ab solid;
+    padding: 2em;
+    margin: 35px 1em 0 1em;
+}
 
+.studentslist.studentslistcontrols h5 {
+    margin-top: -5px;
+    margin-bottom: 20px;
+    margin-left: -10px;
+    padding-left: 0;
+    font-weight: bold;
+}
 
 .passworddisplaydialog {
     font-size: 2em;
