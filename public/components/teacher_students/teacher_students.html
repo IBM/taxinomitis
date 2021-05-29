@@ -11,7 +11,7 @@
 </div>
 <div ng-if="isAuthenticated && vm.profile.role === 'supervisor'" class="adminpage">
 
-    <div ng-if="!vm || !vm.students" class="loading"> </div>
+    <div ng-if="!vm || !vm.profile" class="loading"> </div>
 
     <div ng-repeat="error in vm.errors"
             class="alert alert-danger alert-dismissible pageheadermsg" role="alert"
@@ -29,50 +29,195 @@
         <strong translate="APP.WARNING"></strong> {{ warning.message }}
     </div>
 
-    <div ng-if="vm && vm.students">
-        <div class="newlabelbuttons">
-            <div class="newlabelbutton" style="margin-right: 1em; clear: initial;"
-                 ng-disabled="!vm || !vm.policy || !vm.policy.maxUsers || !vm.students || vm.students.length === vm.policy.maxUsers"
-                 ng-click="vm.createMultipleUsers($event)">
+    <div class="panel-group" ng-if="vm.profile" style="padding-bottom: 150px;">
+        <div class="newlabelbuttons" style="margin-right: 0">
+            <div class="newlabelbutton"
+                 ng-disabled="busy"
+                 ng-click="createStudentGroup($event)">
                 <div class="newlabelicon">+</div>
-                <div class="newlabellabel" translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.BUTTON"></div>
-            </div>
-            <div class="newlabelbutton" style="margin-right: 1em; clear: initial;"
-                 ng-click="vm.createUser($event)">
-                <div class="newlabelicon">+</div>
-                <div class="newlabellabel" translate="TEACHER.STUDENTMANAGEMENT.ADD"></div>
+                <div class="newlabellabel" translate="TEACHER.STUDENTMANAGEMENT.GROUPS.CREATE"></div>
             </div>
             <div class="alert alert-info pageheadermsg page-header-alert-info"
-                 ng-if="vm.students && vm.students.length === 0">
-                {{ 'TEACHER.STUDENTMANAGEMENT.CREATE_FIRST_STUDENT' | translate }}
+                 ng-if="!vm.profile.groups || vm.profile.groups.length === 0">
+                 {{ 'TEACHER.STUDENTMANAGEMENT.CREATE_FIRST_GROUP' | translate }}
                 <span class="glyphicon glyphicon-arrow-right"></span>
             </div>
         </div>
+        <div class="panel panel-default" ng-repeat="group in vm.profile.groups" style="margin-top: 15px;">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#group{{$index}}" target="_self" ng-click="collapsePanel(group)">
+                        <span ng-click="" ng-hide="isPanelCollapsed(group)" class="glyphicon glyphicon-chevron-right"></span>
+                        <span ng-click="" ng-if="isPanelCollapsed(group)" class="glyphicon glyphicon-chevron-down"></span>
+                        {{ 'TEACHER.STUDENTMANAGEMENT.GROUPS.LABEL' | translate }}: {{ group }}
+                    </a>
+                </h4>
+            </div>
+            <div id="group{{$index}}" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div ng-hide="vm.groupedStudents[group]" class="loading"> </div>
 
-        <table class="studentslist">
-            <tr ng-repeat="student in vm.students" ng-class-even="'even'" ng-class-odd="'odd'">
-                <td class="studentslistname placeholder" ng-if="student.isPlaceholder" colspan=4> {{ student.username }} </td>
+                    <div class="newlabelbuttons" style="margin-right: 0" ng-if="vm.groupedStudents[group]">
+                        <div class="newlabelbutton" style="margin-right: 1em; clear: initial;"
+                             ng-disabled="busy || vm.groupedStudents[group].length >= MAX_PER_GROUP"
+                             ng-click="vm.createMultipleUsers($event, group)">
+                            <div class="newlabelicon">+</div>
+                            <div class="newlabellabel" translate="TEACHER.STUDENTMANAGEMENT.ADD_MULTIPLE.BUTTON"></div>
+                        </div>
+                        <div class="newlabelbutton" style="margin-right: 1em; clear: initial;"
+                             ng-disabled="busy || vm.groupedStudents[group].length >= MAX_PER_GROUP"
+                             ng-click="vm.createUser($event, group)">
+                            <div class="newlabelicon">+</div>
+                            <div class="newlabellabel" translate="TEACHER.STUDENTMANAGEMENT.ADD"></div>
+                        </div>
+                        <div class="alert alert-info pageheadermsg page-header-alert-info"
+                             ng-if="vm.groupedStudents[group] && vm.groupedStudents[group].length === 0">
+                            {{ 'TEACHER.STUDENTMANAGEMENT.CREATE_FIRST_STUDENT' | translate }}
+                            <span class="glyphicon glyphicon-arrow-right"></span>
+                        </div>
+                    </div>
 
-                <td class="studentslistname" ng-if="!student.isPlaceholder"> {{ student.username }} </td>
-                <td class="studentslistdetail detail" ng-if="!student.isPlaceholder && student.last_login"> Last login: {{ student.last_login | date : 'EEEE, MMMM d, y  h:mm a' }}  </td>
-                <td class="studentslistdetail" ng-if="!student.isPlaceholder && !student.last_login" translate="TEACHER.STUDENTMANAGEMENT.NOT_LOGGED_IN"> </td>
-                <td class="studentslistactions" ng-if="!student.isPlaceholder">
-                    <button class="btn btn-default" ng-click="vm.resetUserPassword($event, student)" ng-disabled="vm.allStudentPasswordsReset" translate="TEACHER.STUDENTMANAGEMENT.RESET_PASSWORD"></button>
-                    <button class="btn btn-default" ng-click="vm.deleteUser($event, student)" ng-disabled="vm.allStudentPasswordsReset" translate="TEACHER.STUDENTMANAGEMENT.DELETE_STUDENT"></button>
-                </td>
-            </tr>
-            <tr ng-if="vm.students.length > 2">
-                <td colspan=2> </td>
-                <td class="studentslistactions" colspan=2>
-                    <button class="btn btn-default"
-                            ng-click="vm.resetUsersPassword($event)"
-                            ng-disabled="vm.allStudentPasswordsReset"
-                            translate="TEACHER.STUDENTMANAGEMENT.RESET_ALL_PASSWORDS"></button>
-                </td>
-            </tr>
-        </table>
+                    <div ng-if="vm.groupedStudents[group] && vm.groupedStudents[group].length === 0">
+                        <button class="btn btn-default"
+                            ng-disabled="busy"
+                            ng-click="deleteStudentGroup($event, group)"
+                            translate="TEACHER.STUDENTMANAGEMENT.GROUPS.DELETE"></button>
+                    </div>
+
+                    <table class="studentslist" ng-if="vm.groupedStudents[group]">
+                        <tr ng-if="vm.groupedStudents[group].length > 0 && vm.groupedStudents[group].length < MAX_PER_GROUP">
+                            <td>
+                                <md-checkbox
+                                    aria-label="select all students in {{ group }}"
+                                    ng-disabled="busy"
+                                    ng-click="selectAllStudents(group)"
+                                    ng-checked="areAllStudentsSelected(group)">
+                            </td>
+                        </tr>
+                        <tr ng-repeat="student in vm.groupedStudents[group]" ng-class-even="'even'" ng-class-odd="'odd'">
+                            <td>
+                                <md-checkbox
+                                    aria-label="select student {{student.username}}"
+                                    ng-disabled="busy"
+                                    ng-checked="isStudentSelected(group, student.id)"
+                                    ng-click="updateStudentSelection(group, student.id)">
+                            </td>
+                            <td class="studentslistname placeholder" ng-if="student.isPlaceholder" colspan=4> {{ student.username }} </td>
+                            <td class="studentslistname" ng-if="!student.isPlaceholder"> {{ student.username }} </td>
+                            <td class="studentslistdetail detail" ng-if="!student.isPlaceholder && student.last_login"> {{ 'TEACHER.STUDENTMANAGEMENT.LAST_LOGIN' | translate }}: {{ student.last_login | date : 'EEEE, MMMM d, y  h:mm a' }}  </td>
+                            <td class="studentslistdetail" ng-if="!student.isPlaceholder && !student.last_login" translate="TEACHER.STUDENTMANAGEMENT.NOT_LOGGED_IN"> </td>
+                            <td class="studentslistactions" ng-if="!student.isPlaceholder">
+                                <button class="btn btn-default" ng-click="vm.resetUserPassword($event, student)" ng-disabled="busy || vm.allStudentPasswordsReset" translate="TEACHER.STUDENTMANAGEMENT.RESET_PASSWORD"></button>
+                                <button class="btn btn-default" ng-click="vm.deleteUser($event, group, student)" ng-disabled="busy || vm.allStudentPasswordsReset" translate="TEACHER.STUDENTMANAGEMENT.DELETE_STUDENT"></button>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="studentslist studentslistcontrols" ng-if="vm.groupedStudents[group].length > 0">
+                        <h5 translate="TEACHER.STUDENTMANAGEMENT.CONTROLS"></h5>
+                        <div>
+                            <div>
+                                <button class="btn btn-default"
+                                    ng-click="vm.resetUsersPassword($event, group)"
+                                    ng-disabled="busy || vm.allStudentPasswordsReset || !areStudentsSelected(group)"
+                                    translate="TEACHER.STUDENTMANAGEMENT.RESET_SELECTED_PASSWORDS"></button>
+                            </div>
+                            <md-input-container layout="row">
+                                <button class="btn btn-default"
+                                    ng-disabled="busy || !areStudentsSelected(group) || !movetogroup"
+                                    ng-click="moveStudentsIntoGroup(group, movetogroup)"
+                                    translate="TEACHER.STUDENTMANAGEMENT.GROUPS.MOVE_IN"></button>
+                                <md-select ng-model="movetogroup" placeholder="Select a group to move students to">
+                                    <md-option
+                                        ng-disabled="busy"
+                                        ng-repeat="moveselection in vm.profile.groups"
+                                        value="{{moveselection}}"
+                                        ng-hide="moveselection === group || (vm.groupedStudents[moveselection] && vm.groupedStudents[moveselection].length >= MAX_PER_GROUP)">{{ moveselection }}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <div>
+                                <button class="btn btn-default"
+                                    ng-disabled="busy || !areStudentsSelected(group)"
+                                    ng-click="removeStudentsFromGroup(group)"
+                                    translate="TEACHER.STUDENTMANAGEMENT.GROUPS.REMOVE_FROM"></button>
+                            </div>
+                            <div style="margin-top: 18px;">
+                                <button class="btn btn-default"
+                                    ng-click="vm.deleteUsers($event, group)"
+                                    ng-disabled="busy || !areStudentsSelected(group)"
+                                    translate="TEACHER.STUDENTMANAGEMENT.DELETE_SELECTED_STUDENTS"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" style="margin-top: 15px;">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#ungrouped" target="_self" ng-click="fetchAndDisplayUngroupedStudents()">
+                        <span ng-hide="ungroupedStudentsExpanded" class="glyphicon glyphicon-chevron-right" ng-click=""></span>
+                        <span ng-if="ungroupedStudentsExpanded" class="glyphicon glyphicon-chevron-down"    ng-click=""></span>
+                        {{ 'TEACHER.STUDENTMANAGEMENT.GROUPS.UNGROUPED' | translate }}
+                    </a>
+                </h4>
+            </div>
+            <div id="ungrouped" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div ng-hide="vm.ungroupedStudents" class="loading"> </div>
+
+                    <div ng-if="vm.ungroupedStudents && vm.ungroupedStudents.length === 0"><em translate="TEACHER.STUDENTMANAGEMENT.GROUPS.NO_UNGROUPED"></em></div>
+
+                    <table class="studentslist" ng-if="vm.ungroupedStudents">
+                        <tr ng-if="vm.ungroupedStudents.length > 0 && vm.ungroupedStudents.length < MAX_PER_GROUP">
+                            <td>
+                                <md-checkbox
+                                    aria-label="select all ungrouped students"
+                                    ng-disabled="busy"
+                                    ng-click="selectAllStudents('ungrouped')"
+                                    ng-checked="areAllStudentsSelected('ungrouped')">
+                            </td>
+                        </tr>
+                        <tr ng-repeat="student in vm.ungroupedStudents" ng-class-even="'even'" ng-class-odd="'odd'">
+                            <td>
+                                <md-checkbox
+                                    aria-label="select student {{student.username}}"
+                                    ng-disabled="busy"
+                                    ng-checked="isStudentSelected('ungrouped', student.id)"
+                                    ng-click="updateStudentSelection('ungrouped', student.id)">
+                            </td>
+                            <td class="studentslistname placeholder" ng-if="student.isPlaceholder" colspan=4> {{ student.username }} </td>
+
+                            <td class="studentslistname" ng-if="!student.isPlaceholder"> {{ student.username }} </td>
+                            <td class="studentslistdetail detail" ng-if="!student.isPlaceholder && student.last_login"> Last login: {{ student.last_login | date : 'EEEE, MMMM d, y  h:mm a' }}  </td>
+                            <td class="studentslistdetail" ng-if="!student.isPlaceholder && !student.last_login" translate="TEACHER.STUDENTMANAGEMENT.NOT_LOGGED_IN"> </td>
+                            <td class="studentslistactions" ng-if="!student.isPlaceholder">
+                                <button class="btn btn-default" ng-click="vm.resetUserPassword($event, student)" ng-disabled="busy || vm.allStudentPasswordsReset" translate="TEACHER.STUDENTMANAGEMENT.RESET_PASSWORD"></button>
+                                <button class="btn btn-default" ng-click="vm.deleteUser($event, 'ungrouped', student)" ng-disabled="busy || vm.allStudentPasswordsReset" translate="TEACHER.STUDENTMANAGEMENT.DELETE_STUDENT"></button>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="studentslist studentslistcontrols" ng-if="vm.ungroupedStudents.length > 0">
+                        <h5 translate="TEACHER.STUDENTMANAGEMENT.CONTROLS"></h5>
+                        <div>
+                            <md-input-container layout="row">
+                                <button class="btn btn-default"
+                                    ng-disabled="busy || !areStudentsSelected('ungrouped') || !movetogroup"
+                                    ng-click="moveStudentsIntoGroup('ungrouped', movetogroup)">Move selected students to group</button>
+                                <md-select ng-model="movetogroup" placeholder="Select a group to move students to">
+                                    <md-option
+                                        ng-disabled="busy"
+                                        ng-repeat="moveselection in vm.profile.groups"
+                                        value="{{moveselection}}"
+                                        ng-hide="moveselection === group || (vm.groupedStudents[moveselection] && vm.groupedStudents[moveselection].length >= MAX_PER_GROUP)">{{ moveselection }}</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
 </div>
 
 <div ng-if="isAuthenticated && vm.profile.role !== 'supervisor'" class="alert alert-danger pageheadermsg">

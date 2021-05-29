@@ -113,9 +113,26 @@ export async function getSupervisors(
     };
 }
 
+function generateGroupQuery(studentgroup: string | undefined): string {
+    switch (studentgroup) {
+    // all students, regardless of group
+    case Objects.ALL_STUDENTS:
+        return '';
+    // students not assigned to any group
+    case Objects.UNGROUPED_STUDENTS:
+    case '':
+        return 'AND NOT app_metadata.group:*';
+    // students assigned to a group
+    default:
+        return 'AND app_metadata.group:"' + studentgroup + '"';
+    }
+}
+
+
+
 export const PAGE_SIZE = 100;
 
-export async function getUsers(token: string, tenant: string, page: number): Promise<Objects.User[]> {
+export async function getUsers(token: string, tenant: string, studentgroup: string | undefined, page: number): Promise<Objects.User[]> {
     const getoptions = {
         method: 'GET',
         url: 'https://' + authvalues.DOMAIN + '/api/v2/users',
@@ -123,7 +140,7 @@ export async function getUsers(token: string, tenant: string, page: number): Pro
             authorization : 'Bearer ' + token,
         },
         qs : {
-            q : 'app_metadata.role:"student" AND app_metadata.tenant:"' + tenant + '"',
+            q : 'app_metadata.role:"student" AND app_metadata.tenant:"' + tenant + '"' + generateGroupQuery(studentgroup),
             per_page : PAGE_SIZE,
             page,
 

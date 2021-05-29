@@ -254,12 +254,15 @@
 
             var tenant = profile['https://machinelearningforkids.co.uk/api/tenant'];
             var role = profile['https://machinelearningforkids.co.uk/api/role'];
+            var groups = profile['https://machinelearningforkids.co.uk/api/groups'];
             var user_id = profile.sub;
             profile.tenant = tenant;
             profile.role = role;
+            profile.groups = groups;
             profile.user_id = user_id;
             delete profile['https://machinelearningforkids.co.uk/api/tenant'];
             delete profile['https://machinelearningforkids.co.uk/api/role'];
+            delete profile['https://machinelearningforkids.co.uk/api/groups'];
             delete profile.sub;
             delete profile.picture;
             return profile;
@@ -555,7 +558,9 @@
 
             createSessionUser : createSessionUser,
 
-            checkForAuthMessagesInUrl : checkForAuthMessagesInUrl
+            checkForAuthMessagesInUrl : checkForAuthMessagesInUrl,
+
+            storeProfile : storeProfile
         };
     }
 })();

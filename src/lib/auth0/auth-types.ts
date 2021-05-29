@@ -32,9 +32,17 @@ export interface NewUser {
 
 export type UserRole = 'student' | 'supervisor';
 
-export interface UserMetadata {
+export type UserMetadata = TeacherMetadata | StudentMetadata;
+
+export interface StudentMetadata {
     role: UserRole;
     tenant: string;
+    group?: string;
+}
+export interface TeacherMetadata {
+    role: UserRole;
+    tenant: string;
+    groups?: string[];
 }
 
 export interface Student {
@@ -49,7 +57,19 @@ export interface UserCreds {
     password: string;
 }
 
-export interface Modifications {
+export type Modifications = ClassGroupsModifications | GroupModifications | PasswordModifications;
+
+export interface ClassGroupsModifications {
+    readonly app_metadata: {
+        readonly groups: string[];
+    };
+}
+export interface GroupModifications {
+    readonly app_metadata: {
+        readonly group: string | undefined | null;
+    };
+}
+export interface PasswordModifications {
     readonly password: string;
 }
 
@@ -68,6 +88,7 @@ export interface SupervisorInfo {
     readonly created: Date;
     readonly last_login?: Date;
     readonly logins_count: number;
+    readonly app_metadata: TeacherMetadata;
 }
 
 export interface BluemixCredentialsCounts {
@@ -75,3 +96,12 @@ export interface BluemixCredentialsCounts {
     readonly visrec: number;
     readonly total: number;
 }
+
+
+
+
+
+/** used in queries to retrieve students that have not been assigned to a particular group */
+export const UNGROUPED_STUDENTS = undefined;
+/** used in queries to retrieve all students, regardless of the groups they are in */
+export const ALL_STUDENTS = 'ALL';

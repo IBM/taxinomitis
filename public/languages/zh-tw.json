@@ -1633,19 +1633,35 @@
         "STUDENTMANAGEMENT": {
             "TITLE": "教師管理：學生管理",
 
+            "CONTROLS": "Controls",
+
             "CREATE_FIRST_STUDENT": "點擊右方「＋」按鈕，建立你的第一個學生",
+            "CREATE_FIRST_GROUP": "Click on the 'plus' button on the right to create the first group",
             "ADD": "新增學生",
             "NEW_USERNAME": "選擇一個唯一的使用者名稱",
             "ALPHANUMERIC": "只能使用數字跟文字",
 
             "NOT_LOGGED_IN": "尚未登入",
+            "LAST_LOGIN": "Last login",
 
             "RESET_PASSWORD": "重置密碼",
             "RESET_ALL_PASSWORDS": "重置全部學生的密碼",
+            "RESET_SELECTED_PASSWORDS": "Reset password for selected students",
 
             "DELETE_STUDENT": "刪除學生帳戶",
+            "DELETE_SELECTED_STUDENTS": "Delete selected students",
 
             "NOT_AUTHORIZED": "你沒有權限進入班級的全部學生清單",
+
+            "GROUPS": {
+                "UNGROUPED": "Ungrouped students",
+                "NO_UNGROUPED": "No ungrouped students",
+                "LABEL": "Group",
+                "CREATE": "Create group",
+                "DELETE": "Delete group",
+                "MOVE_IN": "Move selected students to group",
+                "REMOVE_FROM": "Remove selected students from group"
+            },
 
             "ADD_MULTIPLE": {
                 "BUTTON" : "多名學生",

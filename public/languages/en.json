@@ -1633,19 +1633,36 @@
         "STUDENTMANAGEMENT": {
             "TITLE": "Administration : Student management",
 
+            "CONTROLS": "Controls",
+
             "CREATE_FIRST_STUDENT": "Click on a 'plus' button on the right to create the first student",
+            "CREATE_FIRST_GROUP": "Click on the 'plus' button on the right to create the first group",
+
             "ADD": "Add new student",
             "NEW_USERNAME": "Choose a unique username",
             "ALPHANUMERIC": "Only use letters and numbers",
 
             "NOT_LOGGED_IN": "Not logged in yet",
+            "LAST_LOGIN": "Last login",
 
             "RESET_PASSWORD": "Reset password",
             "RESET_ALL_PASSWORDS": "Reset password for all students",
+            "RESET_SELECTED_PASSWORDS": "Reset password for selected students",
 
-            "DELETE_STUDENT": "Delete student account",
+            "DELETE_STUDENT": "Delete student",
+            "DELETE_SELECTED_STUDENTS": "Delete selected students",
 
             "NOT_AUTHORIZED": "You are not authorized to access the list of students in your class.",
+
+            "GROUPS": {
+                "UNGROUPED": "Ungrouped students",
+                "NO_UNGROUPED": "No ungrouped students",
+                "LABEL": "Group",
+                "CREATE": "Create group",
+                "DELETE": "Delete group",
+                "MOVE_IN": "Move selected students to group",
+                "REMOVE_FROM": "Remove selected students from group"
+            },
 
             "ADD_MULTIPLE": {
                 "BUTTON" : "Multiple students",
@@ -1658,7 +1675,7 @@
                 "USERNAME_INVALID" : "Invalid characters",
                 "NUMBER" : "How many student accounts do you want?",
                 "NUMBER_REQUIRED" : "Please enter the number of students to create",
-                "NUMBER_TOOMANY" : "Your class has a limit of {{userslimit}} students.",
+                "NUMBER_TOOMANY" : "The group has a limit of {{userslimit}} students.",
                 "PASSWORD" : "The password to give them:",
                 "PASSWORD_TOOSHORT" : "Too short"
             }
