@@ -111,6 +111,7 @@
                     loggerService.debug('[ml4ksound] enabling tf prod mode');
                     if (tf && tf.enableProdMode) {
                         tf.enableProdMode();
+                        loggerService.debug('[ml4ksound] tfjs version', tf.version);
                     }
                 })
                 .catch(function (err) {

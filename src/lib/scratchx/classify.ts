@@ -162,7 +162,7 @@ async function classifySound(key: Types.ScratchKey): Promise<TrainingTypes.Class
 }
 
 async function classifyImageTfjs(key: Types.ScratchKey): Promise<TrainingTypes.Classification[]> {
-    log.error({ key }, 'Unexpected attempt to test browser-hosted model');
+    log.warn({ key }, 'Unexpected attempt to test browser-hosted model');
     const err: any = new Error('Classification for this project is only available in the browser');
     err.statusCode = 400;
     throw err;
