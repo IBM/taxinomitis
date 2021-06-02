@@ -33,6 +33,7 @@
                     loggerService.debug('[ml4kimages] enabling tf prod mode');
                     if (tf && tf.enableProdMode) {
                         tf.enableProdMode();
+                        loggerService.debug('[ml4kimages] tfjs version', tf.version);
                     }
                 })
                 .catch(function (err) {

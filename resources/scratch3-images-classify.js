@@ -250,6 +250,11 @@ function classifyImage(imagedata, cacheKey, lastmodified, callback) {
                         registerIncorrectUse();
                     }
                     else if (response.status === 400 && responseJson &&
+                        responseJson.error === 'Classification for this project is only available in the browser')
+                    {
+                        postMessage({ mlforkids : 'mlforkids-recogniseimage-imgtfjs' });
+                    }
+                    else if (response.status === 400 && responseJson &&
                         responseJson.error === 'Your machine learning model could not be found. Has it been deleted?')
                     {
                         postMessage({ mlforkids : 'mlforkids-recogniseimage-nomodel' });
