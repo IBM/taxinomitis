@@ -349,16 +349,10 @@
                     if (($scope.project.type === 'images' || $scope.project.type === 'imgtfjs') &&
                         placeholder.imageurl)
                     {
-                        if (placeholder.imageurl.indexOf('https://lh3.googleusercontent.com/') === 0) {
+                        if (utilService.isGoogleFilesUrl(placeholder.imageurl)) {
                             displayAlert('warnings', 400, { message :
                                 'Google often removes access to images on ' +
-                                'lh3.googleusercontent.com, which might prevent ' +
-                                'you training a model with this image' });
-                        }
-                        else if (placeholder.imageurl.indexOf('https://lh3.google.com/') === 0) {
-                            displayAlert('warnings', 400, { message :
-                                'Google often removes access to images on ' +
-                                'lh3.google.com, which might prevent ' +
+                                'googleusercontent.com and lh3.google.com, which might prevent ' +
                                 'you training a model with this image' });
                         }
                     }

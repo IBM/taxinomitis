@@ -386,7 +386,7 @@
                 controller : function ($scope) {
                     $scope.location = err.data.location;
 
-                    if (err.data.location.url.indexOf('https://lh3.googleusercontent.com/') === 0) {
+                    if (utilService.isGoogleFilesUrl(err.data.location.url)) {
                         $scope.errordetails = 'Google has removed access to this image at this URL.';
                         $scope.recommendation = 'You should delete this image from your training.';
                     }

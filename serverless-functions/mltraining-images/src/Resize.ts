@@ -92,9 +92,14 @@ function requestAndResize(url: string, callback: (resp: HttpResponse) => void): 
 }
 
 
+const GOOGLE_IMAGE_HOST_REGEX = /^lh[1-9]\.google(?:usercontent)?\.com$/;
+function isGoogleFilesUrl(hostname: string): boolean {
+    return GOOGLE_IMAGE_HOST_REGEX.test(hostname);
+}
+
 
 function getHostName(req: request.Request): string {
-    if (req.host === 'lh3.googleusercontent.com') {
+    if (isGoogleFilesUrl(req.host)) {
         return 'Google';
     }
     return req.host;

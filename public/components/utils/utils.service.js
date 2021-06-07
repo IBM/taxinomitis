@@ -46,11 +46,19 @@
         }
 
 
+
+        var GOOGLE_IMAGE_URL_REGEX = /^https:\/\/lh[1-9]\.google(?:usercontent)?\.com\/.*/;
+
+        function isGoogleFilesUrl(url) {
+            return GOOGLE_IMAGE_URL_REGEX.test(url);
+        }
+
         return {
             loadScript : loadScript,
             loadTensorFlow : loadTensorFlow,
             loadImageProjectSupport : loadImageProjectSupport,
-            isInternetExplorer : isInternetExplorer
+            isInternetExplorer : isInternetExplorer,
+            isGoogleFilesUrl : isGoogleFilesUrl
         };
     }
 
