@@ -38,6 +38,16 @@ export default function getLogger(): bunyan {
                     webhook_url: process.env[env.SLACK_WEBHOOK_URL],
                     channel: 'errors',
                     customFormatter: (record: any, levelName: string) => {
+                        const fields = [
+                            // insert a field that identifies which instance of the app has thrown this error
+                            { title : 'CF instance', value : process.env.CF_INSTANCE_INDEX, short : true },
+                        ].concat(Object.keys(record).map((field) => {
+                            return {
+                                title : field,
+                                value : field === 'err' ? record.err.stack : record[field],
+                                short : field !== 'err',
+                            };
+                        }));
                         return {
                             text: record.msg,
                             attachments: [{
@@ -45,13 +55,7 @@ export default function getLogger(): bunyan {
                                 color: levelName === 'error' ? '#c42939' : '#36a64f',
                                 author_name: 'bunyan',
                                 title: 'Error fields',
-                                fields: Object.keys(record).map((field) => {
-                                    return {
-                                        title : field,
-                                        value : field === 'err' ? record.err.stack : record[field],
-                                        short : field !== 'err',
-                                    };
-                                }),
+                                fields,
                             }],
                         };
                     },
