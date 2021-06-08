@@ -1,6 +1,6 @@
 Keras-Preprocessing==1.1.2
 numpy==1.19.5
-Pillow==8.1.1
+Pillow==8.2.0
 scipy==1.6.0
 tensorflow==2.5.0
 tensorflow-hub==0.11.0
