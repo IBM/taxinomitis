@@ -2,49 +2,49 @@
     "APP": {
         "TITLE": "Machine Learning for Kids",
 
-        "BACK": "Inapoi",
-        "NEXT": "Inainte",
-        "BACKTOPROJECT": "&lt; Inapoi la proiect",
-        "BACKTOMODEL": "&lt; Inapoi la model",
+        "BACK": "Înapoi",
+        "NEXT": "Înainte",
+        "BACKTOPROJECT": "&lt; Înapoi la proiect",
+        "BACKTOMODEL": "&lt; Înapoi la model",
         "ERROR": "Eroare:",
-        "WARNING": "Atentie:",
+        "WARNING": "Atenție:",
         "INFO": "Info:",
 
-        "ADD": "Adauga",
-        "CANCEL": "Cancel",
-        "DELETE": "Sterge",
-        "EDIT": "Editeaza",
-        "TEST": "Testeaza",
-        "RESET": "Reseteaza",
+        "ADD": "Adaugă",
+        "CANCEL": "Anulează",
+        "DELETE": "Șterge",
+        "EDIT": "Editează",
+        "TEST": "Testează",
+        "RESET": "Resetează",
 
         "ABOUT": "Despre",
         "TEACHER": "Profesor",
         "PROJECTS": "Proiecte",
         "WORKSHEETS": "Fișe de lucru ",
         "PRETRAINED": "Pre-instruire",
-        "NEWS": "Noutati",
-        "HELP": "Help",
+        "NEWS": "Noutăți",
+        "HELP": "Ajutor",
         "LOGIN": "Autentificare",
-        "LOGOUT": "Deconectați-vă",
+        "LOGOUT": "Deconectare",
 
         "BETA": "Beta",
         "INCOMPLETE": "Incomplet!"
     },
     "ABOUT": {
         "TITLE": "Machine Learning for Kids",
-        "IN6SECS": "In 6 secunde...",
-        "IN20MINS": "In 20 minute...",
+        "IN6SECS": "În 6 secunde...",
+        "IN20MINS": "În 20 de minute...",
         "WHAT": {
             "TITLE": "Ce?",
-            "BODY" : "Acest instrument gratuit introduce învățarea automată oferind experiențe practice pentru instruirea sistemelor de învățare automată și construirea lucrurilor cu ele.  <br/><br/>Oferă un mediu ghidat ușor de utilizat pentru instruirea modelelor de învățare automată pentru a recunoaște textul, numerele, imaginile sau sunetele.  <br/><br/>Acest lucru se bazează pe eforturile existente de a introduce și de a preda codarea copiilor, adăugând aceste modele la platformele de codare educaționale <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> și <a href='http://appinventor.mit.edu/' target='_blank'>App Inventor</a>, și ajutând copiii să creeze proiecte și să construiască jocuri cu modelele de învățare automată pe care le antrenează. <br/><br/>Instrumentul a fost disponibil pentru prima dată în 2017 și este utilizat acum de <a href='https://wakelet.com/wake/4d3680cb-2a11-49ab-9180-fcfeced48393' target='_blank'>mii de școli, cluburi de coduri și familii din întreaga lume</a>. <br/><br/>Pentru a afla mai multe, consultați: <a target='_blank' class='btn btn-primary' href='https://machinelearningforkids.co.uk/#!/worksheets'>Fise de lucru</a>"
+            "BODY" : "Acest instrument gratuit introduce învățarea automată oferind experiențe practice pentru instruirea sistemelor de învățare automată și construirea lucrurilor cu ele.  <br/><br/>Oferă un mediu ghidat ușor de utilizat pentru instruirea modelelor de învățare automată pentru a recunoaște textul, numerele, imaginile sau sunetele.<br/><br/>Acest lucru se bazează pe eforturile existente de a introduce și de a preda codarea copiilor, adăugând aceste modele la platformele de codare educaționale <a href='https://scratch.mit.edu/about' target='_blank'>Scratch</a> și <a href='http://appinventor.mit.edu/' target='_blank'>App Inventor</a>, și ajutând copiii să creeze proiecte și să construiască jocuri cu modelele de învățare automată pe care le antrenează. <br/><br/>Instrumentul a fost disponibil pentru prima dată în 2017 și este utilizat acum de <a href='https://wakelet.com/wake/4d3680cb-2a11-49ab-9180-fcfeced48393' target='_blank'>mii de școli, cluburi de coduri și familii din întreaga lume</a>. <br/><br/>Pentru a afla mai multe, consultați: <a target='_blank' class='btn btn-primary' href='https://machinelearningforkids.co.uk/#!/worksheets'>Fișe de lucru</a>"
         },
         "WHY": {
             "TITLE": "De ce?",
-            "BODY": "Învățarea automată este în jurul nostru. Cu toții folosim sisteme de învățare automată în fiecare zi - cum ar fi filtre de spam, motoare de recomandare, servicii de traducere lingvistică, chatbots și asistenți digitali, motoare de căutare și sisteme de detectare a fraudei. <br/><br/>În curând va fi normal ca sistemele de învățare automată să ne conducă mașinile și să ajute medicii să diagnosticheze și să trateze bolile noastre.  <br/><br/>Este important ca copiii să fie conștienți de modul în care funcționează lumea noastră. Cel mai bun mod de a înțelege capacitățile și implicațiile este să poată construi singuri cu această tehnologie.  <br/><br/>Pentru a afla mai multe, citiți:  <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'Introducing Machine Learning to kids'</a>"
+            "BODY": "Învățarea automată este în jurul nostru. Cu toții folosim sisteme de învățare automată în fiecare zi - cum ar fi filtre de spam, motoare de recomandare, servicii de traducere lingvistică, chatbots și asistenți digitali, motoare de căutare și sisteme de detectare a fraudei. <br/><br/>În curând va fi normal ca sistemele de învățare automată să ne conducă mașinile și să ajute medicii să diagnosticheze și să trateze bolile noastre.<br/><br/>Este important ca copiii să fie conștienți de modul în care funcționează lumea noastră. Cel mai bun mod de a înțelege capacitățile și implicațiile este să poată construi singuri cu această tehnologie.<br/><br/>Pentru a afla mai multe, citiți: <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'Introducing Machine Learning to kids'</a>"
         },
         "TECH": {
             "TITLE": "Teho",
-            "BODY": "Instrumentul este în întregime bazat pe web (doar online) și nu necesită instalări sau configurări complicate pentru a putea fi utilizat. <br/><br/>A fost conceput pentru a fi utilizat în clasă de către școli și cluburi de coding pentru copii, organizat de voluntari, și oferă o pagină de administrare pentru profesori sau lideri de grup pentru a putea gestiona și administra accesul elevilor lor. <br/><br/>Este construit de  <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> folosind API-uri de la <a target='_blank' href='https://www.ibm.com/watson/developer/'>IBM Watson</a>.<br/><br/>Pentru mai multe detalii despre implementare, puteți vedea <a target='_blank' href='https://github.com/IBM/taxinomitis/'>codul sursă activat pe GitHub</a>, sau citiți câteva dintre <a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>postările pe blog despre tehnologie </a>. ",
+            "BODY": "Instrumentul este în întregime bazat pe web (doar online) și nu necesită instalări sau configurări complicate pentru a putea fi utilizat. <br/><br/>A fost conceput pentru a fi utilizat în clasă de către școli și cluburi de coding pentru copii, organizat de voluntari, și oferă o pagină de administrare pentru profesori sau lideri de grup pentru a putea gestiona și administra accesul elevilor lor. <br/><br/>Este construit de <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> folosind API-uri de la <a target='_blank' href='https://www.ibm.com/watson/developer/'>IBM Watson</a>.<br/><br/>Pentru mai multe detalii despre implementare, puteți vedea <a target='_blank' href='https://github.com/IBM/taxinomitis/'>codul sursă activat pe GitHub</a>, sau citiți câteva dintre <a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>postările pe blog despre tehnologie </a>. ",
             "LOGIN": "Pentru a incepe: "
         },
         "PRETRAINED": {
@@ -52,171 +52,171 @@
         },
         "FURTHER": {
             "TITLE": "Învățarea ulterioară ",
-            "BODY": "Machine Learning for Kids este un instrument util pentru introducerea copiilor în modul în care sunt instruiți sistemele ML, modul în care sunt utilizate și unele dintre implicațiile lumii reale ale aplicațiilor AI.  <br/><br/>Pentru resurse suplimentare de predare și învățare, inclusiv predarea internelor sistemelor ML, vă rugăm să consultați: "
+            "BODY": "Machine Learning for Kids este un instrument util pentru introducerea copiilor în modul în care sunt instruite sistemele ML, modul în care sunt utilizate și unele dintre implicațiile lumii reale ale aplicațiilor AI (de inteligență artificială). <br/><br/>Pentru resurse suplimentare de predare și învățare, inclusiv predarea internelor sistemelor ML, vă rugăm să consultați: "
         }
     },
     "NEWS": {
-        "TITLE": "Noutati",
+        "TITLE": "Noutăți",
         "UPDATES": {
-            "TITLE": "Noutati & Actualizări ",
-            "DESCRIPTION": "Noutati si actualizari de la @MLforKids"
+            "TITLE": "Noutăți & Actualizări ",
+            "DESCRIPTION": "Noutăți și actualizări de la @MLforKids"
         },
         "MENTIONS": {
-            "TITLE": "Mentions & Media",
-            "DESCRIPTION": "loading Mentions &amp; Media from wakelet.com"
+            "TITLE": "Mențiuni & Media",
+            "DESCRIPTION": "încărcăm Mențiuni &amp; Media de pe wakelet.com"
         }
     },
     "LINKS": {
-        "TITLE": "Resurse educationale IA pentru copii",
-        "INTRO": "Aceasta pagina contine o lista cu viitoarele intrumente si resurse ce explica IA (inteligenta artificiala) copiilor.",
+        "TITLE": "Resurse educaționale IA pentru copii",
+        "INTRO": "Această pagină conține o listă cu viitoarele intrumente și resurse ce explică IA (inteligența artificială) copiilor.",
         "ECRAFT2LEARN": {
-            "BODY1": "<a href='http://users.ox.ac.uk/~oucs0030/' target='_blank'>Ken Kahn</a> has created resources to allow beginners to create AI programs in Snap! (a visual programming environment similar to Scratch).",
-            "BODY2": "While I've focused on explaining how AI systems are trained and behave (and the real-world implications), eCraft2Learn has fantastic resources that dive deep into how ML systems actually work.",
-            "BODY3": "The <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>neural net Tic Tac Toe project</a> is particularly fascinating, allowing students to experiment with hyperparameters from Snap."
+            "BODY1": "<a href='http://users.ox.ac.uk/~oucs0030/' target='_blank'>Ken Kahn</a> a creat resurse pentru a-i ajuta pe cei ce sunt la început de drum să creeze programe de IA în Snap! (un mediu de programare similar lui Scratch).",
+            "BODY2": "În timp ce m-am concentrat pe explicarea modului în care sunt antrenate și se comportă sistemele IA (și implicațiile din lumea reală), eCraft2Learn are resurse fantastice care expică în detaliu modul în care funcționează de fapt sistemele ML.",
+            "BODY3": "Proiectul <a href='https://ecraft2learn.github.io/ai/AI-Teacher-Guide/chapter-6.html' target='_blank'>Tic Tac Toe rețea neuronală </a> este îndeosebi fascinant, permițând studenților să experimenteze cu hiperparametri din Snap."
         },
         "STEMLEARNING": {
-            "BODY1": "STEM Learning and the UK Department for Business, Energy and Industrial Strategy have created resources for teaching the principles of artificial intelligence.",
-            "BODY2": "These resources include <em>Machine Learning for Kids</em> projects, supplemented with teaching notes, presentation materials, prompt cards, and practical “unplugged” activities"
+            "BODY1": "STEM Learning și Departamentul Regatului Unit pentru afaceri, energie și strategie industrială au creat resurse pentru predarea principiilor inteligenței artificiale.",
+            "BODY2": "Aceste resurse includ proiecte <em> Machine Learning for Kids (Învățarea automată pentru copii) </em>, completate cu note didactice, materiale de prezentare, carduri prompte și activități practice „deconectate”"
         },
         "RASPBERRYPI": {
-            "BODY1": "The Raspberry Pi Foundation provides resources for Code Clubs, with step-by-step instructions for a variety of creative projects.",
-            "BODY2": "Their machine learning pathway includes a variety of projects from <em>Machine Learning for Kids</em>."
+            "BODY1": "Fundația Raspberry Pi oferă resurse pentru Code Clubs, cu instrucțiuni pas cu pas pentru o varietate de proiecte creative.",
+            "BODY2": "Calea lor de învățare automată include o varietate de proiecte din <em> Machine Learning for Kids (Învățarea automată pentru copii) </em>."
         },
         "APPSFORGOOD": {
-            "BODY1": "Apps for Good are a UK-based not-for-profit that creates resources for teaching technology subjects, that they make freely available to schools.",
-            "BODY2": "Their Machine Learning course uses <em>Machine Learning for Kids</em>, and supplements it with a range of additional materials like schemes of work, lesson plans, student workbooks, presentations and more. It makes it easy for schools to deliver ML lessons that put the coding exercises in context."
+            "BODY1": "Apps for Good este o organizație non-profit din Marea Britanie care creează resurse pentru predarea disciplinelor de tehnologie, pe care le pune la dispoziția școlilor în mod liber.",
+            "BODY2": "Cursurile lor de învățare automată folosesc <em>Machine Learning for Kids (Învățarea automată pentru copii)</em>, și îl completează cu o serie de materiale suplimentare, cum ar fi scheme de lucru, planuri de lecții, cărți de lucru ale elevilor, prezentări și multe altele. Este ușor pentru școli să ofere lecții de ML (învățare automată) care pun exercițiile de codare în context."
         },
         "AIFAMILYCHALLENGE": {
-            "BODY1": "The AI Family Challenge is a free, hands-on AI education program for families. They use <em>Machine Learning for Kids</em>, and supplement it with a lot of additional support, such as technical coaches and mentors, a structured lesson plan and supporting videos.",
-            "BODY2": "The program is based around a competition that challenges children to think of their own AI project ideas, with the support of their families and technical mentors."
+            "BODY1": "<em> The AI Family Challenge (Provocarea familiei IA) </em> este un program de educație IA, practic și gratuit, pentru familii. Folosesc <em> Machine Learning for Kids (Învățarea automată pentru copii) </em> și îl completează cu o mulțime de asistență suplimentară, cum ar fi antrenori și mentori tehnici, un plan de lecție structurat și videoclipuri de sprijin.",
+            "BODY2": "Programul se bazează pe o competiție care îi provoacă pe copii să se gândească la propriile idei de proiect IA, cu sprijinul familiilor lor și al mentorilor tehnici."
         },
         "MAGENTADEMOS": {
-            "BODY1": "Online toys that demonstrate different aspects of machine learning, using TensorFlow.js"
+            "BODY1": "Jucării online care demonstrează diferite aspecte ale învățării automate, folosind TensorFlow.js"
         },
         "AIINSCHOOLS": {
-            "BODY1": "The AIinSchools programme provides a free lesson plan for teachers to explain AI to Year 9 (aged 13-14).",
-            "BODY2": "It includes both unplugged classroom activities, and programming activities for training neural networks on GPUs running on AWS."
+            "BODY1": "Programul <em>AIinSchools</em> oferă profesorilor un plan de lecție gratuit pentru a explica IA până în clasa a IX-a (cu vârste între 13-14 ani).",
+            "BODY2": "Include atât activități de clasă neconectate, cât și activități de programare pentru instruirea rețelelor neuronale pe GPU-uri care rulează pe AWS."
         },
         "TEENSINAI": {
-            "BODY1": "Teens in AI use a combination of hackathons, accelerators and bootcamps to support young people aged 12-18 to explore AI."
+            "BODY1": "Teens in AI (Adolescenți în AI) folosesc o combinație de hackathons, acceleratoare și bootcampuri pentru a sprijini tinerii cu vârste cuprinse între 12-18 ani să exploreze IA."
         },
         "AI4ALL": {
-            "BODY1": "AI4ALL run summer camps for high school students in the US that give a detailed technical introduction to AI."
+            "BODY1": "AI4ALL organizează tabere de vară pentru elevii de liceu din SUA, care oferă o introducere tehnică detaliată a IA."
         },
         "CALYPSO": {
-            "BODY1": "Students with programmable Cozmo robots can use the Calypso programming framework to get a hands-on way to experience AI by experimenting with techniques like computer vision and speech recognition."
+            "BODY1": "Studenții cu roboți Cozmo programabili pot folosi cadrul de programare Calypso pentru a obține o modalitate practică de a experimenta IA experimentând tehnici precum viziunea pe computer și recunoașterea vorbirii."
         },
         "AIINABOX": {
-            "BODY1": "AI-in-a-Box is a bundle of robots, accessories and teaching resources. The kit can be used to teach projects that cover topics like visual recognition, facial recognition, speech generation and speech recognition."
+            "BODY1": "AI-in-a-Box este un pachet de roboți, accesorii și resurse didactice. Kitul poate fi folosit pentru a preda proiecte care acoperă subiecte precum recunoașterea vizuală, recunoașterea facială, generarea vorbirii și recunoașterea vorbirii."
         },
         "GOOGLEEXPERIMENTS": {
-            "BODY1": "Simple online experiments to start exploring machine learning, through pictures, drawings, language, and music."
+            "BODY1": "Experimente online simple pentru a începe explorarea învățării automate, prin imagini, desene, limbaj și muzică."
         },
         "VIDEOS": {
-            "TITLE": "Videos",
-            "INTRO": "I've also found these videos useful when introducing AI concepts:"
+            "TITLE": "Tutoriale video",
+            "INTRO": "De asemenea, am găsit aceste videoclipuri utile la introducerea conceptelor de IA:"
         }
     },
     "ERRORS": {
-        "PAGENOTFOUND": "Pagina nu a fost gasita",
+        "PAGENOTFOUND": "Pagina nu a fost găsită",
         "NOTLOGGEDIN": "Nu v-ați conectat",
 
-        "MISSINGPROJECTID": "ID-ul proiectului lipsește. Mergi Inapoi la ",
-        "IFPERSISTENT": "Dacă se întâmplă acest lucru, vă rog ",
+        "MISSINGPROJECTID": "ID-ul proiectului lipsește. Mergi înapoi la ",
+        "IFPERSISTENT": "Dacă se întâmplă acest lucru, te rog ",
 
         "LETMEKNOW": "să-mi dai de veste"
     },
     "WELCOME": {
         "TITLE": "Învață un computer să joace un joc",
-        "GET_STARTED": "Incepe",
+        "GET_STARTED": "Începe",
         "LEARN_MORE": "Află mai multe",
         "ADMIN_LABEL": "Du-te la <strong>Pagina de administrare</strong>",
         "PROJECT_LABEL": "Du-te la <strong>Proiecte</strong>",
-        "STEP_1_TEXT": "Colectați exemple de lucruri pe care doriți să le puteți recunoaște",
-        "STEP_2_TEXT": "Folosiți exemplele pentru a instrui un computer pentru a le putea recunoaște",
-        "STEP_3_TEXT": "Creați un joc în Scratch care utilizează capacitatea computerului de a le recunoaște"
+        "STEP_1_TEXT": "Colectează exemple de lucruri pe care dorești să le poți recunoaște",
+        "STEP_2_TEXT": "Folosește exemplele pentru a instrui un computer pentru a le putea recunoaște",
+        "STEP_3_TEXT": "Crează un joc în Scratch care utilizează capacitatea computerului de a le recunoaște"
     },
     "LOGIN": {
         "TITLE": "Începeți cu machine learning",
-        "WELCOME": "Bine ati venit! Este minunat că vă interesează să aveți un cont de la care să vă conectați la Machine Learning for Kids.",
+        "WELCOME": "Bine ați venit! Este minunat că vă interesează să aveți un cont de la care să vă conectați la Machine Learning for Kids.",
         "ALREADY_LOGGEDIN": "<strong>Info: </strong> Deja logat",
-        "ERROR": "<strong>Error:</strong> {{ message }}",
-        "ERROR_HELP": "Dacă acest lucru se întâmplă în continuare, vă rugăm să vizitați secțiunea noastră de ajutor",
+        "ERROR": "<strong>Eroare:</strong> {{ message }}",
+        "ERROR_HELP": "Dacă acest lucru se întâmplă în continuare, te rugăm să vizitezi secțiunea noastră de ajutor",
         "FIRST_TIME": "Prima dată aici?",
-        "SIGN_UP": "Inscrie-te",
+        "SIGN_UP": "Înscrie-te",
         "WHY_REGISTER": "De ce să te înregistrezi?",
-        "WHY_REGISTER_INTRO_1": "<strong>Nu trebuie să vă înregistrați sau să vă creați un cont</strong> petru a folosi Machine Learning for Kids, dar dacă o faci, deblochează câteva caracteristici ale instrumentului.",
-        "WHY_REGISTER_INTRO_2": "Grila de mai jos explică diferența în ceea ce puteți face dacă faceți clic \"Încercați acum\" fără a vă înregistra și ce puteți face dacă vă creați un cont cu care să vă conectați.",
+        "WHY_REGISTER_INTRO_1": "<strong>Nu trebuie să te înregistrezi sau să îți creezi un cont</strong> petru a folosi Machine Learning for Kids, dar dacă o faci, deblochează câteva caracteristici ale instrumentului.",
+        "WHY_REGISTER_INTRO_2": "Grila de mai jos explică diferența în ceea ce poți face dacă faci clic \"Încearcă acum\" fără a te înregistra și ce poți face dacă îți creezi un cont cu care să te conectezi.",
         "ALREADY_REGISTERED": "Deja înregistrat?",
         "LOGIN": "Autentificare",
         "FORGOT_DETAILS": "Ți-ai uitat detaliile?",
-        "TRY_TITLE": "Încercați fără a vă înregistra",
-        "TRY_NOW": "Încercați acum",
+        "TRY_TITLE": "Încearcă fără a te înregistra",
+        "TRY_NOW": "Încearcă acum",
         "WHO_YOU": "Cine ești tu?",
         "TEACHER": "Un părinte, profesor sau lider al unui club de codare",
         "STUDENT": "un elev la școală",
-        "FORGOT_TEXT": "Ți-ai uitat numele de utilizator sau parola? Este în regulă - cu toții uităm uneori de lucruri. ",
+        "FORGOT_TEXT": "Ți-ai uitat numele de utilizator sau parola? Este în regulă - cu toții uităm uneori astfel de lucruri.",
         "ARE_YOU_A_STUDENT": "Ești elev?",
-        "ARE_YOU_A_STUDENT_INTRO_1": "If your class is already using this tool, ask your teacher or coding group leader to create you an account.",
-        "ARE_YOU_A_STUDENT_INTRO_2": "If your class isn't already using the tool, ask your teacher or coding group leader to get in touch.",
-        "RESET_STUDENT_PASSWORD_1": "If you're a student, we don't have your email address to be able to send you a password-reset email.",
-        "RESET_STUDENT_PASSWORD_2": "That's no problem, though!",
-        "RESET_STUDENT_PASSWORD_3": "Just ask your teacher or group leader who first signed you up. They will be able to reset your password from their Admin page."
+        "ARE_YOU_A_STUDENT_INTRO_1": "Dacă clasa ta folosește deja acest instrument, adresează-te profesorului sau liderului grupului de codare să îți creeze un cont.",
+        "ARE_YOU_A_STUDENT_INTRO_2": "Dacă clasa ta nu folosește deja instrumentul, adresează-te profesorului sau liderului grupului de codare pentru a lua legătura.",
+        "RESET_STUDENT_PASSWORD_1": "Dacă ești un elev, nu avem adresa ta de e-mail pentru a-ți putea trimite un e-mail de resetare a parolei.",
+        "RESET_STUDENT_PASSWORD_2": "Nu este nici o problemă, totuși!",
+        "RESET_STUDENT_PASSWORD_3": "Întreabă-l pe profesorul tău sau pe liderul de grup care te-a înscris prima dată. Aceștia vor putea să îți reseteze parola de pe pagina lor de administrare."
     },
     "SIGNUP": {
         "TEACHER": {
-            "TITLE": "Are you a teacher or leader of a coding club?",
-            "INFO1": "If you would like access for your students, please create a class account below.",
-            "INFO2": "There are two types of class account - depending on who sets it up."
+            "TITLE": "Ești profesor sau lider al unui club de codare?",
+            "INFO1": "Dacă dorești acces pentru studenții tăi, te rugăm să creezi un cont de curs mai jos.",
+            "INFO2": "Există două tipuri de conturi de clasă - în funcție de cine îl configurează."
         },
         "UNMANAGED": {
-            "TITLE": "Create an <strong>unmanaged</strong> class account",
-            "INTRO": "If you are happy to set up and manage the class account yourself, you can do it now!",
-            "LISTINTRO": "You will need to:",
-            "LIST_CREATEACCOUNT": "Create a free account on IBM Cloud",
-            "LIST_CREATEAPIKEYS": "Create API key(s) for Watson cloud services needed to train machine learning models",
-            "LIST_ENTERAPIKEYS": "Enter the API keys into this Machine Learning for Kids tool",
-            "HELP": "Step-by-step instructions (with screenshots) are available for all of this."
+            "TITLE": "Creează un cont de clasă <strong> neadministrat </strong>",
+            "INTRO": "Dacă vrei să configurezi și să gestionezi singur contul clasei, îl poți face acum!",
+            "LISTINTRO": "Vei avea nevoie să:",
+            "LIST_CREATEACCOUNT": "Creezi un cont gratuit pe IBM Cloud",
+            "LIST_CREATEAPIKEYS": "Creezi chei API pentru serviciile cloud Watson necesare pentru instruirea modelelor de învățare automată",
+            "LIST_ENTERAPIKEYS": "Introduci cheile API în acest instrument Machine Learning for Kids",
+            "HELP": "Instrucțiuni pas cu pas (cu capturi de ecran) sunt disponibile pentru toate acestea."
         },
         "MANAGED": {
-            "TITLE": "Create a <strong>managed</strong> class account",
-            "INTRO": "If you would like Dale to set up the class account, use the button below to send an email with the following information:",
-            "LIST_NUMBEROFSTUDENTS": "Roughly how many student accounts you will need",
-            "LIST_NAMEOFSCHOOL": "The name of the school or coding group the account is for",
-            "RESTRICTIONS": "This offer is only available to schools and not-for-profit student coding clubs.",
+            "TITLE": "Creează un cont de clasă <strong> gestionat </strong>",
+            "INTRO": "Dacă dorești ca Dale să configureze contul clasei, utilizează butonul de mai jos pentru a trimite un e-mail cu următoarele informații:",
+            "LIST_NUMBEROFSTUDENTS": "Aproximativ câte conturi de student vei avea nevoie",
+            "LIST_NAMEOFSCHOOL": "Numele școlii sau al grupului de codare pentru care este contul",
+            "RESTRICTIONS": "Această ofertă este disponibilă doar școlilor și cluburilor de codare pentru studenți non-profit.",
             "EMAIL": "Email"
         }
     },
     "PROJECTS": {
-        "TITLE": "Proiectele dvs. de învățare automată",
-        "ADDNEWPROJECT": "Adăugați un proiect nou",
-        "COPYTEMPLATE": "Copiați șablonul",
-        "CREATEFIRSTPROJECT": "Faceți clic pe butonul „plus” din dreapta pentru a crea primul dvs. proiect.",
+        "TITLE": "Proiectele tale de învățare automată",
+        "ADDNEWPROJECT": "Adaugă un proiect nou",
+        "COPYTEMPLATE": "Copiază șablonul",
+        "CREATEFIRSTPROJECT": "Fă clic pe butonul „plus” din dreapta pentru a crea primul tău proiect.",
         "RECOGNISING": "Recunoscând",
         "AS": "precum",
-        "SHARE": "Partajeaza",
-        "UNSHARE": "Anulați partajarea",
-        "WHOLE_CLASS_TITLE": "Crowd-sourced project",
-        "WHOLE_CLASS_NOTES": "This is a whole-class project. All students in your class can use it and add to the training data."
+        "SHARE": "Partajează",
+        "UNSHARE": "Anulează partajarea",
+        "WHOLE_CLASS_TITLE": "Proiect crowd-sourced",
+        "WHOLE_CLASS_NOTES": "Acesta este un proiect pentru o clasă întreagă. Toți elevii din clasa ta îl pot folosi și adăuga la datele de instruire."
     },
     "NEWPROJECT": {
-        "TITLE": "Start a new machine learning project",
+        "TITLE": "Pornește un nou proiect de învățare automată",
         "PROJECT_NAME": {
-            "TITLE": "Project Name",
-            "NOTES": "Give your project a name to describe what sort of thing you'll try to teach the computer to recognise."
+            "TITLE": "Denumirea proiectului",
+            "NOTES": "Dă-i proiectului un nume pentru a descrie ce fel de lucruri vei încerca să înveți computerul să recunoască."
         },
         "WHOLE_CLASS_PROJECT": {
-            "TITLE": "Whole-class project?",
-            "NOTES_1": "Tick this if you want your whole class to be able to work on this project together.",
-            "NOTES_2": "This is useful for projects that teach crowd-sourcing as an approach to training machine learning projects."
+            "TITLE": "Un proiect pentru întreaga clasă?",
+            "NOTES_1": "Bifează acest lucru dacă dorești ca întreaga ta clasă să poată lucra împreună la acest proiect.",
+            "NOTES_2": "Acest lucru este util pentru proiectele care predau crowd-sourcing ca o abordare a instruirii proiectelor de învățare automată."
         },
         "TYPES": {
-            "LABEL": "Recognising",
-            "NOTES_1": "What type of thing do you want to teach the computer to recognise?",
-            "NOTES_2": "For words, sentences or paragraphs, choose \"text\"",
-            "NOTES_3": "For photos, diagrams and pictures, choose \"images\"",
-            "NOTES_4": "For sets of numbers or multiple choices, choose \"numbers\"",
-            "NOTES_5": "For voices and sounds, choose \"sounds\""
+            "LABEL": "Recunoaștere",
+            "NOTES_1": "Ce tip de lucru dorești să înveți computerul să recunoască?",
+            "NOTES_2": "Pentru cuvinte, propoziții sau paragrafe, alege \"text\"",
+            "NOTES_3": "Pentru fotografii, diagrame și imagini, alege \"imagini\"",
+            "NOTES_4": "Pentru seturi de numere sau opțiuni multiple, alege \"numere\"",
+            "NOTES_5": "Pentru voci și sunete, alege \"sunete\""
         },
         "IMAGEPROJECTS": {
             "LABEL": "Where to train the model",
