@@ -557,191 +557,191 @@
             },
             "READY" : {
                 "TEST" : {
-                    "TEXT" : "Try testing the machine learning model below. Enter an example of text below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
-                    "IMAGES" : "Try testing the machine learning model below. Enter an example image below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
-                    "NUMBERS" : "Try testing the machine learning model below. Enter an example of numbers below, that you didn't include in the examples you used to train it. It will tell you what it recognises it as, and how confident it is in that.",
-                    "SOUNDS" : "Try testing the machine learning model below. Click the 'Start listening' button. If your machine learning model recognises any sounds, it will tell you what it recognises it as, and how confident it is in that."
+                    "TEXT" : "Încearcă să testezi modelul de învățare automată de mai jos. Introdu mai jos un exemplu de text pe care nu l-ai inclus în exemplele pe care le-ai folosit pentru a-l instrui. Îți va spune cum îl recunoaște și cât de încrezător este în asta.",
+                    "IMAGES" : "Încearcă să testezi modelul de învățare automată de mai jos. Introdu mai jos o fotografie pe care nu ai inclus-o în exemplele pe care le-ai folosit pentru a-l instrui. Îți va spune cum îl recunoaște și cât de încrezător este în asta.",
+                    "NUMBERS" : "Încearcă să testezi modelul de învățare automată de mai jos. Introdu mai jos un exemplu de număr pe care nu l-ai inclus în exemplele pe care le-ai folosit pentru a-l instrui. Îți va spune cum îl recunoaște și cât de încrezător este în asta.",
+                    "SOUNDS" : "Încearcă să testezi modelul de învățare automată de mai jos. Fă clic pe butonul „Începe să asculți”. Dacă modelul tău de învățare automată recunoaște sunete, acesta îți va spune cum îl recunoaște și cât de încrezător este în asta."
                 },
-                "SCRATCH" : "If the computer seems to have learned to recognise things correctly, then you can go to Scratch and use what the computer has learned to make a game!",
+                "SCRATCH" : "Dacă computerul pare să fi învățat să recunoască lucrurile corect, atunci poți merge la Scratch și utiliza ceea ce a învățat computerul pentru a crea un joc!",
                 "ADDITIONAL_TRAINING" : {
                     "MORE_EXAMPLES" : {
-                        "CROWDSOURCED" : "If the computer is getting too many things wrong, your class might want to go back to the <a href='{{ urls.train }}'>Train</a> page and collect some more examples.",
-                        "INDIVIDUAL" : "If the computer is getting too many things wrong, you might want to go back to the <a href='{{ urls.train }}'>Train</a> page and collect some more examples"
+                        "CROWDSOURCED" : "Dacă computerul greșește prea multe lucruri, clasa ta ar putea dori să revină la pagina <a href='{{ urls.train }}'>Instruiește</a> să coleacteze mai multe exemple.",
+                        "INDIVIDUAL" : "Dacă computerul greșește prea multe lucruri, s-ar putea să vrei să revii la pagina <a href='{{ urls.train }}'>Instruiește</a> să coleactezi mai multe exemple."
                     },
                     "RETRAIN" : {
-                        "YOU" : "Once you've done that, click on the button below to train a new machine learning model and see what difference the extra examples will make!",
-                        "CLASS" : "Once you've done that, your teacher will need to train a new machine learning model."
+                        "YOU" : "După ce ai făcut acest lucru, fă clic pe butonul de mai jos pentru a instrui un nou model de învățare automată și pentru a vedea ce diferență vor face exemplele suplimentare!",
+                        "CLASS" : "După ce ai făcut acest lucru, profesorul vostru va trebui să pregătească un nou model de învățare automată."
                     }
                 }
             }
         },
         "TRAINING": {
-            "TITLE": "Info from training computer:",
-            "STARTED": "Model started training at:",
-            "STATUS": "Current model status:",
-            "DETAIL": "Detail:",
-            "DELETION": "Model will automatically be deleted after:",
-            "LASTCHECK": "Model last checked:",
-            "PROMPTREFRESH": "If this is more than a minute, you should refresh the page to get an up-to-date status"
+            "TITLE": "Informații de la computerul de instruire:",
+            "STARTED": "Modelul a început instruirea la:",
+            "STATUS": "Starea modelului actual:",
+            "DETAIL": "Detalii:",
+            "DELETION": "Modelul va fi șters automat după:",
+            "LASTCHECK": "Modelul a fost verificat ultima dată:",
+            "PROMPTREFRESH": "Dacă acesta depășește un minut, ar trebui să dai refresh paginii pentru a obține un status actualizat"
         },
         "TESTING": {
             "INTRO": {
-                "TEXT": "Try putting in some text to see how it is recognised based on your training.",
-                "IMAGES": "Try putting in an image to see how it is recognised based on your training.",
-                "NUMBERS": "Try putting in some numbers to see how it is recognised based on your training.",
-                "SOUNDS": "Try making a sound to see how it is recognised based on your training"
+                "TEXT": "Încearcă să introduci un text pentru a vedea cum este recunoscut pe baza antrenamentului tău.",
+                "IMAGES": "Încearcă să introduci o imagine pentru a vedea cum este recunoscută pe baza antrenamentului tău.",
+                "NUMBERS": "Încearcă să introduci câteva numere pentru a vedea cum este recunoscut pe baza antrenamentului tău.",
+                "SOUNDS": "Încearcă să scoți un sunet pentru a vedea cum este recunoscut pe baza antrenamentului tău."
             },
-            "WEBCAM": "Test with <strong>webcam</strong>",
-            "DRAWING": "Test by <strong>drawing</strong>",
-            "WWW": "Test with <strong>www</strong>",
-            "RECOGNISED": "Recognised as  <strong>{{ testoutput }}</strong>",
-            "STARTLISTENING": "Start listening",
-            "STOPLISTENING": "Stop listening"
+            "WEBCAM": "Testează cu <strong>o cameră web</strong>",
+            "DRAWING": "Testează cu <strong>un desen</strong>",
+            "WWW": "Testează cu <strong>www</strong>",
+            "RECOGNISED": "Recunoscut ca <strong>{{ testoutput }}</strong>",
+            "STARTLISTENING": "Începe să asculți”",
+            "STOPLISTENING": "Stop ascultare"
         },
         "QUIZ": {
-            "TITLE": "Quiz time!",
-            "INTROQUESTION": "While you are waiting for the model to finish training, try answering this question.",
-            "PREVIOUSLY_ATTEMPTED": "You've seen this one before - let's see if you remember what the right answer is this time!",
-            "CORRECT_ANSWER": "That's right!",
-            "INCORRECT_ANSWER": "No, sorry. The correct answer is shown above.",
-            "NEXT_QUESTION": "Next question",
+            "TITLE": "Timpul pentru un quiz!",
+            "INTROQUESTION": "În timp ce aștepți ca modelul să termine antrenamentul, încearcă să răspunzi la această întrebare.",
+            "PREVIOUSLY_ATTEMPTED": "L-ai mai văzut pe acesta - să vedem dacă îți amintești care este răspunsul corect de data aceasta!",
+            "CORRECT_ANSWER": "Corect!",
+            "INCORRECT_ANSWER": "Nu, îmi pare rău. Răspunsul corect este afișat mai sus.",
+            "NEXT_QUESTION": "Următoarea întrebare",
 
             "QUESTION_1": {
-                "QUESTION": "In general, what will help machines to learn better?",
-                "ANSWER_1": "More examples",
-                "ANSWER_2": "Fewer examples",
-                "NOTES_1": "That isn't the only thing that has an effect. But in general, the more examples it has to learn from, the better it should learn."
+                "QUESTION": "În general, ce va ajuta mașinile să învețe mai bine?",
+                "ANSWER_1": "Mai multe exemple",
+                "ANSWER_2": "Mai puține exemple",
+                "NOTES_1": "Acesta nu este singurul lucru care are efect. Dar, în general, cu cât trebuie să învețe din mai multe exemple, cu atât ar trebui să învețe mai bine."
             },
             "QUESTION_2": {
-                "QUESTION": "Which of these would probably be best for training a computer to recognise a photo of an apple?",
-                "ANSWER_1": "Photos of dogs",
-                "ANSWER_2": "Varied photos of different types of apples in different places",
-                "ANSWER_3": "Identical photos of an apple",
-                "ANSWER_4": "Very, very similar photos of the same apple in the same place",
-                "NOTES_1": "The more varied the examples you can collect, the more the system can learn about how to recognise different pictures of an apple.",
-                "NOTES_2": "If every example you give it is the same apple on the same brown wooden table, it might learn that something is only an apple if it's on a brown wooden table."
+                "QUESTION": "Care dintre acestea ar fi probabil cel mai bun pentru instruirea unui computer pentru a recunoaște fotografia unui măr?",
+                "ANSWER_1": "Fotografii cu câini",
+                "ANSWER_2": "Fotografii variate cu diferite tipuri de mere în diferite locuri",
+                "ANSWER_3": "Fotografii identice ale unui măr",
+                "ANSWER_4": "Fotografii foarte, foarte asemănătoare cu același măr în același loc",
+                "NOTES_1": "Cu cât sunt mai variate exemplele pe care le puteți colecta, cu atât sistemul poate afla mai multe despre cum să recunoască diferite imagini ale unui măr.",
+                "NOTES_2": "Dacă fiecare exemplu pe care îl dai este același măr pe aceeași masă de lemn maro, ar putea învăța că ceva este doar un măr dacă este pe o masă de lemn maro."
             },
             "QUESTION_3": {
-                "QUESTION": "Which of these would be a good use of machine learning?",
-                "ANSWER_1": "Adding big numbers together",
-                "ANSWER_2": "Recognising if an email is spam",
-                "ANSWER_3": "Counting the number of times a button is pressed",
-                "NOTES_1": "Spam filters are a good example of machine learning.",
-                "NOTES_2": "With enough examples of legitimate emails, and enough examples of spam emails, a computer can start to learn how to recognise a spam email."
+                "QUESTION": "Care dintre acestea ar fi o bună utilizare a învățării automate?",
+                "ANSWER_1": "Adăugarea numerelor mari împreună",
+                "ANSWER_2": "Recunoașterea dacă un e-mail este spam",
+                "ANSWER_3": "Numărarea de câte ori este apăsat un buton",
+                "NOTES_1": "Filtrele de spam sunt un bun exemplu de învățare automată.",
+                "NOTES_2": "Cu suficiente exemple de e-mailuri legitime și suficiente exemple de e-mailuri spam, un computer poate începe să învețe cum să recunoască un e-mail spam."
             },
             "QUESTION_4": {
-                "QUESTION": "Which of these is NOT a good use of machine learning?",
-                "ANSWER_1": "Sentiment analysis - recognising the mood, tone or emotion in text",
-                "ANSWER_2": "Translating text from one language to another",
-                "ANSWER_3": "Face recognition - recognising a face in a photo and identifying who it is",
-                "ANSWER_4": "Self-driving cars",
-                "ANSWER_5": "Calculating the cost of something in different countries based on exchange rates",
-                "ANSWER_6": "Recommending a movie based on films you've watched before",
-                "NOTES_1": "Tasks that involve following rules which can be worked out are not a good use for machine learning.",
-                "NOTES_2": "A computer isn't going to learn how to apply an exchange rate from examples - we can just tell it what to do."
+                "QUESTION": "Care dintre acestea NU este o bună utilizare a învățării automate?",
+                "ANSWER_1": "Analiza sentimentelor - recunoașterea stării de spirit, tonului sau emoției din text",
+                "ANSWER_2": "Traducerea unui text dintr-o limbă în alta",
+                "ANSWER_3": "Recunoașterea feței - recunoașterea unei fețe într-o fotografie și identificarea persoanei",
+                "ANSWER_4": "Mașini cu conducere automată",
+                "ANSWER_5": "Calculul costului a ceva în diferite țări pe baza ratelor de schimb",
+                "ANSWER_6": "Recomandarea unui film pe baza filmelor pe care le-ați vizionat anterior",
+                "NOTES_1": "Sarcinile care implică respectarea regulilor care pot fi elaborate nu sunt o utilizare bună pentru învățarea automată.",
+                "NOTES_2": "Un computer nu va învăța cum să aplice un curs de schimb din exemple - îi putem spune doar ce trebuie să facem."
             },
             "QUESTION_5": {
-                "QUESTION": "Which of these would be more likely to be successful?",
-                "ANSWER_1": "Collect a small set of examples, train a system, test to see how good it is. Add more examples, train again, and then test again. Repeat until it gets good enough.",
-                "ANSWER_2": "More examples is better, so decide you must need millions of examples. Start collecting a massive set of examples, and spend months collecting more and more and more.",
-                "NOTES_1": "More examples is generally better, but be practical.",
-                "NOTES_2": "Pragmatism is important. Regular testing is useful to let you know how things are going, and help you know when you've done enough.",
-                "NOTES_3": "When you've only got ten examples, another ten examples will probably make a huge difference.",
-                "NOTES_4": "When you've got 100,000 examples, another ten examples probably won't have a noticeable impact."
+                "QUESTION": "Care dintre acestea ar fi mai probabil să aibă succes?",
+                "ANSWER_1": "Colectează un mic set de exemple, instruiește un sistem, testează pentru a vedea cât de bun este. Adaugă mai multe exemple, antrenează din nou și apoi testează din nou. Repetă până devine suficient de bun.",
+                "ANSWER_2": "Mai multe exemple sunt mai bune, deci decizi că trebuie să ai nevoie de milioane de exemple. Începi să colectezi un set masiv de exemple și petreci luni colectând tot mai multe și mai multe.",
+                "NOTES_1": "Mai multe exemple sunt în general mai bune, dar fiți practici.",
+                "NOTES_2": "Pragmatismul este important. Testarea regulată este utilă pentru a te informa cum merg lucrurile și pentru a te ajuta să afli când ai făcut suficient.",
+                "NOTES_3": "Când ai doar zece exemple, alte zece exemple vor face probabil o mare diferență.",
+                "NOTES_4": "Când ai 100.000 de exemple, probabil că alte zece exemple nu vor avea un impact vizibil."
             },
             "QUESTION_6": {
-                "QUESTION": "Which of these statements is correct?",
-                "ANSWER_1": "Machine learning is a technique where computers can be trained to perform tasks instead of needing to be given an explicit set of steps to follow",
-                "ANSWER_2": "Machine learning is magic",
-                "ANSWER_3": "Machine learning means we don't need to think about problems any more because computers will think for us",
-                "ANSWER_4": "Machine learning has replaced the need for us to learn how to code",
-                "ANSWER_5": "Machine learning can only be done on massive supercomputers"
+                "QUESTION": "Care dintre aceste afirmații este corectă?",
+                "ANSWER_1": "Învățarea automată este o tehnică în care computerele pot fi instruite pentru a îndeplini sarcini în loc să fie nevoie să li se ofere un set explicit de pași de urmat",
+                "ANSWER_2": "Învățarea automată este magie",
+                "ANSWER_3": "Învățarea automată înseamnă că nu mai trebuie să ne gândim la probleme, deoarece computerele vor gândi pentru noi",
+                "ANSWER_4": "Învățarea automată a înlocuit necesitatea ca noi să învățăm cum să codăm",
+                "ANSWER_5": "Învățarea automată se poate face numai pe supercomputere masive"
             },
             "QUESTION_7": {
-                "QUESTION": "A machine learning system trained to recognise pictures with a tree in should be good at which of the following tasks:",
-                "ANSWER_1": "Identifying pictures of fruit",
-                "ANSWER_2": "Recognising the emotion in a piece of writing",
-                "ANSWER_3": "Recognising pictures of trees",
-                "NOTES_1": "Machine learning does not mean computers magically learn to do everything.",
-                "NOTES_2": "It means they learn how to do a specific task by being shown examples of that specific task.",
-                "NOTES_3": "If you want it to do something else, you need to train it to do that as well, by giving it examples of that."
+                "QUESTION": "Un sistem de învățare automată instruit să recunoască imagini cu un copac ar trebui să fie bun în care dintre următoarele sarcini:",
+                "ANSWER_1": "Identificarea imaginilor cu fructe",
+                "ANSWER_2": "Recunoașterea emoției într-o compunere",
+                "ANSWER_3": "Recunoașterea imaginilor copacilor",
+                "NOTES_1": "Învățarea automată nu înseamnă că computerele învață magic să facă totul.",
+                "NOTES_2": "Înseamnă că el învață cum să facă o sarcină specifică, arătându-le exemple ale acelei sarcini specifice.",
+                "NOTES_3": "Dacă vrei să facă altceva, trebuie să-l antrenezi să facă și asta, dându-i exemple."
             },
             "QUESTION_8": {
-                "QUESTION": "Alice and Bob both want to train a machine learning system to recognise if text is happy/positive or sad/negative. Which of them will probably train the best system?",
-                "ANSWER_1": "Alice. She has collected 10 varied examples of happy text, and 10 varied examples of sad text",
-                "ANSWER_2": "Bob. He has collected 1000 examples of happy writing and 10 examples of sad writing",
-                "NOTES_1": "Collecting a roughly similar number of examples for each label is a useful technique.",
-                "NOTES_2": "If nearly every example of writing you train a system with is happy, you might end up training the system to assume that sad writing is very unlikely, and that it should assume happy more often.",
-                "NOTES_4": "But, you might want it to do this.",
-                "NOTES_5": "If you're training a system to recognise text where text is happy 98% of the time, training it with that realistic experience might be worth a try."
+                "QUESTION": "Atât Alice, cât și Bob, vor să antreneze un sistem de învățare automată pentru a recunoaște dacă textul este fericit / pozitiv sau trist / negativ. Care dintre ei va antrena probabil cel mai bun sistem?",
+                "ANSWER_1": "Alice. Ea a adunat 10 exemple variate de text fericit și 10 exemple variate de text trist",
+                "ANSWER_2": "Bob. El a adunat 1000 de exemple de scris fericit și 10 exemple de scris trist",
+                "NOTES_1": "Colectarea unui număr aproximativ similar de exemple pentru fiecare etichetă este o tehnică utilă.",
+                "NOTES_2": "Dacă aproape fiecare exemplu de scriere cu care pregătești un sistem este fericit, s-ar putea să ajungi să pregătești sistemul pentru a presupune că scrierea tristă este foarte puțin probabilă și că ar trebui să asume fericirea mai des.",
+                "NOTES_4": "Dar, s-ar putea să doriți să facă acest lucru.",
+                "NOTES_5": "Dacă instruiești un sistem pentru a recunoaște un text în care textul este fericit 98% din timp, antrenarea acestuia cu acea experiență realistă ar putea merita o încercare."
             },
             "QUESTION_9": {
-                "QUESTION": "Advanced machine learning technology will always give correct answers. Incorrect answers mean the machine learning technology isn't very good",
-                "ANSWER_1": "True",
-                "ANSWER_2": "False",
-                "NOTES_1": "Not necessarily.",
-                "NOTES_3": "The technology and algorithms are important. BUT machine learning systems are only as accurate and reliable as the training they are given.",
-                "NOTES_4": "Simple machine learning algorithms with a lot of high quality training can do better than the most advanced machine learning algorithms with a small amount of poor quality training."
+                "QUESTION": "Tehnologia avansată de învățare automată va oferi întotdeauna răspunsuri corecte. Răspunsurile incorecte înseamnă că tehnologia de învățare automată nu este foarte bună.",
+                "ANSWER_1": "Adevărat",
+                "ANSWER_2": "Fals",
+                "NOTES_1": "Nu neapărat.",
+                "NOTES_3": "Tehnologia și algoritmii sunt importanți. DAR sistemele de învățare automată sunt la fel de exacte și fiabile ca și formarea pe care o primesc.",
+                "NOTES_4": "Algoritmii simpli de învățare automată cu o mulțime de formare de înaltă calitate pot funcționa mai bine decât cei mai avansați algoritmi de învățare automată cu o cantitate mică de formare de calitate slabă."
             },
             "QUESTION_10": {
-                "QUESTION": "How can you make sure your collection of animal pictures is good quality for training a machine and doesn't contain human mistakes?",
-                "ANSWER_1": "Manually inspect all of the pictures of animals yourself and make sure you agree with all of the labels",
-                "ANSWER_2": "Ask lots of people to label all the images and keep the training labels that people generally agree on",
-                "ANSWER_3": "Trick question! Humans are always right - machines make mistakes!",
-                "NOTES_1": "Even humans make mistakes and you won't always have time to double check all the training data!",
-                "NOTES_2": "If the task is tricky it can be a good idea to get more than one person to label each image and keep the label that the most humans agree is the right one."
+                "QUESTION": "Cum te poți asigura că colecția ta de imagini cu animale este de bună calitate pentru antrenamentul unei mașini și nu conține greșeli umane?",
+                "ANSWER_1": "Inspectează manual toate imaginile animalelor și asigură-te că ești de acord cu toate etichetele",
+                "ANSWER_2": "Roagă o mulțime de oameni să eticheteze toate imaginile și să păstreze etichetele de instruire cu care oamenii sunt de acord în general",
+                "ANSWER_3": "Întrebare capcană! Oamenii au întotdeauna dreptate - mașinile fac greșeli!",
+                "NOTES_1": "Chiar și oamenii fac greșeli și nu vei avea întotdeauna timp să verifici toate datele de antrenament!",
+                "NOTES_2": "Dacă sarcina este dificilă, poate fi o idee bună să faci mai multe persoane să eticheteze fiecare imagine și să păstreze eticheta cu care cei mai mulți oameni sunt de acord că este cea potrivită."
             },
             "QUESTION_11": {
-                "QUESTION": "A machine trained to identify pictures of \"food\" or \"not food\" gives inconsistent results for sandwiches, often putting them in the \"not food\" class. Which of the following could explain that?",
-                "ANSWER_1": "The human who trained the system doesn't like sandwiches and didn't put any in the training data",
-                "ANSWER_2": "The machine has to be in the right mood for a sandwich so it changes its mind a lot",
-                "ANSWER_3": "Sandwiches are not food. The system is right to be unsure",
-                "NOTES_1": "Machine learning models can only learn from the examples we show them.",
-                "NOTES_2": "It is very easy for humans to accidentally introduce their likes and dislikes into machine learning models so we should be very careful about what training data we use."
+                "QUESTION": "O mașină instruită pentru a identifica imagini cu \"mâncare\" sau \"nu mâncare\" oferă rezultate inconsistente pentru sandvișuri, plasându-le deseori în clasa \"nu mâncare\". Care dintre următoarele ar putea explica asta?",
+                "ANSWER_1": "Omului care a antrenat sistemul nu îi plac sandvișurile și nu a pus nimic în datele de antrenament",
+                "ANSWER_2": "Mașina trebuie să aibă dispoziția potrivită pentru un sandwich, astfel încât să se răzgândească foarte mult",
+                "ANSWER_3": "Sandvișurile nu sunt mâncare. Sistemul are dreptate să fie nesigur.",
+                "NOTES_1": "Modelele de învățare automată pot învăța doar din exemplele pe care le prezentăm.",
+                "NOTES_2": "Este foarte ușor pentru oameni să introducă din greșeală aprecierile și antipatiile lor în modelele de învățare automată, așa că ar trebui să fim foarte atenți la ce date de formare folosim."
             },
             "QUESTION_12": {
-                "QUESTION": "Which of the following best describes unsupervised learning?",
-                "ANSWER_1": "Writing a program that contains lots of if/else statements to determine the result",
-                "ANSWER_2": "A machine learning algorithm that uses unlabelled data and classifies it based on how similar one dataset is to another",
-                "ANSWER_3": "A machine learning algorithm that uses labelled data and classifies it based on training from example input-output pairs",
-                "NOTES_1": "Unsupervised learning is a type of machine learning, whereas only using if/else statements is not.",
-                "NOTES_2": "Unsupervised learning algorithms are still trained, but the inputs that are given to it are not labelled or classified.",
-                "NOTES_3": "If the data is labelled then this is what's known as supervised learning."
+                "QUESTION": "Care dintre următoarele descrie cel mai bine învățarea nesupravegheată?",
+                "ANSWER_1": "Scrierea unui program care conține o mulțime de instrucțiuni if / else pentru a determina rezultatul",
+                "ANSWER_2": "Un algoritm de învățare automată care utilizează date neetichetate și le clasifică în funcție de cât de asemănător este un set de date cu altul",
+                "ANSWER_3": "Un algoritm de învățare automată care folosește date etichetate și le clasifică pe baza instruirii din exemple de perechi intrare-ieșire",
+                "NOTES_1": "Învățarea nesupravegheată este un tip de învățare automată, în timp ce utilizarea instrucțiunilor if / else nu este.",
+                "NOTES_2": "Algoritmii de învățare nesupravegheați sunt încă instruiți, dar intrările care le sunt date nu sunt etichetate sau clasificate.",
+                "NOTES_3": "Dacă datele sunt etichetate, atunci aceasta este ceea ce se numește învățare supravegheată."
             },
             "QUESTION_13": {
-                "QUESTION": "Without machine learning, it would be impossible for search engines such as Google to exist.",
-                "ANSWER_1": "True",
-                "ANSWER_2": "False",
-                "NOTES_1": "Whilst many modern search engines do use machine learning, it is possible to create one without it. A basic search engine will just look for documents (web pages) that include the words the user searches for."
+                "QUESTION": "Fără învățarea automată, ar fi imposibil să existe motoare de căutare precum Google.",
+                "ANSWER_1": "Adevărat",
+                "ANSWER_2": "Fals",
+                "NOTES_1": "În timp ce multe motoare de căutare moderne folosesc învățarea automată, este posibil să se creeze unul fără ea. Un motor de căutare de bază va căuta doar documente (pagini web) care includ cuvintele căutate de utilizator."
             }
         }
     },
     "DESCRIBEMODEL": {
-        "TITLE": "Understand your machine learning model",
-        "TRYITOUT": "Try out your machine learning model to see how it uses the decision tree to make predictions",
+        "TITLE": "Înțelege modelul tău de învățare automată",
+        "TRYITOUT": "Încearcă modelul de învățare automată pentru a vedea cum folosește arborele decizional pentru a face predicții",
         "EXPLANATION": {
-            "EXPL_1": "The technique used to create your machine learning model is called a <a target='_blank' href='https://wikipedia.org/wiki/Decision_tree_learning'>Decision Tree Classifier</a>.",
-            "EXPL_2": "This is not the only way to train a machine learning model. We're using it because it's very quick and easy to train, and it is one of the easiest techniques to understand. This page shows you the decision tree that was created based on the training examples that you have collected.",
-            "EXPL_3": "When you test your model, the computer starts at the top of the tree, and follows a path until it reaches the bottom. The <strong>class</strong> at the bottom of the tree is the prediction that the machine learning model makes.",
-            "EXPL_4": "At each box in the tree, it reads the test described at the top of the box. If your test values pass the test described in the box, it follows the arrow to the left. If it doesn't pass the test, it follows the arrow to the right.",
-            "EXPL_5": "The <strong>samples</strong> shown in each box tells you how many examples in your training data matches that part of the decision tree.",
-            "EXPL_6": "The <strong>value</strong> shown in each box tells you how many examples in your training data passed the test shown at the top (following the left arrow) and how many examples didn't pass the test at the top (following the right arrow)."
+            "EXPL_1": "Tehnica utilizată pentru a crea modelul tău de învățare automată se numește a <a target='_blank' href='https://wikipedia.org/wiki/Decision_tree_learning'>Clasificator de arbori de decizie</a>.",
+            "EXPL_2": "Aceasta nu este singura modalitate de a instrui un model de învățare automată. O folosim pentru că este foarte rapidă și ușor de antrenat și este una dintre cele mai ușoare tehnici de înțeles. Această pagină îți arată arborele de decizie care a fost creat pe baza exemplelor de instruire pe care le-ai colectat.",
+            "EXPL_3": "Când vă testați modelul, computerul pornește din partea de sus a copacului și urmează o cale până ajunge în partea de jos. <strong> Clasa </strong> din partea de jos a arborelui este prezicerea pe care o face modelul de învățare automată.",
+            "EXPL_4": "La fiecare casetă din copac, citește testul descris în partea de sus a casetei. Dacă valorile testului tău trec testul descris în casetă, acesta urmează săgeata din stânga. Dacă nu trece testul, urmează săgeata din dreapta.",
+            "EXPL_5": "<strong>Monstrele</strong> afișate în fiecare casetă îți arată câte exemple din datele tale de antrenament se potrivesc cu acea parte a arborelui decizional.",
+            "EXPL_6": "<strong>Valorile</strong> afișate în fiecare casetă îți arată câte exemple din datele tale de antrenament au trecut testul prezentat în partea de sus (urmând săgeata din stânga) și câte exemple nu au trecut testul în partea de sus (în urma săgeții din dreapta)."
         },
         "ERRORS": {
-            "NUMBERSONLY": "Only machine learning models for numbers projects can be described"
+            "NUMBERSONLY": "Numai modelele de învățare automată pentru proiectele cu numere pot fi descrise"
         }
     },
     "DESCRIBETEXTMODEL": {
-        "ZOOM": "Use these controls to zoom in on the diagrams",
+        "ZOOM": "Utilizează aceste controale pentru a mări diagramele",
         "ERRORS": {
-            "TEXTONLY": "Only neural networks for text projects can be described"
+            "TEXTONLY": "Doar rețelele neuronale pentru proiectele text pot fi descrise"
         },
-        "MOREINFO": "for more detail, try searching for:",
+        "MOREINFO": "Pentru mai multe detalii, încercați să căutați:",
         "PAGE1": {
-            "TITLE": "neural networks",
-            "TEXT1": "The type of machine learning model you trained in this project is called a <em>neural network</em>.",
-            "TEXT2": "The next few pages will explain how your model was created.",
-            "TEXT3": "These diagrams aren't an exact description of your model. Your model is larger and more complicated, but these diagrams are easier to explain."
+            "TITLE": "Rețele neuronale",
+            "TEXT1": "Tipul de model de învățare automată pe care l-ai antrenat în acest proiect se numește <em>rețea neuronală</em>.",
+            "TEXT2": "Următoarele câteva pagini vor explica modul în care a fost creat modelul tău",
+            "TEXT3": "Aceste diagrame nu sunt o descriere exactă a modelului tău. Modelul tău este mai mare și mai complicat, dar aceste diagrame sunt mai ușor de explicat."
         },
         "PAGE2": {
             "TITLE": "deep learning",
@@ -963,36 +963,36 @@
         "LAUNCH": "Open App Inventor"
     },
     "SCRATCH": {
-        "TITLE": "Using machine learning in Scratch",
+        "TITLE": "Utilizarea învățării automate în Scratch",
 
-        "NOTREADY": "Your project isn't ready to be used in Scratch yet.",
-        "NOMODEL": "You haven't trained a machine learning model yet.",
+        "NOTREADY": "Proiectul tău nu este încă pregătit pentru a fi utilizat în Scratch.",
+        "NOMODEL": "Nu ai pregătit încă un model de învățare automată.",
 
-        "LAUNCH": "Open in Scratch",
+        "LAUNCH": "Deschide în Scratch",
 
-        "LAUNCH_SCRATCH_BY_ITSELF": "(You can use <a href='{{ url }}' class='btn btn-default' target='_blank'>Scratch by itself</a> if you want.)",
-        "GO_TO_LEARNANDTEST": "Or go to the <a href='{{ urls.learnandtest }}'>Learn &amp; Test</a> page for some tips on what to do next.",
+        "LAUNCH_SCRATCH_BY_ITSELF": "(Poți folosi <a href='{{ url }}' class='btn btn-default' target='_blank'>platforma Scratch</a> dacă dorești.)",
+        "GO_TO_LEARNANDTEST": "Sau navighează la pagina <a href='{{ urls.learnandtest }}'>Învață &amp; Testează</a> pentru câteva sugestii despre cum să continui.",
 
-        "MORE_BLOCKS": "Your project will add these blocks to the <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>More Blocks</span> tab in Scripts.",
-        "MORE_BLOCKS_3": "Your project will add these blocks to Scratch.",
-        "EXPLAIN_RECOGNISE_LABEL": "Put {{ type }} in the input for this, and it will return the label that your machine learning model recognises it as.",
-        "EXPLAIN_RECOGNISE_CONFIDENCE": "This will return how confident your machine learning model is that it recognises the type of {{ type }}. (As a number from 0 - 100).",
-        "EXPLAIN_LABELS": "These blocks represent the labels you've created in your project, so you can use their names in your scripts.",
-        "EXPLAIN_COSTUMEIMAGE": "This block is in the Looks palette for Sprites and will return the image of the currently selected costume.",
-        "EXPLAIN_ADD_TRAINING": "Use this to add a new example to your training data. (Training data has an effect after you train a machine learning model with it)",
-        "EXPLAIN_TRAIN_MODEL": "Use this to train a new machine learning model",
-        "EXPLAIN_IS_MODEL_READY": "The machine learning model will take a minute before it's ready for use. You can use these blocks to wait until it is ready.",
-        "SAMPLE_SCRIPT": "This means you can do something like this:",
-        "SAMPLE_SCREENSHOT": "It will look something like this - except with the name of your project.",
-        "EXPLAIN_STATUS": "The coloured circle next to your project name tells you if your machine learning model is okay.",
-        "STATUS_GREEN": "means your model is trained and ready to go",
-        "STATUS_YELLOW": "means your model hasn't finished training yet",
-        "STATUS_RED": "means something went wrong. Go back to the <a href='{{ urls.learnandtest }}'>Learn &amp; Test</a> page to see what went wrong with training."
+        "MORE_BLOCKS": "Proiectul tău va adăuga aceste blocuri la <span style='background-color: purple; color: white; padding-left: 7px; padding-right: 7px; white-space: nowrap;'>Mai multe blocuri</span> în Script-uri.",
+        "MORE_BLOCKS_3": "Proiectul tău va adăuga aceste blocuri în Scratch.",
+        "EXPLAIN_RECOGNISE_LABEL": "Introduceți {{ type }} datele pentru acest lucru și va returna eticheta pe care o recunoaște modelul tău de învățare automată.",
+        "EXPLAIN_RECOGNISE_CONFIDENCE": "Acest lucru va returna cât de sigur este modelul tău de învățare automată că recunoaște tipul de {{ type }}. (Printr-un număr de la 0 - 100).",
+        "EXPLAIN_LABELS": "Aceste blocuri reprezintă etichetele pe care le-ai creat în proiectul tău, astfel încât să le poți folosi numele în script-uri.",
+        "EXPLAIN_COSTUMEIMAGE": "Acest bloc se află în paleta Aspect pentru Personaje și va returna imaginea costumului selectat în prezent.",
+        "EXPLAIN_ADD_TRAINING": "Utilizează acest lucru pentru a adăuga un nou exemplu la datele tale de antrenament. (Datele de instruire au efect după ce instruiești un model de învățare automată cu acesta)",
+        "EXPLAIN_TRAIN_MODEL": "Utilizează acest lucru pentru a instrui un nou model de învățare automată",
+        "EXPLAIN_IS_MODEL_READY": "Modelul de învățare automată va dura un minut înainte de a fi gata de utilizare. Poți utiliza aceste blocuri pentru a aștepta până când este gata.",
+        "SAMPLE_SCRIPT": "Aceasta înseamnă că poți face așa ceva:",
+        "SAMPLE_SCREENSHOT": "Va arăta cam așa - cu excepția numelui proiectului tău:",
+        "EXPLAIN_STATUS": "Cercul colorat de lângă numele proiectului tău îți va spune dacă modelul tău de învățare automată este în regulă.",
+        "STATUS_GREEN": "înseamnă că modelul tău este pregătit și gata de utilizare",
+        "STATUS_YELLOW": "înseamnă că modelul tău nu a terminat antrenamentul încă",
+        "STATUS_RED": "înseamnă că ceva nu a mers bine. Navighează înapoi la pagina <a href='{{ urls.learnandtest }}'>Învață &amp; Testează</a> pentru a vedea ce a mers prost cu antrenamentul modelului."
     },
     "SCRATCH3": {
-        "TITLE": "Using machine learning in Scratch 3",
+        "TITLE": "Utilizarea învățării automate în Scratch 3",
 
-        "LAUNCH": "Open in Scratch 3"
+        "LAUNCH": "Deschide în Scratch 3"
     },
     "WORKSHEETS": {
         "TITLE": "Proiecte de învățare automată",
@@ -1011,7 +1011,7 @@
             "IMAGES": "imagini",
             "NUMBERS": "numere",
             "SOUNDS": "sunete",
-            "FACES": "fete"
+            "FACES": "fețe"
         },
 
         "LEVELS": {
@@ -1022,25 +1022,25 @@
             "ADVANCED": "Proiecte avansate"
         },
 
-        "DOWNLOAD": "Descarca",
+        "DOWNLOAD": "Descarcă",
 
         "DOWNLOADS": {
             "AUDIENCE": {
                 "TEACHERS": "Pentru profesori:",
-                "STUDENTS": "Pentru studenti:"
+                "STUDENTS": "Pentru elevi:"
             },
             "GUIDANCE": {
-                "TITLE": "Descărcați ghidul pentru profesori",
+                "TITLE": "Descarcă ghidul pentru profesori",
                 "DETAIL": "Această fișă conține informații pentru profesori sau liderii grupurilor de codificare pentru a-i ajuta să pregătească, să configureze și să supravegheze acest proiect.",
                 "NOTES": "Note:"
             },
             "WORKSHEET": {
-                "TITLE": "Descărcați foaia de lucru a proiectului",
-                "AUTHOR": "Foaie de lucru furnizată de:"
+                "TITLE": "Descarcă foaia de lucru a proiectului",
+                "AUTHOR": "Foaia de lucru furnizată de:"
             },
             "RESOURCES": {
                 "TITLE": "Resurse suplimentare pentru proiect",
-                "DETAIL": "De asemenea, va trebui să oferiți studenților o copie tipărită a acestui fișier."
+                "DETAIL": "De asemenea, va trebui să oferi studenților o copie tipărită a acestui fișier."
             }
         },
 
@@ -1051,22 +1051,22 @@
             "PYTHON": "Proiect Python",
             "APPINVENTOR": "Proiect App Inventor",
 
-            "SCRATCH_WORKSHEET": "Foaie de lucru pentru realizarea proiectuluiin Scratch",
-            "PYTHON_WORKSHEET": "Foaie de lucru pentru realizarea proiectului in Python",
-            "APPINVENTOR_WORKSHEET": "Foaie de lucru pentru realizarea proiectului in App Inventor"
+            "SCRATCH_WORKSHEET": "Foaie de lucru pentru realizarea proiectului în Scratch",
+            "PYTHON_WORKSHEET": "Foaie de lucru pentru realizarea proiectului în Python",
+            "APPINVENTOR_WORKSHEET": "Foaie de lucru pentru realizarea proiectului în App Inventor"
         },
 
         "NO_WORKSHEETS": {
             "NO_MATCHES": "Nu există foi de lucru pentru proiecte care să corespundă acestor filtre.",
-            "MAKE_YOUR_OWN": "Puteți adapta unele dintre foile de lucru existente sau puteți veni cu una nouă.",
-            "CONTRIBUTE": "Dacă faceți acest lucru, vă rugăm să luați în considerare <a href='https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions'> contribuind la utilizarea acestuia de către alții </a>."
+            "MAKE_YOUR_OWN": "Poți adapta unele dintre foile de lucru existente sau poți veni cu una nouă.",
+            "CONTRIBUTE": "Dacă faci acest lucru, te rugăm să iei în considerare <a href='https://github.com/IBM/taxinomitis-docs/blob/master/README.md#contributions'> contribuind la utilizarea acestuia de către alții </a>."
         },
 
 
         "DESCRIBETHEGLASS": {
-            "TITLE": "Descrieți paharul",
-            "SUMMARY": "Învățați un computer să vă prezică răspunsurile",
-            "DESCRIPTION": "Creați un joc în Scratch care învață când descrieți un pahar pe jumătate plin sau pe jumătate gol.",
+            "TITLE": "Descrie paharul",
+            "SUMMARY": "Învață un computer să îți prezică răspunsurile",
+            "DESCRIPTION": "Creează un joc în Scratch care învață când descrii un pahar pe jumătate plin sau pe jumătate gol.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-describetheglass.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-describetheglass.pdf"
@@ -1075,7 +1075,7 @@
         "SMARTCLASSROOM": {
             "TITLE": "Smart Classroom",
             "SUMMARY": "Învață un computer să recunoască semnificația comenzilor tale",
-            "DESCRIPTION": "Creați un asistent inteligent în Scratch care vă permite să controlați dispozitivele virtuale.",
+            "DESCRIPTION": "Creează un asistent inteligent în Scratch care îți permite să controlezi dispozitivele virtuale.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-smartclassroom.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Versiunea completă a proiectului, în care elevii realizează mai întâi o versiune non-machine learning",
@@ -1086,14 +1086,14 @@
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-easy.pdf"
             },
             "WORKSHEET_3": {
-                "DESCRIPTION": "Versiune simplificată rapidă a proiectului, ideală pentru utilizare ca primă introducere a instrumentului",
+                "DESCRIPTION": "Versiune simplificată și rapidă a proiectului, ideală pentru utilizare ca primă introducere a instrumentului",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-smartclassroom-tryitnow.pdf"
             }
         },
         "MAKEMEHAPPY": {
-            "TITLE": "Fa-ma fericit",
-            "SUMMARY": "Învățați un computer să recunoască complimente și insulte",
-            "DESCRIPTION": "Creați un personaj în Scratch care zâmbește dacă îi spuneți lucruri drăguțe și plânge dacă spuneți lucruri rele.",
+            "TITLE": "Fă-mă fericit",
+            "SUMMARY": "Învață un computer să recunoască complimente și insulte",
+            "DESCRIPTION": "Creează un personaj în Scratch care zâmbește dacă îi spui lucruri drăguțe și plânge dacă îi spui lucruri rele.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-makemehappy.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Versiunea completă a proiectului Scratch, unde elevii realizează mai întâi o versiune non-machine learning",
@@ -1110,8 +1110,8 @@
         },
         "SNAP": {
             "TITLE": "Snap!",
-            "SUMMARY": "Învățați un computer să recunoască aspectul pictogramelor",
-            "DESCRIPTION": "Faceți un joc de cărți în Scratch care învață să recunoască imaginile cărții dvs.",
+            "SUMMARY": "Învață un computer să recunoască aspectul pictogramelor",
+            "DESCRIPTION": "Creează un joc de cărți în Scratch care învață să recunoască imaginile cărții tale.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-snap.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Versiunea completă a proiectului, în care elevii își fac propriile cărți pe care vor instrui computerul să le recunoască",
@@ -1125,8 +1125,8 @@
         },
         "CHAMELEON": {
             "TITLE": "Cameleon",
-            "SUMMARY": "Învățați un computer să recunoască culorile",
-            "DESCRIPTION": "Faceți un cameleon în Scratch care schimbă culoarea pentru a se potrivi cu fundalul său.",
+            "SUMMARY": "Învață un computer să recunoască culorile",
+            "DESCRIPTION": "Creează un cameleon în Scratch care schimbă culoarea pentru a se potrivi cu fundalul său.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chameleon.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf"
@@ -1134,8 +1134,8 @@
         },
         "QUIZSHOW": {
             "TITLE": "Quiz Show",
-            "SUMMARY": "Creați un jucător intr-un joc tip spectacol care poate răspunde la întrebări pe un subiect la alegere",
-            "DESCRIPTION": "Folosiți un computer care a fost instruit pentru a găsi răspunsuri la întrebări în documente.",
+            "SUMMARY": "Creează un jucător într-un joc tip spectacol care poate răspunde la întrebări pe un subiect la alegere",
+            "DESCRIPTION": "Folosește un computer care a fost instruit pentru a găsi răspunsuri la întrebările din documente.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-quizshow.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-quizshow.pdf"
@@ -1143,17 +1143,17 @@
         },
         "MAILMANMAX": {
             "TITLE": "Mailman Max",
-            "SUMMARY": "Învățați un computer să recunoască scrierea de mână",
-            "DESCRIPTION": "Creați un birou de sortare poștală în Scratch care poate recunoaște coduri poștale scrise de mână pe plicuri.",
+            "SUMMARY": "Învață un computer să recunoască scrierea de mână",
+            "DESCRIPTION": "Creează un birou de sortare poștală în Scratch care poate recunoaște coduri poștale scrise de mână pe plicuri.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-mailmanmax.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-mailmanmax.pdf"
             }
         },
         "SHOOTTHEBUG": {
-            "TITLE": "Shoot the bug",
-            "SUMMARY": "Teach a computer to play a game",
-            "DESCRIPTION": "Create a Breakout-style arcade game in Scratch that learns the angle to shoot balls at.",
+            "TITLE": "Împușcă gândacul",
+            "SUMMARY": "Învață un computer să joace un joc",
+            "DESCRIPTION": "Creează un joc _arcade_ în stil Breakout în Scratch care învață unghiul în care să tragi mingi.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shootthebug.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shootthebug.pdf"
@@ -1161,8 +1161,8 @@
         },
         "CARORCUP": {
             "TITLE": "Mașină sau cupă",
-            "SUMMARY": "Învățați un computer să recunoască imagini de obiecte",
-            "DESCRIPTION": "Instruiți computerul pentru a putea sorta fotografiile în grupuri.",
+            "SUMMARY": "Învață un computer să recunoască imagini de obiecte",
+            "DESCRIPTION": "Instruiește computerul pentru a putea sorta fotografiile în grupuri.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-carorcup.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Versiune individuală a proiectului, în care fiecare student își formează propriul model de învățare automată în mod independent",
@@ -1175,8 +1175,8 @@
         },
         "FACELOCK": {
             "TITLE": "Blocare facială",
-            "SUMMARY": "Învățați un computer să recunoască fețele",
-            "DESCRIPTION": "Creați un telefon în Scratch care se deblochează dacă vă recunoaște fața.",
+            "SUMMARY": "Învață un computer să recunoască fețele",
+            "DESCRIPTION": "Creează un telefon în Scratch care se deblochează dacă îți recunoaște fața.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-facelock.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facelock.pdf"
@@ -1184,8 +1184,8 @@
         },
         "JOURNEYTOSCHOOL": {
             "TITLE": "Călătorie la școală",
-            "SUMMARY": "Învățați un computer să facă predicții",
-            "DESCRIPTION": "Instruiți computerul pentru a putea prezice modul în care călătoriți la școală dimineața.",
+            "SUMMARY": "Învață un computer să facă predicții",
+            "DESCRIPTION": "Instruiește computerul pentru a putea prezice modul în care călătorești la școală dimineața.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-journeytoschool.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-journeytoschool.pdf"
@@ -1193,8 +1193,8 @@
         },
         "SHYPANDA": {
             "TITLE": "Panda cel timid",
-            "SUMMARY": "Învățați un computer să recunoască imaginile cu webcam",
-            "DESCRIPTION": "Faceți un panda dansator care devine timid și nu mai dansează dacă vă vede că vă utați la el.",
+            "SUMMARY": "Învață un computer să recunoască imaginile cu webcam",
+            "DESCRIPTION": "Creează un panda dansator care devine timid și nu mai dansează dacă te vede că te uiți la el.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shypanda.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda.pdf"
@@ -1202,7 +1202,7 @@
         },
         "VIRTUALPET": {
             "TITLE": "Animal de companie virtual",
-            "SUMMARY": "Învățați un computer să recunoască imaginile cu webcam",
+            "SUMMARY": "Învață un computer să recunoască imaginile cu webcam",
             "DESCRIPTION": "Instruiește computerul să recunoască ceea ce faci, astfel încât să poți avea grijă de un animal de companie virtual.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-virtualpet.pdf",
             "WORKSHEET_1": {
@@ -1212,7 +1212,7 @@
         "PACMAN": {
             "TITLE": "Pac-Man",
             "SUMMARY": "Învață un computer să joace un joc",
-            "DESCRIPTION": "Creați un joc Pac-Man în Scratch care învață cum să evitați fantoma.",
+            "DESCRIPTION": "Creează un joc Pac-Man în Scratch care învață cum să evite fantoma.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-pacman.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pacman.pdf"
@@ -1220,8 +1220,8 @@
         },
         "CHATBOTS": {
             "TITLE": "Chatbots",
-            "SUMMARY": "Învățați un computer să recunoască întrebările",
-            "DESCRIPTION": "Creați un chatbot care poate răspunde la întrebări despre un subiect la alegere.",
+            "SUMMARY": "Învață un computer să recunoască întrebările",
+            "DESCRIPTION": "Creează un chatbot care poate răspunde la întrebări despre un subiect la alegere.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chatbots.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Proiect Scratch - pentru crearea unui bot de chat în Scratch",
@@ -1234,8 +1234,8 @@
         },
         "TOURISTINFO": {
             "TITLE": "Tourist Info",
-            "SUMMARY": "Învățați un computer să facă recomandări",
-            "DESCRIPTION": "Creați o aplicație mobilă în Scratch care recomandă atracții turistice pe baza intereselor oamenilor.",
+            "SUMMARY": "Învață un computer să facă recomandări",
+            "DESCRIPTION": "Creează o aplicație mobilă în Scratch care recomandă atracții turistice pe baza intereselor oamenilor.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-touristinfo.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-touristinfo.pdf"
@@ -1244,21 +1244,21 @@
         "SORTINGHAT": {
             "TITLE": "Sortare pălărie",
             "SUMMARY": "Învață un computer să recunoască utilizarea limbajului",
-            "DESCRIPTION": "Creați o pălărie de sortare ca în Harry Potter, care să vă plaseze într-o casă școlară pe baza a ceea ce spuneți.",
+            "DESCRIPTION": "Creează o pălărie de sortare ca în Harry Potter, care să te plaseze într-o casă școlară pe baza a ceea ce spui.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-sortinghat.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Versiune individuală a proiectului, în care fiecare student își formează propriul model de învățare automată în mod independent",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Versiunea de grup a proiectului, în care elevii din clasă lucreează împreună pentru a instrui un model comun de învățare automată",
+                "DESCRIPTION": "Versiunea de grup a proiectului, în care elevii din clasă lucrează împreună pentru a instrui un model comun de învățare automată",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-sortinghat-crowd.pdf"
             }
         },
         "ROCKPAPERSCISSORS": {
             "TITLE": "Piatră, hârtie, foarfece",
             "SUMMARY": "Învață un computer să recunoască formele",
-            "DESCRIPTION": "Faceți un joc Piatră, hârtie, foarfece în Scratch care învață să recunoască formele mâinilor.",
+            "DESCRIPTION": "Creează un joc _Piatră, hârtie, foarfece_ în Scratch care învață să recunoască formele mâinilor.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-rockpaperscissors.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-rockpaperscissors.pdf"
@@ -1266,8 +1266,8 @@
         },
         "JUDGEABOOK": {
             "TITLE": "Judecă o carte",
-            "SUMMARY": "Învățați un computer să recunoască stilul vizual",
-            "DESCRIPTION": "Faceți un joc în Scratch pentru a testa dacă este cu adevărat posibil să judecați o carte după coperta sa.",
+            "SUMMARY": "Învață un computer să recunoască stilul vizual",
+            "DESCRIPTION": "Creează un joc în Scratch pentru a testa dacă este cu adevărat posibil să judeci o carte după coperta sa.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Versiunea completă a proiectului, unde copiii fac un joc pentru a concura împotriva computerului pentru a recunoaște cărțile",
@@ -1280,26 +1280,26 @@
         },
         "LOCATELARRY": {
             "TITLE": "Localizează-l pe Larry",
-            "SUMMARY": "Învățați un computer să găsească ceva într-o imagine",
-            "DESCRIPTION": "Creați un joc în stilul \"Unde este Wally?\" în Scratch și învățați computerul să vă găsească personajul.",
+            "SUMMARY": "Învață un computer să găsească ceva într-o imagine",
+            "DESCRIPTION": "Creează un joc în stilul \"Unde este Wally?\" în Scratch și învață computerul să îți găsească personajul.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-locatelarry.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-locatelarry.pdf"
             }
         },
         "FOOLED": {
-            "TITLE": "Prostul",
-            "SUMMARY": "Învățați un computer să recunoască fructele",
-            "DESCRIPTION": "Aflați despre modul în care computerele pot fi prostite și pot face greșeli dacă sunt instruite prost.",
+            "TITLE": "Păcălici",
+            "SUMMARY": "Învață un computer să recunoască fructele",
+            "DESCRIPTION": "Află despre modul în care computerele pot fi prostite și pot face greșeli dacă sunt instruite prost.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-fooled.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-fooled.pdf"
             }
         },
         "SCHOOLLIBRARY": {
-            "TITLE": "Biblioteca scolii",
-            "SUMMARY": "Învățați un computer să facă recomandări",
-            "DESCRIPTION": "Creați un bibliotecar școlar în Scratch care să sugereze pentru cine ar putea fi potrivită o carte de lectură.",
+            "TITLE": "Biblioteca școlii",
+            "SUMMARY": "Învață un computer să facă recomandări",
+            "DESCRIPTION": "Creează un bibliotecar școlar în Scratch care să sugereze pentru cine ar putea fi potrivită o carte de lectură.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-schoollibrary.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-schoollibrary.pdf"
@@ -1308,7 +1308,7 @@
         "WHATTWITTERTHINKS": {
             "TITLE": "Ce crede Twitter?",
             "SUMMARY": "Învață un computer să măsoare opinia publică",
-            "DESCRIPTION": "Creați un instrument de analiză a sentimentelor în Scratch pentru a analiza discuțiile pe Twitter.",
+            "DESCRIPTION": "Creează un instrument de analiză a sentimentelor în Scratch pentru a analiza discuțiile pe Twitter.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-whattwitterthinks.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-whattwitterthinks.pdf"
@@ -1317,7 +1317,7 @@
         "NOUGHTSANDCROSSES": {
             "TITLE": "Noughts & Crosses (X si 0)",
             "SUMMARY": "Învață un computer să joace un joc",
-            "DESCRIPTION": "Creați un joc ICS și ZERO în Python care învață cum să vă învingă.",
+            "DESCRIPTION": "Creează un joc ICS și ZERO în Python care învață cum să te învingă.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-noughtsandcrosses.pdf",
             "WORKSHEET_1": {
                 "DESCRIPTION": "Versiune în clasă, în care fiecare elev face jocul în Scratch",
@@ -1343,16 +1343,16 @@
         },
         "HEADLINES": {
             "TITLE": "Titluri",
-            "SUMMARY": "Testați capacitatea computerului de a recunoaște utilizarea limbajului",
-            "DESCRIPTION": "Instruiți un computer pentru a recunoaște titlurile din ziarele naționale.",
+            "SUMMARY": "Testează capacitatea computerului de a recunoaște utilizarea limbajului",
+            "DESCRIPTION": "Instruiește un computer pentru a recunoaște titlurile din ziarele naționale.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
             }
         },
         "NEWSPAPERSHELVES": {
             "TITLE": "Rafturi pentru ziare",
-            "SUMMARY": "Testați capacitatea computerului de a recunoaște utilizarea limbajului",
-            "DESCRIPTION": "Instruiți un computer pentru a recunoaște titlurile din ziarele naționale.",
+            "SUMMARY": "Testează capacitatea computerului de a recunoaște utilizarea limbajului",
+            "DESCRIPTION": "Instruiește un computer pentru a recunoaște titlurile din ziarele naționale.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines-easy.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines-easy.pdf"
@@ -1360,8 +1360,8 @@
         },
         "HEADLINETESTING": {
             "TITLE": "Testarea titlului",
-            "SUMMARY": "Testați capacitatea computerului de a recunoaște utilizarea limbajului",
-            "DESCRIPTION": "Creați un instrument de testare în Scratch pentru a măsura cât de bun este un model de învățare automată.",
+            "SUMMARY": "Testează capacitatea computerului de a recunoaște utilizarea limbajului",
+            "DESCRIPTION": "Creează un instrument de testare în Scratch pentru a măsura cât de bun este un model de învățare automată.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-headlines.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-headlines.pdf"
@@ -1369,8 +1369,8 @@
         },
         "FINDIT": {
             "TITLE": "Gaseste-l!",
-            "SUMMARY": "Învățați un computer să recunoască imagini",
-            "DESCRIPTION": "Faceți un joc De-a v-ați ascunselea pentru telefonul dvs. mobil.",
+            "SUMMARY": "Învață un computer să recunoască imagini",
+            "DESCRIPTION": "Creează un joc _De-a v-ați ascunselea_ pentru telefonul tău mobil.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-findit.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-findit.pdf"
@@ -1378,8 +1378,8 @@
         },
         "ALIENLANGUAGE": {
             "TITLE": "Limbaj marțian",
-            "SUMMARY": "Învățați un computer să recunoască sunetele",
-            "DESCRIPTION": "Creați un marțian în Scratch care învață să recunoască un limbaj străin.",
+            "SUMMARY": "Învață un computer să recunoască sunetele",
+            "DESCRIPTION": "Creează un marțian în Scratch care învață să recunoască un limbaj străin.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-alienlanguage.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-alienlanguage.pdf"
@@ -1387,8 +1387,8 @@
         },
         "SECRETCODE": {
             "TITLE": "Cod secret",
-            "SUMMARY": "Învățați un computer să recunoască vorbirea",
-            "DESCRIPTION": "Instruiți un computer pentru a înțelege cuvintele codului secret pentru a ghida un spion.",
+            "SUMMARY": "Învață un computer să recunoască vorbirea",
+            "DESCRIPTION": "Instruiește un computer pentru a înțelege cuvintele codului secret pentru a ghida un spion.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-secretcode.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-secretcode.pdf"
@@ -1397,7 +1397,7 @@
         "JARGONBUSTER": {
             "TITLE": "Jargon Buster",
             "SUMMARY": "Învață un computer să asculte cuvinte",
-            "DESCRIPTION": "Faceți un proiect în Scratch care afișează semnificația cuvintelor pe care le spuneți.",
+            "DESCRIPTION": "Creează un proiect în Scratch care afișează semnificația cuvintelor pe care le spui.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-jargonbuster.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-jargonbuster.pdf"
@@ -1405,8 +1405,8 @@
         },
         "TITANIC": {
             "TITLE": "Titanic",
-            "SUMMARY": "Învățați un computer să prezică rezultatele",
-            "DESCRIPTION": "Creați un program Python care poate prezice cine a supraviețuit scufundării Titanicului.",
+            "SUMMARY": "Învață un computer să prezică rezultatele",
+            "DESCRIPTION": "Creează un program Python care poate prezice cine a supraviețuit scufundării Titanicului.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-titanic.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-titanic-python.pdf"
@@ -1414,7 +1414,7 @@
         },
         "ZOMBIEESCAPE": {
             "TITLE": "Zombie Escape!",
-            "SUMMARY": "Învățați un computer să facă predicții",
+            "SUMMARY": "Învață un computer să facă predicții",
             "DESCRIPTION": "Instruiește un computer pentru a te ajuta să scapi de hoarda de zombi.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-zombieescape.pdf",
             "WORKSHEET_1": {
@@ -1423,8 +1423,8 @@
         },
         "PHISHING": {
             "TITLE": "Phishing",
-            "SUMMARY": "Învățați un computer să recunoască legăturile web de phishing",
-            "DESCRIPTION": "Creați un program Python care poate prezice dacă o adresă URL este legitimă.",
+            "SUMMARY": "Învață un computer să recunoască legăturile web de phishing",
+            "DESCRIPTION": "Creează un program Python care poate prezice dacă o adresă URL este legitimă.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-phishing.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-phishing.pdf"
@@ -1432,16 +1432,16 @@
         },
         "KIWIORSTOAT": {
             "TITLE": "Kiwi or Stoat",
-            "SUMMARY": "Învățați un computer să recunoască fotografii cu animale",
-            "DESCRIPTION": "Realizați un proiect în Scratch care poate recunoaște animalele din fotografiile de pe siturile de conservare.",
+            "SUMMARY": "Învață un computer să recunoască fotografii cu animale",
+            "DESCRIPTION": "Realizează un proiect în Scratch care poate recunoaște animalele din fotografiile de pe siturile de conservare.",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-kiwiorstoat.pdf"
             }
         },
         "INKBLOTS": {
             "TITLE": "Pete de cerneală",
-            "SUMMARY": "Învățați un computer să recunoască fotografiile obiectelor",
-            "DESCRIPTION": "Recreați un proiect de cercetare MIT și aflați cum sunt descrise sistemele de IA în știri.",
+            "SUMMARY": "Învață un computer să recunoască fotografiile obiectelor",
+            "DESCRIPTION": "Recreează un proiect de cercetare MIT și află cum sunt descrise sistemele de IA în știri.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-inkblots.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-inkblots.pdf"
@@ -1449,8 +1449,8 @@
         },
         "FACEFINDER": {
             "TITLE": "Face Finder",
-            "SUMMARY": "Folosiți un computer care a fost instruit pentru a recunoaște fețele",
-            "DESCRIPTION": "Creați un filtru video în Scratch pentru a vă transforma fața într-un desen animat.",
+            "SUMMARY": "Folosește un computer care a fost instruit pentru a recunoaște fețe",
+            "DESCRIPTION": "Creează un filtru video în Scratch pentru a-ți transforma fața într-un desen animat.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-facefinder.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-facefinder.pdf"
@@ -1458,8 +1458,8 @@
         },
         "EMOJIMASK": {
             "TITLE": "Mască Emoji",
-            "SUMMARY": "Folosiți un computer care a fost instruit pentru a recunoaște fețele",
-            "DESCRIPTION": "Creați un filtru video în Scratch pentru a adăuga o mască emoji pe față.",
+            "SUMMARY": "Folosește un computer care a fost instruit pentru a recunoaște fețe",
+            "DESCRIPTION": "Creează un filtru video în Scratch pentru a-ți adăuga o mască emoji pe față.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-emojimask.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-emojimask.pdf"
@@ -1467,8 +1467,8 @@
         },
         "LASEREYES": {
             "TITLE": "Ochi cu laser",
-            "SUMMARY": "Învățați un computer să recunoască vorbirea și fețele",
-            "DESCRIPTION": "Creați un joc cu ochi cu laser activat prin voce în Scratch.",
+            "SUMMARY": "Învață un computer să recunoască vorbirea și fețele",
+            "DESCRIPTION": "Creează un joc cu ochi cu laser activat prin voce în Scratch.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-lasereyes.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-lasereyes.pdf"
@@ -1476,8 +1476,8 @@
         },
         "SEMAPHORES": {
             "TITLE": "Quiz de semafor",
-            "SUMMARY": "Învățați un computer să recunoască vorbirea și poza",
-            "DESCRIPTION": "Creați un joc de semafor cu voce activat pe care îl jucați mișcând brațele.",
+            "SUMMARY": "Învață un computer să recunoască vorbirea și poza",
+            "DESCRIPTION": "Creează un joc de semafor cu voce activat pe care îl joic mișcând brațele.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-semaphores.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-semaphores.pdf"
@@ -1485,8 +1485,8 @@
         },
         "HANDGESTURES": {
             "TITLE": "Gesturi cu mâna",
-            "SUMMARY": "Învățați un computer să recunoască formele",
-            "DESCRIPTION": "Realizați un proiect de cameră web în Scratch care poate recunoaște formele pe care le faceți cu mâinile.",
+            "SUMMARY": "Învață un computer să recunoască formele",
+            "DESCRIPTION": "Realizează un proiect de cameră web în Scratch care poate recunoaște formele pe care le faci cu mâinile.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-handgestures.pdf",
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-handgestures.pdf"
@@ -1495,48 +1495,48 @@
     },
     "TEACHER": {
         "MENU": {
-            "TITLE": "Administration",
+            "TITLE": "Administrare",
 
             "RESTRICTIONS": {
-                "TITLE": "Restrictions",
-                "DESCRIPTION": "Review limits and restrictions that apply to your class"
+                "TITLE": "Restricții",
+                "DESCRIPTION": "Examinează limitele și restricțiile care se aplică cursului tău."
             },
             "APIKEYS": {
                 "TITLE": "API Keys",
                 "TITLELONG": "Watson API Keys",
-                "DESCRIPTION": "Set up IBM Watson credentials to enable your class to create machine learning models"
+                "DESCRIPTION": "Configurează acreditările IBM Watson pentru a permite clasei tale să creeze modele de învățare automată"
             },
             "STUDENTS": {
-                "TITLE": "Students",
-                "TITLELONG": "Student management",
-                "DESCRIPTION": "Create, reset and delete logins for students in your class"
+                "TITLE": "Elevi",
+                "TITLELONG": "Management-ul elevilor",
+                "DESCRIPTION": "Creează, resetează și șterge login-uri pentru elevii din clasa ta"
             },
             "SUPERVISION": {
-                "TITLE": "Supervision",
-                "DESCRIPTION": "Review projects that your students have created"
+                "TITLE": "Supervizare",
+                "DESCRIPTION": "Examinează proiectele pe care elevii tăi le-au creat"
             },
 
-            "ADVANCEDOPTIONS": "Advanced options",
+            "ADVANCEDOPTIONS": "Opțiuni avansate",
 
             "DELETECLASS": {
-                "TITLE": "Delete class",
-                "DESCRIPTION": "This will delete the accounts for you and all of the students in your class"
+                "TITLE": "Șterge clasa",
+                "DESCRIPTION": "Aceasta va șterge conturile pentru tine și pentru toți elevii din clasa ta."
             },
 
             "CANYOUHELP": {
-                "TITLE": "Can you help?",
-                "DESCRIPTION": "Please share your experiences and ideas for how to make the tool better"
+                "TITLE": "Poți da o mână de ajutor?",
+                "DESCRIPTION": "Te rog să împărtășești experiențele și ideile tale despre cum să îmbunătățim acest instrument"
             },
 
-            "NOTAUTHORISED": "You are not authorized to access the teacher page for your class."
+            "NOTAUTHORISED": "Nu ești autorizat să accesezi pagina profesorului pentru clasa ta."
         },
         "APIKEYS": {
             "TITLE": "Administration : IBM Watson API Keys",
 
-            "ADDNEWCREDENTIALS": "Add new credentials",
-            "ADDAPIKEY": "Add new API key",
-            "REMOVE": "Remove",
-            "VERIFY": "Verify",
+            "ADDNEWCREDENTIALS": "Adăugați noi credențiale",
+            "ADDAPIKEY": "Adaugă o nouă cheie API",
+            "REMOVE": "Elimină",
+            "VERIFY": "Verifică",
 
             "LITE_30_DAYS_EXPIRE": "IBM Cloud may deactivate 'Lite' plan Watson API keys if they're not used for 30 days",
             "TRIAL_30_DAYS_EXPIRE": "IBM Cloud may deactivate trial plan Watson API keys after 30 days",
