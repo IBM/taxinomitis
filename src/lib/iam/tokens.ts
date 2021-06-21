@@ -40,15 +40,35 @@ export async function getAccessToken(apikey: string): Promise<Types.BluemixToken
         };
     }
     catch (err) {
+        if (err.statusCode === httpStatus.TOO_MANY_REQUESTS)
+        {
+            log.debug({ err, apikey }, 'API key exceeded rate limit');
+
+            const throwErr: any = new Error(ERRORS.RATE_LIMIT_EXCEEDED);
+            throwErr.statusCode = httpStatus.TOO_MANY_REQUESTS;
+            throw throwErr;
+        }
+
         if (err &&
             err.error && typeof err.error === 'object' &&
-            err.error.errorCode === 'BXNIM0415E')
+            err.error.errorCode)
         {
-            log.debug({ err, apikey }, 'API key rejected');
+            if (err.error.errorCode === 'BXNIM0415E')
+            {
+                log.debug({ err, apikey }, 'API key rejected');
 
-            const throwErr: any = new Error(ERRORS.INVALID_API_KEY);
-            throwErr.statusCode = httpStatus.UNAUTHORIZED;
-            throw throwErr;
+                const throwErr: any = new Error(ERRORS.INVALID_API_KEY);
+                throwErr.statusCode = httpStatus.UNAUTHORIZED;
+                throw throwErr;
+            }
+            else if (err.error.errorCode === 'BXNIM0434E')
+            {
+                log.debug({ err, apikey }, 'API key is blocked');
+
+                const throwErr: any = new Error(ERRORS.BLOCKED_API_KEY);
+                throwErr.statusCode = httpStatus.UNAUTHORIZED;
+                throw throwErr;
+            }
         }
 
         log.error({ err }, 'Failed to get access token');
@@ -59,4 +79,6 @@ export async function getAccessToken(apikey: string): Promise<Types.BluemixToken
 export const ERRORS = {
     UNKNOWN : 'Failed to create token',
     INVALID_API_KEY : 'Invalid API key',
+    BLOCKED_API_KEY : 'Rejected API key',
+    RATE_LIMIT_EXCEEDED : 'Rate limit exceeded',
 };

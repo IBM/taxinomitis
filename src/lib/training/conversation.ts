@@ -140,9 +140,10 @@ async function createWorkspace(
                     ERROR_MESSAGES.POOL_EXHAUSTED :
                     ERROR_MESSAGES.INSUFFICIENT_API_KEYS;
             }
-            else if (err.error &&
-                     err.error.error &&
-                     err.error.error.startsWith('Rate limit exceeded'))
+            else if (err.statusCode === httpStatus.TOO_MANY_REQUESTS ||
+                     (err.error &&
+                      err.error.error &&
+                      err.error.error.startsWith('Rate limit exceeded')))
             {
                 // The class is probably using a Lite plan API key and between
                 //  them are hammering the Train Model button too fast
@@ -547,18 +548,18 @@ export async function testClassifier(
     text: string,
 ): Promise<TrainingObjects.Classification[]>
 {
-    const basereq = await createBaseRequest(credentials);
-    const req = {
-        ...basereq,
-        body : {
-            input : {
-                text,
-            },
-            alternate_intents : true,
-        },
-    };
-
     try {
+        const basereq = await createBaseRequest(credentials);
+        const req = {
+            ...basereq,
+            body : {
+                input : {
+                    text,
+                },
+                alternate_intents : true,
+            },
+        };
+
         const body = await request.post(credentials.url + '/v1/workspaces/' + classifierId + '/message', req, true);
         if (body.intents.length === 0) {
             const project = await store.getProject(projectid);
@@ -579,6 +580,10 @@ export async function testClassifier(
         });
     }
     catch (err) {
+        if (err.statusCode === httpStatus.TOO_MANY_REQUESTS)
+        {
+            throw new Error(ERROR_MESSAGES.API_KEY_RATE_LIMIT);
+        }
         if (err.statusCode === httpStatus.NOT_FOUND &&
             err.error && err.error.code && err.error.code === httpStatus.NOT_FOUND)
         {

@@ -3,8 +3,12 @@ import * as pg from 'pg';
 // local dependencies
 import * as env from '../utils/env';
 import * as fileutils from '../utils/fileutils';
+import loggerSetup from '../utils/logger';
 
 let connectionPool: pg.Pool | undefined;
+
+const log = loggerSetup();
+
 
 export async function connect(): Promise<any> {
     if (!connectionPool) {
@@ -25,6 +29,10 @@ export async function connect(): Promise<any> {
         }
 
         connectionPool = new pg.Pool(connectionOptions);
+
+        connectionPool.on('error', (err) => {
+            log.error({ err }, 'Idle database client error');
+        });
     }
     return connectionPool;
 }

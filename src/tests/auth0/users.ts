@@ -266,6 +266,7 @@ describe('auth0 users', () => {
 
         it('should fetch a count of students', () => {
             const stubs = {
+                getOauthToken : sinon.stub(auth0, 'getOauthToken').callsFake(mocks.getOauthToken.good),
                 getUserCountsStub : sinon.stub(auth0, 'getUserCounts').callsFake(mocks.getUserCounts),
             };
 
@@ -273,6 +274,7 @@ describe('auth0 users', () => {
                 .then((count) => {
                     assert.strictEqual(count, 5);
 
+                    stubs.getOauthToken.restore();
                     stubs.getUserCountsStub.restore();
                 });
         });
