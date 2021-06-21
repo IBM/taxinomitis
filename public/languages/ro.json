@@ -1682,57 +1682,57 @@
     },
     "SCRATCHBLOCKS": {
         "TEXT_PROJECTS": {
-            "mlforkids.text.recogniseLabel": "recognise text [TEXT] (label)",
-            "mlforkids.text.recogniseConfidence": "recognise text [TEXT] (confidence)",
-            "mlforkids.text.addTraining": "add training data [TEXT] [LABEL]",
-            "mlforkids.text.trainNewModel": "train new machine learning model",
-            "mlforkids.text.checkModelStatus": "Is the machine learning model [STATUS] ?"
+            "mlforkids.text.recogniseLabel": "recunoaște textul [TEXT] (label)",
+            "mlforkids.text.recogniseConfidence": "recunoaște textul [TEXT] (confidence)",
+            "mlforkids.text.addTraining": "adaugă date instruire [TEXT] [LABEL]",
+            "mlforkids.text.trainNewModel": "antrenează un nou model de învățare automată",
+            "mlforkids.text.checkModelStatus": "Este modelul de învățare automată [STATUS]?"
         },
         "IMAGES_PROJECTS": {
-            "mlforkids.images.recogniseLabel": "recognise image [IMAGE] (label)",
-            "mlforkids.images.recogniseConfidence": "recognise image [IMAGE] (confidence)",
-            "mlforkids.images.addTraining": "add training data [TEXT] [LABEL]"
+            "mlforkids.images.recogniseLabel": "recunoaște imaginea [IMAGE] (label)",
+            "mlforkids.images.recogniseConfidence": "recunoaște imaginea [IMAGE] (confidence)",
+            "mlforkids.images.addTraining": "adaugă date instruire [TEXT] [LABEL]"
         },
         "NUMBER_PROJECTS": {
-            "mlforkids.numbers.trainNewModel": "train new machine learning model"
+            "mlforkids.numbers.trainNewModel": "antrenează un nou model de învățare automată"
         },
         "SOUND_PROJECTS": {
-            "mlforkids.sounds.startListening": "start listening",
-            "mlforkids.sounds.stopListening": "stop listening"
+            "mlforkids.sounds.startListening": "ascultă sunetul",
+            "mlforkids.sounds.stopListening": "stop ascultare"
         },
         "TWITTER": {
-            "mlforkids.twitter.getrecenttweet": "get the [INDEX] most recent tweet about [TOPIC]"
+            "mlforkids.twitter.getrecenttweet": "ia [INDEX] al celui mai recent tweet despre [TOPIC]"
         },
         "FACE": {
-            "mlforkids.face.size": "size of [LANDMARK]",
-            "mlforkids.face.xlocation": "x coord of [LANDMARK]",
-            "mlforkids.face.ylocation": "y coord of [LANDMARK]"
+            "mlforkids.face.size": "dimensiunea [LANDMARK]",
+            "mlforkids.face.xlocation": "coordonata x a [LANDMARK]",
+            "mlforkids.face.ylocation": "coordonata y a [LANDMARK]"
         },
         "POSENET": {
-            "mlforkids.posenet.getposition": "find [POSITION] of [LANDMARK]"
+            "mlforkids.posenet.getposition": "găsește [POSITION] a [LANDMARK]"
         },
         "HANDPOSE": {
-            "mlforkids.handpose.getposition": "find [POSITION] of [LANDMARK]"
+            "mlforkids.handpose.getposition": "găsește [POSITION] a [LANDMARK]"
         },
         "QNA": {
-            "mlforkids.qna.getTopAnswer": "find answer to [QUESTION] in [PASSAGE]"
+            "mlforkids.qna.getTopAnswer": "găsește răspunsul la [QUESTION] în [PASSAGE]"
         },
         "TOXICITY": {
-            "mlforkids.toxicity.confidencetrue": "probability that [TEXT] is [LABEL]",
-            "mlforkids.toxicity.confidencefalse": "probability that [TEXT] is NOT [LABEL]"
+            "mlforkids.toxicity.confidencetrue": "probabilitatea ca [TEXT] să fie [LABEL]",
+            "mlforkids.toxicity.confidencefalse": "probabilitatea ca [TEXT] să NU fie [LABEL]"
         },
         "WIKIPEDIA": {
-            "mlforkids.wikipedia.getpagetext": "Wikipedia text about [TOPIC]"
+            "mlforkids.wikipedia.getpagetext": "Text Wikipedia despre [TOPIC]"
         },
         "IMAGE_BLOCKS": {
-            "mlforkids.imageblocks.getCostumeImage": "costume image",
-            "mlforkids.imageblocks.getBackdropCostumeImage": "backdrop image",
-            "mlforkids.imageblocks.getBackdropImage": "backdrop image",
-            "mlforkids.imageblocks.saveScreenshotToCostume": "save screenshot to costume"
+            "mlforkids.imageblocks.getCostumeImage": "imaginea costumului",
+            "mlforkids.imageblocks.getBackdropCostumeImage": "imaginea costumului decorului",
+            "mlforkids.imageblocks.getBackdropImage": "imaginea decorului",
+            "mlforkids.imageblocks.saveScreenshotToCostume": "salvează captura costumului"
         },
         "GUI": {
-            "gui.menuBar.mlforkidsLibrary": "Project templates",
-            "gui.mlforkidsLibrary.templates": "Machine Learning for Kids project templates"
+            "gui.menuBar.mlforkidsLibrary": "Șabloane de proiecte",
+            "gui.mlforkidsLibrary.templates": "Șabloane de proiecte Învățare automată pentru copii"
         }
     },
     "HELP": {
@@ -2000,7 +2000,7 @@
             "FACE_4": "Datele de instruire utilizate pentru acest model au provenit dintr-un set cunoscut sub numele de <a href='http://shuoyang1213.me/WIDERFACE/' target='_blank'>WIDER FACE (FATA MAI LATA)</a>."
         },
         "POSENET": {
-            "TITLE": "Detectarea pozitiilor",
+            "TITLE": "Detectarea pozițiilor",
             "POSE_1": "Acest model poate fi folosit pentru a vă recunoaște poza în fluxul video de pe camera web.",
             "POSE_2": "Vă oferă blocuri care vor găsi coordonatele x, y ale diferitelor părți ale corpului, cum ar fi umerii, coatele, încheieturile mâinilor, genunchii și gleznele.",
             "POSE_3": "Aceasta folosește o tehnică de jos în sus - căutarea punctelor cheie ale corpului uman (cum ar fi umerii, coatele, genunchii etc.) și apoi gruparea acestora pentru a identifica o persoană și poza în care se află.",
