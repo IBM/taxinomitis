@@ -43,9 +43,9 @@
             "BODY": "Învățarea automată este în jurul nostru. Cu toții folosim sisteme de învățare automată în fiecare zi - cum ar fi filtre de spam, motoare de recomandare, servicii de traducere lingvistică, chatbots și asistenți digitali, motoare de căutare și sisteme de detectare a fraudei. <br/><br/>În curând va fi normal ca sistemele de învățare automată să ne conducă mașinile și să ajute medicii să diagnosticheze și să trateze bolile noastre.<br/><br/>Este important ca copiii să fie conștienți de modul în care funcționează lumea noastră. Cel mai bun mod de a înțelege capacitățile și implicațiile este să poată construi singuri cu această tehnologie.<br/><br/>Pentru a afla mai multe, citiți: <a target='_blank' class='btn btn-primary' href='http://dalelane.co.uk/blog/?p=3513'>'Introducing Machine Learning to kids'</a>"
         },
         "TECH": {
-            "TITLE": "Teho",
+            "TITLE": "Tech",
             "BODY": "Instrumentul este în întregime bazat pe web (doar online) și nu necesită instalări sau configurări complicate pentru a putea fi utilizat. <br/><br/>A fost conceput pentru a fi utilizat în clasă de către școli și cluburi de coding pentru copii, organizat de voluntari, și oferă o pagină de administrare pentru profesori sau lideri de grup pentru a putea gestiona și administra accesul elevilor lor. <br/><br/>Este construit de <a target='_blank' href='http://dalelane.co.uk/'>Dale Lane</a> folosind API-uri de la <a target='_blank' href='https://www.ibm.com/watson/developer/'>IBM Watson</a>.<br/><br/>Pentru mai multe detalii despre implementare, puteți vedea <a target='_blank' href='https://github.com/IBM/taxinomitis/'>codul sursă activat pe GitHub</a>, sau citiți câteva dintre <a target='_blank' href='http://dalelane.co.uk/blog/?tag=mlforkids-tech'>postările pe blog despre tehnologie </a>. ",
-            "LOGIN": "Pentru a incepe: "
+            "LOGIN": "Pentru a începe: "
         },
         "PRETRAINED": {
             "BODY": "De asemenea, sunt oferite modele pre-instruite pentru ca elevii să le poată folosi în proiectele lor. Aceste modele avansate permit proiectelor care altfel ar putea fi prea complexe pentru ca studenții să se poată instrui singuri și oferă informații utile practice asupra unora dintre celelalte lucruri pe care le poate face învățarea automată. "
@@ -130,8 +130,8 @@
         "TITLE": "Învață un computer să joace un joc",
         "GET_STARTED": "Începe",
         "LEARN_MORE": "Află mai multe",
-        "ADMIN_LABEL": "Du-te la <strong>Pagina de administrare</strong>",
-        "PROJECT_LABEL": "Du-te la <strong>Proiecte</strong>",
+        "ADMIN_LABEL": "<strong>Pagina de administrare</strong>",
+        "PROJECT_LABEL": "<strong>Proiecte</strong>",
         "STEP_1_TEXT": "Colectează exemple de lucruri pe care dorești să le poți recunoaște",
         "STEP_2_TEXT": "Folosește exemplele pentru a instrui un computer pentru a le putea recunoaște",
         "STEP_3_TEXT": "Creează un joc în Scratch care utilizează capacitatea computerului de a le recunoaște"
@@ -1682,15 +1682,15 @@
     },
     "SCRATCHBLOCKS": {
         "TEXT_PROJECTS": {
-            "mlforkids.text.recogniseLabel": "recunoaște textul [TEXT] (label)",
-            "mlforkids.text.recogniseConfidence": "recunoaște textul [TEXT] (confidence)",
+            "mlforkids.text.recogniseLabel": "recunoaște textul [TEXT] (etichetă)",
+            "mlforkids.text.recogniseConfidence": "recunoaște textul [TEXT] (încredere)",
             "mlforkids.text.addTraining": "adaugă date instruire [TEXT] [LABEL]",
             "mlforkids.text.trainNewModel": "antrenează un nou model de învățare automată",
             "mlforkids.text.checkModelStatus": "Este modelul de învățare automată [STATUS]?"
         },
         "IMAGES_PROJECTS": {
-            "mlforkids.images.recogniseLabel": "recunoaște imaginea [IMAGE] (label)",
-            "mlforkids.images.recogniseConfidence": "recunoaște imaginea [IMAGE] (confidence)",
+            "mlforkids.images.recogniseLabel": "recunoaște imaginea [IMAGE] (etichetă)",
+            "mlforkids.images.recogniseConfidence": "recunoaște imaginea [IMAGE] (încredere)",
             "mlforkids.images.addTraining": "adaugă date instruire [TEXT] [LABEL]"
         },
         "NUMBER_PROJECTS": {
@@ -2050,7 +2050,7 @@
         }
     },
     "BOOK": {
-        "TITLE": "Book",
+        "TITLE": "Despre carte",
         "NOTES_1": "<strong>Machine Learning for Kids : A Project-Based Introduction to Artificial Intelligence</strong> (Învățare automată pentru copii: O introducere bazată pe proiecte în inteligența artificială) este o carte nouă care însoțește site-ul.",
         "NOTES_2": "Cartea este o introducere practică și practică ghidată a modului în care inteligența artificială ne afectează viața. Include instrucțiuni pas cu pas pentru realizarea unei varietăți de proiecte bazate pe învățarea automată în Scratch și explică modul în care acestea se raportează fiecare la aplicațiile AI reale. ",
         "NOTES_3": "Mai multe proiecte se adâncesc în aspecte particulare ale modului în care se aplică învățarea automată, inclusiv recreând unele dintre cele mai frecvente greșeli făcute în AI și învățând despre diferitele moduri în care performanța sistemelor de învățare automată poate fi măsurată și descrisă.",
