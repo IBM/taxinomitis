@@ -112,6 +112,14 @@ function safeParseFloat(str: string): any {
     return isNaN(val) ? str : val;
 }
 
+function safeJsonStringify(obj: object): string {
+    try {
+        return JSON.stringify(obj);
+    }
+    catch (err) {
+        return err.message;
+    }
+}
 
 
 async function classifyNumbers(key: Types.ScratchKey, numbers: string[]): Promise<TrainingTypes.Classification[]> {
@@ -142,7 +150,7 @@ async function classifyNumbers(key: Types.ScratchKey, numbers: string[]): Promis
             log.warn({ err, numbers }, 'Failed to test numbers classifier');
         }
         else {
-            log.error({ err, numbers }, 'Failed to test numbers classifier');
+            log.error({ err, numbers, numbersjson : safeJsonStringify(numbers) }, 'Failed to test numbers classifier');
         }
     }
 
