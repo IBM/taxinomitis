@@ -2783,7 +2783,12 @@ export async function deleteEntireProject(userid: string, classid: string, proje
         const classifiers = await getConversationWorkspaces(project.id);
         const tenant = await getClassTenant(classid);
         for (const classifier of classifiers) {
-            await conversation.deleteClassifier(tenant, classifier);
+            try {
+                await conversation.deleteClassifier(tenant, classifier);
+            }
+            catch (err) {
+                log.error({ err, userid, classid, projectid : project.id }, 'Failed to delete Assistant workspace');
+            }
         }
         break;
     }
@@ -2794,12 +2799,22 @@ export async function deleteEntireProject(userid: string, classid: string, proje
         const classifiers = await getImageClassifiers(project.id);
         const tenant = await getClassTenant(classid);
         for (const classifier of classifiers) {
-            await visualrec.deleteClassifier(tenant, classifier);
+            try {
+                await visualrec.deleteClassifier(tenant, classifier);
+            }
+            catch (err) {
+                log.error({ err, userid, classid, projectid : project.id }, 'Failed to delete Vis Rec classifier');
+            }
         }
         break;
     }
     case 'numbers':
-        await numbers.deleteClassifier(userid, classid, project.id);
+        try {
+            await numbers.deleteClassifier(userid, classid, project.id);
+        }
+        catch (err) {
+            log.error({ err, userid, classid, projectid : project.id }, 'Failed to delete numbers model');
+        }
         break;
 
     case 'sounds':
