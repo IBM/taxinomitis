@@ -112,6 +112,10 @@
         "GOOGLEEXPERIMENTS": {
             "BODY1": "Experimente online simple pentru a începe explorarea învățării automate, prin imagini, desene, limbaj și muzică."
         },
+        "EXPLORINGCS": {
+            "BODY1": "Exploring CS gives students AI knowledge and skills while considering social, moral and ethical impacts.",
+            "BODY2": "They explore practical daily applications of AI that impact their lives.  Students design smart cities, homes and schools.  They also learn to build, train and test an AI system through an NVIDIA platform and look at how the message of AI is communicated."
+        },
         "VIDEOS": {
             "TITLE": "Tutoriale video",
             "INTRO": "De asemenea, am găsit aceste videoclipuri utile la introducerea conceptelor de IA:"

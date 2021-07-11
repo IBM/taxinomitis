@@ -108,6 +108,10 @@
         "GOOGLEEXPERIMENTS": {
             "BODY1": "Απλά online πειράματα για να ξεκινήσεις την εξερεύνηση της μηχανικής μάθησης, μέσω εικόνων, σχεδίων, γλώσσας και μουσικής."
         },
+        "EXPLORINGCS": {
+            "BODY1": "Exploring CS gives students AI knowledge and skills while considering social, moral and ethical impacts.",
+            "BODY2": "They explore practical daily applications of AI that impact their lives.  Students design smart cities, homes and schools.  They also learn to build, train and test an AI system through an NVIDIA platform and look at how the message of AI is communicated."
+        },
         "VIDEOS": {
             "TITLE": "Βίντεο",
             "INTRO": "Βρήκα επίσης αυτά τα βίντεο χρήσιμα για την εισαγωγή εννοιών Τεχνητής Νοημοσύνης:"

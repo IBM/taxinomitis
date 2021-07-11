@@ -108,6 +108,10 @@
         "GOOGLEEXPERIMENTS": {
             "BODY1": "Proste eksperymenty online, aby rozpocząć odkrywanie uczenia się maszynowego, poprzez obrazy, rysunki, język i muzykę."
         },
+        "EXPLORINGCS": {
+            "BODY1": "Exploring CS gives students AI knowledge and skills while considering social, moral and ethical impacts.",
+            "BODY2": "They explore practical daily applications of AI that impact their lives.  Students design smart cities, homes and schools.  They also learn to build, train and test an AI system through an NVIDIA platform and look at how the message of AI is communicated."
+        },
         "VIDEOS": {
             "TITLE": "Wideo",
             "INTRO": "Filmy te okazały się również przydatne przy wprowadzaniu koncepcji Sztucznej Inteligencji"
