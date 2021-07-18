@@ -185,7 +185,11 @@
 
             'WORKSHEETS.HANDGESTURES.TITLE', 'WORKSHEETS.HANDGESTURES.SUMMARY', 'WORKSHEETS.HANDGESTURES.DESCRIPTION',
             'WORKSHEETS.HANDGESTURES.WORKSHEET_1.URL',
-            'WORKSHEETS.HANDGESTURES.TEACHERSNOTES_URL'
+            'WORKSHEETS.HANDGESTURES.TEACHERSNOTES_URL',
+
+            'WORKSHEETS.EXPLAINABILITY.TITLE', 'WORKSHEETS.EXPLAINABILITY.SUMMARY', 'WORKSHEETS.EXPLAINABILITY.DESCRIPTION',
+            'WORKSHEETS.EXPLAINABILITY.WORKSHEET_1.URL',
+            'WORKSHEETS.EXPLAINABILITY.TEACHERSNOTES_URL'
         ]).then(function (translations) {
             vm.worksheets = [
                 {
@@ -697,6 +701,22 @@
                     downloads : [
                         {
                             worksheet : translations['WORKSHEETS.JARGONBUSTER.WORKSHEET_1.URL']
+                        }
+                    ]
+                },
+                {
+                    title : translations['WORKSHEETS.EXPLAINABILITY.TITLE'],
+                    summary : translations['WORKSHEETS.EXPLAINABILITY.SUMMARY'],
+                    description : translations['WORKSHEETS.EXPLAINABILITY.DESCRIPTION'],
+                    difficulty : 'Intermediate',
+                    type : 'images',
+                    maketypes : [ 'scratch3' ],
+                    image : 'static/images/project-explainability.png',
+                    tags : [ 'image recognition', 'explainable AI', 'xai' ],
+                    teachersnotes : translations['WORKSHEETS.EXPLAINABILITY.TEACHERSNOTES_URL'],
+                    downloads : [
+                        {
+                            worksheet : translations['WORKSHEETS.EXPLAINABILITY.WORKSHEET_1.URL']
                         }
                     ]
                 },

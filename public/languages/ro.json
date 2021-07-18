@@ -1495,6 +1495,15 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-handgestures.pdf"
             }
+        },
+        "EXPLAINABILITY": {
+            "TITLE": "Explainable AI",
+            "SUMMARY": "Teach a computer to recognize objects in a webcam",
+            "DESCRIPTION": "Make a project in Scratch that helps explains what an image classifier is looking at.",
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-explainability.pdf",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-explainability.pdf"
+            }
         }
     },
     "TEACHER": {
