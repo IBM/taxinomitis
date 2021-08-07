@@ -196,10 +196,3 @@ table.loginInfoGrid td {
     text-align: right;
     font-size: 0.8em;
 }
-
-
-
-.md-dialog-content .outofoffice {
-    max-width: 400px;
-    margin-bottom: 1em;
-}
