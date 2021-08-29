@@ -1093,7 +1093,7 @@
             "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει χρώματα",
             "DESCRIPTION": "Φτιάξε στο Scratch ένα χαμαιλέοντα που αλλάζει χρώμα ώστε να ταιριάζει με το φόντο του",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-chameleon-el.pdf"
             },
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-chameleon.pdf"
         },
@@ -1225,7 +1225,7 @@
             "SUMMARY": "Μάθε στον υπολογιστή να αναγνωρίζει σχήματα",
             "DESCRIPTION": "Φτιάξε στο Scratch ένα παιχνίδι Πέτρα-Ψαλίδι-Χαρτί που μαθαίνει να αναγνωρίζει σχήματα χεριών",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-rockpaperscissors.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-rockpaperscissors-el.pdf"
             },
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-rockpaperscissors.pdf"
         },
@@ -1425,7 +1425,7 @@
             "SUMMARY": "Use a computer that has been trained to recognize faces",
             "DESCRIPTION": "Make a video filter in Scratch to add an emoji mask to your face.",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-emojimask.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-emojimask-el.pdf"
             },
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-emojimask.pdf"
         },
