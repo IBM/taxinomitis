@@ -680,7 +680,7 @@ describe('REST API - training', () => {
                     reduceMaxFileSize.restore();
 
                     assert.deepStrictEqual({
-                        error : 'Image file size (2.17 KB) is too big. Please choose images smaller than 1.95 KB',
+                        error : 'Image file size (2.22 kB) is too big. Please choose images smaller than 2 kB',
                     }, res.body);
 
                     return store.deleteEntireProject(userid, classid, project);
