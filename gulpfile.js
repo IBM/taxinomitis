@@ -104,10 +104,10 @@ gulp.task('tensorflowspeechcommands', function() {
 });
 gulp.task('speechcommandsmodel', function() {
     const files = [
-        { url : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.4/browser_fft/18w/metadata.json', file : 'metadata.json' },
-        { url : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.4/browser_fft/18w/model.json', file : 'model.json' },
-        { url : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.4/browser_fft/18w/group1-shard1of2', file : 'group1-shard1of2' },
-        { url : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.4/browser_fft/18w/group1-shard2of2', file : 'group1-shard2of2' }
+        { url : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.5/browser_fft/18w/metadata.json', file : 'metadata.json' },
+        { url : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.5/browser_fft/18w/model.json', file : 'model.json' },
+        { url : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.5/browser_fft/18w/group1-shard1of2', file : 'group1-shard1of2' },
+        { url : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.5/browser_fft/18w/group1-shard2of2', file : 'group1-shard2of2' }
     ];
     return download(files)
         .pipe(gulp.dest('web/static/bower_components/tensorflow-models/speech-commands'));

@@ -20,10 +20,10 @@ module.exports = function(grunt) {
     // ----
 
     const mlModelFilesToDownload = {
-        './speech-commands/metadata.json' : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.4/browser_fft/18w/metadata.json',
-        './speech-commands/model.json' : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.4/browser_fft/18w/model.json',
-        './speech-commands/group1-shard1of2' : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.4/browser_fft/18w/group1-shard1of2',
-        './speech-commands/group1-shard2of2' : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.4/browser_fft/18w/group1-shard2of2',
+        './speech-commands/metadata.json' : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.5/browser_fft/18w/metadata.json',
+        './speech-commands/model.json' : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.5/browser_fft/18w/model.json',
+        './speech-commands/group1-shard1of2' : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.5/browser_fft/18w/group1-shard1of2',
+        './speech-commands/group1-shard2of2' : 'https://storage.googleapis.com/tfjs-models/tfjs/speech-commands/v0.5/browser_fft/18w/group1-shard2of2',
         './posenet/model-multiplier75-stride16.json' : 'https://storage.googleapis.com/tfjs-models/savedmodel/posenet/mobilenet/float/075/model-stride16.json',
         './posenet/group1-shard1of2.bin' : 'https://storage.googleapis.com/tfjs-models/savedmodel/posenet/mobilenet/float/075/group1-shard1of2.bin',
         './posenet/group1-shard2of2.bin' : 'https://storage.googleapis.com/tfjs-models/savedmodel/posenet/mobilenet/float/075/group1-shard2of2.bin',
