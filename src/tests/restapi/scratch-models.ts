@@ -129,6 +129,7 @@ describe('REST API - scratchkey models', () => {
                 assert.deepStrictEqual(res.body, {
                     status : 0,
                     msg : 'Failed to train machine learning model',
+                    type : typelabel,
                 });
 
                 await store.deleteEntireUser(userid, TESTCLASS);
@@ -155,6 +156,7 @@ describe('REST API - scratchkey models', () => {
                 assert.deepStrictEqual(res.body, {
                     status : 0,
                     msg : 'Model Failed',
+                    type : typelabel,
                 });
 
                 await store.deleteEntireUser(userid, TESTCLASS);
@@ -181,6 +183,7 @@ describe('REST API - scratchkey models', () => {
                 assert.deepStrictEqual(res.body, {
                     status : 1,
                     msg : 'Model not ready yet',
+                    type : typelabel,
                 });
 
                 await store.deleteEntireUser(userid, TESTCLASS);
@@ -217,6 +220,7 @@ describe('REST API - scratchkey models', () => {
                 assert.deepStrictEqual(res.body, {
                     status : 2,
                     msg : 'Ready',
+                    type : typelabel,
                 });
 
                 await store.deleteEntireUser(userid, TESTCLASS);

@@ -339,8 +339,7 @@
         "MAKES": {
             "TITLE": "Faire",
             "BODY": "Utilisez le modèle d'apprentissage machine que vous avez formé pour créer un jeu ou une application, en Scratch ou en Python.",
-            "BODY_SCRATCHONLY": "Utilisez le modèle d'apprentissage machine que vous avez formé pour créer un jeu ou une application en Scratch.",
-            "BODY_SCRATCHPYTHON": "Utilisez le modèle d'apprentissage machine que vous avez entraîné pour créer un jeu ou une application en Scratch ou Python"
+            "BODY_SCRATCHONLY": "Utilisez le modèle d'apprentissage machine que vous avez formé pour créer un jeu ou une application en Scratch."
         },
         "SCRATCH": {
             "TITLE": "Scratch",

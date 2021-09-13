@@ -345,8 +345,7 @@
         "MAKES": {
             "TITLE": "Creează",
             "BODY": "Utilizează modelul de învățare automată pe care l-ai antrenat pentru a crea un joc sau o aplicație, în Scratch, Python sau App Inventor",
-            "BODY_SCRATCHONLY": "Utilizează modelul de învățare automată pe care l-ai antrenat pentru a crea un joc sau o aplicație în Scratch",
-            "BODY_SCRATCHPYTHON": "Utilizează modelul de învățare automată pe care l-ai antrenat pentru a crea un joc sau o aplicație în Scratch sau Python"
+            "BODY_SCRATCHONLY": "Utilizează modelul de învățare automată pe care l-ai antrenat pentru a crea un joc sau o aplicație în Scratch"
         },
         "SCRATCH": {
             "TITLE": "Scratch",
