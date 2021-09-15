@@ -91,12 +91,17 @@ export async function deleteStudents(classid: string, studentids: string[]): Pro
             successes.push(studentid);
         }
         catch (err) {
-            log.error({ err, studentid }, 'Failed to delete student');
-            slack.notify('Failed to delete student ' + studentid +
-                         ' from class ' + classid +
-                         ' so manual cleanup is needed after ' +
-                         err.message,
-                         slack.SLACK_CHANNELS.CRITICAL_ERRORS);
+            if (err.message === 'The user does not exist') {
+                log.debug({ err, studentid }, 'Received duplicate delete request');
+            }
+            else {
+                log.error({ err, studentid }, 'Failed to delete student');
+                slack.notify('Failed to delete student ' + studentid +
+                            ' from class ' + classid +
+                            ' so manual cleanup is needed after ' +
+                            err.message,
+                            slack.SLACK_CHANNELS.CRITICAL_ERRORS);
+            }
         }
     }
     return successes;
