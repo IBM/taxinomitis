@@ -339,8 +339,7 @@
         "MAKES": {
             "TITLE": "Faire",
             "BODY": "Utilisez le modèle d'apprentissage machine que vous avez formé pour créer un jeu ou une application, en Scratch ou en Python.",
-            "BODY_SCRATCHONLY": "Utilisez le modèle d'apprentissage machine que vous avez formé pour créer un jeu ou une application en Scratch.",
-            "BODY_SCRATCHPYTHON": "Utilisez le modèle d'apprentissage machine que vous avez entraîné pour créer un jeu ou une application en Scratch ou Python"
+            "BODY_SCRATCHONLY": "Utilisez le modèle d'apprentissage machine que vous avez formé pour créer un jeu ou une application en Scratch."
         },
         "SCRATCH": {
             "TITLE": "Scratch",
@@ -1694,13 +1693,11 @@
             "Q1-A-2": "Si vous choisissez \"<strong>dans le nuage</strong>\" Les modèles d'apprentissage machine sont entraînés sur des serveurs en nuage à l'aide d'un service en ligne appelé Watson Visual Recognition.",
             "Q1-A-3": "Si vous choisissez \"<strong>sur votre ordinateur</strong>\" Les modèles d'apprentissage sur machine sont entraînés sur le propre ordinateur de l'élève, dans le navigateur web.",
             "Q1-A-4": "\"<strong>dans le nuage</strong>\" est intéressant parce que :",
-            "Q1-A-5": "Il peut être utilisé pour des projets en Scratch, App Inventor ou Python.",
             "Q1-A-7": "Elle peut créer des modèles plus précis, notamment en utilisant un petit nombre d'exemples d'entraînement.",
             "Q1-A-8": "Mais, il faut plusieurs minutes pour s'entraîner en attendant son tour sur le serveur en nuage.",
             "Q1-A-9": "\"<strong>sur votre ordinateur</strong>\" est intéressant parce que :",
             "Q1-A-10": "L'entraînement peut être beaucoup plus rapide, car il commence immédiatement à s'entraîner sans attendre que le serveur en nuage soit activé.",
             "Q1-A-12": "Les modèles n'ont pas besoin d'être automatiquement supprimés.",
-            "Q1-A-13": "Mais, il ne peut être utilisé que pour les projets Scratch et Python.",
             "Q2": "Comment pouvez-vous choisir d'entraîner un projet d'\"images\" dans le nuage, ou sur votre ordinateur ?",
             "Q2-A-1": "Vous pouvez passer d'un mode à l'autre à partir de la page \"Apprendre et tester\" de votre projet.",
             "Q2-A-2": "Le lien pour ce faire se trouve en haut à droite de la page.",

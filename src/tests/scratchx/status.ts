@@ -30,6 +30,7 @@ describe('Scratchx - status', () => {
             assert.deepStrictEqual(statusObj, {
                 status : 0,
                 msg : 'Classifier not found',
+                type : 'sounds',
             });
         });
         it('should reject status calls for sound projects', async () => {
@@ -45,6 +46,7 @@ describe('Scratchx - status', () => {
             assert.deepStrictEqual(statusObj, {
                 status : 0,
                 msg : 'No models trained yet - only random answers can be chosen',
+                type : 'sounds',
             });
         });
 
@@ -62,6 +64,7 @@ describe('Scratchx - status', () => {
             assert.deepStrictEqual(statusObj, {
                 status : 0,
                 msg : 'Classifier not found',
+                type : 'imgtfjs',
             });
         });
         it('should reject status calls for imgtfjs projects', async () => {
@@ -77,6 +80,7 @@ describe('Scratchx - status', () => {
             assert.deepStrictEqual(statusObj, {
                 status : 0,
                 msg : 'No models trained yet - only random answers can be chosen',
+                type : 'imgtfjs',
             });
         });
 
@@ -120,6 +124,7 @@ describe('Scratchx - status', () => {
             assert.deepStrictEqual(statusObj, {
                 status : 0,
                 msg : 'No models trained yet - only random answers can be chosen',
+                type : 'text',
             });
         });
 
@@ -150,6 +155,7 @@ describe('Scratchx - status', () => {
             assert.deepStrictEqual(statusObj, {
                 status : 0,
                 msg : 'Model Non Existent',
+                type : 'text',
             });
         });
 
@@ -180,6 +186,7 @@ describe('Scratchx - status', () => {
             assert.deepStrictEqual(statusObj, {
                 status : 1,
                 msg : 'Model not ready yet',
+                type : 'text',
             });
         });
 
@@ -209,6 +216,7 @@ describe('Scratchx - status', () => {
             assert.deepStrictEqual(statusObj, {
                 status : 2,
                 msg : 'Ready',
+                type : 'text',
             });
         });
     });
@@ -229,6 +237,7 @@ describe('Scratchx - status', () => {
             assert.deepStrictEqual(statusObj, {
                 status : 2,
                 msg : 'No models trained yet - only random answers can be chosen',
+                type : 'numbers',
             });
         });
 
@@ -247,6 +256,7 @@ describe('Scratchx - status', () => {
             assert.deepStrictEqual(statusObj, {
                 status : 2,
                 msg : 'Status for TEST',
+                type : 'numbers',
             });
         });
 
@@ -290,6 +300,7 @@ describe('Scratchx - status', () => {
             assert.deepStrictEqual(statusObj, {
                 status : 0,
                 msg : 'No models trained yet - only random answers can be chosen',
+                type : 'images',
             });
         });
 
@@ -320,6 +331,7 @@ describe('Scratchx - status', () => {
             assert.deepStrictEqual(statusObj, {
                 status : 0,
                 msg : 'Model Non Existent',
+                type : 'images',
             });
         });
 
@@ -350,6 +362,7 @@ describe('Scratchx - status', () => {
             assert.deepStrictEqual(statusObj, {
                 status : 1,
                 msg : 'Model not ready yet',
+                type : 'images',
             });
         });
 
@@ -379,6 +392,7 @@ describe('Scratchx - status', () => {
             assert.deepStrictEqual(statusObj, {
                 status : 2,
                 msg : 'Ready',
+                type : 'images',
             });
         });
 
@@ -395,6 +409,7 @@ describe('Scratchx - status', () => {
             assert.deepStrictEqual(statusObj, {
                 status : 0,
                 msg : 'No models trained yet - only random answers can be chosen',
+                type : 'images',
             });
         });
 

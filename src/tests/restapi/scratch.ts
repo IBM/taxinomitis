@@ -590,6 +590,7 @@ describe('REST API - scratch keys', () => {
                     assert.deepStrictEqual(res.body, {
                         msg : 'No models trained yet - only random answers can be chosen',
                         status : 0,
+                        type : 'text',
                     });
 
                     return store.deleteScratchKey(keyId);

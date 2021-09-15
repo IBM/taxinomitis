@@ -345,8 +345,7 @@
         "MAKES": {
             "TITLE": "成果應用",
             "BODY": "在Scratch或Python中使用你訓練好的機器學習模型來製作遊戲或應用程式",
-            "BODY_SCRATCHONLY": "使用你訓練好的機器學習模型來製作Scratch的遊戲或應用。",
-            "BODY_SCRATCHPYTHON": "Use the machine learning model you've trained to make a game or app in Scratch or Python"
+            "BODY_SCRATCHONLY": "使用你訓練好的機器學習模型來製作Scratch的遊戲或應用。"
         },
         "SCRATCH": {
             "TITLE": "Scratch",
@@ -1774,13 +1773,11 @@
             "Q1-A-2": "如果選擇「<strong>使用雲端服務</strong>」，機器學習模型將在雲端伺服器中以Watson影像辨識的線上服務進行訓練。",
             "Q1-A-3": "如果選擇「<strong>使用你的電腦</strong>」，機器學習模型將透過學生電腦中的網頁瀏覽器中進行訓練",
             "Q1-A-4": "「使用雲端服務」的優點是：",
-            "Q1-A-5": "可以運用在Scratch、App inventor或是Python的專案中",
             "Q1-A-7": "它可以建立更準確的模型，尤其是在使用少量訓練範例時。",
             "Q1-A-8": "但是，這需要耗費幾分鐘的時間來等待雲端伺服器開始啟動",
             "Q1-A-9": "「使用你的電腦」的優點是：",
             "Q1-A-10": "它可以更快地完成訓練，因為它可以馬上開始，不需等待開啟雲端服務器的時間。",
             "Q1-A-12": "模型不會被自動刪除",
-            "Q1-A-13": "但是，成果只能運用在Scratch的專案中",
 
             "Q2": "如何將「圖片專案」切換成使用雲端服務訓練，或是使用你的電腦訓練？",
             "Q2-A-1": "你可以在專案中的訓練頁面切換這兩種模式。",

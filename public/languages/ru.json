@@ -339,8 +339,7 @@
         "MAKES": {
             "TITLE": "Создать",
             "BODY": "Используйте модель машинного обучения, которую вы обучили, для создания игры или приложения, на Scratch или на Python",
-            "BODY_SCRATCHONLY": "Используйте модель машинного обучения, которую вы обучили, для создания игры или приложения, на Scratch",
-            "BODY_SCRATCHPYTHON": "Use the machine learning model you've trained to make a game or app in Scratch or Python"
+            "BODY_SCRATCHONLY": "Используйте модель машинного обучения, которую вы обучили, для создания игры или приложения, на Scratch"
         },
         "SCRATCH": {
             "TITLE": "Scratch",
@@ -1693,13 +1692,11 @@
             "Q1-A-2": "If you choose \"<strong>in the cloud</strong>\" machine learning models are trained on cloud servers using an online service called Watson Visual Recognition.",
             "Q1-A-3": "If you choose \"<strong>on your computer</strong>\" machine learning models are trained on the student's own computer, in the web browser.",
             "Q1-A-4": "\"<strong>in the cloud</strong>\" is good because:",
-            "Q1-A-5": "It can be used for projects in Scratch, App Inventor, or Python.",
             "Q1-A-7": "It can create models that are more accurate, particularly when using a small number of training examples.",
             "Q1-A-8": "But, it takes several minutes to train while you wait for your turn on the cloud server.",
             "Q1-A-9": "\"<strong>on your computer</strong>\" is good because:",
             "Q1-A-10": "It can be much quicker to train, because it starts training immediately without waiting for a turn on the cloud server.",
             "Q1-A-12": "Models do not need to be automatically deleted.",
-            "Q1-A-13": "But, it can only be used for Scratch and Python projects.",
             "Q2": "How can you change an \"images\" project to train in the cloud, or to train on your computer?",
             "Q2-A-1": "You can change between the two modes from the \"Learn & Test\" page for your project.",
             "Q2-A-2": "The link to do this is in top-right of the page.",

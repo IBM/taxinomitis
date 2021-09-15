@@ -1,6 +1,10 @@
+import * as DbTypes from '../db/db-types';
+
+
 export interface Status {
     readonly status: number;
     readonly msg: string;
+    readonly type: DbTypes.ProjectTypeLabel;
 }
 
 export interface Key {

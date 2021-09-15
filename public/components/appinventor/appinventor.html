@@ -67,7 +67,7 @@
         <!-- no model but we could use             -->
         <!--  App Inventor to create one           -->
         <!-- ------------------------------------- -->
-        <div ng-if="!scratchkey.model">
+        <div ng-if="project.type !== 'imgtfjs' && !scratchkey.model">
             <div class="alert alert-info" role="alert" translate="SCRATCH.NOMODEL"></div>
             <div>
                 You can <strong><a href="" ui-sref="mlproject_models({ projectId : projectId, userId : userId })">train one now</a></strong> and then come back to start your App Inventor project.
@@ -82,7 +82,7 @@
         <!--                                       -->
         <!-- machine learning model is ready to go -->
         <!-- ------------------------------------- -->
-        <div ng-if="scratchkey.model">
+        <div ng-if="project.type === 'imgtfjs' || scratchkey.model">
             <a target="_blank" class="btn btn-primary"
                href="{{ projecturls.appinventor }}"
                translate="APPINVENTOR.LAUNCH"></a>

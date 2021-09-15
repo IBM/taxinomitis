@@ -37,10 +37,8 @@
             <div class="mlprojectmenutitle" translate="PROJECT.MAKES.TITLE"></div>
             <div class="mlprojectmenudescription" translate="PROJECT.MAKES.BODY_SCRATCHONLY"
                  ng-if="!project || project.type === 'sounds'"></div>
-            <div class="mlprojectmenudescription" translate="PROJECT.MAKES.BODY_SCRATCHPYTHON"
-                 ng-if="project && project.type === 'imgtfjs'"></div>
             <div class="mlprojectmenudescription" translate="PROJECT.MAKES.BODY"
-                 ng-if="project && (project.type === 'text' || project.type === 'images' || project.type === 'numbers')"></div>
+                 ng-if="project && project.type !== 'sounds'"></div>
             <div class="mlprojectmenubutton">
                 <button type="button" class="btn btn-primary"
                         ui-sref="mlproject_makes({ projectId : projectId, userId : userId })"

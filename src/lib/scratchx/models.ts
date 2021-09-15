@@ -26,12 +26,14 @@ export async function trainModel(scratchKey: Types.ScratchKey): Promise<ScratchT
                 return {
                     status : 1,
                     msg : 'Model not ready yet',
+                    type : scratchKey.type,
                 };
             }
             else {
                 return {
                     status : 0,
                     msg : 'Model ' + model.status,
+                    type : scratchKey.type,
                 };
             }
         }
@@ -41,12 +43,14 @@ export async function trainModel(scratchKey: Types.ScratchKey): Promise<ScratchT
                 return {
                     status : 2,
                     msg : 'Ready',
+                    type : scratchKey.type,
                 };
             }
             else {
                 return {
                     status : 0,
                     msg : 'Model Failed',
+                    type : scratchKey.type,
                 };
             }
         }
@@ -58,6 +62,7 @@ export async function trainModel(scratchKey: Types.ScratchKey): Promise<ScratchT
         return {
             status : 0,
             msg : 'Failed to train machine learning model',
+            type : scratchKey.type,
         };
     }
 }
