@@ -43,7 +43,8 @@ module.exports = function(grunt) {
         },
         ts : {
             options : {
-                fast : 'never'
+                fast : 'never',
+                additionalFlags: '--useUnknownInCatchVariables false'
             },
             default : {
                 tsconfig : './tsconfig.json'

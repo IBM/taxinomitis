@@ -16,6 +16,7 @@ import * as keys from '../scratchx/keys';
 import * as classifier from '../scratchx/classify';
 import * as training from '../scratchx/training';
 import * as conversation from '../training/conversation';
+import * as visrec from '../training/visualrecognition';
 import * as urls from './urls';
 import * as headers from './headers';
 import * as env from '../utils/env';
@@ -187,14 +188,29 @@ function getSoundTrainingItem(info: Types.SoundTraining): Promise<any> {
             return soundTraining;
         });
 }
-function getImageTrainingItem(scratchKey: Types.ScratchKey, info: Types.ImageTraining): any {
+function getImageTrainingItem(scratchKey: Types.ScratchKey, info: Types.ImageTraining, proxy: boolean): any {
+    let imageurl: string;
+    if (info.isstored) {
+        // if it's stored, provide a URL to download the image from the ML for Kids server
+        imageurl = env.getSiteHostUrl() + '/api/scratch/' + scratchKey.id + '/images' + info.imageurl;
+    }
+    else if (proxy) {
+        // only if requested, provide a URL that downloads non-stored images through ML for Kids as a proxy
+        imageurl = env.getSiteHostUrl() + '/api/scratch/' + scratchKey.id + '/images/api' +
+            '/classes/classid' +
+            '/students/userid' +
+            '/projects/' + scratchKey.projectid +
+            '/images/' + info.id +
+            '?proxy=true';
+    }
+    else {
+        // otherwise, provide the canonical source URL
+        imageurl = info.imageurl;
+    }
+
     return {
         id : info.id,
-        imageurl : info.isstored ?
-            // if it's stored, provide a URL to download the image from the ML for Kids server
-            env.getSiteHostUrl() + '/api/scratch/' + scratchKey.id + '/images' + info.imageurl :
-            // otherwise, provide the canonical source URL
-            info.imageurl,
+        imageurl,
         label : info.label,
     };
 }
@@ -223,8 +239,9 @@ async function getTrainingData(req: Express.Request, res: Express.Response) {
                 start : 0,
                 limit : limits.getStoreLimits().imageTrainingItemsPerProject,
             });
+            const proxy = req.query.proxy === 'true';
 
-            const trainingData = trainingInfo.map((item) => getImageTrainingItem(scratchKey, item));
+            const trainingData = trainingInfo.map((item) => getImageTrainingItem(scratchKey, item, proxy));
 
             res.set(headers.CACHE_2MINUTES);
 
@@ -264,19 +281,31 @@ async function getImageTrainingDataItem(req: Express.Request, res: Express.Respo
             return errors.forbidden(res);
         }
 
-        const image = await objectstore.getImage(imageKey);
-
-        //
-        // set headers dynamically based on the image we've fetched
-        //
-
-        res.setHeader('Content-Type', image.filetype);
-
-        if (image.modified) {
-            res.setHeader('Last-Modified', image.modified);
+        let imageData: Buffer;
+        if (req.query.proxy === 'true') {
+            const project = await store.getProject(imageKey.projectid);
+            if (!project || project.type !== 'imgtfjs'){
+                return errors.forbidden(res);
+            }
+            imageData = await visrec.getTrainingItemData(project, imageKey.objectid);
         }
-        if (image.etag) {
-            res.setHeader('ETag', image.etag);
+        else {
+            const image = await objectstore.getImage(imageKey);
+
+            //
+            // set headers dynamically based on the image we've fetched
+            //
+
+            res.setHeader('Content-Type', image.filetype);
+
+            if (image.modified) {
+                res.setHeader('Last-Modified', image.modified);
+            }
+            if (image.etag) {
+                res.setHeader('ETag', image.etag);
+            }
+
+            imageData = image.body;
         }
 
         // This is slow, so encourage browsers to aggressively
@@ -286,7 +315,7 @@ async function getImageTrainingDataItem(req: Express.Request, res: Express.Respo
         res.set(headers.CACHE_1YEAR);
 
 
-        res.send(image.body);
+        res.send(imageData);
     }
     catch (err) {
         if (err.message === 'Unexpected response when retrieving credentials for Scratch') {
