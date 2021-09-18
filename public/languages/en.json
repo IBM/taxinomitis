@@ -1270,15 +1270,19 @@
         "JUDGEABOOK": {
             "TITLE": "Judge a book",
             "SUMMARY": "Teach a computer to recognise visual style",
-            "DESCRIPTION": "Make a game in Scratch to test whether it really is possible to judge a book by its cover.",
+            "DESCRIPTION": "Make a game that tests whether it really is possible to judge a book by its cover.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook.pdf",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Full version of the project, where children make a game to compete against the computer to recognise books",
+                "DESCRIPTION": "Full version of the Scratch project, where children make a game to compete against the computer to recognise books",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Simplified version of the project, where children get the computer to recognise books",
+                "DESCRIPTION": "Simplified version of the Scratch project, where children get the computer to recognise books",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "App Inventor project, where children make a mobile app that recommends the best shelf for a book",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-appinventor.pdf"
             }
         },
         "LOCATELARRY": {

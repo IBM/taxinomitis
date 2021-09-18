@@ -1233,12 +1233,16 @@
             "SUMMARY": "コンピュータが見た目で判別できるように教えよう。",
             "DESCRIPTION": "表紙から本の種類を判別できるかテストするゲームをScratchで制作します。",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Full version of the project, where children make a game to compete against the computer to recognise books",
+                "DESCRIPTION": "Full version of the Scratch project, where children make a game to compete against the computer to recognise books",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Simplified version of the project, where children get the computer to recognise books",
+                "DESCRIPTION": "Simplified version of the Scratch project, where children get the computer to recognise books",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "App Inventor project, where children make a mobile app that recommends the best shelf for a book",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-appinventor.pdf"
             },
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook.pdf"
         },

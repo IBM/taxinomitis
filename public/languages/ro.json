@@ -1279,6 +1279,10 @@
             "WORKSHEET_2": {
                 "DESCRIPTION": "Versiune simplificată a proiectului, unde copiii obțin computerul pentru a recunoaște cărțile",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "App Inventor project, where children make a mobile app that recommends the best shelf for a book",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-appinventor.pdf"
             }
         },
         "LOCATELARRY": {

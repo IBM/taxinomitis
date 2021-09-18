@@ -1279,6 +1279,10 @@
             "WORKSHEET_2": {
                 "DESCRIPTION": "簡易版的專案，學生讓電腦可以辨識書籍",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "App Inventor project, where children make a mobile app that recommends the best shelf for a book",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-appinventor.pdf"
             }
         },
         "LOCATELARRY": {

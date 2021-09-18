@@ -1233,12 +1233,16 @@
             "SUMMARY": "시각적 스타일을 인식하도록 컴퓨터를 가르쳐봐요.",
             "DESCRIPTION": "스크래치에서 게임을 만들어 책 표지를 판단 할 수 있는지 테스트 해봐요.",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Full version of the project, where children make a game to compete against the computer to recognise books",
+                "DESCRIPTION": "Full version of the Scratch project, where children make a game to compete against the computer to recognise books",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Simplified version of the project, where children get the computer to recognise books",
+                "DESCRIPTION": "Simplified version of the Scratch project, where children get the computer to recognise books",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "App Inventor project, where children make a mobile app that recommends the best shelf for a book",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-appinventor.pdf"
             },
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook.pdf"
         },
