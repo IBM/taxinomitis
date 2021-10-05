@@ -2049,6 +2049,14 @@
             "QNA_4": "A fost instruit utilizând un set de întrebări și răspunsuri din articolele Wikipedia colectate de Universitatea Stanford numite '<a href='https://rajpurkar.github.io/SQuAD-explorer'> SQuAD </a>'.",
             "QNA_5": "Acesta este un model complex, deci s-ar putea să descoperiți că este lent și are nevoie de multă memorie pe computer!"
         },
+        "SPICE": {
+            "TITLE": "Pitch estimation",
+            "SPICE_1": "This model can be used to recognize a note being sung from your computer's microphone.",
+            "SPICE_2": "It gives you blocks that will return the frequency of a note it recognized, and to convert that into the name or MIDI note.",
+            "SPICE_3": "The model, called <a href='https://ai.googleblog.com/2019/11/spice-self-supervised-pitch-estimation.html'>SPICE</a>, has been trained to identify the dominant pitch in sung audio, including being able to recognize a sung note even if there is background music and noise.",
+            "SPICE_4": "The training data used for this model came from <a href='https://sites.google.com/site/unvoicedsoundseparation/mir-1k'>MIR-1K</a>, which is a set of 1000 short sound recordings of amateur singers singing along to karaoke.",
+            "SPICE_5": "You will need to let Scratch use your microphone to use this model."
+        },
         "IDEAS": {
             "IDEAS_1": "Există alte modele de învățare automată pe care ați dori să le puteți folosi în proiectele dvs. Scratch?",
             "IDEAS_2": "Anunță-mă întrebând în <a href='https://groups.google.com/d/forum/mlforkids'>ML for Kids forum</a>."
