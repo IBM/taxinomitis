@@ -1671,6 +1671,9 @@
             "mlforkids.imageblocks.saveScreenshotToCostume": "حفظ لقطة الشاشة لمظهر"
         },
         "GUI": {
+            "gui.menuBar.ml4kidssharing": "Share",
+            "gui.menuBar.mlforkidsstartrecording": "Start recording the Stage",
+            "gui.menuBar.mlforkidsstoprecording": "Stop recording the Stage",
             "gui.menuBar.mlforkidsLibrary": "قوالب المشروع",
             "gui.mlforkidsLibrary.templates": "قوالب مشروع تعلم الآلة للأطفال"
         }

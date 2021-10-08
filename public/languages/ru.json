@@ -1669,6 +1669,9 @@
             "mlforkids.imageblocks.saveScreenshotToCostume": "save screenshot to costume"
         },
         "GUI": {
+            "gui.menuBar.ml4kidssharing": "Share",
+            "gui.menuBar.mlforkidsstartrecording": "Start recording the Stage",
+            "gui.menuBar.mlforkidsstoprecording": "Stop recording the Stage",
             "gui.menuBar.mlforkidsLibrary": "Шаблоны проектов",
             "gui.mlforkidsLibrary.templates": "Машинное обучение для детей - шаблоны проектов"
         }

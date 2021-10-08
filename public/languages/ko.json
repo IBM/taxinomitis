@@ -1669,6 +1669,9 @@
             "mlforkids.imageblocks.saveScreenshotToCostume": "모양으로 스크린샷 저장"
         },
         "GUI": {
+            "gui.menuBar.ml4kidssharing": "Share",
+            "gui.menuBar.mlforkidsstartrecording": "Start recording the Stage",
+            "gui.menuBar.mlforkidsstoprecording": "Stop recording the Stage",
             "gui.menuBar.mlforkidsLibrary": "프로젝트 템플릿",
             "gui.mlforkidsLibrary.templates": "아이들을 위한 머신러닝 프로젝트 템플릿"
         }

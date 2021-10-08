@@ -1670,6 +1670,9 @@
             "mlforkids.imageblocks.saveScreenshotToCostume": "Enregistrer la capture d'écran dans le costume"
         },
         "GUI": {
+            "gui.menuBar.ml4kidssharing": "Share",
+            "gui.menuBar.mlforkidsstartrecording": "Start recording the Stage",
+            "gui.menuBar.mlforkidsstoprecording": "Stop recording the Stage",
             "gui.menuBar.mlforkidsLibrary": "Modèles de projets",
             "gui.mlforkidsLibrary.templates": "Machine Learning for Kids modèles de projets"
         }

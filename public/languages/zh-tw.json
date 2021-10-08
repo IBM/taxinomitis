@@ -1747,6 +1747,9 @@
             "mlforkids.imageblocks.saveScreenshotToCostume": "儲存螢幕截圖給角色"
         },
         "GUI": {
+            "gui.menuBar.ml4kidssharing": "Share",
+            "gui.menuBar.mlforkidsstartrecording": "Start recording the Stage",
+            "gui.menuBar.mlforkidsstoprecording": "Stop recording the Stage",
             "gui.menuBar.mlforkidsLibrary": "專案範本",
             "gui.mlforkidsLibrary.templates": "兒童機器學習專案的範本"
         }

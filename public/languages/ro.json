@@ -1747,6 +1747,9 @@
             "mlforkids.imageblocks.saveScreenshotToCostume": "salvează captura costumului"
         },
         "GUI": {
+            "gui.menuBar.ml4kidssharing": "Share",
+            "gui.menuBar.mlforkidsstartrecording": "Start recording the Stage",
+            "gui.menuBar.mlforkidsstoprecording": "Stop recording the Stage",
             "gui.menuBar.mlforkidsLibrary": "Șabloane de proiecte",
             "gui.mlforkidsLibrary.templates": "Șabloane de proiecte Învățare automată pentru copii"
         }
