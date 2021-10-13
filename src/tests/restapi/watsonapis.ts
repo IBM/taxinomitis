@@ -568,6 +568,20 @@ describe('REST API - Bluemix credentials', () => {
                     });
             });
 
+            it('should recognize classes without credentials', () => {
+                return request(testServer)
+                    .get('/api/classes/DIFFERENTNOCREDS/modelsupport/text')
+                    .expect('Content-Type', /json/)
+                    .expect(httpstatus.CONFLICT)
+                    .then((res) => {
+                        assert.strictEqual(res.headers['cache-control'], 'max-age=60');
+                        assert.deepStrictEqual(res.body, {
+                            code: 'MLCRED-TEXT-NOKEYS',
+                            message: 'There are no Watson Assistant credentials in this class',
+                        });
+                    });
+            });
+
             it('should use the cache for repeated requests', () => {
                 return request(testServer)
                     .get('/api/classes/' + classid + '/modelsupport/text')

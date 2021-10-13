@@ -394,6 +394,67 @@ describe('REST API - scratch keys', () => {
                 });
         });
 
+        it('should not allow scratch keys to make classify calls for imgtfjs models', async () => {
+            const projectid = uuid();
+
+            const project: DbTypes.Project = {
+                id : projectid,
+                name : 'Test Project',
+                userid : 'userid',
+                classid : TESTCLASS,
+                type : 'imgtfjs',
+                language : 'en',
+                labels : [],
+                numfields : 0,
+                isCrowdSourced : false,
+            };
+
+            const key = await store.storeUntrainedScratchKey(project);
+
+            return request(testServer)
+                .post('/api/scratch/' + key + '/classify')
+                .send({ data : 'haddock' })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, {
+                        error : 'Classification for this project is only available in the browser',
+                    });
+
+                    return store.deleteScratchKey(key);
+                });
+        });
+
+        it('should not allow scratch keys to make classify calls for sound models', async () => {
+            const projectid = uuid();
+
+            const project: DbTypes.Project = {
+                id : projectid,
+                name : 'Test Project',
+                userid : 'userid',
+                classid : TESTCLASS,
+                type : 'sounds',
+                language : 'en',
+                labels : [],
+                numfields : 0,
+                isCrowdSourced : false,
+            };
+
+            const key = await store.storeUntrainedScratchKey(project);
+
+            return request(testServer)
+                .post('/api/scratch/' + key + '/classify')
+                .send({ data : 'haddock' })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, {
+                        error : 'Sound classification is only available in the browser',
+                    });
+
+                    return store.deleteScratchKey(key);
+                });
+        });
 
         it('should handle unknown scratch keys by jsonp', async () => {
             const callbackFunctionName = 'jsonpCallback';
