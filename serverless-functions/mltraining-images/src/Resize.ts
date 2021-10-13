@@ -9,6 +9,7 @@ import { OK, BAD_REQUEST, ERROR } from './StatusCodes';
 import * as MimeTypes from './MimeTypes';
 import { log } from './Debug';
 
+import * as fs from 'fs';
 
 // standard options for downloading images
 const REQUEST_OPTIONS = {
@@ -83,6 +84,8 @@ function requestAndResize(url: string, callback: (resp: HttpResponse) => void): 
                         log('resize problem', err);
                         return callback(handleError(err));
                     }
+
+                    fs.writeFileSync('/tmp/validate', buffer);
 
                     log('success');
                     callback(new HttpResponse(buffer.toString('base64'),

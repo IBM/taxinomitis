@@ -9,6 +9,7 @@ import * as filecompare from 'filecompare';
 import CreateZip from '../src/CreateZip';
 import { CreateZipParams } from '../src/Requests';
 import { HttpResponse } from '../src/Responses';
+import * as Debug from '../src/Debug';
 
 
 
@@ -42,10 +43,11 @@ describe('Create image training zip function', () => {
 
             return CreateZip(params)
                         .then((resp) => {
-                            console.log(resp);
+                            Debug.log('response', resp);
                         })
                         .catch((err) => {
                             console.error(err);
+                            throw err;
                         });
         });
 
@@ -137,81 +139,130 @@ describe('Create image training zip function', () => {
                     assert.strictEqual(unzippedFilesInfo.length, 8);
                     async.each(unzippedFilesInfo,
                         (unzippedFile: any, nextFile) => {
+                            Debug.log('reviewing file', unzippedFile);
                             switch (unzippedFile.size) {
                             case 9328:
-                                filecompare('./test/resources/small-ibm.png',
+                                Debug.log('comparing small-ibm-2', unzippedFile);
+                                filecompare('./test/resources/small-ibm-2.png',
                                             unzippedFile.location,
                                             (isEq: boolean) => {
-                                                assert(isEq, './test/resources/small-ibm.png');
+                                                Debug.log('compared small-ibm-2', isEq);
+                                                assert(isEq, './test/resources/small-ibm-2.png');
                                                 nextFile();
                                             });
                                 break;
                             case 112382:
+                                Debug.log('comparing small-rochester', unzippedFile);
                                 filecompare('./test/resources/small-rochester.png',
                                             unzippedFile.location,
                                             (isEq: boolean) => {
+                                                Debug.log('compared small-rochester', isEq);
                                                 assert(isEq, './test/resources/small-rochester.png');
                                                 nextFile();
                                             });
                                 break;
                             case 23966:
+                                Debug.log('comparing small-watson', unzippedFile);
                                 filecompare('./test/resources/small-watson.png',
                                             unzippedFile.location,
                                             (isEq: boolean) => {
+                                                Debug.log('compared small-watson', isEq);
                                                 assert(isEq, './test/resources/small-watson.png');
                                                 nextFile();
                                             });
                                 break;
                             case 119566:
+                                Debug.log('comparing small-cloud', unzippedFile);
                                 filecompare('./test/resources/small-cloud.png',
                                             unzippedFile.location,
                                             (isEq: boolean) => {
+                                                Debug.log('compared small-cloud', isEq);
                                                 assert(isEq, './test/resources/small-cloud.png');
                                                 nextFile();
                                             });
                                 break;
                             case 113290:
+                                Debug.log('comparing small-sea', unzippedFile);
                                 filecompare('./test/resources/small-sea.png',
                                             unzippedFile.location,
                                             (isEq: boolean) => {
+                                                Debug.log('compared small-sea', isEq);
                                                 assert(isEq, './test/resources/small-sea.png');
                                                 nextFile();
                                             });
                                 break;
                             case 75147:
+                                Debug.log('comparing small-thinkpad', unzippedFile);
                                 filecompare('./test/resources/small-thinkpad.png',
                                             unzippedFile.location,
                                             (isEq: boolean) => {
+                                                Debug.log('compared small-thinkpad', isEq);
                                                 assert(isEq, './test/resources/small-thinkpad.png');
                                                 nextFile();
                                             });
                                 break;
                             case 10810:
+                                Debug.log('comparing small-dog', unzippedFile);
                                 filecompare('./test/resources/small-dog.png',
                                             unzippedFile.location,
                                             (isEq: boolean) => {
+                                                Debug.log('compared small-dog', isEq);
                                                 assert(isEq, './test/resources/small-dog.png');
                                                 nextFile();
                                             });
                                 break;
                             case 6090:
+                                Debug.log('comparing small-dog-2', unzippedFile);
                                 filecompare('./test/resources/small-dog-2.png',
                                             unzippedFile.location,
                                             (isEq: boolean) => {
+                                                Debug.log('compared small-dog-2', isEq);
                                                 assert(isEq, './test/resources/small-dog-2.png');
                                                 nextFile();
                                             });
                                 break;
                             case 3418:
+                                Debug.log('comparing test-circle', unzippedFile);
                                 filecompare('./test/resources/test-circle.jpeg',
                                             unzippedFile.location,
                                             (isEq: boolean) => {
+                                                Debug.log('compared test-circle.jpeg', isEq);
                                                 assert(isEq, './test/resources/test-circle.jpeg');
                                                 nextFile();
                                             });
                                 break;
+                            case 81920:
+                                Debug.log('comparing small-thinkpad-2', unzippedFile);
+                                filecompare('./test/resources/small-thinkpad-2.png',
+                                            unzippedFile.location,
+                                            (isEq: boolean) => {
+                                                Debug.log('compared small-thinkpad-2', isEq);
+                                                assert(isEq, './test/resources/small-thinkpad-2.png');
+                                                nextFile();
+                                            });
+                                break;
+                            case 84136:
+                                Debug.log('comparing small-thinkpad-3', unzippedFile);
+                                filecompare('./test/resources/small-thinkpad-3.png',
+                                            unzippedFile.location,
+                                            (isEq: boolean) => {
+                                                Debug.log('compared small-thinkpad-3', isEq);
+                                                assert(isEq, './test/resources/small-thinkpad-3.png');
+                                                nextFile();
+                                            });
+                                break;
+                            case 65536:
+                                Debug.log('comparing small-thinkpad-4', unzippedFile);
+                                filecompare('./test/resources/small-thinkpad-4.png',
+                                            unzippedFile.location,
+                                            (isEq: boolean) => {
+                                                Debug.log('compared small-thinkpad-4', isEq);
+                                                assert(isEq, './test/resources/small-thinkpad-4.png');
+                                                nextFile();
+                                            });
+                                break;
                             default:
-                                console.log(unzippedFile);
+                                Debug.log('error!', unzippedFile);
                                 assert.strictEqual(0, 1,
                                     'Unexpected file size ' + unzippedFile.size + ' ' +
                                     unzippedFile.location);
@@ -220,7 +271,10 @@ describe('Create image training zip function', () => {
                         },
                         next);
                 },
-            ], done);
+            ], () => {
+                Debug.log('complete');
+                done();
+            });
         });
 
         it('should handle failures to download images', () => {

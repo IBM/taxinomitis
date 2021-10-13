@@ -11,7 +11,7 @@ describe('Resize function', () => {
         it('should work with png images', () => {
             // tslint:disable-next-line:max-line-length
             return runResize('https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/IBM_logo.svg/320px-IBM_logo.svg.png',
-                            './test/resources/small-ibm.png',
+                            './test/resources/small-ibm-2.png',
                             12440);
         });
 
@@ -46,8 +46,8 @@ describe('Resize function', () => {
 
         it('should work with gif images', () => {
             return runResize('https://upload.wikimedia.org/wikipedia/commons/3/39/IBM_Thinkpad_760ED.gif?download',
-                            './test/resources/small-thinkpad.png',
-                            100196);
+                            './test/resources/small-thinkpad-4.png',
+                            112184);
         });
     });
 
