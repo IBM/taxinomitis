@@ -8,7 +8,6 @@ import * as Types from '../db/db-types';
 import * as dbobjects from '../db/objects';
 import * as TrainingTypes from '../training/training-types';
 import * as conversation from '../training/conversation';
-import * as visualRecognition from '../training/visualrecognition';
 import * as credentialsmgr from '../training/credentials';
 import * as credentialscheck from '../training/credentialscheck';
 import * as headers from './headers';
@@ -20,13 +19,6 @@ const log = loggerSetup();
 
 
 
-function returnVisualRecognitionCredentials(credentials: TrainingTypes.BluemixCredentials) {
-    return {
-        id : credentials.id,
-        apikey : credentials.username + credentials.password,
-        credstype : credentials.credstype,
-    };
-}
 function returnConversationCredentials(credentials: TrainingTypes.BluemixCredentials) {
     if (conversation.getType(credentials) === 'legacy') {
         return {
@@ -54,7 +46,7 @@ async function getCredentials(reqWithTenant: auth.RequestWithTenant, res: Expres
         return res.status(httpstatus.BAD_REQUEST)
                     .json({ error : 'Missing required servicetype parameter' });
     }
-    if (servicetype !== 'visrec' && servicetype !== 'conv') {
+    if (servicetype !== 'conv') {
         return res.status(httpstatus.BAD_REQUEST)
                    .json({ error : 'Unrecognised servicetype parameter' });
     }
@@ -64,8 +56,6 @@ async function getCredentials(reqWithTenant: auth.RequestWithTenant, res: Expres
         switch (servicetype) {
         case 'conv':
             return res.json(credentials.map(returnConversationCredentials));
-        case 'visrec':
-            return res.json(credentials.map(returnVisualRecognitionCredentials));
         }
     }
     catch (err){
@@ -92,9 +82,6 @@ async function verifyCredentials(reqWithTenant: auth.RequestWithTenant, res: Exp
 
         if (credentials.servicetype === 'conv') {
             await conversation.getTextClassifiers(credentials);
-        }
-        else if (credentials.servicetype === 'visrec') {
-            await visualRecognition.getImageClassifiers(credentials);
         }
 
         return res.header(headers.CACHE_1HOUR)
@@ -133,8 +120,6 @@ async function checkAvailableCredentials(req: Express.Request, res: Express.Resp
             break;
         case 'MLCRED-TEXT-NOKEYS':
         case 'MLCRED-TEXT-INVALID':
-        case 'MLCRED-IMG-NOKEYS':
-        case 'MLCRED-IMG-INVALID':
             status = httpstatus.CONFLICT;
             header = headers.CACHE_1MINUTE;
             break;
@@ -210,10 +195,6 @@ async function addCredentials(req: Express.Request, res: Express.Response) {
                                                                  newCredentials.password);
             newCredentials.url = workingUrl;
         }
-        else if (newCredentials.servicetype === 'visrec') {
-            const workingUrl = await visualRecognition.identifyRegion(newCredentials);
-            newCredentials.url = workingUrl;
-        }
     }
     catch (err) {
         if (err.statusCode === httpstatus.UNAUTHORIZED ||
@@ -232,11 +213,7 @@ async function addCredentials(req: Express.Request, res: Express.Response) {
     //
     try {
         const credsObj = await store.storeBluemixCredentials(tenant, dbobjects.getCredentialsAsDbRow(newCredentials));
-        res.status(httpstatus.CREATED).json(
-            credsObj.servicetype === 'visrec' ?
-                returnVisualRecognitionCredentials(credsObj) :
-                returnConversationCredentials(credsObj),
-        );
+        res.status(httpstatus.CREATED).json(returnConversationCredentials(credsObj));
     }
     catch (err) {
         log.error({ err }, 'Failed to add credentials');
@@ -308,11 +285,10 @@ function getCredentialsPatch(req: Express.Request): ValidPatch {
     const value = patchRequest.value;
     if (op === 'replace') {
         if (value.servicetype &&
-            (value.servicetype === 'conv' || value.servicetype === 'visrec') &&
+            value.servicetype === 'conv' &&
             value.credstype)
         {
-            if ((value.servicetype === 'conv' && value.credstype.startsWith('visrec')) ||
-                (value.servicetype === 'visrec' && value.credstype.startsWith('conv')))
+            if (value.credstype.startsWith('conv') === false)
             {
                 throw new Error('Invalid credentials type');
             }
@@ -333,7 +309,7 @@ function getCredentialsPatch(req: Express.Request): ValidPatch {
 interface ValidPatch {
     readonly op: 'replace';
     readonly value: {
-        readonly servicetype: 'conv' | 'visrec';
+        readonly servicetype: 'conv';
         readonly credstype: TrainingTypes.BluemixCredentialsTypeLabel;
     };
 }

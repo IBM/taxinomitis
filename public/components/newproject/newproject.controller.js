@@ -5,13 +5,13 @@
         .controller('NewProjectController', NewProjectController);
 
     NewProjectController.$inject = [
-        'authService', 'projectsService', 'usersService',
+        'authService', 'projectsService',
         'loggerService',
         '$state', '$rootScope', '$scope', '$translate'
     ];
 
 
-    function NewProjectController(authService, projectsService, usersService, loggerService, $state, $rootScope, $scope, $translate) {
+    function NewProjectController(authService, projectsService, loggerService, $state, $rootScope, $scope, $translate) {
 
         var vm = this;
         vm.authService = authService;
@@ -44,31 +44,6 @@
                 $scope.language = 'xx';
         }
 
-        // default assuming 'Try it now' user
-        var supportedProjectTypes = [ 'text', 'imgtfjs', 'sounds', 'numbers' ];
-        function refreshSupportedImageProjectTypes() {
-            $scope.supportsCloudImageProjects = supportedProjectTypes.indexOf('images') >= 0;
-            $scope.supportsLocalImageProjects = supportedProjectTypes.indexOf('imgtfjs') >= 0;
-            $scope.canChooseImageModelType = $scope.supportsCloudImageProjects &&
-                                             $scope.supportsLocalImageProjects;
-        }
-        refreshSupportedImageProjectTypes();
-
-        $scope.getProjectType = function (projectType, imageProjectType) {
-            if (projectType === 'IMAGES') {
-                if (imageProjectType) {
-                    return imageProjectType;
-                }
-                else if (supportedProjectTypes.indexOf('imgtfjs') >= 0) {
-                    return 'imgtfjs';
-                }
-                else {
-                    return 'images';
-                }
-            }
-            return projectType;
-        };
-
         vm.fields = [];
         vm.focused = $rootScope.isTeacher ? 'crowdsourced' : 'name';
 
@@ -98,16 +73,6 @@
         authService.getProfileDeferred()
             .then(function (profile) {
                 vm.profile = profile;
-
-                if (vm.profile.tenant !== 'session-users') {
-                    return usersService.getClassPolicy(profile);
-                }
-            })
-            .then(function (policy) {
-                if (policy && policy.supportedProjectTypes) {
-                    supportedProjectTypes = policy.supportedProjectTypes;
-                    refreshSupportedImageProjectTypes();
-                }
             })
             .catch(function (err) {
                 displayAlert('errors', err.status, err.data);

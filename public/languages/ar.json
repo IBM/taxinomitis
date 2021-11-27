@@ -216,16 +216,6 @@
             "NOTES_4": "لمجموعات من الأرقام أو الخيارات المتعددة ، اختر \"أرقام\"",
             "NOTES_5": "للأصوات، اختر \"الأصوات\""
         },
-        "IMAGEPROJECTS": {
-            "LABEL": "Where to train the model",
-            "TYPES": {
-                "IMAGES": "in the cloud",
-                "IMGTFJS": "on your computer"
-            },
-            "NOTES_1": "If you choose \"on your computer\" you can only use the model in Scratch.",
-            "NOTES_2": "If you choose \"in the cloud\" you can use the model in Scratch, Python, or App Inventor.",
-            "NOTES_3": "You can change your mind about this at any time."
-        },
         "LANGUAGE": {
             "LABEL": "اللغة ",
             "NOTES": "ما هي لغة النص في هذا المشروع؟"
@@ -258,9 +248,7 @@
         },
         "WARNINGS": {
             "MLCRED-TEXT-NOKEYS": "يُرجى إعلام معلمك بأنه سيحتاج إلى إضافة \"Watson Assistant API key \" إلى صفك للسماح لك بالتدريب على نموذج تعلُّم الآلة لمشروعك الجديد.",
-            "MLCRED-IMG-NOKEYS": "يُرجى إخبار معلمك أنه سيحتاج إلى إضافة \"مفتاح واجهة برمجة التطبيقات للتعرف المرئي\" إلى صفك للسماح لك بالتدرب على نموذج التعلم الآلي لمشروعك الجديد",
-            "MLCRED-TEXT-INVALID": "قد تكون هناك مشكلة في مفاتيح واجهة برمجة تطبيقات IBM Cloud ستحتاج إلى تدريب نموذج تعلُّم الآلة لمشروعك الجديد. أطلب من معلمك  التحقق من \"Watson Assistant API key\" في صفك.",
-            "MLCRED-IMG-INVALID": "قد تكون هناك مشكلة في مفاتيح واجهة برمجة تطبيقات IBM Cloud ستحتاج إلى تدريب نموذج تعلُّم الآلة لمشروعك الجديد. أطلب من معلمك محاولة التحقق من \"مفاتيح واجهة برمجة التطبيقات للتعرف المرئي\" في صفك."
+            "MLCRED-TEXT-INVALID": "قد تكون هناك مشكلة في مفاتيح واجهة برمجة تطبيقات IBM Cloud ستحتاج إلى تدريب نموذج تعلُّم الآلة لمشروعك الجديد. أطلب من معلمك  التحقق من \"Watson Assistant API key\" في صفك."
         }
     },
     "DATASETS": {
@@ -393,10 +381,6 @@
         "DELETE": "حذف هذا النموذج",
         "TEST_CANVAS": "ارسم شيئًا لاختبار نموذجك باستخدامه",
         "TEST_WEBCAM": "التقط صورة لاختبار نموذجك باستخدامها",
-        "CHANGETYPE": {
-            "IMAGES": "Change to train models in the cloud",
-            "IMGTFJS": "Change to train models on your computer"
-        },
         "WHATHAVEYOUDONE": {
             "TITLE": "ماذا فعلت؟",
             "PLEASEWAIT": "عادةً ما يستغرق هذا بضع دقائق ، ولكن يمكن أن يستغرق وقتًا أطول قليلاً إذا كان جهاز الكمبيوتر التدريبي مشغولاً للغاية.",
@@ -1516,12 +1500,10 @@
             "MANAGEDCLASS": " مفاتيح واجهة برمجة التطبيقات API التي يستخدمها صفك تتم إدارتها لك.",
             "HELP_STEPBYSTEP_GUIDE": "إذا لم تكن متأكدًا مما يجب فعله هنا ، فالرجاء اتباع<a href='/apikeys-guide'> الدليل خطوة بخطوة</a>. إذا كنت تريد أي مساعدة ، فيرجى<strong> <a style='cursor: pointer;' href='/help'>الاتصال بنا</a></strong>.",
             "INTRO_WATSONASSISTANT": " نماذج تعلم الآلة التدريبية لمشاريع<span class='mlprojecttype'>نصوص</span> تستخدم<a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'> Watson Assistant</a>",
-            "INTRO_VISUALRECOGNITION": " نماذج تعلم الآلة التدريبية لمشاريع<span class='mlprojecttype'> الصور</span> تستخدم<a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
             "INTRO_NUMBERS": " نماذج تعلم الآلة التدريبية لمشاريع <span class='mlprojecttype'>الأرقام</span> <strong>لا </strong>تتطلب أي مفاتيح واجهة برمجة التطبيقات API",
             "INTRO_SOUNDS": " نماذج تعلم الآلة التدريبية لمشاريع <span class='mlprojecttype'>الأصوات</span> <strong>لا </strong>تتطلب أي مفاتيح واجهة برمجة التطبيقات API",
             "INTRO_IMAGES": "Training machine learning models for <span class='mlprojecttype'>images</span> projects does <strong>not</strong> require any API keys",
             "ERROR_FETCHING_WATSONASSISTANT": "تعذّر الحصول على كلمات مرور Watson Assistant",
-            "ERROR_FETCHING_VISUALRECOG": "تعذّر الحصول على مفاتيح واجهة برمجة التطبيقات API الخاصة بالتعرف المرئي",
             "USERNAME": "اسم المستخدم",
             "PASSWORD": "كلمة المرور",
             "APIKEY": "مفتاح واجهة برمجة التطبيقات API",
@@ -1529,12 +1511,9 @@
             "UNKNOWN": "غير معروف",
             "UNLIMITED": "غير محدود",
             "LIMIT_TEXT_PROJECTS": "عدد نماذج تعلم الآلة للنصوص التي يمكن لطلابك الحصول عليها:",
-            "LIMIT_IMAGE_PROJECTS": "عدد نماذج تعلم الآلة للصور التي يمكن لطلابك الحصول عليها:",
             "ADD_API_KEYS": {
                 "ASSISTANT_TITLE": "إضافة بيانات اعتماد Watson Assistant",
-                "VISUAL_RECOGNITION_TITLE": "أضف مفتاح واجهة برمجة التطبيقات API  للتعرف المرئي",
                 "USED_FOR_TEXT_PROJECTS": "سيتم استخدام هذه عندما يقوم الطلاب بتدريب النماذج في مشاريع النصوص.",
-                "USED_FOR_IMAGE_PROJECTS": "سيتم استخدام هذه عندما يقوم الطلاب بتدريب النماذج في مشاريع الصور.",
                 "HIDDEN_FROM_STUDENTS": "لن يتم عرض هذا للطلاب في مجموعتك.",
                 "PRICING_PLAN": "ما خطة التسعير التي استخدمتها؟",
                 "ENTER_APIKEY": "يرجى إدخال مفتاح API في الأسفل",
@@ -1696,37 +1675,11 @@
         },
         "PROJECTS": {
             "TITLE": "Project questions",
-            "Q1": "What is the difference between training image models \"on your computer\" or \"in the cloud\"?",
-            "Q1-A-1": "These can both be used to create the same sort of machine learning projects. The difference is where the models are created and stored.",
-            "Q1-A-2": "If you choose \"<strong>in the cloud</strong>\" machine learning models are trained on cloud servers using an online service called Watson Visual Recognition.",
-            "Q1-A-3": "If you choose \"<strong>on your computer</strong>\" machine learning models are trained on the student's own computer, in the web browser.",
-            "Q1-A-4": "\"<strong>in the cloud</strong>\" is good because:",
-            "Q1-A-7": "It can create models that are more accurate, particularly when using a small number of training examples.",
-            "Q1-A-8": "But, it takes several minutes to train while you wait for your turn on the cloud server.",
-            "Q1-A-9": "\"<strong>on your computer</strong>\" is good because:",
-            "Q1-A-10": "It can be much quicker to train, because it starts training immediately without waiting for a turn on the cloud server.",
-            "Q1-A-12": "Models do not need to be automatically deleted.",
-            "Q2": "How can you change an \"images\" project to train in the cloud, or to train on your computer?",
-            "Q2-A-1": "You can change between the two modes from the \"Learn & Test\" page for your project.",
-            "Q2-A-2": "The link to do this is in top-right of the page.",
-            "Q2-A-3": "Any existing machine learning models for the project will be deleted if this is done.",
-            "Q2-A-4": "The Scratch blocks for image projects work differently for the two different modes, so if you have a Scratch window open when you do this, you will need to refresh the page so that the Scratch extension can be updated.",
-            "Q3": "Why can I only make something with Scratch or Python for my machine learning project?",
-            "Q3-A-1": "Machine learning models that are trained on your own computer can only be accessed from Scratch (which has been updated so that it can access machine learning models stored in your web browser) and Python (for images projects only).",
-            "Q3-A-2": "Machine learning models that are trained in the cloud can be accessed from Scratch, Python, or App Inventor - as all of these are able to access machine learning models stored in the cloud.",
-            "Q3-A-3": "If you only see 'Scratch 3' as an option when you make something with your machine learning project, it means your machine learning model is being stored in your web browser.",
             "Q4": "Which machine learning models are trained on your computer, and which are trained in the cloud?",
             "Q4-A-1": "<strong>text</strong> projects can only be trained in the cloud.",
             "Q4-A-2": "<strong>numbers</strong> projects can only be trained in the cloud.",
             "Q4-A-3": "<strong>sounds</strong> projects can only be trained on your computer.",
-            "Q4-A-4": "<strong>images</strong> projects can be trained on your computer, or (if you have access to Watson Visual Recognition) in the cloud.",
-            "Q5": "Which students can train images machine learning projects in the cloud?",
-            "Q5-A-1": "<strong>images</strong> projects can be trained on your computer, or (if you have access to Watson Visual Recognition) in the cloud.",
-            "Q5-A-2": "Training machine learning models for <strong>images</strong> projects uses the Watson Visual Recognition service. IBM <a href='https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-getting-started-tutorial'>discontinued the Watson Visual Recognition service</a> on 7th January 2021, which means access to this is now limited. The Visual Recognition service is being withdrawn completely on 1st December 2021.",
-            "Q5-A-3": "Students in managed classes will continue to be able to choose whether to train image machine learning models on their computer or in the cloud until 1st December 2021.",
-            "Q5-A-4": "Students in unmanaged classes with Visual Recognition API keys set up before 7th January 2021 will continue to be able to train image machine learning models on their computer or in the cloud, until 1st December 2021.",
-            "Q5-A-5": "Students in unmanaged classes created after 7th January 2021 can only train image machine learning models on their computer.",
-            "Q5-A-6": "Students using 'Try it now' can only train image machine learning models on their computer."
+            "Q4-A-4": "<strong>images</strong> projects can be trained on your computer, or (if you have access to Watson Visual Recognition) in the cloud."
         },
         "SCRATCH": {
             "TITLE": "مشاكل Scratch",
@@ -1772,14 +1725,6 @@
             "Q3-A-5": "إذا قام طالب لديه نموذج مدرب ناجح ثم حذف نموذجه ، فسيؤدي ذلك إلى تحرير مساحة عمل لاستخدامها من قبل طالب آخر.",
             "Q3-A-6": "إحدى الطرق لتجنب هذا الخطأ في المستقبل هي أحجام الصفوف الصغيرة. إذا كان عدد الطلاب أقل من عدد مساحات العمل التي تدعمها بيانات اعتماد Watson Assistant ، فلن يتم الوصول إلى الحدود.",
             "Q3-A-7": "هناك طريقة أخرى لتجنب هذا الخطأ تتمثل في إضافة مفاتيح API Watson Assistant إضافية إلى الصف ، أو استخدام \"خطة\" نموذج Watson Assistant التي لها حدود أعلى.",
-            "Q4": "\"مفاتيح واجهة برمجة التطبيقات الخاصة بالتعرف المرئي على Watson ليس لديها مصنفات أخرى متاحة\"",
-            "Q4-A-1": "يتم إنشاء نماذج تعلم الآلة في الأداة باستخدام واجهات برمجة تطبيقات IBM Watson.",
-            "Q4-A-2": "أوراق اعتماد Watson Visual Recognition التي أنشأها المعلمون لها حد لعدد نماذج تعلم الآلة التي يمكن استخدامها للإنشاء. يتم عرض ذلك في واجهة مستخدم IBM Cloud Cloud حيث تم إنشاء بيانات الاعتماد ، حيث يطلق عليها \"المصنفات المخصصة\".",
-            "Q4-A-3": "إذا تم تجاوز هذا الحد ، فستفشل محاولات تدريب نماذج جديدة لتعلم الآلة ، وسيتم عرض هذه الرسالة:",
-            "Q4-A-4": "أنشأ صفك بالفعل أقصى عدد مسموح به من النماذج. يرجى إخبار معلمك أو قائد المجموعة أن \"مفاتيح واجهة برمجة التطبيقات الخاصة بالتعرف المرئي على Watson ليس لديها المزيد من المصنفات المتاحة\".",
-            "Q4-A-5": "إذا قام طالب لديه نموذج مدرب بنجاح بحذف نموذجه ، فسيؤدي ذلك إلى تحرير مصنف مخصص لاستخدامه من قبل طالب آخر.",
-            "Q4-A-6": "إحدى الطرق لتجنب هذا الخطأ في المستقبل هي أحجام الفصول الصغيرة. إذا كان عدد الطلاب أقل من عدد المصنفات المخصصة التي تدعمها بيانات اعتماد Watson لتعرف المرئي ، فلن يتم الوصول إلى الحدود.",
-            "Q4-A-7": "هناك طريقة أخرى لتجنب هذا الخطأ تتمثل في إضافة مفاتيح API Watson Assistant إضافية إلى الصف ، أو استخدام \"خطة\" نموذج Watson Assistant التي لها حدود أعلى.",
             "Q5": "\"يقوم Watson ... حاليًا بتحديد قيمة مفتاح API الخاص بهم\"",
             "Q5-A-1": "يتم إنشاء نماذج تعلم الآلة في الأداة باستخدام واجهات برمجة تطبيقات IBM Watson.",
             "Q5-A-2": "إذا كان لديك حساب فصل \"غير مُدار\" ، فسيحتاج معلمك أو قائد المجموعة إلى تقديم بيانات اعتماد Watson API من IBM Cloud لكي يعمل هذا.",

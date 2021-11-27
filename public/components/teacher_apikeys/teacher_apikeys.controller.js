@@ -20,8 +20,6 @@
             UNLIMITED : -2
         };
 
-        vm.hideVisualRecognition = false;
-
         var alertId = 1;
         vm.errors = [];
         vm.warnings = [];
@@ -58,13 +56,6 @@
                 else if (cred.credstype === 'conv_plus') {
                     mlmodels += 50;
                 }
-                else if (cred.credstype === 'visrec_lite') {
-                    mlmodels += 2;
-                }
-                else if (cred.credstype === 'visrec_standard') {
-                    mlmodels = vm.CONSTANTS.UNLIMITED;
-                    break;
-                }
                 else {
                     mlmodels = vm.CONSTANTS.UNKNOWN;
                     break;
@@ -98,19 +89,15 @@
         function getAllCredentials(profile) {
             vm.credentials = {
                 loading : {
-                    visrec : true,
                     conv : true
                 },
                 failed : {
-                    visrec : false,
                     conv : false
                 },
                 totals : {
-                    visrec : vm.CONSTANTS.UNKNOWN,
                     conv : vm.CONSTANTS.UNKNOWN
                 }
             };
-            getCredentials(profile, 'visrec');
             getCredentials(profile, 'conv');
         }
 
@@ -128,9 +115,6 @@
 
                             if (vm.policy.isManaged === false) {
                                 getAllCredentials(profile);
-                            }
-                            if (vm.policy.supportedProjectTypes.indexOf('images') === -1) {
-                                vm.hideVisualRecognition = true;
                             }
                         })
                         .catch(function (err) {

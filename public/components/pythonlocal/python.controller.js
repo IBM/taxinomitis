@@ -19,7 +19,6 @@
 
             $scope.functionType = 'classify';
 
-            $scope.testsource = 'local';
             $scope.testdata = {
                 text      : 'The text that you want to test',
                 storetext : 'The text that you want to store',
@@ -29,9 +28,6 @@
                 label     : 'label'
             };
 
-            $scope.setSource = function (source) {
-                $scope.testsource = source;
-            };
             $scope.setFunctionType = function (type) {
                 $scope.functionType = type;
             };

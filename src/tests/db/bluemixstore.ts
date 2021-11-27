@@ -7,8 +7,6 @@ import { v1 as uuid } from 'uuid';
 import * as store from '../../lib/db/store';
 import * as projectObjects from '../../lib/db/projects';
 import * as conversation from '../../lib/training/conversation';
-import * as visualrecog from '../../lib/training/visualrecognition';
-import * as credentialsmgr from '../../lib/training/credentials';
 import * as Types from '../../lib/training/training-types';
 import * as DbTypes from '../../lib/db/db-types';
 
@@ -46,15 +44,6 @@ describe('DB store', () => {
             }
         });
 
-        it('should retrieve all visrec Bluemix credentials', async () => {
-            const retrieved = await store.getAllBluemixCredentials('visrec');
-            assert(retrieved.length > 0);
-            for (const cred of retrieved) {
-                assert.strictEqual(cred.servicetype, 'visrec');
-            }
-        });
-
-
         it('should store and retrieve lite Bluemix credentials', async () => {
             const credsinfo = {
                 id : uuid(),
@@ -79,7 +68,7 @@ describe('DB store', () => {
             } ]);
 
             const counts = await store.countGlobalBluemixCredentials();
-            assert.deepStrictEqual(counts[testTenant.id], { conv : 1, visrec : 0, total : 1 });
+            assert.deepStrictEqual(counts[testTenant.id], { conv : 1, total : 1 });
 
             await store.deleteBluemixCredentials(creds.id);
 
@@ -89,7 +78,7 @@ describe('DB store', () => {
 
         it('should store and retrieve standard Bluemix credentials', async () => {
             const countBefore = await store.countBluemixCredentialsByType(testTenant.id);
-            assert.deepStrictEqual(countBefore, { conv : 0, visrec : 0 });
+            assert.deepStrictEqual(countBefore, { conv : 0 });
 
             const credsinfo = {
                 id : uuid(),
@@ -108,7 +97,7 @@ describe('DB store', () => {
             await store.storeBluemixCredentials(testTenant.id, creds);
 
             const countAfter = await store.countBluemixCredentialsByType(testTenant.id);
-            assert.deepStrictEqual(countAfter, { conv : 20, visrec : 0 });
+            assert.deepStrictEqual(countAfter, { conv : 20 });
 
             const retrieved = await store.getBluemixCredentials(testTenant, 'conv');
             assert.deepStrictEqual(retrieved, [ {
@@ -181,18 +170,9 @@ describe('DB store', () => {
                 classid,
                 credstypeid : projectObjects.credsTypesByLabel.unknown.id,
             });
-            await store.storeBluemixCredentials(classid, {
-                id : ids[4],
-                username : uuid(),
-                password : uuid(),
-                servicetype : 'visrec',
-                url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
-                classid,
-                credstypeid : projectObjects.credsTypesByLabel.visrec_lite.id,
-            });
 
             const countAfter = await store.countBluemixCredentialsByType(classid);
-            assert.deepStrictEqual(countAfter, { conv : 35, visrec : 2 });
+            assert.deepStrictEqual(countAfter, { conv : 35 });
 
             for (const id of ids) {
                 await store.deleteBluemixCredentials(id);
@@ -328,41 +308,6 @@ describe('DB store', () => {
             assert.strictEqual(verifyAfter.credstype, after.label);
         });
 
-        it('should modify Visual Recognition Bluemix credentials', async () => {
-
-            const before = projectObjects.credsTypesByLabel.visrec_standard;
-            const after  = projectObjects.credsTypesByLabel.visrec_lite;
-
-            const classid = uuid();
-
-            const credsinfo = {
-                id : uuid(),
-                username : uuid(),
-                password : uuid(),
-                servicetype : 'visrec',
-                url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
-                classid,
-            };
-
-            const creds: Types.BluemixCredentialsDbRow = {
-                ...credsinfo,
-                credstypeid : before.id,
-            };
-
-            await store.storeBluemixCredentials(classid, creds);
-
-            const verifyBefore = await store.getBluemixCredentialsById(DbTypes.ClassTenantType.UnManaged, creds.id);
-
-            await store.setBluemixCredentialsType(classid, credsinfo.id, 'visrec', after.label);
-
-            const verifyAfter = await store.getBluemixCredentialsById(DbTypes.ClassTenantType.UnManaged, creds.id);
-
-            await store.deleteBluemixCredentials(creds.id);
-
-            assert.strictEqual(verifyBefore.credstype, before.label);
-            assert.strictEqual(verifyAfter.credstype, after.label);
-        });
-
 
         it('should reject modifications for invalid credentials types', async () => {
             try {
@@ -372,98 +317,6 @@ describe('DB store', () => {
             }
             catch (err) {
                 assert.strictEqual(err.message, 'Unrecognised credentials type');
-            }
-        });
-
-
-
-        it('should clean up classifiers and scratch keys when credentials are deleted', async () => {
-
-            //
-            // create a credentials, classifier and scratch key - all using same credentials
-            //
-
-            const classid = 'TESTTENANT';
-            const userid = uuid();
-
-            const credsinfo = {
-                id : uuid(),
-                username : uuid(),
-                password : uuid(),
-                servicetype : 'visrec',
-                url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
-                classid,
-            };
-
-            const creds: Types.BluemixCredentialsDbRow = {
-                ...credsinfo,
-                credstypeid : projectObjects.credsTypesByLabel.visrec_lite.id,
-            };
-
-            const credentials: Types.BluemixCredentials = await store.storeBluemixCredentials(classid, creds);
-
-            const project: DbTypes.Project = await store.storeProject(
-                userid, classid,
-                'text',
-                'project name',
-                'en', [], false);
-
-            const now = new Date();
-            now.setMilliseconds(0);
-            now.setSeconds(now.getSeconds() - 1);
-
-            const future = new Date();
-            future.setDate(future.getDate() + 1);
-            future.setMilliseconds(0);
-
-            let classifier: Types.VisualClassifier = {
-                id : uuid(),
-                name : 'classifier name',
-                classifierid : uuid(),
-                credentialsid : credentials.id,
-                url : uuid(),
-                created : now,
-                expiry : future,
-            };
-
-            classifier = await store.storeImageClassifier(credentials, project, classifier);
-
-            const scratchkeyid = await store.storeScratchKey(project, credentials, classifier.id, now);
-
-            //
-            // check everything was created
-            //
-
-            let scratchkey = await store.getScratchKey(scratchkeyid);
-            assert(scratchkey.classifierid);
-            assert(scratchkey.credentials);
-            const timestamp = scratchkey.updated;
-
-            const verify = await store.getBluemixCredentialsById(DbTypes.ClassTenantType.UnManaged, credentials.id);
-            assert(verify);
-            assert.deepStrictEqual(verify, credentials);
-
-            //
-            // delete the credentials
-            //
-
-            await credentialsmgr.deleteBluemixCredentials(credentials);
-
-            //
-            // verify that the scratch key is reset and the classifier has been deleted
-            //
-
-            scratchkey = await store.getScratchKey(scratchkeyid);
-            assert(!scratchkey.classifierid);
-            assert(!scratchkey.credentials);
-            assert(scratchkey.updated.getTime() > timestamp.getTime());
-
-            try {
-                await store.getBluemixCredentialsById(DbTypes.ClassTenantType.UnManaged, credentials.id);
-                assert.fail('should not have reached here');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Unexpected response when retrieving the service credentials');
             }
         });
     });
@@ -827,248 +680,248 @@ describe('DB store', () => {
 
     describe('Image classifiers', () => {
 
-        let setTimeoutStub: sinon.SinonStub<any, any>;
+        // let setTimeoutStub: sinon.SinonStub<any, any>;
 
-        before(() => {
-            setTimeoutStub = sinon.stub(global, 'setTimeout');
-        });
-        beforeEach(() => {
-            setTimeoutStub.resetHistory();
-        });
-        after(() => {
-            setTimeoutStub.restore();
-        });
-
-
-        function sortClassifiers(a: Types.VisualClassifier, b: Types.VisualClassifier): number {
-            if (a.id < b.id) {
-                return -1;
-            }
-            else if (a.id > b.id) {
-                return 1;
-            }
-            return 0;
-        }
-
-        it('should retrieve expired classifiers', async () => {
-            const classid = uuid();
-            const userid = uuid();
-            const projectid = uuid();
-
-            const now = new Date();
-            now.setMilliseconds(0);
-
-            const future = new Date();
-            future.setDate(future.getDate() + 1);
-            future.setMilliseconds(0);
-
-            const past = new Date();
-            past.setDate(past.getDate() - 1);
-            past.setMilliseconds(0);
-
-            const credentials: Types.BluemixCredentials = {
-                id : uuid(),
-                username : uuid(),
-                password : uuid(),
-                servicetype : 'visrec',
-                url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
-                classid,
-                credstype : 'visrec_lite',
-            };
-            const expired: Types.VisualClassifier = {
-                id : uuid(),
-                name : 'ONE',
-                classifierid : uuid(),
-                credentialsid : credentials.id,
-                url : 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/' + uuid(),
-                created : now,
-                expiry : past,
-            };
-            const current: Types.VisualClassifier = {
-                id : uuid(),
-                name : 'TWO',
-                classifierid : uuid(),
-                credentialsid : credentials.id,
-                url : uuid(),
-                created : now,
-                expiry : future,
-            };
-
-            const alreadyExpired = await store.getExpiredImageClassifiers();
-
-            const projectExpired: DbTypes.Project = {
-                id : projectid,
-                userid,
-                classid,
-                type : 'images',
-                name : expired.name,
-                language : 'en',
-                labels : ['a'],
-                numfields : 0,
-                isCrowdSourced : false,
-            };
-            const projectCurrent: DbTypes.Project = {
-                id : projectid,
-                userid,
-                classid,
-                type : 'images',
-                name : current.name,
-                language : 'en',
-                labels : ['a'],
-                numfields : 0,
-                isCrowdSourced : false,
-            };
-
-            await store.storeImageClassifier(credentials, projectExpired, expired);
-            await store.storeImageClassifier(credentials, projectCurrent, current);
-
-            const retrievedAll = await store.getImageClassifiers(projectid);
-            assert.deepStrictEqual(retrievedAll, [ expired, current ]);
-
-            const retrievedExpired = await store.getExpiredImageClassifiers();
-            assert.deepStrictEqual(retrievedExpired.sort(sortClassifiers),
-                             alreadyExpired.concat([ expired ]).sort(sortClassifiers));
-        });
+        // before(() => {
+        //     setTimeoutStub = sinon.stub(global, 'setTimeout');
+        // });
+        // beforeEach(() => {
+        //     setTimeoutStub.resetHistory();
+        // });
+        // after(() => {
+        //     setTimeoutStub.restore();
+        // });
 
 
+        // function sortClassifiers(a: Types.VisualClassifier, b: Types.VisualClassifier): number {
+        //     if (a.id < b.id) {
+        //         return -1;
+        //     }
+        //     else if (a.id > b.id) {
+        //         return 1;
+        //     }
+        //     return 0;
+        // }
 
-        it('should delete expired classifiers', async () => {
-            const classid = uuid();
-            const userid = uuid();
-            const projectid = uuid();
+        it.skip('should retrieve expired classifiers', async () => {
+            // const classid = uuid();
+            // const userid = uuid();
+            // const projectid = uuid();
 
-            const now = new Date();
-            now.setMilliseconds(0);
+            // const now = new Date();
+            // now.setMilliseconds(0);
 
-            const past = new Date();
-            past.setDate(past.getDate() - 1);
-            past.setMilliseconds(0);
+            // const future = new Date();
+            // future.setDate(future.getDate() + 1);
+            // future.setMilliseconds(0);
 
-            const credentials: Types.BluemixCredentialsDbRow = {
-                id : uuid(),
-                username : uuid(),
-                password : uuid(),
-                servicetype : 'visrec',
-                url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
-                classid,
-                credstypeid : 4,
-            };
-            const storedcreds = await store.storeBluemixCredentials(classid, credentials);
+            // const past = new Date();
+            // past.setDate(past.getDate() - 1);
+            // past.setMilliseconds(0);
 
-            const counts = await store.countBluemixCredentialsByType(classid);
-            assert.deepStrictEqual(counts, { conv : 0, visrec : 2 });
-            const allCounts = await store.countGlobalBluemixCredentials();
-            assert.deepStrictEqual(allCounts[classid], { conv : 0, visrec : 1, total : 1 });
+            // const credentials: Types.BluemixCredentials = {
+            //     id : uuid(),
+            //     username : uuid(),
+            //     password : uuid(),
+            //     servicetype : 'visrec',
+            //     url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
+            //     classid,
+            //     credstype : 'visrec_lite',
+            // };
+            // const expired: Types.VisualClassifier = {
+            //     id : uuid(),
+            //     name : 'ONE',
+            //     classifierid : uuid(),
+            //     credentialsid : credentials.id,
+            //     url : 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/' + uuid(),
+            //     created : now,
+            //     expiry : past,
+            // };
+            // const current: Types.VisualClassifier = {
+            //     id : uuid(),
+            //     name : 'TWO',
+            //     classifierid : uuid(),
+            //     credentialsid : credentials.id,
+            //     url : uuid(),
+            //     created : now,
+            //     expiry : future,
+            // };
 
-            const expired: Types.VisualClassifier = {
-                id : uuid(),
-                name : 'ONE',
-                classifierid : uuid(),
-                credentialsid : credentials.id,
-                url : 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/' + uuid(),
-                created : now,
-                expiry : past,
-            };
+            // const alreadyExpired = await store.getExpiredImageClassifiers();
 
-            const projectExpired: DbTypes.Project = {
-                id : projectid,
-                userid,
-                classid,
-                type : 'images',
-                name : expired.name,
-                language : 'en',
-                labels : ['a'],
-                numfields : 0,
-                isCrowdSourced : false,
-            };
+            // const projectExpired: DbTypes.Project = {
+            //     id : projectid,
+            //     userid,
+            //     classid,
+            //     type : 'images',
+            //     name : expired.name,
+            //     language : 'en',
+            //     labels : ['a'],
+            //     numfields : 0,
+            //     isCrowdSourced : false,
+            // };
+            // const projectCurrent: DbTypes.Project = {
+            //     id : projectid,
+            //     userid,
+            //     classid,
+            //     type : 'images',
+            //     name : current.name,
+            //     language : 'en',
+            //     labels : ['a'],
+            //     numfields : 0,
+            //     isCrowdSourced : false,
+            // };
 
-            await store.storeImageClassifier(storedcreds, projectExpired, expired);
+            // await store.storeImageClassifier(credentials, projectExpired, expired);
+            // await store.storeImageClassifier(credentials, projectCurrent, current);
 
-            const verifyBefore = await store.getImageClassifier(projectid, expired.classifierid);
-            assert.deepStrictEqual(verifyBefore, expired);
+            // const retrievedAll = await store.getImageClassifiers(projectid);
+            // assert.deepStrictEqual(retrievedAll, [ expired, current ]);
 
-            const countBefore = await store.getExpiredImageClassifiers();
-            assert(countBefore.length >= 0);
-
-            const deleteStub = sinon.stub(request, 'delete').resolves();
-            await visualrecog.cleanupExpiredClassifiers();
-            assert(deleteStub.called);
-            deleteStub.restore();
-
-            assert(setTimeoutStub.called);
-
-            const countAfter = await store.getExpiredImageClassifiers();
-            assert.strictEqual(countAfter.length, 0);
-
-            try {
-                await store.getImageClassifier(projectid, expired.classifierid);
-                assert.fail('should not reach here');
-            }
-            catch (err) {
-                assert(err);
-            }
-
-            await store.deleteBluemixCredentials(credentials.id);
+            // const retrievedExpired = await store.getExpiredImageClassifiers();
+            // assert.deepStrictEqual(retrievedExpired.sort(sortClassifiers),
+            //                  alreadyExpired.concat([ expired ]).sort(sortClassifiers));
         });
 
 
-        it('should store and retrieve classifiers', async () => {
-            const classid = uuid();
-            const projectid = uuid();
 
-            const before = await store.getImageClassifiers(projectid);
-            assert.strictEqual(before.length, 0);
+        it.skip('should delete expired classifiers', async () => {
+            // const classid = uuid();
+            // const userid = uuid();
+            // const projectid = uuid();
 
-            const credentials: Types.BluemixCredentials = {
-                id : uuid(),
-                username : uuid(),
-                password : uuid(),
-                servicetype : 'visrec',
-                url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
-                classid,
-                credstype : 'visrec_lite',
-            };
-            const userid = uuid();
+            // const now = new Date();
+            // now.setMilliseconds(0);
 
-            const created = new Date();
-            created.setMilliseconds(0);
+            // const past = new Date();
+            // past.setDate(past.getDate() - 1);
+            // past.setMilliseconds(0);
 
-            const classifierInfo: Types.VisualClassifier = {
-                id : uuid(),
-                classifierid : randomstring.generate({ length : 32 }),
-                credentialsid : credentials.id,
-                created,
-                expiry : created,
-                name : 'DUMMY',
-                url : 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/' + uuid(),
-            };
+            // const credentials: Types.BluemixCredentialsDbRow = {
+            //     id : uuid(),
+            //     username : uuid(),
+            //     password : uuid(),
+            //     servicetype : 'visrec',
+            //     url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
+            //     classid,
+            //     credstypeid : 4,
+            // };
+            // const storedcreds = await store.storeBluemixCredentials(classid, credentials);
 
-            const project: DbTypes.Project = {
-                id : projectid,
-                userid,
-                classid,
-                type : 'images',
-                name : classifierInfo.name,
-                language : 'en',
-                labels : ['a'],
-                numfields : 0,
-                isCrowdSourced : false,
-            };
+            // const counts = await store.countBluemixCredentialsByType(classid);
+            // assert.deepStrictEqual(counts, { conv : 0, visrec : 2 });
+            // const allCounts = await store.countGlobalBluemixCredentials();
+            // assert.deepStrictEqual(allCounts[classid], { conv : 0, visrec : 1, total : 1 });
 
-            await store.storeImageClassifier(credentials, project, classifierInfo);
+            // const expired: Types.VisualClassifier = {
+            //     id : uuid(),
+            //     name : 'ONE',
+            //     classifierid : uuid(),
+            //     credentialsid : credentials.id,
+            //     url : 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/' + uuid(),
+            //     created : now,
+            //     expiry : past,
+            // };
 
-            const after = await store.getImageClassifiers(projectid);
-            assert.strictEqual(after.length, 1);
+            // const projectExpired: DbTypes.Project = {
+            //     id : projectid,
+            //     userid,
+            //     classid,
+            //     type : 'images',
+            //     name : expired.name,
+            //     language : 'en',
+            //     labels : ['a'],
+            //     numfields : 0,
+            //     isCrowdSourced : false,
+            // };
+
+            // await store.storeImageClassifier(storedcreds, projectExpired, expired);
+
+            // const verifyBefore = await store.getImageClassifier(projectid, expired.classifierid);
+            // assert.deepStrictEqual(verifyBefore, expired);
+
+            // const countBefore = await store.getExpiredImageClassifiers();
+            // assert(countBefore.length >= 0);
+
+            // const deleteStub = sinon.stub(request, 'delete').resolves();
+            // await visualrecog.cleanupExpiredClassifiers();
+            // assert(deleteStub.called);
+            // deleteStub.restore();
+
+            // assert(setTimeoutStub.called);
+
+            // const countAfter = await store.getExpiredImageClassifiers();
+            // assert.strictEqual(countAfter.length, 0);
+
+            // try {
+            //     await store.getImageClassifier(projectid, expired.classifierid);
+            //     assert.fail('should not reach here');
+            // }
+            // catch (err) {
+            //     assert(err);
+            // }
+
+            // await store.deleteBluemixCredentials(credentials.id);
+        });
 
 
-            const retrieved = after[0];
+        it.skip('should store and retrieve classifiers', async () => {
+            // const classid = uuid();
+            // const projectid = uuid();
 
-            assert.deepStrictEqual(retrieved, classifierInfo);
+            // const before = await store.getImageClassifiers(projectid);
+            // assert.strictEqual(before.length, 0);
 
-            await store.deleteImageClassifier(classifierInfo.id);
+            // const credentials: Types.BluemixCredentials = {
+            //     id : uuid(),
+            //     username : uuid(),
+            //     password : uuid(),
+            //     servicetype : 'visrec',
+            //     url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
+            //     classid,
+            //     credstype : 'visrec_lite',
+            // };
+            // const userid = uuid();
 
-            const empty = await store.getImageClassifiers(projectid);
-            assert.strictEqual(empty.length, 0);
+            // const created = new Date();
+            // created.setMilliseconds(0);
+
+            // const classifierInfo: Types.VisualClassifier = {
+            //     id : uuid(),
+            //     classifierid : randomstring.generate({ length : 32 }),
+            //     credentialsid : credentials.id,
+            //     created,
+            //     expiry : created,
+            //     name : 'DUMMY',
+            //     url : 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/' + uuid(),
+            // };
+
+            // const project: DbTypes.Project = {
+            //     id : projectid,
+            //     userid,
+            //     classid,
+            //     type : 'images',
+            //     name : classifierInfo.name,
+            //     language : 'en',
+            //     labels : ['a'],
+            //     numfields : 0,
+            //     isCrowdSourced : false,
+            // };
+
+            // await store.storeImageClassifier(credentials, project, classifierInfo);
+
+            // const after = await store.getImageClassifiers(projectid);
+            // assert.strictEqual(after.length, 1);
+
+
+            // const retrieved = after[0];
+
+            // assert.deepStrictEqual(retrieved, classifierInfo);
+
+            // await store.deleteImageClassifier(classifierInfo.id);
+
+            // const empty = await store.getImageClassifiers(projectid);
+            // assert.strictEqual(empty.length, 0);
         });
 
     });

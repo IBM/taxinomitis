@@ -32,25 +32,8 @@ async function createTextKey(project: Types.Project): Promise<ScratchTypes.Key> 
 
 
 async function createImagesKey(project: Types.Project): Promise<ScratchTypes.Key> {
-    const imageClassifiers = await store.getImageClassifiers(project.id);
-
-    if (imageClassifiers.length === 0) {
-        const id = await store.storeUntrainedScratchKey(project);
-        return { id };
-    }
-    else {
-        const classifier = imageClassifiers[0];
-        const model = classifier.classifierid;
-        const tenant = await store.getClassTenant(project.classid);
-
-        const credentials = await store.getBluemixCredentialsById(tenant.tenantType,
-                                                                  classifier.credentialsid);
-
-        const id = await store.storeOrUpdateScratchKey(project,
-            credentials, classifier.classifierid, classifier.created);
-
-        return { id, model };
-    }
+    const id = await store.storeUntrainedScratchKey(project);
+    return { id };
 }
 
 

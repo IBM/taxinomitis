@@ -55,9 +55,7 @@
                 You can use this code to
                 <span ng-if="project.type === 'text' && functionType === 'classify'">submit text</span>
                 <span ng-if="project.type === 'numbers'">submit numbers</span>
-                <span ng-if="(project.type === 'images' || project.type === 'imgtfjs') && testsource === 'local'">submit an image file that you have on your computer</span>
-                <span ng-if="project.type === 'images' && testsource === 'webcam'">submit a photo from your webcam</span>
-                <span ng-if="project.type === 'images' && testsource === 'web'">submit an image file from the Internet</span>
+                <span ng-if="project.type === 'imgtfjs'">submit an image file that you have on your computer</span>
                 <span ng-if="functionType === 'classify'">to the machine learning model that you've trained.</span>
                 <span ng-if="project.type === 'text' && functionType === 'store'">add text examples to your training data.</span>
             </div>
@@ -91,11 +89,8 @@
                     </select>
                 </div>
             </div>
-            <div class="modelstatusdetail" ng-if="(project.type==='images' || project.type === 'imgtfjs') && testsource === 'local'">
+            <div class="modelstatusdetail" ng-if="project.type === 'imgtfjs'">
                 Enter the name of your image file: <input style="padding-left: 1em; padding-right: 1em; width: 80%;" ng-model="testdata.imagefile"></input>
-            </div>
-            <div class="modelstatusdetail" ng-if="project.type==='images' && testsource === 'web'">
-                Enter the web address for the image: <input style="padding-left: 1em; padding-right: 1em; width: 90%;" ng-model="testdata.imageurl"></input>
             </div>
             <div class="modelstatusdetail" ng-hide="functionType === 'store'">
                 Running this will print something like:
@@ -108,24 +103,9 @@ result: '{{ project.labels[0] }}' with 81% confidence</pre></div>
             <div class="modelstatusdetail" ng-if="project.type==='text' && functionType !== 'store'">
                 <a href="" ng-click="setFunctionType('store')">Click here for Python for adding a training example</a>
             </div>
-            <div class="modelstatusdetail" ng-if="project.type==='images' && testsource !== 'web'">
-                <a href="" ng-click="setSource('web')">Click here for Python for submitting an image from the Internet</a>
-            </div>
-            <div class="modelstatusdetail" ng-if="project.type==='images' && testsource !== 'webcam'">
-                <a href="" ng-click="setSource('webcam')">Click here for Python for submitting a photo from your webcam</a>
-            </div>
-            <div class="modelstatusdetail" ng-if="project.type==='images' && testsource !== 'local'">
-                <a href="" ng-click="setSource('local')">Click here for Python for submitting an image file</a>
-            </div>
             <div class="modelstatusdetail" ng-hide="project.type === 'imgtfjs'">
                 If you've never used <a href="http://docs.python-requests.org"><code>requests</code></a>
-                <span ng-hide="project.type==='images' && testsource === 'webcam'">
                      before, you might need to <a href="http://docs.python-requests.org/en/master/user/install/#install">install it first</a>.
-                </span>
-                <span ng-if="project.type==='images' && testsource === 'webcam'">
-                    or <a href="https://pypi.org/project/opencv-python/"><code>OpenCV</code></a> libraries before, you might need to
-                    install them first.
-                </span>
                 <br/>
                 Ask your teacher for help if you're not sure how to do that.
             </div>
@@ -247,145 +227,6 @@ confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
                 </ul>
             </div>
         </div>
-        <div class="modelguidance" ng-if="scratchkey.model && project.type === 'images' && testsource === 'local'" style="flex: 2">
-<div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">import</span> <span class="pythonimport">requests</span>, <span class="pythonimport">sys</span>
-
-<span class="pythoncomments"># Gets the contents of an image file to be sent to the</span>
-<span class="pythoncomments"># machine learning model for classifying</span>
-<span class="pythonfunc">def</span> <span class="pythonfuncname">getImageFileData</span>(locationOfImageFile):
-    <span class="pythonfunc">with</span> <span style="color: #007020">open</span>(locationOfImageFile, &quot;rb&quot;) <span class="pythonfunc">as</span> f:
-        data <span class="pythonop">=</span> f<span class="pythonop">.</span>read()
-        <span class="pythonfunc">if</span> sys.version_info[<span class="pythonint">0</span>] <span class="pythonop">&lt;</span> <span class="pythonint">3</span>:
-            <span class="pythoncomments"># Python 2 approach to handling bytes</span>
-            <span class="pythonfunc">return</span> data.encode("base64")
-        <span class="pythonfunc">else</span>:
-            <span class="pythoncomments"># Python 3 approach to handling bytes</span>
-            <span class="pythonfunc">import</span> <span class="pythonimport">base64</span>
-            <span class="pythonfunc">return</span> base64<span class="pythonop">.</span>b64encode(data)<span class="pythonop">.</span>decode()
-
-
-<span class="pythoncomments"># This function will pass your image to the machine learning model</span>
-<span class="pythoncomments"># and return the top result with the highest confidence</span>
-<span class="pythonfunc">def</span> <span class="pythonfuncname">classify</span>(imagefile):
-    key <span class="pythonop">=</span> &quot;{{ scratchkey.id }}&quot;
-    url <span class="pythonop">=</span> &quot;https://machinelearningforkids.co.uk/api/scratch/&quot;<span class="pythonop">+</span> key <span class="pythonop">+</span> &quot;/classify&quot;
-
-    response <span class="pythonop">=</span> requests<span class="pythonop">.</span>post(url, json<span class="pythonop">=</span>{ &quot;data&quot; : getImageFileData(imagefile) })
-
-    <span class="pythonfunc">if</span> response<span class="pythonop">.</span>ok:
-        responseData <span class="pythonop">=</span> response<span class="pythonop">.</span>json()
-        topMatch <span class="pythonop">=</span> responseData[<span class="pythonint">0</span>]
-        <span class="pythonfunc">return</span> topMatch
-    <span class="pythonfunc">else</span>:
-        response<span class="pythonop">.</span>raise_for_status()
-
-
-<span class="pythoncomments"># CHANGE THIS to the name of the image file you want to classify</span>
-demo <span class="pythonop">=</span> classify(<span style="background-color: #fff0f0;">&quot;<strong>{{ testdata.imagefile }}</strong>&quot;</span>)
-
-label <span class="pythonop">=</span> demo[&quot;class_name&quot;]
-confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
-
-
-<span class="pythoncomments"># CHANGE THIS to do something different with the result</span>
-<span class="pythonfunc">print</span> (&quot;result: &#39;<span style="background-color: #eeeeee">%s</span>&#39; with <span style="background-color: #eeeeee">%d%%</span> confidence&quot; <span class="pythonop">%</span> (label, confidence))
-</pre></div>
-        </div>
-        <div class="modelguidance" ng-if="scratchkey.model && project.type === 'images' && testsource === 'webcam'" style="flex: 2">
-<div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">import</span> <span class="pythonimport">cv2</span>, <span class="pythonimport">requests</span>, <span class="pythonimport">sys</span>
-
-<span class="pythoncomments"># Gets an image from the webcam</span>
-<span class="pythonfunc">def</span> <span class="pythonfuncname">getWebcamImageData</span>():
-    cam <span style="color: #333333">=</span> cv2<span style="color: #333333">.</span>VideoCapture(<span style="color: #0000DD; font-weight: bold">0</span>)
-    <span style="color: #008800; font-weight: bold">try</span>:
-        ok, image <span style="color: #333333">=</span> cam<span style="color: #333333">.</span>read()
-        <span style="color: #008800; font-weight: bold">if</span> ok <span style="color: #333333">!=</span> <span style="color: #007020">True</span>:
-            <span style="color: #008800; font-weight: bold">raise</span> <span style="color: #FF0000; font-weight: bold">ValueError</span>(<span style="background-color: #fff0f0">&quot;Problem using the webcam&quot;</span>)
-        ok, data <span style="color: #333333">=</span> cv2<span style="color: #333333">.</span>imencode(<span style="background-color: #fff0f0">&#39;.jpg&#39;</span>, image)
-        <span style="color: #008800; font-weight: bold">if</span> ok <span style="color: #333333">!=</span> <span style="color: #007020">True</span>:
-            <span style="color: #008800; font-weight: bold">raise</span> <span style="color: #FF0000; font-weight: bold">ValueError</span>(<span style="background-color: #fff0f0">&quot;Problem getting image data&quot;</span>)
-        <span class="pythonfunc">if</span> sys.version_info[<span class="pythonint">0</span>] <span class="pythonop">&lt;</span> <span class="pythonint">3</span>:
-            <span class="pythoncomments"># Python 2 approach to handling bytes</span>
-            <span class="pythonfunc">return</span> data.encode("base64")
-        <span class="pythonfunc">else</span>:
-            <span class="pythoncomments"># Python 3 approach to handling bytes</span>
-            <span class="pythonfunc">import</span> <span class="pythonimport">base64</span>
-            <span class="pythonfunc">return</span> base64<span class="pythonop">.</span>b64encode(data)<span class="pythonop">.</span>decode()
-    <span style="color: #008800; font-weight: bold">finally</span>:
-        cam<span style="color: #333333">.</span>release()
-
-
-<span class="pythoncomments"># This function will pass your image to the machine learning model</span>
-<span class="pythoncomments"># and return the top result with the highest confidence</span>
-<span class="pythonfunc">def</span> <span class="pythonfuncname">classify</span>():
-    key <span class="pythonop">=</span> &quot;{{ scratchkey.id }}&quot;
-    url <span class="pythonop">=</span> &quot;https://machinelearningforkids.co.uk/api/scratch/&quot;<span class="pythonop">+</span> key <span class="pythonop">+</span> &quot;/classify&quot;
-
-    response <span class="pythonop">=</span> requests<span class="pythonop">.</span>post(url, json<span class="pythonop">=</span>{ &quot;data&quot; : getWebcamImageData() })
-
-    <span class="pythonfunc">if</span> response<span class="pythonop">.</span>ok:
-        responseData <span class="pythonop">=</span> response<span class="pythonop">.</span>json()
-        topMatch <span class="pythonop">=</span> responseData[<span class="pythonint">0</span>]
-        <span class="pythonfunc">return</span> topMatch
-    <span class="pythonfunc">else</span>:
-        response<span class="pythonop">.</span>raise_for_status()
-
-
-demo <span class="pythonop">=</span> classify()
-
-label <span class="pythonop">=</span> demo[&quot;class_name&quot;]
-confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
-
-
-<span class="pythoncomments"># CHANGE THIS to do something different with the result</span>
-<span class="pythonfunc">print</span> (&quot;result: &#39;<span style="background-color: #eeeeee">%s</span>&#39; with <span style="background-color: #eeeeee">%d%%</span> confidence&quot; <span class="pythonop">%</span> (label, confidence))
-            </pre></div>
-        </div>
-        <div class="modelguidance" ng-if="scratchkey.model && project.type === 'images' && testsource === 'web'" style="flex: 2">
-<div class="pythoncodebox"><pre class="pythoncode"><span class="pythonfunc">import</span> <span class="pythonimport">requests</span><span class="pythonop">,</span> <span class="pythonimport">sys</span>
-
-<span class="pythoncomments"># Gets the contents of an image on the Internet to be</span>
-<span class="pythoncomments"># sent to the machine learning model for classifying</span>
-<span class="pythonfunc">def</span> <span class="pythonfuncname">getImageUrlData</span>(wwwLocationOfImage):
-    data = requests<span class="pythonop">.</span>get(wwwLocationOfImage)<span class="pythonop">.</span>content
-    <span class="pythonfunc">if</span> sys.version_info[<span class="pythonint">0</span>] <span class="pythonop">&lt;</span> <span class="pythonint">3</span>:
-        <span class="pythoncomments"># Python 2 approach to handling bytes</span>
-        <span class="pythonfunc">return</span> data.encode("base64")
-    <span class="pythonfunc">else</span>:
-        <span class="pythoncomments"># Python 3 approach to handling bytes</span>
-        <span class="pythonfunc">import</span> <span class="pythonimport">base64</span>
-        <span class="pythonfunc">return</span> base64<span class="pythonop">.</span>b64encode(data)<span class="pythonop">.</span>decode()
-
-
-
-<span class="pythoncomments"># This function will pass your image to the machine learning model</span>
-<span class="pythoncomments"># and return the top result with the highest confidence</span>
-<span class="pythonfunc">def</span> <span class="pythonfuncname">classify</span>(imageurl):
-    key <span class="pythonop">=</span> &quot;{{ scratchkey.id }}&quot;
-    url <span class="pythonop">=</span> &quot;https://machinelearningforkids.co.uk/api/scratch/&quot;<span class="pythonop">+</span> key <span class="pythonop">+</span> &quot;/classify&quot;
-
-    response <span class="pythonop">=</span> requests<span class="pythonop">.</span>post(url, json<span class="pythonop">=</span>{ &quot;data&quot; : getImageUrlData(imageurl) })
-
-    <span class="pythonfunc">if</span> response<span class="pythonop">.</span>ok:
-        responseData <span class="pythonop">=</span> response<span class="pythonop">.</span>json()
-        topMatch <span class="pythonop">=</span> responseData[<span class="pythonint">0</span>]
-        <span class="pythonfunc">return</span> topMatch
-    <span class="pythonfunc">else</span>:
-        response<span class="pythonop">.</span>raise_for_status()
-
-
-<span class="pythoncomments"># CHANGE THIS to the URL of the image you want to classify</span>
-demo <span class="pythonop">=</span> classify(<span style="background-color: #fff0f0">&quot;<strong>{{ testdata.imageurl }}</strong>&quot;</span>)
-
-label <span class="pythonop">=</span> demo[&quot;class_name&quot;]
-confidence <span class="pythonop">=</span> demo[&quot;confidence&quot;]
-
-
-<span class="pythoncomments"># CHANGE THIS to do something different with the result</span>
-<span class="pythonfunc">print</span> (&quot;result: &#39;<span style="background-color: #eeeeee">%s</span>&#39; with <span style="background-color: #eeeeee">%d%%</span> confidence&quot; <span class="pythonop">%</span> (label, confidence))
-</pre></div>
-        </div>
-
         <div class="modelguidance" style="flex-basis: 100%" ng-if="project.type !== 'images'">
             <div class="modelstatusdetail">
                 If you know how to use it, your API key for this project is:

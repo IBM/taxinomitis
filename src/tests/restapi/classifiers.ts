@@ -51,24 +51,15 @@ describe('REST API - classifiers', () => {
     }
 
     const conv: TrainingTypes.BluemixServiceType = 'conv';
-    const visrec: TrainingTypes.BluemixServiceType = 'visrec';
     const textProjectName = 'TEST_TEXT_PROJECT';
-    const imagesProjectName = 'TEST_IMG_PROJECT';
 
     const username = randomstring.generate(36);
     const password = randomstring.generate(12);
-    const apikey = randomstring.generate(40);
 
     const convCredentials: TrainingTypes.BluemixCredentials = dbobjects.createBluemixCredentials(conv,
         CLASSID,
         undefined,
         username, password, 'conv_standard');
-    const visrecCredentials: TrainingTypes.BluemixCredentials = dbobjects.createBluemixCredentials(visrec,
-        CLASSID,
-        apikey,
-        undefined, undefined, 'visrec_standard');
-
-
     const textProject = dbobjects.getProjectFromDbRow(dbobjects.createProject(USERID, CLASSID,
         'text',
         textProjectName,
@@ -86,21 +77,6 @@ describe('REST API - classifiers', () => {
         expiry : new Date(),
     };
 
-    const imagesProject = dbobjects.getProjectFromDbRow(dbobjects.createProject(USERID, CLASSID,
-        'images',
-        imagesProjectName,
-        'en',
-        [],
-        false));
-    const validClassifier: TrainingTypes.VisualClassifier = {
-        id : uuid.v4(),
-        classifierid : uuid.v1(),
-        credentialsid : visrecCredentials.id,
-        created : new Date(),
-        expiry : new Date(),
-        name : imagesProjectName,
-        url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
-    };
 
 
 
@@ -111,10 +87,8 @@ describe('REST API - classifiers', () => {
         await store.init();
 
         await store.storeBluemixCredentials(CLASSID, dbobjects.getCredentialsAsDbRow(convCredentials));
-        await store.storeBluemixCredentials(CLASSID, dbobjects.getCredentialsAsDbRow(visrecCredentials));
 
         await store.storeConversationWorkspace(convCredentials, textProject, validWorkspace);
-        await store.storeImageClassifier(visrecCredentials, imagesProject, validClassifier);
 
         testServer = testapiserver();
     });
@@ -124,9 +98,7 @@ describe('REST API - classifiers', () => {
         authStub.restore();
 
         await store.deleteBluemixCredentials(convCredentials.id);
-        await store.deleteBluemixCredentials(visrecCredentials.id);
         await store.deleteConversationWorkspace(validWorkspace.id);
-        await store.deleteImageClassifier(validClassifier.id);
 
         return store.disconnect();
     });
@@ -144,9 +116,6 @@ describe('REST API - classifiers', () => {
             getClassifiersStub
                 .withArgs(sinon.match(/.*workspaces/), sinon.match.any)
                 .callsFake(mockConversation.getClassifiers);
-            getClassifiersStub
-                .withArgs(sinon.match(/.*classifiers/), sinon.match.any)
-                .callsFake(mockVisRec.getClassifiers);
             getClassStub = sinon.stub(store, 'getClassTenant').callsFake(mockStore.getClassTenant);
         });
 
@@ -225,10 +194,6 @@ describe('REST API - classifiers', () => {
                     assert(allUnknowns.conv.some((unknown: any) => unknown.name === 'First API test'));
                     assert(allUnknowns.conv.some((unknown: any) => unknown.name === 'Second API test'));
                     assert(allUnknowns.conv.some((unknown: any) => unknown.name === 'Third API test'));
-
-                    assert.strictEqual(allUnknowns.visrec.length, 2);
-                    assert(allUnknowns.visrec.some((unknown: any) => unknown.name === 'dogs'));
-                    assert(allUnknowns.visrec.some((unknown: any) => unknown.name === 'Cars vs Trucks'));
                 });
         });
     });
@@ -244,9 +209,6 @@ describe('REST API - classifiers', () => {
             deleteClassifiersStub
                 .withArgs(sinon.match(/.*workspaces\/.*/), sinon.match.any)
                 .callsFake(mockConversation.deleteClassifier);
-            deleteClassifiersStub
-                .withArgs(sinon.match(/.*classifiers/), sinon.match.any)
-                .callsFake(mockVisRec.deleteClassifier);
         });
 
         after(async () => {
@@ -262,17 +224,6 @@ describe('REST API - classifiers', () => {
                 .del('/api/classes/' + CLASSID + '/classifiers/classifierid')
                 .expect('Content-Type', /json/)
                 .expect(httpstatus.FORBIDDEN);
-        });
-
-        it('should reject requests for non-Bluemix classifiers', async () => {
-            nextAuth0Userid = 'managed-user';
-            nextAuth0Role = 'supervisor';
-            nextAuth0Class = CLASSID;
-            return testRequest(testServer)
-                .del('/api/classes/' + CLASSID + '/classifiers/classifierid' +
-                     '?type=num&credentialsid=' + visrecCredentials.id)
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST);
         });
 
         it('should reject requests without credentials', async () => {
@@ -297,17 +248,6 @@ describe('REST API - classifiers', () => {
                 .expect(httpstatus.NOT_FOUND);
         });
 
-        it('should reject requests with invalid credentials', async () => {
-            nextAuth0Userid = 'managed-user';
-            nextAuth0Role = 'supervisor';
-            nextAuth0Class = CLASSID;
-            return testRequest(testServer)
-                .del('/api/classes/' + CLASSID + '/classifiers/classifierid' +
-                     '?type=conv&credentialsid=' + visrecCredentials.id)
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND);
-        });
-
         it('should require valid class id', async () => {
             nextAuth0Userid = 'managed-user';
             nextAuth0Role = 'supervisor';
@@ -328,17 +268,6 @@ describe('REST API - classifiers', () => {
                      '?type=conv&credentialsid=' + convCredentials.id)
                 .expect(httpstatus.NO_CONTENT);
         });
-
-        it('should delete image classifiers', async () => {
-            nextAuth0Userid = 'managed-user';
-            nextAuth0Role = 'supervisor';
-            nextAuth0Class = CLASSID;
-            return testRequest(testServer)
-                .del('/api/classes/' + CLASSID + '/classifiers/' + validClassifier.classifierid +
-                     '?type=visrec&credentialsid=' + visrecCredentials.id)
-                .expect(httpstatus.NO_CONTENT);
-        });
-
     });
 
 
@@ -351,7 +280,6 @@ describe('REST API - classifiers', () => {
                 maxUsers : 15,
                 maxProjectsPerUser : 3,
                 textClassifierExpiry : 24,
-                imageClassifierExpiry : 24,
             };
             return Promise.resolve(placeholder);
         },
@@ -407,63 +335,6 @@ describe('REST API - classifiers', () => {
                 'https://gateway.watsonplatform.net/' +
                 'conversation/api/v1/workspaces/' +
                 validWorkspace.workspace_id);
-            return Promise.resolve();
-        },
-    };
-
-    const mockVisRec = {
-        getClassifiers : () => {
-            return Promise.resolve({
-                classifiers: [
-                    {
-                        classifier_id: 'dogs_1477088859',
-                        name: 'dogs',
-                        status: 'ready',
-                        owner: '99d0114d-9959-4071-b06f-654701909be4',
-                        created: '2018-03-17T19:01:30.536Z',
-                        updated: '2018-03-17T19:42:19.906Z',
-                        classes: [{
-                            class: 'husky',
-                        }, {
-                            class: 'goldenretriever',
-                        }, {
-                            class: 'beagle',
-                        }],
-                        core_ml_enabled: true,
-                    },
-                    {
-                        classifier_id: validClassifier.classifierid,
-                        name: validClassifier.name,
-                        status: 'ready',
-                        owner: '99d0114d-9959-4071-b06f-654701909be4',
-                        created: '2018-03-17T19:01:30.536Z',
-                        updated: '2018-03-17T19:42:19.906Z',
-                        classes: [{
-                            class: 'happy',
-                        }, {
-                            class: 'sad',
-                        }],
-                        core_ml_enabled: true,
-                    },
-                    {
-                        classifier_id: 'CarsvsTrucks_1479118188',
-                        name: 'Cars vs Trucks',
-                        status: 'ready',
-                        owner: '99d0114d-9959-4071-b06f-654701909be4',
-                        created: '2016-07-19T15:24:08.743Z',
-                        updated: '2016-07-19T15:24:08.743Z',
-                        classes: [{
-                            class: 'cars',
-                        }],
-                        core_ml_enabled: false,
-                    },
-                ],
-            });
-        },
-        deleteClassifier : (url: string) => {
-            assert.strictEqual(url,
-                'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classifiers/' +
-                validClassifier.classifierid);
             return Promise.resolve();
         },
     };

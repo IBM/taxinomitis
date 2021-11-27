@@ -30,12 +30,12 @@
     </div>
 
 
-    <div ng-if="vm && vm.classifiers && (vm.classifiers.conv.length > 0 || vm.classifiers.visrec.length > 0)" class="unmanagedClassifiers">
+    <div ng-if="vm && vm.classifiers && vm.classifiers.conv.length > 0" class="unmanagedClassifiers">
         <div class="warningHeading" translate>APP.WARNING</div>
         <div class="warningExplanation">
             A check of the Watson API keys that you provided has found
-            <span ng-if="(vm.classifiers.conv.length + vm.classifiers.visrec.length) === 1">a </span>
-            machine learning model<span ng-if="(vm.classifiers.conv.length + vm.classifiers.visrec.length) > 1">s </span>
+            <span ng-if="vm.classifiers.conv.length === 1">a </span>
+            machine learning model<span ng-if="vm.classifiers.conv.length > 1">s </span>
             that isn't known to Machine Learning for Kids.
         </div>
         <div class="warningSubHeading">How could this happen?</div>
@@ -68,20 +68,6 @@
                         alt="Model using a Watson Assistant API key"></td>
                 <td><strong>Watson Assistant</strong> workspace
                         (<small>{{ classifier.id }}</small>) called
-                        <strong>"{{ classifier.name }}"</strong></td>
-                <td><button class="btn btn-danger"
-                            style="margin-left: 1em"
-                            ng-click="vm.deleteClassifier($event, classifier)"
-                            ng-disabled="submittingDeleteRequest"
-                            translate="APP.DELETE">
-                    </button></td>
-            </tr>
-            <tr ng-repeat="classifier in vm.classifiers.visrec">
-                <td><img class="mediumwatsonicon" hspace=10
-                        src="static/images/visualrecognition.jpg"
-                        alt="Model using a Watson Visual Recognition API key"></td>
-                <td><strong>Visual Recognition</strong> classifier
-                        ({{ classifier.id }}) called
                         <strong>"{{ classifier.name }}"</strong></td>
                 <td><button class="btn btn-danger"
                             style="margin-left: 1em"
@@ -156,12 +142,6 @@
                             src="static/images/conversation.jpg"
                             ng-click="vm.deleteModel($event, project)"
                             alt="Model using a Watson Assistant API key">
-                </td>
-                <td class="studentslistdetail detail" ng-if="project.hasModel && project.type === 'images'">
-                    <img class="miniwatsonicon" style="cursor: pointer"
-                            src="static/images/visualrecognition.jpg"
-                            ng-click="vm.deleteModel($event, project)"
-                            alt="Model using a Watson Visual Recognition API key">
                 </td>
             </tr>
         </table>

@@ -77,10 +77,7 @@
 
 
         function getMinimumTrainingItems(projectType) {
-            if (projectType === 'images') {
-                return 10;
-            }
-            else if (projectType === 'sounds') {
+            if (projectType === 'sounds') {
                 return 8;
             }
             else {

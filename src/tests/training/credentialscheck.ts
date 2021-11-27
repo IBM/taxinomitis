@@ -56,8 +56,8 @@ describe('Training - Watson credentials checker', () => {
         it('should no give any information about images credentials', async () => {
             const outcome = await checker.checkClass(classid, 'images');
             assert.deepStrictEqual(outcome, {
-                code : 'MLCRED-MANAGED',
-                message : 'Managed classes do not need to verify credentials',
+                code : 'MLCRED-TYPEUNK',
+                message : 'Unsupported project type',
             });
         });
     });
@@ -102,8 +102,8 @@ describe('Training - Watson credentials checker', () => {
         it('should recognize there are no images credentials', async () => {
             const outcome = await checker.checkClass(classid, 'images');
             assert.deepStrictEqual(outcome, {
-                code : 'MLCRED-IMG-NOKEYS',
-                message : 'There are no Visual Recognition credentials in this class',
+                code : 'MLCRED-TYPEUNK',
+                message : 'Unsupported project type',
             });
         });
     });
@@ -182,8 +182,8 @@ describe('Training - Watson credentials checker', () => {
         it('should recognize there are no images credentials', async () => {
             const outcome = await checker.checkClass(classid, 'images');
             assert.deepStrictEqual(outcome, {
-                code : 'MLCRED-IMG-INVALID',
-                message : 'No valid Visual Recognition credentials in this class',
+                code : 'MLCRED-TYPEUNK',
+                message : 'Unsupported project type',
             });
         });
     });

@@ -213,7 +213,6 @@ export interface ClassTenant {
     readonly maxProjectsPerUser: number;
     //
     textClassifierExpiry: number;
-    imageClassifierExpiry: number;
 }
 
 export interface ClassDbRow {
@@ -222,7 +221,6 @@ export interface ClassDbRow {
     readonly maxusers: number;
     readonly maxprojectsperuser: number;
     readonly textclassifiersexpiry: number;
-    readonly imageclassifiersexpiry: number;
     readonly ismanaged: ClassTenantType;
 }
 

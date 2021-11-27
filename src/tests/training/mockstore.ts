@@ -12,24 +12,11 @@ export const creds: TrainingTypes.BluemixCredentials = {
     credstype : 'conv_lite',
 };
 
-export const credsForVisRec: TrainingTypes.BluemixCredentials = {
-    id : '456',
-    username : 'user',
-    password : 'pass',
-    servicetype : 'visrec',
-    url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
-    classid : 'classid',
-    credstype : 'visrec_lite',
-};
-
 export function getBluemixCredentials(tenant: DbTypes.ClassTenant, service: TrainingTypes.BluemixServiceType)
     : Promise<TrainingTypes.BluemixCredentials[]>
 {
     if (service === 'conv'){
         return new Promise((resolve) => resolve([ creds ]));
-    }
-    else if (service === 'visrec') {
-        return new Promise((resolve) => resolve([ credsForVisRec ]));
     }
     return new Promise((resolve) => resolve([ ]));
 }
@@ -37,9 +24,6 @@ export function getBluemixCredentialsById(classid: DbTypes.ClassTenantType, id: 
     return new Promise((resolve, reject) => {
         if (id === '123') {
             return resolve(creds);
-        }
-        else if (id === '456') {
-            return resolve(credsForVisRec);
         }
         else {
             return reject(new Error('Unexpected response when retrieving service credentials'));
@@ -141,20 +125,6 @@ export function storeConversationWorkspace(
     ));
 }
 
-export function storeImageClassifier(
-    credentials: TrainingTypes.BluemixCredentials,
-    project: DbTypes.Project,
-    classifier: TrainingTypes.VisualClassifier,
-): Promise<TrainingTypes.VisualClassifier>
-{
-    return new Promise((resolve) => resolve(
-        DbObjects.createVisualClassifier(
-            classifier, credentials, project,
-        ),
-    ));
-}
-
-
 export function updateConversationWorkspaceExpiry()
 {
     return Promise.resolve();
@@ -215,7 +185,6 @@ export function getClassTenant(classid: string): Promise<DbTypes.ClassTenant>
         maxUsers : 8,
         maxProjectsPerUser : 3,
         textClassifierExpiry : 2,
-        imageClassifierExpiry : 3,
         tenantType : DbTypes.ClassTenantType.UnManaged,
     };
     return Promise.resolve(placeholder);
