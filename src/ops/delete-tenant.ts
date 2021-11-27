@@ -21,8 +21,8 @@ store.init()
         console.log('deleting tenant record...');
         return deleter.deleteClass(tenantid);
     })
-    .then((newtenant) => {
-        console.log('deleted:', newtenant);
+    .then(() => {
+        console.log('deleted');
     })
     .catch((err) => {
         console.error(err);

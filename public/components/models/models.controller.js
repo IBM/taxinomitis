@@ -243,6 +243,9 @@
             if ($scope.project.type === 'images') {
                 return 30000;
             }
+            if ($scope.project.type === 'numbers') {
+                return 2000;
+            }
             loggerService.error('[ml4kmodels] Unexpected project type');
             return 60000;
         }
