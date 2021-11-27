@@ -222,16 +222,6 @@
             "NOTES_4": "一系列的數字或多個選項，請選擇「數字」",
             "NOTES_5": "聲音與音樂，請選擇「聲音」"
         },
-        "IMAGEPROJECTS": {
-            "LABEL": "在哪裡訓練模型？",
-            "TYPES": {
-                "IMAGES": "使用雲端服務",
-                "IMGTFJS": "使用你的電腦"
-            },
-            "NOTES_1": "如果你選擇「使用你的電腦」，你只能將模型運用在Scratch中。",
-            "NOTES_2": "如果你選擇「使用雲端服務」，你能將模型運用在Scratch、Python與Appinventor中。",
-            "NOTES_3": "你可以隨時切換這兩種模式。"
-        },
         "LANGUAGE": {
             "LABEL": "語言",
             "NOTES": "這個專案中的文字是什麼語言呢？"
@@ -264,9 +254,7 @@
         },
         "WARNINGS": {
             "MLCRED-TEXT-NOKEYS": "請告知您的老師，他們將需要在課程中加入「 Watson Assistant API密碼」，才能為新專案訓練機器學習模型",
-            "MLCRED-IMG-NOKEYS": "請告知您的老師，他們將需要在課程中加入「 影像辨識 API密碼」，才能為新專案訓練機器學習模型",
-            "MLCRED-TEXT-INVALID": "IBM Cloud API密鑰可能出現問題，你需要再次幫你的新專案訓練機器學習模型。 請讓你的老師嘗試驗證你課堂上的「 Watson Assistant API密碼。」",
-            "MLCRED-IMG-INVALID": "IBM Cloud API密鑰可能出現問題，你需要再次幫你的新專案訓練機器學習模型。 請讓你的老師嘗試驗證你課堂上的「 影像辨識 API密碼。」"
+            "MLCRED-TEXT-INVALID": "IBM Cloud API密鑰可能出現問題，你需要再次幫你的新專案訓練機器學習模型。 請讓你的老師嘗試驗證你課堂上的「 Watson Assistant API密碼。」"
         }
     },
     "DATASETS": {
@@ -399,10 +387,6 @@
         "DELETE": "刪除這個模型",
         "TEST_CANVAS": "畫一些東西來測試你的模型",
         "TEST_WEBCAM": "照一張相來訓練你的模型",
-        "CHANGETYPE": {
-            "IMAGES": "切換模式成「使用雲端服務」訓練模型",
-            "IMGTFJS": "切換模式成「使用你的電腦」訓練模型"
-        },
         "WHATHAVEYOUDONE": {
             "TITLE": "你完成了什麼？",
             "PLEASEWAIT": "這通常需要花費幾分鐘的時間。但如果伺服器忙碌中會需要花更長的時間",
@@ -1568,13 +1552,11 @@
             "HELP_STEPBYSTEP_GUIDE": "如果你不確定在這裡要做什麼，請參考<a href='/apikeys-guide'>一步一步的引導教學</a>。如果你需要任何協助，請<strong><a style='cursor: pointer;' href='/help'>與我們聯繫</a></strong>。",
 
             "INTRO_WATSONASSISTANT": "使用<a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a>來訓練<span class='mlprojecttype'>文字</span>專案的機器學習模型",
-            "INTRO_VISUALRECOGNITION": "使用雲端服務<a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson影像辨識</a>來訓練<span class='mlprojecttype'>圖片</span>專案的機器學習模型",
             "INTRO_NUMBERS": "<strong>不需要</strong>任何API密碼即可訓練<span class='mlprojecttype'>數字</span>專案的機器學習模型",
             "INTRO_SOUNDS": "<strong>不需要</strong>任何API密碼即可訓練<span class='mlprojecttype'>聲音</span>專案的機器學習模型",
             "INTRO_IMAGES": "訓練<span class='mlprojecttype'>圖片</span>專案的機器學習模型，<strong>不需要</strong>任何API密碼。",
 
             "ERROR_FETCHING_WATSONASSISTANT": "無法取得你的Watson Assistant密碼",
-            "ERROR_FETCHING_VISUALRECOG": "無法取得你的Visual Recognition的API密碼",
 
             "USERNAME": "使用者名稱",
             "PASSWORD": "密碼",
@@ -1585,14 +1567,11 @@
             "UNLIMITED": "無限",
 
             "LIMIT_TEXT_PROJECTS": "你的學生可以擁有的文字機器學習模型數量：",
-            "LIMIT_IMAGE_PROJECTS": "你的學生可以擁有的圖片機器學習模型數量：",
 
             "ADD_API_KEYS": {
                 "ASSISTANT_TITLE": "加入Watson Assistant權限",
-                "VISUAL_RECOGNITION_TITLE": "加入Visual Recognition的API密碼",
 
                 "USED_FOR_TEXT_PROJECTS": "這些內容將在你的學生訓練「文件」專案中的模型時使用",
-                "USED_FOR_IMAGE_PROJECTS": "這些內容將在你的學生訓練「圖片」專案中的模型時使用",
 
                 "HIDDEN_FROM_STUDENTS": "這些內容不會顯示給你群組中的學生看見",
 
@@ -1775,41 +1754,11 @@
         "PROJECTS": {
             "TITLE": "專案問題",
 
-            "Q1": "「使用你的電腦」或是「使用雲端服務」訓練圖片模型有什麼差別？\b",
-            "Q1-A-1": "這兩種都可以用來建立相同種類的機器學習專案。不同的地方在於在哪裡建立與儲存模型。",
-            "Q1-A-2": "如果選擇「<strong>使用雲端服務</strong>」，機器學習模型將在雲端伺服器中以Watson影像辨識的線上服務進行訓練。",
-            "Q1-A-3": "如果選擇「<strong>使用你的電腦</strong>」，機器學習模型將透過學生電腦中的網頁瀏覽器中進行訓練",
-            "Q1-A-4": "「使用雲端服務」的優點是：",
-            "Q1-A-7": "它可以建立更準確的模型，尤其是在使用少量訓練範例時。",
-            "Q1-A-8": "但是，這需要耗費幾分鐘的時間來等待雲端伺服器開始啟動",
-            "Q1-A-9": "「使用你的電腦」的優點是：",
-            "Q1-A-10": "它可以更快地完成訓練，因為它可以馬上開始，不需等待開啟雲端服務器的時間。",
-            "Q1-A-12": "模型不會被自動刪除",
-
-            "Q2": "如何將「圖片專案」切換成使用雲端服務訓練，或是使用你的電腦訓練？",
-            "Q2-A-1": "你可以在專案中的訓練頁面切換這兩種模式。",
-            "Q2-A-2": "切換的連結在畫面的右上方。",
-            "Q2-A-3": "完成後將刪除此專案中所有既有的機器學習模型。",
-            "Q2-A-4": "圖片專案的Scratch擴充積木在兩種不同模式下的運作方式不同。因此，如果在執行此操作時開啟了Scratch介面，則需要重新整理頁面以便可以更新Scratch擴充積木名稱。",
-
-            "Q3": "Why can I only make something with Scratch or Python for my machine learning project?",
-            "Q3-A-1": "Machine learning models that are trained on your own computer can only be accessed from Scratch (which has been updated so that it can access machine learning models stored in your web browser) and Python (for images projects only).",
-            "Q3-A-2": "Machine learning models that are trained in the cloud can be accessed from Scratch, Python, or App Inventor - as all of these are able to access machine learning models stored in the cloud.",
-            "Q3-A-3": "If you only see 'Scratch 3' as an option when you make something with your machine learning project, it means your machine learning model is being stored in your web browser.",
-
             "Q4": "Which machine learning models are trained on your computer, and which are trained in the cloud?",
             "Q4-A-1": "<strong>text</strong> projects can only be trained in the cloud.",
             "Q4-A-2": "<strong>numbers</strong> projects can only be trained in the cloud.",
             "Q4-A-3": "<strong>sounds</strong> projects can only be trained on your computer.",
-            "Q4-A-4": "<strong>images</strong> projects can be trained on your computer, or (if you have access to Watson Visual Recognition) in the cloud.",
-
-            "Q5": "Which students can train images machine learning projects in the cloud?",
-            "Q5-A-1": "<strong>images</strong> projects can be trained on your computer, or (if you have access to Watson Visual Recognition) in the cloud.",
-            "Q5-A-2": "Training machine learning models for <strong>images</strong> projects uses the Watson Visual Recognition service. IBM <a href='https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-getting-started-tutorial'>discontinued the Watson Visual Recognition service</a> on 7th January 2021, which means access to this is now limited. The Visual Recognition service is being withdrawn completely on 1st December 2021.",
-            "Q5-A-3": "Students in managed classes will continue to be able to choose whether to train image machine learning models on their computer or in the cloud until 1st December 2021.",
-            "Q5-A-4": "Students in unmanaged classes with Visual Recognition API keys set up before 7th January 2021 will continue to be able to train image machine learning models on their computer or in the cloud, until 1st December 2021.",
-            "Q5-A-5": "Students in unmanaged classes created after 7th January 2021 can only train image machine learning models on their computer.",
-            "Q5-A-6": "Students using 'Try it now' can only train image machine learning models on their computer."
+            "Q4-A-4": "<strong>images</strong> projects can be trained on your computer, or (if you have access to Watson Visual Recognition) in the cloud."
         },
 
         "SCRATCH": {
@@ -1867,15 +1816,6 @@
             "Q3-A-5": "如果具有成功訓練過模型的學生刪除了他們的模型，這將釋放一個工作空間供其他學生使用。",
             "Q3-A-6": "將來避免這種錯誤的一種方法是減少班級人數。 如果學生人數少於Watson Assistant認證支援的工作區數量，則不會達到限制。",
             "Q3-A-7": "避免此錯誤的另一種方法是增加其他Watson Assistant API密碼，或使用具有更高上限的Watson Assistant「方案」。",
-
-            "Q4": "「Watson Visual Recognition API密碼不再有可用的分類器」",
-            "Q4-A-1": "此工具中的機器學習模型是使用IBM Watson API建立的。",
-            "Q4-A-2": "教師創建的Watson Visual Recognition認證對可用於創建的機器學習模型的數量有所限制。 這顯示在創建認證的IBM Cloud UI中，這些認證稱為「客製分類器」。",
-            "Q4-A-3": "如果超過此限制，則嘗試訓練新的機器學習模型都會失敗，並且將顯示以下消息：",
-            "Q4-A-4": "您的班級已經超過了可建立模型的最大數量上限。 請讓你的老師或小組負責人知道他們的「Watson Visual Recognition API密碼沒有更多可用的分類器」。",
-            "Q4-A-5": "如果具有成功訓練過模型的學生刪除了他們的模型，這將釋放一個客製分類器供其他學生使用。",
-            "Q4-A-6": "將來避免這種錯誤的一種方法是減少班級人數。 如果學生人數少於Watson Assistant認證支援的客製分類器數量，則不會達到限制。",
-            "Q4-A-7": "避免此錯誤的另一種方法是增加其他的Watson Visual Recognition API密碼，或使用具有更高上限的Watson Visual Recognition實例「方案」。",
 
             "Q5": "「Watson ...目前正在限制其API密碼的速率」",
             "Q5-A-1": "此工具中的機器學習模型是使用IBM Watson API建立的。",

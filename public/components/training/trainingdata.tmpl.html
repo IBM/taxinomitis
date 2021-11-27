@@ -67,7 +67,7 @@
             <md-button ng-click="cancel()" translate="APP.CANCEL"></md-button>
         </md-dialog-actions>
     </form>
-    <form ng-cloak name="newImagesTrainingData" ng-hide="project.type !== 'images' && project.type !== 'imgtfjs'" ng-submit="confirm(example)">
+    <form ng-cloak name="newImagesTrainingData" ng-hide="project.type !== 'imgtfjs'" ng-submit="confirm(example)">
         <md-dialog-content>
             <div class="md-dialog-content" style="min-width: 600px">
                 <md-card-content>
@@ -75,7 +75,7 @@
                         <md-input-container style="min-width: 580px">
                             <label>{{ 'TRAINING.NEWEXAMPLE.INTROURL' | translate }} '{{ label }}'</label>
                             <input type="url" name="url"
-                                   md-autofocus="project.type === 'images' || project.type === 'imgtfjs'"
+                                   md-autofocus="project.type === 'imgtfjs'"
                                    ng-required="true"
                                    ng-model="example"
                                    md-maxlength="1000"></input>

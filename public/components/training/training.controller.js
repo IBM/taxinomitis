@@ -105,7 +105,7 @@
                             $scope.soundModelInfo = soundTrainingService.getModelInfo();
                         });
                 }
-                else if (project.type === 'images' || project.type === 'imgtfjs') {
+                else if (project.type === 'imgtfjs') {
                     // for image projects, we need to inject the dependencies for the
                     //  webcam and canvas controls
                     loggerService.debug('[ml4ktraining] fetching image project dependencies');
@@ -241,7 +241,7 @@
             })
             .then(
                 function (resp) {
-                    if ($scope.project.type === 'images' || $scope.project.type === 'imgtfjs') {
+                    if ($scope.project.type === 'imgtfjs') {
                         try {
                             // do this to encode any URL characters that might need it
                             resp = new URL(resp).toString();
@@ -296,7 +296,7 @@
                     isPlaceholder : true
                 };
             }
-            else if ($scope.project.type === 'images' || $scope.project.type === 'imgtfjs') {
+            else if ($scope.project.type === 'imgtfjs') {
                 data = resp;
 
                 duplicate = $scope.training[label].some(function (existingitem) {
@@ -346,8 +346,7 @@
                     placeholder.isPlaceholder = false;
                     placeholder.id = newitem.id;
 
-                    if (($scope.project.type === 'images' || $scope.project.type === 'imgtfjs') &&
-                        placeholder.imageurl)
+                    if ($scope.project.type === 'imgtfjs' && placeholder.imageurl)
                     {
                         if (utilService.isGoogleFilesUrl(placeholder.imageurl)) {
                             displayAlert('warnings', 400, { message :

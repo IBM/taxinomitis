@@ -72,15 +72,12 @@
 
         vm.modifyExpiry = function (ev) {
             var initialtextexpiry = vm.policy.textClassifierExpiry;
-            var initialimageexpiry = vm.policy.imageClassifierExpiry;
 
             $mdDialog.show({
                 controller : function ($scope, $mdDialog) {
                     $scope.initialtextexpiry = initialtextexpiry;
-                    $scope.initialimageexpiry = initialimageexpiry;
 
                     $scope.textexpiry = vm.policy.textClassifierExpiry;
-                    $scope.imageexpiry = vm.policy.imageClassifierExpiry;
 
                     $scope.hoursfilter = function (hours) {
                         if (hours === 1) {
@@ -122,19 +119,16 @@
                 function (expiries) {
                     vm.saving = true;
                     vm.policy.textClassifierExpiry = '...';
-                    vm.policy.imageClassifierExpiry = '...';
 
-                    usersService.modifyClassPolicy(vm.profile, expiries.textexpiry, expiries.imageexpiry)
+                    usersService.modifyClassPolicy(vm.profile, expiries.textexpiry)
                         .then(function (tenantinfo) {
                             vm.saving = false;
                             vm.policy.textClassifierExpiry = tenantinfo.textClassifierExpiry;
-                            vm.policy.imageClassifierExpiry = tenantinfo.imageClassifierExpiry;
                         })
                         .catch(function (err) {
                             vm.saving = false;
                             displayAlert('errors', err.status, err.data);
                             vm.policy.textClassifierExpiry = initialtextexpiry;
-                            vm.policy.imageClassifierExpiry = initialimageexpiry;
                         });
                 },
                 function() {

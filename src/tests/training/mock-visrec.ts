@@ -2,15 +2,9 @@ import * as assert from 'assert';
 import * as randomstring from 'randomstring';
 import { v1 as uuid } from 'uuid';
 import * as tmp from 'tmp';
-import * as coreReq from 'request';
 
-import * as visrec from '../../lib/training/visualrecognition';
 import * as DbTypes from '../../lib/db/db-types';
-import * as TrainingTypes from '../../lib/training/training-types';
 import * as downloadAndZip from '../../lib/utils/downloadAndZip';
-import * as dbObjects from '../../lib/db/objects';
-import * as mockIam from '../iam/mock-iam';
-import requestPromise = require('request-promise');
 
 
 
@@ -18,25 +12,6 @@ const USERID = uuid();
 const CLASSIDS = {
     LEGACY : uuid(),
     NEW : uuid(),
-};
-
-export const CREDENTIALS_LEGACY: TrainingTypes.BluemixCredentials = {
-    id : uuid(),
-    username : randomstring.generate(20),
-    password : randomstring.generate(20),
-    servicetype : 'visrec',
-    url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
-    classid : CLASSIDS.LEGACY,
-    credstype : 'visrec_standard',
-};
-export const CREDENTIALS_NEW: TrainingTypes.BluemixCredentials = {
-    id : uuid(),
-    username : mockIam.KEYS.VALID.substr(0, 22),
-    password : mockIam.KEYS.VALID.substr(22),
-    servicetype : 'visrec',
-    url : 'https://gateway.watsonplatform.net/visual-recognition/api',
-    classid : CLASSIDS.NEW,
-    credstype : 'visrec_lite',
 };
 
 
@@ -135,55 +110,6 @@ Object.keys(PROJECTS).forEach((projname) => {
 
 
 
-export const request = {
-
-    create : (url: string,  options: visrec.LegacyTrainingRequest | visrec.NewTrainingRequest) => {
-        assert.strictEqual(typeof url, 'string');
-        assert(options.qs.version);
-        assert(options.headers);
-        const classifier = CLASSIFIERS_BY_PROJECT_NAME[options.formData.name];
-        if (classifier.state === STATES.NEW) {
-            return Promise.resolve({
-                classifier_id : classifier.id,
-                name : classifier.name,
-                owner : 'bob',
-                status : 'training',
-                created : new Date().toISOString(),
-            });
-        }
-        else if (classifier.state === STATES.FULL) {
-            return Promise.reject({
-                error : {
-                    error :  {
-                        description : 'Cannot execute learning task. : ' +
-                                        'this plan instance can have only 1 custom classifier(s), ' +
-                                        'and 1 already exist.',
-                        code : 400,
-                        error_id : 'input_error',
-                    },
-                },
-                statusCode : 400,
-                status : 400,
-            });
-        }
-    },
-
-    delete : (url: string, opts?: coreReq.CoreOptions) => {
-        // TODO this is ridiculous... do I really have to fight with TypeScript like this?
-        const unk: unknown = opts as unknown;
-        const options: visrec.NewVisRecRequest = unk as visrec.NewVisRecRequest;
-
-        assert(options && options.qs.version);
-        assert(options && options.headers);
-        const prom: unknown = Promise.resolve();
-        return prom as requestPromise.RequestPromise;
-    },
-};
-
-
-
-
-
 
 export const store = {
     getImageClassifiers: (projectid: string) => {
@@ -215,30 +141,6 @@ export const store = {
     countTrainingByLabel : (project: DbTypes.Project) => {
         return Promise.resolve(PROJECTS[project.name].training);
     },
-    getBluemixCredentials : (tenant: DbTypes.ClassTenant, service: TrainingTypes.BluemixServiceType)
-        : Promise<TrainingTypes.BluemixCredentials[]> =>
-    {
-        assert.strictEqual(service, 'visrec');
-        if (tenant.id === CLASSIDS.LEGACY) {
-            return Promise.resolve([ CREDENTIALS_LEGACY ]);
-        }
-        else if (tenant.id === CLASSIDS.NEW) {
-            return Promise.resolve([ CREDENTIALS_NEW ]);
-        }
-        else {
-            return Promise.resolve([]);
-        }
-    },
-    getBluemixCredentialsById : (classtype: DbTypes.ClassTenantType, credentialsid: string): Promise<TrainingTypes.BluemixCredentials> => {
-        switch (credentialsid) {
-        case CREDENTIALS_LEGACY.id:
-            return Promise.resolve(CREDENTIALS_LEGACY);
-        case CREDENTIALS_NEW.id:
-            return Promise.resolve(CREDENTIALS_NEW);
-        default:
-            throw new Error('Unexpected response when retrieving the service credentials');
-        }
-    },
     getClassTenant : (classid: string): Promise<DbTypes.ClassTenant> => {
         const placeholder: DbTypes.ClassTenant = {
             id : classid,
@@ -246,7 +148,6 @@ export const store = {
             maxUsers : 8,
             maxProjectsPerUser : 3,
             textClassifierExpiry : 2,
-            imageClassifierExpiry : 3,
             tenantType: DbTypes.ClassTenantType.UnManaged,
         };
         return Promise.resolve(placeholder);
@@ -257,19 +158,6 @@ export const store = {
     resetExpiredScratchKey : (id: string, projecttype: DbTypes.ProjectTypeLabel) => {
         assert.strictEqual(typeof id, 'string');
         assert.strictEqual(projecttype, 'images');
-        return Promise.resolve();
-    },
-    storeImageClassifier : (
-        credentials: TrainingTypes.BluemixCredentials,
-        project: DbTypes.Project,
-        classifier: TrainingTypes.VisualClassifier,
-    ) => {
-        return Promise.resolve(
-            dbObjects.createVisualClassifier(classifier, credentials, project),
-        );
-    },
-    deleteImageClassifier : (id: string) => {
-        assert.strictEqual(typeof id, 'string');
         return Promise.resolve();
     },
 };

@@ -216,16 +216,6 @@
             "NOTES_4": "数字のあつまりや、複数選択肢は、\"数値\"を選択してください。",
             "NOTES_5": "音声は、\"音声\"を選択してください。"
         },
-        "IMAGEPROJECTS": {
-            "LABEL": "Where to train the model",
-            "TYPES": {
-                "IMAGES": "in the cloud",
-                "IMGTFJS": "on your computer"
-            },
-            "NOTES_1": "If you choose \"on your computer\" you can only use the model in Scratch.",
-            "NOTES_2": "If you choose \"in the cloud\" you can use the model in Scratch, Python, or App Inventor.",
-            "NOTES_3": "You can change your mind about this at any time."
-        },
         "LANGUAGE": {
             "LABEL": "使用言語",
             "NOTES": "このプロジェクトでは何語を利用しますか?"
@@ -258,9 +248,7 @@
         },
         "WARNINGS": {
             "MLCRED-TEXT-NOKEYS": "Please let your teacher know that they will need to add a \"Watson Assistant API key\" to your class to let you train the machine learning model for your new project",
-            "MLCRED-IMG-NOKEYS": "Please let your teacher know that they will need to add a \"Visual Recognition API key\" to your class to let you train the machine learning model for your new project",
-            "MLCRED-TEXT-INVALID": "There might be a problem with the IBM Cloud API keys you will need to train a machine learning model for your new project. Please ask your teacher to try verifying the \"Watson Assistant API keys\" in your class.",
-            "MLCRED-IMG-INVALID": "There might be a problem with the IBM Cloud API keys you will need to train a machine learning model for your new project. Please ask your teacher to try verifying the \"Visual Recognition API keys\" in your class."
+            "MLCRED-TEXT-INVALID": "There might be a problem with the IBM Cloud API keys you will need to train a machine learning model for your new project. Please ask your teacher to try verifying the \"Watson Assistant API keys\" in your class."
         }
     },
     "DATASETS": {
@@ -393,10 +381,6 @@
         "DELETE": "このモデルを削除",
         "TEST_CANVAS": "あなたのモデルをテストするために何か描いてください",
         "TEST_WEBCAM": "あなたのモデルをテストするために写真を撮ってください",
-        "CHANGETYPE": {
-            "IMAGES": "Change to train models in the cloud",
-            "IMGTFJS": "Change to train models on your computer"
-        },
         "WHATHAVEYOUDONE": {
             "TITLE": "何をしましたか?",
             "PLEASEWAIT": "通常２，３分かかりますが、コンピューターが忙しい時には、それより長くかかることがあります。",
@@ -1516,12 +1500,10 @@
             "MANAGEDCLASS": "あなたのクラスで使われる API キーはあなたのために管理されています。",
             "HELP_STEPBYSTEP_GUIDE": "このページで何をしたら良いのか確信が無い場合は、この<a href='https://github.com/IBM/taxinomitis-docs/raw/master/docs/pdf/machinelearningforkids-apikeys.pdf'> step-by-step guide </a>を参照ください。 助けが必要であれば、<strong><a style='cursor: pointer;' ui-sref='help'>get in touch</a></strong>で連絡ください。",
             "INTRO_WATSONASSISTANT": "機械学習モデルを <span class='mlprojecttype'>文字列</span>プロジェクトのためにトレーニングする際には、<a class='mlprojecttype' href='https://www.ibm.com/watson/services/conversation/'>Watson Assistant</a>を利用します。",
-            "INTRO_VISUALRECOGNITION": "機械学習モデルを <span class='mlprojecttype'>画像</span>プロジェクトのためにトレーニングする際には、<a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>を利用します。",
             "INTRO_NUMBERS": "Training machine learning models for <span class='mlprojecttype'>numbers</span> projects does <strong>not</strong> require any API keys",
             "INTRO_SOUNDS": "Training machine learning models for <span class='mlprojecttype'>sound</span> projects does <strong>not</strong> require any API keys",
             "INTRO_IMAGES": "Training machine learning models for <span class='mlprojecttype'>images</span> projects does <strong>not</strong> require any API keys",
             "ERROR_FETCHING_WATSONASSISTANT": "あなたの Watson Assistant パスワードを取得するのに失敗しました。",
-            "ERROR_FETCHING_VISUALRECOG": "あなたの Visual Recognition API キーを取得するのに失敗しました。",
             "USERNAME": "ユーザ名",
             "PASSWORD": "パスワード",
             "APIKEY": "API キー",
@@ -1529,12 +1511,9 @@
             "UNKNOWN": "不明",
             "UNLIMITED": "無制限",
             "LIMIT_TEXT_PROJECTS": "あなたの生徒が使える文字列機械学習モデルの数:",
-            "LIMIT_IMAGE_PROJECTS": "あなたの生徒が使える画像機械学習モデルの数:",
             "ADD_API_KEYS": {
                 "ASSISTANT_TITLE": "Watson Assistant credentialsの追加",
-                "VISUAL_RECOGNITION_TITLE": "Visual Recognition API keyの追加",
                 "USED_FOR_TEXT_PROJECTS": "これらは、生徒が文字列認識プロジェクト用にモデルをトレーニングする際に使用されます。",
-                "USED_FOR_IMAGE_PROJECTS": "これらは、生徒が画像認識プロジェクト用にモデルをトレーニングする際に使用されます。",
                 "HIDDEN_FROM_STUDENTS": "この情報は、あなたのグループの生徒には表示されません。",
                 "PRICING_PLAN": "どの利用料金プランを使いましたか？",
                 "ENTER_APIKEY": "以下にAPI Keyを入力してください。",
@@ -1694,37 +1673,11 @@
         },
         "PROJECTS": {
             "TITLE": "Project questions",
-            "Q1": "What is the difference between training image models \"on your computer\" or \"in the cloud\"?",
-            "Q1-A-1": "These can both be used to create the same sort of machine learning projects. The difference is where the models are created and stored.",
-            "Q1-A-2": "If you choose \"<strong>in the cloud</strong>\" machine learning models are trained on cloud servers using an online service called Watson Visual Recognition.",
-            "Q1-A-3": "If you choose \"<strong>on your computer</strong>\" machine learning models are trained on the student's own computer, in the web browser.",
-            "Q1-A-4": "\"<strong>in the cloud</strong>\" is good because:",
-            "Q1-A-7": "It can create models that are more accurate, particularly when using a small number of training examples.",
-            "Q1-A-8": "But, it takes several minutes to train while you wait for your turn on the cloud server.",
-            "Q1-A-9": "\"<strong>on your computer</strong>\" is good because:",
-            "Q1-A-10": "It can be much quicker to train, because it starts training immediately without waiting for a turn on the cloud server.",
-            "Q1-A-12": "Models do not need to be automatically deleted.",
-            "Q2": "How can you change an \"images\" project to train in the cloud, or to train on your computer?",
-            "Q2-A-1": "You can change between the two modes from the \"Learn & Test\" page for your project.",
-            "Q2-A-2": "The link to do this is in top-right of the page.",
-            "Q2-A-3": "Any existing machine learning models for the project will be deleted if this is done.",
-            "Q2-A-4": "The Scratch blocks for image projects work differently for the two different modes, so if you have a Scratch window open when you do this, you will need to refresh the page so that the Scratch extension can be updated.",
-            "Q3": "Why can I only make something with Scratch or Python for my machine learning project?",
-            "Q3-A-1": "Machine learning models that are trained on your own computer can only be accessed from Scratch (which has been updated so that it can access machine learning models stored in your web browser) and Python (for images projects only).",
-            "Q3-A-2": "Machine learning models that are trained in the cloud can be accessed from Scratch, Python, or App Inventor - as all of these are able to access machine learning models stored in the cloud.",
-            "Q3-A-3": "If you only see 'Scratch 3' as an option when you make something with your machine learning project, it means your machine learning model is being stored in your web browser.",
             "Q4": "Which machine learning models are trained on your computer, and which are trained in the cloud?",
             "Q4-A-1": "<strong>text</strong> projects can only be trained in the cloud.",
             "Q4-A-2": "<strong>numbers</strong> projects can only be trained in the cloud.",
             "Q4-A-3": "<strong>sounds</strong> projects can only be trained on your computer.",
-            "Q4-A-4": "<strong>images</strong> projects can be trained on your computer, or (if you have access to Watson Visual Recognition) in the cloud.",
-            "Q5": "Which students can train images machine learning projects in the cloud?",
-            "Q5-A-1": "<strong>images</strong> projects can be trained on your computer, or (if you have access to Watson Visual Recognition) in the cloud.",
-            "Q5-A-2": "Training machine learning models for <strong>images</strong> projects uses the Watson Visual Recognition service. IBM <a href='https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-getting-started-tutorial'>discontinued the Watson Visual Recognition service</a> on 7th January 2021, which means access to this is now limited. The Visual Recognition service is being withdrawn completely on 1st December 2021.",
-            "Q5-A-3": "Students in managed classes will continue to be able to choose whether to train image machine learning models on their computer or in the cloud until 1st December 2021.",
-            "Q5-A-4": "Students in unmanaged classes with Visual Recognition API keys set up before 7th January 2021 will continue to be able to train image machine learning models on their computer or in the cloud, until 1st December 2021.",
-            "Q5-A-5": "Students in unmanaged classes created after 7th January 2021 can only train image machine learning models on their computer.",
-            "Q5-A-6": "Students using 'Try it now' can only train image machine learning models on their computer."
+            "Q4-A-4": "<strong>images</strong> projects can be trained on your computer, or (if you have access to Watson Visual Recognition) in the cloud."
         },
         "SCRATCH": {
             "TITLE": "Scratch の問題",
@@ -1770,14 +1723,6 @@
             "Q3-A-5": "もし、トレーニングに成功したモデルを持っている生徒がいたら、そのモデルを削除することで、ワークスペースを他の生徒のために開放することができます。",
             "Q3-A-6": "クラスサイズを小さくすることで、将来このエラーが起きるのを防止することが可能です。もし、Watson Assistant (旧 Conversation) クレデンシャルがサポートしているWorkspaceの数より生徒数が少なければ、この問題は発生しません。",
             "Q3-A-7": "この問題を回避する他の方法としては、追加の Watson Assistant API キーをクラスに追加するか、上限のより大きなプランの Watson Assistant インスタンス利用する方法があります。",
-            "Q4": "\"Watson Visual Recognition API keys have no more classifiers available\"",
-            "Q4-A-1": "このツールの機械学習モデルは、IBM Watson APIを使って作られています。",
-            "Q4-A-2": "先生によって作成された Watson Visual Recognition クレデンシャルは、同時に作成できる機械学習モデルの数に上限があります。これに関しては、クレデンシャルを作成した IBM Cloud UI の \"custom classifiers\" と呼ばれている所に表示されています。",
-            "Q4-A-3": "もし、この上限に達した場合、新しい機械学習モデルをトレーニングしようとすると失敗し、このメッセージが表示されます。:",
-            "Q4-A-4": "あたのクラスは、既に許されている最大の数のモデルを作成済みです。あなたの先生かグループリーダーに彼らの \"Watson Visual Recognition API keys have no more classifiers available\"だと伝えください。",
-            "Q4-A-5": "もし、成功裏にモデルをトレーニングした生徒がいれば、かれらのモデルを削除してください。これによって、他の生徒が custom classifier を利用できるようになります。",
-            "Q4-A-6": "将来このエラーを回避する一つの方法は、クラスサイズを小さくすることです。Watson Visual Recognition クレデンシャルがサポートしてるcustom classifiers の数より生徒数が少なければ、この問題は発生しません。",
-            "Q4-A-7": "この問題を回避する他の方法としては、追加の Watson Assistant API キーをクラスに追加するか、上限のより大きなプランの Watson Assistant インスタンス利用する方法があります。",
             "Q5": "\"Watson ... is currently rate limiting their API key\"",
             "Q5-A-1": "ツール内の機械学習モデルは、IBM Watson APIsを使って作られています。",
             "Q5-A-2": "もし、あなたが \"unmanaged\" のクラスアカウントをお持ちの場合は、あなたの先生かグループリーダーは、この作業をするためには、IBM Cloudから取得したWatson API クレデンシャルを提供する必要があります。",

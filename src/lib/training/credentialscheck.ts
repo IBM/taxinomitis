@@ -7,7 +7,6 @@ import * as constants from '../utils/constants';
 import * as store from '../db/store';
 import * as sessionusers from '../sessionusers';
 import * as conversation from './conversation';
-import * as visualRecognition from './visualrecognition';
 
 
 
@@ -63,7 +62,7 @@ export async function checkClass(tenant: string, type: Types.ProjectTypeLabel): 
             message : 'Watson API keys are not required for images projects',
         };
     }
-    if (type !== 'text' && type !== 'images') {
+    if (type !== 'text') {
         return {
             code : 'MLCRED-TYPEUNK',
             message : 'Unsupported project type',
@@ -82,13 +81,7 @@ export async function checkClass(tenant: string, type: Types.ProjectTypeLabel): 
     }
 
 
-    let servicetype: TrainingTypes.BluemixServiceType;
-    if (type === 'text') {
-        servicetype = 'conv';
-    }
-    else { // if (type === 'images') {
-        servicetype = 'visrec';
-    }
+    const servicetype: TrainingTypes.BluemixServiceType = 'conv';
 
     let credentials: TrainingTypes.BluemixCredentials[] = [];
     try {
@@ -103,39 +96,19 @@ export async function checkClass(tenant: string, type: Types.ProjectTypeLabel): 
     }
     if (credentials.length === 0) {
         // don't cache this as the teacher may quickly add an API key
-        if (type === 'text') {
-            return {
-                code: 'MLCRED-TEXT-NOKEYS',
-                message: 'There are no Watson Assistant credentials in this class',
-            };
-        }
-        else { // if (type === 'images') {
-            return {
-                code: 'MLCRED-IMG-NOKEYS',
-                message: 'There are no Visual Recognition credentials in this class',
-            };
-        }
+        return {
+            code: 'MLCRED-TEXT-NOKEYS',
+            message: 'There are no Watson Assistant credentials in this class',
+        };
     }
 
-    if (type === 'text') {
-        const txtpass = await conversation.testMultipleCredentials(credentials);
-        if (!txtpass) {
-            // don't cache this as the teacher may quickly add a valid API key
-            return {
-                code: 'MLCRED-TEXT-INVALID',
-                message : 'No valid Watson Assistant credentials in this class',
-            };
-        }
-    }
-    else { // if (type === 'images') {
-        const imgpass = await visualRecognition.testMultipleCredentials(credentials);
-        if (!imgpass) {
-            // don't cache this as the teacher may quickly add a valid API key
-            return {
-                code: 'MLCRED-IMG-INVALID',
-                message : 'No valid Visual Recognition credentials in this class',
-            };
-        }
+    const txtpass = await conversation.testMultipleCredentials(credentials);
+    if (!txtpass) {
+        // don't cache this as the teacher may quickly add a valid API key
+        return {
+            code: 'MLCRED-TEXT-INVALID',
+            message : 'No valid Watson Assistant credentials in this class',
+        };
     }
 
     // no problems found!

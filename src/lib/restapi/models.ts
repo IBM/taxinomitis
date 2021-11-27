@@ -1,5 +1,4 @@
 // external dependencies
-import * as fs from 'fs';
 import * as Express from 'express';
 import * as httpstatus from 'http-status';
 // local dependencies
@@ -12,7 +11,6 @@ import * as visualrec from '../training/visualrecognition';
 import * as numbers from '../training/numbers';
 import * as textmodels from '../training/describetext';
 import * as notifications from '../notifications/slack';
-import * as base64decode from '../utils/base64decode';
 import * as download from '../utils/download';
 import * as urls from './urls';
 import * as errors from './errors';
@@ -31,26 +29,6 @@ function returnConversationWorkspace(classifier: Types.ConversationWorkspace) {
         expiry : classifier.expiry,
         name : classifier.name,
         status : classifier.status,
-    };
-}
-function transformStatus(visualClassifierStatus?: string): string | undefined {
-    switch (visualClassifierStatus) {
-    case 'training':
-        return 'Training';
-    case 'ready':
-        return 'Available';
-    default:
-        return visualClassifierStatus;
-    }
-}
-function returnVisualRecognition(classifier: Types.VisualClassifier) {
-    return {
-        classifierid : classifier.classifierid,
-        credentialsid : classifier.credentialsid,
-        updated : classifier.created,
-        expiry : classifier.expiry,
-        name : classifier.name,
-        status : transformStatus(classifier.status),
     };
 }
 function returnNumberClassifier(classifier: Types.NumbersClassifier) {
@@ -74,13 +52,8 @@ async function getModels(req: auth.RequestWithProject, res: Express.Response) {
         classifiers = classifiers.map(returnConversationWorkspace);
         break;
     case 'imgtfjs':
-        classifiers = [];
-        break;
     case 'images':
-        tenant = await store.getClassTenant(classid);
-        classifiers = await store.getImageClassifiers(projectid);
-        classifiers = await visualrec.getClassifierStatuses(tenant, classifiers);
-        classifiers = classifiers.map(returnVisualRecognition);
+        classifiers = [];
         break;
     case 'numbers':
         classifiers = await store.getNumbersClassifiers(projectid);
@@ -143,83 +116,6 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
             }
         }
     }
-    case 'images': {
-        try {
-            const model = await visualrec.trainClassifier(req.project);
-            return res.status(httpstatus.CREATED).json(returnVisualRecognition(model));
-        }
-        catch (err) {
-            if (err.message === visualrec.ERROR_MESSAGES.INSUFFICIENT_API_KEYS) {
-                return res.status(httpstatus.CONFLICT).send({ code : 'MLMOD06', error : err.message });
-            }
-            else if (err.message === visualrec.ERROR_MESSAGES.POOL_EXHAUSTED) {
-                log.error({ err }, 'Managed classes have exhausted the pool of Visual Recognition keys');
-                notifications.notify('Exhausted managed pool of Visual Recognition keys',
-                                     notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
-                return res.status(httpstatus.CONFLICT).send({ code : 'MLMOD16', error : err.message });
-            }
-            else if (err.message === visualrec.ERROR_MESSAGES.API_KEY_RATE_LIMIT) {
-                return res.status(httpstatus.TOO_MANY_REQUESTS).send({ code : 'MLMOD07', error : err.message });
-            }
-            else if (err.message === 'Not enough images to train the classifier' ||
-                     err.message === 'Number of images exceeds maximum (10000)' ||
-                     err.message.indexOf(') has unsupported file type (') > 0)
-            {
-                return res.status(httpstatus.BAD_REQUEST).send({ code : 'MLMOD08', error : err.message });
-            }
-            else if (err.statusCode === httpstatus.UNAUTHORIZED || err.statusCode === httpstatus.FORBIDDEN) {
-                return res.status(httpstatus.CONFLICT)
-                        .send({
-                            code : 'MLMOD09',
-                            error : 'The Watson credentials being used by your class were rejected. ' +
-                                    'Please let your teacher or group leader know.',
-                        });
-            }
-            else if (err.message === 'Unexpected response when retrieving service credentials') {
-                return res.status(httpstatus.CONFLICT)
-                    .send({
-                        code : 'MLMOD10',
-                        error : 'No Watson credentials have been set up for training images projects. ' +
-                                'Please let your teacher or group leader know.',
-                    });
-            }
-            else if (err.message.includes('413 Request Entity Too Large')) {
-                return res.status(httpstatus.REQUEST_ENTITY_TOO_LARGE)
-                    .json({
-                        code : 'MLMOD11',
-                        error : 'Machine learning server rejected the training request ' +
-                                'because the training data was too large',
-                    });
-            }
-            else if (err.message && err.message.startsWith(download.ERRORS.DOWNLOAD_FAIL)) {
-                return res.status(httpstatus.CONFLICT)
-                        .send({
-                            code : 'MLMOD12',
-                            error : 'One of your training images could not be downloaded',
-                            location : err.location,
-                        });
-            }
-            else if (err.message === download.ERRORS.DOWNLOAD_FILETYPE_UNSUPPORTED) {
-                return res.status(httpstatus.CONFLICT)
-                        .send({
-                            code : 'MLMOD13',
-                            error : 'One of your training images is a type that cannot be used',
-                            location : err.location,
-                        });
-            }
-            else if (err.message && err.message.includes(download.ERRORS.DOWNLOAD_FORBIDDEN)) {
-                return res.status(httpstatus.CONFLICT)
-                        .send({
-                            code: 'MLMOD14',
-                            error: err.message,
-                            location: err.location,
-                        });
-            }
-            else {
-                return errors.unknownError(res, err);
-            }
-        }
-    }
     case 'numbers': {
         try {
             const model = await numbers.trainClassifier(req.project);
@@ -229,6 +125,7 @@ async function newModel(req: auth.RequestWithProject, res: Express.Response) {
             return errors.unknownError(res, err);
         }
     }
+    case 'images':
     case 'imgtfjs':
         return errors.notImplemented(res);
     case 'sounds':
@@ -251,12 +148,6 @@ async function deleteModel(req: auth.RequestWithProject, res: Express.Response) 
             await conversation.deleteClassifier(tenant, workspace);
             return res.sendStatus(httpstatus.NO_CONTENT);
         }
-        case 'images': {
-            const tenant = await store.getClassTenant(classid);
-            const classifier = await store.getImageClassifier(projectid, modelid);
-            await visualrec.deleteClassifier(tenant, classifier);
-            return res.sendStatus(httpstatus.NO_CONTENT);
-        }
         case 'numbers': {
             await numbers.deleteClassifier(userid, classid, projectid);
             return res.sendStatus(httpstatus.NO_CONTENT);
@@ -264,6 +155,7 @@ async function deleteModel(req: auth.RequestWithProject, res: Express.Response) 
         case 'sounds':
             return errors.notFound(res);
         case 'imgtfjs':
+        case 'images':
             return errors.notFound(res);
         }
     }
@@ -332,32 +224,6 @@ async function testModel(req: Express.Request, res: Express.Response) {
             const classes = await conversation.testClassifier(creds, modelid, requestTimestamp, projectid, text);
             return res.json(classes);
         }
-        else if (type === 'images') {
-            const imageurl = req.body.image;
-            const imagedata = req.body.data;
-
-            if (!credsid || (!imageurl && !imagedata)) {
-                return errors.missingData(res);
-            }
-
-            const tenant = await store.getClassTenant(classid);
-            const creds = await store.getBluemixCredentialsById(tenant.tenantType, credsid);
-
-            let classes: Types.Classification[];
-            if (imageurl) {
-                classes = await visualrec.testClassifierURL(creds, modelid, requestTimestamp, projectid, imageurl);
-            }
-            else {
-                const imgfile = await base64decode.run(imagedata);
-                try {
-                    classes = await visualrec.testClassifierFile(creds, modelid, requestTimestamp, projectid, imgfile);
-                }
-                finally {
-                    fs.unlink(imgfile, logError);
-                }
-            }
-            return res.json(classes);
-        }
         else if (type === 'numbers') {
             const numberdata = req.body.numbers;
             if (!numberdata || numberdata.length === 0) {
@@ -367,7 +233,7 @@ async function testModel(req: Express.Request, res: Express.Response) {
             const classes = await numbers.testClassifier(userid, classid, requestTimestamp, projectid, numberdata);
             return res.json(classes);
         }
-        else if (type === 'imgtfjs') {
+        else if (type === 'imgtfjs' || type === 'images') {
             // this behaves slightly differently - the API endpoint returns data
             //  ready for testing, rather than the results from testing
             const imageurl = req.body.image;
@@ -424,14 +290,6 @@ async function testModel(req: Express.Request, res: Express.Response) {
         return errors.unknownError(res, err);
     }
 }
-
-
-function logError(err?: Error | null) {
-    if (err) {
-        log.error({ err }, 'Error when deleting image file');
-    }
-}
-
 
 
 

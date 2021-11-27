@@ -139,7 +139,7 @@ CREATE TABLE mlforkidsdb.taxinoclassifiers (
 
 CREATE TABLE mlforkidsdb.tenants (
     id character varying(36) NOT NULL PRIMARY KEY,
-    projecttypes character varying(34) DEFAULT 'text,numbers,sounds,imgtfjs'::character varying NOT NULL,
+    projecttypes character varying(34) DEFAULT 'text,imgtfjs,numbers,sounds'::character varying NOT NULL,
     maxusers smallint DEFAULT '8'::smallint NOT NULL,
     maxprojectsperuser smallint DEFAULT '3'::smallint NOT NULL,
     textclassifiersexpiry smallint DEFAULT '2'::smallint NOT NULL,
@@ -178,4 +178,4 @@ ALTER DATABASE mlforkidsdb SET search_path to mlforkidsdb;
 
 INSERT INTO mlforkidsdb.tenants (id, projecttypes, maxusers, maxprojectsperuser, textclassifiersexpiry, ismanaged)
     VALUES
-        ('session-users', 'text,numbers,sounds,imgtfjs', 5, 1, 4, 0);
+        ('session-users', 'text,imgtfjs,numbers,sounds', 5, 1, 4, 0);

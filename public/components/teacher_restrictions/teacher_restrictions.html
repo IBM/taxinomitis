@@ -51,7 +51,7 @@
                  translate="TEACHER.RESTRICTIONS.PROJECT_LIMITS.TRAINING_DATA" translate-values="{ type : 'text', num : vm.policy.textTrainingItemsPerProject }"></div>
             <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('numbers') >= 0"
                  translate="TEACHER.RESTRICTIONS.PROJECT_LIMITS.TRAINING_DATA" translate-values="{ type : 'numbers', num : vm.policy.numberTrainingItemsPerProject }"></div>
-            <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('images') >= 0"
+            <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('imgtfjs') >= 0"
                  translate="TEACHER.RESTRICTIONS.PROJECT_LIMITS.TRAINING_DATA" translate-values="{ type : 'images', num : vm.policy.imageTrainingItemsPerProject }"></div>
             <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('sounds') >= 0"
                 translate="TEACHER.RESTRICTIONS.PROJECT_LIMITS.TRAINING_DATA" translate-values="{ type : 'sounds', num : vm.policy.soundTrainingItemsPerProject }"></div>
@@ -65,11 +65,6 @@
             <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('text') >= 0">
                 <div translate="TEACHER.RESTRICTIONS.EXPIRY.TIME_LIMIT"
                      translate-values="{ type : 'text', num : vm.policy.textClassifierExpiry }"></div>
-                <div><em translate>TEACHER.RESTRICTIONS.EXPIRY.DONT_WORRY</em></div>
-            </div>
-            <div class="adminrestriction" ng-if="vm.policy.supportedProjectTypes.indexOf('images') >= 0">
-                <div translate="TEACHER.RESTRICTIONS.EXPIRY.TIME_LIMIT"
-                        translate-values="{ type : 'images', num : vm.policy.imageClassifierExpiry }"></div>
                 <div><em translate>TEACHER.RESTRICTIONS.EXPIRY.DONT_WORRY</em></div>
             </div>
         </div>

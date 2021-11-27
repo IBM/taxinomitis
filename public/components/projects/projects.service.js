@@ -45,19 +45,6 @@
                 });
         }
 
-        function changeProjectType(projectid, userid, tenant, newtype) {
-            return $http.patch('/api/classes/' + tenant + '/students/' + userid + '/projects/' + projectid, [
-                    {
-                        op : 'replace',
-                        path : '/type',
-                        value : newtype
-                    }
-                ])
-                .then(function (resp) {
-                    return resp.data;
-                });
-        }
-
         function addLabelToProject(projectid, userid, tenant, newlabel) {
             return $http.patch('/api/classes/' + tenant + '/students/' + userid + '/projects/' + projectid, [
                     {
@@ -135,8 +122,6 @@
 
             getFields : getFields,
             getLabels : getLabels,
-
-            changeProjectType : changeProjectType,
 
             addLabelToProject : addLabelToProject,
             removeLabelFromProject : removeLabelFromProject,

@@ -3,7 +3,6 @@ import { Server } from 'http';
 // local dependencies
 import * as cf from '../utils/cf';
 import * as conversation from '../training/conversation';
-import * as visualrec from '../training/visualrecognition';
 import * as sessionusers from '../sessionusers';
 import * as pendingjobs from '../pendingjobs/runner';
 import * as constants from '../utils/constants';
@@ -36,7 +35,6 @@ export function run(server?: Server): void {
         //  the available credentials for other students
         setInterval(async () => {
             await conversation.cleanupExpiredClassifiers();
-            await visualrec.cleanupExpiredClassifiers();
         }, constants.ONE_HOUR);
 
 

@@ -21,7 +21,7 @@
 
     <div class="alert alert-info pageheadermsg" translate="TEACHER.APIKEYS.HELP_STEPBYSTEP_GUIDE"></div>
 
-    <div ng-if="!vm || !vm.credentials || vm.credentials.loading.visrec || vm.credentials.loading.conv" class="loading"> </div>
+    <div ng-if="!vm || !vm.credentials || vm.credentials.loading.conv" class="loading"> </div>
 
     <div ng-repeat="error in vm.errors"
          class="alert alert-danger alert-dismissible pageheadermsg" role="alert"
@@ -107,65 +107,9 @@
             </div>
         </div>
 
-
-        <div ng-if="vm.credentials.loading.visrec === false" style="border-top: thin #444 solid; padding-top: 1em; margin-bottom: 2em;">
-            <div ng-if="vm.hideVisualRecognition" translate="TEACHER.APIKEYS.INTRO_IMAGES"></div>
-            <div ng-hide="vm.hideVisualRecognition" style="padding: 0; margin: 0">
-                <div translate="TEACHER.APIKEYS.INTRO_VISUALRECOGNITION"></div>
-                <div ng-if="vm.credentials.failed.visrec" class="credserror" translate="TEACHER.APIKEYS.ERROR_FETCHING_VISUALRECOG"></div>
-                <div class="newlabelbuttons">
-                    <div class="newlabelbutton" ng-click="vm.addCredentials($event, 'visrec')" style="margin-right: 1.5em">
-                        <div class="newlabelicon">+</div>
-                        <div class="newlabellabel" translate="TEACHER.APIKEYS.ADDAPIKEY"></div>
-                    </div>
-                </div>
-                <table ng-if="vm.credentials.conv && vm.credentials.visrec.length > 0" class="studentslist" style="margin-bottom: 1em; min-width: 95%">
-                    <tr ng-repeat="creds in vm.credentials.visrec" ng-class-even="'even'" ng-class-odd="'odd'">
-                        <td class="additionalDialogInfo" style="width: 60px;">
-                            <img width=50 height=50 src="static/images/visualrecognition.jpg" alt="Watson Visual Recognition">
-                        </td>
-                        <td class="studentslistdetail" ng-class="{ 'placeholder' : creds.isPlaceholder }">
-                            <div class="listheading" translate="TEACHER.APIKEYS.APIKEY"></div>
-                            <div class="listmain">
-                                {{ creds.apikey }}
-                            </div>
-                        </td>
-                        <td class="studentslistdetail" style="cursor: pointer" ng-click="vm.modifyCredentials($event, creds, 'visrec')" ng-hide="creds.isPlaceholder">
-                            <div class="listheading" translate="TEACHER.APIKEYS.NUMBER_OF_ML_MODELS"></div>
-                            <div class="listmain" ng-switch="creds.credstype">
-                                <span style="font-size: 1.2em;" ng-switch-when="visrec_lite">2</span>
-                                <span class="glyphicon glyphicon-alert apikeywarning" ng-if="creds.credstype === 'visrec_lite'">
-                                    <md-tooltip style="font-size: 1.2em;">{{ 'TEACHER.APIKEYS.LITE_30_DAYS_EXPIRE' | translate }}</md-tooltip>
-                                </span>
-                                <span style="font-size: 1.2em;" ng-switch-when="visrec_standard" translate="TEACHER.APIKEYS.UNLIMITED"></span>
-                                <span style="font-size: 1.4em; font-style: italic" ng-switch-default translate="TEACHER.APIKEYS.UNKNOWN"></span>
-                            </div>
-                        </td>
-                        <td class="studentslistactions" ng-hide="creds.isPlaceholder">
-                            <button class="btn btn-default" ng-click="vm.verifyCredentials($event, creds)" ng-disabled="creds.verifying || creds.verified">
-                                <md-progress-circular ng-if="creds.verifying" style="display: inline" class="md-hue-2" md-diameter="12px"></md-progress-circular>
-                                <span class="verifybutton" ng-hide="creds.verified" translate="TEACHER.APIKEYS.VERIFY">Verify</span>
-                                <span class="glyphicon glyphicon-ok" ng-if="creds.verified"></span>
-                            </button>
-                            <button class="btn btn-default" ng-click="vm.deleteCredentials($event, creds, 'visrec')" translate="TEACHER.APIKEYS.REMOVE"></button>
-                        </td>
-                    </tr>
-                </table>
-                <div style="font-size: 1.25em; text-align: right; margin-right: 1em; cursor: pointer;"
-                    ng-if="vm.credentials.visrec && vm.credentials.visrec.length > 0"
-                    ng-click="vm.explainLimit()">
-                    {{ 'TEACHER.APIKEYS.LIMIT_IMAGE_PROJECTS' | translate }}
-                    <span style="font-size: 1.15em; font-style: italic" ng-if="vm.credentials.totals.visrec === vm.CONSTANTS.UNKNOWN" translate="TEACHER.APIKEYS.UNKNOWN"></span>
-                    <span style="font-size: 1.15em;" ng-if="vm.credentials.totals.visrec === vm.CONSTANTS.UNLIMITED" translate="TEACHER.APIKEYS.UNLIMITED"></span>
-                    <span style="font-size: 1.15em; font-weight: bold;" ng-if="vm.credentials.totals.visrec >= 0">{{ vm.credentials.totals.visrec }}</span>
-                </div>
-                <div class="credserror" ng-if="vm.credentials.visrec && vm.credentials.visrec.length === 0">
-                    <div translate="TEACHER.APIKEYS.NO_IMAGE_CREDENTIALS"></div>
-                    <div class="errormsg" translate="TEACHER.APIKEYS.LINK_TO_APIKEYS_GUIDE"></div>
-                </div>
-            </div>
+        <div style="border-top: thin #444 solid; padding-top: 1em; margin-bottom: 2em;">
+            <div translate="TEACHER.APIKEYS.INTRO_IMAGES"></div>
         </div>
-
         <div style="border-top: thin #444 solid; padding-top: 1em; margin-bottom: 2em;">
             <div translate="TEACHER.APIKEYS.INTRO_NUMBERS"></div>
         </div>
