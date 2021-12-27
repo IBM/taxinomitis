@@ -222,16 +222,6 @@
             "NOTES_4": "숫자 등을 인식하도록 원한다면 \"숫자(numbers)\"를 선택하세요",
             "NOTES_5": "다양한 소리나 목소리를 인식하도록 원한다면 \"사운드(sounds)\"를 "
         },
-        "IMAGEPROJECTS": {
-            "LABEL": "모델을 학습 시키는 곳",
-            "TYPES": {
-                "IMAGES": "클라우드에서",
-                "IMGTFJS": "내 컴퓨터"
-            },
-            "NOTES_1": "\"내 컴퓨터\"를 선택하면 스크래치에서만 모델을 사용할 수 있습니다.",
-            "NOTES_2": "\"클라우드에서\"를 선택하면 스크래치, 파이선, 앱인벤터에서 사용이 가능합니다.",
-            "NOTES_3": "언제든 바꿀 수 있습니다."
-        },
         "LANGUAGE": {
             "LABEL": "언어",
             "NOTES": "이 프로젝트에서 어떤 언어를 인식하도록 할까요?"
@@ -264,9 +254,7 @@
         },
         "WARNINGS": {
             "MLCRED-TEXT-NOKEYS": "Please let your teacher know that they will need to add a \"Watson Assistant API key\" to your class to let you train the machine learning model for your new project",
-            "MLCRED-IMG-NOKEYS": "Please let your teacher know that they will need to add a \"Visual Recognition API key\" to your class to let you train the machine learning model for your new project",
-            "MLCRED-TEXT-INVALID": "There might be a problem with the IBM Cloud API keys you will need to train a machine learning model for your new project. Please ask your teacher to try verifying the \"Watson Assistant API keys\" in your class.",
-            "MLCRED-IMG-INVALID": "There might be a problem with the IBM Cloud API keys you will need to train a machine learning model for your new project. Please ask your teacher to try verifying the \"Visual Recognition API keys\" in your class."
+            "MLCRED-TEXT-INVALID": "There might be a problem with the IBM Cloud API keys you will need to train a machine learning model for your new project. Please ask your teacher to try verifying the \"Watson Assistant API keys\" in your class."
         }
     },
     "DATASETS": {
@@ -399,10 +387,6 @@
         "DELETE": "모델 삭제",
         "TEST_CANVAS": "무엇인가를 그려서 모델을 테스트해보세요.",
         "TEST_WEBCAM": "사진을 찍어서 모델을 ",
-        "CHANGETYPE": {
-            "IMAGES": "클라우드에서 모델 학습 시키기로 변경",
-            "IMGTFJS": "컴퓨터에서 모델 학습 시키기로 변경"
-        },
         "WHATHAVEYOUDONE": {
             "TITLE": "무엇을 하고 있나요?",
             "PLEASEWAIT": "몇 분이 걸려요. 하지만 트레이닝 컴퓨터가 바쁘다면 조금 더 걸릴 수 있어요.",
@@ -1273,13 +1257,18 @@
             "DESCRIPTION": "스크래치에서 게임을 만들어 책 표지를 판단 할 수 있는지 테스트 해봐요.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook.pdf",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Full version of the project, where children make a game to compete against the computer to recognise books",
+                "DESCRIPTION": "Full version of the Scratch project, where children make a game to compete against the computer to recognise books",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Simplified version of the project, where children get the computer to recognise books",
+                "DESCRIPTION": "Simplified version of the Scratch project, where children get the computer to recognise books",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf"
-            }
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "App Inventor project, where children make a mobile app that recommends the best shelf for a book",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-appinventor.pdf"
+            },
+            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook.pdf"
         },
         "LOCATELARRY": {
             "TITLE": "래리 찾기",
@@ -1564,14 +1553,12 @@
             "HELP_STEPBYSTEP_GUIDE": "어떻게 해야 할지 잘 모르겠다면 <a href='/apikeys-guide'> 단계별 가이드 </a> 를 참고하세요. 도움이 필요하다면 <strong><a style='cursor: pointer;' href='/help'>연락</a></strong>하세요.",
 
             "INTRO_WATSONASSISTANT": "<span class='mlprojecttype'>text</span> 프로젝트를 <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a>를 사용하여 만들어보세요.",
-            "INTRO_VISUALRECOGNITION": "<a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>을 사용하여 클라우드에서 이미지 프로젝트를 위한 기계 학습 모델을 만들어보세요",
             "INTRO_NUMBERS": "<span class='mlprojecttype'>숫자</span> 프로젝트를 만들기 위해서는 API keys가 필요하지 <strong>않습니다.</strong>",
             "INTRO_SOUNDS": "<span class='mlprojecttype'></span> 프로젝트를 만들기 위해서는 API keys가 필요하지 <strong>않습니다.</strong>",
             "INTRO_IMAGES": "<span class='mlprojecttype'>이미지</span>  프로젝트에 대한 기계 학습 모델의 학습에는 API 키가 필요하지 <strong>않습니다</strong>.",
 
             "ERROR_FETCHING_WATSONASSISTANT": "여러분의 Watson Assistant 비밀번호가 잘못되었습니다.",
-            "ERROR_FETCHING_VISUALRECOG": "여러분의 Visual Recognition API keys가 잘못되었습니다.",
-
+          
             "USERNAME": "사용자명",
             "PASSWORD": "비밀번호",
             "APIKEY": "API key",
@@ -1581,14 +1568,11 @@
             "UNLIMITED": "제한없음",
 
             "LIMIT_TEXT_PROJECTS": "여러분의 교실 학생들이 만들 수 있는 텍스트 머신러닝 모델의 수:",
-            "LIMIT_IMAGE_PROJECTS": "여러분의 교실 학생들이 만들 수 있는  머신러닝 모델의 수:",
 
             "ADD_API_KEYS": {
                 "ASSISTANT_TITLE": "Watson Assistant credentials을 추가하세요",
-                "VISUAL_RECOGNITION_TITLE": "Visual Recognition API key를 추가하세요",
 
                 "USED_FOR_TEXT_PROJECTS": "텍스트 프로젝트에서 여러분의 학생들이 모델을 만들 때 사용됩니다.",
-                "USED_FOR_IMAGE_PROJECTS": "이미지 프로젝트에서 여러분의 학생들이 모델을 만들 때 사용됩니다.",
 
                 "HIDDEN_FROM_STUDENTS": "이것은 여러분의 학생들에게 보이지 않습니다.",
 
@@ -1744,6 +1728,9 @@
             "mlforkids.imageblocks.saveScreenshotToCostume": "모양으로 스크린샷 저장"
         },
         "GUI": {
+            "gui.menuBar.ml4kidssharing": "Share",
+            "gui.menuBar.mlforkidsstartrecording": "Start recording the Stage",
+            "gui.menuBar.mlforkidsstoprecording": "Stop recording the Stage",
             "gui.menuBar.mlforkidsLibrary": "프로젝트 템플릿",
             "gui.mlforkidsLibrary.templates": "아이들을 위한 머신러닝 프로젝트 템플릿"
         }
@@ -1769,41 +1756,11 @@
         "PROJECTS": {
             "TITLE": "프로젝트 질문",
 
-            "Q1": "\"컴퓨터에서\" 혹은 \"클라우드에서\" 학습된 이미지 모델의 차이점은 무엇입니까?",
-            "Q1-A-1": "두가지 모두 같은 종류의 기계 학습 프로젝트를 만드는 데 사용할 수 있습니다. 두 방법의 차이점은 모델이 생성되고 저장되는 위치입니다.",
-            "Q1-A-2": "<strong>\"클라우드에서\"</strong>를 선택하면 기계 학습 모델이 Watson Visual Recognition이라는 온라인 서비스를 사용하여 클라우드 서버에서 학습됩니다.",
-            "Q1-A-3": "만약 <strong>\"컴퓨터에서\"</strong>를 선택하면 기계 학습 모델은 학생 자신의 컴퓨터의 웹 브라우저에서 학습됩니다.",
-            "Q1-A-4": "\"<strong>클라우드에서</strong>\"가 좋은 이유는 다음과 같습니다: ",
-            "Q1-A-7": "더 높은 정확도를 지닌 모델을 생성할 수 있습니다. 특히 더 적은 수의 훈련 예제를 사용할 때 더욱 그렇습니다.",
-            "Q1-A-8": "단, 훈련하기 위한 클라우드 서버가 켜질 때까지 몇 분이 걸립니다.",
-            "Q1-A-9": "\"<strong>컴퓨터에서</strong>\"가 좋은 이유는 다음과 같습니다:",
-            "Q1-A-10": "클라우드 서버가 켜질 때까지 기다리지 않고 즉시 학습을 시작하기 때문에 훨씬 더 빠르게 훈련할 수 있습니다.",
-            "Q1-A-12": "모델은 자동으로 삭제할 필요가 없습니다.",
-
-            "Q2": "클라우드에서 학습하거나 컴퓨터에서 훈련하도록 \"이미지\" 프로젝트를 어떻게 변경할 수 있습니까?",
-            "Q2-A-1": "프로젝트의 \"Learn & Test\" 페이지에서 두 모두 간의 변경이 가능합니다.",
-            "Q2-A-2": "이를 수행하는 링크는 페이지의 오른쪽 상단에서 찾을 수 있습니다.",
-            "Q2-A-3": "이 작업이 완료되면 프로젝트에 존재하는 모든 기계 학습 모델이 삭제됩니다.",
-            "Q2-A-4": "이미지 프로젝트의 스크래치 블록은 두 가지 모드에서 다르게 작동하므로 만약 이 작업을 수행할 때 스크래치 창이 열려 있다면 스크래치 확장 프로그램을 업데이트 할 수 있도록 페이지를 새로 고침해야 합니다.",
-
-            "Q3": "Scratch 혹은 python으로만 기계 학습 프로젝트에서 무언가를 만들 수 있는 이유는 무엇인가요?",
-            "Q3-A-1": "자신의 컴퓨터에서 훈련된 기계 학습 모델은 Scratch(자신의 웹브라우저에 저장된 기계 학습 모델에 접근 할 수 있도록 업그레이드 된) 및 Python(이미지 프로젝트 전용)을 통해서만 접근 가능합니다.",
-            "Q3-A-2": "클라우드에서 학습된 기계 학습 모델은 Scratch, Python 혹은 App Invetor를 통해 접근할 수 있습니다. 이 모든 것은 클라우드에 저장된 기계 학습 모델에 접근 할 수 있기 때문입니다.",
-            "Q3-A-3": "만약 기계 학습 프로젝트를 만들 때 옵션으로 'Scratch 3'만 표시된다면 이는 기계 학습 모델이 웹 브라우저에 저장되고 있다는 의미입니다.",
-
             "Q4": "어떤 러닝머신 모델이 내 컴퓨터에서 학습하였고, 어떤 모델이 클라우드에서 학습하였나요?",
             "Q4-A-1": "<strong>텍스트</strong> 프로젝트는 클라우드에서만 학습할 수 있습니다.",
             "Q4-A-2": "<strong>숫자</strong> 프로젝트는 클라우드에서만 학습할 수 있습니다.",
             "Q4-A-3": "<strong>소리</strong> 프로젝트는 자신의 컴퓨터에서만 학습할 수 있습니다.",
-            "Q4-A-4": "<strong>이미지</strong> 프로젝트는 컴퓨터에서 혹은 클라우드에서 (Watson Visual Recognition에 접근할 수 있는 경우) 학습 시킬 수 있습니다.",
-
-            "Q5": "어떠한 학생들이 클라우드에서 이미지 기계 학습 프로젝트를 학습 시킬 수 있나요?",
-            "Q5-A-1": "<strong>이미지</strong> 프로젝트는 컴퓨터에서 혹은 클라우드에서 (Watson Visual Recognition에 접근할 수 있는 경우) 학습 시킬 수 있습니다.",
-            "Q5-A-2": "<strong>이미지</strong> 프로젝트를 위한 기계 학습 모델에는 Watson Visual Recognition service가 사용됩니다. IBM은 2021년 1월 7일<a href='https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-getting-started-tutorial'> Watson Visual Recognition 서비스를 중단했습니다.</a> 이는 현재 이에 대한 접근이 제한되었 다는 것을 의미합니다. 2021년 12월 1일 부터 Visual Recognition 서비스가 완전히 중단됩니다. ",
-            "Q5-A-3": "관리되는 학급의 학생들은 2021년 12월 1일까지 이미지 기계 학습 모델의 학습을 컴퓨터에서 할지, 클라우드에서 할지 선택할 수 있습니다.",
-            "Q5-A-4": "2021년 1월 7일 이전에 Visual Recognition API 키가 설정되지 않은 관리되지 않는 학급에 속한 학생들은 2021년 12월 1일까지 기계 학습 모델의 학습을 컴퓨터에서 혹은 클라우드에서 계속할 수 있습니다.",
-            "Q5-A-5": "2021년 1월 7일 이후에 생성된 관리되지 않는 학급의 학생은 컴퓨터에서 이미지 기계 학습 모델을 학습시킬 수만 있습니다.",
-            "Q5-A-6": "'Try it now'를 사용하는 학생은 컴퓨터에서 이미지 머신 러닝 모델만 학습시킬 수만 있습니다."
+            "Q4-A-4": "<strong>이미지</strong> 프로젝트는 컴퓨터에서 혹은 클라우드에서 (Watson Visual Recognition에 접근할 수 있는 경우) 학습 시킬 수 있습니다."
         },
 
         "SCRATCH": {
@@ -1861,15 +1818,6 @@
             "Q3-A-5": "만약 학생 중 성공적으로 학습된 모델을 가지고 있다면 이를 삭제하하세요. 이는 다른 학생들에게 기술을 사용할 수 있게 합니다.",
             "Q3-A-6": "앞으로 이 오류를 피할 수 있는 한 가지 방법을 클래스의 크기를 줄이는 것입니다. 만약 Watson assistant 자격증이 지원하는 기술보다 학생 수가 적으면 제한에 부딪히지 않을 것입니다.",
             "Q3-A-7": "이 오류를 피할 수있는 또 다른 방법은 클래스에 Watson Assistant API 키를 추가하거나 제한이 적은 Watson Assistant 인스턴스 \"plan\"을 사용하는 것입니다.",
-
-            "Q4": "\"Watson Visual Recognition API keys에서 사용할 수 있는 분류기가 더 이상 없습니다.\"",
-            "Q4-A-1": "도구의 머신러닝 모델은 IBM Watson API를 사용하여 작성됩니다.",
-            "Q4-A-2": "교사가 만든 Watson Visual Recognition 인증서는 만들 때 사용할 수있는 머신러닝 모델의 수에 제한이 있습니다. 이는 인증서가 생성된 IBM Cloud UI에 표시되며, \"custom classifiers\"라고 합니다.",
-            "Q4-A-3": "이 한도를 초과하면 새로운 머신러닝 모델을 익히는 데 실패하고 다음의 메시지가 표시됩니다:",
-            "Q4-A-4": "클래스가 이미 최대 허용 모델 수를 만들었습니다. 선생님이나 그룹 리더에게 \"Watson Visual Recognition API 키에 분류기를 더 이상 사용할 수 없음\"을 알려주십시오.",
-            "Q4-A-5": "성공적으로 훈련된 모델을 가진 학생이 모델을 삭제하면 다른 학생이 사용할 수 있도록 맞춤 분류기를 해제합니다.",
-            "Q4-A-6": "향후이 오류를 피하는 한 가지 방법은 클래스 크기가 더 작아지는 것입니다. Watson Visual Recognition 인증서에서 지원하는 맞춤 분류기 수보다 학생의 수가 적으면 제한에 걸리지 않습니다.",
-            "Q4-A-7": "이 오류를 피할 수있는 또 다른 방법은 클래스에 Watson Assistant API 키를 추가하거나 제한이 적은 Watson Visual Recognition 인스턴스 \"plan\"을 사용하는 것입니다.",
 
             "Q5": "\"Watson이 제공하는 API키는 속도가 제한적입니다.\"",
             "Q5-A-1": "도구의 머신러닝 모델은 IBM Watson API를 사용하여 작성됩니다.",
@@ -2045,6 +1993,14 @@
             "QNA_3": "이것은 <a href='https://github.com/google-research/bert'>BERT</a>라고 불리는 기계 학습 모델의 일종으로 텍스트가 있는 프로젝트에 유용합니다. ",
             "QNA_4": "이것은 스탠포드 대학교가 수집한 위키 백과 문서들의 질문과 답변들의 집합을 사용하여 학습되었습니다.",
             "QNA_5": "이것은 복잡한 모델이기 때문에 느리고 컴퓨터에 많은 메모리가 필요하다는 것을 알 수 있습니다!"
+        },
+        "SPICE": {
+            "TITLE": "Pitch estimation",
+            "SPICE_1": "This model can be used to recognize a note being sung from your computer's microphone.",
+            "SPICE_2": "It gives you blocks that will return the frequency of a note it recognized, and to convert that into the name or MIDI note.",
+            "SPICE_3": "The model, called <a href='https://ai.googleblog.com/2019/11/spice-self-supervised-pitch-estimation.html'>SPICE</a>, has been trained to identify the dominant pitch in sung audio, including being able to recognize a sung note even if there is background music and noise.",
+            "SPICE_4": "The training data used for this model came from <a href='https://sites.google.com/site/unvoicedsoundseparation/mir-1k'>MIR-1K</a>, which is a set of 1000 short sound recordings of amateur singers singing along to karaoke.",
+            "SPICE_5": "You will need to let Scratch use your microphone to use this model."
         },
         "IDEAS": {
             "IDEAS_1": "Are there other machine learning models you would like to be able to use in your Scratch projects?",

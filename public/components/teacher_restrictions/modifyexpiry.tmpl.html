@@ -2,7 +2,7 @@
     <md-toolbar>
         <div class="md-toolbar-tools"><h2>Change when models are deleted</h2></div>
     </md-toolbar>
-    <form ng-cloak name="modifyExpiry" ng-submit="confirm({ textexpiry : textexpiry, imageexpiry : imageexpiry })">
+    <form ng-cloak name="modifyExpiry" ng-submit="confirm({ textexpiry : textexpiry })">
         <md-dialog-content>
             <div layout="column">
                 <div layout="row">
@@ -20,14 +20,6 @@
                             <div>Models deleted after <strong>{{ hoursfilter(textexpiry) }}</strong></div>
                         </div>
 
-                        <div style="margin-top: 1em; font-weight: bold;">
-                            Image projects
-                        </div>
-                        <div style="margin-top: 0.2em; margin-left: 1em;">
-                            <md-slider ng-model="imageexpiry" min="1" max="255" aria-label="blue" id="blue-slider" class="md-primary"></md-slider>
-                            <div>Models deleted after <strong>{{ hoursfilter(imageexpiry) }}</strong></div>
-                        </div>
-
                         <hr/>
 
                     </div>
@@ -42,7 +34,7 @@
                 </div>
                 <md-dialog-actions layout="row">
                     <span flex></span>
-                    <md-button type="submit" class="md-raised md-primary" ng-disabled="initialtextexpiry === textexpiry && initialimageexpiry === imageexpiry">Save</md-button>
+                    <md-button type="submit" class="md-raised md-primary" ng-disabled="initialtextexpiry === textexpiry">Save</md-button>
                     <md-button ng-click="cancel()">Cancel</md-button>
                 </md-dialog-actions>
             </div>

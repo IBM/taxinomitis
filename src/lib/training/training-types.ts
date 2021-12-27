@@ -39,11 +39,10 @@ export interface BluemixCredentialsPoolDbRow extends BluemixCredentialsDbRow {
 
 
 
-export type BluemixServiceType = 'conv' | 'visrec' | 'num' | 'sounds' | 'imgtfjs';
-export type BluemixCredentialsTypeLabel = 'unknown' | ConversationCredentialsTypeLabel | VisualRecCredentialsTypeLabel;
+export type BluemixServiceType = 'conv' | 'num' | 'sounds' | 'imgtfjs';
+export type BluemixCredentialsTypeLabel = 'unknown' | ConversationCredentialsTypeLabel;
 
 export type ConversationCredentialsTypeLabel = 'conv_lite' | 'conv_standard' | 'conv_plus' | 'conv_plustrial';
-export type VisualRecCredentialsTypeLabel = 'visrec_lite' | 'visrec_standard';
 
 export interface ConversationWorkspace {
     readonly id: string;
@@ -86,32 +85,6 @@ interface ConversationIntentExample {
  *            which use a bearer token request header for auth.
  */
 export type ConversationCredsType = 'legacy' | 'current';
-
-
-export interface VisualClassifier {
-    readonly id: string;
-    readonly classifierid: string;
-    readonly credentialsid: string;
-    readonly url: string;
-    readonly name: string;
-    readonly created: Date;
-    expiry: Date;
-    status?: VisualClassifierStatus;
-}
-
-export type VisualClassifierStatus = 'training' | 'ready' | 'Non Existent'| 'ERROR';
-
-/**
- * Type of credentials for the Watson Visual Recognition service.
- *
- * 'legacy' refers to credentials created before May 22 2018,
- *           which use an API Key query parameter for authentication.
- * 'current' refers to credentials created after May 22 2018
- *            which use a bearer token request header for auth.
- */
-export type VisualRecCredsType = 'legacy' | 'current';
-
-
 
 export interface ClassifierDbRow {
     readonly id: string;
@@ -203,8 +176,6 @@ export type CredentialsSupportCode = 'MLCRED-OK' |           // everything okay
                                      'MLCRED-MANAGED' |      // user is in a managed class
                                      'MLCRED-TEXT-NOKEYS' |  // no available text credentials
                                      'MLCRED-TEXT-INVALID' | // all text credentials rejected
-                                     'MLCRED-IMG-NOKEYS' |   // no available images credentials
-                                     'MLCRED-IMG-INVALID' |  // all images credentials rejected
                                      'MLCRED-FAIL' |         // attempt to check credentials failed
                                      'MLCRED-IMGTFJS';       // no need for credentials for TensorFlowJS projects
 

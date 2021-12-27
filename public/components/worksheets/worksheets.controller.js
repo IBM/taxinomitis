@@ -107,6 +107,7 @@
             'WORKSHEETS.JUDGEABOOK.TITLE', 'WORKSHEETS.JUDGEABOOK.SUMMARY', 'WORKSHEETS.JUDGEABOOK.DESCRIPTION',
             'WORKSHEETS.JUDGEABOOK.WORKSHEET_1.DESCRIPTION', 'WORKSHEETS.JUDGEABOOK.WORKSHEET_1.URL',
             'WORKSHEETS.JUDGEABOOK.WORKSHEET_2.DESCRIPTION', 'WORKSHEETS.JUDGEABOOK.WORKSHEET_2.URL',
+            'WORKSHEETS.JUDGEABOOK.WORKSHEET_3.DESCRIPTION', 'WORKSHEETS.JUDGEABOOK.WORKSHEET_3.URL',
             'WORKSHEETS.JUDGEABOOK.TEACHERSNOTES_URL',
 
             'WORKSHEETS.FOOLED.TITLE', 'WORKSHEETS.FOOLED.SUMMARY', 'WORKSHEETS.FOOLED.DESCRIPTION',
@@ -641,7 +642,7 @@
                     description : translations['WORKSHEETS.JUDGEABOOK.DESCRIPTION'],
                     difficulty : 'Intermediate',
                     type : 'images',
-                    maketypes : [ 'scratch3' ],
+                    maketypes : [ 'scratch3', 'appinventor' ],
                     image : 'static/images/project-judgeabook.png',
                     tags : [ 'image classification', 'supervised learning' ],
                     teachersnotes : translations['WORKSHEETS.JUDGEABOOK.TEACHERSNOTES_URL'],
@@ -653,6 +654,10 @@
                         {
                             description : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_2.DESCRIPTION'],
                             worksheet : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_2.URL']
+                        },
+                        {
+                            description : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_3.DESCRIPTION'],
+                            worksheet : translations['WORKSHEETS.JUDGEABOOK.WORKSHEET_3.URL']
                         }
                     ]
                 },

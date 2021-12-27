@@ -17,7 +17,8 @@
     "strictPropertyInitialization": true,
     "strictNullChecks": true,
     "noFallthroughCasesInSwitch": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "useUnknownInCatchVariables": false
   },
   "compileOnSave": false,
   "include": [

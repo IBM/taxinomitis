@@ -6,6 +6,7 @@ import * as Objects from '../db/db-types';
 import * as TrainingObjects from './training-types';
 import * as openwhisk from '../utils/openwhisk';
 import * as request from '../utils/request';
+import * as notifications from '../notifications/slack';
 import * as env from '../utils/env';
 import loggerSetup from '../utils/logger';
 
@@ -311,7 +312,13 @@ async function getVisualisationFromOpenWhisk(project: Objects.Project): Promise<
 
     try {
         const response = await request.post(url, serverlessRequest, true);
-
+        if (!response) {
+            // no error, just an empty response
+            notifications.notify('Empty response from OpenWhisk describe-model API ' +
+                                    '(is there a problem with the web action config?)',
+                                 notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
+            throw new Error('Unable to generate visualisation');
+        }
         return response;
     }
     catch (err) {

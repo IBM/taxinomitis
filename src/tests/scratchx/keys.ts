@@ -134,40 +134,6 @@ describe('Scratchx - keys', () => {
             await store.deleteScratchKey(key.id);
         });
 
-
-        it('should create an empty key for projects with classifiers', async () => {
-            const userid = uuid();
-            const project = await store.storeProject(userid, TESTCLASS, 'images', 'images project', 'en', [], false);
-            const creds = await store.storeBluemixCredentials(TESTCLASS, {
-                id : uuid(),
-                username : 'user',
-                password : 'pass',
-                servicetype : 'visrec',
-                url : 'http://url.com',
-                classid : TESTCLASS,
-                credstypeid : 0,
-            });
-            const visualclassifier: TrainingTypes.VisualClassifier = {
-                id : uuid(),
-                classifierid: randomstring.generate({ length : 20 }),
-                credentialsid : creds.id,
-                created: new Date(),
-                expiry: new Date(),
-                name : project.name,
-                url : 'url',
-            };
-            await store.storeImageClassifier(creds, project, visualclassifier);
-
-            const key = await keys.createKey(project.id);
-            assert(key.id);
-            assert(key.model);
-            assert.strictEqual(key.model, visualclassifier.classifierid);
-            const scratchkey = await store.getScratchKey(key.id);
-            assert.strictEqual(scratchkey.name, project.name);
-            await store.deleteScratchKey(key.id);
-            await store.deleteImageClassifier(visualclassifier.id);
-            await store.deleteBluemixCredentials(creds.id);
-        });
     });
 
 

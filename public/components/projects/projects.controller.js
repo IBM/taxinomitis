@@ -40,8 +40,6 @@
         $translate([
             'NEWPROJECT.WARNINGS.MLCRED-TEXT-NOKEYS',
             'NEWPROJECT.WARNINGS.MLCRED-TEXT-INVALID',
-            'NEWPROJECT.WARNINGS.MLCRED-IMG-NOKEYS',
-            'NEWPROJECT.WARNINGS.MLCRED-IMG-INVALID',
             'PROJECTS.WHOLE_CLASS_TITLE', 'PROJECTS.WHOLE_CLASS_NOTES'
         ]).then(function (translations) {
             translatedStrings = translations;
@@ -61,8 +59,7 @@
 
 
         function checkApiKeys(profile, checkingProject) {
-            if (profile.tenant !== 'session-users' &&
-                (checkingProject.type === 'text' || checkingProject.type === 'images'))
+            if (profile.tenant !== 'session-users' && checkingProject.type === 'text')
             {
                 checkingProject.isPlaceholder = true;
 

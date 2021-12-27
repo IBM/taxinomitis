@@ -98,12 +98,10 @@ describe('REST API - tenants', () => {
                             'isManaged',
                             'tenantType',
                             'maxTextModels',
-                            'maxImageModels',
                             'maxUsers',
                             'supportedProjectTypes',
                             'maxProjectsPerUser',
                             'textClassifierExpiry',
-                            'imageClassifierExpiry',
                             'textTrainingItemsPerProject',
                             'numberTrainingItemsPerProject',
                             'numberTrainingItemsPerClassProject',
@@ -129,7 +127,6 @@ describe('REST API - tenants', () => {
                 .patch(url)
                 .send([
                     { op : 'replace', path : '/textClassifierExpiry', value : 1 },
-                    { op : 'replace', path : '/imageClassifierExpiry', value : 2 },
                 ])
                 .expect(httpstatus.FORBIDDEN)
                 .then((res) => {
@@ -144,7 +141,6 @@ describe('REST API - tenants', () => {
                 .then((res) => {
                     const body = res.body;
                     assert.strictEqual(body.textClassifierExpiry, 24);
-                    assert.strictEqual(body.imageClassifierExpiry, 24);
                 });
         });
 
@@ -164,7 +160,6 @@ describe('REST API - tenants', () => {
                 .then((res) => {
                     const body = res.body;
                     assert.strictEqual(body.textClassifierExpiry, 24);
-                    assert.strictEqual(body.imageClassifierExpiry, 24);
                 });
         }
 
@@ -181,42 +176,38 @@ describe('REST API - tenants', () => {
                 },
                 {
                     patch : [
-                        { op : 'replace', path : '/textClassifierExpiry', value : 1 },
                     ],
-                    expected : 'PATCH body should include 2 values',
+                    expected : 'PATCH body should include 1 value',
                 },
                 {
                     patch : [
                         { op : 'replace', path : '/textClassifierExpiry', value : 1 },
                         { hello : 'world' },
                     ],
-                    expected : 'Invalid PATCH request',
+                    expected : 'PATCH body should include 1 value',
                 },
                 {
                     patch : [
                         { op : 'replace', path : '/textClassifierExpiry', value : 1 },
                         { op : 'replace', path : '/textClassifierExpiry', value : 2 },
                     ],
-                    expected : 'Missing data',
+                    expected : 'PATCH body should include 1 value',
                 },
                 {
                     patch : [
                         { op : 'replace', path : '/textClassifierExpiry', value : -1000 },
-                        { op : 'replace', path : '/imageClassifierExpiry', value : 20 },
                     ],
                     expected : 'Missing data',
                 },
                 {
                     patch : [
                         { op : 'replace', path : '/textClassifierExpiry', value : 'bad' },
-                        { op : 'replace', path : '/imageClassifierExpiry', value : 20 },
                     ],
                     expected : 'Missing data',
                 },
                 {
                     patch : [
                         { op : 'replace', path : '/textClassifierExpiry', value : 1000 },
-                        { op : 'replace', path : '/imageClassifierExpiry', value : 20 },
                     ],
                     expected : 'Missing data',
                 },
@@ -243,7 +234,6 @@ describe('REST API - tenants', () => {
                 .then((res) => {
                     const body = res.body;
                     assert.strictEqual(body.textClassifierExpiry, 24);
-                    assert.strictEqual(body.imageClassifierExpiry, 24);
 
             //
             // MODIFY A NON-EXISTENT TENANT
@@ -252,13 +242,11 @@ describe('REST API - tenants', () => {
                         .patch(url)
                         .send([
                             { op : 'replace', path : '/textClassifierExpiry', value : 100 },
-                            { op : 'replace', path : '/imageClassifierExpiry', value : 32 },
                         ])
                         .expect(httpstatus.OK);
                 })
                 .then((res) => {
                     assert.strictEqual(res.body.textClassifierExpiry, 100);
-                    assert.strictEqual(res.body.imageClassifierExpiry, 32);
 
                     return request(testServer)
                         .get(url)
@@ -268,7 +256,6 @@ describe('REST API - tenants', () => {
                 .then((res) => {
                     const body = res.body;
                     assert.strictEqual(body.textClassifierExpiry, 100);
-                    assert.strictEqual(body.imageClassifierExpiry, 32);
 
             //
             // MODIFY AN EXISTING TENANT
@@ -277,13 +264,11 @@ describe('REST API - tenants', () => {
                         .patch(url)
                         .send([
                             { op : 'replace', path : '/textClassifierExpiry', value : 16 },
-                            { op : 'replace', path : '/imageClassifierExpiry', value : 7 },
                         ])
                         .expect(httpstatus.OK);
                 })
                 .then((res) => {
                     assert.strictEqual(res.body.textClassifierExpiry, 16);
-                    assert.strictEqual(res.body.imageClassifierExpiry, 7);
 
                     return request(testServer)
                         .get(url)
@@ -293,7 +278,6 @@ describe('REST API - tenants', () => {
                 .then((res) => {
                     const body = res.body;
                     assert.strictEqual(body.textClassifierExpiry, 16);
-                    assert.strictEqual(body.imageClassifierExpiry, 7);
 
             //
             // CLEAN-UP
@@ -309,7 +293,6 @@ describe('REST API - tenants', () => {
                 .then((res) => {
                     const body = res.body;
                     assert.strictEqual(body.textClassifierExpiry, 24);
-                    assert.strictEqual(body.imageClassifierExpiry, 24);
                 });
         });
     });

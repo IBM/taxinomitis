@@ -13,7 +13,6 @@ import * as express from 'express';
 import * as store from '../../lib/db/store';
 import * as auth from '../../lib/restapi/auth';
 import * as conversation from '../../lib/training/conversation';
-import * as visualrecog from '../../lib/training/visualrecognition';
 import * as numbers from '../../lib/training/numbers';
 import * as DbTypes from '../../lib/db/db-types';
 import * as Types from '../../lib/training/training-types';
@@ -56,12 +55,6 @@ describe('REST API - models', () => {
     let numbersStubTestClassifierStub: sinon.SinonStub<any, any>;
     let numbersStubDeleteClassifierStub: sinon.SinonStub<any, any>;
 
-    let imagesStubGetClassifiersStub: sinon.SinonStub<any, any>;
-    let imagesStubTrainClassifierStub: sinon.SinonStub<any, any>;
-    let imagesStubDeleteClassifierStub: sinon.SinonStub<any, any>;
-    let imagesStubTestClassifierUrlStub: sinon.SinonStub<any, any>;
-    let imagesStubTestClassifierFileStub: sinon.SinonStub<any, any>;
-
     const updated = new Date();
     updated.setMilliseconds(0);
 
@@ -77,12 +70,6 @@ describe('REST API - models', () => {
         numbersStubTrainClassifierStub = sinon.stub(numbers, 'trainClassifier');
         numbersStubTestClassifierStub = sinon.stub(numbers, 'testClassifier');
         numbersStubDeleteClassifierStub = sinon.stub(numbers, 'deleteClassifier');
-
-        imagesStubGetClassifiersStub = sinon.stub(visualrecog, 'getClassifierStatuses');
-        imagesStubTrainClassifierStub = sinon.stub(visualrecog, 'trainClassifier');
-        imagesStubDeleteClassifierStub = sinon.stub(visualrecog, 'deleteClassifier');
-        imagesStubTestClassifierUrlStub = sinon.stub(visualrecog, 'testClassifierURL');
-        imagesStubTestClassifierFileStub = sinon.stub(visualrecog, 'testClassifierFile');
 
         conversationStubGetClassifiersStub.callsFake((tenant, classifiers: Types.ConversationWorkspace[]) =>  {
             return new Promise((resolve) => {
@@ -178,102 +165,6 @@ describe('REST API - models', () => {
             return new Promise((resolve) => { resolve(''); });
         });
 
-        imagesStubGetClassifiersStub.callsFake((classid, classifiers: Types.VisualClassifier[]) => {
-            return new Promise((resolve) => {
-                let output: Types.VisualClassifier[] = [];
-
-                output = classifiers.map((classifier) => {
-                    switch (classifier.classifierid) {
-                    case 'good':
-                        classifier.status = 'ready';
-                        break;
-                    case 'busy':
-                        classifier.status = 'training';
-                        break;
-                    }
-                    return classifier;
-                });
-                resolve(output);
-            });
-        });
-
-        imagesStubTrainClassifierStub.callsFake((project: DbTypes.Project) => {
-            if (project.name === 'no more room') {
-                const err = new Error(visualrecog.ERROR_MESSAGES.INSUFFICIENT_API_KEYS);
-                return Promise.reject(err);
-            }
-            else if (project.name === 'insufficient') {
-                const err = new Error('Not enough images to train the classifier');
-                return Promise.reject(err);
-            }
-            else if (project.name === 'unknown creds') {
-                const err: any = new Error('Unauthorized');
-                err.statusCode = httpstatus.UNAUTHORIZED;
-                return Promise.reject(err);
-            }
-            else if (project.name === 'bad creds') {
-                const err: any = new Error('Unauthorized');
-                err.statusCode = httpstatus.FORBIDDEN;
-                return Promise.reject(err);
-            }
-            else if (project.name === 'no creds') {
-                const err: any = new Error('Unexpected response when retrieving service credentials');
-                return Promise.reject(err);
-            }
-            else if (project.name === 'too fast') {
-                const err: any = new Error(visualrecog.ERROR_MESSAGES.API_KEY_RATE_LIMIT);
-                return Promise.reject(err);
-            }
-            else {
-                const workspace: Types.VisualClassifier = {
-                    id : uuid(),
-                    classifierid : 'NEW-CREATED',
-                    credentialsid : '123',
-                    name : project.name,
-                    created : new Date(Date.UTC(2017, 4, 4, 12, 0)),
-                    expiry : new Date(Date.UTC(2017, 4, 4, 13, 0)),
-                    url : 'http://visualrecog.service/api/classifiers/NEW-CREATED',
-                    status : 'training',
-                };
-                return Promise.resolve(workspace);
-            }
-        });
-        imagesStubDeleteClassifierStub.callsFake(() => {
-            return Promise.resolve();
-        });
-        imagesStubTestClassifierUrlStub.callsFake((
-            creds: Types.BluemixCredentials, classifierid: string,
-            classifierTimestamp: Date,
-            // projectid: string, imageurl: string,
-            ) =>
-        {
-            const classifications: Types.Classification[] = [
-                { class_name : 'First', confidence : 0.6, classifierTimestamp },
-                { class_name : 'Second', confidence : 0.2, classifierTimestamp },
-            ];
-            return Promise.resolve(classifications);
-        });
-        imagesStubTestClassifierFileStub.callsFake((
-            creds: Types.BluemixCredentials, classifierid: string,
-            classifierTimestamp: Date,
-            projectid: string, imagefile: string) =>
-        {
-            return new Promise((resolve, reject) => {
-                fs.access(imagefile, fs.constants.R_OK, (err) => {
-                    if (err) {
-                        return reject(err);
-                    }
-
-                    const classifications: Types.Classification[] = [
-                        { class_name : 'Third', confidence : 0.5, classifierTimestamp },
-                        { class_name : 'Fourth', confidence : 0.4, classifierTimestamp },
-                    ];
-                    return resolve(classifications);
-                });
-            });
-        });
-
-
         await store.init();
 
         testServer = testapiserver();
@@ -290,11 +181,6 @@ describe('REST API - models', () => {
         numbersStubTrainClassifierStub.restore();
         numbersStubTestClassifierStub.restore();
         numbersStubDeleteClassifierStub.restore();
-        imagesStubGetClassifiersStub.restore();
-        imagesStubTrainClassifierStub.restore();
-        imagesStubDeleteClassifierStub.restore();
-        imagesStubTestClassifierUrlStub.restore();
-        imagesStubTestClassifierFileStub.restore();
 
         return store.disconnect();
     });
@@ -384,86 +270,6 @@ describe('REST API - models', () => {
                     assert.deepStrictEqual(body, []);
 
                     return store.deleteEntireUser(userid, classid);
-                });
-        });
-
-
-        it('should retrieve images classifiers', async () => {
-            const classid = uuid();
-            const userid = uuid();
-
-            const project = await store.storeProject(userid, classid, 'images', 'demo', 'en', [], false);
-            const projectid = project.id;
-
-            const credentials: Types.BluemixCredentials = {
-                id : uuid(),
-                username : uuid(),
-                password : uuid(),
-                servicetype : 'visrec',
-                url : uuid(),
-                classid,
-                credstype : 'unknown',
-            };
-
-            const createdA = new Date();
-            createdA.setMilliseconds(0);
-
-            const classifierAInfo: Types.VisualClassifier = {
-                id : uuid(),
-                classifierid : 'good',
-                credentialsid : credentials.id,
-                created : createdA,
-                expiry : createdA,
-                name : 'DUMMY ONE',
-                url : uuid(),
-            };
-            await store.storeImageClassifier(credentials, project, classifierAInfo);
-
-            const createdB = new Date();
-            createdB.setMilliseconds(0);
-            createdB.setSeconds(createdA.getSeconds() + 1);
-
-            const classifierBInfo: Types.VisualClassifier = {
-                id : uuid(),
-                classifierid : 'busy',
-                credentialsid : credentials.id,
-                created : createdB,
-                expiry : createdB,
-                name : 'DUMMY TWO',
-                url : uuid(),
-            };
-            await store.storeImageClassifier(credentials, project, classifierBInfo);
-
-
-            nextAuth0Userid = userid;
-            nextAuth0Role = 'student';
-            nextAuth0Class = classid;
-            return request(testServer)
-                .get('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then(async (res) => {
-
-                    assert.deepStrictEqual(res.body, [
-                        {
-                            classifierid : 'good',
-                            credentialsid : credentials.id,
-                            updated : createdA.toISOString(),
-                            expiry : createdA.toISOString(),
-                            name : 'DUMMY ONE',
-                            status : 'Available',
-                        },
-                        {
-                            classifierid : 'busy',
-                            credentialsid : credentials.id,
-                            updated : createdB.toISOString(),
-                            expiry : createdB.toISOString(),
-                            name : 'DUMMY TWO',
-                            status : 'Training',
-                        },
-                    ]);
-
-                    await store.deleteEntireUser(userid, classid);
                 });
         });
 
@@ -859,195 +665,6 @@ describe('REST API - models', () => {
         });
 
 
-        it('should enforce tenant policies on number of image classifiers', async () => {
-            const classid = uuid();
-            const userid = uuid();
-            const projName = 'no more room';
-
-            const project = await store.storeProject(userid, classid, 'images', projName, 'en', [], false);
-            const projectid = project.id;
-
-            nextAuth0Userid = userid;
-            nextAuth0Role = 'student';
-            nextAuth0Class = classid;
-            return request(testServer)
-                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.CONFLICT)
-                .then(async (res) => {
-                    const body = res.body;
-
-                    assert.strictEqual(body.error, visualrecog.ERROR_MESSAGES.INSUFFICIENT_API_KEYS);
-
-                    await store.deleteEntireUser(userid, classid);
-                });
-        });
-
-
-        it('should handle rate limiting from Visual Recognition API', async () => {
-            const classid = uuid();
-            const userid = uuid();
-            const projName = 'too fast';
-
-            const project = await store.storeProject(userid, classid, 'images', projName, 'en', [], false);
-            const projectid = project.id;
-
-            nextAuth0Userid = userid;
-            nextAuth0Role = 'student';
-            nextAuth0Class = classid;
-            return request(testServer)
-                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.TOO_MANY_REQUESTS)
-                .then(async (res) => {
-                    const body = res.body;
-
-                    assert.strictEqual(body.error,
-                        'Your class is making too many requests to create machine learning models ' +
-                         'at too fast a rate. ' +
-                         'Please stop now and let your teacher or group leader know that ' +
-                         '"the Watson Visual Recognition service is currently rate limiting their API key"');
-
-                    await store.deleteEntireUser(userid, classid);
-                });
-        });
-
-
-        it('should handle bad images credentials in unmanaged classes', async () => {
-            const classid = uuid();
-            const userid = uuid();
-            const projName = 'unknown creds';
-
-            const project = await store.storeProject(userid, classid, 'images', projName, 'en', [], false);
-            const projectid = project.id;
-
-            nextAuth0Userid = userid;
-            nextAuth0Role = 'student';
-            nextAuth0Class = classid;
-            return request(testServer)
-                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.CONFLICT)
-                .then(async (res) => {
-                    const body = res.body;
-
-                    assert.strictEqual(body.error,
-                        'The Watson credentials being used by your class were rejected. ' +
-                        'Please let your teacher or group leader know.');
-
-                    await store.deleteEntireUser(userid, classid);
-                });
-        });
-
-        it('should handle bad images credentials in unmanaged classes', async () => {
-            const classid = uuid();
-            const userid = uuid();
-            const projName = 'bad creds';
-
-            const project = await store.storeProject(userid, classid, 'images', projName, 'en', [], false);
-            const projectid = project.id;
-
-            nextAuth0Userid = userid;
-            nextAuth0Role = 'student';
-            nextAuth0Class = classid;
-            return request(testServer)
-                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.CONFLICT)
-                .then(async (res) => {
-                    const body = res.body;
-
-                    assert.strictEqual(body.error,
-                        'The Watson credentials being used by your class were rejected. ' +
-                        'Please let your teacher or group leader know.');
-
-                    await store.deleteEntireUser(userid, classid);
-                });
-        });
-
-        it('should handle missing images credentials in unmanaged classes', async () => {
-            const classid = uuid();
-            const userid = uuid();
-            const projName = 'no creds';
-
-            const project = await store.storeProject(userid, classid, 'images', projName, 'en', [], false);
-            const projectid = project.id;
-
-            nextAuth0Userid = userid;
-            nextAuth0Role = 'student';
-            nextAuth0Class = classid;
-            return request(testServer)
-                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.CONFLICT)
-                .then(async (res) => {
-                    const body = res.body;
-
-                    assert.strictEqual(body.error,
-                        'No Watson credentials have been set up for training images projects. ' +
-                        'Please let your teacher or group leader know.');
-
-                    await store.deleteEntireUser(userid, classid);
-                });
-        });
-
-        it('should handle requests to train projects without enough training data', async () => {
-            const classid = uuid();
-            const userid = uuid();
-            const projName = 'insufficient';
-
-            const project = await store.storeProject(userid, classid, 'images', projName, 'en', [], false);
-            const projectid = project.id;
-
-            nextAuth0Userid = userid;
-            nextAuth0Role = 'student';
-            nextAuth0Class = classid;
-            return request(testServer)
-                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.BAD_REQUEST)
-                .then(async (res) => {
-                    const body = res.body;
-
-                    assert.strictEqual(body.error,
-                        'Not enough images to train the classifier');
-
-                    await store.deleteEntireUser(userid, classid);
-                });
-        });
-
-        it('should train new image classifiers', async () => {
-            const classid = uuid();
-            const userid = uuid();
-            const projName = uuid();
-
-            const project = await store.storeProject(userid, classid, 'images', projName, 'en', [], false);
-            const projectid = project.id;
-
-            nextAuth0Userid = userid;
-            nextAuth0Role = 'student';
-            nextAuth0Class = classid;
-            return request(testServer)
-                .post('/api/classes/' + classid + '/students/' + userid + '/projects/' + projectid + '/models')
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-
-                    assert.deepStrictEqual(body, {
-                        updated : '2017-05-04T12:00:00.000Z',
-                        expiry : '2017-05-04T13:00:00.000Z',
-                        name : projName,
-                        status : 'Training',
-                        classifierid : 'NEW-CREATED',
-                        credentialsid : '123',
-                    });
-
-                    return store.deleteEntireUser(userid, classid);
-                });
-        });
-
-
         it('should train new numbers classifiers', async () => {
             const classid = uuid();
             const userid = uuid();
@@ -1212,30 +829,6 @@ describe('REST API - models', () => {
                 .expect(httpstatus.BAD_REQUEST)
                 .then((resp) => {
                     assert.deepStrictEqual(resp.body, { error : 'Missing data' });
-                });
-        });
-
-
-        it('should require valid credentials to test images with', () => {
-            nextAuth0Userid = 'userid';
-            nextAuth0Role = 'student';
-            nextAuth0Class = 'classid';
-            return request(testServer)
-                .post('/api/classes/' + 'classid' +
-                        '/students/' + 'userid' +
-                        '/projects/' + 'projectid' +
-                        '/models/' + 'modelid' +
-                        '/label')
-                .send({
-                    type : 'images',
-                    text : 'HELLO',
-                    credentialsid : 'blahblahblah',
-                    image : 'http://www.lovelypictures.com/cat.jpg',
-                })
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.NOT_FOUND)
-                .then((resp) => {
-                    assert.deepStrictEqual(resp.body, { error : 'Not found' });
                 });
         });
 
@@ -1516,153 +1109,6 @@ describe('REST API - models', () => {
         });
 
 
-        it('should submit a URL classify request to Visual Recognition', async () => {
-
-            const classid = uuid();
-            const userid = uuid();
-            const projName = uuid();
-            const modelid = randomstring.generate({ length : 10 });
-
-            const project = await store.storeProject(userid, classid, 'images', projName, 'en', [], false);
-            const projectid = project.id;
-
-            const credentials: Types.BluemixCredentialsDbRow = {
-                id : uuid(),
-                username : randomstring.generate(20),
-                password : randomstring.generate(20),
-                servicetype : 'visrec',
-                url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
-                classid,
-                credstypeid : 3,
-            };
-            const storedCredentials = await store.storeBluemixCredentials(classid, credentials);
-
-            const created = new Date();
-            created.setMilliseconds(0);
-
-            const classifierTimestamp = created.toISOString();
-
-            const classifierInfo: Types.VisualClassifier = {
-                id : uuid(),
-                classifierid : modelid,
-                credentialsid : credentials.id,
-                created,
-                expiry : created,
-                name : projName,
-                url : uuid(),
-            };
-            await store.storeImageClassifier(storedCredentials, project, classifierInfo);
-
-            nextAuth0Userid = userid;
-            nextAuth0Role = 'student';
-            nextAuth0Class = classid;
-            return request(testServer)
-                .post('/api/classes/' + classid +
-                        '/students/' + userid +
-                        '/projects/' + projectid +
-                        '/models/' + modelid +
-                        '/label')
-                .send({
-                    image : 'http://www.lovelypictures.com/cat.jpg',
-                    type : 'images',
-                    credentialsid : credentials.id,
-                })
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then(async (res) => {
-                    const body = res.body;
-
-                    await store.deleteEntireUser(userid, classid);
-                    await store.deleteBluemixCredentials(credentials.id);
-
-                    assert.notStrictEqual(classifierTimestamp, body[0].classifierTimestamp);
-                    assert.notStrictEqual(classifierTimestamp, body[1].classifierTimestamp);
-
-                    delete body[0].classifierTimestamp;
-                    delete body[1].classifierTimestamp;
-
-                    assert.deepStrictEqual(body, [
-                        { class_name : 'First', confidence : 0.6 },
-                        { class_name : 'Second', confidence : 0.2 },
-                    ]);
-                });
-        });
-
-
-
-        it('should submit a file classify request to Visual Recognition', async () => {
-
-            const classid = uuid();
-            const userid = uuid();
-            const projName = uuid();
-            const modelid = randomstring.generate({ length : 10 });
-
-            const project = await store.storeProject(userid, classid, 'images', projName, 'en', [], false);
-            const projectid = project.id;
-
-            const credentials: Types.BluemixCredentialsDbRow = {
-                id : uuid(),
-                username : randomstring.generate(20),
-                password : randomstring.generate(20),
-                servicetype : 'visrec',
-                url : 'https://gateway-a.watsonplatform.net/visual-recognition/api',
-                classid,
-                credstypeid : 4,
-            };
-            const storedCredentials = await store.storeBluemixCredentials(classid, credentials);
-
-            const created = new Date();
-            created.setMilliseconds(0);
-
-            const classifierTimestamp = created.toISOString();
-
-            const classifierInfo: Types.VisualClassifier = {
-                id : uuid(),
-                classifierid : modelid,
-                credentialsid : credentials.id,
-                created,
-                expiry : created,
-                name : projName,
-                url : uuid(),
-            };
-            await store.storeImageClassifier(storedCredentials, project, classifierInfo);
-
-            nextAuth0Userid = userid;
-            nextAuth0Role = 'student';
-            nextAuth0Class = classid;
-            return request(testServer)
-                .post('/api/classes/' + classid +
-                        '/students/' + userid +
-                        '/projects/' + projectid +
-                        '/models/' + modelid +
-                        '/label')
-                .send({
-                    data : 'PRETEND THIS IS THE DATA OF AN IMAGE',
-                    type : 'images',
-                    credentialsid : credentials.id,
-                })
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then(async (res) => {
-                    const body = res.body;
-
-                    await store.deleteEntireUser(userid, classid);
-                    await store.deleteBluemixCredentials(credentials.id);
-
-                    assert.notStrictEqual(classifierTimestamp, body[0].classifierTimestamp);
-                    assert.notStrictEqual(classifierTimestamp, body[1].classifierTimestamp);
-
-                    delete body[0].classifierTimestamp;
-                    delete body[1].classifierTimestamp;
-
-                    assert.deepStrictEqual(body, [
-                        { class_name : 'Third', confidence : 0.5 },
-                        { class_name : 'Fourth', confidence : 0.4 },
-                    ]);
-                });
-        });
-
-
         it('should require data for the numbers service', () => {
             nextAuth0Role = 'student';
             nextAuth0Class = 'testclass';
@@ -1935,57 +1381,6 @@ describe('REST API - models', () => {
                     await store.deleteBluemixCredentials(credentials.id);
                 });
         });
-
-
-        it('should delete image classifiers', async () => {
-            const classid = uuid();
-            const userid = uuid();
-            const projName = uuid();
-            const modelid = randomstring.generate({ length : 10 });
-
-            const project = await store.storeProject(userid, classid, 'images', projName, 'en', [], false);
-            const projectid = project.id;
-
-            const credentials: Types.BluemixCredentialsDbRow = {
-                id : uuid(),
-                username : uuid(),
-                password : uuid(),
-                servicetype : 'conv',
-                url : uuid(),
-                classid,
-                credstypeid : 2,
-            };
-            const storedCredentials = await store.storeBluemixCredentials(classid, credentials);
-
-            const created = new Date();
-            created.setMilliseconds(0);
-
-            const classifierInfo: Types.VisualClassifier = {
-                id : uuid(),
-                classifierid : modelid,
-                credentialsid : credentials.id,
-                created,
-                expiry : created,
-                name : projName,
-                url : uuid(),
-            };
-            await store.storeImageClassifier(storedCredentials, project, classifierInfo);
-
-            nextAuth0Userid = userid;
-            nextAuth0Role = 'student';
-            nextAuth0Class = classid;
-            return request(testServer)
-                .delete('/api/classes/' + classid +
-                        '/students/' + userid +
-                        '/projects/' + projectid +
-                        '/models/' + modelid)
-                .expect(httpstatus.NO_CONTENT)
-                .then(async () => {
-                    await store.deleteEntireUser(userid, classid);
-                    await store.deleteBluemixCredentials(credentials.id);
-                });
-        });
-
     });
 
 

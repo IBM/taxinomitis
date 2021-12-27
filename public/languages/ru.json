@@ -216,16 +216,6 @@
             "NOTES_4": "Для набора чисел или множественного выбора выберите «числа»",
             "NOTES_5": "Для голосов и звуков выберите «звуки»"
         },
-        "IMAGEPROJECTS": {
-            "LABEL": "Where to train the model",
-            "TYPES": {
-                "IMAGES": "in the cloud",
-                "IMGTFJS": "on your computer"
-            },
-            "NOTES_1": "If you choose \"on your computer\" you can only use the model in Scratch.",
-            "NOTES_2": "If you choose \"in the cloud\" you can use the model in Scratch, Python, or App Inventor.",
-            "NOTES_3": "You can change your mind about this at any time."
-        },
         "LANGUAGE": {
             "LABEL": "Язык",
             "NOTES": "На каком языке будет текст в этом проекте?"
@@ -258,9 +248,7 @@
         },
         "WARNINGS": {
             "MLCRED-TEXT-NOKEYS": "Please let your teacher know that they will need to add a \"Watson Assistant API key\" to your class to let you train the machine learning model for your new project",
-            "MLCRED-IMG-NOKEYS": "Please let your teacher know that they will need to add a \"Visual Recognition API key\" to your class to let you train the machine learning model for your new project",
-            "MLCRED-TEXT-INVALID": "There might be a problem with the IBM Cloud API keys you will need to train a machine learning model for your new project. Please ask your teacher to try verifying the \"Watson Assistant API keys\" in your class.",
-            "MLCRED-IMG-INVALID": "There might be a problem with the IBM Cloud API keys you will need to train a machine learning model for your new project. Please ask your teacher to try verifying the \"Visual Recognition API keys\" in your class."
+            "MLCRED-TEXT-INVALID": "There might be a problem with the IBM Cloud API keys you will need to train a machine learning model for your new project. Please ask your teacher to try verifying the \"Watson Assistant API keys\" in your class."
         }
     },
     "DATASETS": {
@@ -393,10 +381,6 @@
         "DELETE": "Удалить эту модель",
         "TEST_CANVAS": "Нарисуйте что-нибудь для тестирования своей модели",
         "TEST_WEBCAM": "Сделайте фото, чтобы протестировать модель",
-        "CHANGETYPE": {
-            "IMAGES": "Change to train models in the cloud",
-            "IMGTFJS": "Change to train models on your computer"
-        },
         "WHATHAVEYOUDONE": {
             "TITLE": "Что Вы сделали?",
             "PLEASEWAIT": "Обычно это занимает несколько минут, но может занять немного больше времени, если компьютер очень загружен.",
@@ -1231,14 +1215,18 @@
         "JUDGEABOOK": {
             "TITLE": "Judge a book",
             "SUMMARY": "Teach a computer to recognise visual style",
-            "DESCRIPTION": "Make a game in Scratch to test whether it really is possible to judge a book by its cover.",
+            "DESCRIPTION": "Make a game that tests whether it really is possible to judge a book by its cover.",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Full version of the project, where children make a game to compete against the computer to recognise books",
+                "DESCRIPTION": "Full version of the Scratch project, where children make a game to compete against the computer to recognise books",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Simplified version of the project, where children get the computer to recognise books",
+                "DESCRIPTION": "Simplified version of the Scratch project, where children get the computer to recognise books",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf"
+            },
+            "WORKSHEET_3": {
+                "DESCRIPTION": "App Inventor project, where children make a mobile app that recommends the best shelf for a book",
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-appinventor.pdf"
             },
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook.pdf"
         },
@@ -1512,12 +1500,10 @@
             "MANAGEDCLASS": "API Keys used by your class are being managed for you.",
             "HELP_STEPBYSTEP_GUIDE": "If you're not sure what to do here, please follow the <a href='/apikeys-guide'> step-by-step guide </a>. If you'd like any help, please <strong><a style='cursor: pointer;' href='/help'>get in touch</a></strong>.",
             "INTRO_WATSONASSISTANT": "Training machine learning models for <span class='mlprojecttype'>text</span> projects uses <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Assistant</a>",
-            "INTRO_VISUALRECOGNITION": "Training machine learning models for <span class='mlprojecttype'>images</span> projects in the cloud uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Visual Recognition</a>",
             "INTRO_NUMBERS": "Training machine learning models for <span class='mlprojecttype'>numbers</span> projects does <strong>not</strong> require any API keys",
             "INTRO_SOUNDS": "Training machine learning models for <span class='mlprojecttype'>sound</span> projects does <strong>not</strong> require any API keys",
             "INTRO_IMAGES": "Training machine learning models for <span class='mlprojecttype'>images</span> projects does <strong>not</strong> require any API keys",
             "ERROR_FETCHING_WATSONASSISTANT": "Не удалось получить пароли Watson Assistant",
-            "ERROR_FETCHING_VISUALRECOG": "Не удалось получить ключи API визуального распознавания",
             "USERNAME": "Имя пользователя",
             "PASSWORD": "Пароль",
             "APIKEY": "API ключ",
@@ -1525,12 +1511,9 @@
             "UNKNOWN": "неизвестно",
             "UNLIMITED": "безлимитно",
             "LIMIT_TEXT_PROJECTS": "Количество текстовых моделей машинного обучения, которые могут иметь ваши ученики:",
-            "LIMIT_IMAGE_PROJECTS": "Количество моделей машинного обучения для изображений, которые могут иметь ваши ученики:",
             "ADD_API_KEYS": {
                 "ASSISTANT_TITLE": "Добавить учетные данные Watson Assistant",
-                "VISUAL_RECOGNITION_TITLE": "Добавить ключ API визуального распознавания",
                 "USED_FOR_TEXT_PROJECTS": "Они будут использоваться, когда ваши студенты обучают модели в проектах с текстами.",
-                "USED_FOR_IMAGE_PROJECTS": "Они будут использоваться, когда ваши студенты будут обучать модели в проектах с изображениями.",
                 "HIDDEN_FROM_STUDENTS": "Это не будет показано ученикам в вашей группе.",
                 "PRICING_PLAN": "Какой тарифный план вы использовали?",
                 "ENTER_APIKEY": "Пожалуйста, введите ключ API ниже",
@@ -1665,6 +1648,9 @@
             "mlforkids.imageblocks.saveScreenshotToCostume": "save screenshot to costume"
         },
         "GUI": {
+            "gui.menuBar.ml4kidssharing": "Share",
+            "gui.menuBar.mlforkidsstartrecording": "Start recording the Stage",
+            "gui.menuBar.mlforkidsstoprecording": "Stop recording the Stage",
             "gui.menuBar.mlforkidsLibrary": "Шаблоны проектов",
             "gui.mlforkidsLibrary.templates": "Машинное обучение для детей - шаблоны проектов"
         }
@@ -1687,37 +1673,11 @@
         },
         "PROJECTS": {
             "TITLE": "Project questions",
-            "Q1": "What is the difference between training image models \"on your computer\" or \"in the cloud\"?",
-            "Q1-A-1": "These can both be used to create the same sort of machine learning projects. The difference is where the models are created and stored.",
-            "Q1-A-2": "If you choose \"<strong>in the cloud</strong>\" machine learning models are trained on cloud servers using an online service called Watson Visual Recognition.",
-            "Q1-A-3": "If you choose \"<strong>on your computer</strong>\" machine learning models are trained on the student's own computer, in the web browser.",
-            "Q1-A-4": "\"<strong>in the cloud</strong>\" is good because:",
-            "Q1-A-7": "It can create models that are more accurate, particularly when using a small number of training examples.",
-            "Q1-A-8": "But, it takes several minutes to train while you wait for your turn on the cloud server.",
-            "Q1-A-9": "\"<strong>on your computer</strong>\" is good because:",
-            "Q1-A-10": "It can be much quicker to train, because it starts training immediately without waiting for a turn on the cloud server.",
-            "Q1-A-12": "Models do not need to be automatically deleted.",
-            "Q2": "How can you change an \"images\" project to train in the cloud, or to train on your computer?",
-            "Q2-A-1": "You can change between the two modes from the \"Learn & Test\" page for your project.",
-            "Q2-A-2": "The link to do this is in top-right of the page.",
-            "Q2-A-3": "Any existing machine learning models for the project will be deleted if this is done.",
-            "Q2-A-4": "The Scratch blocks for image projects work differently for the two different modes, so if you have a Scratch window open when you do this, you will need to refresh the page so that the Scratch extension can be updated.",
-            "Q3": "Why can I only make something with Scratch or Python for my machine learning project?",
-            "Q3-A-1": "Machine learning models that are trained on your own computer can only be accessed from Scratch (which has been updated so that it can access machine learning models stored in your web browser) and Python (for images projects only).",
-            "Q3-A-2": "Machine learning models that are trained in the cloud can be accessed from Scratch, Python, or App Inventor - as all of these are able to access machine learning models stored in the cloud.",
-            "Q3-A-3": "If you only see 'Scratch 3' as an option when you make something with your machine learning project, it means your machine learning model is being stored in your web browser.",
             "Q4": "Which machine learning models are trained on your computer, and which are trained in the cloud?",
             "Q4-A-1": "<strong>text</strong> projects can only be trained in the cloud.",
             "Q4-A-2": "<strong>numbers</strong> projects can only be trained in the cloud.",
             "Q4-A-3": "<strong>sounds</strong> projects can only be trained on your computer.",
-            "Q4-A-4": "<strong>images</strong> projects can be trained on your computer, or (if you have access to Watson Visual Recognition) in the cloud.",
-            "Q5": "Which students can train images machine learning projects in the cloud?",
-            "Q5-A-1": "<strong>images</strong> projects can be trained on your computer, or (if you have access to Watson Visual Recognition) in the cloud.",
-            "Q5-A-2": "Training machine learning models for <strong>images</strong> projects uses the Watson Visual Recognition service. IBM <a href='https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-getting-started-tutorial'>discontinued the Watson Visual Recognition service</a> on 7th January 2021, which means access to this is now limited. The Visual Recognition service is being withdrawn completely on 1st December 2021.",
-            "Q5-A-3": "Students in managed classes will continue to be able to choose whether to train image machine learning models on their computer or in the cloud until 1st December 2021.",
-            "Q5-A-4": "Students in unmanaged classes with Visual Recognition API keys set up before 7th January 2021 will continue to be able to train image machine learning models on their computer or in the cloud, until 1st December 2021.",
-            "Q5-A-5": "Students in unmanaged classes created after 7th January 2021 can only train image machine learning models on their computer.",
-            "Q5-A-6": "Students using 'Try it now' can only train image machine learning models on their computer."
+            "Q4-A-4": "<strong>images</strong> projects can be trained on your computer, or (if you have access to Watson Visual Recognition) in the cloud."
         },
         "SCRATCH": {
             "TITLE": "Проблемы со Scratch",
@@ -1763,14 +1723,6 @@
             "Q3-A-5": "If a student who has a successfully trained model then deletes their model, this will free up a skill for use by another student.",
             "Q3-A-6": "One way to avoid this error in future would be smaller class sizes. If there are fewer students than the number of skills supported by the Watson Assistant credentials, then the limits will not be hit.",
             "Q3-A-7": "Another way to avoid this error is to add additional Watson Assistant API keys to the class, or to use a Watson Assistant instance \"plan\" that has higher limits.",
-            "Q4": "\"Watson Visual Recognition API keys have no more classifiers available\"",
-            "Q4-A-1": "Модели машинного обучения в данном сервисе создаются с использованием API-интерфейсов IBM Watson.",
-            "Q4-A-2": "Watson Visual Recognition credentials created by teachers have a limit on the number of machine learning models that they can be used to create. This is displayed in the IBM Cloud UI where the credentials were created, where they are called \"custom classifiers\".",
-            "Q4-A-3": "Если этот предел превышен, попытки обучить новые модели машинного обучения провалятся, и будет показано это сообщение:",
-            "Q4-A-4": "Your class already has created their maximum allowed number of models. Please let your teacher or group leader know that their \"Watson Visual Recognition API keys have no more classifiers available\".",
-            "Q4-A-5": "If a student who has a successfully trained model then deletes their model, this will free up a custom classifier for use by another student.",
-            "Q4-A-6": "One way to avoid this error in future would be smaller class sizes. If there are fewer students than the number of custom classifiers supported by the Watson Visual Recognition credentials, then the limits will not be hit.",
-            "Q4-A-7": "Another way to avoid this error is to add additional Watson Visual Recognition API keys to the class, or to use a Watson Visual Recognition instance \"plan\" that has higher limits.",
             "Q5": "\"Watson ... в настоящее время ограничивает скорость своего API-ключа\"",
             "Q5-A-1": "Модели машинного обучения в данном сервисе создаются с использованием API-интерфейсов IBM Watson.",
             "Q5-A-2": "If you have an \"unmanaged\" class account, then your teacher or group leader will need to provide Watson API credentials from IBM Cloud for this to work.",
@@ -1933,6 +1885,14 @@
             "QNA_3": "It is a type of machine learning model called <a href='https://github.com/google-research/bert'>BERT</a> which is useful for projects with text.",
             "QNA_4": "It has been trained using a set of questions and answers from Wikipedia articles collected by Stanford University called '<a href='https://rajpurkar.github.io/SQuAD-explorer'>SQuAD</a>'.",
             "QNA_5": "This is a complex model, so you might find that it is slow and needs a lot of memory on your computer!"
+        },
+        "SPICE": {
+            "TITLE": "Pitch estimation",
+            "SPICE_1": "This model can be used to recognize a note being sung from your computer's microphone.",
+            "SPICE_2": "It gives you blocks that will return the frequency of a note it recognized, and to convert that into the name or MIDI note.",
+            "SPICE_3": "The model, called <a href='https://ai.googleblog.com/2019/11/spice-self-supervised-pitch-estimation.html'>SPICE</a>, has been trained to identify the dominant pitch in sung audio, including being able to recognize a sung note even if there is background music and noise.",
+            "SPICE_4": "The training data used for this model came from <a href='https://sites.google.com/site/unvoicedsoundseparation/mir-1k'>MIR-1K</a>, which is a set of 1000 short sound recordings of amateur singers singing along to karaoke.",
+            "SPICE_5": "You will need to let Scratch use your microphone to use this model."
         },
         "IDEAS": {
             "IDEAS_1": "Are there other machine learning models you would like to be able to use in your Scratch projects?",

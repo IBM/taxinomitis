@@ -83,10 +83,10 @@
                            ng-disabled="creating"
                            ng-focus="vm.focused = 'type'"
                            class="newprojecttype">
-                    <md-option value="text" translate="WORKSHEETS.TYPES.TEXT"></md-option>
-                    <md-option value="IMAGES" translate="WORKSHEETS.TYPES.IMAGES"></md-option>
+                    <md-option value="text"    translate="WORKSHEETS.TYPES.TEXT"></md-option>
+                    <md-option value="imgtfjs" translate="WORKSHEETS.TYPES.IMAGES"></md-option>
                     <md-option value="numbers" translate="WORKSHEETS.TYPES.NUMBERS"></md-option>
-                    <md-option value="sounds" translate="WORKSHEETS.TYPES.SOUNDS"></md-option>
+                    <md-option value="sounds"  translate="WORKSHEETS.TYPES.SOUNDS"></md-option>
                 </md-select>
             </md-input-container>
             <div class="well newprojecthelp"
@@ -96,31 +96,6 @@
                 <div translate="NEWPROJECT.TYPES.NOTES_3"></div>
                 <div translate="NEWPROJECT.TYPES.NOTES_4"></div>
                 <div translate="NEWPROJECT.TYPES.NOTES_5"></div>
-            </div>
-        </div>
-
-
-        <!-- ---------------------------------------- -->
-        <!--   MODEL LOCATION                         -->
-        <!--                                          -->
-        <!-- displayed only for image projects        -->
-        <!-- ---------------------------------------- -->
-        <div class="newprojectfields newprojectlanguage" ng-show="projectType === 'IMAGES' && canChooseImageModelType">
-            <md-input-container class="newprojectform">
-                <label translate="NEWPROJECT.IMAGEPROJECTS.LABEL"></label>
-                <md-select ng-model="imagesmodeltype"
-                           ng-focus="vm.focused = 'imageprojects'"
-                           ng-disabled="creating"
-                           class="newprojecttype">
-                    <md-option value="imgtfjs" ng-selected="supportsLocalImageProjects" translate="NEWPROJECT.IMAGEPROJECTS.TYPES.IMGTFJS"></md-option>
-                    <md-option value="images" ng-selected="!supportsLocalImageProjects" translate="NEWPROJECT.IMAGEPROJECTS.TYPES.IMAGES"></md-option>
-                </md-select>
-            </md-input-container>
-            <div class="well newprojecthelp"
-                    ng-if="vm.focused === 'imageprojects' && projectType === 'IMAGES' && !creating">
-                <div translate="NEWPROJECT.IMAGEPROJECTS.NOTES_1" class="helpfirstline"></div>
-                <div translate="NEWPROJECT.IMAGEPROJECTS.NOTES_2" class="helpfirstline"></div>
-                <div translate="NEWPROJECT.IMAGEPROJECTS.NOTES_3"></div>
             </div>
         </div>
 
@@ -289,7 +264,7 @@
             <md-button
                 class="md-raised md-primary"
                 ng-disabled="creating || newProject.$invalid || isInvalid(projectType)"
-                ng-click="vm.confirm({ name : projectName, type : getProjectType(projectType, imagesmodeltype), fields : vm.fields, language : language, isCrowdSourced : (isTeacher && crowdSourced) ? true : false })"
+                ng-click="vm.confirm({ name : projectName, type : projectType, fields : vm.fields, language : language, isCrowdSourced : (isTeacher && crowdSourced) ? true : false })"
                 translate="NEWPROJECT.CREATE">
             </md-button>
             <md-button ui-sref="projects" translate="APP.CANCEL"></md-button>

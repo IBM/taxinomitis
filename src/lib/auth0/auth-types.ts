@@ -93,7 +93,6 @@ export interface SupervisorInfo {
 
 export interface BluemixCredentialsCounts {
     readonly conv: number;
-    readonly visrec: number;
     readonly total: number;
 }
 

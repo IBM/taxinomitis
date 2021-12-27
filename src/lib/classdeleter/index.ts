@@ -91,7 +91,7 @@ export async function deleteStudents(classid: string, studentids: string[]): Pro
             successes.push(studentid);
         }
         catch (err) {
-            if (err.message === 'The user does not exist') {
+            if (err.message === 'The user does not exist.') {
                 log.debug({ err, studentid }, 'Received duplicate delete request');
             }
             else {

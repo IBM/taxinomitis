@@ -332,9 +332,7 @@ function modifyPolicy(req: Express.Request, res: Express.Response) {
                   });
     }
 
-    return store.modifyClassTenantExpiries(tenant,
-                                           patch.textClassifierExpiry,
-                                           patch.imageClassifierExpiry)
+    return store.modifyClassTenantExpiries(tenant, patch.textClassifierExpiry)
         .then((modified) => {
             res.json(modified);
         })
@@ -444,20 +442,17 @@ async function getPolicy(req: Express.Request, res: Express.Response) {
             availableCredentials = await store.countBluemixCredentialsByType(tenant);
         }
         const availableTextCredentials = availableCredentials.conv;
-        const availableImageCredentials = availableCredentials.visrec;
 
         return res.json({
             isManaged : policy.tenantType !== ClassTenantType.UnManaged,
             tenantType : policy.tenantType,
 
             maxTextModels : availableTextCredentials,
-            maxImageModels : availableImageCredentials,
 
             maxUsers : policy.maxUsers,
             supportedProjectTypes : policy.supportedProjectTypes,
             maxProjectsPerUser : policy.maxProjectsPerUser,
             textClassifierExpiry : policy.textClassifierExpiry,
-            imageClassifierExpiry : policy.imageClassifierExpiry,
 
             textTrainingItemsPerProject : storelimits.textTrainingItemsPerProject,
             numberTrainingItemsPerProject : storelimits.numberTrainingItemsPerProject,
@@ -605,7 +600,6 @@ function getUserPatch(req: Express.Request): UserPatch {
 
 interface PolicyPatch {
     textClassifierExpiry: number;
-    imageClassifierExpiry: number;
 }
 type ClassPatch = ClassGroupAddPatch | ClassGroupRemovePatch | ClassStudentDeletesPatch;
 interface ClassGroupAddPatch {
@@ -629,30 +623,27 @@ function getPolicyPatch(req: Express.Request): PolicyPatch
     if (Array.isArray(patchRequests) === false) {
         throw new Error('PATCH body should be an array');
     }
-    if (patchRequests.length !== 2) {
-        throw new Error('PATCH body should include 2 values');
+    if (patchRequests.length !== 1) {
+        throw new Error('PATCH body should include 1 value');
     }
 
     const patch = {
         textClassifierExpiry : 0,
-        imageClassifierExpiry : 0,
     };
 
-    patchRequests.forEach((patchRequest: any) => {
-        if (patchRequest &&
-            patchRequest.op &&
-            patchRequest.path &&
-            patchRequest.value &&
-            patchRequest.op === 'replace' &&
-            (patchRequest.path === '/textClassifierExpiry' || patchRequest.path === '/imageClassifierExpiry'))
-        {
-            const path: 'textClassifierExpiry' | 'imageClassifierExpiry' = patchRequest.path.substr(1);
-            patch[path] = patchRequest.value;
-        }
-        else {
-            throw new Error('Invalid PATCH request');
-        }
-    });
+    const patchRequest = patchRequests[0];
+    if (patchRequest &&
+        patchRequest.op &&
+        patchRequest.path &&
+        patchRequest.value &&
+        patchRequest.op === 'replace' &&
+        patchRequest.path === '/textClassifierExpiry')
+    {
+        patch.textClassifierExpiry = patchRequest.value;
+    }
+    else {
+        throw new Error('Invalid PATCH request');
+    }
 
     return patch;
 }

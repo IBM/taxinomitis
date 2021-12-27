@@ -372,17 +372,6 @@ async function modifyProject(req: Express.Request, res: Express.Response) {
                 response = [];
             }
         }
-        else if (patch.path === '/type') {
-            // the only valid change of project type is between images and imgtfjs, as they
-            //  both store training data in the same place and in the same way
-            const oldtype = patch.value === 'images' ? 'imgtfjs' : 'images';
-            if (oldtype === 'images') {
-                await store.deleteWatsonClassifiers(projectid, classid);
-            }
-
-            await store.updateProjectType(userid, classid, projectid, oldtype, patch.value);
-            response = [];
-        }
         else {
             return errors.missingData(res);
         }

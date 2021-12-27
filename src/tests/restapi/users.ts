@@ -86,14 +86,12 @@ describe('REST API - users', () => {
 
                     assert.deepStrictEqual(body, {
                         maxTextModels : 0,
-                        maxImageModels : 0,
                         maxUsers: 30,
                         supportedProjectTypes: [ 'text', 'imgtfjs', 'numbers', 'sounds' ],
                         tenantType : Types.ClassTenantType.UnManaged,
                         isManaged : false,
                         maxProjectsPerUser: 3,
                         textClassifierExpiry: 24,
-                        imageClassifierExpiry : 24,
                         textTrainingItemsPerProject : 500,
                         numberTrainingItemsPerProject : 1000,
                         numberTrainingItemsPerClassProject : 3000,

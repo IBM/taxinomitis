@@ -9,11 +9,14 @@ import * as proxyquire from 'proxyquire';
 import * as coreReq from 'request';
 import * as requestPromise from 'request-promise';
 import * as Express from 'express';
+import { readFile } from 'fs/promises';
+import { Buffer } from 'buffer';
 
 import * as DbTypes from '../../lib/db/db-types';
 import * as Types from '../../lib/training/training-types';
 
 import * as store from '../../lib/db/store';
+import * as objectstore from '../../lib/objectstore';
 import * as limits from '../../lib/db/limits';
 import * as auth from '../../lib/restapi/auth';
 import * as conversation from '../../lib/training/conversation';
@@ -57,6 +60,8 @@ describe('REST API - scratch keys', () => {
         proxyquire('../../lib/training/conversation', {
             'request-promise' : deleteStub,
         });
+
+        objectstore.init();
     });
 
 
@@ -389,6 +394,67 @@ describe('REST API - scratch keys', () => {
                 });
         });
 
+        it('should not allow scratch keys to make classify calls for imgtfjs models', async () => {
+            const projectid = uuid();
+
+            const project: DbTypes.Project = {
+                id : projectid,
+                name : 'Test Project',
+                userid : 'userid',
+                classid : TESTCLASS,
+                type : 'imgtfjs',
+                language : 'en',
+                labels : [],
+                numfields : 0,
+                isCrowdSourced : false,
+            };
+
+            const key = await store.storeUntrainedScratchKey(project);
+
+            return request(testServer)
+                .post('/api/scratch/' + key + '/classify')
+                .send({ data : 'haddock' })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, {
+                        error : 'Classification for this project is only available in the browser',
+                    });
+
+                    return store.deleteScratchKey(key);
+                });
+        });
+
+        it('should not allow scratch keys to make classify calls for sound models', async () => {
+            const projectid = uuid();
+
+            const project: DbTypes.Project = {
+                id : projectid,
+                name : 'Test Project',
+                userid : 'userid',
+                classid : TESTCLASS,
+                type : 'sounds',
+                language : 'en',
+                labels : [],
+                numfields : 0,
+                isCrowdSourced : false,
+            };
+
+            const key = await store.storeUntrainedScratchKey(project);
+
+            return request(testServer)
+                .post('/api/scratch/' + key + '/classify')
+                .send({ data : 'haddock' })
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.BAD_REQUEST)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, {
+                        error : 'Sound classification is only available in the browser',
+                    });
+
+                    return store.deleteScratchKey(key);
+                });
+        });
 
         it('should handle unknown scratch keys by jsonp', async () => {
             const callbackFunctionName = 'jsonpCallback';
@@ -1426,6 +1492,270 @@ describe('REST API - scratch keys', () => {
 
     describe('training data', () => {
 
+        it('should verify scratch keys', async () => {
+            const userid = uuid();
+            const label = 'MYLAB';
+            const testProject = await store.storeProject(userid, TESTCLASS, 'text', 'name', 'en', [], false);
+            await store.addLabelToProject(userid, TESTCLASS, testProject.id, label);
+            const storedText = await store.storeTextTraining(testProject.id, 'test', label);
+
+            await store.storeUntrainedScratchKey(testProject);
+
+            await request(testServer)
+                .get('/api/scratch/' + 'NOT-THE-SCRATCH-KEY' +
+                     '/images/api' +
+                     '/classes/' + TESTCLASS +
+                     '/students/' + userid +
+                     '/projects/' + testProject.id +
+                     '/images/' + storedText.id +
+                     '?proxy=true')
+                .expect(httpstatus.NOT_FOUND)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, { error : 'Scratch key not found' });
+                });
+
+            await store.deleteEntireProject(userid, TESTCLASS, testProject);
+        });
+
+        it('should only allow training downloads for image projects', async () => {
+            const userid = uuid();
+            const label = 'MYLAB';
+            const testProject = await store.storeProject(userid, TESTCLASS, 'text', 'name', 'en', [], false);
+            await store.addLabelToProject(userid, TESTCLASS, testProject.id, label);
+            const storedText = await store.storeTextTraining(testProject.id, 'test', label);
+
+            const scratchKey = await store.storeUntrainedScratchKey(testProject);
+
+            await request(testServer)
+                .get('/api/scratch/' + scratchKey +
+                     '/images/api' +
+                     '/classes/' + TESTCLASS +
+                     '/students/' + userid +
+                     '/projects/' + testProject.id +
+                     '/images/' + storedText.id +
+                     '?proxy=true')
+                .expect(httpstatus.FORBIDDEN)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, { error : 'Invalid access' });
+                });
+
+            await store.deleteEntireProject(userid, TESTCLASS, testProject);
+        });
+
+        it('should only allow training downloads for Vis Rec projects', async () => {
+            const userid = uuid();
+            const label = 'MYLAB';
+            const imgurl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Thomas_J_Watson_Sr.jpg/148px-Thomas_J_Watson_Sr.jpg';
+            const testProject = await store.storeProject(userid, TESTCLASS, 'images', 'name', 'en', [], false);
+            await store.addLabelToProject(userid, TESTCLASS, testProject.id, label);
+            const storedImage = await store.storeImageTraining(testProject.id, imgurl, label, false);
+
+            const scratchKey = await store.storeUntrainedScratchKey(testProject);
+
+            await request(testServer)
+                .get('/api/scratch/' + scratchKey +
+                     '/images/api' +
+                     '/classes/' + TESTCLASS +
+                     '/students/' + userid +
+                     '/projects/' + testProject.id +
+                     '/images/' + storedImage.id +
+                     '?proxy=true')
+                .expect(httpstatus.FORBIDDEN)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, { error : 'Invalid access' });
+                });
+
+            await store.deleteEntireProject(userid, TESTCLASS, testProject);
+        });
+
+        it('should retrieve resized images ready for use in training', async () => {
+            const userid = uuid();
+            const label = 'MYLAB';
+            const imgurl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Thomas_J_Watson_Sr.jpg/148px-Thomas_J_Watson_Sr.jpg';
+            const testProject = await store.storeProject(userid, TESTCLASS, 'imgtfjs', 'name', 'en', [], false);
+            await store.addLabelToProject(userid, TESTCLASS, testProject.id, label);
+            const storedImage = await store.storeImageTraining(testProject.id, imgurl, label, false);
+
+            const scratchKey = await store.storeUntrainedScratchKey(testProject);
+
+            const testFileData = await readFile('./src/tests/utils/resources/watson-1.jpg');
+
+            await request(testServer)
+                .get('/api/scratch/' + scratchKey +
+                     '/images/api' +
+                     '/classes/' + TESTCLASS +
+                     '/students/' + userid +
+                     '/projects/' + testProject.id +
+                     '/images/' + storedImage.id +
+                     '?proxy=true')
+                .expect(httpstatus.OK)
+                .then((res) => {
+                    const isEq = Buffer.compare(res.body, testFileData);
+                    assert.strictEqual(isEq, 0);
+                });
+
+            await store.deleteEntireProject(userid, TESTCLASS, testProject);
+        });
+
+        it('should require a proxy query parameter to retrieve resized images', async () => {
+            const userid = uuid();
+            const label = 'MYLAB';
+            const imgurl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Thomas_J_Watson_Sr.jpg/148px-Thomas_J_Watson_Sr.jpg';
+            const testProject = await store.storeProject(userid, TESTCLASS, 'imgtfjs', 'name', 'en', [], false);
+            await store.addLabelToProject(userid, TESTCLASS, testProject.id, label);
+            const storedImage = await store.storeImageTraining(testProject.id, imgurl, label, false);
+
+            const scratchKey = await store.storeUntrainedScratchKey(testProject);
+
+            await request(testServer)
+                .get('/api/scratch/' + scratchKey +
+                     '/images/api' +
+                     '/classes/' + TESTCLASS +
+                     '/students/' + userid +
+                     '/projects/' + testProject.id +
+                     '/images/' + storedImage.id)
+                .expect(httpstatus.NOT_FOUND)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, { error : 'File not found' });
+                });
+
+            await store.deleteEntireProject(userid, TESTCLASS, testProject);
+        });
+
+        it('should retrieve resized stored images ready for use in training', async () => {
+            const userid = uuid();
+            const objectid = uuid();
+            const label = 'MYLAB';
+            const testProject = await store.storeProject(userid, TESTCLASS, 'imgtfjs', 'name', 'en', [], false);
+            await store.addLabelToProject(userid, TESTCLASS, testProject.id, label);
+            const testFileData = await readFile('./src/tests/utils/resources/watson-1.jpg');
+            const spec = {
+                classid : TESTCLASS,
+                projectid : testProject.id,
+                objectid, userid,
+            };
+            await objectstore.storeImage(spec, 'image/jpg', testFileData);
+
+            const storedImage = await store.storeImageTraining(testProject.id, 'imgurl', label, true, objectid);
+
+            const scratchKey = await store.storeUntrainedScratchKey(testProject);
+
+            await request(testServer)
+                .get('/api/scratch/' + scratchKey +
+                     '/images/api' +
+                     '/classes/' + TESTCLASS +
+                     '/students/' + userid +
+                     '/projects/' + testProject.id +
+                     '/images/' + storedImage.id)
+                .expect(httpstatus.OK)
+                .then((res) => {
+                    const isEq = Buffer.compare(res.body, testFileData);
+                    assert.strictEqual(isEq, 0);
+                });
+
+            await objectstore.deleteObject(spec);
+            await store.deleteEntireProject(userid, TESTCLASS, testProject);
+        });
+
+        it('should retrieve resized stored images ready for use in training even if proxy is requested', async () => {
+            const userid = uuid();
+            const objectid = uuid();
+            const label = 'MYLAB';
+            const testProject = await store.storeProject(userid, TESTCLASS, 'imgtfjs', 'name', 'en', [], false);
+            await store.addLabelToProject(userid, TESTCLASS, testProject.id, label);
+            const testFileData = await readFile('./src/tests/utils/resources/watson-1.jpg');
+            const spec = {
+                classid : TESTCLASS,
+                projectid : testProject.id,
+                objectid, userid,
+            };
+            await objectstore.storeImage(spec, 'image/jpg', testFileData);
+
+            const storedImage = await store.storeImageTraining(testProject.id, 'imgurl', label, true, objectid);
+
+            const scratchKey = await store.storeUntrainedScratchKey(testProject);
+
+            await request(testServer)
+                .get('/api/scratch/' + scratchKey +
+                     '/images/api' +
+                     '/classes/' + TESTCLASS +
+                     '/students/' + userid +
+                     '/projects/' + testProject.id +
+                     '/images/' + storedImage.id)
+                .expect(httpstatus.OK)
+                .then((res) => {
+                    const isEq = Buffer.compare(res.body, testFileData);
+                    assert.strictEqual(isEq, 0);
+                });
+
+            await objectstore.deleteObject(spec);
+            await store.deleteEntireProject(userid, TESTCLASS, testProject);
+        });
+
+        it('handle missing data in object storage', async () => {
+            const userid = uuid();
+            const objectid = uuid();
+            const label = 'MYLAB';
+            const testProject = await store.storeProject(userid, TESTCLASS, 'imgtfjs', 'name', 'en', [], false);
+            await store.addLabelToProject(userid, TESTCLASS, testProject.id, label);
+            const testFileData = await readFile('./src/tests/utils/resources/watson-1.jpg');
+            const spec = {
+                classid : TESTCLASS,
+                projectid : testProject.id,
+                objectid, userid,
+            };
+            await objectstore.storeImage(spec, 'image/jpg', testFileData);
+
+            const storedImage = await store.storeImageTraining(testProject.id, 'imgurl', label, true, objectid);
+
+            const scratchKey = await store.storeUntrainedScratchKey(testProject);
+
+            await objectstore.deleteObject(spec);
+
+            await request(testServer)
+                .get('/api/scratch/' + scratchKey +
+                     '/images/api' +
+                     '/classes/' + TESTCLASS +
+                     '/students/' + userid +
+                     '/projects/' + testProject.id +
+                     '/images/' + storedImage.id)
+                .expect(httpstatus.NOT_FOUND)
+                .then((res) => {
+                    assert.deepStrictEqual(res.body, { error : 'File not found' });
+                });
+
+            await store.deleteEntireProject(userid, TESTCLASS, testProject);
+        });
+
+        it('should retrieve resized images ready for use in training', async () => {
+            const userid = uuid();
+            const label = 'MYLAB';
+            const imgurl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Thomas_J_Watson_Sr.jpg/148px-Thomas_J_Watson_Sr.jpg';
+            const testProject = await store.storeProject(userid, TESTCLASS, 'imgtfjs', 'name', 'en', [], false);
+            await store.addLabelToProject(userid, TESTCLASS, testProject.id, label);
+            const storedImage = await store.storeImageTraining(testProject.id, imgurl, label, false);
+
+            const scratchKey = await store.storeUntrainedScratchKey(testProject);
+
+            const testFileData = await readFile('./src/tests/utils/resources/watson-1.jpg');
+
+            await request(testServer)
+                .get('/api/scratch/' + scratchKey +
+                     '/images/api' +
+                     '/classes/' + TESTCLASS +
+                     '/students/' + userid +
+                     '/projects/' + testProject.id +
+                     '/images/' + storedImage.id +
+                     '?proxy=true')
+                .expect(httpstatus.OK)
+                .then((res) => {
+                    const isEq = Buffer.compare(res.body, testFileData);
+                    assert.strictEqual(isEq, 0);
+                });
+
+            await store.deleteEntireProject(userid, TESTCLASS, testProject);
+        });
+
         it('should not work for text projects', async () => {
             const userid = uuid();
             const name = uuid();
@@ -1521,6 +1851,45 @@ describe('REST API - scratch keys', () => {
                     for (const url of urls) {
                         assert.strictEqual(body.filter((item) => { return item.imageurl === url; }).length, 1);
                     }
+                });
+
+            await store.deleteEntireProject(userid, TESTCLASS, testProject);
+        });
+
+        it('should retrieve image training lists with proxied URLs', async () => {
+            const userid = uuid();
+            const name = uuid();
+
+            const testProject = await store.storeProject(userid, TESTCLASS, 'imgtfjs', name, 'en', [], false);
+            await store.addLabelToProject(userid, TESTCLASS, testProject.id, 'test');
+            const urls = [
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/IBM_logo.svg/320px-IBM_logo.svg.png',
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Thomas_J_Watson_Sr.jpg/148px-Thomas_J_Watson_Sr.jpg',
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Old_Map_Hursley_1607.jpg/218px-Old_Map_Hursley_1607.jpg?download',
+            ];
+            await Promise.all(urls.map((url) => {
+                return store.storeImageTraining(testProject.id, url, 'test', false);
+            }));
+            await store.storeImageTraining(testProject.id, 'somethinginternal', 'test', true, uuid());
+
+            const scratchKey = await store.storeUntrainedScratchKey(testProject);
+
+            await request(testServer)
+                .get('/api/scratch/' + scratchKey + '/train?proxy=true')
+                .expect('Content-Type', /json/)
+                .expect(httpstatus.OK)
+                .then((res) => {
+                    const body = res.body;
+                    assert(Array.isArray(body));
+                    assert.strictEqual(body.length, 4);
+                    assert.strictEqual(body.filter((item) => {
+                        return item.imageurl.includes('/api/scratch/' + scratchKey +
+                            '/images/api/classes/classid' +
+                            '/students/userid' +
+                            '/projects/' + testProject.id +
+                            '/images/' + item.id +
+                            '?proxy=true');
+                    }).length, 3);
                 });
 
             await store.deleteEntireProject(userid, TESTCLASS, testProject);

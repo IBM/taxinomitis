@@ -47,20 +47,14 @@ async function getUnmanagedClassifiers(reqWithTenant: auth.RequestWithTenant, re
     }
 
     // fetch the two lists of problem classifiers in parallel
-    const responsePromises = [
-        classifiers.getUnknownTextClassifiers(reqWithTenant.tenant),
-        classifiers.getUnknownImageClassifiers(reqWithTenant.tenant),
-    ];
-
-    Promise.all(responsePromises)
+    classifiers.getUnknownTextClassifiers(reqWithTenant.tenant)
         .then((response) => {
             // it's expensive to generate these lists, so tell
             //  the browsers to cache it for an hour before
             //  requesting it again
             res.set(headers.CACHE_1HOUR)
                .json({
-                   conv : response[0].map(filterClassifierInfo),
-                   visrec : response[1].map(filterClassifierInfo),
+                   conv : response.map(filterClassifierInfo),
                });
         })
         .catch((err) => {
@@ -87,7 +81,7 @@ async function deleteBluemixClassifier(reqWithTenant: auth.RequestWithTenant, re
     }
 
     const type: string = reqWithTenant.query.type as string;
-    if (!type || (type !== 'conv' && type !== 'visrec')) {
+    if (!type || type !== 'conv') {
         return errors.missingData(res);
     }
 

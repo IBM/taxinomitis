@@ -13,11 +13,13 @@ manifest-dev.yml
 manifest-prod-ussouth.yml
 manifest-prod-eude.yml
 manifest-prod-eugb.yml
+manifest-prod-ausyd.yml
 ops/deploy.sh
 ops/rollback.sh
 ops/*.sql
 ops/us-routes.sh
 ops/de-routes.sh
+ops/au-routes.sh
 ops/scaling-*.json
 archive
 .DS_Store

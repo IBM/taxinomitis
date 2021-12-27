@@ -561,21 +561,6 @@ export function getCredentialsPoolAsDbRow(obj: TrainingObjects.BluemixCredential
     };
 }
 
-function validateVisrecApiKey(apikey?: string): string {
-    if (apikey) {
-        if (apikey.length === 44 || apikey.length === 40) {
-            // yay - valid
-            return apikey;
-        }
-        else {
-            throw new Error('Invalid API key');
-        }
-    }
-    else {
-        throw new Error('Missing required attributes');
-    }
-}
-
 function getCredentialsType(
     servicetype: TrainingObjects.BluemixServiceType,
     credstype?: string,
@@ -596,11 +581,6 @@ function getCredentialsType(
             return credstype;
         }
         throw new Error('Invalid credentials type');
-    case 'visrec':
-        if (credstype === 'visrec_lite' || credstype === 'visrec_standard') {
-            return credstype;
-        }
-        throw new Error('Invalid credentials type');
     default:
         throw new Error('Invalid service type');
     }
@@ -618,22 +598,7 @@ export function createBluemixCredentials(
         throw new Error('Missing required attributes');
     }
 
-    if (servicetype === 'visrec') {
-        apikey = validateVisrecApiKey(apikey);
-
-        return {
-            id : uuid(),
-            username : apikey.substr(0, 22),
-            password : apikey.substr(22),
-            classid,
-            servicetype : 'visrec',
-            url : apikey.length === 40 ?
-                'https://gateway-a.watsonplatform.net/visual-recognition/api' :
-                'https://gateway.watsonplatform.net/visual-recognition/api',
-            credstype : getCredentialsType('visrec', credstype),
-        };
-    }
-    else if (servicetype === 'conv') {
+    if (servicetype === 'conv') {
         if (username && password) {
             if (username.length === 36 && password.length === 12) {
                 return {
@@ -765,42 +730,6 @@ export function getNumbersClassifierFromDbRow(
 }
 
 
-export function createVisualClassifier(
-    classifierInfo: TrainingObjects.VisualClassifier,
-    credentialsInfo: TrainingObjects.BluemixCredentials,
-    project: Objects.Project,
-): TrainingObjects.ClassifierDbRow
-{
-    return {
-        id : classifierInfo.id,
-        credentialsid : credentialsInfo.id,
-        userid : project.userid,
-        projectid : project.id,
-        classid : project.classid,
-        servicetype : 'visrec',
-        classifierid : classifierInfo.classifierid,
-        url : classifierInfo.url,
-        name : classifierInfo.name,
-        created : classifierInfo.created,
-        expiry : classifierInfo.expiry,
-        language : '',
-    };
-}
-
-
-export function getVisualClassifierFromDbRow(row: TrainingObjects.ClassifierDbRow): TrainingObjects.VisualClassifier {
-    return {
-        id : row.id,
-        classifierid : row.classifierid,
-        credentialsid : row.credentialsid,
-        url : row.url,
-        name : row.name,
-        created : row.created,
-        expiry : row.expiry,
-    };
-}
-
-
 
 // -----------------------------------------------------------------------------
 //
@@ -842,10 +771,8 @@ export function getScratchKeyFromDbRow(row: Objects.ScratchKeyDbRow): Objects.Sc
         servicetype = 'conv';
         break;
     case 'imgtfjs':
-        servicetype = 'imgtfjs';
-        break;
     case 'images':
-        servicetype = 'visrec';
+        servicetype = 'imgtfjs';
         break;
     case 'numbers':
         servicetype = 'num';
@@ -908,7 +835,7 @@ export function createKnownError(
     servicetype: TrainingObjects.BluemixServiceType,
     objid: string): TrainingObjects.KnownError
 {
-    if (servicetype !== 'conv' && servicetype !== 'visrec') {
+    if (servicetype !== 'conv') {
         throw new Error('Unexpected service type');
     }
     if (type !== TrainingObjects.KnownErrorCondition.BadBluemixCredentials &&
@@ -1064,7 +991,6 @@ export function getClassFromDbRow(row: Objects.ClassDbRow): Objects.ClassTenant 
         maxUsers : row.maxusers,
         maxProjectsPerUser : row.maxprojectsperuser,
         textClassifierExpiry : row.textclassifiersexpiry,
-        imageClassifierExpiry : row.imageclassifiersexpiry,
     };
 }
 
@@ -1075,7 +1001,6 @@ export function getClassDbRow(tenant: Objects.ClassTenant): Objects.ClassDbRow {
         maxusers : tenant.maxUsers,
         maxprojectsperuser : tenant.maxProjectsPerUser,
         textclassifiersexpiry : tenant.textClassifierExpiry,
-        imageclassifiersexpiry : tenant.imageClassifierExpiry,
         ismanaged : tenant.tenantType,
     };
 }
@@ -1088,7 +1013,6 @@ export function getDefaultClassTenant(classid: string, projectTypes?: Objects.Pr
         maxUsers : 30,
         maxProjectsPerUser : 3,
         textClassifierExpiry : 24,
-        imageClassifierExpiry : 24,
     };
 }
 
@@ -1096,27 +1020,26 @@ export function getDefaultClassTenant(classid: string, projectTypes?: Objects.Pr
 
 export function setClassTenantExpiries(
     tenant: Objects.ClassTenant,
-    textexpiry: number, imageexpiry: number,
+    textexpiry: number,
 ): Objects.ClassTenant
 {
     if (!tenant) {
         throw new Error('Missing tenant info to update');
     }
-    if (!textexpiry || !imageexpiry) {
+    if (!textexpiry) {
         throw new Error('Missing required expiry value');
     }
-    if (!Number.isInteger(textexpiry) || !Number.isInteger(imageexpiry)) {
+    if (!Number.isInteger(textexpiry)) {
         throw new Error('Expiry values should be an integer number of hours');
     }
-    if (textexpiry < 1 || imageexpiry < 1) {
+    if (textexpiry < 1) {
         throw new Error('Expiry values should be a positive number of hours');
     }
-    if (textexpiry > 255 || imageexpiry > 255) {
+    if (textexpiry > 255) {
         throw new Error('Expiry values should not be greater than 255 hours');
     }
 
     tenant.textClassifierExpiry = textexpiry;
-    tenant.imageClassifierExpiry = imageexpiry;
     return tenant;
 }
 

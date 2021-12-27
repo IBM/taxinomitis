@@ -1,6 +1,5 @@
 // local dependencies
 import * as store from '../db/store';
-import * as visrec from './visualrecognition';
 import * as conv from './conversation';
 import { ClassTenant } from '../db/db-types';
 import { ClassifierSummary, BluemixServiceType, BluemixCredentials } from './training-types';
@@ -51,46 +50,6 @@ export async function getUnknownTextClassifiers(tenant: ClassTenant): Promise<Cl
 
 
 
-export async function getUnknownImageClassifiers(tenant: ClassTenant): Promise<ClassifierSummary[]>
-{
-    const unknownImageClassifiers: ClassifierSummary[] = [];
-
-    let credentialsPool: BluemixCredentials[] = [];
-
-    // get all of the Bluemix credentials in the class
-    try {
-        credentialsPool = await store.getBluemixCredentials(tenant, 'visrec');
-    }
-    catch (err) {
-        if (err.message === 'Unexpected response when retrieving service credentials') {
-            // class doesn't have any Visual Recognition credentials - which is
-            // not necessarily an error in this context
-            return unknownImageClassifiers;
-        }
-        // anything else is a legitimate error
-        throw err;
-    }
-
-    // for each API key...
-    for (const credentials of credentialsPool) {
-        // get all of the classifiers according to Bluemix / Watson
-        const bluemixClassifiers = await visrec.getImageClassifiers(credentials);
-
-        // for each Bluemix classifier...
-        for (const bluemixClassifier of bluemixClassifiers) {
-            // check if it is in the DB
-            const classifierInfo = await store.getClassifierByBluemixId(bluemixClassifier.id);
-            if (!classifierInfo) {
-                unknownImageClassifiers.push(bluemixClassifier);
-            }
-        }
-    }
-
-    return unknownImageClassifiers;
-}
-
-
-
 
 export function deleteClassifier(
     type: BluemixServiceType,
@@ -100,9 +59,6 @@ export function deleteClassifier(
 {
     if (type === 'conv') {
         return conv.deleteClassifierFromBluemix(credentials, classifierid);
-    }
-    else if (type === 'visrec') {
-        return visrec.deleteClassifierFromBluemix(credentials, classifierid);
     }
     else {
         return Promise.resolve();

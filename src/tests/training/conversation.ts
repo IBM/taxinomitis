@@ -97,7 +97,6 @@ describe('Training - Conversation', () => {
         tenantType : DbTypes.ClassTenantType.UnManaged,
         supportedProjectTypes : [ 'text', 'images', 'numbers', 'sounds' ],
         textClassifierExpiry : 1,
-        imageClassifierExpiry : 1,
         maxProjectsPerUser : 10,
     };
     const CLASS: DbTypes.ClassTenant = {
@@ -106,7 +105,6 @@ describe('Training - Conversation', () => {
         tenantType : DbTypes.ClassTenantType.UnManaged,
         supportedProjectTypes : [ 'text', 'images', 'numbers' ],
         textClassifierExpiry : 1,
-        imageClassifierExpiry : 1,
         maxProjectsPerUser : 10,
     };
 

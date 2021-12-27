@@ -20,10 +20,9 @@
                 .then(returnData);
         }
 
-        function modifyClassPolicy(profile, textexpiry, imageexpiry) {
+        function modifyClassPolicy(profile, textexpiry) {
             var modification = [
                 { op : 'replace', path : '/textClassifierExpiry', value : textexpiry },
-                { op : 'replace', path : '/imageClassifierExpiry', value : imageexpiry }
             ];
             return $http.patch('/api/classes/' + profile.tenant + '/policy', modification)
                 .then(returnData);

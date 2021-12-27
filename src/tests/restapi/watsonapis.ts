@@ -9,7 +9,6 @@ import * as randomstring from 'randomstring';
 import * as express from 'express';
 
 import * as conversation from '../../lib/training/conversation';
-import * as visualrecognition from '../../lib/training/visualrecognition';
 import * as TrainingTypes from '../../lib/training/training-types';
 import * as checker from '../../lib/training/credentialscheck';
 import * as ProjectTypes from '../../lib/db/projects';
@@ -29,10 +28,7 @@ describe('REST API - Bluemix credentials', () => {
     // let ensureUnmanagedStub;
     let getClassStub: sinon.SinonStub<[string], Promise<Types.ClassTenant>>;
     let getTextClassifiersStub: sinon.SinonStub<[string, string], Promise<string>>;
-    let getImageClassifiersStub: sinon.SinonStub<[TrainingTypes.BluemixCredentials],
-                                                 Promise<string>>;
     let testTxtMultipleCredentialsStub: sinon.SinonStub<[TrainingTypes.BluemixCredentials[]], Promise<boolean>>;
-    let testImgMultipleCredentialsStub: sinon.SinonStub<[TrainingTypes.BluemixCredentials[]], Promise<boolean>>;
 
     function authNoOp(
         req: express.Request,
@@ -48,7 +44,6 @@ describe('REST API - Bluemix credentials', () => {
     const VALID_PASSWORD = randomstring.generate({ length : 12 });
     const VALID_EU_USERNAME = randomstring.generate({ length : 36 });
     const VALID_EU_PASSWORD = randomstring.generate({ length : 12 });
-    const VALID_APIKEY = randomstring.generate({ length : 44 });
 
 
     before(async () => {
@@ -94,24 +89,6 @@ describe('REST API - Bluemix credentials', () => {
                 }
                 return Promise.resolve(false);
             });
-        testImgMultipleCredentialsStub = sinon
-            .stub(visualrecognition, 'testMultipleCredentials')
-            .callsFake((creds: TrainingTypes.BluemixCredentials[]) => {
-                if (creds[0].username + creds[0].password === VALID_APIKEY) {
-                    return Promise.resolve(true);
-                }
-                return Promise.resolve(false);
-            });
-        getImageClassifiersStub = sinon
-            .stub(visualrecognition, 'identifyRegion')
-            .callsFake((creds: TrainingTypes.BluemixCredentials) => {
-                if (creds.username + creds.password === VALID_APIKEY) {
-                    return Promise.resolve(creds.url);
-                }
-                return Promise.reject({
-                    statusCode : 403,
-                });
-            });
 
         await store.init();
         await store.deleteClassResources('TESTTENANT');
@@ -125,9 +102,7 @@ describe('REST API - Bluemix credentials', () => {
         requireSupervisorStub.restore();
         getClassStub.restore();
         getTextClassifiersStub.restore();
-        getImageClassifiersStub.restore();
         testTxtMultipleCredentialsStub.restore();
-        testImgMultipleCredentialsStub.restore();
 
         return store.disconnect();
     });
@@ -169,18 +144,6 @@ describe('REST API - Bluemix credentials', () => {
                 .then((res) => {
                     const body = res.body;
                     assert.strictEqual(body.error, 'Unrecognised servicetype parameter');
-                });
-        });
-
-        it('should fetch visrec credentials', () => {
-            const classid = 'TESTTENANT';
-            return request(testServer)
-                .get('/api/classes/' + classid + '/credentials?servicetype=visrec')
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.OK)
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, []);
                 });
         });
 
@@ -236,81 +199,6 @@ describe('REST API - Bluemix credentials', () => {
 
 
     describe('modifyCredentials', () => {
-        it('should make sure that credentials type match the service type', () => {
-            const before = ProjectTypes.credsTypesByLabel.conv_lite.label;
-            const after = ProjectTypes.credsTypesByLabel.visrec_standard.label;
-
-            const servicetype = 'conv';
-            const classid = 'TESTTENANT';
-
-            let credsid: string;
-
-            return request(testServer)
-                .post('/api/classes/' + classid + '/credentials')
-                .send({
-                    servicetype,
-                    username : VALID_USERNAME,
-                    password : VALID_PASSWORD,
-                    credstype : before,
-                })
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    assert(body.id);
-                    credsid = body.id;
-
-                    assert.strictEqual(body.username, VALID_USERNAME);
-                    assert.strictEqual(body.password, VALID_PASSWORD);
-                    assert.strictEqual(body.credstype, before);
-
-                    return request(testServer)
-                        .get('/api/classes/' + classid + '/credentials?servicetype=conv')
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then(async (res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.length, 1);
-
-                    assert.strictEqual(body[0].id, credsid);
-                    assert.strictEqual(body[0].username, VALID_USERNAME);
-                    assert.strictEqual(body[0].password, VALID_PASSWORD);
-                    assert.strictEqual(body[0].credstype, before);
-
-                    return request(testServer)
-                        .patch('/api/classes/' + classid + '/credentials/' + credsid)
-                        .send([{
-                            op : 'replace',
-                            path : '/credstype',
-                            value : {
-                                servicetype : 'visrec',
-                                credstype : after,
-                            },
-                        }])
-                        .expect(httpstatus.NOT_FOUND);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get('/api/classes/' + classid + '/credentials?servicetype=conv')
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then(async (res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.length, 1);
-
-                    assert.strictEqual(body[0].id, credsid);
-                    assert.strictEqual(body[0].username, VALID_USERNAME);
-                    assert.strictEqual(body[0].password, VALID_PASSWORD);
-                    assert.strictEqual(body[0].credstype, before);
-
-                    return request(testServer)
-                        .delete('/api/classes/' + classid + '/credentials/' + credsid)
-                        .expect(httpstatus.NO_CONTENT);
-                });
-        });
-
 
         it('should modify the type of conv credentials', () => {
             const before = ProjectTypes.credsTypesByLabel.conv_lite.label;
@@ -388,79 +276,6 @@ describe('REST API - Bluemix credentials', () => {
         });
 
 
-        it('should modify the type of visrec credentials', () => {
-            const before = ProjectTypes.credsTypesByLabel.visrec_standard.label;
-            const after = ProjectTypes.credsTypesByLabel.visrec_lite.label;
-
-            const servicetype = 'visrec';
-            const classid = 'TESTTENANT';
-
-            let credsid: string;
-
-            return request(testServer)
-                .post('/api/classes/' + classid + '/credentials')
-                .send({
-                    servicetype,
-                    apikey : VALID_APIKEY,
-                    credstype : before,
-                })
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    assert(body.id);
-                    credsid = body.id;
-
-                    assert.strictEqual(body.apikey, VALID_APIKEY);
-                    assert.strictEqual(body.credstype, before);
-
-                    return request(testServer)
-                        .get('/api/classes/' + classid + '/credentials?servicetype=visrec')
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then(async (res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.length, 1);
-
-                    assert.strictEqual(body[0].id, credsid);
-                    assert.strictEqual(body[0].apikey, VALID_APIKEY);
-                    assert.strictEqual(body[0].credstype, before);
-
-                    return request(testServer)
-                        .patch('/api/classes/' + classid + '/credentials/' + credsid)
-                        .send([{
-                            op : 'replace',
-                            path : '/credstype',
-                            value : {
-                                servicetype,
-                                credstype : after,
-                            },
-                        }])
-                        .expect(httpstatus.NO_CONTENT);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get('/api/classes/' + classid + '/credentials?servicetype=visrec')
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then(async (res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.length, 1);
-
-                    assert.strictEqual(body[0].id, credsid);
-                    assert.strictEqual(body[0].apikey, VALID_APIKEY);
-                    assert.strictEqual(body[0].credstype, after);
-
-                    return request(testServer)
-                        .delete('/api/classes/' + classid + '/credentials/' + credsid)
-                        .expect(httpstatus.NO_CONTENT);
-                });
-        });
-
-
-
         it('should reject invalid patch requests', async () => {
             const tests = [
                 {
@@ -498,7 +313,7 @@ describe('REST API - Bluemix credentials', () => {
                 {
                     input : [{ op : 'replace', path : '/credstype',
                         value : { servicetype : 'conv', credstype : 'invalid' } }],
-                    output : 'Unrecognised credentials type',
+                    output : 'Invalid credentials type',
                 },
                 {
                     input : [{ op : 'replace', path : '/credstype',
@@ -568,6 +383,20 @@ describe('REST API - Bluemix credentials', () => {
                     });
             });
 
+            it('should recognize classes without credentials', () => {
+                return request(testServer)
+                    .get('/api/classes/DIFFERENTNOCREDS/modelsupport/text')
+                    .expect('Content-Type', /json/)
+                    .expect(httpstatus.CONFLICT)
+                    .then((res) => {
+                        assert.strictEqual(res.headers['cache-control'], 'max-age=60');
+                        assert.deepStrictEqual(res.body, {
+                            code: 'MLCRED-TEXT-NOKEYS',
+                            message: 'There are no Watson Assistant credentials in this class',
+                        });
+                    });
+            });
+
             it('should use the cache for repeated requests', () => {
                 return request(testServer)
                     .get('/api/classes/' + classid + '/modelsupport/text')
@@ -583,52 +412,6 @@ describe('REST API - Bluemix credentials', () => {
             });
         });
 
-        describe('images credentials', () => {
-            const visrecid = uuid();
-
-            before(() => {
-                return store.storeBluemixCredentials(classid, {
-                    id : visrecid,
-                    classid,
-                    username : VALID_APIKEY.substr(0, 22),
-                    password : VALID_APIKEY.substr(22),
-                    servicetype : 'visrec',
-                    url : 'https://gateway.watsonplatform.net/assistant/api',
-                    credstypeid : 0,
-                });
-            });
-            after(() => {
-                return store.deleteBluemixCredentials(visrecid);
-            });
-
-            it('should validate credentials', () => {
-                return request(testServer)
-                    .get('/api/classes/' + classid + '/modelsupport/images')
-                    .expect('Content-Type', /json/)
-                    .expect(httpstatus.OK)
-                    .then((res) => {
-                        assert.strictEqual(res.headers['cache-control'], 'max-age=31536000');
-                        assert.deepStrictEqual(res.body, {
-                            code: 'MLCRED-OK',
-                            message: 'ok',
-                        });
-                    });
-            });
-
-            it('should use the cache for repeated requests', () => {
-                return request(testServer)
-                    .get('/api/classes/' + classid + '/modelsupport/images')
-                    .expect('Content-Type', /json/)
-                    .expect(httpstatus.OK)
-                    .then((res) => {
-                        assert.strictEqual(res.headers['cache-control'], 'max-age=31536000');
-                        assert.deepStrictEqual(res.body, {
-                            code: 'MLCRED-OK',
-                            message: 'ok',
-                        });
-                    });
-            });
-        });
     });
 
 
@@ -812,58 +595,5 @@ describe('REST API - Bluemix credentials', () => {
                     assert.deepStrictEqual(body, []);
                 });
         });
-
-
-
-        it('should create and delete visrec credentials', () => {
-            const classid = 'TESTTENANT';
-
-            let credsid: string;
-
-            return request(testServer)
-                .post('/api/classes/' + classid + '/credentials')
-                .send({
-                    servicetype : 'visrec',
-                    apikey : VALID_APIKEY,
-                    credstype : 'visrec_lite',
-                })
-                .expect('Content-Type', /json/)
-                .expect(httpstatus.CREATED)
-                .then((res) => {
-                    const body = res.body;
-                    assert(body.id);
-                    credsid = body.id;
-
-                    assert.strictEqual(body.apikey, VALID_APIKEY);
-
-                    return request(testServer)
-                        .get('/api/classes/' + classid + '/credentials?servicetype=visrec')
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.strictEqual(body.length, 1);
-
-                    assert.strictEqual(body[0].id, credsid);
-                    assert.strictEqual(body[0].apikey, VALID_APIKEY);
-
-                    return request(testServer)
-                        .delete('/api/classes/' + classid + '/credentials/' + credsid)
-                        .expect(httpstatus.NO_CONTENT);
-                })
-                .then(() => {
-                    return request(testServer)
-                        .get('/api/classes/' + classid + '/credentials?servicetype=visrec')
-                        .expect('Content-Type', /json/)
-                        .expect(httpstatus.OK);
-                })
-                .then((res) => {
-                    const body = res.body;
-                    assert.deepStrictEqual(body, []);
-                });
-        });
     });
-
-
 });

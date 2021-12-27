@@ -7,7 +7,6 @@ import * as projectObjects from './projects';
 import * as Objects from './db-types';
 import * as numbers from '../training/numbers';
 import * as conversation from '../training/conversation';
-import * as visualrec from '../training/visualrecognition';
 import * as TrainingObjects from '../training/training-types';
 import * as limits from './limits';
 import { ONE_HOUR, ONE_DAY_PLUS_A_BIT } from '../utils/constants';
@@ -1442,7 +1441,7 @@ async function getPoolBluemixCredentialsById(credentialsid: string): Promise<Tra
 }
 
 
-export async function countBluemixCredentialsByType(classid: string): Promise<{ conv: number, visrec: number }>
+export async function countBluemixCredentialsByType(classid: string): Promise<{ conv: number }>
 {
     const queryName = 'dbqn-select-bluemixcredentials-counttype';
     const queryString = 'SELECT servicetype, credstypeid, count(*) as count ' +
@@ -1453,7 +1452,7 @@ export async function countBluemixCredentialsByType(classid: string): Promise<{ 
 
     const response = await dbExecute(queryName, queryString, queryValues);
 
-    const counts = { conv : 0, visrec : 0 };
+    const counts = { conv : 0 };
     for (const row of response.rows) {
         if (row.servicetype === 'conv') {
             if (row.credstypeid === projectObjects.credsTypesByLabel.conv_standard.id) {
@@ -1462,9 +1461,6 @@ export async function countBluemixCredentialsByType(classid: string): Promise<{ 
             else {
                 counts.conv += (5 * row.count);
             }
-        }
-        else if (row.servicetype === 'visrec') {
-            counts.visrec += (2 * row.count);
         }
         else {
             log.error({ row, classid }, 'Unexpected bluemix service type found in DB');
@@ -1476,24 +1472,22 @@ export async function countBluemixCredentialsByType(classid: string): Promise<{ 
 
 
 export async function countGlobalBluemixCredentials():
-    Promise<{ [classid: string]: { conv: number, visrec: number, total: number } }>
+    Promise<{ [classid: string]: { conv: number, total: number } }>
 {
     const queryName = 'dbqn-select-bluemixcredentials-counttype-group';
     const queryString = 'SELECT classid, ' +
-                            'sum(case when servicetype = \'conv\' then 1 else 0 end) conv, ' +
-                            'sum(case when servicetype = \'visrec\' then 1 else 0 end) visrec ' +
+                            'sum(case when servicetype = \'conv\' then 1 else 0 end) conv ' +
                         'FROM bluemixcredentials ' +
                         'GROUP BY classid';
     const queryValues: any[] = [];
 
     const response = await dbExecute(queryName, queryString, queryValues);
 
-    const counts: { [classid: string]: { conv: number, visrec: number, total: number } } = {};
+    const counts: { [classid: string]: { conv: number, total: number } } = {};
     for (const row of response.rows) {
         const conv = parseInt(row.conv, 10);
-        const visrec = parseInt(row.visrec, 10);
-        const total = conv + visrec;
-        counts[row.classid] = { conv, visrec, total };
+        const total = conv;
+        counts[row.classid] = { conv, total };
     }
     return counts;
 }
@@ -1760,109 +1754,6 @@ export async function deleteConversationWorkspacesByProjectId(projectid: string)
 
 
 
-export async function storeImageClassifier(
-    credentials: TrainingObjects.BluemixCredentials,
-    project: Objects.Project,
-    classifier: TrainingObjects.VisualClassifier,
-): Promise<TrainingObjects.VisualClassifier>
-{
-    const obj = dbobjects.createVisualClassifier(classifier, credentials, project);
-
-    const queryName = 'dbqn-insert-bluemixclassifiers';
-    const queryString = 'INSERT INTO bluemixclassifiers ' +
-                            '(id, credentialsid, ' +
-                             'projectid, userid, classid, ' +
-                             'servicetype, ' +
-                             'classifierid, url, name, language, ' +
-                             'created, expiry) ' +
-                        'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)';
-    const queryValues = [ obj.id, obj.credentialsid,
-        obj.projectid, obj.userid, obj.classid,
-        obj.servicetype,
-        obj.classifierid, obj.url, obj.name, obj.language,
-        obj.created, obj.expiry ];
-
-    const response = await dbExecute(queryName, queryString, queryValues);
-    if (response.rowCount !== 1) {
-        log.error({ response }, 'Failed to store classifier info');
-        throw new Error('Failed to store classifier');
-    }
-
-    return classifier;
-}
-
-
-export async function getImageClassifiers(
-    projectid: string,
-): Promise<TrainingObjects.VisualClassifier[]>
-{
-    const queryName = 'dbqn-select-bluemixclassifiers-projectid';
-    const queryString = 'SELECT id, credentialsid, projectid, servicetype, ' +
-                            'classifierid, url, name, language, created, expiry ' +
-                        'FROM bluemixclassifiers ' +
-                        'WHERE projectid = $1 ' +
-                        'ORDER BY created';
-    const queryValues = [ projectid ];
-
-    const response = await dbExecute(queryName, queryString, queryValues);
-    return response.rows.map(dbobjects.getVisualClassifierFromDbRow);
-}
-
-export async function getImageClassifier(
-    projectid: string, classifierid: string,
-): Promise<TrainingObjects.VisualClassifier>
-{
-    const queryName = 'dbqn-select-bluemixclassifieirs-classifierid';
-    const queryString = 'SELECT id, credentialsid, projectid, servicetype, ' +
-                            'classifierid, url, name, created, expiry ' +
-                        'FROM bluemixclassifiers ' +
-                        'WHERE projectid = $1 AND classifierid = $2';
-    const queryValues = [ projectid, classifierid ];
-
-    const response = await dbExecute(queryName, queryString, queryValues);
-    const rows = response.rows;
-    if (rows.length === 1) {
-        return dbobjects.getVisualClassifierFromDbRow(rows[0]);
-    }
-    if (rows.length > 1) {
-        log.error({ rows, queryValues, func : 'getImageClassifier' }, 'Unexpected response from DB');
-    }
-    else {
-        log.warn({ projectid, classifierid, func : 'getImageClassifier' }, 'Image classifier not found');
-    }
-    throw new Error('Unexpected response when retrieving image classifier details');
-}
-
-
-export async function deleteImageClassifier(id: string): Promise<void>
-{
-    const queryName = 'dbqn-delete-bluemixclassifiers-id';
-    const queryString = 'DELETE FROM bluemixclassifiers WHERE id = $1 AND servicetype = $2';
-    const queryValues = [ id, 'visrec' ];
-
-    try {
-        await dbExecute(queryName, queryString, queryValues);
-    }
-    catch (err) {
-        throw new Error('Failed to delete classifiers info');
-    }
-}
-
-export async function getExpiredImageClassifiers(): Promise<TrainingObjects.VisualClassifier[]>
-{
-    const queryName = 'dbqn-select-bluemixclassifiers-expired';
-    const queryString = 'SELECT id, credentialsid, projectid, servicetype, ' +
-                            'classifierid, url, name, language, created, expiry ' +
-                        'FROM bluemixclassifiers ' +
-                        'WHERE expiry < $1 AND servicetype = $2';
-    const queryValues = [ new Date(), 'visrec' ];
-
-    const response = await dbExecute(queryName, queryString, queryValues);
-    return response.rows.map(dbobjects.getVisualClassifierFromDbRow);
-}
-
-
-
 export async function getProjectsWithBluemixClassifiers(classid: string): Promise<{[projectid: string]: string}>
 {
     const queryName = 'dbqn-select-bluemixclassifiers-projectclassifierid';
@@ -1883,7 +1774,7 @@ export async function getProjectsWithBluemixClassifiers(classid: string): Promis
 
 
 export async function getClassifierByBluemixId(classifierid: string):
-    Promise<TrainingObjects.VisualClassifier|TrainingObjects.ConversationWorkspace|undefined>
+    Promise<TrainingObjects.ConversationWorkspace|undefined>
 {
     const queryName = 'dbqn-select-bluemixclassifiers-classifierid';
     const queryString = 'SELECT id, credentialsid, projectid, servicetype, ' +
@@ -1902,8 +1793,6 @@ export async function getClassifierByBluemixId(classifierid: string):
         switch (classifierType) {
         case 'conv':
             return dbobjects.getWorkspaceFromDbRow(rows[0]);
-        case 'visrec':
-            return dbobjects.getVisualClassifierFromDbRow(rows[0]);
         default:
             log.error({ rows, func : 'getClassifierByBluemixId' }, 'Unexpected response from DB');
             throw new Error('Unspected response when retrieving Bluemix classifier details');
@@ -2419,20 +2308,20 @@ export async function getNextPendingJob(): Promise<Objects.PendingJob | undefine
 
 export async function storeManagedClassTenant(classid: string, numstudents: number, maxprojects: number, type: Objects.ClassTenantType): Promise<Objects.ClassTenant>
 {
-    const obj = dbobjects.createClassTenant(classid, [ 'text', 'images', 'numbers', 'sounds', 'imgtfjs' ]);
+    const obj = dbobjects.createClassTenant(classid, [ 'text', 'numbers', 'sounds', 'imgtfjs' ]);
     const NUM_USERS = numstudents + 1;
 
     const queryName = 'dbqn-insert-tenants';
     const queryString = 'INSERT INTO tenants ' +
                             '(id, projecttypes, ismanaged, ' +
                             'maxusers, maxprojectsperuser, ' +
-                            'textclassifiersexpiry, imageclassifiersexpiry) ' +
-                        'VALUES ($1, $2, $3, $4, $5, $6, $7)';
+                            'textclassifiersexpiry) ' +
+                        'VALUES ($1, $2, $3, $4, $5, $6)';
     const queryValues = [
         obj.id, obj.projecttypes,
         type, NUM_USERS,
         maxprojects,
-        obj.textclassifiersexpiry, obj.imageclassifiersexpiry,
+        obj.textclassifiersexpiry,
     ];
 
     const response = await dbExecute(queryName, queryString, queryValues);
@@ -2447,7 +2336,6 @@ export async function storeManagedClassTenant(classid: string, numstudents: numb
         maxUsers : NUM_USERS,
         maxProjectsPerUser : maxprojects,
         textClassifierExpiry : obj.textclassifiersexpiry,
-        imageClassifierExpiry : obj.imageclassifiersexpiry,
     };
     return created;
 }
@@ -2458,7 +2346,7 @@ export async function getClassTenant(classid: string): Promise<Objects.ClassTena
     const queryName = 'dbqn-select-tenants-id';
     const queryString = 'SELECT id, projecttypes, maxusers, ' +
                                'maxprojectsperuser, ' +
-                               'textclassifiersexpiry, imageclassifiersexpiry, ' +
+                               'textclassifiersexpiry, ' +
                                'ismanaged ' +
                         'FROM tenants ' +
                         'WHERE id = $1';
@@ -2484,31 +2372,30 @@ export async function getClassTenant(classid: string): Promise<Objects.ClassTena
 
 export async function modifyClassTenantExpiries(
     classid: string,
-    textexpiry: number, imageexpiry: number,
+    textexpiry: number,
 ): Promise<Objects.ClassTenant>
 {
     const tenantinfo = await getClassTenant(classid);
 
-    const modified = dbobjects.setClassTenantExpiries(tenantinfo, textexpiry, imageexpiry);
+    const modified = dbobjects.setClassTenantExpiries(tenantinfo, textexpiry);
     const obj = dbobjects.getClassDbRow(modified);
 
     const queryName = 'dbqn-insert-tenants-expiry';
     const queryString = 'INSERT INTO tenants ' +
                             '(id, projecttypes, ' +
                                 'maxusers, maxprojectsperuser, ' +
-                                'textclassifiersexpiry, imageclassifiersexpiry, ' +
+                                'textclassifiersexpiry, ' +
                                 'ismanaged) ' +
-                            'VALUES ($1, $2, $3, $4, $5, $6, $7) ' +
+                            'VALUES ($1, $2, $3, $4, $5, $6) ' +
                             'ON CONFLICT(id) DO UPDATE SET ' +
-                                'textclassifiersexpiry = $8, ' +
-                                'imageclassifiersexpiry = $9';
+                                'textclassifiersexpiry = $7';
     const queryValues = [
         obj.id, obj.projecttypes,
         obj.maxusers, obj.maxprojectsperuser,
-        obj.textclassifiersexpiry, obj.imageclassifiersexpiry,
+        obj.textclassifiersexpiry,
         obj.ismanaged,
         //
-        obj.textclassifiersexpiry, obj.imageclassifiersexpiry,
+        obj.textclassifiersexpiry,
     ];
 
     const response = await dbExecute(queryName, queryString, queryValues);
@@ -2763,20 +2650,6 @@ export async function getLatestSiteAlert(): Promise<Objects.SiteAlert | undefine
 // -----------------------------------------------------------------------------
 
 
-export async function deleteWatsonClassifiers(projectid: string, classid: string): Promise<void> {
-    try {
-        const classifiers = await getImageClassifiers(projectid);
-        const tenant = await getClassTenant(classid);
-        for (const classifier of classifiers) {
-            await visualrec.deleteClassifier(tenant, classifier);
-        }
-    }
-    catch (err) {
-        log.error({ err, projectid, classid }, 'Failed to clean up Vis Rec classifiers');
-    }
-}
-
-
 export async function deleteEntireProject(userid: string, classid: string, project: Objects.Project): Promise<void> {
     switch (project.type) {
     case 'text': {
@@ -2793,21 +2666,9 @@ export async function deleteEntireProject(userid: string, classid: string, proje
         break;
     }
     case 'imgtfjs':
+    case 'images':
         // nothing to do - models all stored client-side
         break;
-    case 'images': {
-        const classifiers = await getImageClassifiers(project.id);
-        const tenant = await getClassTenant(classid);
-        for (const classifier of classifiers) {
-            try {
-                await visualrec.deleteClassifier(tenant, classifier);
-            }
-            catch (err) {
-                log.error({ err, userid, classid, projectid : project.id }, 'Failed to delete Vis Rec classifier');
-            }
-        }
-        break;
-    }
     case 'numbers':
         try {
             await numbers.deleteClassifier(userid, classid, project.id);

@@ -41,7 +41,6 @@ store.init()
         console.log('projects per user   :', classinfo.maxProjectsPerUser);
         console.log('supported projects  :', classinfo.supportedProjectTypes);
         console.log('text models expiry  :', classinfo.textClassifierExpiry);
-        console.log('img models expiry   :', classinfo.imageClassifierExpiry);
 
         if (classinfo.tenantType === 0) {
             console.log("\nIBM Cloud credentials");
@@ -75,14 +74,9 @@ function getTenantType(val: number) {
 
 async function getCloudCreds(tenantinfo: any) {
     let assistant: any[] = [];
-    let visrec: any[] = [];
     try {
         assistant = await store.getBluemixCredentials(tenantinfo, 'conv');
     }
     catch (err) { /* */ }
-    try {
-        visrec = await store.getBluemixCredentials(tenantinfo, 'visrec');
-    }
-    catch (err) { /* */ }
-    return { assistant, visrec };
+    return { assistant };
 }

@@ -48,8 +48,6 @@
                             vm.policy.missingCredentials = false;
                             for (var i = 0; i < policy.supportedProjectTypes.length; i++) {
                                 var projectType = policy.supportedProjectTypes[i];
-                                // if ((projectType === 'text' && policy.maxTextModels === 0) ||
-                                //     (projectType === 'images' && policy.maxImageModels === 0))
                                 if (projectType === 'text' && policy.maxTextModels === 0)
                                 {
                                     vm.policy.missingCredentials = true;

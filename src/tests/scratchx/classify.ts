@@ -30,7 +30,7 @@ describe('Scratchx - classify', () => {
 
     describe('images projects', () => {
 
-        it('should require image data', async () => {
+        it('should reject classify requests', async () => {
             const key: Types.ScratchKey = {
                 id : uuid(),
                 name : 'TEST',
@@ -44,51 +44,9 @@ describe('Scratchx - classify', () => {
                 assert.fail('Should not reach here');
             }
             catch (err) {
-                assert.strictEqual(err.message, 'Missing data');
+                assert.strictEqual(err.message, 'Classification for this project is only available in the browser');
             }
         });
-
-        it('should require a real project', async () => {
-            const key: Types.ScratchKey = {
-                id : uuid(),
-                name : 'TEST',
-                type : 'images',
-                projectid : uuid(),
-                updated : new Date(),
-            };
-
-            try {
-                await classifier.classify(key, 'something');
-                assert.fail('Should not reach here');
-            }
-            catch (err) {
-                assert.strictEqual(err.message, 'Project not found');
-            }
-        });
-
-
-        it('should return random classes for projects without classifiers', async () => {
-            const userid = uuid();
-            const project = await store.storeProject(userid, TESTCLASS, 'images', 'test project', 'en', [], false);
-            await store.addLabelToProject(userid, TESTCLASS, project.id, 'left');
-            await store.addLabelToProject(userid, TESTCLASS, project.id, 'right');
-
-            const key: Types.ScratchKey = {
-                id : uuid(),
-                name : 'IMGTEST',
-                type : 'images',
-                projectid : project.id,
-                updated : new Date(),
-            };
-
-            const classifications = await classifier.classify(key, 'image data to be classified');
-            assert.strictEqual(classifications.length, 2);
-            for (const classification of classifications) {
-                assert(classification.random);
-                assert.strictEqual(classification.confidence, 50);
-            }
-        });
-
     });
 
 
