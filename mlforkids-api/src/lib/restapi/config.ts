@@ -9,11 +9,6 @@ import * as constants from '../utils/constants';
 
 export function setupForBluemix(app: express.Application): void {
     if (process.env.BLUEMIX_REGION) {
-        // when running on Bluemix, need to look at use of HTTPS
-        //  between browser and Bluemix (not between Bluemix proxy
-        //  and the express app)
-        app.enable('trust proxy');
-
         app.use((req, res, next) => {
             if (req.secure) {
                 next();

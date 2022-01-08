@@ -1,0 +1,13 @@
+sql/ibmcloud-ca.cert
+ops/dev-credentials.env
+ops/prod-credentials.env
+ops/previous-prod
+public/scratchx
+public/scratch3
+public/bower_components
+node_modules
+coverage
+logs/*.log
+logs/*.log.*
+dist
+web

@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- "14"
+- "16"
 
 env:
   global:
@@ -24,8 +24,9 @@ before_script:
 - sh -c 'until pg_isready -p 5433; do echo "Waiting for the postgresql server..."; sleep 2; done'
 - psql -U postgres -p 5433 -c "CREATE USER ml4k WITH PASSWORD 'testdbpwd' LOGIN;"
 - psql -U postgres -p 5433 -c "CREATE DATABASE mlforkidsdb OWNER ml4k;"
-- psql -U ml4k -p 5433 -f sql/postgresql.sql mlforkidsdb
-- psql -U ml4k -p 5433 -f sql/testdata.sql mlforkidsdb
+- psql -U ml4k -p 5433 -f mlforkids-api/sql/postgresql.sql mlforkidsdb
+- psql -U ml4k -p 5433 -f mlforkids-api/sql/testdata.sql mlforkidsdb
 
 script:
+- cd mlforkids-api
 - npm run build

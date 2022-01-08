@@ -11,5 +11,10 @@
       "ecmaVersion": 2017,
       "sourceType": "module"
     },
-    "plugins": [ "node" ]
+    "plugins": [ "node" ],
+    "rules": {
+      "node/no-unpublished-require": ["error", {
+          "allowModules": ["sinon", "supertest", "sinon-express-mock", "filecompare", "unzipper", "proxyquire", "clone"]
+      }]
+  }
 }

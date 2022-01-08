@@ -1,0 +1,32 @@
+FROM node:16
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+RUN npm install
+
+RUN mkdir logs
+
+COPY resources resources
+
+RUN mkdir web
+COPY web/static web/static
+COPY web/dynamic web/dynamic
+
+RUN mkdir src
+COPY src/lib src/lib
+COPY src/tests src/tests
+
+RUN mkdir dist
+
+RUN mkdir public
+COPY public/languages public/languages
+
+COPY custom_typings custom_typings
+COPY Gruntfile.js .
+COPY gulpfile.js .
+COPY tslint.json .
+COPY tsconfig.json .
+COPY .eslintrc.json .
+
+CMD ["npm", "run", "coverage"]

@@ -25,7 +25,7 @@ confirmRequiredEnvironment();
 // log any uncaught errors before crashing
 process.on('uncaughtException', shutdown.crash);
 
-// terminate quickly if Cloud Foundry sends a SIGTERM signal
+// terminate quickly if we get a SIGTERM signal
 process.on('SIGTERM', () => { shutdown.now('SIGTERM', server); });
 process.on('SIGINT', () => { shutdown.now('SIGINT', server); });
 
@@ -66,5 +66,5 @@ store.init()
         });
 
         // start scheduled cleanup tasks
-        scheduledtasks.run(server);
+        scheduledtasks.run();
     });

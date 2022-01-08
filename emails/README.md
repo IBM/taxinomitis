@@ -7,5 +7,4 @@
 | password.html                   |                                                   | auth0     | User requests a password change                                 |
 | managed-signup.txt              |                                                   | manual    | User asks for a new managed tenant                              |
 | unmanaged-conv-classifier.txt   | Unrecognised Watson Assistant workspace           | mlforkids | Unknown Conversation classifier found in unmanaged tenant       |
-| unmanaged-visrec-classifier.txt | Unrecognised Watson Visual Recognition classifier | mlforkids | Unknown Visual Recognition classifier found in unmanaged tenant |
 | invalid-apikey.txt              | Invalid IBM Cloud credentials                     | mlforkids | Invalid API key found                                           |

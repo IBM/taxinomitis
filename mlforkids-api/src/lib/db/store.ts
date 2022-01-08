@@ -1524,7 +1524,7 @@ export async function deleteBluemixCredentialsPool(credentialsid: string): Promi
 export function deleteBluemixCredentialsPoolForTests(): Promise<void> {
     // ensure this function is only used in tests, so we don't
     //  accidentally trash a production database table
-    if (process.env.POSTGRESQLHOST === 'localhost') {
+    if (process.env.POSTGRESQLHOST === 'localhost' || process.env.POSTGRESQLHOST === 'host.docker.internal') {
         const queryName = 'dbqn-delete-bluemixcredentialspool-all';
         const queryString = 'DELETE FROM bluemixcredentialspool';
         const queryValues: any[] = [];
@@ -2135,7 +2135,7 @@ export function deleteAllKnownErrors(): Promise<void>
     // ensure this function is only used in tests, so we don't
     //  accidentally trash a production database table
     /* istanbul ignore else */
-    if (process.env.POSTGRESQLHOST === 'localhost') {
+    if (process.env.POSTGRESQLHOST === 'localhost' || process.env.POSTGRESQLHOST === 'host.docker.internal') {
         const queryName = 'dbqn-delete-knownsyserrors-all';
         const queryString = 'DELETE FROM knownsyserrors';
         const queryValues: any[] = [];
@@ -2163,7 +2163,7 @@ export function deleteAllPendingJobs(): Promise<void>
     // ensure this function is only used in tests, so we don't
     //  accidentally trash a production database table
     /* istanbul ignore else */
-    if (process.env.POSTGRESQLHOST === 'localhost') {
+    if (process.env.POSTGRESQLHOST === 'localhost' || process.env.POSTGRESQLHOST === 'host.docker.internal') {
         const queryName = 'dbqn-delete-pendingjobs-all';
         const queryString = 'DELETE FROM pendingjobs';
         const queryValues: any[] = [];
@@ -2437,7 +2437,7 @@ export function testonly_resetSessionUsersStore(): Promise<void>
     // ensure this function is only used in tests, so we don't
     //  accidentally trash a production database table
     /* istanbul ignore else */
-    if (process.env.POSTGRESQLHOST === 'localhost') {
+    if (process.env.POSTGRESQLHOST === 'localhost' || process.env.POSTGRESQLHOST === 'host.docker.internal') {
         const queryName = 'dbqn-delete-sessionusers-all';
         const queryString = 'DELETE FROM sessionusers';
         const queryValues: any[] = [];
@@ -2566,7 +2566,7 @@ export function testonly_resetSiteAlertsStore(): Promise<void>
     // ensure this function is only used in tests, so we don't
     //  accidentally trash a production database table
     /* istanbul ignore else */
-    if (process.env.POSTGRESQLHOST === 'localhost') {
+    if (process.env.POSTGRESQLHOST === 'localhost' || process.env.POSTGRESQLHOST === 'host.docker.internal') {
         const queryName = 'dbqn-delete-sitealerts-all';
         const queryString = 'DELETE FROM sitealerts';
         const queryValues: any[] = [];
