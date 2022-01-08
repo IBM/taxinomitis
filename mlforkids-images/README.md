@@ -15,12 +15,5 @@ Some computationally expensive operations can be offloaded to an OpenWhisk serve
     - Input:
         - URL of an image
     - Output:
-        - Resized version of the image, suitable for use with Visual Recognition
+        - Resized version of the image, suitable for use with ML model tasks
 
-## mltraining-numbers
-
-- DescribeModel
-    - Input:
-        - Training data for numbers ML project
-    - Output:
-        - JSON object containing representations of the decision tree classifier (png, dot, svg)
