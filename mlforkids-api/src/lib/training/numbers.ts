@@ -351,12 +351,13 @@ chooseExecutionEnvironment();
 
 
 export function getModelVisualisation(project: Objects.Project): Promise<NumbersModelDescriptionResponse> {
-    if (execution === 'openwhisk') {
-        return getVisualisationFromOpenWhisk(project);
-    }
-    else {
-        return getVisualisationFromModelServer(project);
-    }
+    return getVisualisationFromModelServer(project);
+    // if (execution === 'openwhisk') {
+    //     return getVisualisationFromOpenWhisk(project);
+    // }
+    // else {
+    //     return getVisualisationFromModelServer(project);
+    // }
 }
 
 

@@ -47,6 +47,8 @@ An instance of [Cloud Internet Services](https://www.ibm.com/cloud/cloud-interne
 
 *The HTTP endpoint provided by **mlforkids-numbers** is only accessible within the namespace where it is running, and is only called by the **mlforkids-api** instance in the same region as it.*
 
+*This is described in [Deploying an application across multiple regions with a custom domain name](https://cloud.ibm.com/docs/codeengine?topic=codeengine-deploy-multiple-regions) in the Code Engine documentation.*
+
 ![deployment components](./docs/02-http-traffic.png)
 
 

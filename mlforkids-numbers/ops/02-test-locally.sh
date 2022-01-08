@@ -19,7 +19,7 @@ docker run --rm --detach \
     $DOCKER_ORG/$DOCKER_IMAGE:$DOCKER_VERSION
 
 echo "Waiting for start"
-sleep 2
+sleep 4
 
 echo "Training model"
 curl -H "Content-Type: application/json" \
