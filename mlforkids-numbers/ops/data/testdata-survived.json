@@ -1,0 +1,11 @@
+{
+	"tenantid" : "daletenant",
+	"studentid" : "MYUSERID",
+	"projectid" : "testproject",
+	"data" : {
+		"class": 3,
+		"gender": "male",
+		"age": 24,
+		"fare": 7.1417
+	}
+}

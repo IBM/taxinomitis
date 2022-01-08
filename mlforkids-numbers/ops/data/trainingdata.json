@@ -1,0 +1,4291 @@
+{
+	"tenantid": "daletenant",
+	"studentid": "MYUSERID",
+	"projectid": "testproject",
+	"data": [
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 50,
+			"fare": 28.7125
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 2,
+			"fare": 151.55
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 25,
+			"fare": 151.55
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 38,
+			"fare": 0
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 39,
+			"fare": 0
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 40,
+			"fare": 0
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 33,
+			"fare": 5
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 47,
+			"fare": 25.5875
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 64,
+			"fare": 26
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 45,
+			"fare": 26.55
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 56,
+			"fare": 26.55
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 60,
+			"fare": 26.55
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 62,
+			"fare": 26.55
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 62,
+			"fare": 26.55
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 65,
+			"fare": 26.55
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 40,
+			"fare": 27.7208
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 30,
+			"fare": 27.75
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 45.5,
+			"fare": 28.5
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 37,
+			"fare": 29.7
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 58,
+			"fare": 29.7
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 29,
+			"fare": 30
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 55,
+			"fare": 30.5
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 56,
+			"fare": 30.6958
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 61,
+			"fare": 32.3208
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 61,
+			"fare": 33.5
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 47,
+			"fare": 34.0208
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 71,
+			"fare": 34.6542
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 45,
+			"fare": 35.5
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 47,
+			"fare": 38.5
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 36,
+			"fare": 40.125
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 28,
+			"fare": 47.1
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 71,
+			"fare": 49.5042
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 31,
+			"fare": 50.4958
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 54,
+			"fare": 51.8625
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 31,
+			"fare": 52
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 42,
+			"fare": 52
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 47,
+			"fare": 52
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 19,
+			"fare": 53.1
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 37,
+			"fare": 53.1
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 50,
+			"fare": 55.9
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 46,
+			"fare": 61.175
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 51,
+			"fare": 61.3792
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 65,
+			"fare": 61.9792
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 29,
+			"fare": 66.6
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 70,
+			"fare": 71
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 21,
+			"fare": 77.2875
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 54,
+			"fare": 77.2875
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 36,
+			"fare": 78.85
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 24,
+			"fare": 79.2
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 46,
+			"fare": 79.2
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 52,
+			"fare": 79.65
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 28,
+			"fare": 82.1708
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 45,
+			"fare": 83.475
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 44,
+			"fare": 90
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 50,
+			"fare": 106.425
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 18,
+			"fare": 108.9
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 49,
+			"fare": 110.8833
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 58,
+			"fare": 113.275
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 22,
+			"fare": 135.6333
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 38,
+			"fare": 153.4625
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 27,
+			"fare": 211.5
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 24,
+			"fare": 247.5208
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 19,
+			"fare": 263
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 64,
+			"fare": 263
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 57,
+			"fare": 10.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 24,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 38,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 27,
+			"fare": 21
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 26,
+			"fare": 26
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 44,
+			"fare": 26
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 16,
+			"fare": 10.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 19,
+			"fare": 10.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 23,
+			"fare": 10.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 24,
+			"fare": 10.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 26,
+			"fare": 10.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 28,
+			"fare": 10.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 29,
+			"fare": 10.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 30,
+			"fare": 10.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 31,
+			"fare": 10.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 32,
+			"fare": 10.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 35,
+			"fare": 10.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 36,
+			"fare": 10.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 66,
+			"fare": 10.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 70,
+			"fare": 10.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 18,
+			"fare": 11.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 18,
+			"fare": 11.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 21,
+			"fare": 11.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 23,
+			"fare": 11.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 33,
+			"fare": 12.275
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 57,
+			"fare": 12.35
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 51,
+			"fare": 12.525
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 36,
+			"fare": 12.875
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 18,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 19,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 23,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 23,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 23,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 24,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 25,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 25,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 25,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 27,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 27,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 28,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 30,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 30,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 30,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 34,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 34,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 36,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 39,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 39,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 42,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 48,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 50,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 52,
+			"fare": 13
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 28,
+			"fare": 13.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 52,
+			"fare": 13.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 59,
+			"fare": 13.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 54,
+			"fare": 14
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 47,
+			"fare": 15
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 23,
+			"fare": 15.0458
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 29,
+			"fare": 21
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 34,
+			"fare": 21
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 34,
+			"fare": 21
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 30,
+			"fare": 24
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 16,
+			"fare": 26
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 25,
+			"fare": 26
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 27,
+			"fare": 26
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 34,
+			"fare": 26
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 35,
+			"fare": 26
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 36.5,
+			"fare": 26
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 37,
+			"fare": 26
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 39,
+			"fare": 26
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 44,
+			"fare": 26
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 46,
+			"fare": 26
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 54,
+			"fare": 26
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 54,
+			"fare": 26
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 31,
+			"fare": 26.25
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 43,
+			"fare": 26.25
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 42,
+			"fare": 27
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 29,
+			"fare": 27.7208
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 36,
+			"fare": 27.75
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 32.5,
+			"fare": 30.0708
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 28,
+			"fare": 33
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 19,
+			"fare": 36.75
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 31,
+			"fare": 37.0042
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 60,
+			"fare": 39
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 25,
+			"fare": 41.5792
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 18,
+			"fare": 73.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 21,
+			"fare": 73.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 21,
+			"fare": 73.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 24,
+			"fare": 73.5
+		}, "died"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 32,
+			"fare": 73.5
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 18,
+			"fare": 6.75
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 21,
+			"fare": 7.75
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 30.5,
+			"fare": 7.75
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 45,
+			"fare": 7.75
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 18,
+			"fare": 7.775
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 25,
+			"fare": 7.775
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 14,
+			"fare": 7.8542
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 31,
+			"fare": 7.8542
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 28,
+			"fare": 7.8958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 23,
+			"fare": 7.925
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 25,
+			"fare": 7.925
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 20,
+			"fare": 8.6625
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 30,
+			"fare": 8.6625
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 24,
+			"fare": 8.85
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 40,
+			"fare": 9.475
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 37,
+			"fare": 9.5875
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 20,
+			"fare": 9.825
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 21,
+			"fare": 9.825
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 22,
+			"fare": 9.8375
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 2,
+			"fare": 10.4625
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 29,
+			"fare": 10.4625
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 22,
+			"fare": 10.5167
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 28,
+			"fare": 14.4
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 14.5,
+			"fare": 14.4542
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 18,
+			"fare": 14.4542
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 45,
+			"fare": 14.4542
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 17,
+			"fare": 14.4583
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 47,
+			"fare": 14.5
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 9,
+			"fare": 15.2458
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 32,
+			"fare": 15.5
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 26,
+			"fare": 16.1
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 18,
+			"fare": 17.8
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 18,
+			"fare": 18
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 31,
+			"fare": 18
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 41,
+			"fare": 20.2125
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 3,
+			"fare": 21.075
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 8,
+			"fare": 21.075
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 29,
+			"fare": 21.075
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 10,
+			"fare": 24.15
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 30,
+			"fare": 24.15
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 2,
+			"fare": 27.9
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 9,
+			"fare": 27.9
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 45,
+			"fare": 27.9
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 39,
+			"fare": 29.125
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 2,
+			"fare": 31.275
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 6,
+			"fare": 31.275
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 9,
+			"fare": 31.275
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 11,
+			"fare": 31.275
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 39,
+			"fare": 31.275
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 9,
+			"fare": 34.375
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 21,
+			"fare": 34.375
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 48,
+			"fare": 34.375
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 41,
+			"fare": 39.6875
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 16,
+			"fare": 46.9
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 43,
+			"fare": 46.9
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 19,
+			"fare": 0
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 36,
+			"fare": 0
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 49,
+			"fare": 0
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 20,
+			"fare": 4.0125
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 61,
+			"fare": 6.2375
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 34.5,
+			"fare": 6.4375
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 43,
+			"fare": 6.45
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 18,
+			"fare": 6.4958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 34,
+			"fare": 6.4958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 19,
+			"fare": 6.75
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 45,
+			"fare": 6.975
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 29,
+			"fare": 7.0458
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 20,
+			"fare": 7.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 24,
+			"fare": 7.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 25,
+			"fare": 7.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 25,
+			"fare": 7.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 35,
+			"fare": 7.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 38,
+			"fare": 7.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 17,
+			"fare": 7.0542
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 51,
+			"fare": 7.0542
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 17,
+			"fare": 7.125
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 22,
+			"fare": 7.125
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 35,
+			"fare": 7.125
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 41,
+			"fare": 7.125
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 25,
+			"fare": 7.225
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 30,
+			"fare": 7.225
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 40,
+			"fare": 7.225
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 45.5,
+			"fare": 7.225
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 15,
+			"fare": 7.2292
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 17,
+			"fare": 7.2292
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 22,
+			"fare": 7.2292
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 23.5,
+			"fare": 7.2292
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 28.5,
+			"fare": 7.2292
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 30,
+			"fare": 7.2292
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 20.5,
+			"fare": 7.25
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 21,
+			"fare": 7.25
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 22,
+			"fare": 7.25
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 22,
+			"fare": 7.25
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 22,
+			"fare": 7.25
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 25,
+			"fare": 7.25
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 30,
+			"fare": 7.25
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 47,
+			"fare": 7.25
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 59,
+			"fare": 7.25
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 24,
+			"fare": 7.4958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 36,
+			"fare": 7.4958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 22,
+			"fare": 7.5208
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 42,
+			"fare": 7.55
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 19,
+			"fare": 7.65
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 25,
+			"fare": 7.65
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 42,
+			"fare": 7.65
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 21,
+			"fare": 7.7333
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 25,
+			"fare": 7.7417
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 18,
+			"fare": 7.75
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 31,
+			"fare": 7.75
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 32,
+			"fare": 7.75
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 40.5,
+			"fare": 7.75
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 51,
+			"fare": 7.75
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 65,
+			"fare": 7.75
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 70.5,
+			"fare": 7.75
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 16,
+			"fare": 7.775
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 18,
+			"fare": 7.775
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 19,
+			"fare": 7.775
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 21,
+			"fare": 7.775
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 25,
+			"fare": 7.775
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 26,
+			"fare": 7.775
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 29,
+			"fare": 7.775
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 31,
+			"fare": 7.775
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 33,
+			"fare": 7.775
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 74,
+			"fare": 7.775
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 18,
+			"fare": 7.7958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 22,
+			"fare": 7.7958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 24,
+			"fare": 7.7958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 28,
+			"fare": 7.7958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 21,
+			"fare": 7.8
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 18,
+			"fare": 7.8542
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 20,
+			"fare": 7.8542
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 20,
+			"fare": 7.8542
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 21,
+			"fare": 7.8542
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 23,
+			"fare": 7.8542
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 26,
+			"fare": 7.8542
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 28,
+			"fare": 7.8542
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 48,
+			"fare": 7.8542
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 29,
+			"fare": 7.875
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 26,
+			"fare": 7.8875
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 19,
+			"fare": 7.8958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 19,
+			"fare": 7.8958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 19,
+			"fare": 7.8958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 22,
+			"fare": 7.8958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 22,
+			"fare": 7.8958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 23,
+			"fare": 7.8958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 24,
+			"fare": 7.8958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 25,
+			"fare": 7.8958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 26,
+			"fare": 7.8958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 26,
+			"fare": 7.8958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 27,
+			"fare": 7.8958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 28,
+			"fare": 7.8958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 28,
+			"fare": 7.8958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 30,
+			"fare": 7.8958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 32,
+			"fare": 7.8958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 33,
+			"fare": 7.8958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 33,
+			"fare": 7.8958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 35,
+			"fare": 7.8958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 36,
+			"fare": 7.8958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 38,
+			"fare": 7.8958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 40,
+			"fare": 7.8958
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 20,
+			"fare": 7.925
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 21,
+			"fare": 7.925
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 21,
+			"fare": 7.925
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 28,
+			"fare": 7.925
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 32,
+			"fare": 7.925
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 32,
+			"fare": 7.925
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 37,
+			"fare": 7.925
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 39,
+			"fare": 7.925
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 16,
+			"fare": 8.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 19,
+			"fare": 8.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 20,
+			"fare": 8.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 21,
+			"fare": 8.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 21,
+			"fare": 8.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 22,
+			"fare": 8.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 22,
+			"fare": 8.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 24,
+			"fare": 8.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 24.5,
+			"fare": 8.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 26,
+			"fare": 8.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 29,
+			"fare": 8.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 30,
+			"fare": 8.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 30,
+			"fare": 8.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 30.5,
+			"fare": 8.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 34,
+			"fare": 8.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 34,
+			"fare": 8.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 35,
+			"fare": 8.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 35,
+			"fare": 8.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 43,
+			"fare": 8.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 44,
+			"fare": 8.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 44,
+			"fare": 8.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 50,
+			"fare": 8.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 51,
+			"fare": 8.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 55.5,
+			"fare": 8.05
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 19,
+			"fare": 8.1583
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 18,
+			"fare": 8.3
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 32,
+			"fare": 8.3625
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 42,
+			"fare": 8.4042
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 21,
+			"fare": 8.4333
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 33,
+			"fare": 8.6542
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 17,
+			"fare": 8.6625
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 17,
+			"fare": 8.6625
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 17,
+			"fare": 8.6625
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 20,
+			"fare": 8.6625
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 21,
+			"fare": 8.6625
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 26,
+			"fare": 8.6625
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 33,
+			"fare": 8.6625
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 38,
+			"fare": 8.6625
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 42,
+			"fare": 8.6625
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 22,
+			"fare": 9
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 47,
+			"fare": 9
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 16,
+			"fare": 9.2167
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 20,
+			"fare": 9.225
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 23,
+			"fare": 9.225
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 22,
+			"fare": 9.35
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 29,
+			"fare": 9.4833
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 16,
+			"fare": 9.5
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 20,
+			"fare": 9.5
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 24,
+			"fare": 9.5
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 28,
+			"fare": 9.5
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 28,
+			"fare": 9.5
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 33,
+			"fare": 9.5
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 20,
+			"fare": 9.8458
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 19,
+			"fare": 10.1708
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 41,
+			"fare": 14.1083
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 34,
+			"fare": 14.4
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 26,
+			"fare": 14.4542
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 27,
+			"fare": 14.4542
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 19,
+			"fare": 14.5
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 40.5,
+			"fare": 14.5
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 40,
+			"fare": 15.5
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 36,
+			"fare": 15.55
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 28,
+			"fare": 15.85
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 32,
+			"fare": 15.85
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 21,
+			"fare": 16.1
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 24,
+			"fare": 16.1
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 28.5,
+			"fare": 16.1
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 30,
+			"fare": 16.1
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 44,
+			"fare": 16.1
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 25,
+			"fare": 17.8
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 16,
+			"fare": 18
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 11,
+			"fare": 18.7875
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 18,
+			"fare": 20.2125
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 16,
+			"fare": 20.25
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 33,
+			"fare": 20.525
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 26,
+			"fare": 20.575
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 2,
+			"fare": 21.075
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 28,
+			"fare": 22.525
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 24,
+			"fare": 24.15
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 36,
+			"fare": 24.15
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 39,
+			"fare": 24.15
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 4,
+			"fare": 27.9
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 10,
+			"fare": 27.9
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 40,
+			"fare": 27.9
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 2,
+			"fare": 29.125
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 4,
+			"fare": 29.125
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 7,
+			"fare": 29.125
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 8,
+			"fare": 29.125
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 4,
+			"fare": 31.275
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 39,
+			"fare": 31.275
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 9,
+			"fare": 31.3875
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 16,
+			"fare": 34.375
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 1,
+			"fare": 39.6875
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 2,
+			"fare": 39.6875
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 7,
+			"fare": 39.6875
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 14,
+			"fare": 39.6875
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 16,
+			"fare": 39.6875
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 1,
+			"fare": 46.9
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 9,
+			"fare": 46.9
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 11,
+			"fare": 46.9
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 14,
+			"fare": 46.9
+		}, "died"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 28,
+			"fare": 56.4958
+		}, "died"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 48,
+			"fare": 25.9292
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 49,
+			"fare": 25.9292
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 19,
+			"fare": 26.2833
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 58,
+			"fare": 26.55
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 44,
+			"fare": 27.7208
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 19,
+			"fare": 30
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 30,
+			"fare": 31
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 16,
+			"fare": 39.4
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 48,
+			"fare": 39.6
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 22,
+			"fare": 49.5
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 24,
+			"fare": 49.5042
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 53,
+			"fare": 51.4792
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 35,
+			"fare": 52
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 47,
+			"fare": 52.5542
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 33,
+			"fare": 53.1
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 35,
+			"fare": 53.1
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 22,
+			"fare": 55
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 39,
+			"fare": 55.9
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 30,
+			"fare": 56.9292
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 17,
+			"fare": 57
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 16,
+			"fare": 57.9792
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 44,
+			"fare": 57.9792
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 54,
+			"fare": 59.4
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 22,
+			"fare": 66.6
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 24,
+			"fare": 69.3
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 24,
+			"fare": 69.3
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 36,
+			"fare": 71
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 38,
+			"fare": 71.2833
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 60,
+			"fare": 75.25
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 32,
+			"fare": 76.2917
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 49,
+			"fare": 76.7292
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 21,
+			"fare": 77.9583
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 51,
+			"fare": 77.9583
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 63,
+			"fare": 77.9583
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 52,
+			"fare": 78.2667
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 54,
+			"fare": 78.2667
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 26,
+			"fare": 78.85
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 18,
+			"fare": 79.65
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 39,
+			"fare": 79.65
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 38,
+			"fare": 80
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 62,
+			"fare": 80
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 24,
+			"fare": 83.1583
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 39,
+			"fare": 83.1583
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 56,
+			"fare": 83.1583
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 35,
+			"fare": 83.475
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 16,
+			"fare": 86.5
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 30,
+			"fare": 86.5
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 33,
+			"fare": 86.5
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 33,
+			"fare": 90
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 35,
+			"fare": 90
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 19,
+			"fare": 91.0792
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 30,
+			"fare": 93.5
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 52,
+			"fare": 93.5
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 30,
+			"fare": 106.425
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 17,
+			"fare": 108.9
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 39,
+			"fare": 110.8833
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 23,
+			"fare": 113.275
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 31,
+			"fare": 113.275
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 14,
+			"fare": 120
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 36,
+			"fare": 120
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 40,
+			"fare": 134.5
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 41,
+			"fare": 134.5
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 35,
+			"fare": 135.6333
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 36,
+			"fare": 135.6333
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 58,
+			"fare": 146.5208
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 22,
+			"fare": 151.55
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 40,
+			"fare": 153.4625
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 58,
+			"fare": 153.4625
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 31,
+			"fare": 164.8667
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 45,
+			"fare": 164.8667
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 15,
+			"fare": 211.3375
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 29,
+			"fare": 211.3375
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 43,
+			"fare": 211.3375
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 18,
+			"fare": 227.525
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 38,
+			"fare": 227.525
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 42,
+			"fare": 227.525
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 50,
+			"fare": 247.5208
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 18,
+			"fare": 262.375
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 21,
+			"fare": 262.375
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 23,
+			"fare": 263
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 24,
+			"fare": 263
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "female",
+			"age": 35,
+			"fare": 512.3292
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 35,
+			"fare": 26.2875
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 36,
+			"fare": 26.2875
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 42,
+			"fare": 26.2875
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 36,
+			"fare": 26.3875
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 28,
+			"fare": 26.55
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 34,
+			"fare": 26.55
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 35,
+			"fare": 26.55
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 45,
+			"fare": 26.55
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 48,
+			"fare": 26.55
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 51,
+			"fare": 26.55
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 26,
+			"fare": 30
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 80,
+			"fare": 30
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 27,
+			"fare": 30.5
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 32,
+			"fare": 30.5
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 52,
+			"fare": 30.5
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 40,
+			"fare": 31
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 28,
+			"fare": 35.5
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 56,
+			"fare": 35.5
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 48,
+			"fare": 52
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 37,
+			"fare": 52.5542
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 42,
+			"fare": 52.5542
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 27,
+			"fare": 53.1
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 25,
+			"fare": 55.4417
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 49,
+			"fare": 56.9292
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 31,
+			"fare": 57
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 23,
+			"fare": 63.3583
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 27,
+			"fare": 76.7292
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 48,
+			"fare": 76.7292
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 60,
+			"fare": 79.2
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 4,
+			"fare": 81.8583
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 49,
+			"fare": 89.1042
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 38,
+			"fare": 90
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 25,
+			"fare": 91.0792
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 17,
+			"fare": 110.8833
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 11,
+			"fare": 120
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 36,
+			"fare": 120
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 50,
+			"fare": 133.65
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 0.92,
+			"fare": 151.55
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 35,
+			"fare": 512.3292
+		}, "survived"],
+		[{
+			"class": 1,
+			"gender": "male",
+			"age": 36,
+			"fare": 512.3292
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 17,
+			"fare": 10.5
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 21,
+			"fare": 10.5
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 27,
+			"fare": 10.5
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 29,
+			"fare": 10.5
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 34,
+			"fare": 10.5
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 50,
+			"fare": 10.5
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 50,
+			"fare": 10.5
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 17,
+			"fare": 12
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 30,
+			"fare": 12.35
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 28,
+			"fare": 12.65
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 18,
+			"fare": 13
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 24,
+			"fare": 13
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 28,
+			"fare": 13
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 28,
+			"fare": 13
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 30,
+			"fare": 13
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 32,
+			"fare": 13
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 32.5,
+			"fare": 13
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 34,
+			"fare": 13
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 36,
+			"fare": 13
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 36,
+			"fare": 13
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 40,
+			"fare": 13
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 42,
+			"fare": 13
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 45,
+			"fare": 13.5
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 23,
+			"fare": 13.7917
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 27,
+			"fare": 13.8583
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 24,
+			"fare": 14.5
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 40,
+			"fare": 15.75
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 55,
+			"fare": 16
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 24,
+			"fare": 18.75
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 13,
+			"fare": 19.5
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 41,
+			"fare": 19.5
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 30,
+			"fare": 21
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 35,
+			"fare": 21
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 4,
+			"fare": 23
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 18,
+			"fare": 23
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 34,
+			"fare": 23
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 54,
+			"fare": 23
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 28,
+			"fare": 24
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 2,
+			"fare": 26
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 19,
+			"fare": 26
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 19,
+			"fare": 26
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 24,
+			"fare": 26
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 25,
+			"fare": 26
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 28,
+			"fare": 26
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 29,
+			"fare": 26
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 29,
+			"fare": 26
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 33,
+			"fare": 26
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 36,
+			"fare": 26
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 42,
+			"fare": 26
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 50,
+			"fare": 26
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 7,
+			"fare": 26.25
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 8,
+			"fare": 26.25
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 31,
+			"fare": 26.25
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 45,
+			"fare": 26.25
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 24,
+			"fare": 27
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 5,
+			"fare": 27.75
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 33,
+			"fare": 27.75
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 22,
+			"fare": 29
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 25,
+			"fare": 30
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 14,
+			"fare": 30.0708
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 34,
+			"fare": 32.5
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 6,
+			"fare": 33
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 4,
+			"fare": 39
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 40,
+			"fare": 39
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 3,
+			"fare": 41.5792
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 22,
+			"fare": 41.5792
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 24,
+			"fare": 65
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "female",
+			"age": 48,
+			"fare": 65
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 19,
+			"fare": 10.5
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 62,
+			"fare": 10.5
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 31,
+			"fare": 13
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 34,
+			"fare": 13
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 42,
+			"fare": 13
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 0.67,
+			"fare": 14.5
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 0.83,
+			"fare": 18.75
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 3,
+			"fare": 18.75
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 2,
+			"fare": 26
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 3,
+			"fare": 26
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 32,
+			"fare": 26
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 0.83,
+			"fare": 29
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 8,
+			"fare": 36.75
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 1,
+			"fare": 37.0042
+		}, "survived"],
+		[{
+			"class": 2,
+			"gender": "male",
+			"age": 1,
+			"fare": 39
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 15,
+			"fare": 7.225
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 13,
+			"fare": 7.2292
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 22,
+			"fare": 7.25
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 18,
+			"fare": 7.4958
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 23,
+			"fare": 7.55
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 21,
+			"fare": 7.65
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 16,
+			"fare": 7.7333
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 16,
+			"fare": 7.75
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 22,
+			"fare": 7.75
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 22,
+			"fare": 7.75
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 22,
+			"fare": 7.775
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 19,
+			"fare": 7.8542
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 26,
+			"fare": 7.8542
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 19,
+			"fare": 7.8792
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 17,
+			"fare": 7.925
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 26,
+			"fare": 7.925
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 27,
+			"fare": 7.925
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 15,
+			"fare": 8.0292
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 31,
+			"fare": 8.6833
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 18,
+			"fare": 9.35
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 63,
+			"fare": 9.5875
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 18,
+			"fare": 9.8417
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 1,
+			"fare": 11.1333
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 27,
+			"fare": 11.1333
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 14,
+			"fare": 11.2417
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 2,
+			"fare": 12.2875
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 5,
+			"fare": 12.475
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 27,
+			"fare": 12.475
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 30,
+			"fare": 12.475
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 4,
+			"fare": 13.4167
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 15,
+			"fare": 14.4542
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 29,
+			"fare": 15.2458
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 1,
+			"fare": 15.7417
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 24,
+			"fare": 15.85
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 33,
+			"fare": 15.85
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 4,
+			"fare": 16.7
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 24,
+			"fare": 16.7
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 36,
+			"fare": 17.4
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 0.75,
+			"fare": 19.2583
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 0.75,
+			"fare": 19.2583
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 5,
+			"fare": 19.2583
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 24,
+			"fare": 19.2583
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 35,
+			"fare": 20.25
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 31,
+			"fare": 20.525
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 4,
+			"fare": 22.025
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 5,
+			"fare": 31.3875
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "female",
+			"age": 38,
+			"fare": 31.3875
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 25,
+			"fare": 0
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 27,
+			"fare": 6.975
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 24,
+			"fare": 7.1417
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 22,
+			"fare": 7.225
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 20,
+			"fare": 7.2292
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 29,
+			"fare": 7.75
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 25,
+			"fare": 7.775
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 21,
+			"fare": 7.7958
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 27,
+			"fare": 7.7958
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 32,
+			"fare": 7.8542
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 29,
+			"fare": 7.8958
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 20,
+			"fare": 7.925
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 31,
+			"fare": 7.925
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 32,
+			"fare": 7.925
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 39,
+			"fare": 7.925
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 44,
+			"fare": 7.925
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 16,
+			"fare": 8.05
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 18,
+			"fare": 8.05
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 19,
+			"fare": 8.05
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 32,
+			"fare": 8.05
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 45,
+			"fare": 8.05
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 0.42,
+			"fare": 8.5167
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 27,
+			"fare": 8.6625
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 29,
+			"fare": 9.5
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 30,
+			"fare": 9.5
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 4,
+			"fare": 11.1333
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 12,
+			"fare": 11.2417
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 6,
+			"fare": 12.475
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 20,
+			"fare": 15.7417
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 3,
+			"fare": 15.9
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 9,
+			"fare": 15.9
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 26,
+			"fare": 18.7875
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 9,
+			"fare": 20.525
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 1,
+			"fare": 20.575
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 3,
+			"fare": 31.3875
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 26,
+			"fare": 56.4958
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 32,
+			"fare": 56.4958
+		}, "survived"],
+		[{
+			"class": 3,
+			"gender": "male",
+			"age": 32,
+			"fare": 56.4958
+		}, "survived"]
+	]
+}
