@@ -1,0 +1,21 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.help-section {
+    margin: 2em;
+}
+
+.help-item {
+    padding: 1em;
+}
+
+.help-number {
+    font-weight: bold;
+    font-size: 2em;
+    color: #4b4b60;
+}
+
+.help-block {
+    max-width: 90%;
+}

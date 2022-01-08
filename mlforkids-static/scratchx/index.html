@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en"> <!-- Set this to the main language of your site -->
+<head>
+    <meta charset="utf-8">
+    <title>ScratchX</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/scratchx.css" rel="stylesheet" type="text/css">
+
+    <script src="https://browser.sentry-cdn.com/5.5.0/bundle.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        Sentry.init({ dsn: 'https://b736ab82ce85429eaac0d60a59295ea8@sentry.io/1501995' });
+    </script>
+</head>
+<body>
+<div id="scratch-mlforkids-help-recognise-image-costume" style="padding: 2em; display: none; font-size: 1.4em;">
+    <div>It looks like you might need some help with the 'recognise image' block.</div>
+    <div><a id="mlforkids-display-costume-help" target="_blank" style="cursor: pointer">Click here</a> for a description of how to use the block.</div>
+</div>
+<!--
+<div id="scratch-mlforkids-help-recognise-image-backdrop" style="padding: 2em; display: none; font-size: 1.4em;">
+    <div>It looks like you might need some help with the 'recognise image' block.</div>
+    <div><a id="mlforkids-display-backdrop-help" target="_blank" style="cursor: pointer">Click here</a> for a description of how to use the block.</div>
+</div>
+-->
+<section id="scratch">
+    <div class="scratch_unsupported">
+        <p>
+            Oh Noes! Scratch project cannot display.<br/>
+            Flash player is disabled, missing, or less than version 10.2.
+        </p>
+        <a href="http://www.adobe.com/go/getflashplayer" target="_blank"><img
+                src="//www.adobe.com/images/shared/download_buttons/get_flash_player.gif"
+                alt="Get Adobe Flash player"/></a>
+    </div>
+    <div class="scratch_loading"></div>
+</section>
+<script type="text/template" id="template-warning">
+<dialog class="extension-warning with-icon">
+    <section>
+        <h2>Warning</h2>
+        <p>The extensions on this site are experimental</p>
+    </section>
+    <section>
+        <p>The Scratch Team is <strong>not</strong> responsible for the extensions and projects on this site. Please use caution when using these extensions. <a href="#faq">Learn More</a></p>
+
+        <button data-action="show" data-target="home">Back to ScratchX home</button>
+        <button class="success">I understand, continue</button>
+    </section>
+</dialog>
+</script>
+<script type="text/template" id="template-short-url">
+<dialog class="single">
+    <section>
+        <h2>Short URL</h2>
+    </section>
+    <section>
+        <p>Click to copy the short url for this project</p>
+        <div class="input-plus-button">
+            <input type="text" value="<%- shortUrl %>" name="shortUrl" disabled />
+            <button data-clipboard-text="<%- shortUrl %>">Copy</button>
+        </div>
+    </section>
+</dialog>
+</script>
+<script type="text/template" id="template-extension-url">
+<dialog class="extension-url with-icon">
+    <section>
+        <h2>Open an Extension URL</h2>
+        <p>Paste the web address below</p>
+        <p><a href="#faq-scratchx-url">What is a ScratchX URL?</a></p>
+    </section>
+    <section>
+        <form class="input-plus-button url-load-form">
+            <input type="text" placeholder="paste url..." />
+            <button type="submit">Open</button>
+        </form>
+    </section>
+</dialog>
+</script>
+<script type="text/template" id="template-extension-file">
+<dialog class="extension-file with-icon">
+    <section>
+        <h2>Open an Extension Project</h2>
+        <p>Choose a .sbx file from your local drive</p>
+        <p><a href="#faq-sbx-file">What is a .sbx file?</a></p>
+    </section>
+    <section>
+        <button data-action="load-file">Browse for local file</button>
+    </section>
+</dialog>
+</script>
+<script type="text/javascript" src="libs/base64ab.js" async></script>
+<script type="text/javascript" src="libs/bowser.min.js"></script>
+<script type="text/javascript" src="libs/swfobject.js"></script>
+<script type="text/javascript" src="libs/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="libs/socket.io-1.3.7.js"></script>
+<script type="text/javascript" src="libs/underscore-min.js" async></script>
+<script type="text/javascript" src="libs/ZeroClipboard.min.js" async></script>
+<script type="text/javascript" src="js/scratchx.js" defer></script>
+<script type="text/javascript" src="scratch_extensions/scratch_proxies.js" defer></script>
+<script type="text/javascript" src="scratch_extensions/scratch_plugin.js" defer></script>
+<script type="text/javascript" src="scratch_extensions/scratch_nmh.js" defer></script>
+<script type="text/javascript" src="scratch_extensions/scratch_deviceManager.js" defer></script>
+<script type="text/javascript" src="scratch_extensions/scratch_ext.js" defer></script>
+
+<script type="text/javascript" src="libs/md5.min.js" async></script>
+
+<!--
+Disabling this as it makes Scratch too heavyweight for some schools
+<script type="text/javascript" src="libs/preloadtemplates.js"></script>
+-->
+
+<script type="text/javascript">
+window.addEventListener("beforeunload", function (event) {
+    // if the Scratch project needs saving, prevent accidental
+    //  navigation away from the Scratch page (which results in
+    //  work being lost)
+    try {
+        if (Scratch &&
+            Scratch.FlashApp &&
+            Scratch.FlashApp.ASobj &&
+            Scratch.FlashApp.ASobj.ASisSaveNeeded &&
+            Scratch.FlashApp.ASobj.ASisSaveNeeded())
+        {
+            // Cancel the event as stated by the standard.
+            event.preventDefault();
+            // Chrome requires returnValue to be set.
+            event.returnValue = '';
+            return 'Your Scratch project has not been saved';
+        }
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+
+var uniq = Date.now();
+var mlforkidsHelp;
+
+$(document).ready(function () {
+    $('#mlforkids-display-costume-help').click(function () {
+        var features = 'directories=no,menubar=no,status=no,titlebar=no,toolbar=no,width=500,height=700';
+        mlforkidsHelp = window.open('help-scratch2-images-costume.html', 'scratchhelp' + uniq, features);
+        mlforkidsHelp.onbeforeunload = function() {
+            mlforkidsHelp = null;
+        };
+
+        $('#scratch').css('visibility', 'visible');
+        $('#scratch-mlforkids-help-recognise-image-costume').css('display', 'none');
+    });
+    // $('#mlforkids-display-backdrop-help').click(function () {
+    //     var features = 'directories=no,menubar=no,status=no,titlebar=no,toolbar=no,width=500,height=700';
+    //     mlforkidsHelp = window.open('help-scratch2-images-backdrop.html', 'scratchhelp' + uniq, features);
+    //     mlforkidsHelp.onbeforeunload = function() {
+    //         mlforkidsHelp = null;
+    //     };
+
+    //     $('#scratch').css('visibility', 'visible');
+    //     $('#scratch-mlforkids-help-recognise-image-backdrop').css('display', 'none');
+    // });
+});
+</script>
+
+</body>
+</html>

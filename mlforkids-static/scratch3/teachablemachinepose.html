@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
+        <script type="text/javascript">
+            const posemodels = {};
+
+            function initModel(id, modelurl, metadataurl) {
+                return tmPose.load(modelurl, metadataurl)
+                    .then(function (model) {
+                        posemodels[id] = model;
+                    });
+            }
+
+            function predict(id, imageelem) {
+                return posemodels[id].estimatePose(imageelem)
+                    .then(function (resp) {
+                        return posemodels[id].predict(resp.posenetOutput);
+                    })
+                    .then(function (output) {
+                        return output.map(function (tmitem) {
+                            return {
+                                class_name  : tmitem.className,
+                                confidence  : 100 * tmitem.probability
+                            };
+                        });
+                    });
+            }
+
+            function createImage(b64imagedata, callback) {
+                const imageElement = document.createElement('img');
+                imageElement.width = 257;
+                imageElement.height = 257;
+                imageElement.onload = function () {
+                    callback(imageElement);
+                };
+                imageElement.src = 'data:image/jpeg;base64,' + b64imagedata;
+            }
+        </script>
+    </head>
+</html>
