@@ -3,19 +3,18 @@
 set -e
 
 function create_app {
-    echo "setting up credentials"
-    ibmcloud ce secret create --name $DOCKER_IMAGE --from-env-file prod-credentials.env
-
     echo "Deploying version $DOCKER_VERSION of the $DOCKER_IMAGE image"
     ibmcloud ce application create \
         --name $DOCKER_IMAGE \
         --image $DOCKER_ORG/$DOCKER_IMAGE:$DOCKER_VERSION \
         --cpu $CPU --memory $MEMORY --ephemeral-storage $DISK \
         --service-account $SERVICE_ACCOUNT \
-        --env-from-secret $DOCKER_IMAGE \
         --min-scale $MIN_INSTANCES  --max-scale $MAX_INSTANCES \
-        --cluster-local
-        # --no-cluster-local
+        --no-cluster-local \
+        --env URL_SCRATCH3=$(ibmcloud ce application get --name mlforkids-static -o json | jq -r .status.url)/scratch3/ \
+        --env URL_SCRATCHX=$(ibmcloud ce application get --name mlforkids-static -o json | jq -r .status.url)/scratchx/ \
+        --env URL_PROXIES=$(ibmcloud ce application get --name mlforkids-proxy -o json | jq -r .status.url)/ \
+        --env URL_DEFAULT=$(ibmcloud ce application get --name mlforkids-api -o json | jq -r .status.url)/
 }
 
 echo "Applying config from env file"

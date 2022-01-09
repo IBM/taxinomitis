@@ -21,7 +21,7 @@ echo "wait for templating and startup"
 sleep 3
 
 echo "trying wikipedia proxy"
-scratchtitle=$(curl "$DEVHOST:$PORT/proxies/wikipedia/w/api.php?action=query&format=json&prop=extracts&explaintext=&titles=Scratch+%28programming+language%29" | jq -r '.query.pages["9236158"]'.title)
+scratchtitle=$(curl "$DEVHOST:$PORT/wikipedia/w/api.php?action=query&format=json&prop=extracts&explaintext=&titles=Scratch+%28programming+language%29" | jq -r '.query.pages["9236158"]'.title)
 if [ "$scratchtitle" = "Scratch (programming language)" ];
 then
     echo "looks okay"

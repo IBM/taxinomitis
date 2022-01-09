@@ -11,7 +11,8 @@ function create_app {
         --service-account $SERVICE_ACCOUNT \
         --min-scale $MIN_INSTANCES  --max-scale $MAX_INSTANCES \
         --port 80 \
-        --no-cluster-local
+        --cluster-local
+        # --no-cluster-local
 }
 
 

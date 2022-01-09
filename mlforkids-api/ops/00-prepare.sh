@@ -8,9 +8,6 @@ export $(grep -v '^#' prod-credentials.env | xargs)
 
 cd ..
 
-# get dependencies
-npm install
-
 # run build
 ./node_modules/.bin/gulp buildprod
 

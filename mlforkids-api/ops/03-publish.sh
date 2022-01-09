@@ -15,7 +15,8 @@ function create_app {
         --env-from-secret $DOCKER_IMAGE \
         --env NUMBERS_SERVICE=$(ibmcloud ce application get --name mlforkids-numbers -o json | jq -r .status.url) \
         --min-scale $MIN_INSTANCES  --max-scale $MAX_INSTANCES \
-        --no-cluster-local
+        --cluster-local
+        # --no-cluster-local
         # --env BLUEMIX_REGION="codeengine" \
 }
 
