@@ -250,7 +250,9 @@
         "CREATE": "Create",
         "ERRORS": {
             "REQUIRED": "This is required!",
-            "TOOLONG": "That's too long!"
+            "TOOLONG": "That's too long!",
+            "EXCEEDLIMIT": "You've reached the limit for the number of projects you can have. You need to delete one of your current projects before you can create another.",
+            "TRYITNOW": "Sorry! You can only create one project at a time if you use 'Try it now'. You need to delete your current project before you can create another."
         },
         "WARNINGS": {
             "MLCRED-TEXT-NOKEYS": "Please let your teacher know that they will need to add a \"Watson Assistant API key\" to your class to let you train the machine learning model for your new project",
@@ -896,7 +898,7 @@
 
         "REPLIT": {
             "TITLE": "Coding in replit",
-            "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Fork</span> to start editing your own copy of the code",
+            "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Fork repl</span> to start editing your own copy of the code",
             "GO": "Go to replit.com"
         },
 

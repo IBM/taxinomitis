@@ -250,7 +250,9 @@
         "CREATE": "建立",
         "ERRORS": {
             "REQUIRED": "這是必需的！",
-            "TOOLONG": "太久了！"
+            "TOOLONG": "太久了！",
+            "EXCEEDLIMIT": "You've reached the limit for the number of projects you can have. You need to delete one of your current projects before you can create another.",
+            "TRYITNOW": "Sorry! You can only create one project at a time if you use 'Try it now'. You need to delete your current project before you can create another."
         },
         "WARNINGS": {
             "MLCRED-TEXT-NOKEYS": "請告知您的老師，他們將需要在課程中加入「 Watson Assistant API密碼」，才能為新專案訓練機器學習模型",
@@ -896,7 +898,7 @@
 
         "REPLIT": {
             "TITLE": "Coding in replit",
-            "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Fork</span> to start editing your own copy of the code",
+            "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Fork repl</span> to start editing your own copy of the code",
             "GO": "Go to replit.com"
         },
 

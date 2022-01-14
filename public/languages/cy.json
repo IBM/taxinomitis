@@ -244,7 +244,9 @@
         "CREATE": "Creu",
         "ERRORS": {
             "REQUIRED": "Mae hyn yn ofynnol!",
-            "TOOLONG": "Mae hynny'n rhy hir!"
+            "TOOLONG": "Mae hynny'n rhy hir!",
+            "EXCEEDLIMIT": "You've reached the limit for the number of projects you can have. You need to delete one of your current projects before you can create another.",
+            "TRYITNOW": "Sorry! You can only create one project at a time if you use 'Try it now'. You need to delete your current project before you can create another."
         },
         "WARNINGS": {
             "MLCRED-TEXT-NOKEYS": "Rhowch wybod i'ch athro / athrawes y bydd angen iddynt ychwanegu \"allwedd API Cynorthwyydd Watson\" i'ch dosbarth i adael i chi hyfforddi'r model dysgu peiriant ar gyfer eich prosiect newydd",
@@ -883,7 +885,7 @@
         "LOCAL": "Copi cod i'w redeg ar eich cyfrifiadur",
         "REPLIT": {
             "TITLE": "Coding in replit",
-            "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Fork</span> to start editing your own copy of the code",
+            "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Fork repl</span> to start editing your own copy of the code",
             "GO": "Go to replit.com"
         },
         "MODE": {

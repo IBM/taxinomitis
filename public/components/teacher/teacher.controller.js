@@ -69,8 +69,9 @@
         vm.deleteClass = function (ev) {
             var confirm = $mdDialog.confirm()
                             .title('Are you sure?')
-                            .htmlContent('<div class="confirmdialogsmall">This cannot be undone. I will not ' +
-                                'be able to retrieve any of the projects from the class if you do this.</div>')
+                            .htmlContent('<div class="confirmdialogsmall">This cannot be undone. ' +
+                                'It will delete your account, as well as the accounts of all of your students. ' +
+                                'I will not be able to retrieve any projects from your class if you do this.</div>')
                             .targetEvent(ev)
                             .ok('Yes. Delete everything.')
                             .cancel('No');

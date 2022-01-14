@@ -250,7 +250,9 @@
         "CREATE": "Creează",
         "ERRORS": {
             "REQUIRED": "Acest lucru este necesar!",
-            "TOOLONG": "E prea lung!"
+            "TOOLONG": "E prea lung!",
+            "EXCEEDLIMIT": "You've reached the limit for the number of projects you can have. You need to delete one of your current projects before you can create another.",
+            "TRYITNOW": "Sorry! You can only create one project at a time if you use 'Try it now'. You need to delete your current project before you can create another."
         },
         "WARNINGS": {
             "MLCRED-TEXT-NOKEYS": "Te rog să informezi profesorul că va trebui să adauge o \"cheie Watson Assistant API\" la clasa ta pentru a vă permite să instruiți modelul de învățare automată pentru noul vostru proiect",
@@ -896,7 +898,7 @@
 
         "REPLIT": {
             "TITLE": "Coding in replit",
-            "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Fork</span> to start editing your own copy of the code",
+            "TIP": "Tip: You have to click on <span class='pythonreplhighlight'>Fork repl</span> to start editing your own copy of the code",
             "GO": "Go to replit.com"
         },
 

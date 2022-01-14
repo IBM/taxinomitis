@@ -250,7 +250,9 @@
         "CREATE": "만들기",
         "ERRORS": {
             "REQUIRED": "이 부분은 필요합니다.",
-            "TOOLONG": "너무 길어요!"
+            "TOOLONG": "너무 길어요!",
+            "EXCEEDLIMIT": "You've reached the limit for the number of projects you can have. You need to delete one of your current projects before you can create another.",
+            "TRYITNOW": "Sorry! You can only create one project at a time if you use 'Try it now'. You need to delete your current project before you can create another."
         },
         "WARNINGS": {
             "MLCRED-TEXT-NOKEYS": "Please let your teacher know that they will need to add a \"Watson Assistant API key\" to your class to let you train the machine learning model for your new project",
@@ -1558,7 +1560,7 @@
             "INTRO_IMAGES": "<span class='mlprojecttype'>이미지</span>  프로젝트에 대한 기계 학습 모델의 학습에는 API 키가 필요하지 <strong>않습니다</strong>.",
 
             "ERROR_FETCHING_WATSONASSISTANT": "여러분의 Watson Assistant 비밀번호가 잘못되었습니다.",
-          
+
             "USERNAME": "사용자명",
             "PASSWORD": "비밀번호",
             "APIKEY": "API key",
