@@ -10,7 +10,6 @@ import restapi from './restapi';
 import * as credentialscheck from './training/credentialscheck';
 import * as slack from './notifications/slack';
 import * as email from './notifications/email';
-import * as scheduledtasks from './scheduledtasks';
 import { confirmRequiredEnvironment } from './utils/env';
 import * as shutdown from './utils/shutdown';
 import * as env from './utils/env';
@@ -64,7 +63,4 @@ store.init()
         server = app.listen(port, host, () => {
             log.info({ host, port }, 'Running');
         });
-
-        // start scheduled cleanup tasks
-        scheduledtasks.run(server);
     });
