@@ -1146,7 +1146,7 @@
             "SUMMARY": "Enseña a una computadora a identificar imágenes",
             "DESCRIPTION": "Crea un panda bailarín que se vuelve tímido y deja de bailar cuando se da cuenta de que le estás mirando..",
             "WORKSHEET_1": {
-                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda-es.pdf"
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-shypanda.pdf"
             },
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-shypanda.pdf"
         },
