@@ -320,6 +320,18 @@
                 "SUMMARY": "손가락의 위치를 통해 손동작을 인식한다.",
                 "DESCRIPTION": "손가락의 위치에 대한 사례들을 수집하여 다른 손동작들을 인식할 수 있도록 학습 모델을 훈련합니다.",
                 "DETAILS": "이 템플릿은 당신 고유의 학습 데이터를 수집하는데 도움이 되는 빈 템플릿입니다. 사용용을 위해서는 워크시트에서 ' Hand gesture'를 다운로드 하십시오."
+            },
+            "POKEMONSTATS": {
+                "TITLE": "Pokémon statistics",
+                "SUMMARY": "Recognize Pokémon from their statistics",
+                "DESCRIPTION": "Train a machine learning model to predict the type of a Pokémon based on a collection of statistics about hundreds of Pokémon. ",
+                "DETAILS": "This training dataset includes attributes of a selection of Pokémon. \n\nThe 'height' field is the height of a Pokémon in metres. \nThe 'weight' field is the weight of a Pokémon in kilograms. \nThe 'attack' field is the attack strength of a level 100 Pokémon. \nThe 'defense' field is the defense strength of a level 100 Pokémon. \nThe 'speed' field is the speed rating of a level 100 Pokémon. \nThe 'HP' field is the hit point statistics for a Pokémon. \nThe 'capture rate' field is the catch rate for a Pokémon. Pokémon with higher catch rates are easier to capture than Pokémon with lower catch rates."
+            },
+            "POKEMONIMAGES": {
+                "TITLE": "Pokémon images",
+                "SUMMARY": "Recognize Pokémon from pictures",
+                "DESCRIPTION": "Train a machine learning model to predict the type of a Pokémon based on a set of pictures of a hundred Pokémon. ",
+                "DETAILS": "This training dataset includes images of a selection of Pokémon, grouped by their type. It is a good starting set for training a machine learning model to predict the type of a Pokémon from a picture."
             }
         }
     },

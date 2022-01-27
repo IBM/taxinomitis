@@ -314,6 +314,18 @@
                 "SUMMARY": "Reconnaître les gestes de la main à partir de la position des doigts",
                 "DESCRIPTION": "Entraînez un modèle d'apprentissage machine à reconnaître les différents gestes de la main, en recueillant des exemples de la position de vos doigts.",
                 "DETAILS": "Il s'agit d'un modèle vide pour vous aider à collecter vos propres données de formation. Pour savoir comment l'utiliser, téléchargez 'Gestes des mains' à partir des fiches de travail."
+            },
+            "POKEMONSTATS": {
+                "TITLE": "Pokémon statistics",
+                "SUMMARY": "Recognize Pokémon from their statistics",
+                "DESCRIPTION": "Train a machine learning model to predict the type of a Pokémon based on a collection of statistics about hundreds of Pokémon. ",
+                "DETAILS": "This training dataset includes attributes of a selection of Pokémon. \n\nThe 'height' field is the height of a Pokémon in metres. \nThe 'weight' field is the weight of a Pokémon in kilograms. \nThe 'attack' field is the attack strength of a level 100 Pokémon. \nThe 'defense' field is the defense strength of a level 100 Pokémon. \nThe 'speed' field is the speed rating of a level 100 Pokémon. \nThe 'HP' field is the hit point statistics for a Pokémon. \nThe 'capture rate' field is the catch rate for a Pokémon. Pokémon with higher catch rates are easier to capture than Pokémon with lower catch rates."
+            },
+            "POKEMONIMAGES": {
+                "TITLE": "Pokémon images",
+                "SUMMARY": "Recognize Pokémon from pictures",
+                "DESCRIPTION": "Train a machine learning model to predict the type of a Pokémon based on a set of pictures of a hundred Pokémon. ",
+                "DETAILS": "This training dataset includes images of a selection of Pokémon, grouped by their type. It is a good starting set for training a machine learning model to predict the type of a Pokémon from a picture."
             }
         }
     },
