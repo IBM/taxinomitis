@@ -1465,6 +1465,22 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-explainability.pdf"
             }
+        },
+        "POKEMONSTATS": {
+            "TITLE": "Pokémon statistics",
+            "SUMMARY": "Teach a computer to recognize patterns in sets of numbers",
+            "DESCRIPTION": "Make a project in Scratch that predicts the type of Pokémon from their size and fighting stats.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pokemonstats.pdf"
+            }
+        },
+        "POKEMONIMAGES": {
+            "TITLE": "Pokémon images",
+            "SUMMARY": "Teach a computer to recognize pictures",
+            "DESCRIPTION": "Make a project in Scratch that predicts the type of Pokémon from how it looks",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pokemonimages.pdf"
+            }
         }
     },
     "TEACHER": {
