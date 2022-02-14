@@ -221,16 +221,6 @@
             "NOTES_4": "Számsorok, vagy többszörös választós tesztekre válaszd \"számokat\"",
             "NOTES_5": "Hangok, zajok felismerésére válaszd a \"hangokat\""
         },
-        "IMAGEPROJECTS": {
-            "LABEL": "A modell tanítási helye",
-            "TYPES": {
-                "IMAGES": "a felhőben",
-                "IMGTFJS": "a számítógépen"
-            },
-            "NOTES_1": "Ha azt választod, hogy a \"számítógépen\" a modell csak Scratch-ben lesz használható.",
-            "NOTES_2": "Ha azt választod, hogy a \"a felhőben\" a modell Scratch-ben, Python-ban és App Inventor-ban is használható lesz.",
-            "NOTES_3": "Ezen a döntésen bármikor változtathatsz."
-        },
         "LANGUAGE": {
             "LABEL": "Nyelv",
             "NOTES": "Milyen nyelven írod a projektet?"
@@ -259,13 +249,13 @@
         "CREATE": "Készítés",
         "ERRORS": {
             "REQUIRED": "Kötelező megadni!",
-            "TOOLONG": "Ez túl hosszú!"
+            "TOOLONG": "Ez túl hosszú!",
+            "EXCEEDLIMIT": "You've reached the limit for the number of projects you can have. You need to delete one of your current projects before you can create another.",
+            "TRYITNOW": "Sorry! You can only create one project at a time if you use 'Try it now'. You need to delete your current project before you can create another."
         },
         "WARNINGS": {
             "MLCRED-TEXT-NOKEYS": "Mondd meg a tanárodnak, hogy szükségetek lesz egy \"Watson Assistant API kulcsra\" ahhoz, hogy egy új modellt be tudjatok tanítani a rendszernek.",
-            "MLCRED-IMG-NOKEYS": "Mondd meg a tanárodnak, hogy szükségetek lesz egy \"Vizuális felismerés API kulcsra\" ahhoz, hogy egy új modellt be tudjatok tanítani a rendszernek.",
-            "MLCRED-TEXT-INVALID": "Gond lehet a IBM Cloud API kulccsal, amire azért lehet szükséged, hogy betaníts a rendszernek egy új projektet. Kérd meg a tanárodat, hogy erősítse meg a  \"Watson Assistant API kulcsokat\" az osztályban.",
-            "MLCRED-IMG-INVALID": "Gond lehet a IBM Cloud API kulccsal, amire azért lehet szükséged, hogy betaníts a rendszernek egy új projektet. Kérd meg a tanárodat, hogy erősítse meg a \"Vizuális felsimerés API kulcsokat\" az osztályban."
+            "MLCRED-TEXT-INVALID": "Gond lehet a IBM Cloud API kulccsal, amire azért lehet szükséged, hogy betaníts a rendszernek egy új projektet. Kérd meg a tanárodat, hogy erősítse meg a  \"Watson Assistant API kulcsokat\" az osztályban."
         }
     },
     "DATASETS": {
@@ -306,7 +296,7 @@
                 "SUMMARY": "Jósold meg egy linkről, vajon adathalász-e.",
                 "DESCRIPTION": "Az adathalászat az a folyamat, amikor egy weboldal megpróbál belőled érzékeny adatokat kicsikarni olyan módon, hogy egy linket küld egy hamis weboldalra, amit igazinak álcáz. Megtaníthatod a rendszernek, hogy megjósolja, vajon egy link valós-e, vagy adathalász.",
                 "DETAILS": "Ez az adatbázis 500 legitim webcím jellemzőjét tartalmazza, és 500 adathalászét. \nA „domain kora” mező a címeket aszerint csoportosítja, hogy a címben szereplő webcím mennyi ideje volt regisztrálva. \nAz „átirányítások” mező a képzési címeket aszerint csoportosítja, hogy hányszor küldték el egy webböngészőt egy másik címre, mielőtt elérné az utolsó oldalt. \nA „domain reg” mező „lejár”, ha a webcím domain név regisztrációja egy éven belül lejár.n\nA 'cím típusa' mező "
-            },            },
+            },
             "NOUGHTSANDCROSSES": {
                 "SUMMARY": "Hogy kell játszani",
                 "DESCRIPTION": "Tanítsd meg a rendszert amőbát játszani, oly módon, hogy összegyűjtöd az összes lépési lehetőséget, hogy a számítógép utána meg tudja jósolni a valószínűleg legkedvezőbbet.",
@@ -329,6 +319,18 @@
                 "SUMMARY": "Ismerd fel a különböző gesztusokat az ujjak állásából.",
                 "DESCRIPTION": "Tanítsd meg a rendszert, hogy felismerje a különböző gesztusokat oly módon, hogy az ujjaid állásáról összegyűjtesz megfelelő mennyiségű példát.",
                 "DETAILS": "Ez egy üres minta, annak segítésére, hogy összegyűjthesd a tanításhoz szükséges adatokat. A használati utasítását megtalálod az 'Gesztusok' címszó alatt a 'gépi tanulás projektek közt'"
+            },
+            "POKEMONSTATS": {
+                "TITLE": "Pokémon statistics",
+                "SUMMARY": "Recognize Pokémon from their statistics",
+                "DESCRIPTION": "Train a machine learning model to predict the type of a Pokémon based on a collection of statistics about hundreds of Pokémon. ",
+                "DETAILS": "This training dataset includes attributes of a selection of Pokémon. \n\nThe 'height' field is the height of a Pokémon in metres. \nThe 'weight' field is the weight of a Pokémon in kilograms. \nThe 'attack' field is the attack strength of a level 100 Pokémon. \nThe 'defense' field is the defense strength of a level 100 Pokémon. \nThe 'speed' field is the speed rating of a level 100 Pokémon. \nThe 'HP' field is the hit point statistics for a Pokémon. \nThe 'capture rate' field is the catch rate for a Pokémon. Pokémon with higher catch rates are easier to capture than Pokémon with lower catch rates."
+            },
+            "POKEMONIMAGES": {
+                "TITLE": "Pokémon images",
+                "SUMMARY": "Recognize Pokémon from pictures",
+                "DESCRIPTION": "Train a machine learning model to predict the type of a Pokémon based on a set of pictures of a hundred Pokémon. ",
+                "DETAILS": "This training dataset includes images of a selection of Pokémon, grouped by their type. It is a good starting set for training a machine learning model to predict the type of a Pokémon from a picture."
             }
         }
     },
@@ -398,10 +400,6 @@
         "DELETE": "Töröld a modellt",
         "TEST_CANVAS": "Rajzolj valamit, hogy tesztelhesd a modelledet",
         "TEST_WEBCAM": "Készíts egy fotót a modell teszteléséhez",
-        "CHANGETYPE": {
-            "IMAGES": "Válts a modell felhőben tanítására",
-            "IMGTFJS": "Válts a modell számítógépeden tanítására"
-        },
         "WHATHAVEYOUDONE": {
             "TITLE": "Mit csináltál eddig?",
             "PLEASEWAIT": "Ez általában pár percet vesz igénybe, de hosszabbra is nyúlhat, ha a számítógép nagyon leterhelt.",
@@ -562,7 +560,7 @@
                     "TEXT" : "Próbáld meg lent tesztelni a gépi tanulási modellt. Gépelj be egy szöveget, amit a példákban nem tanítottál meg. Meg fogja mondani, hogy mit ismer fel, és hány százalékra biztos benne.",
                     "IMAGES" : "Próbáld meg lent tesztelni a gépi tanulási modellt. Mutass neki egy képet lent, amit a példákban nem tanítottál meg. Meg fogja mondani, hogy mit ismer fel, és hány százalékra biztos benne.",
                     "NUMBERS" : "Próbáld meg lent tesztelni a gépi tanulási modellt. Mutass neki számokat Mutass egy példát számokra lent, amit nem alkalmaztál a  betanításhoz használt példák során. A gép azt is megmondja, hogy minek ismeri fel, és mennyire biztos ebben.",
-                    "SOUNDS" : "Próbáld meg lent tesztelni a gépi tanulási modellt. Kattints a 'kezdd a hallgatást' gombra. Ha a gépi tanulási rendszered bármilyen hangot felismer, megmondja mit ismer fel, és mennyire biztos benne.” 
+                    "SOUNDS" : "Próbáld meg lent tesztelni a gépi tanulási modellt. Kattints a 'kezdd a hallgatást' gombra. Ha a gépi tanulási rendszered bármilyen hangot felismer, megmondja mit ismer fel, és mennyire biztos benne."
                 },
                 "SCRATCH" : "Ha úgy tűnik, hogy a számítógép ezeket helyesen megtanulta, és korrektül felismeri a dolgokat, akkor áttérhetsz a Scratch programozás részére, hogy készíts egy játékot!",
                 "ADDITIONAL_TRAINING" : {
@@ -653,7 +651,7 @@
             },
             "QUESTION_6": {
                 "QUESTION": "Melyik állítás igaz?",
-                "ANSWER_1": "A gépi tanulás egy technika, ahol a számítógépet megtanítjuk feladatok elvégzésére, ahelyett, hogy a feladatok pontos sorrendjét meghatároznánk."
+                "ANSWER_1": "A gépi tanulás egy technika, ahol a számítógépet megtanítjuk feladatok elvégzésére, ahelyett, hogy a feladatok pontos sorrendjét meghatároznánk.",
                 "ANSWER_2": "A gépi tanulás egy varázslat",
                 "ANSWER_3": "A gépi tanulás azt jelenti, hogy soha többé nem fogunk dolgokon gondolkodni, mert a számítógép megteszi ezt helyettünk.",
                 "ANSWER_4": "A gépi tanulás váltotta ki az igényt arra, hogy megtanuljunk kódolni.",
@@ -694,7 +692,7 @@
                 "NOTES_2": "Ha a feladat bonyolult, jó ötlet lehet egynél több embert rávenni, hogy címkézzen meg minden képet, és tartsd meg azt a címkét, amelyikben a legtöbb ember egyetért.."
             },
             "QUESTION_11": {
-                "QUESTION": "Megtanítottad a számítógépet, hogy felismerje az alábbi kategóriákat: \"étel\" or \"nem étel\" ennek ellenére következetlen válaszokat ad a szendvics képére, mindig betéve a "nem étel" osztályba. Mi magyarázhatja ezt?”,
+                "QUESTION": "Megtanítottad a számítógépet, hogy felismerje az alábbi kategóriákat: \"étel\" or \"nem étel\" ennek ellenére következetlen válaszokat ad a szendvics képére, mindig betéve a \"nem étel\" osztályba. Mi magyarázhatja ezt?",
                 "ANSWER_1": "Az ember, aki tanította a rendszert, nem szereti a szendvicseket, és nem is tette bele a tanítási adatokba",
                 "ANSWER_2": "A gépnek megfelelő hangulatban kell lennie egy szendvicshez, emiatt sokat változtat a véleményen",
                 "ANSWER_3": "A szendvics nem étel. A rendszer jól működik, amikor ebben nem biztos.",
@@ -1506,6 +1504,22 @@
             "WORKSHEET_1": {
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-explainability.pdf"
             }
+        },
+        "POKEMONSTATS": {
+            "TITLE": "Pokémon statistics",
+            "SUMMARY": "Teach a computer to recognize patterns in sets of numbers",
+            "DESCRIPTION": "Make a project in Scratch that predicts the type of Pokémon from their size and fighting stats.",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pokemonstats.pdf"
+            }
+        },
+        "POKEMONIMAGES": {
+            "TITLE": "Pokémon images",
+            "SUMMARY": "Teach a computer to recognize pictures",
+            "DESCRIPTION": "Make a project in Scratch that predicts the type of Pokémon from how it looks",
+            "WORKSHEET_1": {
+                "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-pokemonimages.pdf"
+            }
         }
     },
     "TEACHER": {
@@ -1567,13 +1581,11 @@
             "HELP_STEPBYSTEP_GUIDE": "Ha nem vagy biztos abban, hogy mit kell itt csinálni, kövesd az <a href='/apikeys-guide'> az alapos ismertetőt </a>. Ha segítségre van szükséged <strong><a style='cursor: pointer;' href='/help'>lépj kapcsolatba</a></strong>.",
 
             "INTRO_WATSONASSISTANT": "Tanítsd meg a ML modelt <span class='mlprojecttype'>szövegfelismerésre</span> és használj <a class='mlprojecttype' href='https://www.ibm.com/cloud/watson-assistant/'>Watson Asszisztenst</a>",
-            "INTRO_VISUALRECOGNITION": "Tanítsd meg a ML modelt <span class='mlprojecttype'>képfelismerésre</span> projects in the cloud uses <a class='mlprojecttype' href='https://www.ibm.com/watson/services/visual-recognition/'>Watson Vizuális Felsimerő</a>",
             "INTRO_NUMBERS": "Tanítsd meg a ML modelt <span class='mlprojecttype'>számfelismerésre</span> és közben <strong>nincs</strong> szükség API kulcsra",
             "INTRO_SOUNDS": "Tanítsd meg a ML modelt <span class='mlprojecttype'>hangfelismerésre</span> és közben <strong>nincs</strong> szükség API kulcsra",
             "INTRO_IMAGES": "Tanítsd meg a ML modelt <span class='mlprojecttype'>képfelismerésre</span>és közben<strong>nincs</strong> szükség API kulcsra",
 
             "ERROR_FETCHING_WATSONASSISTANT": "Nem sikerült a Watson Assistant jelszót érvényesíteni",
-            "ERROR_FETCHING_VISUALRECOG": "Nem sikerült a Vizuális Felismerés API kulcsokat megkapnod.",
 
             "USERNAME": "Felhasználónév",
             "PASSWORD": "Jelszó",
@@ -1584,14 +1596,11 @@
             "UNLIMITED": "nem korlátozott",
 
             "LIMIT_TEXT_PROJECTS": "A gépi tanulási szöveges modellek száma, amik a diákjaid rendelkezésére állhatnak:",
-            "LIMIT_IMAGE_PROJECTS": "A gépi tanulási képfelismerő modellek száma, amik a diákjaid rendelkezésére állhatnak:",
 
             "ADD_API_KEYS": {
                 "ASSISTANT_TITLE": "Add hozzá a Watson Assistant hitelesítéseket",
-                "VISUAL_RECOGNITION_TITLE": "Add meg a Visual Recognition API kulcsot",
 
                 "USED_FOR_TEXT_PROJECTS": "Ez akkor lesz használva, amikor a diákjaid tanítják a szöveges modellt.",
-                "USED_FOR_IMAGE_PROJECTS": "Ez akkor lesz használva, amikor a diákjaid tanítják a képfelismerő modellt.",
 
                 "HIDDEN_FROM_STUDENTS": "Ezt a csoportod diákjai nem fogják látni",
 
@@ -1775,41 +1784,12 @@
         "PROJECTS": {
             "TITLE": "Projekttel kapcsolatos kérdések",
 
-            "Q1": "Mi a különbség aközött, hogy a képtanító modell a \"számítógépeden\" vagy \"a felhőben van\"?",
-            "Q1-A-1": "Mind a kettő használható arra, hogy projekteket készíts. A különbség abban áll, hogy a modellek hol készülnek és tárolódnak.",
-            "Q1-A-2": "Ha a \"<strong>felhőt választod, </strong>\" a gépi tanulási rendszer online szervert - a Watson Vizuális Felismerőjét- fogja használni",
-            "Q1-A-3": "Ha a \"<strong>számítógépedet választod, </strong>\" a gépi tanulási rendszer a diák saját számítógépén fogja használni a böngészőt.",
-            "Q1-A-4": "\"<strong>A felhő </strong>\" előnyös, mert:",
-            "Q1-A-7": "Az általa készített modellek pontosabbak, különösen akkor, amikor kis számú a példa.",
-            "Q1-A-8": "De hosszabb időt vesz igénybe, amíg vársz a felhő szerverére.",
-            "Q1-A-9": "\"<strong>Ha a számítógépedet választod, </strong>\" az előnyös, mert:",
-            "Q1-A-10": "Gyorsabb lehet a tanítás, mert nem kell a szerverre várnia.",
-            "Q1-A-12": "Modelleket nem kell automatikusan törölni.",
-
-            "Q2": "Hogy lehet változtatni a \"képi\" projektet a felhőben, vagy a számítógépen történő tanításhoz?",
-            "Q2-A-1": "Két mód közül választhatsz \"Tanítsd és Teszteld\" oldalon.",
-            "Q2-A-2": "Az ehhez szükséges link az oldal jobb felső sarkában található.",
-            "Q2-A-3": "Minden létező projekt törlődni fog, ha ezt megteszed.",
-            "Q2-A-4": "A Scratch blokkok a képi projektekhez a két különböző módban másképp működnek, tehát ha nyitva van a Scratch ablak, amikor ezt csinálod, akkor frissíteni kell az oldalt, abból a célból, hogy a Scratch kiterjesztés frissíthető legyen.",
-
-            "Q3": "Miért csak a Scratch-et vagy a Python-t használhatom a projektemhez?",
-            "Q3-A-1": "A gépi tanulási modellek, amiket a számítógépeden tanítasz, csak a Scratch-ből érhetőek el (ami előzőleg frissítve lett, azért, hogy csatlakozhasson azokhoz a modellekhez, amiket a böngészőn tárolsz) és a Python-ból (csak a képi projektekhez).",
-            "Q3-A-2": "A gépi tanulási modellek, amiket a felhőben tanítasz, elérhetőek a Scratch-ből, Python-ból, vagy az App Inventor-ból - miután ezek mind képesek csatlakozni a felhőben tárolt modellekhez.",
-            "Q3-A-3": "Ha csak a 'Scratch 3-t' látod, mint opciót, amikor egy projektet készítesz, ez azt jelenti, hogy a modelled a böngésződben lesz elmentve.",
-
             "Q4": "Mely modelleket tanítottad a számítógépeden és melyeket a felhőben?",
             "Q4-A-1": "<strong>szöveg</strong> projekteket csak a felhőben tudsz tanítani.",
             "Q4-A-2": "<strong>számok</strong> projekteket csak a felhőben tudsz tanítani.",
             "Q4-A-3": "<strong>hang</strong> projekteket csak a számítógépen tudsz tanítani.",
-            "Q4-A-4": "<strong>képi</strong> projekteket a számítógépen és a felhőben is tudsz tanítani (ha tudsz csatlakozni a Watson Vizuális Felismeréshez).",
+            "Q4-A-4": "<strong>képi</strong> projekteket a számítógépen és a felhőben is tudsz tanítani (ha tudsz csatlakozni a Watson Vizuális Felismeréshez)."
 
-            "Q5": "Melyik diákok taníthatnak képi projekteket a felhőben??",
-            "Q5-A-1": "<strong>képi</strong> projekteket a számítógépeden, vagy a felhőben taníthatsz (ha tudsz csatlakozni a Watson Vizuális Felismeréshez).",
-            "Q5-A-2": "A gépi tanulási modell tanítása a <strong>képi</strong> projektek esetében Watson Vizuális Felismerő szolgáltatást használ. Az IBM <a href='https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-getting-started-tutorial'>abbahagyta a Watson Vizuális Felismerő szolgáltatást</a> 2021. január 7-én, ami azt jelenti, hogy az ehhez való csatlakozás limitált. A Vizuális Felismerő szolgáltatás teljesen megszűnik 2021. december 1-jén.",
-            "Q5-A-3": "Az ellenőrzött osztáylokban lévő diákok 2021. december 1-ig ki tudják majd választani, hogy a számítógépükön, vagy a felhőben tanítsák a rendszert.",
-            "Q5-A-4": "A nem ellenőrzött osztályok tanulói Vizuális Felsimerő API kulcsokkal - amelyek 2021. január 7-e előtt lettek generálva - a képi projekteket a saját számítógépükön fogják tudni tanítani 2021. december 1-ig.",
-            "Q5-A-5": "A 2021. január 7. után létrehozott nem ellenőrzött osztályok diákjai csak a saját számítógépükön tudják a képi modelljeiket tanítani.",
-            "Q5-A-6": "Azok a diákok, akik a  'Próbáld most' funkciót használják, csak a saját számítógépükön tudják a képi modellt tanítani."
         },
 
         "SCRATCH": {
@@ -1827,7 +1807,7 @@
             "Q3-A-1": "Esetenként a gépi tanulási modell Scratch blokkjai megszakíthatják a kapcsolatot a szerverrel. Amikor ez megtörténik, leállítják az eredmények visszaadását.",
             "Q3-A-2": "Ellenőrizheted, hogy mi történt a színes állapotjelző segítségével \"Több Blok\" palettán.",
             "Q3-A-3": "Ha a gépi tanulási Scratch blokkok melletti állapotjelző lámpa pirosan világít, az általában azt jelenti, hogy valami nincs rendben. Lehet, hogy átmeneti probléma. Próbáld meg menteni a projektedet (használd a 'File' -&gt; 'Projekt mentése'), utána frissítsd a böngészőt. Ha az állapotjelző lámpa zöldre vált az oldal újratöltése után, betöltheti a projektet (használd a 'File' -&gt; 'Projekt betöltése') utána folytasd, ahol abbahagytad.",
-            "Q3-A-4": "Ha az állapotjelző lámpa az oldal újratöltése után is pirosan világít, akkor valószínűleg valami nincs rendben a gépi tanulási modellel. Nyisd meg a projekt \"Tanulás és tesztelés\" oldalt, ahol a modellel kapcsolatos hibaüzenetek megtalálhatók.”,
+            "Q3-A-4": "Ha az állapotjelző lámpa az oldal újratöltése után is pirosan világít, akkor valószínűleg valami nincs rendben a gépi tanulási modellel. Nyisd meg a projekt \"Tanulás és tesztelés\" oldalt, ahol a modellel kapcsolatos hibaüzenetek megtalálhatók.",
             "Q3-A-5": "Ha a gépi tanulási Scratch blokkok melletti állapotjelző fény zölden világít, akkor a blokkoknak működniük kell. Ha nem azt a választ kapod, amit vársz, próbáld meg a \"Tanítás &amp; Tesztelés\" oldalt, és ellenőrizd a modelled által adott válaszokat.",
 
             "Q5": "Használhatom az új Scratch verziót?",
@@ -1861,21 +1841,12 @@
 
             "Q3": "\"A Watson Assistant API kulcsok nem rendelkeznek több elérhető képességgel\"",
             "Q3-A-1": "Az eszközben található gépi tanulási modellek IBM Watson API-k segítségével jönnek létre.",
-            "Q3-A-2": "A tanárok által létrehozott Watson Assistant hitelesítési adatok korlátozzák a létrehozható gépi tanulási modellek számát. Ez megjelenik az IBM Cloud UI-ban, ahol a hitelesítési adatok létrejöttek, és ahol a nevük\"skillek\.".",
+            "Q3-A-2": "A tanárok által létrehozott Watson Assistant hitelesítési adatok korlátozzák a létrehozható gépi tanulási modellek számát. Ez megjelenik az IBM Cloud UI-ban, ahol a hitelesítési adatok létrejöttek, és ahol a nevük\"skillek\".",
             "Q3-A-3": "Ha ezt a határt túllépik, az új gépi tanulási modellek betanítására irányuló kísérletek sikertelenek lesznek, és ez az üzenet jelenik meg:",
             "Q3-A-4": "Az osztályod már létrehozta a megengedett maximális számú modellt. Kérjük, tájékoztasd tanárodat vagy csoportvezetődet, hogy nincs több \"Watson Assistant API kulcs\".",
             "Q3-A-5": "Ha egy diák, akinek sikeresen betanított modellje van, törli a modelljét, ez egy másik tanuló számára lehetőséget biztosít.",
             "Q3-A-6": "E hiba jövőbeni elkerülésének egyik módja a kisebb osztálylétszám. Ha kevesebb a tanuló, mint amennyit a Watson Assistant hitelesítő adatai támogatnak, akkor nem léped túl a keretet.",
             "Q3-A-7": "A hiba elkerülésének másik módja, ha további Watson Assistant API kulcsokat ad hozzá az osztályhoz, vagy olyan Watson Assistant példány \"tervet\", amely magasabb korlátokkal rendelkezik.",
-
-            "Q4": "\"A Watson Vizuális Felismerő API kulcsokhoz nincs több elérhető osztályozó\"",
-            "Q4-A-1": "Az eszközben található gépi tanulási modellek IBM Watson API-k segítségével jönnek létre.",
-            "Q4-A-2": "A tanárok által létrehozott Watson Vizuális Felismerő hitelesítő adatok korlátozzák a létrehozható gépi tanulási modellek számát. Ez az IBM Cloud felhasználói felületen jelenik meg, ahol a hitelesítési adatok létrejöttek, és ahol a nevük \"egyéni osztályzók\".",
-            "Q4-A-3": "Ha ezt a határt túllépik, az új gépi tanulási modellek betanítására tett kísérletek sikertelenek lesznek, és ez az üzenet jelenik meg:",
-            "Q4-A-4": "Az osztályod már létrehozta a megengedett maximális számú modellt. Kérjük, tájékoztasd a tanárodat, vagy csoportvezetődet, hogy az nincs több elérhető \"Watson Vizuális Felismerő API kulcs\".",
-            "Q4-A-5": "Ha egy diák, akinek sikeresen betanított modellje van, törli a modelljét, ez felszabadít egy egyéni osztályozót egy másik diák számára.",
-            "Q4-A-6": "E hiba jövőbeni elkerülésének egyik módja a kisebb osztálylétszám. Ha kevesebb tanuló van, mint ahány egyéni osztályozót támogatnak a Watson Vizuális Felismerő hitelesítő adatai, akkor a korlátokat nem lépde túl.",
-            "Q4-A-7": "A hiba elkerülésének másik módja, ha további Watson Vizuális Felismerő API kulcsokat adunk az osztályhoz, vagy használunk egy magasabb korláttal rendelkező Watson Vizuális Felismerő példányt \"tervet\".",
 
             "Q5": "\"Watson ... jelenleg korlátozza az API kulcsát\"",
             "Q5-A-1": "Az eszközben található gépi tanulási modellek IBM Watson API-k segítségével jönnek létre.",
