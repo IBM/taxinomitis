@@ -7,6 +7,7 @@ import * as TrainingObjects from './training-types';
 import * as request from '../utils/request';
 import * as env from '../utils/env';
 import loggerSetup from '../utils/logger';
+import * as slack from '../notifications/slack';
 
 const log = loggerSetup();
 
@@ -254,6 +255,7 @@ async function getVisualisationFromModelServer(project: Objects.Project): Promis
             formats : 'dot,svg',
         },
         json : true,
+        timeout: 60000,
     };
 
     const url = process.env[env.NUMBERS_SERVICE] + '/api/models';
@@ -274,6 +276,8 @@ async function getVisualisationFromModelServer(project: Objects.Project): Promis
             }
         }
         else {
+            log.error({ err, url, project }, 'Failed to get visualisation');
+            slack.notify('Numbers visualisation failure', slack.SLACK_CHANNELS.CRITICAL_ERRORS);
             throw err;
         }
     }
@@ -372,6 +376,7 @@ export interface NumbersModelDescriptionRequest {
         readonly formats: string;
     };
     readonly json: true;
+    readonly timeout: number;
 }
 
 export interface NumbersModelDescriptionResponse {
