@@ -4,6 +4,7 @@
 
 .appinventorpage code {
     font-size: 75%;
+    overflow-wrap: anywhere;
 }
 
 .appinventorpage img {
