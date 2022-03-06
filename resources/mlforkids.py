@@ -77,7 +77,7 @@ class MLforKidsImageProject:
             # input layer is resizing all images to save having to do that in a manual pre-processing step
             Rescaling(1/127, input_shape=MLforKidsImageProject.INPUTLAYERSIZE),
             # using an existing pre-trained model as an untrainable main layer
-            hub.KerasLayer("https://tfhub.dev/google/imagenet/mobilenet_v2_140_224/classification/4"),
+            hub.KerasLayer("https://tfhub.dev/google/imagenet/mobilenet_v2_140_224/classification/5"),
             #
             Dropout(rate=0.2),
             #
@@ -87,7 +87,7 @@ class MLforKidsImageProject:
 
         # model compile parameters copied from tutorial at https://www.tensorflow.org/hub/tutorials/tf2_image_retraining
         model.compile(
-            optimizer=tf.keras.optimizers.SGD(lr=0.005, momentum=0.9),
+            optimizer=tf.keras.optimizers.SGD(learning_rate=0.005, momentum=0.9),
             loss=tf.keras.losses.CategoricalCrossentropy(from_logits=True, label_smoothing=0.1),
             metrics=['accuracy'])
 
