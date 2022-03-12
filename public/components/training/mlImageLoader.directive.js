@@ -182,13 +182,19 @@
                                                 'https://gimg2.baidu.com/image_search?src=');
                         }
 
-                        var baiduImageSearchUrl = new URL(data);
-                        if (baiduImageSearchUrl &&
-                            baiduImageSearchUrl.searchParams &&
-                            baiduImageSearchUrl.searchParams.has &&
-                            baiduImageSearchUrl.searchParams.has('src'))
-                        {
-                            data = baiduImageSearchUrl.searchParams.get('src');
+                        try {
+                            var baiduImageSearchUrl = new URL(data);
+                            if (baiduImageSearchUrl &&
+                                baiduImageSearchUrl.searchParams &&
+                                baiduImageSearchUrl.searchParams.has &&
+                                baiduImageSearchUrl.searchParams.has('src'))
+                            {
+                                data = baiduImageSearchUrl.searchParams.get('src');
+                            }
+                        }
+                        catch (e) {
+                            // new URL() is not supported on IE11
+                            console.log(e);
                         }
                     }
                 }
