@@ -883,7 +883,6 @@
     },
     "MAKES": {
         "TITLE": "Réalisez quelque chose avec votre modèle d'apprentissage machine",
-        "SCRATCH2": "Créer un projet dans l'ancienne version de Scratch",
         "SCRATCH3": "Utilisez la nouvelle version de Scratch",
         "PYTHON": "Ecrire du code Python pour utiliser votre modèle d'apprentissage machine",
         "APPINVENTOR": "Créez une application mobile pour votre téléphone ou tablette"

@@ -891,7 +891,6 @@
     },
     "MAKES": {
         "TITLE": "Készíts valamit a gépi tanulási modelleddel",
-        "SCRATCH2": "Készíts egy projektet a Scratch régi verziójában.",
         "SCRATCH3": "Használd a Scratch új verzióját",
         "PYTHON": "Írj egy Python kódot, és használd a gépi tanulási modelledet.",
         "APPINVENTOR": "Készíts egy mobilapplikációt a telefonodra vagy a tabletedre"

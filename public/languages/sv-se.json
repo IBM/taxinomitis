@@ -883,8 +883,7 @@
     },
     "MAKES": {
         "TITLE": "Make something with your machine learning model",
-        "SCRATCH2": "Make a project in the old version of Scratch",
-        "SCRATCH3": "Use the new version of Scratch",
+        "SCRATCH3": "Use your machine learning model in Scratch",
         "PYTHON": "Write Python code to use your machine learning model",
         "APPINVENTOR": "Make a mobile app for your phone or tablet"
     },

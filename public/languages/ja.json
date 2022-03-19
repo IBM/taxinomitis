@@ -883,7 +883,6 @@
     },
     "MAKES": {
         "TITLE": "あなたの機械学習モデルを使って何か作ってみましょう。",
-        "SCRATCH2": "Scratch（Version 2)を使ってプロジェクトを作成する。",
         "SCRATCH3": "最新版のScratchを使う。",
         "PYTHON": "機械学習モデルを使うのにPythonのコードを書く。",
         "APPINVENTOR": "あたの携帯やタブレット用にアップを作成する。"

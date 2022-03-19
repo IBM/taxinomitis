@@ -883,7 +883,6 @@
     },
     "MAKES": {
         "TITLE": "Maak iets met je machine learning model",
-        "SCRATCH2": "Maak een project in de oude versie van Scratch",
         "SCRATCH3": "Gebruik de nieuwe versie van Scratch",
         "PYTHON": "Schrijf Python code om je machine learning model te gebruiken",
         "APPINVENTOR": "Maak een mobiele app voor je smartphone of tabel"
