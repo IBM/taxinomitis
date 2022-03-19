@@ -24,7 +24,7 @@ describe('Create image training zip function', () => {
         }
 
 
-        it('dale', () => {
+        it('zip images from multiple sources', () => {
             const wm = 'https://upload.wikimedia.org/wikipedia/commons/';
             const params: CreateZipParams = {
                 locations : [
@@ -46,6 +46,7 @@ describe('Create image training zip function', () => {
                             Debug.log('response', resp);
                         })
                         .catch((err) => {
+                            Debug.log('failure', err);
                             console.error(err);
                             throw err;
                         });
@@ -90,6 +91,7 @@ describe('Create image training zip function', () => {
 
             async.waterfall([
                 (next: (err?: Error, unzipdir?: string, zipfile?: string) => void) => {
+                    Debug.log('step - creating temp files');
                     tmp.dir({}, (direrr, targetdir) => {
                         tmp.file({ postfix : '.zip' }, (fileerr, zippath) => {
                             next(direrr || fileerr, targetdir, zippath);
@@ -97,6 +99,7 @@ describe('Create image training zip function', () => {
                     });
                 },
                 (unzipdir: string, zippath: string, next: (err?: Error, zipdir?: string, zippath?: string) => void) => {
+                    Debug.log('step - creating zip');
                     return CreateZip(params)
                         .then((resp) => {
                             assert.strictEqual(resp.statusCode, 200);
@@ -107,6 +110,7 @@ describe('Create image training zip function', () => {
                         .catch(next);
                 },
                 (unzipTarget: string, zipFile: string, next: (err?: Error, files?: string[]) => void) => {
+                    Debug.log('step - unzipping');
                     const unzippedFiles: string[] = [];
                     fs.createReadStream(zipFile)
                         .pipe(unzip.Parse())
@@ -121,6 +125,7 @@ describe('Create image training zip function', () => {
                 },
                 (unzippedFiles: string[], next: (err?: Error | undefined | null,
                                                  files?: (TestFile | undefined)[]) => void) => {
+                    Debug.log('step - checking files sizes');
                     async.map(unzippedFiles,
                                 (unzippedFile: string, nextFile: (err?: Error | null, file?: TestFile) => void) =>
                                 {
@@ -136,6 +141,7 @@ describe('Create image training zip function', () => {
                                 }, next);
                 },
                 (unzippedFilesInfo: TestFile[], next: () => void) => {
+                    Debug.log('step - checking file contents');
                     assert.strictEqual(unzippedFilesInfo.length, 8);
                     async.each(unzippedFilesInfo,
                         (unzippedFile: any, nextFile) => {
@@ -261,7 +267,28 @@ describe('Create image training zip function', () => {
                                                 nextFile();
                                             });
                                 break;
+                            case 8991:
+                                Debug.log('comparing small-ibm-4', unzippedFile);
+                                filecompare('./test/resources/small-ibm-4.png',
+                                            unzippedFile.location,
+                                            (isEq: boolean) => {
+                                                Debug.log('compared small-ibm-4', isEq);
+                                                assert(isEq, './test/resources/small-ibm-4.png');
+                                                nextFile();
+                                            });
+                                break;
+                            case 6085:
+                                Debug.log('comparing small-dog-3', unzippedFile);
+                                filecompare('./test/resources/small-dog-3.jpg',
+                                            unzippedFile.location,
+                                            (isEq: boolean) => {
+                                                Debug.log('compared small-dog-3', isEq);
+                                                assert(isEq, './test/resources/small-dog-3.jpg');
+                                                nextFile();
+                                            });
+                                break;
                             default:
+                                console.log(unzippedFile);
                                 Debug.log('error!', unzippedFile);
                                 assert.strictEqual(0, 1,
                                     'Unexpected file size ' + unzippedFile.size + ' ' +
@@ -269,7 +296,10 @@ describe('Create image training zip function', () => {
                                 break;
                             }
                         },
-                        next);
+                        () => {
+                            Debug.log('finished checking files')
+                            next();
+                        });
                 },
             ], () => {
                 Debug.log('complete');
@@ -332,7 +362,7 @@ describe('Create image training zip function', () => {
         });
 
 
-        it('should handle requests to include unsupported image types', () => {
+        it.skip('should handle requests to include unsupported image types', () => {
             const params: CreateZipParams = {
                 locations : [
                     { type : 'download', imageid : '1',
