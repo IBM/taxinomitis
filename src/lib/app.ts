@@ -12,6 +12,7 @@ import * as slack from './notifications/slack';
 import * as email from './notifications/email';
 import { confirmRequiredEnvironment } from './utils/env';
 import * as shutdown from './utils/shutdown';
+import * as constants from './utils/constants';
 import * as env from './utils/env';
 import loggerSetup from './utils/logger';
 
@@ -63,4 +64,11 @@ store.init()
         server = app.listen(port, host, () => {
             log.info({ host, port }, 'Running');
         });
+
+        // restart one instance every hour
+        if (process.env.CF_INSTANCE_INDEX === '2') {
+            setTimeout(() => {
+                shutdown.now('TIMED', server);
+            }, constants.ONE_HOUR);
+        }
     });
