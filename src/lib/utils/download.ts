@@ -290,7 +290,8 @@ export function resizeUrl(url: string, width: number, height: number): Promise<B
                                 .on('error', reject)
                                 .toBuffer((err, buff) => {
                                     if (err) {
-                                        if (err.message === 'Input buffer contains unsupported image format') {
+                                        if (err.message === 'Input buffer contains unsupported image format' ||
+                                            err.message.startsWith('Input buffer has corrupt header')) {
                                             return reject(new Error(ERRORS.DOWNLOAD_FILETYPE_UNSUPPORTED));
                                         }
                                         return reject(err);
