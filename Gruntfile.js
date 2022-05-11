@@ -232,6 +232,12 @@ module.exports = function(grunt) {
                 src : [ 'face-landmarks-detection.min.js' ],
                 dest : 'web/static/bower_components/tensorflow-models/face-landmarks-detection'
             },
+            tensorflowfacemesh : {
+                expand : true,
+                cwd : 'node_modules/@mediapipe/face_mesh',
+                src : '**',
+                dest : 'web/static/bower_components/tensorflow-models/face-mesh'
+            },
             angularmaterial : {
                 expand : true,
                 cwd : 'public/third-party/angular-material',
@@ -318,7 +324,7 @@ module.exports = function(grunt) {
     //-----------------------------------
     // fetch UI third-party dependencies
     grunt.registerTask('bower', ['bower-install-simple']);
-    grunt.registerTask('tfjs', ['mkdir:tfjsmodels', 'copy:tensorflowjs', 'copy:tensorflowspeechcommands', 'copy:tensorflowposenet', 'copy:tensorflowhandpose', 'copy:tensorflowfacelandmarks', 'downloadfile']);
+    grunt.registerTask('tfjs', ['mkdir:tfjsmodels', 'copy:tensorflowjs', 'copy:tensorflowspeechcommands', 'copy:tensorflowposenet', 'copy:tensorflowhandpose', 'copy:tensorflowfacelandmarks', 'copy:tensorflowfacemesh', 'downloadfile']);
     grunt.registerTask('boweroverrides', ['copy:angularmaterial']);
     grunt.registerTask('uidependencies', ['bower', 'tfjs', 'boweroverrides']);
     // install Scratch into the deployment

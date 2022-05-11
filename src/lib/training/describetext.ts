@@ -1,7 +1,6 @@
 // external dependencies
 import syllable = require('syllable');
-import nlp = require('compromise');
-import nlpnum = require('compromise-numbers');
+const nlp = require('compromise/three'); // tslint:disable-line
 // local dependencies
 import * as store from '../db/store';
 import * as Objects from '../db/db-types';
@@ -11,13 +10,10 @@ import * as emoticons from '../utils/emoticons';
 
 
 
-const nlpFunctions: any = nlp.extend(nlpnum);
-
-
 
 
 function getCustomFeatures(trainingExampleText: string, emoticonsDictionary: string[]): TextModelTrainingAnnotation[] {
-    const analyzedTrainingText = nlpFunctions(trainingExampleText);
+    const analyzedTrainingText = nlp(trainingExampleText);
     return [
         // 1
         { annotation : 'number of letters', value : countLetters(trainingExampleText) },
