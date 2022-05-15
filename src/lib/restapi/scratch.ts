@@ -247,6 +247,16 @@ async function getTrainingData(req: Express.Request, res: Express.Response) {
 
             return res.json(trainingData);
         }
+        else if (scratchKey.type === 'text') {
+            const trainingData = await store.getTextTraining(scratchKey.projectid, {
+                start : 0,
+                limit : limits.getStoreLimits().textTrainingItemsPerProject,
+            });
+
+            res.set(headers.CACHE_2MINUTES);
+
+            return res.json(trainingData);
+        }
         else {
             return res.status(httpstatus.METHOD_NOT_ALLOWED)
                 .json({

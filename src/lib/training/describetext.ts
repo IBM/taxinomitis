@@ -1,5 +1,6 @@
 // external dependencies
 import syllable = require('syllable');
+// eslint-disable-next-line
 const nlp = require('compromise/three'); // tslint:disable-line
 // local dependencies
 import * as store from '../db/store';
