@@ -36,8 +36,8 @@ describe('Create image training zip function', () => {
                         url : wm + '3/39/IBM_Thinkpad_760ED.gif?download' },
                 ],
                 imagestore : {
-                    bucketid : process.env.OBJECT_STORE_BUCKET,
-                    credentials : JSON.parse(process.env.OBJECT_STORE_CREDS),
+                    bucketid : process.env.OBJECT_STORE_BUCKET as string,
+                    credentials : JSON.parse(process.env.OBJECT_STORE_CREDS as string),
                 },
             };
 
@@ -83,8 +83,8 @@ describe('Create image training zip function', () => {
                         url : wm + '3/39/IBM_Thinkpad_760ED.gif?download' },
                 ],
                 imagestore : {
-                    bucketid : process.env.OBJECT_STORE_BUCKET,
-                    credentials : JSON.parse(process.env.OBJECT_STORE_CREDS),
+                    bucketid : process.env.OBJECT_STORE_BUCKET as string,
+                    credentials : JSON.parse(process.env.OBJECT_STORE_CREDS as string),
                 },
             };
 
@@ -287,6 +287,16 @@ describe('Create image training zip function', () => {
                                                 nextFile();
                                             });
                                 break;
+                            case 72053:
+                                Debug.log('comparing small-thinkpad-5', unzippedFile);
+                                filecompare('./test/resources/small-thinkpad-5.png',
+                                            unzippedFile.location,
+                                            (isEq: boolean) => {
+                                                Debug.log('compared small-thinkpad-5', isEq);
+                                                // assert(isEq, './test/resources/small-thinkpad-5.png');
+                                                nextFile();
+                                            });
+                                break;
                             default:
                                 console.log(unzippedFile);
                                 Debug.log('error!', unzippedFile);
@@ -327,8 +337,8 @@ describe('Create image training zip function', () => {
                         url : wm + 'd/df/IBMThinkpad760ED.gif?download' },
                 ],
                 imagestore : {
-                    bucketid : process.env.OBJECT_STORE_BUCKET,
-                    credentials : JSON.parse(process.env.OBJECT_STORE_CREDS),
+                    bucketid : process.env.OBJECT_STORE_BUCKET as string,
+                    credentials : JSON.parse(process.env.OBJECT_STORE_CREDS as string),
                 },
             };
 
@@ -347,8 +357,8 @@ describe('Create image training zip function', () => {
                         url : 'http://this-website-does-not-actually-exist.co.uk/image.jpg' },
                 ],
                 imagestore : {
-                    bucketid : process.env.OBJECT_STORE_BUCKET,
-                    credentials : JSON.parse(process.env.OBJECT_STORE_CREDS),
+                    bucketid : process.env.OBJECT_STORE_BUCKET as string,
+                    credentials : JSON.parse(process.env.OBJECT_STORE_CREDS as string),
                 },
             };
 
@@ -369,8 +379,8 @@ describe('Create image training zip function', () => {
                         url : 'https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg?download' },
                 ],
                 imagestore : {
-                    bucketid : process.env.OBJECT_STORE_BUCKET,
-                    credentials : JSON.parse(process.env.OBJECT_STORE_CREDS),
+                    bucketid : process.env.OBJECT_STORE_BUCKET as string,
+                    credentials : JSON.parse(process.env.OBJECT_STORE_CREDS as string),
                 },
             };
 
@@ -391,8 +401,8 @@ describe('Create image training zip function', () => {
                         url : 'https://lh3.googleusercontent.com/2BgR7pTHkztneArHKFJC8PU2gJJjlQxbeREvdDfGRhy977XERW5INOPPATbkIwGk7LXMoSJJuHfaMKptAobG5Nftc4BC0mk0_PACy4-BhZlp20rr6iwflqDA9q9nFBSPlNGp8UG4YpZryiKGK4g4XARblMy6KV2zpHWHUUQfQzeThOTjNexgw5IGulkel-fQCZQhxORPAHmHQPleRSlGxTZhQo0vrg1O5K33UUZ5bYa8_fwCAsYPg_UoRK3UZQdNrmQEFDqC1WtbSAnlYn8OX_WrJ4l1Fj-Tn4UXoNI7AEunfAZEQZYnB5oiFewnWfltg4gorz__xDizUGaifusPd3mE1nwoT24gKB9zjmA-jXKnMTxsVPvzouFiOGWwMHDnw6NuIrCr-rsfhD-vYNBB8BejcxjUrRf0XfA4iDBW6pgIICrkjaHWxIu5dOUzVIqJcWhzoBNBIAmJ3cP6VqMDWK4mKpU5IQRhRnPEX3mpqEQW3hovFkJTFk6JdZ7YZrgamF9CaUkQ6Er2Sg90Ua1XgoXWYWJk1mEI1Um-VaodCIg9vHr7zUKRQgnPzDi9MmeYQnZTIJUhWN5MKLUKXfCrF96KqXz6lFsG4ghPG1Kq1pF8td1ohGqjunIMhWyRWxrFBDeTTVPJXjpACOC8RTDX_Xvw7uJJ3Cwl=w649-h486-no' },
                 ],
                 imagestore : {
-                    bucketid : process.env.OBJECT_STORE_BUCKET,
-                    credentials : JSON.parse(process.env.OBJECT_STORE_CREDS),
+                    bucketid : process.env.OBJECT_STORE_BUCKET as string,
+                    credentials : JSON.parse(process.env.OBJECT_STORE_CREDS as string),
                 },
             };
 

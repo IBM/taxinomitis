@@ -117,7 +117,6 @@ describe('Resize function', () => {
             .then((response) => {
                 assert.strictEqual(response.statusCode, 200);
                 assert.deepStrictEqual(response.headers, { 'Content-Type': 'image/png' });
-                fs.writeFileSync('/tmp/dale', response.body);
 
                 assert.deepStrictEqual(response.body.length, expectedSize);
 
