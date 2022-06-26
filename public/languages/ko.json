@@ -251,8 +251,8 @@
         "ERRORS": {
             "REQUIRED": "이 부분은 필요합니다.",
             "TOOLONG": "너무 길어요!",
-            "EXCEEDLIMIT": "You've reached the limit for the number of projects you can have. You need to delete one of your current projects before you can create another.",
-            "TRYITNOW": "Sorry! You can only create one project at a time if you use 'Try it now'. You need to delete your current project before you can create another."
+            "EXCEEDLIMIT": "동시에 진행할 수 있는 최대 프로젝트 수에 도달했습니다. 새 프로젝트를 만들기 위해서는 진행중인 프로젝트 중 하나를 지워야 합니다.",
+            "TRYITNOW": "미안해요! \"지금 사용해보기\"를 사용하면 한번에 한 프로젝트만 만들 수 있어요. 새 프로젝트를 만들기 전에 현재 진행중인 프로젝트를 지워야해요."
         },
         "WARNINGS": {
             "MLCRED-TEXT-NOKEYS": "Please let your teacher know that they will need to add a \"Watson Assistant API key\" to your class to let you train the machine learning model for your new project",
@@ -1267,21 +1267,20 @@
         "JUDGEABOOK": {
             "TITLE": "책 구별사",
             "SUMMARY": "시각적 스타일을 인식하도록 컴퓨터를 가르쳐봐요.",
-            "DESCRIPTION": "스크래치에서 게임을 만들어 책 표지를 판단 할 수 있는지 테스트 해봐요.",
+            "DESCRIPTION": "표지를 통해 책을 판단하는 것이 가능한지 테스트하는 게임을 만들어보세요.",
             "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook.pdf",
             "WORKSHEET_1": {
-                "DESCRIPTION": "Full version of the Scratch project, where children make a game to compete against the computer to recognise books",
+                "DESCRIPTION": "컴퓨터와 경쟁하여 책을 인식하는 게임을 만든 어린이들의 Scratch 프로젝트의 전체 버전입니다",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook.pdf"
             },
             "WORKSHEET_2": {
-                "DESCRIPTION": "Simplified version of the Scratch project, where children get the computer to recognise books",
+                "DESCRIPTION": "컴퓨터가 책을 인식하도록 한 어린이들의 Scracth 프로젝트의 단순화된 버전입니다",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-easy.pdf"
             },
             "WORKSHEET_3": {
-                "DESCRIPTION": "App Inventor project, where children make a mobile app that recommends the best shelf for a book",
+                "DESCRIPTION": "책장에 가장 적합한 선반을 추천하는 모바일 앱을 만든 어린이들의 App Inventor 프로젝트입니다",
                 "URL": "https://github.com/IBM/taxinomitis-docs/raw/master/project-worksheets/pdf/worksheet-judgeabook-appinventor.pdf"
-            },
-            "TEACHERSNOTES_URL": "https://github.com/IBM/taxinomitis-docs/raw/master/teachers-notes/pdf/teachersnotes-judgeabook.pdf"
+            }
         },
         "LOCATELARRY": {
             "TITLE": "래리 찾기",
@@ -1700,7 +1699,7 @@
                 "USERNAME_INVALID" : "잘못된 문자입니다.",
                 "NUMBER" : "몇개의 계정을 생성하고 싶습니까?",
                 "NUMBER_REQUIRED" : "만들고자 하는 학생 계정의 수를 입력하세요.",
-                "NUMBER_TOOMANY" : "이 그룹의 학생 수는 {{userlimit}}명으로 제한됩니다.",
+                "NUMBER_TOOMANY" : "이 그룹의 학생 수는 {{userlimit}} 명으로 제한됩니다.",
                 "PASSWORD" : "비밀번호:",
                 "PASSWORD_TOOSHORT" : "너무 짧습니다."
             }
@@ -1710,14 +1709,14 @@
         "TEXT_PROJECTS": {
             "mlforkids.text.recogniseLabel": "[TEXT] 텍스트 인식하기(레이블)",
             "mlforkids.text.recogniseConfidence": "[TEXT] 텍스트 인식하기(정확도)",
-            "mlforkids.text.addTraining": "[TEXT](을)를 [LABEL]레이블의 훈련 데이터로 추가",
+            "mlforkids.text.addTraining": "[TEXT] (을)를 [LABEL] 레이블의 훈련 데이터로 추가",
             "mlforkids.text.trainNewModel": "새로운 머신 러닝 모델 훈련하기",
             "mlforkids.text.checkModelStatus": "머신 러닝 모델은 [STATUS] 상태인가요?"
         },
         "IMAGES_PROJECTS": {
             "mlforkids.images.recogniseLabel": "[IMAGE] 이미지 인식하기(레이블)",
             "mlforkids.images.recogniseConfidence": "[IMAGE] 이미지 인식하기(정확도)",
-            "mlforkids.images.addTraining": "[TEXT](을)를 [LABEL]레이블의 훈련 데이터로 추가"
+            "mlforkids.images.addTraining": "[TEXT] (을)를 [LABEL] 레이블의 훈련 데이터로 추가"
         },
         "NUMBER_PROJECTS": {
             "mlforkids.numbers.trainNewModel": "새로운 머신 러닝 모델 훈련하기"
@@ -1727,15 +1726,15 @@
             "mlforkids.sounds.stopListening": "듣기 멈춤"
         },
         "TWITTER": {
-            "mlforkids.twitter.getrecenttweet": "[TOPIC](와)과 관련된 가장 최근 트윗 [INDEX]개 가져오기"
+            "mlforkids.twitter.getrecenttweet": "[TOPIC] (와)과 관련된 가장 최근 트윗 [INDEX] 개 가져오기"
         },
         "FACE": {
-            "mlforkids.face.size": "[LANDMARK]의 크기",
-            "mlforkids.face.xlocation": "[LANDMARK]의 x좌표",
-            "mlforkids.face.ylocation": "[LANDMARK]의 y좌표"
+            "mlforkids.face.size": "[LANDMARK] 의 크기 [SOURCE]",
+            "mlforkids.face.xlocation": "[LANDMARK] 의 x좌표 [SOURCE]",
+            "mlforkids.face.ylocation": "[LANDMARK] 의 y좌표 [SOURCE]"
         },
         "POSENET": {
-            "mlforkids.posenet.getposition": "find [POSITION] of [LANDMARK]"
+            "mlforkids.posenet.getposition": "find [POSITION] of [LANDMARK] on [SOURCE]"
         },
         "HANDPOSE": {
             "mlforkids.handpose.getposition": "find [POSITION] of [LANDMARK]"
@@ -1758,8 +1757,8 @@
         },
         "GUI": {
             "gui.menuBar.ml4kidssharing": "Share",
-            "gui.menuBar.mlforkidsstartrecording": "Start recording the Stage",
-            "gui.menuBar.mlforkidsstoprecording": "Stop recording the Stage",
+            "gui.menuBar.mlforkidsstartrecording": "해당 스테이지 녹화 시작",
+            "gui.menuBar.mlforkidsstoprecording": "해당 스테이지 녹화 중지",
             "gui.menuBar.mlforkidsLibrary": "프로젝트 템플릿",
             "gui.mlforkidsLibrary.templates": "아이들을 위한 머신러닝 프로젝트 템플릿"
         }
@@ -1789,7 +1788,7 @@
             "Q4-A-1": "<strong>텍스트</strong> 프로젝트는 클라우드에서만 학습할 수 있습니다.",
             "Q4-A-2": "<strong>숫자</strong> 프로젝트는 클라우드에서만 학습할 수 있습니다.",
             "Q4-A-3": "<strong>소리</strong> 프로젝트는 자신의 컴퓨터에서만 학습할 수 있습니다.",
-            "Q4-A-4": "<strong>이미지</strong> 프로젝트는 컴퓨터에서 혹은 클라우드에서 (Watson Visual Recognition에 접근할 수 있는 경우) 학습 시킬 수 있습니다."
+            "Q4-A-4": "<strong>이미지</strong> 프로젝트는 자신의 컴퓨터에서만 학습할 수 있습니다."
         },
 
         "SCRATCH": {
@@ -2024,12 +2023,12 @@
             "QNA_5": "이것은 복잡한 모델이기 때문에 느리고 컴퓨터에 많은 메모리가 필요하다는 것을 알 수 있습니다!"
         },
         "SPICE": {
-            "TITLE": "Pitch estimation",
-            "SPICE_1": "This model can be used to recognize a note being sung from your computer's microphone.",
-            "SPICE_2": "It gives you blocks that will return the frequency of a note it recognized, and to convert that into the name or MIDI note.",
-            "SPICE_3": "The model, called <a href='https://ai.googleblog.com/2019/11/spice-self-supervised-pitch-estimation.html'>SPICE</a>, has been trained to identify the dominant pitch in sung audio, including being able to recognize a sung note even if there is background music and noise.",
-            "SPICE_4": "The training data used for this model came from <a href='https://sites.google.com/site/unvoicedsoundseparation/mir-1k'>MIR-1K</a>, which is a set of 1000 short sound recordings of amateur singers singing along to karaoke.",
-            "SPICE_5": "You will need to let Scratch use your microphone to use this model."
+            "TITLE": "음의 높이 추정",
+            "SPICE_1": "이 모델은 컴퓨터의 마이크에서 노래하는 음을 인식하는데 사용할 수 있습니다.",
+            "SPICE_2": "이것은 인식된 음의 빈도를 반환하고 이름 또는 MIDI 음표로 변환하는 블록을 제공합니다.",
+            "SPICE_3": "<a href='https://ai.googleblog.com/2019/11/spice-self-supervised-pitch-estimation.html'>SPICE</a> 라고 불리는 이 모델은 배경음악과 소음이 있는 경우에도 노래 음을 인식할 수 있게 하는 것을 포함하여 노래 오디오에서 지배적인 음을 식별하도록 훈련되어 있습니다.",
+            "SPICE_4": "이 모델에 사용된 학습 데이터는 노래방에서 노래를 부른 아마추어 가수의 1000개의 짧은 녹은 세트인 <a href='https://sites.google.com/site/unvoicedsoundseparation/mir-1k'>MIR-1K</a> 에서 가져왔습니다.",
+            "SPICE_5": "이 모델을 사용하기 위해서는 Scratch에서 당신의 마이크를 사용하도록 해야 합니다."
         },
         "IDEAS": {
             "IDEAS_1": "Are there other machine learning models you would like to be able to use in your Scratch projects?",
