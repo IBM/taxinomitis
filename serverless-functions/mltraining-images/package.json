@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "archiver": "5.3.0",
-    "async": "2.6.3",
+    "async": "2.6.4",
     "file-type": "16.5.3",
     "gm": "1.23.1",
     "ibm-cos-sdk": "1.11.0",
