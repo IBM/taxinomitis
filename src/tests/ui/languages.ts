@@ -29,6 +29,7 @@ describe('UI - NLS', () => {
     let ru: any;
     let ro: any;
     let hu: any;
+    let uk: any;
 
 
     before(() => {
@@ -56,6 +57,7 @@ describe('UI - NLS', () => {
         ru = JSON.parse(fs.readFileSync('./public/languages/ru.json', 'utf8'));
         ro = JSON.parse(fs.readFileSync('./public/languages/ro.json', 'utf8'));
         hu = JSON.parse(fs.readFileSync('./public/languages/hu.json', 'utf8'));
+        uk = JSON.parse(fs.readFileSync('./public/languages/uk.json', 'utf8'));
     });
 
     const NO_TRANSLATION_REQUIRED = [
@@ -151,6 +153,9 @@ describe('UI - NLS', () => {
     });
     it('Hungarian', () => {
         compareKeys(en, hu, 'hu');
+    });
+    it('Ukrainian', () => {
+        compareKeys(en, uk, 'uk');
     });
 
 });
