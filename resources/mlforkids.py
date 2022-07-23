@@ -12,6 +12,7 @@ from tensorflow.keras.layers.experimental.preprocessing import Rescaling
 
 import numpy as np
 import urllib.request, urllib.error, json
+from time import sleep
 
 #
 # Helper class for training an image classifier using training data
@@ -25,6 +26,10 @@ class MLforKidsImageProject:
     # scratchkey is the secret API key that allows access to training
     #  data from a single project on the MLforKids website
     def __init__(self, scratchkey: str):
+        # register custom HTTP handler
+        opener = urllib.request.build_opener(MLforKidsHTTP())
+        urllib.request.install_opener(opener)
+
         print("MLFORKIDS: Downloading information about your machine learning project")
         self.scratchkey = scratchkey
         try:
@@ -53,6 +58,9 @@ class MLforKidsImageProject:
                                         cache_dir=cachedir,
                                         cache_subdir=os.path.join(cachelocation, trainingitem["label"]),
                                         fname=self.__get_fname(trainingitem))
+                # avoid common rate-limiting errors by pausing
+                #  for a quarter-second between each download
+                sleep(0.25)
             except Exception as downloaderr:
                 print("ERROR: Unable to download training image from", trainingitem["imageurl"])
                 print(downloaderr)
@@ -131,3 +139,17 @@ class MLforKidsImageProject:
             "class_name": self.ml_class_names[topanswer],
             "confidence": 100 * np.max(tf.nn.softmax(topprediction))
         }
+
+
+#
+# Helper class for making HTTP requests to fetch training images
+#  for machine learning projects
+#
+# It adds a user-agent header so that when scraping images from
+#  third-party websites, the Python code correctly identifies
+#  itself, so that appropriate rate-limiting can be applied.
+#
+class MLforKidsHTTP(urllib.request.HTTPHandler):
+    def http_request(self, req):
+        req.headers["User-Agent"] = "MachineLearningForKidsPythonBot/1.0"
+        return super().http_request(req)
