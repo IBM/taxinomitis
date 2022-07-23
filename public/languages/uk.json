@@ -1650,12 +1650,12 @@
       "mlforkids.twitter.getrecenttweet": "отримати [INDEX] останні твітти про [TOPIC]"
     },
     "FACE": {
-      "mlforkids.face.size": "розмір [LANDMARK]",
-      "mlforkids.face.xlocation": "x координата [LANDMARK]",
-      "mlforkids.face.ylocation": "y координата [LANDMARK]"
+      "mlforkids.face.size": "розмір [LANDMARK] on [SOURCE]",
+      "mlforkids.face.xlocation": "x координата [LANDMARK] on [SOURCE]",
+      "mlforkids.face.ylocation": "y координата [LANDMARK] on [SOURCE]"
     },
     "POSENET": {
-      "mlforkids.posenet.getposition": "знайти [POSITION] від [LANDMARK]"
+      "mlforkids.posenet.getposition": "знайти [POSITION] від [LANDMARK] on [SOURCE]"
     },
     "HANDPOSE": {
       "mlforkids.handpose.getposition": "знайти [POSITION] від [LANDMARK]"
