@@ -14,7 +14,7 @@ function create_app {
         --service-account $SERVICE_ACCOUNT \
         --env-from-secret $DOCKER_IMAGE \
         --min-scale $MIN_INSTANCES  --max-scale $MAX_INSTANCES \
-        --cluster-local
+        --no-cluster-local
 }
 
 echo "Applying config from env file"

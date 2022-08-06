@@ -17,7 +17,7 @@ docker run --rm --detach \
     dalelane/mlforkids-numbers:latest
 
 echo "Building test image"
-docker build ../ -f ../Dockerfile.test -t $DOCKER_ORG/$DOCKER_IMAGE-test:$DOCKER_VERSION
+docker build --platform linux/amd64 ../ -f ../Dockerfile.test -t $DOCKER_ORG/$DOCKER_IMAGE-test:$DOCKER_VERSION
 
 echo "Running tests"
 docker run --rm -it \

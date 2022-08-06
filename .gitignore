@@ -5,6 +5,7 @@ manifest-prod-ussouth.yml
 manifest-prod-eude.yml
 manifest-prod-eugb.yml
 manifest-prod-ausyd.yml
+ops/login.sh
 ops/deploy.sh
 ops/rollback.sh
 ops/*.sql

@@ -36,6 +36,7 @@ class Classify:
         except Exception as e:
             cherrypy.response.status = 500
             print ("Unexpected error:", sys.exc_info()[0])
+            print (projectid, studentid, tenantid)
             traceback.print_exc(file=sys.stdout)
             return { "error" : "bad", "details": str(e) }
 
