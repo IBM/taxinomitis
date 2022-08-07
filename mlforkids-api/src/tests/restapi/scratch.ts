@@ -1756,21 +1756,28 @@ describe('REST API - scratch keys', () => {
             await store.deleteEntireProject(userid, TESTCLASS, testProject);
         });
 
-        it('should not work for text projects', async () => {
+        it('should retrieve training for text projects', async () => {
             const userid = uuid();
             const name = uuid();
 
             const testProject = await store.storeProject(userid, TESTCLASS, 'text', name, 'en', [], false);
 
             const scratchKey = await store.storeUntrainedScratchKey(testProject);
+            await store.addLabelToProject(userid, TESTCLASS, testProject.id, 'one');
+            await store.addLabelToProject(userid, TESTCLASS, testProject.id, 'two');
+            const itemOne = await store.storeTextTraining(testProject.id, 'Hello', 'one');
+            const itemTwo = await store.storeTextTraining(testProject.id, 'World', 'two');
 
             await request(testServer)
                 .get('/api/scratch/' + scratchKey + '/train')
                 .expect('Content-Type', /json/)
-                .expect(httpstatus.METHOD_NOT_ALLOWED)
+                .expect(httpstatus.OK)
                 .then((res) => {
                     const body = res.body;
-                    assert.deepStrictEqual(body, { error : 'Method not allowed' });
+                    assert.deepStrictEqual(body, [
+                        { id : itemOne.id, label : 'one', textdata : 'Hello' },
+                        { id : itemTwo.id, label : 'two', textdata : 'World' },
+                    ]);
                 });
 
             await store.deleteEntireProject(userid, TESTCLASS, testProject);

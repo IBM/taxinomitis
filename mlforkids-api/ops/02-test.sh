@@ -9,6 +9,7 @@ export $(grep -v '^#' dev-credentials.env | xargs)
 
 echo "Starting local numbers service"
 docker run --rm --detach \
+    --platform=linux/amd64 \
     --env VERIFY_USER=$NUMBERS_SERVICE_USER \
     --env VERIFY_PASSWORD=$NUMBERS_SERVICE_PASS \
     --env PORT=8010 \
@@ -17,10 +18,11 @@ docker run --rm --detach \
     dalelane/mlforkids-numbers:latest
 
 echo "Building test image"
-docker build --platform linux/amd64 ../ -f ../Dockerfile.test -t $DOCKER_ORG/$DOCKER_IMAGE-test:$DOCKER_VERSION
+docker build --platform=linux/amd64 ../ -f ../Dockerfile.test -t $DOCKER_ORG/$DOCKER_IMAGE-test:$DOCKER_VERSION
 
 echo "Running tests"
 docker run --rm -it \
+    --platform=linux/amd64 \
     --env-file dev-credentials.env \
     -h ml-for-kids-local.net \
     -p $PORT:$PORT \

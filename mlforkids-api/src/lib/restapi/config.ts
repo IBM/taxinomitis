@@ -160,9 +160,6 @@ export function setupUI(app: express.Application): void {
     const uilocation: string = path.join(__dirname, '/../../../web/static');
     app.use('/static', compression(), express.static(uilocation, { maxAge : constants.ONE_YEAR }));
 
-    const scratchxlocation: string = path.join(__dirname, '/../../../web/scratchx');
-    app.use('/scratchx', compression(), express.static(scratchxlocation, { maxAge : constants.ONE_WEEK }));
-
     const scratch3location: string = path.join(__dirname, '/../../../web/scratch3');
     app.use('/scratch3', compression(), express.static(scratch3location, { maxAge : constants.ONE_WEEK }));
 

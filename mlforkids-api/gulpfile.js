@@ -1,7 +1,6 @@
 const gulp = require('gulp');
 const bower = require('gulp-bower');
 const mocha = require('gulp-mocha');
-const tslint = require('gulp-tslint');
 const ts = require('gulp-typescript');
 const cleanCSS = require('gulp-clean-css');
 const concat = require('gulp-concat');
@@ -295,16 +294,6 @@ gulp.task('minifyprodjs', () => {
 });
 
 
-gulp.task('tslint', () => {
-    const tslintOptions = { formatter : 'verbose' };
-
-    return gulp.src(paths.ts)
-        .pipe(tslint(tslintOptions))
-        .pipe(tslint.report());
-});
-
-gulp.task('lint', gulp.series('tslint'));
-
 gulp.task('test', () => {
     const mochaOptions = {
         reporter : 'spec',
@@ -332,7 +321,7 @@ gulp.task('uidependencies',
 gulp.task('build',
     gulp.parallel('web', 'compile'));
 
-gulp.task('default', gulp.series('build', 'lint', 'test'));
+gulp.task('default', gulp.series('build', 'test'));
 
 
 gulp.task('buildprod',
@@ -348,5 +337,4 @@ gulp.task('buildprod',
             'angularcomponents',
             'prodlanguages',
             'scratch'),
-        'compile',
-        'lint'));
+        'compile'));

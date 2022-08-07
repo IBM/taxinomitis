@@ -5,13 +5,17 @@
     },
     "extends": [
       "eslint:recommended",
-      "plugin:node/recommended"
+      "plugin:@typescript-eslint/recommended"
     ],
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
       "ecmaVersion": 2017,
       "sourceType": "module"
     },
-    "plugins": [ "node" ],
+    "plugins": [
+      "node",
+      "@typescript-eslint"
+    ],
     "rules": {
       "node/no-unpublished-require": ["error", {
           "allowModules": ["sinon", "supertest", "sinon-express-mock", "filecompare", "unzipper", "proxyquire", "clone"]

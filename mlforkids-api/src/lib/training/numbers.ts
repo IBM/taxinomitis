@@ -4,11 +4,10 @@ import * as httpStatus from 'http-status';
 import * as store from '../db/store';
 import * as Objects from '../db/db-types';
 import * as TrainingObjects from './training-types';
-// import * as openwhisk from '../utils/openwhisk';
 import * as request from '../utils/request';
-// import * as notifications from '../notifications/slack';
 import * as env from '../utils/env';
 import loggerSetup from '../utils/logger';
+import * as slack from '../notifications/slack';
 
 const log = loggerSetup();
 
@@ -256,6 +255,7 @@ async function getVisualisationFromModelServer(project: Objects.Project): Promis
             formats : 'dot,svg',
         },
         json : true,
+        timeout: 60000,
     };
 
     const url = process.env[env.NUMBERS_SERVICE] + '/api/models';
@@ -276,88 +276,16 @@ async function getVisualisationFromModelServer(project: Objects.Project): Promis
             }
         }
         else {
+            log.error({ err, url, project }, 'Failed to get visualisation');
+            slack.notify('Numbers visualisation failure', slack.SLACK_CHANNELS.CRITICAL_ERRORS);
             throw err;
         }
     }
     return response;
 }
 
-// async function getVisualisationFromOpenWhisk(project: Objects.Project): Promise<NumbersModelDescriptionResponse> {
-//     const rawTraining = await fetchTraining(project);
-//     const examples = [];
-//     const labels: string[] = [];
-//     for (const trainingItem of rawTraining) {
-//         examples.push(trainingItem[0]);
-//         labels.push(trainingItem[1]);
-//     }
-
-//     const url = openwhisk.getUrl(openwhisk.FUNCTIONS.DESCRIBE_MODEL);
-//     const headers = openwhisk.getHeaders();
-
-//     const serverlessRequest = {
-//         url,
-//         method : 'POST',
-//         json : true,
-//         headers : {
-//             ...headers,
-//             'User-Agent': 'machinelearningforkids.co.uk',
-//             'Accept' : 'application/json',
-//         },
-//         body : compress({
-//             examples,
-//             labels,
-//             formats : [ 'dot', 'svg' ],
-//         }),
-//     };
-
-//     try {
-//         const response = await request.post(url, serverlessRequest, true);
-//         if (!response) {
-//             // no error, just an empty response
-//             notifications.notify('Empty response from OpenWhisk describe-model API ' +
-//                                     '(is there a problem with the web action config?)',
-//                                  notifications.SLACK_CHANNELS.CRITICAL_ERRORS);
-//             throw new Error('Unable to generate visualisation');
-//         }
-//         return response;
-//     }
-//     catch (err) {
-//         log.error({ err, url }, 'Failed to submit OpenWhisk request');
-
-//         // could fall back to sending it to taxinomitis-numbers if
-//         //  there is an OpenWhisk-specific problem?
-//         // return getVisualisationFromModelServer(project);
-
-//         throw err;
-//     }
-// }
-
-
-// let execution: openwhisk.Execution = 'local';
-
-// function chooseExecutionEnvironment() {
-//     openwhisk.isOpenWhiskConfigured()
-//         .then((okayToUseOpenWhisk) => {
-//             if (okayToUseOpenWhisk) {
-//                 execution = 'openwhisk';
-//             }
-//         });
-// }
-
-// chooseExecutionEnvironment();
-
-
-
-
-
 export function getModelVisualisation(project: Objects.Project): Promise<NumbersModelDescriptionResponse> {
     return getVisualisationFromModelServer(project);
-    // if (execution === 'openwhisk') {
-    //     return getVisualisationFromOpenWhisk(project);
-    // }
-    // else {
-    //     return getVisualisationFromModelServer(project);
-    // }
 }
 
 
@@ -448,6 +376,7 @@ export interface NumbersModelDescriptionRequest {
         readonly formats: string;
     };
     readonly json: true;
+    readonly timeout: number;
 }
 
 export interface NumbersModelDescriptionResponse {

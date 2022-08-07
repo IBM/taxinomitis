@@ -23,9 +23,7 @@ RUN mkdir public
 COPY public/languages public/languages
 
 COPY custom_typings custom_typings
-COPY Gruntfile.js .
 COPY gulpfile.js .
-COPY tslint.json .
 COPY tsconfig.json .
 COPY .eslintrc.json .
 
