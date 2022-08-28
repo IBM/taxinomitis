@@ -2,6 +2,14 @@
 
 set -e
 
+# allow this script to be run from other locations, despite the
+#  relative file paths used in it
+if [[ $BASH_SOURCE = */* ]]; then
+  cd -- "${BASH_SOURCE%/*}/" || exit
+fi
+
+
+
 echo "Applying config from env file"
 export $(grep -v '^#' app.env | xargs)
 
