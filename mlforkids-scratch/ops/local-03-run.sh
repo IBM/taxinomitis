@@ -17,6 +17,6 @@ DEVHOST=ml-for-kids-local.net
 echo "running image at http://$DEVHOST:$PORT"
 docker run --rm -it \
     -p $PORT:80 \
-    --name taxinomitis-static \
+    --name taxinomitis-scratch \
     --hostname $DEVHOST \
     $DOCKER_ORG/$DOCKER_IMAGE:local

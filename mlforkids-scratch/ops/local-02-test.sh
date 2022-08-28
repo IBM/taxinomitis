@@ -16,7 +16,7 @@ DEVHOST=ml-for-kids-local.net
 echo "running image"
 docker run --rm --detach \
     -p $PORT:80 \
-    --name taxinomitis-static \
+    --name taxinomitis-scratch \
     --hostname $DEVHOST \
     $DOCKER_ORG/$DOCKER_IMAGE:local
 
@@ -27,4 +27,4 @@ echo "invoking health endpoint"
 curl $DEVHOST:$PORT/index.html
 
 echo "stopping"
-docker stop taxinomitis-static
+docker stop taxinomitis-scratch
