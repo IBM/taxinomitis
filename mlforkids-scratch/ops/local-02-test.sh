@@ -24,7 +24,7 @@ echo "wait for startup"
 sleep 1
 
 echo "invoking health endpoint"
-curl $DEVHOST:$PORT/index.html
+curl $DEVHOST:$PORT/health
 
 echo "stopping"
 docker stop taxinomitis-scratch
