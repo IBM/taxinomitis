@@ -1,5 +1,5 @@
 // external dependencies
-import * as bodyParser from 'body-parser'; // eslint-disable-line
+import * as bodyParser from 'body-parser';
 import * as Express from 'express';
 import * as helmet from 'helmet';
 import * as query from 'connect-query';

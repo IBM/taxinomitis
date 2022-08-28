@@ -33,6 +33,7 @@ export function init(): void {
             creds = JSON.parse(credsString);
         }
         catch (err) {
+            log.error({ err, credsString }, 'Invalid OBJECT_STORE_CREDS');
             throw new Error('Invalid OBJECT_STORE_CREDS');
         }
         cos = new IBMCosSDK.S3(creds);
