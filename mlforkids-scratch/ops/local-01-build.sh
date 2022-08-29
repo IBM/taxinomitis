@@ -15,4 +15,3 @@ echo "Building 'local' version of the $DOCKER_IMAGE image for local development 
 docker build \
     ../ \
     -t $DOCKER_ORG/$DOCKER_IMAGE:local
-

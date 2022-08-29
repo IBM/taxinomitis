@@ -41,7 +41,7 @@ An instance of [Cloud Internet Services](https://www.ibm.com/cloud/cloud-interne
 | ---------------------------------------- | ----------------- | --------- |
 | login.machinelearningforkids.co.uk       | mlforkids-login   |
 | scratch.machinelearningforkids.co.uk     | mlforkids-scratch | *caching means most requests are  served immediately from Cloud Internet Services layer* |
-| machinelearningforkids.co.uk/proxies     | mlforkids-proxies |
+| proxy.machinelearningforkids.co.uk       | mlforkids-proxies |
 | machinelearningforkids.co.uk (all other) | mlforkids-api     |
 
 *The HTTP endpoint provided by **mlforkids-numbers** is only accessible within the namespace where it is running, and is only called by the **mlforkids-api** instance in the same region as it.*
