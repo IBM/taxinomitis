@@ -21,7 +21,7 @@ An (almost) complete set of components that makes up the Machine Learning for Ki
 | mlforkids-numbers     | [`./mlforkids-numbers`](./mlforkids-numbers) | [dalelane/mlforkids-numbers](https://hub.docker.com/r/dalelane/mlforkids-numbers) | Python       | k8s Deployment (in Code Engine) | Creates ML models and visualisations for numbers projects |
 | mlforkids-login       | [`./mlforkids-login`](./mlforkids-login)     | [dalelane/mlforkids-login](https://hub.docker.com/r/dalelane/mlforkids-login)     | nginx        | k8s Deployment (in Code Engine) | Handles authentication web requests |
 | mlforkids-scratch     | [`./mlforkids-scratch`](./mlforkids-scratch) | [dalelane/mlforkids-scratch](https://hub.docker.com/r/dalelane/mlforkids-scratch) | nginx        | k8s Deployment (in Code Engine) | Hosts static parts of website that don't change frequently (i.e. Scratch fork) |
-| mlforkids-proxies     | [`./mlforkids-proxy`](./mlforkids-proxy)     | [dalelane/mlforkids-proxy](https://hub.docker.com/r/dalelane/mlforkids-proxy)     | nginx        | k8s Deployment (in Code Engine) | Proxies requests from Scratch to external third-party APIs |
+| mlforkids-proxy       | [`./mlforkids-proxy`](./mlforkids-proxy)     | [dalelane/mlforkids-proxy](https://hub.docker.com/r/dalelane/mlforkids-proxy)     | nginx        | k8s Deployment (in Code Engine) | Proxies requests from Scratch to external third-party APIs |
 | mlforkids-images      | [`./mlforkids-images`](./mlforkids-images)   | n/a                                                                               | Node.js      | OpenWhisk Function      | Image pre-processing (e.g. resizing, converting, etc.) |
 | mlforkids-api-cleanup | [`./mlforkids-api`](./mlforkids-api)         | [dalelane/mlforkids-api](https://hub.docker.com/r/dalelane/mlforkids-api)         | Node.js      | k8s Job (in Code Engine) | Periodic job (cron triggered every hour) to cleanup redundant data in Cloud Object Storage, and delete expired users and Watson Assistant workspaces |
 
@@ -37,12 +37,12 @@ Components with external (Internet-facing) HTTP endpoints are:
 
 An instance of [Cloud Internet Services](https://www.ibm.com/cloud/cloud-internet-services) performs DNS routing - routing HTTP requests to the instance in their nearest region. (*It also manages the certificate for the machinelearningforkids.co.uk domain and performs TLS termination.*)
 
-| **url**                                  | **routed to**     | **notes** |
-| ---------------------------------------- | ----------------- | --------- |
-| login.machinelearningforkids.co.uk       | mlforkids-login   |
-| scratch.machinelearningforkids.co.uk     | mlforkids-scratch | *caching means most requests are  served immediately from Cloud Internet Services layer* |
-| proxy.machinelearningforkids.co.uk       | mlforkids-proxies |
-| machinelearningforkids.co.uk (all other) | mlforkids-api     |
+| **url**                              | **routed to**     | **notes** |
+| ------------------------------------ | ----------------- | --------- |
+| login.machinelearningforkids.co.uk   | mlforkids-login   |
+| scratch.machinelearningforkids.co.uk | mlforkids-scratch | *caching means most requests are  served immediately from Cloud Internet Services layer* |
+| proxy.machinelearningforkids.co.uk   | mlforkids-proxies |
+| machinelearningforkids.co.uk         | mlforkids-api     |
 
 *The HTTP endpoint provided by **mlforkids-numbers** is only accessible within the namespace where it is running, and is only called by the **mlforkids-api** instance in the same region as it.*
 
