@@ -1969,7 +1969,7 @@
         "HOWTO": {
             "TITLE": "How to use",
             "INTRO": "Click on the button to go to Scratch.",
-            "HOW_1": "Go to the version of <a href='https://machinelearningforkids.co.uk/scratch3'>Scratch 3</a> available from Machine Learning for Kids.",
+            "HOW_1": "Go to the version of <a href='https://scratch.machinelearningforkids.co.uk'>Scratch 3</a> available from Machine Learning for Kids.",
             "HOW_2": "Pre-trained models are available from the Extensions panel. Click on the blue extensions button in the bottom-left of the Scratch window to find them, then click on the one you want to add to your project.",
             "HOW_3": "The blocks for the pre-trained model will be added to the Scratch toolbox."
         },

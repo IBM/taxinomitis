@@ -1863,7 +1863,7 @@
         "HOWTO": {
             "TITLE": "Mode d'emploi",
             "INTRO": "Cliquez sur le bouton pour aller à Scratch.",
-            "HOW_1": "Allez à la version de <a href='https://machinelearningforkids.co.uk/scratch3’> Scratch 3</a> disponible depuis Machine Learning for Kids.",
+            "HOW_1": "Allez à la version de <a href='https://scratch.machinelearningforkids.co.uk’> Scratch 3</a> disponible depuis Machine Learning for Kids.",
             "HOW_2": "Des modèles pré-entraînés sont disponibles dans le panneau Extensions. Cliquez sur le bouton bleu des extensions dans le coin inférieur gauche de la fenêtre Scratch pour les trouver, puis cliquez sur celle que vous souhaitez ajouter à votre projet.",
             "HOW_3": "Les blocs pour le modèle pré-entraîné seront ajoutés à la boîte à outils de Scratch."
         },

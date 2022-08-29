@@ -1862,7 +1862,7 @@
     "HOWTO": {
       "TITLE": "Як використовувати",
       "INTRO": "Натисніть на кнопку, щоб перейти до Scratch.",
-      "HOW_1": "Перейти до версії <a href='https://machinelearningforkids.co.uk/scratch3'>Scratch 3</a> доступної в Machine Learning for Kids.",
+      "HOW_1": "Перейти до версії <a href='https://scratch.machinelearningforkids.co.uk'>Scratch 3</a> доступної в Machine Learning for Kids.",
       "HOW_2": "Попередньо навчені моделі доступні на панелі розширень. Натисніть синю кнопку розширень у нижньому лівому куті вікна Scratch, щоб знайти їх, а потім натисніть ту, яку ви хочете додати до свого проекту.",
       "HOW_3": "Блоки для попередньо навченої моделі буде додано до панелі інструментів Scratch."
     },

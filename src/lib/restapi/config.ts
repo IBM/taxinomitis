@@ -130,9 +130,11 @@ if (process.env.AUTH0_CUSTOM_DOMAIN) {
 
 
 
-// to allow easier local development, we want the hosted instance to allow
-//  private/localhost to be able to fetch tfjs models for use in Scratch
 const ALLOWED_CORS_ORIGINS = [
+    // requests from Scratch
+    'https://scratch.machinelearningforkids.co.uk',
+    // to allow easier local development, we want the hosted instance to allow
+    //  private/localhost to be able to fetch tfjs models for use in Scratch
     'http://ml-for-kids-local.net:3000',
     'http://ml-for-kids-local.net:9000',
 ];
