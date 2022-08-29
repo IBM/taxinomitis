@@ -9,7 +9,7 @@ async function handle(request) {
     return handleRequest(request, [
         'taxinomitis-scratch3.mybluemix.net'
     ]);
-  } else if (url.hostname === 'login-new.machinelearningforkids.co.uk') {
+  } else if (url.hostname === 'login.machinelearningforkids.co.uk') {
     return handleRequest(request, [
         'mlforkids-login.j8ayd8ayn23.eu-de.codeengine.appdomain.cloud',
         'mlforkids-login.j8clybxvjr0.us-south.codeengine.appdomain.cloud',
