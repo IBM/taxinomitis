@@ -39,6 +39,7 @@ function create_app {
     ibmcloud ce application create \
         --name $DOCKER_IMAGE \
         --image $DOCKER_ORG/$DOCKER_IMAGE:$DOCKER_VERSION \
+        --registry-secret docker.io \
         --cpu $CPU --memory $MEMORY --ephemeral-storage $DISK \
         --service-account $SERVICE_ACCOUNT \
         --env-from-secret $DOCKER_IMAGE \
