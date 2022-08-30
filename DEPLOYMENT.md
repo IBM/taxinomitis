@@ -19,7 +19,6 @@ An (almost) complete set of components that makes up the Machine Learning for Ki
 | --------------------- | -------------------------------------------- | --------------------------------------------------------------------------------- | ------------ | ----------------------- | ----------- |
 | mlforkids-api         | [`./mlforkids-api`](./mlforkids-api)         | [dalelane/mlforkids-api](https://hub.docker.com/r/dalelane/mlforkids-api)         | Node.js      | k8s Deployment (in Code Engine) | Main website and API              |
 | mlforkids-numbers     | [`./mlforkids-numbers`](./mlforkids-numbers) | [dalelane/mlforkids-numbers](https://hub.docker.com/r/dalelane/mlforkids-numbers) | Python       | k8s Deployment (in Code Engine) | Creates ML models and visualisations for numbers projects |
-| mlforkids-login       | [`./mlforkids-login`](./mlforkids-login)     | [dalelane/mlforkids-login](https://hub.docker.com/r/dalelane/mlforkids-login)     | nginx        | k8s Deployment (in Code Engine) | Handles authentication web requests |
 | mlforkids-scratch     | [`./mlforkids-scratch`](./mlforkids-scratch) | [dalelane/mlforkids-scratch](https://hub.docker.com/r/dalelane/mlforkids-scratch) | nginx        | k8s Deployment (in Code Engine) | Hosts static parts of website that don't change frequently (i.e. Scratch fork) |
 | mlforkids-proxy       | [`./mlforkids-proxy`](./mlforkids-proxy)     | [dalelane/mlforkids-proxy](https://hub.docker.com/r/dalelane/mlforkids-proxy)     | nginx        | k8s Deployment (in Code Engine) | Proxies requests from Scratch to external third-party APIs |
 | mlforkids-images      | [`./mlforkids-images`](./mlforkids-images)   | n/a                                                                               | Node.js      | OpenWhisk Function      | Image pre-processing (e.g. resizing, converting, etc.) |
@@ -31,7 +30,6 @@ An (almost) complete set of components that makes up the Machine Learning for Ki
 
 Components with external (Internet-facing) HTTP endpoints are:
 - mlforkids-api
-- mlforkids-login
 - mlforkids-scratch
 - mlforkids-proxies
 
@@ -39,7 +37,6 @@ An instance of [Cloud Internet Services](https://www.ibm.com/cloud/cloud-interne
 
 | **url**                              | **routed to**     | **notes** |
 | ------------------------------------ | ----------------- | --------- |
-| login.machinelearningforkids.co.uk   | mlforkids-login   |
 | scratch.machinelearningforkids.co.uk | mlforkids-scratch | *caching means most requests are  served immediately from Cloud Internet Services layer* |
 | proxy.machinelearningforkids.co.uk   | mlforkids-proxies |
 | machinelearningforkids.co.uk         | mlforkids-api     |
@@ -72,7 +69,7 @@ Authentication is provided by a third-party service, [Auth0](https://auth0.com).
 
 Back-end/API authentication is handled by the **mlforkids-api** service, which makes requests directly to Auth0 APIs using express middleware.
 
-Web authentication is handled through by **mlforkids-login** which acts as a reverse proxy to the Auth0 service. *This is described in more detail in a blog post on [reverse proxies for Auth0](https://dalelane.co.uk/blog/?p=3653).*
+Web authentication is handled through Auth0.
 
 ![deployment components](./docs/04-auth.png)
 
